@@ -1,3 +1,18 @@
+/* Copyright 2021 QMK
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include <stdint.h>
 #include <stdbool.h>
 #include "wait.h"
@@ -10,18 +25,35 @@
 #include "eeconfig.h"
 #include "bootmagic.h"
 
-keymap_config_t keymap_config;
-
-/** \brief Bootmagic
+/** \brief Scan Keycode
  *
  * FIXME: needs doc
  */
-void bootmagic(void) {
-    /* check signature */
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
+static bool scan_keycode(uint8_t keycode) {
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+        matrix_row_t matrix_row = matrix_get_row(r);
+        for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+            if (matrix_row & ((matrix_row_t)1 << c)) {
+                if (keycode == keymap_key_to_keycode(0, (keypos_t){.row = r, .col = c})) {
+                    return true;
+                }
+            }
+        }
     }
+    return false;
+}
 
+/** \brief Bootmagic Scan Keycode
+ *
+ * FIXME: needs doc
+ */
+static bool bootmagic_scan_keycode(uint8_t keycode) {
+    if (!scan_keycode(BOOTMAGIC_KEY_SALT)) return false;
+
+    return scan_keycode(keycode);
+}
+
+void bootmagic(void) {
     /* do scans in case of bounce */
     print("bootmagic scan: ... ");
     uint8_t scan = 100;
@@ -46,8 +78,6 @@ void bootmagic(void) {
         bootloader_jump();
     }
 
-    /* debug enable */
-    debug_config.raw = eeconfig_read_debug();
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEBUG_ENABLE)) {
         if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEBUG_MATRIX)) {
             debug_config.matrix = !debug_config.matrix;
@@ -61,8 +91,6 @@ void bootmagic(void) {
     }
     eeconfig_update_debug(debug_config.raw);
 
-    /* keymap config */
-    keymap_config.raw = eeconfig_read_keymap();
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_SWAP_CONTROL_CAPSLOCK)) {
         keymap_config.swap_control_capslock = !keymap_config.swap_control_capslock;
     }
@@ -94,70 +122,34 @@ void bootmagic(void) {
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_0)) {
         default_layer |= (1 << 0);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_1)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_1)) {
         default_layer |= (1 << 1);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_2)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_2)) {
         default_layer |= (1 << 2);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_3)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_3)) {
         default_layer |= (1 << 3);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_4)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_4)) {
         default_layer |= (1 << 4);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_5)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_5)) {
         default_layer |= (1 << 5);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_6)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_6)) {
         default_layer |= (1 << 6);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_7)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_7)) {
         default_layer |= (1 << 7);
     }
-    if (default_layer) {
-        eeconfig_update_default_layer(default_layer);
-        default_layer_set((layer_state_t)default_layer);
-    } else {
-        default_layer = eeconfig_read_default_layer();
-        default_layer_set((layer_state_t)default_layer);
-    }
-    /* Also initialize layer state to trigger callback functions for layer_state */
-    layer_state_set_kb((layer_state_t)layer_state);
+    eeconfig_update_default_layer(default_layer);
 
     /* EE_HANDS handedness */
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_LEFT)) {
         eeconfig_update_handedness(true);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_RIGHT)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_RIGHT)) {
         eeconfig_update_handedness(false);
     }
-}
-
-/** \brief Scan Keycode
- *
- * FIXME: needs doc
- */
-static bool scan_keycode(uint8_t keycode) {
-    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-        matrix_row_t matrix_row = matrix_get_row(r);
-        for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-            if (matrix_row & ((matrix_row_t)1 << c)) {
-                if (keycode == keymap_key_to_keycode(0, (keypos_t){.row = r, .col = c})) {
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
-
-/** \brief Bootmagic Scan Keycode
- *
- * FIXME: needs doc
- */
-bool bootmagic_scan_keycode(uint8_t keycode) {
-    if (!scan_keycode(BOOTMAGIC_KEY_SALT)) return false;
-
-    return scan_keycode(keycode);
 }
