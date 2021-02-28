@@ -8,8 +8,6 @@
   #include "ssd1306.h"
 #endif
 
-extern uint8_t is_master;
-
 enum layer_number {
   _QWERTY = 0,
   _LOWER,
