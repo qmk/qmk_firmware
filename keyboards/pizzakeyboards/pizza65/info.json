@@ -6,7 +6,6 @@
     "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
-            "key_count": 67,
             "layout": [
                 {"label": "r1_01", "x": 0, "y": 0},
                 {"label": "r1_02", "x": 1, "y": 0},
