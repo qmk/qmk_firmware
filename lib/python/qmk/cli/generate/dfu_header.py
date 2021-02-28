@@ -1,12 +1,10 @@
 """Used by the make system to generate LUFA Keyboard.h from info.json
 """
-from pathlib import Path
-
 from dotty_dict import dotty
 from milc import cli
 
-from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.info import _json_load, info_json
+from qmk.decorators import automagic_keyboard
+from qmk.info import info_json
 from qmk.path import is_keyboard, normpath
 
 
