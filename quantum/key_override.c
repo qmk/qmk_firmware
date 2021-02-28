@@ -349,8 +349,13 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         set_suppressed_override_mods(override->suppressed_mods);
 
         if (!trigger_down && !no_trigger) {
-            // When activating a key override the trigger is is always unregistered. In the case where the key that newly pressed is not the trigger key, we havwe to explicitly remove the trigger key from the keyboard report. If the trigger was just pressed down we simply suppress the event which also has the effect of the trigger key not being registered in the keyboard report.
-            del_key(override->trigger);
+            // When activating a key override the trigger is is always unregistered. In the case where the key that newly pressed is not the trigger key, we have to explicitly remove the trigger key from the keyboard report. If the trigger was just pressed down we simply suppress the event which also has the effect of the trigger key not being registered in the keyboard report.
+            if (IS_KEY(override->trigger)) {
+                del_key(override->trigger);
+            }
+            else {
+                unregister_code(override->trigger);
+            }
         }
 
         const uint16_t mod_free_replacement = clear_mods_from(override->replacement);
@@ -378,6 +383,8 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
                 } else {
                     key_override_printf("NOT KEY 2\n");
                     send_keyboard_report();
+                    // On macOS there seems to be a race condition when it comes to the keyboard report and consumer keycodes. It seems the OS may recognize a consumer keycode before an updated keyboard report, even if the keyboard report is actually sent before the consumer key. I assume it is some sort of race condition because it happens infrequently and very irregularly. Waiting for about at least 10ms between sending the keyboard report and sending the consumer code has shown to fix this.
+                    wait_ms(10);
                     register_code(mod_free_replacement);
                 }
             }
@@ -479,9 +486,11 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
             deferred_register  = 0;
         }
 
+        // The last key that was pressed was just released. No more keys are therefore sending input
         if (!key_down && keycode == last_key_down) {
             last_key_down      = 0;
             last_key_down_time = 0;
+            // We also cancel any deferred registers because, again, no keys are sending any input. Only the last key that is pressed creates an input – this key was just lifted.
             deferred_register  = 0;
         }
     }
@@ -497,7 +506,7 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
         const uint8_t layer = read_source_layers_cache(record->event.key);
 
         // Use blocked to ensure the same override is not activated again immediately after it is deactivated
-        send_key_action &= try_activating_override(keycode, layer, key_down, is_mod, effective_mods, &activated);
+        send_key_action = try_activating_override(keycode, layer, key_down, is_mod, effective_mods, &activated);
 
         if (!send_key_action) {
             send_keyboard_report();
