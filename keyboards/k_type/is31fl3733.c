@@ -16,8 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "is31fl3733.h"
-#include "i2c_master.h"
+#ifdef RGB_MATRIX_ENABLE
+
+#include <is31fl3733.h>
+#include <i2c_master.h>
 #include "wait.h"
 
 // This is a 7-bit address, that gets left-shifted and bit 0
@@ -229,3 +231,6 @@ void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index) {
     }
     g_led_control_registers_update_required[index] = false;
 }
+
+
+#endif

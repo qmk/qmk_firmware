@@ -14,9 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef RGB_MATRIX_ENABLE
+
 #include <rgb_matrix.h>
-#include "i2c_master.h"
-#include "is31fl3733.h"
+#include <i2c_master.h>
+#include <is31fl3733.h>
 
 
 
@@ -51,3 +53,5 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL3733_set_color,
     .set_color_all = IS31FL3733_set_color_all,
 };
+
+#endif
