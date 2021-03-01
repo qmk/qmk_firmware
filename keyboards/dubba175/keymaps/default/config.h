@@ -1,4 +1,4 @@
-/* Copyright 2020 drhigsby
+/* Copyright 2020 tominabox1
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +15,5 @@
  */
 #pragma once
 
-#include "quantum.h"
-
-#define LAYOUT( \
-    k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, \
-    k100, k101, k102, k103, k104, k105, k106, k107, k108, k109,  \
-    k200, k201, k202, k203, k204, k205, k206, k207, k208, k209,   \
-          		k302, k303, k304, k305, k306, k307         		   \
-) { \
-    { k000, k001, k002, k003, k004, k005, k006, k007, k008, k009 },   \
-    { k100, k101, k102, k103, k104, k105, k106, k107, k108, k109 },    \
-    { k200, k201, k202, k203, k204, k205, k206, k207, k208, k209 },     \
-    { KC_NO, KC_NO, k302, k303, k304, k305, k306, k307, KC_NO, KC_NO }   \
-}
+#define COMBO_COUNT 8
+#define COMBO_TERM 40
