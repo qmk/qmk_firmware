@@ -319,6 +319,17 @@ bool process_record_quantum(keyrecord_t *record) {
                 set_output(OUTPUT_BLUETOOTH);
                 return false;
 #endif
+#ifndef NO_ACTION_ONESHOT
+            case ONESHOT_TOGGLE:
+                oneshot_toggle();
+                break;
+            case ONESHOT_ENABLE:
+                oneshot_enable();
+                break;
+            case ONESHOT_DISABLE:
+                oneshot_disable();
+                break;
+#endif
         }
     }
 

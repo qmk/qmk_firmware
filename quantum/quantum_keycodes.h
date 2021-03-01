@@ -578,6 +578,10 @@ enum quantum_keycodes {
 
 #endif
 
+    ONESHOT_ENABLE,
+    ONESHOT_DISABLE,
+    ONESHOT_TOGGLE,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -885,3 +889,8 @@ enum quantum_keycodes {
 #define DM_RSTP DYN_REC_STOP
 #define DM_PLY1 DYN_MACRO_PLAY1
 #define DM_PLY2 DYN_MACRO_PLAY2
+
+// One Shot toggle
+#define OS_TOGG ONESHOT_TOGGLE
+#define OS_ON   ONESHOT_ENABLE
+#define OS_OFF  ONESHOT_DISABLE
