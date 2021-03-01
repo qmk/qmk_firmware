@@ -32,12 +32,17 @@
   #include "ssd1306.h"
 #endif
 
-//TODO: add macros
 #include "oled.h"
-
 #include "rgb.h"
 
-/* Layout blocks */
+#define KC_XXXXX KC_NO
+#define KC_LOWER LOWER
+#define KC_RAISE RAISE
+#define KC_CTLTB CTL_T(KC_TAB)
+#define KC_GUIEI GUI_T(KC_LANG2)
+#define KC_ALTKN ALT_T(KC_LANG1)
+
+/* ######################################################################### LAYOUT BLOCKS ##################################################### */
 /* -----------------------------------------BUTTON1---BUTTON2- BUTTON3------- */
 #define _____________MOD_LEFT_____________ KC_GUIEI, KC_LOWER, KC_SPC
 #define _____________MOD_RIGHT____________ KC_ENT,   KC_RAISE, KC_ALTKN
@@ -89,52 +94,38 @@
 #define   _____________________ADJUST_R2______________________ RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 /* Each layer gets a name for readability */
-#define _QWERTY 0
-#define _DVORAK 1
-#define _COLEMAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 5
-#define _NUMPAD 6
+#define _QWERTY   0
+#define _DVORAK   1
+#define _COLEMAK  2
+#define _LOWER    3
+#define _RAISE    4
+#define _ADJUST   5
+#define _NUMPAD   6
 
-#define KC______ KC_TRNS
-#define KC_XXXXX KC_NO
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
-#define KC_RST   RESET
-#define KC_LRST  RGBRST
-#define KC_LTOG  RGB_TOG
-#define KC_LHUI  RGB_HUI
-#define KC_LHUD  RGB_HUD
-#define KC_LSAI  RGB_SAI
-#define KC_LSAD  RGB_SAD
-#define KC_LVAI  RGB_VAI
-#define KC_LVAD  RGB_VAD
-#define KC_LMOD  RGB_MOD
-#define KC_CTLTB CTL_T(KC_TAB)
-#define KC_GUIEI GUI_T(KC_LANG2)
-#define KC_ALTKN ALT_T(KC_LANG1)
+/* Toggle a boolean variable */
+#define TOGGLE_BOOL_VAR(bv)   (((bv)^TRUE)&TRUE)
 
-#define TOGGLE_BOOL_VAR(bv) (((bv)^TRUE)&TRUE)
+#define LAYOUT_wrapper(...)   LAYOUT(__VA_ARGS__)
 
-#define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
+/* For values greater than 0x200, substract that value and add 0x20 so the characters can be mapped  */
+#define RM_LSFT(kc)           ((0x20)+(kc-0x200))
 
-#define R_LSFT(kc) ((0x20)+(kc-0x200))
-
+/*
+ * Standard C does not have boolean variable so, it is better to use the name in capital so it can
+ * be easily identify as a definition
+ */
 #define FALSE false
-#define TRUE true
+#define TRUE  true
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST,
-  BACKLIT,
-  RGBRST
-};
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
+/* To be used to identify the current working layer */
+enum custom_keycodes
+{
+    QWERTY = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    ADJUST,
+    BACKLIT,
+    RGBRST
 };
 
 extern keymap_config_t keymap_config;

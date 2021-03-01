@@ -4,9 +4,9 @@
 
 This is all four layers:
 
-- The top indicates the raise layer
-- The middle indicates the default layer
-- The bottom indicates the lower layer
+- The top indicates the RAISE layer
+- The middle indicates the DEFAULT layer
+- The bottom indicates the LOWER layer
 - Green indicated ADJUST layer
 
 All the keys respond as you'd expect to the 'shift' key - i.e. on a UK/GB keyboard, `/` becomes `?` and so on.

@@ -24,12 +24,12 @@
 #define FORCE_NKRO
 
 /* Select hand configuration */
-
 #define MASTER_LEFT
 
-#define USE_SERIAL_PD2
-
+/* Comment this definition out if you want the main display to be output in horizontal mode */
 #define OLED_VERTICAL
+
+#define USE_SERIAL_PD2
 
 #define TAPPING_TERM 200
 
@@ -95,4 +95,5 @@
     // END: Disable RGB Effects
 #endif
 
+/* To tell the compiler to use custom font */
 #define OLED_FONT_H "keyboards/crkbd/keymaps/mcrown/glcdfont.c"

@@ -28,14 +28,16 @@
 #define ASCII_TABLE_LENGTH       (0x80)
 #define KEYLOG_STRING_STARTUP    (KEYLOG_EOL_LEN+1)
 
-#if defined(OLED_DRIVER_ENABLE)
+#ifdef OLED_DRIVER_ENABLE
 
 static char last_c=' ';
 char keylog_str[KEYLOG_EOL_LEN] = {' '};
 uint8_t  keylogs_str_idx = 0;
 uint16_t log_timer = 0;
 
-static const char ascii_t[ASCII_TABLE_LENGTH] = {
+/* Provides the ASCII value or the address of the character selected of the OLED font specified in glcfont.c */
+static const char ascii_t[ASCII_TABLE_LENGTH] =
+{
         /*     0          1         2         3        4         5         6         7         8         9         A         B         C         D         E         F                */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             ' ',         ' ',      ' ',      ' ',     ' ',      ' ',      ' ',      ' ',     0x11,      0x1C,    0x19,      ' ',      ' ',      ' ',      ' ',      ' ',         /* 0 */
@@ -55,7 +57,9 @@ static const char ascii_t[ASCII_TABLE_LENGTH] = {
             'p',         'q',      'r',      's',     't',      'u',      'v',      'w',      'x',       'y',     'z',      '{',      '|',      '}',      '~',     0x1B,         /* 7 */
 };
 
-static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
+/* This table is to remap and get the corresponding ASCII value based on the KEYCODE (taken as the index of the array) of quatum_keycodes.h module */
+static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] =
+{
         /*     0          1         2         3        4         5         6         7         8         9         A         B         C         D         E         F                */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
            0x00,        0x00,     0x00,     0x00,      'a',      'b',     'c',      'd',      'e',       'f',     'g',      'h',      'i',      'j',      'k',      'l',         /* 0 */
@@ -75,7 +79,7 @@ static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
            0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 7 */
 };
 
-#define GET_ASCII_IDX(kc) (kc<QK_LSFT?code_to_ascii[(kc)]:code_to_ascii[R_LSFT((kc))])
+#define GET_ASCII_IDX(kc) (kc<QK_LSFT?code_to_ascii[(kc)]:code_to_ascii[RM_LSFT((kc))])
 
 extern uint8_t is_master;
 
@@ -310,4 +314,4 @@ void render_keylogger_status(void)
 
 }
 
-#endif
+#endif /* End of OLED_DRIVER_ENABLE */
