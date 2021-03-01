@@ -11,6 +11,7 @@ Features:
 - The secondary display shows a logo and the wpm counter.
 - Left encoder controls arrow left/right. Right encoder arrow up/down.
 - Left encoder click switch to game mode. Right encoder click switches to Qwerty mode.
+- Smart Backspace (shift + backspace to delete)
 - **Features Luna, your keyboard pet!**
 
 #Luna, the keyboard pet
