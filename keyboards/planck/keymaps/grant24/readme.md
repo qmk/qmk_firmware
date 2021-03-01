@@ -1,12 +1,12 @@
 # grant24's Planck Rev 6 Layout
 
 
-# A layout centered around typing on Colemak, and gaming on Qwerty. Dvorak and Plover are also there just because.
+## A layout centered around typing on Colemak, and gaming on Qwerty. Dvorak and Plover are also there just because.
 
-# Lower for symbols, easy coding symbols access on home row, standard num row symbols on top, right-hand use of common Ctrl shortcut keys.
-# Raise for numbers, includes num row and num pad, as well as mouse keys.
-# Adjust layer is a stripped down version of the default mapping.
-# Code layer for Fn keys and media/volume control.
+#### Lower for symbols, easy coding symbols access on home row, standard num row symbols on top, right-hand use of common Ctrl shortcut keys.
+#### Raise for numbers, includes num row and num pad, as well as mouse keys.
+#### Adjust layer is a stripped down version of the default mapping.
+#### Code layer for Fn keys and media/volume control.
 
 
 
