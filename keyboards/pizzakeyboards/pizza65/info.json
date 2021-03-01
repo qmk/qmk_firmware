@@ -81,7 +81,6 @@
             ]
         },
         "LAYOUT_65_iso_blocker": {
-            "key_count": 68,
             "layout": [
                 {"label": "r1_01", "x": 0, "y": 0},
                 {"label": "r1_02", "x": 1, "y": 0},
