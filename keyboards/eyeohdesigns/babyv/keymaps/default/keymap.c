@@ -30,9 +30,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,                   KC_LALT,      MO(NUMBRS),            KC_SPC,      MO(FUNCT),                    KC_LGUI
     ),
    [FUNCT] = LAYOUT_2u(
-        KC_VOLU, KC_QUOT, KC_PGUP, RGB_TOG,    BL_STEP,   KC_T,    KC_Y,    KC_G,    KC_UP,     KC_R,     KC_L,    KC_DEL,
-        KC_VOLD, KC_HOME, KC_PGDN, KC_E,      KC_U,       KC_MINS, KC_EQL,  KC_LEFT, KC_DOWN,   KC_RIGHT, KC_QUOT, KC_ENT,
-        KC_CAPS, KC_Z,    KC_X,    KC_C,      KC_V,       KC_LBRC, KC_RBRC, KC_M,    KC_COMM,   KC_DOT,   KC_BSLS, KC_RSFT,
+        KC_VOLU, KC_Q,    KC_PGUP, RGB_TOG,    BL_STEP,    KC_T,    KC_Y,    KC_U,       KC_UP,      RGB_MOD,  RGB_RMOD, KC_DEL,
+        KC_VOLD, KC_HOME, KC_PGDN, KC_D,       KC_U,       KC_MINS, KC_EQL,  KC_LEFT,    KC_DOWN,    KC_RIGHT, KC_QUOT,  RESET,
+        KC_LSFT, RGB_HUI, RGB_HUD, RGB_SAI,    RGB_SAD,    KC_LBRC, KC_RBRC, RGB_VAI,    RGB_VAD,    KC_DOT,   KC_BSLS,  KC_RSFT,
         KC_LCTL,                    KC_TRNS,      KC_TRNS,              KC_SPC,      KC_TRNS,                      RESET
     ),
     [NUMBRS] = LAYOUT_2u(
