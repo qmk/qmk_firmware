@@ -169,6 +169,7 @@ void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = TRACKBALL_DPI_DEFAULT;
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
     eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
 }
 
 void matrix_init_kb(void) {
