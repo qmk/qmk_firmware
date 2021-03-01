@@ -44,7 +44,7 @@ def generate_rules_mk(cli):
     """Generates a rules.mk file from info.json.
     """
     if not cli.config.generate_rules_mk.keyboard:
-        cli.log.error('Missing paramater: --keyboard')
+        cli.log.error('Missing parameter: --keyboard')
         cli.subcommands['info'].print_help()
         return False
 
@@ -79,7 +79,7 @@ def generate_rules_mk(cli):
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
-            cli.args.output.replace(cli.args.output.name + '.bak')
+            cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
         cli.args.output.write_text(rules_mk)
 
         if cli.args.quiet:
