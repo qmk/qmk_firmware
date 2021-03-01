@@ -892,5 +892,5 @@ enum quantum_keycodes {
 
 // One Shot toggle
 #define OS_TOGG ONESHOT_TOGGLE
-#define OS_ON   ONESHOT_ENABLE
-#define OS_OFF  ONESHOT_DISABLE
+#define OS_ON ONESHOT_ENABLE
+#define OS_OFF ONESHOT_DISABLE
