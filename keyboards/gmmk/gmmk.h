@@ -19,6 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 #define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
-#include "pro.h"
+#include "pro/pro.h"
 
 #endif
