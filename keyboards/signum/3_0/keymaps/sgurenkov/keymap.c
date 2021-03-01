@@ -5,12 +5,17 @@
 #define M2(kc) MT(MOD_LCTL, kc)
 #define M3(kc) MT(MOD_LALT, kc)
 #define M4(kc) MT(MOD_LSFT, kc)
-#define LTH1 LT(1, KC_SPC)
-#define LTH2 LT(2, KC_BSPC)
-#define RTH1 LT(1, KC_SPC)
-#define RTH2 LT(2, KC_ENT)
+#define LTH1 LT(L_LEFT, KC_SPC)
+#define LTH2 LT(L_NUM, KC_BSPC)
+#define RTH1 LT(L_RIGHT, KC_SPC)
+#define RTH2 LT(L_NUM, KC_ENT)
 #define COPY  LCMD(KC_C)
 #define PASTE LCMD(KC_V)
+// Layers
+#define L_BASE 0
+#define L_LEFT 1
+#define L_RIGHT 2
+#define L_NUM 3
 
 
 bool is_cmd_tab_active = false;
@@ -20,21 +25,28 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-// L0
+// L_BASE
 	LAYOUT(
     KC_ESC,  KC_Q,      KC_W,       KC_E,      KC_R,      KC_T,       KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,         KC_DEL,
     KC_TAB,  M4(KC_A),  M3(KC_S),   M2(KC_D),  M1(KC_F),  M0(KC_G),   M0(KC_H), M1(KC_J), M2(KC_K), M3(KC_L), M4(KC_COLN),  KC_QUOT,
     KC_GRV,  KC_Z,      KC_X,       KC_C,      KC_V,      KC_B,       KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,      KC_BSLS,
     KC_DEL,  KC_LEFT,   KC_RIGHT,   LTH1,      XXXXXXX,   LTH2,       RTH2,     XXXXXXX,  RTH1,     KC_DOWN,  KC_UP,        KC_ENT),
 
-// L1
+// L_LEFT
     LAYOUT(
-    _______, XXXXXXX,     XXXXXXX,     KC_EQL,     KC_PERC,     KC_AT,        COPY,         KC_UNDS,     KC_HASH,     ALT_T(KC_SPC), KC_PLUS,      _______,
-    _______, M4(KC_AMPR), M3(KC_ASTR), M2(KC_DLR), M1(XXXXXXX), M0(XXXXXXX),  M0(KC_LEFT),  M1(KC_DOWN), M2(KC_UP),   M3(KC_RIGHT),  M4(KC_LBRC),  KC_RBRC,
-    _______, XXXXXXX,     KC_EXLM,     KC_CIRC,    XXXXXXX,     KC_HOME,      KC_END,       KC_MINS,     KC_LPRN,     KC_RPRN,       PASTE,        XXXXXXX,
-    _______, KC_BRID,     KC_BRIU,     _______,    _______,     _______,      _______,      _______,     _______,     KC_VOLD,       KC_VOLU,      _______),
+    _______, XXXXXXX,   XXXXXXX, KC_EQL,  KC_PERC, KC_AT,        COPY,     KC_UNDS, KC_HASH, RALT(KC_SPC), KC_PLUS,  _______,
+    _______, KC_LSHIFT, KC_LALT, KC_LCTL, KC_LGUI, KC_HYPR,      KC_LEFT,  KC_DOWN, KC_UP,   KC_RIGHT,     KC_LBRC,  KC_RBRC,
+    _______, XXXXXXX,   KC_EXLM, KC_CIRC, XXXXXXX, KC_HOME,      KC_END,   KC_MINS, KC_LPRN, KC_RPRN,      PASTE,    XXXXXXX,
+    _______, KC_BRID,   KC_BRIU, _______, _______,  _______,      _______, _______, _______, KC_VOLD,      KC_VOLU,  _______),
 
-// L2
+// L_RIGHT
+    LAYOUT(
+    _______, XXXXXXX, XXXXXXX, KC_EQL,  KC_PERC,  KC_AT,        COPY,    KC_UNDS, KC_HASH,  RALT(KC_SPC), KC_PLUS,  _______,
+    _______, KC_AMPR, KC_ASTR, KC_DLR,  XXXXXXX,  XXXXXXX,      KC_LEFT, KC_DOWN, KC_UP,    KC_RIGHT,     KC_RSFT,  KC_RBRC,
+    _______, XXXXXXX, KC_EXLM, KC_CIRC, XXXXXXX,  KC_HOME,      KC_END,  KC_MINS, KC_LPRN,  KC_RPRN,      PASTE,    XXXXXXX,
+    _______, KC_BRID, KC_BRIU, _______, _______,  _______,      _______, _______, _______,  KC_VOLD,      KC_VOLU,  _______),
+
+// L_NUM
 	LAYOUT(
     _______,  XXXXXXX,     KC_F7,     KC_F8,     KC_F9,     KC_F12,         KC_COMM,    KC_7,     KC_8,     KC_9,     KC_COMM,  _______,
     _______,  M4(KC_LSFT), M3(KC_F4), M2(KC_F5), M1(KC_F6), M0(KC_F11),     M0(KC_DOT), M1(KC_4), M2(KC_5), M3(KC_6), M4(KC_0), _______,
