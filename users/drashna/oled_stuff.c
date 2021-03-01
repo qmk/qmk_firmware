@@ -184,6 +184,10 @@ void render_mod_status(uint8_t modifiers) {
 #endif
 }
 
+#ifdef SWAP_HANDS_ENABLE
+extern bool swap_hands;
+#endif
+
 void render_bootmagic_status(void) {
     /* Show Ctrl-Gui Swap options */
     static const char PROGMEM logo[][2][3] = {
@@ -233,8 +237,9 @@ void render_bootmagic_status(void) {
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_GRV), keymap_config.swap_grave_esc);
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_CAPS), keymap_config.swap_control_capslock);
+#ifdef SWAP_HANDS_ENABLE
+    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_SWAP), swap_hands);
+#endif
 #ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
 #endif
