@@ -8,7 +8,7 @@ MCU_LDSCRIPT = noah_boot
 
 # Board: it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
-BOARD = noah_bd
+BOARD = ST_NUCLEO64_F411RE
 
 # Build Options
 #   comment out to disable the options.
