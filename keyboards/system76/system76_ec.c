@@ -30,6 +30,8 @@ enum Command {
     CMD_LED_GET_MODE = 15,
     // Set LED matrix mode and speed
     CMD_LED_SET_MODE = 16,
+    // Get currently pressed keys
+    CMD_MATRIX_GET = 17,
 };
 
 enum Mode {
@@ -230,6 +232,33 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
 #endif // defined(RGB_MATRIX_CUSTOM_KB)
+        case CMD_MATRIX_GET:
+            {
+                //TODO: improve performance?
+                data[2] = matrix_rows();
+                data[3] = matrix_cols();
+                uint8_t byte = 4;
+                uint8_t bit = 0;
+                for (uint8_t row = 0; row < matrix_rows(); row++) {
+                    for (uint8_t col = 0; col < matrix_cols(); col++) {
+                        if (byte < length) {
+                            if (matrix_is_on(row, col)) {
+                                data[byte] |= (1 << bit);
+                            } else {
+                                data[byte] &= ~(1 << bit);
+                            }
+                        }
+
+                        bit++;
+                        if (bit >= 8) {
+                            byte++;
+                            bit = 0;
+                        }
+                    }
+                }
+                data[1] = 0;
+            }
+            break;
     }
 
     raw_hid_send(data, length);
