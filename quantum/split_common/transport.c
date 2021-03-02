@@ -203,8 +203,8 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #    endif
 
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
-    memcpy((void*)i2c_buffer->rgb_matrix, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix));
-    memcpy((void*)i2c_buffer->rgb_suspend_state, (void *)g_suspend_state, sizeof(i2c_buffer->rgb_suspend_state));
+    memcpy((void *)i2c_buffer->rgb_matrix, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix));
+    memcpy((void *)i2c_buffer->rgb_suspend_state, (void *)g_suspend_state, sizeof(i2c_buffer->rgb_suspend_state));
 #    endif
 }
 
@@ -357,24 +357,24 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 
 #    ifdef WPM_ENABLE
     // Write wpm to slave
-    serial_m2s_buffer.current_wpm  = get_current_wpm();
+    serial_m2s_buffer.current_wpm       = get_current_wpm();
 #    endif
 
 #    ifdef SPLIT_MODS_ENABLE
-    serial_m2s_buffer.real_mods    = get_mods();
-    serial_m2s_buffer.weak_mods    = get_weak_mods();
+    serial_m2s_buffer.real_mods         = get_mods();
+    serial_m2s_buffer.weak_mods         = get_weak_mods();
 #        ifndef NO_ACTION_ONESHOT
-    serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
+    serial_m2s_buffer.oneshot_mods      = get_oneshot_mods();
 #        endif
 #    endif
 
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
-    serial_m2s_buffer.rgb_matrix = rgb_matrix_config;
+    serial_m2s_buffer.rgb_matrix        = rgb_matrix_config;
     serial_m2s_buffer.rgb_suspend_state = g_suspend_state;
 #    endif
 
 #    ifndef DISABLE_SYNC_TIMER
-    serial_m2s_buffer.sync_timer   = sync_timer_read32() + SYNC_TIMER_OFFSET;
+    serial_m2s_buffer.sync_timer        = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
     return true;
 }
@@ -414,7 +414,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
     rgb_matrix_config = serial_m2s_buffer.rgb_matrix;
-    g_suspend_state = serial_m2s_buffer.rgb_suspend_state;
+    g_suspend_state   = serial_m2s_buffer.rgb_suspend_state;
 #    endif
 }
 
