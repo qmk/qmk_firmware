@@ -27,11 +27,12 @@
 #    define ENCODER_RESOLUTION 4
 #endif
 
-#if !defined(ENCODERS_PAD_A) || !defined(ENCODERS_PAD_B)
-#    error "No encoder pads defined by ENCODERS_PAD_A and ENCODERS_PAD_B"
+#if (!defined(ENCODERS_PAD_A) || !defined(ENCODERS_PAD_B)) && (!defined(ENCODERS_PAD_A) || !defined(ENCODERS_PAD_B))
+#    error "No encoder pads defined by ENCODERS_PAD_A and ENCODERS_PAD_B or ENCODERS_PAD_A_RIGHT and ENCODERS_PAD_B_RIGHT"
 #endif
 
 #ifdef SPLIT_KEYBOARD
+    // if no pads for right half are defined, we assume the keyboard is symmetric (i.e. same pads)
     #ifndef ENCODERS_PAD_A_RIGHT
     #   define ENCODERS_PAD_A_RIGHT ENCODERS_PAD_A
     #endif
@@ -84,34 +85,43 @@ __attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
 
 __attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { encoder_update_user(index, clockwise); }
 
+// number of encoders connected to this controller
+static uint8_t numEncodersHere;
+// index of the first encoder connected to this controller (only for right halves, this will be nonzero)
+static uint8_t firstEncoderHere;
 #ifdef SPLIT_KEYBOARD
-    // row offsets for each hand
-    static uint8_t thisHand, thatHand;
+    // index of the first encoder connected to the other half
+    static uint8_t firstEncoderThere;
 #endif
 
 void encoder_init(void) {
 #ifndef SPLIT_KEYBOARD
-    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
-        setPinInputHigh(encoders_pad_a[i]);
-        setPinInputHigh(encoders_pad_b[i]);
-
-        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-    }
+    numEncodersHere = NUMBER_OF_ENCODERS;
+    pin_t pad_a[] = encoders_pad_a;
+    pin_t pad_b[] = encoders_pad_b;
+    firstEncoderHere = 0;
 #else
-    thisHand = is_keyboard_left() ? 0 : NUMBER_OF_ENCODERS_LEFT;
-    thisHandNum = is_keyboard_left() ? NUMBER_OF_ENCODERS_LEFT : NUMBER_OF_ENCODERS_RIGHT;
-    thatHand = NUMBER_OF_ENCODERS - thisHand;
-
-    pin_t pad_a[] = is_keyboard_left() ? encoders_pad_a : encoders_pad_a_right;
-    pin_t pad_b[] = is_keyboard_left() ? encoders_pad_b : encoders_pad_b_right;
+    if (is_keyboard_left()) {
+        numEncodersHere = NUMBER_OF_ENCODERS_LEFT;
+        pin_t pad_a[] = encoders_pad_a;
+        pin_t pad_b[] = encoders_pad_b;
+        firstEncoderHere = 0;
+        firstEncoderThere = NUMBER_OF_ENCODERS_LEFT;
+    } else {
+        numEncodersHere = NUMBER_OF_ENCODERS_RIGHT;
+        pin_t pad_a[] = encoders_pad_a_right;
+        pin_t pad_b[] = encoders_pad_b_right;
+        firstEncoderHere = NUMBER_OF_ENCODERS_LEFT;
+        firstEncoderThere = 0;
+    }
+#endif
     
-    for (int i = 0; i < thisHandNum; i++) {
+    for (int i = 0; i < numEncodersHere; i++) {
         setPinInputHigh(pad_a[i]);
         setPinInputHigh(pad_b[i]);
 
-        encoder_state[thisHand + i] = (readPin(pad_a[i]) << 0) | (readPin(pad_b[i]) << 1);
+        encoder_state[firstEncoderHere + i] = (readPin(pad_a[i]) << 0) | (readPin(pad_b[i]) << 1);
     }
-#endif
 
 }
 
@@ -140,34 +150,23 @@ static bool encoder_update(int8_t index, uint8_t state) {
 
 bool encoder_read(void) {
     bool changed = false;
-#ifndef SPLIT_KEYBOARD
-    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
-        encoder_state[i] <<= 2;
-        encoder_state[i] |= (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-        changed |= encoder_update(i, encoder_state[i]);
+    for (uint8_t i = 0; i < numEncodersHere; i++) {
+        encoder_state[firstEncoderHere + i] <<= 2;
+        encoder_state[firstEncoderHere + i] |= (readPin(pad_a[i]) << 0) | (readPin(pad_b[i]) << 1);
+        changed |= encoder_update(firstEncoderHere + i, encoder_state[firstEncoderHere + i]);
     }
-#else
-    pin_t pad_a[] = is_keyboard_left() ? encoders_pad_a : encoders_pad_a_right;
-    pin_t pad_b[] = is_keyboard_left() ? encoders_pad_b : encoders_pad_b_right;
-
-    for (uint8_t i = 0; i < thisHandNum; i++) {
-        encoder_state[thisHand + i] <<= 2;
-        encoder_state[thisHand + i] |= (readPin(pad_a[i]) << 0) | (readPin(pad_b[i]) << 1);
-        changed |= encoder_update(thisHand + i, encoder_state[thisHand + i]);
-    }
-#endif
     return changed;
 }
 
 #ifdef SPLIT_KEYBOARD
 void last_encoder_activity_trigger(void);
 
-void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * thisHandNum); }
+void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, &encoder_value[firstEncoderHere], sizeof(uint8_t) * numEncodersHere); }
 
 void encoder_update_raw(uint8_t* slave_state) {
     bool changed = false;
-    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS - thisHandNum; i++) {
-        uint8_t index = i + thatHand;
+    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS - numEncodersHere; i++) {
+        uint8_t index = firstEncoderThere + i;
         int8_t  delta = slave_state[i] - encoder_value[index];
         while (delta > 0) {
             delta--;
