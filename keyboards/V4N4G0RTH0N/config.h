@@ -145,6 +145,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
 
+
+// TOP, MID, BOT
+// B4, D7, D6
 //#define LED_NUM_LOCK_PIN B4
-#define LED_CAPS_LOCK_PIN D6
+#define LED_CAPS_LOCK_PIN B4
 //#define LED_SCROLL_LOCK_PIN D6
