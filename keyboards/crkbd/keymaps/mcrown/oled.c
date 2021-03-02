@@ -82,16 +82,12 @@ static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] =
            0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x05,     0x00,         /* 7 */
 };
 
-/** @brief Prints character ch with the specified color
- *         at position (row, col).
+/** @brief maps the keycode to get the ascii value.
  *
  *  If any argument is invalid, the function has no effect.
  *
- *  @param row The row in which to display the character.
- *  @param col The column in which to display the character.
- *  @param ch The character to display.
- *  @param color The color to use to display the character.
- *  @return Void.
+ *  @param keycode value of the pressed key.
+ *  @return ascii value of the pressed key or a special value for non-ascii keys.
  */
 inline static char get_ascii(int16_t keycode)
 {
@@ -117,14 +113,35 @@ inline static char get_ascii(int16_t keycode)
     return ascii_t[ascii_idx];
 }
 
-void update_log(void)
+/** @brief detect retuns the rotation of the display based on the keyboard side.
+ *
+ *  If any argument is invalid, the function has no effect.
+ *
+ *  @param oled_rotation_t rotation
+ *  @return rotation of the display.
+ */
+oled_rotation_t oled_init_user(oled_rotation_t rotation)
 {
-    if(timer_elapsed(log_timer) > 750)
+    oled_rotation_t oled_rot=OLED_ROTATION_180;
+
+    if(TRUE==is_master)
     {
-        add_keylog(0);
+#ifdef OLED_VERTICAL
+        oled_rot=OLED_ROTATION_270;
+#else
+        oled_rot=OLED_ROTATION_0;
+#endif
     }
+    return oled_rot;
 }
 
+/** @brief renders the keylog string and display it. This function also toggles the cursor.
+ *
+ *  If any argument is invalid, the function has no effect.
+ *
+ *  @param void.
+ *  @return void.
+ */
 static void render_keylogger_status(void)
 {
     static bool cursor_f=TRUE;
@@ -150,21 +167,13 @@ static void render_keylogger_status(void)
 
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation)
-{
-    oled_rotation_t oled_rot=OLED_ROTATION_180;
-
-    if(TRUE==is_master)
-    {
-#ifdef OLED_VERTICAL
-        oled_rot=OLED_ROTATION_270;
-#else
-        oled_rot=OLED_ROTATION_0;
-#endif
-    }
-    return oled_rot;
-}
-
+/** @brief displays the current active layout.
+ *
+ *  If any argument is invalid, the function has no effect.
+ *
+ *  @param void.
+ *  @return void.
+ */
 void render_layout_state(void)
 {
 #ifdef OLED_VERTICAL
@@ -210,11 +219,13 @@ void render_layout_state(void)
 #endif
 }
 
-void oled_white_space(void)
-{
-    oled_write_P(PSTR(" "), FALSE);
-}
-
+/** @brief displays the current active layer.
+ *
+ *  If any argument is invalid, the function has no effect.
+ *
+ *  @param void.
+ *  @return void.
+ */
 void render_layer_state(void)
 {
     bool lower;
@@ -274,6 +285,13 @@ void render_layer_state(void)
 #endif
 }
 
+/** @brief displays the current status of the main display/
+ *
+ *  If any argument is invalid, the function has no effect.
+ *
+ *  @param void.
+ *  @return void.
+ */
 void render_status(void)
 {
     render_layout_state();
@@ -282,6 +300,13 @@ void render_status(void)
     render_keylogger_status();
 }
 
+/** @brief renders the logo to be displayed.
+ *
+ *  If any argument is invalid, the function has no effect.
+ *
+ *  @param void.
+ *  @return void.
+ */
 static void render_logo(void)
 {
     static const char PROGMEM qmk_logo[] = {
@@ -293,6 +318,13 @@ static void render_logo(void)
     oled_write_P(qmk_logo, FALSE);
 }
 
+/** @brief executes the actions for both displays.
+ *
+ *  If any argument is invalid, the function has no effect.
+ *
+ *  @param void.
+ *  @return void.
+ */
 void oled_task_user(void)
 {
     if (timer_elapsed32(standby_oled_timer) > 15000)
@@ -315,7 +347,14 @@ void oled_task_user(void)
     }
 }
 
-void add_keylog(uint16_t keycode)
+/** @brief process the current key and add it to the keylog string.
+ *
+ *  If any argument is invalid, the function has no effect.
+ *
+ *  @param keycode pressed key.
+ *  @return void.
+ */
+extern void add_keylog(uint16_t keycode)
 {
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX))
     {
