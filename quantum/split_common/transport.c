@@ -273,6 +273,10 @@ typedef struct _Serial_m2s_buffer_t {
     rgb_config_t rgb_matrix;
     bool         rgb_suspend_state;
 #    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_config_t rgb_matrix;
+    bool         rgb_suspend_state;
+#    endif
 } Serial_m2s_buffer_t;
 
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
