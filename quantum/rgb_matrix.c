@@ -158,7 +158,7 @@ void eeconfig_update_rgb_matrix_default(void) {
     rgb_matrix_config.mode   = RGB_MATRIX_STARTUP_MODE;
     rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL};
     rgb_matrix_config.speed  = RGB_MATRIX_STARTUP_SPD;
-    rgb_matrix_config.flags = LED_FLAG_ALL;
+    rgb_matrix_config.flags  = LED_FLAG_ALL;
     eeconfig_update_rgb_matrix();
 }
 
@@ -193,13 +193,12 @@ void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
         rgb_matrix_driver.set_color(index - k_rgb_matrix_split[0], red, green, blue);
     else if (is_keyboard_left() && index < k_rgb_matrix_split[0])
 #endif
-    rgb_matrix_driver.set_color(index, red, green, blue);
+        rgb_matrix_driver.set_color(index, red, green, blue);
 }
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++)
-        rgb_matrix_set_color(i, red, green, blue);
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) rgb_matrix_set_color(i, red, green, blue);
 #else
     rgb_matrix_driver.set_color_all(red, green, blue);
 #endif
