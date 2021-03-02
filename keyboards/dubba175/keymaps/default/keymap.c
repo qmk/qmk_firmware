@@ -45,13 +45,13 @@ const uint16_t PROGMEM rprn_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [combo_ESC] = COMBO(esc_combo, KC_ESC),
-   [combo_BACK] = COMBO(bspc_combo, KC_BSPC),
-    [combo_TAB] = COMBO(tab_combo, KC_TAB),
-     [combo_DELETE] = COMBO(del_combo, KC_DEL),
-      [combo_ENTER] = COMBO(enter_combo, KC_ENT),
-       [combo_QUOT] = COMBO(quot_combo, KC_QUOT),
-        [combo_LPRN] = COMBO(lprn_combo, KC_LPRN),
-         [combo_RPRN] = COMBO(rprn_combo, KC_RPRN),
+  [combo_BACK] = COMBO(bspc_combo, KC_BSPC),
+  [combo_TAB] = COMBO(tab_combo, KC_TAB),
+  [combo_DELETE] = COMBO(del_combo, KC_DEL),
+  [combo_ENTER] = COMBO(enter_combo, KC_ENT),
+  [combo_QUOT] = COMBO(quot_combo, KC_QUOT),
+  [combo_LPRN] = COMBO(lprn_combo, KC_LPRN),
+  [combo_RPRN] = COMBO(rprn_combo, KC_RPRN),
 };
 
 #define NUM MO(_NUM)
