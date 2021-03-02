@@ -129,6 +129,15 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
 };
 
+/* Look-up table to convert a hex digit to a keycode.
+ */
+__attribute__((weak)) const uint16_t hex_to_keycode_lut[16] PROGMEM = {
+    KC_0,    KC_1,    KC_2,    KC_3,
+    KC_4,    KC_5,    KC_6,    KC_7,
+    KC_8,    KC_9,    KC_A,    KC_B,
+    KC_C,    KC_D,    KC_E,    KC_F
+};
+
 // clang-format on
 
 // Note: we bit-pack in "reverse" order to optimize loading
@@ -248,5 +257,57 @@ void send_char(char ascii_code) {
     }
     if (is_dead) {
         tap_code(KC_SPACE);
+    }
+}
+
+void send_dword(uint32_t number) {
+    uint16_t word = (number >> 16);
+    send_word(word);
+    send_word(number & 0xFFFFUL);
+}
+
+void send_word(uint16_t number) {
+    uint8_t byte = number >> 8;
+    send_byte(byte);
+    send_byte(number & 0xFF);
+}
+
+void send_byte(uint8_t number) {
+    uint8_t nibble = number >> 4;
+    send_nibble(nibble);
+    send_nibble(number & 0xF);
+}
+
+void send_nibble(uint8_t number) { tap_code16(hex_to_keycode(number)); }
+
+uint16_t hex_to_keycode(uint8_t hex) {
+    return hex_to_keycode_lut[hex & 0xF];
+}
+
+void tap_random_base64(void) {
+#if defined(__AVR_ATmega32U4__)
+    uint8_t key = (TCNT0 + TCNT1 + TCNT3 + TCNT4) % 64;
+#else
+    uint8_t key = rand() % 64;
+#endif
+    switch (key) {
+        case 0 ... 25:
+            send_char(key + 'A');
+            break;
+        case 26 ... 51:
+            send_char(key - 26 + 'a');
+            break;
+        case 52:
+            send_char('0');
+            break;
+        case 53 ... 61:
+            send_char(key - 53 + '1');
+            break;
+        case 62:
+            send_char('+');
+            break;
+        case 63:
+            send_char('/');
+            break;
     }
 }
