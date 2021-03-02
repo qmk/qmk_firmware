@@ -1,4 +1,7 @@
-/* Copyright 2015-2017 Jack Humbert
+/* An 8-layer, 4x12, grid keymap for the  Planck Rev 6.
+ *
+ *
+ * Copyright 2015-2017 Greg Anto
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
