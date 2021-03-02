@@ -278,7 +278,16 @@ void send_byte(uint8_t number) {
     send_nibble(number & 0xF);
 }
 
-void send_nibble(uint8_t number) { tap_code16(hex_to_keycode(number)); }
+void send_nibble(uint8_t number) {
+    switch (number & 0xF) {
+        case 0 ... 9:
+            send_char(number + '0');
+            break;
+        case 10 ... 15:
+            send_char(number - 10 + 'a');
+            break;
+    }
+}
 
 uint16_t hex_to_keycode(uint8_t hex) {
     return hex_to_keycode_lut[hex & 0xF];
