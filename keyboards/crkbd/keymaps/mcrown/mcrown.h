@@ -1,6 +1,5 @@
-/*
- *
- * This is the header of mcrown header
+/** @file mcrown.h
+ *  @brief mcrown header thant incluedes key layout and some definintions.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * MCrown: mariocc@comunidad.unam.mx 2021
+ * @author Mario Corona (mariocc@comunidad.unam.mx) 2021
  *
  */
 
