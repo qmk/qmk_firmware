@@ -20,7 +20,6 @@ enum layers{
   _NUM,
   _NAV,
   _FN
-   
 };
 
 enum combo_events {
