@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Fox Lab
 #define PRODUCT         Time 80 Reforged
-#define DESCRIPTION     Fox Lab Time 80 Reforged
 
 /* key matrix size */
 #define MATRIX_ROWS 6
