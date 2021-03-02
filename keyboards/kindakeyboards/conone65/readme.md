@@ -1,6 +1,6 @@
 # Conone 65
 
-*The Conone 65 is a custom keyboard designed and machined in Belgium.*
+The Conone 65 is a custom keyboard designed and machined in Belgium.
 
 * Keyboard Maintainer: [Evyd13](https://github.com/evyd13)
 * Hardware Supported: Conone 65 PCB
