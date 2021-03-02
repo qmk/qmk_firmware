@@ -28,6 +28,8 @@
 #define ASCII_TABLE_LENGTH       (0x80)
 #define KEYLOG_STRING_STARTUP    (KEYLOG_EOL_LEN+1)
 
+#define SPECIAL_KEYS_SHIFT(kc)   (0x18+(kc))
+
 #ifdef OLED_DRIVER_ENABLE
 
 static char last_c=' ';
@@ -40,7 +42,7 @@ static const char ascii_t[ASCII_TABLE_LENGTH] =
 {
         /*     0          1         2         3        4         5         6         7         8         9         A         B         C         D         E         F                */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
-            ' ',         ' ',      ' ',      ' ',     ' ',      ' ',      ' ',      ' ',     0x11,      0x1C,    0x97,      ' ',      ' ',      ' ',      ' ',      ' ',         /* 0 */
+            ' ',         0x1A,    0x1B,     0x19,    0x18,      ' ',      ' ',      ' ',     0x11,      0x1C,    0x97,      ' ',      ' ',      ' ',      ' ',      ' ',         /* 0 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             ' ',         ' ',      ' ',      ' ',     ' ',      ' ',      ' ',      ' ',      ' ',       ' ',     ' ',     0x1D,      ' ',      ' ',      ' ',      ' ',         /* 1 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
@@ -74,7 +76,7 @@ static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] =
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             '}',         '|',     0x00,     0x00,     0x00,      '~',    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 5 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
-           0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 6 */
+           0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x01,     0x02,      0x03,    0x04,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 6 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
            0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 7 */
 };
@@ -83,9 +85,13 @@ inline static char get_ascii(int16_t keycode)
 {
     uint8_t ascii_idx=0x00;
 
-    if(keycode<KC_APPLICATION)
+    if(keycode<KC_F1)
     {
         ascii_idx=code_to_ascii[(uint8_t)keycode];
+    }
+    else if(keycode<KC_KP_ENTER)
+    {
+        ascii_idx=code_to_ascii[SPECIAL_KEYS_SHIFT(keycode)];
     }
     else if( TRUE==(QK_LSFT&keycode) )
     {
