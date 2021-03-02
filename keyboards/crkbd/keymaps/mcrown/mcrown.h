@@ -108,7 +108,7 @@
 #define LAYOUT_wrapper(...)   LAYOUT(__VA_ARGS__)
 
 /* For values greater than 0x200, substract that value and add 0x20 so the characters can be mapped  */
-#define RM_LSFT(kc)           ((0x20)+(kc-0x200))
+#define RM_LSFT(kc)           ((uint8_t)(0x20)+(kc-0x200))
 
 /*
  * Standard C does not have boolean variable so, it is better to use the name in capital so it can
