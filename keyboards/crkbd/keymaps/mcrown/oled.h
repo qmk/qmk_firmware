@@ -1,6 +1,5 @@
-/*
- *
- * This is the c header for oled module
+/** @file oled.h
+ *  @brief oled header that includes function prototypes and external variables.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * MCrown: mariocc@comunidad.unam.mx 2021
+ * @author Mario Corona (mariocc@comunidad.unam.mx) 2021
  *
  */
 
@@ -31,8 +30,7 @@
 
 #define KEYLOG_EOL_LEN (KEYLOG_LEN+1)
 
+extern uint8_t is_master;
+
 extern void add_keylog(uint16_t keycode);
 extern void update_log(void);
-extern void render_keylogger_status(void);
-
-extern uint8_t is_master;

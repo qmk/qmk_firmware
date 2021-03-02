@@ -1,6 +1,5 @@
-/*
- *
- * This is the c oled module
+/** @file oled.h
+ *  @brief mcrown oled service implementation.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * MCrown: mariocc@comunidad.unam.mx 2021
+ * @author Mario Corona (mariocc@comunidad.unam.mx) 2021
  *
  */
 
@@ -28,15 +27,16 @@
 #define ASCII_TABLE_LENGTH       (0x80)
 #define KEYLOG_STRING_STARTUP    (KEYLOG_EOL_LEN+1)
 #define ALT_CODE                 (0x7E)
-
 #define SPECIAL_KEYS_SHIFT(kc)   (0x18+(kc))
 
-#ifdef OLED_DRIVER_ENABLE
+static void render_keylogger_status(void);
 
+static char keylog_str[KEYLOG_EOL_LEN] = {' '};
+static uint16_t log_timer = 0;
+static uint8_t current_cursor_pos=0;
+static uint32_t cursor_oled_timer = 0;
+static uint32_t standby_oled_timer = 0;
 static char last_c=' ';
-char keylog_str[KEYLOG_EOL_LEN] = {' '};
-uint8_t  keylogs_str_idx = 0;
-uint16_t log_timer = 0;
 
 /* Provides the ASCII value or the address of the character selected of the OLED font specified in glcfont.c */
 static const char ascii_t[ASCII_TABLE_LENGTH] =
@@ -82,6 +82,17 @@ static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] =
            0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x05,     0x00,         /* 7 */
 };
 
+/** @brief Prints character ch with the specified color
+ *         at position (row, col).
+ *
+ *  If any argument is invalid, the function has no effect.
+ *
+ *  @param row The row in which to display the character.
+ *  @param col The column in which to display the character.
+ *  @param ch The character to display.
+ *  @param color The color to use to display the character.
+ *  @return Void.
+ */
 inline static char get_ascii(int16_t keycode)
 {
     uint8_t ascii_idx=0x00;
@@ -106,11 +117,38 @@ inline static char get_ascii(int16_t keycode)
     return ascii_t[ascii_idx];
 }
 
-extern uint8_t is_master;
+void update_log(void)
+{
+    if(timer_elapsed(log_timer) > 750)
+    {
+        add_keylog(0);
+    }
+}
 
-static uint8_t current_cursor_pos=0;
-static uint32_t cursor_oled_timer = 0;
-static uint32_t standby_oled_timer = 0;
+static void render_keylogger_status(void)
+{
+    static bool cursor_f=TRUE;
+
+    if(timer_elapsed32(cursor_oled_timer) > 300)
+    {
+        cursor_oled_timer = timer_read32();
+        cursor_f=TOGGLE_BOOL_VAR(cursor_f);
+    }
+    oled_write_P(PSTR("\n>:"), FALSE);
+    if(current_cursor_pos>(KEYLOG_LEN-1))
+    {
+        current_cursor_pos=0;
+        memset(keylog_str, ' ', sizeof(char)*KEYLOG_EOL_LEN);
+        /* Here the EOL is to clear with white spaces all the keylog area */
+        keylog_str[KEYLOG_EOL_LEN-1] = '\0';
+        oled_write(keylog_str, FALSE);
+        /* Reset EOL to the begining of the keylog string */
+        keylog_str[0] = '\0';
+    }
+    oled_write(keylog_str, FALSE);
+    oled_write_char(last_c, cursor_f);
+
+}
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation)
 {
@@ -305,38 +343,3 @@ void add_keylog(uint16_t keycode)
 
     standby_oled_timer = timer_read32();
 }
-
-void update_log(void)
-{
-    if(timer_elapsed(log_timer) > 750)
-    {
-        add_keylog(0);
-    }
-}
-
-void render_keylogger_status(void)
-{
-    static bool cursor_f=TRUE;
-
-    if(timer_elapsed32(cursor_oled_timer) > 300)
-    {
-        cursor_oled_timer = timer_read32();
-        cursor_f=TOGGLE_BOOL_VAR(cursor_f);
-    }
-    oled_write_P(PSTR("\n>:"), FALSE);
-    if(current_cursor_pos>(KEYLOG_LEN-1))
-    {
-        current_cursor_pos=0;
-        memset(keylog_str, ' ', sizeof(char)*KEYLOG_EOL_LEN);
-        /* Here the EOL is to clear with white spaces all the keylog area */
-        keylog_str[KEYLOG_EOL_LEN-1] = '\0';
-        oled_write(keylog_str, FALSE);
-        /* Reset EOL to the begining of the keylog string */
-        keylog_str[0] = '\0';
-    }
-    oled_write(keylog_str, FALSE);
-    oled_write_char(last_c, cursor_f);
-
-}
-
-#endif /* End of OLED_DRIVER_ENABLE */
