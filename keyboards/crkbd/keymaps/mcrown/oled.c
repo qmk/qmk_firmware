@@ -73,11 +73,11 @@ static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] =
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             ']',        '\\',     0x00,      ';',     '\'',      '`',     ',',      '.',      '/',      0x00,    0x00,     0x00,     0x00,     0x00,      '!',      '@',         /* 3 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
-            '#',         '$',      '%',      '^',      '&',      '*',     '(',      ')',     0x00,      0x00,    0x00,     0x00,     0x7F,      '_',      '+',      '{',         /* 4 */
+            '#',         '$',      '%',      '^',      '&',      '*',     '(',      ')',     0x00,      0x00,    0x00,     0x00,     0x00,      '_',      '+',      '{',         /* 4 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             '}',         '|',     0x00,     0x00,     0x00,      '~',    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 5 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
-           0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x01,     0x02,      0x03,    0x04,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 6 */
+           0x00,        0x00,     0x00,     0x00,     0x7F,     0x00,    0x00,     0x01,     0x02,      0x03,    0x04,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 6 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
            0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x05,     0x00,         /* 7 */
 };
@@ -94,13 +94,13 @@ inline static char get_ascii(int16_t keycode)
     {
         ascii_idx=code_to_ascii[SPECIAL_KEYS_SHIFT(keycode)];
     }
-    else if( QK_LSFT==(QK_LSFT&keycode) )
-    {
-        ascii_idx=code_to_ascii[RM_LSFT(keycode)];
-    }
     else if(KC_LANG1==keycode)
     {
         ascii_idx=code_to_ascii[ALT_CODE];
+    }
+    else if( QK_LSFT==(QK_LSFT&keycode) )
+    {
+        ascii_idx=code_to_ascii[RM_LSFT(keycode)];
     }
 
     return ascii_t[ascii_idx];
