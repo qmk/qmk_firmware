@@ -44,10 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-      KC_ESC,       KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                                    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
-      KC_LCTL,      KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                                    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT,      KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   _______,   _______, _______, _______,            KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-             _______, KC_LGUI , KC_LCTL, LT(_LOWER, KC_TAB), LT(_NAV, KC_ENT),                      KC_BSPC, LT(_RAISE, KC_SPC), KC_RALT,  KC_HOME, KC_END 
+      _______, KC_Q,         KC_W,            KC_E,          KC_R,           KC_T,                                           KC_Y, KC_U,           KC_I,          KC_O,           KC_P,            _______,
+      _______, LSFT_T(KC_A), LT(_MOUSE,KC_S), LT(_NAV,KC_D), LT(_RSYM,KC_F), KC_G,                                           KC_H, LT(_LSYM,KC_J), LT(_FUN,KC_K), LT(_NUM,KC_L),  LSFT_T(KC_SCLN), _______,
+      _______, KC_Z,         LCTL_T(KC_X),    LALT_T(KC_C),  KC_V,           KC_B,   _______,   _______,   _______, _______, KC_N, KC_M,           KC_COMM,       LALT_T(KC_DOT), LCTL_T(KC_SLSH), _______,
+                                                            _______, _______, _______, KC_0,    KC_BSPC,   LT(_ALWAYS, KC_SPC), _______, _______, _______, _______ 
     ),
  /*
   * Mouse Layer 
@@ -63,9 +63,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                        `----------------------------------'  `----------------------------------'
   */
      [_MOUSE] = LAYOUT(
-       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+       _______, _______, _______, _______, _______, _______,                                     _______, KC_BTN1, KC_WH_U, KC_BTN2, _______, _______,
+       _______, _______, XXXX,    _______, _______, _______,                                     KC_MS_L, KC_MS_D, KS_MS_U, KC_MS_R, _______, _______,
+       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_WH_L, KC_MW_D, KC_WH_R, _______, _______,
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
      ),
 /*
