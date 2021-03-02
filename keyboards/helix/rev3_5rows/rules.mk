@@ -8,4 +8,4 @@ ENCODER_ENABLE = yes
 DIP_SWITCH_ENABLE = yes
 LTO_ENABLE = yes
 
-SRC += oled_display.c
+LIB_SRC += oled_display.c
