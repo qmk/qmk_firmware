@@ -205,7 +205,7 @@ This mirrors the master side matrix to the slave side for features that react or
 #define SPLIT_HOST_SYNC_ENABLE
 ```
 
-This enables syncingo of the Host LED status (caps lock, num lock, etc) betwen both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the Host LED status. 
+This enables syncing of the Host LED status (caps lock, num lock, etc) betwen both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the Host LED status. 
 
 ###  Hardware Configuration Options
 
