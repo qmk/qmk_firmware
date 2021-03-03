@@ -16,9 +16,9 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-#include <rgb_matrix.h>
-#include <i2c_master.h>
-#include <is31fl3733.h>
+#include "rgb_matrix.h"
+#include "i2c_master.h"
+#include "is31fl3733.h"
 
 
 

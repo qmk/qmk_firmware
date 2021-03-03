@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
 
-#include <is31fl3733.h>
+#include "is31fl3733.h"
 
 
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {

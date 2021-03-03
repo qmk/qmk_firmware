@@ -18,8 +18,8 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-#include <is31fl3733.h>
-#include <i2c_master.h>
+#include "is31fl3733.h"
+#include "i2c_master.h"
 #include "wait.h"
 
 // This is a 7-bit address, that gets left-shifted and bit 0
