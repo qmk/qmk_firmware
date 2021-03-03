@@ -8,7 +8,6 @@
 #define VENDOR_ID       0xFEED
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    IBNobody
-#define PRODUCT         Vision Division
 
 #define MATRIX_ROWS     6
 #define MATRIX_ROW_PINS { C2, C3, F4, F5, F6, F7 }

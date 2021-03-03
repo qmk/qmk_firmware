@@ -29,6 +29,6 @@
 
 #ifdef AUDIO_ENABLE
    #define QMK_SPEAKER C6
-   #define C6_AUDIO
+   #define AUDIO_PIN C6
    #define NO_MUSIC_MODE // Save 2000 bytes
 #endif

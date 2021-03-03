@@ -48,6 +48,7 @@ def check_udev_rules():
             _udev_rule("03eb", "2ff3"),  # ATmega16U4
             _udev_rule("03eb", "2ff4"),  # ATmega32U4
             _udev_rule("03eb", "2ff9"),  # AT90USB64
+            _udev_rule("03eb", "2ffa"),  # AT90USB162
             _udev_rule("03eb", "2ffb")  # AT90USB128
         },
         'kiibohd': {_udev_rule("1c11", "b007")},
@@ -94,7 +95,7 @@ def check_udev_rules():
 
         # Collect all rules from the config files
         for rule_file in udev_rules:
-            for line in rule_file.read_text().split('\n'):
+            for line in rule_file.read_text(encoding='utf-8').split('\n'):
                 line = line.strip()
                 if not line.startswith("#") and len(line):
                     current_rules.add(line)
