@@ -14,5 +14,5 @@ void suspend_power_down_user(void);
 void suspend_power_down_kb(void);
 
 #ifndef USB_SUSPEND_WAKEUP_DELAY
-#    define USB_SUSPEND_WAKEUP_DELAY 200
+#    define USB_SUSPEND_WAKEUP_DELAY 0
 #endif

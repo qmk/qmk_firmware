@@ -109,6 +109,10 @@ Normally, when a diode is connected to an intersection, it is judged to be left.
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 ```
 
+Note that adding a diode at a previously unused intersection will effectively tell the firmware that there is a key held down at that point. You can instruct qmk to ignore that intersection by defining `MATRIX_MASKED` and then defining a `matrix_row_t matrix_mask[MATRIX_ROWS]` array in your keyboard config. Each bit of a single value (starting form the least-significant bit) is used to tell qmk whether or not to pay attention to key presses at that intersection.
+
+While `MATRIX_MASKED` isn't necessary to use `SPLIT_HAND_MATRIX_GRID` successfully, without it you may experience issues trying to suspend your computer with your keyboard attached as the matrix will always report at least one key-press.
+
 #### Handedness by EEPROM
 
 This method sets the keyboard's handedness by setting a flag in the persistent storage (`EEPROM`).  This is checked when the controller first starts up, and determines what half the keyboard is, and how to orient the keyboard layout. 
