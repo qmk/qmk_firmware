@@ -176,10 +176,18 @@ static void render_keylogger_status(void)
  */
 void render_layout_state(void)
 {
+    CUSTOM_LAYERS_T current_layer;
+    current_layer=(CUSTOM_LAYERS_T)get_highest_layer(layer_state);
+
 #ifdef OLED_VERTICAL
     oled_write_P(PSTR("Lyt:\n"), FALSE);
-    switch (biton32(default_layer_state))
+#else
+    oled_write_P(PSTR("Layout: "), FALSE);
+#endif
+
+    switch (current_layer)
     {
+#ifdef OLED_VERTICAL
         case _COLEMAK:
             oled_write_P(PSTR("Clmak"), FALSE);
             break;
@@ -197,9 +205,6 @@ void render_layout_state(void)
             break;
     }
 #else
-    oled_write_P(PSTR("Layout: "), FALSE);
-    switch (biton32(default_layer_state))
-    {
         case _COLEMAK:
             oled_write_P(PSTR("Colemak"), FALSE);
             break;
@@ -215,8 +220,8 @@ void render_layout_state(void)
         default:
             oled_write_ln_P(PSTR("Undefined"), FALSE);
             break;
-    }
 #endif
+    }
 }
 
 /** @brief displays the current active layer.
@@ -228,61 +233,60 @@ void render_layout_state(void)
  */
 void render_layer_state(void)
 {
-    bool lower;
-    bool raise;
-    bool adjust;
-    bool numpad;
-
-    lower = layer_state_is(_LOWER) & !layer_state_is(_ADJUST);
-    raise = layer_state_is(_RAISE) & !layer_state_is(_ADJUST);
-    adjust = layer_state_is(_ADJUST);
-    numpad = layer_state_is(_NUMPAD);
+    CUSTOM_LAYERS_T current_layer;
+    current_layer=(CUSTOM_LAYERS_T)get_highest_layer(layer_state);
 
 #ifdef OLED_VERTICAL
     oled_write_P(PSTR("\nLyr:\n"), FALSE);
-    if(lower)
-    {
-        oled_write_P(PSTR("Lwr\n"), TRUE);
-    }
-    else if(raise)
-    {
-        oled_write_P(PSTR("Ris\n"), TRUE);
-    }
-    else if(adjust)
-    {
-        oled_write_P(PSTR("Adj\n"), TRUE);
-    }
-    else if(numpad)
-    {
-        oled_write_P(PSTR("Num\n"), TRUE);
-    }
-    else
-    {
-        oled_write_P(PSTR("Def\n"), FALSE);
-    }
 #else
     oled_write_P(PSTR("\nLayer:"), FALSE);
-    if(lower)
-    {
-        oled_write_P(PSTR(" Lower "), TRUE);
-    }
-    else if(raise)
-    {
-        oled_write_P(PSTR(" Raise "), TRUE);
-    }
-    else if(adjust)
-    {
-        oled_write_P(PSTR(" Adjust "), TRUE);
-    }
-    else if(numpad)
-    {
-        oled_write_P(PSTR(" Numpad "), TRUE);
-    }
-    else
-    {
-        oled_write_P(PSTR(" Default"), FALSE);
-    }
 #endif
+
+    switch(current_layer)
+    {
+#ifdef OLED_VERTICAL
+        case _LOWER:
+            oled_write_P(PSTR("Lwr\n"), TRUE);
+            break;
+
+        case _RAISE:
+            oled_write_P(PSTR("Ris\n"), TRUE);
+            break;
+
+        case _ADJUST:
+            oled_write_P(PSTR("Adj\n"), TRUE);
+            break;
+
+        case _NUMPAD:
+            oled_write_P(PSTR("Num\n"), TRUE);
+            break;
+
+        default:
+            oled_write_P(PSTR("Def\n"), FALSE);
+            break;
+
+#else
+        case _LOWER:
+            oled_write_P(PSTR(" Lower "), TRUE);
+            break;
+
+        case _RAISE:
+            oled_write_P(PSTR(" Raise "), TRUE);
+            break;
+
+        case _ADJUST:
+            oled_write_P(PSTR(" Adjust "), TRUE);
+            break;
+
+        case _NUMPAD:
+            oled_write_P(PSTR(" Numpad "), TRUE);
+            break;
+
+        default:
+            oled_write_P(PSTR(" Default "), FALSE);
+            break;
+#endif
+    }
 }
 
 /** @brief displays the current status of the main display/

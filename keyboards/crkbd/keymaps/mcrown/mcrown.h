@@ -22,7 +22,6 @@
 
 #include QMK_KEYBOARD_H
 #include "oled.h"
-#include "rgb.h"
 
 #define KC_XXXXX KC_NO
 #define KC_LOWER LOWER
@@ -98,7 +97,7 @@
 #define   _____________________ADJUST_R2______________________ RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 /* Each layer gets a name for readability */
-enum custom_layers {
+typedef enum custom_layers {
     _QWERTY,
     _DVORAK,
     _COLEMAK,
@@ -107,7 +106,7 @@ enum custom_layers {
     _ADJUST,
     _NUMPAD,
     _MAX_LAYERS
-};
+}CUSTOM_LAYERS_T;
 
 /* To be used to identify the current working layer */
 enum custom_keycodes
