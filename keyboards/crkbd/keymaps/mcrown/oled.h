@@ -17,8 +17,8 @@
  * @author Mario Corona (mariocc@comunidad.unam.mx) 2021
  *
  */
+#pragma once
 
-#include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "mcrown.h"
 
@@ -29,8 +29,6 @@
 #endif
 
 #define KEYLOG_EOL_LEN (KEYLOG_LEN+1)
-
-extern uint8_t is_master;
 
 extern void add_keylog(uint16_t keycode);
 extern void update_log(void);
