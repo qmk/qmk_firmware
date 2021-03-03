@@ -10,7 +10,7 @@ Pizza65 is the first project from Pizza Keyboards: a seamless design 65% top-mou
 
 Make example for this keyboard (after setting up your build environment):
 
-    make pizza65:default
+    make pizzakeyboards/pizza65:default
 
 Flashing example for this keyboard:
 
