@@ -1,8 +1,8 @@
 # より詳細な `make` 手順
 
 <!---
-  original document: 0.9.0:docs/getting_started_make_guide.md
-  git diff 0.9.0 HEAD -- docs/getting_started_make_guide.md | cat
+  original document: 0.10.33:docs/getting_started_make_guide.md
+  git diff 0.10.33 HEAD -- docs/getting_started_make_guide.md | cat
 -->
 
 `make` コマンドの完全な構文は `<keyboard_folder>:<keymap>:<target>` です:
@@ -109,10 +109,6 @@ make コマンド自体にもいくつかの追加オプションがあります
 `AUDIO_ENABLE`
 
 C6 ピン(抽象化が必要)でオーディオ出力できます。詳細は[オーディオページ](ja/feature_audio.md)を見てください。
-
-`FAUXCLICKY_ENABLE`
-
-クリック音のあるスイッチをエミュレートするためにブザーを使います。Cherry社製の青軸スイッチの安っぽい模倣です。デフォルトでは、`AUDIO_ENABLE` と同じように C6 ピンを使います。
 
 `VARIABLE_TRACE`
 

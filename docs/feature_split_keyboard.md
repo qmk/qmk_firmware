@@ -109,6 +109,10 @@ Normally, when a diode is connected to an intersection, it is judged to be left.
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 ```
 
+Note that adding a diode at a previously unused intersection will effectively tell the firmware that there is a key held down at that point. You can instruct qmk to ignore that intersection by defining `MATRIX_MASKED` and then defining a `matrix_row_t matrix_mask[MATRIX_ROWS]` array in your keyboard config. Each bit of a single value (starting form the least-significant bit) is used to tell qmk whether or not to pay attention to key presses at that intersection.
+
+While `MATRIX_MASKED` isn't necessary to use `SPLIT_HAND_MATRIX_GRID` successfully, without it you may experience issues trying to suspend your computer with your keyboard attached as the matrix will always report at least one key-press.
+
 #### Handedness by EEPROM
 
 This method sets the keyboard's handedness by setting a flag in the persistent storage (`EEPROM`).  This is checked when the controller first starts up, and determines what half the keyboard is, and how to orient the keyboard layout. 
@@ -181,6 +185,22 @@ If you're having issues with serial communication, you can change this value, as
 * **`4`**: about 26kbps
 * **`5`**: about 20kbps
 
+```c
+#define SPLIT_MODS_ENABLE
+```
+
+This enables transmitting modifier state (normal, weak and oneshot) to the non
+primary side of the split keyboard.  This adds a few bytes of data to the split
+communication protocol and may impact the matrix scan speed when enabled.
+The purpose of this feature is to support cosmetic use of modifer state (e.g.
+displaying status on an OLED screen).
+
+```c
+#define SPLIT_TRANSPORT_MIRROR
+```
+
+This mirrors the master side matrix to the slave side for features that react or require knowledge of master side key presses on the slave side.  This adds a few bytes of data to the split communication protocol and may impact the matrix scan speed when enabled. The purpose of this feature is to support cosmetic use of key events (e.g. RGB reacting to Keypresses).
+
 ###  Hardware Configuration Options
 
 There are some settings that you may need to configure, based on how the hardware is set up. 
@@ -236,6 +256,26 @@ This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_
 #define SPLIT_USB_TIMEOUT_POLL 10
 ```
 This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
+## Hardware Considerations and Mods
+
+While most any Pro Micro can be used, micro controllers like the AVR Teensys and most (if not all) ARM boards require the Split USB Detect.
+
+However, with the Teensy 2.0 and Teensy++ 2.0, there is a simple hardware mod that you can perform to add VBUS detection, so you don't need the Split USB detection option.
+
+You'll only need a few things:
+
+* A knife (x-acto knife, ideally)
+* A solder station or hot air station
+* An appropriate Schottky diode, such as the [PMEG2005EH](https://www.digikey.com/en/products/detail/nexperia-usa-inc/PMEG2005EH,115/1589924)
+
+You'll need to cut the small trace between the 5V and center pads on the back of the Teensy.
+
+Once you have done that, you will want to solder the diode from the 5V pad to the center pad.
+
+You may need to use the 5V pad from the regulator block above as the pads were too small and placed too closely together to place the Schottky diode properly.
+
+![Teensy++ 2.0](https://i.imgur.com/BPEC5n5.png)
 
 ## Additional Resources
 

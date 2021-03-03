@@ -4,7 +4,6 @@
 #include <avr/interrupt.h>
 #include "matrix.h"
 #include "action.h"
-#include "suspend_avr.h"
 #include "suspend.h"
 #include "timer.h"
 #include "led.h"
@@ -12,6 +11,9 @@
 
 #ifdef PROTOCOL_LUFA
 #    include "lufa.h"
+#endif
+#ifdef PROTOCOL_VUSB
+#    include "vusb.h"
 #endif
 
 #ifdef BACKLIGHT_ENABLE
@@ -24,9 +26,6 @@
 
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
-extern rgblight_config_t rgblight_config;
-static bool              rgblight_enabled;
-static bool              is_suspended;
 #endif
 
 /** \brief Suspend idle
@@ -55,7 +54,25 @@ __attribute__((weak)) void suspend_power_down_user(void) {}
  */
 __attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
 
-#ifndef NO_SUSPEND_POWER_DOWN
+#if !defined(NO_SUSPEND_POWER_DOWN) && defined(WDT_vect)
+
+// clang-format off
+#define wdt_intr_enable(value) \
+__asm__ __volatile__ ( \
+    "in __tmp_reg__,__SREG__" "\n\t" \
+    "cli" "\n\t" \
+    "wdr" "\n\t" \
+    "sts %0,%1" "\n\t" \
+    "out __SREG__,__tmp_reg__" "\n\t" \
+    "sts %0,%2" "\n\t" \
+    : /* no outputs */ \
+    : "M" (_SFR_MEM_ADDR(_WD_CONTROL_REG)), \
+    "r" (_BV(_WD_CHANGE_BIT) | _BV(WDE)), \
+    "r" ((uint8_t) ((value & 0x08 ? _WD_PS3_MASK : 0x00) | _BV(WDIE) | (value & 0x07))) \
+    : "r0" \
+)
+// clang-format on
+
 /** \brief Power down MCU with watchdog timer
  *
  * wdto: watchdog timer timeout defined in <avr/wdt.h>
@@ -77,41 +94,10 @@ static uint8_t wdt_timeout = 0;
  * FIXME: needs doc
  */
 static void power_down(uint8_t wdto) {
-#    ifdef PROTOCOL_LUFA
-    if (USB_DeviceState == DEVICE_STATE_Configured) return;
-#    endif
     wdt_timeout = wdto;
 
     // Watchdog Interrupt Mode
     wdt_intr_enable(wdto);
-
-#    ifdef BACKLIGHT_ENABLE
-    backlight_set(0);
-#    endif
-
-    // Turn off LED indicators
-    uint8_t leds_off = 0;
-#    if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
-    if (is_backlight_enabled()) {
-        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
-        leds_off |= (1 << USB_LED_CAPS_LOCK);
-    }
-#    endif
-    led_set(leds_off);
-
-#    ifdef AUDIO_ENABLE
-    // This sometimes disables the start-up noise, so it's been disabled
-    // stop_all_notes();
-#    endif /* AUDIO_ENABLE */
-#    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-    rgblight_timer_disable();
-    if (!is_suspended) {
-        is_suspended     = true;
-        rgblight_enabled = rgblight_config.enable;
-        rgblight_disable_noeeprom();
-    }
-#    endif
-    suspend_power_down_kb();
 
     // TODO: more power saving
     // See PicoPower application note
@@ -135,10 +121,45 @@ static void power_down(uint8_t wdto) {
  * FIXME: needs doc
  */
 void suspend_power_down(void) {
+#ifdef PROTOCOL_LUFA
+    if (USB_DeviceState == DEVICE_STATE_Configured) return;
+#endif
+#ifdef PROTOCOL_VUSB
+    if (!vusb_suspended) return;
+#endif
+
     suspend_power_down_kb();
 
 #ifndef NO_SUSPEND_POWER_DOWN
+    // Turn off backlight
+#    ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
+#    endif
+
+    // Turn off LED indicators
+    uint8_t leds_off = 0;
+#    if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+    if (is_backlight_enabled()) {
+        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+        leds_off |= (1 << USB_LED_CAPS_LOCK);
+    }
+#    endif
+    led_set(leds_off);
+
+    // Turn off audio
+#    ifdef AUDIO_ENABLE
+    stop_all_notes();
+#    endif
+
+    // Turn off underglow
+#    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_suspend();
+#    endif
+
+    // Enter sleep state if possible (ie, the MCU has a watchdog timeout interrupt)
+#    if defined(WDT_vect)
     power_down(WDTO_15MS);
+#    endif
 #endif
 }
 
@@ -165,6 +186,7 @@ __attribute__((weak)) void suspend_wakeup_init_user(void) {}
  * FIXME: needs doc
  */
 __attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
+
 /** \brief run immediately after wakeup
  *
  * FIXME: needs doc
@@ -172,24 +194,24 @@ __attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_us
 void suspend_wakeup_init(void) {
     // clear keyboard state
     clear_keyboard();
+
+    // Turn on backlight
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
+
+    // Restore LED indicators
     led_set(host_keyboard_leds());
+
+    // Wake up underglow
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-    is_suspended = false;
-    if (rgblight_enabled) {
-#    ifdef BOOTLOADER_TEENSY
-        wait_ms(10);
-#    endif
-        rgblight_enable_noeeprom();
-    }
-    rgblight_timer_enable();
+    rgblight_wakeup();
 #endif
+
     suspend_wakeup_init_kb();
 }
 
-#ifndef NO_SUSPEND_POWER_DOWN
+#if !defined(NO_SUSPEND_POWER_DOWN) && defined(WDT_vect)
 /* watchdog timeout */
 ISR(WDT_vect) {
     // compensate timer for sleep

@@ -20,7 +20,7 @@
 
 #include "quantum.h"
 #include "spi_master.h"
-#include "pmw3600.h"
+#include "pmw3360.h"
 #include "analog.h"
 #include "opt_encoder.h"
 #include "pointing_device.h"
@@ -38,3 +38,27 @@ void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
 
 #define LAYOUT(BLL, BL, BM, BR, BRR, BF, BB, BDPI) \
     { {BL, BM, BR, BF, BB, BRR, BLL, BDPI}, }
+
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t    dpi_config;
+  };
+} keyboard_config_t;
+
+extern keyboard_config_t keyboard_config;
+extern uint16_t          dpi_array[];
+
+enum ploopy_keycodes {
+#ifdef VIA_ENABLE
+    DPI_CONFIG = USER00,
+#else
+    DPI_CONFIG = SAFE_RANGE,
+#endif
+    DRAG_SCROLL,
+#ifdef VIA_ENABLE
+    PLOOPY_SAFE_RANGE = SAFE_RANGE,
+#else
+    PLOOPY_SAFE_RANGE,
+#endif
+};

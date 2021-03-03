@@ -25,7 +25,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   	0x0001
 #define MANUFACTURER    idb Keyboards
 #define PRODUCT         idb 60
-#define DESCRIPTION     QMK keyboard firmware for idb 60
 
 #define VIAL_KEYBOARD_UID { 0x7F, 0x0D, 0x87, 0x47, 0x88, 0xEF, 0x8E, 0xD7 }
 

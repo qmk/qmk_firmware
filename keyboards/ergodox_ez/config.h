@@ -1,6 +1,8 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2015 ZSA Technology Labs Inc (@zsa)
+Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,10 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1307
+#define VENDOR_ID       0x3297
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ZSA Technology Labs Inc
+#define MANUFACTURER    ZSA Technology Labs
+#define PRODUCT_ID      0x4974
 #define PRODUCT         ErgoDox EZ
 
 /* key matrix size */
@@ -115,7 +117,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * manufacturer specs.
  */
 
-#define USB_MAX_POWER_CONSUMPTION 500
 
 // RGB backlight
 #define DRIVER_ADDR_1 0b1110100
@@ -154,6 +155,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 //#define DEBUG_MATRIX_SCAN_RATE

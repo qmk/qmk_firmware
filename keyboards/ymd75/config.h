@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    YMDK
 #define PRODUCT         YMD75 / MT84
 
-#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
 
 #define RGB_DI_PIN E2
@@ -36,3 +35,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15
 #define RGBLIGHT_VAL_STEP 18
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3

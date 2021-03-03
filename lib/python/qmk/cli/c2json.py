@@ -1,12 +1,12 @@
 """Generate a keymap.json from a keymap.c file.
 """
 import json
-import sys
 
 from milc import cli
 
 import qmk.keymap
 import qmk.path
+from qmk.info_json_encoder import InfoJSONEncoder
 
 
 @cli.argument('--no-cpp', arg_only=True, action='store_false', help='Do not use \'cpp\' on keymap.c')
@@ -21,19 +21,14 @@ def c2json(cli):
 
     This command uses the `qmk.keymap` module to generate a keymap.json from a keymap.c file. The generated keymap is written to stdout, or to a file if -o is provided.
     """
-    cli.args.filename = qmk.path.normpath(cli.args.filename)
+    if cli.args.filename != '-':
+        cli.args.filename = qmk.path.normpath(cli.args.filename)
 
-    # Error checking
-    if not cli.args.filename.exists():
-        cli.log.error('C file does not exist!')
-        cli.print_usage()
-        exit(1)
-
-    if str(cli.args.filename) == '-':
-        # TODO(skullydazed/anyone): Read file contents from STDIN
-        cli.log.error('Reading from STDIN is not (yet) supported.')
-        cli.print_usage()
-        exit(1)
+        # Error checking
+        if not cli.args.filename.exists():
+            cli.log.error('C file does not exist!')
+            cli.print_usage()
+            return False
 
     # Environment processing
     if cli.args.output == ('-'):
@@ -44,16 +39,16 @@ def c2json(cli):
 
     # Generate the keymap.json
     try:
-        keymap_json = qmk.keymap.generate(keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'], type='json', keymap=keymap_json['keymap'])
+        keymap_json = qmk.keymap.generate_json(keymap_json['keymap'], keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'])
     except KeyError:
         cli.log.error('Something went wrong. Try to use --no-cpp.')
-        sys.exit(1)
+        return False
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
-            cli.args.output.replace(cli.args.output.name + '.bak')
-        cli.args.output.write_text(json.dumps(keymap_json))
+            cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
+        cli.args.output.write_text(json.dumps(keymap_json, cls=InfoJSONEncoder))
 
         if not cli.args.quiet:
             cli.log.info('Wrote keymap to %s.', cli.args.output)

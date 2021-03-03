@@ -1,42 +1,28 @@
-# Sendy YK's 60% ANSI Arrow Layout and Keymap
+# 60 ANSI Arrow Keymap by [Sendy YK](https://mr.sendyyk.com)
 
-60% ANSI Arrow keyboard layout and keymap with RGB lighting/LED/underglow as Caps Lock, Num Lock, Scroll Lock, and layer indicator by [Sendy YK](https://mr.sendyyk.com).
+With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator.
 
-## 60% ANSI Arrow Layout
+## Default Layer
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_base.png)
 
-## Keymap
+## Fn Layer
 
-### Default Layer
+![_FN](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_fn.png)
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
+## RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
-### Fn Layer 1
-
-Press and hold *right* **Ctrl** key.
-
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
-
-### Fn Layer 2
-
-Press and hold *right* **Alt** key.
-
-![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
-
-### RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
-
-#### Caps Lock Indicator
+### Caps Lock Indicator
 
 ```c
     // Caps Lock Indicator
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         writePinLow(B2);
-        rgblight_setrgb(100, 255, 100);
+        rgblight_setrgb(255, 110, 0);
     }
 ```
 
-#### Num Lock Indicator
+### Num Lock Indicator
 
 ```c
     // Num Lock Indicator
@@ -45,31 +31,27 @@ Press and hold *right* **Alt** key.
     }
 ```
 
-#### Scroll Lock Indicator
+### Scroll Lock Indicator
 ```c
     // Scroll Lock Indicator
     if (host_keyboard_led_state().scroll_lock) {
-        rgblight_setrgb(255, 110, 0);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 2);
     }
 ```
 
-#### Layer Indicator
+### Layer Indicator
 
 ```c
     // Layer Indicator
     else {
         switch (get_highest_layer(layer_state)) {
-            // Fn Layer 1 Indicator
+            // Fn Layer Indicator
             case _FN:
-                rgblight_setrgb(100, 255, 100);
-                break;
-            // Fn Layer 2 Indicator
-            case _SETTINGS:
-                rgblight_setrgb(100, 255, 100);
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 1);
                 break;
             // Default Layer Indicator
             case _BASE:
-                rgblight_setrgb(0, 0, 0);
+                rgblight_setrgb(100, 255, 100);
                 break;
         }
         update_led();

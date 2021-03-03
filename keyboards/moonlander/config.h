@@ -1,6 +1,6 @@
 /* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
  * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
- * Copyright 2020 Drashna Jael're  <drashna@live.com>
+ * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,3 +101,7 @@
 #    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 16383
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 32
 #endif
+
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE

@@ -11,7 +11,8 @@ If you want to use single color LED's you should use the [LED Matrix Subsystem](
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = IS31FL3731
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3731
 ```
 
 Configure the hardware via your `config.h`:
@@ -52,7 +53,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
 
 ---
 ### IS31FL3733/IS31FL3737 :id=is31fl3733is31fl3737
@@ -62,7 +63,8 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = IS31FL3733
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3733
 ```
 
 Configure the hardware via your `config.h`:
@@ -103,7 +105,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
 
 ---
 
@@ -112,7 +114,8 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = WS2812
 ```
 
 Configure the hardware via your `config.h`:
@@ -120,6 +123,28 @@ Configure the hardware via your `config.h`:
 ```c
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN D7
+// The number of LEDs connected
+#define DRIVER_LED_TOTAL 70
+```
+
+---
+
+### APA102 :id=apa102
+
+There is basic support for APA102 based addressable LED strands. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = APA102
+```
+
+Configure the hardware via your `config.h`:
+
+```c
+// The pin connected to the data pin of the LEDs
+#define RGB_DI_PIN D7
+// The pin connected to the clock pin of the LEDs
+#define RGB_CI_PIN D6
 // The number of LEDs connected
 #define DRIVER_LED_TOTAL 70
 ```
@@ -293,6 +318,19 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`              |Disables `RGB_MATRIX_SOLID_SPLASH`             |
 |`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Disables `RGB_MATRIX_SOLID_MULTISPLASH`        |
 
+### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
+
+This effect will color the RGB matrix according to a heatmap of recently pressed
+keys. Whenever a key is pressed its "temperature" increases as well as that of
+its neighboring keys. The temperature of each key is then decreased
+automatically every 25 milliseconds by default.
+
+In order to change the delay of temperature decrease define
+`RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
+```
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
 
@@ -302,6 +340,12 @@ To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks somethi
 
 `rgb_matrix_user.inc` should go in the root of the keymap directory.
 `rgb_matrix_kb.inc` should go in the root of the keyboard directory.
+
+To use custom effects in your code, simply prepend `RGB_MATRIX_CUSTOM_` to the effect name specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
+
+```c
+rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
+```
 
 ```c
 // !!! DO NOT ADD #pragma once !!! //
@@ -479,6 +523,14 @@ If you want to set custom indicators, such as an LED for Caps Lock, or layer ind
 ```c
 void rgb_matrix_indicators_kb(void) {
     rgb_matrix_set_color(index, red, green, blue);
+}
+```
+
+In addition, there are the advanced indicator functions.  These are aimed at those with heavily customized displays, where rendering every LED per cycle is expensive.  Such as some of the "drashna" layouts.  This includes a special macro to help make this easier to use: `RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b)`.
+
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
 }
 ```
 

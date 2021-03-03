@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 #include "serial_link/system/serial_link.h"
 #ifdef VISUALIZER_ENABLE
 #include "lcd_backlight.h"

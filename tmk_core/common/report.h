@@ -34,12 +34,16 @@ enum hid_report_ids {
 };
 
 /* Mouse buttons */
+#define MOUSE_BTN_MASK(n) (1 << (n))
 enum mouse_buttons {
-    MOUSE_BTN1 = (1 << 0),
-    MOUSE_BTN2 = (1 << 1),
-    MOUSE_BTN3 = (1 << 2),
-    MOUSE_BTN4 = (1 << 3),
-    MOUSE_BTN5 = (1 << 4)
+    MOUSE_BTN1 = MOUSE_BTN_MASK(0),
+    MOUSE_BTN2 = MOUSE_BTN_MASK(1),
+    MOUSE_BTN3 = MOUSE_BTN_MASK(2),
+    MOUSE_BTN4 = MOUSE_BTN_MASK(3),
+    MOUSE_BTN5 = MOUSE_BTN_MASK(4),
+    MOUSE_BTN6 = MOUSE_BTN_MASK(5),
+    MOUSE_BTN7 = MOUSE_BTN_MASK(6),
+    MOUSE_BTN8 = MOUSE_BTN_MASK(7)
 };
 
 /* Consumer Page (0x0C)
@@ -123,12 +127,6 @@ enum desktop_usages {
 
 #define KEYBOARD_REPORT_KEYS 6
 
-/* VUSB hardcodes keyboard and mouse+extrakey only */
-#if defined(PROTOCOL_VUSB)
-#    undef KEYBOARD_SHARED_EP
-#    undef MOUSE_SHARED_EP
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -192,7 +190,11 @@ typedef struct {
 
 typedef struct {
 #if JOYSTICK_AXES_COUNT > 0
+#    if JOYSTICK_AXES_RESOLUTION > 8
+    int16_t axes[JOYSTICK_AXES_COUNT];
+#    else
     int8_t axes[JOYSTICK_AXES_COUNT];
+#    endif
 #endif
 
 #if JOYSTICK_BUTTON_COUNT > 0

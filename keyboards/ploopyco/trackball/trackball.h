@@ -20,10 +20,15 @@
 
 #include "quantum.h"
 #include "spi_master.h"
-#include "pmw3600.h"
+#include "pmw3360.h"
 #include "analog.h"
 #include "opt_encoder.h"
 #include "pointing_device.h"
+#if defined(KEYBOARD_ploopyco_trackball_rev1)
+#    include "rev1.h"
+#elif defined(KEYBOARD_ploopyco_trackball_rev1_005)
+#    include "rev1_005.h"
+#endif
 
 // Sensor defs
 #define OPT_ENC1 F0
@@ -38,3 +43,27 @@ void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
 
 #define LAYOUT(BL, BM, BR, BF, BB) \
     { {BL, BM, BR, BF, BB}, }
+
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t dpi_config;
+    };
+} keyboard_config_t;
+
+extern keyboard_config_t keyboard_config;
+extern uint16_t          dpi_array[];
+
+enum ploopy_keycodes {
+#ifdef VIA_ENABLE
+    DPI_CONFIG = USER00,
+#else
+    DPI_CONFIG = SAFE_RANGE,
+#endif
+    DRAG_SCROLL,
+#ifdef VIA_ENABLE
+    PLOOPY_SAFE_RANGE = SAFE_RANGE,
+#else
+    PLOOPY_SAFE_RANGE,
+#endif
+};

@@ -81,7 +81,7 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
 ?> If you installed MSYS2 to a different folder, then you'll need to change the path for `terminal.integrated.shell.windows` to the correct path for your system. 
 
-4. Hit Ctrl-`\`` (Grave) to bring up the terminal or go to <kbd><kbd>View</kbd> > <kbd>Terminal</kbd></kbd> (command `workbench.action.terminal.toggleTerminal`). A new terminal will be opened if there isn‘t one already.
+4. Hit Ctrl-<code>&#96;</code> (Grave) to bring up the terminal or go to <kbd><kbd>View</kbd> > <kbd>Terminal</kbd></kbd> (command `workbench.action.terminal.toggleTerminal`). A new terminal will be opened if there isn‘t one already.
 
    This should start the terminal in the workspace's folder (so the `qmk_firmware` folder), and then you can compile your keyboard. 
 

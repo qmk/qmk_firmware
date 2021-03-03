@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ctype.h>
 #include "quantum.h"
 
 #ifdef BLUETOOTH_ENABLE
@@ -23,11 +22,6 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
-extern backlight_config_t backlight_config;
-#endif
-
-#ifdef FAUXCLICKY_ENABLE
-#    include "fauxclicky.h"
 #endif
 
 #ifdef API_ENABLE
@@ -61,6 +55,10 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    ifdef SENDSTRING_BELL
 float bell_song[][2] = SONG(TERMINAL_SOUND);
 #    endif
+#endif
+
+#ifdef AUTO_SHIFT_ENABLE
+#    include "process_auto_shift.h"
 #endif
 
 static void do_code16(uint16_t code, void (*f)(uint8_t)) {
@@ -226,13 +224,13 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef HAPTIC_ENABLE
             process_haptic(keycode, record) &&
 #endif  // HAPTIC_ENABLE
-#if defined(RGB_MATRIX_ENABLE)
-            process_rgb_matrix(keycode, record) &&
-#endif
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
             process_record_kb(keycode, record) &&
+#if defined(SEQUENCER_ENABLE)
+            process_sequencer(keycode, record) &&
+#endif
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
             process_midi(keycode, record) &&
 #endif
@@ -308,17 +306,6 @@ bool process_record_quantum(keyrecord_t *record) {
             case EEPROM_RESET:
                 eeconfig_init();
                 return false;
-#ifdef FAUXCLICKY_ENABLE
-            case FC_TOG:
-                FAUXCLICKY_TOGGLE;
-                return false;
-            case FC_ON:
-                FAUXCLICKY_ON;
-                return false;
-            case FC_OFF:
-                FAUXCLICKY_OFF;
-                return false;
-#endif
 #ifdef VELOCIKEY_ENABLE
             case VLK_TOG:
                 velocikey_toggle();
@@ -339,210 +326,6 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 
     return process_action_kb(record);
-}
-
-// clang-format off
-
-/* Bit-Packed look-up table to convert an ASCII character to whether
- * [Shift] needs to be sent with the keycode.
- */
-__attribute__((weak)) const uint8_t ascii_to_shift_lut[16] PROGMEM = {
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-
-    KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 0),
-    KCLUT_ENTRY(1, 1, 1, 1, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 1, 0, 1, 0, 1, 1),
-    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
-    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
-    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
-    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 1, 1),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0),
-};
-
-/* Bit-Packed look-up table to convert an ASCII character to whether
- * [AltGr] needs to be sent with the keycode.
- */
-__attribute__((weak)) const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-};
-
-/* Look-up table to convert an ASCII character to a keycode.
- */
-__attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
-    // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    // BS    TAB      LF       VT       FF       CR       SO       SI
-    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    // DLE   DC1      DC2      DC3      DC4      NAK      SYN      ETB
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    // CAN   EM       SUB      ESC      FS       GS       RS       US
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-
-    //       !        "        #        $        %        &        '
-    KC_SPC,  KC_1,    KC_QUOT, KC_3,    KC_4,    KC_5,    KC_7,    KC_QUOT,
-    // (     )        *        +        ,        -        .        /
-    KC_9,    KC_0,    KC_8,    KC_EQL,  KC_COMM, KC_MINS, KC_DOT,  KC_SLSH,
-    // 0     1        2        3        4        5        6        7
-    KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
-    // 8     9        :        ;        <        =        >        ?
-    KC_8,    KC_9,    KC_SCLN, KC_SCLN, KC_COMM, KC_EQL,  KC_DOT,  KC_SLSH,
-    // @     A        B        C        D        E        F        G
-    KC_2,    KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
-    // H     I        J        K        L        M        N        O
-    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
-    // P     Q        R        S        T        U        V        W
-    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
-    // X     Y        Z        [        \        ]        ^        _
-    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    KC_MINS,
-    // `     a        b        c        d        e        f        g
-    KC_GRV,  KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
-    // h     i        j        k        l        m        n        o
-    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
-    // p     q        r        s        t        u        v        w
-    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
-    // x     y        z        {        |        }        ~        DEL
-    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
-};
-
-// clang-format on
-
-// Note: we bit-pack in "reverse" order to optimize loading
-#define PGM_LOADBIT(mem, pos) ((pgm_read_byte(&((mem)[(pos) / 8])) >> ((pos) % 8)) & 0x01)
-
-void send_string(const char *str) { send_string_with_delay(str, 0); }
-
-void send_string_P(const char *str) { send_string_with_delay_P(str, 0); }
-
-void send_string_with_delay(const char *str, uint8_t interval) {
-    while (1) {
-        char ascii_code = *str;
-        if (!ascii_code) break;
-        if (ascii_code == SS_QMK_PREFIX) {
-            ascii_code = *(++str);
-            if (ascii_code == SS_TAP_CODE) {
-                // tap
-                uint8_t keycode = *(++str);
-                tap_code(keycode);
-            } else if (ascii_code == SS_DOWN_CODE) {
-                // down
-                uint8_t keycode = *(++str);
-                register_code(keycode);
-            } else if (ascii_code == SS_UP_CODE) {
-                // up
-                uint8_t keycode = *(++str);
-                unregister_code(keycode);
-            } else if (ascii_code == SS_DELAY_CODE) {
-                // delay
-                int     ms      = 0;
-                uint8_t keycode = *(++str);
-                while (isdigit(keycode)) {
-                    ms *= 10;
-                    ms += keycode - '0';
-                    keycode = *(++str);
-                }
-                while (ms--) wait_ms(1);
-            }
-        } else {
-            send_char(ascii_code);
-        }
-        ++str;
-        // interval
-        {
-            uint8_t ms = interval;
-            while (ms--) wait_ms(1);
-        }
-    }
-}
-
-void send_string_with_delay_P(const char *str, uint8_t interval) {
-    while (1) {
-        char ascii_code = pgm_read_byte(str);
-        if (!ascii_code) break;
-        if (ascii_code == SS_QMK_PREFIX) {
-            ascii_code = pgm_read_byte(++str);
-            if (ascii_code == SS_TAP_CODE) {
-                // tap
-                uint8_t keycode = pgm_read_byte(++str);
-                tap_code(keycode);
-            } else if (ascii_code == SS_DOWN_CODE) {
-                // down
-                uint8_t keycode = pgm_read_byte(++str);
-                register_code(keycode);
-            } else if (ascii_code == SS_UP_CODE) {
-                // up
-                uint8_t keycode = pgm_read_byte(++str);
-                unregister_code(keycode);
-            } else if (ascii_code == SS_DELAY_CODE) {
-                // delay
-                int     ms      = 0;
-                uint8_t keycode = pgm_read_byte(++str);
-                while (isdigit(keycode)) {
-                    ms *= 10;
-                    ms += keycode - '0';
-                    keycode = pgm_read_byte(++str);
-                }
-                while (ms--) wait_ms(1);
-            }
-        } else {
-            send_char(ascii_code);
-        }
-        ++str;
-        // interval
-        {
-            uint8_t ms = interval;
-            while (ms--) wait_ms(1);
-        }
-    }
-}
-
-void send_char(char ascii_code) {
-#if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
-    if (ascii_code == '\a') {  // BEL
-        PLAY_SONG(bell_song);
-        return;
-    }
-#endif
-
-    uint8_t keycode    = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
-    bool    is_shifted = PGM_LOADBIT(ascii_to_shift_lut, (uint8_t)ascii_code);
-    bool    is_altgred = PGM_LOADBIT(ascii_to_altgr_lut, (uint8_t)ascii_code);
-
-    if (is_shifted) {
-        register_code(KC_LSFT);
-    }
-    if (is_altgred) {
-        register_code(KC_RALT);
-    }
-    tap_code(keycode);
-    if (is_altgred) {
-        unregister_code(KC_RALT);
-    }
-    if (is_shifted) {
-        unregister_code(KC_LSFT);
-    }
 }
 
 void set_single_persistent_default_layer(uint8_t default_layer) {
@@ -569,32 +352,22 @@ void tap_random_base64(void) {
 #endif
     switch (key) {
         case 0 ... 25:
-            register_code(KC_LSFT);
-            register_code(key + KC_A);
-            unregister_code(key + KC_A);
-            unregister_code(KC_LSFT);
+            send_char(key + 'A');
             break;
         case 26 ... 51:
-            register_code(key - 26 + KC_A);
-            unregister_code(key - 26 + KC_A);
+            send_char(key - 26 + 'a');
             break;
         case 52:
-            register_code(KC_0);
-            unregister_code(KC_0);
+            send_char('0');
             break;
         case 53 ... 61:
-            register_code(key - 53 + KC_1);
-            unregister_code(key - 53 + KC_1);
+            send_char(key - 53 + '1');
             break;
         case 62:
-            register_code(KC_LSFT);
-            register_code(KC_EQL);
-            unregister_code(KC_EQL);
-            unregister_code(KC_LSFT);
+            send_char('+');
             break;
         case 63:
-            register_code(KC_SLSH);
-            unregister_code(KC_SLSH);
+            send_char('/');
             break;
     }
 }
@@ -606,6 +379,10 @@ void matrix_init_quantum() {
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
+#if defined(LED_NUM_LOCK_PIN) || defined(LED_CAPS_LOCK_PIN) || defined(LED_SCROLL_LOCK_PIN) || defined(LED_COMPOSE_PIN) || defined(LED_KANA_PIN)
+    // TODO: remove calls to led_init_ports from keyboards and remove ifdef
+    led_init_ports();
+#endif
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
     led_matrix_init();
@@ -633,8 +410,32 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
+#if defined(AUDIO_ENABLE)
+    // There are some tasks that need to be run a little bit
+    // after keyboard startup, or else they will not work correctly
+    // because of interaction with the USB device state, which
+    // may still be in flux...
+    //
+    // At the moment the only feature that needs this is the
+    // startup song.
+    static bool     delayed_tasks_run  = false;
+    static uint16_t delayed_task_timer = 0;
+    if (!delayed_tasks_run) {
+        if (!delayed_task_timer) {
+            delayed_task_timer = timer_read();
+        } else if (timer_elapsed(delayed_task_timer) > 300) {
+            audio_startup();
+            delayed_tasks_run = true;
+        }
+    }
+#endif
+
 #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
+#endif
+
+#ifdef SEQUENCER_ENABLE
+    matrix_scan_sequencer();
 #endif
 
 #ifdef TAP_DANCE_ENABLE
@@ -649,10 +450,6 @@ void matrix_scan_quantum() {
     led_matrix_task();
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_task();
-#endif
-
 #ifdef WPM_ENABLE
     decay_wpm();
 #endif
@@ -663,6 +460,10 @@ void matrix_scan_quantum() {
 
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_read(false);
+#endif
+
+#ifdef AUTO_SHIFT_ENABLE
+    autoshift_matrix_scan();
 #endif
 
     matrix_scan_kb();
@@ -693,22 +494,7 @@ void send_byte(uint8_t number) {
     send_nibble(number & 0xF);
 }
 
-void send_nibble(uint8_t number) {
-    switch (number) {
-        case 0:
-            register_code(KC_0);
-            unregister_code(KC_0);
-            break;
-        case 1 ... 9:
-            register_code(KC_1 + (number - 1));
-            unregister_code(KC_1 + (number - 1));
-            break;
-        case 0xA ... 0xF:
-            register_code(KC_A + (number - 0xA));
-            unregister_code(KC_A + (number - 0xA));
-            break;
-    }
-}
+void send_nibble(uint8_t number) { tap_code16(hex_to_keycode(number)); }
 
 __attribute__((weak)) uint16_t hex_to_keycode(uint8_t hex) {
     hex = hex & 0xF;
@@ -729,55 +515,6 @@ void api_send_unicode(uint32_t unicode) {
 #endif
 }
 
-/** \brief Lock LED set callback - keymap/user level
- *
- * \deprecated Use led_update_user() instead.
- */
-__attribute__((weak)) void led_set_user(uint8_t usb_led) {}
-
-/** \brief Lock LED set callback - keyboard level
- *
- * \deprecated Use led_update_kb() instead.
- */
-__attribute__((weak)) void led_set_kb(uint8_t usb_led) { led_set_user(usb_led); }
-
-/** \brief Lock LED update callback - keymap/user level
- *
- * \return True if led_update_kb() should run its own code, false otherwise.
- */
-__attribute__((weak)) bool led_update_user(led_t led_state) { return true; }
-
-/** \brief Lock LED update callback - keyboard level
- *
- * \return Ignored for now.
- */
-__attribute__((weak)) bool led_update_kb(led_t led_state) { return led_update_user(led_state); }
-
-__attribute__((weak)) void led_init_ports(void) {}
-
-__attribute__((weak)) void led_set(uint8_t usb_led) {
-#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
-    // Use backlight as Caps Lock indicator
-    uint8_t bl_toggle_lvl = 0;
-
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) && !backlight_config.enable) {
-        // Turning Caps Lock ON and backlight is disabled in config
-        // Toggling backlight to the brightest level
-        bl_toggle_lvl = BACKLIGHT_LEVELS;
-    } else if (IS_LED_OFF(usb_led, USB_LED_CAPS_LOCK) && backlight_config.enable) {
-        // Turning Caps Lock OFF and backlight is enabled in config
-        // Toggling backlight and restoring config level
-        bl_toggle_lvl = backlight_config.level;
-    }
-
-    // Set level without modify backlight_config to keep ability to restore state
-    backlight_set(bl_toggle_lvl);
-#endif
-
-    led_set_kb(usb_led);
-    led_update_kb((led_t)usb_led);
-}
-
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
@@ -785,5 +522,3 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
 __attribute__((weak)) void startup_user() {}
 
 __attribute__((weak)) void shutdown_user() {}
-
-//------------------------------------------------------------------------------

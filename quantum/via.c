@@ -412,16 +412,12 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 dynamic_keymap_set_buffer(offset, size, &command_data[3]);
             break;
         }
-        case id_eeprom_reset: {
-            via_eeprom_reset();
-            break;
-        }
+#if defined(VIAL_ENABLED) && !defined(VIAL_INSECURE)
+        /* As VIA removed bootloader jump entirely, we shall only keep it for secure builds */
         case id_bootloader_jump: {
-#ifdef VIAL_ENABLE
             /* Until keyboard is unlocked, don't allow jumping to bootloader */
             if (!vial_unlocked)
                 goto skip;
-#endif
             // Need to send data back before the jump
             // Informs host that the command is handled
             raw_hid_send(data, length);
@@ -430,6 +426,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             bootloader_jump();
             break;
         }
+#endif
 #ifdef VIAL_ENABLE
         case id_vial_prefix: {
             vial_handle_cmd(data, length);

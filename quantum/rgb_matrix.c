@@ -23,13 +23,15 @@
 #include <string.h>
 #include <math.h>
 
-#include "lib/lib8tion/lib8tion.h"
+#include <lib/lib8tion/lib8tion.h>
 
 #ifndef RGB_MATRIX_CENTER
 const point_t k_rgb_matrix_center = {112, 32};
 #else
 const point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 #endif
+
+__attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
 
 // Generic effect runners
 #include "rgb_matrix_runners/effect_runner_dx_dy_dist.h"
@@ -182,11 +184,12 @@ void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) { rgb_matrix_driver.set_color_all(red, green, blue); }
 
-bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
+void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
+#ifndef RGB_MATRIX_SPLIT
+    if (!is_keyboard_master()) return;
+#endif
 #if RGB_DISABLE_TIMEOUT > 0
-    if (record->event.pressed) {
-        rgb_anykey_timer = 0;
-    }
+    rgb_anykey_timer = 0;
 #endif  // RGB_DISABLE_TIMEOUT > 0
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
@@ -194,12 +197,12 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     uint8_t led_count = 0;
 
 #    if defined(RGB_MATRIX_KEYRELEASES)
-    if (!record->event.pressed)
+    if (!pressed)
 #    elif defined(RGB_MATRIX_KEYPRESSES)
-    if (record->event.pressed)
+    if (pressed)
 #    endif  // defined(RGB_MATRIX_KEYRELEASES)
     {
-        led_count = rgb_matrix_map_row_column_to_led(record->event.key.row, record->event.key.col, led);
+        led_count = rgb_matrix_map_row_column_to_led(row, col, led);
     }
 
     if (last_hit_buffer.count + led_count > LED_HITS_TO_REMEMBER) {
@@ -222,11 +225,9 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
     if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
-        process_rgb_matrix_typing_heatmap(record);
+        process_rgb_matrix_typing_heatmap(row, col);
     }
 #endif  // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
-
-    return true;
 }
 
 void rgb_matrix_test(void) {
@@ -264,9 +265,9 @@ static bool rgb_matrix_none(effect_params_t *params) {
 
 static void rgb_task_timers(void) {
 #if defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_DISABLE_TIMEOUT > 0
-    uint32_t deltaTime = timer_elapsed32(rgb_timer_buffer);
+    uint32_t deltaTime = sync_timer_elapsed32(rgb_timer_buffer);
 #endif  // defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_DISABLE_TIMEOUT > 0
-    rgb_timer_buffer = timer_read32();
+    rgb_timer_buffer = sync_timer_read32();
 
     // Update double buffer timers
 #if RGB_DISABLE_TIMEOUT > 0
@@ -294,7 +295,7 @@ static void rgb_task_timers(void) {
 
 static void rgb_task_sync(void) {
     // next task
-    if (timer_elapsed32(g_rgb_timer) >= RGB_MATRIX_LED_FLUSH_LIMIT) rgb_task_state = STARTING;
+    if (sync_timer_elapsed32(g_rgb_timer) >= RGB_MATRIX_LED_FLUSH_LIMIT) rgb_task_state = STARTING;
 }
 
 static void rgb_task_start(void) {
@@ -401,6 +402,10 @@ void rgb_matrix_task(void) {
             break;
         case RENDERING:
             rgb_task_render(effect);
+            if (effect) {
+                rgb_matrix_indicators();
+                rgb_matrix_indicators_advanced(&rgb_effect_params);
+            }
             break;
         case FLUSHING:
             rgb_task_flush(effect);
@@ -408,10 +413,6 @@ void rgb_matrix_task(void) {
         case SYNCING:
             rgb_task_sync();
             break;
-    }
-
-    if (!suspend_backlight) {
-        rgb_matrix_indicators();
     }
 }
 
@@ -423,6 +424,28 @@ void rgb_matrix_indicators(void) {
 __attribute__((weak)) void rgb_matrix_indicators_kb(void) {}
 
 __attribute__((weak)) void rgb_matrix_indicators_user(void) {}
+
+void rgb_matrix_indicators_advanced(effect_params_t *params) {
+    /* special handling is needed for "params->iter", since it's already been incremented.
+     * Could move the invocations to rgb_task_render, but then it's missing a few checks
+     * and not sure which would be better. Otherwise, this should be called from
+     * rgb_task_render, right before the iter++ line.
+     */
+#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
+    uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
+    uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;
+    if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#else
+    uint8_t min = 0;
+    uint8_t max = DRIVER_LED_TOTAL;
+#endif
+    rgb_matrix_indicators_advanced_kb(min, max);
+    rgb_matrix_indicators_advanced_user(min, max);
+}
+
+__attribute__((weak)) void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {}
+
+__attribute__((weak)) void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {}
 
 void rgb_matrix_init(void) {
     rgb_matrix_driver.init();
