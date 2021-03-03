@@ -315,7 +315,7 @@ uint8_t oled_get_brightness(void);
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);
 
-// Called at the start of oled_task, weak function overridable by the user
+// Function to be implemented by the user, called at the start of the oled_task.
 void oled_task_user(void);
 
 // Set the specific 8 lines rows of the screen to scroll.
