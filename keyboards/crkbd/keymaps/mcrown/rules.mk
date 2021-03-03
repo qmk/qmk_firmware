@@ -25,5 +25,4 @@ SLEEP_LED_ENABLE = yes    # Breathing sleep LED during USB suspend
 SRC +=  ./lib/rgb_state_reader.c \
         ./lib/layer_state_reader.c \
         ./lib/logo_reader.c \
-        ./rgb.c\
         ./oled.c\
