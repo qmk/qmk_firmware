@@ -1,6 +1,6 @@
 # Dubba175
 
-![Dubba175](https://imgur.com/gallery/yryBnVg)
+![Dubba175](https://i.imgur.com/nzDZuS3h.jpg)
 
 Dubba175 is a 10u wide ortholinear keyboard featuring 2x 1.75u spacebars as the bottom row layout option.   
 
