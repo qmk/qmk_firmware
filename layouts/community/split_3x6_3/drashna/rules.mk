@@ -23,7 +23,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
     OLED_DRIVER_ENABLE = yes
     RGB_MATRIX_ENABLE = yes
-    HAPTIC_ENABLE = SOLENOID
+    HAPTIC_ENABLE = no
     BOOTLOADER = qmk-dfu
 endif
 
