@@ -18,11 +18,7 @@
  *
  */
 
-
 #include "mcrown.h"
-
-keymap_config_t keymap_config;
-uint8_t is_master;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] =  LAYOUT_wrapper( \

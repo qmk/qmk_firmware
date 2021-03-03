@@ -20,23 +20,11 @@
 
 #pragma once
 
-#define FORCE_NKRO
-
 /* Select hand configuration */
 #define MASTER_LEFT
 
 /* Comment this definition out if you want the main display to be output in horizontal mode */
 #define OLED_VERTICAL
-
-#define USE_SERIAL_PD2
-
-#define TAPPING_TERM 200
-
-#define MASTER_LEFT
-
-#define USE_SERIAL_PD2
-
-#define TAPPING_FORCE_HOLD
 
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
@@ -47,7 +35,7 @@
     // #define RGB_MATRIX_KEYPRESSES
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
-    // BEGIN: Disable RGB Effects
+    /* BEGIN: Disable RGB Effects */
     //#define DISABLE_RGB_MATRIX_SOLID_COLOR
     //#define DISABLE_RGB_MATRIX_ALPHAS_MODS
     //#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -72,12 +60,12 @@
     #define DISABLE_RGB_MATRIX_RAINDROPS
     #define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 
-    // BEGIN: RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    /* BEGIN: RGB_MATRIX_FRAMEBUFFER_EFFECTS */
     #define DISABLE_RGB_MATRIX_TYPING_HEATMAP
     // #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
-    // END: RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    /* END: RGB_MATRIX_FRAMEBUFFER_EFFECTS */
 
-    // BEGIN: RGB_MATRIX_KEYPRESSES
+    /* BEGIN: RGB_MATRIX_KEYPRESSES */
     #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     #define DISABLE_RGB_MATRIX_SOLID_REACTIVE
     #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
@@ -90,8 +78,8 @@
     #define DISABLE_RGB_MATRIX_MULTISPLASH
     #define DISABLE_RGB_MATRIX_SOLID_SPLASH
     #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-    // END: RGB_MATRIX_KEYPRESSES
-    // END: Disable RGB Effects
+    /* END: RGB_MATRIX_KEYPRESSES */
+    /* END: Disable RGB Effects */
 #endif
 
 /* To tell the compiler to use custom font */

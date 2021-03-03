@@ -17,15 +17,10 @@
  * @author Mario Corona (mariocc@comunidad.unam.mx) 2021
  *
  */
-
-#ifndef MCROWN_RGB_H_LIB
-#define MCROWN_RGB_H_LIB
+#pragma once
 
 #include "mcrown.h"
 extern int RGB_current_mode;
 
 /* Setting ADJUST layer RGB back to default */
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3);
-
-
-#endif /* End oF MCROWN_RGB_H_LIB */
+extern void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3);

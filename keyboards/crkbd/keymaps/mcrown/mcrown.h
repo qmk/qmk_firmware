@@ -18,19 +18,9 @@
  *
  */
 
-#ifndef MCROWN_KEYMAP_H_LIB
-#define MCROWN_KEYMAP_H_LIB
+#pragma once
 
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
-
 #include "oled.h"
 #include "rgb.h"
 
@@ -40,6 +30,21 @@
 #define KC_CTLTB CTL_T(KC_TAB)
 #define KC_GUIEI GUI_T(KC_LANG2)
 #define KC_ALTKN ALT_T(KC_LANG1)
+
+/*
+ * Standard C does not have boolean variable so, it is better to use the name in capital so it can
+ * be easily identify as a definition
+ */
+#define FALSE false
+#define TRUE  true
+
+#define LAYOUT_wrapper(...)   LAYOUT(__VA_ARGS__)
+
+/* For values greater than 0x200, substract that value and add 0x20 so the characters can be mapped  */
+#define RM_LSFT(kc)           ((uint8_t)(0x20)+(kc-0x200))
+
+/* Toggle a boolean variable */
+#define TOGGLE_BOOL_VAR(bv)   (((bv)^TRUE)&TRUE)
 
 /* ######################################################################### LAYOUT BLOCKS ##################################################### */
 /* -----------------------------------------BUTTON1---BUTTON2- BUTTON3------- */
@@ -93,28 +98,16 @@
 #define   _____________________ADJUST_R2______________________ RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 /* Each layer gets a name for readability */
-#define _QWERTY   0
-#define _DVORAK   1
-#define _COLEMAK  2
-#define _LOWER    3
-#define _RAISE    4
-#define _ADJUST   5
-#define _NUMPAD   6
-
-/* Toggle a boolean variable */
-#define TOGGLE_BOOL_VAR(bv)   (((bv)^TRUE)&TRUE)
-
-#define LAYOUT_wrapper(...)   LAYOUT(__VA_ARGS__)
-
-/* For values greater than 0x200, substract that value and add 0x20 so the characters can be mapped  */
-#define RM_LSFT(kc)           ((uint8_t)(0x20)+(kc-0x200))
-
-/*
- * Standard C does not have boolean variable so, it is better to use the name in capital so it can
- * be easily identify as a definition
- */
-#define FALSE false
-#define TRUE  true
+enum custom_layers {
+    _QWERTY,
+    _DVORAK,
+    _COLEMAK,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+    _NUMPAD,
+    _MAX_LAYERS
+};
 
 /* To be used to identify the current working layer */
 enum custom_keycodes
@@ -126,12 +119,3 @@ enum custom_keycodes
     BACKLIT,
     RGBRST
 };
-
-extern keymap_config_t keymap_config;
-extern uint8_t is_master;
-#ifdef RGBLIGHT_ENABLE
-/* Following line allows macro to read current RGB settings */
-extern rgblight_config_t rgblight_config;
-#endif
-
-#endif /* End of MCROWN_KEYMAP_H_LIB */
