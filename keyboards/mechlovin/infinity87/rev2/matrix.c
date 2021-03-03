@@ -1,191 +1,157 @@
-/* Copyright 2020 Team Mechlovin'
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/*
+Copyright 2012-2018 Jun Wako, Jack Humbert, Yiancar
+Copyright 2019 Evy Dekkers
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include <stdint.h>
+#include <stdbool.h>
+#include "wait.h"
+#include "util.h"
+#include "matrix.h"
+#include "debounce.h"
 #include "quantum.h"
 
-static uint8_t debouncing = DEBOUNCE;
+#ifdef DIRECT_PINS
+static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+#elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
+static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+//static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+#endif
 
-static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
+// matrix code
 
-static uint8_t read_rows(void);
-static void init_rows(void);
-static void init_cols(void);
-static void unselect_cols(void);
-static void select_col(uint8_t col);
+#ifdef DIRECT_PINS
 
-
-__attribute__ ((weak))
-void matrix_init_kb(void)
-{
-    matrix_init_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_kb(void)
-{
-    matrix_scan_user();
-}
-
-__attribute__ ((weak))
-void matrix_init_user(void) {}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {}
-
-void matrix_init(void)
-{
-  //setPinOutput(F0);
-  //writePinHigh(F0);
-
-  init_cols();
-  init_rows();
-
-  for (uint8_t i=0; i < MATRIX_ROWS; i++)  {
-    matrix[i] = 0;
-    matrix_debouncing[i] = 0;
-  }
-
-  matrix_init_quantum();
-}
-
-uint8_t matrix_scan(void)
-{
-  for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-    select_col(col);
-    _delay_us(3);
-
-    uint8_t rows = read_rows();
-
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-      bool prev_bit = matrix_debouncing[row] & ((matrix_row_t)1<<col);
-      bool curr_bit = rows & (1<<row);
-      if (prev_bit != curr_bit) {
-        matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
-        debouncing = DEBOUNCE;
-      }
+static void init_pins(void) {
+    for (int row = 0; row < MATRIX_ROWS; row++) {
+        for (int col = 0; col < MATRIX_COLS; col++) {
+            pin_t pin = direct_pins[row][col];
+            if (pin != NO_PIN) {
+                setPinInputHigh(pin);
+            }
+        }
     }
-    unselect_cols();
-  }
+}
 
-  if (debouncing) {
-    if (--debouncing) {
-      _delay_ms(1);
-    } else {
-      for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        matrix[i] = matrix_debouncing[i];
-      }
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    matrix_row_t last_row_value = current_matrix[current_row];
+    current_matrix[current_row] = 0;
+
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+        pin_t pin = direct_pins[current_row][col_index];
+        if (pin != NO_PIN) {
+            current_matrix[current_row] |= readPin(pin) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+        }
     }
-  }
 
-  matrix_scan_quantum();
-  return 1;
+    return (last_row_value != current_matrix[current_row]);
 }
 
-inline matrix_row_t matrix_get_row(uint8_t row)
-{
-  return matrix[row];
+#elif (DIODE_DIRECTION == COL2ROW)
+
+static void select_row(uint8_t row) {
+    setPinOutput(row_pins[row]);
+    writePinLow(row_pins[row]);
 }
 
-void matrix_print(void)
-{
-  print("\nr/c 0123456789ABCDEF\n");
-  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    xprintf("%02X: %032lb\n", row, bitrev32(matrix_get_row(row)));
-  }
+static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        setPinInputHigh(row_pins[x]);
+    }
 }
 
-/*
- * Row pin configuration
- * row: 0    1    2    3    4    5
- * pin: PA3  PD5  PC3  PC2  PB3  PB4
- */
-static void init_rows(void)
-{
-  setPinInputHigh(A3);
-  setPinInputHigh(D5);
-  setPinInputHigh(C3);
-  setPinInputHigh(C2);
-  setPinInputHigh(B3);
-  setPinInputHigh(B4);
+static void init_pins(void) {
+    unselect_rows();
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        setPinInputHigh(col_pins[x]);
+    }
 }
 
-static uint8_t read_rows()
-{
-  return ((readPin(A3) ? 0 : (1 << 0)) |
-          (readPin(D5) ? 0 : (1 << 1)) |
-          (readPin(C3) ? 0 : (1 << 2)) |
-          (readPin(C2) ? 0 : (1 << 3)) |
-          (readPin(B3) ? 0 : (1 << 4)) |
-          (readPin(B4) ? 0 : (1 << 5)));
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    // Store last value of row prior to reading
+    matrix_row_t last_row_value = current_matrix[current_row];
+
+    // Clear data in matrix row
+    current_matrix[current_row] = 0;
+
+    // Select row and wait for row selecton to stabilize
+    select_row(current_row);
+    wait_us(30);
+
+    // For each col...
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+
+        // Select the col pin to read (active low)
+        uint8_t pin_state = readPin(col_pins[col_index]);
+
+        // Populate the matrix row with the state of the col pin
+        current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+    }
+
+    // Unselect row
+    unselect_row(current_row);
+
+    return (last_row_value != current_matrix[current_row]);
 }
 
-/*
- * Columns 0 - 15, Col16 PC4
- * These columns uses two 74HC138 3 to 8 bit demultiplexers.
- * EN Pin, PD6, PD7
+#elif (DIODE_DIRECTION == ROW2COL)
+
+/* Cols 0 - 16
+ * These columns use two 74HC138 3 to 8 bit demultiplexer. D6, D7 is the enable pin, must be set high (1) to use it.
  *
- * col / pin:    PA0  PA1  PA2  PD6  PD7  PC4
- * 0:             0    0    0    1    0    0
- * 1:             0    0    1    1    0    0    
- * 2:             0    1    0    1    0    0  
- * 3:             0    1    1    1    0    0  
- * 4:             1    0    0    1    0    0  
- * 5:             1    0    1    1    0    0  
- * 6:             1    1    0    1    0    0  
- * 7:             1    1    1    1    0    0  
- * 8:             0    0    0    0    1    0  
- * 9:             0    0    1    0    1    0  
- * 10:            0    1    0    0    1    0  
- * 11:            0    1    1    0    1    0  
- * 12:            1    0    0    0    1    0  
- * 13:            1    0    1    0    1    0  
- * 14:            1    1    1    0    1    0  
- * 15:            1    1    0    0    1    0  
- * 16:            0    0    0    0    0    1  
+ * col / pin:     PA0  PA1  PA2  PD6  PD7  PC4
+ * 0:              0 ── 0 ── 0    1 ── 0    0 
+ * ────────────────────────────────────────────
+ * 1:              0 ── 0 ── 1    1 ── 0    0
+ * ────────────────────────────────────────────    
+ * 2:              0 ── 1 ── 0    1 ── 0    0 
+ * ────────────────────────────────────────────    
+ * 3:              0 ── 1 ── 1    1 ── 0    0 
+ * ────────────────────────────────────────────    
+ * 4:              1 ── 0 ── 0    1 ── 0    0 
+ * ────────────────────────────────────────────    
+ * 5:              1 ── 0 ── 1    1 ── 0    0 
+ * ────────────────────────────────────────────    
+ * 6:              1 ── 1 ── 0    1 ── 0    0 
+ * ────────────────────────────────────────────    
+ * 7:              1 ── 1 ── 1    1 ── 0    0 
+ * ────────────────────────────────────────────    
+ * 8:              0 ── 0 ── 0    0 ── 1    0 
+ * ────────────────────────────────────────────    
+ * 9:              0 ── 0 ── 1    0 ── 1    0 
+ * ────────────────────────────────────────────    
+ *10:              0 ── 1 ── 0    0 ── 1    0 
+ * ────────────────────────────────────────────    
+ *11:              0 ── 1 ── 1    0 ── 1    0 
+ * ────────────────────────────────────────────    
+ *12:              1 ── 0 ── 0    0 ── 1    0 
+ * ────────────────────────────────────────────    
+ *13:              1 ── 0 ── 1    0 ── 1    0 
+ * ────────────────────────────────────────────    
+ *14:              1 ── 1 ── 1    0 ── 1    0 
+ * ────────────────────────────────────────────    
+ *15:              1 ── 1 ── 0    0 ── 1    0 
+ * ────────────────────────────────────────────    
+ *16:              0 ── 0 ── 0    0 ── 0    1  
  *
  */
-static void init_cols(void)
-{
-  setPinOutput(A0);
-  setPinOutput(A1);
-  setPinOutput(A2);
-
-  setPinOutput(C4);
-
-  setPinOutput(D6);
-  setPinOutput(D7);
-
-  unselect_cols();
-}
-
-static void unselect_cols(void)
-{
-  writePinLow(D6);
-  writePinLow(D7);
-  writePinLow(C4);
-
-  writePinHigh(A0);
-  writePinHigh(A1);
-  writePinHigh(A2);
-}
-
 static void select_col(uint8_t col) {
-
-   switch (col) {
+    switch (col) {
         case 0:
           writePinLow(A0);
           writePinLow(A1);
@@ -286,4 +252,191 @@ static void select_col(uint8_t col) {
           writePinLow(C4);
           break;
     }
+}
+
+static void unselect_col(uint8_t col) {
+    switch (col) {
+        case 0:
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinLow(D6);
+          break;
+        case 1:
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinLow(D6);
+          break;
+        case 2:
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinLow(D6);
+          break;
+        case 3:
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinLow(D6);
+          break;
+        case 4:
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinLow(D6);
+          break;
+        case 5:
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinLow(D6);
+          break;
+        case 6:
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinLow(D6);
+          break;
+        case 7:
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinLow(D6);
+          break;
+        case 8:
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinLow(D7);
+          break;
+        case 9:
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinLow(D7);
+          break;
+        case 10:
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinLow(D7);
+          break;
+        case 11:
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinLow(D7);
+          break;
+        case 12:
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinLow(D7);
+          break;
+        case 13:
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinLow(D7);
+          break;
+        case 14:
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinLow(D7);
+          break;
+        case 15:
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinLow(D7);
+          break;
+        case 16:
+          writePinHigh(C4);
+          break;
+    }
+}
+
+static void unselect_cols(void) {
+    //Native
+    writePinHigh(C4);
+
+    //Demultiplexer
+    writePinLow(D6);
+    writePinLow(D7);
+    writePinHigh(A0);
+    writePinHigh(A1);
+    writePinHigh(A2);
+}
+
+static void init_pins(void) {
+    unselect_cols();
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        setPinInputHigh(row_pins[x]);
+    }
+    setPinOutput(A0);
+    setPinOutput(A1);
+    setPinOutput(A2);
+    setPinOutput(D6);
+    setPinOutput(D7);
+    setPinOutput(C4);
+}
+
+static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
+    bool matrix_changed = false;
+
+    // Select col and wait for col selecton to stabilize
+    select_col(current_col);
+    wait_us(30);
+
+    // For each row...
+    for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
+        // Store last value of row prior to reading
+        matrix_row_t last_row_value = current_matrix[row_index];
+
+        // Check row pin state
+        if (readPin(row_pins[row_index]) == 0) {
+            // Pin LO, set col bit
+            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
+        } else {
+            // Pin HI, clear col bit
+            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
+        }
+
+        // Determine if the matrix changed state
+        if ((last_row_value != current_matrix[row_index]) && !(matrix_changed)) {
+            matrix_changed = true;
+        }
+    }
+
+    // Unselect col
+    unselect_col(current_col);
+
+    return matrix_changed;
+}
+
+#endif
+
+void matrix_init_custom(void) {
+    // initialize key pins
+    init_pins();
+}
+
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    bool changed = false;
+
+#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
+    // Set row, read cols
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+        changed |= read_cols_on_row(current_matrix, current_row);
+    }
+#elif (DIODE_DIRECTION == ROW2COL)
+    // Set col, read rows
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+        changed |= read_rows_on_col(current_matrix, current_col);
+    }
+#endif
+
+    return changed;
 }

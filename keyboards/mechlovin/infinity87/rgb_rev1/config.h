@@ -25,6 +25,8 @@
 #define MATRIX_COL_PINS { B12, B13, B14, B15, A8, A9, B11, B10, B2, B1, B0, A7, A6, A5, A2, A1, A0 }
 
 
+#define DIODE_DIRECTION COL2ROW
+
 //rgb matrix setting
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
