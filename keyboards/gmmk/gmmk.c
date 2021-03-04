@@ -15,10 +15,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "gmmk.h"
-
-__attribute__ ((weak))
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
-
-

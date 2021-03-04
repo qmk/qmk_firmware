@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PRO_CONFIG_H
-#define PRO_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0001
@@ -42,8 +41,3 @@
 #define ENCODERS_PAD_B { C14 }
 
 
-#undef AUDIO_VOICES
-// Note: following undef isn't really necessary on STM32, C6_AUDIO is AVR related
-#undef C6_AUDIO
-
-#endif

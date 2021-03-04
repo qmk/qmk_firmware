@@ -14,8 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PRO_H
-#define PRO_H
+#pragma once
 
 #include "gmmk.h"
 
@@ -38,7 +37,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { k1g, k1h, k1i, k1j, k1k, k1l, k1m, k1n}, \
     { k2g, k2h, k2i, k2j, k2k, k2l, k2m, k2n}  \
 }
-
-#define KEYMAP LAYOUT_gmmk_pro
-
-#endif

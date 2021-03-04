@@ -14,8 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PRO_CONFIG_H
-#define PRO_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER      0x0001
@@ -23,24 +22,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x5050
 #define MANUFACTURER    Glorious
 #define PRODUCT         GMMK Pro
-#define DESCRIPTION     Glorious Mechanical Modular Keyboard Pro Edition
 
-#undef MATRIX_ROWS
-#undef MATRIX_COLS
 /* key matrix size */
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 8
 
 
-#undef MATRIX_ROW_PINS
-#undef MATRIX_COL_PINS
-
 #define MATRIX_ROW_PINS  { B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10 }
 #define MATRIX_COL_PINS  { A0, A1, A2, A3, A4, A8, A9, A10 }
 
 #define UNUSED_PINS
-
-
 
 #define TAP_CODE_DELAY 10
 #define ENCODERS_PAD_A { C15 }
@@ -56,7 +47,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#undef AUDIO_VOICES
-#undef C6_AUDIO
-
-#endif

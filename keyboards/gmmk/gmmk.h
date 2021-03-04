@@ -14,11 +14,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef GMMK_H
-#define GMMK_H
+#pragma once
 
 #include "quantum.h"
-#define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
-#include "pro/pro.h"
 
+#define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
+
+#ifdef KEYBOARD_gmmk_pro
+    #include "pro.h"
 #endif
