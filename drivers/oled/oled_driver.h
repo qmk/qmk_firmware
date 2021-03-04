@@ -158,6 +158,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_I2C_TIMEOUT 100
 #endif
 
+#if !defined(OLED_UPDATE_INTERVAL) && defined(SPLIT_KEYBOARD)
+#    define OLED_UPDATE_INTERVAL 50
+#endif
+
 typedef struct __attribute__((__packed__)) {
     uint8_t *current_element;
     uint16_t remaining_element_count;
