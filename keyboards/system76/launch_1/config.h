@@ -52,6 +52,7 @@
     #define RGB_MATRIX_STARTUP_HUE 142 // 200 degrees
     #define RGB_MATRIX_STARTUP_SAT 255
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_STARTUP_SPD 127
     #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
 #endif
 
