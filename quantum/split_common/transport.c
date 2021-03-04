@@ -18,8 +18,17 @@
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
-static pin_t encoders_pad[] = ENCODERS_PAD_A;
-#    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
+// if no pads for right half are defined, we assume the keyboard is symmetric (i.e. same pads)
+#    ifndef ENCODERS_PAD_A_RIGHT
+#        define ENCODERS_PAD_A_RIGHT ENCODERS_PAD_A
+#    endif
+#    ifndef ENCODERS_PAD_B_RIGHT
+#        define ENCODERS_PAD_B_RIGHT ENCODERS_PAD_B
+#    endif
+#    define NUMBER_OF_ENCODERS ((sizeof(encoders_pad_a) + sizeof(encoders_pad_a_right)) / sizeof(pin_t))
+// only needed to calculate number of encoders / size of buffer
+static pin_t encoders_pad_a[]       = ENCODERS_PAD_A;
+static pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
 #endif
 
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
