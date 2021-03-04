@@ -118,6 +118,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
+void system76_ec_rgb_layer(layer_state_t layer_state);
+
+layer_state_t layer_state_set_kb(layer_state_t layer_state) {
+    system76_ec_rgb_layer(layer_state);
+
+    return layer_state_set_user(layer_state);
+}
+
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
     suspend_power_down_user();

@@ -107,6 +107,62 @@ static enum rgb_matrix_effects mode_map[] = {
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
 RGB raw_rgb_data[DRIVER_LED_TOTAL];
+
+rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
+    // Layer 1
+    {
+        .enable = 1,
+        .mode = RGB_MATRIX_STARTUP_MODE,
+        .hsv = {
+            .h = RGB_MATRIX_STARTUP_HUE,
+            .s = RGB_MATRIX_STARTUP_SAT,
+            .v = RGB_MATRIX_STARTUP_VAL,
+        },
+        .speed = RGB_MATRIX_STARTUP_SPD,
+    },
+    // Layer 2
+    {
+        .enable = 1,
+        .mode = RGB_MATRIX_CUSTOM_active_keys,
+        .hsv = {
+            .h = RGB_MATRIX_STARTUP_HUE,
+            .s = RGB_MATRIX_STARTUP_SAT,
+            .v = RGB_MATRIX_STARTUP_VAL,
+        },
+        .speed = RGB_MATRIX_STARTUP_SPD,
+    },
+    // Layer 3
+    {
+        .enable = 1,
+        .mode = RGB_MATRIX_CUSTOM_active_keys,
+        .hsv = {
+            .h = RGB_MATRIX_STARTUP_HUE,
+            .s = RGB_MATRIX_STARTUP_SAT,
+            .v = RGB_MATRIX_STARTUP_VAL,
+        },
+        .speed = RGB_MATRIX_STARTUP_SPD,
+    },
+    // Layer 4
+    {
+        .enable = 1,
+        .mode = RGB_MATRIX_CUSTOM_active_keys,
+        .hsv = {
+            .h = RGB_MATRIX_STARTUP_HUE,
+            .s = RGB_MATRIX_STARTUP_SAT,
+            .v = RGB_MATRIX_STARTUP_VAL,
+        },
+        .speed = RGB_MATRIX_STARTUP_SPD,
+    },
+};
+
+void system76_ec_rgb_layer(layer_state_t layer_state) {
+    if (!bootloader_unlocked) {
+        uint8_t layer = get_highest_layer(layer_state);
+        if (layer < DYNAMIC_KEYMAP_LAYER_COUNT) {
+            rgb_matrix_config = layer_rgb[layer];
+        }
+    }
+}
 #endif // defined(RGB_MATRIX_CUSTOM_KB)
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -159,22 +215,31 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(RGB_MATRIX_CUSTOM_KB)
         case CMD_LED_GET_VALUE:
             if (!bootloader_unlocked) {
-                if (data[2] == CMD_LED_INDEX_ALL) {
-                    data[3] = rgb_matrix_config.hsv.v;
-                    data[4] = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
-                    data[1] = 0;
+                uint8_t index = data[2];
+                for(uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                    if (index == (0xF0 | layer)) {
+                        data[3] = layer_rgb[layer].hsv.v;
+                        data[4] = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+                        data[1] = 0;
+                        break;
+                    }
                 }
             }
             break;
         case CMD_LED_SET_VALUE:
             if (!bootloader_unlocked) {
-                if (data[2] == CMD_LED_INDEX_ALL) {
-                    rgb_matrix_sethsv_noeeprom(
-                        rgb_matrix_config.hsv.h,
-                        rgb_matrix_config.hsv.s,
-                        data[3]
-                    );
-                    data[1] = 0;
+                uint8_t index = data[2];
+                uint8_t value = data[3];
+                if (value >= RGB_MATRIX_MAXIMUM_BRIGHTNESS) {
+                    value = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+                }
+                for(uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                    if (index == (0xF0 | layer)) {
+                        layer_rgb[layer].hsv.v = value;
+                        data[1] = 0;
+                        system76_ec_rgb_layer(layer_state);
+                        break;
+                    }
                 }
             }
             break;
@@ -186,11 +251,16 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     data[4] = raw_rgb_data[index].g;
                     data[5] = raw_rgb_data[index].b;
                     data[1] = 0;
-                } else if (index == CMD_LED_INDEX_ALL) {
-                    data[3] = rgb_matrix_config.hsv.h;
-                    data[4] = rgb_matrix_config.hsv.s;
-                    data[5] = 255;
-                    data[1] = 0;
+                } else {
+                    for(uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                        if (index == (0xF0 | layer)) {
+                            data[3] = layer_rgb[layer].hsv.h;
+                            data[4] = layer_rgb[layer].hsv.s;
+                            data[5] = 0;
+                            data[1] = 0;
+                            break;
+                        }
+                    }
                 }
             }
             break;
@@ -205,30 +275,44 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 if (index < DRIVER_LED_TOTAL) {
                     raw_rgb_data[index] = rgb;
                     data[1] = 0;
-                } else if (index == CMD_LED_INDEX_ALL) {
-                    rgb_matrix_sethsv_noeeprom(rgb.r, rgb.g, rgb_matrix_config.hsv.v);
-                    data[1] = 0;
+                } else {
+                    for(uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                        if (index == (0xF0 | layer)) {
+                            layer_rgb[layer].hsv.h = rgb.r;
+                            layer_rgb[layer].hsv.s = rgb.g;
+                            // Ignore rgb.b
+                            data[1] = 0;
+                            system76_ec_rgb_layer(layer_state);
+                            break;
+                        }
+                    }
                 }
             }
             break;
         case CMD_LED_GET_MODE:
             if (!bootloader_unlocked) {
-                enum rgb_matrix_effects mode = rgb_matrix_get_mode();
-                for (uint8_t i = 0; i < MODE_LAST; i++) {
-                    if (mode_map[i] == mode) {
-                        data[2] = i;
-                        data[3] = rgb_matrix_config.speed;
-                        data[1] = 0;
-                        break;
+                uint8_t layer = data[2];
+                if (layer < DYNAMIC_KEYMAP_LAYER_COUNT) {
+                    enum rgb_matrix_effects mode = layer_rgb[layer].mode;
+                    for (uint8_t i = 0; i < MODE_LAST; i++) {
+                        if (mode_map[i] == mode) {
+                            data[3] = i;
+                            data[4] = layer_rgb[layer].speed;
+                            data[1] = 0;
+                            break;
+                        }
                     }
                 }
             }
             break;
         case CMD_LED_SET_MODE:
             if (!bootloader_unlocked) {
-                if (data[2] < MODE_LAST) {
-                    rgb_matrix_mode_noeeprom(mode_map[data[2]]);
-                    rgb_matrix_config.speed = data[3];
+                uint8_t layer = data[2];
+                uint8_t mode = data[3];
+                uint8_t speed = data[4];
+                if (layer < DYNAMIC_KEYMAP_LAYER_COUNT && mode < MODE_LAST) {
+                    layer_rgb[layer].mode = mode_map[mode];
+                    layer_rgb[layer].speed = speed;
                     data[1] = 0;
                 }
             }
