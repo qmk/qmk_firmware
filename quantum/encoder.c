@@ -99,7 +99,7 @@ void encoder_init(void) {
     pad_b            = encoders_pad_b;
     firstEncoderHere = 0;
 #else
-    if (is_keyboard_left()) {
+    if (isLeftHand) {
         numEncodersHere   = NUMBER_OF_ENCODERS_LEFT;
         pad_a             = encoders_pad_a;
         pad_b             = encoders_pad_b;
@@ -129,7 +129,7 @@ static bool encoder_update(int8_t index, uint8_t state) {
 #    ifndef SPLIT_KEYBOARD
     int8_t resolution = encoder_resolutions[index];
 #    else
-    int8_t resolution = is_keyboard_left() ? encoder_resolutions[index] : encoder_resolutions_right[index - NUMBER_OF_ENCODERS_LEFT];
+    int8_t resolution = isLeftHand ? encoder_resolutions[index] : encoder_resolutions_right[index - NUMBER_OF_ENCODERS_LEFT];
 #    endif
 #else
     int8_t resolution = ENCODER_RESOLUTION;
