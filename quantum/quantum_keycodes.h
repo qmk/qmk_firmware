@@ -79,12 +79,10 @@ enum quantum_keycodes {
     QK_STENO_GEMINI = 0x5A31,
     QK_STENO_MAX    = 0x5A3F,
 #endif
-#ifdef SWAP_HANDS_ENABLE
     QK_SWAP_HANDS     = 0x5B00,
     QK_SWAP_HANDS_MAX = 0x5BFF,
-#endif
-    QK_MOD_TAP     = 0x6000,
-    QK_MOD_TAP_MAX = 0x7FFF,
+    QK_MOD_TAP        = 0x6000,
+    QK_MOD_TAP_MAX    = 0x7FFF,
 #ifdef UNICODE_ENABLE
     QK_UNICODE     = 0x8000,
     QK_UNICODE_MAX = 0xFFFF,
@@ -149,13 +147,6 @@ enum quantum_keycodes {
     CLICKY_UP,
     CLICKY_DOWN,
     CLICKY_RESET,
-
-#ifdef FAUXCLICKY_ENABLE
-    // Faux clicky
-    FC_ON,
-    FC_OFF,
-    FC_TOG,
-#endif
 
     // Music mode on/off/toggle
     MU_ON,
@@ -717,6 +708,9 @@ enum quantum_keycodes {
 #define CK_DOWN CLICKY_DOWN
 #define CK_ON CLICKY_ENABLE
 #define CK_OFF CLICKY_DISABLE
+#define FC_ON CLICKY_ENABLE
+#define FC_OFF CLICKY_DISABLE
+#define FC_TOGG CLICKY_TOGGLE
 
 #define RGB_MOD RGB_MODE_FORWARD
 #define RGB_RMOD RGB_MODE_REVERSE
@@ -872,16 +866,14 @@ enum quantum_keycodes {
 #define UC_M_BS UNICODE_MODE_BSD
 #define UC_M_WC UNICODE_MODE_WINC
 
-#ifdef SWAP_HANDS_ENABLE
-#    define SH_T(kc) (QK_SWAP_HANDS | (kc))
-#    define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
-#    define SH_TT (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
-#    define SH_OS (QK_SWAP_HANDS | OP_SH_ONESHOT)
-#    define SH_MON (QK_SWAP_HANDS | OP_SH_ON_OFF)
-#    define SH_MOFF (QK_SWAP_HANDS | OP_SH_OFF_ON)
-#    define SH_ON (QK_SWAP_HANDS | OP_SH_ON)
-#    define SH_OFF (QK_SWAP_HANDS | OP_SH_OFF)
-#endif
+#define SH_T(kc) (QK_SWAP_HANDS | (kc))
+#define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
+#define SH_TT (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
+#define SH_OS (QK_SWAP_HANDS | OP_SH_ONESHOT)
+#define SH_MON (QK_SWAP_HANDS | OP_SH_ON_OFF)
+#define SH_MOFF (QK_SWAP_HANDS | OP_SH_OFF_ON)
+#define SH_ON (QK_SWAP_HANDS | OP_SH_ON)
+#define SH_OFF (QK_SWAP_HANDS | OP_SH_OFF)
 
 // Dynamic Macros aliases
 #define DM_REC1 DYN_REC_START1
