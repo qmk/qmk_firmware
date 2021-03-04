@@ -75,6 +75,8 @@ def main():
     os.environ['ORIG_CWD'] = os.getcwd()
     os.chdir(qmk_dir)
 
+    print('Warning: The bin/qmk script is being deprecated. Please install the QMK CLI: python3 -m pip install qmk', file=sys.stderr)
+
     # Import the subcommands
     import qmk.cli  # noqa
 

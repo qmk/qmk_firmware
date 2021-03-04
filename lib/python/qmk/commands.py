@@ -180,6 +180,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
+        'QMK_BIN=qmk',
     ])
 
     return make_command
