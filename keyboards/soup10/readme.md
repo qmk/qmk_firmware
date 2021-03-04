@@ -1,6 +1,6 @@
 # soup10
 
-![soup10](https://i.imgur.com/YIMB3kK.jpg)
+![soup10](https://i.imgur.com/YIMB3kKl.jpg)
 
 A 4x3 10 key macropad by Sadeed aka icesoup
 
