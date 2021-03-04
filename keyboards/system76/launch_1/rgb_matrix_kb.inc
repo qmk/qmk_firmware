@@ -1,7 +1,55 @@
+RGB_MATRIX_EFFECT(active_keys)
 RGB_MATRIX_EFFECT(raw_rgb)
 RGB_MATRIX_EFFECT(unlocked)
 
 #if defined(RGB_MATRIX_CUSTOM_EFFECT_IMPLS)
+#include "dynamic_keymap.h"
+
+static bool active_keys_initialized = false;
+static uint8_t active_keys_table[DRIVER_LED_TOTAL] = { 0 };
+
+static void active_keys_initialize(void) {
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            uint8_t led = g_led_config.matrix_co[row][col];
+            if (led < DRIVER_LED_TOTAL && row < 16 && col < 16) {
+                active_keys_table[led] = (row << 4) | col;
+            }
+        }
+    }
+    active_keys_initialized = true;
+}
+
+static bool active_keys(effect_params_t* params) {
+    if (!active_keys_initialized) {
+        active_keys_initialize();
+    }
+
+    RGB_MATRIX_USE_LIMITS(led_min, led_max);
+    uint8_t layer = get_highest_layer(layer_state);
+    RGB rgb = hsv_to_rgb(rgb_matrix_config.hsv);
+
+    for (uint8_t i = led_min; i < led_max; i++) {
+        RGB_MATRIX_TEST_LED_FLAGS();
+
+        uint8_t rowcol = active_keys_table[i];
+        uint8_t row = rowcol >> 4;
+        uint8_t col = rowcol & 0xF;
+        uint16_t keycode = dynamic_keymap_get_keycode(layer, row, col);
+        switch (keycode) {
+            case KC_NO:
+            case KC_TRNS:
+                rgb_matrix_set_color(i, 0, 0, 0);
+                break;
+            default:
+                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+                break;
+        }
+    }
+
+    return led_max < DRIVER_LED_TOTAL;
+}
+
 RGB raw_rgb_data[DRIVER_LED_TOTAL] = { 0 };
 
 static uint8_t normalize_component(uint8_t component) {

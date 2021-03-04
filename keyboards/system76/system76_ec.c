@@ -48,6 +48,7 @@ enum Mode {
     MODE_RAINDROPS,
     MODE_SPLASH,
     MODE_MULTISPLASH,
+    MODE_ACTIVE_KEYS,
     MODE_LAST,
 };
 
@@ -65,6 +66,7 @@ static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_RAINDROPS,
     RGB_MATRIX_SPLASH,
     RGB_MATRIX_MULTISPLASH,
+    RGB_MATRIX_CUSTOM_active_keys,
 };
 
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
