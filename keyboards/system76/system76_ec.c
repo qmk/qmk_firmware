@@ -34,6 +34,41 @@ enum Command {
     CMD_MATRIX_GET = 17,
 };
 
+#define CMD_LED_INDEX_ALL 0xFF
+
+static bool keymap_get(uint8_t layer, uint8_t output, uint8_t input, uint16_t *value) {
+    if (layer < dynamic_keymap_get_layer_count()) {
+        if (output < MATRIX_ROWS) {
+            if (input < MATRIX_COLS) {
+                *value = dynamic_keymap_get_keycode(layer, output, input);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t value) {
+    if (layer < dynamic_keymap_get_layer_count()) {
+        if (output < MATRIX_ROWS) {
+            if (input < MATRIX_COLS) {
+                dynamic_keymap_set_keycode(layer, output, input, value);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+static bool bootloader_reset = false;
+static bool bootloader_unlocked = false;
+
+void system76_ec_unlock(void) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_unlocked);
+    bootloader_unlocked = true;
+}
+
+#if defined(RGB_MATRIX_CUSTOM_KB)
 enum Mode {
     MODE_SOLID_COLOR = 0,
     MODE_PER_KEY,
@@ -71,41 +106,6 @@ static enum rgb_matrix_effects mode_map[] = {
 
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
-#define CMD_LED_INDEX_ALL 0xFF
-
-static bool keymap_get(uint8_t layer, uint8_t output, uint8_t input, uint16_t *value) {
-    if (layer < dynamic_keymap_get_layer_count()) {
-        if (output < MATRIX_ROWS) {
-            if (input < MATRIX_COLS) {
-                *value = dynamic_keymap_get_keycode(layer, output, input);
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t value) {
-    if (layer < dynamic_keymap_get_layer_count()) {
-        if (output < MATRIX_ROWS) {
-            if (input < MATRIX_COLS) {
-                dynamic_keymap_set_keycode(layer, output, input, value);
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-static bool bootloader_reset = false;
-static bool bootloader_unlocked = false;
-
-void system76_ec_unlock(void) {
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_unlocked);
-    bootloader_unlocked = true;
-}
-
-#if defined(RGB_MATRIX_CUSTOM_KB)
 RGB raw_rgb_data[DRIVER_LED_TOTAL];
 #endif // defined(RGB_MATRIX_CUSTOM_KB)
 
