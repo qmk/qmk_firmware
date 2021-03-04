@@ -557,6 +557,7 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     OPT_DEFS += -DOLED_DRIVER_ENABLE
     COMMON_VPATH += $(DRIVER_PATH)/oled
     QUANTUM_LIB_SRC += i2c_master.c
+    QUANTUM_LIB_SRC += oled_driver_user_task.c
     SRC += oled_driver.c
 endif
 
