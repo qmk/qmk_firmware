@@ -189,36 +189,36 @@ void render_layout_state(void)
     {
 #ifdef OLED_VERTICAL
         case _COLEMAK:
-            oled_write_P(PSTR("Clmak"), FALSE);
+            oled_write_P(PSTR("Clmak\n"), FALSE);
             break;
 
         case _DVORAK:
-            oled_write_P(PSTR("Dvak"), FALSE);
+            oled_write_P(PSTR("Dvak\n"), FALSE);
             break;
 
         case _QWERTY:
-            oled_write_P(PSTR("Qwty"), FALSE);
+            oled_write_P(PSTR("Qwty\n"), FALSE);
             break;
 
         default:
-            oled_write_ln_P(PSTR("Undef"), FALSE);
+            oled_write_P(PSTR("Undf\n"), FALSE);
             break;
-    }
+
 #else
         case _COLEMAK:
-            oled_write_P(PSTR("Colemak"), FALSE);
+            oled_write_P(PSTR("Colemak\n"), FALSE);
             break;
 
         case _DVORAK:
-            oled_write_P(PSTR("Dvorak"), FALSE);
+            oled_write_P(PSTR("Dvorak\n"), FALSE);
             break;
 
         case _QWERTY:
-            oled_write_P(PSTR("Qwerty"), FALSE);
+            oled_write_P(PSTR("Qwerty\n"), FALSE);
             break;
 
         default:
-            oled_write_ln_P(PSTR("Undefined"), FALSE);
+            oled_write_P(PSTR("Undefined\n"), FALSE);
             break;
 #endif
     }
@@ -237,9 +237,9 @@ void render_layer_state(void)
     current_layer=(CUSTOM_LAYERS_T)get_highest_layer(layer_state);
 
 #ifdef OLED_VERTICAL
-    oled_write_P(PSTR("\nLyr:\n"), FALSE);
+    oled_write_P(PSTR("Lyr:\n"), FALSE);
 #else
-    oled_write_P(PSTR("\nLayer:"), FALSE);
+    oled_write_P(PSTR("Layer:"), FALSE);
 #endif
 
     switch(current_layer)
