@@ -314,6 +314,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     layer_rgb[layer].mode = mode_map[mode];
                     layer_rgb[layer].speed = speed;
                     data[1] = 0;
+                    system76_ec_rgb_layer(layer_state);
                 }
             }
             break;
