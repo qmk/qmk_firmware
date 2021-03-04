@@ -35,31 +35,31 @@
 static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
 #ifdef ENCODER_RESOLUTIONS
-    static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
+static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
 #endif
 
 #ifndef SPLIT_KEYBOARD
-#   define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
+#    define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
 #else
-    // if no pads for right half are defined, we assume the keyboard is symmetric (i.e. same pads)
-    #ifndef ENCODERS_PAD_A_RIGHT
-    #   define ENCODERS_PAD_A_RIGHT ENCODERS_PAD_A
-    #endif
-    #ifndef ENCODERS_PAD_B_RIGHT
-    #   define ENCODERS_PAD_B_RIGHT ENCODERS_PAD_B
-    #endif
-    #if defined(ENCODER_RESOLUTIONS) && !defined(ENCODER_RESOLUTIONS_RIGHT)
-    #   define ENCODER_RESOLUTIONS_RIGHT ENCODER_RESOLUTIONS
-    #endif
+// if no pads for right half are defined, we assume the keyboard is symmetric (i.e. same pads)
+#    ifndef ENCODERS_PAD_A_RIGHT
+#        define ENCODERS_PAD_A_RIGHT ENCODERS_PAD_A
+#    endif
+#    ifndef ENCODERS_PAD_B_RIGHT
+#        define ENCODERS_PAD_B_RIGHT ENCODERS_PAD_B
+#    endif
+#    if defined(ENCODER_RESOLUTIONS) && !defined(ENCODER_RESOLUTIONS_RIGHT)
+#        define ENCODER_RESOLUTIONS_RIGHT ENCODER_RESOLUTIONS
+#    endif
 
-#   define NUMBER_OF_ENCODERS ((sizeof(encoders_pad_a) + sizeof(encoders_pad_a_right)) / sizeof(pin_t))
-#   define NUMBER_OF_ENCODERS_LEFT (sizeof(encoders_pad_a) / sizeof(pin_t))
-#   define NUMBER_OF_ENCODERS_RIGHT (sizeof(encoders_pad_a_right) / sizeof(pin_t))
-    static pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
-    static pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
-    #ifdef ENCODER_RESOLUTIONS_RIGHT
-		static uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
-	#endif
+#    define NUMBER_OF_ENCODERS ((sizeof(encoders_pad_a) + sizeof(encoders_pad_a_right)) / sizeof(pin_t))
+#    define NUMBER_OF_ENCODERS_LEFT (sizeof(encoders_pad_a) / sizeof(pin_t))
+#    define NUMBER_OF_ENCODERS_RIGHT (sizeof(encoders_pad_a_right) / sizeof(pin_t))
+static pin_t   encoders_pad_a_right[]      = ENCODERS_PAD_A_RIGHT;
+static pin_t   encoders_pad_b_right[]      = ENCODERS_PAD_B_RIGHT;
+#    ifdef ENCODER_RESOLUTIONS_RIGHT
+static uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
+#    endif
 #endif
 
 #ifndef ENCODER_DIRECTION_FLIP
@@ -85,53 +85,52 @@ static uint8_t numEncodersHere;
 // index of the first encoder connected to this controller (only for right halves, this will be nonzero)
 static uint8_t firstEncoderHere;
 #ifdef SPLIT_KEYBOARD
-    // index of the first encoder connected to the other half
-    static uint8_t firstEncoderThere;
+// index of the first encoder connected to the other half
+static uint8_t firstEncoderThere;
 #endif
 // the pads for this controller
-static pin_t *pad_a;
-static pin_t *pad_b;
+static pin_t* pad_a;
+static pin_t* pad_b;
 
 void encoder_init(void) {
 #ifndef SPLIT_KEYBOARD
-    numEncodersHere = NUMBER_OF_ENCODERS;
-    pad_a = encoders_pad_a;
-    pad_b = encoders_pad_b;
+    numEncodersHere  = NUMBER_OF_ENCODERS;
+    pad_a            = encoders_pad_a;
+    pad_b            = encoders_pad_b;
     firstEncoderHere = 0;
 #else
     if (is_keyboard_left()) {
-        numEncodersHere = NUMBER_OF_ENCODERS_LEFT;
-        pad_a = encoders_pad_a;
-        pad_b = encoders_pad_b;
-        firstEncoderHere = 0;
+        numEncodersHere   = NUMBER_OF_ENCODERS_LEFT;
+        pad_a             = encoders_pad_a;
+        pad_b             = encoders_pad_b;
+        firstEncoderHere  = 0;
         firstEncoderThere = NUMBER_OF_ENCODERS_LEFT;
     } else {
-        numEncodersHere = NUMBER_OF_ENCODERS_RIGHT;
-        pad_a = encoders_pad_a_right;
-        pad_b = encoders_pad_b_right;
-        firstEncoderHere = NUMBER_OF_ENCODERS_LEFT;
+        numEncodersHere   = NUMBER_OF_ENCODERS_RIGHT;
+        pad_a             = encoders_pad_a_right;
+        pad_b             = encoders_pad_b_right;
+        firstEncoderHere  = NUMBER_OF_ENCODERS_LEFT;
         firstEncoderThere = 0;
     }
 #endif
-    
+
     for (int i = 0; i < numEncodersHere; i++) {
         setPinInputHigh(pad_a[i]);
         setPinInputHigh(pad_b[i]);
 
         encoder_state[firstEncoderHere + i] = (readPin(pad_a[i]) << 0) | (readPin(pad_b[i]) << 1);
     }
-
 }
 
 static bool encoder_update(int8_t index, uint8_t state) {
-    bool    changed = false;
-    
+    bool changed = false;
+
 #ifdef ENCODER_RESOLUTIONS
-    #ifndef SPLIT_KEYBOARD
-        int8_t resolution = encoder_resolutions[index];
-    #else
-        int8_t resolution = is_keyboard_left() ? encoder_resolutions[index] : encoder_resolutions_right[index - NUMBER_OF_ENCODERS_LEFT];
-    #endif
+#    ifndef SPLIT_KEYBOARD
+    int8_t resolution = encoder_resolutions[index];
+#    else
+    int8_t resolution = is_keyboard_left() ? encoder_resolutions[index] : encoder_resolutions_right[index - NUMBER_OF_ENCODERS_LEFT];
+#    endif
 #else
     int8_t resolution = ENCODER_RESOLUTION;
 #endif
