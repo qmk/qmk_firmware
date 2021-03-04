@@ -42,7 +42,3 @@ void led_set_kb(uint8_t usb_led) {
 
 	led_set_user(usb_led);
 }
-
-#ifdef OLED_DRIVER_ENABLE
-__attribute__((weak)) void oled_task_user(void) {}
-#endif
