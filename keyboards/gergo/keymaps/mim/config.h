@@ -1,0 +1,9 @@
+#pragma once
+
+//#define IGNORE_MOD_TAP_INTERRUPT
+#define COMBO_TERM 125
+#define COMBO_COUNT 3
+#define PERMISSIVE_HOLD
+#define DEBOUNCING_DELAY 10
+
+//#define TAPPING_TERM 150
