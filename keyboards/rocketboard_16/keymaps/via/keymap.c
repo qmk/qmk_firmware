@@ -68,12 +68,14 @@ bool encoder_update_user(uint8_t index, bool clockwise){
 #define ANIM_FRAME_DURATION 110 // Number of milliseconds per frame (no faster than 110ms, last line struggles)
 #define BACKGROUND_FRAMES 21
 #define ROCKET_CENTER_POS 3
+#define SPLASH_DUR 100 // Measured in frames, see above for frame length (note, 231 is used as a key value later on, CTRL+F for uses of this to make sure everything is good)
 
 uint32_t anim_timer = 0;
 uint8_t current_frame = 0;
 uint8_t rocket_y_position = 3;
 uint8_t rocket_pos_change = 0;
 uint8_t background_frame = 0;
+uint8_t splash_dur_counter = 0;
 
 const char star_background [8] [21] =
 {
@@ -183,12 +185,14 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_
 
 void oled_task_user(void)
 {
-    if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION)
+    // Playing the animation
+    if((timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) && (splash_dur_counter < SPLASH_DUR))
     {
-        anim_timer = timer_read32();
-        current_frame = (current_frame + 1) % ANIM_FRAMES;
-        background_frame = (background_frame + 1) % BACKGROUND_FRAMES;
+        anim_timer = timer_read32(); // read the current timer value
+        current_frame = (current_frame + 1) % ANIM_FRAMES; // Frame in the exhaust animation
+        background_frame = (background_frame + 1) % BACKGROUND_FRAMES; // Frame in the star animation
 
+        // Move the rocket up and down
         if((rocket_pos_change / 9) == 0)
         {
             rocket_y_position = ROCKET_CENTER_POS;
@@ -206,9 +210,12 @@ void oled_task_user(void)
             rocket_y_position = ROCKET_CENTER_POS - 1;
         }
 
-        render_stars(8, background_frame);
-        render_exhaust(6, rocket_y_position + 1, current_frame);
+        // Renders the scene piece by piece
+        render_stars(8, background_frame); // Render star background
+        render_exhaust(6, rocket_y_position + 1, current_frame); // Render exhaust
         render_logo(9, rocket_y_position); // Render the rocket
+
+        // Timing for rocket position change
         if(rocket_pos_change < 36)
         {
             rocket_pos_change++;
@@ -217,6 +224,34 @@ void oled_task_user(void)
         {
             rocket_pos_change = 0;
         }
+
+        splash_dur_counter++;
     }
+    else if((splash_dur_counter >= SPLASH_DUR) && (splash_dur_counter != 231)) // Should only run once at end of splash screen duration
+    {
+        splash_dur_counter = 231; // Nice known value
+        oled_clear(); // Clear the screen
+    }
+
+
+    // After the splash screen
+    if(splash_dur_counter == 231)
+    {
+        uint8_t light_level = rgblight_get_val();
+        light_level = (uint8_t)(100.0 * ((float)light_level/(float)RGBLIGHT_LIMIT_VAL)); // Convert to %
+        char c_light_level[3];
+        itoa(light_level, c_light_level, 10);
+
+        led_t led_state = host_keyboard_led_state();
+        oled_write(led_state.num_lock ? PSTR("   |NUM|") : PSTR("   |   |"), false);
+        oled_write(led_state.caps_lock ? PSTR("|CAP|") : PSTR("|   |"), false);
+        oled_write(led_state.scroll_lock ? PSTR("|SCR|   ") : PSTR("|   |   "), false);
+
+        oled_write_ln(PSTR(""), false); // Add a newline
+        oled_write(PSTR("    BKLT: "), false);
+        oled_write(c_light_level, false);
+        oled_write_ln(PSTR("%    "), false);
+    }
+
 }
 #endif
