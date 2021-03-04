@@ -322,21 +322,21 @@ endif
 # Disable features that a keyboard doesn't support
 -include disable_features.mk
 
-# Pull in keyboard_features.mk files from all our subfolders
-ifneq ("$(wildcard $(KEYBOARD_PATH_1)/keyboard_features.mk)","")
-    include $(KEYBOARD_PATH_1)/keyboard_features.mk
+# Pull in post_rules.mk files from all our subfolders
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_1)/post_rules.mk
 endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_2)/keyboard_features.mk)","")
-    include $(KEYBOARD_PATH_2)/keyboard_features.mk
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_2)/post_rules.mk
 endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_3)/keyboard_features.mk)","")
-    include $(KEYBOARD_PATH_3)/keyboard_features.mk
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_3)/post_rules.mk
 endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_4)/keyboard_features.mk)","")
-    include $(KEYBOARD_PATH_4)/keyboard_features.mk
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_4)/post_rules.mk
 endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/keyboard_features.mk)","")
-    include $(KEYBOARD_PATH_5)/keyboard_features.mk
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_5)/post_rules.mk
 endif
 
 # Object files directory
