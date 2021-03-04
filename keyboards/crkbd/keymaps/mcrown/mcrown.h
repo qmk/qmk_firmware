@@ -109,7 +109,7 @@ typedef enum custom_layers {
 }CUSTOM_LAYERS_T;
 
 /* To be used to identify the current working layer */
-enum custom_keycodes
+typedef enum custom_keycodes
 {
     QWERTY = SAFE_RANGE,
     LOWER,
@@ -117,4 +117,4 @@ enum custom_keycodes
     ADJUST,
     BACKLIT,
     RGBRST
-};
+}CUSTOM_KEYCODES_T;
