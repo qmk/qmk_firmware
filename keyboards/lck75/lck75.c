@@ -143,7 +143,7 @@ static void render_anim(void) {
     }
 }
 #ifdef OLED_DRIVER_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
