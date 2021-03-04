@@ -370,19 +370,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             dynamic_keymap_set_buffer(offset, size, &command_data[3]);
             break;
         }
-        case id_eeprom_reset: {
-            via_eeprom_reset();
-            break;
-        }
-        case id_bootloader_jump: {
-            // Need to send data back before the jump
-            // Informs host that the command is handled
-            raw_hid_send(data, length);
-            // Give host time to read it
-            wait_ms(100);
-            bootloader_jump();
-            break;
-        }
         default: {
             // The command ID is not known
             // Return the unhandled state
