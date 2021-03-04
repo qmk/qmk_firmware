@@ -41,7 +41,7 @@ void test_for_matrix_macro_consistency_at_compile_time(void) {
     pin_t row_pins_test[] = MATRIX_ROW_PINS;
     pin_t col_pins_test[] = MATRIX_COL_PINS;
 
-    _Static_assert(sizeof(row_pins) == sizeof(row_pins_test), "MATRIX_ROW_PINS and MATRIX_ROWS are inconsistent.");
+    _Static_assert(sizeof(row_pins)/2 == sizeof(row_pins_test), "MATRIX_ROW_PINS and MATRIX_ROWS are inconsistent.");
     _Static_assert(sizeof(col_pins) == sizeof(col_pins_test), "MATRIX_COL_PINS and MATRIX_COLS are inconsistent.");
 }
 #endif
