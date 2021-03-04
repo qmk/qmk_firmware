@@ -11,11 +11,33 @@ from qmk.keymap import locate_keymap
 from qmk.path import is_keyboard, keyboard
 
 
+def keymap_check(kb, km):
+    """Perform the keymap level checks.
+    """
+    ok = True
+    keymap_path = locate_keymap(kb, km)
+
+    if not keymap_path:
+        ok = False
+        cli.log.error("%s: Can't find %s keymap.", kb, km)
+
+    else:
+        keymap_readme = keymap_path.parent / 'readme.md'
+
+        if not keymap_readme.exists():
+            cli.log.warning('%s: %s: Missing %s', kb, km, keymap_readme)
+
+            if cli.config.lint.strict:
+                ok = False
+
+    return ok
+
+
 def rules_mk_assignment_only(keyboard_path):
     """Check the keyboard-level rules.mk to ensure it only has assignments.
     """
     current_path = Path()
-    found_invalid = False
+    ok = True
 
     for path_part in keyboard_path.parts:
         current_path = current_path / path_part
@@ -41,9 +63,9 @@ def rules_mk_assignment_only(keyboard_path):
 
                     if line and '=' not in line:
                         cli.log.error('Non-assignment code: +%s %s: %s', i, rules_mk, line)
-                        found_invalid = True
+                        ok = False
 
-    return not found_invalid
+    return ok
 
 
 @cli.argument('--strict', action='store_true', help='Treat warnings as errors.')
@@ -109,19 +131,10 @@ def lint(cli):
 
         # Keymap specific checks
         if cli.config.lint.keymap:
-            keymap_path = locate_keymap(kb, cli.config.lint.keymap)
-
-            if not keymap_path:
+            if not keymap_check(kb, cli.config.lint.keymap):
                 ok = False
-                cli.log.error("%s: Can't find %s keymap.", kb, cli.config.lint.keymap)
-            else:
-                keymap_readme = keymap_path.parent / 'readme.md'
-                if not keymap_readme.exists():
-                    cli.log.warning('%s: %s: Missing %s', kb, cli.config.lint.keymap, keymap_readme)
 
-                    if cli.config.lint.strict:
-                        ok = False
-
+        # Report status
         if not ok:
             failed.append(kb)
 
@@ -132,4 +145,3 @@ def lint(cli):
 
     cli.log.info('Lint check passed!')
     return True
-
