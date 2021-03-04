@@ -41,10 +41,10 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [QWERTY] = LAYOUT_1u(
-        KC_ESC,  KC_Q,    KC_W,    KC_E,       KC_R,       KC_T,    KC_Y,    KC_U,       KC_I,       KC_O,     KC_P,     KC_BSPC,
-        KC_TAB,  ALT_A,   GUI_S,   SFT_D,      CTL_F,      KC_G,    KC_H,    CTL_J,      SFT_K,      GUI_L,    ALT_SC,   KC_ENT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,       KC_V,       KC_B,    KC_N,    KC_M,       KC_COMM,    KC_DOT,   KC_SLSH,  KC_RSFT,
-        KC_LCTL,                   LOWER,      KC_TAB,     KC_SPC,  KC_ENT,  KC_BSPC,     RAISE,                          KC_RALT
+        RGB_HUI,  KC_Q,    KC_W,    KC_E,       KC_R,       KC_T,    KC_Y,    KC_U,       KC_I,       KC_O,     KC_P,   RGB_HUD,
+        RGB_SAI,  ALT_A,   GUI_S,   SFT_D,      CTL_F,      KC_G,    KC_H,    CTL_J,      SFT_K,      GUI_L,    ALT_SC, RGB_SAD,
+        RGB_VAI, KC_Z,    KC_X,    KC_C,       KC_V,       KC_B,    KC_N,    KC_M,       KC_COMM,    KC_DOT,   KC_SLSH, RGB_VAD,
+        RGB_TOG,                   LOWER,      KC_TAB,     KC_SPC,  KC_ENT,  KC_BSPC,     RAISE,                          RGB_MODE_FORWARD
     ),
     [FUNCTN] = LAYOUT_1u(
         ____,    KC_EXLM, KC_AT,   KC_HASH,    KC_DLR,     KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN,  KC_RPRN,  ____,
