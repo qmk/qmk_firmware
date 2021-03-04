@@ -14,6 +14,10 @@
 #include "matrix.h"
 #include "apidef.h"
 
+static const uint8_t LPME_ADDR_LIST[] = {I2C_7BIT_ADDR(0x20),
+                                         I2C_7BIT_ADDR(0x74)};
+#define LPME_ADDR_UNKNOWN 0xFF
+
 static const uint8_t lpme_pin_def[24] = {
     0, // pin number in config starts from 1
     0, 1, 0, 0, 0, 0,
@@ -29,7 +33,7 @@ static uint8_t lpme_init_packet[6];
 static bool reconfig_flag = true;
 static bool row_prepare_flag = false;
 
-void lpme_init(lpme_config_t const * const config)
+void lpme_init(lpme_config_t * const config)
 {
     uint8_t pin;
 
@@ -55,6 +59,8 @@ void lpme_init(lpme_config_t const * const config)
             lpme_init_packet[5] &= ~(1 << (pin-8));
         }
     }
+
+    config->addr = LPME_ADDR_UNKNOWN;
 }
 
 static matrix_row_t lpme_read_col_on_row(lpme_config_t const * const config)
@@ -79,8 +85,24 @@ static matrix_row_t lpme_read_col_on_row(lpme_config_t const * const config)
     return retval;
 }
 
-static bool lpme_first_scan(lpme_config_t const * const config)
+static bool lpme_first_scan(lpme_config_t * const config)
 {
+    if (config->addr == LPME_ADDR_UNKNOWN)
+    {
+        for (int idx = 0;
+             idx < sizeof(LPME_ADDR_LIST) / sizeof(LPME_ADDR_LIST[0]);
+             idx++)
+        {
+            uint8_t i2c_res = i2c_writeReg(
+                LPME_ADDR_LIST[idx], LPME_REG_OUTPUT0, lpme_init_packet, 1, 0);
+            if (i2c_res == 0)
+            {
+                config->addr = LPME_ADDR_LIST[idx];
+                break;
+            }
+        }
+    }
+
     if (row_prepare_flag == false)
     {
         // set all row pins to low
@@ -150,7 +172,7 @@ static matrix_row_t lpme_read_row(lpme_config_t const * const config, uint8_t ro
 }
 
 extern const uint8_t MAINTASK_INTERVAL;
-uint32_t lpme_scan(lpme_config_t const *const config, matrix_row_t *rows,
+uint32_t lpme_scan(lpme_config_t *const config, matrix_row_t *rows,
                    bool wakeup) {
     uint32_t        change                 = 0;
     static uint32_t run_mode               = 0;
