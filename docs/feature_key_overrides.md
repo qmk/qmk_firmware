@@ -152,7 +152,7 @@ Bitfield with various options controlling the behavior of a key override.
 | `ko_option_activation_required_mod_down` | Allow activating when a necessary modifier is pressed down.                                                                                                                                                                                     |
 | `ko_option_activation_negative_mod_up`   | Allow activating when a negative modifier is released.                                                                                                                                                                 |
 | `ko_option_one_mod`                      | If set, any of the modifiers in `trigger_mods` will be enough to activate the override (logical OR of modifiers). If not set, all the modifiers in `trigger_mods` have to be pressed (logical AND of modifiers). |
-| `ko_option_exclusive_key_on_activate`    |  If set, the override can only activate if no non-modifier key except the trigger key is down.                                                                                                                         |
+| `ko_option_no_unregister_on_other_key_down`    |  If set, the override will not deactivate if when another key is pressed down. Use only if you really know you need this.                                                                                                                          |
 | `ko_option_no_reregister_trigger`        | If set, the trigger key will never be registered again after the override is deactivated.                                                                                                                              |
 | `ko_options_default`                     | The default options used by the `ko_make_xxx` functions                                                                                                                                                                  |
 
@@ -208,7 +208,7 @@ bool momentary_layer(bool key_down, void *layer) {
 const key_override_t fn_override = {.trigger_mods          = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
                                    .layers                 = ~(1 << LAYER_FN),                                          //
                                    .suppressed_mods        = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
-                                   .options                = ko_option_exclusive_key_on_activate,                       //
+                                   .options                = ko_option_no_unregister_on_other_key_down,                 //
                                    .negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL)),          //
                                    .custom_action          = momentary_layer,                                           //
                                    .context                = (void *)LAYER_FN,                                          //

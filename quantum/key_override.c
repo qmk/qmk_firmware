@@ -77,10 +77,6 @@ static uint32_t defer_delay = 0;
 // Holds the keycode that should be registered at a later time, in order to not get false key presses
 static uint16_t deferred_register = 0;
 
-// Count of physical keys pressed
-static uint8_t key_down_count = 0;
-static uint8_t mod_down_count = 0;
-
 // TODO: in future maybe save in EEPROM?
 static bool enabled = true;
 
@@ -245,19 +241,6 @@ static bool check_activation_event(const key_override_t *override, const bool ke
     }
 }
 
-/** Checks if the options of the override allow activating the override given the current keyboard state. */
-static bool check_other_options(const key_override_t *const override) {
-    const bool no_trigger = override->trigger == KC_NO;
-
-    bool ok = true;
-
-    if ((override->options & ko_option_exclusive_key_on_activate) != 0) {
-        ok &= (key_down_count - mod_down_count) > (1 - (uint8_t)no_trigger);
-    }
-
-    return ok;
-}
-
 /** Iterates through the list of key overrides and tries activating each, until it finds one that activates or reaches the end of overrides. Returns true if the key action for `keycode` should be sent */
 static bool try_activating_override(const uint16_t keycode, const uint8_t layer, const bool key_down, const bool is_mod, const uint8_t active_mods, bool *activated) {
     if (key_overrides == NULL) {
@@ -287,12 +270,6 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         // Check allowed activation events
         if (!check_activation_event(override, key_down, is_mod)) {
             key_override_printf("Not activating override: Activation event not allowed\n");
-            continue;
-        }
-
-        // Check other options
-        if (!check_other_options(override)) {
-            key_override_printf("Not activating override: Options not allowing activation\n");
             continue;
         }
 
@@ -425,12 +402,6 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
     const bool is_mod   = IS_MOD(keycode);
 
     if (key_down) {
-        key_down_count++;
-
-        if (is_mod) {
-            mod_down_count++;
-        }
-
         switch (keycode) {
             case KEY_OVERRIDE_TOGGLE:
                 key_override_toggle();
@@ -446,14 +417,6 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
 
             default:
                 break;
-        }
-    } else {
-        if (key_down_count > 0) {
-            key_down_count--;
-        }
-
-        if (is_mod && mod_down_count > 0) {
-            mod_down_count--;
         }
     }
 
@@ -533,7 +496,7 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
             }
 
             // Check if another key was pressed
-            if (key_down) {
+            if (key_down && (active_override->options & ko_option_no_unregister_on_other_key_down) == 0) {
                 should_deactivate = true;
                 key_override_printf("Deactivating override because another key was pressed\n");
             }
