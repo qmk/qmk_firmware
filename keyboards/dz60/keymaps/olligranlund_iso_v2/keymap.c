@@ -48,25 +48,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) {
 				// when keycode QMKBEST is pressed
 				SEND_STRING(">dancers>");
-			} else {} break;
+			}
+			break;
 
 		case EMOJI_PERJANTAI:
 			if (record->event.pressed) {
 				// when keycode QMKBEST is pressed
 				SEND_STRING(">perjantaideploy>");
-			} else {} break;
+			}
+			break;
 		
 		case EMOJI_THISISFINE:
 			if (record->event.pressed) {
 				// when keycode QMKBEST is pressed
 				SEND_STRING(">this/is/fine>");
-			} else {} break;
+			}
+			break;
     
 		case EMOJI_KOVAAAJOA:
 			if (record->event.pressed) {
 				// when keycode QMKBEST is pressed
 				SEND_STRING(">kovaaajoa>");
-			} else {} break;
+			}
+			break;
     }
     
     return true;
