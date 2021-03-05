@@ -97,7 +97,7 @@ MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 
 # Pull in rules from info.json
-INFO_RULES_MK = $(shell bin/qmk generate-rules-mk --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/rules.mk)
+INFO_RULES_MK = $(shell bin/qmk generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/rules.mk)
 include $(INFO_RULES_MK)
 
 # Check for keymap.json first, so we can regenerate keymap.c

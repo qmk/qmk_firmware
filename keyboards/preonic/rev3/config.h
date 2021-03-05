@@ -124,6 +124,7 @@
 #define RGB_DI_PIN A1
 #define RGBLED_NUM 9
 #define RGBLIGHT_ANIMATIONS
-
+// RGB Matrix support
+#define DRIVER_LED_TOTAL RGBLED_NUM
 
 #endif

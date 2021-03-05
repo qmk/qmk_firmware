@@ -30,4 +30,4 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
-LAYOUTS = 65_ansi 65_iso 65_ansi_blocker 65_ansi_blocker_split_bs
+LAYOUTS = 65_ansi 65_iso 65_ansi_blocker 65_ansi_blocker_split_bs 65_ansi_split_bs
