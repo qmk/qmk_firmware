@@ -249,3 +249,12 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case ALT_T(KC_QUOT):
+            return true;
+        default:
+            return false;
+    }
+}
