@@ -110,6 +110,7 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 #define SFT_CLN LSFT_T(KC_SCOLON)
 #define SFT_OS OSM(MOD_LSFT)
 #define SYM_OS LT(_SYM, KC_SPC)
+#define SYM_TAB LT(_SYM, KC_TAB)
 #define SYM_BK LT(_SYM, KC_BSPC)
 #define SYS_Z LT(_SYS, KC_Z)
 #define VOL_DN S(LALT(KC__VOLDOWN))
@@ -150,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT,    KC_BSPC,
     _______,  SFT_A,    CTRL_R,    ALT_S,    GUI_TEA,    KC_G,    KC_M,    GUI_N,    ALT_E,    CTRL_I,    SFT_O, KC_QUOT,
     _______, SYS_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, _______,
-    _______, _______, _______, SFT_OS, SYM_OS, NAV_BK,  ERG_NUM_SPC, SYM_OS,   SFT_OS, KC_DOWN, KC_UP,   KC_RGHT
+    _______, _______, _______, SFT_OS, SYM_TAB, NAV_BK,  ERG_NUM_SPC, SYM_OS,   SFT_OS, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Ergonomic Number
@@ -222,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAV] = LAYOUT_planck_grid(
   _______, KC_PSCR, _______, KC_WH_U, KC_WH_D, _______, KC_BSPC, KC_PGDN, KC_PGUP, KC_HOME, KC_END, _______,
   _______,KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK, KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
-  _______,_______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2, KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
+  _______,_______, KC_ACL1, KC_ACL2, KC_BTN1, KC_BTN2, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
   _______,_______,_______,_______,_______,KC_ESC, KC_ENT, KC_DEL, _______, _______, _______,  _______
 ),
 
