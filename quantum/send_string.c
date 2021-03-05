@@ -252,20 +252,17 @@ void send_char(char ascii_code) {
 }
 
 void send_dword(uint32_t number) {
-    uint16_t word = (number >> 16);
-    send_word(word);
+    send_word(number >> 16);
     send_word(number & 0xFFFFUL);
 }
 
 void send_word(uint16_t number) {
-    uint8_t byte = number >> 8;
-    send_byte(byte);
+    send_byte(number >> 8);
     send_byte(number & 0xFF);
 }
 
 void send_byte(uint8_t number) {
-    uint8_t nibble = number >> 4;
-    send_nibble(nibble);
+    send_nibble(number >> 4);
     send_nibble(number & 0xF);
 }
 
