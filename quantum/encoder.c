@@ -16,8 +16,17 @@
  */
 
 #include "encoder.h"
-#ifdef SPLIT_KEYBOARD
-#    include "split_util.h"
+
+// this is for unit testing
+#if defined(ENCODER_MOCK_SINGLE)
+#    include "encoder/tests/mock.h"
+#elif defined(ENCODER_MOCK_SPLIT)
+#    include "encoder/tests/mock_split.h"
+#else
+#    include <gpio.h>
+#    ifdef SPLIT_KEYBOARD
+#        include "split_util.h"
+#    endif
 #endif
 
 // for memcpy
