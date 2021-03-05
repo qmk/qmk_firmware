@@ -37,5 +37,6 @@
 //allows for either side as the master.
 #define EE_HANDS
 
-
-
+//taphold config
+#define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT
