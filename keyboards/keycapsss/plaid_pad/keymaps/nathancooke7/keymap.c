@@ -14,8 +14,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   #define AM_1 KC_F4
   #define AM_2 KC_F2
   #define AM_3 KC_F3
-  #define AM_LEFT LALT(LCTL(LSFT(KC_2)))
-  #define AM_RITE LALT(LCTL(LSFT(KC_1)))
+  #define AM_RITE LALT(LCTL(LSFT(KC_2)))
+  #define AM_LEFT LALT(LCTL(LSFT(KC_1)))
   #define AM_CYCLE LSFT(LALT(LCTL(KC_SPC)))
   #define AM_CW LSFT(LALT(KC_J))
   #define AM_CCW LSFT(LALT(KC_K))
