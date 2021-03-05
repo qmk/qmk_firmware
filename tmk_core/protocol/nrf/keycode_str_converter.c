@@ -770,8 +770,12 @@ uint8_t modbit2prefix(uint8_t mod, char* str, uint8_t len) {
   return found;
 }
 
-static const char* osm_mods[] = {"MOD_LCTL", "MOD_LSFT", "MOD_LALT", "MOD_LGUI", "MOD_MEH", "MOD_HYPR"};
-static const uint8_t osm_mods_kc[] = {MOD_LCTL, MOD_LSFT, MOD_LALT, MOD_LGUI, MOD_MEH, MOD_HYPR};
+static const char* osm_mods[] = {"MOD_LCTL", "MOD_LSFT", "MOD_LALT", "MOD_LGUI",
+                                 "MOD_RCTL", "MOD_RSFT", "MOD_RALT", "MOD_RGUI",
+                                 "MOD_MEH",  "MOD_HYPR"};
+static const uint8_t osm_mods_kc[] = {MOD_LCTL, MOD_LSFT, MOD_LALT, MOD_LGUI,
+                                      MOD_RCTL, MOD_RSFT, MOD_RALT, MOD_RGUI,
+                                      MOD_MEH,  MOD_HYPR};
 
 void get_osm_mod_string(uint8_t kc, char* dst) {
   switch (kc) {
@@ -786,22 +790,18 @@ void get_osm_mod_string(uint8_t kc, char* dst) {
   }
 
   bool need_pipe = false;
-  // check only LMODs
-  if (kc & 0x0F) {
-    for (int idx = 0; idx < 4; idx++) {
-      if (kc & (1 << idx)) {
-        if (need_pipe) {
-          dst[0] = '|';
-          dst++;
-        }
-        strcpy(dst, osm_mods[idx]);
-        dst += 8;  // all mods string len is 8
-
-        need_pipe = true;
+  for (int idx = 0; idx < 4; idx++) {
+    if (kc & (1 << idx)) {
+      if (need_pipe) {
+        dst[0] = '|';
+        dst++;
       }
+      // copy RMODs if flag is set
+      strcpy(dst, osm_mods[kc & 0x10 ? idx + 4 : idx]);
+      dst += 8;  // all mods string len is 8
+
+      need_pipe = true;
     }
-  } else {
-      strcpy(dst, "KC_NO");
   }
 }
 
