@@ -280,6 +280,25 @@ const key_string_map_t rgb_keys = {
     "M_G\0"
 };
 
+const key_string_map_t sp_cad_sft_keys1 = {
+  .start_kc = KC_LSPO,
+  .end_kc = KC_SFTENT,
+  .key_strings =
+    "LSPO\0"
+    "RSPC\0"
+    "SFTENT\0"
+};
+
+const key_string_map_t sp_cad_sft_keys2 = {
+  .start_kc = KC_LCPO,
+  .end_kc = KC_RAPC,
+  .key_strings =
+    "LCPO\0"
+    "RCPC\0"
+    "LAPO\0"
+    "RAPC\0"
+};
+
 const key_string_map_t magic_keys = {
   .start_kc = RESET,
   .end_kc = MAGIC_TOGGLE_NKRO,
@@ -305,6 +324,13 @@ const key_string_map_t magic_keys = {
     "UNHOST_NKRO\0"
     "UNSWAP_ALT_GUI\0"
     "TOGGLE_NKRO\0"
+};
+
+const key_string_map_t gesc_key = {
+  .start_kc = KC_GESC,
+  .end_kc = KC_GESC,
+  .key_strings =
+    "GESC\0"
 };
 
 const key_string_map_t shifted_keys1 = {
@@ -541,7 +567,10 @@ typedef enum
   MAP_SYS_CONSUMER,
   MAP_MOUSE,
   MAP_RGB,
+  MAP_SCS1,
+  MAP_SCS2,
   MAP_MAGIC,
+  MAP_GESC,
 } KEY_STRING_MAP_IDX;
 
 const key_string_map_t* key_string_maps[] = {
@@ -552,7 +581,10 @@ const key_string_map_t* key_string_maps[] = {
   [MAP_SYS_CONSUMER] = &system_and_consumers,
   [MAP_MOUSE] = &mouse_keys,
   [MAP_RGB] = &rgb_keys,
+  [MAP_SCS1] = &sp_cad_sft_keys1,
+  [MAP_SCS2] = &sp_cad_sft_keys2,
   [MAP_MAGIC] = &magic_keys,
+  [MAP_GESC] = &gesc_key,
 };
 
 const key_string_map_t* key_ascii_maps[] = {
@@ -781,6 +813,9 @@ uint8_t quantum_keycode2str_locale(uint16_t qk, char* str, uint32_t len,
 
   switch(qk) {
   case QK_BASIC...QK_BASIC_MAX:
+  case KC_LSPO...KC_SFTENT:
+  case KC_LCPO...KC_RAPC:
+  case KC_GESC:
   case_proc_qkc(qk, locale, use_ascii, "%s%s", kc_prefix, keycode_str);
   break;
 
