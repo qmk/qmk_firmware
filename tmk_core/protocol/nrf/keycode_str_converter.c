@@ -1053,6 +1053,8 @@ uint16_t convert_layer_key(const char* str, uint8_t len, QK_PREFIX_STRING prefix
     return TO(layer);
   case DF:
     return DF(layer);
+  case TT:
+    return TT(layer);
   case TG:
     return TG(layer);
   case OSL:
@@ -1325,10 +1327,7 @@ uint16_t str2quantum_keycode_locale(const char* str, uint32_t len,
   case LT:
 	  return convert_lt(str + prefix_len, len-prefix_len, locale);
     break;
-  case MO...DF:
-	  return convert_layer_key(str + prefix_len, len-prefix_len, prefix_idx);
-    break;
-  case OSL:
+  case MO...OSL:
 	  return convert_layer_key(str + prefix_len, len-prefix_len, prefix_idx);
     break;
   case RGB:
