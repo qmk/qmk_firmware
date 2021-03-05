@@ -1,6 +1,6 @@
 # dumbpad v1.x dual-encoder
 
-![dumbpad](v1x_dualencoder.png)
+![dumbpad](https://i.imgur.com/s69rdfA.png)
 
 ## Single- vs Dual-Encoder Support
 
