@@ -73,5 +73,3 @@ __pycache__
 
 # prerequisites for updating ChibiOS
 /util/fmpp*
-
-keyboards/cajal/
