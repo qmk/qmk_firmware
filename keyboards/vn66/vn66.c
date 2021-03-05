@@ -15,20 +15,3 @@
  */
 
 #include "vn66.h"
-
-void matrix_init_kb(void) {
-    led_init_ports();
-    matrix_init_user();
-}
-
-void led_init_ports(void) {
-    setPinOutput(E6);
-}
-
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        writePin(E6, !led_state.caps_lock);
-    }
-
-    return true;
-}
