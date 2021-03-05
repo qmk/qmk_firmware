@@ -7,22 +7,13 @@ let
 
   pkgs = import nixpkgs { };
 
-  pythonEnv = pkgs.python3.withPackages (p: with p; [
-    # requirements.txt
-    appdirs
-    argcomplete
-    colorama
-    dotty-dict
-    hjson
-    jsonschema
-    milc
-    pygments
-    # requirements-dev.txt
-    nose2
-    flake8
-    pep8-naming
-    yapf
-  ]);
+  # Builds the python env based on nix/pyproject.toml and
+  # nix/poetry.lock Use the "poetry update --lock", "poetry add
+  # --lock" etc. in the nix folder to adjust the contents of those
+  # files if the requirements*.txt files change
+  pythonEnv = pkgs.poetry2nix.mkPoetryEnv {
+    projectDir = ./nix;
+  };
 in
 
 with pkgs;
@@ -42,7 +33,7 @@ in
 mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry ]
     ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8
