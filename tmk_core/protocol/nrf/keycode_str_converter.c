@@ -770,6 +770,41 @@ uint8_t modbit2prefix(uint8_t mod, char* str, uint8_t len) {
   return found;
 }
 
+static const char* osm_mods[] = {"MOD_LCTL", "MOD_LSFT", "MOD_LALT", "MOD_LGUI", "MOD_MEH", "MOD_HYPR"};
+static const uint8_t osm_mods_kc[] = {MOD_LCTL, MOD_LSFT, MOD_LALT, MOD_LGUI, MOD_MEH, MOD_HYPR};
+
+void get_osm_mod_string(uint8_t kc, char* dst) {
+  switch (kc) {
+    case MOD_MEH:
+      strcpy(dst, "MOD_MEH");
+      return;
+    case MOD_HYPR:
+      strcpy(dst, "MOD_HYPR");
+      return;
+    default:
+      break;
+  }
+
+  bool need_pipe = false;
+  // check only LMODs
+  if (kc & 0x0F) {
+    for (int idx = 0; idx < 4; idx++) {
+      if (kc & (1 << idx)) {
+        if (need_pipe) {
+          dst[0] = '|';
+          dst++;
+        }
+        strcpy(dst, osm_mods[idx]);
+        dst += 8;  // all mods string len is 8
+
+        need_pipe = true;
+      }
+    }
+  } else {
+      strcpy(dst, "KC_NO");
+  }
+}
+
 #define case_proc_qkc(code, locale, use_ascii, ...) \
 {                                                                   \
     keycode_str = get_keycode_string_locale(code, locale, use_ascii);\
@@ -792,7 +827,7 @@ uint8_t quantum_keycode2str_locale(uint16_t qk, char* str, uint32_t len,
   uint8_t kc = qk & 0xFF;
   uint8_t copied_len = 0;
   const char* keycode_str=NULL;
-  char mod_str[20];
+  char mod_str[64];
   const char* kc_prefix = keycode_prefix[LOCALE_US];
 
   switch(locale) {
@@ -871,6 +906,11 @@ uint8_t quantum_keycode2str_locale(uint16_t qk, char* str, uint32_t len,
 
   case QK_ONE_SHOT_LAYER...QK_ONE_SHOT_LAYER_MAX:
   copied_len = snprintf(str, len, "OSL(%d)", qk & 0xFF);        \
+  break;
+
+  case QK_ONE_SHOT_MOD...QK_ONE_SHOT_MOD_MAX:
+  get_osm_mod_string(qk & 0xFF, mod_str);
+  copied_len = snprintf(str, len, "OSM(%s)", mod_str);        \
   break;
 
   case QK_MOD_TAP...QK_MOD_TAP_MAX:
@@ -1149,12 +1189,10 @@ uint16_t convert_kc_osm(const char *str, uint8_t len, KEYMAP_LOCALE locale)
   char mod_str[32];
   uint8_t mod_bit = 0;
 
-  const char* osm_mods[] = {"MOD_LCTL", "MOD_LSFT", "MOD_LALT", "MOD_LGUI", "MOD_MEH", "MOD_HYPR"};
-  uint8_t osm_mods_kc[] = {MOD_LCTL, MOD_LSFT, MOD_LALT, MOD_LGUI, MOD_MEH, MOD_HYPR};
 
-  strncpy(mod_str, str, sizeof(mod_str));
+  strncpy(mod_str, str, len - 1);
   // skip )
-  mod_str[strnlen(mod_str, sizeof(mod_str)) - 1] = '\0';
+  mod_str[len - 1] = '\0';
 
   // dprintf("%s->%s\n", str, mod_str);
 

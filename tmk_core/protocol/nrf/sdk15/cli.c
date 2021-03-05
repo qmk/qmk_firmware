@@ -43,6 +43,7 @@ static MSCMD_USER_RESULT usrcmd_help(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_keymap(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_config(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_keystr_conv(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_keycode_conv(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_update_file(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_remove_file(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_debug_enable(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
@@ -72,7 +73,8 @@ static const MSCMD_COMMAND_TABLE table[] = {
     {"map", usrcmd_keymap, "Show keymap"},
     {"conf", usrcmd_config, "Show config"},
     {"enc", usrcmd_encoder, "Show encoder config"},
-    {"conv", usrcmd_keystr_conv, "Show keymap"},
+    {"conv", usrcmd_keystr_conv, "Convert string to keycode"},
+    {"iconv", usrcmd_keycode_conv, "Convert keycode to string"},
     {"update", usrcmd_update_file, "Update file"},
     {"remove", usrcmd_remove_file, "Remove file"},
     {"debug", usrcmd_debug_enable, "Debug print setting"},
@@ -376,6 +378,19 @@ static MSCMD_USER_RESULT usrcmd_keystr_conv(MSOPT *msopt, MSCMD_USER_OBJECT usro
         tfp_printf("%d\r\n", kc);
         // snprintf(str, sizeof(str), "%d", kc);
         // cli_puts(str);
+    }
+    return 0;
+}
+
+uint8_t quantum_keycode2str(uint16_t qk, char* str, uint32_t len);
+static MSCMD_USER_RESULT usrcmd_keycode_conv(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
+    char str[64];
+    uint16_t kc;
+    if (msopt->argc >= 2) {
+        msopt_get_argv(msopt, 1, str, sizeof(str));
+        kc = atoi(str);
+        quantum_keycode2str(kc, str, sizeof(str));
+        tfp_printf("%s\r\n", str);
     }
     return 0;
 }
