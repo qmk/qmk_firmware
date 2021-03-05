@@ -15,22 +15,3 @@
  */
 
 #include "crazy_keyboard_68.h"
-
-void matrix_init_kb(void) {
-	led_init_ports();
-	
-	matrix_init_user();
-}
-
-void led_init_ports(void) {
-    // Caps lock pin
-    setPinOutput(B0);
-    writePinHigh(B0);
-}
-
-bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        writePin(B0, !led_state.caps_lock);
-    }
-    return true;
-}
