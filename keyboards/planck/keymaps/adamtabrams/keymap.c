@@ -161,6 +161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool number_was_used = false;
     static bool lgui_is_pressed = false;
     static bool lgui_was_used = false;
+    static uint16_t number_timer;
 
     if (number_is_active && record->event.pressed) {
         number_was_used = true;
@@ -210,6 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (shift_is_pressed && !number_is_active) {
                     unregister_code(KC_LSFT);
                     layer_on(_NUMBER);
+                    number_timer = timer_read();
                     number_is_active = true;
                 } else {
                     register_code(KC_SPC);
@@ -220,7 +222,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     if (shift_is_pressed) {
                         register_code(KC_LSFT);
                     }
-                    if (!number_was_used) {
+                    if (!number_was_used && timer_elapsed(number_timer) < TAPPING_TERM ) {
                         register_code(KC_SPC);
                     }
                     number_is_active = false;
