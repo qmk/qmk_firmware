@@ -269,11 +269,3 @@ void unicode_input_start (void) {
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
 };
-
-// Override LUT to use NEO_A instead of KC_A
-const uint16_t hex_to_keycode_lut[16] PROGMEM = {
-    KC_0,    KC_1,    KC_2,    KC_3,
-    KC_4,    KC_5,    KC_6,    KC_7,
-    KC_8,    KC_9,    NEO_A,   NEO_B,
-    NEO_C,   NEO_D,   NEO_E,   NEO_F
-};

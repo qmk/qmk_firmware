@@ -27,7 +27,6 @@ extern const uint8_t  ascii_to_shift_lut[16];
 extern const uint8_t  ascii_to_altgr_lut[16];
 extern const uint8_t  ascii_to_dead_lut[16];
 extern const uint8_t  ascii_to_keycode_lut[128];
-extern const uint16_t hex_to_keycode_lut[16];
 
 // clang-format off
 #define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
@@ -51,6 +50,5 @@ void     send_dword(uint32_t number);
 void     send_word(uint16_t number);
 void     send_byte(uint8_t number);
 void     send_nibble(uint8_t number);
-uint16_t hex_to_keycode(uint8_t hex);
 
 void tap_random_base64(void);

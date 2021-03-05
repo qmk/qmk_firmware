@@ -129,15 +129,6 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
 };
 
-/* Look-up table to convert a hex digit to a keycode.
- */
-__attribute__((weak)) const uint16_t hex_to_keycode_lut[16] PROGMEM = {
-    KC_0,    KC_1,    KC_2,    KC_3,
-    KC_4,    KC_5,    KC_6,    KC_7,
-    KC_8,    KC_9,    KC_A,    KC_B,
-    KC_C,    KC_D,    KC_E,    KC_F
-};
-
 // clang-format on
 
 // Note: we bit-pack in "reverse" order to optimize loading
@@ -287,10 +278,6 @@ void send_nibble(uint8_t number) {
             send_char(number - 10 + 'a');
             break;
     }
-}
-
-uint16_t hex_to_keycode(uint8_t hex) {
-    return hex_to_keycode_lut[hex & 0xF];
 }
 
 void tap_random_base64(void) {
