@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define OLED_FONT_H "keyboards/mechwild/mercutio/lib/mercutiofont.c"
+#define OLED_FONT_H "keyboards/mechwild/murphpad/lib/murphpadfont.c"
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
