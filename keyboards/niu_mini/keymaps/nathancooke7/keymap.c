@@ -28,71 +28,68 @@ enum custom_keycodes {
   KC_SECRET_2
 };
 
-/* Nathan's Custom Key Codes */
-  /* Layer Tap */
-    #define NAV_ESC LT(_NAV_ETC, KC_ESC)
-    #define PGU_MS_F LT(_MOUSE_F, KC_PGUP)
-    #define ENT_SYM LT(_SYMBOLS, KC_ENT)
-    #define RGB_RIGHT LT(_RGB_MEDIA, KC_RIGHT)
-  /* Mod Tap */
-    #define ALT_TAB LALT_T(KC_TAB)
-    #define CTL_MIN RCTL_T(KC_MINUS)
-    #define GUI_LEFT RGUI_T(KC_LEFT)
-    #define ALT_DOWN RALT_T(KC_DOWN)
-    #define CTL_UP RCTL_T(KC_UP)
-    #define PGD_GUI LGUI_T(KC_PGDOWN)
-  /* Shortcuts */
-    #define SCREEN_CAP LSFT(LGUI(KC_4))
-    #define SCRN_BRIT KC_F15
-    #define SCRN_DARK KC_F14
-    #define COPY LGUI(KC_C)
-    #define PASTE LGUI(KC_V)
-  /* Amethyst */
-    #define AM_1 LCTL_T(KC_F4)
-    #define AM_2 LALT_T(KC_F2)
-    #define AM_3 LGUI_T(KC_F3)
-    #define AM_LEFT LALT(LCTL(LSFT(KC_2)))
-    #define AM_RITE LALT(LCTL(LSFT(KC_1)))
-    #define AM_CYCLE LSFT(LALT(LCTL(KC_SPC)))
-    #define AM_CW LSFT(LALT(KC_J))
-    #define AM_CCW LSFT(LALT(KC_K))
-  /* Mission Control */
-    #define DESK_L RCTL(KC_LEFT)
-    #define DESK_R RCTL(KC_RIGHT)
-    #define DESKTOP KC_F11
-    #define MISSION RCTL(KC_UP)
-  /* Audio */
-    #define VOL_D KC_AUDIO_VOL_DOWN
-    #define VOL_U KC_AUDIO_VOL_UP
-    #define MUTE KC_AUDIO_MUTE
-  /* Abbreviations */
-    #define CAPS KC_CAPSLOCK
-    #define DEL KC_DELETE
-    #define R_PAREN KC_RIGHT_PAREN
-    #define L_PAREN KC_LEFT_PAREN
-    #define MS_WH_U KC_MS_WH_UP
-    #define MS_WH_D KC_MS_WH_DOWN
-    #define L_CLICK KC_MS_BTN1
-    #define R_CLICK KC_MS_BTN2
-    #define MS_L KC_MS_LEFT
-    #define MS_D KC_MS_DOWN
-    #define MS_U KC_MS_UP
-    #define MS_R KC_MS_RIGHT
-    #define LEFT KC_LEFT
-    #define RIGHT KC_RIGHT
-  /* TEXT NAV */
-    #define ALT_L RALT(KC_LEFT)
-    #define ALT_R RALT(KC_RIGHT)
-    #define GUI_L RGUI(KC_LEFT)
-    #define GUI_R RGUI(KC_RIGHT)
-    #define GUI_BSPC RGUI(KC_BSPC)
-  /* Outlook */
-    #define ALL_READ RGUI(RALT(KC_T))
-  /* Webex */
-    #define ROOM_D RALT(KC_DOWN)
-    #define ROOM_U RALT(KC_UP)
-    #define WEB_B RGUI(KC_LBRC)
-    #define WEB_F RGUI(KC_RBRC)
+/* Layer Tap */
+  #define NAV_ESC LT(_NAV_ETC, KC_ESC)
+  #define PGU_MS_F LT(_MOUSE_F, KC_PGUP)
+  #define ENT_SYM LT(_SYMBOLS, KC_ENT)
+  #define RGB_RIGHT LT(_RGB_MEDIA, KC_RIGHT)
+/* Mod Tap */
+  #define ALT_TAB LALT_T(KC_TAB)
+  #define CTL_MIN RCTL_T(KC_MINUS)
+  #define GUI_LEFT RGUI_T(KC_LEFT)
+  #define ALT_DOWN RALT_T(KC_DOWN)
+  #define CTL_UP RCTL_T(KC_UP)
+  #define PGD_GUI LGUI_T(KC_PGDOWN)
+/* Shortcuts */
+  #define SCREEN_CAP LSFT(LGUI(KC_4))
+  #define SCRN_BRIT KC_F15
+  #define SCRN_DARK KC_F14
+  #define COPY LGUI(KC_C)
+  #define PASTE LGUI(KC_V)
+/* Amethyst */
+  #define AM_1 LCTL_T(KC_F4)
+  #define AM_2 LALT_T(KC_F2)
+  #define AM_3 LGUI_T(KC_F3)
+  #define AM_LEFT LALT(LCTL(LSFT(KC_2)))
+  #define AM_RITE LALT(LCTL(LSFT(KC_1)))
+  #define AM_CYCLE LSFT(LALT(LCTL(KC_SPC)))
+  #define AM_CW LSFT(LALT(KC_J))
+  #define AM_CCW LSFT(LALT(KC_K))
+/* Mission Control */
+  #define DESK_L RCTL(KC_LEFT)
+  #define DESK_R RCTL(KC_RIGHT)
+  #define DESKTOP KC_F11
+  #define MISSION RCTL(KC_UP)
+/* Audio */
+  #define VOL_D KC_AUDIO_VOL_DOWN
+  #define VOL_U KC_AUDIO_VOL_UP
+  #define MUTE KC_AUDIO_MUTE
+/* Abbreviations */
+  #define CAPS KC_CAPSLOCK
+  #define DEL KC_DELETE
+  #define R_PAREN KC_RIGHT_PAREN
+  #define L_PAREN KC_LEFT_PAREN
+  #define MS_WH_U KC_MS_WH_UP
+  #define MS_WH_D KC_MS_WH_DOWN
+  #define L_CLICK KC_MS_BTN1
+  #define R_CLICK KC_MS_BTN2
+  #define MS_L KC_MS_LEFT
+  #define MS_D KC_MS_DOWN
+  #define MS_U KC_MS_UP
+  #define MS_R KC_MS_RIGHT
+  #define LEFT KC_LEFT
+  #define RIGHT KC_RIGHT
+/* TEXT NAV */
+  #define ALT_L RALT(KC_LEFT)
+  #define ALT_R RALT(KC_RIGHT)
+  #define GUI_L RGUI(KC_LEFT)
+  #define GUI_R RGUI(KC_RIGHT)
+  #define GUI_BSPC RGUI(KC_BSPC)
+/* APP nav */
+  #define ALT_D RALT(KC_DOWN)
+  #define ALT_U RALT(KC_UP)
+  #define WEB_B RGUI(KC_LBRC)
+  #define WEB_F RGUI(KC_RBRC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -104,8 +101,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 	[_NAV_ETC] = LAYOUT_ortho_4x12(
-		CAPS    , _______ , ROOM_U  , _______  , KC_BSPC    , ALL_READ   , GUI_L    , KC_END  , KC_HOME , GUI_R   , _______ , GUI_BSPC ,
-		_______ , WEB_B   , ROOM_D  , WEB_F    , DEL        , _______    , LEFT     , KC_DOWN , KC_UP   , RIGHT   , _______ , _______  ,
+		CAPS    , _______ , ALT_U  , _______  , KC_BSPC    , _______   , GUI_L    , KC_END  , KC_HOME , GUI_R   , _______ , GUI_BSPC ,
+		_______ , WEB_B   , ALT_D  , WEB_F    , DEL        , _______    , LEFT     , KC_DOWN , KC_UP   , RIGHT   , _______ , _______  ,
 		_______ , _______ , _______ , _______  , _______    , _______    , ALT_L    , _______ , _______ , ALT_R   , _______ , _______  ,
 		AM_RITE , AM_CW   , AM_CCW  , AM_CYCLE , MO(_WORDS) , SCREEN_CAP , _______  , _______ , DESK_L  , DESKTOP , MISSION , DESK_R
 	),
