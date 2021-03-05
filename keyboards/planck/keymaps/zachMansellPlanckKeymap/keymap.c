@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT,    KC_BSPC,
     _______,  SFT_A,    CTRL_R,    ALT_S,    GUI_TEA,    KC_G,    KC_M,    GUI_N,    ALT_E,    CTRL_I,    SFT_O, KC_QUOT,
     _______, SYS_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, _______,
-    _______, _______, _______, SFT_OS, SYM_BK, NAV_SPC,  ERG_NUM_SPC, SYM_OS,   SFT_OS, KC_DOWN, KC_UP,   KC_RGHT
+    _______, _______, _______, SFT_OS, SYM_OS, NAV_BK,  ERG_NUM_SPC, SYM_OS,   SFT_OS, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Ergonomic Number
@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,    _______,
     _______,  SFT_7, CTRL_5,   ALT_3,   GUI_1,   KC_9,   KC_8,   GUI_0, ALT_2,  CTRL_4, SFT_6, _______,
     _______, KC_F11, KC_F12, KC_MINS, KC_SPC, KC_BSPC, KC_DEL,  NUMLK, _______, _______, KC_SLSH, _______,
-    _______, _______, _______, _______, KC_ESC, KC_TAB, _______, _______, _______, _______, _______, _______
+    _______, _______, _______, _______, KC_TAB, KC_ESC, _______, _______, _______, _______, _______, _______
 ),
 
 /* SYM
@@ -223,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_PSCR, _______, KC_WH_U, KC_WH_D, _______, KC_BSPC, KC_PGDN, KC_PGUP, KC_HOME, KC_END, _______,
   _______,KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK, KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
   _______,_______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2, KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
-  _______,_______,_______,_______,_______,KC_ESC, KC_DEL, KC_ENT, _______, _______, _______,  _______
+  _______,_______,_______,_______,_______,KC_ESC, KC_ENT, KC_DEL, _______, _______, _______,  _______
 ),
 
 /* System, media and layer lock keys
