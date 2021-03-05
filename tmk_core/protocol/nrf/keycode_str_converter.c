@@ -912,7 +912,7 @@ typedef enum
  RGB, MAGIC, ANY,
  LCTL, LSFT, LALT, LGUI, RCTL, RSFT, RALT, RGUI,
  LCA, MEH, ALL, C_S,
- HYPR, LCAG, RCAG, SGUI, EX,
+ HYPR, LCAG, RCAG, SGUI, OSM, EX,
 } QK_PREFIX_STRING;
 #define PREFIX_PAIR(prefix) [prefix]= #prefix
 
@@ -1130,6 +1130,50 @@ uint16_t convert_kc_with_mods(const char *str, uint8_t len, QK_PREFIX_STRING pre
   return KC_NO;
 }
 
+int32_t find_in_str_array(const char* str, const char* const* array,
+                          uint8_t array_len)
+{
+  for (uint8_t idx = 0; idx < array_len; idx++)
+  {
+    if (strcmp(str, array[idx]) == 0)
+    {
+      return idx;
+    }
+  }
+
+  return -1;
+}
+
+uint16_t convert_kc_osm(const char *str, uint8_t len, KEYMAP_LOCALE locale)
+{
+  char mod_str[32];
+  uint8_t mod_bit = 0;
+
+  const char* osm_mods[] = {"MOD_LCTL", "MOD_LSFT", "MOD_LALT", "MOD_LGUI", "MOD_MEH", "MOD_HYPR"};
+  uint8_t osm_mods_kc[] = {MOD_LCTL, MOD_LSFT, MOD_LALT, MOD_LGUI, MOD_MEH, MOD_HYPR};
+
+  strncpy(mod_str, str, sizeof(mod_str));
+  // skip )
+  mod_str[strnlen(mod_str, sizeof(mod_str)) - 1] = '\0';
+
+  // dprintf("%s->%s\n", str, mod_str);
+
+  char * mod_tok = strtok(mod_str, "|");
+  while (mod_tok != NULL)
+  {
+    // dprintf("tok:%s\n", mod_tok);
+    int mod_idx = find_in_str_array(mod_tok, osm_mods, ARRAY_LEN(osm_mods));
+    if (mod_idx >= 0)
+    {
+        mod_bit |= osm_mods_kc[mod_idx];
+    }
+
+    mod_tok = strtok(NULL, "|");
+  }
+
+  return OSM(mod_bit);
+}
+
 uint16_t get_kc_strlen(const char* str, uint16_t len)
 {
     int idx;
@@ -1294,6 +1338,7 @@ uint16_t str2quantum_keycode_locale(const char* str, uint32_t len,
       PREFIX_PAIR(LCAG),
       PREFIX_PAIR(RCAG),
       PREFIX_PAIR(SGUI),
+      PREFIX_PAIR(OSM),
       PREFIX_PAIR(EX),
   };
 
@@ -1349,6 +1394,8 @@ uint16_t str2quantum_keycode_locale(const char* str, uint32_t len,
 	  return convert_kc_with_mods(str + prefix_len, len-prefix_len, prefix_idx, locale);
   case HYPR...SGUI:
 	  return convert_kc_with_mods(str + prefix_len, len-prefix_len, prefix_idx, locale);
+  case OSM:
+	  return convert_kc_osm(str + prefix_len, len-prefix_len, locale);
   case EX:
       return EXKC_START;
   default:

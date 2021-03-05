@@ -368,7 +368,7 @@ static MSCMD_USER_RESULT usrcmd_dump_string(MSOPT *msopt, MSCMD_USER_OBJECT usro
 
 uint16_t str2quantum_keycode(const char* str, uint32_t len);
 static MSCMD_USER_RESULT usrcmd_keystr_conv(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
-    char str[16];
+    char str[32];
     uint16_t kc;
     if (msopt->argc >= 2) {
         msopt_get_argv(msopt, 1, str, sizeof(str));
