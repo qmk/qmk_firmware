@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_SPLIT { 31 , 0 }
 #define RGBLIGHT_SLEEP
 // #define RGBW
-#define RGBLIGHT_LIMIT_VAL 150
+#define RGBLIGHT_LIMIT_VAL 120
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
