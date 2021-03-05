@@ -20,8 +20,8 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define CAPS_LOCK_LED_PIN F4
-#define SCROLL_LOCK_LED_PIN D5
+#define LED_CAPS_LOCK_PIN F4
+#define LED_SCROLL_LOCK_PIN D5
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
