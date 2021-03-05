@@ -50,25 +50,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* rotary encoder (SW3) - add more else if blocks for more granular layer control */
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
-  if(IS_LAYER_ON(_RGB)) {
-    if (clockwise){
-      rgblight_increase_val();
-    } else{
-      rgblight_decrease_val();
-    }
-} else if(IS_LAYER_ON(_BLED)) {
-    if (clockwise){
-      backlight_increase();
-        } else{
-          backlight_decrease();
+    if (IS_LAYER_ON(_RGB)) {
+        if (clockwise) {
+            rgblight_increase_val();
+        } else {
+            rgblight_decrease_val();
         }
-} else {
-    if (clockwise){
-      tap_code(KC_VOLU);
-    } else{
-      tap_code(KC_VOLD);
+    } else if (IS_LAYER_ON(_BLED)) {
+        if (clockwise) {
+            backlight_increase();
+        } else {
+            backlight_decrease();
+        }
+    } else {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
     }
-  }
 }
 #endif
 
