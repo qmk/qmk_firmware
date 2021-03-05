@@ -15,15 +15,7 @@
  */
  #include "hand88.h"
 
-void keyboard_pre_init_kb(void) {
+void led_init_ports(void) {
     // Set our LED pins as open drain outputs
-    palSetLineMode(B6, PAL_MODE_OUTPUT_OPENDRAIN);
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(B6, !led_state.caps_lock);
-    }
-    return res;
+    palSetLineMode(LED_CAPS_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
 }

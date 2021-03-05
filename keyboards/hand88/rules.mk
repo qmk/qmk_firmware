@@ -1,12 +1,10 @@
 # MCU name
 MCU = STM32F072
 
-BOARD = GENERIC_STM32_F072XB
-
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
 # backlight effects.
-OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 
 # Build Options
 #   comment out to disable the options.
