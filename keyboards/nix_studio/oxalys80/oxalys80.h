@@ -23,17 +23,11 @@
 // The second converts the arguments into a two-dimensional array
 
 #define LAYOUT_all(\
-/*  ESC         F1    F2    F3    F4       F5    F6    F7    F8       F9    F10   F11   F12      Print Scrl  PsBr */\
 	K000,       K001, K011, K002, K012,    K003, K013, K004, K014,    K005, K015, K006, K016,    K007, K017, K008,  \
-/*  `     1    2     3     4     5     6     7     8     9     0     -     =     BSPC  S_BSPC    INS   HOM   PGUP */\
 	K020, K030, K021, K031, K022, K032, K023, K033, K024, K034, K025, K035, K026, K036,	K066,    K027, K037, K028,  \
-/*  Tab   Q     W     E     R     T     Y     U     I     O     P     [     ]     \              DEL   END   PGDN */\
 	K040, K050, K041, K051, K042, K052, K043, K053, K044, K054, K045, K055, K046, K056,          K047, K057, K048,  \
-/*  CAPS  A     S     D     F     G     H     J     K     L     ;     '           ENT                             */\
 	K060, K070, K061, K071, K062, K072, K063, K073, K064, K074, K065, K075,       K076,                             \
-/*  LSFT  LSF3  Z     X     C     V     B     N     M     ,     .     /     RSFT  RSF3                 UP         */\
  	K080, K090, K081, K091, K082, K092, K083, K093, K084, K094, K085, K095, K086, K096,                K097,        \
-/*  LCTR  LWIN  LALT                    SPC                     RALT  RWIN  MENU  RCTR           LEFT  DOWN  RGHT */\
 	K100, K110, K101,                   K103,                   K105, K115, K106, K116,          K107, K117, K108   \
 ) { \
 	{ K000,  K001,  K002,  K003,  K004,  K005, K006,  K007,  K008 }, \
