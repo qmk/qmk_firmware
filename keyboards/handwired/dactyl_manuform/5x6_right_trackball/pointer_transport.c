@@ -569,7 +569,7 @@ void trackball_set_cpi(uint16_t cpi) {
     if (!is_keyboard_left()) {
         pmw_set_cpi(cpi);
     } else {
-        device_cpi = cpi * 1.5;
+        device_cpi = cpi;
     }
 }
 #endif
