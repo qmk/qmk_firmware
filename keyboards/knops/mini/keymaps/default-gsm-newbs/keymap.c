@@ -204,7 +204,7 @@ void set_layer_led(int layerId) {
 }
 
 void matrix_init_user(void) {
-	led_init_ports();
+	led_init_ports_user();
 
 	PORTB |= (1 << 7);
 	DDRB &= ~(1<<7);
@@ -223,7 +223,7 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 }
 
-void led_init_ports() {
+void led_init_ports_user() {
   // led voor switch #1
 	DDRD |= (1<<7);
 	PORTD &= ~(1<<7);
