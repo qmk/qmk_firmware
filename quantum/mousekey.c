@@ -108,7 +108,7 @@ static uint8_t wheel_unit(void) {
 }
 
 #    else /* #ifndef MK_COMBINED */
-#        ifndef MK_KINETIC_SPEED
+#        ifdef MK_KINETIC_SPEED
 
 /*
  * Kinetic movement  acceleration algorithm
