@@ -44,15 +44,15 @@ led_config_t g_led_config = { {
     //need to recheck what should be a modifier
 
     // Esc, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, -, =, Backspace, Delete
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4,
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,
     // Tab, Q, W, E, R, T, Y, U, I, O, P, [, ], backslash , Home
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     // Capslock, A, S, D, F, G, H, J, K, L, ;, ', Enter, Page up
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,
     // LShift, Z, X, C, V, B, N, M, ,, ., /, Shift, Up, Page Down
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4, 4,
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1,
     // Ctrl, GUI, Alt, Space, RAlt, FN, Ctrl, Left, Down, Right
-    1, 1, 1, 4, 1, 1, 1, 4, 4, 4,
+    1, 1, 1, 4, 1, 1, 1, 1, 1, 1,
     // UNDERGLOW
     2, 2, 2, 2, 2, 2
 } };
