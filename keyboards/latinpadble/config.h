@@ -99,3 +99,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define ENCODERS_PAD_B { F7 }
 
 #define ENCODER_RESOLUTION 4
+
+#define VIA_HAS_BROKEN_KEYCODES

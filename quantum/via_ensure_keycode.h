@@ -3,6 +3,8 @@
 #include "quantum.h"
 #include "via.h"
 
+#ifndef VIA_HAS_BROKEN_KEYCODES
+
 _Static_assert(KC_NO == 0, "");
 _Static_assert(KC_TRNS == 1, "");
 
@@ -286,3 +288,5 @@ _Static_assert(USER12 == 0x5F8C, "");
 _Static_assert(USER13 == 0x5F8D, "");
 _Static_assert(USER14 == 0x5F8E, "");
 _Static_assert(USER15 == 0x5F8F, "");
+
+#endif
