@@ -50,7 +50,7 @@ Then run the following command:
 
 Install the QMK CLI by running:
 
-    python3 -m pip install qmk
+    PYTHONUTF8=1 python3 -m pip install qmk
 
 </details>
 
