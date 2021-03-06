@@ -838,15 +838,11 @@ enum quantum_keycodes {
 #define KC_HYPR HYPR(KC_NO)
 #define KC_MEH MEH(KC_NO)
 
-#ifdef UNICODE_ENABLE
-// Allows Unicode input up to 0x7FFF
-#    define UC(c) (QK_UNICODE | (c))
-#endif
-#ifdef UNICODEMAP_ENABLE
-// Allows Unicode input up to 0x10FFFF, requires unicode_map
-#    define X(i) (QK_UNICODEMAP | (i))
-#    define XP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7))  // 127 max i and j
-#endif
+// UNICODE_ENABLE - Allows Unicode input up to 0x7FFF
+#define UC(c) (QK_UNICODE | (c))
+// UNICODEMAP_ENABLE - Allows Unicode input up to 0x10FFFF, requires unicode_map
+#define X(i) (QK_UNICODEMAP | (i))
+#define XP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7))  // 127 max i and j
 
 #define UC_MOD UNICODE_MODE_FORWARD
 #define UC_RMOD UNICODE_MODE_REVERSE
