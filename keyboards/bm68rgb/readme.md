@@ -1,12 +1,12 @@
 # bm68rgb
 
-![bm68rgb](imgur.com image replace me!)
+![bm68rgb](https://imgur.com/a/KUiOM6f)
 
-*A short description of the keyboard/project*
+A 65% hotswap in switch RGB keyboard from KPRepublic.
 
-* Keyboard Maintainer: [peepeetee](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
+* Hardware Supported: BM68 RGB
+* Hardware Availability: [KP Republic](https://kprepublic.com/products/bm68rgb-bm68-rgb-65-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-full-rgb-switch-underglow-type-c)
 
 Make example for this keyboard (after setting up your build environment):
 
