@@ -23,14 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
 #define PRODUCT         Xelus87
-#define DESCRIPTION     Xelus87
 
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
 
-#define MATRIX_ROW_PINS { B4, B3, A15, A3, B9, B8 }
-#define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, B11, B10, B2, B1, B0, A7, A6, A5, A4 }
+#define MATRIX_ROW_PINS { B4, B3, A15, B15, B9, B8 }
+#define MATRIX_COL_PINS { B13, B12, B11, B10, B2, B1, B0, A7, A6, A5, A4, A2, A1, A0, A3 }
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
@@ -43,3 +42,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CAPS_LOCK_LED_PIN   A2
 #define SCROLL_LOCK_LED_PIN A13
+#define LED_PIN_ON_STATE 1
