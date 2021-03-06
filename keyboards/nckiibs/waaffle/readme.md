@@ -1,8 +1,9 @@
 # Waaffle
 
 ![waaffle](https://i.imgur.com/MMIuK9tl.jpg)
+![waaffle](https://imgur.com/6IMH4kul.jpg)
 
-Waaffle is a 60% ortholinear keyboard with RGB underglow and on-board pinouts for a Bluetooth setup. Designed by dELIKEEb.
+Waaffle is an ortholinear keyboard that supports 60 key and 80 key layouts. The base PCB has a 60 key ortholinear layout, and it can be expanded to an 80 key ortholinear keyboard simply by adding an extension PCB. Waaffle features RGB underglow and on-board pinouts including a power switch and battery connection for a Bluetooth setup. Designed by dELIKEEb
 
 * Keyboard Maintainer: [noclew](https://github.com/noclew)
 * Hardware Supported: Waaffle PCB

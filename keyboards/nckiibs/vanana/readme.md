@@ -1,6 +1,6 @@
 # Vanana
 
-![vanana](https://i.imgur.com/YM0dwCJl.png)
+![vanana](https://i.imgur.com/I5a5KKNl.jpg)
 
 Vanana is a non-split ergonomic keyboard with RGB underglow and on-board pinouts for a Bluetooth setup. Designed by dELIKEEb.
 
