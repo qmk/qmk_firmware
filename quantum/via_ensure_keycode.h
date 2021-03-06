@@ -145,9 +145,6 @@ _Static_assert(KC_MHEN == 0x8B, "");
 _Static_assert(KC_LANG1 == 0x90, "");
 _Static_assert(KC_LANG2 == 0x91, "");
 
-_Static_assert(FN_MO13 == 0x5F10, "");
-_Static_assert(FN_MO23 == 0x5F11, "");
-
 _Static_assert(KC_GESC == 0x5C16, "");
 _Static_assert(KC_LSPO == 0x5CD7, "");
 _Static_assert(KC_RSPC == 0x5CD8, "");
@@ -253,6 +250,9 @@ _Static_assert(KC_LCAP == 130, "");
 _Static_assert(KC_LNUM == 131, "");
 _Static_assert(KC_LSCR == 132, "");
 
+_Static_assert(FN_MO13 == 0x5F10, "");
+_Static_assert(FN_MO23 == 0x5F11, "");
+
 _Static_assert(MACRO00 == 0x5F12, "");
 _Static_assert(MACRO01 == 0x5F13, "");
 _Static_assert(MACRO02 == 0x5F14, "");
@@ -269,3 +269,20 @@ _Static_assert(MACRO12 == 0x5F1E, "");
 _Static_assert(MACRO13 == 0x5F1F, "");
 _Static_assert(MACRO14 == 0x5F20, "");
 _Static_assert(MACRO15 == 0x5F21, "");
+
+_Static_assert(USER00 == 0x5F80, "");
+_Static_assert(USER01 == 0x5F81, "");
+_Static_assert(USER02 == 0x5F82, "");
+_Static_assert(USER03 == 0x5F83, "");
+_Static_assert(USER04 == 0x5F84, "");
+_Static_assert(USER05 == 0x5F85, "");
+_Static_assert(USER06 == 0x5F86, "");
+_Static_assert(USER07 == 0x5F87, "");
+_Static_assert(USER08 == 0x5F88, "");
+_Static_assert(USER09 == 0x5F89, "");
+_Static_assert(USER10 == 0x5F8A, "");
+_Static_assert(USER11 == 0x5F8B, "");
+_Static_assert(USER12 == 0x5F8C, "");
+_Static_assert(USER13 == 0x5F8D, "");
+_Static_assert(USER14 == 0x5F8E, "");
+_Static_assert(USER15 == 0x5F8F, "");
