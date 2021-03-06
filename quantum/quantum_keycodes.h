@@ -73,29 +73,22 @@ enum quantum_keycodes {
     QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
     QK_LAYER_MOD            = 0x5900,
     QK_LAYER_MOD_MAX        = 0x59FF,
-#ifdef STENO_ENABLE
-    QK_STENO        = 0x5A00,
-    QK_STENO_BOLT   = 0x5A30,
-    QK_STENO_GEMINI = 0x5A31,
-    QK_STENO_MAX    = 0x5A3F,
-#endif
-    QK_SWAP_HANDS     = 0x5B00,
-    QK_SWAP_HANDS_MAX = 0x5BFF,
-    QK_MOD_TAP        = 0x6000,
-    QK_MOD_TAP_MAX    = 0x7FFF,
-#ifdef UNICODE_ENABLE
-    QK_UNICODE     = 0x8000,
-    QK_UNICODE_MAX = 0xFFFF,
-#endif
-#ifdef UNICODEMAP_ENABLE
-    QK_UNICODEMAP          = 0x8000,
-    QK_UNICODEMAP_MAX      = 0xBFFF,
-    QK_UNICODEMAP_PAIR     = 0xC000,
-    QK_UNICODEMAP_PAIR_MAX = 0xFFFF,
-#endif
+    QK_STENO                = 0x5A00,
+    QK_STENO_BOLT           = 0x5A30,
+    QK_STENO_GEMINI         = 0x5A31,
+    QK_STENO_MAX            = 0x5A3F,
+    QK_SWAP_HANDS           = 0x5B00,
+    QK_SWAP_HANDS_MAX       = 0x5BFF,
+    QK_MOD_TAP              = 0x6000,
+    QK_MOD_TAP_MAX          = 0x7FFF,
+    QK_UNICODE              = 0x8000,
+    QK_UNICODE_MAX          = 0xFFFF,
+    QK_UNICODEMAP           = 0x8000,
+    QK_UNICODEMAP_MAX       = 0xBFFF,
+    QK_UNICODEMAP_PAIR      = 0xC000,
+    QK_UNICODEMAP_PAIR_MAX  = 0xFFFF,
 
     // Loose keycodes - to be used directly
-
     RESET = 0x5C00,
     DEBUG,
     MAGIC_SWAP_CONTROL_CAPSLOCK,
