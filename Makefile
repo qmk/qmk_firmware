@@ -561,9 +561,16 @@ else
 BUILD_DATE := 2020-01-01-00:00:00
 endif
 
-$(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define CHIBIOS_VERSION "$(CHIBIOS_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define CHIBIOS_CONTRIB_VERSION "$(CHIBIOS_CONTRIB_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#ifndef SKIP_VERSION' > $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#  define QMK_VERSION "$(GIT_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#  define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#  define CHIBIOS_VERSION "$(CHIBIOS_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#  define CHIBIOS_CONTRIB_VERSION "$(CHIBIOS_CONTRIB_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#else' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#  define QMK_VERSION "NA"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#  define QMK_BUILDDATE "2020-01-01-00:00:00"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#  define CHIBIOS_VERSION "NA"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#  define CHIBIOS_CONTRIB_VERSION "NA"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#endif' >> $(ROOT_DIR)/quantum/version.h)
 
 include $(ROOT_DIR)/testlist.mk

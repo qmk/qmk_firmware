@@ -34,6 +34,10 @@ $(error MASTER does not have a valid value(left/right))
     endif
 endif
 
+ifneq ($(filter check-md5,$(strip $(MAKECMDGOALS))),)
+   SKIP_VERSION = yes
+endif
+
 ifdef SKIP_VERSION
     OPT_DEFS += -DSKIP_VERSION
 endif
