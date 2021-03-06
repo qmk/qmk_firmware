@@ -1,6 +1,6 @@
 # bm68rgb
 
-![bm68rgb](https://imgur.com/a/KUiOM6f)
+![bm68rgb](https://i.imgur.com/uuYP8OIl.jpeg)
 
 A 65% hotswap in switch RGB keyboard from KPRepublic.
 
