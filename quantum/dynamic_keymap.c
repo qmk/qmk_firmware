@@ -376,16 +376,30 @@ void dynamic_keymap_macro_send(uint8_t id) {
         if (data[0] == 0) {
             break;
         }
-        // If the char is magic (tap, down, up),
-        // add the next char (key to use) and send a 3 char string.
-        if (data[0] == SS_TAP_CODE || data[0] == SS_DOWN_CODE || data[0] == SS_UP_CODE) {
-            data[1] = data[0];
-            data[0] = SS_QMK_PREFIX;
-            data[2] = eeprom_read_byte(p++);
-            if (data[2] == 0) {
+        if (data[0] == SS_QMK_PREFIX) {
+            // If the char is magic, process it as indicated by the next character
+            // (tap, down, up, delay)
+            data[1] = eeprom_read_byte(p++);
+            if (data[1] == 0)
                 break;
+            if (data[1] == SS_TAP_CODE || data[1] == SS_DOWN_CODE || data[1] == SS_UP_CODE) {
+                // For tap, down, up, just stuff it into the array and send_string it
+                data[2] = eeprom_read_byte(p++);
+                if (data[2] != 0)
+                    send_string(data);
+            } else if (data[1] == SS_DELAY_CODE) {
+                // For delay, decode the delay and wait_ms for that amount
+                uint8_t d0 = eeprom_read_byte(p++);
+                uint8_t d1 = eeprom_read_byte(p++);
+                if (d0 == 0 || d1 == 0)
+                    break;
+                // we cannot use 0 for these, need to subtract 1 and use 255 instead of 256 for delay calculation
+                int ms = (d0 - 1) + (d1 - 1) * 255;
+                while (ms--) wait_ms(1);
             }
+        } else {
+            // If the char wasn't magic, just send it
+            send_string(data);
         }
-        send_string(data);
     }
 }
