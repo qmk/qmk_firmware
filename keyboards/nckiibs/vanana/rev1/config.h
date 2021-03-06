@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER   0x0001
-#define PRODUCT      Vanana_rev1
+#define PRODUCT      Vanana rev1
 
 /* key matrix size */
 #define MATRIX_ROWS 5
