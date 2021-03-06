@@ -19,10 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5845  // XE
-#define PRODUCT_ID      0x5887  // X-87
+#define PRODUCT_ID      0x5041  // PA
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
-#define PRODUCT         Xelus87
+#define PRODUCT         Xelus Pachi
 
 /* key matrix size */
 #define MATRIX_ROWS 6
