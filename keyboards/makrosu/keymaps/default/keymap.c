@@ -25,19 +25,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_OSU] = KEYMAP(
 		KC_ESC, KC_F1, KC_F2,
-		LOWER, KC_Z, KC_X),
+        LOWER, KC_Z, KC_X),
 
 	[_TUGAS] = KEYMAP(
 		LALT(KC_TAB), LGUI(KC_TAB), LCTL(KC_S),
-		LOWER, LCTL(KC_C), LCTL(KC_V)),
+        LOWER, LCTL(KC_C), LCTL(KC_V)),
 
 	[_RANDOM] = KEYMAP(
 		KC_ESC, KC_F1, KC_F2,
-		LOWER, KC_Z, KC_X),
+        LOWER, KC_Z, KC_X),
 
 	[_LOWER] = KEYMAP(
 		OSU, TUGAS, RANDOM,
-		_______, _______, _______),
+        _______, _______, _______),
 
 };
 
