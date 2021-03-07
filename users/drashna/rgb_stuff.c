@@ -32,7 +32,7 @@ void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rg
     bool litup = false;
 
     for (uint8_t light_index = 0; light_index < RGBLED_NUM; ++light_index) {
-        if (lights[light_index].enabled && timer_elapsed(lights[light_index].timer) > 10) {
+        if (lights[light_index].enabled && sync_timer_elapsed(lights[light_index].timer) > 10) {
             rgblight_fadeout *light = &lights[light_index];
             litup                   = true;
 
@@ -41,7 +41,7 @@ void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rg
                 if (get_highest_layer(layer_state) == 0) {
                     sethsv(light->hue + rand() % 0xF, 255, light->life, (LED_TYPE *)&led[light_index]);
                 }
-                light->timer = timer_read();
+                light->timer = sync_timer_read();
             } else {
                 if (light->enabled && get_highest_layer(layer_state) == 0) {
                     rgblight_sethsv_default_helper(light_index);
@@ -86,7 +86,7 @@ void start_rgb_light(void) {
 
     rgblight_fadeout *light = &lights[light_index];
     light->enabled          = true;
-    light->timer            = timer_read();
+    light->timer            = sync_timer_read();
     light->life             = 0xC0 + rand() % 0x40;
 
     light->hue = rgblight_get_hue() + (rand() % 0xB4) - 0x54;
@@ -149,11 +149,11 @@ void matrix_scan_rgb_light(void) {
 
 #    if defined(RGBLIGHT_STARTUP_ANIMATION)
     if (is_rgblight_startup && is_keyboard_master()) {
-        if (timer_elapsed(rgblight_startup_loop_timer) > 10) {
+        if (sync_timer_elapsed(rgblight_startup_loop_timer) > 10) {
             static uint8_t counter;
             counter++;
             rgblight_sethsv_noeeprom((counter + old_hue) % 255, 255, 255);
-            rgblight_startup_loop_timer = timer_read();
+            rgblight_startup_loop_timer = sync_timer_read();
             if (counter == 255) {
                 is_rgblight_startup = false;
                 if (!is_enabled) {

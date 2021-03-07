@@ -72,7 +72,7 @@ void add_keylog(uint16_t keycode) {
 bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
 #ifdef OLED_DRIVER_ENABLE
-        oled_timer = timer_read32();
+        oled_timer = sync_timer_read32();
         add_keylog(keycode);
 #endif
     }
@@ -359,7 +359,7 @@ void oled_task_user(void) {
     update_log();
 
     if (is_keyboard_master()) {
-        if (timer_elapsed32(oled_timer) > 30000) {
+        if (sync_timer_elapsed32(oled_timer) > 30000) {
             oled_off();
             return;
         } else {
