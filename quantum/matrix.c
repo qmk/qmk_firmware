@@ -27,8 +27,8 @@ static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 /* matrix macro consistency check */
 #define NUM_OF_PINS(INITIALIZER) (sizeof((pin_t[])INITIALIZER) / sizeof(pin_t))
-_Static_assert(MATRIX_ROWS == NUM_OF_PINS(MATRIX_ROW_PINS), "MATRIX_ROW_PINS and MATRIX_ROWS are inconsistent.");
-_Static_assert(MATRIX_COLS == NUM_OF_PINS(MATRIX_COL_PINS), "MATRIX_COL_PINS and MATRIX_COLS are inconsistent.");
+_Static_assert((MATRIX_ROWS) == NUM_OF_PINS(MATRIX_ROW_PINS), "MATRIX_ROW_PINS and MATRIX_ROWS are inconsistent.");
+_Static_assert((MATRIX_COLS) == NUM_OF_PINS(MATRIX_COL_PINS), "MATRIX_COL_PINS and MATRIX_COLS are inconsistent.");
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
