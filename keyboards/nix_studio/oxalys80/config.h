@@ -21,9 +21,6 @@
 #define MANUFACTURER    Nix Studio
 #define PRODUCT         oxalys80
 
-#define CONFIG_H
-
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 12
