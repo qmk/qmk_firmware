@@ -111,7 +111,12 @@ void shutdown_user(void) {
 
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 
-void suspend_power_down_user(void) { suspend_power_down_keymap(); }
+void suspend_power_down_user(void) {
+#ifdef OLED_DRIVER_ENABLE
+    oled_off();
+#endif
+    suspend_power_down_keymap();
+}
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 
@@ -146,17 +151,34 @@ void matrix_scan_user(void) {
     matrix_scan_keymap();
 }
 
+#ifdef AUDIO_ENABLE
+float doom_song[][2] = SONG(E1M1_DOOM);
+#endif
+
 __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
 
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) { return state; }
-    
+    if (!is_keyboard_master()) {
+        return state;
+    }
+
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
 #endif  // RGBLIGHT_ENABLE
+#if defined(AUDIO_ENABLE) && !defined(__arm__)
+    static bool is_gamepad_on = false;
+    if (layer_state_cmp(state, _GAMEPAD) != is_gamepad_on) {
+        is_gamepad_on = layer_state_cmp(state, _GAMEPAD);
+        if (is_gamepad_on) {
+            PLAY_LOOP(doom_song);
+        } else {
+            stop_all_notes();
+        }
+    }
+#endif
     return layer_state_set_keymap(state);
 }
 
@@ -164,7 +186,9 @@ __attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t
 
 // Runs state check and changes underglow color and animation
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) { return state; }
+    if (!is_keyboard_master()) {
+        return state;
+    }
 
     state = default_layer_state_set_keymap(state);
 #if 0
@@ -189,6 +213,9 @@ void eeconfig_init_user(void) {
     userspace_config.rgb_layer_change = true;
     eeconfig_update_user(userspace_config.raw);
     eeconfig_init_keymap();
+#ifdef VIA_ENABLE
+    via_eeprom_reset();
+#endif
     keyboard_init();
 }
 
