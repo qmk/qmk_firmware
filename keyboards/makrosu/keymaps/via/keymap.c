@@ -1,15 +1,15 @@
 #include "MakrOSU.h"
 
-enum my_layers {
+enum planck_layers {
   _OSU,
   _TUGAS,
   _RANDOM,
-  _LOWER,
+  _LOWER
 
 };
 
 
-enum my_keycodes {
+enum planck_keycodes {
   OSU = SAFE_RANGE,
   TUGAS,
   RANDOM
@@ -24,20 +24,20 @@ enum my_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_OSU] = KEYMAP(
-		KC_ESC, KC_F1, KC_F2
-		LOWER, KC_Z, KC_X),
+		KC_ESC, KC_F1, KC_F2,
+        LOWER, KC_Z, KC_X),
 
 	[_TUGAS] = KEYMAP(
-		LALT(KC_TAB), LGUI(KC_TAB), LCTL(KC_S)
-		LOWER, LCTL(KC_C), LCTL(KC_V)),
+		LALT(KC_TAB), LGUI(KC_TAB), LCTL(KC_S),
+        LOWER, LCTL(KC_C), LCTL(KC_V)),
 
 	[_RANDOM] = KEYMAP(
-		KC_ESC, KC_F1, KC_F2
-		LOWER, KC_Z, KC_X),
+		KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS),
 
 	[_LOWER] = KEYMAP(
-		OSU, TUGAS, RANDOM
-		_______, _______, _______),
+		OSU, TUGAS, RANDOM,
+        _______, _______, _______),
 
 };
 
