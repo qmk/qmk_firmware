@@ -1,15 +1,15 @@
 #include "MakrOSU.h"
 
-enum my_layers {
+enum planck_layers {
   _OSU,
   _TUGAS,
   _RANDOM,
-  _LOWER,
+  _LOWER
 
 };
 
 
-enum my_keycodes {
+enum planck_keycodes {
   OSU = SAFE_RANGE,
   TUGAS,
   RANDOM
