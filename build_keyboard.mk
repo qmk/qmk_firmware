@@ -13,7 +13,7 @@ endif
 include common.mk
 
 # Set the qmk cli to use
-QMK_BIN := qmk
+QMK_BIN ?= qmk
 
 # Set the filename for the final firmware binary
 KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
