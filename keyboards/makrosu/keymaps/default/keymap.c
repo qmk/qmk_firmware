@@ -32,8 +32,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LOWER, LCTL(KC_C), LCTL(KC_V)),
 
 	[_RANDOM] = KEYMAP(
-		KC_ESC, KC_F1, KC_F2,
-        LOWER, KC_Z, KC_X),
+		KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS),
 
 	[_LOWER] = KEYMAP(
 		OSU, TUGAS, RANDOM,
