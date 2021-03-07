@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef DIRECT_PINS
+/* matrix macro consistency check */
+#define NUM_OF_PINS(INITIALIZER) (sizeof((pin_t[][MATRIX_COLS])INITIALIZER) / sizeof(pin_t))
+_Static_assert((MATRIX_ROWS) * (MATRIX_COLS) == NUM_OF_PINS(DIRECT_PINS), "DIRECT_PINS and MATRIX_ROWS*MATRIX_COLS are inconsistent.");
+
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
