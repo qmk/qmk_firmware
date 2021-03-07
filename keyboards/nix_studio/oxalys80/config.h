@@ -20,7 +20,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Nix Studio
 #define PRODUCT         oxalys80
-#define DESCRIPTION     QMK-programmable TKL PCB for OXALYS80
 
 #define CONFIG_H
 
