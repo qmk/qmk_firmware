@@ -1,16 +1,16 @@
-# Ferris 0.2
+# Ferris 0.2 - Bling
 
-![Ferris 0.2 family](https://i.imgur.com/SDVOlyZ.jpg)
+![Ferris 0.2 - Bling](https://i.imgur.com/8dmm5Mrh.jpg)
 
-An stm32f072 based split 34 keys column staggered keyboard named and decorated after the rustlang mascott. All PCB files and some thoughts on the design are available on the [project's github page](https://github.com/pierrechevalier83/ferris)
+Ferris 0.2 with RGB underglow.
 
 * Keyboard Maintainer: [Pierre Chevalier](https://github.com/pierrechevalier83)
 * Hardware Supported:
-	* Ferris 0.2: stm32f072 chip. Comes in 4 variants: bling, mini, high and compact
+    * Ferris 0.2 - Bling: (STM32F072 MCU on the left, MCP23017 on the right, IS31FL3731 led driver chip on each side)
 * Hardware Availability: [Cuddly Keyboards](https://cuddlykeyboards.com)
 
 Make examples for this keyboard (after setting up your build environment):
 
-    make ferris/0_2:default
+    make ferris/0_2/bling:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
