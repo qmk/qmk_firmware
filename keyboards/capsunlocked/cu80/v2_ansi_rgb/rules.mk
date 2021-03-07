@@ -18,10 +18,9 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Disable keyboard RGB underglow in favor of Matrix
-UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output on port C6
-RGB_MATRIX_ENABLE = yes		# Enable RGB matrix
+RGB_MATRIX_ENABLE = yes     # Enable RGB matrix
 RGB_MATRIX_DRIVER = WS2812  # Set Driver to WS2812
 NO_USB_STARTUP_CHECK = yes  # resolve possible sleep issue
 
