@@ -1,11 +1,8 @@
 { avr ? true, arm ? true, teensy ? true }:
 let
-  nixpkgs = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/9e0fc666191ef9d60118cff9fbfdbec867d00e86.tar.gz";
-    sha256 = "014j8d1g2mk9xwsagcgrk1k75x2clnn5sjmc580s06wjzsbn61ds";
-  };
-
-  pkgs = import nixpkgs { };
+  # We specify sources via Niv: use "niv update nixpkgs" to update nixpkgs, for example.
+  sources = import ./nix/sources.nix {};
+  pkgs = import sources.nixpkgs {};
 
   # Builds the python env based on nix/pyproject.toml and
   # nix/poetry.lock Use the "poetry update --lock", "poetry add
@@ -33,7 +30,7 @@ in
 mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry niv ]
     ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8
