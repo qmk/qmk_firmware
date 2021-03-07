@@ -30,8 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef DIRECT_PINS
 /* matrix macro consistency check */
-#define NUM_OF_PINS(INITIALIZER) (sizeof((pin_t[][MATRIX_COLS])INITIALIZER) / sizeof(pin_t))
+#    define NUM_OF_PINS(INITIALIZER) (sizeof((pin_t[][MATRIX_COLS])INITIALIZER) / sizeof(pin_t))
 _Static_assert((MATRIX_ROWS) * (MATRIX_COLS) / 2 == NUM_OF_PINS(DIRECT_PINS), "DIRECT_PINS and MATRIX_ROWS*MATRIX_COLS are inconsistent.");
+#    ifdef DIRECT_PINS_RIGHT
+_Static_assert(NUM_OF_PINS(DIRECT_PINS) == NUM_OF_PINS(DIRECT_PINS_RIGHT), "DIRECT_PINS and DIRECT_PINS_RIGHT are inconsistent.");
+#    endif
 
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
