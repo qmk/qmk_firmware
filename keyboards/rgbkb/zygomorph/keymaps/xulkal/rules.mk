@@ -14,7 +14,7 @@ RGBLIGHT_SPLIT_ENABLE = no  # Split RGBLight Support
 RGB_MATRIX_ENABLE = yes  	# Enable per-key coordinate based RGB effects. Do not enable with RGBlight
 RGB_MATRIX_DRIVER = WS2812
 RGB_MATRIX_KEYPRESSES = no  # Enable reactive per-key effects.
-SPLIT_TRANSPORT = mirror    # For split RGB Matrix support
+SPLIT_RGB_MATRIX_ENABLE = yes # For split RGB Matrix support
 RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
 UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
@@ -41,4 +41,8 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_SPLIT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_SPLIT_ENABLE
+endif
+
+ifeq ($(strip $(SPLIT_RGB_MATRIX_ENABLE)), yes)
+    OPT_DEFS += -DSPLIT_TRANSPORT_MIRROR
 endif
