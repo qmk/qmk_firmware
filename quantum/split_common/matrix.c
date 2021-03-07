@@ -31,19 +31,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef DIRECT_PINS
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
+/* matrix macro consistency check */
+#    define NUM_OF_PINS(INITIALIZER) (sizeof((pin_t[])INITIALIZER) / sizeof(pin_t))
+_Static_assert(MATRIX_ROWS/2 == NUM_OF_PINS(MATRIX_ROW_PINS), "MATRIX_ROW_PINS and MATRIX_ROWS are inconsistent.");
+_Static_assert(MATRIX_COLS == NUM_OF_PINS(MATRIX_COL_PINS), "MATRIX_COL_PINS and MATRIX_COLS are inconsistent.");
+#    ifdef MATRIX_ROW_PINS_RIGHT
+_Static_assert(NUM_OF_PINS(MATRIX_ROW_PINS) == NUM_OF_PINS(MATRIX_ROW_PINS_RIGHT), "MATRIX_ROW_PINS and MATRIX_ROW_PINS_RIGHT are inconsistent.");
+#    endif
+#    ifdef MATRIX_COL_PINS_RIGHT
+_Static_assert(NUM_OF_PINS(MATRIX_COL_PINS) == NUM_OF_PINS(MATRIX_COL_PINS_RIGHT), "MATRIX_COL_PINS and MATRIX_COL_PINS_RIGHT are inconsistent.");
+#    endif
+
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-
-void test_for_matrix_macro_consistency_at_compile_time(void) {
-    /* If the definitions of MATRIX_ROWS and MATRIX_ROW_PINS
-     * and MATRIX_COLS and MATRIX_COL_PINS are inconsistent,
-     * compiler report error */
-    pin_t row_pins_test[] = MATRIX_ROW_PINS;
-    pin_t col_pins_test[] = MATRIX_COL_PINS;
-
-    _Static_assert(sizeof(row_pins)/2 == sizeof(row_pins_test), "MATRIX_ROW_PINS and MATRIX_ROWS are inconsistent.");
-    _Static_assert(sizeof(col_pins) == sizeof(col_pins_test), "MATRIX_COL_PINS and MATRIX_COLS are inconsistent.");
-}
 #endif
 
 /* matrix state(1:on, 0:off) */
