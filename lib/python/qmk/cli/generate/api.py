@@ -9,6 +9,7 @@ from milc import cli
 from qmk.datetime import current_datetime
 from qmk.info import info_json
 from qmk.info_json_encoder import InfoJSONEncoder
+from qmk.json_schema import json_load
 from qmk.keyboard import list_keyboards
 
 
@@ -18,14 +19,16 @@ def generate_api(cli):
     """
     api_data_dir = Path('api_data')
     v1_dir = api_data_dir / 'v1'
-    keyboard_list = v1_dir / 'keyboard_list.json'
     keyboard_all = v1_dir / 'keyboards.json'
+    keyboard_list = v1_dir / 'keyboard_list.json'
+    keyboard_aliases = v1_dir / 'keyboard_aliases.json'
     usb_file = v1_dir / 'usb.json'
 
     if not api_data_dir.exists():
         api_data_dir.mkdir()
 
     kb_all = {'last_updated': current_datetime(), 'keyboards': {}}
+    kb_aliases = {'last_updated': current_datetime(), 'keyboard_aliases': json_load(Path('data/mappings/keyboard_aliases.json'))}
     usb_list = {'last_updated': current_datetime(), 'devices': {}}
 
     # Generate and write keyboard specific JSON files
@@ -57,4 +60,5 @@ def generate_api(cli):
     # Write the global JSON files
     keyboard_list.write_text(json.dumps({'last_updated': current_datetime(), 'keyboards': sorted(kb_all['keyboards'])}, cls=InfoJSONEncoder))
     keyboard_all.write_text(json.dumps(kb_all, cls=InfoJSONEncoder))
+    keyboard_aliases.write_text(json.dumps(kb_aliases, cls=InfoJSONEncoder))
     usb_file.write_text(json.dumps(usb_list, cls=InfoJSONEncoder))
