@@ -680,16 +680,13 @@ enum quantum_keycodes {
 
 #define KC_DELT KC_DELETE  // Del key (four letter code)
 
-// Alias for function layers than expand past FN31
-#define FUNC(kc) (QK_FUNCTION | (kc))
-
 // Aliases
 #define C(kc) LCTL(kc)
 #define S(kc) LSFT(kc)
 #define A(kc) LALT(kc)
 #define G(kc) LGUI(kc)
 
-#define F(kc) FUNC(kc)
+#define F(kc) (QK_FUNCTION | (kc))
 #define M(kc) (QK_MACRO | (kc))
 
 #define MACROTAP(kc) (QK_MACRO | (FUNC_TAP << 8) | (kc))
