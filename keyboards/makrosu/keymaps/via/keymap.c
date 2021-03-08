@@ -48,18 +48,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             writePinHigh(IND_1);
 	        writePinLow(IND_2);
  	        writePinLow(IND_3); 
+            return state;
             break;
         case _2:
             writePinLow(IND_1);
             writePinHigh(IND_2);
  	        writePinLow(IND_3);
+            return state;
             break;
         case _3:
             writePinLow(IND_1);
             writePinLow(IND_2);
 	        writePinHigh(IND_3);
-            break;
             return state;
+            break;
+            
     }
 }
 
