@@ -1,0 +1,2 @@
+# The default Preonic layout - largely based on the Planck's
+\\ I don't think the default Preonic supports `RGB_MATRIX` so you can't control your LEDs more than the buttons I put there. Whoof. - Elder Ellis
