@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { k18, k19, k1a, k1b, k1c, k1d, k1e, k1f}, \
     { k28, k29, k2a, k2b, k2c, k2d, k2e, k2f}, \
     { k38, k39, k3a, k3b, k3c, k3d, k3e, k3f}, \
-    { k0g, k0h, k0i, k0j, k0k, k0l, k0m, k0n}, \
-    { k1g, k1h, ___, ___, k1k, k1l, ___, k1n}, \
-    { ___, k2h, ___, k2j, k2k, k2l, k2m, k2n}  \
+    { k0g, k0h, k0i, k0j, ___, k0k, k0m, k0n}, \
+    { k1g, k1h, k1l, k4a, k1k, k4b, ___, k1n}, \
+    { ___, k2h, k0l, k2j, k2k, k2l, k2m, k2n}  \
 }
