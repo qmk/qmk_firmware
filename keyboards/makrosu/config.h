@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Valdydesu_
 #define PRODUCT         MakrOSU
-#define DESCRIPTION     Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 1
