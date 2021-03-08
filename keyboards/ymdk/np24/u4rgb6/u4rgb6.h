@@ -65,5 +65,3 @@
     { k04, k14, k24, XXX }, \
     { XXX, k15, k25, k35 }  \
 }
-
-#define LAYOUT LAYOUT_ortho_6x4

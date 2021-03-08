@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -22,3 +15,5 @@ COMMAND_ENABLE = no     # Commands for debug and configuration
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes
+
+LAYOUTS = ortho_6x4 numpad_6x4 ortho_4x6
