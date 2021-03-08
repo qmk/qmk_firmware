@@ -155,6 +155,14 @@ led_config_t g_led_config = {
         4, 4, 4, 4, 1, 1, 1, 1,
     }
 };
+
+__attribute__ ((weak))
+void rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(8, 0xFF, 0x0, 0x0);
+    }
+}
+
 #endif  //RGB_MATRIX_ENABLE
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

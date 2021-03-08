@@ -10,6 +10,7 @@ Currently QMK supports the following addressable LEDs (however, the white LED in
 
  * WS2811, WS2812, WS2812B, WS2812C, etc.
  * SK6812, SK6812MINI, SK6805
+ * APA102
 
 These LEDs are called "addressable" because instead of using a wire per color, each LED contains a small microchip that understands a special protocol sent over a single wire. The chip passes on the remaining data to the next LED, allowing them to be chained together. In this way, you can easily control the color of the individual LEDs.
 
@@ -21,11 +22,19 @@ On keyboards with onboard RGB LEDs, it is usually enabled by default. If it is n
 RGBLIGHT_ENABLE = yes
 ```
 
-At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
+For APA102 LEDs, add the following to your `rules.mk`:
+
+```make
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_DRIVER = APA102
+```
+
+At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
 
 |Define         |Description                                                                                              |
 |---------------|---------------------------------------------------------------------------------------------------------|
 |`RGB_DI_PIN`   |The pin connected to the data pin of the LEDs                                                            |
+|`RGB_CI_PIN`   |The pin connected to the clock pin of the LEDs (APA102 only)                                             |
 |`RGBLED_NUM`   |The number of LEDs connected                                                                             |
 |`RGBLED_SPLIT` |(Optional) For split keyboards, the number of LEDs connected on each half directly wired to `RGB_DI_PIN` |
 
@@ -73,15 +82,20 @@ Changing the **Value** sets the overall brightness.<br>
 
 Your RGB lighting can be configured by placing these `#define`s in your `config.h`:
 
-|Define               |Default      |Description                                                                  |
-|---------------------|-------------|-----------------------------------------------------------------------------|
-|`RGBLIGHT_HUE_STEP`  |`10`         |The number of steps to cycle through the hue by                              |
-|`RGBLIGHT_SAT_STEP`  |`17`         |The number of steps to increment the saturation by                           |
-|`RGBLIGHT_VAL_STEP`  |`17`         |The number of steps to increment the brightness by                           |
-|`RGBLIGHT_LIMIT_VAL` |`255`        |The maximum brightness level                                                 |
-|`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
-|`RGBLIGHT_SPLIT`     |*Not defined*|If defined, synchronization functionality for split keyboards is added|
-|`RGBLIGHT_DISABLE_KEYCODES`|*not defined*|If defined, disables the ability to control RGB Light from the keycodes. You must use code functions to control the feature| 
+|Define                     |Default                     |Description                                                                                                                |
+|---------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------|
+|`RGBLIGHT_HUE_STEP`        |`10`                        |The number of steps to cycle through the hue by                                                                            |
+|`RGBLIGHT_SAT_STEP`        |`17`                        |The number of steps to increment the saturation by                                                                         |
+|`RGBLIGHT_VAL_STEP`        |`17`                        |The number of steps to increment the brightness by                                                                         |
+|`RGBLIGHT_LIMIT_VAL`       |`255`                       |The maximum brightness level                                                                                               |
+|`RGBLIGHT_SLEEP`           |*Not defined*               |If defined, the RGB lighting will be switched off when the host goes to sleep                                              |
+|`RGBLIGHT_SPLIT`           |*Not defined*               |If defined, synchronization functionality for split keyboards is added                                                     |
+|`RGBLIGHT_DISABLE_KEYCODES`|*Not defined*               |If defined, disables the ability to control RGB Light from the keycodes. You must use code functions to control the feature|
+|`RGBLIGHT_DEFAULT_MODE`    |`RGBLIGHT_MODE_STATIC_LIGHT`|The default mode to use upon clearing the EEPROM                                                                           |
+|`RGBLIGHT_DEFAULT_HUE`     |`0` (red)                   |The default hue to use upon clearing the EEPROM                                                                            |
+|`RGBLIGHT_DEFAULT_SAT`     |`UINT8_MAX` (255)           |The default saturation to use upon clearing the EEPROM                                                                     |
+|`RGBLIGHT_DEFAULT_VAL`     |`RGBLIGHT_LIMIT_VAL`        |The default value (brightness) to use upon clearing the EEPROM                                                             |
+|`RGBLIGHT_DEFAULT_SPD`     |`0`                         |The default speed to use upon clearing the EEPROM                                                                          |
 
 ## Effects and Animations
 
@@ -139,7 +153,7 @@ The following options are used to tweak the various animations:
 |`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by              |
 |`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                          |
 |`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                                       |
-|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`75`         |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
+|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`200`        |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
 |`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
@@ -361,6 +375,7 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_step_noeeprom()`                  |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM) |
 |`rgblight_step_reverse()`                   |Change the mode to the previous RGB animation in the list of enabled RGB animations |
 |`rgblight_step_reverse_noeeprom()`          |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM) |
+|`rgblight_reload_from_eeprom()`             |Reload the effect configuration (enabled, mode and color) from EEPROM |
 
 #### effects mode disable/enable
 |Function                                    |Description  |

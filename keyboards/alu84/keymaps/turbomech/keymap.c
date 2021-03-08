@@ -88,25 +88,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	//switch (id) {
-   // case _FLIP:
-    //  if (record->event.pressed)
-
-          //SEND_STRING("(╯°□°）╯︵ ┻━┻");
-    //  }
-    //  return false;
-     // break;
- // }
-
-	return MACRO_NONE;
-};
-
-
-
-void matrix_scan_user(void) {
-}
-
 void led_set_user(uint8_t usb_led) {
 
 	if (usb_led & (1 << USB_LED_NUM_LOCK)) {

@@ -31,7 +31,10 @@
 
 //Audio
 #undef AUDIO_VOICES
-#undef C6_AUDIO
+#undef AUDIO_PIN
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(ONE_UP_SOUND)
@@ -113,9 +116,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
