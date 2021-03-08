@@ -10,9 +10,9 @@ enum planck_layers {
 
 
 enum planck_keycodes {
-  _1,
-  _2,
-  _3
+  L1,
+  L2,
+  L3
   
 };
 
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS),
 
 	[_4] = LAYOUT(
-		_1, _2, _3,
+		L1, L2, L3,
         _______, _______, _______),
 
 };
@@ -65,7 +65,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case 1:
+    case L1:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_1);
 	
@@ -73,14 +73,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case 2:
+    case L2:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_2);
 	
       }
       return false;
       break;
-    case 3:
+    case L3:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_3);
 	
