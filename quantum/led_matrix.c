@@ -45,10 +45,6 @@ led_eeconfig_t led_matrix_eeconfig;
 #    define LED_DISABLE_WHEN_USB_SUSPENDED false
 #endif
 
-#ifndef EECONFIG_LED_MATRIX
-#    define EECONFIG_LED_MATRIX EECONFIG_RGBLIGHT
-#endif
-
 #if !defined(LED_MATRIX_MAXIMUM_BRIGHTNESS) || LED_MATRIX_MAXIMUM_BRIGHTNESS > 255
 #    define LED_MATRIX_MAXIMUM_BRIGHTNESS 255
 #endif
@@ -135,7 +131,7 @@ void led_matrix_set_suspend_state(bool state) { g_suspend_state = state; }
 void led_matrix_all_off(void) { led_matrix_set_index_value_all(0); }
 
 // Uniform brightness
-void led_matrix_uniform_brightness(void) { led_matrix_set_index_value_all(LED_MATRIX_MAXIMUM_BRIGHTNESS / BACKLIGHT_LEVELS * led_matrix_eeconfig.val); }
+void led_matrix_uniform_brightness(void) { led_matrix_set_index_value_all(led_matrix_eeconfig.val); }
 
 void led_matrix_custom(void) {}
 
@@ -344,5 +340,3 @@ void led_matrix_set_value(uint8_t val) {
     led_matrix_set_value_noeeprom(val);
     eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
 }
-
-void backlight_set(uint8_t val) { led_matrix_set_value(val); }

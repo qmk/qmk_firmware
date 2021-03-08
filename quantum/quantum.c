@@ -234,7 +234,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
             process_audio(keycode, record) &&
 #endif
-#ifdef BACKLIGHT_ENABLE
+#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
             process_backlight(keycode, record) &&
 #endif
 #ifdef STENO_ENABLE
@@ -387,14 +387,13 @@ void matrix_init_quantum() {
     led_init_ports();
 #endif
 #ifdef BACKLIGHT_ENABLE
-#    ifdef LED_MATRIX_ENABLE
-    led_matrix_init();
-#    else
     backlight_init_ports();
-#    endif
 #endif
 #ifdef AUDIO_ENABLE
     audio_init();
+#endif
+#ifdef LED_MATRIX_ENABLE
+    led_matrix_init();
 #endif
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
