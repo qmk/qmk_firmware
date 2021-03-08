@@ -23,19 +23,19 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[_OSU] = KEYMAP(
+	[_OSU] = LAYOUT(
 		KC_ESC, KC_F1, KC_F2,
         LOWER, KC_Z, KC_X),
 
-	[_TUGAS] = KEYMAP(
+	[_TUGAS] = LAYOUT(
 		LALT(KC_TAB), LGUI(KC_TAB), LCTL(KC_S),
         LOWER, LCTL(KC_C), LCTL(KC_V)),
 
-	[_RANDOM] = KEYMAP(
+	[_RANDOM] = LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS),
 
-	[_LOWER] = KEYMAP(
+	[_LOWER] = LAYOUT(
 		OSU, TUGAS, RANDOM,
         _______, _______, _______),
 
@@ -43,7 +43,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, X_PAUSE, X_PAUSE);
+    switch (get_highest_layer(state)) {
+        case OSU:
+            writePinHigh(IND_1);
+	        writePinLow(IND_2);
+ 	        writePinLow(IND_3); 
+            break;
+        case TUGAS:
+            writePinLow(IND_1);
+            writePinHigh(IND_2);
+ 	        writePinLow(IND_3);
+            break;
+        case RANDOM:
+            writePinLow(IND_1);
+            writePinLow(IND_2);
+	        writePinHigh(IND_3);
+            break;
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -51,9 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case OSU:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_OSU);
-	writePinHigh(IND_1);
-	writePinLow(IND_2);
- 	writePinLow(IND_3); 
+	
 
       }
       return false;
@@ -61,18 +75,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TUGAS:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_TUGAS);
-	writePinLow(IND_1);
-        writePinHigh(IND_2);
- 	writePinLow(IND_3);
+	
       }
       return false;
       break;
     case RANDOM:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_RANDOM);
-	writePinLow(IND_1);
-        writePinLow(IND_2);
-	writePinHigh(IND_3);
+	
       }
       return false;
       break;
