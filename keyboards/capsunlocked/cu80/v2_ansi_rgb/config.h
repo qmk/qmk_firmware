@@ -50,6 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_KEYPRESSES
 #define DRIVER_LED_TOTAL 87
 #define RGBLED_NUM 87
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
+#define RGBLIGHT_LIMIT_VAL 50
 
 
