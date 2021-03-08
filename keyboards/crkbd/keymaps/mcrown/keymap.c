@@ -131,7 +131,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             {
                 rgblight_mode(RGB_current_mode);
                 rgblight_step();
-                RGB_current_mode = rgblight_config.mode;
+                RGB_current_mode = rgblight_get_mode();
             }
             #endif
             break;
@@ -142,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             {
                 eeconfig_update_rgblight_default();
                 rgblight_enable();
-                RGB_current_mode = rgblight_config.mode;
+                RGB_current_mode = rgblight_get_mode();
             }
             #endif
             break;
