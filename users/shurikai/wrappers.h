@@ -49,7 +49,7 @@
  */
 #define _________________BASE_L1___________________    KC_Q,     KC_W,    KC_E,     KC_R,     KC_T
 #define _________________BASE_L2___________________    KC_CTLA,  KC_ALTS, KC_SFTD,  KC_GUIF,  KC_G
-#define _________________BASE_L3___________________    LT_ADJ,   KC_X,    KC_C,     KC_V,     KC_B
+#define _________________BASE_L3___________________    KC_Z,   KC_X,    KC_C,     KC_V,     KC_B
 #define ____BASE_LT_____                                                            LT_NAV,   LT_NUM
 
 #define _________________BASE_R1___________________    KC_Y,     KC_U,    KC_I,     KC_O,     KC_P
@@ -90,9 +90,9 @@
  *                      `-------------+    +-------------'
  */
 #define _________________SYM_L1____________________    KC_TILD,  KC_GRV,   KC_LCBR,  KC_RCBR,  _______
-#define _________________SYM_L2____________________    _______,  _______,  KC_SFTLP, KC_RPRN,    KC_AT
+#define _________________SYM_L2____________________    _______,  _______,  KC_LPRN,  KC_RPRN,  KC_AT
 #define _________________SYM_L3____________________    _______,  _______,  KC_LBRC,  KC_RBRC,  _______
-#define _____SYM_LT_____                                                             _______,  _______
+#define _____SYM_LT_____                                                             MOD_LSFT, _______
 
 #define _________________SYM_R1____________________    _______,  KC_AMPR,  KC_ASTR,  _______,  KC_PIPE
 #define _________________SYM_R2____________________    KC_MINS,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_QUOT
