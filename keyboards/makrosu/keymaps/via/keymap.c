@@ -1,4 +1,4 @@
-#include "MakrOSU.h"
+#include QMK_KEYBOARD_H
 
 enum planck_layers {
   _OSU,
