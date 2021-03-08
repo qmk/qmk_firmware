@@ -196,19 +196,19 @@ void rgb_matrix_indicators_user(void) {
     }
         break;
     case _RAISE:
-        rgb_matrix_set_color(4, RGB_GREEN);
-        rgb_matrix_set_color(3, RGB_GREEN);
-        rgb_matrix_set_color(1, RGB_GREEN);
-        rgb_matrix_set_color(2, RGB_GREEN);
+        rgb_matrix_set_color(4, RGB_BLUE);
+        rgb_matrix_set_color(3, RGB_BLUE);
+        rgb_matrix_set_color(1, RGB_BLUE);
+        rgb_matrix_set_color(2, RGB_BLUE);
     if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
         rgb_matrix_set_color(0, RGB_RED);
     }
         break;
     case _ADJUST:
-        rgb_matrix_set_color(4, RGB_GREEN);
-        rgb_matrix_set_color(3, RGB_GREEN);
-        rgb_matrix_set_color(1, RGB_GREEN);
-        rgb_matrix_set_color(2, RGB_GREEN);
+        rgb_matrix_set_color(4, RGB_BLUE);
+        rgb_matrix_set_color(3, RGB_BLUE);
+        rgb_matrix_set_color(1, RGB_BLUE);
+        rgb_matrix_set_color(2, RGB_BLUE);
         rgb_matrix_set_color(6, 0x3A, 0x00, 0xFF);
         rgb_matrix_set_color(5, 0x3A, 0x00, 0xFF);
         rgb_matrix_set_color(7, 0x3A, 0x00, 0xFF);

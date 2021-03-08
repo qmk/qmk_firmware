@@ -19,10 +19,10 @@
   #define MOUSEKEY_WHEEL_DELAY 200
 #endif      
 
-#ifdef RGB_MATRIX_ENABLE
+/*#ifdef RGB_MATRIX_ENABLE
   #define DRIVER_LED_TOTAL RGBLED_NUM
 #endif
-#define RGB_MATRIX_KEYPRESSES                                       
+#define RGB_MATRIX_KEYPRESSES*/                                       
 
 /*
  * MIDI options
@@ -34,6 +34,7 @@
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
+
 
 #define MIDI_BASIC
 
