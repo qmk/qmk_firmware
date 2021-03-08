@@ -225,8 +225,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
-  }
-      switch (keycode) {
     case KC_HEITTIS:
         if (record->event.pressed) {
             // when keycode KC_HEITTIS is pressed
