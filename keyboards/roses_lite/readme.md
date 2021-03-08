@@ -1,18 +1,15 @@
 # Roses Lite
 
-A keyboard inspired by FateNozomi's Arisu and TGR Alice.
-The 'little brother' to the Roses V1 PCB
 
-* Keyboard Maintainer: [Reason6](https://github.com/vk2fgav)
+* Keyboard Maintainer: [Reason6/Vk2fgav](https://github.com/vk2fgav)
 * Hardware Supported: Roses Series
-* Hardware Availability: [PCB](delta-design.xyz) + [Case](delta-design.xyz)
+* Hardware Availability: [Shop](http://delta-design.xyz)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make roseslite:default
-    
-Flashing example for this keyboard:
+    make roses_lite:default
 
-    make roseslite:default:flash
+Flash example for this keyboard
+    make roses_lite:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

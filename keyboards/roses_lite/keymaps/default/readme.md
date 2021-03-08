@@ -1,1 +1,1 @@
-# The default keymap for the Roses Lite
+# The default keymap for roses_lite

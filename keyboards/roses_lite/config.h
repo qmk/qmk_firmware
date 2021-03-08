@@ -21,10 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xDE17
-#define PRODUCT_ID      0x0001
+#define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    DeltaDesign
-#define PRODUCT         RosesLite
+#define MANUFACTURER    DeltaDesigns
+#define PRODUCT         roses_lite
 
 /* key matrix size */
 #define MATRIX_ROWS 5
