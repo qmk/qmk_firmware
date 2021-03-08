@@ -18,6 +18,6 @@
 #   the appropriate keymap folder that will get included automatically
 
 MOUSEKEY_ENABLE = yes
-COMBO_ENABLE = yes
+COMBO_ENABLE = no
 
 SRC += shurikai.c

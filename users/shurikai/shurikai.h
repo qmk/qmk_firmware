@@ -22,50 +22,41 @@
 enum userspace_layers {
     _BASE,
     _NAV,
-    _MOUSE,
-    _RSYMBOL,
-    _LSYMBOL,
+    _SYMBOL,
     _NUMBER,
-    _FUNCTION,
-    _ADJUST,
-    _RGB_CONTROL
+    _ADJUST
 };
 
 enum userspace_keycodes {
     BASE = SAFE_RANGE,
     NAV,
-    MOUSE,
-    RSYMBOL,
-    LSYMBOL,
+    SYMBOL,
     NUMBER,
-    FUNCTION,
-    ADJUST,
-    RGB_CONTROL
+    ADJUST
 };
 
 /*
  * Mod-taps.
  */
-#define KC_SFTA   MT(MOD_LSFT, KC_A)
-#define KC_GUIZ   MT(MOD_LGUI, KC_Z)
-#define KC_CTLX   MT(MOD_LCTL, KC_X)
-#define KC_ALTC   MT(MOD_LALT, KC_C)
-#define KC_SFTCLN MT(MOD_LSFT, KC_SCLN)
-#define KC_ALTCM  MT(MOD_LALT, KC_COMM)
-#define KC_CTLDT  MT(MOD_LCTL, KC_DOT)
-#define KC_GUISL  MT(MOD_LGUI, KC_SLSH)
+#define KC_CTLA   MT(MOD_LCTL, KC_A)
+#define KC_ALTS   MT(MOD_LALT, KC_S)
+#define KC_SFTD   MT(MOD_LSFT, KC_D)
+#define KC_GUIF   MT(MOD_LGUI, KC_F)
+
+#define KC_GUIJ   MT(MOD_LGUI, KC_J)
+#define KC_SFTK   MT(MOD_LSFT, KC_K)
+#define KC_ALTL   MT(MOD_LALT, KC_L)
+#define KC_CTLCLN MT(MOD_LCTL, KC_SCLN)
+
+#define KC_SFTLP  MT(MOD_LSFT, KC_LPRN)
 
 /*
  * Layer-taps.
  */
-#define LT_NAV  LT(_NAV,KC_D)
-#define LT_MSE  LT(_MOUSE,KC_K)
-#define LT_RSYM LT(_RSYMBOL,KC_F)
-#define LT_LSYM LT(_LSYMBOL,KC_J)
-#define LT_NUM  LT(_NUMBER,KC_S)
-#define LT_FUNC LT(_FUNCTION,KC_L)
-#define LT_ADJ  LT(_ADJUST,KC_SPC)
-#define LT_RGB  LT(_RGB_CONTROL, KC_ENT)
+#define LT_NUM  LT(_NUMBER, KC_BSPC)
+#define LT_NAV  LT(_NAV,    KC_ESC)
+#define LT_SYM  LT(_SYMBOL, KC_SPC)
+#define LT_ADJ  LT(_ADJUST, KC_ENT)
 
 /*
  * Key shortcuts.
