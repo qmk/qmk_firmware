@@ -29,6 +29,13 @@ $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
 
+# Determine which qmk cli to use
+ifeq (, $(shell which qmk))
+    QMK_BIN = bin/qmk
+else
+    QMK_BIN = qmk
+endif
+
 # avoid 'Entering|Leaving directory' messages
 MAKEFLAGS += --no-print-directory
 
@@ -501,8 +508,8 @@ endef
 %:
 	# Check if we have the CMP tool installed
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
-	# Ensure that bin/qmk works.
-	if ! bin/qmk hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; exit 1; fi
+	# Ensure that $(QMK_BIN) works.
+	if ! $(QMK_BIN) hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; exit 1; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
 	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
