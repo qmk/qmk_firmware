@@ -23,19 +23,19 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[_OSU] = KEYMAP(
+	[_OSU] = LAYOUT(
 		KC_ESC, KC_F1, KC_F2,
         LOWER, KC_Z, KC_X),
 
-	[_TUGAS] = KEYMAP(
+	[_TUGAS] = LAYOUT(
 		LALT(KC_TAB), LGUI(KC_TAB), LCTL(KC_S),
         LOWER, LCTL(KC_C), LCTL(KC_V)),
 
-	[_RANDOM] = KEYMAP(
+	[_RANDOM] = LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS),
 
-	[_LOWER] = KEYMAP(
+	[_LOWER] = LAYOUT(
 		OSU, TUGAS, RANDOM,
         _______, _______, _______),
 
