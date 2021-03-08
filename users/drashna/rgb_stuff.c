@@ -179,7 +179,7 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(state | default_layer_state)) {
             case _MACROS:
-                rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_SNAKE + 3);
+                rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_TWINKLE + 5);
 
                 break;
             case _MEDIA:

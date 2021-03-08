@@ -37,12 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN E7
-#define RGBLED_NUM 31
+#define RGBLED_NUM 62
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 31 , 0 }
+#define RGBLED_SPLIT { 31 , 31 }
 #define RGBLIGHT_SLEEP
 // #define RGBW
-#define RGBLIGHT_LIMIT_VAL 120
+#define RGBLIGHT_LIMIT_VAL 80
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
