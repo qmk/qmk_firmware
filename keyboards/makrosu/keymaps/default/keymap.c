@@ -1,18 +1,18 @@
 #include QMK_KEYBOARD_H
 
 enum planck_layers {
-  _OSU,
-  _TUGAS,
-  _RANDOM,
-  _LOWER
+  _1,
+  _2,
+  _3,
+  _4
 
 };
 
 
 enum planck_keycodes {
-  OSU = SAFE_RANGE,
-  TUGAS,
-  RANDOM
+  1,
+  2,
+  3
   
 };
 
@@ -23,19 +23,19 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[_OSU] = LAYOUT(
+	[_1] = LAYOUT(
 		KC_ESC, KC_F1, KC_F2,
         LOWER, KC_Z, KC_X),
 
-	[_TUGAS] = LAYOUT(
+	[_2] = LAYOUT(
 		LALT(KC_TAB), LGUI(KC_TAB), LCTL(KC_S),
         LOWER, LCTL(KC_C), LCTL(KC_V)),
 
-	[_RANDOM] = LAYOUT(
+	[_3] = LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS),
 
-	[_LOWER] = LAYOUT(
+	[_4] = LAYOUT(
 		OSU, TUGAS, RANDOM,
         _______, _______, _______),
 
@@ -44,44 +44,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-        case OSU:
+        case _1:
             writePinHigh(IND_1);
 	        writePinLow(IND_2);
  	        writePinLow(IND_3); 
             break;
-        case TUGAS:
+        case _2:
             writePinLow(IND_1);
             writePinHigh(IND_2);
  	        writePinLow(IND_3);
             break;
-        case RANDOM:
+        case _3:
             writePinLow(IND_1);
             writePinLow(IND_2);
 	        writePinHigh(IND_3);
             break;
+            return state;
     }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case OSU:
+    case 1:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_OSU);
+        set_single_persistent_default_layer(_1);
 	
 
       }
       return false;
       break;
-    case TUGAS:
+    case 2:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_TUGAS);
+        set_single_persistent_default_layer(_2);
 	
       }
       return false;
       break;
-    case RANDOM:
+    case 3:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_RANDOM);
+        set_single_persistent_default_layer(_3);
 	
       }
       return false;
@@ -106,7 +107,7 @@ void matrix_scan_user(void) {
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (layer_state_is(_OSU)) {
+    if (layer_state_is(_1)) {
 	if (clockwise) {
       tap_code(KC_UP);
     } else {
@@ -114,7 +115,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
    }
 
-    else if (layer_state_is(_TUGAS)) {
+    else if (layer_state_is(_2)) {
 	if (clockwise) {
       tap_code(KC_RGHT);
     } else {
@@ -122,7 +123,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
    }
 
-    else if (layer_state_is(_RANDOM)) {
+    else if (layer_state_is(_3)) {
 	if (clockwise) {
       tap_code(KC_VOLU);
     } else {
