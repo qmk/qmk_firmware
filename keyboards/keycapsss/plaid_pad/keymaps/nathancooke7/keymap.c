@@ -22,12 +22,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* ALT Arrows */
   /* #define ALT_U RALT(KC_DOWN) */
   /* #define ALT_D RALT(KC_UP) */
+/* Google Meet */
+  #define MUTE_MIC LGUI(KC_D)
+/* MISC */
+  #define COPY LGUI(KC_C)
+  #define PASTE LGUI(KC_V)
 
 LAYOUT_ortho_4x4(
-		MUTE    , _______ , _______ , DESKTOP  ,
-		AM_LEFT , DESK_L  , DESK_R  , AM_RITE  ,
-		AM_1    , AM_2    , AM_3    , AM_CYCLE ,
-		_______ , AM_CW   , AM_CCW  , _______
+		MUTE     , COPY   , PASTE  , DESKTOP  ,
+		AM_LEFT  , DESK_L , DESK_R , AM_RITE  ,
+		AM_1     , AM_2   , AM_3   , AM_CYCLE ,
+		MUTE_MIC , AM_CW  , AM_CCW , _______
 )
 
 };
