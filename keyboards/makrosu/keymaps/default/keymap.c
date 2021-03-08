@@ -59,7 +59,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             writePinLow(IND_2);
 	        writePinHigh(IND_3);
             break;
-            return state;
+            
     }
 }
 
