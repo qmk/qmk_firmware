@@ -10,13 +10,13 @@ enum planck_layers {
 
 
 enum planck_keycodes {
-  1,
-  2,
-  3
+  _1,
+  _2,
+  _3
   
 };
 
-#define LOWER MO(_LOWER)
+#define LOWER MO(_4)
 #define IND_1          D4
 #define IND_2          C6
 #define IND_3          D7
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS),
 
 	[_4] = LAYOUT(
-		OSU, TUGAS, RANDOM,
+		_1, _2, _3,
         _______, _______, _______),
 
 };
