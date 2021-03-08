@@ -1,7 +1,7 @@
 # Roses Lite
 
 A keyboard inspired by FateNozomi's Arisu and TGR Alice.
-The 'little brother' to the Roses V1
+The 'little brother' to the Roses V1 PCB
 
 * Keyboard Maintainer: [Reason6](https://github.com/vk2fgav)
 * Hardware Supported: Roses Series
