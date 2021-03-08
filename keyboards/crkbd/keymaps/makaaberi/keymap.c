@@ -37,10 +37,7 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   BACKLIT,
-  RGBRST
-};
-
-enum macro_keycodes {
+  RGBRST,
   KC_HEITTIS,
 };
 
