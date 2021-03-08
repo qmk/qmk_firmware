@@ -74,19 +74,10 @@ def info_json(keyboard):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
 
     # Make sure we supply layout macros for the community layouts we claim to support
-    # FIXME(skullydazed): This should be populated into info.json and read from there instead
-    if 'LAYOUTS' in rules and info_data.get('layouts'):
-        # Match these up against the supplied layouts
-        supported_layouts = rules['LAYOUTS'].strip().split()
-        for layout_name in sorted(info_data['layouts']):
-            layout_name = layout_name[7:]
-
-            if layout_name in supported_layouts:
-                supported_layouts.remove(layout_name)
-
-        if supported_layouts:
-            for supported_layout in supported_layouts:
-                _log_error(info_data, 'Claims to support community layout %s but no LAYOUT_%s() macro found' % (supported_layout, supported_layout))
+    for layout in info_data.get('community_layouts', []):
+        layout_name = 'LAYOUT_' + layout
+        if layout_name not in info_data.get('layouts', {}) and layout_name not in info_data.get('layout_aliases', {}):
+            _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
 
     return info_data
 
