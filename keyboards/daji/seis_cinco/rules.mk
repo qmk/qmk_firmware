@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F072
+BOARD = GENERIC_STM32_F072XB
 
 # Build Options
 # comment out to disable the options.

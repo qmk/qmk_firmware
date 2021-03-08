@@ -23,6 +23,6 @@ enum unicode_names {
 };
 
 #    define X_BUL (XP(BUL1, BUL2))
-#    define X_DASH (XP(ENDASH, EMDASH))
+#    define X_DASH (XP(EMDASH, ENDASH))
 
 #endif
