@@ -44,17 +44,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-        case OSU:
+        case _OSU:
             writePinHigh(IND_1);
 	        writePinLow(IND_2);
  	        writePinLow(IND_3); 
             break;
-        case TUGAS:
+        case _TUGAS:
             writePinLow(IND_1);
             writePinHigh(IND_2);
  	        writePinLow(IND_3);
             break;
-        case RANDOM:
+        case _RANDOM:
             writePinLow(IND_1);
             writePinLow(IND_2);
 	        writePinHigh(IND_3);
