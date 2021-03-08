@@ -52,4 +52,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 87
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
 
-

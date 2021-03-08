@@ -148,8 +148,7 @@ void suspend_power_down(void) {
 
     // Turn off audio
 #    ifdef AUDIO_ENABLE
-    // This sometimes disables the start-up noise, so it's been disabled
-    // stop_all_notes();
+    stop_all_notes();
 #    endif
 
     // Turn off underglow
@@ -187,6 +186,7 @@ __attribute__((weak)) void suspend_wakeup_init_user(void) {}
  * FIXME: needs doc
  */
 __attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
+
 /** \brief run immediately after wakeup
  *
  * FIXME: needs doc

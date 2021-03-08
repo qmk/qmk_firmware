@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 200
 
-#define C6_AUDIO
+#define AUDIO_PIN C6
 #define AUDIO_VOICES
 
 #define RGB_DI_PIN C7 // Have to set it to something to get the ws2812 code to compile
