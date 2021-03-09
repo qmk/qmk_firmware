@@ -1,0 +1,63 @@
+{
+  "manufacturer": "e3w2q",
+  "keyboard_name": "SU120",
+  "maintainer": "e3w2q",
+  "height": 6,
+  "width": 21,
+  "bootloader": "caterina",
+  "debounce": 5,
+  "diode_direction": "COL2ROW",
+  "features": {
+    "audio": false,
+    "backlight": false,
+    "bluetooth": false,
+    "bootmagic": false,
+    "command": false,
+    "console": false,
+    "extrakey": true,
+    "fauxclicky": false,
+    "hd44780": false,
+    "midi": false,
+    "mousekey": true,
+    "nkro": true,
+    "rgblight": true,
+    "sleep_led": false,
+    "unicode": false
+  },
+  "matrix_pins": {
+    "cols": ["D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5", "F4", "F5"],
+    "rows": ["F6", "F7", "B1", "B3", "B2", "B6"]
+  },
+  "processor": "atmega32u4",
+  "rgblight": {
+    "animations": {
+      "breathing": true,
+      "knight": false,
+      "rainbow_mood": false,
+      "rainbow_swirl": false,
+      "snake": true,
+      "static_gradient": false
+    },
+    "brightness_steps": 8,
+    "hue_steps": 8,
+    "led_count": 12,
+    "pin": "D3",
+    "saturation_steps": 8,
+    "sleep": false,
+    "split": false
+  },
+  "url": "https://github.com/e3w2q/su120-keyboard",
+  "usb": {
+    "device_ver": "0x0001",
+    "pid": "0x4649",
+    "vid": "0x1209"
+  },
+  "layouts": {
+    "LAYOUT": {
+      "c_macro": true,
+      "filename": "keyboards/e3w2q/su120/rev1/rev1.h",
+      "key_count": 120,
+      "layout": [{"label":"0,0", "x":0, "y":0}, {"label":"0,1", "x":1, "y":0}, {"label":"0,2", "x":2, "y":0}, {"label":"0,3", "x":3, "y":0}, {"label":"0,4", "x":4, "y":0}, {"label":"0,5", "x":5, "y":0}, {"label":"0,6", "x":6, "y":0}, {"label":"0,7", "x":7, "y":0}, {"label":"0,8", "x":8, "y":0}, {"label":"0,9", "x":9, "y":0}, {"label":"6,0", "x":11, "y":0}, {"label":"6,1", "x":12, "y":0}, {"label":"6,2", "x":13, "y":0}, {"label":"6,3", "x":14, "y":0}, {"label":"6,4", "x":15, "y":0}, {"label":"6,5", "x":16, "y":0}, {"label":"0,6", "x":17, "y":0}, {"label":"0,7", "x":18, "y":0}, {"label":"0,8", "x":19, "y":0}, {"label":"0,9", "x":20, "y":0}, {"label":"1,0", "x":0, "y":1}, {"label":"1,1", "x":1, "y":1}, {"label":"1,2", "x":2, "y":1}, {"label":"1,3", "x":3, "y":1}, {"label":"1,4", "x":4, "y":1}, {"label":"1,5", "x":5, "y":1}, {"label":"1,6", "x":6, "y":1}, {"label":"1,7", "x":7, "y":1}, {"label":"1,8", "x":8, "y":1}, {"label":"1,9", "x":9, "y":1}, {"label":"7,0", "x":11, "y":1}, {"label":"7,1", "x":12, "y":1}, {"label":"7,2", "x":13, "y":1}, {"label":"7,3", "x":14, "y":1}, {"label":"7,4", "x":15, "y":1}, {"label":"7,5", "x":16, "y":1}, {"label":"1,6", "x":17, "y":1}, {"label":"1,7", "x":18, "y":1}, {"label":"1,8", "x":19, "y":1}, {"label":"1,9", "x":20, "y":1}, {"label":"2,0", "x":0, "y":2}, {"label":"2,1", "x":1, "y":2}, {"label":"2,2", "x":2, "y":2}, {"label":"2,3", "x":3, "y":2}, {"label":"2,4", "x":4, "y":2}, {"label":"2,5", "x":5, "y":2}, {"label":"2,6", "x":6, "y":2}, {"label":"2,7", "x":7, "y":2}, {"label":"2,8", "x":8, "y":2}, {"label":"2,9", "x":9, "y":2}, {"label":"8,0", "x":11, "y":2}, {"label":"8,1", "x":12, "y":2}, {"label":"8,2", "x":13, "y":2}, {"label":"8,3", "x":14, "y":2}, {"label":"8,4", "x":15, "y":2}, {"label":"8,5", "x":16, "y":2}, {"label":"2,6", "x":17, "y":2}, {"label":"2,7", "x":18, "y":2}, {"label":"2,8", "x":19, "y":2}, {"label":"2,9", "x":20, "y":2}, {"label":"3,0", "x":0, "y":3}, {"label":"3,1", "x":1, "y":3}, {"label":"3,2", "x":2, "y":3}, {"label":"3,3", "x":3, "y":3}, {"label":"3,4", "x":4, "y":3}, {"label":"3,5", "x":5, "y":3}, {"label":"3,6", "x":6, "y":3}, {"label":"3,7", "x":7, "y":3}, {"label":"3,8", "x":8, "y":3}, {"label":"3,9", "x":9, "y":3}, {"label":"9,0", "x":11, "y":3}, {"label":"9,1", "x":12, "y":3}, {"label":"9,2", "x":13, "y":3}, {"label":"9,3", "x":14, "y":3}, {"label":"9,4", "x":15, "y":3}, {"label":"9,5", "x":16, "y":3}, {"label":"3,6", "x":17, "y":3}, {"label":"3,7", "x":18, "y":3}, {"label":"3,8", "x":19, "y":3}, {"label":"3,9", "x":20, "y":3}, {"label":"4,0", "x":0, "y":4}, {"label":"4,1", "x":1, "y":4}, {"label":"4,2", "x":2, "y":4}, {"label":"4,3", "x":3, "y":4}, {"label":"4,4", "x":4, "y":4}, {"label":"4,5", "x":5, "y":4}, {"label":"4,6", "x":6, "y":4}, {"label":"4,7", "x":7, "y":4}, {"label":"4,8", "x":8, "y":4}, {"label":"4,9", "x":9, "y":4}, {"label":"10,0", "x":11, "y":4}, {"label":"10,1", "x":12, "y":4}, {"label":"10,2", "x":13, "y":4}, {"label":"10,3", "x":14, "y":4}, {"label":"10,4", "x":15, "y":4}, {"label":"10,5", "x":16, "y":4}, {"label":"4,6", "x":17, "y":4}, {"label":"4,7", "x":18, "y":4}, {"label":"4,8", "x":19, "y":4}, {"label":"4,9", "x":20, "y":4}, {"label":"5,0", "x":0, "y":5}, {"label":"5,1", "x":1, "y":5}, {"label":"5,2", "x":2, "y":5}, {"label":"5,3", "x":3, "y":5}, {"label":"5,4", "x":4, "y":5}, {"label":"5,5", "x":5, "y":5}, {"label":"5,6", "x":6, "y":5}, {"label":"5,7", "x":7, "y":5}, {"label":"5,8", "x":8, "y":5}, {"label":"5,9", "x":9, "y":5}, {"label":"11,0", "x":11, "y":5}, {"label":"11,1", "x":12, "y":5}, {"label":"11,2", "x":13, "y":5}, {"label":"11,3", "x":14, "y":5}, {"label":"11,4", "x":15, "y":5}, {"label":"11,5", "x":16, "y":5}, {"label":"5,6", "x":17, "y":5}, {"label":"5,7", "x":18, "y":5}, {"label":"5,8", "x":19, "y":5}, {"label":"5,9", "x":20, "y":5}]
+    }
+  }
+}
