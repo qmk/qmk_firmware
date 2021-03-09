@@ -7,7 +7,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make roses_lite:default
+    make roseslite:default
 
 Flashing example for this keyboard:
 
