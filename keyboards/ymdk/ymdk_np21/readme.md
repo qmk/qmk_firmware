@@ -10,11 +10,11 @@ ps2avrGB based number-pad sold fully assembled by YMDK on Aliexpress.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk/ymdk_np21:default
+    qmk compile -kb ymdk/ymdk_np21 -km default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid)):
 
-    make ymdk/ymdk_np21:default:flash
+    qmk flash -kb ymdk/ymdk_np21 -km default
 
 **Reset Key**: Hold down the 'Top Left Key' (USB on top) while plugging in the keyboard.
 
