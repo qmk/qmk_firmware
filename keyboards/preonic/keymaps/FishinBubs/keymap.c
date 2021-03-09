@@ -69,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   A  |   R  |   S  |   T  |   *  |   *  |   N  |   E  |   I  |   O  |  "   |
+ * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |   Z  |   X  |   C  |   V  |   *  |   *  |   M  |   ,  |   .  |   /  |Enter |
+ * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Exit |      |      |   A  |   O  |    Space    |   E  |   U  |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -178,14 +178,10 @@ void shutdown_user() {
 
 void rgb_matrix_indicators_user(void) {
   switch (get_highest_layer(layer_state)) {
-     /*Planck rev6 LED index position:
+     /*preonic rev3 index position:
        6   5   4   3
              0
-       7   8   1   2 
-       Planck rev6 LED physical position:
-       14  15  16  17
-             18
-       20  21  22  19*/
+       7   8   1   2*/
     case _LOWER:
         rgb_matrix_set_color(6, 0x3A, 0x00, 0xFF);
         rgb_matrix_set_color(5, 0x3A, 0x00, 0xFF);
