@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_DRIVER_ENABLE
 	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-		return OLED_ROTATION_270;       // flips the display 180 degrees if offhand
+		return OLED_ROTATION_270;       // flips the display 270 degrees
 	}
 
 	static void render_logo(void) {     // Render MechWild "MW" Logo
