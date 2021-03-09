@@ -20,6 +20,7 @@
 
 enum planck_layers {
   _NORMAL,
+  _COLEMAK,
   _NUMBER,
   _ARROWS,
   _CURSOR,
@@ -33,6 +34,7 @@ enum planck_keycodes {
 };
 
 #define NORMAL TO(_NORMAL)
+#define COLEMAK TO(_COLEMAK)
 #define NUMBER TT(_NUMBER)
 #define ARROWS TT(_ARROWS)
 #define CURSOR TT(_CURSOR)
@@ -47,19 +49,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |C(Tab)|  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   |C(-_) |
 |Bsp/~ |  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;:  |A('") |
 | G(!) |  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /?  |G(Ent)|
-| CTRL | GUI  | ALT  |System|Number|S(Esc)|Space |Arrows|Cursor| GUI  |      |Normal|
-
-|C(Tab)|  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   |C(-_) |
-|Bsp/~ |  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;:  |A('") |
-| G(!) |  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /?  |G(Ent)|
-| CTRL | GUI  | ALT  |System|Cursor|S(Esc)|Space |Arrows| Left | Down |  Up  |Right |
+|COLMAK| GUI  | ALT  |System|Cursor|S(Esc)|Space |Arrows| Left | Down |  Up  |Right |
  */
 
 [_NORMAL] = LAYOUT_planck_grid(
     CTL_T(KC_TAB),  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,          KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    CTL_T(KC_MINS),
     BACKTLD,        KC_A,    KC_S,    KC_D,   KC_F,   KC_G,          KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, ALT_T(KC_QUOT),
     GUI_T(KC_NO),   KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,          KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, GUI_T(KC_ENT),
-    KC_LCTRL,       KC_LGUI, KC_LALT, SYSTEM, CURSOR, SFT_T(KC_ESC), KC_SPC, ARROWS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    COLEMAK,        KC_LGUI, KC_LALT, SYSTEM, CURSOR, SFT_T(KC_ESC), KC_SPC, ARROWS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
+
+/* ## Colemak
+
+|C(Tab)|  Q   |  W   |  F   |  P   |  B   |  J   |  L   |  U   |  Y   |  ;:  |C(-_) |
+|Bsp/~ |  A   |  R   |  S   |  T   |  G   |  M   |  N   |  E   |  I   |  O   |A('") |
+| G(!) |  Z   |  X   |  C   |  D   |  V   |  K   |  H   |  ,   |  .   |  /?  |G(Ent)|
+|NORMAL| GUI  | ALT  |System|Cursor|S(Esc)|Space |Arrows| Left | Down |  Up  |Right |
+ */
+
+[_COLEMAK] = LAYOUT_planck_grid(
+    CTL_T(KC_TAB),  KC_Q,    KC_W,    KC_F,   KC_P,   KC_B,          KC_J,   KC_L,   KC_U,    KC_Y,    KC_SCLN, CTL_T(KC_MINS),
+    BACKTLD,        KC_A,    KC_R,    KC_S,   KC_T,   KC_G,          KC_M,   KC_N,   KC_E,    KC_I,    KC_O,    ALT_T(KC_QUOT),
+    GUI_T(KC_NO),   KC_Z,    KC_X,    KC_C,   KC_D,   KC_V,          KC_K,   KC_H,   KC_COMM, KC_DOT,  KC_SLSH, GUI_T(KC_ENT),
+    NORMAL,         KC_LGUI, KC_LALT, SYSTEM, CURSOR, SFT_T(KC_ESC), KC_SPC, ARROWS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* ## Number
