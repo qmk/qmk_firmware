@@ -1,7 +1,7 @@
 
 # Ploopy Trackball Mini
 
-![Ploopyco Trackball Mini](TODO stick a link in here)
+![Ploopyco Trackball Mini](mini.jpg)
 
 It's a DIY, QMK Powered Trackball...Mini!
 
@@ -12,8 +12,8 @@ It's a DIY, QMK Powered Trackball...Mini!
 
 Make example for this trackball (after setting up your build environment):
 
-    make ploopyco/trackball/rev1_001:default:flash
-    make ploopyco/trackball/rev1_001:via:flash
+    make ploopyco/trackball_mini/rev1_001:default:flash
+    make ploopyco/trackball_mini/rev1_001:via:flash
     
 To jump to the bootloader, hold down "Button 4" (immediate right of the ball) 
 
@@ -21,7 +21,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Hardware Reset Button
 
-**TODO**
+The Ploopy Mini has a handy bootloader reset mechanism: two via pins on the board, designated by the reference designator `MCU.J.X BOOTLOADER`. If you stick an uninsulated paperclip or a pair of metal tweezers into both holes and plug in the Mini, it will start in bootloader mode.
 
 ## Revisions
 
@@ -29,7 +29,7 @@ Occasionally, new revisions of the PCB will be released. Every board comes with 
 
 Match the firmware that you flash onto the board with the designator on the board.
 
-# Customzing your Ploopy Trackball Mini
+# Customzing your Ploopy Mini Trackball
 
 While the defaults are designed so that it can be plugged in and used right away, there are a number of things that you may want to change, such as adding DPI control, or using the ball to scroll while holding a button. To allow for this sort of control, there is a callback for both the scroll wheel and the mouse sensor.
 

@@ -3,4 +3,11 @@
     "url": "www.ploopy.co",
     "maintainer": "ploopyco",
     "manufacturer": "Ploopy Corporation",
+     "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0, "y":0}
+            ]
+        }
+    }
 }

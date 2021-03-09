@@ -1,14 +1,15 @@
 
+
 # Ploopy Trackball Nano
 
-![Ploopyco Trackball Nano](TODO stick a link in here)
+![Ploopyco Trackball Nano](https://www.ploopy.co/uploads/b/113cb4122f867acc306a72a2741c5237a9b1d0db13abfe4e8e394cd466c4a311/_MG_7710_1614037372.jpg)
 
 It's a DIY, QMK Powered Trackball...Nano!
 
 * Maintainer: [PloopyCo](https://github.com/ploopyco)
 * Key contributors: [Drashna Jael're](https://github.com/drashna/), [Germ](https://github.com/germ/)
 * Hardware Supported: ATMega32u4 16MHz(5v)  
-* Hardware Availability: [Store](https://ploopy.co), [GitHub](https://github.com/ploopyco)
+* Hardware Availability: [Store](https://ploopy.co/nano-trackball), [GitHub](https://github.com/ploopyco/nano-trackball)
 
 Make example for this trackball (after setting up your build environment):
 
@@ -19,7 +20,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Hardware Reset Button
 
-**TODO**
+The Ploopy Nano has a handy bootloader reset mechanism: two via pins on the board, designated by the reference designator `MCU.J.X BOOTLOADER`. If you stick an uninsulated paperclip or a pair of metal tweezers into both holes and plug in the Nano, it will start in bootloader mode.
 
 ## Revisions
 
@@ -27,7 +28,7 @@ Occasionally, new revisions of the PCB will be released. Every board comes with 
 
 Match the firmware that you flash onto the board with the designator on the board.
 
-# Customzing your Ploopy Trackball Mini
+# Customzing your Ploopy Nano Trackball
 
 You can change the DPI/CPI or speed of the trackball by calling `adns_set_cpi` at any time. Additionally, there is a `DPI_CONFIG` macro that will cycle through an array of options for the DPI.  This is set to 375, 750, and 1375, but can be changed. 750 is the default. 
 

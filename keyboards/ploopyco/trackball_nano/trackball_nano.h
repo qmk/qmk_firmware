@@ -36,7 +36,7 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
 void process_wheel(report_mouse_t* mouse_report);
 void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
 
-#define LAYOUT() {}
+#define LAYOUT(k00) {{ KC_NO }}
 
 typedef union {
   uint32_t raw;

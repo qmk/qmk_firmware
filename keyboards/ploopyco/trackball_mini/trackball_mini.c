@@ -204,29 +204,18 @@ void pointing_device_init(void) {
     opt_encoder_init();
 }
 
-bool has_report_changed (report_mouse_t first, report_mouse_t second) {
-    return !(
-        (!first.buttons && first.buttons == second.buttons) &&
-        (!first.x && first.x == second.x) &&
-        (!first.y && first.y == second.y) &&
-        (!first.h && first.h == second.h) &&
-        (!first.v && first.v == second.v) );
-}
-
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_wheel(&mouse_report);
     process_mouse(&mouse_report);
-
     pointing_device_set_report(mouse_report);
-    if (has_report_changed(mouse_report, pointing_device_get_report())) {
-        pointing_device_send();
-    }
+    pointing_device_send();
 }
 
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = PLOOPY_DPI_DEFAULT;
     eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
 }
 
 void matrix_init_kb(void) {

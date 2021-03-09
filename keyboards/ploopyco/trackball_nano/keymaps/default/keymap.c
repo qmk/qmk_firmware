@@ -20,6 +20,4 @@
 
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(),
-};
+// placeholder file so it will compile
