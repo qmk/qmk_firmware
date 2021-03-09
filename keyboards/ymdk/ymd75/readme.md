@@ -13,11 +13,11 @@ This firmware can also be flashed onto the KBDFans KBD75 Round 2 Bootmapper Clie
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymd75/rev1:default
+    make ymdk/ymd75/rev1:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make ymd75/rev1:default:flash
+    make ymdk/ymd75/rev1:default:flash
 
 **Reset Key**: Hold down the key located at *Key below the top right key*, commonly programmed as *Backspace* while plugging in the keyboard. On PCB revision 2, enter the bootloader by holding `L_CTRL` while plugging in the keyboard.
 
