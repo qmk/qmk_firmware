@@ -85,7 +85,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef POINTING_DEVICE_ENABLE
     if (keycode == DPI_CONFIG && record->event.pressed) {
-        keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+        if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
+            keyboard_config.dpi_config = (keyboard_config.dpi_config - 1) % DPI_OPTION_SIZE;
+        } else {
+            keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+        }
         eeconfig_update_kb(keyboard_config.raw);
         trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
@@ -142,7 +146,7 @@ void pointing_device_init(void) {
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
-static bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) {
+static bool has_report_changed(report_mouse_t new, report_mouse_t old) {
     return (new.buttons != old.buttons) ||
            (new.x && new.x != old.x) ||
            (new.y && new.y != old.y) ||
@@ -186,7 +190,7 @@ void pointing_device_send(void) {
         mouseReport.x = 0;
         mouseReport.y = 0;
         process_mouse_user(&mouseReport, x, y);
-        if (has_mouse_report_changed(mouseReport, old_report)) {
+        if (has_report_changed(mouseReport, old_report)) {
             host_mouse_send(&mouseReport);
         }
     } else {

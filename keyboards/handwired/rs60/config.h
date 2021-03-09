@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    rs
 #define PRODUCT         rs60
-#define DESCRIPTION     Preonic clone based on pro micro
 
 /* key matrix size */
 #define MATRIX_ROWS 5
