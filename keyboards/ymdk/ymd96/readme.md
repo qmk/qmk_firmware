@@ -8,11 +8,11 @@ A 96-keyboard which supports both ANSI and ISO along with many different layout 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk/ymd96:default
+    qmk compile -kb ymdk/ymd96 -km default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid)):
 
-    make ymdk/ymd96:default:flash
+    qmk flash -kb ymdk/ymd96 -km default
 
 **Reset Key**: Hold down the key commonly programmed as *L_Ctrl* while plugging in the keyboard.
 

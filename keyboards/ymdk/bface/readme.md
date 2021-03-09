@@ -11,11 +11,11 @@ A 60% keyboard that runs ps2avrgb natively and fits the popular GH60 form factor
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk/bface:default
+    qmk compile -kb ymdk/bface -km default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid)):
 
-    make ymdk/bface:default:flash
+    qmk flash -kb ymdk/bface -km default
 
 This board has a pair of jumper holes on the left edge of the PCB marked "Jb", near TAB and CAPS LOCK. If you short the contacts with tweezers or wire the board will enter into the bootloader and you can flash it.
 
