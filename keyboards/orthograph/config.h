@@ -43,7 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 3
 
 /* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN E6
+// #define SOFT_SERIAL_PIN E6
+#define USE_I2C
 
 // disable backlight after timeout in minutes, 0 = no timeout
 // #define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
