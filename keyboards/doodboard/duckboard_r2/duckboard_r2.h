@@ -14,4 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "duckboard.h"
+#pragma once
+
+#include "quantum.h"
+
+#define LAYOUT( \
+         K01, K02, K03, K04, \
+         K11, K12, K13, K14, \
+         K21, K22, K23, K24, \
+    K30, K31, K32, K33, K34, \
+    K40, K41, K42, K43, K44  \
+) { \
+    { KC_NO, K01,   K02,   K03,   K04 }, \
+    { KC_NO, K11,   K12,   K13,   K14 }, \
+    { KC_NO, K21,   K22,   K23,   K24 }, \
+    { K30,   K31,   K32,   K33,   K34 }, \
+    { K40,   K41,   K42,   K43,   K44 }  \
+}
