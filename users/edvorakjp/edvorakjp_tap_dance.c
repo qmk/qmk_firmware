@@ -14,7 +14,7 @@ typedef struct {
 } td_status_t;
 static td_status_t td_status = {NONE, NONE};
 
-int cur_dance(qk_tap_dance_state_t *state) {
+uint8_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->interrupted || !state->pressed) {
         return state->count == 1 ? SINGLE_TAP : DOUBLE_TAP;
     } else {
@@ -32,17 +32,17 @@ void td_lower_finished(qk_tap_dance_state_t *state, void *user_data) {
             set_japanese_mode(false);
             register_code(KC_ESC);
             break;
-        case HOLD:
-            break;
     }
-    layer_on(_LOWER);
+    layer_on(L_EDVORAKJP_LOWER);
 }
 
 void td_lower_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (td_status.lower == DOUBLE_TAP) {
-        unregister_code(KC_ESC);
+    switch (td_status.lower) {
+        case DOUBLE_TAP:
+            unregister_code(KC_ESC);
+            break;
     }
-    layer_off(_LOWER);
+    layer_off(L_EDVORAKJP_LOWER);
     td_status.lower = NONE;
 }
 
@@ -54,18 +54,16 @@ void td_raise_finished(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             set_japanese_mode(true);
             break;
-        case HOLD:
-            break;
     }
-    layer_on(_RAISE);
+    layer_on(L_EDVORAKJP_RAISE);
 }
 
 void td_raise_reset(qk_tap_dance_state_t *state, void *user_data) {
-    layer_off(_RAISE);
+    layer_off(L_EDVORAKJP_RAISE);
     td_status.raise = NONE;
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_LOWER] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_lower_finished, td_lower_reset, 100),
-    [TD_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_raise_finished, td_raise_reset, 100),
+    [TD_EDVORAKJP_LOWER] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_lower_finished, td_lower_reset, 150),
+    [TD_EDVORAKJP_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_raise_finished, td_raise_reset, 150),
 };
