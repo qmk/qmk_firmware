@@ -20,12 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ___ KC_NO
 
-#ifdef ENCODER_ENABLE
-#    define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
-#else
-#    define encoder_update(clockwise)
-#endif
-
 //  ESC  F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12  Prt    Rotary(Mute)
 //  ~    1    2    3    4    5    6    7    8    9    0    -    (=)  BSpc     Del
 //  Tab  Q    W    E    R    T    Y    U    I    O    P    [    ]    \        PgUp
