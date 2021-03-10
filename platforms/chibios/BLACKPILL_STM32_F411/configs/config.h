@@ -23,3 +23,5 @@
 #ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 #    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 #endif
+
+#include "i2c_defs.h"

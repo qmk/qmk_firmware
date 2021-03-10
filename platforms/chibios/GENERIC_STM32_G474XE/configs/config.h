@@ -25,6 +25,8 @@
 // Insert these two lines into your keyboard's `config.h` file.
 // In the case below, PB7 is selected to charge.
 #if 0
-#define STM32_BOOTLOADER_DUAL_BANK TRUE
-#define STM32_BOOTLOADER_DUAL_BANK_GPIO B7
+#    define STM32_BOOTLOADER_DUAL_BANK TRUE
+#    define STM32_BOOTLOADER_DUAL_BANK_GPIO B7
 #endif
+
+#include "i2c_defs.h"

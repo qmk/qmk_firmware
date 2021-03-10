@@ -21,3 +21,5 @@
  *  <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
  */
 #define STM32_BOOTLOADER_ADDRESS 0x1FFF0000
+
+#include "i2c_defs.h"
