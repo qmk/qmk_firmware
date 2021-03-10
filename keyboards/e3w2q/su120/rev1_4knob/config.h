@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x4649
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    e3w2q
-#define PRODUCT         SU120
+#define PRODUCT         SU120 (4 Rotary Encoders)
 #define DESCRIPTION     Expandable keyboard with up to 120 keys
 
 /* key matrix size */

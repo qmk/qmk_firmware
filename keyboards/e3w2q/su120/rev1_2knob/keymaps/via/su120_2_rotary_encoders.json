@@ -1,5 +1,5 @@
 {
-    "name": "SU120",
+    "name": "SU120 (2 Rotary Encoders)",
     "vendorId": "0x1209",
     "productId": "0x4649",
     "lighting": "qmk_rgblight",
