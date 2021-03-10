@@ -20,6 +20,7 @@
 #define COMBO_TERM 125
 #define COMBO_COUNT 3
 #define PERMISSIVE_HOLD
+#undef DEBOUNCE
 #define DEBOUNCE 10
 
 //#define TAPPING_TERM 150
