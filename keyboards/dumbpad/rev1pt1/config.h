@@ -48,7 +48,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Rotary encoder */
+#undef ENCODERS_PAD_A
 #define ENCODERS_PAD_A { B2 }
+#undef ENCODERS_PAD_B 
 #define ENCODERS_PAD_B { D4 }
 
 /* LED layer indicators */
