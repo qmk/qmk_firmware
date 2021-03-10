@@ -6,10 +6,10 @@ If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_
 
 ## Adding Your AVR Keyboard to QMK
 
-QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started, run the `util/new_keyboard.sh` script:
+QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started, run the `qmk new-keyboard` CLI command:
 
 ```
-$ ./util/new_keyboard.sh
+$ qmk new-keyboard
 Generating a new QMK keyboard directory
 
 Keyboard Name: mycoolkb

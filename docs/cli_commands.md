@@ -230,14 +230,22 @@ qmk list-keymaps -kb planck/ez
 
 ## `qmk new-keyboard`
 
-This command creates a new keyboard based on available templates.
+This command creates a new keyboard based on available templates or imports an existing config.
 
 This command will prompt for input to guide you though the generation process.
 
 **Usage**:
 
 ```
-qmk new-keyboard
+qmk new-keyboard [-kb KEYBOARD] [filename]
+```
+
+**Examples**:
+
+Import 
+
+```
+qmk new-keyboard info.json
 ```
 
 ## `qmk new-keymap`
