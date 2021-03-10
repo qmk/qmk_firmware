@@ -18,3 +18,5 @@
 #include_next "board.h"
 
 #undef STM32_HSE_BYPASS
+
+#define STM32L433xx
