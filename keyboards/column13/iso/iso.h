@@ -26,10 +26,20 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
+#define xxxx KC_NO
 #define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k12    \
+    k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112, k113,   \
+    k201, k202, k203, k204, k205, k206, k207, k208, k209, k210, k211, k212,         \
+    k301, k302, k303, k304, k305, k306, k307, k308, k309, k310, k311,               \
+    k401, k402, k403, k404, k405, k406, k407, k408, k409, k410, k411,               \
+    k501, k502, k503, k504, k505, k506, k507, k508, k509, k510, k511, k512, k513,   \
+    k514, k515, k516, k517, k518, k519, k520, k521, k522, k523, k524                \
 ) { \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k12 }  \
+    { k101, k102, k103, k104, k105, k106, xxxx, xxxx, k201, k202, k203, k204, k205, k206, xxxx, xxxx }, \
+    { k301, k302, k303, k304, k305, k306, xxxx, xxxx, k401, k402, k403, k404, k405, xxxx, xxxx, xxxx }, \
+    { k107, k108, k109, k110, k111, k112, k113, xxxx, k207, k208, k209, k210, k211, k212, xxxx, xxxx }, \
+    { k307, k308, k309, k310, k311, xxxx,xxxx, xxxx, k406, k407, k408, k409, k410, k411,  KC_NO, KC_NO }, \
+    { k501, k502, k503, k504, k505, k506, k507, k508, k509, k510, k511, k512, k513, xxxx, xxxx, xxxx }, \
+    { k514, k515, k516, k517, k518, k519, k520, k521, k522, k523, k524, xxxx, xxxx, xxxx, xxxx, xxxx }  \
 }
+
