@@ -19,8 +19,4 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
-<<<<<<< HEAD
 AUDIO_ENABLE = no           # Audio output
-=======
-AUDIO_ENABLE = no           # Audio output
->>>>>>> PR-babyV
