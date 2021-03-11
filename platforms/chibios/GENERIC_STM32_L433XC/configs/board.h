@@ -19,4 +19,6 @@
 
 #undef STM32_HSE_BYPASS
 
+#undef STM32L432xx
+
 #define STM32L433xx
