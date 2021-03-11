@@ -25,14 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static report_mouse_t mouseReport = {};
 
-__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) {
-    return (new.buttons != old.buttons) ||
-           (new.x && new.x != old.x) ||
-           (new.y && new.y != old.y) ||
-           (new.h && new.h != old.h) ||
-           (new.v && new.v != old.v);
-}
-
+__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
 
 __attribute__((weak)) void pointing_device_init(void) {
     // initialize device, if that needs to be done.
@@ -50,7 +43,7 @@ __attribute__((weak)) void pointing_device_send(void) {
     mouseReport.y = 0;
     mouseReport.v = 0;
     mouseReport.h = 0;
-    old_report = mouseReport;
+    old_report    = mouseReport;
 }
 
 __attribute__((weak)) void pointing_device_task(void) {
