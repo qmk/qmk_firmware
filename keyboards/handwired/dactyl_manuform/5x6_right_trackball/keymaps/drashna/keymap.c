@@ -218,8 +218,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
         default:
             if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
                 layer_off(_MOUSE);
-                mouse_keycode_tracker = 0;
             }
+            mouse_keycode_tracker = 0;
             mouse_debounce_timer = timer_read();
             break;
     }
