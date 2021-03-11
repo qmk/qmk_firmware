@@ -4,7 +4,7 @@ The CU80 v2 ISO is the PCB for round 2 of the CU80 TKL keyboard, with fixed layo
 
 To place the keyboard into bootloader mode in order to flash it, hold the ESC key while plugging the board in, or use the reset button on the back of the PCB.
 
-* Keyboard maintainer: [rys](https://github.com/rys)
+* Keyboard maintainer: [rys](https://github.com/rys) & [maz0r](https://github.com/maz0r)
 * Hardware supported: [CU80 v2 ISO](https://imgur.com/yMZMt6j)
 * Hardware availability: [CapsUnlocked](https://caps-unlocked.com/cu80-round-2/)
 
