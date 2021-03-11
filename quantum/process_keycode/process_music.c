@@ -191,7 +191,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
             note = music_starting_note + music_offset + 36 + music_map[record->event.key.row][record->event.key.col];
         } else {
             uint8_t position = music_map[record->event.key.row][record->event.key.col];
-            note             = music_starting_note + music_offset + 36 + SCALE[position % 12] + (position / 12) * 12;
+            note             = music_starting_note + music_offset + 36 + SCALE[position % 7] + (position / 7) * 12;
         }
 #    else
         if (music_mode == MUSIC_MODE_CHROMATIC)
