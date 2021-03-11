@@ -14,13 +14,6 @@ enum alt_keycodes {
   L_OFF,              //LED Off
   L_T_BR,             //LED Toggle Breath Effect
   L_T_PTD,            //LED Toggle Scrolling Pattern Direction
-  U_T_AUTO,           //USB Extra Port Toggle Auto Detect / Always Active
-  U_T_AGCR,           //USB Toggle Automatic GCR control
-  DBG_TOG,            //DEBUG Toggle On / Off
-  DBG_MTRX,           //DEBUG Toggle Matrix Prints
-  DBG_KBD,            //DEBUG Toggle Keyboard Prints
-  DBG_MOU,            //DEBUG Toggle Mouse Prints
-  MD_BOOT,            //Restart into bootloader after hold timeout
 };
 
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
@@ -58,13 +51,7 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 };
 
-#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
-#define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint32_t key_timer;
-
   rgb_matrix_record_key_press(record);
 
   switch (keycode) {
@@ -142,45 +129,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case L_T_PTD:
       if (record->event.pressed) {
         led_animation_direction = !led_animation_direction;
-      }
-      return false;
-    case U_T_AUTO:
-      if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-        TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
-      }
-      return false;
-    case U_T_AGCR:
-      if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-        TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
-      }
-      return false;
-    case DBG_TOG:
-      if (record->event.pressed) {
-        TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
-      }
-      return false;
-    case DBG_MTRX:
-      if (record->event.pressed) {
-        TOGGLE_FLAG_AND_PRINT(debug_matrix, "Debug matrix");
-      }
-      return false;
-    case DBG_KBD:
-      if (record->event.pressed) {
-        TOGGLE_FLAG_AND_PRINT(debug_keyboard, "Debug keyboard");
-      }
-      return false;
-    case DBG_MOU:
-      if (record->event.pressed) {
-        TOGGLE_FLAG_AND_PRINT(debug_mouse, "Debug mouse");
-      }
-      return false;
-    case MD_BOOT:
-      if (record->event.pressed) {
-        key_timer = timer_read32();
-      } else {
-        if (timer_elapsed32(key_timer) >= 500) {
-          reset_keyboard();
-        }
       }
       return false;
     default:

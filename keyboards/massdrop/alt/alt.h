@@ -34,3 +34,21 @@
     }
 
 #define LAYOUT LAYOUT_65_ansi_blocker // Ensure that user made existing keymaps do not break. 
+
+#define MODS_SHIFT MOD_MASK_SHIFT
+#define MODS_CTRL MOD_MASK_CTRL
+#define MODS_ALT MOD_MASK_ALT
+
+enum kb_custom_keycodes {
+    U_T_AUTO = SAFE_RANGE,  // USB Extra Port Toggle Auto Detect / Always Active
+    U_T_AGCR,               // USB Toggle Automatic GCR control
+    DBG_TOG,                // DEBUG Toggle On / Off
+    DBG_MTRX,               // DEBUG Toggle Matrix Prints
+    DBG_KBD,                // DEBUG Toggle Keyboard Prints
+    DBG_MOU,                // DEBUG Toggle Mouse Prints
+    MD_BOOT,                // Restart into bootloader after hold timeout
+    NEW_SAFE_RANGE
+};
+
+#undef SAFE_RANGE
+#define SAFE_RANGE NEW_SAFE_RANGE

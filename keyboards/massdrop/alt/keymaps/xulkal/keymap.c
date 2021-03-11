@@ -1,15 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "xulkal.h"
 
-enum ctrl_keycodes {
-    U_T_AUTO = SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
-    U_T_AGCR,              //USB Toggle Automatic GCR control
-    DBG_TOG,               //DEBUG Toggle On / Off
-    DBG_MTRX,              //DEBUG Toggle Matrix Prints
-    DBG_KBD,               //DEBUG Toggle Keyboard Prints
-    DBG_MOU,               //DEBUG Toggle Mouse Prints
-};
-
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 
 #define EXPAND_LAYOUT(...) LAYOUT(__VA_ARGS__)
@@ -41,39 +32,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______ \
     )
 };
-
-#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
-#define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record)
-{
-    switch (keycode) {
-        case U_T_AUTO:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL)
-                TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
-            return false;
-        case U_T_AGCR:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL)
-                TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
-            return false;
-        case DBG_TOG:
-            if (record->event.pressed)
-                TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
-            return false;
-        case DBG_MTRX:
-            if (record->event.pressed)
-                TOGGLE_FLAG_AND_PRINT(debug_matrix, "Debug matrix");
-            return false;
-        case DBG_KBD:
-            if (record->event.pressed)
-                TOGGLE_FLAG_AND_PRINT(debug_keyboard, "Debug keyboard");
-            return false;
-        case DBG_MOU:
-            if (record->event.pressed)
-                TOGGLE_FLAG_AND_PRINT(debug_mouse, "Debug mouse");
-            return false;
-    }
-
-    return true;
-}
