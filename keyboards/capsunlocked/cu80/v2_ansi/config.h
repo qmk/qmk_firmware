@@ -25,15 +25,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Define RGB */
 #define DRIVER_LED_TOTAL 87
-
-/* RGB firmware override */
-#ifdef CU80_RGB
-    #define RGB_MATRIX_KEYPRESSES
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-    #undef RGBLIGHT_ANIMATIONS
-    #undef RGBLIGHT_HUE_STEP
-    #undef RGBLIGHT_SAT_STEP
-    #undef RGBLIGHT_VAL_STEP
-    #undef RGBLIGHT_LIMIT_VAL
-#endif
-
+#define RGBLIGHT_ANIMATIONS
