@@ -305,12 +305,6 @@ void matrix_scan_user(void) {
         return;
       }
     }
-    SEQ_TWO_KEYS(KC_LSFT, M_PMOD) {
-      if (current_os == OS_WIN) {
-        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LSFT, KC_ESC});
-      } else {
-      }
-    }
     SEQ_TWO_KEYS(KC_S, KC_S) {
       if (current_os == OS_MAC) {
         long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_4});
@@ -323,6 +317,18 @@ void matrix_scan_user(void) {
     SEQ_THREE_KEYS(KC_C, KC_A, KC_D) {
       if (current_os == OS_WIN) {
         long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LALT, KC_DEL});
+      } else {
+      }
+    }
+    SEQ_THREE_KEYS(KC_C, KC_A, KC_E) {
+      if (current_os == OS_WIN) {
+        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LALT, KC_END});
+      } else {
+      }
+    }
+    SEQ_THREE_KEYS(KC_C, KC_S, KC_E) {
+      if (current_os == OS_WIN) {
+        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LSFT, KC_ESC});
       } else {
       }
     }
