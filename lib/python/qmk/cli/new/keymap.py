@@ -29,15 +29,15 @@ def new_keymap(cli):
     # check directories
     if not kb_path.exists():
         cli.log.error('Keyboard %s does not exist!', kb_path)
-        exit(1)
+        return False
 
     if not keymap_path_default.exists():
         cli.log.error('Keyboard default %s does not exist!', keymap_path_default)
-        exit(1)
+        return False
 
     if keymap_path_new.exists():
         cli.log.error('Keymap %s already exists!', keymap_path_new)
-        exit(1)
+        return False
 
     # create user directory with default keymap files
     shutil.copytree(keymap_path_default, keymap_path_new, symlinks=True)

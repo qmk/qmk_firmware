@@ -8,7 +8,6 @@
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Exclusive / E-Team
 #define PRODUCT      E7-V1
-#define DESCRIPTION  E7-V1 QMK PCB(LED)
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -21,6 +20,8 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN F0
 
 /* number of backlight levels */
 #define BACKLIGHT_PIN B7

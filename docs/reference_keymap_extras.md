@@ -18,10 +18,13 @@ To use these, simply `#include` the corresponding [header file](https://github.c
 |Dutch (Belgium)            |`keymap_belgian.h`              |
 |English (Ireland)          |`keymap_irish.h`                |
 |English (UK)               |`keymap_uk.h`                   |
+|English (US Extended)      |`keymap_us_extended.h`          |
 |English (US International) |`keymap_us_international.h`     |
+|English (US International, Linux)|`keymap_us_international_linux.h`|
 |Estonian                   |`keymap_estonian.h`             |
 |Finnish                    |`keymap_finnish.h`              |
 |French                     |`keymap_french.h`               |
+|French (AFNOR)             |`keymap_french_afnor.h`         |
 |French (BÉPO)              |`keymap_bepo.h`                 |
 |French (Belgium)           |`keymap_belgian.h`              |
 |French (Switzerland)       |`keymap_fr_ch.h`                |
@@ -45,6 +48,7 @@ To use these, simply `#include` the corresponding [header file](https://github.c
 |Norwegian                  |`keymap_norwegian.h`            |
 |Polish                     |`keymap_polish.h`               |
 |Portuguese                 |`keymap_portuguese.h`           |
+|Portuguese (macOS, ISO)    |`keymap_portuguese_osx_iso.h`   |
 |Portuguese (Brazil)        |`keymap_br_abnt2.h`             |
 |Romanian                   |`keymap_romanian.h`             |
 |Russian*                   |`keymap_russian.h`              |

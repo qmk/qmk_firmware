@@ -1,6 +1,6 @@
 #include "ws2812.h"
 #include "quantum.h"
-#include "hal.h"
+#include <hal.h>
 
 /* Adapted from https://github.com/joewa/WS2812-LED-Driver_ChibiOS/ */
 
@@ -22,6 +22,9 @@
 #endif
 #ifndef WS2812_DMA_CHANNEL
 #    define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP
+#endif
+#if (STM32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_DMAMUX_ID)
+#    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM?_UP"
 #endif
 
 // Push Pull or Open Drain Configuration
@@ -104,6 +107,7 @@
  */
 #define WS2812_BIT(led, byte, bit) (24 * (led) + 8 * (byte) + (7 - (bit)))
 
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
 /**
  * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given red bit
  *
@@ -114,7 +118,7 @@
  *
  * @return                          The bit index
  */
-#define WS2812_RED_BIT(led, bit) WS2812_BIT((led), 1, (bit))
+#    define WS2812_RED_BIT(led, bit) WS2812_BIT((led), 1, (bit))
 
 /**
  * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given green bit
@@ -126,7 +130,7 @@
  *
  * @return                          The bit index
  */
-#define WS2812_GREEN_BIT(led, bit) WS2812_BIT((led), 0, (bit))
+#    define WS2812_GREEN_BIT(led, bit) WS2812_BIT((led), 0, (bit))
 
 /**
  * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given blue bit
@@ -138,7 +142,82 @@
  *
  * @return                          The bit index
  */
-#define WS2812_BLUE_BIT(led, bit) WS2812_BIT((led), 2, (bit))
+#    define WS2812_BLUE_BIT(led, bit) WS2812_BIT((led), 2, (bit))
+
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given red bit
+ *
+ * @note    The red byte is the middle byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] bit:                  The bit number [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_RED_BIT(led, bit) WS2812_BIT((led), 0, (bit))
+
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given green bit
+ *
+ * @note    The red byte is the first byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] bit:                  The bit number [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_GREEN_BIT(led, bit) WS2812_BIT((led), 1, (bit))
+
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given blue bit
+ *
+ * @note    The red byte is the last byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] bit:                  The bit index [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_BLUE_BIT(led, bit) WS2812_BIT((led), 2, (bit))
+
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given red bit
+ *
+ * @note    The red byte is the middle byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] bit:                  The bit number [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_RED_BIT(led, bit) WS2812_BIT((led), 2, (bit))
+
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given green bit
+ *
+ * @note    The red byte is the first byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] bit:                  The bit number [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_GREEN_BIT(led, bit) WS2812_BIT((led), 1, (bit))
+
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given blue bit
+ *
+ * @note    The red byte is the last byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] bit:                  The bit index [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_BLUE_BIT(led, bit) WS2812_BIT((led), 0, (bit))
+#endif
 
 /* --- PRIVATE VARIABLES ---------------------------------------------------- */
 
@@ -177,12 +256,17 @@ void ws2812_init(void) {
 
     // Configure DMA
     // dmaInit(); // Joe added this
-    dmaStreamAlloc(WS2812_DMA_STREAM - STM32_DMA1_STREAM1, 10, NULL, NULL);
+    dmaStreamAlloc(WS2812_DMA_STREAM - STM32_DMA_STREAM(0), 10, NULL, NULL);
     dmaStreamSetPeripheral(WS2812_DMA_STREAM, &(WS2812_PWM_DRIVER.tim->CCR[WS2812_PWM_CHANNEL - 1]));  // Ziel ist der An-Zeit im Cap-Comp-Register
     dmaStreamSetMemory0(WS2812_DMA_STREAM, ws2812_frame_buffer);
     dmaStreamSetTransactionSize(WS2812_DMA_STREAM, WS2812_BIT_N);
     dmaStreamSetMode(WS2812_DMA_STREAM, STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_WORD | STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
     // M2P: Memory 2 Periph; PL: Priority Level
+
+#if (STM32_DMA_SUPPORTS_DMAMUX == TRUE)
+    // If the MCU has a DMAMUX we need to assign the correct resource
+    dmaSetRequestSource(WS2812_DMA_STREAM, WS2812_DMAMUX_ID);
+#endif
 
     // Start DMA
     dmaStreamEnable(WS2812_DMA_STREAM);

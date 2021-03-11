@@ -19,15 +19,14 @@
 #include "led.h"
 
 // Functions for setting LEDs on toggle keys
-inline void caps_led_on(void)     { DDRB |=  (1<<3); PORTB &= ~(1<<3); }
-inline void caps_led_off(void)    { DDRB &= ~(1<<3); PORTB &= ~(1<<3); }
+inline void caps_led_on(void)     { writePinHigh(LED_CAPS_LOCK_PIN); }
+inline void caps_led_off(void)    { writePinLow(LED_CAPS_LOCK_PIN); }
 
-inline void num_led_on(void)      { DDRB |=  (1<<1); PORTB &= ~(1<<1); }
-inline void num_led_off(void)     { DDRB &= ~(1<<1); PORTB &= ~(1<<1); }
+inline void num_led_on(void)      { writePinHigh(LED_NUM_LOCK_PIN); }
+inline void num_led_off(void)     { writePinLow(LED_NUM_LOCK_PIN); }
 
-inline void scroll_led_on(void)   { DDRB |=  (1<<2); PORTB &= ~(1<<2); }
-inline void scroll_led_off(void)  { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
-
+inline void scroll_led_on(void)   { writePinHigh(LED_SCROLL_LOCK_PIN); }
+inline void scroll_led_off(void)  { writePinLow(LED_SCROLL_LOCK_PIN); }
 
 // LAYOUT depicting all possible switch positions.
 // LAYOUT_all supports ISO, split backspace and split left/right shift.

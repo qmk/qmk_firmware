@@ -31,7 +31,15 @@ static void init(void) {
     i2c_init();
 #    ifdef IS31FL3731
     IS31FL3731_init(DRIVER_ADDR_1);
+#        ifdef DRIVER_ADDR_2
     IS31FL3731_init(DRIVER_ADDR_2);
+#        endif
+#        ifdef DRIVER_ADDR_3
+    IS31FL3731_init(DRIVER_ADDR_3);
+#        endif
+#        ifdef DRIVER_ADDR_4
+    IS31FL3731_init(DRIVER_ADDR_4);
+#        endif
 #    elif defined(IS31FL3733)
     IS31FL3733_init(DRIVER_ADDR_1, 0);
 #    elif defined(IS31FL3737)
@@ -55,7 +63,15 @@ static void init(void) {
     // This actually updates the LED drivers
 #    ifdef IS31FL3731
     IS31FL3731_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        ifdef DRIVER_ADDR_2
     IS31FL3731_update_led_control_registers(DRIVER_ADDR_2, 1);
+#        endif
+#        ifdef DRIVER_ADDR_3
+    IS31FL3731_update_led_control_registers(DRIVER_ADDR_3, 2);
+#        endif
+#        ifdef DRIVER_ADDR_4
+    IS31FL3731_update_led_control_registers(DRIVER_ADDR_4, 3);
+#        endif
 #    elif defined(IS31FL3733)
     IS31FL3733_update_led_control_registers(DRIVER_ADDR_1, 0);
     IS31FL3733_update_led_control_registers(DRIVER_ADDR_2, 1);
@@ -69,7 +85,15 @@ static void init(void) {
 #    ifdef IS31FL3731
 static void flush(void) {
     IS31FL3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        ifdef DRIVER_ADDR_2
     IS31FL3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#        endif
+#        ifdef DRIVER_ADDR_3
+    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#        endif
+#        ifdef DRIVER_ADDR_4
+    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#        endif
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
@@ -111,6 +135,10 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    endif
 
 #elif defined(WS2812)
+#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_CUSTOM_DRIVER)
+#        pragma message "Cannot use RGBLIGHT and RGB Matrix using WS2812 at the same time."
+#        pragma message "You need to use a custom driver, or re-implement the WS2812 driver to use a different configuration."
+#    endif
 
 // LED color buffer
 LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
@@ -128,7 +156,7 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
     rgb_matrix_ws2812_array[i].g = g;
     rgb_matrix_ws2812_array[i].b = b;
 #    ifdef RGBW
-    convert_rgb_to_rgbw(rgb_matrix_ws2812_array[i]);
+    convert_rgb_to_rgbw(&rgb_matrix_ws2812_array[i]);
 #    endif
 }
 

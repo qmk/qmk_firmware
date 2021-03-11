@@ -18,12 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x552F
+#define VENDOR_ID 0x524D
+#define PRODUCT_ID 0x0001
 #define DEVICE_VER 0x0002
 #define MANUFACTURER Montsinger
 #define PRODUCT Rebound
-#define DESCRIPTION "A conjoined Let's Split"
 
 /* key matrix size */
 
@@ -59,6 +58,10 @@ diode)
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* ws2812 RGB LED */
+#define RGB_DI_PIN B6
+#define RGBLED_NUM 17
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

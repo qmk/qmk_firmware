@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    4pplet
 #define PRODUCT         waffling60 Rev A
-#define DESCRIPTION     A steezy keeb
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -25,7 +24,7 @@
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 0
+#define DEBOUNCE 5
 
 #define QMK_ESC_OUTPUT D3 // usually COL
 #define QMK_ESC_INPUT D4 // usually ROW

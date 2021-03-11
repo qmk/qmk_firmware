@@ -9,6 +9,19 @@
 #define WKSP_U LALT(LCTL(KC_UP))
 #define WKSP_R LALT(LCTL(KC_RGHT))
 
+#define AM_CYC A(S(KC_SPC))
+#define AM_SHR A(S(KC_COMM))
+#define AM_GRW A(S(KC_DOT))
+#define AM_REL A(S(KC_Z))
+#define AM_LFT A(S(KC_H))
+#define AM_RGH A(S(KC_L))
+#define AM_CW A(S(KC_K))
+#define AM_CCW A(S(KC_J))
+#define AM_TLL A(S(KC_1))
+#define AM_TLW A(S(KC_2))
+#define AM_BSP A(S(KC_3))
+#define AM_FUL A(S(KC_4))
+
 enum custom_layers {
   _BASE,
   _LOWER,
@@ -52,11 +65,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
+     XXXXXXX, AM_CYC,  AM_SHR,  AM_GRW,  AM_REL,  XXXXXXX,                            XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX, KC_PSCR, KC_MENU, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
+     XXXXXXX, AM_LFT,  AM_CCW,  AM_CW,   AM_RGH,  XXXXXXX,                            XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX, KC_CAPS, KC_LNUM, KC_INS,  XXXXXXX, XXXXXXX,                            XXXXXXX, WKSP_L,  WKSP_D,  WKSP_U,  WKSP_R,  XXXXXXX,
+     XXXXXXX, AM_TLL,  AM_TLW,  AM_BSP,  AM_FUL,  XXXXXXX,                            XXXXXXX, WKSP_L,  WKSP_D,  WKSP_U,  WKSP_R,  XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX,          XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -138,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      _______, RESET,   _______, _______, _______, _______,                            _______, _______, _______, _______, _______, KC_DEL,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, _______, _______, BL_STEP,                            RGB_TOG, RGB_HUI, RGB_SAI, RGB_SAI, _______, _______,
+     _______, _______, _______, _______, _______, BL_STEP,                            RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, _______, _______, _______, BL_BRTG,                            RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤

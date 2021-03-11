@@ -1,8 +1,8 @@
 # Zadig を使ったブートローダドライバのインストール
 
 <!---
-  original document: 0.9.0:docs/driver_installation_zadig.md
-  git diff 0.9.0 HEAD -- docs/driver_installation_zadig.md | cat
+  original document: 0.9.43:docs/driver_installation_zadig.md
+  git diff 0.9.43 HEAD -- docs/driver_installation_zadig.md | cat
 -->
 
 QMK はホストにたいして通常の HID キーボードデバイスとして振る舞うため特別なドライバは必要ありません。しかし、Windows でのキーボードへの書き込みは、多くの場合、キーボードをリセットした時に現れるブートローダデバイスで*行います*。
@@ -28,7 +28,7 @@ Zadig は自動的にブートローダデバイスを検知します。**Option
 
 !> Zadig が `HidUsb` ドライバを使用する1つ以上のデバイスを表示する場合、キーボードはおそらくブートローダモードではありません。矢印はオレンジ色になり、システムドライバの変更を確認するように求められます。この場合、続行**しないでください**！
 
-矢印が緑色で表示されたら、ドライバを選択し、**Install Driver** をクリックします。`libusb-win32` ドライバは通常 AVR で動作し、`WinUSB`は ARM で動作しますが、それでもキーボードに書き込みできない場合は、リストから異なるドライバをインストールしてみてください。msys2 を使ってコマンドライン経由で USBaspLoader デバイスに書き込むには、`libusbk` ドライバがお勧めです。そうではなく書き込みに QMK Toolbox を使っている場合は `libusb-win32` がうまく動作します。
+矢印が緑色で表示されたら、ドライバを選択し、**Install Driver** をクリックします。`libusb-win32` ドライバは通常 AVR で動作し、`WinUSB`は ARM で動作しますが、それでもキーボードに書き込みできない場合は、リストから異なるドライバをインストールしてみてください。USBAspLoader デバイスは `libusbK` ドライバを使わなければなりません。
 
 ![ブートローダドライバが正常にインストールされた Zadig](https://i.imgur.com/b8VgXzx.png)
 

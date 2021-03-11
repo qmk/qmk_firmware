@@ -291,7 +291,7 @@ typedef struct {
 extern uint8_t udi_hid_kbd_report_set;
 
 // report buffer (to host)
-#    define UDI_HID_KBD_REPORT_SIZE 8
+#define UDI_HID_KBD_REPORT_SIZE 8
 extern uint8_t udi_hid_kbd_report[UDI_HID_KBD_REPORT_SIZE];
 
 COMPILER_PACK_RESET()
@@ -784,7 +784,7 @@ COMPILER_PACK_RESET()
 COMPILER_PACK_SET(1)
 
 typedef struct {
-    usb_conf_desc_t conf;
+    usb_conf_desc_t    conf;
     udi_hid_kbd_desc_t hid_kbd;
 #ifdef MOUSE_ENABLE
     udi_hid_mou_desc_t hid_mou;

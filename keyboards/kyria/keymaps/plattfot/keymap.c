@@ -52,8 +52,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  | Lead | RAISE|  | LOWER|DBLTAP|   N  |   M  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MPlay| GUI  | LCtrl| Space| LALT |  | Enter|BSpace| NAV  | LAlt |Worksp|
- *                        |      |      |      |      |      |  |      |      |      |      |toggle|
+ *                        | MPlay| GUI  | LCtrl| Space| LALT |  | Enter|BSpace| NAV  |LCTL+ |Worksp|
+ *                        |      |      |      |      |      |  |      |      |      |LALT  |toggle|
  *                        `----------------------------------'  `----------------------------------'
  */
     [_DEFAULT] = LAYOUT(
@@ -91,26 +91,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |      |      |      | F11  |                              | F12  |      |      |      |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |ScLock|      |  |      | Ins  |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |ScLock|      |  |      | Ins  |      |      |      |      |      |CapsLock|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  | Esc  | Del  |      | RAlt |      |
+ *                        |      |      |      |      |      |  |      |      |      | RAlt |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_RAISE] = LAYOUT(
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
       _______, _______, _______, _______, _______, KC_F11,                                      KC_F12,  _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, KC_SLCK, _______, _______, KC_INS,  _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______, KC_ESC,  KC_DEL,  _______, KC_RALT, _______
+      _______, _______, _______, _______, _______, _______, KC_SLCK, _______, _______, KC_INS,  _______, _______, _______, _______, _______, KC_CAPS,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, KC_RALT, _______
 
     ),
 /*
- * Navigation Layer: Number keys, navigation
+ * Navigation Layer: Number keys, navigation, modification
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |   1  |  2   |  3   |  4   |  5   |                              |  6   |  7   |  8   |  9   |  0   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              |      | Left | Up   | Down | Right|        |
+ * |        |      | Esc  | Del  |      |      |                              |      | Left | Up   | Down | Right|        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_NAV] = LAYOUT(
       _______, KC_1, 	KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-      _______, _______, _______, _______, _______, _______,                                     _______, KC_LEFT, KC_UP, KC_DOWN,   KC_RGHT, _______,
+      _______, _______, KC_ESC,  KC_DEL,  _______, _______,                                     _______, KC_LEFT, KC_UP, KC_DOWN,   KC_RGHT, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, KC_RCTL, _______
     ),
@@ -177,27 +177,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // Double tap gets messed up with macros, turning it off
                 double_tap_it = false;
                 SEND_STRING("()" SS_TAP(X_LEFT));
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 return false;
             case M_LRCBR:
                 double_tap_it = false;
                 SEND_STRING("{}" SS_TAP(X_LEFT));
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 return false;
             case M_LRBRC:
                 double_tap_it = false;
                 SEND_STRING("[]" SS_TAP(X_LEFT));
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 return false;
             case M_LRABR:
                 double_tap_it = false;
                 SEND_STRING("<>" SS_TAP(X_LEFT));
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 return false;
             case M_DQUOT:
                 double_tap_it = false;
                 SEND_STRING("''" SS_TAP(X_LEFT));
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 return false;
             case DBL_TAP:
                 double_tap_it = !double_tap_it;
@@ -206,10 +201,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 double_tap_it = false;
                 return true;
         }
-    } else if (double_tap_it && keycode != DBL_TAP) {
+
+    } else if (double_tap_it &&
+               keycode != DBL_TAP &&
+               keycode != OSL(_RAISE) &&
+               keycode != OSL(_LOWER) &&
+               keycode != MO(_NAV)) {
         double_tap_it = false;
         tap_code16(keycode);
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }
 
     return true;

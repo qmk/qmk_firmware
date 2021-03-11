@@ -32,7 +32,9 @@
 static uint8_t i2c_address;
 
 static const I2CConfig i2cconfig = {
-#ifdef USE_I2CV1
+#if defined(USE_I2CV1_CONTRIB)
+    I2C1_CLOCK_SPEED,
+#elif defined(USE_I2CV1)
     I2C1_OPMODE,
     I2C1_CLOCK_SPEED,
     I2C1_DUTY_CYCLE,
@@ -56,18 +58,23 @@ static i2c_status_t chibios_to_qmk(const msg_t* status) {
 }
 
 __attribute__((weak)) void i2c_init(void) {
-    // Try releasing special pins for a short time
-    palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
-    palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
+    static bool is_initialised = false;
+    if (!is_initialised) {
+        is_initialised = true;
 
-    chThdSleepMilliseconds(10);
+        // Try releasing special pins for a short time
+        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
+        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
+
+        chThdSleepMilliseconds(10);
 #if defined(USE_GPIOV1)
-    palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
-    palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
+        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, I2C1_SCL_PAL_MODE);
+        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, I2C1_SDA_PAL_MODE);
 #else
-    palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
-    palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
 #endif
+    }
 }
 
 i2c_status_t i2c_start(uint8_t address) {

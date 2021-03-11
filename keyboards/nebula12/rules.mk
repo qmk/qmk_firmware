@@ -1,7 +1,7 @@
 # MCU name
 MCU = STM32F072
 
-BOARD = ST_STM32F072B_DISCOVERY
+BOARD = GENERIC_STM32_F072XB
 
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
