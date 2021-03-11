@@ -117,43 +117,8 @@ void keyboard_post_init_user(void) { rgb_matrix_enable(); }
 void matrix_scan_user(void){};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static uint32_t key_timer;
-    switch (keycode) {
-        case U_T_AUTO:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
-            }
-            return false;
-        case U_T_AGCR:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
-            }
-            return false;
-        case MD_BOOT:
-            if (record->event.pressed) {
-                key_timer = timer_read32();
-            } else {
-                if (timer_elapsed32(key_timer) >= 500) {
-                    reset_keyboard();
-                }
-            }
-            return false;
-    }
-
     if (record->event.pressed) {
         switch (keycode) {
-            case DBG_TOG:
-                TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
-                return false;
-            case DBG_MTRX:
-                TOGGLE_FLAG_AND_PRINT(debug_matrix, "Debug matrix");
-                return false;
-            case DBG_KBD:
-                TOGGLE_FLAG_AND_PRINT(debug_keyboard, "Debug keyboard");
-                return false;
-            case DBG_MOU:
-                TOGGLE_FLAG_AND_PRINT(debug_mouse, "Debug mouse");
-                return false;
             case RGB_TOG:
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {

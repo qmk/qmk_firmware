@@ -62,14 +62,7 @@ enum tapdance_keycodes {
 };
 
 enum ctrl_keycodes {
-    U_T_AUTO = SAFE_RANGE, // USB Extra Port Toggle Auto Detect / Always Active
-    U_T_AGCR,              // USB Toggle Automatic GCR control
-    DBG_TOG,               // DEBUG Toggle On / Off
-    DBG_MTRX,              // DEBUG Toggle Matrix Prints
-    DBG_KBD,               // DEBUG Toggle Keyboard Prints
-    DBG_MOU,               // DEBUG Toggle Mouse Prints
-    MD_BOOT,               // Restart into bootloader after hold timeout
-    SEL_CPY,               // Select Copy. Select the word cursor is pointed at and copy, using double mouse click and ctrl+c
+    SEL_CPY = SAFE_RANGE,  // Select Copy. Select the word cursor is pointed at and copy, using double mouse click and ctrl+c
     ROUT_TG,               // Timeout Toggle. Toggle idle LED time out on or off
     ROUT_VI,               // Timeout Value Increase. Increase idle time out before LED disabled
     ROUT_VD,               // Timeout Value Decrease. Decrease idle time out before LED disabled
