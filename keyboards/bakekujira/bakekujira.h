@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
-#include "quantum.h"
 #include "split_util.h"
 
 #ifdef PROTOCOL_LUFA
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define XXX KC_NO
-
 
 #define has_usb() is_keyboard_master()
 #define is_master is_keyboard_master()
