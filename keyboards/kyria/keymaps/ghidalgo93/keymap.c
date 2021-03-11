@@ -25,6 +25,11 @@ enum layers {
     _ALWAYS
 };
 
+enum custom_keycodes {
+  KC_CPY = SAFE_RANGE,
+  KC_PST,  
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Base Layer: QWERTY
@@ -37,15 +42,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  | ,  < | . >  | /  ? |        |
  * |        | LCTR | LALT |      |      |      |      |      |  |      |      |      |      | LALT | LCTR |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |   0  | BCSP |      |  |      | SPC  |   1  |      |      |
+ *                        |      |      | cpy  | BCSP |      |  |      | SPC  | pst  |      |      |
  *                        |      |      |      |      |      |  |      | ALWS |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
       _______, KC_Q,         KC_W,            KC_E,          KC_R,           KC_T,                                           KC_Y, KC_U,           KC_I,           KC_O,           KC_P,            _______,
       _______, LSFT_T(KC_A), LT(_MOUSE,KC_S), LT(_NAV,KC_D), LT(_RSYM,KC_F), KC_G,                                           KC_H, LT(_LSYM,KC_J), LT(_FUN,KC_K),  LT(_NUM,KC_L),  LSFT_T(KC_SCLN), _______,
-      _______, KC_Z,         LCTL_T(KC_X),    KC_C,          KC_V,           KC_B, _______, _______,       _______, _______, KC_N, KC_M,           KC_COMM,        LCTL_T(KC_DOT),   KC_SLSH,         _______,
-                                                           _______, _______, KC_0, KC_BSPC, _______,       _______, LT(_ALWAYS, KC_SPC), KC_1, _______, _______ 
+      _______, KC_Z,         LCTL_T(KC_X),    KC_C,          KC_V,           KC_B,   _______, _______,       _______, _______, KC_N, KC_M,         KC_COMM,        LCTL_T(KC_DOT), KC_SLSH,         _______,
+                                                           _______, _______, KC_CPY, KC_BSPC, _______,       _______, LT(_ALWAYS, KC_SPC), KC_PST, _______, _______ 
     ),
  /*
   * Mouse Layer 
@@ -204,9 +209,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
-/* layer_state_t layer_state_set_user(layer_state_t state) { */
-/*     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); */
-/* } */
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case KC_CPY:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTL("c"));
+        } else {
+        }
+        break;
+
+    case KC_PST:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTL("v"));
+        } else {
+        }
+        break;
+    }
+    return true;
+};
+
 
 
 #ifdef OLED_DRIVER_ENABLE
