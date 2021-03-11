@@ -21,7 +21,7 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-#RGB_MATRIX_ENABLE = no
+RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 
 # custom matrix setup
@@ -29,3 +29,4 @@ CUSTOM_MATRIX = lite
 SRC += matrix.c
 SRC += ../modulo/expander.c
 QUANTUM_LIB_SRC += i2c_master.c
+
