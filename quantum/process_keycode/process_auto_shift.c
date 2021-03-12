@@ -84,6 +84,10 @@ static void autoshift_flush_shift(void) {
  *  \return Whether the record should be further processed.
  */
 static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record) {
+    if (!autoshift_flags.enabled) {
+        return true;
+    }
+
 #    ifndef AUTO_SHIFT_MODIFIERS
     if (get_mods()) {
         return true;
@@ -114,8 +118,9 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
 #    endif
 
     // Record the keycode so we can simulate it later.
-    autoshift_lastkey = keycode;
-    autoshift_time    = now;
+    autoshift_flags.lastshifted = get_mods() & MOD_BIT(KC_LSFT);
+    autoshift_lastkey           = keycode;
+    autoshift_time              = now;
     autoshift_flags.in_progress = true;
 
 #    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
@@ -139,7 +144,7 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger) {
 
         // Time since the initial press was recorded.
         const uint16_t elapsed                           = TIMER_DIFF_16(now, autoshift_time);
-        autoshift_flags.lastshifted                      = !(elapsed < autoshift_timeout) || get_mods() & MOD_BIT(KC_LSFT);
+        autoshift_flags.lastshifted                      = !(elapsed < autoshift_timeout) || autoshift_flags.lastshifted;
         autoshift_shift_states[autoshift_lastkey & 0xFF] = autoshift_flags.lastshifted;
         if (get_mods() & MOD_BIT(KC_LSFT)) {
             autoshift_flags.cancelling_lshift = true;
@@ -220,10 +225,6 @@ uint16_t get_autoshift_timeout(void) { return autoshift_timeout; }
 void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
-    if (!autoshift_flags.enabled) {
-        return true;
-    }
-
     // Note that record->event.time isn't reliable, see:
     // https://github.com/qmk/qmk_firmware/pull/9826#issuecomment-733559550
     const uint16_t now =
@@ -240,7 +241,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             autoshift_end(KC_NO, now, false);
         }
 
-        switch (keycode & 0xFF) {
+        switch (keycode) {
             case KC_ASTG:
                 autoshift_toggle();
                 return true;
@@ -265,7 +266,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #    endif
         }
 #    ifdef RETRO_SHIFT
-        if (IS_RETRO(keycode) && (record->tap.count == 0 || (record->tap.interrupted && (IS_LT(keycode))
+        if (IS_RETRO(keycode) && (record->tap.count == 0 || (record->tap.interrupted && ((IS_LT(keycode))
 #        ifdef HOLD_ON_OTHER_KEYPRESS
             ? true
 #        else
@@ -276,7 +277,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #        else
             : false
 #        endif
-        ))) {
+        )))) {
             return true;
         }
 #    endif
