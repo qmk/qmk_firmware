@@ -9,9 +9,9 @@ A 65% hotswap in switch RGB keyboard from KPRepublic.
 * Hardware Availability: [KP Republic](https://kprepublic.com/products/bm68rgb-bm68-rgb-65-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-full-rgb-switch-underglow-type-c)
 
 Make example for this keyboard (after setting up your build environment):
-```sh
-qmk compile -kb bm68rgb -km default
-```
+
+    make bm68rgb:default
+
 Flashing example for this keyboard:
 ```sh
 qmk flash -kb bm68rgb -km default
