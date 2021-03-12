@@ -13,9 +13,8 @@ Make example for this keyboard (after setting up your build environment):
     make bm68rgb:default
 
 Flashing example for this keyboard:
-```sh
-qmk flash -kb bm68rgb -km default
-```
+
+    make bm68rgb:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 
