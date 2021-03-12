@@ -1,6 +1,5 @@
 {
   "keyboard_name": "IBM PC XT",
-  "keyboard_folder": "converter/xt_usb",
   "url": "",
   "maintainer": "qmk",
   "width": 21,

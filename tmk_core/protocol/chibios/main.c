@@ -15,8 +15,8 @@
  * GPL v2 or later.
  */
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #include "usb_main.h"
 
@@ -31,7 +31,7 @@
 #include "led.h"
 #include "sendchar.h"
 #include "debug.h"
-#include "printf.h"
+#include "print.h"
 
 #ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 // Change this to be TRUE once we've migrated keyboards to the new init system
@@ -163,6 +163,7 @@ int main(void) {
     keyboard_setup();
 
     /* Init USB */
+    usb_event_queue_init();
     init_usb_driver(&USB_DRIVER);
 
 #ifdef MIDI_ENABLE
@@ -221,6 +222,8 @@ int main(void) {
 
     /* Main loop */
     while (true) {
+        usb_event_queue_task();
+
 #if !defined(NO_USB_STARTUP_CHECK)
         if (USB_DRIVER.state == USB_SUSPENDED) {
             print("[s]");

@@ -19,7 +19,6 @@ addons:
       - llvm-toolchain-trusty-7
     packages:
     - diffutils
-    - dos2unix
     - clang-format-7
     - libstdc++-7-dev
 script:

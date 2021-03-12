@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    LeeKu
 #define PRODUCT         Finger65
-#define DESCRIPTION     QMK keyboard firmware for L3
 
 #define RGBLED_NUM 12
 

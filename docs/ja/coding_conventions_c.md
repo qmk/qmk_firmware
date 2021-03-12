@@ -54,7 +54,7 @@ int foo(void) {
 
 [Clang-format](https://clang.llvm.org/docs/ClangFormat.html) は LLVM の一部で、誰もが手動で整形するほど暇ではないため、コードを自動整形することができます。私たちは、上記のコーディング規約のほとんどを適用する設定ファイルを提供しています。空白と改行のみを変更するため、省略可能な括弧は自分で付け加えることを忘れないでください。
 
-Windows で clang-format を入手するには [full LLVM インストーラ](http://llvm.org/builds/)を使い、Ubuntu では `sudo apt install clang-format` を使ってください。
+Windows で clang-format を入手するには [full LLVM インストーラ](https://llvm.org/builds/)を使い、Ubuntu では `sudo apt install clang-format` を使ってください。
 
 コマンドラインから実行する場合、オプションとして `-style=file` を渡すと、QMK ルートディレクトリ内の .clang-format 設定ファイルを自動的に見つけます。
 

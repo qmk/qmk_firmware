@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    farmakon
 #define PRODUCT         "TOAD"
-#define DESCRIPTION     "TOAD"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
