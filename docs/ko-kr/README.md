@@ -9,7 +9,7 @@
 
 ## QMK Firmware 란?
 
-QMK(*Quantum Mechanical Keyboard 양자 기계식 키보드*)란 QMK 컴워어, QMK 툴박스, qmk.fm 를 관리하고 있는 오픈소스 커뮤니티 입니다. QMK펌웨어는 [tmk\_keyboard](http://github.com/tmk/tmk_keyboard)를 바탕으로 만들어진 키보드펌웨어이며, Atmel AVR컨트롤러와 [OLKB 제품군](http://olkb.com) [ErgoDox EZ](http://www.ergodox-ez.com), 그리고 [Clueboard 제품군](http://clueboard.co/) 이용할때 매우 편리합니다. 또한 QMK는 ChibiOS를 사용하여 ARM기반의 컨트롤러로도 사용할수 있습니다. 마지막으로 QMK는 커스텀회로와 핸드와이어드 키보드을 작동시키는데에도 사용가능합니다.
+QMK(*Quantum Mechanical Keyboard 양자 기계식 키보드*)란 QMK 컴워어, QMK 툴박스, qmk.fm 를 관리하고 있는 오픈소스 커뮤니티 입니다. QMK펌웨어는 [tmk\_keyboard](https://github.com/tmk/tmk_keyboard)를 바탕으로 만들어진 키보드펌웨어이며, Atmel AVR컨트롤러와 [OLKB 제품군](https://olkb.com) [ErgoDox EZ](https://www.ergodox-ez.com), 그리고 [Clueboard 제품군](https://clueboard.co/) 이용할때 매우 편리합니다. 또한 QMK는 ChibiOS를 사용하여 ARM기반의 컨트롤러로도 사용할수 있습니다. 마지막으로 QMK는 커스텀회로와 핸드와이어드 키보드을 작동시키는데에도 사용가능합니다.
 
 
 ## 설치하기
@@ -30,4 +30,4 @@ QMK(*Quantum Mechanical Keyboard 양자 기계식 키보드*)란 QMK 컴워어, 
 
 ## 커스터마이징
 
-QMK는 사용할 수 있는 매우 다양한 [기능](features.md)과 체계화된 [참고자료](http://docs.qmk.fm)들이 있습니다. 그중 대부분은 [키맵](keymap.md)을 수정하거나 [키코드](keycodes.md)를 변경하는데에 특화되어 있습니다.
+QMK는 사용할 수 있는 매우 다양한 [기능](features.md)과 체계화된 [참고자료](https://docs.qmk.fm)들이 있습니다. 그중 대부분은 [키맵](keymap.md)을 수정하거나 [키코드](keycodes.md)를 변경하는데에 특화되어 있습니다.

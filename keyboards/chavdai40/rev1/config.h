@@ -19,6 +19,8 @@
 
 #include "config_common.h"
 
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x16D0
 #define PRODUCT_ID      0x0F95
@@ -33,7 +35,7 @@
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
 
- 
+
 #define MATRIX_ROW_PINS { A0, A15, B5, B6 }
 #define MATRIX_COL_PINS { B8, B4, B3, B2, B1, B0, A7, A6, A5, A4, A3, A2, A1 }
 #define UNUSED_PINS
