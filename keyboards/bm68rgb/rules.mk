@@ -10,7 +10,6 @@ BOOTLOADER = atmel-dfu
 BOOTMAGIC_ENABLE = full     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-GRAVE_ESC_ENABLE = yes      # Grave escape key support
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
