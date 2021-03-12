@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "split_util.h"
 
-#ifdef PROTOCOL_LUFA
-#    include "lufa.h"
-#endif
-
 #define XXX KC_NO
 
 #define has_usb() is_keyboard_master()
@@ -38,7 +34,6 @@ enum layers {
 
 #define XXXXXXX KC_NO
 #define XXX KC_NO
-
 
 #define LAYOUT_ansi_split( \
   L00, L01, L02, L03, L04, L05, L06,      R00, R01, R02, R03, R04, R05, R06,    R07, R08, R09,  \

@@ -16,3 +16,11 @@
 
 #pragma once
 
+enum {
+  HAP_SAD,
+  QMK,
+  DOCS,
+  TD_GRAVE_ESC
+};
+
+

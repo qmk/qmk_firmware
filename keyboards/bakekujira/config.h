@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    papadakko
 #define PRODUCT         bakekujira
 
+#define TAPPING_TERM 200
+
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
