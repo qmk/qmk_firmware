@@ -33,12 +33,12 @@ led_config_t g_led_config = { {
     {  2, 64}, { 21, 64}, { 39, 64},                                  { 94, 64},                       {148, 64}, {163, 64}, {178, 64}, {193, 64}, {208, 64}, {225, 64}, // Ctrl, GUI, Alt, Space, RAlt, FN, Ctrl, Left, Down, Right
     {185, 45}, {160, 45}, {125, 45}, { 95, 45}, { 60, 45}, { 25, 45} // UNDERGLOW
 }, {
-	// LED Index to Flag
-	1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,  // Esc, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, -, =, Backspace, Delete
-	1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,  // Tab, Q, W, E, R, T, Y, U, I, O, P, [, ], backslash , Home
-	1,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,  // Capslock, A, S, D, F, G, H, J, K, L, ;, ', Enter, Page up
-	   1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1,  // LShift, Z, X, C, V, B, N, M, ,, ., /, Shift, Up, Page Down
-	1, 1, 1,          4,       1, 1, 1, 1, 1, 1,  // Ctrl, GUI, Alt, Space, RAlt, FN, Ctrl, Left, Down, Right
-	2, 2, 2, 2, 2, 2  // UNDERGLOW
+    // LED Index to Flag
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,  // Esc, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, -, =, Backspace, Delete
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,  // Tab, Q, W, E, R, T, Y, U, I, O, P, [, ], backslash , Home
+    1,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,  // Capslock, A, S, D, F, G, H, J, K, L, ;, ', Enter, Page up
+       1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1,  // LShift, Z, X, C, V, B, N, M, ,, ., /, Shift, Up, Page Down
+    1, 1, 1,          4,       1, 1, 1, 1, 1, 1,  // Ctrl, GUI, Alt, Space, RAlt, FN, Ctrl, Left, Down, Right
+    2, 2, 2, 2, 2, 2  // UNDERGLOW
 } };
 #endif
