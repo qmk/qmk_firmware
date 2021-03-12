@@ -180,23 +180,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
-	    if(record->event.pressed) set_single_persistent_default_layer(_QWERTY);
+      if (record->event.pressed) {set_single_persistent_default_layer(_QWERTY);}
       return false;
 
     case DVORAK:
-      if (record->event.pressed) set_single_persistent_default_layer(_DVORAK);
+      if (record->event.pressed) {set_single_persistent_default_layer(_DVORAK);}
       return false;
 
     case NUMPAD:
-      if (record->event.pressed) set_single_persistent_default_layer(_NUMPAD);
+      if (record->event.pressed) {set_single_persistent_default_layer(_NUMPAD);}
       return false;
       
     case COLEMAK:
-      if (record->event.pressed) set_single_persistent_default_layer(_COLEMAK);
+      if (record->event.pressed) {set_single_persistent_default_layer(_COLEMAK);}
       return false;
 
     case GAMING:
-      if (record->event.pressed) set_single_persistent_default_layer(_GAMING);
+      if (record->event.pressed) {set_single_persistent_default_layer(_GAMING);}
       return false;
 
     case LOWER:
