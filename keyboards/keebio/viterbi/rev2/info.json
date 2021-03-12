@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Viterbi Split",
+    "keyboard_name": "Viterbi",
     "url": "https://github.com/qmk/qmk_firmware/keyboards/keebio/viterbi", 
     "maintainer": "qmk", 
     "width": 14, 
