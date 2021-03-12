@@ -41,7 +41,7 @@
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 7
+#define DEBOUNCE 5
 
 /* Bootmagic Lite key configuration */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
