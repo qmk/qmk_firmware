@@ -13,27 +13,33 @@ enum userspace_mode {
 
 enum userspace_keycodes {
     RV_NON = SAFE_RANGE,
-    RV_SM0,     // set MAC
-    RV_SM1,     // set WINDOWS
-    RV_SM2,     // set MAC_UNI
-    RV_SM3,     // set WINDOWS_UNI
-    RV_SM4,     // set LINUX_UNI
-    RV_SM0S,    // set MAC and save
-    RV_SM1S,    // set WINDOWS and save
-    RV_SM2S,    // set MAC_UNI and save
-    RV_SM3S,    // set WINDOWS_UNI and save
-    RV_SM4S,    // set LINUX_UNI and save
+    RV_SM0,     // set Mac Unicode mode
+    RV_SM1,     // set Window Unicode mode
+    RV_SM2,     // set Linux Unicode mode
+    RV_SM3,     // set Mac lagecy mode
+    RV_SM4,     // set Windows legacy mode
+    RV_SM0S,    // set Mac Unicode mode and save
+    RV_SM1S,    // set Windows Unicode mode and save
+    RV_SM2S,    // set Linux Unicode and save
+    RV_SM3S,    // set Mac legacy mode
+    RV_SM4S,    // set Windows legacy and save
     RV_SAYM,    // say mode
     RV_AUML,    // äÄ
     RV_OUML,    // öÖ
     RV_UUML,    // üÜ
     RV_EUR,     // €
-    RV_SZ,      // ß
+    RV_SZ,      // ß§
     RV_TM,      // ™
     RV_RT,      // ®
     RV_CC,      // ©
     RV_DEG,     // °
     RV_SNAP,    // Screenshot
+    RV_PM,      // ±
+    RV_UNEQ,    // ≠
+    RV_SUP1,    // ¹
+    RV_SUP2,    // ²
+    RV_SUP3,    // ³
+
 };
 
 typedef union {

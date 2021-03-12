@@ -31,18 +31,21 @@ void set_mode(int mode, bool save) {
     if (mode > 7) {
         mode = 7;
     }
+
     if (mode >= 4) {
         userspace_config.mode_3 = true;
         mode -= 4;
     } else {
         userspace_config.mode_3 = false;
     }
+
     if (mode >= 2) {
         userspace_config.mode_2 = true;
         mode -= 2;
     } else {
         userspace_config.mode_2 = false;
     }
+
     if (mode > 0) {
         userspace_config.mode_1 = true;
     } else {
@@ -92,7 +95,6 @@ void keyboard_pre_init_user(void) {
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
-    // Customise these values to desired behaviour
     // debug_enable = true;
     // debug_matrix=true;
     // debug_keyboard = true;
@@ -298,7 +300,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // with legacy-mode for MAC and WINDOWS without unicode support
         case RV_SZ:
             if (is_unicode(mode)) {
-                send_unicode_string("ß");
+                if (as) {
+                    send_unicode_string("§");
+                } else {
+                    send_unicode_string("ß");
+                }
             } else if (mode == MAC) {
                 register_code(KC_LALT);
                 tap_code(KC_S);
@@ -337,6 +343,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RV_DEG:
             if (is_unicode(mode)) {
                 send_unicode_string("°");
+            }
+        return false;
+
+        // Plus-minus - ±
+        case RV_PM:
+            if (is_unicode(mode)) {
+                send_unicode_string("±");
+            }
+        return false;
+
+        // Not equal - ≠
+        case RV_UNEQ:
+            if (is_unicode(mode)) {
+                send_unicode_string("≠");
+            }
+        return false;
+
+        // Superscript one - ¹
+        case RV_SUP1:
+            if (is_unicode(mode)) {
+                send_unicode_string("¹");
+            }
+        return false;
+
+        // Superscript two - ²
+        case RV_SUP2:
+            if (is_unicode(mode)) {
+                send_unicode_string("²");
+            }
+        return false;
+
+        // Superscript three - ³
+        case RV_SUP3:
+            if (is_unicode(mode)) {
+                send_unicode_string("³");
             }
         return false;
     }
