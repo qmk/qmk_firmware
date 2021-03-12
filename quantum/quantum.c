@@ -352,34 +352,6 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) { layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3)); }
 
-void tap_random_base64(void) {
-#if defined(__AVR_ATmega32U4__)
-    uint8_t key = (TCNT0 + TCNT1 + TCNT3 + TCNT4) % 64;
-#else
-    uint8_t key = rand() % 64;
-#endif
-    switch (key) {
-        case 0 ... 25:
-            send_char(key + 'A');
-            break;
-        case 26 ... 51:
-            send_char(key - 26 + 'a');
-            break;
-        case 52:
-            send_char('0');
-            break;
-        case 53 ... 61:
-            send_char(key - 53 + '1');
-            break;
-        case 62:
-            send_char('+');
-            break;
-        case 63:
-            send_char('/');
-            break;
-    }
-}
-
 void matrix_init_quantum() {
     magic();
 #if defined(LED_NUM_LOCK_PIN) || defined(LED_CAPS_LOCK_PIN) || defined(LED_SCROLL_LOCK_PIN) || defined(LED_COMPOSE_PIN) || defined(LED_KANA_PIN)
@@ -474,40 +446,6 @@ void matrix_scan_quantum() {
 #ifdef HD44780_ENABLED
 #    include "hd44780.h"
 #endif
-
-// Functions for spitting out values
-//
-
-void send_dword(uint32_t number) {
-    uint16_t word = (number >> 16);
-    send_word(word);
-    send_word(number & 0xFFFFUL);
-}
-
-void send_word(uint16_t number) {
-    uint8_t byte = number >> 8;
-    send_byte(byte);
-    send_byte(number & 0xFF);
-}
-
-void send_byte(uint8_t number) {
-    uint8_t nibble = number >> 4;
-    send_nibble(nibble);
-    send_nibble(number & 0xF);
-}
-
-void send_nibble(uint8_t number) { tap_code16(hex_to_keycode(number)); }
-
-__attribute__((weak)) uint16_t hex_to_keycode(uint8_t hex) {
-    hex = hex & 0xF;
-    if (hex == 0x0) {
-        return KC_0;
-    } else if (hex < 0xA) {
-        return KC_1 + (hex - 0x1);
-    } else {
-        return KC_A + (hex - 0xA);
-    }
-}
 
 void api_send_unicode(uint32_t unicode) {
 #ifdef API_ENABLE
