@@ -102,23 +102,26 @@ static inline void process_tap_dance_action_on_reset(qk_tap_dance_action_t *acti
     send_keyboard_report();
 }
 
-void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
+bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
     qk_tap_dance_action_t *action;
 
-    if (!record->event.pressed) return;
+    if (!record->event.pressed) return false;
 
-    if (highest_td == -1) return;
+    if (highest_td == -1) return false;
 
+    bool interrupted = false;
     for (int i = 0; i <= highest_td; i++) {
         action = &tap_dance_actions[i];
         if (action->state.count) {
             if (keycode == action->state.keycode && keycode == last_td) continue;
             action->state.interrupted          = true;
+            interrupted                        = true;
             action->state.interrupting_keycode = keycode;
             process_tap_dance_action_on_dance_finished(action);
             reset_tap_dance(&action->state);
         }
     }
+    return interrupted;
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {

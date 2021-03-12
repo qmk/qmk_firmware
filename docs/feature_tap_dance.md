@@ -42,6 +42,8 @@ For more complicated cases, use the third or fourth options (examples of each ar
 
 Finally, the fifth option is particularly useful if your non-Tap-Dance keys start behaving weirdly after adding the code for your Tap Dance keys. The likely problem is that you changed the `TAPPING_TERM` time to make your Tap Dance keys easier for you to use, and that this has changed the way your other keys handle interrupts.
 
+> If you are a fast typist and change layers or modifiers inside of your `on_dance_finished_fn` then add `#define TAP_DANCE_REFRESH_INTERRUPTED_KEYCODE` in `config.h` to get correctly modified key during the tapping term.
+
 ## Implementation Details :id=implementation
 
 Well, that's the bulk of it! You should now be able to work through the examples below, and to develop your own Tap Dance functionality. But if you want a deeper understanding of what's going on behind the scenes, then read on for the explanation of how it all works!

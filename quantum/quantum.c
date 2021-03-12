@@ -202,7 +202,13 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 
 #ifdef TAP_DANCE_ENABLE
-    preprocess_tap_dance(keycode, record);
+    bool tap_dance_interrupted = preprocess_tap_dance(keycode, record);
+
+#ifdef TAP_DANCE_REFRESH_INTERRUPTED_KEYCODE
+    if (tap_dance_interrupted) {
+        keycode = get_record_keycode(record, true);
+    }
+#endif
 #endif
 
     if (!(
