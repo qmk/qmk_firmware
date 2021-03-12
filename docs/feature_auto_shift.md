@@ -118,6 +118,62 @@ Enables keyrepeat.
 
 Disables automatically keyrepeating when `AUTO_SHIFT_TIMEOUT` is exceeded.
 
+### Custom Keys and Custom Shifted Values
+
+Especially on small keyboards, the default shifted value for many keys is not
+optimal. To provide more customizability, there are three user-definable
+functions. The first, `autoshift_is_custom`, is called on every key event and
+returns whether it should be a part of Auto Shift. The other two are
+`autoshift_press/release_user`, and press or release the passed key. If one
+does not require custom shift values but wants custom keys, only
+`autoshift_is_custom` is required. Below is an example adding period to Auto
+Shift and making its shifted value exclamation point. Make sure to use weak
+mods - setting real would make any keys following it use their shifted values
+as if you were holding the key. Clearing of modifiers is handled by Auto Shift,
+and the os-sent shift value if keyrepeating multiple keys is always that of
+the last key pressed (whether or not it's an Auto Shift key).
+
+You can also have non-shifted keys for the shifted values (or even no shifted
+value), just don't set a shift modifier!
+
+```c
+bool autoshift_is_custom(uint16_t keycode) {
+    switch(keycode) {
+        case KC_DOT:
+            break;
+        default:
+            return false;
+    }
+    return true;
+}
+void autoshift_press_user(uint16_t keycode, bool shifted) {
+    switch(keycode) {
+        case KC_DOT:
+            if (!shifted) {
+                register_code(KC_DOT);
+            } else {
+                add_weak_mods(MOD_BIT(KC_LSFT));
+                register_code(KC_1);
+            }
+        default:
+            if (shifted) {
+                add_weak_mods(MOD_BIT(KC_LSFT));
+            }
+            // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
+            register_code(keycode & 0xFF);
+    }
+}
+void autoshift_release_user(uint16_t keycode, bool shifted) {
+    switch(keycode) {
+        case KC_DOT:
+            unregister_code((!shifted) ? KC_DOT : KC_1);
+        default:
+            // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
+            unregister_code(keycode & 0xFF);
+    }
+}
+```
+
 ## Using Auto Shift Setup
 
 This will enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.

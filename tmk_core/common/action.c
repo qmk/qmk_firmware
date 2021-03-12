@@ -85,6 +85,11 @@ void action_exec(keyevent_t event) {
         clear_weak_mods();
     }
 
+    if (event.pressed) {
+        // clear the potential weak mods left by previously pressed keys
+        clear_weak_mods();
+    }
+
 #ifdef SWAP_HANDS_ENABLE
     if (!IS_NOEVENT(event)) {
         process_hand_swap(&event);
