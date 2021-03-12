@@ -1,11 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
+#include "iris.h"
+#include "action_layer.h"
+#include "eeconfig.h"
 
-//Heavily modified keymap. Some features:
 //Nordic(swedish) signs
-//Symbols, numpad, arrows/navigation reachable under the alpas via the layers
-//Mirrored ctl, alt and shift to be able to use both hands when doing commands
-//Gaming layer, qwerty with space on left half.
 
 enum layer_names {
     _DVORAK,
@@ -18,6 +17,7 @@ enum layer_names {
     _ADJUST
 };
 
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   DVORAK,
@@ -25,7 +25,8 @@ enum custom_keycodes {
   GAMING,
   NUMPAD,
   LOWER,
-  RAISE
+  RAISE,
+  ADJUST
 };
 
 #define KC_ KC_TRNS
@@ -47,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
       KC_DEL , KC_APP , KC_VOLD, KC_MUTE, KC_VOLU, KC_LGUI,                            KC_GRV , KC_MPRV, KC_MPLY, KC_MNXT, KC_DOWN, KC_ESC ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      KC_TAB , KC_Q   , KC_W   , KC_E   , KC_ R  , KC_T   ,                            KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , SE_ARNG,
+      KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                            KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , SE_ARNG,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
       KC_LCTL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                            KC_H   , KC_J   , KC_K   , KC_L   , SE_ODIA, SE_ADIA,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
@@ -61,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
       KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                            KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_ESC ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      KC_TAB , KC_Q   , KC_W   , KC_E   , KC_ R  , KC_T   ,                            KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_DEL ,
+      KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                            KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_DEL ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
       KC_LCTL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                            KC_H   , KC_J   , KC_K   , KC_L   , SE_ODIA, KC_RCTL,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
@@ -159,58 +160,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-
+	    if(record->event.pressed) set_single_persistent_default_layer(_QWERTY);
       return false;
+
     case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-
+      if (record->event.pressed) set_single_persistent_default_layer(_DVORAK);
       return false;
+
     case NUMPAD:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_NUMPAD);
-      }
-
-      return false;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-
-    case GAMING:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_GAMING);
-      }
+      if (record->event.pressed) set_single_persistent_default_layer(_NUMPAD);
       return false;
       
+    case COLEMAK:
+      if (record->event.pressed) set_single_persistent_default_layer(_COLEMAK);
+      return false;
+
+    case GAMING:
+      if (record->event.pressed) set_single_persistent_default_layer(_GAMING);
+      return false;
+
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
+      }
+      else {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
+      return false;
       
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
+      }
+      else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
+      return false;
+
+    case ADJUST:
+      if (record->event.pressed) {
+        layer_on(_ADJUST);
+      }
+      else {
+        layer_off(_ADJUST);
+      }
+      return false;
+
   }
   return true;
 }
