@@ -129,6 +129,28 @@ Configure the hardware via your `config.h`:
 
 ---
 
+### APA102 :id=apa102
+
+There is basic support for APA102 based addressable LED strands. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = APA102
+```
+
+Configure the hardware via your `config.h`:
+
+```c
+// The pin connected to the data pin of the LEDs
+#define RGB_DI_PIN D7
+// The pin connected to the clock pin of the LEDs
+#define RGB_CI_PIN D6
+// The number of LEDs connected
+#define DRIVER_LED_TOTAL 70
+```
+
+---
+
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
 ```c

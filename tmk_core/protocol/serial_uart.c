@@ -50,10 +50,10 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef SERIAL_UART_INIT_CUSTOM
 #    define SERIAL_UART_INIT_CUSTOM \
-    /* enable TX */                 \
-    UCSR1B = _BV(TXEN1);            \
-    /* 8-bit data */                \
-    UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);
+        /* enable TX */             \
+        UCSR1B = _BV(TXEN1);        \
+        /* 8-bit data */            \
+        UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);
 #endif
 
 #if defined(SERIAL_UART_RTS_LO) && defined(SERIAL_UART_RTS_HI)
