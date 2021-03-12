@@ -29,4 +29,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 - Unplug
 - Hold Escape
 - Plug In
-- Flash using QMK Toolbox or dfu-util (`make hand88:<keymap>:dfu-util`)
+- Flash using QMK Toolbox or CLI (`make hand88:<keymap>:flash`)
