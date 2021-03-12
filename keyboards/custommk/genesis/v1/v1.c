@@ -14,7 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "v1.h"
 
-
-#include "config_common.h"
+__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
+	/* top left encoder */
+	if (index == 0) {
+		if (clockwise) {
+			tap_code(KC_VOLU);
+		} else {
+			tap_code(KC_VOLD);
+		}
+	}
+	/* top right encoder */
+	else if (index == 1) {
+		if (clockwise) {
+			tap_code(KC_VOLU);
+		} else {
+			tap_code(KC_VOLD);
+		}
+	}    
+}

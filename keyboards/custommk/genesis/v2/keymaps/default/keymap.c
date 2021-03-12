@@ -14,23 +14,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "genesis.h"
+#include QMK_KEYBOARD_H
 
-__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
-	/* top left encoder */
-	if (index == 0) {
-		if (clockwise) {
-			tap_code(KC_VOLU);
-		} else {
-			tap_code(KC_VOLD);
-		}
-	}
-	/* top right encoder */
-	else if (index == 1) {
-		if (clockwise) {
-			tap_code(KC_VOLU);
-		} else {
-			tap_code(KC_VOLD);
-		}
-	}    
-}
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+	[0] = LAYOUT_ortho_5x4(
+		    KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU,
+			MO(1),   KC_PSLS, KC_PAST, KC_PMNS, 
+			KC_P7,   KC_P8,   KC_P9,   KC_BSPC, 
+			KC_P4,   KC_P5,   KC_P6,   KC_PPLS, 
+			KC_P1,   KC_P2,   KC_P3,   KC_CAPS,
+			KC_P0,   KC_SPC,  KC_PDOT, KC_ENT),
+
+	[1] = LAYOUT_ortho_5x4(
+		    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+			KC_TRNS, KC_VOLU, RGB_TOG, RGB_MOD, 
+			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+			RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, 
+			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+			RGB_HUI, KC_TRNS, KC_TRNS, RGB_HUD),
+
+};
+
+
