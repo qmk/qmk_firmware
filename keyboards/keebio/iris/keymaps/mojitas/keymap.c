@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
-#include "iris.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 
 //Nordic(swedish) signs
 
