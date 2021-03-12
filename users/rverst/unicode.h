@@ -2,15 +2,11 @@
 #define RV_UNICODE_H
 
 #ifdef UNICODE_SELECTED_MODES
-  #undef UNICODE_SELECTED_MODES
-  #define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC
+#    undef UNICODE_SELECTED_MODES
+#    define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC
 #endif
 
-enum unicode_names {
-    BANG,
-    IRONY,
-    SNEK
-};
+enum unicode_names { BANG, IRONY, SNEK };
 
 const uint32_t PROGMEM unicode_map[] = {
     [BANG]  = 0x203D,
@@ -18,4 +14,4 @@ const uint32_t PROGMEM unicode_map[] = {
     [SNEK]  = 0x1F40D,
 };
 
-#endif // RV_UNICODE_H
+#endif  // RV_UNICODE_H

@@ -21,4 +21,3 @@ and the main goal is to give an convenient and unified access to some special ke
 -  *2:* Windows legacy mode (uses altgr-sequences e.g. `<altgr>+0228` for an `ä`, if I'm not able to use WinCompose)
 
 Layer 4 to switch the modes temporary, layer 5 to switch and save to eeprom.
-

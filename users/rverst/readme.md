@@ -16,4 +16,3 @@ Here are defined some key codes to put the keyboard in different modes
 And some logic to store the respective mode and load it at boot time.
 
 You'll find a proper layout here: [keyborads/id80/keymaps/rverst](../../keyboards/id80/keymaps/rverst)
-

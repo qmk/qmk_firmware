@@ -2,7 +2,7 @@
 #include "print.h"
 
 #ifdef UNICODE
-#include "unicode.h"
+#    include "unicode.h"
 #endif
 
 userspace_config_t userspace_config;
@@ -73,10 +73,7 @@ void switch_mode(int mode) {
 #endif
 }
 
-bool is_unicode(int mode) {
-    return (mode == MAC_UNI) || (mode == WINDOWS_UNI) || (mode == LINUX_UNI);
-}
-
+bool is_unicode(int mode) { return (mode == MAC_UNI) || (mode == WINDOWS_UNI) || (mode == LINUX_UNI); }
 
 //**********************
 // keyboard_pre_init
@@ -163,21 +160,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case RV_SAYM:
             switch (mode) {
-            case MAC:
-                send_string("MacOS (normal)");
-                break;
-            case WINDOWS:
-                send_string("Windows (normal)");
-                break;
-            case MAC_UNI:
-                send_string("MacOS (unicode)");
-                break;
-            case WINDOWS_UNI:
-                send_string("Windows (unicode)");
-                break;
-            case LINUX_UNI:
-                send_string("Linux (unicode)");
-                break;
+                case MAC:
+                    send_string("MacOS (normal)");
+                    break;
+                case WINDOWS:
+                    send_string("Windows (normal)");
+                    break;
+                case MAC_UNI:
+                    send_string("MacOS (unicode)");
+                    break;
+                case WINDOWS_UNI:
+                    send_string("Windows (unicode)");
+                    break;
+                case LINUX_UNI:
+                    send_string("Linux (unicode)");
+                    break;
             }
             return false;
 
@@ -189,8 +186,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 register_code(KC_LGUI);
                 register_code(KC_LSFT);
-                if (as) tap_code(KC_5);
-                else tap_code(KC_4);
+                if (as)
+                    tap_code(KC_5);
+                else
+                    tap_code(KC_4);
                 unregister_code(KC_LSFT);
                 unregister_code(KC_LGUI);
 
@@ -203,7 +202,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_LSFT);
                 register_code(KC_LGUI);
             }
-        return false;
+            return false;
 
         // Umlauts - äÄöÖüÜ
         case RV_AUML:
@@ -211,14 +210,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RV_UUML:
             if (is_unicode(mode)) {
                 if (keycode == RV_AUML) {
-                    if (as) send_unicode_string("Ä");
-                    else send_unicode_string("ä");
+                    if (as)
+                        send_unicode_string("Ä");
+                    else
+                        send_unicode_string("ä");
                 } else if (keycode == RV_OUML) {
-                    if (as) send_unicode_string("Ö");
-                    else send_unicode_string("ö");
+                    if (as)
+                        send_unicode_string("Ö");
+                    else
+                        send_unicode_string("ö");
                 } else if (keycode == RV_UUML) {
-                    if (as) send_unicode_string("Ü");
-                    else send_unicode_string("ü");
+                    if (as)
+                        send_unicode_string("Ü");
+                    else
+                        send_unicode_string("ü");
                 }
             } else if (mode == MAC) {
                 if (ls) unregister_code(KC_LSFT);
@@ -247,8 +252,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_RALT);
                 tap_code(KC_1);
                 if (keycode == RV_AUML) {
-                    if (as) tap_code(KC_4);
-                    else tap_code(KC_3);
+                    if (as)
+                        tap_code(KC_4);
+                    else
+                        tap_code(KC_3);
                     tap_code(KC_2);
                 } else if (keycode == RV_OUML) {
                     if (as) {
@@ -271,7 +278,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 if (ls) register_code(KC_LSFT);
                 if (rs) register_code(KC_RSFT);
-
             }
             return false;
 
@@ -323,63 +329,63 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (is_unicode(mode)) {
                 send_unicode_string("™");
             }
-        return false;
+            return false;
 
         // Registered trademark - ®
         case RV_RT:
             if (is_unicode(mode)) {
                 send_unicode_string("®");
             }
-        return false;
+            return false;
 
         // Copyright - ©
         case RV_CC:
             if (is_unicode(mode)) {
                 send_unicode_string("©");
             }
-        return false;
+            return false;
 
         // Degree - °
         case RV_DEG:
             if (is_unicode(mode)) {
                 send_unicode_string("°");
             }
-        return false;
+            return false;
 
         // Plus-minus - ±
         case RV_PM:
             if (is_unicode(mode)) {
                 send_unicode_string("±");
             }
-        return false;
+            return false;
 
         // Not equal - ≠
         case RV_UNEQ:
             if (is_unicode(mode)) {
                 send_unicode_string("≠");
             }
-        return false;
+            return false;
 
         // Superscript one - ¹
         case RV_SUP1:
             if (is_unicode(mode)) {
                 send_unicode_string("¹");
             }
-        return false;
+            return false;
 
         // Superscript two - ²
         case RV_SUP2:
             if (is_unicode(mode)) {
                 send_unicode_string("²");
             }
-        return false;
+            return false;
 
         // Superscript three - ³
         case RV_SUP3:
             if (is_unicode(mode)) {
                 send_unicode_string("³");
             }
-        return false;
+            return false;
     }
 
     return process_record_keymap(keycode, record);

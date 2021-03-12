@@ -56,11 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 void keyboard_post_init_keymap(void) {
-
-    #ifdef CLOSED_CASE
+#ifdef CLOSED_CASE
     if (rgblight_is_enabled()) {
         rgblight_disable();
     }
-    #endif
-
+#endif
 }
