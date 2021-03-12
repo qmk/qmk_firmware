@@ -101,7 +101,11 @@ bool process_tapping(keyrecord_t *keyp) {
 
     // if tapping
     if (IS_TAPPING_PRESSED()) {
-        if (WITHIN_TAPPING_TERM(event)) {
+        if (WITHIN_TAPPING_TERM(event)
+#    ifdef RETRO_SHIFT
+            || ((RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < (RETRO_SHIFT + 0))
+#    endif
+        ) {
             if (tapping_key.tap.count == 0) {
                 if (IS_TAPPING_KEY(event.key) && !event.pressed) {
                     // first tap!
