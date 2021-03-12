@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Viterbi",
     "url": "https://github.com/qmk/qmk_firmware/keyboards/keebio/viterbi", 
-    "maintainer": "qmk", 
+    "maintainer": "nooges", 
     "width": 14, 
     "height": 5, 
     "layouts": {
