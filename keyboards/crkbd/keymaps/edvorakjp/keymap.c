@@ -1,9 +1,9 @@
 #include QMK_KEYBOARD_H
 #ifdef PROTOCOL_LUFA
-  #include "split_util.h"
+#    include "split_util.h"
 #endif
 #ifdef SSD1306OLED
-  #include "oled.h"
+#    include "oled.h"
 #endif
 
 #include "edvorakjp.h"
@@ -18,12 +18,13 @@
 
 #define KC_TMB1 KC_LA(TAB)
 #define KC_TMB2 KC_LS(SPC)
-#define KC_TMB3 TD(TD_LOWER) // act as LOWER when hold, as KC_LANG2(=English) when tapped
-#define KC_TMB4 TD(TD_RAISE) // act as RAISE when hold, as KC_LANG1(=Japanese) when tapped
+#define KC_TMB3 TD(TD_LOWER)  // act as LOWER when hold, as KC_LANG2(=English) when tapped
+#define KC_TMB4 TD(TD_RAISE)  // act as RAISE when hold, as KC_LANG1(=Japanese) when tapped
 #define KC_TMB5 KC_RC(BSPC)
 #define KC_TMB6 KC_RG(ENT)
 #define KC_TMB7 KC_RC(DEL)
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_EDVORAK] = LAYOUT_kc(
@@ -62,37 +63,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                      `-----+----+----' `----+----+----'
   )
 };
+// clang-format on
 
 #ifdef SSD1306OLED
 void matrix_init_keymap(void) {
-  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-#ifdef MASTER_RIGHT
-  iota_gfx_init(has_usb()); // turns on the display
-#else
-  iota_gfx_init(!has_usb());
-#endif // MASTER_RIGHT
+    // SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
+#    ifdef MASTER_RIGHT
+    iota_gfx_init(has_usb());  // turns on the display
+#    else
+    iota_gfx_init(!has_usb());
+#    endif  // MASTER_RIGHT
 }
 
 void matrix_scan_user(void) {
-  iota_gfx_task();  // this is what updates the display continuously
+    iota_gfx_task();  // this is what updates the display continuously
 }
 #endif
 
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
 uint32_t layer_state_set_keymap(uint32_t state) {
-  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-  switch (biton32(state)) {
-    case _LOWER:
-      rgblight_sethsv_noeeprom_red();
-      break;
-    case _RAISE:
-      rgblight_sethsv_noeeprom_green();
-      break;
-    default: // for any other layers, or the default layer
-      rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
-      rgblight_sethsv_red();
-      break;
-  }
-  return state;
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    switch (biton32(state)) {
+        case _LOWER:
+            rgblight_sethsv_noeeprom_red();
+            break;
+        case _RAISE:
+            rgblight_sethsv_noeeprom_green();
+            break;
+        default:  // for any other layers, or the default layer
+            rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
+            rgblight_sethsv_red();
+            break;
+    }
+    return state;
 }
 #endif
