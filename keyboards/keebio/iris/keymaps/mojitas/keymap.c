@@ -52,11 +52,11 @@ enum custom_keycodes {
 #define KC_CATDEL LCTL(LALT(KC_DEL)) // Ctrl alt del
 #define KC_TSKMGR LCTL(S(KC_ESC)) // Ctrl shift esc
 #define KC_Close RALT(KC_F4) // Alt F4
-#define KC_MEH1 MEH(KC_1)
-#define KC_MEH2 MEH(KC_2)
-#define KC_MEH3 MEH(KC_3)
-#define KC_MEH4 MEH(KC_4)
-#define KC_MEH5 MEH(KC_5)
+#define KC_MEH1 MEH(KC_1)  //
+#define KC_MEH2 MEH(KC_2)  //
+#define KC_MEH3 MEH(KC_3)  //
+#define KC_MEH4 MEH(KC_4)  //
+#define KC_MEH5 MEH(KC_5)  //
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
       _______, KC_MEH5, KC_ACL0, KC_ACL1, KC_ACL2, KC_MEH3, _______,         KC_PENT , KC_DOT , KC_P1  , KC_P2  , KC_P3  , KC_P0  , _______,
   //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
-                                     KC_LALT , LOWER, KC_BSPC,                  _______, KC_P0  , KC_NLCK
+                                     KC_LALT , LOWER, KC_BSPC,                  _______, RAISE, KC_NLCK
   //                                `--------+--------+--------'                `--------+--------+--------'
   ),
 
@@ -177,6 +177,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -188,7 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
 
     case NUMPAD:
-      if (record->event.pressed) {set_single_persistent_default_layer(_NUMPAD);}
+      if (record->event.pressed) {layer_invert(_NUMPAD);}
       return false;
       
     case COLEMAK:
@@ -218,15 +220,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      }
-      else {
-        layer_off(_ADJUST);
       }
       return false;
 
