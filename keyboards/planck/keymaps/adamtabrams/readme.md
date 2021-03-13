@@ -5,9 +5,9 @@
 |C(Tab)|  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   |C(-_) |
 |Bsp/~ |  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;:  |A('") |
 | G(!) |  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /?  |G(Ent)|
-|COLMAK| GUI  | ALT  |System|Cursor|S(Esc)|Space |Arrows| Left | Down |  Up  |Right |
+|COLMAK|      |      |System|Cursor|S(Esc)|N(Spc)|Arrows|      |      |      |      |
 
-- Hold `Shift` + `Space` to activate the Number layer
+- The `N` in `N(Spc)` stands for Number layer
 - Hold down a layer key to temporarily activate or tap twice to toggle on or off
 
 ## Normal - COLEMAK
@@ -17,9 +17,9 @@
 |C(Tab)|  Q   |  W   |  F   |  P   |  B   |  J   |  L   |  U   |  Y   |  ;:  |C(-_) |
 |Bsp/~ |  A   |  R   |  S   |  T   |  G   |  M   |  N   |  E   |  I   |  O   |A('") |
 | G(!) |  Z   |  X   |  C   |  D   |  V   |  K   |  H   |  ,   |  .   |  /?  |G(Ent)|
-|QWERTY| GUI  | ALT  |System|Cursor|S(Esc)|Space |Arrows| Left | Down |  Up  |Right |
+|QWERTY|      |      |System|Cursor|S(Esc)|N(Spc)|Arrows|      |      |      |      |
 
-- Hold `Shift` + `Space` to activate the Number layer
+- The `N` in `N(Spc)` stands for Number layer
 - Hold down a layer key to temporarily activate or tap twice to toggle on or off
 
 ## Number
