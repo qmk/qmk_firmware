@@ -38,6 +38,7 @@
 #        define WS2812_SPI_DIVISOR (SPI_CR1_BR_2)    // fpclk/32
 #    else
 #        define WS2812_SPI_DIVISOR (SPI_CR1_BR_1 | SPI_CR1_BR_0)    // fpclk/16
+#    endif
 #endif
 
 // Define SPI circular buffer
@@ -46,6 +47,7 @@
 #        define WS2812_SPI_CIRCULAR_BUFFER 1
 #    else
 #        define WS2812_SPI_CIRCULAR_BUFFER 0
+#    endif
 #endif
 
 #define BYTES_FOR_LED_BYTE 4
