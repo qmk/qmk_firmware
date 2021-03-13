@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include "i2c.h"
 
-#if defined(USE_I2C) || defined(USE_MATRIX_I2C)
+#if defined(USE_SSD_I2C)
 
 // Limits the amount of we wait for any one i2c transaction.
 // Since were running SCL line 100kHz (=> 10μs/bit), and each transactions is

@@ -13,8 +13,6 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
-
 enum layer_names {
   _QWERTY,
   _LOWER,
@@ -126,7 +124,7 @@ void matrix_init_user(void) {
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
+        iota_gfx_init();   // turns on the display
     #endif
 }
 
@@ -145,11 +143,14 @@ void matrix_scan_user(void) {
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
+  if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
-    matrix_write_ln(matrix, read_keylogs());
+    matrix_write(matrix, read_layer_state());
+    matrix_write(matrix, "\n");
+    matrix_write(matrix, read_keylog());
+    matrix_write(matrix, "\n");
+    matrix_write(matrix, read_keylogs());
+    matrix_write(matrix, "\n");
   } else {
     matrix_write(matrix, read_logo());
   }
@@ -222,4 +223,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
