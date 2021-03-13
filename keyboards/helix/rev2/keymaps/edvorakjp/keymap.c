@@ -22,11 +22,11 @@ void matrix_scan_user(void) {
 uint32_t layer_state_set_keymap(uint32_t state) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     switch (biton32(state)) {
-        case _LOWER:
+        case L_EDVORAKJP_LOWER:
             rgblight_sethsv_noeeprom_red();
             break;
-        case _RAISE:
-            rgblight_sethsv_noeeprom_blue();
+        case L_EDVORAKJP_RAISE:
+            rgblight_sethsv_noeeprom_green();
             break;
         default:  //  for any other layers, or the default layer
             rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT + 3);

@@ -26,14 +26,14 @@ void render_status(struct CharacterMatrix *matrix) {
     snprintf(buf, sizeof(buf), "Undef-%ld", layer_state);
     matrix_write_P(matrix, PSTR("\nLayer: "));
     switch (biton32(layer_state)) {
-        case L_BASE:
+        case L_EDVORAKJP_BASE:
             matrix_write_P(matrix, PSTR("Default"));
             break;
-        case _RAISE:
-            matrix_write_P(matrix, PSTR("Raise"));
-            break;
-        case _LOWER:
+        case L_EDVORAKJP_LOWER:
             matrix_write_P(matrix, PSTR("Lower"));
+            break;
+        case L_EDVORAKJP_RAISE:
+            matrix_write_P(matrix, PSTR("Raise"));
             break;
         default:
             matrix_write(matrix, buf);
