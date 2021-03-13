@@ -102,7 +102,7 @@ bool process_tapping(keyrecord_t *keyp) {
     // if tapping
     if (IS_TAPPING_PRESSED()) {
         if (WITHIN_TAPPING_TERM(event)
-#    ifdef RETRO_SHIFT
+#    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
             || ((RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < (RETRO_SHIFT + 0))
 #    endif
         ) {

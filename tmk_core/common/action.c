@@ -43,11 +43,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int tp_buttons;
 
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING))
 int retro_tapping_counter = 0;
 #endif
 
-#ifdef RETRO_SHIFT
+#if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
 #    include "quantum.h"
 #endif
 
@@ -75,7 +75,7 @@ void action_exec(keyevent_t event) {
         dprint("EVENT: ");
         debug_event(event);
         dprintln();
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING))
         retro_tapping_counter++;
 #endif
     }

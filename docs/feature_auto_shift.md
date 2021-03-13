@@ -137,7 +137,7 @@ You can also have non-shifted keys for the shifted values (or even no shifted
 value), just don't set a shift modifier!
 
 ```c
-bool autoshift_is_custom(uint16_t keycode) {
+bool autoshift_is_custom(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         case KC_DOT:
             break;
@@ -146,7 +146,7 @@ bool autoshift_is_custom(uint16_t keycode) {
     }
     return true;
 }
-void autoshift_press_user(uint16_t keycode, bool shifted) {
+void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
         case KC_DOT:
             if (!shifted) {
@@ -163,7 +163,7 @@ void autoshift_press_user(uint16_t keycode, bool shifted) {
             register_code(keycode & 0xFF);
     }
 }
-void autoshift_release_user(uint16_t keycode, bool shifted) {
+void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
         case KC_DOT:
             unregister_code((!shifted) ? KC_DOT : KC_1);
