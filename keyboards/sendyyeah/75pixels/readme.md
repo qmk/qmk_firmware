@@ -1,16 +1,18 @@
-# Bevi
+# 75 Pixels
 
-![Bevi](https://i.imgur.com/i3fpHgC.png)
+![Bevi](https://imgur.com/jHkdai6.png)
 
-VortexGear Vibe inspired, but with southpaw layout for the numpad.
+75 Keys Ortholinear 60% Keyboard
 
-* Keyboard Layout: [KLE](http://www.keyboard-layout-editor.com/#/gists/dd70b976b25180acf42ef0943c102a60)
+* Keyboard Layout: [KLE](http://www.keyboard-layout-editor.com/#/gists/3d64c8d06f0b1a8cf5b58797a2dae8dc)
 * Keyboard Maintainer: [SENDYYeah](https://github.com/sendyyeah)
 * Hardware Availability: [Tokopedia/Sell Stuffs](https://tokopedia.com/sell-stuffs) (Indonesia only) or any electronic part store.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make sendyyeah/bevi:default
+    `make sendyyeah/75pixels:default`
+    or
+    `qmk compile -kb sendyyeah/75pixels -km default`
 
 How to reset and enter bootloader:
     - Press reset button on the PCB (twice if the ProMicro is fresh)
