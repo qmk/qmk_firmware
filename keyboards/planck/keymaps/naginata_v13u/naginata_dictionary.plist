@@ -6,73 +6,73 @@
 		<key>phrase</key>
 		<string>【</string>
 		<key>shortcut</key>
-		<string>なぎかっこひ1</string>
+		<string>なぎかっこひあ</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>】</string>
 		<key>shortcut</key>
-		<string>なぎかっこみ1</string>
+		<string>なぎかっこみあ</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>〈</string>
 		<key>shortcut</key>
-		<string>なぎかっこひ2</string>
+		<string>なぎかっこひい</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>〉</string>
 		<key>shortcut</key>
-		<string>なぎかっこみ2</string>
+		<string>なぎかっこみい</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>「</string>
 		<key>shortcut</key>
-		<string>なぎかっこひ3</string>
+		<string>なぎかっこひう</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>」</string>
 		<key>shortcut</key>
-		<string>なぎかっこみ3</string>
+		<string>なぎかっこみう</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>『</string>
 		<key>shortcut</key>
-		<string>なぎかっこひ4</string>
+		<string>なぎかっこひえ</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>』</string>
 		<key>shortcut</key>
-		<string>なぎかっこみ4</string>
+		<string>なぎかっこみえ</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>《</string>
 		<key>shortcut</key>
-		<string>なぎかっこひ5</string>
+		<string>なぎかっこひお</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>》</string>
 		<key>shortcut</key>
-		<string>なぎかっこみ5</string>
+		<string>なぎかっこみお</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>（</string>
 		<key>shortcut</key>
-		<string>なぎかっこひ6</string>
+		<string>なぎかっこひか</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>）</string>
 		<key>shortcut</key>
-		<string>なぎかっこみ6</string>
+		<string>なぎかっこみか</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
@@ -97,6 +97,12 @@
 		<string>｜</string>
 		<key>shortcut</key>
 		<string>なぎたてせん</string>
+	</dict>
+  <dict>
+		<key>phrase</key>
+		<string>││</string>
+		<key>shortcut</key>
+		<string>なぎたてせんい</string>
 	</dict>
 	<dict>
 		<key>phrase</key>
