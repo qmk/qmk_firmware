@@ -1,0 +1,5 @@
+MCU = atmega32u4
+BOOTLOADER = caterina
+SPLIT_KEYBOARD = yes
+ENCODER_ENABLE = yes
+DEFAULT_FOLDER = lotus58/glow_v1
