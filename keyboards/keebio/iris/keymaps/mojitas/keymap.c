@@ -49,7 +49,7 @@ enum custom_keycodes {
 #define KC_CATDEL LCTL(LALT(KC_DEL)) // Ctrl alt del
 #define KC_TSKMGR LCTL(S(KC_ESC)) // Ctrl shift esc
 #define KC_Close RALT(KC_F4) // Alt F4
-#define KC_MEH1 MEH(KC_1)  //
+#define KC_MEH1 MEH(KC_1)  // crtl shift alt 1
 #define KC_MEH2 MEH(KC_2)  //
 #define KC_MEH3 MEH(KC_3)  //
 #define KC_MEH4 MEH(KC_4)  //
