@@ -1,5 +1,4 @@
-/* Copyright 2021 Don Kjer and Tyler Tidman
- * Copyright 2021 Simon Arlott
+/* Copyright 2021 Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,19 +16,7 @@
 
 #pragma once
 
-#include "config_common.h"
+#define HAL_USE_PAL                 TRUE
+#define PAL_USE_CALLBACKS           TRUE
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xD60D
-#define PRODUCT_ID      0x3100
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Hoksi Technology
-#define PRODUCT         DURGOD Taurus K310 (QMK)
-
-/* key matrix size (cols in generic keyboard config) */
-#define MATRIX_ROWS 8
-
-#define MATRIX_ROW_PINS { A0, A1, A2, A3, A4, A5, A6, A7 }
-
-/* LED indicator pins */
-#define LED_NUM_LOCK_PIN    C8
+#include_next <halconf.h>
