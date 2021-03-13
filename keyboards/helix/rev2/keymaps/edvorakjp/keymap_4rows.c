@@ -1,6 +1,7 @@
 #include "helix.h"
 #include "keymap_xrows.h"
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_EDVORAK] = LAYOUT_kc(
@@ -39,3 +40,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+-----+-----+-----+----+----/ \----+----+-----+-----+-----+----+----'
   )
 };
+// clang-format on
