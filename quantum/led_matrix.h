@@ -19,7 +19,14 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <stdbool.h>
 #include "led_matrix_types.h"
+#include "quantum.h"
+
+#ifdef IS31FL3731
+#    include "is31fl3731-simple.h"
+#endif
 
 enum led_matrix_effects {
     LED_MATRIX_UNIFORM_BRIGHTNESS = 1,
