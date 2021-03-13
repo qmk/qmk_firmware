@@ -67,12 +67,12 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Qwerty */
-#define _Q_____W_____E_____R_____T  kc5( Q, W, E, R, T )
-#define _Y_____U_____I_____O_____P  kc5( Y, U, I, O, P )
-#define _A_____S_____D_____F_____G  kc5( A, S, D, F, G )
-#define _H_____J_____K_____L__SCLN  kc5( H, J, K, L, SCLN )
-#define _Z_____X_____C_____V_____B  kc5( Z, X, C, V, B )
-#define _N_____M__COMM___DOT__SLSH  kc5( N, M, COMM, DOT, SLSH )
+#define Q_____W_____E_____R_____T  kc5( Q, W, E, R, T )
+#define Y_____U_____I_____O_____P  kc5( Y, U, I, O, P )
+#define A_____S_____D_____F_____G  kc5( A, S, D, F, G )
+#define H_____J_____K_____L__SCLN  kc5( H, J, K, L, SCLN )
+#define Z_____X_____C_____V_____B  kc5( Z, X, C, V, B )
+#define N_____M__COMM___DOT__SLSH  kc5( N, M, COMM, DOT, SLSH )
 #define LOWER___LOWER__CAPS__LALT__LGUI__NUML__RABS  MO(_LOWER), MO(_LOWER), KC_CAPS, KC_LALT, KC_LGUI, LT_NUML_SP, LT_RA_BSPC
 #define RAEN_NUMR__RGUI__RALT___APP_LOWER__LOWER     LT_RA_ENT,  LT_NUMR_SP, KC_RGUI, KC_RALT, KC_APP,  MO(_LOWER), MO(_LOWER)
   /* ,-----------------------------------------.             ,-----------------------------------------.
@@ -86,18 +86,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_QWERTY] = LAYOUT_wrapper(
-       KC_ESC,   _Q_____W_____E_____R_____T,              _Y_____U_____I_____O_____P, KC_BSLS,
-      KC_LCTL,   _A_____S_____D_____F_____G,              _H_____J_____K_____L__SCLN, KC_RCTL,
-      KC_LSFT,   _Z_____X_____C_____V_____B,              _N_____M__COMM___DOT__SLSH, KC_RSFT,
+       KC_ESC,    Q_____W_____E_____R_____T,               Y_____U_____I_____O_____P, KC_BSLS,
+      KC_LCTL,    A_____S_____D_____F_____G,               H_____J_____K_____L__SCLN, KC_RCTL,
+      KC_LSFT,    Z_____X_____C_____V_____B,               N_____M__COMM___DOT__SLSH, KC_RSFT,
       LOWER___LOWER__CAPS__LALT__LGUI__NUML__RABS, RAEN_NUMR__RGUI__RALT___APP_LOWER__LOWER
    ),
 
   /* Colemak */
-#define _Q_____W_____F_____P_____G  kc5( Q, W, F, P, G )
-#define _J_____L_____U_____Y__SCLN  kc5( J, L, U, Y, SCLN )
-#define _A_____R_____S_____T_____D  kc5( A, R, S, T, D )
-#define _H_____N_____E_____I_____O  kc5( H, N, E, I, O )
-#define _K_____M__COMM___DOT__SLSH  kc5( K, M, COMM, DOT, SLSH )
+#define Q_____W_____F_____P_____G  kc5( Q, W, F, P, G )
+#define J_____L_____U_____Y__SCLN  kc5( J, L, U, Y, SCLN )
+#define A_____R_____S_____T_____D  kc5( A, R, S, T, D )
+#define H_____N_____E_____I_____O  kc5( H, N, E, I, O )
+#define K_____M__COMM___DOT__SLSH  kc5( K, M, COMM, DOT, SLSH )
   /* ,-----------------------------------------.             ,-----------------------------------------.
    * | ESC  |   Q  |   W  |   F  |   P  |   G  |             |   J  |   L  |   U  |   Y  |   ;  | \    |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -109,19 +109,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_COLEMAK] = LAYOUT_wrapper(
-       KC_ESC,   _Q_____W_____F_____P_____G,              _J_____L_____U_____Y__SCLN, KC_BSLS,
-      KC_LCTL,   _A_____R_____S_____T_____D,              _H_____N_____E_____I_____O, KC_RCTL,
-      KC_LSFT,   _Z_____X_____C_____V_____B,              _K_____M__COMM___DOT__SLSH, KC_RSFT,
+       KC_ESC,    Q_____W_____F_____P_____G,               J_____L_____U_____Y__SCLN, KC_BSLS,
+      KC_LCTL,    A_____R_____S_____T_____D,               H_____N_____E_____I_____O, KC_RCTL,
+      KC_LSFT,    Z_____X_____C_____V_____B,               K_____M__COMM___DOT__SLSH, KC_RSFT,
       LOWER___LOWER__CAPS__LALT__LGUI__NUML__RABS, RAEN_NUMR__RGUI__RALT___APP_LOWER__LOWER
    ),
 
   /* Dvorak */
-#define _QUOT__COMM___DOT_____P_____Y  kc5( QUOT, COMM, DOT, P, Y )
-#define    _F_____G_____C_____R_____L  kc5( F, G, C, R, L )
-#define    _A_____O_____E_____U_____I  kc5( A, O, E, U, I )
-#define    _D_____H_____T_____N_____S  kc5( D, H, T, N, S )
-#define _SCLN_____Q_____J_____K_____X  kc5( SCLN, Q, J, K, X )
-#define    _B_____M_____W_____V_____Z  kc5( B, M, W, V, Z )
+#define  QUOT__COMM___DOT_____P_____Y  kc5( QUOT, COMM, DOT, P, Y )
+#define    F_____G_____C_____R_____L  kc5( F, G, C, R, L )
+#define    A_____O_____E_____U_____I  kc5( A, O, E, U, I )
+#define    D_____H_____T_____N_____S  kc5( D, H, T, N, S )
+#define SCLN_____Q_____J_____K_____X  kc5( SCLN, Q, J, K, X )
+#define    B_____M_____W_____V_____Z  kc5( B, M, W, V, Z )
   /* ,-----------------------------------------.             ,-----------------------------------------.
    * | ESC  |   '  |   ,  |   .  |   P  |   Y  |             |   F  |   G  |   C  |   R  |   L  |  \   |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -133,19 +133,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_DVORAK] = LAYOUT_wrapper(
-      KC_ESC, _QUOT__COMM___DOT_____P_____Y,              _F_____G_____C_____R_____L, KC_BSLS,
-      KC_LCTL,   _A_____O_____E_____U_____I,              _D_____H_____T_____N_____S, KC_RCTL,
-      KC_LSFT,_SCLN_____Q_____J_____K_____X,              _B_____M_____W_____V_____Z, KC_RSFT,
+      KC_ESC,  QUOT__COMM___DOT_____P_____Y,               F_____G_____C_____R_____L, KC_BSLS,
+      KC_LCTL,    A_____O_____E_____U_____I,               D_____H_____T_____N_____S, KC_RCTL,
+      KC_LSFT, SCLN_____Q_____J_____K_____X,               B_____M_____W_____V_____Z, KC_RSFT,
       LOWER___LOWER__CAPS__LALT__LGUI__NUML__RABS, RAEN_NUMR__RGUI__RALT___APP_LOWER__LOWER
    ),
 
   /* Eucalyn (http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout) */
-#define _Q_____W__COMM___DOT__SCLN  kc5( Q, W, COMM, DOT, SCLN )
-#define _M_____R_____D_____Y_____P  kc5( M, R, D, Y, P )
-#define _A_____O_____E_____I_____U  kc5( A, O, E, I, U )
-#define _G_____T_____K_____S_____N  kc5( G, T, K, S, N )
-#define _Z_____X_____C_____V_____F  kc5( Z, X, C, V, F )
-#define _B_____H_____J_____L__SLSH  kc5( B, H, J, L, SLSH )
+#define Q_____W__COMM___DOT__SCLN  kc5( Q, W, COMM, DOT, SCLN )
+#define M_____R_____D_____Y_____P  kc5( M, R, D, Y, P )
+#define A_____O_____E_____I_____U  kc5( A, O, E, I, U )
+#define G_____T_____K_____S_____N  kc5( G, T, K, S, N )
+#define Z_____X_____C_____V_____F  kc5( Z, X, C, V, F )
+#define B_____H_____J_____L__SLSH  kc5( B, H, J, L, SLSH )
   /* ,-----------------------------------------.             ,-----------------------------------------.
    * | ESC  |   Q  |   W  |   ,  |   .  |   ;  |             |   M  |   R  |   D  |   Y  |   P  |  \   |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -157,19 +157,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_EUCALYN] = LAYOUT_wrapper(
-       KC_ESC,   _Q_____W__COMM___DOT__SCLN,              _M_____R_____D_____Y_____P, KC_BSLS,
-      KC_LCTL,   _A_____O_____E_____I_____U,              _G_____T_____K_____S_____N, KC_RCTL,
-      KC_LSFT,   _Z_____X_____C_____V_____F,              _B_____H_____J_____L__SLSH, KC_RSFT,
+       KC_ESC,    Q_____W__COMM___DOT__SCLN,               M_____R_____D_____Y_____P, KC_BSLS,
+      KC_LCTL,    A_____O_____E_____I_____U,               G_____T_____K_____S_____N, KC_RCTL,
+      KC_LSFT,    Z_____X_____C_____V_____F,               B_____H_____J_____L__SLSH, KC_RSFT,
       LOWER___LOWER__CAPS__LALT__LGUI__NUML__RABS, RAEN_NUMR__RGUI__RALT___APP_LOWER__LOWER
   ),
 
   /* Num */
-#define _EXLM__AT__HASH___DLR__PERC  kc5( EXLM, AT,   HASH, DLR,  PERC )
-#define _CIRC_AMPR_ASTR__LPRN__RPRN  kc5( CIRC, AMPR, ASTR, LPRN, RPRN )
-#define __1_____2_____3_____4_____5  kc5( 1,    2,    3,    4,    5 )
-#define __6_____7_____8_____9_____0  kc5( 6,    7,    8,    9,    0 )
-#define _F1____F2____F3____F4____F5  kc5( F1,  F2,   F3,   F4,    F5 )
-#define _F6____F7____F8____F9___F10  kc5( F6,  F7,   F8,   F9,    F10 )
+#define EXLM__AT__HASH___DLR__PERC  kc5( EXLM, AT,   HASH, DLR,  PERC )
+#define CIRC_AMPR_ASTR__LPRN__RPRN  kc5( CIRC, AMPR, ASTR, LPRN, RPRN )
+#define _1_____2_____3_____4_____5  kc5( 1,    2,    3,    4,    5 )
+#define _6_____7_____8_____9_____0  kc5( 6,    7,    8,    9,    0 )
+#define F1____F2____F3____F4____F5  kc5( F1,  F2,   F3,   F4,    F5 )
+#define F6____F7____F8____F9___F10  kc5( F6,  F7,   F8,   F9,    F10 )
 #define ____z_____z_____z_____z      _______, _______, _______, _______
 #define ____z_____z_____z            _______, _______, _______
 #define ____z_____z                  _______, _______
@@ -184,15 +184,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_NUML] = LAYOUT_wrapper(
-    _______,  _EXLM__AT__HASH___DLR__PERC,                _CIRC_AMPR_ASTR__LPRN__RPRN,  _______,
-    _______,  __1_____2_____3_____4_____5,                __6_____7_____8_____9_____0,  KC_F12,
-    _______,  _F1____F2____F3____F4____F5,                _F6____F7____F8____F9___F10,  KC_F11,
+    _______,   EXLM__AT__HASH___DLR__PERC,                 CIRC_AMPR_ASTR__LPRN__RPRN,  _______,
+    _______,   _1_____2_____3_____4_____5,                 _6_____7_____8_____9_____0,  KC_F12,
+    _______,   F1____F2____F3____F4____F5,                 F6____F7____F8____F9___F10,  KC_F11,
     _______, ____z_____z_____z_____z,____z_____z_____z,KC_SPC, ____z_____z_____z_____z, _______
    ),
   [_NUMR] = LAYOUT_wrapper(
-    _______,  _EXLM__AT__HASH___DLR__PERC,                _CIRC_AMPR_ASTR__LPRN__RPRN,  _______,
-    _______,  __1_____2_____3_____4_____5,                __6_____7_____8_____9_____0,  KC_F12,
-    _______,  _F1____F2____F3____F4____F5,                _F6____F7____F8____F9___F10,  KC_F11,
+    _______,   EXLM__AT__HASH___DLR__PERC,                 CIRC_AMPR_ASTR__LPRN__RPRN,  _______,
+    _______,   _1_____2_____3_____4_____5,                 _6_____7_____8_____9_____0,  KC_F12,
+    _______,   F1____F2____F3____F4____F5,                 F6____F7____F8____F9___F10,  KC_F11,
     _______, ____z_____z_____z_____z,KC_SPC, ____z_____z_____z,____z_____z_____z_____z, _______
    ),
   /* Lower */
