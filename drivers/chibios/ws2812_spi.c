@@ -107,6 +107,9 @@ void ws2812_init(void) {
     spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
     spiSelect(&WS2812_SPI);         /* Slave Select assertion.          */
+#if WS2812_SPI_CIRCULAR_BUFFER == 1
+    spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+#endif
 }
 
 void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
@@ -125,6 +128,8 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
 #ifdef WS2812_SPI_SYNC
     spiSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
 #else
+#    if WS2812_SPI_CIRCULAR_BUFFER == 0 
     spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+#    endif
 #endif
 }
