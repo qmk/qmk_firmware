@@ -33,6 +33,9 @@
 #endif
 
 // Define SPI config speed
+// baudrate should target 3.2MHz
+// F072 fpclk = 48MHz 
+// 48/16 = 3Mhz
 #ifndef WS2812_SPI_DIVISOR
 #    if defined(STM32L4XX)
 #        define WS2812_SPI_DIVISOR (SPI_CR1_BR_2)    // fpclk/32
@@ -101,7 +104,7 @@ void ws2812_init(void) {
     // TODO: more dynamic baudrate
     static const SPIConfig spicfg = {
         WS2812_SPI_CIRCULAR_BUFFER, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN),
-        WS2812_SPI_DIVISOR  // baudrate : fpclk / 8 => 1tick is 0.32us (2.25 MHz)
+        WS2812_SPI_DIVISOR
     };
 
     spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
