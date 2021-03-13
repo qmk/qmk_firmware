@@ -1,5 +1,5 @@
 /*
-Copyright 2012-2021 Jun Wako, Jack Humbert, Yiancar, Matthew Dias
+Copyright 2021 Matthew Dias
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

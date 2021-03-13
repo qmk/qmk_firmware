@@ -1,4 +1,4 @@
-/* Copyright 2020-2021 Yiancar, Matthew Dias
+/* Copyright 2021 Matthew Dias
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
