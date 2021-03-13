@@ -40,6 +40,14 @@
 #        define WS2812_SPI_DIVISOR (SPI_CR1_BR_1 | SPI_CR1_BR_0)    // fpclk/16
 #endif
 
+// Define SPI circular buffer
+#ifndef WS2812_SPI_CIRCULAR_BUFFER
+#    if defined(STM32L4XX)
+#        define WS2812_SPI_CIRCULAR_BUFFER 1
+#    else
+#        define WS2812_SPI_CIRCULAR_BUFFER 0
+#endif
+
 #define BYTES_FOR_LED_BYTE 4
 #define NB_COLORS 3
 #define BYTES_FOR_LED (BYTES_FOR_LED_BYTE * NB_COLORS)
@@ -90,7 +98,7 @@ void ws2812_init(void) {
 
     // TODO: more dynamic baudrate
     static const SPIConfig spicfg = {
-        0, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN),
+        WS2812_SPI_CIRCULAR_BUFFER, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN),
         WS2812_SPI_DIVISOR  // baudrate : fpclk / 8 => 1tick is 0.32us (2.25 MHz)
     };
 
