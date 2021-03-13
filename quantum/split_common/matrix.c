@@ -107,14 +107,18 @@ static void unselect_row(uint8_t row) { setPinInputHigh_atomic(row_pins[row]); }
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-        setPinInputHigh_atomic(row_pins[x]);
+        if (row_pins[x] != NO_PIN) {
+            setPinInputHigh_atomic(row_pins[x]);
+        }
     }
 }
 
 __attribute__((weak)) void matrix_init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh_atomic(col_pins[x]);
+        if (row_pins[x] != NO_PIN) {
+            setPinInputHigh_atomic(col_pins[x]);
+        }
     }
 }
 
@@ -128,9 +132,11 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
-
+        uint8_t pin_state = 0;
+        if (col_pins[col_index] != NO_PIN) {
+            // Select the col pin to read (active low)
+            pin_state = readPin(col_pins[col_index]);
+        }
         // Populate the matrix row with the state of the col pin
         current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
@@ -151,14 +157,18 @@ static void unselect_col(uint8_t col) { setPinInputHigh_atomic(col_pins[col]); }
 
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh_atomic(col_pins[x]);
+        if (row_pins[x] != NO_PIN) {
+            setPinInputHigh_atomic(col_pins[x]);
+        }
     }
 }
 
 __attribute__((weak)) void matrix_init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-        setPinInputHigh_atomic(row_pins[x]);
+        if (row_pins[x] != NO_PIN) {
+            setPinInputHigh_atomic(row_pins[x]);
+        }
     }
 }
 
@@ -170,7 +180,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
         // Check row pin state
-        if (readPin(row_pins[row_index]) == 0) {
+        if (row_pins[row_index] != NO_PIN && readPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         } else {
