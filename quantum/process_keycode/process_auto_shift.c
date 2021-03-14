@@ -79,15 +79,22 @@ static void autoshift_flush_shift(void) {
  *  \return Whether the record should be further processed.
  */
 static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record) {
-    if (!autoshift_flags.enabled) {
-        return true;
-    }
-
-#    ifndef AUTO_SHIFT_MODIFIERS
-    if (get_mods()) {
-        return true;
-    }
+    if ((get_mods()
+#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
+        | get_oneshot_mods()
 #    endif
+    ) & (~MOD_BIT(KC_LSFT))) {
+        // Prevents keyrepeating unshifted value of key after using it in a key combo.
+        autoshift_lastkey = KC_NO;
+#    ifndef AUTO_SHIFT_MODIFIERS
+        // We can't return true here anymore because custom unshifted values are
+        // possible and there's no good way to tell whether the press returned
+        // true upon release.
+        autoshift_shift_states[keycode & 0xFF] = false;
+        autoshift_press_user(keycode, false, record);
+        return false;
+#    endif
+    }
 
     // Store record to be sent to user functions if there's no release record then.
     autoshift_lastrecord = *record;
@@ -117,7 +124,12 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
 #    endif
 
     // Use physical shift state of press event to be more like normal typing.
+#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
+    autoshift_flags.lastshifted = (get_mods() | get_oneshot_mods()) & MOD_BIT(KC_LSFT);
+    set_oneshot_mods(get_oneshot_mods() & (~MOD_BIT(KC_LSFT)));
+#    else
     autoshift_flags.lastshifted = get_mods() & MOD_BIT(KC_LSFT);
+#    endif
     // Record the keycode so we can simulate it later.
     autoshift_lastkey           = keycode;
     autoshift_time              = now;
@@ -306,6 +318,10 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         ) {
             return true;
         }
+    }
+
+    if (!autoshift_flags.enabled) {
+        return true;
     }
 
     // TODO: Check for retro tapping per key here
