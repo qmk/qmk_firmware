@@ -324,10 +324,16 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 
-    // TODO: Check for retro tapping per key here
+#    if defined(RETRO_TAPPING_PER_KEY) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
+    if (IS_RETRO(keycode) && !get_retro_tapping(keycode, record)) {
+        return true;
+    }
+#    endif
+
+    // Tap Holds return before this if RETRO_SHIFT is disabled, & 0xFF is safe.
     switch (keycode & 0xFF) {
         default:
-            if(!autoshift_is_custom(keycode, record)) {
+            if (!autoshift_is_custom(keycode, record)) {
                 break;
             }
 #    ifndef NO_AUTO_SHIFT_ALPHA

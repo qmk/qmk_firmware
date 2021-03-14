@@ -85,11 +85,6 @@ void action_exec(keyevent_t event) {
         clear_weak_mods();
     }
 
-    if (event.pressed) {
-        // clear the potential weak mods left by previously pressed keys
-        clear_weak_mods();
-    }
-
 #ifdef SWAP_HANDS_ENABLE
     if (!IS_NOEVENT(event)) {
         process_hand_swap(&event);
@@ -708,7 +703,7 @@ void process_action(keyrecord_t *record, action_t action) {
                 retro_tapping_counter = 0;
             } else {
                 if (
-#        if defined(RETRO_TAPPING_PER_KEY) && !defined(RETRO_SHIFT)
+#        ifdef RETRO_TAPPING_PER_KEY
                     get_retro_tapping(get_event_keycode(record->event, false), record) &&
 #        endif
                     retro_tapping_counter == 2) {
