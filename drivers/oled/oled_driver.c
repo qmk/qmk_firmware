@@ -75,6 +75,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Advance Graphic Commands
 #define FADE_BLINK 0x23
+#define ENABLE_FADE 0x20
+#define ENABLE_BLINK 0x30
 
 // Charge Pump Commands
 #define CHARGE_PUMP 0x8D
@@ -574,7 +576,7 @@ bool oled_off(void) {
 
     static const uint8_t PROGMEM display_off[] =
 #ifdef OLED_DRIVER_DISPLAY_FADE
-        {I2C_CMD, FADE_BLINK, 0x20 | OLED_DRIVER_DISPLAY_FADE_INTERVAL};
+        {I2C_CMD, FADE_BLINK, ENABLE_FADE | OLED_DRIVER_DISPLAY_FADE_INTERVAL};
 #else
         {I2C_CMD, DISPLAY_OFF};
 #endif
