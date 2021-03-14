@@ -1,3 +1,3 @@
 #pragma once
 
-#define B7_AUDIO
+#define AUDIO_PIN B7
