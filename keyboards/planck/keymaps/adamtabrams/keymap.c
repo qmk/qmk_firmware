@@ -44,46 +44,61 @@ enum planck_keycodes {
 #define NUMSPAC LT(_NUMBER, KC_SPC)
 #define SHFTESC LSFT_T(KC_ESC)
 
-#define GUIEXLM GUI_T(KC_EXLM)
 #define CTRLTAB CTL_T(KC_TAB)
 #define CTRLMIN CTL_T(KC_MINS)
-#define ALTQUOT ALT_T(KC_QUOT)
-#define GUIENTR GUI_T(KC_ENT)
+#define SFTEXLM SFT_T(KC_EXLM)
+#define SFTENTR SFT_T(KC_ENT)
 
 #define ALTRGHT A(KC_RGHT)
 #define ALTLEFT A(KC_LEFT)
 #define CTLRGHT C(KC_RGHT)
 #define CTLLEFT C(KC_LEFT)
 
+#define ALT__A  ALT_T(KC_A)
+#define ALTSCLN ALT_T(KC_SCLN)
+#define ALT__O  ALT_T(KC_O)
+#define GUI__S  GUI_T(KC_S)
+#define GUI__L  GUI_T(KC_L)
+#define GUI__R  GUI_T(KC_R)
+#define GUI__I  GUI_T(KC_I)
+#define SFT__D  SFT_T(KC_D)
+#define SFT__K  SFT_T(KC_K)
+#define SFT__S  SFT_T(KC_S)
+#define SFT__E  SFT_T(KC_E)
+#define CTL__F  CTL_T(KC_F)
+#define CTL__J  CTL_T(KC_J)
+#define CTL__T  CTL_T(KC_T)
+#define CTL__N  CTL_T(KC_N)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ## Normal
 
-|C(Tab)|  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   |C(-_) |
-|Bsp/~ |  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;:  |A('") |
-| G(!) |  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /?  |G(Ent)|
+|C(Tab)|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | C(-) |
+| Bsp/~| A(A) | G(S) | S(D) | C(F) |   G  |   H  | C(J) | S(K) | G(L) | A(;) |  '"  |
+| S(!) |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |S(Ent)|
 |COLMAK|      |      |System|Cursor|S(Esc)|N(Spc)|Arrows|      |      |      |      |
  */
 
 [_NORMAL] = LAYOUT_planck_grid(
     CTRLTAB, KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    CTRLMIN,
-    BACKTLD, KC_A,    KC_S,    KC_D,   KC_F,   KC_G,    KC_H,    KC_J,   KC_K,    KC_L,    KC_SCLN, ALTQUOT,
-    GUIEXLM, KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, GUIENTR,
+    BACKTLD, ALT__A,  GUI__S,  SFT__D, CTL__F, KC_G,    KC_H,    CTL__J, SFT__K,  GUI__L,  ALTSCLN, KC_QUOT,
+    SFTEXLM, KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SFTENTR,
     COLEMK,  _______, _______, SYSTEM, CURSOR, SHFTESC, NUMSPAC, ARROWS, _______, _______, _______, _______
 ),
 
 /* ## Colemak
 
-|C(Tab)|  Q   |  W   |  F   |  P   |  B   |  J   |  L   |  U   |  Y   |  ;:  |C(-_) |
-|Bsp/~ |  A   |  R   |  S   |  T   |  G   |  M   |  N   |  E   |  I   |  O   |A('") |
-| G(!) |  Z   |  X   |  C   |  D   |  V   |  K   |  H   |  ,   |  .   |  /?  |G(Ent)|
+|C(Tab)|   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  | C(-) |
+| Bsp/~| A(A) | G(R) | S(S) | C(T) |   G  |   M  | C(N) | S(E) | G(I) | A(O) |  '"  |
+| S(!) |   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |S(Ent)|
 |QWERTY|      |      |System|Cursor|S(Esc)|N(Spc)|Arrows|      |      |      |      |
  */
 
 [_COLEMK] = LAYOUT_planck_grid(
     CTRLTAB, KC_Q,    KC_W,    KC_F,   KC_P,   KC_B,    KC_J,    KC_L,   KC_U,    KC_Y,    KC_SCLN, CTRLMIN,
-    BACKTLD, KC_A,    KC_R,    KC_S,   KC_T,   KC_G,    KC_M,    KC_N,   KC_E,    KC_I,    KC_O,    ALTQUOT,
-    GUIEXLM, KC_Z,    KC_X,    KC_C,   KC_D,   KC_V,    KC_K,    KC_H,   KC_COMM, KC_DOT,  KC_SLSH, GUIENTR,
+    BACKTLD, ALT__A,  GUI__R,  SFT__S, CTL__T, KC_G,    KC_M,    CTL__N, SFT__E,  GUI__I,  ALT__O,  KC_QUOT,
+    SFTEXLM, KC_Z,    KC_X,    KC_C,   KC_D,   KC_V,    KC_K,    KC_H,   KC_COMM, KC_DOT,  KC_SLSH, SFTENTR,
     NORMAL,  _______, _______, SYSTEM, CURSOR, SHFTESC, NUMSPAC, ARROWS, _______, _______, _______, _______
 ),
 
@@ -91,14 +106,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 |      |  @   |  +   |  =   |  &   |  |   |  #   |  *   |  ^   |  $   |  %   |      |
 |      |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  0   |  \`  |
-|      |  ~   |  [   |  {   |  (   |      |      |  )   |  }   |  ]   |  \   |      |
+|      |  ~   |  [   |  {   |  (   |  !   |  =   |  )   |  }   |  ]   |  \   |      |
 |      |      |      |      | \\/  |      |      |      |      |      |      |NORMAL|
  */
 
 [_NUMBER] = LAYOUT_planck_grid(
     _______, KC_AT,   KC_PLUS, KC_EQL,  KC_AMPR, KC_PIPE, KC_HASH, KC_ASTR, KC_CIRC, KC_DLR,  KC_PERC, _______,
     _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-    _______, KC_TILD, KC_LBRC, KC_LCBR, KC_LPRN, XXXXXXX, XXXXXXX, KC_RPRN, KC_RCBR, KC_RBRC, KC_BSLS, _______,
+    _______, KC_TILD, KC_LBRC, KC_LCBR, KC_LPRN, KC_EXLM, KC_EQL,  KC_RPRN, KC_RCBR, KC_RBRC, KC_BSLS, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, NORMAL
 ),
 
@@ -192,7 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 
-        case GUIEXLM:
+        case SFTEXLM:
             if (record->tap.count > 0) {
                 if (record->event.pressed) {
                     tap_code16(KC_EXLM);
@@ -223,13 +238,43 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
             return true;
         case CTRLMIN:
             return true;
-        case GUIENTR:
+        case SFTENTR:
             return true;
-        case GUIEXLM:
+        case SFTEXLM:
             return true;
         case SHFTESC:
             return true;
         case NUMSPAC:
+            return true;
+        case ALT__A:
+            return true;
+        case ALTSCLN:
+            return true;
+        case ALT__O:
+            return true;
+        case GUI__S:
+            return true;
+        case GUI__L:
+            return true;
+        case GUI__R:
+            return true;
+        case GUI__I:
+            return true;
+        case SFT__D:
+            return true;
+        case SFT__K:
+            return true;
+        case SFT__S:
+            return true;
+        case SFT__E:
+            return true;
+        case CTL__F:
+            return true;
+        case CTL__J:
+            return true;
+        case CTL__T:
+            return true;
+        case CTL__N:
             return true;
         default:
             return false;
@@ -238,7 +283,35 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case ALTQUOT:
+        case ALT__A:
+            return true;
+        case ALTSCLN:
+            return true;
+        case ALT__O:
+            return true;
+        case GUI__S:
+            return true;
+        case GUI__L:
+            return true;
+        case GUI__R:
+            return true;
+        case GUI__I:
+            return true;
+        case SFT__D:
+            return true;
+        case SFT__K:
+            return true;
+        case SFT__S:
+            return true;
+        case SFT__E:
+            return true;
+        case CTL__F:
+            return true;
+        case CTL__J:
+            return true;
+        case CTL__T:
+            return true;
+        case CTL__N:
             return true;
         default:
             return false;
