@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /* RGB Lights */
-#define RGB_DI_PIN D3
+#define RGB_DI_PIN D0
 #define RGBLED_NUM 4
 
 /* disable debug print */
