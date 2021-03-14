@@ -78,7 +78,9 @@
 #define LED_NUM_LOCK_PIN     B2
 #define LED_CAPS_LOCK_PIN    D3
 #define LED_SCROLL_LOCK_PIN  D2
+#define LED_GUI_LOCK_PIN     D7
 #define LED_PIN_ON_STATE     0
+#define LED_PIN_OFF_STATE    (LED_PIN_ON_STATE ^ 1)
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

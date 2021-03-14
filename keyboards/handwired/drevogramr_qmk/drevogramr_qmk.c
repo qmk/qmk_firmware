@@ -127,8 +127,13 @@ uint8_t keyMatrixGetColRowValues(void) {
 void matrix_init_custom(void) {  
 
     memset(oldMatrix, 0, matrixArraySize);
+    setPinOutput(LED_GUI_LOCK_PIN);
     keyMatrixInit();
 
+}
+
+void keyboard_post_init_user () {
+    writePin(LED_GUI_LOCK_PIN, keymap_config.no_gui ? LED_PIN_ON_STATE : LED_PIN_OFF_STATE);
 }
 
 
@@ -158,6 +163,14 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
 }
 
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if(!record->event.pressed) {
+        // changing WinLock LED state on key up.
+        writePin(LED_GUI_LOCK_PIN, keymap_config.no_gui ? LED_PIN_ON_STATE : LED_PIN_OFF_STATE);
+    }
+    return true;
+}
 
 
 /*==========================================================================
