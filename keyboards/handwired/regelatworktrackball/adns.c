@@ -247,10 +247,10 @@ void pointing_device_task(void) {
     report_mouse_t report = pointing_device_get_report();
 
     if(motion_ind) {
+        // Switch y and x to get the trackball rotated -90 degrees.
         // clamp deltas from -127 to 127
-        report.x = delta_x < -127 ? 127 : delta_x > 127 ? 127 : delta_x;
-        report.x = -report.x;
-        report.y = delta_y < -127 ? 127 : delta_y > 127 ? 127 : delta_y;
+        report.y = delta_x < -127 ? 127 : delta_x > 127 ? 127 : delta_x;
+        report.x = delta_y < -127 ? 127 : delta_y > 127 ? 127 : delta_y;
 
 
         pointing_device_set_report(report);
