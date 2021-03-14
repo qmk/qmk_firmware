@@ -38,6 +38,17 @@ static const pin_t col_sel[MATRIX_COLS] = MATRIX_MUL_SEL;
 extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
+static inline void setPinOutput_writeLow(pin_t pin) {
+    ATOMIC_BLOCK_FORCEON {
+        setPinOutput(pin);
+        writePinLow(pin);
+    }
+}
+
+static inline void setPinInputHigh_atomic(pin_t pin) {
+    ATOMIC_BLOCK_FORCEON { setPinInputHigh(pin); }
+}
+
 // matrix code
 
 #ifdef DIRECT_PINS
@@ -75,16 +86,13 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 #elif defined(DIODE_DIRECTION)
 #    if (DIODE_DIRECTION == COL2ROW)
 
-static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
-}
+static void select_row(uint8_t row) { setPinOutput_writeLow(row_pins[row]); }
 
-static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
+static void unselect_row(uint8_t row) { setPinInputHigh_atomic(row_pins[row]); }
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        setPinInputHigh_atomic(row_pins[x]);
     }
 }
 
@@ -95,7 +103,7 @@ static void init_pins(void) {
 #endif
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        setPinInputHigh_atomic(col_pins[x]);
     }
 }
 
@@ -103,9 +111,9 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
-    // Select row and wait for row selecton to stabilize
+    // Select row
     select_row(current_row);
-    matrix_io_delay();
+    matrix_output_select_delay();
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
@@ -122,6 +130,9 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Unselect row
     unselect_row(current_row);
+    if (current_row + 1 < MATRIX_ROWS) {
+        matrix_output_unselect_delay();  // wait for row signal to go HIGH
+    }
 
     // If the row has changed, store the row and return the changed flag.
     if (current_matrix[current_row] != current_row_value) {
@@ -133,32 +144,29 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 #    elif (DIODE_DIRECTION == ROW2COL)
 
-static void select_col(uint8_t col) {
-    setPinOutput(col_pins[col]);
-    writePinLow(col_pins[col]);
-}
+static void select_col(uint8_t col) { setPinOutput_writeLow(col_pins[col]); }
 
-static void unselect_col(uint8_t col) { setPinInputHigh(col_pins[col]); }
+static void unselect_col(uint8_t col) { setPinInputHigh_atomic(col_pins[col]); }
 
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        setPinInputHigh_atomic(col_pins[x]);
     }
 }
 
 static void init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        setPinInputHigh_atomic(row_pins[x]);
     }
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     bool matrix_changed = false;
 
-    // Select col and wait for col selecton to stabilize
+    // Select col
     select_col(current_col);
-    matrix_io_delay();
+    matrix_output_select_delay();
 
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
@@ -184,6 +192,9 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
     // Unselect col
     unselect_col(current_col);
+    if (current_col + 1 < MATRIX_COLS) {
+        matrix_output_unselect_delay();  // wait for col signal to go HIGH
+    }
 
     return matrix_changed;
 }
