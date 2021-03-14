@@ -1,1 +1,1 @@
-# The default keymap for bm68rgb
+# peepeetee's keymap for the bm68rgb. Includes a DFA to set the windows system language back to English by pressing the top right button. Said DFA only work with 4 languages.
