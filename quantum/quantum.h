@@ -25,6 +25,7 @@
 #    include "chibios_config.h"
 #endif
 
+#include "cpu_clock.h"
 #include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
