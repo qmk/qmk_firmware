@@ -23,8 +23,8 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MOUSE] = LAYOUT(
       KC_WH_U,    XXXXXXX,      MO(_CNFIG),
-      KC_MS_BTN1, KC_MS_BTN3,   KC_MS_BTN2,
-      KC_WH_D,    KC_MS_BTN4,   KC_MS_BTN5
+      KC_WH_D,    KC_MS_BTN4,   KC_MS_BTN5,
+      KC_MS_BTN1, KC_MS_BTN3,   KC_MS_BTN2
   ),
   [_CNFIG] = LAYOUT(
       _______, _______, _______,

@@ -25,14 +25,16 @@
  *
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
+ *
+ * For this keyboard I am rotating it 90 degrees counter clockwise.
  */
 #define LAYOUT( \
     K00, K01, K02, \
     K03, K04, K05, \
     K06, K07, K08 \
 ) { \
-  { K00, K01, K02 }, \
-  { K03, K04, K05 }, \
-  { K06, K07, K08 } \
+  { K06, K03, K00 }, \
+  { K07, K04, K01 }, \
+  { K08, K05, K02 } \
 }
 
