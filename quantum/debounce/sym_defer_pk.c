@@ -65,6 +65,11 @@ void debounce_init(uint8_t num_rows) {
     }
 }
 
+void debounce_free(void) {
+    free(debounce_counters);
+    debounce_counters = NULL;
+}
+
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     bool updated_last = false;
 
