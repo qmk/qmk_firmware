@@ -132,7 +132,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        uint8_t pin_state = 0;
+        uint8_t pin_state = 1;
         if (col_pins[col_index] != NO_PIN) {
             // Select the col pin to read (active low)
             pin_state = readPin(col_pins[col_index]);
