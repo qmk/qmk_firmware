@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common/matrix.h>
+#include "matrix.h"
 
 #define ROWS_PER_HAND (MATRIX_ROWS/2)
 

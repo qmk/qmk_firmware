@@ -46,7 +46,7 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 |`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped        |
 |`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped            |
 |`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped       |
-|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
 ## Caveats
 

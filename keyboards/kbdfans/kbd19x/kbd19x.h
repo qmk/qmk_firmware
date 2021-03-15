@@ -20,14 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "led.h"
 
-inline void kbd19x_caps_led_on(void)    { DDRB |=  (1<<0); PORTB &= ~(1<<0); }
-inline void kbd19x_caps_led_off(void)   { DDRB &= ~(1<<0); PORTB &= ~(1<<0); }
+inline void kbd19x_caps_led_on(void)    { writePinHigh(LED_CAPS_LOCK_PIN); }
+inline void kbd19x_caps_led_off(void)   { writePinLow(LED_CAPS_LOCK_PIN); }
 
-inline void kbd19x_sclk_led_on(void)    { DDRB |=  (1<<1); PORTB &= ~(1<<1); }
-inline void kbd19x_sclk_led_off(void)   { DDRB &= ~(1<<1); PORTB &= ~(1<<1); }
+inline void kbd19x_sclk_led_on(void)    { writePinHigh(LED_SCROLL_LOCK_PIN); }
+inline void kbd19x_sclk_led_off(void)   { writePinLow(LED_SCROLL_LOCK_PIN); }
 
-inline void kbd19x_nmlk_led_on(void)    { DDRB |=  (1<<2); PORTB &= ~(1<<2); }
-inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
+inline void kbd19x_nmlk_led_on(void)    { writePinHigh(LED_NUM_LOCK_PIN); }
+inline void kbd19x_nmlk_led_off(void)   { writePinLow(LED_NUM_LOCK_PIN); }
 
 // readability
 #define XXX KC_NO

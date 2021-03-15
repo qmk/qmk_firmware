@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    worthlessowl
 #define PRODUCT         Owlet60
-#define DESCRIPTION     TGR Alice inspired 65 or 60 percent keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 9
@@ -197,9 +196,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

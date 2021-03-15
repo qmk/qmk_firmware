@@ -30,3 +30,4 @@ void     autoshift_toggle(void);
 bool     get_autoshift_state(void);
 uint16_t get_autoshift_timeout(void);
 void     set_autoshift_timeout(uint16_t timeout);
+void     autoshift_matrix_scan(void);
