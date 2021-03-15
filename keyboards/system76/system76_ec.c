@@ -155,6 +155,52 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
     },
 };
 
+// Read or write EEPROM data with checks for being inside System76 EC region
+static bool system76_ec_eeprom_op(void * buf, uint16_t size, uint16_t offset, bool write) {
+    uint16_t addr = SYSTEM76_EC_EEPROM_ADDR + offset;
+    uint16_t end = addr + size;
+    if (
+        (end > addr) && // check for overflow and zero size
+        (addr >= SYSTEM76_EC_EEPROM_ADDR) &&
+        (end <= (SYSTEM76_EC_EEPROM_ADDR + SYSTEM76_EC_EEPROM_SIZE))
+    ) {
+        if (write) {
+            eeprom_write_block(
+                (const void *)buf,
+                (void *)addr,
+                size
+            );
+        } else {
+            eeprom_read_block(
+                (void *)buf,
+                (const void *)addr,
+                size
+            );
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Read or write EEPROM RGB parameters
+void system76_ec_rgb_eeprom(bool write) {
+    uint16_t layer_rgb_size = sizeof(layer_rgb);
+    system76_ec_eeprom_op(
+        (void *)layer_rgb,
+        layer_rgb_size,
+        0,
+        write
+    );
+    system76_ec_eeprom_op(
+        (void *)raw_rgb_data,
+        sizeof(raw_rgb_data),
+        layer_rgb_size,
+        write
+    );
+}
+
+// Update RGB parameters on layer change
 void system76_ec_rgb_layer(layer_state_t layer_state) {
     if (!bootloader_unlocked) {
         uint8_t layer = get_highest_layer(layer_state);
@@ -238,6 +284,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                         layer_rgb[layer].hsv.v = value;
                         data[1] = 0;
                         system76_ec_rgb_layer(layer_state);
+                        system76_ec_rgb_eeprom(true); // TODO: instead use command for save/load
                         break;
                     }
                 }
@@ -283,6 +330,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                             // Ignore rgb.b
                             data[1] = 0;
                             system76_ec_rgb_layer(layer_state);
+                            system76_ec_rgb_eeprom(true); // TODO: instead use command for save/load
                             break;
                         }
                     }
@@ -315,6 +363,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     layer_rgb[layer].speed = speed;
                     data[1] = 0;
                     system76_ec_rgb_layer(layer_state);
+                    system76_ec_rgb_eeprom(true); // TODO: instead use command for save/load
                 }
             }
             break;

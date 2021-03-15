@@ -87,6 +87,10 @@ void bootmagic_lite(void) {
     }
 }
 
+void system76_ec_rgb_eeprom(bool write);
+void system76_ec_rgb_layer(layer_state_t layer_state);
+void system76_ec_unlock(void);
+
 void matrix_init_kb(void) {
     usb_mux_init();
 
@@ -94,8 +98,13 @@ void matrix_init_kb(void) {
     if (!eeprom_is_valid()) {
         dynamic_keymap_reset();
         dynamic_keymap_macro_reset();
+        system76_ec_rgb_eeprom(true);
         eeprom_set_valid(true);
+    } else {
+        system76_ec_rgb_eeprom(false);
     }
+
+    system76_ec_rgb_layer(layer_state);
 }
 
 void matrix_scan_kb(void) {
@@ -103,8 +112,6 @@ void matrix_scan_kb(void) {
 
     matrix_scan_user();
 }
-
-void system76_ec_unlock(void);
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
@@ -117,8 +124,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     return process_record_user(keycode, record);
 }
-
-void system76_ec_rgb_layer(layer_state_t layer_state);
 
 layer_state_t layer_state_set_kb(layer_state_t layer_state) {
     system76_ec_rgb_layer(layer_state);

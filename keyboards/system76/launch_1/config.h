@@ -62,10 +62,7 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-// Dynamic keyboard support {
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
+// EEPROM {
 #define EEPROM_SIZE 1024
 
 // TODO: refactor with new user EEPROM code (coming soon)
@@ -74,16 +71,24 @@
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x01
+#define EEPROM_VERSION 0x02
 #define EEPROM_VERSION_ADDR (EEPROM_MAGIC_ADDR + 2)
+// } EEPROM
 
+// Dynamic keyboard support {
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
 // Dynamic keymap starts after EEPROM version
 #define DYNAMIC_KEYMAP_EEPROM_ADDR (EEPROM_VERSION_ADDR + 1)
 #define DYNAMIC_KEYMAP_EEPROM_SIZE (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2)
-// Dynamic macro starts after dynamic keymaps
+// Dynamic macro starts after dynamic keymaps, it is disabled
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + DYNAMIC_KEYMAP_EEPROM_SIZE)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (EEPROM_SIZE - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR)
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 0
+#define DYNAMIC_KEYMAP_MACRO_COUNT 0
 // } Dynamic keyboard support
+
+// System76 EC {
+#define SYSTEM76_EC_EEPROM_ADDR (DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE)
+#define SYSTEM76_EC_EEPROM_SIZE (EEPROM_SIZE - SYSTEM76_EC_EEPROM_ADDR)
+// } System76 EC
 
 #endif // CONFIG_H
