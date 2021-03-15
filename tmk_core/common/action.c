@@ -48,7 +48,7 @@ int retro_tapping_counter = 0;
 #endif
 
 #if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
-#    include "quantum.h"
+#    include "process_auto_shift.h"
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
