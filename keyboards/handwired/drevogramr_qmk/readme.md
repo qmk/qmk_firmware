@@ -1,15 +1,19 @@
 # drevogramr_qmk
 
-Drevo Gramr rewired with Arduino Micro. Tested on PCB labeled as `TB-ZT-S84LED-01-V03 2015-06-12`.
+![DrevoGramr](https://i.imgur.com/SeMa7B5.jpg)
+
+Drevo Gramr rewired with Arduino (Pro) Micro.
 
 Uses onboard 74hc595 shift registers for key matrix scanning.
+
 Full board backlighting only, dynamic LED scanning not implemented.
 
-## Wiring
+## Schematics and photos
 
-![drevogramr_qmk_schematic](photo)
+Tested on PCB labeled as `TB-ZT-S84LED-01-V03 2015-06-12`.
 
-![drevogramr_qmk_photo](photo)
+![link](https://i.imgur.com/EnanUXS.png)
 
-## Original schematic
-Schematics and photos with original keyboard controller are [here](https://imgur.com/a/vPOPcIC).
+Schematics and photos of unmodified keyboard, check first for better understanding - https://imgur.com/a/vPOPcIC
+
+Schematics and photos of modified keyboard - https://imgur.com/a/eKutsbr

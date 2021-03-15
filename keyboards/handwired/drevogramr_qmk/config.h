@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Handwire
 #define PRODUCT         Drevo Gramr QMK
-#define DESCRIPTION     Drevo Gramr QMK
 
 /* key matrix size */
 #define MATRIX_ROWS 6
