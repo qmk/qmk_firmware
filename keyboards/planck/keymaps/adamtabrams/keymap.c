@@ -19,8 +19,8 @@
 
 
 enum planck_layers {
-  _NORMAL,
-  _COLEMK,
+  _QWERTY,
+  _COLEMAK,
   _NUMBER,
   _ARROWS,
   _CURSOR,
@@ -30,11 +30,13 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-  BACKTLD = SAFE_RANGE
+  BACKTLD = SAFE_RANGE,
+  EXCLAIM,
+  QWERTY,
+  COLEMAK,
+  NORMAL
 };
 
-#define NORMAL TO(_NORMAL)
-#define COLEMK TO(_COLEMK)
 #define ARROWS TT(_ARROWS)
 #define CURSOR TT(_CURSOR)
 #define SYSTEM TT(_SYSTEM)
@@ -44,15 +46,8 @@ enum planck_keycodes {
 #define NUMSPAC LT(_NUMBER, KC_SPC)
 #define SHFTESC LSFT_T(KC_ESC)
 
-#define CTRLTAB CTL_T(KC_TAB)
-#define CTRLMIN CTL_T(KC_MINS)
-#define SFTEXLM SFT_T(KC_EXLM)
+#define SFTEXLM SFT_T(EXCLAIM)
 #define SFTENTR SFT_T(KC_ENT)
-
-#define ALTRGHT A(KC_RGHT)
-#define ALTLEFT A(KC_LEFT)
-#define CTLRGHT C(KC_RGHT)
-#define CTLLEFT C(KC_LEFT)
 
 #define ALT__A  ALT_T(KC_A)
 #define ALTSCLN ALT_T(KC_SCLN)
@@ -70,44 +65,49 @@ enum planck_keycodes {
 #define CTL__T  CTL_T(KC_T)
 #define CTL__N  CTL_T(KC_N)
 
+#define ALTRGHT A(KC_RGHT)
+#define ALTLEFT A(KC_LEFT)
+#define CTLRGHT C(KC_RGHT)
+#define CTLLEFT C(KC_LEFT)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* ## Normal
+/* ## Qwerty
 
-|C(Tab)|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | C(-) |
+| Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  -_  |
 | Bsp/~| A(A) | G(S) | S(D) | C(F) |   G  |   H  | C(J) | S(K) | G(L) | A(;) |  '"  |
 | S(!) |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |S(Ent)|
-|COLMAK|      |      |System|Cursor|S(Esc)|N(Spc)|Arrows|      |      |      |      |
+| CTRL |  GUI |  ALT |System|Cursor|S(Esc)|N(Spc)|Arrows| Left | Down |  Up  | Right|
  */
 
-[_NORMAL] = LAYOUT_planck_grid(
-    CTRLTAB, KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    CTRLMIN,
+[_QWERTY] = LAYOUT_planck_grid(
+    KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    KC_MINS,
     BACKTLD, ALT__A,  GUI__S,  SFT__D, CTL__F, KC_G,    KC_H,    CTL__J, SFT__K,  GUI__L,  ALTSCLN, KC_QUOT,
     SFTEXLM, KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SFTENTR,
-    COLEMK,  _______, _______, SYSTEM, CURSOR, SHFTESC, NUMSPAC, ARROWS, _______, _______, _______, _______
+    KC_LCTL, KC_LGUI, KC_LALT, SYSTEM, CURSOR, SHFTESC, NUMSPAC, ARROWS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* ## Colemak
 
-|C(Tab)|   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  | C(-) |
+| Tab  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  |  -_  |
 | Bsp/~| A(A) | G(R) | S(S) | C(T) |   G  |   M  | C(N) | S(E) | G(I) | A(O) |  '"  |
 | S(!) |   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |S(Ent)|
-|QWERTY|      |      |System|Cursor|S(Esc)|N(Spc)|Arrows|      |      |      |      |
+| CTRL |  GUI |  ALT |System|Cursor|S(Esc)|N(Spc)|Arrows| Left | Down |  Up  | Right|
  */
 
-[_COLEMK] = LAYOUT_planck_grid(
-    CTRLTAB, KC_Q,    KC_W,    KC_F,   KC_P,   KC_B,    KC_J,    KC_L,   KC_U,    KC_Y,    KC_SCLN, CTRLMIN,
+[_COLEMAK] = LAYOUT_planck_grid(
+    KC_TAB,  KC_Q,    KC_W,    KC_F,   KC_P,   KC_B,    KC_J,    KC_L,   KC_U,    KC_Y,    KC_SCLN, KC_MINS,
     BACKTLD, ALT__A,  GUI__R,  SFT__S, CTL__T, KC_G,    KC_M,    CTL__N, SFT__E,  GUI__I,  ALT__O,  KC_QUOT,
     SFTEXLM, KC_Z,    KC_X,    KC_C,   KC_D,   KC_V,    KC_K,    KC_H,   KC_COMM, KC_DOT,  KC_SLSH, SFTENTR,
-    NORMAL,  _______, _______, SYSTEM, CURSOR, SHFTESC, NUMSPAC, ARROWS, _______, _______, _______, _______
+    KC_LCTL, KC_LGUI, KC_LALT, SYSTEM, CURSOR, SHFTESC, NUMSPAC, ARROWS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* ## Number
 
-|      |  @   |  +   |  =   |  &   |  |   |  #   |  *   |  ^   |  $   |  %   |      |
+|      |  @   |  +   |  =   |  &   |  \|  |  #   |  *   |  ^   |  $   |  %   |      |
 |      |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  0   |  \`  |
 |      |  ~   |  [   |  {   |  (   |  !   |  =   |  )   |  }   |  ]   |  \   |      |
-|      |      |      |      | \\/  |      |      |      |      |      |      |NORMAL|
+|      |      |      |      |      |      | \\/  |      |      |      |      |Normal|
  */
 
 [_NUMBER] = LAYOUT_planck_grid(
@@ -120,77 +120,77 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ## Arrows
 
-|      |      |A(->) |A(->) |      |      |      | P_Up |C(<-) |C(->) |      |      |
+|      |      |A(->) |      |      |A(<-) |      | P_Up | P_Up |C(->) |      |      |
 |      |C(->) |      |P_Down|      |      | Left | Down |  Up  |Right |C(<-) |      |
-|      |      |      |      |      |A(<-) |      |      |      |      |      |      |
-|      |      |      |      |      |      |      | \\/  |      |      |      |NORMAL|
+|      |      |      |      |P_Down|A(<-) |      |      |      |      |      |      |
+|      |      |      |      |      |      |      | \\/  |      |      |      |Normal|
  */
 
 [_ARROWS] = LAYOUT_planck_grid(
-    _______, XXXXXXX, ALTRGHT, ALTRGHT, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, CTLLEFT, CTLRGHT, XXXXXXX, _______,
+    _______, XXXXXXX, ALTRGHT, XXXXXXX, XXXXXXX, ALTLEFT, XXXXXXX, KC_PGUP, KC_PGUP, CTLRGHT, XXXXXXX, _______,
     _______, CTLRGHT, XXXXXXX, KC_PGDN, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, CTLLEFT, _______,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ALTLEFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, ALTLEFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, NORMAL
 ),
 
 /* ## Cursor
 
-|      |      |      |Wh_Dn |M_Btn2|      |      |Wh_Dn |      |      |      |      |
-|      |M_Acc2|M_Acc1|Wh_Up |M_Btn1|      | M_L  |M_Down| M_Up | M_R  |      |SHIFT |
-|      |      |      |      |M_Btn3|      |      |      |      |      |      |      |
-|      |      |      |      |      |      |      |      | \\/  |      |      |NORMAL|
+|      |      |      |Wh_Dn |M_Btn2|      |      |Wh_Dn |Wh_Dn |      |      |      |
+|      |M_Acc2|M_Acc1|Wh_Up |M_Btn1|      | M_L  |M_Down| M_Up | M_R  |      |      |
+|      |      |      |      |Wh_Up |      |      |      |      |      |      |      |
+|      |      |      |      | \\/  |      |      |      |      |      |      |Normal|
  */
 
 [_CURSOR] = LAYOUT_planck_grid(
-    _______, XXXXXXX, XXXXXXX, KC_WH_D, KC_BTN2, XXXXXXX, XXXXXXX, KC_WH_D, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-    _______, KC_ACL2, KC_ACL1, KC_WH_U, KC_BTN1, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, KC_LSFT,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN3, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    _______, XXXXXXX, XXXXXXX, KC_WH_D, KC_BTN2, XXXXXXX, XXXXXXX, KC_WH_D, KC_WH_D, XXXXXXX, XXXXXXX, _______,
+    _______, KC_ACL2, KC_ACL1, KC_WH_U, KC_BTN1, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, _______,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_U, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, NORMAL
 ),
 
 /* ## System
 
 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  | F12  |
-| Caps |      |Pr_Scn|      | Fwd  |      |Brght-| Vol- | Vol+ |Brght+|      |      |
-|      |      |      |      |      | Rwd  |      | Mute |P_Trac|N_Trac|      | Play |
-|      |      |      | \\/  |      |      |      |      |KBoard|      |      |NORMAL|
+|      |      |Pr_Scn|Pr_Scn|      |      |Brght-| Vol- | Vol+ |Brght+| Mute |      |
+|      |      |      |      |      |      |      | Mute |P_Trac|N_Trac|      | Play |
+|KBoard|      |      | \\/  |      |      |      |      |      |Colemk|Qwerty|Normal|
  */
 
 [_SYSTEM] = LAYOUT_planck_grid(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-    KC_CAPS, XXXXXXX, KC_PSCR, XXXXXXX, KC_MFFD, XXXXXXX, KC_BRID, KC_VOLD, KC_VOLU, KC_BRIU, XXXXXXX, _______,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MRWD, XXXXXXX, KC_MUTE, KC_MPRV, KC_MNXT, XXXXXXX, KC_MPLY,
-    _______, _______, _______, _______, _______, _______, _______, _______, KBOARD,  _______, _______, NORMAL
+    _______, XXXXXXX, KC_PSCR, KC_PSCR, XXXXXXX, XXXXXXX, KC_BRID, KC_VOLD, KC_VOLU, KC_BRIU, KC_MUTE, _______,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_MPRV, KC_MNXT, XXXXXXX, KC_MPLY,
+    KBOARD,  _______, _______, _______, _______, _______, _______, _______, _______, COLEMAK, QWERTY,  NORMAL
 ),
 
 /* ## KBoard
 
-|      |      |      |      |      |RGB_Tg|      |Brght+|      |      |Mode- |      |
-|      |      |      |Brght-|      |      | Hue- | Sat- | Sat+ | Hue+ |      |      |
-|      |      |      |      |      |      |Mode+ |      |      |      |      |      |
-|      |      |      | \\/  |      |      |      |      | \\/  |      |FMWare|NORMAL|
+|------|      |      |      |      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      | Hue- | Sat- | Sat+ | Hue+ |Mode+ |      |
+|      |      |      |      |      |      |      |Mode- |Brght-|Brght+|      |RGB_Tg|
+| \\/  |      |      | \\/  |      |      |      |      |      |      |      |FMWare|
  */
 
 [_KBOARD] = LAYOUT_planck_grid(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, XXXXXXX, RGB_VAI, XXXXXXX, XXXXXXX, RGB_RMOD, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAD, XXXXXXX, XXXXXXX, RGB_HUD, RGB_SAD, RGB_SAI, RGB_HUI, XXXXXXX,  XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, FMWARE,   NORMAL
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUD, RGB_SAD,  RGB_SAI, RGB_HUI, RGB_MOD, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_VAD, RGB_VAI, XXXXXXX, RGB_TOG,
+    _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, FMWARE
 ),
 
 /* ## FMWare
 
 |      |      |      |EEPROM|Reset |      |      |      |      |      |      |      |
-|      |      |      |Debug |      |      |      |      |      |      |      |      |
+|      |      |Reset |Debug |      |      |      |      |      |      |      |      |
 |------|      |      |      |      |      |      |      |      |      |      |      |
-|      |      |      | \\/  |      |      |      |      | \\/  |      | \\/  |NORMAL|
+| \\/  |      |      | \\/  |      |      |      |      |      |      |      | \\/  |
  */
 
 [_FMWARE] = LAYOUT_planck_grid(
-    XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST,   RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX,   DEBUG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, RESET,   DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, NORMAL
+    _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
 )
 
 };
@@ -199,20 +199,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool shift_is_pressed = false;
 
     switch (keycode) {
-        case SHFTESC:
-            if (record->event.pressed) {
-                shift_is_pressed = true;
-            } else {
-                shift_is_pressed = false;
-            }
-            return true;
-
         case SFTEXLM:
             if (record->tap.count > 0) {
                 if (record->event.pressed) {
                     tap_code16(KC_EXLM);
                 }
                 return false;
+            }
+            return true;
+
+        case SHFTESC:
+            if (record->event.pressed) {
+                shift_is_pressed = true;
+            } else {
+                shift_is_pressed = false;
             }
             return true;
 
@@ -227,6 +227,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_GRV);
                 unregister_code(KC_BSPC);
             }
+            return true;
+
+        case QWERTY:
+            set_single_persistent_default_layer(_QWERTY);
+            return true;
+
+        case COLEMAK:
+            set_single_persistent_default_layer(_COLEMAK);
+            return true;
+
+        case NORMAL:
+            layer_off(_NUMBER);
+            layer_off(_ARROWS);
+            layer_off(_CURSOR);
+            layer_off(_SYSTEM);
             return false;
     }
     return true;
@@ -234,10 +249,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case CTRLTAB:
-            return true;
-        case CTRLMIN:
-            return true;
         case SFTENTR:
             return true;
         case SFTEXLM:
