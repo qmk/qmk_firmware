@@ -171,6 +171,7 @@ void matrix_init(void) {
 }
 
 uint8_t matrix_scan(void) {
+    matrix_changed = false;
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
         for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
             // Determine if the matrix changed state
