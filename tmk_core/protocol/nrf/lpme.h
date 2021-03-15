@@ -17,6 +17,6 @@ typedef struct {
     uint8_t col_num;
 } lpme_config_t;
 
-void     lpme_init(lpme_config_t const *const config);
-uint32_t lpme_scan(lpme_config_t const *const config, matrix_row_t *rows,
+void     lpme_init(lpme_config_t *const config);
+uint32_t lpme_scan(lpme_config_t *const config, matrix_row_t *rows,
                    bool wakeup);

@@ -17,8 +17,6 @@ extern const bmp_matrix_func_t matrix_func_col2row;
 const bmp_matrix_func_t matrix_func_row2col_lpme = {init_row2col, get_device_row, get_device_col, scan_row2col};
 const bmp_matrix_func_t matrix_func_col2row_lpme = {init_col2row, get_device_row, get_device_col, scan_col2row};
 
-#define LPME_ADDR I2C_7BIT_ADDR(0x20)
-
 static uint8_t lpme_row_num, lpme_col_num;
 static uint8_t pin_matrix_row_num, pin_matrix_col_num;
 static lpme_config_t lpme_config;
@@ -90,7 +88,6 @@ static void init_col2row() {
     lpme_row_num = get_lpme_row_num();
     lpme_col_num = get_lpme_col_num();
 
-    lpme_config.addr = LPME_ADDR;
     lpme_config.row_num = lpme_row_num;
     lpme_config.col_num = lpme_col_num;
 
@@ -111,7 +108,8 @@ static uint32_t scan_col2row(matrix_row_t *matrix_raw)
     const bmp_api_config_t *config = BMPAPI->app.get_config();
     uint32_t change = matrix_func_col2row.scan(matrix_raw);
 
-    uint8_t matrix_offset_slave = config->matrix.is_left_hand ?                                 config->matrix.device_rows : 0;
+    uint8_t matrix_offset_slave =
+        config->matrix.is_left_hand ? config->matrix.device_rows : 0;
     change |= lpme_scan(&lpme_config, &matrix_raw[matrix_offset_slave], change);
 
     return change;
@@ -130,16 +128,17 @@ static void init_row2col() {
     lpme_row_num = get_lpme_row_num();
     lpme_col_num = get_lpme_col_num();
 
-    lpme_config.addr = LPME_ADDR;
-    lpme_config.row_num = lpme_row_num;
-    lpme_config.col_num = lpme_col_num;
+    // swap row/col of matrix setting
 
-    for (int r=0; r<lpme_row_num; r++) {
-        lpme_config.row_pins[r] = config->matrix.row_pins[r + pin_matrix_row_num];
+    lpme_config.row_num = lpme_col_num;
+    lpme_config.col_num = lpme_row_num;
+
+    for (int r = 0; r < lpme_col_num; r++) {
+        lpme_config.row_pins[r] = config->matrix.col_pins[r + pin_matrix_col_num];
     }
 
-    for (int c=0; c<lpme_col_num; c++) {
-        lpme_config.col_pins[c] = config->matrix.col_pins[c + pin_matrix_col_num];
+    for (int c = 0; c < lpme_row_num; c++) {
+        lpme_config.col_pins[c] = config->matrix.row_pins[c + pin_matrix_row_num];
     }
 
     lpme_init(&lpme_config);
@@ -151,8 +150,40 @@ static uint32_t scan_row2col(matrix_row_t *matrix_raw)
     const bmp_api_config_t *config = BMPAPI->app.get_config();
     uint32_t change = matrix_func_row2col.scan(matrix_raw);
 
-    uint8_t matrix_offset_slave = config->matrix.is_left_hand ?                                 config->matrix.device_rows : 0;
+    uint8_t matrix_offset_slave =
+        config->matrix.is_left_hand ? config->matrix.device_rows : 0;
     change |= lpme_scan(&lpme_config, &matrix_raw[matrix_offset_slave], change);
 
+    // swap row and col of split half
+
+    // len = max(row, col)
+    uint8_t len = lpme_config.row_num > lpme_config.col_num
+                      ? lpme_config.row_num
+                      : lpme_config.col_num;
+
+    for (int ridx = 0; ridx < len; ridx++) {
+        for (int cidx = ridx + 1; cidx < len; cidx++) {
+            bool m_rc = matrix_raw[ridx + matrix_offset_slave] & (1 << cidx)
+                            ? true
+                            : false;
+            bool m_cr = matrix_raw[cidx + matrix_offset_slave] & (1 << ridx)
+                            ? true
+                            : false;
+
+            // set m_rc to m_cr
+            if (m_rc) {
+                matrix_raw[cidx + matrix_offset_slave] |= (1 << ridx);
+            } else {
+                matrix_raw[cidx + matrix_offset_slave] &= ~(1 << ridx);
+            }
+
+            // set m_cr to m_rc
+            if (m_cr) {
+                matrix_raw[ridx + matrix_offset_slave] |= (1 << cidx);
+            } else {
+                matrix_raw[ridx + matrix_offset_slave] &= ~(1 << cidx);
+            }
+        }
+    }
     return change;
 }
