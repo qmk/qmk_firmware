@@ -53,6 +53,7 @@
 #include "eeconfig.h"
 #include "bootloader.h"
 #include "timer.h"
+#include "sync_timer.h"
 #include "config_common.h"
 #include "gpio.h"
 #include "atomic_util.h"
@@ -60,7 +61,7 @@
 #include "action_util.h"
 #include "action_tapping.h"
 #include "print.h"
-#include "send_string_keycodes.h"
+#include "send_string.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -194,38 +195,48 @@ extern layer_state_t layer_state;
 #    include "wpm.h"
 #endif
 
-#define SEND_STRING(string) send_string_P(PSTR(string))
-#define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
+#ifdef USBPD_ENABLE
+#    include "usbpd.h"
+#endif
 
-// Look-Up Tables (LUTs) to convert ASCII character to keycode sequence.
-extern const uint8_t ascii_to_keycode_lut[128];
-extern const uint8_t ascii_to_shift_lut[16];
-extern const uint8_t ascii_to_altgr_lut[16];
-// clang-format off
-#define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
-    ( ((a) ? 1 : 0) << 0 \
-    | ((b) ? 1 : 0) << 1 \
-    | ((c) ? 1 : 0) << 2 \
-    | ((d) ? 1 : 0) << 3 \
-    | ((e) ? 1 : 0) << 4 \
-    | ((f) ? 1 : 0) << 5 \
-    | ((g) ? 1 : 0) << 6 \
-    | ((h) ? 1 : 0) << 7 )
-// clang-format on
+// Function substitutions to ease GPIO manipulation
+#if defined(__AVR__)
 
-void send_string(const char *str);
-void send_string_with_delay(const char *str, uint8_t interval);
-void send_string_P(const char *str);
-void send_string_with_delay_P(const char *str, uint8_t interval);
-void send_char(char ascii_code);
+/*   The AVR series GPIOs have a one clock read delay for changes in the digital input signal.
+ *   But here's more margin to make it two clocks. */
+#    if !defined(GPIO_INPUT_PIN_DELAY)
+#        define GPIO_INPUT_PIN_DELAY 2
+#    endif
+#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
+
+#elif defined(__ARMEL__) || defined(__ARMEB__)
+
+/* For GPIOs on ARM-based MCUs, the input pins are sampled by the clock of the bus
+ * to which the GPIO is connected.
+ * The connected buses differ depending on the various series of MCUs.
+ * And since the instruction execution clock of the CPU and the bus clock of GPIO are different,
+ * there is a delay of several clocks to read the change of the input signal.
+ *
+ * Define this delay with the GPIO_INPUT_PIN_DELAY macro.
+ * If the GPIO_INPUT_PIN_DELAY macro is not defined, the following default values will be used.
+ * (A fairly large value of 0.25 microseconds is set.)
+ */
+#    if !defined(GPIO_INPUT_PIN_DELAY)
+#        if defined(STM32_SYSCLK)
+#            define GPIO_INPUT_PIN_DELAY (STM32_SYSCLK / 1000000L / 4)
+#        elif defined(KINETIS_SYSCLK_FREQUENCY)
+#            define GPIO_INPUT_PIN_DELAY (KINETIS_SYSCLK_FREQUENCY / 1000000L / 4)
+#        endif
+#    endif
+#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
+
+#endif
 
 // For tri-layer
 void          update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
 layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
 
 void set_single_persistent_default_layer(uint8_t default_layer);
-
-void tap_random_base64(void);
 
 #define IS_LAYER_ON(layer) layer_state_is(layer)
 #define IS_LAYER_OFF(layer) !layer_state_is(layer)
@@ -262,12 +273,6 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
-
-void     send_dword(uint32_t number);
-void     send_word(uint16_t number);
-void     send_byte(uint8_t number);
-void     send_nibble(uint8_t number);
-uint16_t hex_to_keycode(uint8_t hex);
 
 void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
