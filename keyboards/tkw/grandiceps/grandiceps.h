@@ -15,8 +15,6 @@
  */
 #pragma once
 
-#define _x_ KC_NO
-
 #include "quantum.h"
 
 #define LAYOUT( \
