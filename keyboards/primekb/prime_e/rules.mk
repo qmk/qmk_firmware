@@ -26,4 +26,4 @@ NKRO_ENABLE = yes            # USB Nkey Rollover
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-DEFAULT_FOLDER = primekb/prime_e/std
+DEFAULT_FOLDER = primekb/prime_e/rgb

@@ -19,6 +19,7 @@ BACKLIGHT_ENABLE = no     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes      # Enable RGB light
 LEADER_ENABLE = yes			# Enable Leader Key
 VELOCIKEY_ENABLE = no
+COMBO_ENABLE = yes
 # DYNAMIC_MACRO_ENABLE = yes  # Enable Dynamic Macros
 
 # LAYOUTS = LAYOUT_40_alix

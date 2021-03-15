@@ -68,24 +68,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,  KC_LGUI, MEDIA,   KC_LALT, LOWER,   KC_SPC,  LCTL(KC_BSPC),  RAISE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
 ),
 
-/* Colemak
+/* Colemak DH
  * ,-----------------------------------------------------------------------------------.
  * | Esc  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  \   |
+ * | Tab  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Leader|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  '   |
+ * |Leader|   A  |   R  |   S  |   T  |   G  |   M  |   N  |   E  |   I  |   O  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | GUI  |Media | Alt  |Lower |Space |Leader|Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_preonic_grid( \
   KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,  \
-  KC_LEAD,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
-  KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
+  KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,  \
+  KC_LEAD,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
+  KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
   KC_LCTL,  KC_LGUI, MEDIA,   KC_LALT, LOWER,   KC_SPC,  KC_BSPC,  RAISE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
 ),
 
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |Insert| Home |  End |Numlck|      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      | Del  | PGDN | PGUP |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -146,9 +146,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_preonic_grid( \
   _______,  _______,  _______, _______, _______, _______,  _______,  _______,   _______,  _______,  _______,  KC_NUMLOCK, \
-  _______,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   _______,  _______,  KC_PGUP,   KC_UP,    KC_PGDN,  _______,  KC_INS,  \
-  _______,  KC_F5,    KC_F6,   KC_F7,   KC_F8,   _______,  _______,  KC_LEFT,   KC_DOWN,  KC_RGHT,  _______,  _______, \
-  _______,  KC_F9,    KC_F10,  KC_F11,  KC_F12,  _______,  _______,  KC_HOME,   _______,  KC_END,   _______,  _______, \
+  _______,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   _______,  KC_PGUP,  _______,   KC_UP,    _______,  _______,  KC_INS,  \
+  _______,  KC_F5,    KC_F6,   KC_F7,   KC_F8,   _______,  KC_PGDN,  KC_LEFT,   KC_DOWN,  KC_RGHT,  _______,  _______, \
+  _______,  KC_F9,    KC_F10,  KC_F11,  KC_F12,  _______,  _______,  _______,   _______,  _______,  _______,  _______, \
   _______,  _______,  _______, _______, _______, _______,  _______,  _______,   _______,  _______,  _______,  _______  \
 ),
 

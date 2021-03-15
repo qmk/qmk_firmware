@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ├─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┤
     |Shift|  Z  |  X  |  C  |  V  |  B  |      |Enter|  N  |  M  |  ,  |  .  |  /  |
     ├─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┤
-    |Ctrl | GUI |     | Alt |Lower|Space|      |Bksp |Raise|Media|     |Lead | End |
+    |Ctrl | GUI |     | Alt |Lower|Space|      |WBksp|Raise|Media|     |Lead | End |
     └─────┴─────┘     └─────┴─────┴─────┘      └─────┴─────┴─────┘     └─────┴─────┘
     */
     [_QWERTY] = LAYOUT_40_alix(
@@ -62,14 +62,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ├─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┤
     |Shift|  Z  |  X  |  C  |  V  |  B  |      |Enter|  K  |  M  |  ,  |  .  |  /  |
     ├─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┤
-    |Ctrl | GUI |     | Alt |Lower|Space|      |Bksp |Raise|Media|     |Home | End |
+    |Ctrl | GUI |     | Alt |Lower|Space|      |WBksp|Raise|Media|     |Lead | End |
     └─────┴─────┘     └─────┴─────┴─────┘      └─────┴─────┴─────┘     └─────┴─────┘
     */
     [_COLEMAK] = LAYOUT_40_alix(
         KC_TAB,    KC_Q,    KC_W,   KC_F,     KC_P,   KC_G,        KC_J,            KC_L,   KC_U,    KC_Y,      KC_SCLN, KC_BSPC, \
         KC_ESC,    KC_A,    KC_R,   KC_S,     KC_T,   KC_D,        KC_H,            KC_N,   KC_E,    KC_I,      KC_O,    KC_QUOT, \
         KC_LSFT,   KC_Z,    KC_X,   KC_C,     KC_V,   KC_B,        KC_ENT,          KC_K,   KC_M,    KC_COMM,   KC_DOT,  KC_SLSH, \
-        KC_LCTL,   KC_LGUI,         KC_LALT,  LOWER,  KC_SPC,      LCTL(KC_BSPC),   RAISE,  MEDIA,              KC_HOME, KC_END
+        KC_LCTL,   KC_LGUI,         KC_LALT,  LOWER,  KC_SPC,      LCTL(KC_BSPC),   RAISE,  MEDIA,              KC_LEAD, KC_END
     ),
 
     /* Lower
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ├─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┤
     |     |RGBTG|RGBM |RGBH |RGBS |RGBV |      |     |QWRTY|COLMK|     |     |     |
     ├─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┤
-    |     |     |     |     |     |     |      |     |BT A |BTUSB|BT BT|     |     |
+    |     |     |     |     |CMOFF|CMON |      |     |BT A |BTUSB|BT BT|     |     |
     ├─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┤
     |     |     |     |     |     |     |      |     |     |     |     |     |     |
     └─────┴─────┘     └─────┴─────┴─────┘      └─────┴─────┴─────┘     └─────┴─────┘
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST]= LAYOUT_40_alix(
         _______,   VLK_TOG,   _______,   _______,   _______,    _______,        _______,   _______,    _______,   _______,   _______,   RESET,   \
 		_______,   RGB_TOG,   RGB_MOD,   RGB_HUI,   RGB_SAI,    RGB_VAI,        _______,   QWERTY,     COLEMAK,   _______,   _______,   _______, \
-		_______,   _______,   _______,   _______,   _______,    _______,        _______,   OUT_AUTO,   OUT_USB,   OUT_BT,    _______,   _______, \
+		_______,   _______,   _______,   _______,   CMB_OFF,    CMB_ON,         _______,   OUT_AUTO,   OUT_USB,   OUT_BT,    _______,   _______, \
 		_______,   _______,              _______,   _______,    _______,        _______,   _______,    _______,              _______,   _______
     ),
 };
@@ -187,100 +187,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case MACRO00:
-            if (record->event.pressed) {
-                SEND_STRING("sudo /etc/init.d/tomcat7 stop");
-            }
-            else {}
-            break;
-        case MACRO01:
-            if (record->event.pressed) {
-                SEND_STRING("sudo /etc/init.d/tomcat7 start");
-            }
-            else {}
-            break;
-        case MACRO02:
-            if (record->event.pressed) {
-                SEND_STRING("sudo service delegosrv-"SS_TAP(X_TAB)"stop");
-            }
-            else {}
-            break;
-        case MACRO03:
-            if (record->event.pressed) {
-                SEND_STRING("sudo service delegosrv- start");
-                SEND_STRING(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-            }
-            else {}
-            break;
-        case MACRO05:
-            if (record->event.pressed) {
-                SEND_STRING("sudo service delegomt-"SS_TAP(X_TAB)"stop");
-            }
-            else {}
-            break;
-        case MACRO06:
-            if (record->event.pressed) {
-                SEND_STRING("sudo service delegomt- start");
-                SEND_STRING(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-            }
-            else {}
-            break;
-        case MACRO07:
-            if (record->event.pressed) {
-                SEND_STRING("sudo service delegosecure-"SS_TAP(X_TAB)"stop");
-            }
-            else {}
-            break;
-        case MACRO08:
-            if (record->event.pressed) {
-                SEND_STRING("sudo service delegosecure- start");
-                SEND_STRING(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-            }
-            else {}
-            break;
-        case MACRO10:
-            if (record->event.pressed) {
-                SEND_STRING("sudo puppet agent --test");
-            }
-            else {}
-            break;
-        case MACRO11:
-            if (record->event.pressed) {
-               	SEND_STRING("sudo puppet agent --disable ");
-                SEND_STRING(SS_LSFT("'"));
-                SEND_STRING(SS_LSFT("'"));
-                SEND_STRING(SS_TAP(X_LEFT));
-            }
-            else {}
-            break;
-        case MACRO12:
-            if (record->event.pressed) {
-               	SEND_STRING("sudo puppet agent --enable");
-            }
-            else {}
-            break;
-        case MACRO14:
-            if (record->event.pressed) {
-                SEND_STRING("export PYTHONWARNINGS=ignore;uname -r && test_ws_secure.py && test_ws_mt.py `test_ws_secure.py` && testCE.sh && grep ");
-                SEND_STRING(SS_LSFT("'"));
-                SEND_STRING("Connected with SAP");
-                SEND_STRING(SS_LSFT("'"));
-                SEND_STRING(" /var/log/delego/*/*/Delego*.log");
-            }
-            else {}
-            break;
-        case MACRO15:
-            if (record->event.pressed) {
-                SEND_STRING("delego-home.sh");
-            }
-            else {}
-            break;
-        case MACRO16:
-            if (record->event.pressed) {
-                SEND_STRING("./DelegoARRecur_reporting.sh");
-            }
-            else {}
-            break;
         }
     return true;
 };
@@ -320,12 +226,63 @@ void matrix_scan_user(void) {
 		leading = false;
 		leader_end();
 
+        SEQ_ONE_KEY(KC_T){
+		      SEND_STRING("sudo /etc/init.d/tomcat7 restart");
+	      }
+        SEQ_TWO_KEYS(KC_T,KC_T){
+		      SEND_STRING("sudo /etc/init.d/tomcat7 stop");
+	      }
+        SEQ_THREE_KEYS(KC_T,KC_T,KC_T){
+		      SEND_STRING("sudo /etc/init.d/tomcat7 start");
+	      }
+        SEQ_ONE_KEY(KC_COMM){
+          SEND_STRING("sudo service delegosrv-"SS_TAP(X_TAB)"restart");
+        }
+        SEQ_TWO_KEYS(KC_COMM,KC_COMM){
+          SEND_STRING("sudo service delegosrv-"SS_TAP(X_TAB)"stop");
+        }
+        SEQ_THREE_KEYS(KC_COMM,KC_COMM,KC_COMM){
+          SEND_STRING("sudo service delegosrv- start");
+          SEND_STRING(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
+        }
+        SEQ_ONE_KEY(KC_M){
+          SEND_STRING("sudo service delegomt-"SS_TAP(X_TAB)"restart");
+        }
+        SEQ_TWO_KEYS(KC_M,KC_M){
+          SEND_STRING("sudo service delegomt-"SS_TAP(X_TAB)"stop");
+        }
+        SEQ_THREE_KEYS(KC_M,KC_M,KC_M){
+          SEND_STRING("sudo service delegomt- start");
+          SEND_STRING(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
+        }
+        SEQ_ONE_KEY(KC_DOT){
+          SEND_STRING("sudo service delegosecure-"SS_TAP(X_TAB)"restart");
+        }
+        SEQ_TWO_KEYS(KC_DOT,KC_DOT){
+          SEND_STRING("sudo service delegosecure-"SS_TAP(X_TAB)"stop");
+        }
+        SEQ_THREE_KEYS(KC_DOT,KC_DOT,KC_DOT){
+          SEND_STRING("sudo service delegosecure- start");
+          SEND_STRING(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
+        }
+	      SEQ_ONE_KEY(KC_SLSH){
+		      SEND_STRING("sudo puppet agent --test");
+	    }
+        SEQ_TWO_KEYS(KC_SLSH,KC_SLSH){
+		      SEND_STRING("sudo puppet agent --disable ");
+          SEND_STRING(SS_LSFT("'"));
+          SEND_STRING(SS_LSFT("'"));
+          SEND_STRING(SS_TAP(X_LEFT));
+	      }
+        SEQ_THREE_KEYS(KC_SLSH,KC_SLSH,KC_SLSH){
+		      SEND_STRING("sudo puppet agent --enable");
+	      }
+        SEQ_TWO_KEYS(KC_D,KC_H){
+          SEND_STRING("delego-home.sh");
+        }
         SEQ_ONE_KEY(KC_P){
           SEND_STRING(SS_LCTRL(SS_LSFT("p")));
         }
-	      SEQ_ONE_KEY(KC_T){
-	    	  SEND_STRING(SS_LCTRL(SS_LALT("t")));
-	      }
         SEQ_ONE_KEY(KC_BSPC){
           SEND_STRING(SS_LCTRL("`"));
         }
@@ -335,8 +292,12 @@ void matrix_scan_user(void) {
         SEQ_TWO_KEYS(KC_F,KC_F){
             SEND_STRING(SS_LCTRL("kj"));
         }
-        SEQ_ONE_KEY(KC_4){
-            SEND_STRING(SS_LCTRL(SS_TAP(X_F4)));
+        SEQ_TWO_KEYS(KC_T,KC_S){
+          SEND_STRING("export PYTHONWARNINGS=ignore;uname -r && test_ws_secure.py && test_ws_mt.py `test_ws_secure.py` && testCE.sh && grep ");
+          SEND_STRING(SS_LSFT("'"));
+          SEND_STRING("Connected with SAP");
+          SEND_STRING(SS_LSFT("'"));
+          SEND_STRING(" /var/log/delego/*/*/Delego*.log");
         }
 	}
 }
