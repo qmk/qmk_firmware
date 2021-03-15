@@ -14,13 +14,13 @@ You can find `json` files for http://www.keyboard-layout-editor.com/ in the keym
 
 Here are some screenshots for convenience:
 
-Base Layer:
+Base Layer:<br/>
 <a href="https://ibb.co/fYZw3yj"><img src="https://i.ibb.co/0j1b06H/Screen-Shot-2021-03-15-at-4-58-43-PM.png" alt="Base Layer" border="0"></a>
 
-Numbers Layer:
+Numbers Layer:<br/>
 <a href="https://ibb.co/30Vg1tS"><img src="https://i.ibb.co/hKr3sp2/Screen-Shot-2021-03-15-at-5-18-07-PM.png" alt="Numbers Layer" border="0"></a>
 
-Symbols Layer:
+Symbols Layer:<br/>
 <a href="https://ibb.co/ryCg4pS"><img src="https://i.ibb.co/q1tzkgf/Screen-Shot-2021-03-15-at-5-18-33-PM.png" alt="Symbols Layer" border="0"></a>
 
 ## Choices
