@@ -20,8 +20,8 @@
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER      0x0001
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x5050
+#define VENDOR_ID       0x320F
+#define PRODUCT_ID      0x5044
 #define MANUFACTURER    Glorious
 #define PRODUCT         GMMK Pro
 
