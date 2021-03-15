@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 
 #include "apidef.h"
+#include "bmp_config.h"
+#include "bmp_via.h"
 
 bool       via_keymap_update_flag = false;
 extern int bootloader_jump_counter;
@@ -132,8 +134,48 @@ static inline void dynamic_keymap_set_buffer(uint16_t offset, uint16_t size,
     }
 }
 
-__attribute__((weak)) void raw_hid_receive_kb(const uint8_t *deta,
-                                              uint8_t        len) {}
+__attribute__((weak)) void raw_hid_receive_kb(const uint8_t *data,
+                                              uint8_t        length) {}
+
+void raw_hid_receive_bmp(uint8_t *data, uint8_t length) {
+    const uint8_t *command_id   = &data[0];
+    const uint8_t *command_data = &data[1];
+    switch (*command_id) {
+        case id_get_keyboard_value: {
+            switch (command_data[0]) {
+                case id_control_board_type:
+                    if (length > 6) {
+                        const char ble_micro_pro_signature[] =
+                            BLE_MICRO_PRO_VIA_SIGNATURE;
+                        data[2] = ble_micro_pro_signature[0];
+                        data[3] = ble_micro_pro_signature[1];
+                        data[4] = ble_micro_pro_signature[2];
+                        data[5] = ble_micro_pro_signature[3];
+                    }
+                    break;
+            }
+        } break;
+
+        case id_set_keyboard_value: {
+            switch (command_data[0]) {
+                case id_control_save_flag:
+                    if (length > 3) {
+                        if (save_keymap() == 0) {
+                            data[2] = 0;
+                        } else {
+                            data[2] = 0xFF;
+                        }
+                    }
+                    break;
+            }
+        } break;
+
+        default:
+            break;
+    }
+
+    raw_hid_receive_kb(data, length);
+}
 
 void via_eeprom_reset(void) { xprintf("<via>eeprom reset: not implemented\n"); }
 
@@ -207,7 +249,7 @@ void bmp_via_receive_cb(uint8_t *data, uint8_t length) {
                     break;
                 }
                 default: {
-                    raw_hid_receive_kb(data, length);
+                    raw_hid_receive_bmp(data, length);
                     break;
                 }
             }
@@ -225,7 +267,7 @@ void bmp_via_receive_cb(uint8_t *data, uint8_t length) {
                     break;
                 }
                 default: {
-                    raw_hid_receive_kb(data, length);
+                    raw_hid_receive_bmp(data, length);
                     break;
                 }
             }
