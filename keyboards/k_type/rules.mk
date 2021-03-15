@@ -27,9 +27,7 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = no
-RGB_MATRIX_DRIVER = custom
-
-SRC += i2c_master.c is31fl3733.c led.c
+RGB_MATRIX_DRIVER = IS31FL3733
 
 LAYOUTS = tkl_ansi
 
