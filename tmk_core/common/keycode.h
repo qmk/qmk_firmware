@@ -523,7 +523,7 @@ enum internal_special_keycodes {
 };
 
 enum mouse_keys {
-    /* Mouse Buttons */
+/* Mouse Buttons */
 #ifdef VIA_ENABLE
     KC_MS_UP = 0xF0,
 #else
