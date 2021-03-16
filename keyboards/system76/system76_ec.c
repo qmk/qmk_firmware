@@ -32,6 +32,8 @@ enum Command {
     CMD_LED_SET_MODE = 16,
     // Get currently pressed keys
     CMD_MATRIX_GET = 17,
+    // Save LED settings to ROM
+    CMD_LED_SAVE = 18,
 };
 
 #define CMD_LED_INDEX_ALL 0xFF
@@ -284,7 +286,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                         layer_rgb[layer].hsv.v = value;
                         data[1] = 0;
                         system76_ec_rgb_layer(layer_state);
-                        system76_ec_rgb_eeprom(true); // TODO: instead use command for save/load
                         break;
                     }
                 }
@@ -330,7 +331,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                             // Ignore rgb.b
                             data[1] = 0;
                             system76_ec_rgb_layer(layer_state);
-                            system76_ec_rgb_eeprom(true); // TODO: instead use command for save/load
                             break;
                         }
                     }
@@ -363,8 +363,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     layer_rgb[layer].speed = speed;
                     data[1] = 0;
                     system76_ec_rgb_layer(layer_state);
-                    system76_ec_rgb_eeprom(true); // TODO: instead use command for save/load
                 }
+            }
+            break;
+        case CMD_LED_SAVE:
+            if (!bootloader_unlocked) {
+                system76_ec_rgb_eeprom(true);
+                data[1] = 0;
             }
             break;
 #endif // defined(RGB_MATRIX_CUSTOM_KB)
