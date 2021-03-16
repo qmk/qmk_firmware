@@ -25,6 +25,8 @@
 #define MANUFACTURER ZTBoards
 #define PRODUCT      After
 
+#define VIAL_KEYBOARD_UID {0x39, 0x08, 0x1A, 0xB1, 0xBF, 0x36, 0x60, 0x07}
+
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
