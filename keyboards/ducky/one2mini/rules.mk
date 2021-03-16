@@ -1,12 +1,3 @@
-# SRC += $(QUANTUM_DIR)/color.c
-# SRC += $(QUANTUM_DIR)/rgb_matrix.c
-# SRC += mbi5042gp.c
-# CIE1931_CURVE := yes
-# RGB_KEYCODES_ENABLE := yes
-# OPT_DEFS += -DRGB_MATRIX_ENABLE
-# OPT_DEFS += -DHAL_USE_PWM
-# OPT_DEFS += -DMBI5042
-
 MCU_FAMILY = NUMICRO
 MCU_SERIES = NUC123
 
@@ -27,7 +18,7 @@ ARMV = 6
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no        # Mouse keys
+MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
@@ -39,7 +30,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-DIP_SWITCH_ENABLE = no
+DIP_SWITCH_ENABLE = yes
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
