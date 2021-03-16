@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x3830
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Nix Studio
-#define PRODUCT         oxalys80
+#define PRODUCT         OXALYS80
 
 
 /* key matrix size */
