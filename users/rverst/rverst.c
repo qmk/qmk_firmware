@@ -182,9 +182,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RV_LOCK:
             if (mode == MAC || mode == MAC_UNI) {
                 register_code(KC_LGUI);
-                register_code(KC_CTRL);
+                register_code(KC_LCTL);
                 tap_code(KC_Q);
-                unregister_code(KC_CTRL);
+                unregister_code(KC_LCTL);
                 unregister_code(KC_LGUI);
             } else if (mode == WINDOWS || mode == WINDOWS_UNI) {
                 register_code(KC_LGUI);
