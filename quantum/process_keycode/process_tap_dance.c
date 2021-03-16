@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "quantum.h"
-#include "action_tapping.h"
 
 #ifndef NO_ACTION_ONESHOT
 uint8_t get_oneshot_mods(void);
@@ -167,7 +166,11 @@ void matrix_scan_tap_dance() {
         if (action->custom_tapping_term > 0) {
             tap_user_defined = action->custom_tapping_term;
         } else {
+#ifdef TAPPING_TERM_PER_KEY
             tap_user_defined = get_tapping_term(action->state.keycode, NULL);
+#else
+            tap_user_defined = TAPPING_TERM;
+#endif
         }
         if (action->state.count && timer_elapsed(action->state.timer) > tap_user_defined) {
             process_tap_dance_action_on_dance_finished(action);

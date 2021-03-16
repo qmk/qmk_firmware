@@ -29,9 +29,9 @@
 #define HALCONF_H
 
 #define _CHIBIOS_HAL_CONF_
-#define _CHIBIOS_HAL_CONF_VER_7_0_
+#define _CHIBIOS_HAL_CONF_VER_7_1_
 
-#include "mcuconf.h"
+#include <mcuconf.h>
 
 /**
  * @brief   Enables the PAL subsystem.
@@ -65,21 +65,28 @@
  * @brief   Enables the DAC subsystem.
  */
 #if !defined(HAL_USE_DAC) || defined(__DOXYGEN__)
-#define HAL_USE_DAC                         TRUE
+#define HAL_USE_DAC                         FALSE
+#endif
+
+/**
+ * @brief   Enables the EFlash subsystem.
+ */
+#if !defined(HAL_USE_EFL) || defined(__DOXYGEN__)
+#define HAL_USE_EFL                         FALSE
 #endif
 
 /**
  * @brief   Enables the GPT subsystem.
  */
 #if !defined(HAL_USE_GPT) || defined(__DOXYGEN__)
-#define HAL_USE_GPT                         TRUE
+#define HAL_USE_GPT                         FALSE
 #endif
 
 /**
  * @brief   Enables the I2C subsystem.
  */
 #if !defined(HAL_USE_I2C) || defined(__DOXYGEN__)
-#define HAL_USE_I2C                         TRUE
+#define HAL_USE_I2C                         FALSE
 #endif
 
 /**
@@ -114,7 +121,7 @@
  * @brief   Enables the PWM subsystem.
  */
 #if !defined(HAL_USE_PWM) || defined(__DOXYGEN__)
-#define HAL_USE_PWM                         TRUE
+#define HAL_USE_PWM                         FALSE
 #endif
 
 /**
@@ -142,7 +149,7 @@
  * @brief   Enables the SERIAL over USB subsystem.
  */
 #if !defined(HAL_USE_SERIAL_USB) || defined(__DOXYGEN__)
-#define HAL_USE_SERIAL_USB                  TRUE
+#define HAL_USE_SERIAL_USB                  FALSE
 #endif
 
 /**
@@ -156,7 +163,7 @@
  * @brief   Enables the SPI subsystem.
  */
 #if !defined(HAL_USE_SPI) || defined(__DOXYGEN__)
-#define HAL_USE_SPI                         TRUE
+#define HAL_USE_SPI                         FALSE
 #endif
 
 /**
@@ -203,7 +210,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(PAL_USE_CALLBACKS) || defined(__DOXYGEN__)
-#define PAL_USE_CALLBACKS                   TRUE
+#define PAL_USE_CALLBACKS                   FALSE
 #endif
 
 /**
@@ -211,7 +218,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(PAL_USE_WAIT) || defined(__DOXYGEN__)
-#define PAL_USE_WAIT                        TRUE
+#define PAL_USE_WAIT                        FALSE
 #endif
 
 /*===========================================================================*/
@@ -450,7 +457,6 @@
 #if !defined(SPI_USE_CIRCULAR) || defined(__DOXYGEN__)
 #define SPI_USE_CIRCULAR                    FALSE
 #endif
-
 
 /**
  * @brief   Enables the @p spiAcquireBus() and @p spiReleaseBus() APIs.

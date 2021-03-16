@@ -21,8 +21,7 @@
  * This library also assumes that the pages are not used by the firmware.
  */
 
-#ifndef __EEPROM_H
-#define __EEPROM_H
+#pragma once
 
 #include <ch.h>
 #include <hal.h>
@@ -83,5 +82,3 @@ uint16_t EEPROM_Init(void);
 void     EEPROM_Erase(void);
 uint16_t EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte);
 uint8_t  EEPROM_ReadDataByte(uint16_t Address);
-
-#endif /* __EEPROM_H */

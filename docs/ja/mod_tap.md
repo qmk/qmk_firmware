@@ -48,7 +48,7 @@ MT(MOD_LCTL | MOD_LSFT, KC_ESC)
 | `RCAG_T(kc)` |                             | 押したままの場合は右 Control、右 Alt と右 GUI、タップした場合は `kc`   |
 | `C_S_T(kc)`  |                             | 押したままの場合は左 Control と左 Shift、タップした場合は `kc`         |
 | `MEH_T(kc)`  |                             | 押したままの場合は左 Control、左 Shift と左 Alt、タップした場合は `kc` |
-| `HYPR_T(kc)` | `ALL_T(kc)`  | 押したままの場合は左 Control、左 Shift、左 Alt と左 GUI、タップした場合は `kc` - より詳しくは[ここ](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
+| `HYPR_T(kc)` | `ALL_T(kc)`  | 押したままの場合は左 Control、左 Shift、左 Alt と左 GUI、タップした場合は `kc` - より詳しくは[ここ](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
 
 ## 注意事項
 

@@ -16,8 +16,7 @@
  * Modifications for QMK and STM32F303 by Yiancar
  */
 
-#ifndef __FLASH_STM32_H
-#define __FLASH_STM32_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,5 +40,3 @@ void FLASH_ClearFlag(uint32_t FLASH_FLAG);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* __FLASH_STM32_H */

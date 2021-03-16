@@ -23,6 +23,12 @@ When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 #include "quantum.h"
 #include <stdlib.h>
 
+#ifdef PROTOCOL_CHIBIOS
+#    if CH_CFG_USE_MEMCORE == FALSE
+#        error ChibiOS is configured without a memory allocator. Your keyboard may have set `#define CH_CFG_USE_MEMCORE FALSE`, which is incompatible with this debounce algorithm.
+#    endif
+#endif
+
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
 #endif
@@ -38,12 +44,12 @@ static bool                counters_need_update;
 #define MAX_DEBOUNCE (DEBOUNCE_ELAPSED - 1)
 
 static uint8_t wrapping_timer_read(void) {
-    static uint16_t time = 0;
+    static uint16_t time        = 0;
     static uint8_t  last_result = 0;
-    uint16_t new_time = timer_read();
-    uint16_t diff = new_time - time;
-    time = new_time;
-    last_result = (last_result + diff) % (MAX_DEBOUNCE + 1);
+    uint16_t        new_time    = timer_read();
+    uint16_t        diff        = new_time - time;
+    time                        = new_time;
+    last_result                 = (last_result + diff) % (MAX_DEBOUNCE + 1);
     return last_result;
 }
 

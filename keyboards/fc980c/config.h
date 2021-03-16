@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    QMK
 #define PRODUCT         Leopold FC980C with QMK
-#define DESCRIPTION     Leopold FC980C with Hasu alternative controller using QMK
 
 /* key matrix size */
 #define MATRIX_ROWS 8
