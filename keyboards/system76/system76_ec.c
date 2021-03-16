@@ -167,7 +167,7 @@ static bool system76_ec_eeprom_op(void * buf, uint16_t size, uint16_t offset, bo
         (end <= (SYSTEM76_EC_EEPROM_ADDR + SYSTEM76_EC_EEPROM_SIZE))
     ) {
         if (write) {
-            eeprom_write_block(
+            eeprom_update_block(
                 (const void *)buf,
                 (void *)addr,
                 size
