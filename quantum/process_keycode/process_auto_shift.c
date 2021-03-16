@@ -254,25 +254,24 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
             case KC_ASTG:
                 autoshift_toggle();
-                return true;
+                break;
             case KC_ASON:
                 autoshift_enable();
-                return true;
+                break;
             case KC_ASOFF:
                 autoshift_disable();
-                return true;
+                break;
 
 #    ifndef AUTO_SHIFT_NO_SETUP
             case KC_ASUP:
                 autoshift_timeout += 5;
-                return true;
+                break;
             case KC_ASDN:
                 autoshift_timeout -= 5;
-                return true;
-
+                break;
             case KC_ASRP:
                 autoshift_timer_report();
-                return true;
+                break;
 #    endif
         }
         // If Retro Shift is disabled, possible custom actions shouldn't happen.
@@ -301,6 +300,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             )))
 #    endif
         ) {
+            autoshift_lastkey = KC_NO;
             return true;
         }
     } else {
@@ -326,6 +326,9 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 
 #    if defined(RETRO_TAPPING_PER_KEY) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
     if (IS_RETRO(keycode) && !get_retro_tapping(keycode, record)) {
+        if (record->event.pressed) {
+            autoshift_lastkey = KC_NO;
+        }
         return true;
     }
 #    endif
@@ -354,8 +357,12 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
     }
+
     // Prevent keyrepeating of older keys upon non-AS key event.
-    autoshift_lastkey = KC_NO;
+    // Not commented at above returns but they serve the same function.
+    if (record->event.pressed) {
+        autoshift_lastkey = KC_NO;
+    }
     return true;
 }
 
