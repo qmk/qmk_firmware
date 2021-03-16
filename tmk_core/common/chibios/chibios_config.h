@@ -32,3 +32,7 @@
 #    define USE_GPIOV1
 #    define STM32_SYSCLK KINETIS_SYSCLK_FREQUENCY
 #endif
+
+#if defined(MK66F18)
+#    define STM32_SYSCLK KINETIS_SYSCLK_FREQUENCY
+#endif

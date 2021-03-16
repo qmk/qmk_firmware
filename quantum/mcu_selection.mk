@@ -81,6 +81,33 @@ ifneq ($(findstring MK20DX256, $(MCU)),)
   BOARD ?= PJRC_TEENSY_3_1
 endif
 
+ifneq ($(findstring MK66F18, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = KINETIS
+  MCU_SERIES = MK66F18
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= MK66FX1M0
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= MK66F18
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= PJRC_TEENSY_3_6
+endif
+
 ifneq ($(findstring STM32F042, $(MCU)),)
   # Cortex version
   MCU = cortex-m0
