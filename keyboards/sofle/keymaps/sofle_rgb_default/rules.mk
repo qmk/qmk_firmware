@@ -1,0 +1,11 @@
+RGBLIGHT_ENABLE 	= yes
+
+EXTRAFLAGS += -flto
+
+
+OLED_DRIVER_ENABLE = yes  
+ENCODER_ENABLE = yes
+CONSOLE_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+
+MOUSEKEY_ENABLE 	= yes  	# Mouse keys(+4700) 
