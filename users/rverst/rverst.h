@@ -24,6 +24,7 @@ enum userspace_keycodes {
     RV_SM3S,  // set Mac legacy mode
     RV_SM4S,  // set Windows legacy and save
     RV_SAYM,  // say mode
+    RV_LOCK,  // lock computer
     RV_AUML,  // äÄ
     RV_OUML,  // öÖ
     RV_UUML,  // üÜ
