@@ -1,5 +1,20 @@
-#ifndef RVERST_H
-#define RVERST_H
+/* Copyright 2021 Robert Verst <robert@verst.eu> @rverst
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#pragma once
 
 #include QMK_KEYBOARD_H
 
@@ -53,14 +68,13 @@ typedef union {
 
 extern userspace_config_t userspace_config;
 
-int  get_mode(void);
-void set_mode(int mode, bool save);
-void switch_mode(int mode);
-bool is_unicode(int mode);
+uint8_t  get_mode(void);
+void     set_mode(uint8_t mode, bool save);
+void     switch_mode(uint8_t mode);
+bool     is_unicode(uint8_t mode);
 
 void keyboard_pre_init_keymap(void);
 void keyboard_post_init_keymap(void);
 void eeconfig_init_keymap(void);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
-#endif  // RVERST
