@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MCKeebs
 #define PRODUCT         MCKeebs PKB65
-#define DESCRIPTION     MCKeebs PKB65
 
 /* key matrix size */
 #define MATRIX_ROWS 5
