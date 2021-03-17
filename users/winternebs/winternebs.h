@@ -117,12 +117,12 @@ typedef enum {
  *  |-----------------------|
  *  |  H  |  J  |  K  |  L  | 
  *  |-----------------------|
- *  |  N  |  M  |  <  |  P  | 
+ *  |  N  |  M  |  <  | ALT | 
  * 	 `----------------------'
  */
 #define ______________GAME_R1_____________      KC_Y, KC_U, KC_I, KC_O 	  
 #define ______________GAME_R2_____________      KC_H, KC_J, KC_K, KC_L
-#define ______________GAME_R3_____________      KC_N, KC_M, KC_COMM, KC_P
+#define ______________GAME_R3_____________      KC_N, KC_M, KC_COMM, KC_LALT
 
 
 /* Mouse cluster 
