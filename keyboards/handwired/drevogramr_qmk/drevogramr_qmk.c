@@ -166,7 +166,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) { return false; }
     if(!record->event.pressed) {
-    if(!record->event.pressed) {
         // changing WinLock LED state on key up.
         writePin(LED_GUI_LOCK_PIN, keymap_config.no_gui ? LED_PIN_ON_STATE : LED_PIN_OFF_STATE);
     }

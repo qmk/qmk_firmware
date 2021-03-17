@@ -48,9 +48,6 @@
 #define DIODE_DIRECTION ROW2COL
 
 
-#define LAYER_STATE_8BIT
-
-
 /*
     pins for 74hc595 shift registers
     https://www.ti.com/lit/ds/symlink/sn74hc595.pdf
