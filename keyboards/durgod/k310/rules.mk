@@ -4,9 +4,6 @@ MCU = STM32F072
 
 BOARD = DURGOD_STM32_F070
 
-# Do not put the microcontroller into power saving mode
-OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
-
 # Build Options
 #   change yes to no to disable
 #
