@@ -4,9 +4,9 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [%Eye Oh Designs%](https://github.com/joedinkle)
-* Hardware Supported: *babyV ver 1.00*
-* Hardware Availability: *Groupbuy ran from Nov - Dec 2020*
+* Keyboard Maintainer: [Eye Oh Designs](https://github.com/joedinkle)
+* Hardware Supported: babyV ver 1.00
+* Hardware Availability: Groupbuy ran from Nov - Dec 2020
 
 Make example for this keyboard (after setting up your build environment):
 
