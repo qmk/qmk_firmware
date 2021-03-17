@@ -28,18 +28,17 @@ enum keycodes_user {
     _KITTEF
 };
 
-// TODO: make sure state in selected_mode is handled correctly!
-int selected_mode_user = 3; // for layer_state_set_user()
+int selected_mode_user = RGB_MATRIX_CUSTOM_base_effect; // for layer_state_set_user()
 bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     switch (keycode) {
         case _BASEEF:
             if (record->event.pressed) {
-                selected_mode_user = 3;
+                selected_mode_user = RGB_MATRIX_CUSTOM_base_effect;
             }
             return false;
         case _KITTEF:
             if (record->event.pressed) {
-                selected_mode_user = 8;
+                selected_mode_user = RGB_MATRIX_CUSTOM_kitt_effect;
             }
             return false;
         default:
@@ -100,20 +99,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgb_matrix_mode(selected_mode_user);
             break;
         case _AD:
-            if (selected_mode_user == 3) {
-                rgb_matrix_mode(4);
+            if (selected_mode_user == RGB_MATRIX_CUSTOM_base_effect) {
+                rgb_matrix_mode(RGB_MATRIX_CUSTOM_base_ad_effect);
             } else {
                 rgb_matrix_mode(selected_mode_user);
             }
             break;
         case _VI:
-            rgb_matrix_mode(5);
+            rgb_matrix_mode(RGB_MATRIX_CUSTOM_vi_effect);
             break;
         case _FN:
-            rgb_matrix_mode(6);
+            rgb_matrix_mode(RGB_MATRIX_CUSTOM_fn_indicator);
             break;
         case _KB:
-            rgb_matrix_mode(7);
+            rgb_matrix_mode(RGB_MATRIX_CUSTOM_kb_indicator);
             break;
     }
 
