@@ -1,6 +1,6 @@
 # Genesis
 
-Genesis V2 is the same as Genesis V1 firmware, except V2 allows encoder function remapping using VIA.
+Genesis Rev2 is the same as Genesis Rev1 firmware, except Rev2 allows encoder function remapping using VIA.
 
 * Keyboard Maintainer: [customMK](https://github.com/customMK)
 * Hardware Supported: Genesis Macro Pad
@@ -8,11 +8,11 @@ Genesis V2 is the same as Genesis V1 firmware, except V2 allows encoder function
 
 Make example for this keyboard (after setting up your build environment):
 
-    make custommk/genesis/v2:via
+    make custommk/genesis/rev2:via
 
 Flashing example for this keyboard:
 
-    make custommk/genesis/v2:via:flash
+    make custommk/genesis/rev2:via:flash
 
 Genesis Macro Pad has qmk-dfu bootloader preinstalled. To enter the bootloader, run the flashing command above, and then either plug in the USB connection while holding the top-left key, or alternatively, plug in the USB connection and then press the reset button on the PCB
 

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "v2.h"
+#include "rev2.h"
 
 keyevent_t encoder_left_ccw = {
     .key = (keypos_t){.row = 5, .col = 0},
@@ -90,25 +90,3 @@ void encoder_update_kb(int8_t index, bool clockwise) {
 	
 	encoder_update_user(index, clockwise);
 }
-
-
-/*
-__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
-	// top left encoder 
-	if (index == 0) {
-		if (clockwise) {
-			tap_code(KC_VOLU);
-		} else {
-			tap_code(KC_VOLD);
-		}
-	}
-	//top right encoder
-	else if (index == 1) {
-		if (clockwise) {
-			tap_code(KC_VOLU);
-		} else {
-			tap_code(KC_VOLD);
-		}
-	}    
-}
-*/

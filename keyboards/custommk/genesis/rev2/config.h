@@ -17,14 +17,12 @@
 #pragma once
 
 
-/*#include "config_common.h"*/
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xF35B
 #define PRODUCT_ID      0xFAB1
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    customMK
-#define PRODUCT         Genesis V2
+#define PRODUCT         GenesisRev2
 
 /* key matrix size */
 #define MATRIX_ROWS 6

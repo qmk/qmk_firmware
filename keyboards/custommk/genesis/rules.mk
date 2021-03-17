@@ -22,4 +22,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 
-DEFAULT_FOLDER = custommk/genesis/rev1
+DEFAULT_FOLDER = custommk/genesis/rev2

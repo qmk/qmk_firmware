@@ -19,7 +19,7 @@
 #define PRODUCT_ID      0xFAB0
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    customMK
-#define PRODUCT         Genesis
+#define PRODUCT         GenesisRev1
 
 /* key matrix size */
 #define MATRIX_ROWS 5
