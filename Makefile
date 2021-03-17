@@ -30,7 +30,7 @@ endif
 endif
 
 # Determine which qmk cli to use
-ifeq (, $(shell which qmk))
+ifeq ($(shell which qmk),)
     QMK_BIN = bin/qmk
 else
     QMK_BIN = qmk
