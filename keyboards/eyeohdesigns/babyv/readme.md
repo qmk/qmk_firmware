@@ -1,6 +1,6 @@
 # %babyV%
 
-![%babyV%](https://i.imgur.com/iRUm9I5.jpg)
+![babyV](https://i.imgur.com/iRUm9I5l.jpg)
 
 *A short description of the keyboard/project*
 
