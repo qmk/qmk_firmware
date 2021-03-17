@@ -1,4 +1,4 @@
-eye oh designs
+# eye oh designs
 
 When I'm not spending time with family, or busy with work, I make keyboards that I hope you'll love.
 
