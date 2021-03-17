@@ -1,4 +1,4 @@
-/* Copyright 2021 peepeetee
+/* Copyright 2019 ash0x0 2021 peepeetee
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
