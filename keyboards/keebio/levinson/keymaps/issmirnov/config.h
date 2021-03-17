@@ -12,7 +12,7 @@
 #ifdef RGBLIGHT_ENABLE
 
     // Disable all animations
-    // #undef RGBLIGHT_ANIMATIONS
+    #undef RGBLIGHT_ANIMATIONS
 
     // Enable the ones I use
     // https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_rgblight#effect-and-animation-toggles
