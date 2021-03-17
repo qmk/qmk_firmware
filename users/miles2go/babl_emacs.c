@@ -69,6 +69,7 @@ bool babblePaste_emacs(uint16_t keycode) {
 
 #        ifdef BABL_APP
     BABLM(BABL_APP_SAVE, SS_LCTL("x") SS_LCTL("s"));
+    BABLM(BABL_APP_SET_MARK, IMCTL(X_SPACE));
     /// BABLM( BABL_APP_MULTI_SELECT, 	SS_LCTRL("x") "rt" ); // arguably
     BABLM(BABL_SPLIT_FRAME_VERT, SS_LCTRL("x") "3");
     BABLM(BABL_UNSPLIT_FRAME_VERT, SS_LCTRL("u") SS_LCTRL("x") "0");

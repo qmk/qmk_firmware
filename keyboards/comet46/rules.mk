@@ -28,8 +28,8 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
-USB = /dev/ttyACM0
 # project specific files
 SRC += matrix.c \
        i2c.c \
-       ssd1306.c
+       ssd1306.c \
+       serial_uart.c

@@ -11,13 +11,13 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 **Usage for Configurator Exports**:
 
 ```
-qmk compile <configuratorExport.json>
+qmk compile [-c] <configuratorExport.json>
 ```
 
 **Usage for Keymaps**:
 
 ```
-qmk compile -kb <keyboard_name> -km <keymap_name>
+qmk compile [-c] [-e <var>=<value>] -kb <keyboard_name> -km <keymap_name>
 ```
 
 **Usage in Keyboard Directory**:  
@@ -82,13 +82,13 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 **Usage for Configurator Exports**:
 
 ```
-qmk flash <configuratorExport.json> -bl <bootloader>
+qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] <configuratorExport.json>
 ```
 
 **Usage for Keymaps**:
 
 ```
-qmk flash -kb <keyboard_name> -km <keymap_name> -bl <bootloader>
+qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>]
 ```
 
 **Listing the Bootloaders**

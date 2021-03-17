@@ -1,8 +1,6 @@
 {
     "keyboard_name": "Bigswitch PCB",
-    "url": "",
     "maintainer": "qmk",
-    "bootloader": "",
     "width": 4,
     "height": 4,
     "layouts": {

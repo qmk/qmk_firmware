@@ -71,6 +71,9 @@ else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk)","
     BOARD_PATH = $(TOP_DIR)/platforms/chibios/$(BOARD)
     BOARD_MK += $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk
     KEYBOARD_PATHS += $(BOARD_PATH)/configs
+    ifneq ("$(wildcard $(BOARD_PATH)/rules.mk)","")
+        include $(BOARD_PATH)/rules.mk
+    endif
 endif
 
 ifeq ("$(wildcard $(BOARD_MK))","")
@@ -204,7 +207,8 @@ CHIBISRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
-       $(CHIBIOS)/os/various/syscalls.c
+       $(CHIBIOS)/os/various/syscalls.c \
+       $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
@@ -308,6 +312,7 @@ LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
+LDFLAGS += --specs=nano.specs
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
