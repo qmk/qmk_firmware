@@ -51,6 +51,28 @@ X Pin_9 9 200 -300 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
+# Device_D
+#
+DEF Device_D D 0 40 N N 1 F N
+F0 "D" 0 100 50 H V C CNN
+F1 "Device_D" 0 -100 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ TO-???*
+ *_Diode_*
+ *SingleDiode*
+ D_*
+$ENDFPLIST
+DRAW
+P 2 0 1 8 -50 50 -50 -50 N
+P 2 0 1 0 50 0 -50 0 N
+P 4 0 1 8 50 50 50 -50 -50 0 50 50 N
+X K 1 -150 0 100 R 50 50 1 1 P
+X A 2 150 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Device_Rotary_Encoder_Switch
 #
 DEF Device_Rotary_Encoder_Switch SW 0 10 Y N 1 F N
@@ -89,11 +111,11 @@ X S2 S2 300 -100 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# keybage_WS2812B
+# blvdtop-rescue_WS2812B-keybage
 #
-DEF keybage_WS2812B LED 0 40 Y Y 1 F N
+DEF blvdtop-rescue_WS2812B-keybage LED 0 40 Y Y 1 F N
 F0 "LED" 0 -400 60 H V C CNN
-F1 "keybage_WS2812B" 0 400 60 H V C CNN
+F1 "blvdtop-rescue_WS2812B-keybage" 0 400 60 H V C CNN
 F2 "" -50 0 60 V V C CNN
 F3 "" -50 0 60 V V C CNN
 DRAW
@@ -130,7 +152,7 @@ ENDDEF
 #
 # keyboard_parts_KEYSW
 #
-DEF ~keyboard_parts_KEYSW K? 0 40 Y Y 1 F N
+DEF keyboard_parts_KEYSW K? 0 40 Y Y 1 F N
 F0 "K?" -50 0 60 H V C CNN
 F1 "keyboard_parts_KEYSW" 0 -100 60 H I C CNN
 F2 "" 0 0 60 H V C CNN
@@ -155,21 +177,6 @@ DRAW
 C 0 75 25 0 1 0 N
 P 2 0 1 0 0 0 0 50 N
 X VCC 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# pspice_DIODE
-#
-DEF pspice_DIODE D 0 40 Y N 1 F N
-F0 "D" 0 150 50 H V C CNN
-F1 "pspice_DIODE" 0 -175 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 75 100 75 -100 N
-P 3 0 1 0 -75 100 -75 -100 75 0 F
-X K 1 -200 0 150 R 50 50 1 1 I
-X A 2 200 0 150 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
