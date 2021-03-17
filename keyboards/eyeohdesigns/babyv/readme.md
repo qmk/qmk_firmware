@@ -2,7 +2,7 @@
 
 ![babyV](https://i.imgur.com/iRUm9I5l.jpg)
 
-*babyV is a 40% ortholinear take on the EM7/Alice layout.*
+babyV is a 40% ortholinear take on the EM7/Alice layout.
 
 * Keyboard Maintainer: [Eye Oh Designs](https://github.com/joedinkle)
 * Hardware Supported: babyV ver 1.00
