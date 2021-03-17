@@ -1,10 +1,10 @@
 # bolek
 
-*Low-profile 36% 3d-printed keyboard designed to go with pro micro and kailh chocs*
+Low-profile 36% 3d-printed keyboard designed to go with pro micro and kailh chocs
 
 * Keyboard Maintainer: [klausweiss](https://github.com/klausweiss)
 * Repository: https://github.com/klausweiss/bolek
-* Hardware Supported: *Pro Micro*
+* Hardware Supported: Pro Micro
 
 Make example for this keyboard (after setting up your build environment):
 
