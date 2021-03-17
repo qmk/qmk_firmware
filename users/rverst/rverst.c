@@ -190,6 +190,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+        // Lock computer
+        case RV_LOCK:
+            if (mode == MAC || mode == MAC_UNI) {
+                register_code(KC_LGUI);
+                register_code(KC_LCTL);
+                tap_code(KC_Q);
+                unregister_code(KC_LCTL);
+                unregister_code(KC_LGUI);
+            } else if (mode == WINDOWS || mode == WINDOWS_UNI) {
+                register_code(KC_LGUI);
+                tap_code(KC_L);
+                register_code(KC_LGUI);
+            }
+            return false;
+
         // Screenshot
         case RV_SNAP:
             if (mode == MAC || mode == MAC_UNI) {
