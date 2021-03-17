@@ -14,76 +14,89 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <errno.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
-__attribute__((weak, used)) int _read_r(struct _reent *r, int file, char *ptr, int len) {
-    (void)r;
-    (void)file;
-    (void)ptr;
-    (void)len;
+__attribute__((weak, used)) int _open_r(struct _reent *r, const char *path, int flag, int m) {
+    __errno_r(r) = ENOENT;
     return -1;
 }
 
 __attribute__((weak, used)) int _lseek_r(struct _reent *r, int file, int ptr, int dir) {
-    (void)r;
-    (void)file;
-    (void)ptr;
-    (void)dir;
-    return 0;
+    __errno_r(r) = EBADF;
+    return -1;
+}
+
+__attribute__((weak, used)) int _read_r(struct _reent *r, int file, char *ptr, int len) {
+    __errno_r(r) = EBADF;
+    return -1;
 }
 
 __attribute__((weak, used)) int _write_r(struct _reent *r, int file, char *ptr, int len) {
-    (void)r;
-    (void)file;
-    (void)ptr;
-    return len;
+    __errno_r(r) = EBADF;
+    return -1;
 }
 
 __attribute__((weak, used)) int _close_r(struct _reent *r, int file) {
-    (void)r;
-    (void)file;
+    __errno_r(r) = EBADF;
+    return -1;
+}
+
+__attribute__((weak, used)) int _link_r(struct _reent *r, const char *oldpath, const char *newpath) {
+    __errno_r(r) = EPERM;
+    return -1;
+}
+
+__attribute__((weak, used)) int _unlink_r(struct _reent *r, const char *path) {
+    __errno_r(r) = EPERM;
+    return -1;
+}
+
+__attribute__((weak, used)) clock_t _times_r(struct _reent *r, void *t) {
+    __errno_r(r) = EFAULT;
+    return -1;
+}
+
+__attribute__((weak, used)) int _fstat_r(struct _reent *r, int file, struct stat *st) {
+    __errno_r(r) = EBADF;
+    return -1;
+}
+
+__attribute__((weak, used)) int _isatty_r(struct _reent *r, int fd) {
+    __errno_r(r) = EBADF;
     return 0;
 }
 
 __attribute__((weak, used)) caddr_t _sbrk_r(struct _reent *r, int incr) {
-    (void)r;
-    (void)incr;
+    __errno_r(r) = ENOMEM;
     return (caddr_t)-1;
 }
 
-__attribute__((weak, used)) int _fstat_r(struct _reent *r, int file, struct stat *st) {
-    (void)r;
-    (void)file;
-    (void)st;
-    return 0;
+__attribute__((weak, used)) int _kill(int pid, int sig) {
+    errno = EPERM;
+    return -1;
 }
-
-__attribute__((weak, used)) int _isatty_r(struct _reent *r, int fd) {
-    (void)r;
-    (void)fd;
-    return 1;
-}
-
-__attribute__((weak, used)) void _fini(void) { return; }
 
 __attribute__((weak, used)) pid_t _getpid(void) { return 1; }
 
-__attribute__((weak, noreturn)) void _exit(int i) {
-    (void)i;
+__attribute__((weak, used)) void _fini(void) { return; }
+
+__attribute__((weak, used, noreturn)) void _exit(int i) {
     while (1)
         ;
 }
 
-__attribute__((weak)) void _kill(void) {}
+__attribute__((weak, used)) int _gettimeofday_r(struct _reent *r, struct timeval *t, void *tzp) {
+    __errno_r(r) = EPERM;
+    return -1;
+}
 
-__attribute__((weak)) void *__dso_handle;
+__attribute__((weak, used)) void *__dso_handle;
 
-void __cxa_pure_virtual(void);
-
-__attribute__((weak)) void __cxa_pure_virtual() {
+__attribute__((weak, used)) void __cxa_pure_virtual(void) {
     while (1)
         ;
 }

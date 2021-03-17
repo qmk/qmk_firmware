@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Barry
 #define PRODUCT         CA66
-#define DESCRIPTION     CA66
 
 /* key matrix size */
 #define MATRIX_ROWS 5

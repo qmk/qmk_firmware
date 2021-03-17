@@ -77,7 +77,7 @@ def get_git_version(repo_dir='.', check_dir='.'):
             return git_describe.stdout.strip()
 
         else:
-            cli.args.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
+            cli.log.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
             print(git_describe.stderr)
             return strftime(time_fmt)
 
@@ -89,7 +89,7 @@ def write_version_h(git_version, build_date, chibios_version, chibios_contrib_ve
     """
     version_h = [
         f'#define QMK_VERSION "{git_version}"',
-        f'#define QMK_BUILD_DATE "{build_date}"',
+        f'#define QMK_BUILDDATE "{build_date}"',
         f'#define CHIBIOS_VERSION "{chibios_version}"',
         f'#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"',
     ]
@@ -98,7 +98,7 @@ def write_version_h(git_version, build_date, chibios_version, chibios_contrib_ve
     version_h_file.write_text('\n'.join(version_h))
 
 
-def compile_configurator_json(user_keymap, parallel=1, **env_vars):
+def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
     """Convert a configurator export JSON file into a C file and then compile it.
 
     Args:
@@ -152,6 +152,9 @@ def compile_configurator_json(user_keymap, parallel=1, **env_vars):
         '-f',
         'build_keyboard.mk',
     ])
+
+    if bootloader:
+        make_command.append(bootloader)
 
     for key, value in env_vars.items():
         make_command.append(f'{key}={value}')

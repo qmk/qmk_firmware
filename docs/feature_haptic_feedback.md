@@ -39,7 +39,7 @@ Not all keycodes below will work depending on which haptic mechanism you have ch
 
 First you will need a build a circuit to drive the solenoid through a mosfet as most MCU will not be able to provide the current needed to drive the coil in the solenoid.
 
-[Wiring diagram provided by Adafruit](https://playground.arduino.cc/uploads/Learning/solenoid_driver.pdf)
+[Wiring diagram provided by Adafruit](https://cdn-shop.adafruit.com/product-files/412/solenoid_driver.pdf)
 
 
 | Settings                   | Default              | Description                                           |

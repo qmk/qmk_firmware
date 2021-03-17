@@ -77,6 +77,8 @@
 #        define PRODUCT Drashna Hacked Planck EZ
 #    endif
 #endif
+#undef NO_USB_STARTUP_CHECK
+
 
 #define EEPROM_I2C_RM24C512C
 
@@ -84,9 +86,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
