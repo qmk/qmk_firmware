@@ -109,15 +109,25 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 #    if defined(MATRIX_ROW_PINS) && defined(MATRIX_COL_PINS)
 #        if (DIODE_DIRECTION == COL2ROW)
 
-static void select_row(uint8_t row) { setPinOutput_writeLow(row_pins[row]); }
+static bool select_row(uint8_t row) {
+    pin_t pin = row_pins[row];
+    if (pin != NO_PIN) {
+        setPinOutput_writeLow(pin);
+        return true;
+    }
+    return false;
+}
 
-static void unselect_row(uint8_t row) { setPinInputHigh_atomic(row_pins[row]); }
+static void unselect_row(uint8_t row) {
+    pin_t pin = row_pins[row];
+    if (pin != NO_PIN) {
+        setPinInputHigh_atomic(pin);
+    }
+}
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-        if (row_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(row_pins[x]);
-        }
+        unselect_row(row_pins[x]);
     }
 }
 
@@ -134,8 +144,9 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
-    // Select row
-    select_row(current_row);
+    if (!select_row(current_row)) { // Select row
+        return false;  // skip NO_PIN row
+    }
     matrix_output_select_delay();
 
     // For each col...
