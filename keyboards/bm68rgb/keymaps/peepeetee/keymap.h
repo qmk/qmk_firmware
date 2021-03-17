@@ -51,7 +51,7 @@
 extern bool g_suspend_state;
 bool disable_layer_color;
 
-uint8_t dfa_state = 0;  //state for my language switching DFA
+uint8_t dfa_state;  //state for my language switching DFA
 
 
 bool rgb_enabled_flag;                  // Current LED state flag. If false then LED is off.
