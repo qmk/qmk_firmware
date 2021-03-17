@@ -110,6 +110,10 @@ extern uint32_t __ram0_end__;
 
 void bootloader_jump(void) {
     *MAGIC_ADDR = BOOTLOADER_MAGIC;  // set magic flag => reset handler will jump into boot loader
+    // Wait for memory to be set before the reset
+    for(volatile uint32_t i = 0; i < 32; i++){
+        __NOP();
+    }
     NVIC_SystemReset();
 }
 
@@ -121,8 +125,6 @@ void enter_bootloader_mode_if_requested(void) {
     unsigned long *check = MAGIC_ADDR;
     if (*check == BOOTLOADER_MAGIC) {
         *check = 0;
-        __set_CONTROL(0);
-        __enable_irq();
 
         void(*recovery)(void) = (void*)SN32_BOOTLOADER_ADDRESS;
         recovery();
