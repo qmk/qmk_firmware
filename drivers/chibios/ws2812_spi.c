@@ -36,21 +36,31 @@
 // baudrate should target 3.2MHz
 // F072 fpclk = 48MHz 
 // 48/16 = 3Mhz
-#ifndef WS2812_SPI_DIVISOR
-#    if defined(STM32L4XX)
-#        define WS2812_SPI_DIVISOR (SPI_CR1_BR_2)    // fpclk/32
-#    else
-#        define WS2812_SPI_DIVISOR (SPI_CR1_BR_1 | SPI_CR1_BR_0)    // fpclk/16
-#    endif
+#if WS2812_SPI_DIVISOR == 2
+#    define WS2812_SPI_DIVISOR (0)
+#elif WS2812_SPI_DIVISOR == 4
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_0)
+#elif WS2812_SPI_DIVISOR == 8
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_1)
+#elif WS2812_SPI_DIVISOR == 16                                  //same as default
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_1 | SPI_CR1_BR_0)
+#elif WS2812_SPI_DIVISOR == 32
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2)
+#elif WS2812_SPI_DIVISOR == 64
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2 | SPI_CR1_BR_0)
+#elif WS2812_SPI_DIVISOR == 128
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2 | SPI_CR1_BR_1)
+#elif WS2812_SPI_DIVISOR == 256
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
+#else
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_1 | SPI_CR1_BR_0)    //default
 #endif
 
-// Define SPI circular buffer
-#ifndef WS2812_SPI_CIRCULAR_BUFFER
-#    if defined(STM32L4XX)
-#        define WS2812_SPI_CIRCULAR_BUFFER 1
-#    else
-#        define WS2812_SPI_CIRCULAR_BUFFER 0
-#    endif
+// Use SPI circular buffer
+#ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
+#    define WS2812_SPI_BUFFER_MODE 1    //circular buffer
+#else
+#    define WS2812_SPI_BUFFER_MODE 0    //normal buffer
 #endif
 
 #define BYTES_FOR_LED_BYTE 4
@@ -103,14 +113,14 @@ void ws2812_init(void) {
 
     // TODO: more dynamic baudrate
     static const SPIConfig spicfg = {
-        WS2812_SPI_CIRCULAR_BUFFER, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN),
+        WS2812_SPI_BUFFER_MODE, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN),
         WS2812_SPI_DIVISOR
     };
 
     spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
     spiSelect(&WS2812_SPI);         /* Slave Select assertion.          */
-#if WS2812_SPI_CIRCULAR_BUFFER == 1
+#ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
     spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
 #endif
 }
@@ -131,7 +141,7 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
 #ifdef WS2812_SPI_SYNC
     spiSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
 #else
-#    if WS2812_SPI_CIRCULAR_BUFFER == 0 
+#    ifndef WS2812_SPI_USE_CIRCULAR_BUFFER 
     spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
 #    endif
 #endif
