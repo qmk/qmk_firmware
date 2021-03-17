@@ -112,7 +112,7 @@ static void unselect_row(uint8_t row) {
 }
 
 static void unselect_rows(void) {
-    for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         unselect_row(row_pins[x]);
     }
 }
