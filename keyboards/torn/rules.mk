@@ -18,10 +18,14 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes        # Enable rotary encoder
 OLED_DRIVER_ENABLE = yes
+WPM_ENABLE = yes
 CUSTOM_MATRIX = lite
 
+LAYOUTS = split_3x6_4
+
 SRC += matrix.c \
+    bongocat.c \
     mcp23018.c \
-    torn_encoder.c \
-    torn_oled.c
+    torn_encoder.c
+
 QUANTUM_LIB_SRC += i2c_master.c

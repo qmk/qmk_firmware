@@ -2,6 +2,7 @@
 """
 import logging
 import os
+import argparse
 from pathlib import Path
 
 from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE
@@ -65,3 +66,12 @@ def normpath(path):
         return path
 
     return Path(os.environ['ORIG_CWD']) / path
+
+
+class FileType(argparse.FileType):
+    def __call__(self, string):
+        """normalize and check exists
+            otherwise magic strings like '-' for stdin resolve to bad paths
+        """
+        norm = normpath(string)
+        return super().__call__(norm if norm.exists() else string)

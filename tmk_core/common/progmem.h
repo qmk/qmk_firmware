@@ -4,6 +4,7 @@
 #    include <avr/pgmspace.h>
 #else
 #    define PROGMEM
+#    define PSTR(x) x
 #    define PGM_P const char*
 #    define memcpy_P(dest, src, n) memcpy(dest, src, n)
 #    define pgm_read_byte(address_short) *((uint8_t*)(address_short))

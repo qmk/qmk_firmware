@@ -37,6 +37,8 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #pragma once
 
+#define SERIAL_UART_DATA UDR1
+
 /* host role */
 void    serial_init(void);
 uint8_t serial_recv(void);

@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 
 
 # Build Options
@@ -17,6 +18,7 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+
+LAYOUTS = alice alice_split_bs
 
 DEFAULT_FOLDER = mechlovin/adelais/standard_led/rev2
