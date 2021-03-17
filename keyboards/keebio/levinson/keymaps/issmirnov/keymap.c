@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 KC_ESC  , _________________QWERTY_L1_________________, _________________QWERTY_R1_________________ , APPS      ,
 KC_TAB  , _________________QWERTY_L2_________________, _________________QWERTY_R2_________________ , MO(_NAVI) ,
 OSMSFT  , _________________QWERTY_L3_________________, _________________QWERTY_R3_________________ , KC_QUOTE  ,
-KC_LCTL , MODSFT , KC_LALT , KC_LGUI , KC_BSPACE , KC_SPC , KC_ENTER , KC_TAB , LCTL(KC_S) , LCTL(LSFT(KC_R)) , KC_PSCR , LGUI(KC_L) 
+KC_LCTL , MODSFT , KC_LALT , KC_LGUI , KC_BSPACE , KC_SPC , KC_ENTER , KC_TAB , LCTL(KC_S) , LCTL(LSFT(KC_R)) , KC_PSCR , LGUI(KC_L)
 ), // Note: visualizer expects this closing parens to be right at the start of the line.
 
 // Run `./qmk show levinson` from parent dir to see this layer.
@@ -38,10 +38,10 @@ _______ , ___________________BLANK___________________ , _______ , _______ , ____
 
 // Run `./qmk show levinson` from parent dir to see this layer.
 [_OVERWATCH] = LAYOUT_ortho_4x12_wrapper(
-______________OVERWATCH_L1_________________ , TO(0)           , XXXXXXX          , XXXXXXX          , XXXXXXX        , XXXXXXX        , EEP_RST ,
-______________OVERWATCH_L2_________________ , RGB_MODE_FORWARD, RGB_MODE_REVERSE , XXXXXXX          , XXXXXXX        , XXXXXXX        , RGB_TOG ,
-______________OVERWATCH_L3_________________ , RGB_MODE_PLAIN  , RGB_MODE_BREATHE , RGB_MODE_RAINBOW , RGB_MODE_SWIRL , RGB_MODE_SNAKE , XXXXXXX ,
-______________OVERWATCH_L4_________________ , KC_SPACE         , XXXXXXX          , XXXXXXX          , XXXXXXX        , XXXXXXX        , XXXXXXX, RGB_MODE_GRADIENT
+______________OVERWATCH_L1_________________ , TO(0)    , XXXXXXX          , XXXXXXX          , XXXXXXX        , XXXXXXX        , EEP_RST ,
+______________OVERWATCH_L2_________________ , XXXXXXX  , XXXXXXX          , XXXXXXX          , XXXXXXX        , XXXXXXX        , XXXXXXX ,
+______________OVERWATCH_L3_________________ , XXXXXXX  , RGB_MODE_BREATHE , RGB_MODE_RAINBOW , RGB_MODE_SWIRL , RGB_MODE_SNAKE , XXXXXXX ,
+______________OVERWATCH_L4_________________ , KC_SPACE , XXXXXXX          , XXXXXXX          , XXXXXXX        , XXXXXXX        , XXXXXXX , RGB_MODE_GRADIENT
 ), // Note: visualizer expects this closing parens to be right at the start of the line.
 
 // Run `./qmk show levinson` from parent dir to see this layer.

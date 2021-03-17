@@ -10,15 +10,17 @@
 //#define USE_I2C
 
 #ifdef RGBLIGHT_ENABLE
-   // Enable animations. +5500 bytes
-   #define RGBLIGHT_ANIMATIONS
 
-   // remove unused animations
-   #undef RGBLIGHT_MODE_RGB_TEST
-   #undef RGBLIGHT_MODE_ALTERNATING
-   #undef RGBLIGHT_MODE_KNIGHT
-   #undef RGBLIGHT_MODE_RAINBOW_MOOD
+    // Disable all animations
+    // #undef RGBLIGHT_ANIMATIONS
 
+    // Enable the ones I use
+    // https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_rgblight#effect-and-animation-toggles
+    #define RGBLIGHT_EFFECT_BREATHING
+    #define RGBLIGHT_EFFECT_RAINBOW
+    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+    #define RGBLIGHT_EFFECT_SNAKE
+    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 
    // Enable legacy RGB mode
    // TODO: Follow https://docs.keeb.io/docs/adding-rgb-underglow/ to rewire
