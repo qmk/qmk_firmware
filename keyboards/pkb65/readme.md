@@ -2,10 +2,12 @@
 
 ![PKB65 Layout Image](https://i.imgur.com/0bqpIb8.png)
 
-A regular 65% layout keyboard. This will be the default layout flashed for all pkb65 boards. 
+A regular 65% layout keyboard. This will be the default layout flashed for all pkb65 boards.
 Made and sold by MCKeebs. [More info on MCKeebDeisgn](https://www.mckeebdesign.com)
 
-Keyboard maintainer: [MCKeebs](https://github.com/chrisquocmai)
+* Keyboard Maintainer: [MCKeebs](https://github.com/chrisquocmai)
+* Hardware Supported: [PKB65 PCB](https://https://mckeebdesign.com/PKB65/)
+* Hardware Availability: [PKB65](https://mckeebdesign.com/PKB65/)
 
 Make example for this keyboard (after setting up your build environment:
     
