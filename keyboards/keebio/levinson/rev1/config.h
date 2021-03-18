@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Levinson
-#define DESCRIPTION     Split 40 percent ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up

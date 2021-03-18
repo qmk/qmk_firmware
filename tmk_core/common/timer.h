@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TIMER_H
-#define TIMER_H 1
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -50,6 +49,4 @@ uint32_t timer_elapsed32(uint32_t last);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

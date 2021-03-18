@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COLOR_H
-#define COLOR_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -38,6 +37,7 @@
 
 #define WS2812_BYTE_ORDER_RGB 0
 #define WS2812_BYTE_ORDER_GRB 1
+#define WS2812_BYTE_ORDER_BGR 2
 
 #ifndef WS2812_BYTE_ORDER
 #    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
@@ -52,6 +52,10 @@ typedef struct PACKED {
     uint8_t r;
     uint8_t g;
     uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+    uint8_t b;
+    uint8_t g;
+    uint8_t r;
 #endif
 } cRGB;
 
@@ -67,6 +71,10 @@ typedef struct PACKED {
     uint8_t r;
     uint8_t g;
     uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+    uint8_t b;
+    uint8_t g;
+    uint8_t r;
 #endif
     uint8_t w;
 } cRGBW;
@@ -86,4 +94,3 @@ RGB hsv_to_rgb_nocie(HSV hsv);
 #ifdef RGBW
 void convert_rgb_to_rgbw(LED_TYPE *led);
 #endif
-#endif  // COLOR_H

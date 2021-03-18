@@ -17,48 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LED_MATRIX_H
-#define LED_MATRIX_H
+#pragma once
+
+#include "led_matrix_types.h"
 
 #ifndef BACKLIGHT_ENABLE
 #    error You must define BACKLIGHT_ENABLE with LED_MATRIX_ENABLE
 #endif
-
-typedef struct Point {
-    uint8_t x;
-    uint8_t y;
-} __attribute__((packed)) Point;
-
-typedef struct led_matrix {
-    union {
-        uint8_t raw;
-        struct {
-            uint8_t row : 4;  // 16 max
-            uint8_t col : 4;  // 16 max
-        };
-    } matrix_co;
-    Point   point;
-    uint8_t modifier : 1;
-} __attribute__((packed)) led_matrix;
-
-extern const led_matrix g_leds[LED_DRIVER_LED_COUNT];
-
-typedef struct {
-    uint8_t index;
-    uint8_t value;
-} led_indicator;
-
-typedef union {
-    uint32_t raw;
-    struct {
-        bool    enable : 1;
-        uint8_t mode : 6;
-        uint8_t hue : 8;  // Unused by led_matrix
-        uint8_t sat : 8;  // Unused by led_matrix
-        uint8_t val : 8;
-        uint8_t speed : 8;  // EECONFIG needs to be increased to support this
-    };
-} led_config_t;
 
 enum led_matrix_effects {
     LED_MATRIX_UNIFORM_BRIGHTNESS = 1,
@@ -124,4 +89,6 @@ typedef struct {
 
 extern const led_matrix_driver_t led_matrix_driver;
 
-#endif
+extern led_eeconfig_t led_matrix_eeconfig;
+
+extern led_config_t g_led_config;

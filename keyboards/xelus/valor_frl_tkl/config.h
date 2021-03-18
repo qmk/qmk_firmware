@@ -53,14 +53,16 @@
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
 
-#define I2C1_TIMINGR_PRESC 	0U
 #define I2C1_TIMINGR_SCLDEL 3U
 #define I2C1_TIMINGR_SDADEL 1U
 #define I2C1_TIMINGR_SCLH 	3U
 #define I2C1_TIMINGR_SCLL   9U
 
 // I2C EEPROM
-#define EEPROM_I2C_CAT24C512
+// 24LC64
+#define EEPROM_I2C_24LC64
 
 // Dynamic EEPROM
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 65535
+// Something sensible or else VIA may crash
+// Users may enable more if they wish
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095

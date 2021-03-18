@@ -16,8 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with avr-midi.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef SYSEX_TOOLS_H
-#define SYSEX_TOOLS_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -90,6 +89,4 @@ uint16_t sysex_decode(uint8_t *decoded, const uint8_t *source, uint16_t length);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

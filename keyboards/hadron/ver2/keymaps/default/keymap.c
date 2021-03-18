@@ -309,7 +309,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 //Functions for ver2
 #ifdef KEYBOARD_hadron_ver2
-#include "LUFA/Drivers/Peripheral/TWI.h"
+#include <LUFA/Drivers/Peripheral/TWI.h>
 void matrix_init_user(void) {
   #ifdef USE_I2C
     i2c_master_init();

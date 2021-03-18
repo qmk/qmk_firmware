@@ -8,16 +8,16 @@ Github는 자주 사용하는 사람이 아니면 좀 여려울수도 있습니�
 
 아래와 같이 [QMK Github 페이지](https://github.com/qmk/qmk_firmware)에서 당신은 "Fork"라고 쓰여있는 버튼을 볼 수 있습니다
 
-![Fork on Github](http://i.imgur.com/8Toomz4.jpg)
+![Fork on Github](https://i.imgur.com/8Toomz4.jpg)
 
 만약 당신이 어느기관 소속이고, 무슨 계정을 사용할것인지 골라야 한다면 개인 계정을 사용하는 것을 추천합니다.
 "Fork"가 성공적으로 끝났다면 아래 보이는 "Clone or Download"를 눌러야 합니다.
 
-![Download from Github](http://i.imgur.com/N1NYcSz.jpg)
+![Download from Github](https://i.imgur.com/N1NYcSz.jpg)
 
 "HTTPS"채크 했는지 확인하고 나와 있는 링크를 복사하세요.
 
-![HTTPS link](http://i.imgur.com/eGO0ohO.jpg)
+![HTTPS link](https://i.imgur.com/eGO0ohO.jpg)
 
 여기거 부터 커맨드라인을 사용합니다. 커맨드 라인에서 `git clone `을 치고 복사한 링크를 붙여넣은후 실행시키세요.
 
@@ -54,13 +54,13 @@ To https://github.com/whoeveryouare/qmk_firmware.git
 
 이로써 당신이 만든 모든 변경들이 당신의 Github의 Folk에 추가 되었습니다. (`https://github.com/<whoeveryouare>/qmk_firmware`)에서 확인하고 "New Pull Request"를 눌러 변경사항을 QMK에 업로드할수 있습니다.
 
-![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
+![New Pull Request](https://i.imgur.com/DxMHpJ8.jpg)
 
 이 버튼을 누르면 당신이 만든 모든 변경사항들이 보여질 것입니다. 만약 모든 변경사항이 맘에 든다면 "Create Pull Request"를 눌러 요청을 확정할수 있습니다.
 
 **요청사항이 확정된다고 변경사항이 바로 적용되는 것은 아닙니다.**
 
-![Create Pull Request](http://i.imgur.com/Ojydlaj.jpg)
+![Create Pull Request](https://i.imgur.com/Ojydlaj.jpg)
 
 요청을 한뒤 QMK개발자들은 댓글로 무엇이 변경되었는지 등을 물어 볼수있지만 끝에는 매인 디랙토리로 업로드 될것입니다.
 
