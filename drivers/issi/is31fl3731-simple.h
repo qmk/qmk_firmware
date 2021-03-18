@@ -16,15 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IS31FL3731_DRIVER_H
-#define IS31FL3731_DRIVER_H
+#pragma once
+
+#include <stdint.h>
+#include <stdbool.h>
 
 typedef struct is31_led {
     uint8_t driver : 2;
     uint8_t v;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led g_is31_leds[LED_DRIVER_LED_COUNT];
+extern const is31_led g_is31_leds[DRIVER_LED_TOTAL];
 
 void IS31FL3731_init(uint8_t addr);
 void IS31FL3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
@@ -203,5 +205,3 @@ void IS31FL3731_update_led_control_registers(uint8_t addr, uint8_t index);
 #define C9_14 0xB1
 #define C9_15 0xB2
 #define C9_16 0xB3
-
-#endif  // IS31FL3731_DRIVER_H

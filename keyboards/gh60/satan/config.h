@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x4335
+#define PRODUCT_ID      0x0002
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    SATAN
-#define PRODUCT         GH60
-#define DESCRIPTION     60% keyboard with backlight and WS2812 support
+#define PRODUCT         GH60 Satan
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -36,6 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
 #define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B7, D4, B1, B0, B5, B4, D7, D6, B3 }
 #define UNUSED_PINS
+
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN B6
 

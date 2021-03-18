@@ -28,3 +28,4 @@ Note that the array indices are reversed same as the matrix and the values are o
 |`SH_MOFF`  |Momentarily turns off swap.                                              |
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
 |`SH_TT`    |Toggles with a tap; momentary when held.                                 |
+|`SH_OS`    |One shot swap hands: toggles while pressed or until next key press.      |

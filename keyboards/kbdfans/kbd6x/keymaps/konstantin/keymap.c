@@ -6,7 +6,7 @@ enum keycodes_keymap {
 };
 
 enum layers_keymap {
-    L_RCTRL = L_RANGE_KEYMAP,
+    L_RCTRL = LAYERS_KEYMAP,
 };
 
 void eeconfig_init_keymap(void) {
@@ -14,8 +14,23 @@ void eeconfig_init_keymap(void) {
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 }
 
+bool indicator_light = false;
+
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+    case RGB_TOG ... RGB_SPD:
+        // Disable RGB controls when Fn/Caps indicator lights are on
+        if (indicator_light) {
+            return false;
+        }
+        // Shift+Toggle = reset RGB
+        if (record->event.pressed && keycode == RGB_TOG && get_mods() & MOD_MASK_SHIFT) {
+            eeconfig_init_keymap();
+            return false;
+        }
+        break;
+
+    // Combined RCtrl and layer
     case RCTRL:
         if (record->event.pressed) {
             register_code(KC_RCTRL);
@@ -33,17 +48,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 static inline void fn_light(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(modern_dolch_red.h, modern_dolch_red.s, rgblight_get_val());
+    indicator_light = true;
 }
 
 static inline void caps_light(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(modern_dolch_cyan.h, modern_dolch_cyan.s, rgblight_get_val());
+    indicator_light = true;
 }
 
 static inline void restore_light(void) {
     rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
     rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
     rgblight_mode_noeeprom(saved.mode);
+    indicator_light = false;
 }
 
 static void check_light_layer(uint32_t state) {
@@ -126,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, KC_DEL,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
         _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MPRV, KC_MNXT, KC_APP,  KC_WH_U, KC_BTN4, KC_BTN5, _______, _______,
-        XXXXXXX, _______, _______,                   KC_WH_D,                                     KC_ACL2, _______, XXXXXXX
+        XXXXXXX, _______, _______,                            KC_WH_D,                            KC_ACL2, _______, XXXXXXX
     ),
 
     /* RCtrl layer
@@ -147,6 +165,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, TOP,     MV_UP,   BOTTOM,  TAB_PRV, _______, _______, _______, _______, _______, _______, _______, _______, DEL_NXT,
         _______, MV_LEFT, MV_DOWN, MV_RGHT, TAB_NXT, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______,
-        XXXXXXX, DST_P_R, DST_N_A,                   _______,                                     _______, _______, XXXXXXX
+        XXXXXXX, DST_P_R, DST_N_A,                            _______,                            _______, _______, XXXXXXX
     ),
 };

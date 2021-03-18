@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    include "main_arm_atsam.h"
 #    ifdef RGB_MATRIX_ENABLE
-#        include "led_matrix.h"
+#        include "md_rgb_matrix.h"
 #        include "rgb_matrix.h"
 #    endif
 #    include "issi3733_driver.h"

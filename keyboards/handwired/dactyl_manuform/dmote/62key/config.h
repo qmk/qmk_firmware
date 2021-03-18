@@ -1,7 +1,8 @@
 #pragma once
 
 #include "config_common.h"
-
+#define PRODUCT_ID      0x3632
+#define DEVICE_VER      0x0001
 #define PRODUCT  DMOTE (62-key)
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 6
@@ -36,6 +37,8 @@
 //   B6 | 10   | Bottom row (closest to user)
 #define MATRIX_ROW_PINS { F6, F7, B1, B3, B2, B6 }
 #define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5 }
+
+#define DIODE_DIRECTION COL2ROW
 
 // WS2812 RGB LED, normally used to indicate keyboard state:
 #define RGBLIGHT_EFFECT_KNIGHT
