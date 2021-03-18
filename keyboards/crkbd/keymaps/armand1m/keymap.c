@@ -31,7 +31,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING(SS_TAP(X_LEFT) SS_TAP(X_ENTER)); 
         }
-        break;
+        return false;
     }
 
     return true;
