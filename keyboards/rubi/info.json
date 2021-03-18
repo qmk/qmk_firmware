@@ -1,0 +1,58 @@
+{
+   "keyboard_name": "Rubi",
+   "url": "https://github.com/ohchiko/qmk_firmware/tree/master/keyboards/rubi",
+   "maintainer": "gregorio",
+   "width": 4,
+   "height": 5,
+   "layouts": {
+      "LAYOUT": {
+         "layout": [
+            [
+               {
+                  "x": 3
+               },
+               "Mute"
+            ],
+            [
+               {
+                  "y": 0.25
+               },
+               "Num Lock",
+               "/",
+               "*",
+               "-"
+            ],
+            [
+               "7\nHome",
+               "8\n?",
+               "9\nPgUp",
+               {
+                  "h": 2
+               },
+               "+"
+            ],
+            [
+               "4\n?",
+               "5",
+               "6\n?"
+            ],
+            [
+               "1\nEnd",
+               "2\n?",
+               "3\nPgDn",
+               {
+                  "h": 2
+               },
+               "Enter"
+            ],
+            [
+               {
+                  "w": 2
+               },
+               "0\nIns",
+               ".\nDel"
+            ]
+         ]
+      }
+   }
+}
