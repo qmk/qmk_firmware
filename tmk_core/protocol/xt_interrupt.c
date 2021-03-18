@@ -119,9 +119,9 @@ ISR(XT_INT_VECT) {
  * Ring buffer to store scan codes from keyboard
  *------------------------------------------------------------------*/
 #define PBUF_SIZE 32
-static uint8_t     pbuf[PBUF_SIZE];
-static uint8_t     pbuf_head = 0;
-static uint8_t     pbuf_tail = 0;
+static uint8_t pbuf[PBUF_SIZE];
+static uint8_t pbuf_head = 0;
+static uint8_t pbuf_tail = 0;
 
 static inline void pbuf_enqueue(uint8_t data) {
     uint8_t sreg = SREG;
