@@ -1,4 +1,4 @@
-/* Copyright 2020 gregorio
+/* Copyright 2021 gregorio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,6 @@
 #include "rubi.h"
 
 uint8_t current_layer = 0;
-bool mod_shift = false;
-bool mod_control = false;
-bool mod_alt = false;
-bool mod_gui = false;
 
 uint8_t oled_mode = OLED_MODE_DEFAULT;
 

@@ -1,4 +1,6 @@
 /*
+This is the modified version of [calculator by MWWorks](https://github.com/MWWorks/mw_calc_numpad/blob/master/calc.c). Below is the quote from [MWWorks](https://github.com/MWWorks).
+
    Calculator for QMK-based keyboard by MWWorks, https://mwworks.uk
    This is free, usual disclaimers, don't use it to calculate megaton yields, surgery plans, etc
 
