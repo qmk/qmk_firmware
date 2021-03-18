@@ -521,7 +521,7 @@ const key_string_map_t ascii_keys4 = {
 };
 
 const key_string_map_t custom_keys_bmp = {
-  .start_kc = SAFE_RANGE,
+  .start_kc = BLE_DIS,
   .end_kc = xKANA,
   .key_strings=
     "BLE_DIS\0"
