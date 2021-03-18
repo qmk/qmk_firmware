@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef USB_USB_H
-#define USB_USB_H
+#pragma once
 
 #include "quantum.h"
 
@@ -188,4 +187,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    /* F0-F7 */ \
       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  }, /* F8-FF */ \
 }
-#endif
