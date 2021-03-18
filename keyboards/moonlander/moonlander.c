@@ -370,7 +370,7 @@ bool music_mask_kb(uint16_t keycode) {
 #ifdef SWAP_HANDS_ENABLE
 // swap-hands action needs a matrix to define the swap
 // clang-format off
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     /* Left hand, matrix positions */
     {{6,6}, {5,6}, {4,6}, {3,6}, {2,6}, {1,6},{0,6}},
     {{6,7}, {5,7}, {4,7}, {3,7}, {2,7}, {1,7},{0,7}},

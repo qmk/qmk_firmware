@@ -133,7 +133,8 @@ void process_hand_swap(keyevent_t *event) {
     bool             do_swap = event->pressed ? swap_hands : swap_state[pos.row] & (col_bit);
 
     if (do_swap) {
-        event->key = hand_swap_config[pos.row][pos.col];
+        event->key.row = pgm_read_byte(&hand_swap_config[pos.row][pos.col].row);
+        event->key.col = pgm_read_byte(&hand_swap_config[pos.row][pos.col].col);
         swap_state[pos.row] |= col_bit;
     } else {
         swap_state[pos.row] &= ~(col_bit);
