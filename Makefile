@@ -30,7 +30,7 @@ endif
 endif
 
 # Determine which qmk cli to use
-ifeq (, $(shell which qmk))
+ifeq (,$(shell which qmk))
     QMK_BIN = bin/qmk
 else
     QMK_BIN = qmk
@@ -391,7 +391,7 @@ define PARSE_KEYMAP
     # Format it in bold
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
-    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY)
+    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY) QMK_BIN=$$(QMK_BIN)
     # And the first part of the make command
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
