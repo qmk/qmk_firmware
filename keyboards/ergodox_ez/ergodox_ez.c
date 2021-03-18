@@ -470,5 +470,18 @@ void matrix_scan_kb(void) {
     }
 #endif
 
+#ifdef CAPS_LOCK_STATUS
+    led_t led_state = host_keyboard_led_state();
+    if(led_state.caps_lock) {
+        ergodox_right_led_3_on();
+    }
+    else {
+        uint8_t layer = get_highest_layer(layer_state);
+        if(layer != 1) {
+        ergodox_right_led_3_off();
+        }
+    }
+#endif
+
     matrix_scan_user();
 }
