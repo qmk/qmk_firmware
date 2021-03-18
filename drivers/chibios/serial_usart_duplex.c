@@ -1,3 +1,4 @@
+#include <stdatomic.h>
 #include "quantum.h"
 #include "serial.h"
 #include "printf.h"
@@ -70,17 +71,21 @@
 #endif
 
 #define HANDSHAKE_MAGIC 7
+#define SIGNAL_HANDSHAKE_RECEIVED 0x1
+
+void        handle_transactions_slave(uint8_t sstd_index);
+static void receive_transaction_handshake(UARTDriver* uartp, uint16_t received_handshake);
 
 /*
- * UART driver configuration structure. Only the blocking DMA enabled API is used,
- * therefore all callback functions are set to NULL.
+ * UART driver configuration structure. We use the blocking DMA enabled API and
+ * the rxchar callback to receive handshake tokens.
  */
 // clang-format off
 static UARTConfig uart_config = {
     .txend1_cb = NULL,
     .txend2_cb = NULL,
     .rxend_cb = NULL,
-    .rxchar_cb = NULL,
+    .rxchar_cb = receive_transaction_handshake,
     .rxerr_cb = NULL,
     .timeout_cb = NULL,
     .speed = (SERIAL_USART_SPEED),
@@ -90,10 +95,31 @@ static UARTConfig uart_config = {
 };
 // clang-format on
 
-static SSTD_t* Transaction_table      = NULL;
-static uint8_t Transaction_table_size = 0;
+static SSTD_t*                       Transaction_table      = NULL;
+static uint8_t                       Transaction_table_size = 0;
+static volatile atomic_uint_least8_t handshake              = 0xFF;
+static thread_reference_t            tp_target              = NULL;
 
-void handle_transactions_slave(void);
+/*
+ * This callback is invoked when a character is received but the application
+ * was not ready to receive it, the character is passed as parameter.
+ * Receive transaction table index from initiator, which doubles as basic handshake token. */
+static void receive_transaction_handshake(UARTDriver* uartp, uint16_t received_handshake) {
+    /* Check if received handshake is not a valid transaction id.
+     * Please note that we can still catch a seemingly valid handshake
+     * i.e. a byte from a ongoing transfer which is in the allowed range.
+     * So this check mainly prevents any obviously wrong handshakes and
+     * subsequent wakeups of the receiving thread, which is a costly operation. */
+    if (received_handshake > Transaction_table_size) {
+        return;
+    }
+
+    handshake = (uint8_t)received_handshake;
+    chSysLockFromISR();
+    /* Wakeup receiving thread to start a transaction. */
+    chEvtSignalI(tp_target, (eventmask_t)SIGNAL_HANDSHAKE_RECEIVED);
+    chSysUnlockFromISR();
+}
 
 __attribute__((weak)) void usart_init(void) {
 #if defined(USE_GPIOV1)
@@ -106,7 +132,7 @@ __attribute__((weak)) void usart_init(void) {
 }
 
 /*
- * This thread runs on the slave half and reacts to transactions init from the master.
+ * This thread runs on the slave half and reacts to transactions initiated from the master.
  */
 static THD_WORKING_AREA(waSlaveThread, 512);
 static THD_FUNCTION(SlaveThread, arg) {
@@ -114,7 +140,9 @@ static THD_FUNCTION(SlaveThread, arg) {
     chRegSetThreadName("slave_usart_tx_rx");
 
     while (true) {
-        handle_transactions_slave();
+        /* We sleep as long as there is no handshake waiting for us. */
+        chEvtWaitAny((eventmask_t)SIGNAL_HANDSHAKE_RECEIVED);
+        handle_transactions_slave(handshake);
     }
 }
 
@@ -128,26 +156,17 @@ void soft_serial_target_init(SSTD_t* const sstd_table, int sstd_table_size) {
 #endif
 
     uartStart(&SERIAL_USART_DRIVER, &uart_config);
-    chThdCreateStatic(waSlaveThread, sizeof(waSlaveThread), HIGHPRIO, SlaveThread, NULL);
+    tp_target = chThdCreateStatic(waSlaveThread, sizeof(waSlaveThread), HIGHPRIO, SlaveThread, NULL);
 }
 
 /**
  * @brief React to transactions started by the master.
  * This version uses duplex send and receive usart pheriphals and DMA backed transfers.
  */
-void inline handle_transactions_slave(void) {
-    uint8_t sstd_index  = 0xFF;
-    size_t  buffer_size = (size_t)sizeof(sstd_index);
+void inline handle_transactions_slave(uint8_t sstd_index) {
+    size_t  buffer_size = 0;
     msg_t   msg         = 0;
-
-    /* Receive transaction table index from master, which doubles as basic handshake token. */
-    uartReceiveTimeout(&SERIAL_USART_DRIVER, &buffer_size, &sstd_index, TIME_MS2I(SERIAL_USART_TIMEOUT));
-
-    if (sstd_index > Transaction_table_size) {
-        return;
-    }
-
-    SSTD_t* trans = &Transaction_table[sstd_index];
+    SSTD_t* trans       = &Transaction_table[sstd_index];
 
     /* Send back the handshake which is XORed as a simple checksum,
      to signal that the slave is ready to receive possible transaction buffers  */
