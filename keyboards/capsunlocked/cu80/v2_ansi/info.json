@@ -48,7 +48,6 @@
     "LAYOUT_tkl_ansi": {
       "c_macro": true,
       "filename": "keyboards/capsunlocked/cu80/v2_ansi/v2_ansi.h",
-      "key_count": 87,
       "layout": [
         { "label": "Esc", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "F1", "matrix": [0, 2], "w": 1, "x": 2, "y": 0 },
