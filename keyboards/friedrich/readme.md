@@ -4,7 +4,7 @@
 
 A small printer friendly 3D printed 50% keyboard.
 
-* Keyboard Maintainer: [kb-elmo<mail@elmo.space>](https://github.com/kb-elmo)
+* Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
 * Hardware Supported: Friedrich PCB by kb-elmo
 * Hardware Availability: [Open source project](https://github.com/MarvFPV/Friedrich)
 
