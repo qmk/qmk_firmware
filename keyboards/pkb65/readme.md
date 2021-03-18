@@ -1,6 +1,6 @@
 # PKB65
 
-![PKB65 Layout Image](https://imgur.com/TC32IG2)
+![PKB65 Layout Image](https://i.imgur.com/0bqpIb8.png)
 
 A regular 65% layout keyboard. This will be the default layout flashed for all pkb65 boards. 
 Made and sold by MCKeebs. [More info on MCKeebDeisgn](https://www.mckeebdesign.com)
