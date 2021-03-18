@@ -1,0 +1,31 @@
+name: CLI CI
+
+on:
+  push:
+    branches:
+    - sn32
+    - sn32_openrgb
+  pull_request:
+    branches:
+    - sn32
+    - sn32_openrgb
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    container: qmkfm/base_container
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Install dependencies
+      run: pip3 install -r requirements.txt
+    - name: Build keyboards
+      run: python3 bin/build_all.py
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: pre-compiled firmware
+        path: '*.bin'
