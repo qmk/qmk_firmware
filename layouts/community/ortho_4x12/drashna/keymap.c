@@ -1,4 +1,4 @@
-/* Copyright 2015-2017 Jack Humbert
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,17 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-#endif
 
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
     BACKLIT = NEW_SAFE_RANGE,
+    TH_LVL,
 };
+
 #else
 #    define BACKLIT OSM(MOD_LSFT)
 enum planck_keycodes {
@@ -44,15 +42,23 @@ enum planck_keycodes {
 #    define PLNK_4 ET_RAIS
 #endif
 
+/*
+ * The `LAYOUT_ortho_4x12_base` macro is a template to allow the use of identical
+ * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
+ * that there is no need to set them up for each layout, and modify all of
+ * them if I want to change them.  This helps to keep consistency and ease
+ * of use. K## is a placeholder to pass through the individual keycodes
+ */
 // clang-format off
+#define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_4x12_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_ortho_4x12_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_DEL, \
-    KC_TAB,  ALT_T(K11), K12, K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+    LALT_T(KC_TAB), K11, K12, K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     K26,     K27,     K28,     K29, RCTL_T(K2A), KC_ENT,  \
     BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, PLNK_1,  PLNK_2,  PLNK_3,  PLNK_4,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
   )
@@ -134,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST,
     VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
     TH_LVL,  _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, RGB_IDL,
-    _______, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, TG_MODS
+    HPT_TOG, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, TG_MODS
   )
 
 };
@@ -157,14 +163,14 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 #ifdef KEYBOARD_planck_ez
         case TH_LVL:
             if (record->event.pressed) {
-                 keyboard_config.led_level++;
-                 if (keyboard_config.led_level > 4) {
+                keyboard_config.led_level++;
+                if (keyboard_config.led_level > 4) {
                     keyboard_config.led_level = 0;
-                 }
-                 planck_ez_right_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
-                 planck_ez_left_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
-                 eeconfig_update_kb(keyboard_config.raw);
-                 layer_state_set_kb(layer_state);
+                }
+                planck_ez_right_led_level((uint8_t)keyboard_config.led_level * 255 / 4);
+                planck_ez_left_led_level((uint8_t)keyboard_config.led_level * 255 / 4);
+                eeconfig_update_kb(keyboard_config.raw);
+                layer_state_set_kb(layer_state);
             }
             break;
 #endif
@@ -188,6 +194,31 @@ bool music_mask_user(uint16_t keycode) {
 
 #ifdef RGB_MATRIX_ENABLE
 
+#    ifdef KEYBOARD_planck_rev6
+// clang-format off
+led_config_t g_led_config = {
+    {
+        // Key Matrix to LED Index
+        { NO_LED,   6,    NO_LED, NO_LED,   5,    NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   0    },
+        { NO_LED,   7,    NO_LED, NO_LED,   2,    NO_LED },
+        { NO_LED,   4,    NO_LED, NO_LED,   3,    NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED,   1,    NO_LED, NO_LED,   8,    NO_LED }
+    }, {
+        // LED Index to Physical Position
+        {112, 39}, {148, 60}, {206, 53}, {206, 3}, {150, 3}, {74, 3}, {18, 3}, {18, 54}, {77, 60}
+    }, {
+        // LED Index to Flag
+        LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+        LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
+    }
+};
+// clange-format on
+#    endif
+
 // clang-format off
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
@@ -198,7 +229,8 @@ void suspend_wakeup_init_keymap(void) {
 }
 // clang-format on
 
-void rgb_matrix_indicators_user(void) {
+
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t this_mod = get_mods();
     uint8_t this_led = host_keyboard_leds();
     uint8_t this_osm = get_oneshot_mods();
@@ -207,58 +239,54 @@ void rgb_matrix_indicators_user(void) {
     is_ez = true;
 #    endif
 
-    if (userspace_config.rgb_layer_change &&
-#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-        !g_suspend_state &&
-#    endif
 #    if defined(RGBLIGHT_ENABLE)
-        (!rgblight_config.enable && rgb_matrix_config.enable)
+    if (!userspace_config.rgb_layer_change)
 #    else
-        rgb_matrix_config.enable
+    if (userspace_config.rgb_layer_change)
 #    endif
-    ) {
-        switch (biton32(layer_state)) {
+    {
+        switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             default: {
                 bool mods_enabled = IS_LAYER_ON(_MODS);
-                switch (biton32(default_layer_state)) {
+                switch (get_highest_layer(default_layer_state)) {
                     case _QWERTY:
-                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _COLEMAK:
-                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _DVORAK:
-                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _NORMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _MALTRON:
-                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _EUCALYN:
-                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _CARPLAX:
-                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                 }
                 break;
@@ -266,38 +294,44 @@ void rgb_matrix_indicators_user(void) {
         }
     }
 
-    switch (biton32(default_layer_state)) {
+    switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0x00, 0xFF, 0xFF);
             break;
         case _COLEMAK:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0xFF, 0x00, 0xFF);
             break;
         case _DVORAK:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0x00, 0xFF, 0x00);
             break;
         case _WORKMAN:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0xD9, 0xA5, 0x21);
+            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0xD9, 0xA5, 0x21);
             break;
     }
+
     if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
-        if (!layer_state_cmp(layer_state, _ADJUST)) { rgb_matrix_set_color(24, 0x00, 0xFF, 0x00); }
-        rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
+        if (!layer_state_cmp(layer_state, _ADJUST)) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(24, 0x00, 0xFF, 0x00);
+        }
+        RGB_MATRIX_INDICATOR_SET_COLOR(36, 0x00, 0xFF, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_CTRL) {
-        rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
-        rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
-        rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0xFF, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(34, 0xFF, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(37, 0xFF, 0x00, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_GUI) {
-        rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(39, 0xFF, 0xD9, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_ALT) {
-        rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
+        RGB_MATRIX_INDICATOR_SET_COLOR(38, 0x00, 0x00, 0xFF);
     }
 }
 
 void matrix_init_keymap(void) {
+#    ifdef KEYBOARD_planck_light
+    writePinLow(D6);
+#    endif
     // rgblight_mode(RGB_MATRIX_MULTISPLASH);
 }
 #else  // RGB_MATRIX_INIT
@@ -315,7 +349,7 @@ void matrix_init_keymap(void) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update(bool clockwise) {
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case _RAISE:
             clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
             break;
@@ -358,7 +392,7 @@ void dip_update(uint8_t index, bool active) {
             }
             break;
         case 2:
-            keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = active;
+            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = active;
             break;
         case 3:
             userspace_config.nuke_switch = active;
@@ -371,7 +405,7 @@ void dip_update(uint8_t index, bool active) {
 layer_state_t layer_state_set_keymap(layer_state_t state) {
     planck_ez_left_led_off();
     planck_ez_right_led_off();
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _LOWER:
             planck_ez_left_led_on();
             break;

@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "debounce.h"
 #include QMK_KEYBOARD_H
-#ifdef DEBUG_MATRIX_SCAN_RATE
-#   include  "timer.h"
-#endif
 
 #ifdef BALLER
 #include <avr/interrupt.h>
@@ -41,37 +38,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // MCP Pin Defs
-#define RROW1 (1<<3)
-#define RROW2 (1<<2)
-#define RROW3 (1<<1)
-#define RROW4 (1<<0)
-#define COL0 (1<<0)
-#define COL1 (1<<1)
-#define COL2 (1<<2)
-#define COL3 (1<<3)
-#define COL4 (1<<4)
-#define COL5 (1<<5)
-#define COL6 (1<<6)
+#define RROW1 (1u<<3)
+#define RROW2 (1u<<2)
+#define RROW3 (1u<<1)
+#define RROW4 (1u<<0)
+#define COL0 (1u<<0)
+#define COL1 (1u<<1)
+#define COL2 (1u<<2)
+#define COL3 (1u<<3)
+#define COL4 (1u<<4)
+#define COL5 (1u<<5)
+#define COL6 (1u<<6)
 
 // ATmega pin defs
-#define ROW1  (1<<6)
-#define ROW2  (1<<5)
-#define ROW3  (1<<4)
-#define ROW4  (1<<1)
-#define COL7 (1<<0)
-#define COL8 (1<<1)
-#define COL9 (1<<2)
-#define COL10 (1<<3)
-#define COL11 (1<<2)
-#define COL12 (1<<3)
-#define COL13 (1<<6)
+#define ROW1  (1u<<6)
+#define ROW2  (1u<<5)
+#define ROW3  (1u<<4)
+#define ROW4  (1u<<1)
+#define COL7 (1u<<0)
+#define COL8 (1u<<1)
+#define COL9 (1u<<2)
+#define COL10 (1u<<3)
+#define COL11 (1u<<2)
+#define COL12 (1u<<3)
+#define COL13 (1u<<6)
 
 //Trackball pin defs
-#define TRKUP (1<<4)
-#define TRKDN (1<<5)
-#define TRKLT (1<<6)
-#define TRKRT (1<<7)
-#define TRKBTN (1<<6)
+#define TRKUP (1u<<4)
+#define TRKDN (1u<<5)
+#define TRKLT (1u<<6)
+#define TRKRT (1u<<7)
+#define TRKBTN (1u<<6)
 
 
 // Multiple for mouse moves
@@ -124,12 +121,6 @@ static void enableInterrupts(void);
 static uint8_t mcp23018_reset_loop;
 // static uint16_t mcp23018_reset_loop;
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-uint32_t matrix_timer;
-uint32_t matrix_scan_count;
-#endif
-
-
 __attribute__ ((weak)) void matrix_init_user(void) {}
 
 __attribute__ ((weak)) void matrix_scan_user(void) {}
@@ -161,10 +152,6 @@ void matrix_init(void) {
     raw_matrix[i] = 0;
   }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer      = timer_read32();
-    matrix_scan_count = 0;
-#endif
     debounce_init(MATRIX_ROWS);
     matrix_init_quantum();
 }
@@ -179,12 +166,6 @@ void matrix_power_up(void) {
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
     }
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer      = timer_read32();
-    matrix_scan_count = 0;
-#endif
-
 }
 
 // Reads and stores a row, returning
@@ -261,20 +242,6 @@ uint8_t matrix_scan(void) {
         }
     }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_scan_count++;
-
-    uint32_t timer_now = timer_read32();
-    if (TIMER_DIFF_32(timer_now, matrix_timer) > 1000) {
-        print("matrix scan frequency: ");
-        pdec(matrix_scan_count);
-        print("\n");
-
-        matrix_timer      = timer_now;
-        matrix_scan_count = 0;
-    }
-#endif
-
     bool changed = false;
     for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {
         // select rows from left and right hands
@@ -318,8 +285,8 @@ inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
 void matrix_print(void) {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        pbin_reverse16(matrix_get_row(row));
+        print_hex8(row); print(": ");
+        print_bin_reverse16(matrix_get_row(row));
         print("\n");
     }
 }

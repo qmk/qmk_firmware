@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -55,11 +54,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------''-----------------------------------------------'
    */
   [_NAV] = LAYOUT( \
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,             KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-    _______, RGB_SAI, RGB_VAI, RGB_SAD, RESET,   KC_LBRC,                   KC_RBRC,           KC_PGUP,  KC_UP,   KC_PGDN, KC_INS,  KC_HOME, \
-    _______, RGB_HUD, RGB_VAD, RGB_HUI, _______, _______,                   _______,           KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  KC_END,  \
-    KC_LSFT, _______, _______, _______, _______, _______,                   MAGIC_TOGGLE_NKRO, _______,  _______, KC_MPLY, KC_MPRV, KC_MNXT, \
-    KC_LCTL, KC_LGUI, KC_LALT, RGB_MOD, _______, _______, _______, _______, _______,           _______,  _______, KC_MUTE, KC_VOLU, KC_VOLD \
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
+    _______, RGB_SAI, RGB_VAI, RGB_SAD, RESET,   KC_LBRC,                   KC_RBRC, KC_PGUP,  KC_UP,   KC_PGDN, KC_INS,  KC_HOME, \
+    _______, RGB_HUD, RGB_VAD, RGB_HUI, _______, _______,                   _______, KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  KC_END,  \
+    KC_LSFT, _______, _______, _______, _______, _______,                   NK_TOGG, _______,  _______, KC_MPLY, KC_MPRV, KC_MNXT, \
+    KC_LCTL, KC_LGUI, KC_LALT, RGB_MOD, _______, _______, _______, _______, _______, _______,  _______, KC_MUTE, KC_VOLU, KC_VOLD \
   ),
 
 };
@@ -79,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+          PLAY_SONG(tone_qwerty);
         #endif
         persistant_default_layer_set(1UL<<_QWERTY);
       }
@@ -88,7 +87,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //case COLEMAK:
       //if (record->event.pressed) {
         //#ifdef AUDIO_ENABLE
-          //PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+          //PLAY_SONG(tone_colemak);
         //#endif
         //persistant_default_layer_set(1UL<<_COLEMAK);
       //}

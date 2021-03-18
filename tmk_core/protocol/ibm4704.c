@@ -161,7 +161,9 @@ ISR(IBM4704_INT_VECT) {
         case STOP:
             // Data:Low
             WAIT(data_lo, 100, state);
-            rbuf_enqueue(data);
+            if (!rbuf_enqueue(data)) {
+                print("rbuf: full\n");
+            }
             ibm4704_error = IBM4704_ERR_NONE;
             goto DONE;
             break;

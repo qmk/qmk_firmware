@@ -1,11 +1,11 @@
 #include "quantum.h"
 #include "dshields.h"
 
-extern bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record);
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX)
+            || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)
+            || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+        keycode = keycode & 0xFF;
     }
     if (keycode == KC_ESC && record->event.pressed) {
         bool rc = true;

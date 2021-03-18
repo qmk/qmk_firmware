@@ -76,11 +76,6 @@ uint8_t expander_status;
 uint8_t expander_input_pin_mask;
 bool i2c_initialized = false;
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-uint32_t matrix_timer;
-uint32_t matrix_scan_count;
-#endif
-
 #define ROW_SHIFTER ((matrix_row_t)1)
 
 __attribute__ ((weak))
@@ -128,11 +123,6 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer = timer_read32();
-    matrix_scan_count = 0;
-#endif
 
     matrix_init_quantum();
 }
@@ -236,20 +226,6 @@ uint8_t matrix_scan(void)
         }
     }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_scan_count++;
-
-    uint32_t timer_now = timer_read32();
-    if (TIMER_DIFF_32(timer_now, matrix_timer)>1000) {
-        print("matrix scan frequency: ");
-        pdec(matrix_scan_count);
-        print("\n");
-
-        matrix_timer = timer_now;
-        matrix_scan_count = 0;
-    }
-#endif
-
 #if (DIODE_DIRECTION == COL2ROW)
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
 #       if (DEBOUNCE > 0)
@@ -321,8 +297,8 @@ void matrix_print(void)
 {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        pbin_reverse16(matrix_get_row(row));
+        print_hex8(row); print(": ");
+        print_bin_reverse16(matrix_get_row(row));
         print("\n");
     }
 }

@@ -49,8 +49,6 @@ static exkc_status_t    exkc_status[BMP_EX_KC_LEN];
 extern const bmp_ex_keycode_t bmp_ex_keycodes[BMP_EX_KC_LEN];
 extern const uint32_t bmp_ex_keycode_num;
 
-extern uint16_t get_tapping_term(uint16_t keycode);
-
 static void preprocess_exkc_common(keyevent_t const *const keyevent);
 static void exkc_get_event(uint16_t input_keycode, uint16_t exkc_idx, keyevent_t *const event);
 static bool process_exkc_event(uint16_t input_keycode, uint16_t exkc_idx, keyevent_t *const keyevent);
@@ -111,7 +109,7 @@ void bmp_check_timeout_extended_keycode() {
         if (p_status->state != EXKC_STATE_NONE &&
             p_status->state != EXKC_STATE_HOLD &&
             timer_elapsed(p_status->last_event_time) >
-                get_tapping_term(keycode)) {
+                get_tapping_term(keycode, NULL)) {
             p_status->event = EXKC_OVER_TAPPING_TERM;
             dprintf("[EXKC]idx:%d:OVER_TT\n", idx);
         } else {
@@ -281,7 +279,7 @@ static void exkc_get_event(uint16_t input_keycode, uint16_t exkc_idx, keyevent_t
 
             p_status->last_keystate = keyevent->pressed;
         } else if (p_status->last_keystate && (!keyevent->pressed)) {
-            if (timer_elapsed(p_status->last_event_time) < get_tapping_term(keycode)) {
+            if (timer_elapsed(p_status->last_event_time) < get_tapping_term(keycode, NULL)) {
                 p_status->event = EXKC_RELEASED_IN_TAPPING_TERM;
                 dprintf("[EXKC]idx:%d:RELEASED_IN_TT\n", exkc_idx);
             } else {

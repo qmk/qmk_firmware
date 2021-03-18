@@ -21,11 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0xC024
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
 #define PRODUCT Chimera65
-#define DESCRIPTION Chimera65 Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -35,6 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { A13, A14, A15, C13, B8 }
 #define DIODE_DIRECTION COL2ROW
 
+#define BACKLIGHT_PIN           A6
+#define BACKLIGHT_PWM_DRIVER    PWMD3
+#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_PAL_MODE      1
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
@@ -49,26 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-// EEPROM usage
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 34
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x02
-#define EEPROM_VERSION_ADDR 36
-
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-// Dynamic macro starts after dynamic keymaps (35+(4*5*15*2)) = (35+600) = 635
-// start + layer * rows * col * 2
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
-#define EEPROM_CUSTOM_BACKLIGHT 678
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 679
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 202
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
 
 /*
  * Feature disable options

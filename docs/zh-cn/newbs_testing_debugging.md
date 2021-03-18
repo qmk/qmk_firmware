@@ -8,10 +8,11 @@
 
 注意：这些程序不是由QMK提供或认可的。
 
-* [Switch Hitter](https://elitekeyboards.com/switchhitter.php) (仅Windows)
+* [QMK Configurator](https://config.qmk.fm/#/test/) (网页版)
+* [Switch Hitter](https://web.archive.org/web/20190413233743/https://elitekeyboards.com/switchhitter.php) (仅Windows)
 * [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (仅Mac)
-* [Keyboard Tester](http://www.keyboardtester.com) (网页版)
-* [Keyboard Checker](http://keyboardchecker.com) (网页版)
+* [Keyboard Tester](https://www.keyboardtester.com) (网页版)
+* [Keyboard Checker](https://keyboardchecker.com) (网页版)
 
 ## 使用QMK工具箱进行调试
 
@@ -33,7 +34,9 @@ void keyboard_post_init_user(void) {
 
 有时用[custom code](custom_quantum_functions.md)发送自定义调试信息很有用. 这么做很简单. 首先在你文件头部包含`print.h`:
 
-    #include <print.h>
+```c
+#include "print.h"
+```
 
 之后，您可以使用一些不同的打印功能:
 

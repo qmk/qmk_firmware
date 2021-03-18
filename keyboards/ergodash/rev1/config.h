@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Omkbd
 #define PRODUCT         ErgoDash
-#define DESCRIPTION     Power
 
 /* key matrix size */
 // Rows are doubled-up
@@ -38,13 +37,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 // #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
 
+#define DIODE_DIRECTION COL2ROW
+
 /* define tapping term */
 #define TAPPING_TERM 120
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-#define C6_AUDIO
+#define AUDIO_PIN C6
 
 /* number of backlight levels */
 #ifdef BACKLIGHT_ENABLE
@@ -68,6 +69,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 24
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 12, 12 }    // Number of LEDs
+
+// The LEDs on the slave half go in reverse order
+#define RGBLIGHT_LED_MAP { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, \
+                          23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12}
 
 #define SOFT_SERIAL_PIN D0
 #define SELECT_SOFT_SERIAL_SPEED 1
