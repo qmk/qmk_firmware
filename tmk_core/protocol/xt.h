@@ -68,6 +68,6 @@ POSSIBILITY OF SUCH DAMAGE.
         setPinOutput(XT_CLOCK_PIN); \
     } while (0)
 
-void    xt_host_init(void);
+void xt_host_init(void);
 
 uint8_t xt_host_recv(void);
