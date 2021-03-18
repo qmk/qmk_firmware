@@ -4,11 +4,9 @@
 
 A 65% PCB with support for VIA, LED backlight and RGB underglow.
 
-Keyboard Maintainer: kopibeng
-
-Hardware Supported: A 65% keyboard with ATMEGA32U4
-
-Hardware Availability: N/A
+* Keyboard Maintainer: kopibeng
+* Hardware Supported: A 65% keyboard with ATMEGA32U4
+* Hardware Availability: N/A
 
 Make example for this keyboard (after setting up your build environment):
 
