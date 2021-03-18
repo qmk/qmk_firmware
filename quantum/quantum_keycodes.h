@@ -71,6 +71,7 @@ enum quantum_keycodes {
     QK_STENO_BOLT           = 0x5A30,
     QK_STENO_GEMINI         = 0x5A31,
     QK_STENO_MAX            = 0x5A3F,
+    // 0x5C00 - 0x5FFF are reserved, see below
     QK_MOD_TAP              = 0x6000,
     QK_MOD_TAP_MAX          = 0x7FFF,
     QK_UNICODE              = 0x8000,
