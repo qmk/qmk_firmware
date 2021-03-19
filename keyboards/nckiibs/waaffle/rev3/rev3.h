@@ -26,7 +26,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_waaffle( \
+#define LAYOUT_ortho_5x16( \
     k76, k66, k56, k71, k61, k51, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, \
     k77, k67, k57, k72, k62, k52, k11, k12, k13, k14, k15, k16, k17, k18, k19, k20, \
     k78, k68, k58, k73, k63, k53, k21, k22, k23, k24, k25, k26, k27, k28, k29, k30, \
