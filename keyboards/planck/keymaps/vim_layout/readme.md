@@ -1,2 +1,1 @@
-# The Default Planck Layout
-
+# Planck Layout to get VIM keybindings everywhere.
