@@ -30,20 +30,13 @@
 #define KC_GUIEI GUI_T(KC_LANG2)
 #define KC_ALTKN ALT_T(KC_LANG1)
 
-/*
- * Standard C does not have boolean variable so, it is better to use the name in capital so it can
- * be easily identify as a definition
- */
-#define FALSE false
-#define TRUE  true
-
 #define LAYOUT_wrapper(...)   LAYOUT(__VA_ARGS__)
 
 /* For values greater than 0x200, substract that value and add 0x20 so the characters can be mapped  */
 #define RM_LSFT(kc)           ((uint8_t)(0x20)+(kc-0x200))
 
 /* Toggle a boolean variable */
-#define TOGGLE_BOOL_VAR(bv)   (((bv)^TRUE)&TRUE)
+#define TOGGLE_BOOL_VAR(bv)   (((bv)^true)&true)
 
 /* ######################################################################### LAYOUT BLOCKS ##################################################### */
 /* -----------------------------------------BUTTON1---BUTTON2- BUTTON3------- */
@@ -109,8 +102,7 @@ typedef enum custom_layers {
 }CUSTOM_LAYERS_T;
 
 /* To be used to identify the current working layer */
-typedef enum custom_keycodes
-{
+typedef enum custom_keycodes{
     QWERTY = SAFE_RANGE,
     LOWER,
     RAISE,

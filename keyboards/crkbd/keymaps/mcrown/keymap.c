@@ -70,65 +70,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-    bool user_records_press=TRUE;
+bool process_record_user(uint16_t keycode, keyrecord_t *record){
+    bool user_records_press=true;
 
-    if (record->event.pressed)
-    {
+    if (record->event.pressed){
         add_keylog(keycode);
     }
 
-    switch (keycode)
-    {
+    switch (keycode){
         case QWERTY:
-            if (record->event.pressed)
-            {
+            if (record->event.pressed){
                 set_single_persistent_default_layer(_QWERTY);
             }
             break;
 
         case LOWER:
-            if(record->event.pressed)
-            {
+            if(record->event.pressed){
                 layer_on(_LOWER);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            else
-            {
+            }else{
                 layer_off(_LOWER);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             }
             break;
 
         case RAISE:
-            if (record->event.pressed)
-            {
+            if (record->event.pressed){
                 layer_on(_RAISE);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            else
-            {
+            }else{
                 layer_off(_RAISE);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             }
             break;
 
         case ADJUST:
-            if (record->event.pressed)
-            {
+            if (record->event.pressed){
                 layer_on(_ADJUST);
-            }
-            else
-            {
+            }else{
                 layer_off(_ADJUST);
             }
             break;
 
         case RGB_MOD:
             #ifdef RGBLIGHT_ENABLE
-            if(record->event.pressed)
-            {
+            if(record->event.pressed){
                 rgblight_mode(RGB_current_mode);
                 rgblight_step();
                 RGB_current_mode = rgblight_get_mode();
@@ -138,8 +124,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
         case RGBRST:
             #ifdef RGBLIGHT_ENABLE
-            if(record->event.pressed)
-            {
+            if(record->event.pressed){
                 eeconfig_update_rgblight_default();
                 rgblight_enable();
                 RGB_current_mode = rgblight_get_mode();
@@ -148,9 +133,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             break;
 
         default:
-            user_records_press=FALSE;
+            user_records_press=false;
             break;
     }
 
-    return FALSE==user_records_press;
+    return false==user_records_press;
 }
