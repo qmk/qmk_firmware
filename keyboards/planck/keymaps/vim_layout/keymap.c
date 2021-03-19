@@ -14,11 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #include "muse.h"
-
-extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
@@ -49,9 +46,6 @@ enum planck_keycodes {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define VIM MO(_VIM)
-#define CST_DEL M(0)
-#define CST_DLINE M(1)
-#define CST_UNDO M(2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -190,20 +184,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    if (record->event.pressed) {
-        switch(id) {
-            case 0:
-                return MACRO(T(RIGHT), T(BSPC), END);
-            case 1:
-                return MACRO( D(LGUI), T(LEFT), U(LGUI), D(LGUI), D(LSHIFT), T(RIGHT), U(LSHIFT), U(LGUI), T(BSPC), END);
-            case 2:
-                return MACRO( D(LGUI), T(Z), U(LGUI), END);
-       }
-    }
-    return MACRO_NONE;
-};
-
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
@@ -212,18 +192,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
             case CST_BACK:
-                SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+                tap_code16(A(KC_LEFT));
                 return false;
             case CST_FORW:
-                SEND_STRING(SS_LALT(SS_TAP(X_RIGHT))); 
+                tap_code16(A(KC_RGHT));
                 return false;
             case CST_START:
-                SEND_STRING(SS_LGUI(SS_TAP(X_LEFT))); 
+                tap_code16(G(KC_LEFT));
                 return false;
             case CST_END:
-                SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT))); 
+                tap_code16(G(KC_RGHT)); 
                 return false;
-    }
+            case CST_DEL:
+                tap_code(KC_RGHT);
+                tap_code(KC_BSPC);
+                return false;
+            case CST_DLINE:
+                tap_code16(G(KC_LEFT);
+                tap_code16(G(S(KC_RGHT);
+                tap_code(KC_BSPC);
+                return false;
+            case CST_UNDO:
+                tap_code16(G(KC_Z));
+                return false;
+        }
     }
 
   switch (keycode) {
