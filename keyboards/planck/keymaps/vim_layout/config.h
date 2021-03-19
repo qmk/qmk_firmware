@@ -10,6 +10,7 @@
   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
   * GNU General Public License for more details. 
   * 
+ */
 
 #pragma once
 
@@ -52,4 +53,3 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
-#endif
