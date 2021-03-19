@@ -252,14 +252,14 @@ void send_buffer(void) {
             if (micro_oled_screen_buffer[i * LCDWIDTH + j] != micro_oled_screen_current[i * LCDWIDTH + j]) {
                 if (page_addr != i) {
                     set_page_address(i);
+                    page_addr = i;
                 }
                 if (col_addr != j) {
                     set_column_address(j);
+                    col_addr = j + 1;
                 }
                 send_data(micro_oled_screen_buffer[i * LCDWIDTH + j]);
                 micro_oled_screen_current[i * LCDWIDTH + j] = micro_oled_screen_buffer[i * LCDWIDTH + j];
-                page_addr = i;
-                col_addr = j + 1;
             }
         }
     }
