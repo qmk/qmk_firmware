@@ -6,7 +6,7 @@ Special Edition of the [Breeze](https://afternoonlabs.com). This one has two 1Us
 
 * Keyboard Maintainer: [AfternoonLabs](https://github.com/afternoonlabs)
 * Hardware Supported: Ocean Breeze Rev1 PCB
-* Hardware Availability: store.afternoonlabs.com
+* Hardware Availability: [store.afternoonlab.com](https://store.afternoonlabs.com)
 
 Make example for this keyboard (after setting up your build environment):
 
