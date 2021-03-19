@@ -1,4 +1,4 @@
-/* Copyright 2019-2020 adamkraus6
+/* Copyright 2020-2021 adamkraus6
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
