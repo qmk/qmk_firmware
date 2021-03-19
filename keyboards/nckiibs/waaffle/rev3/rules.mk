@@ -21,6 +21,4 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-# additional features for ELITE-C
-# ENCODER_ENABLE = yes        # Enable Rotary Encoder
-# RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+DEFAULT_FOLDER = nckiibs/waaffle/rev3/pro_micro

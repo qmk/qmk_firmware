@@ -11,10 +11,12 @@ Waaffle is an ortholinear keyboard that supports 60 key and 80 key layouts. The 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make nckiibs/waaffle/rev3:default
+    make nckiibs/waaffle/rev3/pro_micro:default  # for Pro Micro builds
+    make nckiibs/waaffle/rev3/elite_c:default    # for Elite-C builds
 
 Flashing example for this keyboard:
 
-    make nckiibs/waaffle/rev3:default:flash
+    make nckiibs/waaffle/rev3/pro_micro:default:flash  # for Pro Micro builds
+    make nckiibs/waaffle/rev3/elite_c:default:flash    # for Elite-C builds
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
