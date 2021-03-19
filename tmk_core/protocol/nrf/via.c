@@ -141,21 +141,6 @@ void raw_hid_receive_bmp(uint8_t *data, uint8_t length) {
     const uint8_t *command_id   = &data[0];
     const uint8_t *command_data = &data[1];
     switch (*command_id) {
-        case id_get_keyboard_value: {
-            switch (command_data[0]) {
-                case id_control_board_type:
-                    if (length > 6) {
-                        const char ble_micro_pro_signature[] =
-                            BLE_MICRO_PRO_VIA_SIGNATURE;
-                        data[2] = ble_micro_pro_signature[0];
-                        data[3] = ble_micro_pro_signature[1];
-                        data[4] = ble_micro_pro_signature[2];
-                        data[5] = ble_micro_pro_signature[3];
-                    }
-                    break;
-            }
-        } break;
-
         case id_set_keyboard_value: {
             switch (command_data[0]) {
                 case id_control_save_flag:
