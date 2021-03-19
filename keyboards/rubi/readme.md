@@ -1,6 +1,6 @@
 # Rubi
 
-![Rubi](https://i.imgur.com/Mi3nCpcm.jpeg)
+![Rubi](https://i.imgur.com/XUzxe0r.jpg)
 
 ![Proto Album](https://imgur.com/a/QVtU7hV)
 
@@ -19,5 +19,7 @@ Flashing example for this keyboard:
     make rubi:default:flash
 
 To put this keyboard into bootloader mode (for flashing firmware), simply activate layer 3 and press the middle key (key "5" on the proto picture) on the default keymap.
+
+![Default Keymap](keymaps/default/readme.md)
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
