@@ -1,4 +1,4 @@
-name: CLI CI
+name: Compile Firmware
 
 on:
   push:
@@ -11,10 +11,10 @@ on:
     - sn32_openrgb
 
 jobs:
-  test:
+  Build:
     runs-on: ubuntu-latest
 
-    container: qmkfm/base_container
+    container: jath03/sonix_base_container
 
     steps:
     - uses: actions/checkout@v2
@@ -27,5 +27,5 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       with:
-        name: pre-compiled firmware
+        name: Pre-Compiled Firmware
         path: '*.bin'
