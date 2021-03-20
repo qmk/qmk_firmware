@@ -14,7 +14,6 @@ CONSOLE_ENABLE = yes # +400 bytes (hid_listen support)
 COMBO_ENABLE = yes
 
 # This allows the keyboard to tell the host OS that up to 248 keys are held down at once
-# NKRO_ENABLE = yes # note: also needs FORCE_NKRO in config.h
 NKRO_ENABLE = no # note: also needs FORCE_NKRO in config.h
 
 # Disable unused features to save on space
