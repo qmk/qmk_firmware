@@ -50,7 +50,9 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 
 ## Caveats
 
-Unfortunately, these keycodes cannot be used in Mod-Taps or Layer-Taps, since any modifiers specified in the keycode are ignored.
+Currently, all Mod-Tap keycodes (and also [`LT()`](feature_layers.md)) are limited to the [Basic Keycode set](keycodes_basic.md) for their *kc* argument, meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. In the case of Mod-Tap, this is because QMK uses 16-bit keycodes, of which 3 bits are used for the function identifier, 1 bit is used for selecting right or left mods, and 4 bits are used to tell which mods are used, only 8 bits are left for the keycode. Because of this, the keycode used is limited to `0xFF` (0-255), which are the basic keycodes only. If at least one right-handed modifier is specified in a Mod-Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
+
+Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
 Additionally, you may run into issues when using Remote Desktop Connection on Windows. Because these codes send shift very fast, Remote Desktop may miss the codes.
 
