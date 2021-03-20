@@ -1,6 +1,6 @@
 # corgi
 
-![corgi](imgur.com image replace me!)
+![corgi](https://i.imgur.com/XctcpVr.jpeg)
 
 *Corgi is a semi modular 4 x 12 ortho keyboard. The unique thing with Corgi is that you can attach a macropad name "Flea" to use as a num/macro-pad.*
 
