@@ -3,9 +3,10 @@
 ![epoch80](https://i.imgur.com/xNvEKBOl.png)
 
 Dolch PAC inspired TKL keyboard designed by Cary Works and made by KBDFans.
+The board was also sold in a zFrontier groupbuy under the name Dolch.CR 80.
 
 * Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
-* Hardware Supported: Epoch 80 PCB
+* Hardware Supported: Epoch 80 / Dolch.CR 80 PCB
 * Hardware Availability: https://kbdfans.com/collections/80-diy-kit/products/coming-soon-epoch-80-mechanical-keyboard
 
 Make example for this keyboard (after setting up your build environment):
