@@ -66,6 +66,7 @@ You will need to install Git and Python. It's very likely that you already have 
 * Void: `sudo xbps-install -y git python3-pip`
 * Solus: `sudo eopkg -y install git python3`
 * Sabayon: `sudo equo install dev-vcs/git dev-python/pip`
+* Gentoo: `sudo emerge dev-vcs/git dev-python/pip`
 
 Install the global CLI to bootstrap your system:
 

@@ -175,7 +175,7 @@ Creates a keymap.json from a keymap.c.
 **Usage**:
 
 ```
-qmk c2json [--no-cpp] [-o OUTPUT] filename
+qmk c2json -km KEYMAP -kb KEYBOARD [-q] [--no-cpp] [-o OUTPUT] filename
 ```
 
 ## `qmk lint`
@@ -294,6 +294,16 @@ This command allows you to generate QMK documentation locally. It can be uses fo
 
 ```
 qmk generate-docs
+```
+
+## `qmk generate-rgb-breathe-table`
+
+This command generates a lookup table (LUT) header file for the [RGB Lighting](feature_rgblight.md) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/`.
+
+**Usage**:
+
+```
+qmk generate-rgb-breathe-table [-q] [-o OUTPUT] [-m MAX] [-c CENTER]
 ```
 
 ## `qmk kle2json`

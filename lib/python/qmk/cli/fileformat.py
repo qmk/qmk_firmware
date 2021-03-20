@@ -9,5 +9,5 @@ import subprocess
 def fileformat(cli):
     """Run several general formatting commands.
     """
-    dos2unix = subprocess.run(['bash', '-c', 'git ls-files -z | xargs -0 dos2unix'])
+    dos2unix = subprocess.run(['bash', '-c', 'git ls-files -z | xargs -0 dos2unix'], stdout=subprocess.DEVNULL)
     return dos2unix.returncode

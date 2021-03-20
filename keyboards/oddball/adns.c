@@ -3,7 +3,7 @@
 #include "quantum.h"
 #include "pointing_device.h"
 #include "adns9800_srom_A4.h"
-#include "../../lib/lufa/LUFA/Drivers/Peripheral/SPI.h"
+#include <LUFA/Drivers/Peripheral/SPI.h>
 
 // registers
 #define REG_Product_ID                           0x00

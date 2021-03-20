@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "hal.h"
-#include "printf.h"
+#include <hal.h>
+#include "print.h"
 
 #ifdef BACKLIGHT_ENABLE
 #include "backlight.h"

@@ -48,6 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define SSD1306OLED
 #endif
 
+#define OLED_UPDATE_INTERVAL 50
+
 /* Select rows configuration */
 // Rows are 4 or 5
 // #define HELIX_ROWS 5 see ./rules.mk

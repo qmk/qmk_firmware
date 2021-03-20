@@ -15,10 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "hal.h"
+#include <hal.h>
 #include "led_custom.h"
 #include "satisfaction75.h"
-#include "printf.h"
 
 static void breathing_callback(PWMDriver *pwmp);
 

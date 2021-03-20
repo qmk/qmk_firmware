@@ -98,14 +98,13 @@ int main(void) {
     clock_prescale_set(clock_div_1);
 #endif
     keyboard_setup();
-
-    host_set_driver(vusb_driver());
     setup_usb();
     sei();
+    keyboard_init();
+    host_set_driver(vusb_driver());
 
     wait_ms(50);
 
-    keyboard_init();
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif

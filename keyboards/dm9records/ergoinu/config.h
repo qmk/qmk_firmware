@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-#include <serial_config.h>
+#include "serial_config.h"
 
 /* USB Device descriptor parameter
    VID & PID are lisenced from microchip sublisence program, Don't use other project! */

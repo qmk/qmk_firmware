@@ -680,7 +680,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         },
         .bcdHID              = 0x0101,
         .bCountryCode        = 0x00,
-        .bNumDescriptors     = 2,
+        .bNumDescriptors     = 1,
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(raw_hid_report)
     },
