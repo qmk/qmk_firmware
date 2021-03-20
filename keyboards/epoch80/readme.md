@@ -2,7 +2,7 @@
 
 ![epoch80](https://i.imgur.com/xNvEKBOl.png)
 
-Dolch PAC inspired TKL keyboard designed by Cary Works and made by KBDFans.
+Dolch PAC inspired TKL keyboard designed by Cary Works and made by KBDFans.  
 The board was also sold in a zFrontier groupbuy under the name Dolch.CR 80.
 
 * Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
