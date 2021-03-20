@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Duck
 #define PRODUCT         Octagon V1
-#define DESCRIPTION     Duck Octagon V1
 
 /* key matrix size */
 #define MATRIX_ROWS 6

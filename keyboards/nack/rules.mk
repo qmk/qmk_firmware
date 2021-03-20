@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 
 # Build Options
 #   change yes to no to disable
@@ -17,7 +18,8 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = yes          # Audio output
-RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = WS2812
 WS2812_DRIVER = spi
 AUDIO_DRIVER = dac_additive # How to drive the 2 speakers
 UNICODE_ENABLE = yes        # Unicode support

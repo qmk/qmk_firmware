@@ -18,7 +18,8 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-RGB_MATRIX_ENABLE = yes     # Use RGB per key light
+RGB_MATRIX_ENABLE = yes     # Use RGB matrix
+RGB_MATRIX_DRIVER = IS31FL3731
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 

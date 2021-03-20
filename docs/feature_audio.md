@@ -1,21 +1,117 @@
 # Audio
 
-Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any AVR keyboard that allows access to certain PWM-capable pins, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+Your keyboard can make sounds! If you've got a spare pin you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
-Up to two simultaneous audio voices are supported, one driven by timer 1 and another driven by timer 3.  The following pins can be defined as audio outputs in config.h:
+To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
 
-Timer 1:
-`#define B5_AUDIO`
-`#define B6_AUDIO`
-`#define B7_AUDIO`
+## AVR based boards
+On Atmega32U4 based boards, up to two simultaneous tones can be rendered.
+With one speaker connected to a PWM capable pin on PORTC driven by timer 3 and the other on one of the PWM pins on PORTB driven by timer 1.
 
-Timer 3:
-`#define C4_AUDIO`
-`#define C5_AUDIO`
-`#define C6_AUDIO`
+The following pins can be configured as audio outputs in `config.h` - for one speaker set eiter one out of:
 
-If you add `AUDIO_ENABLE = yes` to your `rules.mk`, there's a couple different sounds that will automatically be enabled without any other configuration:
+* `#define AUDIO_PIN C4`
+* `#define AUDIO_PIN C5`
+* `#define AUDIO_PIN C6`
+* `#define AUDIO_PIN B5`
+* `#define AUDIO_PIN B6`
+* `#define AUDIO_PIN B7`
 
+and *optionally*, for a second speaker, one of:
+* `#define AUDIO_PIN_ALT B5`
+* `#define AUDIO_PIN_ALT B6`
+* `#define AUDIO_PIN_ALT B7`
+
+### Wiring
+per speaker is - for example with a piezo buzzer - the black lead to Ground, and the red lead connected to the selected AUDIO_PIN for the primary; and similarly with AUDIO_PIN_ALT for the secondary.
+
+
+## ARM based boards
+for more technical details, see the notes on [Audio driver](audio_driver.md).
+
+<!-- because I'm not sure where to fit this in: https://waveeditonline.com/ -->
+### DAC (basic)
+Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac_basic` to `rules.mk` and set in `config.h` either:
+
+`#define AUDIO_PIN A4` or `#define AUDIO_PIN A5`
+
+the other DAC channel can optionally be used with a secondary speaker, just set:
+
+`#define AUDIO_PIN_ALT A4` or `#define AUDIO_PIN_ALT A5`
+
+Do note though that the dac_basic driver is only capable of reproducing one tone per speaker/channel at a time, for more tones simultaneously, try the dac_additive driver.
+
+#### Wiring:
+for two piezos, for example configured as `AUDIO_PIN A4` and `AUDIO_PIN_ALT A5` would be: red lead to A4 and black to Ground, and similarly with the second one: A5 = red, and Ground = black
+
+another alternative is to drive *one* piezo with both DAC pins - for an extra "push".
+wiring red to A4 and black to A5 (or the other way round) and add `#define AUDIO_PIN_ALT_AS_NEGATIVE` to `config.h`
+
+##### Proton-C Example:
+The Proton-C comes (optionally) with one 'builtin' piezo, which is wired to A4+A5.
+For this board `config.h` would include these defines:
+
+```c
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
+```
+
+### DAC (additive)
+Another option, besides dac_basic (which produces sound through a square-wave), is to use the DAC to do additive wave synthesis.
+With a number of predefined wave-forms or by providing your own implementation to generate samples on the fly.
+To use this feature set `AUDIO_DRIVER = dac_additive` in your `rules.mk`, and select in `config.h` EITHER `#define AUDIO_PIN A4` or `#define AUDIO_PIN A5`.
+
+The used waveform *defaults* to sine, but others can be selected by adding one of the following defines to `config.h`:
+
+* `#define AUDIO_DAC_SAMPLE_WAVEFORM_SINE`
+* `#define AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE`
+* `#define AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID`
+* `#define AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE`
+
+Should you rather choose to generate and use your own sample-table with the DAC unit, implement `uint16_t dac_value_generate(void)` with your keyboard - for an example implementation see keyboards/planck/keymaps/synth_sample or keyboards/planck/keymaps/synth_wavetable
+
+
+### PWM (software)
+if the DAC pins are unavailable (or the MCU has no usable DAC at all, like STM32F1xx); PWM can be an alternative.
+Note that there is currently only one speaker/pin supported.
+
+set in `rules.mk`:
+
+`AUDIO_DRIVER = pwm_software` and in `config.h`: 
+`#define AUDIO_PIN C13` (can be any pin) to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
+
+#### Wiring
+the usual piezo wiring: red goes to the selected AUDIO_PIN, black goes to ground.
+
+OR if you can chose to drive one piezo with two pins, for example `#define AUDIO_PIN B1`, `#define AUDIO_PIN_ALT B2` in `config.h`, with `#define AUDIO_PIN_ALT_AS_NEGATIVE` - then the red lead could go to B1, the black to B2.
+
+### PWM (hardware)
+STM32F1xx have to fall back to using PWM, but can do so in hardware; but again on currently only one speaker/pin.
+
+`AUDIO_DRIVER = pwm_hardware` in `rules.mk`, and in `config.h`:
+`#define AUDIO_PIN A8`
+`#define AUDIO_PWM_DRIVER PWMD1`
+`#define AUDIO_PWM_CHANNEL 1`
+(as well as `#define AUDIO_PWM_PAL_MODE 42` if you are on STM32F2 or larger)
+which will use Timer 1 to directly drive pin PA8 through the PWM hardware (TIM1_CH1 = PA8).
+Should you want to use the pwm-hardware on another pin and timer - be ready to dig into the STM32 data-sheet to pick the right TIMx_CHy and pin-alternate function.
+
+
+## Tone Multiplexing
+Since most drivers can only render one tone per speaker at a time (with the one exception: arm dac-additive) there also exists a "workaround-feature" that does time-slicing/multiplexing - which does what the name implies: cycle through a set of active tones (e.g. when playing chords in Music Mode) at a given rate, and put one tone at a time out through the one/few speakers that are available.
+
+To enable this feature, and configure a starting-rate, add the following defines to `config.h`:
+```c
+#define AUDIO_ENABLE_TONE_MULTIPLEXING
+#define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 10
+```
+
+The audio core offers interface functions to get/set/change the tone multiplexing rate from within `keymap.c`.
+
+
+## Songs
+There's a couple of different sounds that will automatically be enabled without any other configuration:
 ```
 STARTUP_SONG // plays when the keyboard starts up (audio.c)
 GOODBYE_SONG // plays when you press the RESET key (quantum.c)
@@ -67,15 +163,34 @@ The available keycodes for audio are:
 * `AU_OFF` - Turn Audio Feature off
 * `AU_TOG` - Toggle Audio Feature state
 
-!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely. 
+!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+
+## Tempo
+the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lenghts are defined relative to that.
+The initial/default tempo is set to 120 bpm, but can be configured by setting `TEMPO_DEFAULT` in `config.c`.
+There is also a set of functions to modify the tempo from within the user/keymap code:
+```c
+void audio_set_tempo(uint8_t tempo);
+void audio_increase_tempo(uint8_t tempo_change);
+void audio_decrease_tempo(uint8_t tempo_change);
+```
 
 ## ARM Audio Volume
 
-For ARM devices, you can adjust the DAC sample values. If your board is too loud for you or your coworkers, you can set the max using `DAC_SAMPLE_MAX` in your `config.h`:
+For ARM devices, you can adjust the DAC sample values. If your board is too loud for you or your coworkers, you can set the max using `AUDIO_DAC_SAMPLE_MAX` in your `config.h`:
 
 ```c
-#define DAC_SAMPLE_MAX 65535U
+#define AUDIO_DAC_SAMPLE_MAX 4095U
 ```
+the DAC usually runs in 12Bit mode, hence a volume of 100% = 4095U
+
+Note: this only adjusts the volume aka 'works' if you stick to WAVEFORM_SQUARE, since its samples are generated on the fly - any other waveform uses a hardcoded/precomputed sample-buffer.
+
+## Voices
+Aka "audio effects", different ones can be enabled by setting in `config.h` these defines:
+`#define AUDIO_VOICES` to enable the feature, and `#define AUDIO_VOICE_DEFAULT something` to select a specific effect
+for details see quantum/audio/voices.h and .c
+
 
 ## Music Mode
 
@@ -214,12 +329,6 @@ This is still a WIP, but check out `quantum/process_keycode/process_midi.c` to s
     AU_ON,
     AU_OFF,
     AU_TOG,
-
-    #ifdef FAUXCLICKY_ENABLE
-        FC_ON,
-        FC_OFF,
-        FC_TOG,
-    #endif
 
     // Music mode on/off/toggle
     MU_ON,

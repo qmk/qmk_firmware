@@ -14,15 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "drashna.h"
-#include "rgb_stuff.h"
-#include "eeprom.h"
+#ifdef RGBLIGHT_ENABLE
 
-bool    has_initialized;
+#    include "drashna.h"
+#    include "rgb_stuff.h"
+#    include "eeprom.h"
+
+bool has_initialized;
 
 void rgblight_sethsv_default_helper(uint8_t index) { rgblight_sethsv_at(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val(), index); }
 
-#ifdef RGBLIGHT_TWINKLE
+#    ifdef RGBLIGHT_TWINKLE
 static rgblight_fadeout lights[RGBLED_NUM];
 
 /* Handler for fading/twinkling effect */
@@ -91,7 +93,7 @@ void start_rgb_light(void) {
 
     rgblight_sethsv_at(light->hue, 255, light->life, light_index);
 }
-#endif
+#    endif
 
 bool process_record_user_rgb_light(uint16_t keycode, keyrecord_t *record) {
     uint16_t temp_keycode = keycode;
@@ -101,7 +103,7 @@ bool process_record_user_rgb_light(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (temp_keycode) {
-#ifdef RGBLIGHT_TWINKLE
+#    ifdef RGBLIGHT_TWINKLE
         case KC_A ... KC_SLASH:
         case KC_F1 ... KC_F12:
         case KC_INSERT ... KC_UP:
@@ -112,20 +114,20 @@ bool process_record_user_rgb_light(uint16_t keycode, keyrecord_t *record) {
                 start_rgb_light();
             }
             break;
-#endif  // RGBLIGHT_TWINKLE
+#    endif  // RGBLIGHT_TWINKLE
     }
     return true;
 }
 
-#if defined(RGBLIGHT_STARTUP_ANIMATION)
-static bool is_enabled;
-static bool is_rgblight_startup;
-static uint8_t old_hue;
+#    if defined(RGBLIGHT_STARTUP_ANIMATION)
+static bool     is_enabled;
+static bool     is_rgblight_startup;
+static uint8_t  old_hue;
 static uint16_t rgblight_startup_loop_timer;
-#endif
+#    endif
 
 void keyboard_post_init_rgb_light(void) {
-#if defined(RGBLIGHT_STARTUP_ANIMATION)
+#    if defined(RGBLIGHT_STARTUP_ANIMATION)
     is_enabled = rgblight_is_enabled();
     if (userspace_config.rgb_layer_change) {
         rgblight_enable_noeeprom();
@@ -136,7 +138,7 @@ void keyboard_post_init_rgb_light(void) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
         is_rgblight_startup = true;
     }
-#endif
+#    endif
     layer_state_set_rgb_light(layer_state);
 }
 
@@ -145,7 +147,7 @@ void matrix_scan_rgb_light(void) {
     scan_rgblight_fadeout();
 #    endif  // RGBLIGHT_ENABLE
 
-#if defined(RGBLIGHT_STARTUP_ANIMATION)
+#    if defined(RGBLIGHT_STARTUP_ANIMATION)
     if (is_rgblight_startup && is_keyboard_master()) {
         if (timer_elapsed(rgblight_startup_loop_timer) > 10) {
             static uint8_t counter;
@@ -163,7 +165,7 @@ void matrix_scan_rgb_light(void) {
             }
         }
     }
-#endif
+#    endif
 }
 
 void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode) {
@@ -173,12 +175,16 @@ void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mo
 }
 
 layer_state_t layer_state_set_rgb_light(layer_state_t state) {
-#ifdef RGBLIGHT_ENABLE
+#    ifdef RGBLIGHT_ENABLE
     if (userspace_config.rgb_layer_change) {
-        uint8_t mode = layer_state_cmp(state,_MODS) ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
-        switch (get_highest_layer(state|default_layer_state)) {
+        uint8_t mode = layer_state_cmp(state, _MODS) ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
+        switch (get_highest_layer(state | default_layer_state)) {
             case _MACROS:
-                rgblight_set_hsv_and_mode(HSV_ORANGE, userspace_config.is_overwatch ? RGBLIGHT_MODE_SNAKE + 2 : RGBLIGHT_MODE_SNAKE + 3);
+#        ifdef RGBLIGHT_EFFECT_TWINKLE
+                rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_TWINKLE + 5);
+#        else
+                rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_BREATHING + 3);
+#        endif
                 break;
             case _MEDIA:
                 rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_KNIGHT + 1);
@@ -224,7 +230,9 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
                 break;
         }
     }
-#endif  // RGBLIGHT_ENABLE
+#    endif  // RGBLIGHT_ENABLE
 
     return state;
 }
+
+#endif

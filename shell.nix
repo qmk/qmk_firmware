@@ -16,6 +16,25 @@ let
       inherit pname version;
       sha256 = "1yaimcgz8w0ps1wk28wk9g9zdidp79d14xqqj9rjkvxalvx2f5qx";
     };
+
+    doCheck = false;
+  };
+
+  milc = with pkgs.python3Packages; buildPythonPackage rec {
+    pname = "milc";
+    version = "1.0.10";
+
+    src = fetchPypi {
+      inherit pname version;
+      sha256 = "1q1p7qrqk78mw67nhv04zgxaq8himmdxmy2vp4fmi7chwgcbpi32";
+    };
+
+    propagatedBuildInputs = [
+      appdirs
+      argcomplete
+      colorama
+    ];
+
     doCheck = false;
   };
 
@@ -25,6 +44,7 @@ let
     argcomplete
     colorama
     hjson
+    milc
     pygments
     # requirements-dev.txt
     nose2
@@ -51,7 +71,7 @@ in
 mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ dfu-programmer dfu-util diffutils git pythonEnv ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv ]
     ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8
@@ -66,6 +86,6 @@ mkShell {
   shellHook = ''
     # Prevent the avr-gcc wrapper from picking up host GCC flags
     # like -iframework, which is problematic on Darwin
-    unset NIX_TARGET_CFLAGS_COMPILE
+    unset NIX_CFLAGS_COMPILE_FOR_TARGET
   '';
 }

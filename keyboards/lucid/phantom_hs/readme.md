@@ -1,4 +1,4 @@
-# bolsa65
+# Phantom Hotswap PCB by Lucid
 
 The following is the QMK Firmware for the Phantom Hotswap PCB for [LucidKB](http://www.lucidkb.cm).
 ---
