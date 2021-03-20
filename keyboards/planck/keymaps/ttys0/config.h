@@ -20,6 +20,5 @@
     #define STARTUP_SONG SONG(COLEMAK_SOUND)
 #endif
 
-
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
