@@ -19,7 +19,7 @@ These functions allow you to activate layers in various ways. Note that layers a
 
 ### Caveats :id=caveats
 
-Currently, `LT()` (and also all [Mod-Tap](mod_tap.md) keycodes) are limited to the [Basic Keycode set](keycodes_basic.md) for their *kc* argument, meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. In the case of `LT()`, this is because QMK uses 16-bit keycodes, of which 4 bits are used for the function identifier, 4 bits for the layer (and this is why it's limited to layers 0-15, actually), only 8 bits are left for the keycode. Because of this, the keycode used is limited to `0xFF` (0-255), which are the basic keycodes only. 
+Currently, the `layer` argument of `LT()` is limited to layers 0-15, and the `kc` argument to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. This is because QMK uses 16-bit keycodes, of which 4 bits are used for the function identifier and 4 bits for the layer, leaving only 8 bits for the keycode.
 
 Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
