@@ -2,18 +2,18 @@
 
 ![corgi](imgur.com image replace me!)
 
-*A short description of the keyboard/project*
+*Corgi is a semi modular 4 x 12 ortho keyboard. The unique thing with Corgi is that you can attach a macropad name "Flea" to use as a num/macro-pad.*
 
-* Keyboard Maintainer: [Christian Sandven](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Christian Sandven](https://github.com/csandven)
+* Hardware Supported: *Pro Micro or Elite C is required*
+* Hardware Availability: *TBA*
 
 Make example for this keyboard (after setting up your build environment):
 
-    make corgi:default
+    make keyprez/corgi:default
 
 Flashing example for this keyboard:
 
-    make corgi:default:flash
+    make keyprez/corgi:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
