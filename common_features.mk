@@ -224,12 +224,15 @@ VALID_LED_MATRIX_TYPES := IS31FL3731 custom
 ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_LED_MATRIX_TYPES)),)
         $(error "$(LED_MATRIX_DRIVER)" is not a valid matrix type)
-    else
-        OPT_DEFS += -DLED_MATRIX_ENABLE
-        SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
-        SRC += $(QUANTUM_DIR)/led_matrix.c
-        SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
     endif
+    OPT_DEFS += -DLED_MATRIX_ENABLE
+ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
+    # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
+    OPT_DEFS += -DLIB8_ATTINY
+endif
+    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
+    SRC += $(QUANTUM_DIR)/led_matrix.c
+    SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3731)
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
