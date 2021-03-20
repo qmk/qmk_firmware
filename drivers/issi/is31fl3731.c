@@ -64,7 +64,7 @@ uint8_t g_twi_transfer_buffer[20];
 uint8_t g_pwm_buffer[DRIVER_COUNT][144];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
-uint8_t g_led_control_registers[DRIVER_COUNT][18]             = {{0}, {0}};
+uint8_t g_led_control_registers[DRIVER_COUNT][18]             = {{0}};
 bool    g_led_control_registers_update_required[DRIVER_COUNT] = {false};
 
 // This is the bit pattern in the LED control registers
@@ -233,4 +233,5 @@ void IS31FL3731_update_led_control_registers(uint8_t addr, uint8_t index) {
             IS31FL3731_write_register(addr, i, g_led_control_registers[index][i]);
         }
     }
+    g_led_control_registers_update_required[index] = false;
 }

@@ -23,9 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
 #define DEVICE_VER      0x0200
-// Edit usbconfig.h to change these.
-#define MANUFACTURER    ymdkey
-#define PRODUCT         ymd96
+#define MANUFACTURER    YMDK
+#define PRODUCT         YMD96
 
 /* matrix size */
 #define MATRIX_ROWS 8
@@ -35,6 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_NUM_LOCK_PIN D0
+#define LED_CAPS_LOCK_PIN D1
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12

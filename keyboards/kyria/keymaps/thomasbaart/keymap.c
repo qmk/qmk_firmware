@@ -173,9 +173,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > 1000) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
+        }
+    }
+
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();
@@ -192,7 +203,13 @@ void matrix_scan_user(void) {
         SEQ_TWO_KEYS(KC_F, KC_P) { // Fusion Projection prefix
             SEND_STRING("[Projection] ");
         }
-        SEQ_TWO_KEYS(KC_E, KC_S) { // Email splitkb
+        SEQ_TWO_KEYS(KC_B, KC_B) { // Basecone invoice description
+            SEND_STRING("[Leveranciersnaam] [Factuurnummer]");
+        }
+        SEQ_TWO_KEYS(KC_E, KC_S) { // Support email splitkb
+            SEND_STRING("support@splitkb.com");
+        }
+        SEQ_TWO_KEYS(KC_E, KC_T) { // Email splitkb
             SEND_STRING("thomas@splitkb.com");
         }
         SEQ_TWO_KEYS(KC_E, KC_P) { // Email personal
@@ -204,14 +221,17 @@ void matrix_scan_user(void) {
         SEQ_TWO_KEYS(KC_S, KC_V) { // Splitkb VAT number
             SEND_STRING("NL210593349B01");
         }
-        SEQ_THREE_KEYS(KC_S, KC_D, KC_K) { // Splitkb Kyria build log
-            SEND_STRING("https://docs.splitkb.com/docs/kyria-build-log/");
-        }
         SEQ_TWO_KEYS(KC_B, KC_C) { // Discord bongocat
             SEND_STRING(":bongocat:\n");
         }
         SEQ_TWO_KEYS(KC_C, KC_B) { // Discord code block
             SEND_STRING("```c" SS_LSFT("\n\n") "``` " SS_TAP(X_UP));
+        }
+        SEQ_TWO_KEYS(KC_Y, KC_S) { // Greeting
+            SEND_STRING("Yours sincerely,\n\nThomas Baart");
+        }
+        SEQ_THREE_KEYS(KC_M, KC_V, KC_G) { // Greeting
+            SEND_STRING("Met vriendelijke groet,\n\nThomas Baart");
         }
     }
 }
@@ -292,20 +312,25 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (biton32(layer_state)) {
             case QWERTY:
-                // Move whole words. Hold shift to select while moving.
-                if (clockwise) {
-                    tap_code16(C(KC_RGHT));
-                } else {
-                    tap_code16(C(KC_LEFT));
-                }
-                break;
-            default:
                 // History scrubbing. For Adobe products, hold shift while moving
                 // backward to go forward instead.
                 if (clockwise) {
                     tap_code16(C(KC_Z));
                 } else {
                     tap_code16(C(KC_Y));
+                }
+                break;
+            default:
+                // Switch between windows on Windows with alt tab.
+                if (clockwise) {
+                    if (!is_alt_tab_active) {
+                        is_alt_tab_active = true;
+                        register_code(KC_LALT);
+                    } 
+                    alt_tab_timer = timer_read();
+                    tap_code16(KC_TAB);
+                } else {
+                    tap_code16(S(KC_TAB));
                 }
                 break;
         }

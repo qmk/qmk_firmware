@@ -19,12 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
+#define PRODUCT_ID      0x4246 // BF
 #define DEVICE_VER      0x0200
-// You can edit those at usbconfig.h about line 250. These values will
-// unforunatly be ignored so far
-#define MANUFACTURER    winkeyless.kr
-#define PRODUCT         b.face
+#define MANUFACTURER    Winkeyless
+#define PRODUCT         B.face
 
 /* matrix size */
 #define MATRIX_ROWS 8
@@ -36,6 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_NUM_LOCK_PIN D0
+#define LED_CAPS_LOCK_PIN D1
+#define LED_SCROLL_LOCK_PIN D6
 
 #define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS

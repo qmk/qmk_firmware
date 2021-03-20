@@ -2,15 +2,15 @@
 
 ## About this keymap:
 
-The Dvorak layout shown here stems from my early Kinesis years, using the Contour PS/2 with a Dvorak software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner keys. I've decided to continue using this layout with my QMK Kinesis.
-
-The QWERTY layout shown here is based entirely on the Kinesis Advantage layout. The Colemak layout is merely an adaptation of that.
+This is is pretty much a stock Advantage layout for Dvorak, with a bit of rearranging of certain keys. The QWERTY layout shown here is based entirely on the Kinesis Advantage layout. The Colemak layout is merely an adaptation of that.
 
 I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
 
 Depending on the OS, most of the LEDs are now working in this keymap, but I still have yet to get the Num Pad LED working when switching to the Numpad layer.
 
 Removed the Media layer 2018-12-07
+
+Updated Dvorak layer to move slash to a position relative to my other 5x12 ortholinear keyboards 2020-05-04
 
 ## Still to do:
 
@@ -27,15 +27,15 @@ Removed the Media layer 2018-12-07
 ### Layer 0: Dvorak layer
 
 	,-------------------------------------------.,-------------------------------------------.
-	|   ]    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   [    |
+	|   =    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   \    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	| Tab    |   '  |   ,  |   .  |   P  |   Y  ||   F  |   G  |   C  |   R  |   L  |   \    |
+	| Tab    |   '  |   ,  |   .  |   P  |   Y  ||   F  |   G  |   C  |   R  |   L  |   /    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| CapsLk |   A  |   O  |   E  |   U  |   I  ||   D  |   H  |   T  |   N  |   S  |   -    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| LShift |   Z  |   X  |   C  |   V  |   X  ||   B  |   M  |   W  |   V  |   Z  | RShift |
 	`--------+------+------+------+------+------'`------+------+------+------+------+--------'
-	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   /  |   =  |
+	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   [  |   ]  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
 	                             | LCtl  | LAlt || RGUI | RCtl  |

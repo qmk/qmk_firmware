@@ -6,7 +6,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    DZTECH
 #define PRODUCT         DZ60RGB
-#define DESCRIPTION     DZ60 AVR RGB keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -33,10 +32,8 @@
 #define DEBOUNCE 3
 
 /* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-#    define NO_ACTION_MACRO
-#    define NO_ACTION_FUNCTION
-#endif
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects

@@ -7,25 +7,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_planck_grid( /* Joe colemak */
     FN3_ESC, KC_Q,    KC_W,    KC_F,    KC_P, KC_G,   KC_J,   KC_L, KC_U,    KC_Y,    KC_SCLN, KC_MINS,
     KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T, KC_D,   KC_H,   KC_N, KC_E,    KC_I,    KC_O,    KC_ENT ,
-    F(15),   KC_Z,    KC_X,    KC_C,    KC_V, KC_B,   KC_K,   KC_M, KC_COMM, KC_DOT,  KC_UP,   KC_QUOT,
+    MT(MOD_LSFT, KC_TAB),   KC_Z,    KC_X,    KC_C,    KC_V, KC_B,   KC_K,   KC_M, KC_COMM, KC_DOT,  KC_UP,   KC_QUOT,
     KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(4),KC_SPC, KC_SPC, MO(5),KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
   ),
   [1] = LAYOUT_planck_grid( /* Joe soft Colemak */
     FN3_ESC, CM_Q,    CM_W,    CM_F,    CM_P, CM_G,   CM_J,   CM_L, CM_U,    CM_Y,    CM_SCLN, KC_MINS,
     KC_BSPC, CM_A,    CM_R,    CM_S,    CM_T, CM_D,   CM_H,   CM_N, CM_E,    CM_I,    CM_O,    KC_ENT ,
-    F(15),   CM_Z,    CM_X,    CM_C,    CM_V, CM_B,   CM_K,   CM_M, KC_COMM, KC_DOT,  KC_UP,   KC_QUOT,
+    MT(MOD_LSFT, KC_TAB),   CM_Z,    CM_X,    CM_C,    CM_V, CM_B,   CM_K,   CM_M, KC_COMM, KC_DOT,  KC_UP,   KC_QUOT,
     KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(4),KC_SPC, KC_SPC, MO(5),KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
   ),
   [2] = LAYOUT_planck_grid( /* Joe NUMPAD */
     FN3_ESC, KC_NO,   KC_UP,   KC_NO,   KC_NO, KC_NO,   LSFT(KC_9), LSFT(KC_0), KC_PSLS, KC_P7, KC_P8,   KC_P9  ,
     KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,   LSFT(KC_5), KC_PEQL,    KC_PAST, KC_P4, KC_P5,   KC_P6  ,
-    F(15),   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,      KC_PCMM,    KC_PMNS, KC_P1, KC_P2,   KC_P3  ,
+    MT(MOD_LSFT, KC_TAB),   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,      KC_PCMM,    KC_PMNS, KC_P1, KC_P2,   KC_P3  ,
     KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(4), KC_TRNS, KC_TRNS,    MO(5),      KC_PPLS, KC_P0, KC_PDOT, KC_PENT
   ),
   [3] = LAYOUT_planck_grid( /* Joe 1337 haxOr5*/
     FN3_ESC, KC_Q,    KC_W,    KC_F,    KC_P, KC_6,   KC_J,   KC_L, KC_U,    KC_Y,    KC_SCLN, KC_MINS,
     KC_BSPC, KC_4,    KC_R,    KC_5,    KC_7, KC_D,   KC_H,   KC_N, KC_3,    KC_1,    KC_0,    KC_ENT ,
-    F(15),   KC_Z,    KC_X,    KC_C,    KC_V, KC_B,   KC_K,   KC_M, KC_COMM, KC_DOT,  KC_UP,   KC_QUOT,
+    MT(MOD_LSFT, KC_TAB),   KC_Z,    KC_X,    KC_C,    KC_V, KC_B,   KC_K,   KC_M, KC_COMM, KC_DOT,  KC_UP,   KC_QUOT,
     KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(4),KC_SPC, KC_SPC, MO(5),KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
   ),
   [4] = LAYOUT_planck_grid( /* Joe LOWER fn1 */
@@ -44,19 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,    KC_NO,   KC_NO,   KC_NO           ,
     KC_NO,   KC_MPLY, KC_MPRV, KC_MNXT, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,    KC_NO,   KC_NO,   RESET           ,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,    KC_NO,   KC_NO,   KC_NO           ,
-    F(6),    F(7),    F(8),    F(9),   MO(4), KC_TRNS, KC_TRNS, MO(5), KC_POWER, KC_WAKE, KC_SLEP, LCTL(LALT(KC_L))
+    DF(0),   DF(1),   DF(2),   DF(3),   MO(4), KC_TRNS, KC_TRNS, MO(5), KC_POWER, KC_WAKE, KC_SLEP, LCTL(LALT(KC_L))
   )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    /* toggle layers */
-    [6]  = ACTION_DEFAULT_LAYER_SET(0), 
-    [7]  = ACTION_DEFAULT_LAYER_SET(1),
-    [8]  = ACTION_DEFAULT_LAYER_SET(2),
-    [9]  = ACTION_DEFAULT_LAYER_SET(3),
-
-    /* tab on tap, shift on hold */
-    [15] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_TAB),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

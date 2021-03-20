@@ -18,8 +18,10 @@ else
     CONSOLE_ENABLE    			= yes
     COMMAND_ENABLE    			= yes
     RGBLIGHT_ENABLE             = yes
+    RGBLIGHT_STARTUP_ANIMATION  = yes
     RGB_MATRIX_ENABLE           = no
     AUDIO_ENABLE       			= yes
+    EEPROM_DRIVER 				= i2c
 endif
 ifeq ($(strip $(KEYBOARD)), planck/light)
     RGB_MATRIX_ENABLE           = yes
@@ -32,7 +34,7 @@ ifeq ($(strip $(KEYBOARD)), planck/ez)
     RGBLIGHT_ENABLE = no
     # SERIAL_LINK_ENABLE = yes
     ENCODER_ENABLE = yes
-    RGB_MATRIX_ENABLE = IS31FL3737
+    RGB_MATRIX_ENABLE = yes
     INDICATOR_LIGHTS            = yes
     RGBLIGHT_TWINKLE            = yes
     RGBLIGHT_STARTUP_ANIMATION  = yes

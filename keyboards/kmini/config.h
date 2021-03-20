@@ -1,4 +1,4 @@
-/* Copyright 2018 Maarten Dekkers <maartenwut@gmail.com>
+/* Copyright 2018 Evy Dekkers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0104
 #define MANUFACTURER    Revo
 #define PRODUCT         KMAC Kmini
-#define DESCRIPTION     QMK keyboard firmware for Revo KMAC Mini
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -20,19 +20,19 @@
 #include "eeprom_driver.h"
 
 uint8_t eeprom_read_byte(const uint8_t *addr) {
-    uint8_t ret;
+    uint8_t ret = 0;
     eeprom_read_block(&ret, addr, 1);
     return ret;
 }
 
 uint16_t eeprom_read_word(const uint16_t *addr) {
-    uint16_t ret;
+    uint16_t ret = 0;
     eeprom_read_block(&ret, addr, 2);
     return ret;
 }
 
 uint32_t eeprom_read_dword(const uint32_t *addr) {
-    uint32_t ret;
+    uint32_t ret = 0;
     eeprom_read_block(&ret, addr, 4);
     return ret;
 }

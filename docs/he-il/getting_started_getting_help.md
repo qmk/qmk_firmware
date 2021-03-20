@@ -11,7 +11,7 @@
 
 הפורום הרשמי של QMK נמצא ב - [/r/olkb](https://reddit.com/r/olkb) באתר [reddit.com](https://reddit.com).
 
-## סוגיות Github
+## סוגיות GitHub
 
 ניתן לפתוח [סוגייה ב-GitHub](https://github.com/qmk/qmk_firmware/issues). הדבר שימושי במיוחד כאשר הסוגיה דורשת דיון עמוק וארוך או דיבאגינג.
 </div>

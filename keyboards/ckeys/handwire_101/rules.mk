@@ -28,5 +28,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by d
 #MIDI_ENABLE = yes            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = yes           # Audio output on port C6
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+AUDIO_ENABLE = no           # Audio output

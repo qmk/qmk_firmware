@@ -1,4 +1,6 @@
-SRC += danielo515.c
+SRC +=  danielo515.c \
+        alt_tab.c \
+		process_records.c
 
 ifeq ($(strip $(COMBO_ENABLE)), yes)
     SRC += combo.c

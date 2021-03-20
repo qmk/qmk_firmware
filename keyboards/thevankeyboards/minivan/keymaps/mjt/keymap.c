@@ -99,7 +99,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
               if (record->event.pressed) {
               #ifdef AUDIO_ENABLE
                 stop_all_notes();
-                PLAY_NOTE_ARRAY(tone_plover, false, 0);
+                PLAY_SONG(tone_plover);
               #endif
               layer_off(_NUMSYM);
               layer_off(_FKEYS);
@@ -110,7 +110,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 7: // LAYERRESET
               if (record->event.pressed) {
               #ifdef AUDIO_ENABLE
-                PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+                PLAY_SONG(tone_qwerty);
               #endif
               layer_off(_NUMSYM);
               layer_off(_FKEYS);
@@ -132,7 +132,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if(record->event.pressed) {
             #ifdef AUDIO_ENABLE
               stop_all_notes();
-              PLAY_NOTE_ARRAY(tone_adjust, false, 0);
+              PLAY_SONG(tone_adjust);
             #endif
             layer_off(_NUMSYM);
             layer_off(_FKEYS);
@@ -166,12 +166,12 @@ void matrix_init_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -183,6 +183,6 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 #endif

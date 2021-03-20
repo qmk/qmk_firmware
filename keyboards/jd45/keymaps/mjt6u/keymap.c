@@ -119,7 +119,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         {
             persistent_default_layer_set(1UL << _QWERTY);
 #ifdef AUDIO_ENABLE
-            PLAY_NOTE_ARRAY(tone_fnpc, false, 0);
+            PLAY_SONG(tone_fnpc);
 #endif
             print("Space-FN");
         }
@@ -130,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         {
             persistent_default_layer_set(1UL << _QWERTYNUMMODS);
 #ifdef AUDIO_ENABLE
-            PLAY_NOTE_ARRAY(tone_fnmac, false, 0);
+            PLAY_SONG(tone_fnmac);
 #endif
             print("Space-Numpad");
         }

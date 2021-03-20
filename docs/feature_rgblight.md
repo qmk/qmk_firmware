@@ -10,6 +10,7 @@ Currently QMK supports the following addressable LEDs (however, the white LED in
 
  * WS2811, WS2812, WS2812B, WS2812C, etc.
  * SK6812, SK6812MINI, SK6805
+ * APA102
 
 These LEDs are called "addressable" because instead of using a wire per color, each LED contains a small microchip that understands a special protocol sent over a single wire. The chip passes on the remaining data to the next LED, allowing them to be chained together. In this way, you can easily control the color of the individual LEDs.
 
@@ -21,11 +22,19 @@ On keyboards with onboard RGB LEDs, it is usually enabled by default. If it is n
 RGBLIGHT_ENABLE = yes
 ```
 
-At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
+For APA102 LEDs, add the following to your `rules.mk`:
+
+```make
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_DRIVER = APA102
+```
+
+At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
 
 |Define         |Description                                                                                              |
 |---------------|---------------------------------------------------------------------------------------------------------|
 |`RGB_DI_PIN`   |The pin connected to the data pin of the LEDs                                                            |
+|`RGB_CI_PIN`   |The pin connected to the clock pin of the LEDs (APA102 only)                                             |
 |`RGBLED_NUM`   |The number of LEDs connected                                                                             |
 |`RGBLED_SPLIT` |(Optional) For split keyboards, the number of LEDs connected on each half directly wired to `RGB_DI_PIN` |
 
@@ -40,6 +49,8 @@ QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV)
 Changing the **Hue** cycles around the circle.<br>
 Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.<br>
 Changing the **Value** sets the overall brightness.<br>
+
+![QMK Color Wheel with HSV Values](https://i.imgur.com/vkYVo66.jpg)
 
 ## Keycodes
 
@@ -64,18 +75,27 @@ Changing the **Value** sets the overall brightness.<br>
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
 
+!> By default, if you have both the RGB Light and the [RGB Matrix](feature_rgb_matrix.md) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
+
+
 ## Configuration
 
 Your RGB lighting can be configured by placing these `#define`s in your `config.h`:
 
-|Define               |Default      |Description                                                                  |
-|---------------------|-------------|-----------------------------------------------------------------------------|
-|`RGBLIGHT_HUE_STEP`  |`10`         |The number of steps to cycle through the hue by                              |
-|`RGBLIGHT_SAT_STEP`  |`17`         |The number of steps to increment the saturation by                           |
-|`RGBLIGHT_VAL_STEP`  |`17`         |The number of steps to increment the brightness by                           |
-|`RGBLIGHT_LIMIT_VAL` |`255`        |The maximum brightness level                                                 |
-|`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
-|`RGBLIGHT_SPLIT`     |*Not defined*|If defined, synchronization functionality for split keyboards is added|
+|Define                     |Default                     |Description                                                                                                                |
+|---------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------|
+|`RGBLIGHT_HUE_STEP`        |`10`                        |The number of steps to cycle through the hue by                                                                            |
+|`RGBLIGHT_SAT_STEP`        |`17`                        |The number of steps to increment the saturation by                                                                         |
+|`RGBLIGHT_VAL_STEP`        |`17`                        |The number of steps to increment the brightness by                                                                         |
+|`RGBLIGHT_LIMIT_VAL`       |`255`                       |The maximum brightness level                                                                                               |
+|`RGBLIGHT_SLEEP`           |*Not defined*               |If defined, the RGB lighting will be switched off when the host goes to sleep                                              |
+|`RGBLIGHT_SPLIT`           |*Not defined*               |If defined, synchronization functionality for split keyboards is added                                                     |
+|`RGBLIGHT_DISABLE_KEYCODES`|*Not defined*               |If defined, disables the ability to control RGB Light from the keycodes. You must use code functions to control the feature|
+|`RGBLIGHT_DEFAULT_MODE`    |`RGBLIGHT_MODE_STATIC_LIGHT`|The default mode to use upon clearing the EEPROM                                                                           |
+|`RGBLIGHT_DEFAULT_HUE`     |`0` (red)                   |The default hue to use upon clearing the EEPROM                                                                            |
+|`RGBLIGHT_DEFAULT_SAT`     |`UINT8_MAX` (255)           |The default saturation to use upon clearing the EEPROM                                                                     |
+|`RGBLIGHT_DEFAULT_VAL`     |`RGBLIGHT_LIMIT_VAL`        |The default value (brightness) to use upon clearing the EEPROM                                                             |
+|`RGBLIGHT_DEFAULT_SPD`     |`0`                         |The default speed to use upon clearing the EEPROM                                                                          |
 
 ## Effects and Animations
 
@@ -94,6 +114,7 @@ if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a n
 |`RGBLIGHT_MODE_STATIC_GRADIENT`| 0,1,..,9        |Static gradient                        |
 |`RGBLIGHT_MODE_RGB_TEST`     | *None*            |RGB Test                               |
 |`RGBLIGHT_MODE_ALTERNATING`  | *None*            |Alternating                            |
+|`RGBLIGHT_MODE_TWINKLE`      | 0,1,2,3,4,5       |Twinkle                                |
 
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
 
@@ -103,8 +124,8 @@ Note: For versions older than 0.6.117, The mode numbers were written directly. I
 
 Use these defines to add or remove animations from the firmware. When you are running low on flash space, it can be helpful to disable animations you are not using.
 
-|Define                              |Default      |Description                                                                          |
-|------------------------------------|-------------|-------------------------------------------------------------------------------------|
+|Define                              |Default      |Description                                                              |
+|------------------------------------|-------------|-------------------------------------------------------------------------|
 |`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes.                                   |
 |`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|Enable alternating animation mode.                                       |
 |`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode.                                         |
@@ -115,22 +136,25 @@ Use these defines to add or remove animations from the firmware. When you are ru
 |`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|Enable RGB test animation mode.                                          |
 |`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode.                                             |
 |`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
+|`RGBLIGHT_EFFECT_TWINKLE`           |*Not defined*|Enable twinkle animation mode.                                           |
 
 ### Effect and Animation Settings
 
 The following options are used to tweak the various animations:
 
-|Define                              |Default      |Description                                                                          |
-|------------------------------------|-------------|-------------------------------------------------------------------------------------|
+|Define                              |Default      |Description                                                                                    |
+|------------------------------------|-------------|-----------------------------------------------------------------------------------------------|
 |`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*|If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
-|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255             |
-|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`1000`       |How long to wait between light changes for the "Christmas" animation, in milliseconds|
-|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation    |
-|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                             |
-|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                            |
-|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
-|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                |
-|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
+|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255                       |
+|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`40`         |How long (in milliseconds) to wait between animation steps for the "Christmas" animation       |
+|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation              |
+|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                                       |
+|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                                      |
+|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by              |
+|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                          |
+|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                                       |
+|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`200`        |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
+|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
   1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
@@ -168,9 +192,126 @@ const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 // How long (in milliseconds) to wait between animation steps for each of the "Knight" animations
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 
+// How long (in milliseconds) to wait between animation steps for each of the "Twinkle" animations
+const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {50, 25, 10};
+
 // These control which hues are selected for each of the "Static gradient" modes
 const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 ```
+
+## Lighting Layers
+
+?> **Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](feature_rgb_matrix.md?indicators) for details on how to do so.
+
+By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
+it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
+
+### Defining Lighting Layers :id=defining-lighting-layers
+
+By default, 8 layers are possible. This can be expanded to as many as 32 by overriding the definition of `RGBLIGHT_MAX_LAYERS` in `config.h` (e.g. `#define RGBLIGHT_MAX_LAYERS 32`). Please note, if you use a split keyboard, you will need to flash both sides of the split after changing this. Also, increasing the maximum will increase the firmware size, and will slow sync on split keyboards.
+
+To define a layer, we modify `keymap.c` to list the LED ranges and the colors we want to overlay on them using an array of `rgblight_segment_t` using the `RGBLIGHT_LAYER_SEGMENTS` macro. We can define multiple layers and enable/disable them independently:
+
+```c
+// Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {6, 4, HSV_RED},       // Light 4 LEDs, starting with LED 6
+    {12, 4, HSV_RED}       // Light 4 LEDs, starting with LED 12
+);
+// Light LEDs 9 & 10 in cyan when keyboard layer 1 is active
+const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 2, HSV_CYAN}
+);
+// Light LEDs 11 & 12 in purple when keyboard layer 2 is active
+const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {11, 2, HSV_PURPLE}
+);
+// Light LEDs 13 & 14 in green when keyboard layer 3 is active
+const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {13, 2, HSV_GREEN}
+);
+// etc..
+```
+
+We combine these layers into an array using the `RGBLIGHT_LAYERS_LIST` macro, and assign it to the `rgblight_layers` variable during keyboard setup. Note that you can only define up to 8 lighting layers. Any extra layers will be ignored. Since the different lighting layers overlap, the order matters in the array, with later layers taking precedence:
+
+```c
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_capslock_layer,
+    my_layer1_layer,    // Overrides caps lock layer
+    my_layer2_layer,    // Overrides other layers
+    my_layer3_layer     // Overrides other layers
+);
+
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
+}
+```
+Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
+
+### Enabling and disabling lighting layers :id=enabling-lighting-layers
+
+Everything above just configured the definition of each lighting layer.
+We can now enable and disable the lighting layers whenever the state of the keyboard changes:
+
+```c
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, _DVORAK));
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(2, layer_state_cmp(state, _FN));
+    rgblight_set_layer_state(3, layer_state_cmp(state, _ADJUST));
+    return state;
+}
+```
+
+### Lighting layer blink :id=lighting-layer-blink
+
+By including `#define RGBLIGHT_LAYER_BLINK` in your `config.h` file you can turn a lighting
+layer on for a specified duration. Once the specified number of milliseconds has elapsed
+the layer will be turned off. This is useful, e.g., if you want to acknowledge some
+action (e.g. toggling some setting):
+
+```c
+const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_GREEN} );
+const rgblight_segment_t PROGMEM _no_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_RED} );
+
+const rgblight_segment_t* const PROGMEM _rgb_layers[] =
+    RGBLIGHT_LAYERS_LIST( _yes_layer, _no_layer );
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = _rgb_layers;
+}
+
+// Note we user post_process_record_user because we want the state
+// after the flag has been flipped...
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DEBUG:
+            rgblight_blink_layer(debug_enable ? 0 : 1, 500);
+            break;
+
+        case NK_TOGG:
+        case NK_ON:
+        case NK_OFF:
+            rgblight_blink_layer(keymap_config.nkro ? 0 : 1, 500);
+            break;
+    }
+}
+```
+
+### Overriding RGB Lighting on/off status
+
+Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with `RGB_TOG` keycode). If you would like lighting layers to work even when the RGB Lighting is otherwise off, add `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` to your `config.h`.
 
 ## Functions
 
@@ -234,6 +375,7 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_step_noeeprom()`                  |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM) |
 |`rgblight_step_reverse()`                   |Change the mode to the previous RGB animation in the list of enabled RGB animations |
 |`rgblight_step_reverse_noeeprom()`          |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM) |
+|`rgblight_reload_from_eeprom()`             |Reload the effect configuration (enabled, mode and color) from EEPROM |
 
 #### effects mode disable/enable
 |Function                                    |Description  |
@@ -252,24 +394,43 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_increase_hue_noeeprom()`          |Increase the hue for effect range LEDs. This wraps around at maximum hue (not written to EEPROM) |
 |`rgblight_decrease_hue()`                   |Decrease the hue for effect range LEDs. This wraps around at minimum hue |
 |`rgblight_decrease_hue_noeeprom()`          |Decrease the hue for effect range LEDs. This wraps around at minimum hue (not written to EEPROM) |
-|`rgblight_increase_sat()`                   |Increase the saturation for effect range LEDs. This wraps around at maximum saturation |
-|`rgblight_increase_sat_noeeprom()`          |Increase the saturation for effect range LEDs. This wraps around at maximum saturation (not written to EEPROM) |
-|`rgblight_decrease_sat()`                   |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation |
-|`rgblight_decrease_sat_noeeprom()`          |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation (not written to EEPROM) |
-|`rgblight_increase_val()`                   |Increase the value for effect range LEDs. This wraps around at maximum value |
-|`rgblight_increase_val_noeeprom()`          |Increase the value for effect range LEDs. This wraps around at maximum value (not written to EEPROM) |
-|`rgblight_decrease_val()`                   |Decrease the value for effect range LEDs. This wraps around at minimum value |
-|`rgblight_decrease_val_noeeprom()`          |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
+|`rgblight_increase_sat()`                   |Increase the saturation for effect range LEDs. This stops at maximum saturation |
+|`rgblight_increase_sat_noeeprom()`          |Increase the saturation for effect range LEDs. This stops at maximum saturation (not written to EEPROM) |
+|`rgblight_decrease_sat()`                   |Decrease the saturation for effect range LEDs. This stops at minimum saturation |
+|`rgblight_decrease_sat_noeeprom()`          |Decrease the saturation for effect range LEDs. This stops at minimum saturation (not written to EEPROM) |
+|`rgblight_increase_val()`                   |Increase the value for effect range LEDs. This stops at maximum value |
+|`rgblight_increase_val_noeeprom()`          |Increase the value for effect range LEDs. This stops at maximum value (not written to EEPROM) |
+|`rgblight_decrease_val()`                   |Decrease the value for effect range LEDs. This stops at minimum value |
+|`rgblight_decrease_val_noeeprom()`          |Decrease the value for effect range LEDs. This stops at minimum value (not written to EEPROM) |
 |`rgblight_sethsv(h, s, v)`                  |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
 |`rgblight_sethsv_noeeprom(h, s, v)`         |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
+#### Speed functions
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgblight_increase_speed()`                 |Increases the animation speed |
+|`rgblight_increase_speed_noeeprom()`        |Increases the animation speed (not written to EEPROM) |
+|`rgblight_decrease_speed()`                 |Decreases the animation speed |
+|`rgblight_decrease_speed_noeeprom()`        |Decreases the animation speed (not written to EEPROM) |
+|`rgblight_set_speed()`                      |Sets the speed. Value is between 0 and 255 |
+|`rgblight_set_speed_noeeprom()`             |Sets the speed. Value is between 0 and 255 (not written to EEPROM) |
+
+
+#### layer functions
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgblight_get_layer_state(i)`               |Returns `true` if lighting layer `i` is enabled |
+|`rgblight_set_layer_state(i, is_on)`        |Enable or disable lighting layer `i` based on value of `bool is_on` |
+
 #### query
-|Function               |Description      |
-|-----------------------|-----------------|
-|`rgblight_get_mode()`  |Get current mode |
-|`rgblight_get_hue()`   |Get current hue  |
-|`rgblight_get_sat()`   |Get current sat  |
-|`rgblight_get_val()`   |Get current val  |
+|Function               |Description                |
+|-----------------------|---------------------------|
+|`rgblight_is_enabled()`|Gets current on/off status |
+|`rgblight_get_mode()`  |Gets current mode          |
+|`rgblight_get_hue()`   |Gets current hue           |
+|`rgblight_get_sat()`   |Gets current sat           |
+|`rgblight_get_val()`   |Gets current val           |
+|`rgblight_get_speed()` |Gets current speed         |
 
 ## Colors
 

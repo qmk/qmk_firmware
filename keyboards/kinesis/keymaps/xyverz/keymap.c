@@ -28,15 +28,15 @@ enum custom_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, KEYPAD };
 
         Dvorak layer:
 	,-------------------------------------------.,-------------------------------------------.
-	|   ]    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   [    |
+	|   =    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   \    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	| Tab    |   '  |   ,  |   .  |   P  |   Y  ||   F  |   G  |   C  |   R  |   L  |   \    |
+	| Tab    |   '  |   ,  |   .  |   P  |   Y  ||   F  |   G  |   C  |   R  |   L  |   /    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| CapsLk |   A  |   O  |   E  |   U  |   I  ||   D  |   H  |   T  |   N  |   S  |   -    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| LShift |   Z  |   X  |   C  |   V  |   X  ||   B  |   M  |   W  |   V  |   Z  | RShift |
 	`--------+------+------+------+------+------'`------+------+------+------+------+--------'
-	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   /  |   =  |
+	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   [  |   ]  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
 	                             | LCtl  | LAlt || RGUI | RCtl  |
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = LAYOUT (
            // Left Hand
            KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,
-           KC_RBRC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+           KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
            KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,
            KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,
            KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,
@@ -124,11 +124,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
            // Right Hand
            KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, TG(_KEYPAD),  RESET,
-           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC,
-           KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS,
+           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
+           KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
            KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
            KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-                    KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,
+                    KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,
            // Right Thumb
            KC_RGUI, KC_RCTL,
            KC_PGUP,

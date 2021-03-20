@@ -2,8 +2,6 @@
 """
 from pathlib import Path
 
-from qmk.errors import NoSuchKeyboardError
-
 
 def parse_rules_mk_file(file, rules_mk=None):
     """Turn a rules.mk file into a dictionary.
@@ -49,35 +47,5 @@ def parse_rules_mk_file(file, rules_mk=None):
                         line.replace(":", "")
                     key, value = line.split('=', 1)
                     rules_mk[key.strip()] = value.strip()
-
-    return rules_mk
-
-
-def get_rules_mk(keyboard):
-    """ Get a rules.mk for a keyboard
-
-    Args:
-        keyboard: name of the keyboard
-
-    Raises:
-        NoSuchKeyboardError: when the keyboard does not exists
-
-    Returns:
-        a dictionary with the content of the rules.mk file
-    """
-    # Start with qmk_firmware/keyboards
-    kb_path = Path.cwd() / "keyboards"
-    # walk down the directory tree
-    # and collect all rules.mk files
-    kb_dir = kb_path / keyboard
-    if kb_dir.exists():
-        rules_mk = dict()
-        for directory in Path(keyboard).parts:
-            kb_path = kb_path / directory
-            rules_mk_path = kb_path / "rules.mk"
-            if rules_mk_path.exists():
-                rules_mk = parse_rules_mk_file(rules_mk_path, rules_mk)
-    else:
-        raise NoSuchKeyboardError("The requested keyboard and/or revision does not exist.")
 
     return rules_mk

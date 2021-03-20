@@ -3,6 +3,25 @@
 Since starting, QMK has grown by leaps and bounds thanks to people like you who contribute to creating and maintaining our community keyboards. As we've grown we've discovered some patterns that work well, and ask that you conform to them to make it easier for other people to benefit from your hard work.
 
 
+## Use QMK Lint
+
+We have provided a tool, `qmk lint`, which will let you check over your keyboard for problems. We suggest using it frequently while working on your keyboard and keymap. 
+
+Example passing check:
+
+```
+$ qmk lint -kb rominronin/katana60/rev2
+Ψ Lint check passed!
+```
+
+Example failing check:
+
+```
+$ qmk lint -kb clueboard/66/rev3
+☒ Missing keyboards/clueboard/66/rev3/readme.md
+☒ Lint check failed!
+```
+
 ## Naming Your Keyboard/Project
 
 All keyboard names are in lower case, consisting only of letters, numbers, and underscore (`_`). Names may not begin with an underscore. Forward slash (`/`) is used as a sub-folder separation character.
@@ -61,9 +80,75 @@ This file is used by the [QMK API](https://github.com/qmk/qmk_api). It contains 
 
 All projects need to have a `config.h` file that sets things like the matrix size, product name, USB VID/PID, description and other settings. In general, use this file to set essential information and defaults for your keyboard that will always work.
 
+The `config.h` files can also be placed in sub-folders, and the order in which they are read is as follows:
+
+* `keyboards/top_folder/config.h`
+  * `keyboards/top_folder/sub_1/config.h`
+    * `keyboards/top_folder/sub_1/sub_2/config.h`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/config.h`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/config.h`
+          * `users/a_user_folder/config.h`
+          * `keyboards/top_folder/keymaps/a_keymap/config.h`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_config.h`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/post_config.h`
+    * `keyboards/top_folder/sub_1/sub_2/post_config.h`
+  * `keyboards/top_folder/sub_1/post_config.h`
+* `keyboards/top_folder/post_config.h`
+
+The `post_config.h` file can be used for additional post-processing, depending on what is specified in the `config.h` file. For example, if you define the `IOS_DEVICE_ENABLE` macro in your keymap-level `config.h` file as follows, you can configure more detailed settings accordingly in the `post_config.h` file:
+
+* `keyboards/top_folder/keymaps/a_keymap/config.h`
+  ```c
+  #define IOS_DEVICE_ENABLE
+  ```
+* `keyboards/top_folder/post_config.h`
+  ```c
+  #ifndef IOS_DEVICE_ENABLE
+    // USB_MAX_POWER_CONSUMPTION value for this keyboard
+    #define USB_MAX_POWER_CONSUMPTION 400
+  #else
+    // fix iPhone and iPad power adapter issue
+    // iOS device need lessthan 100
+    #define USB_MAX_POWER_CONSUMPTION 100
+  #endif
+  
+  #ifdef RGBLIGHT_ENABLE
+    #ifndef IOS_DEVICE_ENABLE
+      #define RGBLIGHT_LIMIT_VAL 200
+      #define RGBLIGHT_VAL_STEP 17
+    #else
+      #define RGBLIGHT_LIMIT_VAL 35
+      #define RGBLIGHT_VAL_STEP 4
+    #endif
+    #ifndef RGBLIGHT_HUE_STEP
+      #define RGBLIGHT_HUE_STEP 10
+    #endif
+    #ifndef RGBLIGHT_SAT_STEP
+      #define RGBLIGHT_SAT_STEP 17
+    #endif
+  #endif
+  ```
+
+?> If you define options using `post_config.h` as in the above example, you should not define the same options in the keyboard- or user-level `config.h`.
+
 ### `rules.mk`
 
 The presence of this file means that the folder is a keyboard target and can be used in `make` commands. This is where you setup the build environment for your keyboard and configure the default set of features.
+
+The `rules.mk` file can also be placed in a sub-folder, and its reading order is as follows:
+
+* `keyboards/top_folder/rules.mk`
+  * `keyboards/top_folder/sub_1/rules.mk`
+    * `keyboards/top_folder/sub_1/sub_2/rules.mk`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/rules.mk`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/rules.mk`
+          * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
+          * `users/a_user_folder/rules.mk`
+* `common_features.mk`
+
+Many of the settings written in the `rules.mk` file are interpreted by `common_features.mk`, which sets the necessary source files and compiler options.
+
+?> See `build_keyboard.mk` and `common_features.mk` for more details.
 
 ### `<keyboard_name.c>`
 
@@ -98,7 +183,7 @@ As an example, if you have a 60% PCB that supports ANSI and ISO you might define
 
 In an effort to keep the repo size down we're no longer accepting binary files of any format, with few exceptions. Hosting them elsewhere (such as <https://imgur.com>) and linking them in the `readme.md` is preferred.
 
-Hardware files (such as plates, cases, pcb) can be contributed to the [qmk.fm repo](https://github.com/qmk/qmk.fm) and they will be made available on [qmk.fm](http://qmk.fm). Downloadable files are stored in `/<keyboard>/` (name follows the same format as above) which are served at `http://qmk.fm/<keyboard>/`, and pages are generated from `/_pages/<keyboard>/` which are served at the same location (.md files are generated into .html files through Jekyll). Check out the `lets_split` folder for an example.
+Hardware files (such as plates, cases, pcb) can be contributed to the [qmk.fm repo](https://github.com/qmk/qmk.fm) and they will be made available on [qmk.fm](https://qmk.fm). Downloadable files are stored in `/<keyboard>/` (name follows the same format as above) which are served at `https://qmk.fm/<keyboard>/`, and pages are generated from `/_pages/<keyboard>/` which are served at the same location (.md files are generated into .html files through Jekyll). Check out the `lets_split` folder for an example.
 
 ## Keyboard Defaults
 
@@ -126,7 +211,7 @@ When developing your keyboard, keep in mind that all warnings will be treated as
 
 ## Copyright Blurb
 
-If you're adapting your keyboard's setup from another project, but not using the same code, but sure to update the copyright header at the top of the files to show your name, in this format:
+If you're adapting your keyboard's setup from another project, but not using the same code, be sure to update the copyright header at the top of the files to show your name, in this format:
 
     Copyright 2017 Your Name <your@email.com>
 
@@ -140,7 +225,7 @@ The year should be the first year the file is created. If work was done to that 
 
 ## License
 
-The core of QMK is licensed under the [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). If you are shipping binaries for AVR processors you may choose either [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) or [GPLv3](https://www.gnu.org/licenses/gpl.html). If you are shipping binaries for ARM processors you must choose [GPL Version 3](https://www.gnu.org/licenses/gpl.html) to comply with the [ChibiOS](http://www.chibios.org) GPLv3 license.
+The core of QMK is licensed under the [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). If you are shipping binaries for AVR processors you may choose either [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) or [GPLv3](https://www.gnu.org/licenses/gpl.html). If you are shipping binaries for ARM processors you must choose [GPL Version 3](https://www.gnu.org/licenses/gpl.html) to comply with the [ChibiOS](https://www.chibios.org) GPLv3 license.
 
 If your keyboard makes use of the [uGFX](https://ugfx.io) features within QMK you must comply with the [uGFX License](https://ugfx.io/license.html), which requires a separate commercial license before selling a device containing uGFX.
 

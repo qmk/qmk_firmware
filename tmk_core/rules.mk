@@ -46,7 +46,7 @@ FORMAT = ihex
 # Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
-OPT = s
+OPT ?= s
 
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
@@ -79,7 +79,12 @@ CSTANDARD = -std=gnu99
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-ifndef SKIP_DEBUG_INFO
+DEBUG_ENABLE ?= yes
+ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
+  DEBUG_ENABLE=no
+endif
+
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
   CFLAGS += -g$(DEBUG)
 endif
 CFLAGS += $(CDEFS)
@@ -103,6 +108,10 @@ endif
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 
+# This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
+# Fixing of multiple variable definitions must be made.
+CFLAGS += -fcommon
+
 #---------------- Compiler Options C++ ----------------
 #  -g*:          generate debugging information
 #  -O*:          optimization level
@@ -110,7 +119,7 @@ CFLAGS += $(CSTANDARD)
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-ifndef SKIP_DEBUG_INFO
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
   CXXFLAGS += -g$(DEBUG)
 endif
 CXXFLAGS += $(CXXDEFS)
@@ -119,6 +128,7 @@ CXXFLAGS += -O$(OPT)
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
+
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif
@@ -140,10 +150,13 @@ CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS)
-ifndef SKIP_DEBUG_INFO
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
+endif
+ifeq ($(VERBOSE_AS_CMD),yes)
+	ASFLAGS += -v
 endif
 
 #---------------- Library Options ----------------
@@ -187,6 +200,9 @@ CREATE_MAP ?= yes
 ifeq ($(CREATE_MAP),yes)
 	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 endif
+ifeq ($(VERBOSE_LD_CMD),yes)
+	LDFLAGS += -v
+endif
 #LDFLAGS += -Wl,--relax
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
@@ -202,7 +218,10 @@ REMOVEDIR = rmdir
 COPY = cp
 WINSHELL = cmd
 SECHO = $(SILENT) || echo
-
+MD5SUM ?= md5sum
+ifneq ($(filter Darwin FreeBSD,$(shell uname -s)),)
+  MD5SUM = md5
+endif
 
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
@@ -222,6 +241,12 @@ endef
 $(foreach LOBJ, $(NO_LTO_OBJ), $(eval $(call NO_LTO,$(LOBJ))))
 
 MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
+
+# For a ChibiOS build, ensure that the board files have the hook overrides injected
+define BOARDSRC_INJECT_HOOKS
+$(KEYBOARD_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): INIT_HOOK_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
+endef
+$(foreach LOBJ, $(BOARDSRC), $(eval $(call BOARDSRC_INJECT_HOOKS,$(LOBJ))))
 
 # Add QMK specific flags
 DFU_SUFFIX ?= dfu-suffix
@@ -306,27 +331,38 @@ ifdef $1_CONFIG
 $1_CONFIG_FLAGS += $$(patsubst %,-include %,$$($1_CONFIG))
 endif
 $1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
-$1_CXXFLAGS= $$(ALL_CXXFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
-$1_ASFLAGS= $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
+$1_CXXFLAGS = $$(ALL_CXXFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
+$1_ASFLAGS = $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
 
 # Compile: create object files from C source files.
 $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
-	$$(eval CMD := $$(CC) -c $$($1_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CC_EXEC := $$(CC))
+    ifneq ($$(VERBOSE_C_CMD),)
+	$$(if $$(filter $$(notdir $$(VERBOSE_C_CMD)),$$(notdir $$<)),$$(eval CC_EXEC += -v))
+    endif
+    ifneq ($$(VERBOSE_C_INCLUDE),)
+	$$(if $$(filter $$(notdir $$(VERBOSE_C_INCLUDE)),$$(notdir $$<)),$$(eval CC_EXEC += -H))
+    endif
+	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
+    ifneq ($$(DUMP_C_MACROS),)
+	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$<)
+	@$$(if $$(filter $$(notdir $$(DUMP_C_MACROS)),$$(notdir $$<)),$$(BUILD_CMD))
+    endif
 
 # Compile: create object files from C++ source files.
 $1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 $1/%.o : %.cc $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
@@ -390,6 +426,12 @@ show_path:
 	@echo SRC=$(SRC)
 	@echo OBJ=$(OBJ)
 
+dump_vars: ERROR_IF_EMPTY=""
+dump_vars: ERROR_IF_NONBOOL=""
+dump_vars: ERROR_IF_UNSET=""
+dump_vars:
+	@$(foreach V,$(sort $(.VARIABLES)),$(if $(filter-out environment% default automatic,$(origin $V)),$(info $V=$($V))))
+
 objs-size:
 	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
 
@@ -419,6 +461,9 @@ check-size:
 	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
 endif
 
+check-md5:
+	$(MD5SUM) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)
+
 # Create build directory
 $(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
 
@@ -430,10 +475,10 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 
 # Listing of phony targets.
-.PHONY : all finish sizebefore sizeafter qmkversion \
+.PHONY : all dump_vars finish sizebefore sizeafter qmkversion \
 gccversion build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
-program teensy dfu flip dfu-ee flip-ee dfu-start \
+program teensy dfu dfu-ee dfu-start \
 flash dfu-split-left dfu-split-right \
 avrdude-split-left avrdude-split-right \
 avrdude-loop usbasp

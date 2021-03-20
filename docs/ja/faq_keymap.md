@@ -1,8 +1,8 @@
 # キーマップの FAQ
 
 <!---
-  original document: 376419a4f:docs/faq_keymap.md
-  git diff 376419a4f HEAD -- docs/faq_keymap.md | cat
+  original document: 0.8.62:docs/faq_keymap.md
+  git diff 0.8.62 HEAD -- docs/faq_keymap.md | cat
 -->
 
 このページは人々がキーマップについてしばしば持つ疑問について説明します。まだ読んだことが無い場合には、[キーマップの概要](ja/keymap.md)を最初に読むべきです。
@@ -16,12 +16,23 @@
 
 世界中で使用されている ANSI、ISO および JIS の3つの標準キーボードがあります。北米では主に ANSI が使われ、ヨーロッパおよびアフリカでは主に ISO が使われ、日本では JIS が使われます。言及されていない地域では、ANSI あるいは ISO が使われています。これらのレイアウトに対応するキーコードは以下の通りです:
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+<!-- Source for this image: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![キーボードのレイアウトイメージ](https://i.imgur.com/5wsh5wM.png)
+
+## 複雑なキーコードのカスタム名を作成する方法はありますか？
+
+時には、読みやすくするために、一部のキーコードにカスタム名を定義すると役に立ちます。人々は、しばしば `#define` を使ってカスタム名を定義します。例えば:
+
+```c
+#define FN_CAPS LT(_FL, KC_CAPSLOCK)
+#define ALT_TAB LALT(KC_TAB)
+```
+
+これにより、キーマップで `FN_CAPS` と `ALT_TAB` を使えるようになり、読みやすくなります。
 
 ## 一部のキーが入れ替わっているか、または動作しない
 
-QMK には2つの機能、ブートマジックとコマンドがあり、これによりその場でキーボードの動作を変更することができます。これには Ctrl/Caps の交換、Gui の無効化、Alt/GUI の交換、Backspace/Backslash の交換、全てのキーの無効化およびその他の動作の変更が含まれますが、これらに限定されません。
+QMK には2つの機能、ブートマジックとコマンドがあり、これによりその場でキーボードの動作を変更することができます。これには Ctrl/Caps の交換、Gui の無効化、Alt/Gui の交換、Backspace/Backslash の交換、全てのキーの無効化およびその他の動作の変更が含まれますが、これらに限定されません。
 
 迅速な解決策として、キーボードを接続している時に `Space`+`Backspace` を押してみてください。これはキーボードに保存されている設定をリセットし、これらのキーを通常の操作に戻します。うまく行かない場合は、以下を見てください:
 
@@ -36,8 +47,8 @@ QMK には2つの機能、ブートマジックとコマンドがあり、これ
 `KC_SYSREQ` の代わりに、Print Screen(`KC_PSCREEN` あるいは `KC_PSCR`) のキーコードを使ってください。'Alt + Print Screen' のキーの組み合わせは、'システムリクエスト' と認識されます。
 
 [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) と以下を見てください
-* http://en.wikipedia.org/wiki/Magic_SysRq_key
-* http://en.wikipedia.org/wiki/System_request
+* https://en.wikipedia.org/wiki/Magic_SysRq_key
+* https://en.wikipedia.org/wiki/System_request
 
 ## 電源キーが動作しません
 
@@ -54,13 +65,13 @@ https://github.com/tmk/tmk_keyboard/issues/67
 修飾キーおよびレイヤ切り替えの場合、リリースイベント時に修飾キーの登録を解除する、もしくは前のレイヤに戻るために、目的のレイヤの同じ位置に `KC_TRANS` を配置する必要があります。
 
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
-* http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+* https://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 * https://github.com/tmk/tmk_keyboard/issues/248
 
 
 ## メカニカルロックスイッチのサポート
 
-この機能は [Alps](http://deskthority.net/wiki/Alps_SKCL_Lock) のような*メカニカルロックスイッチ*用です。以下を `config.h` に追加することで有効にすることができます:
+この機能は [Alps](https://deskthority.net/wiki/Alps_SKCL_Lock) のような*メカニカルロックスイッチ*用です。以下を `config.h` に追加することで有効にすることができます:
 
 ```
 #define LOCKING_SUPPORT_ENABLE
@@ -117,7 +128,7 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## 単一のキーでの Esc と<code>&#96;</code>
 
-[Grave Escape](feature_grave_esc.md) 機能を見てください。
+[Grave Escape](ja/feature_grave_esc.md) 機能を見てください。
 
 ## Mac OSX での Eject
 `KC_EJCT` キーコードは OSX で動作します。https://github.com/tmk/tmk_keyboard/issues/250

@@ -11,7 +11,7 @@
   * [QMK CLI](es/cli.md)
   * [Configuración de QMK CLI](es/cli_configuration.md)
   * [Contribuyendo a QMK](es/contributing.md)
-  * [Cómo usar Github](es/getting_started_github.md)
+  * [Cómo usar GitHub](es/getting_started_github.md)
   * [Obtener ayuda](es/getting_started_getting_help.md)
 
 * [Cambios incompatibles](es/breaking_changes.md)
@@ -98,6 +98,7 @@
   * [Guía de flasheado de ISP](es/isp_flashing_guide.md)
   * [Guía de depuración de ARM](es/arm_debugging.md)
   * [Driver I2C](es/i2c_driver.md)
+  * [Driver SPI](es/spi_driver.md)
   * [Controles GPIO](es/internals_gpio_control.md)
   * [Conversión Proton C](es/proton_c_conversion.md)
 

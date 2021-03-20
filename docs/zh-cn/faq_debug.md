@@ -90,8 +90,8 @@ https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switc
 ## 指点杆需要复位电路(PS/2 鼠标支持)
 如果没有复位电路，由于硬件初始化不正确，您将得到不一致的结果。查看TPM754复位电路。
 
-- http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
-- http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
+- https://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
+- https://www.mikrocontroller.net/attachment/52583/tpm754.pdf
 
 
 ## 矩阵不可读16以上的列
@@ -99,7 +99,7 @@ https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switc
 
 在C语言中`1` 是一个[int] 类型的[16 bit]值，在AVR中你不能左移大于15次。如果你使用`1<<16`的话会得到意外的零。你要用 [unsigned long]类型，比如`1UL`。
 
-http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
+https://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
 ## 特殊额外键不起作用(系统，音频控制键)
 你要在`rules.mk`定义`EXTRAKEY_ENABLE`在QMK中使用它们。
@@ -118,8 +118,8 @@ EXTRAKEY_ENABLE = yes          # 音频控制和系统控制
 
 **注意Arduino的针脚名字和主控芯片的不一样。** 比如, Arduino的`D0`并不是`PD0`。自己用原理图捋一下电路。
 
-- http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
-- http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
+- https://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
+- https://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
 Arduino Leonardo和micro使用**ATMega32U4**，该芯片TMK可用，但Arduino的bootloader会导致问题。
 
@@ -139,10 +139,3 @@ https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
-
-
-
-## FLIP 不工作
-### `AtLibUsbDfu.dll` 未找到
-从设备管理器中删除当前驱动程序并在设备管理器重新安装一个FLIP提供的程序。
-http://imgur.com/a/bnwzy

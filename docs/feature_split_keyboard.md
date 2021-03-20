@@ -8,8 +8,19 @@ QMK Firmware has a generic implementation that is usable by any board, as well a
 
 For this, we will mostly be talking about the generic implementation used by the Let's Split and other keyboards. 
 
-!> ARM is not yet supported for Split Keyboards.  Progress is being made, but we are not quite there, yet. 
+!> ARM is not yet fully supported for Split Keyboards and has many limitations. Progress is being made, but we have not yet reached 100% feature parity.
 
+
+## Compatibility Overview
+
+| Transport                    | AVR                | ARM                |
+|------------------------------|--------------------|--------------------|
+| ['serial'](serial_driver.md) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
+| I2C                          | :heavy_check_mark: |                    |
+
+Notes:
+
+1. Both hardware and software limitations are detailed within the [driver documentation](serial_driver.md).
 
 ## Hardware Configuration
 
@@ -37,11 +48,12 @@ However, USB cables, SATA cables, and even just 4 wires have been known to be us
 
 ### Serial Wiring
 
-The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0 (aka PDO or pin 3) between the two Pro Micros. 
+The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0/D1/D2/D3 (aka PD0/PD1/PD2/PD3) between the two Pro Micros. 
 
 ?> Note that the pin used here is actually set by `SOFT_SERIAL_PIN` below.
 
-![serial wiring](https://i.imgur.com/C3D1GAQ.png)
+<img alt="sk-pd0-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296488-28e9ad80-ef70-11ea-98be-c40cb48a0319.JPG" width="48%"/>
+<img alt="sk-pd2-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296490-2d15cb00-ef70-11ea-801f-5ace313013e6.JPG" width="48%"/>
 
 ### I<sup>2</sup>C Wiring
 
@@ -49,7 +61,7 @@ The 4 wires of the TRRS cable need to connect GND, VCC, and SCL and SDA (aka PD0
 
 The pull-up resistors may be placed on either half. If you wish to use the halves independently, it is also possible to use 4 resistors and have the pull-ups in both halves.
 
-![I2C wiring](https://i.imgur.com/Hbzhc6E.png)
+<img alt="sk-i2c-connection-mono" src="https://user-images.githubusercontent.com/2170248/92297182-92b98580-ef77-11ea-9d7d-d6033914af43.JPG" width="50%"/>
 
 ## Firmware Configuration
 
@@ -78,6 +90,28 @@ You can configure the firmware to read a pin on the controller to determine hand
 ```
 
 This will read the specified pin. If it's high, then the controller assumes it is the left hand, and if it's low, it's assumed to be the right side. 
+
+#### Handedness by Matrix Pin
+
+You can configure the firmware to read key matrix pins on the controller to determine handedness.  To do this, add the following to your `config.h` file:
+
+```c
+#define SPLIT_HAND_MATRIX_GRID D0, F1
+```
+
+The first pin is the output pin and the second is the input pin.
+
+Some keyboards have unused intersections in the key matrix. This setting uses one of these unused intersections to determine the handness.
+
+Normally, when a diode is connected to an intersection, it is judged to be left. If you add the following definition, it will be judged to be right.
+
+```c
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+```
+
+Note that adding a diode at a previously unused intersection will effectively tell the firmware that there is a key held down at that point. You can instruct qmk to ignore that intersection by defining `MATRIX_MASKED` and then defining a `matrix_row_t matrix_mask[MATRIX_ROWS]` array in your keyboard config. Each bit of a single value (starting form the least-significant bit) is used to tell qmk whether or not to pay attention to key presses at that intersection.
+
+While `MATRIX_MASKED` isn't necessary to use `SPLIT_HAND_MATRIX_GRID` successfully, without it you may experience issues trying to suspend your computer with your keyboard attached as the matrix will always report at least one key-press.
 
 #### Handedness by EEPROM
 
@@ -151,6 +185,22 @@ If you're having issues with serial communication, you can change this value, as
 * **`4`**: about 26kbps
 * **`5`**: about 20kbps
 
+```c
+#define SPLIT_MODS_ENABLE
+```
+
+This enables transmitting modifier state (normal, weak and oneshot) to the non
+primary side of the split keyboard.  This adds a few bytes of data to the split
+communication protocol and may impact the matrix scan speed when enabled.
+The purpose of this feature is to support cosmetic use of modifer state (e.g.
+displaying status on an OLED screen).
+
+```c
+#define SPLIT_TRANSPORT_MIRROR
+```
+
+This mirrors the master side matrix to the slave side for features that react or require knowledge of master side key presses on the slave side.  This adds a few bytes of data to the split communication protocol and may impact the matrix scan speed when enabled. The purpose of this feature is to support cosmetic use of key events (e.g. RGB reacting to Keypresses).
+
 ###  Hardware Configuration Options
 
 There are some settings that you may need to configure, based on how the hardware is set up. 
@@ -193,7 +243,12 @@ This sets how many LEDs are directly connected to each controller.  The first nu
 ```c
 #define SPLIT_USB_DETECT
 ```
-This option changes the startup behavior to detect an active USB connection when delegating master/slave. If this operation times out, then the half is assume to be a slave. This is the default behavior for ARM, and required for AVR Teensy boards (due to hardware limitations).
+
+Enabling this option changes the startup behavior to listen for an active USB communication to delegate which part is master and which is slave. With this option enabled and theres's USB communication, then that half assumes it is the master, otherwise it assumes it is the slave.
+
+Without this option, the master is the half that can detect voltage on the physical USB connection (VBUS detection).
+
+Enabled by default on ChibiOS/ARM.
 
 ?> This setting will stop the ability to demo using battery packs.
 
@@ -206,6 +261,30 @@ This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_
 #define SPLIT_USB_TIMEOUT_POLL 10
 ```
 This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
+## Hardware Considerations and Mods
+
+Master/slave delegation is made either by detecting voltage on VBUS connection or waiting for USB communication (`SPLIT_USB_DETECT`). Pro Micro boards can use VBUS detection out of the box and be used with or without `SPLIT_USB_DETECT`.
+
+Many ARM boards, but not all, do not support VBUS detection. Because it is common that ARM boards lack VBUS detection, `SPLIT_USB_DETECT` is automatically defined on ARM targets (technically when ChibiOS is targetted).
+
+### Teensy boards
+
+Teensy boards lack VBUS detection out of the box and must have `SPLIT_USB_DETECT` defined. With the Teensy 2.0 and Teensy++ 2.0, there is a simple hardware mod that you can perform to add VBUS detection, so you don't need the `SPLIT_USB_DETECT` option.
+
+You'll only need a few things:
+
+* A knife (x-acto knife, ideally)
+* A solder station or hot air station
+* An appropriate Schottky diode, such as the [PMEG2005EH](https://www.digikey.com/en/products/detail/nexperia-usa-inc/PMEG2005EH,115/1589924)
+
+You'll need to cut the small trace between the 5V and center pads on the back of the Teensy.
+
+Once you have done that, you will want to solder the diode from the 5V pad to the center pad.
+
+You may need to use the 5V pad from the regulator block above as the pads were too small and placed too closely together to place the Schottky diode properly.
+
+![Teensy++ 2.0](https://i.imgur.com/BPEC5n5.png)
 
 ## Additional Resources
 

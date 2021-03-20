@@ -1,8 +1,6 @@
-#ifndef DO60_H
-#define DO60_H
+#pragma once
 
 #include "quantum.h"
-#include "led.h"
 
 /* DO60 LEDs
  *   GPIO pads
@@ -94,4 +92,3 @@ inline void setdefaultrgb(void){ rgblight_sethsv(100,100,100); }
     { K30, KC_NO, K32, K33,   K34,   K35, K36,   K37, K38,   K39,   K3A, K3B, KC_NO, K3D,   K3E }, \
     { K40, K41,   K42, KC_NO, KC_NO, K45, KC_NO, K47, KC_NO, KC_NO, K4A, K4B, K4C,   K4D,   K4E }  \
 }
-#endif

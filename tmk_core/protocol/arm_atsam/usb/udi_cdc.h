@@ -47,7 +47,7 @@
 #ifndef _UDI_CDC_H_
 #define _UDI_CDC_H_
 
-#ifdef CDC
+#ifdef VIRTSER_ENABLE
 
 #    include "conf_usb.h"
 #    include "usb_protocol.h"
@@ -346,7 +346,7 @@ typedef struct {
     char     buf[CDC_INBUF_SIZE];
 } inbuf_t;
 
-#else  // CDC
+#else  // VIRTSER_ENABLE
 
 // keep these to accommodate calls if remaining
 #    define CDC_PRINTBUF_SIZE 1
@@ -362,7 +362,7 @@ typedef struct {
 
 extern inbuf_t inbuf;
 
-#endif  // CDC
+#endif  // VIRTSER_ENABLE
 
 uint32_t CDC_print(char* printbuf);
 int      CDC_printf(const char* _Format, ...);

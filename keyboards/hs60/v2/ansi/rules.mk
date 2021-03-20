@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
@@ -30,4 +31,4 @@ SRC =	keyboards/wilba_tech/wt_main.c \
 		keyboards/wilba_tech/wt_rgb_backlight.c \
 		drivers/issi/is31fl3733.c \
 		quantum/color.c \
-		drivers/arm/i2c_master.c
+		drivers/chibios/i2c_master.c
