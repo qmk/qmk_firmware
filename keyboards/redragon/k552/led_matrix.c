@@ -64,14 +64,19 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = set_color_all,
 };
 
-// byte order: R,B,G
-static uint8_t caps_lock_color[3] = { 0x00, 0x00, 0xFF };
-
 void led_set(uint8_t usb_led) {
-    // dk63 has only CAPS indicator
+    setPinOutput(B14);
+    setPinOutput(B15);
+
     if (usb_led >> USB_LED_CAPS_LOCK & 1) {
-        set_color(11, caps_lock_color[0], caps_lock_color[2], caps_lock_color[1]);
+        writePinLow(B14);
     } else {
-        set_color(11, 0x00, 0x00, 0x00);
+        writePinHigh(B14);
+    }
+
+    if (usb_led >> USB_LED_SCROLL_LOCK & 1) {
+        writePinLow(B15);
+    } else {
+        writePinHigh(B15);
     }
 }
