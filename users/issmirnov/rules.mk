@@ -4,7 +4,6 @@ SRC += issmirnov.c
 
 # https://www.reddit.com/r/olkb/comments/bmpgjm/programming_help/
 # Should shave 2000 bytes
-# Formerly known as LINK_TIME_OPTIMIZATION_ENABLE
 LTO_ENABLE = yes
 
 # Enable debugging only when needed.
