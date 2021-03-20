@@ -1,4 +1,5 @@
 #include "arkag.h"
+#include "eeprom.h"
 
 /*
  Current Layout and Keeb:
