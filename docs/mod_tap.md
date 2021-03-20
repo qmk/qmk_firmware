@@ -57,6 +57,7 @@ Expanding this would be complicated, at best. Moving to a 32-bit keycode would s
 You may also run into issues when using Remote Desktop Connection on Windows. Because these keycodes send key events faster than a human, Remote Desktop could miss them.
 
 To fix this, open Remote Desktop Connection, click on "Show Options", open the the "Local Resources" tab. In the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
+This may also be mitigated by increasing [TAP_CODE_DELAY](config_options.md#behaviors-that-can-be-configured).
 
 ## Other Resources
 
