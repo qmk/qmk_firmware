@@ -27,8 +27,7 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
-    QMKURL
+    QWERTY = SAFE_RANGE
 };
 
 #define LOWER MO(_LOWER)
