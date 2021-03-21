@@ -59,28 +59,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _4, X_PAUSE, X_PAUSE);
-    switch (get_highest_layer(state)) {
-        case _1:
-            writePinHigh(IND_1);
-	        writePinLow(IND_2);
- 	        writePinLow(IND_3); 
-            return state;
-            break;
-        case _2:
-            writePinLow(IND_1);
-            writePinHigh(IND_2);
- 	        writePinLow(IND_3);
-            return state;
-            break;
-        case _3:
-            writePinLow(IND_1);
-            writePinLow(IND_2);
-	        writePinHigh(IND_3);
-            return state;
-            break;
-            
-    }
+    state = update_tri_layer_state(state, _4, X_PAUSE, X_PAUSE);
+    writePin(IND_1, layer_state_cmp(state, 1));
+	writePin(IND_2, layer_state_cmp(state, 2));
+ 	writePin(IND_3, layer_state_cmp(state, 3)); 
+ 	return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
