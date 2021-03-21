@@ -33,6 +33,17 @@ enum layer_number {
 #define KC_C_BS LCTL_T(KC_BSPC)      // ctrl
 #define KC_A_DEL ALT_T(KC_DEL)       // alt
 
+#define KC_C0 LCTL(KC_0)
+#define KC_C1 LCTL(KC_1)
+#define KC_C2 LCTL(KC_2)
+#define KC_C3 LCTL(KC_3)
+#define KC_C4 LCTL(KC_4)
+#define KC_C5 LCTL(KC_5)
+#define KC_C6 LCTL(KC_6)
+#define KC_C7 LCTL(KC_7)
+#define KC_C8 LCTL(KC_8)
+#define KC_C9 LCTL(KC_9)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT( \
     //,--------+--------+---------+--------+---------+--------.   ,--------+---------+--------+---------+--------+--------.
@@ -60,11 +71,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT( \
     //,--------+--------+--------+--------+--------+--------.   ,--------+--------+--------+--------+--------+--------.
-       KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,     _______, KC_EQL , KC_PLUS, KC_ASTR, KC_PERC, KC_MINS,
+       _______, KC_C1  , KC_C2  , KC_C3  , KC_C4  , KC_C5  ,     _______, KC_EQL , KC_PLUS, KC_ASTR, KC_PERC, KC_MINS,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
        _______, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-       KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,     _______, _______, KC_COMM, KC_DOT , KC_SLSH, _______,
+       _______, KC_C6  , KC_C7  , KC_C8  , KC_C9  , KC_C0  ,     _______, _______, KC_COMM, KC_DOT , KC_SLSH, _______,
     //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
                          RESET  , _______, _______, _______,     _______, _______, _______, _______
     //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
