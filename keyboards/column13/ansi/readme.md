@@ -1,12 +1,12 @@
-# ansi
+# Colmn13 ansi
 
-![ansi](imgur.com image replace me!)
+![Colmn13 ansi](https://lab.abplus.com/content/images/2021/02/DSC_0024.JPG)
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [ABplus Inc. kazhida](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [kazhida](https://github.com/abplus-lab/qmk_firmware)
+* Hardware Supported: Column13 PCB, Pro Micro
+* Hardware Availability: (in preparation)
 
 Make example for this keyboard (after setting up your build environment):
 
