@@ -112,13 +112,8 @@
  *
 */
 
-//Tap dance enums
 enum {
-  F12ETAPS = 0,
-  CALCCOMP,
-  ALTF4,
-  F6F7,
-  TTT,
+  TTT = 4,
   HOME_END,
   CALC_PRINTSCREEN
 };
@@ -187,18 +182,6 @@ void TTT_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   ttt_state.state = 0;
 }
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // simple tap dance
-  [F12ETAPS] = ACTION_TAP_DANCE_DOUBLE(KC_F12,LSFT(LCTL(KC_F10))),
-  [CALCCOMP] = ACTION_TAP_DANCE_DOUBLE(KC_CALCULATOR, KC_MY_COMPUTER),
-  [CALC_PRINTSCREEN] = ACTION_TAP_DANCE_DOUBLE(KC_CALCULATOR, KC_PSCR),
-  [ALTF4] = ACTION_TAP_DANCE_DOUBLE(KC_F4,LALT(KC_F4)),
-  [F6F7] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_F6), LALT(KC_F7)),
-  [HOME_END] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_HOME),
-  [TTT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,TTT_finished, TTT_reset),
-};
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
