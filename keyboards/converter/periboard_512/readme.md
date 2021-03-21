@@ -1,9 +1,9 @@
-# Periboard 512 QMK Conversion
+# Periboard-512 QMK Conversion
 
 ## Goal
 
 Have a low-cost consumer keyboard that can run QMK.
-For this project I converted a Perixx Periboard 512 that is readily available and can be bought for around $40 USD.
+For this project I converted a Perixx Periboard-512 that is readily available and can be bought for around $40 USD.
 
 ![Imgur](https://perixx.com/pub/media/ebc_fig/PB-512B/Photo/small/W-PERIBOARD-512B-1.jpg)
 
