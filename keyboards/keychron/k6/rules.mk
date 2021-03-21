@@ -7,7 +7,7 @@ SRC += config_led.c
 # - the next two should match the directories in
 #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU_FAMILY = SN32
-MCU_SERIES = SN32F240
+MCU_SERIES = SN32F240B
 
 # Linker script to use
 # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
@@ -16,7 +16,7 @@ MCU_LDSCRIPT = SN32F240B
 
 # Startup code to use
 #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
-MCU_STARTUP = sn32f24x
+MCU_STARTUP = sn32f24xb
 
 # Board: it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
