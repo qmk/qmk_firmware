@@ -8,12 +8,12 @@ For this project I converted a Perixx Periboard 512 that is readily available an
 ![Imgur](https://perixx.com/pub/media/ebc_fig/PB-512B/Photo/small/W-PERIBOARD-512B-1.jpg)
 
 ## Parts used
-1. Teensy 2.0++;
-2. USB mini cable;
-3. Soldering tools;
-4. Wire;
-5. Prototype board (card edge type);
-6. Hand drill;
+1. Teensy 2.0++
+2. USB mini cable
+3. Soldering tools
+4. Wire
+5. Prototype board (card edge type)
+6. Hand drill
 
 ## Instructions
 
