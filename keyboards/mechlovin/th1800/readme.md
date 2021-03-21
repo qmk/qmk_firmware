@@ -1,6 +1,6 @@
 # th1800
 
-![th1800](https://i.imgur.com/7LZUCgB.png)
+![th1800](https://i.imgur.com/7LZUCgBl.png)
 
 The project use atmega32a, through hole component, 1800 compact layout
 

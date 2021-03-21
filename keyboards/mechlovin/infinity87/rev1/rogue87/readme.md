@@ -1,6 +1,6 @@
 # Rogue87 PCB
 
-![infinity87](https://i.imgur.com/DBquKMB.jpeg)
+![infinity87](https://i.imgur.com/DBquKMBl.jpeg)
 
 A replacement PCB for UTD keyboard.
 

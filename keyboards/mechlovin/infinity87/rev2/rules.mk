@@ -1,23 +1,19 @@
 # MCU name
 MCU = atmega32a
 
-# processor frequency
+# Processor frequency
 F_CPU = 16000000
 
-# Bootloader
+# Bootloader selection
 BOOTLOADER = bootloadHID
 
 # Build Options
 #   change yes to no to disable
 #
-
-CONSOLE_ENABLE = no         # Console for debug
-COMMAND_ENABLE = no         # Commands for debug and configuration
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-NKRO_ENABLE = no            # USB Nkey Rollover
-BACKLIGHT_ENABLE  = yes     # Enable keyboard backlight functionality
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+NKRO_ENABLE = no
+BACKLIGHT_ENABLE = yes
 CUSTOM_MATRIX = lite
 
 SRC += matrix.c

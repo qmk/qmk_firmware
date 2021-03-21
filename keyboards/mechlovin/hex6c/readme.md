@@ -1,6 +1,6 @@
 # hex6c
 
-![hex6c](https://i.imgur.com/uYxCTiT.jpeg)
+![hex6c](https://i.imgur.com/uYxCTiTl.jpeg)
 
 A Southpaw Fullsize Keyboard with knoob.
 
