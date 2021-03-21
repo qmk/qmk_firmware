@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include <secret.h> // make your secret file which contains PASSWORD macro.
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -25,6 +26,10 @@ enum layer_number {
     _RAISE,
     _LOWER,
     _ADJUST,
+};
+
+enum custom_keycodes {
+  KC_PW = SAFE_RANGE,
 };
 
 #define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
@@ -87,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //,--------+--------+--------+--------+--------+--------.   ,--------+--------+--------+--------+--------+--------.
        _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-       _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
+       _______, KC_PW  , _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
        _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
     //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
@@ -95,3 +100,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
     ),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_PW:
+      if (record->event.pressed) {
+        tap_code(KC_LANG2);
+        SEND_STRING(PASSWORD);
+      }
+      return false;
+      break;
+  }
+  return true;
+}
