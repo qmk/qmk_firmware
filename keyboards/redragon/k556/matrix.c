@@ -155,7 +155,7 @@ void matrix_init(void) {
     SN_CT16B1->MR22 = 0xFF;
 
     // Set prescale value
-    SN_CT16B1->PRE = 0x1A;
+    SN_CT16B1->PRE = 0x10;
 
     //Set CT16B1 as the up-counting mode.
 	SN_CT16B1->TMRCTRL = (mskCT16_CRST);
@@ -317,27 +317,96 @@ OSAL_IRQ_HANDLER(SN32_CT16B1_HANDLER) {
         }
 
         // Enable PWM outputs on column pins
-        SN_CT16B1->PWMIOENB =   (mskCT16_PWM0EN_EN  \
-                                |mskCT16_PWM1EN_EN  \
-                                |mskCT16_PWM2EN_EN  \
-                                |mskCT16_PWM3EN_EN  \
-                                |mskCT16_PWM4EN_EN  \
-                                |mskCT16_PWM5EN_EN  \
-                                |mskCT16_PWM6EN_EN  \
-                                |mskCT16_PWM7EN_EN  \
-                                |mskCT16_PWM8EN_EN  \
-                                |mskCT16_PWM9EN_EN  \
-                                |mskCT16_PWM10EN_EN \
-                                |mskCT16_PWM11EN_EN \
-                                |mskCT16_PWM12EN_EN \
-                                |mskCT16_PWM13EN_EN \
-                                |mskCT16_PWM14EN_EN \
-                                |mskCT16_PWM16EN_EN \
-                                |mskCT16_PWM17EN_EN \
-                                |mskCT16_PWM18EN_EN \
-                                |mskCT16_PWM19EN_EN \
-                                |mskCT16_PWM20EN_EN \
-                                |mskCT16_PWM21EN_EN);
+        SN_CT16B1->PWMIOENB = 0;
+
+        if(SN_CT16B1->MR0 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM0EN_EN;
+        }
+        if(SN_CT16B1->MR1 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM1EN_EN;
+        }
+        if(SN_CT16B1->MR2 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM2EN_EN;
+        }
+        if(SN_CT16B1->MR3 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM3EN_EN;
+        }
+        if(SN_CT16B1->MR4 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM4EN_EN;
+        }
+        if(SN_CT16B1->MR5 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM5EN_EN;
+        }
+        if(SN_CT16B1->MR6 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM6EN_EN;
+        }
+        if(SN_CT16B1->MR6 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM6EN_EN;
+        }
+        if(SN_CT16B1->MR7 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM7EN_EN;
+        }
+        if(SN_CT16B1->MR8 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM8EN_EN;
+        }
+        if(SN_CT16B1->MR9 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM9EN_EN;
+        }
+        if(SN_CT16B1->MR10 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM10EN_EN;
+        }
+        if(SN_CT16B1->MR11 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM11EN_EN;
+        }
+        if(SN_CT16B1->MR10 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM10EN_EN;
+        }
+        if(SN_CT16B1->MR13 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM13EN_EN;
+        }
+        if(SN_CT16B1->MR14 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM14EN_EN;
+        }
+        if(SN_CT16B1->MR16 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM16EN_EN;
+        }
+        if(SN_CT16B1->MR17 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM17EN_EN;
+        }
+        if(SN_CT16B1->MR18 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM18EN_EN;
+        }
+        if(SN_CT16B1->MR19 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM19EN_EN;
+        }
+        if(SN_CT16B1->MR20 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM20EN_EN;
+        }
+        if(SN_CT16B1->MR21 > 0)
+        {
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM21EN_EN;
+        }
 
     // Set match interrupts and TC rest
     SN_CT16B1->MCTRL3 = (mskCT16_MR22IE_EN | mskCT16_MR22STOP_EN);
@@ -346,7 +415,7 @@ OSAL_IRQ_HANDLER(SN32_CT16B1_HANDLER) {
     SN_CT16B1->MR22 = 0xFF;
 
     // Set prescale value
-    SN_CT16B1->PRE = 0x18;
+    SN_CT16B1->PRE = 0x10;
 
     writePinHigh(led_row_pins[current_row]);
 
