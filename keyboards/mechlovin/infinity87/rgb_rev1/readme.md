@@ -1,6 +1,6 @@
 # infinity87 RGB Rev.1
 
-![infinity87](https://i.imgur.com/sGRD4d7.jpeg)
+![infinity87](https://i.imgur.com/sGRD4d7l.jpeg)
 
 A replacement PCB for TKL keyboard, RGB backlight, south-facing stabilisers, .STEP file in our github
 
