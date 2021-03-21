@@ -65,18 +65,6 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 };
 
 void led_set(uint8_t usb_led) {
-    setPinOutput(B14);
-    setPinOutput(B15);
-
-    if (usb_led >> USB_LED_CAPS_LOCK & 1) {
-        writePinLow(B14);
-    } else {
-        writePinHigh(B14);
-    }
-
-    if (usb_led >> USB_LED_SCROLL_LOCK & 1) {
-        writePinLow(B15);
-    } else {
-        writePinHigh(B15);
-    }
+    writePin(LED_NUM_LOCK_PIN, !IS_LED_ON(usb_led, USB_LED_NUM_LOCK));
+    writePin(LED_CAPS_LOCK_PIN, !IS_LED_ON(usb_led, USB_LED_CAPS_LOCK));
 }
