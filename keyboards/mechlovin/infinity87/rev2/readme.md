@@ -1,6 +1,6 @@
 # infinity87 Rev.2
 
-![infinity87](https://i.imgur.com/pgtvUTr.png)
+![infinity87](https://i.imgur.com/pgtvUTrl.png)
 
 A replacement PCB for TKL keyboard. south-facing stabilisers, .STEP file in our github
 
