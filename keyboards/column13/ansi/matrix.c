@@ -50,7 +50,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     dprint("matrix_scan_custom");
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-//        xprintf("read[%d/%d]\n", i, MATRIX_ROWS);
         matrix_row_t last_row = current_matrix[i];
         matrix_row_t current_row = expander_readPins(&expanders[i]);
         if (current_row != 0 && current_row != last_row) {

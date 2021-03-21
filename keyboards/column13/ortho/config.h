@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0xC132
 #define DEVICE_VER   0x0001
 #define MANUFACTURER ABplus
-#define PRODUCT      ABplus Column13-ortho
+#define PRODUCT      Column13-ortho
 
 /* key matrix size */
 #define MATRIX_ROWS 6

@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Column13 iso",
     "url": "https://lab.abplus.com/column13no/",
-    "maintainer": "ABplus Inc. kazhida",
+    "maintainer": "kazhida",
     "width": 13,
     "height": 4,
     "layouts": {
@@ -31,7 +31,7 @@
                 {"label": "K", "x": 8.25, "y": 1},
                 {"label": "L", "x": 9.25, "y": 1},
                 {"label": ";", "x": 10.25, "y": 1},
-                {"label": "Return", "x": 11.5, "y": 1, "w": 1.25},
+                {"label": "Return", "x": 11.75, "y": 1, "w": 1.25, "h": 2},
                 {"label": "Shift", "x": 0, "y": 2, "w": 1.75},
                 {"label": "Z", "x": 1.75, "y": 2},
                 {"label": "X", "x": 2.75, "y": 2},
@@ -43,18 +43,17 @@
                 {"label": ",", "x": 8.75, "y": 2},
                 {"label": ".", "x": 9.75, "y": 2},
                 {"label": "Up", "x": 10.75, "y": 2},
-                {"label": "/", "x": 11.75, "y": 2},
-                {"label": "Ctrl", "x": 0, "y": 3, "w": 1.75},
-                {"label": "Win", "x": 1.75, "y": 3, "w": 1.25},
-                {"label": "Del", "x": 3, "y": 3},
-                {"label": "Alt", "x": 4, "y": 3, "w": 1.25},
-                {"label": " ", "x": 5.25, "y": 3, "w": 1.25},
-                {"label": " ", "x": 6.5, "y": 3, "w": 1.25},
-                {"label": "Alt", "x": 7.75, "y": 3, "w": 1.25},
-                {"label": "App", "x": 9, "y": 3},
-                {"label": "Left", "x": 10, "y": 3},
-                {"label": "Down", "x": 11, "y": 3},
-                {"label": "Right", "x": 12, "y": 3}
+                {"label": "Ctrl", "x": 0, "y": 3, "w": 1.25},
+                {"label": "Win", "x": 1.25, "y": 3},
+                {"label": "Del", "x": 2.25, "y": 3},
+                {"label": "Alt", "x": 3.25, "y": 3},
+                {"label": "Cmd", "x": 4.25, "y": 3},
+                {"label": "Shift", "x": 5.25, "y": 3, "w": 2.25},
+                {"label": "Fn", "x": 7.5, "y": 3, "w": 1.25},
+                {"label": "/", "x": 8.75, "y": 3},
+                {"label": "Left", "x": 9.75, "y": 3},
+                {"label": "Down", "x": 10.75, "y": 3},
+                {"label": "Right", "x": 11.75, "y": 3}
             ]
         }
     }
