@@ -179,12 +179,14 @@ void post_process_record_quantum(keyrecord_t *record) {
     post_process_record_kb(keycode, record);
 }
 
+bool process_record_quantum(keyrecord_t *record) {
+    uint16_t keycode = get_record_keycode(record, true);
+    return process_record_quantum_helper(keycode, record);
+}
 /* Core keycode function, hands off handling to other functions,
     then processes internal quantum keycodes, and then processes
     ACTIONs.                                                      */
-bool process_record_quantum(keyrecord_t *record) {
-    uint16_t keycode = get_record_keycode(record, true);
-
+bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
     //   action_t action;

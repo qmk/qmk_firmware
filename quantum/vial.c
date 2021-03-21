@@ -176,15 +176,23 @@ static void exec_keycode(uint16_t keycode) {
 #else
     g_vial_magic_keycode_override = keycode;
 
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = VIAL_ENCODER_MATRIX_MAGIC, .col = VIAL_ENCODER_MATRIX_MAGIC}, .pressed = 1, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    keyrecord_t record = {.event = (keyevent_t){.key = { VIAL_ENCODER_MATRIX_MAGIC, VIAL_ENCODER_MATRIX_MAGIC }, .pressed = true, .time = (timer_read() | 1)}};
+
+    if (keycode <= QK_MODS_MAX)
+        register_code16(keycode);
+    else
+        process_record_quantum_helper(keycode, &record);
+
 #if VIAL_ENCODER_KEYCODE_DELAY > 0
     wait_ms(VIAL_ENCODER_KEYCODE_DELAY);
 #endif
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = VIAL_ENCODER_MATRIX_MAGIC, .col = VIAL_ENCODER_MATRIX_MAGIC}, .pressed = 0, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    record.event.time = timer_read() | 1;
+    record.event.pressed = false;
+
+    if (keycode <= QK_MODS_MAX)
+        unregister_code16(keycode);
+    else
+        process_record_quantum_helper(keycode, &record);
 #endif
 }
 
