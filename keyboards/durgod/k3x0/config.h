@@ -19,6 +19,10 @@
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xD60D
+#define MANUFACTURER    Hoksi Technology
+
 /* key matrix size (rows in specific keyboard variant) */
 #define MATRIX_COLS 16
 

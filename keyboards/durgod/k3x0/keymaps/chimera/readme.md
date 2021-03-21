@@ -39,7 +39,7 @@ You can change the default & alternate layout by setting the following flags to 
 
 For example, to configure Mac as the default layer, and Windows to be the alternate layout, compile with these flags:
 
-    make EXTRAFLAGS="-DDEFAULT_LAYOUT=_MBL -DALT_LAYOUT=_WBL" durgod/k3x0/k310:default_toggle_mac_windows
+    make EXTRAFLAGS="-DDEFAULT_LAYOUT=_MBL -DALT_LAYOUT=_WBL" durgod/k3x0/k310:chimera
 
 ## Windows key lock
 
