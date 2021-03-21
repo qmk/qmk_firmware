@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "regelatworktrackball.h"
 
 enum layer_names {
     _MOUSE,
@@ -22,14 +23,14 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MOUSE] = LAYOUT(
-      KC_WH_U,    XXXXXXX,      MO(_CNFIG),
-      KC_WH_D,    KC_MS_BTN4,   KC_MS_BTN5,
+      XXXXXXX,    XXXXXXX,      MO(_CNFIG),
+      XXXXXXX,    KC_WH_SHIFT,  XXXXXXX,
       KC_MS_BTN1, KC_MS_BTN3,   KC_MS_BTN2
   ),
   [_CNFIG] = LAYOUT(
       _______, _______, _______,
       RGB_HUI, RGB_MOD, RGB_VAI,
-      _______, _______, _______
+      _______, _______, RGB_VAD
   )
 };
 

@@ -13,12 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 #include "spi_master.h"
 #include "adns.h"
 #include "debug.h"
 #include "quantum.h"
 #include "pointing_device.h"
 #include "adns9800_srom_A6.h"
+#include "regelatworktrackball.h"
 
 // registers
 #define REG_Product_ID                           0x00
@@ -95,7 +97,12 @@ enum motion_burst_propertr{
 // used to track the motion delta between updates
 volatile int16_t delta_x;
 volatile int16_t delta_y;
-volatile uint8_t motion_ind=0;
+volatile uint8_t motion_ind = 0;
+volatile bool wheel_shift = false;
+
+// Used to accumulate movement for the wheel.
+int16_t wheel_accum_v = 0;
+int16_t wheel_accum_h = 0;
 
 void adns_begin(void){
     spi_start(NCS, false, 3, 8);
@@ -242,6 +249,18 @@ void readSensor(void) {
     adns_end();
 
 }
+
+int16_t clamp(int16_t value, int16_t min, int16_t max) {
+    return value < min ? min : (value > max ? max : value);
+}
+
+void update_wheel(int16_t * accum, int8_t * report) {
+    if (abs(*accum) >= 16) {
+        *report = clamp(*accum / 16, -127, 127);
+        *accum = *accum - (*accum / 16 * 16);
+    }
+}
+
 void pointing_device_task(void) {
     readSensor();
     report_mouse_t report = pointing_device_get_report();
@@ -249,10 +268,16 @@ void pointing_device_task(void) {
     if(motion_ind) {
         // Switch y and x to get the trackball rotated -90 degrees.
         // clamp deltas from -127 to 127
-        report.y = delta_x < -127 ? 127 : delta_x > 127 ? 127 : delta_x;
-        report.x = delta_y < -127 ? 127 : delta_y > 127 ? 127 : delta_y;
-
-
+        if (!wheel_shift) {
+            report.y = clamp(delta_x,  -127, 127);
+            report.x = clamp(delta_y,  -127, 127);
+        } else {
+            wheel_accum_h += delta_y;
+            update_wheel(&wheel_accum_h, &(report.h));
+            wheel_accum_v += delta_x;
+            update_wheel(&wheel_accum_v, &(report.v));
+            report.v = -report.v;
+        }
         pointing_device_set_report(report);
         pointing_device_send();
     }
@@ -260,4 +285,43 @@ void pointing_device_task(void) {
     delta_x = 0;
     delta_y = 0;
 
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    report_mouse_t report = pointing_device_get_report();
+    int button = -1;
+    bool pressed = record->event.pressed;
+    switch (keycode) {
+      case KC_MS_BTN1:
+        button = 1;
+        break;
+      case KC_MS_BTN2:
+        button = 2;
+        break;
+      case KC_MS_BTN3:
+        button = 4;
+        break;
+      case KC_MS_BTN4:
+        button = 8;
+        break;
+      case KC_MS_BTN5:
+        button = 16;
+        break;
+      case KC_WH_SHIFT:
+        if (wheel_shift && !pressed) {
+            wheel_accum_h = 0;
+            wheel_accum_v = 0;
+        }
+        wheel_shift = pressed;
+        return false;
+      default:
+        return process_record_user(keycode, record);
+    }
+    if (pressed) {
+        report.buttons |= button;
+    } else {
+        report.buttons &= ~button;
+    }
+    pointing_device_set_report(report);
+    return false;
 }

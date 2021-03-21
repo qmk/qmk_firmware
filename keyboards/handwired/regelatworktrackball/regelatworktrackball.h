@@ -18,6 +18,10 @@
 
 #include "quantum.h"
 
+enum custom_kc {
+    KC_WH_SHIFT = SAFE_RANGE
+};
+
 /* This is a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
