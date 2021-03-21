@@ -36,6 +36,7 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-e', '--escape', arg_only=True, action='store_true', help="Escape spaces in quiet mode")
 @cli.argument('-kb', '--keyboard', help='Keyboard to generate config.h for.')
 @cli.subcommand('Used by the make system to generate info_config.h from info.json', hidden=True)
 @automagic_keyboard
@@ -44,7 +45,7 @@ def generate_rules_mk(cli):
     """Generates a rules.mk file from info.json.
     """
     if not cli.config.generate_rules_mk.keyboard:
-        cli.log.error('Missing paramater: --keyboard')
+        cli.log.error('Missing parameter: --keyboard')
         cli.subcommands['info'].print_help()
         return False
 
@@ -79,11 +80,14 @@ def generate_rules_mk(cli):
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
-            cli.args.output.replace(cli.args.output.name + '.bak')
+            cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
         cli.args.output.write_text(rules_mk)
 
         if cli.args.quiet:
-            print(cli.args.output)
+            if cli.args.escape:
+                print(cli.args.output.as_posix().replace(' ', '\\ '))
+            else:
+                print(cli.args.output)
         else:
             cli.log.info('Wrote rules.mk to %s.', cli.args.output)
 

@@ -1,2 +1,3 @@
 VIA_ENABLE = yes
 LTO_ENABLE = yes
+KEY_LOCK_ENABLE = no
