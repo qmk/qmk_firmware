@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Column13 ortho",
     "url": "https://lab.abplus.com/column13no/",
-    "maintainer": "ABplus Inc. kazhida",
+    "maintainer": "kazhida",
     "width": 13,
     "height": 4,
     "layouts": {
@@ -52,7 +52,7 @@
                 {"label": "Alt", "x": 3, "y": 3},
                 {"label": "Muhenkan", "x": 4, "y": 3},
                 {"label": " ", "x": 5, "y": 3, "w": 2},
-                {"label": "Henkan", "x": 6, "y": 3},
+                {"label": "Henkan", "x": 7, "y": 3},
                 {"label": "Alt", "x": 8, "y": 3},
                 {"label": "App", "x": 9, "y": 3},
                 {"label": "Left", "x": 10, "y": 3},
