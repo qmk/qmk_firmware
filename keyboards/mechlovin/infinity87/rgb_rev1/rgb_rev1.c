@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "infinity87.h"
+#include "rgb_rev1.h"
 
 #ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
