@@ -18,10 +18,6 @@
 
 #include "sequencer.h"
 
-#ifndef MIDI_TONE_KEYCODE_OCTAVES
-#    define MIDI_TONE_KEYCODE_OCTAVES 3
-#endif
-
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -810,19 +806,7 @@ enum quantum_keycodes {
 
 // MIDI aliases
 #define MIDI_TONE_MIN MI_C
-#if MIDI_TONE_KEYCODE_OCTAVES > 5
-#    define MIDI_TONE_MAX MI_B_5
-#elif MIDI_TONE_KEYCODE_OCTAVES > 4
-#    define MIDI_TONE_MAX MI_B_4
-#elif MIDI_TONE_KEYCODE_OCTAVES > 3
-#    define MIDI_TONE_MAX MI_B_3
-#elif MIDI_TONE_KEYCODE_OCTAVES > 2
-#    define MIDI_TONE_MAX MI_B_2
-#elif MIDI_TONE_KEYCODE_OCTAVES > 1
-#    define MIDI_TONE_MAX MI_B_1
-#else
-#    define MIDI_TONE_MAX MI_B
-#endif
+#define MIDI_TONE_MAX MI_B_5
 #define MIDI_OCTAVE_MIN MI_OCT_N2
 #define MIDI_OCTAVE_MAX MI_OCT_7
 #define MIDI_TRANSPOSE_MIN MI_TRNS_N6
