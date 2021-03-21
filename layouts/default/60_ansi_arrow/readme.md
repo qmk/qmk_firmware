@@ -1,14 +1,22 @@
 # 60_ansi_arrow Keymap
 
-by [Sendy YK](https://mr.sendyyk.com).
+Default 60 ANSI Arrow Keymap by [Sendy YK](https://mr.sendyyk.com).
 
-## Default Layer
-
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_base.png)
-
-## Fn Layer
-
-![_FN](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_fn.png)
+```c
+    /*
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+     * │Esc│1  │2  │3  │4  │5  │6  │7  │8  │9  │0  │-  │+  │Bspc   │
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+     * │Tab  │Q  │W  │E  │R  │T  │Y  │U  │I  │O  │P  │[  │]  │\    │
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+     * │Caps  │A  │S  │D  │F  │G  │H  │J  │K  │L  │;  │'  │Enter   │
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
+     * │Shift   │Z  │X  │C  │V  │B  │N  │M  │,  │.  │Shift │↑  │/  │
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
+     * │Ctrl│GUI │Alt │Space                   │Alt│GUI│←  │↓  │→  │
+     * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
+     */
+```
 
 ## Build The Firmware
 

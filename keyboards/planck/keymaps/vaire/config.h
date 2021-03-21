@@ -1,14 +1,8 @@
-#pragma
-
-
-
+#pragma once
 
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
@@ -18,7 +12,6 @@
 #define MOUSEKEY_TIME_TO_MAX 60
 #define MOUSEKEY_MAX_SPEED 7
 #define MOUSEKEY_WHEEL_DELAY 0
-       
 
 #define MIDI_BASIC
 

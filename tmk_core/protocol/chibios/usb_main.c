@@ -27,6 +27,7 @@
 
 #include <ch.h>
 #include <hal.h>
+#include <string.h>
 
 #include "usb_main.h"
 
@@ -368,6 +369,69 @@ static usb_driver_configs_t drivers = {
  * ---------------------------------------------------------
  */
 
+#define USB_EVENT_QUEUE_SIZE 16
+usbevent_t event_queue[USB_EVENT_QUEUE_SIZE];
+uint8_t    event_queue_head;
+uint8_t    event_queue_tail;
+
+void usb_event_queue_init(void) {
+    // Initialise the event queue
+    memset(&event_queue, 0, sizeof(event_queue));
+    event_queue_head = 0;
+    event_queue_tail = 0;
+}
+
+static inline bool usb_event_queue_enqueue(usbevent_t event) {
+    uint8_t next = (event_queue_head + 1) % USB_EVENT_QUEUE_SIZE;
+    if (next == event_queue_tail) {
+        return false;
+    }
+    event_queue[event_queue_head] = event;
+    event_queue_head              = next;
+    return true;
+}
+
+static inline bool usb_event_queue_dequeue(usbevent_t *event) {
+    if (event_queue_head == event_queue_tail) {
+        return false;
+    }
+    *event           = event_queue[event_queue_tail];
+    event_queue_tail = (event_queue_tail + 1) % USB_EVENT_QUEUE_SIZE;
+    return true;
+}
+
+static inline void usb_event_suspend_handler(void) {
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_enable();
+#endif /* SLEEP_LED_ENABLE */
+}
+
+static inline void usb_event_wakeup_handler(void) {
+    suspend_wakeup_init();
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_disable();
+    // NOTE: converters may not accept this
+    led_set(host_keyboard_leds());
+#endif /* SLEEP_LED_ENABLE */
+}
+
+void usb_event_queue_task(void) {
+    usbevent_t event;
+    while (usb_event_queue_dequeue(&event)) {
+        switch (event) {
+            case USB_EVENT_SUSPEND:
+                usb_event_suspend_handler();
+                break;
+            case USB_EVENT_WAKEUP:
+                usb_event_wakeup_handler();
+                break;
+            default:
+                // Nothing to do, we don't handle it.
+                break;
+        }
+    }
+}
+
 /* Handles the USB driver global events
  * TODO: maybe disable some things when connection is lost? */
 static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
@@ -402,9 +466,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
             osalSysUnlockFromISR();
             return;
         case USB_EVENT_SUSPEND:
-#ifdef SLEEP_LED_ENABLE
-            sleep_led_enable();
-#endif /* SLEEP_LED_ENABLE */
+            usb_event_queue_enqueue(USB_EVENT_SUSPEND);
             /* Falls into.*/
         case USB_EVENT_UNCONFIGURED:
             /* Falls into.*/
@@ -425,12 +487,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 qmkusbWakeupHookI(&drivers.array[i].driver);
                 chSysUnlockFromISR();
             }
-            suspend_wakeup_init();
-#ifdef SLEEP_LED_ENABLE
-            sleep_led_disable();
-            // NOTE: converters may not accept this
-            led_set(host_keyboard_leds());
-#endif /* SLEEP_LED_ENABLE */
+            usb_event_queue_enqueue(USB_EVENT_WAKEUP);
             return;
 
         case USB_EVENT_STALLED:
@@ -651,6 +708,17 @@ void init_usb_driver(USBDriver *usbp) {
 void restart_usb_driver(USBDriver *usbp) {
     usbStop(usbp);
     usbDisconnectBus(usbp);
+
+#if USB_SUSPEND_WAKEUP_DELAY > 0
+    // Some hubs, kvm switches, and monitors do
+    // weird things, with USB device state bouncing
+    // around wildly on wakeup, yielding race
+    // conditions that can corrupt the keyboard state.
+    //
+    // Pause for a while to let things settle...
+    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#endif
+
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
 }
@@ -806,7 +874,7 @@ void send_mouse(report_mouse_t *report) {
 }
 
 #else  /* MOUSE_ENABLE */
-void   send_mouse(report_mouse_t *report) { (void)report; }
+void send_mouse(report_mouse_t *report) { (void)report; }
 #endif /* MOUSE_ENABLE */
 
 /* ---------------------------------------------------------
@@ -885,14 +953,7 @@ void console_task(void) {
     } while (size > 0);
 }
 
-#else  /* CONSOLE_ENABLE */
-int8_t sendchar(uint8_t c) {
-    (void)c;
-    return 0;
-}
 #endif /* CONSOLE_ENABLE */
-
-void _putchar(char character) { sendchar(character); }
 
 #ifdef RAW_ENABLE
 void raw_hid_send(uint8_t *data, uint8_t length) {

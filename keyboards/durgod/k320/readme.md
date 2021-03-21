@@ -32,9 +32,8 @@ For first Flashing from initial Stock's Firmware
   - Using DFUseDemo.exe from ST's STSW-STM32080: https://www.st.com/en/development-tools/stsw-stm32080.html
   - Using dfu-util (thanks to [tylert](https://github.com/tylert) for instructions!):
 
-
-    dfu-util --list
-    dfu-util --alt 0 --dfuse-address 0x08000000 --upload ${OLD_STOCK_BIN}
+        dfu-util --list
+        dfu-util --alt 0 --dfuse-address 0x08000000 --upload ${OLD_STOCK_BIN}
 
 2. Flash the QMK Firmware Image.
 - Put board into Bootloader mode, using the same method as when backing up the original Firmware (above)
@@ -43,8 +42,7 @@ For first Flashing from initial Stock's Firmware
   - Using DFuseDemo.exe if STTub30 driver is used.
   - Using dfu-util:
 
-
-    dfu-util --alt 0 --dfuse-address 0x08000000 --upload ${NEW_QMK_BIN}
+        dfu-util --alt 0 --dfuse-address 0x08000000 --download ${NEW_QMK_BIN}
 
 You can short Boot0 to Vdd by shorting R21 to C27 on the sides closest to the processor, as shown:
 
