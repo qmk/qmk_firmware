@@ -2,9 +2,6 @@
 #ifdef PROTOCOL_LUFA
 #    include "split_util.h"
 #endif
-#ifdef SSD1306OLED
-#    include "oled.h"
-#endif
 
 #include "edvorakjp.h"
 
@@ -55,21 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 // clang-format on
-
-#ifdef SSD1306OLED
-void matrix_init_keymap(void) {
-    // SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-#    ifdef MASTER_RIGHT
-    iota_gfx_init(has_usb());  // turns on the display
-#    else
-    iota_gfx_init(!has_usb());
-#    endif  // MASTER_RIGHT
-}
-
-void matrix_scan_user(void) {
-    iota_gfx_task();  // this is what updates the display continuously
-}
-#endif
 
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
 uint32_t layer_state_set_keymap(uint32_t state) {
