@@ -25,15 +25,7 @@ void matrix_init_kb(void) {
   // runs once when the firmware starts up
 
   setPinOutput(C7);
-  
   matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -43,15 +35,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   return process_record_user(keycode, record);
 }
 
-void led_set_kb(uint8_t usb_led) {
-  // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinLow(C7);
-  } else {
-    writePinHigh(C7);
+bool led_update_kb(led_t led_state) {
+  if(led_update_user(led_state)) {
+    writePin(C7, !led_state.caps_lock);
   }
-
-  led_set_user(usb_led);
+  return true;
 }
-

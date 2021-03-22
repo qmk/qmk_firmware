@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
@@ -10,7 +11,7 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = no              # Enable keyboard backlight functionality
-BOOTMAGIC_ENABLE = no              # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite            # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes              # Mouse keys
 EXTRAKEY_ENABLE = yes              # Audio control and System control
 CONSOLE_ENABLE = no                # Console for debug
@@ -21,8 +22,6 @@ AUDIO_ENABLE = no                  # Audio output on port C6
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 #SERIAL_LINK_ENABLE = yes
 
-RAW_ENABLE = no
-DYNAMIC_KEYMAP_ENABLE = no
 CIE1931_CURVE = yes
 
 LAYOUTS = 65_ansi
@@ -32,4 +31,4 @@ SRC =	keyboards/wilba_tech/wt_main.c \
 		keyboards/wilba_tech/wt_rgb_backlight.c \
 		drivers/issi/is31fl3733.c \
 		quantum/color.c \
-		drivers/arm/i2c_master.c
+		drivers/chibios/i2c_master.c

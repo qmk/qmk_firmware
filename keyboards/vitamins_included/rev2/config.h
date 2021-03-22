@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER      0x0002
-#define DESCRIPTION     A toolless split keyboard for the cheapish makers
 
 /* key matrix size */
 // Rows are doubled-up
@@ -36,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { F5, F6, C7, F7 }
 #define MATRIX_COL_PINS { F1, F4, E2, B6, D7, D6}
+
+#define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -54,12 +55,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F0
 
-#define RGBLED_NUM 12    // Number of LEDs
+#define RGBLED_NUM 12
 #define RGBLIGHT_ANIMATIONS
+#define RGBLED_SPLIT { 6, 6 }
 
 /* Audio settings */
 #ifdef AUDIO_ENABLE
-    #define C6_AUDIO // Define this to enable the buzzer
+    #define AUDIO_PIN C6 // Define this to enable the buzzer
 #endif
 
 #define QMK_ESC_OUTPUT F1 // usually COL

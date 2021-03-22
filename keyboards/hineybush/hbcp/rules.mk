@@ -14,7 +14,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no      # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
@@ -29,5 +29,5 @@ MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs
+CUSTOM_MATRIX = lite
+SRC += matrix.c

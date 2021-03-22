@@ -19,20 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x9991
+#define VENDOR_ID       0x04D8
+#define PRODUCT_ID      0xEA3B
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    monksoffunk
+#define MANUFACTURER    25KEYS
 #define PRODUCT         zinc rev.A
-#define DESCRIPTION     A split keyboard
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
 /* Use I2C or Serial */
-//#define USE_I2C
 #define USE_SERIAL
-//#define USE_MATRIX_I2C
+#define SOFT_SERIAL_PIN D2
 
 /* Select hand configuration */
 #define MASTER_LEFT
@@ -41,18 +39,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 // Rows are doubled-up
-  #define MATRIX_ROWS 8
-  #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
+#define MATRIX_ROWS 8
+#define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 
 // wiring of each half
 #define MATRIX_COLS 6
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3}
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
+#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -64,25 +58,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
-//#define RGBLED_NUM 24    // Number of LEDs. see ./keymaps/default/config.h
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 // RGB LED support
 //#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
-#ifdef RGBLED_BACK
-  #define RGBLED_NUM 24
-#else
-  #define RGBLED_NUM 6
+#ifdef RGBLIGHT_ENABLE
+  #define RGBLIGHT_SPLIT
+  #ifdef RGBLED_BACK
+    #ifdef RGBLED_CONT
+      #define RGBLED_NUM 48
+      #define RGBLED_SPLIT { 24, 24 }
+    #else
+      #define RGBLED_NUM 24
+    #endif
+  #else
+    #ifdef RGBLED_BOTH
+      #ifdef RGBLED_CONT
+        #define RGBLED_NUM 60
+        #define RGBLED_SPLIT { 30, 30 }
+//      #define RGBLIGHT_LED_MAP {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29}
+      #else
+        #define RGBLED_NUM 30
+      #endif
+    #else
+      #ifdef RGBLED_CONT
+        #define RGBLED_NUM 12
+        #define RGBLED_SPLIT { 6, 6 }
+      #else
+        #define RGBLED_NUM 6
+      #endif
+    #endif
+  #endif
 #endif
 
 #ifndef IOS_DEVICE_ENABLE
-  #if RGBLED_NUM <= 6
+  #if (RGBLED_NUM <= 6) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 12))
     #define RGBLIGHT_LIMIT_VAL 255
   #else
-    #if RGBLED_NUM <= 16
+    #if (RGBLED_NUM <= 16) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 32))
       #define RGBLIGHT_LIMIT_VAL 130
     #else
       #define RGBLIGHT_LIMIT_VAL 120
@@ -90,10 +103,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #endif
   #define RGBLIGHT_VAL_STEP 17
 #else
-  #if RGBLED_NUM <= 6
+  #if (RGBLED_NUM <= 6) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 12))
     #define RGBLIGHT_LIMIT_VAL 90
   #else
-    #if RGBLED_NUM <= 16
+    #if (RGBLED_NUM <= 16) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 32))
       #define RGBLIGHT_LIMIT_VAL 45
     #else
       #define RGBLIGHT_LIMIT_VAL 35

@@ -11,7 +11,7 @@
 #    undef  NOTE_REST
 #    define NOTE_REST 1.00f
 #  endif // !__arm__
-#  define UNICODE_SONG_OSX SONG(RICK_ROLL)
+#  define UNICODE_SONG_MAC SONG(RICK_ROLL)
 #  define UNICODE_SONG_LNX SONG(RICK_ROLL)
 #  define UNICODE_SONG_WIN SONG(RICK_ROLL)
 #  define UNICODE_SONG_BSD SONG(RICK_ROLL)

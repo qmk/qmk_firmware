@@ -26,7 +26,7 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case XC_COPY:
       if (pressed) {

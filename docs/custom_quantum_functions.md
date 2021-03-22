@@ -4,7 +4,7 @@ For a lot of people a custom keyboard is about more than sending button presses 
 
 This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.md) will help you understand what is going on at a more fundamental level.
 
-## A Word on Core vs Keyboards vs Keymap
+## A Word on Core vs Keyboards vs Keymap :id=a-word-on-core-vs-keyboards-vs-keymap
 
 We have structured QMK as a hierarchy:
 
@@ -34,7 +34,7 @@ enum my_keycodes {
 };
 ```
 
-## Programming the Behavior of Any Keycode
+## Programming the Behavior of Any Keycode :id=programming-the-behavior-of-any-keycode
 
 When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up to you to send any key up or down events that are required.
 
@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
       // Play a tone when enter is pressed
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_qwerty);
+        PLAY_SONG(tone_qwerty);
       }
       return true; // Let QMK send the enter press/release events
     default:
@@ -87,108 +87,6 @@ keyrecord_t record {
   }
 }
 ```
-
-# LED Control
-
-QMK provides methods to read 5 of the LEDs defined in the HID spec:
-
-* Num Lock
-* Caps Lock
-* Scroll Lock
-* Compose
-* Kana
-
-There are two ways to get the lock LED state:
-
-* by implementing `bool led_update_kb(led_t led_state)` or `_user(led_t led_state)`; or
-* by calling `led_t host_keyboard_led_state()`
-
-!> `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
-
-Two more deprecated functions exist that provide the LED state as a `uint8_t`:
-
-* `uint8_t led_set_kb(uint8_t usb_led)` and `_user(uint8_t usb_led)`
-* `uint8_t host_keyboard_leds()`
-
-## `led_update_user()`
-
-This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a struct parameter.
-
-By convention, return `true` from `led_update_user()` to get the `led_update_kb()` hook to run its code, and
-return `false` when you would prefer not to run the code in `led_update_kb()`.
-
-Some examples include:
-
-  - overriding the LEDs to use them for something else like layer indication
-    - return `false` because you do not want the `_kb()` function to run, as it would override your layer behavior.
-  - play a sound when an LED turns on or off.
-    - return `true` because you want the `_kb` function to run, and this is in addition to the default LED behavior.
-
-?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
-
-### Example `led_update_kb()` Implementation
-
-```c
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        // writePin sets the pin high for 1 and low for 0.
-        // In this example the pins are inverted, setting
-        // it low/0 turns it on, and high/1 turns the LED off.
-        // This behavior depends on whether the LED is between the pin
-        // and VCC or the pin and GND.
-        writePin(B0, !led_state.num_lock);
-        writePin(B1, !led_state.caps_lock);
-        writePin(B2, !led_state.scroll_lock);
-        writePin(B3, !led_state.compose);
-        writePin(B4, !led_state.kana);
-    }
-    return res;
-}
-```
-
-### Example `led_update_user()` Implementation
-
-This incomplete example would play a sound if Caps Lock is turned on or off. It returns `true`, because you also want the LEDs to maintain their state.
-
-```c
-#ifdef AUDIO_ENABLE
-  float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
-  float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
-#endif
-
-bool led_update_user(led_t led_state) {
-    #ifdef AUDIO_ENABLE
-    static uint8_t caps_state = 0;
-    if (caps_state != led_state.caps_lock) {
-        led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
-        caps_state = led_state.caps_lock;
-    }
-    #endif
-    return true;
-}
-```
-
-### `led_update_*` Function Documentation
-
-* Keyboard/Revision: `bool led_update_kb(led_t led_state)`
-* Keymap: `bool led_update_user(led_t led_state)`
-
-## `host_keyboard_led_state()`
-
-Call this function to get the last received LED state as a `led_t`. This is useful for reading the LED state outside `led_update_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
-
-## Setting Physical LED State
-
-Some keyboard implementations provide convenience methods for setting the state of the physical LEDs.
-
-### Ergodox Boards
-
-The Ergodox implementations provide `ergodox_right_led_1`/`2`/`3_on`/`off()` to turn individual LEDs on or off, as well as `ergodox_right_led_on`/`off(uint8_t led)` to turn them on or off by their index.
-
-In addition, it is possible to specify the brightness level of all LEDs with `ergodox_led_all_set(uint8_t n)`; of individual LEDs with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`; or by index with `ergodox_right_led_set(uint8_t led, uint8_t n)`.
-
-Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness (which is the default).
 
 # Keyboard Initialization Code
 
@@ -287,6 +185,14 @@ This function gets called at every matrix scan, which is basically as often as t
 
 You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LEDs or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
 
+# Keyboard housekeeping
+
+* Keyboard/Revision: `void housekeeping_task_kb(void)`
+* Keymap: `void housekeeping_task_user(void)`
+
+This function gets called at the end of all QMK processing, before starting the next iteration. You can safely assume that QMK has dealt with the last matrix scan at the time that these functions are invoked -- layer states have been updated, USB reports have been sent, LEDs have been updated, and displays have been drawn.
+
+Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To keep your board responsive, it's suggested to do as little as possible during these function calls, potentially throtting their behaviour if you do indeed require implementing something special.
 
 # Keyboard Idling/Wake Code
 
@@ -313,13 +219,13 @@ void suspend_wakeup_init_user(void) {
 * Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 
-# Layer Change Code
+# Layer Change Code :id=layer-change-code
 
 This runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling.
 
 ### Example `layer_state_set_*` Implementation
 
-This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example
+This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example.
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -343,6 +249,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 ```
+
+Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)` macros to check the status of a particular layer.
+
+Outside of `layer_state_set_*` functions, you can use the `IS_LAYER_ON(layer)` and `IS_LAYER_OFF(layer)` macros to check global layer state.
+
 ### `layer_state_set_*` Function Documentation
 
 * Keyboard/Revision: `layer_state_t layer_state_set_kb(layer_state_t state)`
@@ -438,7 +349,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
         // Play a tone when enter is pressed
         if (record->event.pressed) {
-            PLAY_NOTE_ARRAY(tone_qwerty);
+            PLAY_SONG(tone_qwerty);
         }
         return true; // Let QMK send the enter press/release events
     case RGB_LYR:  // This allows me to use underglow as layer indication, or as normal
@@ -449,7 +360,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(layer_state);   // then immediately update the layer color
             }
         }
-        return false; break;
+        return false;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // For any of the RGB codes (see quantum_keycodes.h, L400 for reference)
         if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
             if (user_config.rgb_layer_change) {        // only if this is enabled
@@ -486,31 +397,3 @@ And you're done.  The RGB layer indication will only work if you want it to. And
 * Keymap: `void eeconfig_init_user(void)`, `uint32_t eeconfig_read_user(void)` and `void eeconfig_update_user(uint32_t val)`
 
 The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM. 
-
-# Custom Tapping Term
-
-By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`.
-
-To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first. 
-
-
-## Example `get_tapping_term` Implementation
-
-To change the `TAPPING TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file: 
-
-```c
-uint16_t get_tapping_term(uint16_t keycode) {
-  switch (keycode) {
-    case SFT_T(KC_SPC):
-      return TAPPING_TERM + 1250;
-    case LT(1, KC_GRV):
-      return 130;
-    default:
-      return TAPPING_TERM;
-  }
-}
-```
-
-### `get_tapping_term` Function Documentation
-
-Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only a user level function is useful here, so no need to mark it as such.

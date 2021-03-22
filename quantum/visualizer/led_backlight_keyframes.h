@@ -22,8 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef LED_BACKLIGHT_KEYFRAMES_H
-#define LED_BACKLIGHT_KEYFRAMES_H
+#pragma once
 
 #include "visualizer.h"
 
@@ -39,5 +38,3 @@ bool led_backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_
 bool led_backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state);
 
 extern keyframe_animation_t led_test_animation;
-
-#endif /* LED_KEYFRAMES_H */

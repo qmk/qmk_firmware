@@ -1,2 +1,4 @@
-MOUSEKEY_ENABLE = yes 
-CTPC = yes
+MOUSEKEY_ENABLE = yes
+ifneq (, $(findstring rev1, $(KEYBOARD)))
+  CTPC = yes
+endif

@@ -1,29 +1,22 @@
-/*
-Copyright 2017 Christopher Courtney <drashna@live.com> @drashna
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include "drashna.h"
 
 userspace_config_t userspace_config;
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-#    define DRASHNA_UNICODE_MODE UC_WIN
-#else
-// set to 2 for UC_WIN, set to 4 for UC_WINC
-#    define DRASHNA_UNICODE_MODE 2
-#endif
 
 bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed) {
     static uint16_t this_timer;
@@ -56,21 +49,6 @@ bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this
     return false;
 }
 
-void bootmagic_lite(void) {
-    matrix_scan();
-#if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
-    wait_ms(DEBOUNCING_DELAY * 2);
-#elif defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#else
-    wait_ms(30);
-#endif
-    matrix_scan();
-    if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
-        bootloader_jump();
-    }
-}
-
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 
 void keyboard_pre_init_user(void) {
@@ -82,6 +60,7 @@ void keyboard_pre_init_user(void) {
 // customization of the keymap.  Use _keymap instead of _user
 // functions in the keymaps
 __attribute__((weak)) void matrix_init_keymap(void) {}
+__attribute__((weak)) void matrix_init_secret(void) {}
 
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
@@ -94,25 +73,27 @@ void matrix_init_user(void) {
     PORTB &= ~(1 << 0);
 #endif
 
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
-    get_unicode_input_mode();
-#endif  // UNICODE_ENABLE
+    matrix_init_secret();
     matrix_init_keymap();
 }
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    keyboard_post_init_rgb();
+#if defined(RGBLIGHT_ENABLE)
+    keyboard_post_init_rgb_light();
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+    keyboard_post_init_rgb_matrix();
 #endif
     keyboard_post_init_keymap();
 }
 
 __attribute__((weak)) void shutdown_keymap(void) {}
 
+#ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_update_pwm_buffers(void);
+#endif
 
 void shutdown_user(void) {
 #ifdef RGBLIGHT_ENABLE
@@ -130,13 +111,20 @@ void shutdown_user(void) {
 
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 
-void suspend_power_down_user(void) { suspend_power_down_keymap(); }
+void suspend_power_down_user(void) {
+#ifdef OLED_DRIVER_ENABLE
+    oled_off();
+#endif
+    suspend_power_down_keymap();
+}
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 
 void suspend_wakeup_init_user(void) { suspend_wakeup_init_keymap(); }
 
 __attribute__((weak)) void matrix_scan_keymap(void) {}
+
+__attribute__((weak)) void matrix_scan_secret(void) {}
 
 // No global matrix scan code, so just run keymap's matrix
 // scan function
@@ -151,22 +139,46 @@ void matrix_scan_user(void) {
     run_diablo_macro_check();
 #endif  // TAP_DANCE_ENABLE
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    matrix_scan_rgb();
+#if defined(RGBLIGHT_ENABLE)
+    matrix_scan_rgb_light();
 #endif  // RGBLIGHT_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
+    matrix_scan_rgb_matrix();
+#endif
+
+    matrix_scan_secret();
 
     matrix_scan_keymap();
 }
+
+#ifdef AUDIO_ENABLE
+float doom_song[][2] = SONG(E1M1_DOOM);
+#endif
 
 __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
 
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
+    if (!is_keyboard_master()) {
+        return state;
+    }
+
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    state = layer_state_set_rgb(state);
+#if defined(RGBLIGHT_ENABLE)
+    state = layer_state_set_rgb_light(state);
 #endif  // RGBLIGHT_ENABLE
+#if defined(AUDIO_ENABLE) && !defined(__arm__)
+    static bool is_gamepad_on = false;
+    if (layer_state_cmp(state, _GAMEPAD) != is_gamepad_on) {
+        is_gamepad_on = layer_state_cmp(state, _GAMEPAD);
+        if (is_gamepad_on) {
+            PLAY_LOOP(doom_song);
+        } else {
+            stop_all_notes();
+        }
+    }
+#endif
     return layer_state_set_keymap(state);
 }
 
@@ -174,6 +186,10 @@ __attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t
 
 // Runs state check and changes underglow color and animation
 layer_state_t default_layer_state_set_user(layer_state_t state) {
+    if (!is_keyboard_master()) {
+        return state;
+    }
+
     state = default_layer_state_set_keymap(state);
 #if 0
 #    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
@@ -196,13 +212,10 @@ void eeconfig_init_user(void) {
     userspace_config.raw              = 0;
     userspace_config.rgb_layer_change = true;
     eeconfig_update_user(userspace_config.raw);
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
-    get_unicode_input_mode();
-#else
-    eeprom_update_byte(EECONFIG_UNICODEMODE, DRASHNA_UNICODE_MODE);
-#endif
     eeconfig_init_keymap();
+#ifdef VIA_ENABLE
+    via_eeprom_reset();
+#endif
     keyboard_init();
 }
 

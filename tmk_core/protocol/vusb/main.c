@@ -7,26 +7,37 @@
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
  * This Revision: $Id: main.c 790 2010-05-30 21:00:26Z cs $
  */
+
 #include <stdint.h>
+
 #include <avr/interrupt.h>
+#include <avr/power.h>
 #include <avr/wdt.h>
 #include <avr/sleep.h>
-#include <util/delay.h>
-#include "usbdrv.h"
-#include "oddebug.h"
+
+#include <usbdrv/usbdrv.h>
+
 #include "vusb.h"
+
 #include "keyboard.h"
 #include "host.h"
 #include "timer.h"
-#include "uart.h"
-#include "debug.h"
-#include "rgblight_reconfig.h"
+#include "print.h"
+#include "suspend.h"
+#include "wait.h"
+#include "sendchar.h"
 
-#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
+#ifdef SLEEP_LED_ENABLE
+#    include "sleep_led.h"
 #endif
 
-#define UART_BAUD_RATE 115200
+#ifdef CONSOLE_ENABLE
+void console_task(void);
+#endif
+
+#ifdef RAW_ENABLE
+void raw_hid_task(void);
+#endif
 
 /* This is from main.c of USBaspLoader */
 static void initForUsbConnectivity(void) {
@@ -37,74 +48,133 @@ static void initForUsbConnectivity(void) {
     usbDeviceDisconnect(); /* do this while interrupts are disabled */
     while (--i) {          /* fake USB disconnect for > 250 ms */
         wdt_reset();
-        _delay_ms(1);
+        wait_ms(1);
     }
     usbDeviceConnect();
+}
+
+static void vusb_send_remote_wakeup(void) {
+    cli();
+
+    uint8_t ddr_orig = USBDDR;
+    USBOUT |= (1 << USBMINUS);
+    USBDDR = ddr_orig | USBMASK;
+    USBOUT ^= USBMASK;
+
+    wait_ms(25);
+
+    USBOUT ^= USBMASK;
+    USBDDR = ddr_orig;
+    USBOUT &= ~(1 << USBMINUS);
+
     sei();
 }
 
-int main(void) {
-    bool suspended = false;
+bool vusb_suspended = false;
+
+static void vusb_suspend(void) {
+    vusb_suspended = true;
+
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_enable();
+#endif
+
+    suspend_power_down();
+}
+
 #if USB_COUNT_SOF
-    uint16_t last_timer = timer_read();
+static void vusb_wakeup(void) {
+    vusb_suspended = false;
+    suspend_wakeup_init();
+
+#    ifdef SLEEP_LED_ENABLE
+    sleep_led_disable();
+#    endif
+}
+#endif
+
+/** \brief Setup USB
+ *
+ * FIXME: Needs doc
+ */
+static void setup_usb(void) { initForUsbConnectivity(); }
+
+/** \brief Main
+ *
+ * FIXME: Needs doc
+ */
+int main(void) __attribute__((weak));
+int main(void) {
+#if USB_COUNT_SOF
+    uint16_t sof_timer = timer_read();
 #endif
 
 #ifdef CLKPR
     // avoid unintentional changes of clock frequency in devices that have a
     // clock prescaler
-    CLKPR = 0x80, CLKPR = 0;
-#endif
-#ifndef NO_UART
-    uart_init(UART_BAUD_RATE);
+    clock_prescale_set(clock_div_1);
 #endif
     keyboard_setup();
-
+    setup_usb();
+    sei();
     keyboard_init();
     host_set_driver(vusb_driver());
 
-    debug("initForUsbConnectivity()\n");
-    initForUsbConnectivity();
+    wait_ms(50);
 
-    debug("main loop\n");
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_init();
+#endif
+
     while (1) {
 #if USB_COUNT_SOF
         if (usbSofCount != 0) {
-            suspended   = false;
             usbSofCount = 0;
-            last_timer  = timer_read();
+            sof_timer   = timer_read();
+            if (vusb_suspended) {
+                vusb_wakeup();
+            }
         } else {
             // Suspend when no SOF in 3ms-10ms(7.1.7.4 Suspending of USB1.1)
-            if (timer_elapsed(last_timer) > 5) {
-                suspended = true;
-                /*
-                                uart_putchar('S');
-                                _delay_ms(1);
-                                cli();
-                                set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-                                sleep_enable();
-                                sleep_bod_disable();
-                                sei();
-                                sleep_cpu();
-                                sleep_disable();
-                                _delay_ms(10);
-                                uart_putchar('W');
-                */
+            if (!vusb_suspended && timer_elapsed(sof_timer) > 5) {
+                vusb_suspend();
             }
         }
 #endif
-        if (!suspended) {
+        if (vusb_suspended) {
+            vusb_suspend();
+            if (suspend_wakeup_condition()) {
+                vusb_send_remote_wakeup();
+            }
+        } else {
             usbPoll();
 
-            // TODO: configuration process is incosistent. it sometime fails.
+            // TODO: configuration process is inconsistent. it sometime fails.
             // To prevent failing to configure NOT scan keyboard during configuration
             if (usbConfiguration && usbInterruptIsReady()) {
                 keyboard_task();
-
-#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
-                rgblight_task();
-#endif
             }
             vusb_transfer_keyboard();
+
+#ifdef RAW_ENABLE
+            usbPoll();
+
+            if (usbConfiguration && usbInterruptIsReady3()) {
+                raw_hid_task();
+            }
+#endif
+
+#ifdef CONSOLE_ENABLE
+            usbPoll();
+
+            if (usbConfiguration && usbInterruptIsReady3()) {
+                console_task();
+            }
+#endif
+
+            // Run housekeeping
+            housekeeping_task_kb();
+            housekeeping_task_user();
         }
     }
 }

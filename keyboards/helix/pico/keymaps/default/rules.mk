@@ -5,9 +5,9 @@
 #   See TOP/keyboards/helix/rules.mk for a list of options that can be set.
 #   See TOP/docs/config_options.md for more information.
 #
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+EXTRAKEY_ENABLE = yes       # Audio control and System control
 AUDIO_ENABLE = yes          # Audio output on port B5
-LINK_TIME_OPTIMIZATION_ENABLE = no  # if firmware size over limit, try this option
+LTO_ENABLE = no  # if firmware size over limit, try this option
 
 # Helix Spacific Build Options
 # you can uncomment and edit follows 6 Variables

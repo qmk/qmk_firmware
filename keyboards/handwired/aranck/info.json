@@ -1,12 +1,11 @@
 {
   "keyboard_name": "Aranck",
-  "keyboard_folder": "handwired/aranck",
   "url": "https://github.com/Ardakilic",
   "maintainer": "Arda Kilicdagi",
   "width": 12,
   "height": 4,
   "layouts": {
-    "LAYOUT_aranck_mit": {
+    "LAYOUT_planck_mit": {
       "key_count": 47,
       "layout": [
         { "x": 0, "y": 0 },

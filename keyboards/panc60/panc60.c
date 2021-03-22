@@ -15,31 +15,3 @@
  */
 
 #include "panc60.h"
-
-void backlight_init_ports(void) {
-	setPinOutput(D0);
-	setPinOutput(D1);
-	setPinOutput(D4);
-	setPinOutput(D6);
-
-	writePinLow(D0);
-	writePinLow(D1);
-	writePinLow(D4);
-	writePinLow(D6);
-}
-
-void backlight_set(uint8_t level) {
-	if (level == 0) {
-		// Turn out the lights
-		writePinLow(D0);
-		writePinLow(D1);
-		writePinLow(D4);
-		writePinLow(D6);
-	} else {
-		// Turn on the lights
-		writePinHigh(D0);
-		writePinHigh(D1);
-		writePinHigh(D4);
-		writePinHigh(D6);
-	}
-}
