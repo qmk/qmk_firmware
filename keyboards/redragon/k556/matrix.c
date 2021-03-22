@@ -371,9 +371,9 @@ OSAL_IRQ_HANDLER(SN32_CT16B1_HANDLER) {
         {
             SN_CT16B1->PWMIOENB |= mskCT16_PWM11EN_EN;
         }
-        if(SN_CT16B1->MR10 > 0)
+        if(SN_CT16B1->MR12 > 0)
         {
-            SN_CT16B1->PWMIOENB |= mskCT16_PWM10EN_EN;
+            SN_CT16B1->PWMIOENB |= mskCT16_PWM12EN_EN;
         }
         if(SN_CT16B1->MR13 > 0)
         {
