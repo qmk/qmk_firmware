@@ -549,7 +549,15 @@ def merge_info_jsons(keyboard, info_data):
             continue
 
         # Merge layout data in
+        if 'layout_aliases' in new_info_data:
+            info_data['layout_aliases'] = {**info_data.get('layout_aliases', {}), **new_info_data['layout_aliases']}
+            del new_info_data['layout_aliases']
+
         for layout_name, layout in new_info_data.get('layouts', {}).items():
+            if layout_name in info_data.get('layout_aliases', {}):
+                _log_warning(info_data, f"info.json uses alias name {layout_name} instead of {info_data['layout_aliases'][layout_name]}")
+                layout_name = info_data['layout_aliases'][layout_name]
+
             if layout_name in info_data['layouts']:
                 for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                     existing_key.update(new_key)
@@ -559,7 +567,7 @@ def merge_info_jsons(keyboard, info_data):
 
         # Update info_data with the new data
         if 'layouts' in new_info_data:
-            del (new_info_data['layouts'])
+            del new_info_data['layouts']
 
         deep_update(info_data, new_info_data)
 
