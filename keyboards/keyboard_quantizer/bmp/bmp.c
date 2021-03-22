@@ -25,21 +25,21 @@
 
 #define LEN(x) (sizeof(x) / sizeof(x[0]))
 
-bool bmp_config_overwrite(bmp_api_config_t const *const config_on_storage,
-                          bmp_api_config_t *const       keyboard_config) {
-    // User can overwrite partial settings
-    keyboard_config->mode            = config_on_storage->mode;
-    keyboard_config->startup         = config_on_storage->startup;
-    keyboard_config->matrix.debounce = config_on_storage->matrix.debounce;
-    keyboard_config->matrix.is_left_hand =
-        config_on_storage->matrix.is_left_hand;
-    keyboard_config->param_central    = config_on_storage->param_central;
-    keyboard_config->param_peripheral = config_on_storage->param_peripheral;
-    keyboard_config->keymap           = config_on_storage->keymap;
-    keyboard_config->reserved[2]      = config_on_storage->reserved[2];
-
-    return true;
-}
+// bool bmp_config_overwrite(bmp_api_config_t const *const config_on_storage,
+//                           bmp_api_config_t *const       keyboard_config) {
+//     // User can overwrite partial settings
+//     keyboard_config->mode            = config_on_storage->mode;
+//     keyboard_config->startup         = config_on_storage->startup;
+//     keyboard_config->matrix.debounce = config_on_storage->matrix.debounce;
+//     keyboard_config->matrix.is_left_hand =
+//         config_on_storage->matrix.is_left_hand;
+//     keyboard_config->param_central    = config_on_storage->param_central;
+//     keyboard_config->param_peripheral = config_on_storage->param_peripheral;
+//     keyboard_config->keymap           = config_on_storage->keymap;
+//     keyboard_config->reserved[2]      = config_on_storage->reserved[2];
+//
+//     return true;
+// }
 
 static void create_status_file() {}
 
@@ -51,8 +51,8 @@ void keyboard_post_init_kb() {
     debug_mouse    = false;
 }
 
-uint8_t buf[256];
-uint8_t widx, ridx, cnt;
+static uint8_t buf[256];
+static uint8_t widx, ridx, cnt;
 
 void uart_recv_callback(uint8_t dat) {
     buf[widx] = dat;
@@ -70,6 +70,8 @@ uint8_t uart_getchar() {
     dprintf("%02X ", c);
     return c;
 }
+
+void uart_flush_rx_buffer() { BMPAPI->uart.send(NULL, 0); }
 
 void qt_matrix_init() {
     bmp_uart_config_t uart_config;

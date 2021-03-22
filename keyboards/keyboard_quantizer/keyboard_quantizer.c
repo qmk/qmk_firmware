@@ -141,6 +141,9 @@ bool parse_packet(uint8_t* buf, uint32_t cnt, matrix_row_t* current_matrix) {
     return matrix_has_changed;
 }
 
+// __attribute__((weak)) void uart_flush_rx_buffer(void) {}
+void uart_flush_rx_buffer(void);
+
 bool process_packet(matrix_row_t current_matrix[]) {
     bool matrix_has_changed = false;
     bool receive_complete   = false;
@@ -200,6 +203,8 @@ bool process_packet(matrix_row_t current_matrix[]) {
         overflow         = false;
         memset(buf, 0, sizeof(buf));
     }
+
+    uart_flush_rx_buffer();
 
     return matrix_has_changed;
 }
