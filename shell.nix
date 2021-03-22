@@ -38,6 +38,20 @@ let
     doCheck = false;
   };
 
+  dotty-dict = with pkgs.python3Packages; buildPythonPackage rec {
+    pname = "dotty_dict";
+    version = "1.3.0";
+
+    src = fetchPypi {
+      inherit pname version;
+      sha256 = "sha256-6wA1o2KezYQ5emjx9C8elKvRw0V3oZzT6srTMe58uvA=";
+    };
+
+    propagatedBuildInputs = [ setuptools_scm ];
+
+    doCheck = false;
+  };
+
   pythonEnv = pkgs.python3.withPackages (p: with p; [
     # requirements.txt
     appdirs
@@ -46,6 +60,8 @@ let
     hjson
     milc
     pygments
+    dotty-dict
+    jsonschema
     # requirements-dev.txt
     nose2
     flake8
