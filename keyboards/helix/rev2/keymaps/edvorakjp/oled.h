@@ -1,11 +1,12 @@
 #pragma once
 
-// SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#include "ssd1306.h"
 #include "edvorakjp.h"
 
-extern bool    japanese_mode;
+extern bool japanese_mode;
 
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source);
-void render_status(struct CharacterMatrix *matrix);
-void iota_gfx_task_user(void);
+void            render_host_led_state(void);
+void            render_layer_state(void);
+void            render_logo(void);
+void            render_mode_icon(bool is_windows);
+oled_rotation_t oled_init_user(oled_rotation_t rotation);
+void            oled_task_user(void);
