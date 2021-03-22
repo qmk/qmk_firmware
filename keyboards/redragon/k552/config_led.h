@@ -30,6 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DRIVER_LED_TOTAL (6*17)
 
-#define LED_NUM_LOCK_PIN B14
-#define LED_CAPS_LOCK_PIN B15
+#define LED_CAPS_LOCK_PIN B14
+#define LED_SCROLL_LOCK_PIN B15
 #define LED_PIN_ON_STATE 0
