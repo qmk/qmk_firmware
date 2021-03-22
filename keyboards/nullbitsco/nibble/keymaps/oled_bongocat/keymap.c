@@ -1,4 +1,4 @@
-/* Copyright 2020 Jonathan Law
+/* Copyright 2021 Jonathan Law, Jay Greco
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,9 @@
  * Original: j-inc's kyria keymap
  */
 #include QMK_KEYBOARD_H
+#include "animation_frames.h"
 #include <stdio.h>
+
 
 enum layer_names {
   _MA,
@@ -54,9 +56,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 #ifdef OLED_DRIVER_ENABLE
-#include "animation_frames.h"
-
-#define IDLE_FRAME_DURATION 200
+#define IDLE_FRAME_DURATION 200 // Idle animation iteration rate in ms
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_90; }
 
@@ -73,30 +73,26 @@ bool tap_anim_toggle = false;
 // Documentation and python compression script available at:
 // https://github.com/nullbitsco/squeez-o
 #ifdef USE_OLED_BITMAP_COMPRESSION
-static void oled_write_compressed_P(const char* input_block_map, const char* input_block_list) { //Inflate and write a frame to the OLED
+static void oled_write_compressed_P(const char* input_block_map, const char* input_block_list) {
     uint16_t block_index = 0;
     for (uint16_t i=0; i<NUM_OLED_BYTES; i++) {
         uint8_t bit = i%8;
         uint8_t map_index = i/8;
         uint8_t _block_map = (uint8_t)pgm_read_byte_near(input_block_map + map_index);
-        // uprintf("i: %u bit: %u map_index: %u _block_map: 0x%02X ", i, bit, map_index, _block_map);
         uint8_t nonzero_byte = (_block_map & (1 << bit));
         if (nonzero_byte) {
             const char data = (const char)pgm_read_byte_near(input_block_list + block_index++);
             oled_write_raw_byte(data, i);
-            // uprintf("inf: %u block_index: %u data: 0x%02X\n", nonzero_byte, block_index-1, data);
         } else {
             const char data = (const char)0x00;
             oled_write_raw_byte(data, i);
-            // uprintf("inf: %u block_index: %u data: 0x%02X\n", nonzero_byte, block_index-1, data);
         }
-        // wait_us(30000);
     }
 }
 #endif
 
 static void render_anim(void) {
-    // idle anim
+    // Idle animation
     void animation_phase(void) {
         if (!tap_anim) {
             current_idle_frame = (current_idle_frame + 1) % NUM_IDLE_FRAMES;
@@ -109,7 +105,7 @@ static void render_anim(void) {
         }
     }
 
-    // idle behaviour
+    // Idle behaviour
     if (get_current_wpm() != 000) {  // prevent sleep
         oled_on();
         if (timer_elapsed32(anim_timer) > IDLE_FRAME_DURATION) {
@@ -117,7 +113,7 @@ static void render_anim(void) {
             animation_phase();
         }
         anim_sleep = timer_read32();
-    } else {  // turn off screen when timer threshold elapsed or reset time since last input
+    } else {  // Turn off screen when timer threshold elapsed or reset time since last input
         if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
             oled_off();
         } else {
@@ -129,12 +125,12 @@ static void render_anim(void) {
     }
 }
 
-// animate tap?
+// Animate tap
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // check if non-mod
+    // Check if non-mod
     if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLASH)) {
         if (record->event.pressed) {
-            // display tap frames
+            // Display tap frames
             tap_anim_toggle = !tap_anim_toggle;
             #ifdef USE_OLED_BITMAP_COMPRESSION
             oled_write_compressed_P(tap_block_map[tap_anim_toggle], tap_frames[tap_anim_toggle]);
