@@ -29,6 +29,9 @@ In your keymap you can use the following keycodes to map key presses to mouse ac
 |`KC_MS_BTN3`    |`KC_BTN3`|Press button 3   |
 |`KC_MS_BTN4`    |`KC_BTN4`|Press button 4   |
 |`KC_MS_BTN5`    |`KC_BTN5`|Press button 5   |
+|`KC_MS_BTN6`    |`KC_BTN6`|Press button 6   |
+|`KC_MS_BTN7`    |`KC_BTN7`|Press button 7   |
+|`KC_MS_BTN8`    |`KC_BTN8`|Press button 8   |
 |`KC_MS_WH_UP`   |`KC_WH_U`|Move wheel up    |
 |`KC_MS_WH_DOWN` |`KC_WH_D`|Move wheel down  |
 |`KC_MS_WH_LEFT` |`KC_WH_L`|Move wheel left  |
@@ -42,6 +45,7 @@ In your keymap you can use the following keycodes to map key presses to mouse ac
 Mouse keys supports three different modes to move the cursor:
 
 * **Accelerated (default):** Holding movement keys accelerates the cursor until it reaches its maximum speed.
+* **Kinetic:** Holding movement keys accelerates the cursor with its speed following a quadratic curve until it reaches its maximum speed.
 * **Constant:** Holding movement keys moves the cursor at constant speeds.
 * **Combined:** Holding movement keys accelerates the cursor until it reaches its maximum speed, but holding acceleration and movement keys simultaneously moves the cursor at constant speeds.
 
@@ -56,7 +60,8 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 |Define                      |Default|Description                                              |
 |----------------------------|-------|---------------------------------------------------------|
 |`MOUSEKEY_DELAY`            |300    |Delay between pressing a movement key and cursor movement|
-|`MOUSEKEY_INTERVAL`         |50     |Time between cursor movements                            |
+|`MOUSEKEY_INTERVAL`         |50     |Time between cursor movements in milliseconds            |
+|`MOUSEKEY_MOVE_DELTA`       |5      |Step size                                                |
 |`MOUSEKEY_MAX_SPEED`        |10     |Maximum cursor speed at which acceleration stops         |
 |`MOUSEKEY_TIME_TO_MAX`      |20     |Time until maximum cursor speed is reached               |
 |`MOUSEKEY_WHEEL_DELAY`      |300    |Delay between pressing a wheel key and wheel movement    |
@@ -72,6 +77,30 @@ Tips:
 * Setting `MOUSEKEY_WHEEL_INTERVAL` too low will make scrolling too fast. Setting it too high will make scrolling too slow when the wheel key is held down.
 
 Cursor acceleration uses the same algorithm as the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
+
+### Kinetic Mode
+
+This is an extension of the accelerated mode. The kinetic mode uses a quadratic curve on the cursor speed which allows precise movements at the beginning and allows to cover large distances by increasing cursor speed quickly thereafter.  You can adjust the cursor and scrolling acceleration using the following settings in your keymap’s `config.h` file:
+
+|Define                                |Default  |Description                                                    |
+|--------------------------------------|---------|---------------------------------------------------------------|
+|`MK_KINETIC_SPEED`                    |undefined|Enable kinetic mode                                            |
+|`MOUSEKEY_DELAY`                      |8        |Delay between pressing a movement key and cursor movement      |
+|`MOUSEKEY_INTERVAL`                   |8        |Time between cursor movements in milliseconds                  |
+|`MOUSEKEY_MOVE_DELTA`                 |25       |Step size for accelerating from initial to base speed          |
+|`MOUSEKEY_INITIAL_SPEED`              |100      |Initial speed of the cursor in pixel per second                |
+|`MOUSEKEY_BASE_SPEED`                 |1000     |Maximum cursor speed at which acceleration stops               |
+|`MOUSEKEY_DECELERATED_SPEED`          |400      |Decelerated cursor speed                                       |
+|`MOUSEKEY_ACCELERATED_SPEED`          |3000     |Accelerated cursor speed                                       |
+|`MOUSEKEY_WHEEL_INITIAL_MOVEMENTS`    |16       |Initial number of movements of the mouse wheel                 |
+|`MOUSEKEY_WHEEL_BASE_MOVEMENTS`       |32       |Maximum number of movements at which acceleration stops        |
+|`MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS`|48       |Accelerated wheel movements                                    |
+|`MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS`|8        |Decelerated wheel movements                                    |
+
+Tips:
+
+* The smoothness of the cursor movement depends on the `MOUSEKEY_INTERVAL` setting. The shorter the interval is set the smoother the movement will be.  Setting the value too low makes the cursor unresponsive.  Lower settings are possible if the micro processor is fast enough. For example: At an interval of `8` milliseconds, `125` movements per second will be initiated.  With a base speed of `1000` each movement will move the cursor by `8` pixels.
+* Mouse wheel movements are implemented differently from cursor movements. While it's okay for the cursor to move multiple pixels at once for the mouse wheel this would lead to jerky movements. Instead, the mouse wheel operates at step size `1`. Setting mouse wheel speed is done by adjusting the number of wheel movements per second.
 
 ### Constant mode
 
@@ -140,3 +169,7 @@ To use constant speed mode, you must at least define `MK_COMBINED` in your keyma
 ```c
 #define MK_COMBINED
 ```
+
+## Use with PS/2 Mouse and Pointing Device
+
+Mouse keys button state is shared with [PS/2 mouse](feature_ps2_mouse.md) and [pointing device](feature_pointing_device.md) so mouse keys button presses can be used for clicks and drags.

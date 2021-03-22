@@ -1,9 +1,9 @@
 #include "quantum.h"
 #include "serial.h"
-#include "printf.h"
+#include "print.h"
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #ifndef USART_CR1_M0
 #    define USART_CR1_M0 USART_CR1_M  // some platforms (f1xx) dont have this so
@@ -58,7 +58,10 @@
 #    error invalid SELECT_SOFT_SERIAL_SPEED value
 #endif
 
-#define TIMEOUT 100
+#ifndef SERIAL_USART_TIMEOUT
+#    define SERIAL_USART_TIMEOUT 100
+#endif
+
 #define HANDSHAKE_MAGIC 7
 
 static inline msg_t sdWriteHalfDuplex(SerialDriver* driver, uint8_t* data, uint8_t size) {
@@ -201,21 +204,21 @@ int soft_serial_transaction(int index) {
     sdClear(&SERIAL_USART_DRIVER);
 
     // First chunk is always transaction id
-    sdWriteTimeout(&SERIAL_USART_DRIVER, &sstd_index, sizeof(sstd_index), TIME_MS2I(TIMEOUT));
+    sdWriteTimeout(&SERIAL_USART_DRIVER, &sstd_index, sizeof(sstd_index), TIME_MS2I(SERIAL_USART_TIMEOUT));
 
     uint8_t sstd_index_shake = 0xFF;
 
     // Which we always read back first so that we can error out correctly
     //   - due to the half duplex limitations on return codes, we always have to read *something*
     //   - without the read, write only transactions *always* succeed, even during the boot process where the slave is not ready
-    res = sdReadTimeout(&SERIAL_USART_DRIVER, &sstd_index_shake, sizeof(sstd_index_shake), TIME_MS2I(TIMEOUT));
+    res = sdReadTimeout(&SERIAL_USART_DRIVER, &sstd_index_shake, sizeof(sstd_index_shake), TIME_MS2I(SERIAL_USART_TIMEOUT));
     if (res < 0 || (sstd_index_shake != (sstd_index ^ HANDSHAKE_MAGIC))) {
         dprintf("serial::usart_shake NO_RESPONSE\n");
         return TRANSACTION_NO_RESPONSE;
     }
 
     if (trans->initiator2target_buffer_size) {
-        res = sdWriteTimeout(&SERIAL_USART_DRIVER, trans->initiator2target_buffer, trans->initiator2target_buffer_size, TIME_MS2I(TIMEOUT));
+        res = sdWriteTimeout(&SERIAL_USART_DRIVER, trans->initiator2target_buffer, trans->initiator2target_buffer_size, TIME_MS2I(SERIAL_USART_TIMEOUT));
         if (res < 0) {
             dprintf("serial::usart_transmit NO_RESPONSE\n");
             return TRANSACTION_NO_RESPONSE;
@@ -223,7 +226,7 @@ int soft_serial_transaction(int index) {
     }
 
     if (trans->target2initiator_buffer_size) {
-        res = sdReadTimeout(&SERIAL_USART_DRIVER, trans->target2initiator_buffer, trans->target2initiator_buffer_size, TIME_MS2I(TIMEOUT));
+        res = sdReadTimeout(&SERIAL_USART_DRIVER, trans->target2initiator_buffer, trans->target2initiator_buffer_size, TIME_MS2I(SERIAL_USART_TIMEOUT));
         if (res < 0) {
             dprintf("serial::usart_receive NO_RESPONSE\n");
             return TRANSACTION_NO_RESPONSE;

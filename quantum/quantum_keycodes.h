@@ -13,8 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef QUANTUM_KEYCODES_H
-#define QUANTUM_KEYCODES_H
+
+#pragma once
+
+#if defined(SEQUENCER_ENABLE)
+#    include "sequencer.h"
+#endif
 
 #ifndef MIDI_ENABLE_STRICT
 #    define MIDI_ENABLE_STRICT 0
@@ -69,31 +73,22 @@ enum quantum_keycodes {
     QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
     QK_LAYER_MOD            = 0x5900,
     QK_LAYER_MOD_MAX        = 0x59FF,
-#ifdef STENO_ENABLE
-    QK_STENO        = 0x5A00,
-    QK_STENO_BOLT   = 0x5A30,
-    QK_STENO_GEMINI = 0x5A31,
-    QK_STENO_MAX    = 0x5A3F,
-#endif
-#ifdef SWAP_HANDS_ENABLE
-    QK_SWAP_HANDS     = 0x5B00,
-    QK_SWAP_HANDS_MAX = 0x5BFF,
-#endif
-    QK_MOD_TAP     = 0x6000,
-    QK_MOD_TAP_MAX = 0x7FFF,
-#ifdef UNICODE_ENABLE
-    QK_UNICODE     = 0x8000,
-    QK_UNICODE_MAX = 0xFFFF,
-#endif
-#ifdef UNICODEMAP_ENABLE
-    QK_UNICODEMAP          = 0x8000,
-    QK_UNICODEMAP_MAX      = 0xBFFF,
-    QK_UNICODEMAP_PAIR     = 0xC000,
-    QK_UNICODEMAP_PAIR_MAX = 0xFFFF,
-#endif
+    QK_STENO                = 0x5A00,
+    QK_STENO_BOLT           = 0x5A30,
+    QK_STENO_GEMINI         = 0x5A31,
+    QK_STENO_MAX            = 0x5A3F,
+    QK_SWAP_HANDS           = 0x5B00,
+    QK_SWAP_HANDS_MAX       = 0x5BFF,
+    QK_MOD_TAP              = 0x6000,
+    QK_MOD_TAP_MAX          = 0x7FFF,
+    QK_UNICODE              = 0x8000,
+    QK_UNICODE_MAX          = 0xFFFF,
+    QK_UNICODEMAP           = 0x8000,
+    QK_UNICODEMAP_MAX       = 0xBFFF,
+    QK_UNICODEMAP_PAIR      = 0xC000,
+    QK_UNICODEMAP_PAIR_MAX  = 0xFFFF,
 
     // Loose keycodes - to be used directly
-
     RESET = 0x5C00,
     DEBUG,
     MAGIC_SWAP_CONTROL_CAPSLOCK,
@@ -145,13 +140,6 @@ enum quantum_keycodes {
     CLICKY_UP,
     CLICKY_DOWN,
     CLICKY_RESET,
-
-#ifdef FAUXCLICKY_ENABLE
-    // Faux clicky
-    FC_ON,
-    FC_OFF,
-    FC_TOG,
-#endif
 
     // Music mode on/off/toggle
     MU_ON,
@@ -343,7 +331,12 @@ enum quantum_keycodes {
     MI_TRNSU,  // transpose up
 
     MIDI_VELOCITY_MIN,
+    MI_VEL_0 = MIDI_VELOCITY_MIN,
+#    ifdef VIA_ENABLE
     MI_VEL_1 = MIDI_VELOCITY_MIN,
+#    else
+    MI_VEL_1,
+#    endif
     MI_VEL_2,
     MI_VEL_3,
     MI_VEL_4,
@@ -549,6 +542,37 @@ enum quantum_keycodes {
     JS_BUTTON31,
     JS_BUTTON_MAX = JS_BUTTON31,
 
+#if defined(SEQUENCER_ENABLE)
+    SQ_ON,
+    SQ_OFF,
+    SQ_TOG,
+
+    SQ_TMPD,  // Decrease tempo
+    SQ_TMPU,  // Increase tempo
+
+    SEQUENCER_RESOLUTION_MIN,
+    SEQUENCER_RESOLUTION_MAX = SEQUENCER_RESOLUTION_MIN + SEQUENCER_RESOLUTIONS,
+    SQ_RESD,  // Decrease resolution
+    SQ_RESU,  // Increase resolution
+
+    SQ_SALL,  // All steps on
+    SQ_SCLR,  // All steps off
+    SEQUENCER_STEP_MIN,
+    SEQUENCER_STEP_MAX = SEQUENCER_STEP_MIN + SEQUENCER_STEPS,
+
+    SEQUENCER_TRACK_MIN,
+    SEQUENCER_TRACK_MAX = SEQUENCER_TRACK_MIN + SEQUENCER_TRACKS,
+
+/**
+ * Helpers to assign a keycode to a step, a resolution, or a track.
+ * Falls back to NOOP if n is out of range.
+ */
+#    define SQ_S(n) (n < SEQUENCER_STEPS ? SEQUENCER_STEP_MIN + n : XXXXXXX)
+#    define SQ_R(n) (n < SEQUENCER_RESOLUTIONS ? SEQUENCER_RESOLUTION_MIN + n : XXXXXXX)
+#    define SQ_T(n) (n < SEQUENCER_TRACKS ? SEQUENCER_TRACK_MIN + n : XXXXXXX)
+
+#endif
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -681,6 +705,9 @@ enum quantum_keycodes {
 #define CK_DOWN CLICKY_DOWN
 #define CK_ON CLICKY_ENABLE
 #define CK_OFF CLICKY_DISABLE
+#define FC_ON CLICKY_ENABLE
+#define FC_OFF CLICKY_DISABLE
+#define FC_TOGG CLICKY_TOGGLE
 
 #define RGB_MOD RGB_MODE_FORWARD
 #define RGB_RMOD RGB_MODE_REVERSE
@@ -815,15 +842,11 @@ enum quantum_keycodes {
 #define KC_HYPR HYPR(KC_NO)
 #define KC_MEH MEH(KC_NO)
 
-#ifdef UNICODE_ENABLE
-// Allows Unicode input up to 0x7FFF
-#    define UC(c) (QK_UNICODE | (c))
-#endif
-#ifdef UNICODEMAP_ENABLE
-// Allows Unicode input up to 0x10FFFF, requires unicode_map
-#    define X(i) (QK_UNICODEMAP | (i))
-#    define XP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7))  // 127 max i and j
-#endif
+// UNICODE_ENABLE - Allows Unicode input up to 0x7FFF
+#define UC(c) (QK_UNICODE | (c))
+// UNICODEMAP_ENABLE - Allows Unicode input up to 0x10FFFF, requires unicode_map
+#define X(i) (QK_UNICODEMAP | (i))
+#define XP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7))  // 127 max i and j
 
 #define UC_MOD UNICODE_MODE_FORWARD
 #define UC_RMOD UNICODE_MODE_REVERSE
@@ -836,16 +859,14 @@ enum quantum_keycodes {
 #define UC_M_BS UNICODE_MODE_BSD
 #define UC_M_WC UNICODE_MODE_WINC
 
-#ifdef SWAP_HANDS_ENABLE
-#    define SH_T(kc) (QK_SWAP_HANDS | (kc))
-#    define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
-#    define SH_TT (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
-#    define SH_OS (QK_SWAP_HANDS | OP_SH_ONESHOT)
-#    define SH_MON (QK_SWAP_HANDS | OP_SH_ON_OFF)
-#    define SH_MOFF (QK_SWAP_HANDS | OP_SH_OFF_ON)
-#    define SH_ON (QK_SWAP_HANDS | OP_SH_ON)
-#    define SH_OFF (QK_SWAP_HANDS | OP_SH_OFF)
-#endif
+#define SH_T(kc) (QK_SWAP_HANDS | (kc))
+#define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
+#define SH_TT (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
+#define SH_OS (QK_SWAP_HANDS | OP_SH_ONESHOT)
+#define SH_MON (QK_SWAP_HANDS | OP_SH_ON_OFF)
+#define SH_MOFF (QK_SWAP_HANDS | OP_SH_OFF_ON)
+#define SH_ON (QK_SWAP_HANDS | OP_SH_ON)
+#define SH_OFF (QK_SWAP_HANDS | OP_SH_OFF)
 
 // Dynamic Macros aliases
 #define DM_REC1 DYN_REC_START1
@@ -853,5 +874,3 @@ enum quantum_keycodes {
 #define DM_RSTP DYN_REC_STOP
 #define DM_PLY1 DYN_MACRO_PLAY1
 #define DM_PLY2 DYN_MACRO_PLAY2
-
-#endif  // QUANTUM_KEYCODES_H

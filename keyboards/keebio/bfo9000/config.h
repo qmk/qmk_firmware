@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         BFO-9000
-#define DESCRIPTION     Really big split ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up

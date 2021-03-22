@@ -22,8 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef SERIAL_LINK_TRANSPORT_H
-#define SERIAL_LINK_TRANSPORT_H
+#pragma once
 
 #include "serial_link/protocol/triple_buffered_object.h"
 #include "serial_link/system/serial_link.h"
@@ -138,5 +137,3 @@ void add_remote_objects(remote_object_t** remote_objects, uint32_t num_remote_ob
 void reinitialize_serial_link_transport(void);
 void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size);
 void update_transport(void);
-
-#endif
