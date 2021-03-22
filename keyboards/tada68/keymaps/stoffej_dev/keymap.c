@@ -27,6 +27,16 @@ enum unicode_names {
   SE_AA_L,
   SE_AE_L,
   SE_OE_L,
+  UKB,
+  UCOFFEE,
+  UVOLT,
+  UBEER,
+  UTHMUP,
+  USMIL,
+  UBIC,
+  UNERD,
+  UBUG,
+  UPARTY,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -36,6 +46,16 @@ const uint32_t PROGMEM unicode_map[] = {
   [SE_AA_L] = 0x00E5,
   [SE_AE_L] = 0x00E4,
   [SE_OE_L] = 0x00F6,
+  [UKB]     = 0x2328,  // ⌨
+  [UCOFFEE] = 0x2615,  // ☕
+  [UVOLT]   = 0x26A1,  // ⚡
+  [UBEER]   = 0x1F37B, // 🍻
+  [UTHMUP]  = 0x1F44D, // 👍
+  [USMIL]   = 0x1F642, // 🙂
+  [UBIC]  = 0x1F6B2, // 🚲
+  [UNERD]  = 0x1F913, // 🤓
+  [UBUG]  = 0x1F41B, //🐛
+  [UPARTY] = 0x1F389//🎉
 };
 
 #define FN_BSPC LT(_FUNCTION, KC_BSPC)
@@ -44,7 +64,7 @@ const uint32_t PROGMEM unicode_map[] = {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* Keymap _BL: (Base Layer) Default Layer qwerty
+  /* Keymap _QWERTY: Base Qwerty
    * ,----------------------------------------------------------------.
    * |Esc | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  +|  '|Backspa |  ´|
    * |----------------------------------------------------------------|
@@ -66,15 +86,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  /* Keymap _BL: (Base Layer) Default Layer qwerty
+  /* Keymap _COLEMAK: Base Colemak
    * ,----------------------------------------------------------------.
-   * |   |  |   |   |   |   |   |   |   |   |   |   |   |Backspa |  ´|
+   * | Esc  | 1|  2|  3|   |   |   |   |   |   |   |   |   |Backspa |  ´|
    * |----------------------------------------------------------------|
-   * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  Å|  ¨| Ent|Del |
-   * |------------------------------------------------------| er|----|
-   * |Backspa| A|  S|  D|  F|  G|  H|  J|  K|  L|  Ø|  Æ| @ |   |PgUp|
+   * |Tab  |  Q|  W|  E|  F|  P|  B|  J|  L|  U|  Y|  P|  [|  Ent|Del |
+   * |------------------------------------------------------|  er|----|
+   * |Backspa| A|  R|  S|  T|  G|  M|  N|  E|  I|  I|  O| '| \   |PgUp|
    * |----------------------------------------------------------------|
-   * |Shif| <>|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  -| Shift| Up|PgDn|
+   * |Shif| \|  Z|  X|  C|  D|  V|  K|  H|  ,|  .|  / | Shift| Up|PgDn|
    * |----------------------------------------------------------------|
    * |Ctrl|Win |Alt |        Space          |Alt| FN|Ctrl|Lef|Dow|Rig |
    * `----------------------------------------------------------------'
@@ -88,13 +108,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  /* Keymap _BL: (Base Layer) Default Layer qwerty
+  /* Keymap _UPPER: Layer Upper
    * ,----------------------------------------------------------------.
    * |Esc | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  +|  '|Backspa |  ´|
    * |----------------------------------------------------------------|
    * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  Å|  ¨| Ent|Del |
    * |------------------------------------------------------| er|----|
-   * |Backspa| A|  S|  D|  F|  G|  H|  J|  K|  L|  Ø|  Æ| @ |   |PgUp|
+   * |Backspa| A|  S|  D|  F|  G|  H|  J|  K|  L|  Ø|  Æ| @ |   |PgUp|asdasdad
    * |----------------------------------------------------------------|
    * |Shif| <>|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  -| Shift| Up|PgDn|
    * |----------------------------------------------------------------|
@@ -110,11 +130,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  /* Keymap _BL: (Base Layer) Default Layer qwerty
+  /* Keymap _FUNCTION: (Base Layer) Default Layer qwerty
    * ,----------------------------------------------------------------.
-   * |Esc | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  +|  '|Backspa |  ´|
+   * |Esc |F1|F2|F3|F4|F5| F6| F7| F8| F9| F10| F11| F12|Backspa |  ´|
    * |----------------------------------------------------------------|
-   * |Tab  |   |   |   |   |   |   |   |   |   |   |  å|  ¨| Ent|Del |
+   * |Tab  | CM | QW | NM |   |   |   |   |   |   |   |  å|  ¨| Ent|Del |
    * |----------------------------------------------------- | er|----|
    * |Backs  |  |   |   |   |   |   |   |   |   |  ö| ä  |   |   |PgUp|
    * |----------------------------------------------------------------|
@@ -125,9 +145,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_FUNCTION] = LAYOUT_iso(
     _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   KC_F11,  KC_F12,    RESET,   KC_PSCR, \
-    _______, LAY_COL, LAY_QWE ,  M_NAME, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, _______ ,  BL_INC, XP(SE_AA_L, SE_AA_H) , _______,              KC_INS,  \
-    _______, OS_WIN , OS_LIN , VM2WIN , WIN2VM, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,   XP(SE_OE_L, SE_OE_H) ,  XP(SE_AE_L, SE_AE_H) , _______,  _______,   KC_HOME, \
-    _______, BL_TOGG, BL_DEC , KC_BTN1, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_VOLD, KC_MUTE,  KC_VOLU, _______, M_CD_DOT,    KC_END,  \
+    _______, LAY_COL, LAY_QWE ,  M_NAME, X(UKB), X(UCOFFEE), X(UVOLT), X(UBEER), X(UTHMUP), X(USMIL) ,  BL_INC, XP(SE_AA_L, SE_AA_H) , _______,              KC_INS,  \
+    _______, OS_WIN , OS_LIN , VM2WIN , WIN2VM, X(UBUG), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,   XP(SE_OE_L, SE_OE_H) ,  XP(SE_AE_L, SE_AE_H) , _______,  _______,   KC_HOME, \
+    _______, BL_TOGG, BL_DEC , X(UBIC), X(UNERD), KC_MPRV, KC_MPLY, KC_MNXT, X(UPARTY), KC_VOLD, KC_MUTE,  KC_VOLU, _______, M_CD_DOT,    KC_END,  \
     _______, _______, _______,                   KC_ENT,                             _______, _______,   KC_APP, _______,  _______,    _______
   ),
 };
