@@ -21,10 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0xF10B
 #define DEVICE_VER 0x0001
 #define MANUFACTURER melonbred
-#define PRODUCT program_yoink
 
 /* key matrix size */
 #define MATRIX_ROWS 4

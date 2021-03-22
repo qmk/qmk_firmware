@@ -16,25 +16,21 @@
 
 #include "drashna.h"
 
-#define TG_DBLO TG(_DIABLO)
-#define _MOUSE _MEDIA
-
-
 // clang-format off
 #define LAYOUT_5x6_right_trackball_wrapper(...) LAYOUT_5x6_right_trackball(__VA_ARGS__)
 #define LAYOUT_5x6_right_trackball_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_5x6_right_trackball_wrapper( \
-     KC_GRV,  ________________NUMBER_LEFT________________,            ________________NUMBER_RIGHT_______________, KC_MINS, \
-     KC_ESC,  K01,    K02,      K03,     K04,     K05,                K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-     LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(KC_QUOT), \
+     KC_ESC,  ________________NUMBER_LEFT________________,            ________________NUMBER_RIGHT_______________, KC_MINS, \
+     SH_TT,   K01,    K02,      K03,     K04,     K05,                K06,     K07,     K08,     K09,     K0A,     SH_TT, \
+     LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,                K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                        OS_LALT, OS_LGUI,                                                TG_GAME, TG_DBLO, \
                                 OS_LGUI, KC_GRV,                                        OS_RGUI,  \
-                                         KC_SPC,  _______,                     KC_ENT,  \
+                                         KC_SPC,  TT(_MOUSE),                     KC_ENT,  \
                                          BK_LWER, MO(_MOUSE),      MO(_MOUSE), DL_RAIS  \
   )
 #define LAYOUT_5x6_right_trackball_base_wrapper(...)       LAYOUT_5x6_right_trackball_base(__VA_ARGS__)
@@ -150,13 +146,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,    KC_NUKE, _______
     ),
 };
-// clang-format off
-
+// clang-format on
 
 #ifdef POINTING_DEVICE_ENABLE
-static uint16_t mouse_timer = 0;
-static uint16_t mouse_debounce_timer = 0;
+static uint16_t mouse_timer           = 0;
+static uint16_t mouse_debounce_timer  = 0;
 static uint8_t  mouse_keycode_tracker = 0;
+bool            tap_toggling          = false;
 
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     if ((x || y) && timer_elapsed(mouse_timer) > 125) {
@@ -165,29 +161,64 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
             layer_on(_MOUSE);
         }
     }
-    if (timer_elapsed(mouse_debounce_timer) > 125 || layer_state_is(_GAMEPAD) ) {
+
+#    ifdef TAPPING_TERM_PER_KEY
+    if (timer_elapsed(mouse_debounce_timer) > get_tapping_term(KC_BTN1, NULL)
+#    else
+    if (timer_elapsed(mouse_debounce_timer) > TAPPING_TERM
+#    endif
+        || layer_state_is(_GAMEPAD)) {
         mouse_report->x = x;
         mouse_report->y = y;
     }
+#    ifdef OLED_DRIVER_ENABLE
+    if (x || y) oled_timer = timer_read32();
+#    endif
 }
 
 void matrix_scan_keymap(void) {
-    if (timer_elapsed(mouse_timer) > 750 && layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
+    if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
         layer_off(_MOUSE);
+    }
+    if (tap_toggling) {
+        if (!layer_state_is(_MOUSE)) {
+            layer_on(_MOUSE);
+        }
     }
 }
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode){
+bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case TT(_MOUSE): {
+            if (record->event.pressed) {
+                mouse_keycode_tracker++;
+            } else {
+#    if TAPPING_TOGGLE != 0
+                if (record->tap.count == TAPPING_TOGGLE) {
+                    tap_toggling ^= 1;
+#        if TAPPING_TOGGLE == 1
+                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count + 1;
+#        else
+                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count;
+#        endif
+                } else {
+                    mouse_keycode_tracker--;
+                }
+#    endif
+            }
+            mouse_timer = timer_read();
+            break;
+        }
         case MO(_MOUSE):
         case DPI_CONFIG:
-        case KC_MS_UP...KC_MS_WH_RIGHT:
+        case KC_MS_UP ... KC_MS_WH_RIGHT:
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
             break;
         default:
             if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
                 layer_off(_MOUSE);
+                mouse_keycode_tracker = 0;
             }
             mouse_debounce_timer = timer_read();
             break;

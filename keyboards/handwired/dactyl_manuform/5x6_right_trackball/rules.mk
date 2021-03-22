@@ -26,5 +26,5 @@ POINTING_DEVICE_ENABLE = yes
 SPLIT_KEYBOARD = yes
 SPLIT_TRANSPORT = custom
 
-SRC += pointer_transport.c pmw3360.c
-QUANTUM_LIB_SRC += serial.c i2c_master.c i2c_slave.c spi_master.c
+SRC += pmw3360.c
+QUANTUM_LIB_SRC += pointer_transport.c serial.c i2c_master.c i2c_slave.c spi_master.c
