@@ -55,7 +55,7 @@ void iota_gfx_task_user(void) {
 #endif
 
     matrix_clear(&matrix);
-    if (is_master) {
+    if (is_keyboard_left()) {
         render_status(&matrix);
     } else {
         render_logo(&matrix);

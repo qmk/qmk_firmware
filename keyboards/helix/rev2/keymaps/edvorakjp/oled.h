@@ -4,7 +4,6 @@
 #include "ssd1306.h"
 #include "edvorakjp.h"
 
-extern uint8_t is_master;
 extern bool    japanese_mode;
 
 void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source);
