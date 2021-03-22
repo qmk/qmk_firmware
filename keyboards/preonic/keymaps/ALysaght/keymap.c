@@ -30,7 +30,20 @@ enum preonic_keycodes {
   RAISE,
   BACKLIT,
   R_ASIGN,
-  R_PIPE
+  R_PIPE,
+  GITFETC,
+  GITPULL,
+  GITPUSH,
+  GITREBA,
+  GITADD,
+  GITCOMM,
+  GITBRCH,
+  GITCOUT,
+  GITWTAD,
+  GITWTPR,
+  GITSTAT,
+  GITBDEL,
+  GITMAIN
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -87,15 +100,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|      |      |      |      |      |      |      |      |      |      | Ent  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Left | Down |  Up  |Right |
+ * |      |      |      |      |      |             |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_preonic_grid(
   KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
-  KC_TRNS, _______, _______, _______, _______, _______, _______, _______, _______, _______, R_PIPE,  _______,
-  KC_TRNS, R_ASIGN, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  KC_TRNS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_ENT,
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  KC_TRNS, GITCOUT, GITFETC, GITPULL, GITREBA, _______, _______, _______, _______, R_ASIGN,  R_PIPE, _______,
+  KC_TRNS,  GITADD, GITSTAT, GITCOMM, GITPUSH, _______, _______, _______, _______, _______, _______, _______,
+  KC_TRNS, GITBRCH, GITBDEL, GITWTAD, GITWTPR, _______, _______, GITMAIN, _______, _______, _______,  KC_ENT,
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP,  KC_END
 ),
 
 /* Adjust (Lower + Raise)
@@ -130,19 +143,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-        case R_ASIGN:
-          if (record->event.pressed) {
-            // when keycode R_ASIGN is pressed
-            SEND_STRING(" <- ");
-          }
-          // return false;
-          break;
-        case R_PIPE:
-          if (record->event.pressed) {
-            SEND_STRING(" %>%\n");
-          }
-          // return false;
-          break;
         case LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
@@ -162,6 +162,83 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           return false;
+          break;
+        case R_ASIGN:
+          if (record->event.pressed) {
+            // when keycode R_ASIGN is pressed
+            SEND_STRING(" <- ");
+          }
+          // return false;
+          break;
+        case R_PIPE:
+          if (record->event.pressed) {
+            SEND_STRING(" %>%\n");
+          }
+          break;
+        case GITFETC:
+          if (record->event.pressed) {
+            SEND_STRING("git fetch ");
+          }
+          break;
+        case GITPULL:
+          if (record->event.pressed) {
+            SEND_STRING("git pull ");
+          }
+          break;
+        case GITPUSH:
+          if (record->event.pressed) {
+            SEND_STRING("git push ");
+          }
+          break;
+        case GITREBA:
+          if (record->event.pressed) {
+            SEND_STRING("git pull --rebase ");
+          }
+          break;
+        case GITADD:
+          if (record->event.pressed) {
+            SEND_STRING("git add ");
+          }
+          break;
+        case GITCOMM:
+          if (record->event.pressed) {
+            SEND_STRING("git commit -m ");
+          }
+          break;
+        case GITBRCH:
+          if (record->event.pressed) {
+            SEND_STRING("git branch ");
+          }
+          break;
+        case GITCOUT:
+          if (record->event.pressed) {
+            SEND_STRING("git checkout ");
+          }
+          break;
+        case GITWTAD:
+          if (record->event.pressed) {
+            SEND_STRING("git worktree add ");
+          }
+          break;
+        case GITWTPR:
+          if (record->event.pressed) {
+            SEND_STRING("git git worktree prune ");
+          }
+          break;
+        case GITSTAT:
+          if (record->event.pressed) {
+            SEND_STRING("git status ");
+          }
+          break;
+        case GITBDEL:
+          if (record->event.pressed) {
+            SEND_STRING("git branch -d ");
+          }
+          break;;
+        case GITMAIN:
+          if (record->event.pressed) {
+            SEND_STRING("main ");
+          }
           break;
         case BACKLIT:
           if (record->event.pressed) {
