@@ -18,4 +18,6 @@ static const bmp_api_gpio_mode_t bmp_gpio_out_od = {
     .drive = BMP_PIN_S0D1
 };
 
+typedef uint32_t matrix_col_t;
+
 #define setPinOd(pin) BMPAPI->gpio.set_mode(pin, &bmp_gpio_out_od)

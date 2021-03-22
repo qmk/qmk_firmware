@@ -1,12 +1,11 @@
 {
   "keyboard_name": "Pulse 4k",
-  "keyboard_folder": "maxr1998/pulse4k",
   "url": "https://github.com/Maxr1998/Pulse_4k",
   "maintainer": "Maxr1998",
   "width": 3,
   "height": 2,
   "layouts": {
-    "LAYOUT_pulse4k": {
+    "LAYOUT": {
       "key_count": 6,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 

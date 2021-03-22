@@ -5,6 +5,4 @@
 
 #include "quantum.h"
 
-#include "pro_micro.h"
-
 #endif

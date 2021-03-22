@@ -562,7 +562,7 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
     return BMPAPI->app.keymap_key_to_keycode(layer, (bmp_api_keypos_t *)&key);
 }
 
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     for (int i = 0; i < sizeof(bmp_qmk_config.tapping_term) /
                             sizeof(bmp_qmk_config.tapping_term[0]);
          i++) {

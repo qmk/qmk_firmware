@@ -21,3 +21,10 @@
 #define MATRIX_COL_PINS { F4 }
 #define MATRIX_ROW_PINS { F5 }
 #define UNUSED_PINS
+
+#define BACKLIGHT_PIN B6
+
+#define RGB_DI_PIN F6
+#define RGB_CI_PIN B1
+
+#define ADC_PIN F6

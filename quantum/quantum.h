@@ -21,7 +21,8 @@
 #    include <avr/interrupt.h>
 #endif
 #if defined(PROTOCOL_CHIBIOS)
-#    include "hal.h"
+#    include <hal.h>
+#    include "chibios_config.h"
 #endif
 
 #include "wait.h"
@@ -30,7 +31,7 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
-#        include "ledmatrix.h"
+#        include "led_matrix.h"
 #    else
 #        include "backlight.h"
 #    endif
@@ -52,11 +53,15 @@
 #include "eeconfig.h"
 #include "bootloader.h"
 #include "timer.h"
+#include "sync_timer.h"
 #include "config_common.h"
+#include "gpio.h"
+#include "atomic_util.h"
 #include "led.h"
 #include "action_util.h"
+#include "action_tapping.h"
 #include "print.h"
-#include "send_string_keycodes.h"
+#include "send_string.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -65,6 +70,11 @@ extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
 extern layer_state_t layer_state;
+#endif
+
+#if defined(SEQUENCER_ENABLE)
+#    include "sequencer.h"
+#    include "process_sequencer.h"
 #endif
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
@@ -85,6 +95,10 @@ extern layer_state_t layer_state;
 
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
 #    include "process_music.h"
+#endif
+
+#ifdef BACKLIGHT_ENABLE
+#    include "process_backlight.h"
 #endif
 
 #ifdef LEADER_ENABLE
@@ -133,6 +147,22 @@ extern layer_state_t layer_state;
 #    include "process_space_cadet.h"
 #endif
 
+#ifdef MAGIC_KEYCODE_ENABLE
+#    include "process_magic.h"
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    include "process_rgb.h"
+#endif
+
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
@@ -146,98 +176,61 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef DIP_SWITCH_ENABLE
-    #include "dip_switch.h"
+#    include "dip_switch.h"
 #endif
 
+#ifdef DYNAMIC_MACRO_ENABLE
+#    include "process_dynamic_macro.h"
+#endif
+
+#ifdef DYNAMIC_KEYMAP_ENABLE
+#    include "dynamic_keymap.h"
+#endif
+
+#ifdef VIA_ENABLE
+#    include "via.h"
+#endif
+
+#ifdef WPM_ENABLE
+#    include "wpm.h"
+#endif
+
+#ifdef USBPD_ENABLE
+#    include "usbpd.h"
+#endif
 
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
-typedef uint8_t pin_t;
 
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
-#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
+/*   The AVR series GPIOs have a one clock read delay for changes in the digital input signal.
+ *   But here's more margin to make it two clocks. */
+#    if !defined(GPIO_INPUT_PIN_DELAY)
+#        define GPIO_INPUT_PIN_DELAY 2
+#    endif
+#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
 
-#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
+#elif defined(__ARMEL__) || defined(__ARMEB__)
 
-#    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
-#elif defined(PROTOCOL_CHIBIOS)
-typedef ioline_t pin_t;
+/* For GPIOs on ARM-based MCUs, the input pins are sampled by the clock of the bus
+ * to which the GPIO is connected.
+ * The connected buses differ depending on the various series of MCUs.
+ * And since the instruction execution clock of the CPU and the bus clock of GPIO are different,
+ * there is a delay of several clocks to read the change of the input signal.
+ *
+ * Define this delay with the GPIO_INPUT_PIN_DELAY macro.
+ * If the GPIO_INPUT_PIN_DELAY macro is not defined, the following default values will be used.
+ * (A fairly large value of 0.25 microseconds is set.)
+ */
+#    if !defined(GPIO_INPUT_PIN_DELAY)
+#        if defined(STM32_SYSCLK)
+#            define GPIO_INPUT_PIN_DELAY (STM32_SYSCLK / 1000000L / 4)
+#        elif defined(KINETIS_SYSCLK_FREQUENCY)
+#            define GPIO_INPUT_PIN_DELAY (KINETIS_SYSCLK_FREQUENCY / 1000000L / 4)
+#        endif
+#    endif
+#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
 
-#    define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
-#    define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
-#    define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
-#    define setPinOutput(pin) palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
-
-#    define writePinHigh(pin) palSetLine(pin)
-#    define writePinLow(pin) palClearLine(pin)
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
-
-#    define readPin(pin) palReadLine(pin)
-#elif defined(PROTOCOL_NRF)
-typedef uint8_t pin_t;
-#include "apidef.h"
-static const bmp_api_gpio_mode_t bmp_gpio_in_pu = {
-    .dir = BMP_MODE_INPUT,
-    .pull = BMP_PULLUP,
-};
-static const bmp_api_gpio_mode_t bmp_gpio_in_pd = {
-    .dir = BMP_MODE_INPUT,
-    .pull = BMP_PULLDOWN,
-};
-static const bmp_api_gpio_mode_t bmp_gpio_out_pp = {
-    .dir = BMP_MODE_OUTPUT,
-    .pull = BMP_PULL_NONE,
-    .drive = BMP_PIN_S0S1
-};
-#    define setPinInput(pin) BMPAPI->gpio.set_mode(pin, &bmp_gpio_in_pu)
-#    define setPinInputHigh(pin) BMPAPI->gpio.set_mode(pin, &bmp_gpio_in_pu)
-#    define setPinInputLow(pin) BMPAPI->gpio.set_mode(pin, &bmp_gpio_in_pd)
-#    define setPinOutput(pin) BMPAPI->gpio.set_mode(pin, &bmp_gpio_out_pp)
-#    define writePinHigh(pin) BMPAPI->gpio.set_pin(pin)
-#    define writePinLow(pin) BMPAPI->gpio.clear_pin(pin)
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
-
-#    define readPin(pin) BMPAPI->gpio.read_pin(pin)
 #endif
-
-// Send string macros
-#define STRINGIZE(z) #z
-#define ADD_SLASH_X(y) STRINGIZE(\x##y)
-#define SYMBOL_STR(x) ADD_SLASH_X(x)
-
-#define SS_TAP_CODE 1
-#define SS_DOWN_CODE 2
-#define SS_UP_CODE 3
-
-#define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
-#define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
-#define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
-
-// `string` arguments must not be parenthesized
-#define SS_LCTRL(string) SS_DOWN(X_LCTRL) string SS_UP(X_LCTRL)
-#define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
-#define SS_LCMD(string) SS_LGUI(string)
-#define SS_LWIN(string) SS_LGUI(string)
-#define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
-#define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
-#define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
-#define SS_ALGR(string) SS_RALT(string)
-
-#define SEND_STRING(string) send_string_P(PSTR(string))
-
-extern const bool    ascii_to_shift_lut[128];
-extern const bool    ascii_to_altgr_lut[128];
-extern const uint8_t ascii_to_keycode_lut[128];
-
-void send_string(const char *str);
-void send_string_with_delay(const char *str, uint8_t interval);
-void send_string_P(const char *str);
-void send_string_with_delay_P(const char *str, uint8_t interval);
-void send_char(char ascii_code);
 
 // For tri-layer
 void          update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
@@ -245,20 +238,23 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 
-void tap_random_base64(void);
+#define IS_LAYER_ON(layer) layer_state_is(layer)
+#define IS_LAYER_OFF(layer) !layer_state_is(layer)
 
-#define IS_LAYER_ON(layer) (layer_state & (1UL << (layer)))
-#define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
+#define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
+#define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
 void     matrix_init_kb(void);
 void     matrix_scan_kb(void);
 void     matrix_init_user(void);
 void     matrix_scan_user(void);
-uint16_t get_record_keycode(keyrecord_t *record);
-uint16_t get_event_keycode(keyevent_t event);
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
+void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
+void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
 
 #ifndef BOOTMAGIC_LITE_COLUMN
 #    define BOOTMAGIC_LITE_COLUMN 0
@@ -278,37 +274,9 @@ void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
 
-#ifdef BACKLIGHT_ENABLE
-void backlight_init_ports(void);
-void backlight_task(void);
-void backlight_task_internal(void);
-void backlight_on(uint8_t backlight_pin);
-void backlight_off(uint8_t backlight_pin);
-
-#    ifdef BACKLIGHT_BREATHING
-void breathing_task(void);
-void breathing_enable(void);
-void breathing_pulse(void);
-void breathing_disable(void);
-void breathing_self_disable(void);
-void breathing_toggle(void);
-bool is_breathing(void);
-
-void breathing_intensity_default(void);
-void breathing_period_default(void);
-void breathing_period_set(uint8_t value);
-void breathing_period_inc(void);
-void breathing_period_dec(void);
-#    endif
-#endif
-
-void     send_dword(uint32_t number);
-void     send_word(uint16_t number);
-void     send_byte(uint8_t number);
-void     send_nibble(uint8_t number);
-uint16_t hex_to_keycode(uint8_t hex);
-
 void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
+bool led_update_user(led_t led_state);
+bool led_update_kb(led_t led_state);
 
 void api_send_unicode(uint32_t unicode);

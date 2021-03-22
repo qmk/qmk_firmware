@@ -44,10 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_LGUI, _______,          _______, _______,                   _______, _______,          MO(_L4)
   ),
   [_L3] = LAYOUT_standard( /* LAYER 3 */
-    KC_MINS, KC_1,     KC_2,     KC_3,    KC_4,    KC_5,          KC_6,          KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    KC_EQL,  KC_PIPE,  KC_TILD,  KC_UNDS, KC_PLUS, LSFT(KC_LBRC), LSFT(KC_RBRC), KC_4,    KC_5,    KC_6,    KC_VOLU, KC_INS,
-    _______, _______,  _______,  KC_DQUO, _______, _______,       KC_0,          KC_1,    KC_2,    KC_3,    KC_VOLD, _______,
-    _______, _______,  _______,           _______, _______,                               _______, _______,          _______
+    KC_MINS, KC_1,     KC_2,     KC_3,     KC_4,    KC_5,          KC_6,          KC_7,    KC_8,    KC_9,    KC_0,    _______,
+    KC_EQL,  KC_PIPE,  KC_TILD,  KC_UNDS,  KC_PLUS, LSFT(KC_LBRC), LSFT(KC_RBRC), KC_4,    KC_5,    KC_6,    KC_VOLU, KC_INS,
+    _______, RGB_TOG,  RGB_MOD,  RGB_RMOD, KC_DQUO, _______,       KC_0,          KC_1,    KC_2,    KC_3,    KC_VOLD, _______,
+    _______, _______,  _______,            _______, _______,                               _______, _______,          _______
   ),
   [_L4] = LAYOUT_standard( /* LAYER 4 */
     RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,     KC_PGUP,   _______,

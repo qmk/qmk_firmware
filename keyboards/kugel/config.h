@@ -78,7 +78,8 @@ MSCMD_USER_RESULT usrcmd_trackball_pixel(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
 #define DIODE_DIRECTION COL2ROW
 
 #define RGBLIGHT_SPLIT
-#define RGB_DI_PIN 255
+#define G00 255 // Dummy for bin/qmk config generation
+#define RGB_DI_PIN G00
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM_DEFAULT 128
   #define RGBLIGHT_HUE_STEP 8
