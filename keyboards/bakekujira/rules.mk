@@ -1,6 +1,6 @@
 # MCU name
 MCU = STM32F303
-BOARD = QMK_PROTON_C
+# BOARD = QMK_PROTON_C
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = yes
 #Outputs matrix scan rate in QMK Toolbox
 
@@ -20,7 +20,7 @@ BOARD = QMK_PROTON_C
 #
 BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no       # Mouse keys
-EXTRAKEY_ENABLE = yes       # Audio control and System control
+EXTRAKEY_ENABLE = no       # Audio control and System control
 CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = off        # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
@@ -29,6 +29,7 @@ AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 TAP_DANCE_ENABLE = yes
+NO_I2C = yes
 
 SERIAL_DRIVER = usart
 OLED_DRIVER_ENABLE = yes
