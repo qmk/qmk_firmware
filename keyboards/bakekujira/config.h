@@ -38,15 +38,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 
 // wiring of each half
-#define MATRIX_ROW_PINS_RIGHT { B5, B4, B3, B2, B1 }
-#define MATRIX_COL_PINS_RIGHT { A2, A1, A0, B8, B13, B14, B15, B9 }
+// #define MATRIX_ROW_PINS_RIGHT { B5, B4, B3, B2, B1 }
+#define MATRIX_COL_PINS_RIGHT { A2, A1, A0, B8, B13, B14, B15, B9, B10, B11, B12 }
 
 #define DIODE_DIRECTION COL2ROW
 #define SPLIT_TRANSPORT_MIRROR
 // #define EE_HANDS
-#define MASTER_LEFT
 
-// #define NO_I2C
 #undef SSD1306OLED
 
 #define USE_SERIAL_PD2
