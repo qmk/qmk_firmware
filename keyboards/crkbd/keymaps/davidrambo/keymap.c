@@ -1,11 +1,13 @@
 #include QMK_KEYBOARD_H
 
-extern uint8_t is_master;
+//extern uint8_t is_master;
+
 
 #define _COLEMAK 0
 #define _SYMBOL 1
 #define _NAVIGATION 2
 #define _FKEYS 3
+
 
 //keycode shorthands
 #define SYM  MO(1)
@@ -29,6 +31,20 @@ extern uint8_t is_master;
 
 #define G_GRV   LGUI(KC_GRV)
 #define SftEnt  SFT_T(KC_ENT)
+
+enum custom_keycodes {
+  PLACEHOLDER = SAFE_RANGE,
+  SET_RGB,
+};
+
+/*
+enum layers {
+    _COLEMAK = 0,
+    _SYMBOL = 1,
+    _NAVIGATION = 2,
+    _FKEYS = 3
+};
+*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT( \
@@ -62,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,                     CTLPGUP, KC_LEFT , KC_DOWN, KC_RGHT, CTLPGDN, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,                      ATAB   , CBSPC , KC_HOME, KC_END, _______, _______,\
+        RESET, _______, _______, _______, _______, _______,                      ATAB   , CBSPC , KC_HOME, KC_END, _______, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, KC_RALT \
                                       //`--------------------------'  `--------------------------'
@@ -72,11 +88,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______,  _______,\
+      _______, RGB_SAI, RGB_HUI, RGB_VAI, RGB_TOG, SET_RGB,                     _______, _______, _______, _______, _______,  _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, KC_VOLD, KC_VOLU, KC_MPLY,                     _______, _______, _______, _______, _______, _______,\
+      _______, RGB_MOD, RGB_M_P, KC_VOLD, KC_VOLU, KC_MPLY,                     _______, _______, _______, _______, _______, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,      RESET, _______, _______ \
+                                          _______, _______, _______,     _______, _______, _______ \
                                       //`--------------------------'  `--------------------------'
   )
 };
+
+void matrix_init_user(void) {
+//    rgb_matrix_sethsv(191, 43, 81);
+    rgblight_mode(RGB_MATRIX_TYPING_HEATMAP);
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    switch (keycode) {
+        
+        case SET_RGB:
+            if (record->event.pressed) {
+                rgb_matrix_sethsv(18, 86, 95);
+            }
+            return false;
+            break;
+
+    }
+    return true;
+}
+
+// change RGB Matrix leds based on current layer
+/*
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch(biton32(state)) {
+        case _COLEMAK:
+            rgb_matrix_sethsv(191, 43, 81);
+            break;
+        case _SYMBOL:
+            rgb_matrix_sethsv(18, 86, 95);
+            break;
+        case _NAVIGATION:
+            rgb_matrix_sethsv(121, 100, 58);
+            break;
+        case _FKEYS:
+            rgb_matrix_sethsv(14, 72, 65);
+            break;
+    }
+    return state;
+}
+*/
+
+
+void suspend_power_down_user(void) {
+    rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_user(void) {
+    rgb_matrix_set_suspend_state(false);
+}
