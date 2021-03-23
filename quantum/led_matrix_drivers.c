@@ -18,7 +18,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "quantum.h"
-#include "ledmatrix.h"
+#include "led_matrix.h"
 
 /* Each driver needs to define a struct:
  *
@@ -66,7 +66,7 @@ static void init(void) {
 #        endif
 #    endif
 
-    for (int index = 0; index < LED_DRIVER_LED_COUNT; index++) {
+    for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
 #    ifdef IS31FL3731
         IS31FL3731_set_led_control_register(index, true);
 #    else

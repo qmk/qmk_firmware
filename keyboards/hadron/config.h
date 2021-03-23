@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x5F37
 #define MANUFACTURER    ishtob
 #define PRODUCT         Hadron Keyboard
-#define DESCRIPTION     A low profile ortholinear keyboard
 
 //#define AUDIO_VOICES
 

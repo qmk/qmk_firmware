@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Han Chen
 #define PRODUCT         AMJ96
-#define DESCRIPTION     96 key custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 7
@@ -46,22 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-// #define BACKLIGHT_PIN D4
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-/* number of backlight levels */
-#ifdef BREATHING_LED_ENABLE
-#ifdef FADING_LED_ENABLE
-#define BACKLIGHT_LEVELS 8
-#else
-#define BACKLIGHT_LEVELS 6
-#endif
-#else
-#define BACKLIGHT_LEVELS 3
-#endif
-#define BACKLIGHT_CUSTOM
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -171,9 +154,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

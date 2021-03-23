@@ -1,8 +1,6 @@
 # MCU name
 MCU = STM32F303
-
-# Code for backlight breathing:
-SRC += led.c
+BOARD = QMK_PROTON_C
 
 # Build Options
 #   comment out to disable the options.

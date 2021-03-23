@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BOOTLOADER_H
-#define BOOTLOADER_H
+#pragma once
 
 /* give code for your bootloader to come up if needed */
 void bootloader_jump(void);
-
-#endif

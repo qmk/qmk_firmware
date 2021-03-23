@@ -13,9 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
 #include "quantum.h"
+
+#define XXX KC_NO
 
 /* This a shortcut to help you visually see your layout.
  *
@@ -26,45 +29,46 @@
  * represents the switch matrix.
  */
 #define LAYOUT_all( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k4d,    k4c,\
-     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,  k1d,       k4b,\
-      k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c,  k2d, \
-     k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b,     k3c,         k3d, \
-     k40,  k41,  k42,              k44,             k45,   k46,   k47,       k48, k49, k4a  \
-) \
-{ \
-    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d }, \
-    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d }, \
-    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d }, \
-    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d }, \
-    { k40, k41, k42, KC_NO, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d }, \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k4D, k4C, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k4B, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B,      k3C, k3D, \
+    k40, k41, k42,                k44,                k45, k46, k47, k48, k49, k4A \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D }, \
+    { k40, k41, k42, XXX, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, k4D } \
 }
 
-#define LAYOUT_ansi( \
-    k00,     k01,    k02,    k03,   k04,     k05,    k06,    k07,    k08,    k09,    k0a,    k0b,    k0c,     k0d,      k4c,\
-    k10,     k11,    k12,    k13,   k14,     k15,    k16,    k17,    k18,    k19,    k1a,    k1b,    k1c,     k1d,      k4b,\
-    k20,     k21,    k22,    k23,   k24,     k25,    k26,    k27,    k28,    k29,    k2a,    k2b,             k2d, \
-    k30,     k32,    k33,    k34,   k35,     k36,    k37,    k38,    k39,    k3a,    k3b,    k3c,                  k3d, \
-    k40,     k41,    k42,                            k44,                            k45,    k46,    k47,     k48, k49, k4a  \
-) LAYOUT_all( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, KC_NO,    k4c,\
-     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,  k1d,       k4b,\
-      k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, KC_NO,  k2d, \
-     k30, KC_NO, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b,     k3c,         k3d, \
-     k40,  k41,  k42,              k44,             k45,   k46,   k47,       k48, k49, k4a  \
-) 
+#define LAYOUT_66_ansi( \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k4C, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k4B, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B,      k2D, \
+    k30,      k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C,      k3D, \
+    k40, k41, k42,                k44,                k45, k46, k47, k48, k49, k4A \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, XXX, k2D }, \
+    { k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D }, \
+    { k40, k41, k42, XXX, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, XXX } \
+}
 
-#define LAYOUT_iso( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d,     k4c,\
-     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,        k4b,\
-      k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c,  k2d, \
-     k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b,     k3c,         k3d, \
-     k40,  k41,  k42,              k44,             k45,   k46,   k47,       k48, k49, k4a  \
-) LAYOUT_all( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, KC_NO,    k4c,\
-     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,  KC_NO,       k4b,\
-      k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c,  k2d, \
-     k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b,     k3c,         k3d, \
-     k40,  k41,  k42,              k44,             k45,   k46,   k47,       k48, k49, k4a  \
-) 
+#define LAYOUT_66_iso( \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k4C, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C,      k4B, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B,      k3C, k3D, \
+    k40, k41, k42,                k44,                k45, k46, k47, k48, k49, k4A \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, XXX }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D }, \
+    { k40, k41, k42, XXX, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, XXX } \
+}
 
+#define LAYOUT_ansi LAYOUT_66_ansi
+#define LAYOUT_iso LAYOUT_66_iso

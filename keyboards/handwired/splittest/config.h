@@ -26,12 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Split Tester
-#define DESCRIPTION     Split keyboard testing unit
 
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 1
+
+#define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

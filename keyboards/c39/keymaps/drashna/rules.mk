@@ -1,4 +1,5 @@
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 BOOTLOADER =
 
 BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration(+1000)
@@ -18,3 +19,5 @@ AUDIO_ENABLE = yes           # Audio output on port C6
 RGBLIGHT_ENABLE = yes       # RGB Enable / Disable
 
 RGBLIGHT_STARTUP_ANIMATION = yes
+
+HAPTIC_ENABLE = SOLENOID

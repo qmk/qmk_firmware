@@ -1,35 +1,8 @@
-# project specific files
-SRC =	matrix.c \
-	led.c \
-	led_controller.c
+# MCU name
+MCU = MK20DX128
 
-## chip/board settings
-# - the next two should match the directories in
-#   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
-# - For Teensies, FAMILY = KINETIS and SERIES is either
-#   KL2x (LC) or K20x (3.0,3.1,3.2).
-# - For Infinity KB, SERIES = K20x
-MCU_FAMILY = KINETIS
-MCU_SERIES = K20x
-
-# Linker script to use
-# - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
-#   or <this_dir>/ld/
-# - NOTE: a custom ld script is needed for EEPROM on Teensy LC
-# - LDSCRIPT =
-#   - MKL26Z64 for Teensy LC
-#   - MK20DX128 for Teensy 3.0
-#   - MK20DX256 for Teensy 3.1 and 3.2
-#   - MK20DX128BLDR4 for Infinity with Kiibohd bootloader
-MCU_LDSCRIPT = MK20DX128BLDR4
-
-# Startup code to use
-#  - it should exist in <chibios>/os/common/ports/ARMCMx/compilers/GCC/mk/
-# - STARTUP =
-#   - kl2x for Teensy LC
-#   - k20x5 for Teensy 3.0 and Infinity KB
-#   - k20x7 for Teensy 3.1 and 3.2
-MCU_STARTUP = k20x5
+# Bootloader selection
+BOOTLOADER = kiibohd
 
 # Board: it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
@@ -40,36 +13,28 @@ MCU_STARTUP = k20x5
 #   - MCHCK_K20 for Infinity KB
 BOARD = MCHCK_K20
 
-# Cortex version
-# Teensy LC is cortex-m0; Teensy 3.x are cortex-m4
-MCU  = cortex-m4
-
-# ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
-# I.e. 6 for Teensy LC; 7 for Teensy 3.x
-ARMV = 7
-
-# Vector table for application
-# 0x00000000-0x00001000 area is occupied by bootlaoder.*/
-# The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
-OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
-
-BOOTLOADER = dfu
-
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes        # Console for debug
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes           # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+BLUETOOTH_ENABLE = no       # Enable Bluetooth
+AUDIO_ENABLE = no           # Audio output
 
-DFU_ARGS = -d 1c11:b007
-DFU_SUFFIX_ARGS = -p b007 -v 1c11
-
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
-## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	    # USB Nkey Rollover
-CUSTOM_MATRIX = yes # Custom matrix file
+# project specific files
+SRC += led.c \
+       led_controller.c
 
 LAYOUTS = 60_ansi_split_bs_rshift
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

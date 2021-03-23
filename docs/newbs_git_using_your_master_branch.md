@@ -37,7 +37,7 @@ git push origin master
 
 This switches you to your `master` branch, retrieves the refs from the QMK repo, downloads the current QMK `master` branch to your computer, and then uploads it to your fork.
 
-## Making Changes
+## Making Changes :id=making-changes
 
 To make changes, create a new branch by entering:
 

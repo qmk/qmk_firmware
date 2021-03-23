@@ -3,13 +3,14 @@
  */
 
 #include <stdint.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include "hal.h"
+#include <hal.h>
 #include "quantum.h"
 #include "timer.h"
 #include "wait.h"
-#include "printf.h"
+#include "print.h"
 #include "matrix.h"
 
 /**
@@ -130,7 +131,7 @@ uint8_t matrix_scan(void)
         }
     }
 
-    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCING_DELAY) {
+    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             matrix[row] = 0;
             for (int col = 0; col < MATRIX_COLS; col++) {

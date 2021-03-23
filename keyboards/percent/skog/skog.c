@@ -18,31 +18,3 @@ ps2avrGB support code by Kenneth A. (bminiex/.[ch])
 */
 
 #include "skog.h"
-
-#include "backlight.h"
-#include "backlight_custom.h"
-
-void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__ ((weak))
-void matrix_init_user(void) {}
-
-void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {}
-
-#ifdef BACKLIGHT_ENABLE
-/// Overrides functions in `quantum.c`
-void backlight_init_ports(void) {
-  b_led_init_ports();
-}
-
-void backlight_task(void) {
-  b_led_task();
-}
-
-void backlight_set(uint8_t level) {
-  b_led_set(level);
-}
-#endif
