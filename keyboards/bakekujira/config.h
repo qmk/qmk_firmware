@@ -31,11 +31,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Rows are doubled-up
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 17
-#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
+#define MATRIX_ROW_PINS { B5, B4, B3, B2, B1 }
+#define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15 }
+
+// #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
+// #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
 
 // wiring of each half
-#define MATRIX_ROW_PINS_RIGHT { D4, C6, D7, E6, B4 }
+#define MATRIX_ROW_PINS_RIGHT { B5, B4, B3, B2, B1 }
 #define MATRIX_COL_PINS_RIGHT { B6, B2, B3, B1, F7, F6, F5, F4 }
 
 #define DIODE_DIRECTION COL2ROW
