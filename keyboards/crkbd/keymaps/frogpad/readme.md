@@ -10,12 +10,12 @@ usage of a regular keyboard.
 
 ## Improvements over the original frogpad
 
-*Significantly improved same finger bigram frequency. (Less S-bigrams)
-*Significantly improved neighbor finger bigram frequency. (More N-bigrams)
-*Slight improvement in surface layer letter frequency. (Moved G and C to surface layer, in exchange for P and Y)
-	*This means you'll need to chord letters less.
-*In the case of same finger bigrams, increased the amount of downward motions, which are more comfortable.
-	*For example, swapping A and I was an efficient change because 'ea' and 'ie' are both more common than 'ae' and 'ei'.
+* Significantly improved same finger bigram frequency. (Less S-bigrams)
+* Significantly improved neighbor finger bigram frequency. (More N-bigrams)
+* Slight improvement in surface layer letter frequency. (Moved G and C to surface layer, in exchange for P and Y)
+	* This means you'll need to chord letters less.
+* In the case of same finger bigrams, increased the amount of downward motions, which are more comfortable.
+	* For example, swapping A and I was an efficient change because 'ea' and 'ie' are both more common than 'ae' and 'ei'.
 
 ![improvement](https://i.imgur.com/auVktOh.png)
 
