@@ -1,8 +1,7 @@
 # MCU name
 MCU = STM32F303
-CTPC = yes
 BOARD = QMK_PROTON_C
-DEBUG_MATRIX_SCAN_RATE_ENABLE = yes
+# DEBUG_MATRIX_SCAN_RATE_ENABLE = yes
 #Outputs matrix scan rate in QMK Toolbox
 
 
