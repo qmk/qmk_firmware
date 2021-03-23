@@ -35,17 +35,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15 }
 
 // #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-// #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
+// #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 
 // wiring of each half
 #define MATRIX_ROW_PINS_RIGHT { B5, B4, B3, B2, B1 }
-#define MATRIX_COL_PINS_RIGHT { B6, B2, B3, B1, F7, F6, F5, F4 }
+#define MATRIX_COL_PINS_RIGHT { A2, A1, A0, B8, B13, B14, B15, B9 }
 
 #define DIODE_DIRECTION COL2ROW
 #define SPLIT_TRANSPORT_MIRROR
-#define EE_HANDS
+// #define EE_HANDS
+#define MASTER_LEFT
 
-#undef USE_I2C
+// #define NO_I2C
 #undef SSD1306OLED
 
 #define USE_SERIAL_PD2
@@ -55,6 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 /* All things RGB */
+// #define RGB_DI_PIN B5
 #define RGB_DI_PIN B0
 #define RGBLED_NUM 104
 #define DRIVER_LED_TOTAL 104
@@ -90,8 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_CHANNEL 3  // DMA Channel for TIMx_UP
 
 //Serial over USART config
-#undef SOFT_SERIAL_PIN
-#define SOFT_SERIAL_PIN D3  // USART TX pin
+#define SOFT_SERIAL_PIN A9  // USART TX pin
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
 #define SERIAL_USART_DRIVER SD1 // USART driver of TX pin. default: SD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function" - default: 7
