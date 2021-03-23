@@ -498,12 +498,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   }
 
-  if(record->event.key.row > 4 && keycode != KC_RSFT){
-    del_mods(MOD_BIT(KC_RSFT));
-  } else if (record->event.key.col <= 4 && keycode != KC_LSFT){
-    del_mods(MOD_BIT(KC_LSFT));
-  }
-
   switch (keycode) {
   #ifdef AUDIO_ENABLE
         case M_USSR:
