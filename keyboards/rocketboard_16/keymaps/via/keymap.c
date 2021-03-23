@@ -289,7 +289,10 @@ void oled_task_user(void)
         {
             oled_set_cursor(0, 2);
             oled_write_ln(PSTR("      Keycode:      "), false);
-            //oled_write_ln(PSTR("        TEST        "), false);
+
+            // Clear this line before writing the new keycode
+            oled_write_ln(PSTR("                    "), false);
+            oled_set_cursor(0, 3);
             oled_write(lastKeycodeString, false);
         }
         else
