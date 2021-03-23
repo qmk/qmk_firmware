@@ -18,20 +18,20 @@
 
 #    include <stdbool.h>
 #    include <stdio.h>
-
 #    include "process_auto_shift.h"
 
+#    define IS_LT(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
+#    define IS_RETRO(kc) (((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX) || IS_LT(kc))
+
 // Stores the last Auto Shift key's up or down time, for evaluation or keyrepeat.
-static uint16_t autoshift_time    = 0;
-static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
-static uint16_t autoshift_lastkey = KC_NO;
+static uint16_t    autoshift_time    = 0;
+static uint16_t    autoshift_timeout = AUTO_SHIFT_TIMEOUT;
+static uint16_t    autoshift_lastkey = KC_NO;
 static keyrecord_t autoshift_lastrecord;
-#define IS_LT(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
-#define IS_RETRO(kc) (((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX) || IS_LT(kc))
 // Keys take 8 bits if modifiers are excluded. This records the shift state
 // when pressed for each key, so that can be passed to the release function
 // and it knows which key needs to be released (if shifted is different base).
-static bool autoshift_shift_states[256];
+static uint16_t autoshift_shift_states[((1 << 8) + 15) / 16];
 static struct {
     // Whether autoshift is enabled.
     bool enabled : 1;
@@ -45,19 +45,36 @@ static struct {
     // Whether the user is holding a shift and we removed it.
     bool cancelling_lshift : 1;
     bool cancelling_rshift : 1;
+    // clang-format wants to remove the true for some reason.
+    // clang-format off
 } autoshift_flags = {true, false, false, false, false, false};
+// clang-format on
 
-// Called on physical press, returns whether is autoshift key.
+/** \brief Called on physical press, returns whether is autoshift key */
 __attribute__((weak)) bool autoshift_is_custom(uint16_t keycode, keyrecord_t *record) { return false; }
 
-// Called when an autoshift key needs to be pressed.
+/** \brief Called when an autoshift key needs to be pressed */
 __attribute__((weak)) void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
-    if (shifted) { add_weak_mods(MOD_BIT(KC_LSFT)); }
+    if (shifted) {
+        add_weak_mods(MOD_BIT(KC_LSFT));
+    }
     register_code(keycode & 0xFF);
 }
 
-// Called when an autoshift key needs to be released.
+/** \brief Called when an autoshift key needs to be released */
 __attribute__((weak)) void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) { unregister_code(keycode & 0xFF); }
+
+/** \brief Sets the shift state to use when keyrepeating, required by custom shifts */
+void set_autoshift_shift_state(uint16_t keycode, bool shifted) {
+    if (shifted) {
+        autoshift_shift_states[keycode / 16] |= (uint16_t)1 << keycode;
+    } else {
+        autoshift_shift_states[keycode / 16] &= ~((uint16_t)1 << keycode);
+    }
+}
+
+/** \brief Gets the shift state to use when keyrepeating, required by custom shifts */
+bool get_autoshift_shift_state(uint16_t keycode) { return (autoshift_shift_states[keycode / 16] & (uint16_t)1 << keycode) != (uint16_t)0; }
 
 /** \brief Restores the shift key if it was cancelled by autoshift */
 static void autoshift_flush_shift(void) {
@@ -79,27 +96,30 @@ static void autoshift_flush_shift(void) {
  *  \return Whether the record should be further processed.
  */
 static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record) {
+    // clang-format off
     if ((get_mods()
 #    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
-        | get_oneshot_mods()
+            | get_oneshot_mods()
 #    endif
-    ) & (~MOD_BIT(KC_LSFT))) {
+        ) & (~MOD_BIT(KC_LSFT))
+    ) {
+        // clang-format on
         // Prevents keyrepeating unshifted value of key after using it in a key combo.
         autoshift_lastkey = KC_NO;
 #    ifndef AUTO_SHIFT_MODIFIERS
         // We can't return true here anymore because custom unshifted values are
         // possible and there's no good way to tell whether the press returned
         // true upon release.
-        autoshift_shift_states[keycode & 0xFF] = false;
+        set_autoshift_shift_state(keycode & 0xFF, false);
         autoshift_press_user(keycode, false, record);
         return false;
 #    endif
     }
 
     // Store record to be sent to user functions if there's no release record then.
-    autoshift_lastrecord = *record;
+    autoshift_lastrecord               = *record;
     autoshift_lastrecord.event.pressed = false;
-    autoshift_lastrecord.event.time = 0;
+    autoshift_lastrecord.event.time    = 0;
 #    ifdef AUTO_SHIFT_REPEAT
 #        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
     if (!autoshift_flags.lastshifted) {
@@ -153,9 +173,9 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
 static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger, keyrecord_t *record) {
     if (autoshift_flags.in_progress && (keycode == autoshift_lastkey || keycode == KC_NO)) {
         // Process the auto-shiftable key.
-        autoshift_flags.in_progress                      = false;
-        autoshift_flags.lastshifted                      = !(TIMER_DIFF_16(now, autoshift_time) < autoshift_timeout) || autoshift_flags.lastshifted;
-        autoshift_shift_states[autoshift_lastkey & 0xFF] = autoshift_flags.lastshifted;
+        autoshift_flags.in_progress = false;
+        autoshift_flags.lastshifted = !(TIMER_DIFF_16(now, autoshift_time) < autoshift_timeout) || autoshift_flags.lastshifted;
+        set_autoshift_shift_state(autoshift_lastkey & 0xFF, autoshift_flags.lastshifted);
         if (get_mods() & MOD_BIT(KC_LSFT)) {
             autoshift_flags.cancelling_lshift = true;
             del_mods(MOD_BIT(KC_LSFT));
@@ -166,20 +186,20 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger, k
         }
         autoshift_press_user(autoshift_lastkey, autoshift_flags.lastshifted, record);
 #    if defined(AUTO_SHIFT_REPEAT) && !defined(AUTO_SHIFT_NO_AUTO_REPEAT)
-            if (matrix_trigger) {
-                // Prevents release.
-                return;
-            }
+        if (matrix_trigger) {
+            // Prevents release.
+            return;
+        }
 #    endif
 
 #    if TAP_CODE_DELAY > 0
         wait_ms(TAP_CODE_DELAY);
 #    endif
-        autoshift_release_user(autoshift_lastkey, autoshift_shift_states[autoshift_lastkey & 0xFF], record);
+        autoshift_release_user(autoshift_lastkey, get_autoshift_shift_state(autoshift_lastkey & 0xFF), record);
         autoshift_flush_shift();
     } else {
         // Release after keyrepeat.
-        autoshift_release_user(keycode, autoshift_shift_states[keycode & 0xFF], record);
+        autoshift_release_user(keycode, get_autoshift_shift_state(keycode & 0xFF), record);
         if (keycode == autoshift_lastkey) {
             // This will only fire when the key was the last auto-shiftable
             // pressed. That prevents 'aaaaBBBB' then releasing a from unshifting
@@ -237,6 +257,7 @@ void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     // Note that record->event.time isn't reliable, see:
     // https://github.com/qmk/qmk_firmware/pull/9826#issuecomment-733559550
+    // clang-format off
     const uint16_t now =
 #    if !defined(RETRO_SHIFT) || defined(NO_ACTION_TAPPING)
         timer_read()
@@ -244,6 +265,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         (record->event.pressed) ? autoshift_time : timer_read()
 #    endif
     ;
+    // clang-format on
 
     if (record->event.pressed) {
         if (autoshift_flags.in_progress) {
@@ -275,6 +297,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #    endif
         }
         // If Retro Shift is disabled, possible custom actions shouldn't happen.
+        // clang-format off
         if (IS_RETRO(keycode)
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
             // Not tapped or #defines mean that rolls should use hold action.
@@ -300,6 +323,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             )))
 #    endif
         ) {
+            // clang-format on
             autoshift_lastkey = KC_NO;
             return true;
         }
@@ -311,11 +335,13 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         }
         // Same as above (for pressed), additional checks are not needed because
         // tap.count gets set to 0 in process_action
+        // clang-format off
         else if (IS_RETRO(keycode)
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
             && record->tap.count == 0
 #    endif
         ) {
+            // clang-format on
             return true;
         }
     }
@@ -368,8 +394,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
 // Called to record time before possible delays by action_tapping_process.
-void retro_shift_set_time(keyevent_t *event) {
-    autoshift_time = timer_read();
-}
+void retro_shift_set_time(keyevent_t *event) { autoshift_time = timer_read(); }
 #    endif
+
 #endif
