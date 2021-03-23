@@ -31,9 +31,9 @@
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
 #ifndef PLOOPY_DPI_OPTIONS
-#    define PLOOPY_DPI_OPTIONS { 1200, 1600, 2400 }
+#    define PLOOPY_DPI_OPTIONS { 200, 400, 800 }
 #    ifndef PLOOPY_DPI_DEFAULT
-#        define PLOOPY_DPI_DEFAULT 1
+#        define PLOOPY_DPI_DEFAULT 2
 #    endif
 #endif
 #ifndef PLOOPY_DPI_DEFAULT
