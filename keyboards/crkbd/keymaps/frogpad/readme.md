@@ -2,7 +2,13 @@
 
 <img src="https://i.imgur.com/VWQMUk7.png" alt="default layout" width="800">
 
-##Improvements over the original frogpad
+The concept of the Frogpad was first devised around April of 1997 by 
+Ryozo "Ken" Tsubai and its design was finalized around February of 2004 
+by Tsubai and Linda Marroquin. The original is a small, portable 
+keyboard designed to be used with one hand, while allowing the full 
+usage of a regular keyboard.
+
+## Improvements over the original frogpad
 
 *Significantly improved same finger bigram frequency. (Less S-bigrams)
 *Significantly improved neighbor finger bigram frequency. (More N-bigrams)
@@ -13,7 +19,7 @@
 
 ![improvement](https://i.imgur.com/auVktOh.png)
 
-##Guidelines for usage
+## Guidelines for usage
 <p>The defined COMBO_TERM in the config.h is set to 60, which means that to type a letter on the combo layer, you must hit both keys
 (it doesn't matter in which order) within 60 milliseconds of each other to produce that letter. I find that this value is most optimal for 
 avoiding errors. Sometimes, if you hit the spacebar too early after a key, it'll produce a comboed letter—and other times, you'll find that you
