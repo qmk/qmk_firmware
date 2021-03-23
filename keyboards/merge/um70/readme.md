@@ -1,6 +1,6 @@
 # UM-70
 
-![UM-70](https://i.imgur.com/rbuySDxl.jpg)
+![UM-70](https://i.imgur.com/zrvMOZel.jpeg)
 
 A 70 keys keyboard in 65% layout with encoder and OLED screen sold by Merge. [Product page](https://mergedesign.store/products/um-70)
 
