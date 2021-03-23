@@ -6,7 +6,7 @@ char* translate_keycode_to_string(uint8_t code)
     uint8_t arr_index = 0;
     static char unknown[] = "UNKNOWN";
 
-    uprintf("Clicked code: %d\n", code);
+    //uprintf("Clicked code: %d\n", code);
 
     if((code <= 0xBE) )
     {
