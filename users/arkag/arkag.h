@@ -69,6 +69,7 @@ enum custom_keycodes {
   M_SMOD,
   M_OS,
   M_DASH,
+  M_USSR,
 };
 
 void velocikey_accelerate(void);

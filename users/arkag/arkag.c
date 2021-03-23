@@ -55,6 +55,8 @@ activityState state         = boot;
 bool          aesthetic     = false,
               shifty        = false;
 
+float song_ussr[][2]     = SONG(USSR_ANTHEM);
+
 void set_color (Color new, bool update) {
   rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
 }
@@ -497,13 +499,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-  case M_PMOD:
-    pri_mod(record->event.pressed);
-    return false;
-
-  case M_SMOD:
-    sec_mod(record->event.pressed);
-    return false;
+  #ifdef AUDIO_ENABLE
+        case M_USSR:
+            PLAY_SONG(song_ussr);
+            return false;
+  #endif
 
   case M_OS:
     if (record->event.pressed){

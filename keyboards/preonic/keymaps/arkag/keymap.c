@@ -15,8 +15,8 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
 #include "arkag.h"
+#include "muse.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -57,92 +57,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, M_OS   ),
 
   [_KEEB] = LAYOUT_preonic_grid(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    CK_TOGG, AU_TOG,  MU_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    M_USSR,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, BL_TOGG, BL_STEP, BL_INC,  BL_DEC,  BL_BRTG, _______, _______, _______, _______, _______, _______,
     RGB_M_P, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, _______, _______, _______,
     RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
 
 };
 
-// bool muse_mode = false;
-// uint8_t last_muse_note = 0;
-// uint16_t muse_counter = 0;
-// uint8_t muse_offset = 70;
-// uint16_t muse_tempo = 50;
-
-// void encoder_update_user(uint8_t index, bool clockwise) {
-//   if (muse_mode) {
-//     if (IS_LAYER_ON(_RAISE)) {
-//       if (clockwise) {
-//         muse_offset++;
-//       } else {
-//         muse_offset--;
-//       }
-//     } else {
-//       if (clockwise) {
-//         muse_tempo+=1;
-//       } else {
-//         muse_tempo-=1;
-//       }
-//     }
-//   } else {
-//     if (clockwise) {
-//       register_code(KC_PGDN);
-//       unregister_code(KC_PGDN);
-//     } else {
-//       register_code(KC_PGUP);
-//       unregister_code(KC_PGUP);
-//     }
-//   }
-// }
-
-// void dip_switch_update_user(uint8_t index, bool active) {
-//     switch (index) {
-//         case 0:
-//             if (active) {
-//                 layer_on(_ADJUST);
-//             } else {
-//                 layer_off(_ADJUST);
-//             }
-//             break;
-//         case 1:
-//             if (active) {
-//                 muse_mode = true;
-//             } else {
-//                 muse_mode = false;
-//             }
-//     }
-// }
-
-
-// void matrix_scan_user(void) {
-// #ifdef AUDIO_ENABLE
-//     if (muse_mode) {
-//         if (muse_counter == 0) {
-//             uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
-//             if (muse_note != last_muse_note) {
-//                 stop_note(compute_freq_for_midi_note(last_muse_note));
-//                 play_note(compute_freq_for_midi_note(muse_note), 0xF);
-//                 last_muse_note = muse_note;
-//             }
-//         }
-//         muse_counter = (muse_counter + 1) % muse_tempo;
-//     } else {
-//         if (muse_counter) {
-//             stop_all_notes();
-//             muse_counter = 0;
-//         }
-//     }
-// #endif
-// }
-
-// bool music_mask_user(uint16_t keycode) {
-//   switch (keycode) {
-//     case RAISE:
-//     case LOWER:
-//       return false;
-//     default:
-//       return true;
-//   }
-// }
+#ifdef AUDIO_ENABLE
+    bool music_mask_user(uint16_t keycode) {
+    switch (keycode) {
+    case MU_TOG:
+    case SYMBOL:
+    case KEEB:
+      return false;
+    default:
+      return true;
+  }
+}
+#endif
