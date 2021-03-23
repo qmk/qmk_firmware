@@ -4,6 +4,9 @@ MCU = STM32F103
 # Bootloader selection
 BOOTLOADER = stm32duino
 
+# Extra include
+SRC += keycode_lookup.c
+
 # Build Options
 #   change yes to no to disable
 #

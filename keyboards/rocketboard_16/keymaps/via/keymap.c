@@ -12,7 +12,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
+#include "keycode_lookup.h"
+#include <string.h>
 
+#ifdef CONSOLE_ENABLE
+#include "print.h"
+#endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -22,11 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _SPEC 1 // Special layer
 
 // Use the following format to create custom key codes to make macros out of and such
-/*
 enum custom_keycodes {
- FOO = SAFE_RANGE,
+    KC_EXAM = SAFE_RANGE // "Examine" key code to show the keycode of a key pressed afterwards on the OLED
 };
-*/
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_default(
@@ -38,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SPEC] = LAYOUT_default(
         RGB_MODE_REVERSE,               KC_AUDIO_MUTE,
-        KC_NO,   KC_NO,   KC_NO,         KC_NO,
+        KC_NO,   KC_NO,   KC_NO,         KC_EXAM,
         KC_NO,   KC_NO,   KC_NO,         KC_NO,
         RESET,   RGB_TOG, RGB_SPI,       RGB_SPD,
         KC_NO,   _______, KC_NO,         KC_NO
@@ -76,6 +80,9 @@ uint8_t rocket_y_position = 3;
 uint8_t rocket_pos_change = 0;
 uint8_t background_frame = 0;
 uint8_t splash_dur_counter = 0;
+bool examine_engaged = false;
+uint16_t examined_keycode = KC_NO;
+char lastKeycodeString[32] = { 0 };
 
 const char star_background [8] [21] =
 {
@@ -242,16 +249,122 @@ void oled_task_user(void)
         char c_light_level[3];
         itoa(light_level, c_light_level, 10);
 
+        // Display lock LED statuses
         led_t led_state = host_keyboard_led_state();
-        oled_write(led_state.num_lock ? PSTR("   |NUM|") : PSTR("   |   |"), false);
-        oled_write(led_state.caps_lock ? PSTR("|CAP|") : PSTR("|   |"), false);
-        oled_write(led_state.scroll_lock ? PSTR("|SCR|   ") : PSTR("|   |   "), false);
+        if(led_state.num_lock)
+        {
+            oled_write(PSTR("   |"), false);
+            oled_write(PSTR("NUM"), true);
+            oled_write(PSTR("|"), false);
+        }
+        else
+        {
+            oled_write(PSTR("   |NUM|"), false);
+        }
 
-        oled_write_ln(PSTR(""), false); // Add a newline
-        oled_write(PSTR("    BKLT: "), false);
+        if(led_state.caps_lock)
+        {
+            oled_write(PSTR("|"), false);
+            oled_write(PSTR("CAP"), true);
+            oled_write(PSTR("|"), false);
+        }
+        else
+        {
+            oled_write(PSTR("|CAP|"), false);
+        }
+
+        if(led_state.scroll_lock)
+        {
+            oled_write(PSTR("|"), false);
+            oled_write(PSTR("SCR"), true);
+            oled_write(PSTR("|   "), false);
+        }
+        else
+        {
+            oled_write(PSTR("|SCR|   "), false);
+        }
+
+        // Print the examine info
+        if(examine_engaged == true)
+        {
+            oled_set_cursor(0, 2);
+            oled_write_ln(PSTR("      Keycode:      "), false);
+            //oled_write_ln(PSTR("        TEST        "), false);
+            oled_write(lastKeycodeString, false);
+        }
+        else
+        {
+            oled_set_cursor(0, 2);
+            oled_write_ln(PSTR("                    "), false);
+            oled_write_ln(PSTR("                    "), false);
+        }
+
+        // Print the backlight % bottom right
+        oled_set_cursor(11, 7);
+        oled_write(PSTR("BKLT: "), false);
         oled_write(c_light_level, false);
-        oled_write_ln(PSTR("%    "), false);
+        oled_write(PSTR("%"), false);
+
+        // Print the layer number in bottom left
+        oled_set_cursor(0, 7);
+        oled_write(PSTR("L: "), false);
+        switch (get_highest_layer(layer_state))
+        {
+        case 0:
+            oled_write(PSTR("0"), false);
+            break;
+        case 1:
+            oled_write(PSTR("1"), false);
+            break;
+        case 2:
+            oled_write(PSTR("2"), false);
+            break;
+        case 3:
+            oled_write(PSTR("3"), false);
+            break;
+        default:
+            oled_write(PSTR("Und"), false);
+            break;
+        }
+
+
     }
 
+}
+
+// Process the extra/extended keycode functionality
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+    bool ret = true; // True will allow QMK to process the key as usual after the function runs, false skips QMK processing after this function runs
+
+    switch (keycode)
+    {
+    case KC_EXAM:
+        if(record->event.pressed) // On pressed, flip bool examine_engaged
+        {
+            if(examine_engaged == false)
+            {
+                examine_engaged = true;
+            }
+            else
+            {
+                examine_engaged = false;
+            }
+            ret = false;
+        }
+        else // On release do nothing
+        {
+            ret = false;
+        }
+        break;
+
+    default: // For any key other than EX, simply let QMK process after saving away what it was
+        memset(lastKeycodeString, 0, sizeof(lastKeycodeString));
+        memcpy(lastKeycodeString, translate_keycode_to_string(keycode), sizeof(keycode_to_string_array[0]));
+        ret = true;
+        break;
+    }
+
+    return ret;
 }
 #endif
