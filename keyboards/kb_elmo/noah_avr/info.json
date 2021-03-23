@@ -78,7 +78,7 @@
                 {"x":15, "y":4}
             ]
         },
-        "LAYOUT_65_ansi": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -149,7 +149,7 @@
                 {"x":15, "y":4}
             ]
         },
-        "LAYOUT_65_ansi_splitbs": {
+        "LAYOUT_ansi_splitbs": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -221,7 +221,7 @@
                 {"x":15, "y":4}
             ]
         },
-        "LAYOUT_65_iso": {
+        "LAYOUT_iso": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
