@@ -96,6 +96,25 @@ const char star_background [8] [21] =
     {0x00, 0x8B, 0x00, 0x00, 0x91, 0x00, 0x00, 0x92, 0x00, 0x00, 0x00, 0x8E, 0x00, 0x00, 0x90, 0x00, 0x00, 0x8C, 0x00, 0x00},
 };
 
+static void oled_write_ln_centered(const char * data, bool inverted)
+{
+    if(strlen(data) >= 21) // If more than 1 line of text is passed in, return without doing anything
+    {
+        return;
+    }
+
+    // Character buffer to build up the string in
+    char line_buf[21];
+
+    // Amount to offset string from left side
+    uint8_t offset = (21 - strlen(data))/2;
+
+    // Formatted string centering... look, it works, don't ask how...
+    snprintf(line_buf, 21, "%*s%s%*s\0", offset, "", data, offset, ""); // Centers data within 21 character buffer with null termination
+
+    oled_write_ln(line_buf, inverted);
+}
+
 // Prints the exhaust characters in an order determined by the phase for animation purposes
 // startX - The x axis starting point in characters for the exhaust (3 behind the rocket)
 // startY - The y axis starting point in characters for the exhaust (middle of the rocket)
@@ -289,11 +308,7 @@ void oled_task_user(void)
         {
             oled_set_cursor(0, 2);
             oled_write_ln(PSTR("      Keycode:      "), false);
-
-            // Clear this line before writing the new keycode
-            oled_write_ln(PSTR("                    "), false);
-            oled_set_cursor(0, 3);
-            oled_write(lastKeycodeString, false);
+            oled_write_ln_centered(lastKeycodeString, false);
         }
         else
         {
