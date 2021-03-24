@@ -57,7 +57,6 @@ def generate_api(cli):
             if 'vid' in usb and 'pid' in usb:
                 usb_list[usb['vid']][usb['pid']][keyboard_name] = usb
 
-
     # Write the global JSON files
     keyboard_all_file.write_text(json.dumps({'last_updated': current_datetime(), 'keyboards': kb_all}, cls=InfoJSONEncoder))
     usb_file.write_text(json.dumps({'last_updated': current_datetime(), 'usb': usb_list}, cls=InfoJSONEncoder))
