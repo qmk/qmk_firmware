@@ -99,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap _COLEMAK: Base Colemak
    * ,----------------------------------------------------------------.
-   * | Esc  | 1|  2|  3|   |   |   |   |   |   |   |   |   |Backspa |  ´|
+   * | Esc  | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backspa |  ´|
    * |----------------------------------------------------------------|
-   * |Tab  |  Q|  W|  E|  F|  P|  B|  J|  L|  U|  Y|  P|  [|  Ent|Del |
+   * |Tab  |  Q|  W|  F|  P|  B|  J|  L|  U|  Y|  ;|  [|  ]|  Ent|Del |
    * |------------------------------------------------------|  er|----|
-   * |Backspa| A|  R|  S|  T|  G|  M|  N|  E|  I|  I|  O| '| \   |PgUp|
+   * |Backspa| A|  R|  S|  T|  G|  M|  N|  E|  I|  O| '| \  |    |PgUp|
    * |----------------------------------------------------------------|
    * |Shif| \|  Z|  X|  C|  D|  V|  K|  H|  ,|  .|  / | Shift| Up|PgDn|
    * |----------------------------------------------------------------|
@@ -112,10 +112,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_COLEMAK] = LAYOUT_iso(
     KC_ESC , KC_1   , KC_2   ,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_GRV,  \
-    EM_TAB , KC_Q   , KC_W   ,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_P,    KC_LBRC, KC_RBRC,          KC_DEL,  \
+    EM_TAB , KC_Q   , KC_W   ,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    FN_SCLN,    KC_LBRC, KC_RBRC,          KC_DEL,  \
     FN_BSPC, KC_A   , KC_R   ,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, KC_NUHS, KC_ENT,  KC_PGUP, \
     KC_LSPO, KC_NUBS, KC_Z   ,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC, KC_UP,   KC_PGDN, \
-    KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, MO(_FUNCTION), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                       KC_RALT, MO(_FUNCTION), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
 
