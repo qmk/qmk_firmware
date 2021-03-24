@@ -18,6 +18,9 @@
 
 #include "tmk_core/common/eeconfig.h"  // for EECONFIG_SIZE
 
+// Helper for generating a transparent layer for VIA keymaps
+#define LAYOUT_via_transparent() ((uint16_t[MATRIX_ROWS][MATRIX_COLS]){[0 ...(MATRIX_ROWS - 1)][0 ...(MATRIX_COLS - 1)] = KC_TRNS})
+
 // Keyboard level code can change where VIA stores the magic.
 // The magic is the build date YYMMDD encoded as BCD in 3 bytes,
 // thus installing firmware built on a different date to the one
