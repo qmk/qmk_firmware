@@ -102,7 +102,7 @@ void action_tapping_process(keyrecord_t record) {
 /* return true when key event is processed or consumed. */
 bool process_tapping(keyrecord_t *keyp) {
     keyevent_t event = keyp->event;
-#    if defined(RETRO_SHIFT) || defined(TAPPING_TERM_PER_KEY) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY)
+#    if defined(RETRO_SHIFT) || defined(TAPPING_TERM_PER_KEY) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY)
     uint16_t tapping_keycode = get_event_keycode(tapping_key.event, false);
 #    endif
 
@@ -110,7 +110,7 @@ bool process_tapping(keyrecord_t *keyp) {
     if (IS_TAPPING_PRESSED()) {
         // clang-format off
         if (WITHIN_TAPPING_TERM(event)
-#    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
+#    ifdef RETRO_SHIFT
             || (
 #        ifdef RETRO_TAPPING_PER_KEY
                 get_retro_tapping(tapping_keycode, keyp) &&

@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int tp_buttons;
 
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING))
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
 int retro_tapping_counter = 0;
 #endif
 
@@ -75,7 +75,7 @@ void action_exec(keyevent_t event) {
         dprint("EVENT: ");
         debug_event(event);
         dprintln();
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING))
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
         retro_tapping_counter++;
 #endif
     }

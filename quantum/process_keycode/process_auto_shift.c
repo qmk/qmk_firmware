@@ -24,7 +24,11 @@
 #    define IS_RETRO(kc) (((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX) || IS_LT(kc))
 
 // Stores the last Auto Shift key's up or down time, for evaluation or keyrepeat.
-static uint16_t    autoshift_time    = 0;
+static uint16_t autoshift_time = 0;
+#    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
+// Stores the last key's up or down time, to replace autoshift_time so that Tap Hold times are accurate.
+static uint16_t retroshift_time = 0;
+#    endif
 static uint16_t    autoshift_timeout = AUTO_SHIFT_TIMEOUT;
 static uint16_t    autoshift_lastkey = KC_NO;
 static keyrecord_t autoshift_lastrecord;
@@ -124,7 +128,15 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
 #        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
     if (!autoshift_flags.lastshifted) {
 #        endif
-        if (TIMER_DIFF_16(now, autoshift_time) < TAPPING_TERM && keycode == autoshift_lastkey) {
+        // clang-format off
+        if (keycode == autoshift_lastkey && TIMER_DIFF_16(now, autoshift_time) <
+#        ifdef TAPPING_TERM_PER_KEY
+            get_tapping_term(autoshift_lastkey, record)
+#        else
+            TAPPING_TERM
+#        endif
+        ) {
+            // clang-format on
             // Allow a tap-then-hold for keyrepeat.
             if (get_mods() & MOD_BIT(KC_LSFT)) {
                 autoshift_flags.cancelling_lshift = true;
@@ -262,7 +274,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #    if !defined(RETRO_SHIFT) || defined(NO_ACTION_TAPPING)
         timer_read()
 #    else
-        (record->event.pressed) ? autoshift_time : timer_read()
+        (record->event.pressed) ? retroshift_time : timer_read()
 #    endif
     ;
     // clang-format on
@@ -394,7 +406,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
 // Called to record time before possible delays by action_tapping_process.
-void retro_shift_set_time(keyevent_t *event) { autoshift_time = timer_read(); }
+void retro_shift_set_time(keyevent_t *event) { retroshift_time = timer_read(); }
 #    endif
 
 #endif
