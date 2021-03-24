@@ -25,120 +25,78 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
+// Layer Mode aliases
+#define BSP_EXT LT(_EXT,KC_BSPC)
+#define OSYM OSL(_SYM)
+#define ONUM OSL(_NUM)
+#define OSFT OSM(MOD_LSFT)
+#define OGUI OSM(MOD_LGUI)
+#define ATAB LCA(KC_TAB)
+#define OALT OSM(MOD_LALT)
+#define OCTL OSM(MOD_LCTL)
+#define CBSP (KC_BSPC)
+
 //This is the left-handed version.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_FROG] = LAYOUT( \
+    [_FROG] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_F,    KC_D,    KC_N,    KC_I,    KC_G,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+       KC_ESC,    KC_F,    KC_D,    KC_N,    KC_I,    KC_G,                         KC_G,    KC_I,    KC_N,    KC_D,    KC_F,  KC_ESC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-LT(_EXT, KC_BSPC),KC_S,    KC_T,    KC_H,    KC_E,    KC_O,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      BSP_EXT,    KC_S,    KC_T,    KC_H,    KC_E,    KC_O,                         KC_O,    KC_E,    KC_H,    KC_T,    KC_S, BSP_EXT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-OSM(MOD_LSFT),    KC_C,    KC_W,    KC_R,    KC_A,    KC_U,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+         OSFT,    KC_C,    KC_W,    KC_R,    KC_A,    KC_U,                         KC_U,    KC_A,    KC_R,    KC_W,    KC_C,    OSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                       OSL(_NUM),OSL(_SYM),  KC_SPC,    XXXXXXX, XXXXXXX, XXXXXXX \
-                                      //`--------------------------'  `--------------------------'
-
-  ),
-
-  [_SYM] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_5,    KC_4,    KC_3, S(KC_2), S(KC_8),                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-   KC_BSLS,S(KC_SCLN),KC_SCLN,S(KC_SLSH),    KC_1, KC_SLSH,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    S(KC_GRV),    KC_8,    KC_9,    KC_0, S(KC_9), S(KC_0),                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            XXXXXXX,XXXXXXX,XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX \
+                                             ONUM,    OSYM,  KC_SPC,     KC_SPC,    OSYM,    ONUM \
                                       //`--------------------------'  `--------------------------'
     ),
 
-  [_NUM] = LAYOUT( \
+    [_SYM] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_PEQL,   KC_P6,   KC_P7,   KC_P8,   KC_P9,  KC_DOT,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+       KC_TAB, KC_LBRC, KC_LCBR, KC_LPRN,   KC_AT, KC_CIRC,                      KC_CIRC,   KC_AT, KC_LPRN, KC_LCBR, KC_LBRC,  KC_TAB,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_PPLS,   KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
-  //|--------+--------+--------+--------+--------+--------|                    |-:------+--------+--------+--------+-------+--------|
-      KC_PMNS, S(KC_3), S(KC_4), S(KC_5),   KC_P0, KC_COMM,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                      XXXXXXX,XXXXXXX,OSM(MOD_LGUI),    XXXXXXX, XXXXXXX, XXXXXXX \
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-    [_EXT] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-  //I recommend adding a TO() that leads to your default layer to the first key in the next line. It is left blank for this purpose.
-      XXXXXXX, KC_VOLD, KC_HOME,   KC_UP,  KC_END, KC_VOLU,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      KC_BSLS, KC_COLN, KC_SCLN, KC_QUES, KC_EXLM, KC_SLSH,                      KC_SLSH, KC_EXLM, KC_QUES, KC_SCLN, KC_COLN, KC_BSLS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-   XXXXXXX,LCA(KC_TAB), KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_MUTE,C(KC_Z),C(KC_X),C(KC_C),C(KC_V),OSM(MOD_LALT),                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                             OSM(MOD_LSFT),OSM(MOD_LCTL),C(KC_BSPC),    XXXXXXX, XXXXXXX, XXXXXXX \
-                                      //`--------------------------'  `--------------------------'
-  )
-  
-  /* This is the right-handed version.
-  
-    [_FROG] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         KC_G,    KC_I,    KC_N,    KC_D,    KC_F,  KC_ESC,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         KC_O,    KC_E,    KC_H,    KC_T,    KC_S,LT(_EXT, KC_BSPC),\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         KC_U,    KC_A,    KC_R,    KC_W,    KC_C,OSM(MOD_LSFT),\    
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, XXXXXXX, XXXXXXX,     KC_SPC,OSL(_SYM),OSL(_NUM) \
-                                      //`--------------------------'  `--------------------------'
-
-  ),
-
-  [_SYM] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      S(KC_6), S(KC_2), S(KC_9),S(KC_LBRC),KC_LBRC, KC_TAB,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_SLSH, S(KC_1),S(KC_SLSH),KC_SCLN,S(KC_SCLN),KC_BSLS,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      S(KC_8), S(KC_7), S(KC_0),S(KC_RBRC),KC_RBRC,S(KC_GRV),\
+      KC_TILD, KC_RBRC, KC_RCBR, KC_RPRN, KC_AMPR, KC_ASTR,                      KC_ASTR, KC_AMPR, KC_RPRN, KC_RCBR, KC_RBRC, KC_TILD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX \
                                       //`--------------------------'  `--------------------------'
     ),
 
-  [_NUM] = LAYOUT( \
+    [_NUM] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_DOT,    KC_9,    KC_8,    KC_7,    KC_6, KC_PEQL,\
+       KC_EQL,    KC_6,    KC_7,    KC_8,    KC_9,  KC_DOT,                       KC_DOT,    KC_9,    KC_8,    KC_7,    KC_6,  KC_EQL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         KC_5,    KC_4,    KC_3,    KC_2,    KC_1, KC_PPLS,\
+      KC_PLUS,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_5,    KC_4,    KC_3,    KC_2,    KC_1, KC_PLUS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_COMM,    KC_0, S(KC_5), S(KC_4), S(KC_3), KC_PMNS,\
+      KC_MINS, KC_HASH,  KC_DLR, KC_PERC,    KC_0, KC_COMM,                      KC_COMM,    KC_0, KC_PERC,  KC_DLR, KC_HASH, KC_MINS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, XXXXXXX, XXXXXXX, OSM(MOD_LGUI),XXXXXXX,XXXXXXX \
+                                          XXXXXXX, XXXXXXX,    OGUI,       OGUI, XXXXXXX, XXXXXXX \
                                       //`--------------------------'  `--------------------------'
-  ),
+    ),
 
     [_EXT] = LAYOUT( \
+/*I recommend adding a TO() that leads to your two-handed layer to the first and last key in the next line of code if you 
+are adding this keymap to a two-handed keymap. It is left blank for this purpose.*/
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-    //I recommend adding a TO() that leads to your default layer to the last key in the next line. It is left blank for this purpose.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_WFWD,  KC_END,   KC_UP, KC_HOME, KC_WBAK, XXXXXXX,\
+      XXXXXXX, KC_WBAK, KC_HOME,   KC_UP,  KC_END, KC_WFWD,                      KC_WFWD, KC_HOME,   KC_UP,  KC_END, KC_WBAK, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_DEL, KC_RGHT, KC_DOWN, KC_LEFT,LCA(KC_TAB),XXXXXXX,\
+      XXXXXXX,    ATAB, KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL,                       KC_DEL, KC_LEFT, KC_DOWN, KC_RGHT,    ATAB, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                OSM(MOD_LALT), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), XXXXXXX,\
+      XXXXXXX, C(KC_Z), C(KC_X), C(KC_C), C(KC_V),    OALT,                         OALT, C(KC_V), C(KC_C), C(KC_X), C(KC_Z), XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, XXXXXXX, XXXXXXX, C(KC_BSPC),OSM(MOD_LCTL),OSM(MOD_LSFT) \
+                                             OSFT,    OCTL,    CBSP,       CBSP,    OCTL,    OSFT \
                                       //`--------------------------'  `--------------------------'
-  )
-  */
+    )
   
-  //You should add these layers on to your existing keymap so you can toggle between one-handed usage and two-handed usage. Don't 
-  //forget to change the first keycode in _EXT to whatever you name your default layer aside from the frogpad layers. If you add 
-  //a TO(_FROG) somewhere on your default layer, you can easily switch between the two.
+/* You should add these layers on to your existing keymap so you can toggle between one-handed usage and two-handed usage. Don't 
+forget to change the first keycode in _EXT to whatever you name your default layer aside from the frogpad layers. If you add 
+a TO(_FROG) somewhere on your default layer, you can easily switch between the two.
   
-  //Make sure to add "#include "g/keymap_combo.h"" to the top of your keymap.c and add combos.def to the keyboard folder. 
-  //Also add "VPATH  +=  keyboards/gboards/" and "COMBO_ENABLE = yes" to rules.mk."
+Make sure to add "#include "g/keymap_combo.h"" to the top of your keymap.c and add combos.def to the keyboard folder. 
+Also add "VPATH  +=  keyboards/gboards/" and "COMBO_ENABLE = yes" to rules.mk."
   
-  //If you're having trouble with the OSM modifiers include the code for individual tapping terms in this keymap. 
-  //You must also use the last six 'define's in the config.h file.
+If you're having trouble with the OSM modifiers include the code for individual tapping terms in this keymap. 
+You must also use the last six 'define's in the config.h file. */
 
 };
 
