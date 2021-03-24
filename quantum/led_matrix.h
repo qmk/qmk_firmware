@@ -97,8 +97,6 @@ void    led_matrix_increase_speed(void);
 void    led_matrix_increase_speed_noeeprom(void);
 void    led_matrix_decrease_speed(void);
 void    led_matrix_decrease_speed_noeeprom(void);
-void    led_matrix_set_value(uint8_t mode);
-void    led_matrix_set_value_noeeprom(uint8_t mode);
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */

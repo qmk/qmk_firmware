@@ -344,10 +344,3 @@ void led_matrix_increase_speed(void) { led_matrix_increase_speed_helper(true); }
 void led_matrix_decrease_speed_helper(bool write_to_eeprom) { led_matrix_set_speed_eeprom_helper(qsub8(led_matrix_eeconfig.speed, LED_MATRIX_SPD_STEP), write_to_eeprom); }
 void led_matrix_decrease_speed_noeeprom(void) { led_matrix_decrease_speed_helper(false); }
 void led_matrix_decrease_speed(void) { led_matrix_decrease_speed_helper(true); }
-
-void led_matrix_set_value_noeeprom(uint8_t val) { led_matrix_eeconfig.val = val; }
-
-void led_matrix_set_value(uint8_t val) {
-    led_matrix_set_value_noeeprom(val);
-    eeconfig_update_led_matrix();
-}
