@@ -12,9 +12,6 @@ extern uint8_t is_master;
 #define _SYM 1
 #define _NUM 2
 #define _EXT 3
-#define _COLE 4
-#define _RAISE 5
-#define _EXT2 6
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     combo_disable();
@@ -70,7 +67,7 @@ OSM(MOD_LSFT),    KC_C,    KC_W,    KC_R,    KC_A,    KC_U,                     
     [_EXT] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
   //I recommend adding a TO() that leads to your default layer to the first key in the next line. It is left blank for this purpose.
-    TO(_COLE), KC_VOLD, KC_HOME,   KC_UP,  KC_END, KC_VOLU,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX, KC_VOLD, KC_HOME,   KC_UP,  KC_END, KC_VOLU,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
    XXXXXXX,LCA(KC_TAB), KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -78,43 +75,8 @@ OSM(MOD_LSFT),    KC_C,    KC_W,    KC_R,    KC_A,    KC_U,                     
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                              OSM(MOD_LSFT),OSM(MOD_LCTL),C(KC_BSPC),    XXXXXXX, XXXXXXX, XXXXXXX \
                                       //`--------------------------'  `--------------------------'
-  ),
-
-    [_COLE] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_QUOT, KC_MINS,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-   LT(_EXT, KC_BSPC),KC_A,  KC_R,    KC_S,    KC_T,    KC_G,                         KC_K,    KC_N,    KC_E,    KC_I,    KC_O, KC_SCLN,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_M,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                   KC_LCTL,  KC_LALT, OSM(MOD_LSFT),     KC_SPC,MO(_RAISE),KC_ENT \
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-    [_RAISE] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_DEL,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_8,    KC_9,    KC_0,  KC_EQL,  KC_GRV, KC_BSLS,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    TO(_FROG),   KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,                        KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0, KC_PSLS,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                   KC_LGUI,  OSM(MOD_LSFT), KC_BSPC,     KC_SPC, XXXXXXX, KC_ENT \
-                                      //`--------------------------'  `--------------------------'
-  ),
-  
-    [_EXT2] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-  KC_LGUI, LCA(KC_TAB), KC_WH_U, KC_WBAK, KC_WFWD, KC_MS_U,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END,  KC_DEL, KC_SLEP,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-   XXXXXXX, LCTL(KC_A), KC_WH_D, KC_LSFT, KC_LCTL, KC_MS_D,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL,  KC_VOLU,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-OSM(MOD_LALT),LCTL(KC_Z),LCTL(KC_X),LCTL(KC_C),LCTL(KC_V),KC_BTN1,               KC_BTN3, KC_BTN2, KC_MS_L, KC_MS_R, KC_MUTE, KC_VOLD,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                          OSM(MOD_LSFT),OSM(MOD_LCTL),LCTL(KC_BSPC),     KC_SPC, XXXXXXX, KC_ENT \
-                                      //`--------------------------'  `--------------------------'
   )
+  
   /* This is the right-handed version.
   
     [_FROG] = LAYOUT( \
