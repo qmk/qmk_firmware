@@ -4,38 +4,13 @@ Spits out a JSON file formatted with one of QMK's formatters.
 """
 import json
 
-from jsonschema import Draft7Validator, validators, ValidationError
+from jsonschema import ValidationError
 from milc import cli
 
-from qmk.info import _jsonschema, _json_load, info_json, keyboard_validate
+from qmk.info import info_json
+from qmk.json_schema import json_load, keyboard_validate
 from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
 from qmk.path import normpath
-
-
-def pruning_validator(validator_class):
-    """Extends Draft7Validator to remove properties that aren't specified in the schema.
-    """
-    validate_properties = validator_class.VALIDATORS["properties"]
-
-    def remove_additional_properties(validator, properties, instance, schema):
-        for prop in list(instance.keys()):
-            if prop not in properties:
-                del instance[prop]
-
-        for error in validate_properties(validator, properties, instance, schema):
-            yield error
-
-    return validators.extend(validator_class, {"properties": remove_additional_properties})
-
-
-def strip_info_json(kb_info_json):
-    """Remove the API-only properties from the info.json.
-    """
-    pruning_draft_7_validator = pruning_validator(Draft7Validator)
-    schema = _jsonschema('keyboard')
-    validator = pruning_draft_7_validator(schema).validate
-
-    return validator(kb_info_json)
 
 
 @cli.argument('json_file', arg_only=True, type=normpath, help='JSON file to format')
@@ -44,19 +19,24 @@ def strip_info_json(kb_info_json):
 def format_json(cli):
     """Format a json file.
     """
-    json_file = _json_load(cli.args.json_file)
+    json_file = json_load(cli.args.json_file)
 
     if cli.args.format == 'auto':
         try:
             keyboard_validate(json_file)
-            cli.args.format = 'keyboard'
+            json_encoder = InfoJSONEncoder
 
-        except ValidationError as e:
-            print('hrm', e, e.__class__.__name__)
-            cli.log.exception(e)
-            cli.args.format = 'keymap'
+        except ValidationError:
+            json_encoder = KeymapJSONEncoder
 
-    json_encoder = InfoJSONEncoder if cli.args.format == 'keyboard' else KeymapJSONEncoder
+    elif cli.args.format == 'keyboard':
+        json_encoder = InfoJSONEncoder
+    elif cli.args.format == 'keymap':
+        json_encoder = KeymapJSONEncoder
+    else:
+        # This should be impossible
+        cli.log.error('Unknown format: %s', cli.args.format)
+        return False
 
     if cli.args.format == 'keymap':
         # Attempt to format the keycodes.
