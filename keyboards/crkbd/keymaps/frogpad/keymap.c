@@ -34,7 +34,7 @@ enum macro_keycodes {
 #define ATAB LCA(KC_TAB)
 #define OALT OSM(MOD_LALT)
 #define OCTL OSM(MOD_LCTL)
-#define CBSP (KC_BSPC)
+#define CBSP C(KC_BSPC)
 
 //This is the left-handed version.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
