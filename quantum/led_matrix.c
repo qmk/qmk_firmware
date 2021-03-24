@@ -34,16 +34,41 @@ led_eeconfig_t led_matrix_eeconfig;
 #    define MIN(a, b) ((a) < (b) ? (a) : (b))
 #endif
 
-#ifndef LED_DISABLE_AFTER_TIMEOUT
-#    define LED_DISABLE_AFTER_TIMEOUT 0
+#if defined(LED_DISABLE_AFTER_TIMEOUT) && !defined(LED_DISABLE_TIMEOUT)
+#    define LED_DISABLE_TIMEOUT (LED_DISABLE_AFTER_TIMEOUT * 1200UL)
+#endif
+
+#ifndef LED_DISABLE_TIMEOUT
+#    define LED_DISABLE_TIMEOUT 0
 #endif
 
 #ifndef LED_DISABLE_WHEN_USB_SUSPENDED
 #    define LED_DISABLE_WHEN_USB_SUSPENDED false
 #endif
 
-#if !defined(LED_MATRIX_MAXIMUM_BRIGHTNESS) || LED_MATRIX_MAXIMUM_BRIGHTNESS > 255
-#    define LED_MATRIX_MAXIMUM_BRIGHTNESS 255
+#if !defined(LED_MATRIX_MAXIMUM_BRIGHTNESS) || LED_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
+#    undef LED_MATRIX_MAXIMUM_BRIGHTNESS
+#    define LED_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#endif
+
+#if !defined(LED_MATRIX_VAL_STEP)
+#    define LED_MATRIX_VAL_STEP 8
+#endif
+
+#if !defined(LED_MATRIX_SPD_STEP)
+#    define LED_MATRIX_SPD_STEP 16
+#endif
+
+#if !defined(LED_MATRIX_STARTUP_MODE)
+#    define LED_MATRIX_STARTUP_MODE LED_MATRIX_UNIFORM_BRIGHTNESS
+#endif
+
+#if !defined(LED_MATRIX_STARTUP_VAL)
+#    define LED_MATRIX_STARTUP_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#if !defined(LED_MATRIX_STARTUP_SPD)
+#    define LED_MATRIX_STARTUP_SPD UINT8_MAX / 2
 #endif
 
 bool g_suspend_state = false;
@@ -57,21 +82,21 @@ uint8_t g_key_hit[DRIVER_LED_TOTAL];
 // Ticks since any key was last hit.
 uint32_t g_any_key_hit = 0;
 
-uint32_t eeconfig_read_led_matrix(void) { return eeprom_read_dword(EECONFIG_LED_MATRIX); }
+void eeconfig_read_led_matrix(void) { eeprom_read_block(&led_matrix_eeconfig, EECONFIG_LED_MATRIX, sizeof(led_matrix_eeconfig)); }
 
-void eeconfig_update_led_matrix(uint32_t config_value) { eeprom_update_dword(EECONFIG_LED_MATRIX, config_value); }
+void eeconfig_update_led_matrix(void) { eeprom_update_block(&led_matrix_eeconfig, EECONFIG_LED_MATRIX, sizeof(led_matrix_eeconfig)); }
 
 void eeconfig_update_led_matrix_default(void) {
     dprintf("eeconfig_update_led_matrix_default\n");
     led_matrix_eeconfig.enable = 1;
-    led_matrix_eeconfig.mode   = LED_MATRIX_UNIFORM_BRIGHTNESS;
-    led_matrix_eeconfig.val    = 128;
-    led_matrix_eeconfig.speed  = 0;
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+    led_matrix_eeconfig.mode   = LED_MATRIX_STARTUP_MODE;
+    led_matrix_eeconfig.val    = LED_MATRIX_STARTUP_VAL;
+    led_matrix_eeconfig.speed  = LED_MATRIX_STARTUP_SPD;
+    eeconfig_update_led_matrix();
 }
 
 void eeconfig_debug_led_matrix(void) {
-    dprintf("led_matrix_eeconfig eeprom\n");
+    dprintf("led_matrix_eeconfig EEPROM\n");
     dprintf("led_matrix_eeconfig.enable = %d\n", led_matrix_eeconfig.enable);
     dprintf("led_matrix_eeconfig.mode = %d\n", led_matrix_eeconfig.mode);
     dprintf("led_matrix_eeconfig.val = %d\n", led_matrix_eeconfig.val);
@@ -154,7 +179,7 @@ void led_matrix_task(void) {
 
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
     // while suspended and just do a software shutdown. This is a cheap hack for now.
-    bool    suspend_backlight = ((g_suspend_state && LED_DISABLE_WHEN_USB_SUSPENDED) || (LED_DISABLE_AFTER_TIMEOUT > 0 && g_any_key_hit > LED_DISABLE_AFTER_TIMEOUT * 60 * 20));
+    bool    suspend_backlight = ((g_suspend_state && LED_DISABLE_WHEN_USB_SUSPENDED) || (LED_DISABLE_TIMEOUT > 0 && g_any_key_hit > LED_DISABLE_TIMEOUT));
     uint8_t effect            = suspend_backlight ? 0 : led_matrix_eeconfig.mode;
 
     // this gets ticked at 20 Hz.
@@ -220,12 +245,10 @@ void led_matrix_init(void) {
         eeconfig_update_led_matrix_default();
     }
 
-    led_matrix_eeconfig.raw = eeconfig_read_led_matrix();
-
+    eeconfig_read_led_matrix();
     if (!led_matrix_eeconfig.mode) {
         dprintf("led_matrix_init_drivers led_matrix_eeconfig.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_led_matrix_default();
-        led_matrix_eeconfig.raw = eeconfig_read_led_matrix();
     }
 
     eeconfig_debug_led_matrix();  // display current eeprom values
@@ -269,19 +292,19 @@ uint32_t led_matrix_get_tick(void) { return g_tick; }
 
 void led_matrix_toggle(void) {
     led_matrix_eeconfig.enable ^= 1;
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+    eeconfig_update_led_matrix();
 }
 
 void led_matrix_enable(void) {
     led_matrix_eeconfig.enable = 1;
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+    eeconfig_update_led_matrix();
 }
 
 void led_matrix_enable_noeeprom(void) { led_matrix_eeconfig.enable = 1; }
 
 void led_matrix_disable(void) {
     led_matrix_eeconfig.enable = 0;
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+    eeconfig_update_led_matrix();
 }
 
 void led_matrix_disable_noeeprom(void) { led_matrix_eeconfig.enable = 0; }
@@ -291,7 +314,7 @@ void led_matrix_step(void) {
     if (led_matrix_eeconfig.mode >= LED_MATRIX_EFFECT_MAX) {
         led_matrix_eeconfig.mode = 1;
     }
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+    eeconfig_update_led_matrix();
 }
 
 void led_matrix_step_reverse(void) {
@@ -299,33 +322,33 @@ void led_matrix_step_reverse(void) {
     if (led_matrix_eeconfig.mode < 1) {
         led_matrix_eeconfig.mode = LED_MATRIX_EFFECT_MAX - 1;
     }
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+    eeconfig_update_led_matrix();
 }
 
 void led_matrix_increase_val(void) {
     led_matrix_eeconfig.val = increment(led_matrix_eeconfig.val, 8, 0, LED_MATRIX_MAXIMUM_BRIGHTNESS);
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+    eeconfig_update_led_matrix();
 }
 
 void led_matrix_decrease_val(void) {
     led_matrix_eeconfig.val = decrement(led_matrix_eeconfig.val, 8, 0, LED_MATRIX_MAXIMUM_BRIGHTNESS);
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+    eeconfig_update_led_matrix();
 }
 
 void led_matrix_increase_speed(void) {
     led_matrix_eeconfig.speed = increment(led_matrix_eeconfig.speed, 1, 0, 3);
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);  // EECONFIG needs to be increased to support this
+    eeconfig_update_led_matrix();  // EECONFIG needs to be increased to support this
 }
 
 void led_matrix_decrease_speed(void) {
     led_matrix_eeconfig.speed = decrement(led_matrix_eeconfig.speed, 1, 0, 3);
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);  // EECONFIG needs to be increased to support this
+    eeconfig_update_led_matrix();  // EECONFIG needs to be increased to support this
 }
 
 void led_matrix_mode(uint8_t mode, bool eeprom_write) {
     led_matrix_eeconfig.mode = mode;
     if (eeprom_write) {
-        eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+        eeconfig_update_led_matrix();
     }
 }
 
@@ -335,5 +358,5 @@ void led_matrix_set_value_noeeprom(uint8_t val) { led_matrix_eeconfig.val = val;
 
 void led_matrix_set_value(uint8_t val) {
     led_matrix_set_value_noeeprom(val);
-    eeconfig_update_led_matrix(led_matrix_eeconfig.raw);
+    eeconfig_update_led_matrix();
 }
