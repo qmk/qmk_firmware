@@ -60,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [3] = LAYOUT_split_3x6_3(
-      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,      XXXXXXX,   XXXXXXX,             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LGUI(LSFT(KC_4)), XXXXXXX,
-      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,      XXXXXXX,   XXXXXXX,             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,      XXXXXXX,   XXXXXXX,             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX, LALT(LSFT(KC_0)),   XXXXXXX,             XXXXXXX,       XXXXXXX,       XXXXXXX, XXXXXXX, LGUI(LSFT(KC_4)), XXXXXXX,
+      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,          XXXXXXX,   XXXXXXX,             XXXXXXX, LGUI(KC_MINS), LGUI(KC_PLUS), XXXXXXX,          XXXXXXX, XXXXXXX,
+      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,          XXXXXXX,   XXXXXXX,             XXXXXXX,       XXXXXXX,       XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,
                                                   _______, _______, _______,     _______, _______, _______
   ),
 };
