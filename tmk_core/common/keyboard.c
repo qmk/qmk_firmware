@@ -49,6 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
+#endif
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
 #endif
@@ -412,6 +415,9 @@ MATRIX_LOOP_END:
     rgblight_task();
 #endif
 
+#ifdef LED_MATRIX_ENABLE
+    led_matrix_task();
+#endif
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
 #endif
