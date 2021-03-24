@@ -134,8 +134,8 @@ def test_list_keymaps_vendor_kb_rev():
 
 def test_list_keymaps_no_keyboard_found():
     result = check_subcommand('list-keymaps', '-kb', 'asdfghjkl')
-    check_returncode(result, [1])
-    assert 'does not exist' in result.stdout
+    check_returncode(result, [2])
+    assert 'invalid keyboard_folder value' in result.stdout
 
 
 def test_json2c():
