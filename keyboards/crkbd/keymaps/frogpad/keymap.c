@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*I recommend adding a TO() that leads to your two-handed layer to the first and last key in the next line of code if you 
 are adding this keymap to a two-handed keymap. It is left blank for this purpose.*/
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, KC_WBAK, KC_HOME,   KC_UP,  KC_END, KC_WFWD,                      KC_WFWD, KC_HOME,   KC_UP,  KC_END, KC_WBAK, XXXXXXX,\
+      XXXXXXX, KC_WBAK, KC_HOME,   KC_UP,  KC_END, KC_WFWD,                      KC_WBAK, KC_HOME,   KC_UP,  KC_END, KC_WFWD, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX,    ATAB, KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL,                       KC_DEL, KC_LEFT, KC_DOWN, KC_RGHT,    ATAB, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
