@@ -87,5 +87,5 @@
 #define RGBLED_NUM 3
 
 // disabled, needs PCB patch.
-//#define C6_AUDIO
+//#define AUDIO_PIN C6
 //#define NO_MUSIC_MODE

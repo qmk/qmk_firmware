@@ -45,6 +45,7 @@ You'll need one of the following to actually perform the ISP flashing (followed 
 
 * [SparkFun PocketAVR](https://www.sparkfun.com/products/9825) - (USB Tiny)
 * [USBtinyISP AVR Programmer Kit](https://www.adafruit.com/product/46) - (USB Tiny)
+* [USBasp](https://www.fischl.de/usbasp/) - (usbasp)
 * [Teensy 2.0](https://www.pjrc.com/store/teensy.html) - (avrisp)
 * [Pro Micro](https://www.sparkfun.com/products/12640)  - (avrisp)
 * [Bus Pirate](https://www.adafruit.com/product/237) - (buspirate)
@@ -81,6 +82,15 @@ This is pretty straight-forward - we'll be connecting like-things to like-things
     PocketAVR MISO <-> Keyboard B3 (MISO)
     PocketAVR VCC  <-> Keyboard VCC
     PocketAVR GND  <-> Keyboard GND
+
+### USBasp
+
+    USBasp RST  <-> Keyboard RESET
+    USBasp SCLK <-> Keyboard B1 (SCLK)
+    USBasp MOSI <-> Keyboard B2 (MOSI)
+    USBasp MISO <-> Keyboard B3 (MISO)
+    USBasp VCC  <-> Keyboard VCC
+    USBasp GND  <-> Keyboard GND
 
 ### Teensy 2.0
 
