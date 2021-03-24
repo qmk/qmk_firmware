@@ -8,6 +8,43 @@ by Tsubai and Linda Marroquin. The original is a small, portable
 keyboard designed to be used with one hand, while allowing the full 
 usage of a regular keyboard.
 
+Please keep in mind this keymap can be used as is, but is best implemented into an existing keyboard layout. This can be done by copying the layers found in the keymap.c and pasting them into your keymap. You must add the combos.def into your keymap folder and add these lines of code into the following files:
+
+```
+#include "g/keymap_combo.h"
+#define _FROG
+#define _SYM
+#define _NUM
+#define _EXT
+ 
+layer_state_t layer_state_set_user(layer_state_t state) {
+    combo_disable();
+    if (layer_state_cmp(state, _FROG)) {
+        combo_enable();
+    }
+    return state;
+}
+```
+
+in your keymap.c
+
+```
+VPATH  +=  keyboards/gboards/
+COMBO_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+```
+
+in your rules.mk
+
+```
+#define COMBO_COUNT 16
+#define COMBO_TERM 60
+```
+
+in your config.h
+
+
+
 ## Improvements over the original frogpad
 
 * Significantly improved same finger bigram frequency. (Less S-bigrams)
