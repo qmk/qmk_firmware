@@ -28,6 +28,7 @@ def format_json(cli):
 
         except ValidationError as e:
             cli.log.warning('File %s did not validate as a keyboard:\n\t%s', cli.args.json_file, e)
+            cli.log.info('Treating %s as a keymap file.', cli.args.json_file)
             json_encoder = KeymapJSONEncoder
 
     elif cli.args.format == 'keyboard':
