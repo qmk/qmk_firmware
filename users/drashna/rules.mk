@@ -81,7 +81,7 @@ endif
 CUSTOM_SPLIT_TRANSPORT ?= yes
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
-        ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+        ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT)), yes)
             SPLIT_TRANSPORT = custom
             QUANTUM_LIB_SRC += drashna_transport.c
             OPT_DEFS += -DDRASHNA_CUSTOM_TRANSPORT
