@@ -67,5 +67,10 @@ def generate_api(cli):
     keyboard_aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
     keyboard_aliases_file.write_text(json.dumps({'last_updated': current_datetime(), 'keyboard_aliases': keyboard_aliases}, cls=InfoJSONEncoder))
 
-    keyboard_metadata = {'last_updated': current_datetime(), 'keyboards': keyboard_list, 'keyboard_aliases': keyboard_aliases, 'usb': usb_list}
+    keyboard_metadata = {
+        'last_updated': current_datetime(),
+        'keyboards': keyboard_list,
+        'keyboard_aliases': keyboard_aliases,
+        'usb': usb_list,
+}
     keyboard_metadata_file.write_text(json.dumps(keyboard_metadata, cls=InfoJSONEncoder))
