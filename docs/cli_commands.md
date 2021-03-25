@@ -131,6 +131,16 @@ Check your environment and report problems only:
 
     qmk doctor -n
 
+## `qmk format-json`
+
+Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if neccesary.
+
+**Usage**:
+
+```
+qmk format-json [-f FORMAT] <json_file>
+```
+
 ## `qmk info`
 
 Displays information about keyboards and keymaps in QMK. You can use this to get information about a keyboard, show the layouts, display the underlying key matrix, or to pretty-print JSON keymaps.
