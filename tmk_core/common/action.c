@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_util.h"
 #include "action.h"
 #include "wait.h"
+#include "quantum_keycodes.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -35,6 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "debug.h"
 #else
 #    include "nodebug.h"
+#endif
+
+#ifdef COMBO_ENABLE
+#    include "process_combo.h"
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
@@ -105,16 +110,19 @@ void action_exec(keyevent_t event) {
 #    endif
 #endif
 
-#ifndef NO_ACTION_TAPPING
+#ifdef COMBO_ENABLE
+    process_combo(&record);
+#elif !defined(NO_ACTION_TAPPING)
     action_tapping_process(record);
 #else
     process_record(&record);
+#endif
+
     if (!IS_NOEVENT(record.event)) {
         dprint("processed: ");
         debug_record(record);
         dprintln();
     }
-#endif
 }
 
 #ifdef SWAP_HANDS_ENABLE
@@ -191,6 +199,12 @@ void process_record(keyrecord_t *record) {
         return;
     }
 
+#ifdef COMBO_ENABLE
+    if (record->keycode == CMB_DUMMY) {
+        return;
+    }
+#endif
+
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
         if (is_oneshot_layer_active() && record->event.pressed) {
@@ -205,7 +219,16 @@ void process_record(keyrecord_t *record) {
 }
 
 void process_record_handler(keyrecord_t *record) {
+#ifdef COMBO_ENABLE
+    action_t action;
+    if (record->keycode) {
+        action = action_for_keycode(record->keycode);
+    } else {
+        action = store_or_get_action(record->event.pressed, record->event.key);
+    }
+#else
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
+#endif
     dprint("ACTION: ");
     debug_action(action);
 #ifndef NO_ACTION_LAYER
@@ -349,7 +372,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
                             if (
 #        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event, false), record) &&
+                                !get_ignore_mod_tap_interrupt(get_record_keycode(record, false), record) &&
 #        endif
                                 record->tap.interrupted) {
                                 dprint("mods_tap: tap: cancel: add_mods\n");
@@ -695,7 +718,7 @@ void process_action(keyrecord_t *record, action_t action) {
             } else {
                 if (
 #        ifdef RETRO_TAPPING_PER_KEY
-                    get_retro_tapping(get_event_keycode(record->event, false), record) &&
+                    get_retro_tapping(get_record_keycode(record, false), record) &&
 #        endif
                     retro_tapping_counter == 2) {
                     tap_code(action.layer_tap.code);
@@ -993,6 +1016,24 @@ void clear_keyboard_but_mods_and_keys() {
  */
 bool is_tap_key(keypos_t key) {
     action_t action = layer_switch_get_action(key);
+    return is_tap_action(action);
+}
+
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
+bool is_tap_record(keyrecord_t *record) {
+#ifdef COMBO_ENABLE
+    action_t action;
+    if (record->keycode) {
+        action = action_for_keycode(record->keycode);
+    } else {
+        action = layer_switch_get_action(record->event.key);
+    }
+#else
+    action_t action = layer_switch_get_action(record->event.key);
+#endif
     return is_tap_action(action);
 }
 

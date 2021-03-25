@@ -16,46 +16,70 @@
 
 #pragma once
 
+#include "action.h"
 #include "progmem.h"
-#include "quantum.h"
 #include <stdint.h>
 
-#ifdef EXTRA_EXTRA_LONG_COMBOS
-#    define MAX_COMBO_LENGTH 32
-#elif EXTRA_LONG_COMBOS
-#    define MAX_COMBO_LENGTH 16
-#else
-#    define MAX_COMBO_LENGTH 8
+#ifndef COMBO_TERM
+#    define COMBO_TERM 50
 #endif
+
+// Maximum number of combo keys
+#ifndef COMBO_KEY_COUNT
+#    define COMBO_KEY_COUNT 32
+#endif
+
+#define COMBO_KEY_BLOCKS_COUNT (COMBO_KEY_COUNT + 15) / 16
+
+// Maximum number of keys pressed at the same time, for which combos work
+#ifndef COMBO_BUFFER_SIZE
+#    define COMBO_BUFFER_SIZE 8
+#endif
+
+typedef void (*combo_callback)(bool pressed);
+
+typedef enum {
+    COMBO_ACTION_KEYCODE,
+    COMBO_ACTION_FUNCTION,
+    COMBO_ACTION_STRING,
+} combo_action_type;
+
+typedef union {
+    uint16_t packed;
+    struct combo_metadata_unpacked {
+        uint16_t          combo_term : 10;
+        bool              urgent : 1;
+        combo_action_type action_type : 2;
+        uint8_t           reserved : 3;
+    } unpacked;
+} combo_metadata;
+
+typedef union {
+    uint16_t       keycode;
+    combo_callback function;
+    const char *   string;  // PSTR
+} combo_action;
 
 typedef struct {
-    const uint16_t *keys;
-    uint16_t        keycode;
-#ifdef EXTRA_EXTRA_LONG_COMBOS
-    uint32_t state;
-#elif EXTRA_LONG_COMBOS
-    uint16_t state;
-#else
-    uint8_t state;
-#endif
-} combo_t;
+    uint16_t       key_mask[COMBO_KEY_BLOCKS_COUNT];
+    combo_action   action;
+    combo_metadata metadata;
+} combo_data;
 
-#define COMBO(ck, ca) \
-    { .keys = &(ck)[0], .keycode = (ca) }
-#define COMBO_ACTION(ck) \
-    { .keys = &(ck)[0] }
+typedef struct {
+    uint16_t combo_count;
+    uint16_t combo_offset;
+} combo_layer_data;
 
-#define COMBO_END 0
-#ifndef COMBO_COUNT
-#    define COMBO_COUNT 0
-#endif
-#ifndef COMBO_TERM
-#    define COMBO_TERM TAPPING_TERM
-#endif
+typedef struct {
+    uint8_t                 keys[MATRIX_ROWS][MATRIX_COLS];
+    uint8_t                 layer_count;
+    const combo_layer_data *layers;
+    const combo_data *      combos;
+} combo_storage;
 
-bool process_combo(uint16_t keycode, keyrecord_t *record);
+void process_combo(const keyrecord_t *record);
 void matrix_scan_combo(void);
-void process_combo_event(uint16_t combo_index, bool pressed);
 
 void combo_enable(void);
 void combo_disable(void);
