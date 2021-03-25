@@ -1,11 +1,12 @@
 # ibm_wheelwriter
 
-![top view](https://i.imgur.com/jwYI2qxl.jpg)
+Top View of the Keyboard: (https://imgur.com/gallery/4AVq783)
+
 
 Got this awesome buckling spring keyboard to work with a PC, it's really the cheapest way to try buckling springs :)
 
 ATTENTION: I DIDN'T INCLUDE THE RIGHT SHIFT KEY IN THE KEYMAP BECAUSE IT SHARES THE CIRCUIT WITH THE LEFT SHIFT KEY SO YOU CAN'T CUSTOMIZE BOTH INDEPENDENTLY
-I REPEAT, WHATEVER ACTION YOU ASIGN TO THE LEFT SHIFT KEY, THE RIGHT SHIFT KEY WILL DO THE SAME, SO IT WILL NOT APPEAR IN THE CONFIGURATOR OR IN VIA
+I REPEAT, WHATEVER ACTION YOU ASIGN TO THE LEFT SHIFT KEY, THE RIGHT SHIFT KEY WILL DO THE SAME
 
 * Keyboard Maintainer: [Andres Teare](https://github.com/andresteare)
 * Hardware Supported: Teensy 2.0
