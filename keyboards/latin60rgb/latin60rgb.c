@@ -12,8 +12,6 @@
   * 
   * You should have received a copy of the GNU General Public License 
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-     // { 0, B_14, A_14, C_14 },
-     // { 0, H_15, G_15, I_15 },
   */ 
 #include "latin60rgb.h"
 
