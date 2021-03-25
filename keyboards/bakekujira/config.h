@@ -14,47 +14,47 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x1213
-#define PRODUCT_ID      0x0100
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    papadakko
+#define MANUFACTURER    ogkeylab
 #define PRODUCT         bakekujira
 
-#define TAPPING_TERM 200
+// #define TAPPING_TERM 200
 
-#undef DEBUG_MATRIX_SCAN_RATE
-#define DEBUG_MATRIX_SCAN_RATE
-#define USB_MAX_POWER_CONSUMPTION 100
+// #undef DEBUG_MATRIX_SCAN_RATE
+// #define DEBUG_MATRIX_SCAN_RATE
 
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 18
-#define MATRIX_ROW_PINS { B5, B4, B3, B2, B1 }
-#define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15 }
 
-// #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-// #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
+#define MATRIX_ROW_PINS { B5, B4, B3, B2, B1 } // proton c pins
+#define MATRIX_ROW_PINS_RIGHT { B5, B4, B3, B2, B1 } // proton c pins
+#define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B10, B11, B12, A14} // proton c pins left side (B10, B11, B12, A14 is empty but noted here as a requirement where left and right columns must be the same)
+#define MATRIX_COL_PINS_RIGHT { B12, B11, B10, B9, B15, B14, B13, B8, A0, A1, A2 } //  proton c pins right side
 
-// wiring of each half
-// #define MATRIX_ROW_PINS_RIGHT { B5, B4, B3, B2, B1 }
-#define MATRIX_COL_PINS_RIGHT { A2, A1, A0, B8, B13, B14, B15, B9, B10, B11, B12 }
+// #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 } // pro micro pins
+// #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B10, B11, B12, A14} // pro micro pins on left plus extra proton c pins to fill it in
+// #define MATRIX_COL_PINS_RIGHT { B12, B11, B10, B6, B2, B3, B1, F7, F6, F5, F4 } // pro micro pins left side + proton c pins
 
 #define DIODE_DIRECTION COL2ROW
 // #define SPLIT_TRANSPORT_MIRROR
 // #define EE_HANDS
 
+#define EE_HANDS
+//#define MASTER_LEFT
+//#define MASTER_RIGHT
+
+#define RANDICT //this literally adds 8000 bytes to your compiled firmware
 // #undef SSD1306OLED
 
-// #define USE_SERIAL_PD2
-
-#define RGBLIGHT_SPLIT
-#define RGB_SPLIT { 42, 62}
+// #define RGBLIGHT_SPLIT
+// #define RGB_SPLIT { 42, 62 }
 
 /* ws2812 RGB LED */
 /* All things RGB */
@@ -68,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGBLIGHT_VAL_STEP 17
 // #define RGBLIGHT_LAYERS // enables rgb lighting underglow that indicates status of the keyboard (capslock, current layer, etc)
 
-#define RGBLIGHT_ANIMATIONS // enables all animation modes
+// #define RGBLIGHT_ANIMATIONS // enables all animation modes
 
 /* RGB MATRIX stuff */
 // #define EECONFIG_RGB_MATRIX (uint32_t *)28
@@ -94,7 +94,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define WS2812_DMA_CHANNEL 3  // DMA Channel for TIMx_UP
 
 //Serial over USART config
-#define SOFT_SERIAL_PIN A9  // USART TX pin
+
+#define USE_SERIAL
+#define USE_SERIAL_PD2
+#define SOFT_SERIAL_PIN A9  // USART TX pin protonc
+// #define SOFT_SERIAL_PIN D3  // USART TX pin pro micro
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
 #define SERIAL_USART_DRIVER SD1 // USART driver of TX pin. default: SD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function" - default: 7

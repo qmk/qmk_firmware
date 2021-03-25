@@ -23,4 +23,10 @@ enum {
   TD_GRAVE_ESC
 };
 
+enum layers {
+    _QWERTY,
+    _FUNC,
+    _MEDIA,
+    _SYSTEM,
+};
 
