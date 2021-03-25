@@ -70,6 +70,8 @@ Install the QMK CLI by running:
 
 ### ** Linux/WSL **
 
+**NOTE:** If you are using WSL, ensure that your QMK environment is hosted on your **WSL instance** `/` and not the **Windows Filesystem** `/mnt/c`
+
 #### Prerequisites
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
