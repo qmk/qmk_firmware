@@ -30,6 +30,10 @@ bool led_update_kb(led_t led_state) {
     return true;
 }
 
+// This is some magic so that PCBs flashed with VIA firmware at the factory
+// will start with an RGB test pattern. Not relevant for non-VIA firmware.
+#ifdef VIA_ENABLE
+
 // Called from via_init() if VIA_ENABLE
 // Called from matrix_init_kb() if not VIA_ENABLE
 void via_init_kb(void)
@@ -52,3 +56,5 @@ void keyboard_post_init_kb() {
         rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
     }
 }
+
+#endif // VIA_ENABLE
