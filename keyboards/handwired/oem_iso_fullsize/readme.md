@@ -1,6 +1,6 @@
 # oem_iso_fullsize
 
-Top view of the keyboard: (https://imgur.com/gallery/icfarZh)
+![top view](https://i.imgur.com/Pm5Vz1Pl.jpg)
 
 I handwired a Gamdias 7 Colors that had a dead PCB and manage to revive it with a teensy
 
