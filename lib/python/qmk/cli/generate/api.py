@@ -72,5 +72,5 @@ def generate_api(cli):
         'keyboards': keyboard_list,
         'keyboard_aliases': keyboard_aliases,
         'usb': usb_list,
-}
+    }
     keyboard_metadata_file.write_text(json.dumps(keyboard_metadata, cls=InfoJSONEncoder))
