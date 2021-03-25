@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    wilba.tech
 #define PRODUCT         wilba.tech WT70-JB
-#define DESCRIPTION     wilba.tech WT70-JB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
