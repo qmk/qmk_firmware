@@ -21,6 +21,7 @@
 enum planck_layers {
   _QWERTY,
   _COLEMAK,
+  _SIMPLE,
   _NUMBER,
   _ARROWS,
   _CURSOR,
@@ -30,10 +31,9 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-  BACKTLD = SAFE_RANGE,
-  EXCLAIM,
-  QWERTY,
+  QWERTY = SAFE_RANGE,
   COLEMAK,
+  SIMPLE,
   NORMAL
 };
 
@@ -45,8 +45,6 @@ enum planck_keycodes {
 
 #define NUMSPAC LT(_NUMBER, KC_SPC)
 #define SHFTESC LSFT_T(KC_ESC)
-
-#define SFTEXLM SFT_T(EXCLAIM)
 #define SFTENTR SFT_T(KC_ENT)
 
 #define ALT__A  ALT_T(KC_A)
@@ -75,45 +73,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* ## Qwerty
 
 | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  -_  |
-| Bsp/~| A(A) | G(S) | S(D) | C(F) |   G  |   H  | C(J) | S(K) | G(L) | A(;) |  '"  |
-| S(!) |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |S(Ent)|
+| Bsp  | A(A) | G(S) | S(D) | C(F) |   G  |   H  | C(J) | S(K) | G(L) | A(;) |  '"  |
+|   !  |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Enter|
 | CTRL |  GUI |  ALT |System|Cursor|S(Esc)|N(Spc)|Arrows| Left | Down |  Up  | Right|
  */
 
 [_QWERTY] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    KC_MINS,
-    BACKTLD, ALT__A,  GUI__S,  SFT__D, CTL__F, KC_G,    KC_H,    CTL__J, SFT__K,  GUI__L,  ALTSCLN, KC_QUOT,
-    SFTEXLM, KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SFTENTR,
+    KC_BSPC, ALT__A,  GUI__S,  SFT__D, CTL__F, KC_G,    KC_H,    CTL__J, SFT__K,  GUI__L,  ALTSCLN, KC_QUOT,
+    KC_EXLM, KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
     KC_LCTL, KC_LGUI, KC_LALT, SYSTEM, CURSOR, SHFTESC, NUMSPAC, ARROWS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* ## Colemak
 
 | Tab  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  |  -_  |
-| Bsp/~| A(A) | G(R) | S(S) | C(T) |   G  |   M  | C(N) | S(E) | G(I) | A(O) |  '"  |
-| S(!) |   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |S(Ent)|
+| Bsp  | A(A) | G(R) | S(S) | C(T) |   G  |   M  | C(N) | S(E) | G(I) | A(O) |  '"  |
+|   !  |   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  | Enter|
 | CTRL |  GUI |  ALT |System|Cursor|S(Esc)|N(Spc)|Arrows| Left | Down |  Up  | Right|
  */
 
 [_COLEMAK] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_F,   KC_P,   KC_B,    KC_J,    KC_L,   KC_U,    KC_Y,    KC_SCLN, KC_MINS,
-    BACKTLD, ALT__A,  GUI__R,  SFT__S, CTL__T, KC_G,    KC_M,    CTL__N, SFT__E,  GUI__I,  ALT__O,  KC_QUOT,
-    SFTEXLM, KC_Z,    KC_X,    KC_C,   KC_D,   KC_V,    KC_K,    KC_H,   KC_COMM, KC_DOT,  KC_SLSH, SFTENTR,
+    KC_BSPC, ALT__A,  GUI__R,  SFT__S, CTL__T, KC_G,    KC_M,    CTL__N, SFT__E,  GUI__I,  ALT__O,  KC_QUOT,
+    KC_EXLM, KC_Z,    KC_X,    KC_C,   KC_D,   KC_V,    KC_K,    KC_H,   KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
     KC_LCTL, KC_LGUI, KC_LALT, SYSTEM, CURSOR, SHFTESC, NUMSPAC, ARROWS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
+
+/* ## Simple
+
+| Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bsp  |
+| Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '"  |
+| SHFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |S(Ent)|
+| CTRL |  GUI |  ALT |System|Cursor|N(Spc)|N(Spc)|Arrows| Left | Down |  Up  | Right|
+ */
+
+[_SIMPLE] = LAYOUT_planck_grid(
+    KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_ESC,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,    KC_H,    KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SFTENTR,
+    KC_LCTL, KC_LGUI, KC_LALT, SYSTEM, CURSOR, NUMSPAC, NUMSPAC, ARROWS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* ## Number
 
-|      |  @   |  +   |  =   |  &   |  \|  |  #   |  *   |  ^   |  $   |  %   |      |
+|      |  \|  |  &   |  =   |  +   |  @   |  %   |  #   |  *   |  $   |  ^   |      |
 |      |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  0   |  \`  |
-|      |  ~   |  [   |  {   |  (   |  !   |  =   |  )   |  }   |  ]   |  \   |      |
+|      |      |  [   |  {   |  (   |  ~   |  !   |  )   |  }   |  ]   |  \   |      |
 |      |      |      |      |      |      | \\/  |      |      |      |      |Normal|
  */
 
 [_NUMBER] = LAYOUT_planck_grid(
-    _______, KC_AT,   KC_PLUS, KC_EQL,  KC_AMPR, KC_PIPE, KC_HASH, KC_ASTR, KC_CIRC, KC_DLR,  KC_PERC, _______,
+    _______, KC_PIPE, KC_AMPR, KC_EQL,  KC_PLUS, KC_AT,   KC_PERC, KC_HASH, KC_ASTR, KC_DLR,  KC_CIRC, _______,
     _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-    _______, KC_TILD, KC_LBRC, KC_LCBR, KC_LPRN, KC_EXLM, KC_EQL,  KC_RPRN, KC_RCBR, KC_RBRC, KC_BSLS, _______,
+    _______, XXXXXXX, KC_LBRC, KC_LCBR, KC_LPRN, KC_TILD, KC_EXLM, KC_RPRN, KC_RCBR, KC_RBRC, KC_BSLS, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, NORMAL
 ),
 
@@ -153,14 +166,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  | F12  |
 |      |      |Pr_Scn|Pr_Scn|      |      |Brght-| Vol- | Vol+ |Brght+| Mute |      |
 |      |      |      |      |      |      |      | Mute |P_Trac|N_Trac|      | Play |
-|KBoard|      |      | \\/  |      |      |      |      |      |Colemk|Qwerty|Normal|
+|KBoard|      |      | \\/  |      |      |      |      |Simple|Qwerty|Colemk|Normal|
  */
 
 [_SYSTEM] = LAYOUT_planck_grid(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
     _______, XXXXXXX, KC_PSCR, KC_PSCR, XXXXXXX, XXXXXXX, KC_BRID, KC_VOLD, KC_VOLU, KC_BRIU, KC_MUTE, _______,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_MPRV, KC_MNXT, XXXXXXX, KC_MPLY,
-    KBOARD,  _______, _______, _______, _______, _______, _______, _______, _______, COLEMAK, QWERTY,  NORMAL
+    KBOARD,  _______, _______, _______, _______, _______, _______, _______, SIMPLE,  QWERTY,  COLEMAK, NORMAL
 ),
 
 /* ## KBoard
@@ -196,45 +209,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static bool shift_is_pressed = false;
-
     switch (keycode) {
-        case SFTEXLM:
-            if (record->tap.count > 0) {
-                if (record->event.pressed) {
-                    tap_code16(KC_EXLM);
-                }
-                return false;
-            }
-            return true;
-
-        case SHFTESC:
-            if (record->event.pressed) {
-                shift_is_pressed = true;
-            } else {
-                shift_is_pressed = false;
-            }
-            return true;
-
-        case BACKTLD:
-            if (record->event.pressed) {
-                if (shift_is_pressed) {
-                    register_code(KC_GRV);
-                } else {
-                    register_code(KC_BSPC);
-                }
-            } else {
-                unregister_code(KC_GRV);
-                unregister_code(KC_BSPC);
-            }
-            return true;
-
         case QWERTY:
             set_single_persistent_default_layer(_QWERTY);
             return true;
 
         case COLEMAK:
             set_single_persistent_default_layer(_COLEMAK);
+            return true;
+
+        case SIMPLE:
+            set_single_persistent_default_layer(_SIMPLE);
             return true;
 
         case NORMAL:
@@ -249,13 +234,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case SFTENTR:
-            return true;
-        case SFTEXLM:
-            return true;
         case SHFTESC:
             return true;
         case NUMSPAC:
+            return true;
+        case SFTENTR:
             return true;
         case ALT__A:
             return true;
