@@ -7,7 +7,7 @@ import platform
 
 from milc import cli
 
-from qmk.info_json_encoder import InfoJSONEncoder
+from qmk.json_encoders import InfoJSONEncoder
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_folder, render_layouts, render_layout
