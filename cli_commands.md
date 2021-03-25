@@ -170,7 +170,7 @@ qmk json2c [-o OUTPUT] filename
 ## `qmk c2json`
 
 Creates a keymap.json from a keymap.c.  
-**Note:** Parsing C source files is not easy, therefore this subcommand may not work your keymap. In some cases not using the C pre-processor helps.
+**Note:** Parsing C source files is not easy, therefore this subcommand may not work with your keymap. In some cases not using the C pre-processor helps.
 
 **Usage**:
 
