@@ -155,7 +155,9 @@ static void InvertCharacter(uint8_t *cursor) {
 
 bool oled_init(uint8_t rotation) {
 #if defined(USE_I2C) && defined(SPLIT_KEYBOARD)
-   if (!is_keyboard_master()) { return true; }
+    if (!is_keyboard_master()) {
+        return true;
+    }
 #endif
 
     oled_rotation = oled_init_user(rotation);
