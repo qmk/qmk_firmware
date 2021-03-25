@@ -1,6 +1,6 @@
 # ibm_wheelwriter
 
-Top View of the Keyboard: (https://imgur.com/gallery/4AVq783)
+![top view](https://i.imgur.com/jwYI2qxh.jpg)
 
 
 Got this awesome buckling spring keyboard to work with a PC, it's really the cheapest way to try buckling springs :)
