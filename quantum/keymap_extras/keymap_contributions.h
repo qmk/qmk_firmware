@@ -292,3 +292,27 @@
 #define FRCA_31 S(KC_6)
 #define FRCA_32 S(KC_3)
 #define FRCA_33 S(KC_2)
+
+// Icelandic
+#define IS_01 S(KC_DOT)
+#define IS_02 S(KC_COMMA)
+#define IS_03 ALGR(KC_NONUS_BSLASH)
+#define IS_04 S(KC_NONUS_BSLASH)
+#define IS_05 KC_NONUS_BSLASH
+#define IS_06 S(KC_BSLASH)
+#define IS_07 S(KC_QUOTE)
+#define IS_08 S(KC_RBRACKET)
+#define IS_09 S(KC_EQUAL)
+#define IS_10 S(KC_GRAVE)
+#define IS_11 S(KC_0)
+#define IS_12 S(KC_8)
+#define IS_13 S(KC_7)
+#define IS_14 S(KC_6)
+#define IS_15 KC_BSLASH
+#define IS_16 KC_QUOTE
+#define IS_17 KC_RBRACKET
+#define IS_18 KC_EQUAL
+#define IS_19 KC_GRAVE
+#define IS_20 KC_MINUS
+#define IS_21 KC_SCOLON
+#define IS_22 KC_LBRACKET
