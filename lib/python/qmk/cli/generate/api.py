@@ -19,11 +19,11 @@ def generate_api(cli):
     """
     api_data_dir = Path('api_data')
     v1_dir = api_data_dir / 'v1'
-    keyboard_all_file = v1_dir / 'keyboards.json'               # A massive JSON containing everything
-    keyboard_list_file = v1_dir / 'keyboard_list.json'          # A simple list of keyboard targets
-    keyboard_aliases_file = v1_dir / 'keyboard_aliases.json'    # A list of historical keyboard names and their new name
+    keyboard_all_file = v1_dir / 'keyboards.json'  # A massive JSON containing everything
+    keyboard_list_file = v1_dir / 'keyboard_list.json'  # A simple list of keyboard targets
+    keyboard_aliases_file = v1_dir / 'keyboard_aliases.json'  # A list of historical keyboard names and their new name
     keyboard_metadata_file = v1_dir / 'keyboard_metadata.json'  # All the data configurator/via needs for initialization
-    usb_file = v1_dir / 'usb.json'                         # A mapping of USB VID/PID -> keyboard target
+    usb_file = v1_dir / 'usb.json'  # A mapping of USB VID/PID -> keyboard target
 
     if not api_data_dir.exists():
         api_data_dir.mkdir()
@@ -71,6 +71,6 @@ def generate_api(cli):
         'last_updated': current_datetime(),
         'keyboards': keyboard_list,
         'keyboard_aliases': keyboard_aliases,
-        'usb': usb_list
+        'usb': usb_list,
     }
     keyboard_metadata_file.write_text(json.dumps(keyboard_metadata, cls=InfoJSONEncoder))
