@@ -26,7 +26,8 @@ def format_json(cli):
             keyboard_validate(json_file)
             json_encoder = InfoJSONEncoder
 
-        except ValidationError:
+        except ValidationError as e:
+            cli.log.warning('File %s did not validate as a keyboard:\n\t%s', cli.args.json_file, e)
             json_encoder = KeymapJSONEncoder
 
     elif cli.args.format == 'keyboard':
@@ -38,7 +39,7 @@ def format_json(cli):
         cli.log.error('Unknown format: %s', cli.args.format)
         return False
 
-    if cli.args.format == 'keymap':
+    if json_encoder == KeymapJSONEncoder and 'layout' in json_file:
         # Attempt to format the keycodes.
         layout = json_file['layout']
         info_data = info_json(json_file['keyboard'])
