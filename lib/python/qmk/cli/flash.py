@@ -3,7 +3,6 @@
 You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
-from argparse import FileType
 
 from milc import cli
 
@@ -30,7 +29,7 @@ def print_bootloader_help():
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
 
 
-@cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), help='The configurator export JSON to compile.')
+@cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), help='The configurator export JSON to compile.')
 @cli.argument('-b', '--bootloaders', action='store_true', help='List the available bootloaders.')
 @cli.argument('-bl', '--bootloader', default='flash', help='The flash command, corresponding to qmk\'s make options of bootloaders.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
@@ -76,9 +75,9 @@ def flash(cli):
 
     if cli.args.filename:
         # Handle compiling a configurator JSON
-        user_keymap = parse_configurator_json(cli.args.filename, parallel=cli.config.flash.parallel)
+        user_keymap = parse_configurator_json(cli.args.filename)
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
-        command = compile_configurator_json(user_keymap, cli.args.bootloader, **envs)
+        command = compile_configurator_json(user_keymap, cli.args.bootloader, parallel=cli.config.flash.parallel, **envs)
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 

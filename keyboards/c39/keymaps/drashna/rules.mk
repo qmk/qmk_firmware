@@ -1,4 +1,5 @@
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 BOOTLOADER =
 
 BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration(+1000)
