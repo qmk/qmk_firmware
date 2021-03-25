@@ -128,7 +128,20 @@ void moonlander_led_task(void) {
         wait_ms(150);
     }
 #endif
-
+#ifdef CAPS_LOCK_STATUS
+    else {
+        led_t led_state = host_keyboard_led_state();
+        if(led_state.caps_lock) {
+            ML_LED_6(true);
+        }
+        else {
+            uint8_t layer = get_highest_layer(layer_state);
+            if(layer != 1) {
+                ML_LED_6(false);
+            }
+        }
+    }
+#endif
 }
 
 static THD_WORKING_AREA(waLEDThread, 128);
