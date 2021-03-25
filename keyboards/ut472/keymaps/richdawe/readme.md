@@ -7,13 +7,15 @@
 Tab next to Q, like other keyboards
 Escape/backtick/grave where capslock is normally
 More normal cursor cluster, with / moved next to lower (L1)
-Replace app key with \ , next to raise (L2)
+Remove app key, put \  in bottom-left, and shift Ctrl+Alt+Gui over so Alt is next to raise (L2)
 Backspace is backspace on most layers (don't use delete much)
 Move RGB onto layer 3
 Move capslock onto layer 3
 
-TODO: colon instead of , on numpad for times?
-TODO: Other RGB controls like hue?
+"Hold down the Bootmagic key (Space by default) and the desired hotkey while plugging in your keyboard. For example, holding Space+B should cause it to enter the bootloader."
+
+TODO: backslash in bottom left to shift Alt over to more natural spot (less finger cross over on cut/copy/paste)
+TODO: explicit RESET key or just use Bootmagic Space + B to trigger it?
 TODO: Sort out function keys, maybe move to layer 3 in numpad layout?
 TODO: Sort out home/pg*/end in layer 2; document changes in layer 1
 TODO: Volume controls
