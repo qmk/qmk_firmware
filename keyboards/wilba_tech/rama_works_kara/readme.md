@@ -2,9 +2,9 @@
 
 KARA is a keyboard PCB supporting HHKB layout and daughterboard USB-C. [More info at RAMA WORKS](https://rama.works/kara/)
 
-Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
-Hardware Supported: RAMA WORKS KARA PCB  
-Hardware Availability: [RAMA WORKS Store](https://ramaworks.store/)
+* Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)
+* Hardware Supported: RAMA WORKS KARA PCB
+* Hardware Availability: [RAMA WORKS Store](https://ramaworks.store/)
 
 Make example for this keyboard (after setting up your build environment):
 
