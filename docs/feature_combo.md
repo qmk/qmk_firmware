@@ -109,16 +109,19 @@ These configuration settings can be set in your `config.h` file.
 ## Combo Term
 By default, the timeout for the Combos to be recognized is set to 50ms. This can be changed if accidental combo misfires are happening or if you're having difficulties pressing keys at the same time. For instance, `#define COMBO_TERM 40` would set the timeout period for combos to 40ms.
 
-## Long Combos
+## Buffer and state sizes
 If you're using long combos, or you have a lot of overlapping combos, you may run into issues with this, as the buffers may not be large enough to accommodate what you're doing. In this case, you can configure the sizes of the buffers used. Be aware, larger combo sizes and larger buffers will increase memory usage!
 
 To configure the amount of keys a combo can be composed of, change the following:
 
-| Keys | Define to be set     |
-|------|----------------------|
-| 8    | QMK Default          |
-| 16   | `#define EXTRA_LONG_COMBOS`  |
-| 32   | `#define EXTRA_EXTRA_LONG_COMBOS`|
+| Keys | Define to be set                  |
+|------|-----------------------------------|
+| 6    | `#define EXTRA_SHORT_COMBOS`      |
+| 8    | QMK Default                       |
+| 16   | `#define EXTRA_LONG_COMBOS`       |
+| 32   | `#define EXTRA_EXTRA_LONG_COMBOS` |
+
+Defining `EXTRA_SHORT_COMBOS` combines a combo's internal state into just one byte. This can, in some cases, save some memory. If it doesn't, no point using it. If you do, you also have to make sure you don't define combos with more than 6 keys.
 
 Processing combos has two buffers, one for the key presses, another for the combos being activated. Use the following options to configure the sizes of these buffers:
 
