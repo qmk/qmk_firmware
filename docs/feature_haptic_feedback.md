@@ -87,7 +87,7 @@ Eccentric Rotating Mass vibration motors (ERM) is motor with a off-set weight at
 
 Linear resonant actuators (LRA, also know as a linear vibrator) works different from a ERM. A LRA has a weight and magnet suspended by springs and a voice coil. When the drive signal is applied, the weight would be vibrate on a single axis (side to side or up and down). Since the weight is attached to a spring, there is a resonance effect at a specific frequency. This frequency is where the LRA will operate the most efficiently. Refer to the motor's datasheet for the recommanded range for this frequency.
 
-```
+``` 
 #define FB_ERM_LRA 1
 #define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
@@ -95,7 +95,7 @@ Linear resonant actuators (LRA, also know as a linear vibrator) works different 
 /* Please refer to your datasheet for the optimal setting for your specific motor. */
 #define RATED_VOLTAGE 2
 #define V_PEAK 2.8
-#define V_RMS 2.0
+#define V_RMS 2.0 
 #define V_PEAK 2.1
 #define F_LRA 205 /* resonance freq */
 ```
