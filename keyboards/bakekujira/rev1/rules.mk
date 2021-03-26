@@ -23,8 +23,8 @@ WPM_ENABLE = yes
 # OLED_DRIVER_ENABLE = yes
 
 # RGB related
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
-RGB_MATRIX_ENABLE = no
+RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
+# RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 WS2812_DRIVER = pwm
 #PWM needs patch to <https://github.com/qmk/qmk_firmware/blob/master/platforms/chibios/GENERIC_STM32_F303XC/configs/proton_c.mk>, otherwise defaults to bitbang.
@@ -40,10 +40,10 @@ SERIAL_DRIVER = usart
 # if firmware size over limit, try this option
 # CFLAGS += -flto
 
-# SRC += ./lib/glcdfont.c \
+SRC += ./lib/glcdfont.c \
 
 DEFAULT_FOLDER = bakekujira/rev1
 
-ifeq ($strip $(BAKEKUJIRA)), yes)
-	OPT_DEFS += -DBAKEKUJIRA
-endif
+# ifeq ($strip $(BAKEKUJIRA)), yes)
+# 	OPT_DEFS += -DBAKEKUJIRA
+# endif
