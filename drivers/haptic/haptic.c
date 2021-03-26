@@ -342,33 +342,33 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (haptic_config.enable) {
-      bool solenoid_exclusion_key = 0;
-      #ifdef HAPTIC_EXCLUSION_KEYS
-          if (HAPTIC_EXCLUSION_KEY_DEFAULT(keycode, record->tap.count)) {
-              solenoid_exclusion_key = 1;
-          }
-          #ifdef HAPTIC_EXCLUSION_KEY_ADDITIONAL
-              int i=0;
-              for (i=0;i<sizeof(additional_keys)/sizeof(additional_keys[0]);i++) {
-                   if (pgm_read_word(&additional_keys[i]) == keycode) {
-                       solenoid_exclusion_key = 1;
-                   }
-              }
-          #endif
-      #endif
-      if (record->event.pressed) {
-          // keypress
-          if (haptic_config.feedback < 2 && solenoid_exclusion_key == 0) {
-              haptic_play();
-          }
-      } else {
-          // keyrelease
-          if (haptic_config.feedback > 0 && solenoid_exclusion_key == 0) {
-              haptic_play();
-          }
+        bool solenoid_exclusion_key = 0;
+        #ifdef HAPTIC_EXCLUSION_KEYS
+            if (HAPTIC_EXCLUSION_KEY_DEFAULT(keycode, record->tap.count)) {
+                solenoid_exclusion_key = 1;
+            }
+            #ifdef HAPTIC_EXCLUSION_KEY_ADDITIONAL
+                int i=0;
+                for (i=0;i<sizeof(additional_keys)/sizeof(additional_keys[0]);i++) {
+                    if (pgm_read_word(&additional_keys[i]) == keycode) {
+                        solenoid_exclusion_key = 1;
+                    }
+                }
+            #endif
+        #endif
+        if (record->event.pressed) {
+            // keypress
+            if (haptic_config.feedback < 2 && solenoid_exclusion_key == 0) {
+                haptic_play();
+            }
+        } else {
+            // keyrelease
+            if (haptic_config.feedback > 0 && solenoid_exclusion_key == 0) {
+                haptic_play();
+            }
+        }
       }
-  }
-    return true;
+      return true;
 }
 
 void haptic_shutdown(void) {
