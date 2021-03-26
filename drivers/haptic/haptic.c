@@ -18,6 +18,7 @@
 #include "eeconfig.h"
 #include "progmem.h"
 #include "debug.h"
+#include "action_tapping.h"
 #ifdef DRV2605L
 #    include "DRV2605L.h"
 #endif
@@ -291,6 +292,14 @@ void haptic_play(void) {
 #endif
 }
 
+#ifndef HAPTIC_EXCLUSION_KEY_DEFAULT
+#    define HAPTIC_EXCLUSION_KEY_DEFAULT(keycode, tapcount) ((((keycode) >= QK_MOD_TAP && (keycode) <= QK_MOD_TAP_MAX) && ((tapcount) == 0)) || (((keycode) >= QK_LAYER_TAP_TOGGLE && (keycode) <= QK_LAYER_TAP_TOGGLE_MAX) && ((tapcount) != TAPPING_TOGGLE)) || (((keycode) >= QK_LAYER_TAP && (keycode) <= QK_LAYER_TAP_MAX) && ((tapcount) == 0)) || (IS_MOD(keycode)) || ((keycode) >= QK_MOMENTARY && (keycode) <= QK_MOMENTARY_MAX))
+#endif
+
+#ifdef HAPTIC_EXCLUSION_KEY_ADDITIONAL
+    static const uint16_t PROGMEM additional_keys[] = HAPTIC_EXCLUSION_KEY_ADDITIONAL;
+#endif
+
 bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HPT_ON && record->event.pressed) {
         haptic_enable();
@@ -333,18 +342,32 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (haptic_config.enable) {
-        if (record->event.pressed) {
-            // keypress
-            if (haptic_config.feedback < 2) {
-                haptic_play();
-            }
-        } else {
-            // keyrelease
-            if (haptic_config.feedback > 0) {
-                haptic_play();
-            }
-        }
-    }
+      bool solenoid_exclusion_key = 0;
+      #ifdef HAPTIC_EXCLUSION_KEYS
+          if (HAPTIC_EXCLUSION_KEY_DEFAULT(keycode, record->tap.count)) {
+              solenoid_exclusion_key = 1;
+          }
+          #ifdef HAPTIC_EXCLUSION_KEY_ADDITIONAL
+              int i=0;
+              for (i=0;i<sizeof(additional_keys)/sizeof(additional_keys[0]);i++) {
+                   if (pgm_read_word(&additional_keys[i]) == keycode) {
+                       solenoid_exclusion_key = 1;
+                   }
+              }
+          #endif
+      #endif
+      if (record->event.pressed) {
+          // keypress
+          if (haptic_config.feedback < 2 && solenoid_exclusion_key == 0) {
+              haptic_play();
+          }
+      } else {
+          // keyrelease
+          if (haptic_config.feedback > 0 && solenoid_exclusion_key == 0) {
+              haptic_play();
+          }
+      }
+  }
     return true;
 }
 

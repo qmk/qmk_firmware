@@ -548,6 +548,10 @@ ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
     OPT_DEFS += -DSOLENOID_ENABLE
 endif
 
+ifneq ($(filter HAPTIC_EXCLUSION_KEYS, $(HAPTIC_ENABLE)), )
+    OPT_DEFS += -DHAPTIC_EXCLUSION_KEYS
+endif
+
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
