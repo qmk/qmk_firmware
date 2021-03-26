@@ -70,7 +70,7 @@ Install the QMK CLI by running:
 
 ### ** Linux/WSL **
 
-**NOTE:** If you are using WSL, ensure that your QMK environment is hosted on your **WSL instance** `/` and not the **Windows Filesystem** `/mnt/c`
+?> **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
 
 #### Prerequisites
 
