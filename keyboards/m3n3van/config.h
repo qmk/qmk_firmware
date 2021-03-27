@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Matthew Dias <matthewdias@me.com>
+Copyright 2021 Matthew Dias <matthewdias@me.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x6D64
 #define PRODUCT_ID      0x2323
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Matthew Dias
