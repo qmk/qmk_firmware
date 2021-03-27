@@ -81,6 +81,10 @@
 _Static_assert(FEE_DENSITY_PAGES * FEE_PAGE_SIZE >= FEE_DENSITY_BYTES * 8,
     "flash memory for emulated eeprom is too small; for correct functionality ensure it is at least 8x FEE_DENSITY_BYTES");
 
+#if defined(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) && (DYNAMIC_KEYMAP_EEPROM_MAX_ADDR >= FEE_DENSITY_BYTES)
+#error emulated eeprom: DYNAMIC_KEYMAP_EEPROM_MAX_ADDR is greater than the FEE_DENSITY_BYTES available
+#endif
+
 void     EEPROM_Init(void);
 void     EEPROM_Erase(void);
 void     EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte);
