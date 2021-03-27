@@ -80,8 +80,8 @@ def generate_api(cli):
     keyboard_metadata_json = json.dumps(keyboard_metadata, cls=InfoJSONEncoder)
 
     if not cli.args.dry_run:
-	keyboard_all_file.write_text(keyboard_all_json)
-	usb_file.write_text(usb_json)
-	keyboard_list_file.write_text(keyboard_list_json)
-	keyboard_aliases_file.write_text(keyboard_aliases_json)
-	keyboard_metadata_file.write_text(keyboard_metadata_json)
+        keyboard_all_file.write_text(keyboard_all_json)
+        usb_file.write_text(usb_json)
+        keyboard_list_file.write_text(keyboard_list_json)
+        keyboard_aliases_file.write_text(keyboard_aliases_json)
+        keyboard_metadata_file.write_text(keyboard_metadata_json)
