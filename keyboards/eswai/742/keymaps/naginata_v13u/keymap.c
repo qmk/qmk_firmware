@@ -58,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
   [_QWERTY] = LAYOUT(
-    KC_TAB        ,KC_Q   ,KC_W   ,KC_E    ,KC_R   ,KC_T   , KC_EQL   , KC_MINS ,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P    ,KC_QUOT , \
-    CTL_T(KC_ESC) ,KC_A   ,KC_S   ,KC_D    ,KC_F   ,KC_G   , KC_GRV   , KC_BSLS ,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN ,KC_SCLN , \
-    KC_LSFT       ,KC_Z   ,KC_X   ,KC_C    ,KC_V   ,KC_B   , KC_LBRC  , KC_RBRC ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT   , \
+    KC_TAB        ,KC_Q   ,KC_W   ,KC_E    ,KC_R   ,KC_T   , G(KC_X)  , G(KC_Z) ,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P    ,KC_QUOT , \
+    CTL_T(KC_ESC) ,KC_A   ,KC_S   ,KC_D    ,KC_F   ,KC_G   , G(KC_C)  , G(KC_S) ,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN ,KC_SCLN , \
+    KC_LSFT       ,KC_Z   ,KC_X   ,KC_C    ,KC_V   ,KC_B   , G(KC_V)  , G(KC_Y) ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT   , \
     KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_UP,KC_DOWN ,KC_RGHT
     ),
 
@@ -72,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_RAISE] = LAYOUT(
-    _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,KC_PERC,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_HOME   ,KC_UP     ,KC_END    ,XXXXXXX   ,KC_DEL    , \
-    _______   ,KC_CIRC   ,KC_AMPR   ,KC_EXLM   ,KC_QUES   ,KC_JYEN,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
-    _______   ,KC_PIPE   ,KC_GRV    ,KC_QUOT   ,KC_DQT    ,KC_UNDS,   XXXXXXX, XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   , \
+    _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,XXXXXXX,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_HOME   ,KC_UP     ,KC_END    ,XXXXXXX   ,KC_DEL    , \
+    _______   ,KC_CIRC   ,KC_AMPR   ,KC_QUES   ,KC_PERC   ,KC_JYEN,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
+    _______   ,KC_GRV    ,KC_PIPE   ,KC_EXLM   ,KC_UNDS   ,LALT(KC_JYEN),   XXXXXXX, XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   , \
     _______   ,_______   ,_______   ,_______   ,_______   ,EISUON      ,           _______        ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
@@ -88,7 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAGINATA] = LAYOUT(
     _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,_______, _______,NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______, \
     _______,NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,_______, _______,NG_H   ,NG_J   ,NG_K   ,NG_L   ,NG_SCLN,_______, \
-    _______,NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,_______, _______,NG_N   ,NG_M   ,NG_COMM,NG_DOT ,NG_SLSH,_______, \
+    _______,NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,_______, _______
+     ,NG_N   ,NG_M   ,NG_COMM,NG_DOT ,NG_SLSH,_______, \
     _______,_______,_______,_______,_______,   NG_SHFT,         NG_SHFT2,_______,_______,_______,_______,_______
   ),
 
