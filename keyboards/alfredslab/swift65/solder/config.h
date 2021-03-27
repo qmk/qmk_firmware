@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AlfredsLab
 #define PRODUCT         Swift65
-#define DESCRIPTION     Swift65
 
 /* key matrix size */
 #define MATRIX_ROWS 5
