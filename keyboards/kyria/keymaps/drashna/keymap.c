@@ -16,12 +16,6 @@
 
 #include "drashna.h"
 
-uint8_t is_master;
-
-#ifndef UNICODE_ENABLE
-#    define UC(x) KC_NO
-#endif
-
 /*
  * The `LAYOUT_kyria_base` macro is a template to allow the use of identical
  * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
@@ -135,19 +129,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 // clang-format on
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-#ifndef SPLIT_KEYBOARD
-        if (keycode == RESET && !is_master) {
-            return false;
-        }
-#endif
-    }
-    return true;
-}
-
-void matrix_init_keymap(void) { is_master = (uint8_t)is_keyboard_master(); }
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }

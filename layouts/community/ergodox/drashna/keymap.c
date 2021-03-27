@@ -19,9 +19,6 @@
 #ifdef UNICODEMAP_ENABLE
 #    include "drashna_unicode.h"
 #endif  // UNICODEMAP_ENABLE
-#ifndef UNICODE_ENABLE
-#    define UC(x) KC_NO
-#endif
 
 enum more_custom_keycodes {
     KC_SWAP_NUM = NEW_SAFE_RANGE,
