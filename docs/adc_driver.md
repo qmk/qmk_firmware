@@ -86,7 +86,7 @@ Also note that the F0 and F3 use different numbering schemes. The F0 has a singl
 |3  |2      |         |`E9`     |
 |3  |3      |         |`E13`    |
 |3  |4      |         |         |
-|3  |5      |         |         |
+|3  |5      |         |`B13`    |
 |3  |6      |         |`E8`     |
 |3  |7      |         |`D10`    |
 |3  |8      |         |`D11`    |
@@ -99,8 +99,8 @@ Also note that the F0 and F3 use different numbering schemes. The F0 has a singl
 |3  |15     |         |`E11`    |
 |3  |16     |         |`E12`    |
 |4  |1      |         |`E14`    |
-|4  |2      |         |`B12`    |
-|4  |3      |         |`B13`    |
+|4  |2      |         |`E15`    |
+|4  |3      |         |`B12`    |
 |4  |4      |         |`B14`    |
 |4  |5      |         |`B15`    |
 |4  |6      |         |`E8`     |
