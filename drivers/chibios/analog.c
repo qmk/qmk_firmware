@@ -196,8 +196,25 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
 #elif defined(STM32F4XX) // TODO: add all pins
         case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
         //case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
-#elif defined(STM32F1XX) // TODO: add all pins
+#elif defined(STM32F1XX)
         case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
+        case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
+        case A2:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
+        case A3:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
+        case A4:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
+        case A5:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
+        case A6:  return TO_MUX( ADC_CHANNEL_IN6,  0 );
+        case A7:  return TO_MUX( ADC_CHANNEL_IN7,  0 );
+        case B0:  return TO_MUX( ADC_CHANNEL_IN8,  0 );
+        case B1:  return TO_MUX( ADC_CHANNEL_IN9,  0 );
+        case C0:  return TO_MUX( ADC_CHANNEL_IN10, 0 );
+        case C1:  return TO_MUX( ADC_CHANNEL_IN11, 0 );
+        case C2:  return TO_MUX( ADC_CHANNEL_IN12, 0 );
+        case C3:  return TO_MUX( ADC_CHANNEL_IN13, 0 );
+        case C4:  return TO_MUX( ADC_CHANNEL_IN14, 0 );
+        case C5:  return TO_MUX( ADC_CHANNEL_IN15, 0 );
+        // STM32F103x[C-G] in 144-pin packages also have analog inputs on F6...F10, but they are on ADC3, and the
+        // ChibiOS ADC driver for STM32F1xx currently supports only ADC1, therefore these pins are not usable.
 #endif
     }
 
