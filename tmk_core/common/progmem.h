@@ -2,6 +2,7 @@
 
 #if defined(__AVR__)
 #    include <avr/pgmspace.h>
+#    define pgm_read_pin_t(address_short) pgm_read_byte(address_short)
 #else
 #    define PROGMEM
 #    define PSTR(x) x
@@ -14,4 +15,5 @@
 #    define strcmp_P(s1, s2) strcmp(s1, s2)
 #    define strcpy_P(dest, src) strcpy(dest, src)
 #    define strlen_P(src) strlen(src)
+#    define pgm_read_pin_t(address_short) (*((pin_t*)(address_short)))
 #endif
