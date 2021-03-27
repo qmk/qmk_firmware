@@ -165,8 +165,8 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
         case B0:  return TO_MUX( ADC_CHANNEL_IN12, 2 );
         case B1:  return TO_MUX( ADC_CHANNEL_IN1,  2 );
         case B2:  return TO_MUX( ADC_CHANNEL_IN12, 1 );
-        case B12: return TO_MUX( ADC_CHANNEL_IN2,  3 );
-        case B13: return TO_MUX( ADC_CHANNEL_IN3,  3 );
+        case B12: return TO_MUX( ADC_CHANNEL_IN3,  3 );
+        case B13: return TO_MUX( ADC_CHANNEL_IN5,  2 );
         case B14: return TO_MUX( ADC_CHANNEL_IN4,  3 );
         case B15: return TO_MUX( ADC_CHANNEL_IN5,  3 );
         case C0:  return TO_MUX( ADC_CHANNEL_IN6,  0 ); // Can also be ADC2
