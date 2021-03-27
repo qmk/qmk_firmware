@@ -47,77 +47,79 @@ Note that some of these pins are doubled-up on ADCs with the same channel. This 
 
 Also note that the F0 and F3 use different numbering schemes. The F0 has a single ADC and the channels are 0-indexed, whereas the F3 has 4 ADCs and the channels are 1-indexed. This is because the F0 uses the `ADCv1` implementation of the ADC, whereas the F3 uses the `ADCv3` implementation.
 
-|ADC|Channel|STM32F0xx|STM32F1xx|STM32F3xx|
-|---|-------|---------|---------|---------|
-|1  |0      |`A0`     |`A0`     |         |
-|1  |1      |`A1`     |`A1`     |`A0`     |
-|1  |2      |`A2`     |`A2`     |`A1`     |
-|1  |3      |`A3`     |`A3`     |`A2`     |
-|1  |4      |`A4`     |`A4`     |`A3`     |
-|1  |5      |`A5`     |`A5`     |`F4`     |
-|1  |6      |`A6`     |`A6`     |`C0`     |
-|1  |7      |`A7`     |`A7`     |`C1`     |
-|1  |8      |`B0`     |`B0`     |`C2`     |
-|1  |9      |`B1`     |`B1`     |`C3`     |
-|1  |10     |`C0`     |`C0`     |`F2`     |
-|1  |11     |`C1`     |`C1`     |         |
-|1  |12     |`C2`     |`C2`     |         |
-|1  |13     |`C3`     |`C3`     |         |
-|1  |14     |`C4`     |`C4`     |         |
-|1  |15     |`C5`     |`C5`     |         |
-|1  |16     |         |         |         |
-|2  |0      |         |`A0`¹    |         |
-|2  |1      |         |`A1`¹    |`A4`     |
-|2  |2      |         |`A2`¹    |`A5`     |
-|2  |3      |         |`A3`¹    |`A6`     |
-|2  |4      |         |`A4`¹    |`A7`     |
-|2  |5      |         |`A5`¹    |`C4`     |
-|2  |6      |         |`A6`¹    |`C0`     |
-|2  |7      |         |`A7`¹    |`C1`     |
-|2  |8      |         |`B0`¹    |`C2`     |
-|2  |9      |         |`B1`¹    |`C3`     |
-|2  |10     |         |`C0`¹    |`F2`     |
-|2  |11     |         |`C1`¹    |`C5`     |
-|2  |12     |         |`C2`¹    |`B2`     |
-|2  |13     |         |`C3`¹    |         |
-|2  |14     |         |`C4`¹    |         |
-|2  |15     |         |`C5`¹    |         |
-|2  |16     |         |         |         |
-|3  |0      |         |`A0`¹    |         |
-|3  |1      |         |`A1`¹    |`B1`     |
-|3  |2      |         |`A2`¹    |`E9`     |
-|3  |3      |         |`A3`¹    |`E13`    |
-|3  |4      |         |`F6`¹    |         |
-|3  |5      |         |`F7`¹    |`B13`    |
-|3  |6      |         |`F8`¹    |`E8`     |
-|3  |7      |         |`F9`¹    |`D10`    |
-|3  |8      |         |`F10`¹   |`D11`    |
-|3  |9      |         |         |`D12`    |
-|3  |10     |         |`C0`¹    |`D13`    |
-|3  |11     |         |`C1`¹    |`D14`    |
-|3  |12     |         |`C2`¹    |`B0`     |
-|3  |13     |         |`C3`¹    |`E7`     |
-|3  |14     |         |         |`E10`    |
-|3  |15     |         |         |`E11`    |
-|3  |16     |         |         |`E12`    |
-|4  |1      |         |         |`E14`    |
-|4  |2      |         |         |`E15`    |
-|4  |3      |         |         |`B12`    |
-|4  |4      |         |         |`B14`    |
-|4  |5      |         |         |`B15`    |
-|4  |6      |         |         |`E8`     |
-|4  |7      |         |         |`D10`    |
-|4  |8      |         |         |`D11`    |
-|4  |9      |         |         |`D12`    |
-|4  |10     |         |         |`D13`    |
-|4  |11     |         |         |`D14`    |
-|4  |12     |         |         |`D8`     |
-|4  |13     |         |         |`D9`     |
-|4  |14     |         |         |         |
-|4  |15     |         |         |         |
-|4  |16     |         |         |         |
+|ADC|Channel|STM32F0xx|STM32F1xx|STM32F3xx|STM32F4xx|
+|---|-------|---------|---------|---------|---------|
+|1  |0      |`A0`     |`A0`     |         |`A0`     |
+|1  |1      |`A1`     |`A1`     |`A0`     |`A1`     |
+|1  |2      |`A2`     |`A2`     |`A1`     |`A2`     |
+|1  |3      |`A3`     |`A3`     |`A2`     |`A3`     |
+|1  |4      |`A4`     |`A4`     |`A3`     |`A4`     |
+|1  |5      |`A5`     |`A5`     |`F4`     |`A5`     |
+|1  |6      |`A6`     |`A6`     |`C0`     |`A6`     |
+|1  |7      |`A7`     |`A7`     |`C1`     |`A7`     |
+|1  |8      |`B0`     |`B0`     |`C2`     |`B0`     |
+|1  |9      |`B1`     |`B1`     |`C3`     |`B1`     |
+|1  |10     |`C0`     |`C0`     |`F2`     |`C0`     |
+|1  |11     |`C1`     |`C1`     |         |`C1`     |
+|1  |12     |`C2`     |`C2`     |         |`C2`     |
+|1  |13     |`C3`     |`C3`     |         |`C3`     |
+|1  |14     |`C4`     |`C4`     |         |`C4`     |
+|1  |15     |`C5`     |`C5`     |         |`C5`     |
+|1  |16     |         |         |         |         |
+|2  |0      |         |`A0`¹    |         |`A0`²    |
+|2  |1      |         |`A1`¹    |`A4`     |`A1`²    |
+|2  |2      |         |`A2`¹    |`A5`     |`A2`²    |
+|2  |3      |         |`A3`¹    |`A6`     |`A3`²    |
+|2  |4      |         |`A4`¹    |`A7`     |`A4`²    |
+|2  |5      |         |`A5`¹    |`C4`     |`A5`²    |
+|2  |6      |         |`A6`¹    |`C0`     |`A6`²    |
+|2  |7      |         |`A7`¹    |`C1`     |`A7`²    |
+|2  |8      |         |`B0`¹    |`C2`     |`B0`²    |
+|2  |9      |         |`B1`¹    |`C3`     |`B1`²    |
+|2  |10     |         |`C0`¹    |`F2`     |`C0`²    |
+|2  |11     |         |`C1`¹    |`C5`     |`C1`²    |
+|2  |12     |         |`C2`¹    |`B2`     |`C2`²    |
+|2  |13     |         |`C3`¹    |         |`C3`²    |
+|2  |14     |         |`C4`¹    |         |`C4`²    |
+|2  |15     |         |`C5`¹    |         |`C5`²    |
+|2  |16     |         |         |         |         |
+|3  |0      |         |`A0`¹    |         |`A0`²    |
+|3  |1      |         |`A1`¹    |`B1`     |`A1`²    |
+|3  |2      |         |`A2`¹    |`E9`     |`A2`²    |
+|3  |3      |         |`A3`¹    |`E13`    |`A3`²    |
+|3  |4      |         |`F6`¹    |         |`F6`²    |
+|3  |5      |         |`F7`¹    |`B13`    |`F7`²    |
+|3  |6      |         |`F8`¹    |`E8`     |`F8`²    |
+|3  |7      |         |`F9`¹    |`D10`    |`F9`²    |
+|3  |8      |         |`F10`¹   |`D11`    |`F10`²   |
+|3  |9      |         |         |`D12`    |`F3`²    |
+|3  |10     |         |`C0`¹    |`D13`    |`C0`²    |
+|3  |11     |         |`C1`¹    |`D14`    |`C1`²    |
+|3  |12     |         |`C2`¹    |`B0`     |`C2`²    |
+|3  |13     |         |`C3`¹    |`E7`     |`C3`²    |
+|3  |14     |         |         |`E10`    |`F4`²    |
+|3  |15     |         |         |`E11`    |`F5`²    |
+|3  |16     |         |         |`E12`    |         |
+|4  |1      |         |         |`E14`    |         |
+|4  |2      |         |         |`E15`    |         |
+|4  |3      |         |         |`B12`    |         |
+|4  |4      |         |         |`B14`    |         |
+|4  |5      |         |         |`B15`    |         |
+|4  |6      |         |         |`E8`     |         |
+|4  |7      |         |         |`D10`    |         |
+|4  |8      |         |         |`D11`    |         |
+|4  |9      |         |         |`D12`    |         |
+|4  |10     |         |         |`D13`    |         |
+|4  |11     |         |         |`D14`    |         |
+|4  |12     |         |         |`D8`     |         |
+|4  |13     |         |         |`D9`     |         |
+|4  |14     |         |         |         |         |
+|4  |15     |         |         |         |         |
+|4  |16     |         |         |         |         |
 
 <sup>¹ As of ChibiOS 20.3.4, the ADC driver for STM32F1xx devices supports only ADC1, therefore any configurations involving ADC2 or ADC3 cannot actually be used. In particular, pins `F6`…`F10`, which are present at least on some STM32F103x[C-G] devices, cannot be used as ADC inputs because of this driver limitation.</sup>
+
+<sup>² Not all STM32F4xx devices have ADC2 and/or ADC3, therefore some configurations shown in this table may be unavailable; in particular, pins `F4`…`F10` cannot be used as ADC inputs on devices which do not have ADC3. Check the device datasheet to confirm which pin functions are supported.</sup>
 
 ## Functions
 
