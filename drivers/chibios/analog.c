@@ -101,7 +101,11 @@
 
 // Options are 12, 10, 8, and 6 bit.
 #ifndef ADC_RESOLUTION
-#    define ADC_RESOLUTION ADC_CFGR1_RES_10BIT
+#    ifdef ADC_CFGR_RES_10BITS  // ADCv3, ADCv4
+#        define ADC_RESOLUTION ADC_CFGR_RES_10BITS
+#    else  // ADCv1, ADCv5, or the bodge for ADCv2 above
+#        define ADC_RESOLUTION ADC_CFGR1_RES_10BIT
+#    endif
 #endif
 
 static ADCConfig   adcCfg = {};
