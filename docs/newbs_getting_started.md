@@ -23,7 +23,7 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also provides a handy `QMK MSYS` terminal shortcut to boot you directly into the correct environment.
 
-#### Prerequisites
+#### Installation
 
 You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest).
 
@@ -70,8 +70,6 @@ Install the QMK CLI by running:
 
 ### ** Linux **
 
-?> **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
-
 #### Prerequisites
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
@@ -106,8 +104,6 @@ You can also try the `qmk-git` package from AUR:
 
 QMK maintains a WSL distro with the CLI and all necessary dependencies.
 
-Alternatively, if you'd like to manually install against the WSL distro of your choice, follow the `Linux` part of this guide after installing WSL.
-
 #### Prerequisites
 
 You will need to install WSL. Follow the instructions [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
@@ -115,6 +111,10 @@ You will need to install WSL. Follow the instructions [here](https://docs.micros
 #### Installation
 
 You will need to install the `QMK WSL` distro. The latest release is available at <https://github.com/qmk/qmk_distro_wsl/releases/latest>.
+
+Alternatively, if you'd like to manually install against the WSL distro of your choice, follow the `Linux` part of this guide after installing WSL.
+
+!> **NOTE:** By default, the installation process will clone the QMK repository into your WSL home directory. Manual backup of these files is recommended before performing any WSL unregister/upgrade actions. If you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
 
 ###  ** FreeBSD **
 
