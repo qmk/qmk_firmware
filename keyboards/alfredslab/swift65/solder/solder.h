@@ -14,26 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KB_H
-#define KB_H
+#pragma once
 
 #include "quantum.h"
 
-inline void caps_led_on(void)    { writePinHigh(LED_CAPS_LOCK_PIN); }
-inline void caps_led_off(void)   { writePinLow(LED_CAPS_LOCK_PIN); }
-
-#define LAYOUT_all( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, \
-	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114,       \
-	K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212,       K214,       \
-	K300,       K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, K313,             \
-	K400, K401,       K403,             K406,                   K410, K411, K412, K413, K414  \
+#define LAYOUT( \
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0F,  K0E,  \
+    K10,   K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,     K1E,  \
+    K20,    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,         K2E,  \
+    K30,       K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,     K3D,        \
+    K40,  K41,  K43,              K46,                K4A,  K4B,     K4C, K4D, K4E    \
 ) { \
-	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011,  K012,  K013,  K014,  K015 }, \
-	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  K111,  K112,  K113,  K114,  KC_NO }, \
-	{ K200,  K201,  K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  K212,  KC_NO, K214,  KC_NO }, \
-	{ K300,  KC_NO, K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  K312,  K313,  KC_NO, KC_NO }, \
-	{ K400,  K401,  KC_NO, K403,  KC_NO, KC_NO, K406,  KC_NO, KC_NO, KC_NO, K410,  K411,  K412,  K413,  K414,  KC_NO }  \
+    { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F   }, \
+    { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   K1C,   K1D,   K1E,   KC_NO }, \
+    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C,   KC_NO, K2E,   KC_NO }, \
+    { K30,   KC_NO, K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   K3D,   KC_NO, KC_NO }, \
+    { K40,   K41,   KC_NO, K43,   KC_NO, KC_NO, K46,   KC_NO, KC_NO, KC_NO, K4A,   K4B,   K4C,   K4D,   K4E,   KC_NO }, \
 }
-
-#endif
