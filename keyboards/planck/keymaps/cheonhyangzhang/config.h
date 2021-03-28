@@ -34,3 +34,5 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
+// Use 300 as the tapping thredhold
+#define TAPPING_TERM 300
