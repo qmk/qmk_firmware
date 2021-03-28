@@ -1,7 +1,7 @@
 /* TODO */
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #include "matrix.h"
 #include "action.h"
@@ -9,7 +9,12 @@
 #include "mousekey.h"
 #include "host.h"
 #include "suspend.h"
+#include "led.h"
 #include "wait.h"
+
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif /* AUDIO_ENABLE */
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -17,9 +22,6 @@
 
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
-extern rgblight_config_t rgblight_config;
-static bool              rgblight_enabled;
-static bool              is_suspended;
 #endif
 
 /** \brief suspend idle
@@ -47,19 +49,29 @@ __attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user
  * FIXME: needs doc
  */
 void suspend_power_down(void) {
+#ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
+#endif
+
+    // Turn off LED indicators
+    uint8_t leds_off = 0;
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+    if (is_backlight_enabled()) {
+        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+        leds_off |= (1 << USB_LED_CAPS_LOCK);
+    }
+#endif
+    led_set(leds_off);
+
     // TODO: figure out what to power down and how
     // shouldn't power down TPM/FTM if we want a breathing LED
     // also shouldn't power down USB
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-#    ifdef RGBLIGHT_ANIMATIONS
-    rgblight_timer_disable();
-#    endif
-    if (!is_suspended) {
-        is_suspended     = true;
-        rgblight_enabled = rgblight_config.enable;
-        rgblight_disable_noeeprom();
-    }
+    rgblight_suspend();
 #endif
+#ifdef AUDIO_ENABLE
+    stop_all_notes();
+#endif /* AUDIO_ENABLE */
 
     suspend_power_down_kb();
     // on AVR, this enables the watchdog for 15ms (max), and goes to
@@ -121,14 +133,9 @@ void suspend_wakeup_init(void) {
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif /* BACKLIGHT_ENABLE */
+    led_set(host_keyboard_leds());
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-    is_suspended = false;
-    if (rgblight_enabled) {
-        rgblight_enable_noeeprom();
-    }
-#    ifdef RGBLIGHT_ANIMATIONS
-    rgblight_timer_enable();
-#    endif
+    rgblight_wakeup();
 #endif
     suspend_wakeup_init_kb();
 }

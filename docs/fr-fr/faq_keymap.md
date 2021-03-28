@@ -12,7 +12,7 @@ Les keycodes sont définies dans [common/keycode.h](https://github.com/qmk/qmk_f
 
 Il existe 3 configurations de clavier standard utilisées dans le monde: ANSI, ISO et JIS. L'Amérique du Nord utilise principalement l'ANSI, l'Europe et l'Afrique l'ISO et le Japon utilise JIS. Les autres régions utilisent généralement ANSI ou ISO. Les keycodes correspondant à ces dispositions spécifiques sont affichés ici :
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+<!-- Source for this image: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
 
 ## Certaines de mes touches sont permutées ou ne fonctionnent pas
@@ -33,8 +33,8 @@ La touche trouvée sur la plupart des claviers modernes située entre `KC_RGUI` 
 Utilisez le keycode pour Print Screen (`KC_PSCREEN` or `KC_PSCR`) à la place de `KC_SYSREQ`. La combinaison de touche 'Alt + Print Screen' est reconnue comme 'System request'.
 
 Voir [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) et
-* http://en.wikipedia.org/wiki/Magic_SysRq_key
-* http://en.wikipedia.org/wiki/System_request
+* https://en.wikipedia.org/wiki/Magic_SysRq_key
+* https://en.wikipedia.org/wiki/System_request
 
 ## Les touches alimentation ne fonctionnent pas
 
@@ -54,12 +54,12 @@ Les touches de modification ou les calques peuvent être bloquées si la commuta
 Pour les touches de modification et les actions de calque, vous devez placer `KC_TRANS` sur la même position du calque de destination afin de désenregistrer la clé de modificateur ou de revenir au calque précédent lors de la libération.
 
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
-* http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+* https://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 * https://github.com/tmk/tmk_keyboard/issues/248
 
 ## Support de touche à verrouillage mécanique
 
-Cette fonctionnalité permet l'usage de *touches à verrouillage mécanique* comme [ces interrupteurs Alps](http://deskthority.net/wiki/Alps_SKCL_Lock). Vous pouvez l'activer en ajoutant ceci à votre `config.h` :
+Cette fonctionnalité permet l'usage de *touches à verrouillage mécanique* comme [ces interrupteurs Alps](https://deskthority.net/wiki/Alps_SKCL_Lock). Vous pouvez l'activer en ajoutant ceci à votre `config.h` :
 
 ```
 #define LOCKING_SUPPORT_ENABLE
@@ -72,24 +72,7 @@ Des vieux claviers mécaniques ont parfois des touches à verrouillage, mais les
 
 ## Ajouter des caractères spéciaux autres que ASCII comme la cédille 'Ç'
 
-IL N'EXISTE AUCUNE METHODE UNIVERSELLE POUR LES AJOUTER QUI FONCTIONNE SUR TOUS LES SYSTEMES. Vous devez définir une **MACRO** d'une manière spécifique à votre OS ou layout.
-
-Voir ce post pour un exemple de code **MACRO**.
-
-http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p195620
-
-Sous **Windows** vous pouvez utiliser la touche `AltGr` ou **Alt code**.
-* http://en.wikipedia.org/wiki/AltGr_key
-* http://en.wikipedia.org/wiki/Alt_code
-
-Sous **Mac OS** définissez une combinaison de touche `Option`.
-* http://en.wikipedia.org/wiki/Option_key#Alternative_keyboard_input
-
-Sous **Xorg** vous pouvez utiliser une touche `compose` à la place.
-* http://en.wikipedia.org/wiki/Compose_key
-
-Et voir ceci pour une entrée **Unicode**.
-* http://en.wikipedia.org/wiki/Unicode_input
+Voir la fonctionnalité [Unicode](feature_unicode.md).
 
 ## Touche `Fn` sur macOS
 
@@ -143,54 +126,6 @@ https://github.com/tekezo/Karabiner/issues/403
 Cette fonctionnalité permet d'utiliser une touche à la fois comme touche Échap ou une touche  `§` (En Azerty) selon le cas d’utilisation. Cela est très utile sur un clavier de petite taille.
 
 Voir la fonctionnalité [Grave Escape](feature_grave_esc.md).
-
-## Avoir les touches modificatrices qui ont double usage en flèches directionnelles.
-
-Ceci transforme les touches "modificateur droit" en touches fléchées lorsque les touches sont seulement "tapées" tout en restant des modificateurs lorsqu'elles sont maintenues.
-
-Dans TMK la fonction double rôle s'appelle **TAP**.
-
-```C
-
-#include "keymap_common.h"
-
-
-/* Arrow keys on right modifier keys with TMK dual role feature
- *
- *  https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#213-modifier-with-tap-keydual-role
- *  https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
- */
-const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* 0: qwerty */
-    [0] = LAYOUT( \
-        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NUHS,BSPC, \
-        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
-        LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,  \
-        LSFT,NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN0, ESC, \
-        FN4, LGUI,LALT,          SPC,                     APP, FN2, FN1, FN3),
-    [1] = LAYOUT( \
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,FN5, TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,                    TRNS,FN7, FN6, FN8),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_UP),
-    [1] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_DOWN),
-    [2] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_LEFT),
-    [3] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_RIGHT),
-    [4] = ACTION_LAYER_MOMENTARY(1),
-    [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_PGUP),
-    [6] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_PGDN),
-    [7] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_HOME),
-    [8] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_END),
-};
-
-```
-
-Touches double rôle : https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
 
 ## Eject sur Mac OSX
 

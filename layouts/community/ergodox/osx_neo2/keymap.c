@@ -5,6 +5,9 @@
 // Timer to detect tap/hold on NEO_RMOD3 key
 static uint16_t neo3_timer;
 // State bitmap to track which key(s) enabled NEO_3 layer
+// Bit 1 = LMOD state
+// Bit 2 = RMOD state
+// Bit 3 = Seen other keypress
 static uint8_t neo3_state = 0;
 // State bitmap to track key combo for CAPSLOCK
 static uint8_t capslock_state = 0;
@@ -453,6 +456,7 @@ void tap_with_modifiers(uint16_t keycode, uint8_t force_modifiers) {
 bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
   uint8_t active_modifiers = get_mods();
   uint8_t shifted          = active_modifiers & MOD_MASK_SHIFT;
+  uint8_t command          = active_modifiers & MOD_MASK_GUI;
 
   // Early return on key release
   if (!record->event.pressed) {
@@ -465,67 +469,81 @@ bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case NEO2_1:
         // degree symbol
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X_8) SS_UP(X_LSHIFT) SS_UP(X_LALT));
+        tap_code16(S(A(KC_8)));
         break;
       case NEO2_2:
         // section symbol
-        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_6) SS_UP(X_LALT));
+          tap_code16(A(KC_6));
         break;
       case NEO2_3:
-        // There is no OSX key combination for the script small l character
+        if (command) {
+          tap_code16(S(G(KC_3)));
+        } else {
+          // There is no OSX key combination for the script small l character
+        }
         break;
       case NEO2_4:
-        // right angled quote
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X_BSLASH) SS_UP(X_LSHIFT) SS_UP(X_LALT));
+        if (command) {
+          tap_code16(S(G(KC_4)));
+        } else {
+          tap_code16(S(A(KC_BSLASH)));
+        }
         break;
       case NEO2_5:
-        // left angled quote
-        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_BSLASH) SS_UP(X_LALT));
+        if (command) {
+          tap_code16(S(G(KC_5)));
+        } else {
+          // left angled quote
+          tap_code16(A(KC_BSLASH));
+        }
         break;
       case NEO2_6:
         // dollar sign
-        SEND_STRING(SS_DOWN(X_LSHIFT) SS_TAP(X_4) SS_UP(X_LSHIFT));
+        tap_code16(S(KC_4));
         break;
       case NEO2_7:
         // euro sign
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X_2) SS_UP(X_LSHIFT) SS_UP(X_LALT));
+        tap_code16(S(A(KC_2)));
         break;
       case NEO2_8:
         // low9 double quote
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X_W) SS_UP(X_LSHIFT) SS_UP(X_LALT));
+        tap_code16(S(A(KC_W)));
         break;
       case NEO2_9:
         // left double quote
-        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LBRACKET) SS_UP(X_LALT));
+        tap_code16(A(KC_LBRACKET));
         break;
       case NEO2_0:
         // right double quote
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X_LBRACKET) SS_UP(X_LSHIFT) SS_UP(X_LALT));
+        tap_code16(S(A(KC_LBRACKET)));
         break;
       case NEO2_MINUS:
         // em dash
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X_MINUS) SS_UP(X_LSHIFT) SS_UP(X_LALT));
+        tap_code16(S(A(KC_MINUS)));
         break;
       case NEO2_COMMA:
         // en dash
-        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_MINUS) SS_UP(X_LALT));
+        tap_code16(A(KC_MINUS));
         break;
       case NEO2_DOT:
         // bullet
-        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_8) SS_UP(X_LALT));
+        tap_code16(A(KC_8));
         break;
       case NEO2_SHARP_S:
         // german sharp s
-        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_S) SS_UP(X_LALT));
+        tap_code16(S(KC_S));
         break;
       case NEO2_UE:
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_U) SS_UP(X_U) SS_UP(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X_U) SS_UP(X_LSHIFT));
+        tap_code16(A(KC_U));
+        tap_code16(S(KC_U));
         break;
       case NEO2_OE:
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_U) SS_UP(X_U) SS_UP(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X_O) SS_UP(X_LSHIFT));
+        tap_code16(A(KC_U));
+        tap_code16(S(KC_O));
         break;
       case NEO2_AE:
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_U) SS_UP(X_U) SS_UP(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X_A) SS_UP(X_LSHIFT));
+        tap_code16(A(KC_U));
+        tap_code16(S(KC_A));
         break;
       default:
         set_mods(active_modifiers);
@@ -537,56 +555,59 @@ bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
   } else {
     switch (keycode) {
       case NEO2_1:
-        SEND_STRING(SS_TAP(X_1));
+        tap_code(KC_1);
         break;
       case NEO2_2:
-        SEND_STRING(SS_TAP(X_2));
+        tap_code(KC_2);
         break;
       case NEO2_3:
-        SEND_STRING(SS_TAP(X_3));
+        tap_code(KC_3);
         break;
       case NEO2_4:
-        SEND_STRING(SS_TAP(X_4));
+        tap_code(KC_4);
         break;
       case NEO2_5:
-        SEND_STRING(SS_TAP(X_5));
+        tap_code(KC_5);
         break;
       case NEO2_6:
-        SEND_STRING(SS_TAP(X_6));
+        tap_code(KC_6);
         break;
       case NEO2_7:
-        SEND_STRING(SS_TAP(X_7));
+        tap_code(KC_7);
         break;
       case NEO2_8:
-        SEND_STRING(SS_TAP(X_8));
+        tap_code(KC_8);
         break;
       case NEO2_9:
-        SEND_STRING(SS_TAP(X_9));
+        tap_code(KC_9);
         break;
       case NEO2_0:
-        SEND_STRING(SS_TAP(X_0));
+        tap_code(KC_0);
         break;
       case NEO2_MINUS:
-        SEND_STRING(SS_TAP(X_MINUS));
+        tap_code(KC_MINUS);
         break;
       case NEO2_COMMA:
-        SEND_STRING(SS_TAP(X_COMMA));
+        tap_code(KC_COMMA);
         break;
       case NEO2_DOT:
-        SEND_STRING(SS_TAP(X_DOT));
+        tap_code(KC_DOT);
         break;
       case NEO2_SHARP_S:
         // german sharp s
-        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_S) SS_UP(X_LALT));
+        tap_code16(A(KC_S));
         break;
       case NEO2_UE:
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_U) SS_UP(X_U) SS_UP(X_LALT) SS_TAP(X_U));
+        tap_code16(A(KC_U));
+        tap_code(KC_U);
         break;
       case NEO2_OE:
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_U) SS_UP(X_U) SS_UP(X_LALT) SS_TAP(X_O));
+        tap_code16(A(KC_U));
+        tap_code(KC_O);
         break;
       case NEO2_AE:
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_U) SS_UP(X_U) SS_UP(X_LALT) SS_TAP(X_A));
+        tap_code16(A(KC_U));
+        tap_code(KC_A);
         break;
       default:
         return true;
@@ -619,7 +640,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         neo3_state |= (1 << 1);
       } else {
         // Turn off NEO_3 layer unless it's enabled through NEO2_RMOD3 as well.
-        if ((neo3_state & ~(1 << 1)) == 0) {
+        if ((neo3_state & (1 << 2)) == 0) {
           layer_off(NEO_3);
         }
         neo3_state &= ~(1 << 1);
@@ -629,26 +650,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         neo3_timer = timer_read();
         neo3_state |= (1 << 2);
+        // Reset tap detection state
+        neo3_state &= ~(1 << 3);
         layer_on(NEO_3);
       } else {
         // Turn off NEO_3 layer unless it's enabled through NEO2_LMOD3 as well.
-        if ((neo3_state & ~(1 << 2)) == 0) {
+        if ((neo3_state & (1 << 1)) == 0) {
           layer_off(NEO_3);
         }
         neo3_state &= ~(1 << 2);
 
         // Was the NEO2_RMOD3 key TAPPED?
-        if (timer_elapsed(neo3_timer) <= 150) {
-          if (neo3_state > 0) {
+        if (timer_elapsed(neo3_timer) <= TAPPING_TERM) {
+          if ((neo3_state & ~(1 << 3)) > 0) {
             // We are still in NEO_3 layer, send keycode and modifiers for @
             tap_with_modifiers(KC_2, MOD_MASK_SHIFT);
             return false;
           } else {
             // Do the normal key processing, send y
-            tap_with_modifiers(KC_Y, MOD_MASK_NONE);
+            if ((neo3_state & (1 << 3)) == 0) {
+              tap_with_modifiers(KC_Y, MOD_MASK_NONE);
+            }
             return false;
           }
         }
+      }
+      break;
+    default:
+      if (record->event.pressed && neo3_state > 0) {
+        // Track that we've seen a separate keypress event
+        neo3_state |= (1 << 3);
       }
       break;
   }

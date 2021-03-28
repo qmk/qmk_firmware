@@ -6,7 +6,7 @@ Recursos de Git:
 
 * [Excelente tutorial general](https://www.codecademy.com/learn/learn-git)
 * [Juego de Git para aprender usando ejemplos](https://learngitbranching.js.org/)
-* [Recursos de Git para aprender más sobre Github](getting_started_github.md)
+* [Recursos de Git para aprender más sobre GitHub](getting_started_github.md)
 * [Recursos de Git dirigidos específicamente a QMK](contributing.md)
 
 

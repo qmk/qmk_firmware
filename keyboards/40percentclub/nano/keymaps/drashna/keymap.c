@@ -1,7 +1,22 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "drashna.h"
-#include "analog.c"
+#include "analog.h"
 #include "pointing_device.h"
-#include "pincontrol.h"
 
 #define KC_X0 LT(_FN, KC_ESC)
 
@@ -17,8 +32,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Joystick
 // Set Pins
-uint8_t xPin  = 8;   // VRx / /B4
-uint8_t yPin  = 7;   // VRy // B5
+// uint8_t xPin  = 8;   // VRx / /B4
+// uint8_t yPin  = 7;   // VRy // B5
 uint8_t swPin = E6;  // SW
 
 // Set Parameters
@@ -43,7 +58,7 @@ int16_t axisCoordinate(uint8_t pin, uint16_t origin) {
     int16_t distanceFromOrigin;
     int16_t range;
 
-    int16_t position = analogRead(pin);
+    int16_t position = analogReadPin(pin);
 
     if (origin == position) {
         return 0;
@@ -88,11 +103,11 @@ void pointing_device_task(void) {
     // todo read as one vector
     if (timer_elapsed(lastCursor) > cursorTimeout) {
         lastCursor = timer_read();
-        report.x   = axisToMouseComponent(xPin, xOrigin, maxCursorSpeed, xPolarity);
-        report.y   = axisToMouseComponent(yPin, yOrigin, maxCursorSpeed, yPolarity);
+        report.x   = axisToMouseComponent(B4, xOrigin, maxCursorSpeed, xPolarity);
+        report.y   = axisToMouseComponent(B5, yOrigin, maxCursorSpeed, yPolarity);
     }
     //
-    if (!readPin(swPin)) {
+    if (!readPin(E6)) {
         report.buttons |= MOUSE_BTN1;
     } else {
         report.buttons &= ~MOUSE_BTN1;
@@ -104,8 +119,8 @@ void pointing_device_task(void) {
 
 void matrix_init_keymap(void) {
     // init pin? Is needed?
-    setPinInputHigh(swPin);
+    setPinInputHigh(E6);
     // Account for drift
-    xOrigin = analogRead(xPin);
-    yOrigin = analogRead(yPin);
+    xOrigin = analogReadPin(B4);
+    yOrigin = analogReadPin(B5);
 }

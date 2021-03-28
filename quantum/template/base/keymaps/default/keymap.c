@@ -52,7 +52,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QMKURL:
             if (record->event.pressed) {
                 // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
+                SEND_STRING("https://qmk.fm/\n");
             } else {
                 // when keycode QMKURL is released
             }
@@ -60,17 +60,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-/*
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/

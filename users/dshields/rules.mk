@@ -10,7 +10,7 @@ SPACE_CADET_ENABLE    = no
 LEADER_ENABLE         = no
 DYNAMIC_MACRO_ENABLE  = yes
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 
 ifeq ($(strip $(KEYBOARD)), planck/rev3)
 	AUDIO_ENABLE	  = no
@@ -29,4 +29,3 @@ ifeq ($(strip $(KEYBOARD)), planck/light)
 	BACKLIGHT_ENABLE  = no
 	RGB_MATRIX_ENABLE = yes
 endif
-

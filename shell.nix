@@ -1,33 +1,36 @@
 { avr ? true, arm ? true, teensy ? true }:
 
 let
-  overlay = self: super:
-    let addDarwinSupport = pkg: pkg.overrideAttrs (oldAttrs: {
-      meta.platforms = (oldAttrs.meta.platforms or []) ++ self.lib.platforms.darwin;
-    });
-    in {
-      dfu-programmer = addDarwinSupport super.dfu-programmer;
-      teensy-loader-cli = addDarwinSupport super.teensy-loader-cli;
-
-      avrgcc = super.avrgcc.overrideAttrs (oldAttrs: rec {
-        name = "avr-gcc-8.1.0";
-        src = super.fetchurl {
-          url = "mirror://gcc/releases/gcc-8.1.0/gcc-8.1.0.tar.xz";
-          sha256 = "0lxil8x0jjx7zbf90cy1rli650akaa6hpk8wk8s62vk2jbwnc60x";
-        };
-      });
-    };
-
   nixpkgs = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/0260747427737b980f0.tar.gz";
-    sha256 = "1p2yc6b40xvvxvmlqd9wb440pkrimnlc2wsbpa5rddlpx1dn8qmf";
+    url = "https://github.com/NixOS/nixpkgs/archive/1f77a4c8c74bbe896053994836790aa9bf6dc5ba.tar.gz";
+    sha256 = "1j62nmzz3w33dplzf1xz1pg1pfkxii7lwdqmsxmc71cs9cm3s7n1";
   };
 
-  pkgs = import nixpkgs { overlays = [ overlay ]; };
+  pkgs = import nixpkgs { };
+
+  pythonEnv = pkgs.python3.withPackages (p: with p; [
+    # requirements.txt
+    appdirs
+    argcomplete
+    colorama
+    dotty-dict
+    hjson
+    jsonschema
+    milc
+    pygments
+    # requirements-dev.txt
+    nose2
+    flake8
+    pep8-naming
+    yapf
+  ]);
 in
 
 with pkgs;
-let avr_incflags = [
+let
+  avrlibc = pkgsCross.avr.libcCross;
+
+  avr_incflags = [
     "-isystem ${avrlibc}/avr/include"
     "-B${avrlibc}/avr/lib/avr5"
     "-L${avrlibc}/avr/lib/avr5"
@@ -37,14 +40,24 @@ let avr_incflags = [
     "-L${avrlibc}/avr/lib/avr51"
   ];
 in
-stdenv.mkDerivation {
+mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ dfu-programmer dfu-util diffutils git python3 ]
-    ++ lib.optional avr [ avrbinutils avrgcc avrlibc avrdude ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv ]
+    ++ lib.optional avr [
+      pkgsCross.avr.buildPackages.binutils
+      pkgsCross.avr.buildPackages.gcc8
+      avrlibc
+      avrdude
+    ]
     ++ lib.optional arm [ gcc-arm-embedded ]
     ++ lib.optional teensy [ teensy-loader-cli ];
 
-  CFLAGS = lib.optional avr avr_incflags;
-  ASFLAGS = lib.optional avr avr_incflags;
+  AVR_CFLAGS = lib.optional avr avr_incflags;
+  AVR_ASFLAGS = lib.optional avr avr_incflags;
+  shellHook = ''
+    # Prevent the avr-gcc wrapper from picking up host GCC flags
+    # like -iframework, which is problematic on Darwin
+    unset NIX_CFLAGS_COMPILE_FOR_TARGET
+  '';
 }

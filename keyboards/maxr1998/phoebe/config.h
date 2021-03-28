@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maxr1998
 #define PRODUCT         Phoebe
-#define DESCRIPTION     A 5x12 ortolinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -49,8 +48,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB LED Setup */
 #define RGB_DI_PIN          F0 // pin the DI on the WS2812B is hooked-up to
-#define RGBLIGHT_ANIMATIONS    // run RGB animations
 #define RGBLED_NUM          8  // number of LEDs
+
+/* Selectively enable animation effects */
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
+
+/* Leader key setup */
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 250
 
 /*
  * Feature disable options

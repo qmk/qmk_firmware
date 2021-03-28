@@ -124,7 +124,7 @@ void matrix_print(void)
     print_matrix_header();
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_matrix_row(row);
         print("\n");
     }
@@ -215,10 +215,7 @@ void matrix_init(void) {
     matrix_init_quantum();
 
     setPinInput(D5);
-   writePinLow(D5);
-
-   setPinInput(B0);
-   writePinLow(B0);
+    setPinInput(B0);
 }
 
 // modified for per col read matrix scan

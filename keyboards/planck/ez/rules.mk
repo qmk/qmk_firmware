@@ -1,15 +1,15 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
-## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
-MOUSEKEY_ENABLE = yes      # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = yes         # Console for debug(+400)
+BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes      # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = yes       # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
@@ -24,10 +24,9 @@ API_SYSEX_ENABLE = no
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 
-CUSTOM_MATRIX = no # Custom matrix file
 # SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
-RGB_MATRIX_ENABLE = IS31FL3737
+RGB_MATRIX_DRIVER = IS31FL3737
 
 LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no
