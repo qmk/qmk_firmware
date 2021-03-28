@@ -6,6 +6,9 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
+// qmk compile -kb atreus62
+// qmk flash -kb atreus62
+
 #include QMK_KEYBOARD_H
 
 enum layer_names {
