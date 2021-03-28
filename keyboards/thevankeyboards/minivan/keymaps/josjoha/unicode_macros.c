@@ -144,6 +144,11 @@ enum custom_keycodes {
     CHOLTAP_LSHFT, // Go to <configurable> layer, or shift modifier.
     CHOLTAP_LAYR,  // Go to _RAR layer, or right arrow 
 
+// Shifts which on tap produce a key
+
+   RSFT_TILDE,
+   LSFT_DASH,
+
 // Special macro to make F-keys one-shot or not.
     _FUN_STAY,
 
@@ -378,7 +383,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              &&
             (keycode != CHOLTAP_ACCE)    // _ACC layer (and others)
              &&
-            (keycode != CHOLTAP_LAYR)) { // _RAR layer, or RAlt/Alt-Gr
+            (keycode != RSFT_TILDE)      // Shift on _NSY
+             &&
+            (keycode != LSFT_DASH)       // Shift on _NSY
+             &&
+            (keycode != CHOLTAP_LAYR)) 
+                                       { // _RAR layer, or RAlt/Alt-Gr
             isolate_trigger = FALSE; // another key was pressed
         }
     }
@@ -1011,7 +1021,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // Held medium long: _PAD, long: _MOV.
                     // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
                     // all by the left hand, when the right hand is on the mouse.
-                    if ((timer_elapsed (key_timer) <= 200)) { // tapped medium-long (milliseconds)
+                    if ((timer_elapsed (key_timer) <= 200)) { // tapped short (milliseconds)
 
 # ifndef SWITCH_RSHIFT_FUN_RAR // user config to reverse what this key its timing toggles to
 
@@ -1096,6 +1106,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 # endif
 
+                }
+            }
+            break;
+        case RSFT_TILDE:
+
+            if (record->event.pressed) { // key down
+
+                SEND_STRING (SS_DOWN (X_RSFT)); 
+                shift_ison = 1; // shift depressed
+
+                key_timer = timer_read ();
+                isolate_trigger = TRUE; // keep track of whether another key gets pressed until key-up
+
+            }else{ // key up
+
+                SEND_STRING (SS_UP (X_RSFT)); 
+                shift_ison = 0; // shift released
+
+                if (isolate_trigger) { // no other key was hit since key down 
+
+
+                    // Held medium long: _PAD, long: _MOV.
+                    // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
+                    // all by the left hand, when the right hand is on the mouse.
+                    if ((timer_elapsed (key_timer) <= 200)) { // tapped short (milliseconds)
+
+                        SEND_STRING ("~");
+
+                    }
+                }
+            }
+            break;
+
+        case LSFT_DASH:
+
+            if (record->event.pressed) { // key down
+
+                SEND_STRING (SS_DOWN (X_RSFT)); 
+                shift_ison = 1; // shift depressed
+
+                key_timer = timer_read ();
+                isolate_trigger = TRUE; // keep track of whether another key gets pressed until key-up
+
+            }else{ // key up
+
+                SEND_STRING (SS_UP (X_RSFT)); 
+                shift_ison = 0; // shift released
+
+                if (isolate_trigger) { // no other key was hit since key down 
+
+
+                    // Held medium long: _PAD, long: _MOV.
+                    // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
+                    // all by the left hand, when the right hand is on the mouse.
+                    if ((timer_elapsed (key_timer) <= 200)) { // tapped short (milliseconds)
+
+                        SEND_STRING ("-");
+
+                    }
                 }
             }
             break;
