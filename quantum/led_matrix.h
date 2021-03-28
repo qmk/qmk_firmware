@@ -28,6 +28,14 @@
 #    include "is31fl3731-simple.h"
 #endif
 
+#ifndef LED_MATRIX_LED_FLUSH_LIMIT
+#    define LED_MATRIX_LED_FLUSH_LIMIT 16
+#endif
+
+#ifndef LED_MATRIX_LED_PROCESS_LIMIT
+#    define LED_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5
+#endif
+
 enum led_matrix_effects {
     LED_MATRIX_UNIFORM_BRIGHTNESS = 1,
     // All new effects go above this line
@@ -38,7 +46,7 @@ void led_matrix_set_index_value(int index, uint8_t value);
 void led_matrix_set_index_value_all(uint8_t value);
 
 // This runs after another backlight effect and replaces
-// colors already set
+// values already set
 void led_matrix_indicators(void);
 void led_matrix_indicators_kb(void);
 void led_matrix_indicators_user(void);
@@ -62,21 +70,33 @@ bool process_led_matrix(uint16_t keycode, keyrecord_t *record);
 uint32_t led_matrix_get_tick(void);
 
 void    led_matrix_toggle(void);
+void    led_matrix_toggle_noeeprom(void);
 void    led_matrix_enable(void);
 void    led_matrix_enable_noeeprom(void);
 void    led_matrix_disable(void);
 void    led_matrix_disable_noeeprom(void);
-void    led_matrix_step(void);
-void    led_matrix_step_reverse(void);
-void    led_matrix_increase_val(void);
-void    led_matrix_decrease_val(void);
-void    led_matrix_increase_speed(void);
-void    led_matrix_decrease_speed(void);
-void    led_matrix_mode(uint8_t mode, bool eeprom_write);
+uint8_t led_matrix_is_enabled(void);
+void    led_matrix_mode(uint8_t mode);
 void    led_matrix_mode_noeeprom(uint8_t mode);
 uint8_t led_matrix_get_mode(void);
-void    led_matrix_set_value(uint8_t mode);
-void    led_matrix_set_value_noeeprom(uint8_t mode);
+void    led_matrix_step(void);
+void    led_matrix_step_noeeprom(void);
+void    led_matrix_step_reverse(void);
+void    led_matrix_step_reverse_noeeprom(void);
+void    led_matrix_set_val(uint8_t val);
+void    led_matrix_set_val_noeeprom(uint8_t val);
+uint8_t led_matrix_get_val(void);
+void    led_matrix_increase_val(void);
+void    led_matrix_increase_val_noeeprom(void);
+void    led_matrix_decrease_val(void);
+void    led_matrix_decrease_val_noeeprom(void);
+void    led_matrix_set_speed(uint8_t speed);
+void    led_matrix_set_speed_noeeprom(uint8_t speed);
+uint8_t led_matrix_get_speed(void);
+void    led_matrix_increase_speed(void);
+void    led_matrix_increase_speed_noeeprom(void);
+void    led_matrix_decrease_speed(void);
+void    led_matrix_decrease_speed_noeeprom(void);
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */

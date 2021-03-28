@@ -24,6 +24,8 @@
 #include <string.h>
 #include <math.h>
 
+#include <lib/lib8tion/lib8tion.h>
+
 led_eeconfig_t led_matrix_eeconfig;
 
 #ifndef MAX
@@ -211,23 +213,6 @@ __attribute__((weak)) void led_matrix_indicators_kb(void) {}
 
 __attribute__((weak)) void led_matrix_indicators_user(void) {}
 
-// void led_matrix_set_indicator_index(uint8_t *index, uint8_t row, uint8_t column)
-// {
-//  if (row >= MATRIX_ROWS)
-//  {
-//      // Special value, 255=none, 254=all
-//      *index = row;
-//  }
-//  else
-//  {
-//      // This needs updated to something like
-//      // uint8_t led[8];
-//      // uint8_t led_count = map_row_column_to_led(row, column, led);
-//      // for(uint8_t i = 0; i < led_count; i++)
-//      map_row_column_to_led(row, column, index);
-//  }
-// }
-
 void led_matrix_init(void) {
     led_matrix_driver.init();
 
@@ -254,109 +239,108 @@ void led_matrix_init(void) {
     eeconfig_debug_led_matrix();  // display current eeprom values
 }
 
-// Deals with the messy details of incrementing an integer
-static uint8_t increment(uint8_t value, uint8_t step, uint8_t min, uint8_t max) {
-    int16_t new_value = value;
-    new_value += step;
-    return MIN(MAX(new_value, min), max);
-}
-
-static uint8_t decrement(uint8_t value, uint8_t step, uint8_t min, uint8_t max) {
-    int16_t new_value = value;
-    new_value -= step;
-    return MIN(MAX(new_value, min), max);
-}
-
-// void *backlight_get_custom_key_value_eeprom_address(uint8_t led) {
-//     // 3 bytes per value
-//     return EECONFIG_LED_MATRIX + (led * 3);
-// }
-
-// void backlight_get_key_value(uint8_t led, uint8_t *value) {
-//     void *address = backlight_get_custom_key_value_eeprom_address(led);
-//     value = eeprom_read_byte(address);
-// }
-
-// void backlight_set_key_value(uint8_t row, uint8_t column, uint8_t value) {
-//     uint8_t led[8];
-//     uint8_t led_count = map_row_column_to_led(row, column, led);
-//     for(uint8_t i = 0; i < led_count; i++) {
-//         if (led[i] < DRIVER_LED_TOTAL) {
-//             void *address = backlight_get_custom_key_value_eeprom_address(led[i]);
-//             eeprom_update_byte(address, value);
-//         }
-//     }
-// }
-
 uint32_t led_matrix_get_tick(void) { return g_tick; }
 
-void led_matrix_toggle(void) {
+void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;
-    eeconfig_update_led_matrix();
+    if (write_to_eeprom) {
+        eeconfig_update_led_matrix();
+    }
+    dprintf("led matrix toggle [%s]: led_matrix_eeconfig.enable = %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.enable);
 }
+void led_matrix_toggle_noeeprom(void) { led_matrix_toggle_eeprom_helper(false); }
+void led_matrix_toggle(void) { led_matrix_toggle_eeprom_helper(true); }
 
 void led_matrix_enable(void) {
-    led_matrix_eeconfig.enable = 1;
+    led_matrix_enable_noeeprom();
     eeconfig_update_led_matrix();
 }
 
 void led_matrix_enable_noeeprom(void) { led_matrix_eeconfig.enable = 1; }
 
 void led_matrix_disable(void) {
-    led_matrix_eeconfig.enable = 0;
+    led_matrix_disable_noeeprom();
     eeconfig_update_led_matrix();
 }
 
 void led_matrix_disable_noeeprom(void) { led_matrix_eeconfig.enable = 0; }
 
-void led_matrix_step(void) {
-    led_matrix_eeconfig.mode++;
-    if (led_matrix_eeconfig.mode >= LED_MATRIX_EFFECT_MAX) {
+uint8_t led_matrix_is_enabled(void) { return led_matrix_eeconfig.enable; }
+
+void led_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
+    if (!led_matrix_eeconfig.enable) {
+        return;
+    }
+    if (mode < 1) {
         led_matrix_eeconfig.mode = 1;
-    }
-    eeconfig_update_led_matrix();
-}
-
-void led_matrix_step_reverse(void) {
-    led_matrix_eeconfig.mode--;
-    if (led_matrix_eeconfig.mode < 1) {
+    } else if (mode >= LED_MATRIX_EFFECT_MAX) {
         led_matrix_eeconfig.mode = LED_MATRIX_EFFECT_MAX - 1;
+    } else {
+        led_matrix_eeconfig.mode = mode;
     }
-    eeconfig_update_led_matrix();
-}
-
-void led_matrix_increase_val(void) {
-    led_matrix_eeconfig.val = increment(led_matrix_eeconfig.val, 8, 0, LED_MATRIX_MAXIMUM_BRIGHTNESS);
-    eeconfig_update_led_matrix();
-}
-
-void led_matrix_decrease_val(void) {
-    led_matrix_eeconfig.val = decrement(led_matrix_eeconfig.val, 8, 0, LED_MATRIX_MAXIMUM_BRIGHTNESS);
-    eeconfig_update_led_matrix();
-}
-
-void led_matrix_increase_speed(void) {
-    led_matrix_eeconfig.speed = increment(led_matrix_eeconfig.speed, 1, 0, 3);
-    eeconfig_update_led_matrix();  // EECONFIG needs to be increased to support this
-}
-
-void led_matrix_decrease_speed(void) {
-    led_matrix_eeconfig.speed = decrement(led_matrix_eeconfig.speed, 1, 0, 3);
-    eeconfig_update_led_matrix();  // EECONFIG needs to be increased to support this
-}
-
-void led_matrix_mode(uint8_t mode, bool eeprom_write) {
-    led_matrix_eeconfig.mode = mode;
-    if (eeprom_write) {
+    if (write_to_eeprom) {
         eeconfig_update_led_matrix();
     }
+    dprintf("led matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.mode);
 }
+void led_matrix_mode_noeeprom(uint8_t mode) { led_matrix_mode_eeprom_helper(mode, false); }
+void led_matrix_mode(uint8_t mode) { led_matrix_mode_eeprom_helper(mode, true); }
 
 uint8_t led_matrix_get_mode(void) { return led_matrix_eeconfig.mode; }
 
-void led_matrix_set_value_noeeprom(uint8_t val) { led_matrix_eeconfig.val = val; }
-
-void led_matrix_set_value(uint8_t val) {
-    led_matrix_set_value_noeeprom(val);
-    eeconfig_update_led_matrix();
+void led_matrix_step_helper(bool write_to_eeprom) {
+    uint8_t mode = led_matrix_eeconfig.mode + 1;
+    led_matrix_mode_eeprom_helper((mode < LED_MATRIX_EFFECT_MAX) ? mode : 1, write_to_eeprom);
 }
+void led_matrix_step_noeeprom(void) { led_matrix_step_helper(false); }
+void led_matrix_step(void) { led_matrix_step_helper(true); }
+
+void led_matrix_step_reverse_helper(bool write_to_eeprom) {
+    uint8_t mode = led_matrix_eeconfig.mode - 1;
+    led_matrix_mode_eeprom_helper((mode < 1) ? LED_MATRIX_EFFECT_MAX - 1 : mode, write_to_eeprom);
+}
+void led_matrix_step_reverse_noeeprom(void) { led_matrix_step_reverse_helper(false); }
+void led_matrix_step_reverse(void) { led_matrix_step_reverse_helper(true); }
+
+void led_matrix_set_val_eeprom_helper(uint8_t val, bool write_to_eeprom) {
+    if (!led_matrix_eeconfig.enable) {
+        return;
+    }
+    led_matrix_eeconfig.val = (val > LED_MATRIX_MAXIMUM_BRIGHTNESS) ? LED_MATRIX_MAXIMUM_BRIGHTNESS : val;
+    if (write_to_eeprom) {
+        eeconfig_update_led_matrix();
+    }
+    dprintf("led matrix set val [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.val);
+}
+void led_matrix_set_val_noeeprom(uint8_t val) { led_matrix_set_val_eeprom_helper(val, false); }
+void led_matrix_set_val(uint8_t val) { led_matrix_set_val_eeprom_helper(val, true); }
+
+uint8_t led_matrix_get_val(void) { return led_matrix_eeconfig.val; }
+
+void led_matrix_increase_val_helper(bool write_to_eeprom) { led_matrix_set_val_eeprom_helper(qadd8(led_matrix_eeconfig.val, LED_MATRIX_VAL_STEP), write_to_eeprom); }
+void led_matrix_increase_val_noeeprom(void) { led_matrix_increase_val_helper(false); }
+void led_matrix_increase_val(void) { led_matrix_increase_val_helper(true); }
+
+void led_matrix_decrease_val_helper(bool write_to_eeprom) { led_matrix_set_val_eeprom_helper(qsub8(led_matrix_eeconfig.val, LED_MATRIX_VAL_STEP), write_to_eeprom); }
+void led_matrix_decrease_val_noeeprom(void) { led_matrix_decrease_val_helper(false); }
+void led_matrix_decrease_val(void) { led_matrix_decrease_val_helper(true); }
+
+void led_matrix_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
+    led_matrix_eeconfig.speed = speed;
+    if (write_to_eeprom) {
+        eeconfig_update_led_matrix();
+    }
+    dprintf("led matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.speed);
+}
+void led_matrix_set_speed_noeeprom(uint8_t speed) { led_matrix_set_speed_eeprom_helper(speed, false); }
+void led_matrix_set_speed(uint8_t speed) { led_matrix_set_speed_eeprom_helper(speed, true); }
+
+uint8_t led_matrix_get_speed(void) { return led_matrix_eeconfig.speed; }
+
+void led_matrix_increase_speed_helper(bool write_to_eeprom) { led_matrix_set_speed_eeprom_helper(qadd8(led_matrix_eeconfig.speed, LED_MATRIX_SPD_STEP), write_to_eeprom); }
+void led_matrix_increase_speed_noeeprom(void) { led_matrix_increase_speed_helper(false); }
+void led_matrix_increase_speed(void) { led_matrix_increase_speed_helper(true); }
+
+void led_matrix_decrease_speed_helper(bool write_to_eeprom) { led_matrix_set_speed_eeprom_helper(qsub8(led_matrix_eeconfig.speed, LED_MATRIX_SPD_STEP), write_to_eeprom); }
+void led_matrix_decrease_speed_noeeprom(void) { led_matrix_decrease_speed_helper(false); }
+void led_matrix_decrease_speed(void) { led_matrix_decrease_speed_helper(true); }
