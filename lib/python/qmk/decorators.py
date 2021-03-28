@@ -1,14 +1,12 @@
 """Helpful decorators that subcommands can use.
 """
 import functools
-from pathlib import Path
 from time import monotonic
 
 from milc import cli
 
 from qmk.keyboard import find_keyboard_from_dir
-from qmk.keymap import find_keymap_from_dir, is_keymap_dir
-from qmk.path import is_keyboard, under_qmk_firmware
+from qmk.keymap import find_keymap_from_dir
 
 
 def automagic_keyboard(func):
