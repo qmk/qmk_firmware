@@ -1,8 +1,8 @@
 # 基本的なキーコード
 
 <!---
-  original document: 0.10.54:docs/keycodes_basic.md
-  git diff 0.10.54 HEAD -- docs/keycodes_basic.md | cat
+  original document: 0.11.25:docs/keycodes_basic.md
+  git diff 0.11.25 HEAD -- docs/keycodes_basic.md | cat
 -->
 
 基本的なキーコードのセットは、`KC_NO`, `KC_TRNS` を例外として、[HID Keyboard/Keypad Usage Page (0x07)](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) に列挙されているキーコードから `0xA5-DF` の範囲のキーコードを除いたものに基づいています。
@@ -164,7 +164,7 @@
 |`KC_DOWN`         |                              |下矢印                                                 |
 |`KC_UP`           |                              |上矢印                                                 |
 |`KC_APPLICATION`  |`KC_APP`                      |アプリケーションキー (Windows コンテキストメニューキー)|
-|`KC_POWER`        |                              |システム電源 (macOS/Linux)                             |
+|`KC_POWER`        |                              |システム電源                                           |
 |`KC_EXECUTE`      |`KC_EXEC`                     |Execute                                                |
 |`KC_HELP`         |                              |Help                                                   |
 |`KC_MENU`         |                              |Menu                                                   |
@@ -176,9 +176,9 @@
 |`KC_COPY`         |                              |コピー                                                 |
 |`KC_PASTE`        |`KC_PSTE`                     |ペースト                                               |
 |`KC_FIND`         |                              |検索                                                   |
-|`KC__MUTE`        |                              |ミュート (macOS)                                       |
-|`KC__VOLUP`       |                              |音量アップ (macOS)                                     |
-|`KC__VOLDOWN`     |                              |音量ダウン (macOS)                                     |
+|`KC__MUTE`        |                              |ミュート                                               |
+|`KC__VOLUP`       |                              |音量アップ                                             |
+|`KC__VOLDOWN`     |                              |音量ダウン                                             |
 |`KC_ALT_ERASE`    |`KC_ERAS`                     |Alternate Erase                                        |
 |`KC_SYSREQ`       |                              |SysReq/Attention                                       |
 |`KC_CANCEL`       |                              |Cancel                                                 |
@@ -198,34 +198,34 @@
 
 ?> これらのキーコードのいくつかは、OS によって異なる行動をするかもしれません。例として、macOS では `KC_MEDIA_FAST_FORWARD`, `KC_MEDIA_REWIND`, `KC_MEDIA_NEXT_TRACK` と `KC_MEDIA_PREV_TRACK` は、押している間は現在の曲の中でスキップしますが、タップした時は曲全体をスキップします。
 
-|キー                   |エイリアス |説明                            |
-|-----------------------|-----------|--------------------------------|
-|`KC_SYSTEM_POWER`      |`KC_PWR`   |システム電源オフ                |
-|`KC_SYSTEM_SLEEP`      |`KC_SLEP`  |システムスリープ                |
-|`KC_SYSTEM_WAKE`       |`KC_WAKE`  |システムスリープ解除            |
-|`KC_AUDIO_MUTE`        |`KC_MUTE`  |ミュート                        |
-|`KC_AUDIO_VOL_UP`      |`KC_VOLU`  |音量アップ                      |
-|`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`  |音量ダウン                      |
-|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`  |次の曲へ                        |
-|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`  |前の曲へ                        |
-|`KC_MEDIA_STOP`        |`KC_MSTP`  |再生停止 (Windows)              |
-|`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`  |再生/一時停止                   |
-|`KC_MEDIA_SELECT`      |`KC_MSEL`  |Media Player 起動 (Windows)     |
-|`KC_MEDIA_EJECT`       |`KC_EJCT`  |イジェクト (macOS)              |
-|`KC_MAIL`              |           |メール起動 (Windows)            |
-|`KC_CALCULATOR`        |`KC_CALC`  |電卓起動 (Windows)              |
-|`KC_MY_COMPUTER`       |`KC_MYCM`  |マイコンピュータを開く (Windows)|
-|`KC_WWW_SEARCH`        |`KC_WSCH`  |ブラウザ検索 (Windows)          |
-|`KC_WWW_HOME`          |`KC_WHOM`  |ブラウザホーム画面 (Windows)    |
-|`KC_WWW_BACK`          |`KC_WBAK`  |ブラウザ戻る (Windows)          |
-|`KC_WWW_FORWARD`       |`KC_WFWD`  |ブラウザ進む (Windows)          |
-|`KC_WWW_STOP`          |`KC_WSTP`  |ブラウザ読み込み中止 (Windows)  |
-|`KC_WWW_REFRESH`       |`KC_WREF`  |ブラウザ再読み込み (Windows)    |
-|`KC_WWW_FAVORITES`     |`KC_WFAV`  |ブラウザお気に入り (Windows)    |
-|`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`  |次の曲へ (macOS)                |
-|`KC_MEDIA_REWIND`      |`KC_MRWD`  |前の曲へ (macOS)                |
-|`KC_BRIGHTNESS_UP`     |`KC_BRIU`  |画面の明るさアップ              |
-|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`  |画面の明るさダウン              |
+|キー                   |エイリアス |説明                  |
+|-----------------------|-----------|----------------------|
+|`KC_SYSTEM_POWER`      |`KC_PWR`   |システム電源オフ      |
+|`KC_SYSTEM_SLEEP`      |`KC_SLEP`  |システムスリープ      |
+|`KC_SYSTEM_WAKE`       |`KC_WAKE`  |システムスリープ解除  |
+|`KC_AUDIO_MUTE`        |`KC_MUTE`  |ミュート              |
+|`KC_AUDIO_VOL_UP`      |`KC_VOLU`  |音量アップ            |
+|`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`  |音量ダウン            |
+|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`  |次の曲へ              |
+|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`  |前の曲へ              |
+|`KC_MEDIA_STOP`        |`KC_MSTP`  |再生停止              |
+|`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`  |再生/一時停止         |
+|`KC_MEDIA_SELECT`      |`KC_MSEL`  |Media Player 起動     |
+|`KC_MEDIA_EJECT`       |`KC_EJCT`  |イジェクト            |
+|`KC_MAIL`              |           |メール起動            |
+|`KC_CALCULATOR`        |`KC_CALC`  |電卓起動              |
+|`KC_MY_COMPUTER`       |`KC_MYCM`  |マイコンピュータを開く|
+|`KC_WWW_SEARCH`        |`KC_WSCH`  |ブラウザ検索          |
+|`KC_WWW_HOME`          |`KC_WHOM`  |ブラウザホーム画面    |
+|`KC_WWW_BACK`          |`KC_WBAK`  |ブラウザ戻る          |
+|`KC_WWW_FORWARD`       |`KC_WFWD`  |ブラウザ進む          |
+|`KC_WWW_STOP`          |`KC_WSTP`  |ブラウザ読み込み中止  |
+|`KC_WWW_REFRESH`       |`KC_WREF`  |ブラウザ再読み込み    |
+|`KC_WWW_FAVORITES`     |`KC_WFAV`  |ブラウザお気に入り    |
+|`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`  |次の曲へ              |
+|`KC_MEDIA_REWIND`      |`KC_MRWD`  |前の曲へ              |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`  |画面の明るさアップ    |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`  |画面の明るさダウン    |
 
 ## テンキー
 
@@ -253,7 +253,7 @@
 
 ## 特別なキー
 
-これらのキーコードに加えて、`0xA5-DF` の範囲のキーコードは、TMK によって内部処理のために予約されています。
+これらのキーコードに加えて、`0xA5-DF` の範囲のキーコードは、内部処理のために予約されています。
 
 |キー            |エイリアス          |説明                               |
 |----------------|--------------------|-----------------------------------|
