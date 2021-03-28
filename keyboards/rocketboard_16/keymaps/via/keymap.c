@@ -378,7 +378,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
     default: // For any key other than EX, simply let QMK process after saving away what it was
         memset(lastKeycodeString, 0, sizeof(lastKeycodeString));
-        memcpy(lastKeycodeString, translate_keycode_to_string(keycode), sizeof(keycode_to_string_array[0]));
+        memcpy(lastKeycodeString, translate_keycode_to_string(keycode), sizeof(((lookup_table_t *)0)->key_string));
         ret = true;
         break;
     }

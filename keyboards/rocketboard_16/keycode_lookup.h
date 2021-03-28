@@ -6,9 +6,15 @@
 extern "C" {
 #endif
 
-char* translate_keycode_to_string(uint8_t code);
+typedef struct
+{
+    char key_string[17];
+    uint16_t keycode;
+} lookup_table_t;
 
-extern char keycode_to_string_array [] [24];
+char* translate_keycode_to_string(uint16_t code);
+
+extern lookup_table_t lookup_table[366];
 
 #ifdef __cplusplus
 }
