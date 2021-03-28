@@ -10,11 +10,15 @@ Additionally, in your `config.h`, you'll need to specify the number of combos th
 Then, in your `keymap.c` file, you'll need to define a sequence of keys, terminated with `COMBO_END`, and a structure to list the combination of keys, and its resulting action.
 
 ```c
-const uint16_t PROGMEM test_combo[] = {KC_A, KC_B, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
+const uint16_t PROGMEM test_combo1[] = {KC_A, KC_B, COMBO_END};
+const uint16_t PROGMEM test_combo2[] = {KC_C, KC_D, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(test_combo1, KC_ESC),
+    COMBO(test_combo2, LCTL(KC_Z)), // keycodes with modifiers are possible too!
+};
 ```
 
-This will send "Escape" if you hit the A and B keys.
+This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit C and D keys.
 
 As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to fire combos from ModTap keys and LayerTap keys. So in the above example you could have keys `LSFT_T(KC_A)` and `LT(_LAYER, KC_B)` and it would work. So Home Row Mods and Home Row Combos at same time is now a thing!
 
@@ -61,38 +65,42 @@ Additionally, this example shows how you can leave `COMBO_COUNT` undefined.
 
 ```c
 enum combo_events {
-  ZC_COPY,
-  XV_PASTE,
+  TH_THE,
+  BSPC_LSFT_CLEAR,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
-const uint16_t PROGMEM copy_combo[] = {KC_Z, KC_C, COMBO_END};
-const uint16_t PROGMEM paste_combo[] = {KC_X, KC_V, COMBO_END};
+const uint16_t PROGMEM the_combo[] = {KC_BSPC, KC_T, COMBO_END};
+const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_LSFT, COMBO_END};
 
 combo_t key_combos[] = {
-  [ZC_COPY] = COMBO_ACTION(copy_combo),
-  [XV_PASTE] = COMBO_ACTION(paste_combo),
+  [TH_THE] = COMBO_ACTION(the_combo),
+  [BSPC_LSFT_CLEAR] = COMBO_ACTION(clear_line_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-    case ZC_COPY:
+    case TH_THE:
       if (pressed) {
-        tap_code16(LCTL(KC_C));
+        SEND_STRING("the");
       }
       break;
     case XV_PASTE:
       if (pressed) {
-        tap_code16(LCTL(KC_V));
+        tap_code16(KC_END);
+        tap_code16(S(KC_HOME));
+        tap_code16(KC_BSPC);
       }
       break;
   }
 }
 ```
 
-This will send Ctrl+C if you hit Z and C, and Ctrl+V if you hit X and V. But you could change this to do stuff like play sounds or change settings.
+This will send "the" if you hit Backspace and T, and clear the current line with Backspace and Left-Shift. But you could change this to do stuff like play sounds or change settings.
+
+It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/) it is possible to run your own custom keycodes from combos. Just define the custom keycode, it's functionality in `process_record_user`, and define a combo with `COMBO(<key_array>, <your_custom_keycode>)`.
 
 ## Keycodes
 You can enable, disable and toggle the Combo feature on the fly. This is useful if you need to disable them temporarily, such as for a game. The following keycodes are available for use in your `keymap.c`
@@ -300,14 +308,18 @@ In addition to the keycodes, there are a few functions that you can use to set t
 Having 3 places to update when adding new combos or altering old ones does become cumbersome when you have a lot of combos. We can alleviate this with some magic! ... If you consider C macros magic.
 First, you need to add `VPATH += keyboards/gboards` to your `rules.mk`. Next, include the file `g/keymap_combo.h` in your `keymap.c`.
 
+!> This functionality uses the same `process_combo_event` function as `COMBO_ACTION` macros do, so you cannot use the function yourself in your keymap. Instead you have to define the `swith` statement's `case`s by themselves within `inject.h`, which `g/keymap_combo.h` then will include into the function.
+
 Then, write your combos in `combos.def` file in the following manner:
 
 ```c
 //   name     result    chord keys
-COMB(AB_ESC,  KC_ESC,   KC_A, KC_B)
-COMB(JK_TAB,  KC_TAB,   KC_J, KC_K)
-COMB(JKL_SPC, KC_SPC,   KC_J, KC_K, KC_L)
-COMB(ZC_COPY, KC_NO,    KC_Z, KC_C) // using KC_NO as the resulting keycode is the same as COMBO_ACTION before.
+COMB(AB_ESC,   KC_ESC,   KC_A, KC_B)
+COMB(JK_TAB,   KC_TAB,   KC_J, KC_K)
+COMB(JKL_SPC,  KC_SPC,   KC_J, KC_K, KC_L)
+COMB(BSSL_CLR, KC_NO,    KC_BSPC, KC_LSFT) // using KC_NO as the resulting keycode is the same as COMBO_ACTION before.
+COMB(QW_UNDO,  C(KC_Z),  KC_Q, KC_W)
+SUBS(TH_THE,   "the",    KC_T, KC_H) // SUBS uses SEND_STRING to output the given string.
 ...
 ```
 
