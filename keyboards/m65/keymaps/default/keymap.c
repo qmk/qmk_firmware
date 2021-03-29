@@ -66,8 +66,8 @@ static inline void led_lwr(const bool on){
 }
 
 static inline void led_rse(const bool on){
-#ifdef KEYBOARD_m65_rev1
-    writePin(B13, on);
+#ifdef LED_CAPS_LOCK_PIN 
+    writePin(LED_CAPS_LOCK_PIN , on);
 #endif
 }
 
