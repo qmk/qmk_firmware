@@ -25,7 +25,7 @@
 #define MANUFACTURER    wilba.tech
 #define PRODUCT         wilba.tech WT60-XT
 
-#define C6_AUDIO
+#define AUDIO_PIN C6
 #define AUDIO_CLICKY
 
 /* key matrix size */

@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define AUDIO_CLICKY
 // #define AUDIO_CLICKY_ON
-// #define C6_AUDIO
+// #define AUDIO_PIN C6
 // #define AUDIO_CLICKY_FREQ_RANDOMNESS 0.1f
 // #define AUDIO_CLICKY_FREQ_MAX 100.0f
 

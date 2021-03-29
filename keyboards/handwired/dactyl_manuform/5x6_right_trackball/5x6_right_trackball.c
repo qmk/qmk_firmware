@@ -85,7 +85,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef POINTING_DEVICE_ENABLE
     if (keycode == DPI_CONFIG && record->event.pressed) {
-        keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+        if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
+            keyboard_config.dpi_config = (keyboard_config.dpi_config - 1) % DPI_OPTION_SIZE;
+        } else {
+            keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+        }
         eeconfig_update_kb(keyboard_config.raw);
         trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }

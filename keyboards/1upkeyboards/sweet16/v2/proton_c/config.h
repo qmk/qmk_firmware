@@ -18,3 +18,7 @@
 #define ENCODERS_PAD_A { A2 }
 #define ENCODERS_PAD_B { A1 }
 #define ENCODER_RESOLUTION 4
+
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE

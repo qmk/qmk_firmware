@@ -42,7 +42,7 @@ def template_json(keyboard):
     template_file = Path('keyboards/%s/templates/keymap.json' % keyboard)
     template = {'keyboard': keyboard}
     if template_file.exists():
-        template.update(json.loads(template_file.read_text()))
+        template.update(json.load(template_file.open(encoding='utf-8')))
 
     return template
 
@@ -58,7 +58,7 @@ def template_c(keyboard):
     """
     template_file = Path('keyboards/%s/templates/keymap.c' % keyboard)
     if template_file.exists():
-        template = template_file.read_text()
+        template = template_file.read_text(encoding='utf-8')
     else:
         template = DEFAULT_KEYMAP_C
 
@@ -469,7 +469,7 @@ def parse_keymap_c(keymap_file, use_cpp=True):
         if use_cpp:
             keymap_file = _c_preprocess(keymap_file)
         else:
-            keymap_file = keymap_file.read_text()
+            keymap_file = keymap_file.read_text(encoding='utf-8')
 
     keymap = dict()
     keymap['layers'] = _get_layers(keymap_file)

@@ -105,3 +105,7 @@ We use custom codes here, so we can substitute the right stuff
 #    define KC_D3_3 KC_3
 #    define KC_D3_4 KC_4
 #endif  // TAP_DANCE_ENABLE
+
+#if defined(DRASHNA_CUSTOM_TRANSPORT) && defined(POINTING_DEVICE_ENABLE)
+void master_mouse_send(int8_t x, int8_t y);
+#endif

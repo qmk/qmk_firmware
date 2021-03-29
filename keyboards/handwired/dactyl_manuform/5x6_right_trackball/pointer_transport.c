@@ -77,7 +77,8 @@ typedef struct _I2C_slave_buffer_t {
     bool          oled_on;
     layer_state_t t_layer_state;
     layer_state_t t_default_layer_state;
-} I2C_slave_buffer_t;
+    bool          is_rgb_matrix_suspended;
+} __attribute__((packed)) I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
 
@@ -93,9 +94,10 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_MOUSE_X_START offsetof(I2C_slave_buffer_t, mouse_x)
 #    define I2C_MOUSE_Y_START offsetof(I2C_slave_buffer_t, mouse_y)
 #    define I2C_MOUSE_DPI_START offsetof(I2C_slave_buffer_t, device_cpi)
-#    define I2C_OLED_ON_START offsetof(I2C_slave_buffent, oled_on)
-#    define I2C_LAYER_STATE_START offsetof(I2C_slave_buffent, t_layer_state)
-#    define I2C_DEFAULT_LAYER_STATE_START offsetof(I2C_slave_buffent, t_default_layer_state)
+#    define I2C_OLED_ON_START offsetof(I2C_slave_buffer_t, oled_on)
+#    define I2C_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_layer_state)
+#    define I2C_DEFAULT_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_default_layer_state)
+#    define I2C_RGB_MATRIX_SUSPEND_START offsetof(I2C_slave_buffer_t, is_rgb_matrix_suspended)
 
 #    define TIMEOUT 100
 
@@ -196,9 +198,19 @@ bool transport_master(matrix_row_t matrix[]) {
     }
 
 #    ifdef OLED_DRIVER_ENABLE
-    if (is_oled_on() != i2c_buffer->oled_on) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LAYER_STATE_START, (void *)&is_oled_on(), sizeof(bool), TIMEOUT) >= 0) {
-            i2c_buffer->oled_on = is_oled_on();
+    bool is_oled_on = is_oled_on();
+    if (is_oled_on != i2c_buffer->oled_on) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LAYER_STATE_START, (void *)&is_oled_on, sizeof(is_oled_on), TIMEOUT) >= 0) {
+            i2c_buffer->oled_on = is_oled_on;
+        }
+    }
+#    endif
+
+#    ifdef RGB_MATRIX_ENABLE
+    bool sus_state = rgb_matrix_get_suspend_state();
+    if (sus_state != i2c_buffer->is_rgb_matrix_suspended) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_MATRIX_SUSPEND_START, (void *)&sus_state, sizeof(sus_state), TIMEOUT) >= 0) {
+            i2c_buffer->is_rgb_matrix_suspended = sus_state;
         }
     }
 #    endif
@@ -255,10 +267,10 @@ void transport_slave(matrix_row_t matrix[]) {
 #    endif
 
     if (layer_state != i2c_buffer->t_layer_state) {
-        layer_state_set(i2c_buffer->t_layer_state);
+        layer_state = i2c_buffer->t_layer_state;
     }
     if (default_layer_state != i2c_buffer->t_default_layer_state) {
-        default_layer_state_set(i2c_buffer->t_default_layer_state);
+        default_layer_state = i2c_buffer->t_default_layer_state;
     }
 
 #    ifdef OLED_DRIVER_ENABLE
@@ -267,6 +279,10 @@ void transport_slave(matrix_row_t matrix[]) {
     } else {
         oled_off();
     }
+#    endif
+
+#    ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_set_suspend_state(i2c_buffer->is_rgb_matrix_suspended);
 #    endif
 }
 
@@ -286,7 +302,7 @@ typedef struct _Serial_s2m_buffer_t {
 #    endif
     int8_t       mouse_x;
     int8_t       mouse_y;
-} Serial_s2m_buffer_t;
+} __attribute__((packed)) Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
 #    ifdef SPLIT_MODS_ENABLE
@@ -309,7 +325,8 @@ typedef struct _Serial_m2s_buffer_t {
     bool          oled_on;
     layer_state_t t_layer_state;
     layer_state_t t_default_layer_state;
-} Serial_m2s_buffer_t;
+    bool          is_rgb_matrix_suspended;
+} __attribute__((packed)) Serial_m2s_buffer_t;
 
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
 // When MCUs on both sides drive their respective RGB LED chains,
@@ -434,10 +451,14 @@ bool transport_master(matrix_row_t matrix[]) {
     }
 #    endif
 
-    serial_m2s_buffer.t_layer_state         = layer_state;
-    serial_m2s_buffer.t_default_layer_state = default_layer_state;
+    serial_m2s_buffer.t_layer_state           = layer_state;
+    serial_m2s_buffer.t_default_layer_state   = default_layer_state;
 #    ifdef OLED_DRIVER_ENABLE
-    serial_m2s_buffer.oled_on               = is_oled_on();
+    serial_m2s_buffer.oled_on                 = is_oled_on();
+#    endif
+
+#    ifdef RGB_MATRIX_ENABLE
+    serial_m2s_buffer.is_rgb_matrix_suspended = rgb_matrix_get_suspend_state();
 #    endif
 
     return true;
@@ -484,10 +505,10 @@ void transport_slave(matrix_row_t matrix[]) {
 #    endif
 
     if (layer_state != serial_m2s_buffer.t_layer_state) {
-        layer_state_set(serial_m2s_buffer.t_layer_state);
+        layer_state = serial_m2s_buffer.t_layer_state;
     }
     if (default_layer_state != serial_m2s_buffer.t_default_layer_state) {
-        default_layer_set(serial_m2s_buffer.t_default_layer_state);
+        default_layer_state = serial_m2s_buffer.t_default_layer_state;
     }
 #    ifdef OLED_DRIVER_ENABLE
     if (serial_m2s_buffer.oled_on) {
@@ -495,6 +516,10 @@ void transport_slave(matrix_row_t matrix[]) {
     } else {
         oled_off();
     }
+#    endif
+
+#    ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_set_suspend_state(serial_m2s_buffer.is_rgb_matrix_suspended);
 #    endif
 }
 

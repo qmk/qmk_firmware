@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define B5_AUDIO
+  #define AUDIO_PIN B5
 #endif
 
 /* ws2812 RGB LED */

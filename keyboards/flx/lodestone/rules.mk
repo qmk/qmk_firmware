@@ -28,7 +28,6 @@ MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 LTO_ENABLE = yes
 
 LAYOUTS = 65_ansi_blocker 65_ansi_blocker_split_bs 65_iso_blocker 65_iso_blocker_split_bs

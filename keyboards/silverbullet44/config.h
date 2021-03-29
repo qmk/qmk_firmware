@@ -111,7 +111,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define B6_AUDIO
+  #define AUDIO_PIN B6
   #define STARTUP_SONG SONG(STARTUP_SOUND)
   #define AUDIO_CLICKY
   #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f

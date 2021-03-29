@@ -5,8 +5,8 @@
     "width": 4,
     "height": 5,
     "layouts": {
-        "default": {
-            "LAYOUT": [
+        "LAYOUT": {
+            "layout": [
                 {"label": "Mute", "x": 0, "y": 0, "w": 1.3},
                 {"label": "MDPL", "x": 1.3, "y": 0, "w": 1.4},
                 {"label": "MDNX", "x": 2.7, "y": 0, "w": 1.3},

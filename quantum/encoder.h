@@ -20,7 +20,7 @@
 #include "quantum.h"
 
 void encoder_init(void);
-void encoder_read(void);
+bool encoder_read(void);
 
 void encoder_update_kb(int8_t index, bool clockwise);
 void encoder_update_user(int8_t index, bool clockwise);

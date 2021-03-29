@@ -1,0 +1,16 @@
+{
+  "keyboard_name": "ANAVI Macro Pad 2",
+  "url": "https://anavi.technology/",
+  "maintainer": "leon-anavi",
+  "width": 2,
+  "height": 1,
+  "layouts": {
+    "LAYOUT": {
+      "key_count": 2,
+      "layout": [
+        {"x":0, "y":0},
+        {"x":1, "y":0}
+      ]
+    }
+  }
+}

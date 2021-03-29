@@ -36,12 +36,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (!(process_record_keymap(keycode, record) && process_record_secrets(keycode, record)
 #ifdef RGB_MATRIX_ENABLE
-        && process_record_user_rgb_matrix(keycode, record)
+          && process_record_user_rgb_matrix(keycode, record)
 #endif
 #ifdef RGBLIGHT_ENABLE
-        && process_record_user_rgb_light(keycode, record)
+          && process_record_user_rgb_light(keycode, record)
 #endif
-    && true)) {
+          && true)) {
         return false;
     }
 

@@ -27,7 +27,8 @@ def _check_modules(requirements):
                 line = line.split('#')[0]
 
             module = dict()
-            module['name'] = module['import'] = line.split('=')[0] if '=' in line else line
+            module['name'] = line.split('=')[0] if '=' in line else line
+            module['import'] = module['name'].replace('-', '_')
 
             # Not every module is importable by its own name.
             if module['name'] == "pep8-naming":

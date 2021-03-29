@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in

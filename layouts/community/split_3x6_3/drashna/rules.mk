@@ -29,6 +29,6 @@ endif
 
 ifeq ($(strip $(CTPC)), yes)
     HAPTIC_ENABLE = no
-    WS2812_DRIVER = pwm
+    WS2812_DRIVER = pwm # won't work without a patch to the ctpc mk file
     SERIAL_DRIVER = usart
 endif

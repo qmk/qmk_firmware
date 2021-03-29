@@ -27,13 +27,13 @@ enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
 
 #define LAYOUT_moonlander_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
     ) \
     LAYOUT_moonlander_wrapper( \
         KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,        UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS, \
-        KC_TAB,  K01,     K02,     K03,     K04,     K05,   TG(_DIABLO),TG(_DIABLO),   K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-        KC_C1R3, K11,     K12,     K13,     K14,     K15,  TG(_GAMEPAD),TG(_GAMEPAD),  K16,     K17,     K18,     K19,     K1A,     RALT_T(KC_QUOT), \
+        KC_TAB,  K01,     K02,     K03,     K04,     K05,   TG_DBLO,TG_DBLO,   K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
+        KC_C1R3, K11,     K12,     K13,     K14,     K15,  TG_GAME,TG_GAME,  K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
         KC_MLSF, CTL_T(K21), K22,  K23,     K24,     K25,                              K26,     K27,     K28,     K29,  RCTL_T(K2A),KC_MRSF, \
         KC_GRV,  OS_MEH,  OS_HYPR, KC_LBRC, KC_RBRC,          KC_NO,          KC_DEL,           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E), \
                                             KC_SPC,  BK_LWER, OS_LALT,        OS_RGUI, DL_RAIS, KC_ENT \
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GAMEPAD] = LAYOUT_moonlander_wrapper(
         KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4, HYPR(KC_Q),                 KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
         KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    UC_SHRG, UC_DISA, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,    KC_TRNS,            TG(_GAMEPAD), KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,    KC_TRNS,            TG_GAME, KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,                                      KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_GRV,  KC_U,    KC_I,    KC_Y,    KC_T,             KC_PSCR,                 _______,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
                                             KC_V,    KC_SPC,  KC_H,                    KC_NO, KC_NO,  KC_SWAP_NUM

@@ -342,28 +342,6 @@ void unicode_action_function(uint16_t hi, uint16_t lo) {
     }
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    if (!record->event.pressed) {
-        return MACRO_NONE;
-    }
-    // MACRODOWN only works in this function
-    switch(id) {
-        case UM:
-            unicode_mode = (unicode_mode + 1) % 2;
-            break;
-
-
-        default:
-            break;
-    }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);

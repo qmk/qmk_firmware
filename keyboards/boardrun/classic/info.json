@@ -2,7 +2,6 @@
     "keyboard_name": "Boardrun Classic",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/boardrun/classic",
     "maintainer": "QMK Community",
-    "manufacturer": "shensmobile",
     "width": 16.5,
     "height": 5,
     "layouts": {

@@ -41,17 +41,3 @@ const uint16_t PROGMEM fn_actions[] = {
   [BASE] = ACTION_LAYER_OFF(2, 1),  // switch back to layer 0
   [MOUS] = ACTION_LAYER_ON(2, 1)  // switch to layer 2
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-      } else {
-        unregister_code(KC_RSFT);
-      }
-    break;
-  }
-  return MACRO_NONE;
-};
