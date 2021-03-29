@@ -233,6 +233,7 @@ endif
     SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
     SRC += $(QUANTUM_DIR)/led_matrix.c
     SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+    CIE1931_CURVE := yes
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3731)
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE

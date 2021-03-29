@@ -23,6 +23,7 @@
 #include "eeprom.h"
 #include <string.h>
 #include <math.h>
+#include "led_tables.h"
 
 #include <lib/lib8tion/lib8tion.h>
 
@@ -108,8 +109,10 @@ void eeconfig_debug_led_matrix(void) {
 uint8_t g_last_led_hit[LED_HITS_TO_REMEMBER] = {255};
 uint8_t g_last_led_count                     = 0;
 
-uint8_t map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i) {
-    uint8_t led_count = 0;
+__attribute__((weak)) uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) { return 0; }
+
+uint8_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i) {
+    uint8_t led_count = led_matrix_map_row_column_to_led_kb(row, column, led_i);
     uint8_t led_index = g_led_config.matrix_co[row][column];
     if (led_index != NO_LED) {
         led_i[led_count] = led_index;
@@ -120,14 +123,26 @@ uint8_t map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i) {
 
 void led_matrix_update_pwm_buffers(void) { led_matrix_driver.flush(); }
 
-void led_matrix_set_index_value(int index, uint8_t value) { led_matrix_driver.set_value(index, value); }
+void led_matrix_set_value(int index, uint8_t value) {
+#ifdef USE_CIE1931_CURVE
+    led_matrix_driver.set_value(index, pgm_read_byte(&CIE1931_CURVE[value]));
+#else
+    led_matrix_driver.set_value(index, value);
+#endif
+}
 
-void led_matrix_set_index_value_all(uint8_t value) { led_matrix_driver.set_value_all(value); }
+void led_matrix_set_value_all(uint8_t value) {
+#ifdef USE_CIE1931_CURVE
+    led_matrix_driver.set_value_all(pgm_read_byte(&CIE1931_CURVE[value]));
+#else
+    led_matrix_driver.set_value_all(value);
+#endif
+}
 
 bool process_led_matrix(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         uint8_t led[8];
-        uint8_t led_count = map_row_column_to_led(record->event.key.row, record->event.key.col, led);
+        uint8_t led_count = led_matrix_map_row_column_to_led(record->event.key.row, record->event.key.col, led);
         if (led_count > 0) {
             for (uint8_t i = LED_HITS_TO_REMEMBER; i > 1; i--) {
                 g_last_led_hit[i - 1] = g_last_led_hit[i - 2];
@@ -140,7 +155,7 @@ bool process_led_matrix(uint16_t keycode, keyrecord_t *record) {
     } else {
 #ifdef LED_MATRIX_KEYRELEASES
         uint8_t led[8];
-        uint8_t led_count = map_row_column_to_led(record->event.key.row, record->event.key.col, led);
+        uint8_t led_count = led_matrix_map_row_column_to_led(record->event.key.row, record->event.key.col, led);
         for (uint8_t i = 0; i < led_count; i++) g_key_hit[led[i]] = 255;
 
         g_any_key_hit = 255;
@@ -149,7 +164,14 @@ bool process_led_matrix(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void led_matrix_set_suspend_state(bool state) { g_suspend_state = state; }
+void led_matrix_set_suspend_state(bool state) {
+    if (LED_DISABLE_WHEN_USB_SUSPENDED && state) {
+        led_matrix_set_value_all(0);  // turn off all LEDs when suspending
+    }
+    g_suspend_state = state;
+}
+
+bool led_matrix_get_suspend_state(void) { return g_suspend_state; }
 
 // All LEDs off
 void led_matrix_all_off(void) { led_matrix_set_index_value_all(0); }
@@ -238,8 +260,6 @@ void led_matrix_init(void) {
 
     eeconfig_debug_led_matrix();  // display current eeprom values
 }
-
-uint32_t led_matrix_get_tick(void) { return g_tick; }
 
 void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;
