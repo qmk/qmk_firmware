@@ -18,7 +18,7 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 ```
 
-This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit C and D keys.
+This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit the C and D keys.
 
 As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to fire combos from ModTap keys and LayerTap keys. So in the above example you could have keys `LSFT_T(KC_A)` and `LT(_LAYER, KC_B)` and it would work. So Home Row Mods and Home Row Combos at same time is now a thing!
 
