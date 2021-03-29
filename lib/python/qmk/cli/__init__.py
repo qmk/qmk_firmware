@@ -71,6 +71,7 @@ def _broken_module_imports(requirements):
 
     return False
 
+
 # Make sure our python is new enough
 #
 # Supported version information
@@ -128,25 +129,25 @@ if cli.config.user.developer and _broken_module_imports('requirements-dev.txt'):
         exit(1)
 
 # Import our subcommands
-from . import c2json
-from . import cformat
-from . import chibios
-from . import clean
-from . import compile
-from . import config
-from . import docs
-from . import doctor
-from . import fileformat
-from . import flash
-from . import format
-from . import generate
-from . import hello
-from . import info
-from . import json2c
-from . import lint
-from . import list
-from . import kle2json
-from . import multibuild
-from . import new
-from . import pyformat
-from . import pytest
+from . import c2json  # noqa
+from . import cformat  # noqa
+from . import chibios  # noqa
+from . import clean  # noqa
+from . import compile  # noqa
+from . import config  # noqa
+from . import docs  # noqa
+from . import doctor  # noqa
+from . import fileformat  # noqa
+from . import flash  # noqa
+from . import format  # noqa
+from . import generate  # noqa
+from . import hello  # noqa
+from . import info  # noqa
+from . import json2c  # noqa
+from . import lint  # noqa
+from . import list  # noqa
+from . import kle2json  # noqa
+from . import multibuild  # noqa
+from . import new  # noqa
+from . import pyformat  # noqa
+from . import pytest  # noqa
