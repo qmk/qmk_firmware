@@ -1,3 +1,19 @@
+/* Copyright 2021 Robert Verst <robert@verst.eu> @rverst
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "rverst.h"
 
 //#define CLOSED_CASE // no underglow RGB visible
@@ -16,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RV_SNAP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE,
         RV_DEG , RV_SUP1, RV_SUP2, RV_SUP3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RV_UNEQ, RV_PM  , KC_TRNS, KC_VOLU,
         KC_TRNS, KC_TRNS, KC_TRNS, RV_EUR , RV_RT  , RV_TM  , KC_TRNS, RV_UUML, KC_TRNS, RV_OUML, KC_TRNS, KC_TRNS, KC_PEQL, KC_TRNS, KC_VOLD,
-        KC_CAPS, RV_AUML, RV_SZ  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PAST, KC_PENT,
+        KC_CAPS, RV_AUML, RV_SZ  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RV_LOCK, KC_TRNS, KC_PAST, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, RV_CC  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PDOT, KC_PSLS, KC_TRNS,          KC_MSTP,
         KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_RGUI,          KC_MPRV, KC_MPLY, KC_MNXT
     ),
@@ -31,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[3] = LAYOUT(
         RV_SNAP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE,
         RV_DEG , RV_SUP1, RV_SUP2, RV_SUP3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RV_UNEQ, RV_PM  , KC_TRNS, KC_VOLU,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RV_UUML, KC_TRNS, KC_TRNS, KC_TRNS, KC_PEQL, KC_TRNS, KC_VOLD,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RV_LOCK, RV_UUML, KC_TRNS, KC_TRNS, KC_TRNS, KC_PEQL, KC_TRNS, KC_VOLD,
         KC_CAPS, RV_AUML, RV_RT  , RV_SZ  , RV_TM  , KC_TRNS, KC_TRNS, KC_TRNS, RV_EUR , KC_TRNS, RV_OUML, KC_PAST, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, RV_CC  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PDOT, KC_PSLS, KC_TRNS,          KC_MSTP,
         KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_RGUI,          KC_MPRV, KC_MPLY, KC_MNXT

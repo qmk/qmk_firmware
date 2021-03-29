@@ -1,13 +1,29 @@
+/* Copyright 2021 Robert Verst <robert@verst.eu> @rverst
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "rverst.h"
 #include "print.h"
 
-#ifdef UNICODE
+#ifdef UNICODEMAP_ENABLE
 #    include "unicode.h"
 #endif
 
 userspace_config_t userspace_config;
 
-int get_mode(void) {
+uint8_t get_mode(void) {
     int m = 0;
     if (userspace_config.mode_1) {
         m += 1;
@@ -22,7 +38,7 @@ int get_mode(void) {
     return m;
 }
 
-void set_mode(int mode, bool save) {
+void set_mode(uint8_t mode, bool save) {
     if (mode == get_mode()) {
         return;
     }
@@ -57,8 +73,8 @@ void set_mode(int mode, bool save) {
     }
 }
 
-void switch_mode(int mode) {
-#ifdef UNICODE
+void switch_mode(uint8_t mode) {
+#ifdef UNICODEMAP_ENABLE
     switch (mode) {
         case MAC_UNI:
             set_unicode_input_mode(UC_MAC);
@@ -73,7 +89,7 @@ void switch_mode(int mode) {
 #endif
 }
 
-bool is_unicode(int mode) { return (mode == MAC_UNI) || (mode == WINDOWS_UNI) || (mode == LINUX_UNI); }
+bool is_unicode(uint8_t mode) { return (mode == MAC_UNI) || (mode == WINDOWS_UNI) || (mode == LINUX_UNI); }
 
 //**********************
 // keyboard_pre_init
@@ -122,16 +138,12 @@ void eeconfig_init_user(void) {
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (keycode < SAFE_RANGE) {
-        return true;
+    if (process_record_keymap(keycode, record)) {
+        return false;
     }
 
-    if (!record->event.pressed) {
-        return process_record_keymap(keycode, record);
-    }
-
-    bool ls = keyboard_report->mods & MOD_BIT(KC_LSFT);
-    bool rs = keyboard_report->mods & MOD_BIT(KC_RSFT);
+    bool ls = (get_mods() | get_weak_mods()) & MOD_BIT(KC_LSFT);
+    bool rs = (get_mods() | get_weak_mods()) & MOD_BIT(KC_RSFT);
     bool as = ls || rs;
 
     int mode = get_mode();
@@ -175,6 +187,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 case LINUX_UNI:
                     send_string("Linux (unicode)");
                     break;
+            }
+            return false;
+
+        // Lock computer
+        case RV_LOCK:
+            if (mode == MAC || mode == MAC_UNI) {
+                register_code(KC_LGUI);
+                register_code(KC_LCTL);
+                tap_code(KC_Q);
+                unregister_code(KC_LCTL);
+                unregister_code(KC_LGUI);
+            } else if (mode == WINDOWS || mode == WINDOWS_UNI) {
+                register_code(KC_LGUI);
+                tap_code(KC_L);
+                register_code(KC_LGUI);
             }
             return false;
 
@@ -388,5 +415,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 
-    return process_record_keymap(keycode, record);
+    return true;
 }

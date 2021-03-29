@@ -8,8 +8,10 @@ from jsonschema import Draft7Validator, validators
 from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.info import info_json, _jsonschema
-from qmk.info_json_encoder import InfoJSONEncoder
+from qmk.info import info_json
+from qmk.json_encoders import InfoJSONEncoder
+from qmk.json_schema import load_jsonschema
+from qmk.keyboard import keyboard_folder
 from qmk.path import is_keyboard
 
 
@@ -33,13 +35,13 @@ def strip_info_json(kb_info_json):
     """Remove the API-only properties from the info.json.
     """
     pruning_draft_7_validator = pruning_validator(Draft7Validator)
-    schema = _jsonschema('keyboard')
+    schema = load_jsonschema('keyboard')
     validator = pruning_draft_7_validator(schema).validate
 
     return validator(kb_info_json)
 
 
-@cli.argument('-kb', '--keyboard', help='Keyboard to show info for.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, help='Keyboard to show info for.')
 @cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
 @cli.subcommand('Generate an info.json file for a keyboard.', hidden=False if cli.config.user.developer else True)
 @automagic_keyboard
