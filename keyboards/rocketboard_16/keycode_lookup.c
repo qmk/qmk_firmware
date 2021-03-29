@@ -1,7 +1,24 @@
+/* Copyright 2021 Seth Bonner <fl3tching101@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "keycode_lookup.h"
 #include "print.h"
 
 #define num_keycodes (sizeof(lookup_table)/sizeof(lookup_table[0]))
+static char UNKNOWN_KEYCODE[] = "UNKNOWN";
 
 int cmp(const void *v1, const void *v2)
 {
@@ -11,14 +28,30 @@ int cmp(const void *v1, const void *v2)
     return (c1->keycode - c2->keycode);
 }
 
+/*
+    Returns a pointer to a string containing the string describing the keycode, such as those found here:
+    https://beta.docs.qmk.fm/using-qmk/simple-keycodes/keycodes
+
+    Will return a string that says "UNKNOWN" if the keycode cannot be found.
+*/
 char* translate_keycode_to_string(uint16_t code)
 {
     lookup_table_t * result = NULL;
     lookup_table_t target = {.key_string = "", .keycode = code};
+    char * return_p;
 
     result = bsearch(&target, lookup_table, num_keycodes, sizeof(lookup_table_t), cmp);
 
-    return (result->key_string);
+    if(result != NULL)
+    {
+        return_p = result->key_string;
+    }
+    else
+    {
+        return_p = UNKNOWN_KEYCODE;
+    }
+
+    return (return_p);
 }
 
 lookup_table_t lookup_table[366] =
