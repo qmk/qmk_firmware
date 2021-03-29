@@ -15,6 +15,7 @@ def is_keyboard(keyboard_name):
     if keyboard_name:
         keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
         rules_mk = keyboard_path / 'rules.mk'
+
         return rules_mk.exists()
 
 

@@ -7,10 +7,11 @@ from milc import cli
 import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
+from qmk.keyboard import keyboard_folder
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), help='The configurator export to compile')
-@cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs to run.")

@@ -24,9 +24,12 @@
  * STM32_I2C_USE_I2C1 is TRUE in the mcuconf.h file. Pins B6 and B7 are used
  * but using any other I2C pins should be trivial.
  */
+
+#ifdef RGB_MATRIX_ENABLE
+
+
 #include "quantum.h"
 #include "i2c_master.h"
-#include "print.h"
 #include <string.h>
 #include <hal.h>
 
@@ -143,3 +146,5 @@ void i2c_stop(uint8_t index) {
         i2cStop(drivers[index]);
     }
 }
+
+#endif

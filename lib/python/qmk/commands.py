@@ -13,6 +13,7 @@ from milc import cli
 
 import qmk.keymap
 from qmk.constants import KEYBOARD_OUTPUT_PREFIX
+from qmk.json_schema import json_load
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
 
@@ -77,7 +78,7 @@ def get_git_version(repo_dir='.', check_dir='.'):
             return git_describe.stdout.strip()
 
         else:
-            cli.args.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
+            cli.log.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
             print(git_describe.stderr)
             return strftime(time_fmt)
 
@@ -190,6 +191,15 @@ def parse_configurator_json(configurator_file):
     """
     # FIXME(skullydazed/anyone): Add validation here
     user_keymap = json.load(configurator_file)
+    orig_keyboard = user_keymap['keyboard']
+    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+
+    if orig_keyboard in aliases:
+        if 'target' in aliases[orig_keyboard]:
+            user_keymap['keyboard'] = aliases[orig_keyboard]['target']
+
+        if 'layouts' in aliases[orig_keyboard] and user_keymap['layout'] in aliases[orig_keyboard]['layouts']:
+            user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
 
     return user_keymap
 

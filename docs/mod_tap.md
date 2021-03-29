@@ -50,11 +50,13 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 
 ## Caveats
 
-Unfortunately, these keycodes cannot be used in Mod-Taps or Layer-Taps, since any modifiers specified in the keycode are ignored.
+Currently, the `kc` argument of `MT()` is limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. This is because QMK uses 16-bit keycodes, of which 3 bits are used for the function identifier, 1 bit for selecting right or left mods, and 4 bits to tell which mods are used, leaving only 8 bits for the keycode. Additionally, if at least one right-handed modifier is specified in a Mod-Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two - for example, Left Control and Right Shift would become Right Control and Right Shift.
 
-Additionally, you may run into issues when using Remote Desktop Connection on Windows. Because these codes send shift very fast, Remote Desktop may miss the codes.
+Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
-To fix this, open Remote Desktop Connection, click on "Show Options", open the the "Local Resources" tab. In the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
+You may also run into issues when using Remote Desktop Connection on Windows. Because these keycodes send key events faster than a human, Remote Desktop could miss them.
+To fix this, open Remote Desktop Connection, click on "Show Options", open the the "Local Resources" tab, and in the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
+It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options.md#behaviors-that-can-be-configured).
 
 ## Other Resources
 

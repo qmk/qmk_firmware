@@ -250,3 +250,57 @@ void send_char(char ascii_code) {
         tap_code(KC_SPACE);
     }
 }
+
+void send_dword(uint32_t number) {
+    send_word(number >> 16);
+    send_word(number & 0xFFFFUL);
+}
+
+void send_word(uint16_t number) {
+    send_byte(number >> 8);
+    send_byte(number & 0xFF);
+}
+
+void send_byte(uint8_t number) {
+    send_nibble(number >> 4);
+    send_nibble(number & 0xF);
+}
+
+void send_nibble(uint8_t number) {
+    switch (number & 0xF) {
+        case 0 ... 9:
+            send_char(number + '0');
+            break;
+        case 10 ... 15:
+            send_char(number - 10 + 'a');
+            break;
+    }
+}
+
+void tap_random_base64(void) {
+#if defined(__AVR_ATmega32U4__)
+    uint8_t key = (TCNT0 + TCNT1 + TCNT3 + TCNT4) % 64;
+#else
+    uint8_t key = rand() % 64;
+#endif
+    switch (key) {
+        case 0 ... 25:
+            send_char(key + 'A');
+            break;
+        case 26 ... 51:
+            send_char(key - 26 + 'a');
+            break;
+        case 52:
+            send_char('0');
+            break;
+        case 53 ... 61:
+            send_char(key - 53 + '1');
+            break;
+        case 62:
+            send_char('+');
+            break;
+        case 63:
+            send_char('/');
+            break;
+    }
+}

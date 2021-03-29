@@ -24,6 +24,4 @@
 #define COL2ROW 0
 #define ROW2COL 1
 
-#define API_SYSEX_MAX_SIZE 32
-
 #include "song_list.h"

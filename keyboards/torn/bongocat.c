@@ -373,7 +373,7 @@ void oled_task_user(void) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   sleep_timer = timer_read32();
-  return true;
+  return process_record_user(keycode, record);
 }
 
 #endif
