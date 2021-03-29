@@ -308,7 +308,7 @@ In addition to the keycodes, there are a few functions that you can use to set t
 Having 3 places to update when adding new combos or altering old ones does become cumbersome when you have a lot of combos. We can alleviate this with some magic! ... If you consider C macros magic.
 First, you need to add `VPATH += keyboards/gboards` to your `rules.mk`. Next, include the file `g/keymap_combo.h` in your `keymap.c`.
 
-!> This functionality uses the same `process_combo_event` function as `COMBO_ACTION` macros do, so you cannot use the function yourself in your keymap. Instead you have to define the `swith` statement's `case`s by themselves within `inject.h`, which `g/keymap_combo.h` then will include into the function.
+!> This functionality uses the same `process_combo_event` function as `COMBO_ACTION` macros do, so you cannot use the function yourself in your keymap. Instead, you have to define the `case`s of the `switch` statement by themselves within `inject.h`, which `g/keymap_combo.h` will then include into the function.
 
 Then, write your combos in `combos.def` file in the following manner:
 
