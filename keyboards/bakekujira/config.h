@@ -43,41 +43,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MATRIX_COL_PINS_RIGHT { B12, B11, B10, B6, B2, B3, B1, F7, F6, F5, F4 } // pro micro pins left side + proton c pins
 
 #define DIODE_DIRECTION COL2ROW
-// #define SPLIT_TRANSPORT_MIRROR
-// #define EE_HANDS
+
 
 #define EE_HANDS
+// #define SPLIT_TRANSPORT_MIRROR
 //#define MASTER_LEFT
 //#define MASTER_RIGHT
 
-#define RANDICT //this literally adds 8000 bytes to your compiled firmware
-// #undef SSD1306OLED
+#undef USE_I2C
+#undef SSD1306OLED
 
-// #define RGBLIGHT_SPLIT
-// #define RGB_SPLIT { 42, 62 }
+
+// underglow
+#ifdef RGBLIGHT_ENABLE
+#    define RGBLED_NUM 31  // underglow number of LEDs
+#    define RGBLIGHT_SPLIT
+#    define RGB_SPLIT { 42, 62 }
+#    define RGBLIGHT_LIMIT_VAL 100
+#    define RGBLIGHT_HUE_STEP 10
+#    define RGBLIGHT_SAT_STEP 17
+#    define RGBLIGHT_VAL_STEP 17
+#    define RGBLIGHT_LAYERS // enables rgb lighting underglow that indicates status of the keyboard (capslock, current layer, etc)
+#endif
+
+// per-key rgb
+#ifdef RGB_MATRIX_ENABLE
+#   define RGBLED_NUM 104   // all leds
+#   define DRIVER_LED_TOTAL RGBLED_NUM
+#   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+#   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
+#   define RGB_MATRIX_HUE_STEP 8
+#   define RGB_MATRIX_SAT_STEP 8
+#   define RGB_MATRIX_VAL_STEP 8
+#   define RGB_MATRIX_SPD_STEP 10
+#endif
 
 /* ws2812 RGB LED */
 /* All things RGB */
 #define RGB_DI_PIN B0
-#define RGBLED_NUM 104
-#define DRIVER_LED_TOTAL 104
-#define RGBLIGHT_LIMIT_VAL 100
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
-#define RGBLIGHT_LAYERS // enables rgb lighting underglow that indicates status of the keyboard (capslock, current layer, etc)
-
 #define RGBLIGHT_ANIMATIONS // enables all animation modes
 
 /* RGB MATRIX stuff */
-#define EECONFIG_RGB_MATRIX (uint32_t *)28
+// #define EECONFIG_RGB_MATRIX (uint32_t *)28
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_TIMEOUT 2 // number of milliseconds to wait until rgb automatically turns off
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
-#define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
-#define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+// #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+// #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 
 // /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
@@ -94,10 +107,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //Serial over USART config
 
-#define USE_SERIAL
 #define USE_SERIAL_PD2
 #define SOFT_SERIAL_PIN A9  // USART TX pin protonc
-// #define SOFT_SERIAL_PIN D3  // USART TX pin pro micro
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
 #define SERIAL_USART_DRIVER SD1 // USART driver of TX pin. default: SD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function" - default: 7

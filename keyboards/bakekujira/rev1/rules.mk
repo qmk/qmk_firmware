@@ -23,11 +23,11 @@ WPM_ENABLE = yes
 # OLED_DRIVER_ENABLE = yes
 
 # RGB related
-# RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
-RGB_MATRIX_ENABLE = yes
+RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
+RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 WS2812_DRIVER = pwm
-#PWM needs patch to <https://github.com/qmk/qmk_firmware/blob/master/platforms/chibios/GENERIC_STM32_F303XC/configs/proton_c.mk>, otherwise defaults to bitbang.
+#PWM needs patch to <https://github.com/qmk/qmk_firmware/blob/master/platforms/chibios/GENERIC_STM`32_F303XC/configs/proton_c.mk>, otherwise defaults to bitbang.
 #See develop PR <https://github.com/qmk/qmk_firmware/pull/11864>
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
