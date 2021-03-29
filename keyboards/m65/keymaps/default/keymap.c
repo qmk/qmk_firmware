@@ -17,12 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-enum layer_names {
-  _QW = 0,
-  _LWR,
-  _RSE,
-  _ADJ
-};
+enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -61,15 +56,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool toggle_lwr = false;
 bool toggle_rse = false;
 
-static inline void led_lwr(const bool on){
+static inline void led_lwr(const bool on) {
 #ifdef LED_NUM_LOCK_PIN
     writePin(LED_NUM_LOCK_PIN, on);
 #endif
 }
 
-static inline void led_rse(const bool on){
-#ifdef LED_CAPS_LOCK_PIN 
-    writePin(LED_CAPS_LOCK_PIN , on);
+static inline void led_rse(const bool on) {
+#ifdef LED_CAPS_LOCK_PIN
+    writePin(LED_CAPS_LOCK_PIN, on);
 #endif
 }
 
@@ -79,31 +74,28 @@ bool led_update_user(led_t led_state) {
 }
 
 void matrix_scan_user(void) {
-  led_lwr(toggle_lwr);
-  led_rse(toggle_rse);
+    led_lwr(toggle_lwr);
+    led_rse(toggle_rse);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  switch (keycode) {
-    case(TT(_LWR)):
-      if (!record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
-          // This runs before the TT() handler toggles the layer state, so the current layer state is the opposite of the final one after toggle.
-          toggle_lwr = !layer_state_is(_LWR);
-      }
-      return true;
-      break;
-    case(TT(_RSE)):
-      if (record->event.pressed && record->tap.count == TAPPING_TOGGLE){
-        toggle_rse = toggle_rse ? false : true;
-      }
-      return true;
-      break;
-    default:
-      return true;
-  }
+    switch (keycode) {
+        case (TT(_LWR)):
+            if (!record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
+                // This runs before the TT() handler toggles the layer state, so the current layer state is the opposite of the final one after toggle.
+                toggle_lwr = !layer_state_is(_LWR);
+            }
+            return true;
+            break;
+        case (TT(_RSE)):
+            if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
+                toggle_rse = !layer_state_is(_RSE);
+            }
+            return true;
+            break;
+        default:
+            return true;
+    }
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LWR, _RSE, _ADJ);
-}
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LWR, _RSE, _ADJ); }
