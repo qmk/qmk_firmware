@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_SPEAKER C6
 
 #ifdef AUDIO_ENABLE
-#define C6_AUDIO
+#define AUDIO_PIN C6
 #define STARTUP_SONG SONG(PREONIC_SOUND)
 // Disable music mode to keep the firmware size down
 #define NO_MUSIC_MODE

@@ -108,6 +108,10 @@ endif
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 
+# This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
+# Fixing of multiple variable definitions must be made.
+CFLAGS += -fcommon
+
 #---------------- Compiler Options C++ ----------------
 #  -g*:          generate debugging information
 #  -O*:          optimization level
@@ -124,6 +128,7 @@ CXXFLAGS += -O$(OPT)
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
+
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif

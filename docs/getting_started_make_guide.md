@@ -121,10 +121,6 @@ For further details, as well as limitations, see the [Unicode page](feature_unic
 
 This allows you output audio on the C6 pin (needs abstracting). See the [audio page](feature_audio.md) for more information.
 
-`FAUXCLICKY_ENABLE`
-
-Uses buzzer to emulate clicky switches. A cheap imitation of the Cherry blue switches. By default, uses the C6 pin, same as `AUDIO_ENABLE`.
-
 `VARIABLE_TRACE`
 
 Use this to debug changes to variable values, see the [tracing variables](unit_testing.md#tracing-variables) section of the Unit Testing page for more information.

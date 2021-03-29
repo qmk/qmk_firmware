@@ -1,9 +1,9 @@
 {
   "keyboard_name": "ErgoTravel",
-  "manufacturer": "jpconstantineau",
   "identifier": "0x1256",
   "url": "https://github.com/jpconstantineau/ErgoTravel",
   "maintainer": "qmk",
+  "bootloader": "caterina",
   "processor": "atmega32u4",
   "width": 16,
   "height": 5,

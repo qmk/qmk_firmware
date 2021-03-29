@@ -16,7 +16,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "tmk_core/common/uart.h"
 
 #define SERIAL_UART_BAUD 153600 //low error rate for 32u4 @ 16MHz
 

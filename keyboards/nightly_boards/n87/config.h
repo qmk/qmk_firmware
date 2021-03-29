@@ -84,7 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
 
-#define B7_AUDIO
+#define AUDIO_PIN B7
 
 #define AUDIO_CLICKY
 

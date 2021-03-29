@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    IBM
-#define PRODUCT         IBM Model M 122 key 
+#define PRODUCT         IBM Model M 122 key
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -102,8 +102,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-#define B6_AUDIO
-#define C6_AUDIO
+#define AUDIO_PIN_ALT B6
+#define AUDIO_PIN C6
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true

@@ -1,7 +1,7 @@
 # MCU name
 MCU = STM32F042
 
-BOARD = DEVICE_ONE
+BOARD = ST_NUCLEO32_F042K6
 
 # Build Options
 #   comment out to disable the options.

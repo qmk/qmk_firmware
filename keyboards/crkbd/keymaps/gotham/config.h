@@ -15,7 +15,7 @@
 #define NO_ACTION_ONESHOT
 
 #ifdef AUDIO_ENABLE
-#    define B5_AUDIO
+#    define AUDIO_PIN B5
 #    define NO_MUSIC_MODE
 #    define AUDIO_CLICKY
 #endif

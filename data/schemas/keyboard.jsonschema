@@ -1,0 +1,304 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$id": "qmk.keyboard.v1",
+    "title": "Keyboard Information",
+    "type": "object",
+    "properties": {
+        "keyboard_name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 250
+        },
+        "maintainer": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 250
+        },
+        "manufacturer": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 250
+        },
+        "url": {
+            "type": "string",
+            "format": "uri"
+        },
+        "processor": {
+            "type": "string",
+            "enum": ["cortex-m0", "cortex-m0plus", "cortex-m3", "cortex-m4", "MKL26Z64", "MK20DX128", "MK20DX256", "STM32F042", "STM32F072", "STM32F103", "STM32F303", "STM32F401", "STM32F411", "STM32G431", "STM32G474", "atmega16u2", "atmega32u2", "atmega16u4", "atmega32u4", "at90usb162", "at90usb646", "at90usb647", "at90usb1286", "at90usb1287", "atmega32a", "atmega328p", "atmega328", "attiny85", "unknown"]
+        },
+        "board": {
+            "type": "string",
+            "minLength": 2,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_]*$"
+        },
+        "bootloader": {
+            "type": "string",
+            "enum": ["atmel-dfu", "bootloadHID", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "micronucleus", "qmk-dfu", "stm32-dfu", "stm32duino", "unknown", "USBasp"]
+        },
+        "diode_direction": {
+            "type": "string",
+            "enum": ["COL2ROW", "ROW2COL"]
+        },
+        "debounce": {
+            "type": "number",
+            "min": 0,
+            "multipleOf": 1
+        },
+        "height": {
+            "type": "number",
+            "min": 0.25
+        },
+        "width": {
+            "type": "number",
+            "min": 0.25
+        },
+        "community_layouts": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "minLength": 2,
+                "pattern": "^[0-9a-z_]*$"
+            }
+        },
+        "features": {
+            "type": "object",
+            "additionalProperties": {"type": "boolean"}
+        },
+        "indicators": {
+            "type": "object",
+            "properties": {
+                "caps_lock": {
+                    "type": "string",
+                    "pattern": "^[A-K]\\d{1,2}$"
+                },
+                "num_lock": {
+                    "type": "string",
+                    "pattern": "^[A-K]\\d{1,2}$"
+                },
+                "scroll_lock": {
+                    "type": "string",
+                    "pattern": "^[A-K]\\d{1,2}$"
+                }
+            }
+        },
+        "layout_aliases": {
+            "type": "object",
+            "additionalProperties": {
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "enum": ["LAYOUT", "LAYOUT_planck_1x2uC"]
+                    },
+                    {
+                        "type": "string",
+                        "pattern": "^LAYOUT_[0-9a-z_]*$"
+                    }
+                ]
+            }
+        },
+        "layouts": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "filename": {
+                        "type": "string"
+                    },
+                    "c_macro": {
+                        "type": "boolean"
+                    },
+                    "key_count": {
+                        "type": "number",
+                        "min": 0,
+                        "multipleOf": 1
+                    },
+                    "layout": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "label": {"type": "string"},
+                                "matrix": {
+                                    "type": "array",
+                                    "minItems": 2,
+                                    "maxItems": 2,
+                                    "items": {
+                                        "type": "number",
+                                        "min": 0,
+                                        "multipleOf": 1
+                                    }
+                                },
+                                "h": {
+                                    "type": "number",
+                                    "min": 0.25
+                                },
+                                "r": {
+                                    "type": "number",
+                                    "min": 0
+                                },
+                                "rx": {
+                                    "type": "number",
+                                    "min": 0
+                                },
+                                "ry": {
+                                    "type": "number",
+                                    "min": 0
+                                },
+                                "w": {
+                                    "type": "number",
+                                    "min": 0.25
+                                },
+                                "x": {
+                                    "type": "number",
+                                    "min": 0
+                                },
+                                "y": {
+                                    "type": "number",
+                                    "min": 0
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "matrix_pins": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "direct": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "type": "string",
+                                    "pattern": "^[A-K]\\d{1,2}$"
+                                },
+                                {
+                                    "type": "number",
+                                    "multipleOf": 1
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "cols": {
+                    "type": "array",
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "string",
+                                "pattern": "^[A-K]\\d{1,2}$"
+                            },
+                            {
+                                "type": "number",
+                                "multipleOf": 1
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    }
+                },
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "string",
+                                "pattern": "^[A-K]\\d{1,2}$"
+                            },
+                            {
+                                "type": "number",
+                                "multipleOf": 1
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "rgblight": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "animations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
+                "brightness_steps": {
+                    "type": "number",
+                    "min": 0,
+                    "multipleOf": 1
+                },
+                "hue_steps": {
+                    "type": "number",
+                    "min": 0,
+                    "multipleOf": 1
+                },
+                "led_count": {
+                    "type": "number",
+                    "min": 0,
+                    "multipleOf": 1
+                },
+                "max_brightness": {
+                    "type": "number",
+                    "min": 0,
+                    "max": 255,
+                    "multipleOf": 1
+                },
+                "pin": {
+                    "type": "string",
+                    "pattern": "^[A-K]\\d{1,2}$"
+                },
+                "saturation_steps": {
+                    "type": "number",
+                    "min": 0,
+                    "multipleOf": 1
+                },
+                "sleep": {"type": "boolean"},
+                "split": {"type": "boolean"},
+                "split_count": {
+                    "type": "array",
+                    "minLength": 2,
+                    "maxLength": 2,
+                    "items": {
+                        "type": "number",
+                        "min": 0,
+                        "multipleOf": 1
+                    }
+                }
+            }
+        },
+        "usb": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "device_ver": {
+                    "type": "string",
+                    "pattern": "^[0-9A-F]x[0-9A-F][0-9A-F][0-9A-F][0-9A-F]"
+                },
+                "pid": {
+                    "type": "string",
+                    "pattern": "^[0-9A-F]x[0-9A-F][0-9A-F][0-9A-F][0-9A-F]"
+                },
+                "vid": {
+                    "type": "string",
+                    "pattern": "^[0-9A-F]x[0-9A-F][0-9A-F][0-9A-F][0-9A-F]"
+                }
+            }
+        }
+    }
+}

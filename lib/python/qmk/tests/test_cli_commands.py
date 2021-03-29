@@ -16,7 +16,7 @@ def check_subcommand(command, *args):
 def check_subcommand_stdin(file_to_read, command, *args):
     """Pipe content of a file to a command and return output.
     """
-    with open(file_to_read) as my_file:
+    with open(file_to_read, encoding='utf-8') as my_file:
         cmd = ['bin/qmk', command, *args]
         result = run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
     return result
@@ -230,3 +230,32 @@ def test_generate_rgb_breathe_table():
     check_returncode(result)
     assert 'Breathing center: 1.2' in result.stdout
     assert 'Breathing max:    127' in result.stdout
+
+
+def test_generate_config_h():
+    result = check_subcommand('generate-config-h', '-kb', 'handwired/pytest/basic')
+    check_returncode(result)
+    assert '#   define DEVICE_VER 0x0001' in result.stdout
+    assert '#   define DESCRIPTION handwired/pytest/basic' in result.stdout
+    assert '#   define DIODE_DIRECTION COL2ROW' in result.stdout
+    assert '#   define MANUFACTURER none' in result.stdout
+    assert '#   define PRODUCT handwired/pytest/basic' in result.stdout
+    assert '#   define PRODUCT_ID 0x6465' in result.stdout
+    assert '#   define VENDOR_ID 0xFEED' in result.stdout
+    assert '#   define MATRIX_COLS 1' in result.stdout
+    assert '#   define MATRIX_COL_PINS { F4 }' in result.stdout
+    assert '#   define MATRIX_ROWS 1' in result.stdout
+    assert '#   define MATRIX_ROW_PINS { F5 }' in result.stdout
+
+
+def test_generate_rules_mk():
+    result = check_subcommand('generate-rules-mk', '-kb', 'handwired/pytest/basic')
+    check_returncode(result)
+    assert 'BOOTLOADER ?= atmel-dfu' in result.stdout
+    assert 'MCU ?= atmega32u4' in result.stdout
+
+
+def test_generate_layouts():
+    result = check_subcommand('generate-layouts', '-kb', 'handwired/pytest/basic')
+    check_returncode(result)
+    assert '#define LAYOUT_custom(k0A) {' in result.stdout

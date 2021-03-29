@@ -401,7 +401,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             else
             {
                 breathing_period_set(1);
-                breathing_self_disable();
+                breathing_disable();
                 layer_off(LAYER_FUNCTION);
             }
             break;

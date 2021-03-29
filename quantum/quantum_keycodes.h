@@ -150,13 +150,6 @@ enum quantum_keycodes {
     CLICKY_DOWN,
     CLICKY_RESET,
 
-#ifdef FAUXCLICKY_ENABLE
-    // Faux clicky
-    FC_ON,
-    FC_OFF,
-    FC_TOG,
-#endif
-
     // Music mode on/off/toggle
     MU_ON,
     MU_OFF,
@@ -717,6 +710,9 @@ enum quantum_keycodes {
 #define CK_DOWN CLICKY_DOWN
 #define CK_ON CLICKY_ENABLE
 #define CK_OFF CLICKY_DISABLE
+#define FC_ON CLICKY_ENABLE
+#define FC_OFF CLICKY_DISABLE
+#define FC_TOGG CLICKY_TOGGLE
 
 #define RGB_MOD RGB_MODE_FORWARD
 #define RGB_RMOD RGB_MODE_REVERSE

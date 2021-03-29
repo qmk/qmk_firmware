@@ -28,9 +28,8 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 UNICODE_ENABLE = yes
 CUSTOM_MATRIX = yes
 
 # project specific files
-SRC = matrix.c
+SRC += matrix.c serial_uart.c
