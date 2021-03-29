@@ -2,11 +2,11 @@
 
 ![scarlet](https://www.draytronics.co.uk/wp-content/uploads/2020/10/Scarlet-PCB-Compared-Combined.png)
 
-A open source 17 key numpad keyboard, designed to be easily built at home with through hole components. More info / kits / PCB designs available at [draytronics.co.uk/scarlet](draytronics.co.uk)
+A open source 17 key numpad keyboard, designed to be easily built at home with through hole components. More info / kits / PCB designs available at [draytronics.co.uk/scarlet](https://draytronics.co.uk)
 
 * Keyboard Maintainer: [Blake Drayson](https://github.com/ghostseven)
 * Hardware Supported: SCARLET PCB / ATMega32A
-* Hardware Availability: [draytronics.co.uk](draytronics.co.uk)
+* Hardware Availability: [draytronics.co.uk](https://draytronics.co.uk)
 
 Make example for this keyboard (after setting up your build environment):
 

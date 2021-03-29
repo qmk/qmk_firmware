@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x6050
+#define VENDOR_ID 0x4B4D   // KM
+#define PRODUCT_ID 0x4143  // AC
 #define DEVICE_VER 0x0104
 #define MANUFACTURER KBDMania
 #define PRODUCT KMAC

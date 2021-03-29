@@ -34,6 +34,11 @@ led_config_t g_led_config = { {
   LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
   LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
 } };
+
+// LED physical location index
+//     6 5 4 3
+//        0
+//     7 8 1 2
 #endif
 
 void matrix_init_kb(void) {

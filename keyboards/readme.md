@@ -1,5 +1,6 @@
 # Included Keyboards
-QMK runs on a diverse range of keyboards. Some of these keyboards are officially supported and see constant community contributions, while others are part of the repository for historical reasons.
+
+QMK runs on a diverse range of keyboards. Some of these keyboards are well maintained and see constant community contributions, while others are part of the repository for historical reasons.
 
 ## Official QMK Keyboards
 

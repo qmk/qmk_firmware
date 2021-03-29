@@ -120,14 +120,21 @@ bool process_tapping(keyrecord_t *keyp) {
                  * useful for long TAPPING_TERM but may prevent fast typing.
                  */
 #    if defined(TAPPING_TERM_PER_KEY) || (TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY)
-                else if (
+                else if (((
 #        ifdef TAPPING_TERM_PER_KEY
-                    (get_tapping_term(get_event_keycode(tapping_key.event, false), keyp) >= 500) &&
+                              get_tapping_term(get_event_keycode(tapping_key.event, false), keyp)
+#        else
+                              TAPPING_TERM
 #        endif
+                              >= 500)
+
 #        ifdef PERMISSIVE_HOLD_PER_KEY
-                    !get_permissive_hold(get_event_keycode(tapping_key.event, false), keyp) &&
+                          || get_permissive_hold(get_event_keycode(tapping_key.event, false), keyp)
+#        elif defined(PERMISSIVE_HOLD)
+                          || true
 #        endif
-                    IS_RELEASED(event) && waiting_buffer_typed(event)) {
+                              ) &&
+                         IS_RELEASED(event) && waiting_buffer_typed(event)) {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
                     process_record(&tapping_key);
                     tapping_key = (keyrecord_t){};

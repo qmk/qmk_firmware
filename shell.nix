@@ -2,48 +2,20 @@
 
 let
   nixpkgs = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/c4b26e702044dbf40f8236136c099d8ab6778514.tar.gz";
-    sha256 = "0w6hgs01qzni3a7cvgadjlmcdlb6vay3w910vh4k9fc949ii7s60";
+    url = "https://github.com/NixOS/nixpkgs/archive/1f77a4c8c74bbe896053994836790aa9bf6dc5ba.tar.gz";
+    sha256 = "1j62nmzz3w33dplzf1xz1pg1pfkxii7lwdqmsxmc71cs9cm3s7n1";
   };
 
   pkgs = import nixpkgs { };
-
-  hjson = with pkgs.python3Packages; buildPythonPackage rec {
-    pname = "hjson";
-    version = "3.0.1";
-
-    src = fetchPypi {
-      inherit pname version;
-      sha256 = "1yaimcgz8w0ps1wk28wk9g9zdidp79d14xqqj9rjkvxalvx2f5qx";
-    };
-
-    doCheck = false;
-  };
-
-  milc = with pkgs.python3Packages; buildPythonPackage rec {
-    pname = "milc";
-    version = "1.0.10";
-
-    src = fetchPypi {
-      inherit pname version;
-      sha256 = "1q1p7qrqk78mw67nhv04zgxaq8himmdxmy2vp4fmi7chwgcbpi32";
-    };
-
-    propagatedBuildInputs = [
-      appdirs
-      argcomplete
-      colorama
-    ];
-
-    doCheck = false;
-  };
 
   pythonEnv = pkgs.python3.withPackages (p: with p; [
     # requirements.txt
     appdirs
     argcomplete
     colorama
+    dotty-dict
     hjson
+    jsonschema
     milc
     pygments
     # requirements-dev.txt

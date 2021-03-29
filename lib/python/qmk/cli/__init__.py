@@ -16,6 +16,7 @@ from . import docs
 from . import doctor
 from . import fileformat
 from . import flash
+from . import format
 from . import generate
 from . import hello
 from . import info

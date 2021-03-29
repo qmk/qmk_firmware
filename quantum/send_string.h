@@ -23,10 +23,10 @@
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
 
 // Look-Up Tables (LUTs) to convert ASCII character to keycode sequence.
-extern const uint8_t ascii_to_keycode_lut[128];
 extern const uint8_t ascii_to_shift_lut[16];
 extern const uint8_t ascii_to_altgr_lut[16];
 extern const uint8_t ascii_to_dead_lut[16];
+extern const uint8_t ascii_to_keycode_lut[128];
 
 // clang-format off
 #define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
@@ -45,3 +45,10 @@ void send_string_with_delay(const char *str, uint8_t interval);
 void send_string_P(const char *str);
 void send_string_with_delay_P(const char *str, uint8_t interval);
 void send_char(char ascii_code);
+
+void send_dword(uint32_t number);
+void send_word(uint16_t number);
+void send_byte(uint8_t number);
+void send_nibble(uint8_t number);
+
+void tap_random_base64(void);
