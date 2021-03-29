@@ -24,6 +24,7 @@ enum layer_names {
   _ADJ
 };
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QW] = LAYOUT_ortho_5x13(
