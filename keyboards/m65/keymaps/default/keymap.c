@@ -60,8 +60,8 @@ bool toggle_lwr = false;
 bool toggle_rse = false;
 
 static inline void led_lwr(const bool on){
-#ifdef KEYBOARD_m65_rev1
-    writePin(B12, on);
+#ifdef LED_NUM_LOCK_PIN
+    writePin(LED_NUM_LOCK_PIN, on);
 #endif
 }
 
