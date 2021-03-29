@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xEAB1
+#define PRODUCT_ID      0xE96C
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Swiftrax
 #define PRODUCT         Siris
