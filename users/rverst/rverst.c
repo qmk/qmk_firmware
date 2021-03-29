@@ -142,6 +142,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+    if (!record->event.pressed) {
+        return true;
+    }
+
     bool ls = (get_mods() | get_weak_mods()) & MOD_BIT(KC_LSFT);
     bool rs = (get_mods() | get_weak_mods()) & MOD_BIT(KC_RSFT);
     bool as = ls || rs;
