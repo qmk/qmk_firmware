@@ -27,11 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 13
 
-#define LED_NUM_LOCK_PIN B12
-#define LED_CAPS_LOCK_PIN B13
-
-#define UNUSED_PINS
-
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
