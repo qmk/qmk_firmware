@@ -87,8 +87,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     case(TT(_LWR)):
-      if (record->event.pressed && record->tap.count == TAPPING_TOGGLE){
-        toggle_lwr = toggle_lwr ? false : true;
+      if (!record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
+          // This runs before the TT() handler toggles the layer state, so the current layer state is the opposite of the final one after toggle.
+          toggle_lwr = !layer_state_is(_LWR);
       }
       return true;
       break;
