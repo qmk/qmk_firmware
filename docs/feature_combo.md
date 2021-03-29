@@ -100,7 +100,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
 This will send "the" if you hit Backspace and T, and clear the current line with Backspace and Left-Shift. But you could change this to do stuff like play sounds or change settings.
 
-It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/) it is possible to run your own custom keycodes from combos. Just define the custom keycode, it's functionality in `process_record_user`, and define a combo with `COMBO(<key_array>, <your_custom_keycode>)`.
+It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to run your own custom keycodes from combos. Just define the custom keycode, program its functionality in `process_record_user`, and define a combo with `COMBO(<key_array>, <your_custom_keycode>)`.
 
 ## Keycodes
 You can enable, disable and toggle the Combo feature on the fly. This is useful if you need to disable them temporarily, such as for a game. The following keycodes are available for use in your `keymap.c`
