@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xEAC4
+#define PRODUCT_ID      0xE964
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Swiftrax
 #define PRODUCT         Walter
@@ -31,8 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // ROWS: Top to bottom, COLS: Left to right
 
-#define MATRIX_ROW_PINS { B2, B3, F7, F0, B7 }
-#define MATRIX_COL_PINS { B1, D2, D3, F1, F4, F5, F6, C7, C6, B6, B5, B4, D7, D6, D4, D5 }
+#define MATRIX_ROW_PINS { B2, B1, F4, F1, F0 }
+#define MATRIX_COL_PINS { F5, C6, F6, F7, C7, B6, B5, B4, D7, D6, D4, D5, D2, D1, D0 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -42,3 +42,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
+
+#define ENCODERS_PAD_A { B3 }
+#define ENCODERS_PAD_B { B7 }
+
+#define RGB_DI_PIN E6
+#define RGBLED_NUM 24
