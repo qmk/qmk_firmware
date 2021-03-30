@@ -95,7 +95,7 @@ void enter_bootloader_mode_if_requested(void) {
     }
 }
 
-#elif defined(KL2x) || defined(K20x) || defined(MK66F18)  // STM32_BOOTLOADER_DUAL_BANK // STM32_BOOTLOADER_ADDRESS
+#elif defined(KL2x) || defined(K20x) || defined(MK66F18) || defined(MIMXRT1062)  // STM32_BOOTLOADER_DUAL_BANK // STM32_BOOTLOADER_ADDRESS
 /* Kinetis */
 
 #    if defined(BOOTLOADER_KIIBOHD)
