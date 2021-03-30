@@ -191,21 +191,17 @@ void set_os (uint8_t os, bool update) {
   case OS_MAC:
     set_unicode_input_mode(UC_OSX);
     underglow = (Color){ 213, 255, 255 };
-    mod_primary_mask = MOD_GUI_MASK;
     break;
   case OS_WIN:
     set_unicode_input_mode(UC_WINC);
     underglow = (Color){ 128, 255, 255 };
-    mod_primary_mask = MOD_CTL_MASK;
     break;
   case OS_NIX:
     set_unicode_input_mode(UC_LNX);
     underglow = (Color){ 43, 255, 255 };
-    mod_primary_mask = MOD_CTL_MASK;
     break;
   default:
     underglow = (Color){ 0, 0, 255 };
-    mod_primary_mask = MOD_CTL_MASK;
   }
   set_color(underglow, update);
   flash_color           = underglow;
@@ -244,6 +240,39 @@ void sec_mod(bool press) {
       unregister_code(KC_LCTL);
     } else {
       unregister_code(KC_LGUI);
+    }
+  }
+}
+
+// register Meh if Win or Hyper if other
+// KC_MEH/HYPR registers both sides, causes issues with some apps
+// I'll do it myself, then
+void meh_hyper(bool press) {
+  if (press) {
+    if (current_os == OS_WIN) {
+      register_code(KC_LCTL);
+      register_code(KC_LALT);
+      register_code(KC_LSFT);
+      // register_code16(KC_MEH);
+    } else {
+      register_code(KC_LCTL);
+      register_code(KC_LALT);
+      register_code(KC_LGUI);
+      register_code(KC_LSFT);
+      // register_code16(KC_HYPR);
+    }
+  } else {
+    if (current_os == OS_WIN) {
+      unregister_code(KC_LCTL);
+      unregister_code(KC_LALT);
+      unregister_code(KC_LSFT);
+      // unregister_code16(KC_MEH);
+    } else {
+      unregister_code(KC_LCTL);
+      unregister_code(KC_LALT);
+      unregister_code(KC_LGUI);
+      unregister_code(KC_LSFT);
+      // unregister_code16(KC_HYPR);
     }
   }
 }
@@ -515,6 +544,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed){
       send_unicode_hex_string("2014");
     }
+    return false;
+
+  case M_EHYPR: 
+    meh_hyper(record->event.pressed);
     return false;
 
   default:

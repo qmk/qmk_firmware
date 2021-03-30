@@ -11,9 +11,6 @@
 #define FUNCT       MO(4)
 #define KEEB        MO(5)
 
-#define MOD_CTL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))
-#define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
-
 #define LED_FLASH_DELAY       150
 
 #define ACCEL_DELAY           500
@@ -69,6 +66,7 @@ enum custom_keycodes {
   M_OS,
   M_DASH,
   M_USSR,
+  M_EHYPR,
 };
 
 void velocikey_accelerate(void);
@@ -96,6 +94,8 @@ void tap_key(uint8_t keycode);
 void pri_mod(bool press);
 
 void sec_mod(bool press);
+
+void meh_hyper(bool press);
 
 void multi_tap(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
 
