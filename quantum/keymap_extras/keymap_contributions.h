@@ -166,6 +166,8 @@
 #define PT_OSX_NDSH S(A(PT_OSX_MINS)) // –
 
 // Swiss French aliases to avoid collisions with Swiss german ones
+#define FRCH_Y KC_Z
+#define FRCH_Z KC_Y
 #define FRCH_SECT KC_GRV
 #define FRCH_QUOT KC_MINS
 #define FRCH_CIRC KC_EQL
@@ -175,6 +177,7 @@
 #define FRCH_AGRV KC_QUOT
 #define FRCH_DLR KC_NUHS
 #define FRCH_LABK KC_NUBS
+#define FRCH_MINS KC_SLSH
 #define FRCH_DEG S(FRCH_SECT)
 #define FRCH_PLUS S(KC_1)
 #define FRCH_DQUO S(KC_2)
