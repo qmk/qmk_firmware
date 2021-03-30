@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 #define VENDOR_ID       0xBABA
-#define PRODUCT_ID      0x6060
 #define MANUFACTURER    m65
 #define PRODUCT         keyboard
 
