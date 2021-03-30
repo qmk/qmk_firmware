@@ -93,8 +93,8 @@ clean:
 
 .PHONY: distclean
 distclean: clean
-	echo -n 'Deleting *.bin and *.hex ... '
-	rm -f *.bin *.hex
+	echo -n 'Deleting *.bin, *.hex, and *.uf2 ... '
+	rm -f *.bin *.hex *.uf2
 	echo 'done.'
 
 #Compatibility with the old make variables, anything you specify directly on the command line
