@@ -14,27 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "analog.h"
-int16_t pot_oldVal = 0;
-int16_t pot_val    = 0;
-int16_t pot_ccVal  = 0;
-#define POT_TOLERANCE 12
-
-void matrix_init_user(void) {
-    analogReference(ADC_REF_POWER);
-}
-
-void matrix_scan_user(void){
-    pot_val   = (analogReadPin(F0));
-    if (abs(pot_val - pot_oldVal) > POT_TOLERANCE) {
-        pot_oldVal = pot_val;
-        tap_code(KC__VOLUP);
-    }
-//    else if (abs(pot_val - pot_oldVal) < POT_TOLERANCE) {
-//        pot_oldVal = pot_val;
-//        tap_code(KC__VOLDOWN);
-//    }
-}
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
