@@ -1,6 +1,6 @@
 # p1800fl
 
-![p1800fl](https://i.imgur.com/GQd28rN.jpg)
+![p1800fl](https://i.imgur.com/GQd28rNh.jpg)
 
 A 1800 Frow-less keyboard project from our team.
 
