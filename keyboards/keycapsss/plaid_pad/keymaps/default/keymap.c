@@ -22,10 +22,18 @@ LAYOUT_ortho_4x4(
 
 };
 
-// Set led state during powerup
+
+// Set led state during power-up
+// There is also a LED_GREEN
+// Only for Rev1 & Rev2
+#ifdef LED_RED
 void keyboard_post_init_user(void) {
     writePinHigh(LED_RED);
 }
+#endif
+
+
+#ifdef ENCODER_ENABLE
 
 void encoder_update_user(uint8_t index, bool clockwise) {
 /*
@@ -71,3 +79,5 @@ Rev1.1                      Rev1
     }
   }
 }
+
+#endif
