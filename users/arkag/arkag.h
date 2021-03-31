@@ -11,6 +11,9 @@
 #define FUNCT       MO(4)
 #define KEEB        MO(5)
 
+#define L_BIT_MEH   MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)
+#define L_BIT_HYPR  MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)
+
 #define LED_FLASH_DELAY       150
 
 #define ACCEL_DELAY           500
@@ -100,5 +103,6 @@ void meh_hyper(bool press);
 void multi_tap(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
 
 void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
+void pair_surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
 
 void long_keystroke(size_t num_of_keys, uint16_t keys[]);

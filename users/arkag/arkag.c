@@ -248,32 +248,10 @@ void sec_mod(bool press) {
 // KC_MEH/HYPR registers both sides, causes issues with some apps
 // I'll do it myself, then
 void meh_hyper(bool press) {
-  if (press) {
-    if (current_os == OS_WIN) {
-      register_code(KC_LCTL);
-      register_code(KC_LALT);
-      register_code(KC_LSFT);
-      // register_code16(KC_MEH);
-    } else {
-      register_code(KC_LCTL);
-      register_code(KC_LALT);
-      register_code(KC_LGUI);
-      register_code(KC_LSFT);
-      // register_code16(KC_HYPR);
-    }
+  if (current_os == OS_WIN) {
+    (press) ? register_mods(L_BIT_MEH) : unregister_mods(L_BIT_MEH);
   } else {
-    if (current_os == OS_WIN) {
-      unregister_code(KC_LCTL);
-      unregister_code(KC_LALT);
-      unregister_code(KC_LSFT);
-      // unregister_code16(KC_MEH);
-    } else {
-      unregister_code(KC_LCTL);
-      unregister_code(KC_LALT);
-      unregister_code(KC_LGUI);
-      unregister_code(KC_LSFT);
-      // unregister_code16(KC_HYPR);
-    }
+    (press) ? register_mods(L_BIT_HYPR) : unregister_mods(L_BIT_HYPR);
   }
 }
 
@@ -289,19 +267,23 @@ void multi_tap(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
   }
 }
 
-void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
-  if (use_shift) {
-    register_code(KC_LSFT);
-  }
+void pair_surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
   for (int i = 0; i < num_of_chars; i++) {
+    (use_shift) ? register_mods(MOD_BIT( KC_LSFT)) : NULL;  
     tap_code(keycode);
-  }
-  if (use_shift) {
-    unregister_code(KC_LSFT);
-  }
-  for (int i = 0; i < (num_of_chars/2); i++) {
+    tap_code((keycode == KC_LCBR) ? KC_RCBR : (keycode == KC_LBRC) ? KC_RBRC : (keycode == KC_LPRN) ? KC_RPRN : KC_NO);
+    (use_shift) ? unregister_mods(MOD_BIT( KC_LSFT)) : NULL;
     tap_code(KC_LEFT);
   }
+}
+
+void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
+  for (int i = 0; i < num_of_chars; i++) {
+    (use_shift) ? register_mods(MOD_BIT( KC_LSFT)) : NULL;
+    tap_code(keycode);
+    (use_shift) ? unregister_mods(MOD_BIT( KC_LSFT)) : NULL;
+  }
+  multi_tap(num_of_chars / 2, KC_LEFT, false);
 }
 
 void long_keystroke(size_t num_of_keys, uint16_t keys[]) {
@@ -389,6 +371,11 @@ void matrix_scan_user(void) {
     SEQ_ONE_KEY(KC_C) {
       send_unicode_hex_string("00E7");
     }
+    SEQ_TWO_KEYS(KC_A, KC_V) {
+      surround_type(2, KC_QUOT, true);
+      pair_surround_type(2, KC_LCBR, true);
+      surround_type(2, KC_SPC, false);
+    }
     SEQ_TWO_KEYS(KC_C, KC_C) {
       surround_type(2, KC_GRAVE, false);
     }
@@ -458,7 +445,7 @@ void matrix_scan_user(void) {
       // ┬─┬ノ( º _ º ノ)
       send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 0020 30CE 0029");
     }
-    SEQ_THREE_KEYS(KC_L, KC_E, KC_N) {
+    SEQ_THREE_KEYS(KC_L, KC_O, KC_L) {
       // ( ͡° ͜ʖ ͡°)
       send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
     }
