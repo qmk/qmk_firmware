@@ -323,7 +323,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
     };
 
     // animation
-    void animation_phase(void) {
+    void animate_luna(void) {
 
         // jump
         if (isJumping || !showedJump) {
@@ -368,7 +368,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
     // animation timer
     if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
         anim_timer = timer_read32();
-        animation_phase();
+        animate_luna();
     }
 
     // this fixes the screen on and off bug
@@ -726,13 +726,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     } else if (index == 1) {
         if (clockwise) {
             if(shift_held) {
-                tap_code(KC_VOLD);
+                tap_code(KC_VOLU);
             } else {
                 tap_code(KC_DOWN);
             }
         } else {
             if(shift_held) {
-                tap_code(KC_VOLU);
+                tap_code(KC_VOLD);
             } else {
                 tap_code(KC_UP);
             }
