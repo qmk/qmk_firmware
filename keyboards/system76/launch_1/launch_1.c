@@ -116,17 +116,24 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-static const uint8_t LEVELS[] = {
-    48,
-    72,
-    96,
-    144,
-    192,
-    255
-};
-static int LEVEL_I = 1;
+#define LEVEL(value) (uint8_t)(\
+    ((uint16_t)value) \
+    * ((uint16_t)RGB_MATRIX_MAXIMUM_BRIGHTNESS) \
+    / ((uint16_t)255) \
+)
 
-void set_value_all_layers(uint8_t value) {
+static const uint8_t levels[] = {
+    LEVEL(48),
+    LEVEL(72),
+    LEVEL(96),
+    LEVEL(144),
+    LEVEL(192),
+    LEVEL(255)
+};
+
+static uint8_t toggle_level = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+
+static void set_value_all_layers(uint8_t value) {
     if (!system76_ec_is_unlocked()) {
         for (int8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
             layer_rgb[layer].hsv.v = value;
@@ -144,25 +151,37 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case RGB_VAD:
             if (record->event.pressed) {
-                if (LEVEL_I > 0)
-                    LEVEL_I -= 1;
-                set_value_all_layers(LEVELS[LEVEL_I]);
+                uint8_t level = rgb_matrix_config.hsv.v;
+                for (int i = sizeof(levels) - 1; i >= 0; i--) {
+                    if (levels[i] < level) {
+                        level = levels[i];
+                        break;
+                    }
+                }
+                set_value_all_layers(level);
             }
             return false;
         case RGB_VAI:
             if (record->event.pressed) {
-                if (LEVEL_I < sizeof(LEVELS) - 1)
-                    LEVEL_I += 1;
-                set_value_all_layers(LEVELS[LEVEL_I]);
+                uint8_t level = rgb_matrix_config.hsv.v;
+                for (int i = 0; i < sizeof(levels); i++) {
+                    if (levels[i] > level) {
+                        level = levels[i];
+                        break;
+                    }
+                }
+                set_value_all_layers(level);
             }
             return false;
         case RGB_TOG:
             if (record->event.pressed) {
+                uint8_t level = 0;
                 if (rgb_matrix_config.hsv.v == 0) {
-                    set_value_all_layers(LEVELS[LEVEL_I]);
+                    level = toggle_level;
                 } else {
-                    set_value_all_layers(0);
+                    toggle_level = rgb_matrix_config.hsv.v;
                 }
+                set_value_all_layers(level);
             }
             return false;
     }
