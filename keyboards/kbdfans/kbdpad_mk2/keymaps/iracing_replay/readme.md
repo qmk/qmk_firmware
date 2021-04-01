@@ -6,4 +6,4 @@ Replay/camera tool for iRacing.  This uses the default keybindings for the game 
 
 To make full use of the arrow keys open the camera tool (you can close the UI after) and optionally switch the AIM to static.
 
-The files for the 3D printed keycap set are ![available here.](https://github.com/AaronVerDow/KeyV2/blob/numpad/src/layouts/numpad/iracing.scad)
+The code to generate stl files for the keycap set are ![available here.](https://github.com/AaronVerDow/KeyV2/blob/numpad/src/layouts/numpad/iracing.scad)
