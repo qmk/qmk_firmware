@@ -69,20 +69,86 @@ void matrix_scan_user(void) {
 
 void rgb_matrix_indicators_user(void) {
 
+//base indicators
+
+if(IS_LAYER_ON(BASE)) {
+  rgb_matrix_set_color(39, 50, 15.6, 0);
+  rgb_matrix_set_color(40, 0, 40, 50);
+  rgb_matrix_set_color(41, 0, 50, 1.9);
+  rgb_matrix_set_color(42, 10, 0, 50);
+  rgb_matrix_set_color(43, 50, 0, 0);
+}	
+
 //game indicators
 
 if(IS_LAYER_ON(GAME)) {
   rgb_matrix_set_color(11, 0, 40, 50);
+
+  rgb_matrix_set_color(0, 0, 40, 50);
+  rgb_matrix_set_color(2, 50, 0, 0);
+  rgb_matrix_set_color(1, 0, 40, 50);
+  rgb_matrix_set_color(3, 0, 40, 50);
+  rgb_matrix_set_color(4, 0, 40, 50);
+
+  rgb_matrix_set_color(12, 0, 40, 50);
+  rgb_matrix_set_color(13, 50, 0, 0);
+  rgb_matrix_set_color(14, 50, 0, 0);
+  rgb_matrix_set_color(15, 50, 0, 0);
+  rgb_matrix_set_color(16, 0, 40, 50);
+
+  rgb_matrix_set_color(24, 0, 40, 50);
+
+  rgb_matrix_set_color(36, 0, 40, 50);
+  rgb_matrix_set_color(37, 0, 40, 50);
+  rgb_matrix_set_color(38, 50, 0, 0);
+  rgb_matrix_set_color(39, 0, 40, 50);
+  rgb_matrix_set_color(40, 0, 40, 50);
+  rgb_matrix_set_color(41, 0, 40, 50);
 }
 
 if(IS_LAYER_ON(SECGAME)) {
-  rgb_matrix_set_color(11, 50, 0, 0);
+  rgb_matrix_set_color(11, 0, 0, 0);
+  
+  rgb_matrix_set_color(0, 0, 0, 0);
+  rgb_matrix_set_color(1, 50, 0, 0);
+  rgb_matrix_set_color(2, 50, 0, 0);
+  rgb_matrix_set_color(3, 50, 0, 0);
+  rgb_matrix_set_color(4, 50, 0, 0);
+  rgb_matrix_set_color(5, 50, 0, 0);
+  rgb_matrix_set_color(6, 50, 0, 0);
+  rgb_matrix_set_color(7, 50, 0, 0);
+  rgb_matrix_set_color(8, 50, 0, 0);
+  rgb_matrix_set_color(9, 50, 0, 0);
+  rgb_matrix_set_color(10, 50, 0, 0);
+
+  rgb_matrix_set_color(12, 0, 40, 50);
+  rgb_matrix_set_color(13, 0, 40, 50);
+  rgb_matrix_set_color(14, 0, 40, 50);
+  rgb_matrix_set_color(15, 0, 40, 50);
+  rgb_matrix_set_color(16, 0, 40, 50);
+  rgb_matrix_set_color(17, 0, 40, 50);
+  rgb_matrix_set_color(18, 0, 40, 50);
+  rgb_matrix_set_color(19, 0, 40, 50);
+  rgb_matrix_set_color(20, 0, 40, 50);
+  rgb_matrix_set_color(21, 0, 40, 50);
+  rgb_matrix_set_color(22, 0, 40, 50);
+  rgb_matrix_set_color(23, 0, 40, 50);
+
+  rgb_matrix_set_color(24, 0, 0, 0);
+
+  rgb_matrix_set_color(36, 0, 0, 0);
+  rgb_matrix_set_color(37, 0, 0, 0);
+  rgb_matrix_set_color(39, 0, 0, 0);
+  rgb_matrix_set_color(40, 0, 0, 0);
+  rgb_matrix_set_color(40, 0, 0, 0);
 }
 
 //layer indicators
 
 if(IS_LAYER_ON(NAVR)) {
   rgb_matrix_set_color(40, 0, 40, 50);
+
+  rgb_matrix_set_color(36, 50, 0, 0);
 
   rgb_matrix_set_color(19, 0, 40, 50);
   rgb_matrix_set_color(20, 0, 40, 50);
@@ -91,13 +157,13 @@ if(IS_LAYER_ON(NAVR)) {
 }
 
 if(IS_LAYER_ON(MEDR)) {
-  rgb_matrix_set_color(39, 50, 10, 20);
+  rgb_matrix_set_color(39, 50, 15.6, 0);
 
-  rgb_matrix_set_color(19, 50, 10, 20);
+  rgb_matrix_set_color(19, 50, 15.6, 0);
 
-  rgb_matrix_set_color(22, 50, 10, 20);
+  rgb_matrix_set_color(22, 50, 15.6, 0);
 
-  rgb_matrix_set_color(42, 50, 10, 20);
+  rgb_matrix_set_color(42, 50, 15.6, 0);
 }
 
 if(IS_LAYER_ON(FUNL)) {
@@ -198,8 +264,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //layers
   [NAVR] = LAYOUT_planck_mit(
     KC_LALT,              KC_RST,            KC_NO,             KC_NO,              KC_NO,            KC_NO,             C(S(KC_Z)),        C(A(KC_LEFT)),     C(KC_X),           C(KC_C),           C(A(KC_RGHT)),     KC_LALT,
-    KC_LSFT,              G(S(C(KC_F1))),    G(S(C(KC_F3))),    G(S(C(KC_F4))),     G(S(C(KC_F2))),   KC_NO,             KC_CLCK,           KC_LEFT,           KC_DOWN,           KC_UP,             KC_RGHT,           KC_LSFT,
-    KC_LCTL,              KC_NO,             KC_ALGR,           KC_NO,              G(S(C(KC_F5))),   KC_NO,             KC_INS,            KC_HOME,           KC_PGDN,           KC_PGUP,           KC_END,            KC_LCTL,
+    KC_LSFT,              G(S(C(KC_F1))),    G(S(C(KC_F3))),    G(S(C(KC_F4))),     G(S(C(KC_F2))),   KC_NO,             KC_CLCK,           KC_LEFT,           KC_UP,             KC_DOWN,           KC_RGHT,           KC_LSFT,
+    KC_LCTL,              KC_NO,             KC_ALGR,           KC_NO,              G(S(C(KC_F5))),   KC_NO,             KC_INS,            KC_HOME,           KC_PGUP,           KC_PGDN,           KC_END,            KC_LCTL,
     TG(GAME),             KC_NO,             KC_NO,             KC_NO,              KC_NO,                     KC_ENT,                      KC_BSPC,           KC_DEL,            KC_NO,             C(G(KC_LEFT)),     C(G(KC_RIGHT))
   ),
   [MEDR] = LAYOUT_planck_mit(
@@ -228,12 +294,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [GAME] = LAYOUT_planck_mit(
     KC_ESC,               KC_Q,              KC_W,              KC_E,               KC_R,             KC_T,              KC_Y,              KC_U,               KC_I,             KC_O,              KC_P,              TG(GAME),
-    KC_LALT,              KC_A,              KC_S,              KC_D,               KC_F,             KC_G,              KC_H,              KC_J,               KC_K,             KC_L,              KC_QUOT,           KC_LSFT,
+//    KC_LALT,              KC_A,              KC_S,              KC_D,               KC_F,             KC_G,              KC_H,              KC_J,               KC_K,             KC_L,              KC_QUOT,           KC_LSFT,
+    KC_TAB,              KC_A,              KC_S,              KC_D,               KC_F,             KC_G,              KC_H,              KC_J,               KC_K,             KC_L,              KC_QUOT,           KC_LSFT,
     KC_LSFT,              KC_Z,              KC_X,              KC_C,               KC_V,             KC_B,              KC_N,              KC_M,               KC_COMM,          KC_DOT,            KC_SLSH,           KC_LCTL,
-    KC_LCTL,              A(KC_TAB),         MO(SECGAME),       KC_TAB,             KC_SPC,             LT(SECGAME, KC_ENT),                KC_BSPC,            KC_DEL,           KC_MPRV,           KC_MPLY,           KC_MNXT
+//    KC_LCTL,              A(KC_TAB),         MO(SECGAME),       KC_TAB,             KC_SPC,             LT(SECGAME, KC_ENT),                KC_BSPC,            KC_DEL,           KC_MPRV,           KC_MPLY,           KC_MNXT
+    KC_LCTL,              KC_LALT,         MO(SECGAME),       KC_NO,             KC_SPC,             LT(SECGAME, KC_ENT),                KC_BSPC,            KC_DEL,           KC_MPRV,           KC_MPLY,           KC_MNXT
   ),
   [SECGAME] = LAYOUT_planck_mit(
-    KC_1,                 KC_2,              KC_3,              KC_4,               KC_5,             KC_6,              KC_7,              KC_8,               KC_9,             KC_0,              KC_MINS,           KC_EQL,
+//    KC_F1,                KC_F2,             KC_F3,             KC_F4,              KC_F5,            KC_F6,             KC_F7,             KC_F8,              KC_F9,            KC_F10,            KC_F11,            KC_F12,
+    KC_MINS,              KC_1,              KC_2,              KC_3,               KC_4,             KC_5,              KC_6,              KC_7,               KC_8,             KC_9,              KC_0,              KC_EQL,
     KC_F1,                KC_F2,             KC_F3,             KC_F4,              KC_F5,            KC_F6,             KC_F7,             KC_F8,              KC_F9,            KC_F10,            KC_F11,            KC_F12,
     KC_LEFT,              KC_DOWN,           KC_UP,             KC_RGHT,            KC_NO,            KC_NO,             KC_NO,             KC_P1,              KC_P2,            KC_P3,             KC_P4,             KC_P5,
     KC_LEFT,              KC_DOWN,           KC_UP,             KC_RGHT,            KC_NO,                     KC_NO,                       KC_P6,              KC_P7,            KC_P8,             KC_P9,             KC_P0
