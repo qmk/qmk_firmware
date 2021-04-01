@@ -17,8 +17,9 @@ Move RGB onto layer 3
 Move capslock onto layer 3
 Volume and media keys on layer 3
 L1 + O = zero, L2 + O = zero (as well as L1 + V)
+Move {} [] onto <> on layers 1/2, in addition to location on L;?
 
 "Hold down the Bootmagic key (Space by default) and the desired hotkey while plugging in your keyboard. For example, holding Space+B should cause it to enter the bootloader."
 
 TODO: explicit RESET key or just use Bootmagic Space + B to trigger it?
-TODO: move {} [] onto <> on layers 1/2, in addition to location on L;?
+TODO: try numpad into middle for less awkward chording for nums/syms. Maybe also have space have dual funciton, L1 mod on hold?
