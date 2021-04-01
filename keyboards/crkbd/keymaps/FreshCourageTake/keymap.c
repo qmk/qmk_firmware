@@ -71,11 +71,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                                                         ,-----------------------------------------------------.
        _______,  TD(TD_Q_ESC),    KC_W,    KC_E,    KC_R,    KC_T,                                                       KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  _______,
   //|--------+--------+--------+--------+--------+--------|                                                         |--------+--------+--------+--------+--------+--------|
-      _______,    LCTL_T(KC_A), LSFT_T(KC_S), LALT_T(KC_D), LT(_NUMPAD, KC_F), KC_G,                                    KC_H,    RGUI_T(KC_J), RALT_T(KC_K), RSFT_T(KC_L), RCTL_T(KC_SCLN), _______,
+      _______,    LCTL_T(KC_A), LSFT_T(KC_S), LALT_T(KC_D), LT(_NUMPAD, KC_F), KC_G,                                    KC_H,    KC_J, RALT_T(KC_K), RSFT_T(KC_L), RCTL_T(KC_SCLN), _______,
   //|--------+--------+--------+--------+--------+--------|                                                         |--------+--------+--------+--------+--------+--------|
-      _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                                              KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  _______,
+      _______,    KC_Z,    KC_X,    KC_C,    LGUI_T(KC_V),    KC_B,                                                     KC_N,    LGUI_T(KC_M), KC_COMM,  KC_DOT, KC_SLSH,  _______,
   //|--------+--------+--------+--------+--------+--------+--------|                                                |--------+--------+--------+--------+--------+--------+--------|
-                                          LT(_NUMFUN, KC_DELETE), LT(_MODIFIED, KC_TAB), LT(_ARROWS, KC_QUOT),          LT(_SYMBOLS, KC_SPC),  LT(_NUMPAD, KC_ENT), LT(_NUMFUN, KC_BSPC)
+                                          LT(_NUMFUN, KC_DELETE), LT(_MODIFIED, KC_TAB), LT(_ARROWS, KC_ENT),          LT(_SYMBOLS, KC_SPC),  LT(_NUMPAD, KC_QUOT), LT(_NUMFUN, KC_BSPC)
                                       //`--------------------------'                                                `--------------------------'
 
   ),
@@ -130,11 +130,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MODIFIED] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                                                          ,-----------------------------------------------------.
-      _______, _______, _______, _______, LCTL(KC_R), _______,                                                            _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, LCTL(KC_R), _______,                                                         _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                                                          |--------+--------+--------+--------+--------+--------|
-      _______, LCTL(KC_A),  LCTL(KC_S),   LCTL(KC_D), LCTL(KC_F), _______,                                                            _______, _______, _______, _______, _______, _______,
+      _______, LCTL(KC_A),  LCTL(KC_S),   LCTL(KC_D), LCTL(KC_F), _______,                                             _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______,
   //|--------+--------+--------+--------+--------+--------|                                                          |--------+--------+--------+--------+--------+--------|
-      _______, LCTL(KC_Z),    LCTL(KC_X),   LCTL(KC_C),   LCTL(KC_V),  LCTL(KC_B),                                                            _______, _______, _______, _______, _______, _______,
+      _______, LCTL(KC_Z),    LCTL(KC_X),   LCTL(KC_C),   LCTL(KC_V),  LCTL(KC_B),                                     _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,
   //|--------+--------+--------+--------+--------+--------+--------|                                        |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,                                          _______, _______, _______
                                       //`--------------------------'                                        `--------------------------'
@@ -327,5 +327,5 @@ void q_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_Q_ESC] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, q_finished, q_reset, 450)
+    [TD_Q_ESC] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, q_finished, q_reset, 250)
 };
