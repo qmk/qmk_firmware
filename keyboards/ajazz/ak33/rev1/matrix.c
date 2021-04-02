@@ -406,55 +406,109 @@ OSAL_IRQ_HANDLER(SN32_CT16B0_HANDLER) {
 		SN_CT32B0->MR1 = led_state[row_ofst + 16].b;
 	}
 
-	// Enable PWM on all timers
-	SN_CT16B0->PWMCTRL =
-		(mskCT16_PWM0EN_EN \
-		|mskCT16_PWM1EN_EN);
-	SN_CT16B1->PWMCTRL =
-		(mskCT16_PWM1EN_EN \
-		|mskCT16_PWM2EN_EN);
-	SN_CT16B2->PWMCTRL =
-		(mskCT16_PWM0EN_EN \
-		|mskCT16_PWM1EN_EN \
-		|mskCT16_PWM2EN_EN);
-	SN_CT32B0->PWMCTRL =
-		(mskCT32_PWM0EN_EN \
-		|mskCT32_PWM1EN_EN \
-		|mskCT32_PWM3EN_EN);
-	SN_CT32B1->PWMCTRL =
-		(mskCT32_PWM1EN_EN \
-		|mskCT32_PWM2EN_EN \
-		|mskCT32_PWM3EN_EN);
-	SN_CT32B2->PWMCTRL =
-		(mskCT32_PWM0EN_EN \
-		|mskCT32_PWM1EN_EN \
-		|mskCT32_PWM2EN_EN \
-		|mskCT32_PWM3EN_EN);
-
-	// Enable IO
-	SN_CT16B0->PWMCTRL |=
-		(mskCT16_PWM0IOEN_EN \
-		|mskCT16_PWM1IOEN_EN);
-	SN_CT16B1->PWMCTRL |=
-		(mskCT16_PWM1IOEN_EN \
-		|mskCT16_PWM2IOEN_EN);
-	SN_CT16B2->PWMCTRL |=
-		(mskCT16_PWM0IOEN_EN \
-		|mskCT16_PWM1IOEN_EN \
-		|mskCT16_PWM2IOEN_EN);
-	SN_CT32B0->PWMCTRL |=
-		(mskCT32_PWM0IOEN_EN \
-		|mskCT32_PWM1IOEN_EN \
-		|mskCT32_PWM3IOEN_EN);
-	SN_CT32B1->PWMCTRL |=
-		(mskCT32_PWM1IOEN_EN \
-		|mskCT32_PWM2IOEN_EN \
-		|mskCT32_PWM3IOEN_EN);
-	SN_CT32B2->PWMCTRL |=
-		(mskCT32_PWM0IOEN_EN \
-		|mskCT32_PWM1IOEN_EN \
-		|mskCT32_PWM2IOEN_EN \
-		|mskCT32_PWM3IOEN_EN);
+    // Enable PWM on all timers
+    if(SN_CT16B0->MR0 > 0)
+    {
+        SN_CT16B0->PWMCTRL |=
+            (mskCT16_PWM0EN_EN \
+            |mskCT16_PWM0IOEN_EN);
+    }
+    if(SN_CT16B0->MR1 > 0)
+    {
+        SN_CT16B0->PWMCTRL |=
+            (mskCT16_PWM1EN_EN \
+            |mskCT16_PWM1IOEN_EN);
+    }
+    if(SN_CT16B2->MR0 > 0)
+    {
+        SN_CT16B2->PWMCTRL |=
+            (mskCT16_PWM0EN_EN \
+            |mskCT16_PWM0IOEN_EN);
+    }
+    if(SN_CT32B2->MR2 > 0)
+    {
+        SN_CT32B2->PWMCTRL |=
+            (mskCT32_PWM2EN_EN \
+            |mskCT32_PWM2IOEN_EN);
+    }
+    if(SN_CT32B0->MR0 > 0)
+    {
+        SN_CT32B0->PWMCTRL |=
+            (mskCT32_PWM0EN_EN \
+            |mskCT32_PWM0IOEN_EN);
+    }
+    if(SN_CT32B1->MR2 > 0)
+    {
+        SN_CT32B1->PWMCTRL |=
+            (mskCT32_PWM2EN_EN \
+            |mskCT32_PWM2IOEN_EN);
+    }
+    if(SN_CT32B2->MR3 > 0)
+    {
+        SN_CT32B2->PWMCTRL |=
+            (mskCT32_PWM3EN_EN \
+            |mskCT32_PWM3IOEN_EN);
+    }
+    if(SN_CT32B1->MR3 > 0)
+    {
+        SN_CT32B1->PWMCTRL |=
+            (mskCT32_PWM3EN_EN \
+            |mskCT32_PWM3IOEN_EN);
+    }
+    if(SN_CT32B2->MR1 > 0)
+    {
+        SN_CT32B2->PWMCTRL |=
+            (mskCT32_PWM1EN_EN \
+            |mskCT32_PWM1IOEN_EN);
+    }
+    if(SN_CT16B1->MR2 > 0)
+    {
+        SN_CT16B1->PWMCTRL |=
+            (mskCT16_PWM2EN_EN \
+            |mskCT16_PWM2IOEN_EN);
+    }
+    if(SN_CT16B2->MR2 > 0)
+    {
+        SN_CT16B2->PWMCTRL |=
+            (mskCT16_PWM2EN_EN \
+            |mskCT16_PWM2IOEN_EN);
+    }
+    if(SN_CT32B2->MR0 > 0)
+    {
+        SN_CT32B2->PWMCTRL |=
+            (mskCT32_PWM0EN_EN \
+            |mskCT32_PWM0IOEN_EN);
+    }
+    if(SN_CT32B0->MR3 > 0)
+    {
+        SN_CT32B0->PWMCTRL |=
+            (mskCT32_PWM3EN_EN \
+            |mskCT32_PWM3IOEN_EN);
+    }
+    if(SN_CT16B1->MR1 > 0)
+    {
+        SN_CT16B1->PWMCTRL |=
+            (mskCT16_PWM1EN_EN \
+            |mskCT16_PWM1IOEN_EN);
+    }
+    if(SN_CT16B2->MR1 > 0)
+    {
+        SN_CT16B2->PWMCTRL |=
+            (mskCT16_PWM1EN_EN \
+            |mskCT16_PWM1IOEN_EN);
+    }
+    if(SN_CT32B1->MR1 > 0)
+    {
+        SN_CT32B1->PWMCTRL |=
+            (mskCT32_PWM1EN_EN \
+            |mskCT32_PWM1IOEN_EN);
+    }
+    if(SN_CT32B0->MR1 > 0)
+    {
+        SN_CT32B0->PWMCTRL |=
+            (mskCT32_PWM1EN_EN \
+            |mskCT32_PWM1IOEN_EN);
+    }
 
     // Set match interrupts and TC rest for CT16B0, which is used to generate interrupt
     SN_CT16B0->MCTRL = (mskCT16_MR3IE_EN|mskCT16_MR3STOP_EN);
