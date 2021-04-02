@@ -550,7 +550,6 @@ void combo_disable(void) {
 #endif
     b_combo_enable = false;
     combo_buffer_read = combo_buffer_write;
-    dump_key_buffer();
 }
 
 void combo_toggle(void) {
