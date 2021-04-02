@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    joaofbmaia
 #define PRODUCT         6macro
-#define DESCRIPTION     6macro
 
 /* key matrix size */
 #define MATRIX_ROWS 2

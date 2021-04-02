@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Duck
 #define PRODUCT         Orion V3
-#define DESCRIPTION     TKL Korean custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6

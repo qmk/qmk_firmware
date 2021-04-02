@@ -66,10 +66,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 
-#define B5_AUDIO
+#define AUDIO_PIN B5
 
 #define AUDIO_CLICKY
-
+#define NO_MUSIC_MODE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -81,5 +81,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-

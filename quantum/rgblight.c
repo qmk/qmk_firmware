@@ -29,7 +29,7 @@
 #endif
 #include "wait.h"
 #include "progmem.h"
-#include "timer.h"
+#include "sync_timer.h"
 #include "rgblight.h"
 #include "color.h"
 #include "debug.h"
@@ -41,6 +41,9 @@
 
 #ifndef MIN
 #    define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#endif
+#ifndef MAX
+#    define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
 #ifdef RGBLIGHT_SPLIT
@@ -81,6 +84,26 @@ static uint8_t mode_base_table[] = {
 #include "rgblight_modes.h"
 };
 
+#if !defined(RGBLIGHT_DEFAULT_MODE)
+#    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
+#endif
+
+#if !defined(RGBLIGHT_DEFAULT_HUE)
+#    define RGBLIGHT_DEFAULT_HUE 0
+#endif
+
+#if !defined(RGBLIGHT_DEFAULT_SAT)
+#    define RGBLIGHT_DEFAULT_SAT UINT8_MAX
+#endif
+
+#if !defined(RGBLIGHT_DEFAULT_VAL)
+#    define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL
+#endif
+
+#if !defined(RGBLIGHT_DEFAULT_SPD)
+#    define RGBLIGHT_DEFAULT_SPD 0
+#endif
+
 static inline int is_static_effect(uint8_t mode) { return memchr(static_effect_table, mode, sizeof(static_effect_table)) != NULL; }
 
 #ifdef RGBLIGHT_LED_MAP
@@ -94,6 +117,11 @@ __attribute__((weak)) const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170
 rgblight_config_t rgblight_config;
 rgblight_status_t rgblight_status         = {.timer_enabled = false};
 bool              is_rgblight_initialized = false;
+
+#ifdef RGBLIGHT_SLEEP
+static bool is_suspended;
+static bool pre_suspend_enabled;
+#endif
 
 #ifdef RGBLIGHT_USE_TIMER
 animation_status_t animation_status = {};
@@ -175,11 +203,11 @@ void eeconfig_update_rgblight_current(void) { eeconfig_update_rgblight(rgblight_
 
 void eeconfig_update_rgblight_default(void) {
     rgblight_config.enable = 1;
-    rgblight_config.mode   = RGBLIGHT_MODE_STATIC_LIGHT;
-    rgblight_config.hue    = 0;
-    rgblight_config.sat    = UINT8_MAX;
-    rgblight_config.val    = RGBLIGHT_LIMIT_VAL;
-    rgblight_config.speed  = 0;
+    rgblight_config.mode   = RGBLIGHT_DEFAULT_MODE;
+    rgblight_config.hue    = RGBLIGHT_DEFAULT_HUE;
+    rgblight_config.sat    = RGBLIGHT_DEFAULT_SAT;
+    rgblight_config.val    = RGBLIGHT_DEFAULT_VAL;
+    rgblight_config.speed  = RGBLIGHT_DEFAULT_SPD;
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     eeconfig_update_rgblight(rgblight_config.raw);
 }
@@ -227,6 +255,17 @@ void rgblight_init(void) {
     }
 
     is_rgblight_initialized = true;
+}
+
+void rgblight_reload_from_eeprom(void) {
+    /* Reset back to what we have in eeprom */
+    rgblight_config.raw = eeconfig_read_rgblight();
+    RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
+    rgblight_check_config();
+    eeconfig_debug_rgblight();  // display current eeprom values
+    if (rgblight_config.enable) {
+        rgblight_mode_noeeprom(rgblight_config.mode);
+    }
 }
 
 uint32_t rgblight_read_dword(void) { return rgblight_config.raw; }
@@ -628,7 +667,7 @@ void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_set
 
 #ifdef RGBLIGHT_LAYERS
 void rgblight_set_layer_state(uint8_t layer, bool enabled) {
-    rgblight_layer_mask_t mask = 1 << layer;
+    rgblight_layer_mask_t mask = (rgblight_layer_mask_t)1 << layer;
     if (enabled) {
         rgblight_status.enabled_layer_mask |= mask;
     } else {
@@ -649,7 +688,7 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
-    rgblight_layer_mask_t mask = 1 << layer;
+    rgblight_layer_mask_t mask = (rgblight_layer_mask_t)1 << layer;
     return (rgblight_status.enabled_layer_mask & mask) != 0;
 }
 
@@ -684,20 +723,18 @@ static void rgblight_layers_write(void) {
 
 #    ifdef RGBLIGHT_LAYER_BLINK
 rgblight_layer_mask_t _blinked_layer_mask = 0;
-uint16_t              _blink_duration     = 0;
 static uint16_t       _blink_timer;
 
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
     rgblight_set_layer_state(layer, true);
-    _blinked_layer_mask |= 1 << layer;
-    _blink_timer    = timer_read();
-    _blink_duration = duration_ms;
+    _blinked_layer_mask |= (rgblight_layer_mask_t)1 << layer;
+    _blink_timer = sync_timer_read() + duration_ms;
 }
 
 void rgblight_unblink_layers(void) {
-    if (_blinked_layer_mask != 0 && timer_elapsed(_blink_timer) > _blink_duration) {
+    if (_blinked_layer_mask != 0 && timer_expired(sync_timer_read(), _blink_timer)) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
-            if ((_blinked_layer_mask & 1 << layer) != 0) {
+            if ((_blinked_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0) {
                 rgblight_set_layer_state(layer, false);
             }
         }
@@ -705,6 +742,42 @@ void rgblight_unblink_layers(void) {
     }
 }
 #    endif
+
+#endif
+
+#ifdef RGBLIGHT_SLEEP
+
+void rgblight_suspend(void) {
+    rgblight_timer_disable();
+    if (!is_suspended) {
+        is_suspended        = true;
+        pre_suspend_enabled = rgblight_config.enable;
+
+#    ifdef RGBLIGHT_LAYER_BLINK
+        // make sure any layer blinks don't come back after suspend
+        rgblight_status.enabled_layer_mask &= ~_blinked_layer_mask;
+        _blinked_layer_mask = 0;
+#    endif
+
+        rgblight_disable_noeeprom();
+    }
+}
+
+void rgblight_wakeup(void) {
+    is_suspended = false;
+
+    if (pre_suspend_enabled) {
+        rgblight_enable_noeeprom();
+    }
+#    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+    // Need this or else the LEDs won't be set
+    else if (rgblight_status.enabled_layer_mask != 0) {
+        rgblight_set();
+    }
+#    endif
+
+    rgblight_timer_enable();
+}
 
 #endif
 
@@ -729,8 +802,10 @@ void rgblight_set(void) {
 
 #    ifdef RGBLIGHT_LAYERS
     if (rgblight_layers != NULL
-#        ifndef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+#        if !defined(RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF)
         && rgblight_config.enable
+#        elif defined(RGBLIGHT_SLEEP)
+        && !is_suspended
 #        endif
     ) {
         rgblight_layers_write();
@@ -809,22 +884,6 @@ typedef void (*effect_func_t)(animation_status_t *anim);
 
 // Animation timer -- use system timer (AVR Timer0)
 void rgblight_timer_init(void) {
-    // OLD!!!! Animation timer -- AVR Timer3
-    // static uint8_t rgblight_timer_is_init = 0;
-    // if (rgblight_timer_is_init) {
-    //   return;
-    // }
-    // rgblight_timer_is_init = 1;
-    // /* Timer 3 setup */
-    // TCCR3B = _BV(WGM32) // CTC mode OCR3A as TOP
-    //       | _BV(CS30); // Clock selelct: clk/1
-    // /* Set TOP value */
-    // uint8_t sreg = SREG;
-    // cli();
-    // OCR3AH = (RGBLED_TIMER_TOP >> 8) & 0xff;
-    // OCR3AL = RGBLED_TIMER_TOP & 0xff;
-    // SREG = sreg;
-
     rgblight_status.timer_enabled = false;
     RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
 }
@@ -832,7 +891,7 @@ void rgblight_timer_enable(void) {
     if (!is_static_effect(rgblight_config.mode)) {
         rgblight_status.timer_enabled = true;
     }
-    animation_status.last_timer = timer_read();
+    animation_status.last_timer = sync_timer_read();
     RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
     dprintf("rgblight timer enabled.\n");
 }
@@ -935,24 +994,25 @@ void rgblight_task(void) {
 #    endif
 #    ifdef RGBLIGHT_EFFECT_TWINKLE
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) {
-            interval_time = get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 5, 50);
+            interval_time = get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 5, 30);
             effect_func   = (effect_func_t)rgblight_effect_twinkle;
         }
 #    endif
         if (animation_status.restart) {
             animation_status.restart    = false;
-            animation_status.last_timer = timer_read() - interval_time - 1;
+            animation_status.last_timer = sync_timer_read();
             animation_status.pos16      = 0;  // restart signal to local each effect
         }
-        if (timer_elapsed(animation_status.last_timer) >= interval_time) {
+        uint16_t now = sync_timer_read();
+        if (timer_expired(now, animation_status.last_timer)) {
 #    if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
             static uint16_t report_last_timer = 0;
             static bool     tick_flag         = false;
             uint16_t        oldpos16;
             if (tick_flag) {
                 tick_flag = false;
-                if (timer_elapsed(report_last_timer) >= 30000) {
-                    report_last_timer = timer_read();
+                if (timer_expired(now, report_last_timer)) {
+                    report_last_timer += 30000;
                     dprintf("rgblight animation tick report to slave\n");
                     RGBLIGHT_SPLIT_ANIMATION_TICK;
                 }
@@ -976,8 +1036,7 @@ void rgblight_task(void) {
 
 #endif /* RGBLIGHT_USE_TIMER */
 
-// Effects
-#ifdef RGBLIGHT_EFFECT_BREATHING
+#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_TWINKLE)
 
 #    ifndef RGBLIGHT_EFFECT_BREATHE_CENTER
 #        ifndef RGBLIGHT_BREATHE_TABLE_SIZE
@@ -986,17 +1045,24 @@ void rgblight_task(void) {
 #        include <rgblight_breathe_table.h>
 #    endif
 
+static uint8_t breathe_calc(uint8_t pos) {
+    // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
+#    ifdef RGBLIGHT_EFFECT_BREATHE_TABLE
+    return pgm_read_byte(&rgblight_effect_breathe_table[pos / table_scale]);
+#    else
+    return (exp(sin((pos / 255.0) * M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER / M_E) * (RGBLIGHT_EFFECT_BREATHE_MAX / (M_E - 1 / M_E));
+#    endif
+}
+
+#endif
+
+// Effects
+#ifdef RGBLIGHT_EFFECT_BREATHING
+
 __attribute__((weak)) const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 
 void rgblight_effect_breathing(animation_status_t *anim) {
-    float val;
-
-    // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
-#    ifdef RGBLIGHT_EFFECT_BREATHE_TABLE
-    val = pgm_read_byte(&rgblight_effect_breathe_table[anim->pos / table_scale]);
-#    else
-    val = (exp(sin((anim->pos / 255.0) * M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER / M_E) * (RGBLIGHT_EFFECT_BREATHE_MAX / (M_E - 1 / M_E));
-#    endif
+    uint8_t val = breathe_calc(anim->pos);
     rgblight_sethsv_noeeprom_old(rgblight_config.hue, rgblight_config.sat, val);
     anim->pos = (anim->pos + 1);
 }
@@ -1248,48 +1314,54 @@ void rgblight_effect_alternating(animation_status_t *anim) {
 #endif
 
 #ifdef RGBLIGHT_EFFECT_TWINKLE
-__attribute__((weak)) const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {50, 25, 10};
+__attribute__((weak)) const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {30, 15, 5};
 
 typedef struct PACKED {
     HSV     hsv;
     uint8_t life;
-    bool    up;
+    uint8_t max_life;
 } TwinkleState;
 
 static TwinkleState led_twinkle_state[RGBLED_NUM];
 
 void rgblight_effect_twinkle(animation_status_t *anim) {
-    bool random_color = anim->delta / 3;
-    bool restart      = anim->pos == 0;
-    anim->pos         = 1;
+    const bool random_color = anim->delta / 3;
+    const bool restart      = anim->pos == 0;
+    anim->pos               = 1;
+
+    const uint8_t bottom = breathe_calc(0);
+    const uint8_t top    = breathe_calc(127);
+
+    uint8_t frac(uint8_t n, uint8_t d) { return (uint16_t)255 * n / d; }
+    uint8_t scale(uint16_t v, uint8_t scale) { return (v * scale) >> 8; }
 
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);
         HSV *         c = &(t->hsv);
+
+        if (!random_color) {
+            c->h = rgblight_config.hue;
+            c->s = rgblight_config.sat;
+        }
+
         if (restart) {
             // Restart
-            t->life  = 0;
-            t->hsv.v = 0;
+            t->life = 0;
+            c->v    = 0;
         } else if (t->life) {
             // This LED is already on, either brightening or dimming
             t->life--;
-            uint8_t on = t->up ? RGBLIGHT_EFFECT_TWINKLE_LIFE - t->life : t->life;
-            c->v       = (uint16_t)rgblight_config.val * on / RGBLIGHT_EFFECT_TWINKLE_LIFE;
-            if (t->life == 0 && t->up) {
-                t->up   = false;
-                t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
-            }
-            if (!random_color) {
-                c->h = rgblight_config.hue;
-                c->s = rgblight_config.sat;
-            }
-        } else if (rand() < RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY) {
+            uint8_t unscaled = frac(breathe_calc(frac(t->life, t->max_life)) - bottom, top - bottom);
+            c->v             = scale(rgblight_config.val, unscaled);
+        } else if (rand() < scale((uint16_t)RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY, 127 + rgblight_config.val / 2)) {
             // This LED is off, but was randomly selected to start brightening
-            c->h    = random_color ? rand() % 0xFF : rgblight_config.hue;
-            c->s    = random_color ? (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2) : rgblight_config.sat;
-            c->v    = 0;
-            t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
-            t->up   = true;
+            if (random_color) {
+                c->h = rand() % 0xFF;
+                c->s = (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2);
+            }
+            c->v        = 0;
+            t->max_life = MAX(20, MIN(RGBLIGHT_EFFECT_TWINKLE_LIFE, rgblight_config.val));
+            t->life     = t->max_life;
         } else {
             // This LED is off, and was NOT selected to start brightening
         }
