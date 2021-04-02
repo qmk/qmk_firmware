@@ -77,13 +77,4 @@
 #    define DRIVER_1_LED_TOTAL 60
 #    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 #endif
-#define RGB_DI_PIN B7
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8
-#define RGBLIGHT_HUE_STEP 5
-#define RGBLIGHT_SAT_STEP 5
-#define RGBLIGHT_VAL_STEP 5
-#define RGBLIGHT_SLEEP
-#endif
 
