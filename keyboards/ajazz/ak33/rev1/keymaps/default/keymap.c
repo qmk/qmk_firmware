@@ -149,17 +149,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               }
 };
 
-// Taken from 'g_led_config' in config_led.c
-#define CAPS_LOCK_LED_ID 34
-
-void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
-        rgb_matrix_set_color(CAPS_LOCK_LED_ID, 0xFF, 0x00, 0x00);
-    } else {
-        rgb_matrix_set_color(CAPS_LOCK_LED_ID, 0x00, 0x00, 0x00);
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case BASE:

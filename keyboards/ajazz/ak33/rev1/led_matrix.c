@@ -63,3 +63,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color     = set_color,
     .set_color_all = set_color_all,
 };
+
+void led_set(uint8_t usb_led) {
+    writePin(LED_CAPS_LOCK_PIN, !IS_LED_ON(usb_led, USB_LED_CAPS_LOCK));
+}
