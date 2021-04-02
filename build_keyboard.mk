@@ -221,6 +221,10 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/$(KEYBOARD_FOLDER_5).h)","")
     QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_5).h
 endif
 
+ifeq ("$(wildcard QMK_KEYBOARD_H)","")
+    $(error QMK_KEYBOARD_H is empty! Make sure <keyboard>/<keyboard>.[ch] exist and are named correctly)
+endif
+
 # Determine and set parameters based on the keyboard's processor family.
 # We can assume a ChibiOS target When MCU_FAMILY is defined since it's
 # not used for LUFA
