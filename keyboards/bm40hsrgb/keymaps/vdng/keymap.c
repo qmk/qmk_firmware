@@ -40,10 +40,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_BASE] = LAYOUT_planck_mit(
-          BP_W    , BP_B   , BP_ECUT, BP_P   ,            BP_O    ,  BP_EGRV , BP_DCRC ,            BP_V   , BP_D   , BP_L   ,                BP_J   ,       BP_Z    ,
-          KC_TAB  , BP_A   , BP_U   , BP_I   ,            BP_E    ,  BP_COMM , BP_C    ,            BP_T   , BP_S   , BP_R   ,                BP_N   ,       BP_M    ,
-    SFT_T(BP_ECIR), BP_AGRV, BP_Y   , BP_X   ,            BP_DOT  ,  BP_K    , BP_APOS ,            BP_Q   , BP_G   , BP_H   , LT(_FUNCTIONS, BP_F)  , SFT_T(BP_CCED),
-          KC_ESC  , KC_LCTL, KC_LALT, KC_LGUI, LT(_LOWER, BP_MINS),  LT(_AWM, KC_SPACE), LT(_RAISE, KC_ENT), KC_BSPC, KC_RALT,                KC_RCTL,    TG(_MOUSE)
+          BP_W    , BP_B   , BP_ECUT,        BP_P   ,            BP_O    ,  BP_EGRV , BP_DCRC ,            BP_V   , BP_D   , BP_L   ,                BP_J   ,       BP_Z    ,
+          KC_TAB  , BP_A   , BP_U   ,        BP_I   ,            BP_E    ,  BP_COMM , BP_C    ,            BP_T   , BP_S   , BP_R   ,                BP_N   ,       BP_M    ,
+    SFT_T(BP_ECIR), BP_AGRV, BP_Y   ,        BP_X   ,            BP_DOT  ,  BP_K    , BP_APOS ,            BP_Q   , BP_G   , BP_H   , LT(_FUNCTIONS, BP_F)  , SFT_T(BP_CCED),
+          KC_ESC  , KC_LCTL, KC_LALT, LGUI_T(BP_SLSH), LT(_LOWER, BP_MINS),  LT(_AWM, KC_SPACE), LT(_RAISE, KC_ENT), KC_BSPC, KC_RALT,                KC_RCTL,    TG(_MOUSE)
 ),
 
 /* Gaming
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |   &  |   <  |   >  |   [  |   ]  |      |      |   +  |   -  |   /  |   *  |   =  |
+ * |   &  |   <  |   >  |   [  |   ]  |   `  |   @  |   +  |   -  |   /  |   *  |   =  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |   |  |   ^  |   \  |   (  |   )  |   $  |LftArr|DwnArr| UpArr|RhtArr|      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -166,10 +166,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_mit(
-    BP_AMPR , BP_LESS, BP_GRTR, BP_LBRC, BP_RBRC, BP_AT  , _______, BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, BP_EQL ,
-    BP_PIPE , BP_CIRC, BP_BSLS, BP_LPRN, BP_RPRN, BP_DLR , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT,_______,  _______,
-    KC_LSFT , BP_LGIL, BP_RGIL, BP_LCBR, BP_RCBR, BP_TILD, BP_DQOT, _______, _______, _______, _______, _______,
-    _______ , _______, _______, _______, _______,     BP_UNDS     , _______, _______, _______, _______, _______
+    BP_AMPR , BP_LESS, BP_GRTR, BP_LBRC, BP_RBRC, RALT(BP_EGRV), BP_AT  ,BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, BP_EQL ,
+    BP_PIPE , BP_CIRC, BP_BSLS, BP_LPRN, BP_RPRN,      BP_DLR  , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT,_______,  _______,
+    KC_LSFT , BP_LGIL, BP_RGIL, BP_LCBR, BP_RCBR,      BP_TILD , BP_DQOT, _______, _______, _______, _______, _______,
+    _______ , _______, _______, _______, _______,          BP_UNDS      , _______, _______, _______, _______, _______
 ),
 
 /* Adjust
