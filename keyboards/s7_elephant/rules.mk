@@ -1,1 +1,0 @@
-DEFAULT_FOLDER = s7_elephant/rev1

@@ -12,7 +12,7 @@
 #endif
 
 #ifdef PROTOCOL_VUSB
-#    include "usbdrv.h"
+#    include <usbdrv/usbdrv.h>
 #endif
 
 #ifdef EE_HANDS
@@ -95,7 +95,7 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
     uint8_t pin_state = readPin(in_pin);
     // Set out_pin to a setting that is less susceptible to noise.
     setPinInputHigh(out_pin);
-    matrix_io_delay(); // Wait for the pull-up to go HIGH.
+    matrix_io_delay();  // Wait for the pull-up to go HIGH.
     return pin_state;
 }
 #endif
@@ -106,11 +106,11 @@ __attribute__((weak)) bool is_keyboard_left(void) {
     setPinInput(SPLIT_HAND_PIN);
     return readPin(SPLIT_HAND_PIN);
 #elif defined(SPLIT_HAND_MATRIX_GRID)
-#   ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
     return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
-#   else
+#    else
     return !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
-#   endif
+#    endif
 #elif defined(EE_HANDS)
     return eeconfig_read_handedness();
 #elif defined(MASTER_RIGHT)

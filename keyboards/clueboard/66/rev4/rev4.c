@@ -1,43 +1,30 @@
 #include "rev4.h"
-//#include "backlight.h"
 
 void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-    matrix_init_user();
     led_init_ports();
+
+    matrix_init_user();
 }
 
 void led_init_ports() {
     // Set our LED pins as output
-    palSetPadMode(GPIOB, 13, PAL_MODE_OUTPUT_PUSHPULL); // LED1
-    palClearPad(GPIOB, 13);
-    palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL); // LED2
-    palClearPad(GPIOB, 14);
-    palSetPadMode(GPIOA, 8, PAL_MODE_OUTPUT_PUSHPULL); // LED3
-    palClearPad(GPIOA, 8);
-    palSetPadMode(GPIOA, 0, PAL_MODE_OUTPUT_PUSHPULL); // Capslock LED
-    palClearPad(GPIOA, 0);
+    setPinOutput(B13); // LED1
+    writePinLow(B13);
+    setPinOutput(B14); // LED2
+    writePinLow(B14);
+    setPinOutput(A8); // LED3
+    writePinLow(A8);
+    setPinOutput(A0); // Capslock LED
+    writePinLow(A0);
 }
 
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        palSetPad(GPIOB, 13);    // LED1
-    } else {
-        palClearPad(GPIOB, 13);  // LED1
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(B13, led_state.num_lock);
+        writePin(A0, led_state.caps_lock);
+        writePin(B14, led_state.caps_lock);
+        writePin(A8, led_state.scroll_lock);
     }
-
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        palSetPad(GPIOA, 0);     // Capslock LED
-        palSetPad(GPIOB, 14);    // LED2
-    } else {
-        palClearPad(GPIOA, 0);   // Capslock LED
-        palClearPad(GPIOB, 14);  // LED2
-    }
-
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        palSetPad(GPIOA, 8);     // LED3
-    } else {
-        palClearPad(GPIOA, 8);   // LED3
-    }
+    return res;
 }

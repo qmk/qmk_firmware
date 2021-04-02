@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include <config_common.h>
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x1209
@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Keyboardio
 #define PRODUCT         Model 01
-#define DESCRIPTION     (QMK)
 
 /* key matrix size; rows are doubled for split */
 #define MATRIX_ROWS 8

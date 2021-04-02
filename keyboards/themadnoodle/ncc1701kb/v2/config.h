@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    The Mad Noodle
 #define PRODUCT         NCC1701KB v2
-#define DESCRIPTION     NCC1701KB v2 macro keypad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0006
 #define MANUFACTURER    The Key Company
 #define PRODUCT         Candybar
-#define DESCRIPTION     A compact staggered 40% keyboard with attached numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -84,9 +83,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

@@ -87,10 +87,6 @@ led_config_t g_led_config = { {
 
 void matrix_init_kb(void) {
 
-#ifdef KEYBOARD_crkbd_rev1_common
-    is_master = (uint8_t)is_keyboard_master();
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
     if (!isLeftHand) {
         g_led_config = (led_config_t){ {
