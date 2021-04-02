@@ -36,7 +36,7 @@ def os_test_linux():
         cli.log.info("Detected {fg_cyan}Linux (WSL){fg_reset}.")
 
         # https://github.com/microsoft/WSL/issues/4197
-        if QMK_FIRMWARE.startswith("/mnt"):
+        if QMK_FIRMWARE.as_posix().startswith("/mnt"):
             cli.log.warning("I/O performance on /mnt may be extremely slow.")
             return CheckStatus.WARNING
 
