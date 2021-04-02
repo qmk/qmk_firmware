@@ -34,7 +34,7 @@
 #define NO_ACTION_FUNCTION
 
 #ifdef AUDIO_ENABLE
-  #define B5_AUDIO
+  #define AUDIO_PIN B5
   #define STARTUP_SONG SONG(ONE_UP_SOUND)
   #define NO_MUSIC_MODE
 #endif

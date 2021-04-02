@@ -255,7 +255,12 @@ void pointing_device_task(void) {
 
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;
+#ifdef PLOOPY_DRAGSCROLL_INVERT
+        // Invert vertical scroll direction
+        mouse_report.v = -mouse_report.y;
+#else
         mouse_report.v = mouse_report.y;
+#endif
         mouse_report.x = 0;
         mouse_report.y = 0;
     }

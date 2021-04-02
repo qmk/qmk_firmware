@@ -74,8 +74,6 @@
             ]
         },
         "LAYOUT_with_setta21": {
-            "width": 21.5,
-            "height": 6.25,
             "layout": [
                 {"label":"pgup", "x":0.25, "y":0},
                 {"label":"ESC", "x":1.75, "y":0},

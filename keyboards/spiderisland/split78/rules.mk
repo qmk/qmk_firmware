@@ -17,6 +17,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 WS2812_DRIVER = i2c
+DEBOUNCE_TYPE = sym_eager_pr
 
 # custom matrix setup
 CUSTOM_MATRIX = lite
