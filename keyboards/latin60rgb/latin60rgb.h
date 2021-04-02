@@ -32,5 +32,3 @@
     { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D }, \
     { K40, K41, K42, K4A, K4B, XXX, XXX, XXX, XXX,  XXX, XXX, XXX, XXX, XXX  }  \
 }
-
-#define LAYOUT_HHKB LAYOUT_60_latin_hhkb
