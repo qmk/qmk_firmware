@@ -19,7 +19,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x514D // "QM"
+#define VENDOR_ID       0x5357 // "SW"
 #define PRODUCT_ID      0x0001 // First public keyboard
 #define DEVICE_VER      0x0001 // Version 1
 #define MANUFACTURER    Sanctified.Works
