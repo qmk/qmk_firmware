@@ -68,14 +68,14 @@ enum quantum_keycodes {
     QK_STENO_GEMINI         = 0x5A31,
     QK_STENO_MAX            = 0x5A3F,
     // 0x5C00 - 0x5FFF are reserved, see below
-    QK_MOD_TAP              = 0x6000,
-    QK_MOD_TAP_MAX          = 0x7FFF,
-    QK_UNICODE              = 0x8000,
-    QK_UNICODE_MAX          = 0xFFFF,
-    QK_UNICODEMAP           = 0x8000,
-    QK_UNICODEMAP_MAX       = 0xBFFF,
-    QK_UNICODEMAP_PAIR      = 0xC000,
-    QK_UNICODEMAP_PAIR_MAX  = 0xFFFF,
+    QK_MOD_TAP             = 0x6000,
+    QK_MOD_TAP_MAX         = 0x7FFF,
+    QK_UNICODE             = 0x8000,
+    QK_UNICODE_MAX         = 0xFFFF,
+    QK_UNICODEMAP          = 0x8000,
+    QK_UNICODEMAP_MAX      = 0xBFFF,
+    QK_UNICODEMAP_PAIR     = 0xC000,
+    QK_UNICODEMAP_PAIR_MAX = 0xFFFF,
 
     // Loose keycodes - to be used directly
     RESET = 0x5C00,
@@ -277,11 +277,11 @@ enum quantum_keycodes {
     MI_TRNSD,    // 5C90
     MI_TRNSU,    // 5C91
 
-    MI_VEL_0,   // 5C92
+    MI_VEL_0,  // 5C92
 #ifdef VIA_ENABLE
     MI_VEL_1 = MI_VEL_0,
 #else
-    MI_VEL_1,   // 5C93
+    MI_VEL_1,  // 5C93
 #endif
     MI_VEL_2,   // 5C94
     MI_VEL_3,   // 5C95
@@ -480,7 +480,7 @@ enum quantum_keycodes {
     TERM_OFF,  // 5D2D
 
     // Sequencer
-    SQ_ON,  // 5D2E
+    SQ_ON,   // 5D2E
     SQ_OFF,  // 5D2F
     SQ_TOG,  // 5D30
 
