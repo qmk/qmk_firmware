@@ -8,12 +8,9 @@ It is 3-Key macropad, inspired by a monkey. 🐵
 * Hardware Supported: atmega32u4
 * Hardware Availability: [Gumroad](https://gumroad.com/jkdlab)
 
-
-
 Make example for this keyboard (after setting up your build environment):
 
     make jkdlab/binary_monkey:default
-    
     
 If you want switch to bootloader, unplug the keyboard and plug it back while pressing right upper key(Key 1). 
     
