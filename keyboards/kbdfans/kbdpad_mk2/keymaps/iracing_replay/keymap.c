@@ -1,15 +1,20 @@
+/* Copyright 2021 Aaron VerDow
+ * 
+ * This program is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 2 of the License, or 
+ * (at your option) any later version. 
+ * 
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details. 
+ * 
+ * You should have received a copy of the GNU General Public License 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ */ 
+
 #include QMK_KEYBOARD_H
-
-void tap_key(uint16_t keycode) {
-  register_code  (keycode);
-  unregister_code(keycode);
-}
-
-void shift_key(uint16_t keycode) {
-  register_code  (KC_LSFT);
-  tap_key        (keycode);
-  unregister_code(KC_LSFT);
-}
 
 
 // Layer declarations
@@ -26,6 +31,7 @@ enum {
     TD_CAM_DN
 };
 
+// Macro declarations
 enum custom_keycodes {
     CHASE = 0,
     REVERSE
@@ -34,14 +40,14 @@ enum custom_keycodes {
 void cam_up(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
-            tap_key(KC_C);           // next cam
+            tap_code(KC_C);           // next cam
             break;
         case 2:
-            shift_key(KC_8);
-            shift_key(KC_8);
-            tap_key(KC_2);
-            tap_key(KC_2);
-            tap_key(KC_ENTER);
+            tap_code16(LSFT(KC_8));
+            tap_code16(LSFT(KC_8));
+            tap_code(KC_2);
+            tap_code(KC_2);
+            tap_code(KC_ENTER);
             break;
     }
 }
@@ -49,14 +55,14 @@ void cam_up(qk_tap_dance_state_t *state, void *user_data) {
 void cam_down(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
-            shift_key(KC_C);           // next cam
+            tap_code16(LSFT(KC_C));           // next cam
             break;
         case 2:
-            shift_key(KC_8);
-            shift_key(KC_8);
-            tap_key(KC_2);
-            tap_key(KC_0);
-            tap_key(KC_ENTER);
+            tap_code16(LSFT(KC_8));
+            tap_code16(LSFT(KC_8));
+            tap_code(KC_2);
+            tap_code(KC_0);
+            tap_code(KC_ENTER);
             break;
     }
 }
@@ -69,8 +75,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
         LCTL(KC_V)
     ),
     [TD_PRINT] = ACTION_TAP_DANCE_DOUBLE(
-        LCTL(LALT(LSFT(KC_S))),
-        LGUI(KC_PSCR)  // print screen
+        LCTL(LALT(LSFT(KC_S))),     // iRacing screenshot (unreliable)
+        LGUI(KC_PSCR)               // Windows print screen and save to file
     ),
 
     [TD_CAM_UP] = ACTION_TAP_DANCE_FN(cam_up),
@@ -88,25 +94,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     TD(TD_CAM_DN),     // prev cam, double tap for chase cam
     TD(TD_CAR),     // prev car, double tap for my car
-	LSFT(KC_P1),    // prev lap
+    LSFT(KC_P1),    // prev lap
     LCTL(KC_P1),    // prev inc
 
-	LSFT(KC_P4),    // rewind
+    LSFT(KC_P4),    // rewind
     KC_P5,          // play/pause
     LSFT(KC_P6),    // fast forward
     KC_P8,          // slow mo
 
-	KC_P4,          // prev frame
+    KC_P4,          // prev frame
     KC_W,           // up
     KC_P6,          // next frame
     TD(TD_PRINT),   // print screen
 
-	KC_A,           // left
+    KC_A,           // left
     KC_S,           // down
     KC_D,           // right
     KC_NO,          // ran out of things to assign
 
-	KC_LCTL,        // ctrl 
+    KC_LCTL,        // ctrl 
     KC_LALT,        // alt
     LCTL(KC_F12),   // camera tool
     LT(MOD_LAYER, KC_SPACE)        // UI
@@ -121,26 +127,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     LSFT(KC_B),     // prev sub cam
     KC_PGDOWN,      // prev driver cam
-	LCTL(KC_P4),    // prev session
+    LCTL(KC_P4),    // prev session
     KC_P1,          // end
 
-	KC_RBRC,
-    KC_EQL,
+    KC_RBRC,        // FOV up
+    KC_EQL,         // step factor up 
     _______,
     _______,
 
-	KC_LBRC,
-    KC_MINS,
+    KC_LBRC,        // FOV down
+    KC_MINS,        // step factor down
     _______,
     _______,
 
-	_______,
+    _______,
     _______,
     _______,
     _______,
 
-	_______,
-    LALT(KC_M),  // cycle aim
+    _______,
+    LALT(KC_M),     // cycle aim
     RALT(KC_ENTER), // fullscreen.  Doesn't work reliably
     _______
   ),
@@ -162,16 +168,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
