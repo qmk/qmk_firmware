@@ -1,6 +1,6 @@
 # frankie_macropad
 
-![frankie_macropad](https://imgur.com/a/NqB8Fpj)
+![frankie_macropad](https://i.imgur.com/X46CSH7h.jpg)
 
 A simple 8-key macropad with two rotary encoders.
 
