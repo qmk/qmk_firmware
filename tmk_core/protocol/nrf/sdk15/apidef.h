@@ -276,7 +276,7 @@ typedef struct {
     void (*init)(bmp_api_config_t const* const);
     void (*advertise)(uint8_t);
     void (*scan)(void);
-    void (*disconnect)(uint8_t disconect_all);
+    void (*disconnect)(uint8_t disconnect_all);
     bmp_error_t (*get_bonding_info)(bmp_api_bonding_info_t* info, uint32_t* len);
     void (*delete_bond)(uint8_t);
     void (*send_key)(bmp_api_key_report_t*);
@@ -397,6 +397,10 @@ typedef struct {
     void (*schedule_next_scan)();
     void (*discharge_capacitor)();
 } bmp_api_ecs_t;
+
+#define LAYOUT_NAME_MAX_LEN 32
+#define LAYOUT_CODE_LEN 4
+#define DYNAMIC_KEYMAP_MAX_LEN (507 - LAYOUT_NAME_MAX_LEN / 2 - LAYOUT_CODE_LEN / 2)  // 2 + 508 * 2 + 3 + 5 <= 1024 byte
 
 typedef struct {
     //////DO NOT CHANGE///////

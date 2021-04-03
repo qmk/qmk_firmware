@@ -55,7 +55,7 @@ static inline uint8_t dynamic_keymap_get_layer_count() {
     bmp_api_keymap_info_t keymap_info;
     BMPAPI->app.get_keymap_info(&keymap_info);
 
-    uint8_t layer = keymap_info.len / keymap_info.keynum;
+    uint8_t layer = DYNAMIC_KEYMAP_MAX_LEN / keymap_info.keynum;
 
     return layer > 0 ? layer : 1;
 }
