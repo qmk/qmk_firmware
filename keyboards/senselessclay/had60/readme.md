@@ -1,6 +1,6 @@
 # had60
 
-![had60](https://i.imgur.com/Q0AtIAg.jpg)
+![had60](https://i.imgur.com/Q0AtIAgh.jpg)
 
 A minimal 60% keyboard implementation based around the ATMEGA32u4. 
 
