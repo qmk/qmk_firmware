@@ -1,6 +1,6 @@
 # Ferris
 
-![Ferris, familly pic](https://i.imgur.com/TCjkquR.jpeg)
+![Ferris, familly pic](https://i.imgur.com/TCjkquRh.jpeg)
 
 A split 34 keys column staggered keyboard named and decorated after the rustlang mascott. All PCB files and some thoughts on the design are available on the [project's github page](https://github.com/pierrechevalier83/ferris)
 
