@@ -37,6 +37,9 @@ enum custom_keycodes {
     REVERSE
 };
 
+// delay between key presses when selecting a specific camera
+#define CAM_DELAY 100
+
 void cam_up(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
@@ -44,9 +47,13 @@ void cam_up(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case 2:
             tap_code16(LSFT(KC_8));
+            wait_ms(CAM_DELAY);
             tap_code16(LSFT(KC_8));
+            wait_ms(CAM_DELAY);
             tap_code(KC_2);
+            wait_ms(CAM_DELAY);
             tap_code(KC_2);
+            wait_ms(CAM_DELAY);
             tap_code(KC_ENTER);
             break;
     }
@@ -59,9 +66,13 @@ void cam_down(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case 2:
             tap_code16(LSFT(KC_8));
+            wait_ms(CAM_DELAY);
             tap_code16(LSFT(KC_8));
+            wait_ms(CAM_DELAY);
             tap_code(KC_2);
+            wait_ms(CAM_DELAY);
             tap_code(KC_0);
+            wait_ms(CAM_DELAY);
             tap_code(KC_ENTER);
             break;
     }
