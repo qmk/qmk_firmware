@@ -33,6 +33,14 @@ void keyboard_post_init_user(void) {
 #endif
 
 
+// Rev3 and above only
+#ifdef OLED_DRIVER_ENABLE
+void oled_task_user(void) {
+  oled_write_ln_P(PSTR("Plaid-Pad ///////////"), false);
+}
+#endif
+
+
 #ifdef ENCODER_ENABLE
 
 void encoder_update_user(uint8_t index, bool clockwise) {
