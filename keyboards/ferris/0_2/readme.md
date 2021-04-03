@@ -1,7 +1,7 @@
 # Ferris 0.2
 
-![Ferris 0.2 - bling, top view](https://i.imgur.com/LwKlmnz.jpg)
-![Ferris 0.2 - bling, bottom view](https://i.imgur.com/qGnYGVO.jpg)
+![Ferris 0.2 - bling, top view](https://i.imgur.com/LwKlmnzh.jpg)
+![Ferris 0.2 - bling, bottom view](https://i.imgur.com/qGnYGVOh.jpg)
 
 An stm32f072 based split 34 keys column staggered keyboard named and decorated after the rustlang mascott. All PCB files and some thoughts on the design are available on the [project's github page](https://github.com/pierrechevalier83/ferris)
 
