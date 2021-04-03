@@ -58,8 +58,6 @@
 
 
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
 // EEPROM usage
 
 
