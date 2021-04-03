@@ -1,6 +1,6 @@
 # Binary_Monkey
 
-![Binary_Monkey](https://i.imgur.com/0meBVKT.png?1)
+![Binary_Monkey](https://i.imgur.com/0meBVKTh.png)
 
 It is 3-Key macropad, inspired by a monkey. 🐵
 
