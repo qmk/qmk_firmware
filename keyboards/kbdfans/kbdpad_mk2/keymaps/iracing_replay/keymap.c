@@ -46,9 +46,9 @@ void cam_up(qk_tap_dance_state_t *state, void *user_data) {
             tap_code(KC_C);           // next cam
             break;
         case 2:
-            tap_code16(LSFT(KC_8));
+            tap_code16(KC_ASTR);
             wait_ms(CAM_DELAY);
-            tap_code16(LSFT(KC_8));
+            tap_code16(KC_ASTR);
             wait_ms(CAM_DELAY);
             tap_code(KC_2);
             wait_ms(CAM_DELAY);
@@ -65,9 +65,9 @@ void cam_down(qk_tap_dance_state_t *state, void *user_data) {
             tap_code16(LSFT(KC_C));           // next cam
             break;
         case 2:
-            tap_code16(LSFT(KC_8));
+            tap_code16(KC_ASTR);
             wait_ms(CAM_DELAY);
-            tap_code16(LSFT(KC_8));
+            tap_code16(KC_ASTR);
             wait_ms(CAM_DELAY);
             tap_code(KC_2);
             wait_ms(CAM_DELAY);
