@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "v2_iso.h"
 #ifdef CU80_RGB
-#    include "rgb_matrix_types.h"
 
 void matrix_init_kb(void) {
     setPinOutput(E6);
