@@ -228,9 +228,9 @@ enum rgb_matrix_effects {
     RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halfs of keyboard
     RGB_MATRIX_RAINDROPS,           // Randomly changes a single key's hue
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
-	RGB_MATRIX_HUE_BREATHING,		// Hue shifts up a slight ammount at the same time, then shifts back
-	RGB_MATRIX_HUE_PENDULUM,		// Hue shifts up a slight ammount in a wave to the right, then back to the left
-	RGB_MATRIX_HUE_WAVE,			// Hue shifts up a slight ammount and then back down in a wave to the right 
+    RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight ammount at the same time, then shifts back
+    RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight ammount in a wave to the right, then back to the left
+    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right 
 #if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
