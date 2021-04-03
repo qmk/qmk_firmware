@@ -1,7 +1,7 @@
 # Ferris 0.1
 
-![Ferris 0.1 - base, top view](https://i.imgur.com/s6nTn0C.jpg)
-![Ferris 0.1 - base, bottom view](https://i.imgur.com/Ymlac2A.jpg)
+![Ferris 0.1 - base, top view](https://i.imgur.com/s6nTn0Ch.jpg)
+![Ferris 0.1 - base, bottom view](https://i.imgur.com/Ymlac2Ah.jpg)
 
 An atmega32u4 based split 34 keys column staggered keyboard named and decorated after the rustlang mascott. All PCB files and some thoughts on the design are available on the [project's github page](https://github.com/pierrechevalier83/ferris)
 
