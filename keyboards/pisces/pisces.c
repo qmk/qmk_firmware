@@ -15,3 +15,13 @@
  */
 
 #include "pisces.h"
+
+const matrix_row_t matrix_mask[MATRIX_ROWS] = {
+//  87654321
+  0b00111111,
+  0b00111111,
+  0b01111111,
+  0b00111111,
+  0b00111111,
+  0b01111111
+};

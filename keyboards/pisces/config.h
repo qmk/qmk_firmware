@@ -32,6 +32,7 @@
 
 /* Select hand configuration */
 #define SPLIT_HAND_MATRIX_GRID B0,B7
+#define MATRIX_MASKED
 #define SPLIT_USB_DETECT
 
 /* key matrix size */
