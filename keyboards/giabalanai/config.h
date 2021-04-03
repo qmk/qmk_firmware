@@ -240,7 +240,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifdef MIDI_ENABLE
 #    define MIDI_ADVANCED
-#    define MIDI_TONE_KEYCODE_OCTAVES 5
+#    define MIDI_TONE_KEYCODE_OCTAVES 6
 #endif  //  MIDI_ENABLE
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
