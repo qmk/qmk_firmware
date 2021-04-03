@@ -84,7 +84,7 @@ void oled_task_user(void) {
     sprintf(wpm, "WPM: %03d", get_current_wpm());
 
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("       rainkeeb \n"), false);
+    oled_write_P(PSTR("       yasui \n"), false);
     oled_write_P(PSTR(" Layer: "), false);
 
     switch (get_highest_layer(layer_state)) {
