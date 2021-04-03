@@ -35,7 +35,7 @@ def create_make_target(target, parallel=1, **env_vars):
     Args:
 
         target
-            Usually a bootloader.
+            Usually a make rule, such as 'clean' or 'all'.
 
         parallel
             The number of make jobs to run in parallel
