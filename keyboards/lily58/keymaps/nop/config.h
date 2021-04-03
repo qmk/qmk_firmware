@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
-// #define DISABLE_LEADER
-
 //#undef RGBLED_NUM
 //#define RGBLIGHT_ANIMATIONS
 //#define RGBLED_NUM 27
@@ -40,14 +38,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLIGHT_VAL_STEP 17
 
 // Underglow
-#undef RGBLED_NUM
-#define RGBLED_NUM 10  // Number of LEDs
-#define RGBLED_SPLIT { 5, 5 }
-#define RGBLIGHT_ANIMATIONS
-//#define RGBLIGHT_SLEEP
+#ifdef RGBLIGHT_ENABLE
+#    undef RGBLED_NUM
+#    define RGBLED_NUM          10  // Number of LEDs
+#    define RGBLED_SPLIT        { 5, 5 }
+#    define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_HUE_STEP   6  // number of steps to cycle through the hue by
+#    define RGBLIGHT_SAT_STEP   6  // number of steps to increment the saturation by
+#    define RGBLIGHT_VAL_STEP   6  // number of steps to increment the brightness by
+#    define RGBLIGHT_SLEEP         //  the RGB lighting will be switched off when the host goes to sleep
+#endif
 
 // QMK DFU
 // #define QMK_ESC_OUTPUT F1  // COL pin if COL2ROW
 // #define QMK_ESC_INPUT  D5  // ROW pin if COL2ROW
 
 #define QMK_LED F0
+
+// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
+// #define SPLIT_USB_DETECT
+// #define NO_USB_STARTUP_CHECK
