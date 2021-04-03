@@ -1,3 +1,19 @@
+/* Copyright 2021 David Rambo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 
 //extern uint8_t is_master;
@@ -99,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
 //    rgb_matrix_sethsv(191, 43, 81);
-    rgblight_mode(RGB_MATRIX_TYPING_HEATMAP);
+    rgblight_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -116,28 +132,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-// change RGB Matrix leds based on current layer
-/*
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch(biton32(state)) {
-        case _COLEMAK:
-            rgb_matrix_sethsv(191, 43, 81);
-            break;
-        case _SYMBOL:
-            rgb_matrix_sethsv(18, 86, 95);
-            break;
-        case _NAVIGATION:
-            rgb_matrix_sethsv(121, 100, 58);
-            break;
-        case _FKEYS:
-            rgb_matrix_sethsv(14, 72, 65);
-            break;
-    }
-    return state;
-}
-*/
-
 
 void suspend_power_down_user(void) {
     rgb_matrix_set_suspend_state(true);
