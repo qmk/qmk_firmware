@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#include <print.h>
+#include "print.h"
 #include <string.h>
 // HID has not yet been implemented for this keyboard
 // #include "raw_hid.h"
