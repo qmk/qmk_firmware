@@ -1,6 +1,6 @@
 # Feels65
 
-65% Keyboards
+65% Keyboard. Physical Reset button on PCB and bootmagic to enter bootloader
 
 * Keyboard Maintainer: Swiftrax
 * Hardware Supported: Feels65 PCB
