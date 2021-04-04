@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤     ┌───┐
        │        │   │   │   │   │   │   │   │   │   │   │          │     │Vai│
        ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤ ┌───┼───┼───┐
-       │    │GAME│    │                        │    │ Fn │    │    │ │Hud│Vad│Hui│
+       │    │GAME│    │                        │    │ Fn │    │    │ │Hui│Vad│Hud│
        └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘
 */
     /*  Row:      0        1        2        3        4        5        6        7        8        9        10       11       12       13       14        15        16      */
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 { XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,      XXX,      XXX},
                 { XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,      XXX,      XXX},
                 { XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,      RGB_VAI,  XXX},
-                { XXX,     GAME,    XXX,     XXX,     XXX,     MO(_FL), XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     RGB_HUD,  RGB_VAD,  RGB_HUI}
+                { XXX,     GAME,    XXX,     XXX,     XXX,     MO(_FL), XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     RGB_HUI,  RGB_VAD,  RGB_HUD}
               },
 
 /*
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤     ┌───┐
        │        │   │   │   │   │   │   │   │   │   │   │          │     │Vai│
        ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤ ┌───┼───┼───┐
-       │    │BASE│    │                        │    │ Fn │    │    │ │Hud│Vad│Hui│
+       │    │BASE│    │                        │    │ Fn │    │    │ │Hui│Vad│Hud│
        └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘
 */
     /*  Row:      0        1        2        3        4        5        6        7        8        9        10       11       12       13       14        15        16      */
@@ -150,27 +150,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 { XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,      XXX,      XXX},
                 { XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,      XXX,      XXX},
                 { XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,      RGB_VAI,  XXX},
-                { XXX,     BASE,    XXX,     XXX,     XXX,     MO(_CL), XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     RGB_HUD,  RGB_VAD,  RGB_HUI}
+                { XXX,     BASE,    XXX,     XXX,     XXX,     MO(_CL), XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     XXX,     RGB_HUI,  RGB_VAD,  RGB_HUD}
               }
 };
-
-// Taken from 'g_led_config' in config_led.c
-#define CAPS_LOCK_LED_ID 34
-#define SCROLL_LOCK_LED_ID 15
-
-void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
-        rgb_matrix_set_color(CAPS_LOCK_LED_ID, 0xFF, 0x00, 0x00);
-    } else {
-        rgb_matrix_set_color(CAPS_LOCK_LED_ID, 0x00, 0x00, 0x00);
-    }
-	
-	if (host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK)) {
-        rgb_matrix_set_color(SCROLL_LOCK_LED_ID, 0xFF, 0x00, 0x00);
-    } else {
-        rgb_matrix_set_color(SCROLL_LOCK_LED_ID, 0x00, 0x00, 0x00);
-    }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
