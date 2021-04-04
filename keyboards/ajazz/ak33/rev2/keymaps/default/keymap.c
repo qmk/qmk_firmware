@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 {   KC_LSFT,    KC_NO,      KC_Z,       KC_X,    KC_C,       KC_V,    KC_B,    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_RSFT,    KC_UP,      KC_NO,      KC_END  },
                 {   KC_LCTL,    KC_LGUI,    KC_LALT,    KC_NO,   KC_NO,      KC_NO,   KC_SPC,  KC_NO,      KC_NO,      KC_NO,      KC_RALT,    KC_RCTL,    KC_LEFT,    KC_DOWN,    KC_NO,      KC_RGHT }
               },
-    [_FN]   = { {   RESET,      KC_MSEL,    KC_VOLD,    KC_VOLU, KC_MUTE,    KC_MSTP, KC_MPRV, KC_MPLY,    KC_MNXT,    KC_MAIL,    KC_WHOM,    KC_CALC,    RGB_TOG,    _______,    _______,    KC_INS  },
+    [_FN]   = { {   RESET,      KC_MUTE,    _______,    KC_MPLY, KC_VOLD,    KC_VOLU, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_INS  },
                 {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_PAUSE},
                 {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______ },
                 {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______ },
