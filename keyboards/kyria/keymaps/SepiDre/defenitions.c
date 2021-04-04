@@ -9,5 +9,6 @@ enum layers {
 
 enum custom_keycodes {
     ALT_TAB = SAFE_RANGE,
-    BACK_TAB = SAFE_RANGE
+    BACK_TAB = SAFE_RANGE,
+    HIBER = 0
 };

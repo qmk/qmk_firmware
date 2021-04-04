@@ -39,6 +39,8 @@
 
 // Fix for Elite C rev3
 #define SPLIT_USB_DETECT
+#define NO_USB_STARTUP_CHECK
+#define RGB_BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0
 // Speed up slave half startup
 #define SPLIT_USB_TIMEOUT 1000
 

@@ -5,40 +5,37 @@ bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-if (keycode == ALT_TAB) {
-    if (record->event.pressed) {
-        if (!is_alt_tab_active) {
-            is_alt_tab_active = true;
-            unregister_code(KC_LSHIFT);
-            register_code(KC_LALT);
-        }
+switch (keycode) {
+    case ALT_TAB:
+        if (record->event.pressed) {
+            if (!is_alt_tab_active) {
+                is_alt_tab_active = true;
+                unregister_code(KC_LSHIFT);
+                register_code(KC_LALT);
+            }
         alt_tab_timer = timer_read();
         register_code(KC_TAB);
-    } else {
-        unregister_code(KC_TAB);
-    }
-  } else if (keycode == BACK_TAB) {
-    if (record->event.pressed) {
-      if (!is_alt_tab_active) {
-        is_alt_tab_active = true;
-        unregister_code(KC_LALT);
-        register_code(KC_LSHIFT);
+        } else {
+            unregister_code(KC_TAB);
         }
-        alt_tab_timer = timer_read();
-        register_code(KC_TAB);
-    } else {
-        unregister_code(KC_TAB);
-    }
+        break;
+   case HIBER:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTRL(" "));
+            SEND_STRING("hibernate");
+            register_code(KC_ENT);
+            return false;
+        }
+        break;
   }
   return true;
 }
-
 
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
   if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 10000) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
       unregister_code(KC_LALT);
       is_alt_tab_active = false;
     }

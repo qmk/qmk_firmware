@@ -34,9 +34,6 @@ static void render_status(void) {
         case _ADJUST:
             oled_write_P(PSTR("Adjust"), false);
             break;
-        case _NEO2_2:
-            oled_write_P(PSTR("Neo 2 Shift"), false);
-            break;
     }
 
     // Host Keyboard LED Status

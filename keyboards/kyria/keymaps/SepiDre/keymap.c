@@ -83,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NUMBER] = LAYOUT(
-      _______,   KC_AGAIN, LCA(DE_R), S(KC_F5),KC_F12,   KC_PGUP,                    /*|*/                  KC_PAST, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_PEQL,
-      BACK_TAB, KC_HOME,  KC_BSPC, KC_UP,   KC_DEL, KC_END,                     /*|*/                  KC_PSLS, KC_P4, KC_P5, KC_P6, KC_PPLS, _______,
-      ALT_TAB,   KC_UNDO,  KC_LEFT, KC_DOWN, KC_RIGHT,   KC_PGDOWN, _______, _______,/*|*/LCA(KC_DEL), _______, KC_P0,    KC_P1, KC_P2, KC_P3, KC_PDOT,  KC_PCMM,
+      _______,   KC_HOME,  KC_BSPC, KC_UP,   KC_DEL, KC_END,                         /*|*/                  KC_PAST, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_PEQL,
+      ALT_TAB, KC_UNDO,  KC_LEFT, KC_DOWN, KC_RIGHT,   KC_PGDOWN,                     /*|*/                  KC_PSLS, KC_P4, KC_P5, KC_P6, KC_PPLS, _______,
+      LSA(KC_TAB),   KC_AGAIN, LCA(DE_R), S(KC_F5),KC_F12,   KC_PGUP, _______, _______,/*|*/LCA(KC_DEL), _______, KC_P0,    KC_P1, KC_P2, KC_P3, KC_PDOT,  KC_PCMM,
                                          _______, _______, KC_F2, _______, _______,/*|*/LCA(KC_END), _______, _______, _______, LCA(KC_INS)
     ),
 /*
@@ -113,9 +113,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Function keys, RGB
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |   PWD  | F11  | F12  |QUERTY| SHOOT| NEO2 |                              | TOG  | HUI  | SAI  | VAI  | MOD  |  PWDD  |
+ * |  WAKE  | F11  | F12  |QUERTY| SHOOT| NEO2 |                              | TOG  | HUI  | SAI  | VAI  | MOD  |  HIBER |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |   WAKE | F6   | F7   |  F8  | F9   | F10  |                              |      | HUD  | SAD  | VAD  | RMOD |  SLEP  |
+ * |        | F6   | F7   |  F8  | F9   | F10  |                              |      | HUD  | SAD  | VAD  | RMOD |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        | F1   | F2   |  F3  | F4   | F5   |      |      |  |      |      |      | DLEFT| DESK |DRIGHT|      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -124,8 +124,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-        KC_SYSTEM_WAKE, KC_F11, KC_F12, KC_SLCK, DF(_SHOOT), DF(_NEO2),                  /*|*/                  RGB_TOG, RGB_HUI,             RGB_SAI,    RGB_VAI,              RGB_MOD,  KC_SYSTEM_POWER,
-        _______,  KC_F6,  KC_F7,  KC_F8,   KC_F9,     KC_F10,                     /*|*/                  _______, RGB_HUD,             RGB_SAD,    RGB_VAD,              RGB_RMOD, KC_SYSTEM_SLEEP,
+        KC_SYSTEM_WAKE, KC_F11, KC_F12, KC_SLCK, DF(_SHOOT), DF(_NEO2),                  /*|*/                  RGB_TOG, RGB_HUI,             RGB_SAI,    RGB_VAI,              RGB_MOD,  HIBER,
+        _______,  KC_F6,  KC_F7,  KC_F8,   KC_F9,     KC_F10,                     /*|*/                  _______, RGB_HUD,             RGB_SAD,    RGB_VAD,              RGB_RMOD, _______,
         _______,         KC_F1,  KC_F2,  KC_F3,   KC_F4,     KC_F5,     _______, _______,/*|*/_______, _______, _______, LCTL(LGUI(KC_LEFT)), LGUI(KC_D), LCTL(LGUI(KC_RIGHT)), _______,  _______,
                                              _______, _______, _______, _______, _______,/*|*/_______, _______, _______, _______, _______
     ),
