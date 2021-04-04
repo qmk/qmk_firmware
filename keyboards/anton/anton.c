@@ -1,7 +1,6 @@
 
 #include "anton.h"
 
-#define MEDIA_KEY_DELAY 10
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
