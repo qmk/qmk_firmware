@@ -30,44 +30,45 @@ enum {
     TD_CAM_DN
 };
 
-// delay between key presses when selecting a specific camera
-// iRacing doesn't recognize the combo if it's too fast
-#define CAM_DELAY 100
+void camera_number(uint16_t tens, uint16_t ones) {
+/* Switch to a specific camera number
+ *
+ * I haven't been able to find official docs for this.
+ *
+ * To determine the number click the dropdown in UI and 
+ * count from the top.  The list can change with updates.
+ *
+ * Shift must be held between both * presses or the combo
+ * won't be recognized.
+ */
+
+    register_code16(KC_LSFT);
+    tap_code(KC_8);
+    tap_code(KC_8);
+    unregister_code16(KC_LSFT);
+    tap_code(tens);
+    tap_code(ones);
+    tap_code(KC_ENT);
+}
 
 void cam_up(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
-        case 1:                     // tap once for next cam
-            tap_code(KC_C);
+        case 1:                     
+            tap_code(KC_C);             // tap once for next cam
             break;
-        case 2:                     // tap twice for reverse chase cam
-            tap_code16(KC_ASTR);
-            wait_ms(CAM_DELAY);
-            tap_code16(KC_ASTR);
-            wait_ms(CAM_DELAY);
-            tap_code(KC_2);
-            wait_ms(CAM_DELAY);
-            tap_code(KC_2);
-            wait_ms(CAM_DELAY);
-            tap_code(KC_ENTER);
+        case 2:                     
+            camera_number(KC_2,KC_0); // tap twice for reverse chase cam
             break;
     }
 }
 
 void cam_down(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
-        case 1:                     // tap once for prev cam
-            tap_code16(LSFT(KC_C));
+        case 1:                     
+            tap_code16(LSFT(KC_C));     // tap once for prev cam
             break;
-        case 2:                     // tap twice for chase cam
-            tap_code16(KC_ASTR);
-            wait_ms(CAM_DELAY);
-            tap_code16(KC_ASTR);
-            wait_ms(CAM_DELAY);
-            tap_code(KC_2);
-            wait_ms(CAM_DELAY);
-            tap_code(KC_0);
-            wait_ms(CAM_DELAY);
-            tap_code(KC_ENTER);
+        case 2:                     
+            camera_number(KC_1,KC_8); // tap twice for chase cam
             break;
     }
 }
@@ -149,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     _______,
     LALT(KC_M),     // cycle aim
-    RALT(KC_ENTER), // fullscreen.  Doesn't work reliably
+    RALT(KC_ENTER), // fullscreen (unreliable)
     _______
   ),
 };
