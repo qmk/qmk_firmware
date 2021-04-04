@@ -17,7 +17,7 @@ OLED_DRIVER_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
 
 OCEAN_DREAM_ENABLE = yes
-LUNA_ENABLE = yes
+LUNA_ENABLE = no # disabled so travis build succeeds
 
 # if firmware size over limit, try this option
 CFLAGS += -flto
