@@ -1,7 +1,7 @@
 #pragma once
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6062
+#define VENDOR_ID       0x0001
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    vitvlkv
 #define PRODUCT         Avalanche
@@ -15,6 +15,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define USE_I2C
+#define SOFT_SERIAL_PIN D1
 
 #define BACKLIGHT_PIN B0
