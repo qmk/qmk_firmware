@@ -21,7 +21,8 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/bitwise.c \
     $(QUANTUM_DIR)/led.c \
     $(QUANTUM_DIR)/keymap_common.c \
-    $(QUANTUM_DIR)/keycode_config.c
+    $(QUANTUM_DIR)/keycode_config.c \
+    $(QUANTUM_DIR)/power.c
 
 ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE

@@ -18,6 +18,7 @@
 #include "eeconfig.h"
 #include "progmem.h"
 #include "debug.h"
+#include "power.h"
 #ifdef DRV2605L
 #    include "DRV2605L.h"
 #endif
@@ -26,6 +27,18 @@
 #endif
 
 haptic_config_t haptic_config;
+
+static void set_haptic_config_enable(bool enabled)
+{
+    haptic_config.enable = enabled;
+#ifdef HAPTIC_ENABLE_PIN
+    if (enabled && ((!HAPTIC_OFF_IN_LOW_POWER) || high_power_state)) {
+        HAPTIC_ENABLE_PIN_WRITE_ACTIVE();
+    } else {
+        HAPTIC_ENABLE_PIN_WRITE_INACTIVE();
+    }
+#endif
+}
 
 void haptic_init(void) {
     debug_enable = 1;  // Debug is ON!
@@ -46,6 +59,10 @@ void haptic_init(void) {
         // or the previous firmware didn't have solenoid enabled,
         // and the current one has solenoid enabled.
         haptic_reset();
+    } else {
+        // Haptic configuration has been loaded through the "raw" union item.
+        // This is to execute any side effects of the configuration.
+        set_haptic_config_enable(haptic_config.enable);
     }
 #ifdef SOLENOID_ENABLE
     solenoid_setup();
@@ -71,13 +88,13 @@ void eeconfig_debug_haptic(void) {
 }
 
 void haptic_enable(void) {
-    haptic_config.enable = 1;
+    set_haptic_config_enable(true);
     xprintf("haptic_config.enable = %u\n", haptic_config.enable);
     eeconfig_update_haptic(haptic_config.raw);
 }
 
 void haptic_disable(void) {
-    haptic_config.enable = 0;
+    set_haptic_config_enable(false);
     xprintf("haptic_config.enable = %u\n", haptic_config.enable);
     eeconfig_update_haptic(haptic_config.raw);
 }
@@ -159,7 +176,7 @@ void haptic_dwell_decrease(void) {
 }
 
 void haptic_reset(void) {
-    haptic_config.enable   = true;
+    set_haptic_config_enable(true);
     uint8_t feedback       = HAPTIC_FEEDBACK_DEFAULT;
     haptic_config.feedback = feedback;
 #ifdef DRV2605L
@@ -332,7 +349,7 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
         haptic_cont_decrease();
     }
 
-    if (haptic_config.enable) {
+    if (haptic_config.enable && ((!HAPTIC_OFF_IN_LOW_POWER) || high_power_state)) {
         if (record->event.pressed) {
             // keypress
             if (haptic_config.feedback < 2) {

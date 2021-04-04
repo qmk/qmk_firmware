@@ -27,6 +27,7 @@
 #include "keyboard.h"
 #include "action.h"
 #include "action_util.h"
+#include "power.h"
 #include "mousekey.h"
 #include "led.h"
 #include "sendchar.h"
@@ -156,6 +157,8 @@ int main(void) {
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
 #endif
+
+    power_init();
 
     // TESTING
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);

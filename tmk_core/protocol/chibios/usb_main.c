@@ -39,6 +39,7 @@
 #    include "led.h"
 #endif
 #include "wait.h"
+#include "power.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
 
@@ -401,6 +402,7 @@ static inline bool usb_event_queue_dequeue(usbevent_t *event) {
 }
 
 static inline void usb_event_suspend_handler(void) {
+    power_set_suspend(USB_DRIVER.configuration!=0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
@@ -408,6 +410,7 @@ static inline void usb_event_suspend_handler(void) {
 
 static inline void usb_event_wakeup_handler(void) {
     suspend_wakeup_init();
+    power_set_resume(USB_DRIVER.configuration!=0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
     // NOTE: converters may not accept this
@@ -424,6 +427,15 @@ void usb_event_queue_task(void) {
                 break;
             case USB_EVENT_WAKEUP:
                 usb_event_wakeup_handler();
+                break;
+            case USB_EVENT_CONFIGURED:
+                power_set_configuration(USB_DRIVER.configuration!=0, USB_DRIVER.configuration);
+                break;
+            case USB_EVENT_UNCONFIGURED:
+                power_set_configuration(false, 0);
+                break;
+            case USB_EVENT_RESET:
+                power_set_reset();
                 break;
             default:
                 // Nothing to do, we don't handle it.
@@ -464,9 +476,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 qmkusbConfigureHookI(&drivers.array[i].driver);
             }
             osalSysUnlockFromISR();
+            usb_event_queue_enqueue(USB_EVENT_CONFIGURED);
             return;
         case USB_EVENT_SUSPEND:
-            usb_event_queue_enqueue(USB_EVENT_SUSPEND);
             /* Falls into.*/
         case USB_EVENT_UNCONFIGURED:
             /* Falls into.*/
@@ -477,6 +489,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 qmkusbSuspendHookI(&drivers.array[i].driver);
                 chSysUnlockFromISR();
             }
+            usb_event_queue_enqueue(event);
             return;
 
         case USB_EVENT_WAKEUP:
