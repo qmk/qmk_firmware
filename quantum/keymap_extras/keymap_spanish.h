@@ -117,7 +117,7 @@
 #define ES_CIRC S(ES_GRV)  // ^ (dead)
 #define ES_ASTR S(ES_PLUS) // *
 // Row 3
-#define ES_DIAE S(ES_GRV)  // ¨ (dead)
+#define ES_DIAE S(ES_ACUT) // ¨ (dead)
 // Row 4
 #define ES_RABK S(ES_LABK) // >
 #define ES_SCLN S(KC_COMM) // ;

@@ -103,6 +103,7 @@
     * [DIP スイッチ](ja/feature_dip_switch.md)
     * [エンコーダ](ja/feature_encoders.md)
     * [触覚フィードバック](ja/feature_haptic_feedback.md)
+    * [LED インジケータ](ja/feature_led_indicators.md)
     * [Proton C 変換](ja/proton_c_conversion.md)
     * [PS/2 マウス](ja/feature_ps2_mouse.md)
     * [分割キーボード](ja/feature_split_keyboard.md)
@@ -116,6 +117,7 @@
     * [概要](ja/breaking_changes.md)
     * [プルリクエストにフラグが付けられた](ja/breaking_changes_instructions.md)
     * 履歴
+      * [2020年8月29日](ja/ChangeLog/20200829.md)
       * [2020年5月30日](ja/ChangeLog/20200530.md)
       * [2020年2月29日](ja/ChangeLog/20200229.md)
       * [2019年8月30日](ja/ChangeLog/20190830.md)

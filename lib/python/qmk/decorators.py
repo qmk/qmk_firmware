@@ -2,6 +2,7 @@
 """
 import functools
 from pathlib import Path
+from time import monotonic
 
 from milc import cli
 
@@ -84,3 +85,38 @@ def automagic_keymap(func):
         return func(*args, **kwargs)
 
     return wrapper
+
+
+def lru_cache(timeout=10, maxsize=128, typed=False):
+    """Least Recently Used Cache- cache the result of a function.
+
+    Args:
+
+        timeout
+            How many seconds to cache results for.
+
+        maxsize
+            The maximum size of the cache in bytes
+
+        typed
+            When `True` argument types will be taken into consideration, for example `3` and `3.0` will be treated as different keys.
+    """
+    def wrapper_cache(func):
+        func = functools.lru_cache(maxsize=maxsize, typed=typed)(func)
+        func.expiration = monotonic() + timeout
+
+        @functools.wraps(func)
+        def wrapped_func(*args, **kwargs):
+            if monotonic() >= func.expiration:
+                func.expiration = monotonic() + timeout
+
+                func.cache_clear()
+
+            return func(*args, **kwargs)
+
+        wrapped_func.cache_info = func.cache_info
+        wrapped_func.cache_clear = func.cache_clear
+
+        return wrapped_func
+
+    return wrapper_cache

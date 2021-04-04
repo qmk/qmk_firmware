@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x4145 // "AE"
 #define PRODUCT_ID      0xA652 // AEboards EXT65 Rev2
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    AEboards
+#define MANUFACTURER    AEBoards
 #define PRODUCT         AEBoards Ext65 Rev2
 
 /* key matrix size */
@@ -60,7 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
 
-#define I2C1_TIMINGR_PRESC 	0U
 #define I2C1_TIMINGR_SCLDEL 3U
 #define I2C1_TIMINGR_SDADEL 1U
 #define I2C1_TIMINGR_SCLH 	3U

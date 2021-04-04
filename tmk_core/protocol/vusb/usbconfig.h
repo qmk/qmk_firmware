@@ -85,9 +85,19 @@ section at the end of this file).
 /* If the so-called endpoint 3 is used, it can now be configured to any other
  * endpoint number (except 0) with this macro. Default if undefined is 3.
  */
+#define USB_CFG_HAVE_INTRIN_ENDPOINT4   1
+/* Define this to 1 if you want to compile a version with three endpoints: The
+ * default control endpoint 0, an interrupt-in endpoint 4 (or the number
+ * configured below) and a catch-all default interrupt-in endpoint as above.
+ * You must also define USB_CFG_HAVE_INTRIN_ENDPOINT to 1 for this feature.
+ */
+#define USB_CFG_EP4_NUMBER              4
+/* If the so-called endpoint 4 is used, it can now be configured to any other
+ * endpoint number (except 0) with this macro. Default if undefined is 4.
+ */
 /* #define USB_INITIAL_DATATOKEN           USBPID_DATA1 */
 /* The above macro defines the startup condition for data toggling on the
- * interrupt/bulk endpoints 1 and 3. Defaults to USBPID_DATA1.
+ * interrupt/bulk endpoints 1, 3 and 4. Defaults to USBPID_DATA1.
  * Since the token is toggled BEFORE sending any data, the first packet is
  * sent with the oposite value of this configuration!
  */
@@ -100,10 +110,10 @@ section at the end of this file).
 #define USB_CFG_SUPPRESS_INTR_CODE      0
 /* Define this to 1 if you want to declare interrupt-in endpoints, but don't
  * want to send any data over them. If this macro is defined to 1, functions
- * usbSetInterrupt() and usbSetInterrupt3() are omitted. This is useful if
- * you need the interrupt-in endpoints in order to comply to an interface
- * (e.g. HID), but never want to send any data. This option saves a couple
- * of bytes in flash memory and the transmit buffers in RAM.
+ * usbSetInterrupt(), usbSetInterrupt3() and usbSetInterrupt4() are omitted.
+ * This is useful if you need the interrupt-in endpoints in order to comply
+ * to an interface (e.g. HID), but never want to send any data. This option
+ * saves a couple of bytes in flash memory and the transmit buffers in RAM.
  */
 #define USB_CFG_IS_SELF_POWERED         0
 /* Define this to 1 if the device has its own power supply. Set it to 0 if the
