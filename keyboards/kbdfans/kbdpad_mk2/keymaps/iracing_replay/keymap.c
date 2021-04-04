@@ -16,7 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-
 // Layer declarations
 enum {
     DEF_LAYER,
@@ -31,21 +30,16 @@ enum {
     TD_CAM_DN
 };
 
-// Macro declarations
-enum custom_keycodes {
-    CHASE = 0,
-    REVERSE
-};
-
 // delay between key presses when selecting a specific camera
+// iRacing doesn't recognize the combo if it's too fast
 #define CAM_DELAY 100
 
 void cam_up(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
-        case 1:
-            tap_code(KC_C);           // next cam
+        case 1:                     // tap once for next cam
+            tap_code(KC_C);
             break;
-        case 2:
+        case 2:                     // tap twice for reverse chase cam
             tap_code16(KC_ASTR);
             wait_ms(CAM_DELAY);
             tap_code16(KC_ASTR);
@@ -61,10 +55,10 @@ void cam_up(qk_tap_dance_state_t *state, void *user_data) {
 
 void cam_down(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
-        case 1:
-            tap_code16(LSFT(KC_C));           // next cam
+        case 1:                     // tap once for prev cam
+            tap_code16(LSFT(KC_C));
             break;
-        case 2:
+        case 2:                     // tap twice for chase cam
             tap_code16(KC_ASTR);
             wait_ms(CAM_DELAY);
             tap_code16(KC_ASTR);
@@ -80,18 +74,15 @@ void cam_down(qk_tap_dance_state_t *state, void *user_data) {
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
     [TD_CAR] = ACTION_TAP_DANCE_DOUBLE(
-        LSFT(KC_V),
-        LCTL(KC_V)
+        LSFT(KC_V),                 // tap once for prev car
+        LCTL(KC_V)                  // tap twice for my car
     ),
     [TD_PRINT] = ACTION_TAP_DANCE_DOUBLE(
-        LCTL(LALT(LSFT(KC_S))),     // iRacing screenshot (unreliable)
-        LGUI(KC_PSCR)               // Windows print screen and save to file
+        LCTL(LALT(LSFT(KC_S))),     // tap once for iRacing screenshot (unreliable)
+        LGUI(KC_PSCR)               // tap twice for Windows print screen and save to file
     ),
-
     [TD_CAM_UP] = ACTION_TAP_DANCE_FN(cam_up),
-
     [TD_CAM_DN] = ACTION_TAP_DANCE_FN(cam_down)
 };
 
@@ -126,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL,        // ctrl 
     KC_LALT,        // alt
     LCTL(KC_F12),   // camera tool
-    LT(MOD_LAYER, KC_SPACE)        // UI
+    LT(MOD_LAYER, KC_SPACE)        // press once for UI, hold for MOD layer
   ),
 
   [MOD_LAYER] = LAYOUT_ortho_6x4( /* Base */
@@ -162,21 +153,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______
   ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch(keycode) {
-        // these are not used currently, leaving them in case someone wants to bind them to a key instead of tap dance
-        case CHASE:
-            if (record->event.pressed) {
-               SEND_STRING("**20" SS_TAP(X_ENTER));
-            }
-            break;
-        case REVERSE:
-            if (record->event.pressed) {
-               SEND_STRING("**22" SS_TAP(X_ENTER));
-            }
-            break;
-  }
-
-  return true;
-}

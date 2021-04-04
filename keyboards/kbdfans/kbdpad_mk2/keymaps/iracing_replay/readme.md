@@ -1,6 +1,6 @@
 # iRacing Replay Tool
 
-![](https://imgur.com/0948eBG.jpg)
+![](https://imgur.com/0948eBGh.jpg)
 
 Replay/camera tool for iRacing.  This uses the default keybindings for the game so nothing should need to be mapped.  This makes replays much easier to view in VR and makes waiting through heats a lot more enjoyable.
 
