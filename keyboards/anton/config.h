@@ -1,19 +1,18 @@
-/*
-Copyright 2015 Jun Wako <wakojun@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+/* Copyright 2021 Leonez <Leonez@nuaa.edu.cn>
+* 
+* This program is free software: you can redistribute it and/or modify 
+* it under the terms of the GNU General Public License as published by 
+* the Free Software Foundation, either version 2 of the License, or 
+* (at your option) any later version. 
+* 
+* This program is distributed in the hope that it will be useful, 
+* but WITHOUT ANY WARRANTY; without even the implied warranty of 
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+* GNU General Public License for more details. 
+* 
+* You should have received a copy of the GNU General Public License 
+* along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+*/ 
 
 #pragma once
 
@@ -21,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6324
 #define DEVICE_VER      0x0001
-#define MANUFACTURER ZHUWENQ THE BEST
+#define MANUFACTURER ZHUWENQ
 #define PRODUCT ANTON
 
 /* key matrix size */
@@ -41,19 +40,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // limit the brightness of rgb
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
-// ENCODERS_PAD_A { A12 }
-//#define ENCODERS_PAD_B { A11 }
+#define RGB_DISABLE_WHEN_USB_SUSPENDED false
 
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+#define DISABLE_RGB_MATRIX_DIGITAL_RAIN
+#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT//10
+#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT//8
+#define DISABLE_RGB_MATRIX_BAND_SAT//6
+#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS//24
+#define DISABLE_RGB_MATRIX_RAINDROPS//23
+#define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS//22
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 
-//USART2
-#define SERIAL_DRIVER   SD2
-#define SD2_TX_PIN      A2
-#define SD2_TX_PAL_MODE 7
-#define SD2_RX_PIN      A3
-#define SD2_RX_PAL_MODE 7
+
