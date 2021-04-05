@@ -18,7 +18,7 @@ static uint32_t matrix_timer = 0;
 #    endif
 
 void report_version(void) {
-    uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+    uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " - " QMK_BUILDDATE);
     reported_version = true;
 }
 #endif
@@ -187,7 +187,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     debug_keyboard = 0;
                     debug_matrix   = 0;
                 }
-                uprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
+                uprintf("DEBUG: enable=%u, kb=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
                 eeconfig_update_debug(debug_config.raw);
                 return false;
 #endif
@@ -207,12 +207,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             case SPI_NORMAL ... SPI_MATH:
                 spi_replace_mode = (spi_replace_mode == keycode) ? SPI_NORMAL : keycode;
-                dprintf("spi_replace_mode = %u\n", spi_replace_mode);
                 break;
 
             case SPI_GFLOCK:
                 spi_gflock = !spi_gflock;
-                dprintf("spi_gflock = %u\n", spi_gflock);
                 break;
 
             case SPI_KP_00:
