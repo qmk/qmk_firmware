@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER  0x0001
 #define MANUFACTURER  Team.Mechlovin
 #define PRODUCT       Pisces65
-#define DESCRIPTION   Team.Mechlovin Pisces65
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -45,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { E6, B1, B3, D0, D1, D2, D3, D5, F4, F1, D4, D6, D7, B4, B5 }
 
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN B2
 
 #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING

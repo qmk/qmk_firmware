@@ -12,15 +12,16 @@
 #include "led.h"
 #include "wait.h"
 
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif /* AUDIO_ENABLE */
+
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
 
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
-extern rgblight_config_t rgblight_config;
-static bool              rgblight_enabled;
-static bool              is_suspended;
 #endif
 
 /** \brief suspend idle
@@ -66,13 +67,11 @@ void suspend_power_down(void) {
     // shouldn't power down TPM/FTM if we want a breathing LED
     // also shouldn't power down USB
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-    rgblight_timer_disable();
-    if (!is_suspended) {
-        is_suspended     = true;
-        rgblight_enabled = rgblight_config.enable;
-        rgblight_disable_noeeprom();
-    }
+    rgblight_suspend();
 #endif
+#ifdef AUDIO_ENABLE
+    stop_all_notes();
+#endif /* AUDIO_ENABLE */
 
     suspend_power_down_kb();
     // on AVR, this enables the watchdog for 15ms (max), and goes to
@@ -136,11 +135,7 @@ void suspend_wakeup_init(void) {
 #endif /* BACKLIGHT_ENABLE */
     led_set(host_keyboard_leds());
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-    is_suspended = false;
-    if (rgblight_enabled) {
-        rgblight_enable_noeeprom();
-    }
-    rgblight_timer_enable();
+    rgblight_wakeup();
 #endif
     suspend_wakeup_init_kb();
 }

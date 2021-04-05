@@ -70,7 +70,7 @@ static const int table_scale = 256 / sizeof(rgblight_effect_breathe_table);
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
-            cli.args.output.replace(cli.args.output.name + '.bak')
+            cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
         cli.args.output.write_text(table_template)
 
         if not cli.args.quiet:

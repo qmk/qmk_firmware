@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    xiudi
 #define PRODUCT         XD68
-#define DESCRIPTION     XD68 65pc keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -47,6 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN F5
 #define BACKLIGHT_LEVELS 6

@@ -25,7 +25,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
 | `ISSI_TIMEOUT` | (オプション) i2c メッセージを待つ時間 | 100 |
 | `ISSI_PERSISTENCE` | (オプション) 失敗したメッセージをこの回数再試行する | 0 |
 | `LED_DRIVER_COUNT` | (必須) LED ドライバ IC の数 |  |
-| `LED_DRIVER_LED_COUNT` | (必須) 全てのドライバの LED ライトの数 |  |
+| `DRIVER_LED_TOTAL` | (必須) 全てのドライバの LED ライトの数 |  |
 | `LED_DRIVER_ADDR_1` | (必須) 最初の LED ドライバのアドレス |  |
 | `LED_DRIVER_ADDR_2` | (オプション) 2番目の LED ドライバのアドレス |  |
 | `LED_DRIVER_ADDR_3` | (オプション) 3番目の LED ドライバのアドレス |  |
@@ -46,7 +46,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
     #define LED_DRIVER_COUNT 2
     #define LED_DRIVER_1_LED_COUNT 25
     #define LED_DRIVER_2_LED_COUNT 24
-    #define LED_DRIVER_LED_COUNT LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL
+    #define DRIVER_LED_TOTAL LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL
 
 現在、2つのドライバのみがサポートされますが、4つの組み合わせ全てをサポートすることは簡単です。
 
@@ -61,7 +61,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
     ....
     }
 
-ここで、`Cx_y` は[データシート](http://www.issi.com/WW/pdf/31FL3731.pdf)およびヘッダファイル `drivers/issi/is31fl3731-simple.h` で定義されるマトリックス内の LED の位置です。`driver` は `config.h` で定義したドライバのインデックス(`0`、`1`、`2`、`3`のいずれか)です。
+ここで、`Cx_y` は[データシート](https://www.issi.com/WW/pdf/31FL3731.pdf)およびヘッダファイル `drivers/issi/is31fl3731-simple.h` で定義されるマトリックス内の LED の位置です。`driver` は `config.h` で定義したドライバのインデックス(`0`、`1`、`2`、`3`のいずれか)です。
 
 ## キーコード
 

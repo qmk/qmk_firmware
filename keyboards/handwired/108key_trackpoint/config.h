@@ -7,7 +7,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    QMK
 #define PRODUCT         108Key-Trackpoint
-#define DESCRIPTION     A 108 key ANSI keyboard with a trackpoint and three mouse buttons
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 23

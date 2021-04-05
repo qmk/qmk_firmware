@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    none
 #define PRODUCT         onekey
-#define DESCRIPTION     test board for qmk
 
 /* key matrix size */
 #define MATRIX_ROWS 1

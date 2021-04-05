@@ -15,9 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define TAPPING_TOGGLE 2
-
-
 // Layer names
 #define base  0
 #define shrek 1

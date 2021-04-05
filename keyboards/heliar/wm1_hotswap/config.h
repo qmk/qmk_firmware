@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Heliar 
 #define PRODUCT         wm1 hotswap
-#define DESCRIPTION     69% custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

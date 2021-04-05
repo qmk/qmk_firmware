@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    K.T.E.C.
 #define PRODUCT         ErgoDone
-#define DESCRIPTION     QMK keyboard firmware for ErgoDone
 
 /* key matrix size */
 #define MATRIX_ROWS 6

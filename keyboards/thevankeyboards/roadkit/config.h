@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    TheVan Keyboards
 #define PRODUCT         Roadkit Micro
-#define DESCRIPTION     keyboard firmware for Roadkit Micro
 
 /* key matrix size */
 #define MATRIX_ROWS 4

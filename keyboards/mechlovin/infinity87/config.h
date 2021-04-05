@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER  0x0001
 #define MANUFACTURER  Team.Mechlovin
 #define PRODUCT       Infinity 87
-#define DESCRIPTION   Team.Mechlovin Infinity 87
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -46,6 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_NUM_LOCK_PIN A3
+#define LED_CAPS_LOCK_PIN A4
 
 #define BACKLIGHT_PIN B0
 #define BACKLIGHT_BREATHING

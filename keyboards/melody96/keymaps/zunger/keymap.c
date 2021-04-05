@@ -14,6 +14,83 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include <assert.h>
+
+// This keymap is designed to make it easy to type in a wide variety of languages, as well as
+// generate mathematical symbols (à la Space Cadet).
+//
+// LAYER MAGIC (aka, typing in many alphabets)
+//   This keyboard has three "base" layers: QWERTY, GREEK, and CADET. The GREEK and CADET layers
+// are actually full of Unicode points, and so which point they generate depends on things like
+// whether the shift key is down. To handle this, each of those layers is actually *two* layers, one
+// with and one without shift. In our main loop, we manage modifier state detection, as well as
+// layer switch detection, and pick the right layer on the fly.
+//   Layers are selected with a combination of three keys. The "Greek" and "Cadet" keys act like
+// modifiers: When held down, they transiently select the indicated base layer. The "Layer Lock" key
+// locks the value of the base layer at whatever is currently held; so e.g., if you hold Greek +
+// Layer Lock, you'll stay in Greek mode until you hit Layer Lock again without any of the mods
+// held.
+//   TODO: This system of layer selection is nice for math, but it's not very nice for actually
+// typing in multiple languages. It seems like a better plan will be to reserve one key for each
+// base layer -- maybe fn + F(n) -- which can either be held as a modifier or tapped to switch
+// layers. That will open up adding some more languages, like Yiddish, but to do this effectively
+// we'll need to find a good UI with which to show the currently selected layer. Need to check what
+// the melody96 has in the way of outputs (LEDs, sound, etc).
+//
+// ACCENT MAGIC (aka, typing conveniently in Romance languages)
+//   We want to support easy typing of diacritical marks. We can't rely on the host OS for this,
+// because (e.g.) on MacOS, to make any of the other stuff work, we need to be using the Unicode
+// input method at the OS level, which breaks all the normal accent stuff on that end. So we do it
+// ourselves. Accents can actually be invoked in two different ways: one fast and very compatible,
+// one very versatile but with occasional compatibility problems.
+//
+//   THE MAIN WAY: You can hit one of the "accent request" key patterns immediately *before* typing
+//   a letter to be accented. It will emit the corresponding accented Unicode. For example, you can
+//   hit fn-e to request an acute accent, followed by i, and it will output í, U+00ED LATIN SMALL
+//   LETTER I WITH ACUTE. These "combined characters" are in Unicode normal form C (NFKC), which is
+//   important because many European websites and apps, in particular, tend to behave very badly
+//   (misunderstanding and/or crashing) when presented with characters in other forms! The catch is
+//   that this only works for the various combinations of letters and accents found in the Latin-1
+//   supplement block of Unicode -- basically, things you need for Western European languages.
+//
+//   (NB: If you make an accent request followed by a letter which can't take the corresponding
+//   accent, it will output the uncombined form of the accent followed by whatever you typed; so
+//   e.g., if you hit fn-e followed by f, it will output ´f, U+00B4 ACUTE ACCENT followed by an
+//   ordinary f. This is very similar to the default behavior of MacOS.)
+//
+//   THE FLEXIBLE WAY: If you hit the accent request with a shift -- e.g., fn-shift-e -- it will
+//   instead immediately output the corresponding *combining* Unicode accent mark, which will modify
+//   the *previous* character you typed. For example, if you type i followed by fn-shift-e, it will
+//   generate í. But don't be fooled by visual similarity: unlike the previous example, this one is
+//   an ordinary i followed by U+0301 COMBINING ACUTE ACCENT. It's actually *two symbols*, and this
+//   is Unicode normal form D (NFKD). Unlike NFKC, there are NFKD representations of far more
+//   combinations of letters and accents, and it's easy to add more of these if you need. (The NFKC
+//   representation of such combinations is identical to their NFKD representation)
+//
+//   Programs that try to compare Unicode strings *should* first normalize them by converting them
+//   all into one normal form or another, and there are functions in every programming language to
+//   do this -- e.g., JavaScript's string.normalize() -- but lots of programmers fail to understand
+//   this, and so write code that massively freaks out when it encounters the wrong form.
+//
+// The current accent request codes are modeled on the ones in MacOS.
+//
+//    fn+`    Grave accent (`)
+//    fn+e    Acute accent (´)
+//    fn+i    Circumflex (^)
+//    fn+u    Diaresis / umlaut / trema (¨)
+//    fn+c    Cedilla (¸)
+//    fn+n    Tilde (˜)
+//
+// Together, these functions make for a nice "polyglot" keyboard: one that can easily type in a wide
+// variety of languages, which is very useful for people who, well, need to type in a bunch of
+// languages.
+//
+// The major TODOs are:
+//   - Update the layer selection logic (and add visible layer cues);
+//   - Factor the code below so that the data layers are more clearly separated from the code logic,
+//     so that other users of this keymap can easily add whichever alphabets they need without
+//     having to deeply understand the implementation.
+
 
 enum custom_keycodes {
   // We provide special layer management keys:
@@ -32,6 +109,16 @@ enum custom_keycodes {
   KC_GREEK = SAFE_RANGE,
   KC_CADET,
   KC_LAYER_LOCK,
+
+  // These are the keycodes generated by the various "accent request" keystrokes.
+  KC_ACCENT_START,
+  KC_CGRV = KC_ACCENT_START,  // Grave accent
+  KC_CAGU,  // Acute accent
+  KC_CDIA,  // Diaresis / umlaut / trema
+  KC_CCIR,  // Circumflex
+  KC_CCED,  // Cedilla
+  KC_CTIL,  // Tilde
+  KC_ACCENT_END,
 };
 
 enum layers_keymap {
@@ -48,21 +135,6 @@ enum layers_keymap {
 #define H(x) UC(0x##x)
 #define MO_FN MO(_FUNCTION)
 #define KC_LLCK KC_LAYER_LOCK
-
-// TODO: To generalize this, we want some #defines that let us specify how each key on the base
-// layer should map to the four special layers, and then use that plus the base layer definition to
-// autogenerate the keymaps for the other layers.
-// TODO: It would also be nice to be able to put the actual code points in here, rather than
-// numbers.
-
-// Accent marks
-#define CMB_GRV H(0300)
-#define CMB_AGU H(0301)
-#define CMB_DIA H(0308)
-#define CMB_CIR H(0302)
-#define CMB_MAC H(0304)
-#define CMB_CED H(0327)
-#define CMB_TIL H(0303)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -164,13 +236,118 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Function layer is mostly for keyboard meta-control operations, but also contains the combining
   // accent marks. These are deliberately placed to match where the analogous controls go on Mac OS.
 	[_FUNCTION] = LAYOUT_hotswap(
-    CMB_GRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, RESET,
-    CMB_GRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
-    _______, _______, _______, CMB_AGU, _______, _______, _______, CMB_DIA, CMB_CIR, CMB_MAC, _______, _______, _______,          _______, _______, _______, _______,
+    KC_CGRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, RESET,
+    KC_CGRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
+    _______, _______, _______, KC_CAGU, _______, _______, _______, KC_CDIA, KC_CCIR, _______, _______, _______, _______,          _______, _______, _______, _______,
     _______, _______, _______, UC_M_OS, UC_M_LN, UC_M_WI, UC_M_BS, UC_M_WC, _______, _______, _______, _______,                   _______, _______, _______, _______, _______,
-    _______,          _______, _______, CMB_CED, _______, _______, CMB_TIL, _______, _______, _______, _______, _______,          _______, _______, _______, _______,
+    _______,          _______, _______, KC_CCED, _______, _______, KC_CTIL, _______, _______, _______, _______, _______,          _______, _______, _______, _______,
     _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______, _______, _______, _______),
 };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Accent implementation
+//
+// In the body of process_record_user, we store an "accent_request", which is the accent keycode if
+// one was just selected, or zero otherwise. When the *next* key is hit, we look up whether the
+// accent request plus that next keycode (plus the state of the shift key) together amount to an
+// interesting combined (NFKC) character, and if so, emit it; otherwise, we emit the accent as a
+// separate character and then process the next key normally. The resulting UI behavior is similar
+// to that of the combining accent keys in MacOS.
+//
+// We store two arrays, depending on whether shift is or isn't held. Each is two-dimensional, with
+// its outer key by the next keycode struck, and the inner key by the accent requested. The outer
+// array has KC_Z + 1 as its upper bound, so that we can save memory by only coding alphabetic keys.
+// The contents are either Unicode code points, or zero to indicate that we don't have a point for
+// this combination.
+
+#define KC_NUM_ACCENTS (KC_ACCENT_END - KC_ACCENT_START)
+#define KC_NUM_SLOTS (KC_Z + 1)
+
+const uint16_t PROGMEM unshifted_accents[KC_NUM_SLOTS][KC_NUM_ACCENTS] = {
+  //         KC_CGRV, KC_CAGU, KC_CDIA, KC_CCIR, KC_CCED, KC_CTIL
+  [KC_A] = { 0x00e0,  0x00e1,  0x00e4,  0x00e2,  0,       0x00e3 },
+  [KC_E] = { 0x00e8,  0x00e9,  0x00eb,  0x00ea,  0,       0      },
+  [KC_I] = { 0x00ec,  0x00ed,  0x00ef,  0x00ee,  0,       0      },
+  [KC_O] = { 0x00f2,  0x00f3,  0x00f6,  0x00f4,  0,       0x00f5 },
+  [KC_U] = { 0x00f9,  0x00fa,  0x00fc,  0x00fb,  0,       0      },
+  [KC_Y] = { 0,       0,       0x00ff,  0,       0,       0      },
+  [KC_N] = { 0,       0,       0,       0,       0,       0x00f1 },
+  [KC_C] = { 0,       0,       0,       0,       0x00e7,  0      },
+};
+
+const uint16_t PROGMEM shifted_accents[KC_NUM_SLOTS][KC_NUM_ACCENTS] = {
+  //         KC_CGRV, KC_CAGU, KC_CDIA, KC_CCIR, KC_CCED, KC_CTIL
+  [KC_A] = { 0x00c0,  0x00c1,  0x00c4,  0x00c2,  0,       0x00c3 },
+  [KC_E] = { 0x00c8,  0x00c9,  0x00cb,  0x00ca,  0,       0      },
+  [KC_I] = { 0x00cc,  0x00cd,  0x00cf,  0x00ce,  0,       0      },
+  [KC_O] = { 0x00d2,  0x00d3,  0x00d6,  0x00d4,  0,       0x00d5 },
+  [KC_U] = { 0x00d9,  0x00da,  0x00dc,  0x00db,  0,       0      },
+  [KC_Y] = { 0,       0,       0x00df,  0,       0,       0      },
+  [KC_N] = { 0,       0,       0,       0,       0,       0x00d1 },
+  [KC_C] = { 0,       0,       0,       0,       0x00c7,  0      },
+};
+
+// The uncombined and combined forms of the accents, for when we want to emit them as single
+// characters.
+const uint16_t PROGMEM uncombined_accents[KC_NUM_ACCENTS] = {
+  [KC_CGRV - KC_ACCENT_START] = 0x0060,
+  [KC_CAGU - KC_ACCENT_START] = 0x00b4,
+  [KC_CDIA - KC_ACCENT_START] = 0x00a8,
+  [KC_CCIR - KC_ACCENT_START] = 0x005e,
+  [KC_CCED - KC_ACCENT_START] = 0x00b8,
+  [KC_CTIL - KC_ACCENT_START] = 0x02dc,
+};
+
+const uint16_t PROGMEM combined_accents[KC_NUM_ACCENTS] = {
+  [KC_CGRV - KC_ACCENT_START] = 0x0300,
+  [KC_CAGU - KC_ACCENT_START] = 0x0301,
+  [KC_CDIA - KC_ACCENT_START] = 0x0308,
+  [KC_CCIR - KC_ACCENT_START] = 0x0302,
+  [KC_CCED - KC_ACCENT_START] = 0x0327,
+  [KC_CTIL - KC_ACCENT_START] = 0x0303,
+};
+
+// This function manages keypresses that happen after an accent has been selected by an earlier
+// keypress.
+// Args:
+//   accent_key: The accent key which was earlier selected. This must be in the range
+//     [KC_ACCENT_START, KC_ACCENT_END).
+//   keycode: The keycode which was just pressed.
+//   is_shifted: The current shift state (as set by a combination of shift and caps lock)
+//   force_no_accent: If true, we're in a situation where we want to force there to be no
+//     accent combination -- if e.g. we're in a non-QWERTY layer, or if other modifier keys
+//     are held.
+//
+// Returns true if the keycode has been completely handled by this function (and so should not be
+// processed further by process_record_user) or false otherwise.
+bool process_key_after_accent(
+    uint16_t accent_key,
+    uint16_t keycode,
+    bool is_shifted,
+    bool force_no_accent
+) {
+  assert(accent_key >= KC_ACCENT_START);
+  assert(accent_key < KC_ACCENT_END);
+  const int accent_index = accent_key - KC_ACCENT_START;
+
+  // If the keycode is outside A..Z, or force_no_accent is set, we know we shouldn't even bother
+  // with a table lookup.
+  if (keycode <= KC_Z && !force_no_accent) {
+    // Pick the correct array. Because this is progmem, we're going to need to do the
+    // two-dimensional array indexing by hand, and so we just cast it to a single-dimensional array.
+    const uint16_t *points = (const uint16_t*)(is_shifted ? shifted_accents : unshifted_accents);
+    const uint16_t code_point = pgm_read_word_near(points + KC_NUM_ACCENTS * keycode + accent_index);
+    if (code_point) {
+      register_unicode(code_point);
+      return true;
+    }
+  }
+
+  // If we get here, there was no accent match. Emit the accent as its own character, and then let
+  // the caller figure out what to do next.
+  register_unicode(pgm_read_word_near(uncombined_accents + accent_index));
+  return false;
+}
 
 // Layer bitfields.
 #define GREEK_LAYER (1UL << _GREEK)
@@ -185,6 +362,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // get_mods or the like, because this function is called *before* that's updated!
   static bool shift_held = false;
   static bool alt_held = false;
+  static bool ctrl_held = false;
+  static bool super_held = false;
   static bool greek_held = false;
   static bool cadet_held = false;
 
@@ -192,18 +371,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static bool shift_lock = false;
   static int layer_lock = _QWERTY;
 
-  // Process any modifier key presses.
+  // The accent request, or zero if there isn't one.
+  static uint16_t accent_request = 0;
+
+  // If this is set to true, don't trigger any handling of pending accent requests. That's what we
+  // want to do if e.g. the user just hit the shift key or something.
+  bool ignore_accent_change = !record->event.pressed;
+
+  // Step 1: Process any modifier key state changes, so we can maintain that state.
   if (keycode == KC_LSHIFT || keycode == KC_RSHIFT) {
     shift_held = record->event.pressed;
+    ignore_accent_change = true;
   } else if (keycode == KC_LALT || keycode == KC_RALT) {
     alt_held = record->event.pressed;
+    ignore_accent_change = true;
+  } else if (keycode == KC_LCTRL || keycode == KC_RCTRL) {
+    ctrl_held = record->event.pressed;
+    ignore_accent_change = true;
+  } else if (keycode == KC_LGUI || keycode == KC_RGUI) {
+    super_held = record->event.pressed;
+    ignore_accent_change = true;
   } else if (keycode == KC_GREEK) {
     greek_held = record->event.pressed;
+    ignore_accent_change = true;
   } else if (keycode == KC_CADET) {
     cadet_held = record->event.pressed;
+    ignore_accent_change = true;
   }
 
-  // Now let's transform these into the "cadet request" and "greek request."
+  // Step 2: Figure out which layer we're supposed to be in, by transforming all the prior stuff
+  // into layer requests.
   const bool greek_request = (greek_held && !alt_held);
   const bool cadet_request = (cadet_held || (greek_held && alt_held));
 
@@ -260,8 +457,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     layer_state_set(new_layer_state);
   }
 
-  // TODO: We can update LED states based on shift_lock (caps), layer_lock (layer lock), and
-  // base_layer (base layer).
+  // Step 3: Handle accents. If there's a pending accent request, process it. If what the user just
+  // hit creates a new accent request, update the pending state for the next keypress.
+  if (!ignore_accent_change && accent_request && record->event.pressed) {
+    // Only do the accent stuff if we're in the QWERTY layer and we aren't modifying something.
+    const bool force_no_accent = (
+        actual_layer != _QWERTY ||
+        ctrl_held ||
+        super_held ||
+        alt_held
+    );
+    const uint16_t old_accent = accent_request;
+    accent_request = 0;
+    if (process_key_after_accent(old_accent, keycode, shifted, force_no_accent)) {
+      return false;
+    }
+  }
+
+  // And if a new accent request just arrived, update accent_request.
+  if (keycode >= KC_ACCENT_START && keycode < KC_ACCENT_END && record->event.pressed) {
+    if (shifted) {
+      // Shift + accent request generates the combining accent key, and leaves accent_request alone.
+      register_unicode(pgm_read_word_near(combined_accents + keycode - KC_ACCENT_START));
+      return false;
+    } else {
+      accent_request = keycode;
+    }
+  }
 
   return true;
 }

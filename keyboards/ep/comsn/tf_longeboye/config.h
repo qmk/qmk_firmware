@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Elliot Powell
 #define PRODUCT TF Longeboye
-#define DESCRIPTION     TF Longeboye Designed for Papi SodaMan of MKUK
 
 /* key matrix size */
 #define MATRIX_ROWS 5

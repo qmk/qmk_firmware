@@ -23,7 +23,7 @@ Please keep these things in mind:
 
 # Project Overview
 
-QMK is largely written in C, with specific features and parts written in C++. It targets embedded processors found in keyboards, particularly AVR ([LUFA](http://www.fourwalledcubicle.com/LUFA.php)) and ARM ([ChibiOS](http://www.chibios.com)). If you are already well versed in Arduino programming you'll find a lot of the concepts and limitations familiar. Prior experience with Arduino is not required to successfully contribute to QMK.
+QMK is largely written in C, with specific features and parts written in C++. It targets embedded processors found in keyboards, particularly AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) and ARM ([ChibiOS](https://www.chibios.org)). If you are already well versed in Arduino programming you'll find a lot of the concepts and limitations familiar. Prior experience with Arduino is not required to successfully contribute to QMK.
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 

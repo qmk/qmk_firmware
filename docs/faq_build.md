@@ -17,7 +17,7 @@ or just:
 
 Note that running `make` with `sudo` is generally ***not*** a good idea, and you should use one of the former methods, if possible.
 
-### Linux `udev` Rules
+### Linux `udev` Rules :id=linux-udev-rules
 
 On Linux, you'll need proper privileges to communicate with the bootloader device. You can either use `sudo` when flashing firmware (not recommended), or place [this file](https://github.com/qmk/qmk_firmware/tree/master/util/udev/50-qmk.rules) into `/etc/udev/rules.d/`.
 
@@ -57,8 +57,8 @@ Also see this.
 https://github.com/tmk/tmk_keyboard/issues/150
 
 You can buy a really unique VID:PID here. I don't think you need this for personal use.
-- http://www.obdev.at/products/vusb/license.html
-- http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
+- https://www.obdev.at/products/vusb/license.html
+- https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)
 Due to how EEPROM works on ARM based chips, saved settings may no longer be valid.  This affects the default layers, and *may*, under certain circumstances we are still figuring out, make the keyboard unusable.  Resetting the EEPROM will correct this.

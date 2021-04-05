@@ -14,7 +14,7 @@ def cformat_run(files, all_files):
     """
     # Determine which version of clang-format to use
     clang_format = ['clang-format', '-i']
-    for clang_version in [10, 9, 8, 7]:
+    for clang_version in range(20, 6, -1):
         binary = 'clang-format-%d' % clang_version
         if which(binary):
             clang_format[0] = binary

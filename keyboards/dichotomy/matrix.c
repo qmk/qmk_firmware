@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dichotomy.h"
 #include "pointing_device.h"
 #include "report.h"
+#include "protocol/serial.h"
 
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
@@ -93,11 +94,11 @@ uint8_t matrix_cols(void) {
 
 void matrix_init(void) {
     matrix_init_quantum();
+    serial_init();
 }
 
 uint8_t matrix_scan(void)
 {
-    SERIAL_UART_INIT();
     //xprintf("\r\nTRYING TO SCAN");
 
     uint32_t timeout = 0;
@@ -209,7 +210,7 @@ void matrix_print(void)
     print_matrix_header();
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_matrix_row(row);
         print("\n");
     }

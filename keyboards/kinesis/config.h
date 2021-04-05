@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define MANUFACTURER    You
 #define PRODUCT         Kinesis Advantage/Contoured
-#define DESCRIPTION     A custom keyboard
 
 // Mouse
 #define MOUSEKEY_DELAY          60

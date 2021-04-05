@@ -10,8 +10,8 @@ Nota: Estos programas no los provée ni están relacionados con QMK.
 
 * [Switch Hitter](https://elitekeyboards.com/switchhitter.php) (Sólo Windows)
 * [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Sólo Mac)
-* [Keyboard Tester](http://www.keyboardtester.com) (Aplicación web)
-* [Keyboard Checker](http://keyboardchecker.com) (Aplicación web)
+* [Keyboard Tester](https://www.keyboardtester.com) (Aplicación web)
+* [Keyboard Checker](https://keyboardchecker.com) (Aplicación web)
 
 ## Depurando
 

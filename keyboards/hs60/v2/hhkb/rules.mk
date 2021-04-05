@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating

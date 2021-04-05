@@ -28,7 +28,7 @@ QMK について質問したい場合は、[OLKB Subreddit](https://reddit.com/r
 
 # プロジェクトの概要 :id=project-overview
 
-QMK は主に C で書かれており、特定の機能と部品は C++ で書かれています。QMK は、キーボードの中の組み込みプロセッサ、特に AVR ([LUFA](http://www.fourwalledcubicle.com/LUFA.php)) と ARM ([ChibiOS](http://www.chibios.com)) を対象にしています。すでに Arduino プログラミングに精通している場合は、多くの概念と制限がおなじみのものです。QMK に貢献するには Arduino を使用した経験は必要ありません。
+QMK は主に C で書かれており、特定の機能と部品は C++ で書かれています。QMK は、キーボードの中の組み込みプロセッサ、特に AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) と ARM ([ChibiOS](https://www.chibios.org)) を対象にしています。すでに Arduino プログラミングに精通している場合は、多くの概念と制限がおなじみのものです。QMK に貢献するには Arduino を使用した経験は必要ありません。
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 

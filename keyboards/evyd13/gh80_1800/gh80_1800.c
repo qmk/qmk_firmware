@@ -14,31 +14,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "gh80_1800.h"
-
-void matrix_init_kb(void) {
-  // put your keyboard start-up code here
-  // runs once when the firmware starts up
-
-  matrix_init_user();
-  led_init_ports();
-}
-
-void led_init_ports(void) {
-  setPinOutput(D6);
-  setPinOutput(D7);
-  setPinOutput(D4);
-  
-  writePinHigh(D6);
-  writePinHigh(D7);
-  writePinHigh(D4);
-}
-
-bool led_update_kb(led_t led_state) {
-  if(led_update_user(led_state)) {
-    writePin(D6, !led_state.num_lock);
-    writePin(D7, !led_state.caps_lock);
-    writePin(D4, !led_state.scroll_lock);
-  }
-
-  return true;
-}

@@ -98,7 +98,7 @@ uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record);
+void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed);
 
 void rgb_matrix_task(void);
 

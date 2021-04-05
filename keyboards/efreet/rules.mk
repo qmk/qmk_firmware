@@ -22,3 +22,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = ortho_4x12 planck_mit
+
+# Disable unsupported hardware
+RGBLIGHT_SUPPORTED = no
+AUDIO_SUPPORTED = no

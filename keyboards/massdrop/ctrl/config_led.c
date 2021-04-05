@@ -79,4 +79,4 @@ void rgb_matrix_indicators_kb(void)
 }
 #endif // USB_LED_INDICATOR_ENABLE
 
-#endif
+#endif // RGB_MATRIX_ENABLE

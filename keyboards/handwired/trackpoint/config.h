@@ -7,7 +7,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    QMK
 #define PRODUCT         TRACKPOINT-DEMO
-#define DESCRIPTION     Simple demonstration for IBM Trackpoint integration
 
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 3

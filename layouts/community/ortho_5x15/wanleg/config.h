@@ -10,7 +10,4 @@
 //last 5 elements not tested
 #define MATRIX_COL_PINS { C6, D7, B5, B6, B7, D6, C7, F0, F1, F4, B1, B2, B3, D2, D3 }
 
-//get rid of description - too long to show properly in Windows
-#undef DESCRIPTION
-#define DESCRIPTION 
 #endif

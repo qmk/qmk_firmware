@@ -279,7 +279,73 @@ ifneq ($(findstring STM32F411, $(MCU)),)
   DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 endif
 
-ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647 at90usb1286 at90usb1287))
+ifneq ($(findstring STM32G431, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32G4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32G431xB
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32g4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_G431XB
+
+  USE_FPU ?= yes
+
+  # Options to pass to dfu-util when flashing
+  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+endif
+
+ifneq ($(findstring STM32G474, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32G4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32G474xE
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32g4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_G474XE
+
+  USE_FPU ?= yes
+
+  # Options to pass to dfu-util when flashing
+  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+endif
+
+ifneq (,$(filter $(MCU),at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647 at90usb1286 at90usb1287))
   PROTOCOL = LUFA
 
   # Processor frequency.
@@ -317,7 +383,7 @@ ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 a
   ifeq (,$(filter $(NO_INTERRUPT_CONTROL_ENDPOINT),yes))
     OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
   endif
-  ifneq (,$(filter $(MCU),atmega16u2 atmega32u2))
+  ifneq (,$(filter $(MCU),at90usb162 atmega16u2 atmega32u2))
     NO_I2C = yes
   endif
 endif
@@ -334,9 +400,6 @@ ifneq (,$(filter $(MCU),atmega32a))
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
   F_CPU ?= 12000000
-
-  # unsupported features for now
-  NO_SUSPEND_POWER_DOWN ?= yes
 endif
 
 ifneq (,$(filter $(MCU),atmega328p))
@@ -351,9 +414,6 @@ ifneq (,$(filter $(MCU),atmega328p))
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
   F_CPU ?= 16000000
-
-  # unsupported features for now
-  NO_SUSPEND_POWER_DOWN ?= yes
 endif
 
 ifneq (,$(filter $(MCU),atmega328))
@@ -368,10 +428,6 @@ ifneq (,$(filter $(MCU),atmega328))
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
   F_CPU ?= 16000000
-
-  # unsupported features for now
-  NO_UART ?= yes
-  NO_SUSPEND_POWER_DOWN ?= yes
 endif
 
 ifneq (,$(filter $(MCU),attiny85))
@@ -383,7 +439,4 @@ ifneq (,$(filter $(MCU),attiny85))
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
   F_CPU ?= 16500000
-
-  # unsupported features for now
-  NO_SUSPEND_POWER_DOWN ?= yes
 endif

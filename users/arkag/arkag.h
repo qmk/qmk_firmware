@@ -5,20 +5,9 @@
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 
-#define LRALT       TD(TD_LALT_RALT)
-#define QUOTE       TD(TD_SING_DOUB)
-#define GRAVE       TD(TD_GRV_3GRV)
-#define OBRACK      TD(TD_BRCK_PARN_O)
-#define CBRACK      TD(TD_BRCK_PARN_C)
-#define THREE       TD(TD_3_GRV_ACT)
-#define STRIKE      TD(TD_STRK_SHOT)
-#define HYPHEN      TD(TD_HYPH_UNDR)
-#define CEDILLA     TD(TD_C_CED)
-#define GAME        TD(TD_GAME)
-
-#define RAISE       MO(1)
-#define LOWER       MO(2)
-#define MEDIA       MO(3)
+#define SYMBOL      MO(1)
+#define MEDIA       MO(2)
+#define ARROW       MO(3)
 #define FUNCT       MO(4)
 #define KEEB        MO(5)
 
@@ -34,14 +23,15 @@
 #define INACTIVE_DELAY        250
 #define SLEEP_DELAY           180000
 
+#define HUE_MAX               254
+
 enum {
   _QWERTY = 0,
-  _RAISE,
-  _LOWER,
+  _SYMBOL,
   _MEDIA,
+  _ARROW,
   _FUNCT,
   _KEEB,
-  _GAMING,
 };
 
 typedef enum {
@@ -71,7 +61,6 @@ typedef enum {
 typedef enum {
   active = 0,
   inactive,
-  sleeping,
   boot,
 } activityState;
 
@@ -79,22 +68,7 @@ enum custom_keycodes {
   M_PMOD = SAFE_RANGE,
   M_SMOD,
   M_OS,
-  M_SFT,
-  M_SPC,
-};
-
-enum tapdances {
-  TD_3_GRV_ACT = 0,
-  TD_C_CED,
-  TD_GRV_3GRV,
-  TD_SLSH_HTTP,
-  TD_SING_DOUB,
-  TD_HYPH_UNDR,
-  TD_SPECIAL,
-  TD_BRCK_PARN_O,
-  TD_BRCK_PARN_C,
-  TD_LALT_RALT,
-  TD_GAME,
+  M_DASH,
 };
 
 void velocikey_accelerate(void);
@@ -123,17 +97,8 @@ void pri_mod(bool press);
 
 void sec_mod(bool press);
 
+void multi_tap(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
+
 void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
 
 void long_keystroke(size_t num_of_keys, uint16_t keys[]);
-
-void dance_grv (qk_tap_dance_state_t *state, void *user_data);
-void dance_quot (qk_tap_dance_state_t *state, void *user_data);
-void dance_strk (qk_tap_dance_state_t *state, void *user_data);
-void dance_3 (qk_tap_dance_state_t *state, void *user_data);
-void dance_c (qk_tap_dance_state_t *state, void *user_data);
-void dance_game (qk_tap_dance_state_t *state, void *user_data);
-
-int cur_dance (qk_tap_dance_state_t *state);
-void spc_finished (qk_tap_dance_state_t *state, void *user_data);
-void spc_reset (qk_tap_dance_state_t *state, void *user_data);

@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x00C6
 #define MANUFACTURER    PeiorisBoards
 #define PRODUCT         Ixora Rev1
-#define DESCRIPTION     6key Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 1

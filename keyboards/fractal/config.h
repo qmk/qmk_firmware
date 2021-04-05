@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KeyPCB
 #define PRODUCT         Fractal
-#define DESCRIPTION     Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

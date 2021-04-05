@@ -10,7 +10,7 @@
 #include "tca6424.h"
 #include "m20add.h"
 
-static const uint16_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static const uint16_t col_pins[MATRIX_COLS] = MATRIX_M20_COL_PINS;
 
 void matrix_init_custom(void)
 {

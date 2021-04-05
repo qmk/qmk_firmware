@@ -87,7 +87,7 @@ To enable this setting, add this to your `config.h`:
 #define IGNORE_MOD_TAP_INTERRUPT
 ```
 
-Similar to Permissive Hold, this alters how the firmware processes inputs for fast typists. If you press a Mod Tap key, press another key, release the Mod Tap key, and then release the normal key, it would normally output the tapping function for both keys. This may not be desirable for rolling combo keys.
+Similar to Permissive Hold, this alters how the firmware processes inputs for fast typists. If you press a Mod Tap key, press another key, release the Mod Tap key, and then release the normal key, it would normally output the Mod plus the normal key, even if pressed within the `TAPPING_TERM`. This may not be desirable for rolling combo keys, or for fast typists who have a Mod Tap on a frequently used key (`RCTL_T(KC_QUOT)`, for example).
 
 Setting `Ignore Mod Tap Interrupt` requires  holding both keys for the `TAPPING_TERM` to trigger the hold function (the mod).
 
@@ -98,7 +98,7 @@ For Instance:
 - `SFT_T(KC_A)` Up
 - `KC_X` Up
 
-Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` enabled, holding both keys are required for the `TAPPING_TERM` to register the hold action. A quick tap will output `ax` in this case, while a hold on both will still output `X`  (`SHIFT`+`x`).
+Normally, this would send a capital `X` (`SHIFT`+`x`), or, Mod + key. With `Ignore Mod Tap Interrupt` enabled, holding both keys are required for the `TAPPING_TERM` to register the hold action. A quick tap will output `ax` in this case, while a hold on both will still output capital `X` (`SHIFT`+`x`).
 
 
 ?> __Note__: This only concerns modifiers and not layer switching keys.

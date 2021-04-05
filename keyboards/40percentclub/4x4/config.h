@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x4444
 #define MANUFACTURER    di0ib
 #define PRODUCT         The 4x4 Keyboard
-#define DESCRIPTION     A modular compact keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -145,9 +144,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

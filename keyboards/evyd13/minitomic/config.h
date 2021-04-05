@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Evyd13
 #define PRODUCT         Minitomic
-#define DESCRIPTION     A 45% staggered keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -51,6 +50,9 @@
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 // #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+
+#define LED_CAPS_LOCK_PIN C7
+#define LED_PIN_ON_STATE 0
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -195,9 +197,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

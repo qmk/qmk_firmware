@@ -26,7 +26,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER    geekhack
 #define PRODUCT         jd40v2
-#define DESCRIPTION     t.m.k. keyboard firmware for JD40 MKII
 
 /* key matrix size */
 #define MATRIX_ROWS 4

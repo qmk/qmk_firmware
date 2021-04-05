@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 		0x0001
 #define MANUFACTURER    J2L Designs
 #define PRODUCT         NCC1701KB
-#define DESCRIPTION     J2L NCC1701KB
 
 /* key matrix size */
 #define MATRIX_ROWS 3

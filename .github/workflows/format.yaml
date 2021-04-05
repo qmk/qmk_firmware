@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - develop
 
 jobs:
   format:
@@ -14,6 +15,8 @@ jobs:
     if: github.repository == 'qmk/qmk_firmware'
 
     steps:
+    - uses: rlespinasse/github-slug-action@v3.x
+
     - uses: actions/checkout@v2
       with:
         token: ${{ secrets.API_TOKEN_GITHUB }}
@@ -28,10 +31,17 @@ jobs:
         bin/qmk pyformat
         bin/qmk fileformat
 
-    - name: Commit files
-      uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Become QMK Bot
+      run: |
+        git config user.name 'QMK Bot'
+        git config user.email 'hello@qmk.fm'
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
       with:
-        commit_message: Format code according to conventions for $GITHUB_SHA
-        commit_user_name: QMK Bot
-        commit_user_email: hello@qmk.fm
-        commit_author: QMK Bot <hello@qmk.fm>
+        delete-branch: true
+        branch: bugfix/format_${{ env.GITHUB_REF_SLUG }}
+        author: QMK Bot <hello@qmk.fm>
+        committer: QMK Bot <hello@qmk.fm>
+        commit-message: Format code according to conventions
+        title: '[CI] Format code according to conventions'

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0005
 #define MANUFACTURER zFrontier
 #define PRODUCT Red Comet Big Switch
-#define DESCRIPTION Big Switch
 
 /* key matrix size */
 #define MATRIX_ROWS 1

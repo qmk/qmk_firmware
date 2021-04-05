@@ -35,7 +35,8 @@ bool led_update_kb(led_t led_state) {
     return true;
 }
 
-layer_state_t layer_state_set_kb(layer_state_t state) {
+__attribute__((weak))
+layer_state_t layer_state_set_user(layer_state_t state) {
   // if on layer 1, turn on D2 LED, otherwise off.
   writePin(D2, get_highest_layer(state) == 1);
   // if on layer 2, turn on D1 LED, otherwise off.

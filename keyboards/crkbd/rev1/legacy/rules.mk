@@ -5,3 +5,6 @@ SRC += 	matrix.c \
 		split_scomm.c
 
 QUANTUM_LIB_SRC += i2c.c serial.c
+
+# Disable unsupported hardware
+BACKLIGHT_SUPPORTED = no

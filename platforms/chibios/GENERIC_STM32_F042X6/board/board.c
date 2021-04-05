@@ -202,16 +202,12 @@ static void stm32_gpio_init(void) {
 /* Driver exported functions.                                                */
 /*===========================================================================*/
 
-__attribute__((weak)) void enter_bootloader_mode_if_requested(void) {}
-
 /**
  * @brief   Early initialization code.
  * @details GPIO ports and system clocks are initialized before everything
  *          else.
  */
 void __early_init(void) {
-  enter_bootloader_mode_if_requested();
-
   stm32_gpio_init();
   stm32_clock_init();
 }

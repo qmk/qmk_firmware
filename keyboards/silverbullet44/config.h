@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    SwanMatch
 #define PRODUCT         SilverBullet44
-#define DESCRIPTION     Metalical Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -112,7 +111,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define B6_AUDIO
+  #define AUDIO_PIN B6
   #define STARTUP_SONG SONG(STARTUP_SOUND)
   #define AUDIO_CLICKY
   #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
@@ -241,9 +240,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

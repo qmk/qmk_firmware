@@ -15,6 +15,7 @@
  */
 
 #include "drashna.h"
+#include "version.h"
 
 uint16_t copy_paste_timer;
 
@@ -27,11 +28,7 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
-#    if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_keebio_iris_rev2)
-    xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.row, record->event.key.col, record->event.pressed);
-#    else
-    xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#    endif
+    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %5u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif  // KEYLOGGER_ENABLE
 #ifdef OLED_DRIVER_ENABLE
     process_record_user_oled(keycode, record);
@@ -39,12 +36,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (!(process_record_keymap(keycode, record) && process_record_secrets(keycode, record)
 #ifdef RGB_MATRIX_ENABLE
-        && process_record_user_rgb_matrix(keycode, record)
+          && process_record_user_rgb_matrix(keycode, record)
 #endif
 #ifdef RGBLIGHT_ENABLE
-        && process_record_user_rgb_light(keycode, record)
+          && process_record_user_rgb_light(keycode, record)
 #endif
-    && true)) {
+          && true)) {
         return false;
     }
 

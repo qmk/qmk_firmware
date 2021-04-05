@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MANUFACTURER CannonKeys
 #define PRODUCT DB60
-#define DESCRIPTION DB60 Keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

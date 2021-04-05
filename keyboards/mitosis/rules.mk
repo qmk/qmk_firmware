@@ -28,14 +28,5 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 UNICODE_ENABLE = yes 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
-USB = /dev/ttyACM0
-
-# upload: build
-# 	$(MITOSIS_UPLOAD_COMMAND)
-
-OPT_DEFS += -DMITOSIS_PROMICRO
-MITOSIS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
-                         avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
-
 # # project specific files
-SRC = matrix.c
+SRC += matrix.c serial_uart.c

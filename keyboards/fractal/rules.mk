@@ -29,3 +29,8 @@ AUDIO_ENABLE = no           # Audio output on port C6
 
 LAYOUTS = ortho_5x12 # preonic_mit
 LAYOUTS_HAS_RGB = no
+
+# Disable unsupported hardware
+RGBLIGHT_SUPPORTED = no
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER CannonKeys
 #define PRODUCT Rekt1800
-#define DESCRIPTION Rekt1800 Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6

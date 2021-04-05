@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    joelproko
 #define PRODUCT         jopr-106-Nl2SR-Cl2nL
-#define DESCRIPTION     jopr-106 Mechanical Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10

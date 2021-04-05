@@ -97,6 +97,10 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
         sendByte(ledarray[i].r);
         sendByte(ledarray[i].g);
         sendByte(ledarray[i].b);
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+        sendByte(ledarray[i].b);
+        sendByte(ledarray[i].g);
+        sendByte(ledarray[i].r);
 #endif
 
 #ifdef RGBW

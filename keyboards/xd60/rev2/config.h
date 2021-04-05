@@ -25,7 +25,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    XIUDI
 #define PRODUCT         XD60v2
-#define DESCRIPTION     XD60 v2 Keyboard PCB by XIUDI
 
 /* key matrix size */
 #define MATRIX_ROWS 5

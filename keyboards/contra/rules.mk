@@ -29,3 +29,8 @@ AUDIO_ENABLE = no           # Audio output on port C6
 
 LAYOUTS = planck_mit ortho_4x12
 LAYOUTS_HAS_RGB = no
+
+# Disable unsupported hardware
+RGBLIGHT_SUPPORTED = no
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

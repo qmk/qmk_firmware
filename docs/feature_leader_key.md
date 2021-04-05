@@ -92,7 +92,7 @@ void leader_start(void) {
 }
 
 void leader_end(void) {
-  // sequence ended (no success/failuer detection)
+  // sequence ended (no success/failure detection)
 }
 ```
 

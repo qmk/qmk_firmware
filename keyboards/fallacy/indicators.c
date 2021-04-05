@@ -25,7 +25,7 @@ void init_fallacy_leds(void) {
     i2c_init();
     IS31FL3731_init(LED_DRIVER_ADDR_1);
 
-    for (int i = 0; i < LED_DRIVER_LED_COUNT; i++) {
+    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         IS31FL3731_set_led_control_register(i, true);
     }
 
@@ -54,7 +54,7 @@ void set_fallacy_led(int index, bool state) {
 
 /* define LED matrix
  */
-const is31_led g_is31_leds[LED_DRIVER_LED_COUNT] = {
+const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, C1_1},
     {0, C2_1},
     {0, C3_1},

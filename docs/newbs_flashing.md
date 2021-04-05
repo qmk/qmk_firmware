@@ -37,17 +37,21 @@ Begin by opening the QMK Toolbox application. You'll want to locate the firmware
 
 If you are on Windows or macOS, there are commands you can use to easily open the current folder in Explorer or Finder.
 
-#### Windows
+<!-- tabs:start -->
+
+#### ** Windows **
 
 ```
 start .
 ```
 
-#### macOS
+#### ** macOS **
 
 ```
 open .
 ```
+
+<!-- tabs:end -->
 
 The firmware file always follows this naming format:
 
@@ -106,6 +110,9 @@ In this case, you'll have to fall back on specifying the bootloader. See the [Fl
 
 ## Test It Out!
 
-Congrats! Your custom firmware has been programmed to your keyboard!
+Congrats! Your custom firmware has been programmed to your keyboard and you're ready to test it out!
 
-Give it a try and make sure everything works the way you want it to. We've written [Testing and Debugging](newbs_testing_debugging.md) to round out this guide, so head over there to learn about validating your firmware and how to troubleshoot your custom functionality.
+With a little bit of luck everything will work perfectly, but if not there are steps that will help you figure out what's wrong.
+Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. You can use [QMK Configurator](https://config.qmk.fm/#/test/)'s test mode to check your keyboard, even if it doesn't run QMK.
+
+Still not working? Browse the FAQ topics for more information, or [chat with us on Discord](https://discord.gg/Uq7gcHh).

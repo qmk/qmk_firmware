@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0015
 #define MANUFACTURER    marksard
 #define PRODUCT         treadstone32 lite
-#define DESCRIPTION     Minimal Symmetrical staggered 32-Key Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

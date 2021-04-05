@@ -86,8 +86,7 @@ MSG_FILE_TOO_BIG = $(ERROR_COLOR)The firmware is too large!$(NO_COLOR) $(CURRENT
 MSG_FILE_TOO_SMALL = The firmware is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
 MSG_FILE_JUST_RIGHT = The firmware size is fine - $(CURRENT_SIZE)/$(MAX_SIZE) ($(PERCENT_SIZE)%%, $(FREE_SIZE) bytes free)\n
 MSG_FILE_NEAR_LIMIT = The firmware size is approaching the maximum - $(CURRENT_SIZE)/$(MAX_SIZE) ($(PERCENT_SIZE)%%, $(FREE_SIZE) bytes free)\n
-MSG_PYTHON_MISSING = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
-	Can not run bin/qmk! This tool will be required when the develop branch is merged on 2020 Aug 29.\n\n\
+MSG_PYTHON_MISSING = $(ERROR_COLOR)ERROR:$(NO_COLOR) Can not run bin/qmk!\n\n\
 	Please run $(BOLD)util/qmk_install.sh$(NO_COLOR) to install all the dependencies QMK requires.\n\n
 MSG_FLASH_BOOTLOADER = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's bootloader is not specified or is not supported by the \":flash\" target at this time.\n\n
 MSG_FLASH_ARCH = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's architecture is not supported by the \":flash\" target at this time.\n\n

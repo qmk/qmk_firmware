@@ -23,3 +23,7 @@ AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
 
 LAYOUTS = ortho_4x12 planck_mit
+
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

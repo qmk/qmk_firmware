@@ -6,7 +6,6 @@
 #define VENDOR_ID       0x4B42
 #define MANUFACTURER    qmkbuilder
 #define PRODUCT         KBD75
-#define DESCRIPTION     QMK keyboard firmware for KBD75
 
 /* key matrix size */
 #define MATRIX_ROWS 6

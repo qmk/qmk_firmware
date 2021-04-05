@@ -63,7 +63,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     row_data |= spi_read();
 
 #if DEBUG
-    phex(~row_data);
+    print_hex8(~row_data);
     uprint(" ");
 #endif
     // For each row...

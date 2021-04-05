@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Fate Everywhere
 #define PRODUCT         Stand Aside
-#define DESCRIPTION     A compact 60% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -154,9 +153,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

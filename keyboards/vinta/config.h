@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x00C6
 #define MANUFACTURER    PeiorisBoards
 #define PRODUCT         Vinta R1
-#define DESCRIPTION     Tada68 Replacement PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

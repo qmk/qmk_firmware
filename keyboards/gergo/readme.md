@@ -6,7 +6,7 @@ A compact 50% (14x4) Split Keyboard compatible with i2c modules and a trackball.
 
 [More info on qmk.fm](http://qmk.fm/gergo/)
 
-Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)  
+Keyboard Maintainer: [Jane Bernhardt](https://github.com/germ)  
 Hardware Supported: Gergo (Kit, Partial, Ready)   
 Hardware Availability: [gboards.ca](http://gboards.ca)  
 

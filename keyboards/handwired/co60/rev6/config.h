@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    John M Daly
 #define PRODUCT         CO60 rev6
-#define DESCRIPTION     An open hardware sixty percent PCB
 
 /* Address for jumping to bootloader on STM32 chips. */
 /* It is chip dependent, the correct number can be looked up here:

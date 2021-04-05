@@ -170,7 +170,7 @@ Clueboard は、サブフォルダをまとめるためとキーボードのリ�
 
 リポジトリのサイズを小さく保つために、いくつかの例外を除いて、どの形式のバイナリファイルも受け入れないようになりました。外部の場所（<https://imgur.com>など）でホストして、`readme.md` でリンクすることをおすすめします。
 
-ハードウェアのファイル(プレートやケース、PCB など)は [qmk.fm リポジトリ](https://github.com/qmk/qmk.fm)に提供でき、[qmk.fm](http://qmk.fm) で利用可能になります。ダウンロード出来るファイルは `/<keyboard>/`（名前は上記と同じ形式）に保存され、`http://qmk.fm/<keyboard>/` で提供されます。ページは `/_pages/<keyboard>/` から生成されて、同じ場所で提供されます（ .mdファイルはJekyllを通して .htmlファイル変換されます）。`lets_split` ファイルを参照して下さい。
+ハードウェアのファイル(プレートやケース、PCB など)は [qmk.fm リポジトリ](https://github.com/qmk/qmk.fm)に提供でき、[qmk.fm](https://qmk.fm) で利用可能になります。ダウンロード出来るファイルは `/<keyboard>/`（名前は上記と同じ形式）に保存され、`https://qmk.fm/<keyboard>/` で提供されます。ページは `/_pages/<keyboard>/` から生成されて、同じ場所で提供されます（ .mdファイルはJekyllを通して .htmlファイル変換されます）。`lets_split` ファイルを参照して下さい。
 
 ## キーボードのデフォルト設定
 
@@ -213,7 +213,7 @@ QMK が提供する機能の量を考えれば、新しいユーザーが混乱�
 
 ## ライセンス
 
-QMK のコア部分は [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html) でライセンスされます。AVR マイコン用のバイナリを提供する場合は、[GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) か、[GPLv3](https://www.gnu.org/licenses/gpl.html) のどちらかから選択出来ます。ARM マイコン用のバイナリを提供する場合は、 [ChibiOS](http://www.chibios.org) の GPLv3 ライセンスに準拠するため、[GPL Version 3](https://www.gnu.org/licenses/gpl.html) を選択しなければいけません。
+QMK のコア部分は [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html) でライセンスされます。AVR マイコン用のバイナリを提供する場合は、[GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) か、[GPLv3](https://www.gnu.org/licenses/gpl.html) のどちらかから選択出来ます。ARM マイコン用のバイナリを提供する場合は、 [ChibiOS](https://www.chibios.org) の GPLv3 ライセンスに準拠するため、[GPL Version 3](https://www.gnu.org/licenses/gpl.html) を選択しなければいけません。
 
 [uGFX](https://ugfx.io) を使用している場合は、[uGFX License](https://ugfx.io/license.html) に準拠する必要があります。uGFX を利用したデバイスを販売するには個別に商用ライセンスを取得しなければいけません。
 

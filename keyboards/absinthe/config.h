@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER cfbender
 #define PRODUCT absinthe
-#define DESCRIPTION An F-row-less TKL
 
 /* key matrix size */
 #define MATRIX_ROWS 9

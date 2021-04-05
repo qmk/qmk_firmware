@@ -2,7 +2,7 @@
 
 [Stenography](https://en.wikipedia.org/wiki/Stenotype) is a method of writing most often used by court reports, closed-captioning, and real-time transcription for the deaf. In stenography words are chorded syllable by syllable with a mixture of spelling, phonetic, and shortcut (briefs) strokes. Professional stenographers can reach 200-300 WPM without any of the strain usually found in standard typing and with far fewer errors (>99.9% accuracy).
 
-The [Open Steno Project](http://www.openstenoproject.org/) has built an open-source program called Plover that provides real-time translation of steno strokes into words and commands. It has an established dictionary and supports
+The [Open Steno Project](https://www.openstenoproject.org/) has built an open-source program called Plover that provides real-time translation of steno strokes into words and commands. It has an established dictionary and supports
 
 ## Plover with QWERTY Keyboard :id=plover-with-qwerty-keyboard
 
@@ -52,7 +52,6 @@ On the display tab click 'Open stroke display'. With Plover disabled you should 
 ## Learning Stenography :id=learning-stenography
 
 * [Learn Plover!](https://sites.google.com/site/learnplover/)
-* [QWERTY Steno](http://qwertysteno.com/Home/)
 * [Steno Jig](https://joshuagrams.github.io/steno-jig/)
 * More resources at the Plover [Learning Stenography](https://github.com/openstenoproject/plover/wiki/Learning-Stenography) wiki
 

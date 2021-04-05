@@ -22,7 +22,7 @@
     #include "print.h"
     #include "quantum.h"
 
-const is31_led g_is31_leds[LED_DRIVER_LED_COUNT] = {
+const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  * https://cdn-learn.adafruit.com/downloads/pdf/adafruit-15x7-7x15-charlieplex-led-matrix-charliewing-featherwing.pdf
  */
@@ -58,7 +58,7 @@ uint8_t terrazzo_effect = 1;
 
 void terrazzo_set_pixel(uint8_t x, uint8_t y, uint8_t value) {
     uint8_t target = y * LED_MATRIX_COLS + x;
-    if (target < LED_DRIVER_LED_COUNT && target >= 0) {
+    if (target < DRIVER_LED_TOTAL && target >= 0) {
       led_matrix_set_index_value(y * LED_MATRIX_COLS + x, value);
     }
 }
@@ -85,10 +85,10 @@ void terrazzo_scroll_pixel(bool clockwise) {
         terrazzo_led_index = terrazzo_led_index - 1;
     } 
     
-    if (terrazzo_led_index >= LED_DRIVER_LED_COUNT) {
+    if (terrazzo_led_index >= DRIVER_LED_TOTAL) {
         terrazzo_led_index = 0;
     } else if (terrazzo_led_index <= 0 ) {
-        terrazzo_led_index = LED_DRIVER_LED_COUNT - 1;
+        terrazzo_led_index = DRIVER_LED_TOTAL - 1;
     }
 }
 

@@ -108,6 +108,10 @@ endif
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 
+# This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
+# Fixing of multiple variable definitions must be made.
+CFLAGS += -fcommon
+
 #---------------- Compiler Options C++ ----------------
 #  -g*:          generate debugging information
 #  -O*:          optimization level
@@ -124,6 +128,7 @@ CXXFLAGS += -O$(OPT)
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
+
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif
@@ -149,6 +154,9 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
+endif
+ifeq ($(VERBOSE_AS_CMD),yes)
+	ASFLAGS += -v
 endif
 
 #---------------- Library Options ----------------
@@ -191,6 +199,9 @@ CREATE_MAP ?= yes
 
 ifeq ($(CREATE_MAP),yes)
 	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
+ifeq ($(VERBOSE_LD_CMD),yes)
+	LDFLAGS += -v
 endif
 #LDFLAGS += -Wl,--relax
 LDFLAGS += $(EXTMEMOPTS)
@@ -327,8 +338,19 @@ $1_ASFLAGS = $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
 $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
-	$$(eval CMD := $$(CC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CC_EXEC := $$(CC))
+    ifneq ($$(VERBOSE_C_CMD),)
+	$$(if $$(filter $$(notdir $$(VERBOSE_C_CMD)),$$(notdir $$<)),$$(eval CC_EXEC += -v))
+    endif
+    ifneq ($$(VERBOSE_C_INCLUDE),)
+	$$(if $$(filter $$(notdir $$(VERBOSE_C_INCLUDE)),$$(notdir $$<)),$$(eval CC_EXEC += -H))
+    endif
+	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
+    ifneq ($$(DUMP_C_MACROS),)
+	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$<)
+	@$$(if $$(filter $$(notdir $$(DUMP_C_MACROS)),$$(notdir $$<)),$$(BUILD_CMD))
+    endif
 
 # Compile: create object files from C++ source files.
 $1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)

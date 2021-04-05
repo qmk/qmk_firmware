@@ -163,6 +163,10 @@ void render_status(void) {
 }
 
 #    ifdef SSD1306OLED
+#        if OLED_UPDATE_INTERVAL > 0
+uint16_t oled_update_timeout;
+#        endif
+
 void iota_gfx_task_user(void) {
     struct CharacterMatrix matrix;
 
@@ -172,6 +176,12 @@ void iota_gfx_task_user(void) {
     }
 #        endif
 
+#if      OLED_UPDATE_INTERVAL > 0
+    if (timer_elapsed(oled_update_timeout) < OLED_UPDATE_INTERVAL) {
+        return;
+    }
+    oled_update_timeout = timer_read();
+#endif
     matrix_clear(&matrix);
     if (is_keyboard_master()) {
         render_status(&matrix);

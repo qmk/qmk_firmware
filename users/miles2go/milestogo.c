@@ -9,6 +9,8 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 bool move_is_on = false;  // track if we are in _MOV layer
 bool sym_is_on  = false;  // track if we are in _SYM layer
 
+
+
 // Defines actions for global custom keycodes
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -16,24 +18,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef USE_BABBLEPASTE
     if (keycode > BABBLE_START && keycode < BABBLE_END_RANGE) {
-        if (record->event.pressed) {  // is there a case where this isn't desired?
-            babblePaste(keycode);
+        if (record->event.pressed) { 
+            babblePaste(keycode, 1);
         } else {
-            return true;
+            babblePaste(keycode, 0);
         }
     }
 #endif
 
     switch (keycode) {
-        case _QWERTY:
+        case KC_QWERTY:
             if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
+                layer_off(_CDH);
+                default_layer_set(_QWERTY);
             }
             break;
 
-        case _CDH:
+        case KC_CDH:
             if (record->event.pressed) {
-                set_single_persistent_default_layer(_CDH);
+                layer_on(_CDH);
+                default_layer_set(_CDH);
             }
             break;
 
@@ -71,9 +75,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_record_keymap(keycode, record);
 }
 
-void babble_led_user(void) {
+void babble_modeswitch_user(uint8_t mode) {
 #ifdef USE_BABLPASTE
-    extern uint8_t babble_mode;
+    extern uint8_t babble_mode; // still using global. why?
 
 #    ifdef BABL_WINDOWS
     if (babble_mode == BABL_WINDOWS_MODE) {
@@ -139,4 +143,11 @@ void babble_led_user(void) {
     }
 #    endif
 #endif  // bablepaste
+}
+
+
+// we always return true here, so that each keyboard can use it's own
+// led_update_kb() function
+bool led_update_user(led_t led_state ) {
+    return true;
 }

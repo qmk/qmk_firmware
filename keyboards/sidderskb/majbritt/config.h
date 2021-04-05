@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    SiddersKB
 #define PRODUCT         Majbritt
-#define DESCRIPTION     Alice style keyboard with arrows
 
 /* key matrix size */
 #define MATRIX_ROWS 5

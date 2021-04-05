@@ -2,6 +2,7 @@
 """
 import logging
 import os
+import argparse
 from pathlib import Path
 
 from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE
@@ -14,6 +15,7 @@ def is_keyboard(keyboard_name):
     if keyboard_name:
         keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
         rules_mk = keyboard_path / 'rules.mk'
+
         return rules_mk.exists()
 
 
@@ -65,3 +67,12 @@ def normpath(path):
         return path
 
     return Path(os.environ['ORIG_CWD']) / path
+
+
+class FileType(argparse.FileType):
+    def __call__(self, string):
+        """normalize and check exists
+            otherwise magic strings like '-' for stdin resolve to bad paths
+        """
+        norm = normpath(string)
+        return super().__call__(norm if norm.exists() else string)

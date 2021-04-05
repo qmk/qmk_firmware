@@ -84,7 +84,7 @@ BOOTLOADER = caterina
 Flashers compatibles :
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (Interface graphique recommandée)
-* [avrdude](http://www.nongnu.org/avrdude/) avec avr109 / `:avrdude` (Outil en ligne de commande recommandé)
+* [avrdude](https://www.nongnu.org/avrdude/) avec avr109 / `:avrdude` (Outil en ligne de commande recommandé)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 Séquence de flash : 
@@ -159,7 +159,7 @@ BOOTLOADER = USBasp
 Flashers compatibles :
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (Interface graphique recommandé)
-* [avrdude](http://www.nongnu.org/avrdude/) avec le programmeur `usbasp`.
+* [avrdude](https://www.nongnu.org/avrdude/) avec le programmeur `usbasp`.
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 Séquence de flash :

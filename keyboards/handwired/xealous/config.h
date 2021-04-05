@@ -34,10 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef AUDIO_ENABLE
-  #define C6_AUDIO
+  #define AUDIO_PIN C6
   #define STARTUP_SONG SONG(STARTUP_SOUND)
   #define NO_MUSIC_MODE
   #define TONE_QWERTY SONG(Q__NOTE(_E4));
   #define TONE_NUMPAD SONG(Q__NOTE(_D4));
 #endif
-

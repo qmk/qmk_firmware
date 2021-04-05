@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Neil Brian Ramirez
 #define PRODUCT Alter
-#define DESCRIPTION An Alice layout keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -44,6 +43,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_NUM_LOCK_PIN D7
+#define LED_CAPS_LOCK_PIN D6
+#define LED_SCROLL_LOCK_PIN B4
 
 // #define BACKLIGHT_PIN F1
 // #define BACKLIGHT_BREATHING

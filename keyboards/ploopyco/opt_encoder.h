@@ -28,33 +28,33 @@
 
 enum State { HIHI, HILO, LOLO, LOHI };
 
-enum State state;
+extern enum State state;
 
 /* Variables used for scroll wheel functionality. */
-bool lohif;
-bool hilof;
-int  lowA;
-int  highA;
-bool cLowA;
-bool cHighA;
-int  lowIndexA;
-int  highIndexA;
-bool lowOverflowA;
-bool highOverflowA;
-int  lowB;
-int  highB;
-bool cLowB;
-bool cHighB;
-int  lowIndexB;
-int  highIndexB;
-bool lowOverflowB;
-bool highOverflowB;
-int  scrollThresholdA;
-int  scrollThresholdB;
-int  arLowA[SCROLLER_AR_SIZE];
-int  arHighA[SCROLLER_AR_SIZE];
-int  arLowB[SCROLLER_AR_SIZE];
-int  arHighB[SCROLLER_AR_SIZE];
+extern bool lohif;
+extern bool hilof;
+extern int  lowA;
+extern int  highA;
+extern bool cLowA;
+extern bool cHighA;
+extern int  lowIndexA;
+extern int  highIndexA;
+extern bool lowOverflowA;
+extern bool highOverflowA;
+extern int  lowB;
+extern int  highB;
+extern bool cLowB;
+extern bool cHighB;
+extern int  lowIndexB;
+extern int  highIndexB;
+extern bool lowOverflowB;
+extern bool highOverflowB;
+extern int  scrollThresholdA;
+extern int  scrollThresholdB;
+extern int  arLowA[SCROLLER_AR_SIZE];
+extern int  arHighA[SCROLLER_AR_SIZE];
+extern int  arLowB[SCROLLER_AR_SIZE];
+extern int  arHighB[SCROLLER_AR_SIZE];
 
 void calculateThresholdA(int curA);
 void calculateThresholdB(int curB);

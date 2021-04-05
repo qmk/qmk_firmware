@@ -75,7 +75,7 @@ To display our keyboard in a way that resembles the physical keyboard, we need t
 
 ## Building the JSON file
 
-To build the JSON file, the easiest way is to build the layout in [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/) ("KLE"), from which we'll feed the Raw Data into a QMK tool that converts this data into a JSON the Configurator will read and use. Since KLE opens by default with a numpad layout, we're just going to remove the Getting Started instructions, and use what's left.
+To build the JSON file, the easiest way is to build the layout in [Keyboard Layout Editor](https://www.keyboard-layout-editor.com/) ("KLE"), from which we'll feed the Raw Data into a QMK tool that converts this data into a JSON the Configurator will read and use. Since KLE opens by default with a numpad layout, we're just going to remove the Getting Started instructions, and use what's left.
 
 Once the layout is as desired, move to the Raw Data tab in KLE, and copy the contents:
 

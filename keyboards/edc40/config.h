@@ -25,7 +25,7 @@
 #define PRODUCT edc40
 
 #define MATRIX_ROWS 4
-#define MATRIX_COLS 12
+#define MATRIX_COLS 11
 
 /*
  * Keyboard Matrix Assignments

@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    XeaL
 #define PRODUCT         XeaLous Brown Keyboard
-#define DESCRIPTION     XeaLous Brown Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

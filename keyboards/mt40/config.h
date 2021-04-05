@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    ThomasDehaeze
 #define PRODUCT         MT40
 
-#define DESCRIPTION     A Planck clone
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 15
@@ -171,9 +169,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

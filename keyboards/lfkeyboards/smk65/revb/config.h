@@ -43,8 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //RevB only:
 
 #define AUDIO_VOICES
-#define C6_AUDIO
-// #define B5_AUDIO
+#define AUDIO_PIN C6
 
 #define BACKLIGHT_LEVELS 8
 #define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}

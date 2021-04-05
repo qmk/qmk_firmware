@@ -5,7 +5,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    KBDfans
 #define PRODUCT         kbd67mkiirgb v2
-#define DESCRIPTION     kbd67mkii rgb keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

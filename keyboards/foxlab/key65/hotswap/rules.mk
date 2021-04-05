@@ -24,4 +24,3 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support
 AUDIO_ENABLE = no           # Audio output
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches

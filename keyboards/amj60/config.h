@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Han Chen
 #define PRODUCT         AMJ60
-#define DESCRIPTION     qmk port of AMJ60 PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

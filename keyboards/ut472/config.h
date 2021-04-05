@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Keyhive
 #define PRODUCT         UT47.2
-#define DESCRIPTION     An awesome 40% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
