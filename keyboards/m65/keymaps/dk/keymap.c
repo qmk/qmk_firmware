@@ -77,8 +77,10 @@ bool led_update_user(led_t led_state) {
 void matrix_scan_user(void) {
     led_lwr(toggle_lwr);
     led_rse(toggle_rse);
-    led_lwr(layer_state_is(_ADJ));
-    led_rse(layer_state_is(_ADJ));
+    if (layer_state_is(_ADJ)){
+      led_lwr(true);
+      led_rse(true);
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
