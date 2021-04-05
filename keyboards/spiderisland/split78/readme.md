@@ -9,7 +9,7 @@ It is mistakenly called "87 key" on the AliExpress title and "104 key" (?!) in t
 
 This port is based on the `split75` port which was mostly done by [Michael L. Walker](https://github.com/walkerstop).
 
-* Keyboard Maintainer: [unrelenting.technology](https://github.com/myfreeweb)
+* Keyboard Maintainer: [unrelenting.technology](https://github.com/unrelentingtech)
 * Hardware Availability: https://a.aliexpress.com/_dVJsSpR
 
 Make example for this keyboard (after setting up your build environment):

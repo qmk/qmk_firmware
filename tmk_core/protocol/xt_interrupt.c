@@ -38,7 +38,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdbool.h>
 #include <avr/interrupt.h>
-#include <util/delay.h>
 #include "xt.h"
 #include "wait.h"
 #include "debug.h"
@@ -60,7 +59,7 @@ void xt_host_init(void) {
     /* soft reset: pull clock line down for 20ms */
     XT_DATA_LO();
     XT_CLOCK_LO();
-    _delay_ms(20);
+    wait_ms(20);
 
     /* input mode with pullup */
     XT_CLOCK_IN();
@@ -120,9 +119,10 @@ ISR(XT_INT_VECT) {
  * Ring buffer to store scan codes from keyboard
  *------------------------------------------------------------------*/
 #define PBUF_SIZE 32
-static uint8_t     pbuf[PBUF_SIZE];
-static uint8_t     pbuf_head = 0;
-static uint8_t     pbuf_tail = 0;
+static uint8_t pbuf[PBUF_SIZE];
+static uint8_t pbuf_head = 0;
+static uint8_t pbuf_tail = 0;
+
 static inline void pbuf_enqueue(uint8_t data) {
     uint8_t sreg = SREG;
     cli();
@@ -135,6 +135,7 @@ static inline void pbuf_enqueue(uint8_t data) {
     }
     SREG = sreg;
 }
+
 static inline uint8_t pbuf_dequeue(void) {
     uint8_t val = 0;
 
@@ -148,6 +149,7 @@ static inline uint8_t pbuf_dequeue(void) {
 
     return val;
 }
+
 static inline bool pbuf_has_data(void) {
     uint8_t sreg = SREG;
     cli();
@@ -155,6 +157,7 @@ static inline bool pbuf_has_data(void) {
     SREG          = sreg;
     return has_data;
 }
+
 static inline void pbuf_clear(void) {
     uint8_t sreg = SREG;
     cli();
