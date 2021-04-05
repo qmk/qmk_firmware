@@ -150,7 +150,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }  `~+RSht // limitation prevents ~
+     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }   ~+RSht 
                           ^^                              ^  // Only differences with normal version _..._NSY
      ---------------------------------------------------------------------------
      Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
@@ -168,11 +168,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Harmonizes with ‛Qwerty Base Arrow’, so that if both are compiled, the user isn't
 // messing up this key on this Qwerty layout, which has to be different in the other Qwerty.
 # ifdef QWERTY_BASEARROW_HARMONIZE
-                                                                                                                               , KC_SLSH            , // Same as in ‛Qwerty Base Arrow’
+                                                                                                                               , KC_SLSH            , // Same as in ‛Qwerty Base Arrow’. A ‛`’ exists on _BON also.
 # else
                                                                                                                                , RCTL_T ( KC_GRV )  , // Default
 # endif
-        LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_MINS , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_UNDS , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
+        LSFT_DASH          , KC_LBRC , KC_RBRC , KC_MINS , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_UNDS , KC_LCBR , KC_RCBR , RSFT_TILDE         ,  
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) 
 

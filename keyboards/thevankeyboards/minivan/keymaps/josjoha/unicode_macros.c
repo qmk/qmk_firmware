@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted) {
 
     long unsigned int input; // which argument to work on
-    char output[10] ; // will hold the ascii for output
+    char output[10]; // will hold the ascii for output
     int index; // count backwards 'to left' in the string
     long unsigned int bitmove; // move computation to next digit.
     long unsigned int work; // temporary value for computation
@@ -87,9 +87,9 @@ void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted)
 # ifdef DVORAK_DESCRAMBLE_HALF // Do the letter descramble if needed.
     if (_FULL_ == alternate) { // This is the special 'descramble' output mode for a computer already set to Dvorak
 
-        SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux, 'descramble' mode
+        SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ); // lead-in for Unicode on Linux, 'descramble' mode
         send_string (output + index); // pointer to argument with formatted string
-        SEND_STRING ( " " ) ; // Ends the Unicode numerical input mode, replacing input with desired character (Linux)
+        SEND_STRING ( " " ); // Ends the Unicode numerical input mode, replacing input with desired character (Linux)
 
     }else{
         // normal QMK Unicode output mode
@@ -105,7 +105,7 @@ void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted)
 
 // Wrapper for unicode keys that do have the same on shift.
 void unicode_hex2output_single (long unsigned int either) {
-    unicode_hex2output (either, either) ;
+    unicode_hex2output (either, either);
 }
 
 
@@ -447,7 +447,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     added += write_number ((long int)((speed*12)/10), FALSE); // writes the speed 
                     send_string ("wpm"); // +3 character written
                     if (0 != speed_batches) {
-                        long int average_times_ten ;
+                        long int average_times_ten;
                         average_times_ten =(long int) ((speed_add * 12) / speed_batches); // *12 converts k/s to wpm
 
                         send_string (";"); // +①   ''       
@@ -468,7 +468,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     added += write_number ((long int)(speed/10), FALSE); // writes the speed 
                     send_string ("k/s"); // +3 character written
                     if (0 != speed_batches) {
-                        long int average_times_ten ;
+                        long int average_times_ten;
                         average_times_ten =(long int) (speed_add / speed_batches);
 
                         send_string (";"); // +①   ''       
@@ -711,8 +711,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // On BASE itself, that key is <Escape>.
             if (record->event.pressed) { // key down
                 ;
-            }
-            else { // key up
+            }else{ // key up
                 if (alternate) { // go to the alternate version (bit of a hack maybe, but all alternate
                        // ... modes are non-zero)
                     layer_move (_ALT_BASE); 
@@ -725,8 +724,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CTO_NUMS: // activates number-symbols layer
             if (record->event.pressed) { // key down
                 ; 
-            }
-            else { // key up, so that upon key down the target layer isn't already activated, triggering that key on up
+            }else{ // key up, so that upon key down the target layer isn't already activated, triggering that key on up
                 if (alternate) { // go to the alternate version
                     layer_move (_ALT_NSY); 
                 }else{
@@ -738,8 +736,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CTO_ACCE: // Unicode layer
             if (record->event.pressed) { // key down
                 ;
-            }
-            else { // key up
+            }else{ // key up
 
 # ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
                 layer_move (_ACC); // activates normal accented layer
@@ -755,8 +752,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CTO_DRAW: // Unicode layer
             if (record->event.pressed) { // key down
                 ;
-            }
-            else { // key up
+            }else{ // key up
 
 # ifndef REMOVE_DRA // This cuts out the whole _DRA layer.
                 layer_move (_DRA); // activates normal accented layer
@@ -1109,6 +1105,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
+/*
         case RSFT_TILDE:
 
             if (record->event.pressed) { // key down
@@ -1138,12 +1136,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+*/
 
+        case RSFT_TILDE: // firmware size optimization, saves 36 bytes
         case LSFT_DASH:
 
             if (record->event.pressed) { // key down
 
-                SEND_STRING (SS_DOWN (X_RSFT)); 
+                if (RSFT_TILDE == keycode) { // this is probably not needed, both can be left or right shift
+                    SEND_STRING (SS_DOWN (X_RSFT)); 
+                }else{
+                    SEND_STRING (SS_DOWN (X_LSFT)); 
+                }
                 shift_ison = 1; // shift depressed
 
                 key_timer = timer_read ();
@@ -1151,7 +1155,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             }else{ // key up
 
-                SEND_STRING (SS_UP (X_RSFT)); 
+                if (RSFT_TILDE == keycode) { 
+                    SEND_STRING (SS_UP (X_RSFT)); 
+                }else{
+                    SEND_STRING (SS_UP (X_LSFT)); 
+                }
+  
                 shift_ison = 0; // shift released
 
                 if (isolate_trigger) { // no other key was hit since key down 
@@ -1162,8 +1171,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // all by the left hand, when the right hand is on the mouse.
                     if ((timer_elapsed (key_timer) <= 200)) { // tapped short (milliseconds)
 
-                        SEND_STRING ("-");
-
+                        if (RSFT_TILDE == keycode) { 
+                            SEND_STRING ("~");
+                        }else{
+                            SEND_STRING ("-");
+                        }
                     }
                 }
             }

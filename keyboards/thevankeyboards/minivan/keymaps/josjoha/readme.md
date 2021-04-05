@@ -62,11 +62,11 @@ keyboard, speed and text size measuring.
 For some ‛common layers’ (numbers pad, movement), different versions
 can be chosen than shown just below in this by layer view:
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_vf.jpg)
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_vg.jpg)
 
 By key view:
 
-![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vh.jpg)
+![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vi.jpg)
 
 1.1 Hardware compatibility
 ==========================
@@ -203,7 +203,7 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
 ----------------
 This graphic shows how layers are reached from the ‛Default base’ layer.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vf.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vg.jpg)
 
 You can switch between the default base layer (typically letters), and
 another base layer, the alternate base layer (also typically letters),
@@ -240,13 +240,13 @@ layer with what is the ‛Enter’ key on Base.
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_ve.jpg)
 Layer: `DEF_BASE`
 
-![Minivan layout Image NSYdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_def_base_vb.jpg)
+![Minivan layout Image NSYdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_def_base_vc.jpg)
 Layer: `DEF_NSY`
 
 ![Minivan layout Image BASEalt](http://socialism.nl/misc/minivan/minivan_base_layer_hide_alt_base_ve.jpg)
 Layer: `ALT_BASE`
 
-![Minivan layout Image NSYalt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_alt_base_vb.jpg)
+![Minivan layout Image NSYalt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_alt_base_vc.jpg)
 Layer: `ALT_NSY`
 
 ![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_vc.jpg)
@@ -277,6 +277,8 @@ Layer: `_RAR`
 
 4.4 Layout in text
 ------------------
+     What comes on “___” is to be defined by the Base layers choice.
+
          Layer _DEF_BASE (Letters layer, see ./base* files for what comes on ‛__’)
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
@@ -1061,7 +1063,7 @@ what finger is used, and/or on what row. For example the symbol ‛(’
 on the numbers-symbols layer (`_NSY`), becomes the symbol ‛⁽’ on
 another layer.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_common_1500_vd.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_common_1500_ve.jpg)
 
 13 Trouble shooting
 ===================
@@ -1100,7 +1102,11 @@ another layer.
 
 14 Why you want this layout
 ===========================
-☞  This layout seems easy to learn and predictable.
+☞  This layout seems easy to learn and predictable. It is not personalized
+  or idiosyncratic, but rather based on existing keyboards, typewriters
+  and commonly used symbols in the supported languages. The key placement
+  is as close to a regular keyboard as possible, unless there are clearly
+  better placement choices.
 
 ☞  The normally most used layer after letters is “numbers & symbols” 
   (123…, !@#…, []/…, called `_NSY`). This layer you can access by either
@@ -1145,22 +1151,16 @@ another layer.
                   ┇ ④
 
 ☞  Speed and text size measuring, including to set a maximum on your text input.
-  These are features not part off regular keyboards.
+  These are features not part of regular keyboards.
 
 ☞  Easy to create your own dual layout for letters / numbers.
 
 ☞  If you do want to reprogram the code, it has a lot of comments to make
-  it easier to follow.
-
+  it easier to follow, and over the top much documentation as you can see.
 
 15 BUGS
 =======
   No real bugs known currently. Just some minor issues …
-
-  The tilde ~ on the numbers-symbols layer should logically be reached on the second
-  row without the need for _shift,_ however there seems to be a QMK limitation
-  with this. No work around has been attempted as of yet. (It seems to be a minor issue;
-  using shift for once seems OK.)
 
   `LCTL_T` `( KC_TAB )` is not seen as a blank by word counting, use as Control is not
   ignored in character counting. (This minor issue is ignored for now. Tab is not
@@ -1170,11 +1170,14 @@ another layer.
   everything that may have become redundent, because it does complicate the code with
   a lot of #defines. Perhaps it should be done eventually, if there is an actual need.
 
+  ➡ You can send bug reports to what seem useful channels, and/or contact e-mail. Thanks
 
 16 Resources
 ============
-This links to an external file, with some development resources like
-Gimp .xcf files, pre-compiled hex files, …
+This links to an external file, with some additional resources like
+☞ Video documentation,
+☞ Gimp .xcf files,
+☞ Some pre-compiled hex files, …
 
 [Resources](http://socialism.nl/misc/minivan/ "Additional resources")
 
@@ -1187,11 +1190,12 @@ Gimp .xcf files, pre-compiled hex files, …
   _Personal note:_ This keymap came about because of a sudden need
   for a replacement keyboard. It took over a year to make (≈ 1.5 h/day).
   The goal became to make a good keymap for everyone without the time to
-  make one, in the best keyboard format: “40%”.
+  make one.
 
 ![Keycaps blanks](http://socialism.nl/misc/minivan/keycaps_blanks_va.jpg)
 
   Written on the Minivan: Jos Boersema. [contact](https://market.socialism.nl/author/ "get e-mail address there")
+  If anyone forks this or whatever, feel free to drop me a note.
 
   Contributions to this key map:
       - …
