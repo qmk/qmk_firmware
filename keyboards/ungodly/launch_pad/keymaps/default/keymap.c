@@ -32,37 +32,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------'
  */
  [0] = LAYOUT_ortho_5x4(
-   TG(1),  KC_PSLS,  KC_PAST,   LT(2, KC_BSPC),
-   KC_7,    KC_8,    KC_9,     KC_PMNS,
-   KC_4,    KC_5,    KC_6,     KC_PPLS,
-   KC_1,    KC_2,    KC_3,     KC_PENT,
-   KC_0,    KC_0,  KC_DOT,   KC_PENT
+   TG(1),  KC_PSLS,  KC_PAST, LT(2, KC_BSPC),
+   KC_P7,    KC_P8,    KC_P9,        KC_PMNS,
+   KC_P4,    KC_P5,    KC_P6,        KC_PPLS,
+   KC_P1,    KC_P2,    KC_P3,        KC_PENT,
+   KC_P0,    KC_P0,  KC_PDOT,        KC_PENT
  ),
 
 /* Keymap _NV: Navigation layer
- * ,-------------------.
- * |INS |HOME|PGUP| BL |
- * |----|----|----|----|
- * |DEL |END |PGDN|    |
- * |----|----|----|----|
- * |    | UP |    |    |
- * |----|----|----|----|
- * |LEFT|DOWN|RIGH|    |
- * |----|----|----|----|
- * |    |    |    |    |
- * `-------------------'
- */
-  [1] = LAYOUT_ortho_5x4(
-    KC_INS,   KC_HOME,  KC_PGUP,   TG(1),
-    KC_DEL,   KC_END,   KC_PGDN,   XXXXXXX,
-    XXXXXXX,  KC_UP,    XXXXXXX,   XXXXXXX,
-    KC_LEFT,  KC_DOWN,  KC_RGHT,   XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX
-  ),
+* ,-------------------.
+* | BL |    |    | FN |
+* |----|----|----|----|
+* |HOME| UP |PGUP|    |
+* |----|----|----|----|
+* |LEFT|    |RIGH|    |
+* |----|----|----|----|
+* |END |DOWN|PGDN| En |
+* |----|----|----|----|
+* |INS |INS |DEL | En |
+* `-------------------'
+*/
+[1] = LAYOUT_ortho_5x4(
+  TG(0),   XXXXXXX,  XXXXXXX,     MO(2),
+  KC_HOME,   KC_UP,  KC_PGUP,   XXXXXXX,
+  KC_LEFT, XXXXXXX,  KC_RGHT,   XXXXXXX,
+  KC_END,  KC_DOWN,  KC_PGDN,   KC_PENT,
+  KC_INS,   KC_INS,   KC_DEL,   KC_PENT
+),
 
 /* Keymap _FN: RGB Function Layer
  * ,-------------------.
- * |RMOD|RGBP|RTOG| FN |
+ * |RMOD|RGBP|RTOG|    |
  * |----|----|----|----|
  * |HUD |HUI |    |    |
  * |----|----|----|----|
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----|----|----|----|
  * |VAD |VAS |    |    |
  * |----|----|----|----|
- * |RST |    |    |    |
+ * |RST |RST |    |    |
  * `-------------------'
  */
   [2] = LAYOUT_ortho_5x4(
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_HUD,  RGB_HUI,  XXXXXXX,   XXXXXXX,
     RGB_SAD,  RGB_SAI,  XXXXXXX,   XXXXXXX,
     RGB_VAD,  RGB_VAI,  XXXXXXX,   XXXXXXX,
-    RESET,    RESET,  XXXXXXX,   XXXXXXX
+      RESET,    RESET,  XXXXXXX,   XXXXXXX
   ),
 };
 

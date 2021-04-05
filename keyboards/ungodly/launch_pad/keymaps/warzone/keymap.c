@@ -51,25 +51,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ),
 
 /* Keymap _FN: RGB Function Layer
- * ,-------------------.
- * |RMOD|RGBP|RTOG| FN |
- * |----|----|----|----|
- * |HUD |HUI |    |    |
- * |----|----|----|----|
- * |SAD |SAI |    |    |
- * |----|----|----|----|
- * |VAD |VAS |    |    |
- * |----|----|----|    |
- * |RST |    |    |    |
- * `-------------------'
- */
-  [1] = LAYOUT_ortho_5x4(
-    RGB_MOD,  RGB_M_P,  RGB_TOG,   _______,
-    RGB_HUD,  RGB_HUI,  XXXXXXX,   XXXXXXX,
-    RGB_SAD,  RGB_SAI,  XXXXXXX,   XXXXXXX,
-    RGB_VAD,  RGB_VAI,  XXXXXXX,   XXXXXXX,
-    RESET,    RESET,  XXXXXXX,   XXXXXXX
-  ),
+* ,-------------------.
+* |RMOD|RGBP|RTOG|    |
+* |----|----|----|----|
+* |HUD |HUI |    |    |
+* |----|----|----|----|
+* |SAD |SAI |    |    |
+* |----|----|----|----|
+* |VAD |VAS |    |    |
+* |----|----|----|----|
+* |RST |RST |    |    |
+* `-------------------'
+*/
+ [2] = LAYOUT_ortho_5x4(
+   RGB_MOD,  RGB_M_P,  RGB_TOG,   _______,
+   RGB_HUD,  RGB_HUI,  XXXXXXX,   XXXXXXX,
+   RGB_SAD,  RGB_SAI,  XXXXXXX,   XXXXXXX,
+   RGB_VAD,  RGB_VAI,  XXXXXXX,   XXXXXXX,
+     RESET,    RESET,  XXXXXXX,   XXXXXXX
+ ),
 };
 
 // (Optional) Rotary Encoder, Volume Control
