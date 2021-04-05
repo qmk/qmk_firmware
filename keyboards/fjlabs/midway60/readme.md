@@ -5,7 +5,7 @@ The following is the QMK Firmware for the [BolsaKeyboardSupply](https://www.bols
 The PCB will feature:
 * QMK & VIA compatibility
 * Some cool bolsa branding
-
+ 
 ---
 
 * Keyboard Maintainer: FJLabs
