@@ -674,3 +674,4 @@ ifeq ($(strip $(USBPD_ENABLE)), yes)
         endif
     endif
 endif
+

@@ -8,8 +8,6 @@ The following options are currently available for haptic feedback in `rules.mk`:
 
 `HAPTIC_ENABLE += SOLENOID`
 
-`HAPTIC_ENABLE += HAPTIC_EXCLUSION_KEYS`
-
 ## Known Supported Hardware
 
 | Name               | Description                                     |
