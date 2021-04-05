@@ -100,3 +100,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define FULL_BON_4THROW 
 
   #define LEDS_OFF_BASE_DEF 
+  #define LEDS_OFF_BASE_ALT

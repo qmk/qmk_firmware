@@ -521,11 +521,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /*                 -12- ➡ Leds ⬅
          *
-         * Leds off for the Default Base Layer.
-         * Implies: no indication on Default Base for: Caps-lock, typing speed, typing amount done of a limit.
-         * Speed / typing amount will be visible by going to another layer.
+         * Leds off for the Default or Alternative Base Layer.
+         * Implies: no indication on Default Base for: Caps-lock, typing speed, 
+         * typing amount done of a limit.
+         * Speed / typing amount indicated by led will be visible by going to another layer.
          */
 //#define LEDS_OFF_BASE_DEF // _Activate_ to make leds dark when in ‛Default Base’ layer.
+         //
+//#define LEDS_OFF_BASE_ALT // _Activate_ to make leds dark when in ‛Alternative Base’ layer.
 
 // ------------------------------------- ⬆ --------------------------------------
 //            Below here no more comfortable configuration options.....

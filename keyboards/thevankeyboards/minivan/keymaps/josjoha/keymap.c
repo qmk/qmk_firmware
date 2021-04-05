@@ -471,7 +471,13 @@ void set_led_colors_ (layer_state_t state) {
     // Alternate BASE layer (alternate)
     else if (layer_state_cmp (state, _ALT_BASE)) {
 
-#     if !defined(BASE_NUMPAD__ALT_BASE) // Normal led colors for ‛regular’ base layers like Dvorak, Qwerty. 
+#     ifdef LEDS_OFF_BASE_ALT // Alternative Base leds off (always)
+
+        rgblight_disable_noeeprom ();
+
+#     else // do use leds on Alternative Base layer
+
+#         if !defined(BASE_NUMPAD__ALT_BASE) // Normal led colors for ‛regular’ base layers like Dvorak, Qwerty. 
 
         if (capslock) {
            led2r = 255; // Brighter version to indicate capslock
@@ -482,32 +488,34 @@ void set_led_colors_ (layer_state_t state) {
            led2g = color_ddl; // 
            led2b = color_ddl; // 
         }
+        middle_led_control (HSV_TEAL); // seems to be the same as CYAN/AZURE, conflicts with _ACC
 
-#     else // BASE_NUMPAD__ALT_BASE: numpad on Alternate Base, which should show the state of NumLock
+#         else // Numpad configured on Alternate Base, which should show the state of NumLock
 
         // This is a copy of the _PAD led colors, but less bright
         if (numlock) {
             led0b = 80; // Blue for the numbers part 
             led2g = 80; // Green for the navigation part
         }else{
-            led0g = 80; // reversed 
-            led2b = 80; //
+            led2b = 80; // reversed 
+            led0g = 80; //
         }
-        middle_led_control (60, 20, 100); // yellow (low saturation)
+        middle_led_control (60, 20, 100);  // light-blue
 
-#     endif
+#         endif // BASE_NUMPAD__ALT_BASE
 
-        middle_led_control (HSV_TEAL); // seems to be the same as CYAN/AZURE, conflicts with _ACC
+#     endif // LEDS_OFF_BASE_ALT 
+
     }
     // Default layer (generally), normal BASE layer
     else if (layer_state_cmp (state, _DEF_BASE)) { // letters
 
-#     ifdef LEDS_OFF_BASE_DEF 
-        led0r = 0; // All leds off when in Default Base
-        led0g = 0; // 
-        led0b = 0; // 
+#     ifdef LEDS_OFF_BASE_DEF // Default Base leds off (always)
+
         rgblight_disable_noeeprom ();
-#     else
+
+#     else // Do use leds on Default Base
+
         if (capslock) {
             led0r = 255; // Brighter version to indicate capslock
             led0g = 255; // 
@@ -517,16 +525,18 @@ void set_led_colors_ (layer_state_t state) {
             led0g = 28; // 
             led0b = 28; // 
         }
-
         middle_led_control (HSV_TEAL);
+
 #     endif // LEDS_OFF_BASE_DEF 
+
     }
     //---
 
+    // pushes the configuration
     setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
     setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
 
-    isolate_rgblight_set ();
+    isolate_rgblight_set (); // Activates the led color change, after on/off check.
 
 # endif //RGBLIGHT_ENABLE
 }

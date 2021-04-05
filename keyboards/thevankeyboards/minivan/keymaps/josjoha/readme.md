@@ -1192,8 +1192,6 @@ This links to an external file, with some additional resources like
   The goal became to make a good keymap for everyone without the time to
   make one.
 
-![Keycaps blanks](http://socialism.nl/misc/minivan/keycaps_blanks_va.jpg)
-
   Written on the Minivan: Jos Boersema. [contact](https://market.socialism.nl/author/ "get e-mail address there")
   If anyone forks this or whatever, feel free to drop me a note.
 
