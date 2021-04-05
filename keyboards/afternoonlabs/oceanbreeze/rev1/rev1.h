@@ -20,24 +20,25 @@
 
 #include "quantum.h"
 
+#define XXX KC_NO
+
 #define LAYOUT( \
-    L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05, MC0, MC1, MC2, \
-    L10, L11, L12, L13, L14, L15,           R10, R11, R12, R13, R14, R15, MC3, MC4, MC5, \
-    L20, L21, L22, L23, L24, L25,           R20, R21, R22, R23, R24, R25,      AUP,      \
-    L30, L31, L32, L33, L34, L35, LT4, RT1, R30, R31, R32, R33, R34, R35, ALT, ADN, ART, \
-                   LT0, LT1, LT2, LT3, RT2, RT3, RT4, RT5 \
-  ) \
-  { \
-    {L05, L04, L03, L02, L01, L00, KC_NO, KC_NO, KC_NO}, \
-    {L15, L14, L13, L12, L11, L10, KC_NO, KC_NO, KC_NO}, \
-    {L25, L24, L23, L22, L21, L20, KC_NO, KC_NO, KC_NO}, \
-    {L35, L34, L33, L32, L31, L30, KC_NO, KC_NO, KC_NO}, \
-    {LT3, LT2, LT1, LT0, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO}, \
-    {LT4, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO}, \
-    {R00, R01, R02, R03, R04, R05, MC0, MC1, MC2}, \
-    {R10, R11, R12, R13, R14, R15, MC3, MC4, MC5}, \
-    {R20, R21, R22, R23, R24, R25, KC_NO, AUP, KC_NO}, \
-    {R30, R31, R32, R33, R34, R35, ALT, ADN, ART}, \
-    {RT2, RT3, RT4, RT5, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO}, \
-    {RT1, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO} \
-  }
+    L00, L01, L02, L03, L04, L05,             R00, R01, R02, R03, R04, R05,   MC0, MC1, MC2, \
+    L10, L11, L12, L13, L14, L15,             R10, R11, R12, R13, R14, R15,   MC3, MC4, MC5, \
+    L20, L21, L22, L23, L24, L25,             R20, R21, R22, R23, R24, R25,        AUP, \
+    L30, L31, L32, L33, L34, L35, LT4,   RT1, R30, R31, R32, R33, R34, R35,   ALT, ADN, ART, \
+                   LT0, LT1, LT2, LT3,   RT2, RT3, RT4, RT5 \
+) { \
+    { L05, L04, L03, L02, L01, L00, XXX, XXX, XXX }, \
+    { L15, L14, L13, L12, L11, L10, XXX, XXX, XXX }, \
+    { L25, L24, L23, L22, L21, L20, XXX, XXX, XXX }, \
+    { L35, L34, L33, L32, L31, L30, XXX, XXX, XXX }, \
+    { LT3, LT2, LT1, LT0, XXX, XXX, XXX, XXX, XXX }, \
+    { LT4, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { R00, R01, R02, R03, R04, R05, MC0, MC1, MC2 }, \
+    { R10, R11, R12, R13, R14, R15, MC3, MC4, MC5 }, \
+    { R20, R21, R22, R23, R24, R25, XXX, AUP, XXX }, \
+    { R30, R31, R32, R33, R34, R35, ALT, ADN, ART }, \
+    { RT2, RT3, RT4, RT5, XXX, XXX, XXX, XXX, XXX }, \
+    { RT1, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX } \
+}
