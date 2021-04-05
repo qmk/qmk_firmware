@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    imchipwood
 #define PRODUCT         dumbpad
-#define DESCRIPTION     4x4 macro/numpad with rotary encoder
 
 
 /*

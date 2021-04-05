@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
-#include "LUFA/Drivers/Peripheral/SPI.h"
+#include <LUFA/Drivers/Peripheral/SPI.h>
 
 #include "config.h"
 

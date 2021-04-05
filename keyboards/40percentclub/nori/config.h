@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0444
 #define MANUFACTURER    di0ib
 #define PRODUCT         The nori Keyboard
-#define DESCRIPTION     A modular compact keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4

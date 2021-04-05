@@ -20,6 +20,9 @@
 #define MATRIX_COL_PINS { F6, F5, F4, F1, F0, E6, B0, B1, D5, B2, B3, D0, D1, D2, D4, D6, D7, F7 }
 #define UNUSED_PINS
 
+#define LED_CAPS_LOCK_PIN B7
+#define LED_PIN_ON_STATE 0
+
 /* number of backlight levels */
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 3

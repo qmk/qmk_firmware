@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MUSICAL_NOTES_H
-#define MUSICAL_NOTES_H
+#pragma once
 
 // Tempo Placeholder
 #define TEMPO_DEFAULT 100
@@ -229,5 +228,3 @@
 #define NOTE_GF8 NOTE_FS8
 #define NOTE_AF8 NOTE_GS8
 #define NOTE_BF8 NOTE_AS8
-
-#endif

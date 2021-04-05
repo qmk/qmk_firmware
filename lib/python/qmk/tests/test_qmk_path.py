@@ -4,9 +4,9 @@ from pathlib import Path
 import qmk.path
 
 
-def test_keymap_onekey_pytest():
-    path = qmk.path.keymap('handwired/onekey/pytest')
-    assert path.samefile('keyboards/handwired/onekey/keymaps')
+def test_keymap_pytest_basic():
+    path = qmk.path.keymap('handwired/pytest/basic')
+    assert path.samefile('keyboards/handwired/pytest/basic/keymaps')
 
 
 def test_normpath():

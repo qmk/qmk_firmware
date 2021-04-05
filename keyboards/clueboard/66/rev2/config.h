@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
 #define PRODUCT         Clueboard
-#define DESCRIPTION     QMK keyboard firmware for Clueboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -49,7 +48,9 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
- /* Backlight configuration
+#define LED_CAPS_LOCK_PIN B4
+
+/* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 1
 

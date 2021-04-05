@@ -179,6 +179,25 @@ Holding and releasing a dual function key without pressing another key will resu
 
 For instance, holding and releasing `LT(2, KC_SPACE)` without hitting another key will result in nothing happening. With this enabled, it will send `KC_SPACE` instead.
 
+For more granular control of this feature, you can add the following to your `config.h`:
+
+```c
+#define RETRO_TAPPING_PER_KEY
+```
+
+You can then add the following function to your keymap:
+
+```c
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(2, KC_SPACE):
+            return true;
+        default:
+            return false;
+    }
+}
+```
+
 ## Why do we include the key record for the per key functions?
 
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that.

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AbstractKB
 #define PRODUCT         EllipseRev1
-#define DESCRIPTION     The Ellipse Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 2

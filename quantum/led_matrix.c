@@ -20,7 +20,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "quantum.h"
-#include "ledmatrix.h"
+#include "led_matrix.h"
 #include "progmem.h"
 #include "config.h"
 #include "eeprom.h"

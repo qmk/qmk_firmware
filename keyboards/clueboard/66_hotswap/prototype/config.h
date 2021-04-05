@@ -32,6 +32,8 @@
  */
 #define NO_ACTION_TAPPING
 
+#define LED_CAPS_LOCK_PIN B4
+
 /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 1

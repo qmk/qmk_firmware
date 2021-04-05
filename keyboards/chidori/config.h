@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Kagizaraya
 #define PRODUCT Chidori
-#define DESCRIPTION Yet another split keyboard made with only through - hole components
 
 /* key matrix size */
 #define MATRIX_ROWS 12

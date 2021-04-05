@@ -45,6 +45,10 @@
 #define MIDI_ADVANCED
 
 /* RGB Matrix configuration */
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_KEYPRESSES
+#endif
+
 #define RGB_DI_PIN F7
 #ifdef RGB_MATRIX_ENABLE
 #    define RGBLED_NUM 22

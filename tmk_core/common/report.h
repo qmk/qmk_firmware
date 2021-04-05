@@ -123,12 +123,6 @@ enum desktop_usages {
 
 #define KEYBOARD_REPORT_KEYS 6
 
-/* VUSB hardcodes keyboard and mouse+extrakey only */
-#if defined(PROTOCOL_VUSB)
-#    undef KEYBOARD_SHARED_EP
-#    undef MOUSE_SHARED_EP
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -192,7 +186,11 @@ typedef struct {
 
 typedef struct {
 #if JOYSTICK_AXES_COUNT > 0
+#    if JOYSTICK_AXES_RESOLUTION > 8
+    int16_t axes[JOYSTICK_AXES_COUNT];
+#    else
     int8_t axes[JOYSTICK_AXES_COUNT];
+#    endif
 #endif
 
 #if JOYSTICK_BUTTON_COUNT > 0

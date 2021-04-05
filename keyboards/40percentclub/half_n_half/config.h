@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x4A1F
 #define MANUFACTURER    di0ib
 #define PRODUCT         half_n_half
-#define DESCRIPTION     A small split ortholinear custom keyboard with 2 thumb buttons
 
 /* key matrix size */
 #define MATRIX_ROWS 4*2

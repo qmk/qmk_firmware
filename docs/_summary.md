@@ -80,6 +80,7 @@
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
     * [Raw HID](feature_rawhid.md)
+    * [Sequencer](feature_sequencer.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)
@@ -119,6 +120,7 @@
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
     * History
+      * [2020 Nov 28](ChangeLog/20201128.md)
       * [2020 Aug 29](ChangeLog/20200829.md)
       * [2020 May 30](ChangeLog/20200530.md)
       * [2020 Feb 29](ChangeLog/20200229.md)

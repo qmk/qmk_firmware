@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    SatT
 #define PRODUCT         Comet46
-#define DESCRIPTION     qmk keyboard firmware for Comet46
 
 /* key matrix size */
 #define MATRIX_ROWS 5

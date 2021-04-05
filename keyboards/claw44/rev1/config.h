@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER yfuku
 #define PRODUCT claw44
-#define DESCRIPTION A split keyboard with 3x6 vertically staggered keys and 4 thumb keys
 
 /* key matrix size */
 #define MATRIX_ROWS 8

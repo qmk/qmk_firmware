@@ -3,6 +3,7 @@
 from pathlib import Path
 import json
 import subprocess
+import sys
 
 from pygments.lexers.c_cpp import CLexer
 from pygments.token import Token
@@ -312,16 +313,17 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     return sorted(names)
 
 
-def _c_preprocess(path):
+def _c_preprocess(path, stdin=None):
     """ Run a file through the C pre-processor
 
     Args:
-        path: path of the keymap.c file
+        path: path of the keymap.c file (set None to use stdin)
+        stdin: stdin pipe (e.g. sys.stdin)
 
     Returns:
         the stdout of the pre-processor
     """
-    pre_processed_keymap = qmk.commands.run(['cpp', path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    pre_processed_keymap = qmk.commands.run(['cpp', path] if path else ['cpp'], stdin=stdin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     return pre_processed_keymap.stdout
 
 
@@ -451,17 +453,23 @@ def parse_keymap_c(keymap_file, use_cpp=True):
     Currently only cares about the keymaps array.
 
     Args:
-        keymap_file: path of the keymap.c file
+        keymap_file: path of the keymap.c file (or '-' to use stdin)
 
         use_cpp: if True, pre-process the file with the C pre-processor
 
     Returns:
         a dictionary containing the parsed keymap
     """
-    if use_cpp:
-        keymap_file = _c_preprocess(keymap_file)
+    if keymap_file == '-':
+        if use_cpp:
+            keymap_file = _c_preprocess(None, sys.stdin)
+        else:
+            keymap_file = sys.stdin.read()
     else:
-        keymap_file = keymap_file.read_text()
+        if use_cpp:
+            keymap_file = _c_preprocess(keymap_file)
+        else:
+            keymap_file = keymap_file.read_text()
 
     keymap = dict()
     keymap['layers'] = _get_layers(keymap_file)

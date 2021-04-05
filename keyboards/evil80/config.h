@@ -19,16 +19,17 @@
 #define MATRIX_COL_PINS { B2, D0, D1, D2, D3, D5, D4, D6, D7, B4, B1, C6, C7, E6, F6, F7 }
 #define UNUSED_PINS
 
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_BREATHING
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-/* number of backlight levels */
+#define LED_CAPS_LOCK_PIN B6
+#define LED_SCROLL_LOCK_PIN B7
+
+#define BACKLIGHT_PIN B5
+#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */

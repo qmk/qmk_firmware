@@ -30,5 +30,8 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 LTO_ENABLE = no             # Use link time optimization
-RGB_MATRIX_ENABLE = WS2812  # Enable keyboard RGB backlight functionality with ws2812 driver
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = WS2812
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+
+LAYOUTS = alice_split_bs

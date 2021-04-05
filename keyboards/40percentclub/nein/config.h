@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x9999
 #define MANUFACTURER    di0ib
 #define PRODUCT         The nein Keyboard
-#define DESCRIPTION     9 key macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

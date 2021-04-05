@@ -24,7 +24,7 @@ Totally new to QMK? There are two ways to get started:
 
 ## Make It Yours
 
-QMK has lots of [features](features.md) to explore, and a good deal of reference documentation to dig through. Most features are taken advantage of by modifying your [keymap](keymap.md), and changing the [keycodes](keycodes.md).
+QMK has lots of features to explore, and a good deal of reference documentation to dig through. Most features are taken advantage of by modifying your [keymap](keymap.md), and changing the [keycodes](keycodes.md).
 
 ## Need help?
 

@@ -17,7 +17,6 @@ BOARD = MCHCK_K20
 #   comment out to disable the options.
 #
 BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
-## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug

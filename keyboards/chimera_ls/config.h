@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    unknown
 #define PRODUCT         Chimera Lets Split
-#define DESCRIPTION     q.m.k. keyboard firmware for Chimera Lets Split
 
 /* key matrix size */
 #define MATRIX_ROWS 5

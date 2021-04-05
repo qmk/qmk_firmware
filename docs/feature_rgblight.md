@@ -187,6 +187,8 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 
 ## Lighting Layers
 
+?> **Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](feature_rgb_matrix.md?indicators) for details on how to do so.
+
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
 
@@ -368,14 +370,14 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_increase_hue_noeeprom()`          |Increase the hue for effect range LEDs. This wraps around at maximum hue (not written to EEPROM) |
 |`rgblight_decrease_hue()`                   |Decrease the hue for effect range LEDs. This wraps around at minimum hue |
 |`rgblight_decrease_hue_noeeprom()`          |Decrease the hue for effect range LEDs. This wraps around at minimum hue (not written to EEPROM) |
-|`rgblight_increase_sat()`                   |Increase the saturation for effect range LEDs. This wraps around at maximum saturation |
-|`rgblight_increase_sat_noeeprom()`          |Increase the saturation for effect range LEDs. This wraps around at maximum saturation (not written to EEPROM) |
-|`rgblight_decrease_sat()`                   |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation |
-|`rgblight_decrease_sat_noeeprom()`          |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation (not written to EEPROM) |
-|`rgblight_increase_val()`                   |Increase the value for effect range LEDs. This wraps around at maximum value |
-|`rgblight_increase_val_noeeprom()`          |Increase the value for effect range LEDs. This wraps around at maximum value (not written to EEPROM) |
-|`rgblight_decrease_val()`                   |Decrease the value for effect range LEDs. This wraps around at minimum value |
-|`rgblight_decrease_val_noeeprom()`          |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
+|`rgblight_increase_sat()`                   |Increase the saturation for effect range LEDs. This stops at maximum saturation |
+|`rgblight_increase_sat_noeeprom()`          |Increase the saturation for effect range LEDs. This stops at maximum saturation (not written to EEPROM) |
+|`rgblight_decrease_sat()`                   |Decrease the saturation for effect range LEDs. This stops at minimum saturation |
+|`rgblight_decrease_sat_noeeprom()`          |Decrease the saturation for effect range LEDs. This stops at minimum saturation (not written to EEPROM) |
+|`rgblight_increase_val()`                   |Increase the value for effect range LEDs. This stops at maximum value |
+|`rgblight_increase_val_noeeprom()`          |Increase the value for effect range LEDs. This stops at maximum value (not written to EEPROM) |
+|`rgblight_decrease_val()`                   |Decrease the value for effect range LEDs. This stops at minimum value |
+|`rgblight_decrease_val_noeeprom()`          |Decrease the value for effect range LEDs. This stops at minimum value (not written to EEPROM) |
 |`rgblight_sethsv(h, s, v)`                  |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
 |`rgblight_sethsv_noeeprom(h, s, v)`         |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 

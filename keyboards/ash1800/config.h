@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Hasyim Ashari
 #define PRODUCT ASH-1800
-#define DESCRIPTION An attempt to make a cherry g80/g81 clone
 
 /* key matrix size */
 #define MATRIX_ROWS 12

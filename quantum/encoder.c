@@ -23,7 +23,7 @@
 // for memcpy
 #include <string.h>
 
-#ifndef ENCODER_RESOLUTION
+#if !defined(ENCODER_RESOLUTIONS) && !defined(ENCODER_RESOLUTION)
 #    define ENCODER_RESOLUTION 4
 #endif
 
@@ -34,6 +34,9 @@
 #define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
 static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
+#ifdef ENCODER_RESOLUTIONS
+static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
+#endif
 
 #ifndef ENCODER_DIRECTION_FLIP
 #    define ENCODER_CLOCKWISE true
@@ -65,9 +68,15 @@ void encoder_init(void) {
     if (!isLeftHand) {
         const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
         const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
+#    if defined(ENCODER_RESOLUTIONS_RIGHT)
+        const uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
+#    endif
         for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
             encoders_pad_a[i] = encoders_pad_a_right[i];
             encoders_pad_b[i] = encoders_pad_b_right[i];
+#    if defined(ENCODER_RESOLUTIONS_RIGHT)
+            encoder_resolutions[i] = encoder_resolutions_right[i];
+#    endif
         }
     }
 #endif
@@ -87,19 +96,26 @@ void encoder_init(void) {
 
 static void encoder_update(int8_t index, uint8_t state) {
     uint8_t i = index;
+
+#ifdef ENCODER_RESOLUTIONS
+    int8_t resolution = encoder_resolutions[i];
+#else
+    int8_t resolution = ENCODER_RESOLUTION;
+#endif
+
 #ifdef SPLIT_KEYBOARD
     index += thisHand;
 #endif
     encoder_pulses[i] += encoder_LUT[state & 0xF];
-    if (encoder_pulses[i] >= ENCODER_RESOLUTION) {
+    if (encoder_pulses[i] >= resolution) {
         encoder_value[index]++;
         encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
     }
-    if (encoder_pulses[i] <= -ENCODER_RESOLUTION) {  // direction is arbitrary here, but this clockwise
+    if (encoder_pulses[i] <= -resolution) {  // direction is arbitrary here, but this clockwise
         encoder_value[index]--;
         encoder_update_kb(index, ENCODER_CLOCKWISE);
     }
-    encoder_pulses[i] %= ENCODER_RESOLUTION;
+    encoder_pulses[i] %= resolution;
 }
 
 void encoder_read(void) {

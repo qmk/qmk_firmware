@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER dm9records
 #define PRODUCT Tartan
-#define DESCRIPTION 60% keyboard with through hole components
 
 /* key matrix size */
 #define MATRIX_ROWS 5

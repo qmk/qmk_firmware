@@ -31,7 +31,8 @@ SWAP_HANDS_ENABLE= yes  # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
 
-RGB_MATRIX_ENABLE = no  # enable later
+RGB_MATRIX_ENABLE = no # enable later
+RGB_MATRIX_DRIVER = IS31FL3731
 DEBOUNCE_TYPE = eager_pr
 
 # project specific files
