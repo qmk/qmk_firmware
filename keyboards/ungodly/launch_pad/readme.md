@@ -22,11 +22,9 @@ Numpad Layout             |  5x4 Layout
 ![Numpad](https://i.imgur.com/4XvqCBHl.jpg)  |  ![5x4](https://i.imgur.com/mwtGnPSl.jpg)
 
 
-|Reset Bootloader|   |
-|---|---|
-|Use tweezers to short the two bottom pins of the J-Link pinout.|![Numpad](https://i.imgur.com/ArSIcK0.pngl)|
 
-* Keyboard Maintainer: [Luis Godinez](https://github.com/luis-Godinez)
+
+* Keyboard Maintainer: [Luis Godinez](https://github.com/luis-godinez)
 * Hardware Supported: Launch Pad PCB
 * Hardware Availability: [Ungodly.Design](https://ungodly.design/products/launch-pad-pcb)
 
@@ -35,3 +33,63 @@ Make example for this keyboard (after setting up your build environment):
     make ungodly/launch_pad:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+# Reset Bootloader
+
+<table>
+	<tr>
+		<td>Use tweezers to short the two bottom pins of the J-Link pinout.</td>
+		<td><img src="https://i.imgur.com/ArSIcK0.pngl" width="300"/></td>
+	</tr>
+</table>
+
+# Midi Setup
+
+<table>
+    <tr>
+        <th>Windows</th>
+        <th>Mac</th>
+    </tr>
+    <tr>
+    	<td valign="top">
+    	<ul>
+    	    <li>Midi Mixer</li>
+        	<ul>
+            	<li><a href="https://github.com/jpwilliams/midi-mixer-releases/releases">Download the latest version of Midi Mixer</a></li>
+            	<li>Run the exe to install the application.</li><li>Launch the MIDI Mixer application.</li>
+            	<li>Navigate to the "Profiles" tab and select the "Ungodly Design Launch Pad" preset.</li>
+            	<li>Navigate to the "Groups" tab and select the audio source you would like to control.
+            	<br><img src="https://imgur.com/MmdDcTm.pngl" alt="Midi Mixer" width="800"></li>
+            	<li>Optionally, Navigate to the "Settings" tab and enable/disable "Logarithmic volume curve".</li>
+        	</ul>
+    	</ul>
+    	</td>
+    	<td valign="top">
+        	<ul>
+            	<li><a href="https://rsjaffe.github.io/MIDI2LR/">Midi2Lightroom</a></li>
+            	<li><a href="https://www.orderedbytes.com/controllermate/">ControllerMate</a></li>
+        	</ul>
+    	</td>
+    </tr>
+</table>
+
+# Custom OLED Displays
+
+Layer | Graphic
+:----:|:----:
+home  |  ![home](https://i.imgur.com/tK3u7ZU.png)
+nav  |  ![nav](https://i.imgur.com/J0FNZfR.png)
+rgb  |  ![rgb](https://i.imgur.com/XK6r6KL.png)
+
+* These instructions require compiling your own firmware. [Ensure that your build environenment is setup](https://beta.docs.qmk.fm/tutorial/newbs_getting_started).
+* Create 128x32 px black and white pixel art image. The graphic will be rotated 90 degrees clockwise and rendered vertically on the oled display.
+* Load the image on [Image2cpp](https://javl.github.io/image2cpp/)
+* Configure as follows:
+    * Image settings:
+      * Background color: black
+      * Invert image colors: checked
+    * Output settings:
+      * Code output format: plain bytes
+      * Draw mode: vertical - 1 bit per pixel
+* Copy the generated output into your keymap ([sample code](https://github.com/qmk/qmk_firmware/blob/master/keyboards/ungodly/launch_pad/keymaps/default/keymap.c))
+* Compile the firmware and flash it to your launch pad.
