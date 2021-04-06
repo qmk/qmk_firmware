@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x8968
 #define PRODUCT_ID      0x4E4E
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         NK_ Num
 
@@ -30,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
 
-#define MATRIX_ROW_PINS { B14, B13, C13, A14, B2, B10 }
+#define MATRIX_ROW_PINS { B14, B13, A0, A14, B2, B10 }
 #define MATRIX_COL_PINS { A10, A9, A8, B15 }
 // To enable debugger set A13 A14 -> A5 A7
 
