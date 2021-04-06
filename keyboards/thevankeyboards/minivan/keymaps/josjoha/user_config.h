@@ -450,11 +450,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *          • “Switch spacebars”: ‛Space-bar’ ⬅➡ “‛Enter’ + ‛layer-hold _MOV’”
          *
          * Recommended if you usually type ‛Space-bar’ with your left hand.
-         * You will loose the Page-Up on that key in the _MOV (movement) layer. 
-         * It becomes ‛Transparent’ (TRNS). This will not affect the rest of the
-         * _MOV layer, or any of the navigation clusters or other Page-Up keys there.
+         * These keys also switch on _MOV (movement) layer. Page-Up goes one spot to the left.
          */
-//#define SPACE_LEFT__ENTER_RIGHT // _Activate_ to have ‛Space bar’ on left hand, ‛Enter’ on right hand
+//#define SPACE_LEFT__ENTER_RIGHT // _Activate_ for ‛Space bar’ left, ‛Enter’ and ‛_MOV hold’ right hand.
 
 
         /*                 -11- ➡ Eviscerations ( ② / ② ) ⬅

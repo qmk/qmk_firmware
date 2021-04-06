@@ -1100,7 +1100,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , MORE_key1 
 #     endif
 
-                , KC_DEL , KC_ENT , _______ 
+                , KC_DEL , KC_ENT 
+
+#     ifndef SPACE_LEFT__ENTER_RIGHT      // standard, layer switch on Base
+                                  , _______ 
+#     else                                // reversed
+                                  , KC_PGUP 
+#     endif
+
 
 #     ifdef TRANSMINIVAN_MIDLEFT
                                             , TRANS_MIDLEFT
@@ -1109,7 +1116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #     ifndef SPACE_LEFT__ENTER_RIGHT                // standard
                                             , KC_PGUP 
-#     else                                          // reversed, need space for transparent layer switch
+#     else                                          // reversed, layer switch on Base
                                             , _______ 
 #     endif
 
