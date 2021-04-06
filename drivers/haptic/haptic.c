@@ -300,19 +300,19 @@ void haptic_play(void) {
 
 #if (HAPTIC_EXCLUSION_KEYS != 0)
 bool exclude_haptic_key(uint16_t keycode, keyrecord_t *record) {
-if ((HAPTIC_EXCLUSION_DEFAULT(keycode, record->tap.count))) {
-    return true;
-} else {
+    if ((HAPTIC_EXCLUSION_DEFAULT(keycode, record->tap.count))) {
+        return true;
+    } else {
 #ifdef HAPTIC_EXCLUSION_KEY_ADDITIONAL
-    static const uint16_t PROGMEM additional_keys[] = HAPTIC_EXCLUSION_KEY_ADDITIONAL;
-    int i = 0;
-    for (i = 0;i<sizeof(additional_keys)/sizeof(additional_keys[0]);i++) {
-        if (pgm_read_word(&additional_keys[i]) == keycode) {
-            return true;
+        static const uint16_t PROGMEM additional_keys[] = HAPTIC_EXCLUSION_KEY_ADDITIONAL;
+        int i = 0;
+        for (i = 0;i<sizeof(additional_keys)/sizeof(additional_keys[0]);i++) {
+            if (pgm_read_word(&additional_keys[i]) == keycode) {
+                return true;
+            }
         }
-     }
 #endif
-    return false;
+        return false;
     }
 }
 #endif
