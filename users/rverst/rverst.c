@@ -209,10 +209,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (ls) unregister_code(KC_LSFT);
                 if (rs) unregister_code(KC_RSFT);
 
-                if (as)
-                    tap_code16(G(S(KC_4)));
-                else
-                    tap_code16(G(S(KC_5)));
+                tap_code16(G(S(as ? KC_4 : KC_5)));
 
                 if (ls) register_code(KC_LSFT);
                 if (rs) register_code(KC_RSFT);
