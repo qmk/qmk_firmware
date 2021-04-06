@@ -1,4 +1,4 @@
-/* Copyright 2020 Harrison Chan (Xelus)
+/* Copyright 2021 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,14 +46,12 @@
 #define WS2812_DMA_CHANNEL 3
 #define WS2812_EXTERNAL_PULLUP
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
+
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
