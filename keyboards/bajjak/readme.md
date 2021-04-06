@@ -1,5 +1,5 @@
 # BAJJAK
-* This keyboard is a 6x7 array keyboard based on ergodox ez.
+* This keyboard is a 6x7 array keyboard based on Ergodox EZ.
 * __Not compatible with Ergodox EZ.__
 
 # Full-Text of Ergodox EZ

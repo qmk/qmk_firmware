@@ -24,26 +24,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void rgblight_call_driver(LED_TYPE *led, uint8_t led_num) {
     i2c_init();
-    i2c_start(0x84, ERGODOX_EZ_I2C_TIMEOUT);
+    i2c_start(0x84, BAJJAK_EZ_I2C_TIMEOUT);
     int i = 0;
-#    if defined(ERGODOX_LED_30)
+#    if defined(BAJJAK_LED_30)
     // prevent right-half code from trying to bitbang all 30
     // so with 30 LEDs, we count from 29 to 15 here, and the
     // other half does 0 to 14.
     uint8_t half_led_num = RGBLED_NUM / 2;
     for (i = half_led_num + half_led_num - 1; i >= half_led_num; --i)
-#    elif defined(ERGODOX_LED_15_MIRROR)
+#    elif defined(BAJJAK_LED_15_MIRROR)
     for (i = 0; i < led_num; ++i)
 #    else  // ERGDOX_LED_15 non-mirrored
     for (i = led_num - 1; i >= 0; --i)
 #    endif
     {
         uint8_t *data = (uint8_t *)(led + i);
-        i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
-        i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
-        i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
+        i2c_write(*data++, BAJJAK_EZ_I2C_TIMEOUT);
+        i2c_write(*data++, BAJJAK_EZ_I2C_TIMEOUT);
+        i2c_write(*data++, BAJJAK_EZ_I2C_TIMEOUT);
 #ifdef RGBW
-        i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
+        i2c_write(*data++, BAJJAK_EZ_I2C_TIMEOUT);
 #endif
     }
     i2c_stop();

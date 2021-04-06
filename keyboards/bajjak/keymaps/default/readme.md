@@ -2,8 +2,8 @@
 ## Changelog
 
 * March 2021:
-  * This keymap is for a 6x7 array keyboard based on Ergodox EZ.
-  * __Not compatible with Ergodox EZ.__
+  * This keymap is for a 6x7 array keyboard based on bajjak EZ.
+  * __Not compatible with bajjak EZ.__
 
 # Full-Text of Ergodox EZ
 > # ErgoDox EZ Default Configuration

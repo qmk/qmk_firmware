@@ -21,27 +21,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "bajjak.h"
 
-extern inline void ergodox_board_led_on(void);
-extern inline void ergodox_right_led_1_on(void);
-extern inline void ergodox_right_led_2_on(void);
-extern inline void ergodox_right_led_3_on(void);
-extern inline void ergodox_right_led_on(uint8_t led);
+extern inline void BAJJAK_board_led_on(void);
+extern inline void BAJJAK_right_led_1_on(void);
+extern inline void BAJJAK_right_led_2_on(void);
+extern inline void BAJJAK_right_led_3_on(void);
+extern inline void BAJJAK_right_led_on(uint8_t led);
 
-extern inline void ergodox_board_led_off(void);
-extern inline void ergodox_right_led_1_off(void);
-extern inline void ergodox_right_led_2_off(void);
-extern inline void ergodox_right_led_3_off(void);
-extern inline void ergodox_right_led_off(uint8_t led);
+extern inline void BAJJAK_board_led_off(void);
+extern inline void BAJJAK_right_led_1_off(void);
+extern inline void BAJJAK_right_led_2_off(void);
+extern inline void BAJJAK_right_led_3_off(void);
+extern inline void BAJJAK_right_led_off(uint8_t led);
 
-extern inline void ergodox_led_all_on(void);
-extern inline void ergodox_led_all_off(void);
+extern inline void BAJJAK_led_all_on(void);
+extern inline void BAJJAK_led_all_off(void);
 
-extern inline void ergodox_right_led_1_set(uint8_t n);
-extern inline void ergodox_right_led_2_set(uint8_t n);
-extern inline void ergodox_right_led_3_set(uint8_t n);
-extern inline void ergodox_right_led_set(uint8_t led, uint8_t n);
+extern inline void BAJJAK_right_led_1_set(uint8_t n);
+extern inline void BAJJAK_right_led_2_set(uint8_t n);
+extern inline void BAJJAK_right_led_3_set(uint8_t n);
+extern inline void BAJJAK_right_led_set(uint8_t led, uint8_t n);
 
-extern inline void ergodox_led_all_set(uint8_t n);
+extern inline void BAJJAK_led_all_set(uint8_t n);
 
 keyboard_config_t keyboard_config;
 
@@ -65,7 +65,7 @@ void matrix_init_kb(void) {
     PORTE |=  (1<<6);
 
     keyboard_config.raw = eeconfig_read_kb();
-    ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+    BAJJAK_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
 #ifdef RGB_MATRIX_ENABLE
     if (keyboard_config.rgb_matrix_enable) {
         rgb_matrix_set_flags(LED_FLAG_ALL);
@@ -74,54 +74,54 @@ void matrix_init_kb(void) {
     }
 #endif
 
-    ergodox_blink_all_leds();
+    BAJJAK_blink_all_leds();
 
     matrix_init_user();
 }
 
-void ergodox_blink_all_leds(void)
+void BAJJAK_blink_all_leds(void)
 {
-    ergodox_led_all_off();
-    ergodox_led_all_set(LED_BRIGHTNESS_DEFAULT);
-    ergodox_right_led_1_on();
+    BAJJAK_led_all_off();
+    BAJJAK_led_all_set(LED_BRIGHTNESS_DEFAULT);
+    BAJJAK_right_led_1_on();
     _delay_ms(50);
-    ergodox_right_led_2_on();
+    BAJJAK_right_led_2_on();
     _delay_ms(50);
-    ergodox_right_led_3_on();
+    BAJJAK_right_led_3_on();
     _delay_ms(50);
 #ifdef LEFT_LEDS
-    ergodox_left_led_1_on();
+    BAJJAK_left_led_1_on();
     _delay_ms(50);
     if (!mcp23018_status) {
-      mcp23018_status = ergodox_left_leds_update();
+      mcp23018_status = BAJJAK_left_leds_update();
     }
-    ergodox_left_led_2_on();
+    BAJJAK_left_led_2_on();
     _delay_ms(50);
     if (!mcp23018_status) {
-      mcp23018_status = ergodox_left_leds_update();
+      mcp23018_status = BAJJAK_left_leds_update();
     }
 #endif
-    ergodox_right_led_1_off();
+    BAJJAK_right_led_1_off();
     _delay_ms(50);
-    ergodox_right_led_2_off();
+    BAJJAK_right_led_2_off();
     _delay_ms(50);
-    ergodox_right_led_3_off();
+    BAJJAK_right_led_3_off();
 #ifdef LEFT_LEDS
     _delay_ms(50);
-    ergodox_left_led_1_off();
+    BAJJAK_left_led_1_off();
     if (!mcp23018_status) {
-      mcp23018_status = ergodox_left_leds_update();
+      mcp23018_status = BAJJAK_left_leds_update();
     }
     _delay_ms(50);
-    ergodox_left_led_2_off();
+    BAJJAK_left_led_2_off();
     if (!mcp23018_status) {
-      mcp23018_status = ergodox_left_leds_update();
+      mcp23018_status = BAJJAK_left_leds_update();
     }
 #endif
 
-    //ergodox_led_all_on();
+    //BAJJAK_led_all_on();
     //_delay_ms(333);
-    ergodox_led_all_off();
+    BAJJAK_led_all_off();
 }
 
 uint8_t init_mcp23018(void) {
@@ -145,26 +145,26 @@ uint8_t init_mcp23018(void) {
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(IODIRA, ERGODOX_EZ_I2C_TIMEOUT);            if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, BAJJAK_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(IODIRA, BAJJAK_EZ_I2C_TIMEOUT);            if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00111111, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
     i2c_stop();
 
     // set pull-up
     // - unused  : on  : 1
     // - input   : on  : 1
     // - driving : off : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(GPPUA, ERGODOX_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b01111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, BAJJAK_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(GPPUA, BAJJAK_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b01111111, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
 
 out:
     i2c_stop();
 
 #ifdef LEFT_LEDS
-    if (!mcp23018_status) mcp23018_status = ergodox_left_leds_update();
+    if (!mcp23018_status) mcp23018_status = BAJJAK_left_leds_update();
 #endif // LEFT_LEDS
 
     // SREG=sreg_prev;
@@ -173,7 +173,7 @@ out:
 }
 
 #ifdef LEFT_LEDS
-uint8_t ergodox_left_leds_update(void) {
+uint8_t BAJJAK_left_leds_update(void) {
     if (mcp23018_status) { // if there was an error
         return mcp23018_status;
     }
@@ -184,17 +184,17 @@ uint8_t ergodox_left_leds_update(void) {
     // - unused  : hi-Z : 1
     // - input   : hi-Z : 1
     // - driving : hi-Z : 1
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, BAJJAK_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(OLATA, ERGODOX_EZ_I2C_TIMEOUT);
-    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b11111111
-                                & ~(ergodox_left_led_1<<LEFT_LED_1_SHIFT),
-                                ERGODOX_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_write(OLATA, BAJJAK_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b11111111
-                                & ~(ergodox_left_led_2<<LEFT_LED_2_SHIFT),
-                                ERGODOX_EZ_I2C_TIMEOUT);
+                                & ~(BAJJAK_left_led_1<<LEFT_LED_1_SHIFT),
+                                BAJJAK_EZ_I2C_TIMEOUT);
+    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b11111111
+                                & ~(BAJJAK_left_led_2<<LEFT_LED_2_SHIFT),
+                                BAJJAK_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
 
  out:
@@ -351,7 +351,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                  if (keyboard_config.led_level > 4) {
                     keyboard_config.led_level = 0;
                  }
-                 ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+                 BAJJAK_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
                  eeconfig_update_kb(keyboard_config.raw);
                  layer_state_set_kb(layer_state);
             }

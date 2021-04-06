@@ -20,18 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#if !defined(ERGODOX_LED_15) && !defined(ERGODOX_LED_30)
+#if !defined(BAJJAK_LED_15) && !defined(BAJJAK_LED_30)
 // if no value is defined, assume previous behavior
-// #    define ERGODOX_LED_15
-// #    define ERGODOX_LED_30
-#    define ERGODOX_LED_15_MIRROR
+// #    define BAJJAK_LED_15
+// #    define BAJJAK_LED_30
+#    define BAJJAK_LED_15_MIRROR
 #endif
 
-#if (defined(ERGODOX_LED_30) + defined(ERGODOX_LED_15) + defined(ERGODOX_LED_15_MIRROR)) != 1
-#    error "You must only define one of the ERGODOX_LED options."
+#if (defined(BAJJAK_LED_30) + defined(BAJJAK_LED_15) + defined(BAJJAK_LED_15_MIRROR)) != 1
+#    error "You must only define one of the BAJJAK_LED options."
 #endif
 
-#ifdef ERGODOX_LED_30
+#ifdef BAJJAK_LED_30
 // If using 30 LEDs, then define that many
 #    define RGBLED_NUM 30  // Number of LEDs
 #else

@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * This constant define not debouncing time in msecs, assuming eager_pr.
  *
- * On Ergodox matrix scan rate is relatively low, because of slow I2C.
+ * On BAJJAK matrix scan rate is relatively low, because of slow I2C.
  * Now it's only 317 scans/second, or about 3.15 msec/scan.
  * According to Cherry specs, debouncing time is 5 msec.
  *
@@ -88,7 +88,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
-                ergodox_blink_all_leds();
+                BAJJAK_blink_all_leds();
 #ifdef RGB_MATRIX_ENABLE
                 rgb_matrix_init();  // re-init driver on reconnect
 #endif
@@ -97,7 +97,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     }
 
 #ifdef LEFT_LEDS
-    mcp23018_status = ergodox_left_leds_update();
+    mcp23018_status = BAJJAK_left_leds_update();
 #endif  // LEFT_LEDS
     bool changed = false;
     for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {
@@ -148,8 +148,8 @@ static matrix_row_t read_cols(uint8_t row) {
             uint8_t data = 0;
             // reading GPIOB (column port) since in mcp23018's sequential mode
             // it is addressed directly after writing to GPIOA in select_row()
-            mcp23018_status = i2c_start(I2C_ADDR_READ, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_read_nack(ERGODOX_EZ_I2C_TIMEOUT);               if (mcp23018_status < 0) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_READ, BAJJAK_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+            mcp23018_status = i2c_read_nack(BAJJAK_EZ_I2C_TIMEOUT);               if (mcp23018_status < 0) goto out;
             data            = ~((uint8_t)mcp23018_status);
             mcp23018_status = I2C_STATUS_SUCCESS;
         out:
@@ -198,9 +198,9 @@ static void select_row(uint8_t row) {
         if (!mcp23018_status) {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1 << row), ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOA, BAJJAK_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(0xFF & ~(1 << row), BAJJAK_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
         out:
             i2c_stop();
         }

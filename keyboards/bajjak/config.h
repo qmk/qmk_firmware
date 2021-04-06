@@ -92,9 +92,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Pick one of the modes
 // Defaults to 15 mirror, for legacy behavior
 
-// #define ERGODOX_LED_15 // Addresses 15 LEDs, but same position on both halves
-// #define ERGODOX_LED_15_MIRROR // Addresses 15 LEDs, but are mirrored
-// #define ERGODOX_LED_30 // Addresses all 30 LED individually
+// #define BAJJAK_LED_15 // Addresses 15 LEDs, but same position on both halves
+// #define BAJJAK_LED_15_MIRROR // Addresses 15 LEDs, but are mirrored
+// #define BAJJAK_LED_30 // Addresses all 30 LED individually
 
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
