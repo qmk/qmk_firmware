@@ -74,13 +74,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define WORDS_PER_MINUTE 
 
 //#define BASE_RIGHT_ALT 
-  #define SWITCH_GUIS 
+//#define SWITCH_GUIS 
 //#define UNICODE_CURRENCY 0x20ac 
 //#define POINT_ON_CHECKBOXES 
 //#define SWITCH_BASE_ROW1_23 
 //#define SWITCH_HOLD_ACC_NSY 
   #define SWITCH_LSHIFT_PAD_MOV
   #define SWITCH_RSHIFT_FUN_RAR
+//#define SPACE_LEFT__ENTER_RIGHT 
 
 //#define REMOVE_PAD 
 //#define REMOVE_ACC 

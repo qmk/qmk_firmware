@@ -107,25 +107,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            , CHOLTAP_ACCE , DUO_HOLD
 # endif
 
-                                                     , LT__MOV__KC_ENT
+                                                     , LEFTCENTER_THUMB
 
 # ifdef TRANSMINIVAN_MIDLEFT
                                                      , TRANS_MIDLEFT
 # endif
 
-                                                                       , KC_SPC , DUO_HOLD , KC__YGUI
+                                                                       , RIGHTCENTER_THUMB , DUO_HOLD , KC__YGUI
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                      , MO ( _FUN )
-# endif
-
-# ifdef MORE_KEY__ARROW
-                                                                                                      , MORE_key2  
-# endif
-
-                                                                                                      , CHOLTAP_LAYR
-//                         ,              ,          ,               <|,>       ,          ,          ,
-//      <1           ±  ±  , <2           , <3       , <4             |, 4>     , 3>       , 2>       , ±  ±  1>
+                                                                                                                            , MO ( _FUN )
+# endif                                                                                               
+                                                                                                      
+# ifdef MORE_KEY__ARROW                                                                               
+                                                                                                                            , MORE_key2  
+# endif                                                                                               
+                                                                                                      
+                                                                                                                            , CHOLTAP_LAYR
+//                         ,              ,          ,               <|,>                             ,          ,          ,
+//      <1           ±  ±  , <2           , <3       , <4             |, 4>                           , 3>       , 2>       , ±  ±  1>
 
                       ),
 

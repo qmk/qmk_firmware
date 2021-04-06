@@ -23,11 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                                 Configuration:
 // ------------------------------------- ⬇ --------------------------------------
 
-  // (For the non-coders: “_Remove_” means to place ‛//’ in front of a line. The rest of the line becomes a comment.
-  //                      Placing ‛//’ in front of a line, means whatever follows it will be ignored during compilation.
-  //                      “_Activate_”   means to *delete* the two ‛//’ in front. Now the rest of the line *will* be compiled
-  //                      /* ... */ is another a way to turn “...” into being a comment which is ignored during compilation.
-  //                      (The documentation here is geared toward people who have no understanding about programming.)
+  // (For the non-coders: 
+  // “_Remove_” means to place ‛//’ in front of a line. The rest of the line becomes a comment.
+  // Placing ‛//’ in front of a line, means whatever follows it will be ignored during compilation.
+  // “_Activate_”   means to *delete* the two ‛//’ in front. Now the rest of the line *will* be compiled
+  // /* ... */ is another a way to turn “...” into being a comment which is ignored during compilation.
+  // (The documentation here is geared toward people who have no understanding about programming.)
 
        /*
         --------------------------------------------------------------------------------------
@@ -77,9 +78,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • GUI left/right
                     • Alternate currency symbol
                     • Check boxes or Pointers
-                    • Switch _ACC/_BON and *left* side _NSY/_DRA hold keys
-                    • Switch _PAD and _MOV on Left Shift toggle
-                    • Switch _FUN and _RAR on Right Shift toggle
+                    • Switch _ACC/_BON ⬅➡ *left* side _NSY/_DRA hold keys
+                    • Switch _PAD ⬅➡ _MOV on Left Shift toggle
+                    • Switch _FUN ⬅➡ _RAR on Right Shift toggle
+                    • “Switch spacebars”: ‛Space-bar’ ⬅➡ “‛Enter’ + ‛layer-hold _MOV’”
 
                            -11- ➡ Eviscerations ( ② / ② ) ⬅
                     • Removing the numbers pad _PAD layer
@@ -444,6 +446,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Recommended if you use _RAR more than _FUN
          */
 //#define SWITCH_RSHIFT_FUN_RAR // _Activate_ to make _RAR layer be on the fast tap, and _FUN on a short hold toggle
+        /*
+         *          • “Switch spacebars”: ‛Space-bar’ ⬅➡ “‛Enter’ + ‛layer-hold _MOV’”
+         *
+         * Recommended if you usually type ‛Space-bar’ with your left hand.
+         * You will loose the Page-Up on that key in the _MOV (movement) layer. 
+         * It becomes ‛Transparent’ (TRNS). This will not affect the rest of the
+         * _MOV layer, or any of the navigation clusters or other Page-Up keys there.
+         */
+//#define SPACE_LEFT__ENTER_RIGHT // _Activate_ to have ‛Space bar’ on left hand, ‛Enter’ on right hand
 
 
         /*                 -11- ➡ Eviscerations ( ② / ② ) ⬅
@@ -614,13 +625,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ifndef SWITCH_GUIS
 #     define KC__XGUI KC_LGUI // Name logic is alphabetic order left to right …X (…) …Y in layout definitions..
 #     define KC__YGUI KC_RGUI // .. meaning KC__XGUI is left on the keymap, KC__YGUI is right.
-# endif
-
-# ifdef SWITCH_GUIS
+# else
 #     define KC__XGUI KC_RGUI
 #     define KC__YGUI KC_LGUI
 # endif
 
+// Switch “spacebars”:
+# ifndef SPACE_LEFT__ENTER_RIGHT                // standard
+#     define LEFTCENTER_THUMB LT__MOV__KC_ENT
+#     define RIGHTCENTER_THUMB KC_SPC
+# else
+#     define LEFTCENTER_THUMB KC_SPC            // reversed
+#     define RIGHTCENTER_THUMB LT__MOV__KC_ENT
+# endif
 
 // Define the layout macro for the amount of hardware keys.
 // These for Minivan are defined up in the code tree.

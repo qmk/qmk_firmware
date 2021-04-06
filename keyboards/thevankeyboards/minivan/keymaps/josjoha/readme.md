@@ -23,12 +23,11 @@ Table of Contents
           3.2 Special layouts
                 3.2.1 Numbers pad
       4 The common system
-          4.1 Main features 
-          4.2 Layer access
-          4.3 Layout in graphics
-          4.4 Layout in text
-          4.5 Movement layer options
-          4.6 Numbers pad layer options
+          4.1 Layer access
+          4.2 Layout in graphics
+          4.3 Layout in text
+          4.4 Movement layer options
+          4.5 Numbers pad layer options
       5 Led colors for layers
       6 Compile options
       7 Language support
@@ -39,8 +38,9 @@ Table of Contents
       9 Text size measuring
           9.1 Text size Usage
      10 Making your own base layer(s)
-     11 Eviscerations
+     11 Evisceration
      12 Key associations
+          12.1 Compared to regular keyboard
      13 Trouble shooting
         • Compiling
         • Unicode
@@ -54,13 +54,27 @@ Table of Contents
 
 1 Overview
 ==========
-_A layout for the demanding keyboard user (10 fingers / blind)._
-Designed for intuitive key placement, more symbols than standard English
-keyboard, speed and text size measuring.
-*400%* _the capability in_ *40%* _the size_ (by key function count).
 
-For some ‛common layers’ (numbers pad, movement), different versions
-can be chosen than shown just below in this by layer view:
+☑ _Intuitive:_ Key placement follows what a 10 finger typist is used
+  to on a regular keyboard. Similar keys meanings are on the same
+  key in different layers, or the same finger, etc. See also chapter
+  12, _Key associations._ Thumbs control the most used layer access.
+
+☑ _Feature rich:_ Dual layout, with several standard layouts to choose
+  from. Expanded character set. Measure typing speed and/or amount of text
+  typed. Mouse control, media control, power control, Unicode encoding for
+  several platforms. In total there are about 4 times as many key functions
+  than on a regular keyboard.
+
+☑ _Configurable:_ Choose between standard layouts (Qwerty, Dvorak, etc);
+  additional hardware keys ‛command/south-paw’ and/or ‛arrow’; movement
+  layer WASD or flat arrows/mouse; numbers pad similar to regular numbers
+  and/or like a regular numbers pad; and other settings. Easy to add your
+  own layers. See ![./user_config.h](./user_config.h)
+
+☒ What it does *not* do: work on a computer set to a non-English language,
+  such as German or French. (To add such functionality requires some work,
+  but it seems it should be possible. See ![./todo.md](./todo.md).)
 
 ![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_vg.jpg)
 
@@ -116,7 +130,7 @@ in `./user_config.h`.
 
 3 Base layouts
 ==============
-Layouts are presented here in a sort of simplified keycaps view.  If a
+Layouts are presented here in a sort of simplified key caps view.  If a
 base layer pair has its own user configuration options, they are located
 in `./base_NAME.h`.
 
@@ -186,20 +200,7 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
 
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_common_vc.jpg)
 
-4.1 Main features 
------------------
-     • Dual layout. Several layouts to choose from (example: Qwerty
-       and Dvorak dual layout). Easy to add more layouts.
-     • Expanded character set with western European accented characters
-       (ëøßœç…); sub- super-script numbers (¹₂…) quite a few additional
-       symbols such as 《 ± • ☑  ❦ √ ┣ ≠ 》…
-     • Typing speed measuring. Led changes color with your speed. You can 
-       ask for a report on your current and average typing speeds.
-     • Text size measuring. If you want to type some amount of words or
-       characters, the middle led will go from green to red as you go,
-       and prevent you going over the limit.
-
-4.2 Layer access
+4.1 Layer access
 ----------------
 This graphic shows how layers are reached from the ‛Default base’ layer.
 
@@ -231,10 +232,10 @@ with `./base_…` (links below).
            • Power, media, Speed, Text size, etc.  ┛
 
 There are some additional layer switching keys due to key transparency
-artefacts, allowing for example to go back to ‛Base’ from a toggled `_MOV` 
+artifacts, allowing for example to go back to ‛Base’ from a toggled `_MOV` 
 layer with what is the ‛Enter’ key on Base.
 
-4.3 Layout in graphics
+4.2 Layout in graphics
 ----------------------
 
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_ve.jpg)
@@ -275,7 +276,7 @@ and options to compile with the 'arrow' hardware layout.
 ![Minivan layout Image RAR](http://socialism.nl/misc/minivan/minivan_rar_layer_vc.jpg)
 Layer: `_RAR`
 
-4.4 Layout in text
+4.3 Layout in text
 ------------------
      What comes on “___” is to be defined by the Base layers choice.
 
@@ -598,7 +599,7 @@ Remarks. ☐ ☒ ☑ 🗹 or ⮘ ⮙ ⮚ ⮛
     
 - - -
 
-4.5 Movement layer options
+4.4 Movement layer options
 --------------------------
 The movement layer (`_MOV`) has several configuration options. You
 can either have _triangle_ configuration arrows on the _left_ hand
@@ -642,7 +643,7 @@ can compile this second arrow cluster to be completed with navigation keys
 
 ^ `#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
 
-4.6 Numbers pad layer options
+4.5 Numbers pad layer options
 -----------------------------
 This concerns the numbers pad layer, the one that is part of the common layers.
 
@@ -671,7 +672,7 @@ This concerns the numbers pad layer, the one that is part of the common layers.
                   show the color of the last layer that was active.
             • ⁽²⁾ The colors are reversed blue/low-white/green when numlock is on. 
                   Left led color memory aid: same as either numbers or movement layer for numlock on/off.
-            • ⁽³⁾ The colors are reversed to orange/red/red when set to de-activate after one F-key press.
+            • ⁽³⁾ The colors are reversed to orange/red/red when set to deactivate after one F-key press.
             • ⁽⁴⁾ The colors are reversed purple/purple/white, indicating which of the two base layers
                   is active (see below).
             • Middle led: Breathing effect. When not breathing, keyboard is not working normally with the computer.
@@ -772,7 +773,7 @@ The following quotation marks are available, which seems it would cover these la
 
      ¹) Left side is a basic comma.
 
-See the `_ACC` _accented characters_ layer for all characters with diacretic markings.
+See the `_ACC` _accented characters_ layer for all characters with diacritic markings.
 If you miss a symbol, you could replace one you don't use and add it yourself (by
 reprogramming the source code).
 
@@ -786,7 +787,7 @@ reprogramming the source code).
         when a maximum is set, over layer colors or speed measurement.
 
 With the key ‛Speed’ on the `_RAR` layer, the speed of your latest
-completed batch of 25 keypresses is computed, as well as the average of
+completed batch of 25 key presses is computed, as well as the average of
 all your batches of 25 keys. The speed is displayed as the color of the
 middle led, which otherwise shows the layer color. A bright white middle
 led indicates ‛Speed’ has just been activated.
@@ -951,7 +952,7 @@ Now you have integrated your base layers alternative. To compile it:
        _Remove_ any other base layers from being defined on the
        same spot _DEF_BASE or _ALT_BASE to prevent a conflict.
 
-     ⑤ Check Pre-processing with:
+     ⑤ Check Preprocessing with:
        > gcc -E keymap.c | less
 
      ⑥ Compile and flash to your keyboard.
@@ -1038,8 +1039,8 @@ You can also just #include your header file at the top of your
 `./base_YOUR_KEYMAP.h` file, if it does not touch anything else but your
 local keymap.
 
-11 Eviscerations
-================
+11 Evisceration
+===============
 Cutting down the keymap reduces the firmware size, and helps reducing
 mental clutter from having masses of symbols you might never want to use.
 
@@ -1064,6 +1065,42 @@ on the numbers-symbols layer (`_NSY`), becomes the symbol ‛⁽’ on
 another layer.
 
 ![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_common_1500_ve.jpg)
+
+12.1 Compared to regular keyboard
+=================================
+The main advantage compared to a regular keyboard is to never have to
+leave the homerow. 
+
+Basic trade-off examples are: (①) on a regular keyboard you need to
+reach two rows up to press a number like ‛4’; (②) three rows up to reach
+an F-key like ‛F4’; (③) or move your hand entirely to reach the navigation
+cluster for ‛Up-Arrow’. On this Minivan 40% keyboard with this ‛Minifan’
+layout you (①) move either thumb sideways a little to hold down the 
+number/symbols layer key, and then press down left index finger for ‛4’;
+(②) press and let go ‛Right-Shift’ to toggle the F-keys layer and then 
+press down left index finger for ‛F4’; (③) press down left thumb on where 
+it probably is resting, and then move left ring finger one row up to reach
+‛Up-Arrow’.
+
+A downside is that you would be typing a non-standard keyboard, making
+it harder to adapt to regular keyboards. On the upside, this keyboard is
+small enough to take it with you. Plugging it into some other computer
+is only going to work, if that other computer is not using a language
+setting which changes too many keycodes, or if changing the language
+setting is not a problem.
+
+In total the differences are probably marginal. It can be worth it if
+you are doing a lot of 10 finger typing. The change in efficiency might
+be similar to changing from Qwerty to Dvorak or another such optimized
+layout, although incomparably much easier to learn than changing from
+Qwerty to Dvorak (in author's personal experience). If the latter can
+take years, the former could take weeks to months. Keep in mind that
+you have the whole standard letters keymap where it used to be, plus the
+numbers with their shifted symbols are in predictable locations.
+
+The hardest to learn out of the standard symbols, will be: /\=+|?, and
+to a lesser degree {}[]. These are now evenly spread out, rather than this
+mess you have under right little finger on regular keyboards.
 
 13 Trouble shooting
 ===================
@@ -1166,8 +1203,8 @@ another layer.
   ignored in character counting. (This minor issue is ignored for now. Tab is not
   normally used in text writing.)
 
-  The eviscerations may not have been worked out yet into the ultimate scrubbing of
-  everything that may have become redundent, because it does complicate the code with
+  The evisceration may not have been worked out yet into the ultimate scrubbing of
+  everything that may have become redundant, because it does complicate the code with
   a lot of #defines. Perhaps it should be done eventually, if there is an actual need.
 
   ➡ You can send bug reports to what seem useful channels, and/or contact e-mail. Thanks
@@ -1177,7 +1214,7 @@ another layer.
 This links to an external file, with some additional resources like
 ☞ Video documentation,
 ☞ Gimp .xcf files,
-☞ Some pre-compiled hex files, …
+☞ Some precompiled hex files, …
 
 [Resources](http://socialism.nl/misc/minivan/ "Additional resources")
 
