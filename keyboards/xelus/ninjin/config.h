@@ -36,6 +36,7 @@
 #define RGB_DI_PIN A10
 #define RGBLED_NUM 26
 #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_LIMIT_VAL 200
 
 // PWM RGB Underglow Defines
 #define WS2812_PWM_DRIVER PWMD1
@@ -55,3 +56,7 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define LED_CAPS_LOCK_PIN A2
+#define LED_SCROLL_LOCK_PIN A13
+#define LED_PIN_ON_STATE 1
