@@ -224,6 +224,8 @@ ifneq ($(filter Darwin FreeBSD,$(shell uname -s)),)
 endif
 
 # UF2 format settings
+# To produce a UF2 file in your build, add to your keyboard's rules.mk:
+#      FIRMWARE_FORMAT = uf2
 UF2CONV = $(TOP_DIR)/util/uf2conv.py
 UF2_FAMILY ?= 0x0
 
