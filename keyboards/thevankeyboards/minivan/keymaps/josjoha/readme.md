@@ -215,9 +215,6 @@ alternate base layers.  You can switch between the default base layer
 (typically letters), and another base layer, the alternate base layer
 (also typically letters), on the `_RAR` layer with key ‛Other Base’.
 
-The Base layers and their numbers layer are detailed in files beginning
-with `./base_…` (links below).
-
                    Layer overview:                    Defined in:
 
         • Default Letters / Base                   ┓
@@ -233,10 +230,6 @@ with `./base_…` (links below).
            • Movement arrows/mouse                 ┃   “The common system”
            • Function keys / layer toggles         ┃
            • Power, media, Speed, Text size, etc.  ┛
-
-There are some additional layer switching keys due to key transparency
-artifacts, allowing for example to go back to ‛Base’ from a toggled `_MOV` 
-layer with what is the ‛Enter’ key on Base.
 
 4.2 Layout in graphics
 ----------------------
