@@ -202,15 +202,18 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
 
 4.1 Layer access
 ----------------
-This graphic shows how layers are reached from the ‛Default base’ layer.
+The graphic below shows how layers are reached from the ‛Default base’ layer.
+Transparent keys on layers allow for additional switching, such as for
+example returning to ‛Base’ layer from a toggled `_MOV` layer, using the
+same key which is a _hold_ layer switch to `_MOV` on ‛Base’.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vg.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_2000_vh.jpg)
 
-You can switch between the default base layer (typically letters), and
-another base layer, the alternate base layer (also typically letters),
-on the `_RAR` layer with key ‛Other Base’. Each base layer comes
-with its own second layer, typically numbers-symbols. The other 
-layers are used common between the default and alternate base layers.
+Each of the two base layers comes with its own second layer, typically
+numbers-symbols. The other layers are used common between the default and
+alternate base layers.  You can switch between the default base layer
+(typically letters), and another base layer, the alternate base layer
+(also typically letters), on the `_RAR` layer with key ‛Other Base’.
 
 The Base layers and their numbers layer are detailed in files beginning
 with `./base_…` (links below).
