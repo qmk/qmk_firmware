@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-------------------'
 */
 [1] = LAYOUT_ortho_5x4(
-  TG(0),   XXXXXXX,  XXXXXXX,     MO(2),
+  _______,   XXXXXXX,  XXXXXXX,     MO(2),
   KC_HOME,   KC_UP,  KC_PGUP,   XXXXXXX,
   KC_LEFT, XXXXXXX,  KC_RGHT,   XXXXXXX,
   KC_END,  KC_DOWN,  KC_PGDN,   KC_PENT,
