@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_DRIVER_ENABLE
 
-// 32 * 32 logo
+/* 32 * 32 logo */
 static void render_logo(void) {
     static const char PROGMEM hell_logo[] = {
     0x00, 0x80, 0xc0, 0xc0, 0x60, 0x60, 0x30, 0x30, 0x18, 0x1c, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x80,
@@ -159,7 +159,7 @@ static void render_logo(void) {
     oled_write_raw_P(hell_logo, sizeof(hell_logo));
 }
 
-// 32 * 14 os logos
+/* 32 * 14 os logos */
 static const char PROGMEM windows_logo[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xbc, 0xbc, 0xbe, 0xbe, 0x00,
     0xbe, 0xbe, 0xbf, 0xbf, 0xbf, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -174,29 +174,29 @@ static const char PROGMEM mac_logo[] = {
     0x0f, 0x0f, 0x1f, 0x1f, 0x0f, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-// SMART BACKSPACE DELETE
+/* Smart Backspace Delete */
 
 bool shift_held = false;
 static uint16_t held_shift = 0;
 
-// KEYBOARD PET START
+/* KEYBOARD PET START */
 
-// settings
+/* settings */
 #define MIN_WALK_SPEED 10
 #define MIN_RUN_SPEED 40
 
-// advanced settings
+/* advanced settings */
 #define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
 #define ANIM_SIZE 96 // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 
-// timers
+/* timers */
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 
-// current frame
+/* current frame */
 uint8_t current_frame = 0;
 
-// status variables
+/* status variables */
 int current_wpm = 0;
 led_t led_usb_state;
 
@@ -204,12 +204,12 @@ bool isSneaking = false;
 bool isJumping = false;
 bool showedJump = true;
 
-// logic
+/* logic */
 static void render_luna(int LUNA_X, int LUNA_Y) {
 
-    // Sit
+    /* Sit */
     static const char PROGMEM sit[2][ANIM_SIZE] = {
-        // 'sit1', 32x22px
+        /* 'sit1', 32x22px */
         {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x1c,
             0x02, 0x05, 0x02, 0x24, 0x04, 0x04, 0x02, 0xa9, 0x1e, 0xe0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -219,7 +219,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
             0x3e, 0x1c, 0x20, 0x20, 0x3e, 0x0f, 0x11, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         },
 
-        // 'sit2', 32x22px
+        /* 'sit2', 32x22px */
         {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x1c,
             0x02, 0x05, 0x02, 0x24, 0x04, 0x04, 0x02, 0xa9, 0x1e, 0xe0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -230,9 +230,9 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
-    // Walk
+    /* Walk */
     static const char PROGMEM walk[2][ANIM_SIZE] = {
-        // 'walk1', 32x22px
+        /* 'walk1', 32x22px */
         {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x20, 0x10, 0x90, 0x90, 0x90, 0xa0, 0xc0, 0x80, 0x80,
             0x80, 0x70, 0x08, 0x14, 0x08, 0x90, 0x10, 0x10, 0x08, 0xa4, 0x78, 0x80, 0x00, 0x00, 0x00, 0x00,
@@ -242,7 +242,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
             0x06, 0x18, 0x20, 0x20, 0x3c, 0x0c, 0x12, 0x1e, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         },
 
-        // 'walk2', 32x22px
+        /* 'walk2', 32x22px */
         {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x20, 0x20, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00,
             0x00, 0xe0, 0x10, 0x28, 0x10, 0x20, 0x20, 0x20, 0x10, 0x48, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -253,9 +253,9 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
-    // Run
+    /* Run */
     static const char PROGMEM run[2][ANIM_SIZE] = {
-        // 'run1', 32x22px
+        /* 'run1', 32x22px */
         {
             0x00, 0x00, 0x00, 0x00, 0xe0, 0x10, 0x08, 0x08, 0xc8, 0xb0, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
             0x80, 0x40, 0x40, 0x3c, 0x14, 0x04, 0x08, 0x90, 0x18, 0x04, 0x08, 0xb0, 0x40, 0x80, 0x00, 0x00,
@@ -265,7 +265,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
             0x02, 0x02, 0x04, 0x08, 0x10, 0x26, 0x2b, 0x32, 0x04, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00,
         },
 
-        // 'run2', 32x22px
+        /* 'run2', 32x22px */
         {
             0x00, 0x00, 0x00, 0xe0, 0x10, 0x10, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
             0x80, 0x80, 0x78, 0x28, 0x08, 0x10, 0x20, 0x30, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00,
@@ -276,9 +276,9 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
-    // Bark
+    /* Bark */
     static const char PROGMEM bark[2][ANIM_SIZE] = {
-        // 'bark1', 32x22px
+        /* 'bark1', 32x22px */
         {
             0x00, 0xc0, 0x20, 0x10, 0xd0, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x40,
             0x3c, 0x14, 0x04, 0x08, 0x90, 0x18, 0x04, 0x08, 0xb0, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -288,7 +288,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
             0x04, 0x08, 0x10, 0x26, 0x2b, 0x32, 0x04, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         },
 
-        // 'bark2', 32x22px
+        /* 'bark2', 32x22px */
         {
             0x00, 0xe0, 0x10, 0x10, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x40,
             0x40, 0x2c, 0x14, 0x04, 0x08, 0x90, 0x18, 0x04, 0x08, 0xb0, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00,
@@ -299,9 +299,9 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
-    // Sneak
+    /* Sneak */
     static const char PROGMEM sneak[2][ANIM_SIZE] = {
-        // 'sneak1', 32x22px
+        /* 'sneak1', 32x22px */
         {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x40, 0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00,
             0x00, 0x00, 0xc0, 0x40, 0x40, 0x80, 0x00, 0x80, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -311,7 +311,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
             0x18, 0x20, 0x20, 0x38, 0x08, 0x10, 0x18, 0x04, 0x04, 0x02, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00,
         },
 
-        // 'sneak2', 32x22px
+        /* 'sneak2', 32x22px */
         {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
             0x00, 0x00, 0xe0, 0xa0, 0x20, 0x40, 0x80, 0xc0, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -322,13 +322,13 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
-    // animation
+    /* animation */
     void animate_luna(void) {
 
-        // jump
+        /* jump */
         if (isJumping || !showedJump) {
 
-            // clear
+            /* clear */
             oled_set_cursor(LUNA_X,LUNA_Y +2);
             oled_write("     ", false);
 
@@ -337,17 +337,17 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
             showedJump = true;
         } else {
 
-            // clear
+            /* clear */
             oled_set_cursor(LUNA_X,LUNA_Y -1);
             oled_write("     ", false);
 
             oled_set_cursor(LUNA_X,LUNA_Y);
         }
 
-        // switch frame
+        /* switch frame */
         current_frame = (current_frame + 1) % 2;
 
-        // current status
+        /* current status */
         if(led_usb_state.caps_lock) {
             oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
 
@@ -365,13 +365,13 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     }
 
-    // animation timer
+    /* animation timer */
     if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
         anim_timer = timer_read32();
         animate_luna();
     }
 
-    // this fixes the screen on and off bug
+    /* this fixes the screen on and off bug */
     if (current_wpm > 0) {
         oled_on();
         anim_sleep = timer_read32();
@@ -381,12 +381,12 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
 
 }
 
-// KEYBOARD PET END
+/* KEYBOARD PET END */
 
 static void print_logo_narrow(void) {
     render_logo();
 
-    // wpm counter
+    /* wpm counter */
     char wpm_str[8];
     oled_set_cursor(0,14);
     sprintf(wpm_str, " %03d", current_wpm);
@@ -397,7 +397,7 @@ static void print_logo_narrow(void) {
 }
 
 static void print_status_narrow(void) {
-    // Print current mode
+    /* Print current mode */
     oled_set_cursor(0,0);
     if (keymap_config.swap_lctl_lgui) {
         oled_write_raw_P(mac_logo, sizeof(mac_logo));
@@ -420,7 +420,7 @@ static void print_status_narrow(void) {
 
     oled_set_cursor(0,5);
 
-    // Print current layer
+    /* Print current layer */
     oled_write("LAYER", false);
 
     oled_set_cursor(0,6);
@@ -445,15 +445,15 @@ static void print_status_narrow(void) {
             oled_write("Undef", false);
     }
 
-    // caps lock
+    /* caps lock */
     oled_set_cursor(0,8);
     oled_write("CPSLK", led_usb_state.caps_lock);
 
-    // KEYBOARD PET RENDER START
+    /* KEYBOARD PET RENDER START */
 
     render_luna(0,13);
 
-    // KEYBOARD PET RENDER END
+    /* KEYBOARD PET RENDER END */
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -462,12 +462,12 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_task_user(void) {
 
-    // KEYBOARD PET VARIABLES START
+    /* KEYBOARD PET VARIABLES START */
 
     current_wpm = get_current_wpm();
     led_usb_state = host_keyboard_led_state();
 
-    // KEYBOARD PET VARIABLES END
+    /* KEYBOARD PET VARIABLES END */
 
     if (is_keyboard_master()) {
         print_status_narrow();
@@ -556,7 +556,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LSTRT:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                     //CMD-arrow on Mac, but we have CTL and GUI swapped
+                     /* CMD-arrow on Mac, but we have CTL and GUI swapped */
                     register_mods(mod_config(MOD_LCTL));
                     register_code(KC_LEFT);
                 } else {
@@ -574,7 +574,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LEND:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    //CMD-arrow on Mac, but we have CTL and GUI swapped
+                    /* CMD-arrow on Mac, but we have CTL and GUI swapped */
                     register_mods(mod_config(MOD_LCTL));
                     register_code(KC_RIGHT);
                 } else {
@@ -636,7 +636,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        // SMART BACKSPACE DELETE
+        /* Smart Backspace Delete */
 
         case KC_RSFT:
         case KC_LSFT:
@@ -660,7 +660,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        // LAYER
+        /* LAYER */
 
         case KC_LAYER:
             if (record->event.pressed) {
@@ -682,7 +682,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        // KEYBOARD PET STATUS START
+        /* KEYBOARD PET STATUS START */
 
         case KC_LCTL:
         case KC_RCTL:
@@ -701,7 +701,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        // KEYBOARD PET STATUS END
+        /* KEYBOARD PET STATUS END */
     }
     return true;
 }
