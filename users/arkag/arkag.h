@@ -1,7 +1,6 @@
 #pragma once
 
-#include "quantum.h"
-#include "process_keycode/process_tap_dance.h"
+#include QMK_KEYBOARD_H
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 
@@ -70,6 +69,9 @@ enum custom_keycodes {
   M_DASH,
   M_USSR,
   M_EHYPR,
+  M_LMHYP,
+  M_SFTY,
+  M_AEST,
 };
 
 void velocikey_accelerate(void);
