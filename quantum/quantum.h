@@ -238,8 +238,6 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 
-void tap_random_base64(void);
-
 #define IS_LAYER_ON(layer) layer_state_is(layer)
 #define IS_LAYER_OFF(layer) !layer_state_is(layer)
 
@@ -275,12 +273,6 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
-
-void     send_dword(uint32_t number);
-void     send_word(uint16_t number);
-void     send_byte(uint8_t number);
-void     send_nibble(uint8_t number);
-uint16_t hex_to_keycode(uint8_t hex);
 
 void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
