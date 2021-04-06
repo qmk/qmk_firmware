@@ -205,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else if (mode == WINDOWS || mode == WINDOWS_UNI) {
                 register_code(KC_LGUI);
                 tap_code(KC_L);
-                register_code(KC_LGUI);
+                unregister_code(KC_LGUI);
             }
             return false;
 
@@ -230,8 +230,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_LGUI);
                 register_code(KC_LSFT);
                 tap_code(KC_S);
-                register_code(KC_LSFT);
-                register_code(KC_LGUI);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LGUI);
             }
             return false;
 
