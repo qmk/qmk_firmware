@@ -310,7 +310,7 @@ if ((HAPTIC_EXCLUSION_DEFAULT(keycode, record->tap.count))) {
         if (pgm_read_word(&additional_keys[i]) == keycode) {
             return true;
         }
-}
+     }
 #endif
     return false;
     }
