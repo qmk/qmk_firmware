@@ -197,7 +197,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Lock computer
         case RV_LOCK:
             if (mode == MAC || mode == MAC_UNI) {
-                tap_code16(G(S(KC_Q)));
+                tap_code16(G(C(KC_Q)));
             } else if (mode == WINDOWS || mode == WINDOWS_UNI) {
                 tap_code16(G(KC_L));
             }
@@ -210,9 +210,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (rs) unregister_code(KC_RSFT);
 
                 if (as)
-                    tap_code16(G(S(KC_5)));
-                else
                     tap_code16(G(S(KC_4)));
+                else
+                    tap_code16(G(S(KC_5)));
 
                 if (ls) register_code(KC_LSFT);
                 if (rs) register_code(KC_RSFT);
