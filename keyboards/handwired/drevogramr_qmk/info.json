@@ -5,7 +5,7 @@
     "width": 16,
     "height": 6,
     "layouts": {
-      "LAYOUT": {
+      "LAYOUT_75_ansi": {
         "layout": 
         [
           {"label":"K000", "x":0, "y":0},

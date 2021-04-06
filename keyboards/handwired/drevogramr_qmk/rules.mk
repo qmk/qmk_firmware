@@ -31,3 +31,5 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = lite
+
+LAYOUTS = 75_ansi
