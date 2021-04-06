@@ -203,11 +203,14 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
 4.1 Layer access
 ----------------
 The graphic below shows how layers are reached from the ‛Default base’ layer.
-Transparent keys on layers allow for additional switching, such as for
-example returning to ‛Base’ layer from a toggled `_MOV` layer, using the
-same key which is a _hold_ layer switch to `_MOV` on ‛Base’.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_2000_vh.jpg)
+This seems to be the place where one is supposed to say: “This is simple”. 
+It may look more confusing than it is. If you write down an alphabet A,B, ➡ Z,
+made arrows from every key on a keyboard picture to one of the letters, it could
+look just as confusing. When switching to a layer, you only think about where you
+want to go.
+
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_2000_vi.jpg)
 
 Each of the two base layers comes with its own second layer, typically
 numbers-symbols. The other layers are used common between the default and
