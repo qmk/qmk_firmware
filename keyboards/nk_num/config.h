@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x8968
 #define PRODUCT_ID      0x4E4E
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         NK_ Num
 
@@ -153,4 +154,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // VIA lighting is handled by the keyboard-level code
 #define VIA_CUSTOM_LIGHTING_ENABLE
-#define VIA_QMK_RGBLIGHT_ENABLE
