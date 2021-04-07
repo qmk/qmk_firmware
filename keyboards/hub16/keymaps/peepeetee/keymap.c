@@ -136,8 +136,8 @@ const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
         my_layer0_layer,
         my_layer1_layer,
-         my_layer2_layer//,
-        // my_layer3_layer,
+        my_layer2_layer,
+        my_layer3_layer//,
         // my_layer4_layer,
         // my_layer5_layer
     );
