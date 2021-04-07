@@ -511,7 +511,7 @@ enum quantum_keycodes {
     ONESHOT_DISABLE,
     ONESHOT_TOGGLE,
 
-    // Miscellaneous recent additions
+    // RGB underglow/matrix (continued)
     RGB_MODE_TWINKLE,
 
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
