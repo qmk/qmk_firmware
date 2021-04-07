@@ -124,9 +124,9 @@ const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
  const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
          {0,16,HSV_RED}
      );
-// const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-//         {0,16,HSV_BLUE}
-//     );
+ const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+         {0,16,HSV_BLUE}
+     );
 // const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 //         {0,16,HSV_WHITE}
 //     );
@@ -176,8 +176,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     //rgblight_set_layer_state(0, layer_state_cmp(state, 0));
     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
-     rgblight_set_layer_state(2, layer_state_cmp(state, 2));
-    // rgblight_set_layer_state(3, layer_state_cmp(state, 3));
+    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
+    rgblight_set_layer_state(3, layer_state_cmp(state, 3));
     // rgblight_set_layer_state(4, layer_state_cmp(state, 4));
     // rgblight_set_layer_state(5, layer_state_cmp(state, 5));
     return state;
