@@ -11,21 +11,21 @@ Dual layout combination with Qwerty Base Arrow
 ⚠ If you also compile `base_qwerty_basearrow`, the key for `/?` on `_NSY` layer in that
 `base_qwerty_basearrow` layout, will be replicated in _this_ Qwerty layout on the `_NSY`
 layer. It will displace the key `RCTL_T ( KC_GRV )`. Right Control, unless tapped for
-‛`’ or tapped with shift for ‛~’ ➡ becomes `/?` (slash/questionmark). 
+‛\`’ or tapped with shift for ‛~’ ➡ becomes `/?` (slash/questionmark). 
 
 The reason for this is that when you switch from one or the other Qwerty variation
 (with or without arrows on ‛Base’ layer), it will likely be confusing to type ‛/?’
-on that key in one version of Qwerty, and suddenly get a ‛`~’ in the other. The reason
+on that key in one version of Qwerty, and suddenly get a ‛\`~’ in the other. The reason
 it is not in the normal position on ‛Qwerty Base Arrow’, is because it gets displaced
 by ‛Up Arrow’. 
 
 You will likely switch from the Base Arrow variation to the regular version, due to a need
 for the row of keys displaced by the arrow cluster, or the other way around to get Base
 access to the arrows, rather than a need for this side effect: ‛/?’ being substituted for
-‛`~’.
+‛\`~’.
 
-This means you will loose `_NSY` layer access to ‛`’, in both versions of Qwerty. You will
- have to use the key for ‛`~’ on the `_BON` layer, which is an uncluttered version of this 
+This means you will loose `_NSY` layer access to ‛\`’, in both versions of Qwerty. You will
+ have to use the key for ‛\`~’ on the `_BON` layer, which is an uncluttered version of this 
 key (it repeats). It also means that you have two keys toward ‛/?’ in standard Qwerty: the
 default position for Qwerty, and this additional one to harmonize with ‛Qwerty Base Arrow’.
 
