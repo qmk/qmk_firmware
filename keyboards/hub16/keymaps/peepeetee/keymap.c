@@ -174,7 +174,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 //Set the appropriate layer color
 layer_state_t layer_state_set_user(layer_state_t state) {
-    //rgblight_set_layer_state(0, layer_state_cmp(state, 0));
+    rgblight_set_layer_state(0, false);
     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
     rgblight_set_layer_state(2, layer_state_cmp(state, 2));
     rgblight_set_layer_state(3, layer_state_cmp(state, 3));
