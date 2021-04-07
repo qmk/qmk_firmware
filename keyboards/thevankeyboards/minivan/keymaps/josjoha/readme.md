@@ -113,7 +113,7 @@ See also chapter 6 _Language support_.
 2 'make' example
 ================
      … Download the repository, resolve software dependencies etc..
-     … To change compile options: edit ![./user_config.h](./user_config.h) (or `![./minifan_config_compact.h](./minifan_config_compact.h)`)
+     … To change compile options: edit ./user_config.h (or `./minifan_config_compact.h`)
      > cd […]/qmk_firmware
      > make thevankeyboards/minivan:josjoha
      > su
@@ -1019,14 +1019,14 @@ need to reverse Left GUI and Right GUI.
            * ⚠ Note: ./base_YOUR_KEYMAP.h can overrides this setting, if compiled with that ‛Base’ layer.
            */
 
-Putting your `*.h` header file in `./user_config.h` isn't strictly
+Putting your `*.h` header file in ![./user_config.h](./user_config.h) isn't strictly
 necessary, unless you alter “general preprocessor constants”
-defined in `./user_config` (not local constants for your keymap only).
+defined in ![./user_config.h](./user_config.h) (not local constants for your keymap only).
 
 Perhaps a separate header file is overkill. On the other hand, whatever
 preprocessor logic is necessary after user configuration has been given,
 can be handled in one place, if #included as suggested. It allows you
-to override the settings in `./user_config.h` from your header file
+to override the settings in ![./user_config.h](./user_config.h) from your header file
 (because it is #included immediately below those). If a user is playing with
 keymaps Base compile choices, it could be convenient to play with
 `./base_YOUR_KEYMAP.h` settings, have everything that could be relevant
@@ -1049,7 +1049,7 @@ base layers letters and numbers&symbols, will show up as they would for
 the ‛Alternate’ layer in a dual layout compilation.
 
 You can remove the layers `_ACC`, `_DRA` and/or `_BON` (see
-`./user_config.h` around `REMOVE_ACC`). 
+![./user_config.h](./user_config.h) around `REMOVE_ACC`). 
 
 You can remove a set of symbols from one or more of Unicode layers,
 such as not having box drawing characters on `_BON`, or no sub-script
