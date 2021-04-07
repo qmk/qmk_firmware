@@ -1,13 +1,25 @@
-#ifndef QMK_FIRMWARE_KEYCODE_ALIASES_H
-#define QMK_FIRMWARE_KEYCODE_ALIASES_H
-
-#endif  // QMK_FIRMWARE_KEYCODE_ALIASES_H
+/*
+ * Copyright 2020 Drashna Jaelre <@drashna>
+ * Copyright 2021 Tyler Thrailkill <@snowe/@snowe2010>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #define GUI_ESC GUI_T(KC_ESC)
 #define CTL_ESC CTL_T(KC_ESC)
 #define SH_BKSP SFT_T(KC_BSPC)
 #define SP_RAIS LT(_UPPER, KC_SPC)
-
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_UPPER)
@@ -32,10 +44,10 @@
 #define KC_RST KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE
-#define KC_C1R3 SH_TT
-#else // SWAP_HANDS_ENABLE
-#define KC_C1R3 KC_BSPC
-#endif // SWAP_HANDS_ENABLE
+#    define KC_C1R3 SH_TT
+#else  // SWAP_HANDS_ENABLE
+#    define KC_C1R3 KC_BSPC
+#endif  // SWAP_HANDS_ENABLE
 
 #define BK_LWER LT(_LOWER, KC_BSPC)
 #define SP_LWER LT(_LOWER, KC_SPC)
@@ -56,7 +68,7 @@
 #define OS_RCTL OSM(MOD_RCTL)
 #define OS_LALT OSM(MOD_LALT)
 #define OS_RALT OSM(MOD_RALT)
-#define OS_MEH  OSM(MOD_MEH)
+#define OS_MEH OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
 
 #define ALT_APP ALT_T(KC_APP)
