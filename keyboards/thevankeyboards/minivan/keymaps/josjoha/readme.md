@@ -148,7 +148,7 @@ For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty
 3.1.2 Qwerty with arrows on Base
 --------------------------------
 
-![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_vd.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_ve.jpg)
 
 For the readme about this Qwerty variation, see ➡ ![base_qwerty_basearrow.md](./base_qwerty_basearrow.md) ⬅
 
