@@ -48,8 +48,11 @@
 #endif
 
 enum led_matrix_effects {
-    LED_MATRIX_UNIFORM_BRIGHTNESS = 1,
+    LED_MATRIX_NONE = 0,
+
+    LED_MATRIX_UNIFORM_BRIGHTNESS,
     // All new effects go above this line
+
     LED_MATRIX_EFFECT_MAX
 };
 
@@ -63,7 +66,7 @@ uint8_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 void led_matrix_set_value(int index, uint8_t value);
 void led_matrix_set_value_all(uint8_t value);
 
-bool process_led_matrix(uint16_t keycode, keyrecord_t *record);
+void process_led_matrix(uint8_t row, uint8_t col, bool pressed);
 
 void led_matrix_task(void);
 

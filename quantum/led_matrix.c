@@ -27,8 +27,6 @@
 
 #include <lib/lib8tion/lib8tion.h>
 
-led_eeconfig_t led_matrix_eeconfig;
-
 #ifndef MAX
 #    define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
 #endif
@@ -74,7 +72,9 @@ led_eeconfig_t led_matrix_eeconfig;
 #    define LED_MATRIX_STARTUP_SPD UINT8_MAX / 2
 #endif
 
-bool g_suspend_state = false;
+// globals
+bool           g_suspend_state = false;
+led_eeconfig_t led_matrix_eeconfig;  // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
@@ -139,10 +139,10 @@ void led_matrix_set_value_all(uint8_t value) {
 #endif
 }
 
-bool process_led_matrix(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
+void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
+    if (pressed) {
         uint8_t led[8];
-        uint8_t led_count = led_matrix_map_row_column_to_led(record->event.key.row, record->event.key.col, led);
+        uint8_t led_count = led_matrix_map_row_column_to_led(row, col, led);
         if (led_count > 0) {
             for (uint8_t i = LED_HITS_TO_REMEMBER; i > 1; i--) {
                 g_last_led_hit[i - 1] = g_last_led_hit[i - 2];
@@ -155,35 +155,24 @@ bool process_led_matrix(uint16_t keycode, keyrecord_t *record) {
     } else {
 #ifdef LED_MATRIX_KEYRELEASES
         uint8_t led[8];
-        uint8_t led_count = led_matrix_map_row_column_to_led(record->event.key.row, record->event.key.col, led);
+        uint8_t led_count = led_matrix_map_row_column_to_led(row, .col, led);
         for (uint8_t i = 0; i < led_count; i++) g_key_hit[led[i]] = 255;
 
         g_any_key_hit = 255;
 #endif
     }
-    return true;
 }
 
-void led_matrix_set_suspend_state(bool state) {
-    if (LED_DISABLE_WHEN_USB_SUSPENDED && state) {
-        led_matrix_set_value_all(0);  // turn off all LEDs when suspending
-    }
-    g_suspend_state = state;
-}
-
-bool led_matrix_get_suspend_state(void) { return g_suspend_state; }
-
-// All LEDs off
-void led_matrix_all_off(void) { led_matrix_set_index_value_all(0); }
+static void led_matrix_none(void) { led_matrix_set_value_all(0); }
 
 // Uniform brightness
-void led_matrix_uniform_brightness(void) { led_matrix_set_index_value_all(led_matrix_eeconfig.val); }
+void led_matrix_uniform_brightness(void) { led_matrix_set_value_all(led_matrix_eeconfig.val); }
 
 void led_matrix_custom(void) {}
 
 void led_matrix_task(void) {
     if (!led_matrix_eeconfig.enable) {
-        led_matrix_all_off();
+        led_matrix_none();
         led_matrix_indicators();
         return;
     }
@@ -203,13 +192,23 @@ void led_matrix_task(void) {
 
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
     // while suspended and just do a software shutdown. This is a cheap hack for now.
-    bool    suspend_backlight = ((g_suspend_state && LED_DISABLE_WHEN_USB_SUSPENDED) || (LED_DISABLE_TIMEOUT > 0 && g_any_key_hit > LED_DISABLE_TIMEOUT));
-    uint8_t effect            = suspend_backlight ? 0 : led_matrix_eeconfig.mode;
+    bool    suspend_backlight = 
+#if LED_DISABLE_WHEN_USB_SUSPENDED == true
+        g_suspend_state ||
+#endif  // LED_DISABLE_WHEN_USB_SUSPENDED == true
+#if LED_DISABLE_TIMEOUT > 0
+        (g_any_key_hit > (uint32_t)LED_DISABLE_TIMEOUT) ||
+#endif  // LED_DISABLE_TIMEOUT > 0
+        false;
+
+    uint8_t effect = suspend_backlight || !led_matrix_eeconfig.enable ? 0 : led_matrix_eeconfig.mode;
 
     // this gets ticked at 20 Hz.
     // each effect can opt to do calculations
     // and/or request PWM buffer updates.
     switch (effect) {
+        case LED_MATRIX_NONE:
+            led_matrix_none();
         case LED_MATRIX_UNIFORM_BRIGHTNESS:
             led_matrix_uniform_brightness();
             break;
@@ -218,7 +217,7 @@ void led_matrix_task(void) {
             break;
     }
 
-    if (!suspend_backlight) {
+    if (effect) {
         led_matrix_indicators();
     }
 
@@ -257,9 +256,17 @@ void led_matrix_init(void) {
         dprintf("led_matrix_init_drivers led_matrix_eeconfig.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_led_matrix_default();
     }
-
     eeconfig_debug_led_matrix();  // display current eeprom values
 }
+
+void led_matrix_set_suspend_state(bool state) {
+    if (LED_DISABLE_WHEN_USB_SUSPENDED && state) {
+        led_matrix_set_value_all(0);  // turn off all LEDs when suspending
+    }
+    g_suspend_state = state;
+}
+
+bool led_matrix_get_suspend_state(void) { return g_suspend_state; }
 
 void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;

@@ -330,6 +330,9 @@ void keyboard_init(void) {
  * This is differnet than keycode events as no layer processing, or filtering occurs.
  */
 void switch_events(uint8_t row, uint8_t col, bool pressed) {
+#if defined(LED_MATRIX_ENABLE)
+    process_led_matrix(row, col, pressed);
+#endif
 #if defined(RGB_MATRIX_ENABLE)
     process_rgb_matrix(row, col, pressed);
 #endif
