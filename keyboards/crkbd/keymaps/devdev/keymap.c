@@ -243,21 +243,6 @@ void keyboard_post_init_user(void) {
 
 }
 
-void matrix_scan_user(void) {
-	#ifdef SSD1306OLED
-		iota_gfx_task();
-    #endif
-}
-
-void matrix_init_user(void) {
-    //#ifdef RGBLIGHT_ENABLE
-    //  RGB_current_mode = rgblight_config.mode;
-    //#endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
-}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 	rgblight_set_layer_state(0, layer_state_cmp(state, _DEFAULTS) && layer_state_cmp(default_layer_state,_QWERTY));
@@ -286,7 +271,7 @@ bool led_update_user(led_t led_state) {
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_master) {
+  if (!is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   }
   return rotation;

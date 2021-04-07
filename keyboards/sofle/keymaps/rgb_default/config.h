@@ -27,7 +27,6 @@
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define SSD1306OLED
 #define CUSTOM_FONT
 
 #define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding 
