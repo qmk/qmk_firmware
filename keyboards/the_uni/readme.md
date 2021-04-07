@@ -1,14 +1,16 @@
 # The Uni
 
 ​
-![The Uni](https://raw.githubusercontent.com/petercpark/unisplit_orthosteno/main/Screenshots/layout.png)
+![The Uni](https://raw.githubusercontent.com/petercpark/The_Uni/main/Pics/layout.png)
+![The Uni Closeup](https://github.com/petercpark/The_Uni/blob/main/Pics/close-up-uni.jpg?raw=true)
 ​
 A compact unibody split ortholinear keyboard made specifically for stenography.
 ​
 
 -   Keyboard Maintainer: [Peter C. Park](https://github.com/petercpark)
--   Hardware Supported: The Uni rev 1 (pro micro)
--   Hardware Availability: [not available yet](https://www.stenokeyboards.com)
+-   Link to Keyboard Files: [The_Uni](https://github.com/petercpark/The_Uni)
+-   Hardware Supported: The Uni v1 and v2 (pro micro or equivalent)
+-   Hardware Availability: [website](https://www.stenokeyboards.com)
     ​
     Make example for this keyboard (after setting up your build environment):
     ​
