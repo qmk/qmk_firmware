@@ -1,5 +1,3 @@
-//mechmaster48 keymap 3/30/2021
-
 #include QMK_KEYBOARD_H
 
 /*

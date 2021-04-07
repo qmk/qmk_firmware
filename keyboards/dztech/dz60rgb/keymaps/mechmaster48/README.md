@@ -3,7 +3,7 @@
 -Personal keyboard layout
 -Mainly following the default layout.
 -Picture of the map below with 3 total layers 0-2
--More to come as I figure thi
+-More to come as I figure QMK out
 
 ## Layer 0
 ![alt text](https://i.imgur.com/yi8BCCf.gif)
