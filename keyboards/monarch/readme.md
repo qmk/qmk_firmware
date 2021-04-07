@@ -1,6 +1,6 @@
 # Monarch
 
-![Monarch Keyboard](https://i.imgur.com/3nnybLk.jpg)
+![Monarch Keyboard](https://i.imgur.com/3nnybLkh.jpg)
 
 A 65percent keyboard with a rotary encoder and interchangeable inserts.
 www.kingkbs.com
