@@ -3,10 +3,10 @@
 ![Monarch Keyboard](https://i.imgur.com/3nnybLkh.jpg)
 
 A 65percent keyboard with a rotary encoder and interchangeable inserts.
-www.kingkbs.com
 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: STM32F072CBT6
+* Hardware Availability: https://www.kingkbs.com
 
 Make example for this keyboard (after setting up your build environment):
 
