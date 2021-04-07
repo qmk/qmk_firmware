@@ -44,4 +44,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_INTERVAL 28
 
-
+#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"

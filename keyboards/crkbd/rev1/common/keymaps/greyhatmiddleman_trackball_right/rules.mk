@@ -5,7 +5,7 @@ AUTO_SHIFT_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 
-OLED_DRIVER_ENABLE  = no
+OLED_DRIVER_ENABLE  = yes
 RGBLIGHT_ENABLE     = no    # Enable WS2812 RGB underlight.
 VIA_ENABLE          = no        # Enable VIA
 LTO_ENABLE          = yes
