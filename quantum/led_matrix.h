@@ -36,14 +36,36 @@
 #    define LED_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5
 #endif
 
+#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
+#    define LED_MATRIX_USE_LIMITS(min, max)                        \
+        uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter; \
+        uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;          \
+        if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#else
+#    define LED_MATRIX_USE_LIMITS(min, max) \
+        uint8_t min = 0;                    \
+        uint8_t max = DRIVER_LED_TOTAL;
+#endif
+
 enum led_matrix_effects {
     LED_MATRIX_UNIFORM_BRIGHTNESS = 1,
     // All new effects go above this line
     LED_MATRIX_EFFECT_MAX
 };
 
-void led_matrix_set_index_value(int index, uint8_t value);
-void led_matrix_set_index_value_all(uint8_t value);
+void eeconfig_update_led_matrix_default(void);
+void eeconfig_update_led_matrix(void);
+void eeconfig_debug_led_matrix(void);
+
+uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
+uint8_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
+
+void led_matrix_set_value(int index, uint8_t value);
+void led_matrix_set_value_all(uint8_t value);
+
+bool process_led_matrix(uint16_t keycode, keyrecord_t *record);
+
+void led_matrix_task(void);
 
 // This runs after another backlight effect and replaces
 // values already set
@@ -52,23 +74,9 @@ void led_matrix_indicators_kb(void);
 void led_matrix_indicators_user(void);
 
 void led_matrix_init(void);
-void led_matrix_setup_drivers(void);
 
-void led_matrix_set_suspend_state(bool state);
-void led_matrix_set_indicator_state(uint8_t state);
-
-void led_matrix_task(void);
-
-// This should not be called from an interrupt
-// (eg. from a timer interrupt).
-// Call this while idle (in between matrix scans).
-// If the buffer is dirty, it will update the driver with the buffer.
-void led_matrix_update_pwm_buffers(void);
-
-bool process_led_matrix(uint16_t keycode, keyrecord_t *record);
-
-uint32_t led_matrix_get_tick(void);
-
+void    led_matrix_set_suspend_state(bool state);
+bool    led_matrix_get_suspend_state(void);
 void    led_matrix_toggle(void);
 void    led_matrix_toggle_noeeprom(void);
 void    led_matrix_enable(void);
@@ -114,4 +122,5 @@ extern const led_matrix_driver_t led_matrix_driver;
 
 extern led_eeconfig_t led_matrix_eeconfig;
 
+extern bool         g_suspend_state;
 extern led_config_t g_led_config;
