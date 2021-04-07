@@ -189,7 +189,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)       /?
-     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }   ~+RSht // `~ also on _BON
+     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }   ~+RSht // `~ on _BON
                           ^^                              ^  // Only differences with normal version _..._NSY
      ---------------------------------------------------------------------------
      Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt

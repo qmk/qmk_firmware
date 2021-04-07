@@ -113,7 +113,7 @@ See also chapter 6 _Language support_.
 2 'make' example
 ================
      … Download the repository, resolve software dependencies etc..
-     … To change compile options: edit user_config.h (or `minifan_config_compact.h`)
+     … To change compile options: edit ![./user_config.h](./user_config.h) (or `![./minifan_config_compact.h](./minifan_config_compact.h)`)
      > cd […]/qmk_firmware
      > make thevankeyboards/minivan:josjoha
      > su
@@ -126,7 +126,7 @@ links to the others files in this readme. The common system is explained
 in this readme.md file. The options for the letters and number/symbol
 layer pairs (two pairs in the dual layout) are explained in their
 separate readme file, see immediately below. Compile options are detailed
-in `./user_config.h`.
+in ![./user_config.h](./user_config.h)
 
 3 Base layouts
 ==============
@@ -728,7 +728,7 @@ This concerns the numbers pad layer, the one that is part of the common layers.
 
  • Reduce firmware size/bloat: remove or eviscerate Unicode layer(s).
 
- For the complete list, see `./user_config.h`.
+ For the complete list, see ![./user_config.h](./user_config.h)
 
 7 Language support
 ==================
@@ -981,7 +981,7 @@ You can re-define `_ACC` in your own file.
      ⑨ Compile and flash to your keyboard.
 
 Now we will look at a more complicated keymap, where you are also altering
-preprocessor constants defined in `./user_config.h`. (Warning, perhaps this
+preprocessor constants defined in ![./user_config.h](./user_config.h) (Warning, perhaps this
 is overkill … ;-)
 
 Example: the `./base_numpad.c` has an option to entirely eviscerate the
@@ -1000,7 +1000,7 @@ need to reverse Left GUI and Right GUI.
     
       ① ⓪  Write the necessary code to set and unset the constant
            `SWITCH_GUIS` in your `./base_YOUR_KEYMAP.h` file You are encouraged
-           to write code which overrides any setting in `./user_config.h, for
+           to write code which overrides any setting in `./user_config.h,` for
            those constants which you choose to affect, for simplicity sake. 
            (This is not a C programming manual, so it won't get into this.)
    
@@ -1044,7 +1044,7 @@ Cutting down the keymap reduces the firmware size, and helps reducing
 mental clutter from having masses of symbols you might never want to use.
 
 You can compile as a single layout. Define only a ‛Default’ base pair,
-and set `MINIFAN_SINGLE_LAYOUT` (`./user_config.h`). The leds for the
+and set `MINIFAN_SINGLE_LAYOUT` (![./user_config.h](./user_config.h)). The leds for the
 base layers letters and numbers&symbols, will show up as they would for
 the ‛Alternate’ layer in a dual layout compilation.
 

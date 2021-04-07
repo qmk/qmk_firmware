@@ -2,23 +2,17 @@
 
 Compiled for: Qwerty with arrows on Base
 ========================================
-
 This version of Qwerty puts arrows on Base, and assumes the 'arrow' hardware key.
 
 You have to manually set *#define `MORE_KEY__ARROW`* in `./user_config.h`, 
+to let compilation know you have that additional hardware key.
+
 If not compiled with ‛Arrow’ hardware key, Base will not contain ‛Down arrow’.
 You do not have to worry about what to set the additional hardware key to, on
 the Base layer. This will be set to Down Arrow, to complete that arrow cluster.
 
-The option `QWERTY_BASEARROW_HARMONIZE` in `./base_qwerty_basearrow.h` is set
-by default, causing the key ‛/?’ in the _regular_ Qwerty layout to _also_ be
-located in the same spot as in this ‛Qwerty with Arrows on Base’ layout. See
-the header file `./base_qwerty_basearrow.h` for more details.
-
-
 Is arrows on Base efficient ?
 =============================
-
 This variation of Qwerty is not necessarily the recommended version of
 Qwerty for a board with the additional ‛Arrow’ hardware key.
 The regular Qwerty compile option can provide good arrow access. 
@@ -39,11 +33,19 @@ GUI, and ‛/?’.
 
 Have it both ways
 =================
-
 You could compile regular Qwerty on one of the Base pairs (‛Default’ or 
 ‛Alternate’), and Qwerty _with Arrows on Base_ on the other. That way
 you can switch to see what works for you. You could leave it like
 that, and choose what you want depending on what you are doing. 
+
+Dual layout combination with Qwerty Base Arrow
+==============================================
+The option `QWERTY_BASEARROW_HARMONIZE` in `./base_qwerty_basearrow.h` is set
+by default, causing the key ‛/?’ in the _regular_ Qwerty layout to _also_ be
+located in the same spot as in this ‛Qwerty with Arrows on Base’ layout. 
+
+See also: ![./base_qwerty_basearrow.h](./base_qwerty_basearrow.h).
+See also: ![./base_qwerty.md](./base_qwerty.md) for the reason behind this.
 
 
 Qwerty keymaps
