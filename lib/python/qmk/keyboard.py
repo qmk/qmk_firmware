@@ -7,7 +7,9 @@ import os
 from glob import glob
 
 from qmk.c_parse import parse_config_h_file
+from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
+from qmk.path import is_keyboard
 
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
@@ -29,6 +31,28 @@ BOX_DRAWING_CHARACTERS = {
 }
 
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
+
+
+def keyboard_folder(keyboard):
+    """Returns the actual keyboard folder.
+
+    This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
+    """
+    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+
+    if keyboard in aliases:
+        keyboard = aliases[keyboard].get('target', keyboard)
+
+    rules_mk_file = Path(base_path, keyboard, 'rules.mk')
+
+    if rules_mk_file.exists():
+        rules_mk = parse_rules_mk_file(rules_mk_file)
+        keyboard = rules_mk.get('DEFAULT_FOLDER', keyboard)
+
+    if not is_keyboard(keyboard):
+        raise ValueError(f'Invalid keyboard: {keyboard}')
+
+    return keyboard
 
 
 def _find_name(path):
