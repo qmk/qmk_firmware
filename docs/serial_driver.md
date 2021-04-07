@@ -53,6 +53,7 @@ SERIAL_DRIVER = usart
 Configure the hardware via your config.h:
 ```c
 #define SOFT_SERIAL_PIN B6         // USART TX pin
+//#define USART1_REMAP             // Remap USART TX and RX pins on STM32F103 mcus, see table below.
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
                                    //  0: about 460800 baud
                                    //  1: about 230400 baud (default)
@@ -93,7 +94,8 @@ Next configure the hardware via your config.h:
 ```c
 #define SERIAL_USART_TX_PIN B6     // USART TX pin
 #define SERIAL_USART_RX_PIN B7     // USART RX pin
-//#define SERIAL_USART_PIN_SWAP      // Swap TX and RX pins if keyboard is master halve.
+//#define USART1_REMAP             // Remap USART TX and RX pins on STM32F103 mcus, see table below.
+//#define SERIAL_USART_PIN_SWAP    // Swap TX and RX pins if keyboard is master halve.
                                    // Check if this feature is necessary with your keyboard design and available on the mcu.
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
                                    //  0: about 460800 baud
@@ -120,39 +122,30 @@ Do note that the configuration required is for the `UART` peripheral, not the `S
 
 Pin Swap available: :heavy_check_mark:
 
-USART1:
-| Pin  | Function | Mode |
-| ---- | -------- | ---- |
-| PA9  | TX       | AF1  |
-| PA10 | RX       | AF1  |
-| PB6  | TX       | AF0  |
-| PB7  | RX       | AF0  |
-
-USART2:
-| Pin  | Function | Mode |
-| ---- | -------- | ---- |
-| PA2  | TX       | AF1  |
-| PA3  | RX       | AF1  |
-| PA14 | TX       | AF1  |
-| PA15 | RX       | AF1  |
-
-USART3:
-| Pin  | Function | Mode |
-| ---- | -------- | ---- |
-| PB10 | TX       | AF4  |
-| PB11 | RX       | AF4  |
-| PC4  | TX       | AF1  |
-| PC5  | RX       | AF1  |
-| PC10 | TX       | AF1  |
-| PC11 | RX       | AF1  |
-| PD8  | TX       | AF0  |
-| PD9  | RX       | AF0  |
-
-USART4:
-| Pin | Function | Mode |
-| --- | -------- | ---- |
-| PA0 | TX       | AF4  |
-| PA1 | RX       | AF4  |
+|  Pin   | Function | Mode |
+| ------ | -------- | ---- |
+| USART1 |          |      |
+| PA9    | TX       | AF1  |
+| PA10   | RX       | AF1  |
+| PB6    | TX       | AF0  |
+| PB7    | RX       | AF0  |
+| USART2 |          |      |
+| PA2    | TX       | AF1  |
+| PA3    | RX       | AF1  |
+| PA14   | TX       | AF1  |
+| PA15   | RX       | AF1  |
+| USART3 |          |      |
+| PB10   | TX       | AF4  |
+| PB11   | RX       | AF4  |
+| PC4    | TX       | AF1  |
+| PC5    | RX       | AF1  |
+| PC10   | TX       | AF1  |
+| PC11   | RX       | AF1  |
+| PD8    | TX       | AF0  |
+| PD9    | RX       | AF0  |
+| USART4 |          |      |
+| PA0    | TX       | AF4  |
+| PA1    | RX       | AF4  |
 
 ##### STM32F103 Medium Density (C8-CB) [Datasheet](https://www.st.com/resource/en/datasheet/stm32f103c8.pdf)
 
@@ -162,75 +155,56 @@ TX Pin is always Alternate Function Push-Pull, RX Pin is always regular input pi
 
 Pin remapping:
 
-The pins of USART Peripherals use default Pins that can be remapped to use other pins using the AFIO registers. Default pins are marked **bold**. Here is an example how you can remap the pins for USART1.
+The pins of USART Peripherals use default Pins that can be remapped to use other pins using the AFIO registers. Default pins are marked **bold**. Add the appropriate defines to your config.h file.
 
-```c
-// Remap USART1 from pins PA9/PA10 to PB6/PB7
-void keyboard_pre_init_user(void) {
-AFIO->MAPR |= AFIO_MAPR_USART1_REMAP;
-}
-```
-
-**USART1**
-| Pin      | Function | Mode |
-| -------- | -------- | ---- |
-| **PA9**  | TX       | AFPP |
-| **PA10** | RX       | IN   |
-| PB6      | TX       | AFP  |
-| PB7      | RX       | IN   |
-
-**USART2**
-| Pin     | Function | Mode |
-| ------- | -------- | ---- |
-| **PA2** | TX       | AFPP |
-| **PA3** | RX       | IN   |
-| PD5     | TX       | AFPP |
-| PD6     | RX       | IN   |
-
-**USART3**
-| Pin      | Function | Mode |
-| -------- | -------- | ---- |
-| **PB10** | TX       | AFPP |
-| **PB11** | RX       | IN   |
-| PC10     | TX       | AFPP |
-| PC11     | RX       | IN   |
-| PD8      | TX       | AFPP |
-| PD9      | RX       | IN   |
+|    Pin     | Function | Mode |     USART_REMAP     |
+| ---------- | -------- | ---- | ------------------- |
+| **USART1** |          |      |                     |
+| **PA9**    | TX       | AFPP |                     |
+| **PA10**   | RX       | IN   |                     |
+| PB6        | TX       | AFPP | USART1_REMAP        |
+| PB7        | RX       | IN   | USART1_REMAP        |
+| **USART2** |          |      |                     |
+| **PA2**    | TX       | AFPP |                     |
+| **PA3**    | RX       | IN   |                     |
+| PD5        | TX       | AFPP | USART2_REMAP        |
+| PD6        | RX       | IN   | USART2_REMAP        |
+| **USART3** |          |      |                     |
+| **PB10**   | TX       | AFPP |                     |
+| **PB11**   | RX       | IN   |                     |
+| PC10       | TX       | AFPP | USART3_PARTIALREMAP |
+| PC11       | RX       | IN   | USART3_PARTIALREMAP |
+| PD8        | TX       | AFPP | USART3_FULLREMAP    |
+| PD9        | RX       | IN   | USART3_FULLREMAP    |
 
 ##### STM32F303 [Datasheet](https://www.st.com/resource/en/datasheet/stm32f303cc.pdf)
 
 Pin Swap available: :heavy_check_mark:
 
-**USART1**
-| Pin  | Function | Mode |
-| ---- | -------- | ---- |
-| PA9  | TX       | AF7  |
-| PA10 | RX       | AF7  |
-| PB6  | TX       | AF7  |
-| PB7  | RX       | AF7  |
-| PC4  | TX       | AF7  |
-| PC5  | RX       | AF7  |
-| PE0  | TX       | AF7  |
-| PE1  | RX       | AF7  |
-
-**USART2**
-| Pin  | Function | Mode |
-| ---- | -------- | ---- |
-| PA2  | TX       | AF7  |
-| PA3  | RX       | AF7  |
-| PA14 | TX       | AF7  |
-| PA15 | RX       | AF7  |
-| PB3  | TX       | AF7  |
-| PB4  | RX       | AF7  |
-| PD5  | TX       | AF7  |
-| PD6  | RX       | AF7  |
-
-**USART3**
-| Pin  | Function | Mode |
-| ---- | -------- | ---- |
-| PB10 | TX       | AF7  |
-| PB11 | RX       | AF7  |
-| PC10 | TX       | AF7  |
-| PC11 | RX       | AF7  |
-| PD8  | TX       | AF7  |
-| PD9  | RX       | AF7  |
+|    Pin     | Function | Mode |
+| ---------- | -------- | ---- |
+| **USART1** |          |      |
+| PA9        | TX       | AF7  |
+| PA10       | RX       | AF7  |
+| PB6        | TX       | AF7  |
+| PB7        | RX       | AF7  |
+| PC4        | TX       | AF7  |
+| PC5        | RX       | AF7  |
+| PE0        | TX       | AF7  |
+| PE1        | RX       | AF7  |
+| **USART2** |          |      |
+| PA2        | TX       | AF7  |
+| PA3        | RX       | AF7  |
+| PA14       | TX       | AF7  |
+| PA15       | RX       | AF7  |
+| PB3        | TX       | AF7  |
+| PB4        | RX       | AF7  |
+| PD5        | TX       | AF7  |
+| PD6        | RX       | AF7  |
+| **USART3** |          |      |
+| PB10       | TX       | AF7  |
+| PB11       | RX       | AF7  |
+| PC10       | TX       | AF7  |
+| PC11       | RX       | AF7  |
+| PD8        | TX       | AF7  |
+| PD9        | RX       | AF7  |

@@ -44,6 +44,16 @@
 #    define SERIAL_USART_RX_PIN A10
 #endif
 
+#if defined(USART1_REMAP)
+#    define USART_REMAP (AFIO->MAPR |= AFIO_MAPR_USART1_REMAP);
+#elif defined(USART2_REMAP)
+#    define USART_REMAP (AFIO->MAPR |= AFIO_MAPR_USART2_REMAP);
+#elif defined(USART3_PARTIALREMAP)
+#    define USART_REMAP (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_PARTIALREMAP);
+#elif defined(USART3_FULLREMAP)
+#    define USART_REMAP (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_FULLREMAP);
+#endif
+
 #if !defined(SELECT_SERIAL_SPEED)
 #    define SELECT_SERIAL_SPEED 1
 #endif
@@ -155,6 +165,10 @@ void soft_serial_target_init(SSTD_t* const sstd_table, int sstd_table_size) {
     uart_config.cr2 |= ~USART_CR2_SWAP;  // slave has non-swapped TX/RX pins
 #endif
 
+#if defined(USART_REMAP)
+    USART_REMAP
+#endif
+
     uartStart(&SERIAL_USART_DRIVER, &uart_config);
     tp_target = chThdCreateStatic(waSlaveThread, sizeof(waSlaveThread), HIGHPRIO, SlaveThread, NULL);
 }
@@ -217,6 +231,10 @@ void soft_serial_initiator_init(SSTD_t* const sstd_table, int sstd_table_size) {
 
 #if defined(SERIAL_USART_PIN_SWAP)
     uart_config.cr2 |= ~USART_CR2_SWAP;  // master has non-swapped TX/RX pins
+#endif
+
+#if defined(USART_REMAP)
+    USART_REMAP
 #endif
 
     uartStart(&SERIAL_USART_DRIVER, &uart_config);
