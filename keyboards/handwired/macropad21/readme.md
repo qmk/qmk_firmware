@@ -1,9 +1,10 @@
 # macropad21
 
-macropad21 is a 21keys 5x5 keyboard.
+A handwired Gamepad/Macropad with 21 keys 5x5 keyboard.
+[Original Design](https://maker-tutorials.com/gamepadmacro-pad-mit-mechanische-cherry-mx-tasten-3d-drucken-arduino-pro-micro/)
 
-Keyboard Maintainer: 
-Hardware Supported: Pro Micro, handwired 
+* Keyboard Maintainer: Taktloss
+* Hardware Supported: Pro Micro, handwired 
 
 Make example for this keyboard (after setting up your build environment):
 
