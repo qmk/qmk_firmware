@@ -44,10 +44,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };  
-// LT(2, KC_BSPC)$1-_7f7a777kjkjjjkkjkjkjjkkjjkjkjkjklkjlkkjJKjk JKJK  jk jk
-// jk
-// jk
-// jk7777ljjjjjjjjjjjjjjjdkls;asdfjasfjuioiuweroiwueroiwueroiwueroiwueroiuwer=++--
-// 
-// 
-// 
