@@ -21,7 +21,6 @@
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
     {NO_LED,NO_LED,NO_LED,NO_LED},
-<<<<<<< HEAD
     { 7,      8,      9,     10},
     { 11,    12,     13,     14},
     { 15,    16,     17,     18},
