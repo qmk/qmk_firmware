@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Macro Keyboard",
+    "url": "",
+    "maintainer": "Me",
+    "width": 5,
+    "height": 5,
+    "layouts": {
+        "LAYOUT_all": {
+            "layout":
+            [
+                {"label":"ESC", "x":0, "y":0}, {"label":"1", "x":1.25, "y":0}, {"label":"2", "x":2.25, "y":0}, {"label":"3", "x":3.25, "y":0}, {"label":"4", "x":4.25, "y":0},
+                {"label":"Tab", "x":0, "y":1}, {"label":"Q", "x":1.25, "y":1}, {"label":"W", "x":2.25, "y":1}, {"label":"E", "x":3.25, "y":1}, {"label":"R", "x":4.25, "y":1},
+                {"label":"Shift", "x":0, "y":2}, {"label":"A", "x":1.25, "y":2}, {"label":"S", "x":2.25, "y":2}, {"label":"D", "x":3.25, "y":2}, {"label":"F", "x":4.25, "y":2},
+                {"label":"Alt", "x":0, "y":3}, {"label":"Y", "x":1.25, "y":3}, {"label":"C", "x":3.25, "y":3}, {"label":"V", "x":4.25, "y":3},
+                {"label":"Ctrl", "x":0, "y":4}, {"label":"Space", "x":3.25, "y":4, "w":2}
+            ]
+        }
+    }
+}
