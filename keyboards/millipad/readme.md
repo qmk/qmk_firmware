@@ -4,10 +4,10 @@
 
 An open source 2x6 macropad with rotary encoder. Designed to be cheap and simple.
 
-** Bootloader Mode: 
+## Bootloader Mode: 
 Press the hardware reset button located to the left of the rotary encoder.
 
-** More Pictures:
+## More Pictures:
 ![PCB Layout](https://i.imgur.com/ilhfBfQ.png)
 ![Front of PCB](https://i.imgur.com/UiQkmuv.jpg)
 ![Back of PCB](https://i.imgur.com/Inh6UTL.jpg)
