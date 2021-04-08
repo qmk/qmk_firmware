@@ -81,6 +81,14 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     [PUT_SYNC_TIMER] = trans_initiator2target_initializer(sync_timer),
 #endif  // DISABLE_SYNC_TIMER
 
+#ifndef DISABLE_SYNC_LAYER_STATE
+    [PUT_LAYER_STATE] = trans_initiator2target_initializer(layer_state),
+#endif  // DISABLE_SYNC_LAYER_STATE
+
+#ifndef DISABLE_SYNC_LED_STATE
+    [PUT_LED_STATE] = trans_initiator2target_initializer(led_state),
+#endif  // DISABLE_SYNC_LED_STATE
+
 #ifdef SPLIT_MODS_ENABLE
     [PUT_MODS] = trans_initiator2target_initializer(mods),
 #endif  // SPLIT_MODS_ENABLE
@@ -128,7 +136,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
         last_mmatrix_update = timer_read32();
         okay &= transport_write(PUT_MASTER_MATRIX, master_matrix, sizeof(split_shmem->mmatrix.matrix));
     }
-#endif
+#endif // SPLIT_TRANSPORT_MIRROR
 
 #ifdef ENCODER_ENABLE
     static uint32_t last_encoder_update = 0;
@@ -141,7 +149,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
         }
     }
     encoder_update_raw(split_shmem->encoders.state);
-#endif
+#endif // ENCODER_ENABLE
 
 #ifndef DISABLE_SYNC_TIMER
     static uint32_t last_sync_timer_update = 0;
@@ -150,7 +158,24 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
         uint32_t sync_timer    = sync_timer_read32() + SYNC_TIMER_OFFSET;
         okay &= transport_write(PUT_SYNC_TIMER, &sync_timer, sizeof(sync_timer));
     }
-#endif
+#endif // DISABLE_SYNC_TIMER
+
+#ifndef DISABLE_SYNC_LAYER_STATE
+    static uint32_t last_layer_state_update = 0;
+    if (layer_state != split_shmem->layer_state || timer_elapsed32(last_layer_state_update) >= FORCED_SYNC_THROTTLE_MS) {
+        last_layer_state_update = timer_read32();
+        okay &= transport_write(PUT_LAYER_STATE, &layer_state, sizeof(layer_state));
+    }
+#endif // DISABLE_SYNC_LAYER_STATE
+
+#ifndef DISABLE_SYNC_LED_STATE
+    static uint32_t last_led_state_update = 0;
+    uint8_t led_state = host_keyboard_leds();
+    if (led_state != split_shmem->led_state || timer_elapsed32(last_led_state_update) >= FORCED_SYNC_THROTTLE_MS) {
+        last_led_state_update = timer_read32();
+        okay &= transport_write(PUT_LED_STATE, &led_state, sizeof(led_state));
+    }
+#endif // DISABLE_SYNC_LED_STATE
 
 #ifdef SPLIT_MODS_ENABLE
     static uint32_t   last_mod_update = 0;
@@ -171,13 +196,13 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     if (new_mods.oneshot_mods != split_shmem->mods.oneshot_mods) {
         mods_need_sync = true;
     }
-#    endif
+#    endif // NO_ACTION_ONESHOT
 
     if (mods_need_sync) {
         last_mod_update = timer_read32();
         okay &= transport_write(PUT_MODS, &new_mods, sizeof(new_mods));
     }
-#endif
+#endif // SPLIT_MODS_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
     static uint32_t last_backlight_update = 0;
@@ -186,7 +211,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
         last_backlight_update = timer_read32();
         okay &= transport_write(PUT_BACKLIGHT, &level, sizeof(level));
     }
-#endif
+#endif // BACKLIGHT_ENABLE
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
     static uint32_t last_rgblight_update = 0;
@@ -200,7 +225,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
             okay = false;
         }
     }
-#endif
+#endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
 
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
     static uint32_t   last_rgb_matrix_update = 0;
@@ -223,7 +248,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
             okay &= transport_write(PUT_WPM, &current_wpm, sizeof(current_wpm));
         }
     }
-#endif
+#endif // WPM_ENABLE
 
     return okay;
 }
@@ -254,6 +279,15 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
         sync_timer_update(split_shmem->sync_timer);
     }
 #endif
+
+#ifndef DISABLE_SYNC_LAYER_STATE
+    layer_state = split_shmem->layer_state;
+#endif // DISABLE_SYNC_LAYER_STATE
+
+#ifndef DISABLE_SYNC_LED_STATE
+    void set_split_host_keyboard_leds(uint8_t led_state);
+    set_split_host_keyboard_leds(split_shmem->led_state);
+#endif // DISABLE_SYNC_LED_STATE
 
 #ifdef SPLIT_MODS_ENABLE
     set_mods(split_shmem->mods.real_mods);

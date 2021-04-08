@@ -33,6 +33,14 @@ enum serial_transaction_id {
     PUT_SYNC_TIMER,
 #endif  // DISABLE_SYNC_TIMER
 
+#ifndef DISABLE_SYNC_LAYER_STATE
+    PUT_LAYER_STATE,
+#endif  // DISABLE_SYNC_LAYER_STATE
+
+#ifndef DISABLE_SYNC_LED_STATE
+    PUT_LED_STATE,
+#endif  // DISABLE_SYNC_LED_STATE
+
 #ifdef SPLIT_MODS_ENABLE
     PUT_MODS,
 #endif  // SPLIT_MODS_ENABLE

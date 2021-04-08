@@ -96,6 +96,14 @@ typedef struct _split_shared_memory_t {
     uint32_t sync_timer;
 #endif  // DISABLE_SYNC_TIMER
 
+#ifndef DISABLE_SYNC_LAYER_STATE
+    uint32_t layer_state;
+#endif  // DISABLE_SYNC_LAYER_STATE
+
+#ifndef DISABLE_SYNC_LED_STATE
+    uint8_t led_state;
+#endif  // DISABLE_SYNC_LED_STATE
+
 #ifdef SPLIT_MODS_ENABLE
     split_mods_sync_t mods;
 #endif  // SPLIT_MODS_ENABLE
