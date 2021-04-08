@@ -1210,12 +1210,12 @@ mess you have under right little finger on regular keyboards.
 
 16 Resources
 ============
-This links to an external file, with some additional resources like
-☞ Video documentation,
-☞ Gimp .xcf files,
-☞ Some precompiled hex files, …
-
+This links to an external file, with some additional resources.
 [Resources](http://socialism.nl/misc/minivan/ "Additional resources")
+
+     ☞ Gimp .xcf files,
+     ☞ Some precompiled hex files, 
+     ☞ …
 
 17 Author(s)
 ============
