@@ -319,3 +319,45 @@
 #define IS_20 KC_MINUS
 #define IS_21 KC_SCOLON
 #define IS_22 KC_LBRACKET
+
+// Spanish LATAM
+#define ES_LA_00 ALGR(KC_MINUS)
+#define ES_LA_01 ALGR(KC_GRAVE) //¬
+#define ES_LA_02 ALGR(KC_Q) //@
+#define ES_LA_03 ALGR(KC_BSLASH) //`
+#define ES_LA_04 ALGR(KC_QUOTE) //^
+#define ES_LA_05 ALGR(KC_RBRACKET) //~
+#define ES_LA_06 S(KC_SCOLON) //Ñ
+#define ES_LA_07 KC_SCOLON //ñ
+#define ES_LA_08 S(KC_SLASH) //_
+#define ES_LA_09 KC_SLASH //-
+#define ES_LA_10 S(KC_DOT) //:
+#define ES_LA_11 KC_DOT //.
+#define ES_LA_12 S(KC_COMMA) //;
+#define ES_LA_13 KC_COMMA //,
+#define ES_LA_14 S(KC_NONUS_BSLASH) //>
+#define ES_LA_15 KC_NONUS_BSLASH //<
+#define ES_LA_16 S(KC_BSLASH) //]
+#define ES_LA_17 KC_BSLASH //}
+#define ES_LA_18 S(KC_QUOTE) //[
+#define ES_LA_19 KC_QUOTE //{
+#define ES_LA_20 S(KC_RBRACKET) //*
+#define ES_LA_21 KC_RBRACKET //+
+#define ES_LA_22 S(KC_LBRACKET) //¨
+#define ES_LA_23 KC_LBRACKET //´
+#define ES_LA_24 S(KC_EQUAL) //¡
+#define ES_LA_25 KC_EQUAL //¿
+#define ES_LA_26 S(KC_MINUS) //?
+#define ES_LA_27 KC_MINUS //'
+#define ES_LA_28 S(KC_0) //=
+#define ES_LA_29 S(KC_9) //(
+#define ES_LA_30 S(KC_8) //(
+#define ES_LA_31 S(KC_7) ///
+#define ES_LA_32 S(KC_6) //&
+#define ES_LA_33 S(KC_5) //%
+#define ES_LA_34 S(KC_4) //$
+#define ES_LA_35 S(KC_3) //#
+#define ES_LA_36 S(KC_2) //"
+#define ES_LA_37 S(KC_1) //!
+#define ES_LA_38 S(KC_GRAVE) //°
+#define ES_LA_39 KC_GRAVE //|
