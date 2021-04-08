@@ -1,4 +1,4 @@
-/* Copyright 2019 e3w2q
+/* Copyright 2019 Ohashi
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
