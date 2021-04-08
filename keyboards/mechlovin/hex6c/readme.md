@@ -2,7 +2,7 @@
 
 ![hex6c](https://i.imgur.com/uYxCTiTl.jpeg)
 
-A Southpaw Fullsize Keyboard with knoob.
+A Southpaw Fullsize Keyboard with encoder.
 
 * Keyboard Maintainer: [Mechlovin' Studio](https://github.com/mechlovin)
 * Hardware Supported: Hex6C Keyboard, STM32F303
