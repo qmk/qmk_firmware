@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Peter C. Park <peter@stenokeyboards.com>
+Copyright 2021 Peter C. Park <peter@stenokeyboards.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x2353
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    stenokeyboards
 #define PRODUCT         The Uni
-#define DESCRIPTION     
+#define DESCRIPTION     Used in conjunction with plover stenography
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
+#define DEBOUNCING_DELAY 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -58,3 +58,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*force the nkro if it does not work*/
 #define FORCE_NKRO
+

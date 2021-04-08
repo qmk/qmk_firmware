@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Peter C. Park <peter@stenokeyboards.com>
+Copyright 2021 Peter C. Park <peter@stenokeyboards.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#define THE_UNI_H
 
 #include "quantum.h"
 
@@ -29,4 +30,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	{ KC_NO, KC_NO, K202,  K203,  K204,  K205,  K206,  K207,  KC_NO, KC_NO, KC_NO }  \
 }
 
-#endif
