@@ -1215,6 +1215,7 @@ This links to an external file, with some additional resources.
 
      ☞ Gimp .xcf files,
      ☞ Some precompiled hex files, 
+     ☞ PDF format of this manual 
      ☞ …
 
 17 Author(s)
