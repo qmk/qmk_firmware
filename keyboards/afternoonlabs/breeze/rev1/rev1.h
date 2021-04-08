@@ -39,3 +39,23 @@
     { R30, R31, R32, R33, R34, R35, ALT, ADN, ART }, \
     { RT0, RT1, RT2, RT3, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
 }
+
+#define LAYOUT_SOUTHERN_BREEZE( \
+    LW00, LW01, LW02, L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05, \
+    LW10, LW11, LW12, L10, L11, L12, L13, L14, L15,           R10, R11, R12, R13, R14, R15, \
+          LWUP,       L20, L21, L22, L23, L24, L25,           R20, R21, R22, R23, R24, R25, \
+    LWLT, LWDN, LWRT, L30, L31, L32, L33, L34, L35,           R30, R31, R32, R33, R34, R35, \
+                                     LT0, LT1, LT2, LT3, RT0, RT1, RT2, RT3  \
+) \
+{ \
+    { L05, L04, L03, L02, L01, L00, LW02, LW01, LW00 }, \
+    { L15, L14, L13, L12, L11, L10, LW12, LW11, LW10 }, \
+    { L25, L24, L23, L22, L21, L20, KC_NO, LWUP, KC_NO }, \
+    { L35, L34, L33, L32, L31, L30, LWRT, LWDN, LWLT }, \
+    { LT3, LT2, LT1, LT0, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+    { R00, R01, R02, R03, R04, R05, KC_NO, KC_NO, KC_NO }, \
+    { R10, R11, R12, R13, R14, R15, KC_NO, KC_NO, KC_NO }, \
+    { R20, R21, R22, R23, R24, R25, KC_NO, KC_NO, KC_NO }, \
+    { R30, R31, R32, R33, R34, R35, KC_NO, KC_NO, KC_NO }, \
+    { RT0, RT1, RT2, RT3, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+}
