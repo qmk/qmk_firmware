@@ -25,9 +25,11 @@ led_config_t g_led_config = { {
     {15,     16,     17,     18},
     { 19,    20,     21,     22},
     { 23,    24,     25,     26}
+    //todo: assign leds to keys differently for the different layouts
 }, {
     // LED Index to Physical Position
     { 190, 50}, { 111, 50}, { 35, 50}, {38, 0}, {38, 35}, {186, 35}, {186, 0}, // UNDERGLOW
+    //todo: underglow location needs to be recalculated. The top row is above row 4, and for now they have the same y value 0
     {  0,  0}, {75,  0}, {150,  0}, {225,  0}, // row 4
     {  0, 16}, {75, 16}, {150, 16}, {225, 16}, // row 3
     {  0, 32}, {75, 32}, {150, 32}, {225, 32}, // row 2
