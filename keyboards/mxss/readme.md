@@ -2,6 +2,11 @@
 
 ![MxSS - Polycarb 65% Kit for MX/SMK](https://i.imgur.com/WDTWcmU.jpg)
 
+### Important Note:
+**This PCB supports the VIA configurator, and this is the recommended way to configure the keymap on this keyboard. Building the firmware should only be necessary if you would like to change the colours of the front LEDs in indicator mode.**
+
+**For more information about the VIA configurator, [see here](https://caniusevia.com/).**
+
 ### Information:
 
  - Case: Frosted Polycarbonate, CNC milled

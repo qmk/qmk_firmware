@@ -59,10 +59,10 @@ void keyboard_post_init_user(void) {
     }
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     // This code switches underglow color by active layer, if the user has enabled the feature
     if(user_config.layer_rgb) {
-        switch (biton32(state)) {
+        switch (get_highest_layer(state)) {
             case _BL:
                 rgblight_sethsv_noeeprom(0,10,255);
                 rgblight_mode_noeeprom(1);

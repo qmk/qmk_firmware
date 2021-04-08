@@ -17,15 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include QMK_KEYBOARD_CONFIG_H
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
 #define PRODUCT_ID      0x1256
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Iris Keyboard
-#define DESCRIPTION     Split 50 percent ergonomic keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -62,23 +59,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 12    // Number of LEDs
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 34
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 36
-
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
-// Dynamic macro starts after dynamic keymaps (37+(4*10*6*2)) = (37+480)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 517
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 507    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+#define RGBLIGHT_ANIMATIONS

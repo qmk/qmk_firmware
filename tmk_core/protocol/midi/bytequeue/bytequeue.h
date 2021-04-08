@@ -17,8 +17,7 @@
 // You should have received a copy of the GNU General Public License
 // along with avr-bytequeue.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef BYTEQUEUE_H
-#define BYTEQUEUE_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,6 +52,4 @@ void bytequeue_remove(byteQueue_t* queue, byteQueueIndex_t numToRemove);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
