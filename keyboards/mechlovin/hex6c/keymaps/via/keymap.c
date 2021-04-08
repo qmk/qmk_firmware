@@ -64,19 +64,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
-    else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_LEFT);
-        } else {
-            tap_code(KC_RGHT);
-        }
-    }
-    else if (index == 2) {
-        if (clockwise) {
-            tap_code(KC_UP);
-        } else {
-            tap_code(KC_DOWN);
-        }
-    }
 }
 #endif

@@ -31,7 +31,6 @@
  *
 */
 #define MATRIX_ROW_PINS { A3, D5, C3, C2, B3, B4 }
-#define MATRIX_COL_PINS { }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
