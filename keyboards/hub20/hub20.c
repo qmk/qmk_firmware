@@ -126,41 +126,41 @@ uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t
 // and the default led would be added
 // by the default code that runs after this in rgb_matrix_map_row_column_to_led
 
-int counter = 0;
+uint8_t counter = 0;
 
-#ifdef LED_MERGE_NUMPAD_LEFT_HANDED_PLUS //key 20, leds 7 and 11, 7 already bound
+#if LED_MERGE_NUMPAD_LEFT_HANDED_PLUS //key 20, leds 7 and 11, 7 already bound
 
     if (row == 2 && column == 0) {
         led_i[counter] = 11;
         counter ++;
     }
 #endif
-#ifdef LED_MERGE_NUMPAD_LEFT_HANDED_ENTER //key 40, leds 19 and 23, 23 already bound
+#if LED_MERGE_NUMPAD_LEFT_HANDED_ENTER //key 40, leds 19 and 23, 23 already bound
     if (row == 4 && column == 0) {
         led_i[counter] = 23;
         counter ++;
     }
 #endif
-#ifdef LED_MERGE_NUMPAD_LEFT_HANDED_ZERO //key 52, leds 25 and 26, 26 already bound
+#if LED_MERGE_NUMPAD_LEFT_HANDED_ZERO //key 52, leds 25 and 26, 26 already bound
     if (row == 5 && column == 2) {
         led_i[counter] = 26;
         counter ++;
     }
 #endif
 
-#ifdef LED_MERGE_NUMPAD_RIGHT_HANDED_PLUS // key 23, led 14 and 18, 14 already bound
+#if LED_MERGE_NUMPAD_RIGHT_HANDED_PLUS // key 23, led 14 and 18, 14 already bound
     if (row == 2 && column == 3) {
         led_i[counter] = 18;
         counter ++;
     }
 #endif
-#ifdef LED_MERGE_NUMPAD_RIGHT_HANDED_ENTER // key 43, led 22 and 26, 22 already bound
+#if LED_MERGE_NUMPAD_RIGHT_HANDED_ENTER // key 43, led 22 and 26, 22 already bound
     if (row == 4 && column == 3) {
         led_i[counter] = 26;
         counter ++;
     }
 #endif
-#ifdef LED_MERGE_NUMPAD_RIGHT_HANDED_ZERO  // key 50 (confirm with manufacturer)
+#if LED_MERGE_NUMPAD_RIGHT_HANDED_ZERO  // key 50 (confirm with manufacturer)
 // LED 23 and 24, 23(?) already bound
     if (row == 5 && column == 0) {
         led_i[counter] = 24;
