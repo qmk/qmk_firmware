@@ -75,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     //marks
     [_M] = LAYOUT(
-        KC_GRAVE,KC_BSLS, KC_QUES, KC_EXLM, _______, _______, _______,        _______, _______, _______, _______, _______, _______, KC_DEL, 
-        _______, KC_QUOT, KC_DQUO, KC_UNDS, KC_MINS, KC_TILD, _______,        _______, KC_HOME, KC_END,  _______, _______, _______, _______,
-        _______, _______, _______, _______, KC_F15,  _______, _______,        _______, _______,  KC_F16, _______, _______, _______, _______
+        KC_BSLS,  KC_QUES, KC_EXLM, KC_SLSH, KC_DOT,  KC_COMM, _______,        _______, _______, _______, _______, _______, _______, KC_DEL, 
+        KC_GRAVE, KC_QUOT, KC_DQUO, KC_UNDS, KC_MINS, KC_TILD, _______,        _______, KC_HOME, KC_END,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, KC_F15,  _______, _______,        _______, _______,  KC_F16, _______, _______, _______, _______
     ),  
     //cursor
     [_C] = LAYOUT(
