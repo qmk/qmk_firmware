@@ -91,10 +91,6 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
 
 #endif  // USE_I2C
 
-bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    return transactions_master(master_matrix, slave_matrix);
-}
+bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { return transactions_master(master_matrix, slave_matrix); }
 
-void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    transactions_slave(master_matrix, slave_matrix);
-}
+void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { transactions_slave(master_matrix, slave_matrix); }
