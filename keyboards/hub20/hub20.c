@@ -1,4 +1,4 @@
-/* Copyright 2020 joshajohnson
+/* Copyright 2020 joshajohnson 2021 peepeetee
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@
 
 #include "hub20.h"
 
-<<<<<<< Updated upstream
-=======
+
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
     {NO_LED,NO_LED,NO_LED,NO_LED},
+<<<<<<< HEAD
     { 7,      8,      9,     10},
     { 11,    12,     13,     14},
     { 15,    16,     17,     18},
@@ -49,4 +49,3 @@ led_config_t g_led_config = { {
 
 } };
 #endif
->>>>>>> Stashed changes
