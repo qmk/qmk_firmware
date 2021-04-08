@@ -29,7 +29,8 @@ void led_init_ports(void) {
 
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
     writePinHigh(C6);
     writePinHigh(C7);
     writePinHigh(A7);
