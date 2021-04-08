@@ -15,6 +15,13 @@
  */
 #include QMK_KEYBOARD_H
 
+
+
+#define LED_MERGE_NUMPAD_RIGHT_HANDED_PLUS TRUE
+#define LED_MERGE_NUMPAD_RIGHT_HANDED_ENTER TRUE
+#define LED_MERGE_NUMPAD_RIGHT_HANDED_ZERO TRUE
+
+
 #define MO_NLCK LT(1, KC_NLCK) // Numlock on tap, layer change on hold
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -57,40 +64,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 
-
-void matrix_init_user(void){
-
-#ifdef RGB_MATRIX_ENABLE
-
-g_led_config = (led_config_t){ {
-    // Key Matrix to LED Index
-    {NO_LED,NO_LED,NO_LED,NO_LED},
-    { 7,      8,      9,     10},
-    { 11,    12,     13,     14},
-    { 15,    16,     17,     18},
-    { 19,    20,     21,     22},
-    { 23,    24,     25,     26}
-    //todo: assign leds to keys differently for the different layouts
-}, {
-    // LED Index to Physical Position
-    { 190, 50}, { 111, 50}, { 35, 50}, {38, 0}, {38, 35}, {186, 35}, {186, 0}, // UNDERGLOW
-    //todo: underglow location needs to be recalculated. The top row is above row 4, and for now they have the same y value 0
-    {  0,  0}, {75,  0}, {150,  0}, {225,  0}, // row 4
-    {  0, 16}, {75, 16}, {150, 16}, {225, 16}, // row 3
-    {  0, 32}, {75, 32}, {150, 32}, {225, 32}, // row 2
-    {  0, 48}, {75, 48}, {150, 48}, {225, 48}, // row 1
-    {  0, 64}, {75, 64}, {150, 64}, {225, 64}  // row 0
-
-}, {
-    // LED Index to Flag
-    LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,  // UNDERGLOW
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,           // row 4
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,           // row 3
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,           // row 2
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,           // row 1
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT            // row 0
-
-} };
-
-#endif
-}

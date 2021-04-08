@@ -48,3 +48,124 @@ led_config_t g_led_config = { {
 
 } };
 #endif
+
+
+
+#if LED_MERGE_NUMPAD_LEFT_HANDED_ENTER && LED_MERGE_NUMPAD_RIGHT_HANDED_ZERO
+#error lower left enter conflicts with lower left zero
+#endif
+
+#if LED_MERGE_NUMPAD_RIGHT_HANDED_ENTER && LED_MERGE_NUMPAD_LEFT_HANDED_ZERO
+#error lower right enter conflicts with lower right zero
+#endif
+
+    /* LAYOUT_left_handed
+
+
+     *     ┌───┬───┐ 
+     *     │01 │02 │    
+     * ┌───┼───┼───┼───┐
+     * │10 │11 │12 │13 │
+     * ├───┼───┼───┼───┤
+     * │   │21 │22 │23 │
+     * │20 ├───┼───┼───┤
+     * │   │31 │32 │33 │
+     * ├───┼───┼───┼───┤
+     * │   │41 │42 │43 │
+     * │40 ├───┼───┴───┤
+     * │   │51 │  52   │
+     * └───┴───┴───────┘
+     */
+
+#ifndef LED_MERGE_NUMPAD_LEFT_HANDED_PLUS //key 20
+#define LED_MERGE_NUMPAD_LEFT_HANDED_PLUS FALSE
+#endif // LED_MERGE_NUMPAD_LEFT_HANDED_PLUS
+
+#ifndef LED_MERGE_NUMPAD_LEFT_HANDED_ENTER //key 40
+#define LED_MERGE_NUMPAD_LEFT_HANDED_ENTER FALSE
+#endif // LED_MERGE_NUMPAD_LEFT_HANDED_ENTER
+
+#ifndef LED_MERGE_NUMPAD_LEFT_HANDED_ZERO //key 52
+#define LED_MERGE_NUMPAD_LEFT_HANDED_ZERO FALSE
+#endif // LED_MERGE_NUMPAD_LEFT_HANDED_ZERO
+
+
+    /* LAYOUT_right_handed
+
+
+     *     ┌───┬───┐ 
+     *     │01 │02 │    
+     * ┌───┼───┼───┼───┐
+     * │10 │11 │12 │13 │
+     * ├───┼───┼───┼───┤
+     * │20 │21 │22 │   │
+     * ├───┼───┼───┤23 │
+     * │30 │31 │32 │   │
+     * ├───┼───┼───┼───┤
+     * │40 │41 │42 │   │
+     * ├───┴───┼───┤43 │
+     * │  50(not sure, confirm)   │52 │   │
+     * └───────┴───┴───┘
+     */
+        //LOCATION OF 0 NOT TESTED, WAITING ENDORSEMENT FROM MANUFACTURER
+
+#ifndef LED_MERGE_NUMPAD_RIGHT_HANDED_PLUS // key 23
+#define LED_MERGE_NUMPAD_RIGHT_HANDED_PLUS FALSE
+#endif // LED_MERGE_NUMPAD_RIGHT_HANDED_PLUS
+
+#ifndef LED_MERGE_NUMPAD_RIGHT_HANDED_ENTER // key 43
+#define LED_MERGE_NUMPAD_RIGHT_HANDED_ENTER FALSE
+#endif // LED_MERGE_NUMPAD_RIGHT_HANDED_ENTER
+
+#ifndef LED_MERGE_NUMPAD_RIGHT_HANDED_ZERO // key 50 (confirm with manufacturer)
+#define LED_MERGE_NUMPAD_RIGHT_HANDED_ZERO FALSE
+#endif // LED_MERGE_NUMPAD_RIGHT_HANDED_ZERO
+
+uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {
+// Keys here have 2 leds. Here we add the led that is not bound to the key
+// and the default led would be added
+// by the default code that runs after this in rgb_matrix_map_row_column_to_led
+
+int counter = 0;
+
+#ifdef LED_MERGE_NUMPAD_LEFT_HANDED_PLUS //key 20, leds 7 and 11, 7 already bound
+
+    if (row == 2 && column == 0) {
+        led_i[counter] = 11;
+        counter ++;
+    }
+#endif
+#ifdef LED_MERGE_NUMPAD_LEFT_HANDED_ENTER //key 40, leds 19 and 23, 23 already bound
+    if (row == 4 && column == 0) {
+        led_i[counter] = 23;
+        counter ++;
+    }
+#endif
+#ifdef LED_MERGE_NUMPAD_LEFT_HANDED_ZERO //key 52, leds 25 and 26, 26 already bound
+    if (row == 5 && column == 2) {
+        led_i[counter] = 26;
+        counter ++;
+    }
+#endif
+
+#ifdef LED_MERGE_NUMPAD_RIGHT_HANDED_PLUS // key 23, led 14 and 18, 14 already bound
+    if (row == 2 && column == 3) {
+        led_i[counter] = 18;
+        counter ++;
+    }
+#endif
+#ifdef LED_MERGE_NUMPAD_RIGHT_HANDED_ENTER // key 43, led 22 and 26, 22 already bound
+    if (row == 4 && column == 3) {
+        led_i[counter] = 26;
+        counter ++;
+    }
+#endif
+#ifdef LED_MERGE_NUMPAD_RIGHT_HANDED_ZERO  // key 50 (confirm with manufacturer)
+// LED 23 and 24, 23(?) already bound
+    if (row == 5 && column == 0) {
+        led_i[counter] = 24;
+        counter ++;
+    }
+#endif
+    return counter;
+}
