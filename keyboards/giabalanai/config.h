@@ -34,6 +34,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Enable below if this is for giabaRInaix2.
  */
 // #define GIABARINAIX2
+#ifdef GIABARINAIX2
+// Change the ID for VIA support.
+#    undef PRODUCT_ID
+#    define PRODUCT_ID   0xF4B2
+#    undef PRODUCT
+#    define PRODUCT giabarinaix2
+#endif
 
 /*
  * Keyboard Matrix Assignments
