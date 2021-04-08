@@ -37,12 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 #define TAP_CODE_DELAY 10
 #define ENCODER_DIRECTION_FLIP
-#define ENCODER_RESOLUTION 4
+#define ENCODER_RESOLUTION 2
 #define ENCODERS_PAD_A { F5 }
 #define ENCODERS_PAD_B { F6 }
 
 #define BACKLIGHT_PIN B5
-// #define BACKLIGHT_BREATHING
+#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 7
 
 #define RGB_DI_PIN D3
