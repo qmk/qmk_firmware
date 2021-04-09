@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef ACTION_H
-#define ACTION_H
+
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -24,23 +24,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_code.h"
 #include "action_macro.h"
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/* Disable macro and function features when LTO is enabled, since they break */
+#ifdef LTO_ENABLE
+#    ifndef NO_ACTION_MACRO
+#        define NO_ACTION_MACRO
+#    endif
+#    ifndef NO_ACTION_FUNCTION
+#        define NO_ACTION_FUNCTION
+#    endif
+#endif
+
 /* tapping count and state */
 typedef struct {
-    bool    interrupted :1;
-    bool    reserved2   :1;
-    bool    reserved1   :1;
-    bool    reserved0   :1;
-    uint8_t count       :4;
+    bool    interrupted : 1;
+    bool    reserved2 : 1;
+    bool    reserved1 : 1;
+    bool    reserved0 : 1;
+    uint8_t count : 4;
 } tap_t;
 
 /* Key event container for recording */
 typedef struct {
-    keyevent_t  event;
+    keyevent_t event;
 #ifndef NO_ACTION_TAPPING
     tap_t tap;
 #endif
@@ -68,30 +77,35 @@ extern bool disable_action_cache;
 
 /* Code for handling one-handed key modifiers. */
 #ifdef SWAP_HANDS_ENABLE
-extern bool swap_hands;
+extern bool           swap_hands;
 extern const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
-#if (MATRIX_COLS <= 8)
-typedef  uint8_t    swap_state_row_t;
-#elif (MATRIX_COLS <= 16)
-typedef  uint16_t   swap_state_row_t;
-#elif (MATRIX_COLS <= 32)
-typedef  uint32_t   swap_state_row_t;
-#else
-#error "MATRIX_COLS: invalid value"
-#endif
+#    if (MATRIX_COLS <= 8)
+typedef uint8_t swap_state_row_t;
+#    elif (MATRIX_COLS <= 16)
+typedef uint16_t swap_state_row_t;
+#    elif (MATRIX_COLS <= 32)
+typedef uint32_t swap_state_row_t;
+#    else
+#        error "MATRIX_COLS: invalid value"
+#    endif
 
 void process_hand_swap(keyevent_t *record);
 #endif
 
 void process_record_nocache(keyrecord_t *record);
 void process_record(keyrecord_t *record);
+void process_record_handler(keyrecord_t *record);
+void post_process_record_quantum(keyrecord_t *record);
 void process_action(keyrecord_t *record, action_t action);
 void register_code(uint8_t code);
 void unregister_code(uint8_t code);
 void tap_code(uint8_t code);
+void tap_code_delay(uint8_t code, uint16_t delay);
 void register_mods(uint8_t mods);
 void unregister_mods(uint8_t mods);
-//void set_mods(uint8_t mods);
+void register_weak_mods(uint8_t mods);
+void unregister_weak_mods(uint8_t mods);
+// void set_mods(uint8_t mods);
 void clear_keyboard(void);
 void clear_keyboard_but_mods(void);
 void clear_keyboard_but_mods_and_keys(void);
@@ -111,5 +125,3 @@ void debug_action(action_t action);
 #ifdef __cplusplus
 }
 #endif
-
-#endif  /* ACTION_H */

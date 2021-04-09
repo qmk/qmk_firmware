@@ -1,11 +1,6 @@
 #pragma once
 
-#define HONEYCOMB_H
-
 #include "quantum.h"
-#include "matrix.h"
-#include "backlight.h"
-#include <stddef.h>
 
 #define RED_LED_OFF() writePinHigh(F6)
 #define RED_LED_ON()  writePinLow(F6)

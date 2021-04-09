@@ -15,12 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KEYBOARD_H
-#define KEYBOARD_H
+#pragma once
 
 #include <stdbool.h>
 #include <stdint.h>
-
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,7 +38,7 @@ typedef struct {
 } keyevent_t;
 
 /* equivalent test of keypos_t */
-#define KEYEQ(keya, keyb)       ((keya).row == (keyb).row && (keya).col == (keyb).col)
+#define KEYEQ(keya, keyb) ((keya).row == (keyb).row && (keya).col == (keyb).col)
 
 /* Rules for No Event:
  * 1) (time == 0) to handle (keyevent_t){} as empty event
@@ -51,13 +49,8 @@ static inline bool IS_PRESSED(keyevent_t event) { return (!IS_NOEVENT(event) && 
 static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) && !event.pressed); }
 
 /* Tick event */
-#define TICK                    (keyevent_t){           \
-    .key = (keypos_t){ .row = 255, .col = 255 },           \
-    .pressed = false,                                   \
-    .time = (timer_read() | 1)                          \
-}
-
-void disable_jtag(void);
+#define TICK \
+    (keyevent_t) { .key = (keypos_t){.row = 255, .col = 255}, .pressed = false, .time = (timer_read() | 1) }
 
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);
@@ -69,14 +62,28 @@ void keyboard_task(void);
 void keyboard_set_leds(uint8_t leds);
 /* it runs whenever code has to behave differently on a slave */
 bool is_keyboard_master(void);
+/* it runs whenever code has to behave differently on left vs right split */
+bool is_keyboard_left(void);
 
 void keyboard_pre_init_kb(void);
 void keyboard_pre_init_user(void);
 void keyboard_post_init_kb(void);
 void keyboard_post_init_user(void);
 
+void housekeeping_task_kb(void);
+void housekeeping_task_user(void);
+
+uint32_t last_input_activity_time(void);     // Timestamp of the last matrix or encoder activity
+uint32_t last_input_activity_elapsed(void);  // Number of milliseconds since the last matrix or encoder activity
+
+uint32_t last_matrix_activity_time(void);     // Timestamp of the last matrix activity
+uint32_t last_matrix_activity_elapsed(void);  // Number of milliseconds since the last matrix activity
+
+uint32_t last_encoder_activity_time(void);     // Timestamp of the last encoder activity
+uint32_t last_encoder_activity_elapsed(void);  // Number of milliseconds since the last encoder activity
+
+uint32_t get_matrix_scan_rate(void);
+
 #ifdef __cplusplus
 }
-#endif
-
 #endif

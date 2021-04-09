@@ -1,5 +1,18 @@
 #include QMK_KEYBOARD_H
 
+#define KC_MO6 MO(6)
+#define KC_MO7 MO(7)
+
+#define KC_DF0 DF(0)
+#define KC_DF1 DF(1)
+#define KC_DF2 DF(2)
+#define KC_DF3 DF(3)
+
+#define KC_TG4 TG(4)
+#define KC_TG5 TG(5)
+
+#define KC_CSES C(S(KC_ESC))
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: qwerty
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -19,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSLS,       \
         CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L, SCLN, QUOT,   NO,  ENT,       \
         LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT, SLSH,   NO, RSFT,   NO, \
-        LCTL, LGUI, LALT,                SPC,                  FN0, RGUI,  APP, RCTL),
+        LCTL, LGUI, LALT,                SPC,                  MO6, RGUI,  APP, RCTL),
     /* 1: colemak
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │GRAVE│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  =  │▒▒▒▒▒│BKSPC│
@@ -38,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB,    Q,    W,   F,   P,   G,   J,   L,   U,    Y, SCLN, LBRC, RBRC, BSLS,      \
         BSPC,    A,    R,   S,   T,   D,   H,   N,   E,    I,    O, QUOT,   NO,  ENT,      \
         LSFT,   NO,    Z,   X,   C,   V,   B,   K,   M, COMM,  DOT, SLSH,   NO, RSFT,  NO, \
-        LCTL, LGUI, LALT,                SPC,                  FN0, RGUI,  APP, RCTL),
+        LCTL, LGUI, LALT,                SPC,                  MO6, RGUI,  APP, RCTL),
     /* 2: dvorak
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │GRAVE│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  [  │  ]  │▒▒▒▒▒│BKSPC│
@@ -57,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB, QUOT, COMM,  DOT,   P,   Y,   F,   G,   C,   R,   L, SLSH,  EQL, BSLS,       \
         CAPS,    A,    O,    E,   U,   I,   D,   H,   T,   N,   S, MINS,   NO,  ENT,       \
         LSFT,   NO, SCLN,    Q,   J,   K,   X,   B,   M,   W,   V,    Z,   NO, RSFT,   NO, \
-        LCTL, LGUI, LALT,                 SPC,                FN0, RGUI,  APP, RCTL),
+        LCTL, LGUI, LALT,                 SPC,                MO6, RGUI,  APP, RCTL),
     /* 3: workman
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │GRAVE│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  =  │▒▒▒▒▒│BKSPC│
@@ -76,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB,    Q,    D,   R,   W,   B,   J,   F,   U,    P, SCLN, LBRC, RBRC, BSLS,       \
         BSPC,    A,    S,   H,   T,   G,   Y,   N,   E,    O,    I, QUOT,   NO,  ENT,       \
         LSFT,   NO,    Z,   X,   M,   C,   V,   K,   L, COMM,  DOT, SLSH,   NO, RSFT,   NO, \
-        LCTL, LGUI, LALT,                SPC,                  FN0, RGUI,  APP, RCTL),
+        LCTL, LGUI, LALT,                SPC,                  MO6, RGUI,  APP, RCTL),
     /* 4: Poker with Arrow
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │     │     │     │     │     │     │     │     │     │     │     │     │     │▒▒▒▒▒│     │
@@ -136,10 +149,10 @@ FnS: toggle Arrow overlay
     */
     LAYOUT_kc(
         ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, TRNS, \
-        TRNS,  FN2,   UP, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CALC, TRNS, HOME,  INS,  FN4,       \
-        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  FN3,  END, TRNS, TRNS,       \
+        TRNS,  TG5,   UP, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CALC, TRNS, HOME,  INS,  MO7,       \
+        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS, CSES,  END, TRNS, TRNS,       \
         TRNS, TRNS,  DEL, TRNS, WHOM, MUTE, VOLU, VOLD, TRNS, PGUP, PGDN,  DEL, TRNS, TRNS, TRNS, \
-        TRNS, TRNS, TRNS,                    FN1,                   TRNS, TRNS, TRNS, TRNS),
+        TRNS, TRNS, TRNS,                    TG4,                   TRNS, TRNS, TRNS, TRNS),
     /* 7: Layout selector
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │ Lq  │ Lc  │ Ld  │ Lw  │     │     │     │     │     │     │     │     │     │▒▒▒▒▒│     │
@@ -160,21 +173,9 @@ Lw: set Workman layout
 
     */
     LAYOUT_kc(
-        FN5,  FN6,  FN7,  FN8, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
-        TRNS,  FN5,  FN8, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
-        TRNS, TRNS, TRNS,  FN7, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
-        TRNS, TRNS, TRNS, TRNS,  FN6, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
+        DF0,  DF1,  DF2,  DF3, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
+        TRNS,  DF0,  DF3, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
+        TRNS, TRNS, TRNS,  DF2, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
+        TRNS, TRNS, TRNS, TRNS,  DF1, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
         TRNS, TRNS, TRNS,                   TRNS,                   TRNS, TRNS, TRNS, TRNS),
-};
-const uint16_t PROGMEM fn_actions[] = {
-    /* Poker Layout */
-    [0] = ACTION_LAYER_MOMENTARY(6),  // to Fn overlay
-    [1] = ACTION_LAYER_TOGGLE(4),     // toggle arrow overlay
-    [2] = ACTION_LAYER_TOGGLE(5),     // toggle Esc overlay
-    [3] = ACTION_MODS_KEY(MOD_RCTL|MOD_RSFT, KC_ESC), // Task(RControl,RShift+Esc)
-    [4] = ACTION_LAYER_MOMENTARY(7),  // to Layout selector
-    [5] = ACTION_DEFAULT_LAYER_SET(0),  // set qwerty layout
-    [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
-    [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout
-    [8] = ACTION_DEFAULT_LAYER_SET(3),  // set workman layout
 };

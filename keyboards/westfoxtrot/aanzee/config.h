@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    westfoxtrot
 #define PRODUCT         aanzee
-#define DESCRIPTION     QMK Firmware for the Aanzee PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -39,6 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
@@ -117,26 +119,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-
-//dynamic keymap and via support
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
-
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*10*6*2)) = (35+480)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 675    // **** CHANGE THIS BASED ON MATRIX_ROWS & MATRIX_COLS ****
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 349    // **** CHANGE THIS BASED ON 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR ****
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16

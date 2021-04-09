@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NHL] = LAYOUT_ergodox(
         // left hand
         KC_NO,      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-        KC_NO,      KC_PGUP,KC_BSPC,KC_UP,  KC_DELT,KC_PGDN,KC_NO,
+        KC_NO,      KC_PGUP,KC_BSPC,KC_UP,  KC_DEL, KC_PGDN,KC_NO,
         KC_NO,      KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END,
         KC_NO,      KC_ESC, KC_TAB, KC_INS, KC_ENT, KC_UNDO,KC_TRNS,
         KC_NO,      KC_NO,  KC_TRNS,KC_NO,  KC_TRNS,
@@ -220,25 +220,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [PMQ]  = ACTION_FUNCTION(PMQ),
     [PMN]  = ACTION_FUNCTION(PMN),
 };
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-    switch(id) {
-        case 0:
-            if (record->event.pressed) {
-                register_code(KC_RSFT);
-            }
-            else {
-                unregister_code(KC_RSFT);
-            }
-        break;
-    }
-
-    return MACRO_NONE;
-};
-
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
@@ -288,31 +269,3 @@ void unicode_input_start (void) {
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
 };
-
-// Override method to use NEO_A instead of KC_A
-uint16_t hex_to_keycode(uint8_t hex)
-{
-  if(hex == 0x0) {
-    return KC_0;
-  }
-  else if(hex >= 0xA) {
-    switch(hex) {
-      case 0xA:
-        return NEO_A;
-      case 0xB:
-        return NEO_B;
-      case 0xC:
-        return NEO_C;
-      case 0xD:
-        return NEO_D;
-      case 0xE:
-        return NEO_E;
-      case 0xF:
-        return NEO_F;
-      default:
-        return KC_NO;
-    }
-  }
-
-  return KC_1 + (hex - 0x1);
-}

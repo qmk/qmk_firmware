@@ -35,17 +35,14 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef NEWS_H
-#define NEWS_H
+#pragma once
+
 /*
  * Primitive PS/2 Library for AVR
  */
 
-
 /* host role */
-void news_init(void);
+void    news_init(void);
 uint8_t news_recv(void);
 
 /* device role */
-
-#endif

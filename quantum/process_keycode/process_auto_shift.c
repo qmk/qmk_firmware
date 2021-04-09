@@ -16,195 +16,227 @@
 
 #ifdef AUTO_SHIFT_ENABLE
 
-#include <stdio.h>
+#    include <stdbool.h>
+#    include <stdio.h>
 
-#include "process_auto_shift.h"
+#    include "process_auto_shift.h"
 
-#define TAP(key) \
-  register_code(key); \
-  unregister_code(key)
+static uint16_t autoshift_time    = 0;
+static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
+static uint16_t autoshift_lastkey = KC_NO;
+static struct {
+    // Whether autoshift is enabled.
+    bool enabled : 1;
+    // Whether the last auto-shifted key was released after the timeout.  This
+    // is used to replicate the last key for a tap-then-hold.
+    bool lastshifted : 1;
+    // Whether an auto-shiftable key has been pressed but not processed.
+    bool in_progress : 1;
+    // Whether the auto-shifted keypress has been registered.
+    bool holding_shift : 1;
+} autoshift_flags = {true, false, false, false};
 
-#define TAP_WITH_MOD(mod, key) \
-  register_code(mod); \
-  register_code(key); \
-  unregister_code(key); \
-  unregister_code(mod)
-
-uint16_t autoshift_time = 0;
-uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
-uint16_t autoshift_lastkey = KC_NO;
-
-void autoshift_timer_report(void) {
-  char display[8];
-
-  snprintf(display, 8, "\n%d\n", autoshift_timeout);
-
-  send_string((const char *)display);
-}
-
-void autoshift_on(uint16_t keycode) {
-  autoshift_time = timer_read();
-  autoshift_lastkey = keycode;
-}
-
-void autoshift_flush(void) {
-  if (autoshift_lastkey != KC_NO) {
-    uint16_t elapsed = timer_elapsed(autoshift_time);
-
-    if (elapsed > autoshift_timeout) {
-      register_code(KC_LSFT);
+/** \brief Record the press of an autoshiftable key
+ *
+ *  \return Whether the record should be further processed.
+ */
+static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record) {
+    if (!autoshift_flags.enabled) {
+        return true;
     }
 
-    register_code(autoshift_lastkey);
-    unregister_code(autoshift_lastkey);
-
-    if (elapsed > autoshift_timeout) {
-      unregister_code(KC_LSFT);
+#    ifndef AUTO_SHIFT_MODIFIERS
+    if (get_mods()) {
+        return true;
     }
+#    endif
+#    ifdef AUTO_SHIFT_REPEAT
+    const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
+#        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
+    if (!autoshift_flags.lastshifted) {
+#        endif
+        if (elapsed < TAPPING_TERM && keycode == autoshift_lastkey) {
+            // Allow a tap-then-hold for keyrepeat.
+            if (!autoshift_flags.lastshifted) {
+                register_code(autoshift_lastkey);
+            } else {
+                // Simulate pressing the shift key.
+                add_weak_mods(MOD_BIT(KC_LSFT));
+                register_code(autoshift_lastkey);
+            }
+            return false;
+        }
+#        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
+    }
+#        endif
+#    endif
 
-    autoshift_time = 0;
-    autoshift_lastkey = KC_NO;
-  }
+    // Record the keycode so we can simulate it later.
+    autoshift_lastkey           = keycode;
+    autoshift_time              = now;
+    autoshift_flags.in_progress = true;
+
+#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
+    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+#    endif
+    return false;
 }
 
-bool autoshift_enabled = true;
+/** \brief Registers an autoshiftable key under the right conditions
+ *
+ * If the autoshift delay has elapsed, register a shift and the key.
+ *
+ * If the autoshift key is released before the delay has elapsed, register the
+ * key without a shift.
+ */
+static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger) {
+    // Called on key down with KC_NO, auto-shifted key up, and timeout.
+    if (autoshift_flags.in_progress) {
+        // Process the auto-shiftable key.
+        autoshift_flags.in_progress = false;
 
-void autoshift_enable(void) {
-    autoshift_enabled = true;
+        // Time since the initial press was recorded.
+        const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
+        if (elapsed < autoshift_timeout) {
+            register_code(autoshift_lastkey);
+            autoshift_flags.lastshifted = false;
+        } else {
+            // Simulate pressing the shift key.
+            add_weak_mods(MOD_BIT(KC_LSFT));
+            register_code(autoshift_lastkey);
+            autoshift_flags.lastshifted = true;
+#    if defined(AUTO_SHIFT_REPEAT) && !defined(AUTO_SHIFT_NO_AUTO_REPEAT)
+            if (matrix_trigger) {
+                // Prevents release.
+                return;
+            }
+#    endif
+        }
+
+#    if TAP_CODE_DELAY > 0
+        wait_ms(TAP_CODE_DELAY);
+#    endif
+        unregister_code(autoshift_lastkey);
+        del_weak_mods(MOD_BIT(KC_LSFT));
+    } else {
+        // Release after keyrepeat.
+        unregister_code(keycode);
+        if (keycode == autoshift_lastkey) {
+            // This will only fire when the key was the last auto-shiftable
+            // pressed. That prevents aaaaBBBB then releasing a from unshifting
+            // later Bs (if B wasn't auto-shiftable).
+            del_weak_mods(MOD_BIT(KC_LSFT));
+        }
+    }
+    send_keyboard_report();  // del_weak_mods doesn't send one.
+    // Roll the autoshift_time forward for detecting tap-and-hold.
+    autoshift_time = now;
 }
-void autoshift_disable(void) {
-  autoshift_enabled = false;
-  autoshift_flush();
+
+/** \brief Simulates auto-shifted key releases when timeout is hit
+ *
+ *  Can be called from \c matrix_scan_user so that auto-shifted keys are sent
+ *  immediately after the timeout has expired, rather than waiting for the key
+ *  to be released.
+ */
+void autoshift_matrix_scan(void) {
+    if (autoshift_flags.in_progress) {
+        const uint16_t now     = timer_read();
+        const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
+        if (elapsed >= autoshift_timeout) {
+            autoshift_end(autoshift_lastkey, now, true);
+        }
+    }
 }
 
 void autoshift_toggle(void) {
-  if (autoshift_enabled) {
-    autoshift_enabled = false;
-    autoshift_flush();
-  }
-  else {
-    autoshift_enabled = true;
-  }
+    autoshift_flags.enabled = !autoshift_flags.enabled;
+    del_weak_mods(MOD_BIT(KC_LSFT));
 }
 
-bool autoshift_state(void) {
-  return autoshift_enabled;
+void autoshift_enable(void) { autoshift_flags.enabled = true; }
+
+void autoshift_disable(void) {
+    autoshift_flags.enabled = false;
+    del_weak_mods(MOD_BIT(KC_LSFT));
 }
+
+#    ifndef AUTO_SHIFT_NO_SETUP
+void autoshift_timer_report(void) {
+    char display[8];
+
+    snprintf(display, 8, "\n%d\n", autoshift_timeout);
+
+    send_string((const char *)display);
+}
+#    endif
+
+bool get_autoshift_state(void) { return autoshift_flags.enabled; }
+
+uint16_t get_autoshift_timeout(void) { return autoshift_timeout; }
+
+void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
-#ifndef AUTO_SHIFT_MODIFIERS
-  static uint8_t any_mod_pressed;
-#endif
+    // Note that record->event.time isn't reliable, see:
+    // https://github.com/qmk/qmk_firmware/pull/9826#issuecomment-733559550
+    const uint16_t now = timer_read();
 
-  if (record->event.pressed) {
-    switch (keycode) {
-      case KC_ASUP:
-        autoshift_timeout += 5;
-        return false;
-
-      case KC_ASDN:
-        autoshift_timeout -= 5;
-        return false;
-
-      case KC_ASRP:
-        autoshift_timer_report();
-        return false;
-
-      case KC_ASTG:
-        autoshift_toggle();
-        return false;
-      case KC_ASON:
-        autoshift_enable();
-        return false;
-      case KC_ASOFF:
-        autoshift_disable();
-        return false;
-
-#ifndef NO_AUTO_SHIFT_ALPHA
-      case KC_A:
-      case KC_B:
-      case KC_C:
-      case KC_D:
-      case KC_E:
-      case KC_F:
-      case KC_G:
-      case KC_H:
-      case KC_I:
-      case KC_J:
-      case KC_K:
-      case KC_L:
-      case KC_M:
-      case KC_N:
-      case KC_O:
-      case KC_P:
-      case KC_Q:
-      case KC_R:
-      case KC_S:
-      case KC_T:
-      case KC_U:
-      case KC_V:
-      case KC_W:
-      case KC_X:
-      case KC_Y:
-      case KC_Z:
-#endif
-#ifndef NO_AUTO_SHIFT_NUMERIC
-      case KC_1:
-      case KC_2:
-      case KC_3:
-      case KC_4:
-      case KC_5:
-      case KC_6:
-      case KC_7:
-      case KC_8:
-      case KC_9:
-      case KC_0:
-#endif
-#ifndef NO_AUTO_SHIFT_SPECIAL
-      case KC_MINUS:
-      case KC_EQL:
-      case KC_TAB:
-      case KC_LBRC:
-      case KC_RBRC:
-      case KC_BSLS:
-      case KC_SCLN:
-      case KC_QUOT:
-      case KC_COMM:
-      case KC_DOT:
-      case KC_SLSH:
-      case KC_GRAVE:
-      case KC_NONUS_BSLASH:
-      case KC_NONUS_HASH:
-#endif
-
-        autoshift_flush();
-        if (!autoshift_enabled) return true;
-
-#ifndef AUTO_SHIFT_MODIFIERS
-        any_mod_pressed = get_mods() & (
-          MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|
-          MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT)|
-          MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTL)|
-          MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)
-        );
-
-        if (any_mod_pressed) {
-          return true;
+    if (record->event.pressed) {
+        if (autoshift_flags.in_progress) {
+            // Evaluate previous key if there is one. Doing this elsewhere is
+            // more complicated and easier to break.
+            autoshift_end(KC_NO, now, false);
         }
-#endif
+        // For pressing another key while keyrepeating shifted autoshift.
+        del_weak_mods(MOD_BIT(KC_LSFT));
 
-        autoshift_on(keycode);
-        return false;
+        switch (keycode) {
+            case KC_ASTG:
+                autoshift_toggle();
+                return true;
+            case KC_ASON:
+                autoshift_enable();
+                return true;
+            case KC_ASOFF:
+                autoshift_disable();
+                return true;
 
-      default:
-        autoshift_flush();
-        return true;
+#    ifndef AUTO_SHIFT_NO_SETUP
+            case KC_ASUP:
+                autoshift_timeout += 5;
+                return true;
+            case KC_ASDN:
+                autoshift_timeout -= 5;
+                return true;
+
+            case KC_ASRP:
+                autoshift_timer_report();
+                return true;
+#    endif
+        }
     }
-  } else {
-    autoshift_flush();
-  }
 
-  return true;
+    switch (keycode) {
+#    ifndef NO_AUTO_SHIFT_ALPHA
+        case KC_A ... KC_Z:
+#    endif
+#    ifndef NO_AUTO_SHIFT_NUMERIC
+        case KC_1 ... KC_0:
+#    endif
+#    ifndef NO_AUTO_SHIFT_SPECIAL
+        case KC_TAB:
+        case KC_MINUS ... KC_SLASH:
+        case KC_NONUS_BSLASH:
+#    endif
+            if (record->event.pressed) {
+                return autoshift_press(keycode, now, record);
+            } else {
+                autoshift_end(keycode, now, false);
+                return false;
+            }
+    }
+    return true;
 }
 
 #endif

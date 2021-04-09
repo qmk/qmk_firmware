@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef LCD_BACKLIGHT_H_
-#define LCD_BACKLIGHT_H_
-#include "stdint.h"
+#pragma once
+
+#include <stdint.h>
 
 // Helper macros for storing hue, staturation and intensity as unsigned integers
 #define LCD_COLOR(hue, saturation, intensity) (hue << 16 | saturation << 8 | intensity)
@@ -32,16 +32,12 @@ SOFTWARE.
 #define LCD_SAT(color) ((color >> 8) & 0xFF)
 #define LCD_INT(color) (color & 0xFF)
 
-static inline uint32_t change_lcd_color_intensity(uint32_t color, uint8_t new_intensity) {
-    return (color & 0xFFFFFF00) | new_intensity;
-}
+static inline uint32_t change_lcd_color_intensity(uint32_t color, uint8_t new_intensity) { return (color & 0xFFFFFF00) | new_intensity; }
 
-void lcd_backlight_init(void);
-void lcd_backlight_color(uint8_t hue, uint8_t saturation, uint8_t intensity);
-void lcd_backlight_brightness(uint8_t b);
+void    lcd_backlight_init(void);
+void    lcd_backlight_color(uint8_t hue, uint8_t saturation, uint8_t intensity);
+void    lcd_backlight_brightness(uint8_t b);
 uint8_t lcd_get_backlight_brightness(void);
 
 void lcd_backlight_hal_init(void);
 void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b);
-
-#endif /* LCD_BACKLIGHT_H_ */

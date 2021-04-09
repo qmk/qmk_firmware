@@ -1,4 +1,4 @@
-﻿### 6. SpaceFN
+### 6. SpaceFN
 This layout proposed by spiceBar uses space bar to change layer with using Dual role key technique. See [keymap.c](keymap.c) and [SpaceFN discussion](http://geekhack.org/index.php?topic=51069.0).
 
 #### 6.0 Default layer

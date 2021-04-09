@@ -20,6 +20,5 @@
 
 extern const uint32_t PROGMEM unicode_map[];
 
-void register_hex32(uint32_t hex);
 uint16_t unicodemap_index(uint16_t keycode);
-bool process_unicodemap(uint16_t keycode, keyrecord_t *record);
+bool     process_unicodemap(uint16_t keycode, keyrecord_t *record);

@@ -15,17 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KEYMAP_H
-#define KEYMAP_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
 #include "action.h"
 #if defined(__AVR__)
-#include <avr/pgmspace.h>
+#    include <avr/pgmspace.h>
 #elif defined PROTOCOL_CHIBIOS
-//We need to ensure that chibios is include before redefining reset
-#include "ch.h"
+// We need to ensure that chibios is include before redefining reset
+#    include <ch.h>
 #endif
 #include "keycode.h"
 #include "action_macro.h"
@@ -38,7 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ChibiOS uses RESET in its FlagStatus enumeration
 // Therefore define it as QK_RESET here, to avoid name collision
 #if defined(PROTOCOL_CHIBIOS)
-#define RESET QK_RESET
+#    define RESET QK_RESET
+#endif
+// Gross hack, remove me and change RESET keycode to QK_BOOT
+#if defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__)
+#    undef RESET
 #endif
 
 #include "quantum_keycodes.h"
@@ -47,10 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
 
 // translates function id to action
-uint16_t keymap_function_id_to_action( uint16_t function_id );
+uint16_t keymap_function_id_to_action(uint16_t function_id);
 
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t fn_actions[];
-
-
-#endif

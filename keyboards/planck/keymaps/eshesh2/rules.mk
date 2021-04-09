@@ -1,0 +1,4 @@
+SRC += muse.c
+ENCODER_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+MOUSEKEY_ENABLE = yes

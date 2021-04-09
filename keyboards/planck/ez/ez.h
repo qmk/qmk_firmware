@@ -17,6 +17,10 @@
 
 #include "planck.h"
 
+#ifdef KEYBOARD_planck_ez_glow
+#    include "glow.h"
+#endif
+
 #define LAYOUT_planck_1x2uC( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, \
@@ -50,3 +54,31 @@ LAYOUT_planck_1x2uC( \
 #define KEYMAP LAYOUT_ortho_4x12
 #define LAYOUT_planck_mit LAYOUT_planck_1x2uC
 #define LAYOUT_planck_grid LAYOUT_ortho_4x12
+
+void planck_ez_right_led_on(void);
+void planck_ez_right_led_off(void);
+void planck_ez_right_led_level(uint8_t level);
+void planck_ez_left_led_on(void);
+void planck_ez_left_led_off(void);
+void planck_ez_left_led_level(uint8_t level);
+
+enum planck_ez_keycodes {
+    LED_LEVEL = SAFE_RANGE,
+    TOGGLE_LAYER_COLOR,
+    EZ_SAFE_RANGE,
+};
+
+#ifndef WEBUSB_ENABLE
+#    define WEBUSB_PAIR KC_NO
+#endif
+
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t      led_level :3;
+    bool         disable_layer_led   :1;
+    bool         rgb_matrix_enable   :1;
+  };
+} keyboard_config_t;
+
+extern keyboard_config_t keyboard_config;

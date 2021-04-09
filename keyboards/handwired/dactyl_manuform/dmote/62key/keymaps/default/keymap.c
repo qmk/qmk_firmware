@@ -1,9 +1,8 @@
 #include "62key.h"
 #include "rgblight.h"
-#include <keymap_colemak.h>
-#include <sendstring_colemak.h>
+#include "keymap_colemak.h"
+#include "sendstring_colemak.h"
 
-extern keymap_config_t keymap_config;
 
 // Automatic Layer ID:
 enum layer_names {

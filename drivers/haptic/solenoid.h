@@ -18,31 +18,41 @@
 #pragma once
 
 #ifndef SOLENOID_DEFAULT_DWELL
-#define SOLENOID_DEFAULT_DWELL 12
+#    define SOLENOID_DEFAULT_DWELL 12
 #endif
 
 #ifndef SOLENOID_MAX_DWELL
-#define SOLENOID_MAX_DWELL 100
+#    define SOLENOID_MAX_DWELL 100
 #endif
 
 #ifndef SOLENOID_MIN_DWELL
-#define SOLENOID_MIN_DWELL 4
+#    define SOLENOID_MIN_DWELL 4
 #endif
 
-#ifndef SOLENOID_ACTIVE
-#define SOLENOID_ACTIVE false
+#ifndef SOLENOID_DWELL_STEP_SIZE
+#    define SOLENOID_DWELL_STEP_SIZE 1
+#endif
+
+#ifndef SOLENOID_DEFAULT_BUZZ
+#    define SOLENOID_DEFAULT_BUZZ 0
+#endif
+
+#ifndef SOLENOID_BUZZ_ACTUATED
+#    define SOLENOID_BUZZ_ACTUATED SOLENOID_MIN_DWELL
+#endif
+
+#ifndef SOLENOID_BUZZ_NONACTUATED
+#    define SOLENOID_BUZZ_NONACTUATED SOLENOID_MIN_DWELL
 #endif
 
 #ifndef SOLENOID_PIN
-#define SOLENOID_PIN F6
+#    error SOLENOID_PIN not defined
 #endif
 
 void solenoid_buzz_on(void);
 void solenoid_buzz_off(void);
 void solenoid_set_buzz(int buzz);
 
-void solenoid_dwell_minus(uint8_t solenoid_dwell);
-void solenoid_dwell_plus(uint8_t solenoid_dwell);
 void solenoid_set_dwell(uint8_t dwell);
 
 void solenoid_stop(void);

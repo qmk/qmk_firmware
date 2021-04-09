@@ -14,60 +14,83 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#ifndef COLOR_H
-#define COLOR_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
 
-
 #if defined(__GNUC__)
-#define PACKED __attribute__ ((__packed__))
+#    define PACKED __attribute__((__packed__))
 #else
-#define PACKED
+#    define PACKED
 #endif
 
 #if defined(_MSC_VER)
-#pragma pack( push, 1 )
+#    pragma pack(push, 1)
 #endif
 
 #ifdef RGBW
-  #define LED_TYPE cRGBW
+#    define LED_TYPE cRGBW
 #else
-  #define LED_TYPE RGB
+#    define LED_TYPE RGB
 #endif
 
-// WS2812 specific layout
-typedef struct PACKED
-{
-	uint8_t g;
-	uint8_t r;
-	uint8_t b;
+#define WS2812_BYTE_ORDER_RGB 0
+#define WS2812_BYTE_ORDER_GRB 1
+#define WS2812_BYTE_ORDER_BGR 2
+
+#ifndef WS2812_BYTE_ORDER
+#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
+#endif
+
+typedef struct PACKED {
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
+    uint8_t g;
+    uint8_t r;
+    uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+    uint8_t b;
+    uint8_t g;
+    uint8_t r;
+#endif
 } cRGB;
 
 typedef cRGB RGB;
 
 // WS2812 specific layout
-typedef struct PACKED
-{
-	uint8_t g;
-	uint8_t r;
-	uint8_t b;
-	uint8_t w;
+typedef struct PACKED {
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
+    uint8_t g;
+    uint8_t r;
+    uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+    uint8_t b;
+    uint8_t g;
+    uint8_t r;
+#endif
+    uint8_t w;
 } cRGBW;
 
-typedef struct PACKED
-{
-	uint8_t h;
-	uint8_t s;
-	uint8_t v;
+typedef struct PACKED {
+    uint8_t h;
+    uint8_t s;
+    uint8_t v;
 } HSV;
 
 #if defined(_MSC_VER)
-#pragma pack( pop )
+#    pragma pack(pop)
 #endif
 
 RGB hsv_to_rgb(HSV hsv);
-
-#endif // COLOR_H
+RGB hsv_to_rgb_nocie(HSV hsv);
+#ifdef RGBW
+void convert_rgb_to_rgbw(LED_TYPE *led);
+#endif

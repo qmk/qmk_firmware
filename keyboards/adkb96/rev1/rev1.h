@@ -2,8 +2,6 @@
 
 #include "adkb96.h"
 
-//void promicro_bootloader_jmp(bool program);
-
 #ifdef USE_I2C
 #include <stddef.h>
 #ifdef __AVR__
@@ -11,9 +9,6 @@
 	#include <avr/interrupt.h>
 #endif
 #endif
-
-//void promicro_bootloader_jmp(bool program);
-
 
 // Keymap with right side flipped
 // (TRRS jack on both halves are to the right)

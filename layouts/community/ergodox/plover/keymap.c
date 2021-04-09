@@ -39,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
                                               ALT_T(KC_APP),  KC_HOME,
-                                                               KC_END,
-                                               KC_BSPC,KC_DELT,KC_LALT,
+                                                              KC_END,
+                                               KC_BSPC,KC_DEL,KC_LALT,
         // right hand
              KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(3),       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
@@ -177,26 +177,6 @@ LAYOUT_ergodox(
         KC_TRNS,
         KC_NO,  KC_N,   KC_M
 ),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
 };
 
 // Runs constantly in the background, in a loop.

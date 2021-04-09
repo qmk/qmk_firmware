@@ -15,25 +15,31 @@ problem.
 When you tap a key, it stays depressed for a short period of time before it is
 then released. This depressed time is a different length for everyone. Auto Shift
 defines a constant `AUTO_SHIFT_TIMEOUT` which is typically set to twice your
-normal pressed state time. When you press a key, a timer starts and then stops
-when you release the key. If the time depressed is greater than or equal to the
-`AUTO_SHIFT_TIMEOUT`, then a shifted version of the key is emitted. If the time
-is less than the `AUTO_SHIFT_TIMEOUT` time, then the normal state is emitted.
+normal pressed state time. When you press a key, a timer starts, and if you
+have not released the key after the `AUTO_SHIFT_TIMEOUT` period, then a shifted
+version of the key is emitted. If the time is less than the `AUTO_SHIFT_TIMEOUT`
+time, or you press another key, then the normal state is emitted.
+
+If `AUTO_SHIFT_REPEAT` is defined, there is keyrepeat support. Holding the key
+down will repeat the shifted key, though this can be disabled with
+`AUTO_SHIFT_NO_AUTO_REPEAT`. If you want to repeat the normal key, then tap it
+once then immediately (within `TAPPING_TERM`) hold it down again (this works
+with the shifted value as well if auto-repeat is disabled).
 
 ## Are There Limitations to Auto Shift?
 
 Yes, unfortunately.
 
-1. Key repeat will cease to work. For example, before if you wanted 20 'a'
-   characters, you could press and hold the 'a' key for a second or two. This no
-   longer works with Auto Shift because it is timing your depressed time instead
-   of emitting a depressed key state to your operating system.
-2. You will have characters that are shifted when you did not intend on shifting, and
-   other characters you wanted shifted, but were not. This simply comes down to
-   practice. As we get in a hurry, we think we have hit the key long enough
-   for a shifted version, but we did not. On the other hand, we may think we are
-   tapping the keys, but really we have held it for a little longer than
-   anticipated.
+You will have characters that are shifted when you did not intend on shifting, and
+other characters you wanted shifted, but were not. This simply comes down to
+practice. As we get in a hurry, we think we have hit the key long enough for a
+shifted version, but we did not. On the other hand, we may think we are tapping
+the keys, but really we have held it for a little longer than anticipated.
+
+Additionally, with keyrepeat the desired shift state can get mixed up. It will
+always 'belong' to the last key pressed. For example, keyrepeating a capital
+and then tapping something lowercase (whether or not it's an Auto Shift key)
+will result in the capital's *key* still being held, but shift not.
 
 ## How Do I Enable Auto Shift?
 
@@ -51,11 +57,14 @@ By default, Auto Shift is disabled for any key press that is accompanied by one 
 modifiers. Thus, Ctrl+A that you hold for a really long time is not the same
 as Ctrl+Shift+A.
 
-You can re-enable Auto Shift for modifiers by adding another rule to your `rules.mk`
+You can re-enable Auto Shift for modifiers by adding a define to your `config.h`
 
-    AUTO_SHIFT_MODIFIERS = yes
+```c
+#define AUTO_SHIFT_MODIFIERS
+```
 
 In which case, Ctrl+A held past the `AUTO_SHIFT_TIMEOUT` will be sent as Ctrl+Shift+A
+
 
 ## Configuring Auto Shift
 
@@ -65,15 +74,12 @@ behavior of Auto Shift. This is done by setting various variables the
 
 A sample is
 
-    #ifndef CONFIG_USER_H
-    #define CONFIG_USER_H
+```c
+#pragma once
 
-    #include "../../config.h"
-
-    #define AUTO_SHIFT_TIMEOUT 150
-    #define NO_AUTO_SHIFT_SPECIAL
-
-    #endif
+#define AUTO_SHIFT_TIMEOUT 150
+#define NO_AUTO_SHIFT_SPECIAL
+```
 
 ### AUTO_SHIFT_TIMEOUT (Value in ms)
 
@@ -102,6 +108,14 @@ Do not Auto Shift numeric keys, zero through nine.
 ### NO_AUTO_SHIFT_ALPHA (simple define)
 
 Do not Auto Shift alpha characters, which include A through Z.
+
+### AUTO_SHIFT_REPEAT (simple define)
+
+Enables keyrepeat.
+
+### AUTO_SHIFT_NO_AUTO_REPEAT (simple define)
+
+Disables automatically keyrepeating when `AUTO_SHIFT_TIMEOUT` is exceeded.
 
 ## Using Auto Shift Setup
 
@@ -139,7 +153,7 @@ completely normal and with no intention of shifted keys.
    `KC_ASRP`. The keyboard will type by itself the value of your
    `AUTO_SHIFT_TIMEOUT`.
 7. Update `AUTO_SHIFT_TIMEOUT` in your `config.h` with the value reported.
-8. Remove `AUTO_SHIFT_SETUP` from your `config.h`.
+8. Add `AUTO_SHIFT_NO_SETUP` to your `config.h`.
 9. Remove the key bindings `KC_ASDN`, `KC_ASUP` and `KC_ASRP`.
 10. Compile and upload your new firmware.
 

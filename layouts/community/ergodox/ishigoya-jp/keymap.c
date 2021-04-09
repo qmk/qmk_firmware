@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_RCTL,       KC_LGUI,      KC_LALT,JP_UNDS,KC_LCTL,
                                               KC_BTN3,  KC_DEL,
                                                               KC_NO,
-                                               KC_SPC,KC_LSFT,F(1),
+                                               KC_SPC,KC_LSFT,MO(NUM),
         // right hand
              LCTL(KC_Z), KC_NO, LSFT(KC_4),      JP_AT,   KC_LEFT,       KC_UP,   KC_RIGHT,
              KC_PGUP,    KC_J,       KC_F,       KC_U,       KC_P,       KC_DOWN, LSFT(KC_3),
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_NO,
-                                  M(SHIFT), M(JPFN), F(1),
+                                  M(SHIFT), M(JPFN), MO(NUM),
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  M(JPFU), M(JPSE), M(JPTSU), M(JPKU), KC_TRNS, KC_TRNS,
@@ -413,10 +413,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,
        KC_SPC, KC_BSLS, KC_DOT
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_MOMENTARY(NUM)                // FN1 - Momentary Layer 6 (Numbers)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

@@ -1,6 +1,6 @@
 # Keyboards with AVR Processors
 
-This page describes the support for for AVR processors in QMK. AVR processors include the atmega32u4, atmega32u2, at90usb1286, and other processors from Atmel Corporation. AVR processors are 8-bit MCU's that are designed to be easy to work with. The most common AVR processors in keyboards have on-board USB and plenty of GPIO for supporting large keyboard matrices. They are the most popular MCU for use in keyboards today.
+This page describes the support for for AVR processors in QMK. AVR processors include the atmega32u4, atmega32u2, at90usb1286, and other processors from Atmel Corporation. AVR processors are 8-bit MCUs that are designed to be easy to work with. The most common AVR processors in keyboards have on-board USB and plenty of GPIO for supporting large keyboard matrices. They are the most popular MCU for use in keyboards today.
 
 If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_guidelines.md) to get a sense of how keyboards fit into QMK.
 
@@ -32,7 +32,7 @@ This will create all the files needed to support your new keyboard, and populate
 
 ## `readme.md`
 
-This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates.md#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](http://imgur.com) to host the images.
+This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates.md#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](https://imgur.com) to host the images.
 
 ## `<keyboard>.c`
 
@@ -67,7 +67,7 @@ The `config.h` file is where you configure the hardware and feature set for your
 
 At the top of the `config.h` you'll find USB related settings. These control how your keyboard appears to the Operating System. If you don't have a good reason to change you should leave the `VENDOR_ID` as `0xFEED`. For the `PRODUCT_ID` you should pick a number that is not yet in use.
 
-Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately reflect your keyboard.
+Do change the `MANUFACTURER` and `PRODUCT` lines to accurately reflect your keyboard.
 
 ```c
 #define VENDOR_ID       0xFEED
@@ -75,10 +75,9 @@ Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately r
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
 #define PRODUCT         my_awesome_keyboard
-#define DESCRIPTION     A custom keyboard
 ```
 
-?> Note: On Windows and macOS the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` fields will be displayed in the list of USB devices. ?> On Linux these values will not be visible in lsusb by default, since Linux takes the information from the list maintained by [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. lsusb will show the information reported by the device when executed with -v option. It is also present in kernel logs after plugging in the device.
+?> Windows and macOS will display the `MANUFACTURER` and `PRODUCT` in the list of USB devices. `lsusb` on Linux instead prefers the values in the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html). By default, it will only use `MANUFACTURER` and `PRODUCT` if the list does not contain that `VENDOR_ID` / `PRODUCT_ID`. `sudo lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
 
 ### Keyboard Matrix Configuration
 
@@ -125,7 +124,7 @@ To configure a keyboard where each switch is connected to a separate pin and gro
 
 ### Backlight Configuration
 
-By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are using one of those you can simply enable it here. For more details see the [Backlight Documentation](feature_backlight.md).
+QMK supports backlighting on most GPIO pins. A select few of these can be driven by the MCU in hardware. For more details see the [Backlight Documentation](feature_backlight.md).
 
 ```c
 #define BACKLIGHT_PIN B7
@@ -133,8 +132,6 @@ By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are us
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 ```
-
-?> You can use backlighting on any pin you like, but you will have to do more work to support that. See the [Backlight Documentation](feature_backlight.md) for more details.
 
 ### Other Configuration Options
 

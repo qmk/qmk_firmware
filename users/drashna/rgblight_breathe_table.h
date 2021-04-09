@@ -1,9 +1,26 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef RGBLIGHT_EFFECT_BREATHE_TABLE
 #define RGBLIGHT_EFFECT_BREATHE_TABLE
 
+// clang-format off
 const uint8_t rgblight_effect_breathe_table[] PROGMEM = {
-  /* #define RGBLIGHT_EFFECT_BREATHE_CENTER   0.00 */
-  /* #define RGBLIGHT_EFFECT_BREATHE_MAX      255 */
+/* #define RGBLIGHT_EFFECT_BREATHE_CENTER   0.00 */
+/* #define RGBLIGHT_EFFECT_BREATHE_MAX      255 */
 
  #if RGBLIGHT_BREATHE_TABLE_SIZE == 256
   0x44,  0x45,  0x47,  0x48,  0x4a,  0x4b,  0x4c,  0x4e,
@@ -110,7 +127,8 @@ const uint8_t rgblight_effect_breathe_table[] PROGMEM = {
   0x4e,  0x48
  #endif /* 64 bytes table */
 };
+// clang-format on
 
-static const int table_scale = 256/sizeof(rgblight_effect_breathe_table);
+static const int table_scale = 256 / sizeof(rgblight_effect_breathe_table);
 
 #endif /* RGBLIGHT_EFFECT_BREATHE_TABLE */

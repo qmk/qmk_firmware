@@ -1,28 +1,26 @@
 # MCU name
 MCU = atmega32u4
 
-F_CPU = 16000000
-
-ARCH = AVR8
-
-F_USB = $(F_CPU)
-
+# Bootloader selection
 BOOTLOADER = atmel-dfu
 
-# Interrupt driven control endpoint task
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE	= lite	# Virtual DIP switch configuration(+1000)
-# MOUSEKEY_ENABLE	= yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE		= yes	# Audio control and System control(+450)
-# CONSOLE_ENABLE	= yes	# Console for debug(+400)
-# COMMAND_ENABLE	= yes  	# Commands for debug and configuration
-# SLEEP_LED_ENABLE 	= yes  	# Breathing sleep LED during USB suspend
-# NKRO_ENABLE 		= yes	# USB Nkey Rollover - not yet supported in LUFA
-# BACKLIGHT_ENABLE = yes
+BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+BLUETOOTH_ENABLE = no       # Enable Bluetooth
+AUDIO_ENABLE = no           # Audio output
+
 USB_HID_ENABLE = yes
 
 CUSTOM_MATRIX = yes

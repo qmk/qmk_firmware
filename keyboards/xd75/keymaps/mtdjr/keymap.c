@@ -2,54 +2,36 @@
 #include "mtdjr.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_QWERTY] = LAYOUT_ortho_5x15(
+        KC_EXC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_PGUP, KC_MPNT, KC_PGDN, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_INS,  KC_HOME, KC_DEL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT,
+        KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_EQL,  KC_ELCK, KC_MINS, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LBRC, KC_BSLS, KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ELCK,
+        KC_LOWR, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, KC_SPC,  KC_LOWR, KC_RASE, XXXXXXX, KC_SPC,  KC_APP,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    ),
 
- [_QWERTY] = LAYOUT_kc(
-//  .--------------------------------------------------------------------------.
-      EXC, 1  , 2  , 3  , 4  , 5  ,PGUP,MPNT,PGDN, 6  , 7  , 8  , 9  , 0  ,BSPC,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-      TAB, Q  , W  ,  E , R  , T  , INS,HOME, DEL, Y  , U  , I  , O  , P  ,QUOT,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     LCTL, A  , S  ,  D , F  , G  , EQL,ELCK,MINS, H  , J  , K  , L  ,SCLN, ENT,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     LSFT, Z  , X  ,  C , V  , B  ,LBRC,BSLS,RBRC, N  , M  ,COMM, DOT,SLSH,ELCK,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     LOWR,LCTL,LALT,LGUI,xxxx, SPC,LOWR,RASE,xxxx, SPC, APP,LEFT,DOWN,  UP,RGHT
-//  '----+----+----+----+----+----+----+----+----+----+----+----+----+----+----'
-),
+    [_LOWER] = LAYOUT_ortho_5x15(
+        XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
+        XXXXXXX, KC_ROOT, KC_PPLY, KC_PSEF, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, KC_MPLY, XXXXXXX, KC_MNXT, KC_VOLD, KC_VOLU, KC_MNXT
+    ),
 
- [_LOWER] = LAYOUT_kc(
-//  .--------------------------------------------------------------------------.
-     xxxx, F1 , F2 , F3 , F4 , F5 , F6 ,xxxx, F7 , F8 , F9 , F10, F11, F12, DEL,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     xxxx,ROOT,PPLY,PSEF,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,CALC,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,MUTE,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-         ,xxxx,xxxx,xxxx,xxxx,xxxx,    ,    ,xxxx,MPLY,xxxx,MNXT,VOLD,VOLU,MNXT
-//  '----+----+----+----+----+----+----+----+----+----+----+----+----+----+----'
-),
-
-[_RAISE] = LAYOUT_kc(
-//  .--------------------------------------------------------------------------.
-     xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     xxxx,xxxx,xxxx,xxxx, RST,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     CAPS,xxxx,xxxx,xxxx,xxxx,xxxx, BLI,xxxx, BLD,xxxx,xxxx,xxxx,XLCK,xxxx,xxxx,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-      RGB,RHUI,RHUD,RSAI,RSAD,RVAI,RVAD,xxxx,xxxx,xxxx,xxxx,xxxx,BTN1,MS_U,BTN2,
-//  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-         ,xxxx,xxxx,xxxx,xxxx,xxxx,    ,    ,xxxx,xxxx,xxxx,xxxx,MS_L,MS_D,MS_R
-//  '----+----+----+----+----+----+----+----+----+----+----+----+----+----+----'
-)
+    [_RAISE] = LAYOUT_ortho_5x15(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RST,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BLI,  XXXXXXX, KC_BLD,  XXXXXXX, XXXXXXX, XXXXXXX, KC_XLCK, XXXXXXX, XXXXXXX,
+        KC_RGB,  KC_RHUI, KC_RHUD, KC_RSAI, KC_RSAD, KC_RVAI, KC_RVAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R
+    )
 };
 
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
         capslock_led_on();
     } else {
         capslock_led_off();
     }
+    return false;
 }

@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   KC_WBAK,
-        KC_ESC,         KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   KC_DELT,
+        KC_ESC,         KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   KC_DEL,
         KC_BSPC,        KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
         KC_LSFT,        CTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   ALL_T(KC_NO),
         LT(SYMB,KC_GRV),KC_LALT,      KC_LGUI,  KC_LEFT,KC_RGHT,
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(2),        KC_PSCREEN,
              KC_PGUP,
              KC_PGDN,RALT(KC_RSFT), KC_ENT
-    ), 
+    ),
 /* Keymap 1: Symbol & Media Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -134,26 +134,6 @@ LAYOUT_ergodox(  // layer 0 : default
         KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS
     ),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
 };
 
 // Runs constantly in the background, in a loop.

@@ -41,3 +41,4 @@
     { K40, K41, K42, KC_NO, KC_NO, K45, KC_NO, KC_NO, KC_NO, K49, K4A, K4B, KC_NO, K4D, K4E}, \
 }
 
+#define LAYOUT_65_ansi_blocker_split_bs LAYOUT

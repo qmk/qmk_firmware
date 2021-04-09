@@ -1,9 +1,6 @@
 //Author: tong92 <tong92power@gmail.com>
 
-#include "planck.h"
-#ifdef BACKLIGHT_ENABLE
-  #include "backlight.h"
-#endif
+#include QMK_KEYBOARD_H
 
 enum planck_layers {
   _WINDOW,
@@ -41,12 +38,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * | Fn  |Ctrl | Win | Alt |Lower|   Space   |Upper|  '  |  [  |  ]  | Alt |
 * `-----------------------------------------------------------------------'
 */
-[_WINDOW] ={
-{KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R, KC_T,  KC_Y,  KC_U, KC_I,   KC_O,   KC_P,   KC_BSPC},
-{KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F, KC_G,  KC_H,  KC_J, KC_K,   KC_L,   KC_SCLN,KC_ENT },
-{KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V, KC_B,  KC_N,  KC_M, KC_COMM,KC_DOT, KC_SLSH,KC_RSFT},
-{WINDOW_SHORTCUT,  KC_RCTL,KC_LGUI,KC_LALT,LOWER,KC_SPC,KC_SPC,RAISE,KC_QUOT,KC_LBRC,KC_RBRC,KC_RALT}
-},
+[_WINDOW] = LAYOUT_planck_grid(
+KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R, KC_T,  KC_Y,  KC_U, KC_I,   KC_O,   KC_P,   KC_BSPC,
+KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F, KC_G,  KC_H,  KC_J, KC_K,   KC_L,   KC_SCLN,KC_ENT ,
+KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V, KC_B,  KC_N,  KC_M, KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,
+WINDOW_SHORTCUT,  KC_RCTL,KC_LGUI,KC_LALT,LOWER,KC_SPC,KC_SPC,RAISE,KC_QUOT,KC_LBRC,KC_RBRC,KC_RALT
+),
 /* Mac - Qwerty
 * ,-----------------------------------------------------------------------.
 * |Tab  | q   | w   | e   | r   | t   | y   | u   | i   | o   | p   | BS  |
@@ -58,12 +55,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * | Fn  |Lang |Ctrl | Alt |Lower|   Space   |Upper|  '  |  [  |  ]  |SPOT |
 * `-----------------------------------------------------------------------'
 */
-[_MAC] ={
-{KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R, KC_T,  KC_Y,  KC_U, KC_I,   KC_O,   KC_P,   KC_BSPC},
-{KC_LGUI,KC_A,   KC_S,   KC_D,   KC_F, KC_G,  KC_H,  KC_J, KC_K,   KC_L,   KC_SCLN,KC_ENT },
-{KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V, KC_B,  KC_N,  KC_M, KC_COMM,KC_DOT, KC_SLSH,KC_RSFT},
-{MAC_SHORTCUT,  LCTL(KC_SPC),KC_LCTL,KC_LALT,LOWER,KC_SPC,KC_SPC,RAISE,KC_QUOT,KC_LBRC,KC_RBRC,LGUI(KC_SPC)}
-},
+[_MAC] = LAYOUT_planck_grid(
+KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R, KC_T,  KC_Y,  KC_U, KC_I,   KC_O,   KC_P,   KC_BSPC,
+KC_LGUI,KC_A,   KC_S,   KC_D,   KC_F, KC_G,  KC_H,  KC_J, KC_K,   KC_L,   KC_SCLN,KC_ENT ,
+KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V, KC_B,  KC_N,  KC_M, KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,
+MAC_SHORTCUT,  LCTL(KC_SPC),KC_LCTL,KC_LALT,LOWER,KC_SPC,KC_SPC,RAISE,KC_QUOT,KC_LBRC,KC_RBRC,LGUI(KC_SPC)
+),
 /* LOWER
 * ,-----------------------------------------------------------------------.
 * |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  | BS  |
@@ -75,12 +72,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |     |     |     |     |     |   SPACE   |     | END | LEFT| DOWN|RIGHT|
 * `-----------------------------------------------------------------------'
 */
-[_LOWER] ={
-{KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,  KC_6,  KC_7,   KC_8,   KC_9,   KC_0,   KC_BSPC },
-{_______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5, KC_F6, KC_MINS,KC_PLUS,KC_LBRC,KC_RBRC,KC_BSLS },
-{_______,KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,KC_F12,_______,KC_HOME,KC_PGUP,KC_UP  ,KC_PGDN },
-{XXXXXXX,_______,_______,_______,_______,KC_SPC,KC_SPC,_______,KC_END, KC_LEFT,KC_DOWN,KC_RIGHT}
-},
+[_LOWER] = LAYOUT_planck_grid(
+KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,  KC_6,  KC_7,   KC_8,   KC_9,   KC_0,   KC_BSPC ,
+_______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5, KC_F6, KC_MINS,KC_PLUS,KC_LBRC,KC_RBRC,KC_BSLS ,
+_______,KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,KC_F12,_______,KC_HOME,KC_PGUP,KC_UP  ,KC_PGDN ,
+XXXXXXX,_______,_______,_______,_______,KC_SPC,KC_SPC,_______,KC_END, KC_LEFT,KC_DOWN,KC_RIGHT
+),
 /* RAISE
 * ,-----------------------------------------------------------------------.
 * |  ~  |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  | BS  |
@@ -92,12 +89,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |     |     |     |     |     |   SPACE   |     | END | LEFT| DOWN|RIGHT|
 * `-----------------------------------------------------------------------'
 */
-[_RAISE] ={
-{KC_TILD,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_BSPC },
-{_______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_UNDS,KC_EQL, KC_LCBR,KC_RCBR,KC_PIPE },
-{_______,KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______,KC_HOME,KC_PGUP,KC_UP  ,KC_PGDN },
-{XXXXXXX,_______,_______,_______,_______,KC_SPC, KC_SPC, _______,KC_END, KC_LEFT,KC_DOWN,KC_RIGHT}
-},
+[_RAISE] = LAYOUT_planck_grid(
+KC_TILD,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_BSPC ,
+_______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_UNDS,KC_EQL, KC_LCBR,KC_RCBR,KC_PIPE ,
+_______,KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______,KC_HOME,KC_PGUP,KC_UP  ,KC_PGDN ,
+XXXXXXX,_______,_______,_______,_______,KC_SPC, KC_SPC, _______,KC_END, KC_LEFT,KC_DOWN,KC_RIGHT
+),
 /* Window Shortcut
 * ,-----------------------------------------------------------------------.
 * | ESC |WinOf|WinUp|     |     |Sh+Ca|     | PgUp| UP  | PgDo|PrtSc| DEL |
@@ -109,12 +106,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |     |DeskL|DeskR|DeskX|Task | ChangeLang|     |     |     |     | LED |
 * `-----------------------------------------------------------------------'
 */
-[_WINDOW_SHORTCUT] ={
-{KC_ESC ,LALT(KC_F4)        ,LGUI(KC_UP)         ,XXXXXXX          ,XXXXXXX    ,S(KC_CAPS)   ,XXXXXXX,KC_PGUP,KC_UP,KC_PGDN,KC_PSCR,KC_DELT},
-{_______,LGUI(KC_LEFT)      ,LGUI(KC_DOWN)       ,LGUI(KC_RIGHT)   ,XXXXXXX    ,LALT(KC_CAPS),KC_CAPS,KC_LEFT,KC_DOWN,KC_RIGHT,XXXXXXX,XXXXXXX},
-{_______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX          ,XXXXXXX    ,LCTL(KC_CAPS),KC_SLCK,KC_HOME,XXXXXXX,KC_END,XXXXXXX,XXXXXXX},
-{KC_TRNS,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),LGUI(LCTL(KC_F4)),LCTL(LALT(KC_DELT)),LGUI(KC_SPC),LGUI(KC_SPC),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,BACKLIT}
-},
+[_WINDOW_SHORTCUT] = LAYOUT_planck_grid(
+KC_ESC ,LALT(KC_F4)        ,LGUI(KC_UP)         ,XXXXXXX          ,XXXXXXX    ,S(KC_CAPS)   ,XXXXXXX,KC_PGUP,KC_UP,KC_PGDN,KC_PSCR,KC_DEL,
+_______,LGUI(KC_LEFT)      ,LGUI(KC_DOWN)       ,LGUI(KC_RIGHT)   ,XXXXXXX    ,LALT(KC_CAPS),KC_CAPS,KC_LEFT,KC_DOWN,KC_RIGHT,XXXXXXX,XXXXXXX,
+_______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX          ,XXXXXXX    ,LCTL(KC_CAPS),KC_SLCK,KC_HOME,XXXXXXX,KC_END,XXXXXXX,XXXXXXX,
+KC_TRNS,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),LGUI(LCTL(KC_F4)),LCTL(LALT(KC_DEL)),LGUI(KC_SPC),LGUI(KC_SPC),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,BACKLIT
+),
 /* Mac Shortcut
 * ,-----------------------------------------------------------------------.
 * | ESC |CmdUp|CmdDo|     |     |     |     | PgUp| UP  | PgDo|PrtSc| DEL |
@@ -126,12 +123,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |     |     |     |     |     |   MOUSE   |     |     |     |     | LED |
 * `-----------------------------------------------------------------------'
 */
-[_MAC_SHORTCUT] ={
-{KC_ESC ,LGUI(KC_UP)        ,LGUI(KC_DOWN)       ,XXXXXXX,XXXXXXX         ,XXXXXXX,XXXXXXX,KC_PGUP,KC_UP,KC_PGDN,KC_PSCR,KC_DELT},
-{_______,LALT(LSFT(KC_LEFT)),LALT(LSFT(KC_RIGHT)),XXXXXXX,LGUI(LCTL(KC_F)),XXXXXXX,KC_CAPS,KC_LEFT,KC_DOWN,KC_RIGHT,XXXXXXX,XXXXXXX},
-{_______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX,XXXXXXX         ,XXXXXXX,XXXXXXX,KC_HOME,XXXXXXX,KC_END,XXXXXXX,XXXXXXX},
-{KC_TRNS,_______            ,_______             ,MOUSE  ,MOUSE           ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,BACKLIT}
-},
+[_MAC_SHORTCUT] = LAYOUT_planck_grid(
+KC_ESC ,LGUI(KC_UP)        ,LGUI(KC_DOWN)       ,XXXXXXX,XXXXXXX         ,XXXXXXX,XXXXXXX,KC_PGUP,KC_UP,KC_PGDN,KC_PSCR,KC_DEL,
+_______,LALT(LSFT(KC_LEFT)),LALT(LSFT(KC_RIGHT)),XXXXXXX,LGUI(LCTL(KC_F)),XXXXXXX,KC_CAPS,KC_LEFT,KC_DOWN,KC_RIGHT,XXXXXXX,XXXXXXX,
+_______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX,XXXXXXX         ,XXXXXXX,XXXXXXX,KC_HOME,XXXXXXX,KC_END,XXXXXXX,XXXXXXX,
+KC_TRNS,_______            ,_______             ,MOUSE  ,MOUSE           ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,BACKLIT
+),
 /* 10: mouse layer
 * ,-----------------------------------------------------------------------.
 * |     |     |     |Mo_Up|     |     |     |M_WhL|M_WhU|M_WhR|     |RESET|
@@ -143,12 +140,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |     |     |     |     |     |  GO_DEFT  |     |     |     |     | MAC |
 * `-----------------------------------------------------------------------'
 */
-[_MOUSE] ={
-{XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,RESET},
-{XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R,XXXXXXX,XXXXXXX,KC_BTN1,KC_WH_D,KC_BTN2,XXXXXXX,XXXXXXX},
-{XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,WINDOW},
-{XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,EXT_MOUSE,EXT_MOUSE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,MAC}
-}
+[_MOUSE] = LAYOUT_planck_grid(
+XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,RESET,
+XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R,XXXXXXX,XXXXXXX,KC_BTN1,KC_WH_D,KC_BTN2,XXXXXXX,XXXXXXX,
+XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,WINDOW,
+XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,EXT_MOUSE,EXT_MOUSE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,MAC
+)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

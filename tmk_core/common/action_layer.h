@@ -14,33 +14,45 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef ACTION_LAYER_H
-#define ACTION_LAYER_H
+
+#pragma once
 
 #include <stdint.h>
 #include "keyboard.h"
 #include "action.h"
 
-#if defined(LAYER_STATE_8BIT) || ( defined(DYNAMIC_KEYMAP_ENABLE) && DYNAMIC_KEYMAP_LAYER_COUNT >= 8 )
+#if defined(LAYER_STATE_8BIT)
 typedef uint8_t layer_state_t;
+#    define MAX_LAYER_BITS 3
+#    ifndef MAX_LAYER
+#        define MAX_LAYER 8
+#    endif
+#    define get_highest_layer(state) biton(state)
 #elif defined(LAYER_STATE_16BIT)
 typedef uint16_t layer_state_t;
+#    define MAX_LAYER_BITS 4
+#    ifndef MAX_LAYER
+#        define MAX_LAYER 16
+#    endif
+#    define get_highest_layer(state) biton16(state)
 #else
 typedef uint32_t layer_state_t;
+#    define MAX_LAYER_BITS 5
+#    ifndef MAX_LAYER
+#        define MAX_LAYER 32
+#    endif
+#    define get_highest_layer(state) biton32(state)
 #endif
-
 
 /*
  * Default Layer
  */
 extern layer_state_t default_layer_state;
-void default_layer_debug(void);
-void default_layer_set(layer_state_t state);
+void                 default_layer_debug(void);
+void                 default_layer_set(layer_state_t state);
 
-__attribute__((weak))
-layer_state_t default_layer_state_set_kb(layer_state_t state);
-__attribute__((weak))
-layer_state_t default_layer_state_set_user(layer_state_t state);
+__attribute__((weak)) layer_state_t default_layer_state_set_kb(layer_state_t state);
+__attribute__((weak)) layer_state_t default_layer_state_set_user(layer_state_t state);
 
 #ifndef NO_ACTION_LAYER
 /* bitwise operation */
@@ -48,11 +60,10 @@ void default_layer_or(layer_state_t state);
 void default_layer_and(layer_state_t state);
 void default_layer_xor(layer_state_t state);
 #else
-#define default_layer_or(state)
-#define default_layer_and(state)
-#define default_layer_xor(state)
+#    define default_layer_or(state)
+#    define default_layer_and(state)
+#    define default_layer_xor(state)
 #endif
-
 
 /*
  * Keymap Layer
@@ -71,35 +82,35 @@ void layer_on(uint8_t layer);
 void layer_off(uint8_t layer);
 void layer_invert(uint8_t layer);
 /* bitwise operation */
-void layer_or(layer_state_t state);
-void layer_and(layer_state_t state);
-void layer_xor(layer_state_t state);
-#else
-#define layer_state                    0
-
-#define layer_state_set(layer)
-#define layer_state_is(layer)          (layer == 0)
-#define layer_state_cmp(state, layer)  (state == 0 ? layer == 0 : (state & 1UL << layer) != 0)
-
-#define layer_debug()
-#define layer_clear()
-#define layer_move(layer)
-#define layer_on(layer)
-#define layer_off(layer)
-#define layer_invert(layer)
-#define layer_or(state)
-#define layer_and(state)
-#define layer_xor(state)
-#endif
-
+void          layer_or(layer_state_t state);
+void          layer_and(layer_state_t state);
+void          layer_xor(layer_state_t state);
 layer_state_t layer_state_set_user(layer_state_t state);
 layer_state_t layer_state_set_kb(layer_state_t state);
+#else
+#    define layer_state 0
+
+#    define layer_state_set(layer)
+#    define layer_state_is(layer) (layer == 0)
+#    define layer_state_cmp(state, layer) (state == 0 ? layer == 0 : (state & 1UL << layer) != 0)
+
+#    define layer_debug()
+#    define layer_clear()
+#    define layer_move(layer) (void)layer
+#    define layer_on(layer) (void)layer
+#    define layer_off(layer) (void)layer
+#    define layer_invert(layer) (void)layer
+#    define layer_or(state) (void)state
+#    define layer_and(state) (void)state
+#    define layer_xor(state) (void)state
+#    define layer_state_set_kb(state) (void)state
+#    define layer_state_set_user(state) (void)state
+#endif
 
 /* pressed actions cache */
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
-/* The number of bits needed to represent the layer number: log2(32). */
-#define MAX_LAYER_BITS 5
-void update_source_layers_cache(keypos_t key, uint8_t layer);
+
+void    update_source_layers_cache(keypos_t key, uint8_t layer);
 uint8_t read_source_layers_cache(keypos_t key);
 #endif
 action_t store_or_get_action(bool pressed, keypos_t key);
@@ -109,5 +120,3 @@ uint8_t layer_switch_get_layer(keypos_t key);
 
 /* return action depending on current layer status */
 action_t layer_switch_get_action(keypos_t key);
-
-#endif

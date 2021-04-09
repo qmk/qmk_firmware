@@ -22,3 +22,4 @@ When adding your keymap to this list, keep it organised alphabetically (select l
 - **mason**
 - **planck** Planck default layout
 - **xtonhasvim** A Planck-like layout with a few tweaks and a vim emulation layer.
+- **nosarthur** Custom Colemak-dh layout and qwerty layout

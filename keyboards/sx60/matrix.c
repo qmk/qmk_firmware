@@ -113,13 +113,6 @@ uint8_t matrix_cols(void) {
 }
 
 void matrix_init(void) {
-
-    /* To use PORTF disable JTAG with writing JTD bit twice within four cycles. */
-    #if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
-        MCUCR |= _BV(JTD);
-        MCUCR |= _BV(JTD);
-    #endif
-
     mcp23018_status = true;
 
     /* initialize row and col */
@@ -210,7 +203,7 @@ void matrix_print(void)
     print_matrix_header();
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_matrix_row(row);
         print("\n");
     }

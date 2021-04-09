@@ -1,4 +1,24 @@
-#include QMK_KEYBOARD_H
+/*
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2015 ZSA Technology Labs Inc (@zsa)
+Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "ergodox_ez.h"
 
 extern inline void ergodox_board_led_on(void);
 extern inline void ergodox_right_led_1_on(void);
@@ -22,6 +42,8 @@ extern inline void ergodox_right_led_set(uint8_t led, uint8_t n);
 
 extern inline void ergodox_led_all_set(uint8_t n);
 
+keyboard_config_t keyboard_config;
+
 bool i2c_initialized = 0;
 i2c_status_t mcp23018_status = 0x20;
 
@@ -42,6 +64,16 @@ void matrix_init_kb(void) {
     PORTC |=  (1<<7);
     PORTD |=  (1<<5 | 1<<4);
     PORTE |=  (1<<6);
+
+    keyboard_config.raw = eeconfig_read_kb();
+    ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+#ifdef RGB_MATRIX_ENABLE
+    if (keyboard_config.rgb_matrix_enable) {
+        rgb_matrix_set_flags(LED_FLAG_ALL);
+    } else {
+        rgb_matrix_set_flags(LED_FLAG_NONE);
+    }
+#endif
 
     ergodox_blink_all_leds();
 
@@ -305,6 +337,7 @@ led_config_t g_led_config = { {
 } };
 
 void suspend_power_down_kb(void) {
+    rgb_matrix_set_color_all(0, 0, 0);
     rgb_matrix_set_suspend_state(true);
     suspend_power_down_user();
 }
@@ -314,4 +347,65 @@ void suspend_power_down_kb(void) {
     suspend_wakeup_init_user();
 }
 
+#ifdef ORYX_CONFIGURATOR
+void keyboard_post_init_kb(void) {
+    rgb_matrix_enable_noeeprom();
+    keyboard_post_init_user();
+}
 #endif
+#endif
+
+#ifdef ORYX_CONFIGURATOR
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LED_LEVEL:
+            if (record->event.pressed) {
+                 keyboard_config.led_level++;
+                 if (keyboard_config.led_level > 4) {
+                    keyboard_config.led_level = 0;
+                 }
+                 ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+                 eeconfig_update_kb(keyboard_config.raw);
+                 layer_state_set_kb(layer_state);
+            }
+            break;
+#ifdef RGB_MATRIX_ENABLE
+        case TOGGLE_LAYER_COLOR:
+            if (record->event.pressed) {
+                keyboard_config.disable_layer_led ^= 1;
+                if (keyboard_config.disable_layer_led)
+                    rgb_matrix_set_color_all(0, 0, 0);
+                eeconfig_update_kb(keyboard_config.raw);
+            }
+            break;
+        case RGB_TOG:
+            if (record->event.pressed) {
+              switch (rgb_matrix_get_flags()) {
+                case LED_FLAG_ALL: {
+                    rgb_matrix_set_flags(LED_FLAG_NONE);
+                    keyboard_config.rgb_matrix_enable = false;
+                    rgb_matrix_set_color_all(0, 0, 0);
+                  }
+                  break;
+                default: {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+                    keyboard_config.rgb_matrix_enable = true;
+                  }
+                  break;
+              }
+              eeconfig_update_kb(keyboard_config.raw);
+            }
+            return false;
+#endif
+    }
+    return process_record_user(keycode, record);
+}
+#endif
+
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+    keyboard_config.raw = 0;
+    keyboard_config.led_level = 4;
+    keyboard_config.rgb_matrix_enable = true;
+    eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
+}

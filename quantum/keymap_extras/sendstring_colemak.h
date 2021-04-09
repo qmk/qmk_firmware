@@ -20,6 +20,8 @@
 
 #include "keymap_colemak.h"
 
+// clang-format off
+
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -31,27 +33,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  KC_1,    KC_QUOT, KC_3,    KC_4,    KC_5,    KC_7,    KC_QUOT,
+    KC_SPC,  CM_1,    CM_QUOT, CM_3,    CM_4,    CM_5,    CM_7,    CM_QUOT,
     // (     )        *        +        ,        -        .        /
-    KC_9,    KC_0,    KC_8,    KC_EQL,  KC_COMM, KC_MINS, KC_DOT,  KC_SLSH,
+    CM_9,    CM_0,    CM_8,    CM_EQL,  CM_COMM, CM_MINS, CM_DOT,  CM_SLSH,
     // 0     1        2        3        4        5        6        7
-    KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
+    CM_0,    CM_1,    CM_2,    CM_3,    CM_4,    CM_5,    CM_6,    CM_7,
     // 8     9        :        ;        <        =        >        ?
-    KC_8,    KC_9,    CM_SCLN, CM_SCLN, KC_COMM, KC_EQL,  KC_DOT,  KC_SLSH,
+    CM_8,    CM_9,    CM_SCLN, CM_SCLN, CM_COMM, CM_EQL,  CM_DOT,  CM_SLSH,
     // @     A        B        C        D        E        F        G
-    KC_2,    CM_A,    CM_B,    CM_C,    CM_D,    CM_E,    CM_F,    CM_G,
+    CM_2,    CM_A,    CM_B,    CM_C,    CM_D,    CM_E,    CM_F,    CM_G,
     // H     I        J        K        L        M        N        O
     CM_H,    CM_I,    CM_J,    CM_K,    CM_L,    CM_M,    CM_N,    CM_O,
     // P     Q        R        S        T        U        V        W
     CM_P,    CM_Q,    CM_R,    CM_S,    CM_T,    CM_U,    CM_V,    CM_W,
     // X     Y        Z        [        \        ]        ^        _
-    CM_X,    CM_Y,    CM_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    KC_MINS,
+    CM_X,    CM_Y,    CM_Z,    CM_LBRC, CM_BSLS, CM_RBRC, CM_6,    CM_MINS,
     // `     a        b        c        d        e        f        g
-    KC_GRV,  CM_A,    CM_B,    CM_C,    CM_D,    CM_E,    CM_F,    CM_G,
+    CM_GRV,  CM_A,    CM_B,    CM_C,    CM_D,    CM_E,    CM_F,    CM_G,
     // h     i        j        k        l        m        n        o
     CM_H,    CM_I,    CM_J,    CM_K,    CM_L,    CM_M,    CM_N,    CM_O,
     // p     q        r        s        t        u        v        w
     CM_P,    CM_Q,    CM_R,    CM_S,    CM_T,    CM_U,    CM_V,    CM_W,
     // x     y        z        {        |        }        ~        DEL
-    CM_X,    CM_Y,    CM_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
+    CM_X,    CM_Y,    CM_Z,    CM_LBRC, CM_BSLS, CM_RBRC, CM_GRV,  KC_DEL
 };

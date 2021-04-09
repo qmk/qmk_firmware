@@ -1,6 +1,6 @@
 /*
 NeXT non-ADB Keyboard Protocol
- 
+
 Copyright 2013, Benjamin Gould (bgould@github.com)
 
 Based on:
@@ -45,19 +45,16 @@ POSSIBILITY OF SUCH DAMAGE.
 
 */
 
+#pragma once
+
 #include <stdbool.h>
 
-#ifndef NEXT_KBD_H
-#define NEXT_KBD_H
-
 #define NEXT_KBD_KMBUS_IDLE 0x300600
-#define NEXT_KBD_TIMING     50
+#define NEXT_KBD_TIMING 50
 
 extern uint8_t next_kbd_error;
 
 /* host role */
-void next_kbd_init(void);
-void next_kbd_set_leds(bool left, bool right);
+void     next_kbd_init(void);
+void     next_kbd_set_leds(bool left, bool right);
 uint32_t next_kbd_recv(void);
-
-#endif

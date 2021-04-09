@@ -7,18 +7,6 @@
 // Fillers to make layering more clear
 #define ______ KC_TRNS
 
-// Func macro definitions.
-#define S_LED   FUNC(0)
-#define S_LEDI  FUNC(1)
-#define S_LEDD  FUNC(2)
-
-// Enable these functions using FUNC(n) macro.
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_BACKLIGHT_TOGGLE(),
-	[1] = ACTION_BACKLIGHT_INCREASE(),
-	[2] = ACTION_BACKLIGHT_DECREASE()
- };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
  * ,-----------------------------------------------------------------------------------------.
@@ -56,15 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_FN] = LAYOUT( /* Layer 1 */
       ______,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS,  \
-      KC_CAPS,   S_LED, S_LEDI, S_LEDD, ______, ______, ______, ______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP, ______, ______,  \
+      KC_CAPS, BL_TOGG, BL_INC, BL_DEC, ______, ______, ______, ______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP, ______, ______,  \
       ______,   KC_VOLD, KC_VOLU, KC_MUTE, ______, ______, KC_PAST, KC_PSLS,KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, ______, ______,   \
       ______,   ______,  KC_MPRV,  KC_MPLY, KC_MNXT,______,______,KC_PPLS,KC_PMNS,KC_END, KC_PGDN, KC_DOWN, ______,______,  \
       ______,   ______, ______,                 ______,         KC_DEL,         KC_MSTP, ______,    ______,    ______ \
       )
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-  return MACRO_NONE;
 };

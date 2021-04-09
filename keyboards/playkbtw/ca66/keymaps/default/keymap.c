@@ -16,21 +16,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_TRNS, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS, RGB_HUI,                  KC_END,  
     KC_LCTL,          KC_LGUI, KC_LALT,          KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, RGB_SAD, RGB_HUD, RGB_SAI),
 };
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		DDRD |= (1 << 1); PORTD &= ~(1 << 1);
-	} else {
-		DDRD &= ~(1 << 1); PORTD &= ~(1 << 1);
-	}
-}
