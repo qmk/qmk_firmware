@@ -5,7 +5,7 @@ MCU = atmega32a
 F_CPU = 16000000
 
 # Bootloader selection
-BOOTLOADER = bootloadHID
+BOOTLOADER = USBasp
 
 # Build Options
 #   change yes to no to disable
