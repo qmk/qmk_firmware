@@ -1,0 +1,40 @@
+name: Automated Tests
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+    paths:
+    - .github/**/*
+    - quantum/**/*
+    - tmk_core/**/*
+    - drivers/**/*
+    - tests/**/*
+    - util/**/*
+    - platforms/**/*
+    - Makefile
+    - '*.mk'
+
+jobs:
+  test:
+    name: 'make test:all'
+    runs-on: ubuntu-latest
+    container: qmkfm/base_container
+
+    if: github.repository == 'qmk/qmk_firmware'
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Install dependencies
+      run: |
+        make git-submodule
+        python3 -m pip install -U qmk
+        python3 -m pip install -r requirements.txt
+
+    - name: Test
+      run: |
+        make -j3 -O test:all
