@@ -12,8 +12,11 @@
 
 keymap_config_t keymap_config;
 
-void bootmagic(void)
-{
+/** \brief Bootmagic
+ *
+ * FIXME: needs doc
+ */
+void bootmagic(void) {
     /* check signature */
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
@@ -22,7 +25,10 @@ void bootmagic(void)
     /* do scans in case of bounce */
     print("bootmagic scan: ... ");
     uint8_t scan = 100;
-    while (scan--) { matrix_scan(); wait_ms(10); }
+    while (scan--) {
+        matrix_scan();
+        wait_ms(10);
+    }
     print("done.\n");
 
     /* bootmagic skip */
@@ -83,36 +89,61 @@ void bootmagic(void)
     }
     eeconfig_update_keymap(keymap_config.raw);
 
-#ifdef NKRO_ENABLE
-    keyboard_nkro = keymap_config.nkro;
-#endif
-
     /* default layer */
     uint8_t default_layer = 0;
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_0)) { default_layer |= (1<<0); }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_1)) { default_layer |= (1<<1); }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_2)) { default_layer |= (1<<2); }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_3)) { default_layer |= (1<<3); }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_4)) { default_layer |= (1<<4); }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_5)) { default_layer |= (1<<5); }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_6)) { default_layer |= (1<<6); }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_7)) { default_layer |= (1<<7); }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_0)) {
+        default_layer |= (1 << 0);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_1)) {
+        default_layer |= (1 << 1);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_2)) {
+        default_layer |= (1 << 2);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_3)) {
+        default_layer |= (1 << 3);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_4)) {
+        default_layer |= (1 << 4);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_5)) {
+        default_layer |= (1 << 5);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_6)) {
+        default_layer |= (1 << 6);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_7)) {
+        default_layer |= (1 << 7);
+    }
     if (default_layer) {
         eeconfig_update_default_layer(default_layer);
-        default_layer_set((uint32_t)default_layer);
+        default_layer_set((layer_state_t)default_layer);
     } else {
         default_layer = eeconfig_read_default_layer();
-        default_layer_set((uint32_t)default_layer);
+        default_layer_set((layer_state_t)default_layer);
+    }
+    /* Also initialize layer state to trigger callback functions for layer_state */
+    layer_state_set_kb((layer_state_t)layer_state);
+
+    /* EE_HANDS handedness */
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_LEFT)) {
+        eeconfig_update_handedness(true);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_RIGHT)) {
+        eeconfig_update_handedness(false);
     }
 }
 
-static bool scan_keycode(uint8_t keycode)
-{
+/** \brief Scan Keycode
+ *
+ * FIXME: needs doc
+ */
+static bool scan_keycode(uint8_t keycode) {
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
         matrix_row_t matrix_row = matrix_get_row(r);
         for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-            if (matrix_row & ((matrix_row_t)1<<c)) {
-                if (keycode == keymap_key_to_keycode(0, (keypos_t){ .row = r, .col = c })) {
+            if (matrix_row & ((matrix_row_t)1 << c)) {
+                if (keycode == keymap_key_to_keycode(0, (keypos_t){.row = r, .col = c})) {
                     return true;
                 }
             }
@@ -121,8 +152,11 @@ static bool scan_keycode(uint8_t keycode)
     return false;
 }
 
-bool bootmagic_scan_keycode(uint8_t keycode)
-{
+/** \brief Bootmagic Scan Keycode
+ *
+ * FIXME: needs doc
+ */
+bool bootmagic_scan_keycode(uint8_t keycode) {
     if (!scan_keycode(BOOTMAGIC_KEY_SALT)) return false;
 
     return scan_keycode(keycode);

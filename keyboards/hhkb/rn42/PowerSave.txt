@@ -1,0 +1,88 @@
+Power Saving
+============
+
+
+MCU+HHKB Power Comsumption
+--------------------------
+Battery drive:
+    idle    18.9mA
+    active  35.8mA
+
+USB powered:
+    40.0mA
+    52mA    01/17
+
+Other keyboards:
+HHKB Pro    55mA
+HHKB Pro2   140mA
+HHKB Pro    42mA(Alt)
+HHKB Pro2   52mA(Alt BT controller USB mode)
+HHKB Pro2   88mA(Alt BT controller BT mode connected)
+HHKB Pro2   68mA(Alt BT controller BT mode config mode)
+Poker X     6mA
+Infinity    24mA(TMK)
+            65mA(kiibohd)
+
+
+HHKB key switch power control
+-----------------------------
+MOS FET Nch: BSS138 or IRLML6344T, either works and no apparent difference.
+Normally on(pull-up) or off(pull-down)? interms of power saving it prefers pull-down?
+
+Pull-down will be better for power saving, normally off.
+
+
+
+Used Timer
+----------
+
+8MHz clock
+----------
+1) 16MHz xtal with system prescaler div2: F_CPU=8MHz, F_USB=16MHz
+2) 8MHz xtal with div1: F_CPU=8MHz, F_USB=8MHz
+Hardware USART doesn't work at 115200bps with 8MHz(F_CPU).
+
+workaround:
+a) use Sotwre serial for communcation with RN-42
+b) reduce baud of RN-42 to lower rate;(factory default is 115200bps)
+10/03
+
+
+
+Slave mode
+----------
+Discovery/Inquire
+Connect/Page
+
+SI,0012
+SJ,0012
+InqWindw=0100
+PagWindw=0100
+
+
+Sniff mode
+----------
+0.625ms * <hex>
+SW,0320     Very sluggish. Type is not lost but very slow to register.
+SW,0160     Still sluggish. may transposed? can type but ...
+            Mouse point move intermittently
+SW,0020     feel a bit late like stumble(20ms)
+SW,0010     feel no latency(10ms)
+
+
+Deep sleep
+----------
+SW,8010
+
+
+TX power
+--------
+SY,fff4
+
+
+IO pins
+-------
+S%,1000         status led and connection control don't work
+                GPIO5: status LED
+                GPIO6: Connection control
+                GPIO2: linked status

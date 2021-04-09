@@ -4,14 +4,13 @@
 #define __DELAY_BACKWARD_COMPATIBLE__
 #include <util/delay.h>
 #include "common/timer.h"
-#include "Arduino.h"
 
 
-unsigned long millis()
+unsigned long millis(void)
 {
     return timer_read32();
 }
-unsigned long micros()
+unsigned long micros(void)
 {
     return timer_read32() * 1000UL;
 }
@@ -23,7 +22,7 @@ void delayMicroseconds(unsigned int us)
 {
     _delay_us(us);
 }
-void init()
+void init(void)
 {
     timer_init();
 }

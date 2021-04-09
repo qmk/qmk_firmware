@@ -35,58 +35,47 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef M0110_H
-#define M0110_H
-
+#pragma once
 
 /* port settings for clock and data line */
-#if !(defined(M0110_CLOCK_PORT) && \
-      defined(M0110_CLOCK_PIN) && \
-      defined(M0110_CLOCK_DDR) && \
-      defined(M0110_CLOCK_BIT))
-#   error "M0110 clock port setting is required in config.h"
+#if !(defined(M0110_CLOCK_PORT) && defined(M0110_CLOCK_PIN) && defined(M0110_CLOCK_DDR) && defined(M0110_CLOCK_BIT))
+#    error "M0110 clock port setting is required in config.h"
 #endif
 
-#if !(defined(M0110_DATA_PORT) && \
-      defined(M0110_DATA_PIN) && \
-      defined(M0110_DATA_DDR) && \
-      defined(M0110_DATA_BIT))
-#   error "M0110 data port setting is required in config.h"
+#if !(defined(M0110_DATA_PORT) && defined(M0110_DATA_PIN) && defined(M0110_DATA_DDR) && defined(M0110_DATA_BIT))
+#    error "M0110 data port setting is required in config.h"
 #endif
 
 /* Commands */
-#define M0110_INQUIRY       0x10
-#define M0110_INSTANT       0x14
-#define M0110_MODEL         0x16
-#define M0110_TEST          0x36
+#define M0110_INQUIRY 0x10
+#define M0110_INSTANT 0x14
+#define M0110_MODEL 0x16
+#define M0110_TEST 0x36
 
 /* Response(raw byte from M0110) */
-#define M0110_NULL          0x7B
-#define M0110_KEYPAD        0x79
-#define M0110_TEST_ACK      0x7D
-#define M0110_TEST_NAK      0x77
-#define M0110_SHIFT         0x71
-#define M0110_ARROW_UP      0x1B
-#define M0110_ARROW_DOWN    0x11
-#define M0110_ARROW_LEFT    0x0D
-#define M0110_ARROW_RIGHT   0x05
+#define M0110_NULL 0x7B
+#define M0110_KEYPAD 0x79
+#define M0110_TEST_ACK 0x7D
+#define M0110_TEST_NAK 0x77
+#define M0110_SHIFT 0x71
+#define M0110_ARROW_UP 0x1B
+#define M0110_ARROW_DOWN 0x11
+#define M0110_ARROW_LEFT 0x0D
+#define M0110_ARROW_RIGHT 0x05
 
 /* This inidcates no response. */
-#define M0110_ERROR         0xFF
+#define M0110_ERROR 0xFF
 
 /* scan code offset for keypad and arrow keys */
 #define M0110_KEYPAD_OFFSET 0x40
-#define M0110_CALC_OFFSET   0x60
-
+#define M0110_CALC_OFFSET 0x60
 
 extern uint8_t m0110_error;
 
 /* host role */
-void m0110_init(void);
+void    m0110_init(void);
 uint8_t m0110_send(uint8_t data);
 uint8_t m0110_recv(void);
 uint8_t m0110_recv_key(void);
 uint8_t m0110_inquiry(void);
 uint8_t m0110_instant(void);
-
-#endif

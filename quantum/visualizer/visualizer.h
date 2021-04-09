@@ -22,22 +22,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef VISUALIZER_H
-#define VISUALIZER_H
+#pragma once
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "config.h"
 #include "gfx.h"
+#include "action_layer.h"
 
 #ifdef LCD_BACKLIGHT_ENABLE
-#include "lcd_backlight.h"
+#    include "lcd_backlight.h"
 #endif
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
+
+// use this function to merge both real_mods and oneshot_mods in a uint16_t
+uint8_t visualizer_get_mods(void);
 
 // This need to be called once at the start
 void visualizer_init(void);
 // This should be called at every matrix scan
-void visualizer_update(uint32_t default_state, uint32_t state, uint32_t leds);
+void visualizer_update(layer_state_t default_state, layer_state_t state, uint8_t mods, uint32_t leds);
+
 // This should be called when the keyboard goes to suspend state
 void visualizer_suspend(void);
 // This should be called when the keyboard wakes up from suspend state
@@ -59,10 +69,17 @@ void draw_emulator(void);
 struct keyframe_animation_t;
 
 typedef struct {
-    uint32_t layer;
-    uint32_t default_layer;
-    uint32_t leds; // See led.h for available statuses
-    bool suspended;
+    layer_state_t layer;
+    layer_state_t default_layer;
+    uint32_t      leds;  // See led.h for available statuses
+    uint8_t       mods;
+    bool          suspended;
+#ifdef BACKLIGHT_ENABLE
+    uint8_t backlight_level;
+#endif
+#ifdef VISUALIZER_USER_DATA_SIZE
+    uint8_t user_data[VISUALIZER_USER_DATA_SIZE];
+#endif
 } visualizer_keyboard_status_t;
 
 // The state struct is used by the various keyframe functions
@@ -70,7 +87,7 @@ typedef struct {
 // from the user customized code
 typedef struct visualizer_state_t {
     // The user code should primarily be modifying these
-    uint32_t target_lcd_color;
+    uint32_t    target_lcd_color;
     const char* layer_text;
 
     // The user visualizer(and animation functions) can read these
@@ -80,8 +97,8 @@ typedef struct visualizer_state_t {
     uint32_t current_lcd_color;
     uint32_t prev_lcd_color;
 #ifdef LCD_ENABLE
-    font_t font_fixed5x8;
-    font_t font_dejavusansbold12;
+    gFont font_fixed5x8;
+    gFont font_dejavusansbold12;
 #endif
 } visualizer_state_t;
 
@@ -94,15 +111,15 @@ typedef bool (*frame_func)(struct keyframe_animation_t*, visualizer_state_t*);
 // while others are meant to be initialized by the user code
 typedef struct keyframe_animation_t {
     // These should be initialized
-    int num_frames;
-    bool loop;
-    int frame_lengths[MAX_VISUALIZER_KEY_FRAMES];
+    int        num_frames;
+    bool       loop;
+    int        frame_lengths[MAX_VISUALIZER_KEY_FRAMES];
     frame_func frame_functions[MAX_VISUALIZER_KEY_FRAMES];
 
     // Used internally by the system, and can also be read by
     // keyframe update functions
-    int current_frame;
-    int time_left_in_frame;
+    int  current_frame;
+    int  time_left_in_frame;
     bool first_update_of_frame;
     bool last_update_of_frame;
     bool need_update;
@@ -118,30 +135,20 @@ void stop_keyframe_animation(keyframe_animation_t* animation);
 // Useful for crossfades for example
 void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* state);
 
-// Some predefined keyframe functions that can be used by the user code
-// Does nothing, useful for adding delays
-bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state);
-// Animates the LCD backlight color between the current color and the target color (of the state)
-bool keyframe_animate_backlight_color(keyframe_animation_t* animation, visualizer_state_t* state);
-// Sets the backlight color to the target color
-bool keyframe_set_backlight_color(keyframe_animation_t* animation, visualizer_state_t* state);
-// Displays the layer text centered vertically on the screen
-bool keyframe_display_layer_text(keyframe_animation_t* animation, visualizer_state_t* state);
-// Displays a bitmap (0/1) of all the currently active layers
-bool keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualizer_state_t* state);
-
-bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
-bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
-
-// Call this once, when the initial animation has finished, alternatively you can call it
-// directly from the initalize_user_visualizer function (the animation can be null)
-bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state);
+// The master can set userdata which will be transferred to the slave
+#ifdef VISUALIZER_USER_DATA_SIZE
+void visualizer_set_user_data(void* user_data);
+#endif
 
 // These functions have to be implemented by the user
-void initialize_user_visualizer(visualizer_state_t* state);
-void update_user_visualizer_state(visualizer_state_t* state);
+// Called regularly each time the state has changed (but not every scan loop)
+void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard_status_t* prev_status);
+// Called when the computer goes to suspend, will also stop calling update_user_visualizer_state
 void user_visualizer_suspend(visualizer_state_t* state);
+// You have to start at least one animation as a response to the following two functions
+// When the animation has finished the visualizer will resume normal operation and start calling the
+// update_user_visualizer_state again
+// Called when the keyboard boots up
+void initialize_user_visualizer(visualizer_state_t* state);
+// Called when the computer resumes from a suspend
 void user_visualizer_resume(visualizer_state_t* state);
-
-
-#endif /* VISUALIZER_H */

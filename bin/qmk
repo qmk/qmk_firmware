@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""CLI wrapper for running QMK commands.
+"""
+import os
+import sys
+from importlib.util import find_spec
+from pathlib import Path
+
+# Add the QMK python libs to our path
+script_dir = Path(os.path.realpath(__file__)).parent
+qmk_dir = script_dir.parent
+python_lib_dir = Path(qmk_dir / 'lib' / 'python').resolve()
+sys.path.append(str(python_lib_dir))
+
+
+def _check_modules(requirements):
+    """ Check if the modules in the given requirements.txt are available.
+    """
+    with Path(qmk_dir / requirements).open() as fd:
+        for line in fd.readlines():
+            line = line.strip().replace('<', '=').replace('>', '=')
+
+            if len(line) == 0 or line[0] == '#' or line.startswith('-r'):
+                continue
+
+            if '#' in line:
+                line = line.split('#')[0]
+
+            module = dict()
+            module['name'] = line.split('=')[0] if '=' in line else line
+            module['import'] = module['name'].replace('-', '_')
+
+            # Not every module is importable by its own name.
+            if module['name'] == "pep8-naming":
+                module['import'] = "pep8ext_naming"
+
+            if not find_spec(module['import']):
+                print('Could not find module %s!' % module['name'])
+                print('Please run `python3 -m pip install -r %s` to install required python dependencies.' % (qmk_dir / requirements,))
+                if developer:
+                    print('You can also turn off developer mode: qmk config user.developer=None')
+                print()
+                exit(255)
+
+
+developer = False
+# Make sure our modules have been setup
+_check_modules('requirements.txt')
+
+# Setup the CLI
+import milc  # noqa
+
+# For developers additional modules are needed
+if milc.cli.config.user.developer:
+    # Do not run the check for 'config',
+    # so users can turn off developer mode
+    if len(sys.argv) == 1 or (len(sys.argv) > 1 and 'config' != sys.argv[1]):
+        developer = True
+        _check_modules('requirements-dev.txt')
+
+milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
+
+
+@milc.cli.entrypoint('QMK Helper Script')
+def qmk_main(cli):
+    """The function that gets run when no subcommand is provided.
+    """
+    cli.print_help()
+
+
+def main():
+    """Setup our environment and then call the CLI entrypoint.
+    """
+    # Change to the root of our checkout
+    os.environ['ORIG_CWD'] = os.getcwd()
+    os.chdir(qmk_dir)
+
+    # Import the subcommands
+    import qmk.cli  # noqa
+
+    # Execute
+    return_code = milc.cli()
+
+    if return_code is False:
+        exit(1)
+
+    elif return_code is not True and isinstance(return_code, int):
+        if return_code < 0 or return_code > 255:
+            milc.cli.log.error('Invalid return_code: %d', return_code)
+            exit(255)
+
+        exit(return_code)
+
+    exit(0)
+
+
+if __name__ == '__main__':
+    main()

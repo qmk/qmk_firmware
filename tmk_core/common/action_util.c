@@ -20,113 +20,188 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_util.h"
 #include "action_layer.h"
 #include "timer.h"
+#include "keycode_config.h"
 
-static inline void add_key_byte(uint8_t code);
-static inline void del_key_byte(uint8_t code);
-#ifdef NKRO_ENABLE
-static inline void add_key_bit(uint8_t code);
-static inline void del_key_bit(uint8_t code);
-#endif
+extern keymap_config_t keymap_config;
 
-static uint8_t real_mods = 0;
-static uint8_t weak_mods = 0;
+static uint8_t real_mods  = 0;
+static uint8_t weak_mods  = 0;
 static uint8_t macro_mods = 0;
 
 #ifdef USB_6KRO_ENABLE
-#define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
-#define RO_SUB(a, b) ((a - b + KEYBOARD_REPORT_KEYS) % KEYBOARD_REPORT_KEYS)
-#define RO_INC(a) RO_ADD(a, 1)
-#define RO_DEC(a) RO_SUB(a, 1)
-static int8_t cb_head = 0;
-static int8_t cb_tail = 0;
+#    define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
+#    define RO_SUB(a, b) ((a - b + KEYBOARD_REPORT_KEYS) % KEYBOARD_REPORT_KEYS)
+#    define RO_INC(a) RO_ADD(a, 1)
+#    define RO_DEC(a) RO_SUB(a, 1)
+static int8_t cb_head  = 0;
+static int8_t cb_tail  = 0;
 static int8_t cb_count = 0;
 #endif
 
 // TODO: pointer variable is not needed
-//report_keyboard_t keyboard_report = {};
+// report_keyboard_t keyboard_report = {};
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
 
+extern inline void add_key(uint8_t key);
+extern inline void del_key(uint8_t key);
+extern inline void clear_keys(void);
+
 #ifndef NO_ACTION_ONESHOT
-static int8_t oneshot_mods = 0;
-static int8_t oneshot_locked_mods = 0;
-int8_t get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
-void set_oneshot_locked_mods(int8_t mods) { oneshot_locked_mods = mods; }
-void clear_oneshot_locked_mods(void) { oneshot_locked_mods = 0; }
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-static int16_t oneshot_time = 0;
-inline bool has_oneshot_mods_timed_out() {
-  return TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT;
+static uint8_t oneshot_mods        = 0;
+static uint8_t oneshot_locked_mods = 0;
+uint8_t        get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
+void           set_oneshot_locked_mods(uint8_t mods) {
+    if (mods != oneshot_locked_mods) {
+        oneshot_locked_mods = mods;
+        oneshot_locked_mods_changed_kb(oneshot_locked_mods);
+    }
 }
-#endif
+void clear_oneshot_locked_mods(void) {
+    if (oneshot_locked_mods) {
+        oneshot_locked_mods = 0;
+        oneshot_locked_mods_changed_kb(oneshot_locked_mods);
+    }
+}
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+static uint16_t oneshot_time = 0;
+bool            has_oneshot_mods_timed_out(void) { return TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT; }
+#    else
+bool has_oneshot_mods_timed_out(void) { return false; }
+#    endif
 #endif
 
 /* oneshot layer */
 #ifndef NO_ACTION_ONESHOT
-/* oneshot_layer_data bits
-* LLLL LSSS
-* where:
-*   L => are layer bits
-*   S => oneshot state bits
-*/
+/** \brief oneshot_layer_data bits
+ * LLLL LSSS
+ * where:
+ *   L => are layer bits
+ *   S => oneshot state bits
+ */
 static int8_t oneshot_layer_data = 0;
 
 inline uint8_t get_oneshot_layer(void) { return oneshot_layer_data >> 3; }
 inline uint8_t get_oneshot_layer_state(void) { return oneshot_layer_data & 0b111; }
 
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-static int16_t oneshot_layer_time = 0;
-inline bool has_oneshot_layer_timed_out() {
-    return TIMER_DIFF_16(timer_read(), oneshot_layer_time) >= ONESHOT_TIMEOUT &&
-        !(get_oneshot_layer_state() & ONESHOT_TOGGLED);
-}
-#endif
+#    ifdef SWAP_HANDS_ENABLE
+enum {
+    SHO_OFF,
+    SHO_ACTIVE,   // Swap hands button was pressed, and we didn't send any swapped keys yet
+    SHO_PRESSED,  // Swap hands button is currently pressed
+    SHO_USED,     // Swap hands button is still pressed, and we already sent swapped keys
+} swap_hands_oneshot = SHO_OFF;
+#    endif
 
-/* Oneshot layer */
-void set_oneshot_layer(uint8_t layer, uint8_t state)
-{
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+static uint16_t oneshot_layer_time = 0;
+inline bool     has_oneshot_layer_timed_out() { return TIMER_DIFF_16(timer_read(), oneshot_layer_time) >= ONESHOT_TIMEOUT && !(get_oneshot_layer_state() & ONESHOT_TOGGLED); }
+#        ifdef SWAP_HANDS_ENABLE
+static uint16_t oneshot_swaphands_time = 0;
+inline bool     has_oneshot_swaphands_timed_out() { return TIMER_DIFF_16(timer_read(), oneshot_swaphands_time) >= ONESHOT_TIMEOUT && (swap_hands_oneshot == SHO_ACTIVE); }
+#        endif
+#    endif
+
+#    ifdef SWAP_HANDS_ENABLE
+
+void set_oneshot_swaphands(void) {
+    swap_hands_oneshot = SHO_PRESSED;
+    swap_hands         = true;
+#        if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    oneshot_swaphands_time = timer_read();
+    if (oneshot_layer_time != 0) {
+        oneshot_layer_time = oneshot_swaphands_time;
+    }
+#        endif
+}
+
+void release_oneshot_swaphands(void) {
+    if (swap_hands_oneshot == SHO_PRESSED) {
+        swap_hands_oneshot = SHO_ACTIVE;
+    }
+    if (swap_hands_oneshot == SHO_USED) {
+        clear_oneshot_swaphands();
+    }
+}
+
+void use_oneshot_swaphands(void) {
+    if (swap_hands_oneshot == SHO_PRESSED) {
+        swap_hands_oneshot = SHO_USED;
+    }
+    if (swap_hands_oneshot == SHO_ACTIVE) {
+        clear_oneshot_swaphands();
+    }
+}
+
+void clear_oneshot_swaphands(void) {
+    swap_hands_oneshot = SHO_OFF;
+    swap_hands         = false;
+#        if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    oneshot_swaphands_time = 0;
+#        endif
+}
+
+#    endif
+
+/** \brief Set oneshot layer
+ *
+ * FIXME: needs doc
+ */
+void set_oneshot_layer(uint8_t layer, uint8_t state) {
     oneshot_layer_data = layer << 3 | state;
     layer_on(layer);
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_layer_time = timer_read();
-#endif
+#    endif
+    oneshot_layer_changed_kb(get_oneshot_layer());
 }
+/** \brief Reset oneshot layer
+ *
+ * FIXME: needs doc
+ */
 void reset_oneshot_layer(void) {
     oneshot_layer_data = 0;
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_layer_time = 0;
-#endif
+#    endif
+    oneshot_layer_changed_kb(get_oneshot_layer());
 }
-void clear_oneshot_layer_state(oneshot_fullfillment_t state)
-{
+/** \brief Clear oneshot layer
+ *
+ * FIXME: needs doc
+ */
+void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
     uint8_t start_state = oneshot_layer_data;
     oneshot_layer_data &= ~state;
     if (!get_oneshot_layer_state() && start_state != oneshot_layer_data) {
         layer_off(get_oneshot_layer());
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    oneshot_layer_time = 0;
-#endif
+        reset_oneshot_layer();
     }
 }
-bool is_oneshot_layer_active(void)
-{
-    return get_oneshot_layer_state();
-}
+/** \brief Is oneshot layer active
+ *
+ * FIXME: needs doc
+ */
+bool is_oneshot_layer_active(void) { return get_oneshot_layer_state(); }
 #endif
 
+/** \brief Send keyboard report
+ *
+ * FIXME: needs doc
+ */
 void send_keyboard_report(void) {
-    keyboard_report->mods  = real_mods;
+    keyboard_report->mods = real_mods;
     keyboard_report->mods |= weak_mods;
     keyboard_report->mods |= macro_mods;
 #ifndef NO_ACTION_ONESHOT
     if (oneshot_mods) {
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
         if (has_oneshot_mods_timed_out()) {
             dprintf("Oneshot: timeout\n");
             clear_oneshot_mods();
         }
-#endif
+#    endif
         keyboard_report->mods |= oneshot_mods;
-        if (has_anykey()) {
+        if (has_anykey(keyboard_report)) {
             clear_oneshot_mods();
         }
     }
@@ -135,244 +210,178 @@ void send_keyboard_report(void) {
     host_keyboard_send(keyboard_report);
 }
 
-/* key */
-void add_key(uint8_t key)
-{
-#ifdef NKRO_ENABLE
-    if (keyboard_protocol && keyboard_nkro) {
-        add_key_bit(key);
-        return;
-    }
-#endif
-    add_key_byte(key);
-}
-
-void del_key(uint8_t key)
-{
-#ifdef NKRO_ENABLE
-    if (keyboard_protocol && keyboard_nkro) {
-        del_key_bit(key);
-        return;
-    }
-#endif
-    del_key_byte(key);
-}
-
-void clear_keys(void)
-{
-    // not clear mods
-    for (int8_t i = 1; i < KEYBOARD_REPORT_SIZE; i++) {
-        keyboard_report->raw[i] = 0;
-    }
-}
-
-
-/* modifier */
+/** \brief Get mods
+ *
+ * FIXME: needs doc
+ */
 uint8_t get_mods(void) { return real_mods; }
+/** \brief add mods
+ *
+ * FIXME: needs doc
+ */
 void add_mods(uint8_t mods) { real_mods |= mods; }
+/** \brief del mods
+ *
+ * FIXME: needs doc
+ */
 void del_mods(uint8_t mods) { real_mods &= ~mods; }
+/** \brief set mods
+ *
+ * FIXME: needs doc
+ */
 void set_mods(uint8_t mods) { real_mods = mods; }
+/** \brief clear mods
+ *
+ * FIXME: needs doc
+ */
 void clear_mods(void) { real_mods = 0; }
 
-/* weak modifier */
+/** \brief get weak mods
+ *
+ * FIXME: needs doc
+ */
 uint8_t get_weak_mods(void) { return weak_mods; }
+/** \brief add weak mods
+ *
+ * FIXME: needs doc
+ */
 void add_weak_mods(uint8_t mods) { weak_mods |= mods; }
+/** \brief del weak mods
+ *
+ * FIXME: needs doc
+ */
 void del_weak_mods(uint8_t mods) { weak_mods &= ~mods; }
+/** \brief set weak mods
+ *
+ * FIXME: needs doc
+ */
 void set_weak_mods(uint8_t mods) { weak_mods = mods; }
+/** \brief clear weak mods
+ *
+ * FIXME: needs doc
+ */
 void clear_weak_mods(void) { weak_mods = 0; }
 
 /* macro modifier */
+/** \brief get macro mods
+ *
+ * FIXME: needs doc
+ */
 uint8_t get_macro_mods(void) { return macro_mods; }
+/** \brief add macro mods
+ *
+ * FIXME: needs doc
+ */
 void add_macro_mods(uint8_t mods) { macro_mods |= mods; }
+/** \brief del macro mods
+ *
+ * FIXME: needs doc
+ */
 void del_macro_mods(uint8_t mods) { macro_mods &= ~mods; }
+/** \brief set macro mods
+ *
+ * FIXME: needs doc
+ */
 void set_macro_mods(uint8_t mods) { macro_mods = mods; }
+/** \brief clear macro mods
+ *
+ * FIXME: needs doc
+ */
 void clear_macro_mods(void) { macro_mods = 0; }
 
-/* Oneshot modifier */
 #ifndef NO_ACTION_ONESHOT
-void set_oneshot_mods(uint8_t mods)
-{
-    oneshot_mods = mods;
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    oneshot_time = timer_read();
-#endif
-}
-void clear_oneshot_mods(void)
-{
-    oneshot_mods = 0;
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    oneshot_time = 0;
-#endif
-}
-uint8_t get_oneshot_mods(void)
-{
-    return oneshot_mods;
-}
-#endif
-
-/*
- * inspect keyboard state
+/** \brief get oneshot mods
+ *
+ * FIXME: needs doc
  */
-uint8_t has_anykey(void)
-{
-    uint8_t cnt = 0;
-    for (uint8_t i = 1; i < KEYBOARD_REPORT_SIZE; i++) {
-        if (keyboard_report->raw[i])
-            cnt++;
-    }
-    return cnt;
-}
+uint8_t get_oneshot_mods(void) { return oneshot_mods; }
 
-uint8_t has_anymod(void)
-{
-    return bitpop(real_mods);
-}
-
-uint8_t get_first_key(void)
-{
-#ifdef NKRO_ENABLE
-    if (keyboard_protocol && keyboard_nkro) {
-        uint8_t i = 0;
-        for (; i < KEYBOARD_REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
-            ;
-        return i<<3 | biton(keyboard_report->nkro.bits[i]);
-    }
-#endif
-#ifdef USB_6KRO_ENABLE
-    uint8_t i = cb_head;
-    do {
-        if (keyboard_report->keys[i] != 0) {
-            break;
-        }
-        i = RO_INC(i);
-    } while (i != cb_tail);
-    return keyboard_report->keys[i];
-#else
-    return keyboard_report->keys[0];
-#endif
-}
-
-
-
-/* local functions */
-static inline void add_key_byte(uint8_t code)
-{
-#ifdef USB_6KRO_ENABLE
-    int8_t i = cb_head;
-    int8_t empty = -1;
-    if (cb_count) {
-        do {
-            if (keyboard_report->keys[i] == code) {
-                return;
-            }
-            if (empty == -1 && keyboard_report->keys[i] == 0) {
-                empty = i;
-            }
-            i = RO_INC(i);
-        } while (i != cb_tail);
-        if (i == cb_tail) {
-            if (cb_tail == cb_head) {
-                // buffer is full
-                if (empty == -1) {
-                    // pop head when has no empty space
-                    cb_head = RO_INC(cb_head);
-                    cb_count--;
-                }
-                else {
-                    // left shift when has empty space
-                    uint8_t offset = 1;
-                    i = RO_INC(empty);
-                    do {
-                        if (keyboard_report->keys[i] != 0) {
-                            keyboard_report->keys[empty] = keyboard_report->keys[i];
-                            keyboard_report->keys[i] = 0;
-                            empty = RO_INC(empty);
-                        }
-                        else {
-                            offset++;
-                        }
-                        i = RO_INC(i);
-                    } while (i != cb_tail);
-                    cb_tail = RO_SUB(cb_tail, offset);
-                }
-            }
-        }
-    }
-    // add to tail
-    keyboard_report->keys[cb_tail] = code;
-    cb_tail = RO_INC(cb_tail);
-    cb_count++;
-#else
-    int8_t i = 0;
-    int8_t empty = -1;
-    for (; i < KEYBOARD_REPORT_KEYS; i++) {
-        if (keyboard_report->keys[i] == code) {
-            break;
-        }
-        if (empty == -1 && keyboard_report->keys[i] == 0) {
-            empty = i;
-        }
-    }
-    if (i == KEYBOARD_REPORT_KEYS) {
-        if (empty != -1) {
-            keyboard_report->keys[empty] = code;
-        }
-    }
-#endif
-}
-
-static inline void del_key_byte(uint8_t code)
-{
-#ifdef USB_6KRO_ENABLE
-    uint8_t i = cb_head;
-    if (cb_count) {
-        do {
-            if (keyboard_report->keys[i] == code) {
-                keyboard_report->keys[i] = 0;
-                cb_count--;
-                if (cb_count == 0) {
-                    // reset head and tail
-                    cb_tail = cb_head = 0;
-                }
-                if (i == RO_DEC(cb_tail)) {
-                    // left shift when next to tail
-                    do {
-                        cb_tail = RO_DEC(cb_tail);
-                        if (keyboard_report->keys[RO_DEC(cb_tail)] != 0) {
-                            break;
-                        }
-                    } while (cb_tail != cb_head);
-                }
-                break;
-            }
-            i = RO_INC(i);
-        } while (i != cb_tail);
-    }
-#else
-    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-        if (keyboard_report->keys[i] == code) {
-            keyboard_report->keys[i] = 0;
-        }
-    }
-#endif
-}
-
-#ifdef NKRO_ENABLE
-static inline void add_key_bit(uint8_t code)
-{
-    if ((code>>3) < KEYBOARD_REPORT_BITS) {
-        keyboard_report->nkro.bits[code>>3] |= 1<<(code&7);
-    } else {
-        dprintf("add_key_bit: can't add: %02X\n", code);
+void add_oneshot_mods(uint8_t mods) {
+    if ((oneshot_mods & mods) != mods) {
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        oneshot_time = timer_read();
+#    endif
+        oneshot_mods |= mods;
+        oneshot_mods_changed_kb(mods);
     }
 }
 
-static inline void del_key_bit(uint8_t code)
-{
-    if ((code>>3) < KEYBOARD_REPORT_BITS) {
-        keyboard_report->nkro.bits[code>>3] &= ~(1<<(code&7));
-    } else {
-        dprintf("del_key_bit: can't del: %02X\n", code);
+void del_oneshot_mods(uint8_t mods) {
+    if (oneshot_mods & mods) {
+        oneshot_mods &= ~mods;
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        oneshot_time = oneshot_mods ? timer_read() : 0;
+#    endif
+        oneshot_mods_changed_kb(oneshot_mods);
+    }
+}
+
+/** \brief set oneshot mods
+ *
+ * FIXME: needs doc
+ */
+void set_oneshot_mods(uint8_t mods) {
+    if (oneshot_mods != mods) {
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        oneshot_time = timer_read();
+#    endif
+        oneshot_mods = mods;
+        oneshot_mods_changed_kb(mods);
+    }
+}
+/** \brief clear oneshot mods
+ *
+ * FIXME: needs doc
+ */
+void clear_oneshot_mods(void) {
+    if (oneshot_mods) {
+        oneshot_mods = 0;
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        oneshot_time = 0;
+#    endif
+        oneshot_mods_changed_kb(oneshot_mods);
     }
 }
 #endif
+
+/** \brief Called when the one shot modifiers have been changed.
+ *
+ * \param mods Contains the active modifiers active after the change.
+ */
+__attribute__((weak)) void oneshot_locked_mods_changed_user(uint8_t mods) {}
+
+/** \brief Called when the locked one shot modifiers have been changed.
+ *
+ * \param mods Contains the active modifiers active after the change.
+ */
+__attribute__((weak)) void oneshot_locked_mods_changed_kb(uint8_t mods) { oneshot_locked_mods_changed_user(mods); }
+
+/** \brief Called when the one shot modifiers have been changed.
+ *
+ * \param mods Contains the active modifiers active after the change.
+ */
+__attribute__((weak)) void oneshot_mods_changed_user(uint8_t mods) {}
+
+/** \brief Called when the one shot modifiers have been changed.
+ *
+ * \param mods Contains the active modifiers active after the change.
+ */
+__attribute__((weak)) void oneshot_mods_changed_kb(uint8_t mods) { oneshot_mods_changed_user(mods); }
+
+/** \brief Called when the one shot layers have been changed.
+ *
+ * \param layer Contains the layer that is toggled on, or zero when toggled off.
+ */
+__attribute__((weak)) void oneshot_layer_changed_user(uint8_t layer) {}
+
+/** \brief Called when the one shot layers have been changed.
+ *
+ * \param layer Contains the layer that is toggled on, or zero when toggled off.
+ */
+__attribute__((weak)) void oneshot_layer_changed_kb(uint8_t layer) { oneshot_layer_changed_user(layer); }
+
+/** \brief inspect keyboard state
+ *
+ * FIXME: needs doc
+ */
+uint8_t has_anymod(void) { return bitpop(real_mods); }

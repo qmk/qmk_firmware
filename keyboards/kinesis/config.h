@@ -22,57 +22,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    You
-#define PRODUCT         kinesis-advantage
-#define DESCRIPTION     A custom keyboard
+#define PRODUCT         Kinesis Advantage/Contoured
 
 // Mouse
-#define MOUSEKEY_DELAY          20
+#define MOUSEKEY_DELAY          60
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_MAX_SPEED      4
-#define MOUSEKEY_TIME_TO_MAX    20
+#define MOUSEKEY_TIME_TO_MAX    10
 #define MOUSEKEY_WHEEL_MAX_SPEED 1
 #define MOUSEKEY_WHEEL_DELTA 1
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 1
 
-/* key matrix size */
-#define MATRIX_ROWS 16
-#define MATRIX_COLS  8 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-//Passed through the port multipler, so 4 pins =16
-#define MATRIX_ROW_PINS { F0,F1, F2, F3  }
-
-// May be upside down. 
-#define MATRIX_COL_PINS { B0,B1, B2, B3, B4, B5, B6, B7 }
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
- 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -111,11 +74,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true

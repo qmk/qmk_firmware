@@ -1,121 +1,156 @@
 COMMON_DIR = common
-ifeq ($(PLATFORM),AVR)
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
-else ifeq ($(PLATFORM),CHIBIOS)
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
-endif
+PLATFORM_COMMON_DIR = $(COMMON_DIR)/$(PLATFORM_KEY)
 
-SRC +=	$(COMMON_DIR)/host.c \
+TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
 	$(COMMON_DIR)/action.c \
 	$(COMMON_DIR)/action_tapping.c \
 	$(COMMON_DIR)/action_macro.c \
 	$(COMMON_DIR)/action_layer.c \
 	$(COMMON_DIR)/action_util.c \
-	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
-	$(COMMON_DIR)/util.c \
+	$(COMMON_DIR)/sendchar_null.c \
 	$(COMMON_DIR)/eeconfig.c \
+	$(COMMON_DIR)/report.c \
 	$(PLATFORM_COMMON_DIR)/suspend.c \
 	$(PLATFORM_COMMON_DIR)/timer.c \
+	$(COMMON_DIR)/sync_timer.c \
 	$(PLATFORM_COMMON_DIR)/bootloader.c \
 
-ifeq ($(PLATFORM),AVR)
-	SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
-endif 
-
-ifeq ($(PLATFORM),CHIBIOS)
-	SRC += $(PLATFORM_COMMON_DIR)/printf.c
-	SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+# Use platform provided print - fall back to lib/printf
+ifneq ("$(wildcard $(TMK_PATH)/$(PLATFORM_COMMON_DIR)/printf.mk)","")
+    include $(TMK_PATH)/$(PLATFORM_COMMON_DIR)/printf.mk
+else
+    include $(TMK_PATH)/$(COMMON_DIR)/lib_printf.mk
 endif
 
-
-
 # Option modules
-ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
-    OPT_DEFS += -DBOOTMAGIC_ENABLE
-    SRC += $(COMMON_DIR)/bootmagic.c
+BOOTMAGIC_ENABLE ?= no
+VALID_MAGIC_TYPES := yes full lite
+ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
+  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
+    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
+  endif
+  ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
+      TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
+      TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic_lite.c
+
+      TMK_COMMON_DEFS += -DMAGIC_ENABLE
+      TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
+  else
+    TMK_COMMON_DEFS += -DBOOTMAGIC_ENABLE
+    TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic.c
+  endif
 else
-    OPT_DEFS += -DMAGIC_ENABLE
-    SRC += $(COMMON_DIR)/magic.c
+    TMK_COMMON_DEFS += -DMAGIC_ENABLE
+    TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
+endif
+
+SHARED_EP_ENABLE = no
+MOUSE_SHARED_EP ?= yes
+ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
+    TMK_COMMON_DEFS += -DKEYBOARD_SHARED_EP
+    SHARED_EP_ENABLE = yes
+    # With the current usb_descriptor.c code,
+    # you can't share kbd without sharing mouse;
+    # that would be a very unexpected use case anyway
+    MOUSE_SHARED_EP = yes
 endif
 
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
-    SRC += $(COMMON_DIR)/mousekey.c
-    OPT_DEFS += -DMOUSEKEY_ENABLE
-    OPT_DEFS += -DMOUSE_ENABLE
-endif
-
-ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
-    OPT_DEFS += -DEXTRAKEY_ENABLE
-endif
-
-ifeq ($(strip $(CONSOLE_ENABLE)), yes)
-    OPT_DEFS += -DCONSOLE_ENABLE
-else
-    OPT_DEFS += -DNO_PRINT
-    OPT_DEFS += -DNO_DEBUG
-endif
-
-ifeq ($(strip $(COMMAND_ENABLE)), yes)
-    SRC += $(COMMON_DIR)/command.c
-    OPT_DEFS += -DCOMMAND_ENABLE
-endif
-
-ifeq ($(strip $(NKRO_ENABLE)), yes)
-    OPT_DEFS += -DNKRO_ENABLE
-endif
-
-ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
-    OPT_DEFS += -DUSB_6KRO_ENABLE
-endif
-
-ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
-    SRC += $(PLATFORM_COMMON_DIR)/sleep_led.c
-    OPT_DEFS += -DSLEEP_LED_ENABLE
-    OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
-endif
-
-ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
-    SRC += $(COMMON_DIR)/backlight.c
-    OPT_DEFS += -DBACKLIGHT_ENABLE
-endif
-
-ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
-    OPT_DEFS += -DBLUETOOTH_ENABLE
-endif
-
-ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)
-    OPT_DEFS += -DKEYMAP_SECTION_ENABLE
-
-    ifeq ($(strip $(MCU)),atmega32u2)
-	EXTRALDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr35.x
-    else ifeq ($(strip $(MCU)),atmega32u4)
-	EXTRALDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr5.x
-    else
-	EXTRALDFLAGS = $(error no ldscript for keymap section)
+    ifeq ($(strip $(MOUSE_SHARED_EP)), yes)
+        TMK_COMMON_DEFS += -DMOUSE_SHARED_EP
+        SHARED_EP_ENABLE = yes
     endif
 endif
 
-ifeq ($(MASTER),right)	
-	OPT_DEFS += -DMASTER_IS_ON_RIGHT
-else 
-	ifneq ($(MASTER),left)
-$(error MASTER does not have a valid value(left/right))
-	endif
+ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DEXTRAKEY_ENABLE
+    SHARED_EP_ENABLE = yes
 endif
 
+ifeq ($(strip $(RAW_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DRAW_ENABLE
+endif
 
-# Version string
-OPT_DEFS += -DVERSION=$(GIT_VERSION)
+ifeq ($(strip $(CONSOLE_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DCONSOLE_ENABLE
+else
+    TMK_COMMON_DEFS += -DNO_PRINT
+    TMK_COMMON_DEFS += -DNO_DEBUG
+endif
 
-# Bootloader address
-ifdef STM32_BOOTLOADER_ADDRESS
-    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
+ifeq ($(strip $(NKRO_ENABLE)), yes)
+    ifeq ($(PROTOCOL), VUSB)
+        $(info NKRO is not currently supported on V-USB, and has been disabled.)
+    else ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
+        $(info NKRO is not currently supported with Bluetooth, and has been disabled.)
+    else ifneq ($(BLUETOOTH),)
+        $(info NKRO is not currently supported with Bluetooth, and has been disabled.)
+    else
+        TMK_COMMON_DEFS += -DNKRO_ENABLE
+        SHARED_EP_ENABLE = yes
+    endif
+endif
+
+ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DUSB_6KRO_ENABLE
+endif
+
+ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/sleep_led.c
+    TMK_COMMON_DEFS += -DSLEEP_LED_ENABLE
+    TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
+endif
+
+ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)
+    TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
+endif
+
+ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+	TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
+endif
+
+ifeq ($(strip $(BLUETOOTH)), AdafruitBLE)
+	TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+	TMK_COMMON_DEFS += -DMODULE_ADAFRUIT_BLE
+	TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
+endif
+
+ifeq ($(strip $(BLUETOOTH)), RN42)
+	TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+	TMK_COMMON_DEFS += -DMODULE_RN42
+	TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
+endif
+
+ifeq ($(strip $(ONEHAND_ENABLE)), yes)
+  SWAP_HANDS_ENABLE = yes # backwards compatibility
+endif
+ifeq ($(strip $(SWAP_HANDS_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DSWAP_HANDS_ENABLE
+endif
+
+ifeq ($(strip $(NO_USB_STARTUP_CHECK)), yes)
+    TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
+endif
+
+ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DSHARED_EP_ENABLE
+endif
+
+ifeq ($(strip $(LTO_ENABLE)), yes)
+    ifeq ($(PLATFORM),CHIBIOS)
+        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+        $(info If unsure, set LTO_ENABLE = no.)
+    endif
+    EXTRAFLAGS += -flto
+    TMK_COMMON_DEFS += -DLTO_ENABLE
+    TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATON_ENABLE
+else ifdef LINK_TIME_OPTIMIZATION_ENABLE
+    $(error The LINK_TIME_OPTIMIZATION_ENABLE flag has been renamed to LTO_ENABLE.)
 endif
 
 # Search Path
 VPATH += $(TMK_PATH)/$(COMMON_DIR)
-ifeq ($(PLATFORM),CHIBIOS)
-VPATH += $(TMK_PATH)/$(COMMON_DIR)/chibios
-endif
+VPATH += $(TMK_PATH)/$(PLATFORM_COMMON_DIR)

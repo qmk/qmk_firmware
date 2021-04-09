@@ -23,10 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6061
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         The Preonic Keyboard
-#define DESCRIPTION     A compact ortholinear keyboard
+#define MANUFACTURER    OLKB
+#define PRODUCT         Preonic
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -36,6 +34,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D2, D5, B5, B6, D3 }
 #define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
 #define UNUSED_PINS
+
+#define QMK_ESC_OUTPUT F1
+#define QMK_ESC_INPUT B5
+#define QMK_LED     E6
+#define QMK_SPEAKER C6
+
+#define AUDIO_VOICES
+#define AUDIO_PIN C6
 
 #define BACKLIGHT_PIN B7
 
@@ -49,25 +55,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D1
-#define RGBLIGHT_TIMER
-#define RGBLED_NUM 28     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
 
 /*
  * Feature disable options

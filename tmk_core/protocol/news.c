@@ -40,40 +40,33 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <avr/interrupt.h>
 #include "news.h"
 
-
-void news_init(void)
-{
-    NEWS_KBD_RX_INIT();
-}
+void news_init(void) { NEWS_KBD_RX_INIT(); }
 
 // RX ring buffer
-#define RBUF_SIZE   8
+#define RBUF_SIZE 8
 static uint8_t rbuf[RBUF_SIZE];
 static uint8_t rbuf_head = 0;
 static uint8_t rbuf_tail = 0;
 
-uint8_t news_recv(void)
-{
+uint8_t news_recv(void) {
     uint8_t data = 0;
     if (rbuf_head == rbuf_tail) {
         return 0;
     }
 
-    data = rbuf[rbuf_tail];
+    data      = rbuf[rbuf_tail];
     rbuf_tail = (rbuf_tail + 1) % RBUF_SIZE;
     return data;
 }
 
 // USART RX complete interrupt
-ISR(NEWS_KBD_RX_VECT)
-{
+ISR(NEWS_KBD_RX_VECT) {
     uint8_t next = (rbuf_head + 1) % RBUF_SIZE;
     if (next != rbuf_tail) {
         rbuf[rbuf_head] = NEWS_KBD_RX_DATA;
-        rbuf_head = next;
+        rbuf_head       = next;
     }
 }
-
 
 /*
 SONY NEWS Keyboard Protocol

@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #if defined(__AVR__)
-#include <util/delay.h>
+#    include <util/delay.h>
 #endif
 #include "matrix.h"
 #include "bootloader.h"
@@ -14,8 +14,11 @@
 
 keymap_config_t keymap_config;
 
-void magic(void)
-{
+/** \brief Magic
+ *
+ * FIXME: Needs doc
+ */
+void magic(void) {
     /* check signature */
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
@@ -27,12 +30,10 @@ void magic(void)
     /* keymap config */
     keymap_config.raw = eeconfig_read_keymap();
 
-#ifdef NKRO_ENABLE
-    keyboard_nkro = keymap_config.nkro;
-#endif
-
     uint8_t default_layer = 0;
-    default_layer = eeconfig_read_default_layer();
-    default_layer_set((uint32_t)default_layer);
+    default_layer         = eeconfig_read_default_layer();
+    default_layer_set((layer_state_t)default_layer);
 
+    /* Also initialize layer state to trigger callback functions for layer_state */
+    layer_state_set_kb((layer_state_t)layer_state);
 }

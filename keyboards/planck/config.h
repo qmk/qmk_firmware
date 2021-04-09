@@ -23,9 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
-#define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         The Planck Keyboard
-#define DESCRIPTION     A compact ortholinear keyboard
+#define MANUFACTURER    OLKB
+#define PRODUCT         Planck
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -35,6 +34,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D0, D5, B5, B6 }
 #define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
 #define UNUSED_PINS
+
+#define QMK_ESC_OUTPUT F1
+#define QMK_ESC_INPUT D5
+#define QMK_LED     E6
+#define QMK_SPEAKER C6
+
+#define AUDIO_VOICES
+#define AUDIO_PIN C6
 
 #define BACKLIGHT_PIN B7
 
@@ -48,17 +55,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /*
  * Feature disable options
@@ -77,12 +79,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#ifdef SUBPROJECT_rev3
-    #include "rev3/config.h"
-#endif
-#ifdef SUBPROJECT_rev4
-    #include "rev4/config.h"
-#endif
 
 #endif

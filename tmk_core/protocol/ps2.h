@@ -35,8 +35,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef PS2_H
-#define PS2_H
+#pragma once
 
 #include <stdbool.h>
 #include "wait.h"
@@ -67,68 +66,74 @@ POSSIBILITY OF SUCH DAMAGE.
  * [5] TrackPoint Engineering Specifications for version 3E
  * https://web.archive.org/web/20100526161812/http://wwwcssrv.almaden.ibm.com/trackpoint/download.html
  */
-#define PS2_ACK         0xFA
-#define PS2_RESEND      0xFE
-#define PS2_SET_LED     0xED
+#define PS2_ACK 0xFA
+#define PS2_RESEND 0xFE
+#define PS2_SET_LED 0xED
 
 // TODO: error numbers
-#define PS2_ERR_NONE        0
-#define PS2_ERR_STARTBIT1   1
-#define PS2_ERR_STARTBIT2   2
-#define PS2_ERR_STARTBIT3   3
-#define PS2_ERR_PARITY      0x10
-#define PS2_ERR_NODATA      0x20
+#define PS2_ERR_NONE 0
+#define PS2_ERR_STARTBIT1 1
+#define PS2_ERR_STARTBIT2 2
+#define PS2_ERR_STARTBIT3 3
+#define PS2_ERR_PARITY 0x10
+#define PS2_ERR_NODATA 0x20
 
 #define PS2_LED_SCROLL_LOCK 0
-#define PS2_LED_NUM_LOCK    1
-#define PS2_LED_CAPS_LOCK   2
-
+#define PS2_LED_NUM_LOCK 1
+#define PS2_LED_CAPS_LOCK 2
 
 extern uint8_t ps2_error;
 
-void ps2_host_init(void);
+void    ps2_host_init(void);
 uint8_t ps2_host_send(uint8_t data);
 uint8_t ps2_host_recv_response(void);
 uint8_t ps2_host_recv(void);
-void ps2_host_set_led(uint8_t usb_led);
-
+void    ps2_host_set_led(uint8_t usb_led);
 
 /*--------------------------------------------------------------------
  * static functions
  *------------------------------------------------------------------*/
-static inline uint16_t wait_clock_lo(uint16_t us)
-{
-    while (clock_in()  && us) { asm(""); wait_us(1); us--; }
+static inline uint16_t wait_clock_lo(uint16_t us) {
+    while (clock_in() && us) {
+        asm("");
+        wait_us(1);
+        us--;
+    }
     return us;
 }
-static inline uint16_t wait_clock_hi(uint16_t us)
-{
-    while (!clock_in() && us) { asm(""); wait_us(1); us--; }
+static inline uint16_t wait_clock_hi(uint16_t us) {
+    while (!clock_in() && us) {
+        asm("");
+        wait_us(1);
+        us--;
+    }
     return us;
 }
-static inline uint16_t wait_data_lo(uint16_t us)
-{
-    while (data_in() && us)  { asm(""); wait_us(1); us--; }
+static inline uint16_t wait_data_lo(uint16_t us) {
+    while (data_in() && us) {
+        asm("");
+        wait_us(1);
+        us--;
+    }
     return us;
 }
-static inline uint16_t wait_data_hi(uint16_t us)
-{
-    while (!data_in() && us)  { asm(""); wait_us(1); us--; }
+static inline uint16_t wait_data_hi(uint16_t us) {
+    while (!data_in() && us) {
+        asm("");
+        wait_us(1);
+        us--;
+    }
     return us;
 }
 
 /* idle state that device can send */
-static inline void idle(void)
-{
+static inline void idle(void) {
     clock_hi();
     data_hi();
 }
 
 /* inhibit device to send */
-static inline void inhibit(void)
-{
+static inline void inhibit(void) {
     clock_lo();
     data_hi();
 }
-
-#endif

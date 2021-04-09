@@ -1,7 +1,7 @@
 # A visualization library for the TMK keyboard firmware
 
 This library is designed to work together with the [TMK keyboard firmware](https://github.com/tmk/tmk_keyboard). Currently it only works for [Chibios](http://www.chibios.org/)
- flavors, but it would be possible to add support for other configurations as well. The LCD display functionality is provided by the [uGFX library](http://www.ugfx.org/). 
+ flavors, but it would be possible to add support for other configurations as well. The LCD display functionality is provided by the [uGFX library](https://ugfx.io/). 
 
 ## To use this library as a user
 You can and should modify the visualizer\_user.c file. Check the comments in the file for more information.

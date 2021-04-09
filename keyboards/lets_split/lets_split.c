@@ -1,30 +1,16 @@
 #include "lets_split.h"
 
-#ifdef AUDIO_ENABLE
-    float tone_startup[][2] = SONG(STARTUP_SOUND);
-    float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-#endif
+#ifdef SWAP_HANDS_ENABLE
+__attribute__ ((weak))
+const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
-void matrix_init_kb(void) {
-
-    #ifdef AUDIO_ENABLE
-        _delay_ms(20); // gets rid of tick
-        PLAY_NOTE_ARRAY(tone_startup, false, 0);
-    #endif
-
-    // // green led on
-    // DDRD |= (1<<5);
-    // PORTD &= ~(1<<5);
-
-    // // orange led on
-    // DDRB |= (1<<0);
-    // PORTB &= ~(1<<0);
-
-	matrix_init_user();
+  {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}, {5, 4}},
+  {{0, 5}, {1, 5}, {2, 5}, {3, 5}, {4, 5}, {5, 5}},
+  {{0, 6}, {1, 6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}},
+  {{0, 7}, {1, 7}, {2, 7}, {3, 7}, {4, 7}, {5, 7}},
+  {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}},
+  {{0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}},
+  {{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}},
+  {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}},
 };
-
-void shutdown_user(void) {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
-    _delay_ms(150);
-    stop_all_notes();
-}
+#endif
