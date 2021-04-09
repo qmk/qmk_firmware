@@ -6,6 +6,7 @@ import sys
 
 from milc import cli, __VERSION__
 
+from . import buildall
 from . import c2json
 from . import cformat
 from . import chibios
