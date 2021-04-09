@@ -70,6 +70,7 @@ def list_keyboards():
 
     return sorted(set(map(resolve_keyboard,map(_find_name, paths))))
 
+
 def resolve_keyboard(keyboard):
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
@@ -77,6 +78,7 @@ def resolve_keyboard(keyboard):
         keyboard = rules['DEFAULT_FOLDER']
         rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
     return keyboard
+
 
 def config_h(keyboard):
     """Parses all the config.h files for a keyboard.
@@ -90,7 +92,6 @@ def config_h(keyboard):
     config = {}
     cur_dir = Path('keyboards')
     keyboard = Path(resolve_keyboard(keyboard))
-    rules = rules_mk(keyboard)
 
     for dir in keyboard.parts:
         cur_dir = cur_dir / dir
