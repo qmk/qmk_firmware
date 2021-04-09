@@ -14,8 +14,8 @@ enum {
   #define VOL_U KC_AUDIO_VOL_UP
   #define MUTE KC_AUDIO_MUTE
 /* Amethyst */
-  #define AM_1 LCTL(KC_F4)
-  #define AM_2 LALT(KC_F2)
+  #define AM_1 KC_F4
+  #define AM_2 KC_F2
   #define AM_RITE LALT(LCTL(LSFT(KC_2)))
   #define AM_LEFT LALT(LCTL(LSFT(KC_1)))
   #define AM_CYCLE LSFT(LALT(LCTL(KC_SPC)))

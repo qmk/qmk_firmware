@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 	[_NAV_ETC] = LAYOUT_ortho_4x12(
-		CAPS    , _______ , ALT_U  , _______  , KC_BSPC    , _______   , GUI_L    , KC_END  , KC_HOME , GUI_R   , _______ , GUI_BSPC ,
+		CAPS    , KC_F6   , ALT_U  , _______  , KC_BSPC    , _______   , GUI_L    , KC_END  , KC_HOME , GUI_R   , _______ , GUI_BSPC ,
 		_______ , WEB_B   , ALT_D  , WEB_F    , DEL        , _______    , LEFT     , KC_DOWN , KC_UP   , RIGHT   , _______ , _______  ,
 		_______ , _______ , _______ , _______  , _______    , _______    , ALT_L    , _______ , _______ , ALT_R   , _______ , _______  ,
 		AM_RITE , AM_CW   , AM_CCW  , AM_CYCLE , MO(_WORDS) , SCREEN_CAP , _______  , _______ , DESK_L  , DESKTOP , MISSION , DESK_R
