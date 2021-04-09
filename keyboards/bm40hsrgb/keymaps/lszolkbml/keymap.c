@@ -27,7 +27,7 @@
 #define KC_VAI RGB_VAI
 
 //define layers
-enum layers {BASE, NAVR, NSL, COLORS, CODE, SECCODE, GAME, SECGAME};
+enum layers {BASE, NAVR, NUMBER, COLORS, CODE, SECCODE, GAME, SECGAME};
 
 enum custom_keycodes {
   CMD_TAB = SAFE_RANGE,
@@ -85,60 +85,27 @@ if(IS_LAYER_ON(BASE)) {
 //game indicators
 
 if(IS_LAYER_ON(GAME)) {
+  rgb_matrix_set_color_all(50, 50, 50);
+
   rgb_matrix_set_color(11, 255, 0, 0);
 
-  rgb_matrix_set_color(0, 50, 50, 50);
-  rgb_matrix_set_color(2, 255, 0, 0);
-  rgb_matrix_set_color(1, 50, 50, 50);
-  rgb_matrix_set_color(3, 50, 50, 50);
-  rgb_matrix_set_color(4, 50, 50, 50);
-  rgb_matrix_set_color(5, 50, 50, 50);
-  rgb_matrix_set_color(6, 50, 50, 50);
-  rgb_matrix_set_color(7, 50, 50, 50);
-  rgb_matrix_set_color(8, 50, 50, 50);
-  rgb_matrix_set_color(9, 50, 50, 50);
-  rgb_matrix_set_color(10, 50, 50, 50);
 
-  rgb_matrix_set_color(12, 50, 50, 50);
+  rgb_matrix_set_color(2, 255, 0, 0);
+
   rgb_matrix_set_color(13, 255, 0, 0);
   rgb_matrix_set_color(14, 255, 0, 0);
   rgb_matrix_set_color(15, 255, 0, 0);
-  rgb_matrix_set_color(16, 50, 50, 50);
-  rgb_matrix_set_color(17, 50, 50, 50);
-  rgb_matrix_set_color(18, 50, 50, 50);
-  rgb_matrix_set_color(19, 50, 50, 50);
-  rgb_matrix_set_color(20, 50, 50, 50);
-  rgb_matrix_set_color(21, 50, 50, 50);
-  rgb_matrix_set_color(22, 50, 50, 50);
-  rgb_matrix_set_color(23, 50, 50, 50);
 
-  rgb_matrix_set_color(24, 50, 50, 50);
-  rgb_matrix_set_color(25, 50, 50, 50);
-  rgb_matrix_set_color(26, 50, 50, 50);
-  rgb_matrix_set_color(27, 50, 50, 50);
-  rgb_matrix_set_color(28, 50, 50, 50);
-  rgb_matrix_set_color(29, 50, 50, 50);
-  rgb_matrix_set_color(30, 50, 50, 50);
-  rgb_matrix_set_color(31, 50, 50, 50);
-  rgb_matrix_set_color(32, 50, 50, 50);
-  rgb_matrix_set_color(33, 50, 50, 50);
-  rgb_matrix_set_color(34, 50, 50, 50);
   rgb_matrix_set_color(35, 0, 255, 0);
 
-  rgb_matrix_set_color(36, 50, 50, 50);
-  rgb_matrix_set_color(37, 50, 50, 50);
-  rgb_matrix_set_color(38, 50, 50, 50);
+
   rgb_matrix_set_color(39, 255, 0, 0);
-  rgb_matrix_set_color(40, 50, 50, 50);
-  rgb_matrix_set_color(41, 50, 50, 50);
-  rgb_matrix_set_color(42, 50, 50, 50);
-  rgb_matrix_set_color(43, 50, 50, 50);
-  rgb_matrix_set_color(44, 50, 50, 50);
-  rgb_matrix_set_color(45, 50, 50, 50);
-  rgb_matrix_set_color(46, 50, 50, 50);
+
 }
 
 if(IS_LAYER_ON(SECGAME)) {
+  rgb_matrix_set_color_all(50, 50, 50);
+
   rgb_matrix_set_color(11, 0, 0, 0);
 
   rgb_matrix_set_color(0, 0, 0, 0);
@@ -166,29 +133,9 @@ if(IS_LAYER_ON(SECGAME)) {
   rgb_matrix_set_color(22, 255, 100, 0);
   rgb_matrix_set_color(23, 255, 100, 0);
 
-  rgb_matrix_set_color(24, 50, 50, 50);
-  rgb_matrix_set_color(25, 50, 50, 50);
-  rgb_matrix_set_color(26, 50, 50, 50);
-  rgb_matrix_set_color(27, 50, 50, 50);
-  rgb_matrix_set_color(28, 50, 50, 50);
-  rgb_matrix_set_color(29, 50, 50, 50);
-  rgb_matrix_set_color(30, 50, 50, 50);
-  rgb_matrix_set_color(31, 50, 50, 50);
-  rgb_matrix_set_color(32, 50, 50, 50);
-  rgb_matrix_set_color(33, 50, 50, 50);
-  rgb_matrix_set_color(34, 50, 50, 50);
-  rgb_matrix_set_color(35, 50, 50, 50);
 
-  rgb_matrix_set_color(36, 50, 50, 50);
-  rgb_matrix_set_color(37, 50, 50, 50);
   rgb_matrix_set_color(39, 255, 0, 0);
-  rgb_matrix_set_color(40, 50, 50, 50);
-  rgb_matrix_set_color(41, 50, 50, 50);
-  rgb_matrix_set_color(42, 50, 50, 50);
-  rgb_matrix_set_color(43, 50, 50, 50);
-  rgb_matrix_set_color(44, 50, 50, 50);
-  rgb_matrix_set_color(45, 50, 50, 50);
-  rgb_matrix_set_color(46, 50, 50, 50);
+
 }
 
 //layer indicators
@@ -201,20 +148,26 @@ if(IS_LAYER_ON(NAVR)) {
   rgb_matrix_set_color(24, 0, 0, 255);
   rgb_matrix_set_color(36, 255, 0, 0);
 
-  rgb_matrix_set_color(6, 0, 255, 0);
-  rgb_matrix_set_color(7, 0, 255, 0);
-  rgb_matrix_set_color(8, 0, 255, 0);
-  rgb_matrix_set_color(9, 0, 255, 0);
-  rgb_matrix_set_color(10, 255, 255, 255);
+  rgb_matrix_set_color(5, 0, 255, 0);
+  rgb_matrix_set_color(4, 0, 255, 0);
+  rgb_matrix_set_color(3, 0, 255, 0);
+  rgb_matrix_set_color(2, 0, 255, 0);
+  rgb_matrix_set_color(1, 255, 255, 255);
   rgb_matrix_set_color(11, 255, 0, 0);
 
-  rgb_matrix_set_color(18, 255, 0, 0);
-  rgb_matrix_set_color(19, 255, 0, 0);
-  rgb_matrix_set_color(20, 255, 0, 0);
-  rgb_matrix_set_color(21, 255, 255, 255);
-  rgb_matrix_set_color(22, 10, 0, 0);
+  rgb_matrix_set_color(17, 255, 0, 0);
+  rgb_matrix_set_color(16, 255, 0, 0);
+  rgb_matrix_set_color(15, 255, 0, 0);
+  rgb_matrix_set_color(14, 255, 255, 255);
+  rgb_matrix_set_color(13, 10, 0, 0);
 
-  rgb_matrix_set_color(35, 255, 100, 0);
+  rgb_matrix_set_color(7, 50, 50, 50);
+  rgb_matrix_set_color(8, 255, 100, 0);
+  rgb_matrix_set_color(9, 50, 50, 50);
+
+  rgb_matrix_set_color(19, 255, 100, 0);
+  rgb_matrix_set_color(20, 255, 100, 0);
+  rgb_matrix_set_color(21, 255, 100, 0);
 
   rgb_matrix_set_color(43, 255, 100, 0);
   rgb_matrix_set_color(44, 255, 100, 0);
@@ -223,7 +176,7 @@ if(IS_LAYER_ON(NAVR)) {
 
 }
 
-if(IS_LAYER_ON(NSL)) {
+if(IS_LAYER_ON(NUMBER)) {
   rgb_matrix_set_color(42, 255, 0, 0);
 
   rgb_matrix_set_color(1, 255, 0, 0);
@@ -348,20 +301,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,   KC_Q,      KC_W,       KC_E,     KC_R,      KC_T,           KC_Y,    KC_U,      KC_I,     KC_O,    KC_P,     KC_BSPC,
     KC_TAB,   KC_A,      KC_S,       KC_D,     KC_F,      KC_G,           KC_H,    KC_J,      KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
     KC_LSFT,  KC_Z,      KC_X,       KC_C,     KC_V,      KC_B,           KC_N,    KC_M,      KC_COMM,  KC_DOT,  KC_SLSH,  KC_ENT,
-    KC_LCTL,  MO(NAVR),  KC_LALT,    KC_LGUI,  KC_LSFT,         KC_SPC,           MO(NSL),   KC_LEFT,  KC_UP,   KC_DOWN,  KC_RGHT
+    KC_LCTL,  MO(NAVR),  KC_LALT,    KC_LGUI,  KC_LSFT,         KC_SPC,           MO(NUMBER),   KC_LEFT,  KC_UP,   KC_DOWN,  KC_RGHT
   ),
 
 //layers
   [NAVR] = LAYOUT_planck_mit(
-    KC_RST,     KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, RGB_SPI, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG,
-    TG(CODE),   KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, RGB_SPD, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_LSFT,
-    TG(COLORS), KC_NO, KC_ALGR, KC_NO, KC_NO, KC_NO, KC_INS,  KC_HOME,  KC_PGUP, KC_PGDN, KC_END,  KC_MNXT,
-    TG(GAME),   KC_NO, KC_NO,   KC_NO, KC_NO, KC_ENT,    KC_BSPC,       KC_MPRV, KC_VOLU, KC_VOLD, KC_MPLY
+    RGB_TOG,    RGB_VAI, RGB_SAI, RGB_HUI, RGB_MOD,  RGB_SPI, KC_NO,  KC_BTN1, KC_MS_U, KC_BTN2, KC_NO,   KC_RST,
+    TG(CODE),   RGB_VAD, RGB_SAD, RGB_HUD, RGB_RMOD, RGB_SPD, KC_NO,  KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,   KC_NO,
+    TG(COLORS), KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_INS, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  KC_ENT,
+    TG(GAME),   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_BSPC,     KC_NO,   KC_MPRV, KC_VOLU, KC_VOLD, KC_TD(TD_MEDIA)
   ),
-  [NSL] = LAYOUT_planck_mit(
+  [NUMBER] = LAYOUT_planck_mit(
     KC_GRV,  KC_1,   KC_2,    KC_3,     KC_4,    KC_5,    KC_6,    KC_7,     KC_8,     KC_9,    KC_0,    KC_BSPC,
     KC_TAB,  KC_F1,  KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_MINS,  KC_EQL,   KC_LBRC, KC_RBRC, KC_BSLS,
-    KC_LSFT, KC_F7,  KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_NUHS,  KC_NUBS,  KC_PGUP, KC_PGDN, KC_MNXT,
+    KC_LSFT, KC_F7,  KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_NO,  KC_NO,  KC_NO, KC_NO, KC_ENT,
     KC_LCTL, KC_NO,  KC_LALT, KC_UNDS,  KC_LSFT,      KC_SPC,      KC_NO,    KC_NO,    KC_NO,   KC_NO,   KC_NO
   ),
   [GAME] = LAYOUT_planck_mit(
@@ -389,7 +342,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,     KC_NO,      KC_NO,         MO(SECCODE), KC_P7,    KC_P8,   KC_P9,   KC_P0
   ),
   [SECCODE] = LAYOUT_planck_mit(
-    KC_MINS, KC_1,    KC_2,    KC_3,        KC_4,    KC_5,    KC_6,    KC_7,     KC_8,     KC_9,    KC_0,    TG(CODE),
+    KC_MINS, KC_1,    KC_2,    KC_3,        KC_4,    KC_5,    KC_6,    KC_7,     KC_8,     KC_9,    KC_0,    KC_BSPC,
     KC_F1,   KC_F2,   KC_F3,   KC_F4,       KC_F5,   KC_F6,   KC_F7,   KC_F8,    KC_F9,    KC_F10,  KC_F11,  KC_F12,
     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,     KC_NO,   KC_NO,   KC_NO,   KC_P1,    KC_P2,    KC_P3,   KC_P4,   KC_P5,
     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,     KC_NO,      KC_NO,         KC_P6,    KC_P7,    KC_P8,   KC_P9,   KC_P0
