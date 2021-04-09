@@ -2,9 +2,6 @@ name: Automated Tests
 
 on:
   push:
-    branches:
-    - master
-    - develop
     paths:
     - .github/**/*
     - quantum/**/*
@@ -21,8 +18,6 @@ jobs:
     name: 'make test:all'
     runs-on: ubuntu-latest
     container: qmkfm/base_container
-
-    if: github.repository == 'qmk/qmk_firmware'
 
     steps:
     - uses: actions/checkout@v2
