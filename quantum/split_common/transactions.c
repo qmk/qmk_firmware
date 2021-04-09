@@ -60,10 +60,19 @@ static uint8_t crc8(const void *data, size_t len) {
     return crc;
 }
 
+void slave_rpc_callback(uint8_t initiator2target_buffer_size, const volatile void *initiator2target_buffer, uint8_t target2initiator_buffer_size, volatile void *target2initiator_buffer) {
+
+}
+
+
 uint8_t                  dummy;
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     // Set defaults
     [0 ...(NUM_TOTAL_TRANSACTIONS - 1)] = {NULL, 0, 0, 0, 0, 0},
+
+#ifdef USE_I2C
+    [I2C_EXECUTE_CALLBACK] = trans_target2initiator_initializer(transaction_id),
+#endif  // USE_I2C
 
     [GET_SLAVE_MATRIX_CHECKSUM] = trans_target2initiator_initializer(smatrix.checksum),
     [GET_SLAVE_MATRIX_DATA]     = trans_target2initiator_initializer(smatrix.matrix),
@@ -108,6 +117,11 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
 #ifdef WPM_ENABLE
     [PUT_WPM] = trans_initiator2target_initializer(current_wpm),
 #endif  // WPM_ENABLE
+
+#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+    [PUT_RPC_INFO] = trans_initiator2target_initializer(rpc_sync.sync_info),
+    [EXECUTE_RPC] = trans_bidirectional_initializer_cb(rpc_sync.m2s_buffer, rpc_sync.s2m_buffer, slave_rpc_callback),
+#endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 };
 
 #define transport_write(id, data, length) transport_execute_transaction(id, data, length, NULL, 0)

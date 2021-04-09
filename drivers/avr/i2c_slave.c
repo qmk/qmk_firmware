@@ -24,10 +24,19 @@
 
 #include "i2c_slave.h"
 
+#ifdef SPLIT_COMMON_TRANSACTIONS
+#include "transactions.h"
+#endif  // SPLIT_COMMON_TRANSACTIONS
+
+
 volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
 
 static volatile uint8_t buffer_address;
 static volatile bool    slave_has_register_set = false;
+
+#ifdef SPLIT_COMMON_TRANSACTIONS
+static volatile uint8_t received_transaction_id;
+#endif  // SPLIT_COMMON_TRANSACTIONS
 
 void i2c_slave_init(uint8_t address) {
     // load address into TWI address register
@@ -56,6 +65,18 @@ ISR(TWI_vect) {
             if (!slave_has_register_set) {
                 buffer_address = TWDR;
 
+#ifdef SPLIT_COMMON_TRANSACTIONS
+                // Work out which transaction we're executing
+                received_transaction_id = NUM_TOTAL_TRANSACTIONS;
+                for(int i = 0; i < NUM_TOTAL_TRANSACTIONS; ++i) {
+                    split_transaction_desc_t *trans = &split_transaction_table[i];
+                    if(buffer_address == trans->initiator2target_offset || buffer_address == trans->target2initiator_offset) {
+                        received_transaction_id = i;
+                        break;
+                    }
+                }
+#endif  // SPLIT_COMMON_TRANSACTIONS
+
                 if (buffer_address >= I2C_SLAVE_REG_COUNT) {  // address out of bounds dont ack
                     ack            = 0;
                     buffer_address = 0;
@@ -64,6 +85,16 @@ ISR(TWI_vect) {
             } else {
                 i2c_slave_reg[buffer_address] = TWDR;
                 buffer_address++;
+
+#ifdef SPLIT_COMMON_TRANSACTIONS
+                // If we're intending to execute a transaction callback, do so, as we've received the transaction ID
+                if (received_transaction_id == I2C_EXECUTE_CALLBACK) {
+                    split_transaction_desc_t *trans = &split_transaction_table[split_shmem->transaction_id];
+                    if(trans->slave_callback) {
+                        trans->slave_callback(trans->initiator2target_buffer_size, split_trans_initiator2target_buffer(trans), trans->target2initiator_buffer_size, split_trans_target2initiator_buffer(trans));
+                    }
+                }
+#endif  // SPLIT_COMMON_TRANSACTIONS
             }
             break;
 

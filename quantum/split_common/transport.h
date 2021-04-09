@@ -20,7 +20,16 @@
 #include "stdbool.h"
 
 #include "progmem.h"
+#include "action_layer.h"
 #include "matrix.h"
+
+#ifndef RPC_M2S_BUFFER_SIZE
+#define RPC_M2S_BUFFER_SIZE 32
+#endif // RPC_M2S_BUFFER_SIZE
+
+#ifndef RPC_S2M_BUFFER_SIZE
+#define RPC_S2M_BUFFER_SIZE 32
+#endif // RPC_S2M_BUFFER_SIZE
 
 void transport_master_init(void);
 void transport_slave_init(void);
@@ -81,7 +90,23 @@ typedef struct _split_mods_sync_t {
 } split_mods_sync_t;
 #endif  // SPLIT_MODS_ENABLE
 
+#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+typedef struct _rpc_sync_t {
+    struct _rpc_sync_info_t {
+        int8_t transaction_id;
+        uint8_t m2s_length;
+        uint8_t s2m_length;
+    } sync_info;
+    uint8_t m2s_buffer[RPC_M2S_BUFFER_SIZE];
+    uint8_t s2m_buffer[RPC_S2M_BUFFER_SIZE];
+} rpc_sync_t;
+#endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+
 typedef struct _split_shared_memory_t {
+#ifdef USE_I2C
+    int8_t transaction_id;
+#endif  // USE_I2C
+
     split_slave_matrix_sync_t smatrix;
 
 #ifdef SPLIT_TRANSPORT_MIRROR
@@ -123,6 +148,10 @@ typedef struct _split_shared_memory_t {
 #ifdef WPM_ENABLE
     uint8_t current_wpm;
 #endif  // WPM_ENABLE
+
+#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+    rpc_sync_t rpc_sync;
+#endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 } split_shared_memory_t;
 
 extern split_shared_memory_t *const split_shmem;

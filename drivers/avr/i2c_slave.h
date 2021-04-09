@@ -22,19 +22,11 @@
 
 #pragma once
 
-#ifndef I2C_SLAVE_QMK_REG_COUNT
-#    define I2C_SLAVE_QMK_REG_COUNT 30
-#endif  // I2C_SLAVE_QMK_REG_COUNT
+#include "transport.h"
 
-#ifndef I2C_SLAVE_KB_REG_COUNT
-#    define I2C_SLAVE_KB_REG_COUNT 0
-#endif  // I2C_SLAVE_KB_REG_COUNT
-
-#ifndef I2C_SLAVE_USER_REG_COUNT
-#    define I2C_SLAVE_USER_REG_COUNT 0
-#endif  // I2C_SLAVE_USER_REG_COUNT
-
-#define I2C_SLAVE_REG_COUNT ((I2C_SLAVE_QMK_REG_COUNT) + (I2C_SLAVE_KB_REG_COUNT) + (I2C_SLAVE_USER_REG_COUNT))
+#ifndef I2C_SLAVE_REG_COUNT
+#    define I2C_SLAVE_REG_COUNT sizeof(split_shared_memory_t)
+#endif  // I2C_SLAVE_REG_COUNT
 
 extern volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
 

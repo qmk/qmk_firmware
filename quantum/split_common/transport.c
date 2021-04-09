@@ -33,7 +33,7 @@
 #    include "i2c_master.h"
 #    include "i2c_slave.h"
 // Ensure the I2C buffer has enough space
-_Static_assert(sizeof(split_shared_memory_t) <= I2C_SLAVE_QMK_REG_COUNT, "split_shared_memory_t too large for I2C_SLAVE_QMK_REG_COUNT");
+_Static_assert(sizeof(split_shared_memory_t) <= I2C_SLAVE_REG_COUNT, "split_shared_memory_t too large for I2C_SLAVE_REG_COUNT");
 
 split_shared_memory_t *const split_shmem = (split_shared_memory_t *)i2c_slave_reg;
 
@@ -47,6 +47,14 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
         size_t len = trans->initiator2target_buffer_size < initiator2target_length ? trans->initiator2target_buffer_size : initiator2target_length;
         memcpy(split_trans_initiator2target_buffer(trans), initiator2target_buf, len);
         okay &= (i2c_writeReg(SLAVE_I2C_ADDRESS, trans->initiator2target_offset, split_trans_initiator2target_buffer(trans), len, SLAVE_I2C_TIMEOUT) >= 0);
+    }
+
+    // If we need to execute a callback on the slave, do so
+    if (okay && trans->slave_callback) {
+        // Now we kick off the "callback executor", now that data has been written to the slave
+        split_shmem->transaction_id = id;
+        split_transaction_desc_t *exec_trans = &split_transaction_table[I2C_EXECUTE_CALLBACK];
+        okay &= (i2c_writeReg(SLAVE_I2C_ADDRESS, exec_trans->initiator2target_offset, split_trans_initiator2target_buffer(exec_trans), exec_trans->initiator2target_buffer_size, SLAVE_I2C_TIMEOUT) >= 0);
     }
 
     if (okay && target2initiator_length > 0) {

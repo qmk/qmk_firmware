@@ -17,7 +17,11 @@
 #pragma once
 
 enum serial_transaction_id {
-    GET_SLAVE_MATRIX_CHECKSUM = 0,
+#ifdef USE_I2C
+    I2C_EXECUTE_CALLBACK,
+#endif  // USE_I2C
+
+    GET_SLAVE_MATRIX_CHECKSUM,
     GET_SLAVE_MATRIX_DATA,
 
 #ifdef SPLIT_TRANSPORT_MIRROR
@@ -70,6 +74,11 @@ enum serial_transaction_id {
 #ifdef SPLIT_TRANSACTION_IDS_USER
     SPLIT_TRANSACTION_IDS_USER,
 #endif  // SPLIT_TRANSACTION_IDS_USER
+
+#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+    PUT_RPC_INFO,
+    EXECUTE_RPC,
+#endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 
     NUM_TOTAL_TRANSACTIONS
 };
