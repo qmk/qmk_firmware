@@ -1,6 +1,5 @@
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
 #define GIABARINAIX2
 #ifdef GIABARINAIX2
 // Change the ID for VIA support.

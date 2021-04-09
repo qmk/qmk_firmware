@@ -228,8 +228,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
             root_note = keycode - MI_CH_CDom7 + MI_C_2;
-            process_midi(root_note, record);
+            // process_midi(root_note, record);
             process_midi(root_note + 4, record);   // Major Third Note
+            process_midi(root_note + 7, record);   // Major Fifth Note
             process_midi(root_note + 10, record);  // Minor Seventh Note
             break;
 

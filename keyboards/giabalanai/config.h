@@ -30,18 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 10
 
-/* layout selection
- * Enable below if this is for giabaRInaix2.
- */
-// #define GIABARINAIX2
-#ifdef GIABARINAIX2
-// Change the ID for VIA support.
-#    undef PRODUCT_ID
-#    define PRODUCT_ID   0xF4B2
-#    undef PRODUCT
-#    define PRODUCT giabarinaix2
-#endif
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -54,11 +42,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B5, B4, E6, D7, C6, D4 }
 #define MATRIX_COL_PINS { B1, F7, F6, F5, F4, B3, B2, B6, D0, D1 }
-// If this is for giabaRInaix2, comment out MATRIX_ROW_PINS_RIGHT and MATRIX_COL_PINS_RIGHT.
-#ifndef GIABARINAIX2
-#    define MATRIX_ROW_PINS_RIGHT { D1, D0, D4, C6, D7, E6 }
-#    define MATRIX_COL_PINS_RIGHT { F4, F5, F6, F7, B1, B3, B2, C7, B7, F1 }
-#endif
+#define MATRIX_ROW_PINS_RIGHT { D1, D0, D4, C6, D7, E6 }
+#define MATRIX_COL_PINS_RIGHT { F4, F5, F6, F7, B1, B3, B2, C7, B7, F1 }
+
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
@@ -91,11 +77,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 
-#    ifndef GIABARINAIX2
-#        define RGBLED_NUM 123
-#    else
-#        define RGBLED_NUM 120
-#    endif
+
+#    define RGBLED_NUM 123
 
 // Do not define "RGBLED_SPLIT" since somehow it doesn't work well yet.
 // Even thhough "#define RGBLED_SPLIT { 60, 63 }" was set, LEDs on the sub keyboad side didn't turn on.
@@ -120,36 +103,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //     Right 2nd .. 5th row(13, 12, 13, 12 LEDs)
 //     Left 1st .. 5th row (12 LEDs x 5 rows)
 
-#    ifndef GIABARINAIX2
-#        define RGBLIGHT_LED_MAP { \
-           60,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,  71, \
-           97, \
-           84,  83,  82,  81,  80,  79,  78,  77,  76,  75,  74,  73,  72, \
-           85,  86,  87,  88,  89,  90,  91,  92,  93,  94,  95,  96, \
-           110, 109, 108, 107, 106, 105, 104, 103, 102, 101, 100, 99,  98, \
-           111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, \
-           \
-           11,  10,  9,   8,   7,   6,   5,   4,   3,   2,   1,   0,  \
-           12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23, \
-           35,  34,  33,  32,  31,  30,  29,  28,  27,  26,  25,  24, \
-           36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47, \
-           59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48  \
-           }
-#    else
-#        define RGBLIGHT_LED_MAP { \
-           108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, \
-           107, 106, 105, 104, 103, 102, 101, 100, 99,  98,  97,  96, \
-           84,  85,  86,  87,  88,  89,  90,  91,  92,  93,  94,  95, \
-           83,  82,  81,  80,  79,  78,  77,  76,  75,  74,  73,  72, \
-           60,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,  71, \
-           \
-           11,  10,  9,   8,   7,   6,   5,   4,   3,   2,   1,   0,  \
-           12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23, \
-           35,  34,  33,  32,  31,  30,  29,  28,  27,  26,  25,  24, \
-           36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47, \
-           59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48  \
-           }
-#    endif
+#    define RGBLIGHT_LED_MAP { \
+    60,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,  71, \
+    97, \
+    84,  83,  82,  81,  80,  79,  78,  77,  76,  75,  74,  73,  72, \
+    85,  86,  87,  88,  89,  90,  91,  92,  93,  94,  95,  96, \
+    110, 109, 108, 107, 106, 105, 104, 103, 102, 101, 100, 99,  98, \
+    111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, \
+    \
+    11,  10,  9,   8,   7,   6,   5,   4,   3,   2,   1,   0,  \
+    12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23, \
+    35,  34,  33,  32,  31,  30,  29,  28,  27,  26,  25,  24, \
+    36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47, \
+    59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48  \
+    }
 
 #endif
 
