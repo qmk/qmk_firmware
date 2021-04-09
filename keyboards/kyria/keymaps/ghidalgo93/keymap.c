@@ -31,12 +31,20 @@ enum layers {
 #define ALT_S LALT_T(KC_S)
 #define SFT_D LSFT_T(KC_D)
 #define CTL_F LCTL_T(KC_F)
+#define NAV_V LT(_NAV, KC_V)
+#define GAME TG(_GAME)
+#define LSYM MO(_LSYM)
+
 
 // Right-hand home row mods
 #define CTL_J RCTL_T(KC_J)
 #define SFT_K RSFT_T(KC_K)
 #define ALT_L LALT_T(KC_L)
 #define GUI_SCLN RGUI_T(KC_SCLN)
+#define FUN MO(_FUN)
+#define NUM_M LT(_NUM, KC_M)
+#define ALW_SPC LT(_ALWAYS, KC_SPC)
+#define RSYM MO(_RSYM)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -48,17 +56,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        | LGUI | LALT | LSFT | LCTR |      |                              |      | RCTR | RSFT | RALT | RGUI |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |   Z  |   X  |   C  |   V  |   B  |      | GAME |  |      |      |   N  |   M  | ,  < | . >  | /  ? |        |
- * |        |      |      |      | NAV  |      |      |      |  |      |      |      | NUM  |      |      |      |        |
+ * |        |      |      |      | NAV  |      |      |      |  | FUN  |      |      | NUM  |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      | BCSP | TAB  |  | ENT  | SPC  |      |      |      |
- *                        |      | MEDIA| RSYM |      |      |  |      | ALWS | LSYM | FUN  |      |
+ *                        |      |      |      | BCSP |      |  |      | SPC  |      |      |      |
+ *                        |      |      | RSYM |      |      |  |      | ALWS | LSYM |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-      _______, KC_Q,  KC_W,            KC_E,          KC_R,           KC_T,                                           KC_Y, KC_U,           KC_I,           KC_O,           KC_P,            _______,
-      _______, GUI_A, ALT_S     , LT(_NAV,KC_D), LT(_RSYM,KC_F), KC_G,                                           KC_H, LT(_LSYM,KC_J), LT(_FUN,KC_K),  LT(_NUM,KC_L),  LSFT_T(KC_SCLN), _______,
-      _______, KC_Z,  LCTL_T(KC_X),    KC_C,          KC_V,           KC_B,   _______, _______,       _______, _______, KC_N, KC_M,         KC_COMM,        LCTL_T(KC_DOT), KC_SLSH,         _______,
-                                                           _______, _______, KC_CPY, KC_BSPC, _______,       _______, LT(_ALWAYS, KC_SPC), KC_PST, _______, _______ 
+      _______, KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,     _______,
+      _______, GUI_A,    ALT_S,   SFT_D,   CTL_F,   KC_G,                                        KC_H,    CTL_J,   SFT_K,   ALT_L,  GUI_SCLN, _______,
+      _______, KC_Z ,    KC_X,    KC_C,    NAV_V,   KC_B,    _______, GAME,    FUN,     _______, KC_N,    NUM_M,   KC_COMM, KC_DOT, KC_SLSH,  _______,
+                                  _______, _______, LSYM,  KC_BSPC, _______, _______, ALW_SPC, RSYM,    _______, _______ 
     ),
 /*
  *  Nav Layer 
@@ -75,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
      [_NAV] = LAYOUT(
        _______, _______, _______, _______, _______, _______,                                     _______, KC_PGDN, KC_PGUP, _______, _______, _______,
-       _______, _______, _______, XXXXXXX, KC_LGUI, _______,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+       _______, _______, _______, _______, _______, _______,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  _______, _______, _______,
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
      ),
