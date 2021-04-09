@@ -1,5 +1,5 @@
 /*
-Copyright 2015 Jun Wako <wakojun@gmail.com>
+Copyright 2021 Alexander Lee <chlx.bsmt@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0601
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    chlx
-#define PRODUCT         chlx merro60v1
+#define PRODUCT         chlx merro60
 #define DESCRIPTION     tofukorn conversion pcb
 
 /* key matrix size */
