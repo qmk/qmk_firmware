@@ -20,4 +20,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 **Reset Key:** To put the IF87_rev2 into bootloader, push reset swith on the bottom of the PCB.
 
-IF87_rev2 used USBasploader from [Erovia toturial](https://erovia.github.io/posts/thk/#bootloader), thank you [Erovia](https://github.com/Erovia).
+IF87_rev2 used USBasploader from [Erovia tutorial](https://erovia.github.io/posts/thk/#bootloader), thank you [Erovia](https://github.com/Erovia).
