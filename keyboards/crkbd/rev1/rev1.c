@@ -87,7 +87,7 @@ led_config_t g_led_config = { {
 
 void matrix_init_kb(void) {
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_SPLIT)
     if (!isLeftHand) {
         g_led_config = (led_config_t){ {
             {  51,  50,  45,  44,  37,  36 },

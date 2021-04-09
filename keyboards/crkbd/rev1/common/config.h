@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_SPLIT { 27, 27 }
+#    define SPLIT_TRANSPORT_MIRROR
 #endif
 
 #define DIODE_DIRECTION COL2ROW

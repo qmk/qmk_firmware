@@ -22,6 +22,10 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#    include "rgb_matrix.h"
+#endif
+
 #if defined(USE_I2C)
 
 #    include "i2c_master.h"
@@ -54,6 +58,10 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_config_t rgb_matrix;
+    bool         rgb_suspend_state;
+#    endif
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -68,6 +76,8 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
+#    define I2C_RGB_MATRIX_START offsetof(I2C_slave_buffer_t, rgb_matrix)
+#    define I2C_RGB_SUSPEND_START offsetof(I2C_slave_buffer_t, rgb_suspend_state)
 
 #    define TIMEOUT 100
 
@@ -141,6 +151,11 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #        endif
 #    endif
 
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_MATRIX_START, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix), TIMEOUT);
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_SUSPEND_START, (void *)g_suspend_state, sizeof(i2c_buffer->rgb_suspend_state), TIMEOUT);
+#    endif
+
 #    ifndef DISABLE_SYNC_TIMER
     i2c_buffer->sync_timer = sync_timer_read32() + SYNC_TIMER_OFFSET;
     i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_SYNC_TIME_START, (void *)&i2c_buffer->sync_timer, sizeof(i2c_buffer->sync_timer), TIMEOUT);
@@ -186,6 +201,11 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     set_oneshot_mods(i2c_buffer->oneshot_mods);
 #        endif
 #    endif
+
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    memcpy((void *)i2c_buffer->rgb_matrix, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix));
+    memcpy((void *)i2c_buffer->rgb_suspend_state, (void *)g_suspend_state, sizeof(i2c_buffer->rgb_suspend_state));
+#    endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -225,6 +245,10 @@ typedef struct _Serial_m2s_buffer_t {
 #    endif
 #    ifdef WPM_ENABLE
     uint8_t      current_wpm;
+#    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_config_t rgb_matrix;
+    bool         rgb_suspend_state;
 #    endif
 } Serial_m2s_buffer_t;
 
@@ -333,18 +357,24 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 
 #    ifdef WPM_ENABLE
     // Write wpm to slave
-    serial_m2s_buffer.current_wpm  = get_current_wpm();
+    serial_m2s_buffer.current_wpm       = get_current_wpm();
 #    endif
 
 #    ifdef SPLIT_MODS_ENABLE
-    serial_m2s_buffer.real_mods    = get_mods();
-    serial_m2s_buffer.weak_mods    = get_weak_mods();
+    serial_m2s_buffer.real_mods         = get_mods();
+    serial_m2s_buffer.weak_mods         = get_weak_mods();
 #        ifndef NO_ACTION_ONESHOT
-    serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
+    serial_m2s_buffer.oneshot_mods      = get_oneshot_mods();
 #        endif
 #    endif
+
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    serial_m2s_buffer.rgb_matrix        = rgb_matrix_config;
+    serial_m2s_buffer.rgb_suspend_state = g_suspend_state;
+#    endif
+
 #    ifndef DISABLE_SYNC_TIMER
-    serial_m2s_buffer.sync_timer   = sync_timer_read32() + SYNC_TIMER_OFFSET;
+    serial_m2s_buffer.sync_timer        = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
     return true;
 }
@@ -380,6 +410,11 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #        ifndef NO_ACTION_ONESHOT
     set_oneshot_mods(serial_m2s_buffer.oneshot_mods);
 #        endif
+#    endif
+
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_matrix_config = serial_m2s_buffer.rgb_matrix;
+    g_suspend_state   = serial_m2s_buffer.rgb_suspend_state;
 #    endif
 }
 

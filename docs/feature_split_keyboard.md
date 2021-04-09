@@ -243,7 +243,12 @@ This sets how many LEDs are directly connected to each controller.  The first nu
 ```c
 #define SPLIT_USB_DETECT
 ```
-This option changes the startup behavior to detect an active USB connection when delegating master/slave. If this operation times out, then the half is assume to be a slave. This is the default behavior for ARM, and required for AVR Teensy boards (due to hardware limitations).
+
+Enabling this option changes the startup behavior to listen for an active USB communication to delegate which part is master and which is slave. With this option enabled and theres's USB communication, then that half assumes it is the master, otherwise it assumes it is the slave.
+
+Without this option, the master is the half that can detect voltage on the physical USB connection (VBUS detection).
+
+Enabled by default on ChibiOS/ARM.
 
 ?> This setting will stop the ability to demo using battery packs.
 
@@ -259,9 +264,13 @@ This sets the poll frequency when detecting master/slave when using `SPLIT_USB_D
 
 ## Hardware Considerations and Mods
 
-While most any Pro Micro can be used, micro controllers like the AVR Teensys and most (if not all) ARM boards require the Split USB Detect.
+Master/slave delegation is made either by detecting voltage on VBUS connection or waiting for USB communication (`SPLIT_USB_DETECT`). Pro Micro boards can use VBUS detection out of the box and be used with or without `SPLIT_USB_DETECT`.
 
-However, with the Teensy 2.0 and Teensy++ 2.0, there is a simple hardware mod that you can perform to add VBUS detection, so you don't need the Split USB detection option.
+Many ARM boards, but not all, do not support VBUS detection. Because it is common that ARM boards lack VBUS detection, `SPLIT_USB_DETECT` is automatically defined on ARM targets (technically when ChibiOS is targetted).
+
+### Teensy boards
+
+Teensy boards lack VBUS detection out of the box and must have `SPLIT_USB_DETECT` defined. With the Teensy 2.0 and Teensy++ 2.0, there is a simple hardware mod that you can perform to add VBUS detection, so you don't need the `SPLIT_USB_DETECT` option.
 
 You'll only need a few things:
 

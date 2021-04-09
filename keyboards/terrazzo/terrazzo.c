@@ -17,7 +17,6 @@
 #include "terrazzo.h"
 
 #ifdef LED_MATRIX_ENABLE
-    #include "is31fl3731-simple.h"
     #include <math.h>
     #include "print.h"
     #include "quantum.h"
