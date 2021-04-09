@@ -1,6 +1,9 @@
 #include QMK_KEYBOARD_H
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+enum {
+    TD_COPY_PASTE,
+};
+
 /* Mission Control */
   #define DESK_L RCTL(KC_LEFT)
   #define DESK_R RCTL(KC_RIGHT)
@@ -11,9 +14,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   #define VOL_U KC_AUDIO_VOL_UP
   #define MUTE KC_AUDIO_MUTE
 /* Amethyst */
-  #define AM_1 KC_F4
-  #define AM_2 KC_F2
-  #define AM_3 KC_F3
+  #define AM_1 LCTL(KC_F4)
+  #define AM_2 LALT(KC_F2)
   #define AM_RITE LALT(LCTL(LSFT(KC_2)))
   #define AM_LEFT LALT(LCTL(LSFT(KC_1)))
   #define AM_CYCLE LSFT(LALT(LCTL(KC_SPC)))
@@ -27,12 +29,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MISC */
   #define COPY LGUI(KC_C)
   #define PASTE LGUI(KC_V)
+/* MOUSE */
+  #define L_CLICK KC_MS_BTN1
+  #define R_CLICK KC_MS_BTN2
 
-LAYOUT_ortho_4x4(
-		MUTE     , COPY   , PASTE  , DESKTOP  ,
-		AM_LEFT  , DESK_L , DESK_R , AM_RITE  ,
-		AM_1     , AM_2   , AM_3   , AM_CYCLE ,
-		MUTE_MIC , AM_CW  , AM_CCW , _______
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_COPY_PASTE] = ACTION_TAP_DANCE_DOUBLE(COPY, PASTE),
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+  LAYOUT_ortho_4x4(
+      MUTE     , L_CLICK , R_CLICK , AM_CYCLE         ,
+      AM_LEFT  , DESK_L  , DESK_R  , AM_RITE          ,
+      AM_1     , AM_2    , DESKTOP , MISSION          ,
+      MUTE_MIC , AM_CW   , AM_CCW  , TD(TD_COPY_PASTE)
 )
 
 };
