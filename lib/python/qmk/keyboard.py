@@ -68,7 +68,7 @@ def list_keyboards():
     kb_wildcard = os.path.join(base_path, "**", "rules.mk")
     paths = [path for path in glob(kb_wildcard, recursive=True) if 'keymaps' not in path]
 
-    return sorted(set(map(resolve_keyboard,map(_find_name, paths))))
+    return sorted(set(map(resolve_keyboard, map(_find_name, paths))))
 
 
 def resolve_keyboard(keyboard):
