@@ -15,7 +15,7 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _QWERTY = 0,
+     _QWERTY = 0,
     _NAV,
     _RSYM,
     _LSYM,
@@ -30,7 +30,7 @@ enum layers {
 #define ALT_S LALT_T(KC_S)
 #define SFT_D LSFT_T(KC_D)
 #define CTL_F LCTL_T(KC_F)
-#define NAV_V LT(_NAV, KC_V)
+#define NAV_X LT(_NAV, KC_X)
 #define GAME TG(_GAME)
 #define LSYM MO(_LSYM)
 
@@ -41,7 +41,7 @@ enum layers {
 #define ALT_L LALT_T(KC_L)
 #define GUI_SCLN RGUI_T(KC_SCLN)
 #define FUN MO(_FUN)
-#define NUM_M LT(_NUM, KC_M)
+#define NUM_DOT LT(_NUM, KC_DOT)
 #define ALW_SPC LT(_ALWAYS, KC_SPC)
 #define RSYM MO(_RSYM)
 
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        | LGUI | LALT | LSFT | LCTR |      |                              |      | RCTR | RSFT | RALT | RGUI |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |   Z  |   X  |   C  |   V  |   B  |      | GAME |  |      |      |   N  |   M  | ,  < | . >  | /  ? |        |
- * |        |      |      |      | NAV  |      |      |      |  | FUN  |      |      | NUM  |      |      |      |        |
+ * |        |      | NAV  |      |      |      |      |      |  | FUN  |      |      |      |      | NUM  |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      | BCSP |      |  |      | SPC  |      |      |      |
  *                        |      |      | RSYM |      |      |  |      | ALWS | LSYM |      |      |
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
       _______, KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,     _______,
       _______, GUI_A,    ALT_S,   SFT_D,   CTL_F,   KC_G,                                        KC_H,    CTL_J,   SFT_K,   ALT_L,  GUI_SCLN, _______,
-      _______, KC_Z ,    KC_X,    KC_C,    NAV_V,   KC_B,    _______, GAME,    FUN,     _______, KC_N,    NUM_M,   KC_COMM, KC_DOT, KC_SLSH,  _______,
+      _______, KC_Z ,    NAV_X,   KC_C,    KC_V,    KC_B,    _______, GAME,    FUN,     _______, KC_N,    KC_M,    KC_COMM, NUM_DOT,KC_SLSH,  _______,
                                   _______, _______, RSYM,    KC_BSPC, _______, _______, ALW_SPC, LSYM,    _______, _______ 
     ),
 /*
@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      [_GAME] = LAYOUT(
        KC_ESC,  _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
        KC_LSFT, KC_A,    KC_S   , KC_D   , KC_F,    _______,                                     _______, _______, _______, _______, _______, _______,
-       KC_LCTL, _______, _______, _______, _______, _______, _______, TG(0),   _______, _______, _______, _______, _______, _______, _______, _______,
+       KC_LCTL, _______, _______, _______, _______, _______, _______, GAME,    _______, _______, _______, _______, _______, _______, _______, _______,
                                   _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
      ),
 /*
