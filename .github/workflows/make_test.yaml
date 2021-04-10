@@ -22,25 +22,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 0
-
-    - uses: trilom/file-changes-action@v1.2.4
-      id: file_changes
-      with:
-        output: '\n'
-
-    - name: Print info
-      run: |
-        git rev-parse --short HEAD
-        echo ${{ github.event.pull_request.base.sha }}
-        echo '${{ steps.file_changes.outputs.files}}'
+        submodules: recursive
 
     - name: Install dependencies
-      run: |
-        make git-submodule
-        python3 -m pip install -U qmk
-        python3 -m pip install -r requirements.txt
-
+      run: pip3 install -r requirements.txt
     - name: Test
       run: |
         make -j3 -O test:all
