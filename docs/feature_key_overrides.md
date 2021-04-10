@@ -48,10 +48,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 };
 ```
 
-## Difference to Combos
-
-Note that key overrides are very different from [combos](https://docs.qmk.fm/#/feature_combo). Combos require that you press down several keys almost _at the same time_ and can work with any combination of non-modifier keys. Key overrides work like keyboard shortcuts (e.g. `ctrl` + `z`): They take combinations of _multiple_ modifiers and _one_ non-modifier key to then perform some custom action. Key overrides are implemented with much care to behave just like normal keyboard shortcuts would in regards to the order of pressed keys, timing, and interacton with other pressed keys. There are a number of optional settings that can be used to really fine-tune the behavior of each key override as well. Using key overrides also does not delay key input for regular key presses, which inherently happens in combos and may be undesirable.
-
 ## Intermediate Difficulty Examples
 
 ### Media Controls & Screen Brightness
@@ -125,6 +121,45 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 In addition to not encountering unexpected bugs on macOS, you can also change the behavior as you wish. Instead setting `GUI` + `ESC` = `` ` `` you may change it to an arbitrary other modifier, for example `Ctrl` + `ESC` = `` ` ``.
 
+## Advanced Examples
+### Modifiers as Layer Keys
+
+Do you really need a dedicated key to toggle your fn layer? With key overrides, perhaps not. This example shows how you can configure to use `rGUI` + `rAlt` (right GUI and right alt) to access a momentary layer like an fn layer. With this you completely eliminate the need to use a dedicated layer key. Of course the choice of modifier keys can be changed as needed, `rGUI` + `rAlt` is just an example here. 
+
+```c
+// This is called when the override activates and deactivates. Enable the fn layer on activation and disable on deactivation
+bool momentary_layer(bool key_down, void *layer) {
+    if (key_down) {
+        layer_on((uint8_t)(uintptr_t)layer);
+    } else {
+        layer_off((uint8_t)(uintptr_t)layer);
+    }
+
+    return false;
+}
+
+const key_override_t fn_override = {.trigger_mods          = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
+                                   .layers                 = ~(1 << LAYER_FN),                                          //
+                                   .suppressed_mods        = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
+                                   .options                = ko_option_no_unregister_on_other_key_down,                 //
+                                   .negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL)),          //
+                                   .custom_action          = momentary_layer,                                           //
+                                   .context                = (void *)LAYER_FN,                                          //
+                                   .trigger                = KC_NO,                                                     //
+                                   .replacement            = KC_NO,                                                     //
+                                   .enabled                = NULL};
+```
+
+## Keycodes 
+
+You can enable, disable and toggle all key overrides on the fly.
+
+|Keycode   |Description                      |Function Equivalent|
+|----------|---------------------------------|--------|
+|`KEY_OVERRIDE_ON`  |Turns on Key Override feature           | `key_override_on(void)`|
+|`KEY_OVERRIDE_OFF` |Turns off Key Override feature          |`key_override_off(void)`|
+|`KEY_OVERRIDE_TOGGLE` |Toggles Key Override feature on and off |`key_override_toggle(void)`|
+
 ## Reference for `key_override_t`
 
 Advanced users may need more customization than what is offered by the simple `ko_make` initializers. For this, directly create a `key_override_t` value and set all members. Below is a reference for all members of `key_override_t`.
@@ -188,41 +223,7 @@ This applies equally to releasing a modifier: When you hold `shift`, then press 
 
 The duration of the key repeat delay is controlled with the `KEY_OVERRIDE_REPEAT_DELAY` macro. Define this value in your `config.h` file to change it. It is 500ms by default.
 
-## Advanced Examples
-### Modifiers as Layer Keys
 
-_Do you really need a dedicated key to toggle your fn layer? With key overrides, perhaps not._ This example shows how you can configure to use `rGUI` + `rAlt` (right GUI and right alt) to access a momentary layer like an fn layer. With this you completely eliminate the need to use a dedicated layer key. Of course the choice of modifier keys can be changed as needed, `rGUI` + `rAlt` is just an example here. 
+## Difference to Combos
 
-```c
-// This is called when the override activates and deactivates. Enable the fn layer on activation and disable on deactivation
-bool momentary_layer(bool key_down, void *layer) {
-    if (key_down) {
-        layer_on((uint8_t)(uintptr_t)layer);
-    } else {
-        layer_off((uint8_t)(uintptr_t)layer);
-    }
-
-    return false;
-}
-
-const key_override_t fn_override = {.trigger_mods          = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
-                                   .layers                 = ~(1 << LAYER_FN),                                          //
-                                   .suppressed_mods        = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
-                                   .options                = ko_option_no_unregister_on_other_key_down,                 //
-                                   .negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL)),          //
-                                   .custom_action          = momentary_layer,                                           //
-                                   .context                = (void *)LAYER_FN,                                          //
-                                   .trigger                = KC_NO,                                                     //
-                                   .replacement            = KC_NO,                                                     //
-                                   .enabled                = NULL};
-```
-
-## Keycodes 
-
-You can enable, disable and toggle the Key Override feature on the fly.
-
-|Keycode   |Description                      |Function Equivalent|
-|----------|---------------------------------|--------|
-|`KEY_OVERRIDE_ON`  |Turns on Key Override feature           | `key_override_on(void)`|
-|`KEY_OVERRIDE_OFF` |Turns off Key Override feature          |`key_override_off(void)`|
-|`KEY_OVERRIDE_TOGGLE` |Toggles Key Override feature on and off |`key_override_toggle(void)`|
+Note that key overrides are very different from [combos](https://docs.qmk.fm/#/feature_combo). Combos require that you press down several keys almost _at the same time_ and can work with any combination of non-modifier keys. Key overrides work like keyboard shortcuts (e.g. `ctrl` + `z`): They take combinations of _multiple_ modifiers and _one_ non-modifier key to then perform some custom action. Key overrides are implemented with much care to behave just like normal keyboard shortcuts would in regards to the order of pressed keys, timing, and interacton with other pressed keys. There are a number of optional settings that can be used to really fine-tune the behavior of each key override as well. Using key overrides also does not delay key input for regular key presses, which inherently happens in combos and may be undesirable.
