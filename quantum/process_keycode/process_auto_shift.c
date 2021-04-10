@@ -20,9 +20,6 @@
 #    include <stdio.h>
 #    include "process_auto_shift.h"
 
-#    define IS_LT(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
-#    define IS_RETRO(kc) (((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX) || IS_LT(kc))
-
 // Stores the last Auto Shift key's up or down time, for evaluation or keyrepeat.
 static uint16_t autoshift_time = 0;
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
@@ -62,23 +59,27 @@ __attribute__((weak)) void autoshift_press_user(uint16_t keycode, bool shifted, 
     if (shifted) {
         add_weak_mods(MOD_BIT(KC_LSFT));
     }
-    register_code(keycode & 0xFF);
+    register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
 }
 
 /** \brief Called when an autoshift key needs to be released */
-__attribute__((weak)) void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) { unregister_code(keycode & 0xFF); }
+__attribute__((weak)) void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) { unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode); }
 
 /** \brief Sets the shift state to use when keyrepeating, required by custom shifts */
 void set_autoshift_shift_state(uint16_t keycode, bool shifted) {
+    keycode = keycode & 0xFF;
     if (shifted) {
-        autoshift_shift_states[keycode / 16] |= (uint16_t)1 << keycode;
+        autoshift_shift_states[keycode / 16] |= (uint16_t)1 << keycode % 16;
     } else {
-        autoshift_shift_states[keycode / 16] &= ~((uint16_t)1 << keycode);
+        autoshift_shift_states[keycode / 16] &= ~((uint16_t)1 << keycode % 16);
     }
 }
 
 /** \brief Gets the shift state to use when keyrepeating, required by custom shifts */
-bool get_autoshift_shift_state(uint16_t keycode) { return (autoshift_shift_states[keycode / 16] & (uint16_t)1 << keycode) != (uint16_t)0; }
+bool get_autoshift_shift_state(uint16_t keycode) {
+    keycode = keycode & 0xFF;
+    return (autoshift_shift_states[keycode / 16] & (uint16_t)1 << keycode % 16) != (uint16_t)0;
+}
 
 /** \brief Restores the shift key if it was cancelled by autoshift */
 static void autoshift_flush_shift(void) {
@@ -114,7 +115,7 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
         // We can't return true here anymore because custom unshifted values are
         // possible and there's no good way to tell whether the press returned
         // true upon release.
-        set_autoshift_shift_state(keycode & 0xFF, false);
+        set_autoshift_shift_state(keycode, false);
         autoshift_press_user(keycode, false, record);
         return false;
 #    endif
@@ -186,8 +187,8 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger, k
     if (autoshift_flags.in_progress && (keycode == autoshift_lastkey || keycode == KC_NO)) {
         // Process the auto-shiftable key.
         autoshift_flags.in_progress = false;
-        autoshift_flags.lastshifted = !(TIMER_DIFF_16(now, autoshift_time) < autoshift_timeout) || autoshift_flags.lastshifted;
-        set_autoshift_shift_state(autoshift_lastkey & 0xFF, autoshift_flags.lastshifted);
+        autoshift_flags.lastshifted = autoshift_flags.lastshifted || TIMER_DIFF_16(now, autoshift_time) >= autoshift_timeout;
+        set_autoshift_shift_state(autoshift_lastkey, autoshift_flags.lastshifted);
         if (get_mods() & MOD_BIT(KC_LSFT)) {
             autoshift_flags.cancelling_lshift = true;
             del_mods(MOD_BIT(KC_LSFT));
@@ -197,21 +198,22 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger, k
             del_mods(MOD_BIT(KC_RSFT));
         }
         autoshift_press_user(autoshift_lastkey, autoshift_flags.lastshifted, record);
+
 #    if defined(AUTO_SHIFT_REPEAT) && !defined(AUTO_SHIFT_NO_AUTO_REPEAT)
         if (matrix_trigger) {
             // Prevents release.
             return;
         }
 #    endif
-
 #    if TAP_CODE_DELAY > 0
         wait_ms(TAP_CODE_DELAY);
 #    endif
-        autoshift_release_user(autoshift_lastkey, get_autoshift_shift_state(autoshift_lastkey & 0xFF), record);
+
+        autoshift_release_user(autoshift_lastkey, autoshift_flags.lastshifted, record);
         autoshift_flush_shift();
     } else {
         // Release after keyrepeat.
-        autoshift_release_user(keycode, get_autoshift_shift_state(keycode & 0xFF), record);
+        autoshift_release_user(keycode, get_autoshift_shift_state(keycode), record);
         if (keycode == autoshift_lastkey) {
             // This will only fire when the key was the last auto-shiftable
             // pressed. That prevents 'aaaaBBBB' then releasing a from unshifting
@@ -353,6 +355,16 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             && record->tap.count == 0
 #    endif
         ) {
+            // Fixes modifiers not being applied to rolls with AUTO_SHIFT_MODIFIERS set.
+#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+            if (autoshift_flags.in_progress
+#        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+                && !get_ignore_mod_tap_interrupt(keycode, record)
+#        endif
+            ) {
+                autoshift_end(KC_NO, now, false, &autoshift_lastrecord);
+            }
+#    endif
             // clang-format on
             return true;
         }

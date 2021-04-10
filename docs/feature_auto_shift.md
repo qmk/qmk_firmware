@@ -149,27 +149,26 @@ bool autoshift_is_custom(uint16_t keycode, keyrecord_t *record) {
 void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
         case KC_DOT:
-            if (!shifted) {
-                register_code(KC_DOT);
-            } else {
-                add_weak_mods(MOD_BIT(KC_LSFT));
-                register_code(KC_1);
-            }
+            register_code16((!shifted) ? KC_DOT : KC_EXLM);
+            break;
         default:
             if (shifted) {
                 add_weak_mods(MOD_BIT(KC_LSFT));
             }
             // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-            register_code(keycode & 0xFF);
+            register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
 void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
         case KC_DOT:
-            unregister_code((!shifted) ? KC_DOT : KC_1);
+            unregister_code16((!shifted) ? KC_DOT : KC_EXLM);
+            break;
         default:
             // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-            unregister_code(keycode & 0xFF);
+            // The IS_RETRO check isn't really necessary here, always using
+            // keycode & 0xFF would be fine.
+            unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
 ```

@@ -22,6 +22,9 @@
 #    define AUTO_SHIFT_TIMEOUT 175
 #endif
 
+#define IS_LT(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
+#define IS_RETRO(kc) (((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX) || IS_LT(kc))
+
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record);
 void retro_shift_set_time(keyevent_t *event);
 
