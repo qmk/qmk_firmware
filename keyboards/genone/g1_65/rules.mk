@@ -21,4 +21,4 @@ RGBLIGHT_ENABLE = no        # Enable keybaord RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = LAYOUT_65_ansi
+LAYOUTS = 65_ansi
