@@ -53,6 +53,8 @@
 
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
+uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
+extern MidiDevice midi_device;
 
 // To record the status of Bass Chord (single or dyad, default: dyad.)
 typedef union {
@@ -136,8 +138,9 @@ enum layer_names {
 enum custom_keycodes {
 
     // MIDI Chord Keycodes - Root notes
+    MY_CHORD_MIN = SAFE_RANGE,
 
-    MI_CH_Cr = SAFE_RANGE,
+    MI_CH_Cr = MY_CHORD_MIN,
     MI_CH_Csr,
     MI_CH_Dbr = MI_CH_Csr,
     MI_CH_Dr,
@@ -235,14 +238,20 @@ enum custom_keycodes {
     MI_CH_BbDim7 = MI_CH_AsDim7,
     MI_CH_BDim7,
 
+    MY_CHORD_MAX = MI_CH_BDim7,
+
     CSYSTEM,
     BSYSTEM,
     CNTBASC,
     CSYSALL,
     CHRTONE,
     CFLIP2B,
-    TGLBASS
+    TGLBASS,
+    TGLMISW
 };
+
+#define MY_CHORD_COUNT (MY_CHORD_MAX - MY_CHORD_MIN + 1)
+static uint8_t chord_status[MY_CHORD_COUNT];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* C-system Base */
@@ -375,7 +384,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FN] = LAYOUT(
     CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
       DF_QWER, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMISW,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
@@ -405,6 +414,7 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {12,  1, HSV_WHITE},       //  DF_QWER
                                                                          {13,  1, HSV_CORAL},       //  TGLBASS
                                                                          {24,  1, HSV_WHITE},       //  DF_COLE
+                                                                         {35,  1, HSV_TEAL},        //  TGLMISW
 #if 0  //  Color Test
                                                                          {36,  1, HSV_WHITE},
                                                                          {37,  1, HSV_RED},
@@ -457,6 +467,10 @@ void keyboard_post_init_user(void) {
     //  Set octave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
 
+    for (uint8_t i = 0; i < MY_CHORD_COUNT; i++) {
+        chord_status[i] = MIDI_INVALID_NOTE;
+    }
+    
     //  load EEPROM data for isSingleBass
     user_config.raw = eeconfig_read_user();
 
@@ -464,7 +478,6 @@ void keyboard_post_init_user(void) {
     if (is_keyboard_master() && isLeftHand) {
         default_layer_set(1UL << _QWERTY);
     }
-
 
 #ifdef RGBLIGHT_ENABLE
 
@@ -495,6 +508,16 @@ void toggle_isSingleBass(void) {
   eeconfig_update_user(user_config.raw);
 }
 
+void toggle_MIDI_channel_separation(void) {
+    if (midi_chord_ch > 0) {
+        midi_chord_ch = 0;
+        midi_base_ch  = 0;
+    } else {
+        midi_chord_ch = 1;
+        midi_base_ch  = 2;
+    }
+}
+
 void eeconfig_init_user(void) {
   //  Reset Bass setting
   user_config.raw = 0;  // default: dyad
@@ -520,6 +543,31 @@ void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val
     }
 }
 #endif  // RGBLIGHT_ENABLE
+
+void my_process_midi4TriadChords(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint16_t root_note,
+                                 uint8_t offset1, uint8_t offset2, uint8_t offset3) {
+    uint8_t chord    = keycode - MY_CHORD_MIN;
+    uint8_t velocity = midi_config.velocity;
+    if (record->event.pressed) {
+        if (chord_status[chord] == MIDI_INVALID_NOTE) {
+            uint8_t note = midi_compute_note(root_note);
+            midi_send_noteon(&midi_device, channel, note + offset1, velocity);
+            midi_send_noteon(&midi_device, channel, note + offset2, velocity);
+            midi_send_noteon(&midi_device, channel, note + offset3, velocity);
+            dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
+            chord_status[chord] = note;  // store root_note status.
+        }
+    } else {
+        uint8_t note = chord_status[chord];
+        if (note != MIDI_INVALID_NOTE) {
+            midi_send_noteoff(&midi_device, channel, note + offset1, velocity);
+            midi_send_noteoff(&midi_device, channel, note + offset2, velocity);
+            midi_send_noteoff(&midi_device, channel, note + offset3, velocity);
+            dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+        }
+    chord_status[chord] = MIDI_INVALID_NOTE;
+    }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint16_t root_note = MIDI_INVALID_NOTE;  // Starting value for the root note of each chord
@@ -578,16 +626,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             };
             break;
 
+        case TGLMISW:
+            if (record->event.pressed) {
+                toggle_MIDI_channel_separation();
+            };
+            break;
+
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C_1;
-            if (IS_SINGLE_BASS()) {
-              process_midi(root_note, record);
-            } else {
-              process_midi(root_note, record);
-              process_midi(root_note + 12, record);  // +1 Octave
-            }
-            // process_midi(root_note + 24, record);  // +2 Octave
+        ////////////////////////////////////////////////////////////////////
+            {
+                uint8_t channel  = midi_base_ch;
+                uint8_t chord    = keycode - MY_CHORD_MIN;
+                uint8_t velocity = midi_config.velocity;
+                if (record->event.pressed) {
+                    if (chord_status[chord] == MIDI_INVALID_NOTE) {
+                        uint8_t note = midi_compute_note(root_note);
+                        if (IS_SINGLE_BASS()) {
+                            midi_send_noteon(&midi_device, channel, note, velocity);
+                        } else {
+                            midi_send_noteon(&midi_device, channel, note, velocity);
+                            midi_send_noteon(&midi_device, channel, note + 12, velocity);  // +1 Octave
+                        }
+                        dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                        chord_status[chord] = note;  // store root_note status.
+                    }
+                } else {
+                    uint8_t note = chord_status[chord];
+                    if (note != MIDI_INVALID_NOTE) {
+                        if (IS_SINGLE_BASS()) {
+                            midi_send_noteoff(&midi_device, channel, note, velocity);
+                        } else {
+                            midi_send_noteoff(&midi_device, channel, note, velocity);
+                            midi_send_noteoff(&midi_device, channel, note + 12, velocity);  // +1 Octave
+                        }
+                        dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                    }
+                    chord_status[chord] = MIDI_INVALID_NOTE;
+                }
+                return false;
+            }////////////////////////////////////////////////////////////////////
+
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -595,9 +675,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MI_CH_C ... MI_CH_B:  // Major Chords
             root_note = keycode - MI_CH_C + MI_C_2;
-            process_midi(root_note, record);
-            process_midi(root_note + 4, record);  // Major Third Note
-            process_midi(root_note + 7, record);  // Fifth Note
+            // Root, Major Third, and Fifth Notes
+            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 0, 4, 7);
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -605,9 +684,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MI_CH_Cm ... MI_CH_Bm:  // Minor Chord
             root_note = keycode - MI_CH_Cm + MI_C_2;
-            process_midi(root_note, record);
-            process_midi(root_note + 3, record);  // Minor Third Note
-            process_midi(root_note + 7, record);  // Fifth Note
+            // Root, Minor Third, and Fifth Notes
+            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 0, 3, 7);
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -615,10 +693,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
             root_note = keycode - MI_CH_CDom7 + MI_C_2;
-            // process_midi(root_note, record);
-            process_midi(root_note + 4, record);   // Major Third Note
-            process_midi(root_note + 7, record);   // Major Fifth Note
-            process_midi(root_note + 10, record);  // Minor Seventh Note
+            // Major Third, Major Fifth, and Minor Seventh Notes
+            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 4, 7, 10);
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -626,9 +702,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MI_CH_CDim7 ... MI_CH_BDim7:                // Diminished 7th Chord
             root_note = keycode - MI_CH_CDim7 + MI_C_2;
-            process_midi(root_note, record);
-            process_midi(root_note + 3, record);  // Minor Third Note
-            process_midi(root_note + 6, record);  // Diminished 5th Note
+            // Root, Minor Third, and Diminished 5th Note
+            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 0, 3, 6);
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif

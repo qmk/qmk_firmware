@@ -538,7 +538,8 @@ void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val
 }
 #endif  // RGBLIGHT_ENABLE
 
-void my_process_midi4TriadChords(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint16_t root_note, uint8_t offset1, uint8_t offset2, uint8_t offset3) {
+void my_process_midi4TriadChords(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint16_t root_note,
+                                 uint8_t offset1, uint8_t offset2, uint8_t offset3) {
     uint8_t chord    = keycode - MY_CHORD_MIN;
     uint8_t velocity = midi_config.velocity;
     if (record->event.pressed) {
