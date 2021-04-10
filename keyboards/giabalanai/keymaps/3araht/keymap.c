@@ -52,6 +52,8 @@
 
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
+uint8_t midi_base_ch = 2, midi_chord_ch = 1;
+extern MidiDevice midi_device;
 
 // To record the status of Bass Chord (single or dyad, default: dyad.)
 typedef union {
@@ -135,8 +137,9 @@ enum layer_names {
 enum custom_keycodes {
 
     // MIDI Chord Keycodes - Root notes
+    MY_CHORD_MIN = SAFE_RANGE,
 
-    MI_CH_Cr = SAFE_RANGE,
+    MI_CH_Cr = MY_CHORD_MIN,
     MI_CH_Csr,
     MI_CH_Dbr = MI_CH_Csr,
     MI_CH_Dr,
@@ -234,6 +237,8 @@ enum custom_keycodes {
     MI_CH_BbDim7 = MI_CH_AsDim7,
     MI_CH_BDim7,
 
+    MY_CHORD_MAX = MI_CH_BDim7,
+
     CSYSTEM,
     BSYSTEM,
     CNTBASC,
@@ -242,6 +247,9 @@ enum custom_keycodes {
     CFLIP2B,
     TGLBASS
 };
+
+#define MY_CHORD_COUNT (MY_CHORD_MAX - MY_CHORD_MIN + 1)
+static uint8_t chord_status[MY_CHORD_COUNT];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* C-system Base */
@@ -456,6 +464,10 @@ void keyboard_post_init_user(void) {
     //  Set octave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
 
+    for (uint8_t i = 0; i < MY_CHORD_COUNT; i++) {
+        chord_status[i] = MIDI_INVALID_NOTE;
+    }
+
     //  load EEPROM data for isSingleBass
     user_config.raw = eeconfig_read_user();
 
@@ -574,13 +586,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C_1;
-            if (IS_SINGLE_BASS()) {
-              process_midi(root_note, record);
-            } else {
-              process_midi(root_note, record);
-              process_midi(root_note + 12, record);  // +1 Octave
-            }
-            // process_midi(root_note + 24, record);  // +2 Octave
+        ////////////////////////////////////////////////////////////////////
+            {
+                uint8_t channel  = midi_base_ch;
+                uint8_t chord    = keycode - MY_CHORD_MIN;
+                uint8_t velocity = midi_config.velocity;
+                if (record->event.pressed) {
+                    if (chord_status[chord] == MIDI_INVALID_NOTE) {
+                        uint8_t note = midi_compute_note(root_note);
+                        if (IS_SINGLE_BASS()) {
+                            midi_send_noteon(&midi_device, channel, note, velocity);
+                        } else {
+                            midi_send_noteon(&midi_device, channel, note, velocity);
+                            midi_send_noteon(&midi_device, channel, note + 12, velocity);  // +1 Octave
+                        }
+                        dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                        chord_status[chord] = note;  // store root_note status.
+                    }
+                } else {
+                    uint8_t note = chord_status[chord];
+                    if (note != MIDI_INVALID_NOTE) {
+                        if (IS_SINGLE_BASS()) {
+                            midi_send_noteoff(&midi_device, channel, note, velocity);
+                        } else {
+                            midi_send_noteoff(&midi_device, channel, note, velocity);
+                            midi_send_noteoff(&midi_device, channel, note + 12, velocity);  // +1 Octave
+                        }
+                        dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                    }
+                    chord_status[chord] = MIDI_INVALID_NOTE;
+                }
+                return false;
+            }////////////////////////////////////////////////////////////////////
+
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -588,6 +626,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MI_CH_C ... MI_CH_B:  // Major Chords
             root_note = keycode - MI_CH_C + MI_C_2;
+            ////////////////////////////////////////////////////////////////////
+            {
+                uint8_t channel  = midi_chord_ch;
+                uint8_t chord    = keycode - MY_CHORD_MIN;
+                uint8_t velocity = midi_config.velocity;
+                if (record->event.pressed) {
+                    if (chord_status[chord] == MIDI_INVALID_NOTE) {
+                        uint8_t note = midi_compute_note(root_note);
+                        midi_send_noteon(&midi_device, channel, note, velocity);
+                        midi_send_noteon(&midi_device, channel, note + 4, velocity);  // Major Third Note
+                        midi_send_noteon(&midi_device, channel, note + 7, velocity);  // Fifth Note
+                        dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                        chord_status[chord] = note;  // store root_note status.
+                    }
+                } else {
+                    uint8_t note = chord_status[chord];
+                    if (note != MIDI_INVALID_NOTE) {
+                        midi_send_noteoff(&midi_device, channel, note, velocity);
+                        midi_send_noteoff(&midi_device, channel, note + 4, velocity);  // Major Third Note
+                        midi_send_noteoff(&midi_device, channel, note + 7, velocity);  // Fifth Note
+                        dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                    }
+                    chord_status[chord] = MIDI_INVALID_NOTE;
+                }
+                return false;
+            }////////////////////////////////////////////////////////////////////
             process_midi(root_note, record);
             process_midi(root_note + 4, record);  // Major Third Note
             process_midi(root_note + 7, record);  // Fifth Note
