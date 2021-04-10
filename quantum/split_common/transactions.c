@@ -40,10 +40,6 @@
     { &dummy, 0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb }
 #define trans_target2initiator_initializer(member) trans_target2initiator_initializer_cb(member, NULL)
 
-#define trans_bidirectional_initializer_cb(i2t_member, t2i_member, cb) \
-    { &dummy, sizeof_member(split_shared_memory_t, i2t_member), offsetof(split_shared_memory_t, i2t_member), sizeof_member(split_shared_memory_t, t2i_member), offsetof(split_shared_memory_t, t2i_member), cb }
-#define trans_bidirectional_initializer(i2t_member, t2i_member) trans_target2initiator_initializer_cb(i2t_member, t2i_member, NULL)
-
 static uint8_t crc8(const void *data, size_t len) {
     const uint8_t *p   = (const uint8_t *)data;
     uint8_t        crc = 0xff;
@@ -65,6 +61,7 @@ void slave_rpc_info_callback(uint8_t initiator2target_buffer_size, const void *i
     // The RPC info block contains the intended transaction ID, as well as the sizes for both inbound and outbound data.
     // Ignore the args -- the `split_shmem` already has the info, we just need to act upon it.
     // We must keep the `split_transaction_table` non-const, so that it is able to be modified at runtime.
+
     split_transaction_table[PUT_RPC_REQ_DATA].initiator2target_buffer_size  = split_shmem->rpc_info.m2s_length;
     split_transaction_table[GET_RPC_RESP_DATA].target2initiator_buffer_size = split_shmem->rpc_info.s2m_length;
 }
@@ -73,7 +70,7 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
     // We can assume that the buffer lengths are correctly set, now, given that sequentially the rpc_info callback was already executed.
     // Go through the rpc_info and execute _that_ transaction's callback, with the scratch buffers as inputs.
     int8_t transaction_id = split_shmem->rpc_info.transaction_id;
-    if (transaction_id > GET_RPC_RESP_DATA && transaction_id < NUM_TOTAL_TRANSACTIONS) {
+    if (transaction_id < NUM_TOTAL_TRANSACTIONS) {
         split_transaction_desc_t *trans = &split_transaction_table[transaction_id];
         if (trans->slave_callback) {
             trans->slave_callback(split_shmem->rpc_info.m2s_length, split_shmem->rpc_m2s_buffer, split_shmem->rpc_info.s2m_length, split_shmem->rpc_s2m_buffer);
@@ -372,10 +369,18 @@ bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer
     split_transaction_table[GET_RPC_RESP_DATA].target2initiator_buffer_size = target2initiator_buffer_size;
 
     // Run through the sequence -- set the transaction ID and lengths, put the request data, execute, retrieve the response data
-    if (!transport_write(PUT_RPC_INFO, &info, sizeof(info))) return false;
-    if (!transport_write(PUT_RPC_REQ_DATA, initiator2target_buffer, initiator2target_buffer_size)) return false;
-    if (!transport_write(EXECUTE_RPC, &info.transaction_id, sizeof(info.transaction_id))) return false;
-    if (!transport_read(GET_RPC_RESP_DATA, target2initiator_buffer, target2initiator_buffer_size)) return false;
+    if (!transport_write(PUT_RPC_INFO, &info, sizeof(info))) {
+        return false;
+    }
+    if (!transport_write(PUT_RPC_REQ_DATA, initiator2target_buffer, initiator2target_buffer_size)) {
+        return false;
+    }
+    if (!transport_write(EXECUTE_RPC, &info.transaction_id, sizeof(info.transaction_id))) {
+        return false;
+    }
+    if (!transport_read(GET_RPC_RESP_DATA, target2initiator_buffer, target2initiator_buffer_size)) {
+        return false;
+    }
     return true;
 }
 #endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

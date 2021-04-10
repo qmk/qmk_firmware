@@ -402,6 +402,11 @@ ISR(SERIAL_PIN_INTERRUPT) {
     split_transaction_desc_t *trans = &split_transaction_table[tid];
     serial_low();  // response step2 ack high->low
 
+    // If the transaction has a callback, we can execute it now
+    if (trans->slave_callback) {
+        trans->slave_callback(trans->initiator2target_buffer_size, split_trans_initiator2target_buffer(trans), trans->target2initiator_buffer_size, split_trans_target2initiator_buffer(trans));
+    }
+
     // target send phase
     if (trans->target2initiator_buffer_size > 0) serial_send_packet((uint8_t *)split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size);
     // target switch to input
