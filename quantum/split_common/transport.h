@@ -24,12 +24,12 @@
 #include "matrix.h"
 
 #ifndef RPC_M2S_BUFFER_SIZE
-#define RPC_M2S_BUFFER_SIZE 32
-#endif // RPC_M2S_BUFFER_SIZE
+#    define RPC_M2S_BUFFER_SIZE 32
+#endif  // RPC_M2S_BUFFER_SIZE
 
 #ifndef RPC_S2M_BUFFER_SIZE
-#define RPC_S2M_BUFFER_SIZE 32
-#endif // RPC_S2M_BUFFER_SIZE
+#    define RPC_S2M_BUFFER_SIZE 32
+#endif  // RPC_S2M_BUFFER_SIZE
 
 void transport_master_init(void);
 void transport_slave_init(void);
@@ -92,7 +92,7 @@ typedef struct _split_mods_sync_t {
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 typedef struct _rpc_sync_info_t {
-    int8_t transaction_id;
+    int8_t  transaction_id;
     uint8_t m2s_length;
     uint8_t s2m_length;
 } rpc_sync_info_t;
@@ -147,8 +147,8 @@ typedef struct _split_shared_memory_t {
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;
-    uint8_t rpc_m2s_buffer[RPC_M2S_BUFFER_SIZE];
-    uint8_t rpc_s2m_buffer[RPC_S2M_BUFFER_SIZE];
+    uint8_t         rpc_m2s_buffer[RPC_M2S_BUFFER_SIZE];
+    uint8_t         rpc_s2m_buffer[RPC_S2M_BUFFER_SIZE];
 #endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 } split_shared_memory_t;
 

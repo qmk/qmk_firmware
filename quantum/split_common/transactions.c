@@ -65,7 +65,7 @@ void slave_rpc_info_callback(uint8_t initiator2target_buffer_size, const void *i
     // The RPC info block contains the intended transaction ID, as well as the sizes for both inbound and outbound data.
     // Ignore the args -- the `split_shmem` already has the info, we just need to act upon it.
     // We must keep the `split_transaction_table` non-const, so that it is able to be modified at runtime.
-    split_transaction_table[PUT_RPC_REQ_DATA].initiator2target_buffer_size = split_shmem->rpc_info.m2s_length;
+    split_transaction_table[PUT_RPC_REQ_DATA].initiator2target_buffer_size  = split_shmem->rpc_info.m2s_length;
     split_transaction_table[GET_RPC_RESP_DATA].target2initiator_buffer_size = split_shmem->rpc_info.s2m_length;
 }
 
@@ -73,9 +73,9 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
     // We can assume that the buffer lengths are correctly set, now, given that sequentially the rpc_info callback was already executed.
     // Go through the rpc_info and execute _that_ transaction's callback, with the scratch buffers as inputs.
     int8_t transaction_id = split_shmem->rpc_info.transaction_id;
-    if(transaction_id > GET_RPC_RESP_DATA && transaction_id < NUM_TOTAL_TRANSACTIONS) {
-        split_transaction_desc_t* trans = &split_transaction_table[transaction_id];
-        if(trans->slave_callback) {
+    if (transaction_id > GET_RPC_RESP_DATA && transaction_id < NUM_TOTAL_TRANSACTIONS) {
+        split_transaction_desc_t *trans = &split_transaction_table[transaction_id];
+        if (trans->slave_callback) {
             trans->slave_callback(split_shmem->rpc_info.m2s_length, split_shmem->rpc_m2s_buffer, split_shmem->rpc_info.s2m_length, split_shmem->rpc_s2m_buffer);
         }
     }
@@ -136,9 +136,9 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
 #endif  // WPM_ENABLE
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
-    [PUT_RPC_INFO] = trans_initiator2target_initializer_cb(rpc_info, slave_rpc_info_callback),
-    [PUT_RPC_REQ_DATA] = trans_initiator2target_initializer(rpc_m2s_buffer),
-    [EXECUTE_RPC] = trans_initiator2target_initializer_cb(rpc_info.transaction_id, slave_rpc_exec_callback),
+    [PUT_RPC_INFO]      = trans_initiator2target_initializer_cb(rpc_info, slave_rpc_info_callback),
+    [PUT_RPC_REQ_DATA]  = trans_initiator2target_initializer(rpc_m2s_buffer),
+    [EXECUTE_RPC]       = trans_initiator2target_initializer_cb(rpc_info.transaction_id, slave_rpc_exec_callback),
     [GET_RPC_RESP_DATA] = trans_target2initiator_initializer(rpc_s2m_buffer),
 #endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 };
@@ -355,7 +355,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 void transaction_register_rpc(int8_t transaction_id, slave_callback_t callback) {
     // Prevent invoking RPC on QMK core sync data
-    if(transaction_id <= GET_RPC_RESP_DATA) return;
+    if (transaction_id <= GET_RPC_RESP_DATA) return;
 
     // Set the callback
     split_transaction_table[transaction_id].slave_callback = callback;
@@ -363,23 +363,19 @@ void transaction_register_rpc(int8_t transaction_id, slave_callback_t callback) 
 
 bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
     // Prevent invoking RPC on QMK core sync data
-    if(transaction_id <= GET_RPC_RESP_DATA) return false;
+    if (transaction_id <= GET_RPC_RESP_DATA) return false;
 
-    rpc_sync_info_t info = {
-        .transaction_id = transaction_id,
-        .m2s_length = initiator2target_buffer_size,
-        .s2m_length = target2initiator_buffer_size
-    };
+    rpc_sync_info_t info = {.transaction_id = transaction_id, .m2s_length = initiator2target_buffer_size, .s2m_length = target2initiator_buffer_size};
 
     // Make sure the local side knows that we're not sending the full block of data
-    split_transaction_table[PUT_RPC_REQ_DATA].initiator2target_buffer_size = initiator2target_buffer_size;
+    split_transaction_table[PUT_RPC_REQ_DATA].initiator2target_buffer_size  = initiator2target_buffer_size;
     split_transaction_table[GET_RPC_RESP_DATA].target2initiator_buffer_size = target2initiator_buffer_size;
 
     // Run through the sequence -- set the transaction ID and lengths, put the request data, execute, retrieve the response data
-    if(!transport_write(PUT_RPC_INFO, &info, sizeof(info))) return false;
-    if(!transport_write(PUT_RPC_REQ_DATA, initiator2target_buffer, initiator2target_buffer_size)) return false;
-    if(!transport_write(EXECUTE_RPC, &info.transaction_id, sizeof(info.transaction_id))) return false;
-    if(!transport_read(GET_RPC_RESP_DATA, target2initiator_buffer, target2initiator_buffer_size)) return false;
+    if (!transport_write(PUT_RPC_INFO, &info, sizeof(info))) return false;
+    if (!transport_write(PUT_RPC_REQ_DATA, initiator2target_buffer, initiator2target_buffer_size)) return false;
+    if (!transport_write(EXECUTE_RPC, &info.transaction_id, sizeof(info.transaction_id))) return false;
+    if (!transport_read(GET_RPC_RESP_DATA, target2initiator_buffer, target2initiator_buffer_size)) return false;
     return true;
 }
 #endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

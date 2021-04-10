@@ -53,7 +53,7 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
     // If we need to execute a callback on the slave, do so
     if (okay && trans->slave_callback) {
         // Now we kick off the "callback executor", now that data has been written to the slave
-        split_shmem->transaction_id = id;
+        split_shmem->transaction_id          = id;
         split_transaction_desc_t *exec_trans = &split_transaction_table[I2C_EXECUTE_CALLBACK];
         okay &= (i2c_writeReg(SLAVE_I2C_ADDRESS, exec_trans->initiator2target_offset, split_trans_initiator2target_buffer(exec_trans), exec_trans->initiator2target_buffer_size, SLAVE_I2C_TIMEOUT) >= 0);
     }
