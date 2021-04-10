@@ -7,8 +7,7 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
-SPLIT_KEYBOARD = yes
-BOOTMAGIC_ENABLE = lite
+BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
@@ -21,3 +20,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+SPLIT_KEYBOARD = yes
