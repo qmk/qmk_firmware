@@ -55,7 +55,9 @@ ISR(TWI_vect) {
         case TW_SR_SLA_ACK:
             // The device is now a slave receiver
             slave_has_register_set = false;
+#if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
             is_callback_executor   = false;
+#endif  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
             break;
 
         case TW_SR_DATA_ACK:
