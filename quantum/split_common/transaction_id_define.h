@@ -61,9 +61,9 @@ enum serial_transaction_id {
     PUT_RGB_MATRIX,
 #endif  // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
 
-#ifdef WPM_ENABLE
+#if defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
     PUT_WPM,
-#endif  // WPM_ENABLE
+#endif  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     PUT_RPC_INFO,

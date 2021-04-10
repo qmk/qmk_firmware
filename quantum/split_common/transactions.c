@@ -128,9 +128,9 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     [PUT_RGB_MATRIX] = trans_initiator2target_initializer(rgb_matrix_sync),
 #endif  // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
 
-#ifdef WPM_ENABLE
+#if defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
     [PUT_WPM] = trans_initiator2target_initializer(current_wpm),
-#endif  // WPM_ENABLE
+#endif  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     [PUT_RPC_INFO]      = trans_initiator2target_initializer_cb(rpc_info, slave_rpc_info_callback),
@@ -269,7 +269,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     }
 #endif  // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
 
-#ifdef WPM_ENABLE
+#if defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
     static uint32_t last_wpm_update = 0;
     if (timer_elapsed32(last_wpm_update) > FORCED_SYNC_THROTTLE_MS) {
         last_wpm_update     = timer_read32();
@@ -278,7 +278,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
             okay &= transport_write(PUT_WPM, &current_wpm, sizeof(current_wpm));
         }
     }
-#endif  // WPM_ENABLE
+#endif  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
     return okay;
 }
@@ -344,9 +344,9 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     g_suspend_state = split_shmem->rgb_matrix_sync.rgb_suspend_state;
 #endif
 
-#ifdef WPM_ENABLE
+#if defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
     set_current_wpm(split_shmem->current_wpm);
-#endif
+#endif  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

@@ -141,9 +141,9 @@ typedef struct _split_shared_memory_t {
     rgb_matrix_sync_t rgb_matrix_sync;
 #endif  // defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
 
-#ifdef WPM_ENABLE
+#if defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
     uint8_t current_wpm;
-#endif  // WPM_ENABLE
+#endif  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;
