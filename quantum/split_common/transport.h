@@ -91,15 +91,11 @@ typedef struct _split_mods_sync_t {
 #endif  // SPLIT_MODS_ENABLE
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
-typedef struct _rpc_sync_t {
-    struct _rpc_sync_info_t {
-        int8_t transaction_id;
-        uint8_t m2s_length;
-        uint8_t s2m_length;
-    } sync_info;
-    uint8_t m2s_buffer[RPC_M2S_BUFFER_SIZE];
-    uint8_t s2m_buffer[RPC_S2M_BUFFER_SIZE];
-} rpc_sync_t;
+typedef struct _rpc_sync_info_t {
+    int8_t transaction_id;
+    uint8_t m2s_length;
+    uint8_t s2m_length;
+} rpc_sync_info_t;
 #endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 
 typedef struct _split_shared_memory_t {
@@ -150,7 +146,9 @@ typedef struct _split_shared_memory_t {
 #endif  // WPM_ENABLE
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
-    rpc_sync_t rpc_sync;
+    rpc_sync_info_t rpc_info;
+    uint8_t rpc_m2s_buffer[RPC_M2S_BUFFER_SIZE];
+    uint8_t rpc_s2m_buffer[RPC_S2M_BUFFER_SIZE];
 #endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 } split_shared_memory_t;
 

@@ -65,6 +65,13 @@ enum serial_transaction_id {
     PUT_WPM,
 #endif  // WPM_ENABLE
 
+#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+    PUT_RPC_INFO,
+    PUT_RPC_REQ_DATA,
+    EXECUTE_RPC,
+    GET_RPC_RESP_DATA,
+#endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+
 // keyboard-specific
 #ifdef SPLIT_TRANSACTION_IDS_KB
     SPLIT_TRANSACTION_IDS_KB,
@@ -74,11 +81,6 @@ enum serial_transaction_id {
 #ifdef SPLIT_TRANSACTION_IDS_USER
     SPLIT_TRANSACTION_IDS_USER,
 #endif  // SPLIT_TRANSACTION_IDS_USER
-
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
-    PUT_RPC_INFO,
-    EXECUTE_RPC,
-#endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 
     NUM_TOTAL_TRANSACTIONS
 };

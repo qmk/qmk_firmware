@@ -32,6 +32,7 @@
 
 #    include "i2c_master.h"
 #    include "i2c_slave.h"
+
 // Ensure the I2C buffer has enough space
 _Static_assert(sizeof(split_shared_memory_t) <= I2C_SLAVE_REG_COUNT, "split_shared_memory_t too large for I2C_SLAVE_REG_COUNT");
 
