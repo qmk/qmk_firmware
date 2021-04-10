@@ -24,18 +24,16 @@
 
 #include "i2c_slave.h"
 
-#ifdef SPLIT_COMMON_TRANSACTIONS
+#if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
 #    include "transactions.h"
-#endif  // SPLIT_COMMON_TRANSACTIONS
+
+static volatile uint8_t received_transaction_id;
+#endif  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
 
 volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
 
 static volatile uint8_t buffer_address;
 static volatile bool    slave_has_register_set = false;
-
-#if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
-static volatile uint8_t received_transaction_id;
-#endif  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
 
 void i2c_slave_init(uint8_t address) {
     // load address into TWI address register
