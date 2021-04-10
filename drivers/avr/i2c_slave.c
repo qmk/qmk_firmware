@@ -55,6 +55,7 @@ ISR(TWI_vect) {
         case TW_SR_SLA_ACK:
             // The device is now a slave receiver
             slave_has_register_set = false;
+            is_callback_executor   = false;
             break;
 
         case TW_SR_DATA_ACK:
@@ -63,22 +64,22 @@ ISR(TWI_vect) {
             if (!slave_has_register_set) {
                 buffer_address = TWDR;
 
-#if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
-                // Work out which transaction we're executing
-                is_callback_executor = buffer_address == offsetof(split_shared_memory_t, transaction_id);
-#endif  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
-
                 if (buffer_address >= I2C_SLAVE_REG_COUNT) {  // address out of bounds dont ack
                     ack            = 0;
                     buffer_address = 0;
                 }
                 slave_has_register_set = true;  // address has been received now fill in buffer
+
+#if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+                // Work out if we're attempting to execute a callback
+                is_callback_executor = buffer_address == split_transaction_table[I2C_EXECUTE_CALLBACK].initiator2target_offset;
+#endif  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
             } else {
                 i2c_slave_reg[buffer_address] = TWDR;
                 buffer_address++;
 
 #if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
-                // If we're intending to execute a transaction callback, do so, as we've received the transaction ID
+                // If we're intending to execute a transaction callback, do so, as we've just received the transaction ID
                 if (is_callback_executor) {
                     split_transaction_desc_t *trans = &split_transaction_table[split_shmem->transaction_id];
                     if (trans->slave_callback) {

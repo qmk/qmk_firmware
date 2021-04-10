@@ -85,7 +85,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     [0 ...(NUM_TOTAL_TRANSACTIONS - 1)] = {NULL, 0, 0, 0, 0, 0},
 
 #ifdef USE_I2C
-    [I2C_EXECUTE_CALLBACK] = trans_target2initiator_initializer(transaction_id),
+    [I2C_EXECUTE_CALLBACK] = trans_initiator2target_initializer(transaction_id),
 #endif  // USE_I2C
 
     [GET_SLAVE_MATRIX_CHECKSUM] = trans_target2initiator_initializer(smatrix.checksum),
@@ -361,6 +361,9 @@ void transaction_register_rpc(int8_t transaction_id, slave_callback_t callback) 
 bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
     // Prevent invoking RPC on QMK core sync data
     if (transaction_id <= GET_RPC_RESP_DATA) return false;
+    // Prevent sizing issues
+    if (initiator2target_buffer_size > RPC_M2S_BUFFER_SIZE) return false;
+    if (target2initiator_buffer_size > RPC_S2M_BUFFER_SIZE) return false;
 
     rpc_sync_info_t info = {.transaction_id = transaction_id, .m2s_length = initiator2target_buffer_size, .s2m_length = target2initiator_buffer_size};
 
@@ -375,7 +378,7 @@ bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer
     if (!transport_write(PUT_RPC_REQ_DATA, initiator2target_buffer, initiator2target_buffer_size)) {
         return false;
     }
-    if (!transport_write(EXECUTE_RPC, &info.transaction_id, sizeof(info.transaction_id))) {
+    if (!transport_write(EXECUTE_RPC, &transaction_id, sizeof(transaction_id))) {
         return false;
     }
     if (!transport_read(GET_RPC_RESP_DATA, target2initiator_buffer, target2initiator_buffer_size)) {
