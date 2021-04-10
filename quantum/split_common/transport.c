@@ -15,6 +15,7 @@
  */
 
 #include <string.h>
+#include <debug.h>
 
 #include "transactions.h"
 #include "transport.h"
@@ -41,36 +42,37 @@ split_shared_memory_t *const split_shmem = (split_shared_memory_t *)i2c_slave_re
 void transport_master_init(void) { i2c_init(); }
 void transport_slave_init(void) { i2c_slave_init(SLAVE_I2C_ADDRESS); }
 
-bool transport_trigger_callback(int8_t id) {
+i2c_status_t transport_trigger_callback(int8_t id) {
     // If there's no callback, indicate that we were successful
-    if(!split_transaction_table[id].slave_callback) {
-        return true;
+    if (!split_transaction_table[id].slave_callback) {
+        return I2C_STATUS_SUCCESS;
     }
 
     // Kick off the "callback executor", now that data has been written to the slave
-    split_shmem->transaction_id = id;
+    split_shmem->transaction_id     = id;
     split_transaction_desc_t *trans = &split_transaction_table[I2C_EXECUTE_CALLBACK];
-    return i2c_writeReg(SLAVE_I2C_ADDRESS, trans->initiator2target_offset, split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size, SLAVE_I2C_TIMEOUT) >= 0;
+    return i2c_writeReg(SLAVE_I2C_ADDRESS, trans->initiator2target_offset, split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size, SLAVE_I2C_TIMEOUT);
 }
 
 bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
+    i2c_status_t              status;
     split_transaction_desc_t *trans = &split_transaction_table[id];
     if (initiator2target_length > 0) {
         size_t len = trans->initiator2target_buffer_size < initiator2target_length ? trans->initiator2target_buffer_size : initiator2target_length;
         memcpy(split_trans_initiator2target_buffer(trans), initiator2target_buf, len);
-        if(i2c_writeReg(SLAVE_I2C_ADDRESS, trans->initiator2target_offset, split_trans_initiator2target_buffer(trans), len, SLAVE_I2C_TIMEOUT) < 0) {
+        if ((status = i2c_writeReg(SLAVE_I2C_ADDRESS, trans->initiator2target_offset, split_trans_initiator2target_buffer(trans), len, SLAVE_I2C_TIMEOUT)) < 0) {
             return false;
         }
     }
 
     // If we need to execute a callback on the slave, do so
-    if(!transport_trigger_callback(id)) {
+    if ((status = transport_trigger_callback(id)) < 0) {
         return false;
     }
 
     if (target2initiator_length > 0) {
         size_t len = trans->target2initiator_buffer_size < target2initiator_length ? trans->target2initiator_buffer_size : target2initiator_length;
-        if(i2c_readReg(SLAVE_I2C_ADDRESS, trans->target2initiator_offset, split_trans_target2initiator_buffer(trans), len, SLAVE_I2C_TIMEOUT) < 0) {
+        if ((status = i2c_readReg(SLAVE_I2C_ADDRESS, trans->target2initiator_offset, split_trans_target2initiator_buffer(trans), len, SLAVE_I2C_TIMEOUT)) < 0) {
             return false;
         }
         memcpy(target2initiator_buf, split_trans_target2initiator_buffer(trans), len);

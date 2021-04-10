@@ -20,6 +20,7 @@
 #include <avr/io.h>
 #include <util/twi.h>
 
+#include "debug.h"
 #include "i2c_master.h"
 #include "timer.h"
 #include "wait.h"
@@ -171,7 +172,12 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
 }
 
 i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
+    uint16_t     timeout_timer = timer_read();
+    i2c_status_t status;
+    do {
+        status = i2c_start(devaddr, (1 + timeout / 20));
+    } while (status < 0 && timer_elapsed(timeout_timer) < timeout);
+
     if (status >= 0) {
         status = i2c_write(regaddr, timeout);
 
@@ -186,7 +192,11 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
 }
 
 i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2c_status_t status = i2c_start(devaddr, timeout);
+    uint16_t     timeout_timer = timer_read();
+    i2c_status_t status;
+    do {
+        status = i2c_start(devaddr, (1 + timeout / 20));
+    } while (status < 0 && timer_elapsed(timeout_timer) < timeout);
     if (status < 0) {
         goto error;
     }
@@ -196,7 +206,9 @@ i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16
         goto error;
     }
 
-    status = i2c_start(devaddr | 0x01, timeout);
+    do {
+        status = i2c_start(devaddr | 0x01, (1 + timeout / 20));
+    } while (status < 0 && timer_elapsed(timeout_timer) < timeout);
 
     for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
         status = i2c_read_ack(timeout);

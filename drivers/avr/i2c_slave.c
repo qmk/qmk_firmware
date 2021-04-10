@@ -17,6 +17,7 @@
  * GitHub repository: https://github.com/g4lvanix/I2C-slave-lib
  */
 
+#include <stddef.h>
 #include <avr/io.h>
 #include <util/twi.h>
 #include <avr/interrupt.h>
@@ -27,7 +28,7 @@
 #if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
 #    include "transactions.h"
 
-static volatile uint8_t received_transaction_id;
+static volatile bool is_callback_executor = false;
 #endif  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
 
 volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
@@ -64,14 +65,7 @@ ISR(TWI_vect) {
 
 #if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
                 // Work out which transaction we're executing
-                received_transaction_id = NUM_TOTAL_TRANSACTIONS;
-                for (int i = 0; i < NUM_TOTAL_TRANSACTIONS; ++i) {
-                    split_transaction_desc_t *trans = &split_transaction_table[i];
-                    if (buffer_address == trans->initiator2target_offset || buffer_address == trans->target2initiator_offset) {
-                        received_transaction_id = i;
-                        break;
-                    }
-                }
+                is_callback_executor = buffer_address == offsetof(split_shared_memory_t, transaction_id);
 #endif  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
 
                 if (buffer_address >= I2C_SLAVE_REG_COUNT) {  // address out of bounds dont ack
@@ -85,7 +79,7 @@ ISR(TWI_vect) {
 
 #if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
                 // If we're intending to execute a transaction callback, do so, as we've received the transaction ID
-                if (received_transaction_id == I2C_EXECUTE_CALLBACK) {
+                if (is_callback_executor) {
                     split_transaction_desc_t *trans = &split_transaction_table[split_shmem->transaction_id];
                     if (trans->slave_callback) {
                         trans->slave_callback(trans->initiator2target_buffer_size, split_trans_initiator2target_buffer(trans), trans->target2initiator_buffer_size, split_trans_target2initiator_buffer(trans));

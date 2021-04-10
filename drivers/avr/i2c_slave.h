@@ -28,6 +28,8 @@
 #    define I2C_SLAVE_REG_COUNT sizeof(split_shared_memory_t)
 #endif  // I2C_SLAVE_REG_COUNT
 
+_Static_assert(I2C_SLAVE_REG_COUNT < 256, "I2C target registers must be single byte");
+
 extern volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
 
 void i2c_slave_init(uint8_t address);
