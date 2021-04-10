@@ -117,13 +117,13 @@ typedef struct _split_shared_memory_t {
     uint32_t sync_timer;
 #endif  // DISABLE_SYNC_TIMER
 
-#ifndef DISABLE_SYNC_LAYER_STATE
+#ifdef SPLIT_LAYER_STATE_ENABLE
     layer_state_t layer_state;
-#endif  // DISABLE_SYNC_LAYER_STATE
+#endif  // SPLIT_LAYER_STATE_ENABLE
 
-#ifndef DISABLE_SYNC_LED_STATE
+#ifdef SPLIT_LED_STATE_ENABLE
     uint8_t led_state;
-#endif  // DISABLE_SYNC_LED_STATE
+#endif  // SPLIT_LED_STATE_ENABLE
 
 #ifdef SPLIT_MODS_ENABLE
     split_mods_sync_t mods;

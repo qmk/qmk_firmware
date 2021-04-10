@@ -104,13 +104,13 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     [PUT_SYNC_TIMER] = trans_initiator2target_initializer(sync_timer),
 #endif  // DISABLE_SYNC_TIMER
 
-#ifndef DISABLE_SYNC_LAYER_STATE
+#ifdef SPLIT_LAYER_STATE_ENABLE
     [PUT_LAYER_STATE] = trans_initiator2target_initializer(layer_state),
-#endif  // DISABLE_SYNC_LAYER_STATE
+#endif  // SPLIT_LAYER_STATE_ENABLE
 
-#ifndef DISABLE_SYNC_LED_STATE
+#ifdef SPLIT_LED_STATE_ENABLE
     [PUT_LED_STATE] = trans_initiator2target_initializer(led_state),
-#endif  // DISABLE_SYNC_LED_STATE
+#endif  // SPLIT_LED_STATE_ENABLE
 
 #ifdef SPLIT_MODS_ENABLE
     [PUT_MODS] = trans_initiator2target_initializer(mods),
@@ -190,22 +190,22 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     }
 #endif  // DISABLE_SYNC_TIMER
 
-#ifndef DISABLE_SYNC_LAYER_STATE
+#ifdef SPLIT_LAYER_STATE_ENABLE
     static uint32_t last_layer_state_update = 0;
     if (layer_state != split_shmem->layer_state || timer_elapsed32(last_layer_state_update) >= FORCED_SYNC_THROTTLE_MS) {
         last_layer_state_update = timer_read32();
         okay &= transport_write(PUT_LAYER_STATE, &layer_state, sizeof(layer_state));
     }
-#endif  // DISABLE_SYNC_LAYER_STATE
+#endif  // SPLIT_LAYER_STATE_ENABLE
 
-#ifndef DISABLE_SYNC_LED_STATE
+#ifdef SPLIT_LED_STATE_ENABLE
     static uint32_t last_led_state_update = 0;
     uint8_t         led_state             = host_keyboard_leds();
     if (led_state != split_shmem->led_state || timer_elapsed32(last_led_state_update) >= FORCED_SYNC_THROTTLE_MS) {
         last_led_state_update = timer_read32();
         okay &= transport_write(PUT_LED_STATE, &led_state, sizeof(led_state));
     }
-#endif  // DISABLE_SYNC_LED_STATE
+#endif  // SPLIT_LED_STATE_ENABLE
 
 #ifdef SPLIT_MODS_ENABLE
     static uint32_t   last_mod_update = 0;
@@ -310,14 +310,14 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     }
 #endif
 
-#ifndef DISABLE_SYNC_LAYER_STATE
+#ifdef SPLIT_LAYER_STATE_ENABLE
     layer_state = split_shmem->layer_state;
-#endif  // DISABLE_SYNC_LAYER_STATE
+#endif  // SPLIT_LAYER_STATE_ENABLE
 
-#ifndef DISABLE_SYNC_LED_STATE
+#ifdef SPLIT_LED_STATE_ENABLE
     void set_split_host_keyboard_leds(uint8_t led_state);
     set_split_host_keyboard_leds(split_shmem->led_state);
-#endif  // DISABLE_SYNC_LED_STATE
+#endif  // SPLIT_LED_STATE_ENABLE
 
 #ifdef SPLIT_MODS_ENABLE
     set_mods(split_shmem->mods.real_mods);
