@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-    bool music_mask_user(uint16_t keycode) {
+bool music_mask_user(uint16_t keycode) {
     switch (keycode) {
     case MU_TOG:
     case SYMBOL:
