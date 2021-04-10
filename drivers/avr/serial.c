@@ -388,9 +388,9 @@ ISR(SERIAL_PIN_INTERRUPT) {
     uint8_t tid, bits;
     uint8_t pecount = 0;
     sync_recv();
-    bits = serial_read_chunk(&pecount, 7);
+    bits = serial_read_chunk(&pecount, 8);
     tid  = bits >> 3;
-    bits = (bits & 7) != nibble_bits_count(tid);
+    bits = (bits & 7) != (nibble_bits_count(tid) & 7);
     if (bits || pecount > 0 || tid > NUM_TOTAL_TRANSACTIONS) {
         return;
     }
@@ -448,7 +448,7 @@ int soft_serial_transaction(int sstd_index) {
     int tid = (sstd_index << 3) | (7 & nibble_bits_count(sstd_index));
     sync_send();
     _delay_sub_us(TID_SEND_ADJUST);
-    serial_write_chunk(tid, 7);
+    serial_write_chunk(tid, 8);
     serial_delay_half1();
 
     // wait for the target response (step1 low->high)

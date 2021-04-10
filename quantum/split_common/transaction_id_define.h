@@ -84,3 +84,6 @@ enum serial_transaction_id {
 
     NUM_TOTAL_TRANSACTIONS
 };
+
+// Ensure we only use 5 bits for transaction
+_Static_assert(NUM_TOTAL_TRANSACTIONS < (1<<5), "Max number of usable transactions exceeded");
