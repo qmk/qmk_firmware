@@ -67,8 +67,10 @@ LUFA_OPTS += -DFIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -DFIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -DFIXED_NUM_CONFIGURATIONS=1
 
-# Remote wakeup fix for ATmega32U2 (and also some other series 2 and xmega chips)        https://github.com/tmk/tmk_keyboard/issues/361
-LUFA_OPTS += -DNO_LIMITED_CONTROLLER_CONNECT
+# Remote wakeup fix for ATmega16/32U2        https://github.com/tmk/tmk_keyboard/issues/361
+ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2))
+	LUFA_OPTS += -DNO_LIMITED_CONTROLLER_CONNECT
+endif
 
 OPT_DEFS += -DF_USB=$(F_USB)UL
 OPT_DEFS += -DARCH=ARCH_$(ARCH)
