@@ -214,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R,
   XXXXXXX, XXXXXXX, MO(_ADJUST), XXXXXXX, _______, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_BTN3, XXXXXXX, XXXXXXX
 ),
 
@@ -228,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * |Shift | Ctrl | Alt  | GUI  |  NO  |  NO  |  NO  |  NO  | MS_L | MS_D	| MS_U | MS_R |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  | WH_L | WH_D	| WH_U | WH_R |
+* |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  | WH_L | WH_U	| WH_D | WH_R |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * |  NO  |  NO  |      |  NO  |  NO  |  NO  |  NO  | BTN1 | BTN2 | BTN3 |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
