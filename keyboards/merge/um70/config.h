@@ -35,18 +35,26 @@
 #define SOFT_SERIAL_PIN D2
 #define SPLIT_USB_DETECT
 #define MASTER_LEFT
-
 #define SPLIT_MODS_ENABLE
+
 #define RGB_DI_PIN D3
 #define RGBLIGHT_SPLIT
-#define RGBLED_NUM 79
-#define RGBLED_SPLIT { 37, 42 }
-#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLED_NUM 83
+#define RGBLED_SPLIT { 39, 44 }
+#ifdef RGB_MATRIX_ENABLE
+#    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
+#endif
 #define RGBLIGHT_SLEEP
+#define RGBLIGHT_LIMIT_VAL 150
 
 #define DEBOUNCE 5
 
-//#define B6_AUDIO
+#define B6_AUDIO
+
+#ifdef AUDIO_ENABLE
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
 
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { B5 }
