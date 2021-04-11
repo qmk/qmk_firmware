@@ -5,7 +5,7 @@
 A compact 40% (12x4) ortholinear keyboard kit made and sold by OLKB and Massdrop. [More info on qmk.fm](http://qmk.fm/planck/)
 
 * Keyboard Maintainer: [Coarse](https://github.com/coarse)
-* Hardware Supported: Sunsetter PCB
+* Hardware Supported: [Sunsetter PCB](https://charue-design.com/collections/sunsetter/products/sunsetter-pcb-extra)
 * Hardware Availability: [Charue Design](https://charue-design.com/)
 
 Make example for this keyboard (after setting up your build environment):
