@@ -24,3 +24,5 @@ ENCODER_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
+
+SRC += encoder_actions.c rgb_functions.c

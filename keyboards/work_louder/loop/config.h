@@ -20,14 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define VENDOR_ID    0x574C
+#define PRODUCT_ID   0x1DF8
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Work Louder
 #define PRODUCT      loop
 
 /* key matrix size */
-#define MATRIX_ROWS 1
+#define MATRIX_ROWS 2
 #define MATRIX_COLS 12
 
 /*
@@ -87,6 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN F1
 #define DRIVER_LED_TOTAL 9
+#define RGB_MATRIX_DISABLE_KEYCODES
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -151,3 +152,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { D0, D2, D5 }
 #define ENCODERS_PAD_B { D1, D3, D4 }
+
+#define ENCODERS 3
+
+#define ENCODERS_CW_KEY  { { 1, 0 }, { 1, 2 }, { 1, 4 } }
+#define ENCODERS_CCW_KEY { { 1, 1 }, { 1, 3 }, { 1, 4 } }

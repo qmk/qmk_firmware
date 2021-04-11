@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define VENDOR_ID    0x574C
+#define PRODUCT_ID   0xDCD0
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Work Louder
 #define PRODUCT      Work Board
@@ -87,6 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D0
 #define DRIVER_LED_TOTAL 50
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
+#define RGB_MATRIX_DISABLE_KEYCODES
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -147,6 +148,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { B0 }
 #define ENCODERS_PAD_B { B1 }
+
+#define ENCODERS 1
+
+#define ENCODERS_CW_KEY  { { 1, 12 } }
+#define ENCODERS_CCW_KEY { { 2, 12 } }
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
