@@ -191,25 +191,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
-
+layer_state_t layer_state_set_user(layer_state_t state) {
     ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
+    switch (get_highest_layer(state)) {
         case 1:
             ergodox_right_led_1_on();
             break;
         case 2:
             ergodox_right_led_2_on();
             break;
+        case 3:
+            ergodox_right_led_3_on();
+            break;
         default:
             // none
             break;
     }
-
-};
+  return state;
+}
