@@ -21,6 +21,6 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
-OLED_DRIVER_ENABLE = yes
-# RGB_MATRIX_ENABLE = yes
+
+RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812

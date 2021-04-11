@@ -25,3 +25,36 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
+
+
+#if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_EANBLE)
+#    undef RGB_DI_PIN
+#    define RGBLIGHT_DI_PIN
+#    include "ws2812.c"
+
+void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
+    ws2812_setleds(start_led, num_leds);
+}
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = {
+    {
+        {  NO_LED, 1, 0 }
+    }, {
+        {  103,  32 }, {  122,  32 }
+    }, {
+        4, 4
+    }
+};
+
+void suspend_power_down_kb(void) {
+    rgb_matrix_set_suspend_state(true);
+    suspend_power_down_user();
+}
+
+void suspend_wakeup_init_kb(void) {
+    rgb_matrix_set_suspend_state(false);
+    suspend_wakeup_init_user();
+}
+#endif

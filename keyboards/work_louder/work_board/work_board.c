@@ -27,6 +27,9 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef OLED_DRIVER_ENABLE
+#    ifdef RGB_MATRIX_ENABLE
+#        error Cannot run OLED and Per Key RGB at the same time due to pin conflicts
+#    endif
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_90; }
 
 __attribute__((weak)) void oled_task_user(void) {
@@ -63,5 +66,45 @@ __attribute__((weak)) void oled_task_user(void) {
     oled_write_P(logo[0][1], !keymap_config.swap_lctl_lgui);
     oled_write_P(logo[1][1], keymap_config.swap_lctl_lgui);
     oled_write_P(PSTR(" NKRO"), keymap_config.nkro);
+}
+#endif
+
+
+#if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_EANBLE)
+#    undef RGB_DI_PIN
+#    define RGBLIGHT_DI_PIN
+#    include "ws2812.c"
+
+void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
+    ws2812_setleds(start_led, num_leds);
+}
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = { {
+    {  49,  48,  47,  46,  45,  43,  42,  41,  40,  39,  38,  37},
+    {  25,  26,  27,  28,  29,  30,  31,  32,  33,  34,  35,  36 },
+    {  24,  23,  22,  21,  20,  19,  18,  17,  16,  15,  14,  13 },
+    {   0,   1,   2,   3,   4,   5,   7,   8,   9,  10,  11,  12 },
+}, {
+    { 223,  63 }, { 203,  63 }, { 183,  63 }, { 162,  63 }, { 142,  63 }, { 122,  63 }, { 101,  63 }, {  81,  63 }, {  61,  63 }, {  40,  63 }, {  20,  63 }, {   0,  63 },
+    {   0,  42 }, {  20,  42 }, {  40,  42 }, {  61,  42 }, {  81,  42 }, { 101,  42 }, { 122,  42 }, { 142,  42 }, { 162,  42 }, { 183,  42 }, { 203,  42 }, { 223,  42 },
+    { 223,  21 }, { 203,  21 }, { 183,  21 }, { 162,  21 }, { 142,  21 }, { 122,  21 }, { 101,  21 }, {  81,  21 }, {  61,  21 }, {  40,  21 }, {  20,  21 }, {   0,  21 },
+    {   0,   0 }, {  20,   0 }, {  40,   0 }, {  61,   0 }, {  81,   0 }, { 101,   0 }, { 122,   0 }, { 132,   0 }, { 142,   0 }, { 162,   0 }, { 183,   0 }, { 203,   0 }, { 223,   0 },
+}, {
+    1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1,
+    1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1,
+    1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1,
+    1, 1, 1, 1, 1, 4,4,4, 1, 1, 1, 1, 1
+} };
+
+void suspend_power_down_kb(void) {
+    rgb_matrix_set_suspend_state(true);
+    suspend_power_down_user();
+}
+
+void suspend_wakeup_init_kb(void) {
+    rgb_matrix_set_suspend_state(false);
+    suspend_wakeup_init_user();
 }
 #endif

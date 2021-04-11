@@ -58,12 +58,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BACKLIGHT_BREATHING
 
 #define RGBLIGHT_DI_PIN D2
-#define RGB_DI_PIN D2
 #    define RGBLED_NUM 26
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#    define RGBLIGHT_LIMIT_VAL 100 /* The maximum brightness level */
 #    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
 #    define RGBLIGHT_ANIMATIONS
@@ -85,8 +84,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 //#endif
 
-// #define RGB_DI_PIN D0
+#define RGB_DI_PIN D0
 #define DRIVER_LED_TOTAL 50
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
