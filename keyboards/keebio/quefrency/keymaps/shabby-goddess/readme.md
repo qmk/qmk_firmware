@@ -1,4 +1,4 @@
-![Quefrency Layout Visualized](https://imgur.com/a/3prPKSa)
+![Quefrency Layout Visualized](https://i.imgur.com/tdN6dFU.jpeg)
 
 # Quefrency r2 65%+macropad Layout
 
