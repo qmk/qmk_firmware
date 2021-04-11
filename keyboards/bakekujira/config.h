@@ -35,15 +35,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { B5, B4, B3, B2, B1 } // proton c pins
 #define MATRIX_ROW_PINS_RIGHT { B5, B4, B3, B2, B1 } // proton c pins
-#define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B10, B11, B12, A14} // proton c pins left side (B10, B11, B12, A14 is empty but noted here as a requirement where left and right columns must be the same)
-#define MATRIX_COL_PINS_RIGHT { B12, B11, B10, B9, B15, B14, B13, B8, A0, A1, A2 } //  proton c pins right side
+// #define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B10, B11, B12, A14} // proton c pins left side (B10, B11, B12, A14 is empty but noted here as a requirement where left and right columns must be the same)
+#define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B12, B11, B10, B9 } // test if this was going to work, but no
+#define MATRIX_COL_PINS_RIGHT { B12, B11, B10, B9, B15, B14, B13, B8, A0, A1, A2 } //  proton c pins right side, original by the book
 
-// #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 } // pro micro pins
-// #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B10, B11, B12, A14} // pro micro pins on left plus extra proton c pins to fill it in
-// #define MATRIX_COL_PINS_RIGHT { B12, B11, B10, B6, B2, B3, B1, F7, F6, F5, F4 } // pro micro pins left side + proton c pins
 
 #define DIODE_DIRECTION COL2ROW
-
 
 #define EE_HANDS
 // #define SPLIT_TRANSPORT_MIRROR

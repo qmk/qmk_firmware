@@ -11,7 +11,7 @@ BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes         # Console for debug
-COMMAND_ENABLE = yes        # Commands for debug and configuration
+COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
@@ -34,7 +34,7 @@ WS2812_DRIVER = pwm
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes
-SPLIT_TRANSPORT = mirror    # for when Split Mirroring drops, it will maintain mirroring functionality
+# SPLIT_TRANSPORT = mirror    # for when Split Mirroring drops, it will maintain mirroring functionality
 SERIAL_DRIVER = usart
 
 # if firmware size over limit, try this option
