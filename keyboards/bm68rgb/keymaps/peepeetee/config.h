@@ -39,7 +39,7 @@
 // #define STRICT_LAYER_RELEASE        // Force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
 // #define LOCKING_SUPPORT_ENABLE      // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 // #define LOCKING_RESYNC_ENABLE       // Tries to keep switch state consistent with keyboard LED state
-// #define TAPPING_TERM 200            // How long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+ #define TAPPING_TERM 200            // How long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
 // #define TAPPING_TERM_PER_KEY        // Enables handling for per key TAPPING_TERM settings
 // #define RETRO_TAPPING               // Tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
 // #define TAPPING_TOGGLE 2            // How many taps before triggering the toggle
