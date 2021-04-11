@@ -26,6 +26,11 @@ down will repeat the shifted key, though this can be disabled with
 once then immediately (within `TAPPING_TERM`) hold it down again (this works
 with the shifted value as well if auto-repeat is disabled).
 
+There are also the `get_auto_shift_repeat` and `get_auto_shift_no_auto_repeat`
+functions for more granular control. Neither will have an effect unless
+`AUTO_SHIFT_REPEAT_PER_KEY` or `AUTO_SHIFT_NO_AUTO_REPEAT_PER_KEY` respectively
+are defined.
+
 ## Are There Limitations to Auto Shift?
 
 Yes, unfortunately.

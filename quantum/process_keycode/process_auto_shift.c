@@ -54,6 +54,10 @@ static struct {
 /** \brief Called on physical press, returns whether is autoshift key */
 __attribute__((weak)) bool autoshift_is_custom(uint16_t keycode, keyrecord_t *record) { return false; }
 
+/** \brief Called to check whether defines should apply if PER_KEY is set for it */
+__attribute__((weak)) bool get_auto_shift_repeat(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool get_auto_shift_no_auto_repeat(uint16_t keycode, keyrecord_t *record) { return true; }
+
 /** \brief Called when an autoshift key needs to be pressed */
 __attribute__((weak)) void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     if (shifted) {
@@ -125,35 +129,41 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
     autoshift_lastrecord               = *record;
     autoshift_lastrecord.event.pressed = false;
     autoshift_lastrecord.event.time    = 0;
-#    ifdef AUTO_SHIFT_REPEAT
-#        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
-    if (!autoshift_flags.lastshifted) {
+    // clang-format off
+#    if defined(AUTO_SHIFT_REPEAT) || defined(AUTO_SHIFT_REPEAT_PER_KEY)
+    if (keycode == autoshift_lastkey &&
+#        ifdef AUTO_SHIFT_REPEAT_PER_KEY
+        get_auto_shift_repeat(autoshift_lastkey, record) &&
 #        endif
-        // clang-format off
-        if (keycode == autoshift_lastkey && TIMER_DIFF_16(now, autoshift_time) <
+#        if !defined(AUTO_SHIFT_NO_AUTO_REPEAT) || defined(AUTO_SHIFT_NO_AUTO_REPEAT_PER_KEY)
+        (
+            !autoshift_flags.lastshifted
+#            ifdef AUTO_SHIFT_NO_AUTO_REPEAT_PER_KEY
+            || get_auto_shift_no_auto_repeat(autoshift_lastkey, record)
+#            endif
+        ) &&
+#        endif
+        TIMER_DIFF_16(now, autoshift_time) <
 #        ifdef TAPPING_TERM_PER_KEY
-            get_tapping_term(autoshift_lastkey, record)
+        get_tapping_term(autoshift_lastkey, record)
 #        else
-            TAPPING_TERM
+        TAPPING_TERM
 #        endif
-        ) {
-            // clang-format on
-            // Allow a tap-then-hold for keyrepeat.
-            if (get_mods() & MOD_BIT(KC_LSFT)) {
-                autoshift_flags.cancelling_lshift = true;
-                del_mods(MOD_BIT(KC_LSFT));
-            }
-            if (get_mods() & MOD_BIT(KC_RSFT)) {
-                autoshift_flags.cancelling_rshift = true;
-                del_mods(MOD_BIT(KC_RSFT));
-            }
-            // autoshift_shift_state doesn't need to be changed.
-            autoshift_press_user(autoshift_lastkey, autoshift_flags.lastshifted, record);
-            return false;
+    ) {
+        // clang-format on
+        // Allow a tap-then-hold for keyrepeat.
+        if (get_mods() & MOD_BIT(KC_LSFT)) {
+            autoshift_flags.cancelling_lshift = true;
+            del_mods(MOD_BIT(KC_LSFT));
         }
-#        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
+        if (get_mods() & MOD_BIT(KC_RSFT)) {
+            autoshift_flags.cancelling_rshift = true;
+            del_mods(MOD_BIT(KC_RSFT));
+        }
+        // autoshift_shift_state doesn't need to be changed.
+        autoshift_press_user(autoshift_lastkey, autoshift_flags.lastshifted, record);
+        return false;
     }
-#        endif
 #    endif
 
     // Use physical shift state of press event to be more like normal typing.
@@ -199,12 +209,21 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger, k
         }
         autoshift_press_user(autoshift_lastkey, autoshift_flags.lastshifted, record);
 
-#    if defined(AUTO_SHIFT_REPEAT) && !defined(AUTO_SHIFT_NO_AUTO_REPEAT)
-        if (matrix_trigger) {
+        // clang-format off
+#    if (defined(AUTO_SHIFT_REPEAT) || defined(AUTO_SHIFT_REPEAT_PER_KEY)) && (!defined(AUTO_SHIFT_NO_AUTO_REPEAT) || defined(AUTO_SHIFT_NO_AUTO_REPEAT_PER_KEY))
+        if (matrix_trigger
+#        ifdef AUTO_SHIFT_REPEAT_PER_KEY
+            && get_auto_shift_repeat(autoshift_lastkey, record)
+#        endif
+#        ifdef AUTO_SHIFT_NO_AUTO_REPEAT_PER_KEY
+            && !get_auto_shift_no_auto_repeat(autoshift_lastkey, record)
+#        endif
+        ) {
             // Prevents release.
             return;
         }
 #    endif
+        // clang-format on
 #    if TAP_CODE_DELAY > 0
         wait_ms(TAP_CODE_DELAY);
 #    endif
