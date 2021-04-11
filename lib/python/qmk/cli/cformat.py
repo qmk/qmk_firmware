@@ -14,7 +14,7 @@ def cformat_run(files, all_files):
     """
     # Determine which version of clang-format to use
     clang_format = ['clang-format', '-i']
-    for clang_version in [10, 9, 8, 7]:
+    for clang_version in range(20, 6, -1):
         binary = 'clang-format-%d' % clang_version
         if which(binary):
             clang_format[0] = binary
@@ -23,8 +23,6 @@ def cformat_run(files, all_files):
         if not files:
             cli.log.warn('No changes detected. Use "qmk cformat -a" to format all files')
             return False
-        if files and all_files:
-            cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(files))
         subprocess.run(clang_format + [file for file in files], check=True)
         cli.log.info('Successfully formatted the C code.')
 
@@ -48,6 +46,8 @@ def cformat(cli):
     # Find the list of files to format
     if cli.args.files:
         files.extend(normpath(file) for file in cli.args.files)
+        if cli.args.all_files:
+            cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(map(str, files)))
     # If -a is specified
     elif cli.args.all_files:
         all_files = c_source_files(core_dirs)

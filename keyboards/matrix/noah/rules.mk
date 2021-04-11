@@ -8,7 +8,7 @@ MCU_LDSCRIPT = noah_boot
 
 # Board: it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
-BOARD = noah_bd
+BOARD = ST_NUCLEO64_F411RE
 
 # Build Options
 #   comment out to disable the options.
@@ -22,6 +22,7 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 NO_USB_STARTUP_CHECK = yes	# Disable initialization only when usb is plugged in
 
 RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3731
 
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes

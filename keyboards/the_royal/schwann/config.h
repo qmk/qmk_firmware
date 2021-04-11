@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    TheRoyalSweatshirt
 #define PRODUCT         The Schwann PCB
-#define DESCRIPTION     "A simple, HHKB-Styled, Ortholinear PCB Designed for use with the Neuron Keyboard by Worldspawn and Walletburner."
 
 /* key matrix size */
 #define MATRIX_ROWS 4

@@ -10,8 +10,8 @@ Anmerkung: Diese Programme werden weder von QMK bereitgestellt oder gutgeheißen
 
 * [Switch Hitter](https://elitekeyboards.com/switchhitter.php) (Nur für Windows)
 * [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Nur für Mac)
-* [Keyboard Tester](http://www.keyboardtester.com) (Web basiert)
-* [Keyboard Checker](http://keyboardchecker.com) (Web basiert)
+* [Keyboard Tester](https://www.keyboardtester.com) (Web basiert)
+* [Keyboard Checker](https://keyboardchecker.com) (Web basiert)
 
 ## Debuggen
 
@@ -41,7 +41,9 @@ Bevorzugst Du es lieber auf der Befehlszeile zu debuggen? Dafür eignet sich das
 
 Manchmal ist es hilfreich Debug-Nachrichten innerhalb deines eigenen [Custom Codes](de/custom_quantum_functions.md) zu drucken. Das ist ziemlich einfach. Beginne damit `print.h` am Anfang deiner Datei zu inkludieren:
 
-    #include <print.h>
+```c
+#include "print.h"
+```
 
 Danach stehen dir verschiedene Druck-Funktionen zur Verfügung:
 
