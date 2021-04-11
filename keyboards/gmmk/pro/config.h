@@ -44,5 +44,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define USB_POLLING_INTERVAL_MS 1
