@@ -121,6 +121,10 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
         // true upon release.
         set_autoshift_shift_state(keycode, false);
         autoshift_press_user(keycode, false, record);
+#        if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
+        set_oneshot_mods(get_oneshot_mods() & (~MOD_BIT(KC_LSFT)));
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+#        endif
         return false;
 #    endif
     }
@@ -402,8 +406,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     }
 #    endif
 
-    // Tap Holds return before this if RETRO_SHIFT is disabled, & 0xFF is safe.
-    switch (keycode & 0xFF) {
+    switch (keycode) {
         default:
             if (!autoshift_is_custom(keycode, record)) {
                 break;
