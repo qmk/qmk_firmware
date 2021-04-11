@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  Å|  ¨| Ent|Del |
    * |------------------------------------------------------| er|----|
-   * |Backspa| A|  S|  D|  F|  G|  H|  J|  K|  L|  Ø|  Æ| @ |   |PgUp|asdasdad
+   * |Backspa| A|  S|  D|  F|  G|  H|  J|  K|  L|  Ø|  Æ| @ |   |PgUp|
    * |----------------------------------------------------------------|
    * |Shif| <>|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  -| Shift| Up|PgDn|
    * |----------------------------------------------------------------|
@@ -155,11 +155,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `----------------------------------------------------------------'
    */
   [_FUNCTION] = LAYOUT_iso(
-    _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   KC_F11,  KC_F12,    RESET,   KC_PSCR, \
-    _______, LAY_COL, LAY_QWE ,  M_NAME, _______, _______, _______, KC_HOME, KC_END, _______,  BL_INC, XP(SE_AA_L, SE_AA_H) , _______,              KC_INS,  \
-    _______, OS_WIN , OS_LIN , VM2WIN , WIN2VM, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,   XP(SE_OE_L, SE_OE_H) ,  XP(SE_AE_L, SE_AE_H) , _______,  _______,   KC_HOME, \
+    _______, KC_F1  ,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, KC_F7  , KC_F8   , KC_F9 ,  KC_F10,   KC_F11,  KC_F12,    RESET,   KC_PSCR, \
+    _______, LAY_COL, LAY_QWE,  M_NAME, _______, _______, _______, KC_HOME, KC_END  , BL_INC,  XP(SE_AA_L, SE_AA_H) ,_______, _______,              KC_INS,  \
+    _______, OS_WIN , OS_LIN , VM2WIN , WIN2VM , _______, KC_DEL , KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, XP(SE_OE_L, SE_OE_H) ,  XP(SE_AE_L, SE_AE_H) ,  _______,   KC_HOME, \
     _______, BL_TOGG, BL_DEC , _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_VOLD, KC_MUTE,  KC_VOLU, _______, M_CD_DOT,    KC_END,  \
-    _______, _______, _______,                   KC_ENT,                             _______, _______,   KC_APP, _______,  _______,    _______
+    _______, _______, _______,                   KC_ENT ,                             _______, _______,   KC_APP, _______,  _______,    _______
   ),
 };
 // clang-format on
@@ -180,7 +180,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case VM2WIN:
         if (record->event.pressed) {
-            SEND_STRING( SS_DOWN(X_LCTL) SS_DOWN(X_LALT) SS_UP(X_LCTL) SS_UP(X_LALT) SS_DOWN(X_LCTL) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LCTL) SS_UP(X_LGUI) );
+            SEND_STRING( SS_DOWN(X_LCTL) SS_DOWN(X_LALT) SS_UP(X_LCTL) SS_UP(X_LALT) SS_DOWN(X_LCTL) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LCTL) SS_UP(X_LGUI) SS_DELAY(600) );
             set_unicode_input_mode(UC_WINC);
         }
         return false;
