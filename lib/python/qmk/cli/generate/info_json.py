@@ -9,7 +9,7 @@ from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
-from qmk.info_json_encoder import InfoJSONEncoder
+from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import load_jsonschema
 from qmk.keyboard import keyboard_folder
 from qmk.path import is_keyboard
