@@ -1,6 +1,6 @@
-![Quefrency Layout Visualized](https://i.imgur.com/tdN6dFU.jpeg)
-
 # Quefrency r2 65%+macropad Layout
+
+![Quefrency Layout Visualized](https://i.imgur.com/tdN6dFU.jpeg)
 
   ★ Rotary encoder located mapped to volume. Encoder keypress (top left) mapped to play/pause
   ★ Page navigation keys on right column
