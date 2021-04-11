@@ -18,7 +18,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
+//#include "muse.h"
 
 enum preonic_layers {
   _QWERTY,
@@ -29,16 +29,12 @@ enum preonic_layers {
   _NSSL,
   _NSL,
   _FUNL,
-  _LOWER,
-  _RAISE,
   _ADJUST
 };
 
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
   FFXIV,
-  LOWER,
-  RAISE,
   BACKLIT,
   R_ASIGN,
   R_PIPE,
@@ -206,9 +202,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |Shift | Ctrl | Alt  | GUI  |  NO  |  NO  |  NO  |  NO  | MS_L | MS_D	| MS_U | MS_R |
+* |Shift | Ctrl | Alt  | GUI  |  NO  |  NO  |  NO  |  NO  | MS_L | MS_D | MS_U | MS_R |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  | WH_L | WH_D	| WH_U | WH_R |
+* |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  | WH_L | WH_D | WH_U | WH_R |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * |  NO  |  NO  |  NO  |  NO  |      |  NO  |  NO  | BTN1 | BTN2 | BTN3 |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
@@ -286,10 +282,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_grid(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,
+  RESET,   DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   TERM_ON, TERM_OFF, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   FFXIV,   QWERTY,   XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, _______, XXXXXXX, _______,   XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  /*
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,
   RESET,   DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   TERM_ON, TERM_OFF, XXXXXXX, AG_NORM, AG_SWAP,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   FFXIV,   QWERTY,   MUV_DE,  MUV_IN,  MU_MOD,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   MI_ON,   MU_ON,    AU_ON,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, _______, XXXXXXX, _______,   XXXXXXX, XXXXXXX,   MI_OFF,  MU_OFF,   AU_OFF,  XXXXXXX, XXXXXXX
+  */
 )
 
 
@@ -306,26 +309,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case FFXIV:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_FFXIV);
-          }
-          return false;
-          break;
-        case LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-        case RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           return false;
           break;
@@ -422,6 +405,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
+/*
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;
@@ -503,3 +487,5 @@ bool music_mask_user(uint16_t keycode) {
       return true;
   }
 }
+
+*/
