@@ -6,7 +6,7 @@ The Viktus Deltablade is a 660 layout created in collaboration with BlindAssassi
 
 The PCB is an arm powered board utilizing the STM32F072CBT6 mcu. The PCB is designed to work with the universal daughterboard and a 4in (~100mm) 4 pin JST SR cable with reversed pinout (pin 1 of both connectors is the same wire etc.).
 
-On the PCB is a single button for a reset for flashing. As well, there is a [Segger J-Link 6-pin Needle Adapter](https://www.segger.com/products/debug-probes/j-link/accessories/adapters/6-pin-needle-adapter/) footprint for reflashing the mcu as a backup in case of a bootloader issue.
+On the PCB is a single button reset for flashing. As well, there is a [Segger J-Link 6-pin Needle Adapter](https://www.segger.com/products/debug-probes/j-link/accessories/adapters/6-pin-needle-adapter/) footprint for reflashing the mcu as a backup in case of a bootloader issue.
 
 * Keyboard Maintainer: [jrfhoutx](https://github.com/jrfhoutx), blindassassin111
 * Hardware Supported: Deltablade
