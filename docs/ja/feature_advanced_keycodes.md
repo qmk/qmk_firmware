@@ -104,7 +104,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // QMK にこれ以上キーコードの処理をさせません。
             return false;
         }
-        // そのほかに、QMK に通常の KC_ESC の処理をさせます。
+        // それ以外の場合は、QMK に通常通り KC_ESC の処理をさせます。
         return true;
 
     }
