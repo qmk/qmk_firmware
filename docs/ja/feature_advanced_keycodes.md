@@ -67,7 +67,7 @@ To check that *only* a specific set of mods is active at a time, AND the modifie
 `get_mods()` 関数を使って現在アクティブなモディファイアにアクセスする以外に、モディファイアの状態を変更するために使えるいくつかの関数があります。ここでは、`mods` 引数はモディファイアビットマスクを表します。
 
 * `add_mods(mods)`: その他のモディファイアに影響を与えずに `mods` を有効にします。
-* `register_mods(mods)`: `add_mods` に似ていますが、キーボードに直接レポートを送信します。
+* `register_mods(mods)`: `add_mods` に似ていますが、キーボードにすぐにレポートを送信します。
 * `del_mods(mods)`: その他のモディファイアに影響を与えずに `mods` を無効にします。
 * `unregister_mods(mods)`: `del_mods` に似ていますが、キーボードに直接レポートを送信します。
 * `set_mods(mods)`: `mods` で現在のモディファイアの状態を上書きします
