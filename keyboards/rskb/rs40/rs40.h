@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef RS40_H
 #define RS40_H
 
