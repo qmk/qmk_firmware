@@ -1,1 +1,1 @@
-#  The default keymap for the Viktus Deltablade
+#  A default keymap for the Viktus Deltablade that covers all supported layout options
