@@ -14,8 +14,8 @@ enum layer {
 
 #define FN_1 MO(LAYER_1)
 #define FN_2 LT(LAYER_2, KC_SPC)
-#define LFN_3 LT(LAYER_3, KC_GRV)
-#define RFN_3 LT(LAYER_3, KC_MINS)
+#define LFN_3 LT(LAYER_3, KC_MINS)
+#define RFN_3 LT(LAYER_3, KC_EQL)
 #define KC_QTSH RSFT_T(KC_QUOT)
 #define KC_ETAL RALT_T(KC_ENT)
 #define KC_SLSF  RSFT_T(KC_LSCR)
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
         KC_LGUI, KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_DEL,  KC_BSPC, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QTSH, KC_RBRC,
                  KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_INS,  KC_PSCR, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RCTL,
-                                            KC_APP,  LFN_3,   FN_2,    KC_LALT, KC_ETAL, FN_1,    RFN_3,   KC_EQL
+                                            KC_GRV,  LFN_3,   FN_2,    KC_LALT, KC_ETAL, FN_1,    RFN_3,   KC_APP
     ),
     [LAYER_1] = LAYOUT(
                  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,
