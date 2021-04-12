@@ -42,7 +42,7 @@ To check that *only* a specific set of mods is active at a time, AND the modifie
 
 モディファイアの特定の組み合わせが同時にアクティブなのか確認する*だけ*なら、上で説明したモディファイアの状態とモッドマスクの論理積と、モッドマスク自身の結果を比較します。: `get_mods() & <mod mask> == <mod mask>`
 
-例えば、あなたが、左 Control キーと 左Shift キーのワンショットモディファイアをオンにするが、その他のワンショットモディファイアはオフにするカスタムコードを起動したいとしましょう。そうするには、`(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` で左 Control キーと Shift キーのモッドビットを結合して希望するモッドマスクを構成し、それから次のコードに繋げます。: `get_oneshot_mods & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)) == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`。モッドビットマスクの代わりに `MOD_MASK_CS` 使うと、前述の条件を満たすために4つのモディファイアキー (左右両方の Control キーと Shift キー) を押すことを強制されるでしょう。
+例えば、左 Control キーと 左 Shift キーのワンショットモディファイアがオンで、その他のワンショットモディファイアがオフの場合にカスタムコードを起動したいとしましょう。そうするには、`(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` で左 Control キーと Shift キーのモッドビットを組み合わせて目的のモッドマスクを構成し、それらを差し込みます: `get_oneshot_mods & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)) == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`。モッドビットマスクの代わりに `MOD_MASK_CS` 使うと、条件を満たすために4つのモディファイアキー (左右両方の Control キーと Shift キー) を押す必要があります。
 
 モッドマスクの完全なリストは、以下のとおりです。
 
