@@ -16,7 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-// https://codepen.io/mvaneijgen/full/LYEVQXp
 
 #define MAC(kc) (QK_RCTL | QK_RGUI | QK_RALT | (kc))
 
@@ -24,5 +23,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         MAC(KC_KP_0), MAC(KC_KP_1), MAC(KC_KP_2), MAC(KC_KP_3), MAC(KC_KP_4),
         MAC(KC_KP_5), MAC(KC_KP_6), MAC(KC_KP_7), MAC(KC_KP_8), MAC(KC_KP_9)
+    ),
+    [1] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+    [2] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+    [3] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };

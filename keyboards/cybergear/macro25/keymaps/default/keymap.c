@@ -16,7 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-// https://codepen.io/mvaneijgen/full/LYEVQXp
 
 #define MAC(kc) (QK_RCTL | QK_RGUI | QK_RALT | (kc))
 
