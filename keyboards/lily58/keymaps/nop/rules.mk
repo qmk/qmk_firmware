@@ -3,7 +3,7 @@
 #   the appropriate keymap folder that will get included automatically
 #
 MCU = atmega32u4
-BOOTLOADER = qmk-dfu        # BIT-C
+BOOTLOADER = atmel-dfu      # BIT-C
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = no        # Audio control and System control

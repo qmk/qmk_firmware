@@ -61,3 +61,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef OLED_UPDATE_INTERVAL
 #define OLED_UPDATE_INTERVAL 50
+
+// Firmware optimizations
+
+#undef  NO_DEBUG
+#define NO_DEBUG
+#undef  NO_PRINT
+#define NO_PRINT
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#define NO_ACTION_ONESHOT 
