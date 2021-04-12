@@ -135,7 +135,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // : キーが登録されているか否か？
         static bool delkey_registered;
         if (record->event.pressed) {
-            // 左右の Shift のどちらかがアクティブか検知します
+            // いずれかの Shift がアクティブか検知します
             if (mod_state & MOD_MASK_SHIFT) {
                 // 最初に、 Shift キーを KC_DEL に適用しないため、
                 // 一時的に左右両方の Shift キーをキャンセルします
