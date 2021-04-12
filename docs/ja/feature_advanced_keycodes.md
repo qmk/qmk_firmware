@@ -92,7 +92,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
     case KC_ESC:
-        // 左Alt だけがアクティブか検知します
+        // 左 Alt だけがアクティブか検知します
         if ((get_mods() & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
             if (record->event.pressed) {
                 // KC_LALT を登録する必要はありません。既にアクティブだからです。
