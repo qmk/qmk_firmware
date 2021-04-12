@@ -8,7 +8,7 @@ A few different layouts are supported such as 7u bottom row, ISO support, split 
 
 * Keyboard Maintainer: [SonOfAres](https://github.com/SonOfAres)
 * Hardware Supported: All Iris Rev0.XX PCBs
-* Hardware Availability: [iriskeyboards.com](https://www.iriskeyboards.com)
+* Hardware Availability: [iriskeyboards.com](https://www.iriskeyboards.com/en) Currently unavailable - still in testing
 
 Make example for this keyboard (after setting up your build environment):
 
