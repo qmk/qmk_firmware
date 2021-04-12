@@ -148,7 +148,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_mods(mod_state);
                 return false;
             }
-        } else { // KC_BSPC キーを離す
+        } else { // KC_BSPC キーを離した場合
             // KC_BSPC を離しても KC_DEL が送信されている場合
             if (delkey_registered) {
                 unregister_code(KC_DEL);
