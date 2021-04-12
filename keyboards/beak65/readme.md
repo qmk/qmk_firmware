@@ -1,6 +1,6 @@
 # Beak 65
 
-![Beak65](https://i.imgur.com/Q0AtIAgh.jpg)
+![Beak65]()
 
 A 65% keyboard with arow keys and a rotary encoder designed for Stilou Studio by Trip-trap.
 
