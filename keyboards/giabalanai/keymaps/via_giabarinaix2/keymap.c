@@ -210,6 +210,8 @@ void keyboard_post_init_user(void) {
     for (uint8_t i = 0; i < MY_CHORD_COUNT; i++) {
         chord_status[i] = MIDI_INVALID_NOTE;
     }
+    
+    default_layer_set(1UL << _C_SYSTEM_BASE);
 };
 
 void my_process_midi4TriadChords(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint16_t root_note,
@@ -266,7 +268,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                     chord_status[chord] = MIDI_INVALID_NOTE;
                 }
-                return false;
             }////////////////////////////////////////////////////////////////////
             break;
 
