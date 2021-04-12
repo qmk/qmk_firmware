@@ -31,10 +31,10 @@ WS2812_DRIVER = pwm
 #See develop PR <https://github.com/qmk/qmk_firmware/pull/11864>
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+SLEEP_LED_ENABLE = yes    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes
-# SPLIT_TRANSPORT = mirror    # for when Split Mirroring drops, it will maintain mirroring functionality
+SPLIT_TRANSPORT = mirror    # for when Split Mirroring drops, it will maintain mirroring functionality
 SERIAL_DRIVER = usart
 
 # if firmware size over limit, try this option
