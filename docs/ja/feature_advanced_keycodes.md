@@ -131,8 +131,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         {
         // Initialize a boolean variable that keeps track
         // of the delete key status: registered or not?
-        // Delete キーの状態を記録して保持するブール型変数を初期化します。
-        // : キーが登録されているか否か？
+        // Delete キーの状態（登録されているかどうか）を追跡するブール型変数を初期化します。
         static bool delkey_registered;
         if (record->event.pressed) {
             // いずれかの Shift がアクティブか検知します
