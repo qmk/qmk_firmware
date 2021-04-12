@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 
 # Build Options
 #   change yes to no to disable
@@ -19,3 +20,5 @@ BLUETOOTH_ENABLE = no          # Enable Bluetooth
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3741
 NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
+
+LAYOUTS = 75_ansi

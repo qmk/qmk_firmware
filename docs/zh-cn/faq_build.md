@@ -65,8 +65,8 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
 https://github.com/tmk/tmk_keyboard/issues/150
 
 一也可以在下方链接购买一个唯一的VID:PID。不过个人使用似乎用不着这个。
-- http://www.obdev.at/products/vusb/license.html
-- http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
+- https://www.obdev.at/products/vusb/license.html
+- https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ## AVR的BOOTLOADER_SIZE
 注意Teensy2.0++ bootloader的大小是2048字节。有些Makefile注释错了。
