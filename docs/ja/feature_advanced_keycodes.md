@@ -143,7 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_DEL);
                 // KC_DEL の状態を反映させるためにブール型変数を更新します
                 delkey_registered = true;
-                // Backspace/Delete キーのタップ後に、押し続けている Shift キーを機能させるため、
+                // Backspace/Delete キーをタップした後でも押し続けている Shift キーが機能するように、
                 // モディファイアの状態を再適用します。
                 set_mods(mod_state);
                 return false;
