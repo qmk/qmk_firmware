@@ -35,15 +35,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { B5, B4, B3, B2, B1 } // proton c pins
 #define MATRIX_ROW_PINS_RIGHT { B5, B4, B3, B2, B1 } // proton c pins
-// #define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B10, B11, B12, A14} // proton c pins left side (B10, B11, B12, A14 is empty but noted here as a requirement where left and right columns must be the same)
-#define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B12, B11, B10, B9 } // test if this was going to work, but no
+#define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B10, B11, B12, A14} // proton c pins left side (B10, B11, B12, A14 is empty but noted here as a requirement where left and right columns must be the same)
 #define MATRIX_COL_PINS_RIGHT { B12, B11, B10, B9, B15, B14, B13, B8, A0, A1, A2 } //  proton c pins right side, original by the book
 
 
 #define DIODE_DIRECTION COL2ROW
 
 #define EE_HANDS
-// #define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_TRANSPORT_MIRROR
 //#define MASTER_LEFT
 //#define MASTER_RIGHT
 
