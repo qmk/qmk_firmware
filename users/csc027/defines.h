@@ -202,7 +202,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Windows Terminal Layer
  *
  * ,-----------------------------------.  ,-----------------------------------.
- * |     |     |     |     |     |     |  |     |     |     |     |     |BkSpc|
+ * |     |Tab 1|Tab 2|Tab 3|Tab 4|Tab 5|  |Tab 6|Tab 7|Tab 8|Tab 9|     |BkSpc|
  * |-----------------------------------|  |-----------------------------------|
  * |     |     |Split|Close|     |     |  |FcsLf|FcsDn|FcsUp|FcsRt|     |     |
  * |-----------------------------------|  |-----------------------------------|
@@ -212,13 +212,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * `-----------------------------------'  `-----------------------------------'
  */
 
-#define ________________WINDOWS_TERMINAL_L1________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
-#define ________________WINDOWS_TERMINAL_L2________________  _______,  XXXXXXX,  MC_trps,  MC_trpc,  XXXXXXX,  XXXXXXX
+#define ________________WINDOWS_TERMINAL_L1________________  XXXXXXX,  MC_trt1,  MC_trt2,  MC_trt3,  MC_trt4,  MC_trt5
+#define ________________WINDOWS_TERMINAL_L2________________  _______,  XXXXXXX,  MC_trps,  MC_trpc,  XXXXXXX,  MC_trtn
 #define ________________WINDOWS_TERMINAL_L3________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MC_trpv,  XXXXXXX
 #define ________________WINDOWS_TERMINAL_L4________________  _______,  _______,  _______,  _______,  _______,  _______
 
-#define ________________WINDOWS_TERMINAL_R1________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BSPC
-#define ________________WINDOWS_TERMINAL_R2________________  MC_trpl,  MC_trpd,  MC_trpu,  MC_trpr,  XXXXXXX,  XXXXXXX
+#define ________________WINDOWS_TERMINAL_R1________________  MC_trt6,  MC_trt7,  MC_trt8,  MC_trt9,  XXXXXXX,  KC_BSPC
+#define ________________WINDOWS_TERMINAL_R2________________  MC_trpl,  MC_trpd,  MC_trpu,  MC_trpr,  MC_trcp,  XXXXXXX
 #define ________________WINDOWS_TERMINAL_R3________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
 #define ________________WINDOWS_TERMINAL_R4________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
 
@@ -297,6 +297,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CUSTOM_MACROS(CUSTOM_NAME, CUSTOM_STRING, CUSTOM_DELIM) \
     CUSTOM_NAME(rdcc)       CUSTOM_STRING(SS_LCTL(SS_LALT(SS_TAP(X_HOME))))   CUSTOM_DELIM() \
     CUSTOM_NAME(lcad)       CUSTOM_STRING(SS_LCTL(SS_LALT(SS_TAP(X_DELETE)))) CUSTOM_DELIM() \
+    CUSTOM_NAME(trcp)       CUSTOM_STRING(SS_LCTL(SS_LSFT("p")))              CUSTOM_DELIM() \
     CUSTOM_NAME(trps)       CUSTOM_STRING(SS_LALT(SS_LSFT("-")))              CUSTOM_DELIM() \
     CUSTOM_NAME(trpv)       CUSTOM_STRING(SS_LALT(SS_LSFT("+")))              CUSTOM_DELIM() \
     CUSTOM_NAME(trpc)       CUSTOM_STRING(SS_LCTL(SS_LSFT("w")))              CUSTOM_DELIM() \
@@ -304,6 +305,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     CUSTOM_NAME(trpd)       CUSTOM_STRING(SS_LALT(SS_TAP(X_DOWN)))            CUSTOM_DELIM() \
     CUSTOM_NAME(trpu)       CUSTOM_STRING(SS_LALT(SS_TAP(X_UP)))              CUSTOM_DELIM() \
     CUSTOM_NAME(trpr)       CUSTOM_STRING(SS_LALT(SS_TAP(X_RIGHT)))           CUSTOM_DELIM() \
+    CUSTOM_NAME(trtn)       CUSTOM_STRING(SS_LCTL(SS_LSFT("t")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trt1)       CUSTOM_STRING(SS_LCTL(SS_LALT("1")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trt2)       CUSTOM_STRING(SS_LCTL(SS_LALT("2")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trt3)       CUSTOM_STRING(SS_LCTL(SS_LALT("3")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trt4)       CUSTOM_STRING(SS_LCTL(SS_LALT("4")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trt5)       CUSTOM_STRING(SS_LCTL(SS_LALT("5")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trt6)       CUSTOM_STRING(SS_LCTL(SS_LALT("6")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trt7)       CUSTOM_STRING(SS_LCTL(SS_LALT("7")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trt8)       CUSTOM_STRING(SS_LCTL(SS_LALT("8")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trt9)       CUSTOM_STRING(SS_LCTL(SS_LALT("9")))              CUSTOM_DELIM() \
     CUSTOM_NAME(vtdl)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_LEFT))))   CUSTOM_DELIM() \
     CUSTOM_NAME(vtdc)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_F4))))     CUSTOM_DELIM() \
     CUSTOM_NAME(vtdn)       CUSTOM_STRING(SS_LCTL(SS_LGUI("d")))              CUSTOM_DELIM() \

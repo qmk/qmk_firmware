@@ -31,16 +31,27 @@ def os_tests():
 def os_test_linux():
     """Run the Linux specific tests.
     """
-    cli.log.info("Detected {fg_cyan}Linux.")
-    from qmk.os_helpers.linux import check_udev_rules
+    # Don't bother with udev on WSL, for now
+    if 'microsoft' in platform.uname().release.lower():
+        cli.log.info("Detected {fg_cyan}Linux (WSL){fg_reset}.")
 
-    return check_udev_rules()
+        # https://github.com/microsoft/WSL/issues/4197
+        if QMK_FIRMWARE.as_posix().startswith("/mnt"):
+            cli.log.warning("I/O performance on /mnt may be extremely slow.")
+            return CheckStatus.WARNING
+
+        return CheckStatus.OK
+    else:
+        cli.log.info("Detected {fg_cyan}Linux{fg_reset}.")
+        from qmk.os_helpers.linux import check_udev_rules
+
+        return check_udev_rules()
 
 
 def os_test_macos():
     """Run the Mac specific tests.
     """
-    cli.log.info("Detected {fg_cyan}macOS.")
+    cli.log.info("Detected {fg_cyan}macOS %s{fg_reset}.", platform.mac_ver()[0])
 
     return CheckStatus.OK
 
@@ -48,7 +59,8 @@ def os_test_macos():
 def os_test_windows():
     """Run the Windows specific tests.
     """
-    cli.log.info("Detected {fg_cyan}Windows.")
+    win32_ver = platform.win32_ver()
+    cli.log.info("Detected {fg_cyan}Windows %s (%s){fg_reset}.", win32_ver[0], win32_ver[1])
 
     return CheckStatus.OK
 
@@ -65,10 +77,9 @@ def doctor(cli):
         * [ ] Compile a trivial program with each compiler
     """
     cli.log.info('QMK Doctor is checking your environment.')
+    cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
     status = os_tests()
-
-    cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
     # Make sure our QMK home is a Git repo
     git_ok = check_git_repo()
@@ -107,9 +118,9 @@ def doctor(cli):
             submodules.update()
             sub_ok = check_submodules()
 
-        if CheckStatus.ERROR in sub_ok:
+        if sub_ok == CheckStatus.ERROR:
             status = CheckStatus.ERROR
-        elif CheckStatus.WARNING in sub_ok and status == CheckStatus.OK:
+        elif sub_ok == CheckStatus.WARNING and status == CheckStatus.OK:
             status = CheckStatus.WARNING
 
     # Report a summary of our findings to the user

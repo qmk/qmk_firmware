@@ -101,7 +101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
  * Aranck-specific definitions
  */
-#define B5_AUDIO
+#define AUDIO_PIN B5
 /**
  * Aranck-specific definitions END
  */
