@@ -1,6 +1,6 @@
 # Caffeinated Studios' Serpent65
 
-![Serpent65](https://imgur.com/rAsZsXk)
+![Serpent65](https://i.imgur.com/rAsZsXk.png)
 
 The Serpent65 is a 65% created by Caffeinated Studios. The board supports ANSI and ISO modifiers as well as split backspace and stepped/non-stepped caps lock.
 
@@ -10,7 +10,7 @@ On the PCB is a single button for a reset for flashing. As well, there is a [Seg
 
 * Keyboard Maintainer: [jrfhoutx](https://github.com/jrfhoutx)
 * Hardware Supported: Serpent65
-* Hardware Availability: <https://>
+* Hardware Availability: Coming Soon
 
 Make example for this keyboard (after setting up your build environment):
 
