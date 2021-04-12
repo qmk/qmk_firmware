@@ -69,7 +69,7 @@ To check that *only* a specific set of mods is active at a time, AND the modifie
 * `add_mods(mods)`: その他のモディファイアに影響を与えずに `mods` を有効にします。
 * `register_mods(mods)`: `add_mods` に似ていますが、キーボードにすぐにレポートを送信します。
 * `del_mods(mods)`: その他のモディファイアに影響を与えずに `mods` を無効にします。
-* `unregister_mods(mods)`: `del_mods` に似ていますが、キーボードに直接レポートを送信します。
+* `unregister_mods(mods)`: `del_mods` に似ていますが、キーボードにすぐにレポートを送信します。
 * `set_mods(mods)`: `mods` で現在のモディファイアの状態を上書きします
 * `clear_mods()`: 全てのモディファイアを無効にすることによって、モディファイアの状態をリセットします。
 
