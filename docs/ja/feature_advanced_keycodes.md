@@ -34,7 +34,7 @@
 ビット演算が使われる理由は、モディファイアの状態が (GASC)<sub>R</sub>(GASC)<sub>L</sub> の形式で1バイトとして格納されるためです。
 
 従って、例を挙げると、`01000010` は LShift+RALT の内部表現です。
-C言語におけるビット演算のより詳しい情報は、[ここ](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) をクリックして、Wikipedia のページのトピックを開いてください。
+C 言語におけるビット演算のより詳しい情報は、[ここ](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) をクリックして、Wikipedia のページのトピックを開いてください。
 
 実行するうえで、左右のモディファイアの違いが重要でなく、両方にマッチすることを望むなら、`get_mods() & MOD_BIT(KC_<modifier>)` ([モディファイアキーコードのリスト](ja/keycodes_basic.md#modifiers) 参照) でも `get_mods() & MOD_MASK_<modifier>` でも、与えられたモディファイアがアクティブか確認できることを意味しています。`get_mods()` を `get_oneshot_mods()` に置き換えれば、ワンショットモディファイアでも同じことができます。
 
