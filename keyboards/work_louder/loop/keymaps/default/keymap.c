@@ -20,9 +20,12 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [0] = LAYOUT(
-        KC_MUTE, KC_1,    KC_BTN1, KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,    KC_H,    MO(1)
+        KC_MUTE, MO(2),   MO(1),   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_F9,
     ),
     [1] = LAYOUT(
-        RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    )
+        RESET,   _______, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______,
+    ),
+    [2] = LAYOUT_via(
+        _______, _______, _______, R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______
+    ),
 };
