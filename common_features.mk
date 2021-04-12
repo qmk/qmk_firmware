@@ -464,7 +464,7 @@ ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
     $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
   endif
-  ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
+  ifneq ($(strip $(BOOTMAGIC_ENABLE)), full)
       OPT_DEFS += -DBOOTMAGIC_LITE
       QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_lite.c
   else
