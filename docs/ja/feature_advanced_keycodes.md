@@ -64,7 +64,7 @@ To check that *only* a specific set of mods is active at a time, AND the modifie
 | `MOD_MASK_SAG`     | (左/右)Shift   , (左/右)Alt   , (左/右)GUI              |
 | `MOD_MASK_CSAG`    | (左/右)Control , (左/右)Shift , (左/右)Alt , (左/右)GUI |
 
-`get_mods()` 関数を使って現在アクティブなモディファイアにアクセスする時を別にして、モディファイアの状態を変更するために使えるいくつかの関数があります。それらの関数は、`mods` を引数にとり、モディファイアビットマスクを参照します。
+`get_mods()` 関数を使って現在アクティブなモディファイアにアクセスする以外に、モディファイアの状態を変更するために使えるいくつかの関数があります。ここでは、`mods` 引数はモディファイアビットマスクを表します。
 
 * `add_mods(mods)`: その他のモディファイアに影響を与えずに `mods` を有効にします。
 * `register_mods(mods)`: `add_mods` に似ていますが、キーボードに直接レポートを送信します。
