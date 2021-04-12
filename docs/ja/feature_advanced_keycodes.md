@@ -116,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 `KC_BSPC` と組み合わせることで Shift の本来の行動が取り消され、そして、`KC_DEL` に完全に置き換えられる高度な例です。この例を適切に動作させるために2つのメイン変数が作られます。: `mod_state` と `delkey_registered` です。最初の1つ目の変数は、モディファイアの状態を保存し、`KC_DEL` を登録した後に元に戻すために使われます。2番目の変数は、Backspace/Delete キーの正確なリリースを管理するため、`KC_DEL` の状態の記録して保持するブール型変数 (true または false) です。
 
-前の例と対照的に、この例はモディファイアを厳格に確認しません。このカスタムコードを起動するには、1つまたは2つの Shift キーがアクティブな間に `KC_BSPC` を押せば十分で、他のモディファイアの状態は関係ありません。この方法は、いくつかの特典を提案します。: Ctrl+Shift+Backspace は次の単語を削除 (Control+Delete) し、Ctrl+Alt+Shift+Backspace は Ctrl+Alt+Del キーボードショートカットを実行します。
+前の例と対照的に、この例は厳格なモディファイアの確認を行いません。このカスタムコードを起動するには、1つまたは2つの Shift キーがアクティブな間に `KC_BSPC` を押せば十分で、他のモディファイアの状態は関係ありません。この方法は、いくつかの特典を提供します。: Ctrl+Shift+Backspace は次の単語を削除 (Control+Delete) し、Ctrl+Alt+Shift+Backspace は Ctrl+Alt+Del キーボードショートカットを実行します。
 
 ```c
 // Initialize variable holding the binary
