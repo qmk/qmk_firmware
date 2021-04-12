@@ -85,7 +85,7 @@ To check that *only* a specific set of mods is active at a time, AND the modifie
 次の例は、[マクロについてのページ](feature_macros.md) で読める [高度なマクロ](ja/feature_macros.md?id=高度なマクロ) を使っています。
 ### Alt + Escape を Alt + Tab に :id=alt-escape-for-alt-tab
 
-左Alt を `KC_TAB` のように振る舞う `KC_ESC` と組み合わせて、Alt-Tab でのアプリ切り替えを実現する単純な例です。この例は、左Alt だけがアクティブになっているか厳格に確認します。つまり、Alt+Shift+Esc によるアプリの逆順での切り替えはできないという意味です。また、この例は、AltGr+Escape キーボードショートカットを行う能力は維持しますが、現実の Alt+Escape キーボードショートカットを起動する能力を取り除くことに留意してください。
+左 Alt と `KC_ESC` が押されたときに、アプリ切り替えの（左 Alt と） `KC_TAB` のように振る舞うことを実現する単純な例です。この例は、左 Alt だけがアクティブになっているかを厳格に確認します。つまり、Alt+Shift+Esc によるアプリの逆順での切り替えはできません。また、この例は、実際の Alt+Escape キーボードショートカットを起動することはできなくなりますが、AltGr+Escape キーボードショートカットを起動することはできることに留意してください。
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
