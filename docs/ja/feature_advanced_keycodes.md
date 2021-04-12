@@ -156,7 +156,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
         }
-        // QMK に Shift キーの外側で KC_BSPC を通常通り処理させます
+        // QMK に Shift キーを除いて KC_BSPC を通常通り処理させます
         return true;
     }
 
