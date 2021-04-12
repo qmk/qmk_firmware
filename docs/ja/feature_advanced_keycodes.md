@@ -112,7 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-### Shift + Backspace を Delete に :id=shift-backspace-for-delete
+### Delete の代わりの Shift + Backspace :id=shift-backspace-for-delete
 
 `KC_BSPC` と組み合わせることで Shift の本来の行動が取り消され、そして、`KC_DEL` に完全に置き換えられる高度な例です。この例を適切に動作させるために2つのメイン変数が作られます。: `mod_state` と `delkey_registered` です。最初の1つ目の変数は、モディファイアの状態を保存し、`KC_DEL` を登録した後に元に戻すために使われます。2番目の変数は、Backspace/Delete キーの正確なリリースを管理するため、`KC_DEL` の状態の記録して保持するブール型変数 (true または false) です。
 
