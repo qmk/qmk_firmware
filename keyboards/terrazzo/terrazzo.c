@@ -58,7 +58,7 @@ uint8_t terrazzo_effect = 1;
 void terrazzo_set_pixel(uint8_t x, uint8_t y, uint8_t value) {
     uint8_t target = y * LED_MATRIX_COLS + x;
     if (target < DRIVER_LED_TOTAL && target >= 0) {
-      led_matrix_set_index_value(y * LED_MATRIX_COLS + x, value);
+      led_matrix_set_value(y * LED_MATRIX_COLS + x, value);
     }
 }
 
@@ -112,7 +112,7 @@ void terrazzo_mode_off(void) {
 void terrazzo_render(void) {
     switch(terrazzo_effect) {
         case TERRAZZO_NONE:
-            led_matrix_set_index_value_all(0);
+            led_matrix_set_value_all(0);
             break;
         #define TERRAZZO_EFFECT(name, ...)              \
             case TERRAZZO_EFFECT_##name:                \

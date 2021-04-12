@@ -79,7 +79,7 @@ Custom layer effects can be done by defining this in your `<keyboard>.c`:
 
 ```c
 void led_matrix_indicators_kb(void) {
-    led_matrix_set_index_value(index, value);
+    led_matrix_set_value(index, value);
 }
 ```
 
