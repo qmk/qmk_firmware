@@ -169,10 +169,10 @@ if(IS_LAYER_ON(NAVR)) {
   rgb_matrix_set_color(20, 255, 100, 0);
   rgb_matrix_set_color(21, 255, 100, 0);
 
-  rgb_matrix_set_color(43, 255, 100, 0);
-  rgb_matrix_set_color(44, 255, 100, 0);
-  rgb_matrix_set_color(45, 255, 100, 0);
-  rgb_matrix_set_color(46, 255, 100, 0);
+  rgb_matrix_set_color(43, 255, 0, 0);
+  rgb_matrix_set_color(44, 255, 0, 0);
+  rgb_matrix_set_color(45, 255, 0, 0);
+  rgb_matrix_set_color(46, 255, 0, 0);
 
 }
 
@@ -196,18 +196,25 @@ if(IS_LAYER_ON(NUMBER)) {
   rgb_matrix_set_color(22, 255, 100, 0);
   rgb_matrix_set_color(23, 255, 100, 0);
 
-  rgb_matrix_set_color(13, 255, 255, 0);
-  rgb_matrix_set_color(14, 255, 255, 0);
-  rgb_matrix_set_color(15, 255, 255, 0);
-  rgb_matrix_set_color(16, 255, 255, 0);
-  rgb_matrix_set_color(17, 255, 255, 0);
-  rgb_matrix_set_color(18, 255, 255, 0);
-  rgb_matrix_set_color(25, 255, 255, 0);
-  rgb_matrix_set_color(26, 255, 255, 0);
-  rgb_matrix_set_color(27, 255, 255, 0);
-  rgb_matrix_set_color(28, 255, 255, 0);
-  rgb_matrix_set_color(29, 255, 255, 0);
-  rgb_matrix_set_color(30, 255, 255, 0);
+  rgb_matrix_set_color(13, 0, 255, 0);
+  rgb_matrix_set_color(14, 0, 255, 0);
+  rgb_matrix_set_color(15, 0, 255, 0);
+  rgb_matrix_set_color(16, 0, 255, 0);
+  rgb_matrix_set_color(17, 0, 255, 0);
+  rgb_matrix_set_color(18, 0, 255, 0);
+  rgb_matrix_set_color(25, 0, 255, 0);
+  rgb_matrix_set_color(26, 0, 255, 0);
+  rgb_matrix_set_color(27, 0, 255, 0);
+  rgb_matrix_set_color(28, 0, 255, 0);
+  rgb_matrix_set_color(29, 0, 255, 0);
+  rgb_matrix_set_color(30, 0, 255, 0);
+
+  rgb_matrix_set_color(31, 0, 0, 255);
+
+  rgb_matrix_set_color(43, 255, 100, 0);
+  rgb_matrix_set_color(44, 255, 100, 0);
+  rgb_matrix_set_color(45, 255, 100, 0);
+  rgb_matrix_set_color(46, 255, 100, 0);
 }
 
 if(IS_LAYER_ON(CODE)) {
@@ -312,10 +319,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TG(GAME),   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_BSPC,     KC_NO,   KC_MPRV, KC_VOLU, KC_VOLD, KC_TD(TD_MEDIA)
   ),
   [NUMBER] = LAYOUT_planck_mit(
-    KC_GRV,  KC_1,   KC_2,    KC_3,     KC_4,    KC_5,    KC_6,    KC_7,     KC_8,     KC_9,    KC_0,    KC_BSPC,
-    KC_TAB,  KC_F1,  KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_MINS,  KC_EQL,   KC_LBRC, KC_RBRC, KC_BSLS,
-    KC_LSFT, KC_F7,  KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_NO,  KC_NO,  KC_NO, KC_NO, KC_ENT,
-    KC_LCTL, KC_NO,  KC_LALT, KC_UNDS,  KC_LSFT,      KC_SPC,      KC_NO,    KC_NO,    KC_NO,   KC_NO,   KC_NO
+    KC_GRV,  KC_1,   KC_2,    KC_3,     KC_4,    KC_5,    KC_6,    KC_7,     KC_8,    KC_9,    KC_0,    KC_BSPC,
+    KC_TAB,  KC_F1,  KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_MINS,  KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+    KC_LSFT, KC_F7,  KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_DEL,   KC_NO,   KC_NO,   KC_NO,   KC_ENT,
+    KC_LCTL, KC_NO,  KC_LALT, KC_UNDS,  KC_LSFT,      KC_SPC,      KC_NO,    KC_HOME, KC_PGUP, KC_PGDN, KC_END
   ),
   [GAME] = LAYOUT_planck_mit(
     KC_ESC,  KC_Q,    KC_W,    KC_E,        KC_R,    KC_T,    KC_Y,    KC_U,     KC_I,     KC_O,    KC_P,    TG(GAME),
