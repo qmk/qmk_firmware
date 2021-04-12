@@ -55,6 +55,8 @@
 extern midi_config_t midi_config;
 uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 extern MidiDevice midi_device;
+static bool melody_dyad_high = false;
+static bool melody_dyad_low  = false;
 
 // To record the status of Bass Chord (single or dyad, default: dyad.)
 typedef union {
@@ -247,11 +249,15 @@ enum custom_keycodes {
     CHRTONE,
     CFLIP2B,
     TGLBASS,
-    TGLMISW
+    TGLMISW,
+    MELDYAL,  // MELody DYad Low
+    MELODYS,  // MELODY Single
+    MELDYAH   // MELody DYad High
 };
 
 #define MY_CHORD_COUNT (MY_CHORD_MAX - MY_CHORD_MIN + 1)
 static uint8_t chord_status[MY_CHORD_COUNT];
+static uint8_t my_tone_status[MIDI_TONE_COUNT];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* C-system Base */
@@ -391,7 +397,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,
       MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST,   _______,
     CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
-      XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+      XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MELDYAL, MELODYS, MELDYAH
   )
 };
 
@@ -446,7 +452,10 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {96,  1, HSV_PINK},        //  EEP_RST
                                                                          {98,  6, HSV_ORANGE},      //  MIDI layouts
                                                                          {110, 1, HSV_RED},         //  RGB_TOG
-                                                                         {112, 1, HSV_CORAL}        //  TGLBASS
+                                                                         {112, 1, HSV_CORAL},       //  TGLBASS
+                                                                         {120, 1, HSV_CYAN},        //  MELDYAL
+                                                                         {121, 1, HSV_GOLD},        //  MELODYS
+                                                                         {122, 1, HSV_SPRINGGREEN}  //  MELDYAH
 );
 
 
@@ -470,7 +479,10 @@ void keyboard_post_init_user(void) {
     for (uint8_t i = 0; i < MY_CHORD_COUNT; i++) {
         chord_status[i] = MIDI_INVALID_NOTE;
     }
-    
+
+    for (uint8_t i = 0; i < MIDI_TONE_COUNT; i++) {
+        my_tone_status[i] = MIDI_INVALID_NOTE;
+    }
     //  load EEPROM data for isSingleBass
     user_config.raw = eeconfig_read_user();
 
@@ -544,8 +556,31 @@ void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val
 }
 #endif  // RGBLIGHT_ENABLE
 
+void my_process_midi(uint8_t channel, uint16_t keycode, keyrecord_t *record, int8_t offset) {
+
+    uint8_t tone     = keycode - MIDI_TONE_MIN;
+    uint8_t velocity = midi_config.velocity;
+    if (record->event.pressed) {
+        if (my_tone_status[tone] == MIDI_INVALID_NOTE) {
+            uint8_t note = midi_compute_note(keycode);
+            midi_send_noteon(&midi_device, channel, note + offset, velocity);
+            dprintf("midi noteon channel:%d note:%d tone:%d velocity:%d\n", channel, note, tone, velocity);
+            uprintf("midi noteon channel:%d note:%d note + offset:%d offset:%d\n", channel, note, note + offset, offset);
+            my_tone_status[tone] = note;  // store root_note status.
+        }
+    } else {
+        uint8_t note = my_tone_status[tone];
+        if (note != MIDI_INVALID_NOTE) {
+            midi_send_noteoff(&midi_device, channel, note + offset, velocity);
+            dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+            uprintf("midi noteoff channel:%d note:%d offset:%d\n", channel, note, offset);
+        }
+    my_tone_status[tone] = MIDI_INVALID_NOTE;
+    }
+}
+
 void my_process_midi4TriadChords(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint16_t root_note,
-                                 uint8_t offset1, uint8_t offset2, uint8_t offset3) {
+                                 int8_t offset1, int8_t offset2, int8_t offset3) {
     uint8_t chord    = keycode - MY_CHORD_MIN;
     uint8_t velocity = midi_config.velocity;
     if (record->event.pressed) {
@@ -632,6 +667,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             };
             break;
 
+        case MELDYAL:
+            if (record->event.pressed) {
+                melody_dyad_low  = true;
+                melody_dyad_high = false;
+            };
+            break;
+
+        case MELODYS:
+            if (record->event.pressed) {
+                melody_dyad_low  = false;
+                melody_dyad_high = false;
+            };
+            break;
+
+        case MELDYAH:
+            if (record->event.pressed) {
+                melody_dyad_low  = false;
+                melody_dyad_high = true;
+            };
+            break;
+
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C_1;
@@ -665,7 +721,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                     chord_status[chord] = MIDI_INVALID_NOTE;
                 }
-                return false;
             }////////////////////////////////////////////////////////////////////
 
 #ifdef RGBLIGHT_ENABLE
@@ -719,15 +774,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 #endif
 
-
-            // Keycodes on the right side.
-
+        // Keycodes on the right side.
+        case MIDI_TONE_MIN ... MIDI_TONE_MAX:  // notes on the right side keyboard.
+            //  root_note is played by process_midi().
+            if ( melody_dyad_high == true ) {        //  play 1 octave higher as well.
+                my_process_midi(0, keycode, record, 12);
+            } else if ( melody_dyad_low == true ) {  //  play 1 octave lower as well.
+                my_process_midi(0, keycode, record, -12);
+            }
 #ifdef RGBLIGHT_ENABLE
-        case MIDI_TONE_MIN ... MIDI_TONE_MAX:  // notes on the right side.
             keylight_manager(record, HSV_GOLDENROD, keylocation);
             keylight_manager(record, HSV_GOLDENROD, keylocation2);
+#endif
             break;
 
+#ifdef RGBLIGHT_ENABLE
         // case KC_MUTE:
         case FN_MUTE:
             keylight_manager(record, HSV_GOLDENROD, keylocation);
