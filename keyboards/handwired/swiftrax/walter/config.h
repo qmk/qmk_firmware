@@ -48,3 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 24
+#define RGBLIGHT_ANIMATIONS
