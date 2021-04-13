@@ -1,4 +1,4 @@
-# CyberGeear Macro25
+# CyberGear Macro25
 
 ![](https://i.imgur.com/Jk2xGMvh.jpg)
 
