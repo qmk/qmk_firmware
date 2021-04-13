@@ -192,7 +192,7 @@ void led_matrix_task(void) {
 
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
     // while suspended and just do a software shutdown. This is a cheap hack for now.
-    bool    suspend_backlight = 
+    bool suspend_backlight =
 #if LED_DISABLE_WHEN_USB_SUSPENDED == true
         g_suspend_state ||
 #endif  // LED_DISABLE_WHEN_USB_SUSPENDED == true
