@@ -5,7 +5,7 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_5x15": {
             "layout": [
                 {"label": "Esc", "X": 0, "y": 0},
                 {"label": "1", "x": 1, "y": 0},
