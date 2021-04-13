@@ -1,6 +1,6 @@
 # CyberGeear Macro25
 
-![image](https://github.com/CyberGear/mk-macro-01/raw/master/images/result-preview.jpg)
+![](https://i.imgur.com/Jk2xGMvh.jpg)
 
 Macro keyboard meade using arduino pro micro, with VIA support
 
