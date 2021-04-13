@@ -1,0 +1,1 @@
+OPENRGB_ENABLE = yes
