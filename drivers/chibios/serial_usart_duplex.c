@@ -88,14 +88,14 @@ static void receive_transaction_handshake(UARTDriver* uartp, uint16_t received_h
 
 /*
  * UART driver configuration structure. We use the blocking DMA enabled API and
- * the rxchar callback to receive handshake tokens.
+ * the rxchar callback to receive handshake tokens but only on the slave halve.
  */
 // clang-format off
 static UARTConfig uart_config = {
     .txend1_cb = NULL,
     .txend2_cb = NULL,
     .rxend_cb = NULL,
-    .rxchar_cb = receive_transaction_handshake,
+    .rxchar_cb = NULL,
     .rxerr_cb = NULL,
     .timeout_cb = NULL,
     .speed = (SERIAL_USART_SPEED),
@@ -105,10 +105,10 @@ static UARTConfig uart_config = {
 };
 // clang-format on
 
-static SSTD_t*                       Transaction_table      = NULL;
-static uint8_t                       Transaction_table_size = 0;
-static volatile atomic_uint_least8_t handshake              = 0xFF;
-static thread_reference_t            tp_target              = NULL;
+static SSTD_t*              Transaction_table      = NULL;
+static uint8_t              Transaction_table_size = 0;
+static atomic_uint_least8_t handshake              = 0xFF;
+static thread_reference_t   tp_target              = NULL;
 
 /*
  * This callback is invoked when a character is received but the application
@@ -144,7 +144,7 @@ __attribute__((weak)) void usart_init(void) {
 /*
  * This thread runs on the slave half and reacts to transactions initiated from the master.
  */
-static THD_WORKING_AREA(waSlaveThread, 512);
+static THD_WORKING_AREA(waSlaveThread, 1024);
 static THD_FUNCTION(SlaveThread, arg) {
     (void)arg;
     chRegSetThreadName("slave_usart_tx_rx");
@@ -169,8 +169,11 @@ void soft_serial_target_init(SSTD_t* const sstd_table, int sstd_table_size) {
     USART_REMAP
 #endif
 
-    uartStart(&SERIAL_USART_DRIVER, &uart_config);
     tp_target = chThdCreateStatic(waSlaveThread, sizeof(waSlaveThread), HIGHPRIO, SlaveThread, NULL);
+    
+    // Start receiving handshake tokens on slave halve
+    uart_conifg.rxchar_cb = receive_transaction_handshake;
+    uartStart(&SERIAL_USART_DRIVER, &uart_config);
 }
 
 /**
