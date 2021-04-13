@@ -21,6 +21,3 @@
 /* USB Device descriptor parameter */
 #define MANUFACTURER    CyberGear
 #define PRODUCT         Macro25 (mk-macro-01)
-
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 5
