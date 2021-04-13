@@ -39,6 +39,9 @@ extern midi_config_t midi_config;
 uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 extern MidiDevice midi_device;
 
+// Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
+#define MIDI_INITIAL_VELOCITY 117
+
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _C_SYSTEM_BASE,  //  MIDI C-system
@@ -207,10 +210,14 @@ void keyboard_post_init_user(void) {
     //  Set otave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
 
+    // avoid using 127 since it is used as a special number in some sound sources.
+    midi_config.velocity = MIDI_INITIAL_VELOCITY;
+
+
     for (uint8_t i = 0; i < MY_CHORD_COUNT; i++) {
         chord_status[i] = MIDI_INVALID_NOTE;
     }
-    
+
     default_layer_set(1UL << _C_SYSTEM_BASE);
 };
 

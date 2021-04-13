@@ -39,6 +39,9 @@ extern midi_config_t midi_config;
 uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 extern MidiDevice midi_device;
 
+// Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
+#define MIDI_INITIAL_VELOCITY 117
+
 #ifdef RGBLIGHT_ENABLE
 /* used to specify there is no LED on the keylocation. */
 #    define NO_LED 255
@@ -185,11 +188,11 @@ enum custom_keycodes {
 
     MY_CHORD_MAX = MI_CH_BDim7,
 
-    CSYSTEM,
-    CNTBASC,
-    CSYSALL,
-    CHRTONE,
-    TGLMISW
+    CSYSTEM,  // C-SYSTEM layout
+    CNTBASC,  // CouNTer BASe C-system layout
+    CSYSALL,  // C-SYStem ALL layout
+    CHRTONE,  // CHRomaTONE layout
+    TGLMICH   // ToGgLe MIdi CHannel separation
 };
 
 #define MY_CHORD_COUNT (MY_CHORD_MAX - MY_CHORD_MIN + 1)
@@ -275,13 +278,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FN] = LAYOUT_giabaRInaix2(
     CSYSTEM, CNTBASC, CSYSALL, CHRTONE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
       DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMISW,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMICH,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     CSYSTEM, CNTBASC, CSYSALL, CHRTONE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
       DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMISW,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMICH,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______
   )
@@ -294,13 +297,13 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {0,   4, HSV_ORANGE},      //  MIDI layouts
                                                                          {11,  1, HSV_RED},         //  RGB_TOG
                                                                          {12,  1, HSV_WHITE},       //  DF_QWER
-                                                                         {35,  1, HSV_TEAL},        //  TGLMISW
+                                                                         {35,  1, HSV_TEAL},        //  TGLMICH
 
                                                                                                     //  right keyboard
                                                                          {60,  4, HSV_ORANGE},      //  MIDI layouts
                                                                          {71 , 1, HSV_RED},         //  RGB_TOG
                                                                          {72,  1, HSV_WHITE},       //  DF_QWER
-                                                                         {83,  1, HSV_TEAL}         //  TGLMISW
+                                                                         {83,  1, HSV_TEAL}         //  TGLMICH
 );
 
 
@@ -317,6 +320,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void keyboard_post_init_user(void) {
     //  Set otave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+
+    // avoid using 127 since it is used as a special number in some sound sources.
+    midi_config.velocity = MIDI_INITIAL_VELOCITY;
 
     for (uint8_t i = 0; i < MY_CHORD_COUNT; i++) {
         chord_status[i] = MIDI_INVALID_NOTE;
@@ -424,7 +430,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case TGLMISW:
+        case TGLMICH:
             if (record->event.pressed) {
                 toggle_MIDI_channel_separation();
             };

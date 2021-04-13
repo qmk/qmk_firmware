@@ -54,9 +54,17 @@
 extern midi_config_t midi_config;
 uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 extern MidiDevice midi_device;
-static bool melody_dyad_high = false;
-static bool melody_dyad_low  = false;
 
+// Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
+#define MIDI_INITIAL_VELOCITY 117
+
+// UNISON flags
+static bool melody_dyad_high = false;  //  true when +1 octave unison dyad is enabled.
+static bool melody_dyad_low  = false;  //  true when -1 octave unison dyad is enabled.
+
+// the velocity difference from the velocity of the root note.
+#define UNISON_VELOCITY_OFFSET 30
+static bool melody_unison_suppress  = true;  //  true: velocity of octave unison note is suppressd to UNISON_VELOCITY_RATIO
 
 // To record the status of Bass Chord (single or dyad, default: dyad.)
 typedef union {
@@ -242,17 +250,18 @@ enum custom_keycodes {
 
     MY_CHORD_MAX = MI_CH_BDim7,
 
-    CSYSTEM,
-    BSYSTEM,
-    CNTBASC,
-    CSYSALL,
-    CHRTONE,
-    CFLIP2B,
-    TGLBASS,
-    TGLMISW,
+    CSYSTEM,  // C-SYSTEM layout
+    BSYSTEM,  // B-SYSTEM layout
+    CNTBASC,  // CouNTer BASe C-system layout
+    CSYSALL,  // C-SYStem ALL layout
+    CHRTONE,  // CHRomaTONE layout
+    CFLIP2B,  // C-system FLIPped 2(to) Backwards
+    TGLBASS,  // ToGgLe BASS unison
+    TGLMICH,  // ToGgLe MIdi CHannel separation
     MELDYAL,  // MELody DYad Low
     MELODYS,  // MELODY Single
-    MELDYAH   // MELody DYad High
+    MELDYAH,  // MELody DYad High
+    TGLUVEL   // ToGgLe Unison VELocity
 };
 
 #define MY_CHORD_COUNT (MY_CHORD_MAX - MY_CHORD_MIN + 1)
@@ -390,14 +399,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FN] = LAYOUT(
     CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
       DF_QWER, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMISW,
+        DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMICH,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     XXXXXXX,
       MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST,   _______,
-    CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
-      XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MELDYAL, MELODYS, MELDYAH
+    CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, XXXXXXX, RGB_TOG,
+      XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH
   )
 };
 
@@ -420,7 +429,7 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {12,  1, HSV_WHITE},       //  DF_QWER
                                                                          {13,  1, HSV_CORAL},       //  TGLBASS
                                                                          {24,  1, HSV_WHITE},       //  DF_COLE
-                                                                         {35,  1, HSV_TEAL},        //  TGLMISW
+                                                                         {35,  1, HSV_TEAL},        //  TGLMICH
 #if 0  //  Color Test
                                                                          {36,  1, HSV_WHITE},
                                                                          {37,  1, HSV_RED},
@@ -451,8 +460,11 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {89,  1, HSV_CHARTREUSE},  //  MIDI Oct
                                                                          {96,  1, HSV_PINK},        //  EEP_RST
                                                                          {98,  6, HSV_ORANGE},      //  MIDI layouts
+                                                                         {107, 1, HSV_YELLOW},      //  MI_VELD
+                                                                         {108, 1, HSV_GREEN},       //  MI_VELU
                                                                          {110, 1, HSV_RED},         //  RGB_TOG
                                                                          {112, 1, HSV_CORAL},       //  TGLBASS
+                                                                         {119, 1, HSV_CORAL},       //  TGLUVEL
                                                                          {120, 1, HSV_CYAN},        //  MELDYAL
                                                                          {121, 1, HSV_GOLD},        //  MELODYS
                                                                          {122, 1, HSV_SPRINGGREEN}  //  MELDYAH
@@ -475,6 +487,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void keyboard_post_init_user(void) {
     //  Set octave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+
+    // avoid using 127 since it is used as a special number in some sound sources.
+    midi_config.velocity = MIDI_INITIAL_VELOCITY;
 
     for (uint8_t i = 0; i < MY_CHORD_COUNT; i++) {
         chord_status[i] = MIDI_INVALID_NOTE;
@@ -554,21 +569,30 @@ void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val
 void my_process_midi(uint8_t channel, uint16_t keycode, keyrecord_t *record, int8_t offset) {
 
     uint8_t tone     = keycode - MIDI_TONE_MIN;
-    uint8_t velocity = midi_config.velocity;
+
+    uint8_t melody_unison_velocity;
+    if (melody_unison_suppress) {
+        if (midi_config.velocity > UNISON_VELOCITY_OFFSET){
+            melody_unison_velocity = midi_config.velocity - UNISON_VELOCITY_OFFSET;
+        } else {
+            melody_unison_velocity = 0;
+        }
+    } else {
+        melody_unison_velocity = midi_config.velocity;
+    }
+
     if (record->event.pressed) {
         if (my_tone_status[tone] == MIDI_INVALID_NOTE) {
             uint8_t note = midi_compute_note(keycode);
-            midi_send_noteon(&midi_device, channel, note + offset, velocity);
-            dprintf("midi noteon channel:%d note:%d tone:%d velocity:%d\n", channel, note, tone, velocity);
-            uprintf("midi noteon channel:%d note:%d note + offset:%d offset:%d\n", channel, note, note + offset, offset);
+            midi_send_noteon(&midi_device, channel, note + offset, melody_unison_velocity);
+            dprintf("midi noteon channel:%d note:%d tone:%d velocity:%d\n", channel, note, tone, melody_unison_velocity);
             my_tone_status[tone] = note;  // store root_note status.
         }
     } else {
         uint8_t note = my_tone_status[tone];
         if (note != MIDI_INVALID_NOTE) {
-            midi_send_noteoff(&midi_device, channel, note + offset, velocity);
-            dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
-            uprintf("midi noteoff channel:%d note:%d offset:%d\n", channel, note, offset);
+            midi_send_noteoff(&midi_device, channel, note + offset, melody_unison_velocity);
+            dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, melody_unison_velocity);
         }
     my_tone_status[tone] = MIDI_INVALID_NOTE;
     }
@@ -585,7 +609,6 @@ void my_process_midi4TriadChords(uint8_t channel, uint16_t keycode, keyrecord_t 
             midi_send_noteon(&midi_device, channel, note + offset2, velocity);
             midi_send_noteon(&midi_device, channel, note + offset3, velocity);
             dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
-            uprintf("midi noteon channel:%d root_note:%d note:%d offset1:%d velocity:%d\n", channel, root_note, note, offset1, velocity);
             chord_status[chord] = note;  // store root_note status.
         }
     } else {
@@ -657,7 +680,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             };
             break;
 
-        case TGLMISW:
+        case TGLMICH:
             if (record->event.pressed) {
                 toggle_MIDI_channel_separation();
             };
@@ -681,6 +704,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 melody_dyad_low  = false;
                 melody_dyad_high = true;
+            };
+            break;
+
+        case TGLUVEL:
+            if (record->event.pressed) {
+                melody_unison_suppress = !melody_unison_suppress;
             };
             break;
 
