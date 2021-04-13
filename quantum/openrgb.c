@@ -342,7 +342,7 @@ void openrgb_get_is_mode_enabled(uint8_t *data) {
 void openrgb_get_direct_mode_led_color(uint8_t *data) {
     const uint8_t led = data[1];
 
-    raw_hid_buffer[0] = OPENRGB_DIRECT_MODE_GET_LED_COLOR;
+    raw_hid_buffer[0] = OPENRGB_GET_DIRECT_MODE_LED_COLOR;
 
     if (led >= DRIVER_LED_TOTAL) {
         raw_hid_buffer[1]              = OPENRGB_FAILURE;
