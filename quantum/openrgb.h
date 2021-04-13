@@ -53,6 +53,10 @@ typedef struct PACKED {
     uint8_t zone_type;
     uint8_t zone_size;
 } openrgb_zone_config_t;
+typedef struct PACKED {
+    uint8_t matrix_columns;
+    uint8_t matrix_rows;
+} openrgb_matrix_zone_config_t;
 
 extern RGB g_openrgb_direct_mode_colors[DRIVER_LED_TOTAL];
 
@@ -60,7 +64,7 @@ void openrgb_get_protocol_version(void);
 void openrgb_get_device_info(void);
 void openrgb_get_mode_info(void);
 void openrgb_get_zone_info(uint8_t *data);
-void openrgb_get_led_matrix_info(void);
+void openrgb_get_led_matrix_info(uint8_t *data);
 void openrgb_get_led_value_in_matrix(uint8_t *data);
 void openrgb_get_led_name(uint8_t *data);
 void openrgb_get_is_mode_enabled(uint8_t *data);
