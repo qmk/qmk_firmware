@@ -1,12 +1,10 @@
-# tw40
+# Training Wheel 40
 
-![tw40](imgur.com image replace me!)
-
-*A short description of the keyboard/project*
+![tw40](https://cdn.shopify.com/s/files/1/0501/7537/7592/products/tw40_600x.jpg?v=1607835284)
 
 * Keyboard Maintainer: [KnoblesseOblige](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Training Wheel 40 PCB
+* Hardware Availability: https://p3dstore.com/products/tw40-gb
 
 Make example for this keyboard (after setting up your build environment):
 
