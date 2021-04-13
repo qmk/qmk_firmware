@@ -930,9 +930,20 @@ void send_consumer(uint16_t data) {
 #ifdef CONSOLE_ENABLE
 
 int8_t sendchar(uint8_t c) {
-    // The previous implmentation had timeouts, but I think it's better to just slow down
-    // and make sure that everything is transferred, rather than dropping stuff
-    return chnWrite(&drivers.console_driver.driver, &c, 1);
+    static bool timeouted = false;
+    if (!timeouted) {
+        size_t result = chnWriteTimeout(&drivers.console_driver.driver, &c, 1, TIME_MS2I(5));
+        if (result == 0) {
+            timeouted = true;
+        }
+        return result;
+    } else {
+        size_t result = chnWriteTimeout(&drivers.console_driver.driver, &c, 1, TIME_IMMEDIATE);
+        if (result != 0) {
+            timeouted = false;
+        }
+        return result;
+    }
 }
 
 // Just a dummy function for now, this could be exposed as a weak function
