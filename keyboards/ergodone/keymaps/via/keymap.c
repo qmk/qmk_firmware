@@ -14,7 +14,6 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
   */ 
 #include QMK_KEYBOARD_H
-#include "version.h"
 
 enum layer_names {
     QRTY, // qwerty above workman to make sure transparent does not catch unwanted keycode
