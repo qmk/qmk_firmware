@@ -35,6 +35,8 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_COLUMN 3
 
 #define TAP_CODE_DELAY 10
 #define ENCODERS_PAD_A { C15 }
@@ -44,3 +46,5 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+//
