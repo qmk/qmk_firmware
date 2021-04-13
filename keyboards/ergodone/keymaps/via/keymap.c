@@ -21,9 +21,6 @@ enum layer_names {
     MDIA, // media keys
     EXTRA, // added extra layer for via
 };
-enum custom_keycodes {
-  VRSN = SAFE_RANGE // can always be here
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
