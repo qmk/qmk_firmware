@@ -74,8 +74,9 @@
 // #define INIT_EE_HANDS_RIGHT
 #endif
 
+
 #if defined(AUDIO_ENABLE) && !defined(CONVERT_TO_PROTON_C)
-#    define B6_AUDIO
+#    define AUDIO_PIN B6
 #    define NO_MUSIC_MODE
 #endif
 

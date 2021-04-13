@@ -1,6 +1,5 @@
 {
     "keyboard_name": "O4L 5x12",
-    "keyboard_folder": "keycapsss/o4l_5x12",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/keycapsss/o4l_5x12",
     "maintainer": "BenRoe",
     "width": 12,
