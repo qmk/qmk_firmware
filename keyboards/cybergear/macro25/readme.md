@@ -8,8 +8,8 @@ Macro keyboard meade using arduino pro micro, with VIA support
 * Hardware Supported: arduino pro micro
 * Hardware Availability: [repo](https://github.com/CyberGear/mk-macro-01)
 
-compiling (after setting up your qmk build environment):
+Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb cybergear/macro25 -km CyberGear
+    make cybergear/macro25:default
 
 See the [Setting Up Your QMK Environment](https://docs.qmk.fm/#/newbs_getting_started)
