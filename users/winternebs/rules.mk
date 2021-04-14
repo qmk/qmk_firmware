@@ -12,5 +12,5 @@ VPATH += keyboards/gboards/
 #VERBOSE 		 							= yes
 #DEBUG_MATRIX_SCAN_RATE   	= no
 #DEBUG_MATRIX		 					= yes
-#CONSOLE_ENABLE						= yes
+CONSOLE_ENABLE						= no
 

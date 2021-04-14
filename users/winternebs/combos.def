@@ -2,4 +2,7 @@ COMB(qesc,      KC_ESC,         KC_SPC, KC_Q)
 COMB(deleto,    KC_DEL,         KC_SPC, HOME_A)
 COMB(iqt,       KC_QUOT,        KC_BSPC, HOME_I)
 COMB(bsl,       KC_BSLS,        KC_BSPC, KC_SLSH)
+COMB(btick,     KC_GRV,         KC_SPC, KC_Z)
+
 SUBS(savei, SS_TAP(X_BTN2) SS_DELAY(50) "v" SS_DELAY(650) SS_TAP(X_ENT), KC_G, KC_B)
+
