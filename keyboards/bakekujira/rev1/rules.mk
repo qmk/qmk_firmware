@@ -24,7 +24,7 @@ WPM_ENABLE = yes
 
 # RGB related
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
-RGB_MATRIX_ENABLE = no
+RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 WS2812_DRIVER = pwm
 #PWM needs patch to <https://github.com/qmk/qmk_firmware/blob/master/platforms/chibios/GENERIC_STM`32_F303XC/configs/proton_c.mk>, otherwise defaults to bitbang.
