@@ -224,6 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case PSSW:
     if (record->event.pressed) {
+      SEND_STRING("");
     }
     return false;
     break;
