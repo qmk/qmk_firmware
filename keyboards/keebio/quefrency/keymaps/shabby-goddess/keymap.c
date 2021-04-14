@@ -121,3 +121,22 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     tap_code(KC_VOLD);
   }
 }
+
+
+//LED backlight settings
+void eeconfig_init_user(void) {
+#ifdef BACKLIGHT_ENABLE
+    backlight_enable();
+    backlight_level(2);
+#endif
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable(); // Enable RGB by default
+    rgblight_sethsv(188, 89, 78);  // Set default HSV - red hue, full saturation, full brightness
+#ifdef RGBLIGHT_ANIMATIONS
+    rgblight_mode(RGBLIGHT_MODE_BREATHING + 2); // set to RGB_RAINBOW_SWIRL by default
+#endif
+#endif
+
+    eeconfig_update_kb(0);
+    eeconfig_init_user();
+}
