@@ -160,5 +160,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS 1
 
-#define ENCODERS_CW_KEY  { { 0, 3 } }
-#define ENCODERS_CCW_KEY { { 0, 4 } }
+#define ENCODERS_CW_KEY  { { 3, 0 } }
+#define ENCODERS_CCW_KEY { { 4, 0 } }
