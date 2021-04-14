@@ -2,11 +2,11 @@
 
 ![](https://i.imgur.com/Jk2xGMvh.jpg)
 
-Macro keyboard meade using arduino pro micro, with VIA support
+Macro keyboard made using Arduino Pro Micro, with VIA support.
 
-* Keyboard Maintainer: [CyberGeear](https://github.com/CyberGear)
-* Hardware Supported: arduino pro micro
-* Hardware Availability: [repo](https://github.com/CyberGear/mk-macro-01)
+* Keyboard Maintainer: [CyberGear](https://github.com/CyberGear)
+* Hardware Supported: Arduino Pro Micro
+* Hardware Availability: [GitHub](https://github.com/CyberGear/mk-macro-01)
 
 Make example for this keyboard (after setting up your build environment):
 

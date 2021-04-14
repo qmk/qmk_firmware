@@ -7,11 +7,11 @@
         "pid": "0x69A1",
         "device_ver": "0x0001"
     },
-    "width": 10,
+    "width": 5,
     "height": 2,
     "diode_direction": "COL2ROW",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_2x5": {
             "layout": [
                 {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0},
                 {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}, {"x":4, "y":1}
