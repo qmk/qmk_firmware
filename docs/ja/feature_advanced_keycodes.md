@@ -38,31 +38,29 @@ C 言語におけるビット演算のより詳しい情報は、[ここ](https:
 
 実行するうえで、左右のモディファイアの違いが重要でなく、両方にマッチすることを望むなら、`get_mods() & MOD_BIT(KC_<modifier>)` ([モディファイアキーコードのリスト](ja/keycodes_basic.md#modifiers) 参照) でも `get_mods() & MOD_MASK_<modifier>` でも、与えられたモディファイアがアクティブか確認できることを意味しています。`get_mods()` を `get_oneshot_mods()` に置き換えれば、ワンショットモディファイアでも同じことができます。
 
-To check that *only* a specific set of mods is active at a time, AND the modifier state and your desired mod mask as explained above and compare the result to the mod mask itself: `get_mods() & <mod mask> == <mod mask>`.
-
 モディファイアの特定の組み合わせが同時にアクティブなのか確認する*だけ*なら、上で説明したモディファイアの状態とモッドマスクの論理積と、モッドマスク自身の結果を比較します。: `get_mods() & <mod mask> == <mod mask>`
 
 例えば、左 Control キーと 左 Shift キーのワンショットモディファイアがオンで、その他のワンショットモディファイアがオフの場合にカスタムコードを起動したいとしましょう。そうするには、`(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` で左 Control キーと Shift キーのモッドビットを組み合わせて目的のモッドマスクを構成し、それらを差し込みます: `get_oneshot_mods & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)) == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`。モッドビットマスクの代わりに `MOD_MASK_CS` 使うと、条件を満たすために4つのモディファイアキー (左右両方の Control キーと Shift キー) を押す必要があります。
 
 モッドマスクの完全なリストは、以下のとおりです。
 
-| モッドマスク名     | マッチするモディファイア                                |
-|--------------------|---------------------------------------------------------|
-| `MOD_MASK_CTRL`    | 左Control      , 右Control                              |
-| `MOD_MASK_SHIFT`   | 左Shift        , 右Shift                                |
-| `MOD_MASK_ALT`     | 左Alt          , 右Alt                                  |
-| `MOD_MASK_GUI`     | 左GUI          , 右GUI                                  |
-| `MOD_MASK_CS`      | Control        , Shift                                  |
-| `MOD_MASK_CA`      | (左/右)Control , (左/右)Alt                             |
-| `MOD_MASK_CG`      | (左/右)Control , (左/右)GUI                             |
-| `MOD_MASK_SA`      | (左/右)SHIFT   , (左/右)ALT                             |
-| `MOD_MASK_SG`      | (左/右)Shift   , (左/右)GUI                             |
-| `MOD_MASK_AG`      | (左/右)Alt     , (左/右)GUI                             |
-| `MOD_MASK_CSA`     | (左/右)Control , (左/右)Shift , (左/右)Alt              |
-| `MOD_MASK_CSG`     | (左/右)Control , (左/右)Shift , (左/右)GUI              |
-| `MOD_MASK_CAG`     | (左/右)Control , (左/右)Alt   , (左/右)GUI              |
-| `MOD_MASK_SAG`     | (左/右)Shift   , (左/右)Alt   , (左/右)GUI              |
-| `MOD_MASK_CSAG`    | (左/右)Control , (左/右)Shift , (左/右)Alt , (左/右)GUI |
+| モッドマスク名     | マッチするモディファイア                                    |
+|--------------------|-------------------------------------------------------------|
+| `MOD_MASK_CTRL`    | 左 Control      , 右 Control                                |
+| `MOD_MASK_SHIFT`   | 左 Shift        , 右 Shift                                  |
+| `MOD_MASK_ALT`     | 左 Alt          , 右 Alt                                    |
+| `MOD_MASK_GUI`     | 左 GUI          , 右 GUI                                    |
+| `MOD_MASK_CS`      | Control         , Shift                                     |
+| `MOD_MASK_CA`      | (左/右) Control , (左/右) Alt                               |
+| `MOD_MASK_CG`      | (左/右) Control , (左/右) GUI                               |
+| `MOD_MASK_SA`      | (左/右) Shift   , (左/右) Alt                               |
+| `MOD_MASK_SG`      | (左/右) Shift   , (左/右) GUI                               |
+| `MOD_MASK_AG`      | (左/右) Alt     , (左/右) GUI                               |
+| `MOD_MASK_CSA`     | (左/右) Control , (左/右) Shift , (左/右) Alt               |
+| `MOD_MASK_CSG`     | (左/右) Control , (左/右) Shift , (左/右) GUI               |
+| `MOD_MASK_CAG`     | (左/右) Control , (左/右) Alt   , (左/右) GUI               |
+| `MOD_MASK_SAG`     | (左/右) Shift   , (左/右) Alt   , (左/右) GUI               |
+| `MOD_MASK_CSAG`    | (左/右) Control , (左/右) Shift , (左/右) Alt , (左/右) GUI |
 
 `get_mods()` 関数を使って現在アクティブなモディファイアにアクセスする以外に、モディファイアの状態を変更するために使えるいくつかの関数があります。ここでは、`mods` 引数はモディファイアビットマスクを表します。
 
@@ -82,7 +80,7 @@ To check that *only* a specific set of mods is active at a time, AND the modifie
 
 ## 例 :id=examples
 
-次の例は、[マクロについてのページ](feature_macros.md) で読める [高度なマクロ](ja/feature_macros.md?id=高度なマクロ) を使っています。
+次の例は、[マクロについてのページ](ja/feature_macros.md) で読める [高度なマクロ](ja/feature_macros.md?id=advanced-macro-functions) を使っています。
 ### Alt + Tab の代わりの Alt + Escape :id=alt-escape-for-alt-tab
 
 左 Alt と `KC_ESC` が押されたときに、アプリ切り替えの（左 Alt と） `KC_TAB` のように振る舞うことを実現する単純な例です。この例は、左 Alt だけがアクティブになっているかを厳格に確認します。つまり、Alt+Shift+Esc によるアプリの逆順での切り替えはできません。また、この例は、実際の Alt+Escape キーボードショートカットを起動することはできなくなりますが、AltGr+Escape キーボードショートカットを起動することはできることに留意してください。
@@ -119,8 +117,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 前の例と対照的に、この例は厳格なモディファイアの確認を行いません。このカスタムコードを起動するには、1つまたは2つの Shift キーがアクティブな間に `KC_BSPC` を押せば十分で、他のモディファイアの状態は関係ありません。この方法は、いくつかの特典を提供します。: Ctrl+Shift+Backspace は次の単語を削除 (Control+Delete) し、Ctrl+Alt+Shift+Backspace は Ctrl+Alt+Del キーボードショートカットを実行します。
 
 ```c
-// Initialize variable holding the binary
-// representation of active modifiers.
+// アクティブなモディファイアを表すバイナリデータを保持する変数を初期化します
 uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // 後々の参照のために現在のモディファイアの状態を変数に格納します
@@ -129,8 +126,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KC_BSPC:
         {
-        // Initialize a boolean variable that keeps track
-        // of the delete key status: registered or not?
         // Delete キーの状態（登録されているかどうか）を追跡するブール型変数を初期化します。
         static bool delkey_registered;
         if (record->event.pressed) {
