@@ -7,10 +7,10 @@ import platform
 
 from milc import cli
 
-from qmk.info_json_encoder import InfoJSONEncoder
+from qmk.json_encoders import InfoJSONEncoder
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.keyboard import render_layouts, render_layout
+from qmk.keyboard import keyboard_folder, render_layouts, render_layout
 from qmk.keymap import locate_keymap
 from qmk.info import info_json
 from qmk.path import is_keyboard
@@ -124,7 +124,7 @@ def print_text_output(kb_info_json):
         show_keymap(kb_info_json, False)
 
 
-@cli.argument('-kb', '--keyboard', help='Keyboard to show info for.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, help='Keyboard to show info for.')
 @cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
