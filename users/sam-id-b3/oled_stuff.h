@@ -2,7 +2,7 @@
 #include "oled_driver.h"
 
 bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);
-//void oled_dice(int num);
+void oled_dice(int num);
 
 static const char PROGMEM shift_key[] = {210,211,32,0};
 static const char PROGMEM win_key[] = {147,148,32,0};
@@ -24,9 +24,8 @@ static const char PROGMEM logo[] = {
 #    define OLED_RENDER_LAYOUT_SYMNUM "Sym Num"
 #    define OLED_RENDER_LAYOUT_SHORTCUT "Shortcut"
 #    define OLED_RENDER_LAYOUT_GAMING "GAME ZONE"
-//#    define OLED_RENDER_LAYOUT_WARHAMMER "WAAAAGH!!"
 #    define OLED_RENDER_LAYOUT_NAVIGATION "Navigate"
-//#    define OLED_RENDER_LAYOUT_RPG "Roll Dice"
+#    define OLED_RENDER_LAYOUT_RPG "Roll Dice"
 
 #    define OLED_RENDER_LOCK_NAME "Lock: "
 #    define OLED_RENDER_LOCK_NUML "NUML"

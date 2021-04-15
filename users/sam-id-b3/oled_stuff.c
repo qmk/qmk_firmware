@@ -1,16 +1,78 @@
-#include "id-b3.h"
+#include "sam-id-b3.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 #ifdef OLED_DRIVER_ENABLE
 
 #ifdef WPM_ENABLE
-	//#include "wpm_oled.c"
-	#include "wpm_cat.c"
-	char wpm_str[10];
+	#include "wpm_oled.c"
 #endif
 
 extern uint8_t is_master;
+
+/* KEYLOGGER BEGIN ---------------
+											*/
+#ifndef KEYLOGGER_LENGTH
+	#define KEYLOGGER_LENGTH ((int)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH))
+#endif
+
+//keylogger
+static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
+
+// clang-format off
+static const char PROGMEM code_to_name[0xFF] = {
+//   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',  // 0x
+    'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2',  // 1x
+    '3', '4', '5', '6', '7', '8', '9', '0',  20,  19,  27,  26,  22, '-', '=', '[',  // 2x
+    ']','\\', '#', ';','\'', '`', ',', '.', '/', 128, ' ', ' ', ' ', ' ', ' ', ' ',  // 3x
+    ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'S', ' ', ' ', ' ', ' ',  16, ' ', ' ', ' ',  // 4x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 5x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 6x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 7x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 8x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 9x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ax
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Bx
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Cx
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Dx
+    'C', 'S', 'A', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ex
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
+};
+// clang-format on
+void add_keylog(uint16_t keycode) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+        keycode = keycode & 0xFF;
+    } else if (keycode > 0xFF) {
+        keycode = 0;
+    }
+
+    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
+        keylog_str[i] = keylog_str[i - 1];
+    }
+
+    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+        keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
+    }
+}
+
+bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        add_keylog(keycode);
+    }
+    return true;
+}
+
+void render_keylogger_status(void) {
+    oled_write_P(PSTR(OLED_RENDER_KEYLOGGER), false);
+	
+    oled_write(keylog_str, false);
+}
+
+// KEYLOGGER END
+//
+//
+
 
 // STATUS BEGIN
 //
@@ -48,9 +110,6 @@ static void render_status(void) {
 		case _GAMING:
             oled_write_ln_P(PSTR(OLED_RENDER_LAYOUT_GAMING), false);
             break;
-		//case _WARHAMMER:
-          //  oled_write_ln_P(PSTR(OLED_RENDER_LAYOUT_WARHAMMER), false);
-            //break;
 		case _NAVIGATION:
             oled_write_ln_P(PSTR(OLED_RENDER_LAYOUT_NAVIGATION), false);
             break;
@@ -75,7 +134,7 @@ static void render_status(void) {
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 	oled_advance_page(true);
 	render_mod_status(get_mods() | get_oneshot_mods());
-	//render_keylogger_status();
+	render_keylogger_status();
 }
 
 //
@@ -115,12 +174,7 @@ void oled_task_user(void) {
     } else {
 		
 		#ifdef WPM_ENABLE
-		//render_wpm_graph();
-		render_anim();
-        oled_set_cursor(0,6);
-        sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
-        oled_write(wpm_str, false);
-		
+		render_wpm_graph();
 		#endif
         //render_custom_image();
 		//oled_scroll_left();

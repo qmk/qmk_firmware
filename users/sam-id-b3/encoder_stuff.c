@@ -1,4 +1,4 @@
-#include "id-b3.h"
+#include "sam-id-b3.h"
 
 #ifdef ENCODER_ENABLE
 
@@ -17,7 +17,7 @@ void matrix_scan_user(void) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (biton32(layer_state)) {
-            case _COLEMAK:
+            case _QWERTY:
                 // Tabbing through windows
 				if (clockwise) {
 				  if (!is_alt_tab_active) {
@@ -43,14 +43,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code16(C(KC_LEFT));
                 }
 				break;
-//			case _WARHAMMER:
-                // scroll through units.
-  //              if (clockwise) {
-    //                tap_code16(KC_DOT);
-      //          } else {
-        //            tap_code16(KC_COMM);
-          //      }
-			//	break;
             default:
                 // History scrubbing. For Adobe products, hold shift while moving
                 // backward to go forward instead.
@@ -63,7 +55,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         switch (biton32(layer_state)) {
-            case _COLEMAK:
+            case _QWERTY:
                 // Scroll through tabs
                 if (clockwise) {
                     tap_code16(C(KC_PGDN));

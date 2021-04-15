@@ -1,5 +1,5 @@
 #pragma once
-#include "id-b3.h"
+#include "sam-id-b3.h"
 
 #ifdef DICE_ROLLER_ENABLE
 //enumerate macros

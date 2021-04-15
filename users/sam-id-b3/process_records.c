@@ -1,6 +1,6 @@
-#include "id-b3.h"
+#include "sam-id-b3.h"
 
-//__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
     // If console is enabled, it will print the matrix position and status of each key pressed
 
 #ifdef TRACKBALL_ENABLE
@@ -16,9 +16,8 @@ void run_trackball_cleanup(void) {
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	
 #ifdef OLED_DRIVER_ENABLE
-		//process_record_user_oled(keycode, record);
+		process_record_user_oled(keycode, record);
 #endif
 
 #ifdef DICE_ROLLER_ENABLE
