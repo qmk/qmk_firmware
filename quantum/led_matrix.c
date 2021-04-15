@@ -75,15 +75,19 @@
 // globals
 bool           g_suspend_state = false;
 led_eeconfig_t led_matrix_eeconfig;  // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
+uint32_t       g_led_timer;
 
-// Global tick at 20 Hz
-uint32_t g_tick = 0;
+// internals
+static uint8_t         led_last_enable   = UINT8_MAX;
+static uint8_t         led_last_effect   = UINT8_MAX;
+static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
+static led_task_states led_task_state    = SYNCING;
+#if LED_DISABLE_TIMEOUT > 0
+static uint32_t led_anykey_timer;
+#endif  // LED_DISABLE_TIMEOUT > 0
 
-// Ticks since this key was last hit.
-uint8_t g_key_hit[DRIVER_LED_TOTAL];
-
-// Ticks since any key was last hit.
-uint32_t g_any_key_hit = 0;
+// double buffers
+static uint32_t led_timer_buffer;
 
 void eeconfig_read_led_matrix(void) { eeprom_read_block(&led_matrix_eeconfig, EECONFIG_LED_MATRIX, sizeof(led_matrix_eeconfig)); }
 
@@ -95,6 +99,7 @@ void eeconfig_update_led_matrix_default(void) {
     led_matrix_eeconfig.mode   = LED_MATRIX_STARTUP_MODE;
     led_matrix_eeconfig.val    = LED_MATRIX_STARTUP_VAL;
     led_matrix_eeconfig.speed  = LED_MATRIX_STARTUP_SPD;
+    led_matrix_eeconfig.flags  = LED_FLAG_ALL;
     eeconfig_update_led_matrix();
 }
 
@@ -104,6 +109,7 @@ void eeconfig_debug_led_matrix(void) {
     dprintf("led_matrix_eeconfig.mode = %d\n", led_matrix_eeconfig.mode);
     dprintf("led_matrix_eeconfig.val = %d\n", led_matrix_eeconfig.val);
     dprintf("led_matrix_eeconfig.speed = %d\n", led_matrix_eeconfig.speed);
+    dprintf("led_matrix_eeconfig.flags = %d\n", led_matrix_eeconfig.flags);
 }
 
 uint8_t g_last_led_hit[LED_HITS_TO_REMEMBER] = {255};
@@ -140,6 +146,10 @@ void led_matrix_set_value_all(uint8_t value) {
 }
 
 void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
+#if LED_DISABLE_TIMEOUT > 0
+    led_anykey_timer = 0;
+#endif  // LED_DISABLE_TIMEOUT > 0
+
     if (pressed) {
         uint8_t led[8];
         uint8_t led_count = led_matrix_map_row_column_to_led(row, col, led);
@@ -150,45 +160,112 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
             g_last_led_hit[0] = led[0];
             g_last_led_count  = MIN(LED_HITS_TO_REMEMBER, g_last_led_count + 1);
         }
-        for (uint8_t i = 0; i < led_count; i++) g_key_hit[led[i]] = 0;
-        g_any_key_hit = 0;
     } else {
 #ifdef LED_MATRIX_KEYRELEASES
         uint8_t led[8];
         uint8_t led_count = led_matrix_map_row_column_to_led(row, .col, led);
-        for (uint8_t i = 0; i < led_count; i++) g_key_hit[led[i]] = 255;
-
-        g_any_key_hit = 255;
 #endif
     }
 }
 
-static void led_matrix_none(void) { led_matrix_set_value_all(0); }
-
-// Uniform brightness
-void led_matrix_uniform_brightness(void) { led_matrix_set_value_all(led_matrix_eeconfig.val); }
-
-void led_matrix_custom(void) {}
-
-void led_matrix_task(void) {
-    if (!led_matrix_eeconfig.enable) {
-        led_matrix_none();
-        led_matrix_indicators();
-        return;
+static bool led_matrix_none(effect_params_t *params) {
+    if (!params->init) {
+        return false;
     }
 
-    g_tick++;
+    led_matrix_set_value_all(0);
+    return false;
+}
 
-    if (g_any_key_hit < 0xFFFFFFFF) {
-        g_any_key_hit++;
+static bool led_matrix_uniform_brightness(effect_params_t *params) {
+    LED_MATRIX_USE_LIMITS(led_min, led_max);
+
+    uint8_t val = led_matrix_eeconfig.val;
+    for (uint8_t i = led_min; i < led_max; i++) {
+        LED_MATRIX_TEST_LED_FLAGS();
+        led_matrix_set_value(i, val);
     }
+    return led_max < DRIVER_LED_TOTAL;
+}
 
-    for (int led = 0; led < DRIVER_LED_TOTAL; led++) {
-        if (g_key_hit[led] < 255) {
-            if (g_key_hit[led] == 254) g_last_led_count = MAX(g_last_led_count - 1, 0);
-            g_key_hit[led]++;
+static void led_task_timers(void) {
+#if LED_DISABLE_TIMEOUT > 0
+    uint32_t deltaTime = sync_timer_elapsed32(led_timer_buffer);
+#endif  // LED_DISABLE_TIMEOUT > 0
+    led_timer_buffer = sync_timer_read32();
+
+    // Update double buffer timers
+#if LED_DISABLE_TIMEOUT > 0
+    if (led_anykey_timer < UINT32_MAX) {
+        if (UINT32_MAX - deltaTime < led_anykey_timer) {
+            led_anykey_timer = UINT32_MAX;
+        } else {
+            led_anykey_timer += deltaTime;
         }
     }
+#endif  // LED_DISABLE_TIMEOUT > 0
+}
+
+static void led_task_sync(void) {
+    // next task
+    if (sync_timer_elapsed32(g_led_timer) >= LED_MATRIX_LED_FLUSH_LIMIT) led_task_state = STARTING;
+}
+
+static void led_task_start(void) {
+    // reset iter
+    led_effect_params.iter = 0;
+
+    // update double buffers
+    g_led_timer = led_timer_buffer;
+
+    // next task
+    led_task_state = RENDERING;
+}
+
+static void led_task_render(uint8_t effect) {
+    bool rendering         = false;
+    led_effect_params.init = (effect != led_last_effect) || (led_matrix_eeconfig.enable != led_last_enable);
+    if (led_effect_params.flags != led_matrix_eeconfig.flags) {
+        led_effect_params.flags = led_matrix_eeconfig.flags;
+        led_matrix_set_value_all(0);
+    }
+
+    // each effect can opt to do calculations
+    // and/or request PWM buffer updates.
+    switch (effect) {
+        case LED_MATRIX_NONE:
+            rendering = led_matrix_none(&led_effect_params);
+        case LED_MATRIX_UNIFORM_BRIGHTNESS:
+            rendering = led_matrix_uniform_brightness(&led_effect_params);
+            break;
+    }
+
+    led_effect_params.iter++;
+
+    // next task
+    if (!rendering) {
+        led_task_state = FLUSHING;
+        if (!led_effect_params.init && effect == LED_MATRIX_NONE) {
+            // We only need to flush once if we are LED_MATRIX_NONE
+            led_task_state = SYNCING;
+        }
+    }
+}
+
+static void led_task_flush(uint8_t effect) {
+    // update last trackers after the first full render so we can init over several frames
+    led_last_effect = effect;
+    led_last_enable = led_matrix_eeconfig.enable;
+
+    // update pwm buffers
+    led_matrix_update_pwm_buffers();
+
+    // next task
+    led_task_state = SYNCING;
+}
+
+void led_matrix_task(void) {
+    led_task_timers();
 
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
     // while suspended and just do a software shutdown. This is a cheap hack for now.
@@ -197,32 +274,29 @@ void led_matrix_task(void) {
         g_suspend_state ||
 #endif  // LED_DISABLE_WHEN_USB_SUSPENDED == true
 #if LED_DISABLE_TIMEOUT > 0
-        (g_any_key_hit > (uint32_t)LED_DISABLE_TIMEOUT) ||
+        (led_anykey_timer > (uint32_t)LED_DISABLE_TIMEOUT) ||
 #endif  // LED_DISABLE_TIMEOUT > 0
         false;
 
     uint8_t effect = suspend_backlight || !led_matrix_eeconfig.enable ? 0 : led_matrix_eeconfig.mode;
 
-    // this gets ticked at 20 Hz.
-    // each effect can opt to do calculations
-    // and/or request PWM buffer updates.
-    switch (effect) {
-        case LED_MATRIX_NONE:
-            led_matrix_none();
-        case LED_MATRIX_UNIFORM_BRIGHTNESS:
-            led_matrix_uniform_brightness();
+    switch (led_task_state) {
+        case STARTING:
+            led_task_start();
             break;
-        default:
-            led_matrix_custom();
+        case RENDERING:
+            led_task_render(effect);
+            if (effect) {
+                led_matrix_indicators();
+            }
+            break;
+        case FLUSHING:
+            led_task_flush(effect);
+            break;
+        case SYNCING:
+            led_task_sync();
             break;
     }
-
-    if (effect) {
-        led_matrix_indicators();
-    }
-
-    // Tell the LED driver to update its state
-    led_matrix_driver.flush();
 }
 
 void led_matrix_indicators(void) {
@@ -236,14 +310,6 @@ __attribute__((weak)) void led_matrix_indicators_user(void) {}
 
 void led_matrix_init(void) {
     led_matrix_driver.init();
-
-    // Wait half a second for the driver to finish initializing
-    wait_ms(500);
-
-    // clear the key hits
-    for (int led = 0; led < DRIVER_LED_TOTAL; led++) {
-        g_key_hit[led] = 255;
-    }
 
     if (!eeconfig_is_enabled()) {
         dprintf("led_matrix_init_drivers eeconfig is not enabled.\n");
@@ -270,6 +336,7 @@ bool led_matrix_get_suspend_state(void) { return g_suspend_state; }
 
 void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;
+    led_task_state = STARTING;
     if (write_to_eeprom) {
         eeconfig_update_led_matrix();
     }
@@ -283,14 +350,20 @@ void led_matrix_enable(void) {
     eeconfig_update_led_matrix();
 }
 
-void led_matrix_enable_noeeprom(void) { led_matrix_eeconfig.enable = 1; }
+void led_matrix_enable_noeeprom(void) {
+    if (!led_matrix_eeconfig.enable) led_task_state = STARTING;
+    led_matrix_eeconfig.enable = 1;
+}
 
 void led_matrix_disable(void) {
     led_matrix_disable_noeeprom();
     eeconfig_update_led_matrix();
 }
 
-void led_matrix_disable_noeeprom(void) { led_matrix_eeconfig.enable = 0; }
+void led_matrix_disable_noeeprom(void) {
+    if (led_matrix_eeconfig.enable) led_task_state = STARTING;
+    led_matrix_eeconfig.enable = 0;
+}
 
 uint8_t led_matrix_is_enabled(void) { return led_matrix_eeconfig.enable; }
 
@@ -305,6 +378,7 @@ void led_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     } else {
         led_matrix_eeconfig.mode = mode;
     }
+    led_task_state = STARTING;
     if (write_to_eeprom) {
         eeconfig_update_led_matrix();
     }
@@ -371,3 +445,7 @@ void led_matrix_increase_speed(void) { led_matrix_increase_speed_helper(true); }
 void led_matrix_decrease_speed_helper(bool write_to_eeprom) { led_matrix_set_speed_eeprom_helper(qsub8(led_matrix_eeconfig.speed, LED_MATRIX_SPD_STEP), write_to_eeprom); }
 void led_matrix_decrease_speed_noeeprom(void) { led_matrix_decrease_speed_helper(false); }
 void led_matrix_decrease_speed(void) { led_matrix_decrease_speed_helper(true); }
+
+led_flags_t led_matrix_get_flags(void) { return led_matrix_eeconfig.flags; }
+
+void led_matrix_set_flags(led_flags_t flags) { led_matrix_eeconfig.flags = flags; }
