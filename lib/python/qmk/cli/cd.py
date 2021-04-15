@@ -29,4 +29,7 @@ def cd(cli):
             # We just start a new subshell using $SHELL and
             # fall back to '/usr/bin/bash'.
             from qmk.commands import run
-            run([os.environ.get('SHELL', '/usr/bin/bash')])
+            qmk_env = os.environ.copy()
+            # Set the prompt for the new shell
+            qmk_env['MSYS2_PS1'] = qmk_env['PS1']
+            run([os.environ.get('SHELL', '/usr/bin/bash')], env = qmk_env)
