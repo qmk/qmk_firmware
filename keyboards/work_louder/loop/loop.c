@@ -26,15 +26,15 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 2) {
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code(KC_MPRV);
         } else {
-            tap_code(KC_PGUP);
+            tap_code(KC_MNXT);
         }
     } else {
         if (clockwise) {
-            tap_code(KC_UP);
+            rgb_matrix_step_reverse();
         } else {
-            tap_code(KC_DOWN);
+            rgb_matrix_step();
         }
     }
 }

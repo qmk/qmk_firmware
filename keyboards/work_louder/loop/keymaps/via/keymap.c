@@ -18,16 +18,16 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [0] = LAYOUT_via(
-        KC_MUTE, MO(2),   MO(1),   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_F9,
-        KC_VOLD, KC_VOLD, R_M_MOD, R_M_RMOD, RGB_MOD, RGB_RMOD
+        KC_MUTE, KC_MPLY, R_M_TOG, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   MO(1),
+        KC_VOLD, KC_VOLD, KC_MPRV, KC_MNXT, R_M_MOD, R_M_RMOD
     ),
     [1] = LAYOUT_via(
-        RESET,   _______, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,  _______,
-        _______, _______, _______, _______, _______, _______
+        RESET,   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,  MO(2),  _______,
+        _______, _______, _______, _______, RGB_MOD, RGB_RMOD
     ),
     [2] = LAYOUT_via(
-        RESET,   _______, _______, R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______,
-        _______, _______, _______, _______, _______, _______
+        RESET,   _______, R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______, _______,
+        _______, _______, _______, _______, R_M_MOD, R_M_RMOD
     ),
     [3] = LAYOUT_via(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,

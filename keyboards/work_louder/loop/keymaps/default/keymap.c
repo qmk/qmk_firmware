@@ -20,12 +20,35 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [0] = LAYOUT(
-        KC_MUTE, MO(1),   MO(2),   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_F9
+        KC_MUTE, KC_MPLY, R_M_TOG, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  MO(1)
     ),
     [1] = LAYOUT(
-        _______, _______, _______, R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______
+        RESET,   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,  MO(2),  _______
     ),
     [2] = LAYOUT(
-        RESET,   _______, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______
+        RESET,   _______, R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______, _______
     )
 };
+
+
+// void encoder_update_user(uint8_t index, bool clockwise) {
+//     if (index == 0) {
+//         if (clockwise) {
+//             tap_code(KC_VOLD);
+//         } else {
+//             tap_code(KC_VOLU);
+//         }
+//     } else if (index == 2) {
+//         if (clockwise) {
+//             tap_code(KC_MPRV);
+//         } else {
+//             tap_code(KC_MNXT);
+//         }
+//     } else {
+//         if (clockwise) {
+//             rgb_matrix_step_reverse();
+//         } else {
+//             rgb_matrix_step();
+//         }
+//     }
+// }

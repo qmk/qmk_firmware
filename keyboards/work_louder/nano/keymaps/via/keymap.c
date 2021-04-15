@@ -20,19 +20,19 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [0] = LAYOUT_via(
-        KC_MUTE, KC_A,    MO(1),
-        KC_VOLD, KC_VOLU
+        KC_PSCR, MACRO00, MO(1),
+        KC_PGDN, KC_PGUP
     ),
     [1] = LAYOUT_via(
-        RESET,   _______, _______,
+        RESET,   MACRO01, _______,
         _______, _______
     ),
     [2] = LAYOUT_via(
-        RESET,   _______, _______,
+        _______, _______, _______,
         _______, _______
     ),
     [3] = LAYOUT_via(
-        RESET,   _______, _______,
+        _______, _______, _______,
         _______, _______
     )
 };
