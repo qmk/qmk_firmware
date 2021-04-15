@@ -27,14 +27,6 @@
 
 #include <lib/lib8tion/lib8tion.h>
 
-#ifndef MAX
-#    define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
-#endif
-
-#ifndef MIN
-#    define MIN(a, b) ((a) < (b) ? (a) : (b))
-#endif
-
 #if defined(LED_DISABLE_AFTER_TIMEOUT) && !defined(LED_DISABLE_TIMEOUT)
 #    define LED_DISABLE_TIMEOUT (LED_DISABLE_AFTER_TIMEOUT * 1200UL)
 #endif
