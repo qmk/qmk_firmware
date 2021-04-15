@@ -18,6 +18,7 @@
 
 #include "quantum.h"
 #include "split_util.h"
+#include "transport.h"
 #include "timer.h"
 
 #include "lagrange.h"
@@ -68,7 +69,7 @@ void shake_hands(bool master) {
     } while (i < 8);
 }
 
-bool transport_master(matrix_row_t matrix[]) {
+bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     const struct led_context context = {
         host_keyboard_led_state(),
         layer_state
@@ -93,7 +94,7 @@ bool transport_master(matrix_row_t matrix[]) {
             return false;
         }
 
-        ((uint8_t *)matrix)[i] = (uint8_t)x;
+        ((uint8_t *)slave_matrix)[i] = (uint8_t)x;
     }
 
     spi_stop();
@@ -101,7 +102,7 @@ bool transport_master(matrix_row_t matrix[]) {
     return true;
 }
 
-void transport_slave(matrix_row_t matrix[]) {
+void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static struct led_context context;
     struct led_context new_context;
 
@@ -116,7 +117,7 @@ void transport_slave(matrix_row_t matrix[]) {
     for (i = 0 ; i < sizeof(matrix_row_t[MATRIX_ROWS / 2]) ; i += 1) {
         uint8_t b;
 
-        b = transceive(((uint8_t *)matrix)[i]);
+        b = transceive(((uint8_t *)slave_matrix)[i]);
 
         if (i < sizeof(struct led_context)) {
             ((uint8_t *)&new_context)[i] = b;
