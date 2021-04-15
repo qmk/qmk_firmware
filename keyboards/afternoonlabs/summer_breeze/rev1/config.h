@@ -21,7 +21,7 @@
 #define PRODUCT_ID 0x0003
 #define DEVICE_VER 0x0001
 #define MANUFACTURER AfternoonLabs
-#define PRODUCT Breeze
+#define PRODUCT Summer Breeze
 
 /* key matrix size */
 // Rows are doubled-up
