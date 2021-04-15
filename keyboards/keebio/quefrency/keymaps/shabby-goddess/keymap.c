@@ -133,7 +133,7 @@ void eeconfig_init_user(void) {
     rgblight_enable(); // Enable RGB by default
     rgblight_sethsv(188, 89, 78);  // Set default HSV - red hue, full saturation, full brightness
 #ifdef RGBLIGHT_ANIMATIONS
-    rgblight_mode(RGBLIGHT_MODE_BREATHING + 2); // set to RGB_RAINBOW_SWIRL by default
+    rgblight_mode(RGBLIGHT_MODE_BREATHING + 0); // set to RGB_RAINBOW_SWIRL by default
 #endif
 #endif
 
