@@ -80,7 +80,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
         LCTL(KC_V)                  // tap twice for my car
     ),
     [TD_PRINT] = ACTION_TAP_DANCE_DOUBLE(
-        LCTL(LALT(LSFT(KC_S))),     // tap once for iRacing screenshot (unreliable)
+        LCTL(LALT(LSFT(KC_S))),     // tap once for iRacing screenshot (must be enabled in options)
         LGUI(KC_PSCR)               // tap twice for Windows print screen and save to file
     ),
     [TD_CAM_UP] = ACTION_TAP_DANCE_FN(cam_up),
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LSFT(KC_P3),    // next lap
     LCTL(KC_P3),    // next inc
 
-    TD(TD_CAM_DN),     // prev cam, double tap for chase cam
+    TD(TD_CAM_DN),  // prev cam, double tap for chase cam
     TD(TD_CAR),     // prev car, double tap for my car
     LSFT(KC_P1),    // prev lap
     LCTL(KC_P1),    // prev inc
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_A,           // left
     KC_S,           // down
     KC_D,           // right
-    KC_NO,          // ran out of things to assign
+    LALT(KC_K),     // toggle click and drag ui elements (in car)
 
     KC_LCTL,        // ctrl 
     KC_LALT,        // alt
