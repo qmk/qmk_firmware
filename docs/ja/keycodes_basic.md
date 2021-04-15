@@ -5,7 +5,7 @@
   git diff 0.11.25 HEAD -- docs/keycodes_basic.md | cat
 -->
 
-基本的なキーコードのセットは、`KC_NO`, `KC_TRNS` を例外として、[HID Keyboard/Keypad Usage Page (0x07)](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) に列挙されているキーコードから `0xA5-DF` の範囲のキーコードを除いたものに基づいています。
+基本的なキーコードのセットは、`KC_NO`、`KC_TRNS` と `0xA5-DF` の範囲のキーコードを除いて、[HID Keyboard/Keypad Usage Page (0x07)](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) に基づいています。
 
 ## 文字と数字
 
