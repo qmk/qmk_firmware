@@ -1,4 +1,4 @@
-# Minivan 
+# Minivan keyboard layout _Minifan_
 A 40% keyboard made first by TheVan Keyboards
 _https://thevankeyboards.com_ now taken over by TKC
 _https://thekey.company_
@@ -1213,10 +1213,10 @@ mess you have under right little finger on regular keyboards.
 This links to an external file, with some additional resources.
 [Resources](http://socialism.nl/misc/minivan/ "Additional resources")
 
-     ☞ Gimp .xcf files,
-     ☞ Some precompiled hex files, 
-     ☞ PDF format of this manual 
-     ☞ …
+     ☞ Gimp .xcf files.
+     ☞ Some precompiled hex files.
+     ☞ Documentation in other formats.
+     ☞ Whatever else I might think off.
 
 17 Author(s)
 ============
