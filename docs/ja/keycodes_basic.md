@@ -118,7 +118,7 @@
 |`KC_LCTRL` |`KC_LCTL`           |左 Control                       |
 |`KC_LSHIFT`|`KC_LSFT`           |左 Shift                         |
 |`KC_LALT`  |`KC_LOPT`           |左 Alt (Option)                  |
-|`KC_LGUI`  |`KC_LCMD`, `KC_LWIN`|左 GUI (Windows/Command/Meta key)|
+|`KC_LGUI`  |`KC_LCMD`, `KC_LWIN`|左 GUI (Windows/Command/Meta キー)|
 |`KC_RCTRL` |`KC_RCTL`           |右 Control                       |
 |`KC_RSHIFT`|`KC_RSFT`           |右 Shift                         |
 |`KC_RALT`  |`KC_ROPT`, `KC_ALGR`|右 Alt (Option/AltGr)            |
