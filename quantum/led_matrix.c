@@ -243,6 +243,8 @@ static bool led_matrix_none(effect_params_t *params) {
     if (!params->init) {
         return false;
     }
+    return led_max < DRIVER_LED_TOTAL;
+}
 
     led_matrix_set_value_all(0);
     return false;
