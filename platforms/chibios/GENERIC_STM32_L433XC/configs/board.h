@@ -17,8 +17,10 @@
 
 #include_next "board.h"
 
-#undef STM32_HSE_BYPASS
-
 #undef STM32L432xx
 
-#define STM32L433xx
+// Use L443xx define instead of L433xx since ChibiOS defines
+// L433xx together with L432x, which does not activate the 
+// GPIO H ports and does not enable I2C2 and SPI2
+// Until the bug is fixed in ChibiOS, this should not change
+#define STM32L443xx
