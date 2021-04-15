@@ -196,7 +196,7 @@
 
 これらのキーコードは、HID Keyboard/Keypad usage ページにはありません。`SYSTEM_` キーコードは、Generic Desktop ページで見つかります。また、その他は Consumer ページにあります。
 
-?> これらのキーコードのいくつかは、OS によって異なる行動をするかもしれません。例として、macOS では `KC_MEDIA_FAST_FORWARD`, `KC_MEDIA_REWIND`, `KC_MEDIA_NEXT_TRACK` と `KC_MEDIA_PREV_TRACK` は、押している間は現在の曲の中でスキップしますが、タップした時は曲全体をスキップします。
+?> これらのキーコードのいくつかは、OS によって異なる動作をする可能性があります。例として、macOS では `KC_MEDIA_FAST_FORWARD`、`KC_MEDIA_REWIND`、`KC_MEDIA_NEXT_TRACK`、`KC_MEDIA_PREV_TRACK` は、押している間は現在の曲の中でスキップしますが、タップした時は曲全体をスキップします。
 
 |キー                   |エイリアス |説明                  |
 |-----------------------|-----------|----------------------|
