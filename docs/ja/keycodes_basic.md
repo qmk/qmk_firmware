@@ -122,7 +122,7 @@
 |`KC_RCTRL` |`KC_RCTL`           |右 Control                       |
 |`KC_RSHIFT`|`KC_RSFT`           |右 Shift                         |
 |`KC_RALT`  |`KC_ROPT`, `KC_ALGR`|右 Alt (Option/AltGr)            |
-|`KC_RGUI`  |`KC_RCMD`, `KC_RWIN`|右 GUI (Windows/Command/Meta key)|
+|`KC_RGUI`  |`KC_RCMD`, `KC_RWIN`|右 GUI (Windows/Command/Meta キー)|
 
 ## 国際化対応キー
 
