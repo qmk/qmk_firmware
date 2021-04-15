@@ -29,6 +29,7 @@
     * [Overview](cli.md)
     * [Configuration](cli_configuration.md)
     * [Commands](cli_commands.md)
+    * [Tab Completion](cli_tab_complete.md)
 
 * Using QMK
   * Guides

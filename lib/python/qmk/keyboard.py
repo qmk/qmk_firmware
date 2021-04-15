@@ -9,7 +9,7 @@ from glob import glob
 from qmk.c_parse import parse_config_h_file
 from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
-from qmk.path import is_keyboard
+from qmk.path import is_keyboard, under_qmk_firmware
 
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
@@ -31,6 +31,24 @@ BOX_DRAWING_CHARACTERS = {
 }
 
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
+
+
+def find_keyboard_from_dir():
+    """Returns a keyboard name based on the user's current directory.
+    """
+    relative_cwd = under_qmk_firmware()
+
+    if relative_cwd and len(relative_cwd.parts) > 1 and relative_cwd.parts[0] == 'keyboards':
+        # Attempt to extract the keyboard name from the current directory
+        current_path = Path('/'.join(relative_cwd.parts[1:]))
+
+        if 'keymaps' in current_path.parts:
+            # Strip current_path of anything after `keymaps`
+            keymap_index = len(current_path.parts) - current_path.parts.index('keymaps') - 1
+            current_path = current_path.parents[keymap_index]
+
+        if is_keyboard(current_path):
+            return str(current_path)
 
 
 def keyboard_folder(keyboard):
@@ -59,6 +77,12 @@ def _find_name(path):
     """Determine the keyboard name by stripping off the base_path and rules.mk.
     """
     return path.replace(base_path, "").replace(os.path.sep + "rules.mk", "")
+
+
+def keyboard_completer(prefix, action, parser, parsed_args):
+    """Returns a list of keyboards for tab completion.
+    """
+    return list_keyboards()
 
 
 def list_keyboards():
