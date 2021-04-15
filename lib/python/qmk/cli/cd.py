@@ -19,7 +19,9 @@ def cd(cli):
             # Check the user's login shell from 'passwd'
             # alternatively fall back to $SHELL env var
             # and finally to '/bin/bash'.
-            import pty, getpass, pwd
+            import pty
+            import getpass
+            import pwd
             shell = pwd.getpwnam(getpass.getuser()).pw_shell
             if not shell:
                 shell = os.environ.get('SHELL', '/bin/bash')
