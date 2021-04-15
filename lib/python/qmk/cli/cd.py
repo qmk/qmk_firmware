@@ -6,6 +6,7 @@ from milc import cli
 
 from qmk.path import under_qmk_firmware
 
+
 @cli.subcommand('Go to QMK Home')
 def cd(cli):
     """Go to QMK Home
