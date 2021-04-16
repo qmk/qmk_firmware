@@ -93,18 +93,18 @@ BACKLIGHT_DRIVER = pwm
 
 On AVR boards, QMK automatically decides which driver to use according to the following table:
 
-|Backlight Pin|AT90USB64/128|ATmega16/32U4|ATmega16/32U2|ATmega32A|ATmega328/P|
-|-------------|-------------|-------------|-------------|---------|-----------|
-|`B1`         |             |             |             |         |Timer 1    |
-|`B2`         |             |             |             |         |Timer 1    |
-|`B5`         |Timer 1      |Timer 1      |             |         |           |
-|`B6`         |Timer 1      |Timer 1      |             |         |           |
-|`B7`         |Timer 1      |Timer 1      |Timer 1      |         |           |
-|`C4`         |Timer 3      |             |             |         |           |
-|`C5`         |Timer 3      |             |Timer 1      |         |           |
-|`C6`         |Timer 3      |Timer 3      |Timer 1      |         |           |
-|`D4`         |             |             |             |Timer 1  |           |
-|`D5`         |             |             |             |Timer 1  |           |
+|Backlight Pin|AT90USB64/128|AT90USB162|ATmega16/32U4|ATmega16/32U2|ATmega32A|ATmega328/P|
+|-------------|-------------|----------|-------------|-------------|---------|-----------|
+|`B1`         |             |          |             |             |         |Timer 1    |
+|`B2`         |             |          |             |             |         |Timer 1    |
+|`B5`         |Timer 1      |          |Timer 1      |             |         |           |
+|`B6`         |Timer 1      |          |Timer 1      |             |         |           |
+|`B7`         |Timer 1      |Timer 1   |Timer 1      |Timer 1      |         |           |
+|`C4`         |Timer 3      |          |             |             |         |           |
+|`C5`         |Timer 3      |Timer 1   |             |Timer 1      |         |           |
+|`C6`         |Timer 3      |Timer 1   |Timer 3      |Timer 1      |         |           |
+|`D4`         |             |          |             |             |Timer 1  |           |
+|`D5`         |             |          |             |             |Timer 1  |           |
 
 All other pins will use timer-assisted software PWM:
 
@@ -171,7 +171,7 @@ BACKLIGHT_DRIVER = software
 
 #### Multiple Backlight Pins :id=multiple-backlight-pins
 
-Most keyboards have only one backlight pin which control all backlight LEDs (especially if the backlight is connected to an hardware PWM pin).
+Most keyboards have only one backlight pin which controls all backlight LEDs (especially if the backlight is connected to a hardware PWM pin).
 In software PWM, it is possible to define multiple backlight pins, which will be turned on and off at the same time during the PWM duty cycle.
 
 This feature allows to set, for instance, the Caps Lock LED's (or any other controllable LED) brightness at the same level as the other LEDs of the backlight. This is useful if you have mapped Control in place of Caps Lock and you need the Caps Lock LED to be part of the backlight instead of being activated when Caps Lock is on, as it is usually wired to a separate pin from the backlight.
