@@ -1216,7 +1216,7 @@ This links to an external file, with some additional resources.
      ☞ Gimp .xcf files.
      ☞ Some precompiled hex files.
      ☞ Documentation in other formats.
-     ☞ Whatever else I might think off.
+       …
 
 17 Author(s)
 ============
