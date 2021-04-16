@@ -12,10 +12,6 @@ void eeconfig_init_user(void) {
 #ifdef UNICODEMAP_ENABLE
     eeconfig_init_user_unicode();
 #endif
-
-#ifdef RGBLIGHT_ENABLE
-    eeconfig_init_user_rgb();
-#endif
 }
 
 #ifdef RGBLIGHT_ENABLE
