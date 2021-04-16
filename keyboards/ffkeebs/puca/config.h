@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MY_I2C_ADDRESS (0X3C << 1)
 
+#define VIAL_KEYBOARD_UID {0x8C, 0x1C, 0xE2, 0xA0, 0xB6, 0x21, 0x58, 0x67} // Vial unique ID
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
