@@ -435,7 +435,7 @@ ifneq ($(findstring STM32G474, $(MCU)),)
   UF2_FAMILY ?= STM32G4
 endif
 
-ifneq ($(findstring STM32L433, $(MCU)),)
+ifneq (,$(filter $(MCU),STM32L433 STM32L443))
   # Cortex version
   MCU = cortex-m4
 
