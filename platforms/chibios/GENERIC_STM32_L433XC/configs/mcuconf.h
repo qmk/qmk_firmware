@@ -202,6 +202,18 @@
 #define STM32_RTC_TAMPCR_INIT               0
 
 /*
+ * SDMMC drive system settings.
+ */
+#define STM32_SDC_USE_SDMMC1                FALSE
+#define STM32_SDC_SDMMC_UNALIGNED_SUPPORT   TRUE
+#define STM32_SDC_SDMMC_WRITE_TIMEOUT       1000
+#define STM32_SDC_SDMMC_READ_TIMEOUT        1000
+#define STM32_SDC_SDMMC_CLOCK_DELAY         10
+#define STM32_SDC_SDMMC1_DMA_PRIORITY       3
+#define STM32_SDC_SDMMC1_IRQ_PRIORITY       9
+#define STM32_SDC_SDMMC1_DMA_STREAM         STM32_DMA_STREAM_ID(2, 4)
+
+/*
  * SERIAL driver system settings.
  */
 #define STM32_SERIAL_USE_USART1             FALSE
@@ -276,11 +288,5 @@
  */
 #define STM32_WSPI_USE_QUADSPI1             FALSE
 #define STM32_WSPI_QUADSPI1_DMA_STREAM      STM32_DMA_STREAM_ID(2, 7)
-
-/*
- * SDMMC drive system settings.
- */
-#define STM32_HAS_SDMMC1                    FALSE
-#define STM32_SDC_SDMMC1_DMA_MSK            STM32_DMA_STREAM_ID(2, 4)
 
 #endif /* MCUCONF_H */
