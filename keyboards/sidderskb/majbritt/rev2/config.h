@@ -47,8 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define VIAL_KEYBOARD_UID {0x01, 0xD1, 0x91, 0x2C, 0xC0, 0xF8, 0xDE, 0xB1}
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
