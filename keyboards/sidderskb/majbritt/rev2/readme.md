@@ -4,7 +4,7 @@ An Alice style keyboard with arrow keys.
 
 * Keyboard Maintainer: [Sleepdealer](https://github.com/[Sleepdealer])
 * Hardware Supported: Majbritt Rev2 PCB
-* Hardware Availability: TBD
+* Hardware Availability: https://sidderskb.co.uk/
 
 Make example for this keyboard (after setting up your build environment):
 
