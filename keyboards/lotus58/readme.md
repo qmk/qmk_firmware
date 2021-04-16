@@ -1,26 +1,22 @@
-# Sofle Keyboard
+# Lotus58 Glow Keyboard
 
-![SofleKeyboard version 1](https://raw.githubusercontent.com/josefadamcik/SofleKeyboard/master/Images/IMG_20200126_114622.jpg)
+Lotus58 Glow is 6×4+5 keys column-staggered split keyboard. Based on Lily58, Corne and Helix keyboards.
 
-Sofle is 6×4+5 keys column-staggered split keyboard. Based on Lily58, Corne and Helix keyboards.
+More details about the keyboard including parts list and build guide is available on GitHub: [Lotus58 Glow](https://github.com/TweetyDaBird/Lotus58)
 
-More details about the keyboard on my blog: [Let me introduce you SofleKeyboard - a split keyboard based on Lily58 and Crkbd](https://josef-adamcik.cz/electronics/let-me-introduce-you-sofle-keyboard-split-keyboard-based-on-lily58.html)
-
-The current (temporary) build guide and a build log is available here: [SofleKeyboard build log/guide](https://josef-adamcik.cz/electronics/soflekeyboard-build-log-and-build-guide.html)
-
-* Keyboard Maintainer: [Josef Adamcik](https://josef-adamcik.cz) [Twitter:@josefadamcik](https://twitter.com/josefadamcik)  
-* Hardware Supported: SofleKeyboard PCB, ProMicro  
-* Hardware Availability: [PCB & Case Data](https://github.com/josefadamcik/SofleKeyboard)
+* Keyboard Maintainer: [Markus Knutsson](https://github.com/TweetyDaBird)
+* Hardware Supported: Lotus58 Glow PCB, ProMicro  
+* Hardware Availability: [PCB & Case Data](https://github.com/TweetyDaBird/Lotus58)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make sofle:default
+    make lotus58:default
 
 Flash the default keymap: 
 
-    make sofle:default:avrdude
+    make lotus58:default:avrdude
 
-Press reset button on he keyboard when asked.
+Press reset button on the keyboard when asked.
 
 Disconnect the first half, connect the second one and repeat the process.
 
