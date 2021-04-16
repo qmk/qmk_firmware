@@ -5,7 +5,7 @@
     "width": 16.25,
     "height": 5,
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label":"K00 (B1,F7)", "x":0, "y":0},
                 {"label":"K01 (B1,F6)", "x":1, "y":0},
