@@ -55,4 +55,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            11, 10,  9,  8,  7,  6 }
 #endif
 
+#ifdef OLED_DRIVER_ENABLE
+  #define OLED_DISPLAY_128X64
+#endif
+
 #define EE_HANDS
