@@ -16,6 +16,12 @@
  
 #include QMK_KEYBOARD_H
 
+#define GENESIS_LAYER_COLORS
+#define GENESIS_LAYER1_COLOR HSV_CYAN
+#define GENESIS_LAYER2_COLOR HSV_GREEN
+#define GENESIS_LAYER3_COLOR HSV_WHITE
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT_ortho_5x4(
@@ -51,3 +57,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
 };
+
+#ifdef GENESIS_LAYER_COLORS
+const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+		{0,13,GENESIS_LAYER1_COLOR}
+	);
+
+const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+		{0,13,GENESIS_LAYER2_COLOR}
+	);
+
+const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+		{0,13,GENESIS_LAYER3_COLOR}
+	);
+
+
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+		my_layer1_layer,
+		my_layer2_layer,
+		my_layer3_layer
+	);
+
+//Set the appropriate layer color
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, 1));
+    rgblight_set_layer_state(1, layer_state_cmp(state, 2));
+    rgblight_set_layer_state(2, layer_state_cmp(state, 3));
+    return state;
+}
+
+void keyboard_post_init_user(void) {
+	//Enable the LED layers
+	rgblight_layers = my_rgb_layers;
+}
+#endif
