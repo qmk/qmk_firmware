@@ -57,8 +57,8 @@ https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switc
 ## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)
 Without reset circuit you will have inconsistent result due to improper initialization of the hardware. See circuit schematic of TPM754:
 
-- http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
-- http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
+- https://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
+- https://www.mikrocontroller.net/attachment/52583/tpm754.pdf
 
 
 ## Can't Read Column of Matrix Beyond 16
@@ -66,7 +66,7 @@ Use `1UL<<16` instead of `1<<16` in `read_cols()` in [matrix.h] when your column
 
 In C `1` means one of [int] type which is [16 bit] in case of AVR, so you can't shift left more than 15. Thus, calculating `1<<16` will unexpectedly equal zero. To work around this, you have to use [unsigned long] type with `1UL`.
 
-http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
+https://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
 ## Special Extra Key Doesn't Work (System, Audio Control Keys)
 You need to define `EXTRAKEY_ENABLE` in `rules.mk` to use them in QMK.
@@ -83,8 +83,8 @@ In Windows check `Allow this device to wake the computer` setting in **Power Man
 
 **Note that Arduino pin naming is different from actual chip.** For example, Arduino pin `D0` is not `PD0`. Check circuit with its schematics yourself.
 
-- http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
-- http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
+- https://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
+- https://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
 Arduino Leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
 

@@ -39,9 +39,15 @@
 #ifndef PLOOPY_DPI_DEFAULT
 #    define PLOOPY_DPI_DEFAULT 0
 #endif
+#ifndef PLOOPY_DRAGSCROLL_DPI
+#    define PLOOPY_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
+#endif
+#ifndef PLOOPY_DRAGSCROLL_MULTIPLIER
+#    define PLOOPY_DRAGSCROLL_MULTIPLIER 0.75 // Variable-DPI Drag Scroll
+#endif
 
 keyboard_config_t keyboard_config;
-uint16_t dpi_array[] = PLOOPY_DPI_OPTIONS;
+uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
 // TODO: Implement libinput profiles
@@ -57,6 +63,7 @@ uint16_t lastScroll        = 0;      // Previous confirmed wheel event
 uint16_t lastMidClick      = 0;      // Stops scrollwheel from being read if it was pressed
 uint8_t  OptLowPin         = OPT_ENC1;
 bool     debug_encoder     = false;
+bool     is_drag_scroll    = false;
 
 __attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
     mouse_report->h = h;
@@ -89,7 +96,7 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     uint16_t p2 = adc_read(OPT_ENC2_MUX);
     if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
 
-    uint8_t dir = opt_encoder_handler(p1, p2);
+    int dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
     process_wheel_user(mouse_report, mouse_report->h, (int)(mouse_report->v + (dir * OPT_SCALE)));
@@ -151,17 +158,34 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
     // Update Timer to prevent accidental scrolls
     if ((record->event.key.col == 1) && (record->event.key.row == 0)) {
-        lastMidClick = timer_read();
+        lastMidClick      = timer_read();
         is_scroll_clicked = record->event.pressed;
     }
 
-    if (!process_record_user(keycode, record)) { return false; }
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
 
     if (keycode == DPI_CONFIG && record->event.pressed) {
         keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
         eeconfig_update_kb(keyboard_config.raw);
         pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
+
+    if (keycode == DRAG_SCROLL) {
+#ifndef PLOOPY_DRAGSCROLL_MOMENTARY
+        if (record->event.pressed)
+#endif
+        {
+            is_drag_scroll ^= 1;
+        }
+#ifdef PLOOPY_DRAGSCROLL_FIXED
+        pmw_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
+#else
+        pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
+#endif
+    }
+
 /* If Mousekeys is disabled, then use handle the mouse button
  * keycodes.  This makes things simpler, and allows usage of
  * the keycodes in a consistent manner.  But only do this if
@@ -223,24 +247,40 @@ void pointing_device_init(void) {
     opt_encoder_init();
 }
 
-bool has_report_changed (report_mouse_t first, report_mouse_t second) {
-    return !(
-        (!first.buttons && first.buttons == second.buttons) &&
-        (!first.x && first.x == second.x) &&
-        (!first.y && first.y == second.y) &&
-        (!first.h && first.h == second.h) &&
-        (!first.v && first.v == second.v) );
-}
+bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x && new.x != old.x) || (new.y && new.y != old.y) || (new.h && new.h != old.h) || (new.v && new.v != old.v); }
 
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_wheel(&mouse_report);
     process_mouse(&mouse_report);
 
-    pointing_device_set_report(mouse_report);
-    if (has_report_changed(mouse_report, pointing_device_get_report())) {
-        pointing_device_send();
+    if (is_drag_scroll) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = mouse_report.y;
+        mouse_report.x = 0;
+        mouse_report.y = 0;
     }
+
+    pointing_device_set_report(mouse_report);
+    pointing_device_send();
+}
+
+void pointing_device_send(void) {
+    static report_mouse_t old_report  = {};
+    report_mouse_t        mouseReport = pointing_device_get_report();
+
+    // If you need to do other things, like debugging, this is the place to do it.
+    if (has_report_changed(mouseReport, old_report)) {
+        host_mouse_send(&mouseReport);
+    }
+
+    // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device
+    mouseReport.x = 0;
+    mouseReport.y = 0;
+    mouseReport.v = 0;
+    mouseReport.h = 0;
+    pointing_device_set_report(mouseReport);
+    old_report = mouseReport;
 }
 
 void eeconfig_init_kb(void) {

@@ -5,6 +5,8 @@
 
 #pragma once
 
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID  0x4D58   // MX
 #define PRODUCT_ID 0x0065   // noah 65

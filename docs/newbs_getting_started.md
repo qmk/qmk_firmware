@@ -70,6 +70,8 @@ Install the QMK CLI by running:
 
 ### ** Linux/WSL **
 
+?> **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
+
 #### Prerequisites
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
@@ -168,7 +170,9 @@ Once that completes, re-run `qmk setup` to complete the setup and checks.
 
 <!-- tabs:end -->
 
-?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+?> The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration.md?id=single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
+
+?> If you already know how to use GitHub, [we recommend that you follow these instructions](getting_started_github.md) and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
 ## 4. Test Your Build Environment
 

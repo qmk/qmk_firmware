@@ -150,7 +150,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_TWINKLE_LIFE
-#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 75
+#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 200
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_TWINKLE_PROBABILITY
@@ -169,9 +169,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #    ifndef RGBLIGHT_LIMIT_VAL
 #        define RGBLIGHT_LIMIT_VAL 255
 #    endif
-
-#    define RGBLED_TIMER_TOP F_CPU / (256 * 64)
-// #define RGBLED_TIMER_TOP 0xFF10
 
 #    include <stdint.h>
 #    include <stdbool.h>
@@ -346,6 +343,9 @@ void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 uint8_t rgblight_get_speed(void);
 void    rgblight_set_speed(uint8_t speed);
 void    rgblight_set_speed_noeeprom(uint8_t speed);
+
+/*   reset */
+void rgblight_reload_from_eeprom(void);
 
 /*       query */
 uint8_t rgblight_get_mode(void);

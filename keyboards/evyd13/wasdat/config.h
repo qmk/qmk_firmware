@@ -57,6 +57,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
+#define LED_NUM_LOCK_PIN B2
+#define LED_CAPS_LOCK_PIN B0
+#define LED_SCROLL_LOCK_PIN B1
+#define LED_PIN_ON_STATE 0
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
@@ -202,9 +207,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
