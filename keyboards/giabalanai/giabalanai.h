@@ -112,6 +112,10 @@ extern const uint8_t PROGMEM convert_key_to_led2[];
 #    endif
 #endif  //  RGBLIGHT_ENABLE
 
+// #ifdef RGB_MATRIX_ENABLE
+// extern const uint8_t PROGMEM convert_led_location2number[];
+// #endif
+
 extern MidiDevice midi_device;
 void my_process_midi4Base(uint8_t channel, keyrecord_t *record,
                           uint8_t *chord_status, uint8_t chord, uint16_t root_note, bool is_single_bass);
