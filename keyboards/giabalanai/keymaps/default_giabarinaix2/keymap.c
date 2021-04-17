@@ -18,17 +18,6 @@
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper_giabaRInaix2(...) LAYOUT_giabaRInaix2(__VA_ARGS__)
 
-#define _________________QWERTY_L1_________________ KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define _________________QWERTY_L2_________________ KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#define _________________QWERTY_L3_________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-
-#define _________________QWERTY_R1_________________ KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________ KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_R3_________________ KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
-
-#define _________________NUMBER_L__________________ KC_1,    KC_2,    KC_3,    KC_4,    KC_5
-#define _________________NUMBER_R__________________ KC_6,    KC_7,    KC_8,    KC_9,    KC_0
-
 #define DFCBASE DF(_C_SYSTEM_BASE)
 #define DF_QWER DF(_QWERTY)
 // Long press: go to _FN layer, tap: MUTE
@@ -37,7 +26,6 @@
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
 uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
-extern MidiDevice midi_device;
 
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #define MIDI_INITIAL_VELOCITY 117
@@ -220,85 +208,40 @@ void keyboard_post_init_user(void) {
     default_layer_set(1UL << _C_SYSTEM_BASE);
 };
 
-void my_process_midi4TriadChords(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint16_t root_note,
-                                 uint8_t offset1, uint8_t offset2, uint8_t offset3) {
-    uint8_t chord    = keycode - MY_CHORD_MIN;
-    uint8_t velocity = midi_config.velocity;
-    if (record->event.pressed) {
-        if (chord_status[chord] == MIDI_INVALID_NOTE) {
-            uint8_t note = midi_compute_note(root_note);
-            midi_send_noteon(&midi_device, channel, note + offset1, velocity);
-            midi_send_noteon(&midi_device, channel, note + offset2, velocity);
-            midi_send_noteon(&midi_device, channel, note + offset3, velocity);
-            dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
-            chord_status[chord] = note;  // store root_note status.
-        }
-    } else {
-        uint8_t note = chord_status[chord];
-        if (note != MIDI_INVALID_NOTE) {
-            midi_send_noteoff(&midi_device, channel, note + offset1, velocity);
-            midi_send_noteoff(&midi_device, channel, note + offset2, velocity);
-            midi_send_noteoff(&midi_device, channel, note + offset3, velocity);
-            dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
-        }
-    chord_status[chord] = MIDI_INVALID_NOTE;
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint16_t root_note = MIDI_INVALID_NOTE;  // Starting value for the root note of each chord
+
+    uint8_t chord        = keycode - MY_CHORD_MIN;
 
     switch (keycode) {
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C_1;
-            ////////////////////////////////////////////////////////////////////
-            {
-                uint8_t channel  = midi_base_ch;
-                uint8_t chord    = keycode - MY_CHORD_MIN;
-                uint8_t velocity = midi_config.velocity;
-                if (record->event.pressed) {
-                    if (chord_status[chord] == MIDI_INVALID_NOTE) {
-                        uint8_t note = midi_compute_note(root_note);
-                        midi_send_noteon(&midi_device, channel, note, velocity);
-                        midi_send_noteon(&midi_device, channel, note + 12, velocity);  // +1 Octave
-                        dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
-                        chord_status[chord] = note;  // store root_note status.
-                    }
-                } else {
-                    uint8_t note = chord_status[chord];
-                    if (note != MIDI_INVALID_NOTE) {
-                        midi_send_noteoff(&midi_device, channel, note, velocity);
-                        midi_send_noteoff(&midi_device, channel, note + 12, velocity);  // +1 Octave
-                        dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
-                    }
-                    chord_status[chord] = MIDI_INVALID_NOTE;
-                }
-            }////////////////////////////////////////////////////////////////////
+            my_process_midi4Base(midi_base_ch, record, chord_status, chord, root_note, false);
             break;
 
         case MI_CH_C ... MI_CH_B:  // Major Chords
             root_note = keycode - MI_CH_C + MI_C_2;
             // Root, Major Third, and Fifth Notes
-            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 0, 4, 7);
+            my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 4, 7);
             break;
 
         case MI_CH_Cm ... MI_CH_Bm:  // Minor Chord
             root_note = keycode - MI_CH_Cm + MI_C_2;
             // Root, Minor Third, and Fifth Notes
-            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 0, 3, 7);
+            my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 7);
             break;
 
         case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
             root_note = keycode - MI_CH_CDom7 + MI_C_2;
             // Major Third, Major Fifth, and Minor Seventh Notes
-            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 4, 7, 10);
+            my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 4, 7, 10);
             break;
 
         case MI_CH_CDim7 ... MI_CH_BDim7:                // Diminished 7th Chord
             root_note = keycode - MI_CH_CDim7 + MI_C_2;
             // Root, Minor Third, and Diminished 5th Note
-            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 0, 3, 6);
+            my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 6);
             break;
     }
     return true;

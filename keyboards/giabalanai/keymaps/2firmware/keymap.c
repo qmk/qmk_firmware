@@ -20,28 +20,6 @@
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
-#define _________________QWERTY_L1_________________ KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define _________________QWERTY_L2_________________ KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#define _________________QWERTY_L3_________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-
-#define _________________QWERTY_R1_________________ KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________ KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_R3_________________ KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
-
-#define _________________COLEMAK_L1________________ KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
-#define _________________COLEMAK_L2________________ KC_A,    KC_R,    KC_S,    KC_T,    KC_D
-#define _________________COLEMAK_L3________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-
-#define _________________COLEMAK_R1________________ KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define _________________COLEMAK_R2________________ KC_H,    KC_N,    KC_E,    KC_I,    KC_O
-#define _________________COLEMAK_R3________________ KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
-
-#define _________________NUMBER_L__________________ KC_1,    KC_2,    KC_3,    KC_4,    KC_5
-#define _________________NUMBER_R__________________ KC_6,    KC_7,    KC_8,    KC_9,    KC_0
-
-#define _________________FUNC__L___________________ KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
-#define _________________FUNC__R___________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
-
 #define DF_QWER  DF(_QWERTY)
 #define DF_COLE  DF(_COLEMAK)
 #define MO_ADJ   MO(_ADJUST)
@@ -54,7 +32,6 @@
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
 uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
-extern MidiDevice midi_device;
 
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #define MIDI_INITIAL_VELOCITY 117
@@ -63,8 +40,6 @@ extern MidiDevice midi_device;
 static bool melody_dyad_high = false;  //  true when +1 octave unison dyad is enabled.
 static bool melody_dyad_low  = false;  //  true when -1 octave unison dyad is enabled.
 
-// the velocity difference from the velocity of the root note.
-#define UNISON_VELOCITY_OFFSET 30
 static bool melody_unison_suppress  = true;  //  true: velocity of octave unison note is suppressd to UNISON_VELOCITY_RATIO
 
 
@@ -82,53 +57,6 @@ user_config_t user_config;
 #ifdef RGBLIGHT_ENABLE
 /* used to specify there is no LED on the keylocation. */
 #    define NO_LED 255
-
-  /* Conversion map from keylocation (MATRIX_ROWS x2(split) x MATRIX_COLS) to led IDs.
-    led IDs are the number starts "0" from upper left corner of left side,
-    enumerated from left to right, from top to bottom.
-    Then emumeration follows to the right side, starting from "60".
-
-    Note that the conversion from physical LED serial alighment to
-      the led IDs is done with RGBLIGHT_LED_MAP beforehand.                          */
-const uint8_t PROGMEM convert_key_to_led[] =
-{
-  0,      12,    24,    36,    48,      11,    23,    35,     47,     59,
-  1,      13,    25,    37,    49,      10,    22,    34,     46,     58,
-  2,      14,    26,    38,    50,      9,     21,    33,     45,     57,
-  3,      15,    27,    39,    51,      8,     20,    32,     44,     56,
-  4,      16,    28,    40,    52,      7,     19,    31,     43,     55,
-  5,      17,    29,    41,    53,      6,     18,    30,     42,     54,
-
-  85,     86,    87,    88,    89,      90,    91,    NO_LED, NO_LED, NO_LED,
-  98,     99,    100,   101,   102,     103,   104,   NO_LED, NO_LED, NO_LED,
-  NO_LED, 111,   112,   113,   114,     115,   116,   NO_LED, NO_LED, NO_LED,
-  NO_LED, 97,    96,    95,    94,      93,    92,    NO_LED, NO_LED, NO_LED,
-  NO_LED, 110,   109,   108,   107,     106,   105,   NO_LED, NO_LED, NO_LED,
-  NO_LED, 122,   121,   120,   119,     118,   117,   NO_LED, NO_LED, NO_LED
-};
-
-/* Top 2 rows on the right side (LED:60-84) are
-   duplicates of the bottom 2 rows (LED:85-122).
-   LED:97 = Encoder,
-   LED:110 don't have a duplicate on the top row,
-   LED:72 is used when r20 is pressed (not a duplicate) */
-const uint8_t PROGMEM convert_key_to_led2[] =
-{
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
-
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
-  60,     61,     62,     63,     64,       65,     66,     NO_LED, NO_LED, NO_LED,
-  72,     73,     74,     75,     76,       77,     78,     NO_LED, NO_LED, NO_LED,
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
-  NO_LED, NO_LED, 71,     70,     69,       68,     67,     NO_LED, NO_LED, NO_LED,
-  NO_LED, 84,     83,     82,     81,       80,     79,     NO_LED, NO_LED, NO_LED
-};
-
 #endif  //  RGBLIGHT_ENABLE
 
 
@@ -573,63 +501,6 @@ void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val
 }
 #endif  // RGBLIGHT_ENABLE
 
-void my_process_midi(uint8_t channel, uint16_t keycode, keyrecord_t *record, int8_t offset) {
-
-    uint8_t tone     = keycode - MIDI_TONE_MIN;
-
-    uint8_t melody_unison_velocity;
-    if (melody_unison_suppress) {
-        if (midi_config.velocity > UNISON_VELOCITY_OFFSET){
-            melody_unison_velocity = midi_config.velocity - UNISON_VELOCITY_OFFSET;
-        } else {
-            melody_unison_velocity = 0;
-        }
-    } else {
-        melody_unison_velocity = midi_config.velocity;
-    }
-
-    if (record->event.pressed) {
-        if (my_tone_status[tone] == MIDI_INVALID_NOTE) {
-            uint8_t note = midi_compute_note(keycode);
-            midi_send_noteon(&midi_device, channel, note + offset, melody_unison_velocity);
-            dprintf("midi noteon channel:%d note:%d tone:%d velocity:%d\n", channel, note, tone, melody_unison_velocity);
-            my_tone_status[tone] = note;  // store root_note status.
-        }
-    } else {
-        uint8_t note = my_tone_status[tone];
-        if (note != MIDI_INVALID_NOTE) {
-            midi_send_noteoff(&midi_device, channel, note + offset, melody_unison_velocity);
-            dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, melody_unison_velocity);
-        }
-    my_tone_status[tone] = MIDI_INVALID_NOTE;
-    }
-}
-
-void my_process_midi4TriadChords(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint16_t root_note,
-                                 int8_t offset1, int8_t offset2, int8_t offset3) {
-    uint8_t chord    = keycode - MY_CHORD_MIN;
-    uint8_t velocity = midi_config.velocity;
-    if (record->event.pressed) {
-        if (chord_status[chord] == MIDI_INVALID_NOTE) {
-            uint8_t note = midi_compute_note(root_note);
-            midi_send_noteon(&midi_device, channel, note + offset1, velocity);
-            midi_send_noteon(&midi_device, channel, note + offset2, velocity);
-            midi_send_noteon(&midi_device, channel, note + offset3, velocity);
-            dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
-            chord_status[chord] = note;  // store root_note status.
-        }
-    } else {
-        uint8_t note = chord_status[chord];
-        if (note != MIDI_INVALID_NOTE) {
-            midi_send_noteoff(&midi_device, channel, note + offset1, velocity);
-            midi_send_noteoff(&midi_device, channel, note + offset2, velocity);
-            midi_send_noteoff(&midi_device, channel, note + offset3, velocity);
-            dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
-        }
-    chord_status[chord] = MIDI_INVALID_NOTE;
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint16_t root_note = MIDI_INVALID_NOTE;  // Starting value for the root note of each chord
 
@@ -642,6 +513,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t keylocation  = pgm_read_byte(&convert_key_to_led[MATRIX_COLS * r + c]);
     uint8_t keylocation2 = pgm_read_byte(&convert_key_to_led2[MATRIX_COLS * r + c]);
 #endif  // RGBLIGHT_ENABLE
+
+    uint8_t chord        = keycode - MY_CHORD_MIN;
 
     switch (keycode) {
         //  set default layer and save it to EEPROM when MIDI key layers are selected.
@@ -723,37 +596,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C_1;
-        ////////////////////////////////////////////////////////////////////
-            {
-                uint8_t channel  = midi_base_ch;
-                uint8_t chord    = keycode - MY_CHORD_MIN;
-                uint8_t velocity = midi_config.velocity;
-                if (record->event.pressed) {
-                    if (chord_status[chord] == MIDI_INVALID_NOTE) {
-                        uint8_t note = midi_compute_note(root_note);
-                        if (IS_SINGLE_BASS()) {
-                            midi_send_noteon(&midi_device, channel, note, velocity);
-                        } else {
-                            midi_send_noteon(&midi_device, channel, note, velocity);
-                            midi_send_noteon(&midi_device, channel, note + 12, velocity);  // +1 Octave
-                        }
-                        dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
-                        chord_status[chord] = note;  // store root_note status.
-                    }
-                } else {
-                    uint8_t note = chord_status[chord];
-                    if (note != MIDI_INVALID_NOTE) {
-                        if (IS_SINGLE_BASS()) {
-                            midi_send_noteoff(&midi_device, channel, note, velocity);
-                        } else {
-                            midi_send_noteoff(&midi_device, channel, note, velocity);
-                            midi_send_noteoff(&midi_device, channel, note + 12, velocity);  // +1 Octave
-                        }
-                        dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
-                    }
-                    chord_status[chord] = MIDI_INVALID_NOTE;
-                }
-            }////////////////////////////////////////////////////////////////////
+            my_process_midi4Base(midi_base_ch, record, chord_status, chord, root_note, IS_SINGLE_BASS());
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -762,7 +605,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MI_CH_C ... MI_CH_B:  // Major Chords
             root_note = keycode - MI_CH_C + MI_C_2;
             // Root, Major Third, and Fifth Notes
-            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 0, 4, 7);
+            my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 4, 7);
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -771,7 +614,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MI_CH_Cm ... MI_CH_Bm:  // Minor Chord
             root_note = keycode - MI_CH_Cm + MI_C_2;
             // Root, Minor Third, and Fifth Notes
-            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 0, 3, 7);
+            my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 7);
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -780,7 +623,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
             root_note = keycode - MI_CH_CDom7 + MI_C_2;
             // Major Third, Major Fifth, and Minor Seventh Notes
-            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 4, 7, 10);
+            my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 4, 7, 10);
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -789,7 +632,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MI_CH_CDim7 ... MI_CH_BDim7:                // Diminished 7th Chord
             root_note = keycode - MI_CH_CDim7 + MI_C_2;
             // Root, Minor Third, and Diminished 5th Note
-            my_process_midi4TriadChords(midi_chord_ch, keycode, record, root_note, 0, 3, 6);
+            my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 6);
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -809,9 +652,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MIDI_TONE_MIN ... MIDI_TONE_MAX:  // notes on the right side keyboard.
             //  root_note is played by process_midi().
             if ( melody_dyad_high == true ) {        //  play 1 octave higher as well.
-                my_process_midi(0, keycode, record, 12);
+                my_process_midi(0, keycode, record, my_tone_status, 12, melody_unison_suppress);
             } else if ( melody_dyad_low == true ) {  //  play 1 octave lower as well.
-                my_process_midi(0, keycode, record, -12);
+                my_process_midi(0, keycode, record, my_tone_status, -12, melody_unison_suppress);
             }
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
@@ -836,9 +679,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(int8_t index, bool clockwise) {
-#    ifdef CONSOLE_ENABLE
-    uprintf("encoder_update_user, index = %d, clockwise = %u\n", index, clockwise);
-#    endif
     if (index == 1) { /* An encoder on the right side */
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -846,8 +686,5 @@ void encoder_update_user(int8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
-#    ifdef CONSOLE_ENABLE
-        uprintf("midi_config.octave = %u\n", midi_config.octave);
-#    endif
 }
 #endif  // ENCODER_ENABLE
