@@ -142,3 +142,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
    )
 };
+
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case CM_SPAR:
+      return true;
+    default:
+      return false;
+  }
+}
