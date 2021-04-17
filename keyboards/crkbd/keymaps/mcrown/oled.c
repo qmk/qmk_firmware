@@ -135,7 +135,7 @@ static void render_keylogger_status(void){
 
     if(timer_elapsed32(cursor_oled_timer) > 300){
         cursor_oled_timer = timer_read32();
-        cursor_f=TOGGLE_BOOL_VAR(cursor_f);
+        cursor_f=!cursor_f;
     }
     oled_write_P(PSTR("\n>:"), false);
     if(current_cursor_pos>(KEYLOG_LEN-1)){
