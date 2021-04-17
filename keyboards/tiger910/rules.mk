@@ -16,4 +16,3 @@ SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no	      # USB Nkey Rollover
 RGBLIGHT_ENABLE = no
 
-LAYOUTS = 60_ansi_split_bs_rshift 60_ansi 60_tsangan_hhkb
