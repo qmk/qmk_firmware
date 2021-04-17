@@ -35,9 +35,6 @@
 /* For values greater than 0x200, substract that value and add 0x20 so the characters can be mapped  */
 #define RM_LSFT(kc)           ((uint8_t)(0x20)+(kc-0x200))
 
-/* Toggle a boolean variable */
-#define TOGGLE_BOOL_VAR(bv)   (((bv)^true)&true)
-
 /* ######################################################################### LAYOUT BLOCKS ##################################################### */
 /* -----------------------------------------BUTTON1---BUTTON2- BUTTON3------- */
 #define _____________MOD_LEFT_____________ KC_GUIEI, KC_LOWER, KC_SPC
