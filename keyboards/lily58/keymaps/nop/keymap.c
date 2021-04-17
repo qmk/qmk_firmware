@@ -141,18 +141,8 @@ void oled_task_user(void) {
 }
 #endif  // OLED_DRIVER_ENABLE
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   if (record->event.pressed) {
-// #ifdef OLED_DRIVER_ENABLE
-//     set_keylog(keycode, record);
-// #endif
-//     // set_timelog();
-//   }
-  return true;
-}
-
 #include "./bit-c_led.h"
 
-void keyboard_pre_init_user(void) {
+void keyboard_post_init_user(void) {
     set_bit_c_LED(LED_OFF);
 }

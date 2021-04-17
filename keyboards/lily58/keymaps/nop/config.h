@@ -26,10 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
-
-#define USB_SUSPEND_WAKEUP_DELAY 200
+// #define TAPPING_FORCE_HOLD
+// #define TAPPING_TERM 100
 
 //#undef RGBLED_NUM
 //#define RGBLIGHT_ANIMATIONS
@@ -44,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef RGBLED_NUM
 #    define RGBLED_NUM          10  // Number of LEDs
 #    define RGBLED_SPLIT        { 5, 5 }
-#    define RGBLIGHT_ANIMATIONS
+//#    define RGBLIGHT_ANIMATIONS
 #    define RGBLIGHT_HUE_STEP   6  // number of steps to cycle through the hue by
 #    define RGBLIGHT_SAT_STEP   6  // number of steps to increment the saturation by
 #    define RGBLIGHT_VAL_STEP   6  // number of steps to increment the brightness by
@@ -63,6 +61,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef OLED_UPDATE_INTERVAL
 #define OLED_UPDATE_INTERVAL 50
+
+// SANIC
+#define USB_POLLING_INTERVAL_MS 1
+#define QMK_KEYS_PER_SCAN 4
 
 // Firmware optimizations
 
