@@ -3,6 +3,7 @@
 
 #include "led.h"
 #include "sleep_led.h"
+#include "rgb_matrix.h"
 
 /* All right, we go the "software" way: timer, toggle LED in interrupt.
  * Based on hasu's code for AVRs.
@@ -197,6 +198,42 @@ void sleep_led_disable(void) {
 void sleep_led_toggle(void) {
     /* Toggle the timer */
     STM32_TIM14->CR1 ^= STM32_TIM_CR1_CEN;
+}
+
+#elif defined(SN32F24xx) && defined(RGB_MATRIX_ENABLE)
+
+//for the purpose of sleep_led implementation RGB_MATRIX_NONE will convey intention to disable matrix.
+#ifndef SLEEP_LED_MODE_ANIMATION
+#define SLEEP_LED_MODE_ANIMATION RGB_MATRIX_BREATHING
+#endif
+
+uint8_t current_mode = RGB_MATRIX_NONE;
+uint8_t current_state = 0;
+
+void sleep_led_init(void) {}
+
+void sleep_led_enable(void) {
+    current_mode = rgb_matrix_get_mode();
+    current_state = rgb_matrix_is_enabled();
+    if (SLEEP_LED_MODE_ANIMATION == RGB_MATRIX_NONE) {
+        rgb_matrix_disable();
+    }
+    else {
+        rgb_matrix_mode(SLEEP_LED_MODE_ANIMATION);
+    }
+}
+
+void sleep_led_disable(void) {
+    if (current_state != rgb_matrix_is_enabled()) {
+        rgb_matrix_enable();
+    }
+    if (current_mode != rgb_matrix_get_mode()) {
+        rgb_matrix_mode(current_mode);
+    }
+}
+
+void sleep_led_toggle(void) {
+    // not implemented
 }
 
 #else /* platform selection: not on familiar chips */
