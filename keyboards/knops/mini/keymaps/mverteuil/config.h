@@ -18,8 +18,8 @@
 
 #if defined(AUDIO_ENABLE)
     #define AUDIO_CLICKY
-    #define B5_AUDIO
-    #define C6_AUDIO
+    #define AUDIO_PIN_ALT B5
+    #define AUDIO_PIN C6
     #define STARTUP_SONG SONG(ZELDA_PUZZLE)
     #define GOODBYE_SONG SONG(COIN_SOUND)
 #endif

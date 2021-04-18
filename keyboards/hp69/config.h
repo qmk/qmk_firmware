@@ -48,5 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 20
 #define RGBLIGHT_ANIMATIONS
 
-#define A4_AUDIO
-#define A5_AUDIO
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE

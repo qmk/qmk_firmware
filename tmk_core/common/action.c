@@ -47,10 +47,6 @@ int tp_buttons;
 int retro_tapping_counter = 0;
 #endif
 
-#ifdef FAUXCLICKY_ENABLE
-#    include "fauxclicky.h"
-#endif
-
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
@@ -80,15 +76,10 @@ void action_exec(keyevent_t event) {
 #endif
     }
 
-#ifdef FAUXCLICKY_ENABLE
-    if (IS_PRESSED(event)) {
-        FAUXCLICKY_ACTION_PRESS;
+    if (event.pressed) {
+        // clear the potential weak mods left by previously pressed keys
+        clear_weak_mods();
     }
-    if (IS_RELEASED(event)) {
-        FAUXCLICKY_ACTION_RELEASE;
-    }
-    fauxclicky_check();
-#endif
 
 #ifdef SWAP_HANDS_ENABLE
     if (!IS_NOEVENT(event)) {
@@ -250,11 +241,6 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
 #endif
-
-    if (event.pressed) {
-        // clear the potential weak mods left by previously pressed keys
-        clear_weak_mods();
-    }
 
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
@@ -424,56 +410,22 @@ void process_action(keyrecord_t *record, action_t action) {
         case ACT_MOUSEKEY:
             if (event.pressed) {
                 mousekey_on(action.key.code);
-                switch (action.key.code) {
-#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-                    case KC_MS_BTN1:
-                        register_button(true, MOUSE_BTN1);
-                        break;
-                    case KC_MS_BTN2:
-                        register_button(true, MOUSE_BTN2);
-                        break;
-                    case KC_MS_BTN3:
-                        register_button(true, MOUSE_BTN3);
-                        break;
-#    endif
-#    ifdef POINTING_DEVICE_ENABLE
-                    case KC_MS_BTN4:
-                        register_button(true, MOUSE_BTN4);
-                        break;
-                    case KC_MS_BTN5:
-                        register_button(true, MOUSE_BTN5);
-                        break;
-#    endif
-                    default:
-                        mousekey_send();
-                        break;
-                }
             } else {
                 mousekey_off(action.key.code);
-                switch (action.key.code) {
+            }
+            switch (action.key.code) {
 #    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-                    case KC_MS_BTN1:
-                        register_button(false, MOUSE_BTN1);
-                        break;
-                    case KC_MS_BTN2:
-                        register_button(false, MOUSE_BTN2);
-                        break;
-                    case KC_MS_BTN3:
-                        register_button(false, MOUSE_BTN3);
-                        break;
+#        ifdef POINTING_DEVICE_ENABLE
+                case KC_MS_BTN1 ... KC_MS_BTN8:
+#        else
+                case KC_MS_BTN1 ... KC_MS_BTN3:
+#        endif
+                    register_button(event.pressed, MOUSE_BTN_MASK(action.key.code - KC_MS_BTN1));
+                    break;
 #    endif
-#    ifdef POINTING_DEVICE_ENABLE
-                    case KC_MS_BTN4:
-                        register_button(false, MOUSE_BTN4);
-                        break;
-                    case KC_MS_BTN5:
-                        register_button(false, MOUSE_BTN5);
-                        break;
-#    endif
-                    default:
-                        mousekey_send();
-                        break;
-                }
+                default:
+                    mousekey_send();
+                    break;
             }
             break;
 #endif
@@ -936,19 +888,24 @@ void unregister_code(uint8_t code) {
 #endif
 }
 
-/** \brief Utilities for actions. (FIXME: Needs better description)
+/** \brief Tap a keycode with a delay.
  *
- * FIXME: Needs documentation.
+ * \param code The basic keycode to tap.
+ * \param delay The amount of time in milliseconds to leave the keycode registered, before unregistering it.
  */
-void tap_code(uint8_t code) {
+void tap_code_delay(uint8_t code, uint16_t delay) {
     register_code(code);
-    if (code == KC_CAPS) {
-        wait_ms(TAP_HOLD_CAPS_DELAY);
-    } else {
-        wait_ms(TAP_CODE_DELAY);
+    for (uint16_t i = delay; i > 0; i--) {
+        wait_ms(1);
     }
     unregister_code(code);
 }
+
+/** \brief Tap a keycode with the default delay.
+ *
+ * \param code The basic keycode to tap. If `code` is `KC_CAPS`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
+ */
+void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
@@ -1017,16 +974,16 @@ void clear_keyboard_but_mods(void) {
  * FIXME: Needs documentation.
  */
 void clear_keyboard_but_mods_and_keys() {
+#ifdef EXTRAKEY_ENABLE
+    host_system_send(0);
+    host_consumer_send(0);
+#endif
     clear_weak_mods();
     clear_macro_mods();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();
     mousekey_send();
-#endif
-#ifdef EXTRAKEY_ENABLE
-    host_system_send(0);
-    host_consumer_send(0);
 #endif
 }
 
