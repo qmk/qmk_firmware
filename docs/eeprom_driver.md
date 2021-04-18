@@ -31,6 +31,7 @@ Currently QMK supports 24xx-series chips over I2C. As such, requires a working i
 `#define EXTERNAL_EEPROM_PAGE_SIZE`         | Page size of the EEPROM in bytes, as specified in the datasheet                     | 32
 `#define EXTERNAL_EEPROM_ADDRESS_SIZE`      | The number of bytes to transmit for the memory location within the EEPROM           | 2
 `#define EXTERNAL_EEPROM_WRITE_TIME`        | Write cycle time of the EEPROM, as specified in the datasheet                       | 5
+`#define EXTERNAL_EEPROM_WP_PIN`            | If defined the WP pin will be toggled appropriately when writing to the EEPROM.     | _none_
 
 Default values and extended descriptions can be found in `drivers/eeprom/eeprom_i2c.h`.
 
