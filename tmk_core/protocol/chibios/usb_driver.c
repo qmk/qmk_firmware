@@ -22,7 +22,7 @@
  * @{
  */
 
-#include "hal.h"
+#include <hal.h>
 #include "usb_driver.h"
 #include <string.h>
 
@@ -80,7 +80,19 @@ static bool qmkusb_start_receive(QMKUSBDriver *qmkusbp) {
  * Interface implementation.
  */
 
-static size_t _write(void *ip, const uint8_t *bp, size_t n) { return obqWriteTimeout(&((QMKUSBDriver *)ip)->obqueue, bp, n, TIME_INFINITE); }
+static size_t _write(void *ip, const uint8_t *bp, size_t n) {
+    output_buffers_queue_t *obqueue = &((QMKUSBDriver *)ip)->obqueue;
+    chSysLock();
+    const bool full = obqIsFullI(obqueue);
+    chSysUnlock();
+    if (full || bqIsSuspendedX(obqueue)) {
+        /* Discard any writes while the queue is suspended or full, i.e. the hidraw
+           interface is not open. If we tried to send with an infinite timeout, we
+           would deadlock the keyboard otherwise. */
+        return -1;
+    }
+    return obqWriteTimeout(obqueue, bp, n, TIME_INFINITE);
+}
 
 static size_t _read(void *ip, uint8_t *bp, size_t n) { return ibqReadTimeout(&((QMKUSBDriver *)ip)->ibqueue, bp, n, TIME_INFINITE); }
 

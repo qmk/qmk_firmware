@@ -5,7 +5,7 @@
     "width": 13.2,
     "height": 4.85,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_3x5_3": {
             "layout": [
                 {"x": 0, "y": 0.375},
                 {"x": 1, "y": 0.125},

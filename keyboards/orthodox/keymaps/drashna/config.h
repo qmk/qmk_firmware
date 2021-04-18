@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
-#    define C6_AUDIO
+#    define AUDIO_PIN C6
 #    ifdef RGBLIGHT_ENABLE
 #        define NO_MUSIC_MODE
 #    endif

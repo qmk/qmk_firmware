@@ -29,16 +29,21 @@ enum hid_report_ids {
     REPORT_ID_MOUSE,
     REPORT_ID_SYSTEM,
     REPORT_ID_CONSUMER,
-    REPORT_ID_NKRO
+    REPORT_ID_NKRO,
+    REPORT_ID_JOYSTICK
 };
 
 /* Mouse buttons */
+#define MOUSE_BTN_MASK(n) (1 << (n))
 enum mouse_buttons {
-    MOUSE_BTN1 = (1 << 0),
-    MOUSE_BTN2 = (1 << 1),
-    MOUSE_BTN3 = (1 << 2),
-    MOUSE_BTN4 = (1 << 3),
-    MOUSE_BTN5 = (1 << 4)
+    MOUSE_BTN1 = MOUSE_BTN_MASK(0),
+    MOUSE_BTN2 = MOUSE_BTN_MASK(1),
+    MOUSE_BTN3 = MOUSE_BTN_MASK(2),
+    MOUSE_BTN4 = MOUSE_BTN_MASK(3),
+    MOUSE_BTN5 = MOUSE_BTN_MASK(4),
+    MOUSE_BTN6 = MOUSE_BTN_MASK(5),
+    MOUSE_BTN7 = MOUSE_BTN_MASK(6),
+    MOUSE_BTN8 = MOUSE_BTN_MASK(7)
 };
 
 /* Consumer Page (0x0C)
@@ -46,8 +51,9 @@ enum mouse_buttons {
  * See https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf#page=75
  */
 enum consumer_usages {
-    // 15.5 Display Controls (https://www.usb.org/sites/default/files/hutrr41_0.pdf)
-    BRIGHTNESS_UP          = 0x06F,
+    // 15.5 Display Controls
+    SNAPSHOT               = 0x065,
+    BRIGHTNESS_UP          = 0x06F, // https://www.usb.org/sites/default/files/hutrr41_0.pdf
     BRIGHTNESS_DOWN        = 0x070,
     // 15.7 Transport Controls
     TRANSPORT_RECORD       = 0x0B2,
@@ -57,6 +63,7 @@ enum consumer_usages {
     TRANSPORT_PREV_TRACK   = 0x0B6,
     TRANSPORT_STOP         = 0x0B7,
     TRANSPORT_EJECT        = 0x0B8,
+    TRANSPORT_RANDOM_PLAY  = 0x0B9,
     TRANSPORT_STOP_EJECT   = 0x0CC,
     TRANSPORT_PLAY_PAUSE   = 0x0CD,
     // 15.9.1 Audio Controls - Volume
@@ -71,6 +78,7 @@ enum consumer_usages {
     AL_LOCK                = 0x19E,
     AL_CONTROL_PANEL       = 0x19F,
     AL_ASSISTANT           = 0x1CB,
+    AL_KEYBOARD_LAYOUT     = 0x1AE,
     // 15.16 Generic GUI Application Controls
     AC_MINIMIZE            = 0x206,
     AC_SEARCH              = 0x221,
@@ -118,12 +126,6 @@ enum desktop_usages {
 #endif
 
 #define KEYBOARD_REPORT_KEYS 6
-
-/* VUSB hardcodes keyboard and mouse+extrakey only */
-#if defined(PROTOCOL_VUSB)
-#    undef KEYBOARD_SHARED_EP
-#    undef MOUSE_SHARED_EP
-#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -185,6 +187,20 @@ typedef struct {
     int8_t  v;
     int8_t  h;
 } __attribute__((packed)) report_mouse_t;
+
+typedef struct {
+#if JOYSTICK_AXES_COUNT > 0
+#    if JOYSTICK_AXES_RESOLUTION > 8
+    int16_t axes[JOYSTICK_AXES_COUNT];
+#    else
+    int8_t axes[JOYSTICK_AXES_COUNT];
+#    endif
+#endif
+
+#if JOYSTICK_BUTTON_COUNT > 0
+    uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
+#endif
+} __attribute__((packed)) joystick_report_t;
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {

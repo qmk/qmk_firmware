@@ -1,8 +1,8 @@
 # よくあるビルドの質問
 
 <!---
-  original document: 0.9.10:docs/faq_build.md
-  git diff 0.9.10 HEAD -- docs/faq_build.md | cat
+  original document: 0.10.33:docs/faq_build.md
+  git diff 0.10.33 HEAD -- docs/faq_build.md | cat
 -->
 
 このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make 手順](ja/getting_started_make_guide.md)ガイドを読むべきです。
@@ -18,62 +18,91 @@
 
 あるいは、単純に:
 
-    $ sudo make <keyboard>:<keymap>:dfu
+    $ sudo make <keyboard>:<keymap>:flash
 
 `make` を `sudo` で実行することは一般的には良い考えでは***なく***、可能であれば前者の方法のいずれかを使うべきです。
 
 ### Linux の `udev` ルール
-Linux では、MCU にアクセスするには適切な権限が必要です。ファームウェアを書き込む時に `sudo` を使うか、`/etc/udev/rules.d/` にこれらのファイルを配置することで、アクセスすることができます。権限の追加が完了したら、以下を実行します:
-```console
+
+Linux では、ブートローダデバイスと通信するには適切な権限が必要です。ファームウェアを書き込む時に `sudo` を使うか、`/etc/udev/rules.d/` にこのファイルを配置することで、通信することができます。
+
+**/etc/udev/rules.d/50-qmk.rules:**
+```
+# Atmel DFU
+### ATmega16U2
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FEF", TAG+="uaccess", RUN{builtin}+="uaccess"
+### ATmega32U2
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF0", TAG+="uaccess", RUN{builtin}+="uaccess"
+### ATmega16U4
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF3", TAG+="uaccess", RUN{builtin}+="uaccess"
+### ATmega32U4
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF4", TAG+="uaccess", RUN{builtin}+="uaccess"
+### AT90USB64
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF9", TAG+="uaccess", RUN{builtin}+="uaccess"
+### AT90USB128
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FFB", TAG+="uaccess", RUN{builtin}+="uaccess"
+
+# Input Club
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1C11", ATTRS{idProduct}=="B007", TAG+="uaccess", RUN{builtin}+="uaccess"
+
+# STM32duino
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1EAF", ATTRS{idProduct}=="0003", TAG+="uaccess", RUN{builtin}+="uaccess"
+# STM32 DFU
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="DF11", TAG+="uaccess", RUN{builtin}+="uaccess"
+
+# BootloadHID
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16C0", ATTRS{idProduct}=="05DF", TAG+="uaccess", RUN{builtin}+="uaccess"
+
+# USBAspLoader
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16C0", ATTRS{idProduct}=="05DC", TAG+="uaccess", RUN{builtin}+="uaccess"
+
+# ModemManager should ignore the following devices
+# Atmel SAM-BA (Massdrop)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="6124", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+# Caterina (Pro Micro)
+## Spark Fun Electronics
+### Pro Micro 3V3/8MHz
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F", ATTRS{idProduct}=="9203", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### Pro Micro 5V/16MHz
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F", ATTRS{idProduct}=="9205", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### LilyPad 3V3/8MHz (and some Pro Micro clones)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F", ATTRS{idProduct}=="9207", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+## Pololu Electronics
+### A-Star 32U4
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1FFB", ATTRS{idProduct}=="0101", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+## Arduino SA
+### Leonardo
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### Micro
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0037", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+## Adafruit Industries LLC
+### Feather 32U4
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A", ATTRS{idProduct}=="000C", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### ItsyBitsy 32U4 3V3/8MHz
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A", ATTRS{idProduct}=="000D", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### ItsyBitsy 32U4 5V/16MHz
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A", ATTRS{idProduct}=="000E", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+## dog hunter AG
+### Leonardo
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2A03", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### Micro
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2A03", ATTRS{idProduct}=="0037", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+```
+
+追加が完了したら、以下を実行します:
+
+```
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
 
-**/etc/udev/rules.d/50-atmel-dfu.rules:**
-```
-# Atmel ATMega32U4
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", TAG+="uaccess", RUN{builtin}+="uaccess"
-# Atmel USBKEY AT90USB1287
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", TAG+="uaccess", RUN{builtin}+="uaccess"
-# Atmel ATMega32U2
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", TAG+="uaccess", RUN{builtin}+="uaccess"
-```
-
-**/etc/udev/rules.d/54-input-club-keyboard.rules:**
-
-```
-# Input Club keyboard bootloader
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", ATTRS{idProduct}=="b007", TAG+="uaccess", RUN{builtin}+="uaccess"
-```
-
-**/etc/udev/rules.d/55-caterina.rules:**
-```
-# ModemManager should ignore the following devices
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2a03", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9205", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9203", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-```
-
 **注意:** 古い(1.12以前の) ModemManager では、フィルタリングは厳密なモードではない場合にのみ動作し、以下のコマンドはその設定を更新することができます。
-```console
-sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
+
+```
+printf '[Service]\nExecStart=\nExecStart=/usr/sbin/ModemManager --filter-policy=default' | sudo tee /etc/systemd/system/ModemManager.service.d/policy.conf
 sudo systemctl daemon-reload
 sudo systemctl restart ModemManager
-```
-
-**/etc/udev/rules.d/56-dfu-util.rules:**
-```
-# stm32duino
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", TAG+="uaccess", RUN{builtin}+="uaccess"
-# Generic stm32
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess", RUN{builtin}+="uaccess"
-```
-
-**/etc/udev/rules.d/57-bootloadhid.rules:**
-```
-# bootloadHID
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 ### Linux のブートローダモードで Serial デバイスが検知されない
@@ -96,48 +125,8 @@ QMK のほとんどのキーボードは、vendor ID として、`0xFEED` を使
 https://github.com/tmk/tmk_keyboard/issues/150
 
 ここで本当にユニークな VID:PID を買うことができます。個人的な使用にはこれは必要ないと思います。
-- http://www.obdev.at/products/vusb/license.html
-- http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
-
-## AVR のための BOOTLOADER_SIZE
-Teensy2.0++ ブートローダのサイズは 2048 バイトであることに注意してください。一部の Makefile には間違ったコメントがあります。
-
-```
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 2048
-#   Atmel DFU loader 4096       (TMK Alt Controller)
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=2048
-```
-
-## MacOS での `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` 
-
-これは brew での更新に関する問題で、avr-gcc が依存するシンボリックリンクを壊します。
-
-解決法は全ての影響を受けたモジュールを削除し再インストールすることです。
-
-```
-brew rm avr-gcc avr-gcc@8 dfu-programmer dfu-util gcc-arm-none-eabi arm-gcc-bin@8 avrdude qmk
-brew install qmk/qmk/qmk
-brew link --force avr-gcc@8
-brew link --force arm-gcc-bin@8
-```
-
-### `avr-gcc` と LUFA
-
-`avr-gcc` を更新し、LUFA に関連するエラーが表示された場合、例えば:
-
-`lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
-
-今のところ、Homebrew で `avr-gcc` を 8 にロールバックする必要があります。
-
-```
-brew uninstall --force avr-gcc
-brew install avr-gcc@8
-brew link --force avr-gcc@8
-```
+- https://www.obdev.at/products/vusb/license.html
+- https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ### キーボードに書き込んだが何も起こらない、あるいはキーの押下が登録されない - ARM (rev6 planck、clueboard 60、hs60v2 など) でも同じ (Feb 2019)
 ARM ベースのチップ上での EEPROM の動作によって、保存された設定が無効になる場合があります。これはデフォルトレイヤに影響し、まだ調査中の特定の環境下でキーボードが使えなくなる*しれません*。EEPROM のリセットでこれが修正されます。
@@ -145,4 +134,4 @@ ARM ベースのチップ上での EEPROM の動作によって、保存され�
 [Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を使って eeprom のリセットを強制することができます。このイメージを書き込んだ後で、通常のファームウェアを書き込むと、キーボードが_通常_ の動作順序に復元されます。
 [Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
-いずれかの形式でブートマジックが有効になっている場合は、これも実行できるはずです (実行方法の詳細については、[ブートマジックドキュメント](feature_bootmagic.md)とキーボード情報を見てください)。
+いずれかの形式でブートマジックが有効になっている場合は、これも実行できるはずです (実行方法の詳細については、[ブートマジックドキュメント](ja/feature_bootmagic.md)とキーボード情報を見てください)。

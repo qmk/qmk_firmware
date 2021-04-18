@@ -1,7 +1,5 @@
 #include "quantum.h"
 
-bool is_keyboard_left(void);
-
 /** \brief Reset eeprom
  *
  * ...just incase someone wants to only change the eeprom behaviour

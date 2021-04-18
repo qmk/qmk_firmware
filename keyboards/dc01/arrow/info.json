@@ -1,7 +1,7 @@
 {
     "keyboard_name": "DC01 Arrow Cluster",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "Yiancar-Designs",
     "width": 3,
     "height": 5,
     "layouts": {

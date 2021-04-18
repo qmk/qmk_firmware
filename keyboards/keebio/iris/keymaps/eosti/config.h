@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@keeb.io>
+Copyright 2020 Reid Sox-Harris
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,25 +1,20 @@
 { avr ? true, arm ? true, teensy ? true }:
-
 let
-  overlay = self: super:
-    let addDarwinSupport = pkg: pkg.overrideAttrs (oldAttrs: {
-      meta.platforms = (oldAttrs.meta.platforms or []) ++ self.lib.platforms.darwin;
-    });
-    in {
-      dfu-programmer = addDarwinSupport super.dfu-programmer;
-      teensy-loader-cli = addDarwinSupport super.teensy-loader-cli;
-    };
+  # We specify sources via Niv: use "niv update nixpkgs" to update nixpkgs, for example.
+  sources = import ./nix/sources.nix {};
+  pkgs = import sources.nixpkgs {};
 
-  nixpkgs = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/903266491b7b9b0379e88709feca0af900def0d9.tar.gz";
-    sha256 = "1b5wjrfgyha6s15k1yjyx41hvrpmd5szpkpkxk6l5hyrfqsr8wip";
+  # Builds the python env based on nix/pyproject.toml and
+  # nix/poetry.lock Use the "poetry update --lock", "poetry add
+  # --lock" etc. in the nix folder to adjust the contents of those
+  # files if the requirements*.txt files change
+  pythonEnv = pkgs.poetry2nix.mkPoetryEnv {
+    projectDir = ./nix;
   };
-
-  pkgs = import nixpkgs { overlays = [ overlay ]; };
 in
 
 with pkgs;
-let 
+let
   avrlibc = pkgsCross.avr.libcCross;
 
   avr_incflags = [
@@ -32,11 +27,11 @@ let
     "-L${avrlibc}/avr/lib/avr51"
   ];
 in
-stdenv.mkDerivation {
+mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ dfu-programmer dfu-util diffutils git python3 ]
-    ++ lib.optional avr [ 
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry niv ]
+    ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8
       avrlibc
@@ -47,4 +42,9 @@ stdenv.mkDerivation {
 
   AVR_CFLAGS = lib.optional avr avr_incflags;
   AVR_ASFLAGS = lib.optional avr avr_incflags;
+  shellHook = ''
+    # Prevent the avr-gcc wrapper from picking up host GCC flags
+    # like -iframework, which is problematic on Darwin
+    unset NIX_CFLAGS_COMPILE_FOR_TARGET
+  '';
 }

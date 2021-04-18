@@ -1,8 +1,8 @@
 # ポインティングデバイス :id=pointing-device
 
 <!---
-  original document: 0.8.182:docs/feature_pointing_device.md
-  git diff 0.8.182 HEAD -- docs/feature_pointing_device.md | cat
+  original document: 0.9.43:docs/feature_pointing_device.md
+  git diff 0.9.43 HEAD -- docs/feature_pointing_device.md | cat
 -->
 
 ポインティングデバイスは汎用的な機能の総称です: システムポインタを移動します。マウスキーのような他のオプションも確かにありますが、これは簡単に変更可能で軽量であることを目指しています。機能を制御するためにカスタムキーを実装したり、他の周辺機器から情報を収集してここに直接挿入したりできます - QMK に処理を任せてください。
@@ -26,7 +26,11 @@ report_mouse_t (ここでは "mouseReport") が以下のプロパティを持つ
 * `mouseReport.h` - これは、水平スクロール(+ 右へ、- 左へ)を表す -127 から 127 (128ではなく、USB HID 仕様で定義されています)の符号付き整数です。
 * `mouseReport.buttons` - これは uint8_t で、上位の5ビットを使っています。これらのビットはマウスボタンの状態を表します - ビット 3 はマウスボタン 5、ビット 7 はマウスボタン 1 です。
 
-マウスレポートが送信されると、x、y、v、h のいずれの値も 0 に設定されます (これは "pointing_device_send()" で行われます。この挙動を回避するためにオーバーライドすることができます)。このように、ボタンの状態は持続しますが、動きは1度だけ起こります。さらにカスタマイズするために、`pointing_device_init` と `pointing_device_task` のどちらもオーバーライドすることができます。
+マウスレポートに必要な変更を行ったら、それを送信する必要があります:
+
+* `pointing_device_send()` - マウスレポートをホストに送信し、レポートをゼロにします。
+
+マウスレポートが送信されると、x、y、v、h のいずれの値も 0 に設定されます (これは `pointing_device_send()` で行われます。この挙動を回避するためにオーバーライドすることができます)。このように、ボタンの状態は持続しますが、動きは1度だけ起こります。さらにカスタマイズするために、`pointing_device_init` と `pointing_device_task` のどちらもオーバーライドすることができます。
 
 以下の例では、カスタムキーを使ってマウスをクリックし垂直および水平方向に127単位スクロールし、リリースされた時にそれを全て元に戻します - なぜならこれは完全に便利な機能だからです。いいですか、以下はひとつの例です:
 
@@ -43,6 +47,7 @@ case MS_SPECIAL:
         currentReport.buttons &= ~MOUSE_BTN1;
     }
     pointing_device_set_report(currentReport);
+    pointing_device_send();
     break;
 ```
 
