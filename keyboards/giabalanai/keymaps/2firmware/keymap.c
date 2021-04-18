@@ -42,7 +42,6 @@ static bool melody_dyad_low  = false;  //  true when -1 octave unison dyad is en
 
 static bool melody_unison_suppress  = true;  //  true: velocity of octave unison note is suppressd to UNISON_VELOCITY_RATIO
 
-
 // To record the status of Bass Chord (single or dyad, default: dyad.)
 typedef union {
   uint32_t raw;
@@ -343,61 +342,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef RGBLIGHT_ENABLE
 
 // Light up adjust layer keys (left keyboard)
-const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS({1,  10, HSV_ORANGE},
-                                                                             {21,  2, HSV_ORANGE},
-                                                                             {25,  3, HSV_ORANGE},
-                                                                             {30,  5, HSV_ORANGE},
-                                                                             {37,  2, HSV_ORANGE},
-                                                                             {45,  2, HSV_ORANGE},
-                                                                             {57,  2, HSV_ORANGE}
+const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS({1,  10, HSV_DARKORANGE},
+                                                                             {21,  2, HSV_DARKORANGE},
+                                                                             {25,  3, HSV_DARKORANGE},
+                                                                             {30,  5, HSV_DARKORANGE},
+                                                                             {37,  2, HSV_DARKORANGE},
+                                                                             {45,  2, HSV_DARKORANGE},
+                                                                             {57,  2, HSV_DARKORANGE}
 );
 
 // Light up fn layer keys
 const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(                           //  left keyboard
-                                                                         {0,   6, HSV_ORANGE},      //  MIDI layouts
-                                                                         {11,  1, HSV_RED},         //  RGB_TOG
-                                                                         {12,  1, HSV_WHITE},       //  DF_QWER
-                                                                         {13,  1, HSV_CORAL},       //  TGLBASS
-                                                                         {24,  1, HSV_WHITE},       //  DF_COLE
-                                                                         {35,  1, HSV_TEAL},        //  TGLMICH
+                                                                         {0,   6, HSV_DARKORANGE},      //  MIDI layouts
+                                                                         {11,  1, HSV_DARKRED},         //  RGB_TOG
+                                                                         {12,  1, HSV_DARKWHITE},       //  DF_QWER
+                                                                         {13,  1, HSV_DARKCORAL},       //  TGLBASS
+                                                                         {24,  1, HSV_DARKWHITE},       //  DF_COLE
+                                                                         {35,  1, HSV_DARKTEAL},        //  TGLMICH
 #if 0  //  Color Test
-                                                                         {36,  1, HSV_WHITE},
-                                                                         {37,  1, HSV_RED},
-                                                                         {38,  1, HSV_CORAL},
-                                                                         {39,  1, HSV_ORANGE},
-                                                                         {40,  1, HSV_GOLDENROD},
-                                                                         {41,  1, HSV_GOLD},
-                                                                         {42,  1, HSV_YELLOW},
-                                                                         {43,  1, HSV_CHARTREUSE},
-                                                                         {44,  1, HSV_GREEN},
-                                                                         {45,  1, HSV_SPRINGGREEN},
-                                                                         {46,  1, HSV_TURQUOISE},
-                                                                         {47,  1, HSV_TEAL},
-                                                                         {48,  1, HSV_CYAN},
-                                                                         {49,  1, HSV_AZURE},
-                                                                         {50,  1, HSV_BLUE},
-                                                                         {51,  1, HSV_PURPLE},
-                                                                         {52,  1, HSV_MAGENTA},
-                                                                         {53,  1, HSV_PINK},
+                                                                         {36,  1, HSV_DARKWHITE},
+                                                                         {37,  1, HSV_DARKRED},
+                                                                         {38,  1, HSV_DARKCORAL},
+                                                                         {39,  1, HSV_DARKORANGE},
+                                                                         {40,  1, HSV_DARKGOLDENROD},
+                                                                         {41,  1, HSV_DARKGOLD},
+                                                                         {42,  1, HSV_DARKYELLOW},
+                                                                         {43,  1, HSV_DARKCHARTREUSE},
+                                                                         {44,  1, HSV_DARKGREEN},
+                                                                         {45,  1, HSV_DARKSPRINGGREEN},
+                                                                         {46,  1, HSV_DARKTURQUOISE},
+                                                                         {47,  1, HSV_DARKTEAL},
+                                                                         {48,  1, HSV_DARKCYAN},
+                                                                         {49,  1, HSV_DARKAZURE},
+                                                                         {50,  1, HSV_DARKBLUE},
+                                                                         {51,  1, HSV_DARKPURPLE},
+                                                                         {52,  1, HSV_DARKMAGENTA},
+                                                                         {53,  1, HSV_DARKPINK},
 #endif
                                                                                                     //  right keyboard
-                                                                         {60,  6, HSV_ORANGE},      //  MIDI layouts
-                                                                         {74,  1, HSV_CORAL},       //  TGLBASS
-                                                                         {85,  1, HSV_BLUE},        //  MIDI Oct
-                                                                         {86,  1, HSV_CYAN},        //  MIDI Oct
-                                                                         {87,  1, HSV_SPRINGGREEN}, //  MIDI Oct
-                                                                         {88,  1, HSV_GREEN},       //  MIDI Oct
-                                                                         {89,  1, HSV_CHARTREUSE},  //  MIDI Oct
-                                                                         {96,  1, HSV_PINK},        //  EEP_RST
-                                                                         {98,  6, HSV_ORANGE},      //  MIDI layouts
-                                                                         {107, 1, HSV_YELLOW},      //  MI_VELD
-                                                                         {108, 1, HSV_GREEN},       //  MI_VELU
-                                                                         {110, 1, HSV_RED},         //  RGB_TOG
-                                                                         {112, 1, HSV_CORAL},       //  TGLBASS
-                                                                         {119, 1, HSV_CORAL},       //  TGLUVEL
-                                                                         {120, 1, HSV_CYAN},        //  MELDYAL
-                                                                         {121, 1, HSV_GOLD},        //  MELODYS
-                                                                         {122, 1, HSV_SPRINGGREEN}  //  MELDYAH
+                                                                         {60,  6, HSV_DARKORANGE},      //  MIDI layouts
+                                                                         {74,  1, HSV_DARKCORAL},       //  TGLBASS
+                                                                         {85,  1, HSV_DARKBLUE},        //  MIDI Oct
+                                                                         {86,  1, HSV_DARKCYAN},        //  MIDI Oct
+                                                                         {87,  1, HSV_DARKSPRINGGREEN}, //  MIDI Oct
+                                                                         {88,  1, HSV_DARKGREEN},       //  MIDI Oct
+                                                                         {89,  1, HSV_DARKCHARTREUSE},  //  MIDI Oct
+                                                                         {96,  1, HSV_DARKPINK},        //  EEP_RST
+                                                                         {98,  6, HSV_DARKORANGE},      //  MIDI layouts
+                                                                         {107, 1, HSV_DARKYELLOW},      //  MI_VELD
+                                                                         {108, 1, HSV_DARKGREEN},       //  MI_VELU
+                                                                         {110, 1, HSV_DARKRED},         //  RGB_TOG
+                                                                         {112, 1, HSV_DARKCORAL},       //  TGLBASS
+                                                                         {119, 1, HSV_DARKCORAL},       //  TGLUVEL
+                                                                         {120, 1, HSV_DARKCYAN},        //  MELDYAL
+                                                                         {121, 1, HSV_DARKGOLD},        //  MELODYS
+                                                                         {122, 1, HSV_DARKSPRINGGREEN}  //  MELDYAH
 );
 
 
@@ -485,18 +484,36 @@ void eeconfig_init_user(void) {
 }
 
 #ifdef RGBLIGHT_ENABLE
-void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
-    if (keylocation == NO_LED) {
-        return;  // do nothing.
-#    ifdef CONSOLE_ENABLE
-        uprintf("keylight_manager, NO_LED\n");
-#    endif
+void switch_keylight_color4base(keyrecord_t *record, uint8_t keylocation){
+    switch (biton32(default_layer_state)) {
+        case _C_SYSTEM_BASE:
+            keylight_manager(record, HSV_DARKGREEN, keylocation);
+            break;
+        case _FAKE_B_SYSTEM:
+            keylight_manager(record, HSV_DARKORANGE, keylocation);
+            break;
+        case _C_SYSTEM_BASS2ROW:
+            keylight_manager(record, HSV_DARKYELLOW, keylocation);
+            break;
+        case _CFLIP_BASS2ROW:
+            keylight_manager(record, HSV_DARKPURPLE, keylocation);
+            break;
     }
-
-    if (record->event.pressed) {
-        rgblight_sethsv_at(hue, sat, val, keylocation);
-    } else {
-        rgblight_sethsv_at(HSV_BLACK, keylocation);
+}
+void switch_keylight_color4chords(keyrecord_t *record, uint8_t keylocation){
+    switch (biton32(default_layer_state)) {
+        case _C_SYSTEM_BASE:
+            keylight_manager(record, HSV_DARKSPRINGGREEN, keylocation);
+            break;
+        case _FAKE_B_SYSTEM:
+            keylight_manager(record, HSV_DARKYELLOW, keylocation);
+            break;
+        case _C_SYSTEM_BASS2ROW:
+            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            break;
+        case _CFLIP_BASS2ROW:
+            keylight_manager(record, HSV_DARKMAGENTA, keylocation);
+            break;
     }
 }
 #endif  // RGBLIGHT_ENABLE
@@ -598,7 +615,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             root_note = keycode - MI_CH_Cr + MI_C_1;
             my_process_midi4Base(midi_base_ch, record, chord_status, chord, root_note, IS_SINGLE_BASS());
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4base(record, keylocation);
 #endif
             break;
 
@@ -607,7 +624,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Root, Major Third, and Fifth Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 4, 7);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
 
@@ -616,7 +633,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Root, Minor Third, and Fifth Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 7);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
 
@@ -625,7 +642,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Major Third, Major Fifth, and Minor Seventh Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 4, 7, 10);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
 
@@ -634,7 +651,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Root, Minor Third, and Diminished 5th Note
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 6);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
 
@@ -644,7 +661,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case ADJ_EIS:
         case MO_ADJ:
         case SHIF_UP:
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            keylight_manager(record, HSV_DARKRED, keylocation);
             break;
 #endif
 
@@ -653,19 +670,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             //  root_note is played by process_midi().
             if ( melody_dyad_high == true ) {        //  play 1 octave higher as well.
                 my_process_midi(0, keycode, record, my_tone_status, 12, melody_unison_suppress);
+#ifdef RGBLIGHT_ENABLE
+                keylight_manager(record, HSV_DARKRED, keylocation);
+                keylight_manager(record, HSV_DARKRED, keylocation2);
+#endif
             } else if ( melody_dyad_low == true ) {  //  play 1 octave lower as well.
                 my_process_midi(0, keycode, record, my_tone_status, -12, melody_unison_suppress);
-            }
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
-            keylight_manager(record, HSV_GOLDENROD, keylocation2);
+                keylight_manager(record, HSV_DARKCYAN, keylocation);
+                keylight_manager(record, HSV_DARKCYAN, keylocation2);
 #endif
+            } else {
+                uprintf("layer=%u, default_layer_state = %u\n", biton32(default_layer_state), default_layer_state);
+#ifdef RGBLIGHT_ENABLE
+                keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+                keylight_manager(record, HSV_DARKGOLDENROD, keylocation2);
+#endif
+            }
             break;
 
 #ifdef RGBLIGHT_ENABLE
         // case KC_MUTE:
         case FN_MUTE:
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
             break;
 #endif
     }

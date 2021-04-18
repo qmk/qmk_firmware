@@ -39,7 +39,6 @@ uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same ch
 static bool melody_dyad_high = false;  //  true when +1 octave unison dyad is enabled.
 static bool melody_dyad_low  = false;  //  true when -1 octave unison dyad is enabled.
 
-
 static bool melody_unison_suppress  = true;  //  true: velocity of octave unison note is suppressd to UNISON_VELOCITY_RATIO
 
 // To record the status of Bass Chord (single or dyad, default: dyad.)
@@ -478,6 +477,7 @@ void eeconfig_init_user(void) {
   set_single_persistent_default_layer(_C_SYSTEM_BASE);
 }
 
+#ifdef RGBLIGHT_ENABLE
 void switch_keylight_color4base(keyrecord_t *record, uint8_t keylocation){
     switch (biton32(default_layer_state)) {
         case _C_SYSTEM_BASE:
@@ -510,6 +510,7 @@ void switch_keylight_color4chords(keyrecord_t *record, uint8_t keylocation){
             break;
     }
 }
+#endif  // RGBLIGHT_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint16_t root_note = MIDI_INVALID_NOTE;  // Starting value for the root note of each chord
@@ -664,14 +665,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if ( melody_dyad_high == true ) {        //  play 1 octave higher as well.
                 my_process_midi(0, keycode, record, my_tone_status, 12, melody_unison_suppress);
 #ifdef RGBLIGHT_ENABLE
-                            keylight_manager(record, HSV_DARKRED, keylocation);
-                            keylight_manager(record, HSV_DARKRED, keylocation2);
+                keylight_manager(record, HSV_DARKRED, keylocation);
+                keylight_manager(record, HSV_DARKRED, keylocation2);
 #endif
             } else if ( melody_dyad_low == true ) {  //  play 1 octave lower as well.
                 my_process_midi(0, keycode, record, my_tone_status, -12, melody_unison_suppress);
 #ifdef RGBLIGHT_ENABLE
-                            keylight_manager(record, HSV_DARKCYAN, keylocation);
-                            keylight_manager(record, HSV_DARKCYAN, keylocation2);
+                keylight_manager(record, HSV_DARKCYAN, keylocation);
+                keylight_manager(record, HSV_DARKCYAN, keylocation2);
 #endif
             } else {
                 uprintf("layer=%u, default_layer_state = %u\n", biton32(default_layer_state), default_layer_state);

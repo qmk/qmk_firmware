@@ -256,16 +256,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Light up fn layer keys
 const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(                           //  left keyboard
-                                                                         {0,   4, HSV_ORANGE},      //  MIDI layouts
-                                                                         {11,  1, HSV_RED},         //  RGB_TOG
-                                                                         {12,  1, HSV_WHITE},       //  DF_QWER
-                                                                         {35,  1, HSV_TEAL},        //  TGLMICH
+                                                                         {0,   4, HSV_DARKORANGE},      //  MIDI layouts
+                                                                         {11,  1, HSV_DARKRED},         //  RGB_TOG
+                                                                         {12,  1, HSV_DARKWHITE},       //  DF_QWER
+                                                                         {35,  1, HSV_DARKTEAL},        //  TGLMICH
 
                                                                                                     //  right keyboard
-                                                                         {60,  4, HSV_ORANGE},      //  MIDI layouts
-                                                                         {71 , 1, HSV_RED},         //  RGB_TOG
-                                                                         {72,  1, HSV_WHITE},       //  DF_QWER
-                                                                         {83,  1, HSV_TEAL}         //  TGLMICH
+                                                                         {60,  4, HSV_DARKORANGE},      //  MIDI layouts
+                                                                         {71 , 1, HSV_DARKRED},         //  RGB_TOG
+                                                                         {72,  1, HSV_DARKWHITE},       //  DF_QWER
+                                                                         {83,  1, HSV_DARKTEAL}         //  TGLMICH
 );
 
 
@@ -318,15 +318,24 @@ void toggle_MIDI_channel_separation(void) {
 }
 
 #ifdef RGBLIGHT_ENABLE
-void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
-    if (keylocation == NO_LED) {
-        return;  // do nothing.
+void switch_keylight_color4base(keyrecord_t *record, uint8_t keylocation){
+    switch (biton32(default_layer_state)) {
+        case _C_SYSTEM_BASE:
+            keylight_manager(record, HSV_DARKGREEN, keylocation);
+            break;
+        case _C_SYSTEM_BASS2ROW:
+            keylight_manager(record, HSV_DARKYELLOW, keylocation);
+            break;
     }
-
-    if (record->event.pressed) {
-        rgblight_sethsv_at(hue, sat, val, keylocation);
-    } else {
-        rgblight_sethsv_at(HSV_BLACK, keylocation);
+}
+void switch_keylight_color4chords(keyrecord_t *record, uint8_t keylocation){
+    switch (biton32(default_layer_state)) {
+        case _C_SYSTEM_BASE:
+            keylight_manager(record, HSV_DARKSPRINGGREEN, keylocation);
+            break;
+        case _C_SYSTEM_BASS2ROW:
+            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            break;
     }
 }
 #endif  // RGBLIGHT_ENABLE
@@ -381,7 +390,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             root_note = keycode - MI_CH_Cr + MI_C_1;
             my_process_midi4Base(midi_base_ch, record, chord_status, chord, root_note, false);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4base(record, keylocation);
 #endif
             break;
         case MI_CH_C ... MI_CH_B:  // Major Chords
@@ -389,7 +398,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Root, Major Third, and Fifth Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 4, 7);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
         case MI_CH_Cm ... MI_CH_Bm:  // Minor Chord
@@ -397,7 +406,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Root, Minor Third, and Fifth Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 7);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
         case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
@@ -405,7 +414,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Major Third, Major Fifth, and Minor Seventh Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 4, 7, 10);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
         case MI_CH_CDim7 ... MI_CH_BDim7:                // Diminished 7th Chord
@@ -413,24 +422,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Root, Minor Third, and Diminished 5th Note
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 6);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
 
 #ifdef RGBLIGHT_ENABLE
         case KC_A ... KC_RGUI:                // for QWERTY
         case KC_GESC:
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
             break;
 #endif
             // Keycodes on the right side.
 #ifdef RGBLIGHT_ENABLE
         case MIDI_TONE_MIN ... MIDI_TONE_MAX:  // notes on the right side.
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
             break;
         // case KC_MUTE:
         case FN_MUTE:
-            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
             break;
 #endif
     }
