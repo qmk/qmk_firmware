@@ -40,64 +40,63 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Converts integer value to Unicode. Also handles 'descramble' Unicode mode for DVORAK_DESCRAMBLE_HALF.
 // Unicode is a hexadecimal string (character) representation of the value, with a pre- and post-fix.
+// (Note: this whole function is superfluous if Dvorak-descramble is not compiled.)
 void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted) {
 
     long unsigned int input; // which argument to work on
+
+# ifdef DVORAK_DESCRAMBLE_HALF // Do the letter descramble if needed.
+
     char output[10]; // will hold the ascii for output
     int index; // count backwards 'to left' in the string
     long unsigned int bitmove; // move computation to next digit.
     long unsigned int work; // temporary value for computation
 
+# endif
 
     // What to work on
     if(shift_ison) input = shifted; // Trying to get everything possible here in this function, to reduce firmware size.
     else input = unshifted;
 
-    //if (input < 0) input *= -1; // positive value
+# ifndef DVORAK_DESCRAMBLE_HALF // Only normal mode
 
-    // Take the hex value 4 bits at a time, starting with the least significant, convert to ascii, store
-    index = 9;
-    output[index] = '\0'; // terminator
-    bitmove = 0x1; 
-    while ((work = (input / bitmove)) && (index >= 0)) {
-        index --;
-        work &= 0xF; 
-        if (work < 0xA){  // numbers
-            output[index] = work + 0x30; // pad to ASCII
-        }else{            // alphas
-# ifdef DVORAK_DESCRAMBLE_HALF // Do the letter descramble if needed.
-            if(_FULL_ == alternate){ // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
+    register_unicode ( (uint32_t) input ) ;
+
+# else // DVORAK_DESCRAMBLE_HALF mode for that Base layer & mode setting is compiled in
+
+    if(_FULL_ != alternate){ 
+
+        register_unicode ( (uint32_t) input ) ; // normal Unicode mode
+
+    }else{  // Special Dvorak-descramble mode: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
+    
+        // Take the hex value 4 bits at a time, starting with the least significant, convert to ascii, store
+        index = 9;
+        output[index] = '\0'; // terminator
+        bitmove = 0x1; 
+        while ((work = (input / bitmove)) && (index >= 0)) {
+            index --;
+            work &= 0xF; 
+            if (work < 0xA){  // numbers
+                output[index] = work + 0x30; // pad to ASCII
+            }else{            // alphas
                 if (0xA == work) output[index] = 'a';
                 if (0xB == work) output[index] = 'n';
                 if (0xC == work) output[index] = 'i';
                 if (0xD == work) output[index] = 'h';
                 if (0xE == work) output[index] = 'd';
                 if (0xF == work) output[index] = 'y';
-            }else{
-                output[index] = work - 9 + 0x40; // normal mode
             }
-# else // The above is not relevant for anything else.
-            output[index] = work - 9 + 0x40; // normal mode
-# endif
+            bitmove *= 0x10; // next digit
         }
-        bitmove *= 0x10; // next digit
-    }
-
-    // Put character(s) out in correct mode
-# ifdef DVORAK_DESCRAMBLE_HALF // Do the letter descramble if needed.
-    if (_FULL_ == alternate) { // This is the special 'descramble' output mode for a computer already set to Dvorak
-
+    
+        // Put character(s) out in correct mode
+    
         SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ); // lead-in for Unicode on Linux, 'descramble' mode
         send_string (output + index); // pointer to argument with formatted string
         SEND_STRING ( " " ); // Ends the Unicode numerical input mode, replacing input with desired character (Linux)
-
-    }else{
-        // normal QMK Unicode output mode
-        send_unicode_hex_string (output + index);  // pointer argument
     }
 
-# else
-    send_unicode_hex_string (output + index);  // pointer argument
 # endif
 
 } 

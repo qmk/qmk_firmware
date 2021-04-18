@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #pragma once
-#define LAYER_STATE_16BIT # This saves more than 400 bytes on the hex file
+#define LAYER_STATE_16BIT // This saves more than 400 bytes on the hex file
 
 // place overrides here
 
