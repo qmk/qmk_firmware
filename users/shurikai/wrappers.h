@@ -117,7 +117,7 @@
 
 #define _________________NUM_R1____________________    KC_PPLS,  KC_7,     KC_8,     KC_9,     _______
 #define _________________NUM_R2____________________    KC_PMNS,  KC_4,     KC_5,     KC_6,     KC_ASTR
-#define _________________NUM_R3____________________    KC_PEQL,  KC_1,     KC_2,     KC_3,     KC_SLSH
+#define _________________NUM_R3____________________    KC_EQL,   KC_1,     KC_2,     KC_3,     KC_SLSH
 #define ____NUM_RT______                               KC_0,     KC_DOT
 
 /* Function
