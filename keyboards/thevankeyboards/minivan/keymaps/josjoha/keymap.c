@@ -118,8 +118,8 @@ enum {
 enum {
     _NORMAL_, // BASE layer is _DEF_BASE
     _FULL_,   // BASE layer is _ALT_BASE
-# ifdef DVORAK_DESCRAMBLE_HALF // not used with other keymaps
-    _HALF_,   // BASE layer is _ALT_BASE For DVORAK_DESCRAMBLE_HALF keymap: does *not* re-compute letters in Unicode
+# ifdef DVORAK_DESCRAMBLE // not used with other keymaps
+    _HALF_,   // BASE layer is _ALT_BASE For DVORAK_DESCRAMBLE keymap: does *not* re-compute letters in Unicode
               // This is for different Unicode encodings than “Control+U+HEX” (Linux). It will go through what is set on _RAR
 # endif
 };
@@ -350,7 +350,8 @@ void indicate_base (void) {
         led2r = 100; // purple
         led2b = 100;
     }
-#     ifdef DVORAK_DESCRAMBLE_HALF // not used with other keymaps
+
+#     ifdef DVORAK_DESCRAMBLE // not used with other keymaps
       else if (_HALF_ == alternate) { // alternate mode, 1 (normal unicode)
         led0r = 100; // purple
         led0b = 100;
@@ -359,6 +360,7 @@ void indicate_base (void) {
         led2b = 100;
     }
 #     endif
+
       else if (_FULL_ == alternate) { // alternate mode, 1 (recomputed unicode for DVORAK_DESCRAMBLE)
         led0r = 100; // purple
         led0b = 100;

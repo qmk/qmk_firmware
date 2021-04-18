@@ -38,14 +38,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIV10POINT TRUE // suggest to function write_number, to divide by 10 and print as a fraction: N.N
 
-// Converts integer value to Unicode. Also handles 'descramble' Unicode mode for DVORAK_DESCRAMBLE_HALF.
-// Unicode is a hexadecimal string (character) representation of the value, with a pre- and post-fix.
-// (Note: this whole function is superfluous if Dvorak-descramble is not compiled.)
+// Gives Unicode code points to the relevant QMK functions.
+// Handles Dvorak 'descramble' Unicode mode, if compiled (only tested on Linux).
 void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted) {
 
     long unsigned int input; // which argument to work on
 
-# ifdef DVORAK_DESCRAMBLE_HALF // Do the letter descramble if needed.
+# ifdef DVORAK_DESCRAMBLE // Do the letter descramble if needed.
 
     char output[10]; // will hold the ascii for output
     int index; // count backwards 'to left' in the string
@@ -58,11 +57,11 @@ void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted)
     if(shift_ison) input = shifted; // Trying to get everything possible here in this function, to reduce firmware size.
     else input = unshifted;
 
-# ifndef DVORAK_DESCRAMBLE_HALF // Only normal mode
+# ifndef DVORAK_DESCRAMBLE // Only normal mode
 
     register_unicode ( (uint32_t) input ) ;
 
-# else // DVORAK_DESCRAMBLE_HALF mode for that Base layer & mode setting is compiled in
+# else
 
     if(_FULL_ != alternate){ 
 
@@ -90,14 +89,12 @@ void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted)
             bitmove *= 0x10; // next digit
         }
     
-        // Put character(s) out in correct mode
-    
         SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ); // lead-in for Unicode on Linux, 'descramble' mode
         send_string (output + index); // pointer to argument with formatted string
-        SEND_STRING ( " " ); // Ends the Unicode numerical input mode, replacing input with desired character (Linux)
+        SEND_STRING ( " " ); // Ends the Unicode numerical input mode
     }
 
-# endif
+# endif // DVORAK_DESCRAMBLE mode for that Base layer & mode setting is compiled in
 
 } 
 
@@ -634,7 +631,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }else{ // key up
 
                 // Cycles through the modes
-# ifdef DVORAK_DESCRAMBLE_HALF // version Dvorak+Dvorak-descramble has 3 modes
+# ifdef DVORAK_DESCRAMBLE // version Dvorak+Dvorak-descramble has 3 modes
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate layers
                     default_layer_set (_ALT_BASE_MASK); // This is needed only for a rare case,
@@ -671,7 +668,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }else{ // key up
 
                 // Cycles through the modes
-# ifdef DVORAK_DESCRAMBLE_HALF // version Dvorak+Dvorak-descramble has 3 modes
+# ifdef DVORAK_DESCRAMBLE // version Dvorak+Dvorak-descramble has 3 modes
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate layers
                     default_layer_set (_ALT_BASE_MASK);

@@ -593,11 +593,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #     define _ALT_NSY _DEF_NSY
 # endif
 
-// This triggers the compilation of special _HALF_ descramble mode, where you access
-// the Unicode layers without passing them through the descramble system (middle led
-// lit on _RAR_ when cycling through the base layers with ‛Other Base’ key).
+// This triggers the compilation of Dvorak descramble mode.
 # ifdef BASE_DVORAK_DESCRAMBLE__ALT_BASE
-#     define DVORAK_DESCRAMBLE_HALF
+#     define DVORAK_DESCRAMBLE
 # endif
 
 // Prevent likely erroneous configuration. If no 'Arrow' hardware layout, then not patching in an arrow cluster.
