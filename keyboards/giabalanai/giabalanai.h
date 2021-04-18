@@ -125,3 +125,8 @@ void my_process_midi4TriadChords(uint8_t channel, keyrecord_t *record,
                                  int8_t offset1, int8_t offset2, int8_t offset3);
 
 void my_process_midi(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint8_t *my_tone_status, int8_t offset, bool melody_unison_suppress);
+
+
+#ifdef RGBLIGHT_ENABLE
+void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation);
+#endif  // RGBLIGHT_ENABLE

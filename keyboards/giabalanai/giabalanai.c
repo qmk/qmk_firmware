@@ -234,3 +234,21 @@ void my_process_midi(uint8_t channel, uint16_t keycode, keyrecord_t *record, uin
     my_tone_status[tone] = MIDI_INVALID_NOTE;
     }
 }
+
+#ifdef RGBLIGHT_ENABLE
+void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
+    if (keylocation == NO_LED) {
+        return;  // do nothing.
+#    ifdef CONSOLE_ENABLE
+        uprintf("keylight_manager, NO_LED\n");
+#    endif
+    }
+
+    if (record->event.pressed) {
+        rgblight_sethsv_at(hue, sat, val, keylocation);
+    } else {
+        rgblight_sethsv_at(HSV_BLACK, keylocation);
+    }
+}
+
+#endif  // RGBLIGHT_ENABLE

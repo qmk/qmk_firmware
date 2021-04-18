@@ -478,22 +478,38 @@ void eeconfig_init_user(void) {
   set_single_persistent_default_layer(_C_SYSTEM_BASE);
 }
 
-#ifdef RGBLIGHT_ENABLE
-void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
-    if (keylocation == NO_LED) {
-        return;  // do nothing.
-#    ifdef CONSOLE_ENABLE
-        uprintf("keylight_manager, NO_LED\n");
-#    endif
-    }
-
-    if (record->event.pressed) {
-        rgblight_sethsv_at(hue, sat, val, keylocation);
-    } else {
-        rgblight_sethsv_at(HSV_BLACK, keylocation);
+void switch_keylight_color4base(keyrecord_t *record, uint8_t keylocation){
+    switch (biton32(default_layer_state)) {
+        case _C_SYSTEM_BASE:
+            keylight_manager(record, HSV_DARKGREEN, keylocation);
+            break;
+        case _FAKE_B_SYSTEM:
+            keylight_manager(record, HSV_DARKORANGE, keylocation);
+            break;
+        case _C_SYSTEM_BASS2ROW:
+            keylight_manager(record, HSV_DARKYELLOW, keylocation);
+            break;
+        case _CFLIP_BASS2ROW:
+            keylight_manager(record, HSV_DARKPURPLE, keylocation);
+            break;
     }
 }
-#endif  // RGBLIGHT_ENABLE
+void switch_keylight_color4chords(keyrecord_t *record, uint8_t keylocation){
+    switch (biton32(default_layer_state)) {
+        case _C_SYSTEM_BASE:
+            keylight_manager(record, HSV_DARKSPRINGGREEN, keylocation);
+            break;
+        case _FAKE_B_SYSTEM:
+            keylight_manager(record, HSV_DARKYELLOW, keylocation);
+            break;
+        case _C_SYSTEM_BASS2ROW:
+            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            break;
+        case _CFLIP_BASS2ROW:
+            keylight_manager(record, HSV_DARKMAGENTA, keylocation);
+            break;
+    }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint16_t root_note = MIDI_INVALID_NOTE;  // Starting value for the root note of each chord
@@ -592,7 +608,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             root_note = keycode - MI_CH_Cr + MI_C_1;
             my_process_midi4Base(midi_base_ch, record, chord_status, chord, root_note, IS_SINGLE_BASS());
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            switch_keylight_color4base(record, keylocation);
 #endif
             break;
 
@@ -601,7 +617,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Root, Major Third, and Fifth Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 4, 7);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
 
@@ -610,7 +626,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Root, Minor Third, and Fifth Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 7);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
 
@@ -619,7 +635,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Major Third, Major Fifth, and Minor Seventh Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 4, 7, 10);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
 
@@ -628,7 +644,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Root, Minor Third, and Diminished 5th Note
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 6);
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            switch_keylight_color4chords(record, keylocation);
 #endif
             break;
 
@@ -638,7 +654,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case ADJ_EIS:
         case MO_ADJ:
         case SHIF_UP:
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            keylight_manager(record, HSV_DARKRED, keylocation);
             break;
 #endif
 
@@ -647,13 +663,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             //  root_note is played by process_midi().
             if ( melody_dyad_high == true ) {        //  play 1 octave higher as well.
                 my_process_midi(0, keycode, record, my_tone_status, 12, melody_unison_suppress);
+#ifdef RGBLIGHT_ENABLE
+                            keylight_manager(record, HSV_DARKRED, keylocation);
+                            keylight_manager(record, HSV_DARKRED, keylocation2);
+#endif
             } else if ( melody_dyad_low == true ) {  //  play 1 octave lower as well.
                 my_process_midi(0, keycode, record, my_tone_status, -12, melody_unison_suppress);
-            }
 #ifdef RGBLIGHT_ENABLE
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation2);
+                            keylight_manager(record, HSV_DARKCYAN, keylocation);
+                            keylight_manager(record, HSV_DARKCYAN, keylocation2);
 #endif
+            } else {
+                uprintf("layer=%u, default_layer_state = %u\n", biton32(default_layer_state), default_layer_state);
+#ifdef RGBLIGHT_ENABLE
+                keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+                keylight_manager(record, HSV_DARKGOLDENROD, keylocation2);
+#endif
+            }
             break;
 
 #ifdef RGBLIGHT_ENABLE
