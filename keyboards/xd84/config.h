@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         XD84
-#define DESCRIPTION     KPrepublic XD84
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -52,6 +51,7 @@
 
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 10
+#define BACKLIGHT_ON_STATE 0
 // #define BACKLIGHT_BREATHING
 
 #define RGB_DI_PIN C7
@@ -189,9 +189,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

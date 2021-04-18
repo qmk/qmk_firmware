@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    John M Daly
 #define PRODUCT         CO60
-#define DESCRIPTION     An open hardware sixty percent PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Kevin M.
 #define PRODUCT      Ludmila Macropad
-#define DESCRIPTION  Ludmila 4 switch + encoder macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 3
