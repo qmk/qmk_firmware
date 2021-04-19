@@ -4,8 +4,6 @@
 
 An open source 2x6 macropad with rotary encoder. Designed to be cheap and simple.
 
-## Bootloader Mode: 
-Press the hardware reset button located to the left of the rotary encoder.
 
 ## More Pictures:
 ![PCB Layout](https://i.imgur.com/ilhfBfQ.png)
@@ -16,6 +14,9 @@ Press the hardware reset button located to the left of the rotary encoder.
 * Keyboard Maintainer: [Jirou](https://github.com/GLozares)
 * Hardware Supported: Jirou.Design Millipad
 * Hardware Availability: Open Source at https://github.com/GLozares/millipad
+
+## Bootloader Mode (Flashing Hex Files): 
+To flash a new hex file, press the hardware reset button located to the left of the rotary encoder to enter Bootloader mode.
 
 Make example for this keyboard (after setting up your build environment):
 
