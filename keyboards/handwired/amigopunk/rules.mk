@@ -1,7 +1,7 @@
 # MCU name
 MCU = at90usb1286
 
-# Bootloader for a teensy 2.0++
+# Bootloader selection
 BOOTLOADER = halfkay
 
 # Build Options
