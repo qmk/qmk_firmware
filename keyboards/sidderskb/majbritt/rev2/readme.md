@@ -2,7 +2,7 @@
 
 An Alice style keyboard with arrow keys. 
 
-* Keyboard Maintainer: [Sleepdealer](https://github.com/[Sleepdealer])
+* Keyboard Maintainer: [Sleepdealer](https://github.com/Sleepdealr)
 * Hardware Supported: Majbritt Rev2 PCB
 * Hardware Availability: https://sidderskb.co.uk/
 
