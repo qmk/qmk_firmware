@@ -78,7 +78,6 @@
             ]
         },
         "LAYOUT_alice": {
-            "key_count": 66,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"~", "x":1.25, "y":0},
