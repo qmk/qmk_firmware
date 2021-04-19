@@ -1,6 +1,6 @@
-![M65 Layout Image](img]https://i.imgur.com/KZFnAU5.png)
-
 # Default M65 Layout
+
+![M65 Layout Image](https://i.imgur.com/KZFnAU5.png)
 
 This is the default layout for M65. For the most part it's a straightforward and easy to follow layout inspired by ISO with a UK
 turn.  The only unusual key is the key in the upper left, which sends Escape normally, but Grave when in layer 1 aka LWR.  Similarly
