@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #define GUI_ESC GUI_T(KC_ESC)
 #define CTL_ESC CTL_T(KC_ESC)
 #define SH_BKSP SFT_T(KC_BSPC)
