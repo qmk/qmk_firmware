@@ -42,7 +42,6 @@
 #ifdef ENCODER_ENABLE
 #define ENCODERS_PAD_A { E0 }
 #define ENCODERS_PAD_B { E1 }
-#define ENCODER_RESOLUTION 4
 #endif
 
 /* Set 0 if debouncing isn't needed */
