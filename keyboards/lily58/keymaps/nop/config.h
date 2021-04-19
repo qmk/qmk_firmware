@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
+// Workaround for freezing after UEFI/EFI sleep
+#define NO_USB_STARTUP_CHECK
+
 // #define TAPPING_FORCE_HOLD
 // #define TAPPING_TERM 100
 
@@ -42,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef RGBLED_NUM
 #    define RGBLED_NUM          10  // Number of LEDs
 #    define RGBLED_SPLIT        { 5, 5 }
-//#    define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_ANIMATIONS
 #    define RGBLIGHT_HUE_STEP   6  // number of steps to cycle through the hue by
 #    define RGBLIGHT_SAT_STEP   6  // number of steps to increment the saturation by
 #    define RGBLIGHT_VAL_STEP   6  // number of steps to increment the brightness by
