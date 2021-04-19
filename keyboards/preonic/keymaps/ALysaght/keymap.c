@@ -161,11 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * |  !   |  @   |  #   |  {   |  }   |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-<<<<<<< HEAD
-* |  NO  |  NO  |  .   |  "   |  |   |  NO  |  NO  |      |  NO  |  NO  |  NO  |  NO  |
-=======
-* |  NO  |  NO  |  .   |  |   |  ;   |  NO  |  NO  |  NO  |      |  NO  |  NO  |  NO  |
->>>>>>> 2ad6de74a... rearrange space/enter and bksp/tab, as well as swap symbols and quote
+* |  NO  |  NO  |  .   |  ;   |  |   |  NO  |  NO  |  NO  |      |  NO  |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
 */
 
@@ -174,11 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   KC_DLR,  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,
   KC_EXLM, KC_AT,   KC_HASH, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-<<<<<<< HEAD
-  XXXXXXX, XXXXXXX, KC_DOT,  KC_DQUO, KC_PIPE, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-=======
-  XXXXXXX, XXXXXXX, KC_DOT,  KC_PIPE, KC_SCLN, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
->>>>>>> 2ad6de74a... rearrange space/enter and bksp/tab, as well as swap symbols and quote
+  XXXXXXX, XXXXXXX, KC_DOT,  KC_SCLN, KC_PIPE, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 
@@ -192,24 +184,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * |  1   |  2   |  3   |  _   |  +   |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-<<<<<<< HEAD
-* |  NO  |  NO  |  .   |  '   |  \   |  NO  |  NO  |  NO  |      |  NO  |  NO  |  NO  |
-=======
-* |  NO  |  NO  |  .   |  \   |  :   |  NO  |  NO  |      |  NO  |  NO  |  NO  |  NO  |
->>>>>>> 2ad6de74a... rearrange space/enter and bksp/tab, as well as swap symbols and quote
+* |  NO  |  NO  |  .   |  :   |  \   |  NO  |  NO  |      |  NO  |  NO  |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
 */
 [_NSL] = LAYOUT_preonic_grid(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   KC_4,    KC_5,    KC_6,    KC_MINS, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,
-<<<<<<< HEAD
-  KC_1,    KC_2,    KC_3,    KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_DOT,  KC_QUOT, KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
-=======
   KC_1,    KC_2,    KC_3,    KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_DOT,  KC_BSLS, KC_COLN, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
->>>>>>> 2ad6de74a... rearrange space/enter and bksp/tab, as well as swap symbols and quote
+  XXXXXXX, XXXXXXX, KC_DOT,  KC_COLN, KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 
@@ -223,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  | WH_L | WH_D | WH_U | WH_R |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |  NO  |  NO  |  NO  |  NO  |      |  NO  |  NO  | BTN1 | BTN2 | BTN3 |  NO  |  NO  |
+* |  NO  |  NO  |ADJUST|  NO  |      |  NO  |  NO  | BTN1 | BTN2 | BTN3 |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
 */
 
@@ -247,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  | WH_L | WH_U | WH_D | WH_R |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |  NO  |  NO  |      |  NO  |  NO  |  NO  |  NO  | BTN1 | BTN2 | BTN3 |  NO  |  NO  |
+* |  NO  |  NO  |      |  NO  |ADJUST |  NO  |  NO  | BTN1 | BTN2 | BTN3 |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
 */
 
