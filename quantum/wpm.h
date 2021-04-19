@@ -19,7 +19,6 @@
 
 #include "quantum.h"
 
-
 #ifndef WPM_ESTIMATED_WORD_SIZE
 #    define WPM_ESTIMATED_WORD_SIZE 5
 #endif

@@ -85,6 +85,6 @@ void update_wpm(uint16_t keycode) {
 void decay_wpm(void) {
     if (timer_elapsed(wpm_timer) > 1000) {
         current_wpm += (-current_wpm) * wpm_smoothing;
-        wpm_timer   = timer_read();
+        wpm_timer = timer_read();
     }
 }
