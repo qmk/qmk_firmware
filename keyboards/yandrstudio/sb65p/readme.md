@@ -1,14 +1,14 @@
-nlhhkb
+sb65p
 ===
 
-A 60% keyboard.
+A wireless split 60% keyboard.
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: nlhhkb  
+Hardware Supported: sb65p
 Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make yandrstudio/mlhhkb:default
+    make yandrstudio/sb65p:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
