@@ -6,7 +6,7 @@
     "width": 23.5,
     "height": 7.75,
     "layouts": {
-        "LAYOUT_RH_ANY": {
+        "LAYOUT_rh_any": {
             "layout": [
                 {"x":0.75,  "y":0.25,   "label":"Esc"},
                 {"x":2.25,  "y":0.25,   "label":"F1"},
