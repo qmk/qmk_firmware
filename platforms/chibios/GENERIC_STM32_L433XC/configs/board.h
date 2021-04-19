@@ -19,8 +19,6 @@
 
 #undef STM32L432xx
 
-// Use L443xx define instead of L433xx since ChibiOS defines
-// L433xx together with L432x, which does not activate the 
-// GPIO H ports and does not enable I2C2 and SPI2
-// Until the bug is fixed in ChibiOS, this should not change
+// Pretend that we're an L443xx as the ChibiOS definitions for L432/L433 mistakenly don't enable GPIOH, I2C2, or SPI2.
+// Until ChibiOS upstream is fixed, this should be kept at L443, as nothing in QMK currently utilises the crypto peripheral on the L443.
 #define STM32L443xx
