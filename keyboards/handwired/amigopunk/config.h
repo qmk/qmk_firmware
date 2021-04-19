@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    haesbaert
 #define PRODUCT         amigopunk
-#define DESCRIPTION     keyboard
 
 /* Key matrix size */
 #define MATRIX_ROWS 6
