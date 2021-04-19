@@ -14,15 +14,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
 
-#include "config_common.h"
+/* enable RGB matrix */
+#define CU80_RGB
 
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+/* update the product for RGB Matrix variant in VIA/VIAL and Remap-keys.app */
+#undef PRODUCT_ID
+#undef PRODUCT
+#define PRODUCT_ID      0x0082
+#define PRODUCT         CU80 v2 ANSI RGB
 
-/* Define RGB */
-#define DRIVER_LED_TOTAL 87
-#define RGBLIGHT_ANIMATIONS
+/* moved to RGB specific */
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
+
+/* RGB firmware override */
+#undef RGBLIGHT_ANIMATIONS
+#undef RGBLIGHT_HUE_STEP
+#undef RGBLIGHT_SAT_STEP
+#undef RGBLIGHT_VAL_STEP
+#undef RGBLIGHT_LIMIT_VAL
