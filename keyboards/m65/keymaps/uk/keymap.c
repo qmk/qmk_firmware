@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include <keymap_uk.h>
+#include "keymap_uk.h"
 
 enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
 
