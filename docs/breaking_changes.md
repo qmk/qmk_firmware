@@ -15,7 +15,7 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for February 27, 2021.
+The next Breaking Change is scheduled for May 29, 2021.
 
 ### Important Dates
 
