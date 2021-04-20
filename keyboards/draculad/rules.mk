@@ -2,7 +2,6 @@
 MCU = atmega32u4
 
 
-EXTRAFLAGS += -flto
 # Bootloader selection
 BOOTLOADER = caterina
 
