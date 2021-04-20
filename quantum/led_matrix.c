@@ -90,6 +90,11 @@ static uint32_t led_timer_buffer;
 static last_hit_t last_hit_buffer;
 #endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 
+// split led matrix
+#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
+#endif
+
 void eeconfig_read_led_matrix(void) { eeprom_read_block(&led_matrix_eeconfig, EECONFIG_LED_MATRIX, sizeof(led_matrix_eeconfig)); }
 
 void eeconfig_update_led_matrix(void) { eeprom_update_block(&led_matrix_eeconfig, EECONFIG_LED_MATRIX, sizeof(led_matrix_eeconfig)); }
@@ -128,22 +133,38 @@ uint8_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 void led_matrix_update_pwm_buffers(void) { led_matrix_driver.flush(); }
 
 void led_matrix_set_value(int index, uint8_t value) {
-#ifdef USE_CIE1931_CURVE
-    led_matrix_driver.set_value(index, pgm_read_byte(&CIE1931_CURVE[value]));
-#else
-    led_matrix_driver.set_value(index, value);
+#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    if (!is_keyboard_left() && index >= k_led_matrix_split[0])
+#    ifdef USE_CIE1931_CURVE
+        led_matrix_driver.set_value(index - k_led_matrix_split[0], pgm_read_byte(&CIE1931_CURVE[value]));
+#    else
+        led_matrix_driver.set_value(index - k_led_matrix_split[0], value);
+#    endif
+    else if (is_keyboard_left() && index < k_led_matrix_split[0])
 #endif
+#    ifdef USE_CIE1931_CURVE
+        led_matrix_driver.set_value(index, pgm_read_byte(&CIE1931_CURVE[value]));
+#    else
+        led_matrix_driver.set_value(index, value);
+#    endif
 }
 
 void led_matrix_set_value_all(uint8_t value) {
-#ifdef USE_CIE1931_CURVE
-    led_matrix_driver.set_value_all(pgm_read_byte(&CIE1931_CURVE[value]));
+#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) led_matrix_set_value(i, value);
 #else
+#    ifdef USE_CIE1931_CURVE
+    led_matrix_driver.set_value_all(pgm_read_byte(&CIE1931_CURVE[value]));
+#    else
     led_matrix_driver.set_value_all(value);
+#    endif
 #endif
 }
 
 void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
+#ifndef LED_MATRIX_SPLIT
+    if (!is_keyboard_master()) return;
+#endif
 #if LED_DISABLE_TIMEOUT > 0
     led_anykey_timer = 0;
 #endif  // LED_DISABLE_TIMEOUT > 0
