@@ -41,4 +41,3 @@
 
 #define LED_CAPS_LOCK_PIN F1
 #define LED_SCROLL_LOCK_PIN B3
-#define LED_PIN_ON_STATE 1
