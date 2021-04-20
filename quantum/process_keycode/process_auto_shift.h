@@ -23,10 +23,13 @@
 #endif
 
 #define IS_LT(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
-#define IS_RETRO(kc) (((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX) || IS_LT(kc))
+#define IS_MT(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
+#define IS_RETRO(kc) (IS_MT(kc) || IS_LT(kc))
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record);
-void retro_shift_set_time(keyevent_t *event);
+void retroshift_poll_time(keyevent_t *event);
+void retroshift_swap_times(void);
+void retroshift_clear_last(void);
 
 void     autoshift_enable(void);
 void     autoshift_disable(void);

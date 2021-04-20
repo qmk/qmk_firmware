@@ -112,7 +112,7 @@ void action_exec(keyevent_t event) {
 #ifndef NO_ACTION_TAPPING
 #    ifdef RETRO_SHIFT
         if (event.pressed) {
-            retro_shift_set_time(&event);
+            retroshift_poll_time(&event);
         }
 #    endif
     action_tapping_process(record);

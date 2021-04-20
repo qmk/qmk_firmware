@@ -25,6 +25,10 @@ static uint16_t autoshift_time = 0;
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
 // Stores the last key's up or down time, to replace autoshift_time so that Tap Hold times are accurate.
 static uint16_t retroshift_time = 0;
+// Stores a possibly Retro Shift key's up or down time, as retroshift_time needs
+// to be set before the Retro Shift key is evaluated if it is interrupted by an
+// Auto Shifted key.
+static uint16_t last_retroshift_time;
 #    endif
 static uint16_t    autoshift_timeout = AUTO_SHIFT_TIMEOUT;
 static uint16_t    autoshift_lastkey = KC_NO;
@@ -338,26 +342,32 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         if (IS_RETRO(keycode)
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
             // Not tapped or #defines mean that rolls should use hold action.
-            && (record->tap.count == 0 || (record->tap.interrupted && (IS_LT(keycode)
+            && (
+                record->tap.count == 0
+#        ifdef RETRO_TAPPING_PER_KEY
+                || !get_retro_tapping(keycode, record)
+#        endif
+                || (record->tap.interrupted && (IS_LT(keycode)
 #        if defined(HOLD_ON_OTHER_KEY_PRESS) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
 #            ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-                ? get_hold_on_other_key_press(keycode, record)
+                    ? get_hold_on_other_key_press(keycode, record)
 #            else
-                ? true
+                    ? true
 #            endif
 #        else
-                ? false
+                    ? false
 #        endif
 #        if defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
 #            ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                : !get_ignore_mod_tap_interrupt(keycode, record)
+                    : !get_ignore_mod_tap_interrupt(keycode, record)
 #            else
-                : false
+                    : false
 #            endif
 #        else
-                : true
+                    : true
 #        endif
-            )))
+                ))
+            )
 #    endif
         ) {
             // clang-format on
@@ -365,6 +375,8 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             return true;
         }
     } else {
+        retroshift_clear_last();
+
         if (keycode == KC_LSFT) {
             autoshift_flags.cancelling_lshift = false;
         } else if (keycode == KC_RSFT) {
@@ -375,7 +387,12 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         // clang-format off
         else if (IS_RETRO(keycode)
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
-            && record->tap.count == 0
+            && (
+                record->tap.count == 0
+#        ifdef RETRO_TAPPING_PER_KEY
+                || !get_retro_tapping(keycode, record)
+#        endif
+            )
 #    endif
         ) {
             // Fixes modifiers not being applied to rolls with AUTO_SHIFT_MODIFIERS set.
@@ -396,15 +413,6 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     if (!autoshift_flags.enabled) {
         return true;
     }
-
-#    if defined(RETRO_TAPPING_PER_KEY) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
-    if (IS_RETRO(keycode) && !get_retro_tapping(keycode, record)) {
-        if (record->event.pressed) {
-            autoshift_lastkey = KC_NO;
-        }
-        return true;
-    }
-#    endif
 
     switch (keycode) {
         default:
@@ -440,7 +448,21 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
 // Called to record time before possible delays by action_tapping_process.
-void retro_shift_set_time(keyevent_t *event) { retroshift_time = timer_read(); }
+void retroshift_poll_time(keyevent_t *event) {
+    last_retroshift_time = retroshift_time;
+    retroshift_time = timer_read();
+}
+// Used to swap the times of Retro Shifted key and Auto Shift key that interrupted it.
+void retroshift_swap_times() {
+    if (last_retroshift_time != 0) {
+        uint16_t temp = retroshift_time;
+        retroshift_time = last_retroshift_time;
+        last_retroshift_time = temp;
+    }
+}
+// Used when a Retro Shift key is not Retro Shifted; when using them on an Auto Shift
+// key we muts prevent switching their times as the first is acting as a modifier/layer.
+void retroshift_clear_last() { last_retroshift_time = 0; }
 #    endif
 
 #endif
