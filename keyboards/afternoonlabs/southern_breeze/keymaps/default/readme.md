@@ -1,4 +1,3 @@
-# Default Southern Breeze Layout + VIA support
+# Default Southern Breeze Layout
 
-This is the default suggested layout for the Southern Breeze Split Keyboard
-(with the arrow cluster on the left half), with VIA support.
+This is the default suggested layout for the Southern Breeze Split Keyboard (with the arrow cluster on the left half).
