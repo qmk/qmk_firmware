@@ -298,7 +298,7 @@ void haptic_play(void) {
 #define HAPTIC_EXCLUSION_DEFAULT(keycode, tapcount) false
 #endif
 
-#if (HAPTIC_EXCLUSION_KEYS != 0)
+#if defined(HAPTIC_EXCLUSION_KEYS)
 bool exclude_haptic_key(uint16_t keycode, keyrecord_t *record) {
     if ((HAPTIC_EXCLUSION_DEFAULT(keycode, record->tap.count))) {
         return true;
