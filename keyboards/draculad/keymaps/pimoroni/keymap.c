@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 enum layer_number {
-  _BASE = 0,
+  _BASE,
   _NUM,
   _SYMB,
   _MUS,
