@@ -166,7 +166,7 @@ This mode sets continuous haptic feedback with the option to increase or decreas
 
 ## Haptic Key Exclusion
 
-With the entry of `#define HAPTIC_EXCLUSION_KEYS 1` in config.h, exclusion keys can be enabled.
+With the entry of `#define HAPTIC_EXCLUSION_KEYS` in config.h, exclusion keys can be enabled.
 By default they contain modifier and layer keys, which won't activate the haptic feedback.
 
 ### Additional Haptic Key Exclusions
