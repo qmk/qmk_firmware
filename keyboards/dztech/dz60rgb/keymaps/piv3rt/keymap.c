@@ -160,73 +160,71 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     led_t led_state = host_keyboard_led_state();
 
-    if (!g_suspend_state && rgb_matrix_config.enable) {
-        if (led_state.caps_lock) {
-            // Tab key = 27
-            RGB_MATRIX_INDICATOR_SET_COLOR(27, 0xff, 0x00, 0x00);
+    if (led_state.caps_lock) {
+        // Tab key = 27
+        RGB_MATRIX_INDICATOR_SET_COLOR(27, 0xff, 0x00, 0x00);
+    }
+
+    if (led_state.num_lock && (layer_state_is(_FNC) || layer_state_is(_NUM))) {
+        // ESC key = 13
+        RGB_MATRIX_INDICATOR_SET_COLOR(13, 0xff, 0x55, 0x55);
+    }
+
+    if (layer_state_is(_NUM)) {
+        // Num pad
+        for (int i=0; i<3; i++) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(3 + i, 0xff, 0x55, 0x55);
+            RGB_MATRIX_INDICATOR_SET_COLOR(17 + i, 0xff, 0x55, 0x55);
+            RGB_MATRIX_INDICATOR_SET_COLOR(30 + i, 0xff, 0x55, 0x55);
         }
+        RGB_MATRIX_INDICATOR_SET_COLOR(43, 0xff, 0x00, 0x00);
+        return;
+    }
 
-        if (led_state.num_lock && (layer_state_is(_FNC) || layer_state_is(_NUM))) {
-            // ESC key = 13
-            RGB_MATRIX_INDICATOR_SET_COLOR(13, 0xff, 0x55, 0x55);
+    if (layer_state_is(_RGB)) {
+        // AMD record and replay
+        RGB_MATRIX_INDICATOR_SET_COLOR(54, 0x00, 0xff, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(55, 0xff, 0x00, 0x00);
+    }
+
+    if (current_profile == CSGO) {
+        // Moves
+        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0xff, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(39, 0xff, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(38, 0xff, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(37, 0xff, 0x00, 0x00);
+
+        // Grenades
+        RGB_MATRIX_INDICATOR_SET_COLOR(4, 0x00, 0xff, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(3, 0xff, 0x66, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(2, 0x66, 0x66, 0x22);
+        RGB_MATRIX_INDICATOR_SET_COLOR(1, 0xff, 0xff, 0xff);
+
+        // Primary
+        RGB_MATRIX_INDICATOR_SET_COLOR(18, 0xff, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(17, 0x99, 0x33, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(16, 0x00, 0xff, 0x00);
+
+        // Secondary
+        RGB_MATRIX_INDICATOR_SET_COLOR(32, 0x66, 0x66, 0x22);
+        RGB_MATRIX_INDICATOR_SET_COLOR(31, 0x00, 0x00, 0xff);
+
+        // Equipment
+        RGB_MATRIX_INDICATOR_SET_COLOR(30, 0xff, 0x00, 0xff);
+        RGB_MATRIX_INDICATOR_SET_COLOR(29, 0x00, 0x00, 0xff);
+        RGB_MATRIX_INDICATOR_SET_COLOR(28, 0x33, 0x66, 0x99);
+        RGB_MATRIX_INDICATOR_SET_COLOR(0, 0x33, 0x66, 0x99);
+    } else if (current_profile == TEXT) {
+        // Letters
+        for (int i=0; i<7; i++) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(17 + i, 0x33, 0x66, 0x99);
+            RGB_MATRIX_INDICATOR_SET_COLOR(31 + i, 0x33, 0x66, 0x99);
+            RGB_MATRIX_INDICATOR_SET_COLOR(46 + i, 0x33, 0x66, 0x99);
         }
-
-        if (layer_state_is(_NUM)) {
-            // Num pad
-            for (int i=0; i<3; i++) {
-                RGB_MATRIX_INDICATOR_SET_COLOR(3 + i, 0xff, 0x55, 0x55);
-                RGB_MATRIX_INDICATOR_SET_COLOR(17 + i, 0xff, 0x55, 0x55);
-                RGB_MATRIX_INDICATOR_SET_COLOR(30 + i, 0xff, 0x55, 0x55);
-            }
-            RGB_MATRIX_INDICATOR_SET_COLOR(43, 0xff, 0x00, 0x00);
-            return;
-        }
-
-        if (layer_state_is(_RGB)) {
-            // AMD record and replay
-            RGB_MATRIX_INDICATOR_SET_COLOR(54, 0x00, 0xff, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(55, 0xff, 0x00, 0x00);
-        }
-
-        if (current_profile == CSGO) {
-            // Moves
-            RGB_MATRIX_INDICATOR_SET_COLOR(25, 0xff, 0x00, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(39, 0xff, 0x00, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(38, 0xff, 0x00, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(37, 0xff, 0x00, 0x00);
-
-            // Grenades
-            RGB_MATRIX_INDICATOR_SET_COLOR(4, 0x00, 0xff, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(3, 0xff, 0x66, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(2, 0x66, 0x66, 0x22);
-            RGB_MATRIX_INDICATOR_SET_COLOR(1, 0xff, 0xff, 0xff);
-
-            // Primary
-            RGB_MATRIX_INDICATOR_SET_COLOR(18, 0xff, 0x00, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(17, 0x99, 0x33, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(16, 0x00, 0xff, 0x00);
-
-            // Secondary
-            RGB_MATRIX_INDICATOR_SET_COLOR(32, 0x66, 0x66, 0x22);
-            RGB_MATRIX_INDICATOR_SET_COLOR(31, 0x00, 0x00, 0xff);
-
-            // Equipment
-            RGB_MATRIX_INDICATOR_SET_COLOR(30, 0xff, 0x00, 0xff);
-            RGB_MATRIX_INDICATOR_SET_COLOR(29, 0x00, 0x00, 0xff);
-            RGB_MATRIX_INDICATOR_SET_COLOR(28, 0x33, 0x66, 0x99);
-            RGB_MATRIX_INDICATOR_SET_COLOR(0, 0x33, 0x66, 0x99);
-        } else if (current_profile == TEXT) {
-            // Letters
-            for (int i=0; i<7; i++) {
-                RGB_MATRIX_INDICATOR_SET_COLOR(17 + i, 0x33, 0x66, 0x99);
-                RGB_MATRIX_INDICATOR_SET_COLOR(31 + i, 0x33, 0x66, 0x99);
-                RGB_MATRIX_INDICATOR_SET_COLOR(46 + i, 0x33, 0x66, 0x99);
-            }
-            RGB_MATRIX_INDICATOR_SET_COLOR(38, 0x33, 0x66, 0x99);
-            RGB_MATRIX_INDICATOR_SET_COLOR(39, 0x33, 0x66, 0x99);
-            RGB_MATRIX_INDICATOR_SET_COLOR(24, 0x33, 0x66, 0x99);
-            RGB_MATRIX_INDICATOR_SET_COLOR(25, 0x33, 0x66, 0x99);
-            RGB_MATRIX_INDICATOR_SET_COLOR(26, 0x33, 0x66, 0x99);
-        }
+        RGB_MATRIX_INDICATOR_SET_COLOR(38, 0x33, 0x66, 0x99);
+        RGB_MATRIX_INDICATOR_SET_COLOR(39, 0x33, 0x66, 0x99);
+        RGB_MATRIX_INDICATOR_SET_COLOR(24, 0x33, 0x66, 0x99);
+        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0x33, 0x66, 0x99);
+        RGB_MATRIX_INDICATOR_SET_COLOR(26, 0x33, 0x66, 0x99);
     }
 }
