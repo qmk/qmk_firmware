@@ -1,14 +1,14 @@
 # millipad
 
-![millipad](https://i.imgur.com/ZM2qel5.jpg)
+![millipad](https://i.imgur.com/ZM2qel5h.jpg)
 
 An open source 2x6 macropad with rotary encoder. Designed to be cheap and simple.
 
 
 ## More Pictures:
 ![PCB Layout](https://i.imgur.com/ilhfBfQ.png)
-![Front of PCB](https://i.imgur.com/UiQkmuv.jpg)
-![Back of PCB](https://i.imgur.com/Inh6UTL.jpg)
+![Front of PCB](https://i.imgur.com/UiQkmuvh.jpg)
+![Back of PCB](https://i.imgur.com/Inh6UTLh.jpg)
 
 
 * Keyboard Maintainer: [Jirou](https://github.com/GLozares)
