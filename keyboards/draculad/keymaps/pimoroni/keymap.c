@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pimoroni_trackball.h"
 #include "pointing_device.h"
 
-extern uint8_t is_master;
 
 enum layer_number {
   _BASE = 0,
