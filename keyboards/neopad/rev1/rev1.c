@@ -29,11 +29,13 @@ void shutdown_user() {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
+
     // Layer LEDs act as binary indication of current layer
     uint8_t layer = get_highest_layer(state);
     writePin(LED_00, layer & 0b1);
     writePin(LED_01, (layer >> 1) & 0b1);
-    return layer_state_set_user(state);
+    return state;
 }
 
 // Optional override functions below.
