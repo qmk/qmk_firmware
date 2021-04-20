@@ -17,5 +17,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ### Flash
 
 - Plug in
-- Pres reset button
+- Press reset button
 - Flash using QMK Toolbox or dfu-util (`make smallice:<keymap>:dfu-util`)
