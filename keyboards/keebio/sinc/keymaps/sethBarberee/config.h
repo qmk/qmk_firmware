@@ -28,10 +28,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#       define NORMAL_MODE RGBLIGHT_MODE_TWINKLE + 4
 //#   endif
 //#endif
-
-#if !defined(NO_DEBUG) && !defined(CONSOLE_ENABLE)
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT

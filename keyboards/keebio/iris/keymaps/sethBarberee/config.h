@@ -33,10 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLED_SPLIT
 #define RGBLED_SPLIT { RGBLED_NUM, 0}
-
-#if !defined(NO_DEBUG) && !defined(CONSOLE_ENABLE)
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
