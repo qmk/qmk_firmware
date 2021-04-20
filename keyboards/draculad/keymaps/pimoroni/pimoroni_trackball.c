@@ -173,7 +173,5 @@ void pointing_device_task(void) {
     update_member(&mouse.v, &h_offset);
 #endif
     pointing_device_set_report(mouse);
-    if (has_report_changed(mouse, pointing_device_get_report())) {
-        pointing_device_send();
-    }
+    pointing_device_send();
 }
