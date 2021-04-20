@@ -723,48 +723,38 @@ static void rgblight_layers_write(void) {
 
 #    ifdef RGBLIGHT_LAYER_BLINK
 rgblight_layer_mask_t _blinked_layer_mask = 0;
-static uint16_t       _blink_timer;
-
 rgblight_layer_mask_t _repeating_layer_mask = 0;
 static uint16_t       _repeat_timer;
 static uint8_t        _times_remaining = 1;
 static uint16_t       _dur;
 
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
-    rgblight_set_layer_state(layer, true);
-    _blinked_layer_mask |= (rgblight_layer_mask_t)1 << layer;
-    _blink_timer = sync_timer_read() + duration_ms;
-    if (_repeat_timer) {
-        _repeat_timer = sync_timer_read() + 2 * duration_ms;
-    }
-}
-
-void rgblight_unblink_layers(void) {
-    if (_blinked_layer_mask != 0 && timer_expired(sync_timer_read(), _blink_timer)) {
-        for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
-            if ((_blinked_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0) {
-                rgblight_set_layer_state(layer, false);
-            }
-        }
-        _blinked_layer_mask = 0;
-    }
+    rgblight_blink_layer_repeat(layer, duration_ms, 1);
 }
 
 void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times) {
     _times_remaining = times;
-    _repeating_layer_mask |= (rgblight_layer_mask_t)1 << layer;
-    _repeat_timer = sync_timer_read() + 2 * duration_ms;
     _dur = duration_ms;
-    _times_remaining--;
-    rgblight_blink_layer(layer, duration_ms);
+
+    rgblight_set_layer_state(layer, true);
+    _repeating_layer_mask |= (rgblight_layer_mask_t)1 << layer;
+    _blinked_layer_mask |= (rgblight_layer_mask_t)1 << layer;
+    _repeat_timer = sync_timer_read() + duration_ms;
 }
 
 void rgblight_blink_layer_repeat_helper(void) {
     if (_repeating_layer_mask != 0 && timer_expired(sync_timer_read(), _repeat_timer)) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
             if ((_repeating_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0 && _times_remaining > 0) {
-                _times_remaining--;
-                rgblight_blink_layer(layer, _dur);
+                if ((_blinked_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0) {
+                    rgblight_set_layer_state(layer, false);
+                    _blinked_layer_mask = 0;
+                    _times_remaining--;
+                } else {
+                    rgblight_set_layer_state(layer, true);
+                    _blinked_layer_mask |= (rgblight_layer_mask_t)1 << layer;
+                }
+                _repeat_timer = sync_timer_read() + _dur;
             }
         }
         if (_times_remaining <= 0) {
@@ -1078,7 +1068,6 @@ void rgblight_task(void) {
     }
 
 #    ifdef RGBLIGHT_LAYER_BLINK
-    rgblight_unblink_layers();
     rgblight_blink_layer_repeat_helper();
 #    endif
 }
