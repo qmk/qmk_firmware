@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    rainkeebs
 #define PRODUCT         Delilah
-#define DESCRIPTION     12.25u 40%
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -45,11 +44,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS

@@ -11,12 +11,12 @@ A 12.25u, traditional stagger, 40% keyboard. Designed to keep another punctuatio
 
 Make example for this keyboard (after setting up your build environment):
 
-    make delilah:default
+    qmk compile -kb delilah -kb default
     
 To reset the keyboard, hold the top left key while plugging in, or hit the reset button near the USB port
 
 Install example for this keyboard:
 
-    make delilah:default:flash
+    qmk flash -kb delilah -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
