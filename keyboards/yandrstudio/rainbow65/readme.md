@@ -3,7 +3,7 @@ rainbow65
 
 A 65% keyboard with rgb oled and encoder.
 
-Keyboard Maintainer: QMK Community  
+Keyboard Maintainer: https://github.com/jiaxin96
 Hardware Supported: rainbow65 
 Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
 

@@ -3,7 +3,7 @@ sb65p
 
 A wireless split 60% keyboard.
 
-Keyboard Maintainer: QMK Community  
+Keyboard Maintainer: https://github.com/jiaxin96
 Hardware Supported: sb65p
 Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
 

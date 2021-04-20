@@ -3,8 +3,10 @@ Cool87
 
 A 80% keyboard.
 
-Keyboard Maintainer: QMK Community  
+Keyboard Maintainer: https://github.com/jiaxin96
+
 Hardware Supported: cool87  
+
 Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
 
 Make example for this keyboard (after setting up your build environment):
