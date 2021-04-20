@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    chlx
 #define PRODUCT         chlx merro60
-#define DESCRIPTION     tofukorn conversion pcb
 
 /* key matrix size */
 #define MATRIX_ROWS 5
