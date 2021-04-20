@@ -4,9 +4,9 @@
 
 A 75% handwired with rotary encoder and OLED using matias clicky ALPS.
 
-Keyboard Maintainer: [haesbaert](https://github.com/haesbaert)
-Hardware Supported: Teensy 2.0++
-Hardware Availability: haesbaert@haesbaert.org
+* Keyboard Maintainer: [haesbaert](https://github.com/haesbaert)
+* Hardware Supported: Teensy 2.0++
+* Hardware Availability: haesbaert@haesbaert.org
 
 Make example for this keyboard (after setting up your build environment):
 
