@@ -83,8 +83,6 @@ void oled_task_user(void) {
 
     switch (biton32(layer_state)) {
         case 0:
-            const char a[] = {0x00, 0x63, 0x1E, 0x14, 0x33, 0x20};
-            oled_write_raw(a, 0*32+7);
             oled_write_ln("Layer: Base", false);
             break;
         case 1:
