@@ -40,7 +40,6 @@ enum custom_keycodes {
 
 
 char wpm_as_str[8];
-extern uint8_t is_master;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] =  LAYOUT( \
