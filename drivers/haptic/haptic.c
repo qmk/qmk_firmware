@@ -360,7 +360,7 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (haptic_config.enable) {
-        #if (HAPTIC_EXCLUSION_KEYS != 0)
+#        if defined(HAPTIC_EXCLUSION_KEYS)
             if ( exclude_haptic_key(keycode, record)) {
                 haptic_exclusion_key = true;
             }
