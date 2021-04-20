@@ -112,7 +112,6 @@ void  trackball_set_precision(float precision) { precisionSpeed = precision; }
 bool  trackball_is_scrolling(void) { return scrolling; }
 void  trackball_set_scrolling(bool scroll) { scrolling = scroll; }
 
-bool has_report_changed(report_mouse_t first, report_mouse_t second) { return !((!first.buttons && first.buttons == second.buttons) && (!first.x && first.x == second.x) && (!first.y && first.y == second.y) && (!first.h && first.h == second.h) && (!first.v && first.v == second.v)); }
 
 __attribute__((weak)) void pointing_device_init(void) { trackball_set_rgbw(0x80, 0x00, 0x00, 0x00); }
 
