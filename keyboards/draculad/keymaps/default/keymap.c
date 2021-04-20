@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-extern uint8_t is_master;
 
 enum layer_number {
   _BASE = 0,
