@@ -64,7 +64,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_DRIVER_ENABLE
 
-bool is_keyboard_left(void);
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
