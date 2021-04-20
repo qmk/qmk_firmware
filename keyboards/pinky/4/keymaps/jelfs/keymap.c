@@ -40,8 +40,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NUMPAD] = LAYOUT_split_4x7_4(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,      KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12 , _______,
-        _______, KC_EXLM, KC_AT, KC_LCBR, KC_RCBR, KC_MINS, _______,    _______, _______,   KC_7,    KC_8,    KC_9,   _______, _______,
-        _______, _______, _______, KC_LBRC, KC_RBRC, KC_UNDS, _______,    _______, _______, KC_4,    KC_5,    KC_6,   _______, _______,
+        LCTL(KC_GRV), KC_EXLM, KC_AT, KC_LCBR, KC_RCBR, KC_MINS, _______,    _______, _______,   KC_7,    KC_8,    KC_9,   _______, _______,
+        LGUI(KC_GRV), _______, _______, KC_LBRC, KC_RBRC, KC_UNDS, _______,    _______, _______, KC_4,    KC_5,    KC_6,   _______, _______,
         _______, _______, _______, KC_LPRN, KC_RPRN, _______, _______,    _______, _______, KC_1,    KC_2,    KC_3,   _______, _______,
                                    _______, _______, _______, _______,    _______, _______, KC_0,    _______
     ),
