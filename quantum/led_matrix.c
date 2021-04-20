@@ -27,14 +27,6 @@
 
 #include <lib/lib8tion/lib8tion.h>
 
-#ifndef MAX
-#    define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
-#endif
-
-#ifndef MIN
-#    define MIN(a, b) ((a) < (b) ? (a) : (b))
-#endif
-
 #if defined(LED_DISABLE_AFTER_TIMEOUT) && !defined(LED_DISABLE_TIMEOUT)
 #    define LED_DISABLE_TIMEOUT (LED_DISABLE_AFTER_TIMEOUT * 1200UL)
 #endif
@@ -76,6 +68,12 @@
 bool           g_suspend_state = false;
 led_eeconfig_t led_matrix_eeconfig;  // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
 uint32_t       g_led_timer;
+#ifdef LED_MATRIX_FRAMEBUFFER_EFFECTS
+uint8_t g_led_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
+#endif  // LED_MATRIX_FRAMEBUFFER_EFFECTS
+#ifdef LED_MATRIX_KEYREACTIVE_ENABLED
+last_hit_t g_last_hit_tracker;
+#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 
 // internals
 static uint8_t         led_last_enable   = UINT8_MAX;
@@ -88,6 +86,9 @@ static uint32_t led_anykey_timer;
 
 // double buffers
 static uint32_t led_timer_buffer;
+#ifdef LED_MATRIX_KEYREACTIVE_ENABLED
+static last_hit_t last_hit_buffer;
+#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 
 void eeconfig_read_led_matrix(void) { eeprom_read_block(&led_matrix_eeconfig, EECONFIG_LED_MATRIX, sizeof(led_matrix_eeconfig)); }
 
@@ -111,9 +112,6 @@ void eeconfig_debug_led_matrix(void) {
     dprintf("led_matrix_eeconfig.speed = %d\n", led_matrix_eeconfig.speed);
     dprintf("led_matrix_eeconfig.flags = %d\n", led_matrix_eeconfig.flags);
 }
-
-uint8_t g_last_led_hit[LED_HITS_TO_REMEMBER] = {255};
-uint8_t g_last_led_count                     = 0;
 
 __attribute__((weak)) uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) { return 0; }
 
@@ -150,22 +148,42 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
     led_anykey_timer = 0;
 #endif  // LED_DISABLE_TIMEOUT > 0
 
-    if (pressed) {
-        uint8_t led[8];
-        uint8_t led_count = led_matrix_map_row_column_to_led(row, col, led);
-        if (led_count > 0) {
-            for (uint8_t i = LED_HITS_TO_REMEMBER; i > 1; i--) {
-                g_last_led_hit[i - 1] = g_last_led_hit[i - 2];
-            }
-            g_last_led_hit[0] = led[0];
-            g_last_led_count  = MIN(LED_HITS_TO_REMEMBER, g_last_led_count + 1);
-        }
-    } else {
-#ifdef LED_MATRIX_KEYRELEASES
-        uint8_t led[8];
-        uint8_t led_count = led_matrix_map_row_column_to_led(row, .col, led);
-#endif
+#ifdef LED_MATRIX_KEYREACTIVE_ENABLED
+    uint8_t led[LED_HITS_TO_REMEMBER];
+    uint8_t led_count = 0;
+
+#    if defined(LED_MATRIX_KEYRELEASES)
+    if (!pressed)
+#    elif defined(LED_MATRIX_KEYPRESSES)
+    if (pressed)
+#    endif  // defined(LED_MATRIX_KEYRELEASES)
+    {
+        led_count = led_matrix_map_row_column_to_led(row, col, led);
     }
+
+    if (last_hit_buffer.count + led_count > LED_HITS_TO_REMEMBER) {
+        memcpy(&last_hit_buffer.x[0], &last_hit_buffer.x[led_count], LED_HITS_TO_REMEMBER - led_count);
+        memcpy(&last_hit_buffer.y[0], &last_hit_buffer.y[led_count], LED_HITS_TO_REMEMBER - led_count);
+        memcpy(&last_hit_buffer.tick[0], &last_hit_buffer.tick[led_count], (LED_HITS_TO_REMEMBER - led_count) * 2);  // 16 bit
+        memcpy(&last_hit_buffer.index[0], &last_hit_buffer.index[led_count], LED_HITS_TO_REMEMBER - led_count);
+        last_hit_buffer.count--;
+    }
+
+    for (uint8_t i = 0; i < led_count; i++) {
+        uint8_t index                = last_hit_buffer.count;
+        last_hit_buffer.x[index]     = g_led_config.point[led[i]].x;
+        last_hit_buffer.y[index]     = g_led_config.point[led[i]].y;
+        last_hit_buffer.index[index] = led[i];
+        last_hit_buffer.tick[index]  = 0;
+        last_hit_buffer.count++;
+    }
+#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
+
+#if defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_LED_MATRIX_TYPING_HEATMAP)
+    if (led_matrix_eeconfig.mode == LED_MATRIX_TYPING_HEATMAP) {
+        process_led_matrix_typing_heatmap(row, col);
+    }
+#endif  // defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_LED_MATRIX_TYPING_HEATMAP)
 }
 
 static bool led_matrix_none(effect_params_t *params) {
@@ -189,9 +207,9 @@ static bool led_matrix_uniform_brightness(effect_params_t *params) {
 }
 
 static void led_task_timers(void) {
-#if LED_DISABLE_TIMEOUT > 0
+#if defined(LED_MATRIX_KEYREACTIVE_ENABLED) || LED_DISABLE_TIMEOUT > 0
     uint32_t deltaTime = sync_timer_elapsed32(led_timer_buffer);
-#endif  // LED_DISABLE_TIMEOUT > 0
+#endif  // defined(LED_MATRIX_KEYREACTIVE_ENABLED) || LED_DISABLE_TIMEOUT > 0
     led_timer_buffer = sync_timer_read32();
 
     // Update double buffer timers
@@ -204,6 +222,18 @@ static void led_task_timers(void) {
         }
     }
 #endif  // LED_DISABLE_TIMEOUT > 0
+
+    // Update double buffer last hit timers
+#ifdef LED_MATRIX_KEYREACTIVE_ENABLED
+    uint8_t count = last_hit_buffer.count;
+    for (uint8_t i = 0; i < count; ++i) {
+        if (UINT16_MAX - deltaTime < last_hit_buffer.tick[i]) {
+            last_hit_buffer.count--;
+            continue;
+        }
+        last_hit_buffer.tick[i] += deltaTime;
+    }
+#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 }
 
 static void led_task_sync(void) {
@@ -217,6 +247,9 @@ static void led_task_start(void) {
 
     // update double buffers
     g_led_timer = led_timer_buffer;
+#ifdef LED_MATRIX_KEYREACTIVE_ENABLED
+    g_last_hit_tracker = last_hit_buffer;
+#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 
     // next task
     led_task_state = RENDERING;
@@ -235,6 +268,7 @@ static void led_task_render(uint8_t effect) {
     switch (effect) {
         case LED_MATRIX_NONE:
             rendering = led_matrix_none(&led_effect_params);
+            break;
         case LED_MATRIX_UNIFORM_BRIGHTNESS:
             rendering = led_matrix_uniform_brightness(&led_effect_params);
             break;
@@ -288,6 +322,7 @@ void led_matrix_task(void) {
             led_task_render(effect);
             if (effect) {
                 led_matrix_indicators();
+                led_matrix_indicators_advanced(&led_effect_params);
             }
             break;
         case FLUSHING:
@@ -308,8 +343,42 @@ __attribute__((weak)) void led_matrix_indicators_kb(void) {}
 
 __attribute__((weak)) void led_matrix_indicators_user(void) {}
 
+void led_matrix_indicators_advanced(effect_params_t *params) {
+    /* special handling is needed for "params->iter", since it's already been incremented.
+     * Could move the invocations to led_task_render, but then it's missing a few checks
+     * and not sure which would be better. Otherwise, this should be called from
+     * led_task_render, right before the iter++ line.
+     */
+#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
+    uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
+    uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;
+    if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#else
+    uint8_t min = 0;
+    uint8_t max = DRIVER_LED_TOTAL;
+#endif
+    led_matrix_indicators_advanced_kb(min, max);
+    led_matrix_indicators_advanced_user(min, max);
+}
+
+__attribute__((weak)) void led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {}
+
+__attribute__((weak)) void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {}
+
 void led_matrix_init(void) {
     led_matrix_driver.init();
+
+#ifdef LED_MATRIX_KEYREACTIVE_ENABLED
+    g_last_hit_tracker.count = 0;
+    for (uint8_t i = 0; i < LED_HITS_TO_REMEMBER; ++i) {
+        g_last_hit_tracker.tick[i] = UINT16_MAX;
+    }
+
+    last_hit_buffer.count = 0;
+    for (uint8_t i = 0; i < LED_HITS_TO_REMEMBER; ++i) {
+        last_hit_buffer.tick[i] = UINT16_MAX;
+    }
+#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 
     if (!eeconfig_is_enabled()) {
         dprintf("led_matrix_init_drivers eeconfig is not enabled.\n");

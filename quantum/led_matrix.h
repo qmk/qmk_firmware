@@ -79,6 +79,10 @@ void led_matrix_indicators(void);
 void led_matrix_indicators_kb(void);
 void led_matrix_indicators_user(void);
 
+void led_matrix_indicators_advanced(effect_params_t *params);
+void led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
+void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
+
 void led_matrix_init(void);
 
 void        led_matrix_set_suspend_state(bool state);
@@ -133,3 +137,9 @@ extern led_eeconfig_t led_matrix_eeconfig;
 extern bool         g_suspend_state;
 extern uint32_t     g_led_timer;
 extern led_config_t g_led_config;
+#ifdef LED_MATRIX_KEYREACTIVE_ENABLED
+extern last_hit_t g_last_hit_tracker;
+#endif
+#ifdef LED_MATRIX_FRAMEBUFFER_EFFECTS
+extern uint8_t g_led_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
+#endif
