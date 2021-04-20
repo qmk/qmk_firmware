@@ -23,4 +23,4 @@ AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = ortho_4x4
 
-DEFAULT_FOLDER = keycapsss/plaid_pad/rev3
+DEFAULT_FOLDER = keycapsss/plaid_pad/rev1
