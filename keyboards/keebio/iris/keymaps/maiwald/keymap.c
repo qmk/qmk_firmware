@@ -10,6 +10,11 @@ enum layers {
 
 enum custom_keycodes {
   MY_SLSH = SAFE_RANGE,
+  TMUX_1,
+  TMUX_2,
+  TMUX_3,
+  TMUX_4,
+  TMUX_5
 };
 
 enum {
@@ -96,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
   [_EXTEND] = LAYOUT(
-      XXXXXXX, KC_BRID, KC_BRIU, RGB_TOG, RGB_VAD, RGB_VAI,                       KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, XXXXXXX,
-      _______, XXXXXXX, DE_7,    DE_8,    DE_9,    DE_PLUS,                       KC_HOME, KC_PGUP, VIM_ALT, XXXXXXX, KC_DEL,  XXXXXXX,
-      _______, XXXXXXX, DE_4,    DE_5,    DE_6,    DE_MINS,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
-      _______, XXXXXXX, DE_1,    DE_2,    DE_3,    XXXXXXX,  A(KC_BSPC), RESET,   KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                          _______, SFT_ZERO, KC_LALT,    _______, _______, _______
+      XXXXXXX, TMUX_1, TMUX_2, TMUX_3, TMUX_4,  TMUX_5,                        KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, XXXXXXX,
+      _______, TMUX_3, DE_7,   DE_8,   DE_9,    DE_PLUS,                       KC_HOME, KC_PGUP, VIM_ALT, XXXXXXX, KC_DEL,  XXXXXXX,
+      _______, TMUX_2, DE_4,   DE_5,   DE_6,    DE_MINS,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
+      _______, TMUX_1, DE_1,   DE_2,   DE_3,    XXXXXXX,  A(KC_BSPC), RESET,   KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                       _______, SFT_ZERO, KC_LALT,    _______, _______, _______
       ),
 
   [_SYMBOLS] = LAYOUT(
@@ -124,6 +129,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   uint16_t one_shot_mod_state = get_oneshot_mods();
 
   switch (keycode) {
+    case TMUX_1:
+      if (record->event.pressed) {
+        tap_code16(C(KC_B));
+        tap_code16(KC_1);
+      }
+      return false;
+    case TMUX_2:
+      if (record->event.pressed) {
+        tap_code16(C(KC_B));
+        tap_code16(KC_2);
+      }
+      return false;
+    case TMUX_3:
+      if (record->event.pressed) {
+        tap_code16(C(KC_B));
+        tap_code16(KC_3);
+      }
+      return false;
+    case TMUX_4:
+      if (record->event.pressed) {
+        tap_code16(C(KC_B));
+        tap_code16(KC_4);
+      }
+      return false;
+    case TMUX_5:
+      if (record->event.pressed) {
+        tap_code16(C(KC_B));
+        tap_code16(KC_5);
+      }
+      return false;
+
     case KC_TRNS:
     case KC_NO:
       /* Always cancel one-shot layer when another key gets pressed */
