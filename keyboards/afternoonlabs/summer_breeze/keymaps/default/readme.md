@@ -1,4 +1,3 @@
-# Default Summer Breeze Layout + VIA support
+# Default Summer Breeze Layout
 
-This is the default suggested layout for the Summer Breeze Split Keyboard (with
-both arrow clusters), with VIA support.
+This is the default suggested layout for the Summer Breeze Split Keyboard (with both arrow clusters).
