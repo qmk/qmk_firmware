@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER mangoiv
 #define PRODUCT draculad
-#define DESCRIPTION a < 40 - key input device
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
