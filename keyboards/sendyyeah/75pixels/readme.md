@@ -10,9 +10,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    `make sendyyeah/75pixels:default`
-    or
-    `qmk compile -kb sendyyeah/75pixels -km default`
+    make sendyyeah/75pixels:default
 
 How to reset and enter bootloader:
     - Press reset button on the PCB (twice if the ProMicro is fresh)
