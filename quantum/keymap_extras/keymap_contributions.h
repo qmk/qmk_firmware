@@ -297,28 +297,34 @@
 #define FRCA_33 S(KC_2)
 
 // Icelandic
-#define IS_01 S(KC_DOT)
-#define IS_02 S(KC_COMMA)
-#define IS_03 ALGR(KC_NONUS_BSLASH)
-#define IS_04 S(KC_NONUS_BSLASH)
-#define IS_05 KC_NONUS_BSLASH
-#define IS_06 S(KC_BSLASH)
-#define IS_07 S(KC_QUOTE)
-#define IS_08 S(KC_RBRACKET)
-#define IS_09 S(KC_EQUAL)
-#define IS_10 S(KC_GRAVE)
-#define IS_11 S(KC_0)
-#define IS_12 S(KC_8)
-#define IS_13 S(KC_7)
-#define IS_14 S(KC_6)
-#define IS_15 KC_BSLASH
-#define IS_16 KC_QUOTE
-#define IS_17 KC_RBRACKET
-#define IS_18 KC_EQUAL
-#define IS_19 KC_GRAVE
-#define IS_20 KC_MINUS
-#define IS_21 KC_SCOLON
-#define IS_22 KC_LBRACKET
+#define IS_01 S(KC_DOT) //:
+#define IS_02 S(KC_COMMA) //;
+#define IS_03 ALGR(KC_NONUS_BSLASH) //|
+#define IS_04 S(KC_NONUS_BSLASH) //>
+#define IS_05 KC_NONUS_BSLASH //<
+#define IS_06 S(KC_BSLASH)// *
+#define IS_07 S(KC_QUOTE) //´
+#define IS_08 S(KC_RBRACKET) //?
+#define IS_09 S(KC_EQUAL) //_
+#define IS_10 S(KC_GRAVE) //¨
+#define IS_11 S(KC_0) //=
+#define IS_12 S(KC_8) //(
+#define IS_13 S(KC_7) //°
+#define IS_14 S(KC_6) //&
+#define IS_15 KC_BSLASH //+
+#define IS_16 KC_QUOTE //´
+#define IS_17 KC_RBRACKET //'
+#define IS_18 KC_EQUAL //-
+#define IS_19 KC_GRAVE //°
+#define IS_20 KC_MINUS //ö
+#define IS_21 KC_SCOLON //æ
+#define IS_22 KC_LBRACKET //ð
+#define IS_23 S(KC_9) //)
+#define IS_24 S(KC_2) //"
+#define IS_25 S(KC_MINUS) //Ö
+#define IS_26 S(KC_SLASH) //Þ
+#define IS_27 S(KC_SCOLON) //Æ
+#define IS_28 S(KC_LBRACKET) //Ð
 
 // Spanish LATAM
 #define ES_LA_00 ALGR(KC_MINUS)
