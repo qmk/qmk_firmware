@@ -1,7 +1,7 @@
 # titan60
 
-![Front of the Titan60 PCB](https://imgur.com/LaPzdRl)
-![Back of the Titan60 PCB](https://imgur.com/nbineBj)
+![Front of the Titan60 PCB](https://i.imgur.com/LaPzdRl.png)
+![Back of the Titan60 PCB](https://i.imgur.com/nbineBj.png)
 
 60% custom keyboard originally meant for the Saturn 60
 
