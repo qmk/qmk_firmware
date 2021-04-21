@@ -89,9 +89,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             } else {
                 print("left side attached\n");
                 BAJJAK_blink_all_leds();
-#ifdef RGB_MATRIX_ENABLE
-                rgb_matrix_init();  // re-init driver on reconnect
-#endif
             }
         }
     }
