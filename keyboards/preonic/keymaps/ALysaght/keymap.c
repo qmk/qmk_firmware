@@ -18,69 +18,8 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "ALysaght.h"
 //#include "muse.h"
-
-enum preonic_layers {
-  _QWERTY,
-  _FFXIV,
-  _MEDIA,
-  _NAVR,
-  _MOUSE,
-  _NSSL,
-  _NSL,
-  _FUNL,
-  _ADJUST
-};
-
-enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  FFXIV,
-  BACKLIT,
-  R_ASIGN,
-  R_PIPE,
-  GITFETC,
-  GITPULL,
-  GITPUSI,
-  GITPUSO,
-  GITREBA,
-  GITADD,
-  GITCOMM,
-  GITBRCH,
-  GITCOUT,
-  GITCOBR,
-  GITSTAT,
-  GITBDEL
-};
-
-// modifier keys
-#define HOME_A  LSFT_T(KC_A)
-#define HOME_S  LCTL_T(KC_S)
-#define HOME_D  LALT_T(KC_D)
-#define HOME_F  LGUI_T(KC_F)
-
-#define HOME_J  LGUI_T(KC_J)
-#define HOME_K  LALT_T(KC_K)
-#define HOME_L  LCTL_T(KC_L)
-#define HOME_QUOT  LSFT_T(KC_QUOT)
-
-#define LT_ESC  LT(_MEDIA, KC_ESC)
-#define LT_BSPC LT(_NAVR, KC_BSPC)
-#define LT_TAB  LT(_MOUSE, KC_TAB)
-#define LT_ENT  LT(_NSSL, KC_ENT)
-#define LT_SPC  LT(_NSL, KC_SPC)
-#define LT_DEL  LT(_FUNL, KC_DEL)
-
-#define UNDO  LGUI(KC_Z)
-#define CUT   LGUI(KC_X)
-#define COPY  LGUI(KC_C)
-#define PASTE LGUI(KC_V)
-
-#define NX_HOME LCTL(KC_A)
-#define NX_END  LCTL(KC_E)
-#define NX_WB   LALT(KC_B)
-#define NX_WF   LALT(KC_F)
-
-#define SCR_GRB SGUI(C(KC_4))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -98,16 +37,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
-  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   XXXXXXX, XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   XXXXXXX, XXXXXXX, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-  HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G,   XXXXXXX, XXXXXXX, KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QUOT,
-  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   XXXXXXX, XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-  XXXXXXX, XXXXXXX, LT_ESC,  LT_BSPC, LT_TAB, XXXXXXX, XXXXXXX, LT_ENT,  LT_SPC,  LT_DEL,  XXXXXXX, XXXXXXX
+  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      XXXXXXX, XXXXXXX,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+  _________________QWERTY_L1_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R1_________________,
+  _________________QWERTY_L2_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R1_________________,
+  _________________QWERTY_L3_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R1_________________,
+  _________________BASE_LT___________________,   XXXXXXX, XXXXXXX,   _________________BASE_RT___________________
 ),
 
 /* Final Fantasy XIV
 * ,-----------------------------------------------------------------------------------.
-* |   1  |   2  |   3  |   4  |   5  |  NO  |  NO  | LT6  |   7  |   8  |   9  |   0  |
+* |   1  |   2  |   3  |   4  | LT5  |  NO  |  NO  |   6  |   7  |   8  |   9  |   0  |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * |   Q  |   W  |   E  |   R  |   T  |  NO  |  NO  |   Y  |   U  |   I  |   O  |   P  |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -119,11 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-----------------------------------------------------------------------------------'
  */
 [_FFXIV] = LAYOUT_preonic_grid(
-  KC_ESC,  KC_GRV,  KC_TAB,  KC_4,    LT(_ADJUST, KC_5), XXXXXXX, XXXXXXX,   KC_6,    KC_7,   KC_8,    KC_9,    KC_0,
-  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,              XXXXXXX, XXXXXXX,   KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,
-  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,              XXXXXXX, XXXXXXX,   KC_H,    KC_J,   KC_K,    KC_L,    KC_QUOT,
-  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,              XXXXXXX, XXXXXXX,   KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH,
-  XXXXXXX, XXXXXXX, KC_LALT, KC_LSFT, KC_LGUI,           XXXXXXX, XXXXXXX,   LT_ENT,  LT_SPC, KC_BSPC, XXXXXXX, XXXXXXX
+  _________________FFXIV_L0__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_R0__________________,
+  _________________FFXIV_L1__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_R1__________________,
+  _________________FFXIV_L2__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_R2__________________,
+  _________________FFXIV_L3__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_R3__________________,
+  _________________FFXIV_LT__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_RT__________________
 ),
 
 
@@ -144,11 +83,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_NAVR] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NX_HOME, NX_WB,   NX_WF,   NX_END,
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-  UNDO,    CUT,     COPY,    PASTE,   XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,
-  XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,  KC_SPC,  KC_DEL,  XXXXXXX, XXXXXXX
+  _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
+  _________________NAV_L1____________________, XXXXXXX, XXXXXXX, _________________NAV_R1____________________,
+  _________________NAV_L2____________________, XXXXXXX, XXXXXXX, _________________NAV_R1____________________,
+  _________________NAV_L3____________________, XXXXXXX, XXXXXXX, _________________NAV_R1____________________,
+  _________________NAV_LT____________________, XXXXXXX, XXXXXXX, _________________NAV_RT____________________
 ),
 
 /* SHIFTED Number and Symbol layer
@@ -166,11 +105,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_NSSL] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  KC_AMPR, KC_ASTR, KC_PIPE, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  KC_DLR,  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,
-  KC_EXLM, KC_AT,   KC_HASH, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_DOT,  KC_SCLN, KC_TILD, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
+  _________________NSSL_L1___________________, XXXXXXX, XXXXXXX, _________________NSSL_R1___________________,
+  _________________NSSL_L2___________________, XXXXXXX, XXXXXXX, _________________NSSL_R2___________________,
+  _________________NSSL_L3___________________, XXXXXXX, XXXXXXX, _________________NSSL_R3___________________,
+  _________________NSSL_LT___________________, XXXXXXX, XXXXXXX, _________________NSSL_RT___________________
 ),
 
 
@@ -188,11 +127,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-----------------------------------------------------------------------------------'
 */
 [_NSL] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  KC_4,    KC_5,    KC_6,    KC_MINS, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,
-  KC_1,    KC_2,    KC_3,    KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_DOT,  KC_COLN, KC_GRV,  XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
+  _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
+  _________________NSL_L1____________________, XXXXXXX, XXXXXXX, _________________NSL_R1____________________,
+  _________________NSL_L2____________________, XXXXXXX, XXXXXXX, _________________NSL_R1____________________,
+  _________________NSL_L3____________________, XXXXXXX, XXXXXXX, _________________NSL_R1____________________,
+  _________________NSL_LT____________________, XXXXXXX, XXXXXXX, _________________NSL_RT____________________
 ),
 
 
@@ -211,11 +150,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_MOUSE] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R,
-  XXXXXXX, XXXXXXX, MO(_ADJUST), XXXXXXX, _______, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_BTN3, XXXXXXX, XXXXXXX
+  _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
+  _________________MOUSE_L1__________________, XXXXXXX, XXXXXXX, _________________MOUSE_R1__________________,
+  _________________MOUSE_L2__________________, XXXXXXX, XXXXXXX, _________________MOUSE_R2__________________,
+  _________________MOUSE_L3__________________, XXXXXXX, XXXXXXX, _________________MOUSE_R3__________________,
+  _________________MOUSE_LT__________________, XXXXXXX, XXXXXXX, _________________MOUSE_RT__________________
 ),
 
 
@@ -224,22 +163,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ,-----------------------------------------------------------------------------------.
 * |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |
+* |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |RGBTOG|RGBMOD|RGBHUI|RGBSAI|RGBVAI|
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |Shift | Ctrl | Alt  | GUI  |  NO  |  NO  |  NO  |  NO  | MS_L | MS_D | MS_U | MS_R |
+* |Shift | Ctrl | Alt  | GUI  |  NO  |  NO  |  NO  |  NO  | Prev |VolUp |VolDn | Next |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  | WH_L | WH_U | WH_D | WH_R |
+* |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |  ??  |  NO  |RGBHUD|RGBSAD|RGBVAD|
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |  NO  |  NO  |      |  NO  |ADJUST |  NO  |  NO  | BTN1 | BTN2 | BTN3 |  NO  |  NO  |
+* |  NO  |  NO  |      |  NO  |ADJUST|  NO  |  NO  | Stop | Play | Mute |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
 */
 
 [_MEDIA] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BACKLIT, XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD,
-  XXXXXXX, XXXXXXX, _______, XXXXXXX, MO(_ADJUST), XXXXXXX, XXXXXXX, KC_MSTP, KC_MPLY, KC_MUTE, XXXXXXX, XXXXXXX
+  _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
+  _________________MEDIA_L1__________________, XXXXXXX, XXXXXXX, _________________MEDIA_R1__________________,
+  _________________MEDIA_L2__________________, XXXXXXX, XXXXXXX, _________________MEDIA_R2__________________,
+  _________________MEDIA_L3__________________, XXXXXXX, XXXXXXX, _________________MEDIA_R3__________________,
+  _________________MEDIA_LT__________________, XXXXXXX, XXXXXXX, _________________MEDIA_RT__________________
 ),
 
 
@@ -257,11 +196,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-----------------------------------------------------------------------------------'
 */
 [_FUNL] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  GITFETC, GITPULL, XXXXXXX, GITREBA, XXXXXXX,   XXXXXXX, XXXXXXX,   XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,
-  GITADD,  GITSTAT, GITCOMM, GITPUSO, GITPUSI,   XXXXXXX, XXXXXXX,   XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,
-  GITBDEL, XXXXXXX, GITCOUT, GITCOBR, GITBRCH,   XXXXXXX, XXXXXXX,   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,
-  XXXXXXX, XXXXXXX, SCR_GRB, R_ASIGN, R_PIPE,    XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX
+  _________________BLANK_5___________________,   XXXXXXX, XXXXXXX,   _________________BLANK_5___________________,
+  _________________FUNC_L1___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R1___________________,
+  _________________FUNC_L2___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R2___________________,
+  _________________FUNC_L3___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R3___________________,
+  _________________FUNC_LT___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_RT___________________
 ),
 
 
@@ -271,21 +210,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Reset |Debug |      |      |      |      |      |TermOf|TermOn|      |AGnorm|AGswap|
+ * |Reset |Debug |      |      |      |      |      |TermOf|TermOn|      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |FFXIV |Qwerty|Voice-|Voice+|Aud cy|
+ * |      |      |      |      |      |      |      |FFXIV |Qwerty|      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |MidiOn|MusOn |Aud on|      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |MidOff|MusOff|AudOff|      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,
-  RESET,   DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   TERM_ON, TERM_OFF, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   FFXIV,   QWERTY,   XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, _______, XXXXXXX, _______,   XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  _________________BLANK_5___________________,   XXXXXXX, XXXXXXX,   _________________BLANK_5___________________,
+  _________________DRAGO_L1__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R1__________________,
+  _________________DRAGO_L2__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R2__________________,
+  _________________DRAGO_L3__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R3__________________,
+  _________________DRAGO_LT__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_RT__________________
   /*
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,
   RESET,   DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   TERM_ON, TERM_OFF, XXXXXXX, AG_NORM, AG_SWAP,
@@ -298,112 +237,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-        case QWERTY:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_QWERTY);
-          }
-          return false;
-          break;
-        case FFXIV:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_FFXIV);
-          }
-          return false;
-          break;
-        case R_ASIGN:
-          if (record->event.pressed) {
-            // when keycode R_ASIGN is pressed
-            SEND_STRING("<- ");
-          }
-          // return false;
-          break;
-        case R_PIPE:
-          if (record->event.pressed) {
-            SEND_STRING(" %>%\n");
-          }
-          break;
-        case GITFETC:
-          if (record->event.pressed) {
-            SEND_STRING("git fetch ");
-          }
-          break;
-        case GITPULL:
-          if (record->event.pressed) {
-            SEND_STRING("git pull ");
-          }
-          break;
-        case GITPUSI:
-          if (record->event.pressed) {
-            SEND_STRING("git push imm ");
-          }
-          break;
-        case GITPUSO:
-          if (record->event.pressed) {
-            SEND_STRING("git push origin ");
-          }
-          break;
-        case GITREBA:
-          if (record->event.pressed) {
-            SEND_STRING("git pull --rebase ");
-          }
-          break;
-        case GITADD:
-          if (record->event.pressed) {
-            SEND_STRING("git add ");
-          }
-          break;
-        case GITCOMM:
-          if (record->event.pressed) {
-            SEND_STRING("git commit -m ");
-          }
-          break;
-        case GITBRCH:
-          if (record->event.pressed) {
-            SEND_STRING("git branch ");
-          }
-          break;
-        case GITCOUT:
-          if (record->event.pressed) {
-            SEND_STRING("git checkout ");
-          }
-          break;
-        case GITCOBR:
-          if (record->event.pressed) {
-            SEND_STRING("git checkout -b ");
-          }
-          break;
-        case GITSTAT:
-          if (record->event.pressed) {
-            SEND_STRING("git status ");
-          }
-          break;
-        case GITBDEL:
-          if (record->event.pressed) {
-            SEND_STRING("git branch -d ");
-          }
-          break;
-        case BACKLIT:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-            #ifdef BACKLIGHT_ENABLE
-              backlight_step();
-            #endif
-            #ifdef __AVR__
-            writePinLow(E6);
-            #endif
-          } else {
-            unregister_code(KC_RSFT);
-            #ifdef __AVR__
-            writePinHigh(E6);
-            #endif
-          }
-          return false;
-          break;
-      }
-    return true;
-};
 
 /*
 bool muse_mode = false;
