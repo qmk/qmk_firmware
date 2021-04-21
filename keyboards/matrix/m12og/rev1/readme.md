@@ -3,7 +3,7 @@
 ![Matrix 8XV1.2 OG](https://i.imgur.com/NELL6Sbl.jpg)
 
 This was the Matrix 8XV1.2 OG keyboard made by the Matrix team.  
-Note: This firmware only supports ANSI only version (green/yellow PCB), and DOES NOT support the 8XV1.2 OG ISO/ANSI only version.
+Note: This firmware only supports ANSI only version (green/yellow PCB), and DOES NOT support the 8XV1.2 OG ISO/ANSI version.
 
 * Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
 * Hardware Supported: Matrix 8XV1.2 OG ANSI only PCB
@@ -18,7 +18,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Hold down ESC while plugging in the keyboard. The board will show up as a mass storage device on your computer. Drag and drop the compiled firmware .bin file into it. The board will automatically reset and load the new firmware.  
 
-:no_entry: **DO NOT DO THIS ON A MAC OS COMPUTER! IT WILL PERMANENTLY BRICK THE KEYBOARD!!!**
+:no_entry: **DO NOT DO THIS ON A MAC OS SYSTEM! IT WILL PERMANENTLY BRICK THE KEYBOARD!!!**
 
 ---
 
