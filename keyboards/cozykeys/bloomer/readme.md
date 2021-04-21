@@ -1,6 +1,6 @@
 # Bloomer
 
-![Bloomer](http://assets.cozykeys.xyz/images/keyboards/bloomer/bloomer-angle-2_1600x1600.jpg)
+![Bloomer](http://assets.cozykeys.xyz/images/keyboards/bloomer/bloomer-angle-2_800x800.jpg)
 
 - Keyboard Maintainer: [Paul Ewing](https://github.com/pcewing)
 - Hardware Supported: ItsyBitsy 32u4 5V 16MHz
