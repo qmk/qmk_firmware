@@ -1,6 +1,6 @@
 # Frusta Fundamental
 
-![Frusta_Fundamental](https://i.imgur.com/E1laUdb.jpg)
+![Frusta_Fundamental](https://i.imgur.com/E1laUdbh.jpg)
 
 * Keyboard Maintainer: [PicoLab](https://github.com/PicoLabHK) (Contact: [enquiry@picolab.hk](mailto:enquiry@picolab.hk))
 * Hardware Supported: Frusta Fundamental hotswap PCB
