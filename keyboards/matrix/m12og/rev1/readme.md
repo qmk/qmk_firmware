@@ -13,4 +13,12 @@ Make example for this keyboard (after setting up your build environment):
 
     make matrix/m12og/rev1:default
 
+---
+**Bootloader:**  
+Hold down ESC while plugging in the keyboard. The board will show up as a mass storage device on your computer. Drag and drop the compiled firmware .bin file into it. The board will automatically reset and load the new firmware.  
+:no_entry: **DO NOT DO THIS ON A MAC OS COMPUTER! IT WILL PERMANENTLY BRICK THE KEYBOARD!!!**
+
+---
+
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
