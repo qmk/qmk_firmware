@@ -361,3 +361,6 @@
 #define ES_LA_37 S(KC_1) //!
 #define ES_LA_38 S(KC_GRAVE) //°
 #define ES_LA_39 KC_GRAVE //|
+
+// Extra CMS codes
+#define CSA_MOMEG RCTL(S(KC_Q)) //Ω
