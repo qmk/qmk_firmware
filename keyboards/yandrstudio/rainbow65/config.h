@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0xAA00
 #define DEVICE_VER 0x0001
 #define RAW_USAGE_PAGE 0xFF60
-#define MANUFACTURER yrstudio Jason Ren and magic mvp
-#define PRODUCT rainboM32 based 65 keyboard with full rgb, oled and encoder.
+#define MANUFACTURER YandR studio and Magic Mvp
+#define PRODUCT rainbow65
 
 /* key matrix set */
 #define MATRIX_ROWS 5
