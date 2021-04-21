@@ -14,4 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "GameBuddy2.M"
+#include "GameBuddy1.M"
