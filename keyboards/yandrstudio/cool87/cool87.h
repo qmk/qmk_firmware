@@ -1,6 +1,4 @@
-#ifndef KB_H
-#define KB_H
-
+#pragma once
 #include "quantum.h"
 
 #define LAYOUT( \
@@ -19,5 +17,3 @@
 	{ K400,  K401,  K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  K410,  KC_NO, KC_NO, K413,  KC_NO, K415,  KC_NO }, \
 	{ K500,  K501,  K502,  KC_NO, KC_NO, KC_NO, K506,  KC_NO, KC_NO, KC_NO, K510,  K511,  KC_NO, K513,  K514,  K515,  K516 }  \
 }
-
-#endif

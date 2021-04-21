@@ -1,5 +1,3 @@
-#ifndef SB65P_H
-#define SB65P_H
 #pragma once
 #include "quantum.h"
 
@@ -27,4 +25,3 @@
 	{ KC_NO, K091,  KC_NO, K093,  K094,  K095,  K096,  K097,  K098 }\
 }
 
-#endif
