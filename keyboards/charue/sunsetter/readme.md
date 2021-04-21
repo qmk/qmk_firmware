@@ -1,12 +1,16 @@
 # Sunsetter
 
-![Sunsetter](https://cdn.shopify.com/s/files/1/0476/6590/5825/products/Sunsetter-White_RedSun-0001_1024x1024@2x.png)
+![Sunsetter](https://i.imgur.com/tJRg8zt.png)
 
-A compact 40% (12x4) ortholinear keyboard kit made and sold by OLKB and Massdrop. [More info on qmk.fm](http://qmk.fm/planck/)
+A 65 + 10% F-Key Column Keyboard kit made and sold by Charue Design. [More info on charue-design.com](https://charue-design.com/)
 
 * Keyboard Maintainer: [Coarse](https://github.com/coarse)
 * Hardware Supported: [Sunsetter PCB](https://charue-design.com/collections/sunsetter/products/sunsetter-pcb-extra)
 * Hardware Availability: [Charue Design](https://charue-design.com/)
+
+#### Jumping to Bootloader
+
+To enter the bootloader, you may use bootmagic by holding `Space+B` or by holding the reset button located at the back of the PCB, right beside the left shift key, for a few seconds.
 
 Make example for this keyboard (after setting up your build environment):
 
