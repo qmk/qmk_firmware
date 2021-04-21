@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#define THE_UNI_H
 
 #include "quantum.h"
 
@@ -29,4 +28,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110 }, \
 	{ KC_NO, KC_NO, K202,  K203,  K204,  K205,  K206,  K207,  KC_NO, KC_NO, KC_NO }  \
 }
-
