@@ -18,8 +18,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x726b
-#define PRODUCT_ID      0x645c
+#define VENDOR_ID       0x726B
+#define PRODUCT_ID      0x645C
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    rainkeebs
 #define PRODUCT         Delilah
@@ -37,7 +37,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -45,8 +45,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 #define RGB_DI_PIN B3
 #ifdef RGB_DI_PIN
