@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x3735
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    sendyyeah
-#define PRODUCT         "75 Pixels"
+#define PRODUCT         75 Pixels
 
 /* key matrix size */
 #define MATRIX_ROWS 10
