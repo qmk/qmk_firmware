@@ -21,6 +21,8 @@
 #include "ALysaght.h"
 //#include "muse.h"
 
+#define LAYOUT_preonic_wrapper(...) LAYOUT_preonic_grid(__VA_ARGS__)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -36,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  NO  |  NO  |LTEsc |LTBksp|LTTab |  NO  |  NO  |LTEnt |LTSpc |LTDel |  NO  |  NO  |
  * `-----------------------------------------------------------------------------------'
  */
-[_QWERTY] = LAYOUT_preonic_grid(
+[_QWERTY] = LAYOUT_preonic_wrapper(
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      XXXXXXX, XXXXXXX,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
   _________________QWERTY_L1_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R1_________________,
   _________________QWERTY_L2_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R1_________________,
@@ -57,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |  NO  |  NO  | Alt  |Shift | GUI  |  NO  |  NO  |Enter |Space | Bksp |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
  */
-[_FFXIV] = LAYOUT_preonic_grid(
+[_FFXIV] = LAYOUT_preonic_wrapper(
   _________________FFXIV_L0__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_R0__________________,
   _________________FFXIV_L1__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_R1__________________,
   _________________FFXIV_L2__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_R2__________________,
@@ -82,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-----------------------------------------------------------------------------------'
 */
 
-[_NAVR] = LAYOUT_preonic_grid(
+[_NAVR] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
   _________________NAV_L1____________________, XXXXXXX, XXXXXXX, _________________NAV_R1____________________,
   _________________NAV_L2____________________, XXXXXXX, XXXXXXX, _________________NAV_R1____________________,
@@ -104,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-----------------------------------------------------------------------------------'
 */
 
-[_NSSL] = LAYOUT_preonic_grid(
+[_NSSL] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
   _________________NSSL_L1___________________, XXXXXXX, XXXXXXX, _________________NSSL_R1___________________,
   _________________NSSL_L2___________________, XXXXXXX, XXXXXXX, _________________NSSL_R2___________________,
@@ -126,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |  NO  |  NO  |  .   |  :   |  `   |  NO  |  NO  |  NO  |      |  NO  |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
 */
-[_NSL] = LAYOUT_preonic_grid(
+[_NSL] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
   _________________NSL_L1____________________, XXXXXXX, XXXXXXX, _________________NSL_R1____________________,
   _________________NSL_L2____________________, XXXXXXX, XXXXXXX, _________________NSL_R1____________________,
@@ -149,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-----------------------------------------------------------------------------------'
 */
 
-[_MOUSE] = LAYOUT_preonic_grid(
+[_MOUSE] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
   _________________MOUSE_L1__________________, XXXXXXX, XXXXXXX, _________________MOUSE_R1__________________,
   _________________MOUSE_L2__________________, XXXXXXX, XXXXXXX, _________________MOUSE_R2__________________,
@@ -173,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-----------------------------------------------------------------------------------'
 */
 
-[_MEDIA] = LAYOUT_preonic_grid(
+[_MEDIA] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
   _________________MEDIA_L1__________________, XXXXXXX, XXXXXXX, _________________MEDIA_R1__________________,
   _________________MEDIA_L2__________________, XXXXXXX, XXXXXXX, _________________MEDIA_R2__________________,
@@ -195,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |  NO  |  NO  |ScrGrb| <-\s |%>%\n |  NO  |  NO  |  NO  |  NO  |      |  NO  |  NO  |
 * `-----------------------------------------------------------------------------------'
 */
-[_FUNL] = LAYOUT_preonic_grid(
+[_FUNL] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________,   XXXXXXX, XXXXXXX,   _________________BLANK_5___________________,
   _________________FUNC_L1___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R1___________________,
   _________________FUNC_L2___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R2___________________,
@@ -219,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = LAYOUT_preonic_grid(
+[_ADJUST] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________,   XXXXXXX, XXXXXXX,   _________________BLANK_5___________________,
   _________________DRAGO_L1__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R1__________________,
   _________________DRAGO_L2__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R2__________________,

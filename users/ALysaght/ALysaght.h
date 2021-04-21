@@ -63,6 +63,8 @@ enum custom_keycodes {
 
 #define SCR_GRB SGUI(C(KC_4))
 
+#define LAYOUT_custom_wrapper(...)   LAYOUT(__VA_ARGS__)
+
 
 /* QWERTY layer
  *
