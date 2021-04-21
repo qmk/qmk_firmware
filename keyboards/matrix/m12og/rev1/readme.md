@@ -15,7 +15,9 @@ Make example for this keyboard (after setting up your build environment):
 
 ---
 **Bootloader:**  
+
 Hold down ESC while plugging in the keyboard. The board will show up as a mass storage device on your computer. Drag and drop the compiled firmware .bin file into it. The board will automatically reset and load the new firmware.  
+
 :no_entry: **DO NOT DO THIS ON A MAC OS COMPUTER! IT WILL PERMANENTLY BRICK THE KEYBOARD!!!**
 
 ---
