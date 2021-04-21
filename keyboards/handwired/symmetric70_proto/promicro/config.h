@@ -1,5 +1,5 @@
 /*
-Copyright 2020 mtei
+Copyright 2020-2021 mtei
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x2BE5
 #define DEVICE_VER   0x0001
 #define MANUFACTURER mtei
-#define PRODUCT      Symmetric70 prototype
+#define PRODUCT      Symmetric70 prototype promicro
 
 /* key matrix size */
 #define MATRIX_ROWS 5

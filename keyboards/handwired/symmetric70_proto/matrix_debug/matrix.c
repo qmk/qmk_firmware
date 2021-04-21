@@ -21,6 +21,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debounce.h"
 #include "quantum.h"
 
+#ifndef MATRIX_IO_DELAY_ALLWAYS
+#    define MATRIX_IO_DELAY_ALLWAYS 0
+#endif
+
+#ifndef MATRIX_DEBUG_PIN
+#    define MATRIX_DEBUG_PIN_INIT()
+#    define MATRIX_DEBUG_SCAN_START()
+#    define MATRIX_DEBUG_SCAN_END()
+#    define MATRIX_DEBUG_DELAY_START()
+#    define MATRIX_DEBUG_DELAY_END()
+#    define MATRIX_DEBUG_GAP()
+#else
+#    define MATRIX_DEBUG_GAP()  asm volatile("nop \n nop":::"memory")
+#endif
+
+#ifdef ALLWAYS_UNSELECT_DELAY
+#  define ALLWAYS_UNSELECT_DELAY_FLAG 1
+#else
+#  define ALLWAYS_UNSELECT_DELAY_FLAG 0
+#endif
+
 #ifdef DIRECT_PINS
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
@@ -130,9 +151,21 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Unselect row
     unselect_row(current_row);
-    if (current_row + 1 < MATRIX_ROWS) {
-        matrix_output_unselect_delay();  // wait for row signal to go HIGH
+    MATRIX_DEBUG_DELAY_START();
+#ifdef MATRIX_IO_DELAY_ADAPTIVE
+    if (current_row_value) {  // wait for col signal to go HIGH
+        for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+            MATRIX_DEBUG_DELAY_END();
+            MATRIX_DEBUG_GAP();
+            MATRIX_DEBUG_DELAY_START();
+            while (readPin(col_pins[col_index]) == 0) {}
+        }
     }
+#endif
+    if (MATRIX_IO_DELAY_ALLWAYS || current_row + 1 < MATRIX_ROWS) {
+        matrix_output_unselect_delay();  // wait for col signal to go HIGH
+    }
+    MATRIX_DEBUG_DELAY_END();
 
     // If the row has changed, store the row and return the changed flag.
     if (current_matrix[current_row] != current_row_value) {
@@ -206,7 +239,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 #    error DIODE_DIRECTION is not defined!
 #endif
 
-void matrix_init_custom(void) {
+void matrix_init(void) {
     // initialize key pins
     init_pins();
 
@@ -216,22 +249,35 @@ void matrix_init_custom(void) {
         matrix[i]     = 0;
     }
 
+    debounce_init(MATRIX_ROWS);
+
+    matrix_init_quantum();
 }
 
-bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+uint8_t matrix_scan(void) {
     bool changed = false;
+    MATRIX_DEBUG_PIN_INIT();
 
+    MATRIX_DEBUG_SCAN_START();
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        changed |= read_cols_on_row(current_matrix, current_row);
+        changed |= read_cols_on_row(raw_matrix, current_row);
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        changed |= read_rows_on_col(current_matrix, current_col);
+        changed |= read_rows_on_col(raw_matrix, current_col);
     }
 #endif
+    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP();
 
-    return changed;
+    MATRIX_DEBUG_SCAN_START();
+    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP();
+
+    MATRIX_DEBUG_SCAN_START();
+    matrix_scan_quantum();
+    MATRIX_DEBUG_SCAN_END();
+    return (uint8_t)changed;
 }
