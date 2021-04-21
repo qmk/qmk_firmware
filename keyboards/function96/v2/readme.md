@@ -2,7 +2,7 @@
 
 This Function96v2 is a passion project of JTM. It's meant to give the user the maximum usability of the space allocated by the keyboard while also giving the option of using the numpad.
 
-* Keyboard Maintainer: The QMK Community  
+* Keyboard Maintainer: The QMK Community
 * Hardware Supported: Function96v2
 * Hardware Availability: Limited Groupbuy that ended on 11/29/2020, https://www.reddit.com/r/mechmarket/comments/jxvokl/gb_function96v2_a_premium_96_layout_nov_20th_nov/
 
