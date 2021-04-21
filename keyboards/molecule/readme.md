@@ -1,6 +1,6 @@
 # molecule
 
-[![molecule](https://imgur.com/uYCeS4Y)](https://i.imgur.com/uYCeS4Y.jpg)
+[![molecule](https://imgur.com/uYCeS4Y)](https://i.imgur.com/uYCeS4Yh.jpg)
 
 A 40 keys keyboard with trackball.
 
