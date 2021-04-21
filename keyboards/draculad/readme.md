@@ -1,6 +1,9 @@
 # dracuLad
+
 This is a 34-36-key-board.
+
 ## Features
+
 - 36 keys, two of them can be replaced by rotary encoders making it support 34-36 keys and 2-4 encoders. 
 - bright RGB Underglow with ws2812b LEDs
 - one ssd1306 OLED per side
