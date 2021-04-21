@@ -28,5 +28,3 @@ void pointing_device_init(void);
 int16_t convertDeltaToInt(uint8_t high, uint8_t low);
 
 void readSensor(void);
-
-void pointing_device_task(void);
