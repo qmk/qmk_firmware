@@ -15,6 +15,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+        case WORKMAN:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_WORKMAN);
+          }
+          return false;
+          break;
         case R_ASIGN:
           if (record->event.pressed) {
             // when keycode R_ASIGN is pressed

@@ -3,6 +3,7 @@
 
 enum custom_layers {
   _QWERTY,
+  _WORKMAN,
   _FFXIV,
   _MEDIA,
   _NAVR,
@@ -15,6 +16,7 @@ enum custom_layers {
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  WORKMAN,
   FFXIV,
   BACKLIT,
   R_ASIGN,
@@ -33,24 +35,36 @@ enum custom_keycodes {
   GITBDEL
 };
 
-// modifier keys
-#define HOME_A  LSFT_T(KC_A)
-#define HOME_S  LCTL_T(KC_S)
-#define HOME_D  LALT_T(KC_D)
-#define HOME_F  LGUI_T(KC_F)
+// tap-hold modifier keys
+// Left Home row
+#define HOME_A  LSFT_T(KC_A) //QWERTY+Workman
+#define HOME_S  LCTL_T(KC_S) //QWERTY+Workman
+#define HOME_D  LALT_T(KC_D) //QWERTY
+#define HOME_F  LGUI_T(KC_F) //QWERTY
+#define HOME_H  LALT_T(KC_H) //Workman
+#define HOME_T  LGUI_T(KC_T) //Workman
 
-#define HOME_J  LGUI_T(KC_J)
-#define HOME_K  LALT_T(KC_K)
-#define HOME_L  LCTL_T(KC_L)
-#define HOME_QUOT  LSFT_T(KC_QUOT)
+// Right Home row
+#define HOME_J  LGUI_T(KC_J)       //QWERTY
+#define HOME_K  LALT_T(KC_K)       //QWERTY
+#define HOME_L  LCTL_T(KC_L)       //QWERTY
+#define HOME_QUOT  LSFT_T(KC_QUOT) //QWERTY
+#define HOME_N  LGUI_T(KC_N)       //Workman
+#define HOME_E  LALT_T(KC_E)       //Workman
+#define HOME_O  LCTL_T(KC_O)       //Workman
+#define HOME_I  LSFT_T(KC_I)       //Workman
 
+// Left Thumb keys
 #define LT_ESC  LT(_MEDIA, KC_ESC)
 #define LT_BSPC LT(_NAVR, KC_BSPC)
 #define LT_TAB  LT(_MOUSE, KC_TAB)
+
+// Right Thumb keys
 #define LT_ENT  LT(_NSSL, KC_ENT)
 #define LT_SPC  LT(_NSL, KC_SPC)
 #define LT_DEL  LT(_FUNL, KC_DEL)
 
+// useful shortcuts
 #define UNDO  LGUI(KC_Z)
 #define CUT   LGUI(KC_X)
 #define COPY  LGUI(KC_C)
@@ -63,8 +77,30 @@ enum custom_keycodes {
 
 #define SCR_GRB SGUI(C(KC_4))
 
+// LAYOUT wrappers to handle keycode bundles below
 #define LAYOUT_custom_wrapper(...)   LAYOUT(__VA_ARGS__)
 
+
+
+
+/* Alpha layer thumb keys
+ *
+ * |======+======+======+======+======+        +======+======+======+======+======|
+ * |  NO  |  NO  |LTEsc |LTBksp|LTTab |        |LTEnt |LTSpc |LTDel |  NO  |  NO  |
+ * `----------------------------------'        `----------------------------------'
+ */
+#define _________________ALPHA_LT__________________        XXXXXXX, XXXXXXX, LT_ESC,  LT_BSPC, LT_TAB
+#define _________________ALPHA_RT__________________        LT_ENT,  LT_SPC,  LT_DEL,  XXXXXXX, XXXXXXX
+
+/* Alpha layer number row
+ *
+ * ,----------------------------------.        ,----------------------------------.
+ * |   1  |   2  |   3  |   4  |   5  |        |   6  |   7  |   8  |   9  |   0  |
+ * |======+======+======+======+======+        +======+======+======+======+======|
+ */
+
+#define _________________ALPHA_LN__________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define _________________ALPHA_RN__________________        KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
 /* QWERTY layer
  *
@@ -74,39 +110,47 @@ enum custom_keycodes {
  * |A-Shft|S-Ctrl|D-Alt |F-GUI |   G  |        |   H  |J-GUI |K-Alt |L-Ctrl|'-Shft|
  * |------+------+------+------+------+        +------+------+------+------+------|
  * |   Z  |   X  |   C  |   V  |   B  |        |   N  |   M  |   ,  |   .  |   /  |
- * |------+------+------+------+------+        +------+------+------+------+------|
- * |  NO  |  NO  |LTEsc |LTBksp|LTTab |        |LTEnt |LTSpc |LTDel |  NO  |  NO  |
+ * |======+======+======+======+======+        +======+======+======+======+======|
+ * |  NO  |  NO  |LTEsc |LTBksp|LTTab |        |LTEnt |LTSpc |LTDel |  NO  |  NO  |   // ALPHA_*T
  * `----------------------------------'        `----------------------------------'
  */
+
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #define _________________QWERTY_L2_________________        HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G
 #define _________________QWERTY_L3_________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-#define _________________BASE_LT___________________        XXXXXXX, XXXXXXX, LT_ESC,  LT_BSPC, LT_TAB
 
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define _________________QWERTY_R2_________________        KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QUOT
 #define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
-#define _________________BASE_RT___________________        LT_ENT,  LT_SPC,  LT_DEL,  XXXXXXX, XXXXXXX
 
-/*
+
+/* Workman layer
+ *
+ * ,----------------------------------.        ,----------------------------------.
+ * |   Q  |   D  |   R  |   W  |   B  |        |   J  |   F  |   U  |   P  |   '  |
+ * |------+------+------+------+------+        +------+------+------+------+------|
+ * |A-Shft|S-Ctrl|H-Alt |T-GUI |   G  |        |   Y  |N-GUI |E-Alt |O-Ctrl|I-Shft|
+ * |------+------+------+------+------+        +------+------+------+------+------|
+ * |   Z  |   X  |   M  |   C  |   V  |        |   K  |   L  |   ,  |   .  |   /  |
+ * |======+======+======+======+======+        +======+======+======+======+======|
+ * |  NO  |  NO  |LTEsc |LTBksp|LTTab |        |LTEnt |LTSpc |LTDel |  NO  |  NO  |   // ALPHA_*T
+ * `----------------------------------'        `----------------------------------'
+ */
 #define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
 #define _________________WORKMAN_L2________________       HOME_A,  HOME_S,  HOME_H, HOME_T,   KC_G
 #define _________________WORKMAN_L3________________       KC_Z,    KC_X,    KC_M,   KC_C,     KC_V
 
-#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
+#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    HOME_QUOT
 #define _________________WORKMAN_R2________________       KC_Y,    HOME_N,  HOME_E,  HOME_O,  HOME_I
 #define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLASH
 
-#define ____THUMB_L____ LOWER,   KC_SPC
-#define ____THUMB_R____ KC_BSPC, RAISE
-*/
 
 
 /* FFXIV layer
  *
  * ,----------------------------------.        ,----------------------------------.
- * |   1  |   2  |   3  |   4  | LT5  |        |   6  |   7  |   8  |   9  |   0  |
- * |------+------+------+------+------+        +------+------+------+------+------|
+ * |  Esc |   `  |  Tab |   4  | LT5  |        |   6  |   7  |   8  |   9  |   0  |
+ * |======+======+======+======+======+        +======+======+======+======+======|
  * |   Q  |   W  |   E  |   R  |   T  |        |   Y  |   U  |   I  |   O  |   P  |
  * |------+------+------+------+------+        +------+------+------+------+------|
  * |   A  |   S  |   D  |   F  |   G  |        |   H  |   J  |   K  |   L  |   '  |
@@ -282,9 +326,9 @@ enum custom_keycodes {
 
 /* Adjust (_MOUSE + _MEDIA)
 * ,----------------------------------.        ,----------------------------------.
-* |Reset |Debug |  NO  |  NO  |  NO  |        |  NO  |  NO  |  NO  |  NO  |  NO  |
+* |Reset |Debug |  NO  |  NO  |  NO  |        |TERMON|TERMOF|  NO  |  NO  |  NO  |
 * |------+------+------+------+------+        +------+------+------+------+------|
-* |  NO  |  NO  |  NO  |  NO  |  NO  |        |  NO  |  NO  |  NO  |  NO  |  NO  |
+* |  NO  |  NO  |  NO  |  NO  |  NO  |        |  NO  |QWERTY|  NO  |  NO  |  NO  |
 * |------+------+------+------+------+        +------+------+------+------+------|
 * |  NO  |  NO  |  NO  |  NO  |  NO  |        |  NO  |  NO  |  NO  |  NO  |  NO  |
 * |------+------+------+------+------+        +------+------+------+------+------|
@@ -298,6 +342,6 @@ enum custom_keycodes {
 #define _________________DRAGO_LT__________________         XXXXXXX, XXXXXXX, _______, XXXXXXX, _______
 
 #define _________________DRAGO_R1__________________         TERM_ON, TERM_OFF, XXXXXXX, XXXXXXX, XXXXXXX
-#define _________________DRAGO_R2__________________         FFXIV,   QWERTY,   XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________DRAGO_R2__________________         XXXXXXX, QWERTY,   WORKMAN, XXXXXXX, XXXXXXX
 #define _________________DRAGO_R3__________________         _________________BLANK_5___________________
 #define _________________DRAGO_RT__________________         _________________BLANK_5___________________
