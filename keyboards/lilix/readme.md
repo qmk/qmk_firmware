@@ -79,6 +79,6 @@ Edit your `keymap.c` to include them:
 ...if you want to remove the rainbow flag, which is the first one, remember to edit the leading commas at the list in `const rgblight_segment_t* const PROGMEM lgbt_rgb_layers[] = RGBLIGHT_LAYERS_LIST(` so it compiles correctly.
 
 
-###Copyright notice for the art:
+### Copyright notice for the art:
 
 The pixel art is provided here for educational purposes only. If you still wish to use or modify it, please contact me through [@monoxromatik](https://twitter.com/monoxromatik) on Twitter or one of the links on my [DeviantArt page](https://www.deviantart.com/idioticbat).
