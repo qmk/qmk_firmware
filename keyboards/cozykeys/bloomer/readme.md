@@ -16,13 +16,8 @@ Flashing example for this keyboard:
     make cozykeys/bloomer/v2:default:flash  # for Bloomer v2
     make cozykeys/bloomer/v3:default:flash  # for Bloomer v3
 
-See the
-[build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and
-the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for
-more information. Brand new to QMK? Start with our
-[Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Flashing the Firmware
 
-See the QMK docs for handwiring a keyboard; there is a section with
-instructions on how to flash the *.hex* file to the Teensy 2.0 controller.
+See the QMK docs for handwiring a keyboard; there is a section with instructions on how to flash the *.hex* file to the Teensy 2.0 controller.
