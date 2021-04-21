@@ -9,8 +9,6 @@
 Make example for this keyboard (after setting up your build environment):
 
     make picolab/frusta_fundamental:default
-    # OR make for VIA
-    make picolab/frusta_fundamental:via
 
 To reset the board into bootloader mode, press the "RESET" button on the PCB.
 
