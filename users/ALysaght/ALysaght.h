@@ -190,29 +190,6 @@ enum custom_keycodes {
 
 #define _________________BLANK_5___________________         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
-
-/* Navigation layer
-* ,----------------------------------.        ,----------------------------------.
-* |  NO  |  NO  |  NO  |  NO  |  NO  |        |  NO  |NX_HOM|NX_WB |NX_WF |NX_END|
-* |------+------+------+------+------+        +------+------+------+------+------|
-* |Shift | Ctrl | Alt  | GUI  |  NO  |        | CAPS | Left | Down |  Up  |Right |
-* |------+------+------+------+------+        +------+------+------+------+------|
-* | Undo | Cut  | Copy |Paste |  NO  |        | Ins  | Home | PgDn | PgUp | End  |
-* |------+------+------+------+------+        +------+------+------+------+------|
-* |  NO  |  NO  |  NO  |      |  NO  |        |Enter |Space |  NO  |  NO  |  NO  |
-* `----------------------------------'        `----------------------------------'
-*/
-
-#define _________________NAV_L1____________________         _________________BLANK_5___________________
-#define _________________NAV_L2____________________         _________________MOD_L2____________________
-#define _________________NAV_L3____________________         UNDO,    CUT,     COPY,    PASTE,   XXXXXXX
-#define _________________NAV_LT____________________         XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX
-
-#define _________________NAV_R1____________________         XXXXXXX, NX_HOME, NX_WB,   NX_WF,   NX_END
-#define _________________NAV_R2____________________         KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
-#define _________________NAV_R3____________________         KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END
-#define _________________NAV_RT____________________         KC_ENT,  KC_SPC,  KC_DEL,  XXXXXXX, XXXXXXX
-
 /* Number/Symbol layer
 * ,----------------------------------.        ,----------------------------------.
 * |  7   |  8   |  9   |  0   |  \   |        |  NO  |  NO  |  NO  |  NO  |  NO  |
@@ -257,6 +234,49 @@ enum custom_keycodes {
 #define _________________NSSL_R3___________________         _________________BLANK_5___________________
 #define _________________NSSL_RT___________________         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
+/* Fn layer
+* ,----------------------------------.        ,----------------------------------.
+* |GITFET|GITPUL|  NO  |GITREB|  NO  |        |  NO  |  F9  | F10  | F11  | F12  |
+* |------+------+------+------+------+        +------+------+------+------+------|
+* |GITADD|GITSTA|GITCOM|GITPUI|GITPUO|        |  NO  |  F5  |  F6  |  F7  |  F8  |
+* |------+------+------+------+------+        +------+------+------+------+------|
+* |GITBDE|GITBRC|GITCOU|GITCOB|GITBRC|        |  NO  |  F1  |  F2  |  F3  |  F4  |
+* |------+------+------+------+------+        +------+------+------+------+------|
+* |  NO  |  NO  |ScrGrb| <-\s |%>%\n |        |  NO  |  NO  |      |  NO  |  NO  |
+* `----------------------------------'        `----------------------------------'
+*/
+
+#define _________________FUNC_L1___________________         GITFETC, GITPULL, XXXXXXX, GITREBA, XXXXXXX
+#define _________________FUNC_L2___________________         GITADD,  GITSTAT, GITCOMM, GITPUSO, GITPUSI
+#define _________________FUNC_L3___________________         GITBDEL, XXXXXXX, GITCOUT, GITCOBR, GITBRCH
+#define _________________FUNC_LT___________________         XXXXXXX, XXXXXXX, SCR_GRB, R_ASIGN, R_PIPE
+
+#define _________________FUNC_R1___________________         XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12
+#define _________________FUNC_R2___________________         XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8
+#define _________________FUNC_R3___________________         XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4
+#define _________________FUNC_RT___________________         XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX
+
+/* Navigation layer
+* ,----------------------------------.        ,----------------------------------.
+* |  NO  |  NO  |  NO  |  NO  |  NO  |        |  NO  |NX_HOM|NX_WB |NX_WF |NX_END|
+* |------+------+------+------+------+        +------+------+------+------+------|
+* |Shift | Ctrl | Alt  | GUI  |  NO  |        | CAPS | Left | Down |  Up  |Right |
+* |------+------+------+------+------+        +------+------+------+------+------|
+* | Undo | Cut  | Copy |Paste |  NO  |        | Ins  | Home | PgDn | PgUp | End  |
+* |------+------+------+------+------+        +------+------+------+------+------|
+* |  NO  |  NO  |  NO  |      |  NO  |        |Enter |Space |  NO  |  NO  |  NO  |
+* `----------------------------------'        `----------------------------------'
+*/
+
+#define _________________NAV_L1____________________         _________________BLANK_5___________________
+#define _________________NAV_L2____________________         _________________MOD_L2____________________
+#define _________________NAV_L3____________________         UNDO,    CUT,     COPY,    PASTE,   XXXXXXX
+#define _________________NAV_LT____________________         XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX
+
+#define _________________NAV_R1____________________         XXXXXXX, NX_HOME, NX_WB,   NX_WF,   NX_END
+#define _________________NAV_R2____________________         KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+#define _________________NAV_R3____________________         KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END
+#define _________________NAV_RT____________________         KC_ENT,  KC_SPC,  KC_DEL,  XXXXXXX, XXXXXXX
 
 /* Mouse layer
 * ,----------------------------------.        ,----------------------------------.
@@ -301,28 +321,6 @@ enum custom_keycodes {
 #define _________________MEDIA_R2__________________         XXXXXXX, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
 #define _________________MEDIA_R3__________________         BACKLIT, XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD
 #define _________________MEDIA_RT__________________         KC_MSTP, KC_MPLY, KC_MUTE, XXXXXXX, XXXXXXX
-
-/* Fn layer
-* ,----------------------------------.        ,----------------------------------.
-* |GITFET|GITPUL|  NO  |GITREB|  NO  |        |  NO  |  F9  | F10  | F11  | F12  |
-* |------+------+------+------+------+        +------+------+------+------+------|
-* |GITADD|GITSTA|GITCOM|GITPUI|GITPUO|        |  NO  |  F5  |  F6  |  F7  |  F8  |
-* |------+------+------+------+------+        +------+------+------+------+------|
-* |GITBDE|GITBRC|GITCOU|GITCOB|GITBRC|        |  NO  |  F1  |  F2  |  F3  |  F4  |
-* |------+------+------+------+------+        +------+------+------+------+------|
-* |  NO  |  NO  |ScrGrb| <-\s |%>%\n |        |  NO  |  NO  |      |  NO  |  NO  |
-* `----------------------------------'        `----------------------------------'
-*/
-
-#define _________________FUNC_L1___________________         GITFETC, GITPULL, XXXXXXX, GITREBA, XXXXXXX
-#define _________________FUNC_L2___________________         GITADD,  GITSTAT, GITCOMM, GITPUSO, GITPUSI
-#define _________________FUNC_L3___________________         GITBDEL, XXXXXXX, GITCOUT, GITCOBR, GITBRCH
-#define _________________FUNC_LT___________________         XXXXXXX, XXXXXXX, SCR_GRB, R_ASIGN, R_PIPE
-
-#define _________________FUNC_R1___________________         XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12
-#define _________________FUNC_R2___________________         XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8
-#define _________________FUNC_R3___________________         XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4
-#define _________________FUNC_RT___________________         XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX
 
 /* Adjust (_MOUSE + _MEDIA)
 * ,----------------------------------.        ,----------------------------------.

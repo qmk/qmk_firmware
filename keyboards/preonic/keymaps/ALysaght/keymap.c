@@ -52,15 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _________________FFXIV_LT__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_RT__________________
 ),
 
-// Navigation layer
-[_NAVR] = LAYOUT_preonic_wrapper(
-  _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
-  _________________NAV_L1____________________, XXXXXXX, XXXXXXX, _________________NAV_R1____________________,
-  _________________NAV_L2____________________, XXXXXXX, XXXXXXX, _________________NAV_R2____________________,
-  _________________NAV_L3____________________, XXXXXXX, XXXXXXX, _________________NAV_R3____________________,
-  _________________NAV_LT____________________, XXXXXXX, XXXXXXX, _________________NAV_RT____________________
-),
-
 // Number and Symbol layer
 [_NSL] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
@@ -79,6 +70,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _________________NSSL_LT___________________, XXXXXXX, XXXXXXX, _________________NSSL_RT___________________
 ),
 
+// FUNCTION layer
+[_FUNL] = LAYOUT_preonic_wrapper(
+  _________________BLANK_5___________________,   XXXXXXX, XXXXXXX,   _________________BLANK_5___________________,
+  _________________FUNC_L1___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R1___________________,
+  _________________FUNC_L2___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R2___________________,
+  _________________FUNC_L3___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R3___________________,
+  _________________FUNC_LT___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_RT___________________
+),
+
+// Navigation layer
+[_NAVR] = LAYOUT_preonic_wrapper(
+  _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
+  _________________NAV_L1____________________, XXXXXXX, XXXXXXX, _________________NAV_R1____________________,
+  _________________NAV_L2____________________, XXXXXXX, XXXXXXX, _________________NAV_R2____________________,
+  _________________NAV_L3____________________, XXXXXXX, XXXXXXX, _________________NAV_R3____________________,
+  _________________NAV_LT____________________, XXXXXXX, XXXXXXX, _________________NAV_RT____________________
+),
+
 // MOUSE layer
 [_MOUSE] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________, XXXXXXX, XXXXXXX, _________________BLANK_5___________________,
@@ -95,15 +104,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _________________MEDIA_L2__________________, XXXXXXX, XXXXXXX, _________________MEDIA_R2__________________,
   _________________MEDIA_L3__________________, XXXXXXX, XXXXXXX, _________________MEDIA_R3__________________,
   _________________MEDIA_LT__________________, XXXXXXX, XXXXXXX, _________________MEDIA_RT__________________
-),
-
-// FUNCTION layer
-[_FUNL] = LAYOUT_preonic_wrapper(
-  _________________BLANK_5___________________,   XXXXXXX, XXXXXXX,   _________________BLANK_5___________________,
-  _________________FUNC_L1___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R1___________________,
-  _________________FUNC_L2___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R2___________________,
-  _________________FUNC_L3___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_R3___________________,
-  _________________FUNC_LT___________________,   XXXXXXX, XXXXXXX,   _________________FUNC_RT___________________
 ),
 
 // Adjust (_MOUSE + _MEDIA)
