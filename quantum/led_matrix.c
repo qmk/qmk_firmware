@@ -179,6 +179,11 @@ void led_matrix_set_value(int index, uint8_t value) {
 #else
     led_matrix_driver.set_value(index, value);
 #endif
+#    ifdef USE_CIE1931_CURVE
+        led_matrix_driver.set_value(index, pgm_read_byte(&CIE1931_CURVE[value]));
+#    else
+        led_matrix_driver.set_value(index, value);
+#    endif
 }
 
 void led_matrix_set_value_all(uint8_t value) {
