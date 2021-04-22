@@ -38,5 +38,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { K48, K50, K52, K54, K56, K58, K60, K62 }, \
     { K49, K51, K53, K55, K57, K59, K61, K63 } \
 }
-
-#endif
