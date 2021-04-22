@@ -33,6 +33,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________, XXXXXXX
 ),
 
+// Colemak DH
+[_COLEMAK] = LAYOUT_custom_wrapper(
+  XXXXXXX, _________________ALPHA_LN__________________,                       _________________ALPHA_RN__________________, XXXXXXX,
+  XXXXXXX, _________________COLEMAK_L1________________,                       _________________COLEMAK_R1________________, XXXXXXX,
+  XXXXXXX, _________________COLEMAK_L2________________,                       _________________COLEMAK_R2________________, XXXXXXX,
+  XXXXXXX, _________________COLEMAK_L3________________,                       _________________COLEMAK_R3________________, XXXXXXX,
+  XXXXXXX, _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________, XXXXXXX
+),
+
 // Final Fantasy XIV
 [_FFXIV] = LAYOUT_custom_wrapper(
   XXXXXXX, _________________FFXIV_L0__________________,                       _________________FFXIV_R0__________________, XXXXXXX,
@@ -100,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_custom_wrapper(
   XXXXXXX, _________________BLANK_5___________________,                       _________________BLANK_5___________________, XXXXXXX,
   XXXXXXX, _________________DRAGO_L1__________________,                       _________________DRAGO_R1__________________, XXXXXXX,
-  XXXXXXX, _________________DRAGO_L2__________________,                       FFXIV,   QWERTY,  WORKMAN, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, _________________DRAGO_L2__________________,                       FFXIV,   QWERTY,  WORKMAN, COLEMAK, XXXXXXX, XXXXXXX,
   XXXXXXX, _________________DRAGO_L3__________________,                       _________________DRAGO_R3__________________, XXXXXXX,
   XXXXXXX, _________________DRAGO_LT__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_RT__________________, XXXXXXX
 )

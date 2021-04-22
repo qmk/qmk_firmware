@@ -29,6 +29,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
 ),
 
+// Colemak DH
+[_COLEMAK] = LAYOUT_nyquist_wrapper(
+  _________________COLEMAK_L1________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R1________________,
+  _________________COLEMAK_L2________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R2________________,
+  _________________COLEMAK_L3________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R3________________,
+  _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
+),
+
 // Number and Symbol layer
 [_NSL] = LAYOUT_nyquist_wrapper(
   _________________NSL_L1____________________,   XXXXXXX, XXXXXXX,   _________________NSL_R1____________________,
@@ -80,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Adjust (_MOUSE + _MEDIA)
 [_ADJUST] = LAYOUT_nyquist_wrapper(
   _________________DRAGO_L1__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R1__________________,
-  _________________DRAGO_L2__________________,   XXXXXXX, XXXXXXX,   XXXXXXX, QWERTY,  WORKMAN, XXXXXXX, XXXXXXX,
+  _________________DRAGO_L2__________________,   XXXXXXX, XXXXXXX,   XXXXXXX, QWERTY,  WORKMAN, COLEMAK, XXXXXXX,
   _________________DRAGO_L3__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R3__________________,
   _________________DRAGO_LT__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_RT__________________
 )

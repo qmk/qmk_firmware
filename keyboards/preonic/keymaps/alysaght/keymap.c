@@ -43,6 +43,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
 ),
 
+// Colemak DH
+[_COLEMAK] = LAYOUT_preonic_wrapper(
+  _________________ALPHA_LN__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RN__________________,
+  _________________COLEMAK_L1________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R1________________,
+  _________________COLEMAK_L2________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R2________________,
+  _________________COLEMAK_L3________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R3________________,
+  _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
+),
+
 // Final Fantasy XIV
 [_FFXIV] = LAYOUT_preonic_wrapper(
   _________________FFXIV_L0__________________, XXXXXXX, XXXXXXX,   _________________FFXIV_R0__________________,
@@ -110,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_preonic_wrapper(
   _________________BLANK_5___________________,   XXXXXXX, XXXXXXX,   _________________BLANK_5___________________,
   _________________DRAGO_L1__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R1__________________,
-  _________________DRAGO_L2__________________,   XXXXXXX, XXXXXXX,   FFXIV,   QWERTY,  WORKMAN, XXXXXXX, XXXXXXX,
+  _________________DRAGO_L2__________________,   XXXXXXX, XXXXXXX,   FFXIV,   QWERTY,  WORKMAN, COLEMAK, XXXXXXX,
   _________________DRAGO_L3__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R3__________________,
   _________________DRAGO_LT__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_RT__________________
 )

@@ -4,6 +4,7 @@
 enum custom_layers {
   _QWERTY,
   _WORKMAN,
+  _COLEMAK,
   _FFXIV,
   _MEDIA,
   _NAVR,
@@ -17,6 +18,7 @@ enum custom_layers {
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   WORKMAN,
+  COLEMAK,
   FFXIV,
   BACKLIT,
   R_ASIGN,
@@ -37,22 +39,36 @@ enum custom_keycodes {
 
 // tap-hold modifier keys
 // Left Home row
-#define HOME_A  LSFT_T(KC_A) //QWERTY+Workman
-#define HOME_S  LCTL_T(KC_S) //QWERTY+Workman
-#define HOME_D  LALT_T(KC_D) //QWERTY
-#define HOME_F  LGUI_T(KC_F) //QWERTY
-#define HOME_H  LALT_T(KC_H) //Workman
-#define HOME_T  LGUI_T(KC_T) //Workman
+#define HOMQ_A  LSFT_T(KC_A) //QWERTY
+#define HOMQ_S  LCTL_T(KC_S) //QWERTY
+#define HOMQ_D  LALT_T(KC_D) //QWERTY
+#define HOMQ_F  LGUI_T(KC_F) //QWERTY
+
+#define HOMW_A  LSFT_T(KC_A) //Workman
+#define HOMW_S  LCTL_T(KC_S) //Workman
+#define HOMW_H  LALT_T(KC_H) //Workman
+#define HOMW_T  LGUI_T(KC_T) //Workman
+
+#define HOMK_A  LSFT_T(KC_A) //COLEMAK
+#define HOMK_R  LCTL_T(KC_R) //COLEMAK
+#define HOMK_S  LALT_T(KC_S) //COLEMAK
+#define HOMK_T  LGUI_T(KC_T) //COLEMAK
 
 // Right Home row
-#define HOME_J  LGUI_T(KC_J)       //QWERTY
-#define HOME_K  LALT_T(KC_K)       //QWERTY
-#define HOME_L  LCTL_T(KC_L)       //QWERTY
-#define HOME_QUOT  LSFT_T(KC_QUOT) //QWERTY
-#define HOME_N  LGUI_T(KC_N)       //Workman
-#define HOME_E  LALT_T(KC_E)       //Workman
-#define HOME_O  LCTL_T(KC_O)       //Workman
-#define HOME_I  LSFT_T(KC_I)       //Workman
+#define HOMQ_J  LGUI_T(KC_J)       //QWERTY
+#define HOMQ_K  LALT_T(KC_K)       //QWERTY
+#define HOMQ_L  LCTL_T(KC_L)       //QWERTY
+#define HOMQ_QUOT  LSFT_T(KC_QUOT) //QWERTY
+
+#define HOMW_N  LGUI_T(KC_N)       //Workman
+#define HOMW_E  LALT_T(KC_E)       //Workman
+#define HOMW_O  LCTL_T(KC_O)       //Workman
+#define HOMW_I  LSFT_T(KC_I)       //Workman
+
+#define HOMK_N  LGUI_T(KC_N)       //COLEMAK
+#define HOMK_E  LALT_T(KC_E)       //COLEMAK
+#define HOMK_I  LCTL_T(KC_I)       //COLEMAK
+#define HOMK_O  LSFT_T(KC_O)       //COLEMAK
 
 // Left Thumb keys
 #define LT_ESC  LT(_MEDIA, KC_ESC)
@@ -116,11 +132,11 @@ enum custom_keycodes {
  */
 
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define _________________QWERTY_L2_________________        HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G
+#define _________________QWERTY_L2_________________        HOMQ_A,  HOMQ_S,  HOMQ_D,  HOMQ_F,  KC_G
 #define _________________QWERTY_L3_________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________        KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QUOT
+#define _________________QWERTY_R2_________________        KC_H,    HOMQ_J,  HOMQ_K,  HOMQ_L,  HOMQ_QUOT
 #define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
 
@@ -137,12 +153,34 @@ enum custom_keycodes {
  * `----------------------------------'        `----------------------------------'
  */
 #define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
-#define _________________WORKMAN_L2________________       HOME_A,  HOME_S,  HOME_H, HOME_T,   KC_G
+#define _________________WORKMAN_L2________________       HOMW_A,  HOMW_S,  HOMW_H, HOMW_T,   KC_G
 #define _________________WORKMAN_L3________________       KC_Z,    KC_X,    KC_M,   KC_C,     KC_V
 
-#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    HOME_QUOT
-#define _________________WORKMAN_R2________________       KC_Y,    HOME_N,  HOME_E,  HOME_O,  HOME_I
+#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_QUOT
+#define _________________WORKMAN_R2________________       KC_Y,    HOMW_N,  HOMW_E,  HOMW_O,  HOMW_I
 #define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLASH
+
+
+
+/* Colemak-DH layer
+ *
+ * ,----------------------------------.        ,----------------------------------.
+ * |   Q  |   W  |   F  |   P  |   B  |        |   J  |   L  |   U  |   Y  |   '  |
+ * |------+------+------+------+------+        +------+------+------+------+------|
+ * |A-Shft|R-Ctrl|S-Alt |T-GUI |   G  |        |   M  |N-GUI |E-Alt |I-Ctrl|O-Shft|
+ * |------+------+------+------+------+        +------+------+------+------+------|
+ * |   Z  |   X  |   C  |   D  |   V  |        |   K  |   H  |   ,  |   .  |   /  |
+ * |======+======+======+======+======+        +======+======+======+======+======|
+ * |  NO  |  NO  |LTEsc |LTBksp|LTTab |        |LTEnt |LTSpc |LTDel |  NO  |  NO  |   // ALPHA_*T
+ * `----------------------------------'        `----------------------------------'
+ */
+#define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
+#define _________________COLEMAK_L2________________       HOMK_A,  HOMK_R,  HOMK_S,  HOMK_T,  KC_G
+#define _________________COLEMAK_L3________________       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
+
+#define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
+#define _________________COLEMAK_R2________________       KC_M,    HOMK_N,  HOMK_E,  HOMK_I,  HOMK_O
+#define _________________COLEMAK_R3________________       KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH
 
 
 
@@ -340,6 +378,6 @@ enum custom_keycodes {
 #define _________________DRAGO_LT__________________         XXXXXXX, XXXXXXX, _______, XXXXXXX, _______
 
 #define _________________DRAGO_R1__________________         TERM_ON, TERM_OFF, XXXXXXX, XXXXXXX, XXXXXXX
-#define _________________DRAGO_R2__________________         XXXXXXX, QWERTY,   WORKMAN, XXXXXXX, XXXXXXX
+#define _________________DRAGO_R2__________________         XXXXXXX, QWERTY,   WORKMAN, COLEMAK, XXXXXXX
 #define _________________DRAGO_R3__________________         _________________BLANK_5___________________
 #define _________________DRAGO_RT__________________         _________________BLANK_5___________________
