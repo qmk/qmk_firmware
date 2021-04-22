@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
-#define ___ KC_NO
 
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
