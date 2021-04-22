@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0000
 #undef PRODUCT
 #define PRODUCT Planck THK
+#define PRODUCT_ID 0x25A7
 
 // THK has a different pin-out
 #undef MATRIX_ROW_PINS
