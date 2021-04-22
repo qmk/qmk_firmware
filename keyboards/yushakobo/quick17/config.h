@@ -58,7 +58,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D2
 #define RGBLED_NUM 18
-// #define RGBLIGHT_LED_MAP { 6, 12, 13, 14, 15, 16, 17, 11, 10, 9, 8, 7, 0, 1, 2, 3, 4, 5 }
+#define RGBLIGHT_LED_MAP {\
+  6,  7, 12, 13, 14, 15,\
+ 16, 17, 11, 10,  9,  8,\
+  0,  1,  2,  3,  4,  5\
+}
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
