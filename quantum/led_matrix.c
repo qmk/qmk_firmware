@@ -27,6 +27,38 @@
 
 #include <lib/lib8tion/lib8tion.h>
 
+#ifndef LED_MATRIX_CENTER
+const point_t k_led_matrix_center = {112, 32};
+#else
+const point_t k_led_matrix_center = LED_MATRIX_CENTER;
+#endif
+
+// Generic effect runners
+#include "led_matrix_runners/effect_runner_dx_dy_dist.h"
+#include "led_matrix_runners/effect_runner_dx_dy.h"
+#include "led_matrix_runners/effect_runner_i.h"
+#include "led_matrix_runners/effect_runner_sin_cos_i.h"
+#include "led_matrix_runners/effect_runner_reactive.h"
+#include "led_matrix_runners/effect_runner_reactive_splash.h"
+
+// ------------------------------------------
+// -----Begin led effect includes macros-----
+#define LED_MATRIX_EFFECT(name)
+#define LED_MATRIX_CUSTOM_EFFECT_IMPLS
+
+#include "led_matrix_animations/led_matrix_effects.inc"
+#ifdef LED_MATRIX_CUSTOM_KB
+#    include "led_matrix_kb.inc"
+#endif
+#ifdef LED_MATRIX_CUSTOM_USER
+#    include "led_matrix_user.inc"
+#endif
+
+#undef LED_MATRIX_CUSTOM_EFFECT_IMPLS
+#undef LED_MATRIX_EFFECT
+// -----End led effect includes macros-------
+// ------------------------------------------
+
 #if defined(LED_DISABLE_AFTER_TIMEOUT) && !defined(LED_DISABLE_TIMEOUT)
 #    define LED_DISABLE_TIMEOUT (LED_DISABLE_AFTER_TIMEOUT * 1200UL)
 #endif
@@ -53,7 +85,7 @@
 #endif
 
 #if !defined(LED_MATRIX_STARTUP_MODE)
-#    define LED_MATRIX_STARTUP_MODE LED_MATRIX_UNIFORM_BRIGHTNESS
+#    define LED_MATRIX_STARTUP_MODE LED_MATRIX_SOLID
 #endif
 
 #if !defined(LED_MATRIX_STARTUP_VAL)
@@ -216,17 +248,6 @@ static bool led_matrix_none(effect_params_t *params) {
     return false;
 }
 
-static bool led_matrix_uniform_brightness(effect_params_t *params) {
-    LED_MATRIX_USE_LIMITS(led_min, led_max);
-
-    uint8_t val = led_matrix_eeconfig.val;
-    for (uint8_t i = led_min; i < led_max; i++) {
-        LED_MATRIX_TEST_LED_FLAGS();
-        led_matrix_set_value(i, val);
-    }
-    return led_max < DRIVER_LED_TOTAL;
-}
-
 static void led_task_timers(void) {
 #if defined(LED_MATRIX_KEYREACTIVE_ENABLED) || LED_DISABLE_TIMEOUT > 0
     uint32_t deltaTime = sync_timer_elapsed32(led_timer_buffer);
@@ -290,9 +311,31 @@ static void led_task_render(uint8_t effect) {
         case LED_MATRIX_NONE:
             rendering = led_matrix_none(&led_effect_params);
             break;
-        case LED_MATRIX_UNIFORM_BRIGHTNESS:
-            rendering = led_matrix_uniform_brightness(&led_effect_params);
+
+// ---------------------------------------------
+// -----Begin led effect switch case macros-----
+#define LED_MATRIX_EFFECT(name, ...)          \
+    case LED_MATRIX_##name:                   \
+        rendering = name(&led_effect_params); \
+        break;
+#include "led_matrix_animations/led_matrix_effects.inc"
+#undef LED_MATRIX_EFFECT
+
+#if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
+#    define LED_MATRIX_EFFECT(name, ...)          \
+        case LED_MATRIX_CUSTOM_##name:            \
+            rendering = name(&led_effect_params); \
             break;
+#    ifdef LED_MATRIX_CUSTOM_KB
+#        include "led_matrix_kb.inc"
+#    endif
+#    ifdef LED_MATRIX_CUSTOM_USER
+#        include "led_matrix_user.inc"
+#    endif
+#    undef LED_MATRIX_EFFECT
+#endif
+            // -----End led effect switch case macros-------
+            // ---------------------------------------------
     }
 
     led_effect_params.iter++;

@@ -53,8 +53,24 @@
 enum led_matrix_effects {
     LED_MATRIX_NONE = 0,
 
-    LED_MATRIX_UNIFORM_BRIGHTNESS,
-    // All new effects go above this line
+// --------------------------------------
+// -----Begin led effect enum macros-----
+#define LED_MATRIX_EFFECT(name, ...) LED_MATRIX_##name,
+#include "led_matrix_animations/led_matrix_effects.inc"
+#undef LED_MATRIX_EFFECT
+
+#if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
+#    define LED_MATRIX_EFFECT(name, ...) LED_MATRIX_CUSTOM_##name,
+#    ifdef LED_MATRIX_CUSTOM_KB
+#        include "led_matrix_kb.inc"
+#    endif
+#    ifdef LED_MATRIX_CUSTOM_USER
+#        include "led_matrix_user.inc"
+#    endif
+#    undef LED_MATRIX_EFFECT
+#endif
+    // --------------------------------------
+    // -----End led effect enum macros-------
 
     LED_MATRIX_EFFECT_MAX
 };
