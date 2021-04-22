@@ -18,7 +18,8 @@
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
     BASE = SAFE_RANGE,
-    KC_LSPC
+    KC_LSPC,
+    KC_LANG
 };
 
 enum layer_names {
@@ -117,7 +118,6 @@ void encoder_update_user(uint8_t index, bool clockwise){
 #define INDICATOR_LAYERS 5
 #define INDICATOR_PCS 17
 #define INDICATOR_LANG 11
-#define 
     const rgblight_segment_t PROGMEM mode_mac[] = RGBLIGHT_LAYER_SEGMENTS(
         {INDICATOR_PCS, 1, HSV_WHITE}
     );
@@ -134,9 +134,9 @@ void encoder_update_user(uint8_t index, bool clockwise){
         {INDICATOR_LAYERS, 1, HSV_GOLD}
     );
     const rgblight_segment_t PROGMEM layer_fn[] = RGBLIGHT_LAYER_SEGMENTS(
-        {INDICATOR_LAYERS, 1, HSV_BLUE}
-            {0, 1, HSV_RED}
-            {1, 1, HSV_PURPLE}
+        {INDICATOR_LAYERS, 1, HSV_BLUE},
+        {1, 1, HSV_RED},
+        {2, 1, HSV_PURPLE}                
     );
     const rgblight_segment_t PROGMEM lang_ja[] = RGBLIGHT_LAYER_SEGMENTS(
         {INDICATOR_LANG, 1, HSV_RED}
