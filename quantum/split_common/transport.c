@@ -273,6 +273,10 @@ typedef struct _Serial_m2s_buffer_t {
     rgb_config_t rgb_matrix;
     bool         rgb_suspend_state;
 #    endif
+#    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    led_eeconfig_t led_matrix;
+    bool           led_suspend_state;
+#    endif
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
     rgb_config_t rgb_matrix;
     bool         rgb_suspend_state;
