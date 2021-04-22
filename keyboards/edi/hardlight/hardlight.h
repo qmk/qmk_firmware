@@ -13,8 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef HARDLIGHT_H
-#define HARDLIGHT_H
+#pragma once
 
 #include "quantum.h"
 #define ___ KC_NO
