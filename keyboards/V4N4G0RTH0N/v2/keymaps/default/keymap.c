@@ -17,23 +17,21 @@
 #include "analog.h"
 int16_t pot_oldVal = 0;
 int16_t pot_val    = 0;
-int16_t pot_ccVal  = 0;
-#define POT_TOLERANCE 12
+#define POT_TOLERANCE 25
+#define POT_PIN F0
 
 void matrix_init_user(void) {
     analogReference(ADC_REF_POWER);
 }
 
 void matrix_scan_user(void){
-    pot_val   = (analogReadPin(F0));
+    pot_val   = (analogReadPin(POT_PIN));
+
+    // If there is a big enough change, then we need to do something
     if (abs(pot_val - pot_oldVal) > POT_TOLERANCE) {
-        pot_oldVal = pot_val;
-        tap_code(KC__VOLUP);
+	tap_code(pot_val > pot_oldVal ? KC__VOLUP : KC__VOLDOWN);
+	pot_oldVal = pot_val;
     }
-//    else if (abs(pot_val - pot_oldVal) < POT_TOLERANCE) {
-//        pot_oldVal = pot_val;
-//        tap_code(KC__VOLDOWN);
-//    }
 }
 
 // Defines names for use in layer keycodes and the keymap

@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0xFEED
 #define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
+#define DEVICE_VER   0x0002
 #define MANUFACTURER jpuerto
 #define PRODUCT      V4N4G0RTH0N
 
@@ -37,4 +37,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { C7, C6, B6, B5, B7}
-#define MATRIX_COL_PINS { D3, D2, D1, D0, D5, F7, F6, E6, F5, F4, F1, F0}
+#define MATRIX_COL_PINS { D3, D2, D1, D0, D5, F7, F6, E6, F5, F4, F1, B0}
