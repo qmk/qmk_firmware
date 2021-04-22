@@ -19,6 +19,7 @@
 #define REV6_CONFIG_H
 
 /* USB Device descriptor parameter */
+#define PRODUCT_ID 0xA4F9
 #define DEVICE_VER 0x0006
 
 #undef MATRIX_ROWS
