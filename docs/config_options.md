@@ -133,8 +133,6 @@ If you define these options you will disable the associated feature, which can s
 
 If you define these options you will enable the associated feature, which may increase your code size.
 
-* `#define DEFER_KEYBOARD_REPORT_ENABLE`
-  * Wait until the keyboard scan has checked all of the keys for state changes before reporting to host, instead of reporting to host as soon as a key with a changed state is detected. This allows for multiple key presses and or releases per report.
 * `#define FORCE_NKRO`
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define STRICT_LAYER_RELEASE`
@@ -420,6 +418,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Key combo feature
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+* `REGISTER_MULTIPLE_KEYEVENTS_ENABLE`
+  * This allows for multiple key presses and or releases per USB hid report by combining all key state changes of a single matrix scan before reporting to host.
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
 * `KEY_OVERRIDE_ENABLE`

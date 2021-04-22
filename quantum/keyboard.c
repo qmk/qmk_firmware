@@ -445,8 +445,9 @@ void keyboard_task(void) {
 
 MATRIX_LOOP_END:
 
-#ifdef DEFER_KEYBOARD_REPORT_ENABLE
+#if defined(REGISTER_MULTIPLE_KEYEVENTS_ENABLE)
     send_keyboard_report_immediate();
+    send_keyboard_report_buffered_unregister_keys();
 #endif
 
 #ifdef DEBUG_MATRIX_SCAN_RATE

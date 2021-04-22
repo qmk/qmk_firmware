@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "report.h"
 #include "debug.h"
+#include "wait.h"
 #include "action_util.h"
 #include "action_layer.h"
 #include "timer.h"
@@ -42,10 +43,9 @@ static int8_t cb_tail  = 0;
 static int8_t cb_count = 0;
 #endif
 
-// TODO: pointer variable is not needed
-// report_keyboard_t keyboard_report = {};
-report_keyboard_t *keyboard_report = &(report_keyboard_t){};
-static bool keyboard_report_dirty = false;
+report_keyboard_t              keyboard_report;
+bool                           keyboard_report_has_deferred_keycodes;
+volatile unregister_keycodes_t unregister_keycodes;
 
 extern inline void add_key(uint8_t key);
 extern inline void del_key(uint8_t key);
@@ -231,10 +231,9 @@ bool is_oneshot_enabled(void) { return keymap_config.oneshot_disable; }
  * Flags the keyboard report to be sent at the soonest availability
  */
 void send_keyboard_report_deferred(void) {
-    keyboard_report->mods = real_mods;
-    keyboard_report->mods |= weak_mods;
-    keyboard_report->mods |= macro_mods;
-
+    keyboard_report.mods = real_mods;
+    keyboard_report.mods |= weak_mods;
+    keyboard_report.mods |= macro_mods;
 #ifndef NO_ACTION_ONESHOT
     if (oneshot_mods) {
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
@@ -243,8 +242,8 @@ void send_keyboard_report_deferred(void) {
             clear_oneshot_mods();
         }
 #    endif
-        keyboard_report->mods |= oneshot_mods;
-        if (has_anykey(keyboard_report)) {
+        keyboard_report.mods |= oneshot_mods;
+        if (has_anykey(&keyboard_report)) {
             clear_oneshot_mods();
         }
     }
@@ -253,12 +252,12 @@ void send_keyboard_report_deferred(void) {
 
 #ifdef KEY_OVERRIDE_ENABLE
     // These need to be last to be able to properly control key overrides
-    keyboard_report->mods &= ~suppressed_mods;
-    keyboard_report->mods |= weak_override_mods;
+    keyboard_report.mods &= ~suppressed_mods;
+    keyboard_report.mods |= weak_override_mods;
 #endif
 
-    keyboard_report_dirty = true;
-#ifndef DEFER_KEYBOARD_REPORT_ENABLE
+    keyboard_report_has_deferred_keycodes = true;
+#if !defined(REGISTER_MULTIPLE_KEYEVENTS_ENABLE)
     send_keyboard_report_immediate();
 #endif
 }
@@ -277,9 +276,31 @@ void send_keyboard_report(void) {
  * Checks if the keyboard report is different from the last one sent, and if so, sends the updated one
  */
 void send_keyboard_report_immediate(void) {
-    if (keyboard_report_dirty) {
-        host_keyboard_send(keyboard_report);
-        keyboard_report_dirty = false;
+    if (keyboard_report_has_deferred_keycodes) {
+        host_keyboard_send(&keyboard_report);
+        keyboard_report_has_deferred_keycodes = false;
+    }
+}
+
+/**
+ * @brief Send all unregister keycodes which have been recorded during keycode processing.
+ *
+ */
+void send_keyboard_report_buffered_unregister_keys(void) {
+    if (unregister_keycodes.len > 0) {
+        while (unregister_keycodes.len > 0) {
+            unregister_keycodes.len--;
+            unregister_code_deferred(unregister_keycodes.buffer[unregister_keycodes.len]);
+        }
+
+        if (unregister_keycodes.tap_delay != 0) {
+            wait_ms(unregister_keycodes.tap_delay);
+            unregister_keycodes.tap_delay = 0;
+        }
+
+        /* reset unregister_keycodes buffer. */
+        unregister_keycodes.len = 0;
+        send_keyboard_report_immediate();
     }
 }
 
