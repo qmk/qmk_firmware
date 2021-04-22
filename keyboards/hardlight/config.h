@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    Fate Everywhere
 #define PRODUCT         Hard Light
-#define DESCRIPTION     A compact 60% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
