@@ -300,7 +300,7 @@ enum custom_keycodes {
 * |------+------+------+------+------+        +------+------+------+------+------|
 * |Shift | Ctrl | Alt  | GUI  |  NO  |        | CAPS | Left | Down |  Up  |Right |
 * |------+------+------+------+------+        +------+------+------+------+------|
-* | Undo | Cut  | Copy |Paste |  NO  |        | Ins  | Home | PgDn | PgUp | End  |
+* | Undo | Cut  | Copy |Paste |Paste |        | Ins  | Home | PgDn | PgUp | End  |
 * |------+------+------+------+------+        +------+------+------+------+------|
 * |  NO  |  NO  |  NO  |      |  NO  |        |Enter |Space |  NO  |  NO  |  NO  |
 * `----------------------------------'        `----------------------------------'
@@ -308,7 +308,7 @@ enum custom_keycodes {
 
 #define _________________NAV_L1____________________         _________________BLANK_5___________________
 #define _________________NAV_L2____________________         _________________MOD_L2____________________
-#define _________________NAV_L3____________________         UNDO,    CUT,     COPY,    PASTE,   XXXXXXX
+#define _________________NAV_L3____________________         UNDO,    CUT,     COPY,    PASTE,   PASTE
 #define _________________NAV_LT____________________         XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX
 
 #define _________________NAV_R1____________________         XXXXXXX, NX_HOME, NX_WB,   NX_WF,   NX_END
