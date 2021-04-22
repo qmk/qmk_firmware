@@ -120,10 +120,6 @@ void soft_serial_target_init(SSTD_t* const sstd_table, int sstd_table_size) {
     Transaction_table_size = (uint8_t)sstd_table_size;
     usart_init();
 
-#if defined(SERIAL_USART_PIN_SWAP)
-    uart_config.cr2 |= ~USART_CR2_SWAP;  // slave has non-swapped TX/RX pins
-#endif
-
 #if defined(USART_REMAP)
     USART_REMAP
 #endif
@@ -192,7 +188,7 @@ void soft_serial_initiator_init(SSTD_t* const sstd_table, int sstd_table_size) {
     usart_init();
 
 #if defined(SERIAL_USART_PIN_SWAP)
-    uart_config.cr2 |= ~USART_CR2_SWAP;  // master has non-swapped TX/RX pins
+    uart_config.cr2 |= USART_CR2_SWAP;  // master has swapped TX/RX pins
 #endif
 
 #if defined(USART_REMAP)
