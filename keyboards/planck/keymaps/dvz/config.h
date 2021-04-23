@@ -42,6 +42,10 @@
 
 #define COMBO_COUNT 4
 
+#ifdef AUDIO_ENABLE
+    #define DAC_SAMPLE_MAX 65535/2
+#endif
+
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_SAT_STEP 5
 #define RGBLIGHT_VAL_STEP 8
