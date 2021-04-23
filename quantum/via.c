@@ -256,8 +256,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 }
                 case id_switch_matrix_state: {
 #ifdef VIAL_ENABLE
-                    /* We don't need this wannabe keylogger */
-                    goto skip;
+                    /* Disable wannabe keylogger unless unlocked */
+                    if (!vial_unlocked)
+                        goto skip;
 #endif
 
 #if ((MATRIX_COLS / 8 + 1) * MATRIX_ROWS <= 28)
