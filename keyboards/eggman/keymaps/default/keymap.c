@@ -1,4 +1,4 @@
-/* Copyright 2020 qpockets
+/* Copyright 2021 Alan Lehners
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,13 +61,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
+    if (index == 0) { /* left encoder */
         if (clockwise) {
             tap_code(KC_WH_U);
         } else {
             tap_code(KC_WH_D);
         }
-    } else if (index == 1) { /* Second encoder */
+    } else if (index == 1) { /* right encoder */
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {

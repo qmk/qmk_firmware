@@ -51,6 +51,9 @@
  */
 // #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
+#define LED_CAPS_LOCK_PIN C7
+#define LED_PIN_ON_STATE 0
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
@@ -194,9 +197,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

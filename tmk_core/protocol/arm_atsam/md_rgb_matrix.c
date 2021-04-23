@@ -15,16 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "arm_atsam_protocol.h"
-#include "tmk_core/common/led.h"
-#include "rgb_matrix.h"
-#include <string.h>
-#include <math.h>
+#ifdef RGB_MATRIX_ENABLE
+#    include "arm_atsam_protocol.h"
+#    include "led.h"
+#    include "rgb_matrix.h"
+#    include <string.h>
+#    include <math.h>
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
 __attribute__((weak)) led_instruction_t led_instructions[] = {{.end = 1}};
 static void                             md_rgb_matrix_config_override(int i);
-#endif  // USE_MASSDROP_CONFIGURATOR
+#    endif  // USE_MASSDROP_CONFIGURATOR
 
 void SERCOM1_0_Handler(void) {
     if (SERCOM1->I2CM.INTFLAG.bit.ERROR) {
@@ -58,17 +59,17 @@ RGB            led_buffer[ISSI3733_LED_COUNT];
 uint8_t gcr_desired;
 uint8_t gcr_actual;
 uint8_t gcr_actual_last;
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
 uint8_t gcr_breathe;
 float   breathe_mult;
 float   pomod;
-#endif
+#    endif
 
-#define ACT_GCR_NONE 0
-#define ACT_GCR_INC 1
-#define ACT_GCR_DEC 2
+#    define ACT_GCR_NONE 0
+#    define ACT_GCR_INC 1
+#    define ACT_GCR_DEC 2
 
-#define LED_GCR_STEP_AUTO 2
+#    define LED_GCR_STEP_AUTO 2
 
 static uint8_t gcr_min_counter;
 static uint8_t v_5v_cat_hit;
@@ -78,11 +79,11 @@ void gcr_compute(void) {
     uint8_t action  = ACT_GCR_NONE;
     uint8_t gcr_use = gcr_desired;
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
     if (led_animation_breathing) {
         gcr_use = gcr_breathe;
     }
-#endif
+#    endif
 
     // If the 5v takes a catastrophic hit, disable the LED drivers briefly, assert auto gcr mode, min gcr and let the auto take over
     if (v_5v < V5_CAT) {
@@ -150,7 +151,7 @@ void gcr_compute(void) {
             gcr_actual -= LED_GCR_STEP_AUTO;
             gcr_min_counter = 0;
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
             // If breathe mode is active, the top end can fluctuate if the host can not supply enough current
             // So set the breathe GCR to where it becomes stable
             if (led_animation_breathing == 1) {
@@ -159,7 +160,7 @@ void gcr_compute(void) {
                 //    and the same would happen maybe one or two more times. Therefore I'm favoring
                 //    powering through one full breathe and letting gcr settle completely
             }
-#endif
+#    endif
         }
     }
 }
@@ -196,25 +197,25 @@ void md_rgb_matrix_prepare(void) {
     }
 }
 
-void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
+static void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
     if (i < ISSI3733_LED_COUNT) {
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
         md_rgb_matrix_config_override(i);
-#else
+#    else
         led_buffer[i].r = r;
         led_buffer[i].g = g;
         led_buffer[i].b = b;
-#endif
+#    endif
     }
 }
 
-void led_set_all(uint8_t r, uint8_t g, uint8_t b) {
+static void led_set_all(uint8_t r, uint8_t g, uint8_t b) {
     for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++) {
         led_set_one(i, r, g, b);
     }
 }
 
-void init(void) {
+static void init(void) {
     DBGC(DC_LED_MATRIX_INIT_BEGIN);
 
     issi3733_prepare_arrays();
@@ -227,16 +228,16 @@ void init(void) {
     DBGC(DC_LED_MATRIX_INIT_COMPLETE);
 }
 
-void flush(void) {
-#ifdef USE_MASSDROP_CONFIGURATOR
+static void flush(void) {
+#    ifdef USE_MASSDROP_CONFIGURATOR
     if (!led_enabled) {
         return;
     }  // Prevent calculations and I2C traffic if LED drivers are not enabled
-#else
+#    else
     if (!sr_exp_data.bit.SDB_N) {
         return;
     }  // Prevent calculations and I2C traffic if LED drivers are not enabled
-#endif
+#    endif
 
     // Wait for previous transfer to complete
     while (i2c_led_q_running) {
@@ -249,7 +250,7 @@ void flush(void) {
         *led_map[i].rgb.b = led_buffer[i].b;
     }
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
     breathe_mult = 1;
 
     if (led_animation_breathing) {
@@ -275,7 +276,7 @@ void flush(void) {
     pomod = (uint32_t)pomod % 10000;
     pomod /= 100.0f;
 
-#endif  // USE_MASSDROP_CONFIGURATOR
+#    endif  // USE_MASSDROP_CONFIGURATOR
 
     uint8_t drvid;
 
@@ -295,21 +296,21 @@ void md_rgb_matrix_indicators(void) {
     if (kbled && rgb_matrix_config.enable) {
         for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++) {
             if (
-#if USB_LED_NUM_LOCK_SCANCODE != 255
+#    if USB_LED_NUM_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_NUM_LOCK_SCANCODE && (kbled & (1 << USB_LED_NUM_LOCK))) ||
-#endif  // NUM LOCK
-#if USB_LED_CAPS_LOCK_SCANCODE != 255
+#    endif  // NUM LOCK
+#    if USB_LED_CAPS_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_CAPS_LOCK_SCANCODE && (kbled & (1 << USB_LED_CAPS_LOCK))) ||
-#endif  // CAPS LOCK
-#if USB_LED_SCROLL_LOCK_SCANCODE != 255
+#    endif  // CAPS LOCK
+#    if USB_LED_SCROLL_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_SCROLL_LOCK_SCANCODE && (kbled & (1 << USB_LED_SCROLL_LOCK))) ||
-#endif  // SCROLL LOCK
-#if USB_LED_COMPOSE_SCANCODE != 255
+#    endif  // SCROLL LOCK
+#    if USB_LED_COMPOSE_SCANCODE != 255
                 (led_map[i].scan == USB_LED_COMPOSE_SCANCODE && (kbled & (1 << USB_LED_COMPOSE))) ||
-#endif  // COMPOSE
-#if USB_LED_KANA_SCANCODE != 255
+#    endif  // COMPOSE
+#    if USB_LED_KANA_SCANCODE != 255
                 (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
-#endif  // KANA
+#    endif  // KANA
                 (0)) {
                 if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {
                     led_buffer[i].r = 255 - led_buffer[i].r;
@@ -327,7 +328,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {.init = init, .flush = flush, .se
 =                           Legacy Lighting Support                            =
 ==============================================================================*/
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
 // Ported from Massdrop QMK GitHub Repo
 
 // TODO?: wire these up to keymap.c
@@ -469,4 +470,5 @@ static void md_rgb_matrix_config_override(int i) {
     led_buffer[i].b = (uint8_t)bo;
 }
 
-#endif  // USE_MASSDROP_CONFIGURATOR
+#    endif  // USE_MASSDROP_CONFIGURATOR
+#endif      // RGB_MATRIX_ENABLE

@@ -7,7 +7,7 @@ Instead I recommend these two books, explaining two different styles of Unit Tes
 * "Test Driven Development: By Example: Kent Beck"
 * "Growing Object-Oriented Software, Guided By Tests: Steve Freeman, Nat Pryce"
 
-If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](http://www.jamesshore.com/Blog/Lets-Play) video series.
+If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](https://www.jamesshore.com/Blog/Lets-Play) video series.
 
 ## Google Test and Google Mock
 It's possible to Unit Test your code using [Google Test](https://github.com/google/googletest). The Google Test framework also includes another component for writing testing mocks and stubs, called "Google Mock". For information how to write the actual tests, please refer to the documentation on that site.
