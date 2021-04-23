@@ -1,5 +1,8 @@
 #pragma once
 
+// #define TAPPING_TERM 100
+#define LEADER_TIMEOUT 400
+
 #ifdef AUDIO_ENABLE
    #define STARTUP_SONG SONG(PLANCK_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
@@ -17,7 +20,6 @@
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
-
 #define MIDI_BASIC
 
 /* enable advanced MIDI features:
@@ -32,4 +34,4 @@
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 // Most tactile encoders have detents every 4 stages
-#define ENCODER_RESOLUTION 4
+// #define ENCODER_RESOLUTION 4
