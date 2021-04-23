@@ -18,7 +18,6 @@
 #include "eeconfig.h"
 #include "progmem.h"
 #include "debug.h"
-#include "action_tapping.h"
 #ifdef DRV2605L
 #    include "DRV2605L.h"
 #endif
@@ -292,33 +291,67 @@ void haptic_play(void) {
 #endif
 }
 
-#ifndef HAPTIC_EXCLUSION_KEY_DEFAULT
-#define HAPTIC_EXCLUSION_DEFAULT(keycode, tapcount) ((((keycode) >= QK_MOD_TAP && (keycode) <= QK_MOD_TAP_MAX) && (tapcount == 0)) || (((keycode) >= QK_LAYER_TAP_TOGGLE && (keycode) <= QK_LAYER_TAP_TOGGLE_MAX) && (tapcount != TAPPING_TOGGLE)) || (((keycode) >= QK_LAYER_TAP && (keycode) <= QK_LAYER_TAP_MAX) && (tapcount == 0)) || (IS_MOD(keycode)) || ((keycode) >= QK_MOMENTARY && (keycode) <= QK_MOMENTARY_MAX))
-#else
-#define HAPTIC_EXCLUSION_DEFAULT(keycode, tapcount) false
-#endif
-
-#if defined(HAPTIC_EXCLUSION_KEYS)
-bool exclude_haptic_key(uint16_t keycode, keyrecord_t *record) {
-    if ((HAPTIC_EXCLUSION_DEFAULT(keycode, record->tap.count))) {
-        return true;
-    } else {
-#ifdef HAPTIC_EXCLUSION_KEY_ADDITIONAL
-        static const uint16_t PROGMEM additional_keys[] = HAPTIC_EXCLUSION_KEY_ADDITIONAL;
-        int i = 0;
-        for (i = 0;i<sizeof(additional_keys)/sizeof(additional_keys[0]);i++) {
-            if (pgm_read_word(&additional_keys[i]) == keycode) {
-                return true;
-            }
-        }
-#endif
-        return false;
+__attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+#    ifdef NO_HAPTIC_MOD
+        case KC_LCTRL ... KC_RGUI:
+#    endif
+#    ifdef NO_HAPTIC_FN
+        case KC_FN0 ... KC_FN31:
+#    endif
+#    ifdef NO_HAPTIC_ESC
+        case KC_ESCAPE:
+#    endif
+#    ifdef NO_HAPTIC_ALPHA
+        case KC_A ... KC_Z:
+#    endif
+#    ifdef NO_HAPTIC_PUNCTUATION
+        case KC_ENTER:
+        case KC_ESCAPE:
+        case KC_BSPACE:
+        case KC_SPACE:
+        case KC_MINUS:
+        case KC_EQUAL:
+        case KC_LBRACKET:
+        case KC_RBRACKET:
+        case KC_BSLASH:
+        case KC_NONUS_HASH:
+        case KC_SCOLON:
+        case KC_QUOTE:
+        case KC_GRAVE:
+        case KC_COMMA:
+        case KC_SLASH:
+        case KC_DOT:
+        case KC_NONUS_BSLASH:
+#    endif
+#    ifdef NO_HAPTIC_LOCKKEYS
+        case KC_CAPSLOCK:
+        case KC_SCROLLLOCK:
+        case KC_NUMLOCK:
+#    endif
+#    ifdef NO_HAPTIC_NAV
+        case KC_PSCREEN:
+        case KC_PAUSE:
+        case KC_INSERT:
+        case KC_DELETE:
+        case KC_PGDOWN:
+        case KC_PGUP:
+        case KC_LEFT:
+        case KC_UP:
+        case KC_RIGHT:
+        case KC_DOWN:
+        case KC_END:
+        case KC_HOME:
+#    endif
+#    ifdef NO_HAPTIC_NUMERIC
+        case KC_1 ... KC_0:
+#    endif
+         return false;
     }
+    return true;
 }
-#endif
 
 bool process_haptic(uint16_t keycode, keyrecord_t *record) {
-    bool haptic_exclusion_key = false;
     if (keycode == HPT_ON && record->event.pressed) {
         haptic_enable();
     }
@@ -360,19 +393,14 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (haptic_config.enable) {
-#        if defined(HAPTIC_EXCLUSION_KEYS)
-            if ( exclude_haptic_key(keycode, record)) {
-                haptic_exclusion_key = true;
-            }
-        #endif
         if (record->event.pressed) {
             // keypress
-            if (haptic_config.feedback < 2 && haptic_exclusion_key == false) {
+            if (haptic_config.feedback < 2 && get_haptic_enabled_key(keycode, record)) {
                 haptic_play();
             }
         } else {
             // keyrelease
-            if (haptic_config.feedback > 0 && haptic_exclusion_key == false) {
+            if (haptic_config.feedback > 0 && get_haptic_enabled_key(keycode, record)) {
                 haptic_play();
             }
         }
