@@ -27,8 +27,8 @@
 
 // Create user & normal print defines
 #define xprintf(fmt, ...) __xprintf(fmt, ##__VA_ARGS__)
-#define print(s) xprintf(s)
-#define println(s) xprintf(s "\r\n")
-#define uprint(s) print(s)
-#define uprintln(s) println(s)
-#define uprintf(fmt, ...) xprintf(fmt, ##__VA_ARGS__)
+#define print(s) __xprintf(s)
+#define println(s) __xprintf(s "\r\n")
+#define uprint(s) __xprintf(s)
+#define uprintln(s) __xprintf(s "\r\n")
+#define uprintf(fmt, ...) __xprintf(fmt, ##__VA_ARGS__)
