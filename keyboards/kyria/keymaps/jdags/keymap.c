@@ -17,6 +17,7 @@
 
 uint16_t copy_paste_timer;
 
+
 enum layers {
     QWERTY = 0,
     LOWER,
@@ -37,19 +38,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | LSFT   |   A  |   S  |   D   |   F  |  G  |                              |   H  |   J  |   K  |   L  | ;  : |  LSFT  |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LCTL   |   Z  |   X  |   C  |   V  |   B  |      |  Win |  | Del  |Leader|   N  |   M  | ,  < | . >  | /  ? |  LCTL  |
+ * | LCTL   |   Z  |   X  |   C  |   V  |   B  |      |  Win |  | Win  |Leader|   N  |   M  | ,  < | . >  | /  ? |  LCTL  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |RotEnc| Lower| Raise| Space| Ent  |  | Del  | Bspc | Raise|  Alt |RotEnc|
+ *                        |RotEnc| Lower| Raise| Space| Ent  |  | Del  | Bspc | Lower|  Alt |RotEnc|
  *                        `----------------------------------'  `----------------------------------'
  */
     [QWERTY] = LAYOUT(
       KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
       KC_LSFT, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_LSFT,
-      KC_LCTL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LGUI,   XXXXXXX, KC_DEL, KC_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LCTL,
-              XXXXXXX, MO(LOWER), MO(RAISE), KC_SPC, KC_ENT, KC_DEL, KC_BSPC, MO(RAISE), KC_LALT, XXXXXXX
+      KC_LCTL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, XXXXXXX, KC_LGUI, KC_LGUI, KC_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LCTL,
+              XXXXXXX, MO(LOWER), MO(RAISE), KC_SPC, KC_ENT, KC_DEL, KC_BSPC, MO(LOWER), KC_LALT, XXXXXXX
     ),
 /*
- * Lower Layer: Numpad, Media
+ * Lower Layer: Nav, Numpa
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        | PgUp | Home |  Up  |  End |  {   |                              |   }  | 7 &  | 8 *  | 9 (  |      |        |
@@ -65,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LOWER] = LAYOUT(
       _______, KC_PGUP, KC_HOME, KC_UP, KC_END, KC_LCBR,                                     KC_RCBR, KC_7,    KC_8,    KC_9, _______, _______,
       KC_CAPS, KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_LPRN,                                     KC_RPRN, KC_4,    KC_5,    KC_6, _______, _______,
-      _______, _______, _______, _______, KC_TAB, KC_LBRC, _______, _______, _______, _______, KC_RBRC,    KC_1,    KC_2,    KC_3, KC_0,  _______,
+      _______, _______, _______, _______, KC_TAB, KC_LBRC, _______, _______, _______, _______, KC_0,    KC_1,    KC_2,    KC_3, _______,  _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -156,63 +157,6 @@ bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
 LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    if (is_alt_tab_active) {
-        if (timer_elapsed(alt_tab_timer) > 1000) {
-            unregister_code(KC_LALT);
-            is_alt_tab_active = false;
-        }
-    }
-
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_C) { // Inline Code
-            SEND_STRING("`` " SS_TAP(X_LEFT) SS_TAP(X_LEFT));
-        }
-        SEQ_ONE_KEY(KC_P) { // Invoke Password Manager
-            SEND_STRING(SS_LCTRL(SS_LALT("\\")));
-        }
-        SEQ_ONE_KEY(KC_S) { // Windows screenshot
-            SEND_STRING(SS_LGUI("\nS"));
-        }
-        SEQ_TWO_KEYS(KC_F, KC_P) { // Fusion Projection prefix
-            SEND_STRING("[Projection] ");
-        }
-        SEQ_TWO_KEYS(KC_B, KC_B) { // Basecone invoice description
-            SEND_STRING("[Leveranciersnaam] [Factuurnummer]");
-        }
-        SEQ_TWO_KEYS(KC_E, KC_S) { // Support email splitkb
-            SEND_STRING("support@splitkb.com");
-        }
-        SEQ_TWO_KEYS(KC_E, KC_T) { // Email splitkb
-            SEND_STRING("thomas@splitkb.com");
-        }
-        SEQ_TWO_KEYS(KC_E, KC_P) { // Email personal
-            SEND_STRING("mail@thomasbaart.nl");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_D) { // Splitkb documentation
-            SEND_STRING("https://docs.splitkb.com/");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_V) { // Splitkb VAT number
-            SEND_STRING("NL210593349B01");
-        }
-        SEQ_TWO_KEYS(KC_B, KC_C) { // Discord bongocat
-            SEND_STRING(":bongocat:\n");
-        }
-        SEQ_TWO_KEYS(KC_C, KC_B) { // Discord code block
-            SEND_STRING("```c" SS_LSFT("\n\n") "``` " SS_TAP(X_UP));
-        }
-        SEQ_TWO_KEYS(KC_Y, KC_S) { // Greeting
-            SEND_STRING("Yours sincerely,\n\nThomas Baart");
-        }
-        SEQ_THREE_KEYS(KC_M, KC_V, KC_G) { // Greeting
-            SEND_STRING("Met vriendelijke groet,\n\nThomas Baart");
-        }
-    }
-}
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -311,23 +255,16 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         switch (biton32(layer_state)) {
-            case QWERTY:
-                // Scrolling with PageUp and PgDn.
-                if (clockwise) {
-                    tap_code(KC_PGDN);
-                } else {
-                    tap_code(KC_PGUP);
-                }
-                break;
             default:
                 // Volume control.
                 if (clockwise) {
-                    tap_code16(C(KC_Z));
+                    tap_code(KC_VOLU);
                 } else {
-                    tap_code16(C(KC_Y));
+                    tap_code(KC_VOLD);
                 }
                 break;
         }
     }
 }
 #endif
+

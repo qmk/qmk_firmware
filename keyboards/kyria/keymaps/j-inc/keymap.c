@@ -22,9 +22,6 @@ char wpm_str[10];
 
 enum layers {
     _QWERTY,
-    _LOWER,
-    _RAISE,
-    _ADJUST,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -63,12 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-     [_LOWER] = LAYOUT(
-        _______, _______,    KC_7,    KC_8,    KC_9,    KC_0,                                            KC_PGUP, _______,   KC_UP, _______, _______,  KC_DEL,
-        KC_CAPS, _______,    KC_4,    KC_5,    KC_6,  KC_TAB,                                            KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
-        KC_LSFT,    KC_0,    KC_1,    KC_2,    KC_3,  KC_ENT,   KC_TRNS,  KC_TRNS,       MO(4), _______, KC_LBRC, KC_RBRC, _______, _______, KC_BSLS,  KC_EQL,
-                                   KC_TRNS,    KC_TAB,  KC_ENT, KC_TRNS,  KC_TRNS,     KC_TRNS, KC_TRNS, _______, _______, _______
-    ),
+
 /*
  * Raise Layer: F keys and media
  *
@@ -83,12 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_RAISE] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                       KC_F9,  KC_F10,  KC_F11, KC_F12, _______, _______,
-      _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLU,                                       KC_F5,   KC_F6,   KC_F7,  KC_F8, _______, _______,
-      _______, _______, _______, _______, KC_MUTE, KC_VOLD, _______, _______, _______, _______,   KC_F1,   KC_F2,   KC_F3,  KC_F4, _______, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_TRNS
-    ),
+
 /*
  * Adjust Layer: Function keys, RGB
  *
@@ -103,12 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_ADJUST] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
+
 // /*
 //  * Layer template
 //  *
@@ -131,9 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
+
 
 #ifdef OLED_DRIVER_ENABLE
 
@@ -148,15 +128,7 @@ static void render_status(void) {
         case _QWERTY:
             oled_write_P(PSTR("QWERTY"), false);
             break;
-        case _LOWER:
-            oled_write_P(PSTR("Numpad"), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("F Keys"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("RGB   "), false);
-            break;
+
         default:
             oled_write_P(PSTR("Undefined"), false);
     }
