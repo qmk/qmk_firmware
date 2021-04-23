@@ -1,0 +1,4 @@
+#define COMBO_COUNT 4
+#define COMBO_TERM 200
+
+//#define UNICODE_SELECTED_MODES UC_WINC
