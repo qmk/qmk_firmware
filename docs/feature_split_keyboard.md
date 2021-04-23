@@ -192,8 +192,14 @@ If you're having issues with serial communication, you can change this value, as
 This enables transmitting modifier state (normal, weak and oneshot) to the non
 primary side of the split keyboard.  This adds a few bytes of data to the split
 communication protocol and may impact the matrix scan speed when enabled.
-The purpose of this feature is to support cosmetic use of modifer state (e.g.
+The purpose of this feature is to support cosmetic use of modifier state (e.g.
 displaying status on an OLED screen).
+
+```c
+#define SPLIT_LAYERS_ENABLE
+```
+
+This enables transmitting the layer state to the non primary side of the split keyboard.  This adds a few bytes of data to the split communication protocol and may impact the matrix scan speed when enabled. The purpose of this feature is to support cosmetic use of modifier state (e.g. displaying layer status on an OLED screen).
 
 ```c
 #define SPLIT_TRANSPORT_MIRROR

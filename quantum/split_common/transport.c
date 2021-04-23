@@ -69,6 +69,9 @@ typedef struct _I2C_slave_buffer_t {
     rgb_config_t rgb_matrix;
     bool         rgb_suspend_state;
 #    endif
+#    ifdef SPLIT_LAYERS_ENABLE
+    layer_state_t layer_state;
+#    endif
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -87,6 +90,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_LED_SUSPEND_START offsetof(I2C_slave_buffer_t, led_suspend_state)
 #    define I2C_RGB_MATRIX_START offsetof(I2C_slave_buffer_t, rgb_matrix)
 #    define I2C_RGB_SUSPEND_START offsetof(I2C_slave_buffer_t, rgb_suspend_state)
+#    define I2C_LAYER_STATE_START offsetof(I2C_slave_buffer_t, layer_state)
 
 #    define TIMEOUT 100
 
@@ -168,6 +172,14 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_MATRIX_START, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix), TIMEOUT);
     i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_SUSPEND_START, (void *)g_suspend_state, sizeof(i2c_buffer->rgb_suspend_state), TIMEOUT);
 #    endif
+#    ifdef SPLIT_LAYERS_ENABLE
+
+    if (layer_state != i2c_buffer->layer_state) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LAYER_STATE_START, (void *)&layer_state, sizeof(layer_state), TIMEOUT) >= 0) {
+            i2c_buffer->layer_state = layer_state;
+        }
+    }
+#    endif
 
 #    ifndef DISABLE_SYNC_TIMER
     i2c_buffer->sync_timer = sync_timer_read32() + SYNC_TIMER_OFFSET;
@@ -223,6 +235,10 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     memcpy((void *)i2c_buffer->rgb_matrix, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix));
     memcpy((void *)i2c_buffer->rgb_suspend_state, (void *)g_suspend_state, sizeof(i2c_buffer->rgb_suspend_state));
 #    endif
+
+#    ifdef SPLIT_LAYERS_ENABLE
+    layer_state_set(i2c_buffer->layer_state);
+#    endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -270,6 +286,9 @@ typedef struct _Serial_m2s_buffer_t {
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
     rgb_config_t   rgb_matrix;
     bool           rgb_suspend_state;
+#    endif
+#    ifdef SPLIT_LAYERS_ENABLE
+    layer_state_t  layer_state;
 #    endif
 } Serial_m2s_buffer_t;
 
@@ -398,6 +417,10 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     serial_m2s_buffer.rgb_suspend_state = g_suspend_state;
 #    endif
 
+#    ifdef SPLIT_LAYERS_ENABLE
+    serial_m2s_buffer.layer_state = layer_state;
+#    endif
+
 #    ifndef DISABLE_SYNC_TIMER
     serial_m2s_buffer.sync_timer        = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
@@ -444,6 +467,10 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
     rgb_matrix_config   = serial_m2s_buffer.rgb_matrix;
     g_suspend_state     = serial_m2s_buffer.rgb_suspend_state;
+#    endif
+
+#    ifdef SPLIT_LAYERS_ENABLE
+    layer_state_set(serial_m2s_buffer.layer_state);
 #    endif
 }
 
