@@ -27,10 +27,6 @@ enum custom_layers {
     _ADJUST,
 }; 
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-};
-
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
 #define ADJUST MO(_ADJUST)
