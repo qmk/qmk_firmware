@@ -1,6 +1,6 @@
 # fluxlab zplit
 
-![zplit](https://i.imgur.com/eN4aSG1.png)
+![zplit](https://i.imgur.com/eN4aSG1l.png)
 
 Zplit is a 40% split keyboard inspired by the Zlant and similar to Zinc. It has a symmetrical layout to provide a more natural typing experience.
 
