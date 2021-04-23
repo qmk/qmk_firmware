@@ -16,7 +16,7 @@ The original DB60 was shipped with the J-02. To build that, you will need to use
 
     make cannonkeys/db60/j02:default
 
-DB60s were also shipped with Bakeneko keyboards. To build these, you can use this command:
+DB60s were shipped with Bakeneko keyboards. This variant has cutouts along the top and bottom to support O-ring gasket mounting. To build these, you can use this command:
 
     make cannonkeys/db60/rev2:default
     
