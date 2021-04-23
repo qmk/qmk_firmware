@@ -14,11 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 3
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2
+*/
 
 /* defining an extra row for encoder assignment in VIA */
-/*
+
 #undef MATRIX_ROWS
-#define MATRIX_ROWS 11
-*/
+#define MATRIX_ROWS 6
