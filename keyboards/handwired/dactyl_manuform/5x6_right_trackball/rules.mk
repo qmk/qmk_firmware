@@ -22,6 +22,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SWAP_HANDS_ENABLE = yes
 POINTING_DEVICE_ENABLE = yes
+MOUSE_SHARED_EP = no
 
 SPLIT_KEYBOARD = yes
 SPLIT_TRANSPORT = custom
