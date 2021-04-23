@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    fluxlab
 #define PRODUCT         fluxlab zplit
-#define DESCRIPTION     An elegant split keyboard
 
 /* key matrix size */
 // Rows are doubled-up
