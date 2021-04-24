@@ -56,6 +56,8 @@ static inline void fill_target_address(uint8_t *buffer, const void *addr) {
 void eeprom_driver_init(void) {
     i2c_init();
 #if defined(EXTERNAL_EEPROM_WP_PIN)
+    /* We are setting the WP pin to high in a way that requires at least two bit-flips to change back to 0 */
+    writePin(EXTERNAL_EEPROM_WP_PIN, 1);
     setPinInputHigh(EXTERNAL_EEPROM_WP_PIN);
 #endif
 }
@@ -131,6 +133,8 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
     }
 
 #if defined(EXTERNAL_EEPROM_WP_PIN)
+    /* We are setting the WP pin to high in a way that requires at least two bit-flips to change back to 0 */
+    writePin(EXTERNAL_EEPROM_WP_PIN, 1);
     setPinInputHigh(EXTERNAL_EEPROM_WP_PIN);
 #endif
 }
