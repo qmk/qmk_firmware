@@ -15,8 +15,6 @@ BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = spi
 
-LAYOUTS = 60_ansi 60_tsangan_hhkb 60_iso
-
 # Wildcard to allow APM32 MCU
 DFU_SUFFIX_ARGS = -p FFFF -v FFFF
 
