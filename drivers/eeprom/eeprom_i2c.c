@@ -57,7 +57,6 @@ void eeprom_driver_init(void) {
     i2c_init();
 #if defined(EXTERNAL_EEPROM_WP_PIN)
     setPinInputHigh(EXTERNAL_EEPROM_WP_PIN);
-    /* Note: it's expected that the WP pin would have an external pull-up. */
 #endif
 }
 
@@ -133,6 +132,5 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
 
 #if defined(EXTERNAL_EEPROM_WP_PIN)
     setPinInputHigh(EXTERNAL_EEPROM_WP_PIN);
-    /* Note: it's expected that the WP pin would have an external pull-up. */
 #endif
 }

@@ -33,6 +33,8 @@ Currently QMK supports 24xx-series chips over I2C. As such, requires a working i
 `#define EXTERNAL_EEPROM_WRITE_TIME`        | Write cycle time of the EEPROM, as specified in the datasheet                       | 5
 `#define EXTERNAL_EEPROM_WP_PIN`            | If defined the WP pin will be toggled appropriately when writing to the EEPROM.     | _none_
 
+Some I2C EEPROM manufacturers explicitly recommend against hardcoding the WP pin to ground. This is in order to protect the eeprom memory content during power-up/power-down/brown-out conditions at low voltage where the eeprom is still operational, but the i2c master output might be unpredictable. If a WP pin is configured, then having an external pull-up on the WP pin is recommended.
+
 Default values and extended descriptions can be found in `drivers/eeprom/eeprom_i2c.h`.
 
 Alternatively, there are pre-defined hardware configurations for available chips/modules:
