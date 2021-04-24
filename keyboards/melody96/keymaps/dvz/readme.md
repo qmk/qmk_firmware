@@ -1,5 +1,3 @@
-# The via keymap for YMDK Melody 96
+# DvZ's VIA compatible keymap with rolling umlauts for germyn typists
 
-This folder contains the [VIA](https://caniusevia.com/) configuration for the YMDK Melody 96
-
-Maintained by: [vlee489](https://github.com/vlee489)
+Added by: [devilzmods](https://github.com/devilzmods)
