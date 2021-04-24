@@ -19,11 +19,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0xDB60
 #define DEVICE_VER      0x0001
 
 #define MANUFACTURER CannonKeys
-#define PRODUCT DB60
+
+#if defined(KEYBOARD_cannonkeys_db60_j02)
+    #define PRODUCT_ID      0xDB60
+    #define PRODUCT DB60
+#elif defined(KEYBOARD_cannonkeys_db60_hotswap)
+    #define PRODUCT_ID      0xDB62
+    #define PRODUCT DB60 Hotswap
+#else
+    #define PRODUCT_ID      0xDB61
+    #define PRODUCT DB60v2
+#endif
+
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

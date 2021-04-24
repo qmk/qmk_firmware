@@ -14,8 +14,10 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#ifdef KEYBOARD_cannonkeys_db60_j02
+#if defined(KEYBOARD_cannonkeys_db60_j02)
     #include "j02.h"
+#elif defined(KEYBOARD_cannonkeys_db60_hotswap)
+    #include "hotswap.h"
 #else
     #include "rev2.h"
 #endif
