@@ -38,13 +38,11 @@ static bool PIXELATION(effect_params_t* params) {
         (on) ? rgb_matrix_set_color(i, prng(), prng(), prng()) : rgb_matrix_set_color(i, RGB_OFF);
     }
 
-    #define PIXEL_SPD 20 // Smaller is faster, use even number
-
     if (!params->init) {
-        if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % PIXEL_SPD == 0) {
+        if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 20 == 0) {
             set_pixel_rgb(prng() % DRIVER_LED_TOTAL, params, 1);
         }
-        if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % PIXEL_SPD/2 == 0) {
+        if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 10 == 0) {
             set_pixel_rgb(prng() % DRIVER_LED_TOTAL, params, 0);
         }
         return false;
