@@ -15,6 +15,7 @@
  */
 #pragma once
 
+#define STM32_HSECLK 16000000
 // The following is required to disable the pull-down on PA9, when PA9 is used for the keyboard matrix:
 #define BOARD_OTG_NOVBUSSENS
 
