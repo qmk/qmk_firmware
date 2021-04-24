@@ -37,50 +37,32 @@
  * HAL driver system settings.
  */
 #define STM32_NO_INIT                       FALSE
-#define STM32_HSI_ENABLED                   FALSE
+#define STM32_HSI_ENABLED                   TRUE
 #define STM32_LSI_ENABLED                   TRUE
 #define STM32_HSE_ENABLED                   TRUE
 #define STM32_LSE_ENABLED                   FALSE
 #define STM32_CLOCK48_REQUIRED              TRUE
 #define STM32_SW                            STM32_SW_PLL
 #define STM32_PLLSRC                        STM32_PLLSRC_HSE
-#if STM32_HSECLK == 8000000
-#    define STM32_PLLM_VALUE                    8
-#    define STM32_PLLN_VALUE                    360
-#    define STM32_PLLP_VALUE                    2
-#    define STM32_PLLQ_VALUE                    7
-#    define STM32_PLLI2SN_VALUE                 192
-#    define STM32_PLLI2SM_VALUE                 4
-#    define STM32_PLLI2SR_VALUE                 4
-#    define STM32_PLLI2SP_VALUE                 4
-#    define STM32_PLLI2SQ_VALUE                 4
-#    define STM32_PLLSAIN_VALUE                 192
-#    define STM32_PLLSAIM_VALUE                 4
-#    define STM32_PLLSAIP_VALUE                 8
-#    define STM32_PLLSAIQ_VALUE                 4
-#elif STM32_HSECLK == 16000000
-#    define STM32_PLLM_VALUE                    8
-#    define STM32_PLLN_VALUE                    180
-#    define STM32_PLLP_VALUE                    2
-#    define STM32_PLLQ_VALUE                    7
-#    define STM32_PLLI2SN_VALUE                 192
-#    define STM32_PLLI2SM_VALUE                 8
-#    define STM32_PLLI2SR_VALUE                 4
-#    define STM32_PLLI2SP_VALUE                 4
-#    define STM32_PLLI2SQ_VALUE                 4
-#    define STM32_PLLSAIN_VALUE                 192
-#    define STM32_PLLSAIM_VALUE                 8
-#    define STM32_PLLSAIP_VALUE                 8
-#    define STM32_PLLSAIQ_VALUE                 4
-#else
-#    error "Currently unsupported STM32_HSECLK"
-#endif
+#define STM32_PLLM_VALUE                    8
+#define STM32_PLLN_VALUE                    360
+#define STM32_PLLP_VALUE                    2
+#define STM32_PLLQ_VALUE                    7
+#define STM32_PLLI2SN_VALUE                 192
+#define STM32_PLLI2SM_VALUE                 4
+#define STM32_PLLI2SR_VALUE                 4
+#define STM32_PLLI2SP_VALUE                 4
+#define STM32_PLLI2SQ_VALUE                 4
+#define STM32_PLLSAIN_VALUE                 192
+#define STM32_PLLSAIM_VALUE                 4
+#define STM32_PLLSAIP_VALUE                 8
+#define STM32_PLLSAIQ_VALUE                 4
 #define STM32_HPRE                          STM32_HPRE_DIV1
 #define STM32_PPRE1                         STM32_PPRE1_DIV4
 #define STM32_PPRE2                         STM32_PPRE2_DIV2
 #define STM32_RTCSEL                        STM32_RTCSEL_LSI
 #define STM32_RTCPRE_VALUE                  8
-#define STM32_MCO1SEL                       STM32_MCO1SEL_HSE
+#define STM32_MCO1SEL                       STM32_MCO1SEL_HSI
 #define STM32_MCO1PRE                       STM32_MCO1PRE_DIV1
 #define STM32_MCO2SEL                       STM32_MCO2SEL_PLLI2S
 #define STM32_MCO2PRE                       STM32_MCO2PRE_DIV1
@@ -276,7 +258,7 @@
  * SERIAL driver system settings.
  */
 #define STM32_SERIAL_USE_USART1             FALSE
-#define STM32_SERIAL_USE_USART2             FALSE
+#define STM32_SERIAL_USE_USART2             TRUE
 #define STM32_SERIAL_USE_USART3             FALSE
 #define STM32_SERIAL_USE_UART4              FALSE
 #define STM32_SERIAL_USE_UART5              FALSE
@@ -361,7 +343,7 @@
 /*
  * USB driver system settings.
  */
-#define STM32_USB_USE_OTG1                  TRUE
+#define STM32_USB_USE_OTG1                  FALSE
 #define STM32_USB_USE_OTG2                  FALSE
 #define STM32_USB_OTG1_IRQ_PRIORITY         14
 #define STM32_USB_OTG2_IRQ_PRIORITY         14
