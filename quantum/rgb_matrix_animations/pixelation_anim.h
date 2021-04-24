@@ -16,7 +16,7 @@
 
 #ifndef DISABLE_RGB_MATRIX_PIXELATION
 RGB_MATRIX_EFFECT(PIXELATION)
-#	ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#   ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static bool PIXELATION(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
@@ -52,5 +52,5 @@ static bool PIXELATION(effect_params_t* params) {
     return led_max < DRIVER_LED_TOTAL;
 }
 
-#	endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#   endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 #endif    // DISABLE_RGB_MATRIX_PIXELATION
