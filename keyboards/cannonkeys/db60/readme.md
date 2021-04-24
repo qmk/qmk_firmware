@@ -20,6 +20,6 @@ Solderable DB60s were shipped with keyboards after the J-02. This variant has cu
 
     make cannonkeys/db60/rev2:default
     
-Hotswap ANSI DB60s were shipped with the Bakeneko keyboards from CannonKeys and will also be available 
-    
-A via and via_hotswap keymap are also available, alongside the default. Please pick your preference.
+Hotswap ANSI DB60s were shipped with the Bakeneko keyboards from CannonKeys. These also have the o-ring gasket mounting points. To build this:
+
+    make cannonkeys/db60/hotswap:default
