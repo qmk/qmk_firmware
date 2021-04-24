@@ -26,6 +26,7 @@
 #include "rgb_matrix_animations/hue_breathing_anim.h"
 #include "rgb_matrix_animations/hue_pendulum_anim.h"
 #include "rgb_matrix_animations/hue_wave_anim.h"
+#include "rgb_matrix_animations/pixelation_anim.h"
 #include "rgb_matrix_animations/typing_heatmap_anim.h"
 #include "rgb_matrix_animations/digital_rain_anim.h"
 #include "rgb_matrix_animations/solid_reactive_simple_anim.h"
