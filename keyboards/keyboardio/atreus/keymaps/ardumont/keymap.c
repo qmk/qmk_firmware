@@ -97,14 +97,19 @@ bool substitute_keycode(uint16_t keycode, keyrecord_t *record, uint8_t mod_state
             // Do not let QMK process the keycode further
             return false;
         } else {
-            // In case substitude_keycode is still being sent even after the release of
-            // the key
+            // In case substitude_keycode is still even after release of the key
             if (key_registered) {
                 unregister_code(substitute_keycode);
                 key_registered = false;
                 // Do not let QMK process the keycode further
                 return false;
             }
+        }
+    } else { // ctrl got released
+        // In case substitude_keycode is still sent after release of the ctrl key
+        if (key_registered) {
+            unregister_code(substitute_keycode);
+            key_registered = false;
         }
     }
     // Else, let QMK process the keycode as usual
