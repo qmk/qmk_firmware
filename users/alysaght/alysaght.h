@@ -209,7 +209,7 @@ enum custom_keycodes {
 #define _________________FFXIV_R1__________________        _________________QWERTY_R1_________________
 #define _________________FFXIV_R2__________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT
 #define _________________FFXIV_R3__________________        _________________QWERTY_R3_________________
-#define _________________FFXIV_RT__________________        LT_ENT,  LT_SPC, KC_BSPC,  XXXXXXX, XXXXXXX
+#define _________________FFXIV_RT__________________        KC_ENT,  KC_SPC, KC_BSPC,  XXXXXXX, XXXXXXX
 
 /* Empty sides for alternate layers
  *
