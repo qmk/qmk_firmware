@@ -40,6 +40,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
+/* Pro Micro **************************
+                 ====
+         +-------====------+
+  MDEBUG | D3/TXO      RAW |
+         | D2/RXI      GND |
+         | GND         RST |
+         | GND         Vcc |
+         | D1/SDA       F4 | COL_0_1_L
+         | D0/SCL       F5 | COL_2_3_L
+   ROW_0 | D4           F6 | COL_4_5_L
+   ROW_1 | C6           F7 | COL_6_7_L
+   ROW_2 | D7       SCK/B1 | COL_6_7_R
+   ROW_3 | E6      MISO/B3 | COL_4_5_R
+   ROW_4 | B4      MOSI/B2 | COL_2_3_R
+  SEL_AB | B5           B6 | COL_0_1_R
+        +-----------------+
+***************************************/
 #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
 #define MATRIX_COL_PINS { F4,F4,F5,F5, F6,F6,F7,F7,  B6,B6,B2,B2, B3,B3,B1,B1 }
 #define UNUSED_PINS
@@ -148,3 +165,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
+
+#ifdef DEBUG_CONFIG
+#    define MATRIX_DEBUG_PIN D3
+#    include "../debug_config.h"
+#endif
