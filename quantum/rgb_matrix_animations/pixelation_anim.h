@@ -24,8 +24,7 @@ static bool PIXELATION(effect_params_t* params) {
     // Bob Jenkin's fast PRNG, smaller than rand()
     #define rot8(x,k) (((x) << (k))|((x) >> (8 - (k))))
     uint8_t prng(void) {
-        static uint_fast8_t a = 0x71;
-        static uint_fast8_t b = 0x1f, c = 0x2f, d = 0x3f;
+        static uint_fast8_t a = 0x71, b = 0x1f, c = 0x2f, d = 0x3f;
 
         uint_fast8_t e = a - rot8(b, 1);
         a = b ^ rot8(c, 4);
