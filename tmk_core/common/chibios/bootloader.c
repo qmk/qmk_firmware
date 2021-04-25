@@ -26,7 +26,8 @@ void bootloader_jump(void) {
     NVIC_SystemReset();
 }
 
-void enter_bootloader_mode_if_requested(void) { /* not needed, no two-stage reset */ }
+void enter_bootloader_mode_if_requested(void) { /* not needed, no two-stage reset */
+}
 
 #elif STM32_BOOTLOADER_DUAL_BANK
 
