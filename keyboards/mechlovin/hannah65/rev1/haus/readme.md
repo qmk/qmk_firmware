@@ -1,6 +1,6 @@
 # Haus
 
-![Haus](https://i.imgur.com/sQ2QWAZ.jpg)
+![Haus](https://i.imgur.com/sQ2QWAZh.jpg)
 
 A Haus PCB, Rev.1
 
