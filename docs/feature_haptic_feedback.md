@@ -165,20 +165,25 @@ This will set what sequence HPT_RST will set as the active mode. If not defined,
 This mode sets continuous haptic feedback with the option to increase or decrease strength.
 
 ## Haptic Key Exclusion
+The Haptic Exclusion is implemented as `__attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record)` in haptic.c. This allows a re-definition at the required level with the specific requirement / exclusion.
 
-With the entry of `#define HAPTIC_EXCLUSION_KEYS` in config.h, exclusion keys can be enabled.
-By default they contain modifier and layer keys, which won't activate the haptic feedback.
+### NO_HAPTIC_MOD
+With the entry of `#define NO_HAPTIC_MOD` in config.h, modifiers from Left Control to Right GUI will not trigger a feedback. This also includes modifiers in a Mod Tap configuration.
 
-### Additional Haptic Key Exclusions
+### NO_HAPTIC_FN
+With the entry of `#define NO_HAPTIC_FN` in config.h, layer keys will not rigger a feedback.
 
-In config.h keys can be defined in a comma-separated list which will excluded from activating a haptic feedback. The list has to be follow the form of:
-```
-#define HAPTIC_EXCLUSION_KEY_ADDITIONAL { KC_A, KC_B, KC_C }
-```
+### NO_HAPTIC_ALPHA
+With the entry of `#define NO_HAPTIC_ALPHA` in config.h, none of the alpha keys (A ... Z) will trigger a feedback.
 
-### Default Key Exclusion De-activation
+### NO_HAPTIC_PUNCTUATION
+With the entry of `#define NO_HAPTIC_PUNCTUATION` in config.h, none of the following keys will trigger a feedback: Enter, ESC, Backspace, Space, Minus, Equal, Left Bracket, Right Bracket, Backslash, Non-US Hash, Semicolon, Quote, Grave, Comma, Slash, Dot, Non-US Backslash.
 
-In case it is desired to exclude only the self-defined and comma-separated list (without having the modifier and layer keys excluded), it can be achieved by turning off the default set in config.h:
-```
-#define HAPTIC_EXCLUSION_KEY_DEFAULT(keycode) 0
-```
+### NO_HAPTIC_LOCKKEYS
+With the entry of `#define NO_HAPTIC_LOCKKEYS` in config.h, none of the following keys will trigger a feedback: Caps Lock, Scroll Lock, Num Lock.
+
+### NO_HAPTIC_NAV
+With the entry of `#define NO_HAPTIC_NAV` in config.h, none of the following keys will trigger a feedback: Print Screen, Pause, Insert, Delete, Page Down, Page Up, Left Arrow, Up Arrow, Right Arrow, Down Arrow, End, Home.
+
+### NO_HAPTIC_NUMERIC
+With the entry of `#define NO_HAPTIC_NUMERIC` in config.h, none of the following keys between 0 and 9 (KC_1 ... KC_0) will trigger a feedback.
