@@ -94,6 +94,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
 #endif
+#ifdef STM32_EEPROM_ENABLE
+#    include "eeprom_stm32.h"
+#endif
+#ifdef EEPROM_DRIVER
+#    include "eeprom_driver.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) { return last_input_modification_time; }
@@ -231,6 +237,12 @@ void keyboard_setup(void) {
     disable_jtag();
 #endif
     print_set_sendchar(sendchar);
+#ifdef STM32_EEPROM_ENABLE
+    EEPROM_Init();
+#endif
+#ifdef EEPROM_DRIVER
+    eeprom_driver_init();
+#endif
     matrix_setup();
     keyboard_pre_init_kb();
 }
