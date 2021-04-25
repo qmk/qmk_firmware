@@ -23,4 +23,4 @@ LAYOUTS = 60_tsangan_hhkb 60_ansi_tsangan LAYOUT_ALL
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
-#LTO_ENABLE = yes
+LTO_ENABLE = no
