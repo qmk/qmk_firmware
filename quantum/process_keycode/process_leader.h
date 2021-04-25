@@ -37,9 +37,9 @@ void qk_leader_start(void);
     extern uint8_t  leader_sequence_size
 
 #ifdef LEADER_NO_TIMEOUT
-    #define LEADER_DICTIONARY() if (leading && leader_sequence_size > 0 && timer_elapsed(leader_time) > LEADER_TIMEOUT)
+#    define LEADER_DICTIONARY() if (leading && leader_sequence_size > 0 && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 #else
-    #define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
+#    define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 #endif
 
 #endif
