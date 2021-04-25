@@ -106,8 +106,9 @@ I plan to provide extensions to support I/O expanders such as MCP23018 and PCA95
  - CH2: Row 1
  - CH3: Row 4
  - CH4: matrix_scan()
- - Execution time of matrix_scan()  us
- - Frequency of matrix scan kHz (us)
+ - Execution time of matrix_scan()  75.6us
+ - Frequency of matrix scan 8.09kHz (123.6us)
+ ![DS1Z_QuickPrint7](https://user-images.githubusercontent.com/2170248/116003927-538d9100-a63b-11eb-9b36-7db47d9b1541.png
 
 #### `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/fast:default:flash`
  Press R0C0 key
@@ -115,7 +116,8 @@ I plan to provide extensions to support I/O expanders such as MCP23018 and PCA95
  - CH2: Row 1
  - CH3: Row 4
  - CH4: delay time
- - Frequency of matrix scan kHz (us)
+ - Frequency of matrix scan 7.84kHz (127.6us)
 
 Press R0C0 key  
-
+![DS1Z_QuickPrint9](https://user-images.githubusercontent.com/2170248/116003974-99e2f000-a63b-11eb-9c9e-3b3b1025db66.png)
+![DS1Z_QuickPrint10](https://user-images.githubusercontent.com/2170248/116003978-a1a29480-a63b-11eb-97d8-5a6e11c0db2f.png)
