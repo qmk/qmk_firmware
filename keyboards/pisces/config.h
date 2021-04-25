@@ -37,7 +37,7 @@
 
 /* key matrix size */
 // Rows are doubled-up
-#define MATRIX_ROWS 3*2
+#define MATRIX_ROWS (3*2)
 #define MATRIX_COLS 7
 
 /*
