@@ -4,5 +4,5 @@
 
 A compact 70keys keyboard (prototype) designed by mtei
 
-* Version using [Pro Micro](promicro/readme.md)
-* Version using [Proton-C](promicro/readme.md)
+* [Pro Micro version of symmetric70_proto](promicro/readme.md)
+* [Proton-C version of symmetric70_proto](proton_c/readme.md)
