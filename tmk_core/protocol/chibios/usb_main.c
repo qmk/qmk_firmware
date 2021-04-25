@@ -944,7 +944,7 @@ int8_t sendchar(uint8_t c) {
      * we can go back to the timed_out = false state, and following writes will be executed
      * with a 5ms timeout. The reason we don't just send all characters with the TIME_IMMEDIATE
      * timeout is that this could cause bytes to be lost even if hid_listen is running, if there
-     * is a lot of data being send over the console.
+     * is a lot of data being sent over the console.
      *
      * This logic will work correctly as long as hid_listen is able to receive at least 200
      * bytes per second. On a heavily overloaded machine that's so overloaded that it's
