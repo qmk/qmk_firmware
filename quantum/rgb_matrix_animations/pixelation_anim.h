@@ -28,12 +28,9 @@ static bool PIXELATION(effect_params_t* params) {
         on ? rgb_matrix_set_color(i, random8(), random8(), random8()) : rgb_matrix_set_color(i, RGB_OFF);
     }
 
-    if (mod8(scale16by8(g_rgb_timer, qadd8((rgb_matrix_config.speed >> 5), 1)), 10) == 0) {
-        set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, 1);
-    }
-    if (mod8(scale16by8(g_rgb_timer, qadd8((rgb_matrix_config.speed >> 5), 1)), 5) == 0) {
-        set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, 0);
-    }
+    uint16_t tick = scale16by8(g_rgb_timer, qadd8((rgb_matrix_config.speed >> 5), 1));
+    if (tick % 10 == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, 1); }
+    if (tick % 5 == 0)  { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, 0); }
     return false;
 }
 
