@@ -9,26 +9,26 @@ This matrix.c is quantum/matrix.c with the following additions:
 ## Compile
 
 * Set MATRIX_IO_DELAY value
-  * `make MTEST=mdelay0 handwired/symmetric70_proto/promicro:default:flash`
-  * `make MTEST=mdelay1 handwired/symmetric70_proto/promicro:default:flash`
-  * `make MTEST=mdelay2 handwired/symmetric70_proto/promicro:default:flash`
-  * `make MTEST=mdelay3 handwired/symmetric70_proto/promicro:default:flash`
-  * `make MTEST=mdelay4 handwired/symmetric70_proto/promicro:default:flash`
-  * `make MTEST=mdelay5 handwired/symmetric70_proto/promicro:default:flash`
-  * `make MTEST=mdelay10 handwired/symmetric70_proto/promicro:default:flash`
-  * `make MTEST=mdelay20 handwired/symmetric70_proto/promicro:default:flash`
-  * `make MTEST=mdelay30 handwired/symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay0 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay1 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay2 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay3 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay4 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay5 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay10 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay20 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay30 handwired/symmetric70_proto/promicro/normal:default:flash`
 * Measure the execution time of matrix_scan()
-  * `make MTEST=matrix_debug_scan[,<other options>..] handwired/symmetric70_proto/promicro:default:flash`
+  * `make MTEST=matrix_debug_scan[,<other options>..] handwired/symmetric70_proto/promicro/normal:default:flash`
 * Measure delay time.
-  * `make MTEST=matrix_debug_delay[,<other options>..] handwired/symmetric70_proto/promicro:default:flash`
+  * `make MTEST=matrix_debug_delay[,<other options>..] handwired/symmetric70_proto/promicro/normal:default:flash`
 * Change the behavior of delay
-  * `make MTEST=matrix_debug_delay,allways_delay handwired/symmetric70_proto/promicro:default:flash`
-  * `make MTEST=matrix_debug_delay,adaptive_delay,mdelay0 handwired/symmetric70_proto/promicro:default:flash`
+  * `make MTEST=matrix_debug_delay,allways_delay handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=matrix_debug_delay,adaptive_delay,mdelay0 handwired/symmetric70_proto/promicro/normal:default:flash`
 
 ## Measurement result
 ### Pro Micro
-#### `make MTEST=matrix_debug_scan handwired/symmetric70_proto/promicro:default:flash`
+#### `make MTEST=matrix_debug_scan handwired/symmetric70_proto/promicro/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -37,7 +37,7 @@ This matrix.c is quantum/matrix.c with the following additions:
  - Frequency of matrix scan 1.81kHz (551.0us)
  ![DS1Z_QuickPrint2](https://user-images.githubusercontent.com/2170248/115994477-0ba64400-a612-11eb-98ba-b8cc362f26ac.png)
 
-#### `make MTEST=matrix_debug_scan,allways_delay handwired/symmetric70_proto/promicro:default:flash`
+#### `make MTEST=matrix_debug_scan,allways_delay handwired/symmetric70_proto/promicro/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -46,7 +46,7 @@ This matrix.c is quantum/matrix.c with the following additions:
  - Frequency of matrix scan 1.76kHz (568.5us)
  ![DS1Z_QuickPrint1](https://user-images.githubusercontent.com/2170248/115994488-1660d900-a612-11eb-83b1-cd820607db03.png)
 
-#### `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro:default:flash`
+#### `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -55,7 +55,7 @@ This matrix.c is quantum/matrix.c with the following additions:
  - Frequency of matrix scan 2.32kHz (431us)
  ![DS1Z_QuickPrint3](https://user-images.githubusercontent.com/2170248/115994939-034f0880-a614-11eb-861f-b83a31efa51a.png)
 
-#### `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro:default:flash`
+#### `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/normal:default:flash`
  Press R0C0 key
  - CH1: Row 0
  - CH2: Row 1
