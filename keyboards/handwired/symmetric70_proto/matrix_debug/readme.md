@@ -9,19 +9,19 @@ This matrix.c is quantum/matrix.c with the following additions:
 ## Compile
 
 * Set MATRIX_IO_DELAY value
-  `make MTEST=mdelay0 symmetric70_proto/promicro:default:flash`
-  `make MTEST=mdelay1 symmetric70_proto/promicro:default:flash`
-  `make MTEST=mdelay2 symmetric70_proto/promicro:default:flash`
-  `make MTEST=mdelay3 symmetric70_proto/promicro:default:flash`
-  `make MTEST=mdelay4 symmetric70_proto/promicro:default:flash`
-  `make MTEST=mdelay5 symmetric70_proto/promicro:default:flash`
-  `make MTEST=mdelay10 symmetric70_proto/promicro:default:flash`
-  `make MTEST=mdelay20 symmetric70_proto/promicro:default:flash`
-  `make MTEST=mdelay30 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay0 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay1 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay2 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay3 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay4 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay5 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay10 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay20 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=mdelay30 symmetric70_proto/promicro:default:flash`
 * Measure the execution time of matrix_scan()
-  `make MTEST=matrix_debug_scan[,<other options>..] symmetric70_proto/promicro:default:flash`
+  * `make MTEST=matrix_debug_scan[,<other options>..] symmetric70_proto/promicro:default:flash`
 * Measure delay time.
-  `make MTEST=matrix_debug_delay[,<other options>..] symmetric70_proto/promicro:default:flash`
+  * `make MTEST=matrix_debug_delay[,<other options>..] symmetric70_proto/promicro:default:flash`
 * Change the behavior of delay
-  `make MTEST=matrix_debug_delay,allways_delay symmetric70_proto/promicro:default:flash`
-  `make MTEST=matrix_debug_delay,adaptive_delay,mdelay0 symmetric70_proto/promicro:default:flash`
+  * `make MTEST=matrix_debug_delay,allways_delay symmetric70_proto/promicro:default:flash`
+  * `make MTEST=matrix_debug_delay,adaptive_delay,mdelay0 symmetric70_proto/promicro:default:flash`
