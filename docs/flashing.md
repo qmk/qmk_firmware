@@ -249,3 +249,29 @@ Flashing sequence:
 2. Wait for the OS to detect the device
 3. Flash a .bin file
 4. Reset the device into application mode (may be done automatically)
+
+## tinyuf2
+
+Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F411 blackpill.
+
+The `rules.mk` setting for this bootloader is `tinyuf2`, and can be specified at the keymap or user level.
+
+To ensure compatibility with the tinyuf2 bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = tinyuf2
+```
+
+Compatible flashers:
+
+* Any application able to copy a file from one place to another, such as _macOS Finder_ or _Windows Explorer_.
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `RESET` keycode
+    * Double-tap the `nRST` button on the PCB.
+2. Wait for the OS to detect the device
+3. Copy the .uf2 file to the new USB disk
+4. Wait for the keyboard to become available
