@@ -35,14 +35,14 @@ static bool PIXELATION(effect_params_t* params) {
 
     void set_pixel_rgb(int i, effect_params_t* params, bool on) {
         if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) { return; }
-        (on) ? rgb_matrix_set_color(i, prng(), prng(), prng()) : rgb_matrix_set_color(i, RGB_OFF);
+        on ? rgb_matrix_set_color(i, prng(), prng(), prng()) : rgb_matrix_set_color(i, RGB_OFF);
     }
 
     if (!params->init) {
-        if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 20 == 0) {
+        if (scale16by8(g_rgb_timer, qadd8((rgb_matrix_config.speed >> 5), 1)) % 10 == 0) {
             set_pixel_rgb(prng() % DRIVER_LED_TOTAL, params, 1);
         }
-        if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 10 == 0) {
+        if (scale16by8(g_rgb_timer, qadd8((rgb_matrix_config.speed >> 5), 1)) % 5 == 0) {
             set_pixel_rgb(prng() % DRIVER_LED_TOTAL, params, 0);
         }
         return false;
