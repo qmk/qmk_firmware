@@ -18,7 +18,9 @@
 RGB_MATRIX_EFFECT(PIXELATION)
 #   ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+#   ifndef RAND16_SEED
 uint16_t rand16seed = 0x5eed;
+#   endif
 
 static bool PIXELATION(effect_params_t* params) {
     void set_rgb(int i, effect_params_t* params, bool on) {
