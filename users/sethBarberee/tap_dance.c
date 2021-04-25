@@ -56,11 +56,11 @@ void dance_ecap_finished (qk_tap_dance_state_t *state, void *user_data){
         case DOUBLE_TAP:
             tap_code(KC_CAPS);
             if(!caps_status.toggled){
-                // Save mode we can from
-                caps_status.normal_mode = rgblight_get_mode();
                 // Toggling caps so indicate
                 caps_status.toggled =  true;
 #ifdef RGBLIGHT_ENABLE
+                // Save mode we can from
+                caps_status.normal_mode = rgblight_get_mode();
                 rgblight_mode_noeeprom(CAPS_LOCK_MODE);
 #endif
             } else {

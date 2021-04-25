@@ -19,29 +19,34 @@
 layer_state_t layer_state_set_rgb_light(layer_state_t state){
     switch(get_highest_layer(state)) {
       case _QWERTY:
-        rgblight_sethsv_noeeprom(HSV_RED);
+        rgblight_set_hsv_and_mode(HSV_RED, RGBLIGHT_MODE_BREATHING + 3);
         break;
       case _LOWER:
-        rgblight_sethsv_noeeprom(HSV_GREEN);
+        rgblight_set_hsv_and_mode(HSV_GREEN, RGBLIGHT_MODE_BREATHING + 3);
         break;
       case _RAISE:
-        rgblight_sethsv_noeeprom(HSV_BLUE);
+        rgblight_set_hsv_and_mode(HSV_BLUE, RGBLIGHT_MODE_BREATHING + 3);
         break;
       case _ADJUST:
-        rgblight_sethsv_noeeprom(HSV_GOLDENROD);
+        rgblight_set_hsv_and_mode(HSV_GOLDENROD, RGBLIGHT_MODE_BREATHING + 3);
         break;
       default:
-        rgblight_sethsv_noeeprom(HSV_PINK);
+        rgblight_set_hsv_and_mode(HSV_PINK, RGBLIGHT_MODE_TWINKLE + 3);
         break;
 
     }
     return state;
 }
 
+void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode) {
+    rgblight_sethsv_noeeprom(hue, sat, val);
+    // wait_us(175);  // Add a slight delay between color and mode to ensure it's processed correctly
+    rgblight_mode_noeeprom(mode);
+}
+
 void keyboard_post_init_rgb_light(void)
 {
     layer_state_set_rgb_light(layer_state);
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
 }
 #endif
 
