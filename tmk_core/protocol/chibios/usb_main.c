@@ -930,18 +930,18 @@ void send_consumer(uint16_t data) {
 #ifdef CONSOLE_ENABLE
 
 int8_t sendchar(uint8_t c) {
-    static bool timeouted = false;
-    /* The `timeouted` state is roughly the same as `is hid_listen not connected?` state.
+    static bool timed_out = false;
+    /* The `timed_out` state is an approximation of the ideal `is_listener_disconnected?` state.
      *
      * When a 5ms timeout write has timed out, hid_listen is most likely not running, or not
-     * listening to this keyboard, so we go into the timeouted state. In this state we assume
+     * listening to this keyboard, so we go into the timed_out state. In this state we assume
      * that hid_listen is most likely not gonna be connected to us any time soon, so it would
      * be wasteful to write follow-up characters with a 5ms timeout, it would all add up and
      * unncecessarily slow down the firmware. However instead of just dropping the characters,
      * we write them with a TIME_IMMEDIATE timeout, which is a zero timeout,
      * and this will succeed only if hid_listen gets connected again. When a write with
      * TIME_IMMEDIATE timeout succeeds, we know that hid_listen is listening to us again, and
-     * we can go back to the timeouted = false state, and following writes will be executed
+     * we can go back to the timed_out = false state, and following writes will be executed
      * with a 5ms timeout. The reason we don't just send all characters with the TIME_IMMEDIATE
      * timeout is that this could cause bytes to be lost even if hid_listen is running, if there
      * is a lot of data being send over the console.
@@ -952,19 +952,10 @@ int8_t sendchar(uint8_t c) {
      * second, so some bytes might be lost on the console.
      */
 
-    if (!timeouted) {
-        size_t result = chnWriteTimeout(&drivers.console_driver.driver, &c, 1, TIME_MS2I(5));
-        if (result == 0) {
-            timeouted = true;
-        }
-        return result;
-    } else {
-        size_t result = chnWriteTimeout(&drivers.console_driver.driver, &c, 1, TIME_IMMEDIATE);
-        if (result != 0) {
-            timeouted = false;
-        }
-        return result;
-    }
+    const sysinterval_t timeout = timed_out ? TIME_IMMEDIATE : TIME_MS2I(5);
+    const size_t result = chnWriteTimeout(&drivers.console_driver.driver, &c, 1, timeout);
+    timed_out = (result == 0);
+    return result;
 }
 
 // Just a dummy function for now, this could be exposed as a weak function
