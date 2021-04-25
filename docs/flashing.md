@@ -270,7 +270,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode (this may only enter the MCU into a "secure" bootloader mode; see https://github.com/qmk/qmk_firmware/issues/6112)
+    * Tap the `RESET` keycode
     * Double-tap the `nRST` button on the PCB.
 2. Wait for the OS to detect the device
 3. Copy the .uf2 file to the new USB disk
