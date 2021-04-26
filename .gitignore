@@ -72,6 +72,7 @@ id_rsa_*
 
 # python things
 __pycache__
+.python-version
 
 # prerequisites for updating ChibiOS
 /util/fmpp*
