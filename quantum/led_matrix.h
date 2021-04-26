@@ -134,7 +134,6 @@ extern const led_matrix_driver_t led_matrix_driver;
 
 extern led_eeconfig_t led_matrix_eeconfig;
 
-extern bool         g_suspend_state;
 extern uint32_t     g_led_timer;
 extern led_config_t g_led_config;
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
