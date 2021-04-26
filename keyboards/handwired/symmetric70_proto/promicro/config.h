@@ -30,16 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
 /* Pro Micro **************************
                  ====
          +-------====------+
@@ -57,13 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   SEL_AB | B5           B6 | COL_0_1_R
         +-----------------+
 ***************************************/
-#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-#define MATRIX_COL_PINS { F4,F4,F5,F5, F6,F6,F7,F7,  B6,B6,B2,B2, B3,B3,B1,B1 }
-#define UNUSED_PINS
 
-#define MATRIX_MUL_SEL  {  0, 1, 0, 1,  0, 1, 0, 1,   1, 0, 1, 0,  1, 0, 1, 0 }
-/* use 74HC157: quadruple 2-line to 1-line data selectors / multiplexers */
-#define MATRIX_MUL_SELECT  B5 /* 74HC157 pin1:~A/B */
+#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
