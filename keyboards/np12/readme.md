@@ -10,9 +10,15 @@ Square-shaped 12 keys keypad with an encoder.
 * Hardware Supported: np12 keypad
 * Hardware Availability: Open Source https://github.com/nut1414/np12
 
-Make example for this keyboard (after setting up your build environment):
+
+Make example for this keypad (after setting up your build environment):
 
     make np12:default
+	
+
+Flashing example for this keyboard:
+
+    make np12:default:flash
 
 To enter bootloader mode, press the reset button located on the left of the encoder.
 
