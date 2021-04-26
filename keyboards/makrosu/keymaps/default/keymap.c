@@ -106,9 +106,6 @@ void matrix_init_user(void) {
     writePinHigh(IND_3);
 }
 
-void matrix_scan_user(void) {
-}
-
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (layer_state_is(_1)) {
 	if (clockwise) {
