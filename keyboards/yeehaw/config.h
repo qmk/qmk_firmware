@@ -25,9 +25,6 @@
 #define PRODUCT         Yeehaw
 #define DESCRIPTION     Texas Shaped 14 Key Macropad
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 5
 
 /* key matrix size */
 #define MATRIX_ROWS 1

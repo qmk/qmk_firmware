@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    YEEHAW = SAFE_RANGE,
+    YEEHAW = SAFE_RANGE, 
     SQUASHKB,
 };
 
@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_HUI, 
         RGB_HUD, 
         RGB_SAI, RGB_VAI, RGB_VAD, RGB_SPI,
-KC_TRNS, RGB_SAD, RGB_MOD, RGB_RMOD, RGB_SPD,
+KC_TRNS, RGB_SAD, RGB_M_P, RGB_MOD, RGB_SPD,
         KC_TRNS, KC_TRNS, 
              RESET
     ),
