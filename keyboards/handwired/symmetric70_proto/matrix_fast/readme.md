@@ -111,13 +111,54 @@ I plan to provide extensions to support I/O expanders such as MCP23018 and PCA95
  ![DS1Z_QuickPrint7](https://user-images.githubusercontent.com/2170248/116003927-538d9100-a63b-11eb-9b36-7db47d9b1541.png)
 
 #### `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/fast:default:flash`
- Press R0C0 key
+##### Press R0C0 key
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
  - CH4: delay time
  - Frequency of matrix scan 7.84kHz (127.6us)
 
-Press R0C0 key  
 ![DS1Z_QuickPrint9](https://user-images.githubusercontent.com/2170248/116003974-99e2f000-a63b-11eb-9c9e-3b3b1025db66.png)
 ![DS1Z_QuickPrint10](https://user-images.githubusercontent.com/2170248/116003978-a1a29480-a63b-11eb-97d8-5a6e11c0db2f.png)
+
+### Proton C
+#### `make MTEST=matrix_debug_scan handwired/symmetric70_proto/proton_c/fast:default:flash`
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Row 4
+ - CH4: matrix_scan()
+ - Execution time of matrix_scan()  49.8us
+ - Frequency of matrix scan 15.1kHz (66.2.6us)
+
+![DS1Z_QuickPrint11](https://user-images.githubusercontent.com/2170248/116088141-8cca0d80-a6dc-11eb-8782-1d29c57690b8.png)
+
+#### `make MTEST=matrix_debug_delay handwired/symmetric70_proto/proton_c/fast:default:flash`
+##### Press R0C0 key
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Row 4
+ - CH4: delay time
+ - Frequency of matrix scan 13.9kHz (71.8us)
+
+![DS1Z_QuickPrint12](https://user-images.githubusercontent.com/2170248/116088247-a8cdaf00-a6dc-11eb-8a47-104694a40117.png)
+![DS1Z_QuickPrint13](https://user-images.githubusercontent.com/2170248/116088262-ac613600-a6dc-11eb-804c-7dcbd71c83d5.png)
+
+##### Connect a 500pF capacitor between C0 line and GND, Press R0C0, R1C0, R2C0,  R3C0,  R4C0 keys
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Col 0
+ - CH4: delay time
+ - Delay time 11.6us
+ - Threshold Voltage 1.9V
+
+![DS1Z_QuickPrint14](https://user-images.githubusercontent.com/2170248/116089205-90aa5f80-a6dd-11eb-89c4-72315c80ba0e.png)
+
+##### Connect a 1000pF capacitor between C0 line and GND, Press R0C0, R1C0, R2C0,  R3C0,  R4C0 keys
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Col 0
+ - CH4: delay time
+ - Delay time 18.6us
+ - Threshold Voltage 1.9V
+
+![DS1Z_QuickPrint15](https://user-images.githubusercontent.com/2170248/116089229-96a04080-a6dd-11eb-8b63-f91b03a9db0c.png)
