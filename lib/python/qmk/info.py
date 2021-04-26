@@ -43,7 +43,7 @@ def info_json(keyboard):
         info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
 
     # Populate layout data
-    layouts, aliases = _find_all_layouts(info_data, keyboard)
+    layouts, aliases = _search_keyboard_h(Path(keyboard))
 
     if aliases:
         info_data['layout_aliases'] = aliases
@@ -362,6 +362,8 @@ def _merge_layouts(info_data, new_info_data):
 
 
 def _search_keyboard_h(path):
+    """Looks for layout macros associated with this keyboard.
+    """
     current_path = Path('keyboards/')
     aliases = {}
     layouts = {}
@@ -377,29 +379,6 @@ def _search_keyboard_h(path):
             for alias, alias_text in new_aliases.items():
                 if alias_text in layouts:
                     aliases[alias] = alias_text
-
-    return layouts, aliases
-
-
-def _find_all_layouts(info_data, keyboard):
-    """Looks for layout macros associated with this keyboard.
-    """
-    layouts, aliases = _search_keyboard_h(Path(keyboard))
-
-    if not layouts:
-        # If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
-        info_data['parse_warnings'].append('%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
-
-        for file in glob('keyboards/%s/*.h' % keyboard):
-            if file.endswith('.h'):
-                these_layouts, these_aliases = find_layouts(file)
-
-                if these_layouts:
-                    layouts.update(these_layouts)
-
-                for alias, alias_text in these_aliases.items():
-                    if alias_text in layouts:
-                        aliases[alias] = alias_text
 
     return layouts, aliases
 
