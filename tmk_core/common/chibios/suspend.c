@@ -155,7 +155,7 @@ void suspend_wakeup_init(void) {
     rgblight_wakeup();
 #endif
 #    if defined(RGB_MATRIX_ENABLE)
-    rgb_matrix_set_suspend_state(true);
+    rgb_matrix_set_suspend_state(false);
 #    endif
     suspend_wakeup_init_kb();
 }
