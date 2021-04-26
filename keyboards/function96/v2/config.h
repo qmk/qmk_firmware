@@ -21,15 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x672A
-#define DEVICE_VER 0x0001
-#define MANUFACTURER JTM
-#define PRODUCT function96
+#define VENDOR_ID    0x2A34 // JT , JTMDesign
+#define PRODUCT_ID   0x672B
+#define DEVICE_VER   0x0002
+#define MANUFACTURER JTMDesign
+#define PRODUCT      function96v2
 
 /* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 19
+#define MATRIX_ROWS  6
+#define MATRIX_COLS  19
 
 /*
  * Keyboard Matrix Assignments
@@ -41,8 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F1, F0, C15, C14, C13, B9 }
-#define MATRIX_COL_PINS { A3, A4, A5, A6, A7, B0, B1, B2, B10, B12, A13, A14, A15, B3, B4, B5, B6, B7, B8}
+#define MATRIX_ROW_PINS { A9, A8, B15, B14, B13, B12 }
+#define MATRIX_COL_PINS { A3, A4, A5, A6, A7, B0, B1, B2, B10, B11, A14, A15, B3, B4, B5, B6, B7, B8, B9}
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
