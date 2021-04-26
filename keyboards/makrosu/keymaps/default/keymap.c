@@ -26,7 +26,7 @@ enum planck_layers {
 
 
 enum planck_keycodes {
-  L1,
+  L1 = SAFE_RANGE,
   L2,
   L3
   
