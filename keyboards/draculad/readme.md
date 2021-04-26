@@ -14,13 +14,13 @@
 * Hardware availability: [check my github](https://github.com/MangoIV)
 
 Make example for this keyboard (after setting up your build env):
-    make draculad:default
+    ```make draculad:default```
 or for the version using the pimoroni trackball
-    make draculad:pimoroni
+    ```make draculad:pimoroni```
     
 Flashing example for dfu and catarina respectively (replace default with the name of your keymap)
-    make draculad:default:dfu
-    make draculad:default:flash
+    `make draculad:default:dfu`
+    `make draculad:default:flash`
 
 When flashing the first time using handedness by eeprom, use the [qmk guide for that topic](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom)
 
