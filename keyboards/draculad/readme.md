@@ -18,6 +18,7 @@ Make example for this keyboard (after setting up your build env):
     make draculad:default
     
 or for the version using the pimoroni trackball
+
     make draculad:pimoroni
     
 Flashing example for dfu and catarina respectively (replace default with the name of your keymap)
