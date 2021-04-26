@@ -19,22 +19,14 @@ RGB_MATRIX_EFFECT(PIXELATION)
 #   ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static bool PIXELATION(effect_params_t* params) {
-    uint8_t prng8(void) {
-        #define rot8(x,k) (((x) << (k))|((x) >> (8 - (k))))
-        static uint8_t a = 73, b = 29;
-        uint8_t t = sub8(a, rot8(b, 1));
-        a = b ^ rot8(t, 4);
-        return b = add8(t, a);
-    }
-
     void set_rgb(int i, effect_params_t* params, bool on) {
         if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) { return; }
-        on ? rgb_matrix_set_color(i, prng8(), prng8(), prng8()) : rgb_matrix_set_color(i, RGB_OFF);
+        on ? rgb_matrix_set_color(i, random8(), random8(), random8()) : rgb_matrix_set_color(i, RGB_OFF);
     }
 
     uint16_t tick = scale16by8(g_rgb_timer, qadd8((rgb_matrix_config.speed >> 5), 1));
-    if (mod8(tick, 10) == 0) { set_rgb(mod8(prng8(), DRIVER_LED_TOTAL), params, 1); }
-    if (mod8(tick,  5) == 0) { set_rgb(mod8(prng8(), DRIVER_LED_TOTAL), params, 0); }
+    if (mod8(tick, 10) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, 1); }
+    if (mod8(tick,  5) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, 0); }
     return false;
 }
 
