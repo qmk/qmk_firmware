@@ -199,16 +199,16 @@ enum custom_keycodes {
  * `----------------------------------'        `----------------------------------'
  */
 
-#define _________________FFXIV_L0__________________        KC_ESC,  KC_GRV,  KC_TAB,  KC_4,    LT(_ADJUST, KC_5)
-#define _________________FFXIV_L1__________________        _________________QWERTY_L1_________________
-#define _________________FFXIV_L2__________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#define _________________FFXIV_L3__________________        _________________QWERTY_L3_________________
+#define _________________FFXIV_L0__________________        KC_ESC,  KC_GRV,  KC_TAB,  KC_1,    LT(_ADJUST, KC_2)
+#define _________________FFXIV_L1__________________        _________________COLEMAK_L1________________
+#define _________________FFXIV_L2__________________        KC_A,    KC_R,    KC_S,    KC_T,    KC_G
+#define _________________FFXIV_L3__________________        _________________COLEMAK_L3________________
 #define _________________FFXIV_LT__________________        XXXXXXX, XXXXXXX, KC_LALT, KC_LSFT, KC_LGUI
 
 #define _________________FFXIV_R0__________________        KC_6,    KC_7,   KC_8,    KC_9,    KC_0
-#define _________________FFXIV_R1__________________        _________________QWERTY_R1_________________
-#define _________________FFXIV_R2__________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT
-#define _________________FFXIV_R3__________________        _________________QWERTY_R3_________________
+#define _________________FFXIV_R1__________________        _________________COLEMAK_R1________________
+#define _________________FFXIV_R2__________________        KC_M,    KC_N,    KC_E,    KC_I,    KC_O
+#define _________________FFXIV_R3__________________        _________________COLEMAK_R3________________
 #define _________________FFXIV_RT__________________        KC_ENT,  KC_SPC, KC_BSPC,  XXXXXXX, XXXXXXX
 
 /* Empty sides for alternate layers
