@@ -435,6 +435,44 @@ ifneq ($(findstring STM32G474, $(MCU)),)
   UF2_FAMILY ?= STM32G4
 endif
 
+ifneq (,$(filter $(MCU),STM32L433 STM32L443))
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32L4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32L432xC
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32l4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_L433XC
+
+  PLATFORM_NAME ?= platform_l432
+
+  USE_FPU ?= yes
+
+  # Options to pass to dfu-util when flashing
+  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+
+  # UF2 settings
+  UF2_FAMILY ?= STM32L4
+endif
+
 ifneq (,$(filter $(MCU),at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647 at90usb1286 at90usb1287))
   PROTOCOL = LUFA
 
