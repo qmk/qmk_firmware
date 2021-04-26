@@ -96,7 +96,7 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     uint16_t p2 = adc_read(OPT_ENC2_MUX);
     if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
 
-    uint8_t dir = opt_encoder_handler(p1, p2);
+    int dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
     process_wheel_user(mouse_report, mouse_report->h, (int)(mouse_report->v + (dir * OPT_SCALE)));
@@ -255,7 +255,12 @@ void pointing_device_task(void) {
 
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;
+#ifdef PLOOPY_DRAGSCROLL_INVERT
+        // Invert vertical scroll direction
+        mouse_report.v = -mouse_report.y;
+#else
         mouse_report.v = mouse_report.y;
+#endif
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
