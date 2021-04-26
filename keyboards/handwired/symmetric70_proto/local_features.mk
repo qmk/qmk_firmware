@@ -1,15 +1,15 @@
 # matrix.c testing options
 #  set MATRIX_IO_DELAY macro
-#    make MTEST=mdelay0  symmetric70_proto/promicro/{fast|normal}:default:flash
-#    make MTEST=mdelay1  symmetric70_proto/promicro/{fast|normal}:default:flash
-#    make MTEST=mdelay10 symmetric70_proto/promicro/{fast|normal}:default:flash
-#    make MTEST=mdelay30 symmetric70_proto/promicro/{fast|normal}:default:flash
+#    make MTEST=mdelay0  symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
+#    make MTEST=mdelay1  symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
+#    make MTEST=mdelay10 symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
+#    make MTEST=mdelay30 symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
 #  set DEBUG_MATRIX_SCAN_RATE_ENABLE yes
-#    make MTEST=scan symmetric70_proto/promicro/{fast|normal}:default:flash
+#    make MTEST=scan symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
 #  set MATRIX_DEBUG_DELAY and MATRIX_IO_DELAY macro
-#    make MTEST=matrix_debug_delay,mdelay0 symmetric70_proto/promicro/{fast|normal}:default:flash
+#    make MTEST=matrix_debug_delay,mdelay0 symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
 #  set MATRIX_DEBUG_SCAN
-#    make MTEST=matrix_debug_scan symmetric70_proto/promicro/{fast|normal}:default:flash
+#    make MTEST=matrix_debug_scan symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
 
 ifneq ($(strip $(MTEST)),)
   define KEYBOARD_OPTION_PARSE
@@ -79,20 +79,23 @@ endif
 
 ifeq ($(strip $(ADAPTIVE_DELAY)),yes)
     OPT_DEFS += -DMATRIX_IO_DELAY_ADAPTIVE
-    DEBUG_CONFIG = yes  # include "debug_config.h" from promicro/config.h
 endif
 
 ifeq ($(strip $(ALLWAYS_DELAY)),yes)
     OPT_DEFS += -DMATRIX_IO_DELAY_ALLWAYS
-    DEBUG_CONFIG = yes  # include "debug_config.h" from promicro/config.h
 endif
 
 ifeq ($(strip $(MATRIX_DEBUG_DELAY)),yes)
-    OPT_DEFS += -DDEBUG_CONFIG -DMATRIX_DEBUG_DELAY
-    DEBUG_CONFIG = yes  # include "debug_config.h" from promicro/config.h
+    OPT_DEFS += -DMATRIX_DEBUG_DELAY
+    DEBUG_CONFIG = yes
 endif
 
 ifeq ($(strip $(MATRIX_DEBUG_SCAN)),yes)
-    OPT_DEFS += -DDEBUG_CONFIG -DMATRIX_DEBUG_SCAN
-    DEBUG_CONFIG = yes  # include "debug_config.h" from promicro/config.h
+    OPT_DEFS += -DMATRIX_DEBUG_SCAN
+    DEBUG_CONFIG = yes
+endif
+
+ifeq ($(strip $(DEBUG_CONFIG)),yes)
+    # include "debug_config.h" from {promicro|proton_c}/config.h
+    OPT_DEFS += -DDEBUG_CONFIG
 endif
