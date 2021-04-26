@@ -21,12 +21,18 @@ RGB_MATRIX_EFFECT(PIXELATION)
 static bool PIXELATION(effect_params_t* params) {
     void set_rgb(int i, effect_params_t* params, bool on) {
         if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) { return; }
-        on ? rgb_matrix_set_color(i, random8(), random8(), random8()) : rgb_matrix_set_color(i, RGB_OFF);
+        if (on) {
+            HSV hsv = {random8(), add8(random8() >> 1, 127), rgb_matrix_config.hsv.v};
+            RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        } else {
+            rgb_matrix_set_color(i, RGB_OFF);
+        }
     }
 
     uint16_t tick = scale16by8(g_rgb_timer, add8(rgb_matrix_config.speed >> 5, 1));
-    if (mod8(tick, 10) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, 1); }
-    if (mod8(tick,  5) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, 0); }
+    if (mod8(tick, 10) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, true); }
+    if (mod8(tick,  5) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, false); }
     return false;
 }
 
