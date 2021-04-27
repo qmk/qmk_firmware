@@ -10,14 +10,14 @@ This matrix.c is quantum/matrix.c with the following additions:
 
 * Set MATRIX_IO_DELAY value
   * `make MTEST=mdelay0 handwired/symmetric70_proto/promicro/normal:default:flash`
-  * `make MTEST=mdelay1 handwired/symmetric70_proto/promicro/normal:default:flash`
-  * `make MTEST=mdelay2 handwired/symmetric70_proto/promicro/normal:default:flash`
-  * `make MTEST=mdelay3 handwired/symmetric70_proto/promicro/normal:default:flash`
-  * `make MTEST=mdelay4 handwired/symmetric70_proto/promicro/normal:default:flash`
-  * `make MTEST=mdelay5 handwired/symmetric70_proto/promicro/normal:default:flash`
-  * `make MTEST=mdelay10 handwired/symmetric70_proto/promicro/normal:default:flash`
-  * `make MTEST=mdelay20 handwired/symmetric70_proto/promicro/normal:default:flash`
-  * `make MTEST=mdelay30 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay=1 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay=2 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay=3 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay=4 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay=5 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay=10 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay=20 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=mdelay=30 handwired/symmetric70_proto/promicro/normal:default:flash`
 * Measure the execution time of matrix_scan()
   * `make MTEST=matrix_debug_scan[,<other options>..] handwired/symmetric70_proto/promicro/normal:default:flash`
 * Measure delay time.

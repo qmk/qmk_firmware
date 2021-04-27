@@ -1,9 +1,8 @@
 # matrix.c testing options
 #  set MATRIX_IO_DELAY macro
-#    make MTEST=mdelay0  symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
-#    make MTEST=mdelay1  symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
-#    make MTEST=mdelay10 symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
-#    make MTEST=mdelay30 symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
+#    make MTEST=mdelay0   symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
+#    make MTEST=mdelay=1  symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
+#    make MTEST=mdelay=10  symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
 #  set DEBUG_MATRIX_SCAN_RATE_ENABLE yes
 #    make MTEST=scan symmetric70_proto/{promicro|proton_c}/{fast|normal}:default:flash
 #  set MATRIX_DEBUG_DELAY and MATRIX_IO_DELAY macro
@@ -13,7 +12,7 @@
 
 ifneq ($(strip $(MTEST)),)
   define KEYBOARD_OPTION_PARSE
-    # parse 'consle', 'scan', 'no-scan', 'mdelay0', ..., 'mdelay30',
+    # parse 'consle', 'scan', 'no-scan', 'mdelay=?', 'mdelay0',
     #       'adaptive_delay', 'allways_delay', 'matrix_debug_delay', 'matrix_debug_scan'
     $(if $(SHOW_PARSE),$(info parse .$1.))  #for debug  'make SHOW_PARSE=y ...'
     ifeq ($(strip $1),console)
@@ -25,32 +24,11 @@ ifneq ($(strip $(MTEST)),)
     ifeq ($(strip $1),no-scan)
         DEBUG_MATRIX_SCAN_RATE_ENABLE = no
     endif
+    ifneq ($(filter mdelay=%,$1),)
+        MDELAY = $(patsubst mdelay=%,%,$1)
+    endif
     ifeq ($(strip $1),mdelay0)
         MDELAY = 0
-    endif
-    ifeq ($(strip $1),mdelay1)
-        MDELAY = 1
-    endif
-    ifeq ($(strip $1),mdelay2)
-        MDELAY = 2
-    endif
-    ifeq ($(strip $1),mdelay3)
-        MDELAY = 3
-    endif
-    ifeq ($(strip $1),mdelay4)
-        MDELAY = 4
-    endif
-    ifeq ($(strip $1),mdelay5)
-        MDELAY = 5
-    endif
-    ifeq ($(strip $1),mdelay10)
-        MDELAY = 10
-    endif
-    ifeq ($(strip $1),mdelay20)
-        MDELAY = 20
-    endif
-    ifeq ($(strip $1),mdelay30)
-        MDELAY = 30
     endif
     ifeq ($(strip $1),common_delay)
         MATRIX_COMMON_DELAY = yes
