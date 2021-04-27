@@ -31,8 +31,7 @@ static bool PIXELATION(effect_params_t* params) {
     }
 
     uint16_t tick = scale16by8(g_rgb_timer, add8(rgb_matrix_config.speed >> 5, 1));
-    if (mod8(tick, 10) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, true); }
-    if (mod8(tick,  5) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, false); }
+    if (mod8(tick, 5) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, random8() & 1); }
     return false;
 }
 
