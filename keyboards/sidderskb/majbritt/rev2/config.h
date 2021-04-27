@@ -29,20 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
-
+                        //0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10, 11, 12, 13, 14 ,15
 #define MATRIX_ROW_PINS { B0, B1, F7, C6, B5}
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, C7, B6, D6, B4, D4, D7, D5 ,D3, D2, D1, D0}
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
+#define ENCODERS_PAD_A { B3 }
+#define ENCODERS_PAD_B { B7 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
