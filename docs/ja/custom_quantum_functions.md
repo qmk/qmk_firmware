@@ -192,8 +192,8 @@ void keyboard_post_init_user(void) {
 
 # キーボードハウスキーピング :id=keyboard-housekeeping
 
-* Keyboard/Revision: `void housekeeping_task_kb(void)`
-* Keymap: `void housekeeping_task_user(void)`
+* キーボード/リビジョン: `void housekeeping_task_kb(void)`
+* キーマップ: `void housekeeping_task_user(void)`
 
 この関数は、全ての QMK 処理の最後に、次の繰り返しを開始する前に呼び出されます。これらの関数が呼び出された時点で、QMK が最後のマトリックススキャンを処理したと、安全に見なすことができます -- レイヤーの状態が更新され、USB レポートが送信され、LED が更新され、表示が描画されました。
 
