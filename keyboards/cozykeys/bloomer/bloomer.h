@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#ifdef KEYBOARD_cozykeys_bloomer_v2
+#if defined(KEYBOARD_cozykeys_bloomer_v2)
     #include "v2.h"
-#elif KEYBOARD_cozykeys_bloomer_v3
+#elif defined(KEYBOARD_cozykeys_bloomer_v3)
     #include "v3.h"
 #endif
