@@ -153,12 +153,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KVM_SW1:
             if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_SCROLLLOCK) SS_TAP(X_SCROLLLOCK) "1");
+                SEND_STRING(SS_TAP(X_RCTL) SS_TAP(X_RCTL) "1");
             } else {}
             break;
         case KVM_SW2:
             if(record->event.pressed) {
-                SEND_STRING(SS_TAP(X_SCROLLLOCK) SS_TAP(X_SCROLLLOCK) "2");
+                SEND_STRING(SS_TAP(X_RCTL) SS_TAP(X_RCTL) "2");
             } else {}
             break;
         case CYC_LED:
