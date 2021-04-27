@@ -1,8 +1,8 @@
 # @noroadsleft's KC60 keymap
 
-### Last updated: November 5, 2019, 12:07 AM UTC-0800
+### Last updated: April 26, 2021 13:33 (-0700)
 
-![](https://i.imgur.com/tzhXQYI.jpg)
+![](https://i.imgur.com/tzhXQYIl.jpg)
 
 I am a full-time Dvorak typist, and occasional semi-serious FPS gamer. The layers are oriented towards a mix of typing and gaming.
 
@@ -27,12 +27,11 @@ Descriptions of the physical locations of keys will use the key's function in a 
   - Layer 0: QWERTY `_QW`
   - Layer 1: Hardware Dvorak `_DV`
   - Layer 2: Hardware Colemak `_CM`
-- [Quake 2 Overlays](./readme_ch2.md)
-  - Layers 3, 4 and 5: Quake 2 `_Q2`, Quake 2 Dvorak `_QD`, and Quake 2 Console `_QC`
+- [Quake 2 Layer](./readme_ch2.md)
+  - Layer 3: Quake 2 `_Q2`
 - [Function Layers](./readme_ch3.md)
-  - Layer 6: Fn layer `_FN`
-  - Layer 7: Quake 2 Fn layer `_FQ`
+  - Layer 4: Fn layer `_FN`
 - [Other Layers](./readme_ch4.md)
-  - Layer 8: Numpad layer `_NP`
-  - Layer 9: Macro layer `_MA`
-  - Layer 10: System layer `_SY`
+  - Layer 5: Numpad layer `_NP`
+  - Layer 6: Macro layer `_MA`
+  - Layer 7: System layer `_SY`
