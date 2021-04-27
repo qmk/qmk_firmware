@@ -90,6 +90,7 @@ enum Mode {
     MODE_SPLASH,
     MODE_MULTISPLASH,
     MODE_ACTIVE_KEYS,
+    MODE_DISABLED,
     MODE_LAST,
 };
 
@@ -108,6 +109,7 @@ static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_SPLASH,
     RGB_MATRIX_MULTISPLASH,
     RGB_MATRIX_CUSTOM_active_keys,
+    RGB_MATRIX_NONE,
 };
 
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
