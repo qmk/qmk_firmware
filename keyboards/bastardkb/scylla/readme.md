@@ -1,6 +1,6 @@
-# The Bastard Keyboard
+# Scylla
 
-A split ergonomic keyboard.
+A modern, low-profile split ergonomic keyboard
 
 * Keyboard Maintainer: [Bastard Keyboards](https://github.com/Bastardkb/)
 * Hardware Supported: elite-C V4
