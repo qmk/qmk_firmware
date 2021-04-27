@@ -147,7 +147,6 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     if (current_row_value) {  // wait for col signal to go HIGH
         for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
             MATRIX_DEBUG_DELAY_END();
-            MATRIX_DEBUG_GAP();
             MATRIX_DEBUG_DELAY_START();
 #ifdef MATRIX_MUL_SELECT
             writePin(MATRIX_MUL_SELECT,col_sel[col_index]);
@@ -155,6 +154,23 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 #endif
             while (readPin(col_pins[col_index]) == 0) {}
         }
+    }
+#endif
+#ifdef MATRIX_IO_DELAY_ADAPTIVE2
+    if (current_row_value) {  // wait for col signal to go HIGH
+        pin_t state;
+        do {
+            state = 0;
+            for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+                MATRIX_DEBUG_DELAY_END();
+                MATRIX_DEBUG_DELAY_START();
+#ifdef MATRIX_MUL_SELECT
+                writePin(MATRIX_MUL_SELECT,col_sel[col_index]);
+                waitInputPinDelay();
+#endif
+                state |= (readPin(col_pins[col_index]) == 0);
+            }
+        } while (state);
     }
 #endif
     if (MATRIX_IO_DELAY_ALLWAYS || current_row + 1 < MATRIX_ROWS) {

@@ -58,6 +58,9 @@ ifneq ($(strip $(MTEST)),)
     ifeq ($(strip $1),adaptive_delay)
 	ADAPTIVE_DELAY = yes
     endif
+    ifeq ($(strip $1),adaptive_delay2)
+	ADAPTIVE_DELAY2 = yes
+    endif
     ifeq ($(strip $1),allways_delay)
         ALLWAYS_DELAY = yes
     endif
@@ -82,6 +85,10 @@ endif
 
 ifeq ($(strip $(ADAPTIVE_DELAY)),yes)
     OPT_DEFS += -DMATRIX_IO_DELAY_ADAPTIVE
+endif
+
+ifeq ($(strip $(ADAPTIVE_DELAY2)),yes)
+    OPT_DEFS += -DMATRIX_IO_DELAY_ADAPTIVE2
 endif
 
 ifeq ($(strip $(ALLWAYS_DELAY)),yes)
