@@ -29,6 +29,8 @@ static bool PIXELATION(effect_params_t* params) {
             rgb_matrix_set_color(i, RGB_OFF);
         }
     }
+    
+    if (params->init) { random16_set_seed(0xe089); }
 
     uint16_t tick = scale16by8(g_rgb_timer, add8(rgb_matrix_config.speed >> 5, 1));
     if (mod8(tick, 5) == 0) { set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, random8() & 1); }
