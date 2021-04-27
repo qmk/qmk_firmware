@@ -52,6 +52,9 @@ ifneq ($(strip $(MTEST)),)
     ifeq ($(strip $1),mdelay30)
         MDELAY = 30
     endif
+    ifeq ($(strip $1),common_delay)
+        MATRIX_COMMON_DELAY = yes
+    endif
     ifeq ($(strip $1),adaptive_delay)
 	ADAPTIVE_DELAY = yes
     endif
@@ -98,4 +101,9 @@ endif
 ifeq ($(strip $(DEBUG_CONFIG)),yes)
     # include "debug_config.h" from {promicro|proton_c}/config.h
     OPT_DEFS += -DDEBUG_CONFIG
+endif
+
+ifeq ($(strip $(MATRIX_COMMON_DELAY)),yes)
+    # use matrix_output_unselect_delay() in matrix_common.c
+    OPT_DEFS += -DMATRIX_IO_DELAY_DEFAULT
 endif
