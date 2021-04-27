@@ -6,7 +6,7 @@ A 65% PCB, compatible with E6.5, Kyuu,...
 
 * Keyboard Maintainer: [Team Mechlovin](https://github.com/mechlovin)
 * Hardware Supported: Hannah65, STM32F303
-* Hardware Availability: [Mechlovin Store](https://mechlove.com/)
+* Hardware Availability: [Mechlovin Store](https://mechlovin.studio)
 
 Make example for this keyboard (after setting up your build environment):
 
