@@ -41,5 +41,3 @@ void qk_leader_start(void);
 #else
 #    define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 #endif
-
-#endif
