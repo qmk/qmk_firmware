@@ -36,3 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_SLEEP
+
+/* Set Unicode mode by default */
+#define UNICODE_SELECTED_MODES UC_MAC

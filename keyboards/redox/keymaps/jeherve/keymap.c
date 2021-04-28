@@ -231,11 +231,6 @@ void persistent_default_layer_set(uint16_t default_layer) {
 	default_layer_set(default_layer);
 }
 
-// Set unicode in Mac OS.
-void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_MAC);
-};
-
 // Change LED colors depending on the layer.
 uint32_t layer_state_set_user(uint32_t state) {
 	switch (biton32(state)) {
