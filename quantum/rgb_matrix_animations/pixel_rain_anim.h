@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DISABLE_RGB_MATRIX_PIXEL_SHOWER
-RGB_MATRIX_EFFECT(PIXEL_SHOWER)
+#ifndef DISABLE_RGB_MATRIX_PIXEL_RAIN
+RGB_MATRIX_EFFECT(PIXEL_RAIN)
 #   ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static bool PIXEL_SHOWER(effect_params_t* params) {
+static bool PIXEL_RAIN(effect_params_t* params) {
     static uint32_t timer = 0;
     uint16_t speed = 500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16);
     if (timer > g_rgb_timer) { return false; }
@@ -41,4 +41,4 @@ static bool PIXEL_SHOWER(effect_params_t* params) {
 }
 
 #   endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif    // DISABLE_RGB_MATRIX_PIXEL_SHOWER
+#endif    // DISABLE_RGB_MATRIX_PIXEL_RAIN

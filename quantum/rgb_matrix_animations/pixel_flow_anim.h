@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DISABLE_RGB_MATRIX_PIXEL_TICKER
-RGB_MATRIX_EFFECT(PIXEL_TICKER)
+#ifndef DISABLE_RGB_MATRIX_PIXEL_FLOW
+RGB_MATRIX_EFFECT(PIXEL_FLOW)
 #   ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static bool PIXEL_TICKER(effect_params_t* params) {
+static bool PIXEL_FLOW(effect_params_t* params) {
     static RGB led[DRIVER_LED_TOTAL];
     static uint32_t timer = 0;
     uint16_t speed = 1500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16);
@@ -45,4 +45,4 @@ static bool PIXEL_TICKER(effect_params_t* params) {
 }
 
 #   endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif    // DISABLE_RGB_MATRIX_PIXEL_TICKER
+#endif    // DISABLE_RGB_MATRIX_PIXEL_FLOW
