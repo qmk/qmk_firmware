@@ -1,9 +1,9 @@
 # Neopad
 
-Neopad is a little macro pad with four switches and two rotary encoders, made by through hole components only.
+Neopad is a little macropad with four switches and two rotary encoders, made by through hole components only.
 _Actually the number of switches is six, because even the encoder are allowed to click._
 
-![Neopad](https://i.imgur.com/TgOkj2F.jpg "Neopad first proto")
+![Neopad](https://i.imgur.com/TgOkj2Fh.jpg "Neopad first proto")
 
 The Neopad in the photo above is the first prototype. See the project repository for revision 1 update and KiCad files.
 
