@@ -39,3 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set Unicode mode by default */
 #define UNICODE_SELECTED_MODES UC_MAC
+
+/* Custom startup sound */
+#ifdef AUDIO_ENABLE
+#    define STARTUP_SONG SONG(ZELDA_PUZZLE)
+#endif

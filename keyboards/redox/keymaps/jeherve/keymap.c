@@ -12,6 +12,11 @@ extern keymap_config_t keymap_config;
 #define _INTER 3
 #define _ADJUST 4
 
+// Define song.
+#ifdef AUDIO_ENABLE
+float tone_zelda[][2] = SONG(ZELDA_TREASURE);
+#endif
+
 enum custom_keycodes {
     COLEMAK = SAFE_RANGE,
     SYMB,
@@ -54,6 +59,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case YOSHI:
             if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(tone_zelda);
+#endif
                 SEND_STRING(":yellow_yoshi:");
             }
             return false;
@@ -216,10 +224,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
-
-#ifdef AUDIO_ENABLE
-float tone_colemak[][2] = SONG(ZELDA_TREASURE);
-#endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
     eeconfig_update_default_layer(default_layer);
