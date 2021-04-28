@@ -25,7 +25,6 @@ enum custom_keycodes {
     WAVE,
     YOSHI,
     THUMB_UP,
-    NBSP,
     INV_1P,
     ALFRED
 };
@@ -68,12 +67,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WAVE:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT("D83D+DC4B"));
-            }
-            return false;
-            break;
-        case NBSP:
-            if (record->event.pressed) {
-                SEND_STRING("&nbsp;");
             }
             return false;
             break;
@@ -147,6 +140,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define UC_0171 UC(0x0171)
 #define UC_00EA UC(0x00EA)
 #define UC_0151 UC(0x0151)
+// Non-breaking space.
+#define UC_00A0 UC(0x00a0)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -202,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,UC_00E2 ,XXXXXXX ,UC_00E7 ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,        _______ ,XXXXXXX ,XXXXXXX ,UC_0171 ,UC_00EA ,XXXXXXX ,UC_0151 ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,     XXXXXXX ,    XXXXXXX ,_______ ,        _______ ,NBSP    ,    XXXXXXX ,     _______ ,XXXXXXX ,XXXXXXX ,_______
+     _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,     XXXXXXX ,    XXXXXXX ,_______ ,        _______ ,UC_00A0 ,    XXXXXXX ,     _______ ,XXXXXXX ,XXXXXXX ,_______
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
