@@ -19,9 +19,9 @@ RGB_MATRIX_EFFECT(PIXEL_RAIN)
 #   ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static bool PIXEL_RAIN(effect_params_t* params) {
-    static uint32_t timer = 0;
-    uint16_t speed = 500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16);
-    if (timer > g_rgb_timer) { return false; }
+    static uint32_t wait_timer = 0;
+    uint16_t interval = 500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16);
+    if (g_rgb_timer < wait_timer) { return false; }
 
     bool set_rgb(uint8_t i, effect_params_t* params, bool off) {
         if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) { return false; }
@@ -32,7 +32,7 @@ static bool PIXEL_RAIN(effect_params_t* params) {
             RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
-        timer = g_rgb_timer + speed;
+        wait_timer = g_rgb_timer + interval;
         return false;
     }
 

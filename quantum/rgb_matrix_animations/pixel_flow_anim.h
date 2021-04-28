@@ -20,9 +20,9 @@ RGB_MATRIX_EFFECT(PIXEL_FLOW)
 
 static bool PIXEL_FLOW(effect_params_t* params) {
     static RGB led[DRIVER_LED_TOTAL];
-    static uint32_t timer = 0;
-    uint16_t speed = 1500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16);
-    if (timer > g_rgb_timer) { return false; }
+    static uint32_t wait_timer = 0;
+    uint16_t interval = 1500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16);
+    if (g_rgb_timer < wait_timer) { return false; }
 
     void set_rgb(uint8_t i) {
         led[i] = (random8() & 3) ? (RGB){0,0,0} : rgb_matrix_hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
@@ -35,7 +35,7 @@ static bool PIXEL_FLOW(effect_params_t* params) {
     if (led_max == DRIVER_LED_TOTAL) {
         for (uint8_t j=0; j < DRIVER_LED_TOTAL-1; ++j) { led[j] = led[j+1]; }
         set_rgb(DRIVER_LED_TOTAL-1);
-        timer = g_rgb_timer + speed;
+        wait_timer = g_rgb_timer + interval;
     }
     for (uint8_t i=led_min; i < led_max; ++i) {
         RGB_MATRIX_TEST_LED_FLAGS();
