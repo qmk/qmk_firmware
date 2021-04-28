@@ -13,125 +13,125 @@ extern keymap_config_t keymap_config;
 #define _ADJUST 4
 
 enum custom_keycodes {
-	COLEMAK = SAFE_RANGE,
-	SYMB,
-	NAV,
-	INTER,
-	ADJUST,
-	// These use process_record_user()
-	M_BRACKET_LEFT,
-	M_BRACKET_RIGHT,
-	SHRUG,
-	WAVE,
-	YOSHI,
-	THUMB_UP,
-	NBSP,
-  INV_1P,
-  ALFRED
+    COLEMAK = SAFE_RANGE,
+    SYMB,
+    NAV,
+    INTER,
+    ADJUST,
+    // These use process_record_user()
+    M_BRACKET_LEFT,
+    M_BRACKET_RIGHT,
+    SHRUG,
+    WAVE,
+    YOSHI,
+    THUMB_UP,
+    NBSP,
+    INV_1P,
+    ALFRED
 };
 
 // Is shift being held? Let's store this in a bool.
 static bool shift_held = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	switch(keycode) {
-		case SHRUG:
-			if (record->event.pressed) {
-				send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
-			}
-			return false;
-			break;
-    case INV_1P:
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LALT)SS_TAP(X_BSLASH)SS_UP(X_LGUI)SS_UP(X_LALT));
-      }
-      return false;
-      break;
-    case ALFRED:
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_SPACE)SS_UP(X_LALT));
-      }
-      return false;
-      break;
-		case YOSHI:
-			if (record->event.pressed) {
-				SEND_STRING(":yellow_yoshi:");
-			}
-			return false;
-			break;
-		case THUMB_UP:
-			if (record->event.pressed) {
-				SEND_STRING(SS_LALT("D83D+DC4D"));
-			}
-			return false;
-			break;
-		case WAVE:
-			if (record->event.pressed) {
-				SEND_STRING(SS_LALT("D83D+DC4B"));
-			}
-			return false;
-			break;
-		case NBSP:
-			if (record->event.pressed) {
-				SEND_STRING("&nbsp;");
-			}
-			return false;
-			break;
-	case KC_LSFT:
-		shift_held = record->event.pressed;
-		return true;
-		break;
-	case KC_RSFT:
-		shift_held = record->event.pressed;
-		return true;
-		break;
-		case M_BRACKET_LEFT: {
-			if (record->event.pressed) {
-				if (shift_held) {
-					unregister_code(KC_LSFT);
-					unregister_code(KC_RSFT);
-					register_code(KC_LBRC);
-				} else {
-					register_code(KC_LSFT);
-					register_code(KC_9);
-				}
-			} else { // Release the key
-				unregister_code(KC_LBRC);
-				unregister_code(KC_LSFT);
-				unregister_code(KC_RSFT);
-				unregister_code(KC_9);
-			}
-			return false;
-			break;
-		}
-		case M_BRACKET_RIGHT: {
-			if (record->event.pressed) {
-				if (shift_held) {
-					unregister_code(KC_LSFT);
-					unregister_code(KC_RSFT);
-					register_code(KC_RBRC);
-				} else {
-					register_code(KC_LSFT);
-					register_code(KC_0);
-				}
-			} else { // Release the key
-				unregister_code(KC_RBRC);
-				unregister_code(KC_LSFT);
-				unregister_code(KC_RSFT);
-				unregister_code(KC_0);
-			}
-			return false;
-			break;
-		}
-	}
-	return true;
+    switch (keycode) {
+        case SHRUG:
+            if (record->event.pressed) {
+                send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+            }
+            return false;
+            break;
+        case INV_1P:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_LALT) SS_TAP(X_BSLASH) SS_UP(X_LGUI) SS_UP(X_LALT));
+            }
+            return false;
+            break;
+        case ALFRED:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_SPACE) SS_UP(X_LALT));
+            }
+            return false;
+            break;
+        case YOSHI:
+            if (record->event.pressed) {
+                SEND_STRING(":yellow_yoshi:");
+            }
+            return false;
+            break;
+        case THUMB_UP:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT("D83D+DC4D"));
+            }
+            return false;
+            break;
+        case WAVE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT("D83D+DC4B"));
+            }
+            return false;
+            break;
+        case NBSP:
+            if (record->event.pressed) {
+                SEND_STRING("&nbsp;");
+            }
+            return false;
+            break;
+        case KC_LSFT:
+            shift_held = record->event.pressed;
+            return true;
+            break;
+        case KC_RSFT:
+            shift_held = record->event.pressed;
+            return true;
+            break;
+        case M_BRACKET_LEFT: {
+            if (record->event.pressed) {
+                if (shift_held) {
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
+                    register_code(KC_LBRC);
+                } else {
+                    register_code(KC_LSFT);
+                    register_code(KC_9);
+                }
+            } else {  // Release the key
+                unregister_code(KC_LBRC);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_RSFT);
+                unregister_code(KC_9);
+            }
+            return false;
+            break;
+        }
+        case M_BRACKET_RIGHT: {
+            if (record->event.pressed) {
+                if (shift_held) {
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
+                    register_code(KC_RBRC);
+                } else {
+                    register_code(KC_LSFT);
+                    register_code(KC_0);
+                }
+            } else {  // Release the key
+                unregister_code(KC_RBRC);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_RSFT);
+                unregister_code(KC_0);
+            }
+            return false;
+            break;
+        }
+    }
+    return true;
 };
 
 // Shortcut to make keymap more readable
-#define KC_SYQT  LT(_SYMB,KC_QUOT)
-#define SYM_L    MO(_SYMB)
-#define MO_INTR  MO(_INTER)
-#define TT_ADJ   TT(_ADJUST)
+#define KC_SYQT LT(_SYMB, KC_QUOT)
+#define SYM_L   MO(_SYMB)
+#define MO_INTR MO(_INTER)
+#define TT_ADJ  TT(_ADJUST)
 
 #define UC_00E0 UC(0x00E0)
 #define UC_00FC UC(0x00FC)
@@ -223,32 +223,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-float tone_colemak[][2]     = SONG(ZELDA_TREASURE);
+float tone_colemak[][2] = SONG(ZELDA_TREASURE);
 #endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
-	eeconfig_update_default_layer(default_layer);
-	default_layer_set(default_layer);
+    eeconfig_update_default_layer(default_layer);
+    default_layer_set(default_layer);
 }
 
 // Change LED colors depending on the layer.
 uint32_t layer_state_set_user(uint32_t state) {
-	switch (biton32(state)) {
-		case _SYMB:
-			rgblight_setrgb_orange();
-			break;
-		case _NAV:
-			rgblight_setrgb_springgreen();
-			break;
-		case _INTER:
-			rgblight_setrgb_teal();
-			break;
-		case _ADJUST:
-			rgblight_setrgb_red();
-			break;
-		default: //  for any other layers, or the default layer
-			rgblight_setrgb_yellow();
-			break;
-	}
-	return state;
+    switch (biton32(state)) {
+        case _SYMB:
+            rgblight_setrgb_orange();
+            break;
+        case _NAV:
+            rgblight_setrgb_springgreen();
+            break;
+        case _INTER:
+            rgblight_setrgb_teal();
+            break;
+        case _ADJUST:
+            rgblight_setrgb_red();
+            break;
+        default:  //  for any other layers, or the default layer
+            rgblight_setrgb_yellow();
+            break;
+    }
+    return state;
 };
