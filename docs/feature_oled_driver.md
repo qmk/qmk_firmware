@@ -136,23 +136,23 @@ void oled_task_user(void) {
 
 ## Basic Configuration
 
-|Define                             |Default          |Description                                                                                                               |
-|-----------------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
-|`OLED_DISPLAY_ADDRESS`             |`0x3C`           |The i2c address of the OLED Display                                                                                       |
-|`OLED_FONT_H`                      |`"glcdfont.c"`   |The font code file to use for custom fonts                                                                                |
-|`OLED_FONT_START`                  |`0`              |The starting character index for custom fonts                                                                             |
-|`OLED_FONT_END`                    |`223`            |The ending character index for custom fonts                                                                               |
-|`OLED_FONT_WIDTH`                  |`6`              |The font width                                                                                                            |
-|`OLED_FONT_HEIGHT`                 |`8`              |The font height (untested)                                                                                                |
-|`OLED_TIMEOUT`                     |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
-|`OLED_DRIVER_DISPLAY_FADE`         |*Not defined*    |Enables fade out animation. Use together with `OLED_TIMEOUT`.                                                             |
-|`OLED_DRIVER_DISPLAY_FADE_INTERVAL`|`0`              |The speed of fade out animation, from 0 to 15. Larger values are slower.                                                  |
-|`OLED_SCROLL_TIMEOUT`              |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
-|`OLED_SCROLL_TIMEOUT_RIGHT`        |*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
-|`OLED_IC`                          |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
-|`OLED_COLUMN_OFFSET`               |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
-|`OLED_BRIGHTNESS`                  |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
-|`OLED_UPDATE_INTERVAL`             |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
+|Define                     |Default          |Description                                                                                                               |
+|---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
+|`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
+|`OLED_FONT_H`              |`"glcdfont.c"`   |The font code file to use for custom fonts                                                                                |
+|`OLED_FONT_START`          |`0`              |The starting character index for custom fonts                                                                             |
+|`OLED_FONT_END`            |`223`            |The ending character index for custom fonts                                                                               |
+|`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
+|`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
+|`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
+|`OLED_FADE_OUT`            |*Not defined*    |Enables fade out animation. Use together with `OLED_TIMEOUT`.                                                             |
+|`OLED_FADE_OUT_INTERVAL`   |`0`              |The speed of fade out animation, from 0 to 15. Larger values are slower.                                                  |
+|`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
+|`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
+|`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
+|`OLED_COLUMN_OFFSET`       |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
+|`OLED_BRIGHTNESS`          |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
+|`OLED_UPDATE_INTERVAL`     |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
 
  ## 128x64 & Custom sized OLED Displays
 

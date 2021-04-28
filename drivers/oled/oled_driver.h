@@ -154,12 +154,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #endif
 
-#if !defined(OLED_DRIVER_DISPLAY_FADE_INTERVAL)
-#    define OLED_DRIVER_DISPLAY_FADE_INTERVAL 0x00
+#if !defined(OLED_FADE_OUT_INTERVAL)
+#    define OLED_FADE_OUT_INTERVAL 0x00
 #endif
 
-#if OLED_DRIVER_DISPLAY_FADE_INTERVAL > 0x0F || OLED_DRIVER_DISPLAY_FADE_INTERVAL < 0x00
-#    error OLED_DRIVER_DISPLAY_FADE_INTERVAL must be between 0x00 and 0x0F
+#if OLED_FADE_OUT_INTERVAL > 0x0F || OLED_FADE_OUT_INTERVAL < 0x00
+#    error OLED_FADE_OUT_INTERVAL must be between 0x00 and 0x0F
 #endif
 
 #if !defined(OLED_I2C_TIMEOUT)

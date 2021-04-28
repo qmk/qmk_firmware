@@ -553,7 +553,7 @@ bool oled_on(void) {
 #endif
 
     static const uint8_t PROGMEM display_on[] =
-#ifdef OLED_DRIVER_DISPLAY_FADE
+#ifdef OLED_FADE_OUT
         {I2C_CMD, FADE_BLINK, 0x00};
 #else
         {I2C_CMD, DISPLAY_ON};
@@ -575,8 +575,8 @@ bool oled_off(void) {
     }
 
     static const uint8_t PROGMEM display_off[] =
-#ifdef OLED_DRIVER_DISPLAY_FADE
-        {I2C_CMD, FADE_BLINK, ENABLE_FADE | OLED_DRIVER_DISPLAY_FADE_INTERVAL};
+#ifdef OLED_FADE_OUT
+        {I2C_CMD, FADE_BLINK, ENABLE_FADE | OLED_FADE_OUT_INTERVAL};
 #else
         {I2C_CMD, DISPLAY_OFF};
 #endif
