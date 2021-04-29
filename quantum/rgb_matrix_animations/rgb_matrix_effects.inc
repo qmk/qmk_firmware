@@ -28,6 +28,7 @@
 #include "rgb_matrix_animations/hue_wave_anim.h"
 #include "rgb_matrix_animations/pixel_rain_anim.h"
 #include "rgb_matrix_animations/pixel_flow_anim.h"
+#include "rgb_matrix_animations/pixel_fractal_anim.h"
 #include "rgb_matrix_animations/typing_heatmap_anim.h"
 #include "rgb_matrix_animations/digital_rain_anim.h"
 #include "rgb_matrix_animations/solid_reactive_simple_anim.h"
