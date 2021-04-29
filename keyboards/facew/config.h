@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    SPRiT
 #define PRODUCT         FaceW
 
+#define USB_POLLING_INTERVAL_MS 20
+
 #define RGBLED_NUM 16
 
 #define MATRIX_ROWS 8
