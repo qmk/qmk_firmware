@@ -16,7 +16,7 @@ To reset the keyboard, press the physical reset button located on the back of th
 
 Install example for this keyboard:
 
-    qmk flash -kb yeehaw/yeehaw -km default
+    qmk flash -kb yeehaw -km default
 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
