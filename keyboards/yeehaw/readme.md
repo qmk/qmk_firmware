@@ -10,7 +10,7 @@ A 14 key macro pad in the shape of Texas.
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb yeehaw/yeehaw -km default
+    qmk compile -kb yeehaw -km default
     
 To reset the keyboard, press the physical reset button located on the back of the PCB.
 
