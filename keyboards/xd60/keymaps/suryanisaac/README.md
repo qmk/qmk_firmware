@@ -10,3 +10,5 @@ Just my custom layout, works really well for me so hopefully you guys like it.
 - Non-convoluted media control
 - For Mac or Linux with Kinto
 - Left and Right arrow keys on left shift and right shift
+
+Pictures Available Here: https://imgur.com/a/7UzkhOu
