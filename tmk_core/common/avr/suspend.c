@@ -163,6 +163,10 @@ void suspend_power_down(void) {
     rgblight_suspend();
 #    endif
 
+#    if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(true);
+#    endif
+
     // Enter sleep state if possible (ie, the MCU has a watchdog timeout interrupt)
 #    if defined(WDT_vect)
     power_down(WDTO_15MS);
@@ -214,6 +218,9 @@ void suspend_wakeup_init(void) {
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_wakeup();
 #endif
+#    if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(false);
+#    endif
 
     suspend_wakeup_init_kb();
 }

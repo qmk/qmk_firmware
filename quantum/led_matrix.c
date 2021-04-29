@@ -35,8 +35,8 @@
 #    define LED_DISABLE_TIMEOUT 0
 #endif
 
-#ifndef LED_DISABLE_WHEN_USB_SUSPENDED
-#    define LED_DISABLE_WHEN_USB_SUSPENDED false
+#if LED_DISABLE_WHEN_USB_SUSPENDED == false
+#    undef LED_DISABLE_WHEN_USB_SUSPENDED
 #endif
 
 #if !defined(LED_MATRIX_MAXIMUM_BRIGHTNESS) || LED_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
@@ -65,7 +65,6 @@
 #endif
 
 // globals
-bool           g_suspend_state = false;
 led_eeconfig_t led_matrix_eeconfig;  // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
 uint32_t       g_led_timer;
 #ifdef LED_MATRIX_FRAMEBUFFER_EFFECTS
@@ -76,6 +75,7 @@ last_hit_t g_last_hit_tracker;
 #endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 
 // internals
+static bool            suspend_state   = false;
 static uint8_t         led_last_enable   = UINT8_MAX;
 static uint8_t         led_last_effect   = UINT8_MAX;
 static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
@@ -325,9 +325,7 @@ void led_matrix_task(void) {
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
     // while suspended and just do a software shutdown. This is a cheap hack for now.
     bool suspend_backlight =
-#if LED_DISABLE_WHEN_USB_SUSPENDED == true
-        g_suspend_state ||
-#endif  // LED_DISABLE_WHEN_USB_SUSPENDED == true
+        suspend_state ||
 #if LED_DISABLE_TIMEOUT > 0
         (led_anykey_timer > (uint32_t)LED_DISABLE_TIMEOUT) ||
 #endif  // LED_DISABLE_TIMEOUT > 0
@@ -416,13 +414,15 @@ void led_matrix_init(void) {
 }
 
 void led_matrix_set_suspend_state(bool state) {
-    if (LED_DISABLE_WHEN_USB_SUSPENDED && state) {
+#ifdef LED_DISABLE_WHEN_USB_SUSPENDED
+    if (state) {
         led_matrix_set_value_all(0);  // turn off all LEDs when suspending
     }
-    g_suspend_state = state;
+    suspend_state = state;
+#endif
 }
 
-bool led_matrix_get_suspend_state(void) { return g_suspend_state; }
+bool led_matrix_get_suspend_state(void) { return suspend_state; }
 
 void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;

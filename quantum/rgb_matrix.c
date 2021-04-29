@@ -67,8 +67,8 @@ __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv
 #    define RGB_DISABLE_TIMEOUT 0
 #endif
 
-#ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED false
+#if RGB_DISABLE_WHEN_USB_SUSPENDED == false
+#    undef RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif
 
 #if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
@@ -118,7 +118,6 @@ __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv
 #endif
 
 // globals
-bool         g_suspend_state = false;
 rgb_config_t rgb_matrix_config;  // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
 uint32_t     g_rgb_timer;
 #ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -129,6 +128,7 @@ last_hit_t g_last_hit_tracker;
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 // internals
+static bool            suspend_state   = false;
 static uint8_t         rgb_last_enable   = UINT8_MAX;
 static uint8_t         rgb_last_effect   = UINT8_MAX;
 static effect_params_t rgb_effect_params = {0, LED_FLAG_ALL, false};
@@ -410,9 +410,7 @@ void rgb_matrix_task(void) {
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
     // while suspended and just do a software shutdown. This is a cheap hack for now.
     bool suspend_backlight =
-#if RGB_DISABLE_WHEN_USB_SUSPENDED == true
-        g_suspend_state ||
-#endif  // RGB_DISABLE_WHEN_USB_SUSPENDED == true
+        suspend_state ||
 #if RGB_DISABLE_TIMEOUT > 0
         (rgb_anykey_timer > (uint32_t)RGB_DISABLE_TIMEOUT) ||
 #endif  // RGB_DISABLE_TIMEOUT > 0
@@ -501,13 +499,15 @@ void rgb_matrix_init(void) {
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
-    if (RGB_DISABLE_WHEN_USB_SUSPENDED && state) {
+#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+    if (state) {
         rgb_matrix_set_color_all(0, 0, 0);  // turn off all LEDs when suspending
     }
-    g_suspend_state = state;
+    suspend_state = state;
+#endif
 }
 
-bool rgb_matrix_get_suspend_state(void) { return g_suspend_state; }
+bool rgb_matrix_get_suspend_state(void) { return suspend_state; }
 
 void rgb_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     rgb_matrix_config.enable ^= 1;
