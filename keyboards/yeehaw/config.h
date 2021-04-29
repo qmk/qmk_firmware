@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    squashkb
 #define PRODUCT         Yeehaw
-#define DESCRIPTION     Texas Shaped 14 Key Macropad
 
 
 /* key matrix size */

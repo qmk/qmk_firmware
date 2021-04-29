@@ -34,12 +34,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_VOLU);
         }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            tap_code(KC_DOWN);
-        } else {
-            tap_code(KC_UP);
-        }
     }
 }
 
@@ -48,14 +42,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case YEEHAW:
         if (record->event.pressed) {
             SEND_STRING("yeehaw!");
-        } else {
         }
         break;
         
     case SQUASHKB:
         if (record->event.pressed) {
             SEND_STRING("http://squashkb.com");
-        } else {
         }
         break;
     }
