@@ -259,6 +259,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right 
     RGB_MATRIX_PIXEL_RAIN,          // Random keys toggled with random hues
     RGB_MATRIX_PIXEL_FLOW,          // Random keys toggled with random hues flowing on LED wiring direction
+    RGB_MATRIX_PIXEL_FRACTAL,       // Random keys toggled with random hues animating from middle to edge
 #if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
@@ -315,6 +316,7 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_HUE_WAVE `                 |Disables `RGB_MATRIX_HUE_WAVE `                |
 |`#define DISABLE_RGB_MATRIX_PIXEL_RAIN`                |Disables `RGB_MATRIX_PIXEL_RAIN`               |
 |`#define DISABLE_RGB_MATRIX_PIXEL_FLOW`                |Disables `RGB_MATRIX_PIXEL_FLOW`               |
+|`#define DISABLE_RGB_MATRIX_PIXEL_FRACTAL`             |Disables `RGB_MATRIX_PIXEL_FRACTAL`            |
 |`#define DISABLE_RGB_MATRIX_TYPING_HEATMAP`            |Disables `RGB_MATRIX_TYPING_HEATMAP`           |
 |`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`              |Disables `RGB_MATRIX_DIGITAL_RAIN`             |
 |`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE`     |Disables `RGB_MATRIX_SOLID_REACTIVE_SIMPLE`    |
