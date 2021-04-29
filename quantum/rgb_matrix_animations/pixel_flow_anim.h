@@ -24,8 +24,8 @@ static bool PIXEL_FLOW(effect_params_t* params) {
     uint16_t interval = 1500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16);
     if (g_rgb_timer < wait_timer) { return false; }
 
-    void set_rgb(uint8_t i) {
-        led[i] = (random8() & 3) ? (RGB){0,0,0} : rgb_matrix_hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
+    void set_rgb(uint8_t n) {
+        led[n] = (random8() & 3) ? (RGB){0,0,0} : rgb_matrix_hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
     }
     if (params->init) {
         random16_set_seed((uint16_t)g_rgb_timer);
