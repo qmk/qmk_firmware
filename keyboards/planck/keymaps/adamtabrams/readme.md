@@ -29,7 +29,7 @@
 | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bsp  |
 | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '"  |
 | SHFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |S(Ent)|
-| CTRL |  GUI |  ALT |System|Cursor|N(Spc)|N(Spc)|Arrows| Left | Down |  Up  | Right|
+| CTRL |  GUI |  ALT |System|Cursor|  Spc |N(Spc)|Arrows| Left | Down |  Up  | Right|
 
 - The `N` in `N(Spc)` stands for Number layer
 - Hold down a layer key to temporarily activate or tap twice to toggle on or off
