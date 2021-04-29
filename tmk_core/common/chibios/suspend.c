@@ -83,9 +83,9 @@ void suspend_power_down(void) {
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_suspend();
 #endif
-#    if defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_set_suspend_state(true);
-#    endif
+#endif
 #ifdef AUDIO_ENABLE
     stop_all_notes();
 #endif /* AUDIO_ENABLE */
@@ -154,8 +154,8 @@ void suspend_wakeup_init(void) {
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_wakeup();
 #endif
-#    if defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_set_suspend_state(false);
-#    endif
+#endif
     suspend_wakeup_init_kb();
 }

@@ -128,7 +128,7 @@ last_hit_t g_last_hit_tracker;
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 // internals
-static bool            suspend_state   = false;
+static bool            suspend_state     = false;
 static uint8_t         rgb_last_enable   = UINT8_MAX;
 static uint8_t         rgb_last_effect   = UINT8_MAX;
 static effect_params_t rgb_effect_params = {0, LED_FLAG_ALL, false};
@@ -409,12 +409,11 @@ void rgb_matrix_task(void) {
 
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
     // while suspended and just do a software shutdown. This is a cheap hack for now.
-    bool suspend_backlight =
-        suspend_state ||
+    bool suspend_backlight = suspend_state ||
 #if RGB_DISABLE_TIMEOUT > 0
-        (rgb_anykey_timer > (uint32_t)RGB_DISABLE_TIMEOUT) ||
+                             (rgb_anykey_timer > (uint32_t)RGB_DISABLE_TIMEOUT) ||
 #endif  // RGB_DISABLE_TIMEOUT > 0
-        false;
+                             false;
 
     uint8_t effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
 
