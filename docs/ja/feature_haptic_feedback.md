@@ -44,7 +44,7 @@
 
 ほとんどの MCU はソレノイドのコイルを駆動するために必要な電流を供給できないため、最初に MOSFET を介してソレノイドを駆動する回路を構築する必要があります。
 
-[Adafruit が提供する配線図](https://cdn-shop.adafruit.com/product-files/412/solenoid_driver.pdf)
+[Adafruit が提供する配線図](https://cdn-shop.adafruit.com/product-files/412/412_solenoid_driver.pdf)
 
 
 | 設定 | デフォルト | 説明 |
