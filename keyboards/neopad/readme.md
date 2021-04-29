@@ -11,13 +11,13 @@ The Neopad in the photo above is the first prototype. See the project repository
 * Hardware supported: ProMicro, _Elite-C (not tested)_
 * Project repository: [Neopad on github](https://github.com/rookiebwoy/neopad)
 
-Make example for Neopad (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
     make neopad/rev1:default
 
-Install examples:
+Flashing example for this keyboard:
 
-    make neopad/rev1:default:avrdude
+    make neopad/rev1:default:flash
 
 When asked by the terminal, press the dedicated `RESET` button (the one above the 2 LEDs) to enter the bootloader and let the OS detects the device.
 
