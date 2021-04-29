@@ -1,8 +1,8 @@
-# Foxlab Time 80 Reforged Universal
+# Foxlab Time 80 Reforged Hotswap
 
 ![Time 80 Reforged](https://i.imgur.com/BXOM9sQh.jpg)
 
-Time 80 Reforged was the second design of Fox Lab back in 2017. It has also become an iconic keyboard design of Fox Lab. Time80RE kept most of the original weight design. The clock has become thinner now and h    as a tempered glass cover. The front height of the keyboard has greatly reduced for optimizing for comfort. The ratio between the top and bottom cases has been adjusted for a cleaner side view.
+Time 80 Reforged was the second design of Fox Lab back in 2017. It has also become an iconic keyboard design of Fox Lab. Time80RE kept most of the original weight design. The clock has become thinner now and has a tempered glass cover. The front height of the keyboard has been greatly reduced for optimizing for comfort. The ratio between the top and bottom cases has been adjusted for a cleaner side view.
 
 * Keyboard Maintainer: QMK
 * Hardware Supported: Time 80 Reforged Hotswap PCB
