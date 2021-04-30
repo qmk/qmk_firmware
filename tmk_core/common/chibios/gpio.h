@@ -20,6 +20,8 @@
 
 typedef ioline_t pin_t;
 
+/* Operation of GPIO by pin. */
+
 #define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
 #define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
 #define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
@@ -32,3 +34,15 @@ typedef ioline_t pin_t;
 #define readPin(pin) palReadLine(pin)
 
 #define togglePin(pin) palToggleLine(pin)
+
+/* Operation of GPIO by port. */
+
+#define readPort(qmk_pin) palReadPort(PAL_PORT(qmk_pin))
+
+#define setPortBitInput(qmk_pin, bit) palSetPadMode(PAL_PORT(qmk_pin), bit, PAL_MODE_INPUT)
+#define setPortBitInputHigh(qmk_pin, bit) palSetPadMode(PAL_PORT(qmk_pin), bit, PAL_MODE_INPUT_PULLUP)
+#define setPortBitInputLow(qmk_pin, bit) palSetPadMode(PAL_PORT(qmk_pin), bit, PAL_MODE_INPUT_PULLDOWN)
+#define setPortBitOutput(qmk_pin, bit) palSetPadMode(PAL_PORT(qmk_pin), bit, PAL_MODE_OUTPUT_PUSHPULL)
+
+#define writePortBitLow(qmk_pin, bit) palClearLine(PAL_LINE(PAL_PORT(qmk_pin), bit))
+#define writePortBitHigh(qmk_pin, bit) palSetLine(PAL_LINE(PAL_PORT(qmk_pin), bit))
