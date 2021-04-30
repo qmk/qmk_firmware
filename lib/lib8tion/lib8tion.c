@@ -4,6 +4,7 @@
 #define RAND16_SEED  1337
 uint16_t rand16seed = RAND16_SEED;
 
+
 // memset8, memcpy8, memmove8:
 //  optimized avr replacements for the standard "C" library
 //  routines memset, memcpy, and memmove.
