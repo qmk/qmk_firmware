@@ -1,6 +1,6 @@
 # Tokyo60
 ​
-![Tokyo60](https://tokyokeyboard.com/wp-content/uploads/2018/02/AI7B4543_copy_page_20180215141449-1200x800.jpg)
+![Tokyo60](https://i2.wp.com/tokyokeyboard.com/wp-content/uploads/2018/02/AI7B4543_copy_page_20180215141449-1200x800.jpg)
 ​
 Minimal hacker style mechanical keyboard designed in Tokyo. Full aluminum hi-pro construction with integrated top-plate. Cherry MX compatible. More Info at [Tokyo Keyboard](http://tokyokeyboard.com).
 ​
