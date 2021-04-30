@@ -258,8 +258,8 @@ enum rgb_matrix_effects {
     RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight ammount in a wave to the right, then back to the left
     RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right 
     RGB_MATRIX_PIXEL_RAIN,          // Random keys toggled with random hues
-    RGB_MATRIX_PIXEL_FLOW,          // Random keys toggled with random hues flowing on LED wiring direction
-    RGB_MATRIX_PIXEL_FRACTAL,       // Random keys toggled with random hues animating from middle to edge
+    RGB_MATRIX_PIXEL_FLOW,          // Random keys toggled with random hues pulsing along LED wiring direction
+    RGB_MATRIX_PIXEL_FRACTAL,       // Fractal filled keys with random hues pulsing horizontally to edges
 #if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
