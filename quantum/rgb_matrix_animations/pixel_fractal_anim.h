@@ -37,6 +37,7 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     if (params->init) {
+        random16_set_seed((uint16_t)g_rgb_timer);
         for (uint8_t i = led_min; i < led_max; ++i) {
             RGB_MATRIX_TEST_LED_FLAGS();
             uint8_t x = g_led_config.point[i].x / FRACTAL_RATIO;
@@ -58,10 +59,11 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
                 led[l][h].rgb = (led[l+1][h].used) ? led[l+1][h].rgb : led[l+2][h].rgb;
             }
             for (uint8_t r = FRACTAL_WIDTH-1; r > FRACTAL_SPLIT+1; --r) {
-                led[r][h].rgb = (led[r-1][h].used) ? led[r-1][h].rgb :  led[r-2][h].rgb;
+                led[r][h].rgb = (led[r-1][h].used) ? led[r-1][h].rgb : led[r-2][h].rgb;
             }
             set_rgb(FRACTAL_SPLIT, h);
             led[FRACTAL_SPLIT+1][h].rgb = led[FRACTAL_SPLIT][h].rgb;
+            led[FRACTAL_SPLIT+1][h].used = led[FRACTAL_SPLIT][h].used = true;
         }
         wait_timer = g_rgb_timer + interval();
     }
