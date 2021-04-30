@@ -1,4 +1,4 @@
-/* Copyright 2020 James Young (@noroadsleft)
+/* Copyright 2020-2021 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -114,31 +114,6 @@ bool led_update_user(led_t led_state) {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case G_PUSH:
-            if (record->event.pressed) {
-                SEND_STRING("git push origin ");
-            };
-            return false;
-        case G_FTCH:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_SHIFT ) {
-                    clear_mods();
-                    SEND_STRING("git pull upstream ");
-                } else {
-                    SEND_STRING("git fetch upstream ");
-                }
-            };
-            return false;
-        case G_BRCH:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_SHIFT ) {
-                    clear_mods();
-                    SEND_STRING("master");
-                } else {
-                    SEND_STRING("$(git branch-name)");
-                }
-            };
-            return false;
         case GO_Q2:
             if (record->event.pressed) {
                 layer_move(_QW);
@@ -191,21 +166,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 }
             };
             return true;
-        case KC_Z:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    register_code(KC_NUBS);
-                } else {
-                    register_code(KC_Z);
-                }
-            } else {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    unregister_code(KC_NUBS);
-                } else {
-                    unregister_code(KC_Z);
-                }
-            };
-            return false;
         default:
             return true;
     }
