@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Inspired from 4x12 fractal created by @schwarzgrau
+
 #ifndef DISABLE_RGB_MATRIX_PIXEL_FRACTAL
 RGB_MATRIX_EFFECT(PIXEL_FRACTAL)
 #   ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
@@ -22,7 +24,7 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
     #define FRACTAL_WIDTH 14
     #define FRACTAL_HEIGHT 5
     #define FRACTAL_SPLIT  6
-    #define FRACTAL_RATIO 16.2
+    #define FRACTAL_RATIO 16.2  // Ratio assumes 224 x 64 matrix
 
     typedef struct { uint8_t x; uint8_t y; } fractal_map_t;
     typedef struct { RGB rgb; bool used; }   fractal_led_t;
@@ -33,9 +35,11 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
     uint32_t interval(void) { return 3000 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16); }
 
     void set_rgb(uint8_t x, uint8_t y) {
+        // Fill LED array with random HSV
         led[x][y].rgb = (random8() & 3) ? (RGB){0,0,0} : rgb_matrix_hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
     }
     fractal_map_t get_xy(uint8_t t) {
+        // Scale keyboard's 224 x 64 matrix to FRACTAL_WIDTH x FRACTAL_HEIGHT
         return (fractal_map_t){g_led_config.point[t].x / FRACTAL_RATIO, g_led_config.point[t].y / FRACTAL_RATIO};
     }
 
@@ -45,27 +49,28 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
         for (uint8_t i = led_min; i < led_max; ++i) {
             RGB_MATRIX_TEST_LED_FLAGS();
             fractal_map_t map = get_xy(i);
+            // Flag arrays that will be used after scaling by FRACTAL_RATIO
             led[map.x][map.y].used = true;
         }
     }
-
+    // Main LED lighting loop
     for (uint8_t i = led_min; i < led_max; ++i) {
         RGB_MATRIX_TEST_LED_FLAGS();
         fractal_map_t map = get_xy(i);
         rgb_matrix_set_color(i, led[map.x][map.y].rgb.r, led[map.x][map.y].rgb.g, led[map.x][map.y].rgb.b);
     }
-
+    // Shifts columns outwards
     if (led_max == DRIVER_LED_TOTAL) {
         for (uint8_t h = 0; h < FRACTAL_HEIGHT; ++h) {
-            for (uint8_t l = 0; l < FRACTAL_SPLIT; ++l) {
+            for (uint8_t l = 0; l < FRACTAL_SPLIT; ++l) { // Move left columns
                 led[l][h].rgb = (led[l+1][h].used) ? led[l+1][h].rgb : led[l+2][h].rgb;
             }
-            for (uint8_t r = FRACTAL_WIDTH-1; r > FRACTAL_SPLIT+1; --r) {
+            for (uint8_t r = FRACTAL_WIDTH-1; r > FRACTAL_SPLIT+1; --r) { // Move right columns
                 led[r][h].rgb = (led[r-1][h].used) ? led[r-1][h].rgb : led[r-2][h].rgb;
             }
-            set_rgb(FRACTAL_SPLIT, h);
-            led[FRACTAL_SPLIT+1][h].rgb = led[FRACTAL_SPLIT][h].rgb;
-            led[FRACTAL_SPLIT+1][h].used = led[FRACTAL_SPLIT][h].used = true;
+            set_rgb(FRACTAL_SPLIT, h);                                          // Randomize inner left column
+            led[FRACTAL_SPLIT+1][h].rgb = led[FRACTAL_SPLIT][h].rgb;            // Mirror inner left to right
+            led[FRACTAL_SPLIT+1][h].used = led[FRACTAL_SPLIT][h].used = true;   // Flag both
         }
         wait_timer = g_rgb_timer + interval();
     }
