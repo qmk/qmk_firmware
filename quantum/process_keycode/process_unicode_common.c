@@ -192,6 +192,7 @@ void register_unicode(uint32_t code_point) {
         code_point -= 0x10000;
         uint32_t lo = code_point & 0x3FF, hi = (code_point & 0xFFC00) >> 10;
         register_hex32(hi + 0xD800);
+        send_char('+');
         register_hex32(lo + 0xDC00);
     } else {
         register_hex32(code_point);
