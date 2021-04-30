@@ -1,3 +1,5 @@
+#define TAPPING_TERM 250
+
 /* Ignore Mod Tap Interrupt
 https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold
 
