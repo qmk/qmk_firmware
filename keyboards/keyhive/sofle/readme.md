@@ -1,26 +1,21 @@
-# Sofle Keyboard
+# KeyHive Sofle
 
-![SofleKeyboard version 1](https://raw.githubusercontent.com/josefadamcik/SofleKeyboard/master/Images/IMG_20200126_114622.jpg)
+Based on the [original Sofle](../../sofle), this variant brings per-key RGB to an alredy great keyboard. The bottom row was also slightly adjusted.
 
-Sofle is 6×4+5 keys column-staggered split keyboard. Based on Lily58, Corne and Helix keyboards.
+-   Keyboard Maintainer: [KeyHive](https://github.com/keyhive/)
+-   Hardware Availability: [PCB kits](https://keyhive.xyz/shop/sofle)
 
-More details about the keyboard on my blog: [Let me introduce you SofleKeyboard - a split keyboard based on Lily58 and Crkbd](https://josef-adamcik.cz/electronics/let-me-introduce-you-sofle-keyboard-split-keyboard-based-on-lily58.html)
+## Flashing
 
-The current (temporary) build guide and a build log is available here: [SofleKeyboard build log/guide](https://josef-adamcik.cz/electronics/soflekeyboard-build-log-and-build-guide.html)
+```sh
+# for pro micro-based builds
+qmk flash -kb keyhive/sofle -km default
 
-* Keyboard Maintainer: [Josef Adamcik](https://josef-adamcik.cz) [Twitter:@josefadamcik](https://twitter.com/josefadamcik)  
-* Hardware Supported: SofleKeyboard PCB, ProMicro  
-* Hardware Availability: [PCB & Case Data](https://github.com/josefadamcik/SofleKeyboard)
+# for Elite C or dfu bootloader builds
+qmk flash -kb keyhive/sofle -km default -bl dfu
+```
 
-Make example for this keyboard (after setting up your build environment):
-
-    make sofle:default
-
-Flash the default keymap: 
-
-    make sofle:default:avrdude
-
-Press reset button on he keyboard when asked.
+See also the [via keymap README](./keymaps/via/readme.md).
 
 Disconnect the first half, connect the second one and repeat the process.
 
