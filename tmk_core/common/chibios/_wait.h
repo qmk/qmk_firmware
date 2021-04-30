@@ -35,6 +35,10 @@
         }                               \
     } while (0)
 
+#include "wait.c"
+
+#define CPU_CLOCK STM32_SYSCLK
+
 /* For GPIOs on ARM-based MCUs, the input pins are sampled by the clock of the bus
  * to which the GPIO is connected.
  * The connected buses differ depending on the various series of MCUs.
@@ -45,11 +49,8 @@
  * If the GPIO_INPUT_PIN_DELAY macro is not defined, the following default values will be used.
  * (A fairly large value of 0.25 microseconds is set.)
  */
-
-#include "wait.c"
-
 #ifndef GPIO_INPUT_PIN_DELAY
-#    define GPIO_INPUT_PIN_DELAY (STM32_SYSCLK / 1000000L / 4)
+#    define GPIO_INPUT_PIN_DELAY (CPU_CLOCK / 1000000L / 4)
 #endif
 
 #define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
