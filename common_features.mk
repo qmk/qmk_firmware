@@ -255,6 +255,7 @@ endif
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
+    SRC += $(LIB_PATH)/lib8tion/lib8tion.c
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
 
