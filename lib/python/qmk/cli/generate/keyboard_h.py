@@ -29,7 +29,7 @@ def would_populate_layout_h(keyboard):
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate keyboard.h for.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, required=True, help='Keyboard to generate keyboard.h for.')
 @cli.subcommand('Used by the make system to generate keyboard.h from info.json', hidden=True)
 @automagic_keyboard
 @automagic_keymap
