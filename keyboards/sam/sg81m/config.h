@@ -44,7 +44,7 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define RGB_DI_PIN E6 // reserved pin for potential underglow rgb 
+#define RGB_DI_PIN E6 //reserved pin for potential underglow rgb 
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 10
     #define RGBLIGHT_HUE_STEP 8
