@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "XD004", 
+    "maintainer": "", 
+    "width": 4, 
+    "height": 1, 
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [{"label":"L", "x":0, "y":0}, {"label":"O", "x":1, "y":0}, {"label":"V", "x":2, "y":0}, {"label":"E", "x":3, "y":0}]
+        }
+    }
+}

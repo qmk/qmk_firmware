@@ -1,0 +1,1 @@
+COMBO_ENABLE = yes          # Reset combo

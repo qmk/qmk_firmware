@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "Numeric Keypad IIe", 
+    "url": "", 
+    "maintainer": "qmk", 
+    "width": 7.5, 
+    "height": 4, 
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"label":"Esc", "x":0, "y":0}, {"label":"7", "x":2, "y":0}, {"label":"8", "x":3, "y":0}, {"label":"9", "x":4, "y":0}, {"label":"(", "x":5.5, "y":0}, {"label":")", "x":6.5, "y":0}, {"label":"\u2190", "x":0, "y":1}, {"label":"4", "x":2, "y":1}, {"label":"5", "x":3, "y":1}, {"label":"6", "x":4, "y":1}, {"label":"\u2212", "x":5.5, "y":1}, {"label":"\u00f7", "x":6.5, "y":1}, {"label":"\u2192", "x":0, "y":2}, {"label":"1", "x":2, "y":2}, {"label":"2", "x":3, "y":2}, {"label":"3", "x":4, "y":2}, {"label":"+", "x":5.5, "y":2}, {"label":"\u00d7", "x":6.5, "y":2}, {"label":"Space", "x":0, "y":3}, {"label":"0", "x":1.5, "y":3, "w":1.5}, {"label":",", "x":3, "y":3}, {"label":".", "x":4, "y":3}, {"label":"Ret", "x":5.5, "y":3}, {"label":"Print", "x":6.5, "y":3}]
+        }
+    }
+}
