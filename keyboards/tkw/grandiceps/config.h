@@ -29,7 +29,7 @@
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
 
-
+#define EEPROM_I2C_24LC64
 
 #define MATRIX_COL_PINS { B0, A7, A3, A5, A4, A2 }
 #define MATRIX_ROW_PINS { B12, A6, B13, B9, B8 }
