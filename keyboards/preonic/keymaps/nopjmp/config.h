@@ -12,6 +12,9 @@
 
 #define MUSIC_MASK (keycode != KC_NO)
 
+#define PERMISSIVE_HOLD
+#define TAPPING_TERM 150
+
 /*
  * MIDI options
  */
