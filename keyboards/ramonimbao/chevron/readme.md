@@ -1,6 +1,6 @@
 # Herringbone
 
-![Chevron](https://i.imgur.com/SQyS0j8l.png)
+![Chevron](https://i.imgur.com/abOuPNdl.png)
 
 A through-hole 40% keyboard.
 
