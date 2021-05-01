@@ -280,7 +280,8 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
     rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
     rgb_matrix_sethsv(HSV_DARKBLUE);
     // rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
-    rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_reactive_col);
+    // rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_solid_reactive_multiwide_col);
+    rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_solid_reactive_col);
 }
 // #endif
 
