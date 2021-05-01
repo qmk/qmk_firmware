@@ -26,8 +26,7 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
     #define FRACTAL_SPLIT  6
     #define FRACTAL_RATIO 16.2  // Ratio assumes 224 x 64 matrix
 
-    typedef struct { uint8_t x; uint8_t y; } fractal_map_t;
-    typedef struct { RGB rgb; bool used; }   fractal_led_t;
+    typedef struct PACKED { RGB rgb; bool used; } fractal_led_t;
     static fractal_led_t led[FRACTAL_WIDTH][FRACTAL_HEIGHT];
     static uint32_t wait_timer = 0;
     if (wait_timer > g_rgb_timer) { return false; }
@@ -38,9 +37,9 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
         // Fill LED array with random HSV
         led[x][y].rgb = (random8() & 3) ? (RGB){0,0,0} : rgb_matrix_hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
     }
-    fractal_map_t get_xy(uint8_t t) {
+    point_t get_xy(uint8_t t) {
         // Scale keyboard's 224 x 64 matrix to FRACTAL_WIDTH x FRACTAL_HEIGHT
-        return (fractal_map_t){g_led_config.point[t].x / FRACTAL_RATIO, g_led_config.point[t].y / FRACTAL_RATIO};
+        return (point_t){g_led_config.point[t].x / FRACTAL_RATIO, g_led_config.point[t].y / FRACTAL_RATIO};
     }
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
@@ -48,7 +47,7 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
         random16_set_seed((uint16_t)g_rgb_timer);
         for (uint8_t i = led_min; i < led_max; ++i) {
             RGB_MATRIX_TEST_LED_FLAGS();
-            fractal_map_t map = get_xy(i);
+            point_t map = get_xy(i);
             // Flag arrays that will be used after scaling by FRACTAL_RATIO
             led[map.x][map.y].used = true;
         }
@@ -56,7 +55,7 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
     // Main LED lighting loop
     for (uint8_t i = led_min; i < led_max; ++i) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        fractal_map_t map = get_xy(i);
+        point_t map = get_xy(i);
         rgb_matrix_set_color(i, led[map.x][map.y].rgb.r, led[map.x][map.y].rgb.g, led[map.x][map.y].rgb.b);
     }
     // Shifts columns outwards
