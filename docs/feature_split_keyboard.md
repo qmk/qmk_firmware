@@ -135,7 +135,7 @@ However, you'll have to flash the EEPROM files for the correct hand to each cont
 
 Example:
 
-```c
+```
 make crkbd:default:avrdude-split-left
 ```
 
