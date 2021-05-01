@@ -1,6 +1,6 @@
 # SquishyTKL
 
-![SquishyTKL](imgur.com image replace me!)
+![SquishyTKL](https://i.imgur.com/b04ooQ7l.png)
 
 A stacked acrylic o-ring gasket mounted TKL-sized keyboard with a twist!
 

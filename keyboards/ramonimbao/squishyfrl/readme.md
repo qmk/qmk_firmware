@@ -1,6 +1,6 @@
 # SquishyFRL
 
-![SquishyFRL](imgur.com image replace me!)
+![SquishyFRL](https://i.imgur.com/UT7Pik3l.jpg)
 
 A stacked acrylic o-ring gasket mounted F-row-less TKL keyboard with a twist!
 
