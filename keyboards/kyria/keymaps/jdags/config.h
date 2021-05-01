@@ -18,32 +18,28 @@
 
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
+  #define OLED_TIMEOUT 300000
 #endif
 
+// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
+// #define SPLIT_USB_DETECT
+// #define NO_USB_STARTUP_CHECK
+// #define SPLIT_USB_TIMEOUT 1000
+
+#define MASTER_RIGHT
 // #define ENCODER_DIRECTION_FLIP
 
-#ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_ANIMATIONS
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_SLEEP
-#endif
 
-// EC11K encoders have a different resolution than other EC11 encoders.
-// When using the default resolution of 4, if you notice your encoder skipping
-// every other tick, lower the resolution to 2.
-#define ENCODER_RESOLUTION 2
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#define NO_ACTION_ONESHOT
+#define OLED_FONT_END 127
 
-// The Leader key allows to flexibly assign macros to key sequences.
-#define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 350
 
-#define TAPPING_TERM 200
-
-// Allows to use either side as the master. Look at the documentation for info:
-// https://docs.qmk.fm/#/config_options?id=setting-handedness
-#define EE_HANDS
-
-// Allows media codes to properly register in macros and rotary encoder code
-#define TAP_CODE_DELAY 10
+// #ifdef RGBLIGHT_ENABLE
+//     #define RGBLIGHT_LED_MAP {0,1,2,9,8,7,4,3,5,6,19,18,17,10,11,12,15,16,14,13} // Orients Kyria LEDs to a circle around both halves.
+//     //#define RBGLIGHT_LED_MAP {9,8,6,7,5,3,2,4,1,0,10,12,13,11,14,16,17,15,18,19} // Orients Kyria LEDs for a left half-right half columnar progression.
+//     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//     //#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//     #define RGBLIGHT_SLEEP
+// #endif
