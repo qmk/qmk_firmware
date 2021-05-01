@@ -23,12 +23,9 @@ static bool PIXEL_FLOW(effect_params_t* params) {
     static uint32_t wait_timer = 0;
     if (wait_timer > g_rgb_timer) { return false; }
 
-    uint32_t interval(void) { return 1500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16); }
+    inline uint32_t interval(void) { return 1500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16); }
 
-    void set_rgb(uint8_t n) {
-        led[n] = (random8() & 3) ? (RGB){0,0,0} : rgb_matrix_hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
-    }
-
+    #define FLOW_PIXEL() (random8() & 3) ? (RGB){0,0,0} : rgb_matrix_hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v})
     if (params->init) { random16_set_seed((uint16_t)g_rgb_timer); }
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
@@ -38,8 +35,8 @@ static bool PIXEL_FLOW(effect_params_t* params) {
     }
 
     if (led_max == DRIVER_LED_TOTAL) {
-        for (uint8_t j = 0; j < DRIVER_LED_TOTAL-1; ++j) { led[j] = led[j+1]; }
-        set_rgb(DRIVER_LED_TOTAL-1);
+        for (uint8_t j = 0; j < led_max-1; ++j) { led[j] = led[j+1]; }
+        led[led_max-1] = FLOW_PIXEL();
         wait_timer = g_rgb_timer + interval();
     }
     return led_max < DRIVER_LED_TOTAL;

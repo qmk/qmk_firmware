@@ -22,9 +22,9 @@ static bool PIXEL_RAIN(effect_params_t* params) {
     static uint32_t wait_timer = 0;
     if (wait_timer > g_rgb_timer) { return false; }
 
-    uint32_t interval(void) { return 500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16); }
+    inline uint32_t interval(void) { return 500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16); }
 
-    bool set_rgb(uint8_t i, effect_params_t* params, bool off) {
+    bool rain_pixel(uint8_t i, effect_params_t* params, bool off) {
         if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) { return true; }
         if (off) {
             rgb_matrix_set_color(i, RGB_OFF);
@@ -38,7 +38,7 @@ static bool PIXEL_RAIN(effect_params_t* params) {
     }
 
     if (params->init) { random16_set_seed((uint16_t)g_rgb_timer); }
-    return set_rgb(mod8(random8(), DRIVER_LED_TOTAL), params, random8() & 3);
+    return rain_pixel(mod8(random8(), DRIVER_LED_TOTAL), params, random8() & 3);
 }
 
 #   endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
