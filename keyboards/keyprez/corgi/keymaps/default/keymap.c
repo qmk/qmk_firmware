@@ -25,11 +25,6 @@ enum layer_names {
     _CMD,
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QWERTY = SAFE_RANGE
-};
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define CMD   MO(_CMD)
