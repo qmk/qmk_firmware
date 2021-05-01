@@ -36,16 +36,6 @@ def would_populate_layout_h(keyboard):
 def generate_keyboard_h(cli):
     """Generates the keyboard.h file.
     """
-    # Determine our keyboard(s)
-    if not cli.config.generate_keyboard_h.keyboard:
-        cli.log.error('Missing parameter: --keyboard')
-        cli.subcommands['info'].print_help()
-        return False
-
-    if not is_keyboard(cli.config.generate_keyboard_h.keyboard):
-        cli.log.error('Invalid keyboard: "%s"', cli.config.generate_keyboard_h.keyboard)
-        return False
-
     has_layout_h = would_populate_layout_h(cli.config.generate_keyboard_h.keyboard)
 
     # Build the layouts.h file.
