@@ -20,6 +20,4 @@
 
 #if defined(KEYBOARD_mechlovin_hannah65_rev1)
 #    include "rev1.h"
-#elif defined(KEYBOARD_mechlovin_hannah65_mechlovin9)
-#    include "mechlovin9.h"
 #endif
