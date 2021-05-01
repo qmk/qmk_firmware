@@ -29,10 +29,7 @@ static bool PIXEL_FLOW(effect_params_t* params) {
         led[n] = (random8() & 3) ? (RGB){0,0,0} : rgb_matrix_hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
     }
 
-    if (params->init) {
-        random16_set_seed((uint16_t)g_rgb_timer);
-        for (uint8_t k = 0; k < DRIVER_LED_TOTAL; ++k) { set_rgb(k); }
-    }
+    if (params->init) { random16_set_seed((uint16_t)g_rgb_timer); }
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min; i < led_max; ++i) {
