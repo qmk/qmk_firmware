@@ -61,7 +61,7 @@ enum layer_names {
 //  Don't change the DEFAULT_SCALE_COL value below. It must be 0.
 #define DEFAULT_SCALE_COL 0
 static uint8_t scale_indicator_col = DEFAULT_SCALE_COL;
-static bool trans_mode_indicator_loc_sel = true;
+static bool trans_mode_indicator_loc_sel = true;  // when it is true, the location is _KEY01, _KEY13, ...
 
 //  use led indicator or not.
 static bool led_indicator_enable = true;
@@ -270,7 +270,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______,                                                                                                                                                                                     \
             MI_VELU,                                                                                                                                                                                     \
         MI_OCTD, MI_OCTU,     B_BASE,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_LEFT, XXXXXXX, XXXXXXX, B_CENTER, XXXXXXX, XXXXXXX, B_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_FLIP,  \
-            MI_VELD,               TGLTRNS, TGLINTR, TGLCHGR, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, RGB_RMOD, RGB_MOD, EEP_RST, TGLINDI, RGB_TOG    \
+            MI_VELD,               TGLINTR, TGLTRNS, TGLCHGR, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, RGB_RMOD, RGB_MOD, EEP_RST, TGLINDI, RGB_TOG    \
     )
 };
 
@@ -477,18 +477,55 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case TGLINTR:
             if (record->event.pressed) {
-                trans_mode_indicator_loc_sel = !trans_mode_indicator_loc_sel;
                 switch (layer_state) {
+                    //  main function of the TGLINTR part 1. alternate the status of trans_mode_indicator_loc_sel.
                     case _LS_TRANS          | (1UL << _FN):
                     case _LS_SEPALEFTOCT_T  | (1UL << _FN):
                     case _LS_SEPAHALF_T     | (1UL << _FN):
                     case _LS_SEPARIGHTOCT_T | (1UL << _FN):
+                        trans_mode_indicator_loc_sel = !trans_mode_indicator_loc_sel;
+
+                        //  when trans_mode_indicator_loc_sel == false, change the scale indicator and transpose.
                         scale_indicator_col = trans_mode_indicator_loc_sel ? 0:1;
+                        // when TGLINTR is pressed, it also change the initial transpose setting to follow the scale indicator.
+                        if (scale_indicator_col == 1) {
+                            midi_config.transpose = -1;
+                        } else {
+                            midi_config.transpose = 0;
+                        }
                         break;
 
+                    //  main function of the TGLINTR part 2. alternate the status of trans_mode_indicator_loc_sel.
                     case _LS_FLIPTRANS      | (1UL << _FN):
+                        trans_mode_indicator_loc_sel = !trans_mode_indicator_loc_sel;
+
+                        //  when trans_mode_indicator_loc_sel == false, change the scale indicator and transpose.
                         scale_indicator_col = trans_mode_indicator_loc_sel ? 0:11;
+                        // when TGLINTR is pressed, it also change the initial transpose setting to follow the scale indicator.
+                        if (scale_indicator_col == 11) {
+                            midi_config.transpose = -1;
+                        } else {
+                            midi_config.transpose = 0;
+                        }
                         break;
+
+                    //  special treatment when TGLINTR is pressed in _LS_FLIPBASE layer.
+                    case _LS_FLIPBASE       | (1UL << _FN):   // when in FLIPBASE layer && non-Trans mode, change it to Trans mode.
+                        trans_mode_indicator_loc_sel = false;
+                        scale_indicator_col = 11;
+                        midi_config.transpose = -1;
+                        is_trans_mode = true;
+                        select_layer_state_set();
+                        break;
+
+
+                    //  special treatment when TGLINTR is pressed in other non-Trans layer.
+                    default :  // when other layers = non-Trans mode, change it to Trans mode.
+                        trans_mode_indicator_loc_sel = false;
+                        scale_indicator_col = 1;
+                        midi_config.transpose = -1;
+                        is_trans_mode = true;
+                        select_layer_state_set();
                 }
             }
             break;
