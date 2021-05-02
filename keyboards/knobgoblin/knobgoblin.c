@@ -91,7 +91,7 @@ __attribute__((weak)) void oled_task_user(void) {
 			oled_write_P(PSTR(" NOTE\n"), false);
 			break;
 		case 4:
-			oled_write_P(PSTR(" FIVE\n"), false);
+			oled_write_P(PSTR(" OBS\n"), false);
 			break;
 		case 5:
 			oled_write_P(PSTR(" SIX\n"), false);

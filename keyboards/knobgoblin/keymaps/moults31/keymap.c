@@ -16,12 +16,76 @@
 
 #include QMK_KEYBOARD_H
 
+#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
+#define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+
+#define CHECK_OBS_MODS_MASK(mods) ((mods & MODS_SHIFT_MASK) && (mods & MODS_CTRL_MASK) && (mods & MODS_ALT_MASK) && (mods & MODS_GUI_MASK))
+
 enum custom_keycodes {
     M_TERMFOCUS = SAFE_RANGE,
     M_TEAMSCODEBLOCK,
+    M_OBS_BRB,
+    M_OBS_GAME,
+    M_OBS_JSTCHT,
+    M_OBS_DSKT_MUTE,
+    M_OBS_DSKT_UNMUTE,
+    M_OBS_VOICE_MUTE,
+    M_OBS_VOICE_UNMUTE,
+    M_OBS_MOOSIC_MUTE,
+    M_OBS_MOOSIC_UNMUTE,
+};
+
+// Handle OBS-specific custom keycodes
+bool process_record_user_obs(uint16_t keycode, keyrecord_t *record) {
+    // Apply all 4 mods for custom OBS macros
+    register_code(KC_LSHIFT);
+    register_code(KC_LCTL);
+    register_code(KC_LALT);
+    register_code(KC_LGUI);
+
+    switch (keycode) {
+        case M_OBS_BRB:
+            SEND_STRING("1");
+            break;
+        case M_OBS_GAME:
+            SEND_STRING("2");
+            break;
+        case M_OBS_JSTCHT:
+            SEND_STRING("3");
+            break;
+        case M_OBS_DSKT_MUTE:
+            SEND_STRING("4");
+            break;
+        case M_OBS_DSKT_UNMUTE:
+            SEND_STRING("5");
+            break;
+        case M_OBS_VOICE_MUTE:
+            SEND_STRING("6");
+            break;
+        case M_OBS_VOICE_UNMUTE:
+            SEND_STRING("7");
+            break;
+        case M_OBS_MOOSIC_MUTE:
+            SEND_STRING("8");
+            break;
+        case M_OBS_MOOSIC_UNMUTE:
+            SEND_STRING("9");
+            break;
+    }
+
+    // Unpress all 4 mods for custom OBS macros
+    unregister_code(KC_LSHIFT);
+    unregister_code(KC_LCTL);
+    unregister_code(KC_LALT);
+    unregister_code(KC_LGUI);
+
+    return true;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    bool rv = true;
     switch (keycode) {
         case M_TERMFOCUS:
             if (record->event.pressed) {
@@ -33,10 +97,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("```");
             }
             break;
+        case M_OBS_BRB:
+        case M_OBS_GAME:
+        case M_OBS_JSTCHT:
+        case M_OBS_DSKT_MUTE:
+        case M_OBS_DSKT_UNMUTE:
+        case M_OBS_VOICE_MUTE:
+        case M_OBS_VOICE_UNMUTE:
+        case M_OBS_MOOSIC_MUTE:
+        case M_OBS_MOOSIC_UNMUTE:
+            rv = process_record_user_obs(keycode, record);
+            break;
     }
-    return true;
+    return rv;
 };
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -73,11 +147,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				 ),
 
 	[4] = LAYOUT_ortho(
-                  KC_4, KC_TRNS, KC_TRNS, KC_TRNS,
-                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-         KC_TRNS, MO(10), KC_TRNS, KC_TRNS, KC_TRNS
+                  KC_4,               KC_TRNS,           KC_TRNS,             KC_TRNS,
+                  M_OBS_VOICE_UNMUTE, M_OBS_MOOSIC_MUTE, M_OBS_MOOSIC_UNMUTE, KC_TRNS,
+                  M_OBS_DSKT_MUTE,    M_OBS_DSKT_UNMUTE, M_OBS_VOICE_MUTE,    KC_TRNS,
+         KC_TRNS, M_OBS_BRB,          M_OBS_GAME,        M_OBS_JSTCHT,        KC_TRNS,
+         KC_TRNS, MO(10),             KC_TRNS,           KC_TRNS,             KC_TRNS
 				 ),
 
 	[5] = LAYOUT_ortho(
