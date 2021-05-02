@@ -4,12 +4,12 @@
 
 /*usb descriptor setup*/
 
-#define VENDOR_ID 0x7474
-#define PRODUCT_ID 0x706d
-#define DEVICE_VER 0x0000
-#define MANUFACTURER Turtle Tech
-#define PRODUCT BradPad
-#define DESCRIPTION "A Portable Music Production Pad"
+#define VENDOR_ID 0x7474 //tt for tempo turtle
+#define PRODUCT_ID 0x6270 //bp for bradpad
+#define DEVICE_VER 0x0000 //this is for rev1.x.x pinouts
+#define MANUFACTURER Tempo Turtle
+#define PRODUCT Tempo Turtle bradpad
+#define DESCRIPTION Tempo Turtle bradpad
 
 /* keeb stuff */
 
