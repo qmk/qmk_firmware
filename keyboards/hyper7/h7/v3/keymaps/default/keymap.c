@@ -172,7 +172,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [N_ARY_INTERSECT] = 0x22C2,
     [N_ARY_UNION] = 0x22C3,
     [SUBSET_OF] = 0x2282,
-    [SUPERSET_OF] = 0x2282,
+    [SUPERSET_OF] = 0x2283,
     [FORALL] = 0x2200,
     [LEMNISCATE] = 0x221E, // ∞
     [END_OF_PROOF] = 0x220E,
@@ -350,7 +350,7 @@ enum custom_keycodes {
     H_LOCK, // lock machine? a little close to other used keys on a single keypress?
 
     // main board r5
-  H_EOF,
+    H_EOF,
     H_7BIT,
     H_CIRCLE_SM
 };
