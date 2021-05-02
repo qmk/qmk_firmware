@@ -1,47 +1,21 @@
-# Periboard-512 QMK Conversion
+# Periboard-512
 
-## Goal
+![Periboard-512](https://i.imgur.com/ohd61TK.jpeg)
 
-Have a low-cost consumer keyboard that can run QMK.
-For this project I converted a Perixx Periboard-512 that is readily available and can be bought for around $40 USD.
+For this project I converted low-cost consumer keyboard to QMK using a Perixx Periboard-512 and a Teensy++ 2.0.
 
-![Imgur](https://perixx.com/pub/media/ebc_fig/PB-512B/Photo/small/W-PERIBOARD-512B-1.jpg)
+* Keyboard Maintainer: [Sife-ops](https://github.com/Sife-ops)
+* Hardware Supported: Periboard-512, Teensy++ 2.0
+* Hardware Availability: [Periboard-512](https://www.amazon.com/Perixx-PERIBOARD-512-Ergonomic-Split-Keyboard/dp/B075GZVD4T), [Teensy++ 2.0](https://www.pjrc.com/store/teensypp.html)
 
-## Parts used
-1. Teensy 2.0++
-2. USB mini cable
-3. Soldering tools
-4. Wire
-5. Prototype board (card edge type)
-6. Hand drill
+Make example for this keyboard (after setting up your build environment):
 
-## Instructions
+    make Periboard_512:default
 
-1. Connect the microcontroller pins to card edge PCB like so:
+Flashing example for this keyboard:
 
-![Imgur](https://i.imgur.com/HfrJHad.jpeg)
-![Imgur](https://i.imgur.com/zyprOp8.jpeg)
+    make Periboard_512:default:flash
 
-2. Remove multimedia button cartridge:
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-![Imgur](https://i.imgur.com/Uxso6H3.jpeg)
-
-3. Remove back cover to reveal cartridge cavity:
-
-![Imgur](https://i.imgur.com/EG6m1t4.jpeg)
-
-4. Install Teensy PCB in cartridge cavity:
-
-![Imgur](https://i.imgur.com/1xYJNr9.jpeg)
-
-5. Drill hole in back cover for reset button access and reinstall cover:
-
-![Imgur](https://i.imgur.com/CFlvQIO.jpeg)
-
-7. Finish:
-
-![Imgur](https://i.imgur.com/ohd61TK.jpeg)
-
-## Future goals
-* Trackball
-* OLED
+[Build guide](https://gist.github.com/Sife-ops/af1916136d641ffee86e8f0f62afc5a4)
