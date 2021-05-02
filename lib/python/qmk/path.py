@@ -46,7 +46,7 @@ def keymap(keyboard_name):
     """
     keyboard_folder = keyboard(keyboard_name)
 
-    for i in range(MAX_KEYBOARD_SUBFOLDERS):
+    for _ in range(MAX_KEYBOARD_SUBFOLDERS):
         if (keyboard_folder / 'keymaps').exists():
             return (keyboard_folder / 'keymaps').resolve()
 
