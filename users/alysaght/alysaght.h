@@ -2,9 +2,8 @@
 #include QMK_KEYBOARD_H
 
 enum custom_layers {
-  _QWERTY,
-  _WORKMAN,
   _COLEMAK,
+  _QWERTY,
   _FFXIV,
   _MEDIA,
   _NAVR,
@@ -16,9 +15,8 @@ enum custom_layers {
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  WORKMAN,
-  COLEMAK,
+  COLEMAK = SAFE_RANGE,
+  QWERTY,
   FFXIV,
   BACKLIT,
   R_ASIGN,
@@ -44,11 +42,6 @@ enum custom_keycodes {
 #define HOMQ_D  LALT_T(KC_D) //QWERTY
 #define HOMQ_F  LGUI_T(KC_F) //QWERTY
 
-#define HOMW_A  LSFT_T(KC_A) //Workman
-#define HOMW_S  LCTL_T(KC_S) //Workman
-#define HOMW_H  LALT_T(KC_H) //Workman
-#define HOMW_T  LGUI_T(KC_T) //Workman
-
 #define HOMK_A  LSFT_T(KC_A) //COLEMAK
 #define HOMK_R  LCTL_T(KC_R) //COLEMAK
 #define HOMK_S  LALT_T(KC_S) //COLEMAK
@@ -59,11 +52,6 @@ enum custom_keycodes {
 #define HOMQ_K  LALT_T(KC_K)       //QWERTY
 #define HOMQ_L  LCTL_T(KC_L)       //QWERTY
 #define HOMQ_QUOT  LSFT_T(KC_QUOT) //QWERTY
-
-#define HOMW_N  LGUI_T(KC_N)       //Workman
-#define HOMW_E  LALT_T(KC_E)       //Workman
-#define HOMW_O  LCTL_T(KC_O)       //Workman
-#define HOMW_I  LSFT_T(KC_I)       //Workman
 
 #define HOMK_N  LGUI_T(KC_N)       //COLEMAK
 #define HOMK_E  LALT_T(KC_E)       //COLEMAK
@@ -138,27 +126,6 @@ enum custom_keycodes {
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define _________________QWERTY_R2_________________        KC_H,    HOMQ_J,  HOMQ_K,  HOMQ_L,  HOMQ_QUOT
 #define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
-
-
-/* Workman layer
- *
- * ,----------------------------------.        ,----------------------------------.
- * |   Q  |   D  |   R  |   W  |   B  |        |   J  |   F  |   U  |   P  |   '  |
- * |------+------+------+------+------+        +------+------+------+------+------|
- * |A-Shft|S-Ctrl|H-Alt |T-GUI |   G  |        |   Y  |N-GUI |E-Alt |O-Ctrl|I-Shft|
- * |------+------+------+------+------+        +------+------+------+------+------|
- * |   Z  |   X  |   M  |   C  |   V  |        |   K  |   L  |   ,  |   .  |   /  |
- * |======+======+======+======+======+        +======+======+======+======+======|
- * |  NO  |  NO  |LTEsc |LTBksp|LTTab |        |LTEnt |LTSpc |LTDel |  NO  |  NO  |   // ALPHA_*T
- * `----------------------------------'        `----------------------------------'
- */
-#define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
-#define _________________WORKMAN_L2________________       HOMW_A,  HOMW_S,  HOMW_H, HOMW_T,   KC_G
-#define _________________WORKMAN_L3________________       KC_Z,    KC_X,    KC_M,   KC_C,     KC_V
-
-#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_QUOT
-#define _________________WORKMAN_R2________________       KC_Y,    HOMW_N,  HOMW_E,  HOMW_O,  HOMW_I
-#define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLASH
 
 
 
@@ -378,6 +345,6 @@ enum custom_keycodes {
 #define _________________DRAGO_LT__________________         XXXXXXX, XXXXXXX, _______, XXXXXXX, _______
 
 #define _________________DRAGO_R1__________________         TERM_ON, TERM_OFF, XXXXXXX, XXXXXXX, XXXXXXX
-#define _________________DRAGO_R2__________________         XXXXXXX, QWERTY,   WORKMAN, COLEMAK, XXXXXXX
+#define _________________DRAGO_R2__________________         XXXXXXX, QWERTY,   XXXXXXX, COLEMAK, XXXXXXX
 #define _________________DRAGO_R3__________________         _________________BLANK_5___________________
 #define _________________DRAGO_RT__________________         _________________BLANK_5___________________
