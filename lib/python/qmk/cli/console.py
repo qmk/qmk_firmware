@@ -20,6 +20,7 @@ State machine is implemented as follows:
 import hid
 import queue
 import time
+from pathlib import Path
 from platform import platform
 from threading import Thread
 
@@ -127,28 +128,41 @@ class FindDevices(queue.Queue):
         """
         return hid_device['usage_page'] == 0xFF31 and hid_device['usage'] == 0x0074
 
-    def has_3rd_interface(self, hid_device):
-        """Returns true when this is the third interface supplied by a usb device.
-        """
-        return hid_device['interface_number'] == 2
-
     def is_filtered_device(self, hid_device):
         """Returns True if the device should be included in the list of available consoles.
         """
         return int2hex(hid_device['vendor_id']) == self.vid and int2hex(hid_device['product_id']) == self.pid
 
-    def find_devices(self):
-        """Returns a list of available teensy-style consoles.
+    def find_devices_by_report(self, hid_devices):
+        """Returns a list of available teensy-style consoles by doing a brute-force search.
+
+        Some versions of linux don't report usage and usage_page. In that case we fallback to reading the report (possibly inaccurately) ourselves.
         """
         devices = []
 
+        for device in hid_devices:
+            path = device['path'].decode('utf-8')
+
+            if path.startswith('/dev/hidraw'):
+                number = path[11:]
+                report = Path(f'/sys/class/hidraw/hidraw{number}/device/report_descriptor')
+
+                if report.exists():
+                    rp = report.read_bytes()
+
+                    if rp[1] == 0x31 and rp[3] == 0x09:
+                        devices.append(device)
+
+        return devices
+
+    def find_devices(self):
+        """Returns a list of available teensy-style consoles.
+        """
         hid_devices = hid.enumerate()
         devices = list(filter(self.is_console_hid, hid_devices))
 
         if not devices:
-            # Some versions of linux don't report usage and usage_page. In that
-            # case we fallback to devices that have a 3rd interface
-            devices = list(filter(self.has_3rd_interface, hid_devices))
+            devices = self.find_devices_by_report(hid_devices)
 
         if self.vid and self.pid:
             devices = list(filter(self.is_filtered_device, devices))
