@@ -33,7 +33,7 @@ class ConsoleMessages(queue.Queue):
     def print_message(self, message):
         """Nicely format and print a message.
         """
-        cli.echo('{fg_blue}%(vid)s:%(pid)s:%(index)s{fg_reset}: %(text)s' % message)
+        cli.echo('{fg_blue}%(vid)s:%(pid)s{fg_reset}: %(text)s' % message)
 
     def run_forever(self):
         while True:
@@ -48,18 +48,56 @@ class ConsoleMessages(queue.Queue):
                 cli.log.exception(e)
 
 
+class MonitorDevice(object):
+    def __init__(self, console, hid_device):
+        self.console = console
+        self.device = hid.Device(path=hid_device['path'])
+        self.vid = hid_device['vendor_id']
+        self.pid = hid_device['product_id']
+        self.current_line = ''
+
+        print()
+        print('Listening to %s %s (%04x:%04x) on %s:' % (hid_device['manufacturer_string'], hid_device['product_string'], hid_device['vendor_id'], hid_device['product_id'], hid_device['path'].decode()))
+
+    def read(self, size, encoding='ascii', timeout=1):
+        """Read size bytes from the device.
+        """
+        return self.device.read(size, timeout).decode(encoding)
+
+    def read_line(self):
+        """Read from the device's console until we get a \n.
+        """
+        while '\n' not in self.current_line:
+            self.current_line += self.read(32)
+
+        lines = self.current_line.split('\n', 1)
+        self.current_line = lines[1]
+
+        return lines[0]
+
+    def on_exception(self, e):
+        cli.log.error('Exception: %s: %s: %s', self.__class__.__name__, e.__class__.__name__, e)
+        cli.log.exception(e)
+
+    def run_forever(self):
+        while True:
+            self.console.put({
+                'vid': self.vid,
+                'pid': self.pid,
+                'text': self.read_line()
+            })
+
+
 class StateMachine(queue.Queue):
     def __init__(self, console):
         self.console = console
 
         super().__init__()
 
-    def transition(self, func, *args):
-        self.put(lambda: func(*args))
-
-    def transition_later(self, delay, func, *args):
-        time.sleep(delay)
-        self.put(lambda: func(*args))
+    def transition(self, func, *args, delay=None, **kwargs):
+        if delay:
+            time.sleep(delay)
+        self.put((func, args, kwargs))
 
     def on_exception(self, e):
         cli.log.error('Exception: %s: %s', e.__class__.__name__, e)
@@ -69,8 +107,8 @@ class StateMachine(queue.Queue):
     def run_forever(self):
         while True:
             try:
-                f = self.get()
-                f()
+                f, args, kwargs = self.get()
+                f(*args, **kwargs)
             except KeyboardInterrupt:
                 break
             except BaseException as e:
@@ -100,29 +138,24 @@ class StateMachine(queue.Queue):
 
         return devices
 
-    def search(self, *rest):
+    def search(self):
         print('.', end='', flush=True)
 
         found = list(self.find_devices())
         selected = found[cli.args.index] if found[cli.args.index:] else None
 
         if selected:
-            self.transition_later(0.5, self.on_connect, selected)
+            self.transition(self.on_connect, selected, delay=0.5)
         else:
-            self.transition_later(1, self.search)
+            self.transition(self.search, delay=1)
 
-    def on_connect(self, selected, *rest):
-        print()
-        print('Listening to %s:' % selected['path'].decode())
-        device = hid.Device(path=selected['path'])
-        self.transition_later(1, self.read, device)
+    def on_connect(self, hid_device):
+        monitor = MonitorDevice(self.console, hid_device)
+        self.transition(monitor.run_forever, delay=1)
 
-    def read(self, device, *rest):
-        print(device.read(32, 1).decode('ascii'), end='')
-        self.transition(self.read, device)
-
-    def on_exception(self, context, *rest):
-        print(str(context))
+    def on_exception(self, e):
+        cli.log.error('Exception: %s: %s: %s', self.__class__.__name__, e.__class__.__name__, e)
+        cli.log.exception(e)
         print('Device disconnected.')
         print('Waiting for new device..', end="")
         self.transition(self.search)
