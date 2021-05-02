@@ -1,19 +1,19 @@
 """Functions that help you work with QMK keymaps.
 """
-from pathlib import Path
 import json
 import subprocess
 import sys
+from pathlib import Path
 
+import argcomplete
+from milc import cli
 from pygments.lexers.c_cpp import CLexer
 from pygments.token import Token
 from pygments import lex
 
-from milc import cli
-
-from qmk.keyboard import rules_mk
 import qmk.path
 import qmk.commands
+from qmk.keyboard import find_keyboard_from_dir, rules_mk
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -72,6 +72,54 @@ def _strip_any(keycode):
         keycode = keycode[4:-1]
 
     return keycode
+
+
+def find_keymap_from_dir():
+    """Returns `(keymap_name, source)` for the directory we're currently in.
+
+    """
+    relative_cwd = qmk.path.under_qmk_firmware()
+
+    if relative_cwd and len(relative_cwd.parts) > 1:
+        # If we're in `qmk_firmware/keyboards` and `keymaps` is in our path, try to find the keyboard name.
+        if relative_cwd.parts[0] == 'keyboards' and 'keymaps' in relative_cwd.parts:
+            current_path = Path('/'.join(relative_cwd.parts[1:]))  # Strip 'keyboards' from the front
+
+            if 'keymaps' in current_path.parts and current_path.name != 'keymaps':
+                while current_path.parent.name != 'keymaps':
+                    current_path = current_path.parent
+
+                return current_path.name, 'keymap_directory'
+
+        # If we're in `qmk_firmware/layouts` guess the name from the community keymap they're in
+        elif relative_cwd.parts[0] == 'layouts' and is_keymap_dir(relative_cwd):
+            return relative_cwd.name, 'layouts_directory'
+
+        # If we're in `qmk_firmware/users` guess the name from the userspace they're in
+        elif relative_cwd.parts[0] == 'users':
+            # Guess the keymap name based on which userspace they're in
+            return relative_cwd.parts[1], 'users_directory'
+
+    return None, None
+
+
+def keymap_completer(prefix, action, parser, parsed_args):
+    """Returns a list of keymaps for tab completion.
+    """
+    try:
+        if parsed_args.keyboard:
+            return list_keymaps(parsed_args.keyboard)
+
+        keyboard = find_keyboard_from_dir()
+
+        if keyboard:
+            return list_keymaps(keyboard)
+
+    except Exception as e:
+        argcomplete.warn(f'Error: {e.__class__.__name__}: {str(e)}')
+        return []
+
+    return []
 
 
 def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
