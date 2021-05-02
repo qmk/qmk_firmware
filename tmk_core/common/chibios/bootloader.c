@@ -13,7 +13,23 @@
 #    define STM32_BOOTLOADER_DUAL_BANK FALSE
 #endif
 
-#if STM32_BOOTLOADER_DUAL_BANK
+#ifdef BOOTLOADER_TINYUF2
+
+#    define DBL_TAP_MAGIC 0xf01669ef  // From tinyuf2's board_api.h
+
+// defined by linker script
+extern uint32_t _board_dfu_dbl_tap[];
+#    define DBL_TAP_REG _board_dfu_dbl_tap[0]
+
+void bootloader_jump(void) {
+    DBL_TAP_REG = DBL_TAP_MAGIC;
+    NVIC_SystemReset();
+}
+
+void enter_bootloader_mode_if_requested(void) { /* not needed, no two-stage reset */
+}
+
+#elif STM32_BOOTLOADER_DUAL_BANK
 
 // Need pin definitions
 #    include "config_common.h"

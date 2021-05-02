@@ -76,7 +76,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
 カスタムレイヤー効果は `<keyboard>.c` 内で以下を定義することで行うことができます:
 
     void led_matrix_indicators_kb(void) {
-    led_matrix_set_index_value(index, value);
+    led_matrix_set_value(index, value);
     }
 
 同様の関数がキーマップ内で `led_matrix_indicators_user` として動作します。

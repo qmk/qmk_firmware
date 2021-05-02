@@ -8,7 +8,7 @@ To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
 On Atmega32U4 based boards, up to two simultaneous tones can be rendered.
 With one speaker connected to a PWM capable pin on PORTC driven by timer 3 and the other on one of the PWM pins on PORTB driven by timer 1.
 
-The following pins can be configured as audio outputs in `config.h` - for one speaker set eiter one out of:
+The following pins can be configured as audio outputs in `config.h` - for one speaker set either one out of:
 
 * `#define AUDIO_PIN C4`
 * `#define AUDIO_PIN C5`
@@ -166,7 +166,7 @@ The available keycodes for audio are:
 !> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
 
 ## Tempo
-the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lenghts are defined relative to that.
+the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lengths are defined relative to that.
 The initial/default tempo is set to 120 bpm, but can be configured by setting `TEMPO_DEFAULT` in `config.c`.
 There is also a set of functions to modify the tempo from within the user/keymap code:
 ```c
@@ -291,7 +291,7 @@ You can configure the default, min and max frequencies, the stepping and built i
 |--------|---------------|-------------|
 | `AUDIO_CLICKY_FREQ_DEFAULT` | 440.0f | Sets the default/starting audio frequency for the clicky sounds. |
 | `AUDIO_CLICKY_FREQ_MIN` | 65.0f | Sets the lowest frequency (under 60f are a bit buggy). |
-| `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the the highest frequency. Too high may result in coworkers attacking you. |
+| `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the highest frequency. Too high may result in coworkers attacking you. |
 | `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN key codes.  This is a multiplicative factor.  The default steps the frequency up/down by a musical minor third.  |
 | `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical, and `1.0f` will make this sound much like the 90's computer screen scrolling/typing effect. | 
 | `AUDIO_CLICKY_DELAY_DURATION` | 1 | An integer note duration where 1 is 1/16th of the tempo, or a sixty-fourth note (see `quantum/audio/musical_notes.h` for implementation details). The main clicky effect will be delayed by this duration.  Adjusting this to values around 6-12 will help compensate for loud switches. |

@@ -1,4 +1,4 @@
-/* Copyright 2018-2020 James Young (@noroadsleft)
+/* Copyright 2018-2021 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,11 +40,7 @@ enum layer_names {
 
 
 // KEYCODE DEFINITIONS
-#define NO_CHNG KC_TRNS // Note for me for keys I need to leave as Pass-through
-
 #define FN_CAPS LT(_FN, KC_CAPS)  // Function Layer when held, Caps Lock when tapped
-#define Q2_CAPS LT(_FQ, KC_CAPS)  // Quake 2 Function Layer when held, Caps Lock when tapped
-
 #define CTL_GRV MT(MOD_LCTL, KC_GRV)  // Left Control when held, Grave accent when tapped
 
 
@@ -58,7 +54,6 @@ enum custom_keycodes {
 /*******************
 ** MODIFIER MASKS **
 *******************/
-#define MOD_MASK_RALT   (MOD_BIT(KC_RALT))
 unsigned char q2InputMode = 0;
 
 
@@ -117,51 +112,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                     }
                 }
             };
-            return false;
-        case KC_Z:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    register_code(KC_NUBS);
-                } else {
-                    register_code(KC_Z);
-                }
-            } else {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    unregister_code(KC_NUBS);
-                } else {
-                    unregister_code(KC_Z);
-                }
-            };
-            return false;
-        case KC_1 ... KC_0:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    register_code( keycode + 0x3B );
-                } else {
-                    register_code( keycode );
-                }
-            } else {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    unregister_code( keycode + 0x3B );
-                } else {
-                    unregister_code( keycode );
-                }
-            }
-            return false;
-        case KC_F1 ... KC_F12:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    register_code( keycode + 0x2E );
-                } else {
-                    register_code( keycode );
-                }
-            } else {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    unregister_code( keycode + 0x2E );
-                } else {
-                    unregister_code( keycode );
-                }
-            }
             return false;
     } // switch()
     return true;
@@ -223,9 +173,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN] = LAYOUT_60_ansi(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
         _______, KC_CALC, KC_APP,  _______, _______, _______, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_PSCR, KC_SLCK, KC_PAUS,
-        NO_CHNG, M_SALL,  _______, _______, _______, _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,          KC_PENT,
+        _______, M_SALL,  _______, _______, _______, _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,          KC_PENT,
         _______,          M_UNDO,  M_CUT,   M_COPY,  M_PASTE, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, TG(_SY),          _______,
-        _______, _______, _______,                            TG(_NP),                            _______, _______, NO_CHNG, _______
+        _______, _______, _______,                            TG(_NP),                            _______, _______, _______, _______
     ),
 
     /*****************
@@ -238,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, KC_E,    KC_F,    _______, KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_PSLS, KC_PEQL, _______,
         _______, _______, _______, _______, KC_C,    KC_D,    _______, KC_P1,   KC_P2,   KC_P3,   KC_PPLS, KC_PMNS,          KC_PENT,
         _______,          _______, _______, _______, KC_A,    KC_B,    _______, KC_P0,   _______, KC_PDOT, _______,          _______,
-        _______, _______, _______,                            TG(_NP),                            _______, _______, NO_CHNG, _______
+        _______, _______, _______,                            TG(_NP),                            _______, _______, _______, _______
     ),
 
     /* Macro layer */
@@ -247,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, G_PUSH,  _______, _______, _______, _______, _______, _______, _______, DM_PLY1, DM_PLY2, DM_RSTP,
         _______, _______, _______, G_FTCH,  _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______,          _______, _______, _______, _______, G_BRCH,  _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______,                            _______,                            _______, _______, NO_CHNG, _______
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______
     ),
 
     /* System layer */
@@ -256,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, M_MDSWP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         XXXXXXX,          XXXXXXX, XXXXXXX, BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, NO_CHNG, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, _______, XXXXXXX
     ),
 
 };

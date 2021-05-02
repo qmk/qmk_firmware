@@ -38,7 +38,7 @@ static keyrecord_t autoshift_lastrecord;
 // and it knows which key needs to be released (if shifted is different base).
 static uint16_t autoshift_shift_states[((1 << 8) + 15) / 16];
 static struct {
-    // Whether autoshift is enabled.
+    // Whether Auto Shift is enabled.
     bool enabled : 1;
     // Whether the last auto-shifted key was released after the timeout.  This
     // is used to replicate the last key for a tap-then-hold.
@@ -55,14 +55,33 @@ static struct {
 } autoshift_flags = {true, false, false, false, false, false};
 // clang-format on
 
-/** \brief Called on physical press, returns whether is autoshift key */
-__attribute__((weak)) bool autoshift_is_custom(uint16_t keycode, keyrecord_t *record) { return false; }
+/** \brief Called on physical press, returns whether key should be added to Auto Shift */
+__attribute__((weak)) bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) { return false; }
+
+/** \brief Called on physical press, returns whether is Auto Shift key */
+__attribute__((weak)) bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+#    ifndef NO_AUTO_SHIFT_ALPHA
+        case KC_A ... KC_Z:
+#    endif
+#    ifndef NO_AUTO_SHIFT_NUMERIC
+        case KC_1 ... KC_0:
+#    endif
+#    ifndef NO_AUTO_SHIFT_SPECIAL
+        case KC_TAB:
+        case KC_MINUS ... KC_SLASH:
+        case KC_NONUS_BSLASH:
+#    endif
+            return true;
+    }
+    return get_custom_auto_shifted_key(keycode, record);
+}
 
 /** \brief Called to check whether defines should apply if PER_KEY is set for it */
 __attribute__((weak)) bool get_auto_shift_repeat(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__((weak)) bool get_auto_shift_no_auto_repeat(uint16_t keycode, keyrecord_t *record) { return true; }
 
-/** \brief Called when an autoshift key needs to be pressed */
+/** \brief Called when an Auto Shift key needs to be pressed */
 __attribute__((weak)) void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     if (shifted) {
         add_weak_mods(MOD_BIT(KC_LSFT));
@@ -70,7 +89,7 @@ __attribute__((weak)) void autoshift_press_user(uint16_t keycode, bool shifted, 
     register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
 }
 
-/** \brief Called when an autoshift key needs to be released */
+/** \brief Called when an Auto Shift key needs to be released */
 __attribute__((weak)) void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) { unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode); }
 
 /** \brief Sets the shift state to use when keyrepeating, required by custom shifts */
@@ -89,7 +108,7 @@ bool get_autoshift_shift_state(uint16_t keycode) {
     return (autoshift_shift_states[keycode / 16] & (uint16_t)1 << keycode % 16) != (uint16_t)0;
 }
 
-/** \brief Restores the shift key if it was cancelled by autoshift */
+/** \brief Restores the shift key if it was cancelled by Auto Shift */
 static void autoshift_flush_shift(void) {
     autoshift_flags.holding_shift = false;
     del_weak_mods(MOD_BIT(KC_LSFT));
@@ -194,9 +213,9 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
 
 /** \brief Registers an autoshiftable key under the right conditions
  *
- * If the autoshift delay has elapsed, register a shift and the key.
+ * If autoshift_timeout has elapsed, register a shift and the key.
  *
- * If the autoshift key is released before the delay has elapsed, register the
+ * If the Auto Shift key is released before the delay has elapsed, register the
  * key without a shift.
  *
  * Called on key down with keycode=KC_NO, auto-shifted key up, and timeout.
@@ -411,29 +430,13 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     if (!autoshift_flags.enabled) {
         return true;
     }
-
-    switch (keycode) {
-        default:
-            if (!autoshift_is_custom(keycode, record)) {
-                break;
-            }
-#    ifndef NO_AUTO_SHIFT_ALPHA
-        case KC_A ... KC_Z:
-#    endif
-#    ifndef NO_AUTO_SHIFT_NUMERIC
-        case KC_1 ... KC_0:
-#    endif
-#    ifndef NO_AUTO_SHIFT_SPECIAL
-        case KC_TAB:
-        case KC_MINUS ... KC_SLASH:
-        case KC_NONUS_BSLASH:
-#    endif
-            if (record->event.pressed) {
-                return autoshift_press(keycode, now, record);
-            } else {
-                autoshift_end(keycode, now, false, record);
-                return false;
-            }
+    if (get_auto_shifted_key(keycode, record)) {
+        if (record->event.pressed) {
+            return autoshift_press(keycode, now, record);
+        } else {
+            autoshift_end(keycode, now, false, record);
+            return false;
+        }
     }
 
     // Prevent keyrepeating of older keys upon non-AS key event.

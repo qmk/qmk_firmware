@@ -101,7 +101,11 @@
 
 // Options are 12, 10, 8, and 6 bit.
 #ifndef ADC_RESOLUTION
-#    define ADC_RESOLUTION ADC_CFGR1_RES_10BIT
+#    ifdef ADC_CFGR_RES_10BITS  // ADCv3, ADCv4
+#        define ADC_RESOLUTION ADC_CFGR_RES_10BITS
+#    else  // ADCv1, ADCv5, or the bodge for ADCv2 above
+#        define ADC_RESOLUTION ADC_CFGR1_RES_10BIT
+#    endif
 #endif
 
 static ADCConfig   adcCfg = {};
@@ -161,8 +165,8 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
         case B0:  return TO_MUX( ADC_CHANNEL_IN12, 2 );
         case B1:  return TO_MUX( ADC_CHANNEL_IN1,  2 );
         case B2:  return TO_MUX( ADC_CHANNEL_IN12, 1 );
-        case B12: return TO_MUX( ADC_CHANNEL_IN2,  3 );
-        case B13: return TO_MUX( ADC_CHANNEL_IN3,  3 );
+        case B12: return TO_MUX( ADC_CHANNEL_IN3,  3 );
+        case B13: return TO_MUX( ADC_CHANNEL_IN5,  2 );
         case B14: return TO_MUX( ADC_CHANNEL_IN4,  3 );
         case B15: return TO_MUX( ADC_CHANNEL_IN5,  3 );
         case C0:  return TO_MUX( ADC_CHANNEL_IN6,  0 ); // Can also be ADC2
@@ -189,11 +193,52 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
         case E15: return TO_MUX( ADC_CHANNEL_IN2,  3 );
         case F2:  return TO_MUX( ADC_CHANNEL_IN10, 0 ); // Can also be ADC2
         case F4:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
-#elif defined(STM32F4XX) // TODO: add all pins
+#elif defined(STM32F4XX)
         case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
-        //case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
-#elif defined(STM32F1XX) // TODO: add all pins
+        case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
+        case A2:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
+        case A3:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
+        case A4:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
+        case A5:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
+        case A6:  return TO_MUX( ADC_CHANNEL_IN6,  0 );
+        case A7:  return TO_MUX( ADC_CHANNEL_IN7,  0 );
+        case B0:  return TO_MUX( ADC_CHANNEL_IN8,  0 );
+        case B1:  return TO_MUX( ADC_CHANNEL_IN9,  0 );
+        case C0:  return TO_MUX( ADC_CHANNEL_IN10, 0 );
+        case C1:  return TO_MUX( ADC_CHANNEL_IN11, 0 );
+        case C2:  return TO_MUX( ADC_CHANNEL_IN12, 0 );
+        case C3:  return TO_MUX( ADC_CHANNEL_IN13, 0 );
+        case C4:  return TO_MUX( ADC_CHANNEL_IN14, 0 );
+        case C5:  return TO_MUX( ADC_CHANNEL_IN15, 0 );
+#    if STM32_ADC_USE_ADC3
+        case F3:  return TO_MUX( ADC_CHANNEL_IN9,  2 );
+        case F4:  return TO_MUX( ADC_CHANNEL_IN14, 2 );
+        case F5:  return TO_MUX( ADC_CHANNEL_IN15, 2 );
+        case F6:  return TO_MUX( ADC_CHANNEL_IN4,  2 );
+        case F7:  return TO_MUX( ADC_CHANNEL_IN5,  2 );
+        case F8:  return TO_MUX( ADC_CHANNEL_IN6,  2 );
+        case F9:  return TO_MUX( ADC_CHANNEL_IN7,  2 );
+        case F10: return TO_MUX( ADC_CHANNEL_IN8,  2 );
+#    endif
+#elif defined(STM32F1XX)
         case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
+        case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
+        case A2:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
+        case A3:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
+        case A4:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
+        case A5:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
+        case A6:  return TO_MUX( ADC_CHANNEL_IN6,  0 );
+        case A7:  return TO_MUX( ADC_CHANNEL_IN7,  0 );
+        case B0:  return TO_MUX( ADC_CHANNEL_IN8,  0 );
+        case B1:  return TO_MUX( ADC_CHANNEL_IN9,  0 );
+        case C0:  return TO_MUX( ADC_CHANNEL_IN10, 0 );
+        case C1:  return TO_MUX( ADC_CHANNEL_IN11, 0 );
+        case C2:  return TO_MUX( ADC_CHANNEL_IN12, 0 );
+        case C3:  return TO_MUX( ADC_CHANNEL_IN13, 0 );
+        case C4:  return TO_MUX( ADC_CHANNEL_IN14, 0 );
+        case C5:  return TO_MUX( ADC_CHANNEL_IN15, 0 );
+        // STM32F103x[C-G] in 144-pin packages also have analog inputs on F6...F10, but they are on ADC3, and the
+        // ChibiOS ADC driver for STM32F1xx currently supports only ADC1, therefore these pins are not usable.
 #endif
     }
 

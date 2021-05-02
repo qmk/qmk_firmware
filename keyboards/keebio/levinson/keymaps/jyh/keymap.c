@@ -20,9 +20,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-// Fillers to make layering more clear
-#define KC_ KC_TRNS
-
 // tap toggle numpad on
 #define NUMPAD TT(_NUMS)
 
@@ -47,13 +44,6 @@ enum custom_keycodes {
 #define CTL_QOT MT(MOD_RCTL, KC_QUOT) //  '       Right Control
 #define CTL_BSL MT(MOD_RCTL, KC_BSLS) //  \       Right Control
 #define CTL_PIP MT(MOD_RCTL, KC_PIPE) //  |       Right Control
-
-// Redefine for LAYOUT_kc
-#define KC_CTL_BSL CTL_BSL
-#define KC_CTL_PIP CTL_PIP
-#define KC_CTL_DEL CTL_DEL
-#define KC_HPR_TIL HPR_TIL
-#define KC_HPR_GRV HPR_GRV
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -81,12 +71,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-				[_QWERTY] = LAYOUT_ortho_4x12(
-								HPR_TAB, KC_Q   , KC_W   , KC_E   , KC_R , KC_T   ,    KC_Y   , KC_U , KC_I   , KC_O   , KC_P   , KC_BSPC,
-								CTL_ESC, KC_A   , KC_S   , KC_D   , KC_F , KC_G   ,    KC_H   , KC_J , KC_K   , KC_L   , KC_SCLN, CTL_QOT,
-								SFT_MIN, KC_Z   , KC_X   , KC_C   , KC_V , KC_B   ,    KC_N   , KC_M , KC_COMM, KC_DOT , KC_SLSH, SFT_ENT,
-								NUMPAD , KC_MEH , KC_LGUI, KC_LALT, LOWER, CTL_SPC,    KC_SPC, RAISE, KC_RALT, KC_RGUI, KC_HYPR, MO(_FUNC)
-								),
+    [_QWERTY] = LAYOUT_ortho_4x12(
+        HPR_TAB, KC_Q   , KC_W   , KC_E   , KC_R , KC_T   ,    KC_Y   , KC_U , KC_I   , KC_O   , KC_P   , KC_BSPC,
+        CTL_ESC, KC_A   , KC_S   , KC_D   , KC_F , KC_G   ,    KC_H   , KC_J , KC_K   , KC_L   , KC_SCLN, CTL_QOT,
+        SFT_MIN, KC_Z   , KC_X   , KC_C   , KC_V , KC_B   ,    KC_N   , KC_M , KC_COMM, KC_DOT , KC_SLSH, SFT_ENT,
+        NUMPAD , KC_MEH , KC_LGUI, KC_LALT, LOWER, CTL_SPC,    KC_SPC, RAISE, KC_RALT, KC_RGUI, KC_HYPR, MO(_FUNC)
+        ),
 
 
 /* Raise
@@ -100,12 +90,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-				[_RAISE] = LAYOUT_kc_ortho_4x12(
-								HPR_GRV, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,       ,
-               ,LEFT, UP ,DOWN,RGHT,LPRN,     RPRN,MINS, EQL,LBRC,RBRC,CTL_PIP,
-								       ,COLN,QUOT,ASTR,COMM,LCBR,     RCBR,UNDS,PLUS,    ,    ,       ,
-								       ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
-								),
+    [_RAISE] = LAYOUT_ortho_4x12(
+        HPR_GRV, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,    KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
+        _______, KC_LEFT, KC_UP  , KC_DOWN, KC_RGHT, KC_LPRN,    KC_RPRN, KC_MINS, KC_EQL , KC_LBRC, KC_RBRC, CTL_PIP,
+        _______, KC_COLN, KC_QUOT, KC_ASTR, KC_COMM, KC_LCBR,    KC_RCBR, KC_UNDS, KC_PLUS, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
+        ),
 
 /* Lower
  * ,-----------------------------------------.    ,-----------------------------------------.
@@ -118,61 +108,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-				[_LOWER] = LAYOUT_kc_ortho_4x12(
-								HPR_TIL,EXLM, AT ,HASH,DLR , PERC  ,     CIRC,AMPR,ASTR,LPRN,RPRN,       ,
-								CTL_DEL,VOLU,MUTE,MPLY,PGUP, COLN  ,     QUOT,MINS, EQL,LBRC,RBRC,CTL_BSL,
-								       ,VOLD,MPRV,MNXT,PGDN, SCLN  ,     DQUO,PIPE,COMM, DOT,SLSH,       ,
-								       ,    ,    ,    ,    ,       ,         ,    ,    ,    ,    ,
-								),
+    [_LOWER] = LAYOUT_ortho_4x12(
+        HPR_TIL, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+        CTL_DEL, KC_VOLU, KC_MUTE, KC_MPLY, KC_PGUP, KC_COLN,    KC_QUOT, KC_MINS, KC_EQL , KC_LBRC, KC_RBRC, CTL_BSL,
+        _______, KC_VOLD, KC_MPRV, KC_MNXT, KC_PGDN, KC_SCLN,    KC_DQUO, KC_PIPE, KC_COMM, KC_DOT , KC_SLSH, _______,
+        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
+        ),
 
-				[_FUNC] = LAYOUT_kc_ortho_4x12(
-// ,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-								, F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 , F10,    ,
-// |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								, F11, F12, F13, F14, F15,      F16, F17, F18, F19, F20,    ,
-// |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								, F21, F22, F23, F24, NO ,      NO , NO , NO , NO , NO ,    ,
-// |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
-// `----+----+----+----+----+----'    `----+----+----+----+----+----'
-  ),
+    [_FUNC] = LAYOUT_ortho_4x12(
+        _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,    KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______,
+        _______, KC_F11 , KC_F12 , KC_F13 , KC_F14 , KC_F15 ,    KC_F16 , KC_F17 , KC_F18 , KC_F19 , KC_F20 , _______,
+        _______, KC_F21 , KC_F22 , KC_F23 , KC_F24 , KC_NO  ,    KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  , _______,
+        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
+        ),
 
-				[_NUMS] = LAYOUT_kc_ortho_4x12(
-// ,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-								, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  ,SLSH,    ,
-// |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								,CAPS, INS,HOME,PGUP,LPRN,     RPRN, 4  , 5  , 6  ,ASTR,    ,
-// |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								,NLCK, DEL, END,PGDN,SCLN,     COMM, 1  , 2  , 3  ,MINS,    ,
-// |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								,    ,    ,    ,    ,    ,         , 0  ,DOT ,EQL ,PLUS,
-// `----+----+----+----+----+----'    `----+----+----+----+----+----'
-								),
+    [_NUMS] = LAYOUT_ortho_4x12(
+        _______, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,    KC_6   , KC_7   , KC_8   , KC_9   , KC_SLSH, _______,
+        _______, KC_CAPS, KC_INS , KC_HOME, KC_PGUP, KC_LPRN,    KC_RPRN, KC_4   , KC_5   , KC_6   , KC_ASTR, _______,
+        _______, KC_NLCK, KC_DEL , KC_END , KC_PGDN, KC_SCLN,    KC_COMM, KC_1   , KC_2   , KC_3   , KC_MINS, _______,
+        _______, _______, _______, _______, _______, _______,    _______, KC_0   , KC_DOT , KC_EQL , KC_PLUS, _______
+        ),
 
-				[_ADJUST] = LAYOUT_ortho_4x12(
-// ,-------+--------+--------+--------+--------+--------.   ,-------+--------+--------+--------+--------+--------.
-		   RESET , XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL , \
-// |-------+--------+--------+--------+--------+--------|   |-------+--------+--------+--------+--------+--------|
-			 _______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,    BL_TOGG, BL_STEP, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-// |-------+--------+--------+--------+--------+--------|   |-------+--------+--------+--------+--------+--------|
-		  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-// |-------+--------+--------+--------+--------+--------|   |-------+--------+--------+--------+--------+--------|
-		  _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______  \
-// `-------+--------+--------+--------+--------+--------'   `-------+--------+--------+--------+--------+--------,
-		)
+    [_ADJUST] = LAYOUT_ortho_4x12(
+        RESET  , XXXXXXX, KC_UP  , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL ,
+        _______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,    BL_TOGG, BL_STEP, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
+        )
+};
 
-/*
+/* Template
+ *
  * ,-----------------------------------------.    ,-----------------------------------------.
- * |      |      |      |      |      |      |    |      |      |      |      |      |      |
+ * | Hyper|      |      |      |      |      |    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |    |      |      |      |      |      |      |
+ * | Ctrl |      |      |      |      |      |    |      |      |      |      |      | Ctrl |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |    |      |      |      |      |      |      |
+ * | Shift|      |      |      |      |      |    |      |      |      |      |      | Shift|
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
+ *
+ *
  */
-};
+//     ,-------+--------+--------+--------+--------+--------.   ,-------+--------+--------+--------+--------+--------.
+//     |       |        |        |        |        |        |   |       |        |        |        |        |        |
+//     ,-------+--------+--------+--------+--------+--------.   ,-------+--------+--------+--------+--------+--------.
+//     |       |        |        |        |        |        |   |       |        |        |        |        |        |
+//     ,-------+--------+--------+--------+--------+--------.   ,-------+--------+--------+--------+--------+--------.
+//     |       |        |        |        |        |        |   |       |        |        |        |        |        |
+//     ,-------+--------+--------+--------+--------+--------.   ,-------+--------+--------+--------+--------+--------.
+//     |       |        |        |        |        |        |   |       |        |        |        |        |        |
+//     `-------+--------+--------+--------+--------+--------'   `-------+--------+--------+--------+--------+--------,
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

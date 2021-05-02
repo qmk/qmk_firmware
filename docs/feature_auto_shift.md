@@ -115,6 +115,47 @@ Do not Auto Shift numeric keys, zero through nine.
 
 Do not Auto Shift alpha characters, which include A through Z.
 
+### Auto Shift Per Key
+
+There are functions that allows you to determine which keys shold be autoshifted, much like the tap-hold keys.
+
+The first of these, used to simply add a key to Auto Shift, is `get_custom_auto_shifted_key`:
+
+```c
+bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case KC_DOT:
+            return true;
+        default:
+            return false;
+    }
+}
+```
+
+For more granular control, there is `get_auto_shifted_key`. The default function looks like this:
+
+```c
+bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+#    ifndef NO_AUTO_SHIFT_ALPHA
+        case KC_A ... KC_Z:
+#    endif
+#    ifndef NO_AUTO_SHIFT_NUMERIC
+        case KC_1 ... KC_0:
+#    endif
+#    ifndef NO_AUTO_SHIFT_SPECIAL
+        case KC_TAB:
+        case KC_MINUS ... KC_SLASH:
+        case KC_NONUS_BSLASH:
+#    endif
+            return true;
+    }
+    return get_custom_auto_shifted_key(keycode, record);
+}
+```
+
+This functionality is enabled by default, and does not need a define.
+
 ### AUTO_SHIFT_REPEAT (simple define)
 
 Enables keyrepeat.
@@ -123,34 +164,31 @@ Enables keyrepeat.
 
 Disables automatically keyrepeating when `AUTO_SHIFT_TIMEOUT` is exceeded.
 
-### Custom Keys and Custom Shifted Values
+### Custom Shifted Values
 
 Especially on small keyboards, the default shifted value for many keys is not
-optimal. To provide more customizability, there are three user-definable
-functions. The first, `autoshift_is_custom`, is called on every key event and
-returns whether it should be a part of Auto Shift. The other two are
-`autoshift_press/release_user`, and press or release the passed key. If one
-does not require custom shift values but wants custom keys, only
-`autoshift_is_custom` is required. Below is an example adding period to Auto
+optimal. To provide more customizability, there are two user-definable
+functions, `autoshift_press/release_user`. These register or unregister the
+correct value for the passed key. Below is an example adding period to Auto
 Shift and making its shifted value exclamation point. Make sure to use weak
 mods - setting real would make any keys following it use their shifted values
 as if you were holding the key. Clearing of modifiers is handled by Auto Shift,
-and the os-sent shift value if keyrepeating multiple keys is always that of
+and the OS-sent shift value if keyrepeating multiple keys is always that of
 the last key pressed (whether or not it's an Auto Shift key).
 
 You can also have non-shifted keys for the shifted values (or even no shifted
 value), just don't set a shift modifier!
 
 ```c
-bool autoshift_is_custom(uint16_t keycode, keyrecord_t *record) {
+bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         case KC_DOT:
-            break;
+            return true;
         default:
             return false;
     }
-    return true;
 }
+
 void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
         case KC_DOT:
@@ -164,6 +202,7 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
             register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
+
 void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
         case KC_DOT:

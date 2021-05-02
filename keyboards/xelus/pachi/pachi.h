@@ -20,4 +20,6 @@
 
 #if defined(KEYBOARD_xelus_pachi_rev1)
     #include "rev1.h"
+#elif defined(KEYBOARD_xelus_pachi_mini_32u4)
+    #include "mini_32u4.h"
 #endif

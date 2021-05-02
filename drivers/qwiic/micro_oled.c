@@ -206,6 +206,8 @@ void clear_screen(void) {
             send_data(0);
         }
     }
+
+    memset(micro_oled_screen_current, 0, LCDWIDTH * LCDHEIGHT / 8);
 }
 
 /** \brief Clear SSD1306's memory.

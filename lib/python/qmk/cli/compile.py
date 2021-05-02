@@ -2,17 +2,19 @@
 
 You can compile a keymap already in the repo or using a QMK Configurator export.
 """
+from argcomplete.completers import FilesCompleter
 from milc import cli
 
 import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
-from qmk.keyboard import keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keymap import keymap_completer
 
 
-@cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), help='The configurator export to compile')
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
+@cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='The configurator export to compile')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
+@cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs to run.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")

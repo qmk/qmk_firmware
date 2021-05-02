@@ -22,8 +22,8 @@ The `<target>` means the following
 
 The following targets are for developers:
 
-* `show-path` shows the path of the source and object files.
-* `dump-vars` dumps the makefile variable.
+* `show_path` shows the path of the source and object files.
+* `dump_vars` dumps the makefile variable.
 * `objs-size` displays the size of individual object files.
 * `show_build_options` shows the options set in 'rules.mk'.
 * `check-md5` displays the md5 checksum of the generated binary file.

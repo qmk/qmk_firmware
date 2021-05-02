@@ -32,7 +32,7 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 3
+#define DEBOUNCE 5
 
 /* disable these deprecated features by default */
 #ifdef RGB_MATRIX_ENABLE
