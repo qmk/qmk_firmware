@@ -29,7 +29,6 @@
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record);
 void retroshift_poll_time(keyevent_t *event);
 void retroshift_swap_times(void);
-void retroshift_clear_last(void);
 
 void     autoshift_enable(void);
 void     autoshift_disable(void);

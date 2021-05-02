@@ -131,9 +131,6 @@ bool process_tapping(keyrecord_t *keyp) {
                     tapping_key.tap.count = 1;
                     debug_tapping_key();
                     process_record(&tapping_key);
-#    ifdef RETRO_SHIFT
-                    retroshift_swap_times();
-#    endif
 
                     // copy tapping state
                     keyp->tap = tapping_key.tap;
@@ -208,9 +205,6 @@ bool process_tapping(keyrecord_t *keyp) {
 #        endif
                 ) {
                     // clang-format on
-#        ifdef RETRO_SHIFT
-                    retroshift_clear_last();
-#        endif
                     debug("Tapping: End. No tap. Interfered by typing key\n");
                     process_record(&tapping_key);
                     tapping_key = (keyrecord_t){};

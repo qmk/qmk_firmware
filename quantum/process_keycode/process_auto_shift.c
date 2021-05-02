@@ -375,8 +375,6 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             return true;
         }
     } else {
-        retroshift_clear_last();
-
         if (keycode == KC_LSFT) {
             autoshift_flags.cancelling_lshift = false;
         } else if (keycode == KC_RSFT) {
@@ -454,15 +452,12 @@ void retroshift_poll_time(keyevent_t *event) {
 }
 // Used to swap the times of Retro Shifted key and Auto Shift key that interrupted it.
 void retroshift_swap_times() {
-    if (last_retroshift_time != 0) {
+    if (last_retroshift_time != 0 && autoshift_flags.in_progress) {
         uint16_t temp = retroshift_time;
         retroshift_time = last_retroshift_time;
         last_retroshift_time = temp;
     }
 }
-// Used when a Retro Shift key is not Retro Shifted; when using them on an Auto Shift
-// key we muts prevent switching their times as the first is acting as a modifier/layer.
-void retroshift_clear_last() { last_retroshift_time = 0; }
 #    endif
 
 #endif
