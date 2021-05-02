@@ -52,13 +52,12 @@ class ConsoleMessages(queue.Queue):
 class MonitorDevice(object):
     def __init__(self, console, hid_device):
         self.console = console
-        hid_device['pathstr'] = hid_device['path'].decode('utf-8')
         self.hid_device = hid_device
         self.device = hid.Device(path=hid_device['path'])
         self.current_line = ''
 
         print()
-        cli.log.info('Listening to {fg_cyan}%s %s{fg_reset} ({fg_blue}%04X:%04X{fg_reset}) on {fg_blue}%s{fg_reset}:', hid_device['manufacturer_string'], hid_device['product_string'], hid_device['vendor_id'], hid_device['product_id'], hid_device['path'].decode())
+        cli.log.info('Listening to {fg_cyan}%s %s{fg_reset} ({fg_blue}%04X:%04X{fg_reset}):', hid_device['manufacturer_string'], hid_device['product_string'], hid_device['vendor_id'], hid_device['product_id'])
 
     def read(self, size, encoding='ascii', timeout=1):
         """Read size bytes from the device.
@@ -69,7 +68,7 @@ class MonitorDevice(object):
         """Read from the device's console until we get a \n.
         """
         while '\n' not in self.current_line:
-            self.current_line += self.read(32)
+            self.current_line += self.read(32).replace('\x00', '')
 
         lines = self.current_line.split('\n', 1)
         self.current_line = lines[1]
@@ -202,7 +201,7 @@ def list_devices(device_finder):
     cli.log.info('Available devices:')
 
     for dev in device_finder.find_devices():
-        cli.log.info("\t%s:%s:%d\t%s\t%s %s", int2hex(dev['vendor_id']), int2hex(dev['product_id']), dev['index'], dev['path'].decode('utf-8'), dev['manufacturer_string'], dev['product_string'])
+        cli.log.info("\t%s:%s:%d\t%s %s", int2hex(dev['vendor_id']), int2hex(dev['product_id']), dev['index'], dev['manufacturer_string'], dev['product_string'])
 
 
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>[:<index>].')
