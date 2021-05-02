@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     k11, k10, k20, k30, k40, k41, k51, k50, k60, k70, k80, k81, k61, ka2,     k15, \
     k21, k12, k22, k32, k42, k43, k53, k52, k62, k72, k82, k83,     ka4,      k25, \
     k00, k14, k24, k34, k44, k45, k55, k54, k64, k74, k85,    k91,       k35, k75, \
-    k06,    k90,    k93,       k94,          k92,     k95, k04,     k03, k73, k05  \
+    k06,    k90,    k93,       k94,          k95,     k92, k04,     k03, k73, k05  \
 ) \
 { \
     { k00, k01, ___, k03, k04, k05, k06, k07}, \
