@@ -21,6 +21,7 @@ import hid
 import queue
 import time
 from platform import platform
+from threading import Thread
 
 from milc import cli
 
@@ -33,7 +34,7 @@ class ConsoleMessages(queue.Queue):
     def print_message(self, message):
         """Nicely format and print a message.
         """
-        cli.echo('{fg_blue}%(vid)s:%(pid)s{fg_reset}: %(text)s' % message)
+        cli.echo('{fg_blue}%(vendor_id)04x:%(product_id)04x:%(pathstr)s{fg_reset}: %(text)s' % message)
 
     def run_forever(self):
         while True:
@@ -51,13 +52,13 @@ class ConsoleMessages(queue.Queue):
 class MonitorDevice(object):
     def __init__(self, console, hid_device):
         self.console = console
+        hid_device['pathstr'] = hid_device['path'].decode('utf-8')
+        self.hid_device = hid_device
         self.device = hid.Device(path=hid_device['path'])
-        self.vid = hid_device['vendor_id']
-        self.pid = hid_device['product_id']
         self.current_line = ''
 
         print()
-        print('Listening to %s %s (%04x:%04x) on %s:' % (hid_device['manufacturer_string'], hid_device['product_string'], hid_device['vendor_id'], hid_device['product_id'], hid_device['path'].decode()))
+        cli.log.info('Listening to {fg_cyan}%s %s{fg_reset} ({fg_blue}%04x:%04x{fg_reset}) on {fg_blue}%s{fg_reset}:', hid_device['manufacturer_string'], hid_device['product_string'], hid_device['vendor_id'], hid_device['product_id'], hid_device['path'].decode())
 
     def read(self, size, encoding='ascii', timeout=1):
         """Read size bytes from the device.
@@ -82,8 +83,7 @@ class MonitorDevice(object):
     def run_forever(self):
         while True:
             self.console.put({
-                'vid': self.vid,
-                'pid': self.pid,
+                **self.hid_device,
                 'text': self.read_line()
             })
 
@@ -105,6 +105,8 @@ class StateMachine(queue.Queue):
         self.transition(self.on_exception, e)
 
     def run_forever(self):
+        self.transition(self.search)
+
         while True:
             try:
                 f, args, kwargs = self.get()
@@ -156,8 +158,8 @@ class StateMachine(queue.Queue):
     def on_exception(self, e):
         cli.log.error('Exception: %s: %s: %s', self.__class__.__name__, e.__class__.__name__, e)
         cli.log.exception(e)
-        print('Device disconnected.')
-        print('Waiting for new device..', end="")
+        cli.log.info('Device disconnected.')
+        print('Waiting for new device..', end="", flush=True)
         self.transition(self.search)
 
 
@@ -181,6 +183,7 @@ def console(cli):
     if cli.args.list:
         return list_devices(sm)
 
-    print('Waiting for device..', end="")
-    sm.transition(sm.search)
-    sm.run_forever()
+    print('Waiting for device..', end="", flush=True)
+    sm_t = Thread(target=sm.run_forever, daemon=True)
+    sm_t.start()
+    console.run_forever()
