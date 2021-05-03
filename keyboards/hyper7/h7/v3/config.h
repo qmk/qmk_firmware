@@ -1,5 +1,4 @@
 #pragma once
-#define CONFIG_H
 
 #include "config_common.h"
 
@@ -9,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    yiancar
 #define PRODUCT         hyper7 v3.0
-#define DESCRIPTION     hyper7 v3.0 firmware compiled by bit-shifter
 
 /* key matrix size */
 #define MATRIX_ROWS 8

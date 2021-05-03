@@ -74,7 +74,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // Any custom LED code goes here.
-// Currently just proxies to `led_set_keymap`
-void led_set_user(uint8_t usb_led) {
-  led_set_keymap(usb_led);
+// Currently just proxies to `led_update_kb`
+bool led_update_user(led_t led_state) {
+  bool res = led_update_kb(led_state);
+  return res;
 }

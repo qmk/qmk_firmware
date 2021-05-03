@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#include "../../config.h"
-#include "../../../../../../quantum/quantum_keycodes.h"
 #include "bit-shifter.h"
 
 // Brevity defines
@@ -720,6 +718,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 };
 
-void led_set_keymap(uint8_t usb_led) {
+bool led_update_kb(led_t led_state) {
   // stub
+  return true;
 };

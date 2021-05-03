@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#include "../../config.h"
-#include "../../../../../../quantum/quantum.h"
-#include "../../../../../../quantum/quantum_keycodes.h"
-
 // Brevity defines
 #define FT KC_TRNS
 
@@ -497,8 +493,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT
     )
 };
-
-void matrix_init_keymap(void) {}
 
 // activate leader functionality
 LEADER_EXTERNS();
