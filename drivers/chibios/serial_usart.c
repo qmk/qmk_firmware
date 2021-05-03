@@ -92,7 +92,7 @@ __attribute__((weak)) void usart_init(void) {
 #endif
 
 #if defined(USART_REMAP)
-    USART_REMAP
+    USART_REMAP;
 #endif
 }
 

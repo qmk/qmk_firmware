@@ -121,7 +121,7 @@ void soft_serial_target_init(SSTD_t* const sstd_table, int sstd_table_size) {
     usart_init();
 
 #if defined(USART_REMAP)
-    USART_REMAP
+    USART_REMAP;
 #endif
 
     tp_target = chThdCreateStatic(waSlaveThread, sizeof(waSlaveThread), HIGHPRIO, SlaveThread, NULL);
@@ -192,7 +192,7 @@ void soft_serial_initiator_init(SSTD_t* const sstd_table, int sstd_table_size) {
 #endif
 
 #if defined(USART_REMAP)
-    USART_REMAP
+    USART_REMAP;
 #endif
 
     uartStart(&SERIAL_USART_DRIVER, &uart_config);
