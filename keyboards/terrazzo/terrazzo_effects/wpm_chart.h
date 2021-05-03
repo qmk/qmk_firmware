@@ -85,14 +85,14 @@ static uint8_t number_3_4[10][12] = {
 uint8_t wpm_levels[10] = {20, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 
 void WPM_CHART(uint8_t i, bool dir) {
-    led_matrix_set_index_value_all(0);
+    led_matrix_set_value_all(0);
     uint8_t c_wpm = get_current_wpm();
     uint8_t half_wpm = floor(c_wpm / 2);
     uint8_t max_rows = 10;
     /* Turn on LED for current WPM. Each pixel is 2 wpm. */
     for (int k = 0; k < half_wpm && k < 70; k++) {
         uint8_t current_row = (int)floor(k / 7);
-        led_matrix_set_index_value(k, wpm_levels[max_rows - current_row]);
+        led_matrix_set_value(k, wpm_levels[max_rows - current_row]);
     };
     uint8_t d1 = (int)floor(c_wpm / 10);
     /* There is only room to print 2 digits. If the WPM is greater than

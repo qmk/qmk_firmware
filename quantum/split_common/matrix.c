@@ -43,6 +43,7 @@ extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 uint8_t thisHand, thatHand;
 
 // user-defined overridable functions
+__attribute__((weak)) void matrix_slave_scan_kb(void) { matrix_slave_scan_user(); }
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
 
 static inline void setPinOutput_writeLow(pin_t pin) {
@@ -284,7 +285,7 @@ bool matrix_post_scan(void) {
     } else {
         transport_slave(matrix + thatHand, matrix + thisHand);
 
-        matrix_slave_scan_user();
+        matrix_slave_scan_kb();
     }
 
     return changed;

@@ -34,11 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
-#ifdef BOOTMAGIC_ENABLE
-#    include "bootmagic.h"
-#else
-#    include "magic.h"
-#endif
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
@@ -53,6 +48,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
+#endif
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
@@ -95,6 +93,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
+#endif
+#ifdef STM32_EEPROM_ENABLE
+#    include "eeprom_stm32.h"
+#endif
+#ifdef EEPROM_DRIVER
+#    include "eeprom_driver.h"
 #endif
 
 static uint32_t last_input_modification_time = 0;
@@ -233,6 +237,12 @@ void keyboard_setup(void) {
     disable_jtag();
 #endif
     print_set_sendchar(sendchar);
+#ifdef STM32_EEPROM_ENABLE
+    EEPROM_Init();
+#endif
+#ifdef EEPROM_DRIVER
+    eeprom_driver_init();
+#endif
     matrix_setup();
     keyboard_pre_init_kb();
 }
@@ -296,19 +306,11 @@ void keyboard_init(void) {
 #ifdef ADB_MOUSE_ENABLE
     adb_mouse_init();
 #endif
-#ifdef BOOTMAGIC_ENABLE
-    bootmagic();
-#else
-    magic();
-#endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init();
 #endif
 #ifdef ENCODER_ENABLE
     encoder_init();
@@ -340,6 +342,9 @@ void keyboard_init(void) {
  * This is differnet than keycode events as no layer processing, or filtering occurs.
  */
 void switch_events(uint8_t row, uint8_t col, bool pressed) {
+#if defined(LED_MATRIX_ENABLE)
+    process_led_matrix(row, col, pressed);
+#endif
 #if defined(RGB_MATRIX_ENABLE)
     process_rgb_matrix(row, col, pressed);
 #endif
@@ -425,6 +430,9 @@ MATRIX_LOOP_END:
     rgblight_task();
 #endif
 
+#ifdef LED_MATRIX_ENABLE
+    led_matrix_task();
+#endif
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
 #endif

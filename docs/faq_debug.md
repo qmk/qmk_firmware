@@ -109,6 +109,19 @@ If you can't get this 'Listening:' message try building with `CONSOLE_ENABLE=yes
 
 You may need privileges to access the device an OS like Linux. Try `sudo hid_listen`.
 
+On many Linux distros you can avoid having to run hid_listen as root
+by creating a file called `/etc/udev/rules.d/70-hid-listen.rules` with
+the following content:
+
+```
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="abcd", ATTRS{idProduct}=="def1", TAG+="uaccess", RUN{builtin}+="uaccess"
+```
+
+Replace abcd and def1 with your keyboard's vendor and product id,
+letters must be lowercase. The `RUN{builtin}+="uaccess"` part is only
+needed for older distros.
+
+
 ## Can't Get Message on Console
 Check:
 - *hid_listen* finds your device. See above.

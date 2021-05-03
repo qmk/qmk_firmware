@@ -5,6 +5,7 @@ from milc import cli
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import is_keyboard, normpath
 
 usb_properties = {
@@ -16,7 +17,7 @@ usb_properties = {
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', help='Keyboard to generate config.h for.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate config.h for.')
 @cli.subcommand('Used by the make system to generate layouts.h from info.json', hidden=True)
 @automagic_keyboard
 @automagic_keymap
@@ -25,7 +26,7 @@ def generate_layouts(cli):
     """
     # Determine our keyboard(s)
     if not cli.config.generate_layouts.keyboard:
-        cli.log.error('Missing paramater: --keyboard')
+        cli.log.error('Missing parameter: --keyboard')
         cli.subcommands['info'].print_help()
         return False
 
@@ -82,13 +83,17 @@ def generate_layouts(cli):
         layouts_h_lines.append(rows)
         layouts_h_lines.append('}')
 
+    for alias, target in kb_info_json.get('layout_aliases', {}).items():
+        layouts_h_lines.append('')
+        layouts_h_lines.append('#define %s %s' % (alias, target))
+
     # Show the results
     layouts_h = '\n'.join(layouts_h_lines) + '\n'
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
-            cli.args.output.replace(cli.args.output.name + '.bak')
+            cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
         cli.args.output.write_text(layouts_h)
 
         if not cli.args.quiet:

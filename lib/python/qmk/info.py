@@ -1,17 +1,15 @@
 """Functions that help us generate and use info.json files.
 """
-import json
-from collections.abc import Mapping
 from glob import glob
 from pathlib import Path
 
-import hjson
 import jsonschema
 from dotty_dict import dotty
 from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts
+from qmk.json_schema import deep_update, json_load, keyboard_validate, keyboard_api_validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps
 from qmk.makefile import parse_rules_mk_file
@@ -45,7 +43,12 @@ def info_json(keyboard):
         info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
 
     # Populate layout data
-    for layout_name, layout_json in _find_all_layouts(info_data, keyboard).items():
+    layouts, aliases = _find_all_layouts(info_data, keyboard)
+
+    if aliases:
+        info_data['layout_aliases'] = aliases
+
+    for layout_name, layout_json in layouts.items():
         if not layout_name.startswith('LAYOUT_kc'):
             layout_json['c_macro'] = True
             info_data['layouts'][layout_name] = layout_json
@@ -69,67 +72,12 @@ def info_json(keyboard):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
 
     # Make sure we supply layout macros for the community layouts we claim to support
-    # FIXME(skullydazed): This should be populated into info.json and read from there instead
-    if 'LAYOUTS' in rules and info_data.get('layouts'):
-        # Match these up against the supplied layouts
-        supported_layouts = rules['LAYOUTS'].strip().split()
-        for layout_name in sorted(info_data['layouts']):
-            layout_name = layout_name[7:]
-
-            if layout_name in supported_layouts:
-                supported_layouts.remove(layout_name)
-
-        if supported_layouts:
-            for supported_layout in supported_layouts:
-                _log_error(info_data, 'Claims to support community layout %s but no LAYOUT_%s() macro found' % (supported_layout, supported_layout))
+    for layout in info_data.get('community_layouts', []):
+        layout_name = 'LAYOUT_' + layout
+        if layout_name not in info_data.get('layouts', {}) and layout_name not in info_data.get('layout_aliases', {}):
+            _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
 
     return info_data
-
-
-def _json_load(json_file):
-    """Load a json file from disk.
-
-    Note: file must be a Path object.
-    """
-    try:
-        return hjson.load(json_file.open())
-
-    except json.decoder.JSONDecodeError as e:
-        cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
-        exit(1)
-
-
-def _jsonschema(schema_name):
-    """Read a jsonschema file from disk.
-
-    FIXME(skullydazed/anyone): Refactor to make this a public function.
-    """
-    schema_path = Path(f'data/schemas/{schema_name}.jsonschema')
-
-    if not schema_path.exists():
-        schema_path = Path('data/schemas/false.jsonschema')
-
-    return _json_load(schema_path)
-
-
-def keyboard_validate(data):
-    """Validates data against the keyboard jsonschema.
-    """
-    schema = _jsonschema('keyboard')
-    validator = jsonschema.Draft7Validator(schema).validate
-
-    return validator(data)
-
-
-def keyboard_api_validate(data):
-    """Validates data against the api_keyboard jsonschema.
-    """
-    base = _jsonschema('keyboard')
-    relative = _jsonschema('api_keyboard')
-    resolver = jsonschema.RefResolver.from_schema(base)
-    validator = jsonschema.Draft7Validator(relative, resolver=resolver).validate
-
-    return validator(data)
 
 
 def _extract_features(info_data, rules):
@@ -262,7 +210,7 @@ def _extract_config_h(info_data):
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_config_map = _json_load(Path('data/mappings/info_config.json'))
+    info_config_map = json_load(Path('data/mappings/info_config.json'))
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
@@ -330,7 +278,7 @@ def _extract_rules_mk(info_data):
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_rules_map = _json_load(Path('data/mappings/info_rules.json'))
+    info_rules_map = json_load(Path('data/mappings/info_rules.json'))
 
     for rules_key, info_dict in info_rules_map.items():
         info_key = info_dict['info_key']
@@ -415,21 +363,28 @@ def _merge_layouts(info_data, new_info_data):
 
 def _search_keyboard_h(path):
     current_path = Path('keyboards/')
+    aliases = {}
     layouts = {}
+
     for directory in path.parts:
         current_path = current_path / directory
         keyboard_h = '%s.h' % (directory,)
         keyboard_h_path = current_path / keyboard_h
         if keyboard_h_path.exists():
-            layouts.update(find_layouts(keyboard_h_path))
+            new_layouts, new_aliases = find_layouts(keyboard_h_path)
+            layouts.update(new_layouts)
 
-    return layouts
+            for alias, alias_text in new_aliases.items():
+                if alias_text in layouts:
+                    aliases[alias] = alias_text
+
+    return layouts, aliases
 
 
 def _find_all_layouts(info_data, keyboard):
     """Looks for layout macros associated with this keyboard.
     """
-    layouts = _search_keyboard_h(Path(keyboard))
+    layouts, aliases = _search_keyboard_h(Path(keyboard))
 
     if not layouts:
         # If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
@@ -437,11 +392,16 @@ def _find_all_layouts(info_data, keyboard):
 
         for file in glob('keyboards/%s/*.h' % keyboard):
             if file.endswith('.h'):
-                these_layouts = find_layouts(file)
+                these_layouts, these_aliases = find_layouts(file)
+
                 if these_layouts:
                     layouts.update(these_layouts)
 
-    return layouts
+                for alias, alias_text in these_aliases.items():
+                    if alias_text in layouts:
+                        aliases[alias] = alias_text
+
+    return layouts, aliases
 
 
 def _log_error(info_data, message):
@@ -508,25 +468,12 @@ def unknown_processor_rules(info_data, rules):
     return info_data
 
 
-def deep_update(origdict, newdict):
-    """Update a dictionary in place, recursing to do a deep copy.
-    """
-    for key, value in newdict.items():
-        if isinstance(value, Mapping):
-            origdict[key] = deep_update(origdict.get(key, {}), value)
-
-        else:
-            origdict[key] = value
-
-    return origdict
-
-
 def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
     for info_file in find_info_json(keyboard):
         # Load and validate the JSON data
-        new_info_data = _json_load(info_file)
+        new_info_data = json_load(info_file)
 
         if not isinstance(new_info_data, dict):
             _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
@@ -540,11 +487,27 @@ def merge_info_jsons(keyboard, info_data):
             cli.log.error('\t%s: %s', json_path, e.message)
             continue
 
-        # Mark the layouts as coming from json
-        for layout in new_info_data.get('layouts', {}).values():
-            layout['c_macro'] = False
+        # Merge layout data in
+        if 'layout_aliases' in new_info_data:
+            info_data['layout_aliases'] = {**info_data.get('layout_aliases', {}), **new_info_data['layout_aliases']}
+            del new_info_data['layout_aliases']
+
+        for layout_name, layout in new_info_data.get('layouts', {}).items():
+            if layout_name in info_data.get('layout_aliases', {}):
+                _log_warning(info_data, f"info.json uses alias name {layout_name} instead of {info_data['layout_aliases'][layout_name]}")
+                layout_name = info_data['layout_aliases'][layout_name]
+
+            if layout_name in info_data['layouts']:
+                for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
+                    existing_key.update(new_key)
+            else:
+                layout['c_macro'] = False
+                info_data['layouts'][layout_name] = layout
 
         # Update info_data with the new data
+        if 'layouts' in new_info_data:
+            del new_info_data['layouts']
+
         deep_update(info_data, new_info_data)
 
     return info_data

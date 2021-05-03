@@ -190,6 +190,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/$(BOARD)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")

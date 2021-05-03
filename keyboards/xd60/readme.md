@@ -7,6 +7,7 @@ Compact 60% with arrows.
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: XD60 PCB rev2 & rev3
 * Hardware Availability: [Drop.com](https://www.drop.com/buy/xd60-xd64-custom-mechanical-keyboard-kit?mode=guest_open), [KPRepublic on AliExpress](https://www.aliexpress.com/item/32814945677.html)
+* Schematic Availability: Public Domain [on EasyEDA](https://easyeda.com/langzisanshao/xd60)
 
 Make example for this keyboard (after setting up your build environment):
 

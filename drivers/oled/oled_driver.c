@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "progmem.h"
 
+#include "keyboard.h"
+
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf
 
@@ -152,6 +154,12 @@ static void InvertCharacter(uint8_t *cursor) {
 }
 
 bool oled_init(uint8_t rotation) {
+#if defined(USE_I2C) && defined(SPLIT_KEYBOARD)
+    if (!is_keyboard_master()) {
+        return true;
+    }
+#endif
+
     oled_rotation = oled_init_user(rotation);
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
         oled_rotation_width = OLED_DISPLAY_WIDTH;
