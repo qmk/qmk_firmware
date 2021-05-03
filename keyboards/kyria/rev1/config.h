@@ -62,3 +62,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* RGB matrix support */
+#ifdef RGB_MATRIX_ENABLE
+#define DRIVER_LED_TOTAL 20 // Number of LEDs
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
+#ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#endif
+#endif

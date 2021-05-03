@@ -12,6 +12,31 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 	{{0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}, {6, 1}, {7, 1}},
 	{{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2}, {7, 2}},
 	{{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}, {6, 3}, {7, 3}}
-};	
+};
 
+#endif
+
+/* Map physical under glow LEDs for RGB matrix support */
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = { {
+    // Key Matrix to LED Index
+    { NO_LED, NO_LED, NO_LED, 5,      NO_LED, NO_LED, 6,      10     },
+    { NO_LED, NO_LED, 4,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 1,      2,      3,      8,      NO_LED, 7,      9      },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, 15,     NO_LED, NO_LED, 16,     20     },
+    { NO_LED, NO_LED, 14,     NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 11,     12,     13,     18,     NO_LED, 17,     19     },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+}, {
+    // LED Index to Physical Position
+    {91,40}, {77,40}, {63,40}, {77,24}, {63,8}, {21,8}, {21,40}, {49,40}, {7,40}, {7,8},
+    {133,40}, {147,40}, {161,40}, {148,24}, {161,8}, {203,8}, {203,40}, {175,40}, {217,40}, {217,8}
+}, {
+    // LED Index to Flag
+    LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+    LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+    LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+    LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
+} };
 #endif
