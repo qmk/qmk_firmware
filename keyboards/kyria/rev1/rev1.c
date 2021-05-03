@@ -40,29 +40,3 @@ led_config_t g_led_config = { {
     LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
 } };
 #endif
-
-void matrix_init_kb(void) {
-#ifdef RGB_MATRIX_ENABLE
-    if (!is_keyboard_left()) {
-        g_led_config = (led_config_t){ {
-            { NO_LED, NO_LED, NO_LED, 15,     NO_LED, NO_LED, 16,     20     },
-            { NO_LED, NO_LED, 14,     NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-            { NO_LED, 11,     12,     13,     18,     NO_LED, 17,     19     },
-            { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-            { NO_LED, NO_LED, NO_LED, 5,      NO_LED, NO_LED, 6,      10     },
-            { NO_LED, NO_LED, 4,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-            { NO_LED, 1,      2,      3,      8,      NO_LED, 7,      9      },
-            { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-        }, {
-            {133,40}, {147,40}, {161,40}, {148,24}, {161,8}, {203,8}, {203,40}, {175,40}, {217,40}, {217,8},
-            {91,40}, {77,40}, {63,40}, {77,24}, {63,8}, {21,8}, {21,40}, {49,40}, {7,40}, {7,8}
-        }, {
-            LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
-            LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
-            LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
-            LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
-        } };
-    }
-#endif
-    matrix_init_user();
-}
