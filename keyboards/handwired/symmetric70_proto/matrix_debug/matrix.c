@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "debounce.h"
 #include "quantum.h"
+#ifndef readPort
+#    include "gpio_extr.h"
+#endif
 
 #ifndef MATRIX_DEBUG_PIN
 #    define MATRIX_DEBUG_PIN_INIT()
@@ -44,6 +47,33 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #  ifdef MATRIX_MUL_SELECT
 static const pin_t col_sel[MATRIX_COLS] = MATRIX_MUL_SEL;
 #  endif
+#endif
+
+#ifdef MATRIX_IO_DELAY_PORTS
+static const pin_t delay_ports[] = { MATRIX_IO_DELAY_PORTS };
+static const port_data_t delay_masks[] = { MATRIX_IO_DELAY_MASKS };
+#    ifdef MATRIX_IO_DELAY_MULSEL
+static const uint8_t delay_sel[] = { MATRIX_IO_DELAY_MULSEL };
+#    endif
+
+static inline void matrix_output_unselect_delay_ports(void) {
+    bool is_pressed;
+    do {
+        MATRIX_DEBUG_DELAY_START();
+        is_pressed = false;
+        for (uint8_t i = 0; i < sizeof(delay_ports)/sizeof(pin_t); i++ ) {
+#    ifdef MATRIX_IO_DELAY_MULSEL
+            writePin(MATRIX_MUL_SELECT, delay_sel[i]);
+            waitInputPinDelay();
+#    endif
+            is_pressed |= ( (readPort(delay_ports[i]) & delay_masks[i]) != delay_masks[i] );
+        }
+        MATRIX_DEBUG_DELAY_END();
+    } while (is_pressed);
+}
+
+#else
+#    define matrix_output_unselect_delay_ports()
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -124,6 +154,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     matrix_row_t current_row_value = 0;
 
     // Select row
+    matrix_output_unselect_delay_ports();
     select_row(current_row);
     matrix_output_select_delay();
 
@@ -209,6 +240,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     bool matrix_changed = false;
 
     // Select col
+    matrix_output_unselect_delay_ports();
     select_col(current_col);
     matrix_output_select_delay();
 
