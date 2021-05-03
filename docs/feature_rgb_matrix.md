@@ -11,7 +11,8 @@ If you want to use single color LED's you should use the [LED Matrix Subsystem](
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = IS31FL3731
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3731
 ```
 
 Configure the hardware via your `config.h`:
@@ -52,7 +53,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
 
 ---
 ### IS31FL3733/IS31FL3737 :id=is31fl3733is31fl3737
@@ -62,7 +63,8 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = IS31FL3733
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3733
 ```
 
 Configure the hardware via your `config.h`:
@@ -103,7 +105,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
 
 ---
 
@@ -112,7 +114,8 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = WS2812
 ```
 
 Configure the hardware via your `config.h`:
@@ -126,10 +129,32 @@ Configure the hardware via your `config.h`:
 
 ---
 
+### APA102 :id=apa102
+
+There is basic support for APA102 based addressable LED strands. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = APA102
+```
+
+Configure the hardware via your `config.h`:
+
+```c
+// The pin connected to the data pin of the LEDs
+#define RGB_DI_PIN D7
+// The pin connected to the clock pin of the LEDs
+#define RGB_CI_PIN D6
+// The number of LEDs connected
+#define DRIVER_LED_TOTAL 70
+```
+
+---
+
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
 ```c
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
   // Key Matrix to LED Index
   {   5, NO_LED, NO_LED,   0 },
   { NO_LED, NO_LED, NO_LED, NO_LED },
@@ -159,15 +184,16 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 ## Flags :id=flags
 
-|Define                              |Description                                |
-|------------------------------------|-------------------------------------------|
-|`#define HAS_FLAGS(bits, flags)`    |Returns true if `bits` has all `flags` set.|
-|`#define HAS_ANY_FLAGS(bits, flags)`|Returns true if `bits` has any `flags` set.|
-|`#define LED_FLAG_NONE      0x00`   |If this LED has no flags.                  |
-|`#define LED_FLAG_ALL       0xFF`   |If this LED has all flags.                 |
-|`#define LED_FLAG_MODIFIER  0x01`   |If the Key for this LED is a modifier.     |
-|`#define LED_FLAG_UNDERGLOW 0x02`   |If the LED is for underglow.               |
-|`#define LED_FLAG_KEYLIGHT  0x04`   |If the LED is for key backlight.           |
+|Define                      |Value |Description                                      |
+|----------------------------|------|-------------------------------------------------|
+|`HAS_FLAGS(bits, flags)`    |*n/a* |Evaluates to `true` if `bits` has all `flags` set|
+|`HAS_ANY_FLAGS(bits, flags)`|*n/a* |Evaluates to `true` if `bits` has any `flags` set|
+|`LED_FLAG_NONE`             |`0x00`|If this LED has no flags                         |
+|`LED_FLAG_ALL`              |`0xFF`|If this LED has all flags                        |
+|`LED_FLAG_MODIFIER`         |`0x01`|If the LED is on a modifier key                  |
+|`LED_FLAG_UNDERGLOW`        |`0x02`|If the LED is for underglow                      |
+|`LED_FLAG_KEYLIGHT`         |`0x04`|If the LED is for key backlight                  |
+|`LED_FLAG_INDICATOR`        |`0x08`|If the LED is for keyboard state indication      |
 
 ## Keycodes :id=keycodes
 
@@ -186,8 +212,16 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 |`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
 |`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
 |`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
+|`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                                            |
+|`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                                              |
+|`RGB_MODE_RAINBOW` |`RGB_M_R` |Full gradient scrolling left to right (uses the `RGB_MATRIX_CYCLE_LEFT_RIGHT` mode)   |
+|`RGB_MODE_SWIRL`   |`RGB_M_SW`|Full gradient spinning pinwheel around center of keyboard (uses `RGB_MATRIX_CYCLE_PINWHEEL` mode) |
 
-* `RGB_MODE_*` keycodes will generally work, but are not currently mapped to the correct effects for the RGB Matrix system
+* `RGB_MODE_*` keycodes will generally work, but not all of the modes are currently mapped to the correct effects for the RGB Matrix system.
+
+`RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and `RGB_MATRIX_SWIRL` are the only ones that are mapped properly. The rest don't have a direct equivalent, and are not mapped. 
+
+!> By default, if you have both the [RGB Light](feature_rgblight.md) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 
 ## RGB Matrix Effects :id=rgb-matrix-effects
 
@@ -220,6 +254,9 @@ enum rgb_matrix_effects {
     RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halfs of keyboard
     RGB_MATRIX_RAINDROPS,           // Randomly changes a single key's hue
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
+    RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight ammount at the same time, then shifts back
+    RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight ammount in a wave to the right, then back to the left
+    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right 
 #if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
@@ -247,8 +284,10 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 
 |Define                                                 |Description                                    |
 |-------------------------------------------------------|-----------------------------------------------|
+|`#define DISABLE_RGB_MATRIX_SOLID_COLOR`               |Disables `RGB_MATRIX_SOLID_COLOR`              |
 |`#define DISABLE_RGB_MATRIX_ALPHAS_MODS`               |Disables `RGB_MATRIX_ALPHAS_MODS`              |
 |`#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Disables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
+|`#define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT`       |Disables `MATRIX_GRADIENT_LEFT_RIGHT`          |
 |`#define DISABLE_RGB_MATRIX_BREATHING`                 |Disables `RGB_MATRIX_BREATHING`                |
 |`#define DISABLE_RGB_MATRIX_BAND_SAT`                  |Disables `RGB_MATRIX_BAND_SAT`                 |
 |`#define DISABLE_RGB_MATRIX_BAND_VAL`                  |Disables `RGB_MATRIX_BAND_VAL`                 |
@@ -259,20 +298,23 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_CYCLE_ALL`                 |Disables `RGB_MATRIX_CYCLE_ALL`                |
 |`#define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT`          |Disables `RGB_MATRIX_CYCLE_LEFT_RIGHT`         |
 |`#define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN`             |Disables `RGB_MATRIX_CYCLE_UP_DOWN`            |
+|`#define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON`    |Disables `RGB_MATRIX_RAINBOW_MOVING_CHEVRON`   |
 |`#define DISABLE_RGB_MATRIX_CYCLE_OUT_IN`              |Disables `RGB_MATRIX_CYCLE_OUT_IN`             |
 |`#define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL`         |Disables `RGB_MATRIX_CYCLE_OUT_IN_DUAL`        |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON`    |Disables `RGB_MATRIX_RAINBOW_MOVING_CHEVRON`   |
-|`#define DISABLE_RGB_MATRIX_DUAL_BEACON`               |Disables `RGB_MATRIX_DUAL_BEACON`              |
 |`#define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL`            |Disables `RGB_MATRIX_CYCLE_PINWHEEL`           |
 |`#define DISABLE_RGB_MATRIX_CYCLE_SPIRAL`              |Disables `RGB_MATRIX_CYCLE_SPIRAL`             |
+|`#define DISABLE_RGB_MATRIX_DUAL_BEACON`               |Disables `RGB_MATRIX_DUAL_BEACON`              |
 |`#define DISABLE_RGB_MATRIX_RAINBOW_BEACON`            |Disables `RGB_MATRIX_RAINBOW_BEACON`           |
 |`#define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS`         |Disables `RGB_MATRIX_RAINBOW_PINWHEELS`        |
 |`#define DISABLE_RGB_MATRIX_RAINDROPS`                 |Disables `RGB_MATRIX_RAINDROPS`                |
 |`#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Disables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
+|`#define DISABLE_RGB_MATRIX_HUE_BREATHING`             |Disables `RGB_MATRIX_HUE_BREATHING`            |
+|`#define DISABLE_RGB_MATRIX_HUE_PENDULUM`              |Disables `RGB_MATRIX_HUE_PENDULUM`             |
+|`#define DISABLE_RGB_MATRIX_HUE_WAVE `                 |Disables `RGB_MATRIX_HUE_WAVE `                |
 |`#define DISABLE_RGB_MATRIX_TYPING_HEATMAP`            |Disables `RGB_MATRIX_TYPING_HEATMAP`           |
 |`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`              |Disables `RGB_MATRIX_DIGITAL_RAIN`             |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE`            |Disables `RGB_MATRIX_SOLID_REACTIVE`           |
 |`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE`     |Disables `RGB_MATRIX_SOLID_REACTIVE_SIMPLE`    |
+|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE`            |Disables `RGB_MATRIX_SOLID_REACTIVE`           |
 |`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE`       |Disables `RGB_MATRIX_SOLID_REACTIVE_WIDE`      |
 |`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE`  |Disables `RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE` |
 |`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS`      |Disables `RGB_MATRIX_SOLID_REACTIVE_CROSS`     |
@@ -284,6 +326,19 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`              |Disables `RGB_MATRIX_SOLID_SPLASH`             |
 |`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Disables `RGB_MATRIX_SOLID_MULTISPLASH`        |
 
+### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
+
+This effect will color the RGB matrix according to a heatmap of recently pressed
+keys. Whenever a key is pressed its "temperature" increases as well as that of
+its neighboring keys. The temperature of each key is then decreased
+automatically every 25 milliseconds by default.
+
+In order to change the delay of temperature decrease define
+`RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
+```
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
 
@@ -293,6 +348,12 @@ To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks somethi
 
 `rgb_matrix_user.inc` should go in the root of the keymap directory.
 `rgb_matrix_kb.inc` should go in the root of the keyboard directory.
+
+To use custom effects in your code, simply prepend `RGB_MATRIX_CUSTOM_` to the effect name specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
+
+```c
+rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
+```
 
 ```c
 // !!! DO NOT ADD #pragma once !!! //
@@ -385,6 +446,7 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 #define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
+#define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
 ```
 
 ## EEPROM storage :id=eeprom-storage
@@ -412,8 +474,8 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_toggle_noeeprom()`              |Toggle effect range LEDs between on and off (not written to EEPROM) |
 |`rgb_matrix_enable()`                       |Turn effect range LEDs on, based on their previous state |
 |`rgb_matrix_enable_noeeprom()`              |Turn effect range LEDs on, based on their previous state (not written to EEPROM) |
-|`rgb_matrix_disable()`                      |Turn effect range LEDs off |
-|`rgb_matrix_disable_noeeprom()`             |Turn effect range LEDs off (not written to EEPROM) |
+|`rgb_matrix_disable()`                      |Turn effect range LEDs off, based on their previous state |
+|`rgb_matrix_disable_noeeprom()`             |Turn effect range LEDs off, based on their previous state (not written to EEPROM) |
 
 ### Change Effect Mode :id=change-effect-mode
 |Function                                    |Description  |
@@ -421,19 +483,31 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_mode(mode)`                     |Set the mode, if RGB animations are enabled |
 |`rgb_matrix_mode_noeeprom(mode)`            |Set the mode, if RGB animations are enabled (not written to EEPROM) |
 |`rgb_matrix_step()`                         |Change the mode to the next RGB animation in the list of enabled RGB animations |
+|`rgb_matrix_step_noeeprom()`                |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM) |
 |`rgb_matrix_step_reverse()`                 |Change the mode to the previous RGB animation in the list of enabled RGB animations |
-|`rgb_matrix_increase_speed()`               |Increases the speed of the animations |
-|`rgb_matrix_decrease_speed()`               |Decreases the speed of the animations |
+|`rgb_matrix_step_reverse_noeeprom()`        |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM) |
+|`rgb_matrix_increase_speed()`               |Increase the speed of the animations |
+|`rgb_matrix_increase_speed_noeeprom()`      |Increase the speed of the animations (not written to EEPROM) |
+|`rgb_matrix_decrease_speed()`               |Decrease the speed of the animations |
+|`rgb_matrix_decrease_speed_noeeprom()`      |Decrease the speed of the animations (not written to EEPROM) |
+|`rgb_matrix_set_speed(speed)`               |Set the speed of the animations to the given value where `speed` is between 0 and 255 |
+|`rgb_matrix_set_speed_noeeprom(speed)`      |Set the speed of the animations to the given value where `speed` is between 0 and 255 (not written to EEPROM) |
 
 ### Change Color :id=change-color
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_increase_hue()`                 |Increase the hue for effect range LEDs. This wraps around at maximum hue |
+|`rgb_matrix_increase_hue_noeeprom()`        |Increase the hue for effect range LEDs. This wraps around at maximum hue (not written to EEPROM) |
 |`rgb_matrix_decrease_hue()`                 |Decrease the hue for effect range LEDs. This wraps around at minimum hue |
+|`rgb_matrix_decrease_hue_noeeprom()`        |Decrease the hue for effect range LEDs. This wraps around at minimum hue (not written to EEPROM) |
 |`rgb_matrix_increase_sat()`                 |Increase the saturation for effect range LEDs. This wraps around at maximum saturation |
+|`rgb_matrix_increase_sat_noeeprom()`        |Increase the saturation for effect range LEDs. This wraps around at maximum saturation (not written to EEPROM) |
 |`rgb_matrix_decrease_sat()`                 |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation |
+|`rgb_matrix_decrease_sat_noeeprom()`        |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation (not written to EEPROM) |
 |`rgb_matrix_increase_val()`                 |Increase the value for effect range LEDs. This wraps around at maximum value |
+|`rgb_matrix_increase_val_noeeprom()`        |Increase the value for effect range LEDs. This wraps around at maximum value (not written to EEPROM) |
 |`rgb_matrix_decrease_val()`                 |Decrease the value for effect range LEDs. This wraps around at minimum value |
+|`rgb_matrix_decrease_val_noeeprom()`        |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
 |`rgb_matrix_sethsv(h, s, v)`                |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
 |`rgb_matrix_sethsv_noeeprom(h, s, v)`       |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
@@ -457,6 +531,14 @@ If you want to set custom indicators, such as an LED for Caps Lock, or layer ind
 ```c
 void rgb_matrix_indicators_kb(void) {
     rgb_matrix_set_color(index, red, green, blue);
+}
+```
+
+In addition, there are the advanced indicator functions.  These are aimed at those with heavily customized displays, where rendering every LED per cycle is expensive.  Such as some of the "drashna" layouts.  This includes a special macro to help make this easier to use: `RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b)`.
+
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
 }
 ```
 

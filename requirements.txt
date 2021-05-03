@@ -1,6 +1,9 @@
 # Python requirements
-# milc FIXME(skullydazed): Included in the repo for now.
 appdirs
 argcomplete
 colorama
+dotty-dict
 hjson
+jsonschema>=3
+milc>=1.3.0
+pygments

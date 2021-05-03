@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Hasu
 #define PRODUCT         Alps64
-#define DESCRIPTION     TMK keyboard firmware for Alps64
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -36,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN C5
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

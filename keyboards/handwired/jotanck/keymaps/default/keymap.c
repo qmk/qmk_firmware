@@ -1,8 +1,6 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
+// This is the default layout for the handwired/jotanck keyboard
 
 #include QMK_KEYBOARD_H
-
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -12,13 +10,10 @@
 #define _QWERTY   0
 #define _LOWER    1
 #define _RAISE    2
+#define _ADJUST   3
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-
-static bool is_ctl_pressed;
-static bool is_esc_pressed;
-static bool is_bspc_pressed;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -75,6 +70,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
+
+[_ADJUST] = LAYOUT_ortho_4x12 (
+    _______, RESET,   _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
     
 };
 
@@ -95,26 +97,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     break; 
   };
   #endif
-  return state;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_LCTL:
-      is_ctl_pressed = record->event.pressed;
-      break;
-    case KC_ESC:
-      is_esc_pressed = record->event.pressed;
-      break;
-    case KC_BSPC:
-      is_bspc_pressed = record->event.pressed;
-      break;
-  };
-  return true;
-}
-
-void matrix_scan_user(void) {
-  if (is_ctl_pressed && is_esc_pressed && is_bspc_pressed) {
-    reset_keyboard();
-  }
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }

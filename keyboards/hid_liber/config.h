@@ -26,7 +26,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    "bpiphany"
 #define PRODUCT         "HIDLiberation"
-#define DESCRIPTION     "HID Liberation powered by QMK"
 
 /* key matrix size */
 #define MATRIX_ROWS 18
@@ -34,6 +33,10 @@
 
 // HID Liberation Device uses custom matrix code to accomodate a 74HC238 3 to 8 decoder on pins B1, B2 and B3.
 //#define DIODE_DIRECTION
+
+#define LED_CAPS_LOCK_PIN B5
+#define LED_SCROLL_LOCK_PIN B6
+#define LED_PIN_ON_STATE 0
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -140,9 +143,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

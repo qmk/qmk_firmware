@@ -1,19 +1,19 @@
 # Vagrant クイックスタート
 
 <!---
-  original document: 7494490d6:docs/getting_started_vagrant.md
-  git diff 7494490d6 HEAD -- docs/getting_started_vagrant.md | cat
+  original document: 0.9.10:docs/getting_started_vagrant.md
+  git diff 0.9.10 HEAD -- docs/getting_started_vagrant.md | cat
 -->
 
 このプロジェクトは、プライマリオペレーティングシステムに大きな変更を加えることなくキーボードの新しいファームウェアを非常に簡単に構築することができる `Vagrantfile` を含みます。これは、あなたがプロジェクトをクローンしビルドを実行した時に、ビルドのために Vagrantfile を使っている他のユーザと全く同じ環境を持つことも保証します。これにより、人々はあなたが遭遇した問題の解決をより簡単に行えるようになります。
 
 ## 必要事項
 
-このリポジトリ内の `Vagrantfile` を使うには、[Vagrant](http://www.vagrantup.com/) およびサポートされるプロバイダがインストールされている必要があります:
+このリポジトリ内の `Vagrantfile` を使うには、[Vagrant](https://www.vagrantup.com/) およびサポートされるプロバイダがインストールされている必要があります:
 
 * [VirtualBox](https://www.virtualbox.org/) (バージョン 5.0.12 以降)
    * 'Vagrant を使うために最もアクセスしやすいプラットフォーム' として販売
-* [VMware Workstation](https://www.vmware.com/products/workstation) および [Vagrant VMware プラグイン](http://www.vagrantup.com/vmware)
+* [VMware Workstation](https://www.vmware.com/products/workstation) および [Vagrant VMware プラグイン](https://www.vagrantup.com/vmware)
    * (有料) VMware プラグインには、ライセンスされた VMware Workstation/Fusion のコピーが必要です。
 * [Docker](https://www.docker.com/)
 

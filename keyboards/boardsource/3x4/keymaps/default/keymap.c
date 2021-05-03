@@ -1,9 +1,10 @@
-
 #include QMK_KEYBOARD_H
 
-#define _MAIN 0
-#define _RAISE 1
-#define _LOWER 2
+enum layers {
+    _MAIN,
+    _RAISE,
+    _LOWER,
+};
 
 // Readability keycodes
 #define LOWER   MO(_LOWER)

@@ -5,7 +5,7 @@ If you've ever used Vim, you know what a Leader key is. If not, you're about to 
 That's what `KC_LEAD` does. Here's an example:
 
 1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
-2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. This sets the timeout for the `KC_LEAD` key.  Specifically, when you press the `KC_LEAD` key, you only have a certain amount of time to complete the Leader Key sequence.  The `300` here sets that to 300ms, and you can increase this value to give you more time to hit the sequence. But any keys pressed during this timeout are intercepted and not sent, so you may want to keep this value low. .  
+2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. This sets the timeout for the `KC_LEAD` key.  Specifically, when you press the `KC_LEAD` key, you only have a certain amount of time to complete the Leader Key sequence.  The `300` here sets that to 300ms, and you can increase this value to give you more time to hit the sequence. But any keys pressed during this timeout are intercepted and not sent, so you may want to keep this value low.  
    * By default, this timeout is how long after pressing `KC_LEAD` to complete your entire sequence. This may be very low for some people. So you may want to increase this timeout.  Optionally, you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.  This allows you to maintain a low value here, but still be able to use the longer sequences.   To enable this option, add `#define LEADER_PER_KEY_TIMING` to your `config.h`.
 3. Within your `matrix_scan_user` function, add something like this:
 
@@ -92,7 +92,7 @@ void leader_start(void) {
 }
 
 void leader_end(void) {
-  // sequence ended (no success/failuer detection)
+  // sequence ended (no success/failure detection)
 }
 ```
 

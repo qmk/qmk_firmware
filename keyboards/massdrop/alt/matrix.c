@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "clks.h"
 #include <string.h>
 
+#ifndef MATRIX_IO_DELAY
+#    define MATRIX_IO_DELAY 1
+#endif
+
 matrix_row_t mlatest[MATRIX_ROWS];
 matrix_row_t mlast[MATRIX_ROWS];
 matrix_row_t mdebounced[MATRIX_ROWS];
@@ -31,6 +35,8 @@ uint8_t row_pins[] = { MATRIX_ROW_PINS };
 uint8_t col_ports[] = { MATRIX_COL_PORTS };
 uint8_t col_pins[] = { MATRIX_COL_PINS };
 uint32_t row_masks[2]; //NOTE: If more than PA PB used in the future, adjust code to accomodate
+
+__attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -95,7 +101,7 @@ uint8_t matrix_scan(void)
     {
         PORT->Group[col_ports[col]].OUTSET.reg = 1 << col_pins[col]; //Set col output
 
-        wait_us(1); //Delay for output
+        matrix_io_delay(); //Delay for output
 
         scans[PA] = PORT->Group[PA].IN.reg & row_masks[PA]; //Read PA row pins data
         scans[PB] = PORT->Group[PB].IN.reg & row_masks[PB]; //Read PB row pins data

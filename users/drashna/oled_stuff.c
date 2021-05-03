@@ -1,6 +1,21 @@
-#include "drashna.h"
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-extern uint8_t is_master;
+#include "drashna.h"
+#include <stdio.h>
 
 #ifndef KEYLOGGER_LENGTH
 // #    ifdef OLED_DISPLAY_128X64
@@ -10,7 +25,7 @@ extern uint8_t is_master;
 // #    endif
 #endif
 
-static uint32_t oled_timer                       = 0;
+uint32_t        oled_timer                       = 0;
 static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
 static uint16_t log_timer                        = 0;
 
@@ -118,28 +133,26 @@ void render_layer_state(void) {
     oled_write_P(PSTR(" "), false);
 #endif
     oled_write_P(PSTR(OLED_RENDER_LAYER_RAISE), layer_state_is(_RAISE));
-#if _MODS
-#    ifdef OLED_DISPLAY_128X64
-    oled_write_P(PSTR(" "), false);
-#    endif
-    oled_write_P(PSTR(OLED_RENDER_LAYER_MODS), layer_state_is(_MODS));
-#endif
 #ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("GamePad"), layer_state_is(_GAMEPAD));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("Diablo"), layer_state_is(_DIABLO));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("Mouse"), layer_state_is(_MOUSE));
 #endif
 }
 
 void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR(OLED_RENDER_LOCK_NAME), false);
+#if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
+#endif
     oled_write_P(PSTR(OLED_RENDER_LOCK_NUML), led_usb_state & (1 << USB_LED_NUM_LOCK));
-#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
-#endif
     oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
-#endif
     oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
 #ifndef OLED_DISPLAY_128X64
     oled_advance_page(true);
@@ -147,20 +160,18 @@ void render_keylock_status(uint8_t led_usb_state) {
 }
 
 void render_mod_status(uint8_t modifiers) {
+    static const char PROGMEM mod_status[5][3] = {{0xE8, 0xE9, 0}, {0xE4, 0xE5, 0}, {0xE6, 0xE7, 0}, {0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
     oled_write_P(PSTR(OLED_RENDER_MODS_NAME), false);
-    oled_write_P(PSTR(OLED_RENDER_MODS_SFT), (modifiers & MOD_MASK_SHIFT));
-#ifdef OLED_DISPLAY_128X64
+    oled_write_P(mod_status[0], (modifiers & MOD_MASK_SHIFT));
+    oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_MASK_GUI));
+#if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
 #endif
-    oled_write_P(PSTR(OLED_RENDER_MODS_CTL), (modifiers & MOD_MASK_CTRL));
-#ifdef OLED_DISPLAY_128X64
-    oled_write_P(PSTR(" "), false);
+    oled_write_P(mod_status[2], (modifiers & MOD_MASK_ALT));
+    oled_write_P(mod_status[1], (modifiers & MOD_MASK_CTRL));
+#if defined(OLED_DISPLAY_128X64)
+    oled_advance_page(true);
 #endif
-    oled_write_P(PSTR(OLED_RENDER_MODS_ALT), (modifiers & MOD_MASK_ALT));
-#ifdef OLED_DISPLAY_128X64
-    oled_write_P(PSTR(" "), false);
-#endif
-    oled_write_P(PSTR(OLED_RENDER_MODS_GUI), (modifiers & MOD_MASK_GUI));
 }
 
 void render_bootmagic_status(void) {
@@ -170,6 +181,13 @@ void render_bootmagic_status(void) {
         {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
     };
 
+    bool is_bootmagic_on;
+#ifdef OLED_DISPLAY_128X64
+    is_bootmagic_on = !keymap_config.swap_lctl_lgui;
+#else
+    is_bootmagic_on = keymap_config.swap_lctl_lgui;
+#endif
+
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NAME), false);
 #ifdef OLED_DISPLAY_128X64
     if (keymap_config.swap_lctl_lgui)
@@ -177,47 +195,77 @@ void render_bootmagic_status(void) {
     oled_write_P(PSTR(" "), false);
 #endif
     {
-        oled_write_P(logo[1][0], false);
+        oled_write_P(logo[1][0], is_bootmagic_on);
 #ifdef OLED_DISPLAY_128X64
     } else {
 #endif
-        oled_write_P(logo[0][0], false);
+        oled_write_P(logo[0][0], !is_bootmagic_on);
     }
+#ifndef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
-#ifdef OLED_DISPLAY_128X64
+    oled_write_P(logo[1][1], is_bootmagic_on);
+    oled_write_P(logo[0][1], !is_bootmagic_on);
+#endif
+    oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
-    oled_write_ln_P(PSTR(OLED_RENDER_BOOTMAGIC_NOGUI), !keymap_config.no_gui);
-    oled_write_P(PSTR("Magic "), false);
-    if (keymap_config.swap_lctl_lgui)
-#endif
-    {
-        oled_write_P(logo[1][1], false);
+    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NOGUI), !keymap_config.no_gui);
 #ifdef OLED_DISPLAY_128X64
-    } else {
-#endif
-        oled_write_P(logo[0][1], false);
-    }
-    oled_write_P(PSTR(" "), false);
-#ifdef OLED_DISPLAY_128X64
-    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_GRV), keymap_config.swap_grave_esc);
-    oled_write_P(PSTR("  "), false);
-    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_CAPS), keymap_config.swap_control_capslock);
     oled_advance_page(true);
-#else
-    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
+    oled_write_P(PSTR("Magic"), false);
+    oled_write_P(PSTR(" "), false);
+    if (keymap_config.swap_lctl_lgui) {
+        oled_write_P(logo[1][1], is_bootmagic_on);
+    } else {
+        oled_write_P(logo[0][1], !is_bootmagic_on);
+    }
+#endif
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_GRV), keymap_config.swap_grave_esc);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_CAPS), keymap_config.swap_control_capslock);
+#ifdef OLED_DISPLAY_128X64
+    oled_advance_page(true);
 #endif
 }
 
+#if defined(POINTING_DEVICE_ENABLE)
+extern bool tap_toggling;
+#endif
+
 void render_user_status(void) {
     oled_write_P(PSTR(OLED_RENDER_USER_NAME), false);
+#if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
+#endif
+#if defined(RGB_MATRIX_ENABLE)
     oled_write_P(PSTR(OLED_RENDER_USER_ANIM), userspace_config.rgb_matrix_idle_anim);
+#    if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_USER_LAYR), userspace_config.rgb_layer_change);
+#    endif
+#elif defined(POINTING_DEVICE_ENABLE)
+    static const char PROGMEM mouse_lock[3] = {0xF2, 0xF3, 0};
+    oled_write_P(mouse_lock, tap_toggling);
+#endif
+#ifdef AUDIO_ENABLE
+    static const char PROGMEM audio_status[2][3] = {{0xE0, 0xE1, 0}, {0xE2, 0xE3, 0}};
+    oled_write_P(audio_status[is_audio_on()], false);
+
+#    ifdef AUDIO_CLICKY
+    static const char PROGMEM audio_clicky_status[2][3] = {{0xF4, 0xF5, 0}, {0xF6, 0xF7, 0}};
+    oled_write_P(audio_clicky_status[is_clicky_on() && is_audio_on()], false);
+#        if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_USER_NUKE), userspace_config.nuke_switch);
-#ifdef OLED_DISPLAY_128X64
+#        endif
+#    endif
+#endif
+
+    static const char PROGMEM rgb_layer_status[2][3] = {{0xEE, 0xEF, 0}, {0xF0, 0xF1, 0}};
+    oled_write_P(rgb_layer_status[userspace_config.rgb_layer_change], false);
+    static const char PROGMEM nukem_good[2][3] = {{0xF8, 0xF9, 0}, {0xF6, 0xF7, 0}};
+    oled_write_P(nukem_good[0], userspace_config.nuke_switch);
+#if defined(OLED_DISPLAY_128X64)
     oled_advance_page(true);
 #endif
 }
@@ -232,25 +280,56 @@ __attribute__((weak)) void oled_driver_render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
+void render_wpm(void) {
+#ifdef WPM_ENABLE
+#    ifdef OLED_DISPLAY_128X64
+    char wpm_counter[4];
+#    else
+    char wpm_counter[6];
+#    endif
+    snprintf(wpm_counter, sizeof(wpm_counter), "%3u", get_current_wpm());
+    oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
+    oled_write(wpm_counter, false);
+#endif
+}
+
+#ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
+extern keyboard_config_t keyboard_config;
+extern uint16_t          dpi_array[];
+
+void render_pointing_dpi_status(void) {
+    char dpi_status[6];
+    snprintf(dpi_status, sizeof(dpi_status), "%5u", dpi_array[keyboard_config.dpi_config]);
+    oled_write_P(PSTR("  DPI: "), false);
+    oled_write(dpi_status, false);
+}
+#endif
+
 void render_status_secondary(void) {
-#if !defined(SPLIT_TRANSPORT_MIRROR) || defined(OLED_DRIVER_128x64)
+#if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
 #endif
-#ifdef SPLIT_TRANSPORT_MIRROR
     /* Show Keyboard Layout  */
     render_default_layer_state();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
-    render_keylogger_status();
-
-#endif
+    // render_keylogger_status();
+    render_keylock_status(host_keyboard_leds());
 }
-// clang-format on
 
 void render_status_main(void) {
-    /* Show Keyboard Layout  */
+#if defined(OLED_DISPLAY_128X64)
+    oled_driver_render_logo();
+    render_wpm();
+#    ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
+    render_pointing_dpi_status();
+#    endif
+    oled_write_P(PSTR("\n"), false);
+#else
     render_default_layer_state();
-    render_keylock_status(host_keyboard_leds());
+#endif
+    /* Show Keyboard Layout  */
+    // render_keylock_status(host_keyboard_leds());
     render_bootmagic_status();
     render_user_status();
 
@@ -258,19 +337,15 @@ void render_status_main(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 30000) {
-        oled_off();
-        return;
-    }
-#ifndef SPLIT_KEYBOARD
-    else {
-        oled_on();
-    }
-#endif
-
     update_log();
 
-    if (is_master) {
+    if (is_keyboard_master()) {
+        if (timer_elapsed32(oled_timer) > 30000) {
+            oled_off();
+            return;
+        } else {
+            oled_on();
+        }
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();

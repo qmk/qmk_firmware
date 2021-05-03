@@ -18,14 +18,6 @@
 
 #include "quantum.h"
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
 #define LAYOUT( \
     L00, L01, L02, L03, L04, L05,   R00, R01, R02, R03, R04, R05, \
     L10, L11, L12, L13, L14, L15,   R10, R11, R12, R13, R14, R15, \
@@ -42,3 +34,17 @@
         { R25, R24, R23, R22, R21, R20 }, \
         { KC_NO, KC_NO, KC_NO, KC_NO, RT2, RT1 } \
     }
+
+enum custom_keycodes {
+    KC_SCROLL = SAFE_RANGE,
+    KC_CPI_1,
+    KC_CPI_2,
+    KC_CPI_3
+};
+
+typedef union {
+  uint32_t raw;
+  struct {
+    uint16_t cpi;
+  };
+} config_oddball_t;

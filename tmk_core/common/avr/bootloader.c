@@ -77,7 +77,7 @@ uint32_t reset_key __attribute__((section(".noinit,\"aw\",@nobits;")));
  *
  * FIXME: needs doc
  */
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
 #if !defined(BOOTLOADER_SIZE)
     uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
 
@@ -247,7 +247,7 @@ void bootloader_jump(void) {
 
 #else  // Assume remaining boards are DFU, even if the flag isn't set
 
-#    if !(defined(__AVR_ATmega32A__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATtiny85__))  // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
+#    if !(defined(__AVR_ATmega32A__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__) || defined(__AVR_ATtiny85__))  // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
     UDCON  = 1;
     USBCON = (1 << FRZCLK);  // disable USB
     UCSR1B = 0;

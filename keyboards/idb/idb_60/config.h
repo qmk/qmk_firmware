@@ -25,7 +25,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   	0x0001
 #define MANUFACTURER    idb Keyboards
 #define PRODUCT         idb 60
-#define DESCRIPTION     QMK keyboard firmware for idb 60
 
 /* key matrix size */
 #define MATRIX_ROWS 10
