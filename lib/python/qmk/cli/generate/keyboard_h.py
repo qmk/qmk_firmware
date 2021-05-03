@@ -5,7 +5,7 @@ from milc import cli
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.path import is_keyboard, normpath
+from qmk.path import normpath
 
 
 def would_populate_layout_h(keyboard):
