@@ -43,6 +43,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [GH60](/keyboards/gh60) &mdash; A 60% Geekhack community-driven project.
 * [GON NerD](/keyboards/gonnerd) &mdash; Korean custom 60% PCB
 * [Happy Hacking Keyboard](/keyboards/hhkb) &mdash; The Happy Hacking keyboard can be hacked with a custom controller to run QMK.
+* [IBM Model M](/keyboards/modelm) &mdash; The classic IBM Model M can be modernized with one of several custom controllers to run QMK.
 * [Infinity 60%](/keyboards/infinity60) - &mdash; Compact community keyboard by Input Club.
 * [JD45](/keyboards/jd45) &mdash; Another Geekhack community project, designed by jdcarpe.
 * [JJ40](/keyboards/jj40) &mdash; ps2avrGB based ortholinear sold by KPrepublic

@@ -1,6 +1,6 @@
 {
     "keyboard_name": "atmega32U4 board for IBM Model M",
-    "url": "",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/modelm/mschwingen",
     "maintainer": "mschwingen",
     "width": 23,
     "height": 7,
