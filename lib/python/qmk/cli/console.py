@@ -112,7 +112,7 @@ class FindDevices(object):
                         live_bootloaders[device['path']]['found'] = True
                     else:
                         name = KNOWN_BOOTLOADERS[(int2hex(device['vendor_id']), int2hex(device['product_id']))]
-                        cli.log.info('Bootloader Connected: {fg_yellow}%s', name)
+                        cli.log.info('Bootloader Connected: {style_bright}{fg_magenta}%s', name)
                         device['found'] = True
                         live_bootloaders[device['path']] = device
 
