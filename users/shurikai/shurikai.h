@@ -54,7 +54,7 @@ enum userspace_keycodes {
  * Layer-taps.
  */
 #define LT_NUM  LT(_NUMBER, KC_BSPC)
-#define LT_NAV  LT(_NAV,    KC_ESC)
+#define LT_NAV  LT(_NAV,    KC_TAB)
 #define LT_SYM  LT(_SYMBOL, KC_SPC)
 #define LT_ADJ  LT(_ADJUST, KC_ENT)
 
@@ -77,6 +77,17 @@ const uint16_t PROGMEM esc_combo [] = {KC_Q, KC_W, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     [ESC_COMBO] = COMBO(esc_combo, KC_ESC)
+};
+#endif
+
+
+#ifdef TAP_DANCE_ENABLE
+enum {
+    TD_ESC,
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
 };
 #endif
 

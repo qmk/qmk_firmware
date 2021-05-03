@@ -23,7 +23,6 @@
 #define LAYOUT_wrapper(...)          LAYOUT(__VA_ARGS__)
 #define LAYOUT_reviung_wrapper(...)  LAYOUT_reviung39(__VA_ARGS__)
 #define LAYOUT_microdox_wrapper(...) LAYOUT_split_3x5_3(__VA_ARGS__)
-#define LAYOUT_corne_wrapper(...)    LAYOUT_split_3x6_3(__VA_ARGS__)
 #define LAYOUT_preonic_wrapper(...)  LAYOUT_preonic_grid(__VA_ARGS__)
 #define LAYOUT_niumini_wrapper(...)  LAYOUT_ortho_4x12(__VA_ARGS__)
 
@@ -44,7 +43,7 @@
  * |------+------+------+------+------|    |------+------+------+------+------|
  * |   Z  |   X  |   C  |   V  |   B  |    |   N  |   M  |   ,  |   .  |   /  |
  * `------+------+------+------+------|    |------+------+------+------+------'
- *                      | ESC  | BSPC |    | SPC  | ENT  |
+ *                      | TAB  | BSPC |    | SPC  | ENT  |
  *                      `-------------+    +-------------'
  */
 #define _________________BASE_L1___________________    KC_Q,     KC_W,    KC_E,     KC_R,     KC_T
@@ -86,13 +85,13 @@
  * |------+------+------+------+------|    |------+------+------+------+------|
  * |      |      |  [   |  ]   |      |    |   _  |  !   |   @  |  #   |   \  |
  * `------+------+------+------+------|    |------+------+------+------+------'
- *                      |      |      |    |XXXXXX|      |
+ *                      | Shift|  DEL |    |XXXXXX|      |
  *                      `-------------+    +-------------'
  */
 #define _________________SYM_L1____________________    KC_TILD,  KC_GRV,   KC_LCBR,  KC_RCBR,  _______
 #define _________________SYM_L2____________________    _______,  _______,  KC_LPRN,  KC_RPRN,  KC_AT
 #define _________________SYM_L3____________________    _______,  _______,  KC_LBRC,  KC_RBRC,  _______
-#define _____SYM_LT_____                                                             MOD_LSFT, _______
+#define _____SYM_LT_____                                                             KC_LSFT,  KC_DEL
 
 #define _________________SYM_R1____________________    _______,  KC_AMPR,  KC_ASTR,  _______,  KC_PIPE
 #define _________________SYM_R2____________________    KC_MINS,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_QUOT
