@@ -34,21 +34,24 @@ ifneq ($(strip $(MTEST)),)
         MATRIX_COMMON_DELAY = yes
     endif
     ifeq ($(strip $1),adaptive_delay)
-	ADAPTIVE_DELAY = yes
+        ADAPTIVE_DELAY = yes
     endif
     ifeq ($(strip $1),adaptive_delay2)
-	ADAPTIVE_DELAY2 = yes
+        ADAPTIVE_DELAY2 = yes
+    endif
+    ifeq ($(strip $1),adaptive_delay_fast)
+        ADAPTIVE_DELAY_FAST = yes
     endif
     ifeq ($(strip $1),allways_delay)
         ALLWAYS_DELAY = yes
     endif
     ifeq ($(strip $1),matrix_debug_delay)
-	MATRIX_DEBUG_DELAY = yes
-	MATRIX_DEBUG_SCAN = no
+        MATRIX_DEBUG_DELAY = yes
+        MATRIX_DEBUG_SCAN = no
     endif
     ifeq ($(strip $1),matrix_debug_scan)
-	MATRIX_DEBUG_DELAY = no
-	MATRIX_DEBUG_SCAN = yes
+        MATRIX_DEBUG_DELAY = no
+        MATRIX_DEBUG_SCAN = yes
     endif
   endef # end of KEYMAP_OPTION_PARSE
 
@@ -67,6 +70,10 @@ endif
 
 ifeq ($(strip $(ADAPTIVE_DELAY2)),yes)
     OPT_DEFS += -DMATRIX_IO_DELAY_ADAPTIVE2
+endif
+
+ifeq ($(strip $(ADAPTIVE_DELAY_FAST)),yes)
+    OPT_DEFS += -DMATRIX_IO_DELAY_ADAPTIVE_FAST
 endif
 
 ifeq ($(strip $(ALLWAYS_DELAY)),yes)

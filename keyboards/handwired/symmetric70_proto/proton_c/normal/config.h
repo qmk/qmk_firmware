@@ -28,3 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { A4, A5, A6, A7, A8 }
 #define MATRIX_COL_PINS { A2, A1, A0, B8,  B13, B14, B15, B9,  B0, B1, B2, B3,  B4, B5, B6, B7 }
+
+#ifdef MATRIX_IO_DELAY_ADAPTIVE_FAST
+#    define MATRIX_IO_DELAY_PORTS A0, B0
+//                                  fedcba9876543210    fedcba9876543210
+#    define MATRIX_IO_DELAY_MASKS 0b0000000000000111, 0b1110001111111111
+#endif

@@ -32,3 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_MUL_SEL  {  0, 1, 0, 1,  0, 1, 0, 1,   1, 0, 1, 0,  1, 0, 1, 0 }
 /* use 74HC157: quadruple 2-line to 1-line data selectors / multiplexers */
 #define MATRIX_MUL_SELECT  B5 /* 74HC157 pin1:~A/B */
+
+#ifdef MATRIX_IO_DELAY_ADAPTIVE_FAST
+#    define MATRIX_IO_DELAY_PORTS  B0, B0, F0, F0
+#    define MATRIX_IO_DELAY_MULSEL  0,  1,  0,  1
+//                                  76543210    76543210    76543210    76543210
+#    define MATRIX_IO_DELAY_MASKS 0b01001110, 0b01001110, 0b11110000, 0b11110000
+#endif
