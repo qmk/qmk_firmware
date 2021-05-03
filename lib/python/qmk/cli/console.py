@@ -21,6 +21,22 @@ LOG_COLOR = {
     ]
 }
 
+KNOWN_BOOTLOADERS = {
+        # VID  ,  PID
+        ('16C0', '0478'): 'Teensy Halfkay Bootloader',
+        ('0483', 'DF11'): 'STM32 Bootloader',
+        ('314B', '0106'): 'APM32 Bootloader',
+        ('1EAF', '0003'): 'STM32duino Bootloader',
+        ('16C0', '05DC'): 'USBaspLoader',
+        ('1C11', 'B007'): 'Kiibohd DFU Bootloader',
+        ('03EB', '2FEF'): 'ATmega16U2 Bootloader',
+        ('03EB', '2FF0'): 'ATmega32U2 Bootloader',
+        ('03EB', '2FF3'): 'ATmega16U4 Bootloader',
+        ('03EB', '2FF4'): 'ATmega32U4 Bootloader',
+        ('03EB', '2FF9'): 'AT90USB64 Bootloader',
+        ('03EB', '2FFA'): 'AT90USB162 Bootloader',
+        ('03EB', '2FFB'): 'AT90USB128 Bootloader'
+}
 
 class MonitorDevice(object):
     def __init__(self, hid_device, numeric):
@@ -29,7 +45,7 @@ class MonitorDevice(object):
         self.device = hid.Device(path=hid_device['path'])
         self.current_line = ''
 
-        cli.log.info('Listening to %(color)s%(manufacturer_string)s %(product_string)s{style_reset_all} (%(color)s%(vendor_id)04X:%(product_id)04X:%(index)d{style_reset_all})', hid_device)
+        cli.log.info('Console Connected: %(color)s%(manufacturer_string)s %(product_string)s{style_reset_all} (%(color)s%(vendor_id)04X:%(product_id)04X:%(index)d{style_reset_all})', hid_device)
 
     def read(self, size, encoding='ascii', timeout=1):
         """Read size bytes from the device.
@@ -53,7 +69,7 @@ class MonitorDevice(object):
                 message = {**self.hid_device, 'text': self.read_line()}
                 identifier = (int2hex(message['vendor_id']), int2hex(message['product_id'])) if self.numeric else (message['manufacturer_string'], message['product_string'])
                 message['identifier'] = ':'.join(identifier)
-                message['ts'] = '{fg_green}%s{fg_reset} ' % (strftime(cli.config.general.datetime_fmt),) if cli.args.timestamp else ''
+                message['ts'] = '{style_dim}{fg_green}%s{style_reset_all} ' % (strftime(cli.config.general.datetime_fmt),) if cli.args.timestamp else ''
 
                 cli.echo('%(ts)s%(color)s%(identifier)s:%(index)d{style_reset_all}: %(text)s' % message)
 
@@ -72,15 +88,16 @@ class FindDevices(object):
         """Process messages from our queue in a loop.
         """
         live_devices = {}
+        live_bootloaders = {}
 
         while True:
             try:
                 for device in list(live_devices):
                     if not live_devices[device]['thread'].is_alive():
-                        cli.log.info('Disconnected from %(color)s%(manufacturer_string)s %(product_string)s{style_reset_all} (%(color)s%(vendor_id)04X:%(product_id)04X:%(index)d{style_reset_all})', live_devices[device])
+                        cli.log.info('Console Disconnected: %(color)s%(manufacturer_string)s %(product_string)s{style_reset_all} (%(color)s%(vendor_id)04X:%(product_id)04X:%(index)d{style_reset_all})', live_devices[device])
                         del live_devices[device]
 
-                for device in self.find_devices():
+                for device in self.find_devices(hid.enumerate()):
                     if device['path'] not in live_devices:
                         device['color'] = LOG_COLOR['colors'][LOG_COLOR['next']]
                         LOG_COLOR['next'] = (LOG_COLOR['next'] + 1) % len(LOG_COLOR['colors'])
@@ -90,10 +107,32 @@ class FindDevices(object):
 
                         device['thread'].start()
 
+                for device in self.find_bootloaders(hid.enumerate()):
+                    if device['path'] in live_bootloaders:
+                        live_bootloaders[device['path']]['found'] = True
+                    else:
+                        name = KNOWN_BOOTLOADERS[(int2hex(device['vendor_id']), int2hex(device['product_id']))]
+                        cli.log.info('Bootloader Connected: {fg_yellow}%s', name)
+                        device['found'] = True
+                        live_bootloaders[device['path']] = device
+
+                for device in list(live_bootloaders):
+                    if live_bootloaders[device]['found']:
+                        live_bootloaders[device]['found'] = False
+                    else:
+                        name = KNOWN_BOOTLOADERS[(int2hex(live_bootloaders[device]['vendor_id']), int2hex(live_bootloaders[device]['product_id']))]
+                        cli.log.info('Bootloader Disconnected: %s', name)
+                        del live_bootloaders[device]
+
                 sleep(1)
 
             except KeyboardInterrupt:
                 break
+
+    def is_bootloader(self, hid_device):
+        """Returns true if the device in question matches a known bootloader vid/pid.
+        """
+        return (int2hex(hid_device['vendor_id']), int2hex(hid_device['product_id'])) in KNOWN_BOOTLOADERS
 
     def is_console_hid(self, hid_device):
         """Returns true when the usage page indicates it's a teensy-style console.
@@ -127,10 +166,14 @@ class FindDevices(object):
 
         return devices
 
-    def find_devices(self):
+    def find_bootloaders(self, hid_devices):
+        """Returns a list of available bootloader devices.
+        """
+        return list(filter(self.is_bootloader, hid_devices))
+
+    def find_devices(self, hid_devices):
         """Returns a list of available teensy-style consoles.
         """
-        hid_devices = hid.enumerate()
         devices = list(filter(self.is_console_hid, hid_devices))
 
         if not devices:
@@ -160,12 +203,23 @@ def int2hex(number):
 
 
 def list_devices(device_finder):
-    cli.log.info('Available devices:')
+    hid_devices = hid.enumerate()
+    devices = device_finder.find_devices(hid_devices)
 
-    for dev in device_finder.find_devices():
-        color = LOG_COLOR['colors'][LOG_COLOR['next']]
-        LOG_COLOR['next'] = (LOG_COLOR['next'] + 1) % len(LOG_COLOR['colors'])
-        cli.log.info("\t%s%s:%s:%d{style_reset_all}\t%s %s", color, int2hex(dev['vendor_id']), int2hex(dev['product_id']), dev['index'], dev['manufacturer_string'], dev['product_string'])
+    if devices:
+        cli.log.info('Available devices:')
+        for dev in devices:
+            color = LOG_COLOR['colors'][LOG_COLOR['next']]
+            LOG_COLOR['next'] = (LOG_COLOR['next'] + 1) % len(LOG_COLOR['colors'])
+            cli.log.info("\t%s%s:%s:%d{style_reset_all}\t%s %s", color, int2hex(dev['vendor_id']), int2hex(dev['product_id']), dev['index'], dev['manufacturer_string'], dev['product_string'])
+
+    bootloaders = device_finder.find_bootloaders(hid_devices)
+
+    if bootloaders:
+        cli.log.info('Available Bootloaders:')
+
+        for dev in bootloaders:
+            cli.log.info("\t%s:%s\t%s", int2hex(dev['vendor_id']), int2hex(dev['product_id']), KNOWN_BOOTLOADERS[(int2hex(dev['vendor_id']), int2hex(dev['product_id']))])
 
 
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>[:<index>].')
