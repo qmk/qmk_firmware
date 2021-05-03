@@ -1,4 +1,4 @@
-/* Copyright 2020 Nidzo Tomic <tomicn8@hotmail.com>
+/* Copyright 2019 iw0rm3r
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,23 +13,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "model_m_101.h"
+#include "teensypp.h"
 
 void keyboard_pre_init_kb(void) {
-  // Set our LED pins as output
-  setPinOutput(A2);
-  setPinOutput(A1);
-  setPinOutput(A0);
-  
-  keyboard_pre_init_user();
+  /* Setting status LEDs pins to output and +5V (off) */
+  setPinOutput(B4);
+  setPinOutput(B5);
+  setPinOutput(B6);
+  writePinHigh(B4);
+  writePinHigh(B5);
+  writePinHigh(B6);
 }
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(A2, !led_state.num_lock);
-        writePin(A1, !led_state.caps_lock);
-        writePin(A0, !led_state.scroll_lock);
-    }
-    return res;
+void led_set_kb(uint8_t usb_led) {
+  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+    writePinLow(B4);
+  } else {
+    writePinHigh(B4);
+  }
+  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    writePinLow(B6);
+  } else {
+    writePinHigh(B6);
+  }
+  if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+    writePinLow(B5);
+  } else {
+    writePinHigh(B5);
+  }
+
+  led_set_user(usb_led);
 }

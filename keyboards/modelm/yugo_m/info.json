@@ -1,6 +1,6 @@
 {
     "keyboard_name": "IBM Model M 101/102",
-    "url": "https://github.com/tomic1785/qmk_firmware/tree/stm32_model_m/keyboards/yugo_m/model_m_101",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/modelm/yugo_m",
     "maintainer": "Nidzo Tomic",
     "layouts": {
         "LAYOUT_all": {
