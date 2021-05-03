@@ -1,5 +1,6 @@
 """This script automates the creation of keyboards.
 """
+import math
 import json
 import shutil
 from pathlib import Path
@@ -40,8 +41,8 @@ def _augment_community_info(src, dest, tokens):
         "processor": tokens["MCU"],
         "diode_direction": "COL2ROW",
         "matrix_pins": {
-            "cols": ["C2"] * info["width"],
-            "rows": ["D1"] * info["height"],
+            "cols": ["C2"] * int(math.ceil(info["width"])),
+            "rows": ["D1"] * int(math.ceil(info["height"])),
         },
         "usb": {
             "vid": "0xFEED",
@@ -62,7 +63,7 @@ def _augment_community_info(src, dest, tokens):
     # bodge matrix data
     _, layout = next(iter(info["layouts"].items()))
     for item in layout["layout"]:
-        item["matrix"] = [item["y"], item["x"]]
+        item["matrix"] = [int(item["y"]), int(item["x"])]
 
     dest.write_text(json.dumps(info, cls=InfoJSONEncoder))
 
