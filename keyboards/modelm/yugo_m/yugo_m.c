@@ -20,7 +20,7 @@ void keyboard_pre_init_kb(void) {
   setPinOutput(A2);
   setPinOutput(A1);
   setPinOutput(A0);
-  
+
   keyboard_pre_init_user();
 }
 

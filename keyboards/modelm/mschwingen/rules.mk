@@ -26,4 +26,4 @@ OPT_DEFS += -DSLEEP_LED_ENABLE # we need our own sleep callbacks to turn of WS28
 
 LTO_ENABLE = yes
 
-DEFAULT_FOLDER = mschwingen/modelm/led_wired
+DEFAULT_FOLDER = modelm/mschwingen/led_wired

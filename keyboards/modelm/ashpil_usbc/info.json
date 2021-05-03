@@ -1,7 +1,7 @@
 {
     "keyboard_name": "IBM Model M 101/102",
     "manufacturer": "ashpil",
-    "url": "https://github.com/ashpil/qmk_firmware/tree/master/keyboards/ashpil/modelm_usbc",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/modelm/ashpil_usbc",
     "maintainer": "ashpil",
     "usb": {
         "vid": "0xFEED",

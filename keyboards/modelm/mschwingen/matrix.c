@@ -22,7 +22,7 @@
 #include "quantum.h"
 #include "spi_master.h"
 #include "print.h"
-#include "modelm.h"
+#include "mschwingen.h"
 
 #define SPI_TIMEOUT 100
 
@@ -93,7 +93,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
 void matrix_init_custom(void) {
     unselect_cols();
-    
+
     // set 4MHz SPI clock
     SPSR = 0;
     SPCR = _BV(SPE) | _BV(MSTR) | _BV(CPOL);

@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "Yugo-M (Model M replacment controller)",
+    "keyboard_name": "Yugo-M (IBM Model M replacment controller)",
     "manufacturer": "IBM",
-    "url": "https://github.com/tomic1785/qmk_firmware/tree/stm32_model_m/keyboards/yugo_m/model_m_101",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/modelm/yugo_m",
     "maintainer": "Nidzo Tomic",
     "usb": {
         "vid": "0xFEED",

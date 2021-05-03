@@ -15,12 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <util/delay.h>
-#include "modelm.h"
+#include "mschwingen.h"
 #include "uart.h"
 #include "print.h"
 #include "sendchar.h"
 #include "ws2812.h"
-#include "modelm.h"
 #include "sleep_led.h"
 
 #ifdef UART_DEBUG
@@ -36,7 +35,7 @@ static uint16_t blink_cycle_timer;
 static bool     blink_state = false;
 static uint8_t  isRecording = 0;
 
-#ifdef KEYBOARD_mschwingen_modelm_led_ws2812
+#ifdef KEYBOARD_modelm_mschwingen_led_ws2812
 #    if RGBLED_NUM < 3
 #        error we need at least 3 RGB LEDs!
 #    endif
@@ -81,7 +80,7 @@ void sleep_led_disable(void) {
 void sleep_led_enable(void) {
     suspend_active = true;
     writePinLow(MODELM_STATUS_LED);
-#ifdef KEYBOARD_mschwingen_modelm_led_ws2812
+#ifdef KEYBOARD_modelm_mschwingen_led_ws2812
     led[0] = black;
     led[1] = black;
     led[2] = black;
@@ -90,7 +89,7 @@ void sleep_led_enable(void) {
 }
 
 void keyboard_pre_init_kb(void) {
-#ifdef KEYBOARD_mschwingen_modelm_led_ws2812
+#ifdef KEYBOARD_modelm_mschwingen_led_ws2812
     ws2812_setleds(led, RGBLED_NUM);
 #else
     /* Set status LEDs pins to output and Low (on) */
@@ -116,7 +115,7 @@ void keyboard_pre_init_kb(void) {
     writePinLow(SR_CLK_PIN);
 }
 
-#ifdef KEYBOARD_mschwingen_modelm_led_ws2812
+#ifdef KEYBOARD_modelm_mschwingen_led_ws2812
 static void led_update_rgb(void) {
     if (isRecording && blink_state) {
         led[0] = white;
