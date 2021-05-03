@@ -1,64 +1,35 @@
 """Acquire debugging information from usb hid devices
 
 cli implementation of https://www.pjrc.com/teensy/hid_listen.html
-
-State machine is implemented as follows:
-
-     +-+
-     +-+                                                More Data?
-      |                                              +------------+
-      |                                              |            |
-+-----+-------+      +-----------------+       +-----+------+     |
-|             |      |                 |       |            |     |
-|   Search    +----->+     Connect     +------>+   Read     +<----+
-|             |      |                 |       |            |
-+-----+-------+      +-----------------+       +------+-----+
-      ^                                               |
-      |               Disconnect/Error?               |
-      +-----------------------------------------------+
 """
 import hid
-import queue
-import time
 from pathlib import Path
-from platform import platform
 from threading import Thread
+from time import sleep
 
 from milc import cli
 
-IS_LINUX = 'linux' in platform().lower()
-
-
-class ConsoleMessages(queue.Queue):
-    """Process and print console messages from devices.
-    """
-    def print_message(self, message):
-        """Nicely format and print a message.
-        """
-        cli.echo('{fg_blue}%(vendor_id)04X:%(product_id)04X:%(index)d{fg_reset}: %(text)s' % message)
-
-    def run_forever(self):
-        while True:
-            try:
-                self.print_message(self.get())
-
-            except KeyboardInterrupt:
-                break
-
-            except Exception as e:
-                cli.log.error("Uncaught exception: %s: %s", e.__class__.__name__, e)
-                cli.log.exception(e)
+LOG_COLOR = {
+    'next': 0,
+    'colors': [
+        '{fg_blue}',
+        '{fg_cyan}',
+        '{fg_green}',
+        '{fg_magenta}',
+        '{fg_red}',
+        '{fg_yellow}'
+    ]
+}
 
 
 class MonitorDevice(object):
-    def __init__(self, console, hid_device):
-        self.console = console
+    def __init__(self, hid_device, numeric):
         self.hid_device = hid_device
+        self.numeric = numeric
         self.device = hid.Device(path=hid_device['path'])
         self.current_line = ''
 
-        print()
-        cli.log.info('Listening to {fg_cyan}%s %s{fg_reset} ({fg_blue}%04X:%04X{fg_reset}):', hid_device['manufacturer_string'], hid_device['product_string'], hid_device['vendor_id'], hid_device['product_id'])
+        cli.log.info('Listening to %(color)s%(manufacturer_string)s %(product_string)s{style_reset_all} (%(color)s%(vendor_id)04X:%(product_id)04X:%(index)d{style_reset_all})', hid_device)
 
     def read(self, size, encoding='ascii', timeout=1):
         """Read size bytes from the device.
@@ -76,52 +47,53 @@ class MonitorDevice(object):
 
         return lines[0]
 
-    def on_exception(self, e):
-        cli.log.error('Exception: %s: %s: %s', self.__class__.__name__, e.__class__.__name__, e)
-        cli.log.exception(e)
-
     def run_forever(self):
         while True:
-            self.console.put({
-                **self.hid_device,
-                'text': self.read_line()
-            })
+            try:
+                message = {**self.hid_device, 'text': self.read_line()}
+
+                if self.numeric:
+                    cli.echo('%(color)s%(vendor_id)04X:%(product_id)04X:%(index)d{style_reset_all}: %(text)s' % message)
+                else:
+                    cli.echo('%(color)s%(manufacturer_string)s:%(product_string)s:%(index)d{style_reset_all}: %(text)s' % message)
+
+            except hid.HIDException:
+                break
 
 
-class FindDevices(queue.Queue):
-    def __init__(self, console, vid, pid, index):
-        self.console = console
+class FindDevices(object):
+    def __init__(self, vid, pid, index, numeric):
         self.vid = vid
         self.pid = pid
         self.index = index
-
-        super().__init__()
-
-    def transition(self, func, *args, delay=None, **kwargs):
-        if delay:
-            time.sleep(delay)
-        self.put((func, args, kwargs))
-
-    def on_exception(self, e):
-        """Called when an exception occurs in `run_forever`.
-        """
-        cli.log.error('Exception: %s: %s', e.__class__.__name__, e)
-        cli.log.exception(e)
-        self.transition(self.on_exception, e)
+        self.numeric = numeric
 
     def run_forever(self):
         """Process messages from our queue in a loop.
         """
-        self.transition(self.search)
+        live_devices = {}
 
         while True:
             try:
-                f, args, kwargs = self.get()
-                f(*args, **kwargs)
+                for device in list(live_devices):
+                    if not live_devices[device]['thread'].is_alive():
+                        cli.log.info('Disconnected from %(color)s%(manufacturer_string)s %(product_string)s{style_reset_all} (%(color)s%(vendor_id)04X:%(product_id)04X:%(index)d{style_reset_all})', live_devices[device])
+                        del live_devices[device]
+
+                for device in self.find_devices():
+                    if device['path'] not in live_devices:
+                        device['color'] = LOG_COLOR['colors'][LOG_COLOR['next']]
+                        LOG_COLOR['next'] = (LOG_COLOR['next'] + 1) % len(LOG_COLOR['colors'])
+                        live_devices[device['path']] = device
+                        monitor = MonitorDevice(device, self.numeric)
+                        device['thread'] = Thread(target=monitor.run_forever, daemon=True)
+
+                        device['thread'].start()
+
+                sleep(1)
+
             except KeyboardInterrupt:
                 break
-            except BaseException as e:
-                self.on_exception(e)
 
     def is_console_hid(self, hid_device):
         """Returns true when the usage page indicates it's a teensy-style console.
@@ -180,30 +152,6 @@ class FindDevices(queue.Queue):
 
         return devices
 
-    def search(self):
-        """Look for devices with teensy-style consoles and, if available, connect to it.
-        """
-        found = self.find_devices()
-
-        if found:
-            if self.index <= len(found):
-                monitor = MonitorDevice(self.console, found[self.index-1])
-                return self.transition(monitor.run_forever, delay=1)
-
-            print()
-            cli.log.warning("Only %d devices found, requested index is %d. Trying again in %d seconds...", len(found), self.index, cli.config.console.wait)
-        else:
-            print('.', end='', flush=True)
-
-        self.transition(self.search, delay=cli.config.console.wait)
-
-    def on_exception(self, e):
-        cli.log.error('Exception: %s: %s: %s', self.__class__.__name__, e.__class__.__name__, e)
-        cli.log.exception(e)
-        cli.log.info('Device disconnected.')
-        print('Waiting for new device..', end="", flush=True)
-        self.transition(self.search)
-
 
 def int2hex(number):
     """Returns a string representation of the number as hex.
@@ -215,11 +163,14 @@ def list_devices(device_finder):
     cli.log.info('Available devices:')
 
     for dev in device_finder.find_devices():
-        cli.log.info("\t%s:%s:%d\t%s %s", int2hex(dev['vendor_id']), int2hex(dev['product_id']), dev['index'], dev['manufacturer_string'], dev['product_string'])
+        color = LOG_COLOR['colors'][LOG_COLOR['next']]
+        LOG_COLOR['next'] = (LOG_COLOR['next'] + 1) % len(LOG_COLOR['colors'])
+        cli.log.info("\t%s%s:%s:%d{style_reset_all}\t%s %s", color, int2hex(dev['vendor_id']), int2hex(dev['product_id']), dev['index'], dev['manufacturer_string'], dev['product_string'])
 
 
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>[:<index>].')
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available hid_listen devices.')
+@cli.argument('-n', '--numeric', arg_only=True, action='store_true', help='Show VID/PID instead of names.')
 @cli.argument('-w', '--wait', type=int, default=1, help="How many seconds to wait between checks (Default: 1)")
 @cli.subcommand('Acquire debugging information from usb hid devices.', hidden=False if cli.config.user.developer else True)
 def console(cli):
@@ -256,13 +207,10 @@ def console(cli):
         vid = vid.upper()
         pid = pid.upper()
 
-    console = ConsoleMessages()
-    device_finder = FindDevices(console, vid, pid, index)
+    device_finder = FindDevices(vid, pid, index, cli.args.numeric)
 
     if cli.args.list:
         return list_devices(device_finder)
 
-    print('Waiting for device..', end="", flush=True)
-    device_finder_t = Thread(target=device_finder.run_forever, daemon=True)
-    device_finder_t.start()
-    console.run_forever()
+    print('Looking for devices...', flush=True)
+    device_finder.run_forever()
