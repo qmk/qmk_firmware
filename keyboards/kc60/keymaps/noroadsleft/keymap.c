@@ -15,8 +15,6 @@
  */
 
 #include "noroadsleft.h"
-//#include "sendstring_colemak.h"
-#include "print.h"
 
 
 /**********************
