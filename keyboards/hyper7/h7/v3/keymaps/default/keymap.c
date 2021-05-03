@@ -44,7 +44,7 @@ enum unicode_names {
     SUPERSET_OF,
     FORALL,
     LEMNISCATE,
-    END_OF_PROOF,
+    THERE_EXISTS,
     PARTIAL_DIFFERENTIAL,
     UP_TACK,
     DOWN_TACK,
@@ -175,7 +175,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [SUPERSET_OF] = 0x2283,
     [FORALL] = 0x2200,
     [LEMNISCATE] = 0x221E, // ∞
-    [END_OF_PROOF] = 0x220E,
+    [THERE_EXISTS] = 0x2203,
     [PARTIAL_DIFFERENTIAL] = 0x2202,
     [UP_TACK] = 0x22A5,
     [DOWN_TACK] = 0x22A4,
@@ -425,7 +425,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
 
         FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(N_ARY_LOGICAL_AND), X(N_ARY_LOGICAL_OR), X(N_ARY_INTERSECT), X(N_ARY_UNION), X(SUBSET_OF),X(SUPERSET_OF), X(FORALL),X(LEMNISCATE), X(END_OF_PROOF),X(PARTIAL_DIFFERENTIAL),      FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
+        FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(N_ARY_LOGICAL_AND), X(N_ARY_LOGICAL_OR), X(N_ARY_INTERSECT), X(N_ARY_UNION), X(SUBSET_OF),X(SUPERSET_OF), X(FORALL),X(LEMNISCATE), X(THERE_EXISTS),X(PARTIAL_DIFFERENTIAL),      FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
         FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(UP_TACK), X(DOWN_TACK), X(RIGHT_TACK), X(LEFT_TACK), X(UPWARDS_ARROW),X(DOWNARDS_ARROW), X(LEFTWARDS_ARROW),X(RIGHTWARDS_ARROW), X(LEFTRIGHT_ARROW),     FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT,
         FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,  X(LEFT_FLOOR), X(LEFT_CEILING), X(NOT_EQUAL_TO), X(ASYMPTOTICALLY_EQUAL_TO),X(NOT_ASYMPTOTICALLY_EQUAL_TO), X(LESS_THAN_OR_EQUAL),X(GREATER_THAN_OR_EQUAL),      FT,      FT,       FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
         FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT
