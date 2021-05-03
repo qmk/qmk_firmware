@@ -17,7 +17,8 @@
   */
 
 #include QMK_KEYBOARD_H
-
+#include "analog.h"
+#include "pointing_device.h"
 
 extern uint8_t is_master;
 
@@ -73,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______,_______, _______, _______,
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
   KC_GRV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
-  _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+  _______, _______, _______, _______, KC_BTN2, KC_BTN1, _______, _______, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
                              _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 /* RAISE
@@ -182,6 +183,13 @@ char     keylog_str[KEYLOG_LEN] = {};
 uint8_t  keylogs_str_idx        = 0;
 uint16_t log_timer              = 0;
 
+/* void keyboard_post_init_user(void) { */
+    /* debug_enable=true; */
+    /* debug_matrix=true; */
+    /* debug_keyboard=true; */
+    /* debug_mouse=true; */
+    /* print("keyboard_post_init_user."); */
+/* } */
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -191,6 +199,8 @@ const char code_to_name[60] = {
     '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
 void add_keylog(uint16_t keycode) {
+    xprintf(keycode);
+    print(keycode);
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
         keycode = keycode & 0xFF;
     }
@@ -288,10 +298,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 #endif // OLED_DRIVER_ENABLE
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+#endif 
+  return true;
+}
+
 
 // Rotary encoder related code
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
+  print("ENCODER hello.\n");
+  uprintf("encoder | index: %04X, clockwise: %u\n", index, clockwise);
   if (index == 0) { // Encoder on master side
     if(IS_LAYER_ON(_RAISE)) { // on Raise layer
       // Cursor control
@@ -328,3 +348,116 @@ void encoder_update_user(uint8_t index, bool clockwise) {
   }
 }
 #endif
+
+/* uint8_t divisor = 0; */
+
+/* void matrix_scan_user(void) { */
+/*     /1* if (divisor++) { // only run the slider function 1/256 times it's called *1/ */
+/*     /1*     return; *1/ */
+/*     /1* } *1/ */
+/*     divisor++; */
+/*     if (divisor == 11) { */
+/*       divisor = 0; */
+/*     } */
+
+/*     if (divisor != 10) { */
+/*       return; */
+/*     } */
+
+/*     xprintf("\n %u F4", analogReadPin(F5)); */
+/*     xprintf("\n %u F5", analogReadPin(F4)); */
+
+/*     print("\n=================\n"); */
+/* } */
+
+// Set Parameters
+uint16_t minAxisValue = 0;
+uint16_t maxAxisValue = 1023;
+
+uint8_t maxCursorSpeed = 10;
+uint8_t precisionSpeed = 2;
+uint8_t speedRegulator = 35;  // Lower Values Create Faster Movement
+
+int8_t xPolarity = -1;
+int8_t yPolarity = 1;
+
+uint8_t cursorTimeout = 10;
+
+uint8_t origin_initialized = 0;
+int16_t xOrigin, yOrigin;
+
+uint16_t lastCursor = 0;
+
+int16_t axisCoordinate(uint8_t pin, uint16_t origin) {
+    int8_t  direction;
+    int16_t distanceFromOrigin;
+    int16_t range;
+
+    int16_t position = analogReadPin(pin);
+
+    if (origin == position) {
+        return 0;
+    } else if (origin > position) {
+        distanceFromOrigin = origin - position;
+        range              = origin - minAxisValue;
+        direction          = -1;
+    } else {
+        distanceFromOrigin = position - origin;
+        range              = maxAxisValue - origin;
+        direction          = 1;
+    }
+
+    float   percent    = (float) (distanceFromOrigin * 10) / range;
+    int16_t coordinate = (int16_t)(percent * 100);
+    if (coordinate < 0) {
+        return 0;
+    } else if (coordinate > 100) {
+        return 100 * direction;
+    } else {
+        return coordinate * direction;
+    }
+}
+
+int8_t axisToMouseComponent(uint8_t pin, int16_t origin, uint8_t maxSpeed, int8_t polarity) {
+    int coordinate = axisCoordinate(pin, origin);
+    if (coordinate == 0) {
+        return 0;
+    } else {
+        float percent = (float)coordinate / 100;
+        if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
+            return percent * precisionSpeed * polarity * (abs(coordinate) / speedRegulator);
+        } else {
+            return percent * maxCursorSpeed * polarity * (abs(coordinate) / speedRegulator);
+        }
+    }
+}
+
+void pointing_device_task(void) {
+    // init pointer origins. Account for drift.
+    /* if (!origin_initialized) { */
+    /*     xOrigin = analogReadPin(F4); */
+    /*     yOrigin = analogReadPin(F5); */
+    /*     origin_initialized = 1; */
+    /* } */
+
+    report_mouse_t report = pointing_device_get_report();
+
+    // todo read as one vector
+    if (timer_elapsed(lastCursor) > cursorTimeout) {
+        lastCursor = timer_read();
+        report.x   = axisToMouseComponent(F4, xOrigin, maxCursorSpeed, xPolarity);
+        report.y   = axisToMouseComponent(F5, yOrigin, maxCursorSpeed, yPolarity);
+    }
+    //
+    pointing_device_set_report(report);
+    pointing_device_send();
+}
+
+void keyboard_post_init_user(void) {
+    // Account for drift
+    xOrigin = analogReadPin(F4);
+    yOrigin = analogReadPin(F5);
+
+    xprintf("\n %u xOrigin: ", xOrigin);
+    xprintf("\n %u yOrigin: ", yOrigin);
+}

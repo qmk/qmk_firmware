@@ -1056,7 +1056,7 @@ int main(void) {
     virtser_init();
 #endif
 
-    print("Keyboard start.\n");
+    print("Keyboard start: (1).\n");
     while (1) {
 #if !defined(NO_USB_STARTUP_CHECK)
         if (USB_DeviceState == DEVICE_STATE_Suspended) {
