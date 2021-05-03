@@ -1,13 +1,27 @@
+ /* Copyright 2021 konomu 
+  * 
+  * This program is free software: you can redistribute it and/or modify 
+  * it under the terms of the GNU General Public License as published by 
+  * the Free Software Foundation, either version 2 of the License, or 
+  * (at your option) any later version. 
+  * 
+  * This program is distributed in the hope that it will be useful, 
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+  * GNU General Public License for more details. 
+  * 
+  * You should have received a copy of the GNU General Public License 
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  */ 
 #include QMK_KEYBOARD_H
 #include "g/keymap_combo.h"
 
-
-extern uint8_t is_master;
-
-#define _FROG 0
-#define _SYM 1
-#define _NUM 2
-#define _EXT 3
+enum custom_layers {
+    _FROG,
+    _SYM,
+    _NUM,
+    _EXT,
+};
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     combo_disable();
@@ -74,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*I recommend adding a TO() that leads to your two-handed layer to the first and last key in the next line of code if you 
 are adding this keymap to a two-handed keymap. It is left blank for this purpose.*/
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, KC_WBAK, KC_HOME,   KC_UP,  KC_END, KC_WFWD,                      KC_WBAK, KC_HOME,   KC_UP,  KC_END, KC_WFWD, XXXXXXX,\
+      XXXXXXX, KC_WBAK, KC_HOME,   KC_UP,  KC_END, KC_WFWD,                      KC_WFWD, KC_HOME,   KC_UP,  KC_END, KC_WBAK, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX,    ATAB, KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL,                       KC_DEL, KC_LEFT, KC_DOWN, KC_RGHT,    ATAB, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -83,30 +97,22 @@ are adding this keymap to a two-handed keymap. It is left blank for this purpose
                                              OSFT,    OCTL,    CBSP,       CBSP,    OCTL,    OSFT \
                                       //`--------------------------'  `--------------------------'
     )
-  
-/* You should add these layers on to your existing keymap so you can toggle between one-handed usage and two-handed usage. Don't 
-forget to change the first keycode in _EXT to whatever you name your default layer aside from the frogpad layers. If you add 
-a TO(_FROG) somewhere on your default layer, you can easily switch between the two.
-  
-Make sure to add "#include "g/keymap_combo.h"" to the top of your keymap.c and add combos.def to the keyboard folder. 
-Also add "VPATH  +=  keyboards/gboards/" and "COMBO_ENABLE = yes" to rules.mk."
-  
-If you're having trouble with the OSM modifiers include the code for individual tapping terms in this keymap. 
-You must also use the last six 'define's in the config.h file. */
-
 };
 
-int RGB_current_mode;
+uint8_t RGB_current_mode;
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
+// Setting ADJUST layer RGB back to default
+void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
+    layer_on(layer3);
+  } else {
+    layer_off(layer3);
+  }
 }
-
 
 void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
+      RGB_current_mode = rgblight_get_mode();
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
@@ -114,50 +120,86 @@ void matrix_init_user(void) {
     #endif
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
+//SSD1306 OLED init and update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
-
-// When add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
-const char *read_logo(void);
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-const char *read_keylogs(void);
-
-// const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
-// void set_timelog(void);
-// const char *read_timelog(void);
+void matrix_master_OLED_init (void) {
+    TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
+    iota_gfx_init();   // turns on the display
+}
 
 void matrix_scan_user(void) {
-   iota_gfx_task();
+     iota_gfx_task();  // this is what updates the display continuously
 }
+#endif
 
-void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
-    // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
-    //matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    //matrix_write_ln(matrix, read_host_led_state());
-    //matrix_write_ln(matrix, read_timelog());
-  } else {
-    matrix_write(matrix, read_logo());
-  }
-}
-
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
+void matrix_update(struct CharacterMatrix *dest,
+                          const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
     memcpy(dest->display, source->display, sizeof(dest->display));
     dest->dirty = true;
   }
 }
 
+//assign the right code to your layers for OLED display
+#define L_FROG 0
+#define L_SYM 8
+#define L_NUM 16
+#define L_EXT 64
+
 void iota_gfx_task_user(void) {
+#if DEBUG_TO_SCREEN
+  if (debug_enable) {
+    return;
+  }
+#endif
+
   struct CharacterMatrix matrix;
+
   matrix_clear(&matrix);
-  matrix_render_user(&matrix);
-  matrix_update(&display, &matrix);
-}
-#endif//SSD1306OLED
+  matrix_write_P(&matrix, PSTR("USB: "));
+#ifdef PROTOCOL_LUFA
+  switch (USB_DeviceState) {
+    case DEVICE_STATE_Unattached:
+      matrix_write_P(&matrix, PSTR("Unattached"));
+      break;
+    case DEVICE_STATE_Suspended:
+      matrix_write_P(&matrix, PSTR("Suspended"));
+      break;
+    case DEVICE_STATE_Configured:
+      matrix_write_P(&matrix, PSTR("Connected"));
+      break;
+    case DEVICE_STATE_Powered:
+      matrix_write_P(&matrix, PSTR("Powered"));
+      break;
+    case DEVICE_STATE_Default:
+      matrix_write_P(&matrix, PSTR("Default"));
+      break;
+    case DEVICE_STATE_Addressed:
+      matrix_write_P(&matrix, PSTR("Addressed"));
+      break;
+    default:
+      matrix_write_P(&matrix, PSTR("Invalid"));
+  }
+#endif
+
+// Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
+
+  char buf[40];
+  snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
+  matrix_write_P(&matrix, PSTR("\n\nLayer: "));
+    switch (layer_state) {
+        case L_FROG:
+           matrix_write_P(&matrix, PSTR("Default"));
+           break;
+        case L_SYM:
+           matrix_write_P(&matrix, PSTR("Symbols"));
+           break;
+        case L_NUM:
+           matrix_write_P(&matrix, PSTR("Numbers"));
+           break;
+        case L_EXT:
+           matrix_write_P(&matrix, PSTR("Extend"));
+           break;
+        default:
+           matrix_write(&matrix, buf);
+ }
