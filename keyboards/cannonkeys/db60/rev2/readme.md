@@ -10,10 +10,3 @@ Make example for this keyboard (after setting up your build environment):
     make cannonkeys/db60/rev2:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
-
-
-DB60s were shipped with Bakeneko keyboards. This variant has cutouts along the top and bottom to support O-ring gasket mounting. To build these, you can use this command:
-
-    make cannonkeys/db60/rev2:default
-    
-A via and via_hotswap keymap are also available, alongside the default. Please pick your preference.
