@@ -27,7 +27,7 @@ extern void update_layer_leds(void);
  * The second section defines position of the keys on the switch matrix
  * (where COLUMNS and ROWS crosses). */
 
-/* universla layout for both 101 and 102-key versions */
+/* universal layout for both 101 and 102-key versions */
 #define LAYOUT( \
     K5A,      K5B, K5C, K5D, K5E, K5F, K5G, K5H, K5I, K5J, K5K, K5L, K5M,   K5N, K5O, K5P, \
     \
@@ -37,7 +37,7 @@ extern void update_layer_leds(void);
     K1A, K1B, K1C, K1D, K1E, K1F, K1G, K1H, K1I, K1J, K1K, K1L,      K1M,        K1N,        K1O, K1P, K1Q, K1R, \
     K0A,      K0B,                K0C,                     K0D,      K0E,   K0F, K0G, K0H,   K0I,      K0J       \
 ) \
-    {/* COL0    ............                           COL7 */		\
+    {/* COL0    ............                           COL7 */ \
     { K0D  , KC_NO, KC_NO, K5O  , K5N  , KC_NO, KC_NO, K0B   }, /* ROW0 */ \
     { K0F  , K5P  , K1R  , K3U  , K3P  , K4P  , KC_NO, K1N   }, \
     { K4U  , K4T  , K1Q  , K3T  , K3Q  , K4Q  , K2Q  , K0J   }, \
