@@ -1,11 +1,5 @@
-# The default keymap for Barleycorn
+# The default keymap for Seigaiha with VIA disabled
 
-![Layer 0](https://i.imgur.com/cU9lzz3.png)
+![Layer 0](https://i.imgur.com/wO8lfpi.png)
 
-![Layer 1](https://i.imgur.com/0G3e1K3.png)
-
-Default layer is normal ANSI and Fn layer is used for Volume control and arrow cluster.
-
-Alternative ANSI layouts:
-
-![Alt Keymap](https://i.imgur.com/6uAx8jZ.png)
+![Layer 1](https://i.imgur.com/4Q0Rk2V.png)
