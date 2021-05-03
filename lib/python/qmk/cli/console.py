@@ -5,7 +5,7 @@ cli implementation of https://www.pjrc.com/teensy/hid_listen.html
 import hid
 from pathlib import Path
 from threading import Thread
-from time import sleep
+from time import sleep, strftime
 
 from milc import cli
 
@@ -51,11 +51,11 @@ class MonitorDevice(object):
         while True:
             try:
                 message = {**self.hid_device, 'text': self.read_line()}
+                identifier = (int2hex(message['vendor_id']), int2hex(message['product_id'])) if self.numeric else (message['manufacturer_string'], message['product_string'])
+                message['identifier'] = ':'.join(identifier)
+                message['ts'] = '{fg_green}%s{fg_reset} ' % (strftime(cli.config.general.datetime_fmt),) if cli.args.timestamp else ''
 
-                if self.numeric:
-                    cli.echo('%(color)s%(vendor_id)04X:%(product_id)04X:%(index)d{style_reset_all}: %(text)s' % message)
-                else:
-                    cli.echo('%(color)s%(manufacturer_string)s:%(product_string)s:%(index)d{style_reset_all}: %(text)s' % message)
+                cli.echo('%(ts)s%(color)s%(identifier)s:%(index)d{style_reset_all}: %(text)s' % message)
 
             except hid.HIDException:
                 break
@@ -171,6 +171,7 @@ def list_devices(device_finder):
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>[:<index>].')
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available hid_listen devices.')
 @cli.argument('-n', '--numeric', arg_only=True, action='store_true', help='Show VID/PID instead of names.')
+@cli.argument('-t', '--timestamp', arg_only=True, action='store_true', help='Print the timestamp for received messages as well.')
 @cli.argument('-w', '--wait', type=int, default=1, help="How many seconds to wait between checks (Default: 1)")
 @cli.subcommand('Acquire debugging information from usb hid devices.', hidden=False if cli.config.user.developer else True)
 def console(cli):
