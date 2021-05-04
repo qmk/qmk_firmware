@@ -20,18 +20,18 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
-    { NO_LED, NO_LED, NO_LED, 5,      NO_LED, NO_LED, 6,      10     },
-    { NO_LED, NO_LED, 4,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, 1,      2,      3,      8,      NO_LED, 7,      9      },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, NO_LED, NO_LED, 15,     NO_LED, NO_LED, 16,     20     },
-    { NO_LED, NO_LED, 14,     NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, 11,     12,     13,     18,     NO_LED, 17,     19     },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, 4,      NO_LED, NO_LED, 5,      9     },
+    { NO_LED, NO_LED, 3,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 0,      NO_LED, NO_LED, NO_LED, 7,      6,      8      },
+    { NO_LED, NO_LED, 1,      2,      NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, 14,     NO_LED, NO_LED, 15,     19     },
+    { NO_LED, NO_LED, 13,     NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 10,     NO_LED, NO_LED, NO_LED, 17,     16,     18     },
+    { NO_LED, NO_LED, 11,     12,     NO_LED, NO_LED, NO_LED, NO_LED },
 }, {
     // LED Index to Physical Position
-    {91,40}, {77,40}, {63,40}, {77,24}, {63,8}, {21,8}, {21,40}, {49,40}, {7,40}, {7,8},
-    {133,40}, {147,40}, {161,40}, {148,24}, {161,8}, {203,8}, {203,40}, {175,40}, {217,40}, {217,8}
+    {91,40}, {77,56}, {63,56}, {77,24}, {63,8}, {21,8}, {21,40}, {35,40}, {7,40}, {7,8},
+    {133,40}, {147,56}, {161,56}, {147,24}, {161,8}, {203,8}, {203,40}, {189,40}, {217,40}, {217,8}
 }, {
     // LED Index to Flag
     LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
