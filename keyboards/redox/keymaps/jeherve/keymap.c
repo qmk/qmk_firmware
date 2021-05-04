@@ -85,13 +85,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case THUMB_UP:
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT("D83D+DC4D"));
+                register_unicode(0x1F44D);
             }
             return false;
             break;
         case WAVE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT("D83D+DC4B"));
+                register_unicode(0x1F44B);
             }
             return false;
             break;
