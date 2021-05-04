@@ -40,13 +40,6 @@ enum layer_names {
     _SY
 };
 
-enum custom_keycodes {
-    GO_Q2 = KEYMAP_SAFE_RANGE,
-    Q2_ENT
-};
-
-unsigned char q2InputMode = 0;
-
 // Tap Dance declarations
 enum tap_dances {
     LAG,
@@ -81,9 +74,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_Q2] = LAYOUT_75_ansi_wkl(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          Q2_ENT,           _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, KC_LALT,                                     _______,                                     KC_RALT, _______, _______, _______, _______
     ),
@@ -96,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,                                     _______,                                     _______, _______, _______, _______, _______
     ),
     [_SY] = LAYOUT_75_ansi_wkl(
-        _______, TO(_DV), TO(_QW), _______, GO_Q2,   _______, _______, _______, RESET,   EEP_RST, DEBUG,   _______, VRSN,    _______, _______, _______,
+        _______, TO(_DV), TO(_QW), _______, TG(_Q2), _______, _______, _______, RESET,   EEP_RST, DEBUG,   _______, VRSN,    _______, _______, _______,
         _______, _______, M_MDSWP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DEL,  _______,
         _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
@@ -108,63 +101,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool led_update_user(led_t led_state) {
     writePin(B2, !led_state.caps_lock);
     return false;
-}
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case GO_Q2:
-            if (record->event.pressed) {
-                layer_move(_QW);
-                layer_on(_Q2);
-            };
-            return false;
-        case Q2_ENT:
-            if (record->event.pressed) {
-                if (q2InputMode == 0) {
-                    tap_code(KC_ENT);
-                    q2InputMode = 1;
-                    layer_on(_DV);
-                    //layer_on(_Q2);
-                } else if (q2InputMode == 1) {
-                    tap_code(KC_ENT);
-                    q2InputMode = 0;
-                    layer_off(_DV);
-                } else {
-                    tap_code(KC_ENT);
-                }
-            };
-            return false;
-        case KC_ESC:
-            if (record->event.pressed) {
-                if (q2InputMode > 0) {
-                    tap_code(KC_ESC);
-                    q2InputMode = 0;
-                    layer_off(_DV);
-                } else {
-                    tap_code(KC_ESC);
-                }
-            };
-            return false;
-        case KC_GRV:
-            if (IS_LAYER_ON(_Q2) == true) {
-                if (record->event.pressed) {
-                    if (q2InputMode == 0) {
-                        tap_code(KC_GRV);
-                        q2InputMode = 2;
-                        layer_on(_DV);
-                    } else if (q2InputMode == 1) {
-                        tap_code(KC_GRV);
-                        q2InputMode = 2;
-                    } else {
-                        tap_code(KC_GRV);
-                        q2InputMode = 0;
-                        layer_off(_DV);
-                    }
-                    return false;
-                }
-            };
-            return true;
-        default:
-            return true;
-    }
 }

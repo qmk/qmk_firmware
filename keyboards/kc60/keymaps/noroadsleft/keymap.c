@@ -41,80 +41,6 @@ enum layer_names {
 #define CTL_GRV MT(MOD_LCTL, KC_GRV)  // Left Control when held, Grave accent when tapped
 
 
-// MACRO DEFINITIONS
-enum custom_keycodes {
-    GO_Q2 = KEYMAP_SAFE_RANGE,
-    Q2_ENT
-};
-
-
-/*******************
-** MODIFIER MASKS **
-*******************/
-unsigned char q2InputMode = 0;
-
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode) {
-        // these are our macros!
-        case GO_Q2:
-            if (record->event.pressed) {
-                //default_layer_set(_QW);
-                layer_move(_QW); // TO(_QW);
-                layer_on(_Q2);
-                //layer_off(_SY);
-            };
-            return false;
-        case Q2_ENT:
-            if (record->event.pressed) {
-                if (q2InputMode == 0) {
-                    tap_code(KC_ENT);
-                    q2InputMode = 1;
-                    layer_on(_DV);
-                    //layer_on(_Q2);
-                } else if (q2InputMode == 1) {
-                    tap_code(KC_ENT);
-                    q2InputMode = 0;
-                    layer_off(_DV);
-                } else {
-                    tap_code(KC_ENT);
-                }
-            };
-            return false;
-        case KC_ESC:
-            if (record->event.pressed) {
-                if (q2InputMode > 0) {
-                    tap_code(KC_ESC);
-                    q2InputMode = 0;
-                    layer_off(_DV);
-                } else {
-                    tap_code(KC_ESC);
-                }
-            };
-            return false;
-        case KC_GRV:
-            if (IS_LAYER_ON(_Q2) == true) {
-                if (record->event.pressed) {
-                    if (q2InputMode == 0) {
-                        tap_code(KC_GRV);
-                        q2InputMode = 2;
-                        layer_on(_DV);
-                    } else if (q2InputMode == 1) {
-                        tap_code(KC_GRV);
-                        q2InputMode = 2;
-                    } else {
-                        tap_code(KC_GRV);
-                        q2InputMode = 0;
-                        layer_off(_DV);
-                    }
-                }
-            };
-            return false;
-    } // switch()
-    return true;
-};
-
-
 // KEYMAPS
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -157,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_Q2] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          Q2_ENT,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         KC_GRV,  _______, _______,                            _______,                            _______, _______, _______, _______
     ),
@@ -199,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* System layer */
     [_SY] = LAYOUT_60_ansi(
-        TG(_SY), TO(_QW), TO(_DV), TO(_CM), GO_Q2,   XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, DEBUG,   XXXXXXX, VRSN,    XXXXXXX,
+        TG(_SY), TO(_QW), TO(_DV), TO(_CM), TG(_Q2), XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, DEBUG,   XXXXXXX, VRSN,    XXXXXXX,
         XXXXXXX, XXXXXXX, M_MDSWP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         XXXXXXX,          XXXXXXX, XXXXXXX, BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
