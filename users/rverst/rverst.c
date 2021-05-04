@@ -39,9 +39,7 @@ uint8_t get_mode(void) {
 }
 
 void set_mode(uint8_t mode, bool save) {
-    if (mode == get_mode()) {
-        return;
-    }
+    dprintf("set_mode - mode: %d, save: %s\n", mode, save ? "true" : "false");
     switch_mode(mode);
 
     if (mode > 7) {
