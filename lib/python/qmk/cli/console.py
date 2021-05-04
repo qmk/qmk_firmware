@@ -121,7 +121,7 @@ class FindDevices(object):
                         live_bootloaders[device]['found'] = False
                     else:
                         name = KNOWN_BOOTLOADERS[(int2hex(live_bootloaders[device]['vendor_id']), int2hex(live_bootloaders[device]['product_id']))]
-                        cli.log.info('Bootloader Disconnected: %s', name)
+                        cli.log.info('Bootloader Disconnected: {style_bright}{fg_magenta}%s', name)
                         del live_bootloaders[device]
 
                 sleep(1)
