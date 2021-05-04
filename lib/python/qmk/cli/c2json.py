@@ -2,19 +2,21 @@
 """
 import json
 
+from argcomplete.completers import FilesCompleter
 from milc import cli
 
 import qmk.keymap
 import qmk.path
-from qmk.info_json_encoder import InfoJSONEncoder
+from qmk.json_encoders import InfoJSONEncoder
+from qmk.keyboard import keyboard_completer, keyboard_folder
 
 
 @cli.argument('--no-cpp', arg_only=True, action='store_false', help='Do not use \'cpp\' on keymap.c')
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, required=True, help='The keyboard\'s name')
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, required=True, help='The keyboard\'s name')
 @cli.argument('-km', '--keymap', arg_only=True, required=True, help='The keymap\'s name')
-@cli.argument('filename', arg_only=True, help='keymap.c file')
+@cli.argument('filename', arg_only=True, completer=FilesCompleter('.c'), help='keymap.c file')
 @cli.subcommand('Creates a keymap.json from a keymap.c file.')
 def c2json(cli):
     """Generate a keymap.json from a keymap.c file.
