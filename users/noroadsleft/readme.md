@@ -76,6 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ## Footnotes
 
 - 1: [^](#macro-mode-macros-and-customized-keycodes) The `M_MDSWP` keycode is used in my keymaps in the following locations:
-  - [KC60](../../keyboards/kc60/keymaps/noroadsleft/keymap.c#L129)
+  - [KC60](../../keyboards/kc60/keymaps/noroadsleft/keymap.c#L111)
   - [KBDfans KBD75 rev1](../../keyboards/kbdfans/kbd75/keymaps/noroadsleft/keymap.c#L93)
   - [CoseyFannitutti Discipline](../../keyboards/coseyfannitutti/discipline/keymaps/noroadsleft/keymap.c#L66)
