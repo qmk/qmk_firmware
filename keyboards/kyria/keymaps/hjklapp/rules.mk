@@ -6,7 +6,7 @@ RGBLIGHT_STARTUP_ANIMATION = no
 
 BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes      # Mouse keys (around 1608 bytes)
-EXTRAKEY_ENABLE = no      # Audio control and System control (around 510 bytes)
+EXTRAKEY_ENABLE = yes      # Audio control and System control (around 510 bytes)
 UNICODE_ENABLE = no       # Unicode (around 386 bytes)
 CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
