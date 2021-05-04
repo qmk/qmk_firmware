@@ -1,6 +1,6 @@
 {
     "keyboard_name": "lilix",
-    "url": "",
+    "url": "https://github.com/tanshoku/qmk_firmware/tree/lilix/keyboards/lilix",
     "maintainer": "Elizabeth Bodaneze",
     "width": 15,
     "height": 5,

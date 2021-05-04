@@ -2,14 +2,7 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
 #   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
-BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
@@ -36,3 +29,4 @@ POINTING_DEVICE_ENABLE = no  # Pointing device
 WPM_ENABLE = no              # Word per minute counter
 OLED_DRIVER_ENABLE = yes     # SSD1306 OLED driver
 LTO_ENABLE = yes             # Link Time Optimization
+SWAP_HANDS_ENABLE = yes      # Hand swap

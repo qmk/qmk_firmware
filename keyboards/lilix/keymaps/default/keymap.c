@@ -16,10 +16,11 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
+#define CAPSWORD_ENABLE
 #define LGBT_FLAGS
 
 #ifdef LGBT_FLAGS
-#include "lgbtflags.h"
+    #include "lgbtflags.h"
 #endif
 
 /* Store handedness as a variable to avoid calling is_keyboard_master()
@@ -166,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|             |------+------+------+------+------+------|
      * | Caps |      |      |      |      |      |             |      |      |      |  (^) |   º  |   ^  |
      * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-     * |      |      |      |      |      |      |      |      |      | C-V  | C-C  |      |   °  |      |
+     * |      |      |      |      |      |      |SwapTg|      |      | C-V  | C-C  |      |   °  |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
      * |      |      |      |      |AutCmp|      |Raise | Raise|      |      |      |      |      |      |
      * `-------------------------------------------------------------------------------------------------'
@@ -175,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_WHOM, KC_MAIL, KC_WSCH, KC_CALC, _______,                    KC_F7,   KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
         KC_MSEL, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, KC_PAUS,                    KC_VOLD, KC_VOLU,  KC_MUTE, ND_GRAV, SSCPT_A, BR_GRAV, \
         KC_CAPS, _______, _______, _______, _______, _______,                    _______, _______,  _______, ND_CIRC, SSCPT_O, BR_CIRC, \
-        _______, _______, _______, _______, _______, _______,  _______, _______, _______, CSHIF_V,  CSHIF_C, _______, DEGREE,  _______, \
+        _______, _______, _______, _______, _______, _______,  SH_TT,   _______, _______, CSHIF_V,  CSHIF_C, _______, DEGREE,  _______, \
         _______, _______, _______, _______, AUTOCMP, _______,  RAISE,   RAISE,   _______, _______,  _______, _______, _______, _______  \
     ),
 
@@ -187,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|             |------+------+------+------+------+------|
      * |Scroll|      |      |      |      |      |             |      |      |      |  (~) |  ]   |  ~   |
      * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-     * |      |ClpScr|WinScr|WinClp|SelScr|PrtScr|      |      | Menu |Paste | Copy | Cut  |PageUp|  /   |
+     * |      |ClpScr|WinScr|WinClp|SelScr|PrtScr|      |SwapTg| Menu |Paste | Copy | Cut  |PageUp|  /   |
      * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
      * |      |      |      |      |      |      |Lower | Lower|      |AltGr |      | Home |PageDn| End  |
      * `-------------------------------------------------------------------------------------------------'
@@ -196,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_PWR,  KC_SLEP, KC_WAKE, KC_INS,  KC_MINS, KC_EQL,  \
         _______, BBACKWD, BUPWARD, BFORWRD, KC_EJCT, _______,                   _______, _______, _______, ND_ACUT, BR_LBRC, BR_ACU,  \
         KC_SLCK, _______, _______, _______, _______, _______,                   _______, _______, _______, ND_TILD, BR_RBRC, BR_TIL,  \
-        _______, CLP_SCR, WIN_SCR, CWINSCR, SEL_SCR, KC_PSCR, _______, _______, KC_APP,  CTRL_V,  CTRL_C,  CTRL_X,  KC_PGUP, _______, \
+        _______, CLP_SCR, WIN_SCR, CWINSCR, SEL_SCR, KC_PSCR, _______, SH_TT,   KC_APP,  CTRL_V,  CTRL_C,  CTRL_X,  KC_PGUP, _______, \
         _______, _______, _______, _______, _______, _______, LOWER,   LOWER,   _______, KC_RALT, _______, KC_HOME, KC_PGDN, KC_END   \
     ),
 
@@ -206,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|             |------+------+------+------+------+------|
      * |      |      | Bri+ |      |      |      |             |SysRq |      |      |  §   |  _   |  +   |
      * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-     * |NumPad|      | Bri- |      |      |      |             |      |      |      |      |  ¯   |Reset |
+     * |NumPad|      | Bri- |      |      |SwpOff|             |      |      |      |      |  ¯   |Reset |
      * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
      * |Timer+|RGBRST|      |      |      |      |      |      |      |LGBT++| MODE+| HUE+ | SAT+ | VAL+ |
      * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
@@ -216,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] =  LAYOUT( \
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  \
         _______, _______, KC_BRIU, _______, _______, _______,                   SYSRQ,   _______, _______,  PARGRPH, KC_UNDS, KC_PLUS, \
-        NUMPAD,  _______, KC_BRID, _______, _______, _______,                   _______, _______, _______,  _______, BR_LONG, RESET,   \
+        NUMPAD,  _______, KC_BRID, _______, _______, SH_OFF,                    _______, _______, _______,  _______, BR_LONG, RESET,   \
         TIM_INC, RGBRST,  _______, _______, _______, _______, _______, _______, _______, LGBT_FL, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, \
         TIM_DEC, RGBTTOG, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD  \
     )
@@ -423,10 +424,38 @@ void suspend_wakeup_init_user(void) {
 }
 
 
+/* borrowed from filterpaper:
+ * https://github.com/filterpaper/qmk_userspace/blob/main/filterpaper.c#L35-L63
+ */
+#ifdef CAPSWORD_ENABLE
+// Deactivate caps lock following a word
+static void process_caps_word(uint_fast16_t keycode, keyrecord_t const *record) {
+	// Get base key code of mod or layer tap with bitmask
+	if (((QK_MOD_TAP <= keycode && keycode <= QK_MOD_TAP_MAX) ||
+		(QK_LAYER_TAP <= keycode && keycode <= QK_LAYER_TAP_MAX)) &&
+		(record->tap.count)) { keycode = keycode & 0xFF; }
+	// Toggle caps lock with the following key codes
+	switch (keycode) {
+		case KC_TAB:
+		case KC_ESC:
+		case KC_SPC:
+		case KC_ENT:
+		case KC_DOT:
+		case KC_COMM:
+		case KC_GESC:
+			if (record->event.pressed) { tap_code(KC_CAPS); }
+	}
+}
+#endif
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (record->event.pressed) {
         user_state.record_pressed = 1;
+        #ifdef CAPSWORD_ENABLE // Monitor key codes to toggle caps lock
+            if (host_keyboard_led_state().caps_lock) { process_caps_word(keycode, record); }
+        #endif
     } else {
         user_state.record_pressed = 0;
     }
@@ -609,8 +638,8 @@ static const char lilix[] PROGMEM = {
 /* Replace rand() with this to save some 300 bytes
  * from: https://github.com/tzarc/qmk_build/blob/bebe5e5b21e99bdb8ff41500ade1eac2d8417d8c/users-tzarc/tzarc_common.c#L57-L63
  */
-uint8_t prng(void) {
-    static uint8_t s = 0xAA, a = 0;
+uint_fast8_t prng(void) {
+    static uint_fast8_t s = 0xAA, a = 0;
     s ^= s << 3;
     s ^= s >> 5;
     s ^= a++ >> 2;
@@ -693,7 +722,7 @@ static void render_logo(void) {
 
             // Define the reader structure
             oled_buffer_reader_t reader;
-            uint8_t buff_char;
+            uint_fast8_t buff_char;
 
             /* Fetch a pointer for the buffer byte at index 160, since, unlike at
              * the example, we just want to fade the paws, which start at byte 160,
@@ -711,13 +740,12 @@ static void render_logo(void) {
                      *
                      * To turn off just a single pixel on the display, we can AND the
                      * current byte, which is 8 pixels tall, with another byte that has
-                     * just a single bit off, so we have 0b11111110, 0b11111101,
-                     * 0b11111011, 0b11110111, 0b11101111, 0b11011111, 0b10111111 and
+                     * just a single bit off, so we have 0b11111110, 0b11111101, ...
                      * 0b01111111 as possible masks. Those can be generated by shifting
-                     * the value 0b00000001 by 0...7 positions left, and then inverting
-                     * the result, i.e., ~(1 << [0...7]). Since we want random pixels to be
-                     * turned off, we complete this by using a RNG and limiting it's value
-                     * to 0...7
+                     * the value 0b1 by 0...7 positions left, and then inverting the
+                     * result, i.e., ~(1 << [0...7]). Since we want random pixels to be
+                     * turned off, we complete this by using a RNG and limiting its
+                     * value to 0...7
                      */
                     oled_write_raw_byte(buff_char & ~(1 << (prng() % 8)), x);
                 }

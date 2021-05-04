@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Elizabeth Bodaneze
 #define PRODUCT      Lilix Alpha
-#define DESCRIPTION  A Helix spin off
+//#define DESCRIPTION  A Helix spin off
 #define USB_MAX_POWER_CONSUMPTION 500
 
 
@@ -197,7 +197,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
+//#define NO_ACTION_ONESHOT
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
