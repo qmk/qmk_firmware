@@ -1,4 +1,4 @@
-/* Copyright 2020 melonbred
+/* Copyright 2021 melonbred
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
 
 
 
-#define LAYOUT_DEFAULT( \
+#define LAYOUT_default( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, \
@@ -44,7 +44,7 @@
     { K30, K31, K32, XXX, XXX, K35, XXX, XXX, XXX, K39, K3A, K3B } \
 }
 
-#define LAYOUT_2U_SPACE( \
+#define LAYOUT_2u_space( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, \
@@ -57,7 +57,7 @@
     { K30, K31, K32, K33, XXX, XXX, K36, K37, XXX, K39, K3A, K3B } \
 }
 
-#define LAYOUT_2U1U_SPACE( \
+#define LAYOUT_2u1u_space( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, \
@@ -70,7 +70,7 @@
     { K30, K31, K32, K33, XXX, K35, K36, XXX, XXX, K39, K3A, K3B } \
 }
 
-#define LAYOUT_3U_SPACE( \
+#define LAYOUT_3u_space( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, \
