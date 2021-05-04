@@ -1,4 +1,4 @@
-/* Copyright 2018-2020 James Young (@noroadsleft)
+/* Copyright 2021 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,22 +15,6 @@
  */
 
 #pragma once
-
-#define PERMISSIVE_HOLD // https://docs.qmk.fm/#/feature_advanced_keycodes?id=permissive-hold
-
-// Enable single-color backlighting
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
-#define BREATHING_PERIOD 4
-
-#ifdef LOCKING_SUPPORT_ENABLE
-#   undef LOCKING_SUPPORT_ENABLE
-#endif
-#ifdef LOCKING_RESYNC_ENABLE
-#   undef LOCKING_RESYNC_ENABLE
-#endif
-
-#define NO_ACTION_ONESHOT
 
 #define ANSI_NUBS_ROW 3
 #define ANSI_NUBS_COL 2
