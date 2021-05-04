@@ -59,9 +59,9 @@ static uint8_t thisHand, thatHand;
 static uint8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
 #endif
 
-__attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
+__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return true; }
 
-__attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { encoder_update_user(index, clockwise); }
+__attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) { return encoder_update_user(index, clockwise); }
 
 void encoder_init(void) {
 #if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
@@ -94,14 +94,14 @@ void encoder_init(void) {
 #endif
 }
 
-static bool encoder_update(int8_t index, uint8_t state) {
+static bool encoder_update(uint8_t index, uint8_t state) {
     bool    changed = false;
     uint8_t i       = index;
 
 #ifdef ENCODER_RESOLUTIONS
-    int8_t resolution = encoder_resolutions[i];
+    uint8_t resolution = encoder_resolutions[i];
 #else
-    int8_t resolution = ENCODER_RESOLUTION;
+    uint8_t resolution = ENCODER_RESOLUTION;
 #endif
 
 #ifdef SPLIT_KEYBOARD
