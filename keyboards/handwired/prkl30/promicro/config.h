@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Ergorius & Tooni Skyy
 #define PRODUCT         PRKL30
-#define DESCRIPTION     30% Mechanical keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4

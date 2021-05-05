@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4B5C // "KP"
 #define PRODUCT_ID      0xB1E5
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         Cospad
-#define DESCRIPTION     6x4 numpad with underglow and backlighting
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -52,6 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
+
+#define LED_NUM_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN F7
 // #define BACKLIGHT_BREATHING
@@ -199,9 +201,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

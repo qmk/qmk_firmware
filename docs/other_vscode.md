@@ -48,7 +48,7 @@ This part is super simple.  However, there is some configuration that we need to
 
 ### Configuring VS Code
 
-First, we need to set up IntelliSense. This isn't strictly required, but it will make your life a LOT easier. To do this, we need to create the `.vscode/c_cpp_properies.json` file in the QMK Firmware folder, You can do this all manually, but I've done most of the work already. 
+First, we need to set up IntelliSense. This isn't strictly required, but it will make your life a LOT easier. To do this, we need to create the `.vscode/c_cpp_properties.json` file in the QMK Firmware folder, You can do this all manually, but I've done most of the work already. 
 
 Grab [this file](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e8) and save it.  You may need to edit this file, if you didn't install MSYS2 to the default location, or are using WSL/LxSS.  
 
@@ -81,7 +81,7 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
 ?> If you installed MSYS2 to a different folder, then you'll need to change the path for `terminal.integrated.shell.windows` to the correct path for your system. 
 
-4. Hit Ctrl-`\`` (Grave) to bring up the terminal or go to <kbd><kbd>View</kbd> > <kbd>Terminal</kbd></kbd> (command `workbench.action.terminal.toggleTerminal`). A new terminal will be opened if there isn‘t one already.
+4. Hit Ctrl-<code>&#96;</code> (Grave) to bring up the terminal or go to <kbd><kbd>View</kbd> > <kbd>Terminal</kbd></kbd> (command `workbench.action.terminal.toggleTerminal`). A new terminal will be opened if there isn‘t one already.
 
    This should start the terminal in the workspace's folder (so the `qmk_firmware` folder), and then you can compile your keyboard. 
 

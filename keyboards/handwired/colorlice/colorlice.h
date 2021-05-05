@@ -26,7 +26,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
+#define LAYOUT_alice_split_bs( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, k0f, \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k1e,      \
     k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c,      K2e,      \
@@ -40,3 +40,4 @@
     { k40,  KC_NO, k42,   k43,  k44,  KC_NO, KC_NO, k47, KC_NO,  KC_NO, k4a,  KC_NO,KC_NO,  KC_NO,  k4e, KC_NO  }, \
 }
 
+#define LAYOUT LAYOUT_alice_split_bs

@@ -1,8 +1,8 @@
 # デバッグの FAQ
 
 <!---
-  original document: 0.9.10:docs/faq_debug.md
-  git diff 0.9.10 HEAD -- docs/faq_debug.md | cat
+  original document: 0.10.33:docs/faq_debug.md
+  git diff 0.10.33 HEAD -- docs/faq_debug.md | cat
 -->
 
 このページは、キーボードのトラブルシューティングについての様々な一般的な質問を説明します。
@@ -35,20 +35,6 @@ Linux のような OS でデバイスにアクセスするには、権限が必�
 - `debug_enable=true` を設定します。[テストとデバッグ](ja/newbs_testing_debugging.md#debugging)を見てください
 - デバッグ print の代わりに 'print' 関数を使ってみてください。**common/print.h** を見てください。
 - コンソール機能を持つ他のデバイスを切断します。[Issue #97](https://github.com/tmk/tmk_keyboard/issues/97) を見てください。
-
-## Linux あるいは UNIX のようなシステムはスーパーユーザ権限を必要とします
-権限付きで *hid_listen* を実行するために 'sudo' を使ってください。
-```
-$ sudo hid_listen
-```
-
-または rules ディレクトリにファイルを置いて、TMK デバイスのための *udev rule* を追加します。ディレクトリは各システムで異なるかもしれません。
-
-File: /etc/udev/rules.d/52-tmk-keyboard.rules (Ubuntu の場合)
-```
-# tmk keyboard products     https://github.com/tmk/tmk_keyboard
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
-```
 
 ***
 
@@ -93,8 +79,8 @@ https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switc
 ## TrackPoint はリセット回路が必要です (PS/2 マウスサポート)
 リセット回路が無いとハードウェアの不適切な初期化のために一貫性の無い結果になります。TPM754 の回路図を見てください。
 
-- http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
-- http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
+- https://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
+- https://www.mikrocontroller.net/attachment/52583/tpm754.pdf
 
 
 ## 16 を超えるマトリックの列を読み込めない
@@ -102,7 +88,7 @@ https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switc
 
 C では、AVR の場合 `1` は [16 bit] である [int] 型の1を意味し、15 を超えて左にシフトすることはできません。`1<<16` すると予期しないゼロが発生します。`1UL` として [unsigned long] 型を使う必要があります。
 
-http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
+https://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
 ## 特別なエクストラキーが動作しない (システム、オーディオコントロールキー)
 QMK でそれらを使うには、`rules.mk` 内で `EXTRAKEY_ENABLE` を定義する必要があります。
@@ -121,8 +107,8 @@ Windows では、**デバイスマネージャ**の**電源の管理**タブ内�
 
 **Arduino のピンの命名は実際のチップと異なることに注意してください。** 例えば、Arduino のピン `D0` は `PD0` ではありません。回路図を自身で確認してください。
 
-- http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
-- http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
+- https://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
+- https://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
 Arduino の Leonardo と micro には **ATMega32U4** が載っていて、TMK 用に使うことができますが、Arduino のブートローダが問題になることがあります。
 

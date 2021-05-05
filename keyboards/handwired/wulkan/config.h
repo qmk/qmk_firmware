@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Wulkan
 #define PRODUCT         Handwired48Keys
-#define DESCRIPTION     A compact ortholinear handwired keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
