@@ -27,12 +27,10 @@ AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
-PS2_USE_USART = no
-PS2_USE_INT = yes
-
 API_SYSEX_ENABLE = no
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
 
-SRC = matrix.c led.c
+SRC = matrix.c ibmpc.c ibmpc_usb.c
+#led.c

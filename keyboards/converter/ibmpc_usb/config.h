@@ -1,5 +1,6 @@
 /*
-Copyright 2019 Jun Wako <wakojun@gmail.com>
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2016 Priyadi Iman Nurcahyo <priyadi@priyadi.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <avr/interrupt.h>
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6536
@@ -29,14 +29,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* matrix size */
-#define MATRIX_ROWS 16  // keycode bit: 6-3
-#define MATRIX_COLS 8   // keycode bit: 2-0
+#define MATRIX_ROWS 17  // keycode bit: 3-0
+#define MATRIX_COLS 8   // keycode bit: 6-4
+
+
+/* legacy keymap support */
+#define USE_LEGACY_KEYMAP
 
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)) \
+    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL)) \
 )
 
 // G80-2551 terminal keyboard support
