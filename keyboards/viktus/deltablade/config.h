@@ -54,7 +54,7 @@ All Extra pins (A8, B15, B14, B13, B3, B5, B8, B9)
 /* number of backlight levels */
 
 #define BACKLIGHT_PIN B7
-#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 5
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
