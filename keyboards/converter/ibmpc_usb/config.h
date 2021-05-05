@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* matrix size */
-#define MATRIX_ROWS 17  // keycode bit: 3-0
+#define MATRIX_ROWS 32  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
 
 
@@ -42,14 +42,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL)) \
 )
 
-// G80-2551 terminal keyboard support
-#define G80_2551_SUPPORT
-
-
 /*
  * Pin and interrupt configuration
  */
-#if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U2__) || defined(__AVR_AT90USB1286__)
 /* clock line */
 #define IBMPC_CLOCK_PORT  PORTD
 #define IBMPC_CLOCK_PIN   PIND
@@ -99,9 +94,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 } while (0)
 
 #define IBMPC_INT_VECT    INT1_vect
-
-#else
-#error "No pin configuration in config.h"
-#endif
 
 #endif

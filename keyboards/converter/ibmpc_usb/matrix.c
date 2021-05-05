@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define print_matrix_header()  print("\nr/c 01234567\n")
 #define matrix_bitpop(i)       bitpop(matrix[i])
 #define ROW_SHIFTER ((uint8_t)1)
-// #undef F0
 
 static void matrix_make(uint8_t code);
 static void matrix_break(uint8_t code);
@@ -117,6 +116,10 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
+    ibmpc_host_init();
+    ibmpc_host_enable();
+
+    print("Hello World!");
     return;
 }
 
@@ -141,7 +144,6 @@ uint8_t matrix_scan(void)
         LOOP,
     } state = INIT;
     static uint16_t init_time;
-
 
     if (ibmpc_error) {
         xprintf("\nERR:%02X ISR:%04X ", ibmpc_error, ibmpc_isr_debug);
@@ -357,6 +359,8 @@ uint8_t matrix_scan(void)
                     // no code
                     break;
                 }
+
+                debug("r"); debug_hex(code); debug(" ");
 
                 // Keyboard Error/Overrun([3]p.26) or Buffer full
                 // Scan Code Set 1: 0xFF
