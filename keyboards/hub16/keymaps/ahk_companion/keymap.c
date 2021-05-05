@@ -103,7 +103,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
         my_layer5_layer
     );
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
         if (clockwise) {
             tap_code(KC_MPRV);
@@ -117,6 +117,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLU);
         }
     }
+    return true;
 }
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Allow for a preview of changes when modifying RGB
