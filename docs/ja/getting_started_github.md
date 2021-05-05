@@ -1,8 +1,8 @@
 # QMK で GitHub を使う方法
 
 <!---
-  original document: 0.9.43:docs/getting_started_github.md
-  git diff 0.9.43 HEAD -- docs/getting_started_github.md | cat
+  original document: 0.12.43:docs/getting_started_github.md
+  git diff 0.12.43 HEAD -- docs/getting_started_github.md | cat
 -->
 
 GitHub は慣れていない人には少し注意が必要です - このガイドは、QMK におけるフォーク、クローン、プルリクエストのサブミットの各ステップについて説明します。
