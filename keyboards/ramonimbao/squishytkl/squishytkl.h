@@ -113,7 +113,7 @@
     k95,   k96, k97, k98, k99, k9a, k9b, k9c, k9d, k9e, k9f, k9g, k9h,   k9j,   k5k, k5l, k5m, \
     ka5,    ka6, ka7, ka8, ka9, kaa, kab, kac, kad, kae, kaf, kag,     kai,                    \
     kb5, kb6, kb7, kb8, kb9, kba, kbb, kbc, kbd, kbe, kbf, kbg,     kbi, kbj,        k6l,      \
-    kc5,  kc6,  kc7,    kc8,        kcd,        kce,    kcf,  kcg,  kch,  kci,  k7k, k7l, k7m, \
+    kc5,  kc6,  kc7,    kc8, kc9,   kcd,        kce,    kcf,  kcg,  kch,  kci,  k7k, k7l, k7m, \
     kc0, kc1 \
 ) { \
     /*              0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25 */ \
