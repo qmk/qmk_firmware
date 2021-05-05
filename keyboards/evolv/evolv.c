@@ -17,7 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "evolv.h"
 
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_VOLU);

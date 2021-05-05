@@ -15,7 +15,8 @@
  */
 #include "crbn.h"
 /* Encoder setting. only one encoder despite 4 possible spots */
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
     if (clockwise) {
         tap_code(KC_VOLU);
     } else {

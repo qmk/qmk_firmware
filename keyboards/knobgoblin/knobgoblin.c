@@ -18,8 +18,8 @@
 
 #ifdef ENCODER_ENABLE
 /* assign keycodes to the encoder rotation */
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
-
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
 			if (index == 1) { /* Bottom encoder */
 				if (clockwise) {
 					tap_code(KC_VOLU);

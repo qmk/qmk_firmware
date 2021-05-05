@@ -15,7 +15,7 @@
  */
  #include "nines.h"
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) return false;
     if (index == 0) { /* Left encoder */
         if (clockwise) {

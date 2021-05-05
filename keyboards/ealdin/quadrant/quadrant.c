@@ -17,7 +17,8 @@
 
 
 // Rotary encoder functions:
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
   uint16_t mapped_code = 0;
   if (index == 0) {
     if (clockwise) {
