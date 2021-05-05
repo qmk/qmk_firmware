@@ -1,4 +1,4 @@
-# Magui's International Map
+# magui's international map
 
 ## Abstract
 
