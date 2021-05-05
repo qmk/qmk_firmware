@@ -1,2 +1,2 @@
-# The Default Planck Layout
+# LJA83 Planck Layout
 
