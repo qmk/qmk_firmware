@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RGBKB
 #define PRODUCT         Zygomorph
-#define DESCRIPTION     "RGB, thin, ortholinear"
 
 /* Select hand configuration */
 #define EE_HANDS
@@ -37,6 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_COLS 6
 #define MATRIX_COL_PINS { F4, F6, C7, C6, B6, D4 }
+
+#define DIODE_DIRECTION COL2ROW
 
 #define SOFT_SERIAL_PIN D3
 

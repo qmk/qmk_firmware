@@ -20,8 +20,11 @@ SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 ENCODER_ENABLE_CUSTOM = no  # Enable rotary encoder
 AUDIO_ENABLE = no
 
-OLED_ENABLE = yes           # OLED_ENABLE
+OLED_ENABLE = no            # OLED_ENABLE
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
+DEFAULT_FOLDER = rgbkb/sol/rev1
+ENCODER_ENABLE = no
+OLED_DRIVER_ENABLE = yes
 
 # Do not edit past here
 

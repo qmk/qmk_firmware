@@ -17,7 +17,7 @@ This layer is commonly accessed via `MO(_FL)` on the base layer. It consists of 
 This layer is only present on my 60% boards. I habitually use the bottom right modifiers as arrows. 
 
 ### _CL (Control Layer)
-This is not defined in here as it's present only on `LAYOUT_66` boards, or to be specific, my clueboard. It currently uses the default clueboard controls.
+This layer is used for the `RESET` and `EEP_RST` keycodes. 
 
 ## Custom Keycodes
 ----
@@ -46,3 +46,8 @@ If a board has a speaker, enable beeps and boops per switch actuation. This is c
 ### Velocikey
 
 [Velocikey](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_velocikey.md) is an RGBLIGHT feature in which the faster you type, the faster the ARE GEE BEES. 
+
+### Macros
+
+Basic text macro implemented for future use
+

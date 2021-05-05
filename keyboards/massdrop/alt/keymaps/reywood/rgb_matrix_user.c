@@ -1,5 +1,5 @@
 #include "quantum.h"
-#include "led_matrix.h"
+#include "md_rgb_matrix.h"
 
 extern issi3733_led_t *led_cur;
 extern uint8_t led_per_run;
@@ -76,7 +76,7 @@ void rgb_matrix_init_user(void) {
   led_cur_index = 0;
 }
 
-void led_matrix_run(void) {
+void md_rgb_matrix_run(void) {
   uint8_t led_this_run = 0;
 
   if (led_cur == 0) { //Denotes start of new processing cycle in the case of chunked processing

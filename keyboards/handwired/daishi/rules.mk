@@ -29,3 +29,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 ENCODER_ENABLE = yes		# Add rotary encoder support
+DYNAMIC_MACRO_ENABLE = yes

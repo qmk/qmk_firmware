@@ -86,10 +86,6 @@ Relancer le script d'installation de QMK (`./util/qmk_install.sh` situé dans r�
 
 Si vous rencontrez toujours des problèmes, essayez de télécharger et lancer Zadig. Voir [Installation du driver du bootloader avec Zadig](driver_installation_zadig.md) pour plus d'informations.
 
-## WINAVR est obsolète
-
-Il n'est plus recommandé et peut causer des problèmes. Voir [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
-
 ## USB VID et PID
 
 Vous pouvez utiliser l'ID de votre choix en modifier `config.h`. Il y a peu de chance de conflit avec d'autres produits.
@@ -100,32 +96,8 @@ La plupart des boards QMK utilisent `0xFEED` comme vendor ID. Vérifiez les autr
 https://github.com/tmk/tmk_keyboard/issues/150
 
 Vous pouvez acheter un VID:PID unique ici. Je ne pense pas que ce soit nécessaire pour un usage personnel.
-- http://www.obdev.at/products/vusb/license.html
-- http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
-
-## Cortex: `cstddef: No such file or directory`
-
-Ce problème existait avec le GCC 4.8 d'Ubuntu 14.04, la solution a nécessité de mettre à jour vers 4.9 avec ce PPA.
-https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
-
-https://github.com/tmk/tmk_keyboard/issues/212
-https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstddef
-https://developer.mbed.org/forum/mbed/topic/5205/
-
-## `clock_prescale_set` and `clock_div_1` Not Available
-
-Votre chaîne d'outils (Toolchain) est trop vieille pour supporter le MCU. Par exemple, WinAVR 20100110 ne supporte pas ATMega32u2.
-
-```
-Compiling C: ../../tmk_core/protocol/lufa/lufa.c
-avr-gcc -c -mmcu=atmega32u2 -gdwarf-2 -DF_CPU=16000000UL -DINTERRUPT_CONTROL_ENDPOINT -DBOOTLOADER_SIZE=4096 -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DUSB_DEVICE_ONLY -DUSE_FLASH_DESCRIPTORS -DUSE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)" -DFIXED_CONTROL_ENDPOINT_SIZE=8  -DFIXED_NUM_CONFIGURATIONS=1 -DPROTOCOL_LUFA -DEXTRAKEY_ENABLE -DCONSOLE_ENABLE -DCOMMAND_ENABLE -DVERSION=unknown -Os -funsigned-char -funsigned-bitfields -ffunction-sections -fdata-sections -fno-inline-small-functions -fpack-struct -fshort-enums -fno-strict-aliasing -Wall -Wstrict-prototypes -Wa,-adhlns=obj_alps64/protocol/lufa/lufa.lst -I. -I../../tmk_core -I../../tmk_core/protocol/lufa -I../../tmk_core/protocol/lufa/LUFA-git -I../../tmk_core/common -std=gnu99 -include config.h -MMD -MP -MF .dep/obj_alps64_protocol_lufa_lufa.o.d  ../../tmk_core/protocol/lufa/lufa.c -o obj_alps64/protocol/lufa/lufa.o
-../../tmk_core/protocol/lufa/lufa.c: In function 'setup_mcu':
-../../tmk_core/protocol/lufa/lufa.c:575: warning: implicit declaration of function 'clock_prescale_set'
-../../tmk_core/protocol/lufa/lufa.c:575: error: 'clock_div_1' undeclared (first use in this function)
-../../tmk_core/protocol/lufa/lufa.c:575: error: (Each undeclared identifier is reported only once
-../../tmk_core/protocol/lufa/lufa.c:575: error: for each function it appears in.)
-make: *** [obj_alps64/protocol/lufa/lufa.o] Error 1
-```
+- https://www.obdev.at/products/vusb/license.html
+- https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ## BOOTLOADER_SIZE pour AVR
 

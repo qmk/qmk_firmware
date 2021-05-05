@@ -1,0 +1,1 @@
+SPLIT_KEYBOARD = no

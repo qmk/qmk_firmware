@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Evan Sailer
 #define PRODUCT         Minivan
-#define DESCRIPTION     keyboard firmware for Minivan
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -70,5 +68,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D0
 #define RGBLED_NUM 3
 #define RGBLIGHT_SLEEP
-
-#endif

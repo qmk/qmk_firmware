@@ -5,6 +5,15 @@
 #include "timer.h"
 #include "transport.h"
 #include "quantum.h"
+#include "wait.h"
+
+#ifdef PROTOCOL_LUFA
+#    include <LUFA/Drivers/USB/USB.h>
+#endif
+
+#ifdef PROTOCOL_VUSB
+#    include <usbdrv/usbdrv.h>
+#endif
 
 #ifdef EE_HANDS
 #    include "eeconfig.h"
@@ -15,37 +24,93 @@
 #endif
 
 #ifndef SPLIT_USB_TIMEOUT
-#    define SPLIT_USB_TIMEOUT 2500
+#    define SPLIT_USB_TIMEOUT 2000
+#endif
+
+#ifndef SPLIT_USB_TIMEOUT_POLL
+#    define SPLIT_USB_TIMEOUT_POLL 10
+#endif
+
+#ifdef PROTOCOL_CHIBIOS
+#    define SPLIT_USB_DETECT  // Force this on for now
 #endif
 
 volatile bool isLeftHand = true;
 
-bool waitForUsb(void) {
-    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / 100); i++) {
-        // This will return true of a USB connection has been established
-#if defined(__AVR__)
-        if (UDADDR & _BV(ADDEN)) {
-#else
-        if (usbGetDriverStateI(&USBD1) == USB_ACTIVE) {
-#endif
+#if defined(SPLIT_USB_DETECT)
+#    if defined(PROTOCOL_LUFA)
+static inline bool usbHasActiveConnection(void) { return USB_Device_IsAddressSet(); }
+static inline void usbDisable(void) {
+    USB_Disable();
+    USB_DeviceState = DEVICE_STATE_Unattached;
+}
+#    elif defined(PROTOCOL_CHIBIOS)
+static inline bool usbHasActiveConnection(void) { return usbGetDriverStateI(&USBD1) == USB_ACTIVE; }
+static inline void usbDisable(void) { usbStop(&USBD1); }
+#    elif defined(PROTOCOL_VUSB)
+static inline bool usbHasActiveConnection(void) {
+    usbPoll();
+    return usbConfiguration;
+}
+static inline void usbDisable(void) { usbDeviceDisconnect(); }
+#    else
+static inline bool usbHasActiveConnection(void) { return true; }
+static inline void usbDisable(void) {}
+#    endif
+
+bool usbIsActive(void) {
+    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
+        // This will return true if a USB connection has been established
+        if (usbHasActiveConnection()) {
             return true;
         }
-        wait_ms(100);
+        wait_ms(SPLIT_USB_TIMEOUT_POLL);
     }
 
-#if defined(__AVR__)
     // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
-    (USBCON &= ~(_BV(USBE) | _BV(OTGPADE)));
-#endif
+    usbDisable();
 
     return false;
 }
+#elif defined(PROTOCOL_LUFA) && defined(OTGPADE)
+static inline bool usbIsActive(void) {
+    USB_OTGPAD_On();  // enables VBUS pad
+    wait_us(5);
+
+    return USB_VBUS_GetStatus();  // checks state of VBUS
+}
+#else
+static inline bool usbIsActive(void) { return true; }
+#endif
+
+#ifdef SPLIT_HAND_MATRIX_GRID
+void matrix_io_delay(void);
+
+static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
+    setPinInputHigh(in_pin);
+    setPinOutput(out_pin);
+    writePinLow(out_pin);
+    // It's almost unnecessary, but wait until it's down to low, just in case.
+    wait_us(1);
+    uint8_t pin_state = readPin(in_pin);
+    // Set out_pin to a setting that is less susceptible to noise.
+    setPinInputHigh(out_pin);
+    matrix_io_delay();  // Wait for the pull-up to go HIGH.
+    return pin_state;
+}
+#endif
 
 __attribute__((weak)) bool is_keyboard_left(void) {
 #if defined(SPLIT_HAND_PIN)
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
     setPinInput(SPLIT_HAND_PIN);
     return readPin(SPLIT_HAND_PIN);
+#elif defined(SPLIT_HAND_MATRIX_GRID)
+#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+    return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+#    else
+    return !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+#    endif
 #elif defined(EE_HANDS)
     return eeconfig_read_handedness();
 #elif defined(MASTER_RIGHT)
@@ -60,34 +125,14 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 
     // only check once, as this is called often
     if (usbstate == UNKNOWN) {
-#if defined(SPLIT_USB_DETECT) || defined(PROTOCOL_CHIBIOS)
-        usbstate = waitForUsb() ? MASTER : SLAVE;
-#elif defined(__AVR__)
-        USBCON |= (1 << OTGPADE);  // enables VBUS pad
-        wait_us(5);
-
-        usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
-#else
-        usbstate = MASTER;
-#endif
+        usbstate = usbIsActive() ? MASTER : SLAVE;
     }
 
     return (usbstate == MASTER);
 }
 
-static void keyboard_master_setup(void) {
-#if defined(USE_I2C) || defined(EH)
-#    ifdef SSD1306OLED
-    matrix_master_OLED_init();
-#    endif
-#endif
-    transport_master_init();
-}
-
-static void keyboard_slave_setup(void) { transport_slave_init(); }
-
 // this code runs before the keyboard is fully initialized
-void keyboard_split_setup(void) {
+void split_pre_init(void) {
     isLeftHand = is_keyboard_left();
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
@@ -100,8 +145,18 @@ void keyboard_split_setup(void) {
 #endif
 
     if (is_keyboard_master()) {
-        keyboard_master_setup();
-    } else {
-        keyboard_slave_setup();
+#if defined(USE_I2C) && defined(SSD1306OLED)
+        matrix_master_OLED_init();
+#endif
+        transport_master_init();
+    }
+}
+
+// this code runs after the keyboard is fully initialized
+//   - avoids race condition during matrix_init_quantum where slave can start
+//     receiving before the init process has completed
+void split_post_init(void) {
+    if (!is_keyboard_master()) {
+        transport_slave_init();
     }
 }

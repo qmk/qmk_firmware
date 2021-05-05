@@ -1,4 +1,5 @@
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 BOOTLOADER =
 
 BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration(+1000)
@@ -15,4 +16,8 @@ MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = yes         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = yes           # Audio output on port C6
-RGBLIGHT_ENABLE = no        # RGB Enable / Disable
+RGBLIGHT_ENABLE = yes       # RGB Enable / Disable
+
+RGBLIGHT_STARTUP_ANIMATION = yes
+
+HAPTIC_ENABLE = SOLENOID

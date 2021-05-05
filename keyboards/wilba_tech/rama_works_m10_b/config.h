@@ -15,18 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x5241 // "RW"
+#define VENDOR_ID       0x5241 // "RA"
 #define PRODUCT_ID      0x00AB // 10-B
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RAMA WORKS
 #define PRODUCT         RAMA WORKS M10-B
-#define DESCRIPTION     RAMA WORKS M10-B
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -162,9 +160,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * MIDI options
  */
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -181,24 +176,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 34
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 36
-
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
-// Dynamic macro starts after dynamic keymaps (37+(4*10*2)) = (37+80)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 117
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 907
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
-
-#endif
+#define DYNAMIC_KEYMAP_LAYER_COUNT 10

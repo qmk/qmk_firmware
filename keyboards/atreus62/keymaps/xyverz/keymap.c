@@ -29,6 +29,8 @@ CHANGELOG:
  0.5 - Converted keymap to LAYOUT standard.
  0.6 - Swapped ESC and GRV in all layers.
  0.7 - Brought code up to current standards.
+ 0.8 - Added MACLOCK macro.
+ 0.9 - Updated code to correspond to new setPinInput behaviour
 
 TODO:
 
@@ -51,6 +53,7 @@ enum atreus52_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, WOW, DESTINY, LOW
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
+#define MACLOCK LGUI(LCTL(KC_Q))
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -83,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
     KC_GRV,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
     KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LALT, CTL_ENT, KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_ENT
+    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LALT, CTL_ENT, KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
   ),
 
   [_DESTINY] = LAYOUT ( /* Dvorak with minor modifications for playing Destiny 2 and other FPS Looters */
@@ -91,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
     KC_GRV,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
     KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_DEL,  KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_ENT
+    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_DEL,  KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
   ),
 
   [_LOWER] = LAYOUT (
@@ -99,14 +102,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD, KC_GRV,  _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_PIPE,
     KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______,
     _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
-    _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  _______, _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______
+    _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  MACLOCK, _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______
   ),
   [_RAISE] = LAYOUT (
     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
     KC_TILD, KC_GRV,  _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_BSLS,
     KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______,
     _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
-    _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  _______, _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______
+    _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  MACLOCK, _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______
   ),
   [_ADJUST] = LAYOUT (
     _______, _______, _______, KC_F13,  KC_F14,  KC_F15,                    _______, _______, _______, _______, _______, _______,
@@ -122,9 +125,7 @@ void matrix_init_user(void) {
 #ifdef BOOTLOADER_CATERINA
    // This will disable the red LEDs on the ProMicros
    setPinInput(D5);
-   writePinLow(D5);
    setPinInput(B0);
-   writePinLow(B0);
 #endif
 };
 

@@ -32,7 +32,7 @@ interrupt_setting_t store_and_clear_interrupt(void) {
 
 void restore_interrupt_setting(interrupt_setting_t setting) { SREG = setting; }
 #elif defined(__arm__)
-#    include "ch.h"
+#    include <ch.h>
 
 interrupt_setting_t store_and_clear_interrupt(void) {
     chSysLock();

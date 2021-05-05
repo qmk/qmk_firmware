@@ -6,5 +6,7 @@ enum tapdance_id
 {
   TD1 = 0,
   TD2,
-  TD3
+  TD3,
+  TD4,
+  TD5
 };

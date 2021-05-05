@@ -21,16 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID    0xFEED
 #define PRODUCT_ID   0x0348
+#define DEVICE_VER   0x0200
 #define MANUFACTURER Pearl Boards
 #define PRODUCT      Pearl
-#define DESCRIPTION  40% keyboard
 
-#define NO_UART 1
+#define LED_NUM_LOCK_PIN D0
+#define LED_CAPS_LOCK_PIN D1
+#define LED_SCROLL_LOCK_PIN D6
 
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 12
 
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
 
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
