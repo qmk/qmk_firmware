@@ -83,7 +83,7 @@
 
 #define LAYOUT_jis( \
     k00,  k01, k02, k03, k04,  k10, k11, k12, k13,  k20, k21, k22, k23,  k24,   k3k, k3l, k3m, \
-    k85, k86, k87, k88, k89, k8a, k8b, k8c, k8d, k8e, k8f, k8g, k8h,    k8i,    k4k, k4l, k4m, \
+    k85, k86, k87, k88, k89, k8a, k8b, k8c, k8d, k8e, k8f, k8g, k8h, k8i, k8j,  k4k, k4l, k4m, \
     k95,   k96, k97, k98, k99, k9a, k9b, k9c, k9d, k9e, k9f, k9g, k9h,          k5k, k5l, k5m, \
     ka5,    ka6, ka7, ka8, ka9, kaa, kab, kac, kad, kae, kaf, kag, kai,   k9j,                 \
     kb5,      kb7, kb8, kb9, kba, kbb, kbc, kbd, kbe, kbf, kbg, kbi,   kbj,          k6l,      \
