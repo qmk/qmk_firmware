@@ -1,8 +1,5 @@
-# specskeys
-
-* Keyboard Maintainer: [specs32](https://github.com/yourusername)
-
 # specs_keys - REV 1 (confirmed working, typing on it now :D)
+* Keyboard Maintainer: [specs32](https://github.com/yourusername)
 
 ### TKL ISO keyboard based on an g80-3000HAD running QMK
 
