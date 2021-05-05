@@ -53,15 +53,15 @@ If you are using different pinouts for the encoders on each half of a split keyb
 The callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
-void encoder_update_kb(uint8_t index, bool clockwise) {
-    encoder_update_user(index, clockwise);
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    return encoder_update_user(index, clockwise);
 }
 ```
 
 or `keymap.c`:
 
 ```c
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_PGDN);
@@ -75,6 +75,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_UP);
         }
     }
+    return true;
 }
 ```
 
