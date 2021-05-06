@@ -178,8 +178,10 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
 #    ifdef RGBLIGHT_ENABLE
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(state | default_layer_state)) {
-            case _MACROS:
-                rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_BREATHING + 3);
+            case _MACROS: // mouse
+                if (!layer_state_cmp(state, _GAMEPAD) && !layer_state_cmp(state, _DIABLO)) {
+                    rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_BREATHING + 3);
+                }
                 break;
             case _MEDIA:
                 rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_KNIGHT + 1);

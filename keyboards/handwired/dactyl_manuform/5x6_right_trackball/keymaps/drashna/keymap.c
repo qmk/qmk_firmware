@@ -107,13 +107,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_DIABLO] = LAYOUT_5x6_right_trackball(
         KC_ESC,  KC_V,    KC_D,    KC_LALT, KC_NO,   KC_NO,                          KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
-        KC_TAB,  KC_S,    KC_I,    KC_F,    KC_M,    KC_T,                           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_G,                           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,                           KC_NO,   KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,
+        KC_TAB,  KC_S,    KC_I,    KC_F,    KC_M,    KC_T,                           KC_WH_U, _______, _______, _______, _______, _______,
+        KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_G,                           KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, _______,
+        KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,                           KC_BTN6, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           KC_F,    KC_L,                                                               KC_NO,   TG_DBLO,
-                                      SFT_T(KC_SPC), KC_F,                                    _______,
-                                               ALT_T(KC_Q),   KC_J,                  _______,
-                                             KC_DIABLO_CLEAR, KC_LGUI,      _______, _______
+                                    KC_DIABLO_CLEAR, KC_F,                                    _______,
+                                               SFT_T(KC_SPC), KC_J,                  _______,
+                                               ALT_T(KC_Q),   KC_LGUI,      _______, _______
     ),
     [_LOWER] = LAYOUT_5x6_right_trackball_wrapper(
         KC_F12,  _________________FUNC_LEFT_________________,                        _________________FUNC_RIGHT________________, KC_F11,
