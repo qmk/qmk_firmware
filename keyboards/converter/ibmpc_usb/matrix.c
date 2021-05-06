@@ -1,5 +1,6 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2011 Jun Wako <wakojun@gmail.com>,
+2021 Markus Fritsche <fritsche.markus@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
