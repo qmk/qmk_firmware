@@ -1,9 +1,14 @@
 # Keyboard converter for IBM terminal keyboard
 
 This is a port of TMK's converter/terminal_usb to QMK.
+The ibmpc.c and ibmpc.h code has been moved from 
+tmk_core/protocol in TMK to the keyboard directory in 
+this version.
 
 It supports PS/2 Scan Code Set 2 (as of now) and runs on USB AVR chips.
 I tested the converter on ATMega32U4 with 1391403(102keys).
+
+To support other codesets, ibmpc_usb.h has to be extended.
 
 Original TMK Link/ Article: http://geekhack.org/index.php?topic=27272.0
 

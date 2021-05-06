@@ -94,12 +94,6 @@ DONE:
     return id;
 }
 
-void hook_early_init(void)
-{
-    ibmpc_host_init();
-    ibmpc_host_enable();
-}
-
 __attribute__ ((weak))
 void matrix_init_user(void) {
 }
@@ -119,7 +113,6 @@ void matrix_init(void)
     ibmpc_host_init();
     ibmpc_host_enable();
 
-    print("Hello World!");
     return;
 }
 
@@ -359,7 +352,7 @@ uint8_t matrix_scan(void)
                     // no code
                     break;
                 }
-                xprintf("r%02X ", code);
+
                 // Keyboard Error/Overrun([3]p.26) or Buffer full
                 // Scan Code Set 1: 0xFF
                 // Scan Code Set 2 and 3: 0x00
