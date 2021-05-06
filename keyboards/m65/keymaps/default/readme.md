@@ -1,4 +1,4 @@
-![M65 Layout Image](https://i.imgur.com/Z2O8yhG.png)
+![M65 Layout Image](https://i.imgur.com/Z2O8yhGh.png)
 
 # Default M65 Layout
 
