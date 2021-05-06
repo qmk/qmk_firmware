@@ -24,6 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #include "tapdance.c"
 #endif
 
+#if defined(OLED_DRIVER_ENABLE) && defined(WPM_ENABLE)
+#include "oled.c"
+#endif
+
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -95,12 +99,15 @@ void keyboard_post_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
+  process_record_user_oled(keycode, record);
 #ifdef CONSOLE_ENABLE
     // uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
     xprintf("Hello!");
 #endif
   return true;
 }
+
+
 
 // #if defined(OLED_DRIVER_ENABLE) && defined(WPM_ENABLE)
 //     #include "oled.c"
