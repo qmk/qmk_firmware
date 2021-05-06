@@ -20,7 +20,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 TAP_DANCE_ENABLE = yes
 WPM_ENABLE = yes
 
-# OLED_DRIVER_ENABLE = yes
+OLED_DRIVER_ENABLE = yes
 
 # RGB related
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
@@ -40,7 +40,7 @@ SERIAL_DRIVER = usart
 # if firmware size over limit, try this option
 # CFLAGS += -flto
 
-SRC += ./lib/glcdfont.c \
+# SRC += ./lib/glcdfont.c \
 
 DEFAULT_FOLDER = bakekujira/rev1
 
