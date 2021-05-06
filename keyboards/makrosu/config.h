@@ -22,8 +22,8 @@
 #define VENDOR_ID       0xAB69
 #define PRODUCT_ID      0x8585
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Valdydesu_
-#define PRODUCT         MakrOSU
+#define MANUFACTURER    valdydesu_
+#define PRODUCT         makrosu
 
 /* key matrix size */
 #define MATRIX_ROWS 1
