@@ -13,7 +13,6 @@
   *您应该已经收到了GNU通用公共许可证的副本 
  *与该程序一起。如果不是，请参见<http://www.gnu.org/licenses/>。 
   * / 
-@ 704340378	回复…
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
