@@ -359,9 +359,7 @@ uint8_t matrix_scan(void)
                     // no code
                     break;
                 }
-
-                debug("r"); debug_hex(code); debug(" ");
-
+                xprintf("r%02X ", code);
                 // Keyboard Error/Overrun([3]p.26) or Buffer full
                 // Scan Code Set 1: 0xFF
                 // Scan Code Set 2 and 3: 0x00

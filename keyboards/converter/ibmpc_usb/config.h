@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* matrix size */
-#define MATRIX_ROWS 32  // keycode bit: 3-0
+#define MATRIX_ROWS 16  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
 
 
