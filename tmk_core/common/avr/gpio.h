@@ -37,6 +37,8 @@ typedef uint8_t pin_t;
 
 /* Operation of GPIO by port. */
 
+typedef uint8_t port_data_t;
+
 #define readPort(port) PINx_ADDRESS(port)
 
 #define setPortBitInput(port, bit) (DDRx_ADDRESS(port) &= ~_BV((bit)&0xF), PORTx_ADDRESS(port) &= ~_BV((bit)&0xF))

@@ -37,6 +37,8 @@ typedef ioline_t pin_t;
 
 /* Operation of GPIO by port. */
 
+typedef uint16_t port_data_t;
+
 #define readPort(qmk_pin) palReadPort(PAL_PORT(qmk_pin))
 
 #define setPortBitInput(qmk_pin, bit) palSetPadMode(PAL_PORT(qmk_pin), bit, PAL_MODE_INPUT)
