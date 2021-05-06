@@ -1,6 +1,6 @@
 # K320
 
-This is a standard fixed ANSI TKL from off the shelf Durgod Taurus K320 without Backlight.
+This is a standard off-the-shelf Durgod Taurus K320 TKL (87/88-key) keyboard without backlight.
 
 * Keyboard Maintainer: [dkjer](https://github.com/dkjer)
 * Hardware Supported: Durgod Taurus K320 board with STM32F070RBT6
@@ -30,7 +30,7 @@ For first Flashing from initial Stock's Firmware
 - Plug In USB
 - Make a Flash Image's Backup in case you wanted to restore the Keyboard to Stock's Image:
   - Using DFUseDemo.exe from ST's STSW-STM32080: https://www.st.com/en/development-tools/stsw-stm32080.html
-  - Using dfu-util (thanks to [tylert](https://github.com/tylert) for instructions!):
+  - Using dfu-util:
 
         dfu-util --list
         dfu-util --alt 0 --dfuse-address 0x08000000 --upload ${OLD_STOCK_BIN}
@@ -55,4 +55,3 @@ For repeating Flashing you can use BootMagic:
 - Unplug USB Cable
 - Holding Esc Button 
 - Plug in USB Cable, Keyboard should be in ST-Bootloader state
-

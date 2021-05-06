@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 //#include <avr/interrupt.h>
+#include "keyboard.h"
 #include "keycode.h"
 #include "host.h"
 #include "util.h"
@@ -35,15 +36,20 @@ void host_set_driver(host_driver_t *d) { driver = d; }
 
 host_driver_t *host_get_driver(void) { return driver; }
 
+#ifdef SPLIT_KEYBOARD
+uint8_t split_led_state = 0;
+void    set_split_host_keyboard_leds(uint8_t led_state) { split_led_state = led_state; }
+#endif
+
 uint8_t host_keyboard_leds(void) {
+#ifdef SPLIT_KEYBOARD
+    if (!is_keyboard_master()) return split_led_state;
+#endif
     if (!driver) return 0;
     return (*driver->keyboard_leds)();
 }
 
-led_t host_keyboard_led_state(void) {
-    if (!driver) return (led_t){0};
-    return (led_t)((*driver->keyboard_leds)());
-}
+led_t host_keyboard_led_state(void) { return (led_t)host_keyboard_leds(); }
 
 /* send report */
 void host_keyboard_send(report_keyboard_t *report) {

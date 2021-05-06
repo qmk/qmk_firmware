@@ -1,6 +1,8 @@
 # The default keymap for Durgod Taurus K320.
 
-Layer 0 : Standard ANSI 87 Keys TKL layout (Windows)
+Supports both ANSI and ISO layouts.
+
+Layer 0 : Standard 87/88 keys TKL layout (Windows)
 
 Layer 1 : Media control and Windows lock key
 - Reusing Durgod's Original Media Control for Fn + F1 ~ Fn + F7

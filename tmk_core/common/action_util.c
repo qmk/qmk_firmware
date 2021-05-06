@@ -147,12 +147,16 @@ void clear_oneshot_swaphands(void) {
  * FIXME: needs doc
  */
 void set_oneshot_layer(uint8_t layer, uint8_t state) {
-    oneshot_layer_data = layer << 3 | state;
-    layer_on(layer);
+    if (!keymap_config.oneshot_disable) {
+        oneshot_layer_data = layer << 3 | state;
+        layer_on(layer);
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    oneshot_layer_time = timer_read();
+        oneshot_layer_time = timer_read();
 #    endif
-    oneshot_layer_changed_kb(get_oneshot_layer());
+        oneshot_layer_changed_kb(get_oneshot_layer());
+    } else {
+        layer_on(layer);
+    }
 }
 /** \brief Reset oneshot layer
  *
@@ -172,7 +176,7 @@ void reset_oneshot_layer(void) {
 void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
     uint8_t start_state = oneshot_layer_data;
     oneshot_layer_data &= ~state;
-    if (!get_oneshot_layer_state() && start_state != oneshot_layer_data) {
+    if ((!get_oneshot_layer_state() && start_state != oneshot_layer_data) || keymap_config.oneshot_disable) {
         layer_off(get_oneshot_layer());
         reset_oneshot_layer();
     }
@@ -182,6 +186,39 @@ void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
  * FIXME: needs doc
  */
 bool is_oneshot_layer_active(void) { return get_oneshot_layer_state(); }
+
+/** \brief set oneshot
+ *
+ * FIXME: needs doc
+ */
+void oneshot_set(bool active) {
+    if (keymap_config.oneshot_disable != active) {
+        keymap_config.oneshot_disable = active;
+        eeconfig_update_keymap(keymap_config.raw);
+        dprintf("Oneshot: active: %d\n", active);
+    }
+}
+
+/** \brief toggle oneshot
+ *
+ * FIXME: needs doc
+ */
+void oneshot_toggle(void) { oneshot_set(!keymap_config.oneshot_disable); }
+
+/** \brief enable oneshot
+ *
+ * FIXME: needs doc
+ */
+void oneshot_enable(void) { oneshot_set(true); }
+
+/** \brief disable oneshot
+ *
+ * FIXME: needs doc
+ */
+void oneshot_disable(void) { oneshot_set(false); }
+
+bool is_oneshot_enabled(void) { return keymap_config.oneshot_disable; }
+
 #endif
 
 /** \brief Send keyboard report
@@ -321,14 +358,17 @@ void del_oneshot_mods(uint8_t mods) {
  * FIXME: needs doc
  */
 void set_oneshot_mods(uint8_t mods) {
-    if (oneshot_mods != mods) {
+    if (!keymap_config.oneshot_disable) {
+        if (oneshot_mods != mods) {
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-        oneshot_time = timer_read();
+            oneshot_time = timer_read();
 #    endif
-        oneshot_mods = mods;
-        oneshot_mods_changed_kb(mods);
+            oneshot_mods = mods;
+            oneshot_mods_changed_kb(mods);
+        }
     }
 }
+
 /** \brief clear oneshot mods
  *
  * FIXME: needs doc

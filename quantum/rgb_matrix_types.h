@@ -85,10 +85,11 @@ typedef struct PACKED {
 typedef union {
     uint32_t raw;
     struct PACKED {
-        uint8_t enable : 2;
-        uint8_t mode : 6;
-        HSV     hsv;
-        uint8_t speed;  // EECONFIG needs to be increased to support this
+        uint8_t     enable : 2;
+        uint8_t     mode : 6;
+        HSV         hsv;
+        uint8_t     speed;  // EECONFIG needs to be increased to support this
+        led_flags_t flags;
     };
 } rgb_config_t;
 

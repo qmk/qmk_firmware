@@ -34,11 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
-#ifdef BOOTMAGIC_ENABLE
-#    include "bootmagic.h"
-#else
-#    include "magic.h"
-#endif
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
@@ -53,6 +48,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
+#endif
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
@@ -296,11 +294,6 @@ void keyboard_init(void) {
 #ifdef ADB_MOUSE_ENABLE
     adb_mouse_init();
 #endif
-#ifdef BOOTMAGIC_ENABLE
-    bootmagic();
-#else
-    magic();
-#endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
@@ -337,6 +330,9 @@ void keyboard_init(void) {
  * This is differnet than keycode events as no layer processing, or filtering occurs.
  */
 void switch_events(uint8_t row, uint8_t col, bool pressed) {
+#if defined(LED_MATRIX_ENABLE)
+    process_led_matrix(row, col, pressed);
+#endif
 #if defined(RGB_MATRIX_ENABLE)
     process_rgb_matrix(row, col, pressed);
 #endif
@@ -422,6 +418,9 @@ MATRIX_LOOP_END:
     rgblight_task();
 #endif
 
+#ifdef LED_MATRIX_ENABLE
+    led_matrix_task();
+#endif
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
 #endif

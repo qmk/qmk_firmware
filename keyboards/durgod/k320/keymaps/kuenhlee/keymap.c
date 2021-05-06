@@ -35,11 +35,6 @@
 #define KC_STOP LCTL(LSFT(KC_HOME))   // Select from Cursor to Home
 #define KC_SEND LCTL(LSFT(KC_END))    // Select from Cursor to End
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  KC_TGUI = SAFE_RANGE  // Toggle between GUI Lock or Unlock
-};
-
 // °±²³µ©ΩθΩ√∞∆≈≠→↓←↑≡■□●○∴«»÷≤≥Σ
 // Defines the Enumeration for Unicode Map
 enum unicode_names {

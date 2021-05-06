@@ -8,7 +8,7 @@ is_windows = 'windows' in platform.platform().lower()
 
 
 def check_subcommand(command, *args):
-    cmd = ['bin/qmk', command, *args]
+    cmd = ['qmk', command, *args]
     result = run(cmd, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
     return result
 
@@ -17,7 +17,7 @@ def check_subcommand_stdin(file_to_read, command, *args):
     """Pipe content of a file to a command and return output.
     """
     with open(file_to_read, encoding='utf-8') as my_file:
-        cmd = ['bin/qmk', command, *args]
+        cmd = ['qmk', command, *args]
         result = run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
     return result
 
