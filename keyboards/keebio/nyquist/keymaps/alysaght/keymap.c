@@ -13,27 +13,19 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// Qwerty
-[_QWERTY] = LAYOUT_nyquist_wrapper(
-  _________________QWERTY_L1_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R1_________________,
-  _________________QWERTY_L2_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R2_________________,
-  _________________QWERTY_L3_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R3_________________,
-  _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
-),
-
-// Workman
-[_WORKMAN] = LAYOUT_nyquist_wrapper(
-  _________________WORKMAN_L1________________,   XXXXXXX, XXXXXXX,   _________________WORKMAN_R1________________,
-  _________________WORKMAN_L2________________,   XXXXXXX, XXXXXXX,   _________________WORKMAN_R2________________,
-  _________________WORKMAN_L3________________,   XXXXXXX, XXXXXXX,   _________________WORKMAN_R3________________,
-  _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
-),
-
 // Colemak DH
 [_COLEMAK] = LAYOUT_nyquist_wrapper(
   _________________COLEMAK_L1________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R1________________,
   _________________COLEMAK_L2________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R2________________,
   _________________COLEMAK_L3________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R3________________,
+  _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
+),
+
+// Qwerty
+[_QWERTY] = LAYOUT_nyquist_wrapper(
+  _________________QWERTY_L1_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R1_________________,
+  _________________QWERTY_L2_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R2_________________,
+  _________________QWERTY_L3_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R3_________________,
   _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
 ),
 
@@ -88,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Adjust (_MOUSE + _MEDIA)
 [_ADJUST] = LAYOUT_nyquist_wrapper(
   _________________DRAGO_L1__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R1__________________,
-  _________________DRAGO_L2__________________,   XXXXXXX, XXXXXXX,   XXXXXXX, QWERTY,  WORKMAN, COLEMAK, XXXXXXX,
+  _________________DRAGO_L2__________________,   XXXXXXX, XXXXXXX,   XXXXXXX, QWERTY,  XXXXXXX, COLEMAK, XXXXXXX,
   _________________DRAGO_L3__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_R3__________________,
   _________________DRAGO_LT__________________,   XXXXXXX, XXXXXXX,   _________________DRAGO_RT__________________
 )
