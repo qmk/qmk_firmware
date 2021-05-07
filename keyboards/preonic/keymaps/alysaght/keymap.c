@@ -25,30 +25,21 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// Qwerty
-[_QWERTY] = LAYOUT_preonic_wrapper(
-  _________________ALPHA_LN__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RN__________________,
-  _________________QWERTY_L1_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R1_________________,
-  _________________QWERTY_L2_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R2_________________,
-  _________________QWERTY_L3_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R3_________________,
-  _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
-),
-
-// Workman
-[_WORKMAN] = LAYOUT_preonic_wrapper(
-  _________________ALPHA_LN__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RN__________________,
-  _________________WORKMAN_L1________________,   XXXXXXX, XXXXXXX,   _________________WORKMAN_R1________________,
-  _________________WORKMAN_L2________________,   XXXXXXX, XXXXXXX,   _________________WORKMAN_R2________________,
-  _________________WORKMAN_L3________________,   XXXXXXX, XXXXXXX,   _________________WORKMAN_R3________________,
-  _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
-),
-
 // Colemak DH
 [_COLEMAK] = LAYOUT_preonic_wrapper(
   _________________ALPHA_LN__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RN__________________,
   _________________COLEMAK_L1________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R1________________,
   _________________COLEMAK_L2________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R2________________,
   _________________COLEMAK_L3________________,   XXXXXXX, XXXXXXX,   _________________COLEMAK_R3________________,
+  _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
+),
+
+// Qwerty
+[_QWERTY] = LAYOUT_preonic_wrapper(
+  _________________ALPHA_LN__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RN__________________,
+  _________________QWERTY_L1_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R1_________________,
+  _________________QWERTY_L2_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R2_________________,
+  _________________QWERTY_L3_________________,   XXXXXXX, XXXXXXX,   _________________QWERTY_R3_________________,
   _________________ALPHA_LT__________________,   XXXXXXX, XXXXXXX,   _________________ALPHA_RT__________________
 ),
 
