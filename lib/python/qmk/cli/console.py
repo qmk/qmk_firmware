@@ -26,18 +26,18 @@ LOG_COLOR = {
 KNOWN_BOOTLOADERS = {
         # VID  ,  PID
         ('16C0', '0478'): 'Teensy Halfkay Bootloader',
-        ('0483', 'DF11'): 'STM32 Bootloader',
-        ('314B', '0106'): 'APM32 Bootloader',
+        ('0483', 'DF11'): 'STM32 DFU',
+        ('314B', '0106'): 'APM32 DFU',
         ('1EAF', '0003'): 'STM32duino Bootloader',
         ('16C0', '05DC'): 'USBaspLoader',
-        ('1C11', 'B007'): 'Kiibohd DFU Bootloader',
-        ('03EB', '2FEF'): 'ATmega16U2 Bootloader',
-        ('03EB', '2FF0'): 'ATmega32U2 Bootloader',
-        ('03EB', '2FF3'): 'ATmega16U4 Bootloader',
-        ('03EB', '2FF4'): 'ATmega32U4 Bootloader',
-        ('03EB', '2FF9'): 'AT90USB64 Bootloader',
-        ('03EB', '2FFA'): 'AT90USB162 Bootloader',
-        ('03EB', '2FFB'): 'AT90USB128 Bootloader'
+        ('1C11', 'B007'): 'Kiibohd DFU',
+        ('03EB', '2FEF'): 'ATmega16U2 DFU',
+        ('03EB', '2FF0'): 'ATmega32U2 DFU',
+        ('03EB', '2FF3'): 'ATmega16U4 DFU',
+        ('03EB', '2FF4'): 'ATmega32U4 DFU',
+        ('03EB', '2FF9'): 'AT90USB64 DFU',
+        ('03EB', '2FFA'): 'AT90USB162 DFU',
+        ('03EB', '2FFB'): 'AT90USB128 DFU'
 }
 
 class MonitorDevice(object):
@@ -117,16 +117,16 @@ class FindDevices(object):
 
                 for device in self.find_bootloaders():
                     if device.address in live_bootloaders:
-                        live_bootloaders[device.address].found = True
+                        live_bootloaders[device.address]._qmk_found = True
                     else:
                         name = KNOWN_BOOTLOADERS[(int2hex(device.idVendor), int2hex(device.idProduct))]
                         cli.log.info('Bootloader Connected: {style_bright}{fg_magenta}%s', name)
-                        device.found = True
+                        device._qmk_found = True
                         live_bootloaders[device.address] = device
 
                 for device in list(live_bootloaders):
-                    if live_bootloaders[device].found:
-                        live_bootloaders[device].found = False
+                    if live_bootloaders[device]._qmk_found:
+                        live_bootloaders[device]._qmk_found = False
                     else:
                         name = KNOWN_BOOTLOADERS[(int2hex(live_bootloaders[device].idVendor), int2hex(live_bootloaders[device].idProduct))]
                         cli.log.info('Bootloader Disconnected: {style_bright}{fg_magenta}%s', name)
