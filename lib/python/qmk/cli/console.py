@@ -112,7 +112,7 @@ class FindDevices(object):
                             device['thread'].start()
                         except Exception as e:
                             cli.log.error("Could not connect to %s%s %s{style_reset_all} (%s:%04X:%04X:%d): %s: %s", device['color'], device['manufacturer_string'], device['product_string'], device['color'], device['vendor_id'], device['product_id'], device['index'], e.__class__.__name__, e)
-                            cli.log.exception()
+                            cli.log.exception(e)
                             del live_devices[device['path']]
 
                 for device in self.find_bootloaders():
