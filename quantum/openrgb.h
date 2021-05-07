@@ -18,7 +18,7 @@
 
 // This is changed only when the command IDs change,
 // so OpenRGB can detect compatible firmware.
-#define OPENRGB_PROTOCOL_VERSION 0x05
+#define OPENRGB_PROTOCOL_VERSION 0x06
 
 #define RAW_EPSIZE 64
 
@@ -28,10 +28,7 @@ enum openrgb_command_id {
     OPENRGB_GET_PROTOCOL_VERSION = 1,
     OPENRGB_GET_DEVICE_INFO,
     OPENRGB_GET_MODE_INFO,
-    OPENRGB_GET_ZONE_INFO,
-    OPENRGB_GET_LED_MATRIX_INFO,
-    OPENRGB_GET_LED_VALUE_IN_MATRIX,
-    OPENRGB_GET_LED_NAME,
+    OPENRGB_GET_LED_INFO,
     OPENRGB_GET_IS_MODE_ENABLED,
     OPENRGB_GET_DIRECT_MODE_LED_COLOR,
 
@@ -46,27 +43,12 @@ enum openrgb_responses {
     OPENRGB_END_OF_MESSAGE = 100,
 };
 
-enum openrgb_zone_types { OPENRGB_ZONE_TYPE_SINGLE, OPENRGB_ZONE_TYPE_LINEAR, OPENRGB_ZONE_TYPE_MATRIX };
-
-typedef struct PACKED {
-    char    zone_name[RAW_EPSIZE];
-    uint8_t zone_type;
-    uint8_t zone_size;
-} openrgb_zone_config_t;
-typedef struct PACKED {
-    uint8_t matrix_columns;
-    uint8_t matrix_rows;
-} openrgb_matrix_zone_config_t;
-
 extern RGB g_openrgb_direct_mode_colors[DRIVER_LED_TOTAL];
 
 void openrgb_get_protocol_version(void);
 void openrgb_get_device_info(void);
 void openrgb_get_mode_info(void);
-void openrgb_get_zone_info(uint8_t *data);
-void openrgb_get_led_matrix_info(uint8_t *data);
-void openrgb_get_led_value_in_matrix(uint8_t *data);
-void openrgb_get_led_name(uint8_t *data);
+void openrgb_get_led_info(uint8_t *data);
 void openrgb_get_is_mode_enabled(uint8_t *data);
 void openrgb_get_direct_mode_led_color(uint8_t *data);
 

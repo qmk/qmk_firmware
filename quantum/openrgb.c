@@ -18,7 +18,6 @@
 #    error "RAW_ENABLE is not enabled"
 #endif
 
-#include "config_openrgb.h"
 #include "quantum.h"
 #include "openrgb.h"
 #include "raw_hid.h"
@@ -166,17 +165,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case OPENRGB_GET_MODE_INFO:
             openrgb_get_mode_info();
             break;
-        case OPENRGB_GET_ZONE_INFO:
-            openrgb_get_zone_info(data);
-            break;
-        case OPENRGB_GET_LED_MATRIX_INFO:
-            openrgb_get_led_matrix_info(data);
-            break;
-        case OPENRGB_GET_LED_VALUE_IN_MATRIX:
-            openrgb_get_led_value_in_matrix(data);
-            break;
-        case OPENRGB_GET_LED_NAME:
-            openrgb_get_led_name(data);
+        case OPENRGB_GET_LED_INFO:
+            openrgb_get_led_info(data);
             break;
         case OPENRGB_GET_IS_MODE_ENABLED:
             openrgb_get_is_mode_enabled(data);
@@ -209,7 +199,21 @@ void openrgb_get_protocol_version(void) {
 }
 void openrgb_get_device_info(void) {
     raw_hid_buffer[0] = OPENRGB_GET_DEVICE_INFO;
-    raw_hid_buffer[1] = OPENRGB_ZONES_COUNT;
+
+    uint8_t key_leds = 0;
+    uint8_t underglow_leds = 0;
+    for(int i = 0; i < DRIVER_LED_TOTAL; i++)
+    {
+        if(g_led_config.flags[i] & 2) {
+            underglow_leds++;
+        }
+        else {
+            key_leds++;
+        }
+    }
+
+    raw_hid_buffer[1] = key_leds;
+    raw_hid_buffer[2] = underglow_leds;
 
 #define MASSDROP_VID 0x04D8
 #if VENDOR_ID == MASSDROP_VID
@@ -220,7 +224,7 @@ void openrgb_get_device_info(void) {
 #    define MANUFACTURER_STRING STR(MANUFACTURER)
 #endif
 
-    uint8_t current_byte = 2;
+    uint8_t current_byte = 3;
     for (uint8_t i = 0; (current_byte < ((RAW_EPSIZE - 2) / 2)) && (PRODUCT_STRING[i] != 0); i++) {
         raw_hid_buffer[current_byte] = PRODUCT_STRING[i];
         current_byte++;
@@ -243,98 +247,45 @@ void openrgb_get_mode_info(void) {
     raw_hid_buffer[4]              = hsv_color.s;
     raw_hid_buffer[5]              = hsv_color.v;
 }
-void openrgb_get_zone_info(uint8_t *data) {
-    raw_hid_buffer[0] = OPENRGB_GET_ZONE_INFO;
+void openrgb_get_led_info(uint8_t *data) {
+    raw_hid_buffer[0] = OPENRGB_GET_LED_INFO;
 
-    const uint8_t zone = data[1];
-    if (zone >= OPENRGB_ZONES_COUNT) {
-        raw_hid_buffer[1]              = OPENRGB_FAILURE;
+    const uint8_t led = data[1];
+
+    raw_hid_buffer[1] = g_led_config.point[led].x;
+    raw_hid_buffer[2] = g_led_config.point[led].y;
+    raw_hid_buffer[3] = g_led_config.flags[led];
+
+    if(g_led_config.flags[led] & 2) {
         return;
     }
 
-    const openrgb_zone_config_t zones[OPENRGB_ZONES_COUNT] = OPENRGB_ZONES;
-    raw_hid_buffer[1] = zones[zone].zone_type;
-    raw_hid_buffer[2] = zones[zone].zone_size;
-
-    const char *zone_name    = zones[zone].zone_name;
-    uint8_t     current_byte = 3;
-    for (uint8_t i = 0; (current_byte + 2 < RAW_EPSIZE) && (zone_name[i] != 0); i++) {
-        raw_hid_buffer[current_byte] = zone_name[i];
-        current_byte++;
-    }
-}
-void openrgb_get_led_matrix_info(uint8_t *data) {
-    raw_hid_buffer[0] = OPENRGB_GET_LED_MATRIX_INFO;
-
-    const uint8_t zone = data[1];
-    if (zone >= OPENRGB_ZONES_COUNT) {
-        raw_hid_buffer[1]              = OPENRGB_FAILURE;
-        return;
-    }
-
-#if !defined OPENRGB_MATRIX_ZONES
-    const openrgb_matrix_zone_config_t matrix_zones[OPENRGB_MATRIX_ZONES_COUNT] = OPENRGB_MATRIX_ZONES;
-    raw_hid_buffer[1] = matrix_zones[zone].matrix_columns;
-    raw_hid_buffer[2] = matrix_zones[zone].matrix_rows;
-#else
-    raw_hid_buffer[1] = MATRIX_COLS;
-    raw_hid_buffer[2] = MATRIX_ROWS;
-#endif
-}
-void openrgb_get_led_value_in_matrix(uint8_t *data) {
-    raw_hid_buffer[0] = OPENRGB_GET_LED_VALUE_IN_MATRIX;
-
-    const uint8_t zone = data[1];
-    const uint8_t col  = data[2];
-    const uint8_t row  = data[3];
-
-#ifdef OPENRGB_MATRIX_MAP
-    const openrgb_matrix_zone_config_t matrix_zones[OPENRGB_MATRIX_ZONES_COUNT] = OPENRGB_MATRIX_ZONES;
-    if (col >= matrix_zones[zone].matrix_columns || row >= matrix_zones[zone].matrix_rows) {
-        raw_hid_buffer[1]              = OPENRGB_FAILURE;
-        return;
-    }
-    const uint8_t openrgb_matrix_map[OPENRGB_MATRIX_ZONES_COUNT][matrix_zones[zone].matrix_rows][matrix_zones[zone].matrix_columns] = OPENRGB_MATRIX_MAP;
-    raw_hid_buffer[1] = openrgb_matrix_map[zone][row][col];
-#else
-    if (col >= MATRIX_COLS || row >= MATRIX_ROWS) {
-        raw_hid_buffer[1]              = OPENRGB_FAILURE;
-        return;
-    }
-    raw_hid_buffer[1] = g_led_config.matrix_co[row][col];
-#endif
-}
-void openrgb_get_led_name(uint8_t *data) {
-    raw_hid_buffer[0] = OPENRGB_GET_LED_NAME;
-
-    const uint8_t zone = data[1];
-    const uint8_t col  = data[1];
-    const uint8_t row  = data[2];
+    const uint8_t row = led / MATRIX_COLS;
+    const uint8_t col = led % MATRIX_COLS;
 
 #ifdef OPENRGB_SWITCH_MATRIX_TO_PHYSICAL_POS_MAP
-    const openrgb_matrix_zone_config_t matrix_zones[OPENRGB_MATRIX_ZONES_COUNT] = OPENRGB_MATRIX_ZONES;
-    if (col >= matrix_zones[zone].matrix_columns || row >= matrix_zones[zone].matrix_rows) {
-        raw_hid_buffer[1]              = OPENRGB_FAILURE;
+    if (col >= OPENRGB_MATRIX_COLUMNS || row >= OPENRGB_MATRIX_ROWS) {
+        raw_hid_buffer[4]              = OPENRGB_FAILURE;
         return;
     }
 
     const uint8_t openrgb_switch_matrix_to_physical_position_map[OPENRGB_MATRIX_ZONES_COUNT][matrix_zones[zone].matrix_rows][matrix_zones[zone].matrix_columns] = OPENRGB_SWITCH_MATRIX_TO_PHYSICAL_POS_MAP;
     uint8_t index = openrgb_switch_matrix_to_physical_position_map[zone][row][col];
     if (index == 255) {
-        raw_hid_buffer[1]              = 255;
+        raw_hid_buffer[4]              = 255;
         return;
     }
 
     const uint8_t matrix_co_row = index / MATRIX_COLS;
     const uint8_t matrix_co_col = index % MATRIX_COLS;
-    raw_hid_buffer[1]     = pgm_read_byte(&keymaps[0][matrix_co_row][matrix_co_col]);
+    raw_hid_buffer[4]     = pgm_read_byte(&keymaps[0][matrix_co_row][matrix_co_col]);
 #else
     if (col >= MATRIX_COLS || row >= MATRIX_ROWS) {
-        raw_hid_buffer[1]              = OPENRGB_FAILURE;
+        raw_hid_buffer[4]              = OPENRGB_FAILURE;
         return;
     }
 
-    raw_hid_buffer[1] = pgm_read_byte(&keymaps[0][row][col]);
+    raw_hid_buffer[4] = pgm_read_byte(&keymaps[0][row][col]);
 #endif
 }
 void openrgb_get_is_mode_enabled(uint8_t *data) {
