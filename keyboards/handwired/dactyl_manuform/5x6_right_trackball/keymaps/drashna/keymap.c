@@ -97,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_GAMEPAD] = LAYOUT_5x6_right_trackball(
         KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4,                        DPI_CONFIG, _______, _______, _______, _______, _______,
-        KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,                           KC_WH_U, _______, _______, _______, _______, _______,
-        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                           KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, _______,
-        KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_H,                           KC_BTN6, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
+        KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,                           _______, _______, _______, _______, _______, _______,
+        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                           _______, _______, _______, _______, _______, _______,
+        KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_H,                           _______, _______, _______, _______, _______, _______,
                           KC_I,    KC_T,                                                               TG_GAME, KC_NO,
                                             KC_V,    KC_O,                                    _______,
                                                      KC_SPC,  KC_P,                  _______,
@@ -107,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_DIABLO] = LAYOUT_5x6_right_trackball(
         KC_ESC,  KC_V,    KC_D,    KC_LALT, KC_NO,   KC_NO,                          KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
-        KC_TAB,  KC_S,    KC_I,    KC_F,    KC_M,    KC_T,                           KC_WH_U, _______, _______, _______, _______, _______,
-        KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_G,                           KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, _______,
-        KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,                           KC_BTN6, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
+        KC_TAB,  KC_S,    KC_I,    KC_F,    KC_M,    KC_T,                           _______, _______, _______, _______, _______, _______,
+        KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_G,                           _______, _______, _______, _______, _______, _______,
+        KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,                           _______, _______, _______, _______, _______, _______,
                           KC_F,    KC_L,                                                               KC_NO,   TG_DBLO,
                                     KC_DIABLO_CLEAR, KC_F,                                    _______,
                                                SFT_T(KC_SPC), KC_J,                  _______,
@@ -157,7 +157,7 @@ bool            tap_toggling          = false;
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     if ((x || y) && timer_elapsed(mouse_timer) > 125) {
         mouse_timer = timer_read();
-        if (!layer_state_is(_MOUSE) && !layer_state_is(_GAMEPAD) && timer_elapsed(mouse_debounce_timer) > 125) {
+        if (!layer_state_is(_MOUSE) && !(layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO)) && timer_elapsed(mouse_debounce_timer) > 125) {
             layer_on(_MOUSE);
         }
     }
@@ -167,7 +167,7 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
 #    else
     if (timer_elapsed(mouse_debounce_timer) > TAPPING_TERM
 #    endif
-        || layer_state_is(_GAMEPAD)) {
+        || (layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO))) {
         mouse_report->x = x;
         mouse_report->y = y;
     }
@@ -224,5 +224,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
             break;
     }
     return true;
+}
+
+layer_state_t layer_state_set_keymap(layer_state_t state) {
+    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO)) {
+        state |= (1UL << _MOUSE);
+    }
+    return state;
 }
 #endif
