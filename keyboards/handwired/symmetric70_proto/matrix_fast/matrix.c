@@ -17,7 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // clang-format off
 #include <stdint.h>
 #include <stdbool.h>
-#include "gpio_extr.h"
+#include <gpio.h>
+#ifndef readPort
+#    include "gpio_extr.h"
+#endif
 #include "util.h"
 #include "matrix.h"
 #include "matrix_extr.h"
