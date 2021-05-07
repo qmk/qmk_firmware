@@ -116,22 +116,23 @@ class FindDevices(object):
                                 cli.log.exception(e)
                             del live_devices[device['path']]
 
-                for device in self.find_bootloaders():
-                    if device.address in live_bootloaders:
-                        live_bootloaders[device.address]._qmk_found = True
-                    else:
-                        name = KNOWN_BOOTLOADERS[(int2hex(device.idVendor), int2hex(device.idProduct))]
-                        cli.log.info('Bootloader Connected: {style_bright}{fg_magenta}%s', name)
-                        device._qmk_found = True
-                        live_bootloaders[device.address] = device
+                if cli.args.bootloaders:
+                    for device in self.find_bootloaders():
+                        if device.address in live_bootloaders:
+                            live_bootloaders[device.address]._qmk_found = True
+                        else:
+                            name = KNOWN_BOOTLOADERS[(int2hex(device.idVendor), int2hex(device.idProduct))]
+                            cli.log.info('Bootloader Connected: {style_bright}{fg_magenta}%s', name)
+                            device._qmk_found = True
+                            live_bootloaders[device.address] = device
 
-                for device in list(live_bootloaders):
-                    if live_bootloaders[device]._qmk_found:
-                        live_bootloaders[device]._qmk_found = False
-                    else:
-                        name = KNOWN_BOOTLOADERS[(int2hex(live_bootloaders[device].idVendor), int2hex(live_bootloaders[device].idProduct))]
-                        cli.log.info('Bootloader Disconnected: {style_bright}{fg_magenta}%s', name)
-                        del live_bootloaders[device]
+                    for device in list(live_bootloaders):
+                        if live_bootloaders[device]._qmk_found:
+                            live_bootloaders[device]._qmk_found = False
+                        else:
+                            name = KNOWN_BOOTLOADERS[(int2hex(live_bootloaders[device].idVendor), int2hex(live_bootloaders[device].idProduct))]
+                            cli.log.info('Bootloader Disconnected: {style_bright}{fg_magenta}%s', name)
+                            del live_bootloaders[device]
 
                 sleep(.1)
 
@@ -224,16 +225,18 @@ def list_devices(device_finder):
             LOG_COLOR['next'] = (LOG_COLOR['next'] + 1) % len(LOG_COLOR['colors'])
             cli.log.info("\t%s%s:%s:%d{style_reset_all}\t%s %s", color, int2hex(dev['vendor_id']), int2hex(dev['product_id']), dev['index'], dev['manufacturer_string'], dev['product_string'])
 
-    bootloaders = device_finder.find_bootloaders()
+    if cli.args.bootloaders:
+        bootloaders = device_finder.find_bootloaders()
 
-    if bootloaders:
-        cli.log.info('Available Bootloaders:')
+        if bootloaders:
+            cli.log.info('Available Bootloaders:')
 
-        for dev in bootloaders:
-            cli.log.info("\t%s:%s\t%s", int2hex(dev.idVendor), int2hex(dev.idProduct), KNOWN_BOOTLOADERS[(int2hex(dev.idVendor), int2hex(dev.idProduct))])
+            for dev in bootloaders:
+                cli.log.info("\t%s:%s\t%s", int2hex(dev.idVendor), int2hex(dev.idProduct), KNOWN_BOOTLOADERS[(int2hex(dev.idVendor), int2hex(dev.idProduct))])
 
 
-@cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>[:<index>].')
+@cli.argument('--bootloaders', arg_only=True, default=True, action='store_boolean', help='displaying bootloaders.')
+@cli.argument('-d', '--device', help='Device to select - uses format <pid>:<vid>[:<index>].')
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available hid_listen devices.')
 @cli.argument('-n', '--numeric', arg_only=True, action='store_true', help='Show VID/PID instead of names.')
 @cli.argument('-t', '--timestamp', arg_only=True, action='store_true', help='Print the timestamp for received messages as well.')
