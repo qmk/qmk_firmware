@@ -1,0 +1,62 @@
+Time to Sleep
+=============
+USB suspend     no activity on USB line for  3ms
+No Interaction  no user interaction
+    matrix has no change
+    matrix has no switch on
+
+
+AVR Power Management
+====================
+
+V-USB suspend
+    USB suspend
+    http://vusb.wikidot.com/examples
+
+MCUSR   MCU Status Register
+    WDRF    Watchdog Reset Flag
+    BORF
+    EXTRF
+    PORF    Power-on Reset Flag
+
+SMCR    Sleep Mode Control Register
+    SE      Sleep Enable
+    SM2:0
+        #define set_sleep_mode(mode) \
+        #define SLEEP_MODE_IDLE         (0)
+        #define SLEEP_MODE_ADC          _BV(SM0)
+        #define SLEEP_MODE_PWR_DOWN     _BV(SM1)
+        #define SLEEP_MODE_PWR_SAVE     (_BV(SM0) | _BV(SM1))
+        #define SLEEP_MODE_STANDBY      (_BV(SM1) | _BV(SM2))
+        #define SLEEP_MODE_EXT_STANDBY  (_BV(SM0) | _BV(SM1) | _BV(SM2))
+
+
+ACSR    Analog Comparator Control and Status Register
+    To disable Analog Comparator
+    ACSR = 0x80;
+    or
+    ACSR &= ~_BV(ACIE);
+    ACSR |= _BV(ACD);
+
+    ACD: Analog Comparator Disable
+        When this bit is written logic one, the power to the Analog Comparator is
+        switched off. This bit can be set at any time to turn off the Analog
+        Comparator. This will reduce power consumption in Active and Idle mode.
+        When changing the ACD bit, the Analog Comparator Interrupt must be disabled
+        by clearing the ACIE bit in ACSR. Otherwise an interrupt can occur when
+        the bit is changed.
+
+DIDR1   Digital Input Disable Register 1
+    AIN1D
+    AIN0D
+        When this bit is written logic one, the digital input buffer on the AIN1/0 pin is disabled. The corresponding PIN Register bit will always read as zero when this bit is set. When an analog signal is applied to the AIN1/0 pin and the digital input from this pin is not needed, this bit should be written logic one to reduce power consumption in the digital input buffer.
+
+
+PRR     Power Reduction Register
+    PRTWI
+    PRTIM2
+    PRTIM0
+    PRTIM1
+    PRSPI
+    PRUSART0
+    PRADC

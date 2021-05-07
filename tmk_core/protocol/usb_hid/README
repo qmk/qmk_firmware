@@ -1,0 +1,47 @@
+USB HID protocol
+================
+Host side of USB HID keyboard protocol implementation.
+Only standard HID Boot mode is supported at this time. This means most of normal keyboards are supported while proprietary >6KRO and NKRO is not.
+
+Third party Libraries
+---------------------
+USB_Host_Shield_2.0
+    Circuits@Home repository is git-submoduled. Do git submodule init & update to get the content.
+    https://github.com/felis/USB_Host_Shield_2.0
+
+arduino-1.0.1
+    Arduino files copied from:
+    https://github.com/arduino/Arduino/hardware/arduino/{cores,variants}
+
+
+Test build
+----------
+In test directory;
+    $ make
+    $ DEV=/dev/ttyACM0 make program
+
+You can see HID keyboard reports on debug output.
+
+
+Restriction and Bug
+-------------------
+Not supported/confirmed yet.
+    Hub, suspend, keyboard LED
+
+Switching power on VBUS:
+    To power reset device.
+    http://www.circuitsathome.com/camera-control/simulating-cable-disconnect-on-usb-host-shield-2-0
+    This is needed for a device which are not initilized with 'USB Bus Reset'(long SE0)
+
+Can't bus-reset a keyboard which already attached on bus properly.
+    Slow start up of Leonardo's bootloader causes this?
+    Need to unplug/plug a keyboard after firmware starts up.
+    MAX3421E doesn't work SAMPLEBUS well to know whether device connected or not.
+
+Keyboard with other endpoints than boot keyboard may go wrong.
+    On my keyboard with mouse key the converter locks up when using mouse key function.
+
+Can't compile on Windows filesystem.
+    On Linux no problem.
+    Windows doesn't know difference between common/print.h and arduino/Print.h.
+    Change file name common/print.h to console.h ?

@@ -1,0 +1,2 @@
+cd c:/QMK
+make xd60        / /                 / / / / / / 

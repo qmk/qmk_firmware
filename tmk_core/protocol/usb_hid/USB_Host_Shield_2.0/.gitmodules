@@ -1,0 +1,12 @@
+[submodule "examples/testusbhostFAT/generic_storage"]
+	path = examples/testusbhostFAT/generic_storage
+	url = https://github.com/xxxajk/generic_storage
+[submodule "examples/testusbhostFAT/xmem2"]
+	path = examples/testusbhostFAT/xmem2
+	url = https://github.com/xxxajk/xmem2
+[submodule "examples/testusbhostFAT/Arduino_Makefile_master"]
+	path = examples/testusbhostFAT/Arduino_Makefile_master
+	url = https://github.com/xxxajk/Arduino_Makefile_master
+[submodule "examples/testusbhostFAT/RTClib"]
+	path = examples/testusbhostFAT/RTClib
+	url = https://github.com/xxxajk/RTClib
