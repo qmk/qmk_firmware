@@ -2,10 +2,12 @@
 
 cli implementation of https://www.pjrc.com/teensy/hid_listen.html
 """
-import hid
 from pathlib import Path
 from threading import Thread
 from time import sleep, strftime
+
+import hid
+import usb.core
 
 from milc import cli
 
@@ -97,34 +99,40 @@ class FindDevices(object):
                         cli.log.info('Console Disconnected: %(color)s%(manufacturer_string)s %(product_string)s{style_reset_all} (%(color)s%(vendor_id)04X:%(product_id)04X:%(index)d{style_reset_all})', live_devices[device])
                         del live_devices[device]
 
-                for device in self.find_devices(hid.enumerate()):
+                for device in self.find_devices():
                     if device['path'] not in live_devices:
                         device['color'] = LOG_COLOR['colors'][LOG_COLOR['next']]
                         LOG_COLOR['next'] = (LOG_COLOR['next'] + 1) % len(LOG_COLOR['colors'])
                         live_devices[device['path']] = device
-                        monitor = MonitorDevice(device, self.numeric)
-                        device['thread'] = Thread(target=monitor.run_forever, daemon=True)
 
-                        device['thread'].start()
+                        try:
+                            monitor = MonitorDevice(device, self.numeric)
+                            device['thread'] = Thread(target=monitor.run_forever, daemon=True)
 
-                for device in self.find_bootloaders(hid.enumerate()):
-                    if device['path'] in live_bootloaders:
-                        live_bootloaders[device['path']]['found'] = True
+                            device['thread'].start()
+                        except Exception as e:
+                            cli.log.error("Could not connect to %s%s %s{style_reset_all} (%s:%04X:%04X:%d): %s: %s", device['color'], device['manufacturer_string'], device['product_string'], device['color'], device['vendor_id'], device['product_id'], device['index'], e.__class__.__name__, e)
+                            cli.log.exception()
+                            del live_devices[device['path']]
+
+                for device in self.find_bootloaders():
+                    if device.address in live_bootloaders:
+                        live_bootloaders[device.address].found = True
                     else:
-                        name = KNOWN_BOOTLOADERS[(int2hex(device['vendor_id']), int2hex(device['product_id']))]
+                        name = KNOWN_BOOTLOADERS[(int2hex(device.idVendor), int2hex(device.idProduct))]
                         cli.log.info('Bootloader Connected: {style_bright}{fg_magenta}%s', name)
-                        device['found'] = True
-                        live_bootloaders[device['path']] = device
+                        device.found = True
+                        live_bootloaders[device.address] = device
 
                 for device in list(live_bootloaders):
-                    if live_bootloaders[device]['found']:
-                        live_bootloaders[device]['found'] = False
+                    if live_bootloaders[device].found:
+                        live_bootloaders[device].found = False
                     else:
-                        name = KNOWN_BOOTLOADERS[(int2hex(live_bootloaders[device]['vendor_id']), int2hex(live_bootloaders[device]['product_id']))]
+                        name = KNOWN_BOOTLOADERS[(int2hex(live_bootloaders[device].idVendor), int2hex(live_bootloaders[device].idProduct))]
                         cli.log.info('Bootloader Disconnected: {style_bright}{fg_magenta}%s', name)
                         del live_bootloaders[device]
 
-                sleep(1)
+                sleep(.1)
 
             except KeyboardInterrupt:
                 break
@@ -132,7 +140,7 @@ class FindDevices(object):
     def is_bootloader(self, hid_device):
         """Returns true if the device in question matches a known bootloader vid/pid.
         """
-        return (int2hex(hid_device['vendor_id']), int2hex(hid_device['product_id'])) in KNOWN_BOOTLOADERS
+        return (int2hex(hid_device.idVendor), int2hex(hid_device.idProduct)) in KNOWN_BOOTLOADERS
 
     def is_console_hid(self, hid_device):
         """Returns true when the usage page indicates it's a teensy-style console.
@@ -166,14 +174,15 @@ class FindDevices(object):
 
         return devices
 
-    def find_bootloaders(self, hid_devices):
+    def find_bootloaders(self):
         """Returns a list of available bootloader devices.
         """
-        return list(filter(self.is_bootloader, hid_devices))
+        return list(filter(self.is_bootloader, usb.core.find(find_all=True)))
 
-    def find_devices(self, hid_devices):
+    def find_devices(self):
         """Returns a list of available teensy-style consoles.
         """
+        hid_devices = hid.enumerate()
         devices = list(filter(self.is_console_hid, hid_devices))
 
         if not devices:
@@ -203,8 +212,9 @@ def int2hex(number):
 
 
 def list_devices(device_finder):
-    hid_devices = hid.enumerate()
-    devices = device_finder.find_devices(hid_devices)
+    """Show the user a nicely formatted list of devices.
+    """
+    devices = device_finder.find_devices()
 
     if devices:
         cli.log.info('Available devices:')
@@ -213,13 +223,13 @@ def list_devices(device_finder):
             LOG_COLOR['next'] = (LOG_COLOR['next'] + 1) % len(LOG_COLOR['colors'])
             cli.log.info("\t%s%s:%s:%d{style_reset_all}\t%s %s", color, int2hex(dev['vendor_id']), int2hex(dev['product_id']), dev['index'], dev['manufacturer_string'], dev['product_string'])
 
-    bootloaders = device_finder.find_bootloaders(hid_devices)
+    bootloaders = device_finder.find_bootloaders()
 
     if bootloaders:
         cli.log.info('Available Bootloaders:')
 
         for dev in bootloaders:
-            cli.log.info("\t%s:%s\t%s", int2hex(dev['vendor_id']), int2hex(dev['product_id']), KNOWN_BOOTLOADERS[(int2hex(dev['vendor_id']), int2hex(dev['product_id']))])
+            cli.log.info("\t%s:%s\t%s", int2hex(dev.idVendor), int2hex(dev.idProduct), KNOWN_BOOTLOADERS[(int2hex(dev.idVendor), int2hex(dev.idProduct))])
 
 
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>[:<index>].')

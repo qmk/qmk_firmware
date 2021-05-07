@@ -4,5 +4,7 @@
 # Python development requirements
 nose2
 flake8
+hid
 pep8-naming
+pyusb
 yapf
