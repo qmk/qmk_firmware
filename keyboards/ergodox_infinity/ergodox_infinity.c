@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include <ch.h>
 #include <hal.h>
+#include "eeconfig.h"
 #include "serial_link/system/serial_link.h"
 #ifdef VISUALIZER_ENABLE
 #include "lcd_backlight.h"
@@ -157,6 +158,16 @@ void matrix_scan_kb(void) {
 
 bool is_keyboard_master(void) {
     return is_serial_link_master();
+}
+
+bool is_keyboard_left(void) {
+#if defined(EE_HANDS)
+    return eeconfig_read_handedness();
+#elif defined(MASTER_IS_ON_RIGHT)
+    return !is_keyboard_master();
+#else
+    return is_keyboard_master();
+#endif
 }
 
 __attribute__ ((weak))
