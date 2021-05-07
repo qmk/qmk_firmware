@@ -339,7 +339,7 @@ enum custom_keycodes {
 * `----------------------------------'        `----------------------------------'
 */
 
-#define _________________DRAGO_L1__________________         RESET,   DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________DRAGO_L1__________________         RESET,  EEP_RST,  XXXXXXX, XXXXXXX, XXXXXXX
 #define _________________DRAGO_L2__________________         _________________BLANK_5___________________
 #define _________________DRAGO_L3__________________         _________________BLANK_5___________________
 #define _________________DRAGO_LT__________________         XXXXXXX, XXXXXXX, _______, XXXXXXX, _______
