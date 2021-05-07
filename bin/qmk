@@ -33,6 +33,8 @@ def _check_modules(requirements):
             # Not every module is importable by its own name.
             if module['name'] == "pep8-naming":
                 module['import'] = "pep8ext_naming"
+            elif module['name'] == 'pyusb':
+                module['import'] = 'usb.core'
 
             if not find_spec(module['import']):
                 print('Could not find module %s!' % module['name'])
