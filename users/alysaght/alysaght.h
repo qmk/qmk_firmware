@@ -324,7 +324,7 @@ enum custom_keycodes {
 
 #define _________________MEDIA_R1__________________         RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI
 #define _________________MEDIA_R2__________________         XXXXXXX, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
-#define _________________MEDIA_R3__________________         BACKLIT, XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD
+#define _________________MEDIA_R3__________________         BL_TOGG,  BL_INC,  BL_DEC, BL_BRTG, XXXXXXX
 #define _________________MEDIA_RT__________________         KC_MSTP, KC_MPLY, KC_MUTE, XXXXXXX, XXXXXXX
 
 /* Adjust (_MOUSE + _MEDIA)
