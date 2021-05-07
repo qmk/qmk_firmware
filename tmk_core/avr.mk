@@ -160,6 +160,8 @@ define EXEC_AVRDUDE
 	list_devices() { \
 		if $(GREP) -q -s icrosoft /proc/version; then \
 		    wmic.exe path Win32_SerialPort get DeviceID 2>/dev/null | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | xargs echo -n | sort; \
+		elif [ "`uname`" = "FreeBSD" ]; then \
+			ls /dev/tty* | grep -v '\.lock$$' | grep -v '\.init$$'; \
 		else \
 			ls /dev/tty*; \
 		fi; \
@@ -169,7 +171,7 @@ define EXEC_AVRDUDE
 	TMP1=`mktemp`; \
 	TMP2=`mktemp`; \
 	list_devices > $$TMP1; \
-	while [ -z $$USB ]; do \
+	while [ -z "$$USB" ]; do \
 		sleep 0.5; \
 		printf "."; \
 		list_devices > $$TMP2; \
