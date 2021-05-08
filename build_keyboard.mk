@@ -301,7 +301,7 @@ $(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
 	$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_config.h
 
 $(KEYBOARD_OUTPUT)/src/default_keyboard.h: $(INFO_JSON_FILES)
-	bin/qmk generate-keyboard-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/default_keyboard.h
+	$(QMK_BIN) generate-keyboard-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/default_keyboard.h
 
 $(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
 	$(QMK_BIN) generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h
