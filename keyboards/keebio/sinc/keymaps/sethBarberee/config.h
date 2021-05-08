@@ -18,18 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* Use I2C or Serial, not both */
-
-#define USE_SERIAL
+//
+//#define USE_SERIAL
 //#define USE_I2C
 
-/* Select hand configuration */
-
-//#define MASTER_LEFT
-//#define MASTER_RIGHT
-#define EE_HANDS
-
-#undef RGBLED_NUM
-#define RGBLED_NUM 8
-
-#undef RGBLED_SPLIT
-#define RGBLED_SPLIT { RGBLED_NUM, 0}
+//#ifdef RGBLIGHT_ENABLE
+//#   ifdef NORMAL_MODE
+//#       undef NORMAL_MODE
+//#       define NORMAL_MODE RGBLIGHT_MODE_TWINKLE + 4
+//#   endif
+//#endif
