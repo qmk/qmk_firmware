@@ -1,7 +1,5 @@
 # grooveboard
 
-![grooveboard](imgur.com image replace me!)
-
 *a four-key keyboard for rhythm games*
 
 * Keyboard Maintainer: [ianklug](https://github.com/ianklug)
