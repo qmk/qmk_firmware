@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "ianklug grooveboard",
+    "url": "https://github.com/ianklug/grooveboard",
+    "maintainer": "ianklug",
+    "width": 4,
+    "height": 1,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "k00", "x": 0, "y": 0},
+                {"label": "k01", "x": 1, "y": 0},
+                {"label": "k02", "x": 2, "y": 0},
+                {"label": "k03", "x": 3, "y": 0}
+			]
+        }
+    }
+}
