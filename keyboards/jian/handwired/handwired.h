@@ -28,3 +28,18 @@
   {XXX, K21, K22, K23, K24, K25, K26,   K26, K25, K24, K23, K22, K21, XXX}, \
   {XXX, XXX, XXX, XXX, K34, K35, K36,   K36, K35, K34, XXX, XXX, XXX, XXX} \
 }
+
+#define LAYOUT_symmetric_left LAYOUT_symmetric
+
+#define LAYOUT_symmetric_right( \
+  K06, K05, K04, K03, K02, K01, K00, \
+  K16, K15, K14, K13, K12, K11, \
+  K26, K25, K24, K23, K22, K21, \
+  K36, K35, K34 \
+) \
+{ \
+  {K00, K01, K02, K03, K04, K05, K06,   K06, K05, K04, K03, K02, K01, K00}, \
+  {XXX, K11, K12, K13, K14, K15, K16,   K16, K15, K14, K13, K12, K11, XXX}, \
+  {XXX, K21, K22, K23, K24, K25, K26,   K26, K25, K24, K23, K22, K21, XXX}, \
+  {XXX, XXX, XXX, XXX, K34, K35, K36,   K36, K35, K34, XXX, XXX, XXX, XXX} \
+}
