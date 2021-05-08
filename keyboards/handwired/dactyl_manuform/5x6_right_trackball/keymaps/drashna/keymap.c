@@ -233,3 +233,18 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
     return state;
 }
 #endif
+
+void matrix_init_keymap(void) {
+#ifdef AUDIO_ENABLE
+    extern audio_config_t audio_config;
+
+    if (!is_keyboard_master()) {
+        audio_stop_all();
+        audio_config.enable = false;
+    }
+#endif
+}
+
+void keyboard_post_init_keymap(void) {
+    matrix_init_keymap();
+}
