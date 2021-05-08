@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x6050
+#define VENDOR_ID 0x4B4D   // KM
+#define PRODUCT_ID 0x4143  // AC
 #define DEVICE_VER 0x0104
 #define MANUFACTURER KBDMania
 #define PRODUCT KMAC
-#define DESCRIPTION     QMK keyboard firmware for KMAC
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -44,6 +43,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 //#define DIODE_DIRECTION
+
+#define LED_CAPS_LOCK_PIN B0
+#define LED_SCROLL_LOCK_PIN E6
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 //#define BACKLIGHT_LEVELS 3
@@ -151,9 +154,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

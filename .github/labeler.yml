@@ -5,12 +5,22 @@ core:
   - tests/**/*
   - util/**/*
   - platforms/**/*
+  - Makefile
+  - '*.mk'
+dependencies:
+  - any:
+    - 'lib/**/*'
+    - '!lib/python/**/*'
 keyboard:
-- any: ['keyboards/**/*', '!keyboards/**/keymaps/**/*']
+  - any:
+    - 'keyboards/**/*'
+    - '!keyboards/**/keymaps/**/*'
 keymap:
   - users/**/*
   - layouts/**/*
   - keyboards/**/keymaps/**/*
+via:
+  - keyboards/**/keymaps/via/*
 cli:
   - bin/qmk
   - requirements.txt

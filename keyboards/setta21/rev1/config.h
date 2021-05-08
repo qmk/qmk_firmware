@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0011
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         setta21
-#define DESCRIPTION     A custom tenkeypad
 
 /* key matrix size */
 #define MATRIX_ROWS 4

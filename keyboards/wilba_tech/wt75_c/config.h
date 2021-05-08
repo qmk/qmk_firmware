@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    wilba.tech
 #define PRODUCT         wilba.tech WT75-C
-#define DESCRIPTION     wilba.tech WT75-C
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -160,9 +159,6 @@
  * MIDI options
  */
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -181,9 +177,6 @@
 
 // enable the mono backlight
 #define MONO_BACKLIGHT_ENABLED 1
-
-// enable the RGB indicator for WT75-A
-#define MONO_BACKLIGHT_WT75_A
 
 // disable backlight when USB suspended (PC sleep/hibernate/shutdown)
 #define MONO_BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0

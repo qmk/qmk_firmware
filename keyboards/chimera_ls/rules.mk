@@ -28,13 +28,12 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
-USB = /dev/ttyACM0
-
-OPT_DEFS += -DCHIMERA_LS_PROMICRO
-CHIMERA_LS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
-                         avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
-
 # project specific files
-SRC = matrix.c
+SRC += matrix.c serial_uart.c
 
 LAYOUTS = ortho_4x12
+
+# Disable unsupported hardware
+RGBLIGHT_SUPPORTED = no
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

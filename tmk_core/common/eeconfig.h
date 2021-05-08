@@ -15,14 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef EECONFIG_H
-#define EECONFIG_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
 
 #ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEEC
+#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEEB  // When changing, decrement this value to avoid future re-init issues
 #endif
 #define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 
@@ -111,5 +110,3 @@ void     eeconfig_update_haptic(uint32_t val);
 
 bool eeconfig_read_handedness(void);
 void eeconfig_update_handedness(bool val);
-
-#endif
