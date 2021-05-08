@@ -19,7 +19,7 @@
 
 /* USB Device descriptor parameter */
 #include "config_common.h"
-#define VENDOR_ID       0x7C88 // "hw" = haierwangwei2005
+#define VENDOR_ID       0x7C88 // "hw" = haierwangwei
 #define PRODUCT_ID      0x7C96 // "lp" = latin6RGB
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    18438880
