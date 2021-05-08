@@ -19,26 +19,27 @@ LOG_COLOR = {
         '{fg_green}',
         '{fg_magenta}',
         '{fg_red}',
-        '{fg_yellow}'
-    ]
+        '{fg_yellow}',
+    ],
 }
 
 KNOWN_BOOTLOADERS = {
-        # VID  ,  PID
-        ('16C0', '0478'): 'Teensy Halfkay Bootloader',
-        ('0483', 'DF11'): 'STM32 DFU',
-        ('314B', '0106'): 'APM32 DFU',
-        ('1EAF', '0003'): 'STM32duino Bootloader',
-        ('16C0', '05DC'): 'USBaspLoader',
-        ('1C11', 'B007'): 'Kiibohd DFU',
-        ('03EB', '2FEF'): 'ATmega16U2 DFU',
-        ('03EB', '2FF0'): 'ATmega32U2 DFU',
-        ('03EB', '2FF3'): 'ATmega16U4 DFU',
-        ('03EB', '2FF4'): 'ATmega32U4 DFU',
-        ('03EB', '2FF9'): 'AT90USB64 DFU',
-        ('03EB', '2FFA'): 'AT90USB162 DFU',
-        ('03EB', '2FFB'): 'AT90USB128 DFU'
+    # VID  ,  PID
+    ('16C0', '0478'): 'Teensy Halfkay Bootloader',
+    ('0483', 'DF11'): 'STM32 DFU',
+    ('314B', '0106'): 'APM32 DFU',
+    ('1EAF', '0003'): 'STM32duino Bootloader',
+    ('16C0', '05DC'): 'USBaspLoader',
+    ('1C11', 'B007'): 'Kiibohd DFU',
+    ('03EB', '2FEF'): 'ATmega16U2 DFU',
+    ('03EB', '2FF0'): 'ATmega32U2 DFU',
+    ('03EB', '2FF3'): 'ATmega16U4 DFU',
+    ('03EB', '2FF4'): 'ATmega32U4 DFU',
+    ('03EB', '2FF9'): 'AT90USB64 DFU',
+    ('03EB', '2FFA'): 'AT90USB162 DFU',
+    ('03EB', '2FFB'): 'AT90USB128 DFU'
 }
+
 
 class MonitorDevice(object):
     def __init__(self, hid_device, numeric):
@@ -111,7 +112,9 @@ class FindDevices(object):
 
                             device['thread'].start()
                         except Exception as e:
-                            cli.log.error("Could not connect to %s%s %s{style_reset_all} (%s:%04X:%04X:%d): %s: %s", device['color'], device['manufacturer_string'], device['product_string'], device['color'], device['vendor_id'], device['product_id'], device['index'], e.__class__.__name__, e)
+                            device['e'] = e
+                            device['e_name'] = e.__class__.__name__
+                            cli.log.error("Could not connect to %(color)s%(manufacturer_string)s %(product_string)s{style_reset_all} (%(color)s:%(vendor_id)04X:%(product_id)04X:%(index)d): %(e_name)s: %(e)s", device)
                             if cli.config.general.verbose:
                                 cli.log.exception(e)
                             del live_devices[device['path']]
