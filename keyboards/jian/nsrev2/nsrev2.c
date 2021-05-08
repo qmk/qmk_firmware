@@ -32,45 +32,19 @@ void suspend_wakeup_init_kb(void) {
 }
 #endif
 
-#ifdef PHYSICAL_LEDS_ENABLE
-void led_init_kb(void)
-{
-#ifdef NUM_LOCK_LED_PIN
-    setPinOutput(NUM_LOCK_LED_PIN);
-    RESET_NUM_LOCK_LED();
-#endif // NUM_LOCK_LED_PIN
-#ifdef CAPS_LOCK_LED_PIN
-    setPinOutput(CAPS_LOCK_LED_PIN);
-    RESET_CAPS_LOCK_LED();
-#endif // CAPS_LOCK_LED_PIN
-#ifdef SCROLL_LOCK_LED_PIN
-    setPinOutput(SCROLL_LOCK_LED_PIN);
-    RESET_SCROLL_LOCK_LED();
-#endif // SCROLL_LOCK_LED_PIN
-}
-#endif // PHYSICAL_LEDS_ENABLE
-
 void matrix_init_kb(void) {
-#ifdef PHYSICAL_LEDS_ENABLE
-  led_init_kb();
-#endif // PHYSICAL_LEDS_ENABLE
-  matrix_init_user();
+    INIT_NUM_LOCK_PIN();
+    INIT_CAPS_LOCK_PIN();
+    UPDATE_NUM_LOCK_LED(0);
+    UPDATE_CAPS_LOCK_LED(0);
+    matrix_init_user();
 };
 
-#ifdef PHYSICAL_LEDS_ENABLE
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-#ifdef NUM_LOCK_LED_PIN
-        UPDATE_NUM_LOCK_LED();
-#endif // NUM_LOCK_LED_PIN
-#ifdef CAPS_LOCK_LED_PIN
-        UPDATE_CAPS_LOCK_LED();
-#endif // CAPS_LOCK_LED_PIN
-#ifdef SCROLL_LOCK_LED_PIN
-        UPDATE_SCROLL_LOCK_LED();
-#endif // SCROLL_LOCK_LED_PIN
+        UPDATE_NUM_LOCK_LED(led_state.num_lock);
+        UPDATE_CAPS_LOCK_LED(led_state.caps_lock);
     }
     return res;
 }
-#endif // PHYSICAL_LEDS_ENABLE

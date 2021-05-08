@@ -47,50 +47,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // different Jian configs
 #define DIPS_ENABLE
+
 #define PHYSICAL_LEDS_ENABLE
+// #define SPLIT_HOST_SYNC_ENABLE
+
 #define NUM_LOCK_LED_PIN C6
 #define CAPS_LOCK_LED_PIN D7
 #define SCROLL_LOCK_LED_PIN B5
 
-// #define NUM_NMOSFET  //uncomment this if you using n-mosfet
-// #define CAPS_NMOSFET  //uncomment this if you using n-mosfet
-// #define SCROLL_NMOSFET  //uncomment this if you using n-mosfet
+// uncomment this if you are using n-mosfets
+// #define NUM_NMOSFET
+// #define CAPS_NMOSFET
+// #define SCROLL_NMOSFET
 
 // #define NUM_INVERT // uncomment this if you want to reverse logic of numlock
 // This will make it light up only when lock is off
 // (Doesn't work on mac. There is no num lock, so it will be always off and lit)
 
-#ifdef NUM_NMOSFET
-#define RESET_NUM_LOCK_LED() writePinLow(NUM_LOCK_LED_PIN)
-#ifdef NUM_INVERT
-#define UPDATE_NUM_LOCK_LED() writePin(NUM_LOCK_LED_PIN, !led_state.num_lock)
-#else
-#define UPDATE_NUM_LOCK_LED() writePin(NUM_LOCK_LED_PIN, led_state.num_lock)
-#endif // NUM_INVERT
-#else
-#define RESET_NUM_LOCK_LED() writePinHigh(NUM_LOCK_LED_PIN)
-#ifdef NUM_INVERT
-#define UPDATE_NUM_LOCK_LED() writePin(NUM_LOCK_LED_PIN, led_state.num_lock)
-#else
-#define UPDATE_NUM_LOCK_LED() writePin(NUM_LOCK_LED_PIN, !led_state.num_lock)
-#endif // NUM_INVERT
-#endif // NUM_NMOSFET
 
-#ifdef CAPS_NMOSFET
-#define RESET_CAPS_LOCK_LED() writePinLow(CAPS_LOCK_LED_PIN)
-#define UPDATE_CAPS_LOCK_LED() writePin(CAPS_LOCK_LED_PIN, led_state.caps_lock)
+#if defined(NUM_LOCK_LED_PIN) && defined(PHYSICAL_LEDS_ENABLE)
+    #define INIT_NUM_LOCK_PIN() setPinOutput(NUM_LOCK_LED_PIN)
+    #if defined(NUM_NMOSFET) != defined(NUM_INVERT)
+        #define UPDATE_NUM_LOCK_LED(led_state) writePin(NUM_LOCK_LED_PIN, led_state)
+    #else
+        #define UPDATE_NUM_LOCK_LED(led_state) writePin(NUM_LOCK_LED_PIN, !led_state)
+    #endif
 #else
-#define RESET_CAPS_LOCK_LED() writePinHigh(CAPS_LOCK_LED_PIN)
-#define UPDATE_CAPS_LOCK_LED() writePin(CAPS_LOCK_LED_PIN, !led_state.caps_lock)
-#endif // CAPS_NMOSFET
+    #define INIT_NUM_LOCK_PIN()
+    #define UPDATE_NUM_LOCK_LED(led_state)
+#endif
 
-#ifdef SCROLL_NMOSFET
-#define RESET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
-#define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock)
+#if defined(CAPS_LOCK_LED_PIN) && defined(PHYSICAL_LEDS_ENABLE)
+    #define INIT_CAPS_LOCK_PIN() setPinOutput(CAPS_LOCK_LED_PIN)
+    #ifdef CAPS_NMOSFET
+        #define UPDATE_CAPS_LOCK_LED(led_state) writePin(CAPS_LOCK_LED_PIN, led_state)
+    #else
+        #define UPDATE_CAPS_LOCK_LED(led_state) writePin(CAPS_LOCK_LED_PIN, !led_state)
+    #endif
 #else
-#define RESET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
-#define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, !led_state.scroll_lock)
-#endif // SCROLL_NMOSFET
+    #define INIT_CAPS_LOCK_PIN()
+    #define UPDATE_CAPS_LOCK_LED(led_state)
+#endif
+
+#if defined(SCROLL_LOCK_LED_PIN) && defined(PHYSICAL_LEDS_ENABLE)
+    #define INIT_SCROLL_LOCK_PIN() setPinOutput(SCROLL_LOCK_LED_PIN)
+    #ifdef SCROLL_NMOSFET
+        #define UPDATE_SCROLL_LOCK_LED(led_state) writePin(SCROLL_LOCK_LED_PIN, led_state)
+    #else
+        #define UPDATE_SCROLL_LOCK_LED(led_state) writePin(SCROLL_LOCK_LED_PIN, !led_state)
+    #endif
+#else
+    #define INIT_SCROLL_LOCK_PIN()
+    #define UPDATE_SCROLL_LOCK_LED(led_state)
+#endif
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
