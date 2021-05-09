@@ -24,7 +24,6 @@ API_SYSEX_ENABLE = no
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 
-# SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3737
 
