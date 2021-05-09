@@ -33,10 +33,10 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT( \
-        TO(_FN), \
-        KC_1,    KC_2,    KC_3, \
-        KC_4,    KC_5,    KC_6,    KC_0 \
+    [_BASE] = LAYOUT(\
+        TO(_FN),                              \
+        KC_1,       KC_2,       KC_3,         \
+        C(S(KC_N)), C(S(KC_E)), KC_0, C(KC_S) \
     ),
     [_FN] = LAYOUT(
         TO(_MEDIA),
