@@ -65,7 +65,7 @@ https://github.com/tmk/tmk_keyboard/issues/150
 - https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ### キーボードに書き込んだが何も起こらない、あるいはキーの押下が登録されない - ARM (rev6 planck、clueboard 60、hs60v2 など) でも同じ (Feb 2019)
-ARM ベースのチップ上での EEPROM の動作によって、保存された設定が無効になる場合があります。これはデフォルトレイヤに影響し、まだ調査中の特定の環境下でキーボードが使えなくなる*しれません*。EEPROM のリセットでこれが修正されます。
+ARM ベースのチップ上での EEPROM の動作によって、保存された設定が無効になる場合があります。これはデフォルトレイヤに影響し、まだ調査中の特定の環境下でキーボードが使えなくなるかも*しれません*。EEPROM のリセットでこれが修正されます。
 
 [Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を使って eeprom のリセットを強制することができます。このイメージを書き込んだ後で、通常のファームウェアを書き込むと、キーボードが _通常_ の動作順序に復元されます。
 [Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
