@@ -82,7 +82,7 @@ def info_json(keyboard):
         if not _valid_community_layout(layout):
             # Ignore layout from future checks
             info_data['community_layouts'].remove(layout)
-            _log_error(info_data, 'Claims to support a community layout that does not exist, %s' % (layout))
+            _log_error(info_data, 'Claims to support a community layout that does not exist: %s' % (layout))
 
     # Make sure we supply layout macros for the community layouts we claim to support
     for layout in info_data.get('community_layouts', []):
