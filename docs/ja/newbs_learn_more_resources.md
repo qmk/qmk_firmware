@@ -18,7 +18,7 @@
 
 _日本語のリソース情報を募集中です。_
 
-## コマンドラインに関するリソース
+## コマンドラインに関するリソース :id=command-line-resources
 
 ### 英語 :id=english-resources-cli
 
