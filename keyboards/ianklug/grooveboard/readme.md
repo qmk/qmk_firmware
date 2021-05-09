@@ -1,6 +1,6 @@
-# grooveboard
+# Grooveboard
 
-*a four-key keyboard for rhythm games*
+*A four-key mechanical keyboard for rhythm games.*
 
 * Keyboard Maintainer: [ianklug](https://github.com/ianklug)
 * Hardware Supported: *grooveboard, grooveboard mx, grooveboard choc*
