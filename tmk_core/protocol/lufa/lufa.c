@@ -142,8 +142,9 @@ static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_system(uint16_t data);
 static void    send_consumer(uint16_t data);
+static void    send_digitizer(report_digitizer_t* report);
 host_driver_t  lufa_driver = {
-    keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer,
+    keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_digitizer
 };
 
 #ifdef VIRTSER_ENABLE
@@ -982,6 +983,22 @@ void virtser_send(const uint8_t byte) {
     }
 }
 #endif
+
+static void send_digitizer(report_digitizer_t* report){
+    uint8_t timeout = 255;
+
+    if (USB_DeviceState != DEVICE_STATE_Configured) return;
+
+    Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
+
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    if (!Endpoint_IsReadWriteAllowed()) return;
+
+    Endpoint_Write_Stream_LE(report, sizeof(report_digitizer_t), NULL);
+    Endpoint_ClearIN();
+    
+}
 
 /*******************************************************************************
  * main

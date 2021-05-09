@@ -227,6 +227,36 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
         HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
     HID_RI_END_COLLECTION(0),
 #endif
+#if DIGITIZER_ENABLE
+    HID_RI_USAGE_PAGE(8, 0x0D),//Digitizer Device Page 
+    HID_RI_USAGE(8, 0x02),
+    HID_RI_COLLECTION(8, 0x01),
+      HID_RI_REPORT_ID(8, REPORT_ID_DIGITIZER),
+      HID_RI_USAGE(8, 0x20),//Finger
+      HID_RI_COLLECTION(8, 0x00),
+        HID_RI_USAGE(8, 0x42),//Tip Switch
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+        HID_RI_REPORT_SIZE(8, 0x01),
+        HID_RI_REPORT_COUNT(8, 0x01),
+        HID_RI_INPUT(8, HID_IOF_VARIABLE),
+        HID_RI_USAGE(8, 0x32),//In Range
+        HID_RI_INPUT(8, HID_IOF_VARIABLE),
+        HID_RI_REPORT_COUNT(8, 0x06),//padding
+        HID_RI_INPUT(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE),
+        HID_RI_USAGE_PAGE(8, 0x01),//Generic Desktop Page 
+        HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),//(32767)  
+        HID_RI_REPORT_SIZE(8, 0x10),
+        HID_RI_REPORT_COUNT(8, 0x01),
+        HID_RI_UNIT(8, 0x33),
+        HID_RI_UNIT_EXPONENT(8, 0x0E),
+        HID_RI_USAGE(8, 0x30),//X
+        HID_RI_INPUT(8, HID_IOF_VARIABLE),
+        HID_RI_USAGE(8, 0x31),//Y
+        HID_RI_INPUT(8, HID_IOF_VARIABLE),
+      HID_RI_END_COLLECTION(0),
+    HID_RI_END_COLLECTION(0)
+#endif
 #ifdef SHARED_EP_ENABLE
 };
 #endif

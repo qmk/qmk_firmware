@@ -923,6 +923,28 @@ void send_consumer(uint16_t data) {
 #endif
 }
 
+void send_digitizer(report_digitizer_t* report){
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    if (usbGetTransmitStatusI(&USB_DRIVER, SHARED_IN_EPNUM)) {
+        /* Need to either suspend, or loop and call unlock/lock during
+         * every iteration - otherwise the system will remain locked,
+         * no interrupts served, so USB not going through as well.
+         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[SHARED_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
+    }
+    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)report, sizeof(report_digitizer_t));
+    osalSysUnlock();
+    
+}
+
 /* ---------------------------------------------------------
  *                   Console functions
  * ---------------------------------------------------------
