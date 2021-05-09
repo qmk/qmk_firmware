@@ -46,7 +46,7 @@ enum planck_keycodes {
 #define FN    MO(_FN)
 #define GAME  MO(_GAME)
 
-#define LSPA  LT(_LOWER, KC_SPC)
+#define LSPA  LT(_RAISE, KC_SPC)
 #define RSPA  LT(_FN, KC_SPC)
 #define RLEFT LT(_RAISE, KC_LEFT)
 
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC,
     KC_GESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_ENT ,
     KC_LSPO, KC_SLSH, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSPC,
-    KC_LEAD, KC_LALT, KC_LGUI, LOWER,   LSPA,    LSPA,    RSPA,    RSPA,    RAISE,   KC_RGUI, KC_RALT, KC_LCTL
+    KC_LCTL, KC_LALT, KC_LGUI, LOWER,   LSPA,    LSPA,    RSPA,    RSPA,    RAISE,   KC_LCTL, KC_LEAD, KC_RALT
 ),
 
 
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT_planck_grid(
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_PIPE, KC_COLON, _______,
-  KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LBRC, KC_RBRC,  _______,
+  _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LBRC, KC_RBRC,  _______,
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TILD, _______, KC_LCBR, KC_RCBR,  _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RALT, KC_RGUI,  KC_RCTL
 ),
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_FN] = LAYOUT_planck_grid(
-  _______, _______, _______, _______, _______, _______, _______, KC_TILD, KC_SLSH, KC_BSLS,  _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, KC_TILD, KC_SLSH, KC_BSLS,  _______, KC_DEL,
   _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_SCLN, _______,
   _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, KC_LBRC,  KC_LBRC, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RALT,  KC_RGUI,  KC_RCTL
@@ -155,10 +155,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, QWERTY,  DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL,
+    _______, QWERTY,  DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD,  _______,
     _______, _______, _______,  DVORAK,  _______, GAME,    AG_NORM, AG_SWAP, _______,  CK_TOGG, _______, _______,
     _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MU_MOD,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF,  _______, _______,
-    AU_ON,   AU_OFF,  _______, _______, _______, _______, _______, _______, _______,  _______, _______, RESET
+    AU_ON,   AU_OFF,  _______, _______, _______, _______, _______, _______, _______,  _______, _______,  RESET
 )
 
 
