@@ -13,6 +13,3 @@ WS2812_DRIVER = pwm
 AUDIO_DRIVER = pwm_hardware
 
 DEFAULT_FOLDER = yanghu/unicorne/f411
-
-LAYOUTS = ortho_4x12
-

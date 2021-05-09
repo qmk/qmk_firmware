@@ -43,8 +43,6 @@
     { B10, B2 }
 
 /* Audio */
-#define MUSIC_MAP
-
 #define AUDIO_PIN A8
 #define AUDIO_PWM_PAL_MODE 1
 #define AUDIO_PWM_DRIVER PWMD1
