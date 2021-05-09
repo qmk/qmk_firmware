@@ -14,37 +14,30 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 #pragma once
+#include "sethBarberee.h"
 
-#include QMK_KEYBOARD_H
-
-#include "wrappers.h"
-
-enum layers {
-    _QWERTY,
-    _LOWER,
-    _RAISE,
-    _ADJUST
+//Define a type for as many tap dance states as you need
+enum {
+    SINGLE_TAP = 1,
+    SINGLE_HOLD = 2,
+    DOUBLE_TAP = 3,
+    DOUBLE_HOLD = 4,
+    DOUBLE_SINGLE_TAP = 5, //send two single taps
+    TRIPLE_TAP = 6,
+    TRIPLE_HOLD = 7
 };
 
-enum userspace_keycodes {
-    KC_VRSN = SAFE_RANGE,
-    NEW_SAFE_RANGE
+
+enum {
+    TD_ECAP = 0,
 };
 
-#define KC_LOWR MO(_LOWER)
-#define KC_RASE MO(_RAISE)
+#define KC_ECAP TD(TD_ECAP)
 
-#ifdef TAP_DANCE_ENABLE
-#   include "tap_dance.h"
-#endif
-
+typedef struct {
+    bool toggled; // store whether we have toggled caps lock
 #ifdef RGBLIGHT_ENABLE
-#   include "rgb_light.h"
-#endif
-
-void keyboard_pre_init_keymap(void);
-void keyboard_post_init_keymap(void);
-void suspend_power_down_keymap(void);
-void suspend_wakeup_init_keymap(void);
-layer_state_t layer_state_set_keymap (layer_state_t state);
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+    int normal_mode;
+#endif // RGBLIGHT_ENABLE
+    int state;
+} tap;
