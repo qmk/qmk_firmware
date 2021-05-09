@@ -53,7 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB Lights */
 #define RGB_DI_PIN D0
 #define RGBLED_NUM 4
-#define RGBLIGHT_ANIMATIONS 1
+#define RGBLIGHT_ANIMATIONS true
+#define RGBLIGHT_SLEEP true
 
 /* disable debug print */
 //#define NO_DEBUG
