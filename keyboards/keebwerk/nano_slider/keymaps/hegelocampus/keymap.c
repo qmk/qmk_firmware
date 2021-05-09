@@ -26,36 +26,35 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
+    UR_GAY = SAFE_RANGE,
     QMKURL
 };
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT(\
-        TO(_FN),                              \
-        KC_1,       KC_2,       KC_3,         \
-        C(S(KC_N)), C(S(KC_E)), KC_0, C(KC_S) \
+    [_BASE] = LAYOUT(
+        TO(_FN),
+        C(KC_T),    KC_LBRC,    KC_RBRC,
+        C(S(KC_N)), C(S(KC_E)), C(KC_J), C(KC_S)
     ),
     [_FN] = LAYOUT(
         TO(_MEDIA),
         RGB_TOG, RGB_MOD,  RGB_VAI,
-        QMKURL,  RGB_RMOD, RGB_VAD, QMKBEST
+        QMKURL,  RGB_RMOD, RGB_VAD, UR_GAY
     ),
     [_MEDIA] = LAYOUT(
         TO(_BASE),
         KC_VOLD, KC_VOLU, KC_F24,
-        KC_MRWD, KC_MFFD, KC_F23, KC_MPLY
+        KC_MRWD, KC_MFFD, KC_F23, RESET
     )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QMKBEST:
+        case UR_GAY:
             if (record->event.pressed) {
                 // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
+                SEND_STRING("You're super gay and I love you a lot!!!");
             } else {
                 // when keycode QMKBEST is released
             }
@@ -85,3 +84,52 @@ void slider(void) {
 void matrix_scan_user(void) {
     slider();
 }
+
+// Light LEDs in cyan when base layer is active
+const rgblight_segment_t PROGMEM _base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 4, HSV_PURPLE}
+);
+
+// Light LEDs 6 to 9 and 12 to 15 red when in media layer. Hard to ignore!
+const rgblight_segment_t PROGMEM _media_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 4, HSV_RED}
+);
+
+// Light LEDs 11 & 12 in purple when keyboard layer 2 is active
+const rgblight_segment_t PROGMEM _fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_PURPLE}
+);
+
+const rgblight_segment_t* const PROGMEM _rgb_layers[] =
+    RGBLIGHT_LAYERS_LIST(_base_layer, _media_layer, _fn_layer);
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = _rgb_layers;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, _FN));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _MEDIA));
+    return state;
+}
+
+/*
+// Note we user post_process_record_user because we want the state
+// after the flag has been flipped...
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case 0:
+            rgblight_blink_layer(0, 500);
+            break;
+
+        case 1:
+            rgblight_blink_layer(1, 500);
+            break;
+
+        case 2:
+            rgblight_blink_layer(2, 500);
+            break;
+    }
+}
+*/
+
