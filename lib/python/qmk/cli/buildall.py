@@ -2,6 +2,7 @@
 
 This will compile everything in parallel, for testing purposes.
 """
+import re
 from pathlib import Path
 
 from milc import cli
@@ -11,11 +12,11 @@ from qmk.commands import _find_make
 import qmk.keyboard
 
 
-def _make_mcu_filter(mcu):
-    def _mcu_filter(keyboard_name):
+def _make_rules_mk_filter(key, value):
+    def _rules_mk_filter(keyboard_name):
         rules_mk = qmk.keyboard.rules_mk(keyboard_name)
-        return True if 'MCU' in rules_mk and rules_mk['MCU'].lower() == mcu.lower() else False
-    return _mcu_filter
+        return True if key in rules_mk and rules_mk[key].lower() == str(value).lower() else False
+    return _rules_mk_filter
 
 
 def _is_split(keyboard_name):
@@ -25,8 +26,7 @@ def _is_split(keyboard_name):
 
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs to run.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
-@cli.argument('-s', '--split-only', arg_only=True, action='store_true', help="Only builds boards with 'SPLIT_KEYBOARD = yes' specified in their rules.mk.")
-@cli.argument('-m', '--mcu', type=str, default='', help="Only builds boards that match the specified MCU in their rules.mk.")
+@cli.argument('-f', '--filter', arg_only=True, action='append', default=[], help="Filter the list of keyboards based on the supplied value in rules.mk. Supported format is 'SPLIT_KEYBOARD=yes'.")
 @cli.subcommand('Compile QMK Firmware for all keyboards.', hidden=False if cli.config.user.developer else True)
 def buildall(cli):
     """Compile QMK Firmware against all keyboards.
@@ -40,12 +40,14 @@ def buildall(cli):
     makefile = builddir / 'parallel_kb_builds.mk'
 
     keyboard_list = qmk.keyboard.list_keyboards()
-    if bool(cli.args.split_only):
-        keyboard_list = filter(_is_split, keyboard_list)
-    if cli.args.mcu != '':
-        keyboard_list = filter(_make_mcu_filter(cli.args.mcu), keyboard_list)
 
-    keyboard_list = list(keyboard_list)
+    filter_re = re.compile(r'^(?P<key>[A-Z0-9_]+)\s*=\s*(?P<value>[^#]+)$')
+    for filter_txt in cli.args.filter:
+        f = filter_re.match(filter_txt)
+        if f is not None:
+            keyboard_list = filter(_make_rules_mk_filter(f.group('key'), f.group('value')), keyboard_list)
+
+    keyboard_list = list(sorted(keyboard_list))
 
     if len(keyboard_list) == 0:
         return
