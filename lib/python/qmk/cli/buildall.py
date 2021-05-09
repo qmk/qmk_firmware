@@ -11,14 +11,22 @@ from qmk.commands import _find_make
 import qmk.keyboard
 
 
+def _make_mcu_filter(mcu):
+    def _mcu_filter(keyboard_name):
+        rules_mk = qmk.keyboard.rules_mk(keyboard_name)
+        return True if 'MCU' in rules_mk and rules_mk['MCU'].lower() == mcu.lower() else False
+    return _mcu_filter
+
+
 def _is_split(keyboard_name):
     rules_mk = qmk.keyboard.rules_mk(keyboard_name)
-    return True if 'SPLIT_KEYBOARD' in rules_mk and rules_mk['SPLIT_KEYBOARD'] == 'yes' else False
+    return True if 'SPLIT_KEYBOARD' in rules_mk and rules_mk['SPLIT_KEYBOARD'].lower() == 'yes' else False
 
 
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs to run.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.argument('-s', '--split-only', arg_only=True, action='store_true', help="Only builds boards with 'SPLIT_KEYBOARD = yes' specified in their rules.mk.")
+@cli.argument('-m', '--mcu', type=str, default='', help="Only builds boards that match the specified MCU in their rules.mk.")
 @cli.subcommand('Compile QMK Firmware for all keyboards.', hidden=False if cli.config.user.developer else True)
 def buildall(cli):
     """Compile QMK Firmware against all keyboards.
@@ -34,6 +42,8 @@ def buildall(cli):
     keyboard_list = qmk.keyboard.list_keyboards()
     if bool(cli.args.split_only):
         keyboard_list = filter(_is_split, keyboard_list)
+    if cli.args.mcu != '':
+        keyboard_list = filter(_make_mcu_filter(cli.args.mcu), keyboard_list)
 
     builddir.mkdir(parents=True, exist_ok=True)
     with open(makefile, "w") as f:
