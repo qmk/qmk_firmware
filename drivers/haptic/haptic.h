@@ -41,7 +41,7 @@ typedef union {
         uint8_t  dwell : 7;
         bool     cont : 1;
         uint8_t  amplitude : 8;
-        uint16_t reserved : 7;
+        uint8_t reserved : 5;
     };
 } haptic_config_t;
 
