@@ -17,4 +17,3 @@ AUDIO_ENABLE = yes
 MIDI_ENABLE = yes     # MIDI controls
 RGBLIGHT_ENABLE = no
 ENCODER_ENABLE = yes
-# SERIAL_LINK_ENABLE = yes
