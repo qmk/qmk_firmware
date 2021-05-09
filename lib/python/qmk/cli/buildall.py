@@ -45,6 +45,11 @@ def buildall(cli):
     if cli.args.mcu != '':
         keyboard_list = filter(_make_mcu_filter(cli.args.mcu), keyboard_list)
 
+    keyboard_list = list(keyboard_list)
+
+    if len(keyboard_list) == 0:
+        return
+
     builddir.mkdir(parents=True, exist_ok=True)
     with open(makefile, "w") as f:
         for keyboard_name in keyboard_list:
