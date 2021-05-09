@@ -28,7 +28,7 @@ def _is_split(keyboard_name):
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.argument('-f', '--filter', arg_only=True, action='append', default=[], help="Filter the list of keyboards based on the supplied value in rules.mk. Supported format is 'SPLIT_KEYBOARD=yes'. May be passed multiple times.")
 @cli.subcommand('Compile QMK Firmware for all keyboards.', hidden=False if cli.config.user.developer else True)
-def buildall(cli):
+def multibuild(cli):
     """Compile QMK Firmware against all keyboards.
     """
 

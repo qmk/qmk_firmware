@@ -6,7 +6,6 @@ import sys
 
 from milc import cli, __VERSION__
 
-from . import buildall
 from . import c2json
 from . import cformat
 from . import chibios
@@ -25,6 +24,7 @@ from . import json2c
 from . import lint
 from . import list
 from . import kle2json
+from . import multibuild
 from . import new
 from . import pyformat
 from . import pytest
