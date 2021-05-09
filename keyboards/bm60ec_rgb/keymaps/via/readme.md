@@ -1,1 +1,1 @@
-# The VIA default keymap for bm60rgb
+# The VIA default keymap for bm60ec rgb

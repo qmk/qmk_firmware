@@ -26,9 +26,6 @@ enum layers {
   _SERVICE
 };
 
-void encoder_update_user(uint8_t index, bool clockwise);
-void encoder_update_kb(uint8_t index, bool clockwise);
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWERTY] = LAYOUT(
