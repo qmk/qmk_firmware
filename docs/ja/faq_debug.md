@@ -13,7 +13,7 @@
 
 ```c
 void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
+  // 希望する動作に合わせて値をカスタマイズします
   debug_enable=true;
   debug_matrix=true;
   //debug_keyboard=true;
