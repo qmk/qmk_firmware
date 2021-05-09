@@ -6,7 +6,7 @@
 
 #define VENDOR_ID 0x7474 //tt for tempo turtle
 #define PRODUCT_ID 0x6270 //bp for bradpad
-#define DEVICE_VER 0x0000 //this is for rev1.x.x pinouts
+#define DEVICE_VER 0x0001 //this is for rev1.x.x pinouts
 #define MANUFACTURER Tempo Turtle
 #define PRODUCT Tempo Turtle bradpad
 #define DESCRIPTION Tempo Turtle bradpad
