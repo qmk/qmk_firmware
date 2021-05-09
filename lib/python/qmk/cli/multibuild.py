@@ -16,6 +16,7 @@ def _make_rules_mk_filter(key, value):
     def _rules_mk_filter(keyboard_name):
         rules_mk = qmk.keyboard.rules_mk(keyboard_name)
         return True if key in rules_mk and rules_mk[key].lower() == str(value).lower() else False
+
     return _rules_mk_filter
 
 
@@ -69,7 +70,9 @@ all: {keyboard_safe}_binary
 		|| printf "Build %-64s \e[1;32m[OK]\e[0m\\n" "{keyboard_name}:default"
 	@rm -f "{QMK_FIRMWARE}/.build/build.log.{keyboard_safe}" || true
 
-""" # noqa: yapf should not care about the formatting of the Makefile
+"""
+
+                # noqa: yapf should not care about the formatting of the Makefile
             )
 
     cli.run([make_cmd, '-j', str(cli.args.parallel), '-f', makefile, 'all'], capture_output=False, text=False)
