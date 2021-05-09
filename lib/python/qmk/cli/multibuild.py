@@ -69,7 +69,7 @@ all: {keyboard_safe}_binary
 		|| printf "Build %-64s \e[1;32m[OK]\e[0m\\n" "{keyboard_name}:default"
 	@rm -f "{QMK_FIRMWARE}/.build/build.log.{keyboard_safe}" || true
 
-"""
+""" # noqa: yapf should not care about the formatting of the Makefile
             )
 
     cli.run([make_cmd, '-j', str(cli.args.parallel), '-f', makefile, 'all'], capture_output=False, text=False)
