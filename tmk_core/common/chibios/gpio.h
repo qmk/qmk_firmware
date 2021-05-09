@@ -39,12 +39,12 @@ typedef ioline_t pin_t;
 
 typedef uint16_t port_data_t;
 
-#define readPort(qmk_pin) palReadPort(PAL_PORT(qmk_pin))
+#define readPort(pin) palReadPort(PAL_PORT(pin))
 
-#define setPortBitInput(qmk_pin, bit) palSetPadMode(PAL_PORT(qmk_pin), bit, PAL_MODE_INPUT)
-#define setPortBitInputHigh(qmk_pin, bit) palSetPadMode(PAL_PORT(qmk_pin), bit, PAL_MODE_INPUT_PULLUP)
-#define setPortBitInputLow(qmk_pin, bit) palSetPadMode(PAL_PORT(qmk_pin), bit, PAL_MODE_INPUT_PULLDOWN)
-#define setPortBitOutput(qmk_pin, bit) palSetPadMode(PAL_PORT(qmk_pin), bit, PAL_MODE_OUTPUT_PUSHPULL)
+#define setPortBitInput(pin, bit) palSetPadMode(PAL_PORT(pin), bit, PAL_MODE_INPUT)
+#define setPortBitInputHigh(pin, bit) palSetPadMode(PAL_PORT(pin), bit, PAL_MODE_INPUT_PULLUP)
+#define setPortBitInputLow(pin, bit) palSetPadMode(PAL_PORT(pin), bit, PAL_MODE_INPUT_PULLDOWN)
+#define setPortBitOutput(pin, bit) palSetPadMode(PAL_PORT(pin), bit, PAL_MODE_OUTPUT_PUSHPULL)
 
-#define writePortBitLow(qmk_pin, bit) palClearLine(PAL_LINE(PAL_PORT(qmk_pin), bit))
-#define writePortBitHigh(qmk_pin, bit) palSetLine(PAL_LINE(PAL_PORT(qmk_pin), bit))
+#define writePortBitLow(pin, bit) palClearLine(PAL_LINE(PAL_PORT(pin), bit))
+#define writePortBitHigh(pin, bit) palSetLine(PAL_LINE(PAL_PORT(pin), bit))
