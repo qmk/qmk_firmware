@@ -239,6 +239,6 @@ def run(command, *args, **kwargs):
         safecmd = map(str, command)
         safecmd = map(shlex.quote, safecmd)
         safecmd = ' '.join(safecmd)
-        command = [os.environ['SHELL'], '-c', safecmd]
+        command = [os.environ.get('SHELL', '/usr/bin/bash'), '-c', safecmd]
 
     return subprocess.run(command, *args, **kwargs)
