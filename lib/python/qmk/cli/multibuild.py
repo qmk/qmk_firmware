@@ -57,6 +57,7 @@ def multibuild(cli):
     with open(makefile, "w") as f:
         for keyboard_name in keyboard_list:
             keyboard_safe = keyboard_name.replace('/', '_')
+            # yapf: disable
             f.write(
                 f"""\
 all: {keyboard_safe}_binary
@@ -70,9 +71,8 @@ all: {keyboard_safe}_binary
 		|| printf "Build %-64s \e[1;32m[OK]\e[0m\\n" "{keyboard_name}:default"
 	@rm -f "{QMK_FIRMWARE}/.build/build.log.{keyboard_safe}" || true
 
-"""
-
-                # noqa: yapf should not care about the formatting of the Makefile
+"""# noqa
             )
+            # yapf: enable
 
     cli.run([make_cmd, '-j', str(cli.args.parallel), '-f', makefile, 'all'], capture_output=False, text=False)
