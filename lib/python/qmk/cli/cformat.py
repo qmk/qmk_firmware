@@ -10,7 +10,7 @@ from qmk.path import normpath
 from qmk.c_parse import c_source_files
 
 
-def cformat_run(files, all_files):
+def cformat_run(files):
     """Spawn clang-format subprocess with proper arguments
     """
     # Determine which version of clang-format to use
@@ -63,4 +63,4 @@ def cformat(cli):
         files.extend(file for file in filtered_files if file.exists() and file.suffix in ['.c', '.h', '.cpp'])
 
     # Run clang-format on the files we've found
-    cformat_run(files, cli.args.all_files)
+    return cformat_run(files)
