@@ -18,3 +18,24 @@
 void matrix_init_kb(void) { matrix_init_user(); }
 
 void matrix_scan_kb(void) { matrix_scan_user(); }
+
+// Custom i2c init to enable internal pull up resistor for i2c.
+void i2c_init(void) {
+    static bool is_initialised = false;
+    if (!is_initialised) {
+        is_initialised = true;
+
+        // Try releasing special pins for a short time
+        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
+        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
+
+        chThdSleepMilliseconds(10);
+#if defined(USE_GPIOV1)
+        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, I2C1_SCL_PAL_MODE);
+        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, I2C1_SDA_PAL_MODE);
+#else
+        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
+        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
+#endif
+    }
+}

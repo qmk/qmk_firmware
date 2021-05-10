@@ -69,10 +69,6 @@
 #define I2C1_SDA_BANK GPIOB
 #define I2C1_SDA 7
 #define I2C1_SDA_PAL_MODE 4
-/* Use fast mode. For more details, see:
-https://www.playembedded.org/blog/stm32-i2c-chibios/#7_I2Cv1_configuration_structure */
-#define I2C1_CLOCK_SPEED 400000
-#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
