@@ -118,15 +118,20 @@ if _broken_module_imports('requirements.txt'):
         print()
         exit(1)
 
-if cli.config.user.developer and _broken_module_imports('requirements-dev.txt'):
-    if yesno('Would you like to install the required developer Python modules?'):
-        _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt')
-    else:
-        print()
-        print(msg_install % (str(Path('requirements-dev.txt').resolve()),))
-        print('You can also turn off developer mode: qmk config user.developer=None')
-        print()
-        exit(1)
+if cli.config.user.developer:
+    args = sys.argv[1:]
+    while args and args[0][0] == '-':
+        del args[0]
+    if not args or args[0] != 'config':
+        if _broken_module_imports('requirements-dev.txt'):
+            if yesno('Would you like to install the required developer Python modules?'):
+                _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements-dev.txt')
+            else:
+                print()
+                print(msg_install % (str(Path('requirements-dev.txt').resolve()),))
+                print('You can also turn off developer mode: qmk config user.developer=None')
+                print()
+                exit(1)
 
 # Import our subcommands
 from . import c2json  # noqa
