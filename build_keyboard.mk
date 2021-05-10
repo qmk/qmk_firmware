@@ -332,6 +332,9 @@ KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
 endif
+ifneq ("$(KEYMAP_H)","")
+    CONFIG_H += $(KEYMAP_H)
+endif
 
 # project specific files
 SRC += $(KEYBOARD_SRC) \
