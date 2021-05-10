@@ -45,27 +45,15 @@ void matrix_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        #ifdef SPLIT_LED_STATE_ENABLE
-            if (is_keyboard_left()) {
-                UPDATE_NUM_LOCK_LED(led_state.num_lock);
-                UPDATE_CAPS_LOCK_LED(led_state.caps_lock);
-                UPDATE_SCROLL_LOCK_LED(led_state.scroll_lock);
-            } else {
-                UPDATE_SCROLL_LOCK_LED(led_state.compose);
-                UPDATE_CAPS_LOCK_LED(led_state.kana);
-                UPDATE_NUM_LOCK_LED(0);
-            }
-        #else
-            if (is_keyboard_master()) {
-                UPDATE_NUM_LOCK_LED(led_state.num_lock);
-                UPDATE_CAPS_LOCK_LED(led_state.caps_lock);
-                UPDATE_SCROLL_LOCK_LED(led_state.scroll_lock);
-            } else {
-                UPDATE_NUM_LOCK_LED(0);
-                UPDATE_CAPS_LOCK_LED(0);
-                UPDATE_SCROLL_LOCK_LED(0);
-            }
-        #endif
+        if (is_keyboard_master()) {
+            UPDATE_NUM_LOCK_LED(led_state.num_lock);
+            UPDATE_CAPS_LOCK_LED(led_state.caps_lock);
+            UPDATE_SCROLL_LOCK_LED(led_state.scroll_lock);
+        } else {
+            UPDATE_NUM_LOCK_LED(0);
+            UPDATE_CAPS_LOCK_LED(0);
+            UPDATE_SCROLL_LOCK_LED(0);
+        }
     }
     return res;
 }

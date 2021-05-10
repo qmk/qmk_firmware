@@ -93,7 +93,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define PHYSICAL_LEDS_ENABLE
-// #define SPLIT_LED_STATE_ENABLE
 
 #define NUM_LOCK_LED_PIN D7
 #define CAPS_LOCK_LED_PIN B5
