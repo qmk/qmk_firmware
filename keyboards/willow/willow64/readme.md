@@ -10,7 +10,7 @@ This is a 64 keys custom keyboard with a willow layout.
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb willow/willow64 -km default
+    make willow/willow64:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
