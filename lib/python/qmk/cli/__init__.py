@@ -4,7 +4,7 @@ We list each subcommand here explicitly because all the reliable ways of searchi
 """
 import sys
 
-from milc import cli
+from milc import cli, __VERSION__
 
 from . import c2json
 from . import cformat
@@ -16,6 +16,7 @@ from . import docs
 from . import doctor
 from . import fileformat
 from . import flash
+from . import format
 from . import generate
 from . import hello
 from . import info
@@ -23,6 +24,7 @@ from . import json2c
 from . import lint
 from . import list
 from . import kle2json
+from . import multibuild
 from . import new
 from . import pyformat
 from . import pytest
@@ -46,5 +48,15 @@ from . import pytest
 # void: 3.9
 
 if sys.version_info[0] != 3 or sys.version_info[1] < 7:
-    cli.log.error('Your Python is too old! Please upgrade to Python 3.7 or later.')
+    print('Error: Your Python is too old! Please upgrade to Python 3.7 or later.')
+    exit(127)
+
+milc_version = __VERSION__.split('.')
+
+if int(milc_version[0]) < 2 and int(milc_version[1]) < 3:
+    from pathlib import Path
+
+    requirements = Path('requirements.txt').resolve()
+
+    print(f'Your MILC library is too old! Please upgrade: python3 -m pip install -U -r {str(requirements)}')
     exit(127)
