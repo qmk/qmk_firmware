@@ -768,7 +768,7 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
 
     static report_extra_t r;
-    r = (report_extra_t) {.report_id = report_id, .usage = data};
+    r = (report_extra_t){.report_id = report_id, .usage = data};
     Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
