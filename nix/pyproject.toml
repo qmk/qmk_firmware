@@ -23,7 +23,6 @@ nose2 = "^0.10.0"
 flake8 = "^3.8.4"
 pep8-naming = "^0.11.1"
 yapf = "^0.30.0"
-Wave = "^0.0.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

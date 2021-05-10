@@ -210,14 +210,6 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
-name = "wave"
-version = "0.0.2"
-description = "Whole Architecture Verification"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "yapf"
 version = "0.30.0"
 description = "A formatter for Python code."
@@ -228,7 +220,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "a0a964993829a7d61577278b96432145084833de06275e0cd4688e2d8cd340a7"
+content-hash = "d2f4ca3786330f60ee0964457e35e683f5babec8ce6fd61fcaf648a128fd805b"
 
 [metadata.files]
 appdirs = [
@@ -358,10 +350,6 @@ setuptools-scm = [
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
     {file = "six-1.15.0.tar.gz", hash = "sha256:30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259"},
-]
-wave = [
-    {file = "Wave-0.0.2.tar.gz", hash = "sha256:5a895bb85e04e38c82dba90d66a5ae8f488b50c58f3fc4df868a5bcdcabb8632"},
-    {file = "Wave-0.0.2.zip", hash = "sha256:5187f49497287d218cc83d4cd1e5299dc31485ab3ed32abbaa9e95d8f73c4095"},
 ]
 yapf = [
     {file = "yapf-0.30.0-py2.py3-none-any.whl", hash = "sha256:3abf61ba67cf603069710d30acbc88cfe565d907e16ad81429ae90ce9651e0c9"},
