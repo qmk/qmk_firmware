@@ -126,6 +126,8 @@ if cli.config.user.developer:
         if _broken_module_imports('requirements-dev.txt'):
             if yesno('Would you like to install the required developer Python modules?'):
                 _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements-dev.txt')
+            elif yesno('Would you like to disable developer mode?'):
+                _run_cmd(sys.argv[0], 'config', 'user.developer=None')
             else:
                 print()
                 print(msg_install % (str(Path('requirements-dev.txt').resolve()),))
