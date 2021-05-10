@@ -2,7 +2,7 @@
 # It is particularly required by the Nix environment (see shell.nix). To update versions,
 # normally one would run "poetry update --lock"
 [tool.poetry]
-name = "qmk"
+name = "qmk_firmware"
 version = "0.1.0"
 description = ""
 authors = []
