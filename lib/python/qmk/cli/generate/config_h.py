@@ -9,7 +9,7 @@ from qmk.info import info_json
 from qmk.json_schema import json_load
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import locate_keymap
-from qmk.path import is_keyboard, normpath
+from qmk.path import normpath
 
 
 def direct_pins(direct_pins):
@@ -85,7 +85,7 @@ def generate_config_h(cli):
     kb_info_json = dotty(info_json(cli.args.keyboard))
     if cli.args.keymap:
         km = locate_keymap(cli.args.keyboard, cli.args.keymap)
-        kb_info_json=dotty(json_load(km))
+        kb_info_json = dotty(json_load(km))
 
     info_config_map = json_load(Path('data/mappings/info_config.json'))
 
