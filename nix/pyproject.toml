@@ -17,6 +17,7 @@ hjson = "^3.0.2"
 jsonschema = "^3.2.0"
 milc = "^1.3.0"
 Pygments = "^2.8.0"
+qmk = "^0.0.46"
 
 [tool.poetry.dev-dependencies]
 nose2 = "^0.10.0"
