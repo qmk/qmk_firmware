@@ -26,39 +26,39 @@ enum custom_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY]=LAYOUT(   //QWERTY
-	KC_ESC	,	KC_1	,	KC_2	,	KC_3	,	KC_4	,	KC_5	,					KC_6	,	KC_7	,	KC_8	,	KC_9	,	KC_0	,	KC_MINS	,	KC_EQL	,	KC_GRV	,	KC_BSLS	,	\
-	KC_TAB	,	KC_Q	,	KC_W	,	KC_E	,	KC_R	,	KC_T	,					KC_Y	,	KC_U	,	KC_I	,	KC_O	,	KC_P	,	KC_LBRC	,	KC_RBRC	,			KC_BSPC	,	\
-	KC_LCTL	,	KC_A	,	KC_S	,	KC_D	,	KC_F	,	KC_G	,					KC_H	,	KC_J	,	KC_K	,	KC_L	,	KC_SCLN	,	KC_QUOT	,					KC_ENT	,	\
-	KC_LSFT	,	KC_Z	,	KC_X	,	KC_C	,	KC_V	,	KC_B	,	KC_DEL	,	KC_LGUI	,	KC_N	,	KC_M	,	KC_COMM	,	KC_DOT	,	KC_SLSH	,							KC_RSFT	,	\
-							LT(_FN1,KC_LEFT)	,	ALT_T(KC_RIGHT)	,	LT(_FN1, KC_SPC)	,	CTL_T(KC_F13)	,	LSFT_T(KC_ENT)	,	LT(_FN2, KC_BSPC)	,	ALT_T(KC_DOWN)	,	LT(_FN3, KC_UP)														\
+	KC_ESC	,	KC_1	,	KC_2	,	KC_3	,	KC_4	,	KC_5	,					KC_6	,	KC_7	,	KC_8	,	KC_9	,	KC_0	,	KC_MINS	,	KC_EQL	,	KC_GRV	,	KC_BSLS	,
+	KC_TAB	,	KC_Q	,	KC_W	,	KC_E	,	KC_R	,	KC_T	,					KC_Y	,	KC_U	,	KC_I	,	KC_O	,	KC_P	,	KC_LBRC	,	KC_RBRC	,			KC_BSPC	,
+	KC_LCTL	,	KC_A	,	KC_S	,	KC_D	,	KC_F	,	KC_G	,					KC_H	,	KC_J	,	KC_K	,	KC_L	,	KC_SCLN	,	KC_QUOT	,					KC_ENT	,
+	KC_LSFT	,	KC_Z	,	KC_X	,	KC_C	,	KC_V	,	KC_B	,	KC_DEL	,	KC_LGUI	,	KC_N	,	KC_M	,	KC_COMM	,	KC_DOT	,	KC_SLSH	,							KC_RSFT	,
+							LT(_FN1,KC_LEFT)	,	ALT_T(KC_RIGHT)	,	LT(_FN1, KC_SPC)	,	CTL_T(KC_F13)	,	LSFT_T(KC_ENT)	,	LT(_FN2, KC_BSPC)	,	ALT_T(KC_DOWN)	,	LT(_FN3, KC_UP)
 ),
 [_GAME]=LAYOUT(    // GAME MODE
-	KC_ESC	,	KC_1	,	KC_2	,	KC_3	,	KC_4	,	KC_5	,					KC_6	,	KC_7	,	KC_8	,	KC_9	,	KC_0	,	KC_MINS	,	KC_EQL	,	KC_GRV	,	KC_BSLS	,	\
-	KC_TAB	,	KC_Q	,	KC_W	,	KC_E	,	KC_R	,	KC_T	,					KC_Y	,	KC_U	,	KC_I	,	KC_O	,	KC_P	,	KC_LBRC	,	KC_RBRC	,			KC_BSPC	,	\
-	KC_LCTL	,	KC_A	,	KC_S	,	KC_D	,	KC_F	,	KC_G	,					KC_H	,	KC_J	,	KC_K	,	KC_L	,	KC_SCLN	,	KC_QUOT	,					KC_ENT	,	\
-	KC_LSFT	,	KC_Z	,	KC_X	,	KC_C	,	KC_V	,	KC_B	,	KC_DEL	,	KC_LGUI	,	KC_N	,	KC_M	,	KC_COMM	,	KC_DOT	,	KC_SLSH	,							KC_RSFT	,	\
-							LT(_FN1,KC_LEFT)	,	ALT_T(KC_RIGHT)	,	KC_SPC	,	KC_LCTL	,	KC_ENT	,	LT(_FN2, KC_BSPC)	,	ALT_T(KC_DOWN)	,	LT(_FN3, KC_UP)														\
+	KC_ESC	,	KC_1	,	KC_2	,	KC_3	,	KC_4	,	KC_5	,					KC_6	,	KC_7	,	KC_8	,	KC_9	,	KC_0	,	KC_MINS	,	KC_EQL	,	KC_GRV	,	KC_BSLS	,
+	KC_TAB	,	KC_Q	,	KC_W	,	KC_E	,	KC_R	,	KC_T	,					KC_Y	,	KC_U	,	KC_I	,	KC_O	,	KC_P	,	KC_LBRC	,	KC_RBRC	,			KC_BSPC	,
+	KC_LCTL	,	KC_A	,	KC_S	,	KC_D	,	KC_F	,	KC_G	,					KC_H	,	KC_J	,	KC_K	,	KC_L	,	KC_SCLN	,	KC_QUOT	,					KC_ENT	,
+	KC_LSFT	,	KC_Z	,	KC_X	,	KC_C	,	KC_V	,	KC_B	,	KC_DEL	,	KC_LGUI	,	KC_N	,	KC_M	,	KC_COMM	,	KC_DOT	,	KC_SLSH	,							KC_RSFT	,
+							LT(_FN1,KC_LEFT)	,	ALT_T(KC_RIGHT)	,	KC_SPC	,	KC_LCTL	,	KC_ENT	,	LT(_FN2, KC_BSPC)	,	ALT_T(KC_DOWN)	,	LT(_FN3, KC_UP)
 ),
 [_FN1]=LAYOUT(    // FN1 (Num pad)
-	_______	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,					KC_KP_SLASH	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	KC_MINS	,	KC_EQL	,	XXXXXXX	,	TG(_FN1)	,	\
-	_______	,	KC_PGDN	,	KC_UP	,	KC_PGUP	,	XXXXXXX	,	XXXXXXX	,					KC_KP_ASTERISK	,	KC_P7	,	KC_P8	,	KC_P9	,	XXXXXXX	,	KC_LPRN	,	KC_RPRN	,			_______	,	\
-	_______	,	KC_LEFT	,	KC_DOWN	,	KC_RIGHT	,	XXXXXXX	,	XXXXXXX	,					KC_KP_MINUS	,	KC_P4	,	KC_P5	,	KC_P6	,	KC_COMM	,	KC_QUOT	,					KC_KP_ENTER	,	\
-	_______	,	KC_HOME	,	KC_DOWN	,	KC_END	,	C(LWIN(KC_LEFT))	,	C(LWIN(KC_RIGHT))	,	_______	,	KC_NLCK	,	KC_KP_PLUS	,	KC_P1	,	KC_P2	,	KC_P3	,	KC_KP_DOT	,							_______	,	\
-							TO(_QWERTY)	,	_______	,	_______	,	_______	,	_______	,	_______	,	KC_P0	,	_______														\
+	_______	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,					KC_KP_SLASH	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	KC_MINS	,	KC_EQL	,	XXXXXXX	,	TG(_FN1)	,
+	_______	,	KC_PGDN	,	KC_UP	,	KC_PGUP	,	XXXXXXX	,	XXXXXXX	,					KC_KP_ASTERISK	,	KC_P7	,	KC_P8	,	KC_P9	,	XXXXXXX	,	KC_LPRN	,	KC_RPRN	,			_______	,
+	_______	,	KC_LEFT	,	KC_DOWN	,	KC_RIGHT	,	XXXXXXX	,	XXXXXXX	,					KC_KP_MINUS	,	KC_P4	,	KC_P5	,	KC_P6	,	KC_COMM	,	KC_QUOT	,					KC_KP_ENTER	,
+	_______	,	KC_HOME	,	KC_DOWN	,	KC_END	,	C(LWIN(KC_LEFT))	,	C(LWIN(KC_RIGHT))	,	_______	,	KC_NLCK	,	KC_KP_PLUS	,	KC_P1	,	KC_P2	,	KC_P3	,	KC_KP_DOT	,							_______	,
+							TO(_QWERTY)	,	_______	,	_______	,	_______	,	_______	,	_______	,	KC_P0	,	_______
 ),
 [_FN2]=LAYOUT(    //FN2 (additional keys)
-	_______	,	KC_F1	,	KC_F2	,	KC_F3	,	KC_F4	,	KC_F5	,					KC_F6	,	KC_F7	,	KC_F8	,	KC_F9	,	KC_F10	,	KC_F11	,	KC_F12	,	KC_INS	,	A(KC_PSCR)	,	\
-	_______	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,					XXXXXXX	,	KC_PGDN	,	KC_UP	,	KC_PGUP	,	XXXXXXX	,	C(LWIN(KC_LEFT))	,	C(LWIN(KC_RIGHT))	,			KC_PSCR	,	\
-	KC_CAPS	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,					XXXXXXX	,	KC_LEFT	,	KC_DOWN	,	KC_RIGHT	,	XXXXXXX	,	XXXXXXX	,					_______	,	\
-	_______	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	_______	,	XXXXXXX	,	XXXXXXX	,	KC_HOME	,	KC_DOWN	,	KC_END	,	XXXXXXX	,							_______	,	\
-							TO(_FN1)	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______														\
+	_______	,	KC_F1	,	KC_F2	,	KC_F3	,	KC_F4	,	KC_F5	,					KC_F6	,	KC_F7	,	KC_F8	,	KC_F9	,	KC_F10	,	KC_F11	,	KC_F12	,	KC_INS	,	A(KC_PSCR)	,
+	_______	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,					XXXXXXX	,	KC_PGDN	,	KC_UP	,	KC_PGUP	,	XXXXXXX	,	C(LWIN(KC_LEFT))	,	C(LWIN(KC_RIGHT))	,			KC_PSCR	,
+	KC_CAPS	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,					XXXXXXX	,	KC_LEFT	,	KC_DOWN	,	KC_RIGHT	,	XXXXXXX	,	XXXXXXX	,					_______	,
+	_______	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	_______	,	XXXXXXX	,	XXXXXXX	,	KC_HOME	,	KC_DOWN	,	KC_END	,	XXXXXXX	,							_______	,
+							TO(_FN1)	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______
 ),
 [_FN3]=LAYOUT(  //FN3 (System utilz)
-	RESET	,	RGB_TOG	,	RGB_MOD	,	RGB_RMOD	,	XXXXXXX	,	XXXXXXX	,					XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	\
-	EEP_RST	,	XXXXXXX	,	RGB_VAD	,	RGB_VAI	,	KC_ASON	,	KC_ASOFF	,					XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,			XXXXXXX	,	\
-	XXXXXXX	,	XXXXXXX	,	RGB_SAD	,	RGB_SAI	,	KC_ASUP	,	KC_ASDN	,					XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,					XXXXXXX	,	\
-	XXXXXXX	,	XXXXXXX	,	RGB_HUD	,	RGB_HUI	,	KC_ASRP	,	XXXXXXX	,	DF(_QWERTY)	,	DF(_GAME)	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,							XXXXXXX	,	\
-							_______	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______														\
+	RESET	,	RGB_TOG	,	RGB_MOD	,	RGB_RMOD	,	XXXXXXX	,	XXXXXXX	,					XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,
+	EEP_RST	,	XXXXXXX	,	RGB_VAD	,	RGB_VAI	,	KC_ASON	,	KC_ASOFF	,					XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,			XXXXXXX	,
+	XXXXXXX	,	XXXXXXX	,	RGB_SAD	,	RGB_SAI	,	KC_ASUP	,	KC_ASDN	,					XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,					XXXXXXX	,
+	XXXXXXX	,	XXXXXXX	,	RGB_HUD	,	RGB_HUI	,	KC_ASRP	,	XXXXXXX	,	DF(_QWERTY)	,	DF(_GAME)	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,	XXXXXXX	,							XXXXXXX	,
+							_______	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______
 )
 
 };
