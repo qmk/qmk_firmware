@@ -12,6 +12,7 @@ from subprocess import run
 from milc import cli, __VERSION__
 from milc.questions import yesno
 
+
 def _run_cmd(*command):
     """Run a command in a subshell.
     """
