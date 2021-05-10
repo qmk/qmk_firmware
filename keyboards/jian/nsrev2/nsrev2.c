@@ -35,8 +35,6 @@ void suspend_wakeup_init_kb(void) {
 void matrix_init_kb(void) {
     INIT_NUM_LOCK_PIN();
     INIT_CAPS_LOCK_PIN();
-    UPDATE_NUM_LOCK_LED(0);
-    UPDATE_CAPS_LOCK_LED(0);
     matrix_init_user();
 };
 

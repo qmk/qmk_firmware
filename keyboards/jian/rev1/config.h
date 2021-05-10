@@ -63,41 +63,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // This will make it light up only when lock is off
 // (Doesn't work on mac. There is no num lock, so it will be always off and lit)
 
-
 #if defined(NUM_LOCK_LED_PIN) && defined(PHYSICAL_LEDS_ENABLE)
-    #define INIT_NUM_LOCK_PIN() setPinOutput(NUM_LOCK_LED_PIN)
-    #if defined(NUM_NMOSFET) != defined(NUM_INVERT)
-        #define UPDATE_NUM_LOCK_LED(led_state) writePin(NUM_LOCK_LED_PIN, led_state)
-    #else
-        #define UPDATE_NUM_LOCK_LED(led_state) writePin(NUM_LOCK_LED_PIN, !led_state)
-    #endif
+  #if defined(NUM_NMOSFET) != defined(NUM_INVERT)
+      #define UPDATE_NUM_LOCK_LED(led_state) writePin(NUM_LOCK_LED_PIN, led_state)
+  #else
+      #define UPDATE_NUM_LOCK_LED(led_state) writePin(NUM_LOCK_LED_PIN, !led_state)
+  #endif
+  #ifdef NUM_NMOSFET
+      #define INIT_NUM_LOCK_PIN() setPinOutput(NUM_LOCK_LED_PIN); writePinLow(NUM_LOCK_LED_PIN)
+  #else
+      #define INIT_NUM_LOCK_PIN() setPinOutput(NUM_LOCK_LED_PIN); writePinHigh(NUM_LOCK_LED_PIN)
+  #endif
 #else
-    #define INIT_NUM_LOCK_PIN()
     #define UPDATE_NUM_LOCK_LED(led_state)
+    #define INIT_NUM_LOCK_PIN()
 #endif
 
 #if defined(CAPS_LOCK_LED_PIN) && defined(PHYSICAL_LEDS_ENABLE)
-    #define INIT_CAPS_LOCK_PIN() setPinOutput(CAPS_LOCK_LED_PIN)
     #ifdef CAPS_NMOSFET
         #define UPDATE_CAPS_LOCK_LED(led_state) writePin(CAPS_LOCK_LED_PIN, led_state)
     #else
         #define UPDATE_CAPS_LOCK_LED(led_state) writePin(CAPS_LOCK_LED_PIN, !led_state)
     #endif
+    #define INIT_CAPS_LOCK_PIN() setPinOutput(CAPS_LOCK_LED_PIN); UPDATE_CAPS_LOCK_LED(0)
 #else
-    #define INIT_CAPS_LOCK_PIN()
     #define UPDATE_CAPS_LOCK_LED(led_state)
+    #define INIT_CAPS_LOCK_PIN()
 #endif
 
 #if defined(SCROLL_LOCK_LED_PIN) && defined(PHYSICAL_LEDS_ENABLE)
-    #define INIT_SCROLL_LOCK_PIN() setPinOutput(SCROLL_LOCK_LED_PIN)
     #ifdef SCROLL_NMOSFET
         #define UPDATE_SCROLL_LOCK_LED(led_state) writePin(SCROLL_LOCK_LED_PIN, led_state)
     #else
         #define UPDATE_SCROLL_LOCK_LED(led_state) writePin(SCROLL_LOCK_LED_PIN, !led_state)
     #endif
+    #define INIT_SCROLL_LOCK_PIN() setPinOutput(SCROLL_LOCK_LED_PIN); UPDATE_SCROLL_LOCK_LED(0)
 #else
-    #define INIT_SCROLL_LOCK_PIN()
     #define UPDATE_SCROLL_LOCK_LED(led_state)
+    #define INIT_SCROLL_LOCK_PIN()
 #endif
 
 /* Set 0 if debouncing isn't needed */

@@ -36,14 +36,12 @@ void matrix_init_kb(void) {
     INIT_NUM_LOCK_PIN();
     INIT_CAPS_LOCK_PIN();
     INIT_SCROLL_LOCK_PIN();
-    UPDATE_NUM_LOCK_LED(0);
-    UPDATE_CAPS_LOCK_LED(0);
-    UPDATE_SCROLL_LOCK_LED(0);
     matrix_init_user();
 };
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
+
     if(res) {
         if (is_keyboard_master()) {
             UPDATE_NUM_LOCK_LED(led_state.num_lock);
