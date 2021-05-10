@@ -10,6 +10,30 @@ let
   # files if the requirements*.txt files change
   pythonEnv = pkgs.poetry2nix.mkPoetryEnv {
     projectDir = ./nix;
+    overrides = pkgs.poetry2nix.overrides.withDefaults (self: super: {
+      hid = super.hid.overridePythonAttrs (old: {
+        postPatch =
+          ''
+            found=
+            for name in libhidapi-hidraw libhidapi-libusb libhidapi-iohidmanager libhidapi; do
+              full_path=${pkgs.hidapi.out}/lib/$name${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}
+              if test -f $full_path; then
+                found=t
+                sed -i -e "s|'$name\..*'|'$full_path'|" hid/__init__.py
+              fi
+            done
+            test -n "$found" || { echo "ERROR: No known libraries found in ${pkgs.hidapi.out}/lib, please update/fix this build expression."; exit 1; }
+          '';
+      });
+      pyusb = super.pyusb.overridePythonAttrs (old: {
+        postPatch =
+          ''
+            libusb=${pkgs.libusb1.out}/lib/libusb-1.0${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}
+            test -f $libusb || { echo "ERROR: $libusb doesn't exist, please update/fix this build expression."; exit 1; }
+            sed -i -e "s|find_library=None|find_library=lambda _:\"$libusb\"|" usb/backend/libusb1.py
+          '';
+      });
+    });
   };
 in
 

@@ -86,6 +86,14 @@ python-versions = "*"
 flake8 = "*"
 
 [[package]]
+name = "hid"
+version = "1.0.4"
+description = "ctypes bindings for hidapi"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "hjson"
 version = "3.0.2"
 description = "Hjson, a user interface for JSON."
@@ -191,6 +199,14 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "pyusb"
+version = "1.1.1"
+description = "Python USB access module"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "setuptools-scm"
 version = "6.0.1"
 description = "the blessed package to manage your versions by scm tags"
@@ -220,7 +236,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d2f4ca3786330f60ee0964457e35e683f5babec8ce6fd61fcaf648a128fd805b"
+content-hash = "a25336474bfc7ca01f208b95d529c1e5d8c82c732e1609ace4931006869ad3e8"
 
 [metadata.files]
 appdirs = [
@@ -304,6 +320,10 @@ flake8-polyfill = [
     {file = "flake8-polyfill-1.0.2.tar.gz", hash = "sha256:e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda"},
     {file = "flake8_polyfill-1.0.2-py2.py3-none-any.whl", hash = "sha256:12be6a34ee3ab795b19ca73505e7b55826d5f6ad7230d31b18e106400169b9e9"},
 ]
+hid = [
+    {file = "hid-1.0.4-py2-none-any.whl", hash = "sha256:fba9913f07030b01059b822b24c83b370ca3f444e9e6443bd662f9f1aa3f0780"},
+    {file = "hid-1.0.4.tar.gz", hash = "sha256:f61b0382f37a334bc8ba8604bc84b94875ee4f594fbbaf82b2c3b3e827883fc1"},
+]
 hjson = [
     {file = "hjson-3.0.2-py3-none-any.whl", hash = "sha256:5546438bf4e1b52bc964c6a47c4ed10fa5fba8a1b264e22efa893e333baad2db"},
     {file = "hjson-3.0.2.tar.gz", hash = "sha256:2838fd7200e5839ea4516ece953f3a19892c41089f0d933ba3f68e596aacfcd5"},
@@ -342,6 +362,10 @@ pygments = [
 ]
 pyrsistent = [
     {file = "pyrsistent-0.17.3.tar.gz", hash = "sha256:2e636185d9eb976a18a8a8e96efce62f2905fea90041958d8cc2a189756ebf3e"},
+]
+pyusb = [
+    {file = "pyusb-1.1.1-py3-none-any.whl", hash = "sha256:f18eb813d3a1439918071234589162c2f209a19adbeffeb1377ce078a4aebc70"},
+    {file = "pyusb-1.1.1.tar.gz", hash = "sha256:7d449ad916ce58aff60b89aae0b65ac130f289c24d6a5b7b317742eccffafc38"},
 ]
 setuptools-scm = [
     {file = "setuptools_scm-6.0.1-py3-none-any.whl", hash = "sha256:c3bd5f701c8def44a5c0bfe8d407bef3f80342217ef3492b951f3777bd2d915c"},

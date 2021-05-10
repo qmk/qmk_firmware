@@ -21,7 +21,9 @@ Pygments = "^2.8.0"
 [tool.poetry.dev-dependencies]
 nose2 = "^0.10.0"
 flake8 = "^3.8.4"
+hid = "^1.0.4"
 pep8-naming = "^0.11.1"
+pyusb = "^1.1.1"
 yapf = "^0.30.0"
 
 [build-system]
