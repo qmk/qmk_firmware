@@ -62,8 +62,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //  underglow
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLED_NUM 31  // underglow number of LEDs
-#    define RGBLIGHT_SPLIT
-#    define RGB_SPLIT { 42, 62 }
 #    define RGBLIGHT_LIMIT_VAL 210
 #    define RGBLIGHT_HUE_STEP 10
 #    define RGBLIGHT_SAT_STEP 17
@@ -74,6 +72,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // per-key rgb
 #ifdef RGB_MATRIX_ENABLE
 #   define RGBLED_NUM 104   // all leds
+#   define RGBLIGHT_SPLIT
+#   define RGBLED_SPLIT { 42, 62 }
 #   define DRIVER_LED_TOTAL RGBLED_NUM
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
