@@ -2,9 +2,9 @@
 
 A compact 44% keyboard.
 
-Keyboard Maintainer: QMK Community  
-Hardware Supported: JetVan PCB  
-Hardware Availability: TBA
+* Keyboard Maintainer: QMK Community
+* Hardware Supported: JetVan PCB
+* Hardware Availability: TBA
 
 Make example for this keyboard (after setting up your build environment):
 
