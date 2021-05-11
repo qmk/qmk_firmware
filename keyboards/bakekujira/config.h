@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_MODS_ENABLE
+#define SPLIT_USB_DETECT
 
 #undef USE_I2C
 #undef SSD1306OLED
