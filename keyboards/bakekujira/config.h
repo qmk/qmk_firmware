@@ -54,6 +54,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/bakekujira/lib/glcdfont.c"
 #endif
 
+/* RGB MATRIX stuff */
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_DISABLE_WHEN_USB_SUSPENDED false
+#define RGBLIGHT_ANIMATIONS // enables all animation modes
+
 //  underglow
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLED_NUM 31  // underglow number of LEDs
@@ -71,37 +76,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGBLED_NUM 104   // all leds
 #   define DRIVER_LED_TOTAL RGBLED_NUM
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 #   define RGB_MATRIX_HUE_STEP 8
 #   define RGB_MATRIX_SAT_STEP 8
 #   define RGB_MATRIX_VAL_STEP 8
 #   define RGB_MATRIX_SPD_STEP 10
+#   define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #endif
 
 /* ws2812 RGB LED */
 /* All things RGB */
 #define RGB_DI_PIN A3
-#define RGBLIGHT_ANIMATIONS // enables all animation modes
-
-/* RGB MATRIX stuff */
-// #define EECONFIG_RGB_MATRIX (uint32_t *)28
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
-// #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 
 // /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 // /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-// //RGB using PWM on pin B0
-// #define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
-// #define WS2812_PWM_CHANNEL 3  // default: 2
-// #define WS2812_PWM_PAL_MODE 2  // Pin "alternate function" - default: 2
-// #define WS2812_DMA_STREAM STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP
-// #define WS2812_DMA_CHANNEL 3  // DMA Channel for TIMx_UP
 
 // RGB using PWM on pin A3
 #define WS2812_PWM_DRIVER PWMD2                 // default: PWMD2
@@ -113,10 +104,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 //Serial over USART config
-// #define USE_SERIAL_PD2
 #define SOFT_SERIAL_PIN A9  // USART TX pin protonc
 #define SELECT_SOFT_SERIAL_SPEED 0 // or 0, 2, 3, 4, 5
 #define SERIAL_USART_DRIVER SD1 // USART driver of TX pin. default: SD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function" - default: 7
-
-// #define OLED_FONT_H "keyboards/bakekujira/lib/glcdfont.c"
