@@ -1,9 +1,10 @@
-# ibm_wheelwriter
 
 ![top view](https://i.imgur.com/jwYI2qxh.jpg)
 
 
 Got this awesome buckling spring keyboard to work with a PC, it's really the cheapest way to try buckling springs :)
+
+Here are some useful pictures for mapping and pinouts: https://imgur.com/gallery/PFL5HAX
 
 ATTENTION: I DIDN'T INCLUDE THE RIGHT SHIFT KEY IN THE KEYMAP BECAUSE IT SHARES THE CIRCUIT WITH THE LEFT SHIFT KEY SO YOU CAN'T CUSTOMIZE BOTH INDEPENDENTLY
 I REPEAT, WHATEVER ACTION YOU ASIGN TO THE LEFT SHIFT KEY, THE RIGHT SHIFT KEY WILL DO THE SAME

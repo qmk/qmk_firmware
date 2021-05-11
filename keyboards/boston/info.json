@@ -1,12 +1,13 @@
 {
-    "keyboard_name": "boston", 
-    "url": "https://github.com/bluepylons/Boston", 
-    "maintainer": "Pylon", 
-    "width": 20.5, 
-    "height": 7.75, 
+    "keyboard_name": "boston",
+    "url": "https://github.com/bluepylons/Boston",
+    "maintainer": "bluepylons",
+    "width": 20.5,
+    "height": 7.75,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
+                {"label":"Encoder", "x":0, "y":0},
                 {"label":"P1", "x":1.5, "y":0},
                 {"label":"P2", "x":2.5, "y":0},
                 {"label":"P3", "x":3.5, "y":0},
@@ -25,6 +26,7 @@
                 {"label":"Insert", "x":17.5, "y":0},
                 {"label":"Home", "x":18.5, "y":0},
                 {"label":"PgUp", "x":19.5, "y":0},
+
                 {"label":"Esc", "x":0, "y":1},
                 {"label":"F1", "x":1.5, "y":1},
                 {"label":"F2", "x":2.5, "y":1},
@@ -56,11 +58,11 @@
                 {"label":"*", "x":8, "y":2.5},
                 {"label":"(", "x":9, "y":2.5},
                 {"label":")", "x":10, "y":2.5},
-                {"label":"_", "x":11, "y":2.5}, 
-                {"label":"+", "x":12, "y":2.5}, 
-                {"label":"Backspace", "x":13, "y":2.5}, 
-                {"label":"Backspace", "x":14, "y":2.5}, 
-                {"label":"P16", "x":15.25, "y":2.5}, 
+                {"label":"_", "x":11, "y":2.5},
+                {"label":"+", "x":12, "y":2.5},
+                {"label":"Backspace", "x":13, "y":2.5},
+                {"label":"Backspace", "x":14, "y":2.5},
+                {"label":"P16", "x":15.25, "y":2.5},
                 {"label":"Num Lock", "x":16.5, "y":2.5},
                 {"label":"/", "x":17.5, "y":2.5},
                 {"label":"*", "x":18.5, "y":2.5},
@@ -119,12 +121,11 @@
                 {"label":">", "x":10.25, "y":5.5},
                 {"label":"?", "x":11.25, "y":5.5},
                 {"label":"Right Shift", "x":12.25, "y":5.5, "w":1.75},
-                {"label":"Up", "x":14.25, "y":5.75}, 
+                {"label":"Up", "x":14.25, "y":5.75},
                 {"label":"1", "x":16.5, "y":5.5},
                 {"label":"2", "x":17.5, "y":5.5},
                 {"label":"3", "x":18.5, "y":5.5},
                 {"label":"Enter", "x":19.5, "y":5.5, "h":2},
-
 
                 {"label":"Ctrl", "x":0, "y":6.5, "w":1.25},
                 {"label":"OS", "x":1.25, "y":6.5, "w":1.25},
