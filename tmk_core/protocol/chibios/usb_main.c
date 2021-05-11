@@ -705,7 +705,7 @@ void init_usb_driver(USBDriver *usbp) {
     chVTObjectInit(&keyboard_idle_timer);
 }
 
-void restart_usb_driver(USBDriver *usbp) {
+__attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
     usbStop(usbp);
     usbDisconnectBus(usbp);
 
