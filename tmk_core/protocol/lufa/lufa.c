@@ -985,6 +985,7 @@ void virtser_send(const uint8_t byte) {
 #endif
 
 static void send_digitizer(report_digitizer_t* report){
+#ifdef DIGITIZER_ENABLE
     uint8_t timeout = 255;
 
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
@@ -997,7 +998,7 @@ static void send_digitizer(report_digitizer_t* report){
 
     Endpoint_Write_Stream_LE(report, sizeof(report_digitizer_t), NULL);
     Endpoint_ClearIN();
-    
+#endif
 }
 
 /*******************************************************************************
