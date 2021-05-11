@@ -19,6 +19,7 @@ for more options.
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_SPLIT {36,36}
+#define SPLIT_TRANSPORT_MIRROR
 
 #endif
 
