@@ -28,9 +28,9 @@
 #include <lib/lib8tion/lib8tion.h>
 
 #ifndef LED_MATRIX_CENTER
-const point_t k_led_matrix_center = {112, 32};
+const led_point_t k_led_matrix_center = {112, 32};
 #else
-const point_t k_led_matrix_center = LED_MATRIX_CENTER;
+const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #endif
 
 // Generic effect runners
