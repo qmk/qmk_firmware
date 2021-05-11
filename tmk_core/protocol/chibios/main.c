@@ -226,7 +226,9 @@ int main(void) {
                 /* Remote wakeup */
                 if (suspend_wakeup_condition()) {
                     usbWakeupHost(&USB_DRIVER);
+#    ifndef K20x
                     restart_usb_driver(&USB_DRIVER);
+#    endif
                 }
             }
             /* Woken up */
