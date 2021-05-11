@@ -18,23 +18,23 @@ endif
 
 # Have we found a keymap.json?
 ifneq ("$(wildcard $(KEYMAP_JSON))", "")
-    KEYMAP_C := $(KEYBOARD_OUTPUT)/src/build_json_keymap.c
-    KEYMAP_H := $(KEYBOARD_OUTPUT)/src/build_json_config.h
+    KEYMAP_C := $(KEYMAP_OUTPUT)/keymap.c
+    KEYMAP_H := $(KEYMAP_OUTPUT)/config.h
 
     # Load the keymap-level rules.mk if exists
     -include $(KEYMAP_PATH)/rules.mk
 
     # Load any rules.mk content from keymap.json
-    INFO_RULES_MK = $(shell bin/qmk generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYBOARD_OUTPUT)/src/build_json_rules.mk)
+    INFO_RULES_MK = $(shell bin/qmk generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_OUTPUT)/rules.mk)
     include $(INFO_RULES_MK)
 
 # Add rules to enerate the keymap files - indentation here is important
-$(KEYBOARD_OUTPUT)/src/build_json_keymap.c: $(KEYMAP_JSON)
+$(KEYMAP_OUTPUT)/keymap.c: $(KEYMAP_JSON)
 	bin/qmk json2c --quiet --output $(KEYMAP_C) $(KEYMAP_JSON)
 
-$(KEYBOARD_OUTPUT)/src/build_json_config.h: $(KEYMAP_JSON)
-	bin/qmk generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYBOARD_OUTPUT)/src/build_json_config.h
+$(KEYMAP_OUTPUT)/config.h: $(KEYMAP_JSON)
+	bin/qmk generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_OUTPUT)/config.h
 
-generated-files: $(KEYBOARD_OUTPUT)/src/build_json_config.h $(KEYBOARD_OUTPUT)/src/build_json_keymap.c
+generated-files: $(KEYMAP_OUTPUT)/config.h $(KEYMAP_OUTPUT)/keymap.c
 
 endif

@@ -33,4 +33,4 @@ endif
 $(foreach LAYOUT,$(LAYOUTS),$(eval $(call SEARCH_LAYOUTS)))
 
 # Use rule from build_json.mk, but update prerequisite in case KEYMAP_JSON was updated
-$(KEYBOARD_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)
+$(KEYMAP_OUTPUT)/keymap.c: $(KEYMAP_JSON)

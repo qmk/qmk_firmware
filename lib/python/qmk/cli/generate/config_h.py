@@ -86,7 +86,6 @@ def generate_config_h(cli):
     if cli.args.keymap:
         km = locate_keymap(cli.args.keyboard, cli.args.keymap)
         kb_info_json = dotty(json_load(km).get('keyboard_overrides', {}))
-        print(kb_info_json)
 
     info_config_map = json_load(Path('data/mappings/info_config.json'))
 
