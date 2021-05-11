@@ -327,9 +327,9 @@ gccversion :
 	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
-		#$(SILENT) || printf "$(MSG_EXECUTING) '$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null':\n" ;\
 		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
 	fi
+	#$(SILENT) || printf "$(MSG_EXECUTING) '$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null':\n" ;\
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
 BEGIN = gccversion sizebefore
