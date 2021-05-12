@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         Scarlet Bandana Version IV mark.2
-#define DESCRIPTION     65% with macro keys
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -46,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_SPEAKER C6
 
 #ifdef AUDIO_ENABLE
-#define C6_AUDIO
+#define AUDIO_PIN C6
 #define STARTUP_SONG SONG(PREONIC_SOUND)
 // Disable music mode to keep the firmware size down
 #define NO_MUSIC_MODE

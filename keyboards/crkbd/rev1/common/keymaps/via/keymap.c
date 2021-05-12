@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_split_3x6_3( \
+  [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [1] = LAYOUT_split_3x6_3( \
+  [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -40,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT\
+                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [2] = LAYOUT_split_3x6_3( \
+  [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -56,15 +56,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [3] = LAYOUT_split_3x6_3( \
+  [3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+        RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT\
+                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -83,30 +83,28 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #define L_ADJUST 8
 
 void oled_render_layer_state(void) {
-    oled_write_P("Layer: ", false);
+    oled_write_P(PSTR("Layer: "), false);
     switch (layer_state) {
         case L_BASE:
-            oled_write_ln_P("Default", false);
+            oled_write_ln_P(PSTR("Default"), false);
             break;
         case L_LOWER:
-            oled_write_ln_P("Lower", false);
+            oled_write_ln_P(PSTR("Lower"), false);
             break;
         case L_RAISE:
-            oled_write_ln_P("Raise", false);
+            oled_write_ln_P(PSTR("Raise"), false);
             break;
         case L_ADJUST:
         case L_ADJUST|L_LOWER:
         case L_ADJUST|L_RAISE:
         case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P("Adjust", false);
+            oled_write_ln_P(PSTR("Adjust"), false);
             break;
     }
 }
 
 
 char keylog_str[24] = {};
-char keylogs_str[21] = {};
-int keylogs_str_idx = 0;
 
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -128,24 +126,10 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
   snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
            record->event.key.row, record->event.key.col,
            keycode, name);
-
-  // update keylogs
-  if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
-    keylogs_str_idx = 0;
-    for (int i = 0; i < sizeof(keylogs_str) - 1; i++) {
-      keylogs_str[i] = ' ';
-    }
-  }
-
-  keylogs_str[keylogs_str_idx] = name;
-  keylogs_str_idx++;
 }
 
 void oled_render_keylog(void) {
     oled_write(keylog_str, false);
-}
-void oled_render_keylogs(void) {
-    oled_write(keylogs_str, false);
 }
 
 void render_bootmagic_status(bool status) {
@@ -176,8 +160,6 @@ void oled_task_user(void) {
     if (is_master) {
         oled_render_layer_state();
         oled_render_keylog();
-        // oled_render_keylogs();
-        // oled_renger_bootmagic_icon(keymap_config.swap_lalt_lgui);
     } else {
         oled_render_logo();
     }
@@ -186,7 +168,6 @@ void oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
-    // set_timelog();
   }
   return true;
 }

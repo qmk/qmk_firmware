@@ -1,1 +1,1 @@
-# The default keymap for Ploopyco Trackball
+# The default keymap for PloopyCo Mouse

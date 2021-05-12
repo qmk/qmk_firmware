@@ -19,12 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0x20A0
-#define PRODUCT_ID 0x422D
-#define DEVICE_VER 0x0001
+#define VENDOR_ID    0x5143 // "QC"
+#define PRODUCT_ID   0x4558 // "EX"
+#define DEVICE_VER   0x0001
 #define MANUFACTURER Quadcube
-#define PRODUCT Exent
-#define DESCRIPTION 65% Keyboard
+#define PRODUCT      Exent
 
 #define RGBLED_NUM 18
 
@@ -38,6 +37,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
+
+#define LED_NUM_LOCK_PIN D0
+#define LED_CAPS_LOCK_PIN D1
+#define LED_SCROLL_LOCK_PIN D6
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3

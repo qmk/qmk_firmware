@@ -12,7 +12,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    matrix
 #define PRODUCT         M12OG
-#define DESCRIPTION     Matrix 8XV1.2 OG version
 
 /* key matrix size */
 #define MATRIX_ROWS 7
@@ -27,12 +26,13 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN B3
+
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
-
 #define RGBLED_NUM 16
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_SLEEP
+#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 #endif
