@@ -51,6 +51,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
+// I2C config
+#define I2C_DRIVER I2CD1
+#define I2C1_SCL_BANK GPIOB
+#define I2C1_SCL 6
+#define I2C1_SDA 7
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
+#define I2C1_TIMINGR_PRESC 0x00U
+#define I2C1_TIMINGR_SCLDEL 0x03U
+#define I2C1_TIMINGR_SDADEL 0x01U
+#define I2C1_TIMINGR_SCLH 0x03U
+#define I2C1_TIMINGR_SCLL 0x09U
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5

@@ -4,12 +4,13 @@ from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
+from qmk.keyboard import keyboard_completer
 from qmk.keymap import locate_keymap
 from qmk.path import is_keyboard, keyboard
 
 
 @cli.argument('--strict', action='store_true', help='Treat warnings as errors.')
-@cli.argument('-kb', '--keyboard', help='The keyboard to check.')
+@cli.argument('-kb', '--keyboard', completer=keyboard_completer, help='The keyboard to check.')
 @cli.argument('-km', '--keymap', help='The keymap to check.')
 @cli.subcommand('Check keyboard and keymap for common mistakes.')
 @automagic_keyboard

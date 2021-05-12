@@ -81,3 +81,20 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 ## Hardware
 
 The A an B lines of the encoders should be wired directly to the MCU, and the C/common lines should be wired to ground.
+
+## Multiple Encoders
+
+Multiple encoders may share pins so long as each encoder has a distinct pair of pins. 
+
+For example you can support two encoders using only 3 pins like this
+```
+#define ENCODERS_PAD_A { B1, B1 }
+#define ENCODERS_PAD_B { B2, B3 }
+```
+
+You could even support three encoders using only three pins (one per encoder) however in this configuration, rotating two encoders which share pins simultaneously will often generate incorrect output. For example:
+```
+#define ENCODERS_PAD_A { B1, B1, B2 }
+#define ENCODERS_PAD_B { B2, B3, B3 }
+```
+Here rotating Encoder 0 `B1 B2` and Encoder 1 `B1 B3` could be interpreted as rotating Encoder 2 `B2 B3` or `B3 B2` depending on the timing. This may still be a useful configuration depending on your use case 

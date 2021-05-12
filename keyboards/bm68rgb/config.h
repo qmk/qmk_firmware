@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0xEF6F
 #define DEVICE_VER   0x0001
 #define MANUFACTURER KPRepublic
-#define PRODUCT      bm68rgb
+#define PRODUCT      BM68 RGB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

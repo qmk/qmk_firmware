@@ -361,6 +361,8 @@ class KeymapBeautifier:
                 args.append(arg.value)
             elif type(arg) is pycparser.c_ast.ID:
                 args.append(arg.name)
+            elif type(arg) is pycparser.c_ast.FuncCall:
+                args.append(self.function_expr(arg))
         return "{}({})".format(name, ",".join(args))
 
     def key_expr(self, raw):

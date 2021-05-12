@@ -20,6 +20,7 @@
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0003
+#define PRODUCT_ID 0xA649
 
 #undef MATRIX_ROWS
 #undef MATRIX_COLS

@@ -1,7 +1,6 @@
 #pragma once
 
-#include "quantum.h"
-#include "process_keycode/process_tap_dance.h"
+#include QMK_KEYBOARD_H
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 
@@ -11,9 +10,8 @@
 #define FUNCT       MO(4)
 #define KEEB        MO(5)
 
-#define MOD_CTL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))
-#define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
-#define MOD_SFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
+#define L_BIT_MEH   MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)
+#define L_BIT_HYPR  MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)
 
 #define LED_FLASH_DELAY       150
 
@@ -69,6 +67,11 @@ enum custom_keycodes {
   M_SMOD,
   M_OS,
   M_DASH,
+  M_USSR,
+  M_EHYPR,
+  M_LMHYP,
+  M_SFTY,
+  M_AEST,
 };
 
 void velocikey_accelerate(void);
@@ -97,8 +100,11 @@ void pri_mod(bool press);
 
 void sec_mod(bool press);
 
+void meh_hyper(bool press);
+
 void multi_tap(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
 
 void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
+void pair_surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
 
 void long_keystroke(size_t num_of_keys, uint16_t keys[]);

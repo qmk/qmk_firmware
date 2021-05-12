@@ -8,7 +8,7 @@ from milc import cli
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.json_schema import json_load
-from qmk.keyboard import keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import is_keyboard, normpath
 
 
@@ -75,7 +75,7 @@ def matrix_pins(matrix_pins):
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, help='Keyboard to generate config.h for.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate config.h for.')
 @cli.subcommand('Used by the make system to generate info_config.h from info.json', hidden=True)
 @automagic_keyboard
 @automagic_keymap

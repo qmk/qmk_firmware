@@ -1,4 +1,4 @@
-/* Copyright 2020 James Young (@noroadsleft)
+/* Copyright 2020-2021 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case VRSN:
             if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION);
             }
             return false;
         case G_PUSH:
@@ -118,6 +118,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 macroMode ^= 1;
             }
             return false;
+        case KC_Z:
+            if (record->event.pressed) {
+                if ( get_mods() & MOD_MASK_RALT ) {
+                    register_code(KC_NUBS);
+                } else {
+                    register_code(KC_Z);
+                }
+            } else {
+                if ( get_mods() & MOD_MASK_RALT ) {
+                    unregister_code(KC_NUBS);
+                } else {
+                    unregister_code(KC_Z);
+                }
+            };
+            return false;
         case KC_1 ... KC_0:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_RALT) {
@@ -145,6 +160,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(keycode + 0x2E);
                 } else {
                     unregister_code(keycode);
+                }
+            }
+            return false;
+        case KC_PSCR:
+            if (record->event.pressed) {
+                if ( macroMode == 1 ) {
+                    tap_code16(G(S(KC_3)));
+                } else {
+                    tap_code(KC_PSCR);
+                }
+            }
+            return false;
+        case KC_HOME:
+            if (record->event.pressed) {
+                if ( macroMode == 1 ) {
+                    tap_code16(G(KC_LEFT));
+                } else {
+                    tap_code(KC_HOME);
+                }
+            }
+            return false;
+        case KC_END:
+            if (record->event.pressed) {
+                if ( macroMode == 1 ) {
+                    tap_code16(G(KC_RGHT));
+                } else {
+                    tap_code(KC_END);
                 }
             }
             return false;

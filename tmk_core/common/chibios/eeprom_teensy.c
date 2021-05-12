@@ -363,7 +363,7 @@ void eeprom_initialize(void) {
             return;
         }
     } while (p < (uint16_t *)SYMVAL(__eeprom_workarea_end__));
-    flashend = (uint32_t)((uint16_t *)SYMVAL(__eeprom_workarea_end__) - 1);
+    flashend = (uint32_t)(p - 1);
 }
 
 uint8_t eeprom_read_byte(const uint8_t *addr) {

@@ -25,16 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /*          • Harmonize regular Qwerty
          * 
          * If compiling this ‛Qwerty Base Arrow’ base pair with regular Qwerty on
-         * the other base pair (dual layout), the key ‛/?’ is on a different key
-         * in these two layouts. This is bound to cause typing errors. With this
-         * option you can cause the regular Qwerty to also have a ‛/?’ in the same
-         * spot as ‛Qwerty Base Arrow’ has it, sacrificing Right Control/‛`~’ there.
+         * the other base pair (dual layout), the key ‛/?’ on the _NSY layer in
+         * Qwerty Base Arrow, will be replicated in the same spot in regular Qwerty.
          *
          * Regular Qwerty will still also have a ‛/?’ key in the normal Qwerty location.
-         *
-         * The key ‛`~’ can be reached through other means: just below on numbers &
-         * symbols _NSY layer, or on the bonus Unicode layer _BON (on the far left, home row).
-         * This is so by default, it remains unchanged.
+         * See ./base_qwerty_basearrow.md and ./base_qwerty.md for details.
          */
   #define QWERTY_BASEARROW_HARMONIZE // _Activate_ to harmonize the ‛/?’ key in the regular Qwerty layout.
                                      // _Remove_ leave regular Qwerty layout unchanged from default.

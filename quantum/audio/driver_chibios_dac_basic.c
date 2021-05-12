@@ -101,7 +101,7 @@ static const DACConversionGroup dac_conv_grp_ch2 = {.num_channels = 1U, .trigger
 void channel_1_start(void) {
     gptStart(&GPTD6, &gpt6cfg1);
     gptStartContinuous(&GPTD6, 2U);
-    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
+    palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
 }
 
 void channel_1_stop(void) {
