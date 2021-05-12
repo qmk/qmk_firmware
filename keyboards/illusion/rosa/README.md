@@ -2,7 +2,7 @@
 
 ![Rosa](https://i.imgur.com/ATFjY5f.jpg)
 
-A compact 40% (12x4) ortholinear keyboard kit made and sold by OLKB and Massdrop. [More info on qmk.fm](https://qmk.fm/planck/)
+A 60% form factor PCB for the Rosa. Uses a USB Type C connector.
 
 * Keyboard Maintainer: [illusion](https://github.com/bleeCS)
 * Hardware Supported: Rosa PCB
