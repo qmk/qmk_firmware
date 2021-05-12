@@ -35,6 +35,20 @@ ifneq ($(strip $(HELIX)),)
         LED_BACK_ENABLE = no
         LED_UNDERGLOW_ENABLE = no
     endif
+    ifneq ($(filter nooled no-oled,$(strip $1)),)
+        OLED_ENABLE = no
+    endif
+    ifeq ($(strip $1),oled)
+        OLED_ENABLE = yes
+    endif
+    ifneq ($(filter core-oled core_oled newoled new-oled olednew oled-new,$(strip $1)),)
+        OLED_ENABLE = yes
+        OLED_SELECT = core
+    endif
+    ifneq ($(filter local-oled local_oled oldoled old-oled oledold oled-old,$(strip $1)),)
+        OLED_ENABLE = yes
+        OLED_SELECT = local
+    endif
     ifeq ($(strip $1),console)
         CONSOLE_ENABLE = yes
     endif
@@ -79,10 +93,10 @@ ifeq ($(strip $(DEBUG_CONFIG)), yes)
     OPT_DEFS += -DDEBUG_CONFIG
 endif
 
-# convert Helix-specific options (that represent combinations of standard options)
-#   into QMK standard options.
-include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))
-
 ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled_display.c
 endif
+
+# convert Helix-specific options (that represent combinations of standard options)
+#   into QMK standard options.
+include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))

@@ -22,18 +22,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#undef OLED_UPDATE_INTERVAL
-#define OLED_UPDATE_INTERVAL 50
-
 #undef TAPPING_TERM
 #define TAPPING_TERM 300
 #define PERMISSIVE_HOLD
 /* when TAPPING_TERM >= 500 same effect PERMISSIVE_HOLD.
    see tmk_core/common/action_tapping.c */
 
+#undef OLED_UPDATE_INTERVAL
+#define OLED_UPDATE_INTERVAL 50
+
 // place overrides here
 
 // If you need more program area, try select and reduce rgblight modes to use.
+
+#define DISABLE_SYNC_TIMER
 
 // Selection of RGBLIGHT MODE to use.
 #undef RGBLIGHT_ANIMATIONS

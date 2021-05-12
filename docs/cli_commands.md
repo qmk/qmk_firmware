@@ -228,6 +228,18 @@ This command is directory aware. It will automatically fill in KEYBOARD if you a
 qmk list-keymaps -kb planck/ez
 ```
 
+## `qmk new-keyboard`
+
+This command creates a new keyboard based on available templates.
+
+This command will prompt for input to guide you though the generation process.
+
+**Usage**:
+
+```
+qmk new-keyboard
+```
+
 ## `qmk new-keymap`
 
 This command creates a new keymap based on a keyboard's existing default keymap.
