@@ -8,6 +8,12 @@
 #include "timer.h"
 #include "action.h"
 
+#ifdef TAPPING_FORCE_HOLD
+#    define IS_TAPPING_FORCE_HOLD 1
+#else
+#    define IS_TAPPING_FORCE_HOLD 0
+#endif
+
 typedef enum {
     EXKC_NONE,
     EXKC_PRESSED,
@@ -482,7 +488,7 @@ static void lte_onHold(bmp_ex_keycode_t const *const exkc, exkc_status_t const *
     uint8_t layer = lte_get_layer(exkc);
     uint16_t keycode = lte_get_tapcode(exkc);
     // uint16_t keycode = lte_get_tapcode(&exkc);
-    if (status->tapping_count == 0) {
+    if (status->tapping_count == 0 || IS_TAPPING_FORCE_HOLD) {
         layer_on(layer);
         clear_keyboard_but_mods();  // To avoid stuck keys
     } else {
@@ -504,7 +510,7 @@ static void lte_onReleaseHold(bmp_ex_keycode_t const *const exkc, exkc_status_t 
     uint8_t layer = lte_get_layer(exkc);
     uint16_t keycode = lte_get_tapcode(exkc);
 
-    if (status->tapping_count == 0) {
+    if (status->tapping_count == 0 || IS_TAPPING_FORCE_HOLD) {
         layer_off(layer);
         clear_keyboard_but_mods();  // To avoid stuck keys
     } else {
@@ -516,7 +522,7 @@ static void tlt_onPress(bmp_ex_keycode_t const *const exkc, exkc_status_t const 
 
 static void tlt_onHold(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
     uint16_t keycode = tlt_get_tapcode(exkc);
-    if (status->tapping_count == 0) {
+    if (status->tapping_count == 0 || IS_TAPPING_FORCE_HOLD) {
         layer_on(tlt_get_layer1(exkc));
         update_tri_layer(tlt_get_layer1(exkc), tlt_get_layer2(exkc), tlt_get_layer3(exkc));
         clear_keyboard_but_mods();  // To avoid stuck keys
@@ -536,7 +542,7 @@ static void tlt_onReleaseTap(bmp_ex_keycode_t const *const exkc, exkc_status_t c
 
 static void tlt_onReleaseHold(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
     uint16_t keycode = tlt_get_tapcode(exkc);
-    if (status->tapping_count == 0) {
+    if (status->tapping_count == 0 || IS_TAPPING_FORCE_HOLD) {
         layer_off(tlt_get_layer1(exkc));
         update_tri_layer(tlt_get_layer1(exkc), tlt_get_layer2(exkc), tlt_get_layer3(exkc));
         clear_keyboard_but_mods();  // To avoid stuck keys
