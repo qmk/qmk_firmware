@@ -65,6 +65,21 @@ subcommands = [
 ]
 
 
+import_names = {
+    # A mapping of package name to importable name
+    'pep8-naming': 'pep8ext_naming',
+    'pyusb': 'usb.core',
+}
+
+safe_commands = [
+    # A list of subcommands we always run, even when the module imports fail
+    'clone',
+    'config',
+    'env',
+    'setup',
+]
+
+
 def _run_cmd(*command):
     """Run a command in a subshell.
     """
