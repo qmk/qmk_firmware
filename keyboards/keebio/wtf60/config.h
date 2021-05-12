@@ -1,5 +1,4 @@
-/*
-Copyright 2019 Keebio
+/* Copyright 2021 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { F0, F1, F4, F5, F6 }
 #define MATRIX_COL_PINS { B4, B5, B6, C7, F7, B1, B2, B3, D2, D3, D5, D4, D6, D7 }
-#define UNUSED_PINS
+#define AUDIO_PIN C6
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -62,9 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
