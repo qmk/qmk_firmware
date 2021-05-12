@@ -19,13 +19,20 @@
 
 #ifdef KEYBOARD_durgod_dgk6x_hades
 #   include "hades.h"
+#elif defined KEYBOARD_durgod_dgk6x_venus
+#   include "venus.h"
 #endif
 
 #ifndef WINLOCK_DISABLED
 // Define the TGUI key here so it is available in QMK configurator
 enum DGK6X_keycodes {
+#ifdef VIA_ENABLE
+    KC_TGUI = USER00,   // Toggle between GUI Lock or Unlock
+    NEW_SAFE_RANGE = SAFE_RANGE
+#else
     KC_TGUI = SAFE_RANGE,   // Toggle between GUI Lock or Unlock
     NEW_SAFE_RANGE
+#endif
 };
 
 #undef SAFE_RANGE

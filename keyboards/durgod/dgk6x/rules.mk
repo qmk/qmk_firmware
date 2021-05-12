@@ -1,4 +1,4 @@
-DEFAULT_FOLDER=dgk5x/hades
+DEFAULT_FOLDER=durgod/dgk6x/hades
 # MCU name
 # Actually F070, but close enough
 MCU = STM32F072

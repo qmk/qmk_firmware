@@ -17,6 +17,8 @@
 
 #include "quantum.h"
 
+#define CAPS_LED 30
+
 #define XXX KC_NO
 
 // This a shortcut to help you visually see your layout.

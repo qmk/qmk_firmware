@@ -81,7 +81,9 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
    {0, C_12,  B_12,  A_12}, // -
    {0, C_13,  B_13,  A_13}, // =
    {0, C_14,  B_14,  A_14}, // Bksp
+#ifdef KEYBOARD_durgod_dgk6x_hades   
    {0, C_15,  B_15,  A_15}, // Del 
+#endif
 
    {0, F_1,   E_1,   D_1},  // Tab
    {0, F_2,   E_2,   D_2},  // Q
@@ -97,7 +99,9 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
    {0, F_12,  E_12,  D_12}, // [
    {0, F_13,  E_13,  D_13}, // ]
    {0, F_14,  E_14,  D_14}, // Pipe
+#ifdef KEYBOARD_durgod_dgk6x_hades   
    {0, F_15,  E_15,  D_15}, // Home
+#endif
 
    {0, I_1,   H_1,   G_1},  // Caps
    {0, I_2,   H_2,   G_2},  // A
@@ -112,7 +116,9 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
    {0, I_11,  H_11,  G_11}, // :
    {0, I_12,  H_12,  G_12}, // '
    {0, I_14,  H_14,  G_14}, // Enter
+#ifdef KEYBOARD_durgod_dgk6x_hades   
    {0, I_15,  H_15,  G_15}, // PgUp
+#endif
 
    {0, L_1,   K_1,   J_1},  // LShift
    {0, L_2,   K_2,   J_2},  // Z
@@ -126,19 +132,23 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
    {0, L_10,  K_10,  J_10}, // >
    {0, L_11,  K_11,  J_11}, // ?
    {0, L_12,  K_12,  J_12}, // RShift
+#ifdef KEYBOARD_durgod_dgk6x_hades   
    {0, L_14,  K_14,  J_14}, // Up
    {0, L_15,  K_15,  J_15}, // PgOn
+#endif
 
    {1, C_1,   B_1,   A_1},  // LCtrl
    {1, C_2,   B_2,   A_2},  // LAlt
    {1, C_3,   B_3,   A_3},  // Windows
    {1, C_6,   B_6,   A_6},  // Space
-   {1, C_10,  B_10,  A_10}, // Fn1
-   {1, C_11,  B_11,  A_11}, // Fn2
-   {1, C_12,  B_12,  A_12}, // RCtrl
-   {1, C_13,  B_13,  A_13}, // LEFT
+   {1, C_10,  B_10,  A_10}, // Fn1/RAlt hades/venus
+   {1, C_11,  B_11,  A_11}, // Fn2/Fn1
+   {1, C_12,  B_12,  A_12}, // RCtrl/Fn2
+   {1, C_13,  B_13,  A_13}, // LEFT/RCtrl
+#ifdef KEYBOARD_durgod_dgk6x_hades   
    {1, C_14,  B_14,  A_14}, // DOWN
    {1, C_15,  B_15,  A_15}  // RIGHT
+#endif
 };
 
 void suspend_power_down_kb(void) {
@@ -156,7 +166,7 @@ void rgb_matrix_indicators_user(void)
 {
     if (host_keyboard_led_state().caps_lock)
     {
-        rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
+        rgb_matrix_set_color(CAPS_LED, 0xFF, 0xFF, 0xFF);
     }
 }
 #endif /* RGB_MATRIX_ENABLE */

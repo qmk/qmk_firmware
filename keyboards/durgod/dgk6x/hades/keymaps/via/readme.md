@@ -1,6 +1,6 @@
 ![Durgod Hades Layout Image](https://i.imgur.com/vsi6sdK.png)
 
-# The default keymap for Durgod Hades.
+# The via keymap for Durgod Hades.
 
 Currently only supports ANSI
 
