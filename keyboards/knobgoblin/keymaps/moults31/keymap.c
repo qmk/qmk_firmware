@@ -28,8 +28,12 @@ enum custom_keycodes {
     M_VSC_SIDEBARFOCUS,
     M_VSC_SIDEBARCLOSE,
     M_VSC_DBGCNSLFOCUS,
+    M_VSC_EDGRPNXT,
+    M_VSC_EDGRPPRV,
     M_VSC_MVEDTRNXTGRP,
     M_VSC_MVEDTRPRVGRP,
+    M_VSC_VIEWSIZEINC,
+    M_VSC_VIEWSIZEDEC,
     M_VSC_CLOSEFILE,
     M_GDB_PLAY,
     M_GDB_PAUSE,
@@ -60,7 +64,6 @@ bool process_record_user_vsc(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case M_VSC_SIDEBARFOCUS:
-
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTRL("0"));
             }
@@ -88,6 +91,16 @@ bool process_record_user_vsc(uint16_t keycode, keyrecord_t *record) {
         case M_VSC_MVEDTRPRVGRP:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_LEFT))));
+            }
+            break;
+        case M_VSC_EDGRPNXT:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_L))));
+            }
+            break;
+        case M_VSC_EDGRPPRV:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_K))));
             }
             break;
     }
@@ -220,6 +233,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_VSC_DBGCNSLFOCUS:
         case M_VSC_MVEDTRNXTGRP:
         case M_VSC_MVEDTRPRVGRP:
+        case M_VSC_EDGRPNXT:
+        case M_VSC_EDGRPPRV:
             rv = process_record_user_vsc(keycode, record);
             break;
 
@@ -268,8 +283,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[2] = LAYOUT_ortho(
                           KC_2,               KC_TRNS,              KC_TRNS,         KC_TRNS,
-                          KC_TRNS,            KC_TRNS,              KC_TRNS,         KC_TRNS,
                           M_VSC_MVEDTRPRVGRP, M_VSC_MVEDTRNXTGRP,   KC_TRNS,         KC_TRNS,
+                          M_VSC_EDGRPPRV,     M_VSC_EDGRPNXT,       KC_TRNS,         KC_TRNS,
          KC_TRNS,         M_VSC_SIDEBARFOCUS, M_VSC_SIDEBARCLOSE,   M_VSC_TERMFOCUS, KC_TRNS,
          M_VSC_CLOSEFILE, MO(10),             KC_TRNS,              KC_TRNS,         KC_TRNS
 				 ),

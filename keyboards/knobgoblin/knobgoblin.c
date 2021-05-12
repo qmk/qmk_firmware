@@ -41,9 +41,9 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 			if (index == 0) { /* Top encoder */
 				if(curr_layer == 2 || curr_layer == 3) {
 					if (clockwise) {
-						SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_L))));
+						SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_P))));
 					} else {
-						SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_K))));
+						SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_O))));
 					}
 				}
 				else {
