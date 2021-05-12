@@ -1,6 +1,6 @@
 # Seigaiha
 
-![Seigaiha](https://i.imgur.com/GCGyOmp.jpg?1)
+![Seigaiha](https://i.imgur.com/GCGyOmph.jpg)
 
 An alice layout kit with only through hole components.
 
