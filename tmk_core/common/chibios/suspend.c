@@ -86,6 +86,10 @@ void suspend_power_down(void) {
 #if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_set_suspend_state(true);
 #endif
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(true);
+#endif
+
 #ifdef AUDIO_ENABLE
     stop_all_notes();
 #endif /* AUDIO_ENABLE */
@@ -156,6 +160,9 @@ void suspend_wakeup_init(void) {
 #endif
 #if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_set_suspend_state(false);
+#endif
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(false);
 #endif
     suspend_wakeup_init_kb();
 }
