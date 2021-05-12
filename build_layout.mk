@@ -7,7 +7,6 @@ define SEARCH_LAYOUTS_REPO
     LAYOUT_KEYMAP_C := $$(LAYOUT_KEYMAP_PATH)/keymap.c
     ifneq ("$$(wildcard $$(LAYOUT_KEYMAP_JSON))","")
         -include $$(LAYOUT_KEYMAP_PATH)/rules.mk
-        KEYMAP_C := $(KEYMAP_OUTPUT)/keymap.c
         KEYMAP_JSON := $$(LAYOUT_KEYMAP_JSON)
         KEYMAP_PATH := $$(LAYOUT_KEYMAP_PATH)
     else ifneq ("$$(wildcard $$(LAYOUT_KEYMAP_C))","")
