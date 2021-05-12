@@ -26,7 +26,10 @@
 enum custom_keycodes {
     M_VSC_TERMFOCUS = SAFE_RANGE,
     M_VSC_SIDEBARFOCUS,
+    M_VSC_SIDEBARCLOSE,
     M_VSC_DBGCNSLFOCUS,
+    M_VSC_MVEDTRNXTGRP,
+    M_VSC_MVEDTRPRVGRP,
     M_VSC_CLOSEFILE,
     M_GDB_PLAY,
     M_GDB_PAUSE,
@@ -47,30 +50,89 @@ enum custom_keycodes {
     M_OBS_MOOSIC_UNMUTE,
 };
 
+// Handle VSCode-specific custom keycodes
+bool process_record_user_vsc(uint16_t keycode, keyrecord_t *record) {
+    bool rv = true;
+    switch (keycode) {
+        case M_VSC_TERMFOCUS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL("`"));
+            }
+            break;
+        case M_VSC_SIDEBARFOCUS:
+
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL("0"));
+            }
+            break;
+        case M_VSC_SIDEBARCLOSE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL("b"));
+            }
+            break;
+        case M_VSC_CLOSEFILE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL("w"));
+            }
+            break;
+        case M_VSC_DBGCNSLFOCUS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_D))));
+            }
+            break;
+        case M_VSC_MVEDTRNXTGRP:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_RIGHT))));
+            }
+            break;
+        case M_VSC_MVEDTRPRVGRP:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_LEFT))));
+            }
+            break;
+    }
+
+    return rv;
+};
+
 // Handle GDB-specific custom keycodes
 bool process_record_user_gdb(uint16_t keycode, keyrecord_t *record) {
     bool rv = true;
     switch (keycode) {
         case M_GDB_PLAY:
-            SEND_STRING(SS_TAP(X_F5));
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_F5));
+            }
             break;
         case M_GDB_PAUSE:
-            SEND_STRING(SS_TAP(X_F6));
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_F6));
+            }
             break;
         case M_GDB_STEPOVER:
-            SEND_STRING(SS_TAP(X_F10));
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_F10));
+            }
             break;
         case M_GDB_STEPIN:
-            SEND_STRING(SS_TAP(X_F11));
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_F11));
+            }
             break;
         case M_GDB_STEPOUT:
-            SEND_STRING(SS_LSFT(SS_TAP(X_F11)));
+            if (record->event.pressed) {
+                SEND_STRING(SS_LSFT(SS_TAP(X_F11)));
+            }
             break;
         case M_GDB_RESTART:
-            SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_F5))));
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_F5))));
+            }
             break;
         case M_GDB_STOP:
-            SEND_STRING(SS_LSFT(SS_TAP(X_F5)));
+            if (record->event.pressed) {
+                SEND_STRING(SS_LSFT(SS_TAP(X_F5)));
+            }
             break;
     }
 
@@ -87,31 +149,49 @@ bool process_record_user_obs(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case M_OBS_BRB:
-            SEND_STRING("1");
+            if (record->event.pressed) {
+                SEND_STRING("1");
+            }
             break;
         case M_OBS_GAME:
-            SEND_STRING("2");
+            if (record->event.pressed) {
+                SEND_STRING("2");
+            }
             break;
         case M_OBS_JSTCHT:
-            SEND_STRING("3");
+            if (record->event.pressed) {
+                SEND_STRING("3");
+            }
             break;
         case M_OBS_DSKT_MUTE:
-            SEND_STRING("4");
+            if (record->event.pressed) {
+                SEND_STRING("4");
+            }
             break;
         case M_OBS_DSKT_UNMUTE:
-            SEND_STRING("5");
+            if (record->event.pressed) {
+                SEND_STRING("5");
+            }
             break;
         case M_OBS_VOICE_MUTE:
-            SEND_STRING("6");
+            if (record->event.pressed) {
+                SEND_STRING("6");
+            }
             break;
         case M_OBS_VOICE_UNMUTE:
-            SEND_STRING("7");
+            if (record->event.pressed) {
+                SEND_STRING("7");
+            }
             break;
         case M_OBS_MOOSIC_MUTE:
-            SEND_STRING("8");
+            if (record->event.pressed) {
+                SEND_STRING("8");
+            }
             break;
         case M_OBS_MOOSIC_UNMUTE:
-            SEND_STRING("9");
+            if (record->event.pressed) {
+                SEND_STRING("9");
+            }
             break;
     }
 
@@ -127,31 +207,22 @@ bool process_record_user_obs(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool rv = true;
     switch (keycode) {
-        case M_VSC_TERMFOCUS:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("`"));
-            }
-            break;
-        case M_VSC_SIDEBARFOCUS:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("0"));
-            }
-            break;
         case M_MST_CODEBLOCK:
             if (record->event.pressed) {
                 SEND_STRING("```");
             }
             break;
+
+        case M_VSC_TERMFOCUS:
+        case M_VSC_SIDEBARFOCUS:
+        case M_VSC_SIDEBARCLOSE:
         case M_VSC_CLOSEFILE:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("W"));
-            }
-            break;
         case M_VSC_DBGCNSLFOCUS:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_D))));
-            }
+        case M_VSC_MVEDTRNXTGRP:
+        case M_VSC_MVEDTRPRVGRP:
+            rv = process_record_user_vsc(keycode, record);
             break;
+
         case M_GDB_PLAY:
         case M_GDB_PAUSE:
         case M_GDB_STEPOVER:
@@ -161,6 +232,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_GDB_STOP:
             rv = process_record_user_gdb(keycode, record);
             break;
+
         case M_OBS_BRB:
         case M_OBS_GAME:
         case M_OBS_JSTCHT:
@@ -195,11 +267,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				 ),
 
 	[2] = LAYOUT_ortho(
-                          KC_2,               KC_TRNS,          KC_TRNS,         KC_TRNS,
-                          KC_TRNS,            KC_TRNS,          KC_TRNS,         KC_TRNS,
-                          KC_TRNS,            KC_TRNS,          KC_TRNS,         KC_TRNS,
-         KC_TRNS,         M_VSC_SIDEBARFOCUS, M_VSC_TERMFOCUS,  M_MST_CODEBLOCK, KC_TRNS,
-         M_VSC_CLOSEFILE, MO(10),             KC_TRNS,          KC_TRNS,         KC_TRNS
+                          KC_2,               KC_TRNS,              KC_TRNS,         KC_TRNS,
+                          KC_TRNS,            KC_TRNS,              KC_TRNS,         KC_TRNS,
+                          M_VSC_MVEDTRPRVGRP, M_VSC_MVEDTRNXTGRP,   KC_TRNS,         KC_TRNS,
+         KC_TRNS,         M_VSC_SIDEBARFOCUS, M_VSC_SIDEBARCLOSE,   M_VSC_TERMFOCUS, KC_TRNS,
+         M_VSC_CLOSEFILE, MO(10),             KC_TRNS,              KC_TRNS,         KC_TRNS
 				 ),
 
 	[3] = LAYOUT_ortho(
