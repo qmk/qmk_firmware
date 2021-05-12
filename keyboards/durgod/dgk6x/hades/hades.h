@@ -17,22 +17,6 @@
 
 #include "quantum.h"
 
-#ifndef WINLOCK_DISABLED
-// Define the TGUI key here so it is available in QMK configurator
-enum HADES_keycodes {
-    KC_TGUI = SAFE_RANGE,   // Toggle between GUI Lock or Unlock
-    NEW_SAFE_RANGE
-};
-
-#undef SAFE_RANGE
-#define SAFE_RANGE NEW_SAFE_RANGE
-#endif /* WINLOCK_DISABLED */
-
-/* Function Prototype */
-void off_all_leds(void);
-void on_all_leds(void);
-
-
 #define XXX KC_NO
 
 // This a shortcut to help you visually see your layout.

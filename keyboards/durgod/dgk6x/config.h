@@ -20,17 +20,13 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xD60D
-#define PRODUCT_ID      0x4AD3
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    Hoksi Technology
-#define PRODUCT         DURGOD Hades (QMK)
 
-/* key matrix size */
+
+/* key matrix rows */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 #define MATRIX_ROW_PINS { A0, A1, A2, A3, A4 }
-#define MATRIX_COL_PINS { B0, B1, B2, B10, B11, B12, B13, B14, B15, C6, C7, C8, C9, C10, C11 }
+
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -70,8 +66,6 @@
 #define DRIVER_ADDR_2 0b1010011
 
 #define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 58
-#define DRIVER_2_LED_TOTAL 10
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 /* I2C Alternate function settings */
