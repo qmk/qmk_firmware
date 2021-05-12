@@ -24,8 +24,18 @@
 #define CHECK_OBS_MODS_MASK(mods) ((mods & MODS_SHIFT_MASK) && (mods & MODS_CTRL_MASK) && (mods & MODS_ALT_MASK) && (mods & MODS_GUI_MASK))
 
 enum custom_keycodes {
-    M_TERMFOCUS = SAFE_RANGE,
-    M_TEAMSCODEBLOCK,
+    M_VSC_TERMFOCUS = SAFE_RANGE,
+    M_VSC_SIDEBARFOCUS,
+    M_VSC_DBGCNSLFOCUS,
+    M_VSC_CLOSEFILE,
+    M_GDB_PLAY,
+    M_GDB_PAUSE,
+    M_GDB_STEPOVER,
+    M_GDB_STEPIN,
+    M_GDB_STEPOUT,
+    M_GDB_RESTART,
+    M_GDB_STOP,
+    M_MST_CODEBLOCK,
     M_OBS_BRB,
     M_OBS_GAME,
     M_OBS_JSTCHT,
@@ -35,6 +45,36 @@ enum custom_keycodes {
     M_OBS_VOICE_UNMUTE,
     M_OBS_MOOSIC_MUTE,
     M_OBS_MOOSIC_UNMUTE,
+};
+
+// Handle GDB-specific custom keycodes
+bool process_record_user_gdb(uint16_t keycode, keyrecord_t *record) {
+    bool rv = true;
+    switch (keycode) {
+        case M_GDB_PLAY:
+            SEND_STRING(SS_TAP(X_F5));
+            break;
+        case M_GDB_PAUSE:
+            SEND_STRING(SS_TAP(X_F6));
+            break;
+        case M_GDB_STEPOVER:
+            SEND_STRING(SS_TAP(X_F10));
+            break;
+        case M_GDB_STEPIN:
+            SEND_STRING(SS_TAP(X_F11));
+            break;
+        case M_GDB_STEPOUT:
+            SEND_STRING(SS_LSFT(SS_TAP(X_F11)));
+            break;
+        case M_GDB_RESTART:
+            SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_F5))));
+            break;
+        case M_GDB_STOP:
+            SEND_STRING(SS_LSFT(SS_TAP(X_F5)));
+            break;
+    }
+
+    return rv;
 };
 
 // Handle OBS-specific custom keycodes
@@ -87,15 +127,39 @@ bool process_record_user_obs(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool rv = true;
     switch (keycode) {
-        case M_TERMFOCUS:
+        case M_VSC_TERMFOCUS:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTRL("`"));
             }
             break;
-        case M_TEAMSCODEBLOCK:
+        case M_VSC_SIDEBARFOCUS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL("0"));
+            }
+            break;
+        case M_MST_CODEBLOCK:
             if (record->event.pressed) {
                 SEND_STRING("```");
             }
+            break;
+        case M_VSC_CLOSEFILE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL("W"));
+            }
+            break;
+        case M_VSC_DBGCNSLFOCUS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_D))));
+            }
+            break;
+        case M_GDB_PLAY:
+        case M_GDB_PAUSE:
+        case M_GDB_STEPOVER:
+        case M_GDB_STEPIN:
+        case M_GDB_STEPOUT:
+        case M_GDB_RESTART:
+        case M_GDB_STOP:
+            rv = process_record_user_gdb(keycode, record);
             break;
         case M_OBS_BRB:
         case M_OBS_GAME:
@@ -131,19 +195,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				 ),
 
 	[2] = LAYOUT_ortho(
-                  KC_2,         KC_TRNS,          KC_TRNS, KC_TRNS,
-                  KC_TRNS,      KC_TRNS,          KC_TRNS, KC_TRNS,
-                  KC_TRNS,      KC_TRNS,          KC_TRNS, KC_TRNS,
-         KC_TRNS, M_TERMFOCUS,  M_TEAMSCODEBLOCK, KC_TRNS, KC_TRNS,
-         KC_TRNS, MO(10), KC_TRNS, KC_TRNS, KC_TRNS
+                          KC_2,               KC_TRNS,          KC_TRNS,         KC_TRNS,
+                          KC_TRNS,            KC_TRNS,          KC_TRNS,         KC_TRNS,
+                          KC_TRNS,            KC_TRNS,          KC_TRNS,         KC_TRNS,
+         KC_TRNS,         M_VSC_SIDEBARFOCUS, M_VSC_TERMFOCUS,  M_MST_CODEBLOCK, KC_TRNS,
+         M_VSC_CLOSEFILE, MO(10),             KC_TRNS,          KC_TRNS,         KC_TRNS
 				 ),
 
 	[3] = LAYOUT_ortho(
-                  KC_3, KC_TRNS, KC_TRNS, KC_TRNS,
-                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-         KC_TRNS, MO(10), KC_TRNS, KC_TRNS, KC_TRNS
+                             KC_3,             KC_TRNS,      KC_TRNS,       KC_TRNS,
+                             KC_TRNS,          KC_TRNS,      KC_TRNS,       M_GDB_PAUSE,
+                             M_GDB_RESTART,    M_GDB_STOP,   KC_TRNS,       M_GDB_PAUSE,
+         M_VSC_DBGCNSLFOCUS, M_GDB_STEPOVER,   M_GDB_STEPIN, M_GDB_STEPOUT, M_GDB_PLAY,
+         KC_TRNS,            MO(10),           KC_TRNS,      KC_TRNS,       M_GDB_PLAY
 				 ),
 
 	[4] = LAYOUT_ortho(

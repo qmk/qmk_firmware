@@ -19,19 +19,39 @@
 #ifdef ENCODER_ENABLE
 /* assign keycodes to the encoder rotation */
 __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
-
+			const layer_state_t curr_layer = get_highest_layer(layer_state);
 			if (index == 1) { /* Bottom encoder */
-				if (clockwise) {
-					tap_code(KC_VOLU);
-				} else {
-					tap_code(KC_VOLD);
+				if(curr_layer == 2 || curr_layer == 3) {
+					if (clockwise) {
+						SEND_STRING(SS_LCTRL("k"));
+						SEND_STRING(SS_LCTRL(SS_TAP(X_PGDOWN)));
+					} else {
+						SEND_STRING(SS_LCTRL("k"));
+						SEND_STRING(SS_LCTRL(SS_TAP(X_PGUP)));
+					}
+				}
+				else {
+					if (clockwise) {
+						tap_code(KC_VOLU);
+					} else {
+						tap_code(KC_VOLD);
+					}
 				}
 			}
 			if (index == 0) { /* Top encoder */
-				if (clockwise) {
-					tap_code(KC_MNXT);
-				} else {
-					tap_code(KC_MPRV);
+				if(curr_layer == 2 || curr_layer == 3) {
+					if (clockwise) {
+						SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_L))));
+					} else {
+						SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_K))));
+					}
+				}
+				else {
+					if (clockwise) {
+						tap_code(KC_MNXT);
+					} else {
+						tap_code(KC_MPRV);
+					}
 				}
 			}
 }
@@ -88,15 +108,14 @@ __attribute__((weak)) void oled_task_user(void) {
 			oled_write_P(PSTR(" CODE\n"), false);
 			break;
 		case 3:
-			oled_write_P(PSTR(" NOTE\n"), false);
+			oled_write_P(PSTR(" GDB\n"), false);
 			break;
 		case 4:
 			oled_write_P(PSTR(" OBS\n"), false);
 			break;
-		case 5:
-			oled_write_P(PSTR(" SIX\n"), false);
+		default:
+			oled_write_P(PSTR(" NONE\n"), false);
 			break;
-
 	}
 }
 #endif
