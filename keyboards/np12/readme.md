@@ -15,7 +15,6 @@ Make example for this keypad (after setting up your build environment):
 
     make np12:default
 	
-
 Flashing example for this keyboard:
 
     make np12:default:flash
