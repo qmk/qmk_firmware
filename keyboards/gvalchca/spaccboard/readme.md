@@ -1,12 +1,11 @@
-Gvalchca x Jugizafupe SpaccBoard
-======
+# Gvalchca x Jugizafupe SpaccBoard
 
 Space Invaders 60% PCB with ANSI and Big Ass Enter support. To update the firmware connect the PCB to your computer and press Reset button.
 ![SpaccBoard image](https://i.imgur.com/ZYSrQTr.jpeg)
 
-Keyboard Maintainer: [Gvalchca](https://github.com/Gvalch-ca)  
-Hardware Supported: Gvalchca x Jugizafupe SpaccBoard
-Hardware Availability: [KeebMeUp](https://keebmeup.com)
+* Keyboard Maintainer: [Gvalchca](https://github.com/Gvalch-ca)
+* Hardware Supported: Gvalchca x Jugizafupe SpaccBoard
+* Hardware Availability: [KeebMeUp](https://keebmeup.com)
 
 Make example for this keyboard (after setting up your build environment):
 
