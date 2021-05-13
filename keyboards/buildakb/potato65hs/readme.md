@@ -1,6 +1,6 @@
 # Potato65 Hotswap Keyboard
 
-![Potato65 Hotswap](https://i.imgur.com/ysAGZCm.jpg)
+![Potato65 Hotswap](https://i.imgur.com/ysAGZCmh.jpg)
 
 A hot-swappable gasket mount stacked acrylic 65% keyboard
 
