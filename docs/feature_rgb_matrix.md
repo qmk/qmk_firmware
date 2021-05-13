@@ -399,7 +399,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
-For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix_animation/`
+For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix_animations/`
 
 
 ## Colors :id=colors
@@ -453,7 +453,7 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 
 ## EEPROM storage :id=eeprom-storage
 
-The EEPROM for it is currently shared with the RGBLIGHT system (it's generally assumed only one RGB would be used at a time), but could be configured to use its own 32bit address with:
+The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time), but could be configured to use its own 32bit address with:
 
 ```c
 #define EECONFIG_RGB_MATRIX (uint32_t *)28
