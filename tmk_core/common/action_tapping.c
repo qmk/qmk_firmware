@@ -39,7 +39,6 @@ __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *re
 #        include "process_auto_shift.h"
 #    endif
 
-
 static keyrecord_t tapping_key                         = {};
 static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {};
 static uint8_t     waiting_buffer_head                 = 0;

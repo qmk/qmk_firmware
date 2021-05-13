@@ -49,7 +49,9 @@ void     autoshift_disable(void);
 void     autoshift_toggle(void);
 bool     get_autoshift_state(void);
 uint16_t get_generic_autoshift_timeout(void);
+// clang-format off
 uint16_t (get_autoshift_timeout)(uint16_t keycode, keyrecord_t *record);
 void     set_autoshift_timeout(uint16_t timeout);
 void     autoshift_matrix_scan(void);
 bool     get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record);
+// clang-format on

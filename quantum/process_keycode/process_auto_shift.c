@@ -222,15 +222,17 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger, k
     if (autoshift_flags.in_progress && (keycode == autoshift_lastkey || keycode == KC_NO)) {
         // Process the auto-shiftable key.
         autoshift_flags.in_progress = false;
+        // clang-format off
         autoshift_flags.lastshifted =
             autoshift_flags.lastshifted
             || TIMER_DIFF_16(now, autoshift_time) >=
 #    ifdef AUTO_SHIFT_TIMEOUT_PER_KEY
-            get_autoshift_timeout(autoshift_lastkey, record)
+                get_autoshift_timeout(autoshift_lastkey, record)
 #    else
-            autoshift_timeout
+                autoshift_timeout
 #    endif
         ;
+        // clang-format on
         set_autoshift_shift_state(autoshift_lastkey, autoshift_flags.lastshifted);
         if (get_mods() & MOD_BIT(KC_LSFT)) {
             autoshift_flags.cancelling_lshift = true;
@@ -323,7 +325,9 @@ void autoshift_timer_report(void) {
 bool get_autoshift_state(void) { return autoshift_flags.enabled; }
 
 uint16_t get_generic_autoshift_timeout() { return autoshift_timeout; }
+// clang-format off
 __attribute__((weak)) uint16_t (get_autoshift_timeout)(uint16_t keycode, keyrecord_t *record) { return autoshift_timeout; }
+// clang-format on
 
 void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 
@@ -464,13 +468,13 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 // Called to record time before possible delays by action_tapping_process.
 void retroshift_poll_time(keyevent_t *event) {
     last_retroshift_time = retroshift_time;
-    retroshift_time = timer_read();
+    retroshift_time      = timer_read();
 }
 // Used to swap the times of Retro Shifted key and Auto Shift key that interrupted it.
 void retroshift_swap_times() {
     if (last_retroshift_time != 0 && autoshift_flags.in_progress) {
-        uint16_t temp = retroshift_time;
-        retroshift_time = last_retroshift_time;
+        uint16_t temp        = retroshift_time;
+        retroshift_time      = last_retroshift_time;
         last_retroshift_time = temp;
     }
 }
