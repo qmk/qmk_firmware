@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define XXXXXXX KC_NO
 
  /*
  * LED ranges for Think6.5v2 2U
@@ -230,5 +229,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
-
 
