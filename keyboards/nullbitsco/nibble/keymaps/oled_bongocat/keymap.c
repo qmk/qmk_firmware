@@ -29,11 +29,9 @@ enum layer_names {
 
 #define KC_DISC_MUTE KC_F23
 #define KC_DISC_DEAF KC_F24
-#define NUM_CUST_KEYCODES (_NUM_CUST_KCS - SAFE_RANGE)
-#define VIA_KEYCODE_RANGE 0x5F80
 
 enum custom_keycodes {
-  PROG = SAFE_RANGE,
+  PROG = USER00,
   DISC_MUTE,
   DISC_DEAF,
   SUPER_ALT_TAB,
@@ -80,15 +78,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
-
-void map_via_keycode(uint16_t * keycode) {
-  if (abs(*keycode - VIA_KEYCODE_RANGE) < NUM_CUST_KEYCODES) { //make into macro?
-    dprintf("VIA custom keycode found, mapping to QMK keycode.\n");
-    uint16_t new_keycode = (*keycode - VIA_KEYCODE_RANGE) + SAFE_RANGE;
-    dprintf("VIA KC: %u QMK KC: %u\n", *keycode, new_keycode);
-    *keycode = new_keycode;
-  }
-}
 
 void encoder_update_kb(uint8_t index, bool clockwise) {
     if (clockwise) {
@@ -178,8 +167,6 @@ void oled_task_user(void) {
 
 // Animate tap
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    map_via_keycode(&keycode);
-
     #ifdef OLED_DRIVER_ENABLE
     // Check if non-mod
     if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLASH)) {
