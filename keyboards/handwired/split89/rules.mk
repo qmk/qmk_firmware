@@ -21,4 +21,8 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
+<<<<<<< HEAD:keyboards/handwired/split89/rules.mk
 SPLIT_KEYBOARD = yes
+=======
+DEFAULT_FOLDER = delikeeb/waaffle/rev3/pro_micro
+>>>>>>> d200e3de8e ([Keyboard] updated a vendor name / fixed minor keymap issues (#12881)):keyboards/delikeeb/waaffle/rev3/rules.mk
