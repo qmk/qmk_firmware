@@ -1,20 +1,20 @@
-# Barleycorn
+# Seigaiha
 
-![Barleycorn](https://i.imgur.com/vi3L1HYl.png)
+![Seigaiha](https://i.imgur.com/GCGyOmph.jpg)
 
-An f-row less compact 1800 kit with only through hole components.
+An alice layout kit with only through hole components.
 
 * Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
-* Hardware Supported: ATMEGA328p with vusb [PCB](https://github.com/yiancar/barleycorn_pcb)
+* Hardware Supported: ATMEGA328p with vusb [PCB](https://github.com/yiancar/seigaiha_pcb)
 * Hardware Availability: https://mykeyboard.eu/, https://novelkeys.xyz
 
 Make example for this keyboard (after setting up your build environment):
 
-    make barleycorn:default
+    make seigaiha:default
 
 Flashing example for this keyboard:
 
-    make barleycorn:default:flash
+    make seigaiha:default:flash
 
 Bootloader:
 use usbasploader from HSGW's repository.
