@@ -316,6 +316,9 @@ typedef struct {
 #ifdef JOYSTICK_ENABLE
             usb_driver_config_t joystick_driver;
 #endif
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+            usb_driver_config_t digitizer_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -359,6 +362,14 @@ static usb_driver_configs_t drivers = {
 #    define JOYSTICK_IN_MODE USB_EP_MODE_TYPE_BULK
 #    define JOYSTICK_OUT_MODE USB_EP_MODE_TYPE_BULK
     .joystick_driver = QMK_USB_DRIVER_CONFIG(JOYSTICK, 0, false),
+#endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+#    define DIGITIZER_IN_CAPACITY 4
+#    define DIGITIZER_OUT_CAPACITY 4
+#    define DIGITIZER_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define DIGITIZER_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .digitizer_driver = QMK_USB_DRIVER_CONFIG(DIGITIZER, 0, false),
 #endif
 };
 
@@ -924,25 +935,20 @@ void send_consumer(uint16_t data) {
 }
 
 void send_digitizer(report_digitizer_t* report){
+#ifdef DIGITIZER_ENABLE
+#   ifdef DIGITIZER_SHARED_EP
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
         osalSysUnlock();
         return;
     }
-
-    if (usbGetTransmitStatusI(&USB_DRIVER, SHARED_IN_EPNUM)) {
-        /* Need to either suspend, or loop and call unlock/lock during
-         * every iteration - otherwise the system will remain locked,
-         * no interrupts served, so USB not going through as well.
-         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[SHARED_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
-            osalSysUnlock();
-            return;
-        }
-    }
-    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)report, sizeof(report_digitizer_t));
-    osalSysUnlock();
     
+    usbStartTransmitI(&USB_DRIVER, DIGITIZER_IN_EPNUM, (uint8_t *)report, sizeof(report_digitizer_t));
+    osalSysUnlock();
+#   else
+    chnWrite(&drivers.digitizer_driver.driver, (uint8_t *)report, sizeof(report_digitizer_t));
+#   endif
+#endif
 }
 
 /* ---------------------------------------------------------

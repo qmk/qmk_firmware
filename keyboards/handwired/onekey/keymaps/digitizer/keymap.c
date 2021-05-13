@@ -9,15 +9,19 @@
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT_ortho_1x1(JS_BUTTON0)
+    LAYOUT_ortho_1x1(KC_A)
 };
 
+uint32_t timer = 0;
+
 void matrix_scan_user() {
-    if (((timer_read()/10) % 10) != 0){
-      return;
+    if (timer_elapsed32(timer) < 200){
+        return;
     }
-    digitizer.x = 0.5-0.2*cos(timer_read()/250./6.28);
-    digitizer.y = 0.5-0.2*sin(timer_read()/250./6.28);
+    
+    timer = timer_read32();
+    digitizer.x = 0.5 - 0.2 * cos(timer_read() / 250. / 6.28);
+    digitizer.y = 0.5 - 0.2 * sin(timer_read() / 250. / 6.28);
     digitizer.tipswitch = 0;
     digitizer.inrange = 1;
     digitizer.status |= DZ_UPDATED;

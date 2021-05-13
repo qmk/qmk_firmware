@@ -703,7 +703,6 @@ endif
 
 DIGITIZER_ENABLE ?= no
 ifneq ($(strip $(DIGITIZER_ENABLE)), no)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_digitizer.c
     SRC += $(QUANTUM_DIR)/digitizer.c
 endif
 

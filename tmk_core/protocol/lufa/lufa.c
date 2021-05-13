@@ -526,6 +526,11 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     /* Setup joystick endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((JOYSTICK_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, JOYSTICK_EPSIZE, 1);
 #endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+    /* Setup digitizer endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((DIGITIZER_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, DIGITIZER_EPSIZE, 1);
+#endif
 }
 
 /* FIXME: Expose this table in the docs somehow
@@ -990,7 +995,7 @@ static void send_digitizer(report_digitizer_t* report){
 
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
 
-    Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
+    Endpoint_SelectEndpoint(DIGITIZER_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
     while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);

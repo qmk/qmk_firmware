@@ -107,7 +107,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "crc.h"
 #endif
 #ifdef DIGITIZER_ENABLE
-#    include "process_digitizer.h"
+#    include "digitizer.h"
 #endif
 
 static uint32_t last_input_modification_time = 0;

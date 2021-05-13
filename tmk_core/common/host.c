@@ -105,16 +105,19 @@ void host_consumer_send(uint16_t report) {
 }
 
 void host_digitizer_send(digitizer_t *digitizer){
-  if (!driver) return;
-  
-  report_digitizer_t report = {
-    .report_id = REPORT_ID_DIGITIZER,
-    .tip = digitizer->tipswitch & 0x1,
-    .inrange = digitizer->inrange & 0x1,
-    .x = (uint16_t)(digitizer->x*0x7FFF),
-    .y = (uint16_t)(digitizer->y*0x7FFF),
-  };
-  (*driver->send_digitizer)(&report);
+    if (!driver) return;
+    
+    report_digitizer_t report = {
+#ifdef DIGITIZER_SHARED_EP
+        .report_id = REPORT_ID_DIGITIZER,
+#endif
+        .tip = digitizer->tipswitch & 0x1,
+        .inrange = digitizer->inrange & 0x1,
+        .x = (uint16_t)(digitizer->x*0x7FFF),
+        .y = (uint16_t)(digitizer->y*0x7FFF),
+    };
+    
+    (*driver->send_digitizer)(&report);
 }
 
 uint16_t host_last_system_report(void) { return last_system_report; }

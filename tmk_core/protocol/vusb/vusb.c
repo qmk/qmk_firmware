@@ -296,7 +296,7 @@ static void send_consumer(uint16_t data) {
 static void send_digitizer(report_digitizer_t* report){
 #ifdef DIGITIZER_ENABLE
     if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report_digitizer_t));
+        usbSetInterruptShared((void *)report, sizeof(report_digitizer_t));
     }
 #endif
 }
