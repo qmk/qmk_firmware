@@ -83,6 +83,10 @@ void suspend_power_down(void) {
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_suspend();
 #endif
+
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(true);
+#endif
 #if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_set_suspend_state(true);
 #endif
@@ -153,6 +157,10 @@ void suspend_wakeup_init(void) {
     led_set(host_keyboard_leds());
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_wakeup();
+#endif
+
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(false);
 #endif
 #if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_set_suspend_state(false);
