@@ -50,6 +50,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define STM32_HSECLK 8000000
 
+#define OPENDRAIN_INDICATORS
+#define LED_CAPS_LOCK_PIN C8
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
