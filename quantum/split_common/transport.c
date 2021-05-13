@@ -392,7 +392,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    endif
 
 #    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
-    serial_m2s_buffer.led_matrix        = led_matrix_econfig;
+    serial_m2s_buffer.led_matrix        = led_matrix_eeconfig;
     serial_m2s_buffer.led_suspend_state = led_matrix_get_suspend_state();
 #    endif
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
