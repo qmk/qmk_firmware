@@ -11,7 +11,7 @@ DIGITIZER_ENABLE = yes
 In order to change the mouse cursor position from your keymap.c file, include the digitizer header : 
 
 ```c
-#include <digitizer.h>
+#include "digitizer.h"
 ```
 
 This gives you access to the `digitizer` structure which members allow you to change the cursor position.
