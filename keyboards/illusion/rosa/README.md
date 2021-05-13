@@ -1,6 +1,6 @@
 # Rosa
 
-![Rosa](https://i.imgur.com/ATFjY5f.jpg)
+![Rosa](https://i.imgur.com/ATFjY5fh.jpg)
 
 A 60% form factor PCB for the Rosa. Uses a USB Type C connector.
 
