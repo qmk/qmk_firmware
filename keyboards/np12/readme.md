@@ -1,8 +1,8 @@
 # np12
 
-![np12](https://i.imgur.com/gci7qqZ.jpg)
+![np12](https://i.imgur.com/gci7qqZh.jpg)
 
-![np12 pcb](https://i.imgur.com/DIIvW95.jpg)
+![np12 pcb](https://i.imgur.com/DIIvW95h.jpg)
 
 Square-shaped 12 keys keypad with an encoder.
 
