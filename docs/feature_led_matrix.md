@@ -38,8 +38,8 @@ Here is an example using 2 drivers.
 // 0b1110111 AD <-> VCC
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
-#define LED_DRIVER_ADDR_1 0b1110100
-#define LED_DRIVER_ADDR_2 0b1110110
+#define DRIVER_ADDR_1 0b1110100
+#define DRIVER_ADDR_2 0b1110110
 
 #define LED_DRIVER_COUNT 2
 #define LED_DRIVER_1_LED_TOTAL 25
