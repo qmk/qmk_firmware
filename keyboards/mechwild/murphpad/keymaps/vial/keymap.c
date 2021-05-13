@@ -31,7 +31,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_P7,    KC_P8,   KC_P9,   KC_PPLS,
         KC_MUTE, KC_P4,    KC_P5,   KC_P6,   KC_NO,
         MO(_FN1), KC_P1,    KC_P2,   KC_P3,   KC_PENT,
-        KC_BSPC, KC_P0,    KC_NO,   KC_PDOT, KC_NO
+        KC_BSPC, KC_P0,    KC_NO,   KC_PDOT, KC_NO,	
+		
+                  _______, _______, _______
+
     ),
     [_FN1] = LAYOUT(
                  _______,  _______, _______, _______,
@@ -39,7 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  RGB_HUD,  RGB_SPI, RGB_HUI, _______,
         _______, RGB_RMOD, RGB_TOG, RGB_MOD, KC_NO,
         _______, RGB_VAD,  RGB_SPD, RGB_VAI, _______,
-        _______, RGB_SAD,  KC_NO,   RGB_SAI, KC_NO
+        _______, RGB_SAD,  KC_NO,   RGB_SAI, KC_NO,
+				
+                  _______, _______, _______
+
     ),
 	[_FN2] = LAYOUT(
                  _______,  _______, _______, _______,
@@ -47,7 +53,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______,  _______, _______, _______,
         _______,  _______, _______, _______, KC_NO,
         _______,  _______, _______, _______, _______,
-        _______,  _______, _______, _______, KC_NO
+        _______,  _______, _______, _______, KC_NO,
+				
+                  _______, _______, _______
+
     ),
 	[_FN3] = LAYOUT(
                  _______,  _______, _______, _______,
@@ -55,7 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______,  _______, _______, _______,
         _______,  _______, _______, _______, KC_NO,
         _______,  _______, _______, _______, _______,
-        _______,  _______, _______, _______, KC_NO
+        _______,  _______, _______, _______, KC_NO,
+				
+                  _______, _______, _______
+
     )
 };
 
