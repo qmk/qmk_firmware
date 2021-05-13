@@ -39,8 +39,6 @@ const uint16_t encoder_default[2][2] =  { { KC_PGDN, KC_PGUP }, { KC__VOLDOWN, K
  * Tap on encoder updates using the encoder keymap
  */
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    // if (!encoder_update_user(index, clockwise)) return false;
-
     uint16_t code;
 
     if (encoder_keymaps) {
@@ -52,7 +50,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
       code = encoder_default[index][clockwise];
     }
 
-    tap_code16(code);
+    if (encoder_update_user(code, clockwise) == false) {
+        tap_code16(code);
+    }
     return true;
 }
 
