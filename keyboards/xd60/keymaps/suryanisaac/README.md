@@ -9,6 +9,8 @@ Just my custom layout, works really well for me so hopefully you guys like it.
 - Nav keys close to arrow keys, good for programming
 - Non-convoluted media control
 - For Mac or Linux with Kinto
-- Left and Right arrow keys on left shift and right shift
+- Left and Right brackets on left shift and right shift
+- Layer 1 has F1 to F12 on number keys
+
 
 Pictures Available Here: https://imgur.com/a/7UzkhOu
