@@ -62,15 +62,13 @@ __attribute__((weak)) bool get_custom_auto_shifted_key(uint16_t keycode, keyreco
 __attribute__((weak)) bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #    ifndef NO_AUTO_SHIFT_ALPHA
-        case KC_A ... KC_Z:
+        case AUTO_SHIFT_ALPHA:
 #    endif
 #    ifndef NO_AUTO_SHIFT_NUMERIC
-        case KC_1 ... KC_0:
+        case AUTO_SHIFT_NUMERIC:
 #    endif
 #    ifndef NO_AUTO_SHIFT_SPECIAL
-        case KC_TAB:
-        case KC_MINUS ... KC_SLASH:
-        case KC_NONUS_BSLASH:
+        case AUTO_SHIFT_SPECIAL:
 #    endif
             return true;
     }
@@ -224,7 +222,15 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger, k
     if (autoshift_flags.in_progress && (keycode == autoshift_lastkey || keycode == KC_NO)) {
         // Process the auto-shiftable key.
         autoshift_flags.in_progress = false;
-        autoshift_flags.lastshifted = autoshift_flags.lastshifted || TIMER_DIFF_16(now, autoshift_time) >= autoshift_timeout;
+        autoshift_flags.lastshifted =
+            autoshift_flags.lastshifted
+            || TIMER_DIFF_16(now, autoshift_time) >=
+#    ifdef AUTO_SHIFT_TIMEOUT_PER_KEY
+            get_autoshift_timeout(autoshift_lastkey, record)
+#    else
+            autoshift_timeout
+#    endif
+        ;
         set_autoshift_shift_state(autoshift_lastkey, autoshift_flags.lastshifted);
         if (get_mods() & MOD_BIT(KC_LSFT)) {
             autoshift_flags.cancelling_lshift = true;
@@ -280,7 +286,13 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger, k
 void autoshift_matrix_scan(void) {
     if (autoshift_flags.in_progress) {
         const uint16_t now = timer_read();
-        if (TIMER_DIFF_16(now, autoshift_time) >= autoshift_timeout) {
+        if (TIMER_DIFF_16(now, autoshift_time) >=
+#    ifdef AUTO_SHIFT_TIMEOUT_PER_KEY
+            get_autoshift_timeout(autoshift_lastkey, &autoshift_lastrecord)
+#    else
+            autoshift_timeout
+#    endif
+        ) {
             autoshift_end(autoshift_lastkey, now, true, &autoshift_lastrecord);
         }
     }
@@ -310,7 +322,8 @@ void autoshift_timer_report(void) {
 
 bool get_autoshift_state(void) { return autoshift_flags.enabled; }
 
-uint16_t get_autoshift_timeout(void) { return autoshift_timeout; }
+uint16_t get_generic_autoshift_timeout() { return autoshift_timeout; }
+__attribute__((weak)) uint16_t (get_autoshift_timeout)(uint16_t keycode, keyrecord_t *record) { return autoshift_timeout; }
 
 void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 

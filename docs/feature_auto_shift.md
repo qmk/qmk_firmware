@@ -102,6 +102,36 @@ quicker than normal and you will be set.
 
 ?> Auto Shift has three special keys that can help you get this value right very quick. See "Auto Shift Setup" for more details!
 
+For more granular control of this feature, you can add the following to your `config.h`:
+
+```c
+#define AUTO_SHIFT_TIMEOUT_PER_KEY
+```
+
+You can then add the following function to your keymap:
+
+```c
+uint16_t (get_autoshift_timeout)(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case AUTO_SHIFT_NUMERIC:
+            return 2 * get_autoshift_timeout();
+        case AUTO_SHIFT_SPECIAL:
+            return get_autoshift_timeout() + 50;
+        case AUTO_SHIFT_ALPHA:
+        default:
+            return get_autoshift_timeout();
+    }
+}
+```
+
+Note that you cannot override individual keys that are in one of those groups
+if you are using them; trying to add a case for `KC_A` in the above example will
+not compile as `AUTO_SHIFT_ALPHA` is there. A possible solution is a second switch
+above to handle individual keys with no default case and only referencing the
+groups in the below fallback switch.
+
+The parentheses around `get_autoshift_timeout` are required.
+
 ### NO_AUTO_SHIFT_SPECIAL (simple define)
 
 Do not Auto Shift special keys, which include -\_, =+, [{, ]}, ;:, '", ,<, .>,
