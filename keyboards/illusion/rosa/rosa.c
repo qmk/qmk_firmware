@@ -16,15 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "rosa.h"
-
-void keyboard_pre_init_kb(void) {
-    setPinOutput(B3); // caps lock indicator LED pin
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        writePin(B3, !led_state.caps_lock);
-    }
-    return res;
-}
