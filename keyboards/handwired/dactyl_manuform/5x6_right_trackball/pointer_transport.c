@@ -37,6 +37,13 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
+#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#    include "led_matrix.h"
+#endif
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#    include "rgb_matrix.h"
+#endif
+
 #ifdef POINTING_DEVICE_ENABLE
 static uint16_t device_cpi    = 0;
 static int8_t   split_mouse_x = 0, split_mouse_y = 0;
@@ -84,7 +91,14 @@ typedef struct _I2C_slave_buffer_t {
     bool          oled_on;
     layer_state_t t_layer_state;
     layer_state_t t_default_layer_state;
-    bool          is_rgb_matrix_suspended;
+#    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    led_eeconfig_t led_matrix;
+    bool           led_suspend_state;
+#    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_config_t rgb_matrix;
+    bool         rgb_suspend_state;
+#    endif
 } __attribute__((packed)) I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -105,7 +119,10 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_OLED_ON_START offsetof(I2C_slave_buffer_t, oled_on)
 #    define I2C_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_layer_state)
 #    define I2C_DEFAULT_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_default_layer_state)
-#    define I2C_RGB_MATRIX_SUSPEND_START offsetof(I2C_slave_buffer_t, is_rgb_matrix_suspended)
+#    define I2C_LED_MATRIX_START offsetof(I2C_slave_buffer_t, led_matrix)
+#    define I2C_LED_SUSPEND_START offsetof(I2C_slave_buffer_t, led_suspend_state)
+#    define I2C_RGB_MATRIX_START offsetof(I2C_slave_buffer_t, rgb_matrix)
+#    define I2C_RGB_SUSPEND_START offsetof(I2C_slave_buffer_t, rgb_suspend_state)
 
 #    define TIMEOUT 100
 
@@ -216,13 +233,15 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     }
 #    endif
 
-#    ifdef RGB_MATRIX_ENABLE
-    bool sus_state = rgb_matrix_get_suspend_state();
-    if (sus_state != i2c_buffer->is_rgb_matrix_suspended) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_MATRIX_SUSPEND_START, (void *)&sus_state, sizeof(sus_state), TIMEOUT) >= 0) {
-            i2c_buffer->is_rgb_matrix_suspended = sus_state;
-        }
-    }
+#    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LED_MATRIX_START, (void *)led_matrix_eeconfig, sizeof(i2c_buffer->led_matrix), TIMEOUT);
+    bool suspend_state = led_matrix_get_suspend_state();
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LED_SUSPEND_START, (void *)suspend_state, sizeof(i2c_buffer->led_suspend_state), TIMEOUT);
+#    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_MATRIX_START, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix), TIMEOUT);
+    bool suspend_state = rgb_matrix_get_suspend_state();
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_SUSPEND_START, (void *)suspend_state, sizeof(i2c_buffer->rgb_suspend_state), TIMEOUT);
 #    endif
 
 #    ifndef DISABLE_SYNC_TIMER
@@ -302,8 +321,13 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     }
 #    endif
 
-#    ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_suspend_state(i2c_buffer->is_rgb_matrix_suspended);
+#    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    memcpy((void *)i2c_buffer->led_matrix, (void *)led_matrix_eeconfig, sizeof(i2c_buffer->led_matrix));
+    led_matrix_set_suspend_state(i2c_buffer->led_suspend_state);
+#    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    memcpy((void *)i2c_buffer->rgb_matrix, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix));
+    rgb_matrix_set_suspend_state(i2c_buffer->rgb_suspend_state);
 #    endif
 }
 
@@ -349,7 +373,14 @@ typedef struct _Serial_m2s_buffer_t {
     bool          oled_on;
     layer_state_t t_layer_state;
     layer_state_t t_default_layer_state;
-    bool          is_rgb_matrix_suspended;
+#    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    led_eeconfig_t led_matrix;
+    bool           led_suspend_state;
+#    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_config_t   rgb_matrix;
+    bool           rgb_suspend_state;
+#    endif
 } __attribute__((packed)) Serial_m2s_buffer_t;
 
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -484,8 +515,13 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     serial_m2s_buffer.oled_on                 = is_oled_on();
 #    endif
 
-#    ifdef RGB_MATRIX_ENABLE
-    serial_m2s_buffer.is_rgb_matrix_suspended = rgb_matrix_get_suspend_state();
+#    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    serial_m2s_buffer.led_matrix        = led_matrix_eeconfig;
+    serial_m2s_buffer.led_suspend_state = led_matrix_get_suspend_state();
+#    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    serial_m2s_buffer.rgb_matrix        = rgb_matrix_config;
+    serial_m2s_buffer.rgb_suspend_state = rgb_matrix_get_suspend_state();
 #    endif
 #    ifndef DISABLE_SYNC_TIMER
     serial_m2s_buffer.sync_timer   = sync_timer_read32() + SYNC_TIMER_OFFSET;
@@ -553,8 +589,13 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     }
 #    endif
 
-#    ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_suspend_state(serial_m2s_buffer.is_rgb_matrix_suspended);
+#    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    led_matrix_eeconfig = serial_m2s_buffer.led_matrix;
+    led_matrix_set_suspend_state(serial_m2s_buffer.led_suspend_state);
+#    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_matrix_config = serial_m2s_buffer.rgb_matrix;
+    rgb_matrix_set_suspend_state(serial_m2s_buffer.rgb_suspend_state);
 #    endif
 }
 
