@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "keymap.h"
+#include "layers.h"
 #include "oled.h"
 
 #define LOWER MO(_LOWER)
@@ -37,6 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 // clang-format on
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); }
 
 bool led_update_user(led_t led_state) {
 #ifdef OLED_DRIVER_ENABLE
