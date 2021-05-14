@@ -64,7 +64,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN F7
 #define RGBLED_NUM 64
 #define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_LIMIT_VAL 128
+#define RGBLIGHT_LIMIT_VAL 108
 #define RGB_VAL_STEP 12
 /* #define RGBLIGHT_LAYER_BLINK*/
 
