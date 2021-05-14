@@ -523,34 +523,40 @@ const PROGMEM uchar shared_hid_report[] = {
 #endif
 
 #ifdef DIGITIZER_ENABLE
-    0x05, 0x0d,                 // USAGE_PAGE (Digitizers)
-    0x09, 0x01,                 // USAGE (Digitizer)
-    0xa1, 0x01,                 // COLLECTION (Application)
-    0x85, REPORT_ID_DIGITIZER,  //   REPORT_ID (7)
-    0x09, 0x22,                 //   USAGE (Finger)
-    0xa1, 0x00,                 //     COLLECTION (Physical)
-    0x09, 0x42,                 //     USAGE (Tip Switch)
-    0x25, 0x01,                 //     LOGICAL_MAXIMUM (1)
-    0x15, 0x00,                 //     LOGICAL_MINIMUM (0)
-    0x95, 0x01,                 //     REPORT_COUNT (1)
-    0x75, 0x01,                 //     REPORT_SIZE (1)
-    0x81, 0x02,                 //     INPUT (Data,Var,Abs)
-    0x09, 0x32,                 //     USAGE (In Range)
-    0x81, 0x02,                 //     INPUT (Data,Var,Abs)
-    0x95, 0x06,                 //     REPORT_COUNT (6)
-    0x81, 0x03,                 //     INPUT (Cnst,Var,Abs)
-    0x05, 0x01,                 //     USAGE_PAGE (Generic Desktop)
-    0x26, 0xff, 0x7f,           //     LOGICAL_MAXIMUM (32767)
-    0x75, 0x10,                 //     REPORT_SIZE (16)
-    0x95, 0x01,                 //     REPORT_COUNT (1)
-    0x65, 0x33,                 //     UNIT (Eng Lin:Distance)
-    0x55, 0x0e,                 //     UNIT_EXPONENT (-2)
-    0x09, 0x30,                 //     USAGE (X)
-    0x81, 0x02,                 //     INPUT (Data,Var,Abs)
-    0x09, 0x31,                 //     USAGE (Y)
-    0x81, 0x02,                 //     INPUT (Data,Var,Abs)
-    0xc0,                       //   END_COLLECTION
-    0xc0,                       // END_COLLECTION
+    // Digitizer report descriptor
+    0x05, 0x0D,                 // Usage Page (Digitizers)
+    0x09, 0x01,                 // Usage (Digitizer)
+    0xA1, 0x01,                 // Collection (Application)
+    0x85, REPORT_ID_DIGITIZER,  //   Report ID
+    0x09, 0x22,                 //   Usage (Finger)
+    0xA1, 0x00,                 //   Collection (Physical)
+    // Tip Switch (1 bit)
+    0x09, 0x42,  //     Usage (Tip Switch)
+    0x15, 0x00,  //     Logical Minimum
+    0x25, 0x01,  //     Logical Maximum
+    0x95, 0x01,  //     Report Count (1)
+    0x75, 0x01,  //     Report Size (16)
+    0x81, 0x02,  //     Input (Data, Variable, Absolute)
+    // In Range (1 bit)
+    0x09, 0x32,  //     Usage (In Range)
+    0x81, 0x02,  //     Input (Data, Variable, Absolute)
+    // Padding (6 bits)
+    0x95, 0x06,  //     Report Count (6)
+    0x81, 0x03,  //     Input (Constant)
+
+    // X/Y Position (4 bytes)
+    0x05, 0x01,        //     Usage Page (Generic Desktop)
+    0x26, 0xFF, 0x7F,  //     Logical Maximum (32767)
+    0x95, 0x01,        //     Report Count (1)
+    0x75, 0x10,        //     Report Size (16)
+    0x65, 0x33,        //     Unit (Inch, English Linear)
+    0x55, 0x0E,        //     Unit Exponent (-2)
+    0x09, 0x30,        //     Usage (X)
+    0x81, 0x02,        //     Input (Data, Variable, Absolute)
+    0x09, 0x31,        //     Usage (Y)
+    0x81, 0x02,        //     Input (Data, Variable, Absolute)
+    0xC0,              //   End Collection
+    0xC0               // End Collection
 #endif
 
 #ifdef SHARED_EP_ENABLE
