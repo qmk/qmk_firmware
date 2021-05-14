@@ -21,5 +21,3 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = yes       # Enable RGB underlighting support
-LEADER_ENABLE = yes         # Enable Leader Key support for leader sequences
-OLED_DRIVER_ENABLE = no     # Enable SSD1306 OLED subsystem
