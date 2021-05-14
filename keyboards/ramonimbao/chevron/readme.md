@@ -1,4 +1,4 @@
-# Herringbone
+# Chevron
 
 ![Chevron](https://i.imgur.com/abOuPNdl.png)
 
