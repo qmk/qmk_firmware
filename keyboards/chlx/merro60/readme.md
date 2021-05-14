@@ -6,7 +6,11 @@ A standard 60% format keyboard pcb with USB-C and unified daughterboard compatib
 Has modified cutouts to allow usage of certain tray mount cases into gummy gasket o-ring mount.
 
 Keyboard Maintainer: [Alexander Lee](https://github.com/gaclee3b)
-Hardware Supported: chlx PCB merro60.1, merro60.1.1
+Hardware Supported: chlx PCB merro60.1, merro60.1.1, merro60.1.2
+
+Enter bootloader mode by either option -
+- When unplugged, holding the top-left key (typically ESC) while plugging in the keyboard
+- When plugged, pressing and releasing the reset button on the pcb bottom behind the CAPSLOCK / A-key region
 
 Make example for this keyboard (after setting up your build environment):
 
