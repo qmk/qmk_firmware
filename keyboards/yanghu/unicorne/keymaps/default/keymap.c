@@ -1,12 +1,6 @@
 #include QMK_KEYBOARD_H
-
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE,
-    _LOWER,
-    _RAISE,
-    _ADJUST,
-};
+#include "keymap.h"
+#include "oled.h"
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -43,3 +37,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 // clang-format on
+
+bool led_update_user(led_t led_state) {
+#ifdef OLED_DRIVER_ENABLE
+    oled_render_capslock(led_state.caps_lock);
+#endif
+    return true;
+}
