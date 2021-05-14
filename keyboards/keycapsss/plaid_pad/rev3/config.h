@@ -16,16 +16,10 @@
 
 #pragma once
 
-#include "quantum.h"
+#define PRODUCT Plaid-Pad Rev3
+#define DEVICE_VER 0x0003
 
-#define LAYOUT_ortho_4x4( \
-    K00, K01, K02, K03, \
-    K10, K11, K12, K13, \
-    K20, K21, K22, K23, \
-    K30, K31, K32, K33  \
-) { \
-    { K00,   K01,   K02,   K03 }, \
-    { K10,   K11,   K12,   K13 }, \
-    { K20,   K21,   K22,   K23 }, \
-    { K30,   K31,   K32,   K33 }  \
-}
+#define UNUSED_PINS     { }
+
+#define ENCODERS_PAD_A { D1, B2, B4, D4 }
+#define ENCODERS_PAD_B { D0, B1, B3, B5 }
