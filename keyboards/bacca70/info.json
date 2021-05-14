@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "Bacca70",
+    "url": "https://3dkeebs.com/",
+    "maintainer": "keebnewb",
+    "width": 16,
+    "height": 5,
+    "layouts": {
+        "LAYOUT_default": {
+        },
+        "LAYOUT_DeBaccaBean": {
+        },
+    }
+
+}
