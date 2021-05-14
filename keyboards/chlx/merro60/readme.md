@@ -1,6 +1,6 @@
 # merro60
 
-merro60.1, merro60.1.1 PCB
+merro60 PCB
 
 A standard 60% format keyboard pcb with USB-C and unified daughterboard compatibility.
 Has modified cutouts to allow usage of certain tray mount cases into gummy gasket o-ring mount.
