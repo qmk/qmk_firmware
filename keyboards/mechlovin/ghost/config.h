@@ -1,5 +1,5 @@
 /*
-Copyright 2021 mechlovin
+Copyright 2021 Mechlovin' Studio
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,14 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID   0x4D4C // ML
-#define PRODUCT_ID  0x0870
-#define DEVICE_VER  0x0001
-#define PRODUCT     Serratus Rev.1
+#define VENDOR_ID    0x6C7A
+#define PRODUCT_ID   0x0002
+#define DEVICE_VER   0x0001
+#define MANUFACTURER Mechlovin Studio
+#define PRODUCT      Ghost
+
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
- 
 
 /*
  * Keyboard Matrix Assignments
@@ -38,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
- */
+*/
 #define MATRIX_ROW_PINS { D5, D2, D4, D3, D0, D1 }
 #define UNUSED_PINS
 
@@ -59,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN E2
-#define RGBLED_NUM 24
+#define RGBLED_NUM 28
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
