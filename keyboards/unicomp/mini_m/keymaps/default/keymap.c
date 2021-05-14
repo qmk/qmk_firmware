@@ -15,21 +15,22 @@
  */
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
 // Layer shortcuts
-#define _QWERTY     0   // Qwerty layer
-#define _NUMPAD     1   // Numpad layer
+enum custom_layers {
+    _QWERTY,
+    _NUMPAD
+};
 
-// Macro shortcuts
-#define NUMSLCK  M(_NUMPAD)
+enum custom_keycodes {
+    NUMSLCK = SAFE_RANGE // Num Lock on shift, Scroll Lock regularly
+};
 
 // Shift detection
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-    KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,             KC_PSCR, KC_SLCK, KC_PAUS,
+    KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,             KC_PSCR, NUMSLCK, KC_PAUS,
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_NO,   KC_BSPC,   KC_INS,  KC_HOME, KC_PGUP,
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,            KC_DEL,  KC_END,  KC_PGDN,
     KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NO,   KC_ENT,                              
@@ -46,15 +47,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    switch (id)
-    {
-        case _NUMPAD: {
+bool process_user_record(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case NUMSLCK: {
             if (record->event.pressed) {
                 if (keyboard_report->mods & MODS_SHIFT_MASK) {
                     layer_invert(_NUMPAD);
-                    //Toggle LED on/off
                     register_code(KC_NLCK);
                     unregister_code(KC_NLCK);
                 } else {
@@ -66,21 +64,5 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             break;
         }
     }
-    return MACRO_NONE;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
+    return true;
 }
