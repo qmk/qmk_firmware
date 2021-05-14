@@ -34,7 +34,9 @@ jobs:
     - name: Run qmk cformat and qmk pyformat
       shell: 'bash {0}'
       run: |
-        qmk cformat -n $(< ~/files.txt)
+        FILTER="^(drivers/|lib/arm_atsam/|lib/lib8tion/|platforms/|quantum/|tests/|tmk_core/)"
+        awk -v filter="$FILTER" '{for(i=1; i<=NF; i++) {if($i~filter) print $i}}' ~/files.txt > ~/files_filtered.txt
+        qmk cformat -n $(< ~/files_filtered.txt)
         cformat_exit=$?
         qmk pyformat -n
         pyformat_exit=$?
