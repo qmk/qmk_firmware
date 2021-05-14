@@ -1,4 +1,4 @@
-/* Copyright 2020 Ben Roesner (keycapsss.com)
+/* Copyright 2021 Ben Roesner (keycapsss.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,16 +16,7 @@
 
 #pragma once
 
-#include "quantum.h"
+// place overrides here
+#define OLED_FONT_H "keyboards/keycapsss/plaid_pad/keymaps/oled/glcdfont.c"
 
-#define LAYOUT_ortho_4x4( \
-    K00, K01, K02, K03, \
-    K10, K11, K12, K13, \
-    K20, K21, K22, K23, \
-    K30, K31, K32, K33  \
-) { \
-    { K00,   K01,   K02,   K03 }, \
-    { K10,   K11,   K12,   K13 }, \
-    { K20,   K21,   K22,   K23 }, \
-    { K30,   K31,   K32,   K33 }  \
-}
+#define COMBO_COUNT 3
