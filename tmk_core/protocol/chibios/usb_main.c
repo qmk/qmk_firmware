@@ -612,7 +612,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #ifdef NKRO_ENABLE
                             keymap_config.nkro = !!keyboard_protocol;
                             if (!keymap_config.nkro && keyboard_idle) {
-#else  /* NKRO_ENABLE */
+#else /* NKRO_ENABLE */
                             if (keyboard_idle) {
 #endif /* NKRO_ENABLE */
                                 /* arm the idle timer if boot protocol & idle */
@@ -630,7 +630,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                                         /* arm the timer */
 #ifdef NKRO_ENABLE
                         if (!keymap_config.nkro && keyboard_idle) {
-#else  /* NKRO_ENABLE */
+#else /* NKRO_ENABLE */
                         if (keyboard_idle) {
 #endif /* NKRO_ENABLE */
                             osalSysLockFromISR();
@@ -768,7 +768,7 @@ static void keyboard_idle_timer_cb(void *arg) {
 
 #ifdef NKRO_ENABLE
     if (!keymap_config.nkro && keyboard_idle && keyboard_protocol) {
-#else  /* NKRO_ENABLE */
+#else /* NKRO_ENABLE */
     if (keyboard_idle && keyboard_protocol) {
 #endif /* NKRO_ENABLE */
         /* TODO: are we sure we want the KBD_ENDPOINT? */
@@ -817,7 +817,7 @@ void send_keyboard(report_keyboard_t *report) {
         usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)report, sizeof(struct nkro_report));
     } else
 #endif /* NKRO_ENABLE */
-    {  /* regular protocol */
+    { /* regular protocol */
         /* need to wait until the previous packet has made it through */
         /* busy wait, should be short and not very common */
         if (usbGetTransmitStatusI(&USB_DRIVER, KEYBOARD_IN_EPNUM)) {
@@ -884,7 +884,7 @@ void send_mouse(report_mouse_t *report) {
     osalSysUnlock();
 }
 
-#else  /* MOUSE_ENABLE */
+#else /* MOUSE_ENABLE */
 void send_mouse(report_mouse_t *report) { (void)report; }
 #endif /* MOUSE_ENABLE */
 
@@ -934,20 +934,20 @@ void send_consumer(uint16_t data) {
 #endif
 }
 
-void send_digitizer(report_digitizer_t* report){
+void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
-#   ifdef DIGITIZER_SHARED_EP
+#    ifdef DIGITIZER_SHARED_EP
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
         osalSysUnlock();
         return;
     }
-    
+
     usbStartTransmitI(&USB_DRIVER, DIGITIZER_IN_EPNUM, (uint8_t *)report, sizeof(report_digitizer_t));
     osalSysUnlock();
-#   else
+#    else
     chnWrite(&drivers.digitizer_driver.driver, (uint8_t *)report, sizeof(report_digitizer_t));
-#   endif
+#    endif
 #endif
 }
 

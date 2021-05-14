@@ -219,7 +219,7 @@ enum usb_endpoints {
 #    if STM32_USB_USE_OTG1
 #        define RAW_OUT_EPNUM RAW_IN_EPNUM
 #    else
-    RAW_OUT_EPNUM         = NEXT_EPNUM,
+    RAW_OUT_EPNUM = NEXT_EPNUM,
 #    endif
 #endif
 
@@ -259,7 +259,7 @@ enum usb_endpoints {
 #    if STM32_USB_USE_OTG1
 #        define CDC_OUT_EPNUM CDC_IN_EPNUM
 #    else
-    CDC_OUT_EPNUM         = NEXT_EPNUM,
+    CDC_OUT_EPNUM = NEXT_EPNUM,
 #    endif
 #endif
 #ifdef JOYSTICK_ENABLE
@@ -267,21 +267,21 @@ enum usb_endpoints {
 #    if STM32_USB_USE_OTG1
     JOYSTICK_OUT_EPNUM = JOYSTICK_IN_EPNUM,
 #    else
-    JOYSTICK_OUT_EPNUM    = NEXT_EPNUM,
+    JOYSTICK_OUT_EPNUM = NEXT_EPNUM,
 #    endif
 #endif
 
 #ifdef DIGITIZER_ENABLE
-#if !defined(DIGITIZER_SHARED_EP)
+#    if !defined(DIGITIZER_SHARED_EP)
     DIGITIZER_IN_EPNUM = NEXT_EPNUM,
-#    if STM32_USB_USE_OTG1
+#        if STM32_USB_USE_OTG1
     DIGITIZER_OUT_EPNUM = DIGITIZER_IN_EPNUM,
+#        else
+    DIGITIZER_OUT_EPNUM = NEXT_EPNUM,
+#        endif
 #    else
-    DIGITIZER_OUT_EPNUM    = NEXT_EPNUM,
+#        define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
 #    endif
-#else
-#    define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
-#endif
 #endif
 };
 
