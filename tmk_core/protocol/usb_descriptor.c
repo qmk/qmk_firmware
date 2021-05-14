@@ -166,7 +166,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #        define SHARED_REPORT_STARTED
 #    endif
     HID_RI_USAGE_PAGE(8, 0x0D),      // Digitizers
-    HID_RI_USAGE(8, 0x02),           // Pen
+    HID_RI_USAGE(8, 0x01),           // Digitizer
     HID_RI_COLLECTION(8, 0x01),      // Application
 #    ifdef DIGITIZER_SHARED_EP
         HID_RI_REPORT_ID(8, REPORT_ID_DIGITIZER),

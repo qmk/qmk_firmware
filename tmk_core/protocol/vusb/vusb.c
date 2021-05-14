@@ -524,7 +524,7 @@ const PROGMEM uchar shared_hid_report[] = {
 
 #ifdef DIGITIZER_ENABLE
     0x05, 0x0d,                 // USAGE_PAGE (Digitizers)
-    0x09, 0x02,                 // USAGE (Pen)
+    0x09, 0x01,                 // USAGE (Digitizer)
     0xa1, 0x01,                 // COLLECTION (Application)
     0x85, REPORT_ID_DIGITIZER,  //   REPORT_ID (7)
     0x09, 0x22,                 //   USAGE (Finger)
