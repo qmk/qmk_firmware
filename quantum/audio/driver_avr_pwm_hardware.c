@@ -132,7 +132,7 @@ extern uint8_t note_timbre;
 #    elif (AUDIO_PIN == D5) && defined(__AVR_ATmega32A__)
 #        pragma message "Audio support for ATmega32A is experimental and can cause crashes."
 #        undef AUDIO2_TIMSKx
-#            define AUDIO2_TIMSKx TIMSK
+#        define AUDIO2_TIMSKx TIMSK
 #        define AUDIO2_COMxy0 COM1A0
 #        define AUDIO2_COMxy1 COM1A1
 #        define AUDIO2_OCIExy OCIE1A
