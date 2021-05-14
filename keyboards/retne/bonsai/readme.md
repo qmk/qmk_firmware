@@ -1,6 +1,6 @@
 # Bonsai
 
-![Bonsai](https://i.imgur.com/XypHguN.jpg)
+![Bonsai](https://i.imgur.com/XypHguNh.jpg)
 
 A 75% take on the Alice that can be assembled with only through hole components, including usb type-c
 
