@@ -29,8 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 5
                     //    0 , 1 , 2 , 3 , 4 , 5
-#define MATRIX_ROW_PINS { B2, B3, B1, B6, F7, F6}
-#define MATRIX_COL_PINS { C6, D7, E6, B4, B5}
+#define MATRIX_ROW_PINS { B4, E6, D7, B5, C6, F6}
+#define MATRIX_COL_PINS { F7, B1, B3, B2, B6}
 
 #define DIODE_DIRECTION COL2ROW
 
