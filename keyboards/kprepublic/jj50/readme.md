@@ -10,11 +10,11 @@ A compact 50% (5x12) ortholinear keyboard made and sold by KPrepublic.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jj50:default
+    make kprepublic/jj50:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make jj50:default:flash
+    make kprepublic/jj50:default:flash
 
 **Reset Key**: Hold down the key `Backspace` (`Key below the top right key`) while plugging in the keyboard.
 
