@@ -1,3 +1,5 @@
+#pragma once
+
 #define TAPPING_TERM 215
 
 /* Ignore Mod Tap Interrupt
