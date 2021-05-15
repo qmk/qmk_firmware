@@ -65,10 +65,20 @@ def cformat_run(files):
         return False
 
 
-def filter_files(files):
+def filter_files(files, force=False):
     """Yield only files to be formatted and skip the rest
     """
-    for file in files:
+    if not force:
+        # Filter non-core files, if not forced
+        for index, file in enumerate(files):
+            # The following statement checks each file to see if the file path is
+            # - in the core directories
+            # - not in the ignored directories
+            if not any(i in str(file) for i in core_dirs) or any(i in str(file) for i in ignored):
+                files[index] = None
+                cli.log.debug("Skipping non-core file %s, as '-f' is not used.", file)
+
+    for file in [file for file in files if file is not None]:
         if file.name.split('.')[-1] in c_file_suffixes:
             yield file
         else:
@@ -78,6 +88,7 @@ def filter_files(files):
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Flag only, don't automatically format.")
 @cli.argument('-b', '--base-branch', default='origin/master', help='Branch to compare to diffs to.')
 @cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all core files.')
+@cli.argument('-f', '--force', arg_only=True, action='store_true', help='Force formatting of non-core files.')
 @cli.argument('files', nargs='*', arg_only=True, type=normpath, completer=FilesCompleter('.c'), help='Filename(s) to format.')
 @cli.subcommand("Format C code according to QMK's style.", hidden=False if cli.config.user.developer else True)
 def cformat(cli):
@@ -85,7 +96,7 @@ def cformat(cli):
     """
     # Find the list of files to format
     if cli.args.files:
-        files = list(filter_files(cli.args.files))
+        files = list(filter_files(cli.args.files, cli.args.force))
 
         if not files:
             cli.log.error('No C files in filelist: %s', ', '.join(map(str, cli.args.files)))
@@ -96,8 +107,7 @@ def cformat(cli):
 
     elif cli.args.all_files:
         all_files = c_source_files(core_dirs)
-        # The following statement checks each file to see if the file path is in the ignored directories.
-        files = [file for file in all_files if not any(i in str(file) for i in ignored)]
+        files = list(filter_files(all_files, cli.args.force))
 
     else:
         git_diff_cmd = ['git', 'diff', '--name-only', cli.args.base_branch, *core_dirs]
