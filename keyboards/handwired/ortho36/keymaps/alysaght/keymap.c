@@ -1,4 +1,4 @@
-/* Copyright 2015-2017 Jack Humbert
+/* Copyright 2021 Andrew Lysaght
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,14 +12,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * qmk compile -kb preonic/rev3
- * qmk flash -kb preonic/rev3
  */
 
 #include QMK_KEYBOARD_H
 #include "alysaght.h"
-//#include "muse.h"
 
 #define LAYOUT_ortho_4x10_wrapper(...) LAYOUT_ortho_4x10(__VA_ARGS__)
 
