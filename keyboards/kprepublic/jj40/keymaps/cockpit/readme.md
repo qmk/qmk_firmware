@@ -48,7 +48,7 @@
 
 ```bash
 cd qmk_firmware
-make jj40:cockpit
+make kprepublic/jj40:cockpit
 bootloadHID .build/jj40_cockpit.hex
 ```
 

@@ -27,7 +27,7 @@ via has been enabled, waiting for official support on their end
 
 To build the keymap, simply run:
 
-    make xd60/rev3:shura30  # XD60 rev3
+    make xiudi/xd60/rev3:shura30  # XD60 rev3
 	
 	
 ![Keyboard Layout (Physical appearence)](https://i.imgur.com/CSRPjbX.png "physical layout")

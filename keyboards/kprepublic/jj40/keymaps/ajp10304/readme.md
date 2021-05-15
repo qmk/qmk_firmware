@@ -9,7 +9,7 @@ the second is the output when shift is applied.
 #### Flashing
 Use sleep to get a chance to get into boot mode.
 
-`make jj40:ajp10304:flash`
+`make kprepublic/jj40:ajp10304:flash`
 
 ##### Main Qwerty Layer
 

@@ -10,4 +10,4 @@ Keyboard maintainer: [Quentin Lebastard](https://github.com/lebastaq)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xd75:developper_bepo
+    make xiudi/xd75:developper_bepo
