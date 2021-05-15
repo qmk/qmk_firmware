@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _SHARP 1
 #define _FLAT 2
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NATURAL] = LAYOUT( 
         MI_C, MI_BENDD, MI_BENDU, MI_G, \
@@ -38,3 +39,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MI_E , KC_TRNS, KC_TRNS, MI_B,\
              KC_TRNS, KC_TRNS),
 };
+// clang-format on

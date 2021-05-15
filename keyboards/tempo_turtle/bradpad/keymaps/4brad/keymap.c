@@ -22,43 +22,40 @@ extern MidiDevice midi_device;
 #define _SHARP 1
 #define _FLAT 2
 
-//MIDI CC codes for generic ON/OFF swiches
-//80,81,82,83
-//values off = 0-63
+/*
+MIDI CC codes for generic ON/OFF swiches
+80,81,82,83
+values off = 0-63
+*/
 
 #define OFF 0
 
-//values on = 64-127
+/*values on = 64-127*/
 
 #define ON 127
 
-//implementation inspo taken from here: https://github.com/luantty2/pheromone_keyboard/blob/master/keyboards/pheromone/keymaps/default/keymap.c
+/*implementation inspo taken from here: https://github.com/luantty2/pheromone_keyboard/blob/master/keyboards/pheromone/keymaps/default/keymap.c */
 
-
-
-enum custom_keycodes {MIDI_CC80 = SAFE_RANGE, MIDI_CC81, MIDI_CC82, MIDI_CC83};
+enum custom_keycodes { MIDI_CC80 = SAFE_RANGE, MIDI_CC81, MIDI_CC82, MIDI_CC83 };
 
 static bool toggled_MIDI_CC80 = 0, toggled_MIDI_CC81 = 0, toggled_MIDI_CC82 = 0, toggled_MIDI_CC83 = 0;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record){
-    switch(keycode){
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
         case MIDI_CC80:
-            if(!IS_LAYER_ON(_NATURAL)){
+            if (!IS_LAYER_ON(_NATURAL)) {
                 toggled_MIDI_CC80 = false;
-                if(record->event.pressed){
+                if (record->event.pressed) {
                     midi_send_cc(&midi_device, midi_config.channel, 80, ON);
-                }
-                else {
+                } else {
                     midi_send_cc(&midi_device, midi_config.channel, 80, OFF);
                 }
                 return true;
-            }
-            else{
-                if(record->event.pressed){
-                    if(!toggled_MIDI_CC80){
+            } else {
+                if (record->event.pressed) {
+                    if (!toggled_MIDI_CC80) {
                         midi_send_cc(&midi_device, midi_config.channel, 80, ON);
-                    }
-                    else{
+                    } else {
                         midi_send_cc(&midi_device, midi_config.channel, 80, OFF);
                     }
                     toggled_MIDI_CC80 = !toggled_MIDI_CC80;
@@ -66,22 +63,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                 return false;
             }
         case MIDI_CC81:
-            if(!IS_LAYER_ON(_NATURAL)){
+            if (!IS_LAYER_ON(_NATURAL)) {
                 toggled_MIDI_CC81 = false;
-                if(record->event.pressed){
+                if (record->event.pressed) {
                     midi_send_cc(&midi_device, midi_config.channel, 81, ON);
-                }
-                else {
+                } else {
                     midi_send_cc(&midi_device, midi_config.channel, 81, OFF);
                 }
                 return true;
-            }
-            else{
-                if(record->event.pressed){
-                    if(!toggled_MIDI_CC81){
+            } else {
+                if (record->event.pressed) {
+                    if (!toggled_MIDI_CC81) {
                         midi_send_cc(&midi_device, midi_config.channel, 81, ON);
-                    }
-                    else{
+                    } else {
                         midi_send_cc(&midi_device, midi_config.channel, 81, OFF);
                     }
                     toggled_MIDI_CC81 = !toggled_MIDI_CC81;
@@ -89,22 +83,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                 return false;
             }
         case MIDI_CC82:
-            if(!IS_LAYER_ON(_NATURAL)){
+            if (!IS_LAYER_ON(_NATURAL)) {
                 toggled_MIDI_CC82 = false;
-                if(record->event.pressed){
+                if (record->event.pressed) {
                     midi_send_cc(&midi_device, midi_config.channel, 82, ON);
-                }
-                else {
+                } else {
                     midi_send_cc(&midi_device, midi_config.channel, 82, OFF);
                 }
                 return true;
-            }
-            else{
-                if(record->event.pressed){
-                    if(!toggled_MIDI_CC82){
+            } else {
+                if (record->event.pressed) {
+                    if (!toggled_MIDI_CC82) {
                         midi_send_cc(&midi_device, midi_config.channel, 82, ON);
-                    }
-                    else{
+                    } else {
                         midi_send_cc(&midi_device, midi_config.channel, 82, OFF);
                     }
                     toggled_MIDI_CC82 = !toggled_MIDI_CC82;
@@ -112,22 +103,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                 return false;
             }
         case MIDI_CC83:
-            if(!IS_LAYER_ON(_NATURAL)){
+            if (!IS_LAYER_ON(_NATURAL)) {
                 toggled_MIDI_CC83 = false;
-                if(record->event.pressed){
+                if (record->event.pressed) {
                     midi_send_cc(&midi_device, midi_config.channel, 83, ON);
-                }
-                else {
+                } else {
                     midi_send_cc(&midi_device, midi_config.channel, 83, OFF);
                 }
                 return true;
-            }
-            else{
-                if(record->event.pressed){
-                    if(!toggled_MIDI_CC83){
+            } else {
+                if (record->event.pressed) {
+                    if (!toggled_MIDI_CC83) {
                         midi_send_cc(&midi_device, midi_config.channel, 83, ON);
-                    }
-                    else{
+                    } else {
                         midi_send_cc(&midi_device, midi_config.channel, 83, OFF);
                     }
                     toggled_MIDI_CC83 = !toggled_MIDI_CC83;
@@ -138,7 +126,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
     return true;
 }
 
-
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NATURAL] = LAYOUT( 
         MI_C, MI_BENDD,   MI_BENDU,  MI_G, \
@@ -159,3 +147,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MI_E , MI_TRNSD, MI_TRNSU, MI_B,\
                KC_TRNS,  KC_TRNS),
 };
+// clang-format on
