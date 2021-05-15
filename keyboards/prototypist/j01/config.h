@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER Prototypist
 #define PRODUCT J-01 Rev1
-#define DESCRIPTION PCB for the J-01 Rev1 Keyboard:
 
 /* key matrix size */
 #define MATRIX_ROWS 5
