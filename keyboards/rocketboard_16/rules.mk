@@ -1,7 +1,7 @@
 # MCU name
 MCU = STM32F103
 
-# # Bootloader selection
+# Bootloader selection
 # BOOTLOADER = stm32duino
 
 # Custom loader configuration
