@@ -8,9 +8,10 @@ Has modified cutouts to allow usage of certain tray mount cases into gummy gaske
 Keyboard Maintainer: [Alexander Lee](https://github.com/gaclee3b)
 Hardware Supported: chlx PCB merro60.1, merro60.1.1, merro60.1.2
 
-Enter bootloader mode by either option -
+Enter bootloader mode by any of the following options -
 - When unplugged, holding the top-left key (typically ESC) while plugging in the keyboard
-- When plugged, pressing and releasing the reset button on the pcb bottom behind the CAPSLOCK / A-key region
+- When plugged in, pressing and releasing the reset button on the pcb bottom behind the CAPSLOCK / A-key region
+- When plugged in, shorting out the two reset metal contacts near the spacebar switch location (NOT the spacebar switch pin holes)
 
 Make example for this keyboard (after setting up your build environment):
 
