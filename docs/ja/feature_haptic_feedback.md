@@ -31,7 +31,7 @@
 | `HPT_TOG` | 触覚フィードバックのオン/オフを切り替え |
 | `HPT_RST` | 触覚フィードバック設定をデフォルトに戻す |
 | `HPT_FBK` | キー押下またはリリースまたはその両方でフィードバックを切り替え |
-| `HPT_BUZ` | ソレノイドの振動のオン/オフを切り替え |
+| `HPT_BUZ` | ソレノイドのブザー音のオン/オフを切り替え |
 | `HPT_MODI` | 次の DRV2605L 波形に移動 |
 | `HPT_MODD` | 前の DRV2605L 波形に移動 |
 | `HPT_CONT` | 連続触覚モードのオン/オフを切り替え |
@@ -54,12 +54,12 @@
 | `SOLENOID_MIN_DWELL` | `4` ms | 滞留時間の下限を設定する。 |
 | `SOLENOID_MAX_DWELL` | `100` ms | 滞留時間の上限を設定する。 |
 | `SOLENOID_DWELL_STEP_SIZE` | `1` ms | `HPT_DWL*` キーコードが送信される時に使われるステップサイズ |
-| `SOLENOID_DEFAULT_BUZZ` | `0` (無効) | HPT_RST では、"1" の場合振動が "on" に設定されます |
-| `SOLENOID_BUZZ_ACTUATED` | `SOLENOID_MIN_DWELL` | ソレノイドが振動モードの場合の動作時間 |
-| `SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` | ソレノイドが振動モードの場合の非動作時間 |
+| `SOLENOID_DEFAULT_BUZZ` | `0` (無効) | HPT_RST では、"1" の場合、ブザー音が "on" に設定されます |
+| `SOLENOID_BUZZ_ACTUATED` | `SOLENOID_MIN_DWELL` | ソレノイドがブザー音モードの場合の動作時間 |
+| `SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` | ソレノイドがブザー音モードの場合の非動作時間 |
 
-* ソレノイドの振動がオフの場合、滞留時間は「プランジャー」が作動したままになる時間です。滞留時間により、ソレノイドの音が変わります。
-* ソレノイドの振動がオンの場合、滞留時間は振動の長さを設定しますが、`SOLENOID_BUZZ_ACTUATED` と `SOLENOID_BUZZ_NONACTUATED` は振動の間の(非)動作時間を設定します。
+* ソレノイドのブザー音がオフの場合、滞留時間は「プランジャー」が作動したままになる時間です。滞留時間により、ソレノイドの音が変わります。
+* ソレノイドのブザー音がオンの場合、滞留時間は振動の長さを設定しますが、`SOLENOID_BUZZ_ACTUATED` と `SOLENOID_BUZZ_NONACTUATED` はブザー音の間の(非)動作時間を設定します。
 * 現在の実装では、上記の時間設定のいずれについても、設定の精度はキーボードがマトリックスをスキャンできる速度によって影響を受ける可能性があります。
   したがって、キーボードのスキャンルーチンが遅い場合は、`SOLENOID_DWELL_STEP_SIZE` をキーボードのスキャンに掛かる時間よりもわずかに小さい値に設定することをお勧めします。
 
