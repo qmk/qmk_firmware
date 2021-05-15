@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
 #define PRODUCT         AkiS
-#define DESCRIPTION     AkiS
 
 /* key matrix size */
 #define MATRIX_ROWS 5
