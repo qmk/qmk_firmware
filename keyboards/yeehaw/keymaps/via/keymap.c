@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define ____ KC_TRNS
 
 enum custom_keycodes {
     YEEHAW = SAFE_RANGE,
