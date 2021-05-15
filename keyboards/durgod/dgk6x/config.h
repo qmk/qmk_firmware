@@ -72,12 +72,12 @@
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
 
-/* Set I2C speed to 1Mhz */
-#define I2C1_TIMINGR_PRESC 0U
-#define I2C1_TIMINGR_SCLDEL 7U
-#define I2C1_TIMINGR_SDADEL 0U
-#define I2C1_TIMINGR_SCLH 9U
-#define I2C1_TIMINGR_SCLL 21U
+/* Set I2C speed to 400kHz, 300ns Tr, 14ns Tf */
+#define I2C1_TIMINGR_PRESC   0x1U
+#define I2C1_TIMINGR_SCLDEL  0x9U
+#define I2C1_TIMINGR_SDADEL  0x0U
+#define I2C1_TIMINGR_SCLH   0x0cU
+#define I2C1_TIMINGR_SCLL   0x22U
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
