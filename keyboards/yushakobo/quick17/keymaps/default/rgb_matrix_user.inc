@@ -1,4 +1,4 @@
-RGB_MATRIX_EFFECT(quick17_rgbm_effect)
+RGB_MATRIX_EFFECT(quick17_rgbm_effect);
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
@@ -22,7 +22,7 @@ enum lighting_types {
     INDC3,
     INDC4,
     INDC5
-}
+};
 
 
 const uint16_t rgb_keymaps[][DRIVER_LED_TOTAL] = {
@@ -46,20 +46,35 @@ const uint16_t rgb_keymaps[][DRIVER_LED_TOTAL] = {
         _____, _____, BOUT,  INDC5, INDC4, INDC4,
         INDC2, INDC2, BOUT,  BOUT,  BOUT,  INDC4
     )
-}
+};
 
-static void led_color_set (uint8_t index, uint8_t color_patterns) {
-    rgb_matrix_get_hsv()//todo: get current hsv
+#define _HSV(H, S, V) (HSV){ .h = H, .s = S, .v = V }
+
+static void led_color_set(uint8_t index, uint8_t color_patterns) {
+    HSV hsv = rgb_matrix_get_hsv();//todo: get current hsv
     switch(color_patterns){
         case BOUT:
             rgb_matrix_set_color(index, 0x00, 0x00, 0x00);
             break;
-        case _____;
-            rgb_matrix_set_color(index)//todo: set to slight different color
+        case _____:
+            rgb_matrix_set_color(index);//todo: set to slight different color
     }
 }
 
-
+static bool quick17_rgbfm_effect (effect_params_t* params) {
+    RGB_MATRIX_USE_LIMITS(led_min, led_max);
+    for (uint8_t i = led_min; i < led_max; i++) {
+        if (IS_LAYER_ON(_EDIT1) && !layer_shift){
+            led_color_set(i, rgb_keymaps[_EDIT1][i]);
+        } else if (IS_LAYER_ON(_EDIT2)){
+            led_color_set(i, rgb_keymaps[_EDIT2][i]);
+        } else if (IS_LAYER_ON(_FN)){
+            led_color_set(i, rgb_keymaps[_FN][i]);
+        } else { // IS_LAYER_ON(_CONTROL)
+            led_set_color(i, rgb_keymaps[_CONTROL][i]);
+        }
+    }
+}
 
 
 
