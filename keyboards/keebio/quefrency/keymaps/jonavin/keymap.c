@@ -5,9 +5,11 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _BASE 0
-#define _FN1 1
-#define _MO2 2
+enum custom_layers {
+    _BASE,
+    _FN1,
+    _MO2,
+);
 
 /*
 enum custom_keycodes {
