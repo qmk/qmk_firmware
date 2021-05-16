@@ -7,7 +7,7 @@ DEBUG_MATRIX_SCAN_RATE_ENABLE = no
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = full       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes         # Console for debug
@@ -42,7 +42,6 @@ SERIAL_DRIVER = usart
 
 # SRC += ./lib/glcdfont.c \
 
-DEFAULT_FOLDER = bakekujira/rev1
 
 # ifeq ($strip $(BAKEKUJIRA)), yes)
 # 	OPT_DEFS += -DBAKEKUJIRA

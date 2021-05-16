@@ -77,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,--------------------------------------------------------------.                 ,--------------------------------------------------------------------.    ,---------------------------.
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,      XXXXXXX, XXXXXXX,  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------|--------+--------+--------+--------+---------+----------+-----------|    +--------+--------+---------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                   BL_TOGG,  BL_INC, BL_BRTG, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,      XXXXXXX, XXXXXXX,  XXXXXXX,
+      XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                    BL_TOGG,  BL_INC, BL_BRTG, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,      KC_PWR, XXXXXXX,  KC_SLEP,
   //|--------+--------+--------+--------+--------+--------|                 |--------|--------+--------+--------+--------+---------+----------+-----------|    `---------------------------.
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                            BL_STEP,  BL_DEC, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,
+      XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                             BL_STEP,  BL_DEC, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,
   //|-----------+--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------+--------------|             ,--------.
-       KC_PWR,   XXXXXXX,  KC_SLEP,  XXXXXXX, XXXXXXX,XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,              XXXXXXX,               XXXXXXX,
+       XXXXXXX,   EEP_RST,  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,              XXXXXXX,               XXXXXXX,
   //|-----------+--------+--------+--------+--------+--------|                       |--------+--------+--------+--------+--------+--------+--------------|    ,--------+--------+---------.
         XXXXXXX,  XXXXXXX, XXXXXXX,   XXXXXXX,     XXXXXXX,                                    XXXXXXX,      XXXXXXX,     XXXXXXX,      XXXXXXX,   XXXXXXX,      XXXXXXX,  XXXXXXX, XXXXXXX
   //`--------------------------------------------------------|                       |--------------------------------------------------------------------|    `---------------------------'
@@ -92,9 +92,10 @@ void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
   debug_enable=true;
   debug_matrix=true;
-  //debug_keyboard=true;
+  debug_keyboard=true;
   //debug_mouse=true;
   xprintf("Hello! initing!");
+//   eeconfig_init();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -106,8 +107,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   return true;
 }
-
-
 
 // #if defined(OLED_DRIVER_ENABLE) && defined(WPM_ENABLE)
 //     #include "oled.c"
