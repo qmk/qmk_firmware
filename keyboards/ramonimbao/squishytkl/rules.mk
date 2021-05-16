@@ -1,15 +1,8 @@
 # MCU name
 MCU = STM32F103
 
-OPT_DEFS =
-MCU_LDSCRIPT = STM32F103x8
-BOARD = GENERIC_STM32_F103
-
-# Board selection
-#BOARD = ST_NUCLEO_F103RB
-
 # Bootloader selection
-#BOOTLOADER = stm32duino
+BOOTLOADER = stm32duino
 
 # Build Options
 #   change yes to no to disable
