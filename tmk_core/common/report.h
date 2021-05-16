@@ -34,12 +34,16 @@ enum hid_report_ids {
 };
 
 /* Mouse buttons */
+#define MOUSE_BTN_MASK(n) (1 << (n))
 enum mouse_buttons {
-    MOUSE_BTN1 = (1 << 0),
-    MOUSE_BTN2 = (1 << 1),
-    MOUSE_BTN3 = (1 << 2),
-    MOUSE_BTN4 = (1 << 3),
-    MOUSE_BTN5 = (1 << 4)
+    MOUSE_BTN1 = MOUSE_BTN_MASK(0),
+    MOUSE_BTN2 = MOUSE_BTN_MASK(1),
+    MOUSE_BTN3 = MOUSE_BTN_MASK(2),
+    MOUSE_BTN4 = MOUSE_BTN_MASK(3),
+    MOUSE_BTN5 = MOUSE_BTN_MASK(4),
+    MOUSE_BTN6 = MOUSE_BTN_MASK(5),
+    MOUSE_BTN7 = MOUSE_BTN_MASK(6),
+    MOUSE_BTN8 = MOUSE_BTN_MASK(7)
 };
 
 /* Consumer Page (0x0C)
@@ -76,7 +80,21 @@ enum consumer_usages {
     AL_ASSISTANT           = 0x1CB,
     AL_KEYBOARD_LAYOUT     = 0x1AE,
     // 15.16 Generic GUI Application Controls
+    AC_NEW                 = 0x201,
+    AC_OPEN                = 0x202,
+    AC_CLOSE               = 0x203,
+    AC_EXIT                = 0x204,
+    AC_MAXIMIZE            = 0x205,
     AC_MINIMIZE            = 0x206,
+    AC_SAVE                = 0x207,
+    AC_PRINT               = 0x208,
+    AC_PROPERTIES          = 0x209,
+    AC_UNDO                = 0x21A,
+    AC_COPY                = 0x21B,
+    AC_CUT                 = 0x21C,
+    AC_PASTE               = 0x21D,
+    AC_SELECT_ALL          = 0x21E,
+    AC_FIND                = 0x21F,
     AC_SEARCH              = 0x221,
     AC_HOME                = 0x223,
     AC_BACK                = 0x224,
@@ -92,9 +110,12 @@ enum consumer_usages {
  */
 enum desktop_usages {
     // 4.5.1 System Controls - Power Controls
-    SYSTEM_POWER_DOWN = 0x81,
-    SYSTEM_SLEEP      = 0x82,
-    SYSTEM_WAKE_UP    = 0x83
+    SYSTEM_POWER_DOWN             = 0x81,
+    SYSTEM_SLEEP                  = 0x82,
+    SYSTEM_WAKE_UP                = 0x83,
+    SYSTEM_RESTART                = 0x8F,
+    // 4.10 System Display Controls
+    SYSTEM_DISPLAY_TOGGLE_INT_EXT = 0xB5
 };
 
 // clang-format on
