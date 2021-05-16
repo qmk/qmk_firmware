@@ -4,7 +4,7 @@
 
 Skeleton case TKL made by BredWorks
 
-* Keyboard Maintainer: [kb-elmo<mail@elmo.space>](https://github.com/kb-elmo)
+* Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
 * Hardware Supported: Skeletn87 soldered PCB
 * Hardware Availability: https://bredworks.com
 
