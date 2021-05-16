@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0xB4A2
 #define DEVICE_VER   0x0001
 #define MANUFACTURER kb-elmo
-#define PRODUCT      friedrich
+#define PRODUCT      Friedrich
 
 /* key matrix size */
 #define MATRIX_ROWS 5
