@@ -1,4 +1,4 @@
-![German Gaming Layout Image](https://i.imgur.com/0y938rG.png)
+![German Gaming Layout Image](https://i.imgur.com/0y938rGh.png)
 
 Despite being less accurate, the columns in the image are shifted up and down to avoid the [Hermann grid illusion](https://en.wikipedia.org/wiki/Grid_illusion).
 ​
