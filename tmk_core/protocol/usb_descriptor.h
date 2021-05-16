@@ -219,7 +219,7 @@ enum usb_endpoints {
 #    if STM32_USB_USE_OTG1
 #        define RAW_OUT_EPNUM RAW_IN_EPNUM
 #    else
-    RAW_OUT_EPNUM = NEXT_EPNUM,
+    RAW_OUT_EPNUM         = NEXT_EPNUM,
 #    endif
 #endif
 
@@ -237,7 +237,7 @@ enum usb_endpoints {
 #        if STM32_USB_USE_OTG1
 #            define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
 #        else
-    CONSOLE_OUT_EPNUM = NEXT_EPNUM,
+    CONSOLE_OUT_EPNUM   = NEXT_EPNUM,
 #        endif
 #    else
 #        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
@@ -259,7 +259,7 @@ enum usb_endpoints {
 #    if STM32_USB_USE_OTG1
 #        define CDC_OUT_EPNUM CDC_IN_EPNUM
 #    else
-    CDC_OUT_EPNUM = NEXT_EPNUM,
+    CDC_OUT_EPNUM         = NEXT_EPNUM,
 #    endif
 #endif
 #ifdef JOYSTICK_ENABLE
@@ -267,7 +267,7 @@ enum usb_endpoints {
 #    if STM32_USB_USE_OTG1
     JOYSTICK_OUT_EPNUM = JOYSTICK_IN_EPNUM,
 #    else
-    JOYSTICK_OUT_EPNUM = NEXT_EPNUM,
+    JOYSTICK_OUT_EPNUM    = NEXT_EPNUM,
 #    endif
 #endif
 
