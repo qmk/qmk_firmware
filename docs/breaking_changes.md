@@ -19,11 +19,10 @@ The next Breaking Change is scheduled for May 29, 2021.
 
 ### Important Dates
 
-* [x] 2021 Feb 27 - `develop` is created. Each push to `master` is subsequently merged to `develop`
-* [ ] 2021 May 01 - `develop` closed to new PR's.
+* [ ] 2021 May 01 - `develop` closed to new PR's. `develop-staging` is created.
 * [ ] 2021 May 01 - Call for testers.
 * [ ] 2021 May 27 - `master` is locked, no PR's merged.
-* [ ] 2021 May 29 - Merge `develop` to `master`.
+* [ ] 2021 May 29 - Merge `develop-staging` to `master`.
 * [ ] 2021 May 29 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
