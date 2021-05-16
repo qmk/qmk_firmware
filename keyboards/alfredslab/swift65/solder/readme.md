@@ -6,6 +6,8 @@ A 65% Keyboard from Swiftcables
 * Hardware Supported: Swift65 Solder
 * Hardware Availability: Soom from Swiftcables
 
+To enter bootloader for flashing firmware, press layer change key (MO(1)) and Right Shift simultaneously.
+
 Make example for this keyboard (after setting up your build environment):
 
     make alfredslab/swift65/solder:default
