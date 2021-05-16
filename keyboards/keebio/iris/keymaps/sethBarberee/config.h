@@ -30,31 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLED_NUM
 #define RGBLED_NUM 8
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLED_SPLIT { RGBLED_NUM, 0} // defined to sync animations
 
-#define FORCE_NKRO // force NKRO on by default
-
-#undef TAPPING_TERM
-#define TAPPING_TERM 200
-
-
-#if !defined(NO_DEBUG) && !defined(CONSOLE_ENABLE)
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
-
-#define NO_MUSIC_MODE
-
-// Override caps lock indication from my userspace
-//#undef NORMAL_MODE
-//#define NORMAL_MODE 1
-
-//#undef CAPS_LOCK_MODE
-//#define CAPS_LOCK_MODE 28
+#undef RGBLED_SPLIT
+#define RGBLED_SPLIT { RGBLED_NUM, 0}

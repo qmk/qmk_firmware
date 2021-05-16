@@ -1,11 +1,5 @@
 
-#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
-#include "planck.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-#ifdef BACKLIGHT_ENABLE
-  #include "backlight.h"
-#endif
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -30,53 +24,41 @@ extern keymap_config_t keymap_config;
 #define CUS2    M(_CUS2)
 
 // Func macro definitions.
-#define LWR_PGDN FUNC(0) // Tap for PgDn, hold for LOWER
-#define RSE_PGUP FUNC(1) // Tap for PgUp, hold for RAISE
-#define CTL_CAPS FUNC(2) // Tap for Caps, hold for Ctrl (DOESN'T SEEM TO WORK)
-#define SFT_ENT  FUNC(3) // Tap for Enter, hold for Shift
-#define ZM_NRM   FUNC(4) // Zoom normal
-#define ZM_IN    FUNC(5) // Zoom out
-#define ZM_OUT   FUNC(6) // Zoom in
-#define EM_UNDO  FUNC(7) // Emacs Undo
-
-// Enable these functions using FUNC(n) macro.
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_PGDN),
-    [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_PGUP),
-    [2] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_CAPS),
-    [3] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
-    [4] = ACTION_MODS_KEY(MOD_LCTL, KC_0),
-    [5] = ACTION_MODS_KEY(MOD_LCTL, KC_MINS),
-    [6] = ACTION_MODS_KEY(MOD_LCTL, KC_PLUS),
-    [7] = ACTION_MODS_KEY(MOD_LCTL, KC_UNDS),
- };
+#define LWR_PGDN LT(_LOWER, KC_PGDN) // Tap for PgDn, hold for LOWER
+#define RSE_PGUP LT(_RAISE, KC_PGUP) // Tap for PgUp, hold for RAISE
+#define CTL_CAPS MT(MOD_LCTL, KC_CAPS) // Tap for Caps, hold for Ctrl (DOESN'T SEEM TO WORK)
+#define SFT_ENT  MT(MOD_RSFT, KC_ENT) // Tap for Enter, hold for Shift
+#define ZM_NRM   C(KC_0) // Zoom normal
+#define ZM_IN    C(KC_MINS) // Zoom out
+#define ZM_OUT   C(KC_PLUS) // Zoom in
+#define EM_UNDO  C(KC_UNDS) // Emacs Undo
 
 // This config can be found at Keyboard layout editor site: http://goo.gl/zjXL2l
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_QWERTY] = { /* QWERTY */
-    {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
-    {KC_LCTL, KC_ESC,  KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
-},
-[_LOWER] = { /* LOWER */
-    {KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LPRN, KC_RPRN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {BL,      ZM_NRM,  ZM_IN,   ZM_OUT,  KC_TRNS, KC_PGDN, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
-},
-[_RAISE] = { /* RAISE */
-    {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS, KC_PIPE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_GRV,  KC_TILD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGUP, KC_TRNS, EM_UNDO, KC_VOLD, KC_VOLU, KC_MUTE}
-},
-[_CUSTOM] = { /* CUSTOM */
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MOB,     KC_TRNS, CUS1,    CUS2,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
-}
+[_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT,
+    KC_LCTL, KC_ESC,  KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
+[_LOWER] = LAYOUT_planck_grid( /* LOWER */
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LPRN, KC_RPRN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    BL,      ZM_NRM,  ZM_IN,   ZM_OUT,  KC_TRNS, KC_PGDN, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+[_RAISE] = LAYOUT_planck_grid( /* RAISE */
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS, KC_PIPE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_GRV,  KC_TILD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGUP, KC_TRNS, EM_UNDO, KC_VOLD, KC_VOLU, KC_MUTE
+),
+[_CUSTOM] = LAYOUT_planck_grid( /* CUSTOM */
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MOB,     KC_TRNS, CUS1,    CUS2,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+)
 };
 
 // Set a layer persistently.

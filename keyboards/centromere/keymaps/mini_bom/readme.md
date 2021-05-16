@@ -1,0 +1,1 @@
+Porting a keymap with chording inspired by gboards.ca gergoplex default keymap, to the centromere mini.

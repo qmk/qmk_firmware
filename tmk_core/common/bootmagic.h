@@ -1,5 +1,4 @@
-#ifndef BOOTMAGIC_H
-#define BOOTMAGIC_H
+#pragma once
 
 /* FIXME: Add special doxygen comments for defines here. */
 
@@ -35,6 +34,12 @@
 #endif
 #ifndef BOOTMAGIC_KEY_DEBUG_MOUSE
 #    define BOOTMAGIC_KEY_DEBUG_MOUSE KC_M
+#endif
+#ifndef BOOTMAGIC_KEY_EE_HANDS_LEFT
+#    define BOOTMAGIC_KEY_EE_HANDS_LEFT KC_L
+#endif
+#ifndef BOOTMAGIC_KEY_EE_HANDS_RIGHT
+#    define BOOTMAGIC_KEY_EE_HANDS_RIGHT KC_R
 #endif
 
 /*
@@ -95,5 +100,3 @@
 
 void bootmagic(void);
 bool bootmagic_scan_keycode(uint8_t keycode);
-
-#endif

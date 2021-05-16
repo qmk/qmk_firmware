@@ -3,8 +3,6 @@
 ## Keymap
 This keymap is designed based off my typing habits and is subject to change. Information about custom user macros and tap dances can be found [here](../../../../users/ninjonas).
 
-> Make sure you update QMK's lily58 config.h TAPPING_TERM to 200ms or this won't compile
-
 More information about the Lily58 pro keyboard can be found [here](https://yuchi-kbd.hatenablog.com/entry/2018/12/23/214342)
 
 ### QWERTY
@@ -19,7 +17,7 @@ More information about the Lily58 pro keyboard can be found [here](https://yuchi
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |   =  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | Alt  |     | Ctrl | /Space  /       \Enter \  |BackSP| Del  |LOWER |
+ *                   | Alt  |  Cmd   | Ctrl | /Space  /       \Enter \  |BackSP| Del  |LOWER |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -37,7 +35,7 @@ More information about the Lily58 pro keyboard can be found [here](https://yuchi
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   ;  |   Q  |   J  |   K  |   X  |-------|    |-------|   B  |   M  |   W  |   V  |   Z  |   =  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | Alt  |     | Ctrl | /Space  /       \Enter \  |BackSP| Del  |LOWER |
+ *                   | Alt  |  Cmd   | Ctrl | /Space  /       \Enter \  |BackSP| Del  |LOWER |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -55,7 +53,7 @@ More information about the Lily58 pro keyboard can be found [here](https://yuchi
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   K  |   M  |   ,  |   .  |   /  |   =  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | Alt  |     | Ctrl | /Space  /       \Enter \  |BackSP| Del  |LOWER |
+ *                   | Alt  |  Cmd   | Ctrl | /Space  /       \Enter \  |BackSP| Del  |LOWER |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -67,11 +65,11 @@ More information about the Lily58 pro keyboard can be found [here](https://yuchi
  * ,------------------------------------------.                    ,------------------------------------------.
  * | F11  |  F1  |  F2  |  F3   |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  |  F10  | F12  |
  * |------+------+------+-------+------+------|                    |------+------+------+------+-------+------|
- * |      |      |      |KC_BRIU| Play | Mute |                    | PgUp | Home |  Up  | End  |       |      |
+ * |      |      |KC_BRIU| Play | Mute |      |                    | PgUp | Home |  Up  | End  |       |K_MDSH|
  * |------+------+------+-------+------+------|                    |------+------+------+------+-------+------|
- * |      |      |      |KC_BRID| Next |VolUp |-------.    ,-------| PgDn | Left | Down |Right |K_LOCK |      |
+ * |      |      |KC_BRID| Next |VolUp |      |-------.    ,-------| PgDn | Left | Down |Right |K_LOCK |      |
  * |------+------+------+-------+------+------|       |    |       |------+------+------+------+-------+------|
- * |      |M_SHFT|      |       | Prev |VolDn |-------|    |-------|      |      |      |      |M_ZOOM |M_PYNV|
+ * |M_SHFT|      |      | Prev  |VolDn |      |-------|    |-------|      |      |      |      |       |M_PYNV|
  * `------------------------------------------/       /     \      \------------------------------------------'
  *                    |      |      |      | /       /       \      \  |      |M_CODE|      |
  *                    |      |      |      |/       /         \      \ |      |      |      |

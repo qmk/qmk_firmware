@@ -1,16 +1,15 @@
 # MCU name
 MCU = atmega328p
 
-BOOTLOADER = bootloadHID
-
-# Flash program via avrdude, but default command is not suitable.
-# You can use hnah40:default:program
-PROGRAM_CMD = avrdude -c usbasp -p m328p -U flash:w:$(BUILD_DIR)/$(TARGET).hex
-
-
-# disable debug code
-OPT_DEFS = -DDEBUG_LEVEL=0
-
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = USBasp
 
 # Build Options
 #   change yes to no to disable
@@ -30,5 +29,3 @@ MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)

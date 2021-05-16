@@ -15,22 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "hal.h"
+#include <hal.h>
+#include "print.h"
+
+#ifdef BACKLIGHT_ENABLE
 #include "backlight.h"
-#include "led.h"
-#include "printf.h"
 
 void backlight_init_ports(void) {
     printf("backlight_init_ports()\n");
-    #ifdef BACKLIGHT_ENABLE
+
     palSetPadMode(GPIOB, 8, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPad(GPIOB, 8);
-    #endif
 }
 
 void backlight_set(uint8_t level) {
     printf("backlight_set(%d)\n", level);
-    #ifdef BACKLIGHT_ENABLE
     if (level == 0) {
         // Turn backlight off
         palSetPad(GPIOB, 8);
@@ -38,16 +37,5 @@ void backlight_set(uint8_t level) {
         // Turn backlight on
         palClearPad(GPIOB, 8);
     }
-    #endif
 }
-
-void led_set_kb(uint8_t usb_led) {
-    printf("led_set_kb(%d)\n", usb_led);
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // Turn capslock on
-        palSetPad(GPIOB, 7);
-    } else {
-        // Turn capslock off
-        palClearPad(GPIOB, 7);
-    }
-}
+#endif

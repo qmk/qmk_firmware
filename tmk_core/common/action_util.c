@@ -83,9 +83,63 @@ static int8_t oneshot_layer_data = 0;
 inline uint8_t get_oneshot_layer(void) { return oneshot_layer_data >> 3; }
 inline uint8_t get_oneshot_layer_state(void) { return oneshot_layer_data & 0b111; }
 
+#    ifdef SWAP_HANDS_ENABLE
+enum {
+    SHO_OFF,
+    SHO_ACTIVE,   // Swap hands button was pressed, and we didn't send any swapped keys yet
+    SHO_PRESSED,  // Swap hands button is currently pressed
+    SHO_USED,     // Swap hands button is still pressed, and we already sent swapped keys
+} swap_hands_oneshot = SHO_OFF;
+#    endif
+
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
 static uint16_t oneshot_layer_time = 0;
 inline bool     has_oneshot_layer_timed_out() { return TIMER_DIFF_16(timer_read(), oneshot_layer_time) >= ONESHOT_TIMEOUT && !(get_oneshot_layer_state() & ONESHOT_TOGGLED); }
+#        ifdef SWAP_HANDS_ENABLE
+static uint16_t oneshot_swaphands_time = 0;
+inline bool     has_oneshot_swaphands_timed_out() { return TIMER_DIFF_16(timer_read(), oneshot_swaphands_time) >= ONESHOT_TIMEOUT && (swap_hands_oneshot == SHO_ACTIVE); }
+#        endif
+#    endif
+
+#    ifdef SWAP_HANDS_ENABLE
+
+void set_oneshot_swaphands(void) {
+    swap_hands_oneshot = SHO_PRESSED;
+    swap_hands         = true;
+#        if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    oneshot_swaphands_time = timer_read();
+    if (oneshot_layer_time != 0) {
+        oneshot_layer_time = oneshot_swaphands_time;
+    }
+#        endif
+}
+
+void release_oneshot_swaphands(void) {
+    if (swap_hands_oneshot == SHO_PRESSED) {
+        swap_hands_oneshot = SHO_ACTIVE;
+    }
+    if (swap_hands_oneshot == SHO_USED) {
+        clear_oneshot_swaphands();
+    }
+}
+
+void use_oneshot_swaphands(void) {
+    if (swap_hands_oneshot == SHO_PRESSED) {
+        swap_hands_oneshot = SHO_USED;
+    }
+    if (swap_hands_oneshot == SHO_ACTIVE) {
+        clear_oneshot_swaphands();
+    }
+}
+
+void clear_oneshot_swaphands(void) {
+    swap_hands_oneshot = SHO_OFF;
+    swap_hands         = false;
+#        if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    oneshot_swaphands_time = 0;
+#        endif
+}
+
 #    endif
 
 /** \brief Set oneshot layer
@@ -236,6 +290,32 @@ void set_macro_mods(uint8_t mods) { macro_mods = mods; }
 void clear_macro_mods(void) { macro_mods = 0; }
 
 #ifndef NO_ACTION_ONESHOT
+/** \brief get oneshot mods
+ *
+ * FIXME: needs doc
+ */
+uint8_t get_oneshot_mods(void) { return oneshot_mods; }
+
+void add_oneshot_mods(uint8_t mods) {
+    if ((oneshot_mods & mods) != mods) {
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        oneshot_time = timer_read();
+#    endif
+        oneshot_mods |= mods;
+        oneshot_mods_changed_kb(mods);
+    }
+}
+
+void del_oneshot_mods(uint8_t mods) {
+    if (oneshot_mods & mods) {
+        oneshot_mods &= ~mods;
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        oneshot_time = oneshot_mods ? timer_read() : 0;
+#    endif
+        oneshot_mods_changed_kb(oneshot_mods);
+    }
+}
+
 /** \brief set oneshot mods
  *
  * FIXME: needs doc
@@ -262,11 +342,6 @@ void clear_oneshot_mods(void) {
         oneshot_mods_changed_kb(oneshot_mods);
     }
 }
-/** \brief get oneshot mods
- *
- * FIXME: needs doc
- */
-uint8_t get_oneshot_mods(void) { return oneshot_mods; }
 #endif
 
 /** \brief Called when the one shot modifiers have been changed.

@@ -64,7 +64,7 @@ enum macro_keycodes {
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
-#if HELIX_ROWS == 5
+#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Base
