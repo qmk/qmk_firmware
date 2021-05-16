@@ -26,7 +26,7 @@ enum custom_layers {
     _BASE,
     _FN1,
     _MO2,
-);
+};
 
 
 enum custom_keycodes {
