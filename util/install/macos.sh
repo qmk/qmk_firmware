@@ -9,7 +9,26 @@ _qmk_install_prepare() {
         return 1
     fi
 
-    brew update && brew upgrade --ignore-pinned
+    echo "Fetching the newest version of homebrew"
+
+    brew update 2>&1>/dev/null
+
+    package_list=$(brew upgrade --dry-run)
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    if ! [ -z "$package_list" ]; then
+        echo "Brew will upgrade the following packages:"
+        echo "$package_list"
+        echo "Type ${bold}y/Y${normal}(recommended) to ${bold}upgrade${normal} and any other key to continue without upgrading"
+        read consent
+        if ! [ -z "$consent" ] && ([ $consent == 'y' ] || [ $consent == 'Y' ]); then
+            brew upgrade --ignore-pinned
+        else
+            echo "Continuing installation without updating dependencies"
+        fi
+    else
+        echo "No packages needs upgrading. Continuing installation"
+    fi
 }
 
 _qmk_install() {
