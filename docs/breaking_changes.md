@@ -64,8 +64,8 @@ This describes the timeline for the merge sequence of `develop` into `master`. A
     * [ ] `git checkout develop`
     * [ ] `git pull --ff-only`
     * [ ] `git checkout develop-staging`
-    * [ ] `git rebase develop` # Allows for changelog etc. to be maintainede after resync
-    * [ ] `git push origin develop-staging`
+    * [ ] `git rebase develop` # Allows for changelog etc. to be maintained after resync
+    * [ ] `git push origin develop-staging --force-with-lease`
 
 ## 1 Week Before Merge
 
