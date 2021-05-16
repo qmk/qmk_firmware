@@ -1,12 +1,12 @@
 # bradpad
 
-![bradpad](https://imgur.com/1WONr4P.jpg)
+![bradpad](https://imgur.com/1WONr4Ph.jpg)
 
 The QMK firmware for the bradpad a music production inspired macropad.
 
-Keyboard Maintainer: [wxyangf](https://github.com/wxyangf)  
-Hardware Supported: bradpad pcbs  
-Hardware Availability: [1UP Keyboards](https://1upkeyboards.com/)
+* Keyboard Maintainer: [wxyangf](https://github.com/wxyangf)
+* Hardware Supported: bradpad pcbs
+* Hardware Availability: [1UP Keyboards](https://1upkeyboards.com/)
 
 [Album of Prototype of Production Version(v1.5.x)](https://imgur.com/a/kH5ttny)
 
