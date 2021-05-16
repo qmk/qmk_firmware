@@ -1,6 +1,6 @@
 # BredWorks Skeletn87
 
-![skeletn87](https://i.imgur.com/TJ0nmTHl.png)
+![skeletn87](https://i.imgur.com/78mGiual.png)
 
 Skeleton case TKL made by BredWorks
 
