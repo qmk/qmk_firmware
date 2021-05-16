@@ -6,6 +6,8 @@ A Top mount TKL keyboard from GG Keyboards.
 * Hardware Supported: Hotswap PCB Rev 1
 * Hardware Availability: Coming Soon!
 
+To enter bootloader for flashing firmware, press layer change key (MO(1)) and "R" Key simultaneously.
+
 Make example for this keyboard (after setting up your build environment):
 
     make ggkeyboards/genesis/solder:default
