@@ -15,5 +15,11 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make keyprez/corgi:default:flash
+    
+Flashing for Pro micro:
+    
+    make keyprez/corgi:default:avrdude
+
+After running the flash command, you need to short reset and ground on your microcontroller to flash it.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
