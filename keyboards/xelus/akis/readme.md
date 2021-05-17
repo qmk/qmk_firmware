@@ -1,5 +1,4 @@
-AKI-S
-===
+# AKI-S
 
 A 65% Keyboard by Thic Thock.
 
