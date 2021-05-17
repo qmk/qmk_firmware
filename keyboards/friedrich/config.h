@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Brandon Lee
+Copyright 2021 kb-elmo<mail@elmo.space>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,39 +20,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x694B // iK -> illusion keyboards
-#define PRODUCT_ID 0x6952 // iR -> illusion Rosa
-#define DEVICE_VER 0x0001
-#define MANUFACTURER illusion keyboards
-#define PRODUCT Rosa
+#define VENDOR_ID    0x6481
+#define PRODUCT_ID   0xB4A2
+#define DEVICE_VER   0x0001
+#define MANUFACTURER kb-elmo
+#define PRODUCT      Friedrich
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_COLS 12
 
-#define MATRIX_ROW_PINS { D1, D4, F0, B0, B1 }
-#define MATRIX_COL_PINS { D0, D2, F1, F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6 }
+/* Keyboard Matrix Assignments */
+#define MATRIX_ROW_PINS { F4, F1, F0, F5, D5 }
+#define MATRIX_COL_PINS { F6, F7, E6, B2, B3, D4, D6, D7, B4, C6, B5, B6 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN B3
-#define LED_PIN_ON_STATE 0
-#define BACKLIGHT_LEVELS 0
+/* CAPS LED */
+#define LED_CAPS_LOCK_PIN B1
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* disable these deprecated features by default */
-// #define NO_ACTION_MACRO
-// #define NO_ACTION_FUNCTION
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
