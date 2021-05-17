@@ -30,7 +30,7 @@
 { \
     { L05, L04, L03, L02, L01, L00, LW02, LW01, LW00 }, \
     { L15, L14, L13, L12, L11, L10, LW12, LW11, LW10 }, \
-    { L25, L24, L23, L22, L21, L20, KC_NO, LW01, KC_NO }, \
+    { L25, L24, L23, L22, L21, L20, KC_NO, LW21, KC_NO }, \
     { L35, L34, L33, L32, L31, L30, LW32, LW31, LW30 }, \
     { LT3, LT2, LT1, LT0, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     { R00, R01, R02, R03, R04, R05, MC0, MC1, MC2 }, \
