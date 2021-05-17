@@ -16,9 +16,6 @@ Flashing example for this keyboard:
 
     make keyprez/corgi:default:flash
     
-Flashing for Pro micro:
-    
-    make keyprez/corgi:default:avrdude
 
 After running the flash command, you need to short reset and ground on your microcontroller to flash it.
 
