@@ -1,8 +1,11 @@
 
 {
-    "keyboard_name": "bakekujira rev. 1",
-    "url": "",
+    "name": "bakekujira rev1",
+    "vendorId": "0x1213",
+    "productId": "0x1582",
     "maintainer": "qmk",
+    "lighting": "qmk_rgblight",
+    "matrix": {"rows": 10, "cols":11},
     "width": 19.75,
     "height": 5,
     "layouts": {

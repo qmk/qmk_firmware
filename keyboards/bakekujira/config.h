@@ -20,8 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x1213
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ogkeylab
-#define PRODUCT         bakekujira
+#define MANUFACTURER    ogkey.lab
+#define PRODUCT         ogkey.lab bakekujira
+#define DESCRIPTION     ogkey.lab bakekujira
 
 // #define TAPPING_TERM 200
 
