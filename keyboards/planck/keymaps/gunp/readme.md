@@ -5,10 +5,10 @@
 * Keymap Maintainer: [Gun Pinyo](https://github.com/gunpinyo)
 
 This is a personal keymap for myself. Almost all of important information is in
-the following picture of cheat sheet above; there is also the text-version of
-this cheat sheet at the end of this readme file. Please note that this layout
-doesn't employ any transparent keycode, therefore, empty keycodes (including
-dummy keycodes `XXX`) are all no-op.
+the picture of cheat sheet above; there is also the text-version of this cheat
+sheet at the end of this readme file. Please note that this layout doesn't
+employ any transparent keycode, therefore, empty keycodes (including dummy
+keycodes `XXX`) are all no-op.
 
 The base layer is `LY-0000`, most of keycodes in this layer is self-explained in
 the cheat sheet. Next, we have custom keycodes called `funcA`, `funcB`,
@@ -29,8 +29,8 @@ combination of `funcX` keycodes):
 
 Another keycode in the base layer is `stick`. When it is press, the rules of
 keyboard change into persistent mode. Here, the right-half is exactly the
-`RIG-HALF` keymap. The left-half initially all no-op and can be changed to other
-layers by tapping on the corresponded obvious keycodes (including layers
+`RIGHT-HALF` keymap. The left-half initially all no-op and can be changed to
+other layers by tapping on the corresponded obvious keycodes (including layers
 `LY-thaiX` which is not accessible via `funcX`). To switch back to the normal
 rules governed by `funcX` press a `reset` keycode.
 
