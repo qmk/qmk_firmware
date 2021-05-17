@@ -16,33 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-enum unicode_names {
-    SYMQ,
-    SYMW,
-    SYME,
-    SYMR,
-    SYMT,
-    SYMY,
-    SYMU,
-    SYMI,
-    SYMO,
-    SYMP,
-};
-
-// https://en.wikipedia.org/wiki/Space-cadet_keyboard
-const uint32_t PROGMEM unicode_map[] = {
-    [SYMQ] = 0x2227, // ∧
-    [SYMW] = 0x2228, // ∨
-    [SYME] = 0x2229, // ∩
-    [SYMR] = 0x222A, // ∪
-    [SYMT] = 0x2282, // ⊂
-    [SYMY] = 0x2283, // ⊃
-    [SYMU] = 0x2200, // ∀
-    [SYMI] = 0x221E, // ∞
-    [SYMO] = 0x2203, // ∃
-    [SYMP] = 0x2202, // ∂
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //      ESC      F1       F2       F3       F4       F5       F6       F7       F8       F9       F10      F11      F12	     Prt           Rotary(Mute)
@@ -65,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           KC_INS,
-        KC_CAPS, X(SYMQ), X(SYMW), X(SYME), X(SYMR), X(SYMT), X(SYMY), X(SYMU), X(SYMI), X(SYMO), X(SYMP), _______, _______, RESET,             KC_HOME,
+        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,             KC_HOME,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,           KC_END,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_PGUP,  KC_NLCK,
         _______, _______, _______,                            _______,                            _______, _______, _______, KC_HOME, KC_PGDN,  KC_END
