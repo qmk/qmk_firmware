@@ -29,10 +29,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     \-----------------------------------------------------'
     */
     [0] = LAYOUT(
-                    KC_7,      KC_8,    KC_9,     KC_BSPC,
-                    KC_4,      KC_5,    KC_6,     KC_KP_PLUS,
-                    KC_1,      KC_2,    KC_3,     KC_KP_ASTERISK,
-        KC_MPLY,    TT(1),     KC_0,    KC_DOT,   KC_ENTER
+                    KC_P7,     KC_P8,   KC_P9,    KC_BSPC,
+                    KC_P4,     KC_P5,   KC_P6,    KC_KP_PLUS,
+                    KC_P1,     KC_P2,   KC_P3,    KC_KP_ASTERISK,
+        KC_MPLY,    TT(1),     KC_P0,   KC_PDOT,  KC_KP_ENTER
     ),
     /*
             SUB LAYER
@@ -43,14 +43,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |             |---------|---------|---------|---------|
     |             |         |         |         |    /    |
     |-------------|---------|---------|---------|---------|
-    |             |         |         |         |    =    |
+    |    MUTE     |         |         |         |    =    |
     \-----------------------------------------------------'
     */
     [1] = LAYOUT(
                     _______,     _______,     _______,      KC_NLCK,
                     _______,     _______,     _______,      KC_KP_MINUS,
                     _______,     _______,     _______,      KC_KP_SLASH,
-        _______,    _______,     _______,     _______,      KC_EQL
+        KC_MUTE,    _______,     _______,     _______,      KC_KP_EQUAL
     ),
 };
 

@@ -19,7 +19,6 @@
 
 #define _BASE 0
 #define _SUB 1
-#define _DBG 2
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -49,33 +48,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      |             |---------|---------|---------|---------|
      |             |   F1    |   F2    |   F3    |    /    |
      |-------------|---------|---------|---------|---------|
-     |  MO(_DBG)   |         |  LSFT   |  LCTL   |    =    |
+     |    MUTE     |         |  LSFT   |  LCTL   |    =    |
      \-----------------------------------------------------'
     */
     [_SUB] = LAYOUT(
                    TD(ALT_F7),          KC_F8,          KC_F9, TD(DEL_NLCK),
                         KC_F4,     TD(CTL_F5),          KC_F6,  KC_KP_MINUS,
                         KC_F1,     TD(ALT_F2),          KC_F3,  KC_KP_SLASH,
-        MO(_DBG),     _______,  OSM(MOD_LSFT),  OSM(MOD_LCTL),  KC_KP_EQUAL
-    ),
-    /*
-          DEBUG LAYER
-     /-----------------------------------------------------`
-     |             |         |         |         |  Reset  |
-     |             |---------|---------|---------|---------|
-     |             |         |         |         |         |
-     |             |---------|---------|---------|---------|
-     |             |         |         |         |         |
-     |-------------|---------|---------|---------|---------|
-     |             |         |         |         |  DEBUG  |
-     \-----------------------------------------------------'
-    */
-    [_DBG] = LAYOUT(
-             _______, _______, _______, RESET,
-             _______, _______, _______, _______,
-             _______, _______, _______, _______,
-    _______, _______, _______, _______, DEBUG
-    ),
+        KC_MUTE,      _______,  OSM(MOD_LSFT),  OSM(MOD_LCTL),  KC_KP_EQUAL
+    )
 };
 
 
@@ -132,15 +113,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_MNXT);
                 } else {
                     tap_code(KC_MPRV);
-                }
-                break;
-
-            case _DBG:
-                // debug layer - mouse wheel up/down
-                if (clockwise) {
-                    tap_code(KC_WH_D);
-                } else {
-                    tap_code(KC_WH_U);
                 }
                 break;
 
