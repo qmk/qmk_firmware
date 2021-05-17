@@ -310,6 +310,18 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
+You can also use `rgblight_blink_layer_repeat` to specify the amount of times the layer is supposed to blink. Using the layers from above,
+```c
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DEBUG:
+            rgblight_blink_layer_repeat(debug_enable ? 0 : 1, 200, 3);
+            break;
+    }
+}
+```
+would turn the layer 0 (or 1) on and off again three times when `DEBUG` is pressed.
+
 ### Overriding RGB Lighting on/off status
 
 Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with `RGB_TOG` keycode). If you would like lighting layers to work even when the RGB Lighting is otherwise off, add `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` to your `config.h`.
