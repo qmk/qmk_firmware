@@ -40,10 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     kD14, kD12, kD11, kD10, kD9,  kD8,  kD7, kD6, kD5, kD4, kD3, kD1, \
     kE14, kE13, kE12,             kE7,                      kE4, kE3, kE2, kE1 \
 ) \
-LAYOUT_full_wtf( \
-    kA1, kA1, kA3, kA4, kA5, kA6, kA7, kA8, kA9, kA10, kA11, kA12, kA13, kA14, kA15, \
-    kB1, kB2, kB3, kB4, kB5, kB6, kB7, kB8, kB9, kB10, kB11, kB12, kB13, kB14, \
-    kC1, kC1, kC3, kC4, kC5, kC6, kC7, kC8, kC9, kC10, kC11, kC12, kC13, kC14, \
-    kD1, kD1, kD3, kD4, kD5, kD6, kD7, kD8, kD9, kD10, kD11, kD12, kD14, kD14, \
-    kE1, kE2, kE3, kE4,           kE7,                       kE12, kE13, kE14 \
-)
+{ \
+    { kA1, KC_NO, kA3, kA4, kA5, kA6, kA7, kA8, kA9, kA10, kA11, kA12, kA13, kA14 }, \
+    { kB1, kB2, kB3, kB4, kB5, kB6, kB7, kB8, kB9, kB10, kB11, kB12, kB13, kB14 }, \
+    { kC1, KC_NO, kC3, kC4, kC5, kC6, kC7, kC8, kC9, kC10, kC11, kC12, kC13, kC14 }, \
+    { kD1, KC_NO, kD3, kD4, kD5, kD6, kD7, kD8, kD9, kD10, kD11, kD12, KC_NO, kD14 }, \
+    { kE1, kE2, kE3, kE4, KC_NO, KC_NO, kE7, KC_NO, KC_NO, KC_NO, kA15, kE12, kE13, kE14 } \
+}
