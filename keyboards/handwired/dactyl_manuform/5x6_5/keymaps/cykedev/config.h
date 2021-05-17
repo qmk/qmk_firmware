@@ -28,7 +28,7 @@
 #define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
 #define EE_HANDS
-#define SPLIT_USB_DETECT
+// #define SPLIT_USB_DETECT
 
 // wiring of each half
 // ../../../../docs/proton_c_conversion.md
