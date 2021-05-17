@@ -54,7 +54,7 @@
 | `SOLENOID_MIN_DWELL` | `4` ms | 滞留時間の下限を設定する。 |
 | `SOLENOID_MAX_DWELL` | `100` ms | 滞留時間の上限を設定する。 |
 | `SOLENOID_DWELL_STEP_SIZE` | `1` ms | `HPT_DWL*` キーコードが送信される時に使われるステップサイズ |
-| `SOLENOID_DEFAULT_BUZZ` | `0` (無効) | HPT_RST では、"1" の場合、ブザー音が "on" に設定されます |
+| `SOLENOID_DEFAULT_BUZZ` | `0` (無効) | HPT_RST では、この値が "1" の場合、ブザー音が "on" に設定されます |
 | `SOLENOID_BUZZ_ACTUATED` | `SOLENOID_MIN_DWELL` | ソレノイドがブザー音モードの場合の動作時間 |
 | `SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` | ソレノイドがブザー音モードの場合の非動作時間 |
 
