@@ -8,6 +8,10 @@ A macropad designed after a meme board seen on Reddit.
 * Hardware Supported: F-Me Macropad
 * Hardware Availability: https://www.keebz.net/shop/p/f-me
 
+Getting the board into bootloader mode:
+
+To flash firmware onto this board, you'll need to bring the PCB into bootloader mode. To enter bootloader mode, press the reset button on the back of the PCB twice. The reset button is located in the top left corner near the indicator LED.
+
 Make example for this keyboard (after setting up your build environment):
 
     make keebzdotnet/fme:default
