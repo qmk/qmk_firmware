@@ -15,6 +15,15 @@
  */
 #include "moults31.h"
 
+bool _tap_custom_code(uint16_t keycode) {
+    keyrecord_t record = {
+        .event = {
+            .pressed = 1,
+        },
+    };
+    return process_record_user(keycode, &record);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool rv = true;
     switch (keycode) {
@@ -33,6 +42,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_VSC_MVEDTRPRVGRP:
         case M_VSC_EDGRPNXT:
         case M_VSC_EDGRPPRV:
+        case M_VSC_VIEWSIZEINC:
+        case M_VSC_VIEWSIZEDEC:
             rv = process_record_vsc(keycode, record);
             break;
 
@@ -85,9 +96,9 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Top encoder */
         if(curr_layer == 2 || curr_layer == 3) {
             if (clockwise) {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_P))));
+                _tap_custom_code(M_VSC_VIEWSIZEINC);
             } else {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_O))));
+                _tap_custom_code(M_VSC_VIEWSIZEDEC);
             }
         }
         else {

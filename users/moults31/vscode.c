@@ -64,6 +64,16 @@ bool process_record_vsc(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_K))));
             }
             break;
+        case M_VSC_VIEWSIZEINC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_P))));
+            }
+            break;
+        case M_VSC_VIEWSIZEDEC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_O))));
+            }
+            break;
     }
 
     return rv;
