@@ -78,8 +78,8 @@ def filter_files(files, core_only=False):
                 files[index] = None
                 cli.log.debug("Skipping non-core file %s, as '--core-only' is used.", file)
 
-    for file in [file for file in files if file is not None]:
-        if file.name.split('.')[-1] in c_file_suffixes:
+    for file in files:
+        if file and file.name.split('.')[-1] in c_file_suffixes:
             yield file
         else:
             cli.log.debug('Skipping file %s', file)
