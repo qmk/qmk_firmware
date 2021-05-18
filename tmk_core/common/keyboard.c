@@ -280,6 +280,15 @@ __attribute__((weak)) void housekeeping_task_kb(void) {}
  */
 __attribute__((weak)) void housekeeping_task_user(void) {}
 
+/** \brief housekeeping_task
+ *
+ * Invokes hooks for executing code after QMK is done after each loop iteration.
+ */
+void housekeeping_task(void) {
+    housekeeping_task_kb();
+    housekeeping_task_user();
+}
+
 /** \brief keyboard_init
  *
  * FIXME: needs doc
@@ -373,9 +382,6 @@ void keyboard_task(void) {
 #ifdef ENCODER_ENABLE
     bool encoders_changed = false;
 #endif
-
-    housekeeping_task_kb();
-    housekeeping_task_user();
 
     uint8_t matrix_changed = matrix_scan();
     if (matrix_changed) last_matrix_activity_trigger();
