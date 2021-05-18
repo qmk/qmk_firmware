@@ -1,4 +1,4 @@
-[![Luna - The QMK Keyboard Pet](https://github.com/HellSingCoder/qmk_firmware/blob/master/keyboards/sofle/keymaps/HellSingCoder/luna.jpg)](https://www.youtube.com/watch?v=HgIQRazCAjo)
+[![Luna - The QMK Keyboard Pet](https://www.simonepellegrino.com/wp-content/uploads/2021/05/luna.jpg)](https://www.youtube.com/watch?v=HgIQRazCAjo)
 
 # Personal keymap for Sofle Keyboard rev1
 
