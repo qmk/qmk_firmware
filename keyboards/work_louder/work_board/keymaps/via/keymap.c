@@ -23,10 +23,8 @@ enum planck_layers {
   _ADJUST
 };
 
-enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+enum tap_dances {
+    ENC_TAP,
 };
 
 #define LOWER KC_FN13
@@ -34,7 +32,7 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_via(
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, KC_MUTE,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, USER00,
         KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_VOLD,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , KC_VOLU,
         KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
@@ -61,3 +59,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     )
 };
+
+
+void dance_enc_finished(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code(KC_MPLY);
+    } else if (state->count == 2) {
+        register_code(KC_MNXT);
+    } else {
+        register_code(KC_MPRV);
+    }
+}
+
+void dance_enc_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        unregister_code(KC_MPLY);
+    } else if (state->count == 2) {
+        unregister_code(KC_MNXT);
+    } else {
+        unregister_code(KC_MPRV);
+    }
+}
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [ENC_TAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_enc_finished, dance_enc_reset),
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == USER00) {
+        preprocess_tap_dance(TD(ENC_TAP), record);
+        return process_tap_dance(TD(ENC_TAP), record);
+    }
+    return true;
+}
