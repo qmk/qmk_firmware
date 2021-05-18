@@ -343,7 +343,7 @@ void check_default_layer(uint8_t type) {
 
 void rgb_matrix_indicators_user(void) {
   if (
-    user_config.rgb_layer_change && !g_suspend_state && rgb_matrix_config.enable &&
+    user_config.rgb_layer_change && rgb_matrix_config.enable &&
       (!user_config.rgb_matrix_idle_anim || rgb_matrix_get_mode() != user_config.rgb_matrix_idle_mode)
   )
     {

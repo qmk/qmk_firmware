@@ -113,7 +113,7 @@ inline static char get_ascii(int16_t keycode){
 oled_rotation_t oled_init_user(oled_rotation_t rotation){
     oled_rotation_t oled_rot=OLED_ROTATION_180;
 
-    if(true==is_master){
+    if(true==is_keyboard_master()){
 #ifdef OLED_VERTICAL
         oled_rot=OLED_ROTATION_270;
 #else
@@ -313,7 +313,7 @@ void oled_task_user(void){
         oled_off();
     }else{
         oled_on();
-        if(true==is_master){
+        if(true==is_keyboard_master()){
             render_status();
         }else{
             render_logo();
