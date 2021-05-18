@@ -6,7 +6,6 @@ import shutil
 import subprocess
 
 from milc import cli
-from qmk.commands import run
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE
 
@@ -142,7 +141,7 @@ def is_executable(command):
 
     # Make sure the command can be executed
     version_arg = ESSENTIAL_BINARIES[command].get('version_arg', '--version')
-    check = run([command, version_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=5, universal_newlines=True)
+    check = cli.run([command, version_arg], combined_output=True, stdin=subprocess.DEVNULL, timeout=5)
 
     ESSENTIAL_BINARIES[command]['output'] = check.stdout
 
