@@ -13,7 +13,7 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 __attribute__ ((weak))
 void matrix_init_kb(void) {
 	// Turn status LED on, with the exception of THK
-	#if defined(__AVR__) && !defined(__AVR_ATmega32A__)
+	#if defined(__AVR_ATmega32U4__)
 	setPinOutput(E6);
 	writePinHigh(E6);
 	#endif
