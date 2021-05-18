@@ -79,13 +79,13 @@ uint16_t handle_encoder_ccw(void) {
 
 uint16_t handle_encoder_press(void) {
     uint16_t mapped_code = 0;
-    if (current_layer == 1) {
+    if (get_highest_layer(layer_state) == 1) {
         if (oled_mode == OLED_MODE_CALC) {
             layer_on(3);
         }
         layer_off(1);
         return mapped_code;
-    } else if (current_layer == 2) {
+    } else if (get_highest_layer(layer_state) == 2) {
         if (oled_mode == OLED_MODE_CALC) {
             layer_off(1);
             layer_on(3);
@@ -94,7 +94,7 @@ uint16_t handle_encoder_press(void) {
         }
         layer_off(2);
         return mapped_code;
-    } else if (current_layer == 3) {
+    } else if (get_highest_layer(layer_state) == 3) {
         if (oled_mode == OLED_MODE_OFF) {
             layer_off(3);
         }

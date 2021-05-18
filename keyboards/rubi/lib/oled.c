@@ -35,7 +35,7 @@ void render_layer_section(void) {
 
     oled_set_cursor(oled_max_chars()-15, 0);
     oled_write_P(PSTR("LAYER"), false);
-    switch (current_layer) {
+    switch (get_highest_layer(layer_state)) {
         case 0:
             oled_write_P(layer_0, false);
             break;
@@ -129,7 +129,7 @@ void render_calc_section(void) {
 
 
     if (oled_mode == OLED_MODE_CALC) {
-        if (current_layer == 1) {
+        if (get_highest_layer(layer_state) == 1) {
             oled_set_cursor(oled_max_chars()-8, 0);
 
             switch (calc_operator_display) {
@@ -169,7 +169,7 @@ void render_calc_section(void) {
                     oled_write_P(add_off, false);
                     break;
             }
-        } else if (current_layer == 2) {
+        } else if (get_highest_layer(layer_state) == 2) {
             oled_set_cursor(oled_max_chars()-6, 0);
 
             switch (calc_operator_display) {
@@ -240,31 +240,21 @@ void render_frame(void) {
 }
 
 void oled_task_user(void) {
-    // re-render oled and reset timer if it's time for the next frame
-    //if (oled_mode == OLED_MODE_DEFAULT) {
-    //    if (timer_elapsed32(oled_sleep_timer) > OLED_SLEEP_TIMEOUT) {
-    //        oled_off();
-    //        return;
-    //    } else {
-    //        oled_on();
-    //    }
-    //}
-
     if (timer_elapsed(oled_frame_timer) > OLED_FRAME_TIMEOUT) {
         oled_clear();
         oled_frame_timer = timer_read();
         render_frame();
     }
 
-    if (current_layer == 1) {
+    if (get_highest_layer(layer_state) == 1) {
         oled_mode = OLED_MODE_CALC;
-    } else if (current_layer == 2) {
+    } else if (get_highest_layer(layer_state) == 2) {
         if (IS_LAYER_ON(1)) {
             oled_mode = OLED_MODE_CALC;
         } else {
             oled_mode = OLED_MODE_DEFAULT;
         }
-    } else if (current_layer == 3) {
+    } else if (get_highest_layer(layer_state) == 3) {
         oled_mode = OLED_MODE_OFF;
     } else {
         oled_mode = OLED_MODE_DEFAULT;

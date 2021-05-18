@@ -18,11 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define OLED_FRAME_TIMEOUT (1000 / 30)  // 30 fps
-//#define OLED_SLEEP_TIMEOUT 60000        // 60 sec
 #define OLED_LOGO_TIMEOUT 3000          // 3 sec
 
 static uint16_t oled_frame_timer = 0;
-//static uint32_t oled_sleep_timer = 0;
 static uint16_t oled_logo_timer = 0;
 static bool oled_logo_expired = false;
 

@@ -15,8 +15,6 @@
  */
 #include "rubi.h"
 
-uint8_t current_layer = 0;
-
 uint8_t oled_mode = OLED_MODE_DEFAULT;
 
 char calc_result_display[CALC_DIGITS+1] = "";
@@ -67,18 +65,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    current_layer = get_highest_layer(state);
-    return state;
+    return layer_state_set_user(state);
 }
 
 bool led_update_kb(led_t led_state) {
-    writePin(C6, led_state.num_lock);
+    bool res = led_update_user(led_state);
+    if (res) {
+        writePin(C6, led_state.num_lock);
+    }
     return true;
 }
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
+__attribute__ ((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        if (current_layer == 0) {
+        if (get_highest_layer(layer_state) == 0) {
             uint16_t mapped_code = 0;
             if (clockwise) {
                 mapped_code = handle_encoder_cw();
@@ -104,4 +104,8 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
             }
         }
     }
+}
+
+void encoder_update_kb(uint8_t index, bool clockwise) {
+    encoder_update_user(index, clockwise);
 }
