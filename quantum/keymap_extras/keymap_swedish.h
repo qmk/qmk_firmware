@@ -165,15 +165,28 @@
 #define SE_AE   SE_ADIA
 #define SE_AM   SE_ARNG
 #define SE_MU   SE_MICR
-// Swedish macOS symbols (not vetted)
-#define SE_ACUT_MAC SE_ACUT
-#define SE_APOS_MAC SE_LABK
-#define SE_AT_MAC   SE_ADIA
-#define SE_BSLS_MAC S(SE_LCBR)
-#define SE_DLR_MAC  SE_CURR
-#define SE_GRV_MAC  SE_BSLS
-#define SE_GRTR_MAC SE_HALF
-#define SE_LCBR_MAC S(SE_LBRC)
-#define SE_LESS_MAC SE_SECT
-#define SE_PIPE_MAC SE_LCBR
-#define SE_RCBR_MAC S(SE_RBRC)
+// Swedish macOS symbols
+#define SE_TILD_MAC LALT(SE_DIAE) // ~
+#define SE_EXLM_MAC SE_EXLM       // !
+#define SE_AT_MAC   LALT(SE_2)    // @
+#define SE_HASH_MAC LALT(SE_2)    // #
+#define SE_DLR_MAC  LALT(SE_4)    // $
+#define SE_PERC_MAC LALT(SE_5)    // %
+#define SE_CIRC_MAC S(SE_DIAE)    // ^
+#define SE_AMPR_MAC S(SE_6)       // &
+#define SE_ASTR_MAC S(SE_QUOT)    // *
+#define SE_LPRN_MAC S(SE_8)       // (
+#define SE_RPRN_MAC S(SE_9)       // )
+#define SE_LBRC_MAC LALT(SE_8)    // [
+#define SE_RBRC_MAC LALT(SE_9)    // ]
+#define SE_LCBR_MAC LSA(SE_8)     // {
+#define SE_RCBR_MAC LSA(SE_9)     // }
+#define SE_UNDS_MAC SE_UNDS       // _
+#define SE_PLUS_MAC SE_PLUS       // +
+#define SE_PIPE_MAC LALT(SE_7)    // |
+#define SE_COLN_MAC SE_COLN       // :
+#define SE_DQUO_MAC SE_DQUO       // "
+#define SE_LABK_MAC KC_GRV        // <
+#define SE_RABK_MAC S(KC_GRV)     // >
+#define SE_QUES_MAC SE_QUES       // ?
+#define SE_BSLS_MAC LSA(SE_7)     // (backslash)
