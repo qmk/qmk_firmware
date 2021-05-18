@@ -128,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), MC(KC_W), KC_DELETE,    KC_APP
 ),
 [LY_1101] = LAYOUT_gunp(
-  AU_ON,     SANDBOX,    KC_INSERT,    XXXXXXX,    KC_SLCK,       RESET,
-  AU_OFF,    RGB_TOG,    RGB_MOD,      USER_EMAIL, KC_CLCK,       DEBUG,
-  KC_SLEP,   DM_REC1,    DM_PLY1,      KC_WAKE,    KC_NLCK,       KC_LOCK,
-  KC_PWR,    DM_REC2,    DM_PLY2,      DM_RSTP,   XXXXXXX,       EEP_RST
+  SANDBOX,   XXXXXXX,    AU_TOG,       KC_LOCK,    RGB_TOG,       RESET,
+  KC_WAKE,   KC_CLCK,    USER_NAME,    USER_EMAIL, RGB_MOD,       DEBUG,
+  KC_SLEP,   KC_NLCK,    DM_REC1,      DM_PLY1,    XXXXXXX,       EEP_RST,
+  KC_PWR,    KC_SLCK,    DM_REC2,      DM_PLY2,    DM_RSTP,       KC_INSERT
 ),
 [LY_1111] = LAYOUT_gunp(
   KC_ACL1,   KC_ACL0,    KC_WH_L,      KC_MS_U,    KC_WH_R,       KC_WH_U,
@@ -241,6 +241,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return !(MIN_KC <= keycode && keycode <= MAX_KC);
 
   switch(keycode) {
+    case USER_NAME:
+      SEND_STRING("Gun Pinyo");
+      return false;
+
     case USER_EMAIL:
       SEND_STRING("gunpinyo@gmail.com");
       return false;
