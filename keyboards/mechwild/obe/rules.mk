@@ -1,8 +1,8 @@
 # MCU name
-MCU = atmega32u4
+MCU = STM32F411
 
 # Bootloader selection
-BOOTLOADER = atmel-dfu
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -20,3 +20,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+
+OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
