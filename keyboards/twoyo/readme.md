@@ -1,6 +1,6 @@
 # Yasui
 
-![Twoyo](https://i.imgur.com/TRFOEkw.png)
+![Twoyo](https://i.imgur.com/j48Gq0g.png)
 
 A 12u split staggered 40% kit.
 
