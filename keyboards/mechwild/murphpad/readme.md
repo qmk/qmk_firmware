@@ -1,6 +1,6 @@
 # MurphPad
 
-![murphpad](https://i.imgur.com/UmlpQ9p.jpg)
+![murphpad](https://i.imgur.com/UmlpQ9ph.jpg)
 
 A DIY numpad kit with macro row, two additional keys, OLED, RGB Underglow, and encoder.
 

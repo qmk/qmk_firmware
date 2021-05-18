@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6D77 // mw = "MechWild"
 #define PRODUCT_ID      0x1705
-#define DEVICE_VER      0x0200
+#define DEVICE_VER      0x0301
 #define MANUFACTURER    MechWild
 #define PRODUCT         MurphPad
 
@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define OLED_FONT_H "keyboards/mechwild/murphpad/lib/glcdfont.c"
+#define OLED_FONT_H "keyboards/mechwild/murphpad/lib/murphpadfont.c"
 
 #define RGB_DI_PIN F4
 #ifdef RGB_DI_PIN
