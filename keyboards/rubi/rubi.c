@@ -64,9 +64,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user_oled(keycode, record);
 }
 
-layer_state_t layer_state_set_kb(layer_state_t state) {
-    return layer_state_set_user(state);
-}
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);

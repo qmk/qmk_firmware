@@ -23,7 +23,8 @@ enum rubi_keycodes {
     ENC_PRESS = SAFE_RANGE,
     CL_PLUS,
     CL_STAR,
-    CL_TYPE
+    CL_TYPE,
+    NEW_SAFE_RANGE
 };
 
 enum oled_modes {

@@ -239,7 +239,7 @@ void render_frame(void) {
     }
 }
 
-void oled_task_user(void) {
+__attribute__((weak)) void oled_task_user(void) {
     if (timer_elapsed(oled_frame_timer) > OLED_FRAME_TIMEOUT) {
         oled_clear();
         oled_frame_timer = timer_read();
