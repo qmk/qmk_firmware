@@ -1,4 +1,11 @@
 
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+COMMAND_ENABLE = no         # Commands for debug and configuration
+MIDI_ENABLE = no            # MIDI controls
+AUDIO_ENABLE = no           # Audio output on port C6
+UNICODE_ENABLE = no         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 OLED_DRIVER_ENABLE = yes
 ENCODER_ENABLE = yes
 CONSOLE_ENABLE = no
@@ -11,3 +18,4 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 SPLIT_KEYBOARD = yes
 MOUSEKEY_ENABLE = no
+POINTING_DEVICE_ENABLE = no
