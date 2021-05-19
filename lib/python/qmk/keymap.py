@@ -370,7 +370,7 @@ def _c_preprocess(path, stdin=DEVNULL):
     Returns:
         the stdout of the pre-processor
     """
-    cmd = ['cpp', path] if path else ['cpp']
+    cmd = ['cpp', str(path)] if path else ['cpp']
     pre_processed_keymap = cli.run(cmd, stdin=stdin)
 
     return pre_processed_keymap.stdout
