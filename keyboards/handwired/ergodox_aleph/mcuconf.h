@@ -23,8 +23,6 @@
  * HAL driver system settings.
  */
 
-#define K20x7
-
 /* Select the MCU clocking mode below by enabling the appropriate block. */
 
 #define KINETIS_NO_INIT             FALSE
@@ -69,6 +67,13 @@
  */
 #define KINETIS_SPI_USE_SPI0                TRUE
 
+/*
+ * I2C driver settings
+ */
 #define KINETIS_I2C_USE_I2C0                TRUE
+#define KINETIS_I2C_I2C0_PRIORITY           4
+
+#define KINETIS_I2C_USE_I2C1                TRUE
+#define KINETIS_I2C_I2C0_PRIORITY           4
 
 #endif /* _MCUCONF_H_ */
