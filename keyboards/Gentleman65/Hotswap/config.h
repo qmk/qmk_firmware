@@ -7,7 +7,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    JJ48_24 & Engineermachine
 #define PRODUCT         Gentleman 65
-#define DESCRIPTION     A Keyboard Fit For A Gentleman
 
 /* key matrix size */
 #define MATRIX_ROWS 5
