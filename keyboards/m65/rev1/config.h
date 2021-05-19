@@ -21,7 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6060
 
 #define LED_NUM_LOCK_PIN B12
-#define LED_CAPS_LOCK_PIN B13
+#define LED_SCROLL_LOCK_PIN B13
+#define LED_CAPS_LOCK_PIN C13
 
 //                          0   1   2    3   4
 #define MATRIX_ROW_PINS { B11, B0, B1,  A2, A3 }
