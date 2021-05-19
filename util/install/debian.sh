@@ -5,7 +5,7 @@ DEBCONF_NONINTERACTIVE_SEEN=true
 export DEBIAN_FRONTEND DEBCONF_NONINTERACTIVE_SEEN
 
 _qmk_install_prepare() {
-    sudo apt-get update
+    sudo apt-get update $SKIP_PROMPT
 }
 
 _qmk_install() {

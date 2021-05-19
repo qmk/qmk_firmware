@@ -1,15 +1,14 @@
 import platform
+from subprocess import DEVNULL
 
-from subprocess import STDOUT, PIPE
-
-from qmk.commands import run
+from milc import cli
 
 is_windows = 'windows' in platform.platform().lower()
 
 
 def check_subcommand(command, *args):
     cmd = ['qmk', command, *args]
-    result = run(cmd, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+    result = cli.run(cmd, stdin=DEVNULL, combined_output=True)
     return result
 
 
@@ -18,7 +17,7 @@ def check_subcommand_stdin(file_to_read, command, *args):
     """
     with open(file_to_read, encoding='utf-8') as my_file:
         cmd = ['qmk', command, *args]
-        result = run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+        result = cli.run(cmd, stdin=my_file, combined_output=True)
     return result
 
 
