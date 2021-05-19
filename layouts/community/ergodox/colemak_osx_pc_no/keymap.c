@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(
         // left hand
         NO_BSLS,       NO_LBRC, NO_RBRC, NO_LCBR,  NO_RCBR, NO_ASTR,  TG(1),
-        NO_QUES,         KC_Q,         KC_W,    KC_F,   KC_P,   KC_G,   NO_QUO2,
+        NO_QUES,         KC_Q,         KC_W,    KC_F,   KC_P,   KC_G,   NO_DQUO,
         NO_COLN,         KC_A,         KC_R,    KC_S,   KC_T,   KC_D,
         KC_EXLM,        KC_Z,         KC_X,    KC_C,   KC_V,   KC_B,   NO_SCLN,
         MO(4),     KC_BTN1,      KC_BTN2, KC_TAB,GUI_T(KC_COMMA),
@@ -44,8 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                OSM(MOD_LSFT),CTL_T(KC_DOT),ALT_T(NO_MINS),
         // right hand
              KC_FN5, NO_DLR, NO_LPRN, NO_RPRN ,KC_FN3, KC_FN4,NO_AT,
-             NO_APOS,      KC_J,    KC_L,    KC_U,      KC_Y,     NO_AA,   NO_AE  ,
-                           KC_H,    KC_N,    KC_E,      KC_I,      KC_O,    NO_OSLH,
+             NO_QUOT,      KC_J,    KC_L,    KC_U,      KC_Y,     NO_ARNG, NO_AE  ,
+                           KC_H,    KC_N,    KC_E,      KC_I,      KC_O,    NO_OSTR,
              NO_EQL,        KC_K,    KC_M, KC_RIGHT,  KC_DOWN,   KC_UP, NO_UNDS,
                                   KC_LEFT,  KC_ESC,   KC_FN7,   KC_HASH,   MO(2),
              KC_INSERT,  NO_SLSH,
@@ -74,20 +74,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 [BASE_MAC] = LAYOUT_ergodox(
-       NO_BSLS_MAC, KC_TRNS,KC_TRNS, NO_LCBR_MAC,NO_RCBR_MAC, KC_TRNS, KC_TRNS,
+       S(ALGR(NO_7)), KC_TRNS,KC_TRNS, S(ALGR(NO_8)),S(ALGR(NO_9)), KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, CTL_T(KC_COMMA),
-                                           KC_TRNS, NO_PIPE_MAC,
+                                           KC_TRNS, ALGR(NO_7),
                                                     KC_TRNS,
                                   KC_TRNS,GUI_T(KC_DOT) , KC_TRNS,
     // right hand
-       KC_TRNS,  NO_DLR_MAC, KC_TRNS,KC_TRNS,KC_FN8, KC_FN9,NO_AT_MAC,
-       NO_APOS_MAC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  S(NO_4), KC_TRNS,KC_TRNS,KC_FN8, KC_FN9,NO_QUOT,
+       NO_LABK,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                          KC_TRNS, KC_TRNS, NO_GRV_MAC, KC_TRNS, MO(3),
+                          KC_TRNS, KC_TRNS, ALGR(NO_BSLS), KC_TRNS, MO(3),
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
