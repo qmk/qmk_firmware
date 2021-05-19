@@ -18,6 +18,7 @@
 #include "action_layer.h"
 #include "haptic.h"
 
+
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
 
@@ -180,6 +181,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   queue_for_send = true;
   return process_record_user(keycode, record);
 }
+
+bool encoder_update_user(uint8_t index, bool clockwise);
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) return false;

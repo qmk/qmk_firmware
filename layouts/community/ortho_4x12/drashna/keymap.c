@@ -348,7 +348,7 @@ void matrix_init_keymap(void) {
 #endif  // RGB_MATRIX_INIT
 
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
         case _RAISE:
             clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);

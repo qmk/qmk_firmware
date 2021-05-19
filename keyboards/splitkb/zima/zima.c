@@ -109,5 +109,6 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     } else {
         tap_code16(KC_VOLD);
     }
+    return true;
 }
 #endif

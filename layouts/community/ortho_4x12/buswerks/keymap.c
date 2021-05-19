@@ -142,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-bool encoder_update_user(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(_RAISE) || IS_LAYER_ON(_LOWER)) {
         if (clockwise) {
             register_code(KC_VOLU);

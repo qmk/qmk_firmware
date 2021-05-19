@@ -225,7 +225,7 @@ const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (!is_keyboard_master())
-    return;
+    return true;
 
 #ifdef RGB_OLED_MENU
   if (index == RGB_OLED_MENU) {
