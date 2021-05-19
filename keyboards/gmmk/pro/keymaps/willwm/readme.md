@@ -5,3 +5,9 @@ Based on [gmmk/pro/keymaps/default](../default/keymap.c), with [VIA support](./r
 ## Layers
 
 [QMK Configurator keymap.json](keymap.json)
+
+### Layer 0
+<img width="567" alt="layer0" src="https://user-images.githubusercontent.com/303042/118893170-da3e3280-b8b6-11eb-9459-f6c339c59bde.png">
+
+### Layer 1
+<img width="566" alt="layer1" src="https://user-images.githubusercontent.com/303042/118893191-e0341380-b8b6-11eb-8641-a4fdeeb7cbb2.png">
