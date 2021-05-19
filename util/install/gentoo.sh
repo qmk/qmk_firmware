@@ -23,7 +23,7 @@ _qmk_install() {
     sudo emerge -auN sys-devel/gcc
     sudo emerge -au --noreplace \
         app-arch/unzip app-arch/zip net-misc/wget sys-devel/clang sys-devel/crossdev \
-        \>=dev-lang/python-3.6 \
+        \>=dev-lang/python-3.7 \
         dev-embedded/avrdude dev-embedded/dfu-programmer app-mobilephone/dfu-util
 
     sudo crossdev -s4 --stable --g \<9 --portage --verbose --target avr

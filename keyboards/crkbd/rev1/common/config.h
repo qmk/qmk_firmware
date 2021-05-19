@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT         Corne Keyboard Rev.1 (Split Common)
-
 #define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
 

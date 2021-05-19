@@ -11,13 +11,13 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 **Usage for Configurator Exports**:
 
 ```
-qmk compile <configuratorExport.json>
+qmk compile [-c] <configuratorExport.json>
 ```
 
 **Usage for Keymaps**:
 
 ```
-qmk compile -kb <keyboard_name> -km <keymap_name>
+qmk compile [-c] [-e <var>=<value>] -kb <keyboard_name> -km <keymap_name>
 ```
 
 **Usage in Keyboard Directory**:  
@@ -82,13 +82,13 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 **Usage for Configurator Exports**:
 
 ```
-qmk flash <configuratorExport.json> -bl <bootloader>
+qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] <configuratorExport.json>
 ```
 
 **Usage for Keymaps**:
 
 ```
-qmk flash -kb <keyboard_name> -km <keymap_name> -bl <bootloader>
+qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>]
 ```
 
 **Listing the Bootloaders**
@@ -131,6 +131,16 @@ Check your environment and report problems only:
 
     qmk doctor -n
 
+## `qmk format-json`
+
+Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if neccesary.
+
+**Usage**:
+
+```
+qmk format-json [-f FORMAT] <json_file>
+```
+
 ## `qmk info`
 
 Displays information about keyboards and keymaps in QMK. You can use this to get information about a keyboard, show the layouts, display the underlying key matrix, or to pretty-print JSON keymaps.
@@ -170,7 +180,7 @@ qmk json2c [-o OUTPUT] filename
 ## `qmk c2json`
 
 Creates a keymap.json from a keymap.c.  
-**Note:** Parsing C source files is not easy, therefore this subcommand may not work your keymap. In some cases not using the C pre-processor helps.
+**Note:** Parsing C source files is not easy, therefore this subcommand may not work with your keymap. In some cases not using the C pre-processor helps.
 
 **Usage**:
 
@@ -216,6 +226,18 @@ This command is directory aware. It will automatically fill in KEYBOARD if you a
 
 ```
 qmk list-keymaps -kb planck/ez
+```
+
+## `qmk new-keyboard`
+
+This command creates a new keyboard based on available templates.
+
+This command will prompt for input to guide you though the generation process.
+
+**Usage**:
+
+```
+qmk new-keyboard
 ```
 
 ## `qmk new-keymap`

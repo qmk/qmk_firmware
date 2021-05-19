@@ -109,11 +109,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       uint8_t mods = get_mods();
       clear_mods();
         if (mods & MOD_MASK_SHIFT) {
-          send_string_with_delay_P(PSTR("qmk flash -kb " QMK_KEYBOARD " -km " QMK_KEYMAP "\n"), 10); //New way
+          send_string_with_delay_P(PSTR("qmk flash -j 6 -kb " QMK_KEYBOARD " -km " QMK_KEYMAP "\n"), 10); //New way
           reset_keyboard();
         }
         else
-          send_string_with_delay_P(PSTR("qmk compile -kb " QMK_KEYBOARD " -km " QMK_KEYMAP "\n"), 10); //New way
+          send_string_with_delay_P(PSTR("qmk compile -j 6 -kb " QMK_KEYBOARD " -km " QMK_KEYMAP "\n"), 10); //New way
       set_mods(mods);
       }
     break;

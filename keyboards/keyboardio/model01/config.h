@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Keyboardio
 #define PRODUCT         Model 01
-#define DESCRIPTION     (QMK)
 
 /* key matrix size; rows are doubled for split */
 #define MATRIX_ROWS 8
