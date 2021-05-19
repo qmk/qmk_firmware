@@ -12,7 +12,6 @@ from pygments.token import Token
 from pygments import lex
 
 import qmk.path
-import qmk.commands
 from qmk.keyboard import find_keyboard_from_dir, rules_mk
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
