@@ -93,7 +93,7 @@ def doctor(cli):
 
     if not bin_ok:
         if yesno('Would you like to install dependencies?', default=True):
-            cli.run(['util/qmk_install.sh'], stdin=DEVNULL, capture_output=False)
+            cli.run(['util/qmk_install.sh', '-y'], stdin=DEVNULL, capture_output=False)
             bin_ok = check_binaries()
 
     if bin_ok:
