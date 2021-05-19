@@ -21,4 +21,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Enable encoder
-OLED_DRIVER_ENABLE = yes	# Enable OLED Screen
+OLED_DRIVER_ENABLE = yes    # Enable OLED Screen

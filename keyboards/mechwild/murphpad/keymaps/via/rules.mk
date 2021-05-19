@@ -1,3 +1,2 @@
 VIA_ENABLE = yes
-
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
