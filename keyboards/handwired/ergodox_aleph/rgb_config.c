@@ -59,7 +59,7 @@ led_config_t g_led_config = { {
     {     4,     11,     17, 26, 35},
     {     5,     12,     18, 27, 36},
     {     6,     13,     19, 28, 37},
-    {     6,     14,     20, 29, 38},
+    {     7,     14,     20, 29, 38},
 
     // TODO(stillinbeta): right hand
     {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},

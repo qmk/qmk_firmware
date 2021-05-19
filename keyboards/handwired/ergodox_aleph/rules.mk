@@ -37,6 +37,4 @@ LCD_HEIGHT = 32
 # project specific files
 SRC = matrix.c rgb_config.c
 
-QUANTUM_LIB_SRC += i2c_master.c
-
 LAYOUTS = ergodox
