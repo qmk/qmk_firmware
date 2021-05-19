@@ -3,7 +3,7 @@
 from enum import Enum
 import re
 import shutil
-import subprocess
+from subprocess import DEVNULL
 
 from milc import cli
 from qmk import submodules
@@ -141,7 +141,7 @@ def is_executable(command):
 
     # Make sure the command can be executed
     version_arg = ESSENTIAL_BINARIES[command].get('version_arg', '--version')
-    check = cli.run([command, version_arg], combined_output=True, stdin=subprocess.DEVNULL, timeout=5)
+    check = cli.run([command, version_arg], combined_output=True, stdin=DEVNULL, timeout=5)
 
     ESSENTIAL_BINARIES[command]['output'] = check.stdout
 
