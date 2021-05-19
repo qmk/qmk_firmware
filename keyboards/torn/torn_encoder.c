@@ -53,7 +53,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
 
     tap_code16(code);
-    return true
+    return true;
 }
 
 static bool encoder_read_state(uint8_t *state) {
