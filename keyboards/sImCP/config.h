@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { C4, D0, B3 }
 #define ENCODERS_PAD_B { C5, D1, B4 }
-
+#define ENCODER_RESOLUTIONS { 4, 4, 2 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
