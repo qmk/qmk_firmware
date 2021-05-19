@@ -169,7 +169,7 @@
 #define SE_TILD_MAC LALT(SE_DIAE) // ~
 #define SE_EXLM_MAC SE_EXLM       // !
 #define SE_AT_MAC   LALT(SE_2)    // @
-#define SE_HASH_MAC LALT(SE_2)    // #
+#define SE_HASH_MAC LALT(SE_3)    // #
 #define SE_DLR_MAC  LALT(SE_4)    // $
 #define SE_PERC_MAC LALT(SE_5)    // %
 #define SE_CIRC_MAC S(SE_DIAE)    // ^
