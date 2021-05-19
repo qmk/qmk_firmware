@@ -1,5 +1,7 @@
 #ifdef RGB_MATRIX_ENABLE
 
+#include "rgb_config.h"
+
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
    /* Refer to IS31 manual for these locations
     *   driver
@@ -48,10 +50,42 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 };
 
 led_config_t g_led_config = { {
-    {1,  2,  3,  4,  5,  6,  7},
-    {8,  9, 10, 11, 12, 13, 14},
-    {15, 16, 17, 18, 19, 20},
-    {22, 23, 24, 25, 26, 27, 28, 29},
-    {31, 32, 33, 34, 35, 36. 37, 38},
-                               },
-}
+    // Left side
+    {NO_LED, NO_LED, NO_LED, 21, 30},
+    {NO_LED, NO_LED, NO_LED, 22, 31},
+    {     1,      8, NO_LED, 23, 32},
+    {     2,      9,     15, 24, 33},
+    {     3,     10,     16, 25, 34},
+    {     4,     11,     17, 26, 35},
+    {     5,     12,     18, 27, 36},
+    {     6,     13,     19, 28, 37},
+    {     6,     14,     20, 29, 38},
+
+    // TODO(stillinbeta): right hand
+    {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+    {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+    {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+    {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+    {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+    {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+    {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+    {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+    {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  },
+  {
+   {0, 6}, {24, 6}, {39, 2}, {55, 0}, {71, 2}, {87, 4}, {102, 4},
+   {0, 22}, {24, 22}, {39, 18}, {55, 16}, {71, 18}, {87, 20}, {102, 20},
+   {0, 37}, {24, 37}, {39, 33}, {55, 31}, {71, 33}, {87, 35},
+   {0, 53}, {24, 53}, {39, 49}, {55, 47}, {71, 49}, {87, 51}, {102, 43}, {8, 69},
+   {24, 69}, {39, 65}, {55, 63}, {71, 65}, {94, 79}, {110, 79}, {110, 94}, {79, 94},
+  },
+  {
+    FLG, FLG, FLG, FLG, FLG, FLG, FLG,
+    FLG, FLG, FLG, FLG, FLG, FLG, FLG,
+    FLG, FLG, FLG, FLG, FLG, FLG,
+    FLG, FLG, FLG, FLG, FLG, FLG, FLG, FLG,
+    FLG, FLG, FLG, FLG, FLG, FLG, FLG, FLG
+  }
+};
+
+#endif
