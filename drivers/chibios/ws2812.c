@@ -42,12 +42,21 @@
 
 // These are the timing constraints taken mostly from the WS2812 datasheets
 // These are chosen to be conservative and avoid problems rather than for maximum throughput
+#ifndef T1H
+    #define T1H 900           // Width of a 1 bit in ns
+#endif
 
-#define T1H 900           // Width of a 1 bit in ns
-#define T1L (1250 - T1H)  // Width of a 1 bit in ns
+#ifndef T1L         
+    #define T1L (1250 - T1H)  // Width of a 1 bit in ns
+#endif
 
-#define T0H 350           // Width of a 0 bit in ns
-#define T0L (1250 - T0H)  // Width of a 0 bit in ns
+#ifndef T0H
+    #define T0H 350           // Width of a 0 bit in ns
+#endif
+
+#ifndef T0L
+    #define T0L (1250 - T0H)  // Width of a 0 bit in ns
+#endif
 
 // The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
 // to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
@@ -89,16 +98,9 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 
     for (uint8_t i = 0; i < leds; i++) {
         // WS2812 protocol dictates grb order
-#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
         sendByte(ledarray[i].g);
         sendByte(ledarray[i].r);
         sendByte(ledarray[i].b);
-#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
-        sendByte(ledarray[i].r);
-        sendByte(ledarray[i].g);
-        sendByte(ledarray[i].b);
-#endif
-
 #ifdef RGBW
         sendByte(ledarray[i].w);
 #endif
