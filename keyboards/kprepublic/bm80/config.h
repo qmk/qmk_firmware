@@ -67,10 +67,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN E2
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 89
+#define DRIVER_LED_TOTAL 87
 
 #ifdef RGB_DI_PIN
-#    define RGBLED_NUM 89
+#    define RGBLED_NUM 87
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
