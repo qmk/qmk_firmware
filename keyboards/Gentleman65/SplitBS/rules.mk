@@ -32,6 +32,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 ENCODER_ENABLE = yes
-VIA_ENABLE = yes
 
-LAYOUTS = GAMER
+LAYOUTS = 65_ansi 65_ansi_split_bs 65_iso 65_iso_split_bs
