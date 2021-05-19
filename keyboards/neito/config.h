@@ -1,4 +1,5 @@
-/* Copyright 2020 Oliver Granlund
+/* Copyright 2021 Oliver Granlund
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -39,6 +40,8 @@
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 5
 
+#define GRAVE_ESC_CTRL_OVERRIDE
+
 /* RGB Light Configuration */
 
 #define RGB_DI_PIN D5
@@ -49,5 +52,7 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LIMIT_VAL 200
+
+/* Handle volume control issue with rotary encoder */
 
 #define TAP_CODE_DELAY 10
