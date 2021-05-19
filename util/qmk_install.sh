@@ -2,6 +2,13 @@
 
 QMK_FIRMWARE_DIR=$(cd -P -- "$(dirname -- "$0")/.." && pwd -P)
 QMK_FIRMWARE_UTIL_DIR=$QMK_FIRMWARE_DIR/util
+if [ "$1" = "-y" ]; then
+    SKIP_PROMPT='-y'
+    MSYS2_CONFIRM='--noconfirm'
+else
+    SKIP_PROMPT=''
+    MSYS2_CONFIRM=''
+fi
 
 case $(uname -a) in
     *Darwin*)
