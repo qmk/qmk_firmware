@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
      * │        │RTg│RV-│RV+│RMd│   │   │   │   │   │   │      │   │
      * └─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴───┴┬───┬─┴───┘
-     *       │DPR│DstNA│                           │     │   │
+     *       │DPR│DstNA│                           │RGui │   │
      *       └───┴─────┴───────────────────────────┴─────┴───┘
      */
     [L_RCTRL] = LAYOUT(
@@ -165,6 +165,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, TOP,     MV_UP,   BOTTOM,  TAB_PRV, _______, _______, _______, _______, _______, _______, _______, _______, DEL_NXT,
         _______, MV_LEFT, MV_DOWN, MV_RGHT, TAB_NXT, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______,
-        XXXXXXX, DST_P_R, DST_N_A,                            _______,                            _______, _______, XXXXXXX
+        XXXXXXX, DST_P_R, DST_N_A,                            _______,                            KC_RGUI, _______, XXXXXXX
     ),
 };
