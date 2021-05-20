@@ -5,7 +5,7 @@
 - Layer 2 mod on Caps Lock with double-tap to switch to this layer, double tap to switch back
 - Layer 2 provides arrows on WASD and additional nav keys + right hand numpad with 00
 - ESC is set to GRAVESC (Esc when pressed, Shift-Esc is ~  and Win-ESC is `), plus handling for Ctrl-Shift-ESC to bring up Task Manager in Windows 
-- Layer 2 left sapcebar Backspace
+- Layer 2 left spacebar Backspace
 
 ## All layers diagram
 
