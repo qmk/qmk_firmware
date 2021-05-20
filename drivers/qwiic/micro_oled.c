@@ -28,11 +28,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "micro_oled.h"
-#include <print.h>
+#include "print.h"
 #include <stdlib.h>
 #include "util/font5x7.h"
 #include "util/font8x16.h"
-#include "string.h"
+#include <string.h>
 
 #define TOTALFONTS 2
 const unsigned char* fonts_pointer[] = {font5x7, font8x16};
@@ -206,6 +206,8 @@ void clear_screen(void) {
             send_data(0);
         }
     }
+
+    memset(micro_oled_screen_current, 0, LCDWIDTH * LCDHEIGHT / 8);
 }
 
 /** \brief Clear SSD1306's memory.

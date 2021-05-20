@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2020 Sendy YK <mr@sendyyk.com>.
+ * Numpad 5x4 Keymap
+ *
+ * Copyright (C) 2020 Sendy YK <https://mr.sendyyk.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-
-// Number Pad 5x4 Layout and Keymap by Sendy YK <https://mr.sendyyk.com>.
 
 #include QMK_KEYBOARD_H
 

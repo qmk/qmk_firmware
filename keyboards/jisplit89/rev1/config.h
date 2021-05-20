@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Salicylic_acid3
+Copyright 2020 Salicylic_Acid
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,12 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x06ae
+#define VENDOR_ID       0x04D8
+#define PRODUCT_ID      0xEB4F
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         jisplit89
-#define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 14

@@ -2,8 +2,8 @@
 #include "print.h"
 #include "debug.h"
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
 #include "micro_oled.h"
@@ -53,6 +53,11 @@ backlight_config_t kb_backlight_config = {
   .breathing = true,
   .level = BACKLIGHT_LEVELS
 };
+
+void board_init(void) {
+  SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
+  SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
+}
 
 #ifdef VIA_ENABLE
 
@@ -375,7 +380,7 @@ void matrix_init_kb(void)
 }
 
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
   rtcGetTime(&RTCD1, &last_timespec);
   uint16_t minutes_since_midnight = last_timespec.millisecond / 1000 / 60;
 

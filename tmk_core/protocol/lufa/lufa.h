@@ -36,8 +36,7 @@
   this software.
 */
 
-#ifndef _LUFA_H_
-#define _LUFA_H_
+#pragma once
 
 #include <avr/io.h>
 #include <avr/wdt.h>
@@ -67,6 +66,4 @@ extern host_driver_t lufa_driver;
 // Allocate space for encoding overhead.
 // The header and terminator are not stored to save a few bytes of precious ram
 #    define MIDI_SYSEX_BUFFER (API_SYSEX_MAX_SIZE + API_SYSEX_MAX_SIZE / 7 + (API_SYSEX_MAX_SIZE % 7 ? 1 : 0))
-#endif
-
 #endif

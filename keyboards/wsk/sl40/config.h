@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Worldspawn00
 #define PRODUCT         SL40
-#define DESCRIPTION     14-column staggered 40% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4

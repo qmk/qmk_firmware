@@ -18,8 +18,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x4B50 // "KP"
+#define PRODUCT_ID      0x3430 // "40"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPRepublic
 #define PRODUCT         BM40 Hotswap RGB
@@ -49,4 +49,7 @@
 #define DRIVER_LED_TOTAL 53
 #ifdef RGB_DI_PIN
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+#endif
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #endif
