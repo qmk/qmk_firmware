@@ -1,6 +1,6 @@
 # JKeys Design Gentleman65
 
-![Render](https://media1.tenor.com/images/f8701bf75dbfb57cfd53a879ddc9cf9f/tenor.gif)
+![Render](https://i.imgur.com/uNdJqBuh.jpg)
 
 Gentleman65 is the first board by Jkeys Design. This is a top-mount 65% with RGB underglow: business on top, party on bottom.
 
