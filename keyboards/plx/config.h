@@ -1,4 +1,4 @@
-/* Copyright 2020 Peac Design and Basekeys.com
+/* Copyright 2020 Peac Design and Basekeys
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
