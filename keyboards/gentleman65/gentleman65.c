@@ -1,5 +1,5 @@
   
-/* Copyright 2021 theengineermachine
+/* Copyright 2021 Omar Afzal
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
