@@ -33,4 +33,4 @@ RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 ENCODER_ENABLE = yes
 
-LAYOUTS = 65_ansi 65_ansi_split_bs 65_iso 65_iso_split_bs
+LAYOUTS = 65_ansi_blocker 65_ansi_blocker_split_bs 65_iso_blocker 65_iso_blocker_split_bs
