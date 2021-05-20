@@ -33,4 +33,6 @@ ifeq ($(strip $(KEYBOARD)), boardsource/the_mark)
 endif
 ifeq ($(strip $(KEYBOARD)), jacky_studio/bear_65)
   BACKLIGHT_ENABLE = yes
+  RGB_MATRIX_ENABLE = yes
+  RGBLIGHT_ENABLE = no
 endif
