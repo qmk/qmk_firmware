@@ -22,6 +22,8 @@ enum torn_keycodes {
     KL_TOG = SAFE_RANGE,
     KL_BUP,
     KL_BDN,
+    KL_TUP,
+    KL_TDN,
     HASH,
     POUND,
     SCRNSH,
@@ -131,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM encoder_keymaps[][2][2] = {
     [_QWERTY]        =  { { VOLDWN,  VOLUP   },  { KL_BDN,  KL_BUP  } },
-    [_NUM_SYM_LEFT]  =  { { _______, _______ },  { _______, _______ } },
+    [_NUM_SYM_LEFT]  =  { { _______, _______ },  { KL_TDN,  KL_TUP } },
     [_NUM_SYM_RIGHT] =  { { _______, _______ },  { _______, _______ } },
     [_NAV_AND_MEDIA] =  { { _______, _______ },  { _______, _______ } },
 };
@@ -149,9 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case KL_TOG:
         if (record->event.pressed) { 
-            SEND_STRING(SS_DOWN(X_LSFT)SS_DOWN(X_LGUI)SS_DOWN(X_LCTL)SS_DOWN(X_LALT));
-            SEND_STRING("d");
-            SEND_STRING(SS_UP(X_LSFT)SS_UP(X_LGUI)SS_UP(X_LCTL)SS_UP(X_LALT));
+            hyper_tap("d");
         } 
         return false;
     case HASH:
@@ -197,17 +197,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 bool encoder_update_user(uint16_t keycode, bool clockwise) {
-    if (keycode != KL_BDN && keycode != KL_BUP) {
+    switch (keycode) {
+    case KL_BDN:
+        hyper_tap("p");
+        break;
+    case KL_BUP:
+        hyper_tap("u");
+        break;
+    case KL_TDN:
+        hyper_tap("e");
+        break;
+    case KL_TUP:
+        hyper_tap("y");
+        break;
+    default:
         return false;
     }
-
-    SEND_STRING(SS_DOWN(X_LSFT)SS_DOWN(X_LGUI)SS_DOWN(X_LCTL)SS_DOWN(X_LALT));
-    if (keycode == KL_BDN) {
-        SEND_STRING("p");
-    } else {
-        SEND_STRING("u");
-    }
-    SEND_STRING(SS_UP(X_LSFT)SS_UP(X_LGUI)SS_UP(X_LCTL)SS_UP(X_LALT)); 
     
     return true;
+}
+
+void hyper_tap(string letter) {
+    SEND_STRING(SS_DOWN(X_LSFT)SS_DOWN(X_LGUI)SS_DOWN(X_LCTL)SS_DOWN(X_LALT));
+    SEND_STRING(letter);
+    SEND_STRING(SS_UP(X_LSFT)SS_UP(X_LGUI)SS_UP(X_LCTL)SS_UP(X_LALT));
 }
