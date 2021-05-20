@@ -457,13 +457,13 @@ static void rgblight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 static bool led_matrix_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t   last_update = 0;
     led_matrix_sync_t led_matrix_sync;
-    memcpy(&led_matrix_sync.led_matrix, &led_matrix_config, sizeof(led_eeconfig_t));
+    memcpy(&led_matrix_sync.led_matrix, &led_matrix_eeconfig, sizeof(led_eeconfig_t));
     led_matrix_sync.led_suspend_state = led_matrix_get_suspend_state();
     return send_if_data_mismatch(PUT_LED_MATRIX, &last_update, &led_matrix_sync, &split_shmem->led_matrix_sync, sizeof(led_matrix_sync));
 }
 
 static void led_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    memcpy(&led_matrix_config, &split_shmem->led_matrix_sync.led_matrix, sizeof(led_eeconfig_t));
+    memcpy(&led_matrix_eeconfig, &split_shmem->led_matrix_sync.led_matrix, sizeof(led_eeconfig_t));
     led_matrix_set_suspend_state(split_shmem->led_matrix_sync.led_suspend_state);
 }
 
