@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1706
+#define PRODUCT_ID      0x1707
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    MechWild
 #define PRODUCT      	OrangeBoyErgo
@@ -41,12 +41,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { B12, B13, B14, B15, A8 }
-#define MATRIX_COL_PINS { A9, A10, B9, B8, B7, B6, B10, B2, B1, B0, A7, A6, A5, A4 }
+#define MATRIX_COL_PINS { A9, A10, B9, B8, B7, B6, B10, B4, B1, B0, A7, A6, A5, A4 }
 #define UNUSED_PINS
 
 /* encoder pins */
-#define ENCODERS_PAD_A { A1 }
-#define ENCODERS_PAD_B { A2 }
+#define ENCODERS_PAD_A { A2 }
+#define ENCODERS_PAD_B { A1 }
 
 /* encoder resolution */
 #define ENCODER_RESOLUTION 4
@@ -60,8 +60,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
-//#define LED_NUM_LOCK_PIN B0
-//#define LED_CAPS_LOCK_PIN B1
+#define LED_NUM_LOCK_PIN B5
+#define LED_CAPS_LOCK_PIN A0
 //#define LED_SCROLL_LOCK_PIN B2
 //#define LED_COMPOSE_PIN B3
 //#define LED_KANA_PIN B4
