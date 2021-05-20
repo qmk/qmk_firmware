@@ -5,7 +5,7 @@
 Gentleman65 is the first board by Jkeys Design. This is a top-mount 65% with RGB underglow: business on top, party on bottom.
 
 
-* Keyboard Maintainer: [Engineermachine](https://github.com/engineermachine)
+* Keyboard Maintainer: [theengineermachine](https://github.com/theengineermachine)
 * Hardware Supported: Gentleman 65 PCB for Gentleman65
 * Hardware Availability: www.jkeys.design/
 

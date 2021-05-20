@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Engineermachine
+Copyright 2021 theengineermachine
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x00FA
 #define PRODUCT_ID      0x2020
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    JJ48_24 & Engineermachine
+#define MANUFACTURER    JJ48_24 & theengineermachine
 #define PRODUCT         Gentleman 65
 
 /* key matrix size */

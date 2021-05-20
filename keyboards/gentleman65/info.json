@@ -1,7 +1,7 @@
 {
     "name": "The Gentleman 65", 
     "url": "https://jkeys.design/products/gentleman-65", 
-    "maintainer": "Engineermachine", 
+    "maintainer": "theengineermachine", 
     "width": 16, 
     "height": 5, 
     "lighting": "qmk_backlight",
