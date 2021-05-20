@@ -1,7 +1,7 @@
 {
     "keyboard_name": "hatchbackTKL",
-    "url": "www.clawboards.xyz",
-    "maintainer": "AAClawson (AlisGraveNil)",
+    "url": "",
+    "maintainer": "qmk",
     "width": 18.25,
     "height": 6.5,
     "layouts": {
@@ -99,4 +99,6 @@
             ]
         }
     }
+    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
+
