@@ -3,8 +3,14 @@
 #include "i2c.h"
 #include "usb_mux.h"
 
-#define PRT_SWAP 0xBF8030FA
-#define I2S_FEAT_SEL 0xBFD23412
+#define REG_PF1_CTL 0xBF800C04
+#define REG_PIO64_OEN 0xBF800908
+#define REG_PIO64_OUT 0xBF800928
+#define REG_VID 0xBF803000
+#define REG_PRT_SWAP 0xBF8030FA
+#define REG_USB3_HUB_VID 0xBFD2E548
+#define REG_RUNTIME_FLAGS2 0xBFD23408
+#define REG_I2S_FEAT_SEL 0xBFD23412
 
 struct USB7206 {
     uint8_t addr;
@@ -169,11 +175,27 @@ int usb7206_init(struct USB7206 * self) {
     int res;
 
     // DM and DP are swapped on ports 2 and 3
-    res = usb7206_write_reg_8(self, PRT_SWAP, 0x0C);
+    res = usb7206_write_reg_8(self, REG_PRT_SWAP, 0x0C);
     if (res < 0) return res;
 
     // Disable audio
-    res = usb7206_write_reg_8(self, I2S_FEAT_SEL, 0);
+    res = usb7206_write_reg_8(self, REG_I2S_FEAT_SEL, 0);
+    if (res < 0) return res;
+
+    // Set HFC_DISABLE
+    uint32_t data = 0;
+    res = usb7206_read_reg_32(self, REG_RUNTIME_FLAGS2, &data);
+    if (res < 0) return res;
+    data |= 1;
+    res = usb7206_write_reg_32(self, REG_RUNTIME_FLAGS2, data);
+    if (res < 0) return res;
+
+    // Set Vendor ID and Product ID of USB 2 hub
+    res = usb7206_write_reg_32(self, REG_VID, 0x00033384);
+    if (res < 0) return res;
+
+    // Set Vendor ID and Product ID of USB 3 hub
+    res = usb7206_write_reg_32(self, REG_USB3_HUB_VID, 0x00043384);
     if (res < 0) return res;
 
     return 0;
@@ -189,10 +211,6 @@ int usb7206_attach(struct USB7206 * self) {
     };
     return i2c_send(self->addr, data, sizeof(data));
 }
-
-#define PF1_CTL 0xBF800C04
-#define PIO64_OEN 0xBF800908
-#define PIO64_OUT 0xBF800928
 
 struct USB7206_GPIO {
     struct USB7206 * usb7206;
@@ -223,7 +241,7 @@ int usb7206_gpio_set(struct USB7206_GPIO * self, bool value) {
     int res;
 
     uint32_t data = 0;
-    res = usb7206_read_reg_32(self->usb7206, PIO64_OUT, &data);
+    res = usb7206_read_reg_32(self->usb7206, REG_PIO64_OUT, &data);
     if (res < 0) return res;
 
     if (value) {
@@ -231,7 +249,7 @@ int usb7206_gpio_set(struct USB7206_GPIO * self, bool value) {
     } else {
         data &= ~(((uint32_t)1) << self->pf);
     }
-    res = usb7206_write_reg_32(self->usb7206, PIO64_OUT, data);
+    res = usb7206_write_reg_32(self->usb7206, REG_PIO64_OUT, data);
     if (res < 0) return res;
 
     return 0;
@@ -243,7 +261,7 @@ int usb7206_gpio_init(struct USB7206_GPIO * self) {
     int res = 0;
 
     // Set programmable function to GPIO
-    res = usb7206_write_reg_8(self->usb7206, PF1_CTL + (self->pf - 1), 0);
+    res = usb7206_write_reg_8(self->usb7206, REG_PF1_CTL + (self->pf - 1), 0);
     if (res < 0) return res;
 
     // Set GPIO to false by default
@@ -251,11 +269,11 @@ int usb7206_gpio_init(struct USB7206_GPIO * self) {
 
     // Set GPIO to output
     uint32_t data = 0;
-    res = usb7206_read_reg_32(self->usb7206, PIO64_OEN, &data);
+    res = usb7206_read_reg_32(self->usb7206, REG_PIO64_OEN, &data);
     if (res < 0) return res;
 
     data |= (((uint32_t)1) << self->pf);
-    res = usb7206_write_reg_32(self->usb7206, PIO64_OEN, data);
+    res = usb7206_write_reg_32(self->usb7206, REG_PIO64_OEN, data);
     if (res < 0) return res;
 
     return 0;
