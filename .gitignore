@@ -40,6 +40,7 @@ doxygen/
 /keyboards/*/*/*/keymaps/Makefile
 /keyboards/*/*/*/*/keymaps/Makefile
 /keyboards/*/*/*/*/*/keymaps/Makefile
+/keyboards/edi/hardlight/keymaps/fate/
 
 # Eclipse/PyCharm/Other IDE Settings
 .cproject
