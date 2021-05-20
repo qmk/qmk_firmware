@@ -1,3 +1,5 @@
+#include <util/delay.h>
+
 #include "i2c.h"
 #include "usb_mux.h"
 
@@ -386,4 +388,9 @@ void usb_mux_init(void) {
 
     // Attach hub
     usb7206_attach(&usb_hub);
+
+    // Ensure orientation is correct after attaching hub
+    //TODO: find reason why GPIO for sink orientation is reset
+    _delay_ms(100);
+    ptn5110_sink_set_orientation(&usb_sink);
 }
