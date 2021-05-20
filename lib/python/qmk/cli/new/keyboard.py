@@ -8,4 +8,4 @@ def new_keyboard(cli):
     """Creates a new keyboard
     """
     # TODO: replace this bodge to the existing script
-    cli.run(['util/new_keyboard.sh'], capture_output=False)
+    cli.run(['util/new_keyboard.sh'], stdin=None, capture_output=False)
