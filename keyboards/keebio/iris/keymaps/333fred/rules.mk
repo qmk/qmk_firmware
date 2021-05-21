@@ -1,4 +1,0 @@
-KEY_LOCK_ENABLE = yes
-CONSOLE_ENABLE = no
-EXTRAFLAGS += -flto
-

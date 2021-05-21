@@ -1,2 +1,0 @@
-# Enable SSD1306 OLED
-OLED_DRIVER_ENABLE = yes
