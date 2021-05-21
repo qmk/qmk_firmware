@@ -28,18 +28,18 @@ void matrix_init_user(void);
    but the mapping is not finished yet.
 */
 
-#define LAYOUT_102( \
+#define LAYOUT_105( \
     K76,    K05,K06,K04,K0C,K03,K0B,K02,K0A,K01,K09,K78,K07, K7F,K7E,K00,                   \
     K0E,K16,K1E,K26,K25,K2E,K36,K3D,K3E,K46,K45,K4E,K55,K66, K39,K2F,K5E,  K77,K60,K7C,K7B, \
     K0D,K15,K1D,K24,K2D,K2C,K35,K3C,K43,K44,K4D,K54,K5B,     K37,K27,K56,  K6C,K75,K7D,     \
     K58,K1C,K1B,K23,K2B,K34,K33,K3B,K42,K4B,K4C,K52,K5D,K5A,               K6B,K73,K74,K79, \
     K12,K61,K1A,K22,K21,K2A,K32,K31,K3A,K41,K49,K4A,    K59,     K4F,      K69,K72,K7A,     \
-    K14,    K11,        K29,                K0F,        K17, K53,K3F,K47,  K70,    K71,K62  \
+    K14,K1F,K11,        K29,                K0F,K27,K2F,K17, K53,K3F,K47,  K70,    K71,K62  \
 ) { \
     { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07   }, \
     { KC_NO, K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F   }, \
     { KC_NO, K11,   K12,   KC_NO, K14,   K15,   K16,   K17   }, \
-    { KC_NO, KC_NO, K1A,   K1B,   K1C,   K1D,   K1E,   KC_NO }, \
+    { KC_NO, KC_NO, K1A,   K1B,   K1C,   K1D,   K1E,   K1F   }, \
     { KC_NO, K21,   K22,   K23,   K24,   K25,   K26,   K27   }, \
     { KC_NO, K29,   K2A,   K2B,   K2C,   K2D,   K2E,   K2F   }, \
     { KC_NO, K31,   K32,   K33,   K34,   K35,   K36,   K37   }, \

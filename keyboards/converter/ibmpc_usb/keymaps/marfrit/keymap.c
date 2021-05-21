@@ -24,6 +24,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  ALL_T(KC_K), KC_U,         KC_Q,         KC_DOT,       KC_J,    KC_V,    KC_G,         KC_C,         KC_L,         KC_F,         KC_LBRC, KC_RBRC,              KC_DEL,  KC_END,  KC_PGDN,    KC_P7,   KC_P8,   KC_P9,
     KC_CAPS, KC_H,        LALT_T(KC_I), LCTL_T(KC_E), LSFT_T(KC_A), KC_O,    KC_D,    RSFT_T(KC_T), RCTL_T(KC_R), LALT_T(KC_N), KC_S,         KC_QUOT, KC_NUHS, KC_ENT,                                    KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
     KC_LSFT, KC_NUBS,     KC_X,         RALT_T(KC_Y), KC_SCLN,      KC_COMM, KC_SLSH, KC_B,         KC_P,         KC_W,         RALT_T(KC_M), KC_Z,             KC_RSFT,              KC_UP,               KC_P1,   KC_P2,   KC_P3,
-    KC_LCTL,              KC_LALT,                                           KC_SPC,                                            KC_RALT,                        KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT, KC_PENT
+    KC_LCTL, KC_LGUI,     KC_LALT,                                           KC_SPC,                                            KC_RALT,      KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT, KC_PENT
     )
 };
