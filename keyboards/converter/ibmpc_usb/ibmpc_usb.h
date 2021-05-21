@@ -54,6 +54,34 @@ void matrix_init_user(void);
     { K78,   K79,   K7A,   K7B,   K7C,   K7D,   K7E,   K7F   }  \
 }
 
+#define LAYOUT_122( \
+                  K08,K10,K18,K20,K28,K30,K38,K40,K48,K50,K57,K5F,                                         \
+                  K07,K0F,K17,K1F,K27,K2F,K37,K3F,K47,K4F,K56,K5E,                                         \
+                                                                                                           \
+    K05,K06,  K0E,K16,K1E,K26,K25,K2E,K36,K3D,K3E,K46,K45,K4E,K55,K5D,K66,  K67,K6E,K6F,  K76,K77,K7E,K84, \
+    K04,K0C,  K0D,K15,K1D,K24,K2D,K2C,K35,K3C,K43,K44,K4D,K54,K5B,    K5C,  K64,K65,K6D,  K6C,K75,K7D,K7C, \
+    K03,K0B,  K14,K1C,K1B,K23,K2B,K34,K33,K3B,K42,K4B,K4C,K52,    K53,K5A,      K63,      K6B,K73,K74,K7B, \
+    K83,K0A,  K12,K13,K1A,K22,K21,K2A,K32,K31,K3A,K41,K49,K4A,    K51,K59,  K61,K62,K6A,  K69,K72,K7A,K79, \
+    K01,K09,  K11,    K19,            K29,                    K39,    K58,      K60,      K68,K70,K71,K78  \
+) { \
+    { KC_NO, K01,   KC_NO, K03,   K04,   K05,   K06,   K07   }, \
+    { K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F   }, \
+    { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17   }, \
+    { K18,   K19,   K1A,   K1B,   K1C,   K1D,   K1E,   K1F   }, \
+    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27   }, \
+    { K28,   K29,   K2A,   K2B,   K2C,   K2D,   K2E,   K2F   }, \
+    { K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37   }, \
+    { K38,   K39,   K3A,   K3B,   K3C,   K3D,   K3E,   K3F   }, \
+    { K40,   K41,   K42,   K43,   K44,   K45,   K46,   K47   }, \
+    { K48,   K49,   K4A,   K4B,   K4C,   K4D,   K4E,   K4F   }, \
+    { K50,   K51,   K52,   K53,   K54,   K55,   K56,   K57   }, \
+    { K58,   K59,   K5A,   K5B,   K5C,   K5D,   K5E,   K5F   }, \
+    { K60,   K61,   K62,   K63,   K64,   K65,   K66,   K67   }, \
+    { K68,   K69,   K6A,   K6B,   K6C,   K6D,   K6E,   K6F   }, \
+    { K70,   K71,   K72,   K73,   K74,   K75,   K76,   K77   }, \
+    { K78,   K79,   K7A,   K7B,   K7C,   K7D,   K7E,   KC_NO }  \
+}
+
 typedef enum { NONE, PC_XT, PC_AT, PC_TERMINAL, PC_AT_Z150 } keyboard_kind_t;
 #define KEYBOARD_KIND_STR(kind) \
     (kind == PC_XT ? "XT" :   \
