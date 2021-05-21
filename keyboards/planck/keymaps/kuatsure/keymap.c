@@ -18,8 +18,6 @@
 #include "muse.h"
 #include "kuatsure.h"
 
-extern keymap_config_t keymap_config;
-
 enum planck_layers {
   _QWERTY,
   _GAME,
@@ -202,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
@@ -252,13 +250,13 @@ void encoder_update(bool clockwise) {
       if (IS_LAYER_ON(_MOUSE)) {
         tap_code(KC_MS_WH_UP);
       } else {
-        tap_code(KC__VOLUP);
+        tap_code(KC_VOLU);
       }
     } else {
       if (IS_LAYER_ON(_MOUSE)) {
         tap_code(KC_MS_WH_DOWN);
       } else {
-        tap_code(KC__VOLDOWN);
+        tap_code(KC_VOLD);
       }
     }
   }

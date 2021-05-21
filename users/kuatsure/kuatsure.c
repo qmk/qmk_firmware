@@ -31,8 +31,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KB_FLSH:
       if (!record->event.pressed) {
         SEND_STRING(
-          "make " QMK_KEYBOARD ":" QMK_KEYMAP ":flash"
-          SS_TAP(X_ENTER)
+          "qmk flash -kb " QMK_KEYBOARD " -km " QMK_KEYMAP
         );
 
         reset_keyboard();
