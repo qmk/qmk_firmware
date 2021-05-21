@@ -117,7 +117,7 @@ void host_digitizer_send(digitizer_t *digitizer) {
         .y       = (uint16_t)(digitizer->y * 0x7FFF),
     };
 
-    (*driver->send_digitizer)(&report);
+    send_digitizer(&report);
 }
 
 uint16_t host_last_system_report(void) { return last_system_report; }

@@ -68,7 +68,7 @@ void    send_consumer(uint16_t data);
 void    send_digitizer(report_digitizer_t *report);
 
 /* host struct */
-host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_digitizer};
+host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
 
 #ifdef VIRTSER_ENABLE
 void virtser_task(void);

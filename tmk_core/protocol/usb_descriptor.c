@@ -199,7 +199,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_USAGE(8, 0x31),          // Y
             HID_RI_INPUT(8, HID_IOF_VARIABLE),
         HID_RI_END_COLLECTION(0),
-    HID_RI_END_COLLECTION(0)
+    HID_RI_END_COLLECTION(0),
 #    ifndef DIGITIZER_SHARED_EP
 };
 #    endif

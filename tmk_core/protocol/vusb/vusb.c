@@ -228,7 +228,7 @@ static void    send_system(uint16_t data);
 static void    send_consumer(uint16_t data);
 static void    send_digitizer(report_digitizer_t *report);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_digitizer};
+static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
 
 host_driver_t *vusb_driver(void) { return &driver; }
 
