@@ -173,21 +173,18 @@ static void render_status(void) {
 
 // WPM-responsive animation stuff here
 #define IDLE_FRAMES 3
-// #define IDLE_SPEED 40 // below this wpm value your animation will idle
-
-// #define PREP_FRAMES 1 // uncomment if >1
-
 #define TAP_FRAMES 2
-#define TAP_SPEED 60 // above this wpm value typing animation to triggere
-
-#define ANIM_FRAME_DURATION 250 // how long each frame lasts in ms
-// #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
+#define TAP_SPEED 60 // above this wpm value typing animation to triggered
+#define ANIM_FRAME_DURATION 900 // base value for how long each animation will last in ms
+#define ANIM_FRAME_MIN 100 // shortest duration animation in ms
+#define ANIM_FRAME_RATIO 7 // how aggressively animation speeds up with wpm
 #define ANIM_SIZE 1024 // number of bytes in array, minimize for adequate firmware size, max is 1024
+#define MAX(x, y) (((x) > (y)) ? (x) : (y)) // Math.max macro
 
+uint32_t curr_anim_freq = 300; // variable tracks dynamic animation frequency
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 uint8_t current_idle_frame = 0;
-// uint8_t current_prep_frame = 0; // uncomment if PREP_FRAMES >1
 uint8_t current_tap_frame = 0;
 
 // Images credit j-inc(/James Incandenza) and pixelbenny. Credit to obosob for initial animation approach.
@@ -545,9 +542,12 @@ static void render_anim(void) {
              oled_write_raw_P(tap[abs((TAP_FRAMES-1)-current_tap_frame)], ANIM_SIZE);
          }
     }
-    if(get_current_wpm() != 000) {
+
+    curr_anim_freq = MAX(ANIM_FRAME_MIN, ANIM_FRAME_DURATION - ANIM_FRAME_RATIO * get_current_wpm());
+
+    if(get_current_wpm() > 30) {
         oled_on(); // not essential but turns on animation OLED with any alpha keypress
-        if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
+        if(timer_elapsed32(anim_timer) > curr_anim_freq) {
             anim_timer = timer_read32();
             animation_phase();
         }
@@ -556,7 +556,7 @@ static void render_anim(void) {
         if(timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
             oled_off();
         } else {
-            if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
+            if(timer_elapsed32(anim_timer) > curr_anim_freq) {
                 anim_timer = timer_read32();
                 animation_phase();
             }
@@ -566,6 +566,8 @@ static void render_anim(void) {
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
+        render_anim();
+    } else {
         // Renders the current keyboard state (layer, lock, caps, scroll, etc)
         oled_set_cursor(0,2);
         render_status();
@@ -574,8 +576,6 @@ void oled_task_user(void) {
         oled_set_cursor(0,6);
         sprintf(wpm_str, "WPM: %03d", get_current_wpm());
         oled_write(wpm_str, false);
-    } else {
-        render_anim();
     }
 }
 #endif
