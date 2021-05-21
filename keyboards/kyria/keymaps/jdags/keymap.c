@@ -181,7 +181,7 @@ static void render_status(void) {
 #define ANIM_SIZE 1024 // number of bytes in array, minimize for adequate firmware size, max is 1024
 #define MAX(x, y) (((x) > (y)) ? (x) : (y)) // Math.max macro
 
-uint32_t curr_anim_freq = 300; // variable tracks dynamic animation frequency
+uint32_t curr_anim_duration = 900; // variable tracks dynamic animation duration
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 uint8_t current_idle_frame = 0;
@@ -543,11 +543,13 @@ static void render_anim(void) {
          }
     }
 
-    curr_anim_freq = MAX(ANIM_FRAME_MIN, ANIM_FRAME_DURATION - ANIM_FRAME_RATIO * get_current_wpm());
+    // variable animation duration. Don't want this value to get near zero as it'll bug out.
+    // ANIM_FRAME_MIN sets minimum animation duration
+    curr_anim_duration = MAX(ANIM_FRAME_MIN, ANIM_FRAME_DURATION - ANIM_FRAME_RATIO * get_current_wpm());
 
     if(get_current_wpm() > 30) {
         oled_on(); // not essential but turns on animation OLED with any alpha keypress
-        if(timer_elapsed32(anim_timer) > curr_anim_freq) {
+        if(timer_elapsed32(anim_timer) > curr_anim_duration) {
             anim_timer = timer_read32();
             animation_phase();
         }
@@ -556,7 +558,7 @@ static void render_anim(void) {
         if(timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
             oled_off();
         } else {
-            if(timer_elapsed32(anim_timer) > curr_anim_freq) {
+            if(timer_elapsed32(anim_timer) > curr_anim_duration) {
                 anim_timer = timer_read32();
                 animation_phase();
             }
