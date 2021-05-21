@@ -226,7 +226,6 @@ static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_system(uint16_t data);
 static void    send_consumer(uint16_t data);
-static void    send_digitizer(report_digitizer_t *report);
 
 static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
 
@@ -293,7 +292,7 @@ static void send_consumer(uint16_t data) {
 #endif
 }
 
-static void send_digitizer(report_digitizer_t *report) {
+void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
     if (usbInterruptIsReadyShared()) {
         usbSetInterruptShared((void *)report, sizeof(report_digitizer_t));

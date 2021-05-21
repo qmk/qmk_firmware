@@ -120,6 +120,8 @@ void host_digitizer_send(digitizer_t *digitizer) {
     send_digitizer(&report);
 }
 
+__attribute__((weak)) void send_digitizer(report_digitizer_t *report) {}
+
 uint16_t host_last_system_report(void) { return last_system_report; }
 
 uint16_t host_last_consumer_report(void) { return last_consumer_report; }
