@@ -34,12 +34,12 @@ void matrix_init_user(void);
     K0D,K15,K1D,K24,K2D,K2C,K35,K3C,K43,K44,K4D,K54,K5B,     K37,K27,K56,  K6C,K75,K7D,     \
     K58,K1C,K1B,K23,K2B,K34,K33,K3B,K42,K4B,K4C,K52,K5D,K5A,               K6B,K73,K74,K79, \
     K12,K61,K1A,K22,K21,K2A,K32,K31,K3A,K41,K49,K4A,    K59,     K4F,      K69,K72,K7A,     \
-    K14,K1F,K11,        K29,                K0F,K27,K2F,K17, K53,K3F,K47,  K70,    K71,K62  \
+    K14,K19,K11,        K29,                K0F,K1F,K5C,K17, K53,K3F,K47,  K70,    K71,K62  \
 ) { \
     { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07   }, \
     { KC_NO, K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F   }, \
     { KC_NO, K11,   K12,   KC_NO, K14,   K15,   K16,   K17   }, \
-    { KC_NO, KC_NO, K1A,   K1B,   K1C,   K1D,   K1E,   K1F   }, \
+    { KC_NO, K19,   K1A,   K1B,   K1C,   K1D,   K1E,   K1F   }, \
     { KC_NO, K21,   K22,   K23,   K24,   K25,   K26,   K27   }, \
     { KC_NO, K29,   K2A,   K2B,   K2C,   K2D,   K2E,   K2F   }, \
     { KC_NO, K31,   K32,   K33,   K34,   K35,   K36,   K37   }, \
@@ -47,7 +47,7 @@ void matrix_init_user(void);
     { KC_NO, K41,   K42,   K43,   K44,   K45,   K46,   K47   }, \
     { KC_NO, K49,   K4A,   K4B,   K4C,   K4D,   K4E,   K4F   }, \
     { KC_NO, KC_NO, K52,   K53,   K54,   K55,   K56,   KC_NO }, \
-    { K58,   K59,   K5A,   K5B,   KC_NO, K5D,   K5E,   KC_NO }, \
+    { K58,   K59,   K5A,   K5B,   K5C,   K5D,   K5E,   KC_NO }, \
     { K60,   K61,   K62,   KC_NO, KC_NO, KC_NO, K66,   KC_NO }, \
     { KC_NO, K69,   KC_NO, K6B,   K6C,   KC_NO, KC_NO, KC_NO }, \
     { K70,   K71,   K72,   K73,   K74,   K75,   K76,   K77   }, \
