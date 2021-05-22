@@ -13,30 +13,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xAA96
-#define PRODUCT_ID 0xAA03
-#define DEVICE_VER 0x0001
-#define RAW_USAGE_PAGE 0xFF60
-#define MANUFACTURER YandR studio and Magic Mvp
-#define PRODUCT r65ble
+#define VENDOR_ID       0xAA96
+#define PRODUCT_ID      0xAA03
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    JasonRen biu
+#define PRODUCT         tdcq68
 
-/* key matrix set */
+/* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-#define MATRIX_ROW_PINS { B5, B4, A3, A2, B9 }
-#define MATRIX_COL_PINS { A10, A9, A8, B14, B13, B12, B11, B10, B1, B0, A7, A6, A5, A4, B8 }
+//                         0   1   2   3   4    5    6    7    8   9  10  11  12  13  14
+#define MATRIX_COL_PINS { A6, B7, A8, A9,A10, A15, C13, C14, C15, B0, B1, B3, B4, B5, B6}
+#define MATRIX_ROW_PINS { A0, A1, A3, A4, A5}
 
-
+/* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5
-
 
 
 // enable the nkro when using the VIA.
@@ -45,26 +42,26 @@
 // fix VIA RGB_light
 #define VIA_HAS_BROKEN_KEYCODES
 
+/* define if matrix has ghost */
+//#define MATRIX_HAS_GHOST
 
-
-
-#ifdef RGBLIGHT_ENABLE
-#    define RGB_DI_PIN B15
-#    define RGBLED_NUM 68
-#    define RGBLIGHT_ANIMATIONS
-#endif // RGBLIGHT_ENABLE
-
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCE 5
 
 
 
 /* RGN Matrix */
 #ifdef RGB_MATRIX_ENABLE
 
-#    define RGB_DI_PIN B15
-#    define RGBLED_NUM 68
+#    define RGB_DI_PIN A7
+#    define RGBLED_NUM 2
 #    define DRIVER_LED_TOTAL RGBLED_NUM
-#define WS2812_SPI SPID2 // default: SPID1
-#define WS2812_SPI_MOSI_PAL_MODE 5
+
+#    define WS2812_PWM_DRIVER PWMD3
+#    define WS2812_PWM_CHANNEL 4
+#    define WS2812_PWM_PAL_MODE 2
+#    define WS2812_DMA_STREAM STM32_DMA1_STREAM2
+#    define WS2812_DMA_CHANNEL 5
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
 #    define RGBLIGHT_VAL_STEP 18
@@ -75,30 +72,5 @@
 
 #endif
 
-/* Encoder */
-#ifdef ENCODER_ENABLE
-#    define ENCODERS_PAD_A { A15 }
-#    define ENCODERS_PAD_B { B3 }
-#    define ENCODER_RESOLUTION 4
-//#    define ENCODER_DIRECTION_FLIP
-#endif
 
-/* MOUSEKEY */
-#ifdef MOUSEKEY_ENABLE
-#    define MOUSEKEY_DELAY 0
-#    define MOUSEKEY_INTERVAL 17
-#    define MK_3_SPEED
-#    define MK_MOMENTARY_ACCEL
-#    define MK_C_OFFSET_UNMOD 64
-#    define MK_C_INTERVAL_UNMOD 17
-#endif
-
-
-
-/* Others */
-#define TAP_HOLD_CAPS_DELAY 20
-#define TAP_CODE_DELAY 10
-#ifdef CONSOLE_ENABLE
-#    define DEBUG_MATRIX_SCAN_RATE
-#endif
 
