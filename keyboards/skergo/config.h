@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Keyzio
 #define PRODUCT         SKErgo
-#define DESCRIPTION     Through-hole Ergonomic Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
