@@ -73,7 +73,7 @@ You must also enable the ChibiOS `SERIAL` feature:
 Do note that the configuration required is for the `SERIAL` peripheral, not the `UART` peripheral.
 
 ### USART Full-duplex
-Targeting STM32 boards where communication is offloaded to a USART hardware device. The advantage over bitbang is that this provides fast and accurate timings. USART Full-Duplex requires two conductors instead of one conductor unlike the Half-duplex driver, but it is more efficent as it uses DMA transfers, which can result in even faster transmission speeds.
+Targeting STM32 boards where communication is offloaded to a USART hardware device. The advantage over bitbang is that this provides fast and accurate timings. USART Full-Duplex requires two conductors **without** pull-up resistors instead of one conductor with a pull-up resistor unlike the Half-duplex driver, but it is more efficent as it uses DMA transfers, which can result in even faster transmission speeds.
 
 #### Pin configuration
 
