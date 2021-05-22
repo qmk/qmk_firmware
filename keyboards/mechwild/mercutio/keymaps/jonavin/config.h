@@ -18,7 +18,7 @@
 #pragma once
 
 /* Define custom font */
-#define OLED_FONT_H "keyboards/mechwild/mercutio/lib/mercutiofont.c"
+#define OLED_FONT_H "lib/mercutiofont.c"
 
 #define TAPPING_TOGGLE 2
 // TT set to two taps
