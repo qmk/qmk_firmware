@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F303
+# BOARD = QMK_PROTON_C
 # Build Options
 #   change yes to no to disable
 #
@@ -20,3 +21,4 @@ ENCODER_ENABLE = yes
 AUTO_SHIFT_ENABLE = no
 VELOCIKEY_ENABLE = yes
 # TAP_DANCE_ENABLE = yes
+DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
