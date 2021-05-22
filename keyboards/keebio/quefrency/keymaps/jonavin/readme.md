@@ -1,4 +1,4 @@
-# Jonathan's Quefrency layout - No Macros 65%
+# jonavin's Quefrency layout - No Macros 65%
 
 - ANSI qwerty layout with split Backspace, 1.25 Left mods, 1u right
 - Left Fn key is Spacebar tap and Fn when held
