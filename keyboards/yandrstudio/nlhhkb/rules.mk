@@ -31,4 +31,4 @@ LTO_ENABLE = yes            # Reduce firmware size
 # LAYOUTS = 60_ansi
 
 
-VIA_ENABLE = yes            # VIA support should be enabled here due to the main() loop will be compiled first.
+VIA_ENABLE = no            # VIA support should be enabled here due to the main() loop will be compiled first.

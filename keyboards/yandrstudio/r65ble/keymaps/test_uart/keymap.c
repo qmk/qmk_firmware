@@ -1,4 +1,4 @@
-#include "r65ble.h"
+#include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "dynamic_keymap.h"
 #include "uart.h"

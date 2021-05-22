@@ -1,6 +1,4 @@
-#ifndef NLHHKB_H
-#define NLHHKB_H
-
+#pragma once
 #include "quantum.h"
 
 // readability
@@ -20,4 +18,3 @@
 	{ K400,  K401,  KC_NO, KC_NO, KC_NO, KC_NO, K406,  KC_NO, KC_NO, KC_NO, K410,  KC_NO, K412,  KC_NO, KC_NO }  \
 }
 
-#endif
