@@ -72,6 +72,29 @@ This matrix.c is quantum/matrix.c with the following additions:
 ![DS1Z_QuickPrint6](https://user-images.githubusercontent.com/2170248/115995982-7ce8f580-a618-11eb-870c-a043747d1288.png)
 ![DS1Z_QuickPrint5](https://user-images.githubusercontent.com/2170248/115995533-98eb9780-a616-11eb-8270-c1f145576b88.png)
 
+#### Fast adaptive delay (show `matrix_scan()` time, MATRIX_IO_DELAY = 0)
+ - `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay_fast handwired/symmetric70_proto/promicro/normal:default:flash`
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Row 4
+ - CH4: matrix_scan()
+ - Execution time of matrix_scan()  426us
+ - Frequency of matrix scan 2.11kHz (474us)
+ ![DS1Z_QuickPrint52](https://user-images.githubusercontent.com/2170248/119240532-101b3980-bb8b-11eb-8600-b3e959f426d6.png)
+
+#### Fast adaptive delay (show delay time, MATRIX_IO_DELAY = 0)
+ - `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay_fast handwired/symmetric70_proto/promicro/normal:default:flash`
+
+##### Press R0C0 key
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Row 4
+ - CH4: delay time
+ - Frequency of matrix scan 2.1kHz (475.5us)
+
+![DS1Z_QuickPrint53](https://user-images.githubusercontent.com/2170248/119240533-16111a80-bb8b-11eb-83a9-e2527d4c1b16.png)
+![DS1Z_QuickPrint54](https://user-images.githubusercontent.com/2170248/119240535-1c06fb80-bb8b-11eb-91da-bae33fbdd2d2.png)
+
 ### Proton C (STM32F303 72MHz)
 #### Default setting (show `matrix_scan()` time)
  - `make MTEST=matrix_debug_scan handwired/symmetric70_proto/proton_c/normal:default:flash`
@@ -126,6 +149,7 @@ This matrix.c is quantum/matrix.c with the following additions:
  - CH3: Col 0
  - CH4: delay time
  - Delay time 12us
+ - Frequency of matrix scan 5.26kHz (190us)
  - Threshold Voltage 1.9V
 
 ![DS1Z_QuickPrint21](https://user-images.githubusercontent.com/2170248/116131494-6c637880-a707-11eb-8efd-2088a6091892.png)
@@ -136,6 +160,55 @@ This matrix.c is quantum/matrix.c with the following additions:
  - CH3: Col 0
  - CH4: delay time
  - Delay time 19.6us
+ - Frequency of matrix scan 4.43kHz (225.6us)
  - Threshold Voltage 1.9V
 
 ![DS1Z_QuickPrint22](https://user-images.githubusercontent.com/2170248/116131520-74231d00-a707-11eb-9812-ef6a38f99feb.png)
+
+#### Fast adaptive delay (show `matrix_scan()` time, MATRIX_IO_DELAY = 0)
+ - `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay_fast handwired/symmetric70_proto/proton_c/normal:default:flash`
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Row 4
+ - CH4: matrix_scan()
+ - Execution time of matrix_scan()  78.4us
+ - Frequency of matrix scan 10.5kHz (95us)
+ ![DS1Z_QuickPrint46](https://user-images.githubusercontent.com/2170248/119240512-ec57f380-bb8a-11eb-904f-8406dbaef065.png)
+
+
+#### Fast adaptive delay (show delay time, MATRIX_IO_DELAY = 0)
+ - `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay_fast handwired/symmetric70_proto/proton_c/normal:default:flash`
+
+##### Press R0C0 key
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Row 4
+ - CH4: delay time
+ - Delay time 0.8us
+ - Frequency of matrix scan 10.0kHz (99.6us)
+
+![DS1Z_QuickPrint48](https://user-images.githubusercontent.com/2170248/119240515-f37f0180-bb8a-11eb-9376-dcd50797aff7.png)
+![DS1Z_QuickPrint47](https://user-images.githubusercontent.com/2170248/119240520-f7ab1f00-bb8a-11eb-834f-2d08789143d2.png)
+
+##### Connect a 500pF capacitor between C0 line and GND, Press R0C0, R1C0, R2C0,  R3C0,  R4C0 keys
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Col 0
+ - CH4: delay time
+ - Delay time 11.6us
+ - Frequency of matrix scan 7.06kHz (141.6us)
+ - Threshold Voltage 1.9V
+
+![DS1Z_QuickPrint50](https://user-images.githubusercontent.com/2170248/119240525-009bf080-bb8b-11eb-8bbf-b0bec139d32b.png)
+  image49,50 !! 500pf
+
+##### Connect a 1000pF capacitor between C0 line and GND, Press R0C0, R1C0, R2C0,  R3C0,  R4C0 keys
+ - CH1: Row 0
+ - CH2: Row 1
+ - CH3: Col 0
+ - CH4: delay time
+ - Delay time 18.4us
+ - Frequency of matrix scan 5.94kHz (168.2.?us)
+ - Threshold Voltage 1.9V
+
+![DS1Z_QuickPrint51](https://user-images.githubusercontent.com/2170248/119240530-0bef1c00-bb8b-11eb-97ce-7e5ba4386b3b.png)
