@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P1,   KC_P2,   KC_P3,            \
              KC_P0,   KC_PDOT, KC_PENT  \
   ),
-    
+
   /* Keymap ONE: Util Layer
   *
   *      ,---.       ,---.
@@ -371,7 +371,7 @@ void oled_task_user(void) {
 }
 #endif
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if(IS_LAYER_ON(BASE)) {
     if (index == 0) { /* First encoder */
       if (clockwise) {
@@ -432,4 +432,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       }
     }
   }
+    return true;
 }

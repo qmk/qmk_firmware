@@ -268,7 +268,7 @@ uint16_t muse_counter   = 0;
 uint8_t  muse_offset    = 70;
 uint16_t muse_tempo     = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (muse_mode) {
         if (IS_LAYER_ON(_RAISE)) {
             if (clockwise) {
@@ -290,6 +290,7 @@ void encoder_update(bool clockwise) {
             tap_code(KC_PGUP);
         }
     }
+    return true;
 }
 
 void dip_update(uint8_t index, bool active) {

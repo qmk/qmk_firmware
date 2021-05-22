@@ -19,10 +19,10 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [QWERTY] = LAYOUT_stack(
-        KC_TAB   , KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                             
-        OSL(EDIT), KC_A, LT(NUMPAD,KC_S), KC_D, LT(FSYM,KC_F), KC_G,                 
-        TD(FRBK2)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,     
-                            TO(ADJUST), TD(SGCA), TD(AGC), KC_BSPACE, TD(SHNTC),  
+        KC_TAB   , KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,
+        OSL(EDIT), KC_A, LT(NUMPAD,KC_S), KC_D, LT(FSYM,KC_F), KC_G,
+        TD(FRBK2)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,
+                            TO(ADJUST), TD(SGCA), TD(AGC), KC_BSPACE, TD(SHNTC),
 
                                 KC_Y,    KC_U,       KC_I, KC_O,      KC_P,        KC_BSLS,
                                 KC_H, LT(JSYM,KC_J), KC_K, KC_L, LT(EDIT,KC_SCLN), KC_QUOT,
@@ -31,10 +31,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [MINIMAK4] = LAYOUT_stack(
-        KC_TAB   , KC_Q,   KC_W,   KC_D,   KC_R,   KC_K,                                   
-        OSL(EDIT), KC_A, LT(NUMPAD,KC_S), KC_T, LT(FSYM,KC_F), KC_G,                       
-        OSM(MOD_LSFT)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,       
-                                _______, TO(ADJUST), TD(SGCA), KC_BSPACE, TD(SHNTC),       
+        KC_TAB   , KC_Q,   KC_W,   KC_D,   KC_R,   KC_K,
+        OSL(EDIT), KC_A, LT(NUMPAD,KC_S), KC_T, LT(FSYM,KC_F), KC_G,
+        OSM(MOD_LSFT)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,
+                                _______, TO(ADJUST), TD(SGCA), KC_BSPACE, TD(SHNTC),
 
                                 KC_Y,    KC_U,       KC_I, KC_O,      KC_P,        KC_PIPE,
                                 KC_H, LT(JSYM,KC_J), KC_E, KC_L, LT(EDIT,KC_SCLN), KC_QUOT,
@@ -43,75 +43,75 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [NUMPAD] = LAYOUT_stack(
-        _______, _______, _______,  _______, _______, _______,                      
-        _______, _______, _______,  _______, _______, _______,                       
-        _______, _______, _______,  _______, _______, _______, TO(QWERTY), _______, 
-                                    _______, _______, _______,  _______  , _______,    
-                                                    
+        _______, _______, _______,  _______, _______, _______,
+        _______, _______, _______,  _______, _______, _______,
+        _______, _______, _______,  _______, _______, _______, TO(QWERTY), _______,
+                                    _______, _______, _______,  _______  , _______,
+
                                     _______, KC_7,     KC_8,    KC_9,  KC_KP_MINUS, _______,
-                                    _______, KC_4,     KC_5,    KC_6,  KC_KP_PLUS , _______, 
+                                    _______, KC_4,     KC_5,    KC_6,  KC_KP_PLUS , _______,
                 _______, TO(EDIT), _______, KC_1,  KC_2,  KC_3, KC_KP_SLASH, LCTL(KC_RIGHT),
-                _______,  _______, KC_0, KC_DOT, _______ 
+                _______,  _______, KC_0, KC_DOT, _______
     ),
 
     [EDIT] = LAYOUT_stack(
-        _______, TASK_MAN, _______, SELW_LEFT, SELW_RIGHT, _______,                       
-        _______, _______ , LGUI(KC_GRV), MVW_LEFT,  MVW_RIGHT , _______,                  
-        LCTL(KC_LEFT), R_UNDO, R_CUT  , R_COPY , R_PASTE, R_REDO , TO(NUMPAD), FORM_GET,  
-                                            _______, _______, _______, DEL_WRD, _______,    
+        _______, TASK_MAN, _______, SELW_LEFT, SELW_RIGHT, _______,
+        _______, _______ , LGUI(KC_GRV), MVW_LEFT,  MVW_RIGHT , _______,
+        LCTL(KC_LEFT), R_UNDO, R_CUT  , R_COPY , R_PASTE, R_REDO , TO(NUMPAD), FORM_GET,
+                                            _______, _______, _______, DEL_WRD, _______,
 
-                                    NEW_TAB , KC_PGUP, KC_UP, KC_PGDOWN, KC_PSCREEN, _______, 
-                                    R_HOME  , KC_LEFT, KC_DOWN, KC_RIGHT, R_END, _______, 
-                FORM_PUT, TO(QWERTY), SEL_HOME, S(KC_LEFT), S(KC_DOWN), S(KC_RIGHT), SEL_END, _______, 
-                _______, _______, _______, _______, _______ 
+                                    NEW_TAB , KC_PGUP, KC_UP, KC_PGDOWN, KC_PSCREEN, _______,
+                                    R_HOME  , KC_LEFT, KC_DOWN, KC_RIGHT, R_END, _______,
+                FORM_PUT, TO(QWERTY), SEL_HOME, S(KC_LEFT), S(KC_DOWN), S(KC_RIGHT), SEL_END, _______,
+                _______, _______, _______, _______, _______
     ),
 
     [ADJUST] = LAYOUT_stack(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,                                
-        TO(QWERTY), TO(EDIT), TO(NUMPAD), TO(JSYM), TO(FSYM), TO(MEDIA),                  
-        DF(MINIMAK4), DF(QWERTY), RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______,   
-                                           _______, _______, _______, _______, _______,   
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,
+        TO(QWERTY), TO(EDIT), TO(NUMPAD), TO(JSYM), TO(FSYM), TO(MEDIA),
+        DF(MINIMAK4), DF(QWERTY), RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______,
+                                           _______, _______, _______, _______, _______,
 
-                                KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12, 
+                                KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12,
                                 _______, _______, _______, _______, _______,  _______,
                 _______, _______, _______, _______, _______, _______, _______, _______,
                 _______, _______, _______, _______, _______
     ),
 
     [FSYM] = LAYOUT_stack(
-        _______, _______, _______, _______, _______, _______,                                
-        _______, _______, KC_TILD, KC_EXLM, _______, _______,                                
-        LCTL(KC_RIGHT), _______, TO(QWERTY), _______, _______, _______, _______, _______,    
-                                            _______, _______, _______, _______, _______,    
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, KC_TILD, KC_EXLM, _______, _______,
+        LCTL(KC_RIGHT), _______, TO(QWERTY), _______, _______, _______, _______, _______,
+                                            _______, _______, _______, _______, _______,
 
-                                KC_CIRC,  KC_AMPR , KC_ASTR, KC_GRV ,  _______, _______, 
+                                KC_CIRC,  KC_AMPR , KC_ASTR, KC_GRV ,  _______, _______,
                                 KC_EQUAL, KC_MINUS, KC_UNDS, KC_PIPE, KC_COLON, KC_DQT,
-                _______, _______, _______, KC_PLUS,  KC_BSLS, KC_SLSH, _______, _______, 
-                _______, _______, _______, _______, _______ 
-    ), 
-    
-    [JSYM] = LAYOUT_stack(
-        _______, KC_GRV,  KC_AT  , KC_LCBR,     KC_RCBR,     _______,                      
-        _______, KC_HASH, KC_DLR , KC_LPRN,     KC_RPRN,     KC_LEFT,                      
-        _______, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, _______, _______, _______,    
-                                                _______, _______, _______, _______, _______,    
-
-                                _______, _______, _______, _______,  _______, _______, 
-                                _______, _______, KC_QUES, KC_SLSH, KC_COLON, _______,
-                _______, _______, _______, _______, _______, TO(QWERTY), _______, LCTL(KC_LEFT), 
+                _______, _______, _______, KC_PLUS,  KC_BSLS, KC_SLSH, _______, _______,
                 _______, _______, _______, _______, _______
-    ), 
-    
-    [MEDIA] = LAYOUT_stack(
-        _______, KC_WH_U, KC_WH_L, KC_MS_UP, KC_WH_R, _______,                    
-        _______, KC_WH_D, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, _______,                      
-        _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______,     
-                                                _______, _______, _______, _______, _______,     
+    ),
 
-                                _______, _______, _______, _______,  _______, _______, 
+    [JSYM] = LAYOUT_stack(
+        _______, KC_GRV,  KC_AT  , KC_LCBR,     KC_RCBR,     _______,
+        _______, KC_HASH, KC_DLR , KC_LPRN,     KC_RPRN,     KC_LEFT,
+        _______, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, _______, _______, _______,
+                                                _______, _______, _______, _______, _______,
+
+                                _______, _______, _______, _______,  _______, _______,
+                                _______, _______, KC_QUES, KC_SLSH, KC_COLON, _______,
+                _______, _______, _______, _______, _______, TO(QWERTY), _______, LCTL(KC_LEFT),
+                _______, _______, _______, _______, _______
+    ),
+
+    [MEDIA] = LAYOUT_stack(
+        _______, KC_WH_U, KC_WH_L, KC_MS_UP, KC_WH_R, _______,
+        _______, KC_WH_D, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, _______,
+        _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______,
+                                                _______, _______, _______, _______, _______,
+
+                                _______, _______, _______, _______,  _______, _______,
                                 _______, _______, _______, _______, _______, _______,
                 _______, _______, _______, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______,
-                KC_MS_BTN1, KC_MEDIA_PLAY_PAUSE, KC_MRWD, KC_MFFD, _______ 
+                KC_MS_BTN1, KC_MEDIA_PLAY_PAUSE, KC_MRWD, KC_MFFD, _______
     )
 };
 
@@ -136,7 +136,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_ENABLE
-void encoder_update_keymap(uint8_t index, bool clockwise) {
+bool encoder_update_keymap(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
             case EDIT:
@@ -161,6 +161,7 @@ void encoder_update_keymap(uint8_t index, bool clockwise) {
                 break;
         }
     }
+    return true;
 }
 #endif
 
