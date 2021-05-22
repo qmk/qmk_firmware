@@ -35,40 +35,22 @@ led_config_t g_led_config = { {
     {   8,  59 }, {  23,  59 }, {  38,  59 }, {  83,  59 }, { 129,  59 }, { 144,  59 }, { 159,  59 }, { 174,  59 }, { 193,  59 }, { 205,  59 }, { 217,  59 }
 }, {
     // LED Index to Flag
-    1, 4, 4, 4, 4, 1, 1, 1, 1, 4, 4, 4, 4, 1, 9, 1,
+    1, 4, 4, 4, 4, 1, 1, 1, 1, 4, 4, 4, 4, 1, 9/*scroll lock*/, 1,
+    // esc, f1- f12, print, scroll lock, pause
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1,
+    // `1234567890-= backspace insert home pageup
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1,
+    // tab qwertyuiop[]\ delete end pagedown
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
+    // capslock asdfghjkl;' enter
+    //caps lock is 1 instead of 1+8, this board has a dedicated led
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,          1,
-    1, 1, 1, 4, 1, 1, 1, 1,                    1, 1, 1
+    // left shift zxcvbnm,./ right shift up cursor
+    1, 1, 1, 4, 1, 1, 1, 1,                    1, 1, 1 
+    //ctrl gui alt space alt gui menu control cursors
 } };
 
-/*
-HAS_FLAGS(bits, flags)
-n/a
-Evaluates to true if bits has all flags set
-HAS_ANY_FLAGS(bits, flags)
-n/a
-Evaluates to true if bits has any flags set
-LED_FLAG_NONE
-0x00
-If this LED has no flags
-LED_FLAG_ALL
-0xFF
-If this LED has all flags
-LED_FLAG_MODIFIER
-0x01
-If the LED is on a modifier key
-LED_FLAG_UNDERGLOW
-0x02
-If the LED is for underglow
-LED_FLAG_KEYLIGHT
-0x04
-If the LED is for key backlight
-LED_FLAG_INDICATOR
-0x08
-If the LED is for keyboard state indication
-*/
+
 #endif
 
 
@@ -77,14 +59,4 @@ If the LED is for keyboard state indication
 
 
 
-
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 
