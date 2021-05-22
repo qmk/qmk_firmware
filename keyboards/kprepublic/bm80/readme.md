@@ -16,4 +16,10 @@ Flashing example for this keyboard:
 
     make kprepublic/bm80:default:flash
 
+To reset the board into bootloader mode, do one of the following:
+
+* Short the two-pad footprint between delete and end while the board is plugged in
+* Press the switch labled RST on the back of the PCB, near the MCU, while the board is plugged in
+* Hold the Esc key while connecting the USB cable (also erases persistent settings)
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
