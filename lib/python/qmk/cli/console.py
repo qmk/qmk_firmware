@@ -6,9 +6,6 @@ from pathlib import Path
 from threading import Thread
 from time import sleep, strftime
 
-import hid
-import usb.core
-
 from milc import cli
 
 LOG_COLOR = {
@@ -262,6 +259,12 @@ def list_devices(device_finder):
 def console(cli):
     """Acquire debugging information from usb hid devices
     """
+
+    global hid
+    global usb
+    import hid
+    import usb.core
+
     vid = None
     pid = None
     index = 1
