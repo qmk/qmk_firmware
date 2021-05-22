@@ -45,3 +45,39 @@ bool led_update_user(led_t led_state) {
 #endif
     return true;
 }
+
+// Left encoder scrolls the mousewheel. Right encoder adjusts underglow hue.
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+#ifdef MOUSEKEY_ENABLE
+            tap_code(KC_MS_WH_DOWN);
+#else
+            tap_code(KC_PGDN);
+#endif
+        } else {
+#ifdef MOUSEKEY_ENABLE
+            tap_code(KC_MS_WH_UP);
+#else
+            tap_code(KC_PGUP);
+#endif
+        }
+    } else {  // index = 1: right encoder
+        if (clockwise) {
+#ifdef RGB_MATRIX_ENABLE
+            rgb_matrix_step();
+#else
+            rgblight_increase_hue_noeeprom();
+#endif
+        } else {
+#ifdef RGB_MATRIX_ENABLE
+            rgb_matrix_step_reverse();
+#else
+            rgblight_decrease_hue_noeeprom();
+#endif
+        }
+    }
+}
+
+// Set underglow color to blue.
+void keyboard_post_init_user(void) { rgblight_sethsv(HSV_BLUE); }
