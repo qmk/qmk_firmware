@@ -162,7 +162,6 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 
 |Define                                                 |Description                                    |
 |-------------------------------------------------------|-----------------------------------------------|
-|`#define DISABLE_LED_MATRIX_SOLID`                     |Disables `LED_MATRIX_SOLID`                    |
 |`#define DISABLE_LED_MATRIX_ALPHAS_MODS`               |Disables `LED_MATRIX_ALPHAS_MODS`              |
 |`#define DISABLE_LED_MATRIX_BREATHING`                 |Disables `LED_MATRIX_BREATHING`                |
 |`#define DISABLE_LED_MATRIX_BAND`                      |Disables `LED_MATRIX_BAND`                     |

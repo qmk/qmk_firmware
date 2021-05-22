@@ -362,7 +362,6 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 
 |Define                                                 |Description                                    |
 |-------------------------------------------------------|-----------------------------------------------|
-|`#define DISABLE_RGB_MATRIX_SOLID_COLOR`               |Disables `RGB_MATRIX_SOLID_COLOR`              |
 |`#define DISABLE_RGB_MATRIX_ALPHAS_MODS`               |Disables `RGB_MATRIX_ALPHAS_MODS`              |
 |`#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Disables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
 |`#define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT`       |Disables `MATRIX_GRADIENT_LEFT_RIGHT`          |
