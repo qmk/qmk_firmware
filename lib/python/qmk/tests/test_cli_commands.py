@@ -1,15 +1,14 @@
 import platform
+from subprocess import DEVNULL
 
-from subprocess import STDOUT, PIPE
-
-from qmk.commands import run
+from milc import cli
 
 is_windows = 'windows' in platform.platform().lower()
 
 
 def check_subcommand(command, *args):
     cmd = ['bin/qmk', command, *args]
-    result = run(cmd, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+    result = cli.run(cmd, stdin=DEVNULL, combined_output=True)
     return result
 
 
@@ -18,7 +17,7 @@ def check_subcommand_stdin(file_to_read, command, *args):
     """
     with open(file_to_read, encoding='utf-8') as my_file:
         cmd = ['bin/qmk', command, *args]
-        result = run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+        result = cli.run(cmd, stdin=my_file, combined_output=True)
     return result
 
 
@@ -33,8 +32,13 @@ def check_returncode(result, expected=[0]):
 
 
 def test_cformat():
-    result = check_subcommand('cformat', 'quantum/matrix.c')
+    result = check_subcommand('cformat', '-n', 'quantum/matrix.c')
     check_returncode(result)
+
+
+def test_cformat_all():
+    result = check_subcommand('cformat', '-n', '-a')
+    check_returncode(result, [0, 1])
 
 
 def test_compile():
@@ -83,9 +87,9 @@ def test_hello():
 
 
 def test_pyformat():
-    result = check_subcommand('pyformat')
+    result = check_subcommand('pyformat', '--dry-run')
     check_returncode(result)
-    assert 'Successfully formatted the python code' in result.stdout
+    assert 'Python code in `bin/qmk` and `lib/python` is correctly formatted.' in result.stdout
 
 
 def test_list_keyboards():
@@ -223,6 +227,11 @@ def test_clean():
     result = check_subcommand('clean', '-a')
     check_returncode(result)
     assert result.stdout.count('done') == 2
+
+
+def test_generate_api():
+    result = check_subcommand('generate-api', '--dry-run')
+    check_returncode(result)
 
 
 def test_generate_rgb_breathe_table():
