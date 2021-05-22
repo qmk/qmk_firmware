@@ -2,7 +2,7 @@
 
 ![bm80](https://i.imgur.com/AqjEjOi.jpeg)
 
-A tkl hotswap in switch RGB keyboard from KPRepublic.
+A tkl, hotswap, in switch RGB keyboard from KPRepublic.
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: BM80
