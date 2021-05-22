@@ -100,8 +100,9 @@ I plan to provide extensions to support I/O expanders such as MCP23018 and PCA95
   * `make MTEST=matrix_debug_delay[,<other options>..] handwired/symmetric70_proto/promicro/fast:default:flash`
 
 ## Measurement result
-### Pro Micro
-#### `make MTEST=matrix_debug_scan handwired/symmetric70_proto/promicro/fast:default:flash`
+### Pro Micro (ATmega32u4 16Mhz)
+#### Default setting (show `matrix_scan()` time)
+ - `make MTEST=matrix_debug_scan handwired/symmetric70_proto/promicro/fast:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -110,7 +111,8 @@ I plan to provide extensions to support I/O expanders such as MCP23018 and PCA95
  - Frequency of matrix scan 8.09kHz (123.6us)
  ![DS1Z_QuickPrint7](https://user-images.githubusercontent.com/2170248/116003927-538d9100-a63b-11eb-9b36-7db47d9b1541.png)
 
-#### `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/fast:default:flash`
+#### Default setting (show delay time)
+ - `make MTEST=matrix_debug_delay handwired/symmetric70_proto/promicro/fast:default:flash`
 ##### Press R0C0 key
  - CH1: Row 0
  - CH2: Row 1
@@ -122,7 +124,8 @@ I plan to provide extensions to support I/O expanders such as MCP23018 and PCA95
 ![DS1Z_QuickPrint10](https://user-images.githubusercontent.com/2170248/116003978-a1a29480-a63b-11eb-97d8-5a6e11c0db2f.png)
 
 ### Proton C
-#### `make MTEST=matrix_debug_scan handwired/symmetric70_proto/proton_c/fast:default:flash`
+#### Default setting (show `matrix_scan()` time)
+ - `make MTEST=matrix_debug_scan handwired/symmetric70_proto/proton_c/fast:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -132,7 +135,8 @@ I plan to provide extensions to support I/O expanders such as MCP23018 and PCA95
 
 ![DS1Z_QuickPrint11](https://user-images.githubusercontent.com/2170248/116088141-8cca0d80-a6dc-11eb-8782-1d29c57690b8.png)
 
-#### `make MTEST=matrix_debug_delay handwired/symmetric70_proto/proton_c/fast:default:flash`
+#### Default setting (show delay time)
+ - `make MTEST=matrix_debug_delay handwired/symmetric70_proto/proton_c/fast:default:flash`
 ##### Press R0C0 key
  - CH1: Row 0
  - CH2: Row 1
