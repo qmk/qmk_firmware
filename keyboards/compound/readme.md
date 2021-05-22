@@ -8,6 +8,21 @@ A compact 60% Compound keyboard with fixed Tsangan style layout.
 * Hardware Supported: Compound PCB
 * Hardware Availability: [GeekHack IC](https://geekhack.org/index.php?topic=111187.0)
 
+## Entering bootloader mode
+
+Keyboard doesn't have dedicated RESET button on the PCB, however, there are alternatives:
+
+### Bootmagic
+
+Hold down ESC while plugging the keyboard in.
+
+### Shorting RESET pin
+
+Short GND and RST pads on the bottom of the keyboard. Location of the pads can be seen [here](https://imgur.com/uw7Zz7Y.jpg).
+
+
+## Building keyboard firmware
+
 Make example for this keyboard (after setting up your build environment):
 
     make compound:default
