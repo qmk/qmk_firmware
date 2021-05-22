@@ -14,8 +14,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KB_H
-#define KB_H
+#pragma once
 
 #include "quantum.h"
 
@@ -32,5 +31,3 @@
 	{ K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  KC_NO, K313,  K314 }, \
 	{ K400,  KC_NO, K402,  KC_NO, K404,  K405,  KC_NO, K407,  KC_NO, K409,  KC_NO, KC_NO, K412,  K413,  K414 }  \
 }
-
-#endif
