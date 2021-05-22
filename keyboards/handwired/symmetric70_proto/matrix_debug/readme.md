@@ -25,10 +25,12 @@ This matrix.c is quantum/matrix.c with the following additions:
 * Change the behavior of delay
   * `make MTEST=matrix_debug_delay,allways_delay handwired/symmetric70_proto/promicro/normal:default:flash`
   * `make MTEST=matrix_debug_delay,adaptive_delay,mdelay0 handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=matrix_debug_delay,adaptive_delay_fast,mdelay0 handwired/symmetric70_proto/promicro/normal:default:flash`
 
 ## Measurement result
-### Pro Micro
-#### `make MTEST=matrix_debug_scan handwired/symmetric70_proto/promicro/normal:default:flash`
+### Pro Micro (ATmega32u4 16Mhz)
+#### Default setting (show `matrix_scan()` time)
+ - `make MTEST=matrix_debug_scan handwired/symmetric70_proto/promicro/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -37,7 +39,8 @@ This matrix.c is quantum/matrix.c with the following additions:
  - Frequency of matrix scan 1.81kHz (551.0us)
  ![DS1Z_QuickPrint2](https://user-images.githubusercontent.com/2170248/115994477-0ba64400-a612-11eb-98ba-b8cc362f26ac.png)
 
-#### `make MTEST=matrix_debug_scan,allways_delay handwired/symmetric70_proto/promicro/normal:default:flash`
+#### Allways call `matrix_output_unselect_delay()` (show `matrix_scan()` time, default MATRIX_IO_DELAY)
+ - `make MTEST=matrix_debug_scan,allways_delay handwired/symmetric70_proto/promicro/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -46,7 +49,8 @@ This matrix.c is quantum/matrix.c with the following additions:
  - Frequency of matrix scan 1.76kHz (568.5us)
  ![DS1Z_QuickPrint1](https://user-images.githubusercontent.com/2170248/115994488-1660d900-a612-11eb-83b1-cd820607db03.png)
 
-#### `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/normal:default:flash`
+#### Adaptive delay (show `matrix_scan()` time, MATRIX_IO_DELAY = 0)
+ - `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -55,7 +59,9 @@ This matrix.c is quantum/matrix.c with the following additions:
  - Frequency of matrix scan 2.32kHz (431us)
  ![DS1Z_QuickPrint3](https://user-images.githubusercontent.com/2170248/115994939-034f0880-a614-11eb-861f-b83a31efa51a.png)
 
-#### `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/normal:default:flash`
+#### Adaptive delay (show delay time, MATRIX_IO_DELAY = 0)
+ - `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/normal:default:flash`
+
 ##### Press R0C0 key
  - CH1: Row 0
  - CH2: Row 1
@@ -66,8 +72,9 @@ This matrix.c is quantum/matrix.c with the following additions:
 ![DS1Z_QuickPrint6](https://user-images.githubusercontent.com/2170248/115995982-7ce8f580-a618-11eb-870c-a043747d1288.png)
 ![DS1Z_QuickPrint5](https://user-images.githubusercontent.com/2170248/115995533-98eb9780-a616-11eb-8270-c1f145576b88.png)
 
-### Proton C
-#### `make MTEST=matrix_debug_scan handwired/symmetric70_proto/proton_c/normal:default:flash`
+### Proton C (STM32F303 72MHz)
+#### Default setting (show `matrix_scan()` time)
+ - `make MTEST=matrix_debug_scan handwired/symmetric70_proto/proton_c/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -77,7 +84,8 @@ This matrix.c is quantum/matrix.c with the following additions:
 
 ![DS1Z_QuickPrint16](https://user-images.githubusercontent.com/2170248/116131295-2ad2cd80-a707-11eb-8d0a-6f7912456e03.png)
 
-#### `make MTEST=matrix_debug_scan,allways_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
+#### Allways call `matrix_output_unselect_delay()` (show `matrix_scan()` time, default MATRIX_IO_DELAY)
+ - `make MTEST=matrix_debug_scan,allways_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -87,7 +95,8 @@ This matrix.c is quantum/matrix.c with the following additions:
 
 ![DS1Z_QuickPrint17](https://user-images.githubusercontent.com/2170248/116131308-31f9db80-a707-11eb-8db7-d1960fa7b068.png)
 
-#### `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
+#### Adaptive delay (show `matrix_scan()` time, MATRIX_IO_DELAY = 0)
+ - `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
@@ -97,7 +106,8 @@ This matrix.c is quantum/matrix.c with the following additions:
 
 ![DS1Z_QuickPrint18](https://user-images.githubusercontent.com/2170248/116131369-44741500-a707-11eb-9c74-fa39d9e80947.png)
 
-#### `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
+#### Adaptive delay (show delay time, MATRIX_IO_DELAY = 0)
+ - `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
 
 ##### Press R0C0 key
  - CH1: Row 0
