@@ -65,7 +65,12 @@ __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) { re
 
 static void encoder_update_handler(uint8_t index, bool clockwise) {
 #ifdef ENCODER_KEYMAPPING
-    encoder_update_keymapping(index, clockwise);
+#    ifndef ENCODER_STRICT_KEYMAP
+    if (encoder_update_kb(index, clockwise))
+#    endif
+    {
+        encoder_update_keymapping(index, clockwise);
+    }
 #else
     encoder_update_kb(index, clockwise);
 #endif
@@ -200,12 +205,12 @@ void encoder_init_keymapping(void) {
 
 void encoder_map_cleanup(void) {
     for (uint8_t index = 0; index < NUMBER_OF_ENCODERS; index++) {
-        if (encoder_ccw[index].pressed) {
+        if (IS_PRESSED(encoder_ccw[index])) {
             encoder_ccw[index].pressed = false;
             encoder_ccw[index].time    = (timer_read() | 1);
             action_exec(encoder_ccw[index]);
         }
-        if (encoder_cw[index].pressed) {
+        if (IS_PRESSED(encoder_cw[index])) {
             encoder_cw[index].pressed = false;
             encoder_cw[index].time    = (timer_read() | 1);
             action_exec(encoder_cw[index]);
