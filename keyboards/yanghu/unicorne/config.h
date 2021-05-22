@@ -38,9 +38,9 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define ENCODERS_PAD_A \
-    { B10, B2 }
-#define ENCODERS_PAD_B \
     { B12, B0 }
+#define ENCODERS_PAD_B \
+    { B10, B2 }
 
 /* Audio */
 #define AUDIO_PIN A8
@@ -52,6 +52,7 @@
 /* RGB LED */
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 8
+#define DRIVER_LED_TOTAL RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
 
 #define WS2812_PWM_DRIVER PWMD3
