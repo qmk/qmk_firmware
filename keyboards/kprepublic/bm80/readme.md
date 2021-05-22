@@ -18,7 +18,7 @@ Flashing example for this keyboard:
 
 To reset the board into bootloader mode, do one of the following:
 
-* Short the two-pad footprint between delete and end while the board is plugged in
+* Short the two-pad footprint between the "delete" key and the "end" key while the board is plugged in
 * Press the switch labled RST on the back of the PCB, near the MCU, while the board is plugged in
 * Hold the Esc key while connecting the USB cable (also erases persistent settings)
 
