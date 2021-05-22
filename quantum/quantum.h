@@ -119,7 +119,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
-#    include "key_override.h"
+#    include "process_key_override.h"
 #endif
 
 #ifdef TAP_DANCE_ENABLE

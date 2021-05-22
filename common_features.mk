@@ -320,7 +320,7 @@ endif
 
 ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
     OPT_DEFS += -DKEY_OVERRIDE_ENABLE
-    SRC += $(QUANTUM_DIR)/key_override.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_key_override.c
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
