@@ -4,9 +4,8 @@
     "maintainer": "Keyz.io",
     "width": 19.25,
     "height": 6,
-    "key_count": 67,
     "layouts": {
-      "LAYOUT_default": {
+      "LAYOUT": {
         "layout": [
            {"label":"Esc", "x":0, "y":0},
            {"label":"1", "x":1, "y":0},

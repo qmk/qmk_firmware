@@ -1,6 +1,6 @@
 # SKErgo
 
-![skergo](https://cdn.shopify.com/s/files/1/0396/3001/2582/products/Keyzio-5_1024x1024@2x.jpg?v=1612909648)
+![skergo](https://i.imgur.com/WIqxiMfh.png)
 
 An ergonomic layout keyboard with a through-hole component design
 
