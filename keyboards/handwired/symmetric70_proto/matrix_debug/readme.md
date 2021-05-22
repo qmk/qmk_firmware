@@ -200,7 +200,6 @@ This matrix.c is quantum/matrix.c with the following additions:
  - Threshold Voltage 1.9V
 
 ![DS1Z_QuickPrint50](https://user-images.githubusercontent.com/2170248/119240525-009bf080-bb8b-11eb-8bbf-b0bec139d32b.png)
-  image49,50 !! 500pf
 
 ##### Connect a 1000pF capacitor between C0 line and GND, Press R0C0, R1C0, R2C0,  R3C0,  R4C0 keys
  - CH1: Row 0
