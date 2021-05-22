@@ -38,9 +38,9 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define ENCODERS_PAD_A \
-    { B12, B0 }
-#define ENCODERS_PAD_B \
     { B10, B2 }
+#define ENCODERS_PAD_B \
+    { B12, B0 }
 
 /* Audio */
 #define AUDIO_PIN A8
