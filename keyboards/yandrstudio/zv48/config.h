@@ -40,8 +40,8 @@
  */
 #define MATRIX_COL_PINS { B15, B10, B0, A5, A4, A3 }
 #define MATRIX_ROW_PINS { A10, A15, B3, B4 }
-#define MATRIX_COL_PINS_RIGHT { B10, B15, A10, A15, B3, B4 }
-#define MATRIX_ROW_PINS_RIGHT { B0, A5, A4, A3 }
+// #define MATRIX_COL_PINS_RIGHT { B10, B15, A10, A15, B3, B4 }
+// #define MATRIX_ROW_PINS_RIGHT { B0, A5, A4, A3 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -59,17 +59,35 @@
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { A2 }
 
-#define RGB_DI_PIN B1
-#define RGBLED_NUM 48
-#define RGBLED_SPLIT {24, 24}
-#define RGBLIGHT_LIMIT_VAL 120
-#define RGBLIGHT_ANIMATIONS
+// #define RGB_DI_PIN A7
+// #define RGBLED_NUM 2
+// #define RGBLED_SPLIT {1, 1}
+// #define RGBLIGHT_LIMIT_VAL 120
+// #define RGBLIGHT_ANIMATIONS
 
-#define WS2812_PWM_DRIVER PWMD3
-#define WS2812_PWM_CHANNEL 4
-#define WS2812_PWM_PAL_MODE 2
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
-#define WS2812_DMA_CHANNEL 5
+/* RGN Matrix */
+#ifdef RGB_MATRIX_ENABLE
+
+#    define RGB_DI_PIN A7
+#    define RGBLED_NUM 2
+#    define DRIVER_LED_TOTAL RGBLED_NUM
+
+#    define WS2812_PWM_DRIVER PWMD3
+#    define WS2812_PWM_CHANNEL 4
+#    define WS2812_PWM_PAL_MODE 2
+#    define WS2812_DMA_STREAM STM32_DMA1_STREAM2
+#    define WS2812_DMA_CHANNEL 5
+
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
+#    define RGBLIGHT_VAL_STEP 18
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#    define RGB_MATRIX_CENTER { 32, 96 }
+#    define RGB_MATRIX_KEYPRESSES
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+#endif
+
+
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
