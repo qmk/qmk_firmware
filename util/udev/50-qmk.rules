@@ -1,3 +1,5 @@
+ACTION=="remove", GOTO="qmk_end"
+
 # Atmel DFU
 ### ATmega16U2
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2fef", ENV{ID_QMK}="1"
@@ -64,3 +66,5 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="2a03", ATTRS{idProduct}=="0037", ENV{ID_QMK
 SUBSYSTEM=="hidraw", KERNEL=="hidraw*", ENV{ID_QMK}="1"
 
 ENV{ID_QMK}=="1", TAG+="uaccess"
+
+LABEL="qmk_end"
