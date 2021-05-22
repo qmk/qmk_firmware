@@ -29,3 +29,9 @@ bool encoder_update_user(uint8_t index, bool clockwise);
 void encoder_state_raw(uint8_t* slave_state);
 void encoder_update_raw(uint8_t* slave_state);
 #endif
+
+#ifdef ENCODER_KEYMAPPING
+void encoder_map_cleanup(void);
+void encoder_init_keymapping(void);
+bool encoder_update_keymapping(uint8_t index, bool clockwise);
+#endif
