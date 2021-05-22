@@ -1,7 +1,7 @@
 {
     "keyboard_name": "luggage_rack",
-    "url": "",
-    "maintainer": "qmk",
+    "url": "www.clawboards.xyz",
+    "maintainer": "AlisGraveNil",
     "width": 3,
     "height": 6.5,
     "layouts": {
@@ -23,6 +23,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
-
