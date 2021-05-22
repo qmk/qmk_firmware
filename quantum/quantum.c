@@ -59,8 +59,7 @@ float bell_song[][2] = SONG(TERMINAL_SOUND);
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
-extern bool process_key_override(const uint16_t keycode, const keyrecord_t *const record);
-extern void matrix_scan_key_override(void);
+#    include "process_key_override_private.h"
 #endif
 
 uint8_t extract_mod_bits(uint16_t code) {

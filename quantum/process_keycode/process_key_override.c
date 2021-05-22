@@ -18,6 +18,7 @@
 #include QMK_KEYBOARD_H
 #include "report.h"
 #include "timer.h"
+#include "process_key_override_private.h"
 
 #include <debug.h>
 
