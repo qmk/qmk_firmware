@@ -98,7 +98,7 @@
 
 /* Others */
 #define TAP_HOLD_CAPS_DELAY 20
-
+#define TAP_CODE_DELAY 10
 #ifdef CONSOLE_ENABLE
 #    define DEBUG_MATRIX_SCAN_RATE
 #endif

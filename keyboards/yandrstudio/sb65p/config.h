@@ -21,7 +21,7 @@
 #define PRODUCT_ID 0xAA02
 #define DEVICE_VER 0x0001
 #define MANUFACTURER    Jason Ren and Student WTF
-#define PRODUCT         SB-65P
+#define PRODUCT         SB65P
 
 /* key matrix size */
 #define MATRIX_ROWS 10

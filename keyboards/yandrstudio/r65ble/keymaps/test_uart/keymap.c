@@ -43,18 +43,14 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (keycode >= MACRO00 && keycode <= MACRO15) {
             dynamic_keymap_macro_send(keycode - MACRO00);
         } else {
-            register_code16(keycode);
-            wait_ms(10);
-            unregister_code16(keycode);
+            tap_code16(keycode);
         }
     } else {
         uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 4, 4);
         if (keycode >= MACRO00 && keycode <= MACRO15) {
             dynamic_keymap_macro_send(keycode - MACRO00);
         } else {
-            register_code16(keycode);
-            wait_ms(10);
-            unregister_code16(keycode);
+            tap_code16(keycode);
         }
     }
 }
