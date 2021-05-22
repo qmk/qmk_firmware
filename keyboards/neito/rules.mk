@@ -8,7 +8,7 @@ BOOTLOADER = atmel-dfu
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no       	# Mouse keys
+MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
@@ -20,5 +20,4 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-ENCODER_ENABLE = yes		# We have a encoder
-MOUSEKEY_ENABLE = yes		# In case someone wants to use mousekeys and doesn't want to reflash stock firmware
+ENCODER_ENABLE = yes        # We have a encoder

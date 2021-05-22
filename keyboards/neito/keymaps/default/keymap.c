@@ -18,7 +18,7 @@
 
 enum layers {
   _DEFAULT,
-  _MAC,
+  _FN0,
   _FN1,
   _FN2,
 };
