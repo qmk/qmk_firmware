@@ -15,5 +15,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
-#define ENCODER_KEYMAPPING { { 5, 0 }, { 5, 1 } }
+#define ENCODER_KEYMAPPING { { 6 , 0 }, { 6 , 1 } }
