@@ -88,25 +88,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_LIMIT_VAL 80
 #    define RGBLIGHT_LAYERS
 
-#    define HSV_DARKWHITE 0, 0, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKRED 0, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKCORAL 11, 176, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKORANGE 28, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKGOLDENROD 30, 218, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKGOLD 36, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKYELLOW 43, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKCHARTREUSE 64, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKGREEN 85, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKSPRINGGREEN 106, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKTURQUOISE 123, 90, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKTEAL 128, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKCYAN 128, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKAZURE 132, 102, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKBLUE 170, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKPURPLE 191, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKMAGENTA 213, 255, RGBLIGHT_LIMIT_VAL
-#    define HSV_DARKPINK 234, 128, RGBLIGHT_LIMIT_VAL
-
 // By default, LEDs of the buttons which are pressed turn on.
 // #    define RGBLIGHT_EFFECT_TWINKLE
 // #    define RGBLIGHT_EFFECT_KNIGHT
@@ -140,6 +121,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB MATRIX */
 #    define DRIVER_LED_TOTAL 123
 #    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
+
+//  for all fingers used at once.
+#    define LED_HITS_TO_REMEMBER 10
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
 

@@ -19,8 +19,14 @@
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
-#define DF_QWER  DF(_QWERTY)
-#define DF_COLE  DF(_COLEMAK)
+#ifndef PARTY_REACTIVE_FOCUSED_MODE
+#   define DF_QWER  DF(_QWERTY)
+#   define DF_COLE  DF(_COLEMAK)
+#else
+#   define DF_QWER  XXXXXXX
+#   define DF_COLE  XXXXXXX
+#endif  //  PARTY_REACTIVE_FOCUSED_MODE
+
 #define MO_ADJ   MO(_ADJUST)
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE  LT(_FN, KC_MUTE)
@@ -66,13 +72,17 @@ user_config_t user_config;
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _C_SYSTEM_BASE,      //  MIDI C-system
+#ifndef PARTY_REACTIVE_FOCUSED_MODE
     _FAKE_B_SYSTEM,      //  MIDI fake B-system doesn't have correct assignments on top two rows. The bottom 3 rows are B-system.
+#endif  //  PARTY_REACTIVE_FOCUSED_MODE
     _C_SYSTEM_BASS2ROW,  //  counter bass system
+#ifndef PARTY_REACTIVE_FOCUSED_MODE
     _C_SYSTEM_ENTIRELY,  //  single notes for both left and right keybaords.
     _CHROMATONE,
     _CFLIP_BASS2ROW,     //  180 degree flipped layout on right side keyboard
     _QWERTY,
     _COLEMAK,
+#endif  //  PARTY_REACTIVE_FOCUSED_MODE
     _ADJUST,             //  for Fn keys, etc.
     _FN                  //  for changing layers, octaves, etc.
 };
@@ -234,6 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3, MI_A_3,  MI_C_4,  MI_Eb_4, MI_Fs_4, MI_A_4,  MI_C_5,  MI_Eb_5, MI_Fs_5
   ),
 
+#ifndef PARTY_REACTIVE_FOCUSED_MODE
   /* fake B-system */
   [_FAKE_B_SYSTEM] = LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -247,6 +258,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3, MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4, MI_Bb_4, MI_Db_5, MI_E_5,  MI_G_5,
       MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3, MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4, MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5
   ),
+#endif  //  PARTY_REACTIVE_FOCUSED_MODE
 
   /* BASS2row */
   [_C_SYSTEM_BASS2ROW] = LAYOUT(
@@ -262,6 +274,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3, MI_A_3,  MI_C_4,  MI_Eb_4, MI_Fs_4, MI_A_4,  MI_C_5,  MI_Eb_5, MI_Fs_5
   ),
 
+#ifndef PARTY_REACTIVE_FOCUSED_MODE
   /* C-system entirely */
   [_C_SYSTEM_ENTIRELY] = LAYOUT(
     MI_BENDU, XXXXXXX, XXXXXXX, MI_Db,   MI_E,    MI_G,    MI_Bb,   MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2,
@@ -330,6 +343,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
+#endif //  PARTY_REACTIVE_FOCUSED_MODE
 
   /* ADJUST */
   [_ADJUST] = LAYOUT_wrapper(
@@ -421,8 +435,6 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {122, 1, HSV_SPRINGGREEN}  //  MELDYAH
 );
 
-
-
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_fn_layer, my_adjust_layer);
 
@@ -435,9 +447,30 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #endif  //  RGBLIGHT_ENABLE
 
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
+  //  Reset Bass setting
+  user_config.raw = 0;  // default: dyad
+  eeconfig_update_user(user_config.raw);
+
+  //  Reset the midi keyboard layout
+  set_single_persistent_default_layer(_C_SYSTEM_BASE);
+
+  #ifdef RGB_MATRIX_ENABLE
+  rgb_matrix_sethsv(HSV_BLUE);
+      //  party mode (for LED soldering test.)
+  #   ifdef PARTY_REACTIVE_FOCUSED_MODE
+  rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_solid_reactive_with_CnoteIndicator);
+  #   else
+  rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+  #   endif
+  #endif
+}
+
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {
+#ifndef PARTY_REACTIVE_FOCUSED_MODE
     uint8_t i;
+#endif  //  PARTY_REACTIVE_FOCUSED_MODE
     // uint32_t mode = rgblight_get_mode();
 
     if (rgb_matrix_is_enabled()) {  // turn the lights on when it is enabled.
@@ -451,18 +484,32 @@ void rgb_matrix_indicators_user(void) {
                 // rgb_matrix_set_color(72, RGB_DARKORANGE);
                 break;
             case _FN:
+#ifndef PARTY_REACTIVE_FOCUSED_MODE
                 for (i = 0;i < 6;i++) {
                     rgb_matrix_set_color(74 - i, RGB_DARKORANGE);      //  MIDI layouts
                     //  right keyboard
                     rgb_matrix_set_color(i, RGB_DARKORANGE);      //  MIDI layouts
                     rgb_matrix_set_color(50 - i, RGB_DARKORANGE);      //  MIDI layouts
                 }
+#else
+                //  BSYSTEM, CSYSALL, CHRTONE, CFLIP2B are disabled.
+                rgb_matrix_set_color(74, RGB_DARKORANGE);      //  CSYSTEM
+                rgb_matrix_set_color(72, RGB_DARKORANGE);      //  CNTBASC
+                rgb_matrix_set_color(0,  RGB_DARKORANGE);      //  CSYSTEM
+                rgb_matrix_set_color(2,  RGB_DARKORANGE);      //  CNTBASC
+                rgb_matrix_set_color(50, RGB_DARKORANGE);      //  CSYSTEM
+                rgb_matrix_set_color(48, RGB_DARKORANGE);      //  CNTBASC
+#endif  //  PARTY_REACTIVE_FOCUSED_MODE
+
                 // rgb_matrix_set_color(pgm_read_byte(&convert_led_location2number[11]),  RGB_RED);         //  RGB_TOG  <- too heavy.
                 rgb_matrix_set_color(64,  RGB_DARKBLUE);         //  RGB_MOD
                 rgb_matrix_set_color(63,  RGB_DARKRED);         //  RGB_TOG
-                rgb_matrix_set_color(75,  RGB_DARKWHITE);       //  DF_QWER
                 rgb_matrix_set_color(76,  RGB_DARKCORAL);       //  TGLBASS
+
+#ifndef PARTY_REACTIVE_FOCUSED_MODE
+                rgb_matrix_set_color(75,  RGB_DARKWHITE);       //  DF_QWER
                 rgb_matrix_set_color(98,  RGB_DARKWHITE);       //  DF_COLE
+#endif
                 rgb_matrix_set_color(87,  RGB_DARKTEAL);        //  TGLMICH
 
                 rgb_matrix_set_color(23, RGB_DARKCORAL);       //  TGLBASS
@@ -521,6 +568,7 @@ void keyboard_post_init_user(void) {
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_sethsv(HSV_BLUE);
     rgb_matrix_config.hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
 #endif
 };
@@ -547,14 +595,6 @@ void toggle_MIDI_channel_separation(void) {
     }
 }
 
-void eeconfig_init_user(void) {
-  //  Reset Bass setting
-  user_config.raw = 0;  // default: dyad
-  eeconfig_update_user(user_config.raw);
-
-  //  Reset the midi keyboard layout
-  set_single_persistent_default_layer(_C_SYSTEM_BASE);
-}
 
 #ifdef RGBLIGHT_ENABLE
 void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
@@ -596,15 +636,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case BSYSTEM:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_FAKE_B_SYSTEM);
-            }
-            break;
-
         case CNTBASC:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_C_SYSTEM_BASS2ROW);
+            }
+            break;
+
+#ifndef PARTY_REACTIVE_FOCUSED_MODE
+        case BSYSTEM:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_FAKE_B_SYSTEM);
             }
             break;
 
@@ -625,6 +666,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_CFLIP_BASS2ROW);
             }
             break;
+#endif  //  PARTY_REACTIVE_FOCUSED_MODE
 
         case TGLBASS:
             if (record->event.pressed) {

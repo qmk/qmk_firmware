@@ -256,16 +256,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Light up fn layer keys
 const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(                           //  left keyboard
-                                                                         {0,   4, HSV_DARKORANGE},      //  MIDI layouts
-                                                                         {11,  1, HSV_DARKRED},         //  RGB_TOG
-                                                                         {12,  1, HSV_DARKWHITE},       //  DF_QWER
-                                                                         {35,  1, HSV_DARKTEAL},        //  TGLMICH
+                                                                         {0,   4, HSV_ORANGE},      //  MIDI layouts
+                                                                         {11,  1, HSV_RED},         //  RGB_TOG
+                                                                         {12,  1, HSV_WHITE},       //  DF_QWER
+                                                                         {35,  1, HSV_TEAL},        //  TGLMICH
 
                                                                                                     //  right keyboard
-                                                                         {60,  4, HSV_DARKORANGE},      //  MIDI layouts
-                                                                         {71 , 1, HSV_DARKRED},         //  RGB_TOG
-                                                                         {72,  1, HSV_DARKWHITE},       //  DF_QWER
-                                                                         {83,  1, HSV_DARKTEAL}         //  TGLMICH
+                                                                         {60,  4, HSV_ORANGE},      //  MIDI layouts
+                                                                         {71 , 1, HSV_RED},         //  RGB_TOG
+                                                                         {72,  1, HSV_WHITE},       //  DF_QWER
+                                                                         {83,  1, HSV_TEAL}         //  TGLMICH
 );
 
 
@@ -321,20 +321,20 @@ void toggle_MIDI_channel_separation(void) {
 void switch_keylight_color4base(keyrecord_t *record, uint8_t keylocation){
     switch (biton32(default_layer_state)) {
         case _C_SYSTEM_BASE:
-            keylight_manager(record, HSV_DARKGREEN, keylocation);
+            keylight_manager(record, HSV_GREEN, keylocation);
             break;
         case _C_SYSTEM_BASS2ROW:
-            keylight_manager(record, HSV_DARKYELLOW, keylocation);
+            keylight_manager(record, HSV_YELLOW, keylocation);
             break;
     }
 }
 void switch_keylight_color4chords(keyrecord_t *record, uint8_t keylocation){
     switch (biton32(default_layer_state)) {
         case _C_SYSTEM_BASE:
-            keylight_manager(record, HSV_DARKSPRINGGREEN, keylocation);
+            keylight_manager(record, HSV_SPRINGGREEN, keylocation);
             break;
         case _C_SYSTEM_BASS2ROW:
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
             break;
     }
 }
@@ -429,17 +429,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_ENABLE
         case KC_A ... KC_RGUI:                // for QWERTY
         case KC_GESC:
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
             break;
 #endif
             // Keycodes on the right side.
 #ifdef RGBLIGHT_ENABLE
         case MIDI_TONE_MIN ... MIDI_TONE_MAX:  // notes on the right side.
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
             break;
         // case KC_MUTE:
         case FN_MUTE:
-            keylight_manager(record, HSV_DARKGOLDENROD, keylocation);
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
             break;
 #endif
     }
