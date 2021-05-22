@@ -1,6 +1,7 @@
 #include "r65ble.h"
 #include <stdio.h>
 #include "dynamic_keymap.h"
+#include "uart.h"
 
 enum layer_names { _BASE, _FN, _SYS, _USER };
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
