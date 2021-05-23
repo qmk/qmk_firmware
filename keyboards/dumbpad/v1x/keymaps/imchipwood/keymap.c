@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include <print.h>
-#include <imchipwood.h>
+#include "imchipwood.h"
 
 #define _BASE 0
 #define _SUB 1
