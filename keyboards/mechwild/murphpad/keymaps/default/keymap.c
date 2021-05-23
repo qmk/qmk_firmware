@@ -34,18 +34,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MUTE, KC_P4,    KC_P5,   KC_P6,   KC_NO,
         MO(_FN1), KC_P1,    KC_P2,   KC_P3,   KC_PENT,
         KC_BSPC, KC_P0,    KC_NO,   KC_PDOT, KC_NO,
-		
+
 				     KC_F5,   KC_F6,    KC_F7
 
     ),
     [_FN1] = LAYOUT(
-                 _______,  _______, _______, _______,				
+                 _______,  _______, _______, _______,
                  _______,  _______, _______, _______,
                  RGB_HUD,  RGB_SPI, RGB_HUI, _______,
         _______, RGB_RMOD, RGB_TOG, RGB_MOD, KC_NO,
         _______, RGB_VAD,  RGB_SPD, RGB_VAI, _______,
         _______, RGB_SAD,  KC_NO,   RGB_SAI, KC_NO,
-		
+
                      _______, _______, _______
 
     ),
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______, _______, KC_NO,
         _______,  _______, _______, _______, _______,
         _______,  _______, _______, _______, KC_NO,
-				
+
                   _______, _______, _______
 
     ),
@@ -67,14 +67,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______, _______, KC_NO,
         _______,  _______, _______, _______, _______,
         _______,  _______, _______, _______, KC_NO,
-		
+
                   _______, _______, _______
 
     )
 };
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
         case 0:
             if (clockwise) {
@@ -84,7 +84,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             }
         break;
     }
-    
+    return true;
 }
 #endif
 
@@ -109,7 +109,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 	}
 
 	void oled_task_user(void) {
-		render_logo(); 
+		render_logo();
 		oled_set_cursor(0,6);
 
 		oled_write_ln_P(PSTR("Layer"), false);
