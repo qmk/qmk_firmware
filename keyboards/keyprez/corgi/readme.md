@@ -1,12 +1,12 @@
 # corgi
 
-![corgi](https://i.imgur.com/XctcpVr.jpeg)
+![corgi](https://i.imgur.com/XctcpVrh.jpeg)
 
-*Corgi is a semi modular 4 x 12 ortho keyboard. The unique thing with Corgi is that you can attach a macropad name "Flea" to use as a num/macro-pad.*
+Corgi is a semi modular 4 x 12 ortho keyboard. The unique thing with Corgi is that you can attach a macropad name "Flea" to use as a num/macro-pad.
 
 * Keyboard Maintainer: [Christian Sandven](https://github.com/csandven)
-* Hardware Supported: *Pro Micro or Elite C is required*
-* Hardware Availability: *TBA*
+* Hardware Supported: Pro Micro or Elite C is required
+* Hardware Availability: TBA
 
 Make example for this keyboard (after setting up your build environment):
 
