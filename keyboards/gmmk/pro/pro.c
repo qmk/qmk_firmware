@@ -14,3 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "pro.h"
+
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = { {
+  { 0,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { 1,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { 2,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { 3,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED}
+}, {
+    { 0, 0 }, { 0, 1 }, { 0, 2 }, { 0, 3 }
+}, {
+    4, 4, 4, 4
+} };
+#endif

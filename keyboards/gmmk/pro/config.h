@@ -52,3 +52,5 @@
 #define SPI_SCK_PIN A5
 #define SPI_MOSI_PIN A6
 #define SPI_MISO_PIN A7
+
+#define DRIVER_LED_TOTAL 4
