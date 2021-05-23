@@ -154,38 +154,45 @@ dfu-split-left: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 	$(call EXEC_DFU,eeprom-righthand.eep)
 
+AVRDUDE_PROGRAMMER ?= avrdude
+
 define EXEC_AVRDUDE
-	USB= ;\
-	if $(GREP) -q -s Microsoft /proc/version; then \
-		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using QMK Toolbox, AVRDUDE, AVRDUDESS, or XLoader.'; \
-	else \
-		printf "Detecting USB port, reset your controller now."; \
-		TMP1=`mktemp`; \
-		TMP2=`mktemp`; \
-		ls /dev/tty* > $$TMP1; \
-		while [ -z $$USB ]; do \
-			sleep 0.5; \
-			printf "."; \
-			ls /dev/tty* > $$TMP2; \
-			USB=`comm -13 $$TMP1 $$TMP2 | $(GREP) -o '/dev/tty.*'`; \
-			mv $$TMP2 $$TMP1; \
-		done; \
-		rm $$TMP1; \
-		echo ""; \
-		echo "Device $$USB has appeared; assuming it is the controller."; \
-		if $(GREP) -q -s 'MINGW\|MSYS' /proc/version; then \
-			USB=`echo "$$USB" | perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
-			echo "Remapped MSYS2 USB port to $$USB"; \
-			sleep 1; \
+	list_devices() { \
+		if $(GREP) -q -s icrosoft /proc/version; then \
+		    wmic.exe path Win32_SerialPort get DeviceID 2>/dev/null | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | xargs echo -n | sort; \
+		elif [ "`uname`" = "FreeBSD" ]; then \
+			ls /dev/tty* | grep -v '\.lock$$' | grep -v '\.init$$'; \
 		else \
-			printf "Waiting for $$USB to become writable."; \
-			while [ ! -w "$$USB" ]; do sleep 0.5; printf "."; done; echo ""; \
+			ls /dev/tty*; \
 		fi; \
-		if [ -z "$(1)" ]; then \
-			avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
-		else \
-			avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex -U eeprom:w:$(QUANTUM_PATH)/split_common/$(1); \
-		fi \
+	}; \
+	USB= ;\
+	printf "Detecting USB port, reset your controller now."; \
+	TMP1=`mktemp`; \
+	TMP2=`mktemp`; \
+	list_devices > $$TMP1; \
+	while [ -z "$$USB" ]; do \
+		sleep 0.5; \
+		printf "."; \
+		list_devices > $$TMP2; \
+		USB=`comm -13 $$TMP1 $$TMP2 | $(GREP) -o '/dev/tty.*'`; \
+		mv $$TMP2 $$TMP1; \
+	done; \
+	rm $$TMP1; \
+	echo ""; \
+	echo "Device $$USB has appeared; assuming it is the controller."; \
+	if $(GREP) -q -s 'MINGW\|MSYS\|icrosoft' /proc/version; then \
+		USB=`echo "$$USB" | LANG=C perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
+		echo "Remapped USB port to $$USB"; \
+		sleep 1; \
+	else \
+		printf "Waiting for $$USB to become writable."; \
+		while [ ! -w "$$USB" ]; do sleep 0.5; printf "."; done; echo ""; \
+	fi; \
+	if [ -z "$(1)" ]; then \
+		$(AVRDUDE_PROGRAMMER) -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
+	else \
+		$(AVRDUDE_PROGRAMMER) -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex -U eeprom:w:$(QUANTUM_PATH)/split_common/$(1); \
 	fi
 endef
 
@@ -204,7 +211,7 @@ avrdude-split-right: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_AVRDUDE,eeprom-righthand.eep)
 
 define EXEC_USBASP
-	avrdude -p $(AVRDUDE_MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+	$(AVRDUDE_PROGRAMMER) -p $(AVRDUDE_MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 endef
 
 usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
