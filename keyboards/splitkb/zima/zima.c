@@ -95,9 +95,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifdef ENCODER_ENABLE
 __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
-        tap_code16(KC_VOLU);
-    } else {
         tap_code16(KC_VOLD);
+    } else {
+        tap_code16(KC_VOLU);
     }
 #    ifdef OLED_DRIVER_ENABLE
     oled_timer = timer_read32();

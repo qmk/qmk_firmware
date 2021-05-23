@@ -1,1 +1,0 @@
-UNICODEMAP_ENABLE = yes

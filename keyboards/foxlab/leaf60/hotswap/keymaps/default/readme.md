@@ -1,1 +1,0 @@
-# The default keymap for Fox Lab Hotswap Leaf60

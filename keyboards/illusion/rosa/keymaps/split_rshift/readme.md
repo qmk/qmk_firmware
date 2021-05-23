@@ -1,1 +1,0 @@
-# The keymap with split right shift for the Rosa PCB
