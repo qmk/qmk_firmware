@@ -49,5 +49,3 @@ void ctlf5_finished(qk_tap_dance_state_t *state, void *user_data);
 void ctlf5_reset(qk_tap_dance_state_t *state, void *user_data);
 void altf7_finished(qk_tap_dance_state_t *state, void *user_data);
 void altf7_reset(qk_tap_dance_state_t *state, void *user_data);
-
-#endif
