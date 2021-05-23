@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
     * |     |  [  |  ]  |  (  |  )  |  $  |    |     |     |     |  A  |  R  |  E  |
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
-    * |     |     |  \  |  {  |  }  |     |    |     |     |     |  B  |  A  |  D  |
+    * |     |  `  |  \  |  {  |  }  |     |    |     |     |     |  B  |  A  |  D  |
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
     *             |     |     | Nav | Num |    | Sym | Sym |     |     |
     *             |Mute | Esc |Enter| Tab |    |Space|Bcksp| Del |Keyli|
@@ -123,8 +123,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_SYM_1] = LAYOUT_WRAP(
         _______, KC_EXLM,   KC_AT,    HASH, _______, _______,     TRANSPARENT_ROW,
-        _______, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN,  KC_DLR,     TRANSPARENT_ROW, 
-        _______, _______, KC_BSLS, KC_LCBR, KC_RCBR, _______,     TRANSPARENT_ROW, 
+        _______, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN,  KC_DLR,     TRANSPARENT_ROW,
+        _______,  KC_GRV, KC_BSLS, KC_LCBR, KC_RCBR, _______,     TRANSPARENT_ROW,
                                            TRANSPARENT_THUMB,     TRANSPARENT_THUMB
     ),
 
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
     * |     |  ~  |  *  |  £  |  =  |  &  |    |     |     |     |  A  |  R  |  E  |
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
-    * |     |  `  |     |  ^  |  %  |  |  |    |     |     |     |  B  |  A  |  D  |
+    * |     |     |     |  ^  |  %  |  |  |    |     |     |     |  B  |  A  |  D  |
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
     *             |     |     | Nav | Num |    | Sym | Sym |     |     |
     *             |Mute | Esc |Enter| Tab |    |Space|Bcksp| Del |Keyli|
@@ -142,8 +142,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_SYM_2] = LAYOUT_WRAP(
         _______, _______, _______, _______, _______, _______,     TRANSPARENT_ROW,
-        _______, KC_TILD,   POUND, KC_ASTR,  KC_EQL, KC_AMPR,     TRANSPARENT_ROW, 
-        _______,  KC_GRV, _______, KC_CIRC, KC_PERC, KC_PIPE,     TRANSPARENT_ROW, 
+        _______, KC_TILD,   POUND, KC_ASTR,  KC_EQL, KC_AMPR,     TRANSPARENT_ROW,
+        _______, _______, _______, KC_CIRC, KC_PERC, KC_PIPE,     TRANSPARENT_ROW,
                                            TRANSPARENT_THUMB,     TRANSPARENT_THUMB
     )
 };
