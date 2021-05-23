@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum torn_layers { _QWERTY, _NUM_SYM_LEFT, _NUM_SYM_RIGHT, _NAV_AND_MEDIA };
+enum torn_layers { _QWERTY, _NUMBERS, _NAV_MEDIA, _SYM_1, _SYM_2 };
 
 enum torn_keycodes {
     KL_TOG = SAFE_RANGE,
@@ -34,8 +34,8 @@ enum torn_keycodes {
 
 #define HL(k1, k2, k3, k4, k5) LCTL_T(k1), LALT_T(k2), LCMD_T(k3), LSFT_T(k4),  MT(MOD_HYPR, k5),
 #define HR(k1, k2, k3, k4, k5) MT(MOD_HYPR, k1), RSFT_T(k2), RCMD_T(k3), RALT_T(k4), RCTL_T(k5)
-#define THUMB_LEFT KC__MUTE, KC_ESC, LT(_NUM_SYM_RIGHT, KC_ENT), LT(_NAV_AND_MEDIA, KC_TAB)
-#define THUMB_RIGHT KC_SPC, LT(_NUM_SYM_LEFT, KC_BSPC), KC_DEL, KL_TOG
+#define THUMB_LEFT KC__MUTE, KC_ESC, LT(_NAV_MEDIA, KC_ENT), LT(_NUMBERS, KC_TAB)
+#define THUMB_RIGHT LT(_SYM_2, KC_SPC), LT(_SYM_1, KC_BSPC), KC_DEL, KL_TOG
 
 #define TRANSPARENT_ROW _______, _______, _______, _______, _______, _______
 #define TRANSPARENT_THUMB _______, _______, _______, _______
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
     * |SCRSH|  Z  |  X  |  C  |  V  |  B  |    |  N  |  M  |  ,  |  .  |  /  |CLPHS|
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
-    *             |     |     | NS1 |NvMed|    |     | NS2 |     |     |
+    *             |     |     | Nav | Num |    | Sym | Sym |     |     |
     *             |Mute | Esc |Enter| Tab |    |Space|Bcksp| Del |Keyli|
     *            `------------------------'    `-----------------------'
     */    
@@ -69,80 +69,107 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          PASTE, HL(KC_A, KC_S, KC_D, KC_F, KC_G)   HR(KC_H, KC_J, KC_K,    KC_L,   KC_SCLN), KC_QUOT,
         SCRNSH,    KC_Z, KC_X, KC_C, KC_V, KC_B,      KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH,  CLPHST, 
                                     THUMB_LEFT,       THUMB_RIGHT
-    ),      
-
-    /* Numbers & Symbols - Left
-    * ,-----------------------------------.    ,-----------------------------------.
-    * |     |  1  |  2  |  3  |  4  |  5  |    |  C  |  H  |  O  |  R  |  D  |  S  |
-    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
-    * |     |  !  |  @  |  *  |  #  |  =  |    |     |     |     |  A  |  R  |  E  |
-    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
-    * |     |  £  |  `  |  ^  |  %  |  &  |    |     |     |     |  B  |  A  |  D  |
-    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
-    *             |Ctrl | Alt |Lower| Cmd |    | Cmd |Raise| Alt |Ctrl |
-    *             | Esc |  =  |Enter|Space|    |Space|Bcksp|  '  |Keyli|
-    *            `------------------------'    `-----------------------'
-    */
-    [_NUM_SYM_LEFT] = LAYOUT_WRAP(
-        _______,    KC_1,   KC_2,    KC_3,    KC_4,    KC_5,     TRANSPARENT_ROW,
-        _______, KC_EXLM,  KC_AT, KC_ASTR,    HASH,  KC_EQL,     TRANSPARENT_ROW, 
-        _______,   POUND, KC_GRV, KC_CIRC, KC_PERC, KC_AMPR,     TRANSPARENT_ROW, 
-                                          TRANSPARENT_THUMB,     TRANSPARENT_THUMB
     ),
-
-    /* Numbers & Symbols - Right
-    * ,-----------------------------------.    ,------------------------------------.
-    * |  C  |  H  |  O  |  R  |  D  |  S  |    |  6  |  7  |  8  |  9  |  0  |      |
-    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+------|
-    * |  A  |  R  |  E  |     |     |     |    |  $  |  (  |  )  |  [  |  ]  |      |
-    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+------|
-    * |  B  |  A  |  D  |     |     |     |    |  |  |  {  |  }  |     |  \  |      |
-    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+------|
-    *             |Ctrl | Alt |Lower| Cmd |    | Cmd |Raise| Alt |Ctrl |
-    *             | Esc |  =  |Enter|Space|    |Space|Bcksp|  '  |Keyli|
-    *            `------------------------'    `-----------------------'
-    */
-    [_NUM_SYM_RIGHT] = LAYOUT_WRAP(
-          TRANSPARENT_ROW,      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-          TRANSPARENT_ROW,      KC_DLR,  KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, _______, 
-          TRANSPARENT_ROW,      KC_PIPE, KC_LCBR, KC_RCBR, _______, KC_BSLS, _______, 
-        TRANSPARENT_THUMB,      TRANSPARENT_THUMB
-    ),
-
-   
 
     /* Navigation & Media
     * ,-----------------------------------.    ,------------------------------------.
-    * |  C  |  H  |  O  |  R  |  D  |  S  |    |     |Pause|Prev.|Next |     |      |
+    * |  C  |  H  |  O  |  R  |  D  |  S  |    |     | L+A | R+A | L+C | R+C |
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+------|
-    * |  A  |  R  |  E  |     |     |     |    |     |Left |Right| Up  |Down |      |
+    * |  A  |  R  |  E  |     |     |     |    |Caps |Left |Right| Up  |Down |      |
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+------|
-    * |  B  |  A  |  D  |     |     |     |    |     |Mute |VolDw|VolUp|     |      |
+    * |  B  |  A  |  D  |     |     |     |    |     |Pause|Prev.|Next |     |      |
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+------|
-    *             |Ctrl | Alt |Lower| Cmd |    | Cmd |Raise| Alt |Ctrl |
-    *             | Esc |  =  |Enter|Space|    |Space|Bcksp|  '  |Keyli|
+    *             |     |     | Nav | Num |    | Sym | Sym |     |     |
+    *             |Mute | Esc |Enter| Tab |    |Space|Bcksp| Del |Keyli|
     *            `------------------------'    `-----------------------'
     */
-    [_NAV_AND_MEDIA] = LAYOUT_WRAP(
-          TRANSPARENT_ROW,      _______, PLYPSE,  PRVTRK,  NXTTRK, _______, _______,
-          TRANSPARENT_ROW,      _______, KC_LEFT, KC_RGHT, KC_UP,  KC_DOWN, _______, 
-          TRANSPARENT_ROW,      _______, VOLMUT,  VOLDWN,  VOLDWN, _______, _______, 
+    [_NAV_MEDIA] = LAYOUT_WRAP(
+          TRANSPARENT_ROW,      _______, A(KC_LEFT), A(KC_RIGHT), C(KC_LEFT), C(KC_RIGHT), _______,
+          TRANSPARENT_ROW,      KC_CAPS, KC_LEFT,    KC_RGHT,     KC_UP,      KC_DOWN,     _______, 
+          TRANSPARENT_ROW,      _______, PLYPSE,     PRVTRK,      NXTTRK,     _______,     _______, 
         TRANSPARENT_THUMB,      TRANSPARENT_THUMB
     ),
+
+    /* Numbers
+    * ,-----------------------------------.    ,------------------------------------.
+    * |  C  |  H  |  O  |  R  |  D  |  S  |    |  *  |  7  |  8  |  9  |     |      |
+    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+------|
+    * |  A  |  R  |  E  |     |     |     |    |  +  |  4  |  5  |  6  |  0  |      |
+    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+------|
+    * |  B  |  A  |  D  |     |     |     |    |     |  1  |  2  |  3  |     |      |
+    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+------|
+    *             |     |     | Nav | Num |    | Sym | Sym |     |     |
+    *             |Mute | Esc |Enter| Tab |    |Space|Bcksp| Del |Keyli|
+    *            `------------------------'    `-----------------------'
+    */    
+   [_NUMBERS] = LAYOUT_WRAP(
+          TRANSPARENT_ROW,      KC_ASTR, KC_7, KC_8, KC_9, _______, _______,
+          TRANSPARENT_ROW,      KC_PPLS, KC_4, KC_5, KC_6, KC_0,    _______, 
+          TRANSPARENT_ROW,      _______, KC_1, KC_2, KC_3, _______, _______, 
+        TRANSPARENT_THUMB,      TRANSPARENT_THUMB
+    ),
+
+    /* Symbols 1
+    * ,-----------------------------------.    ,-----------------------------------.
+    * |     |     |     |     |     |     |    |  C  |  H  |  O  |  R  |  D  |  S  |
+    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
+    * |     |  [  |  ]  |  (  |  )  |  $  |    |     |     |     |  A  |  R  |  E  |
+    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
+    * |     |     |  \  |  {  |  }  |     |    |     |     |     |  B  |  A  |  D  |
+    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
+    *             |     |     | Nav | Num |    | Sym | Sym |     |     |
+    *             |Mute | Esc |Enter| Tab |    |Space|Bcksp| Del |Keyli|
+    *            `------------------------'    `-----------------------'
+    */
+    [_SYM_1] = LAYOUT_WRAP(
+        _______, _______, _______, _______, _______, _______,     TRANSPARENT_ROW,
+        _______, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN,  KC_DLR,     TRANSPARENT_ROW, 
+        _______, _______, KC_BSLS, KC_LCBR, KC_RCBR, _______,     TRANSPARENT_ROW, 
+                                           TRANSPARENT_THUMB,     TRANSPARENT_THUMB
+    ),
+
+    /* Symbols 2
+    * ,-----------------------------------.    ,-----------------------------------.
+    * |     |  !  |  @  |  #  |     |     |    |  C  |  H  |  O  |  R  |  D  |  S  |
+    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
+    * |     |  ~  |  *  |  £  |  =  |  &  |    |     |     |     |  A  |  R  |  E  |
+    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
+    * |     |  `  |     |  ^  |  %  |  |  |    |     |     |     |  B  |  A  |  D  |
+    * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
+    *             |     |     | Nav | Num |    | Sym | Sym |     |     |
+    *             |Mute | Esc |Enter| Tab |    |Space|Bcksp| Del |Keyli|
+    *            `------------------------'    `-----------------------'
+    */
+    [_SYM_2] = LAYOUT_WRAP(
+        _______, KC_EXLM,   KC_AT,    HASH, _______, _______,     TRANSPARENT_ROW,
+        _______, KC_TILD,   POUND, KC_ASTR,  KC_EQL, KC_AMPR,     TRANSPARENT_ROW, 
+        _______,  KC_GRV, _______, KC_CIRC, KC_PERC, KC_PIPE,     TRANSPARENT_ROW, 
+                                           TRANSPARENT_THUMB,     TRANSPARENT_THUMB
+    )
 };
 
 const uint16_t PROGMEM encoder_keymaps[][2][2] = {
     [_QWERTY]        =  { { VOLDWN,  VOLUP   },  { KL_BDN,  KL_BUP  } },
-    [_NUM_SYM_LEFT]  =  { { _______, _______ },  { KL_TDN,  KL_TUP } },
-    [_NUM_SYM_RIGHT] =  { { _______, _______ },  { _______, _______ } },
-    [_NAV_AND_MEDIA] =  { { _______, _______ },  { _______, _______ } },
+    [_NAV_MEDIA]  =  { { _______, _______ },  { KL_TDN,  KL_TUP } },
+    [_NUMBERS] =  { { _______, _______ },  { _______, _______ } },
+    [_SYM_1] =  { { _______, _______ },  { _______, _______ } },
+    [_SYM_2] =  { { _______, _______ },  { _______, _______ } },
 };
 // clang-format on
 
+void hyper_tap(const char *letter) {
+    SEND_STRING(SS_DOWN(X_LSFT)SS_DOWN(X_LGUI)SS_DOWN(X_LCTL)SS_DOWN(X_LALT));
+    for (int i = 0; letter[i] != 0x0; i++) {
+        register_code(letter[i]);
+        unregister_code(letter[i]);
+    }
+    SEND_STRING(SS_UP(X_LSFT)SS_UP(X_LGUI)SS_UP(X_LCTL)SS_UP(X_LALT));
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    torn_set_led(0, IS_LAYER_ON_STATE(state, _NUM_SYM_RIGHT));
-    torn_set_led(1, IS_LAYER_ON_STATE(state, _NUM_SYM_LEFT));
-    torn_set_led(2, IS_LAYER_ON_STATE(state, _NAV_AND_MEDIA));
+    torn_set_led(0, IS_LAYER_ON_STATE(state, _NAV_MEDIA) || IS_LAYER_ON_STATE(state, _SYM_2));
+    torn_set_led(1, IS_LAYER_ON_STATE(state, _NUMBERS));
+    torn_set_led(2, IS_LAYER_ON_STATE(state, _SYM_1) || IS_LAYER_ON_STATE(state, _SYM_2));
     return state;
 };
 
@@ -215,10 +242,4 @@ bool encoder_update_user(uint16_t keycode, bool clockwise) {
     }
     
     return true;
-}
-
-void hyper_tap(string letter) {
-    SEND_STRING(SS_DOWN(X_LSFT)SS_DOWN(X_LGUI)SS_DOWN(X_LCTL)SS_DOWN(X_LALT));
-    SEND_STRING(letter);
-    SEND_STRING(SS_UP(X_LSFT)SS_UP(X_LGUI)SS_UP(X_LCTL)SS_UP(X_LALT));
 }
