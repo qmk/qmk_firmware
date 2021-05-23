@@ -32,6 +32,7 @@ static uint8_t encoder_state  = 0;
 static int8_t  encoder_pulses = 0;
 
 __attribute__((weak)) extern const uint16_t PROGMEM encoder_keymaps[][2][2];
+__attribute__((weak)) bool encoder_update_user_torn(uint16_t keycode, bool clockwise);
 
 const uint16_t encoder_default[2][2] =  { { KC_PGDN, KC_PGUP }, { KC__VOLDOWN, KC__VOLUP } };
 
@@ -50,7 +51,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
       code = encoder_default[index][clockwise];
     }
 
-    if (encoder_update_user(code, clockwise) == false) {
+    if (encoder_update_user_torn(code, clockwise) == false) {
         tap_code16(code);
     }
     return true;
