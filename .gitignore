@@ -76,3 +76,7 @@ __pycache__
 
 # Allow to exist but don't include it in the repo
 user_song_list.h
+BOP/.vs/kb/v16/.suo
+*.db
+BOP/.vs/VSWorkspaceState.json
+BOP/.vscode/settings.json

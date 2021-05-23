@@ -4,9 +4,9 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
+#define VENDOR_ID       0x666b // fk
+#define PRODUCT_ID      0x626F // bo
+#define DEVICE_VER      0x0001 // rev 1
 #define MANUFACTURER    fruitykeeb
 #define PRODUCT         bop
 #define DESCRIPTION     bop is a 6x20 ortholinear keyboard that uses the Teensy++2.0 Controller
