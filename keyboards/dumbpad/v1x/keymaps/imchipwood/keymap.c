@@ -17,8 +17,10 @@
 #include <print.h>
 #include "imchipwood.h"
 
-#define _BASE 0
-#define _SUB 1
+enum custom_layers {
+    _BASE,
+    _SUB,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
