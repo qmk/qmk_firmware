@@ -1,18 +1,6 @@
-# # project specific files
-SRC = matrix.c
-
-
-USB = /dev/ttyACM0
-
-OPT_DEFS += -DCHIMERA_ORTHO_PROMICRO
-CHIMERA_ORTHO_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
-                         avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
-
-
 # MCU name
 MCU = atmega32u2
 BOOTLOADER = caterina
-
 
 
 # Build Options
@@ -30,10 +18,10 @@ CUSTOM_MATRIX = yes    # Remote matrix from the wireless bridge
 NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 # MIDI_ENABLE = YES 		# MIDI controls
-UNICODE_ENABLE = yes 		# Unicode
-# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 
 VIA_ENABLE = yes
 LTO_ENABLE = yes
 
+# # project specific file
+SRC += matrix.c

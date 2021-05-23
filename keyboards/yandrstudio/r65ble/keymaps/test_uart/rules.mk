@@ -3,4 +3,7 @@ OPT_ENABLE = yes
 WPM_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
 CONSOLE_ENABLE = no
-QUANTUM_LIB_SRC += uart.c
+# QUANTUM_LIB_SRC += uart.c
+
+BIU_BLE5_ENABLE = yes
+
