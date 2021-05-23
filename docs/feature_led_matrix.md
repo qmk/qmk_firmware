@@ -257,6 +257,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 ```c
 #define LED_MATRIX_KEYPRESSES // reacts to keypresses
 #define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
+#define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #define LED_DISABLE_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
 #define LED_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
 #define LED_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
