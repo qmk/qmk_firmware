@@ -350,7 +350,11 @@ endif
 VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
-BACKLIGHT_DRIVER ?= pwm
+ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
+    BACKLIGHT_DRIVER ?= software
+else
+    BACKLIGHT_DRIVER ?= pwm
+endif
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(filter $(BACKLIGHT_DRIVER),$(VALID_BACKLIGHT_TYPES)),)
         $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
