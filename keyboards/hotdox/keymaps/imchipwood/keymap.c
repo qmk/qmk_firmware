@@ -17,9 +17,11 @@
 #include "imchipwood.h"
 
 // Layer names
-#define _QWERTY     0 // default layer
-#define _NUM    1 // numbers/etc.
-#define _MED      2 // media keys
+enum custom_layers {
+    _QWERTY,
+    _NUM,
+    _MED
+};
 
 // Layer definitions
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
