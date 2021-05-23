@@ -65,7 +65,7 @@ __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) { re
 
 static void encoder_update_handler(uint8_t index, bool clockwise) {
 #ifdef ENCODER_KEYMAPPING
-#    ifndef ENCODER_STRICT_KEYMAP
+#    ifdef ENCODER_PROCESS_CALLBACKS
     if (encoder_update_kb(index, clockwise))
 #    endif
     {
