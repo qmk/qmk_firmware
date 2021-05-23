@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001 // rev 1
 #define MANUFACTURER    fruitykeeb
 #define PRODUCT         bop
-#define DESCRIPTION     bop is a 6x20 ortholinear keyboard that uses the Teensy++2.0 Controller
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -26,7 +25,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCe 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
