@@ -41,6 +41,8 @@
     { k04_00, k04_01, k04_02, KC_NO,  k04_04, KC_NO,  k04_06, KC_NO,  k04_08, KC_NO,  k04_10, KC_NO,  k04_12, k04_13, KC_NO  }  \
 }
 
+// TODO: connect alt gr 7u to column 11
+
 // LAYOUT_60_abnt2
 // LAYOUT_60_ansi
 // LAYOUT_60_ansi_split_bs_rshift
