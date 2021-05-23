@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Symbols 1
     * ,-----------------------------------.    ,-----------------------------------.
-    * |     |     |     |     |     |     |    |  C  |  H  |  O  |  R  |  D  |  S  |
+    * |     |  !  |  @  |  #  |     |     |    |  C  |  H  |  O  |  R  |  D  |  S  |
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
     * |     |  [  |  ]  |  (  |  )  |  $  |    |     |     |     |  A  |  R  |  E  |
     * |-----+-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----+-----|
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *            `------------------------'    `-----------------------'
     */
     [_SYM_1] = LAYOUT_WRAP(
-        _______, _______, _______, _______, _______, _______,     TRANSPARENT_ROW,
+        _______, KC_EXLM,   KC_AT,    HASH, _______, _______,     TRANSPARENT_ROW,
         _______, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN,  KC_DLR,     TRANSPARENT_ROW, 
         _______, _______, KC_BSLS, KC_LCBR, KC_RCBR, _______,     TRANSPARENT_ROW, 
                                            TRANSPARENT_THUMB,     TRANSPARENT_THUMB
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *            `------------------------'    `-----------------------'
     */
     [_SYM_2] = LAYOUT_WRAP(
-        _______, KC_EXLM,   KC_AT,    HASH, _______, _______,     TRANSPARENT_ROW,
+        _______, _______, _______, _______, _______, _______,     TRANSPARENT_ROW,
         _______, KC_TILD,   POUND, KC_ASTR,  KC_EQL, KC_AMPR,     TRANSPARENT_ROW, 
         _______,  KC_GRV, _______, KC_CIRC, KC_PERC, KC_PIPE,     TRANSPARENT_ROW, 
                                            TRANSPARENT_THUMB,     TRANSPARENT_THUMB
@@ -149,20 +149,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM encoder_keymaps[][2][2] = {
-    [_QWERTY]        =  { { VOLDWN,  VOLUP   },  { KL_BDN,  KL_BUP  } },
-    [_NAV_MEDIA]  =  { { _______, _______ },  { KL_TDN,  KL_TUP } },
-    [_NUMBERS] =  { { _______, _______ },  { _______, _______ } },
-    [_SYM_1] =  { { _______, _______ },  { _______, _______ } },
-    [_SYM_2] =  { { _______, _______ },  { _______, _______ } },
+    [_QWERTY]    =  { { VOLDWN,  VOLUP   },  { KL_BDN,  KL_BUP  } },
+    [_NAV_MEDIA] =  { { _______, _______ },  { KL_TDN,  KL_TUP  } },
+    [_NUMBERS]   =  { { _______, _______ },  { _______, _______ } },
+    [_SYM_1]     =  { { _______, _______ },  { _______, _______ } },
+    [_SYM_2]     =  { { _______, _______ },  { _______, _______ } },
 };
 // clang-format on
 
-void hyper_tap(const char *letter) {
+void hyper_tap(uint16_t code) {
     SEND_STRING(SS_DOWN(X_LSFT)SS_DOWN(X_LGUI)SS_DOWN(X_LCTL)SS_DOWN(X_LALT));
-    for (int i = 0; letter[i] != 0x0; i++) {
-        register_code(letter[i]);
-        unregister_code(letter[i]);
-    }
+    tap_code16(code);
     SEND_STRING(SS_UP(X_LSFT)SS_UP(X_LGUI)SS_UP(X_LCTL)SS_UP(X_LALT));
 }
 
@@ -178,7 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case KL_TOG:
         if (record->event.pressed) { 
-            hyper_tap("d");
+            hyper_tap(KC_D);
         } 
         return false;
     case HASH:
@@ -223,19 +220,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
-bool encoder_update_user(uint16_t keycode, bool clockwise) {
+bool encoder_update_user_torn(uint16_t keycode, bool clockwise) {
     switch (keycode) {
     case KL_BDN:
-        hyper_tap("p");
+        hyper_tap(KC_P);
         break;
     case KL_BUP:
-        hyper_tap("u");
+        hyper_tap(KC_U);
         break;
     case KL_TDN:
-        hyper_tap("e");
+        hyper_tap(KC_E);
         break;
     case KL_TUP:
-        hyper_tap("y");
+        hyper_tap(KC_Y);
         break;
     default:
         return false;
