@@ -1,8 +1,8 @@
 """Format C code according to QMK's style.
 """
-import subprocess
 from os import path
 from shutil import which
+from subprocess import CalledProcessError, DEVNULL, Popen, PIPE
 
 from argcomplete.completers import FilesCompleter
 from milc import cli
@@ -34,7 +34,7 @@ def find_diffs(files):
 
     for file in files:
         cli.log.debug('Checking for changes in %s', file)
-        clang_format = subprocess.Popen([find_clang_format(), file], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        clang_format = Popen([find_clang_format(), file], stdout=PIPE, stderr=PIPE, universal_newlines=True)
         diff = cli.run(['diff', '-u', f'--label=a/{file}', f'--label=b/{file}', str(file), '-'], stdin=clang_format.stdout, capture_output=True)
 
         if diff.returncode != 0:
@@ -51,11 +51,11 @@ def cformat_run(files):
     clang_format = [find_clang_format(), '-i']
 
     try:
-        cli.run(clang_format + list(map(str, files)), check=True, capture_output=False)
+        cli.run([*clang_format, *map(str, files)], check=True, capture_output=False, stdin=DEVNULL)
         cli.log.info('Successfully formatted the C code.')
         return True
 
-    except subprocess.CalledProcessError as e:
+    except CalledProcessError as e:
         cli.log.error('Error formatting C code!')
         cli.log.debug('%s exited with returncode %s', e.cmd, e.returncode)
         cli.log.debug('STDOUT:')
@@ -111,7 +111,7 @@ def cformat(cli):
 
     else:
         git_diff_cmd = ['git', 'diff', '--name-only', cli.args.base_branch, *core_dirs]
-        git_diff = cli.run(git_diff_cmd)
+        git_diff = cli.run(git_diff_cmd, stdin=DEVNULL)
 
         if git_diff.returncode != 0:
             cli.log.error("Error running %s", git_diff_cmd)
