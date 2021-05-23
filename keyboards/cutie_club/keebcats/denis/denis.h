@@ -40,3 +40,13 @@
     { k03_00, k03_01, k03_02, k03_03, k03_04, k03_05, k03_06, k03_07, k03_08, k03_09, k03_10, k03_11, k03_12, k03_13, KC_NO  }, \
     { k04_00, k04_01, k04_02, KC_NO,  k04_04, KC_NO,  k04_06, KC_NO,  k04_08, KC_NO,  k04_10, KC_NO,  k04_12, k04_13, KC_NO  }  \
 }
+
+// LAYOUT_60_abnt2
+// LAYOUT_60_ansi
+// LAYOUT_60_ansi_split_bs_rshift
+// LAYOUT_60_ansi_tsangan
+// LAYOUT_60_hhkb
+// LAYOUT_60_iso
+// LAYOUT_60_iso_split_bs_rshift
+// LAYOUT_60_iso_tsangan
+// LAYOUT_60_tsangan_hhkb
