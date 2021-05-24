@@ -569,7 +569,7 @@ void keyboard_post_init_user(void) {
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_sethsv(HSV_BLUE);
-    rgb_matrix_config.hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+    // rgb_matrix_config.hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS;  //  done in rgb_matrix_sethsv_eeprom_helper()
 #endif
 };
 
