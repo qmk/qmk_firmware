@@ -63,7 +63,11 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="2a03", ATTRS{idProduct}=="0036", ENV{ID_QMK
 ### Micro
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="2a03", ATTRS{idProduct}=="0037", ENV{ID_QMK}="1", ENV{ID_MM_DEVICE_IGNORE}="1"
 
-SUBSYSTEM=="hidraw", KERNEL=="hidraw*", ENV{ID_QMK}="1"
+# build and install the qmk_id utility to /lib/udev/
+SUBSYSTEM=="hidraw", KERNEL=="hidraw*", IMPORT{program}="qmk_id %S%p"
+
+# grant access to *all* hidraw devices
+# SUBSYSTEM=="hidraw", KERNEL=="hidraw*", ENV{ID_QMK}="1"
 
 ENV{ID_QMK}=="1", TAG+="uaccess"
 
