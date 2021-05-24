@@ -1,1 +1,1 @@
-# The default keymap for LP40-O
+# The default keymap for Technik-O
