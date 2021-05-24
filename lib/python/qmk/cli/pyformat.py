@@ -1,8 +1,8 @@
 """Format python code according to QMK's style.
 """
-from milc import cli
+from subprocess import CalledProcessError, DEVNULL
 
-import subprocess
+from milc import cli
 
 
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Flag only, don't automatically format.")
@@ -13,11 +13,11 @@ def pyformat(cli):
     edit = '--diff' if cli.args.dry_run else '--in-place'
     yapf_cmd = ['yapf', '-vv', '--recursive', edit, 'bin/qmk', 'lib/python']
     try:
-        cli.run(yapf_cmd, check=True, capture_output=False)
+        cli.run(yapf_cmd, check=True, capture_output=False, stdin=DEVNULL)
         cli.log.info('Python code in `bin/qmk` and `lib/python` is correctly formatted.')
         return True
 
-    except subprocess.CalledProcessError:
+    except CalledProcessError:
         if cli.args.dry_run:
             cli.log.error('Python code in `bin/qmk` and `lib/python` incorrectly formatted!')
         else:
