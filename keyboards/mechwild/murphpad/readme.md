@@ -5,7 +5,7 @@
 A DIY numpad kit with macro row, two additional keys, OLED, RGB Underglow, and encoder.
 
 * Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
-* Hardware Supported: MurphPad v2.0
+* Hardware Supported: MurphPad v3.1
 * Hardware Availability: [MurphPad on MechWild](https://mechwild.com/product/murphpad/)
 
 Make example for this keyboard (after setting up your build environment):
