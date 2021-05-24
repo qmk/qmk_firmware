@@ -1,9 +1,9 @@
 """Functions that help you work with QMK keymaps.
 """
 import json
-import subprocess
 import sys
 from pathlib import Path
+from subprocess import DEVNULL
 
 import argcomplete
 from milc import cli
@@ -12,7 +12,6 @@ from pygments.token import Token
 from pygments import lex
 
 import qmk.path
-import qmk.commands
 from qmk.keyboard import find_keyboard_from_dir, rules_mk
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
@@ -361,7 +360,7 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     return sorted(names)
 
 
-def _c_preprocess(path, stdin=None):
+def _c_preprocess(path, stdin=DEVNULL):
     """ Run a file through the C pre-processor
 
     Args:
@@ -371,7 +370,9 @@ def _c_preprocess(path, stdin=None):
     Returns:
         the stdout of the pre-processor
     """
-    pre_processed_keymap = qmk.commands.run(['cpp', path] if path else ['cpp'], stdin=stdin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    cmd = ['cpp', str(path)] if path else ['cpp']
+    pre_processed_keymap = cli.run(cmd, stdin=stdin)
+
     return pre_processed_keymap.stdout
 
 
