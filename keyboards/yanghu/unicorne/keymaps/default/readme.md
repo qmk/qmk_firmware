@@ -1,4 +1,4 @@
-![keymap](https://imgur.com/48cFzA5)
+![keymap](https://imgur.com/48cFzA5.jpg)
 
 # Default Unicorne Layout
 

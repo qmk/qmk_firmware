@@ -1,6 +1,6 @@
 # Unicorne
 
-![Unicorne](https://imgur.com/g1nN3b4)
+![Unicorne](https://imgur.com/g1nN3b4.jpg)
 
 A compact 40% (3x6\_4) single-piece angled ortholinear ergo keyboard kit
 inspired by crkbd, Kyria, Ferris and Reviung41. Features OLED display, audio
