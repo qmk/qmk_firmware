@@ -21,16 +21,41 @@ led_config_t g_led_config = { {
   { 1,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
   { 2,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
   { 3,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
-  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
-  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { 4,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
+  { 5,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
   { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
   { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
   { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
   { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
   { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED}
 }, {
-    { 0, 0 }, { 0, 1 }, { 0, 2 }, { 0, 3 }
+    { 0, 0 }, { 0, 1 }, { 0, 2 }, { 0, 3 }, { 0, 4 }, { 0, 5 }
 }, {
-    4, 4, 4, 4
+    4, 4, 4, 4, 4, 4
 } };
+
+//const aw_led g_aw_leds_1[DRIVER_1_LED_TOTAL] = {
+//    {0, 1, 2},
+//    {3, 4, 5},
+//    {6, 7, 8}
+//};
+//
+//const aw_led g_aw_leds_2[DRIVER_2_LED_TOTAL] = {
+//    {0, 1, 2},
+//    {3, 4, 5},
+//    {6, 7, 8}
+//};
+
+const aw_led g_aw_leds_1[DRIVER_1_LED_TOTAL] = {
+    {0, 1, 2},
+    {3, 4, 5},
+    {6, 7, 8},
+    {9, 10, 11},
+    {12, 13, 14},
+    {15, 16, 17},
+};
+
+const aw_led *g_aw_leds[DRIVER_COUNT] = {
+    g_aw_leds_1
+};
 #endif

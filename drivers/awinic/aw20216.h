@@ -19,6 +19,18 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+typedef struct aw_led {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+} aw_led;
+
+extern const aw_led g_aw_leds_1[DRIVER_1_LED_TOTAL];
+#ifdef DRIVER_2_LED_TOTAL
+extern const aw_led g_aw_leds_2[DRIVER_2_LED_TOTAL];
+#endif
+extern const aw_led *g_aw_leds[DRIVER_COUNT];
+
 
 void AW20216_init(void);
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
