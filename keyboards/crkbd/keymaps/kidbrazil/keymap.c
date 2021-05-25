@@ -1,9 +1,9 @@
 #include QMK_KEYBOARD_H
 #include "enums.h"
 #include "layer.h"
+#include "lufa.h"
 
 // [Init Variables] ----------------------------------------------------------//
-extern uint8_t is_master;
 // Oled timer similar to Drashna's
 static uint32_t oled_timer = 0;
 // Boolean to store LED state
@@ -13,35 +13,35 @@ bool master_oled_cleared = false;
 
 // [Keymaps] -----------------------------------------------------------------//
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	  [_QWERTY] = LAYOUT(
+	  [_QWERTY] = LAYOUT_split_3x6_3(
       KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T,                                  KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
       LSFT_T(KC_TAB), KC_A, KC_S, KC_D, KC_F, KC_G,                          KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
       KC_LCTL, KC_Z, KC_X, KC_C, KC_V, KC_B,                                 KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
                           LGUI_T(KC_PGUP), MO(_NUM), KC_SPC,         KC_ENT, MO(_SYM), LALT_T(KC_PGDN)
     ),
 
-	  [_NUM] = LAYOUT(
+	  [_NUM] = LAYOUT_split_3x6_3(
       KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5,                                      KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL,
       LSFT_T(KC_TAB), KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                         KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_F12, KC_NO,
       KC_LCTL, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,                               KC_PGUP, KC_PGDN, KC_HOME, KC_END, KC_F11, KC_NO,
                                LGUI_T(KC_PGUP), KC_TRNS, KC_SPC,         KC_ENT, KC_TRNS, LALT_T(KC_PGDN)
     ),
 
-	  [_SYM] = LAYOUT(
+	  [_SYM] = LAYOUT_split_3x6_3(
       KC_ESC, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,                                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
       LSFT_T(KC_TAB), RGB_TOG, KC_MPLY, KC_MUTE, KC_VOLU, KC_VOLD,                        KC_MINS, KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_GRV,
       KC_LCTL, KC_CALC, KC_MYCM, KC_MPRV, KC_MNXT, TG(_GAME),                             KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,
                                           LGUI_T(KC_PGUP), KC_TRNS, KC_SPC,       KC_ENT, KC_TRNS, LALT_T(KC_PGDN)
     ),
 
-	  [_GAME] = LAYOUT(
+	  [_GAME] = LAYOUT_split_3x6_3(
       KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T,                                   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,
       KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G,                                  KC_F7, KC_F8, KC_F9, KC_F10, KC_NO, KC_NO,
       KC_LCTL, KC_Z, KC_X, KC_C, KC_V, KC_TRNS,                               KC_PGUP, KC_PGDN, KC_NO, KC_NO, KC_NO, KC_NO,
                             KC_TAB, MO(_WEAPON), KC_SPC,              KC_ENT, KC_TRNS, KC_NO
       ),
 
-	  [_WEAPON] = LAYOUT(
+	  [_WEAPON] = LAYOUT_split_3x6_3(
       KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5,                                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_LSFT, KC_A, KC_S, KC_D, KC_F,                               KC_6, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_LCTL, KC_Z, KC_X, KC_C, KC_V,                               KC_7, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EEP_RST,
@@ -128,7 +128,7 @@ void matrix_scan_user(void) {
 #ifdef OLED_DRIVER_ENABLE
 // Init Oled and Rotate....
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!has_usb())
+    if (!is_keyboard_master())
       return OLED_ROTATION_180;  // flips the display 180 to see it from my side
     return rotation;
 }
@@ -176,7 +176,7 @@ void oled_task_user(void) {
     // First time out switches to logo as first indication of iddle.
     if (timer_elapsed32(oled_timer) > 100000 && timer_elapsed32(oled_timer) < 479999) {
         // Render logo on both halves before full timeout
-        if (is_master && !master_oled_cleared) {
+        if (is_keyboard_master() && !master_oled_cleared) {
             // Clear master OLED once so the logo renders properly
             oled_clear();
             master_oled_cleared = true;
@@ -202,7 +202,7 @@ void oled_task_user(void) {
                 render_logo();
                 break;
             default:
-                if (is_master) {
+                if (is_keyboard_master()) {
                     render_master_oled();
                 } else {
                     render_slave_oled();
