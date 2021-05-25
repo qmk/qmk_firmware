@@ -140,7 +140,7 @@ from . import cformat  # noqa
 from . import chibios  # noqa
 from . import clean  # noqa
 from . import compile  # noqa
-from . import config  # noqa
+from milc.subcommand import config  # noqa
 from . import docs  # noqa
 from . import doctor  # noqa
 from . import fileformat  # noqa
