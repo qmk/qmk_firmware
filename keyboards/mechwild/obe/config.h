@@ -30,6 +30,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
+#define EEPROM_I2C_24LC64
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095
+//#define I2C1_SCL B6
+//#define I2C1_SDA B7
+
+// I2C OLED defines
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
+
+#define I2C1_TIMINGR_SCLDEL 3U
+#define I2C1_TIMINGR_SDADEL 1U
+#define I2C1_TIMINGR_SCLH 	3U
+#define I2C1_TIMINGR_SCLL   9U
+
+
 /*
  * Keyboard Matrix Assignments
  *
@@ -41,12 +56,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { B12, B13, B14, B15, A8 }
-#define MATRIX_COL_PINS { A9, A10, B9, B8, B7, B6, B10, B4, B1, B0, A7, A6, A5, A4 }
+#define MATRIX_COL_PINS { A9, A10, B9, B8, A1, A2, B10, B4, B1, B0, A7, A6, A5, A4 }
 #define UNUSED_PINS
 
 /* encoder pins */
-#define ENCODERS_PAD_A { A2 }
-#define ENCODERS_PAD_B { A1 }
+//#define ENCODERS_PAD_A { A2 }
+//#define ENCODERS_PAD_B { A1 }
 
 /* encoder resolution */
 #define ENCODER_RESOLUTION 4
