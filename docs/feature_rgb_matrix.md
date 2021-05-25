@@ -343,7 +343,37 @@ const is31_led __flash g_is31_scaling[ISSI_MANUAL_SCALING] = {
 Where LED Index is the position of the LED in the `g_is31_leds` array. The `scaling` value between 0 and 255 to be written to the Scaling Register.
 
 ---
+# IS31FL3236 :id=is31fl3236
 
+There is basic support for addressable RGB matrix lighting with the I2C IS31FL3236 RGB controller. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3236
+```
+
+Configure the hardware via your `config.h`:
+
+```c
+// This is a 7-bit address, that gets left-shifted and bit 0
+// set to 0 for write, 1 for read (as per I2C protocol)
+// The address will vary depending on your wiring:
+// 00 <-> GND
+// 01 <-> SCL
+// 10 <-> SDA
+// 11 <-> VCC
+// ADDR1 represents A1:A0 of the 7-bit address.
+// The result is: 0b01111(ADDR1)
+#define DRIVER_ADDR_1 0b01111000
+
+#define DRIVER_LED_TOTAL 36
+```
+
+Currently only a single drivers is supported, but it would be trivial to support all 4 combinations.
+
+The RGB LEDs are assumed to be connected in an _RGB,RGB,RGB,..._ fashion sequentially from OUT1 to OUTx (where x is the total number of LEDs, 3 per RGB LED)
+
+---
 ### WS2812 :id=ws2812
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
