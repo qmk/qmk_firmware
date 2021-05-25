@@ -62,15 +62,14 @@ This matrix.c is quantum/matrix.c with the following additions:
 #### Adaptive delay (show delay time, MATRIX_IO_DELAY = 0)
  - `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/promicro/normal:default:flash`
 
-##### Press R0C0 key
+##### Press R0C1, R1C1 key
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
  - CH4: delay time
- - Frequency of matrix scan 1.98kHz (505us)
-
-![DS1Z_QuickPrint6](https://user-images.githubusercontent.com/2170248/115995982-7ce8f580-a618-11eb-870c-a043747d1288.png)
-![DS1Z_QuickPrint5](https://user-images.githubusercontent.com/2170248/115995533-98eb9780-a616-11eb-8270-c1f145576b88.png)
+ - Delay time 68us
+ - Frequency of matrix scan 1.77kHz (565us)
+ ![DS1Z_QuickPrint55](https://user-images.githubusercontent.com/2170248/119561268-ead33900-bddf-11eb-9cc4-7e04826486cf.png)
 
 #### Fast adaptive delay (show `matrix_scan()` time, MATRIX_IO_DELAY = 0)
  - `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay_fast handwired/symmetric70_proto/promicro/normal:default:flash`
@@ -78,22 +77,21 @@ This matrix.c is quantum/matrix.c with the following additions:
  - CH2: Row 1
  - CH3: Row 4
  - CH4: matrix_scan()
- - Execution time of matrix_scan()  426us
- - Frequency of matrix scan 2.11kHz (474us)
- ![DS1Z_QuickPrint52](https://user-images.githubusercontent.com/2170248/119240532-101b3980-bb8b-11eb-8600-b3e959f426d6.png)
+ - Execution time of matrix_scan()  382us
+ - Frequency of matrix scan 2.33kHz (428us)
+ ![DS1Z_QuickPrint56](https://user-images.githubusercontent.com/2170248/119561280-eeff5680-bddf-11eb-9576-e4cf64751955.png)
 
 #### Fast adaptive delay (show delay time, MATRIX_IO_DELAY = 0)
  - `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay_fast handwired/symmetric70_proto/promicro/normal:default:flash`
 
-##### Press R0C0 key
+##### Press R0C1, R1C1 key
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
  - CH4: delay time
- - Frequency of matrix scan 2.1kHz (475.5us)
-
-![DS1Z_QuickPrint53](https://user-images.githubusercontent.com/2170248/119240533-16111a80-bb8b-11eb-83a9-e2527d4c1b16.png)
-![DS1Z_QuickPrint54](https://user-images.githubusercontent.com/2170248/119240535-1c06fb80-bb8b-11eb-91da-bae33fbdd2d2.png)
+ - Delay time 11us
+ - Frequency of matrix scan 2.21kHz (452us)
+ ![DS1Z_QuickPrint57](https://user-images.githubusercontent.com/2170248/119561318-faeb1880-bddf-11eb-8592-694f9ecb2248.png)
 
 ### Proton C (STM32F303 72MHz)
 #### Default setting (show `matrix_scan()` time)
@@ -104,8 +102,7 @@ This matrix.c is quantum/matrix.c with the following additions:
  - CH4: matrix_scan()
  - Execution time of matrix_scan()  210us
  - Frequency of matrix scan 4.35kHz (230.0us)
-
-![DS1Z_QuickPrint16](https://user-images.githubusercontent.com/2170248/116131295-2ad2cd80-a707-11eb-8d0a-6f7912456e03.png)
+ ![DS1Z_QuickPrint16](https://user-images.githubusercontent.com/2170248/116131295-2ad2cd80-a707-11eb-8d0a-6f7912456e03.png)
 
 #### Allways call `matrix_output_unselect_delay()` (show `matrix_scan()` time, default MATRIX_IO_DELAY)
  - `make MTEST=matrix_debug_scan,allways_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
@@ -115,8 +112,7 @@ This matrix.c is quantum/matrix.c with the following additions:
  - CH4: matrix_scan()
  - Execution time of matrix_scan()  242us
  - Frequency of matrix scan 3.85kHz (260.0us)
-
-![DS1Z_QuickPrint17](https://user-images.githubusercontent.com/2170248/116131308-31f9db80-a707-11eb-8db7-d1960fa7b068.png)
+ ![DS1Z_QuickPrint17](https://user-images.githubusercontent.com/2170248/116131308-31f9db80-a707-11eb-8db7-d1960fa7b068.png)
 
 #### Adaptive delay (show `matrix_scan()` time, MATRIX_IO_DELAY = 0)
  - `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
@@ -126,44 +122,39 @@ This matrix.c is quantum/matrix.c with the following additions:
  - CH4: matrix_scan()
  - Execution time of matrix_scan()  76.4us
  - Frequency of matrix scan 10.6kHz (94.4us)
-
-![DS1Z_QuickPrint18](https://user-images.githubusercontent.com/2170248/116131369-44741500-a707-11eb-9c74-fa39d9e80947.png)
+ ![DS1Z_QuickPrint18](https://user-images.githubusercontent.com/2170248/116131369-44741500-a707-11eb-9c74-fa39d9e80947.png)
 
 #### Adaptive delay (show delay time, MATRIX_IO_DELAY = 0)
  - `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
 
-##### Press R0C0 key
+##### Press R0C1, R1C1 key
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
  - CH4: delay time
- - Delay time 7us
- - Frequency of matrix scan 9.6kHz (104.2us)
+ - Delay time 7.6us
+ - Frequency of matrix scan 9.47kHz (105.6us)
+ ![DS1Z_QuickPrint58](https://user-images.githubusercontent.com/2170248/119666783-a3e15400-be70-11eb-9a58-220032117efd.png)
 
-![DS1Z_QuickPrint19](https://user-images.githubusercontent.com/2170248/116131414-55bd2180-a707-11eb-9cb4-29ee25407c3b.png)
-![DS1Z_QuickPrint20](https://user-images.githubusercontent.com/2170248/116131443-5ce42f80-a707-11eb-847f-932949a7ddc3.png)
-
-##### Connect a 500pF capacitor between C0 line and GND, Press R0C0, R1C0, R2C0,  R3C0,  R4C0 keys
+##### Connect a 500pF capacitor between C2 line and GND, Press R0C2, R1C2, R2C2, R3C2, R4C2 keys
  - CH1: Row 0
  - CH2: Row 1
- - CH3: Col 0
+ - CH3: Col 2
  - CH4: delay time
- - Delay time 12us
- - Frequency of matrix scan 5.26kHz (190us)
+ - Delay time 12us + alpha
+ - Frequency of matrix scan 5.45kHz (183us)
  - Threshold Voltage 1.9V
+ ![DS1Z_QuickPrint59](https://user-images.githubusercontent.com/2170248/119666946-cc694e00-be70-11eb-9b97-4c500416d774.png)
 
-![DS1Z_QuickPrint21](https://user-images.githubusercontent.com/2170248/116131494-6c637880-a707-11eb-8efd-2088a6091892.png)
-
-##### Connect a 1000pF capacitor between C0 line and GND, Press R0C0, R1C0, R2C0,  R3C0,  R4C0 keys
+##### Connect a 1000pF capacitor between C2 line and GND, Press R0C2, R1C2, R2C2, R3C2, R4C2 keys
  - CH1: Row 0
  - CH2: Row 1
- - CH3: Col 0
+ - CH3: Col 2
  - CH4: delay time
- - Delay time 19.6us
- - Frequency of matrix scan 4.43kHz (225.6us)
+ - Delay time 20us + alpha
+ - Frequency of matrix scan 4.48kHz (223us)
  - Threshold Voltage 1.9V
-
-![DS1Z_QuickPrint22](https://user-images.githubusercontent.com/2170248/116131520-74231d00-a707-11eb-9812-ef6a38f99feb.png)
+ ![DS1Z_QuickPrint60](https://user-images.githubusercontent.com/2170248/119667127-f3c01b00-be70-11eb-8e7f-6f0a81f95e97.png)
 
 #### Fast adaptive delay (show `matrix_scan()` time, MATRIX_IO_DELAY = 0)
  - `make MTEST=matrix_debug_scan,mdelay0,adaptive_delay_fast handwired/symmetric70_proto/proton_c/normal:default:flash`
@@ -171,43 +162,39 @@ This matrix.c is quantum/matrix.c with the following additions:
  - CH2: Row 1
  - CH3: Row 4
  - CH4: matrix_scan()
- - Execution time of matrix_scan()  78.4us
- - Frequency of matrix scan 10.5kHz (95us)
- ![DS1Z_QuickPrint46](https://user-images.githubusercontent.com/2170248/119240512-ec57f380-bb8a-11eb-904f-8406dbaef065.png)
-
+ - Execution time of matrix_scan()  75.6us
+ - Frequency of matrix scan 10.8kHz (92.2us)
+ ![DS1Z_QuickPrint62](https://user-images.githubusercontent.com/2170248/119667218-0b979f00-be71-11eb-946c-16f0a0454056.png)
 
 #### Fast adaptive delay (show delay time, MATRIX_IO_DELAY = 0)
  - `make MTEST=matrix_debug_delay,mdelay0,adaptive_delay_fast handwired/symmetric70_proto/proton_c/normal:default:flash`
 
-##### Press R0C0 key
+##### Press R0C1, R1C1 key
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
  - CH4: delay time
- - Delay time 0.8us
- - Frequency of matrix scan 10.0kHz (99.6us)
+ - Delay time 1.6us
+ - Frequency of matrix scan 10.6kHz (94.4us)
+ ![DS1Z_QuickPrint63](https://user-images.githubusercontent.com/2170248/119667378-33870280-be71-11eb-95aa-64213138ddac.png)
+ ![DS1Z_QuickPrint64](https://user-images.githubusercontent.com/2170248/119667504-52859480-be71-11eb-963e-eebc6e3da9dc.png)
 
-![DS1Z_QuickPrint48](https://user-images.githubusercontent.com/2170248/119240515-f37f0180-bb8a-11eb-9376-dcd50797aff7.png)
-![DS1Z_QuickPrint47](https://user-images.githubusercontent.com/2170248/119240520-f7ab1f00-bb8a-11eb-834f-2d08789143d2.png)
-
-##### Connect a 500pF capacitor between C0 line and GND, Press R0C0, R1C0, R2C0,  R3C0,  R4C0 keys
+##### Connect a 500pF capacitor between C2 line and GND, Press R0C2, R1C2, R2C2, R3C2, R4C2 keys
  - CH1: Row 0
  - CH2: Row 1
- - CH3: Col 0
+ - CH3: Col 2
  - CH4: delay time
- - Delay time 11.6us
- - Frequency of matrix scan 7.06kHz (141.6us)
+ - Delay time 13.2us
+ - Frequency of matrix scan 6.58kHz (152.6us)
  - Threshold Voltage 1.9V
+ ![DS1Z_QuickPrint65](https://user-images.githubusercontent.com/2170248/119667644-72b55380-be71-11eb-8030-854de1900408.png)
 
-![DS1Z_QuickPrint50](https://user-images.githubusercontent.com/2170248/119240525-009bf080-bb8b-11eb-8bbf-b0bec139d32b.png)
-
-##### Connect a 1000pF capacitor between C0 line and GND, Press R0C0, R1C0, R2C0,  R3C0,  R4C0 keys
+##### Connect a 1000pF capacitor between C2 line and GND, Press R0C2, R1C2, R2C2, R3C2, R4C2 keys
  - CH1: Row 0
  - CH2: Row 1
- - CH3: Col 0
+ - CH3: Col 2
  - CH4: delay time
- - Delay time 18.4us
- - Frequency of matrix scan 5.94kHz (168.2.?us)
+ - Delay time 20us
+ - Frequency of matrix scan 5.30kHz (188.8us)
  - Threshold Voltage 1.9V
-
-![DS1Z_QuickPrint51](https://user-images.githubusercontent.com/2170248/119240530-0bef1c00-bb8b-11eb-97ce-7e5ba4386b3b.png)
+ ![DS1Z_QuickPrint66](https://user-images.githubusercontent.com/2170248/119667785-8f518b80-be71-11eb-8d40-fc3293aa072b.png)
