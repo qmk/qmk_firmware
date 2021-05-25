@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Standard encoder functionality
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     // Process encoder rotational movements
     if (index == 0) { /* First encoder */
         if (clockwise) {
@@ -46,6 +46,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_MS_WH_DOWN);
         }
     }
+    return true;
 }
 
 // Encoder press / tilt event handling

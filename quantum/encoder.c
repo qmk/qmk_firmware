@@ -85,9 +85,9 @@ static int8_t  encoder_pulses[NUMBER_OF_ENCODERS] = {0};
 
 static uint8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
 
-__attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
+__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return true; }
 
-__attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { encoder_update_user(index, clockwise); }
+__attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) { return encoder_update_user(index, clockwise); }
 
 // number of encoders connected to this controller
 static uint8_t numEncodersHere;
@@ -141,7 +141,7 @@ static bool encoder_update(int8_t index, uint8_t state) {
     int8_t resolution = isLeftHand ? encoder_resolutions[index] : encoder_resolutions_right[index - NUMBER_OF_ENCODERS_LEFT];
 #    endif
 #else
-    int8_t resolution = ENCODER_RESOLUTION;
+    uint8_t resolution = ENCODER_RESOLUTION;
 #endif
     encoder_pulses[index] += encoder_LUT[state & 0xF];
     if (encoder_pulses[index] >= resolution) {

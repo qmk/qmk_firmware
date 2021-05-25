@@ -23,3 +23,5 @@ AUDIO_ENABLE = no              # Audio output
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3741
 NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
+
+LTO_ENABLE = yes

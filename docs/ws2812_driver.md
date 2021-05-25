@@ -77,6 +77,25 @@ Configure the hardware via your config.h:
 
 You must also turn on the SPI feature in your halconf.h and mcuconf.h
 
+#### Circular Buffer Mode
+Some boards may flicker while in the normal buffer mode. To fix this issue, circular buffer mode may be used to rectify the issue. 
+
+By default, the circular buffer mode is disabled.
+
+To enable this alternative buffer mode, place this into your `config.h` file:
+```c
+#define WS2812_SPI_USE_CIRCULAR_BUFFER
+```
+
+#### Setting baudrate with divisor
+To adjust the baudrate at which the SPI peripheral is configured, users will need to derive the target baudrate from the clock tree provided by STM32CubeMX.
+
+Only divisors of 2, 4, 8, 16, 32, 64, 128 and 256 are supported by hardware.
+
+|Define              |Default|Description                          |
+|--------------------|-------|-------------------------------------|
+|`WS2812_SPI_DIVISOR`|`16`   |SPI source clock peripheral divisor  |
+
 #### Testing Notes
 
 While not an exhaustive list, the following table provides the scenarios that have been partially validated:
