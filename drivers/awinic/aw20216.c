@@ -16,7 +16,6 @@
 
 #include "aw20216.h"
 #include "spi_master.h"
-#include "print.h"
 
 // Data is sent MSB first, leading edge rising, sample on leading edge
 // Prescaler 8?
@@ -66,12 +65,6 @@ bool AW20216_write_register(pin_t slave_pin, uint8_t page, uint8_t reg, uint8_t 
     g_spi_transfer_buffer[0] = (AWINIC_ID | page | AW_WRITE);
     g_spi_transfer_buffer[1] = reg;
     g_spi_transfer_buffer[2] = data;
-    uprintf(
-       "%x %x %x\n",
-       g_spi_transfer_buffer[0],
-       g_spi_transfer_buffer[1],
-       g_spi_transfer_buffer[2]
-    );
 
     if (spi_transmit(g_spi_transfer_buffer, 3) != SPI_STATUS_SUCCESS) {
         spi_stop();
