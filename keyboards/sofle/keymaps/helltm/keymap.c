@@ -15,7 +15,6 @@
   */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
