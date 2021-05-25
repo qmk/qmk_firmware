@@ -45,7 +45,6 @@ static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
 #    define ENCODER_CLOCKWISE false
 #    define ENCODER_COUNTER_CLOCKWISE true
 #endif
-static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 
 static uint8_t encoder_state[NUMBER_OF_ENCODERS]  = {0};
 static int8_t  encoder_pulses[NUMBER_OF_ENCODERS] = {0};
@@ -84,7 +83,6 @@ void encoder_init(void) {
     for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
         setPinInputHigh(encoders_pad_a[i]);
         setPinInputHigh(encoders_pad_b[i]);
-
         encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
     }
 
@@ -94,9 +92,23 @@ void encoder_init(void) {
 #endif
 }
 
-static bool encoder_update(int8_t index, uint8_t state) {
-    bool    changed = false;
-    uint8_t i       = index;
+static uint8_t encoder_update(int8_t index, uint8_t state) {
+    state = state & 0xF;
+    if (state & 0x8) {
+        state = state ^ 0xF;
+    }
+    //static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, <-- mirror --> -1, 0, 0, 1, 0, 1, -1, 0};
+
+    int8_t pulse;
+    switch (state) {
+        case 1: 
+        case 7: pulse = -1; break;
+        case 2: 
+        case 4: pulse = 1; break;
+        default: return 0;
+    }
+
+    uint8_t i  = index;
 
 #ifdef ENCODER_RESOLUTIONS
     int8_t resolution = encoder_resolutions[i];
@@ -106,30 +118,36 @@ static bool encoder_update(int8_t index, uint8_t state) {
 
 #ifdef SPLIT_KEYBOARD
     index += thisHand;
-#endif
-    encoder_pulses[i] += encoder_LUT[state & 0xF];
+#endif  
+    encoder_pulses[i] += pulse;
     if (encoder_pulses[i] >= resolution) {
-        encoder_value[index]++;
-        changed = true;
-        encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
-    }
-    if (encoder_pulses[i] <= -resolution) {  // direction is arbitrary here, but this clockwise
-        encoder_value[index]--;
-        changed = true;
+        encoder_pulses[i] -= resolution;
         encoder_update_kb(index, ENCODER_CLOCKWISE);
     }
-    encoder_pulses[i] %= resolution;
-    return changed;
+    else if (encoder_pulses[i] <= -resolution) {
+        encoder_pulses[i] += resolution;
+        encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
+    } else {
+        return 0;
+    }
+#ifndef ENCODER_DIRECTION_FLIP
+    encoder_value[index] -= pulse;
+#else
+    encoder_value[index] += pulse;
+#endif
+    return 1;
 }
 
 bool encoder_read(void) {
-    bool changed = false;
+    uint8_t changed = 0;
     for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
-        encoder_state[i] <<= 2;
-        encoder_state[i] |= (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+        encoder_state[i] <<= 1;
+        encoder_state[i] |= readPin(encoders_pad_b[i]);
+        encoder_state[i] <<= 1;
+        encoder_state[i] |= readPin(encoders_pad_a[i]);
         changed |= encoder_update(i, encoder_state[i]);
     }
-    return changed;
+    return changed != 0;
 }
 
 #ifdef SPLIT_KEYBOARD
@@ -138,25 +156,26 @@ void last_encoder_activity_trigger(void);
 void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * NUMBER_OF_ENCODERS); }
 
 void encoder_update_raw(uint8_t* slave_state) {
-    bool changed = false;
-    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
-        uint8_t index = i + thatHand;
+    uint8_t changed = 0;
+    uint8_t index = thatHand;
+    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++, index++) {
         int8_t  delta = slave_state[i] - encoder_value[index];
+        bool    cw;
+        changed |= delta;
+        if (delta < 0) {
+            delta = -delta;
+            cw = ENCODER_CLOCKWISE;
+        } else {
+            cw = ENCODER_COUNTER_CLOCKWISE;
+        }
         while (delta > 0) {
             delta--;
-            encoder_value[index]++;
-            changed = true;
-            encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
+            encoder_update_kb(index, cw);
         }
-        while (delta < 0) {
-            delta++;
-            encoder_value[index]--;
-            changed = true;
-            encoder_update_kb(index, ENCODER_CLOCKWISE);
-        }
+        encoder_value[index] = slave_state[i];
     }
 
     // Update the last encoder input time -- handled external to encoder_read() when we're running a split
-    if (changed) last_encoder_activity_trigger();
+    if (changed != 0) last_encoder_activity_trigger();
 }
 #endif
