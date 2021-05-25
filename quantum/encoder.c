@@ -45,6 +45,7 @@ static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
 #    define ENCODER_CLOCKWISE false
 #    define ENCODER_COUNTER_CLOCKWISE true
 #endif
+static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1};
 
 static uint8_t encoder_state[NUMBER_OF_ENCODERS]  = {0};
 static int8_t  encoder_pulses[NUMBER_OF_ENCODERS] = {0};
@@ -97,16 +98,6 @@ static uint8_t encoder_update(int8_t index, uint8_t state) {
     if (state & 0x8) {
         state = state ^ 0xF;
     }
-    //static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, <-- mirror --> -1, 0, 0, 1, 0, 1, -1, 0};
-
-    int8_t pulse;
-    switch (state) {
-        case 1: 
-        case 7: pulse = -1; break;
-        case 2: 
-        case 4: pulse = 1; break;
-        default: return 0;
-    }
 
     uint8_t i  = index;
 
@@ -118,7 +109,9 @@ static uint8_t encoder_update(int8_t index, uint8_t state) {
 
 #ifdef SPLIT_KEYBOARD
     index += thisHand;
-#endif  
+#endif
+
+    int8_t pulse = encoder_LUT[state];
     encoder_pulses[i] += pulse;
     if (encoder_pulses[i] >= resolution) {
         encoder_pulses[i] -= resolution;
