@@ -5,8 +5,8 @@
  * calls 'chThdSleepMicroseconds(1)' when 'wait_us(0)'.
  * However, 'wait_us(0)' should do nothing. */
 void matrix_output_unselect_delay(void) {
-#   if MATRIX_IO_DELAY > 0
-    wait_us(MATRIX_IO_DELAY);
+#   if !defined(MATRIX_IO_DELAY) || MATRIX_IO_DELAY > 0
+    matrix_io_delay();
 #   endif
 }
 #endif
