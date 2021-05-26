@@ -305,6 +305,9 @@ int main(void) {
             // dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n", v_5v, v_5v_avg, v_5v_avg - V5_LOW, v_5v_avg - V5_HIGH, gcr_actual, gcr_desired);
         }
 #endif  // CONSOLE_ENABLE
+
+        // Run housekeeping
+        housekeeping_task();
     }
 
     return 1;

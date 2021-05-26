@@ -13,10 +13,9 @@ _qmk_install() {
 
     sudo apt-get -yq install \
         build-essential clang-format diffutils gcc git unzip wget zip \
-        python3-pip \
-        binutils-avr gcc-avr avr-libc \
-        binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi \
-        avrdude dfu-programmer dfu-util teensy-loader-cli libusb-dev
+        python3-pip binutils-avr gcc-avr avr-libc binutils-arm-none-eabi \
+        gcc-arm-none-eabi libnewlib-arm-none-eabi avrdude dfu-programmer \
+        dfu-util teensy-loader-cli libhidapi-hidraw0
 
     python3 -m pip install --user -r $QMK_FIRMWARE_DIR/requirements.txt
 }

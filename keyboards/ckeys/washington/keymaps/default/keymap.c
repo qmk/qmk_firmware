@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (biton32(layer_state)) {
         case _BASE:
             if (clockwise) {
@@ -55,6 +55,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 tap_code(KC_MPRV);
             }
     }
+    return true;
 }
 
 #ifdef OLED_DRIVER_ENABLE

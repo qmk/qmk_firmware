@@ -167,8 +167,11 @@ void pointing_device_task(void) {
 
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = TRACKBALL_DPI_DEFAULT;
+#ifdef POINTING_DEVICE_ENABLE
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+#endif
     eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
 }
 
 void matrix_init_kb(void) {
@@ -206,7 +209,7 @@ void pointing_device_send(void) {
 #endif
 
 #ifdef SWAP_HANDS_ENABLE
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     /* Left hand, matrix positions */
     {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},
     {{5, 7}, {4, 7}, {3, 7}, {2, 7}, {1, 7}, {0, 7}},

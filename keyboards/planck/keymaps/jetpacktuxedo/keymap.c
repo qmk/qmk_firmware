@@ -190,7 +190,7 @@ uint16_t muse_tempo = 20;
 
 extern float clicky_rand;
 
-void encoder_update(bool clockwise) {
+bool encoder_update(bool clockwise) {
   if (is_clicky_on()) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -238,6 +238,7 @@ void encoder_update(bool clockwise) {
       }
     }
   }
+    return true;
 }
 
 void dip_update(uint8_t index, bool active) {

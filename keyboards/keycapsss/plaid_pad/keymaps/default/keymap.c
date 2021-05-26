@@ -43,7 +43,7 @@ void oled_task_user(void) {
 
 #ifdef ENCODER_ENABLE
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
 /*
 Rev1.1                      Rev1
 ,-----------------------,   ,-----------------------,
@@ -86,6 +86,7 @@ Rev1.1                      Rev1
       tap_code(KC_F24);
     }
   }
+    return true;
 }
 
 #endif

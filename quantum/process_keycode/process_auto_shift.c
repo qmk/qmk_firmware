@@ -216,7 +216,18 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #    endif
         }
     }
+    if (get_auto_shifted_key(keycode, record)) {
+        if (record->event.pressed) {
+            return autoshift_press(keycode, now, record);
+        } else {
+            autoshift_end(keycode, now, false);
+            return false;
+        }
+    }
+    return true;
+}
 
+__attribute__((weak)) bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #    ifndef NO_AUTO_SHIFT_ALPHA
         case KC_A ... KC_Z:
@@ -229,14 +240,9 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         case KC_MINUS ... KC_SLASH:
         case KC_NONUS_BSLASH:
 #    endif
-            if (record->event.pressed) {
-                return autoshift_press(keycode, now, record);
-            } else {
-                autoshift_end(keycode, now, false);
-                return false;
-            }
+            return true;
     }
-    return true;
+    return false;
 }
 
 #endif

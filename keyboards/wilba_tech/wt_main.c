@@ -89,6 +89,29 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
     process_record_backlight(keycode, record);
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 
+    switch (keycode) {
+        case FN_MO13:
+            if (record->event.pressed) {
+                layer_on(1);
+                update_tri_layer(1, 2, 3);
+            } else {
+                layer_off(1);
+                update_tri_layer(1, 2, 3);
+            }
+            return false;
+            break;
+        case FN_MO23:
+            if (record->event.pressed) {
+                layer_on(2);
+                update_tri_layer(1, 2, 3);
+            } else {
+                layer_off(2);
+                update_tri_layer(1, 2, 3);
+            }
+            return false;
+            break;
+    }
+
     return process_record_user(keycode, record);
 }
 

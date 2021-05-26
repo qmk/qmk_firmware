@@ -24,7 +24,7 @@
 
 #if defined(SPLIT_KEYBOARD)
 #    define SPLIT_MODS_ENABLE
-// #    define SPLIT_TRANSPORT_MIRROR
+#    define SPLIT_TRANSPORT_MIRROR
 #    define SERIAL_USE_MULTI_TRANSACTION
 // #    define SPLIT_NUM_TRANSACTIONS_KB 2
 #endif
@@ -56,6 +56,8 @@
 #    else
 #        define RGBLIGHT_ANIMATIONS
 #    endif
+#    define RGBLIGHT_EFFECT_TWINKLE_LIFE  250
+#    define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1/24
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
@@ -115,6 +117,9 @@
 #        define OLED_UPDATE_INTERVAL 15
 #    endif
 #    define OLED_DISABLE_TIMEOUT
+#    ifdef OLED_FONT_H
+#        undef OLED_FONT_H
+#    endif
 #    define OLED_FONT_H "drashna_font.h"
 #    define OLED_FONT_END 255
 // #    define OLED_FONT_5X5
@@ -149,7 +154,9 @@
 #undef PERMISSIVE_HOLD
 //#define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
-#define TAPPING_TERM_PER_KEY
+#ifndef KEYBOARD_kyria_rev1
+#    define TAPPING_TERM_PER_KEY
+#endif
 
 #define FORCE_NKRO
 
