@@ -17,6 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
 
-#include "trackball_nano.h"
+#include QMK_KEYBOARD_H
+
+// safe range starts at `PLOOPY_SAFE_RANGE` instead.
+
+// placeholder file so it will compile
+
+void keyboard_pre_init_user() {
+    PloopyAcceleration = true;
+    PloopyNumlockScroll = true;
+    PloopyNumlockScrollVDir = -1;
+}
