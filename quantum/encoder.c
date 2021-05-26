@@ -99,7 +99,7 @@ static uint8_t encoder_update(int8_t index, uint8_t state) {
         state = state ^ 0xF;
     }
 
-    uint8_t i  = index;
+    uint8_t i = index;
 
 #ifdef ENCODER_RESOLUTIONS
     int8_t resolution = encoder_resolutions[i];
@@ -115,19 +115,15 @@ static uint8_t encoder_update(int8_t index, uint8_t state) {
     encoder_pulses[i] += pulse;
     if (encoder_pulses[i] >= resolution) {
         encoder_pulses[i] -= resolution;
-        encoder_update_kb(index, ENCODER_CLOCKWISE);
-    }
-    else if (encoder_pulses[i] <= -resolution) {
-        encoder_pulses[i] += resolution;
         encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
+    } else if (encoder_pulses[i] <= -resolution) {
+        encoder_pulses[i] += resolution;
+        encoder_update_kb(index, ENCODER_CLOCKWISE);
     } else {
         return 0;
     }
-#ifndef ENCODER_DIRECTION_FLIP
-    encoder_value[index] -= pulse;
-#else
+
     encoder_value[index] += pulse;
-#endif
     return 1;
 }
 
@@ -150,23 +146,26 @@ void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, &encoder_valu
 
 void encoder_update_raw(uint8_t* slave_state) {
     uint8_t changed = 0;
-    uint8_t index = thatHand;
+    uint8_t index   = thatHand;
     for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++, index++) {
-        int8_t  delta = slave_state[i] - encoder_value[index];
-        bool    cw;
-        changed |= delta;
-        if (delta < 0) {
-            delta = -delta;
-            cw = ENCODER_CLOCKWISE;
-        } else {
-            cw = ENCODER_COUNTER_CLOCKWISE;
-        }
-        while (delta > 0) {
-            delta--;
+#ifndef ENCODER_DIRECTION_FLIP
+        int8_t delta = slave_state[i] - encoder_value[index];
+#else
+        int8_t delta = encoder_value[index] - slave_state[i];
+#endif
+        int8_t incr = (delta >> 7); /* if delta <= -1 then incr = -1 else incr = 1 */
+        bool   cw = incr & 1;       /* if incr < 0 then cw = false else cw = true */
+        incr |= 1;
+        changed |= incr;
+        while (delta != 0) {
+            delta -= incr;
             encoder_update_kb(index, cw);
         }
         encoder_value[index] = slave_state[i];
     }
+
+    // (delta < 0) -> ENCODER_CLOCKWISE = true/1
+    // (delta > 0) -> ENCODER_COUNTER_CLOCKWISE = false/0
 
     // Update the last encoder input time -- handled external to encoder_read() when we're running a split
     if (changed != 0) last_encoder_activity_trigger();
