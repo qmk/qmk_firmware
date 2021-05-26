@@ -61,12 +61,6 @@ def test_flash_bootloaders():
     check_returncode(result, [1])
 
 
-def test_config():
-    result = check_subcommand('config')
-    check_returncode(result)
-    assert 'general.color' in result.stdout
-
-
 def test_kle2json():
     result = check_subcommand('kle2json', 'lib/python/qmk/tests/kle.txt', '-f')
     check_returncode(result)
