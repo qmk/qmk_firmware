@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 17
 
 #define MATRIX_ROW_PINS { A7, B3, B4, B5, A8, A4 }
-#define MATRIX_COL_PINS { A13, A10, A9, A14, A15, B8, B9, C13, C14, C15, A0, A1, A2, A3, A5, B1, B10 }
+#define MATRIX_COL_PINS { A13, A10, A9, A14, A15, B8, B9, B2, B0, A6, A0, A1, A2, A3, A5, B1, B10 }
 // To enable debugger set A13 A14 -> A5 A7
 
 /* COL2ROW, ROW2COL*/
