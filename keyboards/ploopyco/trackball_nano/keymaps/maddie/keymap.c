@@ -20,7 +20,7 @@
 
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
 uint8_t scroll_enabled = 0;
-uint8_t lock_state = 5;
+uint8_t lock_state = 0;
 int16_t delta_x = 0;
 int16_t delta_y = 0;
 
