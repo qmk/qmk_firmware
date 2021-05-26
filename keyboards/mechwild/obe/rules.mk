@@ -14,11 +14,10 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-ENCODER_ENABLE = no        # Encoder Enabled
+ENCODER_ENABLE = yes        # Encoder Enabled
 
-EEPROM_DRIVER = i2c
-
-OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
+EEPROM_DRIVER = i2c 
 
 DEFAULT_FOLDER = mechwild/obe/f401
 
+  
