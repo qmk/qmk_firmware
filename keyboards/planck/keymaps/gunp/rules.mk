@@ -13,15 +13,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = yes          # Audio output
 
-MIDI_ENABLE          = no
-UNICODE_ENABLE       = no
-KEY_LOCK_ENABLE      = yes
-DYNAMIC_MACRO_ENABLE = no    # TODO: fix this later
-
-# # for `rev4`
-# AUDIO_ENABLE         = no    # Audio output on port C6
-# DEBOUNCE_TYPE        = sym_defer_g
-
-# for `light` and `rev6`
-AUDIO_ENABLE         = yes   # Audio output on port C6
-DEBOUNCE_TYPE        = sym_defer_pk
+KEY_LOCK_ENABLE = yes
+DEBOUNCE_TYPE = sym_defer_pk
