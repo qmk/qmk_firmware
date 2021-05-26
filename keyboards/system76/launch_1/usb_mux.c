@@ -409,8 +409,8 @@ void usb_mux_init(void) {
 
     // Ensure orientation is correct after attaching hub
     //TODO: find reason why GPIO for sink orientation is reset
-    for(int i = 0; i < 1000; i++) {
+    for(int i = 0; i < 100; i++) {
         ptn5110_sink_set_orientation(&usb_sink);
-        _delay_ms(1);
+        _delay_ms(10);
     }
 }
