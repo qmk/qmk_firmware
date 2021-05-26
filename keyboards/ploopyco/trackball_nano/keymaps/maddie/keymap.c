@@ -34,8 +34,7 @@ void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y) {
 		if (delta_x > 60) {
 			mouse_report->h = 1;
 			delta_x = 0;
-		}
-		else if (delta_x < -60) {
+		} else if (delta_x < -60) {
 			mouse_report->h = -1;
 			delta_x = 0;
 		}
@@ -43,13 +42,11 @@ void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y) {
 		if (delta_y > 15) {
 			mouse_report->v = -1;
 			delta_y = 0;
-		}
-		else if (delta_y < -15) {
+		} else if (delta_y < -15) {
 			mouse_report->v = 1;
 			delta_y = 0;
 		}
-	}
-	else {
+	} else {
 		mouse_report->x = x;
 		mouse_report->y = y;
 	}
