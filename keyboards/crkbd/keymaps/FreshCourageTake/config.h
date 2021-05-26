@@ -92,5 +92,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 165
 #define TAPPING_FORCE_HOLD_PER_KEY
 
+#define ONESHOT_TAP_TOGGLE 2
+#define ONESHOT_TIMEOUT 5000
+
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
