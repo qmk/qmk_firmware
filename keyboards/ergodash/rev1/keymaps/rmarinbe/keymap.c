@@ -116,7 +116,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void matrix_scan_user(void) {
     // Caps lock (blue)
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
     	backlight_disable();
     }   else {  
       backlight_enable();
