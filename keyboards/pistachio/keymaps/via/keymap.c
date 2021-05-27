@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 
-extern rgblight_config_t rgblight_config;
 
 enum layer_names {
     _QWERTY = 0,
@@ -65,21 +64,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool result = false;
-  switch (keycode) {
-      case RGB_RST:
-          if (record->event.pressed) {
-            eeconfig_update_rgblight_default();
-            rgblight_enable();
-            RGB_current_mode = rgblight_config.mode;
-          }
-        break;
-    default:
-      result = true;
-      break;
-  }
+    switch (keycode) {
+        case RGB_RST:
+            if (record->event.pressed) {
+                eeconfig_update_rgblight_default();
+                rgblight_enable();
+            }
+            break;
+    }
 
-  return result;
+    return true;
 }
