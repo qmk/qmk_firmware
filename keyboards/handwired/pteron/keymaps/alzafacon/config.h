@@ -16,5 +16,7 @@
 
 #pragma once
 
+/* override diode direction from keyboard config */
 /* COL2ROW or ROW2COL */
+#undef DIODE_DIRECTION
 #define DIODE_DIRECTION COL2ROW
