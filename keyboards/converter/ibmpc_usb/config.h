@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    QMK
 #define PRODUCT         PS/2 Keyboard
-#define DESCRIPTION     convert IBM PC keyboard to USB
 
 /* matrix size */
 #define MATRIX_ROWS 16  // keycode bit: 3-0
