@@ -4,6 +4,7 @@ This is the c configuration file for the keymap
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
 Copyright 2018 Danny Nguyen <danny@keeb.io>
+Copyright 2021 Jonavin Eng
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,3 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TOGGLE 2
 // TT set to two taps
+
+/*  Handle GRAVESC combo keys */
+#define GRAVE_ESC_ALT_OVERRIDE
+    //Always send Escape if Alt is pressed
+#define GRAVE_ESC_CTRL_OVERRIDE
+    //Always send Escape if Control is pressed
