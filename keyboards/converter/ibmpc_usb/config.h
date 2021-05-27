@@ -16,8 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 
 #define VENDOR_ID       0xFEED
@@ -25,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    QMK
 #define PRODUCT         PS/2 Keyboard
-#define DESCRIPTION     convert IBM PC keyboard to USB
 
 /* matrix size */
 #define MATRIX_ROWS 16  // keycode bit: 3-0
@@ -91,5 +89,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 } while (0)
 
 #define IBMPC_INT_VECT    INT1_vect
-
-#endif
