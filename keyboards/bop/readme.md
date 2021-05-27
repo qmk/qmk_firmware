@@ -6,7 +6,7 @@
 A huge 6x20 ortholinear keyboard inspired by the BFO-9000
 
 * Keyboard Maintainer: [Fruit](https://github.com/Blewis308)
-* Hardware Supported: Bop v1.1 PCB
+* Hardware Supported: Bop v1.1 PCB, Teensy 2.0++
 * Hardware Availablility: Through Group Buy - Jan 2021
 
 Make example for this keyboard (after setting up your build envionment):
