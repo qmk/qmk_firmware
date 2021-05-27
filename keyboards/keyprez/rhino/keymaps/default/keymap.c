@@ -18,45 +18,28 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _FN
-};
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
+    _FN,
+    _RAISE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    [_BASE] = LAYOUT(
-        KC_A,    KC_1,    MO(_FN),
-            KC_TAB,   KC_SPC
-    ),
-    [_FN] = LAYOUT(
-        QMKBEST, QMKURL,  _______,
-            RESET,    XXXXXXX
+
+    /* Base Layer
+     * .-----------------------------------------------------------------------------------------------------------------------------.
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
+     * | ESC    | Q      | W      | E      | R      | T      | [      | ]      | Y      | U      | I      | O      | P      | '      |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
+     * | TAB    | A      | S      | D      | F      | G      | HOME   | PG UP  | H      | J      | K      | L      | ;      | BACKSP |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
+     * | LSHIFT | Z      | X      | C      | V      | B      | END    | PG DN  | N      | M      | ,      | .      | /      | ENTER  |
+     * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
+     * |        | LGUI   | FN     | LALT   | RAISE  |      SPACE      |      SPACE      | LEFT   | DOWN   | UP     | RIGHT  |        |
+     * '-----------------------------------------------------------------------------------------------------------------------------'
+     */
+    [_BASE] = LAYOUT_ortho_2x2u(
+        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT,
+        KC_TAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME, KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_BSPC,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,  KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+                 KC_LGUI, MO(_FN), KC_LALT, MO(_RAISE),  KC_SPC,             KC_SPC,     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_MUTE
     )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
-            } else {
-                // when keycode QMKBEST is released
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
-    }
-    return true;
-}
