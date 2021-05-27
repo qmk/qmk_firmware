@@ -17,6 +17,7 @@
 
 
 #include QMK_KEYBOARD_H
+#include <stdio.h>
 
 enum custom_layers {
     _BASE,
@@ -129,19 +130,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             oled_set_cursor(8,2);
             switch(selected_layer){
                 case 0:
-                    oled_write_P(PSTR("Lock BASE"), false);
+                    oled_write_P(PSTR("BASE"), false);
                     break;
                 case 1:
-                    oled_write_P(PSTR("Lock FN"), false);
+                    oled_write_P(PSTR("FN"), false);
                     break;
                 case 2:
-                    oled_write_P(PSTR("Lock LOWER"), false);
+                    oled_write_P(PSTR("LOWER"), false);
                     break;
                 case 3:
-                    oled_write_P(PSTR("Lock RAISE"), false);
+                    oled_write_P(PSTR("RAISE"), false);
                     break;
                 default:
-                    oled_write_P(PSTR("Lock Layer ?"), false);    // Should never display, here as a catchall
+                    oled_write_P(PSTR("Layer ?"), false);    // Should never display, here as a catchall
             }
             oled_set_cursor(8,3);
             if (get_highest_layer(layer_state) == selected_layer) {
@@ -166,11 +167,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             }
             led_t led_state = host_keyboard_led_state();
             oled_set_cursor(8,0);
-            oled_write_P(PSTR("-= JONAVIN =-"), false);
+            uint8_t wpm_count;
+            char wpm_str[10];
+            wpm_count=get_current_wpm();
+
+            if (wpm_count > 020) { // how wpm when > 20
+                 sprintf(wpm_str, " WPM: %03d", wpm_count);
+                oled_write(wpm_str, false);
+            } else {
+                oled_write_P(PSTR(" JONAVIN "), false); // otherwise display keymap name
+            }
+
             oled_set_cursor(8,1);
             oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
             oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
             oled_write_P(led_state.scroll_lock ? PSTR("SCR") : PSTR("   "), false);
+
         }
+
+    }
+
+    void suspend_power_down_user(void) {  // shutdown oled when powered down to prevent OLED from showing Mercutio all the time
+      oled_off();
     }
 #endif
