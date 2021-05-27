@@ -26,8 +26,6 @@ int16_t delta_y = 0;
 
 void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y) {
 	if (scroll_enabled) {
-		mouse_report->x = 0;
-		mouse_report->y = 0;
 		delta_x += x;
 		delta_y += y;
 		
