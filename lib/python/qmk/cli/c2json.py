@@ -42,7 +42,7 @@ def c2json(cli):
         keymap_json = qmk.keymap.c2json(cli.args.keyboard, cli.args.keymap, cli.args.filename, use_cpp=cli.args.no_cpp)
     except CppError as e:
         if cli.config.general.verbose:
-            cli.log.debug('The C pre-processor run into a fatal error: %s', e)
+            cli.log.debug('The C pre-processor ran into a fatal error: %s', e)
         cli.log.error('Try to use --no-cpp.')
         return False
 
