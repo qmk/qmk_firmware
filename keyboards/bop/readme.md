@@ -1,7 +1,7 @@
 # bop
 
-![Bop](https://i.imgur.com/mEWmMgv.jpg)
-![Bop-top](https://i.imgur.com/DbjVdvV.jpg)
+![Bop](https://i.imgur.com/mEWmMgvh.jpg)
+![Bop-top](https://i.imgur.com/DbjVdvVh.jpg)
 
 A huge 6x20 ortholinear keyboard inspired by the BFO-9000
 
