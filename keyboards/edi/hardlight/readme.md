@@ -1,6 +1,6 @@
 # Hard Light
 
-![Hard Light](https://i.imgur.com/X6Katar.png)
+![Hard Light](https://i.imgur.com/X6Katarh.png)
 
 A compact 60% keyboard designed by Fate Everywhere. Born out of the desire for a Planck with a numpad for technical work and a lack of reliance on the Elite-C.
 
