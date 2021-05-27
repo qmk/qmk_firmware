@@ -43,7 +43,7 @@ def c2json(cli):
     except CppError as e:
         if cli.config.general.verbose:
             cli.log.debug('The C pre-processor ran into a fatal error: %s', e)
-        cli.log.error('Try to use --no-cpp.')
+        cli.log.error('Something went wrong. Try to use --no-cpp.\nUse the CLI in verbose mode to find out more.')
         return False
 
     # Generate the keymap.json
