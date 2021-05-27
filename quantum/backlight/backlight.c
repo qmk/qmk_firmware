@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 backlight_config_t backlight_config;
 
+#ifndef BACKLIGHT_DEFAULT_LEVEL
+#    define BACKLIGHT_DEFAULT_LEVEL BACKLIGHT_LEVELS
+#endif
+
 #ifdef BACKLIGHT_BREATHING
 // TODO: migrate to backlight_config_t
 static uint8_t breathing_period = BREATHING_PERIOD;
@@ -35,6 +39,7 @@ void backlight_init(void) {
     /* check signature */
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
+        eeconfig_update_backlight_default();
     }
     backlight_config.raw = eeconfig_read_backlight();
     if (backlight_config.level > BACKLIGHT_LEVELS) {
@@ -152,10 +157,22 @@ void backlight_level(uint8_t level) {
     eeconfig_update_backlight(backlight_config.raw);
 }
 
-/** \brief Update current backlight state to EEPROM
- *
- */
+uint8_t eeconfig_read_backlight(void) { return eeprom_read_byte(EECONFIG_BACKLIGHT); }
+
+void eeconfig_update_backlight(uint8_t val) { eeprom_update_byte(EECONFIG_BACKLIGHT, val); }
+
 void eeconfig_update_backlight_current(void) { eeconfig_update_backlight(backlight_config.raw); }
+
+void eeconfig_update_backlight_default(void) {
+    backlight_config.enable = 1;
+#ifdef BACKLIGHT_DEFAULT_BREATHING
+    backlight_config.breathing = 1;
+#else
+    backlight_config.breathing = 0;
+#endif
+    backlight_config.level = BACKLIGHT_DEFAULT_LEVEL;
+    eeconfig_update_backlight(backlight_config.raw);
+}
 
 /** \brief Get backlight level
  *

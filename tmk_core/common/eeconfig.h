@@ -94,11 +94,6 @@ void    eeconfig_update_default_layer(uint8_t val);
 uint16_t eeconfig_read_keymap(void);
 void     eeconfig_update_keymap(uint16_t val);
 
-#ifdef BACKLIGHT_ENABLE
-uint8_t eeconfig_read_backlight(void);
-void    eeconfig_update_backlight(uint8_t val);
-#endif
-
 #ifdef AUDIO_ENABLE
 uint8_t eeconfig_read_audio(void);
 void    eeconfig_update_audio(uint8_t val);
