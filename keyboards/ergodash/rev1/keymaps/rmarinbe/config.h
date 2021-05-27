@@ -31,9 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
 
-#undef COMBO_COUNT
-#define COMBO_COUNT 2
-#define COMBO_TERM 150
+//#undef COMBO_COUNT
+#define COMBO_COUNT 6
+#define COMBO_TERM 75
 
 // this makes it possible to do rolling combos (zx) with keys that
 // convert to other keys on hold (z becomes ctrl when you hold it,
