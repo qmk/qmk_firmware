@@ -2,11 +2,9 @@
 # make gboards/gergoplex:default:flash
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
-# Firmware options
-MOUSEKEY_ENABLE        = no
 
 #Debug options
-VERBOSE                = yes
+VERBOSE                = no
 DEBUG_MATRIX_SCAN_RATE = no
 DEBUG_MATRIX           = no
 CONSOLE_ENABLE         = no
