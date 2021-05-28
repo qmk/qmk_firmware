@@ -1,7 +1,7 @@
 #define OPENRGB_MATRIX_COLUMNS 19
 #define OPENRGB_MATRIX_ROWS 6
 
-#define NA NA
+#define NA KC_NO
 
 #define OPENRGB_SWITCH_MATRIX_TO_PHYSICAL_POS_MAP { \
     {  0,  NA,   1,   2,   3,   4,  NA,   5,   6,   7,  48,  49,  50,  51,  52,  NA,  53,  54,  55 }, \
