@@ -238,6 +238,11 @@ void openrgb_get_led_info(uint8_t *data) {
 
     const uint8_t led = data[1];
 
+    if (led >= DRIVER_LED_TOTAL) {
+        raw_hid_buffer[4]              = OPENRGB_FAILURE;
+        return;
+    }
+
     raw_hid_buffer[1] = g_led_config.point[led].x;
     raw_hid_buffer[2] = g_led_config.point[led].y;
     raw_hid_buffer[3] = g_led_config.flags[led];
@@ -247,7 +252,7 @@ void openrgb_get_led_info(uint8_t *data) {
 
 #ifdef OPENRGB_SWITCH_MATRIX_TO_PHYSICAL_POS_MAP
     if (col >= OPENRGB_MATRIX_COLUMNS || row >= OPENRGB_MATRIX_ROWS) {
-        raw_hid_buffer[4]              = OPENRGB_FAILURE;
+        raw_hid_buffer[4]              = KC_NO;
         return;
     }
 
