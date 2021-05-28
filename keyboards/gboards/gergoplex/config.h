@@ -27,28 +27,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VERBOSE
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x0007
+#define VENDOR_ID 0x6B0A
 #define PRODUCT_ID 0x0002
 #define DEVICE_VER 0x0001
 #define MANUFACTURER g Heavy Industries
 #define PRODUCT GergoPlex
-#define DESCRIPTION More ErgoGergo
 
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS 4
 
-#define MOUSEKEY_INTERVAL 20
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_TIME_TO_MAX 60
-#define MOUSEKEY_MAX_SPEED 7
-#define MOUSEKEY_WHEEL_DELAY 0
-#define TAPPING_TOGGLE 1
-#define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE
 #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
 
 #define DEBOUNCE 5
