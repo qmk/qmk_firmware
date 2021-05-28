@@ -6,7 +6,6 @@
 #include "gergoplex.h"
 #include "g/keymap_combo.h"
 
-
 enum {
     _ALPHA,   // default
     _SPECIAL, // special characters
@@ -24,16 +23,14 @@ enum {
 #define KC_NUM_SPC LT(_NUMBERS, KC_SPC)  // Tap for Space, hold for Numbers layer
 #define KC_SFT_TAB MT(MOD_RSFT, KC_TAB)  // Tap for Tab, hold for Right Shift
 
-#define KC_CMB_TOG CMB_TOG  // A hack to allow KC_-less keycode along with KC_-ful ones
-
     /* Combomap
      *
      * ,-------------------------------.      ,-------------------------------.
-     * |       |    ESC    |     |     |      |     |    ESC    |    BSLH     |
+     * |       |    ESC    |     |     |      |     |    ESC    |     \       |
      * |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-     * |       |   BSPC   ENT    |     |      |    LES   COLN  GRT    |       |
-     * |-------+-----+-----+-RMB-+-LMB-|      |-----+-----+-----+-----+-------|
-     * |       |   MINS    |     |     |      |    QUO   UNDR   |     |       |
+     * |       |   BSPC   TAB    |     |      |     <     :     >     |       |
+     * |-------+-----+-----+-RMB-+-LMB-|      |ENTER+-----+-----+-----+-------|
+     * |       |     -   ENTER   |     |      |     '     _     |     |       |
      * `-------------------------------'      `-------------------------------'
      *            .-----------------.            .-----------------.
      *            |     |     |     |            |     |     |     |
@@ -54,17 +51,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *   | ESC META | ENT ALT | SPC SYM |    | SPC NUM | SHFT | TAB |
      *   '------------------------------'    '----------------------'
      */
-    [_ALPHA] = LAYOUT_kc(
-    // ,-------------------------------.      ,-------------------------------.
-           Q   ,  W  ,  E  ,  R  ,  T  ,         Y  ,  U  ,  I  ,  O  ,   P   ,
-    // |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-         CTL_A ,  S  ,  D  ,  F  ,  G  ,         H  ,  J  ,  K  ,  L  , CTL_CL,
-    // |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-         SFT_Z ,  X  ,  C  ,  V  ,  B  ,         N  ,  M  ,COMMA, DOT , SFT_SL,
-    // '-------------------------------'      '-------------------------------'
-    //    .---------------------------.        .------------------------.
-            GUI_ESC, ALT_ENT, SYM_SPC ,          NUM_SPC, LSFT, SFT_TAB ),
-    //    '---------------------------'        '------------------------'
+    [_ALPHA] = LAYOUT_split_3x5_3(
+         KC_Q,     KC_W,   KC_E,   KC_R,   KC_T,          KC_Y,   KC_U,   KC_I,     KC_O,   KC_P   ,
+         KC_CTL_A, KC_S,   KC_D,   KC_F,   KC_G,          KC_H,   KC_J,   KC_K,     KC_L,   KC_CTL_CL,
+         KC_SFT_Z, KC_X,   KC_C,   KC_V,   KC_B,          KC_N,   KC_M,   KC_COMMA, KC_DOT, KC_SFT_SL,
+             KC_GUI_ESC, KC_ALT_ENT, KC_SYM_SPC,          KC_NUM_SPC, KC_LSFT, KC_SFT_TAB),
 
     /* Keymap 1: Special characters layer
      *
@@ -79,17 +70,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *     | ComboToggle |  ;  |  =  |          |  =  |  ;  | DEL |
      *     '-------------------------'          '-----------------'
      */
-    [_SPECIAL] = LAYOUT_kc(
-    // ,-------------------------------.      ,-------------------------------.
-         EXLM  , AT  , LCBR, RCBR, PIPE,        GRV , TILD, TRNS, TRNS, BSLS  ,
-    // |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-         HASH  , DLR , LPRN, RPRN, BTN2,        PLUS, MINS, SLSH, ASTR, QUOT  ,
-    // |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-         PERC  , CIRC, LBRC, RBRC, BTN1,        AMPR, EQL , COMM, DOT , MINS  ,
-    // '-------------------------------'      '-------------------------------'
-    //    .---------------------------.        .------------------------.
-            CMB_TOG, SCLN    , EQL    ,          EQL    , SCLN   , DEL  ),
-    //    '---------------------------'        '------------------------'
+    [_SPECIAL] = LAYOUT_split_3x5_3(
+         KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,          KC_GRV,  KC_TILD, KC_TRNS, KC_TRNS, KC_BSLS,
+         KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_BTN2,          KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_QUOT,
+         KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_BTN1,          KC_AMPR, KC_EQL,  KC_COMM, KC_DOT,  KC_MINS,
+                            CMB_TOG, KC_SCLN, KC_EQL,          KC_EQL, KC_SCLN, KC_DEL),
 
     /* Keymap 2: Numbers/Function/Motion layer
      *
@@ -104,15 +89,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *             | F11 | F12 |     |          |     | PLY | SKP |
      *             '-----------------'          '-----------------'
      */
-    [_NUMBERS] = LAYOUT_kc(
-    // ,-------------------------------.      ,-------------------------------.
-           1   ,  2  ,  3  ,  4  ,  5  ,         6  ,  7  ,  8  ,  9  ,   0   ,
-    // |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-           F1  ,  F2 ,  F3 ,  F4 , F5  ,        LEFT, DOWN,  UP , RGHT,  VOLU ,
-    // |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-           F6  ,  F7 ,  F8 ,  F9 , F10 ,        MS_L, MS_D, MS_U, MS_R,  VOLD ,
-    // '-------------------------------'      '-------------------------------'
-    //    .---------------------------.        .------------------------.
-              F11  ,   F12   , TRNS   ,           TRNS  ,  MPLY ,  MNXT )
-    //    '---------------------------'        '------------------------'
+    [_NUMBERS] = LAYOUT_split_3x5_3(
+         KC_1,  KC_2,  KC_3,  KC_4,  KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+         KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLU,
+         KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,         KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_VOLD,
+                    KC_F11, KC_F12, KC_TRNS,         KC_TRNS,  KC_MPLY,  KC_MNXT)
 };
