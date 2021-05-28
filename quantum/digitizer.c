@@ -15,11 +15,20 @@
  */
 #include "digitizer.h"
 
-digitizer_t digitizer = {.tipswitch = 0, .inrange = 0, .id = 0, .x = 0, .y = 0, .status = DZ_INITIALIZED | DZ_UPDATED};
+digitizer_t digitizerReport = {.tipswitch = 0, .inrange = 0, .id = 0, .x = 0, .y = 0, .status = DZ_INITIALIZED};
 
-__attribute__((weak)) void digitizer_task(void) {
-    if (digitizer.status & DZ_UPDATED) {
-        host_digitizer_send(&digitizer);
-        digitizer.status &= ~DZ_UPDATED;
+__attribute__((weak)) void digitizer_send(void) {
+    if (digitizerReport.status & DZ_UPDATED) {
+        host_digitizer_send(&digitizerReport);
+        digitizerReport.status &= ~DZ_UPDATED;
     }
+}
+
+__attribute__((weak)) void digitizer_task(void) { digitizer_send(); }
+
+digitizer_t digitizer_get_report(void) { return digitizerReport; }
+
+void digitizer_set_report(digitizer_t newDigitizerReport) {
+    digitizerReport = newDigitizerReport;
+    digitizerReport.status |= DZ_UPDATED;
 }

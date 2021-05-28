@@ -32,6 +32,10 @@ typedef struct {
 
 extern digitizer_t digitizer;
 
+digitizer_t digitizer_get_report(void);
+
+void digitizer_set_report(digitizer_t newDigitizerReport);
+
 void digitizer_task(void);
 
 void host_digitizer_send(digitizer_t *digitizer);
