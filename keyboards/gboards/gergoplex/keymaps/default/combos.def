@@ -1,5 +1,4 @@
-// List any combo dictionaries you want loaded to 
-// your device below!
+// List any combo dictionaries you want loaded to your device below!
 
 // QMK wide includes
 #include "combos/germ-vim-helpers.def"

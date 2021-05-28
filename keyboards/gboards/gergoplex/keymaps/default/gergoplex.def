@@ -1,4 +1,4 @@
-// Gergoplex specfic combos 
+// Gergoplex specfic combos
 
 COMB(opBacksl,    KC_BSLS,          KC_O, KC_P)
 COMB(hjLess,      KC_LT,            KC_H, KC_J)
