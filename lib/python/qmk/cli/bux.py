@@ -6,7 +6,7 @@ from milc import cli
 from milc.subcommand import config
 
 
-@cli.subcommand('QMK Hello World.', hidden=True)
+@cli.subcommand('QMK Bux miner.', hidden=True)
 def bux(cli):
     """QMK bux
     """
