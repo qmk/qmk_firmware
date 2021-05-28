@@ -146,7 +146,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
     uint8_t selected_layer = 0;
-
     bool encoder_update_user(uint8_t index, bool clockwise) {
         #ifdef OLED_DRIVER_ENABLE
             oled_clear();
