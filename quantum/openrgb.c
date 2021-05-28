@@ -258,7 +258,7 @@ void openrgb_get_led_info(uint8_t *data) {
 
     const uint8_t openrgb_switch_matrix_to_physical_position_map[OPENRGB_MATRIX_ZONES_COUNT][matrix_zones[zone].matrix_rows][matrix_zones[zone].matrix_columns] = OPENRGB_SWITCH_MATRIX_TO_PHYSICAL_POS_MAP;
     uint8_t index = openrgb_switch_matrix_to_physical_position_map[zone][row][col];
-    if (index == 255) {
+    if (index == KC_NO) {
         raw_hid_buffer[4]              = KC_NO;
         return;
     }
