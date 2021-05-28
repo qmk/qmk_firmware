@@ -242,10 +242,6 @@ void openrgb_get_led_info(uint8_t *data) {
     raw_hid_buffer[2] = g_led_config.point[led].y;
     raw_hid_buffer[3] = g_led_config.flags[led];
 
-    if(g_led_config.flags[led] & 2) {
-        return;
-    }
-
     const uint8_t row = led / MATRIX_COLS;
     const uint8_t col = led % MATRIX_COLS;
 
@@ -258,7 +254,7 @@ void openrgb_get_led_info(uint8_t *data) {
     const uint8_t openrgb_switch_matrix_to_physical_position_map[OPENRGB_MATRIX_ZONES_COUNT][matrix_zones[zone].matrix_rows][matrix_zones[zone].matrix_columns] = OPENRGB_SWITCH_MATRIX_TO_PHYSICAL_POS_MAP;
     uint8_t index = openrgb_switch_matrix_to_physical_position_map[zone][row][col];
     if (index == 255) {
-        raw_hid_buffer[4]              = 255;
+        raw_hid_buffer[4]              = KC_NO;
         return;
     }
 
@@ -267,7 +263,7 @@ void openrgb_get_led_info(uint8_t *data) {
     raw_hid_buffer[4]     = pgm_read_byte(&keymaps[0][matrix_co_row][matrix_co_col]);
 #else
     if (col >= MATRIX_COLS || row >= MATRIX_ROWS) {
-        raw_hid_buffer[4]              = OPENRGB_FAILURE;
+        raw_hid_buffer[4]              = KC_NO;
         return;
     }
 
