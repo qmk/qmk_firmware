@@ -38,10 +38,12 @@ def bux(cli):
 @B        :!!~!;=~r>:*_         `:^vxikylulKfHkyjzzozoIoklix|^!-`                                 B@
 @B                                    ```'-_""::::!:_-.``                                         B@
 @B   `-                                                                                       .`  B@
+@B   r@=                                  In source we trust                                  @H  B@
+@B   r@=                                                                                      @H  B@
 @B  -g@=                `}&###E7  W#g. :#Q n####~   R###8k ;#&  `##.7#8-`R#z                 t@H  B@
 @B   r@=                8@R=-=R@g R@@#:!@@ 2@&!:`   8@1=@@!*@B  `@@- v@#8@y                   @H  B@
 @B   r@=               :@@-   _@@_R@fB#}@@ 2@@@#    8@@#@Q.*@B  `@@-  y@@N                    @H  B@
 @B   `.                 g@9=_~D@g R@}`&@@@ 2@&__`   8@u_Q@2!@@^-x@@` Y@QD@z                   .`  B@
 @@BBBBBBBBBBBBBBBBBBB_  `c8@@@81` S#] `N#B l####v   D###BA. vg@@#0~ i#&' 5#K   RBBBBBBBBBBBBBBBBBB@@
 """ # noqa: Do not care about the ASCII art
-    print(f"{buck}\nYou've been blessed with by the QMK gods!\nYou have {cli.config.user.bux} QMK bux.")
+    print(f"{buck}\nYou've been blessed by the QMK gods!\nYou have {cli.config.user.bux} QMK bux.")
