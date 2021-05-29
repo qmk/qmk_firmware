@@ -22,8 +22,6 @@
 
 #define RAW_EPSIZE 64
 
-#define NA NO_LED
-
 enum openrgb_command_id {
     OPENRGB_GET_PROTOCOL_VERSION = 1,
     OPENRGB_GET_DEVICE_INFO,
