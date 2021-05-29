@@ -145,7 +145,7 @@ const led_matrix_driver_t led_matrix_driver = {
     .set_value     = IS31FL3731_set_value,
     .set_value_all = IS31FL3731_set_value_all,
 #    else
-    .set_value     = IS31FL3733_set_value,
+    .set_value = IS31FL3733_set_value,
     .set_value_all = IS31FL3733_set_value_all,
 #    endif
 };
