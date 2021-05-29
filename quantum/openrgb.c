@@ -197,12 +197,7 @@ void openrgb_get_protocol_version(void) {
 void openrgb_get_device_info(void) {
     raw_hid_buffer[0] = OPENRGB_GET_DEVICE_INFO;
     raw_hid_buffer[1] = DRIVER_LED_TOTAL;
-
-#if defined(OPENRGB_MATRIX_COLUMNS) && defined(OPENRGB_MATRIX_ROWS)
-    raw_hid_buffer[2] = OPENRGB_MATRIX_COLUMNS * OPENRGB_MATRIX_ROWS;
-#else
     raw_hid_buffer[2] = MATRIX_COLS * MATRIX_ROWS;
-#endif
 
 #define MASSDROP_VID 0x04D8
 #if VENDOR_ID == MASSDROP_VID
@@ -273,30 +268,12 @@ void openrgb_get_led_info(uint8_t *data) {
         }
     }
 
-#ifdef OPENRGB_SWITCH_MATRIX_TO_PHYSICAL_POS_MAP
-    if (col >= OPENRGB_MATRIX_COLUMNS || row >= OPENRGB_MATRIX_ROWS) {
-        raw_hid_buffer[7] = KC_NO;
-        return;
-    }
-
-    const uint8_t openrgb_switch_matrix_to_physical_position_map[OPENRGB_MATRIX_ZONES_COUNT][matrix_zones[zone].matrix_rows][matrix_zones[zone].matrix_columns] = OPENRGB_SWITCH_MATRIX_TO_PHYSICAL_POS_MAP;
-    uint8_t       index                                                                                                                                         = openrgb_switch_matrix_to_physical_position_map[zone][row][col];
-    if (index == KC_NO) {
-        raw_hid_buffer[7] = KC_NO;
-        return;
-    }
-
-    const uint8_t matrix_co_row = index / MATRIX_COLS;
-    const uint8_t matrix_co_col = index % MATRIX_COLS;
-    raw_hid_buffer[7]           = pgm_read_byte(&keymaps[0][matrix_co_row][matrix_co_col]);
-#else
     if (col >= MATRIX_COLS || row >= MATRIX_ROWS) {
         raw_hid_buffer[7] = KC_NO;
         return;
     }
 
     raw_hid_buffer[7] = pgm_read_byte(&keymaps[0][row][col]);
-#endif
 }
 void openrgb_get_is_mode_enabled(uint8_t *data) {
     raw_hid_buffer[0] = OPENRGB_GET_IS_MODE_ENABLED;
