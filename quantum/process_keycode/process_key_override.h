@@ -104,7 +104,7 @@ extern void key_override_toggle(void);
 extern bool key_override_is_enabled(void);
 
 /**
- *  Preferrably use these macros to create key overrides. They fix many of the options to a standard setting that should satisfy most basic use-cased. Only directly create a key_override_t struct when you need more fine grained control and these macros are not sufficient.
+ *  Preferrably use these macros to create key overrides. They fix many of the options to a standard setting that should satisfy most basic use-cases. Only directly create a key_override_t struct when you really need to.
 */
 
 // clang-format off
