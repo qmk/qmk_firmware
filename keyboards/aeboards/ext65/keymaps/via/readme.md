@@ -1,2 +1,2 @@
-# The VIA Ext65 Layout
+# The VIA Ext65Rev2 Layout
 

@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.9.0:docs/hardware_avr.md
-  git diff 0.9.0 HEAD -- docs/hardware_avr.md | cat
+  original document: 0.10.33:docs/hardware_avr.md
+  git diff 0.10.33 HEAD -- docs/hardware_avr.md | cat
 -->
 
 このページでは QMK における AVR マイコンのサポートについて説明します。AVR マイコンには、Atmel 社製の atmega32u4、atmega32u2、at90usb1286 やその他のマイコンを含みます。AVR マイコンは、簡単に動かせるよう設計された8ビットの MCU です。キーボードでよく使用される AVR マイコンには USB 機能や大きなキーボードマトリックスのためのたくさんの GPIO を搭載しています。これらは、現在、キーボードで使われる最も一般的な MCU です。
@@ -38,7 +38,7 @@ or open the directory in your favourite text editor.
 
 ## `readme.md`
 
-このファイルではキーボードに関する説明を記述します。[キーボード Readme テンプレート](ja/documentation_templates.md#keyboard-readmemd-template)に従って `readme.md` を記入して下さい。`readme.md` の上部に画像を配置することをお勧めします。画像は [Imgur](http://imgur.com) のような外部サービスを利用してください。
+このファイルではキーボードに関する説明を記述します。[キーボード Readme テンプレート](ja/documentation_templates.md#keyboard-readmemd-template)に従って `readme.md` を記入して下さい。`readme.md` の上部に画像を配置することをお勧めします。画像は [Imgur](https://imgur.com) のような外部サービスを利用してください。
 
 ## `<keyboard>.c`
 

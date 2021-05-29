@@ -2,12 +2,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x4B50 //KP
+#define PRODUCT_ID      0x016B
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         bm16s
-#define DESCRIPTION     KPrepublic bm16s
 
 /* key matrix size */
 #define MATRIX_ROWS 4
