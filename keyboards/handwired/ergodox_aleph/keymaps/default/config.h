@@ -1,0 +1,19 @@
+#pragma once
+
+#ifdef RGB_MATRIX_ENABLE
+
+# define RGB_MATRIX_KEYPRESSES
+# define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+
+# define RGB_MATRIX_LED_FLUSH_LIMIT 100
+
+# define I2C_DRIVER I2CD1
+# define I2C1_SCL_BANK GPIOA
+# define I2C1_SDA_BANK GPIOA
+# define I2C1_SCL 0 // A2 on pinout = B0
+# define I2C1_SDA 1 // A2 on pinout = B1
+# define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
+# define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
+
+
+#endif
