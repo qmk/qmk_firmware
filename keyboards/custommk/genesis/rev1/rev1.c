@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "genesis.h"
+#include "rev1.h"
 
 __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 	/* top left encoder */
