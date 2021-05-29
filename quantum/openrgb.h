@@ -18,7 +18,7 @@
 
 // This is changed only when the command IDs change,
 // so OpenRGB can detect compatible firmware.
-#define OPENRGB_PROTOCOL_VERSION 0x07
+#define OPENRGB_PROTOCOL_VERSION 0x08
 
 #define RAW_EPSIZE 64
 
@@ -28,7 +28,6 @@ enum openrgb_command_id {
     OPENRGB_GET_MODE_INFO,
     OPENRGB_GET_LED_INFO,
     OPENRGB_GET_IS_MODE_ENABLED,
-    OPENRGB_GET_DIRECT_MODE_LED_COLOR,
 
     OPENRGB_SET_MODE,
     OPENRGB_DIRECT_MODE_SET_SINGLE_LED,
@@ -48,7 +47,6 @@ void openrgb_get_device_info(void);
 void openrgb_get_mode_info(void);
 void openrgb_get_led_info(uint8_t *data);
 void openrgb_get_is_mode_enabled(uint8_t *data);
-void openrgb_get_direct_mode_led_color(uint8_t *data);
 
 void openrgb_set_mode(uint8_t *data);
 void openrgb_direct_mode_set_single_led(uint8_t *data);
