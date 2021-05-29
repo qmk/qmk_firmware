@@ -20,26 +20,34 @@ enum layer_names {
     _BASE,
     _FN,
     _RAISE,
+    _LOWER,
 };
+
+#define LOWER MO(_LOWER)
+#define FN MO(_FN)
+#define RAISE_SPC LT(_RAISE, KC_SPC)
+#define TAB_CTL MT(MOD_LCTL, KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Base Layer
      * .-----------------------------------------------------------------------------------------------------------------------------.
+     * |                                                                                                                     KC_MUTE |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
-     * | ESC    | Q      | W      | E      | R      | T      | [      | ]      | Y      | U      | I      | O      | P      | '      |
+     * | GESC   | Q      | W      | E      | R      | T      | [      | ]      | Y      | U      | I      | O      | P      | '      |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
      * | TAB    | A      | S      | D      | F      | G      | HOME   | PG UP  | H      | J      | K      | L      | ;      | BACKSP |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
      * | LSHIFT | Z      | X      | C      | V      | B      | END    | PG DN  | N      | M      | ,      | .      | /      | ENTER  |
      * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
-     * |        | LGUI   | FN     | LALT   | RAISE  |      SPACE      |      SPACE      | LEFT   | DOWN   | UP     | RIGHT  |        |
+     * |        | LGUI   | FN     | LALT   | RAISE  |      SPACE      |      SPACE      | LEFT   | UP     | DOWN   | RIGHT  |        |
      * '-----------------------------------------------------------------------------------------------------------------------------'
      */
     [_BASE] = LAYOUT_ortho_2x2u(
-        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT,
-        KC_TAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME, KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_BSPC,
+                                                                                                                             KC_MUTE,
+        KC_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT,
+        TAB_CTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME, KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_BSPC,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,  KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-                 KC_LGUI, MO(_FN), KC_LALT, MO(_RAISE),  KC_SPC,             KC_SPC,     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_MUTE
+                 KC_LGUI, FN,      KC_LALT, LOWER,       KC_SPC,   RAISE_SPC,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
     )
 };
