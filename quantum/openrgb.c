@@ -299,7 +299,7 @@ void openrgb_get_direct_mode_led_color(uint8_t *data) {
     raw_hid_buffer[0] = OPENRGB_GET_DIRECT_MODE_LED_COLOR;
 
     if (led >= DRIVER_LED_TOTAL) {
-        raw_hid_buffer[1] = OPENRGB_FAILURE;
+        raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_FAILURE;
         return;
     }
 
@@ -318,7 +318,7 @@ void openrgb_set_mode(uint8_t *data) {
     raw_hid_buffer[0] = OPENRGB_SET_MODE;
 
     if (h > 255 || s > 255 || v > 255 || mode >= RGB_MATRIX_EFFECT_MAX || speed > 255) {
-        raw_hid_buffer[1] = OPENRGB_FAILURE;
+        raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_FAILURE;
         return;
     }
 
@@ -337,7 +337,7 @@ void openrgb_direct_mode_set_single_led(uint8_t *data) {
     raw_hid_buffer[0] = OPENRGB_DIRECT_MODE_SET_SINGLE_LED;
 
     if (led >= DRIVER_LED_TOTAL || r > 255 || g > 255 || b > 255) {
-        raw_hid_buffer[1] = OPENRGB_FAILURE;
+        raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_FAILURE;
         return;
     }
 
