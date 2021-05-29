@@ -91,3 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______, _______, _______, _______,     _______,           _______,    KC_HOME, KC_PGUP, KC_PGDOWN, KC_END
     ),
 };
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+    tap_code(clockwise ? KC_VOLU : KC_VOLD);
+}
