@@ -26,6 +26,10 @@ enum custom_layers {
     _RAISE,
 };
 
+enum custom_keycodes {
+  ENCFUNC = SAFE_RANGE, // encoder function keys
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_all(
                                                                                                                 KC_MUTE,
@@ -35,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT,          KC_SPC,  LT(_LOWER,KC_SPC),         KC_SPC,           KC_RALT, MO(_FN1),  KC_RCTL ),
 
   [_FN1] = LAYOUT_all(
-                                                                                                                KC_TRNS,
+                                                                                                                ENCFUNC,
     KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
     KC_CAPS,          KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SCLN, KC_PAUS, KC_NO,   KC_NO,
     KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NLCK, KC_P0,   KC_NO,   KC_NO,            KC_SFTENT,
@@ -56,8 +60,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   	KC_TRNS, KC_TRNS, KC_TRNS,          KC_BSPC, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS )
 };
 
+/*  These are needed whether encoder function is enabled or not when ENCFUNC keycode is pressed.
+    Defaults never changes if no encoder present to change it
+*/
+const uint8_t fkeycodes[] = { // list of key codes that will be scrollled through by encoder
+    KC_INS, KC_DEL, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22, KC_F23, KC_F24
+};
+const char* fkeydesc[] =    { // list of desc to be shown on LCD max 5 chars will be shown
+    "INS",  "DEL",  "F13",  "F14",   "F15", "F16",  "F17",  "F18",  "F19",  "F20",  "F21",  "F22",  "F23",  "F24"
+};
+
+static uint8_t selected_Fkey = 0;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case ENCFUNC:
+        if (record->event.pressed) {
+            tap_code(fkeycodes[selected_Fkey]);
+        } else {
+            // when keycode is released
+        }
+        break;
+    }
+    return true;
+};
+
+
+
 #ifdef ENCODER_ENABLE       // Encoder Functionality
     uint8_t selected_layer = 0;
+
     void encoder_update_user(uint8_t index, bool clockwise) {
         #ifdef OLED_DRIVER_ENABLE
             oled_clear();
@@ -65,21 +97,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         #endif
         switch (index) {
             case 0:         // This is the only encoder right now, keeping for consistency
-                if ( clockwise ) {
-                    if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                        selected_layer ++;
-                        layer_move(selected_layer);
+                switch(biton32(layer_state)){  // special handling per layer
+                case _FN1:  // on Fn layer select what the encoder does when pressed
+                    if (!keyboard_report->mods) {
+                        if ( clockwise ) {
+                            if ( selected_Fkey  < sizeof(fkeycodes)/sizeof(fkeycodes[0])-1) {
+                                selected_Fkey ++;
+                            } else {
+                               // do nothing
+                            }
+                        } else if ( !clockwise ) {
+                            if ( selected_Fkey  > 0){
+                                selected_Fkey --;
+                            } else {
+                                // do nothing
+                            }
+                        }
+                        break;
                     } else {
-                        tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
+                           // continue to default
                     }
-                } else if ( !clockwise ) {
-                    if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ){
-                        selected_layer --;
-                        layer_move(selected_layer);
-                    } else {
-                        tap_code(KC_VOLD);
+                default:   // all other layers
+                    if ( clockwise ) {
+                        if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                            selected_layer ++;
+                            layer_move(selected_layer);
+                        } else {
+                            tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
+                        }
+                    } else if ( !clockwise ) {
+                        if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ){
+                            selected_layer --;
+                            layer_move(selected_layer);
+                        } else {
+                            tap_code(KC_VOLD);
+                        }
                     }
+                    break;
                 }
+                break;
         }
     }
 #endif
@@ -128,12 +184,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             }
             render_logo();
             oled_set_cursor(8,2);
+            char fn_str[12];
             switch(selected_layer){
                 case 0:
                     oled_write_P(PSTR("BASE"), false);
                     break;
                 case 1:
-                    oled_write_P(PSTR("FN"), false);
+                    sprintf(fn_str, "FN %5s", fkeydesc[selected_Fkey]);
+                    oled_write(fn_str, false);
+                    //oled_write_P(PSTR("FN "), false);
                     break;
                 case 2:
                     oled_write_P(PSTR("LOWER"), false);
@@ -150,10 +209,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             } else {
                 switch (get_highest_layer(layer_state)) {
                     case 0:
-                        oled_write_P(PSTR("Temp BASE"), false);
+                        oled_write_P(PSTR("Temp BASE "), false);
                         break;
                     case 1:
-                        oled_write_P(PSTR("Temp FN"), false);
+                        sprintf(fn_str, "Temp FN %5s", fkeydesc[selected_Fkey]);
+                        oled_write(fn_str, false);
                         break;
                     case 2:
                         oled_write_P(PSTR("Temp LOWER"), false);
