@@ -727,13 +727,11 @@ static uint16_t       _repeat_timer;
 static uint8_t        _times_remaining;
 static uint16_t       _dur;
 
-void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
-    rgblight_blink_layer_repeat(layer, duration_ms, 1);
-}
+void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) { rgblight_blink_layer_repeat(layer, duration_ms, 1); }
 
 void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times) {
     _times_remaining = times * 2;
-    _dur = duration_ms;
+    _dur             = duration_ms;
 
     rgblight_set_layer_state(layer, true);
     _times_remaining--;
@@ -892,7 +890,7 @@ void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
         animation_status.restart = true;
     }
 #        endif /* RGBLIGHT_SPLIT_NO_ANIMATION_SYNC */
-#    endif     /* RGBLIGHT_USE_TIMER */
+#    endif /* RGBLIGHT_USE_TIMER */
 }
 #endif /* RGBLIGHT_SPLIT */
 

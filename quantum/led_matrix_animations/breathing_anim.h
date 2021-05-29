@@ -16,4 +16,4 @@ bool BREATHING(effect_params_t* params) {
 }
 
 #    endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_LED_MATRIX_BREATHING
+#endif  // DISABLE_LED_MATRIX_BREATHING

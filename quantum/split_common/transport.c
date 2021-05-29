@@ -240,38 +240,38 @@ typedef struct _Serial_s2m_buffer_t {
     matrix_row_t smatrix[ROWS_PER_HAND];
 
 #    ifdef ENCODER_ENABLE
-    uint8_t      encoder_state[NUMBER_OF_ENCODERS];
+    uint8_t encoder_state[NUMBER_OF_ENCODERS];
 #    endif
 
 } Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
 #    ifdef SPLIT_MODS_ENABLE
-    uint8_t        real_mods;
-    uint8_t        weak_mods;
+    uint8_t real_mods;
+    uint8_t weak_mods;
 #        ifndef NO_ACTION_ONESHOT
-    uint8_t        oneshot_mods;
+    uint8_t oneshot_mods;
 #        endif
 #    endif
 #    ifndef DISABLE_SYNC_TIMER
-    uint32_t       sync_timer;
+    uint32_t sync_timer;
 #    endif
 #    ifdef SPLIT_TRANSPORT_MIRROR
-    matrix_row_t   mmatrix[ROWS_PER_HAND];
+    matrix_row_t mmatrix[ROWS_PER_HAND];
 #    endif
 #    ifdef BACKLIGHT_ENABLE
-    uint8_t        backlight_level;
+    uint8_t backlight_level;
 #    endif
 #    ifdef WPM_ENABLE
-    uint8_t        current_wpm;
+    uint8_t current_wpm;
 #    endif
 #    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
     led_eeconfig_t led_matrix;
     bool           led_suspend_state;
 #    endif
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
-    rgb_config_t   rgb_matrix;
-    bool           rgb_suspend_state;
+    rgb_config_t rgb_matrix;
+    bool         rgb_suspend_state;
 #    endif
 } Serial_m2s_buffer_t;
 
@@ -363,7 +363,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 
     // TODO:  if MATRIX_COLS > 8 change to unpack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        slave_matrix[i]              = serial_s2m_buffer.smatrix[i];
+        slave_matrix[i] = serial_s2m_buffer.smatrix[i];
 #    ifdef SPLIT_TRANSPORT_MIRROR
         serial_m2s_buffer.mmatrix[i] = master_matrix[i];
 #    endif
@@ -380,14 +380,14 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 
 #    ifdef WPM_ENABLE
     // Write wpm to slave
-    serial_m2s_buffer.current_wpm       = get_current_wpm();
+    serial_m2s_buffer.current_wpm = get_current_wpm();
 #    endif
 
 #    ifdef SPLIT_MODS_ENABLE
-    serial_m2s_buffer.real_mods         = get_mods();
-    serial_m2s_buffer.weak_mods         = get_weak_mods();
+    serial_m2s_buffer.real_mods = get_mods();
+    serial_m2s_buffer.weak_mods = get_weak_mods();
 #        ifndef NO_ACTION_ONESHOT
-    serial_m2s_buffer.oneshot_mods      = get_oneshot_mods();
+    serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
 #        endif
 #    endif
 
@@ -401,7 +401,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    endif
 
 #    ifndef DISABLE_SYNC_TIMER
-    serial_m2s_buffer.sync_timer        = sync_timer_read32() + SYNC_TIMER_OFFSET;
+    serial_m2s_buffer.sync_timer = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
     return true;
 }
@@ -416,7 +416,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_s2m_buffer.smatrix[i] = slave_matrix[i];
 #    ifdef SPLIT_TRANSPORT_MIRROR
-        master_matrix[i]             = serial_m2s_buffer.mmatrix[i];
+        master_matrix[i] = serial_m2s_buffer.mmatrix[i];
 #    endif
     }
 #    ifdef BACKLIGHT_ENABLE

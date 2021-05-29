@@ -40,13 +40,25 @@
 #endif
 
 #if defined(USART1_REMAP)
-#    define USART_REMAP do { (AFIO->MAPR |= AFIO_MAPR_USART1_REMAP); } while(0)
+#    define USART_REMAP                             \
+        do {                                        \
+            (AFIO->MAPR |= AFIO_MAPR_USART1_REMAP); \
+        } while (0)
 #elif defined(USART2_REMAP)
-#    define USART_REMAP do { (AFIO->MAPR |= AFIO_MAPR_USART2_REMAP); } while(0)
+#    define USART_REMAP                             \
+        do {                                        \
+            (AFIO->MAPR |= AFIO_MAPR_USART2_REMAP); \
+        } while (0)
 #elif defined(USART3_PARTIALREMAP)
-#    define USART_REMAP do { (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_PARTIALREMAP); } while(0)
+#    define USART_REMAP                                          \
+        do {                                                     \
+            (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_PARTIALREMAP); \
+        } while (0)
 #elif defined(USART3_FULLREMAP)
-#    define USART_REMAP do { (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_FULLREMAP); } while(0)
+#    define USART_REMAP                                       \
+        do {                                                  \
+            (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_FULLREMAP); \
+        } while (0)
 #endif
 
 #ifndef SELECT_SOFT_SERIAL_SPEED

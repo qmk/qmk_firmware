@@ -18,17 +18,13 @@ uint8_t SOLID_SPLASH_math(uint8_t val, int16_t dx, int16_t dy, uint8_t dist, uin
 }
 
 #            ifndef DISABLE_LED_MATRIX_SOLID_SPLASH
-bool SOLID_SPLASH(effect_params_t* params) {
-    return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_SPLASH_math);
-}
+bool SOLID_SPLASH(effect_params_t* params) { return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_SPLASH_math); }
 #            endif
 
 #            ifndef DISABLE_LED_MATRIX_SOLID_MULTISPLASH
-bool SOLID_MULTISPLASH(effect_params_t* params) {
-    return effect_runner_reactive_splash(0, params, &SOLID_SPLASH_math);
-}
+bool SOLID_MULTISPLASH(effect_params_t* params) { return effect_runner_reactive_splash(0, params, &SOLID_SPLASH_math); }
 #            endif
 
 #        endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#    endif      // !defined(DISABLE_LED_MATRIX_SPLASH) && !defined(DISABLE_LED_MATRIX_MULTISPLASH)
-#endif          // LED_MATRIX_KEYREACTIVE_ENABLED
+#    endif  // !defined(DISABLE_LED_MATRIX_SPLASH) && !defined(DISABLE_LED_MATRIX_MULTISPLASH)
+#endif  // LED_MATRIX_KEYREACTIVE_ENABLED

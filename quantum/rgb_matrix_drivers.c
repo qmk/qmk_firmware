@@ -146,9 +146,9 @@ static void flush(void) {
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init          = init,
-    .flush         = flush,
-    .set_color     = IS31FL3733_set_color,
+    .init = init,
+    .flush = flush,
+    .set_color = IS31FL3733_set_color,
     .set_color_all = IS31FL3733_set_color_all,
 };
 #    elif defined(IS31FL3737)
