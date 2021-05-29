@@ -10,7 +10,7 @@ A compact 30% (5x3+3) Split Keyboard from g Heavy Industries
 
 ## Firmware building
 
-Make example for this keyboard (after setting up your build environment):
+Build using the following command (after setting up your build environment):
 
     make gboards/gergoplex:default
 
