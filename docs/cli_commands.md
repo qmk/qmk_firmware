@@ -107,6 +107,16 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
+## `qmk cd`
+
+This command opens a new shell in your `qmk_firmware` directory.
+
+**Usage**:
+
+```
+qmk cd
+```
+
 ## `qmk doctor`
 
 This command examines your environment and alerts you to potential build or flash problems. It can fix many of them if you want it to.
