@@ -25,7 +25,6 @@ enum layer_names {
 
 #define LOWER MO(_LOWER)
 #define FN MO(_FN)
-#define RAISE_SPC LT(_RAISE, KC_SPC)
 #define TAB_CTL MT(MOD_LCTL, KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -40,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
      * | LSHIFT | Z      | X      | C      | V      | B      | END    | PG DN  | N      | M      | ,      | .      | /      | ENTER  |
      * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
-     * |        | LGUI   | FN     | LALT   | RAISE  |      SPACE      |      SPACE      | LEFT   | UP     | DOWN   | RIGHT  |        |
+     * |        | LGUI   | FN     | LALT   | LOWER  |      SPACE      |      SPACE      | LEFT   | UP     | DOWN   | RIGHT  |        |
      * '-----------------------------------------------------------------------------------------------------------------------------'
      */
     [_BASE] = LAYOUT_ortho_2x2u(
@@ -48,6 +47,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT,
         TAB_CTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME, KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_BSPC,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,  KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-                 KC_LGUI, FN,      KC_LALT, LOWER,       KC_SPC,   RAISE_SPC,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
-    )
+                 KC_LGUI, FN,      KC_LALT, LOWER,       KC_SPC,          KC_SPC,     KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
+    ),
+
+    /* Base Layer
+     * .-----------------------------------------------------------------------------------------------------------------------------.
+     * |                                                                                                                     KC_APP |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
+     * | `      | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | F11    | F12    | DEL    |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
+     * | TAB    | F7     | F8     | F9     | F10    | F11    | F12    | PG UP  | H      | J      | K      | L      | ;      | BACKSP |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
+     * | LSHIFT | Z      | X      | C      | V      | B      | END    | PG DN  | N      | M      | ,      | .      | /      | ENTER  |
+     * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
+     * |        | LGUI   | FN     | LALT   | LOWER  |      SPACE      |      SPACE      | LEFT   | UP     | DOWN   | RIGHT  |        |
+     * '-----------------------------------------------------------------------------------------------------------------------------'
+     */
+    [_FN] = LAYOUT_ortho_2x2u(
+                                                                                                                             KC_APP,
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
+        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,
+                 _______, _______, _______, _______,     _______,           _______,     KC_MUTE, KC_VOLU, KC_VOLD, KC_MPLY
+    ),
 };
