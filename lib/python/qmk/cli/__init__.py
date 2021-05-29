@@ -148,6 +148,7 @@ if not args or args[0] not in safe_commands:
             exit(1)
 
 # Import our subcommands
+from . import bux  # noqa
 from . import c2json  # noqa
 from . import cformat  # noqa
 from . import chibios  # noqa
