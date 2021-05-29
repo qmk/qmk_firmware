@@ -11,7 +11,7 @@ The Gentleman 65 combines the sleek look of natural wood, with the fun of froste
 
 Getting the board into bootloader mode:
 
-To flash firmware onto this board, you'll need to bring the PCB into bootloader mode. To enter bootloader mode, press the reset button on the back of the PCB twice. The reset button is located in the top left corner near the indicator LED.
+To flash firmware onto this board, you'll need to bring the PCB into bootloader mode. To enter bootloader mode, press the reset button on the back of the PCB twice. The reset button is located in the bottom center near the spacebar switch footprint.
 
 Make example for this keyboard (after setting up your build environment):
 
