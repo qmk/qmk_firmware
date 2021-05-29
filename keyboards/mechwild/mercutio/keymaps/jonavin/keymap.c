@@ -30,6 +30,10 @@ enum custom_keycodes {
   ENCFUNC = SAFE_RANGE, // encoder function keys
 };
 
+#define KC_CAD	LALT(LCTL(KC_DEL))
+#define KC_AF4	LALT(KC_F4)
+#define KC_TASK	LCTL(LSFT(KC_ESC))
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_all(
                                                                                                                 KC_MUTE,
@@ -42,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                                 ENCFUNC,
     KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
     KC_CAPS,          KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SCLN, KC_PAUS, KC_NO,   KC_NO,
-    KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NLCK, KC_P0,   KC_NO,   KC_NO,            KC_SFTENT,
+    KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NLCK, KC_NO,   KC_NO,   KC_NO,            KC_SFTENT,
     KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS ),
 
   [_LOWER] = LAYOUT_all(
@@ -63,11 +67,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*  These are needed whether encoder function is enabled or not when ENCFUNC keycode is pressed.
     Defaults never changes if no encoder present to change it
 */
-const uint8_t fkeycodes[] = { // list of key codes that will be scrollled through by encoder
-    KC_INS, KC_DEL, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22, KC_F23, KC_F24
+const uint16_t fkeycodes[] = { // list of key codes that will be scrollled through by encoder
+    KC_TASK, KC_INS, KC_DEL, KC_PSCR, KC_SCLN, KC_PAUS, KC_CAD, KC_AF4, KC_MEDIA_PLAY_PAUSE
 };
 const char* fkeydesc[] =    { // list of desc to be shown on LCD max 5 chars will be shown
-    "INS",  "DEL",  "F13",  "F14",   "F15", "F16",  "F17",  "F18",  "F19",  "F20",  "F21",  "F22",  "F23",  "F24"
+    "TASK","INS",  "DEL",  "PRTSC", "SCRLK", "BREAK", "C-A-D", "AltF4", "PLAY"
 };
 
 static uint8_t selected_Fkey = 0;
@@ -76,7 +80,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case ENCFUNC:
         if (record->event.pressed) {
-            tap_code(fkeycodes[selected_Fkey]);
+            tap_code16(fkeycodes[selected_Fkey]);
         } else {
             // when keycode is released
         }
@@ -122,13 +126,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
                             selected_layer ++;
                             layer_move(selected_layer);
-                        } else {
+                        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
+                             tap_code16(LCTL(KC_RGHT));
+                        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
+                            tap_code(KC_MEDIA_NEXT_TRACK);
+                        } else  {
                             tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
                         }
                     } else if ( !clockwise ) {
-                        if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ){
+                        if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
                             selected_layer --;
                             layer_move(selected_layer);
+                        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
+                            tap_code16(LCTL(KC_LEFT));
+                        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
+                            tap_code(KC_MEDIA_PREV_TRACK);
                         } else {
                             tap_code(KC_VOLD);
                         }
@@ -205,11 +217,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             oled_set_cursor(8,3);
             if (get_highest_layer(layer_state) == selected_layer) {
-                oled_write_P(PSTR("            "), false);
+                oled_write_P(PSTR("             "), false);
             } else {
                 switch (get_highest_layer(layer_state)) {
                     case 0:
-                        oled_write_P(PSTR("Temp BASE "), false);
+                        oled_write_P(PSTR("Temp BASE"), false);
                         break;
                     case 1:
                         sprintf(fn_str, "Temp FN %5s", fkeydesc[selected_Fkey]);
