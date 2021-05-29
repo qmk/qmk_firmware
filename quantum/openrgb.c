@@ -252,8 +252,26 @@ void openrgb_get_led_info(uint8_t *data) {
         raw_hid_buffer[6] = g_openrgb_direct_mode_colors[led].b;
     }
 
-    const uint8_t row = led / MATRIX_COLS;
-    const uint8_t col = led % MATRIX_COLS;
+    uint8_t row = 0;
+    uint8_t col = 0;
+    uint8_t found = 0;
+
+    for(row = 0; row < MATRIX_ROWS; row++)
+    {
+        for(col = 0; col < MATRIX_COLS; col++)
+        {
+            if(g_led_config.matrix_co[row][col] == led)
+            {
+                found = 1;
+                break;
+            }
+        }
+
+        if(found == 1)
+        {
+            break;
+        }
+    }
 
 #ifdef OPENRGB_SWITCH_MATRIX_TO_PHYSICAL_POS_MAP
     if (col >= OPENRGB_MATRIX_COLUMNS || row >= OPENRGB_MATRIX_ROWS) {
