@@ -77,6 +77,25 @@ Configure the hardware via your config.h:
 
 You must also turn on the SPI feature in your halconf.h and mcuconf.h
 
+#### Circular Buffer Mode
+Some boards may flicker while in the normal buffer mode. To fix this issue, circular buffer mode may be used to rectify the issue. 
+
+By default, the circular buffer mode is disabled.
+
+To enable this alternative buffer mode, place this into your `config.h` file:
+```c
+#define WS2812_SPI_USE_CIRCULAR_BUFFER
+```
+
+#### Setting baudrate with divisor
+To adjust the baudrate at which the SPI peripheral is configured, users will need to derive the target baudrate from the clock tree provided by STM32CubeMX.
+
+Only divisors of 2, 4, 8, 16, 32, 64, 128 and 256 are supported by hardware.
+
+|Define              |Default|Description                          |
+|--------------------|-------|-------------------------------------|
+|`WS2812_SPI_DIVISOR`|`16`   |SPI source clock peripheral divisor  |
+
 #### Testing Notes
 
 While not an exhaustive list, the following table provides the scenarios that have been partially validated:
@@ -102,10 +121,13 @@ Configure the hardware via your config.h:
 #define WS2812_PWM_DRIVER PWMD2  // default: PWMD2
 #define WS2812_PWM_CHANNEL 2  // default: 2
 #define WS2812_PWM_PAL_MODE 2  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
+//#define WS2812_PWM_COMPLEMENTARY_OUTPUT // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM2_UP // DMAMUX configuration for TIMx_UP -- only required if your MCU has a DMAMUX peripheral, see the respective reference manual for the appropriate values for your MCU.
 ```
+
+Note that using a complementary timer output (TIMx_CHyN) is possible only for advanced-control timers (TIM1, TIM8, TIM20 on STM32), and the `STM32_PWM_USE_ADVANCED` option in mcuconf.h must be set to `TRUE`.  Complementary outputs of general-purpose timers are not supported due to ChibiOS limitations.
 
 You must also turn on the PWM feature in your halconf.h and mcuconf.h
 
