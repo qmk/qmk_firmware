@@ -4,7 +4,7 @@
 
 A compact 30% (5x3+3) Split Keyboard from g Heavy Industries
 
-* Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)
+* Keyboard Maintainer: [Jane Bernhardt](https://github.com/germ)
 * Hardware Supported: GergoPlex (Kit, Partial, Ready)
 * Hardware Availability: [gboards.ca](http://gboards.ca)
 
@@ -33,4 +33,4 @@ ERROR: Bootloader not found. Trying again in 5s.
 
 ## Have an idea for a gadget or a keymap?
 
-[Reach out to me!](mailto:bernhardtjeremy@gmail.com) or submit a PR!
+[Reach out to me!](mailto:jane@gboards.ca) or submit a PR!
