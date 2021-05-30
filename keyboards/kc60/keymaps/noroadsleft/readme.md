@@ -1,6 +1,6 @@
 # @noroadsleft's KC60 keymap
 
-### Last updated: April 26, 2021 13:33 (-0700)
+### Last updated: May 3, 2021 16:42 (-0700)
 
 ![](https://i.imgur.com/tzhXQYIl.jpg)
 
@@ -24,9 +24,9 @@ Descriptions of the physical locations of keys will use the key's function in a 
 ## Outline
 
 - [Base Layers](#base-layers)
-  - Layer 0: QWERTY `_QW`
-  - Layer 1: Hardware Dvorak `_DV`
-  - Layer 2: Hardware Colemak `_CM`
+  - Layer 0: Dvorak `_DV`
+  - Layer 1: QWERTY `_QW`
+  - Layer 2: Colemak `_CM`
 - [Quake 2 Layer](#quake-2-layer)
   - Layer 3: Quake 2 `_Q2`
 - [Function Layer](#function-layer)
@@ -41,30 +41,28 @@ Descriptions of the physical locations of keys will use the key's function in a 
 
 ## Base Layers
 
-### Layer 0: QWERTY - `_QW`
+My base layers are pretty standard for a 60%, with the following changes:
 
-Standard QWERTY layout, with four QMK features:
-
-- The `Menu` key has been replaced by `MO(_FW)`, which moves to my Windows Fn layer when held.
+- The `Menu` key has been replaced by `MO(_FN)`, which moves to my Function layer when held.
 - The Right `GUI` key has been replaced with a `MO(_MA)` key, which moves to the Macro layer when held.
-- The `Caps Lock` key has been replaced with a dual function `LT()` key, which opens the Windows Fn layer when held, and is `Caps Lock` when tapped
-- The Left `Control` key has been replaced with a `MT(MOD_CTRL, KC_GRV)` key, which is <code>&#96; ~</code> when tapped and `Ctrl` when held.
+- The `Caps Lock` key has been replaced with a dual function `LT()` key, which opens the Function layer when held, and is `Caps Lock` when tapped.
+- The Left `Control` key has been replaced with a `MT(MOD_CTRL, KC_GRV)` key, which is `Ctrl` when held and <code>&#96; ~</code> when tapped.
 
-![QWERTY layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/qwerty.png)
+### Layer 0: Dvorak - `_DV`
+
+A hardware-based Dvorak Simplified layout. In this layer, I can leave the host system in QWERTY, plug my keyboard in, and still type in Dvorak.
+
+![Dvorak layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/dvorak.png)
 
 
-----
-
-### Layer 1: Hardware Dvorak - `_DV`
+### Layer 1: QWERTY - `_QW`
 
 - Accessed by holding either `Fn` and tapping `/?` key, then tapping `2@`.
 
-A hardware-based Dvorak Simplified layout. At my weekend job, I use a shared computer that runs MacOS Sierra, in US QWERTY layout. In this layer, I can leave the system in QWERTY, plug my keyboard in, and still type in Dvorak.
+For when other people need to use my keyboard. :)
 
-![Hardware Dvorak layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/dvorak.png)
+![QWERTY layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/qwerty.png)
 
-
-----
 
 ### Layer 2: Hardware Colemak `_CM`
 
@@ -72,7 +70,7 @@ A hardware-based Dvorak Simplified layout. At my weekend job, I use a shared com
 
 A hardware-based Colemak layout. Been thinking of trying it, so it's here.
 
-![Hardware Colemak layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/colemak.png)
+![Colemak layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/colemak.png)
 
 
 ----
@@ -83,11 +81,7 @@ A hardware-based Colemak layout. Been thinking of trying it, so it's here.
 
 - Accessed by holding either `Fn` key and tapping the `/?` key, then tapping `4$`
 
-These layers were born out of the confusion I have had trying to use the in-game chat and the console in [Quake 2](https://en.wikipedia.org/wiki/Quake_II). When Quake 2 came out, alternate keyboard layouts weren't really a thing. As a result, all in-game text input is hard-locked to US QWERTY, regardless of what the operating system is using for its input method.
-
-I have solved this by writing a custom QMK macro. The keycode in the System layer that enables these layers, [`GO_Q2`](./keymap.c#L205), is a [macro](./keymap.c#L63-L70) that sets the default layer to the QWERTY layer, then turns the Quake 2 layer `_Q2` on. The result is a partially-overwritten QWERTY layer, that changes the dual-function Left Control/Grave key to a standard Left Control, and the Enter key into a special Enter key specific to Quake 2.
-
-When I hit the `Enter` key (bound in-game to text chat), the [macro keycode](./keymap.c#L71-L86) I've created sends the keycode for `Enter`, then follows with flipping an internal boolean variable and enabling the Hardware Dvorak layer. Now the game is in text chat mode, and my keyboard is in Dvorak. When I hit `Enter` again, another `Enter` key is sent, which sends the message, then the macro flips the boolean back to false and disables the Hardware Dvorak layer, which brings me back to the standard QWERTY+Quake 2 setup. Hitting `Escape` instead runs a [macro](./keymap.c#L87-L97) that cancels the sending of the message, and undoes the layers.
+I used to have some macro craziness here. I've now switched to leaving my main system in QWERTY and having the Dvorak stuff happen on the keyboard, and setting my in-game key assignments to the Dvorak mapping (`.OEU` instead of `ESDF`).
 
 ![Quake 2](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/quake2.png)
 
@@ -96,7 +90,7 @@ When I hit the `Enter` key (bound in-game to text chat), the [macro keycode](./k
 
 ## Function Layer
 
-### Layer 4: Fn layer - `_FN`
+### Layer 4: Function layer - `_FN`
 
 - Accessed by holding either `Fn` key from any base layer
 
@@ -118,8 +112,6 @@ Puts a Numpad on the right-hand side of the keyboard. A through F included for h
 ![Numpad layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/numpad.png)
 
 
-----
-
 ### Layer 6: Macro layer - `_MA`
 
 - Accessed by holding the right-side `Win` key
@@ -130,8 +122,6 @@ For macro documentation, see [my userspace readme](../../../../users/noroadsleft
 
 ![Macro layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/macros.png)
 
-
-----
 
 ### Layer 7: System layer - `_SY`
 

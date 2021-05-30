@@ -120,7 +120,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20210227.md "QMK v0.12.0 - 2021 Feb 27")
+    * [Most Recent ChangeLog](ChangeLog/20210529.md "QMK v0.13.0 - 2021 May 29")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development
