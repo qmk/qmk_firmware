@@ -82,6 +82,9 @@ typedef enum naginata_keycodes {
   NG_SHFT,
   NG_SHFT2,
 
+  NG_ON,
+  NG_OFF,
+  NG_CLR,
   NGSW_WIN,
   NGSW_MAC,
   NGSW_LNX,

@@ -773,6 +773,18 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   // OS切り替え(UNICODE出力)
   if (record->event.pressed) {
     switch (keycode) {
+      case NG_ON:
+        naginata_on();
+        return false;
+        break;
+      case NG_OFF:
+        naginata_off();
+        return false;
+        break;
+      case NG_CLR:
+        naginata_clear();
+        return false;
+        break;
       case NGSW_WIN:
         switchOS(NG_WIN);
         return false;
