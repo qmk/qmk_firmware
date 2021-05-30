@@ -11,7 +11,7 @@ Hardware Availability: Check for GBs on [Geekhack](https://geekhack.org) and on 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make lazydesigners/the60:default:dfu
+    make lazydesigners/the60/rev1:default
 
 To enter the bootloader, either short the pins on the PCB, use the RESET button on the FN layer or hold the Esc key while plugging in your keyboard.
 
