@@ -17,7 +17,7 @@
 #include "spi_master.h"
 #include "quantum.h"
 #include "adns9800_srom_A6.h"
-#include "adns.h"
+#include "adns9800.h"
 
 // registers
 #define REG_Product_ID                           0x00

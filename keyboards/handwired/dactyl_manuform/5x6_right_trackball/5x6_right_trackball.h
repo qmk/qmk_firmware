@@ -19,7 +19,7 @@
 #include "dactyl_manuform.h"
 #include "quantum.h"
 #include "spi_master.h"
-#include "pmw3360.h"
+#include "drivers/sensors/pmw3360.h"
 #include "pointing_device.h"
 
 
