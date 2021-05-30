@@ -315,7 +315,7 @@ void openrgb_set_mode(uint8_t *data) {
     rgb_matrix_set_speed_noeeprom(speed);
     rgb_matrix_sethsv_noeeprom(h, s, v);
 
-    raw_hid_buffer[1] = OPENRGB_SUCCESS;
+    raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_SUCCESS;
 }
 void openrgb_direct_mode_set_single_led(uint8_t *data) {
     const uint8_t led = data[1];
@@ -334,7 +334,7 @@ void openrgb_direct_mode_set_single_led(uint8_t *data) {
     g_openrgb_direct_mode_colors[led].g = g;
     g_openrgb_direct_mode_colors[led].b = b;
 
-    raw_hid_buffer[1] = OPENRGB_SUCCESS;
+    raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_SUCCESS;
 }
 void openrgb_direct_mode_set_leds(uint8_t *data) {
     const uint8_t first_led   = data[1];
