@@ -138,7 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
 
-void matrix_init_user(void) {
+void pointing_device_init(void) {
 	if (is_keyboard_master()){
 		optical_sensor_init();
 	}
