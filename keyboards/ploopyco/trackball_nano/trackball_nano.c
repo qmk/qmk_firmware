@@ -70,33 +70,9 @@ uint16_t lastMidClick = 0;  // Stops scrollwheel from being read if it was press
 uint8_t OptLowPin = OPT_ENC1;
 bool debug_encoder = false;
 
-__attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
-    // There's no scroller on this device.
-    return;
-}
-
-__attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
-    // There's no scroller on this device.
-    return;
-}
-
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
-    // x and y are swapped
-    // the sensor is rotated
-    // by 90 degrees
-    int16_t temp = x;
-    x = y;
-    y = temp;
-
-    // Apply delta-X and delta-Y transformations.
-    float xt = (float) x * ADNS_X_TRANSFORM;
-    float yt = (float) y * ADNS_Y_TRANSFORM;
-
-    int16_t xti = xt;
-    int16_t yti = yt;
-
-    mouse_report->x = xti;
-    mouse_report->y = yti;
+    mouse_report->x = x;
+    mouse_report->y = y;
 }
 
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
@@ -106,7 +82,17 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         if (debug_mouse)
             dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
 
-        process_mouse_user(mouse_report, data.dx, data.dy);
+        // Apply delta-X and delta-Y transformations.
+        // x and y are swapped
+        // the sensor is rotated
+        // by 90 degrees
+        float xt = (float) data.dy * ADNS_X_TRANSFORM;
+        float yt = (float) data.dx * ADNS_Y_TRANSFORM;
+
+        int16_t xti = (int16_t)xt;
+        int16_t yti = (int16_t)yt;
+
+        process_mouse_user(mouse_report, xti, yti);
     }
 }
 
@@ -182,7 +168,6 @@ void pointing_device_init(void) {
 
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
-    process_wheel(&mouse_report);
     process_mouse(&mouse_report);
     pointing_device_set_report(mouse_report);
     pointing_device_send();

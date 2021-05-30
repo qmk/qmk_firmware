@@ -17,6 +17,9 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 
 * `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](mod_tap.md), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
+* `OS_ON` - Turns on One Shot keys.
+* `OS_OFF` - Turns off One Shot keys. OSM act as regular mod keys, OSL act like `MO`.
+* `ON_TOGG` - Toggles the one shot key status.
 
 Sometimes, you want to activate a one-shot key as part of a macro or tap dance routine.  
 
