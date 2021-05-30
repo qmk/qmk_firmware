@@ -101,7 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         switch (index) {
             case 0:         // This is the only encoder right now, keeping for consistency
-                switch(biton32(layer_state)){  // special handling per layer
+                switch(get_highest_layer(layer_state)){  // special handling per layer
                 case _FN1:  // on Fn layer select what the encoder does when pressed
                     if (!keyboard_report->mods) {
                         if ( clockwise ) {
