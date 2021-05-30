@@ -346,6 +346,8 @@ const PROGMEM naginata_keymap ngmap[] = {
   // enter+シフト(連続シフト)
   {.key = B_SHFT|B_V|B_M    , .kana = SS_TAP(X_ENTER)},
 
+  {.key = B_J|B_K|B_T       , .kana = "/"}, // ・
+
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
@@ -456,7 +458,7 @@ const PROGMEM naginata_keymap_long ngmapl_mac[] = {
 // 編集モードunicode
 const PROGMEM naginata_keymap_unicode ngmapu[] = {
   {.key = B_J|B_K|B_W		, .win   = "｜",		.mac = "nagitatesenn"}, // ｜{改行}
-  {.key = B_J|B_K|B_T		, .win   = "・",		.mac = "nagichuutenn"}, // ・
+  // {.key = B_J|B_K|B_T		, .win   = "・",		.mac = "nagichuutenn"}, // ・
   {.key = B_J|B_K|B_A		, .win   = "……",		.mac = "nagitentenn"}, // ……{改行}
   {.key = B_J|B_K|B_S		, .win   = "《",		.mac = "nagikakkohio"}, // 《{改行}
   {.key = B_J|B_K|B_F		, .win   = "「",		.mac = "nagikakkohiu"}, // 「{改行}
