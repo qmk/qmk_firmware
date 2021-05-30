@@ -7,9 +7,9 @@ Macro keypad
 * Hardware Availability: Soon on tindie or order your own parts - the hardware in the repo is Open Source :D
 * PCB renders :)
 
-![](https://github.com/0xCB-dev/0xcb-static/blob/main/PCB/rev1.0/top.bak)
+![](https://github.com/0xCB-dev/0xcb-static/blob/main/PCB/rev1.0/top.png)
 
-![](https://github.com/0xCB-dev/0xcb-static/blob/main/PCB/rev1.0/bottom.bak)
+![](https://github.com/0xCB-dev/0xcb-static/blob/main/PCB/rev1.0/bottom.png)
 
 More Pictures [here](https://0xcb.dev/static/)
 
