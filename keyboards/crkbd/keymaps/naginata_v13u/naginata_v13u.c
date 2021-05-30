@@ -524,14 +524,6 @@ bool naginata_state(void) {
   return is_naginata;
 }
 
-// バッファをクリアする
-void naginata_clear(void) {
-  for (int i = 0; i < NGBUFFER; i++) {
-    ninputs[i] = 0;
-  }
-  ng_chrcount = 0;
-}
-
 // バッファから先頭n文字を削除する
 void compress_buffer(int n) {
   if (ng_chrcount == 0) return;
@@ -702,7 +694,8 @@ bool process_modifier(uint16_t keycode, keyrecord_t *record) {
         layer_off(naginata_layer);
       } else {
         n_modifier--;
-        if (n_modifier == 0) {
+        if (n_modifier <= 0) {
+          n_modifier = 0;
           layer_on(naginata_layer);
         }
       }
@@ -734,16 +727,19 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
           (keycode == ngon_keys[1] && fghj_buf == ngon_keys[0])) {
         naginata_on();
         fghj_buf = 0;
+        nkeypress = 0;
         return false;
       } else if ((keycode == ngoff_keys[0] && fghj_buf == ngoff_keys[1]) ||
           (keycode == ngoff_keys[1] && fghj_buf == ngoff_keys[0])) {
         naginata_off();
         fghj_buf = 0;
+        nkeypress = 0;
         return false;
       // ２キー目はかなオンキーではない
       } else {
         tap_code(fghj_buf); // 1キー目を出力
         fghj_buf = 0;
+        nkeypress = 0;
         return true; // 2キー目はQMKにまかせる
       }
     }
@@ -761,14 +757,30 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// バッファをクリアする
+void naginata_clear(void) {
+  for (int i = 0; i < NGBUFFER; i++) {
+    ninputs[i] = 0;
+  }
+  ng_chrcount = 0;
+  n_modifier = 0;
+  nkeypress = 0;
+  fghj_buf = 0;
+}
 
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
+
   // まれに薙刀モードオンのまま、レイヤーがオフになることがあるので、対策
-  if (is_naginata && !layer_state_is(naginata_layer))
+  if (n_modifier == 0 && is_naginata && !layer_state_is(naginata_layer))
     layer_on(naginata_layer);
-  if (!is_naginata && layer_state_is(naginata_layer))
+  if (n_modifier == 0 && !is_naginata && layer_state_is(naginata_layer))
     layer_off(naginata_layer);
+  if (n_modifier > 0 && layer_state_is(naginata_layer))
+    layer_off(naginata_layer);
+
+  if (process_modifier(keycode, record))
+    return true;
 
   // OS切り替え(UNICODE出力)
   if (record->event.pressed) {
@@ -819,9 +831,6 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (!is_naginata)
     // return true;
     return enable_naginata(keycode, record);
-
-  if (process_modifier(keycode, record))
-    return true;
 
   if (record->event.pressed) {
     switch (keycode) {
