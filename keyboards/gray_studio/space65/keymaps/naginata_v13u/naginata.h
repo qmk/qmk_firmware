@@ -107,7 +107,7 @@ typedef union {
 
 user_config_t naginata_config;
 
-#define NG_SAFE_RANGE SAFE_RANGE + 39
+#define NG_SAFE_RANGE SAFE_RANGE + 42
 
 #define NG_WIN 1
 #define NG_MAC 2
