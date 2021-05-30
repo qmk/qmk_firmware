@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-
+// clang-format off
 enum layer_names {
   _HOME,
   _MISC,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     BL_INC,  BL_DEC,  TO(0)
 )
 };
-
+// clang-format on
 
 /* rotary encoder (SW3) - add more else if blocks for more granular layer control */
 #ifdef ENCODER_ENABLE
