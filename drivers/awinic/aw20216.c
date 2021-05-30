@@ -48,9 +48,8 @@
 #define AW_CHIPEN 1
 
 
-// The range for these values are supposedly 0-215, I don't know what happens if you exceed this range
-#define AW_SCALING_MAX 215
-#define AW_GLOBAL_CURRENT_MAX 215 // Unconfirmed that this is the max
+#define AW_SCALING_MAX 150
+#define AW_GLOBAL_CURRENT_MAX 150
 
 uint8_t g_spi_transfer_buffer[20] = { 0 };
 aw_led g_pwm_buffer[DRIVER_LED_TOTAL];
