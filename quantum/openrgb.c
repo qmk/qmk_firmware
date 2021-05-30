@@ -160,7 +160,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case OPENRGB_GET_PROTOCOL_VERSION:
             openrgb_get_protocol_version();
             break;
-      case OPENRGB_GET_QMK_VERSION:
+        case OPENRGB_GET_QMK_VERSION:
             openrgb_get_qmk_version();
             break;
         case OPENRGB_GET_DEVICE_INFO:
@@ -199,7 +199,7 @@ void openrgb_get_protocol_version(void) {
     raw_hid_buffer[1] = OPENRGB_PROTOCOL_VERSION;
 }
 void openrgb_get_qmk_version(void) {
-    raw_hid_buffer[0] = OPENRGB_GET_QMK_VERSION;
+    raw_hid_buffer[0]    = OPENRGB_GET_QMK_VERSION;
     uint8_t current_byte = 1;
     for (uint8_t i = 0; (current_byte < (RAW_EPSIZE - 2)) && (QMK_VERSION[i] != 0); i++) {
         raw_hid_buffer[current_byte] = QMK_VERSION[i];
@@ -259,23 +259,19 @@ void openrgb_get_led_info(uint8_t *data) {
         raw_hid_buffer[6] = g_openrgb_direct_mode_colors[led].b;
     }
 
-    uint8_t row = 0;
-    uint8_t col = 0;
+    uint8_t row   = 0;
+    uint8_t col   = 0;
     uint8_t found = 0;
 
-    for(row = 0; row < MATRIX_ROWS; row++)
-    {
-        for(col = 0; col < MATRIX_COLS; col++)
-        {
-            if(g_led_config.matrix_co[row][col] == led)
-            {
+    for (row = 0; row < MATRIX_ROWS; row++) {
+        for (col = 0; col < MATRIX_COLS; col++) {
+            if (g_led_config.matrix_co[row][col] == led) {
                 found = 1;
                 break;
             }
         }
 
-        if(found == 1)
-        {
+        if (found == 1) {
             break;
         }
     }
