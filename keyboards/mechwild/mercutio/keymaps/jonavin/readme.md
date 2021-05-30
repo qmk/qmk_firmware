@@ -13,7 +13,7 @@ Features
   - shutdown oled when powered down to prevent OLED from showing Mercutio all the time
   - add WPM indicator when wpm is > 20 wpm
   
-  - FN layer has encoder selectable key codes
+  - FN layer has encoder selectable key codes and displayed on OLED
         
         Change these in keymap.c to assign your desired key selection
 
