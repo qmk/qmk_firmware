@@ -19,11 +19,12 @@
 //extern uint8_t is_master;
 
 
-#define _COLEMAK 0
-#define _SYMBOL 1
-#define _NAVIGATION 2
-#define _FKEYS 3
-
+enum custom_layers {
+    _COLEMAK,
+    _SYMBOL,
+    _NAVIGATION,
+    _FKEYS,
+};
 
 //keycode shorthands
 #define SYM  MO(1)
