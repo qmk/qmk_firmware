@@ -31,4 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define RGBLED_NUM 40
 #define RGBLED_SPLIT {20, 20}
-#define RGBLIGHT_ANIMATIONS
+// #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_KNIGHT
+
+#define TAPPING_TERM 200
