@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t fkeycodes[] = { // list of key codes that will be scrollled through by encoder
     KC_TASK, KC_INS, KC_DEL, KC_PSCR, KC_SCLN, KC_PAUS, KC_CAD, KC_AF4, KC_MEDIA_PLAY_PAUSE
 };
-const char* fkeydesc[] =    { // list of desc to be shown on LCD max 5 chars will be shown
+static const PROGMEM char* fkeydesc[] =    { // list of desc to be shown on LCD max 5 chars will be shown
     "TASK","INS",  "DEL",  "PRTSC", "SCRLK", "BREAK", "C-A-D", "AltF4", "PLAY"
 };
 
