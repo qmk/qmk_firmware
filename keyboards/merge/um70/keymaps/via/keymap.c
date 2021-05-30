@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
 enum layer_names {
     _BASE,
@@ -123,7 +122,7 @@ static const char PROGMEM merge_logo[] = {
     0x01, 0x00, 0x01, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00
 };
 
-int current_wpm = 0;
+uint8_t current_wpm = 0;
 
 static void print_status_narrow(void) {
     oled_set_cursor(0,1);
@@ -159,10 +158,15 @@ static void print_status_narrow(void) {
     //oled_write_ln_P(PSTR(" "), false);
     oled_write_P(PSTR("-----"), false);
 
-    // WPM counter Start (Need #include <stdio.h> to work)
-    char wpm_str[8];
+    // WPM counter Start
+    char wpm_str[5];
     oled_set_cursor(0,13);
-    sprintf(wpm_str, " %03d", current_wpm);
+    wpm_str[4] = '\0';
+    uint8_t n = current_wpm;
+    wpm_str[3] = '0' + n % 10;
+    wpm_str[2] = '0' + (n /= 10) % 10;
+    wpm_str[1] = '0' + n / 10;
+    wpm_str[0] = ' ';
     oled_write(wpm_str, false);
     oled_set_cursor(0,14);
     oled_write(" WPM ", false);
