@@ -25,18 +25,13 @@ jobs:
     - name: Generate API Data
       run: qmk generate-api
 
-    - name: Install rsync
-      run: |
-        apt-get update && apt-get install -y rsync
-
     - name: Upload API Data
-      uses: JamesIves/github-pages-deploy-action@3.7.1
+      uses: jakejarvis/s3-sync-action@master
       with:
-        ACCESS_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: main
-        FOLDER: api_data/v1
-        CLEAN: true
-        GIT_CONFIG_EMAIL: hello@qmk.fm
-        REPOSITORY_NAME: qmk/qmk_keyboards_devel
-        TARGET_FOLDER: v1
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.API_SPACE_DEVELOP }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.SPACES_ACCESS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.SPACES_SECRET_KEY }}
+        AWS_S3_ENDPOINT: https://nyc3.digitaloceanspaces.com
+        SOURCE_DIR: 'api_data'
