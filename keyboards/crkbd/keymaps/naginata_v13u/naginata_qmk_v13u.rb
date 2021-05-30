@@ -135,10 +135,10 @@ daku.each_with_index do |k, i|
   if j && j > 0
     if eiji_r.index(eiji[j])
       puts teigi(eiji[j], r_daku[i], k, "B_F|")
-      puts teigi(eiji[j], r_daku[i], k + "(冗長)", "B_F|", "|B_SHFT")
+      # puts teigi(eiji[j], r_daku[i], k + "(冗長)", "B_F|", "|B_SHFT")
     else
       puts teigi(eiji[j], r_daku[i], k, "B_J|")
-      puts teigi(eiji[j], r_daku[i], k + "(冗長)", "B_J|", "|B_SHFT")
+      # puts teigi(eiji[j], r_daku[i], k + "(冗長)", "B_J|", "|B_SHFT")
     end
   end
 end
@@ -150,10 +150,10 @@ handaku.each_with_index do |k, i|
   if j && j > 0
     if eiji_r.index(eiji[j])
       puts teigi(eiji[j], r_handaku[i], k, "B_V|")
-      puts teigi(eiji[j], r_handaku[i], k + "(冗長)", "B_V|", "|B_SHFT")
+      # puts teigi(eiji[j], r_handaku[i], k + "(冗長)", "B_V|", "|B_SHFT")
     else
       puts teigi(eiji[j], r_handaku[i], k, "B_M|")
-      puts teigi(eiji[j], r_handaku[i], k + "(冗長)", "B_M|", "|B_SHFT")
+      # puts teigi(eiji[j], r_handaku[i], k + "(冗長)", "B_M|", "|B_SHFT")
     end
   end
 end
