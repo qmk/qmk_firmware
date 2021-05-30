@@ -82,6 +82,9 @@ typedef enum naginata_keycodes {
   NG_SHFT,
   NG_SHFT2,
 
+  NG_ON,
+  NG_OFF,
+  NG_CLR,
   NGSW_WIN,
   NGSW_MAC,
   NGSW_LNX,
@@ -104,7 +107,7 @@ typedef union {
 
 user_config_t naginata_config;
 
-#define NG_SAFE_RANGE SAFE_RANGE + 39
+#define NG_SAFE_RANGE SAFE_RANGE + 42
 
 #define NG_WIN 1
 #define NG_MAC 2
