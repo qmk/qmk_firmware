@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pointing_device.h"
 #include "../optical_sensor/optical_sensor.h"
 
-extern keymap_config_t keymap_config;
 
 bool isScrollMode;
 
