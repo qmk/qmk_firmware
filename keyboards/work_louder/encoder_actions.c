@@ -17,7 +17,7 @@
 
 #include "encoder_actions.h"
 
-#if defined(VIA_ENABLE) && defined(ENCODERS_ENABLE)
+#if defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
 
 #    ifdef ENCODERS
 static uint8_t  encoder_state[ENCODERS] = {0};
@@ -58,9 +58,11 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
     encoder_action_register(index, clockwise);
+    // don't return user actions, because they are in the keymap
     // encoder_update_user(index, clockwise);
+    return true;
 };
 
 #endif

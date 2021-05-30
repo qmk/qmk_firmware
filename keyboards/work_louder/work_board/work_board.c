@@ -16,13 +16,15 @@
 
 #include "work_board.h"
 
-#ifdef ENCODER_ENABLE
-__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
+#if !defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
     if (clockwise) {
         tap_code(KC_VOLD);
     } else {
         tap_code(KC_VOLU);
     }
+    return true;
 }
 #endif
 
@@ -88,13 +90,4 @@ led_config_t g_led_config = { {
     1, 1, 1, 1, 1, 4,4,4, 1, 1, 1, 1, 1
 } };
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 #endif
