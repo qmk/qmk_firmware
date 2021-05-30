@@ -18,6 +18,7 @@
 #    error "RAW_ENABLE is not enabled"
 #endif
 
+#include "version.h"
 #include "quantum.h"
 #include "openrgb.h"
 #include "raw_hid.h"
@@ -159,6 +160,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case OPENRGB_GET_PROTOCOL_VERSION:
             openrgb_get_protocol_version();
             break;
+      case OPENRGB_GET_QMK_VERSION:
+            openrgb_get_qmk_version();
+            break;
         case OPENRGB_GET_DEVICE_INFO:
             openrgb_get_device_info();
             break;
@@ -193,6 +197,14 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 void openrgb_get_protocol_version(void) {
     raw_hid_buffer[0] = OPENRGB_GET_PROTOCOL_VERSION;
     raw_hid_buffer[1] = OPENRGB_PROTOCOL_VERSION;
+}
+void openrgb_get_qmk_version(void) {
+    raw_hid_buffer[0] = OPENRGB_GET_QMK_VERSION;
+    uint8_t current_byte = 1;
+    for (uint8_t i = 0; (current_byte < (RAW_EPSIZE - 2)) && (QMK_VERSION[i] != 0); i++) {
+        raw_hid_buffer[current_byte] = QMK_VERSION[i];
+        current_byte++;
+    }
 }
 void openrgb_get_device_info(void) {
     raw_hid_buffer[0] = OPENRGB_GET_DEVICE_INFO;
