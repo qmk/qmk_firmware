@@ -118,39 +118,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   report_mouse_t currentReport = {};
 
-  switch (keycode) {
-    case KC_MBTN1:
-      currentReport = pointing_device_get_report();
-      if (record->event.pressed) {
-        currentReport.buttons |= MOUSE_BTN1;
-      }
-      else {
-        currentReport.buttons &= ~MOUSE_BTN1;
-      }
-      pointing_device_set_report(currentReport);
-      return false;
-    case KC_MBTN2:
-      currentReport = pointing_device_get_report();
-      if (record->event.pressed) {
-        currentReport.buttons |= MOUSE_BTN2;
-      }
-      else {
-        currentReport.buttons &= ~MOUSE_BTN2;
-      }
-      pointing_device_set_report(currentReport);
-      return false;
-    case KC_MBTN3:
-      currentReport = pointing_device_get_report();
-      if (record->event.pressed) {
-        currentReport.buttons |= MOUSE_BTN3;
-      }
-      else {
-        currentReport.buttons &= ~MOUSE_BTN3;
-      }
-      pointing_device_set_report(currentReport);
-      return false;
-  }
-  return true;
+#ifndef MOUSEKEY_ENABLE
+    if (IS_MOUSEKEY_BUTTON(keycode)) {
+        report_mouse_t currentReport = pointing_device_get_report();
+        if (record->event.pressed) {
+            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
+        } else {
+            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
+        }
+        pointing_device_set_report(currentReport);
+        pointing_device_send();
+    }
+#endif
+
+    return true;
 }
 
 
