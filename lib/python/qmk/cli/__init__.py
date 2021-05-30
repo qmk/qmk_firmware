@@ -12,6 +12,20 @@ from subprocess import run
 from milc import cli, __VERSION__
 from milc.questions import yesno
 
+import_names = {
+    # A mapping of package name to importable name
+    'pep8-naming': 'pep8ext_naming',
+    'pyusb': 'usb.core',
+}
+
+safe_commands = [
+    # A list of subcommands we always run, even when the module imports fail
+    'clone',
+    'config',
+    'env',
+    'setup',
+]
+
 
 def _run_cmd(*command):
     """Run a command in a subshell.
@@ -50,8 +64,8 @@ def _find_broken_requirements(requirements):
             module_import = module_name.replace('-', '_')
 
             # Not every module is importable by its own name.
-            if module_name == "pep8-naming":
-                module_import = "pep8ext_naming"
+            if module_name in import_names:
+                module_import = import_names[module_name]
 
             if not find_spec(module_import):
                 broken_modules.append(module_name)
@@ -107,40 +121,41 @@ if int(milc_version[0]) < 2 and int(milc_version[1]) < 3:
 
 # Check to make sure we have all our dependencies
 msg_install = 'Please run `python3 -m pip install -r %s` to install required python dependencies.'
+args = sys.argv[1:]
+while args and args[0][0] == '-':
+    del args[0]
 
-if _broken_module_imports('requirements.txt'):
-    if yesno('Would you like to install the required Python modules?'):
-        _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt')
-    else:
-        print()
-        print(msg_install % (str(Path('requirements.txt').resolve()),))
-        print()
-        exit(1)
+if not args or args[0] not in safe_commands:
+    if _broken_module_imports('requirements.txt'):
+        if yesno('Would you like to install the required Python modules?'):
+            _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt')
+        else:
+            print()
+            print(msg_install % (str(Path('requirements.txt').resolve()),))
+            print()
+            exit(1)
 
-if cli.config.user.developer:
-    args = sys.argv[1:]
-    while args and args[0][0] == '-':
-        del args[0]
-    if not args or args[0] != 'config':
-        if _broken_module_imports('requirements-dev.txt'):
-            if yesno('Would you like to install the required developer Python modules?'):
-                _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements-dev.txt')
-            elif yesno('Would you like to disable developer mode?'):
-                _run_cmd(sys.argv[0], 'config', 'user.developer=None')
-            else:
-                print()
-                print(msg_install % (str(Path('requirements-dev.txt').resolve()),))
-                print('You can also turn off developer mode: qmk config user.developer=None')
-                print()
-                exit(1)
+    if cli.config.user.developer and _broken_module_imports('requirements-dev.txt'):
+        if yesno('Would you like to install the required developer Python modules?'):
+            _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements-dev.txt')
+        elif yesno('Would you like to disable developer mode?'):
+            _run_cmd(sys.argv[0], 'config', 'user.developer=None')
+        else:
+            print()
+            print(msg_install % (str(Path('requirements-dev.txt').resolve()),))
+            print('You can also turn off developer mode: qmk config user.developer=None')
+            print()
+            exit(1)
 
 # Import our subcommands
+from . import bux  # noqa
 from . import c2json  # noqa
 from . import cformat  # noqa
 from . import chibios  # noqa
 from . import clean  # noqa
 from . import compile  # noqa
 from milc.subcommand import config  # noqa
+from . import console  # noqa
 from . import docs  # noqa
 from . import doctor  # noqa
 from . import fileformat  # noqa

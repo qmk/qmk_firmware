@@ -5,7 +5,7 @@
     "width": 17,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
