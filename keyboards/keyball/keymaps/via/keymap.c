@@ -149,7 +149,7 @@ void keyboard_post_init_user() {
     debug_mouse = true;
 }
 
-void matrix_scan_user(void) {
+void pointing_device_task(void) {
     if (!is_keyboard_master())
         return;
     static int  cnt;
