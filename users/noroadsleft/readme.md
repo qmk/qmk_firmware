@@ -25,7 +25,7 @@ Some frequently used Git commands.
 | [`G_FTCH`](./noroadsleft.c#L43-L52) | `git fetch upstream `  | `git pull upstream `         |
 | [`G_BRCH`](./noroadsleft.c#L53-L62) | `master`               | `$(git branch-name)`         |
 
-`$(git branch-name)` is an alias for `git rev-parse --abbrev-ref HEAD`, which normally return the name of the current branch.
+`$(git branch-name)` is an alias for `git rev-parse --abbrev-ref HEAD`, which normally returns the name of the current branch.
 
 ### "Macro Mode" Macros and Customized Keycodes
 
@@ -76,6 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ## Footnotes
 
 - 1: [^](#macro-mode-macros-and-customized-keycodes) The `M_MDSWP` keycode is used in my keymaps in the following locations:
-  - [KC60](../../keyboards/kc60/keymaps/noroadsleft/keymap.c#L206)
-  - [KBDfans KBD75 rev1](../../keyboards/kbdfans/kbd75/keymaps/noroadsleft/keymap.c#L102)
-  - [CoseyFannitutti Discipline](../../keyboards/coseyfannitutti/discipline/keymaps/noroadsleft/keymap.c#L67)
+  - [KC60](../../keyboards/kc60/keymaps/noroadsleft/keymap.c#L111)
+  - [KBDfans KBD75 rev1](../../keyboards/kbdfans/kbd75/keymaps/noroadsleft/keymap.c#L93)
+  - [CoseyFannitutti Discipline](../../keyboards/coseyfannitutti/discipline/keymaps/noroadsleft/keymap.c#L66)

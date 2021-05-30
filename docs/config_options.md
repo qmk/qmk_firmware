@@ -78,10 +78,10 @@ This is a C header file that is one of the first things included, and will persi
   * enables audio on pin B5 (duophony is enabled if one of B pins is enabled along with one of C pins)
   * Deprecated. Use `#define AUDIO_PIN B5`, or use `#define AUDIO_PIN_ALT B5` if a `C` pin is enabled with `AUDIO_PIN`
 * `#define B6_AUDIO`
-  * enables audio on pin B5 (duophony is enabled if one of B pins is enabled along with one of C pins)
+  * enables audio on pin B6 (duophony is enabled if one of B pins is enabled along with one of C pins)
   * Deprecated. Use `#define AUDIO_PIN B6`, or use `#define AUDIO_PIN_ALT B6` if a `C` pin is enabled with `AUDIO_PIN`
 * `#define B7_AUDIO`
-  * enables audio on pin B5 (duophony is enabled if one of B pins is enabled along with one of C pins)
+  * enables audio on pin B7 (duophony is enabled if one of B pins is enabled along with one of C pins)
   * Deprecated. Use `#define AUDIO_PIN B7`, or use `#define AUDIO_PIN_ALT B7` if a `C` pin is enabled with `AUDIO_PIN`
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight
