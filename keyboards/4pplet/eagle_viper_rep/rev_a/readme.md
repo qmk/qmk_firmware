@@ -1,6 +1,6 @@
 # Viper/Eagle REP Rev A
 
-Replacement PCB for Viper/Eagle V2/V3
+A alternative PCB for Viper and Eagle V2 and V3
 
 * Keyboard Maintainer: [4pplet](https://github.com/4pplet)
 * Hardware Supported: Viper/Eagle REP Rev A
