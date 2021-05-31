@@ -96,3 +96,7 @@ This happens immediately after the previous `develop` branch is merged.
     * [ ] Create a PR for `develop`
     * [ ] Make sure travis comes back clean
     * [ ] Merge `develop` PR
+
+## Post-merge operations
+
+* (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)

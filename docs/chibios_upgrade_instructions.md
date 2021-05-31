@@ -13,7 +13,7 @@ ChibiOS and ChibiOS-Contrib need to be updated in tandem -- the latter has a bra
     * `git svn fetch`
     * First time around this will take several hours
     * Subsequent updates will be incremental only
-* Tagging example:
+* Tagging example (work out which version first!):
     * `git tag -a ver20.3.3 -m ver20.3.3 svn/tags/ver20.3.3`
     * `git push qmk ver20.3.3`
     * `git tag -a breaking_YYYY_qN -m breaking_YYYY_qN svn/tags/ver20.3.3`
@@ -35,17 +35,22 @@ ChibiOS and ChibiOS-Contrib need to be updated in tandem -- the latter has a bra
 
 ## Updating submodules
 
-* `cd $QMK_FIRMWARE`
-* `git checkout develop`
-* `git pull --ff-only`
-* `git checkout -b chibios-version-bump`
-* `cd lib/chibios`
-* `git fetch --all --tags --prune`
-* `git checkout breaking_YYYY_qN`
-* `cd ../chibios-contrib`
-* `git fetch --all --tags --prune`
-* `git checkout breaking_YYYY_qN`
-* `cd ../..`
-* `git commit -am 'Update ChibiOS to XXXXXXXXX'`
-* `git push --set-upstream origin chibios-version-bump`
-* Make a PR
+* Update the submodules
+    * `cd $QMK_FIRMWARE`
+    * `git checkout develop`
+    * `git pull --ff-only`
+    * `git checkout -b chibios-version-bump`
+    * `cd lib/chibios`
+    * `git fetch --all --tags --prune`
+    * `git checkout breaking_YYYY_qN`
+    * `cd ../chibios-contrib`
+    * `git fetch --all --tags --prune`
+    * `git checkout breaking_YYYY_qN`
+* Build everything
+    * `cd $QMK_FIRMWARE`
+    * `qmk multibuild -j4`
+    * Make sure there are no errors
+* Push to the repo
+    * `git commit -am 'Update ChibiOS to XXXXXXXXX'`
+    * `git push --set-upstream origin chibios-version-bump`
+* Make a PR to qmk_firmware with the new branch
