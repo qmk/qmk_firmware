@@ -14,6 +14,8 @@ ChibiOS and ChibiOS-Contrib need to be updated in tandem -- the latter has a bra
     * First time around this will take several hours
     * Subsequent updates will be incremental only
 * Tagging example:
+    * `git tag -a ver20.3.3 -m ver20.3.3 svn/tags/ver20.3.3`
+    * `git push qmk ver20.3.3`
     * `git tag -a breaking_YYYY_qN -m breaking_YYYY_qN svn/tags/ver20.3.3`
     * `git push qmk breaking_YYYY_qN`
 
