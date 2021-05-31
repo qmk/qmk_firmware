@@ -384,7 +384,7 @@ void handle_pointing_device_modes(void){
             } else {
                 mouse_report.v = (reverse_scroll_y ? -1 : 1) * sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor * (sign(cum_y)>0 ? 5 : 1) + (sign(cum_y)==sign(last_v) ? last_v / 2 : 0);
                 if (mouse_scroll_need_move) {
-                    mouse_report.y = (mouse_v_plus? +1 : -1) * 20;
+                    mouse_report.y = (mouse_v_plus? +1 : -1) * 1;
                     mouse_v_plus = !mouse_v_plus;
                     if (mouse_v_plus == true) {
                         mouse_scroll_need_move = false;
