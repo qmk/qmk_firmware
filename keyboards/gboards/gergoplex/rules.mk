@@ -2,7 +2,7 @@ MCU = atmega32u4
 
 BOOTLOADER = atmel-dfu
 
-CUSTOM_MATRIX    = yes
+CUSTOM_MATRIX    = lite
 MOUSEKEY_ENABLE  = yes  # Mouse keys
 COMBO_ENABLE     = yes
 EXTRAKEY_ENABLE  = yes
