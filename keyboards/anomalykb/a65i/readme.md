@@ -2,7 +2,9 @@
 
 ![a65i](https://i.imgur.com/J4fzVVt.jpg)
 
-PCB designed by Lfgberg for the AnomalyKB a65i
+PCB designed by Lfgberg for the AnomalyKB a65i.
+
+To enter bootloader mode, either utilize the reset button near the MCU, or short the ESC key for bootmagic lite.
 
 * Keyboard Maintainer: [Lfgberg](https://github.com/lfgberg)
 * Hardware Supported: A65I PCB
