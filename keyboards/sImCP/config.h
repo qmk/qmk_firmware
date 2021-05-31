@@ -41,12 +41,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-#define MATRIX_ROW_PINS { C3, C2, C1, C0, D4 }
-#define MATRIX_COL_PINS { D5, D6, D7, B0, B1, B2 }
+#define MATRIX_ROW_PINS { D5, D6, D7, B0, B1, B2 }
+#define MATRIX_COL_PINS { C3, C2, C1, C0, D4 }
+#define LED C4
 
-#define ENCODERS_PAD_A { C4, D0, B3 }
-#define ENCODERS_PAD_B { C5, D1, B4 }
-#define ENCODER_RESOLUTIONS { 4, 4, 2 }
+#define ENCODERS_PAD_A { B3, B4, D1 }
+#define ENCODERS_PAD_B { D0, B5, C5 }
+#define ENCODER_RESOLUTIONS { 2, 2, 2 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
