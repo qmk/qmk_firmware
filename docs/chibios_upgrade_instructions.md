@@ -29,7 +29,7 @@ ChibiOS and ChibiOS-Contrib need to be updated in tandem -- the latter has a bra
     * `git pull --ff-only`
     * `git push origin chibios-20.3.x`
     * `git tag -a breaking_YYYY_qN -m breaking_YYYY_qN chibios-20.3.x`
-    * `git push qmk breaking_YYYY_qN`
+    * `git push origin breaking_YYYY_qN`
 
 ## Updating submodules
 
