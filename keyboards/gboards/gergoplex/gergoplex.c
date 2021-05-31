@@ -19,9 +19,6 @@
 bool i2c_initialized = 0;
 i2c_status_t mcp23018_status = 0x20;
 
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
 
 uint8_t init_mcp23018(void) {
     print("starting init");
