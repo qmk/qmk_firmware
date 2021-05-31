@@ -260,7 +260,8 @@ void pointing_device_task(void) {
         mouse_report.v = -mouse_report.y;
 #else
         mouse_report.v = mouse_report.y;
-#endif        mouse_report.x = 0;
+#endif
+        mouse_report.x = 0;
         mouse_report.y = 0;
     }
 
