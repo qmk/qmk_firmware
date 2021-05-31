@@ -94,7 +94,6 @@ This happens immediately after the previous `develop` branch is merged.
 * GitHub Actions
     * [ ] Create a PR for `develop`
     * [ ] Make sure travis comes back clean
-    * [ ] **Turn off 'Automatically delete head branches' for the repository** -- confirm with @qmk/directors that it is done before continuing
 * `qmk_firmware` git commands
     * [ ] `git checkout master`
     * [ ] `git pull --ff-only`
