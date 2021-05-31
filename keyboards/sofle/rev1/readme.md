@@ -16,9 +16,9 @@ Make example for this keyboard (after setting up your build environment):
 
     make sofle:default
 
-Flash the default keymap: 
+Flashing example for this keyboard:
 
-    make sofle:default:avrdude
+    make sofle:default:flash
 
 Press reset button on he keyboard when asked.
 
