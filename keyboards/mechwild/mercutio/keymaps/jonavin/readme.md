@@ -17,11 +17,17 @@ Features
         
         Change these in keymap.c to assign your desired key selection
 
-        const uint16_t fkeycodes[] = { // list of key codes that will be scrollled through by encoder
-            KC_TASK, KC_INS, KC_DEL, KC_PSCR, KC_SCLN, KC_PAUS, KC_CAD, KC_AF4, KC_MEDIA_PLAY_PAUSE
-        };
-        const char* fkeydesc[] =    { // list of desc to be shown on LCD max 5 chars will be shown
-            "TASK","INS",  "DEL",  "PRTSC", "SCRLK", "BREAK", "C-A-D", "AltF4", "PLAY"
+        static const keycodedescType PROGMEM keyselection[] = {
+            // list of key codes that will be scrollled through by encoder and description
+                {"TASK",    KC_TASK},
+                {"INS",     KC_INS},
+                {"DEL",     KC_DEL},
+                {"PrtSc",   KC_PSCR},
+                {"ScrLk",   KC_SCLN},
+                {"Break",   KC_PAUS},
+                {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
+                {"AltF4",   KC_AF4},
+                {"PLAY",    KC_MEDIA_PLAY_PAUSE}
         };
 
   - Additional encoder functionality 
