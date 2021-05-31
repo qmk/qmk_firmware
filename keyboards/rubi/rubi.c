@@ -73,7 +73,7 @@ bool led_update_kb(led_t led_state) {
     return true;
 }
 
-__attribute__ ((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
+__attribute__ ((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (get_highest_layer(layer_state) == 0) {
             uint16_t mapped_code = 0;
@@ -101,8 +101,9 @@ __attribute__ ((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
+    return true;
 }
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
-    encoder_update_user(index, clockwise);
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    return encoder_update_user(index, clockwise);
 }
