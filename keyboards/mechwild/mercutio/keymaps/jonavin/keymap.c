@@ -67,20 +67,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*  These are needed whether encoder function is enabled or not when ENCFUNC keycode is pressed.
     Defaults never changes if no encoder present to change it
 */
-const uint16_t fkeycodes[] = { // list of key codes that will be scrollled through by encoder
-    KC_TASK, KC_INS, KC_DEL, KC_PSCR, KC_SCLN, KC_PAUS, KC_CAD, KC_AF4, KC_MEDIA_PLAY_PAUSE
-};
-static const char* fkeydesc[] =    { // list of desc to be shown on LCD max 5 chars will be shown
-    "TASK","INS",  "DEL",  "PRTSC", "SCRLK", "BREAK", "C-A-D", "AltF4", "PLAY"
+typedef struct {
+     char keydesc[6];    // this will be displayed on OLED
+    uint16_t keycode;   // this is the keycode that will be sent when activted
+} keycodedescType;
+
+static const keycodedescType PROGMEM keyselection[] = {
+    // list of key codes that will be scrollled through by encoder and description
+        {"TASK",    KC_TASK},
+        {"INS",     KC_INS},
+        {"DEL",     KC_DEL},
+        {"PrtSc",   KC_PSCR},
+        {"ScrLk",   KC_SCLN},
+        {"Break",   KC_PAUS},
+        {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
+        {"AltF4",   KC_AF4},
+        {"PLAY",    KC_MEDIA_PLAY_PAUSE}
 };
 
-static uint8_t selected_Fkey = 0;
+#define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
+
+static uint8_t selectedkey_idx = 0;
+static keycodedescType selectedkey_rec;
+
+static void set_selectedkey(uint8_t idx) {
+    // make a copy from PROGMEM
+    memcpy_P (&selectedkey_rec, &keyselection[idx], sizeof selectedkey_rec);
+
+    //selectedkey_rec = keyselection[idx];
+
+}
+
+void keyboard_post_init_user(void) {
+  // Call the keyboard post init code.
+    //selectedkey_rec = keyselection[selectedkey_idx];
+    set_selectedkey(selectedkey_idx);
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case ENCFUNC:
         if (record->event.pressed) {
-            tap_code16(fkeycodes[selected_Fkey]);
+            tap_code16(selectedkey_rec.keycode);
         } else {
             // when keycode is released
         }
@@ -105,18 +133,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 case _FN1:  // on Fn layer select what the encoder does when pressed
                     if (!keyboard_report->mods) {
                         if ( clockwise ) {
-                            if ( selected_Fkey  < sizeof(fkeycodes)/sizeof(fkeycodes[0])-1) {
-                                selected_Fkey ++;
+                            if ( selectedkey_idx  < MAX_KEYSELECTION-1) {
+                                selectedkey_idx ++;
                             } else {
                                // do nothing
                             }
                         } else if ( !clockwise ) {
-                            if ( selected_Fkey  > 0){
-                                selected_Fkey --;
+                            if ( selectedkey_idx  > 0){
+                                selectedkey_idx --;
                             } else {
                                 // do nothing
                             }
                         }
+                        set_selectedkey(selectedkey_idx);
                         break;
                     } else {
                            // continue to default
@@ -203,7 +232,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     oled_write_P(PSTR("BASE"), false);
                     break;
                 case 1:
-                    sprintf(fn_str, "FN %5s", fkeydesc[selected_Fkey]);
+                    sprintf(fn_str, "FN %5s", selectedkey_rec.keydesc);
                     oled_write(fn_str, false);
                     //oled_write_P(PSTR("FN "), false);
                     break;
@@ -225,7 +254,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         oled_write_P(PSTR("Temp BASE"), false);
                         break;
                     case 1:
-                        sprintf(fn_str, "Temp FN %5s", fkeydesc[selected_Fkey]);
+                        sprintf(fn_str, "Temp FN %5s", selectedkey_rec.keydesc);
                         oled_write(fn_str, false);
                         break;
                     case 2:
