@@ -33,10 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "pointing_device.h"
 #endif
 
-#ifndef DEBOUNCE
-#    define DEBOUNCE 5
-#endif
-
 // ATmega pin defs
 #define ROW1 (1 << 6)
 #define ROW2 (1 << 5)
@@ -44,12 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ROW4 (1 << 1)
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t matrix[MATRIX_ROWS];
-/*
- * matrix state(1:on, 0:off)
- * contains the raw values without debounce filtering of the last read cycle.
- */
-static matrix_row_t raw_matrix[MATRIX_ROWS];
+static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 
 static const pin_t row_pins[MATRIX_COLS] = MATRIX_ROW_PINS;
 // Right-hand side only pins, the left side is controlled my MCP
@@ -66,25 +58,13 @@ static void         select_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
 
-__attribute__((weak)) void matrix_init_user(void) {}
-__attribute__((weak)) void matrix_scan_user(void) {}
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-
-void matrix_init(void) {
+void matrix_init_custom(void) {
     // initialize row and col
     mcp23018_status = init_mcp23018();
     unselect_rows();
     init_cols();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        matrix[i]     = 0;
-        raw_matrix[i] = 0;
-    }
-
-    debounce_init(MATRIX_ROWS);
-    matrix_init_quantum();
 }
+
 void matrix_power_up(void) {
     mcp23018_status = init_mcp23018();
 
@@ -107,12 +87,10 @@ static inline bool store_raw_matrix_row(uint8_t index) {
     }
     return false;
 }
-uint8_t matrix_scan(void) {
+
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     if (mcp23018_status) {  // if there was an error
         if (++mcp23018_reset_loop == 0) {
-            // if (++mcp23018_reset_loop >= 1300) {
-            // since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
-            // this will be approx bit more frequent than once per second
             print("trying to reset mcp23018\n");
             mcp23018_status = init_mcp23018();
             if (mcp23018_status) {
@@ -140,41 +118,13 @@ uint8_t matrix_scan(void) {
         unselect_rows();
     }
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    matrix_scan_quantum();
-
 #ifdef DEBUG_MATRIX
     for (uint8_t c = 0; c < MATRIX_COLS; c++)
         for (uint8_t r = 0; r < MATRIX_ROWS; r++)
             if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
 #endif
 
-    return 1;
-}
-
-bool matrix_is_modified(void)  // deprecated and evidently not called.
-{
-    return true;
-}
-
-inline bool         matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
-inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
-
-void matrix_print(void) {
-    print("\nr/c 0123456789ABCDEF\n");
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        print_hex8(row);
-        print(": ");
-        print_bin_reverse16(matrix_get_row(row));
-        print("\n");
-    }
-}
-uint8_t matrix_key_count(void) {
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
+    return changed;
 }
 
 // Remember this means ROWS
