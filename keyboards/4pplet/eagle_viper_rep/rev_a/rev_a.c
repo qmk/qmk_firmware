@@ -50,6 +50,7 @@ bool led_update_kb(led_t led_state) {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
     if(DISPLAY_LAYERS){
         setLayerLed(state);
     }
