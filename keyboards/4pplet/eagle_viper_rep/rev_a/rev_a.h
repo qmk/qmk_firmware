@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-void setLayerLed(uint32_t state);
+void setLayerLed(layer_state_t state);
 
 #define LAYOUT_all( \
     k00, k10, k01, k11, k02, k12, k03, k13, k04, k14, k05, k15, k06, k16, k36, \
