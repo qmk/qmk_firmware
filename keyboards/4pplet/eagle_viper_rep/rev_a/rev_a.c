@@ -58,7 +58,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 }
 /* Set indicator leds to indicate which layer is active */
 void setLayerLed(layer_state_t state){
-    switch(state){
+    switch(get_highest_layer(state)){
         case 0 :
             setPinOutput(LAYER_1);
             writePin(LAYER_1, 0);
