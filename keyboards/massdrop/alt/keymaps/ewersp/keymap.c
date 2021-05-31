@@ -118,6 +118,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             // We still want to process the keycode normally
             return true;
+        case KC_F4:
+            // Map alt+shift+4 to alt+f4
+            if (super_alt_layer_active && (get_mods() & MOD_BIT(KC_LSHIFT))) {
+                if (record->event.pressed) {
+                    register_code(KC_LALT);
+                } else {
+                    unregister_code(KC_LALT);
+                }
+            }
+            return true;
         case ALT_DEL:
             if (record->event.pressed) {
                 register_code(KC_DEL);
