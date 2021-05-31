@@ -24,4 +24,5 @@ AUDIO_ENABLE = no              # Audio output on port C6
 FAUXCLICKY_ENABLE = no         # Use buzzer to emulate clicky switches
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3741
-NO_USB_STARTUP_CHECK = yes      # Disable initialization only when usb is plugged in
+NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
+WAIT_FOR_USB = yes
