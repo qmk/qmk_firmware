@@ -43,26 +43,26 @@ KC_TRNS, RGB_SAD, RGB_M_P, RGB_MOD, RGB_SPD,
     ),
 
       [2] = LAYOUT(
-        ____,
-        ____,
-        ____, ____, ____, ____,
-____, ____, ____, ____, ____,
-        ____, ____,
-             ____
+        _______,
+        _______,
+        _______, _______, _______, _______,
+_______, _______, _______, _______, _______,
+        _______, _______,
+             _______
     ),
 
       [3] = LAYOUT(
-        ____,
-        ____,
-        ____, ____, ____, ____,
-____, ____, ____, ____, ____,
-        ____, ____,
-             ____
+        _______,
+        _______,
+        _______, _______, _______, _______,
+_______, _______, _______, _______, _______,
+        _______, _______,
+             _______
     ),
 
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -70,6 +70,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLU);
         }
     }
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
