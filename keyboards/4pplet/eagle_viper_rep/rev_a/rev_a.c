@@ -56,7 +56,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     return state;
 }
 /* Set indicator leds to indicate which layer is active */
-void setLayerLed(uint32_t state){
+void setLayerLed(layer_state_t state){
     switch(state){
         case 0 :
             setPinOutput(LAYER_1);
