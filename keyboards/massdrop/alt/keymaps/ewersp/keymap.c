@@ -95,30 +95,11 @@ void keyboard_post_init_kb(void) {
 #define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
 #define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 
-// Taken from 'g_led_config' in config_led.c
-#define CAPS_LOCK_LED_ID 30
-
 // If the super alt layer is the active layer
 bool super_alt_layer_active = false;
 
 // If we need to unregister alt when leaving the super alt layer
 bool need_to_unregister_alt = false;
-
-// This runs every matrix scan (every 'frame')
-void rgb_matrix_indicators_user(void) {
-    led_flags_t flags = rgb_matrix_get_flags();
-
-    // If we're in either keylight or underglow modes (but not both simultaneously)
-    if (HAS_FLAGS(flags, LED_FLAG_KEYLIGHT) != HAS_FLAGS(flags, LED_FLAG_UNDERGLOW)) {
-
-        // This fixes a bug where the caps lock LED flickers when toggled in either keylight or underglow modes
-        if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
-            rgb_matrix_set_color(CAPS_LOCK_LED_ID, RGB_WHITE);
-        } else {
-            rgb_matrix_set_color(CAPS_LOCK_LED_ID, 0, 0, 0);
-        }
-    }
-}
 
 // This runs code every time that the layers get changed
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -228,27 +209,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
-                        alt_config.rgb_mode = RGB_MODE_KEYLIGHT;
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
+                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
                         rgb_matrix_set_color_all(0, 0, 0);
+                        alt_config.rgb_mode = RGB_MODE_KEYLIGHT;
                         break;
                     }
-                    case LED_FLAG_KEYLIGHT: {
-                        alt_config.rgb_mode = RGB_MODE_UNDERGLOW;
+                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
                         rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
                         rgb_matrix_set_color_all(0, 0, 0);
+                        alt_config.rgb_mode = RGB_MODE_UNDERGLOW;
                         break;
                     }
                     case LED_FLAG_UNDERGLOW: {
-                        alt_config.rgb_mode = RGB_MODE_NONE;
                         rgb_matrix_set_flags(LED_FLAG_NONE);
                         rgb_matrix_disable_noeeprom();
+                        alt_config.rgb_mode = RGB_MODE_NONE;
                         break;
                     }
                     default: {
-                        alt_config.rgb_mode = RGB_MODE_ALL;
                         rgb_matrix_set_flags(LED_FLAG_ALL);
                         rgb_matrix_enable_noeeprom();
+                        alt_config.rgb_mode = RGB_MODE_ALL;
                         break;
                     }
                 }
