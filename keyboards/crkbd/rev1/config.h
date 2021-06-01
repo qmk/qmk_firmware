@@ -34,6 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGB_MATRIX_SPLIT { 27, 27 }
 #    define SPLIT_TRANSPORT_MIRROR
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    define RGB_MATRIX_LED_PROCESS_LIMIT 5
+#    define RGB_MATRIX_LED_FLUSH_LIMIT 26
 #endif
 
 #define DIODE_DIRECTION COL2ROW
