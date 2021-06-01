@@ -196,11 +196,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
     }
 
-    if (raw_hid_buffer[0] != 0) {
+    if (*data != OPENRGB_DIRECT_MODE_SET_LEDS) {
         raw_hid_buffer[RAW_EPSIZE - 1] = OPENRGB_END_OF_MESSAGE;
         raw_hid_send(raw_hid_buffer, RAW_EPSIZE);
+        memset(raw_hid_buffer, 0x00, RAW_EPSIZE);
     }
-    memset(raw_hid_buffer, 0x00, RAW_EPSIZE);
 }
 
 void openrgb_get_protocol_version(void) {
@@ -357,6 +357,4 @@ void openrgb_direct_mode_set_leds(uint8_t *data) {
         g_openrgb_direct_mode_colors[color_idx].g = data[data_idx + 4];
         g_openrgb_direct_mode_colors[color_idx].b = data[data_idx + 5];
     }
-
-    raw_hid_buffer[0] = 0;
 }
