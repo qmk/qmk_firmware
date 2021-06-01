@@ -110,7 +110,7 @@ void oled_task_user(void) { render_status(); }
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         encoder_action(get_encoder_mode(true), clockwise);
 #    ifdef OLED_DRIVER_ENABLE
@@ -122,5 +122,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         oled_on();
 #    endif
     }
+    return true;
 }
 #endif

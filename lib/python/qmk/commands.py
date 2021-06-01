@@ -201,6 +201,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
+        f'QMK_BIN={"bin/qmk" if "DEPRECATED_BIN_QMK" in os.environ else "qmk"}',
     ])
 
     return make_command
