@@ -13,6 +13,10 @@ This purpose of this fork is maintain a clean repo that only contains the keyboa
 * [Planck EZ](/keyboards/planck/ez)
 * [Moonlander Mark I](/keyboards/moonlander)
 
+## Building
+
+To build, don't check out `master`, but check out the latest firmware branch (`firmware20`, for example).
+
 ## Maintainers
 
 QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). The ZSA branch is maintained by Drashna, ZSA's official QMK Liaison, and by Florian Didron, ZSA's lead developer, with input from Erez Zukerman (ZSA CEO).
