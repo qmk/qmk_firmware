@@ -1,15 +1,32 @@
-# The Key Company Candybar
+i<pre>
+<a href="https://www.etsy.com/shop/DeebsKeebs">Etsy Shop</a>
+<a href="https://discord.gg/bxgbeNf">Discord Channel</a>
 
-![Candybar](https://cdn.shopify.com/s/files/1/1679/2319/articles/CandyBar_Promo_400x225_1000x.jpg?v=1538150501)
+Parts required for build:
+  -Augio PCB
+  -Optional switch plate
+  -Case --either source a custom made case or send the case files to Ponoko or similar service
+  -63 diodes
+  -63 switches
+  -2u stabilizer
+  -Pro micro
 
-The Key Company Candybar is a staggered 40% board with a numpad utilizing the STM32F072 microcontroller.
+The firmware works for both the ortholinear and staggered version
+Note: The case files can be ordered from Ponoko.  There should be two open layers, and at least one closed layer in order to clear the USB and bottom of the PCB.
+</pre>
 
-* Keyboard Maintainer: [Terry Mathews](https://github.com/TerryMathews/)
-* Hardware Supported: TKC Candybar
-* Hardware Availability: [TheKey.Company](https://thekey.company/collections/candybar)
+![alt text](https://i.imgur.com/Gur67JT.jpg)
+![alt text](https://i.imgur.com/GuPMF7Y.jpg)
+![alt text](https://i.imgur.com/j1mmju4.jpg)
 
-Make example for this keyboard (after setting up your build environment):
 
-    make tkc/candybar/lefty:default:dfu-util
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+<pre>
+The ortholinear version is reversible, if you prefer the numpad on the right side.  However, the pro micro needs to be flipped.
+</pre>
+
+![alt text](https://i.imgur.com/PatkK3w.jpg)
+![alt text](https://i.imgur.com/xuGE01p.jpg)
+
+![alt text](https://i.imgur.com/MO0eRQi.jpg)
+![alt text](https://i.imgur.com/IYrpj6l.jpg)
