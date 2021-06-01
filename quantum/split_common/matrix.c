@@ -61,7 +61,7 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
 
 #ifdef DIRECT_PINS
 
-static void init_pins(void) {
+__attribute__((weak)) void matrix_init_pins(void) {
     for (int row = 0; row < MATRIX_ROWS; row++) {
         for (int col = 0; col < MATRIX_COLS; col++) {
             pin_t pin = direct_pins[row][col];
@@ -72,7 +72,7 @@ static void init_pins(void) {
     }
 }
 
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+__attribute__((weak)) bool matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
@@ -104,14 +104,14 @@ static void unselect_rows(void) {
     }
 }
 
-static void init_pins(void) {
+__attribute__((weak)) void matrix_init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         setPinInputHigh_atomic(col_pins[x]);
     }
 }
 
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+__attribute__((weak)) bool matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
@@ -152,14 +152,14 @@ static void unselect_cols(void) {
     }
 }
 
-static void init_pins(void) {
+__attribute__((weak)) void matrix_init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
         setPinInputHigh_atomic(row_pins[x]);
     }
 }
 
-static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
+__attribute__((weak)) bool matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     bool matrix_changed = false;
 
     // Select col
@@ -233,7 +233,7 @@ void matrix_init(void) {
     thatHand = ROWS_PER_HAND - thisHand;
 
     // initialize key pins
-    init_pins();
+    matrix_init_pins();
 
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
@@ -293,12 +293,12 @@ uint8_t matrix_scan(void) {
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
-        local_changed |= read_cols_on_row(raw_matrix, current_row);
+        local_changed |= matrix_read_cols_on_row(raw_matrix, current_row);
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        local_changed |= read_rows_on_col(raw_matrix, current_col);
+        local_changed |= matrix_read_rows_on_col(raw_matrix, current_col);
     }
 #endif
 
