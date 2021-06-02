@@ -30,11 +30,11 @@
 #include "keymap.h"
 
 #ifdef BACKLIGHT_ENABLE
-#    ifdef LED_MATRIX_ENABLE
-#        include "led_matrix.h"
-#    else
-#        include "backlight.h"
-#    endif
+#    include "backlight.h"
+#endif
+
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
 #endif
 
 #if defined(RGBLIGHT_ENABLE)
@@ -52,6 +52,7 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
+#include "bootmagic.h"
 #include "timer.h"
 #include "sync_timer.h"
 #include "config_common.h"
@@ -97,7 +98,7 @@ extern layer_state_t layer_state;
 #    include "process_music.h"
 #endif
 
-#ifdef BACKLIGHT_ENABLE
+#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
 #    include "process_backlight.h"
 #endif
 
@@ -199,37 +200,8 @@ extern layer_state_t layer_state;
 #    include "usbpd.h"
 #endif
 
-// Function substitutions to ease GPIO manipulation
-#if defined(__AVR__)
-
-/*   The AVR series GPIOs have a one clock read delay for changes in the digital input signal.
- *   But here's more margin to make it two clocks. */
-#    if !defined(GPIO_INPUT_PIN_DELAY)
-#        define GPIO_INPUT_PIN_DELAY 2
-#    endif
-#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
-
-#elif defined(__ARMEL__) || defined(__ARMEB__)
-
-/* For GPIOs on ARM-based MCUs, the input pins are sampled by the clock of the bus
- * to which the GPIO is connected.
- * The connected buses differ depending on the various series of MCUs.
- * And since the instruction execution clock of the CPU and the bus clock of GPIO are different,
- * there is a delay of several clocks to read the change of the input signal.
- *
- * Define this delay with the GPIO_INPUT_PIN_DELAY macro.
- * If the GPIO_INPUT_PIN_DELAY macro is not defined, the following default values will be used.
- * (A fairly large value of 0.25 microseconds is set.)
- */
-#    if !defined(GPIO_INPUT_PIN_DELAY)
-#        if defined(STM32_SYSCLK)
-#            define GPIO_INPUT_PIN_DELAY (STM32_SYSCLK / 1000000L / 4)
-#        elif defined(KINETIS_SYSCLK_FREQUENCY)
-#            define GPIO_INPUT_PIN_DELAY (KINETIS_SYSCLK_FREQUENCY / 1000000L / 4)
-#        endif
-#    endif
-#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
-
+#ifdef ENCODER_ENABLE
+#    include "encoder.h"
 #endif
 
 // For tri-layer
@@ -255,15 +227,6 @@ bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
 void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
 void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
-
-#ifndef BOOTMAGIC_LITE_COLUMN
-#    define BOOTMAGIC_LITE_COLUMN 0
-#endif
-#ifndef BOOTMAGIC_LITE_ROW
-#    define BOOTMAGIC_LITE_ROW 0
-#endif
-
-void bootmagic_lite(void);
 
 void reset_keyboard(void);
 
