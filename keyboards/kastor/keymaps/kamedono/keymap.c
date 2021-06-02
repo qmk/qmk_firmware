@@ -41,7 +41,10 @@ enum custom_keycodes {
 
 #define KC_C_ALT  LALT_T(KC_C)
 #define KC_M_ALT  LALT_T(KC_M)
+#define KC_Z_ALT  LALT_T(KC_Z)
 #define KC_CM_ALT LALT_T(KC_COMM)
+
+#define KC_X_DEL  LT(DEL, KC_X)
 
 #define KC_Z_GU   LGUI_T(KC_Z)
 #define KC_DOT_GU LGUI_T(KC_DOT)
@@ -56,7 +59,7 @@ enum custom_keycodes {
 #define KC_NEUT   TG(NEUTRAL)
 
 #define KC_APEX    TG(APEX)
-#define KC_O_PEX  LT(APEX_ETC, KC_O)
+#define KC_R_PEX  LT(APEX_ETC, KC_R)
 
 #define KC_N_ETC  LT(ETC, KC_N)
 
@@ -188,17 +191,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [APEX] = LAYOUT_kc( \
 //,-----------------------------------------. ,-----------------------------------------.
-    TAB  , Q    , W    , E    , R    , O_PEX,   Y    , U    , ____ , O    , P    , MINS , \
+    TAB  , Q    , W    , E    , R_PEX, T    ,   Y    , U    , ____ , O    , P    , MINS , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     LCTL , A    , S    , D    , F    , SPC  ,   H    , J    , K    , L    , SCLN , ENT  , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    LSFT , Z    , X    , C    , V    , B    ,   ____ , M    , COMM , DOT  , PSLS , ESC    \
+    LSFT , Z_ALT, X_DEL, C    , V    , B    ,   ____ , M    , COMM , DOT  , PSLS , ESC    \
 //`-----------------------------------------' `-----------------------------------------'
   ),
 
   [APEX_ETC] = LAYOUT_kc( \
 //,-----------------------------------------. ,-----------------------------------------.
-    TAB  , 1    , 2    , 3    , 4    , ____ ,   5    , ____ , ____ , ____ , ____ , ____ , \
+    1    , 2    , W    , 3    , ____ , 4    ,   5    , 6    , 7    , 8    , 9    , ____ , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     LCTL , A    , S    , D    , F    , G    ,   F1   , ____ , ____ , ____ , ____ , ____ , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
