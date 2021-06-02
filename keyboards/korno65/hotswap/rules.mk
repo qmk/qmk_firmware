@@ -24,4 +24,4 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 # Wildcard to allow APM32 MCU 
 DFU_SUFFIX_ARGS = -p FFFF -v FFFF
 
-LAYOUTS = 65_ansi_blocker 65_ansi_blocker_split_bs 65_ansi_blocker_tsangan 65_iso_blocker
+LAYOUTS = 65_ansi_blocker
