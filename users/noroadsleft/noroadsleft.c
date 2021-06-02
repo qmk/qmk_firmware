@@ -43,7 +43,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case VRSN:
             if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION);
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " # @ " QMK_VERSION);
             }
             return false;
         case G_PUSH:
