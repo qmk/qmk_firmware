@@ -316,6 +316,8 @@ uint8_t matrix_scan(void)
                 keyboard_kind = PC_AT;
             } else if (0xBF00 == (keyboard_id & 0xFF00)) {  // CodeSet3 Terminal
                 keyboard_kind = PC_TERMINAL;
+            } else if (0x7F00 == (keyboard_id & 0xFF00)) {  // CodeSet3 Terminal
+                keyboard_kind = PC_TERMINAL;
             } else {
                 keyboard_kind = PC_AT;
             }
