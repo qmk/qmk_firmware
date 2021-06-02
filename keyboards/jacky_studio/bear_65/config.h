@@ -73,3 +73,11 @@
 //     #define RGBLIGHT_EFFECT_RGB_TEST
 //     #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
+
+/* RGB matrix support */
+#ifdef RGB_MATRIX_ENABLE
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define DRIVER_LED_TOTAL 12 // Number of LEDs
+#endif

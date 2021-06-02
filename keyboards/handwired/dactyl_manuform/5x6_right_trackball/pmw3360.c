@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef POINTING_DEVICE_ENABLE
 
 #include "pmw3360.h"
 #include "pmw3360_firmware.h"
@@ -223,3 +224,5 @@ report_pmw_t pmw_read_burst(void) {
 
     return data;
 }
+
+#endif

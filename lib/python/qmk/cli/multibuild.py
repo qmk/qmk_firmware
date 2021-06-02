@@ -4,6 +4,7 @@ This will compile everything in parallel, for testing purposes.
 """
 import re
 from pathlib import Path
+from subprocess import DEVNULL
 
 from milc import cli
 
@@ -35,7 +36,7 @@ def multibuild(cli):
 
     make_cmd = _find_make()
     if cli.args.clean:
-        cli.run([make_cmd, 'clean'], capture_output=False, text=False)
+        cli.run([make_cmd, 'clean'], capture_output=False, stdin=DEVNULL)
 
     builddir = Path(QMK_FIRMWARE) / '.build'
     makefile = builddir / 'parallel_kb_builds.mk'
@@ -75,4 +76,4 @@ all: {keyboard_safe}_binary
             )
             # yapf: enable
 
-    cli.run([make_cmd, '-j', str(cli.args.parallel), '-f', makefile, 'all'], capture_output=False, text=False)
+    cli.run([make_cmd, '-j', str(cli.args.parallel), '-f', makefile, 'all'], capture_output=False, stdin=DEVNULL)
