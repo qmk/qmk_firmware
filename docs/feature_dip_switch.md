@@ -9,6 +9,8 @@ and this to your `config.h`:
 ```c
 // Connects each switch in the dip switch to the GPIO pin of the MCU
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
+// For split keyboards, you can separately define the right side pins
+#define DIP_SWITCH_PINS_RIGHT { ... }
 ```
 
 or
@@ -92,6 +94,20 @@ void dip_switch_update_mask_user(uint32_t state) {
 }
 ```
 
+For DIP switch processing on the slave half of split keyboards, you can add `dip_switch_scan(false);`
+to either your base keyboard .c file in `matrix_slave_scan_kb()` or to your user level 
+`matrix_slave_scan_user()` as needed:
+
+```c
+void matrix_slave_scan_kb() {
+    dip_switch_read(false);
+    matrix_slave_scan_user();
+}
+// or
+void matrix_slave_scan_user() {
+    dip_switch_read(false);
+}
+```
 
 ## Hardware
 
