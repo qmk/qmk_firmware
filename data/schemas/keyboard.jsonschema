@@ -180,6 +180,10 @@
                                     "pattern": "^[A-K]\\d{1,2}$"
                                 },
                                 {
+                                    "type": "string",
+                                    "pattern": "^LINE_PIN\\d{1,2}$"
+                                },
+                                {
                                     "type": "number",
                                     "multipleOf": 1
                                 },
@@ -199,6 +203,10 @@
                                 "pattern": "^[A-K]\\d{1,2}$"
                             },
                             {
+                                "type": "string",
+                                "pattern": "^LINE_PIN\\d{1,2}$"
+                            },
+                            {
                                 "type": "number",
                                 "multipleOf": 1
                             },
@@ -215,6 +223,10 @@
                             {
                                 "type": "string",
                                 "pattern": "^[A-K]\\d{1,2}$"
+                            },
+                            {
+                                "type": "string",
+                                "pattern": "^LINE_PIN\\d{1,2}$"
                             },
                             {
                                 "type": "number",
@@ -261,7 +273,7 @@
                 },
                 "pin": {
                     "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
+                    "pattern": "^([A-K]\\d{1,2}|LINE_PIN\\d{1,2})$"
                 },
                 "saturation_steps": {
                     "type": "number",
