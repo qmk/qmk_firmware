@@ -1,5 +1,6 @@
 # German keymap for Redox
 
+A layout for the Redox MEDIA revision.
 The layout acommodates the German umlauts and the punctuation symbols
 at their usual positions relative to the other alphabetic characters.
-Apart from that it stays close to the default english redox layout. 
+Apart from that it stays close to the default english Redox layout.
