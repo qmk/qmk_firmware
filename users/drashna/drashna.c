@@ -120,7 +120,15 @@ void suspend_power_down_user(void) {
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 
-void suspend_wakeup_init_user(void) { suspend_wakeup_init_keymap(); }
+void suspend_wakeup_init_user(void) {
+    if (layer_state_is(_GAMEPAD)) {
+        layer_off(_GAMEPAD);
+    }
+    if (layer_state_is(_DIABLO)) {
+        layer_off(_DIABLO);
+    }
+    suspend_wakeup_init_keymap();
+}
 
 __attribute__((weak)) void matrix_scan_keymap(void) {}
 
