@@ -144,6 +144,14 @@ This is useful for setting up stuff that you may need elsewhere, but isn't hardw
 * Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
 
+### Low-level Matrix Overrides Function Documentation :id=low-level-matrix-overrides
+
+* GPIO pin initialisation: `void matrix_init_pins(void)`
+  * This needs to perform the low-level initialisation of all row and column pins. By default this will initialise the input/output state of each of the GPIO pins listed in `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`, based on whether or not the keyboard is set up for `ROW2COL`, `COL2ROW`, or `DIRECT_PINS`. Should the keyboard designer override this function, no initialisation of pin state will occur within QMK itself, instead deferring to the keyboard's override.
+* `COL2ROW`-based row reads: `void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)`
+* `ROW2COL`-based column reads: `void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)`
+* `DIRECT_PINS`-based reads: `void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)`
+  * These three functions need to perform the low-level retrieval of matrix state of relevant input pins, based on the matrix type. Only one of the functions should be implemented, if needed. By default this will iterate through `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`, configuring the inputs and outputs based on whether or not the keyboard is set up for `ROW2COL`, `COL2ROW`, or `DIRECT_PINS`. Should the keyboard designer override this function, no manipulation of matrix GPIO pin state will occur within QMK itself, instead deferring to the keyboard's override.
 
 ## Keyboard Post Initialization code
 
