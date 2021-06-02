@@ -120,8 +120,13 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
             break;
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
+#ifdef LAYER_STATE_8BIT
+            mod          = mod_config(((keycode & 0x10) ? (keycode << 4) & 0xFF : keycode & 0xF));
+            action_layer = (keycode >> 5) & 0x7;
+#else
             mod          = mod_config(keycode & 0xF);
             action_layer = (keycode >> 4) & 0xF;
+#endif
             action.code  = ACTION_LAYER_MODS(action_layer, mod);
             break;
 #endif

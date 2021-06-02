@@ -822,8 +822,16 @@ enum quantum_keycodes {
 // One-shot layer - 256 layer max
 #define OSL(layer) (QK_ONE_SHOT_LAYER | ((layer)&0xFF))
 
-// L-ayer M-od: Momentary switch layer with modifiers active - 16 layer max, left mods only
+// L-ayer M-od: Momentary switch layer with modifiers active -
+// 16 layer max, left mods only ifndef LAYER_STATE_8BIT
+//  8 layer max, left *or* right mods ifdef LAYER_STATE_8BIT
+//  Right mods take precedence over left mods.
+//  e.g. LM(layer, MOD_RALT | MOD_LSFT) is the exact same as LM(layer, MOD_RALT | MOD_RSFT)
+#ifdef LAYER_STATE_8BIT
+#define LM(layer, mod) (QK_LAYER_MOD | (((layer)&0xF) << 5) | ((mod)&0x1F))
+#else
 #define LM(layer, mod) (QK_LAYER_MOD | (((layer)&0xF) << 4) | ((mod)&0xF))
+#endif
 
 // One-shot mod
 #define OSM(mod) (QK_ONE_SHOT_MOD | ((mod)&0xFF))
