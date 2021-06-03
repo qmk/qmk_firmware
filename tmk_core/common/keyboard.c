@@ -85,6 +85,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef OLED_DRIVER_ENABLE
 #    include "oled_driver.h"
 #endif
+#ifdef ST7565_ENABLE
+#    include "st7565.h"
+#endif
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
@@ -306,6 +309,9 @@ void keyboard_init(void) {
 #ifdef OLED_DRIVER_ENABLE
     oled_init(OLED_ROTATION_0);
 #endif
+#ifdef ST7565_ENABLE
+    st7565_init(DISPLAY_ROTATION_0);
+#endif
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
 #endif
@@ -466,6 +472,18 @@ MATRIX_LOOP_END:
     if (matrix_changed || encoders_changed) oled_on();
 #        else
     if (matrix_changed) oled_on();
+#        endif
+#    endif
+#endif
+
+#ifdef ST7565_ENABLE
+    st7565_task();
+#    ifndef ST7565_DISABLE_TIMEOUT
+    // Wake up display if user is using those fabulous keys or spinning those encoders!
+#        ifdef ENCODER_ENABLE
+    if (matrix_changed || encoders_changed) st7565_on();
+#        else
+    if (matrix_changed) st7565_on();
 #        endif
 #    endif
 #endif
