@@ -29,7 +29,10 @@ def main():
     """
     # Change to the root of our checkout
     os.environ['ORIG_CWD'] = os.getcwd()
+    os.environ['DEPRECATED_BIN_QMK'] = '1'
     os.chdir(qmk_dir)
+
+    print('Warning: The bin/qmk script is being deprecated. Please install the QMK CLI: python3 -m pip install qmk', file=sys.stderr)
 
     # Import the subcommands
     import qmk.cli  # noqa
