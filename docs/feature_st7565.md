@@ -20,7 +20,7 @@ ST7565_ENABLE = yes
 Then in your `keymap.c` file, implement the ST7565 task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
 
 ```c
-#ifdef ST7565_DRIVER_ENABLE
+#ifdef ST7565_ENABLE
 void st7565_task_user(void) {
     // Host Keyboard Layer Status
     st7565_write_P(PSTR("Layer: "), false);
@@ -103,7 +103,7 @@ static void fade_display(void) {
 In split keyboards, it is very common to have two displays that each render different content and are oriented or flipped differently. You can do this by switching which content to render by using the return value from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
 
 ```c
-#ifdef ST7565_DRIVER_ENABLE
+#ifdef ST7565_ENABLE
 display_rotation_t st7565_init_user(display_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return DISPLAY_ROTATION_180;  // flips the display 180 degrees if offhand
