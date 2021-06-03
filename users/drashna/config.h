@@ -30,7 +30,6 @@
 #endif
 
 #ifdef AUDIO_ENABLE
-
 #    define AUDIO_CLICKY
 #    define STARTUP_SONG SONG(RICK_ROLL)
 #    define GOODBYE_SONG SONG(SONIC_RING)
@@ -152,8 +151,8 @@
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
-//#define TAPPING_FORCE_HOLD
-//#define RETRO_TAPPING
+//#define TAPPING_FORCE_HOLD_PER_KEY
+//#define RETRO_TAPPING_PER_KEY
 #ifndef KEYBOARD_kyria_rev1
 #    define TAPPING_TERM_PER_KEY
 #endif
@@ -184,6 +183,8 @@
 #ifdef LOCKING_RESYNC_ENABLE
 #    undef LOCKING_RESYNC_ENABLE
 #endif
+
+#define LAYER_STATE_16BIT
 
 #ifdef CONVERT_TO_PROTON_C
 // pins that are available but not present on Pro Micro
