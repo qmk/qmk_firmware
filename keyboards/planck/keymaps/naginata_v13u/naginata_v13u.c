@@ -779,9 +779,6 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (n_modifier > 0 && layer_state_is(naginata_layer))
     layer_off(naginata_layer);
 
-  if (process_modifier(keycode, record))
-    return true;
-
   // OS切り替え(UNICODE出力)
   if (record->event.pressed) {
     switch (keycode) {
@@ -831,6 +828,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (!is_naginata)
     // return true;
     return enable_naginata(keycode, record);
+
+  if (process_modifier(keycode, record))
+    return true;
 
   if (record->event.pressed) {
     switch (keycode) {
