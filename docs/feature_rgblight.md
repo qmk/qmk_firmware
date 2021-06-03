@@ -74,6 +74,7 @@ Changing the **Value** sets the overall brightness.<br>
 |`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
+|`RGB_MODE_TWINKLE` |`RGB_M_TW`|Twinkle animation mode                                              |
 
 !> By default, if you have both the RGB Light and the [RGB Matrix](feature_rgb_matrix.md) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 
@@ -309,6 +310,18 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
+You can also use `rgblight_blink_layer_repeat` to specify the amount of times the layer is supposed to blink. Using the layers from above,
+```c
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DEBUG:
+            rgblight_blink_layer_repeat(debug_enable ? 0 : 1, 200, 3);
+            break;
+    }
+}
+```
+would turn the layer 0 (or 1) on and off again three times when `DEBUG` is pressed.
+
 ### Overriding RGB Lighting on/off status
 
 Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with `RGB_TOG` keycode). If you would like lighting layers to work even when the RGB Lighting is otherwise off, add `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` to your `config.h`.
@@ -359,9 +372,9 @@ rgblight_set(); // Utility functions do not call rgblight_set() automatically, s
 
 Example:
 ```c
-rgblight_sethsv(HSV_WHITE, 0); // led 0
-rgblight_sethsv(HSV_RED,   1); // led 1
-rgblight_sethsv(HSV_GREEN, 2); // led 2
+rgblight_sethsv_at(HSV_WHITE, 0); // led 0
+rgblight_sethsv_at(HSV_RED,   1); // led 1
+rgblight_sethsv_at(HSV_GREEN, 2); // led 2
 // The above functions automatically calls rgblight_set(), so there is no need to call it explicitly.
 // Note that it is inefficient to call repeatedly.
 ```
