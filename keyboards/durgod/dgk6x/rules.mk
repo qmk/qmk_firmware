@@ -1,4 +1,3 @@
-DEFAULT_FOLDER=durgod/dgk6x/hades
 # MCU name
 # Actually F070, but close enough
 MCU = STM32F072
@@ -6,7 +5,7 @@ MCU = STM32F072
 BOARD = DURGOD_STM32_F070
 
 # Do not put the microcontroller into power saving mode
-OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
+NO_SUSPEND_POWER_DOWN = yes
 
 # Build Options
 #   change yes to no to disable
@@ -28,3 +27,5 @@ LTO_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3733
+
+DEFAULT_FOLDER=durgod/dgk6x/hades
