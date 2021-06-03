@@ -18,8 +18,13 @@
 
 #include "timer.h"
 
-static pin_t     currentSlavePin = NO_PIN;
-static SPIConfig spiConfig       = {false, NULL, 0, 0, 0, 0};
+static pin_t currentSlavePin = NO_PIN;
+
+#if defined(K20x) || defined(KL2x)
+static SPIConfig spiConfig = {NULL, 0, 0, 0};
+#else
+static SPIConfig spiConfig = {false, NULL, 0, 0, 0, 0};
+#endif
 
 __attribute__((weak)) void spi_init(void) {
     static bool is_initialised = false;

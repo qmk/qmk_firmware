@@ -21,6 +21,7 @@
 #include <stdbool.h>
 
 #include "gpio.h"
+#include "chibios_config.h"
 
 #ifndef SPI_DRIVER
 #    define SPI_DRIVER SPID2
