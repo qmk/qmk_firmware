@@ -910,6 +910,15 @@ static void send_extra(uint8_t report_id, uint16_t data) {
         return;
     }
 
+    if (usbGetTransmitStatusI(&USB_DRIVER, SHARED_IN_EPNUM)) {
+        /* This was copied from send_mouse and fixed my very unreliable
+         * multimedia keys (which would register only every 100th or so time). */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[SHARED_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
+    }
+
     static report_extra_t report;
     report = (report_extra_t){.report_id = report_id, .usage = data};
 
