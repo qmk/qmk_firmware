@@ -11,8 +11,12 @@ make system76/launch_1:default
 ```
 make system76/launch_1:default:dfu
 ```
-   - After it builds, you will see a message that says `Detecting USB port, reset your controller now...`. You then want to hit the "RESET" key on the keyboard if it is programmed into the layout.
-   - In the default layout, it is Fn+Esc. If a RESET key is not programmed into the layout, you will have to manually reset the controller.
+   - After it builds, you will see a repeating message that says:
+```
+dfu-programmer: no device present.
+ERROR: Bootloader not found. Trying again in 5s.
+```
+Next, unplug your keyboard from your computer, hold the ESC key (while the keyboard is unplugged), and plug the keyboard back in while holding the ESC key. Once the keyboard is plugged in, the ESC key can be released.
 * To flash the firmware using ISP, you will need a USBasp device, and a tag connect cable.
   - Build the firmware and bootloader with:
 ```
@@ -28,8 +32,8 @@ avrdude -c usbasp -p atmega32u4 -U flash:w:system76_launch_1_default_production.
 ```
 
 ## Making your own layout:
-If you want to create your own layout, go to the `keymaps` directory and copy one of the maps in there. You'll probably want to start with the default layout, but the other layouts in there may be helpful references. The name of the directory you create will be the name of your layout. Ensure that it has no spaces or strange symbols, as this could lead to build errors.
+If you want to create your own layout, go to the `keymaps` directory and copy one of the maps in there. It will likely be easiest to start with the default layout, but the other layouts in there may be helpful references. The name of the directory you create will be the name of your layout. To prevent build errors, it is recommended to use only lowercase letters, underscores, and numbers for the name of your layout.
 
-Inside of each layout directory, there is a file called `keymap.c`, which is what you will be customizing to create your own keymap. The commented out grid area in this file is a reference for the actual key assignments below it. When I am modifying a layout, I first update this grid. It helps me keep track of where I want everything. It does not matter what you label the keys in this grid since it is in a comment. Just try to keep it understandable for yourself and everyone else.
+Inside of each layout directory, there is a file called `keymap.c`. The commented out grid area in this file is a visual reference for the actual key assignments below it. When modifying a layout, modifying this visual reference first makes it easier to design a layout, as well as keeping the actual layout below it organized.
 
-The keycodes below that do have to be typed correctly. A full list of keycodes can be found here: https://beta.docs.qmk.fm/reference/keycodes .  Use the shorter keycode alias to help keep these lined up (e.g. use `KC_ESC` instead of `KC_ESCAPE`).
+Once your layout is designed, change the keycodes below to match your design. A full list of available keycodes can be found in the [QMK docs](https://beta.docs.qmk.fm/reference/keycodes). Use the shorter keycode alias to help keep these lined up (e.g. use `KC_ESC` instead of `KC_ESCAPE`).
