@@ -31,7 +31,11 @@
 #endif
 
 #ifndef SPI_SCK_PAL_MODE
-#    define SPI_SCK_PAL_MODE 5
+#    if defined(USE_GPIOV1)
+#        define SPI_SCK_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#    else
+#        define SPI_SCK_PAL_MODE 5
+#    endif
 #endif
 
 #ifndef SPI_MOSI_PIN
@@ -39,7 +43,11 @@
 #endif
 
 #ifndef SPI_MOSI_PAL_MODE
-#    define SPI_MOSI_PAL_MODE 5
+#    if defined(USE_GPIOV1)
+#        define SPI_MOSI_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#    else
+#        define SPI_MOSI_PAL_MODE 5
+#    endif
 #endif
 
 #ifndef SPI_MISO_PIN
@@ -47,7 +55,11 @@
 #endif
 
 #ifndef SPI_MISO_PAL_MODE
-#    define SPI_MISO_PAL_MODE 5
+#    if defined(USE_GPIOV1)
+#        define SPI_MISO_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#    else
+#        define SPI_MISO_PAL_MODE 5
+#    endif
 #endif
 
 typedef int16_t spi_status_t;
