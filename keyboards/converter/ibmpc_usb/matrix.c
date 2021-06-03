@@ -63,6 +63,11 @@ static int16_t read_wait(uint16_t wait_ms)
     return code;
 }
 
+#define ID_STR(id)  (id == 0xFFFE ? "_????" : \
+                    (id == 0xFFFD ? "_Z150" : \
+                    (id == 0x0000 ? "_AT84" : \
+                     "")))
+
 static uint16_t read_keyboard_id(void)
 {
     uint16_t id = 0;
@@ -140,7 +145,7 @@ uint8_t matrix_scan(void)
     static uint16_t init_time;
 
     if (ibmpc_error) {
-        xprintf("\nERR:%02X ISR:%04X ", ibmpc_error, ibmpc_isr_debug);
+        xprintf("\n%u ERR:%02X ISR:%04X ", timer_read(), ibmpc_error, ibmpc_isr_debug);
 
         // when recv error, neither send error nor buffer full
         if (!(ibmpc_error & (IBMPC_ERR_SEND | IBMPC_ERR_FULL))) {
@@ -158,13 +163,14 @@ uint8_t matrix_scan(void)
 
     // check protocol change AT/XT
     if (ibmpc_protocol && ibmpc_protocol != current_protocol) {
-        xprintf("\nPRT:%02X ISR:%04X ", ibmpc_protocol, ibmpc_isr_debug);
+        xprintf("\n%u PRT:%02X ISR:%04X ", timer_read(), ibmpc_protocol, ibmpc_isr_debug);
 
         // protocol change between AT and XT indicates that
         // keyboard is hotswapped or something goes wrong.
         // This requires initializing keyboard again probably.
         if (((current_protocol&IBMPC_PROTOCOL_XT) && (ibmpc_protocol&IBMPC_PROTOCOL_AT)) ||
             ((current_protocol&IBMPC_PROTOCOL_AT) && (ibmpc_protocol&IBMPC_PROTOCOL_XT))) {
+            xprintf("\nERR:%02X ISR:%04X ", ibmpc_error, ibmpc_isr_debug);
             if (state == LOOP) {
                 xprintf("[CHG] ");
                 state = INIT;
@@ -177,8 +183,6 @@ uint8_t matrix_scan(void)
 
     switch (state) {
         case INIT:
-            ibmpc_host_disable();
-
             xprintf("I%u ", timer_read());
             keyboard_kind = NONE;
             keyboard_id = 0x0000;
@@ -191,17 +195,19 @@ uint8_t matrix_scan(void)
             state = WAIT_SETTLE;
             break;
         case WAIT_SETTLE:
+            // Reset when keyboad sends something
+            if (ibmpc_host_recv() != -1) {
+                state = AT_RESET;
+            }
+
             // wait for keyboard to settle after plugin
-            if (timer_elapsed(init_time) > 1000) {
+            if (timer_elapsed(init_time) > 3000) {
                 state = AT_RESET;
             }
             break;
         case AT_RESET:
-            ibmpc_host_isr_clear();
-            ibmpc_host_enable();
-            wait_ms(1); // keyboard can't respond to command without this
+            xprintf("A%u ", timer_read());
 
-            // SKIDATA-2-DE(and some other keyboards?) stores 'Code Set' setting in nonvlatile memory
             // and keeps it until receiving reset. Sending reset here may be useful to clear it, perhaps.
             // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#select-alternate-scan-codesf0
 
@@ -211,7 +217,6 @@ uint8_t matrix_scan(void)
             } else {
                 state = XT_RESET;
             }
-            xprintf("A%u ", timer_read());
             break;
         case XT_RESET:
             // Reset XT-initialize keyboard
@@ -289,15 +294,16 @@ uint8_t matrix_scan(void)
             } else if (0xFFFE == keyboard_id) {     // CodeSet2 PS/2 fails to response?
                 keyboard_kind = PC_AT;
             } else if (0xFFFD == keyboard_id) {     // Zenith Z-150 AT
-                keyboard_kind = PC_AT_Z150;
+                keyboard_kind = PC_AT;
             } else if (0x00FF == keyboard_id) {     // Mouse is not supported
                 xprintf("Mouse: not supported\n");
                 keyboard_kind = NONE;
-#ifdef G80_2551_SUPPORT
-            } else if (0xAB86 == keyboard_id ||
-                       0xAB85 == keyboard_id) {     // For G80-2551 and other 122-key terminal
-                // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#ab86
+            } else if (0xAB85 == keyboard_id || // IBM 122-key Model M, NCD N-97
+                       0xAB86 == keyboard_id || // Cherry G80-2551, IBM 1397000
+                       0xAB92 == keyboard_id) { // IBM 5576-001
                 // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#ab85
+                // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#ab86
+                // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#ab92
 
                 if ((0xFA == ibmpc_host_send(0xF0)) &&
                     (0xFA == ibmpc_host_send(0x03))) {
@@ -306,7 +312,21 @@ uint8_t matrix_scan(void)
                 } else {
                     keyboard_kind = PC_AT;
                 }
-#endif
+            } else if (0xAB90 == keyboard_id || // IBM 5576-002
+                       0xAB91 == keyboard_id) { // IBM 5576-003
+                // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#ab90
+                // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#ab91
+
+                xprintf("\n5576_CS82h:");
+                if ((0xFA == ibmpc_host_send(0xF0)) &&
+                    (0xFA == ibmpc_host_send(0x82))) {
+                    // switch to code set 82h
+                    // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#ibm-5576-scan-codes-set
+                    xprintf("OK ");
+                } else {
+                    xprintf("NG ");
+                }
+                keyboard_kind = PC_AT;
             } else if (0xBFB0 == keyboard_id) {     // IBM RT Keyboard
                 // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#bfb0
                 // TODO: LED indicator fix
@@ -316,13 +336,24 @@ uint8_t matrix_scan(void)
                 keyboard_kind = PC_AT;
             } else if (0xBF00 == (keyboard_id & 0xFF00)) {  // CodeSet3 Terminal
                 keyboard_kind = PC_TERMINAL;
-            } else if (0x7F00 == (keyboard_id & 0xFF00)) {  // CodeSet3 Terminal
+            } else if (0x7F00 == (keyboard_id & 0xFF00)) {  // CodeSet3 Terminal 1394204
                 keyboard_kind = PC_TERMINAL;
             } else {
-                keyboard_kind = PC_AT;
+                xprintf("\nUnknown ID: Report to TMK ");
+                if ((0xFA == ibmpc_host_send(0xF0)) &&
+                    (0xFA == ibmpc_host_send(0x02))) {
+                    // switch to code set 2
+                    keyboard_kind = PC_AT;
+                } else if ((0xFA == ibmpc_host_send(0xF0)) &&
+                           (0xFA == ibmpc_host_send(0x03))) {
+                    // switch to code set 3
+                    keyboard_kind = PC_TERMINAL;
+                } else {
+                    keyboard_kind = PC_AT;
+                }
             }
 
-            xprintf("\nID:%04X(%s) ", keyboard_id, KEYBOARD_KIND_STR(keyboard_kind));
+            xprintf("\nID:%04X(%s%s) ", keyboard_id, KEYBOARD_KIND_STR(keyboard_kind), ID_STR(keyboard_id));
 
             state = SETUP;
             break;
@@ -333,9 +364,6 @@ uint8_t matrix_scan(void)
                     break;
                 case PC_AT:
                     led_set(host_keyboard_leds());
-                    break;
-                case PC_AT_Z150:
-                    // TODO: do not set indicators temporarily for debug
                     break;
                 case PC_TERMINAL:
                     // Set all keys to make/break type
@@ -374,7 +402,6 @@ uint8_t matrix_scan(void)
                         if (process_cs1(code) == -1) state = INIT;
                         break;
                     case PC_AT:
-                    case PC_AT_Z150:
                         if (process_cs2(code) == -1) state = INIT;
                         break;
                     case PC_TERMINAL:
@@ -776,6 +803,30 @@ static uint8_t cs2_e0code(uint8_t code) {
     }
 }
 
+// IBM 5576-002/003 Scan code translation
+// https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#ibm-5576-code-set-82h
+static uint8_t translate_5576_cs2(uint8_t code) {
+    switch (code) {
+        case 0x11: return 0x0F; // Zenmen   -> RALT
+        case 0x13: return 0x11; // Kanji    -> LALT
+        case 0x0E: return 0x54; // @
+        case 0x54: return 0x5B; // [
+        case 0x5B: return 0x5D; // ]
+        case 0x5C: return 0x6A; // JYEN
+        case 0x5D: return 0x6A; // JYEN
+        case 0x62: return 0x0E; // Han/Zen  -> `~
+        case 0x7C: return 0x77; // Keypad *
+    }
+    return code;
+}
+static uint8_t translate_5576_cs2_e0(uint8_t code) {
+    switch (code) {
+        case 0x11: return 0x13; // Hiragana -> KANA
+        case 0x41: return 0x7C; // Keypad '
+    }
+    return code;
+}
+
 static int8_t process_cs2(uint8_t code)
 {
     // scan code reading states
@@ -794,6 +845,9 @@ static int8_t process_cs2(uint8_t code)
 
     switch (state) {
         case INIT:
+            if (0xAB90 == keyboard_id || 0xAB91 == keyboard_id) {
+                code = translate_5576_cs2(code);
+            }
             switch (code) {
                 case 0xE0:
                     state = cE0;
@@ -827,6 +881,9 @@ static int8_t process_cs2(uint8_t code)
             }
             break;
         case cE0:    // E0-Prefixed
+            if (0xAB90 == keyboard_id || 0xAB91 == keyboard_id) {
+                code = translate_5576_cs2_e0(code);
+            }
             switch (code) {
                 case 0x12:  // to be ignored
                 case 0x59:  // to be ignored
@@ -847,6 +904,9 @@ static int8_t process_cs2(uint8_t code)
             }
             break;
         case cF0:    // Break code
+            if (0xAB90 == keyboard_id || 0xAB91 == keyboard_id) {
+                code = translate_5576_cs2(code);
+            }
             switch (code) {
                 case 0x83:  // F7
                     matrix_break(0x02);
@@ -868,6 +928,9 @@ static int8_t process_cs2(uint8_t code)
             }
             break;
         case E0_F0: // Break code of E0-prefixed
+            if (0xAB90 == keyboard_id || 0xAB91 == keyboard_id) {
+                code = translate_5576_cs2_e0(code);
+            }
             switch (code) {
                 case 0x12:  // to be ignored
                 case 0x59:  // to be ignored
@@ -948,6 +1011,19 @@ static int8_t process_cs2(uint8_t code)
  * See [3], [7] and
  * https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#scan-code-set-3
  */
+// IBM 5576-001 Scan code translation
+// https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#ibm-5576-code-set-3
+static uint8_t translate_5576_cs3(uint8_t code) {
+    switch (code) {
+        // Fix positon of keys to fit 122-key layout
+        case 0x13: return 0x5D; // JYEN
+        case 0x5C: return 0x51; // RO
+        case 0x76: return 0x7E; // Keypad '
+        case 0x7E: return 0x76; // Keypad Dup
+    }
+    return code;
+}
+
 static int8_t process_cs3(uint8_t code)
 {
     static enum {
@@ -960,8 +1036,21 @@ static int8_t process_cs3(uint8_t code)
 #endif
     } state = READY;
 
+    switch (code) {
+        case 0xAA:  // BAT code
+        case 0xFC:  // BAT code
+        case 0xBF:  // Part of keyboard ID
+        case 0xAB:  // Part keyboard ID
+            state = READY;
+            xprintf("!CS3_RESET!\n");
+            return -1;
+    }
+
     switch (state) {
         case READY:
+            if (0xAB92 == keyboard_id) {
+                code = translate_5576_cs3(code);
+            }
             switch (code) {
                 case 0xF0:
                     state = cF0;
@@ -973,10 +1062,10 @@ static int8_t process_cs3(uint8_t code)
                     matrix_make(0x7F);
                     break;
                 case 0x85:  // Muhenkan
-                    matrix_make(0x0B);
+                    matrix_make(0x68);
                     break;
                 case 0x86:  // Henkan
-                    matrix_make(0x06);
+                    matrix_make(0x78);
                     break;
                 case 0x87:  // Hiragana
                     matrix_make(0x00);
@@ -1000,51 +1089,44 @@ static int8_t process_cs3(uint8_t code)
                         matrix_make(code);
                     } else {
                         xprintf("!CS3_READY!\n");
-                        return -1;
                     }
             }
             break;
         case cF0:    // Break code
+            state = READY;
+            if (0xAB92 == keyboard_id) {
+                code = translate_5576_cs3(code);
+            }
             switch (code) {
                 case 0x83:  // PrintScreen
                     matrix_break(0x02);
-                    state = READY;
                     break;
                 case 0x84:  // Keypad *
                     matrix_break(0x7F);
-                    state = READY;
                     break;
                 case 0x85:  // Muhenkan
                     matrix_break(0x0B);
-                    state = READY;
                     break;
                 case 0x86:  // Henkan
                     matrix_break(0x06);
-                    state = READY;
                     break;
                 case 0x87:  // Hiragana
                     matrix_break(0x00);
-                    state = READY;
                     break;
                 case 0x8B:  // Left GUI
                     matrix_break(0x01);
-                    state = READY;
                     break;
                 case 0x8C:  // Right GUI
                     matrix_break(0x09);
-                    state = READY;
                     break;
                 case 0x8D:  // Application
                     matrix_break(0x0A);
-                    state = READY;
                     break;
                 default:
-                    state = READY;
                     if (code < 0x80) {
                         matrix_break(code);
                     } else {
                         xprintf("!CS3_F0!\n");
-                        return -1;
                     }
             }
             break;

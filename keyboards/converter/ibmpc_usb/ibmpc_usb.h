@@ -112,7 +112,6 @@ typedef enum { NONE, PC_XT, PC_AT, PC_TERMINAL, PC_AT_Z150 } keyboard_kind_t;
     (kind == PC_XT ? "XT" :   \
      kind == PC_AT ? "AT" :   \
      kind == PC_TERMINAL ? "TERMINAL" :   \
-     kind == PC_AT_Z150 ? "AT_Z150" :  \
      "NONE")
 
 extern uint16_t keyboard_id;
