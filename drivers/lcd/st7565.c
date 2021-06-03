@@ -428,13 +428,9 @@ bool st7565_off(void) {
 
 bool st7565_is_on(void) { return st7565_active; }
 
-uint8_t st7565_max_chars(void) {
-    return ST7565_DISPLAY_WIDTH / ST7565_FONT_WIDTH;
-}
+uint8_t st7565_max_chars(void) { return ST7565_DISPLAY_WIDTH / ST7565_FONT_WIDTH; }
 
-uint8_t st7565_max_lines(void) {
-    return ST7565_DISPLAY_HEIGHT / ST7565_FONT_HEIGHT;
-}
+uint8_t st7565_max_lines(void) { return ST7565_DISPLAY_HEIGHT / ST7565_FONT_HEIGHT; }
 
 void st7565_task(void) {
     if (!st7565_initialized) {

@@ -94,10 +94,7 @@ typedef struct __attribute__((__packed__)) {
 } display_buffer_reader_t;
 
 // Rotation enum values are flags
-typedef enum {
-    DISPLAY_ROTATION_0,
-    DISPLAY_ROTATION_180
-} display_rotation_t;
+typedef enum { DISPLAY_ROTATION_0, DISPLAY_ROTATION_180 } display_rotation_t;
 
 // Initialize the display, rotating the rendered output based on the define passed in.
 // Returns true if the display was initialized successfully
