@@ -115,10 +115,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-    tap_code(clockwise ? KC_VOLU : KC_VOLD);
-}
-
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_7u(
     0,
     0, 0, 0, 0, 0, 0, 0,  0, 0,  0,  0,  0,  0,  0,
