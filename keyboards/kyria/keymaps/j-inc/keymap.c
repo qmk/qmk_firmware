@@ -334,7 +334,7 @@ void oled_task_user(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch(biton32(layer_state)){
         case 1:
             if (clockwise) {
@@ -356,7 +356,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 }
             break;
     }
+    return true;
 }
+
 void matrix_scan_user(void) {
     if (is_alt_tab_active) {
         if (timer_elapsed(alt_tab_timer) > 1250) {
