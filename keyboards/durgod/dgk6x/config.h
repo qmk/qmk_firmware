@@ -36,6 +36,9 @@
 // Users may enable more if they wish
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095
 
+// Increase VIA layer count
+#define DYNAMIC_KEYMAP_LAYER_COUNT 16
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
