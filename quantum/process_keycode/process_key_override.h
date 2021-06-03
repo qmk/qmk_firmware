@@ -48,7 +48,7 @@ typedef enum {
     /** If set, the trigger key will never be registered again after the override is deactivated. */
     ko_option_no_reregister_trigger = (1 << 4),
 
-    /** If set, the override will not deactivate if when another key is pressed down. Use only if you really know you need this. */
+    /** If set, the override will not deactivate when another key is pressed down. Use only if you really know you need this. */
     ko_option_no_unregister_on_other_key_down = (1 << 5),
 
     /** The default options used by the ko_make_xxx functions. */
