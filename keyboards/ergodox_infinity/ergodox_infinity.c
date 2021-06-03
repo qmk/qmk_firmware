@@ -128,7 +128,11 @@ static uint16_t cie_lightness(uint16_t v) {
     return y * 65535.0f;
 }
 
+#ifdef VISUALIZER_ENABLE
 void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b) {
+#else
+void ergodox_infinity_lcd_color(uint16_t r, uint16_t g, uint16_t b) {
+#endif
     CHANNEL_RED.CnV   = cie_lightness(r);
     CHANNEL_GREEN.CnV = cie_lightness(g);
     CHANNEL_BLUE.CnV  = cie_lightness(b);
@@ -144,6 +148,10 @@ void keyboard_pre_init_kb() {
     // Turn on LED controller
     setPinOutput(B16);
     writePinHigh(B16);
+#endif
+#ifndef VISUALIZER_ENABLE
+    // The backlight always has to be initialized, otherwise it will stay lit
+    lcd_backlight_hal_init();
 #endif
     keyboard_pre_init_user();
 }
@@ -165,10 +173,6 @@ void matrix_init_kb(void) {
 #endif
 
     matrix_init_user();
-    // The backlight always has to be initialized, otherwise it will stay lit
-#ifndef VISUALIZER_ENABLE
-    lcd_backlight_hal_init();
-#endif
 #if (defined(LED_MATRIX_ENABLE) || defined(WPM_ENABLE))
     add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t *));
 #endif
