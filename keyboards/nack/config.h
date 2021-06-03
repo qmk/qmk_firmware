@@ -13,7 +13,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/ 
+*/
 
 #pragma once
 #include "config_common.h"
@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
 
-#define MATRIX_ROW_PINS { A0, A1, A2, A3 }	
+#define MATRIX_ROW_PINS { A0, A1, A2, A3 }
 #define MATRIX_COL_PINS { A6, A7, A8, A9, A10, B0, B1, B2, B6, B7, C13, C14, C15 }
 
 #define DIODE_DIRECTION ROW2COL
@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_DI_PIN B5
     #define RGBLED_NUM 52
     #define DRIVER_LED_TOTAL RGBLED_NUM
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128 // Max brightness of LEDs 
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128 // Max brightness of LEDs
     #define RGB_MATRIX_STARTUP_VAL 64
     #define RGB_MATRIX_HUE_STEP 10
     #define RGB_MATRIX_SAT_STEP 10
@@ -49,11 +49,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(NO_SOUND)
-    #define AUDIO_PIN A4 // Pin of the left speaker 
-    #define AUDIO_PIN_ALT A5 // Pin of the right speaker
-    /* 
+    #define AUDIO_PIN A5
+    #define AUDIO_PIN_ALT A4
+    #define AUDIO_PIN_ALT_AS_NEGATIVE
+    /*
      * Basically, change this section once pull request 6165 has been merged
      * https://github.com/qmk/qmk_firmware/pull/6165
      */
 #endif
-

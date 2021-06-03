@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0002
 #define MANUFACTURER elagil
 #define PRODUCT Murciélago
-#define DESCRIPTION A custom keyboard with 60 keys
 
 /* key matrix size */
 #define MATRIX_ROWS 12

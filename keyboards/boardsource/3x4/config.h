@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    Boardsource
 #define PRODUCT         3x4
-#define DESCRIPTION     Little macro pad
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -123,9 +122,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

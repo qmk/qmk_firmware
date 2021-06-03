@@ -5,10 +5,10 @@
 #if defined(OLED_DRIVER_ENABLE) & !defined(KEYBOARD_kyria_rev1)
 
 static uint32_t oled_timer = 0;
-extern uint8_t is_master;
+
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (is_master) {
+  if (is_keyboard_master()) {
     return OLED_ROTATION_0;
   }
   return OLED_ROTATION_180;
@@ -99,7 +99,7 @@ void oled_task_user(void) {
     else { oled_on(); }
     #endif
 
-    if (is_master) {
+    if (is_keyboard_master()) {
         render_status();
     } else {
         render_logo();

@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#include_next "mcuconf.h"
+#include_next <mcuconf.h>
 
 // #undef STM32_HSE_ENABLED
 // #define STM32_HSE_ENABLED FALSE

@@ -4,8 +4,9 @@ This project includes a Docker workflow that will allow you to build a new firmw
 
 ## Requirements
 
-The main prerequisite is a working `docker` install.
+The main prerequisite is a working `docker` or `podman` install.
 * [Docker CE](https://docs.docker.com/install/#supported-platforms)
+* [Podman](https://podman.io/getting-started/installation)
 
 ## Usage
 
@@ -36,6 +37,13 @@ You can also start the script without any parameters, in which case it will ask 
 ```bash
 util/docker_build.sh
 # Reads parameters as input (leave blank for all keyboards/keymaps)
+```
+
+You can manually set which container runtime you want to use by setting the `RUNTIME` environment variable to it's name or path.
+By default docker or podman are automatically detected and docker is preferred over podman.
+
+```bash
+RUNTIME="podman" util/docker_build.sh keyboard:keymap:target
 ```
 
 ## FAQ

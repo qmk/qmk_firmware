@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    UniKeyboard
 #define PRODUCT         diverge tm2
-#define DESCRIPTION     Split 46 key keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

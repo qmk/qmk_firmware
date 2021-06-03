@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0012
 #define MANUFACTURER Ramon Imbao
 #define PRODUCT Wete
-#define DESCRIPTION Southpaw Full-sized Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -46,6 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B4
 #define RGBLED_NUM 24
 #define RGBLIGHT_ANIMATIONS
+
+#define SLEEP_LED_GPT_DRIVER GPTD1
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

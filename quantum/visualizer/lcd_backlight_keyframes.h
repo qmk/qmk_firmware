@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QUANTUM_VISUALIZER_LCD_BACKLIGHT_KEYFRAMES_H_
-#define QUANTUM_VISUALIZER_LCD_BACKLIGHT_KEYFRAMES_H_
+#pragma once
 
 #include "visualizer.h"
 
@@ -26,5 +25,3 @@ bool lcd_backlight_keyframe_set_color(keyframe_animation_t* animation, visualize
 
 bool lcd_backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state);
 bool lcd_backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state);
-
-#endif /* QUANTUM_VISUALIZER_LCD_BACKLIGHT_KEYFRAMES_H_ */

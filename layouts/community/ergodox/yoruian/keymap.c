@@ -37,13 +37,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        TR,   TR,   TR,   TR,   TR,   TR),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    return MACRO_NONE;
-};
-
-void matrix_init_user(void) {
-};
-
 void matrix_scan_user(void) {
     ergodox_board_led_off();
     ergodox_right_led_1_off();

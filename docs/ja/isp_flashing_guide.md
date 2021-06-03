@@ -277,7 +277,7 @@ High ヒューズは 0xD9 か 0x99 のどちらかになります。
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
 
 
-別のコントローラーを使用している場合や、別の設定を希望する場合は、この[AVR ヒューズ計算機](http:/www.engbedded.comfusecalc)を使用して、より適切な値を見つけることができます。
+別のコントローラーを使用している場合や、別の設定を希望する場合は、この[AVR ヒューズ計算機](https://www.engbedded.com/fusecalc)を使用して、より適切な値を見つけることができます。
 
 ## ヘルプ
 

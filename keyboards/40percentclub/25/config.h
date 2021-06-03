@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0F25
 #define MANUFACTURER    di0ib
 #define PRODUCT         The 5x5 Keyboard
-#define DESCRIPTION     A split 50 key keyboard
 
 #define USE_SERIAL
 /* serial.c configuration for split keyboard */
@@ -178,9 +177,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

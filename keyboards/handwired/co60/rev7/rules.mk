@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 
 # Use SPI for RGB underglow:
 WS2812_DRIVER = spi

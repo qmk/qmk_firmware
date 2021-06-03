@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "progmem.h"
 
+#include "keyboard.h"
+
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf
 
@@ -70,6 +72,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISPLAY_CLOCK 0xD5
 #define PRE_CHARGE_PERIOD 0xD9
 #define VCOM_DETECT 0xDB
+
+// Advance Graphic Commands
+#define FADE_BLINK 0x23
+#define ENABLE_FADE 0x20
+#define ENABLE_BLINK 0x30
 
 // Charge Pump Commands
 #define CHARGE_PUMP 0x8D
@@ -152,6 +159,12 @@ static void InvertCharacter(uint8_t *cursor) {
 }
 
 bool oled_init(uint8_t rotation) {
+#if defined(USE_I2C) && defined(SPLIT_KEYBOARD)
+    if (!is_keyboard_master()) {
+        return true;
+    }
+#endif
+
     oled_rotation = oled_init_user(rotation);
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
         oled_rotation_width = OLED_DISPLAY_WIDTH;
@@ -271,6 +284,10 @@ static void rotate_90(const uint8_t *src, uint8_t *dest) {
 }
 
 void oled_render(void) {
+    if (!oled_initialized) {
+        return;
+    }
+
     // Do we have work to do?
     oled_dirty &= OLED_ALL_BLOCKS_MASK;
     if (!oled_dirty || oled_scrolling) {
@@ -527,11 +544,21 @@ void oled_write_raw_P(const char *data, uint16_t size) {
 #endif  // defined(__AVR__)
 
 bool oled_on(void) {
+    if (!oled_initialized) {
+        return oled_active;
+    }
+
 #if OLED_TIMEOUT > 0
     oled_timeout = timer_read32() + OLED_TIMEOUT;
 #endif
 
-    static const uint8_t PROGMEM display_on[] = {I2C_CMD, DISPLAY_ON};
+    static const uint8_t PROGMEM display_on[] =
+#ifdef OLED_FADE_OUT
+        {I2C_CMD, FADE_BLINK, 0x00};
+#else
+        {I2C_CMD, DISPLAY_ON};
+#endif
+
     if (!oled_active) {
         if (I2C_TRANSMIT_P(display_on) != I2C_STATUS_SUCCESS) {
             print("oled_on cmd failed\n");
@@ -543,7 +570,17 @@ bool oled_on(void) {
 }
 
 bool oled_off(void) {
-    static const uint8_t PROGMEM display_off[] = {I2C_CMD, DISPLAY_OFF};
+    if (!oled_initialized) {
+        return !oled_active;
+    }
+
+    static const uint8_t PROGMEM display_off[] =
+#ifdef OLED_FADE_OUT
+        {I2C_CMD, FADE_BLINK, ENABLE_FADE | OLED_FADE_OUT_INTERVAL};
+#else
+        {I2C_CMD, DISPLAY_OFF};
+#endif
+
     if (oled_active) {
         if (I2C_TRANSMIT_P(display_off) != I2C_STATUS_SUCCESS) {
             print("oled_off cmd failed\n");
@@ -557,6 +594,10 @@ bool oled_off(void) {
 bool is_oled_on(void) { return oled_active; }
 
 uint8_t oled_set_brightness(uint8_t level) {
+    if (!oled_initialized) {
+        return oled_brightness;
+    }
+
     uint8_t set_contrast[] = {I2C_CMD, CONTRAST, level};
     if (oled_brightness != level) {
         if (I2C_TRANSMIT(set_contrast) != I2C_STATUS_SUCCESS) {
@@ -596,6 +637,10 @@ void oled_scroll_set_speed(uint8_t speed) {
 }
 
 bool oled_scroll_right(void) {
+    if (!oled_initialized) {
+        return oled_scrolling;
+    }
+
     // Dont enable scrolling if we need to update the display
     // This prevents scrolling of bad data from starting the scroll too early after init
     if (!oled_dirty && !oled_scrolling) {
@@ -610,6 +655,10 @@ bool oled_scroll_right(void) {
 }
 
 bool oled_scroll_left(void) {
+    if (!oled_initialized) {
+        return oled_scrolling;
+    }
+
     // Dont enable scrolling if we need to update the display
     // This prevents scrolling of bad data from starting the scroll too early after init
     if (!oled_dirty && !oled_scrolling) {
@@ -624,6 +673,10 @@ bool oled_scroll_left(void) {
 }
 
 bool oled_scroll_off(void) {
+    if (!oled_initialized) {
+        return !oled_scrolling;
+    }
+
     if (oled_scrolling) {
         static const uint8_t PROGMEM display_scroll_off[] = {I2C_CMD, DEACTIVATE_SCROLL};
         if (I2C_TRANSMIT_P(display_scroll_off) != I2C_STATUS_SUCCESS) {

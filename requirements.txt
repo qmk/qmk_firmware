@@ -2,6 +2,8 @@
 appdirs
 argcomplete
 colorama
+dotty-dict
 hjson
-milc
+jsonschema>=3
+milc>=1.3.0
 pygments
