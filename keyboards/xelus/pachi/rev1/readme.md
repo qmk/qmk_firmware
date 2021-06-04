@@ -1,6 +1,6 @@
 # Pachi
 
-Pachi series keyboards.
+Pachi TKL Keyboard that supports both 87 and 88 layouts.
 
 * Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)
 * Hardware Supported: Group buys
