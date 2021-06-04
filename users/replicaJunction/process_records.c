@@ -25,6 +25,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // return process_record_user(keycode, record);
 
 
+    // Custom keycode / function handling, based on the core function
+    // process_record_quantum
+    // https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum.c
+
+    if (!(
+#ifdef USER_CAPS_WORD_ENABLE
+        process_record_caps_word(keycode, record) &&
+#endif
+        true)) {
+        return false;
+    }
+
+
+    // Miscellaneous keycode handling
     mod_state = get_mods();
 
     switch(keycode)
