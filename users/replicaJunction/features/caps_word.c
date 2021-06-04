@@ -1,5 +1,4 @@
 #include "caps_word.h"
-#include "keycodes.h"
 
 static bool is_caps_word_on = false;
 

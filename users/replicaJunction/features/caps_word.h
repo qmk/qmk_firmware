@@ -1,5 +1,6 @@
 #pragma once
 #include QMK_KEYBOARD_H
+#include "rj_keycodes.h"
 
 bool is_caps_word_enabled(void);
 void enable_caps_word(void);
