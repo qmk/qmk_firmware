@@ -541,6 +541,9 @@ enum quantum_keycodes {
 #define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
+#define AGUI(kc) (QK_LGUI | QK_LALT | (kc))
+#define ACMD(kc) AGUI(kc)
+#define AWIN(kc) AGUI(kc)
 #define LCA(kc) (QK_LCTL | QK_LALT | (kc))
 #define LSA(kc) (QK_LSFT | QK_LALT | (kc))
 #define RSA(kc) (QK_RSFT | QK_RALT | (kc))
@@ -768,6 +771,9 @@ enum quantum_keycodes {
 #define SGUI_T(kc) MT(MOD_LGUI | MOD_LSFT, kc)  // Left Shift + GUI
 #define SCMD_T(kc) SGUI_T(kc)
 #define SWIN_T(kc) SGUI_T(kc)
+#define AGUI_T(kc) MT(MOD_LGUI | MOD_LALT, kc)  // Left Alt + GUI
+#define ACMD_T(kc) AGUI_T(kc)
+#define AWIN_T(kc) AGUI_T(kc)
 #define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)  // Left Control + Alt
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)  // Left Shift + Alt
 #define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)  // Right Shift + Alt
