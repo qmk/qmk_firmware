@@ -6,7 +6,6 @@
   "height": 5,
     "layouts": {
         "LAYOUT_60_ansi": {
-            "key_count": 61,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},

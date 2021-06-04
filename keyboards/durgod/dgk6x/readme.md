@@ -1,18 +1,19 @@
-# DGK6X = Venus, Hades, etc.
+# DGK6X = Venus, Hades, Galaxy, etc.
 
-This DGK6X is shared between the ANSI variants of Venus and Hades keyboards. 
+This DGK6X code is shared between the ANSI variants of Venus, Hades and Galaxy keyboards. 
 
 * Keyboard Maintainer: [J-Sully](https://github.com/J-Sully) and [dkjer](https://github.com/dkjer)
-* Hardware Supported: Durgod Venus or Hades board with STM32F070RBT6 
-* Hardware Availability: [Venus](https://www.amazon.com/dp/B07XFP5MMZ) and [Hades](https://www.amazon.com/gp/product/B08562392T)
+* Hardware Supported: Durgod Venus, Hades or Galaxy board with STM32F070RBT6 
+* Hardware Availability: [Venus](https://www.amazon.com/dp/B07XFP5MMZ), [Hades](https://www.amazon.com/gp/product/B08562392T) and [Galaxy](https://www.amazon.com/Galaxy-75-Modular-Mechanical-Keyboard/dp/B08PDRD8MP)
 
 ## Instructions
 
 ### Build
 
-Instructions for building the Venus and Hades firmware can be found here: 
+Instructions for building the Venus, Hades and Galaxy firmware can be found here: 
 * [Venus](venus/readme.md)
 * [Hades](hades/readme.md)
+* [Galaxy](galaxy/readme.md)
 
 ### Initial Flash
 
@@ -39,7 +40,11 @@ For first Flashing from initial Stock's Firmware
 
 You can short Boot0 to Vdd by shorting R19 to C30 on the sides closest to the processor, as shown:
 
-<img src="https://i.imgur.com/JwF7MeZ.jpg" width="520" height="571" alt="Shorting Boot0 to Vdd on DGK6x">
+* Hades & Venus:
+<img src="https://i.imgur.com/JwF7MeZ.jpg" width="520" height="571" alt="Shorting Boot0 to Vdd on Hades or Venus">
+
+* Galaxy 75
+<img src="https://i.imgur.com/b9eZG5T.jpg" width="520" height="571" alt="Shorting Boot0 to Vdd on Galaxy 75">
 
 ### Subsequent Flashing
 

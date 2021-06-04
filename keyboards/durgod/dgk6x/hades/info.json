@@ -6,7 +6,6 @@
   "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
-            "key_count": 68,
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "!", "x": 1, "y": 0 },
@@ -40,7 +39,7 @@
                 { "label": "|", "x": 13.5, "y": 1, "w": 1.5 },
                 { "label": "Home", "x": 15, "y": 1 },
 
-                { "label": "Caps:wLock", "x": 0, "y": 2, "w": 1.75 },
+                { "label": "CapsLock", "x": 0, "y": 2, "w": 1.75 },
                 { "label": "A", "x": 1.75, "y": 2 },
                 { "label": "S", "x": 2.75, "y": 2 },
                 { "label": "D", "x": 3.75, "y": 2 },
