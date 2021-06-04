@@ -4,7 +4,7 @@
 
 An 60% gasket mounted board with a Tsangan layout and a 7 degree typing angle.
 
-* Keyboard Maintainer: [2Moons](https://github.com/2Moons-JP)  
+* Keyboard Maintainer: [2Moons](https://github.com/2Moons-JP)
 * Hardware Supported: PLX PCB, ATMEGA32U4-AU
 * Hardware Availability: [Website](https://peac.design)
 
