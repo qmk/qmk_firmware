@@ -16,9 +16,7 @@
 
 #pragma once
 
-#include_next "nostromo.h"
-
-#undef STM32_HSE_BYPASS
+#include "quantum.h"
 
 #define LAYOUT_ortho_5x12( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \

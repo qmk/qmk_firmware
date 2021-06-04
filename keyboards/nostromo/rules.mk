@@ -27,3 +27,4 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 WS2812_DRIVER = pwm
 BACKLIGHT_DRIVER = pwm
 LAYOUTS = ortho_5x12
+

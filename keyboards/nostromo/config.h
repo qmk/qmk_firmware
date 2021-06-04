@@ -15,22 +15,6 @@
  */
 #pragma once
 
-#define BOARD_OTG_NOVBUSSENS 1
-
-#ifndef STM32_LSECLK
-#    define STM32_LSECLK 32768U
-#endif  // STM32_LSECLK
-
-#ifndef STM32_HSECLK
-#    define STM32_HSECLK 25000000U
-#endif  // STM32_HSECLK
-
-#ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
-#    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-#endif
-
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x0000
 #define PRODUCT_ID      0x0000

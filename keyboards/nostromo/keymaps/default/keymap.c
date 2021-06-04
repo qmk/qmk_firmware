@@ -4,7 +4,7 @@ enum layer_names {
     _QWERTY,
     _LOWER,
     _RAISE,
-    _ADJUST,
+    _ADJUST
 };
 
 #define LOWER  MO(_LOWER)
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |   1  |   2  |   3  |      |      |      |      |      |      |  |\  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |   0  |      |  .   |Lower |             |Raise |MPrev |Voldo |VolUp |MNext |
+ * |      |   0  |      |  .   |      |             |      |MPrev |Voldo |VolUp |MNext |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_ortho_5x12(
