@@ -33,12 +33,6 @@ enum userspace_custom_keycodes {
     // USER_ENABLE_SUPER_ALT_TAB
     SALTTAB,
 
-    // USER_ONESHOT_CUSTOM_ENABLE
-    OS_SHFT,
-    OS_CTRL,
-    OS_ALT,
-    OS_GUI,
-
     // USER_ENABLE_SECRETS
     K_SECR1,
     K_SECR2,
