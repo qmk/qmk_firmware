@@ -8,6 +8,11 @@ ifeq ($(strip $(USER_CAPS_WORD_ENABLE)), yes)
     OPT_DEFS += -DUSER_CAPS_WORD_ENABLE
 endif
 
+ifeq ($(strip $(USER_SUPER_ALT_TAB_ENABLE)), yes)
+	SRC += features/super_alt_tab.c
+    OPT_DEFS += -DUSER_SUPER_ALT_TAB_ENABLE
+endif
+
 # Define these last so any other logic can set up some defines first
 SRC += matrix_scan.c \
 		process_records.c
