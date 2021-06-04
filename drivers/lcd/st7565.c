@@ -408,9 +408,12 @@ bool st7565_on(void) {
         st7565_send_cmd(DISPLAY_ON);
         spi_stop();
         st7565_active = true;
+        st7565_on_user();
     }
     return st7565_active;
 }
+
+__attribute__((weak)) void st7565_on_user(void) { }
 
 bool st7565_off(void) {
     if (!st7565_initialized) {
@@ -422,9 +425,12 @@ bool st7565_off(void) {
         st7565_send_cmd(DISPLAY_OFF);
         spi_stop();
         st7565_active = false;
+        st7565_off_user();
     }
     return !st7565_active;
 }
+
+__attribute__((weak)) void st7565_off_user(void) { }
 
 bool st7565_is_on(void) { return st7565_active; }
 

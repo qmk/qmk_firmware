@@ -182,9 +182,17 @@ void st7565_write_raw_P(const char *data, uint16_t size);
 // Returns true if the screen was on or turns on
 bool st7565_on(void);
 
+// Called when st7565_on() turns on the screen, weak function overridable by the user
+// Not called if the screen is already on
+void st7565_on_user(void);
+
 // Can be used to manually turn off the screen if it is on
 // Returns true if the screen was off or turns off
 bool st7565_off(void);
+
+// Called when st7565_off() turns off the screen, weak function overridable by the user
+// Not called if the screen is already off
+void st7565_off_user(void);
 
 // Returns true if the oled is currently on, false if it is
 // not
