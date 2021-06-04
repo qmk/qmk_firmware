@@ -1,6 +1,6 @@
 # PLX
 
-![PLX](https://i.imgur.com/xJvv1kq.jpg)
+![PLX](https://i.imgur.com/xJvv1kqh.jpg)
 
 An 60% gasket mounted board with a Tsangan layout and a 7 degree typing angle.
 
