@@ -17,6 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+// Artificial delay added to get media keys to work in the encoder
+#define MEDIA_KEY_DELAY 10
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_all(
       KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC, KC_MUTE,
@@ -52,6 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+/*
 keyevent_t encoder_ccw = {
     .key = (keypos_t){.row = 5, .col = 0},
     .pressed = false
@@ -61,9 +65,10 @@ keyevent_t encoder_cw = {
     .key = (keypos_t){.row = 5, .col = 1},
     .pressed = false
 };
+*/
 
 void matrix_scan_user(void) {
-    if (IS_PRESSED(encoder_ccw)) {
+    /*if (IS_PRESSED(encoder_ccw)) {
         encoder_ccw.pressed = false;
         encoder_ccw.time = (timer_read() | 1);
         action_exec(encoder_ccw);
@@ -74,17 +79,45 @@ void matrix_scan_user(void) {
         encoder_cw.time = (timer_read() | 1);
         action_exec(encoder_cw);
     }
+	*/
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+
+void encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
-        encoder_cw.pressed = true;
-        encoder_cw.time = (timer_read() | 1);
-        action_exec(encoder_cw);
+        //encoder_cw.pressed = true;
+        //encoder_cw.time = (timer_read() | 1);
+        //action_exec(encoder_cw);
+		
+		keyevent_t pressed;
+		// get keycode mapped to key at row 5, col 1
+        pressed = (keyevent_t){ .key = (keypos_t){.row = 5, .col = 1}, .pressed = true, .time = (timer_read() | 1)};
+		uint16_t keycode = get_event_keycode(pressed, false);
+		if (keycode > 0) {
+			uint16_t held_keycode_timer = timer_read();
+			register_code16(keycode);
+			while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ 
+				// nothing 
+			}
+			unregister_code16(keycode);
+		}
     } else {
-        encoder_ccw.pressed = true;
-        encoder_ccw.time = (timer_read() | 1);
-        action_exec(encoder_ccw);
-    }
-    return true;
+        //encoder_ccw.pressed = true;
+        //encoder_ccw.time = (timer_read() | 1);
+        //action_exec(encoder_ccw);
+		
+		keyevent_t pressed;
+		// get keycode mapped to key at row 5, col 0
+        pressed = (keyevent_t){ .key = (keypos_t){.row = 5, .col = 0}, .pressed = true, .time = (timer_read() | 1)};
+		uint16_t keycode = get_event_keycode(pressed, false);
+		if (keycode > 0) {
+			uint16_t held_keycode_timer = timer_read();
+			register_code16(keycode);
+			while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ 
+				// nothing 
+			}
+			unregister_code16(keycode);
+		}
+	}
 }
+
