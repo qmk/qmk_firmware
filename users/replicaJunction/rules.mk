@@ -8,6 +8,11 @@ ifeq ($(strip $(USER_CAPS_WORD_ENABLE)), yes)
     OPT_DEFS += -DUSER_CAPS_WORD_ENABLE
 endif
 
+ifeq ($(strip $(USER_MOUSE_JIGGLE_ENABLE)), yes)
+	SRC += features/mouse_jiggle.c
+    OPT_DEFS += -DUSER_MOUSE_JIGGLE_ENABLE
+endif
+
 ifeq ($(strip $(USER_SUPER_ALT_TAB_ENABLE)), yes)
 	SRC += features/super_alt_tab.c
     OPT_DEFS += -DUSER_SUPER_ALT_TAB_ENABLE

@@ -33,6 +33,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef USER_CAPS_WORD_ENABLE
         process_record_caps_word(keycode, record) &&
 #endif
+#ifdef USER_MOUSE_JIGGLE_ENABLE
+        process_record_mouse_jiggle(keycode, record) &&
+#endif
 #ifdef USER_SUPER_ALT_TAB_ENABLE
         process_record_super_alt_tab(keycode, record) &&
 #endif
