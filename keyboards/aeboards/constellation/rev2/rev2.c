@@ -14,4 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config_common.h"
+#include "rev2.h"
+
+void matrix_io_delay(void) {
+    __asm__ volatile("nop\nnop\nnop\n");
+}
