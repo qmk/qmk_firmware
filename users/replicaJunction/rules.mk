@@ -13,6 +13,11 @@ ifeq ($(strip $(USER_MOUSE_JIGGLE_ENABLE)), yes)
     OPT_DEFS += -DUSER_MOUSE_JIGGLE_ENABLE
 endif
 
+ifeq ($(strip $(USER_SECRETS_ENABLE)), yes)
+	SRC += features/secrets.c
+    OPT_DEFS += -DUSER_SECRETS_ENABLE
+endif
+
 ifeq ($(strip $(USER_SUPER_ALT_TAB_ENABLE)), yes)
 	SRC += features/super_alt_tab.c
     OPT_DEFS += -DUSER_SUPER_ALT_TAB_ENABLE

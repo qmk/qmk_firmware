@@ -12,6 +12,10 @@
 #    include "features/mouse_jiggle.h"
 #endif
 
+#ifdef USER_SECRETS_ENABLE
+#    include "features/secrets.h"
+#endif
+
 #ifdef USER_SUPER_ALT_TAB_ENABLE
 #    include "features/super_alt_tab.h"
 #endif
