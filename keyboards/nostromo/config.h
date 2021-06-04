@@ -1,19 +1,33 @@
 /* Copyright 2021 su8044 <su8044@gmail.com>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #pragma once
+
+#define BOARD_OTG_NOVBUSSENS 1
+
+#ifndef STM32_LSECLK
+#    define STM32_LSECLK 32768U
+#endif  // STM32_LSECLK
+
+#ifndef STM32_HSECLK
+#    define STM32_HSECLK 25000000U
+#endif  // STM32_HSECLK
+
+#ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+#    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+#endif
 
 #include "config_common.h"
 
@@ -25,7 +39,7 @@
 #define PRODUCT         Nostromo Ortho 5x12
 
 /* key matrix size */
-#define MATRIX_ROWS 5
+#define MATRIX_ROWS 5 // Rows are doubled-up
 #define MATRIX_COLS 12
 
 /*
@@ -37,7 +51,6 @@
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  */
-
 #define MATRIX_ROW_PINS { B12, B13, B14, B15, A8 }
 #define MATRIX_COL_PINS { B10, B1, A1, A2, A3, B0, A10, B3, A15, B5, B4, B8 }
 #define DIODE_DIRECTION COL2ROW
@@ -46,7 +59,6 @@
 #define RGBLED_NUM 14
 #define RGBLIGHT_LIMIT_VAL 120
 #define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_LAYERS
 
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 4

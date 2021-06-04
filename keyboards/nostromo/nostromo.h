@@ -1,4 +1,4 @@
-/* Copyright 2021 su8044 <su8044@gmail.com>
+/* Copyright 2021 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,9 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#include "quantum.h"
+#include_next "nostromo.h"
+
+#undef STM32_HSE_BYPASS
 
 #define LAYOUT_ortho_5x12( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
