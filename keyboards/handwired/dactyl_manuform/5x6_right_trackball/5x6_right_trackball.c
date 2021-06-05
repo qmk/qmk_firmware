@@ -27,11 +27,11 @@
 #endif
 
 keyboard_config_t keyboard_config;
-uint16_t dpi_array[] = TRACKBALL_DPI_OPTIONS;
+uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
-bool     BurstState        = false;  // init burst state for Trackball module
-uint16_t MotionStart       = 0;      // Timer for accel, 0 is resting state
+bool     BurstState  = false; // init burst state for Trackball module
+uint16_t MotionStart = 0;     // Timer for accel, 0 is resting state
 
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     mouse_report->x = x;
@@ -53,12 +53,8 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
             MotionStart = timer_read();
         }
 
-        if (debug_mouse) {
-            dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart);
-        }
-        if (debug_mouse) {
-            dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy);
-        }
+        if (debug_mouse) { dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart); }
+        if (debug_mouse) { dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy); }
 #if defined(PROFILE_LINEAR)
         float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
         data.dx *= scale;
@@ -85,7 +81,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef POINTING_DEVICE_ENABLE
     if (keycode == DPI_CONFIG && record->event.pressed) {
-        if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
             keyboard_config.dpi_config = (keyboard_config.dpi_config - 1) % DPI_OPTION_SIZE;
         } else {
             keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
@@ -146,19 +142,11 @@ void pointing_device_init(void) {
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
-static bool has_report_changed(report_mouse_t new, report_mouse_t old) {
-    return (new.buttons != old.buttons) ||
-           (new.x && new.x != old.x) ||
-           (new.y && new.y != old.y) ||
-           (new.h && new.h != old.h) ||
-           (new.v && new.v != old.v);
-}
+static bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
 
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
-    if (!is_keyboard_left()) {
-        process_mouse(&mouse_report);
-    }
+    if (!is_keyboard_left()) { process_mouse(&mouse_report); }
 
     pointing_device_set_report(mouse_report);
     pointing_device_send();
@@ -178,24 +166,20 @@ void matrix_init_kb(void) {
     // is safe to just read DPI setting since matrix init
     // comes before pointing device init.
     keyboard_config.raw = eeconfig_read_kb();
-    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) {
-        eeconfig_init_kb();
-    }
+    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) { eeconfig_init_kb(); }
     matrix_init_user();
 }
 
 #ifdef POINTING_DEVICE_ENABLE
 void pointing_device_send(void) {
-    static report_mouse_t old_report = {};
-    report_mouse_t mouseReport = pointing_device_get_report();
+    static report_mouse_t old_report  = {};
+    report_mouse_t        mouseReport = pointing_device_get_report();
     if (is_keyboard_master()) {
         int8_t x = mouseReport.x, y = mouseReport.y;
         mouseReport.x = 0;
         mouseReport.y = 0;
         process_mouse_user(&mouseReport, x, y);
-        if (has_report_changed(mouseReport, old_report)) {
-            host_mouse_send(&mouseReport);
-        }
+        if (has_report_changed(mouseReport, old_report)) { host_mouse_send(&mouseReport); }
     } else {
         master_mouse_send(mouseReport.x, mouseReport.y);
     }
@@ -203,7 +187,7 @@ void pointing_device_send(void) {
     mouseReport.y = 0;
     mouseReport.v = 0;
     mouseReport.h = 0;
-    old_report = mouseReport;
+    old_report    = mouseReport;
     pointing_device_set_report(mouseReport);
 }
 #endif
@@ -223,6 +207,5 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{5, 2}, {4, 2}, {3, 2}, {2, 2}, {1, 2}, {0, 2}},
     {{5, 3}, {4, 3}, {3, 3}, {2, 3}, {1, 3}, {0, 3}},
     {{5, 4}, {4, 4}, {3, 4}, {2, 4}, {1, 4}, {0, 4}},
-    {{5, 5}, {4, 5}, {3, 5}, {2, 5}, {1, 5}, {0, 5}}
-};
+    {{5, 5}, {4, 5}, {3, 5}, {2, 5}, {1, 5}, {0, 5}}};
 #endif

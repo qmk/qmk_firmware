@@ -22,9 +22,9 @@
 #include "drivers/sensors/pmw3360.h"
 #include "pointing_device.h"
 
-
 #define ___ KC_NO
 
+// clang-format off
 #define LAYOUT_5x6_right_trackball(\
   L00, L01, L02, L03, L04, L05,                          R00, R01, R02, R03, R04, R05, \
   L10, L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, R15, \
@@ -50,16 +50,16 @@
     { ___, R41, R42, R43, ___, ___ }, \
     { ___, R51, R52, R53, ___, ___ }  \
 }
-
+// clang-format on
 
 void process_wheel(report_mouse_t* mouse_report);
 void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
 
 typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t    dpi_config;
-  };
+    uint32_t raw;
+    struct {
+        uint8_t dpi_config;
+    };
 } keyboard_config_t;
 
 extern keyboard_config_t keyboard_config;
