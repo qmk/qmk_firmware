@@ -2,9 +2,9 @@
 
 ## Usage
 
-First, enable MIDI by adding the following to your makefile (`rules.mk`):
+First, enable MIDI by adding the following to your `rules.mk`:
 
-```c
+```makefile
 MIDI_ENABLE = yes
 ```
 
