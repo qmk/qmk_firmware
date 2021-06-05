@@ -1,38 +1,32 @@
 # MIDI
 
-## Enabling MIDI
+## Usage
 
-Add the following to the keyboard's rules.mk
+First, enable MIDI by adding the following to your `rules.mk`:
 
 ```c
 MIDI_ENABLE = yes
 ```
 
-## Using Basic MIDI
+There are two MIDI systems in QMK: basic and advanced. With basic MIDI you will only be able to send Note On and Note Off messages using the note keycodes, meaning that keycodes like `MI_OCTU` and `MI_OCTD` will not work. Advanced MIDI allows you to do things like octave shifts, channel changes, velocity changes, modulation, and more.
 
-Enabling Basic MIDI
+### Basic MIDI
 
-Add the following to your keyboard's config.h
+To enable basic MIDI, add the following to your `config.h`:
 
 ```c
 #define MIDI_BASIC
 ```
 
-With basic MIDI you will only be able to send `NOTE_ON` and `NOTE_OFF` Commands to the internal MIDI device, meaning that keycodes like `MI_OCTU` and `MI_OCTD` will not work.
+### Advanced MIDI
 
-## Advanced MIDI
-
-Enabling Advanced MIDI
-
-Add the following to your keyboard's config.h
+To enable advanced MIDI, add the following to your `config.h`:
 
 ```c
 #define MIDI_ADVANCED
 ```
 
-With advanced MIDI you can do things like octave shifts, channel changes, velocity changes, and modulation.
-
-### Sending MIDI Control Codes (MIDI CC)
+#### Sending MIDI Control Codes (MIDI CC)
 
 If you're aiming to emulate the features of something like a Launchpad or other MIDI controller you'll need to access the internal MIDI device directly.
 
