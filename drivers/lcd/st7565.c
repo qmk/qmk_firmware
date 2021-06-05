@@ -90,11 +90,6 @@ static void InvertCharacter(uint8_t *cursor) {
 }
 
 bool st7565_init(display_rotation_t rotation) {
-#if defined(SPLIT_KEYBOARD)
-    if (!is_keyboard_master()) {
-        return true;
-    }
-#endif
 
     setPinOutput(ST7565_A0_PIN);
     writePinHigh(ST7565_A0_PIN);
