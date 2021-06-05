@@ -392,7 +392,7 @@ See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 |`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`         |Hold Right Alt (AltGr) and press `kc`                 |
 |`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                         |
 |`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`                |
-|`AGUI(kc)`|`ACMD(kc)`, `AWIN(kc)`         |Hold Left Alt and GUI and press `kc`                  |
+|`AGUI(kc)`|`ACMD(kc)`, `OCMD(kc)`         |Hold Left Alt and GUI and press `kc`                  |
 |`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`              |
 |`LSA(kc)` |                               |Hold Left Shift and Left Alt and press `kc`           |
 |`RSA(kc)` |`SAGR(kc)`                     |Hold Right Shift and Right Alt (AltGr) and press `kc` |
@@ -419,7 +419,7 @@ See also: [Mod-Tap](mod_tap.md)
 |`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt (AltGr) when held, `kc` when tapped                 |
 |`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                         |
 |`SGUI_T(kc)` |`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped                |
-|`AGUI_T(kc)` |`ACMD_T(kc)`, `AWIN_T(kc)`                                       |Left Alt and GUI when held, `kc` when tapped                  |
+|`AGUI_T(kc)` |`ACMD_T(kc)`, `OCMD_T(kc)`                                       |Left Alt and GUI when held, `kc` when tapped                  |
 |`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped              |
 |`LSA_T(kc)`  |                                                                 |Left Shift and Left Alt when held, `kc` when tapped           |
 |`RSA_T(kc)`  |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (AltGr) when held, `kc` when tapped |
