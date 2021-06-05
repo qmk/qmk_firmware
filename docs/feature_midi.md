@@ -26,17 +26,12 @@ To enable advanced MIDI, add the following to your `config.h`:
 #define MIDI_ADVANCED
 ```
 
-#### Sending MIDI Control Codes (MIDI CC)
+#### Sending Control Change (CC) Messages
 
 If you're aiming to emulate the features of something like a Launchpad or other MIDI controller you'll need to access the internal MIDI device directly.
 
-When sending MIDI CC you don't get the advantages of a preimplemented keycode and you will need to implement custom keycodes if you want to use them in your keymap directly using the function `process_record_user`. It is the same process as implementing custom keycodes for macros.
+Because there are so many possible CC messages, not all of them are implemented as keycodes. Additionally, you might need to provide more than just two values that you would get from a keycode (pressed and released) - for example, the analog values from a fader or a potentiometer. So, you will need to implement [custom keycodes](feature_macros.md) if you want to use them in your keymap directly using `process_record_user()`.
 
-For an overview of that process look at: [Macros](feature_macros.md)
-
-1. First enable MIDI_ADVANCED
-2. use an `extern MidiDevice midi_device;` statement to bring the MIDI device into scope.
-3. Send a control code with the `midi_send_cc(*midi_device, channel, number, value)` function
 
 For reference of all the possible control code numbers see [MIDI Specification](#midi-specification)
 
@@ -46,19 +41,16 @@ For reference of all the possible control code numbers see [MIDI Specification](
 
 extern MidiDevice midi_device;
 
-/*
-MIDI CC codes for generic ON/OFF swiches
-80,81,82,83
-values off = 0-63
+// MIDI CC codes for generic on/off switches (80, 81, 82, 83)
+// Off: 0-63
+// On:  64-127
 */
+#define MIDI_CC_OFF 0
+#define MIDI_CC_ON  127
 
-#define OFF 0
-
-/*values on = 64-127*/
-
-#define ON 127
-
-enum custom_keycodes { MIDI_CC80 = SAFE_RANGE };
+enum custom_keycodes {
+    MIDI_CC80 = SAFE_RANGE,
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -74,12 +66,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = {
-        {MIDI_CC80, KC_ESC},
+    LAYOUT(
         // ...
-    },
+        MIDI_CC80,
+        // ...
+    )
 };
-
 ```
 
 ### Keycodes
