@@ -15,7 +15,12 @@ This purpose of this fork is maintain a clean repo that only contains the keyboa
 
 ## Building
 
-To build, don't check out `master`, but check out the latest firmware branch (`firmware20`, for example).
+To set up the local build enviroment to create the firmware image manually, head to the [Newbs guide from QMK](https://docs.qmk.fm/#/newbs).
+And instead of using just `qmk setup`, you will want to run this instead: 
+
+```sh
+qmk setup zsa/qmk_firmware -b firmware20
+```
 
 ## Maintainers
 
