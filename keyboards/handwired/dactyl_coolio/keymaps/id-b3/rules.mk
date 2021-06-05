@@ -5,7 +5,6 @@ MOUSEKEY_ENABLE = no  		# Mouse keys(+4700), needed for baller
 POINTING_DEVICE_ENABLE = no
 EXTRAKEY_ENABLE = no
 
-PIMORONI_TRACKBALL_ENABLE = no
 
 TAP_DANCE_ENABLE = yes     # Enable tap dancing
 
