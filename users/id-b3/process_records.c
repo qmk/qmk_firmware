@@ -118,7 +118,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	#ifdef TRACKBALL_ENABLE
 uint32_t layer_state_set_user(uint32_t state) {
     trackball_set_rgbw(0, 0, 0, 60);
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     switch(layer) {
         case _COLEMAK:
             trackball_set_rgbw(0, 0, 50, 110);
