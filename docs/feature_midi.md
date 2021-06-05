@@ -11,7 +11,7 @@ MIDI_ENABLE = yes
 
 ## Using Basic MIDI
 
-Enabling Basic MIDI only
+Enabling Basic MIDI
 
 Add the following to your keyboard's config.h
 
@@ -19,7 +19,7 @@ Add the following to your keyboard's config.h
 #define MIDI_BASIC
 ```
 
-With basic MIDI you will only be able to send `NOTE_ON` and `NOTE_OFF` Commands to the internal MIDI device, meaning that keycodes like `MI_OCTU` and `MI_OCTD` won't work.
+With basic MIDI you will only be able to send `NOTE_ON` and `NOTE_OFF` Commands to the internal MIDI device, meaning that keycodes like `MI_OCTU` and `MI_OCTD` will not work.
 
 ## Advanced MIDI
 
@@ -37,7 +37,7 @@ With advanced MIDI you can do things like octave shifts, channel changes, veloci
 
 If you're aiming to emulate the features of something like a Launchpad or other MIDI controller you'll need to access the internal MIDI device directly.
 
-It's best to follow a reference because when sending MIDI CC you don't get the advantages of a keycode and you will need to implement a `process_record_user` and the custom keycodes for that. It's the same process as implementing custom key behavior or macros.
+When sending MIDI CC you don't get the advantages of a preimplemented keycode and you will need to implement custom keycodes if you want to use them in your keymap directly using the function `process_record_user`. It is the same process as implementing custom keycodes for macros.
 
 For an overview of that process look at: [Macros](feature_macros.md)
 
