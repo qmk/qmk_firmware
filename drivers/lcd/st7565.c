@@ -90,7 +90,6 @@ static void InvertCharacter(uint8_t *cursor) {
 }
 
 bool st7565_init(display_rotation_t rotation) {
-
     setPinOutput(ST7565_A0_PIN);
     writePinHigh(ST7565_A0_PIN);
     setPinOutput(ST7565_RST_PIN);
@@ -408,7 +407,7 @@ bool st7565_on(void) {
     return st7565_active;
 }
 
-__attribute__((weak)) void st7565_on_user(void) { }
+__attribute__((weak)) void st7565_on_user(void) {}
 
 bool st7565_off(void) {
     if (!st7565_initialized) {
@@ -425,7 +424,7 @@ bool st7565_off(void) {
     return !st7565_active;
 }
 
-__attribute__((weak)) void st7565_off_user(void) { }
+__attribute__((weak)) void st7565_off_user(void) {}
 
 bool st7565_is_on(void) { return st7565_active; }
 
