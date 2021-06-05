@@ -1,2 +1,11 @@
-Config and keymap files for the dactyl coolio handwired keyboard.
-Meant to be used with the userspace, copy and rename the "id-b3" user folder to your own username. Tweak as you please!
+# Dactyl Coolio
+
+~40% keyboard with oleds, rgb backlight and encoders.
+
+## Usage
+
+The configs make use of the qmk userspace. Create a folder in qmk users matching your keymap name. Copy the id-b3 userspace files to your folder, rename to your own keymap and tweak as you like!
+
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)

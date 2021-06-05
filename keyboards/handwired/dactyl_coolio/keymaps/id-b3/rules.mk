@@ -3,7 +3,7 @@ ENCODER_ENABLE = yes       # Enables the use of one or more encoders
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 MOUSEKEY_ENABLE = no  		# Mouse keys(+4700), needed for baller
 POINTING_DEVICE_ENABLE = no
-EXTRAKEY_ENABLE = no
+EXTRAKEY_ENABLE = yes
 
 PIMORONI_TRACKBALL_ENABLE = no
 

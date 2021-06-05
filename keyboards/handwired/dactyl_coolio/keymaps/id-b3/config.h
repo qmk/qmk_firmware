@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
 //#define DICE_ROLLER_ENABLE
@@ -40,10 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#undef MOUSEKEY_TIME_TO_MAX
 //#define MOUSEKEY_TIME_TO_MAX 1
-
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
