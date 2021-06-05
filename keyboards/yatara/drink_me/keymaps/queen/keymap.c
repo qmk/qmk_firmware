@@ -11,7 +11,7 @@ enum td_keys {
 
 void td_spade_lnx (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        send_unicode_hex_string("2660");
+        register_unicode(0x2660); // ♠
     } else {
         set_unicode_input_mode(UC_LNX);
     }
@@ -21,7 +21,7 @@ void td_spade_lnx (qk_tap_dance_state_t *state, void *user_data) {
 
 void td_diamond_osx (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        send_unicode_hex_string("2666");
+        register_unicode(0x2666); // ♦
     } else {
         set_unicode_input_mode(UC_OSX);
     }
@@ -31,7 +31,7 @@ void td_diamond_osx (qk_tap_dance_state_t *state, void *user_data) {
 
 void td_club_win (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        send_unicode_hex_string("2663");
+        register_unicode(0x2663); // ♣
     } else {
         set_unicode_input_mode(UC_WIN);
     }
@@ -41,7 +41,7 @@ void td_club_win (qk_tap_dance_state_t *state, void *user_data) {
 
 void td_heart_winc (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        send_unicode_hex_string("2665");
+        register_unicode(0x2665); // ♥
     } else {
         set_unicode_input_mode(UC_WINC);
     }
