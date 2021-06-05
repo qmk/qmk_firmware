@@ -65,8 +65,6 @@ values off = 0-63
 
 #define ON 127
 
-/*implementation inspo taken from here: https://github.com/luantty2/pheromone_keyboard/blob/master/keyboards/pheromone/keymaps/default/keymap.c */
-
 enum custom_keycodes { MIDI_CC80 = SAFE_RANGE, MIDI_CC81, MIDI_CC82, MIDI_CC83 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
