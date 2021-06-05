@@ -37,7 +37,7 @@ With advanced MIDI you can do things like octave shifts, channel changes, veloci
 
 If you're aiming to emulate the features of something like a Launchpad or other MIDI controller you'll need to access the internal MIDI device directly.
 
-It's best to follow a refernce because when sending MIDI CC you don't get the advantages of a keycode and you will need to impliment a `process_record_user` and the custom keycodes for that. It's the same process as implmenting custom key behavior or macros.
+It's best to follow a reference because when sending MIDI CC you don't get the advantages of a keycode and you will need to implement a `process_record_user` and the custom keycodes for that. It's the same process as implementing custom key behavior or macros.
 
 For an overview of that process look at: [Macros](feature_macros.md)
 
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ```
 
-### Avaiable MIDI Keycodes
+### Available MIDI Keycodes
 
 | Keycode                    | MIDI Code | Description                                             |
 |----------------------------|-----------|---------------------------------------------------------|
@@ -210,21 +210,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 | MI_OCT_7                   | 5C80      | Go to octave  7                                         |
 | MI_OCTD                    | 5C81      | Go down an octave                                       |
 | MI_OCTU                    | 5C82      | Go up an octave                                         |
-| MI_TRNS_N6                 | 5C83      | Transpose notes down 6 posisions                        |
-| MI_TRNS_N5                 | 5C84      | Transpose notes down 5 posisions                        |
-| MI_TRNS_N4                 | 5C85      | Transpose notes down 4 posisions                        |
-| MI_TRNS_N3                 | 5C86      | Transpose notes down 3 posisions                        |
-| MI_TRNS_N2                 | 5C87      | Transpose notes down 2 posisions                        |
-| MI_TRNS_N1                 | 5C88      | Transpose notes down 1 posision                         |
-| MI_TRNS_0                  | 5C89      | No transposision                                        |
-| MI_TRNS_1                  | 5C8A      | Transpose notes up 1 posision                           |
-| MI_TRNS_2                  | 5C8B      | Transpose notes up 2 posisions                          |
-| MI_TRNS_3                  | 5C8C      | Transpose notes up 3 posisions                          |
-| MI_TRNS_4                  | 5C8D      | Transpose notes up 4 posisions                          |
-| MI_TRNS_5                  | 5C8E      | Transpose notes up 5 posisions                          |
-| MI_TRNS_6                  | 5C8F      | Transpose notes up 6 posisions                          |
-| MI_TRNSD                   | 5C90      | Transpose notes down a posision                         |
-| MI_TRNSU                   | 5C91      | Transpose notes up a posision                           |
+| MI_TRNS_N6                 | 5C83      | Transpose notes down 6 positions                        |
+| MI_TRNS_N5                 | 5C84      | Transpose notes down 5 positions                        |
+| MI_TRNS_N4                 | 5C85      | Transpose notes down 4 positions                        |
+| MI_TRNS_N3                 | 5C86      | Transpose notes down 3 positions                        |
+| MI_TRNS_N2                 | 5C87      | Transpose notes down 2 positions                        |
+| MI_TRNS_N1                 | 5C88      | Transpose notes down 1 positions                         |
+| MI_TRNS_0                  | 5C89      | No transpositions                                        |
+| MI_TRNS_1                  | 5C8A      | Transpose notes up 1 positions                           |
+| MI_TRNS_2                  | 5C8B      | Transpose notes up 2 positions                          |
+| MI_TRNS_3                  | 5C8C      | Transpose notes up 3 positions                          |
+| MI_TRNS_4                  | 5C8D      | Transpose notes up 4 positions                          |
+| MI_TRNS_5                  | 5C8E      | Transpose notes up 5 positions                          |
+| MI_TRNS_6                  | 5C8F      | Transpose notes up 6 positions                          |
+| MI_TRNSD                   | 5C90      | Transpose notes down a positions                         |
+| MI_TRNSU                   | 5C91      | Transpose notes up a positions                           |
 | MI_VEL_0                   | 5C92      | Set Velocity to 0                                       |
 | if VIA_ENABLE: MI_VEL_1    | MI_VEL_0  | If via is enabled, Velocity 1 is the same as Velocity 0 |
 | if no VIA_ENABLE: MI_VEL_1 | 5C93      | Set Velocity to 1                                       |
@@ -262,7 +262,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 | MI_PORT                    | 5CB3      | Portmento                                               |
 | MI_SOST                    | 5CB4      | Sostenuto                                               |
 | MI_SOFT                    | 5CB5      | Soft Pedal                                              |
-| MI_LEG                     | 5CB6      | LEGATO                                                  |
+| MI_LEG                     | 5CB6      | Legato                                                  |
 | MI_MOD                     | 5CB7      | Modulation                                              |
 | MI_MODSD                   | 5CB8      | Decrease Modulation Speed                               |
 | MI_MODSU                   | 5CB9      | Increase Modulation Speed                               |
@@ -273,7 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 QMK MIDI is based on TMK MIDI which in turn is based on `avr-midi`
 
-QMK MIDI is a subset implentation of the MIDI 1.0 specification. 
+QMK MIDI is a subset implementation of the MIDI 1.0 specification. 
 
 ### References
 
