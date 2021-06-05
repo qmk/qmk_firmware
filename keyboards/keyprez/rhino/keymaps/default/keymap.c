@@ -122,3 +122,8 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_2x2u(
     0, 0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 0,
        0, 0, 0, 0,    0,     0,  0,  0,  0,  0
 );
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    tap_code(clockwise ? KC_VOLU : KC_VOLD);
+    return false;
+}

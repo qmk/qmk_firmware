@@ -88,8 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER] = LAYOUT_ortho_7u(
                                                                                                                             KC_APP,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_PIPE,
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  _______, _______, _______, _______, _______, KC_DEL,  KC_INS,
-        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_NUHS, KC_NUBS, _______, _______, _______, _______, KC_BSLS,
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  _______, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_DEL,  KC_INS,
+        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_NUHS, KC_NUBS, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_BSLS,
                  _______, _______,                              _______,                                   _______, _______
     ),
 
@@ -122,3 +122,8 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_7u(
     0, 0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 0,
        0, 0,              0,             0,  0
 );
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    tap_code(clockwise ? KC_VOLU : KC_VOLD);
+    return false;
+}
