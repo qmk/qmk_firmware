@@ -15,7 +15,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define SOFT_SERIAL_PIN D1 // This is a temporary hack for the very first kb prototype
-// #define SOFT_SERIAL_PIN D2
+#define SOFT_SERIAL_PIN D2
 
 #define BACKLIGHT_PIN B0
