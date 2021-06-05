@@ -54,9 +54,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case VRSN:
-            if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-            }
+            if (record->event.pressed) { SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION); }
             return false;
             break;
     }
@@ -89,7 +87,7 @@ __attribute__((weak)) void startup_keymap(void) {}
 void startup_user(void) {
 #ifdef RGBLIGHT_ENABLE
     matrix_init_rgb();
-#endif  // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_ENABLE
     startup_keymap();
 }
 

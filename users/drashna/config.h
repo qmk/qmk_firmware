@@ -17,7 +17,7 @@
 #pragma once
 
 // Use custom magic number so that when switching branches, EEPROM always gets reset
-#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1339
+#define EECONFIG_MAGIC_NUMBER   (uint16_t)0x1339
 
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
@@ -38,12 +38,12 @@
 
 #    define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 
-#    define UNICODE_SONG_MAC SONG(RICK_ROLL)
-#    define UNICODE_SONG_LNX SONG(RICK_ROLL)
-#    define UNICODE_SONG_WIN SONG(RICK_ROLL)
-#    define UNICODE_SONG_BSD SONG(RICK_ROLL)
-#    define UNICODE_SONG_WINC SONG(RICK_ROLL)
-#endif  // !AUDIO_ENABLE
+#    define UNICODE_SONG_MAC             SONG(RICK_ROLL)
+#    define UNICODE_SONG_LNX             SONG(RICK_ROLL)
+#    define UNICODE_SONG_WIN             SONG(RICK_ROLL)
+#    define UNICODE_SONG_BSD             SONG(RICK_ROLL)
+#    define UNICODE_SONG_WINC            SONG(RICK_ROLL)
+#endif // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
@@ -55,16 +55,16 @@
 #    else
 #        define RGBLIGHT_ANIMATIONS
 #    endif
-#    define RGBLIGHT_EFFECT_TWINKLE_LIFE  250
-#    define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1/24
-#endif  // RGBLIGHT_ENABLE
+#    define RGBLIGHT_EFFECT_TWINKLE_LIFE        250
+#    define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1 / 24
+#endif // RGBLIGHT_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses (will slow down matrix scan by a lot)
+#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 // #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 // #   define EECONFIG_RGB_MATRIX (uint32_t *)16
 
@@ -106,8 +106,8 @@
 #        define DISABLE_RGB_MATRIX_MULTISPLASH
 #        define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #        define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#    endif  // AVR
-#endif      // RGB_MATRIX_ENABLE
+#    endif // AVR
+#endif     // RGB_MATRIX_ENABLE
 
 #ifdef OLED_DRIVER_ENABLE
 #    ifdef SPLIT_KEYBOARD
@@ -119,7 +119,7 @@
 #    ifdef OLED_FONT_H
 #        undef OLED_FONT_H
 #    endif
-#    define OLED_FONT_H "drashna_font.h"
+#    define OLED_FONT_H   "drashna_font.h"
 #    define OLED_FONT_END 255
 // #    define OLED_FONT_5X5
 // #    define OLED_FONT_AZTECH
@@ -134,16 +134,16 @@
 
 #ifndef ONESHOT_TAP_TOGGLE
 #    define ONESHOT_TAP_TOGGLE 2
-#endif  // !ONESHOT_TAP_TOGGLE
+#endif // !ONESHOT_TAP_TOGGLE
 
 #ifndef ONESHOT_TIMEOUT
 #    define ONESHOT_TIMEOUT 3000
-#endif  // !ONESHOT_TIMEOUT
+#endif // !ONESHOT_TIMEOUT
 
 #ifdef QMK_KEYS_PER_SCAN
 #    undef QMK_KEYS_PER_SCAN
 #    define QMK_KEYS_PER_SCAN 2
-#endif  // !QMK_KEYS_PER_SCAN
+#endif // !QMK_KEYS_PER_SCAN
 
 // this makes it possible to do rolling combos (zx) with keys that
 // convert to other keys on hold (z becomes ctrl when you hold it,
@@ -165,7 +165,7 @@
 
 #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
-#endif  // TAPPING_TERM
+#endif // TAPPING_TERM
 #if defined(KEYBOARD_ergodox_ez)
 #    define TAPPING_TERM 185
 #elif defined(KEYBOARD_crkbd)
@@ -188,12 +188,12 @@
 
 #ifdef CONVERT_TO_PROTON_C
 // pins that are available but not present on Pro Micro
-#    define A3 PAL_LINE(GPIOA, 3)
-#    define A4 PAL_LINE(GPIOA, 4)
-#    define A5 PAL_LINE(GPIOA, 5)
-#    define A6 PAL_LINE(GPIOA, 6)
-#    define A7 PAL_LINE(GPIOA, 7)
-#    define A8 PAL_LINE(GPIOA, 8)
+#    define A3  PAL_LINE(GPIOA, 3)
+#    define A4  PAL_LINE(GPIOA, 4)
+#    define A5  PAL_LINE(GPIOA, 5)
+#    define A6  PAL_LINE(GPIOA, 6)
+#    define A7  PAL_LINE(GPIOA, 7)
+#    define A8  PAL_LINE(GPIOA, 8)
 #    define A13 PAL_LINE(GPIOA, 13)
 #    define A14 PAL_LINE(GPIOA, 14)
 #    define A15 PAL_LINE(GPIOA, 15)

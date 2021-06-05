@@ -20,7 +20,7 @@
 #include "matrix.h"
 #include QMK_KEYBOARD_H
 
-#define ROWS_PER_HAND (MATRIX_ROWS / 2)
+#define ROWS_PER_HAND     (MATRIX_ROWS / 2)
 #define SYNC_TIMER_OFFSET 2
 
 #ifdef RGBLIGHT_ENABLE
@@ -103,28 +103,28 @@ typedef struct _I2C_slave_buffer_t {
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
 
-#    define I2C_BACKLIGHT_START offsetof(I2C_slave_buffer_t, backlight_level)
-#    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
-#    define I2C_KEYMAP_MASTER_START offsetof(I2C_slave_buffer_t, mmatrix)
-#    define I2C_KEYMAP_SLAVE_START offsetof(I2C_slave_buffer_t, smatrix)
-#    define I2C_SYNC_TIME_START offsetof(I2C_slave_buffer_t, sync_timer)
-#    define I2C_REAL_MODS_START offsetof(I2C_slave_buffer_t, real_mods)
-#    define I2C_WEAK_MODS_START offsetof(I2C_slave_buffer_t, weak_mods)
-#    define I2C_ONESHOT_MODS_START offsetof(I2C_slave_buffer_t, oneshot_mods)
-#    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
-#    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
-#    define I2C_MOUSE_X_START offsetof(I2C_slave_buffer_t, mouse_x)
-#    define I2C_MOUSE_Y_START offsetof(I2C_slave_buffer_t, mouse_y)
-#    define I2C_MOUSE_DPI_START offsetof(I2C_slave_buffer_t, device_cpi)
-#    define I2C_OLED_ON_START offsetof(I2C_slave_buffer_t, oled_on)
-#    define I2C_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_layer_state)
+#    define I2C_BACKLIGHT_START           offsetof(I2C_slave_buffer_t, backlight_level)
+#    define I2C_RGB_START                 offsetof(I2C_slave_buffer_t, rgblight_sync)
+#    define I2C_KEYMAP_MASTER_START       offsetof(I2C_slave_buffer_t, mmatrix)
+#    define I2C_KEYMAP_SLAVE_START        offsetof(I2C_slave_buffer_t, smatrix)
+#    define I2C_SYNC_TIME_START           offsetof(I2C_slave_buffer_t, sync_timer)
+#    define I2C_REAL_MODS_START           offsetof(I2C_slave_buffer_t, real_mods)
+#    define I2C_WEAK_MODS_START           offsetof(I2C_slave_buffer_t, weak_mods)
+#    define I2C_ONESHOT_MODS_START        offsetof(I2C_slave_buffer_t, oneshot_mods)
+#    define I2C_ENCODER_START             offsetof(I2C_slave_buffer_t, encoder_state)
+#    define I2C_WPM_START                 offsetof(I2C_slave_buffer_t, current_wpm)
+#    define I2C_MOUSE_X_START             offsetof(I2C_slave_buffer_t, mouse_x)
+#    define I2C_MOUSE_Y_START             offsetof(I2C_slave_buffer_t, mouse_y)
+#    define I2C_MOUSE_DPI_START           offsetof(I2C_slave_buffer_t, device_cpi)
+#    define I2C_OLED_ON_START             offsetof(I2C_slave_buffer_t, oled_on)
+#    define I2C_LAYER_STATE_START         offsetof(I2C_slave_buffer_t, t_layer_state)
 #    define I2C_DEFAULT_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_default_layer_state)
-#    define I2C_LED_MATRIX_START offsetof(I2C_slave_buffer_t, led_matrix)
-#    define I2C_LED_SUSPEND_START offsetof(I2C_slave_buffer_t, led_suspend_state)
-#    define I2C_RGB_MATRIX_START offsetof(I2C_slave_buffer_t, rgb_matrix)
-#    define I2C_RGB_SUSPEND_START offsetof(I2C_slave_buffer_t, rgb_suspend_state)
+#    define I2C_LED_MATRIX_START          offsetof(I2C_slave_buffer_t, led_matrix)
+#    define I2C_LED_SUSPEND_START         offsetof(I2C_slave_buffer_t, led_suspend_state)
+#    define I2C_RGB_MATRIX_START          offsetof(I2C_slave_buffer_t, rgb_matrix)
+#    define I2C_RGB_SUSPEND_START         offsetof(I2C_slave_buffer_t, rgb_suspend_state)
 
-#    define TIMEOUT 100
+#    define TIMEOUT                       100
 
 #    ifndef SLAVE_I2C_ADDRESS
 #        define SLAVE_I2C_ADDRESS 0x32
@@ -140,9 +140,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    ifdef BACKLIGHT_ENABLE
     uint8_t level = is_backlight_enabled() ? get_backlight_level() : 0;
     if (level != i2c_buffer->backlight_level) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIGHT_START, (void *)&level, sizeof(level), TIMEOUT) >= 0) {
-            i2c_buffer->backlight_level = level;
-        }
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIGHT_START, (void *)&level, sizeof(level), TIMEOUT) >= 0) { i2c_buffer->backlight_level = level; }
     }
 #    endif
 
@@ -150,9 +148,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     if (rgblight_get_change_flags()) {
         rgblight_syncinfo_t rgblight_sync;
         rgblight_get_syncinfo(&rgblight_sync);
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START, (void *)&rgblight_sync, sizeof(rgblight_sync), TIMEOUT) >= 0) {
-            rgblight_clear_change_flags();
-        }
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START, (void *)&rgblight_sync, sizeof(rgblight_sync), TIMEOUT) >= 0) { rgblight_clear_change_flags(); }
     }
 #    endif
 
@@ -164,9 +160,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    ifdef WPM_ENABLE
     uint8_t current_wpm = get_current_wpm();
     if (current_wpm != i2c_buffer->current_wpm) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_WPM_START, (void *)&current_wpm, sizeof(current_wpm), TIMEOUT) >= 0) {
-            i2c_buffer->current_wpm = current_wpm;
-        }
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_WPM_START, (void *)&current_wpm, sizeof(current_wpm), TIMEOUT) >= 0) { i2c_buffer->current_wpm = current_wpm; }
     }
 #    endif
 
@@ -180,9 +174,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
         pointing_device_set_report(temp_report);
 
         if (device_cpi != i2c_buffer->device_cpi) {
-            if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_DPI_START, (void *)&device_cpi, sizeof(device_cpi), TIMEOUT) >= 0) {
-                i2c_buffer->device_cpi = device_cpi
-            }
+            if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_DPI_START, (void *)&device_cpi, sizeof(device_cpi), TIMEOUT) >= 0) { i2c_buffer->device_cpi = device_cpi }
         }
     }
 #    endif
@@ -190,46 +182,34 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    ifdef SPLIT_MODS_ENABLE
     uint8_t real_mods = get_mods();
     if (real_mods != i2c_buffer->real_mods) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_REAL_MODS_START, (void *)&real_mods, sizeof(real_mods), TIMEOUT) >= 0) {
-            i2c_buffer->real_mods = real_mods;
-        }
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_REAL_MODS_START, (void *)&real_mods, sizeof(real_mods), TIMEOUT) >= 0) { i2c_buffer->real_mods = real_mods; }
     }
 
     uint8_t weak_mods = get_weak_mods();
     if (weak_mods != i2c_buffer->weak_mods) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_WEAK_MODS_START, (void *)&weak_mods, sizeof(weak_mods), TIMEOUT) >= 0) {
-            i2c_buffer->weak_mods = weak_mods;
-        }
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_WEAK_MODS_START, (void *)&weak_mods, sizeof(weak_mods), TIMEOUT) >= 0) { i2c_buffer->weak_mods = weak_mods; }
     }
 
 #        ifndef NO_ACTION_ONESHOT
     uint8_t oneshot_mods = get_oneshot_mods();
     if (oneshot_mods != i2c_buffer->oneshot_mods) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_ONESHOT_MODS_START, (void *)&oneshot_mods, sizeof(oneshot_mods), TIMEOUT) >= 0) {
-            i2c_buffer->oneshot_mods = oneshot_mods;
-        }
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_ONESHOT_MODS_START, (void *)&oneshot_mods, sizeof(oneshot_mods), TIMEOUT) >= 0) { i2c_buffer->oneshot_mods = oneshot_mods; }
     }
 #        endif
 #    endif
 
     if (layer_state != i2c_buffer->t_layer_state) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LAYER_STATE_START, (void *)&layer_state, sizeof(layer_state), TIMEOUT) >= 0) {
-            i2c_buffer->t_layer_state = layer_state;
-        }
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LAYER_STATE_START, (void *)&layer_state, sizeof(layer_state), TIMEOUT) >= 0) { i2c_buffer->t_layer_state = layer_state; }
     }
 
     if (default_layer_state != i2c_buffer->t_default_layer_state) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_DEFAULT_LAYER_STATE_START, (void *)&default_layer_state, sizeof(default_layer_state), TIMEOUT) >= 0) {
-            i2c_buffer->t_default_layer_state = default_layer_state;
-        }
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_DEFAULT_LAYER_STATE_START, (void *)&default_layer_state, sizeof(default_layer_state), TIMEOUT) >= 0) { i2c_buffer->t_default_layer_state = default_layer_state; }
     }
 
 #    ifdef OLED_DRIVER_ENABLE
     bool is_oled_on = is_oled_on();
     if (is_oled_on != i2c_buffer->oled_on) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LAYER_STATE_START, (void *)&is_oled_on, sizeof(is_oled_on), TIMEOUT) >= 0) {
-            i2c_buffer->oled_on = is_oled_on;
-        }
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LAYER_STATE_START, (void *)&is_oled_on, sizeof(is_oled_on), TIMEOUT) >= 0) { i2c_buffer->oled_on = is_oled_on; }
     }
 #    endif
 
@@ -306,12 +286,8 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #        endif
 #    endif
 
-    if (layer_state != i2c_buffer->t_layer_state) {
-        layer_state = i2c_buffer->t_layer_state;
-    }
-    if (default_layer_state != i2c_buffer->t_default_layer_state) {
-        default_layer_state = i2c_buffer->t_default_layer_state;
-    }
+    if (layer_state != i2c_buffer->t_layer_state) { layer_state = i2c_buffer->t_layer_state; }
+    if (default_layer_state != i2c_buffer->t_default_layer_state) { default_layer_state = i2c_buffer->t_default_layer_state; }
 
 #    ifdef OLED_DRIVER_ENABLE
     if (i2c_buffer->oled_on) {
@@ -335,7 +311,7 @@ void transport_master_init(void) { i2c_init(); }
 
 void transport_slave_init(void) { i2c_slave_init(SLAVE_I2C_ADDRESS); }
 
-#else  // USE_SERIAL
+#else // USE_SERIAL
 
 #    include "serial.h"
 
@@ -351,28 +327,28 @@ typedef struct _Serial_s2m_buffer_t {
 
 typedef struct _Serial_m2s_buffer_t {
 #    ifdef SPLIT_MODS_ENABLE
-    uint8_t       real_mods;
-    uint8_t       weak_mods;
+    uint8_t        real_mods;
+    uint8_t        weak_mods;
 #        ifndef NO_ACTION_ONESHOT
-    uint8_t       oneshot_mods;
+    uint8_t        oneshot_mods;
 #        endif
 #    endif
 #    ifndef DISABLE_SYNC_TIMER
-    uint32_t     sync_timer;
+    uint32_t       sync_timer;
 #    endif
 #    ifdef SPLIT_TRANSPORT_MIRROR
-    matrix_row_t mmatrix[ROWS_PER_HAND];
+    matrix_row_t   mmatrix[ROWS_PER_HAND];
 #    endif
 #    ifdef BACKLIGHT_ENABLE
-    uint8_t       backlight_level;
+    uint8_t        backlight_level;
 #    endif
 #    ifdef WPM_ENABLE
-    uint8_t       current_wpm;
+    uint8_t        current_wpm;
 #    endif
-    uint16_t      device_cpi;
-    bool          oled_on;
-    layer_state_t t_layer_state;
-    layer_state_t t_default_layer_state;
+    uint16_t       device_cpi;
+    bool           oled_on;
+    layer_state_t  t_layer_state;
+    layer_state_t  t_default_layer_state;
 #    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
     led_eeconfig_t led_matrix;
     bool           led_suspend_state;
@@ -423,7 +399,7 @@ SSTD_t transactions[] = {
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
     [PUT_RGBLIGHT] =
         {
-            (uint8_t *)&status_rgblight, sizeof(serial_rgblight), (uint8_t *)&serial_rgblight, 0, NULL  // no slave to master transfer
+            (uint8_t *)&status_rgblight, sizeof(serial_rgblight), (uint8_t *)&serial_rgblight, 0, NULL // no slave to master transfer
         },
 #    endif
 };
@@ -439,9 +415,7 @@ void transport_slave_init(void) { soft_serial_target_init(transactions, TID_LIMI
 void transport_rgblight_master(void) {
     if (rgblight_get_change_flags()) {
         rgblight_get_syncinfo((rgblight_syncinfo_t *)&serial_rgblight.rgblight_sync);
-        if (soft_serial_transaction(PUT_RGBLIGHT) == TRANSACTION_END) {
-            rgblight_clear_change_flags();
-        }
+        if (soft_serial_transaction(PUT_RGBLIGHT) == TRANSACTION_END) { rgblight_clear_change_flags(); }
     }
 }
 
@@ -459,19 +433,15 @@ void transport_rgblight_slave(void) {
 
 bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
 #    ifndef SERIAL_USE_MULTI_TRANSACTION
-    if (soft_serial_transaction() != TRANSACTION_END) {
-        return false;
-    }
+    if (soft_serial_transaction() != TRANSACTION_END) { return false; }
 #    else
     transport_rgblight_master();
-    if (soft_serial_transaction(GET_SLAVE_MATRIX) != TRANSACTION_END) {
-        return false;
-    }
+    if (soft_serial_transaction(GET_SLAVE_MATRIX) != TRANSACTION_END) { return false; }
 #    endif
 
     // TODO:  if MATRIX_COLS > 8 change to unpack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        slave_matrix[i] = serial_s2m_buffer.smatrix[i];
+        slave_matrix[i]              = serial_s2m_buffer.smatrix[i];
 #    ifdef SPLIT_TRANSPORT_MIRROR
         serial_m2s_buffer.mmatrix[i] = master_matrix[i];
 #    endif
@@ -509,23 +479,23 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     }
 #    endif
 
-    serial_m2s_buffer.t_layer_state           = layer_state;
-    serial_m2s_buffer.t_default_layer_state   = default_layer_state;
+    serial_m2s_buffer.t_layer_state         = layer_state;
+    serial_m2s_buffer.t_default_layer_state = default_layer_state;
 #    ifdef OLED_DRIVER_ENABLE
-    serial_m2s_buffer.oled_on                 = is_oled_on();
+    serial_m2s_buffer.oled_on               = is_oled_on();
 #    endif
 
 #    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
-    serial_m2s_buffer.led_matrix        = led_matrix_eeconfig;
-    serial_m2s_buffer.led_suspend_state = led_matrix_get_suspend_state();
+    serial_m2s_buffer.led_matrix            = led_matrix_eeconfig;
+    serial_m2s_buffer.led_suspend_state     = led_matrix_get_suspend_state();
 #    endif
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
-    serial_m2s_buffer.rgb_matrix        = rgb_matrix_config;
-    serial_m2s_buffer.rgb_suspend_state = rgb_matrix_get_suspend_state();
+    serial_m2s_buffer.rgb_matrix            = rgb_matrix_config;
+    serial_m2s_buffer.rgb_suspend_state     = rgb_matrix_get_suspend_state();
 #    endif
 
 #    ifndef DISABLE_SYNC_TIMER
-    serial_m2s_buffer.sync_timer   = sync_timer_read32() + SYNC_TIMER_OFFSET;
+    serial_m2s_buffer.sync_timer            = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
     return true;
 }
@@ -576,12 +546,8 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     }
 #    endif
 
-    if (layer_state != serial_m2s_buffer.t_layer_state) {
-        layer_state = serial_m2s_buffer.t_layer_state;
-    }
-    if (default_layer_state != serial_m2s_buffer.t_default_layer_state) {
-        default_layer_state = serial_m2s_buffer.t_default_layer_state;
-    }
+    if (layer_state != serial_m2s_buffer.t_layer_state) { layer_state = serial_m2s_buffer.t_layer_state; }
+    if (default_layer_state != serial_m2s_buffer.t_default_layer_state) { default_layer_state = serial_m2s_buffer.t_default_layer_state; }
 #    ifdef OLED_DRIVER_ENABLE
     if (serial_m2s_buffer.oled_on) {
         oled_on();

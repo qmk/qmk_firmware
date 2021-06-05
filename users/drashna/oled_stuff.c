@@ -57,13 +57,9 @@ void add_keylog(uint16_t keycode) {
         keycode = 0;
     }
 
-    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
-        keylog_str[i] = keylog_str[i - 1];
-    }
+    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) { keylog_str[i] = keylog_str[i - 1]; }
 
-    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
-        keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
-    }
+    if (keycode < (sizeof(code_to_name) / sizeof(char))) { keylog_str[0] = pgm_read_byte(&code_to_name[keycode]); }
 
     log_timer = timer_read();
 }
@@ -92,30 +88,14 @@ void render_keylogger_status(void) {
 void render_default_layer_state(void) {
     oled_write_P(PSTR(OLED_RENDER_LAYOUT_NAME), false);
     switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_QWERTY), false);
-            break;
-        case _COLEMAK:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK), false);
-            break;
-        case _DVORAK:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_DVORAK), false);
-            break;
-        case _WORKMAN:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_WORKMAN), false);
-            break;
-        case _NORMAN:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_NORMAN), false);
-            break;
-        case _MALTRON:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_MALTRON), false);
-            break;
-        case _EUCALYN:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_EUCALYN), false);
-            break;
-        case _CARPLAX:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_CARPLAX), false);
-            break;
+        case _QWERTY: oled_write_P(PSTR(OLED_RENDER_LAYOUT_QWERTY), false); break;
+        case _COLEMAK: oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK), false); break;
+        case _DVORAK: oled_write_P(PSTR(OLED_RENDER_LAYOUT_DVORAK), false); break;
+        case _WORKMAN: oled_write_P(PSTR(OLED_RENDER_LAYOUT_WORKMAN), false); break;
+        case _NORMAN: oled_write_P(PSTR(OLED_RENDER_LAYOUT_NORMAN), false); break;
+        case _MALTRON: oled_write_P(PSTR(OLED_RENDER_LAYOUT_MALTRON), false); break;
+        case _EUCALYN: oled_write_P(PSTR(OLED_RENDER_LAYOUT_EUCALYN), false); break;
+        case _CARPLAX: oled_write_P(PSTR(OLED_RENDER_LAYOUT_CARPLAX), false); break;
     }
 #ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
@@ -159,12 +139,12 @@ void render_keylock_status(uint8_t led_usb_state) {
 }
 void render_matrix_scan_rate(void) {
 #ifdef DEBUG_MATRIX_SCAN_RATE
-    char matrix_rate[5];
-    uint16_t n = get_matrix_scan_rate();
+    char     matrix_rate[5];
+    uint16_t n     = get_matrix_scan_rate();
     matrix_rate[4] = '\0';
     matrix_rate[3] = '0' + n % 10;
-    matrix_rate[2] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    matrix_rate[1] =  n / 10 ? '0' + n / 10 : ' ';
+    matrix_rate[2] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    matrix_rate[1] = n / 10 ? '0' + n / 10 : ' ';
     matrix_rate[0] = ' ';
     oled_write_P(PSTR("MS:"), false);
     oled_write(matrix_rate, false);
@@ -306,17 +286,17 @@ void render_wpm(void) {
     char wpm_counter[4];
     wpm_counter[3] = '\0';
     wpm_counter[2] = '0' + n % 10;
-    wpm_counter[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
     wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
 #    else
     char wpm_counter[6];
     wpm_counter[5] = '\0';
     wpm_counter[4] = '0' + n % 10;
-    wpm_counter[3] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[3] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
     wpm_counter[2] = n / 10 ? '0' + n / 10 : ' ';
     wpm_counter[1] = ' ';
     wpm_counter[0] = ' ';
-    #    endif
+#    endif
     oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
     oled_write(wpm_counter, false);
 #endif
@@ -327,13 +307,13 @@ extern keyboard_config_t keyboard_config;
 extern uint16_t          dpi_array[];
 
 void render_pointing_dpi_status(void) {
-    char dpi_status[6];
-    uint16_t n = dpi_array[keyboard_config.dpi_config];
+    char     dpi_status[6];
+    uint16_t n    = dpi_array[keyboard_config.dpi_config];
     dpi_status[5] = '\0';
     dpi_status[4] = '0' + n % 10;
-    dpi_status[3] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    dpi_status[2] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    dpi_status[1] =  n / 10 ? '0' + n / 10 : ' ';
+    dpi_status[3] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    dpi_status[2] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    dpi_status[1] = n / 10 ? '0' + n / 10 : ' ';
     dpi_status[0] = ' ';
     oled_write_P(PSTR("  DPI: "), false);
     oled_write(dpi_status, false);
@@ -385,7 +365,7 @@ void oled_task_user(void) {
         } else {
             oled_on();
         }
-        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        render_status_main(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
     }
