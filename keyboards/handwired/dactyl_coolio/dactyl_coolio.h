@@ -15,14 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include "quantum.h"
 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-#endif
-#endif
-
 #define LAYOUT( \
     L00, L01, L02, L03, L04, L05,                     R06, R07, R08, R09, R10, R11, \
     L12, L13, L14, L15, L16, L17,                     R18, R19, R20, R21, R22, R23, \

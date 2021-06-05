@@ -5,11 +5,10 @@ MOUSEKEY_ENABLE = no  		# Mouse keys(+4700), needed for baller
 POINTING_DEVICE_ENABLE = no
 EXTRAKEY_ENABLE = yes
 
-PIMORONI_TRACKBALL_ENABLE = no
 
 TAP_DANCE_ENABLE = yes     # Enable tap dancing
 
-EXTRAFLAGS        += -flto
+LTO_ENABLE = no
 UNICODE_ENABLE   = no  # Unicode
 SWAP_HANDS_ENABLE= no  # Allow swapping hands of keyboard
 NO_USB_STARTUP_CHECK = yes
