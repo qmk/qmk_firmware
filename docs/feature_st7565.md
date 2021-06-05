@@ -205,8 +205,22 @@ void st7565_write(const char *data, bool invert);
 void st7565_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
-// Useful for moving the screen in preparation for new drawing 
+// Useful for moving the screen in preparation for new drawing
 void st7565_pan(bool left);
+
+// Returns a pointer to the requested start index in the buffer plus remaining
+// buffer length as struct
+display_buffer_reader_t st7565_read_raw(uint16_t start_index);
+
+// Writes a string to the buffer at current cursor position
+void st7565_write_raw(const char *data, uint16_t size);
+
+// Writes a single byte into the buffer at the specified index
+void st7565_write_raw_byte(const char data, uint16_t index);
+
+// Sets a specific pixel on or off
+// Coordinates start at top-left and go right and down for positive x and y
+void st7565_write_pixel(uint8_t x, uint8_t y, bool on);
 
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
@@ -219,30 +233,24 @@ void st7565_write_P(const char *data, bool invert);
 // Remapped to call 'void st7565_write_ln(const char *data, bool invert);' on ARM
 void st7565_write_ln_P(const char *data, bool invert);
 
-// Returns a pointer to the requested start index in the buffer plus remaining
-// buffer length as struct
-display_buffer_reader_t st7565_read_raw(uint16_t start_index);
-
-// Writes a string to the buffer at current cursor position
-void st7565_write_raw(const char *data, uint16_t size);
-
-// Writes a single byte into the buffer at the specified index
-void st7565_write_raw_byte(const char data, uint16_t index);
-
 // Writes a PROGMEM string to the buffer at current cursor position
 void st7565_write_raw_P(const char *data, uint16_t size);
-
-// Sets a specific pixel on or off
-// Coordinates start at top-left and go right and down for positive x and y
-void st7565_write_pixel(uint8_t x, uint8_t y, bool on);
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on
 bool st7565_on(void);
 
+// Called when st7565_on() turns on the screen, weak function overridable by the user
+// Not called if the screen is already on
+void st7565_on_user(void);
+
 // Can be used to manually turn off the screen if it is on
 // Returns true if the screen was off or turns off
 bool st7565_off(void);
+
+// Called when st7565_off() turns off the screen, weak function overridable by the user
+// Not called if the screen is already off
+void st7565_off_user(void);
 
 // Returns true if the screen is currently on, false if it is
 // not

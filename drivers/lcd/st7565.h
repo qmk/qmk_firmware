@@ -139,13 +139,17 @@ void st7565_write(const char *data, bool invert);
 void st7565_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
+// Useful for moving the screen in preparation for new drawing
 void st7565_pan(bool left);
 
 // Returns a pointer to the requested start index in the buffer plus remaining
 // buffer length as struct
 display_buffer_reader_t st7565_read_raw(uint16_t start_index);
 
+// Writes a string to the buffer at current cursor position
 void st7565_write_raw(const char *data, uint16_t size);
+
+// Writes a single byte into the buffer at the specified index
 void st7565_write_raw_byte(const char data, uint16_t index);
 
 // Sets a specific pixel on or off
@@ -164,6 +168,7 @@ void st7565_write_P(const char *data, bool invert);
 // Remapped to call 'void st7565_write_ln(const char *data, bool invert);' on ARM
 void st7565_write_ln_P(const char *data, bool invert);
 
+// Writes a PROGMEM string to the buffer at current cursor position
 void st7565_write_raw_P(const char *data, uint16_t size);
 #else
 // Writes a string to the buffer at current cursor position
@@ -194,7 +199,7 @@ bool st7565_off(void);
 // Not called if the screen is already off
 void st7565_off_user(void);
 
-// Returns true if the oled is currently on, false if it is
+// Returns true if the screen is currently on, false if it is
 // not
 bool st7565_is_on(void);
 
@@ -207,7 +212,7 @@ void st7565_task_user(void);
 // Returns the maximum number of characters that will fit on a line
 uint8_t st7565_max_chars(void);
 
-// Returns the maximum number of lines that will fit on the oled
+// Returns the maximum number of lines that will fit on the display
 uint8_t st7565_max_lines(void);
 
 void st7565_reset(void);
