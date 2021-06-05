@@ -171,15 +171,8 @@ void st7565_write_ln_P(const char *data, bool invert);
 // Writes a PROGMEM string to the buffer at current cursor position
 void st7565_write_raw_P(const char *data, uint16_t size);
 #else
-// Writes a string to the buffer at current cursor position
-// Advances the cursor while writing, inverts the pixels if true
 #    define st7565_write_P(data, invert) st7565_write(data, invert)
-
-// Writes a string to the buffer at current cursor position
-// Advances the cursor while writing, inverts the pixels if true
-// Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 #    define st7565_write_ln_P(data, invert) st7565_write_ln(data, invert)
-
 #    define st7565_write_raw_P(data, size) st7565_write_raw(data, size)
 #endif  // defined(__AVR__)
 
