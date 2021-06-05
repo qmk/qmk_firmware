@@ -88,185 +88,154 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ```
 
-### Available MIDI Keycodes
+### Keycodes
 
-| Keycode                    | Description                                             |
-|----------------------------|---------------------------------------------------------|
-| MI_ON                      | Turn MIDI on                                            |
-| MI_OFF                     | Turn MIDI off                                           |
-| MI_TOG                     | Toggle MIDI Enabled                                     |
-| MI_C                       | C                                                       |
-| MI_Cs                      | C ♯                                                     |
-| MI_Db                      | D ♭ == C♯                                               |
-| MI_D                       | D                                                       |
-| MI_Ds                      | D ♯                                                     |
-| MI_Eb                      | E♭ == D ♯                                               |
-| MI_E                       | E                                                       |
-| MI_F                       | F                                                       |
-| MI_Fs                      | F ♯                                                     |
-| MI_Gb                      | G ♭                                                     |
-| MI_G                       | G                                                       |
-| MI_Gs                      | G ♯                                                     |
-| MI_Ab                      | A ♭                                                     |
-| MI_A                       | A                                                       |
-| MI_As                      | A ♯                                                     |
-| MI_Bb                      | B ♭                                                     |
-| MI_B                       | B                                                       |
-| MI_C_1                     | C octave 1                                              |
-| MI_Cs_1                    | C ♯ octave 1                                            |
-| MI_Db_1                    | D ♭ octave 1                                            |
-| MI_D_1                     | D octave 1                                              |
-| MI_Ds_1                    | D ♯ octave 1                                            |
-| MI_Eb_1                    | E ♭ octave 1                                            |
-| MI_E_1                     | E octave 1                                              |
-| MI_F_1                     | F octave 1                                              |
-| MI_Fs_1                    | F ♯ octave 1                                            |
-| MI_Gb_1                    | G ♭ octave 1                                            |
-| MI_G_1                     | G octave 1                                              |
-| MI_Gs_1                    | G ♯ octave 1                                            |
-| MI_Ab_1                    | A ♭ octave 1                                            |
-| MI_A_1                     | A octave 1                                              |
-| MI_As_1                    | A ♯ octave 1                                            |
-| MI_Bb_1                    | B ♭ octave 1                                            |
-| MI_B_1                     | B octave 1                                              |
-| MI_C_2                     | C octave 2                                              |
-| MI_Cs_2                    | C ♯ octave 2                                            |
-| MI_Db_2                    | D ♭ octave 2                                            |
-| MI_D_2                     | D octave 2                                              |
-| MI_Ds_2                    | D ♯ octave 2                                            |
-| MI_Eb_2                    | E ♭ octave 2                                            |
-| MI_E_2                     | E octave 2                                              |
-| MI_F_2                     | F octave 2                                              |
-| MI_Fs_2                    | F ♯ octave 2                                            |
-| MI_Gb_2                    | G ♭ octave 2                                            |
-| MI_G_2                     | G octave 2                                              |
-| MI_Gs_2                    | G ♯ octave 2                                            |
-| MI_Ab_2                    | A ♭ octave 2                                            |
-| MI_A_2                     | A octave 2                                              |
-| MI_As_2                    | A ♯ octave 2                                            |
-| MI_Bb_2                    | B ♭ octave 2                                            |
-| MI_B_2                     | B octave 2                                              |
-| MI_C_3                     | C octave 3                                              |
-| MI_Cs_3                    | C ♯ octave 3                                            |
-| MI_Db_3                    | D ♭ octave 3                                            |
-| MI_D_3                     | D octave 3                                              |
-| MI_Ds_3                    | D ♯ octave 3                                            |
-| MI_Eb_3                    | E ♭ octave 3                                            |
-| MI_E_3                     | E octave 3                                              |
-| MI_F_3                     | F octave 3                                              |
-| MI_Fs_3                    | F ♯ octave 3                                            |
-| MI_Gb_3                    | G ♭ octave 3                                            |
-| MI_G_3                     | G octave 3                                              |
-| MI_Gs_3                    | G ♯ octave 3                                            |
-| MI_Ab_3                    | A ♭ octave 3                                            |
-| MI_A_3                     | A octave 3                                              |
-| MI_As_3                    | A ♯ octave 3                                            |
-| MI_Bb_3                    | B ♭ octave 3                                            |
-| MI_B_3                     | B octave 3                                              |
-| MI_C_4                     | C octave 4                                              |
-| MI_Cs_4                    | C ♯ octave 4                                            |
-| MI_Db_4                    | D ♭ octave 4                                            |
-| MI_D_4                     | D octave 4                                              |
-| MI_Ds_4                    | D ♯ octave 4                                            |
-| MI_Eb_4                    | E ♭ octave 4                                            |
-| MI_E_4                     | E octave 4                                              |
-| MI_F_4                     | F octave 4                                              |
-| MI_Fs_4                    | F ♯ octave 4                                            |
-| MI_Gb_4                    | G ♭ octave 4                                            |
-| MI_G_4                     | G octave 4                                              |
-| MI_Gs_4                    | G ♯ octave 4                                            |
-| MI_Ab_4                    | A ♭ octave 4                                            |
-| MI_A_4                     | A octave 4                                              |
-| MI_As_4                    | A ♯ octave 4                                            |
-| MI_Bb_4                    | B ♭ octave 4                                            |
-| MI_B_4                     | B octave 4                                              |
-| MI_C_5                     | C octave 5                                              |
-| MI_Cs_5                    | C ♯ octave 5                                            |
-| MI_Db_5                    | D ♭ octave 5                                            |
-| MI_D_5                     | D octave 5                                              |
-| MI_Ds_5                    | D ♯ octave 5                                            |
-| MI_Eb_5                    | E ♭ octave 5                                            |
-| MI_E_5                     | E octave 5                                              |
-| MI_F_5                     | F octave 5                                              |
-| MI_Fs_5                    | F ♯ octave 5                                            |
-| MI_Gb_5                    | G ♭ octave 5                                            |
-| MI_G_5                     | G octave 5                                              |
-| MI_Gs_5                    | G ♯ octave 5                                            |
-| MI_Ab_5                    | A ♭ octave 5                                            |
-| MI_A_5                     | A octave 5                                              |
-| MI_As_5                    | A ♯ octave 5                                            |
-| MI_Bb_5                    | B ♭ octave 5                                            |
-| MI_B_5                     | B octave 5                                              |
-| MI_OCT_N2                  | Go to octave -2                                         |
-| MI_OCT_N1                  | Go to octave -1                                         |
-| MI_OCT_0                   | Go to octave  0                                         |
-| MI_OCT_1                   | Go to octave  1                                         |
-| MI_OCT_2                   | Go to octave  2                                         |
-| MI_OCT_3                   | Go to octave  3                                         |
-| MI_OCT_4                   | Go to octave  4                                         |
-| MI_OCT_5                   | Go to octave  5                                         |
-| MI_OCT_6                   | Go to octave  6                                         |
-| MI_OCT_7                   | Go to octave  7                                         |
-| MI_OCTD                    | Go down an octave                                       |
-| MI_OCTU                    | Go up an octave                                         |
-| MI_TRNS_N6                 | Transpose notes down 6 positions                        |
-| MI_TRNS_N5                 | Transpose notes down 5 positions                        |
-| MI_TRNS_N4                 | Transpose notes down 4 positions                        |
-| MI_TRNS_N3                 | Transpose notes down 3 positions                        |
-| MI_TRNS_N2                 | Transpose notes down 2 positions                        |
-| MI_TRNS_N1                 | Transpose notes down 1 positions                         |
-| MI_TRNS_0                  | No transpositions                                        |
-| MI_TRNS_1                  | Transpose notes up 1 positions                           |
-| MI_TRNS_2                  | Transpose notes up 2 positions                          |
-| MI_TRNS_3                  | Transpose notes up 3 positions                          |
-| MI_TRNS_4                  | Transpose notes up 4 positions                          |
-| MI_TRNS_5                  | Transpose notes up 5 positions                          |
-| MI_TRNS_6                  | Transpose notes up 6 positions                          |
-| MI_TRNSD                   | Transpose notes down a positions                         |
-| MI_TRNSU                   | Transpose notes up a positions                           |
-| MI_VEL_0                   | Set Velocity to 0                                       |
-| if VIA_ENABLE: MI_VEL_1    | If via is enabled, Velocity 1 is the same as Velocity 0 |
-| if no VIA_ENABLE: MI_VEL_1 | Set Velocity to 1                                       |
-| MI_VEL_2                   | Set Velocity to 2                                       |
-| MI_VEL_3                   | Set Velocity to 3                                       |
-| MI_VEL_4                   | Set Velocity to 4                                       |
-| MI_VEL_5                   | Set Velocity to 5                                       |
-| MI_VEL_6                   | Set Velocity to 6                                       |
-| MI_VEL_7                   | Set Velocity to 7                                       |
-| MI_VEL_8                   | Set Velocity to 8                                       |
-| MI_VEL_9                   | Set Velocity to 9                                       |
-| MI_VEL_10                  | Set Velocity to 10                                      |
-| MI_VELD                    | Go down one tick of velocity                            |
-| MI_VELU                    | Go up one tick of velocity                              |
-| MI_CH1                     | Go to channel 1                                         |
-| MI_CH2                     | Go to channel 2                                         |
-| MI_CH3                     | Go to channel 3                                         |
-| MI_CH4                     | Go to channel 4                                         |
-| MI_CH5                     | Go to channel 5                                         |
-| MI_CH6                     | Go to channel 6                                         |
-| MI_CH7                     | Go to channel 7                                         |
-| MI_CH8                     | Go to channel 8                                         |
-| MI_CH9                     | Go to channel 9                                         |
-| MI_CH10                    | Go to channel 10                                        |
-| MI_CH11                    | Go to channel 11                                        |
-| MI_CH12                    | Go to channel 12                                        |
-| MI_CH13                    | Go to channel 13                                        |
-| MI_CH14                    | Go to channel 14                                        |
-| MI_CH15                    | Go to channel 15                                        |
-| MI_CH16                    | Go to channel 16                                        |
-| MI_CHD                     | Go to channel 17                                        |
-| MI_CHU                     | Go to channel 18                                        |
-| MI_ALLOFF                  | Turn off all notes                                      |
-| MI_SUS                     | Sustain                                                 |
-| MI_PORT                    | Portmento                                               |
-| MI_SOST                    | Sostenuto                                               |
-| MI_SOFT                    | Soft Pedal                                              |
-| MI_LEG                     | Legato                                                  |
-| MI_MOD                     | Modulation                                              |
-| MI_MODSD                   | Decrease Modulation Speed                               |
-| MI_MODSU                   | Increase Modulation Speed                               |
-| MI_BENDD                   | Bend pitch down                                         |
-| MI_BENDU                   | Bend pitch up                                           |
+|Keycode     |Aliases  |Description                      |
+|------------|---------|---------------------------------|
+|`MI_ON`     |         |Turn MIDI on                     |
+|`MI_OFF`    |         |Turn MIDI off                    |
+|`MI_TOG`    |         |Toggle MIDI enabled              |
+|`MI_C`      |         |C octave 0                       |
+|`MI_Cs`     |`MI_Db`  |C♯/D♭ octave 0                   |
+|`MI_D`      |         |D octave 0                       |
+|`MI_Ds`     |`MI_Eb`  |D♯/E♭ octave 0                   |
+|`MI_E`      |         |E octave 0                       |
+|`MI_F`      |         |F octave 0                       |
+|`MI_Fs`     |`MI_Gb`  |F♯/G♭ octave 0                   |
+|`MI_G`      |         |G octave 0                       |
+|`MI_Gs`     |`MI_Gs`  |G♯/A♭ octave 0                   |
+|`MI_A`      |         |A octave 0                       |
+|`MI_As`     |`MI_Bb`  |A♯/B♭ octave 0                   |
+|`MI_B`      |         |B octave 0                       |
+|`MI_C_1`    |         |C octave 1                       |
+|`MI_Cs_1`   |`MI_Db_1`|C♯/D♭ octave 1                   |
+|`MI_D_1`    |         |D octave 1                       |
+|`MI_Ds_1`   |`MI_Eb_1`|D♯/E♭ octave 1                   |
+|`MI_E_1`    |         |E octave 1                       |
+|`MI_F_1`    |         |F octave 1                       |
+|`MI_Fs_1`   |`MI_Gb_1`|F♯/G♭ octave 1                   |
+|`MI_G_1`    |         |G octave 1                       |
+|`MI_Gs_1`   |`MI_Ab_1`|G♯/A♭ octave 1                   |
+|`MI_A_1`    |         |A octave 1                       |
+|`MI_As_1`   |`MI_Bb_1`|A♯/B♭ octave 1                   |
+|`MI_B_1`    |         |B octave 1                       |
+|`MI_C_2`    |         |C octave 2                       |
+|`MI_Cs_2`   |`MI_Db_2`|C♯/D♭ octave 2                   |
+|`MI_D_2`    |         |D octave 2                       |
+|`MI_Ds_2`   |`MI_Eb_2`|D♯/E♭ octave 2                   |
+|`MI_E_2`    |         |E octave 2                       |
+|`MI_F_2`    |         |F octave 2                       |
+|`MI_Fs_2`   |`MI_Gb_2`|F♯/G♭ octave 2                   |
+|`MI_G_2`    |         |G octave 2                       |
+|`MI_Gs_2`   |`MI_Ab_2`|G♯/A♭ octave 2                   |
+|`MI_A_2`    |         |A octave 2                       |
+|`MI_As_2`   |`MI_Bb_2`|A♯/B♭ octave 2                   |
+|`MI_B_2`    |         |B octave 2                       |
+|`MI_C_3`    |         |C octave 3                       |
+|`MI_Cs_3`   |`MI_Db_3`|C♯/D♭ octave 3                   |
+|`MI_D_3`    |         |D octave 3                       |
+|`MI_Ds_3`   |`MI_Eb_3`|D♯/E♭ octave 3                   |
+|`MI_E_3`    |         |E octave 3                       |
+|`MI_F_3`    |         |F octave 3                       |
+|`MI_Fs_3`   |`MI_Gb_3`|F♯/G♭ octave 3                   |
+|`MI_G_3`    |         |G octave 3                       |
+|`MI_Gs_3`   |`MI_Ab_3`|G♯/A♭ octave 3                   |
+|`MI_A_3`    |         |A octave 3                       |
+|`MI_As_3`   |`MI_Bb_3`|A♯/B♭ octave 3                   |
+|`MI_B_3`    |         |B octave 3                       |
+|`MI_C_4`    |         |C octave 4                       |
+|`MI_Cs_4`   |`MI_Db_4`|C♯/D♭ octave 4                   |
+|`MI_D_4`    |         |D octave 4                       |
+|`MI_Ds_4`   |`MI_Eb_4`|D♯/E♭ octave 4                   |
+|`MI_E_4`    |         |E octave 4                       |
+|`MI_F_4`    |         |F octave 4                       |
+|`MI_Fs_4`   |`MI_Gb_4`|F♯/G♭ octave 4                   |
+|`MI_G_4`    |         |G octave 4                       |
+|`MI_Gs_4`   |`MI_Ab_4`|G♯/A♭ octave 4                   |
+|`MI_A_4`    |         |A octave 4                       |
+|`MI_As_4`   |`MI_Bb_4`|A♯/B♭ octave 4                   |
+|`MI_B_4`    |         |B octave 4                       |
+|`MI_C_5`    |         |C octave 5                       |
+|`MI_Cs_5`   |`MI_Db_5`|C♯/D♭ octave 5                   |
+|`MI_D_5`    |         |D octave 5                       |
+|`MI_Ds_5`   |`MI_Eb_5`|D♯/E♭ octave 5                   |
+|`MI_E_5`    |         |E octave 5                       |
+|`MI_F_5`    |         |F octave 5                       |
+|`MI_Fs_5`   |`MI_Gb_5`|F♯/G♭ octave 5                   |
+|`MI_G_5`    |         |G octave 5                       |
+|`MI_Gs_5`   |`MI_Ab_5`|G♯/A♭ octave 5                   |
+|`MI_A_5`    |         |A octave 5                       |
+|`MI_As_5`   |`MI_Bb_5`|A♯/B♭ octave 5                   |
+|`MI_B_5`    |         |B octave 5                       |
+|`MI_OCT_N2` |         |Set octave to -2                 |
+|`MI_OCT_N1` |         |Set octave to -1                 |
+|`MI_OCT_0`  |         |Set octave to 0                  |
+|`MI_OCT_1`  |         |Set octave to 1                  |
+|`MI_OCT_2`  |         |Set octave to 2                  |
+|`MI_OCT_3`  |         |Set octave to 3                  |
+|`MI_OCT_4`  |         |Set octave to 4                  |
+|`MI_OCT_5`  |         |Set octave to 5                  |
+|`MI_OCT_6`  |         |Set octave to 6                  |
+|`MI_OCT_7`  |         |Set octave to 7                  |
+|`MI_OCTD`   |         |Move down an octave              |
+|`MI_OCTU`   |         |Move up an octave                |
+|`MI_TRNS_N6`|         |Set transposition to -6 semitones|
+|`MI_TRNS_N5`|         |Set transposition to -5 semitones|
+|`MI_TRNS_N4`|         |Set transposition to -4 semitones|
+|`MI_TRNS_N3`|         |Set transposition to -3 semitones|
+|`MI_TRNS_N2`|         |Set transposition to -2 semitones|
+|`MI_TRNS_N1`|         |Set transposition to -1 semitone |
+|`MI_TRNS_0` |         |No transposition                 |
+|`MI_TRNS_1` |         |Set transposition to +1 semitone |
+|`MI_TRNS_2` |         |Set transposition to +2 semitones|
+|`MI_TRNS_3` |         |Set transposition to +3 semitones|
+|`MI_TRNS_4` |         |Set transposition to +4 semitones|
+|`MI_TRNS_5` |         |Set transposition to +5 semitones|
+|`MI_TRNS_6` |         |Set transposition to +6 semitones|
+|`MI_TRNSD`  |         |Decrease transposition           |
+|`MI_TRNSU`  |         |Increase transposition           |
+|`MI_VEL_0`  |         |Set velocity to 0                |
+|`MI_VEL_1`  |         |Set velocity to 12               |
+|`MI_VEL_2`  |         |Set velocity to 25               |
+|`MI_VEL_3`  |         |Set velocity to 38               |
+|`MI_VEL_4`  |         |Set velocity to 51               |
+|`MI_VEL_5`  |         |Set velocity to 64               |
+|`MI_VEL_6`  |         |Set velocity to 76               |
+|`MI_VEL_7`  |         |Set velocity to 89               |
+|`MI_VEL_8`  |         |Set velocity to 102              |
+|`MI_VEL_9`  |         |Set velocity to 114              |
+|`MI_VEL_10` |         |Set velocity to 127              |
+|`MI_VELD`   |         |Decrease velocity                |
+|`MI_VELU`   |         |Increase velocity                |
+|`MI_CH1`    |         |Set channel to 1                 |
+|`MI_CH2`    |         |Set channel to 2                 |
+|`MI_CH3`    |         |Set channel to 3                 |
+|`MI_CH4`    |         |Set channel to 4                 |
+|`MI_CH5`    |         |Set channel to 5                 |
+|`MI_CH6`    |         |Set channel to 6                 |
+|`MI_CH7`    |         |Set channel to 7                 |
+|`MI_CH8`    |         |Set channel to 8                 |
+|`MI_CH9`    |         |Set channel to 9                 |
+|`MI_CH10`   |         |Set channel to 10                |
+|`MI_CH11`   |         |Set channel to 11                |
+|`MI_CH12`   |         |Set channel to 12                |
+|`MI_CH13`   |         |Set channel to 13                |
+|`MI_CH14`   |         |Set channel to 14                |
+|`MI_CH15`   |         |Set channel to 15                |
+|`MI_CH16`   |         |Set channel to 16                |
+|`MI_CHD`    |         |Decrease channel                 |
+|`MI_CHU`    |         |Increase channel                 |
+|`MI_ALLOFF` |         |Stop all notes                   |
+|`MI_SUS`    |         |Sustain                          |
+|`MI_PORT`   |         |Portmento                        |
+|`MI_SOST`   |         |Sostenuto                        |
+|`MI_SOFT`   |         |Soft Pedal                       |
+|`MI_LEG`    |         |Legato                           |
+|`MI_MOD`    |         |Modulation                       |
+|`MI_MODSD`  |         |Decrease modulation speed        |
+|`MI_MODSU`  |         |Increase modulation speed        |
+|`MI_BENDD`  |         |Bend pitch down                  |
+|`MI_BENDU`  |         |Bend pitch up                    |
 
 ### Background
 
