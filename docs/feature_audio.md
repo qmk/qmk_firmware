@@ -301,8 +301,7 @@ You can configure the default, min and max frequencies, the stepping and built i
 
 ## MIDI Functionality
 
-This is still a WIP, but check out `quantum/process_keycode/process_midi.c` to see what's happening. Enable from the Makefile.
-
+See [MIDI](feature_midi.md)
 
 ## Audio Keycodes
 

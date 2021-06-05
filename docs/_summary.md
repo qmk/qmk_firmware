@@ -100,6 +100,7 @@
       * [RGB Lighting](feature_rgblight.md)
       * [RGB Matrix](feature_rgb_matrix.md)
     * [Audio](feature_audio.md)
+    * [MIDI](feature_midi.md)
     * [Bluetooth](feature_bluetooth.md)
     * [Bootmagic](feature_bootmagic.md)
     * [Custom Matrix](custom_matrix.md)
