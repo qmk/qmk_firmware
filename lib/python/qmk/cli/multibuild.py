@@ -76,4 +76,4 @@ all: {keyboard_safe}_binary
             )
             # yapf: enable
 
-    cli.run([make_cmd, '-j', str(cli.args.parallel), '-f', makefile, 'all'], capture_output=False, stdin=DEVNULL)
+    cli.run([make_cmd, '-j', str(cli.args.parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)

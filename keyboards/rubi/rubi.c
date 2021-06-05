@@ -73,36 +73,7 @@ bool led_update_kb(led_t led_state) {
     return true;
 }
 
-__attribute__ ((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (get_highest_layer(layer_state) == 0) {
-            uint16_t mapped_code = 0;
-            if (clockwise) {
-                mapped_code = handle_encoder_cw();
-            } else {
-                mapped_code = handle_encoder_ccw();
-            }
-            if (mapped_code != 0) {
-                tap_code16(mapped_code);
-            }
-        } else {
-            if (clockwise) {
-                if (oled_mode == OLED_MODE_CALC) {
-                    handle_encoder_cw();
-                } else if (oled_mode == OLED_MODE_DEFAULT) {
-                    change_encoder_mode(false);
-                }
-            } else {
-                if (oled_mode == OLED_MODE_CALC) {
-                    handle_encoder_ccw();
-                } else if (oled_mode == OLED_MODE_DEFAULT) {
-                    change_encoder_mode(true);
-                }
-            }
-        }
-    }
-}
-
-void encoder_update_kb(uint8_t index, bool clockwise) {
-    encoder_update_user(index, clockwise);
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
+    return true;
 }
