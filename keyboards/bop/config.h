@@ -31,7 +31,7 @@
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B7, D0, D1, D2, D3, D4 }
-#define MATRIX_COL_PINS { D5, C5, B0, B1, B2, B3, B4, B5, B6, E7, E6, F0, F7, F6, F5, F4, F3, F2, F1, C6 }
+#define MATRIX_COL_PINS { D5, C5, B0, B1, B2, B3, B4, B5, B6, E7, E6, F0, F7, F6, F5, F4, F3, F2, F1, C7 }
 //    If your board is spamming the end column, change C7 to C6 in the line above and short those pins on the controller
                         
 #define UNUSED_PINS
@@ -47,3 +47,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* Unicode select mode */
+#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC
