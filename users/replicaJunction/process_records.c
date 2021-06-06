@@ -62,13 +62,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         case QK_FLSH: {
             if (record->event.pressed) {
-                SEND_STRING("qmk flash --keyboard " QMK_KEYBOARD " --keymap " QMK_KEYMAP
-                #if defined(BOOTLOADER_CATERINA)
-                    " --bootloader avrdude"
-                #elif (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-                    " --bootloader dfu"
-                #endif
-                );
+                SEND_STRING("qmk flash --keyboard " QMK_KEYBOARD " --keymap " QMK_KEYMAP);
             }
             return false;
         }
@@ -137,4 +131,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     return process_record_user_kb(keycode, record);
 }
-
