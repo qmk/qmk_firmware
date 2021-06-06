@@ -64,5 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+// #define RGB_MATRIX_KEYPRESSES
 
 #define RGB_MATRIX_SPLIT { 36,  46 }
