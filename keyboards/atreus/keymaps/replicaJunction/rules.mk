@@ -18,7 +18,7 @@ TAP_DANCE_ENABLE = no
 RGB_MATRIX_ENABLE = no
 
 # Features I definitely don't care aboud
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 CONSOLE_ENABLE = no
 VERBOSE = no
 DEBUG_MATRIX_SCAN_RATE  = no
