@@ -38,6 +38,7 @@ bool should_terminate_num_word(uint16_t keycode, const keyrecord_t *record) {
         case KC_EQL:
         case KC_SCLN:
         case KC_MINS:
+        case KC_DOT:
 
         // Numpad keycodes
         case KC_P1 ... KC_P0:
