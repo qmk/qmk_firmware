@@ -44,7 +44,7 @@ extern MidiDevice midi_device;
 // MIDI CC codes for generic on/off switches (80, 81, 82, 83)
 // Off: 0-63
 // On:  64-127
-*/
+
 #define MIDI_CC_OFF 0
 #define MIDI_CC_ON  127
 
