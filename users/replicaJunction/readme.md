@@ -45,6 +45,10 @@ You typically have a few choices, but each one comes with a drawback. Here are t
     
 The solution to this problem is CAPSWORD. When enabled, it activates Caps Lock and begins running an additional callback on each keypress. If the keypress is an alphanumeric key or one of a specific few symbols (such as the underscore), nothing happens. Otherwise, before processing the keypress, Caps Lock is disabled again.
 
+NUMWORD is a similar concept, but has a slightly more elaborate implementation. There's a bit of extra logic in the NUMWORD code that allows the keycode to act as a tap/hold key as well. Tapping enables NUMWORD while number keys are in use, while holding the key enables a number layer for the duration of the key hold and disables it again afterwards.
+
+**Note:** The implementation of NUMWORD requires that the keyboard's layer definitions be accessible in a header file. In my case, since I use a fairly standard set of layers, I've declared it in my userspace.
+
 ## Mouse Jiggler
 This adds a keycode that will move the mouse cursor on each matrix scan. Used to prevent the screen from locking if you're temporarily doing something else (working on a different machine, reading / writing, etc.).
 

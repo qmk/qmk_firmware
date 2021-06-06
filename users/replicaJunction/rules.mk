@@ -13,6 +13,11 @@ ifeq ($(strip $(USER_MOUSE_JIGGLE_ENABLE)), yes)
     OPT_DEFS += -DUSER_MOUSE_JIGGLE_ENABLE
 endif
 
+ifeq ($(strip $(USER_NUM_WORD_ENABLE)), yes)
+	SRC += features/num_word.c
+    OPT_DEFS += -DUSER_NUM_WORD_ENABLE
+endif
+
 ifeq ($(strip $(USER_SECRETS_ENABLE)), yes)
 	SRC += features/secrets.c
     OPT_DEFS += -DUSER_SECRETS_ENABLE

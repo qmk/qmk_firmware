@@ -13,6 +13,10 @@
 #    include "features/mouse_jiggle.h"
 #endif
 
+#ifdef USER_NUM_WORD_ENABLE
+#    include "features/num_word.h"
+#endif
+
 #ifdef USER_SECRETS_ENABLE
 #    include "features/secrets.h"
 #endif

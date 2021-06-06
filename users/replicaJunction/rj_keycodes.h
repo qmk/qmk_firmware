@@ -21,6 +21,10 @@ enum userspace_custom_keycodes {
     // USER_CAPS_WORD_ENABLE
     CAPWORD,
 
+#ifdef USER_NUM_WORD_ENABLE
+    NUMWORD,
+#endif
+
     // USER_ENABLE_CUSTOM_SHIFT_CODES
     // Custom characters that send different symbols than usual when shifted
     KCC_COM,                // , or !
