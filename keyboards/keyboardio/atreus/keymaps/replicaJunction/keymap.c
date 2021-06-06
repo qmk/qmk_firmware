@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "config.h"
 #include "replicaJunction.h"
 
 #define BSP_SYM LT(L_SYMBOLS, KC_BSPC)

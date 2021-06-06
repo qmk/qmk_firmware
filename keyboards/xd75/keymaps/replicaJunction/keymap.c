@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "config.h"
 #include "replicaJunction.h"
 
 // enum additional_keyboard_layers {
