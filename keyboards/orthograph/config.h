@@ -43,19 +43,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 3
 
 /* serial.c configuration for split keyboard */
-// #define SOFT_SERIAL_PIN E6
-#define USE_I2C
+#define SOFT_SERIAL_PIN E6
+// #define USE_I2C
 
 // disable backlight after timeout in minutes, 0 = no timeout
 // #define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
-// #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
 
-// #define DRIVER_ADDR_1 0b1010000
-// #define DRIVER_ADDR_2 0b1010000  // this is here for compliancy reasons.
-// #define DRIVER_COUNT 2
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_2 0b1010000  // this is here for compliancy reasons.
+#define DRIVER_COUNT 2
 
-// #define DRIVER_1_LED_TOTAL 36
-// // #define DRIVER_2_LED_TOTAL 6
+#define DRIVER_1_LED_TOTAL 84
+// #define DRIVER_2_LED_TOTAL 48
+// 36, 48
 
-// // #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
-// #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+
+// #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+
+#define RGB_MATRIX_SPLIT { 18,  48 }
