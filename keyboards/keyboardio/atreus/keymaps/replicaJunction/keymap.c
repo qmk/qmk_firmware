@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [L_NAVIGATION] = LAYOUT(
     OS_UNDO,OS_CUT, OS_PAST,OS_COPY,OS_SALL,                KC_PGUP,KC_HOME,KC_UP,  KC_END, KC_DEL,
-    KC_LGUI,KC_LSFT,KC_LALT,KC_LCTL,_______,                KC_PGDN,KC_LEFT,KC_DOWN,KC_RGHT,KC_BSPC,
+    KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,_______,                KC_PGDN,KC_LEFT,KC_DOWN,KC_RGHT,KC_BSPC,
     WIN_V,  _______,_______,OS_FIND,SEARCH, _______,_______,_______,SFT_TAB,KC_TAB, KC_APP, KC_PSCR,
     _______,_______,_______,NUMWORD,ooooooo,_______,_______,ooooooo,_______,_______,_______,_______
 ),
