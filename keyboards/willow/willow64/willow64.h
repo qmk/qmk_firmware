@@ -16,7 +16,7 @@
 #pragma once
 #include "quantum.h"
 
-#define NOP KC_NO
+#define XXX KC_NO
 
 #define LAYOUT( \
     L01, L02, L03, L04, L05, L06,              R01, R02, R03, R04, R05, R06, R28, R07, R35, \
@@ -26,16 +26,16 @@
                    L26, L27, L28, L29,    R30, R31, R32, R33                      \
     ) \
     { \
-        { L01, L02, L03, L04, L05, L06, NOP, NOP  }, \
-        { L07, L08, L09, L10, L11, L12, NOP, NOP  }, \
-        { L13, L14, L15, L16, L17, L18, NOP, NOP  }, \
-        { L19, L20, L21, L22, L23, L24, L25, NOP  }, \
-        { NOP, NOP, NOP, L26, L27, L28, L29, NOP  }, \
-        { NOP, R01, R02, R03, R04, R05, R06 ,R07  }, \
-        { NOP, R08, R09, R10, R11, R12, R13, R14  }, \
-        { NOP, R15, R16 ,R17, R18, R19, R20, R21  }, \
+        { L01, L02, L03, L04, L05, L06, XXX, XXX  }, \
+        { L07, L08, L09, L10, L11, L12, XXX, XXX  }, \
+        { L13, L14, L15, L16, L17, L18, XXX, XXX  }, \
+        { L19, L20, L21, L22, L23, L24, L25, XXX  }, \
+        { XXX, XXX, XXX, L26, L27, L28, L29, XXX  }, \
+        { XXX, R01, R02, R03, R04, R05, R06 ,R07  }, \
+        { XXX, R08, R09, R10, R11, R12, R13, R14  }, \
+        { XXX, R15, R16 ,R17, R18, R19, R20, R21  }, \
         { R22, R23, R24, R25, R26 ,R27, R28, R29  }, \
-        { R30, R31, R32, R33, NOP, NOP, R34, R35 }  \
+        { R30, R31, R32, R33, XXX, XXX, R34, R35 }  \
     }
 
 /* LED POSITION
