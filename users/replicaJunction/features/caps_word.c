@@ -63,7 +63,9 @@ bool process_record_caps_word(uint16_t keycode, const keyrecord_t *record) {
 
     // If the behavior isn't enabled and the keypress isn't a keycode to
     // toggle the behavior, allow QMK to handle the keypress as usual
-    if (!is_caps_word_on) return true;
+    if (!is_caps_word_on) {
+        return true;
+    }
 
     // Get the base keycode of a mod or layer tap key
     switch (keycode) {
