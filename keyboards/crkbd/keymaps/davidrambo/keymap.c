@@ -54,15 +54,6 @@ enum custom_keycodes {
   SET_RGB,
 };
 
-/*
-enum layers {
-    _COLEMAK = 0,
-    _SYMBOL = 1,
-    _NAVIGATION = 2,
-    _FKEYS = 3
-};
-*/
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
