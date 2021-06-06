@@ -26,4 +26,11 @@ uint8_t adns_read(uint8_t reg_addr);
 
 int16_t convertDeltaToInt(uint8_t high, uint8_t low);
 
-void readSensor(void);
+struct _motion_delta {
+    int16_t delta_x;
+    int16_t delta_y;
+    int8_t motion_ind;
+};
+typedef struct _motion_delta motion_delta_t;
+
+motion_delta_t readSensor(void);

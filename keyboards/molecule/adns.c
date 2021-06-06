@@ -91,12 +91,6 @@ enum motion_burst_propertr{
     end_data
 };
 
-
-// used to track the motion delta between updates
-volatile int16_t delta_x;
-volatile int16_t delta_y;
-volatile uint8_t motion_ind=0;
-
 void adns_begin(void){
     spi_start(NCS, false, 3, 8);
 }
@@ -219,8 +213,7 @@ int16_t convertDeltaToInt(uint8_t high, uint8_t low){
     return (high << 8) | low;
 }
 
-void readSensor(void) {
-
+motion_delta_t readSensor(void) {
     adns_begin();
 
     // read from Motion_Burst to enable burt mode
@@ -234,31 +227,28 @@ void readSensor(void) {
         burst_data[i] = spi_read();
     }
 
-    delta_x += convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
-    delta_y += convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
+    uint16_t delta_x = convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
+    uint16_t delta_y = convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
     // Only consider the MSB for motion as this byte has other status bits
-    motion_ind = burst_data[motion] & 0b10000000;
+    uint8_t motion_ind = burst_data[motion] & 0b10000000;
     adns_end();
 
+    motion_delta_t delta = {delta_x, delta_y, motion_ind};
+    return delta;
 }
+
 void pointing_device_task(void) {
-    readSensor();
+    motion_delta_t delta = readSensor();
 
     report_mouse_t report = pointing_device_get_report();
    
-    if(motion_ind) {
+    if(delta.motion_ind) {
         // clamp deltas from -127 to 127
-        report.x = delta_x < -127 ? -127 : delta_x > 127 ? 127 : delta_x;
+        report.x = delta.delta_x < -127 ? -127 : delta.delta_x > 127 ? 127 : delta.delta_x;
         report.x = -report.x;
-        report.y = delta_y < -127 ? -127 : delta_y > 127 ? 127 : delta_y;
-
+        report.y = delta.delta_y < -127 ? -127 : delta.delta_y > 127 ? 127 : delta.delta_y;
     }
 
     pointing_device_set_report(report);
     pointing_device_send();
-
-    // reset deltas
-    delta_x = 0;
-    delta_y = 0;
-
 }
