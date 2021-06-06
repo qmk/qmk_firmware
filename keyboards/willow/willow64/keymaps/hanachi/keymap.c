@@ -122,9 +122,7 @@ void keyboard_post_init_user(void) {
 
 #ifdef VIRTSER_ENABLE
 void virtser_recv(const uint8_t ch) {
-#    ifdef CONSOLE_ENABLE
     uprintf("recv  %u\n", ch);
-#    endif
     rgblight_set_layer_state(0, ch == 'a');
 }
 #endif
