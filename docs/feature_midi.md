@@ -223,6 +223,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |`MI_BENDD`  |         |Bend pitch down                  |
 |`MI_BENDU`  |         |Bend pitch up                    |
 
+### Configuration
+
+Certain values are stored in the `midi_config` struct. This configuration is not persisted to EEPROM. By default, these values are:
+
+|Configuration      |Value|Comments                 |
+|-------------------|-----|-------------------------|
+|Octave             |`4`  |Corresponds to `MI_OCT_2`|
+|Transposition      |`0`  |                         |
+|Velocity           |`127`|                         |
+|Channel            |`0`  |                         |
+|Modulation Interval|`8`  |                         |
+
+For the above, the `MI_C` keycode will produce a C3 (note number 48), and so on.
+
 ### References
 #### MIDI Specification
 
