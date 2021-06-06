@@ -1,6 +1,7 @@
 #pragma once
 #include QMK_KEYBOARD_H
 #include "rj_keycodes.h"
+#include "rj_layers.h"
 #include "keycode_aliases.h"
 #include "version.h"
 
