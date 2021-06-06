@@ -6,10 +6,19 @@ The code in this userspace is designed to be very modular. I use a few different
 
 Modular code also means that it should be easy to identify and adapt specific pieces to your own firmware.
 
+## Keyboards and Keymaps
+
+The following keyboards use the files in this userspace:
+
+* [Atreus](../../keyboards/atreus/keymaps/replicaJunction/readme.md) (42-key)
+* [Ergodox](../../layouts/community/ergodox/replicaJunction/readme.md)
+* [Keyboardio Atreus](../../keyboards/keyboardio/atreus/keymaps/replicaJunction/readme.md) (44-key)
+* [XD75](../../keyboards/xd75/keymaps/replicaJunction/readme.md)
+
 # Features
 
 * **Secrets**, as [explained by Drashna](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/readme_secrets.md)
-* **CAPSWORD** and **NUMBERWORD**
+* **CAPSWORD** and **NUMWORD**
 * Mouse jiggler
 * Super alt-tab
 
