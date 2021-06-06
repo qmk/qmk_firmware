@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x017A // 378
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Noxary
-#define PRODUCT         378
+#define PRODUCT         Noxary 378
 
 
 /* key matrix size */
