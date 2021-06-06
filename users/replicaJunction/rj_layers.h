@@ -15,5 +15,10 @@ enum rj_layers {
     L_SYMBOLS,
     L_NAVIGATION,
     L_FN,
+
+#ifdef USER_INCLUDE_MACRO_LAYER
+    L_MACROS,
+#endif
+
     _LAYER_SAFE_RANGE
 };
