@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |LCTL |LGUI | Tab |LALT |Lower|   Space   |     |Mute |Vol- |Vol+ | P/P |
     * `-----------------------------------------------------------------------'
     */
-  KC_NO,   S(DE_AE), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   S(DE_UE), S(DE_OE), KC_NO,   F(4),
+  KC_NO,   S(DE_AE), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   S(DE_UE), S(DE_OE), KC_NO,   TG(5),
   KC_DEL,  DE_AE,    KC_NO,   DE_SS,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   DE_UE,    DE_OE,    KC_NO,   RALT(KC_F12),
   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_MSTP,  KC_MPRV,  KC_MNXT, RALT(KC_F11),
   KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_MUTE,  KC_VOLD,  KC_VOLU, KC_MPLY
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |     |     | Tab | ALT |     |   Space   |CrJmp| GUI |Left |Down |Right|
     * `-----------------------------------------------------------------------'
     */
-  MO(6),   KC_ESC,  KC_Q,   KC_W,    KC_E,  KC_R,   KC_T,   KC_Z,         KC_U,    KC_I,    KC_O,    F(4),
+  MO(6),   KC_ESC,  KC_Q,   KC_W,    KC_E,  KC_R,   KC_T,   KC_Z,         KC_U,    KC_I,    KC_O,    TG(5),
   KC_ENT,  KC_BSPC, KC_A,   KC_S,    KC_D,  KC_F,   KC_G,   KC_H,         KC_J,    KC_K,    KC_L,    DE_SCLN,
   KC_LCTL, KC_LSFT, KC_Y,   KC_X,    KC_C,  KC_V,   KC_B,   KC_N,         KC_M,    DE_DOT,  KC_UP,   DE_SLSH,
   KC_NO,   KC_NO,   KC_TAB, KC_LALT, KC_NO, KC_SPC, KC_SPC, LCTL(KC_SPC), KC_LGUI, KC_LEFT, KC_DOWN, KC_RGHT
@@ -127,11 +127,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_LSFT, KC_Y,   KC_X,    KC_C,  KC_V,   KC_B,   KC_K,         KC_P1, KC_P2, KC_P3,   KC_PGDN,
   KC_NO,   KC_NO,   KC_TAB, KC_LALT, KC_NO, KC_SPC, KC_SPC, LCTL(KC_SPC), KC_NO, KC_P0, KC_PDOT, KC_PENT
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [4] = ACTION_LAYER_TOGGLE(5),                 // toggle Gaming
-	[5] = ACTION_MODS_TAP_KEY(KC_LSFT, KC_CAPS),  //Shift on press, Caps on tap
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) 

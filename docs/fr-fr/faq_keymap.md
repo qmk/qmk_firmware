@@ -12,7 +12,7 @@ Les keycodes sont définies dans [common/keycode.h](https://github.com/qmk/qmk_f
 
 Il existe 3 configurations de clavier standard utilisées dans le monde: ANSI, ISO et JIS. L'Amérique du Nord utilise principalement l'ANSI, l'Europe et l'Afrique l'ISO et le Japon utilise JIS. Les autres régions utilisent généralement ANSI ou ISO. Les keycodes correspondant à ces dispositions spécifiques sont affichés ici :
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+<!-- Source for this image: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
 
 ## Certaines de mes touches sont permutées ou ne fonctionnent pas
@@ -33,8 +33,8 @@ La touche trouvée sur la plupart des claviers modernes située entre `KC_RGUI` 
 Utilisez le keycode pour Print Screen (`KC_PSCREEN` or `KC_PSCR`) à la place de `KC_SYSREQ`. La combinaison de touche 'Alt + Print Screen' est reconnue comme 'System request'.
 
 Voir [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) et
-* http://en.wikipedia.org/wiki/Magic_SysRq_key
-* http://en.wikipedia.org/wiki/System_request
+* https://en.wikipedia.org/wiki/Magic_SysRq_key
+* https://en.wikipedia.org/wiki/System_request
 
 ## Les touches alimentation ne fonctionnent pas
 
@@ -54,12 +54,12 @@ Les touches de modification ou les calques peuvent être bloquées si la commuta
 Pour les touches de modification et les actions de calque, vous devez placer `KC_TRANS` sur la même position du calque de destination afin de désenregistrer la clé de modificateur ou de revenir au calque précédent lors de la libération.
 
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
-* http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+* https://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 * https://github.com/tmk/tmk_keyboard/issues/248
 
 ## Support de touche à verrouillage mécanique
 
-Cette fonctionnalité permet l'usage de *touches à verrouillage mécanique* comme [ces interrupteurs Alps](http://deskthority.net/wiki/Alps_SKCL_Lock). Vous pouvez l'activer en ajoutant ceci à votre `config.h` :
+Cette fonctionnalité permet l'usage de *touches à verrouillage mécanique* comme [ces interrupteurs Alps](https://deskthority.net/wiki/Alps_SKCL_Lock). Vous pouvez l'activer en ajoutant ceci à votre `config.h` :
 
 ```
 #define LOCKING_SUPPORT_ENABLE

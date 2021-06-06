@@ -93,8 +93,8 @@ https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switc
 
 Sans circuit de réinitialisation vous allez avoir des résultats inconsistants à cause de la mauvaise initialisation du matériel. Regardez le schéma du circuit du TPM754.
 
-- http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
-- http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
+- https://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
+- https://www.mikrocontroller.net/attachment/52583/tpm754.pdf
 
 ## Impossible de lire la colonne de la matrice après 16
 
@@ -102,7 +102,7 @@ Utilisez `1UL<<16` à la place de `1<<16` dans `read_cols()` du fichier [matrix.
 
 En C, `1` implique un type [int] qui est [16 bits] pour les AVR, ce qui implique que vous ne pouvez pas décaler à gauche de plus de 15. Si vous utilisez `1<<16`, vous aurez un résultat non attendu de zéro. Vous devez donc utiliser un type [unsigned long] en utilisant `1UL`.
 
-http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
+https://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
 ## Les touches spéciales ne fonctionnent pas (Touche Système, Touches de contrôle du son)
 
@@ -122,8 +122,8 @@ Appuyer sur n'importe quelle touche en mode veille devrait sortir l'ordinateur d
 
 **Faites attention au fait que le nommage des pin d'un Arduino diffère de la puce**. Par exemple, la pin `D0` n'est pas `PD0`. Vérifiez le circuit avec la fiche technique.
 
-- http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
-- http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
+- https://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
+- https://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
 Les Arduino Leonardo et micro ont des **ATMega32U4** et peuvent être utilisés avec TMK, mais le bootloader Arduino peut causer des problèmes.
 

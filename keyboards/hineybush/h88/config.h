@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    hineybush keyboards
 #define PRODUCT         h88
-#define DESCRIPTION     QMK-programmable TKL PCB for custom keyboards with an extra key in the F-row
 
 
 

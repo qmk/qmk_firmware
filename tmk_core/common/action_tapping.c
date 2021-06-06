@@ -19,10 +19,10 @@
 #    define IS_TAPPING_RELEASED() (IS_TAPPING() && !tapping_key.event.pressed)
 #    define IS_TAPPING_KEY(k) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (k)))
 
-__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode) { return TAPPING_TERM; }
+__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { return TAPPING_TERM; }
 
 #    ifdef TAPPING_TERM_PER_KEY
-#        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(get_event_keycode(tapping_key.event, false)))
+#        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(get_event_keycode(tapping_key.event, false), &tapping_key))
 #    else
 #        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < TAPPING_TERM)
 #    endif
@@ -120,14 +120,21 @@ bool process_tapping(keyrecord_t *keyp) {
                  * useful for long TAPPING_TERM but may prevent fast typing.
                  */
 #    if defined(TAPPING_TERM_PER_KEY) || (TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY)
-                else if (
+                else if (((
 #        ifdef TAPPING_TERM_PER_KEY
-                    (get_tapping_term(get_event_keycode(tapping_key.event, false)) >= 500) &&
+                              get_tapping_term(get_event_keycode(tapping_key.event, false), keyp)
+#        else
+                              TAPPING_TERM
 #        endif
+                              >= 500)
+
 #        ifdef PERMISSIVE_HOLD_PER_KEY
-                    !get_permissive_hold(get_event_keycode(tapping_key.event, false), keyp) &&
+                          || get_permissive_hold(get_event_keycode(tapping_key.event, false), keyp)
+#        elif defined(PERMISSIVE_HOLD)
+                          || true
 #        endif
-                    IS_RELEASED(event) && waiting_buffer_typed(event)) {
+                              ) &&
+                         IS_RELEASED(event) && waiting_buffer_typed(event)) {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
                     process_record(&tapping_key);
                     tapping_key = (keyrecord_t){};

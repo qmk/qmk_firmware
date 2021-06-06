@@ -59,13 +59,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Caps   | Fn3    | LGUI   | LAlt   | Fn2    | Fn1    | Tab    | Del    | Enter  | Space  | Bksp   | LAlt   | LGUI   | Fn3    | Ins    |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-[_QWZ] = {
-{ DE_1,     DE_2,     DE_3,     DE_4,     DE_5,     DE_6,     KC_MUTE,  KC_VOLD,  KC_VOLU,  DE_7,     DE_8,     DE_9,     DE_0,     DE_SS,    DE_UE    },
-{ KC_ESC,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     KC_HOME,  KC_MPLY,  KC_END,   DE_Z,     DE_U,     DE_I,     DE_O,     DE_P,     DE_AE    },
-{ KC_LSFT,  DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     KC_PGUP,  KC_UP,    KC_PGDN,  DE_H,     DE_J,     DE_K,     DE_L,     DE_OE,    KC_RSFT  },
-{ KC_LCTL,  DE_Y,     DE_X,     DE_C,     DE_V,     DE_B,     KC_LEFT,  KC_DOWN,  KC_RIGHT, DE_N,     DE_M,     DE_COMM,  DE_DOT,   DE_MINS,  KC_RCTL  },
-{ KC_CAPS,  MO(_FN3), KC_LGUI,  KC_LALT,  MO(_FN2), MO(_FN1), KC_TAB,   KC_DEL,   KC_ENT,   KC_SPC,   KC_BSPC,  KC_LALT,  KC_LGUI,  MO(_FN3), KC_INS   },
-},
+[_QWZ] = LAYOUT_ortho_5x15(
+DE_1,     DE_2,     DE_3,     DE_4,     DE_5,     DE_6,     KC_MUTE,  KC_VOLD,  KC_VOLU,  DE_7,     DE_8,     DE_9,     DE_0,     DE_SS,    DE_UE,
+KC_ESC,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     KC_HOME,  KC_MPLY,  KC_END,   DE_Z,     DE_U,     DE_I,     DE_O,     DE_P,     DE_AE,
+KC_LSFT,  DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     KC_PGUP,  KC_UP,    KC_PGDN,  DE_H,     DE_J,     DE_K,     DE_L,     DE_OE,    KC_RSFT,
+KC_LCTL,  DE_Y,     DE_X,     DE_C,     DE_V,     DE_B,     KC_LEFT,  KC_DOWN,  KC_RIGHT, DE_N,     DE_M,     DE_COMM,  DE_DOT,   DE_MINS,  KC_RCTL,
+KC_CAPS,  MO(_FN3), KC_LGUI,  KC_LALT,  MO(_FN2), MO(_FN1), KC_TAB,   KC_DEL,   KC_ENT,   KC_SPC,   KC_BSPC,  KC_LALT,  KC_LGUI,  MO(_FN3), KC_INS
+),
 
 /* QWERTY
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -80,13 +80,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-[_QWY] = {
-{ DE_1,     DE_2,     DE_3,     DE_4,     DE_5,     DE_6,     KC_MUTE,  KC_VOLD,  KC_VOLU,  DE_7,     DE_8,     DE_9,     DE_0,     DE_SS,    DE_UE    },
-{ KC_ESC,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     KC_HOME,  KC_MPLY,  KC_END,   DE_Y,     DE_U,     DE_I,     DE_O,     DE_P,     DE_AE    },
-{ KC_LSFT,  DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     KC_PGUP,  KC_UP,    KC_PGDN,  DE_H,     DE_J,     DE_K,     DE_L,     DE_OE,    KC_RSFT  },
-{ KC_LCTL,  DE_Z,     DE_X,     DE_C,     DE_V,     DE_B,     KC_LEFT,  KC_DOWN,  KC_RIGHT, DE_N,     DE_M,     DE_COMM,  DE_DOT,   DE_MINS,  KC_RCTL  },
-{ KC_CAPS,  MO(_FN3), KC_LGUI,  KC_LALT,  MO(_FN2), MO(_FN1), KC_TAB,   KC_DEL,   KC_ENT,   KC_SPC,   KC_BSPC,  KC_LALT,  KC_LGUI,  MO(_FN3), KC_INS   },
-},
+[_QWY] = LAYOUT_ortho_5x15(
+DE_1,     DE_2,     DE_3,     DE_4,     DE_5,     DE_6,     KC_MUTE,  KC_VOLD,  KC_VOLU,  DE_7,     DE_8,     DE_9,     DE_0,     DE_SS,    DE_UE,
+KC_ESC,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     KC_HOME,  KC_MPLY,  KC_END,   DE_Y,     DE_U,     DE_I,     DE_O,     DE_P,     DE_AE,
+KC_LSFT,  DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     KC_PGUP,  KC_UP,    KC_PGDN,  DE_H,     DE_J,     DE_K,     DE_L,     DE_OE,    KC_RSFT,
+KC_LCTL,  DE_Z,     DE_X,     DE_C,     DE_V,     DE_B,     KC_LEFT,  KC_DOWN,  KC_RIGHT, DE_N,     DE_M,     DE_COMM,  DE_DOT,   DE_MINS,  KC_RCTL,
+KC_CAPS,  MO(_FN3), KC_LGUI,  KC_LALT,  MO(_FN2), MO(_FN1), KC_TAB,   KC_DEL,   KC_ENT,   KC_SPC,   KC_BSPC,  KC_LALT,  KC_LGUI,  MO(_FN3), KC_INS
+),
 
 /* GAMING
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -101,13 +101,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Fn2    |        |        |        | Space  |        |        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-[_GAM] = {
-{ DE_1,     DE_2,     DE_3,     DE_4,     DE_5,     DE_6,     KC_MUTE,  KC_VOLD,  KC_VOLU,  DE_7,     DE_8,     DE_9,     DE_0,     DE_SS,    DE_UE    },
-{ KC_ESC,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     KC_HOME,  KC_MPLY,  KC_END,   DE_Y,     DE_U,     DE_I,     DE_O,     DE_P,     DE_AE    },
-{ KC_LSFT,  DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     KC_PGUP,  KC_UP,    KC_PGDN,  DE_H,     DE_J,     DE_K,     DE_L,     DE_OE,    KC_RSFT  },
-{ KC_LCTL,  DE_Z,     DE_X,     DE_C,     DE_V,     DE_B,     KC_LEFT,  KC_DOWN,  KC_RIGHT, DE_N,     DE_M,     DE_COMM,  DE_DOT,   DE_MINS,  KC_RCTL  },
-{ MO(_FN2), MO(_FN3), KC_LGUI,  KC_LALT,  KC_SPC,   MO(_FN1), KC_TAB,   KC_DEL,   KC_ENT,   KC_SPC,   KC_BSPC,  KC_LALT,  KC_LGUI,  MO(_FN3), KC_INS   },
-},
+[_GAM] = LAYOUT_ortho_5x15(
+DE_1,     DE_2,     DE_3,     DE_4,     DE_5,     DE_6,     KC_MUTE,  KC_VOLD,  KC_VOLU,  DE_7,     DE_8,     DE_9,     DE_0,     DE_SS,    DE_UE,
+KC_ESC,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     KC_HOME,  KC_MPLY,  KC_END,   DE_Y,     DE_U,     DE_I,     DE_O,     DE_P,     DE_AE,
+KC_LSFT,  DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     KC_PGUP,  KC_UP,    KC_PGDN,  DE_H,     DE_J,     DE_K,     DE_L,     DE_OE,    KC_RSFT,
+KC_LCTL,  DE_Z,     DE_X,     DE_C,     DE_V,     DE_B,     KC_LEFT,  KC_DOWN,  KC_RIGHT, DE_N,     DE_M,     DE_COMM,  DE_DOT,   DE_MINS,  KC_RCTL,
+MO(_FN2), MO(_FN3), KC_LGUI,  KC_LALT,  KC_SPC,   MO(_FN1), KC_TAB,   KC_DEL,   KC_ENT,   KC_SPC,   KC_BSPC,  KC_LALT,  KC_LGUI,  MO(_FN3), KC_INS
+),
 
 /* FN1
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -122,13 +122,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-[_FN1] = {
-{ KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12   },
-{ ________, DE_AT,    DE_TILD,  DE_EURO,  DE_ACUT,  DE_GRV,   ________, ___xx___, ________, DE_BSLS,  DE_LCBR,  DE_RCBR,  DE_PLUS,  DE_ASTR,  ___xx___ },
-{ ________, DE_DQOT,  DE_QUOT,  UC(L'‚'), UC(L'‘'), UC(L'’'), ________, ________, ________, DE_PIPE,  DE_LBRC,  DE_RBRC,  DE_EXLM,  DE_QST,   ________ },
-{ ________, DE_RING,  DE_CIRC,  UC(L'„'), UC(L'“'), UC(L'”'), ________, ________, ________, DE_HASH,  DE_LESS,  DE_MORE,  UC(L'…'), UC(L'–'), ________ },
-{ ___xx___, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________ },
-},
+[_FN1] = LAYOUT_ortho_5x15(
+KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
+________, DE_AT,    DE_TILD,  DE_EURO,  DE_ACUT,  DE_GRV,   ________, ___xx___, ________, DE_BSLS,  DE_LCBR,  DE_RCBR,  DE_PLUS,  DE_ASTR,  ___xx___,
+________, DE_DQOT,  DE_QUOT,  UC(L'‚'), UC(L'‘'), UC(L'’'), ________, ________, ________, DE_PIPE,  DE_LBRC,  DE_RBRC,  DE_EXLM,  DE_QST,   ________,
+________, DE_RING,  DE_CIRC,  UC(L'„'), UC(L'“'), UC(L'”'), ________, ________, ________, DE_HASH,  DE_LESS,  DE_MORE,  UC(L'…'), UC(L'–'), ________,
+___xx___, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________, ________
+),
 
 /* FN2
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -143,13 +143,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Fn2    |        |        |        |        | PEnter | P0     | . :    | P,     | BTN1   | BTN2   | BTN3   |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-[_FN2] = {
-{ ___xx___, ___xx___, ___xx___, ___xx___, DE_PERC,  DE_LPRN,  DE_RPRN,  KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PSCR,  KC_LSCR,  KC_PAUS,  UC(L'ẞ'), UC(L'−') },
-{ ________, ___xx___, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_BSPC,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_WH_U,  KC_MS_U,  KC_WH_D,  UC(L'×'), UC(L'÷') },
-{ ________, KC_APP,   KC_ACL2,  KC_ACL1,  KC_ACL0,  KC_SPC,   KC_P4,    KC_P5,    KC_P6,    KC_WH_L,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_WH_R,  ________ },
-{ ________, ___xx___, KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_TAB,   KC_P1,    KC_P2,    KC_P3,    KC_PENT,  KC_BTN1,  KC_BTN2,  KC_BTN3,  UC(L'—'), ________ },
-{ MO(_FN2), ________, ________, ________, ________, KC_PENT,  KC_P0,    DE_DOT,   KC_PDOT,  KC_BTN1,  KC_BTN2,  KC_BTN3,  ________, ________, ________ },
-},
+[_FN2] = LAYOUT_ortho_5x15(
+___xx___, ___xx___, ___xx___, ___xx___, DE_PERC,  DE_LPRN,  DE_RPRN,  KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PSCR,  KC_LSCR,  KC_PAUS,  UC(L'ẞ'), UC(L'−'),
+________, ___xx___, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_BSPC,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_WH_U,  KC_MS_U,  KC_WH_D,  UC(L'×'), UC(L'÷'),
+________, KC_APP,   KC_ACL2,  KC_ACL1,  KC_ACL0,  KC_SPC,   KC_P4,    KC_P5,    KC_P6,    KC_WH_L,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_WH_R,  ________,
+________, ___xx___, KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_TAB,   KC_P1,    KC_P2,    KC_P3,    KC_PENT,  KC_BTN1,  KC_BTN2,  KC_BTN3,  UC(L'—'), ________,
+MO(_FN2), ________, ________, ________, ________, KC_PENT,  KC_P0,    DE_DOT,   KC_PDOT,  KC_BTN1,  KC_BTN2,  KC_BTN3,  ________, ________, ________
+),
 
 /* FN3
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -164,13 +164,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        | Reset  |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-[_FN3] = {
-{ KC_F13,   KC_F14,   KC_F15,   KC_F16,   KC_F17,   KC_F18,   UNI_LNX,  UNI_WIN,  UNI_MAC,  KC_F19,   KC_F20,   KC_F21,   KC_F22,   KC_F23,   KC_F24   },
-{ ________, QWERTZ,   QWERTY,   GAMING,   ___xx___, ___xx___, RGB_TOG,  RGB_M_P,  RGB_MOD,  ___xx___, KC_PGUP,  KC_UP,    KC_PGDN,  ___xx___, ___xx___ },
-{ ________, ___xx___, ___xx___, UC(L'›'), UC(L'‹'), ___xx___, RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_END,   ________ },
-{ ________, ___xx___, ___xx___, UC(L'»'), UC(L'«'), ___xx___, RGB_HUD,  RGB_SAD,  RGB_VAD,  UC(L' '), UC(L' '), UC(L' '), UC(L' '), UC(L'‑'), ________ },
-{ ___xx___, ________, ________, ________, ________, ________, ________, RESET,    ________, ________, ________, ________, ________, ________, ________ },
-},
+[_FN3] = LAYOUT_ortho_5x15(
+KC_F13,   KC_F14,   KC_F15,   KC_F16,   KC_F17,   KC_F18,   UNI_LNX,  UNI_WIN,  UNI_MAC,  KC_F19,   KC_F20,   KC_F21,   KC_F22,   KC_F23,   KC_F24,
+________, QWERTZ,   QWERTY,   GAMING,   ___xx___, ___xx___, RGB_TOG,  RGB_M_P,  RGB_MOD,  ___xx___, KC_PGUP,  KC_UP,    KC_PGDN,  ___xx___, ___xx___,
+________, ___xx___, ___xx___, UC(L'›'), UC(L'‹'), ___xx___, RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_END,   ________,
+________, ___xx___, ___xx___, UC(L'»'), UC(L'«'), ___xx___, RGB_HUD,  RGB_SAD,  RGB_VAD,  UC(L' '), UC(L' '), UC(L' '), UC(L' '), UC(L'‑'), ________,
+___xx___, ________, ________, ________, ________, ________, ________, RESET,    ________, ________, ________, ________, ________, ________, ________
+)
 
 };
 

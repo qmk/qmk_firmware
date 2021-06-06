@@ -1,8 +1,6 @@
 {
   "keyboard_name": "Alpha", 
-  "url": "", 
   "maintainer": "qmk", 
-  "bootloader": "", 
   "width": 10, 
   "height": 3, 
   "layouts": {

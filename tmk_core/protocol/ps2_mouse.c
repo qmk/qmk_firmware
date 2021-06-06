@@ -68,6 +68,8 @@ void ps2_mouse_init(void) {
 
 __attribute__((weak)) void ps2_mouse_init_user(void) {}
 
+__attribute__((weak)) void ps2_mouse_moved_user(report_mouse_t *mouse_report) {}
+
 void ps2_mouse_task(void) {
     static uint8_t buttons_prev = 0;
     extern int     tp_buttons;
@@ -98,6 +100,9 @@ void ps2_mouse_task(void) {
 #if PS2_MOUSE_SCROLL_BTN_MASK
         ps2_mouse_scroll_button_task(&mouse_report);
 #endif
+        if (mouse_report.x || mouse_report.y || mouse_report.v) {
+            ps2_mouse_moved_user(&mouse_report);
+        }
 #ifdef PS2_MOUSE_DEBUG_HID
         // Used to debug the bytes sent to the host
         ps2_mouse_print_report(&mouse_report);
@@ -185,7 +190,7 @@ static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report) {
 static inline void ps2_mouse_print_report(report_mouse_t *mouse_report) {
     if (!debug_mouse) return;
     print("ps2_mouse: [");
-    phex(mouse_report->buttons);
+    print_hex8(mouse_report->buttons);
     print("|");
     print_hex8((uint8_t)mouse_report->x);
     print(" ");

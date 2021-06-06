@@ -26,7 +26,7 @@ SOFTWARE.
 #include "visualizer.h"
 #include <string.h>
 #ifdef PROTOCOL_CHIBIOS
-#    include "ch.h"
+#    include <ch.h>
 #endif
 
 #include "gfx.h"

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         NK65
-#define DESCRIPTION     "A 65-percent, tool-free RGB keyboard"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -144,3 +143,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // VIA lighting is handled by the keyboard-level code
 #define VIA_CUSTOM_LIGHTING_ENABLE
+
+/* Custom EEPROM start addressing. This is to support
+ * both 128kb and 256kb versions of F303.
+ * Register 0x1FFFF7CC holds the size of the flash memory.
+ */
+#define EEPROM_START_ADDRESS
+#define FEE_MCU_FLASH_SIZE                              \
+({                                                      \
+    uint16_t (*flash_size) = (uint16_t*)FLASHSIZE_BASE;  \
+    *flash_size;                                        \
+})

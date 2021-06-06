@@ -1,24 +1,29 @@
-BOOTMAGIC = lite
+BOOTMAGIC_ENABLE = lite
 DYNAMIC_KEYMAP_ENABLE = no
-CONSOLE_ENABLE = yes
-COMMAND_ENABLE = yes
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 AUDIO_ENABLE = no
 
 # only enable audio on specific boards
-ifeq ($(strip $(KEYBOARD)), maartenwut/plain60)
+ifeq ($(strip $(KEYBOARD)), evyd13/plain60)
     AUDIO_ENABLE = yes
+    CONSOLE_ENABLE = yes
+    COMMAND_ENABLE = yes
 endif
 
 ifeq ($(strip $(KEYBOARD)), clueboard/60)
     AUDIO_ENABLE = yes
+    CONSOLE_ENABLE = yes
+    COMMAND_ENABLE = yes
 endif
 
 ifeq ($(strip $(KEYBOARD)), hadron/ver3)
     AUDIO_ENABLE = yes
+    CONSOLE_ENABLE = yes
+    COMMAND_ENABLE = yes
 endif
 
 ifeq ($(strip $(KEYBOARD)), fruity60)
+    CONSOLE_ENABLE = yes
     COMMAND_ENABLE = no
 endif
 
@@ -28,4 +33,6 @@ endif
 
 ifeq ($(strip $(KEYBOARD)), ai03/polaris)
     RGBLIGHT_ENABLE = no
+    CONSOLE_ENABLE = yes
+    COMMAND_ENABLE = yes
 endif

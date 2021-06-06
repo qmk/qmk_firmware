@@ -14,7 +14,7 @@ BOOTLOADER = caterina
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = full	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	  # Mouse keys
 EXTRAKEY_ENABLE = yes	  # Audio control and System control
 CONSOLE_ENABLE = no	    # Console for debug
@@ -26,3 +26,7 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
 
 LAYOUTS = ortho_3x10
+
+# Disable unsupported hardware
+RGBLIGHT_SUPPORTED = no
+AUDIO_SUPPORTED = no

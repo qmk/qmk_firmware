@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Jeremy Herve <jeremy@jeremy.hu>
+Copyright 2021 Jeremy Herve <jeremy@jeremy.hu>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,3 +36,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_SLEEP
+
+/* Set Unicode mode by default */
+#define UNICODE_SELECTED_MODES UC_MAC
+
+/* Custom startup sound */
+#ifdef AUDIO_ENABLE
+#    define STARTUP_SONG SONG(ZELDA_PUZZLE)
+#endif

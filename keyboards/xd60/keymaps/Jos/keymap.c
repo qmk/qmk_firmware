@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_PAUS,   KC_PSCR,    \
       KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,             KC_TRNS,    \
       KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MPRV, KC_MNXT,  KC_MSTP,  KC_TRNS,   KC_NO,               KC_TRNS,    \
-      KC_TRNS, F(2),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD,  KC_VOLU,  KC_TRNS,   KC_TRNS,  KC_PGUP,   KC_TRNS,    \
+      KC_TRNS, TG(3),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD,  KC_VOLU,  KC_TRNS,   KC_TRNS,  KC_PGUP,   KC_TRNS,    \
       KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                             KC_TRNS,  KC_TRNS,   KC_HOME,  KC_PGDOWN, KC_END),
                                                                                                                                            
   // 2: GUI/Function 2 Layer                                                                                                                   
@@ -72,31 +72,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_NO,                KC_TRNS,   \
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS,   \
 /      KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                             KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS), */
-};
-
-// Custom Actions
-const uint16_t PROGMEM fn_actions[] = {
-    [2] = ACTION_LAYER_TOGGLE(3),     // to Fn3/Num toggle layer
-};
-
-// Macros
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) { register_code(KC_RSFT); }
-      else { unregister_code(KC_RSFT); }
-      break;
-  }
-
-  return MACRO_NONE;
-};
-
-
-// Loop
-void matrix_scan_user(void) {
-  // Empty
 };
 
 // LGUI acts as F(1) if held or as a tapped LGUI if tapped. Adapted from https://goo.gl/WnqGNS

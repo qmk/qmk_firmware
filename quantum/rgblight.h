@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef RGBLIGHT_H
-#define RGBLIGHT_H
+
+#pragma once
 
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
 
@@ -142,7 +142,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL
-#        define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 1000
+#        define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 40
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_STEP
@@ -150,7 +150,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_TWINKLE_LIFE
-#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 75
+#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 200
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_TWINKLE_PROBABILITY
@@ -169,9 +169,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #    ifndef RGBLIGHT_LIMIT_VAL
 #        define RGBLIGHT_LIMIT_VAL 255
 #    endif
-
-#    define RGBLED_TIMER_TOP F_CPU / (256 * 64)
-// #define RGBLED_TIMER_TOP 0xFF10
 
 #    include <stdint.h>
 #    include <stdbool.h>
@@ -225,6 +222,7 @@ extern const rgblight_segment_t *const *rgblight_layers;
 #        ifdef RGBLIGHT_LAYER_BLINK
 #            define RGBLIGHT_USE_TIMER
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms);
+void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times);
 #        endif
 
 #    endif
@@ -336,7 +334,9 @@ void rgblight_increase_val_noeeprom(void);
 void rgblight_decrease_val(void);
 void rgblight_decrease_val_noeeprom(void);
 void rgblight_increase_speed(void);
+void rgblight_increase_speed_noeeprom(void);
 void rgblight_decrease_speed(void);
+void rgblight_decrease_speed_noeeprom(void);
 void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 
@@ -344,6 +344,9 @@ void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 uint8_t rgblight_get_speed(void);
 void    rgblight_set_speed(uint8_t speed);
 void    rgblight_set_speed_noeeprom(uint8_t speed);
+
+/*   reset */
+void rgblight_reload_from_eeprom(void);
 
 /*       query */
 uint8_t rgblight_get_mode(void);
@@ -355,6 +358,8 @@ HSV     rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);
+void     rgblight_suspend(void);
+void     rgblight_wakeup(void);
 uint32_t rgblight_read_dword(void);
 void     rgblight_update_dword(uint32_t dword);
 uint32_t eeconfig_read_rgblight(void);
@@ -435,4 +440,3 @@ void rgblight_effect_twinkle(animation_status_t *anim);
 #    endif
 
 #endif  // #ifndef RGBLIGHT_H_DUMMY_DEFINE
-#endif  // RGBLIGHT_H
