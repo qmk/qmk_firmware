@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "dactyl_manuform.h"
+#include "tractyl_manuform.h"
 #include "quantum.h"
 #include "spi_master.h"
 #include "drivers/sensors/pmw3360.h"
@@ -25,7 +25,7 @@
 #define ___ KC_NO
 
 // clang-format off
-#define LAYOUT_5x6_right_trackball(\
+#define LAYOUT_5x6_right(\
   L00, L01, L02, L03, L04, L05,                          R00, R01, R02, R03, R04, R05, \
   L10, L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, R15, \
   L20, L21, L22, L23, L24, L25,                          R20, R21, R22, R23, R24, R25, \
@@ -51,23 +51,3 @@
     { ___, R51, R52, R53, ___, ___ }  \
 }
 // clang-format on
-
-void process_wheel(report_mouse_t* mouse_report);
-void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
-
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t dpi_config;
-    };
-} keyboard_config_t;
-
-extern keyboard_config_t keyboard_config;
-
-enum ploopy_keycodes {
-    DPI_CONFIG = SAFE_RANGE,
-    KEYMAP_SAFE_RANGE,
-};
-
-void master_mouse_send(int8_t x, int8_t y);
-void trackball_set_cpi(uint16_t cpi);

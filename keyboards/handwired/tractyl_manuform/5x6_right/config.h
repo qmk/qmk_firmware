@@ -51,8 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DEBUG_LED_PIN                  D6
 
-#define USB_POLLING_INTERVAL_MS        1
-
 #define ROTATIONAL_TRANSFORM_ANGLE     -25
 
 /* Bootmagic Lite key configuration */
@@ -69,5 +67,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_STATE_16BIT
 
 /* serial.c configuration for split keyboard */
-#undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN D2
+#define EE_HANDS

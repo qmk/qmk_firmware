@@ -302,7 +302,7 @@ void render_wpm(void) {
 #endif
 }
 
-#ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
+#if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
 extern keyboard_config_t keyboard_config;
 extern uint16_t          dpi_array[];
 
@@ -340,7 +340,7 @@ void render_status_main(void) {
 #    else
     render_wpm();
 #    endif
-#    ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
+#    if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
     render_pointing_dpi_status();
 #    endif
     oled_write_P(PSTR("\n"), false);
