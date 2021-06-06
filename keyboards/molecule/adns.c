@@ -243,7 +243,6 @@ void readSensor(void) {
 }
 void pointing_device_task(void) {
     readSensor();
-    mousekey_task();
 
     report_mouse_t report = pointing_device_get_report();
    
