@@ -2,6 +2,10 @@ replicaJunction QMK Userspace
 =============================
 
 # Overview
+I alternate between a few keyboards, one of which is the 44-key Keyboardio Atreus. Small keyboards require a liberal use of layers. Even though larger keyboards don't rely on layers as heavily, my muscle memory adapted to my Atreus layout, so I've ended up building several of those features in my keymaps for larger boards as well.
+
+The result, I believe, is a good compromise between ergonomics and ease of use.
+
 The code in this userspace is designed to be very modular. I use a few different keyboards, and I'm constantly tweaking one or another, so I want the ability to add and remove features from the firmware at compile-time. While my endgame goal is to get all the layouts to be compatible, in practice, it's been years and I'm still not to that point...
 
 Modular code also means that it should be easy to identify and adapt specific pieces to your own firmware.
@@ -39,7 +43,7 @@ static const char * const secrets[] = {
 
 Change the quoted text to the text you'd like and you're golden. If you need more (or fewer) items, you'll probably need to adjust the code in `secrets.c` as well, since it looks for up to four items in a switch case. 
 
-## CAPSWORD and NUMBERWORD
+## CAPSWORD and NUMWORD
 The concept here is simple: more often than you'd think, you need to type a single word in ALL CAPS. An easy example for me, as a programmer, is a constant value; in most programming languages, constants are typed in all caps by convention.
 
 You typically have a few choices, but each one comes with a drawback. Here are the options I'm aware of:
@@ -71,18 +75,19 @@ Enable this by setting `USER_MOUSE_JIGGLE_ENABLE = yes` in your `rules.mk` file.
 Taken [straight out of the QMK documentation](https://docs.qmk.fm/#/feature_macros?id=super-alt%E2%86%AFtab), this is an easy way to shift between a couple different windows. I use it with a very low interval when I'm alternating back and forth between two known windows with no real need for the visual feedback and thought. If you want to be able to browse the open windows before the function releases Alt, I'd suggest raising `USER_SUPER_ALT_TAB_TIMEOUT` to a higher value.
 
 # Credits
-I'm absolutely sure I've missed a few sources here. If you're an author of one of those sources, I sincerely apologize.
+I'm absolutely sure I've missed a few sources here. If you see something in my code that you think is yours and isn't credited here, I sincerely apologize.
 
 [bpruitt-goddard](https://github.com/qmk/qmk_firmware/blob/master/keyboards/ergodox_ez/keymaps/bpruitt-goddard/readme.md)
 * Dynamic macro tap-dance (no longer used, but I did use this for a while)
 
 [Drashna](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/readme.md)
-* "Wrappers" concept
-* Secrets concept
+* Secrets concept and basic implementation
+* "Wrappers" concept (no longer used, but I did use this for a while)
 
 [Treeman](https://github.com/treeman/qmk_firmware/blob/master/keyboards/kyria/keymaps/treeman)
 * CAPSWORD and NUMBERWORD concept
     * I re-implented some of the code based on my own prefences, but I did use some implementation code from here
+    * [Treeman's blog post](https://www.jonashietala.se/blog/2021/06/03/the-t-34-keyboard-layout/) provides more context on these features, and is a great read
 
-[This QMK issue](https://github.com/qmk/qmk_firmware/issues/452)
-    * Helped clarify a good organizational structure for the individual features in this userspace
+[QMK issue #452](https://github.com/qmk/qmk_firmware/issues/452)
+* Helped clarify a good organizational structure for the individual features in this userspace
