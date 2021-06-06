@@ -8,7 +8,7 @@ I've taken the Redox keyboard and modified the SCAD files as well as the QMK lay
 - Volume knob
 - Scroll wheel on the keyboard
 
-For an in-depth report and video see [my page](https://shiftux.org/making_projects/keyboard.html).
+For an in-depth report see [my page](https://shiftux.org/making_projects/keyboard.html) and a [video](https://youtu.be/Cwkf7HFcUkY) about the build process, design, printing, programing and assembly.
 
 ## IMAGE
 
