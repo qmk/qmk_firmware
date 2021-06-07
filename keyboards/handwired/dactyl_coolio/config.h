@@ -61,11 +61,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 15, 15 }
 #define RGBLED_NUM 30
-
-/* Disable unused and unneeded features to reduce on firmware size */
-#ifdef LOCKING_SUPPORT_ENABLE
-#    undef LOCKING_SUPPORT_ENABLE
-#endif
-#ifdef LOCKING_RESYNC_ENABLE
-#    undef LOCKING_RESYNC_ENABLE
-#endif
