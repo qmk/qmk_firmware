@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Matrix Column Pins:    C0  C1  C2  C3  C4  C5   C6   C7   C8   C9   C10   C11  C12  C13   C14   C15  C16  C17  C18
 #define MATRIX_ROW_PINS { A3, B7, A0, A1, A2 }
 // Matrix Row Pins:       R0  R1  R2  R3  R4
-#define DIODE_DIRECTION ROW2COL
+#define DIODE_DIRECTION COL2ROW
 // Current flow out of the diodes are from rows to columns
 
 #define LED_CAPS_LOCK_PIN B8
