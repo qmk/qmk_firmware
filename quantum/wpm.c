@@ -69,14 +69,22 @@ __attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
 void update_wpm(uint16_t keycode) {
     if (wpm_keycode(keycode)) {
         if (wpm_timer > 0) {
-            current_wpm += ((60000 / timer_elapsed(wpm_timer) / WPM_ESTIMATED_WORD_SIZE) - current_wpm) * wpm_smoothing;
+            uint16_t latest_wpm = 60000 / timer_elapsed(wpm_timer) / WPM_ESTIMATED_WORD_SIZE;
+            if (latest_wpm > UINT8_MAX) {
+                latest_wpm = UINT8_MAX;
+            }
+            current_wpm += (latest_wpm - current_wpm) * wpm_smoothing;
         }
         wpm_timer = timer_read();
     }
 #ifdef WPM_ALLOW_COUNT_REGRESSION
     uint8_t regress = wpm_regress_count(keycode);
     if (regress) {
-        current_wpm -= regress;
+        if (current_wpm < regress) {
+            current_wpm = 0;
+        } else {
+            current_wpm -= regress;
+        }
         wpm_timer = timer_read();
     }
 #endif
