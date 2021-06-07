@@ -1,3 +1,19 @@
+/* Copyright 2021 Vincent Santillo (vincentsantillo@gmail.com)
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 static HSV hsvLerp(HSV a, HSV b, float t) {
     // Prepare incoming hue values in QMK format
     // QMK HSV Values are [0, 255], representing a Hue value from [0, 360] degrees
