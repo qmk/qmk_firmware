@@ -43,14 +43,16 @@
 #define NAVPC   LT(6, KC_ESC)
 #define NAVQUD  LT(7, KC_ESC)
 
-#define _COLEMAK 0
-#define _PC 1
-#define _QUD 2
-#define _GAME 3
-#define _SYMBOL 4
-#define _NAVMAC 5
-#define _NAVPC 6
-#define _NAVQUD 7
+enum custom_layers {
+    _COLEMAK,
+    _PC, 
+    _QUD,
+    _GAME,
+    _SYMBOL,
+    _NAVMAC,
+    _NAVPC,
+    _NAVQUD,
+}
 
 //tapdance declarations
 enum {

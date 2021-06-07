@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
 //    rgb_matrix_sethsv(191, 43, 81);
     rgblight_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
 };
@@ -116,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case SET_RGB:
             if (record->event.pressed) {
-                rgb_matrix_sethsv(18, 86, 95);
+                rgb_matrix_sethsv_noeeprom(18, 86, 95);
             }
             return false;
             break;

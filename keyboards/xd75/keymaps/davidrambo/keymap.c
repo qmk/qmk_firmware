@@ -37,20 +37,21 @@
 #define ATAB    LALT(KC_TAB)
 #define CTAB    LCTL(KC_TAB)
 
-// navigation layers for both Mac OS X and PC
+// toggles for navigation layers for Mac, PC, and Roguelike Numpad
 #define NAV     LT(5, KC_ESC)
 #define NAVPC   LT(6, KC_ESC)
 #define NAVQUD  MO(7)
 
-// Layer shorthand
-#define _COLEMAK 0
-#define _PC 1
-#define _GAME 2     // Gaming layer
-#define _QUD  3     // Roguelike layer
-#define _SYMBOL 4   // Function keys, numbers, symbols, Backlighting
-#define _NAV 5      // Navigation Layer on Mac
-#define _NAVPC 6    // Navigation Layer on Win
-#define _NAVQUD 7   // Numpad for Roguelike 8-directional movement
+enum custom_layer {
+    _COLEMAK,
+    _PC,
+    _GAME,     // Gaming layer
+    _QUD,3     // Roguelike layer
+    _SYMBOL,   // Function keys, numbers, symbols, Backlighting
+    _NAV,      // Navigation Layer on Mac
+    _NAVPC,    // Navigation Layer on Win
+    _NAVQUD,   // Numpad for Roguelike 8-directional movement
+}
 
 // tapdance declarations
 enum {

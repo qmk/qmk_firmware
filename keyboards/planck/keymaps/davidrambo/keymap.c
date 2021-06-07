@@ -28,9 +28,11 @@
 #define NAV     LT(2, KC_TAB)
 #define RECT    LCA_T(KC_DEL) // Ctrl+Alt is the basis for Rectangle WM shortcuts
 
-#define _COLEMAK 0
-#define _SYMBOL 1
-#define _NAVIGATION 2
+enum custom_layers {
+    _COLEMAK,
+    _SYMBOL,
+    _NAVIGATION,
+}
 
 //tapdance declarations
 enum {
