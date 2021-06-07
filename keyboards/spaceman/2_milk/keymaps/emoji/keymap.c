@@ -12,7 +12,7 @@ void dance_key_one (qk_tap_dance_state_t *state, void *user_data) {
         reset_tap_dance (state);
     } else if (state->count == 2) {
         cycle_unicode_input_mode(+1);
-        reset_tap_dance (state);
+        reset_tap_dance (state);//
     }
 }
 
@@ -34,8 +34,7 @@ void dance_key_two (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING(SS_TAP(X_ENTER));
         reset_tap_dance (state);
     } else if (state->count == 5) {
-        send_unicode_hex_string("0028 FE3A FE39 FE3A 0029"); // (︺︹︺)
-        SEND_STRING(SS_TAP(X_ENTER));
+        send_string("Mord@nt"); // (︺︹︺)
         reset_tap_dance (state);
     }
 }
