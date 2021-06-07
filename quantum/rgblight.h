@@ -170,9 +170,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #        define RGBLIGHT_LIMIT_VAL 255
 #    endif
 
-#    define RGBLED_TIMER_TOP F_CPU / (256 * 64)
-// #define RGBLED_TIMER_TOP 0xFF10
-
 #    include <stdint.h>
 #    include <stdbool.h>
 #    include "eeconfig.h"
@@ -225,6 +222,7 @@ extern const rgblight_segment_t *const *rgblight_layers;
 #        ifdef RGBLIGHT_LAYER_BLINK
 #            define RGBLIGHT_USE_TIMER
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms);
+void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times);
 #        endif
 
 #    endif

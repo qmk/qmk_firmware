@@ -83,9 +83,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef LOCKING_RESYNC_ENABLE
 #endif
 
-
-#define OLED_FONT_H "keyboards/lck75/glcdfont.c"
-
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 200
