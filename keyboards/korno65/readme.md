@@ -10,6 +10,13 @@ Make example for this keyboard (after setting up your build environment):
 
     make korno65:default
 
+Entering bootloader mode:
+    
+    Try the following, in order:
+        Unplug your keyboard, hold down the top or bottom left key (usually Escape or Left Control) and plug in your keyboard
+	Press the physical RESET button, usually located on the underside of the PCB
+	Locate header pins on the PCB labeled RESET and GND, and short them together while plugging your PCB in
+
 Flashing example for this keyboard:
 
     make korno65:default:flash
