@@ -127,7 +127,7 @@ static void unselect_row(uint8_t row) {
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-        unselect_row(row_pins[x]);
+        unselect_row(x);
     }
 }
 
@@ -185,7 +185,7 @@ static void unselect_col(uint8_t col) {
 
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        unselect_col(col_pins[x]);
+        unselect_col(x);
     }
 }
 
@@ -208,7 +208,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
         // Check row pin state
-        if (row_pins[row_index] != NO_PIN && readPin(row_pins[row_index]) == 0) {
+        if (readMatrixPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         } else {
