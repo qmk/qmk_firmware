@@ -1,23 +1,23 @@
 #pragma once
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(STARTUP_SOUND)
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+#    define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND) \
                                 }
     //#define PITCH_STANDARD_A 110.0f
-    #define AUDIO_CLICKY
-    #define AUDIO_CLICKY_FREQ_RANDOMNESS 0.1f
+#    define AUDIO_CLICKY
+#    define AUDIO_CLICKY_FREQ_RANDOMNESS 0.1f
 #endif
 
 #ifdef MOUSEKEY_ENABLE
-  #define MOUSEKEY_INTERVAL 16
-  #define MOUSEKEY_DELAY 0
-  #define MOUSEKEY_TIME_TO_MAX 60
-  #define MOUSEKEY_MAX_SPEED 7
-  #define MOUSEKEY_WHEEL_DELAY 200
+#    define MOUSEKEY_INTERVAL 16
+#    define MOUSEKEY_DELAY 0
+#    define MOUSEKEY_TIME_TO_MAX 60
+#    define MOUSEKEY_MAX_SPEED 7
+#    define MOUSEKEY_WHEEL_DELAY 200
 #endif  
 
 #define ONESHOT_TIMEOUT 400                              
