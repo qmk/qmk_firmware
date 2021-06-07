@@ -1,4 +1,4 @@
-/* Copyright 2020 Yiancar
+/* Copyright 2021 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,21 +30,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     EF_DEC,  EF_INC,  KC_TRNS, KC_TRNS,
     BR_DEC,  BR_INC,  KC_TRNS,
     ES_DEC,  ES_INC,  KC_TRNS, KC_TRNS,
-    KC_TRNS,          KC_TRNS),
-
-[2] = LAYOUT_all( /* Empty for dynamic keymaps */
-    KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS,          KC_TRNS),
-
-[3] = LAYOUT_all( /* Empty for dynamic keymaps */
-    KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS,          KC_TRNS)
 };

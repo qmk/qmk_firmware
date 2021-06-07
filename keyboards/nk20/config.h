@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Yiancar
+Copyright 2021 Yiancar
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -100,7 +100,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_BACKLIGHT_ENABLED 1
 
-#define RGB_BACKLIGHT_NKNUM
+#define RGB_BACKLIGHT_NK20
 
 // they aren't really used if RGB_BACKLIGHT_NEBULA65 defined
 #define RGB_BACKLIGHT_USE_SPLIT_BACKSPACE 0

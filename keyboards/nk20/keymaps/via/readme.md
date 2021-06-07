@@ -1,4 +1,4 @@
-# The default keymap for NK_ Num. VIA support enabled.
+# The default keymap for NK20. VIA support enabled.
 
 ![Layer 0](https://i.imgur.com/CoMteJW.png)
 

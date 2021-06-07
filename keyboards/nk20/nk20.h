@@ -1,4 +1,4 @@
-/* Copyright 2020 Yiancar
+/* Copyright 2021 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef RGB_BACKLIGHT_NKNUM
-#error RGB_BACKLIGHT_NKNUM not defined, recheck config.h
-#endif
+#pragma once
 
-#include "nk_num.h"
+#define XXX KC_NO
 
-// void board_init(void) {
-//   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
-//   SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
-// }
+#include "quantum.h"
+#include "../wilba_tech/wt_rgb_backlight_keycodes.h"
+
+// This a shortcut to help you visually see your layout.
+
+#define LAYOUT_all( \
+    K00, K01, K02,      \
+    K10, K11, K12, K13, \
+    K20, K21, K22, K23, \
+    K30, K31, K32,      \
+    K40, K41, K42, K43, \
+    K50,      K52       \
+) { \
+    { K00, K01, K02, XXX }, \
+    { K10, K11, K12, K13 }, \
+    { K20, K21, K22, K23 }, \
+    { K30, K31, K32, XXX }, \
+    { K40, K41, K42, K43 }, \
+    { K50, XXX, K52, XXX }, \
+}
