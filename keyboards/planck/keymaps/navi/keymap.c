@@ -25,7 +25,7 @@ enum planck_layers {
   _RAISE,
   _FUNCTION,
   _ADJUST
-  
+
 };
 
 enum planck_keycodes {
@@ -159,7 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_FUNCTION);
       }
       return false;
-	  break;	  	  
+	  break;
   }
   return true;
 }
@@ -170,7 +170,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update(bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -204,6 +204,7 @@ void encoder_update(bool clockwise) {
       #endif
     }
   }
+    return true;
 }
 
 bool music_mask_user(uint16_t keycode) {

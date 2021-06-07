@@ -108,6 +108,7 @@
     * [Haptic Feedback](feature_haptic_feedback.md)
     * [Joystick](feature_joystick.md)
     * [LED Indicators](feature_led_indicators.md)
+    * [MIDI](feature_midi.md)
     * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
@@ -120,7 +121,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20210227.md "QMK v0.12.0 - 2021 Feb 27")
+    * [Most Recent ChangeLog](ChangeLog/20210529.md "QMK v0.13.0 - 2021 May 29")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development
