@@ -23,11 +23,13 @@
 #define PRODUCT_ID 0x7812
 #define DEVICE_VER 0x0001
 #define MANUFACTURER TKW
-#define PRODUCT Grandiceps Split
+#define PRODUCT Grandiceps Split rev2
 
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
+
+#define SPLIT_HAND_PIN B3
 
 #define EEPROM_I2C_24LC64
 
