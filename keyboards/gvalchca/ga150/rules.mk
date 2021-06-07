@@ -22,5 +22,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes    # Unicode
 LTO_ENABLE = yes
-
-LAYOUTS = all
