@@ -18,7 +18,7 @@
 #include "i2c_master.h"
 
 #ifdef DEBUG_POLLING
-    #include <print.h>
+    #include "print.h"
 #endif
 
 static uint8_t scrolling      = 0;
