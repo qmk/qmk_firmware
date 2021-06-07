@@ -367,16 +367,16 @@ void zed_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [X_ONE]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,one_finished, one_reset, 100),
-  [X_TWO]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,two_finished, two_reset, 100),
-  [X_THR]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,thr_finished, thr_reset, 100),
-  [X_FOR]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,for_finished, for_reset, 100),
-  [X_FIV]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,fiv_finished, fiv_reset, 100),
-  [X_SIX]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,six_finished, six_reset, 100),
-  [X_SEV]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,sev_finished, sev_reset, 100),
-  [X_EIG]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,eig_finished, eig_reset, 100),
-  [X_NIN]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,nin_finished, nin_reset, 100),
-  [X_ZED]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL,zed_finished, zed_reset, 100)
+  [X_ONE]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,one_finished, one_reset),
+  [X_TWO]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,two_finished, two_reset),
+  [X_THR]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,thr_finished, thr_reset),
+  [X_FOR]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,for_finished, for_reset),
+  [X_FIV]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,fiv_finished, fiv_reset),
+  [X_SIX]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,six_finished, six_reset),
+  [X_SEV]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,sev_finished, sev_reset),
+  [X_EIG]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,eig_finished, eig_reset),
+  [X_NIN]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,nin_finished, nin_reset),
+  [X_ZED]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,zed_finished, zed_reset)
 };
 
 #ifdef AUDIO_ENABLE
