@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [L_BASE] = LAYOUT_ergodox(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,
     KC_EQL,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    NUMWORD,
-    KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,
+    KC_MINS, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_RBRC,
     KC_LCTL, KC_LGUI ,KC_LALT, MO_FN,   ESC_SFT,
                                                  KC_HOME, KC_END,
