@@ -201,8 +201,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #       define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 //  Recommendend not to use then.
 
-#       if defined(REDUCE_RGB_MATRIX_EFFECTS) || defined(VIA_ENABLE)
-// #       ifdef REDUCE_RGB_MATRIX_EFFECTS
+// #       if defined(REDUCE_RGB_MATRIX_EFFECTS) || defined(VIA_ENABLE)
+#       ifdef REDUCE_RGB_MATRIX_EFFECTS
 #           define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
 #           define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
 #           define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
