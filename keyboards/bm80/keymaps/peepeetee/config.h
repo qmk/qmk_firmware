@@ -16,30 +16,15 @@
 #pragma once
 
 
-// #define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
-// #define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
-// #define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
 // #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)      // Key combination that allows the use of magic commands (useful for debugging)
 
-// #define NO_DEBUG                    // Disable debugging
-// #define NO_PRINT                    // Disable printing/debugging using hid_listen
-// #define NO_ACTION_LAYER             // Disable layers
-// #define NO_ACTION_TAPPING           // Disable tap dance and other tapping features
-// #define NO_ACTION_ONESHOT           // Disable one-shot modifiers
-// #define NO_ACTION_MACRO             // Disable old style macro handling: MACRO() & action_get_macro
 // #define TERMINAL_HELP
-// #define MOUSEKEY_INTERVAL 20
-// #define MOUSEKEY_DELAY 0
-// #define MOUSEKEY_TIME_TO_MAX 60
-// #define MOUSEKEY_MAX_SPEED 10
-// #define MOUSEKEY_WHEEL_DELAY 0
+
 #define FORCE_NKRO                  // NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 // #define QMK_KEYS_PER_SCAN 4         // Allows sending more than one key per scan. By default, only one key event gets sent via process_record() per scan. This has little impact on most typing, but if you're doing a lot of chords, or your scan rate is slow to begin with, you can have some delay in processing key events. Each press and release is a separate event. For a keyboard with 1ms or so scan times, even a very fast typist isn't going to produce the 500 keystrokes a second needed to actually get more than a few ms of delay from this. But if you're doing chording on something with 3-4ms scan times? You probably want this.
 // #define STRICT_LAYER_RELEASE        // Force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
-// #define LOCKING_SUPPORT_ENABLE      // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
-// #define LOCKING_RESYNC_ENABLE       // Tries to keep switch state consistent with keyboard LED state
-#define TAPPING_TERM 200            // How long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+// #define TAPPING_TERM 200            // How long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
 // #define TAPPING_TERM_PER_KEY        // Enables handling for per key TAPPING_TERM settings
 // #define RETRO_TAPPING               // Tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
 // #define TAPPING_TOGGLE 2            // How many taps before triggering the toggle
@@ -60,34 +45,11 @@
 // #define RGB_MATRIX_KEYPRESSES         // reacts to keypresses
 // #define RGB_MATRIX_KEYRELEASES        // reacts to keyreleases (instead of keypresses)
 // #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS // Sets the default mode, if none has been set
-// #define RGBLIGHT_HUE_STEP 12        // Units to step when in/decreasing hue
-// #define RGBLIGHT_SAT_STEP 25        // Units to step when in/decreasing saturation
-// #define RGBLIGHT_VAL_STEP 12        // Units to step when in/decreasing value (brightness)
 // #define RGB_DISABLE_AFTER_TIMEOUT 0   // number of ticks to wait until disabling effects
 // #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
 // #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-// #define RGBLIGHT_ANIMATIONS             // Run RGB animations
-// #define RGBLIGHT_ANIMATIONS             // Enable all additional animation modes.
-// #define RGBLIGHT_EFFECT_ALTERNATING     // Enable alternating animation mode.
-// #define RGBLIGHT_EFFECT_BREATHING       // Enable breathing animation mode.
-// #define RGBLIGHT_EFFECT_CHRISTMAS       // Enable christmas animation mode.
-// #define RGBLIGHT_EFFECT_KNIGHT          // Enable knight animation mode.
-// #define RGBLIGHT_EFFECT_RAINBOW_MOOD    // Enable rainbow mood animation mode.
-// #define RGBLIGHT_EFFECT_RAINBOW_SWIRL   // Enable rainbow swirl animation mode.
-// #define RGBLIGHT_EFFECT_RGB_TEST        // Enable RGB test animation mode.
-// #define RGBLIGHT_EFFECT_SNAKE           // Enable snake animation mode.
-// #define RGBLIGHT_EFFECT_STATIC_GRADIENT // Enable static gradient mode.
 
-// #define RGBLIGHT_EFFECT_BREATHE_CENTER              // If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7
-// #define RGBLIGHT_EFFECT_BREATHE_MAX 255             // The maximum brightness for the breathing mode. Valid values are 1 to 255
-// #define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 1000     // How long to wait between light changes for the "Christmas" animation, in milliseconds
-// #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 2            // The number of LEDs to group the red/green colors by for the "Christmas" animation
-// #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM RGBLED_NUM   // The number of LEDs to have the "Knight" animation travel
-// #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3             // The number of LEDs to light up for the "Knight" animation
-// #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 0             // The number of LEDs to start the "Knight" animation from the start of the strip by
-// #define RGBLIGHT_RAINBOW_SWIRL_RANGE 255            // Range adjustment for the rainbow swirl effect to get different swirls
-// #define RGBLIGHT_EFFECT_SNAKE_LENGTH 4              // The number of LEDs to light up for the "Snake" animation
 
 // This list in in the correct mode order. Next mode is the following line, previous mode is previous line. Loops around.
 // #define DISABLE_RGB_MATRIX_SOLID_COLOR                   // Static single hue, no speed support
