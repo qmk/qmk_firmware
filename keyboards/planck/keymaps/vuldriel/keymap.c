@@ -53,16 +53,16 @@ enum {
 
 //tap dance enums
 enum {
-  X_ONE = 1,
-  X_TWO = 2,
-  X_THR = 3,
-  X_FOR = 4,
-  X_FIV = 5,
-  X_SIX = 6,
-  X_SEV = 7,
-  X_EIG = 8,
-  X_NIN = 9,
-  X_ZED = 0
+    X_ZED,
+    X_ONE,
+    X_TWO,
+    X_THR,
+    X_FOR,
+    X_FIV,
+    X_SIX,
+    X_SEV,
+    X_EIG,
+    X_NIN
 };
 
 int cur_dance (qk_tap_dance_state_t *state);
