@@ -3,7 +3,7 @@
 ## send source support
 
 ## uart support
-1. add biu_ble5 support in your $(keymap)/relus.mk
+1. add biu_ble5 support in your $(keymap)/rules.mk
 ```shell
 BIU_BLE5_ENABLE = yes
 ```
