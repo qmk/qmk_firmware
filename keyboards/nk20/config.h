@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x4E4E
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         NK_ Num
+#define PRODUCT         NK20
 
 /* key matrix size */
 #define MATRIX_ROWS 6
