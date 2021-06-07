@@ -14,7 +14,7 @@ hanjie is a compact southpaw function-row-less keyboard.
 
 The latest iteration of the PCB is v4.1 as of 04/21. This is noted on the back of the PCB. 
 * Default Keymap: [See here](http://www.keyboard-layout-editor.com/#/gists/fb1fd9b5b5343f7123112772b4cd49bc)
-* PCB Supported Layout: [See here](http://www.keyboard-layout-editor.com/#/gists/166e8a5d55dd4902c9920b2ee992e714)
+* PCB Supported Layouts: [See here](http://www.keyboard-layout-editor.com/#/gists/166e8a5d55dd4902c9920b2ee992e714)
 
 ## How to compile
 
