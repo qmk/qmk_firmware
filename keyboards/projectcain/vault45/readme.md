@@ -8,6 +8,8 @@
 * Hardware Supported: *Vault 45 PCB*
 * Hardware Availability: *mechvault.net*
 
+To reset the keyboard into bootloader mode, short the two pads labeled "Reset" on the left side of the pcb
+
 Make example for this keyboard (after setting up your build environment):
 
     make projectcain/vault45:default
