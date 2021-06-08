@@ -64,7 +64,9 @@
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
+#        define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    endif
 // #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 // #   define EECONFIG_RGB_MATRIX (uint32_t *)16
 
@@ -204,3 +206,34 @@
 #    define C14 PAL_LINE(GPIOC, 14)
 #    define C15 PAL_LINE(GPIOC, 15)
 #endif
+
+#ifdef MOUSEKEY_ENABLE
+// mouse movement config
+#    define MK_KINETIC_SPEED
+#    ifdef MK_KINETIC_SPEED
+#        define MOUSEKEY_DELAY      8
+#        define MOUSEKEY_INTERVAL   20
+#        define MOUSEKEY_MOVE_DELTA 25
+#    else
+#        define MOUSEKEY_DELAY      300
+#        define MOUSEKEY_INTERVAL   50
+#        define MOUSEKEY_MOVE_DELTA 5
+#    endif
+#    define MOUSEKEY_MAX_SPEED                   7
+#    define MOUSEKEY_TIME_TO_MAX                 60
+#    define MOUSEKEY_INITIAL_SPEED               100
+#    define MOUSEKEY_BASE_SPEED                  1000
+#    define MOUSEKEY_DECELERATED_SPEED           400
+#    define MOUSEKEY_ACCELERATED_SPEED           3000
+// mouse scroll config
+#    define MOUSEKEY_WHEEL_DELAY                 15
+#    define MOUSEKEY_WHEEL_DELTA                 1
+#    define MOUSEKEY_WHEEL_INTERVAL              50
+#    define MOUSEKEY_WHEEL_MAX_SPEED             8
+#    define MOUSEKEY_WHEEL_TIME_TO_MAX           80
+// mouse scroll kinetic config
+#    define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS     8
+#    define MOUSEKEY_WHEEL_BASE_MOVEMENTS        48
+#    define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48
+#    define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
+#endif // MOUSEKEY_ENABLE

@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // mouse scroll config
 #    ifndef MOUSEKEY_WHEEL_DELAY
-#        define MOUSEKEY_WHEEL_DELAY 20
+#        define MOUSEKEY_WHEEL_DELAY 15
 #    endif
 #    ifndef MOUSEKEY_WHEEL_DELTA
 #        define MOUSEKEY_WHEEL_DELTA 1
@@ -78,10 +78,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 
 #    ifndef MOUSEKEY_WHEEL_INITIAL_MOVEMENTS
-#        define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 16
+#        define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 8
 #    endif
 #    ifndef MOUSEKEY_WHEEL_BASE_MOVEMENTS
-#        define MOUSEKEY_WHEEL_BASE_MOVEMENTS 32
+#        define MOUSEKEY_WHEEL_BASE_MOVEMENTS 48
 #    endif
 #    ifndef MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS
 #        define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48
