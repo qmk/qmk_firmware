@@ -26,7 +26,7 @@
 #    define SPLIT_MODS_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
 #    define SERIAL_USE_MULTI_TRANSACTION
-// #    define SPLIT_NUM_TRANSACTIONS_KB 2
+#    define SPLIT_NUM_TRANSACTIONS_USER 1
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -63,12 +63,8 @@
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-// #   define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#    ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
-#        define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#    endif
-// #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-// #   define EECONFIG_RGB_MATRIX (uint32_t *)16
+// #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
+// #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
 #    if defined(__AVR__) && !defined(__AVR_AT90USB1286__) && !defined(KEYBOARD_launchpad)
 #        define DISABLE_RGB_MATRIX_ALPHAS_MODS
