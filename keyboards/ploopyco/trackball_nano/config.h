@@ -25,7 +25,6 @@
 #define VENDOR_ID 0x5043
 #define PRODUCT_ID 0x1EAB
 #define DEVICE_VER 0x0001
-#define MANUFACTURER PloopyCo
 #define PRODUCT Trackball Nano
 
 /* key matrix size */

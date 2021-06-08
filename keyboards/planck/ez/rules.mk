@@ -2,11 +2,14 @@
 MCU = STM32F303
 BOARD = QMK_PROTON_C
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes      # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes         # Console for debug
@@ -24,7 +27,6 @@ API_SYSEX_ENABLE = no
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 
-# SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3737
 
