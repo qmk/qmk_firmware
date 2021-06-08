@@ -7,7 +7,7 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
+#ifdef OLED_DRIVER_ENABLE
   #include "ssd1306.h"
 #endif
 
@@ -15,8 +15,6 @@
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
-
-extern uint8_t is_master;
 
 enum layers {
     _QWERTY,
@@ -284,20 +282,15 @@ void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
-
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+#ifdef OLED_DRIVER_ENABLE
 
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_layer(void);
 const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
+const char *read_layer_state(void);
 const char *read_keylog(void);
 const char *read_keylogs(void);
 
@@ -306,42 +299,51 @@ const char *read_keylogs(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
-void matrix_scan_user(void) {
-   iota_gfx_task();
-}
-
-void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
-    // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer());
-    matrix_write_ln(matrix, read_keylog());
-    matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    //matrix_write_ln(matrix, read_host_led_state());
-    //matrix_write_ln(matrix, read_timelog());
-  } else {
-    matrix_write(matrix, read_logo());
-  }
-}
-
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
 void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-  matrix_clear(&matrix);
-  matrix_render_user(&matrix);
-  matrix_update(&display, &matrix);
+  if (is_keyboard_master()) {
+    // If you want to change the display of OLED, you need to change here
+    oled_write_ln(read_layer_state(), false);
+    oled_write_ln(read_keylog(), false);
+    oled_write_ln(read_keylogs(), false);
+    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
+    //oled_write_ln(read_host_led_state(), false);
+    //oled_write_ln(read_timelog(), false);
+  } else {
+    oled_write(read_logo(), false);
+  }
 }
-#endif//SSD1306OLED
+
+// Rotate oled on left side
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  if (!is_keyboard_master())
+    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+  return rotation;
+}
+
+#endif
+
+#ifdef SWAP_HANDS_ENABLE
+__attribute__ ((weak))
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    // Left
+    { {5,5},{4,5},{3,5},{2,5},{1,5},{0,5} },
+    { {5,6},{4,6},{3,6},{2,6},{1,6},{0,6} },
+    { {5,7},{4,7},{3,7},{2,7},{1,7},{0,7} },
+    { {5,8},{4,8},{3,8},{2,8},{1,8},{0,8} },
+    { {5,9},{4,9},{3,9},{2,9},{1,9},{0,9} },
+    // Right
+    { {5,4},{4,4},{3,4},{2,4},{1,4},{0,4} },
+    { {5,3},{4,3},{3,3},{2,3},{1,3},{0,3} },
+    { {5,2},{4,2},{3,2},{2,2},{1,2},{0,2} },
+    { {5,1},{4,1},{3,1},{2,1},{1,1},{0,1} },
+    { {5,0},{4,0},{3,1},{2,1},{1,1},{0,1} },
+};
+#endif
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-#ifdef SSD1306OLED
+#ifdef OLED_DRIVER_ENABLE
     set_keylog(keycode, record);
 #endif
     // set_timelog();
@@ -400,23 +402,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // 1. Hold for LGUI, tap for Underscore
     case GUI_UNDS:
-        perform_space_cadet(record, KC_LGUI, KC_LSFT, KC_MINS);
+        perform_space_cadet(record, keycode, KC_LGUI, KC_LSFT, KC_MINS);
         return false;
 
     // 2. Hold for LSHIFT, tap for Parens open
     case LSFT_LPRN:
-        perform_space_cadet(record, KC_LSFT, KC_LSFT, KC_9);
+        perform_space_cadet(record, keycode, KC_LSFT, KC_LSFT, KC_9);
         return false;
 
     // 3. Hold for RSHIFT, tap for Parens close
     case RSFT_RPRN:
-        perform_space_cadet(record, KC_RSFT, KC_RSFT, KC_0);
+        perform_space_cadet(record, keycode, KC_RSFT, KC_RSFT, KC_0);
         return false;
   }
   return true;
 }
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     if (pressed) {
         switch(combo_index) {
             case CB_SUPERDUPER:
