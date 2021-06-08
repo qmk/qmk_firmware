@@ -245,7 +245,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(int8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 1) { /* An encoder on the right side */
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -253,5 +253,6 @@ void encoder_update_user(int8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }
 #endif  // ENCODER_ENABLE
