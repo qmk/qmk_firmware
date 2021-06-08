@@ -37,7 +37,7 @@ OPT_DEFS = -Og
 #   comment out to disable the options.
 #
 # EXTRAFLAGS+=-flto
-LTO_ENABLE = yes
+LTO_ENABLE = no
 BACKLIGHT_ENABLE = no
 MAGIC_ENABLE = no
 MAGIC_KEYCODE_ENABLE = no
@@ -65,4 +65,4 @@ USE_EXCEPTIONS_STACKSIZE = 0x100
 
 ALLOW_WARNINGS=yes
 
-SRC = matrix.c led_matrix.c
+SRC = matrix.c
