@@ -24,23 +24,18 @@
 #define TD_QM TD(TD_QUICK_MUTE) // Quick Mute Tap Dance
 
 // Define Layer Macros
-#define L_MSFN LT(MO(MAC_SPACEFN), KC_SPACE) // Mac SpaceFN
-#define L_MFN1 MO(MAC_FN1) // Mac FN1
-#define L_WFN1 MO(WINDOWS_FN1) // Windows FN1
-#define L_WGFN MO(WINDOWS_GAMING_FN) // Windows Gaming FN
-#define L_MB TO(MAC_BASE) // Turn on Mac base
-#define L_WB TO(WINDOWS_BASE) // Turn on Windows base
-#define L_WGB TO(WINDOWS_GAMING) // Turn on Windows Gaming base
+#define L_SFN LT(MO(SPACEFN), KC_SPACE) // SpaceFN
+#define L_FN1 MO(FN1) // FN1
+#define L_WIND TG(WINDOWS) // Toggle Windows layer
+#define L_GAME TG(GAME)  // Toggle Game mode
 
 // Keyboard layers
 enum dz60rgb_layers {
-    MAC_BASE,  // Mac - Base
-    MAC_SPACEFN, // Mac - SpaceFN Layer
-    MAC_FN1,   // Mac - Function Layer 1
-    WINDOWS_BASE, // Windows - Base
-    WINDOWS_FN1, // Windows - Function Layer 1
-    WINDOWS_GAMING, // Windows - Gaming
-    WINDOWS_GAMING_FN, // Windows - Gaming Function Layer
+    BASE,  // Base (intended for Mac)
+    WINDOWS, // Windows
+    SPACEFN, // SpaceFN layer
+    FN1, // FN1
+    GAME,  // Gaming Layer (disables SpaceFN, and Windows Key)
     BLANK,  // Blank (Transparent) Layer
     NOOP,  // No operation Layer
 };
