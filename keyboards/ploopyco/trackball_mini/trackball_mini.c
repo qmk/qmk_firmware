@@ -18,6 +18,8 @@
  */
 
 #include "trackball_mini.h"
+#include "print.h"
+#include "wait.h"
 
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
@@ -35,16 +37,8 @@
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
 
-#ifndef PLOOPY_DPI_OPTIONS
-#    define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375 }
-#    ifndef PLOOPY_DPI_DEFAULT
-#        define PLOOPY_DPI_DEFAULT 2
-#    endif
-#endif
-
-#ifndef PLOOPY_DPI_DEFAULT
-#    define PLOOPY_DPI_DEFAULT 1
-#endif
+#define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375 }
+#define PLOOPY_DPI_DEFAULT 2
 
 // Transformation constants for delta-X and delta-Y
 const static float ADNS_X_TRANSFORM = -1.0;
@@ -109,12 +103,22 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
     mouse_report->y = y;
 }
 
+int isthingpressedtomakethinghappen = 0;
+
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
     report_adns_t data = adns_read_burst();
 
     if (data.dx != 0 || data.dy != 0) {
-        if (debug_mouse)
+        if (debug_mouse) {
+            uint8_t dpi_read = adns_read_reg(REG_MOUSE_CONTROL2);
             dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
+            dprintf("DPI ] %d\n", dpi_read);
+
+            if (isthingpressedtomakethinghappen == 0) {
+                adns_set_cpi(CPI1375);
+                isthingpressedtomakethinghappen = 1;
+            }
+        }
 
         // Apply delta-X and delta-Y transformations.
         // x and y are swapped
@@ -173,7 +177,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 void keyboard_pre_init_kb(void) {
     // debug_enable = true;
     // debug_matrix = true;
-    debug_mouse = true;
+    // debug_mouse = true;
     // debug_encoder = true;
 
     setPinInput(OPT_ENC1);
@@ -225,7 +229,14 @@ void matrix_init_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
-    adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
-
     keyboard_post_init_user();
+}
+
+void keyboard_post_init_user(void) {
+    debug_enable = true;
+    debug_mouse = true;
+
+    wait_ms(10);
+    // adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    adns_set_cpi(CPI1375);
 }
