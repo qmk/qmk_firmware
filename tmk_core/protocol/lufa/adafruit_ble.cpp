@@ -11,6 +11,7 @@
 #include "spi_master.h"
 #include "wait.h"
 #include "analog.h"
+#include "progmem.h"
 
 // These are the pin assignments for the 32u4 boards.
 // You may define them to something else in your config.h
@@ -36,10 +37,8 @@
 #define SAMPLE_BATTERY
 #define ConnectionUpdateInterval 1000 /* milliseconds */
 
-#ifdef SAMPLE_BATTERY
-#    ifndef BATTERY_LEVEL_PIN
-#        define BATTERY_LEVEL_PIN 7
-#    endif
+#ifndef BATTERY_LEVEL_PIN
+#    define BATTERY_LEVEL_PIN B5
 #endif
 
 static struct {
@@ -118,15 +117,15 @@ enum sdep_type {
     SdepResponse      = 0x20,
     SdepAlert         = 0x40,
     SdepError         = 0x80,
-    SdepSlaveNotReady = 0xfe,  // Try again later
-    SdepSlaveOverflow = 0xff,  // You read more data than is available
+    SdepSlaveNotReady = 0xFE,  // Try again later
+    SdepSlaveOverflow = 0xFF,  // You read more data than is available
 };
 
 enum ble_cmd {
-    BleInitialize = 0xbeef,
-    BleAtWrapper  = 0x0a00,
-    BleUartTx     = 0x0a01,
-    BleUartRx     = 0x0a02,
+    BleInitialize = 0xBEEF,
+    BleAtWrapper  = 0x0A00,
+    BleUartTx     = 0x0A01,
+    BleUartRx     = 0x0A02,
 };
 
 enum ble_system_event_bits {
@@ -176,7 +175,7 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
 
 static inline void sdep_build_pkt(struct sdep_msg *msg, uint16_t command, const uint8_t *payload, uint8_t len, bool moredata) {
     msg->type     = SdepCommand;
-    msg->cmd_low  = command & 0xff;
+    msg->cmd_low  = command & 0xFF;
     msg->cmd_high = command >> 8;
     msg->len      = len;
     msg->more     = (moredata && len == SdepMaxPayload) ? 1 : 0;
@@ -407,11 +406,11 @@ static bool at_command(const char *cmd, char *resp, uint16_t resplen, bool verbo
     }
 
     if (resp == NULL) {
-        auto now = timer_read();
+        uint16_t now = timer_read();
         while (!resp_buf.enqueue(now)) {
             resp_buf_read_one(false);
         }
-        auto later = timer_read();
+        uint16_t later = timer_read();
         if (TIMER_DIFF_16(later, now) > 0) {
             dprintf("waited %dms for resp_buf\n", TIMER_DIFF_16(later, now));
         }
@@ -422,7 +421,7 @@ static bool at_command(const char *cmd, char *resp, uint16_t resplen, bool verbo
 }
 
 bool at_command_P(const char *cmd, char *resp, uint16_t resplen, bool verbose) {
-    auto cmdbuf = (char *)alloca(strlen_P(cmd) + 1);
+    char *cmdbuf = (char *)alloca(strlen_P(cmd) + 1);
     strcpy_P(cmdbuf, cmd);
     return at_command(cmdbuf, resp, resplen, verbose);
 }
@@ -484,9 +483,9 @@ fail:
 static void set_connected(bool connected) {
     if (connected != state.is_connected) {
         if (connected) {
-            print("****** BLE CONNECT!!!!\n");
+            dprint("BLE connected\n");
         } else {
-            print("****** BLE DISCONNECT!!!!\n");
+            dprint("BLE disconnected\n");
         }
         state.is_connected = connected;
 
@@ -556,7 +555,7 @@ void adafruit_ble_task(void) {
     if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval && resp_buf.empty()) {
         state.last_battery_update = timer_read();
 
-        state.vbat = analogRead(BATTERY_LEVEL_PIN);
+        state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
     }
 #endif
 }
@@ -612,7 +611,7 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
     }
 }
 
-bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys) {
+void adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys) {
     struct queue_item item;
     bool              didWait = false;
 
@@ -638,30 +637,27 @@ bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nk
         }
 
         if (nkeys <= 6) {
-            return true;
+            return;
         }
 
         nkeys -= 6;
         keys += 6;
     }
-
-    return true;
 }
 
-bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration) {
+void adafruit_ble_send_consumer_key(uint16_t usage) {
     struct queue_item item;
 
     item.queue_type = QTConsumer;
-    item.consumer   = keycode;
+    item.consumer   = usage;
 
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
-    return true;
 }
 
 #ifdef MOUSE_ENABLE
-bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons) {
+void adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons) {
     struct queue_item item;
 
     item.queue_type        = QTMouseMove;
@@ -674,7 +670,6 @@ bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan,
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
-    return true;
 }
 #endif
 

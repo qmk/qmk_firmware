@@ -4,7 +4,7 @@
 
 O-Ring suspended 60% with F-row keyboard
 
-* Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)
+* Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
 * Hardware Supported: ATmega32U4
 * Hardware Availability: GB run by [mustcode](https://www.reddit.com/user/mustcode). More info on [geekhack](https://geekhack.org/index.php?topic=101040.50)
 

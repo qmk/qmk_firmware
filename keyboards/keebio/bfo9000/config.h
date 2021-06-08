@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         BFO-9000
-#define DESCRIPTION     Really big split ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -53,6 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B4
 #define RGBLED_NUM 20    // Number of LEDs
+#define RGBLED_SPLIT { 10, 10 }
 
 /*
  * Feature disable options

@@ -11,7 +11,7 @@
   * [QMK CLI](es/cli.md)
   * [Configuración de QMK CLI](es/cli_configuration.md)
   * [Contribuyendo a QMK](es/contributing.md)
-  * [Cómo usar Github](es/getting_started_github.md)
+  * [Cómo usar GitHub](es/getting_started_github.md)
   * [Obtener ayuda](es/getting_started_getting_help.md)
 
 * [Cambios incompatibles](es/breaking_changes.md)

@@ -50,7 +50,7 @@ LCD_DISP_ON_CURSOR_BLINK : display on, cursor on flashing
 ````
 This is best done in your keyboards `matrix_init_kb` or your keymaps `matrix_init_user`.  
 It is advised to clear the display before use.  
-To do so call `lcd_clrsrc()`.
+To do so call `lcd_clrscr()`.
 
 To now print something to your Display you first call `lcd_gotoxy(column, line)`. To go to the start of the first line you would call `lcd_gotoxy(0, 0)` and then print a string with `lcd_puts("example string")`.
 

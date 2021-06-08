@@ -4,7 +4,7 @@ An open source 2x4 macropad designed by Charles Garcia.
 
 Keyboard Maintainer: [Charles Garcia](https://github.com/cgarcia2097)  
 Hardware Supported: 8-Pack Macropad PCB  
-Hardware Availability: [8-Pack Github](https://github.com/cgarcia2097/8-Pack)  
+Hardware Availability: [8-Pack GitHub](https://github.com/cgarcia2097/8-Pack)  
 
 Make example for this keyboard (after setting up your build environment):
 

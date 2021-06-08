@@ -1,5 +1,6 @@
 # Included Keyboards
-QMK runs on a diverse range of keyboards. Some of these keyboards are officially supported and see constant community contributions, while others are part of the repository for historical reasons.
+
+QMK runs on a diverse range of keyboards. Some of these keyboards are well maintained and see constant community contributions, while others are part of the repository for historical reasons.
 
 ## Official QMK Keyboards
 
@@ -45,6 +46,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Infinity 60%](/keyboards/infinity60) - &mdash; Compact community keyboard by Input Club.
 * [JD45](/keyboards/jd45) &mdash; Another Geekhack community project, designed by jdcarpe.
 * [JJ40](/keyboards/jj40) &mdash; ps2avrGB based ortholinear sold by KPrepublic
+* [JJ50](/keyboards/jj50) &mdash; A compact 50% (5x12) ortholinear keyboard sold by KPrepublic.
 * [KBD75](/keyboards/kbd75) &mdash; A 75% keyboard made by made by KBDFans.
 * [KC60](/keyboards/kc60) &mdash; A programmable Chinese-made keyboard, lost in the mists of time.
 * [Kinesis Advantage](/keyboards/kinesis) &mdash; Contoured ergonomic keyboard by Kinesis Computer Ergonomics.
@@ -61,4 +63,4 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Vision Division](/keyboards/vision_division) &mdash; Full Size / Split Linear Keyboard by IBNobody.
 * [XD004](/keyboards/xd004) &mdash; 1x4 macro keyboard sold by KPrepublic.
 * [XD75](/keyboards/xd75) &mdash; 15x5 ortholinear keyboard by XIUDI.
-* [YMDK NP21](/keyboards/ymdk_np21) &mdash; ps2avrGB based number pad (numpad) sold by YMDK on Aliexpress. 
+* [YMDK NP21](/keyboards/ymdk_np21) &mdash; ps2avrGB based number pad (numpad) sold by YMDK on Aliexpress.

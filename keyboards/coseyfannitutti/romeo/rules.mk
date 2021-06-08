@@ -11,10 +11,6 @@ MCU = atmega328p
 #   ATmega328P   USBasp
 BOOTLOADER = USBasp
 
-# disable debug code
-OPT_DEFS = -DDEBUG_LEVEL=0
-
-
 # Build Options
 #   change yes to no to disable
 #
@@ -33,5 +29,3 @@ MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-HD44780_ENABLE = no         # Enable support for HD44780 based LCDs

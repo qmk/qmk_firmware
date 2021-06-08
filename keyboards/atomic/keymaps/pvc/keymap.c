@@ -102,7 +102,7 @@ enum keyboard_macros {
 #define SC_CCLS             LCTL(KC_F4)
 
 #define TG_NKRO             MAGIC_TOGGLE_NKRO
-#define OS_SHFT             KC_FN0
+#define OS_SHFT             OSM(MOD_LSFT)
 
 #define ________________    _______, _______
 #define XXXXXXXXXXXXXXXX    XXXXXXX, XXXXXXX
@@ -258,10 +258,6 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_MODS_ONESHOT(MOD_LSFT),
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   // MACRODOWN only works in this function
@@ -405,7 +401,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             else
             {
                 breathing_period_set(1);
-                breathing_self_disable();
+                breathing_disable();
                 layer_off(LAYER_FUNCTION);
             }
             break;

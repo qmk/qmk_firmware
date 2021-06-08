@@ -55,6 +55,7 @@
 #include "udi_hid_kbd.h"
 #include <string.h>
 #include "report.h"
+#include "usb_descriptor_common.h"
 
 //***************************************************************************
 // KBD
@@ -641,8 +642,8 @@ static uint8_t udi_hid_raw_report_recv[UDI_HID_RAW_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_raw_report_desc_t udi_hid_raw_report_desc = {{
-    0x06, 0x60, 0xFF,  // Usage Page (Vendor Defined)
-    0x09, 0x61,        // Usage (Vendor Defined)
+    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI,  // Usage Page (Vendor Defined)
+    0x09, RAW_USAGE_ID,        // Usage (Vendor Defined)
     0xA1, 0x01,        // Collection (Application)
     0x75, 0x08,        //   Report Size (8)
     0x15, 0x00,        //   Logical Minimum (0)

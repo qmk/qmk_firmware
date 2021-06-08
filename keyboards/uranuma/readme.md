@@ -5,7 +5,7 @@ It is a keyboard to input using fingers and palms.
 
 * Keyboard Maintainer: yohewi(yohewi@gmail.com)
 * Hardware Supported: UraNuma PCB
-* Github [github.com/yohewi](https://github.com/yohewi)
+* GitHub [github.com/yohewi](https://github.com/yohewi)
 * Hardware Availability: PCB, [Booth Shop](https://rt421.booth.pm/)
 
 Make example for this keyboard (after setting up your build environment):

@@ -5,7 +5,7 @@
   * [מקורות ללמידה](he-il/newbs_learn_more_resources.md)
 * [בסיס QMK](he-il/README.md)
     * [מבוא לQMK](he-il/getting_started_introduction.md)
-    * [איך להשתמש בGithub](he-il/getting_started_github.md)
+    * [איך להשתמש בGitHub](he-il/getting_started_github.md)
     * [קבלת עזרה](he-il/getting_started_getting_help.md)
 * [שאלות נפוצות](he-il/faq.md)
     * [שאלות נפוצות כלליות](he-il/faq_general.md)
@@ -27,7 +27,7 @@
   * [QMK CLI](he-il/cli.md)
   * [QMK CLI Config](he-il/cli_configuration.md)
   * [תרומה ל QMK](he-il/contributing.md)
-  * [איך להשתמש בGithub](he-il/getting_started_github.md)
+  * [איך להשתמש בGitHub](he-il/getting_started_github.md)
   * [קבלת עזרה](he-il/getting_started_getting_help.md)
 
 * [שינויים משמעותיים](he-il/breaking_changes.md)

@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef ACTION_CODE_H
-#define ACTION_CODE_H
+
+#pragma once
 
 /** \brief Action codes
  *
@@ -294,15 +294,15 @@ enum swap_hands_param_tap_op {
     OP_SH_OFF_ON,
     OP_SH_OFF,
     OP_SH_ON,
+    OP_SH_ONESHOT,
 };
 
 #define ACTION_SWAP_HANDS() ACTION_SWAP_HANDS_ON_OFF()
 #define ACTION_SWAP_HANDS_TOGGLE() ACTION(ACT_SWAP_HANDS, OP_SH_TOGGLE)
 #define ACTION_SWAP_HANDS_TAP_TOGGLE() ACTION(ACT_SWAP_HANDS, OP_SH_TAP_TOGGLE)
+#define ACTION_SWAP_HANDS_ONESHOT() ACTION(ACT_SWAP_HANDS, OP_SH_ONESHOT)
 #define ACTION_SWAP_HANDS_TAP_KEY(key) ACTION(ACT_SWAP_HANDS, key)
 #define ACTION_SWAP_HANDS_ON_OFF() ACTION(ACT_SWAP_HANDS, OP_SH_ON_OFF)
 #define ACTION_SWAP_HANDS_OFF_ON() ACTION(ACT_SWAP_HANDS, OP_SH_OFF_ON)
 #define ACTION_SWAP_HANDS_ON() ACTION(ACT_SWAP_HANDS, OP_SH_ON)
 #define ACTION_SWAP_HANDS_OFF() ACTION(ACT_SWAP_HANDS, OP_SH_OFF)
-
-#endif /* ACTION_CODE_H */
