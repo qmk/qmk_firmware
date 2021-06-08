@@ -4,7 +4,7 @@
 	branch = master
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
-	url = https://github.com/SonixQMK/ChibiOS-Contrib
+	url = https://github.com/toastdb/ChibiOS-Contrib
 	branch = sn32
 [submodule "lib/ugfx"]
 	path = lib/ugfx
