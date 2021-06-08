@@ -49,8 +49,8 @@
 #ifndef NUMBER_OF_ENCODERS
     #define NUMBER_OF_ENCODERS 1
 #endif
-#define ENCODER_KEYMAP_CLOCKWISE { {5, 2} }
-#define ENCODER_KEYMAP_COUTERCLOCKWISE { {5, 4} }
+#define ENCODER_KEYMAP_CLOCKWISE { {5, 4} }
+#define ENCODER_KEYMAP_COUTERCLOCKWISE { {5, 2} }
 
 #define LAYOUT_27_encoder( \
     K00, K01, K02, K03, K52, K04, K54, \
