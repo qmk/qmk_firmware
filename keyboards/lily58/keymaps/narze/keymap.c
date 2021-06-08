@@ -286,60 +286,61 @@ void matrix_init_user(void) {
 
 #ifdef OLED_DRIVER_ENABLE
 
-// When add source files to SRC in rules.mk, you can use functions.
-const char *read_layer(void);
-const char *read_logo(void);
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_layer_state(void);
-const char *read_keylog(void);
-const char *read_keylogs(void);
-
-// const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
-// void set_timelog(void);
-// const char *read_timelog(void);
-
-void iota_gfx_task_user(void) {
-  if (is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
-    oled_write_ln(read_keylog(), false);
-    oled_write_ln(read_keylogs(), false);
-    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    //oled_write_ln(read_host_led_state(), false);
-    //oled_write_ln(read_timelog(), false);
-  } else {
-    oled_write(read_logo(), false);
-  }
-}
-
-// Rotate oled on left side
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   return rotation;
 }
 
-#endif
+// When add source files to SRC in rules.mk, you can use functions.
+const char *read_layer_state(void);
+const char *read_logo(void);
+void set_keylog(uint16_t keycode, keyrecord_t *record);
+const char *read_keylog(void);
+const char *read_keylogs(void);
+
+const char *read_mode_icon(bool swap);
+const char *read_host_led_state(void);
+void set_timelog(void);
+const char *read_timelog(void);
+
+char encoder_debug[24];
+
+void oled_task_user(void) {
+  // Host Keyboard Layer Status
+  if (is_keyboard_master()) {
+    // If you want to change the display of OLED, you need to change here
+    oled_write_ln(read_layer_state(), false);
+    oled_write_ln(read_keylog(), false);
+    oled_write_ln(read_keylogs(), false);
+    // oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
+    oled_write_ln(read_host_led_state(), false);
+    // oled_write_ln(read_timelog(), false);
+  } else {
+    oled_write(read_logo(), false);
+    // oled_write_ln(encoder_debug, false);
+  }
+}
+
+#endif //OLED_DRIVER_ENABLE
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     // Left
-    { {5,5},{4,5},{3,5},{2,5},{1,5},{0,5} },
-    { {5,6},{4,6},{3,6},{2,6},{1,6},{0,6} },
-    { {5,7},{4,7},{3,7},{2,7},{1,7},{0,7} },
-    { {5,8},{4,8},{3,8},{2,8},{1,8},{0,8} },
-    { {5,9},{4,9},{3,9},{2,9},{1,9},{0,9} },
+    {{5,5},{4,5},{3,5},{2,5},{1,5},{0,5}},
+    {{5,6},{4,6},{3,6},{2,6},{1,6},{0,6}},
+    {{5,7},{4,7},{3,7},{2,7},{1,7},{0,7}},
+    {{5,8},{4,8},{3,8},{2,8},{1,8},{0,8}},
+    {{5,9},{4,9},{3,9},{2,9},{1,9},{0,9}},
     // Right
-    { {5,4},{4,4},{3,4},{2,4},{1,4},{0,4} },
-    { {5,3},{4,3},{3,3},{2,3},{1,3},{0,3} },
-    { {5,2},{4,2},{3,2},{2,2},{1,2},{0,2} },
-    { {5,1},{4,1},{3,1},{2,1},{1,1},{0,1} },
-    { {5,0},{4,0},{3,1},{2,1},{1,1},{0,1} },
+    {{0,0},{1,0},{2,0},{3,0},{4,0},{5,0}},
+    {{0,1},{1,1},{2,1},{3,1},{4,1},{5,1}},
+    {{0,2},{1,2},{2,2},{3,2},{4,2},{5,2}},
+    {{0,3},{1,3},{2,3},{3,3},{4,3},{5,3}},
+    {{0,4},{1,4},{2,4},{3,4},{4,4},{5,4}},
 };
 #endif
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
