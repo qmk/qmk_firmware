@@ -23,7 +23,12 @@ bool effect_runner_reactive_splash(uint8_t start, effect_params_t* params, react
         RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    #if defined(RGB_MATRIX_SPLIT)
+        if (is_keyboard_left()) return led_max < k_rgb_matrix_split[0];
+        else return led_max < DRIVER_LED_TOTAL;
+    #else
+        return led_max < DRIVER_LED_TOTAL;
+    #endif
 }
 
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED

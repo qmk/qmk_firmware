@@ -48,14 +48,35 @@
 #endif
 
 #if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
-#    define RGB_MATRIX_USE_LIMITS(min, max)                        \
-        uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter; \
-        uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;          \
-        if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+    #if defined(RGB_MATRIX_SPLIT)
+        #    define RGB_MATRIX_USE_LIMITS(min, max)                        \
+                uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter; \
+                uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;          \
+                if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;  \
+                uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT; \
+                k_rgb_matrix_split[1] += 1; \
+                k_rgb_matrix_split[1] -= 1; \
+                if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0] ; \
+                if( !(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0]; 
+    #else
+        #    define RGB_MATRIX_USE_LIMITS(min, max)                        \
+                uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter; \
+                uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;          \
+                if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+    #endif
 #else
-#    define RGB_MATRIX_USE_LIMITS(min, max) \
-        uint8_t min = 0;                    \
-        uint8_t max = DRIVER_LED_TOTAL;
+    #if defined(RGB_MATRIX_SPLIT)
+        #    define RGB_MATRIX_USE_LIMITS(min, max) \
+                uint8_t min = 0;                    \
+                uint8_t max = DRIVER_LED_TOTAL; \
+                const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT; \
+                if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0]; \
+                if( !(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0];
+    #else
+        #    define RGB_MATRIX_USE_LIMITS(min, max) \
+                uint8_t min = 0;                    \
+                uint8_t max = DRIVER_LED_TOTAL;
+    #endif
 #endif
 
 #define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) \

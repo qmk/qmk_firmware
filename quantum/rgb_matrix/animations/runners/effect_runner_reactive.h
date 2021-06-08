@@ -22,8 +22,14 @@ bool effect_runner_reactive(effect_params_t* params, reactive_f effect_func) {
         uint16_t offset = scale16by8(tick, qadd8(rgb_matrix_config.speed, 1));
         RGB      rgb    = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, offset));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+
     }
-    return led_max < DRIVER_LED_TOTAL;
+    #if defined(RGB_MATRIX_SPLIT)
+        if (is_keyboard_left()) return led_max < k_rgb_matrix_split[0];
+        else return led_max < DRIVER_LED_TOTAL;
+    #else
+        return led_max < DRIVER_LED_TOTAL;
+    #endif
 }
 
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED

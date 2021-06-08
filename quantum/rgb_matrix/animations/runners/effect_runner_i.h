@@ -11,5 +11,10 @@ bool effect_runner_i(effect_params_t* params, i_f effect_func) {
         RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    #if defined(RGB_MATRIX_SPLIT)
+        if (is_keyboard_left()) return led_max < k_rgb_matrix_split[0];
+        else return led_max < DRIVER_LED_TOTAL;
+    #else
+        return led_max < DRIVER_LED_TOTAL;
+    #endif
 }
