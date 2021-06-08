@@ -18,8 +18,8 @@
  */
 
 #include "trackball_mini.h"
-#include "print.h"
 #include "wait.h"
+#include "print.h"
 
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
@@ -106,16 +106,19 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
 int isthingpressedtomakethinghappen = 0;
 
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
+//    if (isthingpressedtomakethinghappen == 0) {
+//        adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
+//        isthingpressedtomakethinghappen = 1;
+//    }
+
     report_adns_t data = adns_read_burst();
 
     if (data.dx != 0 || data.dy != 0) {
         if (debug_mouse) {
-            uint8_t dpi_read = adns_read_reg(REG_MOUSE_CONTROL2);
             dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
-            dprintf("DPI ] %d\n", dpi_read);
 
             if (isthingpressedtomakethinghappen == 0) {
-                adns_set_cpi(CPI1375);
+                adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
                 isthingpressedtomakethinghappen = 1;
             }
         }
@@ -229,14 +232,6 @@ void matrix_init_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
-    keyboard_post_init_user();
-}
-
-void keyboard_post_init_user(void) {
     debug_enable = true;
     debug_mouse = true;
-
-    wait_ms(10);
-    // adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
-    adns_set_cpi(CPI1375);
 }
