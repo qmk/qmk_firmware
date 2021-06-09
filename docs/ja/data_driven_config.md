@@ -59,7 +59,7 @@ QMK では、[jsonschema](https:json-schema.org) のファイルを `data/schema
 その他の場合、1つの `object` の中に、似ているオプションを集める必要があります。
 これは、機能のサポートを追加する場合に特に当てはまります。
 このために従うべきいくつかの例は、`indicators`、`matrix_pins`、および `rgblight` です。
-新しいオプションを統合する方法がわからない場合は、[問題を開く](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=)か、[Discord で #cliに参加](https://discord.gg/heQPAgy)して、そこで会話を始めてください。
+新しいオプションを統合する方法がわからない場合は、[問題を開く](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=)か、[Discord で #cli に参加](https://discord.gg/heQPAgy)して、そこで会話を始めてください。
 
 ### マッピングを追加する
 
