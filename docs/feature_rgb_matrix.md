@@ -228,6 +228,79 @@ Configure the hardware via your `config.h`:
 ```
 
 ---
+### AW20216 :id=aw20216
+There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = AW20216
+```
+
+You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
+| `DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
+| `DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
+| `DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
+| `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
+| `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to first second driver  | |
+| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+
+Here is an example using 2 drivers.
+
+```c
+#define DRIVER_1_CS B13
+#define DRIVER_2_CS B14
+// Hardware enable lines may be connected to the same pin
+#define DRIVER_1_EN C13
+#define DRIVER_2_EN C13
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 66
+#define DRIVER_2_LED_TOTAL 32
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+```
+
+!> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+```c
+const aw_led g_aw_leds_1[DRIVER_1_LED_TOTAL] = {
+/* Each AW20216 channel is controlled by a register at
+ * some offset between 0 and 215 inclusive
+ *    R location
+ *    |  G location
+ *    |  |  B location
+ *    |  |  | */
+    { 0, 1, 2 }, // QMK RGB LED 0 is connected to AW20216 channels 0, 1, 3
+    { 3, 4, 5 }, // QMK RGB LED 1 is connected to AW20216 channels 3, 4, 5
+    { 6, 7, 8 }  // QMK RGB LED 2 is connected to AW20216 channels 6, 7, 8
+    ...
+};
+
+// Don't define this if only using one driver IC
+#ifdef DRIVER_2_LED_TOTAL
+const aw_led g_aw_leds_2[DRIVER_2_LED_TOTAL] = {
+    { 0, 1, 2 },
+    { 12, 13, 14 },
+    { 15, 16, 17 }
+    ...
+};
+#endif
+
+const aw_led *g_aw_leds[DRIVER_COUNT] = {
+    g_aw_leds_1,
+#ifdef DRIVER_2_LED_TOTAL
+    g_aw_leds_2
+#endif
+};
+```
+
+---
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
