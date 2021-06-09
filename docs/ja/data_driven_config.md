@@ -48,7 +48,7 @@ C 側では何も変わりません。
 
 ### スキーマに追加する
 
-QMKでは、[jsonschema](https:json-schema.org) のファイルを `dataschemas` に保持しています。
+QMK では、[jsonschema](https:json-schema.org) のファイルを `data/schemas` に保持しています。
 キーボード固有の `info.json` ファイルに入る値は `keyboard.jsonschema` に保持されています。
 エンドユーザが編集できるようにしたい値はすべてここに入れなければなりません。
 
