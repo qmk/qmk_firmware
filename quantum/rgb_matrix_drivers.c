@@ -181,9 +181,9 @@ static void init(void) {
 static void flush(void) { AW20216_update_pwm_buffers(); }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = init,
-    .flush = flush,
-    .set_color = AW20216_set_color,
+    .init          = init,
+    .flush         = flush,
+    .set_color     = AW20216_set_color,
     .set_color_all = AW20216_set_color_all,
 };
 

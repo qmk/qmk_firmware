@@ -31,7 +31,6 @@ extern const aw_led g_aw_leds_2[DRIVER_2_LED_TOTAL];
 #endif
 extern const aw_led *g_aw_leds[DRIVER_COUNT];
 
-
 void AW20216_init(void);
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue);

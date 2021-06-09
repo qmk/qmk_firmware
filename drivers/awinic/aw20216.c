@@ -30,10 +30,10 @@
 #define AW_PAGE_PWMSCALING 0x04 << 1  // PG4, LED PWM + Scaling control?
 
 #define AW_WRITE 0
-#define AW_READ  1
+#define AW_READ 1
 
-#define AW_REG_CONFIGURATION 0x00 // PG0
-#define AW_REG_GLOBALCURRENT 0x01 // PG0
+#define AW_REG_CONFIGURATION 0x00  // PG0
+#define AW_REG_GLOBALCURRENT 0x01  // PG0
 
 // Default value of AW_REG_CONFIGURATION
 // D7:D4 = 1011, SWSEL (SW1~SW12 active)
@@ -44,24 +44,24 @@
 #define AW_CHIPEN 1
 
 #ifndef AW_SCALING_MAX
-#   define AW_SCALING_MAX 150
+#    define AW_SCALING_MAX 150
 #endif
 
 #ifndef AW_GLOBAL_CURRENT_MAX
-#   define AW_GLOBAL_CURRENT_MAX 150
+#    define AW_GLOBAL_CURRENT_MAX 150
 #endif
 
 #ifndef DRIVER_1_CS
-#   define DRIVER_1_CS B13
+#    define DRIVER_1_CS B13
 #endif
 
 #ifndef DRIVER_1_EN
-#   define DRIVER_1_EN C13
+#    define DRIVER_1_EN C13
 #endif
 
-uint8_t g_spi_transfer_buffer[20] = { 0 };
-aw_led g_pwm_buffer[DRIVER_LED_TOTAL];
-bool g_pwm_buffer_update_required[DRIVER_LED_TOTAL];
+uint8_t g_spi_transfer_buffer[20] = {0};
+aw_led  g_pwm_buffer[DRIVER_LED_TOTAL];
+bool    g_pwm_buffer_update_required[DRIVER_LED_TOTAL];
 
 bool AW20216_write_register(pin_t slave_pin, uint8_t page, uint8_t reg, uint8_t data) {
     // Do we need to call spi_stop() if this fails?
@@ -83,14 +83,14 @@ bool AW20216_write_register(pin_t slave_pin, uint8_t page, uint8_t reg, uint8_t 
 
 bool AW20216_init_scaling(void) {
     // Set constant current to the max, control brightness with PWM
-    for(uint8_t i = 0; i < DRIVER_1_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i < DRIVER_1_LED_TOTAL; i++) {
         AW20216_write_register(DRIVER_1_CS, AW_PAGE_SCALING, g_aw_leds_1[i].r, AW_SCALING_MAX);
         AW20216_write_register(DRIVER_1_CS, AW_PAGE_SCALING, g_aw_leds_1[i].g, AW_SCALING_MAX);
         AW20216_write_register(DRIVER_1_CS, AW_PAGE_SCALING, g_aw_leds_1[i].b, AW_SCALING_MAX);
     }
 
 #ifdef DRIVER_2_CS
-    for(uint8_t i = 0; i < DRIVER_2_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i < DRIVER_2_LED_TOTAL; i++) {
         AW20216_write_register(DRIVER_2_CS, AW_PAGE_SCALING, g_aw_leds_2[i].r, AW_SCALING_MAX);
         AW20216_write_register(DRIVER_2_CS, AW_PAGE_SCALING, g_aw_leds_2[i].g, AW_SCALING_MAX);
         AW20216_write_register(DRIVER_2_CS, AW_PAGE_SCALING, g_aw_leds_2[i].b, AW_SCALING_MAX);
@@ -108,12 +108,12 @@ bool AW20216_soft_enable(void) {
 }
 
 void AW20216_update_pwm(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    pin_t cs = DRIVER_1_CS;
+    pin_t   cs     = DRIVER_1_CS;
     uint8_t driver = 0;
 #ifdef DRIVER_2_CS
     if (index >= DRIVER_1_LED_TOTAL) {
         index -= DRIVER_1_LED_TOTAL;
-        cs = DRIVER_2_CS;
+        cs     = DRIVER_2_CS;
         driver = 1;
     }
 #endif
@@ -135,14 +135,14 @@ void AW20216_init(void) {
 #endif
     AW20216_init_scaling();
     AW20216_soft_enable();
-    //AW20216_write_register(DRIVER_1_CS, AW_PAGE_PWM, 1, 200);
+    // AW20216_write_register(DRIVER_1_CS, AW_PAGE_PWM, 1, 200);
     return;
 }
 
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    g_pwm_buffer[index].r = red;
-    g_pwm_buffer[index].g = green;
-    g_pwm_buffer[index].b = blue;
+    g_pwm_buffer[index].r               = red;
+    g_pwm_buffer[index].g               = green;
+    g_pwm_buffer[index].b               = blue;
     g_pwm_buffer_update_required[index] = true;
     return;
 }
@@ -153,8 +153,8 @@ void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     return;
 }
 void AW20216_update_pwm_buffers(void) {
-    for(uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        if(g_pwm_buffer_update_required[i]) {
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        if (g_pwm_buffer_update_required[i]) {
             AW20216_update_pwm(i, g_pwm_buffer[i].r, g_pwm_buffer[i].g, g_pwm_buffer[i].b);
             g_pwm_buffer_update_required[i] = false;
         }
