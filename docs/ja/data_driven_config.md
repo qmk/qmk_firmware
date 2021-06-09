@@ -73,7 +73,7 @@ QMKでは、[jsonschema](https:json-schema.org) のファイルを `dataschemas`
 * `to_c`: (オプション）デフォルトは `true`。 このマッピングを config.h から除外するには、`false` に設定します
 * `warn_duplicate`: (オプション）デフォルトは `true`。 値が両方の場所に存在する場合に警告をオフにするには、`false` に設定します
 
-#### 情報キー
+#### Info Key
 
 info.json 内の変数をアドレス指定するために JSON ドット表記を使用します。
 たとえば、`info_json["rgblight"]["split_count"]` にアクセスするには、`rgblight.split_count` を指定します。
