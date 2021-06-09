@@ -245,7 +245,7 @@ You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC
 | `DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
 | `DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
 | `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
-| `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to first second driver  | |
+| `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
 
