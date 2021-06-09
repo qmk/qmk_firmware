@@ -135,104 +135,104 @@ led_config_t g_led_config = { {
 } };
 
 const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
-    { CS1_SW1, CS2_SW1, CS3_SW1 },  //  0, ESC, k13
-    { CS4_SW1, CS5_SW1, CS6_SW1 },  //  1, ~, k16
-    { CS7_SW1, CS8_SW1, CS9_SW1 },  //  2, Tab, k11
-    { CS10_SW1, CS11_SW1, CS12_SW1 },  //  3, Caps, k21
-    { CS13_SW1, CS14_SW1, CS15_SW1 },  //  4, Sh_L, k00
-    { CS16_SW1, CS17_SW1, CS18_SW1 },  //  5, Ct_L, k06
-    { CS1_SW2, CS2_SW2, CS3_SW2 },  //  6, F1, k26
-    { CS4_SW2, CS5_SW2, CS6_SW2 },  //  7, 1, k17
-    { CS7_SW2, CS8_SW2, CS9_SW2 },  //  8, Q, k10
-    { CS10_SW2, CS11_SW2, CS12_SW2 },  //  9, A, k12
-    { CS13_SW2, CS14_SW2, CS15_SW2 },  //  10, Z, k14
-    { CS16_SW2, CS17_SW2, CS18_SW2 },  //  11, Win_L, k90
-    { CS1_SW3, CS2_SW3, CS3_SW3 },  //  12, F2, k36
-    { CS4_SW3, CS5_SW3, CS6_SW3 },  //  13, 2, k27
-    { CS7_SW3, CS8_SW3, CS9_SW3 },  //  14, W, k20
-    { CS10_SW3, CS11_SW3, CS12_SW3 },  //  15, S, k22
-    { CS13_SW3, CS14_SW3, CS15_SW3 },  //  16, X, k24
-    { CS16_SW3, CS17_SW3, CS18_SW3 },  //  17, Alt_L, k93
-    { CS1_SW4, CS2_SW4, CS3_SW4 },  //  18, F3, k31
-    { CS4_SW4, CS5_SW4, CS6_SW4 },  //  19, 3, k37
-    { CS7_SW4, CS8_SW4, CS9_SW4 },  //  20, E, k30
-    { CS10_SW4, CS11_SW4, CS12_SW4 },  //  21, D, k32
-    { CS13_SW4, CS14_SW4, CS15_SW4 },  //  22, C, k34
-    { CS1_SW5, CS2_SW5, CS3_SW5 },  //  23, F4, k33
-    { CS4_SW5, CS5_SW5, CS6_SW5 },  //  24, 4, k47
-    { CS7_SW5, CS8_SW5, CS9_SW5 },  //  25, R, k40
-    { CS10_SW5, CS11_SW5, CS12_SW5 },  //  26, F, k42
-    { CS13_SW5, CS14_SW5, CS15_SW5 },  //  27, V, k44
-    { CS1_SW6, CS2_SW6, CS3_SW6 },  //  28, F5, k07
-    { CS4_SW6, CS5_SW6, CS6_SW6 },  //  29, 5, k46
-    { CS7_SW6, CS8_SW6, CS9_SW6 },  //  30, T, k41
-    { CS10_SW6, CS11_SW6, CS12_SW6 },  //  31, G, k43
-    { CS13_SW6, CS14_SW6, CS15_SW6 },  //  32, B, k45
-    { CS16_SW6, CS17_SW6, CS18_SW6 },  //  33, SPACE, k94
-    { CS1_SW7, CS2_SW7, CS3_SW7 },  //  34, F6, k63
-    { CS4_SW7, CS5_SW7, CS6_SW7 },  //  35, 6, k56
-    { CS7_SW7, CS8_SW7, CS9_SW7 },  //  36, Y, k51
-    { CS10_SW7, CS11_SW7, CS12_SW7 },  //  37, H, k53
-    { CS13_SW7, CS14_SW7, CS15_SW7 },  //  38, N, k55
-    { CS1_SW8, CS2_SW8, CS3_SW8 },  //  39, F7, k71
-    { CS4_SW8, CS5_SW8, CS6_SW8 },  //  40, 7, k57
-    { CS7_SW8, CS8_SW8, CS9_SW8 },  //  41, U, k50
-    { CS10_SW8, CS11_SW8, CS12_SW8 },  //  42, J, k52
-    { CS13_SW8, CS14_SW8, CS15_SW8 },  //  43, M, k54
-    { CS1_SW9, CS2_SW9, CS3_SW9 },  //  44, F8, k76
-    { CS4_SW9, CS5_SW9, CS6_SW9 },  //  45, 8, k67
-    { CS7_SW9, CS8_SW9, CS9_SW9 },  //  46, I, k60
-    { CS10_SW9, CS11_SW9, CS12_SW9 },  //  47, K, k62
-    { CS13_SW9, CS14_SW9, CS15_SW9 },  //  48, ,, k64
-    { CS16_SW9, CS17_SW9, CS18_SW9 },  //  49, Alt_R, k95
-    { CS1_SW10, CS2_SW10, CS3_SW10 },  //  50, F9, ka6
-    { CS4_SW10, CS5_SW10, CS6_SW10 },  //  51, 9, k77
-    { CS7_SW10, CS8_SW10, CS9_SW10 },  //  52, O, k70
-    { CS10_SW10, CS11_SW10, CS12_SW10 },  //  53, L, k72
-    { CS13_SW10, CS14_SW10, CS15_SW10 },  //  54, ., k74
-    { CS16_SW10, CS17_SW10, CS18_SW10 },  //  55, FN, k92
-    { CS1_SW11, CS2_SW11, CS3_SW11 },  //  56, F10, ka7
-    { CS4_SW11, CS5_SW11, CS6_SW11 },  //  57, 0, k87
-    { CS7_SW11, CS8_SW11, CS9_SW11 },  //  58, P, k80
-    { CS10_SW11, CS11_SW11, CS12_SW11 },  //  59, ;, k82
-    { CS13_SW11, CS14_SW11, CS15_SW11 },  //  60, ?, k85
-    { CS1_SW12, CS2_SW12, CS3_SW12 },  //  61, F11, ka3
-    { CS4_SW12, CS5_SW12, CS6_SW12 },  //  62, -, k86
-    { CS7_SW12, CS8_SW12, CS9_SW12 },  //  63, [, k81
-    { CS10_SW12, CS11_SW12, CS12_SW12 },  //  64, ", k83
-    { CS16_SW12, CS17_SW12, CS18_SW12 },  //  65, Ct_R, k04
+    { 0, CS1_SW1, CS2_SW1, CS3_SW1 },  //  0, ESC, k13
+    { 0, CS4_SW1, CS5_SW1, CS6_SW1 },  //  1, ~, k16
+    { 0, CS7_SW1, CS8_SW1, CS9_SW1 },  //  2, Tab, k11
+    { 0, CS10_SW1, CS11_SW1, CS12_SW1 },  //  3, Caps, k21
+    { 0, CS13_SW1, CS14_SW1, CS15_SW1 },  //  4, Sh_L, k00
+    { 0, CS16_SW1, CS17_SW1, CS18_SW1 },  //  5, Ct_L, k06
+    { 0, CS1_SW2, CS2_SW2, CS3_SW2 },  //  6, F1, k26
+    { 0, CS4_SW2, CS5_SW2, CS6_SW2 },  //  7, 1, k17
+    { 0, CS7_SW2, CS8_SW2, CS9_SW2 },  //  8, Q, k10
+    { 0, CS10_SW2, CS11_SW2, CS12_SW2 },  //  9, A, k12
+    { 0, CS13_SW2, CS14_SW2, CS15_SW2 },  //  10, Z, k14
+    { 0, CS16_SW2, CS17_SW2, CS18_SW2 },  //  11, Win_L, k90
+    { 0, CS1_SW3, CS2_SW3, CS3_SW3 },  //  12, F2, k36
+    { 0, CS4_SW3, CS5_SW3, CS6_SW3 },  //  13, 2, k27
+    { 0, CS7_SW3, CS8_SW3, CS9_SW3 },  //  14, W, k20
+    { 0, CS10_SW3, CS11_SW3, CS12_SW3 },  //  15, S, k22
+    { 0, CS13_SW3, CS14_SW3, CS15_SW3 },  //  16, X, k24
+    { 0, CS16_SW3, CS17_SW3, CS18_SW3 },  //  17, Alt_L, k93
+    { 0, CS1_SW4, CS2_SW4, CS3_SW4 },  //  18, F3, k31
+    { 0, CS4_SW4, CS5_SW4, CS6_SW4 },  //  19, 3, k37
+    { 0, CS7_SW4, CS8_SW4, CS9_SW4 },  //  20, E, k30
+    { 0, CS10_SW4, CS11_SW4, CS12_SW4 },  //  21, D, k32
+    { 0, CS13_SW4, CS14_SW4, CS15_SW4 },  //  22, C, k34
+    { 0, CS1_SW5, CS2_SW5, CS3_SW5 },  //  23, F4, k33
+    { 0, CS4_SW5, CS5_SW5, CS6_SW5 },  //  24, 4, k47
+    { 0, CS7_SW5, CS8_SW5, CS9_SW5 },  //  25, R, k40
+    { 0, CS10_SW5, CS11_SW5, CS12_SW5 },  //  26, F, k42
+    { 0, CS13_SW5, CS14_SW5, CS15_SW5 },  //  27, V, k44
+    { 0, CS1_SW6, CS2_SW6, CS3_SW6 },  //  28, F5, k07
+    { 0, CS4_SW6, CS5_SW6, CS6_SW6 },  //  29, 5, k46
+    { 0, CS7_SW6, CS8_SW6, CS9_SW6 },  //  30, T, k41
+    { 0, CS10_SW6, CS11_SW6, CS12_SW6 },  //  31, G, k43
+    { 0, CS13_SW6, CS14_SW6, CS15_SW6 },  //  32, B, k45
+    { 0, CS16_SW6, CS17_SW6, CS18_SW6 },  //  33, SPACE, k94
+    { 0, CS1_SW7, CS2_SW7, CS3_SW7 },  //  34, F6, k63
+    { 0, CS4_SW7, CS5_SW7, CS6_SW7 },  //  35, 6, k56
+    { 0, CS7_SW7, CS8_SW7, CS9_SW7 },  //  36, Y, k51
+    { 0, CS10_SW7, CS11_SW7, CS12_SW7 },  //  37, H, k53
+    { 0, CS13_SW7, CS14_SW7, CS15_SW7 },  //  38, N, k55
+    { 0, CS1_SW8, CS2_SW8, CS3_SW8 },  //  39, F7, k71
+    { 0, CS4_SW8, CS5_SW8, CS6_SW8 },  //  40, 7, k57
+    { 0, CS7_SW8, CS8_SW8, CS9_SW8 },  //  41, U, k50
+    { 0, CS10_SW8, CS11_SW8, CS12_SW8 },  //  42, J, k52
+    { 0, CS13_SW8, CS14_SW8, CS15_SW8 },  //  43, M, k54
+    { 0, CS1_SW9, CS2_SW9, CS3_SW9 },  //  44, F8, k76
+    { 0, CS4_SW9, CS5_SW9, CS6_SW9 },  //  45, 8, k67
+    { 0, CS7_SW9, CS8_SW9, CS9_SW9 },  //  46, I, k60
+    { 0, CS10_SW9, CS11_SW9, CS12_SW9 },  //  47, K, k62
+    { 0, CS13_SW9, CS14_SW9, CS15_SW9 },  //  48, ,, k64
+    { 0, CS16_SW9, CS17_SW9, CS18_SW9 },  //  49, Alt_R, k95
+    { 0, CS1_SW10, CS2_SW10, CS3_SW10 },  //  50, F9, ka6
+    { 0, CS4_SW10, CS5_SW10, CS6_SW10 },  //  51, 9, k77
+    { 0, CS7_SW10, CS8_SW10, CS9_SW10 },  //  52, O, k70
+    { 0, CS10_SW10, CS11_SW10, CS12_SW10 },  //  53, L, k72
+    { 0, CS13_SW10, CS14_SW10, CS15_SW10 },  //  54, ., k74
+    { 0, CS16_SW10, CS17_SW10, CS18_SW10 },  //  55, FN, k92
+    { 0, CS1_SW11, CS2_SW11, CS3_SW11 },  //  56, F10, ka7
+    { 0, CS4_SW11, CS5_SW11, CS6_SW11 },  //  57, 0, k87
+    { 0, CS7_SW11, CS8_SW11, CS9_SW11 },  //  58, P, k80
+    { 0, CS10_SW11, CS11_SW11, CS12_SW11 },  //  59, ;, k82
+    { 0, CS13_SW11, CS14_SW11, CS15_SW11 },  //  60, ?, k85
+    { 0, CS1_SW12, CS2_SW12, CS3_SW12 },  //  61, F11, ka3
+    { 0, CS4_SW12, CS5_SW12, CS6_SW12 },  //  62, -, k86
+    { 0, CS7_SW12, CS8_SW12, CS9_SW12 },  //  63, [, k81
+    { 0, CS10_SW12, CS11_SW12, CS12_SW12 },  //  64, ", k83
+    { 0, CS16_SW12, CS17_SW12, CS18_SW12 },  //  65, Ct_R, k04
 
-    { CS1_SW1, CS2_SW1, CS3_SW1 },  //  66, F12, ka5
-    { CS13_SW1, CS14_SW1, CS15_SW1 },  //  67, LED, l01
-    { CS16_SW1, CS17_SW1, CS18_SW1 },  //  68, LED, l11
-    { CS4_SW2, CS5_SW2, CS6_SW2 },  //  69, Prt, k97
-    { CS13_SW2, CS14_SW2, CS15_SW2 },  //  70, LED, l02
-    { CS16_SW2, CS17_SW2, CS18_SW2 },  //  71, LED, l12
-    { CS4_SW3, CS5_SW3, CS6_SW3 },  //  72, Del, k65
-    { CS13_SW3, CS14_SW3, CS15_SW3 },  //  73, LED, l03
-    { CS16_SW3, CS17_SW3, CS18_SW3 },  //  74, LED, l13
-    { CS4_SW4, CS5_SW4, CS6_SW4 },  //  75, PgUp, k15
-    { CS13_SW4, CS14_SW4, CS15_SW4 },  //  76, LED, l04
-    { CS16_SW4, CS17_SW4, CS18_SW4 },  //  77, LED, l14
-    { CS1_SW5, CS2_SW5, CS3_SW5 },  //  78, =, k66
-    { CS10_SW5, CS11_SW5, CS12_SW5 },  //  79, Right, k05
-    { CS13_SW5, CS14_SW5, CS15_SW5 },  //  80, LED, l05
-    { CS16_SW5, CS17_SW5, CS18_SW5 },  //  81, LED, l15
-    { CS4_SW6, CS5_SW6, CS6_SW6 },  //  82, End, k75
-    { CS13_SW6, CS14_SW6, CS15_SW6 },  //  83, LED, l06
-    { CS16_SW6, CS17_SW6, CS18_SW6 },  //  84, LED, l16
-    { CS1_SW7, CS2_SW7, CS3_SW7 },  //  85, BSpc, ka1
-    { CS4_SW7, CS5_SW7, CS6_SW7 },  //  86, PgDn, k25
-    { CS13_SW7, CS14_SW7, CS15_SW7 },  //  87, LED, l07
-    { CS16_SW7, CS17_SW7, CS18_SW7 },  //  88, LED, l17
-    { CS1_SW8, CS2_SW8, CS3_SW8 },  //  89, ], k61
-    { CS4_SW8, CS5_SW8, CS6_SW8 },  //  90, Sh_R, k91
-    { CS13_SW8, CS14_SW8, CS15_SW8 },  //  91, LED, l08
-    { CS16_SW8, CS17_SW8, CS18_SW8 },  //  92, LED, l18
-    { CS1_SW9, CS2_SW9, CS3_SW9 },  //  93, \, ka2
-    { CS4_SW9, CS5_SW9, CS6_SW9 },  //  94, Up, k35
-    { CS4_SW10, CS5_SW10, CS6_SW10 },  //  95, Left, k03
-    { CS1_SW11, CS2_SW11, CS3_SW11 },  //  96, Enter, ka4
-    { CS4_SW11, CS5_SW11, CS6_SW11 },  //  97, Down, k73
+    { 1, CS1_SW1, CS2_SW1, CS3_SW1 },  //  66, F12, ka5
+    { 1, CS13_SW1, CS14_SW1, CS15_SW1 },  //  67, LED, l01
+    { 1, CS16_SW1, CS17_SW1, CS18_SW1 },  //  68, LED, l11
+    { 1, CS4_SW2, CS5_SW2, CS6_SW2 },  //  69, Prt, k97
+    { 1, CS13_SW2, CS14_SW2, CS15_SW2 },  //  70, LED, l02
+    { 1, CS16_SW2, CS17_SW2, CS18_SW2 },  //  71, LED, l12
+    { 1, CS4_SW3, CS5_SW3, CS6_SW3 },  //  72, Del, k65
+    { 1, CS13_SW3, CS14_SW3, CS15_SW3 },  //  73, LED, l03
+    { 1, CS16_SW3, CS17_SW3, CS18_SW3 },  //  74, LED, l13
+    { 1, CS4_SW4, CS5_SW4, CS6_SW4 },  //  75, PgUp, k15
+    { 1, CS13_SW4, CS14_SW4, CS15_SW4 },  //  76, LED, l04
+    { 1, CS16_SW4, CS17_SW4, CS18_SW4 },  //  77, LED, l14
+    { 1, CS1_SW5, CS2_SW5, CS3_SW5 },  //  78, =, k66
+    { 1, CS10_SW5, CS11_SW5, CS12_SW5 },  //  79, Right, k05
+    { 1, CS13_SW5, CS14_SW5, CS15_SW5 },  //  80, LED, l05
+    { 1, CS16_SW5, CS17_SW5, CS18_SW5 },  //  81, LED, l15
+    { 1, CS4_SW6, CS5_SW6, CS6_SW6 },  //  82, End, k75
+    { 1, CS13_SW6, CS14_SW6, CS15_SW6 },  //  83, LED, l06
+    { 1, CS16_SW6, CS17_SW6, CS18_SW6 },  //  84, LED, l16
+    { 1, CS1_SW7, CS2_SW7, CS3_SW7 },  //  85, BSpc, ka1
+    { 1, CS4_SW7, CS5_SW7, CS6_SW7 },  //  86, PgDn, k25
+    { 1, CS13_SW7, CS14_SW7, CS15_SW7 },  //  87, LED, l07
+    { 1, CS16_SW7, CS17_SW7, CS18_SW7 },  //  88, LED, l17
+    { 1, CS1_SW8, CS2_SW8, CS3_SW8 },  //  89, ], k61
+    { 1, CS4_SW8, CS5_SW8, CS6_SW8 },  //  90, Sh_R, k91
+    { 1, CS13_SW8, CS14_SW8, CS15_SW8 },  //  91, LED, l08
+    { 1, CS16_SW8, CS17_SW8, CS18_SW8 },  //  92, LED, l18
+    { 1, CS1_SW9, CS2_SW9, CS3_SW9 },  //  93, \, ka2
+    { 1, CS4_SW9, CS5_SW9, CS6_SW9 },  //  94, Up, k35
+    { 1, CS4_SW10, CS5_SW10, CS6_SW10 },  //  95, Left, k03
+    { 1, CS1_SW11, CS2_SW11, CS3_SW11 },  //  96, Enter, ka4
+    { 1, CS4_SW11, CS5_SW11, CS6_SW11 },  //  97, Down, k73
 };
 #endif
