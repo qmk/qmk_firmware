@@ -21,7 +21,7 @@ AUDIO_ENABLE = yes           # Audio output
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
-WS2812_DRIVER = bitbang
+WS2812_DRIVER = pwm
 API_SYSEX_ENABLE = no
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
