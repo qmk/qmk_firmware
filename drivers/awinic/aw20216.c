@@ -86,13 +86,13 @@ bool AW20216_init_scaling(void) {
     aw_led led;
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         led = g_aw_leds[i];
-        if(led.driver == 0) {
+        if (led.driver == 0) {
             AW20216_write_register(DRIVER_1_CS, AW_PAGE_SCALING, led.r, AW_SCALING_MAX);
             AW20216_write_register(DRIVER_1_CS, AW_PAGE_SCALING, led.g, AW_SCALING_MAX);
             AW20216_write_register(DRIVER_1_CS, AW_PAGE_SCALING, led.b, AW_SCALING_MAX);
         }
 #ifdef DRIVER_2_CS
-        else if(led.driver == 1) {
+        else if (led.driver == 1) {
             AW20216_write_register(DRIVER_2_CS, AW_PAGE_SCALING, led.r, AW_SCALING_MAX);
             AW20216_write_register(DRIVER_2_CS, AW_PAGE_SCALING, led.g, AW_SCALING_MAX);
             AW20216_write_register(DRIVER_2_CS, AW_PAGE_SCALING, led.b, AW_SCALING_MAX);
@@ -112,13 +112,13 @@ bool AW20216_soft_enable(void) {
 
 void AW20216_update_pwm(int index, uint8_t red, uint8_t green, uint8_t blue) {
     aw_led led = g_aw_leds[index];
-    if(led.driver == 0) {
+    if (led.driver == 0) {
         AW20216_write_register(DRIVER_1_CS, AW_PAGE_PWM, led.r, red);
         AW20216_write_register(DRIVER_1_CS, AW_PAGE_PWM, led.g, green);
         AW20216_write_register(DRIVER_1_CS, AW_PAGE_PWM, led.b, blue);
     }
 #ifdef DRIVER_2_CS
-    else if(led.driver == 1) {
+    else if (led.driver == 1) {
         AW20216_write_register(DRIVER_2_CS, AW_PAGE_PWM, led.r, red);
         AW20216_write_register(DRIVER_2_CS, AW_PAGE_PWM, led.g, green);
         AW20216_write_register(DRIVER_2_CS, AW_PAGE_PWM, led.b, blue);
