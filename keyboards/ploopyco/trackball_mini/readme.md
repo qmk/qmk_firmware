@@ -12,8 +12,8 @@ It's a DIY, QMK Powered Trackball...Mini!
 
 Make example for this trackball (after setting up your build environment):
 
-    make ploopyco/trackball_mini/rev1_001:default:flash
-    make ploopyco/trackball_mini/rev1_001:via:flash
+    make ploopyco/trackball_mini/rev1_002:default:flash
+    make ploopyco/trackball_mini/rev1_002:via:flash
     
 To jump to the bootloader, hold down "Button 4" (immediate right of the ball) 
 
