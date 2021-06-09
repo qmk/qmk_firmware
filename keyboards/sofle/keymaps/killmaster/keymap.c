@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_MINS,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_GRV,
+  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_MINS,
   KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
   KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
   KC_LSPO,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     KC_MPLY,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSPC,
@@ -344,7 +344,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 
-void encoder_update_user(int8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t temp_mod = get_mods();
     uint8_t temp_osm = get_oneshot_mods();
     bool    is_ctrl  = (temp_mod | temp_osm) & MOD_MASK_CTRL;
@@ -397,6 +397,7 @@ void encoder_update_user(int8_t index, bool clockwise) {
             tap_code_delay(mapped_code, MEDIA_KEY_DELAY);
         }
     }
+    return true;
 }
 
 #endif
