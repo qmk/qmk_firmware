@@ -33,6 +33,8 @@
   #define RGBLIGHT_LIMIT_VAL 150
 #endif
 
+#define TAPPING_TERM 200
+
 // The Leader key allows to flexibly assign macros to key sequences.
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 350

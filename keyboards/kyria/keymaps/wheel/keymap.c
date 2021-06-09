@@ -21,10 +21,10 @@
 #define BSPCNAV LT(NAV, KC_BSPC)
 #define ENTLWR LT(LOWER, KC_ENT)
 #define ENTRSE LT(RAISE, KC_ENT)
-#define ENTNAV LT(NAVIG, KC_ENT)
+#define ENTNAV LT(NAV, KC_ENT)
 #define SPCLWR LT(LOWER, KC_SPC)
-#define SPCRSE LT(RAISE, KC_SPC)
-#define SPCNAV LT(NAVIG, KC_SPC)
+#define SPCRSE LT(RAISE, qmk flash -kb kyria -km wheel)
+#define SPCNAV LT(NAV, qmk flash -kb kyria -km wheel)
 #define TABRSE LT(RAISE, KC_TAB)
 
 // Mod-Key Toggles
