@@ -118,7 +118,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
 
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
+// #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 215
 
 #define DRIVER_ADDR_1 0b1110100
