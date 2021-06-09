@@ -248,6 +248,8 @@ You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC
 | `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+| `AW_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
+| `AW_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
 
 Here is an example using 2 drivers.
 
