@@ -91,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT_5x6(
 
      _______,_______,_______,_______,_______,_______,                        _______,_______,_______,_______,_______,REDO,
-     _______,KC_TILD,KC_HASH,KC_LBRC,KC_RBRC,KC_PIPE,                        _______,KC_DLR,KC_PIPE, KC_AMPR,KC_ASTR,KC_BSLS,
-     _______,KC_GRV ,KC_AT,  KC_LPRN,KC_RPRN,KC_EXLM,                        _______,KC_PLUS,KC_MINS,KC_EQL,KC_SLSH,KC_PERC,
-     _______,KC_CIRC,KC_ASTR,KC_LCBR,KC_RCBR,KC_AMPR,                        _______,KC_UNDS,KC_LT,  KC_GT,  KC_QUES,_______,
+     _______,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,                        _______,KC_UNDS,_______,_______,_______,KC_BSLS,
+     _______,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,                         KC_PLUS,KC_MINS,KC_SLSH,KC_ASTR,KC_PERC,KC_QUOT,
+     _______,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,                        KC_AMPR,KC_EQL, KC_COMM,KC_DOT, KC_SLSH,KC_MINS,
                      _______,_______,                                                        _______,_______,
                                      _______,_______,                        _______,RAISE,
                                      _______,_______,                        _______,_______,
@@ -125,6 +125,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      _______,ADJUST,                         _______,_______
   ),
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
