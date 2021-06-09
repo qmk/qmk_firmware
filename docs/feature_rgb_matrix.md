@@ -269,34 +269,27 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw_led g_aw_leds_1[DRIVER_1_LED_TOTAL] = {
-/* Each AW20216 channel is controlled by a register at
- * some offset between 0 and 215 inclusive
- *    R location
- *    |  G location
- *    |  |  B location
- *    |  |  | */
-    { 0, 1, 2 }, // QMK RGB LED 0 is connected to AW20216 channels 0, 1, 3
-    { 3, 4, 5 }, // QMK RGB LED 1 is connected to AW20216 channels 3, 4, 5
-    { 6, 7, 8 }  // QMK RGB LED 2 is connected to AW20216 channels 6, 7, 8
+const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
+/* Each AW20216 channel is controlled by a register at some offset between 0x00
+ * and 0xD7 inclusive.
+ * See drivers/awinic/aw20216.h for the mapping between register offsets and
+ * driver pin locations.
+ *    driver
+ *    |  R location
+ *    |  |        G location
+ *    |  |        |        B location
+ *    |  |        |        | */
+    { 0, CS1_SW1, CS2_SW1, CS3_SW1 },
+    { 0, CS4_SW1, CS5_SW1, CS6_SW1 },
+    { 0, CS7_SW1, CS8_SW1, CS9_SW1 },
+    { 0, CS10_SW1, CS11_SW1, CS12_SW1 },
+    { 0, CS13_SW1, CS14_SW1, CS15_SW1 },
     ...
-};
-
-// Don't define this if only using one driver IC
-#ifdef DRIVER_2_LED_TOTAL
-const aw_led g_aw_leds_2[DRIVER_2_LED_TOTAL] = {
-    { 0, 1, 2 },
-    { 12, 13, 14 },
-    { 15, 16, 17 }
+    { 1, CS1_SW1, CS2_SW1, CS3_SW1 },
+    { 1, CS13_SW1, CS14_SW1, CS15_SW1 },
+    { 1, CS16_SW1, CS17_SW1, CS18_SW1 },
+    { 1, CS4_SW2, CS5_SW2, CS6_SW2 },
     ...
-};
-#endif
-
-const aw_led *g_aw_leds[DRIVER_COUNT] = {
-    g_aw_leds_1,
-#ifdef DRIVER_2_LED_TOTAL
-    g_aw_leds_2
-#endif
 };
 ```
 
