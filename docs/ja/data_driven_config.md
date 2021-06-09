@@ -79,7 +79,7 @@ info.json 内の変数をアドレス指定するために JSON ドット表記�
 たとえば、`info_json["rgblight"]["split_count"]` にアクセスするには、`rgblight.split_count` を指定します。
 これにより、深くネストされたキーを単純な文字列でアドレス指定できます。
 
-内部では [Dotty Dict](https://dotty-dict.readthedocs.io/en/latest/)を使用しています、これらの文字列がオブジェクトアクセスに変換される方法についてはそのドキュメントを参照してください。
+内部では [Dotty Dict](https://dotty-dict.readthedocs.io/en/latest/) を使用しています。これらの文字列がオブジェクトアクセスに変換される方法についてはそのドキュメントを参照してください。
 
 #### Value Types
 
