@@ -103,25 +103,12 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
     mouse_report->y = y;
 }
 
-int isthingpressedtomakethinghappen = 0;
-
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
-//    if (isthingpressedtomakethinghappen == 0) {
-//        adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
-//        isthingpressedtomakethinghappen = 1;
-//    }
-
     report_adns_t data = adns_read_burst();
 
     if (data.dx != 0 || data.dy != 0) {
-        if (debug_mouse) {
+        if (debug_mouse)
             dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
-
-            if (isthingpressedtomakethinghappen == 0) {
-                adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
-                isthingpressedtomakethinghappen = 1;
-            }
-        }
 
         // Apply delta-X and delta-Y transformations.
         // x and y are swapped
@@ -205,6 +192,22 @@ void keyboard_pre_init_kb(void) {
 void pointing_device_init(void) {
     adns_init();
     opt_encoder_init();
+
+    // reboot the adns.
+    // if the adns hasn't initialized yet, this is harmless.
+    adns_write_reg(REG_CHIP_RESET, 0x5a);
+
+    // wait maximum time before adns is ready.
+    // this ensures that the adns is actuall ready after reset.
+    wait_ms(55);
+
+    // read a burst from the adns and then discard it.
+    // gets the adns ready for write commands
+    // (for example, setting the dpi).
+    adns_read_burst();
+
+    // set the DPI.
+    adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
 void pointing_device_task(void) {
@@ -232,6 +235,4 @@ void matrix_init_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
-    debug_enable = true;
-    debug_mouse = true;
 }
