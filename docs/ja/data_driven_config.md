@@ -120,4 +120,4 @@ QMK が完全な `info.json` を生成するときはいつでも、`config.h` �
 `config.h`値の場合、ルール用の関数を記述し、その関数を `generate_config_h()` で呼び出す必要があります。
 
 `rules.mk` の新しいトップレベルの `info.json` キーがある場合は、`lib/python/qmk/cli/generate/rules_mk.py` の上部にある `info_to_rules` にキーを追加するだけです。
-それ以外の場合は、`generate_rules_mk()`で機能の新しい if ブロックを作成する必要があります。
+それ以外の場合は、`generate_rules_mk()` で機能の新しい if ブロックを作成する必要があります。
