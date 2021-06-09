@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 #include "util.h"
 #include "matrix.h"
 #include "debounce.h"
@@ -31,8 +32,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef DIRECT_PINS
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
+#    ifdef MATRIX_ROW_PINS
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+#    endif  // MATRIX_ROW_PINS
+#    ifdef MATRIX_COL_PINS
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+#    endif  // MATRIX_COL_PINS
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -45,6 +50,9 @@ uint8_t thisHand, thatHand;
 // user-defined overridable functions
 __attribute__((weak)) void matrix_slave_scan_kb(void) { matrix_slave_scan_user(); }
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
+__attribute__((weak)) void matrix_init_pins(void);
+__attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
+__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
@@ -72,7 +80,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
     }
 }
 
-__attribute__((weak)) bool matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+__attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
@@ -83,16 +91,13 @@ __attribute__((weak)) bool matrix_read_cols_on_row(matrix_row_t current_matrix[]
         }
     }
 
-    // If the row has changed, store the row and return the changed flag.
-    if (current_matrix[current_row] != current_row_value) {
-        current_matrix[current_row] = current_row_value;
-        return true;
-    }
-    return false;
+    // Update the matrix
+    current_matrix[current_row] = current_row_value;
 }
 
 #elif defined(DIODE_DIRECTION)
-#    if (DIODE_DIRECTION == COL2ROW)
+#    if defined(MATRIX_ROW_PINS) && defined(MATRIX_COL_PINS)
+#        if (DIODE_DIRECTION == COL2ROW)
 
 static void select_row(uint8_t row) { setPinOutput_writeLow(row_pins[row]); }
 
@@ -111,7 +116,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
     }
 }
 
-__attribute__((weak)) bool matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+__attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
@@ -132,15 +137,11 @@ __attribute__((weak)) bool matrix_read_cols_on_row(matrix_row_t current_matrix[]
     unselect_row(current_row);
     matrix_output_unselect_delay();  // wait for all Col signals to go HIGH
 
-    // If the row has changed, store the row and return the changed flag.
-    if (current_matrix[current_row] != current_row_value) {
-        current_matrix[current_row] = current_row_value;
-        return true;
-    }
-    return false;
+    // Update the matrix
+    current_matrix[current_row] = current_row_value;
 }
 
-#    elif (DIODE_DIRECTION == ROW2COL)
+#        elif (DIODE_DIRECTION == ROW2COL)
 
 static void select_col(uint8_t col) { setPinOutput_writeLow(col_pins[col]); }
 
@@ -159,45 +160,32 @@ __attribute__((weak)) void matrix_init_pins(void) {
     }
 }
 
-__attribute__((weak)) bool matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
-    bool matrix_changed = false;
-
+__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     // Select col
     select_col(current_col);
     matrix_output_select_delay();
 
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
-        // Store last value of row prior to reading
-        matrix_row_t last_row_value    = current_matrix[row_index];
-        matrix_row_t current_row_value = last_row_value;
-
         // Check row pin state
         if (readPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
-            current_row_value |= (MATRIX_ROW_SHIFTER << current_col);
+            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         } else {
             // Pin HI, clear col bit
-            current_row_value &= ~(MATRIX_ROW_SHIFTER << current_col);
-        }
-
-        // Determine if the matrix changed state
-        if ((last_row_value != current_row_value)) {
-            matrix_changed |= true;
-            current_matrix[row_index] = current_row_value;
+            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
     }
 
     // Unselect col
     unselect_col(current_col);
     matrix_output_unselect_delay();  // wait for all Row signals to go HIGH
-
-    return matrix_changed;
 }
 
-#    else
-#        error DIODE_DIRECTION must be one of COL2ROW or ROW2COL!
-#    endif
+#        else
+#            error DIODE_DIRECTION must be one of COL2ROW or ROW2COL!
+#        endif
+#    endif  // defined(MATRIX_ROW_PINS) && defined(MATRIX_COL_PINS)
 #else
 #    error DIODE_DIRECTION is not defined!
 #endif
@@ -288,19 +276,22 @@ bool matrix_post_scan(void) {
 }
 
 uint8_t matrix_scan(void) {
-    bool local_changed = false;
+    matrix_row_t curr_matrix[MATRIX_ROWS] = {0};
 
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
-        local_changed |= matrix_read_cols_on_row(raw_matrix, current_row);
+        matrix_read_cols_on_row(curr_matrix, current_row);
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        local_changed |= matrix_read_rows_on_col(raw_matrix, current_col);
+        matrix_read_rows_on_col(curr_matrix, current_col);
     }
 #endif
+
+    bool local_changed = memcmp(raw_matrix, curr_matrix, sizeof(curr_matrix)) != 0;
+    if (local_changed) memcpy(raw_matrix, curr_matrix, sizeof(curr_matrix));
 
     debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, local_changed);
 
