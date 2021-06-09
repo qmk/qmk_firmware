@@ -17,10 +17,6 @@
 #include "aw20216.h"
 #include "spi_master.h"
 
-// Data is sent MSB first, leading edge rising, sample on leading edge
-// Prescaler 8?
-//#define AW_SPI_START(p) spi_start(p, false, 0, 8)
-
 /* The AW20216 appears to be somewhat similar to the IS31FL743, although quite
  * a few things are different, such as the command byte format and page ordering.
  * The LED addresses start from 0x00 instead of 0x01.
@@ -47,9 +43,21 @@
 #define AW_CONFIG_DEFAULT 0b10110000
 #define AW_CHIPEN 1
 
+#ifndef AW_SCALING_MAX
+#   define AW_SCALING_MAX 150
+#endif
 
-#define AW_SCALING_MAX 150
-#define AW_GLOBAL_CURRENT_MAX 150
+#ifndef AW_GLOBAL_CURRENT_MAX
+#   define AW_GLOBAL_CURRENT_MAX 150
+#endif
+
+#ifndef DRIVER_1_CS
+#   define DRIVER_1_CS B13
+#endif
+
+#ifndef DRIVER_1_EN
+#   define DRIVER_1_EN C13
+#endif
 
 uint8_t g_spi_transfer_buffer[20] = { 0 };
 aw_led g_pwm_buffer[DRIVER_LED_TOTAL];
