@@ -50,7 +50,7 @@ C 側では何も変わりません。
 
 QMK では、[jsonschema](https:json-schema.org) のファイルを `data/schemas` に保持しています。
 キーボード固有の `info.json` ファイルに入る値は `keyboard.jsonschema` に保持されています。
-エンドユーザが編集できるようにしたい値はすべてここに入れなければなりません。
+エンドユーザーが編集できるようにしたい値はすべてここに入れなければなりません。
 
 場合によっては、新しいトップレベルキーを追加するだけで済みます。
 従うべきいくつかの例は、 `keyboard_name`、`maintainer`、 `processor`、および `url` です。
