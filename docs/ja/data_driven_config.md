@@ -37,7 +37,7 @@ C 側では何も変わりません。
 
 1. `data/schemas/keyboards.jsonschema` のスキーマに追加します
 1. `data/maps` にマッピングを追加します
-1. コードを追加して抽出/生成します。（オプションおよび非推奨）
+1. （オプションおよび非推奨）構成を抽出/生成するコードを追加します。
    * `lib/python/qmk/info.py`
    * `lib/python/qmk/cli/generate/config_h.py`
    * `lib/python/qmk/cli/generate/rules_mk.py`
