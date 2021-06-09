@@ -102,7 +102,7 @@ QMK が完全な `info.json` を生成するときはいつでも、`config.h` �
 あなたの新しい設定値のためのコードを `lib/python/qmk/info.py` に追加する必要があります。
 通常、これは、新しい `_extract_<feature>()` 関数を追加してから、 `_extract_config_h()` または `_extract_rules_mk()` のいずれかで関数を呼び出すことを意味します。
 
-このファイルの編集方法がわからない場合、または Python に慣れていない場合は、[issue を開く](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=）または [Discord で #cli に参加](https://discord.gg/heQPAgy)すると、この部分を誰かが手伝ってくれるでしょう。
+このファイルの編集方法がわからない場合、または Python に慣れていない場合は、[issue を開く](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=）か [Discord で #cli に参加](https://discord.gg/heQPAgy)すると、この部分を誰かが手伝ってくれるでしょう。
 
 ### 生成するコードを追加する
 
