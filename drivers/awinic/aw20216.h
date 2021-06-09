@@ -20,6 +20,7 @@
 #include <stdbool.h>
 
 typedef struct aw_led {
+    uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
