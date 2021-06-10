@@ -41,7 +41,28 @@ static void init(void) {
     IS31FL3731_init(DRIVER_ADDR_4);
 #        endif
 #    elif defined(IS31FL3733)
-    IS31FL3733_init(DRIVER_ADDR_1, 0);
+#        ifndef DRIVER_SYNC_1
+#            define DRIVER_SYNC_1 0
+#        endif
+    IS31FL3733_init(DRIVER_ADDR_1, DRIVER_SYNC_1);
+#        if defined DRIVER_ADDR_2 && (DRIVER_ADDR_1 != DRIVER_ADDR_2)
+#            ifndef DRIVER_SYNC_2
+#                define DRIVER_SYNC_2 0
+#            endif
+    IS31FL3733_init(DRIVER_ADDR_2, DRIVER_SYNC_2);
+#        endif
+#        ifdef DRIVER_ADDR_3
+#            ifndef DRIVER_SYNC_3
+#                define DRIVER_SYNC_3 0
+#            endif
+    IS31FL3733_init(DRIVER_ADDR_3, DRIVER_SYNC_3);
+#        endif
+#        ifdef DRIVER_ADDR_4
+#            ifndef DRIVER_SYNC_4
+#                define DRIVER_SYNC_4 0
+#            endif
+    IS31FL3733_init(DRIVER_ADDR_4, DRIVER_SYNC_4);
+#        endif
 #    elif defined(IS31FL3737)
     IS31FL3737_init(DRIVER_ADDR_1);
 #    else
@@ -74,7 +95,15 @@ static void init(void) {
 #        endif
 #    elif defined(IS31FL3733)
     IS31FL3733_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        ifdef DRIVER_ADDR_2
     IS31FL3733_update_led_control_registers(DRIVER_ADDR_2, 1);
+#        endif
+#        ifdef DRIVER_ADDR_3
+    IS31FL3733_update_led_control_registers(DRIVER_ADDR_3, 2);
+#        endif
+#        ifdef DRIVER_ADDR_4
+    IS31FL3733_update_led_control_registers(DRIVER_ADDR_4, 3);
+#        endif
 #    elif defined(IS31FL3737)
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_1, DRIVER_ADDR_2);
 #    else
@@ -105,7 +134,15 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    elif defined(IS31FL3733)
 static void flush(void) {
     IS31FL3733_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        ifdef DRIVER_ADDR_2
     IS31FL3733_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#        endif
+#        ifdef DRIVER_ADDR_3
+    IS31FL3733_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#        endif
+#        ifdef DRIVER_ADDR_4
+    IS31FL3733_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#        endif
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {

@@ -15,7 +15,7 @@
  */
 
 #include "spi_master.h"
-#include "quantum.h"
+
 #include "timer.h"
 
 static pin_t     currentSlavePin = NO_PIN;

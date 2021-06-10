@@ -1,6 +1,9 @@
 # MCU name
 MCU = STM32F411
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Build Options
 #   change yes to no to disable
 #
@@ -25,6 +28,3 @@ SERIAL_DRIVER = usart
 OLED_DRIVER_ENABLE = yes
 WS2812_DRIVER = pwm
 OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
-
-# Address of the bootloader in system memory
-STM32_BOOTLOADER_ADDRESS = 0x1FFF0000

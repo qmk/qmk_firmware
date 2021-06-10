@@ -133,6 +133,12 @@ However, you'll have to flash the EEPROM files for the correct hand to each cont
 * `:dfu-util-split-left`
 * `:dfu-util-split-right`
 
+Example:
+
+```
+make crkbd:default:avrdude-split-left
+```
+
 This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
 You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common). 

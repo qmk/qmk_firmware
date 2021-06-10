@@ -33,7 +33,7 @@ static float   precisionSpeed = 1;
 
 void trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white) {
     uint8_t data[] = {0x00, red, green, blue, white};
-    i2c_transmit(TRACKBALL_WRITE, data, sizeof(data), I2C_TIMEOUT);
+    i2c_transmit(TRACKBALL_ADDRESS << 1, data, sizeof(data), I2C_TIMEOUT);
 }
 
 int16_t mouse_offset(uint8_t positive, uint8_t negative, int16_t scale) {
@@ -94,7 +94,7 @@ void pointing_device_task(void) {
     static bool     debounce;
     static uint16_t debounce_timer;
     uint8_t         state[5] = {};
-    if (i2c_readReg(TRACKBALL_WRITE, 0x04, state, 5, I2C_TIMEOUT) == I2C_STATUS_SUCCESS) {
+    if (i2c_readReg(TRACKBALL_ADDRESS << 1, 0x04, state, 5, I2C_TIMEOUT) == I2C_STATUS_SUCCESS) {
         if (!state[4] && !debounce) {
             if (scrolling) {
 #ifdef PIMORONI_TRACKBALL_INVERT_X

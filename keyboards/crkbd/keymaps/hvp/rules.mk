@@ -1,4 +1,7 @@
 
+VPATH += keyboards/crkbd/lib
+LIB_SRC += ssd1306.c i2c.c
+
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/glcdfont.c \
         ./lib/rgb_state_reader.c \

@@ -15,7 +15,6 @@
  */
 
 #include "drashna.h"
-#include <stdio.h>
 
 #ifndef KEYLOGGER_LENGTH
 // #    ifdef OLED_DISPLAY_128X64
@@ -158,6 +157,19 @@ void render_keylock_status(uint8_t led_usb_state) {
     oled_advance_page(true);
 #endif
 }
+void render_matrix_scan_rate(void) {
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    char matrix_rate[5];
+    uint16_t n = get_matrix_scan_rate();
+    matrix_rate[4] = '\0';
+    matrix_rate[3] = '0' + n % 10;
+    matrix_rate[2] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    matrix_rate[1] =  n / 10 ? '0' + n / 10 : ' ';
+    matrix_rate[0] = ' ';
+    oled_write_P(PSTR("MS:"), false);
+    oled_write(matrix_rate, false);
+#endif
+}
 
 void render_mod_status(uint8_t modifiers) {
     static const char PROGMEM mod_status[5][3] = {{0xE8, 0xE9, 0}, {0xE4, 0xE5, 0}, {0xE6, 0xE7, 0}, {0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
@@ -169,10 +181,16 @@ void render_mod_status(uint8_t modifiers) {
 #endif
     oled_write_P(mod_status[2], (modifiers & MOD_MASK_ALT));
     oled_write_P(mod_status[1], (modifiers & MOD_MASK_CTRL));
+
+    render_matrix_scan_rate();
 #if defined(OLED_DISPLAY_128X64)
     oled_advance_page(true);
 #endif
 }
+
+#ifdef SWAP_HANDS_ENABLE
+extern bool swap_hands;
+#endif
 
 void render_bootmagic_status(void) {
     /* Show Ctrl-Gui Swap options */
@@ -209,7 +227,7 @@ void render_bootmagic_status(void) {
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NOGUI), !keymap_config.no_gui);
+    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NOGUI), keymap_config.no_gui);
 #ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
     oled_write_P(PSTR("Magic"), false);
@@ -221,10 +239,11 @@ void render_bootmagic_status(void) {
     }
 #endif
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_GRV), keymap_config.swap_grave_esc);
+    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_ONESHOT), !is_oneshot_enabled());
+#ifdef SWAP_HANDS_ENABLE
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_CAPS), keymap_config.swap_control_capslock);
+    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_SWAP), swap_hands);
+#endif
 #ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
 #endif
@@ -282,12 +301,22 @@ __attribute__((weak)) void oled_driver_render_logo(void) {
 
 void render_wpm(void) {
 #ifdef WPM_ENABLE
+    uint8_t n = get_current_wpm();
 #    ifdef OLED_DISPLAY_128X64
     char wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
 #    else
     char wpm_counter[6];
-#    endif
-    snprintf(wpm_counter, sizeof(wpm_counter), "%3u", get_current_wpm());
+    wpm_counter[5] = '\0';
+    wpm_counter[4] = '0' + n % 10;
+    wpm_counter[3] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[2] = n / 10 ? '0' + n / 10 : ' ';
+    wpm_counter[1] = ' ';
+    wpm_counter[0] = ' ';
+    #    endif
     oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
     oled_write(wpm_counter, false);
 #endif
@@ -299,7 +328,13 @@ extern uint16_t          dpi_array[];
 
 void render_pointing_dpi_status(void) {
     char dpi_status[6];
-    snprintf(dpi_status, sizeof(dpi_status), "%5u", dpi_array[keyboard_config.dpi_config]);
+    uint16_t n = dpi_array[keyboard_config.dpi_config];
+    dpi_status[5] = '\0';
+    dpi_status[4] = '0' + n % 10;
+    dpi_status[3] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    dpi_status[2] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    dpi_status[1] =  n / 10 ? '0' + n / 10 : ' ';
+    dpi_status[0] = ' ';
     oled_write_P(PSTR("  DPI: "), false);
     oled_write(dpi_status, false);
 }
@@ -320,7 +355,11 @@ void render_status_secondary(void) {
 void render_status_main(void) {
 #if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
+#    ifdef DEBUG_MATRIX_SCAN_RATE
+    render_matrix_scan_rate();
+#    else
     render_wpm();
+#    endif
 #    ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
     render_pointing_dpi_status();
 #    endif

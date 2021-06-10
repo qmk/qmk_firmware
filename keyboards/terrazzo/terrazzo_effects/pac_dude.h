@@ -51,7 +51,7 @@ static uint8_t pac_ghost[20] = {
 
 
 void PAC_DUDE(uint8_t i, bool dir) {
-    led_matrix_set_index_value_all(0);
+    led_matrix_set_value_all(0);
     if (dir) {
         terrazzo_draw_at(1, 4, 5, 5, pac_frames[i % 2]);
         terrazzo_set_pixel(3, 0 + i % 3, 5);

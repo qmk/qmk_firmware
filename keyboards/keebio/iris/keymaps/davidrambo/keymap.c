@@ -54,81 +54,81 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[_COLEMAK] = LAYOUT_kc(
+	[_COLEMAK] = LAYOUT(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     ESC , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,MINS,
+     KC_ESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     GRV , Q  , W  , F  , P  , G  ,                J  , L  , U  , Y  ,SCLN,BSPC,
+     KC_GRV , KC_Q  , KC_W  , KC_F  , KC_P  , KC_G  ,                KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-   NAVMAC, A  , R  , S  , T  , D  ,                H  , N  , E  , I  , O  ,QUOT,
+   KC_NAVMAC, KC_A  , KC_R  , KC_S  , KC_T  , KC_D  ,                KC_H  , KC_N  , KC_E  , KC_I  , KC_O  ,KC_QUOT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     SFLK, Z  , X  , C  , V  , B  , PC ,     ENT , K  , M  ,COMM, DOT,SLSH,RSFT,
+     KC_SFLK, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  , KC_PC ,     KC_ENT , KC_K  , KC_M  ,KC_COMM, KC_DOT,KC_SLSH,KC_RSFT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                       LCTL,LGUI,CMBS,         SPC, SYM, LALT
+                       KC_LCTL,KC_LGUI,KC_CMBS,         KC_SPC, KC_SYM, KC_LALT
   //                  `----+----+----'        `----+----+----'
   ),
 
-    [_PC] = LAYOUT_kc(
-    ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    [_PC] = LAYOUT(
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,          KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,          KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,
         
-    NAVPC,___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    KC_NAVPC,KC____ , KC____ , KC____ , KC____ , KC____ ,          KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ , GM, ___, ___ , ___ , ___ , ___ , ___ , ___ , 
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ , KC_GM, KC____, KC____ , KC____ , KC____ , KC____ , KC____ , KC____ , 
         
-                      LGUI , LCTL , CTBS ,    ___ , ___ , ___ 
+                      KC_LGUI , KC_LCTL , KC_CTBS ,    KC____ , KC____ , KC____ 
     ),
    
-    [_GAME] = LAYOUT_kc(
-    ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    [_GAME] = LAYOUT(
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,          KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,
         
-     B  ,  T  ,  Q  ,  W  ,  E  ,  R  ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+     KC_B  ,  KC_T  ,  KC_Q  ,  KC_W  ,  KC_E  ,  KC_R  ,          KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,
         
-    TAB , LSFT,  A  ,  S  ,  D  ,  F  ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    KC_TAB , KC_LSFT,  KC_A  ,  KC_S  ,  KC_D  ,  KC_F  ,          KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,
         
-    LALT, LCTL,  Z  ,  X  ,  C  ,  V  ,  M,   P , ___, ___ , ___ , ___ , ___ , ___ , 
+    KC_LALT, KC_LCTL,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_M,   KC_P , KC____, KC____ , KC____ , KC____ , KC____ , KC____ , 
         
-                          G   ,  I  , SPC,    BSPC, MAC, ___ 
+                          KC_G   ,  KC_I  , KC_SPC,    KC_BSPC, KC_MAC, KC____ 
     ), 
     
-    [_SYMBOL] = LAYOUT_kc(
+    [_SYMBOL] = LAYOUT(
     
-    ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,         KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,
     
-    LBRC,  1  ,  2  ,  3  ,  4  ,  5  ,          6  ,  7  ,  8  ,  9  ,  0  , RBRC,
+    KC_LBRC,  KC_1  ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,          KC_6  ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0  , KC_RBRC,
         
-    BSLS, EXLM, AT  , HASH, DLR , PERC,         CIRC, AMPR, ASTR, LPRN, RPRN, EQL ,
+    KC_BSLS, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_EQL ,
         
-    ___ , HOME, END , VOLD, VOLU, MPLY,___,  ___,___, MINS, ___ , ___ , ___ , ___ , 
+    KC____ , KC_HOME, KC_END , KC_VOLD, KC_VOLU, KC_MPLY,KC____,  KC____,KC____, KC_MINS, KC____ , KC____ , KC____ , KC____ , 
         
-                        ___ , ___ , ___,      ___, ___ , ___ 
+                        KC____ , KC____ , KC____,      KC____, KC____ , KC____ 
     ),
    
-    [_NAVMAC] = LAYOUT_kc(
+    [_NAVMAC] = LAYOUT(
     
-    ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,         KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,         C_TAB, AL ,  UP ,  AR , DEL , ___ ,
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,         KC_C_TAB, KC_AL ,  KC_UP ,  KC_AR , KC_DEL , KC____ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,         GSL , LEFT, DOWN, RGHT, GSR , ___ ,
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,         KC_GSL , KC_LEFT, KC_DOWN, KC_RGHT, KC_GSR , KC____ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,G_TAB,ABSPC, ___ , ___ , ___ , ___ , 
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,KC____,  KC____,KC_G_TAB,KC_ABSPC, KC____ , KC____ , KC____ , KC____ , 
         
-                        ___ , ___ , ___ ,       ___ , ___ , ___ 
+                        KC____ , KC____ , KC____ ,       KC____ , KC____ , KC____ 
     ),
     
-    [_NAVPC] = LAYOUT_kc(
+    [_NAVPC] = LAYOUT(
     
-    ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,         KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,         C_TAB, CL ,  UP ,  CR , DEL , ___ ,
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,         KC_C_TAB, KC_CL ,  KC_UP ,  KC_CR , KC_DEL , KC____ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,         CPGU, LEFT, DOWN, RGHT, CPGD, ___ ,
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,         KC_CPGU, KC_LEFT, KC_DOWN, KC_RGHT, KC_CPGD, KC____ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,A_TAB,CBSPC, ___ , ___ , ___ , ___ , 
+    KC____ , KC____ , KC____ , KC____ , KC____ , KC____ ,KC____,  KC____,KC_A_TAB,KC_CBSPC, KC____ , KC____ , KC____ , KC____ , 
         
-                        ___ , ___ , ___ ,       ___ , ___ , ___ 
+                        KC____ , KC____ , KC____ ,       KC____ , KC____ , KC____ 
     ),
    
 };

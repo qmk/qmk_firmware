@@ -5,7 +5,7 @@
   "width": 21,
   "height": 5,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_5291": {
       "layout": [
         {"label":"Sys Req", "x":0, "y":0},
         {"label":"Cmd", "x":1, "y":0},

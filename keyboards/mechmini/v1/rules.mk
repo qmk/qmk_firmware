@@ -12,7 +12,7 @@ MCU = atmega32a
 BOOTLOADER = atmel-dfu
 
 # build options
-BOOTMAGIC_ENABLE = yes
+BOOTMAGIC_ENABLE = full
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no

@@ -220,7 +220,7 @@ uint8_t ergodox_left_leds_update(void) {
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 // swap-hands action needs a matrix to define the swap
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     /* Left hand, matrix positions */
     {{0,13}, {1,13}, {2,13}, {3,13}, {4,13}, {5,13}},
     {{0,12}, {1,12}, {2,12}, {3,12}, {4,12}, {5,12}},

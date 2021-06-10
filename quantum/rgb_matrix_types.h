@@ -62,7 +62,7 @@ typedef struct PACKED {
 typedef struct PACKED {
     uint8_t x;
     uint8_t y;
-} point_t;
+} led_point_t;
 
 #define HAS_FLAGS(bits, flags) ((bits & flags) == flags)
 #define HAS_ANY_FLAGS(bits, flags) ((bits & flags) != 0x00)
@@ -77,18 +77,19 @@ typedef struct PACKED {
 #define NO_LED 255
 
 typedef struct PACKED {
-    uint8_t matrix_co[MATRIX_ROWS][MATRIX_COLS];
-    point_t point[DRIVER_LED_TOTAL];
-    uint8_t flags[DRIVER_LED_TOTAL];
+    uint8_t     matrix_co[MATRIX_ROWS][MATRIX_COLS];
+    led_point_t point[DRIVER_LED_TOTAL];
+    uint8_t     flags[DRIVER_LED_TOTAL];
 } led_config_t;
 
 typedef union {
     uint32_t raw;
     struct PACKED {
-        uint8_t enable : 2;
-        uint8_t mode : 6;
-        HSV     hsv;
-        uint8_t speed;  // EECONFIG needs to be increased to support this
+        uint8_t     enable : 2;
+        uint8_t     mode : 6;
+        HSV         hsv;
+        uint8_t     speed;  // EECONFIG needs to be increased to support this
+        led_flags_t flags;
     };
 } rgb_config_t;
 

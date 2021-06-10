@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define USE_SERIAL
+#define SOFT_SERIAL_PIN D2
+
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 
@@ -29,4 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    define RGBLED_NUM 54  // Number of LEDs
 #    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_SPLIT { 27, 27 }
+#    define SPLIT_TRANSPORT_MIRROR
 #endif
+
+#define DIODE_DIRECTION COL2ROW

@@ -97,15 +97,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT ,
-        XXXXXXX, KC_LCTL, KC_LALT, KC_LGUI, DPADNUM, KC_SPC,  KC_SPC,  LOWER,   DP_OFF,  KC_LEFT, KC_DOWN, KC_RGHT
+        XXXXXXX, KC_LCTL, KC_LALT, KC_LGUI, DPADNUM, KC_SPC,  KC_SPC,  DPADNUM, DP_OFF,  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     // Extended numeric layer for FPS weapon switching and StarCraft group control
     [_DPADNUM] = LAYOUT_ortho_4x12(
-        KC_LGUI, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    XXXXXXX, XXXXXXX, DP_OFF,  XXXXXXX,
-        KC_LCTL, _______, KC_8,    KC_9,    KC_0,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_SLSH,
-        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
-        _______, _______, _______, _______, DPADNUM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        KC_LGUI, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DP_OFF,  XXXXXXX,
+        KC_LCTL, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX, KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
+        KC_LSFT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_SLSH, XXXXXXX,
+        _______, _______, _______, _______, DPADNUM, XXXXXXX, XXXXXXX, DPADNUM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 
@@ -268,7 +268,7 @@ uint16_t muse_counter   = 0;
 uint8_t  muse_offset    = 70;
 uint16_t muse_tempo     = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (muse_mode) {
         if (IS_LAYER_ON(_RAISE)) {
             if (clockwise) {
@@ -290,6 +290,7 @@ void encoder_update(bool clockwise) {
             tap_code(KC_PGUP);
         }
     }
+    return true;
 }
 
 void dip_update(uint8_t index, bool active) {

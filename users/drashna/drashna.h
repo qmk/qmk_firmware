@@ -47,7 +47,6 @@ enum userspace_layers {
     _MALTRON,
     _EUCALYN,
     _CARPLAX,
-    _MODS, /* layer 8 */
     _GAMEPAD,
     _DIABLO,
     _MACROS,

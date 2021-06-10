@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "progmem.h"
 
+#include "keyboard.h"
+
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf
 
@@ -70,6 +72,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISPLAY_CLOCK 0xD5
 #define PRE_CHARGE_PERIOD 0xD9
 #define VCOM_DETECT 0xDB
+
+// Advance Graphic Commands
+#define FADE_BLINK 0x23
+#define ENABLE_FADE 0x20
+#define ENABLE_BLINK 0x30
 
 // Charge Pump Commands
 #define CHARGE_PUMP 0x8D
@@ -152,6 +159,12 @@ static void InvertCharacter(uint8_t *cursor) {
 }
 
 bool oled_init(uint8_t rotation) {
+#if defined(USE_I2C) && defined(SPLIT_KEYBOARD)
+    if (!is_keyboard_master()) {
+        return true;
+    }
+#endif
+
     oled_rotation = oled_init_user(rotation);
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
         oled_rotation_width = OLED_DISPLAY_WIDTH;
@@ -539,7 +552,13 @@ bool oled_on(void) {
     oled_timeout = timer_read32() + OLED_TIMEOUT;
 #endif
 
-    static const uint8_t PROGMEM display_on[] = {I2C_CMD, DISPLAY_ON};
+    static const uint8_t PROGMEM display_on[] =
+#ifdef OLED_FADE_OUT
+        {I2C_CMD, FADE_BLINK, 0x00};
+#else
+        {I2C_CMD, DISPLAY_ON};
+#endif
+
     if (!oled_active) {
         if (I2C_TRANSMIT_P(display_on) != I2C_STATUS_SUCCESS) {
             print("oled_on cmd failed\n");
@@ -555,7 +574,13 @@ bool oled_off(void) {
         return !oled_active;
     }
 
-    static const uint8_t PROGMEM display_off[] = {I2C_CMD, DISPLAY_OFF};
+    static const uint8_t PROGMEM display_off[] =
+#ifdef OLED_FADE_OUT
+        {I2C_CMD, FADE_BLINK, ENABLE_FADE | OLED_FADE_OUT_INTERVAL};
+#else
+        {I2C_CMD, DISPLAY_OFF};
+#endif
+
     if (oled_active) {
         if (I2C_TRANSMIT_P(display_off) != I2C_STATUS_SUCCESS) {
             print("oled_off cmd failed\n");

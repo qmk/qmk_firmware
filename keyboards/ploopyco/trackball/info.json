@@ -2,6 +2,7 @@
     "keyboard_name": "PloopyCo Trackball",
     "url": "www.ploopy.co",
     "maintainer": "drashna",
+    "manufacturer": "Ploopy Corporation",
     "width": 8,
     "height": 3,
     "layouts": {

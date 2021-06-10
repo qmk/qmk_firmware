@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `----------------------------------------'
    */
   	[BASE] = LAYOUT(
-    KC_DEL,  KC_UP,   KC_ENT,           RGB, 
+    KC_DEL,  KC_UP,   KC_ENT,           RGB,
     KC_LEFT, KC_DOWN, KC_RIGHT,         MO(1)
   ),
 
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `----------------------------------------'
    */
   	[FN] = LAYOUT(
-    RGB_HUI, RGB_VAI, RGB_SAI,         KC_TR, 
+    RGB_HUI, RGB_VAI, RGB_SAI,         KC_TR,
     RGB_HUD, RGB_VAD, RGB_SAD,         KC_TR
   )
 };
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*      Rotary Encoder Settings:                     */
     /*       - Current Value = Horizontal Scrolling      */
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_WH_L);
@@ -59,4 +59,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_WH_R);
         }
     }
+    return true;
 }

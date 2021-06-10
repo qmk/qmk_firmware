@@ -387,7 +387,7 @@ void oled_task_user(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // master side thumb encoder
         // Volume control
@@ -424,5 +424,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_HOME);
         }
     }
+    return true;
 }
 #endif

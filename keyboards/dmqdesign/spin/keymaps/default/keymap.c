@@ -24,24 +24,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
       rgblight_increase_hue(); //Cycle through the RGB hue
     } else {
       rgblight_decrease_hue();
     }
-  } else if (index == 1) { /* Second encoder */  
+  } else if (index == 1) { /* Second encoder */
     if (clockwise) {
       tap_code(KC_VOLU); //Example of using tap_code which lets you use keycodes outside of the keymap
     } else {
       tap_code(KC_VOLD);
     }
-  } else if (index == 2) { /* Third encoder */  
+  } else if (index == 2) { /* Third encoder */
     if (clockwise) {
       rgblight_increase_val(); //Change brightness on the RGB LEDs
     } else {
       rgblight_decrease_val();
     }
   }
+    return true;
 }

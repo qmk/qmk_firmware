@@ -14,7 +14,8 @@
  */
 #include "lck75.h"
 
-__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -22,6 +23,7 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }
 
 #define IDLE_FRAMES 5
@@ -36,10 +38,10 @@ __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 __attribute__((weak)) void oled_task_user(void) {
-uint32_t anim_timer = 0;
-uint32_t anim_sleep = 0;
-uint8_t current_idle_frame = 0;
-uint8_t current_tap_frame = 0;
+static uint32_t anim_timer = 0;
+static uint32_t anim_sleep = 0;
+static uint8_t current_idle_frame = 0;
+static uint8_t current_tap_frame = 0;
 
     static const char PROGMEM idle[IDLE_FRAMES][ANIM_SIZE] = {
 

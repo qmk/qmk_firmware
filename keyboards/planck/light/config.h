@@ -5,8 +5,7 @@
 
 #undef PRODUCT
 #define PRODUCT Planck Light
-#undef PRODUCT_ID
-#define PRODUCT_ID 0x6065
+#define PRODUCT_ID 0xBEA2
 #define DEVICE_VER 0x0001
 
 #undef MATRIX_ROW_PINS

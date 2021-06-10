@@ -36,7 +36,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
 }
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
     if (index == 0) {
         if (led_adjust_active) {
             if (clockwise) {
@@ -54,6 +55,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
             }
         } else encoder_two_update(clockwise);
     }
+    return true;
 }
 
 __attribute__((weak)) void encoder_one_update(bool clockwise) {

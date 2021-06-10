@@ -33,10 +33,10 @@ enum layer_number {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // LAYOUT(LeftEncoder, RightEncoder, LeftSwitch, CenterLeftSwitch, CenterRightSwitch, RightSwitch)
-    [_AUDIO] = LAYOUT(KC_MUTE, KC_ENT, LT(_HUE, KC_MPRV), LT(_SAT, KC_MPLY), LT(_VAL, KC_MNXT), LT(_MODE, KC_SPC)), 
-    [_HUE]   = LAYOUT(RGB_TOG, RGBRST, _______, _______, RGB_HUD, RGB_HUI), 
-    [_SAT]   = LAYOUT(_______, _______, _______, _______, RGB_SAD, RGB_SAI), 
-    [_VAL]   = LAYOUT(_______, _______, RGB_VAD, RGB_VAI, _______, RGB_VAI), 
+    [_AUDIO] = LAYOUT(KC_MUTE, KC_ENT, LT(_HUE, KC_MPRV), LT(_SAT, KC_MPLY), LT(_VAL, KC_MNXT), LT(_MODE, KC_SPC)),
+    [_HUE]   = LAYOUT(RGB_TOG, RGBRST, _______, _______, RGB_HUD, RGB_HUI),
+    [_SAT]   = LAYOUT(_______, _______, _______, _______, RGB_SAD, RGB_SAI),
+    [_VAL]   = LAYOUT(_______, _______, RGB_VAD, RGB_VAI, _______, RGB_VAI),
     [_MODE]  = LAYOUT(_______, WRTROM, RGB_RMOD, RGB_MOD, RGB_MOD, _______),
 };
 
@@ -112,7 +112,7 @@ void oled_task_user(void) {
 
 void led_set_user(uint8_t usb_led) {}
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     oled_on();
     if (index == 0) { /* left encoder */
         switch (layer_state) {
@@ -171,4 +171,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_UP);
         }
     }
+    return true;
 }

@@ -1,6 +1,8 @@
 # A keymap for Durgod Taurus K320 that supports toggling between Mac and Windows
 
-Layer 0 : Standard ANSI 87 Keys TKL layout (Windows)
+Supports both ANSI and ISO layouts.
+
+Layer 0 : Standard 87/88 keys TKL layout (Windows)
 
 Layer 1 : Media control and Windows lock key (Windows)
 - Reusing Durgod's Original Media Control for Fn + F1 ~ Fn + F7
@@ -12,7 +14,7 @@ Layer 2 : System layer (Windows)
 - Fn + Menu + F4  : Turning Off System
 - Fn + Menu + F12 : Switch to Mac layout
 
-Layer 3 : Mac 87 Keys TKL layout
+Layer 3 : Mac 87/88 keys TKL layout
 
 Layer 4 : Media control and Media lock key (Mac)
  - Standard Mac Media keys for Fn + F1 ~ Fn + F12.
@@ -61,4 +63,3 @@ For repeating Flashing you have two options with this keymap:
 2. Use key combination if using default keymap
 - Hold down Fn + Menu (Windows Layout) or Fn + Right-Alt (Mac layout)  (These are the same physical keys)
 - Press Esc.  Keyboard should go into booloader state.
-

@@ -106,7 +106,7 @@ void keyboard_post_init_user(void) {
 //     return true;
 // }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if(base_mode == true) {
         if (index == 0) {
             if (clockwise) {
@@ -169,4 +169,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
+    return true;
 }

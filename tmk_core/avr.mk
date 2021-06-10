@@ -160,6 +160,8 @@ define EXEC_AVRDUDE
 	list_devices() { \
 		if $(GREP) -q -s icrosoft /proc/version; then \
 		    wmic.exe path Win32_SerialPort get DeviceID 2>/dev/null | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | xargs echo -n | sort; \
+		elif [ "`uname`" = "FreeBSD" ]; then \
+			ls /dev/tty* | grep -v '\.lock$$' | grep -v '\.init$$'; \
 		else \
 			ls /dev/tty*; \
 		fi; \
@@ -169,7 +171,7 @@ define EXEC_AVRDUDE
 	TMP1=`mktemp`; \
 	TMP2=`mktemp`; \
 	list_devices > $$TMP1; \
-	while [ -z $$USB ]; do \
+	while [ -z "$$USB" ]; do \
 		sleep 0.5; \
 		printf "."; \
 		list_devices > $$TMP2; \
@@ -292,7 +294,7 @@ ifneq ($(strip $(BOOTLOADER)), qmk-dfu)
 	$(error Please set BOOTLOADER = qmk-dfu first!)
 endif
 	make -C lib/lufa/Bootloaders/DFU/ clean
-	bin/qmk generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/DFU/Keyboard.h
+	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/DFU/Keyboard.h
 	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval PROGRAM_SIZE_KB=$(shell n=`expr $(MAX_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval BOOT_SECTION_SIZE_KB=$(shell n=`expr  $(BOOTLOADER_SIZE) / 1024` && echo $$(($$n)) || echo 0))

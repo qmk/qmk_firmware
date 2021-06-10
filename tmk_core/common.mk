@@ -12,6 +12,7 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/sendchar_null.c \
 	$(COMMON_DIR)/eeconfig.c \
 	$(COMMON_DIR)/report.c \
+	$(COMMON_DIR)/usb_util.c \
 	$(PLATFORM_COMMON_DIR)/suspend.c \
 	$(PLATFORM_COMMON_DIR)/timer.c \
 	$(COMMON_DIR)/sync_timer.c \
@@ -22,28 +23,6 @@ ifneq ("$(wildcard $(TMK_PATH)/$(PLATFORM_COMMON_DIR)/printf.mk)","")
     include $(TMK_PATH)/$(PLATFORM_COMMON_DIR)/printf.mk
 else
     include $(TMK_PATH)/$(COMMON_DIR)/lib_printf.mk
-endif
-
-# Option modules
-BOOTMAGIC_ENABLE ?= no
-VALID_MAGIC_TYPES := yes full lite
-ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
-  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
-    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
-  endif
-  ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
-      TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
-      TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic_lite.c
-
-      TMK_COMMON_DEFS += -DMAGIC_ENABLE
-      TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
-  else
-    TMK_COMMON_DEFS += -DBOOTMAGIC_ENABLE
-    TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic.c
-  endif
-else
-    TMK_COMMON_DEFS += -DMAGIC_ENABLE
-    TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
 endif
 
 SHARED_EP_ENABLE = no

@@ -123,7 +123,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* the upper encoder */
     if (clockwise) {
       SEND_STRING("ENCODER-UPPER:CW");
@@ -137,6 +137,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       SEND_STRING("ENCODER-LOWER:CCW");
     }
   }
+    return true;
 }
 
 // OLED Display

@@ -23,6 +23,6 @@ jobs:
       with:
         submodules: recursive
     - name: Install dependencies
-      run: pip3 install -r requirements.txt
+      run: pip3 install -r requirements-dev.txt
     - name: Run tests
       run: bin/qmk pytest

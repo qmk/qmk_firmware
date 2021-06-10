@@ -38,74 +38,70 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIV10POINT TRUE // suggest to function write_number, to divide by 10 and print as a fraction: N.N
 
-// Converts integer value to Unicode. Also handles 'descramble' Unicode mode for DVORAK_DESCRAMBLE_HALF.
-// Unicode is a hexadecimal string (character) representation of the value, with a pre- and post-fix.
+// Gives Unicode code points to the relevant QMK functions.
+// Handles Dvorak 'descramble' Unicode mode, if compiled (only tested on Linux).
 void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted) {
 
     long unsigned int input; // which argument to work on
-    char output[10] ; // will hold the ascii for output
+
+# ifdef DVORAK_DESCRAMBLE // Do the letter descramble if needed.
+
+    char output[10]; // will hold the ascii for output
     int index; // count backwards 'to left' in the string
     long unsigned int bitmove; // move computation to next digit.
     long unsigned int work; // temporary value for computation
 
+# endif
 
     // What to work on
     if(shift_ison) input = shifted; // Trying to get everything possible here in this function, to reduce firmware size.
     else input = unshifted;
 
-    //if (input < 0) input *= -1; // positive value
+# ifndef DVORAK_DESCRAMBLE // Only normal mode
 
-    // Take the hex value 4 bits at a time, starting with the least significant, convert to ascii, store
-    index = 9;
-    output[index] = '\0'; // terminator
-    bitmove = 0x1; 
-    while ((work = (input / bitmove)) && (index >= 0)) {
-        index --;
-        work &= 0xF; 
-        if (work < 0xA){  // numbers
-            output[index] = work + 0x30; // pad to ASCII
-        }else{            // alphas
-# ifdef DVORAK_DESCRAMBLE_HALF // Do the letter descramble if needed.
-            if(_FULL_ == alternate){ // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
+    register_unicode ( (uint32_t) input ) ;
+
+# else
+
+    if(_FULL_ != alternate){ 
+
+        register_unicode ( (uint32_t) input ) ; // normal Unicode mode
+
+    }else{  // Special Dvorak-descramble mode: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
+    
+        // Take the hex value 4 bits at a time, starting with the least significant, convert to ascii, store
+        index = 9;
+        output[index] = '\0'; // terminator
+        bitmove = 0x1; 
+        while ((work = (input / bitmove)) && (index >= 0)) {
+            index --;
+            work &= 0xF; 
+            if (work < 0xA){  // numbers
+                output[index] = work + 0x30; // pad to ASCII
+            }else{            // alphas
                 if (0xA == work) output[index] = 'a';
                 if (0xB == work) output[index] = 'n';
                 if (0xC == work) output[index] = 'i';
                 if (0xD == work) output[index] = 'h';
                 if (0xE == work) output[index] = 'd';
                 if (0xF == work) output[index] = 'y';
-            }else{
-                output[index] = work - 9 + 0x40; // normal mode
             }
-# else // The above is not relevant for anything else.
-            output[index] = work - 9 + 0x40; // normal mode
-# endif
+            bitmove *= 0x10; // next digit
         }
-        bitmove *= 0x10; // next digit
-    }
-
-    // Put character(s) out in correct mode
-# ifdef DVORAK_DESCRAMBLE_HALF // Do the letter descramble if needed.
-    if (_FULL_ == alternate) { // This is the special 'descramble' output mode for a computer already set to Dvorak
-
-        SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux, 'descramble' mode
+    
+        SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ); // lead-in for Unicode on Linux, 'descramble' mode
         send_string (output + index); // pointer to argument with formatted string
-        SEND_STRING ( " " ) ; // Ends the Unicode numerical input mode, replacing input with desired character (Linux)
-
-    }else{
-        // normal QMK Unicode output mode
-        send_unicode_hex_string (output + index);  // pointer argument
+        SEND_STRING ( " " ); // Ends the Unicode numerical input mode
     }
 
-# else
-    send_unicode_hex_string (output + index);  // pointer argument
-# endif
+# endif // DVORAK_DESCRAMBLE mode for that Base layer & mode setting is compiled in
 
 } 
 
 
 // Wrapper for unicode keys that do have the same on shift.
 void unicode_hex2output_single (long unsigned int either) {
-    unicode_hex2output (either, either) ;
+    unicode_hex2output (either, either);
 }
 
 
@@ -143,6 +139,11 @@ enum custom_keycodes {
     CHOLTAP_RSHFT, // Go to _FUN layer, or shift modifier.
     CHOLTAP_LSHFT, // Go to <configurable> layer, or shift modifier.
     CHOLTAP_LAYR,  // Go to _RAR layer, or right arrow 
+
+// Shifts which on tap produce a key
+
+   RSFT_TILDE,
+   LSFT_DASH,
 
 // Special macro to make F-keys one-shot or not.
     _FUN_STAY,
@@ -378,7 +379,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              &&
             (keycode != CHOLTAP_ACCE)    // _ACC layer (and others)
              &&
-            (keycode != CHOLTAP_LAYR)) { // _RAR layer, or RAlt/Alt-Gr
+            (keycode != RSFT_TILDE)      // Shift on _NSY
+             &&
+            (keycode != LSFT_DASH)       // Shift on _NSY
+             &&
+            (keycode != CHOLTAP_LAYR)) 
+                                       { // _RAR layer, or RAlt/Alt-Gr
             isolate_trigger = FALSE; // another key was pressed
         }
     }
@@ -437,7 +443,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     added += write_number ((long int)((speed*12)/10), FALSE); // writes the speed 
                     send_string ("wpm"); // +3 character written
                     if (0 != speed_batches) {
-                        long int average_times_ten ;
+                        long int average_times_ten;
                         average_times_ten =(long int) ((speed_add * 12) / speed_batches); // *12 converts k/s to wpm
 
                         send_string (";"); // +①   ''       
@@ -458,7 +464,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     added += write_number ((long int)(speed/10), FALSE); // writes the speed 
                     send_string ("k/s"); // +3 character written
                     if (0 != speed_batches) {
-                        long int average_times_ten ;
+                        long int average_times_ten;
                         average_times_ten =(long int) (speed_add / speed_batches);
 
                         send_string (";"); // +①   ''       
@@ -625,7 +631,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }else{ // key up
 
                 // Cycles through the modes
-# ifdef DVORAK_DESCRAMBLE_HALF // version Dvorak+Dvorak-descramble has 3 modes
+# ifdef DVORAK_DESCRAMBLE // version Dvorak+Dvorak-descramble has 3 modes
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate layers
                     default_layer_set (_ALT_BASE_MASK); // This is needed only for a rare case,
@@ -662,7 +668,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }else{ // key up
 
                 // Cycles through the modes
-# ifdef DVORAK_DESCRAMBLE_HALF // version Dvorak+Dvorak-descramble has 3 modes
+# ifdef DVORAK_DESCRAMBLE // version Dvorak+Dvorak-descramble has 3 modes
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate layers
                     default_layer_set (_ALT_BASE_MASK);
@@ -701,8 +707,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // On BASE itself, that key is <Escape>.
             if (record->event.pressed) { // key down
                 ;
-            }
-            else { // key up
+            }else{ // key up
                 if (alternate) { // go to the alternate version (bit of a hack maybe, but all alternate
                        // ... modes are non-zero)
                     layer_move (_ALT_BASE); 
@@ -715,8 +720,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CTO_NUMS: // activates number-symbols layer
             if (record->event.pressed) { // key down
                 ; 
-            }
-            else { // key up, so that upon key down the target layer isn't already activated, triggering that key on up
+            }else{ // key up, so that upon key down the target layer isn't already activated, triggering that key on up
                 if (alternate) { // go to the alternate version
                     layer_move (_ALT_NSY); 
                 }else{
@@ -728,8 +732,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CTO_ACCE: // Unicode layer
             if (record->event.pressed) { // key down
                 ;
-            }
-            else { // key up
+            }else{ // key up
 
 # ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
                 layer_move (_ACC); // activates normal accented layer
@@ -745,8 +748,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CTO_DRAW: // Unicode layer
             if (record->event.pressed) { // key down
                 ;
-            }
-            else { // key up
+            }else{ // key up
 
 # ifndef REMOVE_DRA // This cuts out the whole _DRA layer.
                 layer_move (_DRA); // activates normal accented layer
@@ -1011,7 +1013,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // Held medium long: _PAD, long: _MOV.
                     // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
                     // all by the left hand, when the right hand is on the mouse.
-                    if ((timer_elapsed (key_timer) <= 200)) { // tapped medium-long (milliseconds)
+                    if ((timer_elapsed (key_timer) <= 200)) { // tapped short (milliseconds)
 
 # ifndef SWITCH_RSHIFT_FUN_RAR // user config to reverse what this key its timing toggles to
 
@@ -1096,6 +1098,81 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 # endif
 
+                }
+            }
+            break;
+
+/*
+        case RSFT_TILDE:
+
+            if (record->event.pressed) { // key down
+
+                SEND_STRING (SS_DOWN (X_RSFT)); 
+                shift_ison = 1; // shift depressed
+
+                key_timer = timer_read ();
+                isolate_trigger = TRUE; // keep track of whether another key gets pressed until key-up
+
+            }else{ // key up
+
+                SEND_STRING (SS_UP (X_RSFT)); 
+                shift_ison = 0; // shift released
+
+                if (isolate_trigger) { // no other key was hit since key down 
+
+
+                    // Held medium long: _PAD, long: _MOV.
+                    // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
+                    // all by the left hand, when the right hand is on the mouse.
+                    if ((timer_elapsed (key_timer) <= 200)) { // tapped short (milliseconds)
+
+                        SEND_STRING ("~");
+
+                    }
+                }
+            }
+            break;
+*/
+
+        case RSFT_TILDE: // firmware size optimization, saves 36 bytes
+        case LSFT_DASH:
+
+            if (record->event.pressed) { // key down
+
+                if (RSFT_TILDE == keycode) { // this is probably not needed, both can be left or right shift
+                    SEND_STRING (SS_DOWN (X_RSFT)); 
+                }else{
+                    SEND_STRING (SS_DOWN (X_LSFT)); 
+                }
+                shift_ison = 1; // shift depressed
+
+                key_timer = timer_read ();
+                isolate_trigger = TRUE; // keep track of whether another key gets pressed until key-up
+
+            }else{ // key up
+
+                if (RSFT_TILDE == keycode) { 
+                    SEND_STRING (SS_UP (X_RSFT)); 
+                }else{
+                    SEND_STRING (SS_UP (X_LSFT)); 
+                }
+  
+                shift_ison = 0; // shift released
+
+                if (isolate_trigger) { // no other key was hit since key down 
+
+
+                    // Held medium long: _PAD, long: _MOV.
+                    // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
+                    // all by the left hand, when the right hand is on the mouse.
+                    if ((timer_elapsed (key_timer) <= 200)) { // tapped short (milliseconds)
+
+                        if (RSFT_TILDE == keycode) { 
+                            SEND_STRING ("~");
+                        }else{
+                            SEND_STRING ("-");
+                        }
+                    }
                 }
             }
             break;

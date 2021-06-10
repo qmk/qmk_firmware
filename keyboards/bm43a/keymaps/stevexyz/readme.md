@@ -21,5 +21,5 @@ And a view on the actual build:
 
 In order to compile the module from qmk root directory use the command 'make bm43a:stevexyz'
 
-And in order to upload the new firmware use the command: 'bin/qmk flash -kb bm43a -km stevexyz' (you can initiate programming with keyboard RESET key, that in this keymap has been moved on the backspace button in the "lights" layer)
+And in order to upload the new firmware use the command: 'qmk flash -kb bm43a -km stevexyz' (you can initiate programming with keyboard RESET key, that in this keymap has been moved on the backspace button in the "lights" layer)
 

@@ -1,18 +1,19 @@
 # THE60
 
-![THE60](https://cdn.discordapp.com/attachments/536190211240099840/549506683064287243/image0.jpg)
+60% keyboards designed by LAZYDESIGNERS
 
-A 60% custom PCB and case designed and produced by [LazyDesigners](http://lazydesigners.cn).  
-The PCB allows one to test a 40% layout in a 60% case.
+1. [Rev1](rev1/): A special layout PCB for tray mounted case released in early 2019.   
+2. [Rev2](rev2/): THE60 Round 2 released in 2021. Top mounted.
 
-Keyboard Maintainer: QMK Community  
-Hardware Supported: THE60 PCB  
-Hardware Availability: Check for GBs on [Geekhack](https://geekhack.org) and on [LazyDesigner's homepage.](http://lazydesigners.cn)  
+ **Firmware files are SPECIFIC to each board. Firmware files from one, will not work on the other.** Please use the appropriate rev for your board.
 
-Make example for this keyboard (after setting up your build environment):
+* Keyboard Maintainer: [Jacky@LAZYDESIGNERS] (https://github.com/jackytrabbit)
+* Hardware Supported: THE60 rev1, THE60 rev2
+* Hardware Availability: www.lazydesigners.cn
 
-    make lazydesigners/the60:default:dfu
+Make examples for this keyboard (after setting up your build environment):
 
-To enter the bootloader, either short the pins on the PCB, use the RESET button on the FN layer or hold the Esc key while plugging in your keyboard.
+    make lazydesigners/the60/rev1:default
+    make lazydesigners/the60/rev2:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

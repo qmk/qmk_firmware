@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include QMK_KEYBOARD_H
 
 enum layers{
@@ -47,25 +47,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_TRNS, KC_CIRC, KC_AMPR, KC_ASTR, KC_EQUAL, KC_MINS,
     KC_PIPE, KC_BSLS, KC_LPRN, KC_LBRC, KC_SCLN, KC_TRNS, KC_COLN, KC_RBRC, KC_RPRN, KC_PLUS,  KC_UNDS,
-                    KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,      KC_TRNS,    KC_TRNS 
+                    KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,      KC_TRNS,    KC_TRNS
   ),
 
   [_NUM] = LAYOUT_default(
     KC_PSLS,  KC_P7, KC_P8, KC_P9, KC_PMNS, KC_EQL,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_BSPC,
     KC_PLUS,  KC_P4, KC_P5, KC_P6, KC_BSPC, KC_LSFT, KC_TRNS, KC_TRNS, KC_SCLN,  KC_COLN,  KC_TAB,
     KC_PAST,  KC_P1, KC_P2, KC_P3, KC_ENT,  KC_TAB,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_ENT,
-                    KC_P0,   KC_PDOT,  KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS 
+                    KC_P0,   KC_PDOT,  KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS
   ),
 
   [_NAV] = LAYOUT_default(
     KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_TRNS, RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
     KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TAB,
     KC_MPRV, KC_MPLY, KC_MNXT,  KC_TRNS, KC_TRNS, KC_LCAP, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_ENT,
-                    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS 
+                    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS
   ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 1) { /* left encoder*/
         switch(get_highest_layer(layer_state)){
 
@@ -96,7 +96,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       }
     } else if (index == 0) { /* right encoder */
         switch(get_highest_layer(layer_state)){
-				   
+
             case _SYM:
                 if (clockwise) {
                 tap_code(KC_MPRV);
@@ -114,6 +114,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     }
+    return true;
 }
 
 #ifdef COMBO_ENABLE

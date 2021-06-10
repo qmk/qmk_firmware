@@ -29,6 +29,3 @@
     { K20,   K21,   K22,   K23 }, \
     { K30,   K31,   K32,   K33 }  \
 }
-
-#define LED_RED C5      // LED1
-#define LED_GREEN C4    // LED2

@@ -28,3 +28,7 @@
 #define RGBLED_NUM 15
 
 #define SOLENOID_PIN B11
+
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE

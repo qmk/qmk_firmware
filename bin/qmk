@@ -3,7 +3,6 @@
 """
 import os
 import sys
-from importlib.util import find_spec
 from pathlib import Path
 
 # Add the QMK python libs to our path
@@ -12,51 +11,8 @@ qmk_dir = script_dir.parent
 python_lib_dir = Path(qmk_dir / 'lib' / 'python').resolve()
 sys.path.append(str(python_lib_dir))
 
-
-def _check_modules(requirements):
-    """ Check if the modules in the given requirements.txt are available.
-    """
-    with Path(qmk_dir / requirements).open() as fd:
-        for line in fd.readlines():
-            line = line.strip().replace('<', '=').replace('>', '=')
-
-            if len(line) == 0 or line[0] == '#' or line.startswith('-r'):
-                continue
-
-            if '#' in line:
-                line = line.split('#')[0]
-
-            module = dict()
-            module['name'] = line.split('=')[0] if '=' in line else line
-            module['import'] = module['name'].replace('-', '_')
-
-            # Not every module is importable by its own name.
-            if module['name'] == "pep8-naming":
-                module['import'] = "pep8ext_naming"
-
-            if not find_spec(module['import']):
-                print('Could not find module %s!' % module['name'])
-                print('Please run `python3 -m pip install -r %s` to install required python dependencies.' % (qmk_dir / requirements,))
-                if developer:
-                    print('You can also turn off developer mode: qmk config user.developer=None')
-                print()
-                exit(255)
-
-
-developer = False
-# Make sure our modules have been setup
-_check_modules('requirements.txt')
-
 # Setup the CLI
 import milc  # noqa
-
-# For developers additional modules are needed
-if milc.cli.config.user.developer:
-    # Do not run the check for 'config',
-    # so users can turn off developer mode
-    if len(sys.argv) == 1 or (len(sys.argv) > 1 and 'config' != sys.argv[1]):
-        developer = True
-        _check_modules('requirements-dev.txt')
 
 milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
 
@@ -73,7 +29,10 @@ def main():
     """
     # Change to the root of our checkout
     os.environ['ORIG_CWD'] = os.getcwd()
+    os.environ['DEPRECATED_BIN_QMK'] = '1'
     os.chdir(qmk_dir)
+
+    print('Warning: The bin/qmk script is being deprecated. Please install the QMK CLI: python3 -m pip install qmk', file=sys.stderr)
 
     # Import the subcommands
     import qmk.cli  # noqa

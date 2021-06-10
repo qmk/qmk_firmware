@@ -109,6 +109,33 @@ Do not Auto Shift numeric keys, zero through nine.
 
 Do not Auto Shift alpha characters, which include A through Z.
 
+### Auto Shift Per Key 
+
+This is a function that allows you to determine which keys shold be autoshifted, much like the tap-hold keys. 
+
+The default function looks like this: 
+
+```c
+bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+#    ifndef NO_AUTO_SHIFT_ALPHA
+        case KC_A ... KC_Z:
+#    endif
+#    ifndef NO_AUTO_SHIFT_NUMERIC
+        case KC_1 ... KC_0:
+#    endif
+#    ifndef NO_AUTO_SHIFT_SPECIAL
+        case KC_TAB:
+        case KC_MINUS ... KC_SLASH:
+        case KC_NONUS_BSLASH:
+#    endif
+            return true;
+    }
+    return false;
+}
+```
+This functionality is enabled by default, and does not need a define.
+
 ### AUTO_SHIFT_REPEAT (simple define)
 
 Enables keyrepeat.

@@ -25,3 +25,5 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = 64_ansi
+
+LTO_ENABLE = yes

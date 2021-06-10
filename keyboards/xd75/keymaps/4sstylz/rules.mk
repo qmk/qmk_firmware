@@ -17,7 +17,7 @@ COMBO_ENABLE     = yes # Enable combo for special function when using multiple k
 BACKLIGHT_ENABLE = yes # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE  = yes # Enable WS2812 RGB underlight.
 
-BOOTMAGIC_ENABLE = yes # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = full # Virtual DIP switch configuration
 MOUSEKEY_ENABLE  = no  # Mouse keys
 EXTRAKEY_ENABLE  = yes # Audio control and System control
 CONSOLE_ENABLE   = no  # Console for debug
