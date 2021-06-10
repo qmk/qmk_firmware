@@ -191,7 +191,7 @@ void encoder_update_raw(uint8_t* slave_state) {
 #    else
 #        define NUM_ENCODERS (NUMBER_OF_ENCODERS)
 #    endif
-uint8_t    encoder_keypos[NUM_ENCODERS][2][2] = { ENCODER_KEYMAPPING};
+uint8_t    encoder_keypos[NUM_ENCODERS][2][2] = { ENCODER_KEYMAPPING };
 keyevent_t encoder_ccw[NUM_ENCODERS];
 keyevent_t encoder_cw[NUM_ENCODERS];
 
