@@ -50,6 +50,14 @@ MCUFLAGS += -D__$(ARM_ATSAM)__
 #     For a directory that has spaces, enclose it in quotes.
 EXTRALIBDIRS =
 
+cpfirmware: warn-arm_atsam
+.INTERMEDIATE: warn-arm_atsam
+warn-arm_atsam: $(FIRMWARE_FORMAT)
+	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
+	$(info This MCU support package has a lack of support from the upstream provider (Massdrop).)
+	$(info It's likely that this keyboard will be deprecated in the near future.)
+	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
+
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
