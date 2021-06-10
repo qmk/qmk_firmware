@@ -107,6 +107,54 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
+## `qmk console`
+
+This command lets you connect to keyboard consoles to get debugging messages. It only works if your keyboard firmware has been compiled with `CONSOLE_ENABLED=yes`.
+
+**Usage**:
+
+```
+qmk console [-d <pid>:<vid>[:<index>]] [-l] [-n] [-t] [-w <seconds>]
+```
+
+**Examples**:
+
+Connect to all available keyboards and show their console messages:
+
+```
+qmk console
+```
+
+List all devices:
+
+```
+qmk console -l
+```
+
+Show only messages from clueboard/66/rev3 keyboards:
+
+```
+qmk console -d C1ED:2370
+```
+
+Show only messages from the second clueboard/66/rev3:
+
+```
+qmk console -d C1ED:2370:2
+```
+
+Show timestamps and VID:PID instead of names:
+
+```
+qmk console -n -t
+```
+
+Disable bootloader messages:
+
+```
+qmk console --no-bootloaders
+```
+
 ## `qmk doctor`
 
 This command examines your environment and alerts you to potential build or flash problems. It can fix many of them if you want it to.
@@ -226,6 +274,18 @@ This command is directory aware. It will automatically fill in KEYBOARD if you a
 
 ```
 qmk list-keymaps -kb planck/ez
+```
+
+## `qmk new-keyboard`
+
+This command creates a new keyboard based on available templates.
+
+This command will prompt for input to guide you though the generation process.
+
+**Usage**:
+
+```
+qmk new-keyboard
 ```
 
 ## `qmk new-keymap`
