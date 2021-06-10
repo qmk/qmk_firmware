@@ -25,7 +25,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_VOLU);
         }
-    } else if (index == 2) {
+    } else if (index == 1) {
         if (clockwise) {
             tap_code(KC_MPRV);
         } else {
