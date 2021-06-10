@@ -68,7 +68,12 @@ This tells it to use 2ow 4, column 0 for counter clockwise, row 4 column 1 for c
 
 This works with most keycodes.  Tap-Hold keys may not work well for this, nor will special keys, like tap dances.  However, this will work with quantum keycodes, as well as custom macros. 
 
-Additionally, this will explicitly disable callback functionality if defined, and solely handle the encoders through the keymap. Alternatievly, you can add `#define ENCODER_PROCESS_CALLBACKS` to allow the callbacks to continue working.  And returning false in the callbacks will prevent it from handling the encoder keymap configuration. 
+Additionally, this will explicitly disable callback functionality if defined, and solely handle the encoders through the keymap. Alternatievly, you can add `#define ENCODER_PROCESS_CALLBACKS` to allow the callbacks to continue working.  And returning false in the callbacks will prevent it from handling the encoder keymap configuration.
+
+?> Note: With Split Keyboards, you will want to define all of the possible positions. Meaning you should have double the number of encoder locations as you have "pads" defined for the encoder.
+
+?> Note: When adding support for this, you may want to consider adding an additional layout for those that don't wish to use this functionality.
+
 ## Callbacks
 
 The callback functions can be inserted into your `<keyboard>.c`:
