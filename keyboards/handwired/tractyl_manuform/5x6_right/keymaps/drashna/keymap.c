@@ -24,12 +24,12 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_5x6_right_wrapper( \
-     KC_ESC,  ________________NUMBER_LEFT________________,            ________________NUMBER_RIGHT_______________, KC_MINS, \
+     KC_ESC,  ________________NUMBER_LEFT________________,            ________________NUMBER_RIGHT_______________, UC_IRNY, \
      SH_TT,   K01,    K02,      K03,     K04,     K05,                K06,     K07,     K08,     K09,     K0A,     SH_TT, \
      LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,                K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
-                       OS_LALT, OS_LGUI,                                                TG_GAME, TG_DBLO, \
-                                OS_LGUI, KC_GRV,                                        OS_RGUI,  \
+                       OS_LALT, OS_LGUI,                                                OS_RGUI, OS_RALT, \
+                                KC_PSCR, KC_GRV,                                        MEH_T(KC_BTN3),  \
                                          KC_SPC,  OS_LGUI,                     KC_ENT,  \
                                          BK_LWER, TT(_MOUSE),      TT(_MOUSE), DL_RAIS  \
   )
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         VRSN,    _________________ADJUST_L1_________________,                      _________________ADJUST_R1_________________, EEP_RST,
         _______, _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
         _______, _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, KC_MPLY,
-                          HPT_DWLI, HPT_DWLD,                                                        _______, _______,
+                          HPT_DWLI, HPT_DWLD,                                                        TG_GAME, TG_DBLO,
                                             HPT_TOG, HPT_BUZ,                               KC_NUKE,
                                                      _______, _______,             _______,
                                                      _______, _______,    KC_NUKE, _______
