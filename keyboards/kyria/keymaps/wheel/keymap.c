@@ -23,8 +23,8 @@
 #define ENTRSE LT(RAISE, KC_ENT)
 #define ENTNAV LT(NAV, KC_ENT)
 #define SPCLWR LT(LOWER, KC_SPC)
-#define SPCRSE LT(RAISE, qmk flash -kb kyria -km wheel)
-#define SPCNAV LT(NAV, qmk flash -kb kyria -km wheel)
+#define SPCRSE LT(RAISE, KC_SPC)
+#define SPCNAV LT(NAV, KC_SPC)
 #define TABRSE LT(RAISE, KC_TAB)
 
 // Mod-Key Toggles
@@ -34,6 +34,7 @@
 #define DELRALT MT(MOD_RALT, KC_DEL)
 #define ENTLALT MT(MOD_LALT, KC_ENT)
 #define ENTRALT MT(MOD_RALT, KC_ENT)
+#define SHFTESC MT(MOD_LSFT, KC_ESC)
 #define SPCLALT MT(MOD_LALT, KC_SPC)
 #define TABRALT MT(MOD_RALT, KC_TAB)
 
@@ -88,10 +89,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [QWERTY] = LAYOUT(
-      KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
-      KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, KC_DEL, KC_LGUI,     SCRNSHT, KC_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-              KC_CCCV, KC_LALT, MO(LOWER), KC_BSPC, MT(MOD_LALT, KC_ENT), MO(NAV), KC_SPC, MO(RAISE), KC_TAB, KC_RALT
+      KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+      CTRLESC, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, _______, KC_LGUI,      KC_DEL, KC_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                               KC_CCCV, KC_TAB, MO(LOWER), KC_SPC, ENTLALT, BSPCNAV, KC_SPC, MO(RAISE), _______, KC_RALT
     ),
 /*
  * Lower Layer: Numpad, Media
@@ -111,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NLCK, KC_SLSH, KC_7,    KC_8,    KC_9,   KC_MINS,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, _______,
       _______, KC_ASTR, KC_4,    KC_5,    KC_6,   KC_PLUS,                                     KC_ASTR, KC_4,    KC_5,    KC_6, KC_COMM, KC_PLUS,
       _______, KC_0,    KC_1,    KC_2,    KC_3,   KC_EQL,   _______, _______, _______, _______,KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  _______,
-                                 KC_DOT,  _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                 KC_DOT,  _______, _______, KC_SPC, _______, _______, _______, _______, _______, _______
     ),
 /*
  * Raise Layer: Symbols
@@ -128,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [RAISE] = LAYOUT(
-      _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                     _______, KC_UNDS, _______,_______,_______,KC_BSLS,
+      _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                     _______, KC_UNDS, _______, _______, _______, _______,
       _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,                                      KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_PERC, KC_QUOT,
       _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_AMPR, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -214,6 +215,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
+}
+
+// per key tapping term if TAPPING_TERM_PER_KEY is enabled
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SFT_T(KC_SPC):
+            return TAPPING_TERM + 1250;
+        case SPCNAV:
+            return 500;
+        default:
+            return TAPPING_TERM;
+    }
 }
 
 bool is_alt_tab_active = false;

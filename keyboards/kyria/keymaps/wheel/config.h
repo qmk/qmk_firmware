@@ -34,6 +34,7 @@
 #endif
 
 #define TAPPING_TERM 200
+//#define TAPPING_TERM_PER_KEY
 
 // The Leader key allows to flexibly assign macros to key sequences.
 #define LEADER_PER_KEY_TIMING
