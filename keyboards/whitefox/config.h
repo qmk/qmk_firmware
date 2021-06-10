@@ -66,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_DRIVER_ADDR_1 0x74
 #define LED_DRIVER_COUNT 1
 #define DRIVER_LED_TOTAL 71
-#define LED_DISABLE_WHEN_USB_SUSPENDED true
+#define LED_DISABLE_WHEN_USB_SUSPENDED
 
 /* i2c (for LED matrix) */
 #define I2C1_CLOCK_SPEED 400000
