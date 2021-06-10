@@ -17,13 +17,16 @@ For more information, join the [NoPunIn10Key Discord](https://discord.gg/sku2Y6w
 * Hardware Availability: Currently by request only
 
 To jump the bootloader, either:
-# If loaded with the default layout, use Function-Escape or Function-R *(the function buttons are the 1u keys next to B and N)* **OR**
-# Use the physical reset switch near the USB port *(if provided for your version of the board)* **OR**
+# If loaded with the default layout, use Function-Escape *(the function button is the farthest righthand 1.25u on the bottom row)* **OR**
 # Use the physical reset switch on the Elite C **OR**
 # Briefly jump the Reset and Ground pins of the Elite C
 
 Make example for this keyboard (after setting up your build environment):
 
     make nopunin10did/kastenwagen:default
+    
+Make example for the 48 model:
+
+    make nopunin10did/kastenwagen:default48
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
