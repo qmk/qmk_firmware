@@ -504,6 +504,7 @@ See also: [MIDI](feature_midi.md)
 |`MI_MODSU`  |         |Increase modulation speed        |
 |`MI_BENDD`  |         |Bend pitch down                  |
 |`MI_BENDU`  |         |Bend pitch up                    |
+
 ## Mouse Keys :id=mouse-keys
 
 See also: [Mouse Keys](feature_mouse_keys.md)
