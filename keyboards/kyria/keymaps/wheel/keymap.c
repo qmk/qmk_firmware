@@ -56,7 +56,8 @@ enum layers {
 };
 
 enum custom_keycodes {
-    KC_CCCV = SAFE_RANGE
+    KC_CCCV = SAFE_RANGE,
+    KC_CZCY, // undo/redo
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -92,8 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [QWERTY] = LAYOUT(
       KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
       CTRLESC, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, KC_DEL, KC_LGUI,       KC_LEAD, KC_DEL,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                       KC_CCCV, TABLALT, MO(LOWER), BSPCNAV, ENTNAV,        BSPCNAV, KC_SPC, MO(RAISE), TABRALT, _______
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, KC_DEL, KC_LGUI,       KC_DEL, KC_LEAD, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                       KC_CCCV, TABLALT, MO(LOWER), KC_BSPC, ENTNAV,        BSPCNAV, KC_SPC, MO(RAISE), TABRALT, KC_CZCY
     ),
 /*
  * Lower Layer: Numpad, Media
@@ -211,6 +212,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code16(LCTL(KC_C));
                 } else { // Tap, paste
                     tap_code16(LCTL(KC_V));
+                }
+            }
+            break;
+        case KC_CZCY: // Undo/Redo
+            if (record->event.pressed) {
+                if ((get_mods() & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
+                    tap_code16(LCTL(KC_Y));
+                }
+                else {
+                    tap_code16(LCTL(KC_Z));
                 }
             }
             break;
