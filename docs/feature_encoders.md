@@ -54,6 +54,21 @@ If you are using different pinouts for the encoders on each half of a split keyb
 #define ENCODER_RESOLUTIONS_RIGHT { 2, 4 }
 ```
 
+?> Note: When using Encoders with split keyboards, it assumes that you have double the number of encoders. If not all encoders are populated, then you may need to skip indexes. 
+
+## Mapping Encoder Functions to the Keymap
+
+By enabling this config, you can place the keycodes for the encoders directly in the keymap itself.  If you have extra spots in your matrix (eg, not populated), you can use those locations.  To eanble this you need to add a define that lists the row and column location to use. 
+
+```c
+#define ENCODER_KEYMAPPING { { 4, 0 }, { 4, 1 } }, { { 5, 0 }, { 5, 1 } }
+```
+
+This tells it to use 2ow 4, column 0 for counter clockwise, row 4 column 1 for clockwise, and then row 5 column 0 and 1 for the second encoder.  
+
+This works with most keycodes.  Tap-Hold keys may not work well for this, nor will special keys, like tap dances.  However, this will work with quantum keycodes, as well as custom macros. 
+
+Additionally, this will explicitly disable callback functionality if defined, and solely handle the encoders through the keymap. Alternatievly, you can add `#define ENCODER_PROCESS_CALLBACKS` to allow the callbacks to continue working.  And returning false in the callbacks will prevent it from handling the encoder keymap configuration. 
 ## Callbacks
 
 The callback functions can be inserted into your `<keyboard>.c`:
