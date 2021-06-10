@@ -132,7 +132,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 
 
     if (!select_row(current_row)) { // Select row
-        return false;  // skip NO_PIN row
+        return;  // skip NO_PIN row
     }
     matrix_output_select_delay();
 
@@ -188,7 +188,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     // Select col
     if (!select_col(current_col)) { // select col
-        reture false; // skip NO_PIN col
+        reture; // skip NO_PIN col
     }
     matrix_output_select_delay();
 
