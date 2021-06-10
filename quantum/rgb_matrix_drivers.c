@@ -209,4 +209,37 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color     = setled,
     .set_color_all = setled_all,
 };
+
+#elif defined(AW20216S)
+#    include "spi_master.h"
+
+static void init(void) {
+
+    AW20216S_enable(SPI_SS_DRIVER_1_PIN,ENABLE_DRIVERS_PIN);
+#ifdef SPI_SS_DRIVER_2_PIN
+    AW20216S_enable(SPI_SS_DRIVER_2_PIN,ENABLE_DRIVERS_PIN);
+#endif
+    
+    spi_init();
+    
+    AW20216S_init(SPI_SS_DRIVER_1_PIN,SW_LINES_ENABLE_DRIVER_1);
+#ifdef SPI_SS_DRIVER_2_PIN
+    AW20216S_init(SPI_SS_DRIVER_2_PIN,SW_LINES_ENABLE_DRIVER_2);
+#endif
+}
+
+static void flush(void) {
+    AW20216S_update_pwm_buffers(SPI_SS_DRIVER_1_PIN, 0);
+#ifdef SPI_SS_DRIVER_2_PIN
+    AW20216S_update_pwm_buffers(SPI_SS_DRIVER_2_PIN, 1);
+#endif
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init          = init,
+    .flush         = flush,
+    .set_color     = AW20216S_set_color,
+    .set_color_all = AW20216S_set_color_all,
+};
+
 #endif

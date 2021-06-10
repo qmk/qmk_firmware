@@ -244,7 +244,7 @@ endif
 endif
 
 RGB_MATRIX_ENABLE ?= no
-VALID_RGB_MATRIX_TYPES := IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
+VALID_RGB_MATRIX_TYPES := IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 AW20216S custom
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
@@ -292,6 +292,13 @@ endif
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), WS2812)
         OPT_DEFS += -DWS2812
         WS2812_DRIVER_REQUIRED := yes
+    endif
+
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), AW20216S)
+        OPT_DEFS += -DAW20216S -DSTM32_SPI -DHAL_USE_SPI=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/awinic
+        SRC += aw20216s.c
+        QUANTUM_LIB_SRC += spi_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), APA102)
