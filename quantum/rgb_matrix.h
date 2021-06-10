@@ -33,6 +33,8 @@
 #    include "is31fl3737.h"
 #elif defined(IS31FL3741)
 #    include "is31fl3741.h"
+#elif defined(AW20216)
+#    include "aw20216.h"
 #elif defined(WS2812)
 #    include "ws2812.h"
 #endif
