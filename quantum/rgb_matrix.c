@@ -67,10 +67,6 @@ __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv
 #    define RGB_DISABLE_TIMEOUT 0
 #endif
 
-#if RGB_DISABLE_WHEN_USB_SUSPENDED != 1
-#    undef RGB_DISABLE_WHEN_USB_SUSPENDED
-#endif
-
 #if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
 #    undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
