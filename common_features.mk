@@ -587,6 +587,14 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     SRC += oled_driver.c
 endif
 
+ifeq ($(strip $(ST7565_ENABLE)), yes)
+    OPT_DEFS += -DST7565_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled # For glcdfont.h
+    COMMON_VPATH += $(DRIVER_PATH)/lcd
+    QUANTUM_LIB_SRC += spi_master.c
+    SRC += st7565.c
+endif
+
 include $(DRIVER_PATH)/qwiic/qwiic.mk
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
