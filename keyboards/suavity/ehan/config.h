@@ -19,26 +19,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5344 // 5344 short for "SD" (Suavity Designs)
-#define PRODUCT_ID      0x484A // 484A short for "HJ" (HanJie)
+#define PRODUCT_ID      0x4548 // 4548 short for "EH" (EHan)
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Suavity Designs
-#define PRODUCT         hanjie
-#define DESCRIPTION     A Compact Southpaw FRL Custom Keyboard
+#define PRODUCT         ehan
+#define DESCRIPTION     A 10.5° Split TKL Custom Keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 19
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 17
 
-#define MATRIX_COL_PINS { B2, B1, B0, A7, A6, B11, B10, B12, B13, B14, B15,  A8,  A9,  A10,  A15,  B3,  B4,  B5,  B6 }
-// Matrix Column Pins:    C0  C1  C2  C3  C4  C5   C6   C7   C8   C9   C10   C11  C12  C13   C14   C15  C16  C17  C18
-#define MATRIX_ROW_PINS { A3, B7, A0, A1, A2 }
-// Matrix Row Pins:       R0  R1  R2  R3  R4
+#define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, B9,  B8,  B7, B6, B5,  B4,  B3,  A15, C15, C14, C13, }
+// Matrix Column Pins:    C0  C1  C2   C3   C4   C5   C6   C7   C8  C9  C10  C11  C12  C13  C14  C15  C16
+#define MATRIX_ROW_PINS { A10, B1, A5, A6, A7, B0 }
+// Matrix Row Pins:       R0  R1   R2  R3  R4  R5
 #define DIODE_DIRECTION COL2ROW
 // Current flow out of the diodes are from rows to columns
 
-#define LED_CAPS_LOCK_PIN B8
-#define LED_NUM_LOCK_PIN F0
-#define LED_SCROLL_LOCK_PIN F1
+#define LED_CAPS_LOCK_PIN B11 // LED for Step Caps
+#define LED_SCROLL_LOCK_PIN F1 // LED Indicator for Scroll Lock
 #define LED_PIN_ON_STATE 1
 
 /* Set 0 if debouncing isn't needed */
