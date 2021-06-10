@@ -14,19 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "layer_prefs.h"
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
     BASE = SAFE_RANGE,
     KC_LSPC,
     KC_LANG
-};
-
-enum layer_names {
-    _CONTROL,
-    _EDIT1,
-    _EDIT2,
-    _FN
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -53,7 +47,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-static bool layer_shift = false;
 //static bool _mode_jaen = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -172,6 +165,7 @@ void encoder_update_user(uint8_t index, bool clockwise){
     }
 #else
     void keyboard_post_init_user(void){
-//        rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
+//      rgb_matrix_mode(RGB_MATRIX_CUSTOM_quick17_rgbm_effect);
+//      rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
     }
 #endif
