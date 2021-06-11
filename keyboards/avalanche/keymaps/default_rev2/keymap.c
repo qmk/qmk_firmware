@@ -31,14 +31,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LAYER_1] = LAYOUT(
                  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-                 KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, KC_UP,   KC_PGUP, KC_PSCR, XXXXXXX,
+                 _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, KC_UP,   KC_PGUP, KC_PSCR, XXXXXXX,
         _______, _______, KC_APP,  XXXXXXX, KC_HOME, KC_END,  KC_DEL,  _______, _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______, KC_F12,
                  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAUS, _______, _______, KC_HOME, KC_END,  XXXXXXX, KC_PGDN, XXXXXXX, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
     [LAYER_2] = LAYOUT(
                  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,
-                 KC_CAPS, KC_BSPC, KC_1,    KC_2,    KC_3,    XXXXXXX,                   XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX, XXXXXXX,
+                 _______, KC_BSPC, KC_1,    KC_2,    KC_3,    XXXXXXX,                   XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX, XXXXXXX,
         _______, _______, KC_BSPC, KC_4,    KC_5,    KC_6,    KC_DEL,  _______, _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______, KC_F12,
                  _______, KC_BSPC, KC_7,    KC_8,    KC_9,    KC_0,    _______, _______, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -51,24 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 };
-
-void matrix_init_kb(void) {
-    led_init_ports();
-}
-
-void led_init_ports(void) {
-    setPinOutput(B0);
-    writePinLow(B0);
-}
-
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        writePinLow(B0);
-    } else {
-        writePinHigh(B0);
-    }
-    led_set_user(usb_led);
-}
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
