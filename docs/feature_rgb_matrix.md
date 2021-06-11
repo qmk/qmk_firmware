@@ -228,6 +228,74 @@ Configure the hardware via your `config.h`:
 ```
 
 ---
+### AW20216 :id=aw20216
+There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = AW20216
+```
+
+You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
+| `DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
+| `DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
+| `DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
+| `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
+| `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
+| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+| `AW_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
+| `AW_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
+
+Here is an example using 2 drivers.
+
+```c
+#define DRIVER_1_CS B13
+#define DRIVER_2_CS B14
+// Hardware enable lines may be connected to the same pin
+#define DRIVER_1_EN C13
+#define DRIVER_2_EN C13
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 66
+#define DRIVER_2_LED_TOTAL 32
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+```
+
+!> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+```c
+const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
+/* Each AW20216 channel is controlled by a register at some offset between 0x00
+ * and 0xD7 inclusive.
+ * See drivers/awinic/aw20216.h for the mapping between register offsets and
+ * driver pin locations.
+ *    driver
+ *    |  R location
+ *    |  |        G location
+ *    |  |        |        B location
+ *    |  |        |        | */
+    { 0, CS1_SW1, CS2_SW1, CS3_SW1 },
+    { 0, CS4_SW1, CS5_SW1, CS6_SW1 },
+    { 0, CS7_SW1, CS8_SW1, CS9_SW1 },
+    { 0, CS10_SW1, CS11_SW1, CS12_SW1 },
+    { 0, CS13_SW1, CS14_SW1, CS15_SW1 },
+    ...
+    { 1, CS1_SW1, CS2_SW1, CS3_SW1 },
+    { 1, CS13_SW1, CS14_SW1, CS15_SW1 },
+    { 1, CS16_SW1, CS17_SW1, CS18_SW1 },
+    { 1, CS4_SW2, CS5_SW2, CS6_SW2 },
+    ...
+};
+```
+
+---
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 

@@ -244,7 +244,7 @@ endif
 endif
 
 RGB_MATRIX_ENABLE ?= no
-VALID_RGB_MATRIX_TYPES := IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
+VALID_RGB_MATRIX_TYPES := AW20216 IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
@@ -260,6 +260,13 @@ endif
     SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
+
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), AW20216)
+        OPT_DEFS += -DAW20216 -DSTM32_SPI -DHAL_USE_SPI=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/awinic
+        SRC += aw20216.c
+        QUANTUM_LIB_SRC += spi_master.c
+    endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3731)
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
@@ -578,6 +585,14 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/oled
     QUANTUM_LIB_SRC += i2c_master.c
     SRC += oled_driver.c
+endif
+
+ifeq ($(strip $(ST7565_ENABLE)), yes)
+    OPT_DEFS += -DST7565_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled # For glcdfont.h
+    COMMON_VPATH += $(DRIVER_PATH)/lcd
+    QUANTUM_LIB_SRC += spi_master.c
+    SRC += st7565.c
 endif
 
 include $(DRIVER_PATH)/qwiic/qwiic.mk
