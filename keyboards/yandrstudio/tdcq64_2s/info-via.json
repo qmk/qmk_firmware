@@ -2,7 +2,10 @@
   "name": "TDCQ64",
   "vendorId": "0xFEED",
   "productId": "0x6060",
-  "lighting": "none",
+   "lighting": {
+       "extends": "none",
+       "keycodes": "qmk"
+   },
   "matrix": { "rows": 5, "cols": 14 },
   "layouts": {
     "keymap":
