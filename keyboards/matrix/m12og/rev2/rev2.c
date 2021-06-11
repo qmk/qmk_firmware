@@ -1,8 +1,8 @@
 /**
- * m12og.c
+ * rev2.c
  */
 
-#include "m12og.h"
+#include "rev2.h"
 
 void matrix_init_user(void) {
 	setPinOutput(C6);
