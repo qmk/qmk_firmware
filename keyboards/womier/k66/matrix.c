@@ -113,6 +113,14 @@ uint8_t matrix_scan(void) {
     return (uint8_t)matrix_changed;
 }
 
+void __assert_func (const char * file, int line, const char * func, const char * expr)
+{
+    while (1)
+    {
+        /* Do nothing. */
+    }
+}
+
 volatile SN_CT16B1_Type * ct_b1 = (SN_CT16B1_Type *) SN_CT16B1_BASE;
 
 static struct
