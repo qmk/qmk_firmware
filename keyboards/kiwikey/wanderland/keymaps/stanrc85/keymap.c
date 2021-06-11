@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_DRIVER_ENABLE
 void oled_task_user(void) {
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR("     Layer: "), false);
 
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
