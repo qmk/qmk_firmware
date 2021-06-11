@@ -264,6 +264,10 @@ void render_user_status(void) {
     oled_write_P(rgb_layer_status[userspace_config.rgb_layer_change], false);
     static const char PROGMEM nukem_good[2][3] = {{0xF8, 0xF9, 0}, {0xF6, 0xF7, 0}};
     oled_write_P(nukem_good[0], userspace_config.nuke_switch);
+#if defined(UNICODE_ENABLE)
+    static const char PROGMEM uc_mod_status[5][3] = {{0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
+    oled_write_P(uc_mod_status[get_unicode_input_mode() == UC_MAC], false);
+#endif
 #if defined(OLED_DISPLAY_128X64)
     oled_advance_page(true);
 #endif
