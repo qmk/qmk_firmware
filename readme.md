@@ -1,35 +1,32 @@
-# Quantum Mechanical Keyboard Firmware
+# QMK for my broken Planck
 
-[![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
-[![Build Status](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
-[![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
-[![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
-[![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
-[![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
+After my Planck keyboard was exposed to a static shock the third row starting from the `N` key (QWERTY layout) started to activate multiple key presses at once.
 
-This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](https://ergodox-ez.com) keyboard, and the [Clueboard product line](https://clueboard.co).
+Other users report about the same issue with their Planck keyboards:
 
-## Documentation
+- https://www.reddit.com/r/olkb/comments/eqjpdl/need_help_troubleshooting_planck_rev_6/
+- https://www.reddit.com/r/olkb/comments/hgc2by/help_planck_rev6_registering_multiple_columns_for/
+- https://github.com/qmk/qmk_firmware/issues/8610
 
-* [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
+The issue seems to be coming from a combination of a hardware issue plus a change made to the QMK firmware to [add dip switch as a core feature](https://github.com/qmk/qmk_firmware/pull/6140).
 
-The docs are hosted on [Gitbook](https://www.gitbook.com/book/qmk/firmware/details) and [GitHub](/docs/) (they are synced). You can request changes by making a fork and [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "suggest an edit" link on any page of the docs.
+## Resolution
 
-## Supported Keyboards
+To continue using my keyboard I performed the following actions:
 
-* [Planck](/keyboards/planck/)
-* [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard](/keyboards/clueboard/)
-* [Cluepad](/keyboards/clueboard/17/)
-* [Atreus](/keyboards/atreus/)
+- revert everything back to commit `9f46606dff2f52f31c6c36a63035cfb75824276a`
+- removed the `inline` keyword from `tmk_core/common/mousekey.c` (line 26)
+- add my own keymap under `keyboards/planck/keymaps/theblob42/`
 
-The project also includes community support for [lots of other keyboards](/keyboards/).
+Now I can build and flash my keymap with the following command:
 
-## Maintainers
+```shell
+sudo make CFLAGS=-Wno-error=deprecated planck/rev6:theblob42:flash
+```
 
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/jackhumbert), the Ergodox EZ by [ZSA Technology Labs](https://github.com/zsa), the Clueboard by [Zach White](https://github.com/skullydazed), and the Atreus by [Phil Hagelberg](https://github.com/technomancy).
+> The keyboard needs to be in DFU mode for the flash to work
 
-## Official Website
+## References
 
-[qmk.fm](https://qmk.fm) is the official website of QMK, where you can find links to this page, the documentation, and the keyboards supported by QMK.
+- [QMK](https://github.com/qmk/qmk_firmware)
+- [OLKB](https://olkb.com/)
