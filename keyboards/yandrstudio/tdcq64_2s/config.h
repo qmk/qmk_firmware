@@ -19,17 +19,17 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAA03
+#define PRODUCT_ID      0xAA04
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    JasonRen biu
-#define PRODUCT         tdcq68
+#define PRODUCT         tdcq64_2s
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_COLS 14
 
 //                         0   1   2       3   4    5    6    7    8   9   10  11  12  13  14
-#define MATRIX_COL_PINS { B12, B13, B14, B15, A8, A9,  A10, C13, C14, C15, A0, A1, A2, A3, A4}
+#define MATRIX_COL_PINS { B12, B13, B14, B15, A8, A9,  A10, C13, C14, C15, A0, A1, A2, A3}
 #define MATRIX_ROW_PINS { A15, B3, B4, B5, B7}
 
 /* COL2ROW or ROW2COL */
@@ -57,8 +57,9 @@
 #    define RGBLED_NUM 2
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 
-#       define WS2812_SPI SPID1 // default: SPID1
-#       define WS2812_SPI_MOSI_PAL_MODE 5
+
+#    define WS2812_SPI SPID1 // default: SPID1
+#    define WS2812_SPI_MOSI_PAL_MODE 5
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
 #    define RGBLIGHT_VAL_STEP 18
@@ -69,5 +70,12 @@
 
 #endif
 
+#define  LED_CAPS_LOCK_PIN A5
+#define LED_PIN_ON_STATE 0
 
+#define BACKLIGHT_PIN A6
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_PWM_DRIVER PWMD3
+#define BACKLIGHT_PWM_CHANNEL 1
+#define BACKLIGHT_PAL_MODE 2
 
