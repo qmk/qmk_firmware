@@ -37,7 +37,7 @@ OPT_DEFS = -Og
 #   comment out to disable the options.
 #
 # EXTRAFLAGS+=-flto
-LTO_ENABLE = no
+LTO_ENABLE = yes
 BACKLIGHT_ENABLE = no
 MAGIC_ENABLE = no
 MAGIC_KEYCODE_ENABLE = no
