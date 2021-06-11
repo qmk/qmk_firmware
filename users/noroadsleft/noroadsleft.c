@@ -29,10 +29,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keymap(keycode, record)) {
         return false;
     }
+#if defined(ANSI_NUBS_ROW) && defined(ANSI_NUBS_COL)
+    // if ANSI_NUBS_ROW and ANSI_NUBS_COL are both defined, and Right Alt mod is active
+    if ( record->event.key.row == ANSI_NUBS_ROW && record->event.key.col == ANSI_NUBS_COL && get_mods() & MOD_MASK_RALT ) {
+        if (record->event.pressed) {
+            register_code(KC_NUBS);
+        } else {
+            unregister_code(KC_NUBS);
+        }
+        return false;
+    }
+#endif
     switch (keycode) {
         case VRSN:
             if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION);
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " # @ " QMK_VERSION);
             }
             return false;
         case G_PUSH:
@@ -117,21 +128,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 macroMode ^= 1;
             }
-            return false;
-        case KC_Z:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    register_code(KC_NUBS);
-                } else {
-                    register_code(KC_Z);
-                }
-            } else {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    unregister_code(KC_NUBS);
-                } else {
-                    unregister_code(KC_Z);
-                }
-            };
             return false;
         case KC_1 ... KC_0:
             if (record->event.pressed) {
