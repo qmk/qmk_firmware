@@ -3,6 +3,9 @@
 this is the personal keyboard layout of [@sulrich](https://github.com/sulrich),
 and is heavily oriented towards operation in the Mac OS environment.
 
+there are no LED rules in this keymap and the OLED display uses the default
+corne images
+
 ## layout notes
 
 this layout uses a standard QWERTY layout on the default layer followed by a
