@@ -24,9 +24,7 @@
   // #define RGBLIGHT_ANIMATIONS
   #define RGBLIGHT_EFFECT_BREATHING
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  #define RGBLIGHT_EFFECT_KNIGHT
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
@@ -37,7 +35,7 @@
 //#define TAPPING_TERM_PER_KEY
 
 // The Leader key allows to flexibly assign macros to key sequences.
-#define LEADER_PER_KEY_TIMING
+// #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 350
 
 #define EE_HANDS
