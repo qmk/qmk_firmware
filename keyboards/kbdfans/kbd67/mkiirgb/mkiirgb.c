@@ -1,5 +1,7 @@
 #include "mkiirgb.h"
+
 #ifdef RGB_MATRIX_ENABLE
+
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 	
 	{0, C8_8,  C7_8, C6_8},   // LA17

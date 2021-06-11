@@ -1,4 +1,4 @@
-#include "maja.h"
+#include "hotswap.h"
 
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 	{0, C2_1,  C3_1,  C4_1},  // LA0
