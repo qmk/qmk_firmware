@@ -14,6 +14,4 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-BACKLIGHT_ENABLE = yes
 TAP_DANCE_ENABLE = yes
-
