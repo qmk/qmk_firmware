@@ -89,11 +89,17 @@ ifeq ($(strip $(BOOTLOADER)), USBasp)
     BOOTLOADER_SIZE = 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), lufa-ms)
-    # DO NOT USE THIS BOOTLOADER IN NEW PROJECTS!
-    # It is extremely prone to bricking, and is only included to support existing boards.
     OPT_DEFS += -DBOOTLOADER_MS
     BOOTLOADER_SIZE = 6144
     FIRMWARE_FORMAT = bin
+cpfirmware: lufa_warning
+.INTERMEDIATE: lufa_warning
+lufa_warning: $(FIRMWARE_FORMAT)
+	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
+	$(info LUFA MASS STORAGE Bootloader selected)
+	$(info DO NOT USE THIS BOOTLOADER IN NEW PROJECTS!)
+	$(info It is extremely prone to bricking, and is only included to support existing boards.)
+	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
 endif
 ifdef BOOTLOADER_SIZE
     OPT_DEFS += -DBOOTLOADER_SIZE=$(strip $(BOOTLOADER_SIZE))
@@ -136,4 +142,7 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
     # Options to pass to dfu-util when flashing
     DFU_ARGS = -d 1EAF:0003 -a 2 -R
     DFU_SUFFIX_ARGS = -v 1EAF -p 0003
+endif
+ifeq ($(strip $(BOOTLOADER)), tinyuf2)
+    OPT_DEFS += -DBOOTLOADER_TINYUF2
 endif
