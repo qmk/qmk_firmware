@@ -1,5 +1,4 @@
 // Add your new core rgb matrix effect here, order determins enum order, requires "rgb_matrix_animations/ directory
-#include "rgb_matrix_animations/openrgb_direct_anim.h"
 #include "rgb_matrix_animations/solid_color_anim.h"
 #include "rgb_matrix_animations/alpha_mods_anim.h"
 #include "rgb_matrix_animations/gradient_up_down_anim.h"
@@ -36,3 +35,4 @@
 #include "rgb_matrix_animations/solid_reactive_nexus.h"
 #include "rgb_matrix_animations/splash_anim.h"
 #include "rgb_matrix_animations/solid_splash_anim.h"
+#include "rgb_matrix_animations/openrgb_direct_anim.h"
