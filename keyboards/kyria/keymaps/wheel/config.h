@@ -15,16 +15,13 @@
  */
 
 #pragma once
-
+#include <stdio.h>
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
 #endif
 
 #ifdef RGBLIGHT_ENABLE
   // #define RGBLIGHT_ANIMATIONS
-  #define RGBLIGHT_EFFECT_BREATHING
-  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8

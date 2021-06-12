@@ -48,14 +48,6 @@
 // #define REDO RCTL(KC_Y)
 
 
-bool is_bowser_active = true;
-uint16_t oled_timer = 0;
-
-// 40 fps
-// #define FRAME_TIMEOUT (1000/40)
-
-#define FRAME_TIMEOUT 15000
-
 enum layers {
     QWERTY = 0,
     LOWER,
@@ -300,8 +292,19 @@ void matrix_scan_user(void) {
 }
 
 #ifdef OLED_DRIVER_ENABLE
+char wpm[10];
+bool is_bowser_active = true;
+uint16_t image_timer = 0;
+uint16_t wpm_timer = 0;
+uint32_t anim_sleep = 0;
+
+#define IMAGE_TIMEOUT 20000 // 20 sec
+#define WPM_TIMEOUT 2000 // 2 sec
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    oled_timer = FRAME_TIMEOUT;
+    image_timer = IMAGE_TIMEOUT;
+    wpm_timer = WPM_TIMEOUT;
+
 	return OLED_ROTATION_180;
 }
 
@@ -376,7 +379,7 @@ static void render_bowser(void) {
     oled_write_raw_P(bowser_logo, sizeof(bowser_logo));
 }
 
-/*
+
 static void render_mabel(void) {
     static const char PROGMEM mabel_logo[] = {
 // 'mabel_sm', 128x64px
@@ -447,7 +450,37 @@ static void render_mabel(void) {
     };
     oled_write_raw_P(mabel_logo, sizeof(mabel_logo));
 }
-*/
+
+static void render_anim(void)
+{
+    if (timer_elapsed(image_timer) >= IMAGE_TIMEOUT)
+    {
+        image_timer = timer_read();
+
+        if (is_bowser_active)
+        {
+            render_bowser();
+            is_bowser_active = !is_bowser_active;
+        }
+        else
+        {
+            render_mabel();
+            is_bowser_active = !is_bowser_active;
+        }
+    }
+}
+
+static void render_wpm(void)
+{
+    if (timer_elapsed(wpm_timer) >= WPM_TIMEOUT)
+    {
+        sprintf(wpm, "\nWPM: %03d", get_current_wpm());
+        
+        wpm_timer = timer_read();
+    }
+
+    oled_write(wpm, false);
+}
 
 static void render_qmk_logo(void) {
   static const char PROGMEM qmk_logo[] = {
@@ -485,6 +518,8 @@ static void render_status(void) {
             oled_write_P(PSTR("Undefined\n"), false);
     }
 
+    render_wpm();
+
     // Host Keyboard LED Status
     uint8_t led_usb_state = host_keyboard_leds();
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
@@ -492,23 +527,34 @@ static void render_status(void) {
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
-void oled_task_user(void) {
-    if (is_keyboard_master()) {
+void oled_task_user(void) 
+{
+    if (is_keyboard_master()) 
+    {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-    } else {
-        // if (timer_elapsed(oled_timer) >= FRAME_TIMEOUT) {
-        //     oled_timer = timer_read();
+    } 
+    else
+    {
+        if (get_current_wpm() != 000) 
+        {
+            oled_on();
+            render_anim();
 
-        //     if (is_bowser_active) {
-        //         render_bowser();
-        //         is_bowser_active = !is_bowser_active;
-        //     } else {
-        //         render_mabel();
-        //         is_bowser_active = !is_bowser_active;
-        //     }
-        // }
+            anim_sleep = timer_read32();
+        }
+        else
+        {
+            if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT)
+            {
+                oled_off();
+            }
+            else
+            {
+                render_anim();
+            }
+        }
 
-        render_bowser();
+        // render_bowser();
     }
 }
 #endif
