@@ -47,7 +47,7 @@
 #define UNDO RCTL(KC_Z)
 #define REDO RCTL(KC_Y)
 
-uint16_t copy_paste_timer;
+
 bool is_bowser_active = true;
 uint16_t oled_timer = 0;
 
@@ -65,8 +65,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-    KC_CCCV = SAFE_RANGE,
-    KC_CZCY, // undo/redo
+    KC_CVZY = SAFE_RANGE, // hold-copy/paste; shifted hold-redo/undo
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -87,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [QWERTY] = LAYOUT(
       KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
       CTRLESC, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, KC_CZCY, KC_CCCV,     KC_LEAD, KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFTEQL,
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, _______, KC_CVZY,     KC_LEAD, KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFTEQL,
                        KC_DEL,TABLALT,MO(LOWER), KC_BSPC, ENTNAV,          BSPCNAV, KC_SPC,MO(RAISE), TABRALT, KC_DEL
     ),
 /*
@@ -196,30 +195,75 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, LOWER, RAISE, ADJUST);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_CCCV:  // One key copy/paste
-            if (record->event.pressed) {
-                copy_paste_timer = timer_read();
-            } else {
-                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
-                    tap_code16(LCTL(KC_C));
-                } else { // Tap, paste
-                    tap_code16(LCTL(KC_V));
+uint16_t cvzy_timer;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) 
+{
+    switch (keycode) 
+    {
+        case KC_CVZY: // Undo/Redo
+            if (record->event.pressed) 
+            {
+                cvzy_timer = timer_read();
+            }
+            else
+            {
+                // if shift key is pressed, do undo/redo
+                if ((get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))) != 0)
+                {
+                    bool is_shift_left = false;
+                    bool is_shift_right = false;
+
+                    // detect and unregister the shift key pressed for undo/redo to only be ctrl + key
+                    if (get_mods() & MOD_BIT(KC_LSFT))
+                    {
+                        is_shift_left = true;
+                        unregister_mods(MOD_BIT(KC_LSFT));
+                    }
+                    
+                    if (get_mods() & MOD_BIT(KC_RSFT))
+                    {
+                        is_shift_right = true;
+                        unregister_mods(MOD_BIT(KC_RSFT));
+                    }
+
+                    if (timer_elapsed(cvzy_timer) > TAPPING_TERM)
+                    {
+                        tap_code16(LCTL(KC_Y));
+                    }
+                    else 
+                    {
+                        tap_code16(LCTL(KC_Z));
+                    }
+                    
+                    // register shift key again
+                    if (is_shift_left)
+                    {
+                        register_mods(MOD_BIT(KC_LSFT));
+                    }
+                    
+                    if (is_shift_right)
+                    {
+                        register_mods(MOD_BIT(KC_RSFT));
+                    }
+                }
+                else
+                {
+                    if (timer_elapsed(cvzy_timer) > TAPPING_TERM) 
+                    {  
+                        // Hold, copy
+                        tap_code16(LCTL(KC_C));
+                    }
+                    else 
+                    { // Tap, paste
+                        tap_code16(LCTL(KC_V));
+                    }
                 }
             }
-            break;
-        case KC_CZCY: // Undo/Redo
-            if (record->event.pressed) {
-                if ((get_mods() & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
-                    tap_code16(LCTL(KC_Y));
-                }
-                else {
-                    tap_code16(LCTL(KC_Z));
-                }
-            }
+
             break;
     }
+
     return true;
 }
 
@@ -242,13 +286,6 @@ uint16_t alt_tab_timer = 0;
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
-    if (is_alt_tab_active) {
-        if (timer_elapsed(alt_tab_timer) > 1000) {
-            unregister_code(KC_LALT);
-            is_alt_tab_active = false;
-        }
-    }
-
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();
