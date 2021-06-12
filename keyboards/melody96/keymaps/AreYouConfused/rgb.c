@@ -54,18 +54,18 @@ void keyboard_post_init_user(void) {
 bool lastCaps = 0;
 bool lastNum = 0;
 bool led_update_user(led_t led_state) {
-	   if (led_state.caps_lock && !lastCaps){
-			 rgblight_blink_layer_repeat(BLNK, 175, 2);
-			 lastCaps = 1;
-	   } else {
-			 lastCaps = led_state.caps_lock;
-	   }
-	   if (!led_state.num_lock && !lastNum){	
-			 rgblight_blink_layer_repeat(BLNK, 175, 2);
-			 lastNum = 1;
-	   } else {
-			 lastNum = !led_state.num_lock;
-	   }
+    if (led_state.caps_lock && !lastCaps){
+        rgblight_blink_layer_repeat(BLNK, 175, 2);
+        lastCaps = 1;
+    } else {
+        lastCaps = led_state.caps_lock;
+    }
+    if (!led_state.num_lock && !lastNum){	
+        rgblight_blink_layer_repeat(BLNK, 175, 2);
+        lastNum = 1;
+    } else {
+        lastNum = !led_state.num_lock;
+    }
     rgblight_set_layer_state(CAPS, led_state.caps_lock);
     rgblight_set_layer_state(NUM, !led_state.num_lock); // inverted of numlock status
     return true;
@@ -86,35 +86,33 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-		case DOG:
-			   if (record->event.pressed){
-					 char hue[4];
-					 itoa(rgblight_get_hue(), hue, 10);
-					 hue[4] = '\0';
-					 send_string(hue);
-					 SEND_STRING(", ");
-					 char sat[4];
-					 itoa(rgblight_get_sat(), sat, 10);
-					 sat[4] = '\0';
-					 send_string(sat);
-					 SEND_STRING(", ");
-					 char val[4];
-					 itoa(rgblight_get_val(), val, 10);
-					 val[4] = '\0';
-					 send_string(val);
-					 SEND_STRING("\n");
-			   }
-	   return true;
+    switch (keycode) {
+        case DOG:
+            if (record->event.pressed){
+                char hue[4];
+                itoa(rgblight_get_hue(), hue, 10);
+                hue[4] = '\0';
+                send_string(hue);
+                SEND_STRING(", ");
+                char sat[4];
+                itoa(rgblight_get_sat(), sat, 10);
+                sat[4] = '\0';
+                send_string(sat);
+                SEND_STRING(", ");
+                char val[4];
+                itoa(rgblight_get_val(), val, 10);
+                val[4] = '\0';
+                send_string(val);
+                SEND_STRING("\n");
+            }
+        return true;
     case BL_OFF:
     case BL_ON:
-      if (record->event.pressed) {
-		 rgblight_blink_layer_repeat(BLNK, 175, 2);
-      } else {
-        // Do something else when release
-      }
-      return true; 
+        if (record->event.pressed) {
+            rgblight_blink_layer_repeat(BLNK, 175, 2);
+        }
+        return true; 
     default:
-      return true; // Process all other keycodes normally
-  }
+        return true; // Process all other keycodes normally
+    }
 }
