@@ -16,36 +16,36 @@
 #include QMK_KEYBOARD_H
 
 // Key-Layer Toggles
-#define BSPCLWR LT(LOWER, KC_BSPC)
-#define BSPCRSE LT(RAISE, KC_BSPC)
+// #define BSPCLWR LT(LOWER, KC_BSPC)
+// #define BSPCRSE LT(RAISE, KC_BSPC)
 #define BSPCNAV LT(NAV, KC_BSPC)
-#define ENTLWR LT(LOWER, KC_ENT)
-#define ENTRSE LT(RAISE, KC_ENT)
+// #define ENTLWR LT(LOWER, KC_ENT)
+// #define ENTRSE LT(RAISE, KC_ENT)
 #define ENTNAV LT(NAV, KC_ENT)
-#define SPCLWR LT(LOWER, KC_SPC)
-#define SPCRSE LT(RAISE, KC_SPC)
-#define SPCNAV LT(NAV, KC_SPC)
-#define TABRSE LT(RAISE, KC_TAB)
+// #define SPCLWR LT(LOWER, KC_SPC)
+// #define SPCRSE LT(RAISE, KC_SPC)
+// #define SPCNAV LT(NAV, KC_SPC)
+// #define TABRSE LT(RAISE, KC_TAB)
 
 // Mod-Key Toggles
-#define BSPCALT MT(MOD_LALT, KC_BSPC)
+// #define BSPCALT MT(MOD_LALT, KC_BSPC)
 #define CTRLESC MT(MOD_LCTL, KC_ESC)
-#define DELLALT MT(MOD_LALT, KC_DEL)
-#define DELRALT MT(MOD_RALT, KC_DEL)
-#define ENTLALT MT(MOD_LALT, KC_ENT)
-#define ENTRALT MT(MOD_RALT, KC_ENT)
-#define LSFTESC MT(MOD_LSFT, KC_ESC)
+// #define DELLALT MT(MOD_LALT, KC_DEL)
+// #define DELRALT MT(MOD_RALT, KC_DEL)
+// #define ENTLALT MT(MOD_LALT, KC_ENT)
+// #define ENTRALT MT(MOD_RALT, KC_ENT)
+// #define LSFTESC MT(MOD_LSFT, KC_ESC)
 #define RSFTEQL MT(MOD_RSFT, KC_EQL)
-#define RSFTMIN MT(MOD_RSFT, KC_MINS)
-#define SPCLALT MT(MOD_LALT, KC_SPC)
+// #define RSFTMIN MT(MOD_RSFT, KC_MINS)
+// #define SPCLALT MT(MOD_LALT, KC_SPC)
 #define TABLALT MT(MOD_LALT, KC_TAB)
 #define TABRALT MT(MOD_RALT, KC_TAB)
 
 // Single Key Shortcuts
-#define RUNPRMT RGUI(KC_R)
-#define SCRNSHT RGUI(S(KC_S))
-#define UNDO RCTL(KC_Z)
-#define REDO RCTL(KC_Y)
+// #define RUNPRMT RGUI(KC_R)
+// #define SCRNSHT RGUI(S(KC_S))
+// #define UNDO RCTL(KC_Z)
+// #define REDO RCTL(KC_Y)
 
 
 bool is_bowser_active = true;
