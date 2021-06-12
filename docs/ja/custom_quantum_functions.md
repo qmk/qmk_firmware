@@ -1,8 +1,8 @@
 # キーボードの挙動をカスタマイズする方法
 
 <!---
-  original document: 0.10.52:docs/custom_quantum_functions.md
-  git diff 0.10.52 HEAD -- docs/custom_quantum_functions.md | cat
+  original document: 0.12.41:docs/custom_quantum_functions.md
+  git diff 0.12.41 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
 多くの人にとって、カスタムキーボードはボタンの押下をコンピュータに送信するだけではありません。単純なボタンの押下やマクロよりも複雑なことを実行できるようにしたいでしょう。QMK にはコードを挿入したり、機能を上書きしたり、様々な状況でキーボードの挙動をカスタマイズできるフックがあります。
@@ -190,6 +190,14 @@ void keyboard_post_init_user(void) {
 
 カスタムマトリックススキャンコードが必要な場合は、この関数を使う必要があります。また、カスタムステータス出力 (LED あるいはディスプレイなど)や、ユーザが入力していない場合でも定期的にトリガーするその他の機能のために使うことができます。
 
+# キーボードハウスキーピング :id=keyboard-housekeeping
+
+* キーボード/リビジョン: `void housekeeping_task_kb(void)`
+* キーマップ: `void housekeeping_task_user(void)`
+
+この関数は、全ての QMK 処理の最後に、次の繰り返しを開始する前に呼び出されます。`housekeeping_task_*` の関数が呼び出された時点で、QMK が最後のマトリックススキャンを処理したと、安全に見なすことができます -- レイヤーの状態が更新され、USB レポートが送信され、LED が更新され、表示が描画されています。
+
+`matrix_scan_*` と同様に、これらは MCU が処理できる頻度で呼び出されます。キーボードの応答性を維持するために、これらの関数の呼び出し中にできるだけ何もしないことをお勧めします。実際に何か特別なものを実装する必要がある場合に動作を停止させる可能性があります。
 
 # キーボードアイドリング/ウェイクコード
 

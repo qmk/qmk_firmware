@@ -1,8 +1,11 @@
 # MCU name
 MCU = STM32F072
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Wildcard to allow APM32 MCU
-DFU_SUFFIX_ARGS = -p FFFF -v FFFF
+DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 
 # Build Options
 #   change yes to no to disable

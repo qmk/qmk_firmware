@@ -67,7 +67,7 @@ __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv
 #    define RGB_DISABLE_TIMEOUT 0
 #endif
 
-#if RGB_DISABLE_WHEN_USB_SUSPENDED == false
+#if RGB_DISABLE_WHEN_USB_SUSPENDED != 1
 #    undef RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif
 
