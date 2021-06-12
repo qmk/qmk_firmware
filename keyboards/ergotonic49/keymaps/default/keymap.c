@@ -59,8 +59,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______	,							_______	,	_______	,	_______	,	_______	,	XXXXXXX	,	_______	,	_______	,	_______	,	_______
 )
 
-
-
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -97,9 +95,11 @@ const rgblight_segment_t PROGMEM rgb_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM rgb_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_GREEN}
 );
+
 const rgblight_segment_t PROGMEM rgb_scllock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {2, 1, HSV_GREEN}
 );
+
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_caps_layer,
     rgb_numlock_layer,
@@ -116,11 +116,8 @@ bool led_update_user(led_t led_state) {
 
 void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
-
-#ifdef CONSOLE_ENABLE
-#    ifdef RGBLIGHT_ENABLE
     rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
-#    endif
+#ifdef CONSOLE_ENABLE
     debug_enable = true;
     debug_matrix = true;
 #endif
