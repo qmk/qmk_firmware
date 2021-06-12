@@ -4,13 +4,11 @@
 
 #define HSV_cORANGE 10, 255, 255
 
-// Capslock indicator
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 2, HSV_GREEN},
     {15, 3, HSV_GREEN}
 );
 
-// numlock indicator
 const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {6, 5, HSV_RED}
 );
@@ -34,7 +32,7 @@ const rgblight_segment_t PROGMEM blank[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 18, HSV_BLACK}
 );
 
-// Now define the array of layers. Later layers take precedence
+
 enum RGB_LAYERS { FN1, FN2, FN3, NUM, CAPS, BLNK };
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     fn1_layer,
@@ -67,7 +65,7 @@ bool led_update_user(led_t led_state) {
         lastNum = !led_state.num_lock;
     }
     rgblight_set_layer_state(CAPS, led_state.caps_lock);
-    rgblight_set_layer_state(NUM, !led_state.num_lock); // inverted of numlock status
+    rgblight_set_layer_state(NUM, !led_state.num_lock);
     return true;
 }
 
@@ -113,6 +111,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true; 
     default:
-        return true; // Process all other keycodes normally
+        return true;
     }
 }

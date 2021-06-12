@@ -5,6 +5,3 @@
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #define RGBLIGHT_LAYER_BLINK
-
-//	#include "my_keycodes.h"
-

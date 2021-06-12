@@ -7,4 +7,3 @@ enum custom_keycodes{
     CAT,
     FOX
 };
-
