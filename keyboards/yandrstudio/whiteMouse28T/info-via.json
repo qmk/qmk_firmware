@@ -6,7 +6,7 @@
        "extends": "none",
        "keycodes": "qmk"
    },
-  "matrix": { "rows": 5, "cols": 14 },
+  "matrix": { "rows": 4, "cols": 7 },
   "layouts": {
     "keymap":
     [
