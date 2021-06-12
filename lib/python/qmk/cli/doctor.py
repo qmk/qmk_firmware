@@ -3,12 +3,12 @@
 Check out the user's QMK environment and make sure it's ready to compile.
 """
 import platform
+from subprocess import DEVNULL
 
 from milc import cli
 from milc.questions import yesno
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE
-from qmk.commands import run
 from qmk.os_helpers import CheckStatus, check_binaries, check_binary_versions, check_submodules, check_git_repo
 
 
@@ -93,7 +93,7 @@ def doctor(cli):
 
     if not bin_ok:
         if yesno('Would you like to install dependencies?', default=True):
-            run(['util/qmk_install.sh'])
+            cli.run(['util/qmk_install.sh', '-y'], stdin=DEVNULL, capture_output=False)
             bin_ok = check_binaries()
 
     if bin_ok:
