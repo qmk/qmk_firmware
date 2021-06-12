@@ -16,7 +16,7 @@
 #pragma once
 
 #include "quantum.h"
-#include "via.h" // only for EEPROM address
+//#include "via.h" // only for EEPROM address
 
 void encoder_update_user(uint8_t index, bool clockwise);
 void encoder_update_kb(uint8_t index, bool clockwise);
