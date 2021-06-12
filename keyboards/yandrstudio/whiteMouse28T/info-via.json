@@ -1,12 +1,12 @@
 {
-  "name": "BS28",
+  "name": "WM28_Y&R",
   "vendorId": "0xAA96",
-  "productId": "0xAA05",
+  "productId": "0xAA04",
    "lighting": {
        "extends": "none",
        "keycodes": "qmk"
    },
-  "matrix": { "rows": 4, "cols": 7 },
+  "matrix": { "rows": 5, "cols": 14 },
   "layouts": {
     "keymap":
     [

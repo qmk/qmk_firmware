@@ -30,8 +30,8 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-#define MATRIX_ROW_PINS { B5, B4, A3, A2, B9 }
-#define MATRIX_COL_PINS { A10, A9, A8, B14, B13, B12, B11, B10, B1, B0, A7, A6, A5, A4, B8 }
+#define MATRIX_ROW_PINS { B5, C13, A3, A2, B9 }
+#define MATRIX_COL_PINS { C14, B4, A8, B14, B13, B12, B11, B10, B1, B0, A7, A6, A5, A4, B8 }
 
 
 #define DIODE_DIRECTION COL2ROW
@@ -99,6 +99,6 @@
 #define TAP_HOLD_CAPS_DELAY 20
 #define TAP_CODE_DELAY 10
 #ifdef CONSOLE_ENABLE
-#    define DEBUG_MATRIX_SCAN_RATE
+// #    define DEBUG_MATRIX_SCAN_RATE
 #endif
 

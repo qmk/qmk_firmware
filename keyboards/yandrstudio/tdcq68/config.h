@@ -19,7 +19,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAA03
+#define PRODUCT_ID      0xAAA1
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    JasonRen biu
 #define PRODUCT         tdcq68

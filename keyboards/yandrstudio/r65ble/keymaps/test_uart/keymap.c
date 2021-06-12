@@ -15,7 +15,8 @@
  */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
+// #include <stdio.h>
+#include "print.h"
 #include "dynamic_keymap.h"
 #include "uart.h"
 
@@ -123,7 +124,7 @@ void oled_task_user(void) {
 
 
 void keyboard_post_init_user(void) {
-    uart_init(115200);
+    // uart_init(115200);
   debug_enable=true;
 //   debug_matrix=true;
   debug_keyboard=true;
@@ -131,22 +132,24 @@ void keyboard_post_init_user(void) {
 
 
 
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//     uart_putchar(0xff);
-//     uart_putchar(keycode >> 8);
-//     uart_putchar(keycode & 0xff);
-//     uart_putchar(0xfe);
-//     uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-//     return false;
-//     // switch (keycode) {
-//     //     case KC_N:
-//     //         if (record->event.pressed) {
-//     //             uart_putchar('#');
-//     //         } else {
-//     //             // Do something else when release
-//     //         }
-//     //         return false;  // Skip all further processing of this key
-//     //     default:
-//     //         return true;  // Process all other keycodes normally
-//     // }
-// }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        uart_putchar(0xff);
+        uart_putchar(keycode >> 8);
+        uart_putchar(keycode & 0xff);
+        uart_putchar(0xfe);
+        uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    }
+    return true;
+    // switch (keycode) {
+    //     case KC_N:
+    //         if (record->event.pressed) {
+    //             uart_putchar('#');
+    //         } else {
+    //             // Do something else when release
+    //         }
+    //         return false;  // Skip all further processing of this key
+    //     default:
+    //         return true;  // Process all other keycodes normally
+    // }
+}

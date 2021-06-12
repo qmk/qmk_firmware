@@ -1,7 +1,7 @@
 {
-  "name": "HHKB (Biu)",
-  "vendorId": "0xFEED",
-  "productId": "0x6066",
+  "name": "HHKB_Y&R",
+  "vendorId": "0xAA96",
+  "productId": "0xAAA0",
     "lighting": {
         "extends": "none",
         "keycodes": "qmk"

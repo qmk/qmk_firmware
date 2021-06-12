@@ -17,8 +17,9 @@
 
 #include_next "board.h"
 
-#undef STM32_HSE_BYPASS
-#ifdef STM32_HSECLK
+
 #undef STM32_HSECLK
-#endif // STM32_HSECLK
 #define STM32_HSECLK 8000000
+
+
+#define BOARD_YANDR_BIU_F401

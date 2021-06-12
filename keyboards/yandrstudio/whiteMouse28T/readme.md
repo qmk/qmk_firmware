@@ -1,7 +1,7 @@
 whiteMouse28T
 ===
 
-A 68 keys keyboard with rgb (keys and underground).
+A 28 keys keyboard with rgb (keys) and a external eeprom (95256).
 This keyboard use 8mhz HSE and STM32F401 as MCU.
 
 Keyboard Maintainer: https://github.com/jiaxin96

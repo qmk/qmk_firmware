@@ -1,4 +1,4 @@
-r65ble
+rainbow65
 ===
 
 A 65% keyboard with rgb oled and encoder with nrf52840 ble chip supported by using the uart driver.

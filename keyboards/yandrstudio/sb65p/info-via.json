@@ -1,7 +1,7 @@
 {
-  "name": "SP65",
-  "vendorId": "0xFEED",
-  "productId": "0x6060",
+  "name": "SP65_Y&R",
+  "vendorId": "0xAA96",
+  "productId": "0xAA02",
   "lighting": "none",
   "matrix": { "rows": 10, "cols": 9 },
   "layouts": {
