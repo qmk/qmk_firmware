@@ -18,6 +18,7 @@
 #endif
 
 #if defined(VIA_ENABLE)
+void via_eeprom_set_valid(bool valid);
 void eeconfig_init_via(void);
 #endif
 
@@ -82,6 +83,10 @@ void eeconfig_init_quantum(void) {
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #endif
 #if defined(VIA_ENABLE)
+    // Invalidate VIA eeprom config, and then reset.
+    // Just in case if power is lost mid init, this makes sure that it pets
+    // properly re-initialized.
+    via_eeprom_set_valid(false);
     eeconfig_init_via();
 #endif
 

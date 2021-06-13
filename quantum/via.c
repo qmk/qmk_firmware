@@ -320,6 +320,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
         case id_eeprom_reset: {
+            via_eeprom_set_valid(false);
             eeconfig_init_via();
             break;
         }
