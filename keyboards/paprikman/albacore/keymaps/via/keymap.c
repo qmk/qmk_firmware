@@ -18,7 +18,7 @@
 uint16_t layer_timer;
 short hold_layer;
 
-enum layer_kecodes {
+enum layer_keycodes {
   TG_LAYER = 0x5F80
 };
 
