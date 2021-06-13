@@ -93,24 +93,24 @@ __attribute__((weak)) void via_init_kb(void) {}
 
 // Called by QMK core to initialize dynamic keymaps etc.
 void via_init(void) {
-    // Let keyboard level test EEPROM valid state,
-    // but not set it valid, it is done here.
-    via_init_kb();
-
     // If the EEPROM has the magic, the data is good.
     // OK to load from EEPROM.
-    if (via_eeprom_is_valid()) {
-    } else {
-        // This resets the layout options
-        via_set_layout_options(VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT);
-        // This resets the keymaps in EEPROM to what is in flash.
-        dynamic_keymap_reset();
-        // This resets the macros in EEPROM to nothing.
-        dynamic_keymap_macro_reset();
-        // Save the magic number last, in case saving was interrupted
-        via_eeprom_set_valid(true);
+    if (!via_eeprom_is_valid()) {
+        eeconfig_init_via();
     }
 }
+
+void eeconfig_init_via(void) {
+    // This resets the layout options
+    via_set_layout_options(VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT);
+    // This resets the keymaps in EEPROM to what is in flash.
+    dynamic_keymap_reset();
+    // This resets the macros in EEPROM to nothing.
+    dynamic_keymap_macro_reset();
+    // Save the magic number last, in case saving was interrupted
+    via_eeprom_set_valid(true);
+}
+
 
 // This is generalized so the layout options EEPROM usage can be
 // variable, between 1 and 4 bytes.
