@@ -2,15 +2,10 @@
 
 // #define TAPPING_TERM 100
 #define LEADER_TIMEOUT 400
+#define DYNAMIC_MACRO_NO_NESTING
 
 #ifdef AUDIO_ENABLE
-   #define STARTUP_SONG SONG(PLANCK_SOUND)
-    // #define STARTUP_SONG SONG(NO_SOUND)
-
-   #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                 SONG(COLEMAK_SOUND), \
-                                 SONG(DVORAK_SOUND) \
-                              }
+   #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 
 /*
