@@ -44,6 +44,8 @@
 #endif
 
 typedef struct PACKED {
+    union {
+        struct {
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
     uint8_t g;
     uint8_t r;
@@ -57,6 +59,10 @@ typedef struct PACKED {
     uint8_t g;
     uint8_t r;
 #endif
+
+        };
+    uint8_t rgb[3];
+    };
 } cRGB;
 
 typedef cRGB RGB;

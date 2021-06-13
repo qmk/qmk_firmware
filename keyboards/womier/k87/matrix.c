@@ -321,68 +321,23 @@ OSAL_IRQ_HANDLER(SN32_CT16B1_HANDLER) {
     // Wait until timer reset done.
     while (SN_CT16B1->TMRCTRL & mskCT16_CRST);
 
-    if(current_row % 3 == 0)
-    {
-        SN_CT16B1->MR0  = led_state[row_ofst + 0 ].r;
-        SN_CT16B1->MR1  = led_state[row_ofst + 1 ].r;
-        SN_CT16B1->MR2  = led_state[row_ofst + 2 ].r;
-        SN_CT16B1->MR3  = led_state[row_ofst + 3 ].r;
-        SN_CT16B1->MR4  = led_state[row_ofst + 4 ].r;
-        SN_CT16B1->MR5  = led_state[row_ofst + 5 ].r;
-        SN_CT16B1->MR6  = led_state[row_ofst + 6 ].r;
-        SN_CT16B1->MR7  = led_state[row_ofst + 7 ].r;
-        SN_CT16B1->MR8  = led_state[row_ofst + 8 ].r;
-        SN_CT16B1->MR9  = led_state[row_ofst + 9 ].r;
-        SN_CT16B1->MR10 = led_state[row_ofst + 10].r;
-        SN_CT16B1->MR11 = led_state[row_ofst + 11].r;
-        SN_CT16B1->MR12 = led_state[row_ofst + 12].r;
-        SN_CT16B1->MR13 = led_state[row_ofst + 13].r;
-        SN_CT16B1->MR14 = led_state[row_ofst + 14].r;
-        SN_CT16B1->MR16 = led_state[row_ofst + 15].r;
-        SN_CT16B1->MR17 = led_state[row_ofst + 15].r;
-    }
-
-    if(current_row % 3 == 1)
-    {
-        SN_CT16B1->MR0  = led_state[row_ofst + 0 ].b;
-        SN_CT16B1->MR1  = led_state[row_ofst + 1 ].b;
-        SN_CT16B1->MR2  = led_state[row_ofst + 2 ].b;
-        SN_CT16B1->MR3  = led_state[row_ofst + 3 ].b;
-        SN_CT16B1->MR4  = led_state[row_ofst + 4 ].b;
-        SN_CT16B1->MR5  = led_state[row_ofst + 5 ].b;
-        SN_CT16B1->MR6  = led_state[row_ofst + 6 ].b;
-        SN_CT16B1->MR7  = led_state[row_ofst + 7 ].b;
-        SN_CT16B1->MR8  = led_state[row_ofst + 8 ].b;
-        SN_CT16B1->MR9  = led_state[row_ofst + 9 ].b;
-        SN_CT16B1->MR10 = led_state[row_ofst + 10].b;
-        SN_CT16B1->MR11 = led_state[row_ofst + 11].b;
-        SN_CT16B1->MR12 = led_state[row_ofst + 12].b;
-        SN_CT16B1->MR13 = led_state[row_ofst + 13].b;
-        SN_CT16B1->MR14 = led_state[row_ofst + 14].b;
-        SN_CT16B1->MR16 = led_state[row_ofst + 15].b;
-        SN_CT16B1->MR17 = led_state[row_ofst + 15].b;
-    }
-
-    if(current_row % 3 == 2)
-    {
-        SN_CT16B1->MR0  = led_state[row_ofst + 0 ].g;
-        SN_CT16B1->MR1  = led_state[row_ofst + 1 ].g;
-        SN_CT16B1->MR2  = led_state[row_ofst + 2 ].g;
-        SN_CT16B1->MR3  = led_state[row_ofst + 3 ].g;
-        SN_CT16B1->MR4  = led_state[row_ofst + 4 ].g;
-        SN_CT16B1->MR5  = led_state[row_ofst + 5 ].g;
-        SN_CT16B1->MR6  = led_state[row_ofst + 6 ].g;
-        SN_CT16B1->MR7  = led_state[row_ofst + 7 ].g;
-        SN_CT16B1->MR8  = led_state[row_ofst + 8 ].g;
-        SN_CT16B1->MR9  = led_state[row_ofst + 9 ].g;
-        SN_CT16B1->MR10 = led_state[row_ofst + 10].g;
-        SN_CT16B1->MR11 = led_state[row_ofst + 11].g;
-        SN_CT16B1->MR12 = led_state[row_ofst + 12].g;
-        SN_CT16B1->MR13 = led_state[row_ofst + 13].g;
-        SN_CT16B1->MR14 = led_state[row_ofst + 14].g;
-        SN_CT16B1->MR16 = led_state[row_ofst + 15].g;
-        SN_CT16B1->MR17 = led_state[row_ofst + 15].g;
-    }
+    SN_CT16B1->MR0  = led_state[row_ofst + 0 ].rgb[current_row % 3];
+    SN_CT16B1->MR1  = led_state[row_ofst + 1 ].rgb[current_row % 3];
+    SN_CT16B1->MR2  = led_state[row_ofst + 2 ].rgb[current_row % 3];
+    SN_CT16B1->MR3  = led_state[row_ofst + 3 ].rgb[current_row % 3];
+    SN_CT16B1->MR4  = led_state[row_ofst + 4 ].rgb[current_row % 3];
+    SN_CT16B1->MR5  = led_state[row_ofst + 5 ].rgb[current_row % 3];
+    SN_CT16B1->MR6  = led_state[row_ofst + 6 ].rgb[current_row % 3];
+    SN_CT16B1->MR7  = led_state[row_ofst + 7 ].rgb[current_row % 3];
+    SN_CT16B1->MR8  = led_state[row_ofst + 8 ].rgb[current_row % 3];
+    SN_CT16B1->MR9  = led_state[row_ofst + 9 ].rgb[current_row % 3];
+    SN_CT16B1->MR10 = led_state[row_ofst + 10].rgb[current_row % 3];
+    SN_CT16B1->MR11 = led_state[row_ofst + 11].rgb[current_row % 3];
+    SN_CT16B1->MR12 = led_state[row_ofst + 12].rgb[current_row % 3];
+    SN_CT16B1->MR13 = led_state[row_ofst + 13].rgb[current_row % 3];
+    SN_CT16B1->MR14 = led_state[row_ofst + 14].rgb[current_row % 3];
+    SN_CT16B1->MR16 = led_state[row_ofst + 15].rgb[current_row % 3];
+    SN_CT16B1->MR17 = led_state[row_ofst + 16].rgb[current_row % 3];
 
     if(SN_CT16B1->MR0 > 0)
     {
