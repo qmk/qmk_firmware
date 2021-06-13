@@ -92,9 +92,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | XXXX |MS_BT2| MS_L | MS_D | MS_R | XXXX |-------.    ,-------| XXXX | XXXX | XXXX | XXXX | XXXX |Trans |
  * |------+------+------+------+------+------|  XXXX |    | XXXX  |------+------+------+------+------+------|
- * | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |-------|    |-------| XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |
+ * | XXXX | XXXX |MS_W_R|MS_BT3|MS_W_L| XXXX |-------|    |-------| XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | XXXX | XXXX | XXXX | /  MS_BT1 /       \ XXXX \  |Trans | XXXX | XXXX |
+ *                   | XXXX | XXXX | XXXX | / MS_BT1/       \ XXXX \  |Trans | XXXX | XXXX |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,                     KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO, \
   KC_NO,   KC_NO,   KC_WH_D, KC_MS_U,  KC_WH_U,  KC_NO,                     KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  KC_NO, \
   KC_NO,   KC_BTN2, KC_MS_L, KC_MS_D,  KC_MS_R,  KC_NO,                     KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_TRNS, \
-  KC_NO,   KC_NO,   KC_WH_L, KC_WH_D,  KC_WH_R,  KC_NO,    KC_NO, KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO, \
+  KC_NO,   KC_NO,   KC_WH_R, KC_BTN3,  KC_WH_L,  KC_NO,    KC_NO, KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO, \
                                   KC_NO, KC_NO, KC_NO, KC_BTN1,    KC_NO, KC_TRNS, KC_NO, KC_NO \
 )
 };
