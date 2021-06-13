@@ -316,7 +316,7 @@ volatile uint32_t * rgb_match_registers[5][3] =
 extern volatile bool matrix_changed;
 
 // OSAL_IRQ_HANDLER(Vector84)
-void RgbIsr () {
+OSAL_IRQ_HANDLER(Vector84) {
     OSAL_IRQ_PROLOGUE();
 
     // if (status_leds.caps_lock)
