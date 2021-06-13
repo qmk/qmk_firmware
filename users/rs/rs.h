@@ -18,6 +18,8 @@ enum custom_keycodes {
 #endif
 };
 
+#define KC_ KC_TRNS
+
 #define KC_ESCC MT(MOD_LCTL, KC_ESC)
 #define KC_ENTS MT(MOD_LSFT, KC_ENT)
 #define KC_LTGT LTGT // > or < with shift

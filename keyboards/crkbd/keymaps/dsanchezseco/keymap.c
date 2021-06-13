@@ -1,9 +1,14 @@
 #include QMK_KEYBOARD_H
+#include "split_util.h"
+
+extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
+
+extern uint8_t is_master;
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -21,7 +26,7 @@ enum crkbd_layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_DVORAK] = LAYOUT_split_3x6_3( \
+  [_DVORAK] = LAYOUT( \
   //,-----------------------------------------------.          ,-----------------------------------------------.
      KC_TAB, KC_QUOT,KC_COMM, KC_DOT, KC_P,   KC_Y,              KC_F,   KC_G,   KC_C,   KC_R,   KC_L,  KC_SLSH,\
   //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
@@ -34,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [_LOWER] = LAYOUT_split_3x6_3( \
+  [_LOWER] = LAYOUT( \
   //,-----------------------------------------------.          ,-----------------------------------------------.
      KC_TILD,KC_EXLM, KC_AT, KC_HASH, KC_DLR,KC_PERC,           KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RIGHT,KC_RPRN,\
   //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
@@ -46,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              //`-----------------------'  `----------------------'
   ),
 
-  [_RAISE] = LAYOUT_split_3x6_3( \
+  [_RAISE] = LAYOUT( \
   //,-----------------------------------------------.          ,-----------------------------------------------.
      KC_GRV,  KC_1,    KC_2,   KC_3,   KC_4,  KC_5,              KC_6,    KC_7,  KC_8,    KC_9,KC_RIGHT,  KC_0, \
   //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
@@ -58,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              //`-----------------------'  `----------------------'
   ),
 
-  [_ADJUST] = LAYOUT_split_3x6_3( \
+  [_ADJUST] = LAYOUT( \
   //,-----------------------------------------------.          ,-----------------------------------------------.
      RGB_TOG,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_M_T,          _______,_______,_______,_______,KC_RIGHT,_______,\
   //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
@@ -77,7 +82,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_left())
+  if (!isLeftHand)
     return OLED_ROTATION_180;  // flips the display 180 to see it from my side
   return rotation;
 }

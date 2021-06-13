@@ -9,7 +9,6 @@ import qmk.keymap
 import qmk.path
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.errors import CppError
 
 
 @cli.argument('--no-cpp', arg_only=True, action='store_false', help='Do not use \'cpp\' on keymap.c')
@@ -38,13 +37,7 @@ def c2json(cli):
         cli.args.output = None
 
     # Parse the keymap.c
-    try:
-        keymap_json = qmk.keymap.c2json(cli.args.keyboard, cli.args.keymap, cli.args.filename, use_cpp=cli.args.no_cpp)
-    except CppError as e:
-        if cli.config.general.verbose:
-            cli.log.debug('The C pre-processor ran into a fatal error: %s', e)
-        cli.log.error('Something went wrong. Try to use --no-cpp.\nUse the CLI in verbose mode to find out more.')
-        return False
+    keymap_json = qmk.keymap.c2json(cli.args.keyboard, cli.args.keymap, cli.args.filename, use_cpp=cli.args.no_cpp)
 
     # Generate the keymap.json
     try:

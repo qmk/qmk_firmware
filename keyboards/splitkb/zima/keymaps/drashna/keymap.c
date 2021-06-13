@@ -122,11 +122,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+ void encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code16(KC_VOLU);
     } else {
         tap_code16(KC_VOLD);
     }
-    return true;
+#    ifdef OLED_DRIVER_ENABLE
+    oled_timer = timer_read32();
+#    endif
+#    if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
+    if (is_audio_on() && is_clicky_on()) clicky_play();
+#    endif
+#    ifdef HAPTIC_ENABLE
+    if (haptic_config.enable) haptic_play();
+#    endif
 }

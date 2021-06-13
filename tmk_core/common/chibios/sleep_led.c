@@ -9,13 +9,21 @@
  * Use LP timer on Kinetises, TIM14 on STM32F0.
  */
 
-#ifndef SLEEP_LED_GPT_DRIVER
-#    if defined(STM32F0XX)
-#        define SLEEP_LED_GPT_DRIVER GPTD14
-#    endif
+#if defined(KL2x) || defined(K20x)
+
+/* Use Low Power Timer (LPTMR) */
+#    define TIMER_INTERRUPT_VECTOR KINETIS_LPTMR0_IRQ_VECTOR
+#    define RESET_COUNTER LPTMR0->CSR |= LPTMRx_CSR_TCF
+
+#elif defined(STM32F0XX)
+
+/* Use TIM14 manually */
+#    define TIMER_INTERRUPT_VECTOR STM32_TIM14_HANDLER
+#    define RESET_COUNTER STM32_TIM14->SR &= ~STM32_TIM_SR_UIF
+
 #endif
 
-#if defined(KL2x) || defined(K20x) || defined(SLEEP_LED_GPT_DRIVER) /* common parts for timers/interrupts */
+#if defined(KL2x) || defined(K20x) || defined(STM32F0XX) /* common parts for timers/interrupts */
 
 /* Breathing Sleep LED brighness(PWM On period) table
  * (64[steps] * 4[duration]) / 64[PWM periods/s] = 4 second breath cycle
@@ -25,7 +33,10 @@
  */
 static const uint8_t breathing_table[64] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 6, 10, 15, 23, 32, 44, 58, 74, 93, 113, 135, 157, 179, 199, 218, 233, 245, 252, 255, 252, 245, 233, 218, 199, 179, 157, 135, 113, 93, 74, 58, 44, 32, 23, 15, 10, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-void sleep_led_timer_callback(void) {
+/* interrupt handler */
+OSAL_IRQ_HANDLER(TIMER_INTERRUPT_VECTOR) {
+    OSAL_IRQ_PROLOGUE();
+
     /* Software PWM
      * timer:1111 1111 1111 1111
      *       \_____/\/ \_______/____  count(0-255)
@@ -53,19 +64,20 @@ void sleep_led_timer_callback(void) {
     if (timer.pwm.count == breathing_table[timer.pwm.index]) {
         led_set(0);
     }
+
+    /* Reset the counter */
+    RESET_COUNTER;
+
+    OSAL_IRQ_EPILOGUE();
 }
 
 #endif /* common parts for known platforms */
 
 #if defined(KL2x) || defined(K20x) /* platform selection: familiar Kinetis chips */
 
-/* Use Low Power Timer (LPTMR) */
-#    define TIMER_INTERRUPT_VECTOR KINETIS_LPTMR0_IRQ_VECTOR
-#    define RESET_COUNTER LPTMR0->CSR |= LPTMRx_CSR_TCF
-
 /* LPTMR clock options */
 #    define LPTMR_CLOCK_MCGIRCLK 0 /* 4MHz clock */
-#    define LPTMR_CLOCK_LPO 1 /* 1kHz clock */
+#    define LPTMR_CLOCK_LPO 1      /* 1kHz clock */
 #    define LPTMR_CLOCK_ERCLK32K 2 /* external 32kHz crystal */
 #    define LPTMR_CLOCK_OSCERCLK 3 /* output from OSC */
 
@@ -73,18 +85,6 @@ void sleep_led_timer_callback(void) {
 #    if !defined(SIM_SCGC5_LPTMR)
 #        define SIM_SCGC5_LPTMR SIM_SCGC5_LPTIMER
 #    endif
-
-/* interrupt handler */
-OSAL_IRQ_HANDLER(TIMER_INTERRUPT_VECTOR) {
-    OSAL_IRQ_PROLOGUE();
-
-    sleep_led_timer_callback();
-
-    /* Reset the counter */
-    RESET_COUNTER;
-
-    OSAL_IRQ_EPILOGUE();
-}
 
 /* Initialise the timer */
 void sleep_led_init(void) {
@@ -121,7 +121,7 @@ void sleep_led_init(void) {
     MCG->C2 |= MCG_C2_IRCS;  // fast (4MHz) internal ref clock
 #        if defined(KL27)    // divide the 8MHz IRC by 2, to have the same MCGIRCLK speed as others
     MCG->MC |= MCG_MC_LIRC_DIV2_DIV2;
-#        endif /* KL27 */
+#        endif                  /* KL27 */
     MCG->C1 |= MCG_C1_IRCLKEN;  // enable internal ref clock
     //  to work in stop mode, also MCG_C1_IREFSTEN
     //  Divide 4MHz by 2^N (N=6) => 62500 irqs/sec =>
@@ -159,23 +159,45 @@ void sleep_led_toggle(void) {
     LPTMR0->CSR ^= LPTMRx_CSR_TEN;
 }
 
-#elif defined(SLEEP_LED_GPT_DRIVER)
-
-static void gptTimerCallback(GPTDriver *gptp) {
-    (void)gptp;
-    sleep_led_timer_callback();
-}
-
-static const GPTConfig gptcfg = {1000000, gptTimerCallback, 0, 0};
+#elif defined(STM32F0XX) /* platform selection: STM32F0XX */
 
 /* Initialise the timer */
-void sleep_led_init(void) { gptStart(&SLEEP_LED_GPT_DRIVER, &gptcfg); }
+void sleep_led_init(void) {
+    /* enable clock */
+    rccEnableTIM14(FALSE); /* low power enable = FALSE */
+    rccResetTIM14();
 
-void sleep_led_enable(void) { gptStartContinuous(&SLEEP_LED_GPT_DRIVER, gptcfg.frequency / 0xFFFF); }
+    /* prescale */
+    /* Assuming 48MHz internal clock */
+    /* getting cca 65484 irqs/sec */
+    STM32_TIM14->PSC = 733;
 
-void sleep_led_disable(void) { gptStopTimer(&SLEEP_LED_GPT_DRIVER); }
+    /* auto-reload */
+    /* 0 => interrupt every time */
+    STM32_TIM14->ARR = 3;
 
-void sleep_led_toggle(void) { (SLEEP_LED_GPT_DRIVER.state == GPT_READY) ? sleep_led_enable() : sleep_led_disable(); }
+    /* enable counter update event interrupt */
+    STM32_TIM14->DIER |= STM32_TIM_DIER_UIE;
+
+    /* register interrupt vector */
+    nvicEnableVector(STM32_TIM14_NUMBER, 2); /* vector, priority */
+}
+
+void sleep_led_enable(void) {
+    /* Enable the timer */
+    STM32_TIM14->CR1 = STM32_TIM_CR1_CEN | STM32_TIM_CR1_URS;
+    /* URS => update event only on overflow; setting UG bit disabled */
+}
+
+void sleep_led_disable(void) {
+    /* Disable the timer */
+    STM32_TIM14->CR1 = 0;
+}
+
+void sleep_led_toggle(void) {
+    /* Toggle the timer */
+    STM32_TIM14->CR1 ^= STM32_TIM_CR1_CEN;
+}
 
 #else /* platform selection: not on familiar chips */
 

@@ -1,6 +1,7 @@
 """Functions for working with QMK's submodules.
 """
-from milc import cli
+
+import subprocess
 
 
 def status():
@@ -17,7 +18,7 @@ def status():
     status is None when the submodule doesn't exist, False when it's out of date, and True when it's current
     """
     submodules = {}
-    git_cmd = cli.run(['git', 'submodule', 'status'], timeout=30)
+    git_cmd = subprocess.run(['git', 'submodule', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30, universal_newlines=True)
 
     for line in git_cmd.stdout.split('\n'):
         if not line:
@@ -52,19 +53,19 @@ def update(submodules=None):
         # Update everything
         git_sync_cmd.append('--recursive')
         git_update_cmd.append('--recursive')
-        cli.run(git_sync_cmd, check=True)
-        cli.run(git_update_cmd, check=True)
+        subprocess.run(git_sync_cmd, check=True)
+        subprocess.run(git_update_cmd, check=True)
 
     else:
         if isinstance(submodules, str):
             # Update only a single submodule
             git_sync_cmd.append(submodules)
             git_update_cmd.append(submodules)
-            cli.run(git_sync_cmd, check=True)
-            cli.run(git_update_cmd, check=True)
+            subprocess.run(git_sync_cmd, check=True)
+            subprocess.run(git_update_cmd, check=True)
 
         else:
             # Update submodules in a list
             for submodule in submodules:
-                cli.run([*git_sync_cmd, submodule], check=True)
-                cli.run([*git_update_cmd, submodule], check=True)
+                subprocess.run(git_sync_cmd + [submodule], check=True)
+                subprocess.run(git_update_cmd + [submodule], check=True)

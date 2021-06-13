@@ -185,7 +185,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update(bool clockwise) {
   if (clockwise) {
     register_code(KC_VOLU);
     unregister_code(KC_VOLU);
@@ -193,7 +193,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     register_code(KC_VOLD);
     unregister_code(KC_VOLD);
   }
-    return true;
 }
 
 // flicker implementation:

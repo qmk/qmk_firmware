@@ -125,7 +125,7 @@ void oled_task_user(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
 /*
     ,-----------------------,
     |  E1 |  E2 |  E3 |  E4 |
@@ -224,6 +224,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         break;
     }
   }
-    return true;
 }
 #endif

@@ -247,7 +247,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool encoder_update(bool clockwise) {
+void encoder_update(bool clockwise) {
     if (clockwise) {
       #ifdef MOUSEKEY_ENABLE
         register_code(KC_MS_WH_DOWN);
@@ -265,7 +265,6 @@ bool encoder_update(bool clockwise) {
         unregister_code(KC_PGUP);
       #endif
     }
-    return true;
 }
 
 void matrix_scan_user(void) {

@@ -1,8 +1,8 @@
 """Format C code according to QMK's style.
 """
+import subprocess
 from os import path
 from shutil import which
-from subprocess import CalledProcessError, DEVNULL, Popen, PIPE
 
 from argcomplete.completers import FilesCompleter
 from milc import cli
@@ -34,7 +34,7 @@ def find_diffs(files):
 
     for file in files:
         cli.log.debug('Checking for changes in %s', file)
-        clang_format = Popen([find_clang_format(), file], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+        clang_format = subprocess.Popen([find_clang_format(), file], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         diff = cli.run(['diff', '-u', f'--label=a/{file}', f'--label=b/{file}', str(file), '-'], stdin=clang_format.stdout, capture_output=True)
 
         if diff.returncode != 0:
@@ -51,11 +51,11 @@ def cformat_run(files):
     clang_format = [find_clang_format(), '-i']
 
     try:
-        cli.run([*clang_format, *map(str, files)], check=True, capture_output=False, stdin=DEVNULL)
+        cli.run(clang_format + list(map(str, files)), check=True, capture_output=False)
         cli.log.info('Successfully formatted the C code.')
         return True
 
-    except CalledProcessError as e:
+    except subprocess.CalledProcessError as e:
         cli.log.error('Error formatting C code!')
         cli.log.debug('%s exited with returncode %s', e.cmd, e.returncode)
         cli.log.debug('STDOUT:')
@@ -65,21 +65,11 @@ def cformat_run(files):
         return False
 
 
-def filter_files(files, core_only=False):
+def filter_files(files):
     """Yield only files to be formatted and skip the rest
     """
-    if core_only:
-        # Filter non-core files
-        for index, file in enumerate(files):
-            # The following statement checks each file to see if the file path is
-            # - in the core directories
-            # - not in the ignored directories
-            if not any(i in str(file) for i in core_dirs) or any(i in str(file) for i in ignored):
-                files[index] = None
-                cli.log.debug("Skipping non-core file %s, as '--core-only' is used.", file)
-
     for file in files:
-        if file and file.name.split('.')[-1] in c_file_suffixes:
+        if file.name.split('.')[-1] in c_file_suffixes:
             yield file
         else:
             cli.log.debug('Skipping file %s', file)
@@ -88,7 +78,6 @@ def filter_files(files, core_only=False):
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Flag only, don't automatically format.")
 @cli.argument('-b', '--base-branch', default='origin/master', help='Branch to compare to diffs to.')
 @cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all core files.')
-@cli.argument('--core-only', arg_only=True, action='store_true', help='Format core files only.')
 @cli.argument('files', nargs='*', arg_only=True, type=normpath, completer=FilesCompleter('.c'), help='Filename(s) to format.')
 @cli.subcommand("Format C code according to QMK's style.", hidden=False if cli.config.user.developer else True)
 def cformat(cli):
@@ -96,7 +85,7 @@ def cformat(cli):
     """
     # Find the list of files to format
     if cli.args.files:
-        files = list(filter_files(cli.args.files, cli.args.core_only))
+        files = list(filter_files(cli.args.files))
 
         if not files:
             cli.log.error('No C files in filelist: %s', ', '.join(map(str, cli.args.files)))
@@ -107,11 +96,12 @@ def cformat(cli):
 
     elif cli.args.all_files:
         all_files = c_source_files(core_dirs)
-        files = list(filter_files(all_files, True))
+        # The following statement checks each file to see if the file path is in the ignored directories.
+        files = [file for file in all_files if not any(i in str(file) for i in ignored)]
 
     else:
         git_diff_cmd = ['git', 'diff', '--name-only', cli.args.base_branch, *core_dirs]
-        git_diff = cli.run(git_diff_cmd, stdin=DEVNULL)
+        git_diff = cli.run(git_diff_cmd)
 
         if git_diff.returncode != 0:
             cli.log.error("Error running %s", git_diff_cmd)
@@ -127,7 +117,7 @@ def cformat(cli):
 
     # Sanity check
     if not files:
-        cli.log.error('No changed files detected. Use "qmk cformat -a" to format all core files')
+        cli.log.error('No changed files detected. Use "qmk cformat -a" to format all files')
         return False
 
     # Run clang-format on the files we've found

@@ -16,9 +16,7 @@
 
 #pragma once
 
-#include <stdbool.h>
-
-#include "gpio.h"
+#include "quantum.h"
 
 typedef int16_t spi_status_t;
 

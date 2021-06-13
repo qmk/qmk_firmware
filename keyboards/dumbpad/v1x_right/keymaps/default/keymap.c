@@ -72,7 +72,7 @@ void keyboard_post_init_user(void) {
     // debug_mouse = true;
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     /*  Custom encoder control - handles CW/CCW turning of encoder
      *  Default behavior:
      *    main layer:
@@ -103,5 +103,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     }
-    return true;
 }

@@ -5,6 +5,7 @@ import shutil
 
 from milc import cli
 from qmk.constants import QMK_FIRMWARE
+from qmk.commands import run
 from qmk.os_helpers import CheckStatus
 
 
@@ -131,7 +132,7 @@ def check_modem_manager():
 
     """
     if check_systemd():
-        mm_check = cli.run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
+        mm_check = run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
         if mm_check.returncode == 0:
             return True
     else:

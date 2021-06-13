@@ -363,7 +363,7 @@ void matrix_scan_user(void) {
       surround_type(4, KC_GRAVE, true);
     }
     SEQ_ONE_KEY(KC_C) {
-      register_unicode(0x00E7); // ç
+      send_unicode_hex_string("00E7");
     }
     SEQ_TWO_KEYS(KC_A, KC_V) {
       surround_type(2, KC_QUOT, true);
@@ -384,10 +384,10 @@ void matrix_scan_user(void) {
       surround_type(6, KC_GRAVE, false);
     }
     SEQ_ONE_KEY(KC_E) {
-      register_unicode(0x00E8); // è
+      send_unicode_hex_string("00E8");
     }
     SEQ_TWO_KEYS(KC_E, KC_E) {
-      register_unicode(0x00E9); // é
+      send_unicode_hex_string("00E9");
     }
     // end format functions
 
@@ -407,7 +407,8 @@ void matrix_scan_user(void) {
 
     // start typing functions
     SEQ_TWO_KEYS(KC_T, KC_M) {
-      register_unicode(0x2122); // ™
+      // ™
+      send_unicode_hex_string("2122");
     }
     SEQ_TWO_KEYS(KC_D, KC_D) {
       SEND_STRING(".\\Administrator");
@@ -419,22 +420,27 @@ void matrix_scan_user(void) {
       tap_code(KC_ENTER);
     }
     SEQ_THREE_KEYS(KC_L, KC_O, KC_D) {
-      send_unicode_string("ಠ__ಠ");
+      // ಠ__ಠ
+      send_unicode_hex_string("0CA0 005F 005F 0CA0");
     }
     SEQ_THREE_KEYS(KC_M, KC_A, KC_P) {
       SEND_STRING("https://github.com/qmk/qmk_firmware/tree/master/users/arkag");
     }
     SEQ_TWO_KEYS(KC_F, KC_F) {
-      send_unicode_string("(╯‵Д′)╯彡┻━┻");
+      // (╯‵Д′)╯彡┻━┻
+      send_unicode_hex_string("0028 256F 2035 0414 2032 0029 256F 5F61 253B 2501 253B");
     }
     SEQ_THREE_KEYS(KC_F, KC_F, KC_F) {
-      send_unicode_string("┬─┬ノ( º _ º ノ)");
+      // ┬─┬ノ( º _ º ノ)
+      send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 0020 30CE 0029");
     }
     SEQ_THREE_KEYS(KC_L, KC_O, KC_L) {
-      send_unicode_string("( ͡° ͜ʖ ͡°)");
+      // ( ͡° ͜ʖ ͡°)
+      send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
     }
     SEQ_THREE_KEYS(KC_S, KC_S, KC_S) {
-      send_unicode_string("¯\\_(ツ)_/¯");
+      // ¯\_(ツ)_/¯
+      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
     }
     // end typing functions
 
@@ -507,7 +513,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case M_DASH:
     if (record->event.pressed){
-      register_unicode(0x2014); // —
+      send_unicode_hex_string("2014");
     }
     return false;
   case M_LMHYP:

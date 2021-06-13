@@ -16,8 +16,7 @@
 
 #include "genesis.h"
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
+__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 	/* top left encoder */
 	if (index == 0) {
 		if (clockwise) {
@@ -33,6 +32,5 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 		} else {
 			tap_code(KC_VOLD);
 		}
-	}
-    return true;
+	}    
 }

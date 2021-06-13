@@ -235,7 +235,7 @@ bool led_update_user(led_t led_state) {
 
 //------------------------------------------------------------------------------
 // Rotary Encoder
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder, Right side */
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -275,7 +275,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     }
-    return true;
 }
 
 

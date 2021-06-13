@@ -5,7 +5,7 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT_60_iso_arrow": {
+        "LAYOUT": {
             "layout": [
                 {"label":"K00 (B0,D0)", "x":0, "y":0},
                 {"label":"K01 (B0,D1)", "x":1, "y":0},

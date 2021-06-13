@@ -1,8 +1,6 @@
 """Clean the QMK firmware folder of build artifacts.
 """
-from subprocess import DEVNULL
-
-from qmk.commands import create_make_target
+from qmk.commands import run, create_make_target
 from milc import cli
 
 
@@ -11,4 +9,4 @@ from milc import cli
 def clean(cli):
     """Runs `make clean` (or `make distclean` if --all is passed)
     """
-    cli.run(create_make_target('distclean' if cli.args.all else 'clean'), capture_output=False, stdin=DEVNULL)
+    run(create_make_target('distclean' if cli.args.all else 'clean'))

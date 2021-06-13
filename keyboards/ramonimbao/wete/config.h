@@ -46,8 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 24
 #define RGBLIGHT_ANIMATIONS
 
-#define SLEEP_LED_GPT_DRIVER GPTD1
-
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 

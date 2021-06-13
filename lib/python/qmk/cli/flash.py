@@ -3,7 +3,6 @@
 You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
-from subprocess import DEVNULL
 
 from argcomplete.completers import FilesCompleter
 from milc import cli
@@ -56,7 +55,7 @@ def flash(cli):
     """
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
         command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
-        cli.run(command, capture_output=False, stdin=DEVNULL)
+        cli.run(command, capture_output=False)
 
     # Build the environment vars
     envs = {}
@@ -99,7 +98,7 @@ def flash(cli):
         cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(command))
         if not cli.args.dry_run:
             cli.echo('\n')
-            compile = cli.run(command, capture_output=False, stdin=DEVNULL)
+            compile = cli.run(command, capture_output=False, text=True)
             return compile.returncode
 
     else:

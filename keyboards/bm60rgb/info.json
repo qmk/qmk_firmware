@@ -5,7 +5,7 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT_60_iso_arrow": {
+        "LAYOUT": {
             "key_count": 63,
             "layout": [
                 {"label":"K00 (B0,D0)", "x":0, "y":0},

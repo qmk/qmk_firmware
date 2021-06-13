@@ -2,7 +2,6 @@
 #define STAPELBERG_CONFIG_H
 
 #include "../config.h"
-#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define PRODUCT_ID      0x6060

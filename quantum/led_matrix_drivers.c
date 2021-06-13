@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdint.h>
+#include <stdbool.h>
+#include "quantum.h"
 #include "led_matrix.h"
 
 /* Each driver needs to define a struct:
@@ -26,6 +29,10 @@
  */
 
 #if defined(IS31FL3731) || defined(IS31FL3733)
+
+#    if defined(IS31FL3731)
+#        include "is31fl3731-simple.h"
+#    endif
 
 #    include "i2c_master.h"
 
@@ -46,28 +53,16 @@ static void init(void) {
 #        endif
 #    else
 #        ifdef LED_DRIVER_ADDR_1
-#            ifndef LED_DRIVER_SYNC_1
-#                define LED_DRIVER_SYNC_1 0
-#            endif
-    IS31FL3733_init(LED_DRIVER_ADDR_1, LED_DRIVER_SYNC_1);
+    IS31FL3733_init(LED_DRIVER_ADDR_1, 0);
 #        endif
 #        ifdef LED_DRIVER_ADDR_2
-#            ifndef LED_DRIVER_SYNC_2
-#                define LED_DRIVER_SYNC_2 0
-#            endif
-    IS31FL3733_init(LED_DRIVER_ADDR_2, LED_DRIVER_SYNC_2);
+    IS31FL3733_init(LED_DRIVER_ADDR_2, 0);
 #        endif
 #        ifdef LED_DRIVER_ADDR_3
-#            ifndef LED_DRIVER_SYNC_3
-#                define LED_DRIVER_SYNC_3 0
-#            endif
-    IS31FL3733_init(LED_DRIVER_ADDR_3, LED_DRIVER_SYNC_3);
+    IS31FL3733_init(LED_DRIVER_ADDR_3, 0);
 #        endif
 #        ifdef LED_DRIVER_ADDR_4
-#            ifndef LED_DRIVER_SYNC_4
-#                define LED_DRIVER_SYNC_4 0
-#            endif
-    IS31FL3733_init(LED_DRIVER_ADDR_4, LED_DRIVER_SYNC_4);
+    IS31FL3733_init(LED_DRIVER_ADDR_4, 0);
 #        endif
 #    endif
 

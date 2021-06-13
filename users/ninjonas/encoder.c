@@ -15,7 +15,7 @@
  */
 #include "ninjonas.h"
 
-#ifdef ENCODER_ENABLE
+#ifdef ENCODER_ENABLE   
 void left_encoder_cw(void) {
     switch (get_highest_layer(layer_state)) {
         case _LOWER:
@@ -81,7 +81,7 @@ void right_encoder_acw(void) {
         }
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     encoder_rotated_timer = timer_read();
     if (index == 0) {
         left_encoder_rotated = true;
@@ -99,7 +99,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             right_encoder_acw();
         }
     }
-    return true;
 }
 
 #endif

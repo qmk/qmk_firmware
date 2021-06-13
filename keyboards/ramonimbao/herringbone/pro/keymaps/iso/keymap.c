@@ -35,7 +35,7 @@ uint8_t current_frame = 0;
 
 #define FRAME_DURATION 50
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
         anim_sleep = timer_read32();
@@ -45,7 +45,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         anim_sleep = timer_read32();
         oled_on();
     }
-    return true;
 }
 
 static void render_pattern(void) {
