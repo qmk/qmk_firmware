@@ -68,7 +68,7 @@ uint8_t g_twi_transfer_buffer[20];
 uint8_t g_pwm_buffer[DRIVER_COUNT][192];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
-uint8_t g_led_control_registers[DRIVER_COUNT][24] = {0}; //{{0}};
+uint8_t g_led_control_registers[DRIVER_COUNT][24] = {0};
 bool    g_led_control_registers_update_required[DRIVER_COUNT] = {false};
 
 void IS31FL3737_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
@@ -218,6 +218,6 @@ void IS31FL3737_update_led_control_registers(uint8_t addr, uint8_t index) {
             IS31FL3737_write_register(addr, i, g_led_control_registers[index][i]);
             // IS31FL3737_write_register(addr2, i, g_led_control_registers[1][i]);
         }
-        g_led_control_registers_update_required[index] = false;
     }
+    g_led_control_registers_update_required[index] = false;
 }
