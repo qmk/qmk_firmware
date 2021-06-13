@@ -54,9 +54,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             case _GREEN:
             default:
                 if (clockwise) {
-					tap_code16(KC_LEFT);
+                    tap_code16(KC_LEFT);
                 } else {
-					tap_code16(KC_RIGHT);
+                    tap_code16(KC_RIGHT);
                 }
                 break;
         }
