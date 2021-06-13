@@ -18,7 +18,7 @@
 #endif
 
 #if defined(VIA_ENABLE)
-void via_eeprom_set_valid(bool valid);
+void eeconfig_init_via(void);
 #endif
 
 /** \brief eeconfig enable
@@ -82,7 +82,7 @@ void eeconfig_init_quantum(void) {
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #endif
 #if defined(VIA_ENABLE)
-    via_eeprom_set_valid(false);
+    eeconfig_init_via();
 #endif
 
     eeconfig_init_kb();
