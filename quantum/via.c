@@ -83,16 +83,6 @@ void via_eeprom_set_valid(bool valid) {
     eeprom_update_byte((void *)VIA_EEPROM_MAGIC_ADDR + 2, valid ? magic2 : 0xFF);
 }
 
-// Flag QMK and VIA/keyboard level EEPROM as invalid.
-// Used in bootmagic_lite() and VIA command handler.
-// Keyboard level code should not need to call this.
-void via_eeprom_reset(void) {
-    // Set the VIA specific EEPROM state as invalid.
-    via_eeprom_set_valid(false);
-    // Set the TMK/QMK EEPROM state as invalid.
-    eeconfig_disable();
-}
-
 // Override this at the keyboard code level to check
 // VIA's EEPROM valid state and reset to defaults as needed.
 // Used by keyboards that store their own state in EEPROM,

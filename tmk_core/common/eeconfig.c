@@ -17,6 +17,10 @@
 #    include "haptic.h"
 #endif
 
+#if defined(VIA_ENABLE)
+void via_eeprom_set_valid(bool valid);
+#endif
+
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
@@ -76,6 +80,9 @@ void eeconfig_init_quantum(void) {
     // in the haptic configuration eeprom. All zero will trigger a haptic_reset
     // when a haptic-enabled firmware is loaded onto the keyboard.
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
+#endif
+#if defined(VIA_ENABLE)
+    via_eeprom_set_valid(false);
 #endif
 
     eeconfig_init_kb();
