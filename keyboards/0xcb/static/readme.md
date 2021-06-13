@@ -13,7 +13,7 @@ Macro keypad
 
 More Pictures [here](https://0xcb.dev/static/)
 
-To go to bootloader hold the RESET switch, then hold the BOOT switch, release RESET, release BOOT.
+To go to bootloader press ESC while plugging in or hold the RESET switch, then hold the BOOT switch, release RESET, release BOOT.
 The board should now appear in lsusb (or device manager).
 
 Make example for this keyboard (after setting up your build environment):
