@@ -32,15 +32,25 @@ const rgblight_segment_t PROGMEM blank[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 18, HSV_BLACK}
 );
 
+const rgblight_segment_t PROGMEM rgb_no[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 18, HSV_RED}
+);
 
-enum RGB_LAYERS { FN1, FN2, FN3, NUM, CAPS, BLNK };
+const rgblight_segment_t PROGMEM rgb_yes[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 18, HSV_GREEN}
+);
+
+
+enum RGB_LAYERS { FN1, FN2, FN3, NUM, CAPS, BLNK, RGB_NO, RGB_YES };
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     fn1_layer,
     fn2_layer,
     fn3_layer,
     my_numlock_layer,
     my_capslock_layer,
-    blank
+    blank,
+    rgb_no,
+    rgb_yes
 );
 
 void keyboard_post_init_user(void) {
@@ -105,9 +115,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         return true;
     case BL_OFF:
+        if (record->event.pressed) {
+            rgblight_blink_layer_repeat(RGB_NO, 175, 2);
+        }
+        return true; 
     case BL_ON:
         if (record->event.pressed) {
-            rgblight_blink_layer_repeat(BLNK, 175, 2);
+            rgblight_blink_layer_repeat(RGB_YES, 175, 2);
         }
         return true; 
     default:
