@@ -24,7 +24,9 @@ Now I can build and flash my keymap with the following command:
 sudo make CFLAGS=-Wno-error=deprecated planck/rev6:theblob42:flash
 ```
 
-> The keyboard needs to be in DFU mode for the flash to work
+> You might need to execute `make git-submodule` first
+>
+> The keyboard needs to be in DFU mode for the flash to work (omit `:flash` to just built the firmware)
 
 ## References
 
