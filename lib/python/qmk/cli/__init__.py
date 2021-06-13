@@ -27,39 +27,39 @@ safe_commands = [
 ]
 
 subcommands = [
-    'bux',
-    'c2json',
-    'cformat',
-    'chibios.confmigrate',
-    'clean',
-    'compile',
-    'console',
-    'docs',
-    'doctor',
-    'fileformat',
-    'flash',
-    'format.json',
-    'generate.api',
-    'generate.config_h',
-    'generate.dfu_header',
-    'generate.docs',
-    'generate.info_json',
-    'generate.keyboard_h',
-    'generate.layouts',
-    'generate.rgb_breathe_table',
-    'generate.rules_mk',
-    'hello',
-    'info',
-    'json2c',
-    'lint',
-    'list.keyboards',
-    'list.keymaps',
-    'kle2json',
-    'multibuild',
-    'new.keyboard',
-    'new.keymap',
-    'pyformat',
-    'pytest',
+    'qmk.cli.bux',
+    'qmk.cli.c2json',
+    'qmk.cli.cformat',
+    'qmk.cli.chibios.confmigrate',
+    'qmk.cli.clean',
+    'qmk.cli.compile',
+    'qmk.cli.console',
+    'qmk.cli.docs',
+    'qmk.cli.doctor',
+    'qmk.cli.fileformat',
+    'qmk.cli.flash',
+    'qmk.cli.format.json',
+    'qmk.cli.generate.api',
+    'qmk.cli.generate.config_h',
+    'qmk.cli.generate.dfu_header',
+    'qmk.cli.generate.docs',
+    'qmk.cli.generate.info_json',
+    'qmk.cli.generate.keyboard_h',
+    'qmk.cli.generate.layouts',
+    'qmk.cli.generate.rgb_breathe_table',
+    'qmk.cli.generate.rules_mk',
+    'qmk.cli.hello',
+    'qmk.cli.info',
+    'qmk.cli.json2c',
+    'qmk.cli.lint',
+    'qmk.cli.list.keyboards',
+    'qmk.cli.list.keymaps',
+    'qmk.cli.kle2json',
+    'qmk.cli.multibuild',
+    'qmk.cli.new.keyboard',
+    'qmk.cli.new.keymap',
+    'qmk.cli.pyformat',
+    'qmk.cli.pytest',
 ]
 
 
@@ -186,13 +186,12 @@ if not safe_command:
             exit(1)
 
 # Import our subcommands
-from milc.subcommand import config  # noqa
-
 for subcommand in subcommands:
     try:
-        __import__(f'qmk.cli.{subcommand}')
+        __import__(subcommand)
+
     except ModuleNotFoundError as e:
         if safe_command:
-            print(f'Warning: Could not import qmk.cli.{subcommand}: {e.__class__.__name__}, {e}')
+            print(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
         else:
             raise
