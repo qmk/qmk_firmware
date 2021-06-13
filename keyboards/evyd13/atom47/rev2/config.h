@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x8E66
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Evyd13
-#define PRODUCT         Atom47 Rev2
+#define PRODUCT         Atom47 rev2
 
 /* key matrix size */
 #define MATRIX_ROWS 4
