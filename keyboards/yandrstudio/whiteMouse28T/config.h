@@ -29,7 +29,7 @@
 #define MATRIX_COLS 7
 
 //                        0    1    2   3   4    5   6
-#define MATRIX_COL_PINS { B14, B15, A8, A9, A10, B4, B3}
+#define MATRIX_COL_PINS { B14, B15, A8, A2, A3, B4, B3}
 #define MATRIX_ROW_PINS { B13, B12, B7, B6}
 
 /* COL2ROW or ROW2COL */

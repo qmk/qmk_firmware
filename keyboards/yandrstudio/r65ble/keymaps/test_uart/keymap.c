@@ -124,7 +124,7 @@ void oled_task_user(void) {
 
 
 void keyboard_post_init_user(void) {
-    // uart_init(115200);
+    uart_init(115200);
   debug_enable=true;
 //   debug_matrix=true;
   debug_keyboard=true;
