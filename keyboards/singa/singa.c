@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 amnesia0287
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,32 +13,5 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
 
-#include <avr/pgmspace.h>
-#include "action_layer.h"
-#include "i2c.h"
-#include "quantum.h"
-
-
-// for keyboard subdirectory level init functions
-// @Override
-void matrix_init_kb(void) {
-  // call user level keymaps, if any
-  matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-  /* Nothing else for now. */
-}
-
-__attribute__((weak)) // overridable
-void matrix_init_user(void) {
-
-}
-
-__attribute__((weak)) // overridable
-void matrix_scan_user(void) {
-
-}
+#include "singa.h"

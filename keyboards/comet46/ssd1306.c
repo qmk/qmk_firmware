@@ -4,16 +4,15 @@
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
-#ifdef ADAFRUIT_BLE_ENABLE
-#include "adafruit_ble.h"
-#endif
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #endif
 #include "sendchar.h"
 #include "timer.h"
 
-static const unsigned char font[] PROGMEM;
+struct CharacterMatrix display;
+
+extern const unsigned char font[] PROGMEM;
 
 // Set this to 1 to help diagnose early startup problems
 // when testing power-on with ble.  Turn it off otherwise,

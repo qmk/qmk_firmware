@@ -51,22 +51,22 @@
 #include "conf_usb.h"
 #include "udi_device_conf.h"
 
-#ifndef  UDI_CDC_PORT_NB
-#define  UDI_CDC_PORT_NB 1
+#ifndef UDI_CDC_PORT_NB
+#    define UDI_CDC_PORT_NB 1
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define  UDI_CDC_DATA_EP_IN_0   ((CDC_TX_ENDPOINT) | (USB_EP_DIR_IN)) //TX
-#define  UDI_CDC_DATA_EP_OUT_0  ((CDC_RX_ENDPOINT) | (USB_EP_DIR_OUT)) // RX
-#define  UDI_CDC_COMM_EP_0      ((CDC_ACM_ENDPOINT) | (USB_EP_DIR_IN))  // Notify endpoint
+#define UDI_CDC_DATA_EP_IN_0 ((CDC_TX_ENDPOINT) | (USB_EP_DIR_IN))    // TX
+#define UDI_CDC_DATA_EP_OUT_0 ((CDC_RX_ENDPOINT) | (USB_EP_DIR_OUT))  // RX
+#define UDI_CDC_COMM_EP_0 ((CDC_ACM_ENDPOINT) | (USB_EP_DIR_IN))      // Notify endpoint
 
-#define  UDI_CDC_COMM_IFACE_NUMBER_0   (CDC_STATUS_INTERFACE)
-#define  UDI_CDC_DATA_IFACE_NUMBER_0   (CDC_DATA_INTERFACE)
+#define UDI_CDC_COMM_IFACE_NUMBER_0 (CDC_STATUS_INTERFACE)
+#define UDI_CDC_DATA_IFACE_NUMBER_0 (CDC_DATA_INTERFACE)
 
 #ifdef __cplusplus
 }
 #endif
-#endif // _UDI_CDC_CONF_H_
+#endif  // _UDI_CDC_CONF_H_

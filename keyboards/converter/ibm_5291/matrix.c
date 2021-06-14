@@ -33,8 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 
 
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#ifndef DEBOUNCE
+#   define DEBOUNCE 5
 #endif
 
 #define print_matrix_header()      print("\nr/c 01234567\n")
@@ -49,14 +49,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static const uint8_t row_pins [NUM_ROW_PINS] = MATRIX_ROW_PINS ;
 static const uint8_t col_pins [NUM_ROW_PINS] = MATRIX_COL_PINS ;
 
-#if ( DEBOUNCING_DELAY > 0 )
+#if ( DEBOUNCE > 0 )
 static uint16_t debouncing_time         ;
 static bool     debouncing      = false ;
 #endif
 
 static uint8_t matrix          [MATRIX_ROWS] = {0};
 
-#if ( DEBOUNCING_DELAY > 0 )
+#if ( DEBOUNCE > 0 )
 static uint8_t matrix_debounce [MATRIX_ROWS] = {0};
 #endif 
 
@@ -237,7 +237,7 @@ void matrix_init(void) {
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         matrix[i]            = 0;
-#       if (DEBOUNCING_DELAY > 0)
+#       if (DEBOUNCE > 0)
         matrix_debounce  [i] = 0;
 #       endif
     }
@@ -247,7 +247,7 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void) { 
     for ( uint8_t current_row = 0; current_row < MATRIX_ROWS; ++current_row ) {
-#       if (DEBOUNCING_DELAY > 0)
+#       if (DEBOUNCE > 0)
             bool matrix_changed = matrix_read(matrix_debounce, current_row);
             
             if (matrix_changed) {
@@ -260,8 +260,8 @@ uint8_t matrix_scan(void) {
 #       endif
     }
     
-#   if (DEBOUNCING_DELAY > 0)
-        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
+#   if (DEBOUNCE > 0)
+        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
             for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
                 matrix[i] = matrix_debounce[i];
             }
@@ -277,7 +277,7 @@ void matrix_print(void) {
     print_matrix_header();
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_matrix_row(row);
         print("\n");
     }

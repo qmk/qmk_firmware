@@ -15,11 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _config_led_h_
-#define _config_led_h_
+#pragma once
 
 //Define number of ISSI3733 drivers being used (1...16)
 #define ISSI3733_DRIVER_COUNT 2
+#define DRIVER_LED_TOTAL ISSI3733_LED_COUNT
 
 //Hardware address of each driver (Refer to ISSI3733 pdf "Table 1 Slave Address" and keyboard schematic)
 #define ISSI3773_DRIVER_ADDRESSES { 0xA0, 0xBE }
@@ -30,21 +30,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Count of LED bodies
 #define ISSI3733_LED_COUNT 119
 
-//Default Global Current Register value (Default brightness 0 - 255)
-#define ISSI3733_GCR_DEFAULT 128
-
 #define LED_GCR_MAX                 165         //Max GCR value (0 - 255) WARNING: Raising this value may overload the LED drivers and USB bus
 #define LED_GCR_STEP                10          //GCR increment/decrement value
+
+#ifdef USE_MASSDROP_CONFIGURATOR
+#define ANIMATION_SPEED_STEP        1
+
+#define BREATHE_STEP                1
+#define BREATHE_MIN_STEP            0
+#define BREATHE_MAX_STEP            255
+#endif
+
+//Default Global Current Register value (Default brightness 0 - 255)
+#define ISSI3733_GCR_DEFAULT LED_GCR_MAX
 
 //Automatic power rollback and recovery
 #define V5_HIGH                     2540        //5V high level (After low power detect, point at which LEDs are allowed to use more power )
 #define V5_LOW                      2480        //5V low level (LED power rolled back to stay above this limit)
 #define V5_CAT                      2200        //5V catastrophic level (Host USB port potential to shut down)
-
-#define ANIMATION_SPEED_STEP        1
-
-#define BREATHE_MIN_STEP            0
-#define BREATHE_MAX_STEP            255
 
 //LED Mapping - More practically generated from a spreadsheet program
 //id: ID of the LED (Sync with PCB callouts)
@@ -187,5 +190,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define USB_LED_COMPOSE_SCANCODE        255
     #define USB_LED_KANA_SCANCODE           255
 #endif //USB_LED_INDICATOR_ENABLE
-
-#endif //_config_led_h_

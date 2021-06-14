@@ -21,21 +21,14 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
-  _COLEMAK,
-  _DVORAK,
   _LOWER,
   _RAISE,
-  _PLOVER,
   _ADJUST
 };
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  PLOVER,
-  BACKLIT,
-  EXT_PLV
+  BACKLIT
 };
 
 #define LOWER MO(_LOWER)
@@ -110,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
+    C(G(S(KC_4))), RESET, DEBUG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL,
     _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______,  _______, _______, _______,
     _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
@@ -136,32 +129,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          PORTE &= ~(1<<6);
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          PORTE |= (1<<6);
-        #endif
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_gb_song);
-        #endif
-        layer_off(_PLOVER);
-      }
-      return false;
-      break;
   }
   return true;
 }
@@ -172,7 +139,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update(bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -202,6 +169,7 @@ void encoder_update(bool clockwise) {
       #endif
     }
   }
+    return true;
 }
 
 void dip_update(uint8_t index, bool active) {
@@ -259,12 +227,10 @@ bool music_mask_user(uint16_t keycode) {
 
 void rgb_matrix_indicators_user(void) {
   #ifdef RGB_MATRIX_ENABLE
-  rgb_led led;
   switch (biton32(layer_state)) {
     case _RAISE:
       for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_rgb_leds[i];
-        if ( led.modifier ) {
+        if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
           rgb_matrix_set_color(i, 0x6B, 0x00, 0x80);
         } else {
           rgb_matrix_set_color(i, 0x00, 0xFF, 0x00);
@@ -274,8 +240,7 @@ void rgb_matrix_indicators_user(void) {
 
     case _LOWER:
       for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_rgb_leds[i];
-        if ( led.modifier ) {
+        if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
           rgb_matrix_set_color(i, 0xFF, 0xA5, 0x00);
         } else {
           rgb_matrix_set_color(i, 0x00, 0x67, 0xC7);

@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    rockydbull
 #define PRODUCT         Catch22 Hotswap Macropad
-#define DESCRIPTION     Budget 22 Key Hotswap Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -39,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-// #define DEBOUNCING_DELAY 0
+// #define DEBOUNCE 0
 
 /* key combination for command */
 #define IS_COMMAND() ( \

@@ -1,0 +1,64 @@
+{
+    "keyboard_name": "SilverBullet44",
+    "url": "https://swanmatch.booth.pm/items/1561270",
+    "maintainer": "swanmatch",
+    "width": 18,
+    "height": 4.5,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"Tab", "x":0, "y":1.375},
+                {"label":"Q", "x":1, "y":0.75},
+                {"label":"W", "x":2, "y":0.25},
+                {"label":"E", "x":3, "y":0},
+                {"label":"R", "x":4, "y":0.25},
+                {"label":"T", "x":5, "y":0.5},
+
+                {"label":"Y", "x":12, "y":0.5},
+                {"label":"U", "x":13, "y":0.25},
+                {"label":"I", "x":14, "y":0},
+                {"label":"O", "x":15, "y":0.25},
+                {"label":"P", "x":16, "y":0.75},
+                {"label":"=", "x":17, "y":1.375},
+
+                {"label":"Shift", "x":0, "y":2.375},
+                {"label":"A", "x":1, "y":1.75},
+                {"label":"S", "x":2, "y":1.25},
+                {"label":"D", "x":3, "y":1},
+                {"label":"F", "x":4, "y":1.25},
+                {"label":"G", "x":5, "y":1.5},
+
+                {"label":"H", "x":12, "y":1.5},
+                {"label":"J", "x":13, "y":1.25},
+                {"label":"K", "x":14, "y":1},
+                {"label":"L", "x":15, "y":1.25},
+                {"label":":", "x":16, "y":1.75},
+                {"label":"'", "x":17, "y":2.375},
+
+                {"label":"N", "x":12, "y":2.5},
+                {"label":"M", "x":13, "y":2.25},
+                {"label":"<", "x":14, "y":2},
+                {"label":">", "x":15, "y":2.25},
+                {"label":"?", "x":16, "y":2.75},
+                {"label":"-", "x":17, "y":3.375},
+
+                {"label":"Ctrl", "x":0, "y":3.375},
+                {"label":"Z", "x":1, "y":2.75},
+                {"label":"X", "x":2, "y":2.25},
+                {"label":"C", "x":3, "y":2},
+                {"label":"V", "x":4, "y":2.25},
+                {"label":"B", "x":5, "y":2.5},
+
+                {"label":"Alt", "x":4, "y":3.25, "h":1.25},
+                {"label":"BS", "x":5, "y":3.5},
+                {"label":"Space", "x":-0.5, "y":3.5, "h":1.5},
+                {"label":"Num", "x":7, "y":3.25, "h":1.5},
+
+                {"label":"Cursol", "x":-3.0, "y":3.5, "h":1.5},
+                {"label":"Enter", "x":-2, "y":3.5, "h":1.5},
+                {"label":"Del", "x":12, "y":3.5},
+                {"label":"Win", "x":13, "y":3.25, "w":1.25}
+            ]
+        }
+    }
+}

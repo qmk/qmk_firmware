@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Dilly
-#define DESCRIPTION     30 percent ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -30,7 +29,7 @@
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

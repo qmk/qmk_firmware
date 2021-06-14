@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
 #define PRODUCT         obelus
-#define DESCRIPTION     4x4 QMK test platform
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -54,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -155,7 +154,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef AUDIO_ENABLE
   #define AUDIO_VOICES
-  #define C6_AUDIO
+  #define AUDIO_PIN C6
   #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 

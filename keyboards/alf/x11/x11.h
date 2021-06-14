@@ -26,18 +26,18 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-  K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K60, K61, K62, \
-  K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K5A, K63, K65, K67, \
-  K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K4C, K64, K66, K68, \
-  K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, \
-  K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B, K69, K58, \
-  K50, K51, K52, K53, K54, K55, K56, K57, K6A, K59, K6B  \
+    K00,      K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,      K62, K61, K60, \
+    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K5A,      K63, K65, K67, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K4C,      K64, K66, K68, \
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,      K3C, \
+    K40,      K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B, K69,           K58, \
+    K50, K51, K52,                K53,                K54, K55, K56, K57,      K6A, K59, K6B  \
 ) { \
-  {   K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K0A,   K0B,   K0C   }, \
-  {   K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   K1C   }, \
-  {   K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C   }, \
-  {   K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C   }, \
-  {   K40,   K41,   K42,   K43,   K44,   K45,   K46,   K47,   K48,   K49,   K4A,   K4B,   K4C   }, \
-  {   K50,   K51,   K52,   K53,   K54,   K55,   K56,   K57,   K58,   K59,   K5A,   KC_NO, KC_NO }, \
-  {   K60,   K61,   K62,   K63,   K64,   K65,   K66,   K67,   K68,   K69,   K6A,   K6B,   KC_NO }, \
+    { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K0A,   K0B,   K0C   }, \
+    { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   K1C   }, \
+    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C   }, \
+    { K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C   }, \
+    { K40,   K41,   K42,   K43,   K44,   K45,   K46,   K47,   K48,   K49,   K4A,   K4B,   K4C   }, \
+    { K50,   K51,   K52,   K53,   K54,   K55,   K56,   K57,   K58,   K59,   K5A,   KC_NO, KC_NO }, \
+    { K60,   K61,   K62,   K63,   K64,   K65,   K66,   K67,   K68,   K69,   K6A,   K6B,   KC_NO }, \
 }

@@ -1,48 +1,42 @@
 #include "matrix.h"
 #include "i2c_master.h"
-#include "led_matrix.h"
+#include "md_rgb_matrix.h"
 #include "suspend.h"
 
 /** \brief Suspend idle
  *
  * FIXME: needs doc
  */
-void suspend_idle(uint8_t time) {
-    /* Note: Not used anywhere currently */
+void suspend_idle(uint8_t time) { /* Note: Not used anywhere currently */
 }
 
 /** \brief Run user level Power down
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void suspend_power_down_user (void) {
-
-}
+__attribute__((weak)) void suspend_power_down_user(void) {}
 
 /** \brief Run keyboard level Power down
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void suspend_power_down_kb(void) {
-    suspend_power_down_user();
-}
+__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
 
 /** \brief Suspend power down
  *
  * FIXME: needs doc
  */
-void suspend_power_down(void)
-{
-    I2C3733_Control_Set(0); //Disable LED driver
+void suspend_power_down(void) {
+#ifdef RGB_MATRIX_ENABLE
+    I2C3733_Control_Set(0);  // Disable LED driver
+#endif
 
     suspend_power_down_kb();
 }
 
-__attribute__ ((weak)) void matrix_power_up(void) {}
-__attribute__ ((weak)) void matrix_power_down(void) {}
-bool suspend_wakeup_condition(void) {
+__attribute__((weak)) void matrix_power_up(void) {}
+__attribute__((weak)) void matrix_power_down(void) {}
+bool                       suspend_wakeup_condition(void) {
     matrix_power_up();
     matrix_scan();
     matrix_power_down();
@@ -56,30 +50,28 @@ bool suspend_wakeup_condition(void) {
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void suspend_wakeup_init_user(void) {
-
-}
+__attribute__((weak)) void suspend_wakeup_init_user(void) {}
 
 /** \brief run keyboard level code immediately after wakeup
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void suspend_wakeup_init_kb(void) {
-    suspend_wakeup_init_user();
-}
+__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
 
 /** \brief run immediately after wakeup
  *
  * FIXME: needs doc
  */
 void suspend_wakeup_init(void) {
-    /* If LEDs are set to enabled, enable the hardware */
+#ifdef RGB_MATRIX_ENABLE
+#    ifdef USE_MASSDROP_CONFIGURATOR
     if (led_enabled) {
         I2C3733_Control_Set(1);
     }
+#    else
+    I2C3733_Control_Set(1);
+#    endif
+#endif
 
     suspend_wakeup_init_kb();
 }
-

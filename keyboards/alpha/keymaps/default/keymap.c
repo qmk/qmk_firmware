@@ -6,7 +6,7 @@
 #define OTHER 3
 
 enum custom_keycodes {
-	MACRO1
+	MACRO1 = SAFE_RANGE
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

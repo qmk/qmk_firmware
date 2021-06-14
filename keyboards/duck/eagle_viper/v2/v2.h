@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef V2_H
-#define V2_H
+#pragma once
 
 #include "quantum.h"
 
@@ -78,4 +77,3 @@
 
 #define LAYOUT_eagle LAYOUT_60_ansi
 
-#endif

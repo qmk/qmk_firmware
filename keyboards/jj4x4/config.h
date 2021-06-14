@@ -19,13 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
-#define MANUFACTURER    Kprepublic
-#define PRODUCT         jj4x4
+#define VENDOR_ID       0x4B50 // "KP"
+#define PRODUCT_ID      0x0044 // 4x4
+#define DEVICE_VER      0x0200
+#define MANUFACTURER    KPrepublic
+#define PRODUCT         JJ4x4
 
 /* matrix size */
 #define MATRIX_ROWS 4
@@ -36,16 +34,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
-// #define BACKLIGHT_BREATHING  // works, but BL_TOGG might not work
-
-#define TAPPING_TOGGLE 3
-
-#define NO_UART 1
+#define BACKLIGHT_BREATHING
 
 /* RGB underglow */
-// The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
-// The same pin is used on the JJ40, at least.
-#define RGBLED_NUM 5
-#define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
+// NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
+#define RGBLED_NUM 4
 #define RGBLIGHT_ANIMATIONS
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCE 5
+
+#define USB_MAX_POWER_CONSUMPTION 100
+
+/* key combination for magic key command */
+/* defined by default; to change, uncomment and set to the combination you want */
+// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+
+/* Bootmagic Lite key configuration */
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0

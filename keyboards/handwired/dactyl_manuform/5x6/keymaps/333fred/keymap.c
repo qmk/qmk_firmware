@@ -1,11 +1,27 @@
+/*
+  Copyright (c) 2020 Fred Silberberg
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+*/
+
 #include QMK_KEYBOARD_H
 #include "333fred.h"
-
-enum custom_macros {
-    DLEFT,
-    DRIGHT,
-    PSCREEN_APP
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -43,38 +59,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [VIM] = LAYOUT_5x6(
-     _______, RESET,    _______,   _______, _______, _______,                       _______, _______, _______, _______, RESET,   _______,
-     _______, _______,  _______,   _______, KC_LSFT, _______,                       _______, _______, _______, _______, _______, _______,
-     _______, M(DLEFT), M(DRIGHT), KC_LCTL, KC_LGUI, _______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-     _______, _______,  _______,   _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
-                        _______,   _______,                                                            _______, _______,
-                                           _______, _______,                       _______, _______,
-                                                    _______, _______,     _______, _______,
-                                                    _______, _______,     _______, _______
+     _______, RESET,   _______, _______, _______, _______,                       _______, _______, _______, _______, RESET,   _______,
+     _______, _______, _______, _______, KC_LSFT, _______,                       _______, _______, _______, _______, _______, _______,
+     _______, DLEFT,   DRIGHT,  KC_LCTL, KC_LGUI, _______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+     _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
+                       _______, _______,                                                           _______, _______,
+                                         _______, _______,                       _______, _______,
+                                                  _______, _______,     _______, _______,
+                                                  _______, _______,     _______, _______
   ),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch(id) {
-        case DLEFT:
-            if (record->event.pressed) { // Windows move desktop left
-                return MACRO(D(LCTL), D(LGUI), T(LEFT), U(LGUI), U(LCTL), END);
-            }
-            break;
-        case DRIGHT:
-            if (record->event.pressed) { // Windows move desktop right
-                return MACRO(D(LCTL), D(LGUI), T(RIGHT), U(LGUI), U(LCTL), END);
-            }
-            break;
-        case PSCREEN_APP: if (record->event.pressed) {
-                return MACRO(D(LALT), T(PSCR), U(LALT), END);
-            }
-            break;
-    }
-    return MACRO_NONE;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    tap_dance_process_record(keycode);
-    return true;
+    tap_dance_process_keycode(keycode);
+    return !try_handle_macro(keycode, record);
 }

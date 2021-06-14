@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "LUFA/Drivers/Peripheral/TWI.h"
+#include <LUFA/Drivers/Peripheral/TWI.h>
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
@@ -37,14 +37,8 @@ enum custom_keycodes {
   RGBLED_DECREASE_SAT,
   RGBLED_INCREASE_VAL,
   RGBLED_DECREASE_VAL,
+  M_SAMPLE
 };
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
-
-//Macros
-#define M_SAMPLE M(KC_SAMPLEMACRO)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -278,6 +272,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case M_SAMPLE:
+      if (record->event.pressed){
+        SEND_STRING("hello world");
+      }
+      return false;
   }
   return true;
 }
@@ -327,27 +326,6 @@ void music_scale_user(void)
 }
 
 #endif
-
-/*
- * Macro definition
- */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-
-    switch (id) {
-      case KC_SAMPLEMACRO:
-        if (record->event.pressed){
-          return MACRO (I(10), T(H), T(E), T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D), END);
-        }
-
-    }
-
-    return MACRO_NONE;
-}
-
 
 void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {

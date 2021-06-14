@@ -1,0 +1,11 @@
+# Python requirements
+appdirs
+argcomplete
+colorama
+dotty-dict
+hid
+hjson
+jsonschema>=3
+milc>=1.4.2
+pygments
+pyusb

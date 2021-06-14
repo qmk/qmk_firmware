@@ -15,18 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6464
+#define VENDOR_ID       0x6873 //hs "Hasu"
+#define PRODUCT_ID      0x6464 //Alps"64"
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    TMK
+#define MANUFACTURER    Hasu
 #define PRODUCT         Alps64
-#define DESCRIPTION     TMK keyboard firmware for Alps64
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -35,6 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS {  B0, B1, B2, B3, B4, B5, B6, B7 }
 #define MATRIX_ROW_PINS {  D0, D1, D2, D3, D4, D5, D6, C2 }
 #define UNUSED_PINS
+
+#define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN C5
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -46,6 +48,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* Bootmagic Lite Support*/
+#define BOOTMAGIC_LITE_ROW 3
+#define BOOTMAGIC_LITE_COLUMN 6
 
 /*
  * Feature disable options
@@ -64,5 +70,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

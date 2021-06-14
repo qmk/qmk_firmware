@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Chocopad
-#define DESCRIPTION     4x4 macropad using Kailh Choc low-profile switches
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -27,7 +26,7 @@
 #define BACKLIGHT_LEVELS 6
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

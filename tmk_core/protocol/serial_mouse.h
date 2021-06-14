@@ -15,19 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SERIAL_MOUSE_H
-#define SERIAL_MOUSE_H
+#pragma once
 
 #include <stdint.h>
 
 #include "serial.h"
 
-static inline uint8_t serial_mouse_init(void)
-{
+static inline uint8_t serial_mouse_init(void) {
     serial_init();
     return 0;
 }
 
 void serial_mouse_task(void);
-
-#endif

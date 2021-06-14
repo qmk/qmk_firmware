@@ -1,6 +1,4 @@
-# Jotanck
-
-![Jotanck]
+# Jot50
 
 A compact 50% (12x5) ortholinear keyboard kit inspired in the Preonic made by jotix.
 

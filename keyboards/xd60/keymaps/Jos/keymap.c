@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRAVE, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,     KC_MINS,   KC_EQL,   KC_BSPC,   KC_DEL,    \
       KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,     KC_P,     KC_LBRC,   KC_RBRC,             KC_BSLS,   \
       KC_ESC,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,   KC_NO,               KC_ENT,    \
-      KC_LSFT,  KC_LGUI, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,  KC_UP,     F(0),      \
+      KC_LSFT,  KC_LGUI, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,  KC_UP,     MO(1),     \
       KC_LCTL,  TD(0),   KC_LALT,                            KC_SPC ,                             KC_RALT,  KC_RCTRL,  KC_LEFT,  KC_DOWN,   KC_RIGHT),
                                                                                                                                            
   // 1: Function 1 Layers                                                                                                                  
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_PAUS,   KC_PSCR,    \
       KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,             KC_TRNS,    \
       KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MPRV, KC_MNXT,  KC_MSTP,  KC_TRNS,   KC_NO,               KC_TRNS,    \
-      KC_TRNS, F(2),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD,  KC_VOLU,  KC_TRNS,   KC_TRNS,  KC_PGUP,   KC_TRNS,    \
+      KC_TRNS, TG(3),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD,  KC_VOLU,  KC_TRNS,   KC_TRNS,  KC_PGUP,   KC_TRNS,    \
       KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                             KC_TRNS,  KC_TRNS,   KC_HOME,  KC_PGDOWN, KC_END),
                                                                                                                                            
   // 2: GUI/Function 2 Layer                                                                                                                   
@@ -72,33 +72,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_NO,                KC_TRNS,   \
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS,   \
 /      KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                             KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS), */
-};
-
-// Custom Actions
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(1),  // to Fn1 layer
-    [1] = ACTION_LAYER_MOMENTARY(2),  // to GUI/Fn2 layer
-    [2] = ACTION_LAYER_TOGGLE(3),     // to Fn3/Num toggle layer
-};
-
-// Macros
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) { register_code(KC_RSFT); }
-      else { unregister_code(KC_RSFT); }
-      break;
-  }
-
-  return MACRO_NONE;
-};
-
-
-// Loop
-void matrix_scan_user(void) {
-  // Empty
 };
 
 // LGUI acts as F(1) if held or as a tapped LGUI if tapped. Adapted from https://goo.gl/WnqGNS

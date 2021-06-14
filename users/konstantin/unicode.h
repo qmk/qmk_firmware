@@ -3,13 +3,13 @@
 #include "quantum.h"
 
 #define FOREACH_UNICODE(M) \
-  M(COMMA,   0x002C)       \
-  M(L_PAREN, 0x0028)       \
-  M(R_PAREN, 0x0029)       \
-  M(EQUALS,  0x003D)       \
-  M(TIMES,   0x00D7)       \
-  M(DIVIDE,  0x00F7)       \
-  M(MINUS,   0x2212)
+    M(COMMA,   0x002C)     \
+    M(L_PAREN, 0x0028)     \
+    M(R_PAREN, 0x0029)     \
+    M(EQUALS,  0x003D)     \
+    M(TIMES,   0x00D7)     \
+    M(DIVIDE,  0x00F7)     \
+    M(MINUS,   0x2212)
 
 #define UC_KEYCODE(name, code)  name = UC(code),
 
@@ -19,16 +19,16 @@
 
 #if defined(UNICODE_ENABLE)
 enum unicode_keycodes {
-  FOREACH_UNICODE(UC_KEYCODE)
+    FOREACH_UNICODE(UC_KEYCODE)
 };
 #elif defined(UNICODEMAP_ENABLE)
 enum unicode_names {
-  FOREACH_UNICODE(UCM_NAME)
+    FOREACH_UNICODE(UCM_NAME)
 };
 
 extern const uint32_t PROGMEM unicode_map[];
 
 enum unicode_keycodes {
-  FOREACH_UNICODE(UCM_KEYCODE)
+    FOREACH_UNICODE(UCM_KEYCODE)
 };
 #endif

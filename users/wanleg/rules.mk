@@ -37,3 +37,9 @@ endif
 ifeq ($(strip $(padl)), yes)
 	OPT_DEFS += -DPADL
 endif
+
+#change gherkin orientation (i.e. move USB port from right side to left side)
+#example usage: make gherkin:wanleg flip=yes
+ifeq ($(strip $(flip)), yes)
+	OPT_DEFS += -DFLIP
+endif

@@ -1,4 +1,4 @@
-﻿---
+---
 BasedOnStyle: Google
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: 'true'
@@ -13,14 +13,14 @@ BinPackParameters: 'true'
 ColumnLimit: '1000'
 IndentCaseLabels: 'true'
 IndentPPDirectives: AfterHash
-IndentWidth: '2'
+IndentWidth: '4'
 MaxEmptyLinesToKeep: '1'
 PointerAlignment: Right
 SortIncludes: 'false'
 SpaceBeforeAssignmentOperators: 'true'
 SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: 'false'
-TabWidth: '2'
+TabWidth: '4'
 UseTab: Never
 
 ...

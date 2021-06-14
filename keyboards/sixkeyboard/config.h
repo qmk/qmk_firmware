@@ -21,12 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6062
+#define VENDOR_ID       0x746B
+#define PRODUCT_ID      0x736B
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    techkeys.us
 #define PRODUCT         sixkeykeyboard
-#define DESCRIPTION     A little 6-key macro pad
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -39,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 0
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

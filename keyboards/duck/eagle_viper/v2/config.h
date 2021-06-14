@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Duck
 #define PRODUCT         Eagle/Viper V2
-#define DESCRIPTION     60% Korean custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -35,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
@@ -44,6 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 17
 
-#define TAPPING_TERM 200
+/* Set to top left most key */
+#define BOOTMAGIC_LITE_ROW 4
+#define BOOTMAGIC_LITE_COLUMN 10
 
-#endif
+#define TAPPING_TERM 200

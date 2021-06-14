@@ -25,15 +25,27 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
+
 #define LAYOUT_ortho_4x4( \
-    k00, k01, k02, k03, \
-    k10, k11, k12, k13, \
-    k20, k21, k22, k23, \
-    k30, k31, k32, k33  \
-) \
-{ \
-    { k00, k01, k02, k03 }, \
-    { k10, k11, k12, k13 }, \
-    { k20, k21, k22, k23 }, \
-    { k30, k31, k32, k33 }, \
+  K00, K01, K02, K03, \
+  K10, K11, K12, K13, \
+  K20, K21, K22, K23, \
+  K30, K31, K32, K33  \
+) { \
+  { K00, K01, K02, K03 }, \
+  { K10, K11, K12, K13 }, \
+  { K20, K21, K22, K23 }, \
+  { K30, K31, K32, K33 }  \
+}
+
+#define LAYOUT_numpad_4x4( \
+  K00, K01, K02, K03, \
+  K10, K11, K12,      \
+  K20, K21, K22, K23, \
+     K31,   K32      \
+) { \
+    { K00,   K01, K02, K03 }, \
+    { K10,   K11, K12, KC_NO }, \
+    { K20,   K21, K22, K23 }, \
+    { KC_NO, K31, K32, KC_NO }  \
 }

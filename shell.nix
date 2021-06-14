@@ -1,12 +1,21 @@
-# dfu-programmer doesn't have darwin on it's list of supported platforms
-{ pkgs ? import <nixpkgs> { config = { allowUnsupportedSystem = true; }; }
-, avr ? true, arm ? true, teensy ? true }:
+{ avr ? true, arm ? true, teensy ? true }:
+let
+  # We specify sources via Niv: use "niv update nixpkgs" to update nixpkgs, for example.
+  sources = import ./nix/sources.nix {};
+  pkgs = import sources.nixpkgs {};
+
+  # Builds the python env based on nix/pyproject.toml and
+  # nix/poetry.lock Use the "poetry update --lock", "poetry add
+  # --lock" etc. in the nix folder to adjust the contents of those
+  # files if the requirements*.txt files change
+  pythonEnv = pkgs.poetry2nix.mkPoetryEnv {
+    projectDir = ./nix;
+  };
+in
 
 with pkgs;
 let
-  avrbinutils = pkgsCross.avr.buildPackages.binutils;
   avrlibc = pkgsCross.avr.libcCross;
-  gcc-arm-embedded = pkgsCross.arm-embedded.buildPackages.gcc;
 
   avr_incflags = [
     "-isystem ${avrlibc}/avr/include"
@@ -17,23 +26,25 @@ let
     "-B${avrlibc}/avr/lib/avr51"
     "-L${avrlibc}/avr/lib/avr51"
   ];
-  avrgcc = pkgsCross.avr.buildPackages.gcc.overrideAttrs (oldAttrs: rec {
-    name = "avr-gcc-8.1.0";
-    src = fetchurl {
-      url = "mirror://gcc/releases/gcc-8.1.0/gcc-8.1.0.tar.xz";
-      sha256 = "0lxil8x0jjx7zbf90cy1rli650akaa6hpk8wk8s62vk2jbwnc60x";
-    };
-  });
 in
-
-stdenv.mkDerivation {
+mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ dfu-programmer dfu-util diffutils git ]
-    ++ lib.optional avr [ avrbinutils avrgcc avrlibc avrdude ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry niv ]
+    ++ lib.optional avr [
+      pkgsCross.avr.buildPackages.binutils
+      pkgsCross.avr.buildPackages.gcc8
+      avrlibc
+      avrdude
+    ]
     ++ lib.optional arm [ gcc-arm-embedded ]
     ++ lib.optional teensy [ teensy-loader-cli ];
 
-  CFLAGS = lib.optional avr avr_incflags;
-  ASFLAGS = lib.optional avr avr_incflags;
+  AVR_CFLAGS = lib.optional avr avr_incflags;
+  AVR_ASFLAGS = lib.optional avr avr_incflags;
+  shellHook = ''
+    # Prevent the avr-gcc wrapper from picking up host GCC flags
+    # like -iframework, which is problematic on Darwin
+    unset NIX_CFLAGS_COMPILE_FOR_TARGET
+  '';
 }

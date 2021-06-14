@@ -1,4 +1,4 @@
-﻿### 1  Standard - ANSI
+### 1  Standard - ANSI
 The standard keymap is the one that is pre-flashed on the S60-X.
 
 #### 1.0 Default layer

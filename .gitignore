@@ -5,6 +5,7 @@
 *.eep
 *.elf
 *.hex
+*.uf2
 *.qmk
 !util/bootloader.hex
 !quantum/tools/eeprom_reset.hex
@@ -16,6 +17,7 @@
 *.swp
 tags
 *~
+api_data/v1
 build/
 .build/
 *.bak
@@ -24,8 +26,9 @@ quantum/version.h
 .idea/
 CMakeLists.txt
 cmake-build-debug
+.clang_complete
 doxygen/
-.DS_STORE
+.DS_Store
 /util/wsl_downloaded
 /util/win_downloaded
 /keyboards/*/Makefile
@@ -47,25 +50,33 @@ doxygen/
 *.iml
 .browse.VC.db*
 *.stackdump
-util/Win_Check_Output.txt
 # Let these ones be user specific, since we have so many different configurations
+*.code-workspace
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/tasks.json
 .vscode/last.sql
 .vscode/temp.sql
+.vscode/ipch/
 .stfolder
 .tags
 
 # ignore image files
 *.png
-*.jpg
 *.gif
-
-# Do not ignore MiniDox left/right hand eeprom files
-!keyboards/minidox/*.eep
+*.jpg
 
 # things travis sees
 secrets.tar
 id_rsa_*
 /.vs
+
+# python things
+__pycache__
+.python-version
+
+# prerequisites for updating ChibiOS
+/util/fmpp*
+
+# Allow to exist but don't include it in the repo
+user_song_list.h

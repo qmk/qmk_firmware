@@ -172,10 +172,6 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-
     // initialize row and col
     setup_io_pins();
     setup_leds();
@@ -250,8 +246,8 @@ void matrix_print(void)
 {
     print("\nr/c 01234567\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        pbin_reverse(matrix_get_row(row));
+        print_hex8(row); print(": ");
+        print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }
 }

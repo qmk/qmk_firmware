@@ -21,6 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include "config_common.h"
 
+#define BOOTMAGIC_LITE_ROW 13
+#define BOOTMAGIC_LITE_COLUMN 2
+
 /* Defaults */
 #ifndef BALLSTEP
 #define BALLSTEP 20
@@ -38,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    g Heavy Industries
 #define PRODUCT         Gergo
-#define DESCRIPTION     QMK keyboard firmware for Gergo
 
 /* key matrix size */
 #define MATRIX_ROWS 14

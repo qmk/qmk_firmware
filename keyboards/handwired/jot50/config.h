@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Jotix
 #define PRODUCT         Jot50
-#define DESCRIPTION     A 5x12 compact ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -29,7 +28,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

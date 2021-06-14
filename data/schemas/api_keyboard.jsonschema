@@ -1,0 +1,35 @@
+{
+    "allOf": [
+        { "$ref": "qmk.keyboard.v1" },
+        {
+            "$id": "qmk.api.keyboard.v1",
+            "keymaps": {
+                "type": "string"
+            },
+            "parse_errors": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "parse_warnings": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "processor_type": {
+                "type": "string"
+            },
+            "protocol": {
+                "type": "string"
+            },
+            "keyboard_folder": {
+                "type": "string"
+            },
+            "platform": {
+                "type": "string"
+            }
+        }
+    ]
+}

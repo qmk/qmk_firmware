@@ -34,7 +34,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGBLIGHT_HUE_STEP 8
 // #define RGBLIGHT_SAT_STEP 8
 // #define RGBLIGHT_VAL_STEP 8
-
-// Unicode input
-#undef UNICODE_SELECTED_MODES
-#define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WINC

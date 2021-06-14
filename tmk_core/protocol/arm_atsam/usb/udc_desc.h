@@ -77,22 +77,20 @@ extern "C" {
  *
  * For Mega application used "code".
  */
-#define  UDC_DESC_STORAGE
-    // Descriptor storage in internal RAM
+#define UDC_DESC_STORAGE
+// Descriptor storage in internal RAM
 #if (defined UDC_DATA_USE_HRAM_SUPPORT)
-#if defined(__GNUC__)
-#define UDC_DATA(x)              COMPILER_WORD_ALIGNED __attribute__((__section__(".data_hram0")))
-#define UDC_BSS(x)               COMPILER_ALIGNED(x)   __attribute__((__section__(".bss_hram0")))
-#elif defined(__ICCAVR32__)
-#define UDC_DATA(x)              COMPILER_ALIGNED(x)   __data32
-#define UDC_BSS(x)               COMPILER_ALIGNED(x)   __data32
-#endif
+#    if defined(__GNUC__)
+#        define UDC_DATA(x) COMPILER_WORD_ALIGNED __attribute__((__section__(".data_hram0")))
+#        define UDC_BSS(x) COMPILER_ALIGNED(x) __attribute__((__section__(".bss_hram0")))
+#    elif defined(__ICCAVR32__)
+#        define UDC_DATA(x) COMPILER_ALIGNED(x) __data32
+#        define UDC_BSS(x) COMPILER_ALIGNED(x) __data32
+#    endif
 #else
-#define UDC_DATA(x)              COMPILER_ALIGNED(x)
-#define UDC_BSS(x)               COMPILER_ALIGNED(x)
+#    define UDC_DATA(x) COMPILER_ALIGNED(x)
+#    define UDC_BSS(x) COMPILER_ALIGNED(x)
 #endif
-
-
 
 /**
  * \brief Configuration descriptor and UDI link for one USB speed
@@ -101,9 +99,8 @@ typedef struct {
     //! USB configuration descriptor
     usb_conf_desc_t UDC_DESC_STORAGE *desc;
     //! Array of UDI API pointer
-    udi_api_t UDC_DESC_STORAGE *UDC_DESC_STORAGE * udi_apis;
+    udi_api_t UDC_DESC_STORAGE *UDC_DESC_STORAGE *udi_apis;
 } udc_config_speed_t;
-
 
 /**
  * \brief All information about the USB Device
@@ -132,4 +129,4 @@ extern UDC_DESC_STORAGE udc_config_t udc_config;
 #ifdef __cplusplus
 }
 #endif
-#endif // _UDC_DESC_H_
+#endif  // _UDC_DESC_H_

@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    UniKeyboard
 #define PRODUCT         diverge tm2
-#define DESCRIPTION     Split 46 key keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -49,7 +48,7 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* number of backlight levels */
 

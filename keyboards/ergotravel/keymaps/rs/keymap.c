@@ -1,59 +1,38 @@
-﻿#include QMK_KEYBOARD_H
-
-enum layers {
-  _QWERTY,
-  _HYPER,
-  _SIGN
-};
-
-
-#define KC_ KC_TRNS
-
-#define KC_ESCC MT(MOD_LCTL, KC_ESC)
-#define KC_ENTS MT(MOD_LSFT, KC_ENT)
-#define KC_HYPE MO(_HYPER)
-#define KC_SIGN MO(_SIGN)
-#define KC_RST RESET
-// Brightness
-#define KC_BRUP KC_PAUS
-#define KC_BRDN KC_SLCK
+#include QMK_KEYBOARD_H
+#include "rs.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-  [_QWERTY] = LAYOUT_kc(
+  [_QWERTY] = LAYOUT(
   //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
-     TAB , Q  , W  , E  , R  , T  , GRV,      BSLS, Y  , U  , I  , O  , P  ,EQL ,
+     KC_TAB , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  , KC_GRV,      KC_BSLS, KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_EQL ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-     ESCC, A  , S  , D  , F  , G  ,PIPE,      MINS, H  , J  , K  , L  ,SCLN,QUOT,
+     KC_ESCC, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,KC_PIPE,      KC_MINS, KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_QUOT,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  , SPC,      BSPC, N  , M  ,COMM,DOT ,SLSH,ENTS,
+     KC_LSFT, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  , KC_SPC,      KC_BSPC, KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_ENTS,
   //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
-     SIGN,    ,LCTL,LALT,LGUI, SPC,               BSPC, HYPE,LEFT, UP ,DOWN,RIGHT
+      KC_FN ,_______,KC_LCTL,KC_LALT,KC_LGUI, KC_SPC,               KC_BSPC, KC_CODE,KC_LEFT, KC_UP ,KC_DOWN,KC_RIGHT
   //`----+----+----+--+-+----/----/               \----\----+----+----+----+----'
   ),
-
-
-  [_HYPER] = LAYOUT_kc(
+  [_CODE] = LAYOUT(
     //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
-       GRV , 1  , 2  , 3  , 4  , 5  ,    ,          , 6  , 7  , 8  , 9  , 0  ,    ,
+       KC_GRV ,KC_EXLM, KC_AT ,KC_HASH, KC_DLR,KC_PERC,_______,      _______,KC_CIRC,KC_LPLT,KC_ASTR,KC_RPGT,KC_NEQL,_______,
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-           ,    ,    ,PGUP,    ,    ,    ,          ,    ,    , UP ,LBRC,RBRC,BSLS,
+       _______, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,_______,      _______,KC_MINS,KC_LBRC, KC_UP ,KC_RBRC,_______,KC_BSLS,
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-           ,    ,HOME,PGDN,END ,    ,    ,      VOLU,    ,LEFT,DOWN,RGHT,    ,PIPE,
+       _______, KC_6  , KC_7  , KC_8  , KC_9  , KC_0  , KC_DOT,      _______,KC_AMPR,KC_LEFT,KC_DOWN,KC_RGHT,_______,KC_PIPE,
     //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
-           ,    ,    ,    ,    ,    ,                VOLD,    ,MUTE,    ,    ,
+       _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______
     //`----+----+----+----+----/----/               \----\----+----+----+----+----'
   ),
-
-  [_SIGN] = LAYOUT_kc(
+  [_FN] = LAYOUT(
     //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
-       TILD,EXLM, AT ,HASH,DLR ,PERC,    ,          ,CIRC,AMPR,ASTR,LBRC,RBRC,    ,
+       _______, KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,_______,      _______, KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10,KC_F11 ,
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-       RST , F1 , F2 , F3 , F4 , F5 , F6 ,          ,    ,    ,    ,LCBR,RCBR,PIPE,
+       _______,_______,_______,_______,_______,_______,KC_BRMU,      _______,_______,_______,KC_PGUP,_______,_______,_______,
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-           , 1  , 2  , 3  , 4  , 5  ,    ,      BRUP, 6  , 7  , 8  , 9  , 0  ,    ,
+       _______,_______,_______,_______,_______, KC_RST,KC_BRMD,      KC_VOLU,_______,KC_CTRA,KC_PGDN,KC_CTRE,_______,_______,
     //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
-           ,    ,    ,    ,    ,    ,                BRDN,    ,    ,    ,    ,
+       _______,_______,_______,_______,_______,_______,                KC_VOLD,KC_MUTE,_______,_______,_______,_______
     //`----+----+----+----+----/----/               \----\----+----+----+----+----'
   ),
 };

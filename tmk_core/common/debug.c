@@ -1,24 +1,25 @@
-#include <stdbool.h>
+/*
+Copyright 2011 Jun Wako <wakojun@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "debug.h"
 
-#define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-
 debug_config_t debug_config = {
-/* GCC Bug 10676 - Using unnamed fields in initializers
- * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=10676 */
-#if GCC_VERSION >= 40600
-    .enable = false,
-    .matrix = false,
-    .keyboard = false,
-    .mouse = false,
-    .reserved = 0
-#else
-    {
-        false,  // .enable
-        false,  // .matrix
-        false,  // .keyboard
-        false,  // .mouse
-        0       // .reserved
-    }
-#endif
+    .enable   = false,  //
+    .matrix   = false,  //
+    .keyboard = false,  //
+    .mouse    = false,  //
+    .reserved = 0       //
 };

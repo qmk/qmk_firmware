@@ -15,15 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NODEBUG_H
-#define NODEBUG_H
+#pragma once
 
 #ifndef NO_DEBUG
-	#define NO_DEBUG
-	#include "debug.h"
-	#undef NO_DEBUG
+#    define NO_DEBUG
+#    include "debug.h"
+#    undef NO_DEBUG
 #else
-	#include "debug.h"
-#endif
-
+#    include "debug.h"
 #endif

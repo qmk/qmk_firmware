@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Sentraq
 #define PRODUCT         Sentraq Number Pad
-#define DESCRIPTION     RBG backlit number pad kit
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -75,4 +74,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5

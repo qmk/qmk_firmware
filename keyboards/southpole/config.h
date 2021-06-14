@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    u/waxpoetic
 #define PRODUCT         southpole
-#define DESCRIPTION     southpaw keyboard, left hand numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -29,7 +28,7 @@
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

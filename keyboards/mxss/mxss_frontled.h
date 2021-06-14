@@ -1,4 +1,4 @@
-/* Copyright 2018 Jumail Mundekkat / MxBlue
+/* Copyright 2020 Jumail Mundekkat / MxBlue
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,11 +16,12 @@
 
 // EEPROM management code taken from Wilba6582
 // https://github.com/Wilba6582/qmk_firmware/blob/zeal60/keyboards/zeal60/zeal_eeprom.h
- 
-#ifndef MXSS_FRONTLED_H
-#define MXSS_FRONTLED_H
 
+#pragma once
+
+#include "quantum.h"
 #include "quantum_keycodes.h"
+#include "via.h"
 
 // RGBLED index for front LEDs
 #define RGBLIGHT_FLED1 14
@@ -29,23 +30,19 @@
 // Brightness increase step for front LEDs
 #define FLED_VAL_STEP 8
 
-// QMK never uses more then 32bytes of EEPROM, so our region starts there
-// Magic value to verify the state of the EEPROM
-#define EEPROM_MAGIC 0xC3E7
-#define EEPROM_MAGIC_ADDR ((void*)32)
-
 // Front LED settings
-#define EEPROM_FRONTLED_ADDR ((void*)34)
+#define FRONTLED_CONF_ADDR ((uint8_t*) VIA_EEPROM_CUSTOM_CONFIG_ADDR)
+#define FRONTLED_COLOR_CNT_ADDR (FRONTLED_CONF_ADDR + 1)
+#define FRONTLED_COLOR_ADDR ((uint16_t*)(FRONTLED_COLOR_CNT_ADDR + 1))
+
+// No point persisting more 4, VIA only allows editing of 3 + 1 for caps
+#define FRONTLED_COLOR_MAXCNT 4
 
 // Modes for front LEDs
 #define FLED_OFF    0b00
 #define FLED_INDI   0b01
 #define FLED_RGB    0b10
 #define FLED_UNDEF  0b11
-
-// Hard-coded color for capslock indicator in FLED_INDI mode, H:0% S:100% = Red
-#define FLED_CAPS_H 0
-#define FLED_CAPS_S 255
 
 // Config storage format for EEPROM
 typedef union {
@@ -57,25 +54,35 @@ typedef union {
 } fled_config;
 
 // Structure to store hue and saturation values
-typedef struct _hs_set {
-    uint16_t hue; 
-    uint8_t sat;
+typedef union {
+    uint16_t raw;
+    struct {
+        uint8_t hue;
+        uint8_t sat;
+    };
 } hs_set;
 
 // Custom keycodes for front LED control
 enum fled_keycodes {
-  FLED_MOD = SAFE_RANGE,
-  FLED_VAI,
-  FLED_VAD,
-  NEW_SAFE_RANGE // define a new safe range
+    FLED_MOD = USER00, // USER00 = VIA custom keycode start
+    FLED_VAI,
+    FLED_VAD,
+    NEW_SAFE_RANGE // define a new safe range
 };
 
-bool eeprom_is_valid(void);         // Check if EEPROM has been set up
-void eeprom_set_valid(bool valid);  // Change validity state of EEPROM
-void eeprom_update_conf(void);      // Store current front LED config to EEPROM
+void fled_init(void);                // Run init functions for front LEDs
+void process_record_fled(uint16_t keycode, keyrecord_t* record); // Process keycodes for front LEDs
+void fled_load_conf(void);          // Load front LED config from EEPROM
+void fled_update_conf(void);        // Store current front LED config to EEPROM
 
 void fled_mode_cycle(void);         // Cycle between the 3 modes for the front LEDs
 void fled_val_increase(void);       // Increase the brightness of the front LEDs
 void fled_val_decrease(void);       // Decrease the brightness of the front LEDs
 
-#endif //MXSS_FRONTLED_H
+void fled_layer_update(layer_state_t state);   // Process layer update for front LEDs
+void fled_lock_update(led_t led_state);     // Process lock update for front LEDs
+
+void set_fled_layer_color(uint8_t layer, hs_set hs); // Set color for a given layer
+void set_fled_caps_color(hs_set hs);        // Set color for the capslock indicator
+hs_set get_fled_caps_color(void);           // Get color for the capslock indicator
+hs_set get_fled_layer_color(uint8_t layer);       // Get color for a given layer

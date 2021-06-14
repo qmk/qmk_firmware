@@ -9,7 +9,7 @@
   "author": "SalchiPapa",
   "license": "GPL-2.0",
   "dependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-run-command": "0.0.9"
   }
 }
