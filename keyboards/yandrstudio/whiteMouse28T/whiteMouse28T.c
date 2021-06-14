@@ -21,19 +21,19 @@
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
     {
-        { 0,       1,       NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }, \
         { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }, \
         { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }, \
         { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }, \
+        { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,       0 }, \
     },
     {
       // LED Index to Physical Position
-      {0, 0}, {16, 0}
+      {0, 0}
 
     },
     {
       // LED Index to Flag
-      4,      4
+      4
     }
 };
 
@@ -50,14 +50,14 @@ led_config_t g_led_config = {
 
 #endif
 
-#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
+// #ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+// void suspend_power_down_kb(void) {
+//     rgb_matrix_set_suspend_state(true);
+//     suspend_power_down_user();
+// }
 
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-#endif
+// void suspend_wakeup_init_kb(void) {
+//     rgb_matrix_set_suspend_state(false);
+//     suspend_wakeup_init_user();
+// }
+// #endif

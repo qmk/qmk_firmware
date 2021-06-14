@@ -1,4 +1,4 @@
-/* Copyright 2021 JasonRen(biu)
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
 
+#pragma once
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  LAYOUT(
-    KC_GESC, KC_1,    KC_2,       KC_3,    KC_4,    KC_5,    KC_6,
-    KC_TAB,  KC_Q,    KC_W,       KC_E,    KC_R,    KC_T,    KC_Y,
-    KC_CAPS, KC_A,    KC_S,       KC_D,    KC_F,    KC_G,    KC_H,
-    RGB_TOG, KC_LALT, KC_LGUI,    KC_SPC,  KC_RALT, KC_TRNS, KC_RCTL)
-};
+#define CH_CFG_ST_FREQUENCY 10000
+
+#define CH_CFG_FACTORY_OBJECTS_REGISTRY TRUE
+
+#define CH_CFG_FACTORY_GENERIC_BUFFERS TRUE
+
+#define CH_CFG_FACTORY_SEMAPHORES TRUE
+
+#define CH_CFG_FACTORY_MAILBOXES TRUE
+
+#define CH_CFG_FACTORY_OBJ_FIFOS TRUE
+
+#define CH_CFG_FACTORY_PIPES TRUE
+
+#include_next <chconf.h>
+

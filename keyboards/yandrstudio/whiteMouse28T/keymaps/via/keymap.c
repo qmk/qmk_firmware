@@ -17,14 +17,35 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  LAYOUT(
+    LAYOUT(
     KC_ESC,  KC_1,    KC_2,       KC_3,    KC_4,    KC_5,    KC_6,
     KC_TAB,  KC_Q,    KC_W,       KC_E,    KC_R,    KC_T,    KC_Y,
     KC_CAPS, KC_A,    KC_S,       KC_D,    KC_F,    KC_G,    KC_H,
-    KC_LSFT, KC_Z,    KC_X,       KC_C,    KC_V,    MO(1),    KC_RSFT),
+    RGB_TOG, KC_Z,    KC_X,       KC_C,    KC_V,    MO(1),    KC_RSFT),
     LAYOUT(
     KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
+    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+    LAYOUT(
+    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+    LAYOUT(
+    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
+
+
+// void keyboard_post_init_user(void) {
+//     eeconfig_init();
+//     // Customise these values to desired behaviour
+//     // debug_enable=true;
+//     // debug_matrix=false;
+//     // debug_keyboard=true;
+//     //debug_mouse=true;
+// }
+
