@@ -50,24 +50,4 @@
 
 
 
-/* RGN Matrix */
-#ifdef RGB_MATRIX_ENABLE
-
-#    define RGB_DI_PIN A7
-#    define RGBLED_NUM 2
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-
-#       define WS2812_SPI SPID1 // default: SPID1
-#       define WS2812_SPI_MOSI_PAL_MODE 5
-
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
-#    define RGBLIGHT_VAL_STEP 18
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
-#    define RGB_MATRIX_CENTER { 32, 96 }
-#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
-#endif
-
-
 

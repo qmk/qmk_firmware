@@ -9,3 +9,7 @@ CUSTOM_MATRIX = lite    # for using the A9 pin as matrix io
 
 # # project specific file
 QUANTUM_SRC += matrix.c
+
+
+WS2812_DRIVER = pwm
+BACKLIGHT_DRIVER = pwm

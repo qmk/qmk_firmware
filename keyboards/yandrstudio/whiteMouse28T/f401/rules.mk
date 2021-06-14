@@ -16,4 +16,4 @@ QUANTUM_SRC += matrix.c
 
 WS2812_DRIVER = pwm
 
-# EEPROM_DRIVER = spi
+EEPROM_DRIVER = spi
