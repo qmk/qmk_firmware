@@ -108,11 +108,11 @@ void action_exec(keyevent_t event) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-    if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
+    if (pre_process_record_quantum(&record)) {
         action_tapping_process(record);
     }
 #else
-    if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
+    if (pre_process_record_quantum(&record)) {
         process_record(&record);
     }
     if (!IS_NOEVENT(record.event)) {
