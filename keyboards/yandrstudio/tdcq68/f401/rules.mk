@@ -15,7 +15,6 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 WS2812_DRIVER = pwm
 
-
 EEPROM_DRIVER = custom
 SRC += eep/eeprom_stm32.c
 SRC += eep/flash_stm32.c

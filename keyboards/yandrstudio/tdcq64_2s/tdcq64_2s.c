@@ -21,33 +21,23 @@
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
     {
-        { 0,  1,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }, \
         { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }, \
-        { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED, NO_LED }, \
-        { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED, NO_LED,  NO_LED }, \
-        { NO_LED,  NO_LED,  NO_LED,  NO_LED, NO_LED, NO_LED, NO_LED,  NO_LED, NO_LED,  NO_LED,  NO_LED, NO_LED, NO_LED,  NO_LED }  \
+        { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }, \
+        { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }, \
+        { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }, \
+        { NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED,  NO_LED }  \
     },
     {
       // LED Index to Physical Position
-      {0, 0}, {16, 0}
-
+        {0,48},        {32,48},        {64,48},        {96,48},         {128,48},         {160,48},         {192,48},\
+                       {192,0},        {160,0},        {128,0},         {96,0},           {64,0},           {32,0},            {0,0}
     },
     {
       // LED Index to Flag
-      4,      4
+      2,2,2,2,2,2,2,2,2,2,2,2,2,2
     }
 };
 
-// void rgb_matrix_indicators_kb(void) {
-//   if (rgb_matrix_is_enabled()) {
-//     if (biton32(layer_state) == 1) {     // UPPER_LAYER = BLUE
-//         rgb_matrix_set_color(57, 100, 0, 0);
-//         rgb_matrix_set_color(58, 0, 100, 0);
-//         rgb_matrix_set_color(60, 100, 0, 0);
-//         rgb_matrix_set_color(61, 100, 0, 0);
-//     }
-//   }
-// }
 
 #endif
 

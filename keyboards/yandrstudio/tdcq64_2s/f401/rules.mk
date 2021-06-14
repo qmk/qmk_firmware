@@ -16,7 +16,6 @@ BACKLIGHT_ENABLE = yes
 WS2812_DRIVER = pwm
 BACKLIGHT_DRIVER = pwm
 
-
 EEPROM_DRIVER = custom
 SRC += eep/eeprom_stm32.c
 SRC += eep/flash_stm32.c
