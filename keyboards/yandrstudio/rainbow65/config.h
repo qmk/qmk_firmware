@@ -64,8 +64,8 @@
 #    define RGB_DI_PIN B15
 #    define RGBLED_NUM 68
 #    define DRIVER_LED_TOTAL RGBLED_NUM
-#define WS2812_SPI SPID2 // default: SPID1
-#define WS2812_SPI_MOSI_PAL_MODE 5
+#    define WS2812_SPI SPID2 // default: SPID1
+#    define WS2812_SPI_MOSI_PAL_MODE 5
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
 #    define RGBLIGHT_VAL_STEP 18
