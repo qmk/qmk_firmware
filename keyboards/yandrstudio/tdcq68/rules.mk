@@ -12,7 +12,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes           # USB Nkey Rollover
 
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
+
 
 
