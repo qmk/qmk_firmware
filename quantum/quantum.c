@@ -319,9 +319,6 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
             case EEPROM_RESET:
                 eeconfig_init();
-#if defined(VIA_ENABLE)
-                via_init();
-#endif
                 return false;
 #ifdef VELOCIKEY_ENABLE
             case VLK_TOG:
