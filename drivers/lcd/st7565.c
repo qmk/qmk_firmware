@@ -336,8 +336,9 @@ void st7565_write_raw(const char *data, uint16_t size) {
     uint16_t cursor_start_index = st7565_cursor - &st7565_buffer[0];
     if ((size + cursor_start_index) > ST7565_MATRIX_SIZE) size = ST7565_MATRIX_SIZE - cursor_start_index;
     for (uint16_t i = cursor_start_index; i < cursor_start_index + size; i++) {
-        if (st7565_buffer[i] == data[i]) continue;
-        st7565_buffer[i] = data[i];
+        uint8_t c = *data++;
+        if (st7565_buffer[i] == c) continue;
+        st7565_buffer[i] = c;
         st7565_dirty |= ((ST7565_BLOCK_TYPE)1 << (i / ST7565_BLOCK_SIZE));
     }
 }
