@@ -59,3 +59,26 @@ void keyboard_post_init_user(void) {
   //debug_keyboard=true;
   //debug_mouse=true;
 }
+
+//action_t action_for_key(uint8_t layer, keypos_t key)
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t unimap_pos;
+    switch (keyboard_kind) {
+        case PC_XT:
+            unimap_pos = pgm_read_byte(&map_cs1[key.row][key.col]);
+            break;
+        case PC_AT:
+            unimap_pos = pgm_read_byte(&map_cs2[key.row][key.col]);
+            break;
+        case PC_TERMINAL:
+            unimap_pos = pgm_read_byte(&map_cs3[key.row][key.col]);
+            break;
+        default:
+            return (action_t)ACTION_NO;
+    }
+
+    if (unimap_pos == UNIMAP_NO) return (action_t)ACTION_NO;
+
+    return (action_t)pgm_read_word(&actionmaps[(layer)][(unimap_pos & 0x70) >> 4][(unimap_pos & 0x0f)]);
+}
