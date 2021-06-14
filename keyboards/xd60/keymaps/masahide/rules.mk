@@ -1,5 +1,5 @@
 BOOTLOADER = qmk-dfu
-VIA_ENABLE = yes
+#VIA_ENABLE = yes
 
 EXTRAKEY_ENABLE = no        # Audio control and System control
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
