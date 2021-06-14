@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-cal = function gen_rgb_matrix_2(rownum, colnum) {
+cal_z_rgb = function gen_rgb_matrix_2(rownum, colnum) {
 	    function get_x(col, colnum){
 	    	var x = 224 / (colnum - 1) * col;
 	    	return Math.round(x);
@@ -24,20 +24,88 @@ cal = function gen_rgb_matrix_2(rownum, colnum) {
 	    	return Math.round(y);
 	    }
 	    var gen_rgb_matrix_text = new String();
-	    for (var i = 0; i < colnum; i++) {
+	    for (var i = 0; i < rownum; i++) {
 	    	var row_rgb_text = new String();
-	    	var xx = get_x(i, colnum).toString();
-	    	for (var j = 0; j < rownum; j++) {
-	    		var yy = get_y(j, rownum).toString();
+	    	var yy = get_y(i, rownum).toString();
+	    	for (var j = 0; j < colnum; j++) {
+	    		var xx = get_x(j, colnum).toString();
 	    		row_rgb_text += '{' + xx + ',' + yy + '}'
-	    		if (i != colnum -1 | j != rownum - 1) {
+	    		if (i != rownum -1 | j != colnum - 1) {
 	    			row_rgb_text += ', ';
 	    		}
 	    	}
-	    	if (i != colnum - 1) {
+	    	if (i != rownum - 1) {
 	    		row_rgb_text += '\n';
 	    	}
 	    	gen_rgb_matrix_text += row_rgb_text
 	    }
 	    return gen_rgb_matrix_text
 	}
+
+cal_u_rgb = function gen_rgb_matrix_2(rownum, colnum) {
+    function get_x(col, colnum){
+        var x = 224 / (colnum - 1) * col;
+        return Math.round(x);
+    }
+    function get_y(row, rownum) {
+        var y =  64 / (rownum - 1) * row;
+        return Math.round(y);
+    }
+    var gen_rgb_matrix_text = new String();
+    for (var i = 0; i < rownum; i++) {
+        var row_rgb_text = new String();
+        var yy = get_y(i, rownum).toString();
+        if (i % 2 == 0) {
+            for (var j = 0; j < colnum; j++) {
+                var xx = get_x(j, colnum).toString();
+                row_rgb_text += '{' + xx + ',' + yy + '}'
+                if (i != rownum -1 | j != colnum - 1) {
+                    row_rgb_text += ', ';
+                }
+            }
+        } else {
+            for (var j = colnum-1; j >= 0; j--) {
+                var xx = get_x(j, colnum).toString();
+                row_rgb_text += '{' + xx + ',' + yy + '}'
+                if (i != rownum -1 | j != 0) {
+                    row_rgb_text += ', ';
+                }
+            }
+        }
+
+        if (i != rownum - 1) {
+            row_rgb_text += '\n';
+        }
+        gen_rgb_matrix_text += row_rgb_text
+    }
+    return gen_rgb_matrix_text
+}
+
+
+
+cal_a_row_rgb = function gen_rgb_matrix_2(row, rownum, colnum, reverse) {
+    function get_x(col, colnum){
+        var x = 224 / (colnum - 1) * col;
+        return Math.round(x);
+    }
+    function get_y(row, rownum) {
+        var y =  64 / (rownum - 1) * row;
+        return Math.round(y);
+    }
+    var row_rgb_text = new String();
+    var yy = get_y(row, rownum).toString();
+
+    if (reverse) {
+        for (var j = colnum-1; j >= 0; j--) {
+            var xx = get_x(j, colnum).toString();
+            row_rgb_text += '{' + xx + ',' + yy + '},'
+        }
+    } else {
+        for (var j = 0; j < colnum; j++) {
+            var xx = get_x(j, colnum).toString();
+            row_rgb_text += '{' + xx + ',' + yy + '},'
+        }
+    }
+
+    return row_rgb_text
+}
