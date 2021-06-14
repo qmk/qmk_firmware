@@ -83,4 +83,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISABLE_RGB_MATRIX_HUE_PENDULUM
 #define DISABLE_RGB_MATRIX_HUE_WAVE
 
-
+#define SPLIT_TRANSPORT_MIRROR
