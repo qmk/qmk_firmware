@@ -326,7 +326,12 @@ void oled_task_user(void) {
     } else {
         render_anim();
         oled_set_cursor(0,6);
-        sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
+        uint8_t n = get_current_wpm();
+        wpm_str[3] = '\0';
+        wpm_str[2] = '0' + n % 10;
+        wpm_str[1] = '0' + (n /= 10) % 10;
+        wpm_str[0] = '0' + n / 10 ;
+        oled_write_P(PSTR("       WPM: "), false);
         oled_write(wpm_str, false);
 
     }
