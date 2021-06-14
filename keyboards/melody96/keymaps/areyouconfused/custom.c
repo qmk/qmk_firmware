@@ -4,6 +4,11 @@
 
 #define HSV_cORANGE 10, 255, 255
 
+#define LAYER_LED 13
+#define LAYER_LED_COUNT 1
+
+enum RGB_LAYERS { FN1, FN2, FN3, NUM, CAPS, BLNK, RGB_NO, RGB_YES };
+
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 2, HSV_GREEN},
     {15, 3, HSV_GREEN}
@@ -14,8 +19,6 @@ const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 // fn layer's rgb
-#define LAYER_LED 13
-#define LAYER_LED_COUNT 1
 const rgblight_segment_t PROGMEM fn1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {LAYER_LED, LAYER_LED_COUNT, HSV_RED}
 );
@@ -41,7 +44,6 @@ const rgblight_segment_t PROGMEM rgb_yes[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 
-enum RGB_LAYERS { FN1, FN2, FN3, NUM, CAPS, BLNK, RGB_NO, RGB_YES };
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     fn1_layer,
     fn2_layer,
