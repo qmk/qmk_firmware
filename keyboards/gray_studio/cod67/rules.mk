@@ -11,6 +11,9 @@ MCU = atmega32u4
 #   ATmega328P   USBasp
 BOOTLOADER = lufa-ms
 
+# This board uses the older unsafe 6k version of lufa-ms
+BOOTLOADER_SIZE = 6144
+
 # Build Options
 #   change yes to no to disable
 #
