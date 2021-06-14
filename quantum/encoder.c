@@ -170,13 +170,13 @@ void encoder_update_raw(uint8_t* slave_state) {
             delta--;
             encoder_value[index]++;
             changed = true;
-            encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
+            encoder_update_handler(index, ENCODER_COUNTER_CLOCKWISE);
         }
         while (delta < 0) {
             delta++;
             encoder_value[index]--;
             changed = true;
-            encoder_update_kb(index, ENCODER_CLOCKWISE);
+            encoder_update_handler(index, ENCODER_CLOCKWISE);
         }
     }
 
