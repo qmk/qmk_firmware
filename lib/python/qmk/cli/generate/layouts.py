@@ -5,7 +5,7 @@ from milc import cli
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
-from qmk.keyboard import keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import is_keyboard, normpath
 
 usb_properties = {
@@ -17,7 +17,7 @@ usb_properties = {
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, help='Keyboard to generate config.h for.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate config.h for.')
 @cli.subcommand('Used by the make system to generate layouts.h from info.json', hidden=True)
 @automagic_keyboard
 @automagic_keymap
@@ -85,7 +85,9 @@ def generate_layouts(cli):
 
     for alias, target in kb_info_json.get('layout_aliases', {}).items():
         layouts_h_lines.append('')
-        layouts_h_lines.append('#define %s %s' % (alias, target))
+        layouts_h_lines.append(f'#ifndef {alias}')
+        layouts_h_lines.append(f'#   define {alias} {target}')
+        layouts_h_lines.append('#endif')
 
     # Show the results
     layouts_h = '\n'.join(layouts_h_lines) + '\n'

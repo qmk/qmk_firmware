@@ -243,7 +243,7 @@ bool led_update_keymap(led_t led_state) {
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -265,6 +265,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_DOWN);
         }
     }
+    return true;
 }
 
   #endif
