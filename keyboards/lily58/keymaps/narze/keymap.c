@@ -3,13 +3,6 @@
 #include "keymap_colemak.h"
 #include "keymap_steno.h"
 
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
-#ifdef OLED_DRIVER_ENABLE
-  #include "ssd1306.h"
-#endif
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
