@@ -18,8 +18,8 @@
 #include "config_common.h"
 
 /* SergioPoverony official vid pid  */
-#define VENDOR_ID       0x20A0 
-#define PRODUCT_ID      0x42dc
+#define VENDOR_ID       0x8B1E 
+#define PRODUCT_ID      0x0C00
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    SergioPoverony
 #define PRODUCT         Creator Pro
