@@ -1,5 +1,4 @@
-#ifndef MONTEX_H
-#define MONTEX_H
+#pragma once
 
 #include "quantum.h"
 
@@ -18,5 +17,3 @@
 	{ K40,   K41,   K42,   K43,   KC_NO }, \
 	{ K50,   K51,   K52,   K53,   KC_NO }  \
 }
-
-#endif
