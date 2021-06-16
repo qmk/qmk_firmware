@@ -3,7 +3,7 @@
 A simple 65% keyboard
 
 * Keyboard Maintainer: [kkatano](https://github.com/kkatano)
-* Hardware Supported: Bakeneko 65
+* Hardware Supported: Bakeneko 65 V3
 * Hardware Availability: [Open source on GitHub](https://github.com/kkatano/bakeneko-65)
 
 Make example for this keyboard (after setting up your build environment):
