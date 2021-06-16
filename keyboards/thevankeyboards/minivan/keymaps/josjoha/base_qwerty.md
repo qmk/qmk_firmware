@@ -6,6 +6,34 @@ Compiled for: Qwerty
 This file details the compile version `#define BASE_QWERTY__DEF_BASE, BASE_QWERTY__ALT_BASE`.
 This is a Qwerty layout.
 
+Dual layout combination with Qwerty Base Arrow
+==============================================
+⚠ If you also compile `base_qwerty_basearrow`, the key for `/?` on `_NSY` layer in that
+`base_qwerty_basearrow` layout, will be replicated in _this_ Qwerty layout on the `_NSY`
+layer. It will displace the key `RCTL_T ( KC_GRV )`. Right Control, unless tapped for
+‛\`’ or tapped with shift for ‛~’ ➡ becomes `/?` (slash/questionmark). 
+
+The reason for this is that when you switch from one or the other Qwerty variation
+(with or without arrows on ‛Base’ layer), it will likely be confusing to type ‛/?’
+on that key in one version of Qwerty, and suddenly get a ‛\`~’ in the other. The reason
+it is not in the normal position on ‛Qwerty Base Arrow’, is because it gets displaced
+by ‛Up Arrow’. 
+
+You will likely switch from the Base Arrow variation to the regular version, due to a need
+for the row of keys displaced by the arrow cluster, or the other way around to get Base
+access to the arrows, rather than a need for this side effect: ‛/?’ being substituted for
+‛\`~’.
+
+This means you will loose `_NSY` layer access to ‛\`’, in both versions of Qwerty. You will
+ have to use the key for ‛\`~’ on the `_BON` layer, which is an uncluttered version of this 
+key (it repeats). It also means that you have two keys toward ‛/?’ in standard Qwerty: the
+default position for Qwerty, and this additional one to harmonize with ‛Qwerty Base Arrow’.
+
+This harmonization can be disabled in ![./base_qwerty_basearrow.h](./base_qwerty_basearrow.h),
+with `QWERTY_BASEARROW_HARMONIZE`.
+
+See also: ![./base_qwerty_basearrow.md](./base_qwerty_basearrow.md)
+
 Qwerty keymaps
 --------------
 
@@ -14,7 +42,7 @@ Qwerty keymaps
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_qwerty_ve.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_qwerty_vb.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_qwerty_vc.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -23,7 +51,7 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Qwerty](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_2000_vh.jpg)
+![Minivan illustration Overview layers by key, Qwerty](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_2000_vi.jpg)
 
 Layers (text)
 =============
@@ -77,9 +105,8 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
-     Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }  `~+RSht // limitation prevents ~
-                          ^^                              ^  // Only differences with Dvorak version _DEF_NSY
+     Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl // `~+RCtl becomes /? in dual …
+     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }   ~+RSht //  … layout with Qwerty Base Arrow
      ---------------------------------------------------------------------------
                  Left+LAlt ___   ___   Ent  | .   ___   RGUI  Right+RAlt
                                  -*-       <|>    -*-                 u      //(hold) Access on _DEF_BASE
@@ -95,6 +122,6 @@ Key associations
 ----------------
 Key placement associations between layers for Qwerty.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_qwerty_1500_vd.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_qwerty_1500_ve.jpg)
 
 

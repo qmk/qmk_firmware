@@ -11,7 +11,7 @@ from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import load_jsonschema
-from qmk.keyboard import keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import is_keyboard
 
 
@@ -41,7 +41,7 @@ def strip_info_json(kb_info_json):
     return validator(kb_info_json)
 
 
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, help='Keyboard to show info for.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
 @cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
 @cli.subcommand('Generate an info.json file for a keyboard.', hidden=False if cli.config.user.developer else True)
 @automagic_keyboard
