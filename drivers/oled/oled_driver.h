@@ -127,7 +127,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 // Define default font size (for now 1, 2 or 4)
 #if !defined(OLED_FONT_SIZE)
-#   define OLED_FONT_SIZE 1
+#    define OLED_FONT_SIZE 1
 #endif
 // unsigned char value of the first character in the font file
 #if !defined(OLED_FONT_START)
@@ -148,6 +148,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Default brightness level
 #if !defined(OLED_BRIGHTNESS)
 #    define OLED_BRIGHTNESS 255
+#endif
+
+// Configuration for multiple font sizes
+#if defined(OLED_MULTIPLE_FONT_SIZES)
+typedef enum {
+    OLED_FONT_SIZE_1 = 1,
+#    ifdef OLED_FONT_SIZE_INCLUDE_2
+    OLED_FONT_SIZE_2 = 2,
+#    endif
+} oled_font_size_t;
+// Always use size 1 as base for for multiple font sizes
+#    undef OLED_FONT_SIZE
+#    define OLED_FONT_SIZE 1
+// Font start and end for non-basic fonts
+#    if !defined(OLED_SECOND_FONT_START)
+#        define OLED_SECOND_FONT_START 32
+#    endif
+#    if !defined(OLED_SECOND_FONT_END)
+#        define OLED_SECOND_FONT_END 126
+#    endif
+#    ifdef OLED_FONT_SIZE_INCLUDE_2
+#        define OLED_MAX_FONT_SIZE 2
+#    else
+#        define OLED_MAX_FONT_SIZE 1
+#    endif
 #endif
 
 #if !defined(OLED_TIMEOUT)
@@ -204,30 +229,54 @@ void oled_render(void);
 
 // Moves cursor to character position indicated by column and line, wraps if out of bounds
 // Max column denoted by 'oled_max_chars()' and max lines by 'oled_max_lines()' functions
+#ifndef OLED_MULTIPLE_FONT_SIZES
 void oled_set_cursor(uint8_t col, uint8_t line);
+#else
+void oled_set_cursor(uint8_t col, uint8_t line, oled_font_size_t size);
+#endif
 
 // Advances the cursor to the next page, writing ' ' if true
 // Wraps to the begining when out of bounds
+#ifndef OLED_MULTIPLE_FONT_SIZES
 void oled_advance_page(bool clearPageRemainder);
+#else
+void oled_advance_page(bool clearPageRemainder, oled_font_size_t size);
+#endif
 
 // Moves the cursor forward 1 character length
 // Advance page if there is not enough room for the next character
 // Wraps to the begining when out of bounds
+#ifndef OLED_MULTIPLE_FONT_SIZES
 void oled_advance_char(void);
+#else
+void oled_advance_char(oled_font_size_t size);
+#endif
 
 // Writes a single character to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 // Main handler that writes character data to the display buffer
+#ifndef OLED_MULTIPLE_FONT_SIZES
 void oled_write_char(const char data, bool invert);
+#else
+void oled_write_char(const char data, bool invert, oled_font_size_t size);
+#endif
 
 // Writes a string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
+#ifndef OLED_MULTIPLE_FONT_SIZES
 void oled_write(const char *data, bool invert);
+#else
+void oled_write(const char *data, bool invert, oled_font_size_t size);
+#endif
 
 // Writes a string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
+#ifndef OLED_MULTIPLE_FONT_SIZES
 void oled_write_ln(const char *data, bool invert);
+#else
+void oled_write_ln(const char *data, bool invert, oled_font_size_t size);
+#endif
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
 // Useful for moving the screen in preparation for new drawing
@@ -251,19 +300,32 @@ void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 // Remapped to call 'void oled_write(const char *data, bool invert);' on ARM
+#    ifndef OLED_MULTIPLE_FONT_SIZES
 void oled_write_P(const char *data, bool invert);
+#    else
+void oled_write_P(const char *data, bool invert, oled_font_size_t size);
+#    endif
 
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
+#    ifndef OLED_MULTIPLE_FONT_SIZES
 void oled_write_ln_P(const char *data, bool invert);
+#    else
+void oled_write_ln_P(const char *data, bool invert, oled_font_size_t size);
+#    endif
 
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
 #else
-#    define oled_write_P(data, invert) oled_write(data, invert)
-#    define oled_write_ln_P(data, invert) oled_write(data, invert)
+#    ifndef OLED_MULTIPLE_FONT_SIZES
+#        define oled_write_P(data, invert) oled_write(data, invert)
+#        define oled_write_ln_P(data, invert) oled_write(data, invert)
+#    else
+#        define oled_write_P(data, invert, size) oled_write(data, invert, size)
+#        define oled_write_ln_P(data, invert) oled_write(data, invert, size)
+#    endif
 #    define oled_write_raw_P(data, size) oled_write_raw(data, size)
 #endif  // defined(__AVR__)
 
@@ -294,7 +356,11 @@ void oled_task_user(void);
 // Set the specific 8 lines rows of the screen to scroll.
 // 0 is the default for start, and 7 for end, which is the entire
 // height of the screen.  For 128x32 screens, rows 4-7 are not used.
+#ifndef OLED_MULTIPLE_FONT_SIZES
 void oled_scroll_set_area(uint8_t start_line, uint8_t end_line);
+#else
+void oled_scroll_set_area(uint8_t start_line, uint8_t end_line, oled_font_size_t size);
+#endif
 
 // Sets scroll speed, 0-7, fastest to slowest. Default is three.
 // Does not take effect until scrolling is either started or restarted
@@ -318,7 +384,15 @@ bool oled_scroll_left(void);
 bool oled_scroll_off(void);
 
 // Returns the maximum number of characters that will fit on a line
+#ifndef OLED_MULTIPLE_FONT_SIZES
 uint8_t oled_max_chars(void);
+#else
+uint8_t oled_max_chars_S(oled_font_size_t size);
+#endif
 
 // Returns the maximum number of lines that will fit on the oled
+#ifndef OLED_MULTIPLE_FONT_SIZES
 uint8_t oled_max_lines(void);
+#else
+uint8_t oled_max_lines_S(oled_font_size_t size);
+#endif
