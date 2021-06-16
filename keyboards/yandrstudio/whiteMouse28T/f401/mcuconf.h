@@ -22,10 +22,14 @@
 #define STM32_PWM_USE_TIM3 TRUE
 
 #undef STM32_SPI_USE_SPI1
-#define STM32_SPI_USE_SPI1                  TRUE
+#define STM32_SPI_USE_SPI1                  FALSE
 
 #undef STM32_SERIAL_USE_USART1
 #define STM32_SERIAL_USE_USART1 TRUE
+
+
+#undef  STM32_ADC_USE_ADC1
+#define STM32_ADC_USE_ADC1                  TRUE
 
 #undef STM32_NO_INIT
 #undef STM32_HSI_ENABLED
