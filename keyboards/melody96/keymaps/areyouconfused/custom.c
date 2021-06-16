@@ -61,8 +61,8 @@ void keyboard_post_init_user(void) {
     rgblight_sethsv(RGB_BASE_COLOR);
 }
 
-bool lastCaps = 0;
-bool lastNum = 0;
+static bool lastCaps = 0;
+static bool lastNum = 0;
 bool led_update_user(led_t led_state) {
     if (led_state.caps_lock && !lastCaps){
         rgblight_blink_layer_repeat(BLNK, 175, 2);
@@ -83,7 +83,7 @@ bool led_update_user(led_t led_state) {
     return false;
 }
 
-bool fn3active = 0;
+//static bool fn3active = 0;
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(FN1, layer_state_cmp(state, 1));
     rgblight_set_layer_state(FN2, layer_state_cmp(state, 2));
