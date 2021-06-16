@@ -10,7 +10,7 @@ There are three versions of the DZ65RGB. Please use the appropriate firmware for
 
 * V1: STM32F303 (Arm), takes .bin files
 * V2: ATmega32U4 (AVR), takes .hex files, is31fl3731 rgbmatrix driver
-* V3: ATmega32U4 (AVR), takes .hex files, is31fl3741 rgbmatrix driver
+* V3: ATmega32U4 (AVR), takes .bin files, is31fl3741 rgbmatrix driver
 
 ## Bootloader mode
 
