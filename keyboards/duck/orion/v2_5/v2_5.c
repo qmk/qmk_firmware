@@ -29,11 +29,3 @@
 // Locking indicator LEDs
 // The Duck Orion V2.5 has 3 locking indicator LEDs and are located to the right
 // of the Escape key. 
-bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        writePin(B0, !led_state.caps_lock);
-        writePin(B4, !led_state.num_lock);
-        writePin(D7, !led_state.scroll_lock);
-    }
-    return true;
-}
