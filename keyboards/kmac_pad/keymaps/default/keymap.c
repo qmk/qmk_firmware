@@ -51,10 +51,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static uint32_t key_timer;
 
     switch (keycode) {
         case MD_BOOT:
+        {
+            static uint32_t key_timer;
             if (record->event.pressed) {
                 key_timer = timer_read32();
             } else {
@@ -63,6 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        }
         case MCR1:
             if (record->event.pressed) {
                 SEND_STRING("Macro 1");
