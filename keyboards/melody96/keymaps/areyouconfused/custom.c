@@ -78,7 +78,9 @@ bool led_update_user(led_t led_state) {
     }
     rgblight_set_layer_state(CAPS, led_state.caps_lock);
     rgblight_set_layer_state(NUM, !led_state.num_lock);
-    return true;
+    writePin(LED_NUM_LOCK_PIN, !is_backlight_enabled());
+    writePin(LED_CAPS_LOCK_PIN, !is_backlight_enabled());
+    return false;
 }
 
 bool fn3active = 0;
@@ -117,14 +119,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         return true;
     case BL_OFF:
-        if (record->event.pressed) {
-            rgblight_blink_layer_repeat(RGB_NO, 175, 2);
-        }
-        return true; 
     case BL_ON:
-        if (record->event.pressed) {
-            rgblight_blink_layer_repeat(RGB_YES, 175, 2);
-        }
+        led_update_user(host_keyboard_led_state());
         return true; 
     default:
         return true;
