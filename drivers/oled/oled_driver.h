@@ -125,6 +125,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(OLED_FONT_H)
 #    define OLED_FONT_H "glcdfont.c"
 #endif
+// Define default font size (for now 1, 2 or 4)
+#if !defined(OLED_FONT_SIZE)
+#   define OLED_FONT_SIZE 1
+#endif
 // unsigned char value of the first character in the font file
 #if !defined(OLED_FONT_START)
 #    define OLED_FONT_START 0
@@ -135,11 +139,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 // Font render width
 #if !defined(OLED_FONT_WIDTH)
-#    define OLED_FONT_WIDTH 6
+#    define OLED_FONT_WIDTH (6 * OLED_FONT_SIZE)
 #endif
 // Font render height
 #if !defined(OLED_FONT_HEIGHT)
-#    define OLED_FONT_HEIGHT 8
+#    define OLED_FONT_HEIGHT (8 * OLED_FONT_SIZE)
 #endif
 // Default brightness level
 #if !defined(OLED_BRIGHTNESS)
