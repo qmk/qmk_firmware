@@ -12,7 +12,6 @@ Make example for this keyboard (after setting up your build environment):
 
     make duck/orion/v2_5:via
 	
-**VIA.JSON**: When you open via, select: File -> import Keymap, and select [V2_5/keymaps/via/via.json]
 
 **Reset Key:** To put the Orion V2.5 into reset, hold Backspace key (`K4N`) while plugging in. 
 
