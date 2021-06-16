@@ -25,4 +25,5 @@ void keyboard_pre_init_kb(void) {
      */
     setPinOutput(B3);
     setPinOutput(B1);
+    keyboard_pre_init_user();
 }
