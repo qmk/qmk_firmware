@@ -46,3 +46,20 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* SPI Config for LED Driver */
+#define SPI_DRIVER SPID1
+#define SPI_SCK_PIN A5
+#define SPI_MOSI_PIN A6
+#define SPI_MISO_PIN A7
+
+#define DRIVER_1_CS B13
+#define DRIVER_2_CS B14
+#define DRIVER_1_EN C13
+#define DRIVER_2_EN C13
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 66
+#define DRIVER_2_LED_TOTAL 32
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+

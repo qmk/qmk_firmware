@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "matrix.h"
-#include "eeconfig.h"
+#include "keyboard.h"
 #include "serial_link/system/serial_link.h"
 
 
@@ -119,15 +119,9 @@ uint8_t matrix_scan(void)
     }
 
     uint8_t offset = 0;
-#if (defined(EE_HANDS) || defined(MASTER_IS_ON_RIGHT))
-#ifdef EE_HANDS
-    if (is_serial_link_master() && !eeconfig_read_handedness()) {
-#else
-    if (is_serial_link_master()) {
-#endif
+    if (is_serial_link_master() && !is_keyboard_left()) {
         offset = MATRIX_ROWS - LOCAL_MATRIX_ROWS;
     }
-#endif
 
     if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
         for (int row = 0; row < LOCAL_MATRIX_ROWS; row++) {
@@ -167,17 +161,11 @@ void matrix_print(void)
 
 void matrix_set_remote(matrix_row_t* rows, uint8_t index) {
     uint8_t offset = 0;
-#ifdef EE_HANDS
-    if (eeconfig_read_handedness()) {
+    if (is_keyboard_left()) {
         offset = LOCAL_MATRIX_ROWS * (index + 1);
     } else {
         offset = MATRIX_ROWS - LOCAL_MATRIX_ROWS * (index + 2);
     }
-#elif defined(MASTER_IS_ON_RIGHT)
-    offset = MATRIX_ROWS - LOCAL_MATRIX_ROWS * (index + 2);
-#else
-    offset = LOCAL_MATRIX_ROWS * (index + 1);
-#endif
     for (int row = 0; row < LOCAL_MATRIX_ROWS; row++) {
         matrix[offset + row] = rows[row];
     }
