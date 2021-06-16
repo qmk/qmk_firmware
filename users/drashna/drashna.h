@@ -33,7 +33,7 @@
 #    include "oled_stuff.h"
 #endif
 #if defined(PIMORONI_TRACKBALL_ENABLE)
-#    include "pimoroni_trackball.h"
+#    include "drivers/sensors/pimoroni_trackball.h"
 #endif
 
 /* Define layer names */
