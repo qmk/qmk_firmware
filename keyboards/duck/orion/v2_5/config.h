@@ -47,6 +47,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 18
 
+#define LED_NUM_LOCK_PIN B4
+#define LED_CAPS_LOCK_PIN B0
+#define LED_SCROLL_LOCK_PIN D7
+
 /* Set to top left most key */
 #define BOOTMAGIC_LITE_ROW 4
 #define BOOTMAGIC_LITE_COLUMN 10
