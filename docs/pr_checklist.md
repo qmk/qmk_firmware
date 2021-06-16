@@ -68,6 +68,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - bare minimum required code for a board to boot into QMK should be present
         - initialisation code for the matrix and critical devices
         - mirroring existing functionality of a commercial board (like custom keycodes and special animations etc.) should be handled through non-`default` keymaps
+    - VIAL-related files or changes will not be accepted, as they are not used by QMK firmware (no VIAL-specific core code has been submitted or merged)
 - `keyboard.c`
     - empty `xxxx_xxxx_kb()` or other weak-defined default implemented functions removed
     - commented-out functions removed too
@@ -94,6 +95,8 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - standard layouts preferred in these keymaps, if possible
 - submitters can have a personal (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
+- Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
+
 
 Also, specific to ChibiOS:
 - **strong** preference to using existing ChibiOS board definitions.
@@ -127,3 +130,9 @@ There are instructions on how to keep your fork updated here:
 
 Thanks for contributing!
 ```
+
+## Review Process
+
+In general, we want to see two (or more) approvals that are meaningful (e.g. that have inspected code) before a PR will be considered for merge. These reviews are not limited to collaborators -- any community member willing to put in the time is welcomed (and encouraged). The only difference is that your checkmark won't be green, and that's fine! 
+
+Additionally, PR reviews are something that is done in our free time. We are not paid nor compensated for the time we spend reviewing, as it is a labor of love. As such, this means that it can take time for us to get to your Pull Request.  Things like family, or life can get in the way of us getting to PRs, and burnout is a serious concern. The QMK firmware repository averages 200 PRs opened and 200 PRs merged every month, so please have patience.
