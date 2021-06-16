@@ -1,6 +1,5 @@
 /*
-Copyright 2021 @sulrich
-Copyright 2020 Drashna Jaelre <@drashna>
+Copyright 2021 @sulrich <sulrich@botwerks.org>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
