@@ -5,9 +5,9 @@
 KMAC PAD is a num pad keyboard.
 It can be used independently, but can also be used by connecting with KMAC keyboard case.
 
-Keyboard Maintainer: [talsu](https://github.com/talsu)  
-Hardware Supported: KMAC PAD  
-Hardware Availability: http://www.kbdmania.net/xe/news/5232321
+* Keyboard Maintainer: [talsu](https://github.com/talsu)
+* Hardware Supported: KMAC PAD
+* Hardware Availability: http://www.kbdmania.net/xe/news/5232321
 
 Make example for this keyboard (after setting up your build environment):
 
