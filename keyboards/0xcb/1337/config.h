@@ -61,7 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #endif
-// clang-format on
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
