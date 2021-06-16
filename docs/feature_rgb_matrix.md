@@ -297,6 +297,8 @@ const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
 
 ---
 
+## Common Configuration :id=common-configuration
+
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
 ```c
