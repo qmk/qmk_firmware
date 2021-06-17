@@ -21,14 +21,27 @@ enum layer_keycodes {
   TG_LAYER = USER00
 };
 
+uint8t_t set_hold_layer(void) {
+  switch(get_highest_layer(layer_state)) {
+    case 0:
+    case 1:
+      return 1;
+    case 2:
+    case 3:
+      return 3;
+    default:
+      return 1;
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case TG_LAYER:
       if (record->event.pressed) {
         layer_timer = timer_read();
-        layer_on(layer_state << 1);
+        layer_on(get_hold_layer());
       } else {
-        layer_off(layer_state << 1);
+        layer_off(get_hold_layer());
 
         if (timer_elapsed(layer_timer) < TAPPING_TERM) {
           layer_invert(2);
