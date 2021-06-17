@@ -24,12 +24,6 @@
 #define MANUFACTURER    SergioPoverony
 #define PRODUCT         Creator Pro
 
-
-/* Optimise size swith off unused functions*/
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-#define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT	
 	
 /* key matrix size pins */
 #define MATRIX_ROWS 1
