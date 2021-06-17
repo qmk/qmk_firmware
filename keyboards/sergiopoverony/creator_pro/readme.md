@@ -11,13 +11,14 @@ The keypad also includes three RGB LEDs that show active layer.
 Keyboard Maintainer: [SergioPoverony](https://github.com/sergiopoverony)  
 
 Hardware:
+  * For enter the bootloader to flash new firmware need press hw reset button hole on the bottom
   * Key switch holes cut fabrication in blank PCB
   * Uses Gateron Brown switches with gray keycaps XDA profile
   * Chassis is PCB with supports
   * PCB fabrication
   * Uses a Pro Micro wint MicroUSB connector
   * Includes a reset switch accessible by a hole on the bottom
-  * For enter the bootloader to flash new firmware need press hw reset button hole on the bottom
+
 
 
 Make example for this keyboard (after setting up your build environment):
