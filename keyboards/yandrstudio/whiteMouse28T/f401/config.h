@@ -84,13 +84,13 @@
 #endif
 
 
-#define SERIAL_DRIVER SD1
-#define SD1_TX_PIN A9
-#define SD1_TX_PAL_MODE 7
-#define SD1_RX_PIN A10
-#define SD1_RX_PAL_MODE 7
+// #define SERIAL_DRIVER SD1
+// #define SD1_TX_PIN A9
+// #define SD1_TX_PAL_MODE 7
+// #define SD1_RX_PIN A10
+// #define SD1_RX_PAL_MODE 7
 
 
-#define ADC_RESOLUTION ADC_CFGR1_RES_12BIT
+// #define ADC_RESOLUTION ADC_CFGR1_RES_12BIT
 
 

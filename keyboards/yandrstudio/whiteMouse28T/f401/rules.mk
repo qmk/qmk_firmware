@@ -23,5 +23,3 @@ SRC += eep/eeprom_stm32.c
 SRC += eep/flash_stm32.c
 OPT_DEFS += -DEEPROM_EMU_STM32F401xC
 COMMON_VPATH += keyboards/yandrstudio/whiteMouse28T/f401/eep
-
-SRC += analog.c

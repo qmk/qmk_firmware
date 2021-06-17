@@ -27,8 +27,8 @@
 #undef HAL_USE_SPI
 #define HAL_USE_SPI    FALSE
 
-#undef HAL_USE_ADC
-#define HAL_USE_ADC    TRUE
+// #undef HAL_USE_ADC
+// #define HAL_USE_ADC    TRUE
 
 
 #undef  SERIAL_USB_BUFFERS_SIZE
