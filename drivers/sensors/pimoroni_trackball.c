@@ -73,7 +73,7 @@ void  trackball_set_precision(float precision) { precisionSpeed = precision; }
 bool  trackball_is_scrolling(void) { return scrolling; }
 void  trackball_set_scrolling(bool scroll) { scrolling = scroll; }
 
-__attribute__((weak)) void pointing_device_init(void) { trackball_set_rgbw(0x00, 0x00, 0x00, 0x00); }
+__attribute__((weak)) void pointing_device_init(void) { i2c_init(); trackball_set_rgbw(0x00, 0x00, 0x00, 0x00); }
 
 void pointing_device_task(void) {
     static bool     debounce;
