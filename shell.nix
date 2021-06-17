@@ -29,8 +29,7 @@ let
 in
 mkShell {
   name = "qmk-firmware";
-
-  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry niv ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils hidapi git pythonEnv poetry niv ]
     ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8
@@ -46,5 +45,6 @@ mkShell {
     # Prevent the avr-gcc wrapper from picking up host GCC flags
     # like -iframework, which is problematic on Darwin
     unset NIX_CFLAGS_COMPILE_FOR_TARGET
+    export LD_LIBRARY_PATH=${hidapi}/lib:$LD_LIBRARY_PATH
   '';
 }
