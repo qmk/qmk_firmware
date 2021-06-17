@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "my_keycodes.h"
-#define RGB_BASE_COLOR 128, 255, 165
 
+#define RGB_BASE_COLOR 128, 255, 165
 #define HSV_cORANGE 10, 255, 255
 
 #define LAYER_LED 13
@@ -43,7 +43,6 @@ const rgblight_segment_t PROGMEM rgb_yes[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 18, HSV_GREEN}
 );
 
-
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     fn1_layer,
     fn2_layer,
@@ -83,23 +82,16 @@ bool led_update_user(led_t led_state) {
     return false;
 }
 
-//static bool fn3active = 0;
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(FN1, layer_state_cmp(state, 1));
     rgblight_set_layer_state(FN2, layer_state_cmp(state, 2));
     rgblight_set_layer_state(FN3, layer_state_cmp(state, 3));
-    /* if (layer_state_cmp(state, 3) && !fn3active){
-        fn3active = 1;
-        rgblight_blink_layer_repeat(BLNK, 175, 3);
-    } else {
-        fn3active = 0;
-    } */
     return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case DOG:
+        case pHSV:
             if (record->event.pressed){
                 char hue[4];
                 itoa(rgblight_get_hue(), hue, 10);
