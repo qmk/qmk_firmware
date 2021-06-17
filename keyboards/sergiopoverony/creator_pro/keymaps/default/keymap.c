@@ -16,11 +16,13 @@
  
  #include QMK_KEYBOARD_H
 
-/* define layers */
-#define _HOME 0
-#define _RED 1
-#define _BLUE 2
-#define _GREEN 3
+/* enum layers num */
+enum layer_number {
+    _HOME = 0,
+    _RED,
+    _BLUE,
+    _GREEN
+};
 
 /* Encoder function with layers function */
 bool encoder_update_user(uint8_t index, bool clockwise) {
