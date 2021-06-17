@@ -9,8 +9,6 @@ enum layers {
 	_ADJUST
 };
 
-#define H HYPR
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_hotswap(
 	 //---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|----------|---------|---------|---------|---------|---------|---------|----------
@@ -23,8 +21,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	    	KC_CAPS, 	  KC_A, 	KC_S, 	KC_D, 	KC_F, 	KC_G, 	KC_H, 	KC_J, 	KC_K, 	KC_L, 	KC_SCLN, 	KC_QUOT, 			KC_ENT, 			KC_P4, 	KC_P5, 	KC_P6, 	KC_PPLS, 
 	 //------------|-----------|---------|----------|--------|---------|----------|---------|----------|----------|------------|---------------|-------------|---------|---------|---------|
 	    	KC_LSFT, 		KC_Z, 	KC_X, 	KC_C, 	KC_V, 	KC_B, 	KC_N, 	KC_M, 	KC_COMM, 	 KC_DOT, 	  KC_SLSH, 	 KC_RSFT, 		 KC_UP, 	KC_P1, 	KC_P2, 	KC_P3, 
-	 //----------|----------|------------|--------------------------------------------------|--------------|-------|-------------------|------------|--------|---------|---------|---------|----------
-	    	KC_LCTL, 	KC_LGUI, 	KC_LALT, 							KC_SPC, 					KC_RALT, 	MO(1), 	LT(2, KC_RCTL), 	KC_LEFT, 	KC_DOWN, 	KC_RGHT, 	KC_P0, 	KC_PDOT, 	KC_PENT),
+	 //----------|----------|------------|---------------------------------------------|--------------|-------------|----------------------|------------|--------|---------|---------|---------|----------
+	    	KC_LCTL, 	KC_LGUI, 	KC_LALT, 							KC_SPC, 				KC_RALT, 	MO(_RAISE), 	LT(_LOWER, KC_RCTL), 	KC_LEFT, 	KC_DOWN, 	KC_RGHT, 	KC_P0, 	KC_PDOT, 	KC_PENT),
 	 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
      [_RAISE] = LAYOUT_hotswap(	
@@ -38,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,   KC_TRNS,	 KC_TRNS, KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_MPRV, 	KC_MPLY, 	KC_MNXT,       	KC_TRNS,			KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,
 	 //------------|-----------|---------|----------|--------|---------|----------|---------|----------|----------|------------|---------------|-------------|---------|---------|---------|
 		KC_TRNS,	  RGB_HUI,    RGB_SAI,	RGB_VAI, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_MUTE, 	KC_VOLD, 	KC_VOLU, 	      KC_TRNS, 	     KC_TRNS, 	KC_TRNS,	KC_TRNS, 	KC_TRNS,
-	 //----------|----------|------------|--------------------------------------------------|--------------|-------|-------------------|------------|--------|---------|---------|---------|----------
-		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 					KC_TRNS, 						KC_TRNS, 		OSL(3), 	KC_TRNS, 		     KC_TRNS, KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, KC_TRNS),
+	 //----------|----------|------------|--------------------------------------------------|--------------|--------------|---------------|---------|--------|---------|---------|---------|----------
+		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 					KC_TRNS, 						KC_TRNS, 		KC_TRNS, 	OSL(_ADJUST), 		 KC_TRNS, KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, KC_TRNS),
 	 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	[_LOWER] = LAYOUT_hotswap(	// software macro layout keys are keys + hyper
@@ -54,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 //------------|---------\----------\--------\--------\----------\---------\--------\-------\---------\-----------\---------\--------\-------------------|---------|---------|---------|----------
 		HYPR(KC_F13),    HYPR(KC_Z), HYPR(KC_X), HYPR(KC_C), HYPR(KC_V), HYPR(KC_B), HYPR(KC_N), HYPR(KC_M), HYPR(KC_COMM), HYPR(KC_DOT), HYPR(KC_SLSH), 		HYPR(KC_F18), 			HYPR(KC_UP), HYPR(KC_P1), HYPR(KC_P2), HYPR(KC_P3),
 	 //----------/----------/------------/--------------------------------------------------\-----------\----------\--------------\----------------|---------|---------|---------|---------|----------
-		HYPR(KC_F14), HYPR(KC_F15), HYPR(KC_F16), 					HYPR(KC_SPC), 				HYPR(KC_F17), KC_TRNS, KC_TRNS, 				 HYPR(KC_LEFT), HYPR(KC_DOWN), HYPR(KC_RGHT), HYPR(KC_P0), HYPR(KC_PDOT), H(KC_PENT)),
+		HYPR(KC_F14), HYPR(KC_F15), HYPR(KC_F16), 					HYPR(KC_SPC), 				HYPR(KC_F17), KC_TRNS, KC_TRNS, 				 HYPR(KC_LEFT), HYPR(KC_DOWN), HYPR(KC_RGHT), HYPR(KC_P0), HYPR(KC_PDOT), HYPR(KC_PENT)),
 	 //----------------------------------|------------------------------------------------------|----------|--------|-------------------|----------|---------|---------|---------|---------|----------
 
 	[_ADJUST] = LAYOUT_hotswap(
@@ -68,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	   KC_TRNS, 		 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,
 	 //------------|-----------|---------|----------|--------|---------|----------|---------|----------|----------|------------|---------------|-------------|---------|---------|---------|
 		KC_TRNS, 	    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, 	KC_TRNS, 	KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,  		KC_TRNS,	KC_TRNS, 	KC_TRNS, 	KC_TRNS,
-	 //----------|----------|------------|--------------------------------------------------|--------------|-------|-------------------|------------|--------|---------|---------|---------|----------
-		KC_TRNS, 	KC_TRNS, 	KC_TRNS,							KC_TRNS, 					TG(3), 	KC_TRNS, 	KC_TRNS, 			KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,	KC_TRNS, KC_TRNS)
+	 //----------|----------|------------|--------------------------------------------------|---------|------------|-------------------|---------|-----------|---------|---------|---------|----------
+		KC_TRNS, 	KC_TRNS, 	KC_TRNS,							KC_TRNS, 				KC_TRNS, 	KC_TRNS, 	     TG(_ADJUST), 	   KC_TRNS,  KC_TRNS, 	KC_TRNS, 	KC_TRNS,	KC_TRNS, KC_TRNS)
 	 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 };
