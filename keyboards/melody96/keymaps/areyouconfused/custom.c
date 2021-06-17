@@ -107,7 +107,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 itoa(rgblight_get_val(), val, 10);
                 val[4] = '\0';
                 send_string(val);
-                SEND_STRING("\n");
+                SEND_STRING(" ");
             }
         return true;
     case BL_OFF:
