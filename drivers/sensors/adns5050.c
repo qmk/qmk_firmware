@@ -22,6 +22,7 @@
 #include "wait.h"
 #include "debug.h"
 #include "print.h"
+#include "gpio.h"
 
 #ifndef OPTIC_ROTATED
 #    define OPTIC_ROTATED false
@@ -37,7 +38,7 @@
 #endif
 
 #ifndef ADNS_CS_PIN
-#    define ADNS_CS_PIN SPI_SS_PIN
+#    define ADNS_CS_PIN B4
 #endif
 
 #ifdef CONSOLE_ENABLE
