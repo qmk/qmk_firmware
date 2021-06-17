@@ -27,8 +27,8 @@
  */
 
 /*
- * This driver is a port of Arduino's LedControl to QMK. The original
- * Arduino code can be found here:
+ * This driver started as a port of Arduino's LedControl to QMK. The
+ * original Arduino code can be found here:
  *
  * https://github.com/wayoda/LedControl
  *
@@ -42,6 +42,7 @@
 /* Write max7219_spidata to all the max7219's
  */
 void max7219_write_all(void) {
+    dprintf("max7219_write_all()\n");
     if (spi_start(MAX7219_LOAD, false, 0, 8)) {
         for(int i = MAX_BYTES; i>0; i--) {
             dprintf("spi_write(%d)\n", max7219_spidata[i-1]);
@@ -50,6 +51,22 @@ void max7219_write_all(void) {
         spi_stop();
     } else {
         xprintf("Could not spi_start!\n");
+    }
+}
+
+/* Write the current frame in max7219_led_a to all the max's
+ */
+void max7219_write_frame(void) {
+    dprintf("max7219_write_frame()\n");
+
+    // Set our opcode and data
+    for (int col=0; col<8; col++) {
+        for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
+            int offset=device_num*2;
+            max7219_spidata[offset] = max7219_led_a[col][device_num];
+            max7219_spidata[offset+1] = col+1;
+        }
+        max7219_write_all();
     }
 }
 
@@ -81,12 +98,12 @@ void max7219_clear_display(int device_num) {
         return;
     }
 
-    int offset = device_num * 8;
-
-    for(int i = 0; i<8; i++) {
-        max7219_led_a[offset+i] = 0;
-        max7219_write(device_num, i+1, max7219_led_a[offset+i]);
+    for (int col=0; col<8; col++) {
+        for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
+            max7219_led_a[col][device_num] = 0;
+        }
     }
+    max7219_write_frame();
 }
 
 /* Enable the display test (IE turn on all 64 LEDs)
@@ -107,15 +124,13 @@ void max7219_init(void) {
     wait_ms(1500);
     dprintf("max7219_init()\n");
 
-    //setPinOutput(MAX7219_DATA);
-    //setPinOutput(MAX7219_CLK);
     setPinOutput(MAX7219_LOAD);
     writePinHigh(MAX7219_LOAD);
     spi_init();
 
-    //for (int i=0; i<MAX7219_CONTROLLERS; i++) {
-    //    max7219_shutdown(i, true);
-    //}
+    for (int i=0; i<MAX7219_CONTROLLERS; i++) {
+        max7219_shutdown(i, false);
+    }
 
     for (int i=0; i<MAX7219_CONTROLLERS; i++) {
         // Reset everything to defaults and enable the display
@@ -146,15 +161,40 @@ void max7219_init(void) {
 
 #ifdef MAX7219_LED_ITERATE
     while (1) {
-        for(int col=0;col<8;col++) {
-            for (int i=0; i<MAX7219_CONTROLLERS; i++) {
-                for (int row=0; row<8; row++) {
-                    max7219_set_led(i, row, col, true);
-                    wait_ms(500);
-                    max7219_set_led(i, row, col, false);
+        for (int row=0; row<8; row++) {
+            for(int col=0;col<8*MAX7219_CONTROLLERS;col++) {
+                max7219_set_led(row, col, true);
+                wait_ms(500);
+                max7219_set_led(row, col, false);
+            }
+        }
+    }
+#endif
+
+#ifdef MAX7219_LED_DANCE
+    while (1) {
+        for (int col=0; col<8; col++) {
+            for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
+                if (col % 2 == 0) {
+                    max7219_led_a[col][device_num] = 0b01010101;
+                } else {
+                    max7219_led_a[col][device_num] = 0b10101010;
                 }
             }
         }
+        max7219_write_frame();
+        wait_ms(500);
+        for (int col=0; col<8; col++) {
+            for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
+                if (col % 2 == 0) {
+                    max7219_led_a[col][device_num] = 0b10101010;
+                } else {
+                    max7219_led_a[col][device_num] = 0b01010101;
+                }
+            }
+        }
+        max7219_write_frame();
+        wait_ms(500);
     }
 #endif
 }
@@ -187,18 +227,10 @@ void max7219_set_intensity(int device_num, int intensity) {
 
 /* Control a single LED.
  */
-void max7219_set_led(int device_num, int row, int column, bool state) {
-    dprintf("max7219_set_led(%d, %d, %d, %d);\n", device_num, row, column, state);
+void max7219_set_led(int row, int column, bool state) {
+    dprintf("max7219_set_led(%d, %d, %d);\n", row, column, state);
 
-    int offset;
-    uint8_t val = 0x00;
-
-    if (device_num<0 || device_num >= MAX7219_CONTROLLERS) {
-        xprintf("max7219_set_led: device_num out of bounds: %d\n", device_num);
-        return;
-    }
-
-    if (column<0 || column>7) {
+    if (column<0 || column>8*MAX7219_CONTROLLERS) {
         xprintf("max7219_set_led: column (%d) out of bounds\n", column);
         return;
     }
@@ -208,28 +240,20 @@ void max7219_set_led(int device_num, int row, int column, bool state) {
         return;
     }
 
-    offset = device_num*8;
-    val = 0b10000000 >> column;
+    /* At this point we reverse the sense of row and column to match the
+     * physical layout of my LEDs.
+     */
+    uint8_t device_num = column / 8;
+    uint8_t col = column % 8;
+    uint8_t val = 0b10000000 >> row;
 
     if (state) {
-        max7219_led_a[offset+row] = max7219_led_a[offset+row]|val;
+        max7219_led_a[col][device_num] = max7219_led_a[col][device_num]|val;
     } else {
         val = ~val;
-        max7219_led_a[offset+row] = max7219_led_a[offset+row]&val;
+        max7219_led_a[col][device_num] = max7219_led_a[col][device_num]&val;
     }
-    max7219_write(device_num, row+1, max7219_led_a[offset+row]);
-}
-
-/* Set a whole row of LEDs.
- */
-void max7219_set_row(int device_num, int row, unsigned char value) {
-    dprintf("max7219_set_row(%d, %d, %x);\n", device_num, row, value);
-}
-
-/* Set a whole column of LEDs.
- */
-void max7219_set_col(int device_num, int col, unsigned char value) {
-    dprintf("max7219_set_col(%d, %d, %x);\n", device_num, col, value);
+    max7219_write(device_num, col+1, max7219_led_a[col][device_num]);
 }
 
 /* Set the number of digits (rows) to be scanned.
@@ -246,14 +270,14 @@ void max7219_set_scan_limit(int device_num, int limit) {
     }
 }
 
-/* Enable or disable the controller.
+/* Enable (false) or disable (true) the controller.
  */
-void max7219_shutdown(int device_num, bool is_in_shutdown) {
-    dprintf("max7219_shutdown(%d, %d);\n", device_num, is_in_shutdown);
+void max7219_shutdown(int device_num, bool shutdown) {
+    dprintf("max7219_shutdown(%d, %d);\n", device_num, shutdown);
 
     if (device_num<0 || device_num >= MAX7219_CONTROLLERS) {
         return;
     }
 
-    max7219_write(device_num, OP_SHUTDOWN, is_in_shutdown);
+    max7219_write(device_num, OP_SHUTDOWN, shutdown);
 }

@@ -50,19 +50,20 @@
 #define OP_DISPLAYTEST 15
 
 // Datastructures
-uint8_t buffer[2];
-uint8_t max7219_led_a[LED_COUNT];
 uint8_t max7219_spidata[MAX_BYTES];
+uint8_t max7219_led_a[8][MAX7219_CONTROLLERS];
 
 // Functions
 void shift_out(uint8_t val);
 void max7219_write(int device_num, volatile uint8_t opcode, volatile uint8_t data);
+void max7219_write_all(void);
+void max7219_write_frame(void);
 void max7219_clear_display(int device_num);
 void max7219_display_test(int device_num, bool enabled);
 void max7219_init(void);
 void max7219_set_decode_mode(int device_num, int mode);
 void max7219_set_intensity(int device_num, int intensity);
-void max7219_set_led(int device_num, int row, int column, bool state);
+void max7219_set_led(int row, int column, bool state);
 void max7219_set_all_leds(uint8_t led_matrix[LED_COUNT]);
 void max7219_set_row(int device_num, int row, unsigned char value);
 void max7219_set_col(int device_num, int col, unsigned char value);

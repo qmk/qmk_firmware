@@ -38,8 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 // Configure our MAX7219's
-#define MAX7219_DATA B2
-#define MAX7219_CLK B1
 #define MAX7219_LOAD B0
 #define MAX7219_CONTROLLERS 4
 #define LED_INTENSITY 12  // Max: 15
@@ -48,4 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAX7219_LED_TEST
 
 // Define this to iterate through LEDs 1 by 1
-#define MAX7219_LED_ITERATE
+//#define MAX7219_LED_ITERATE
+
+// Define this to show a simple animation
+//#define MAX7219_LED_DANCE
