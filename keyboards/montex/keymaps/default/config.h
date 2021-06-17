@@ -35,8 +35,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 #define RGB_DI_PIN B1
 #ifdef RGB_DI_PIN
