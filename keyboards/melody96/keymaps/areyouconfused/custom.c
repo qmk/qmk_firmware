@@ -31,7 +31,7 @@ const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {6, 5, HSV_RED}
+    {6, 5, HSV_MAGENTA}
 );
 
 // fn layer's rgb
