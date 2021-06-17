@@ -537,7 +537,11 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/transport.c
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c \
+                       $(QUANTUM_DIR)/split_common/transactions.c
+
+        OPT_DEFS += -DSPLIT_COMMON_TRANSACTIONS
+
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
         ifeq ($(PLATFORM),AVR)

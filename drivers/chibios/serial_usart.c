@@ -113,37 +113,29 @@ void usart_slave_init(void) {
     chThdCreateStatic(waSlaveThread, sizeof(waSlaveThread), HIGHPRIO, SlaveThread, NULL);
 }
 
-static SSTD_t* Transaction_table      = NULL;
-static uint8_t Transaction_table_size = 0;
+void soft_serial_initiator_init(void) { usart_master_init(); }
 
-void soft_serial_initiator_init(SSTD_t* sstd_table, int sstd_table_size) {
-    Transaction_table      = sstd_table;
-    Transaction_table_size = (uint8_t)sstd_table_size;
-
-    usart_master_init();
-}
-
-void soft_serial_target_init(SSTD_t* sstd_table, int sstd_table_size) {
-    Transaction_table      = sstd_table;
-    Transaction_table_size = (uint8_t)sstd_table_size;
-
-    usart_slave_init();
-}
+void soft_serial_target_init(void) { usart_slave_init(); }
 
 void handle_soft_serial_slave(void) {
-    uint8_t sstd_index = sdGet(&SERIAL_USART_DRIVER);  // first chunk is always transaction id
-    SSTD_t* trans      = &Transaction_table[sstd_index];
+    uint8_t                   sstd_index = sdGet(&SERIAL_USART_DRIVER);  // first chunk is always transaction id
+    split_transaction_desc_t* trans      = &split_transaction_table[sstd_index];
 
     // Always write back the sstd_index as part of a basic handshake
     sstd_index ^= HANDSHAKE_MAGIC;
     sdWrite(&SERIAL_USART_DRIVER, &sstd_index, sizeof(sstd_index));
 
     if (trans->initiator2target_buffer_size) {
-        sdRead(&SERIAL_USART_DRIVER, trans->initiator2target_buffer, trans->initiator2target_buffer_size);
+        sdRead(&SERIAL_USART_DRIVER, split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size);
+    }
+
+    // Allow any slave processing to occur
+    if (trans->slave_callback) {
+        trans->slave_callback(trans->initiator2target_buffer_size, split_trans_initiator2target_buffer(trans), trans->target2initiator_buffer_size, split_trans_target2initiator_buffer(trans));
     }
 
     if (trans->target2initiator_buffer_size) {
-        sdWrite(&SERIAL_USART_DRIVER, trans->target2initiator_buffer, trans->target2initiator_buffer_size);
+        sdWrite(&SERIAL_USART_DRIVER, split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size);
     }
 
     if (trans->status) {
@@ -160,17 +152,14 @@ void handle_soft_serial_slave(void) {
 //    TRANSACTION_END
 //    TRANSACTION_NO_RESPONSE
 //    TRANSACTION_DATA_ERROR
-#ifndef SERIAL_USE_MULTI_TRANSACTION
-int soft_serial_transaction(void) {
-    uint8_t sstd_index = 0;
-#else
 int soft_serial_transaction(int index) {
     uint8_t sstd_index = index;
-#endif
 
-    if (sstd_index > Transaction_table_size) return TRANSACTION_TYPE_ERROR;
-    SSTD_t* trans = &Transaction_table[sstd_index];
-    msg_t   res   = 0;
+    if (sstd_index > NUM_TOTAL_TRANSACTIONS) return TRANSACTION_TYPE_ERROR;
+    split_transaction_desc_t* trans = &split_transaction_table[sstd_index];
+    msg_t                     res   = 0;
+
+    if (!trans->status) return TRANSACTION_TYPE_ERROR;  // not registered
 
     sdClear(&SERIAL_USART_DRIVER);
 
@@ -189,7 +178,7 @@ int soft_serial_transaction(int index) {
     }
 
     if (trans->initiator2target_buffer_size) {
-        res = sdWriteTimeout(&SERIAL_USART_DRIVER, trans->initiator2target_buffer, trans->initiator2target_buffer_size, TIME_MS2I(SERIAL_USART_TIMEOUT));
+        res = sdWriteTimeout(&SERIAL_USART_DRIVER, split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size, TIME_MS2I(SERIAL_USART_TIMEOUT));
         if (res < 0) {
             dprintf("serial::usart_transmit NO_RESPONSE\n");
             return TRANSACTION_NO_RESPONSE;
@@ -197,7 +186,7 @@ int soft_serial_transaction(int index) {
     }
 
     if (trans->target2initiator_buffer_size) {
-        res = sdReadTimeout(&SERIAL_USART_DRIVER, trans->target2initiator_buffer, trans->target2initiator_buffer_size, TIME_MS2I(SERIAL_USART_TIMEOUT));
+        res = sdReadTimeout(&SERIAL_USART_DRIVER, split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size, TIME_MS2I(SERIAL_USART_TIMEOUT));
         if (res < 0) {
             dprintf("serial::usart_receive NO_RESPONSE\n");
             return TRANSACTION_NO_RESPONSE;
