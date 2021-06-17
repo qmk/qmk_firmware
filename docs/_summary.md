@@ -93,6 +93,7 @@
   * Hardware Features
     * Displays
       * [HD44780 LCD Controller](feature_hd44780.md)
+      * [ST7565 LCD Driver](feature_st7565.md)
       * [OLED Driver](feature_oled_driver.md)
     * Lighting
       * [Backlight](feature_backlight.md)
@@ -108,6 +109,7 @@
     * [Haptic Feedback](feature_haptic_feedback.md)
     * [Joystick](feature_joystick.md)
     * [LED Indicators](feature_led_indicators.md)
+    * [MIDI](feature_midi.md)
     * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
