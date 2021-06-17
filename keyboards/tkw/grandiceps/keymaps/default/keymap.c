@@ -434,7 +434,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise){
+bool encoder_update_user(uint8_t index, bool clockwise){
 
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {

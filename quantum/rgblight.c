@@ -722,23 +722,39 @@ static void rgblight_layers_write(void) {
 }
 
 #    ifdef RGBLIGHT_LAYER_BLINK
-rgblight_layer_mask_t _blinked_layer_mask = 0;
-static uint16_t       _blink_timer;
+rgblight_layer_mask_t _blinking_layer_mask = 0;
+static uint16_t       _repeat_timer;
+static uint8_t        _times_remaining;
+static uint16_t       _dur;
 
-void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
+void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) { rgblight_blink_layer_repeat(layer, duration_ms, 1); }
+
+void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times) {
+    _times_remaining = times * 2;
+    _dur             = duration_ms;
+
     rgblight_set_layer_state(layer, true);
-    _blinked_layer_mask |= (rgblight_layer_mask_t)1 << layer;
-    _blink_timer = sync_timer_read() + duration_ms;
+    _times_remaining--;
+    _blinking_layer_mask |= (rgblight_layer_mask_t)1 << layer;
+    _repeat_timer = sync_timer_read() + duration_ms;
 }
 
-void rgblight_unblink_layers(void) {
-    if (_blinked_layer_mask != 0 && timer_expired(sync_timer_read(), _blink_timer)) {
+void rgblight_blink_layer_repeat_helper(void) {
+    if (_blinking_layer_mask != 0 && timer_expired(sync_timer_read(), _repeat_timer)) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
-            if ((_blinked_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0) {
-                rgblight_set_layer_state(layer, false);
+            if ((_blinking_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0 && _times_remaining > 0) {
+                if (_times_remaining % 2 == 1) {
+                    rgblight_set_layer_state(layer, false);
+                } else {
+                    rgblight_set_layer_state(layer, true);
+                }
+                _times_remaining--;
+                _repeat_timer = sync_timer_read() + _dur;
             }
         }
-        _blinked_layer_mask = 0;
+        if (_times_remaining <= 0) {
+            _blinking_layer_mask = 0;
+        }
     }
 }
 #    endif
@@ -755,8 +771,8 @@ void rgblight_suspend(void) {
 
 #    ifdef RGBLIGHT_LAYER_BLINK
         // make sure any layer blinks don't come back after suspend
-        rgblight_status.enabled_layer_mask &= ~_blinked_layer_mask;
-        _blinked_layer_mask = 0;
+        rgblight_status.enabled_layer_mask &= ~_blinking_layer_mask;
+        _blinking_layer_mask = 0;
 #    endif
 
         rgblight_disable_noeeprom();
@@ -874,7 +890,7 @@ void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
         animation_status.restart = true;
     }
 #        endif /* RGBLIGHT_SPLIT_NO_ANIMATION_SYNC */
-#    endif     /* RGBLIGHT_USE_TIMER */
+#    endif /* RGBLIGHT_USE_TIMER */
 }
 #endif /* RGBLIGHT_SPLIT */
 
@@ -884,22 +900,6 @@ typedef void (*effect_func_t)(animation_status_t *anim);
 
 // Animation timer -- use system timer (AVR Timer0)
 void rgblight_timer_init(void) {
-    // OLD!!!! Animation timer -- AVR Timer3
-    // static uint8_t rgblight_timer_is_init = 0;
-    // if (rgblight_timer_is_init) {
-    //   return;
-    // }
-    // rgblight_timer_is_init = 1;
-    // /* Timer 3 setup */
-    // TCCR3B = _BV(WGM32) // CTC mode OCR3A as TOP
-    //       | _BV(CS30); // Clock selelct: clk/1
-    // /* Set TOP value */
-    // uint8_t sreg = SREG;
-    // cli();
-    // OCR3AH = (RGBLED_TIMER_TOP >> 8) & 0xff;
-    // OCR3AL = RGBLED_TIMER_TOP & 0xff;
-    // SREG = sreg;
-
     rgblight_status.timer_enabled = false;
     RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
 }
@@ -1046,7 +1046,7 @@ void rgblight_task(void) {
     }
 
 #    ifdef RGBLIGHT_LAYER_BLINK
-    rgblight_unblink_layers();
+    rgblight_blink_layer_repeat_helper();
 #    endif
 }
 

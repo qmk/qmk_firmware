@@ -28,6 +28,6 @@
 // Create user & normal print defines
 #define print(s) xputs(PSTR(s))
 #define println(s) xputs(PSTR(s "\r\n"))
-#define uprint(s) print(s)
-#define uprintln(s) println(s)
-#define uprintf(fmt, ...) xprintf(fmt, ##__VA_ARGS__)
+#define uprint(s) xputs(PSTR(s))
+#define uprintln(s) xputs(PSTR(s "\r\n"))
+#define uprintf(fmt, ...) __xprintf(PSTR(fmt), ##__VA_ARGS__)
