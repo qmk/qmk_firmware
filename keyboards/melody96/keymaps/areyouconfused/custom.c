@@ -20,8 +20,8 @@
 #define RGB_BASE_COLOR 128, 255, 165
 #define HSV_cORANGE 10, 255, 255
 
-#define LAYER_LED 13
-#define LAYER_LED_COUNT 1
+#define LAYER_LED 0
+#define LAYER_LED_COUNT 18
 
 enum RGB_LAYERS { FN1, FN2, FN3, NUM, CAPS, BLNK, RGB_NO, RGB_YES };
 
