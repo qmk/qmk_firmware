@@ -50,7 +50,7 @@ COLS = number of cols per side which curently needs to be equal so there are bla
 #define MATRIX_ROW_PINS_RIGHT { F6, F7, B1, B3, B2, B6 }
 #define MATRIX_COL_PINS_RIGHT { F5, F4, B5, B4, E6, D7, C6, D4, D2, D3 }
 
-/* this will be tied to high (VCC with a 2k to 10k resistor) on the left keyboard half and tied to low (GND using a wire jumper only) on the right keyboard half.  This allows a user to plug in a USB cable to either side and function correctly with or without a TRS/TRRS cable with a single hex file.
+/* this will be tied to high (VCC with a 2k to 10k resistor) on the left keyboard half and tied to low (GND using a wire jumper only) on the right keyboard half.  This allows a user to plug in a USB cable to either side and function correctly with or without a TRS/TRRS cable with a single hex file. */
 #define SPLIT_HAND_PIN D1
 
 /* COL2ROW, ROW2COL */
