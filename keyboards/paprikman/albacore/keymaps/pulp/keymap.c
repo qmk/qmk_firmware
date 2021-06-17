@@ -21,7 +21,7 @@ enum layer_keycodes {
   TG_LAYER = USER00
 };
 
-uint8t_t set_hold_layer(void) {
+uint8t_t get_hold_layer(void) {
   switch(get_highest_layer(layer_state)) {
     case 0:
     case 1:
