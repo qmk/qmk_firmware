@@ -43,20 +43,17 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         /* Top-left encoder (volume) */
         case 0:
             tap_code(clockwise ? KC_VOLU : KC_VOLD);
-            break;
-
+            return false;
         /* Top-right encoder (backlight brightness) */
         case 1:
+#if defined(BACKLIGHT_ENABLE)
             if (clockwise) {
-#ifdef BACKLIGHT_ENABLE
                 backlight_increase();
-#endif
             } else {
-#ifdef BACKLIGHT_ENABLE
                 backlight_decrease();
-#endif
             }
-            break;
+#endif
+            return false;
     }
     return true;
 }

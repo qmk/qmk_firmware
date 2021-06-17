@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-enum user_keycodes {
+enum user_keycode {
     MC_ALTT = SAFE_RANGE,
     KEYMAP_SAFE_RANGE,
 };
