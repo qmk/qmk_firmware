@@ -17,7 +17,7 @@ Hardware:
   * PCB fabrication
   * Uses a Pro Micro wint MicroUSB connector
   * Includes a reset switch accessible by a hole on the bottom
-  * For flash fw need press hardware reset button in bottom case hole
+  * For enter the bootloader to flash new firmware need press hw reset button hole on the bottom
 
 
 Make example for this keyboard (after setting up your build environment):
