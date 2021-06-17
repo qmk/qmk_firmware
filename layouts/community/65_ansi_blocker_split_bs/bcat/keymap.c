@@ -24,6 +24,7 @@ enum layer {
 #define LY_FN MO(LAYER_FUNCTION)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // clang-format off
     /* Default layer: http://www.keyboard-layout-editor.com/#/gists/dd675b40cc4df2c7bb78847ac29f5988 */
     [LAYER_DEFAULT] = LAYOUT_65_ansi_blocker_split_bs(
         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSLS,  KC_GRV,   KC_HOME,
@@ -41,4 +42,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_APP,   _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,
         _______,  _______,  _______,                      _______,                                _______,  _______,                      _______,  _______,  _______
     ),
+    // clang-format on
 };

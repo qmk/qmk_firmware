@@ -22,18 +22,19 @@ enum layer {
 };
 
 #define LY_FUNC MO(LAYER_FUNCTION)
-#define KY_LOCK LCA(KC_L)  /* Cinnamon lock screen */
+#define KY_LOCK LCA(KC_L) /* Cinnamon lock screen */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // clang-format off
     [LAYER_DEFAULT] = LAYOUT(
         KC_MPLY,  KC_VOLU,  KC_MSTP,
         KC_MPRV,  KC_VOLD,  KC_MNXT,
         KY_LOCK,  KC_MUTE,  LY_FUNC
     ),
-
     [LAYER_FUNCTION] = LAYOUT(
         EEP_RST,  _______,  RESET,
         _______,  _______,  _______,
         _______,  _______,  _______
     ),
+    // clang-format on
 };
