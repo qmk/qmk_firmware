@@ -115,7 +115,7 @@ bool            oled_initialized    = false;
 bool            oled_active         = false;
 bool            oled_scrolling      = false;
 uint8_t         oled_brightness     = OLED_BRIGHTNESS;
-uint8_t         oled_rotation       = 0;
+oled_rotation_t oled_rotation       = 0;
 uint8_t         oled_rotation_width = 0;
 uint8_t         oled_scroll_speed   = 0;  // this holds the speed after being remapped to ssd1306 internal values
 uint8_t         oled_scroll_start   = 0;
@@ -158,7 +158,7 @@ static void InvertCharacter(uint8_t *cursor) {
     }
 }
 
-bool oled_init(uint8_t rotation) {
+bool oled_init(oled_rotation_t rotation) {
 #if defined(USE_I2C) && defined(SPLIT_KEYBOARD)
     if (!is_keyboard_master()) {
         return true;
@@ -491,8 +491,9 @@ void oled_write_raw(const char *data, uint16_t size) {
     uint16_t cursor_start_index = oled_cursor - &oled_buffer[0];
     if ((size + cursor_start_index) > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE - cursor_start_index;
     for (uint16_t i = cursor_start_index; i < cursor_start_index + size; i++) {
-        if (oled_buffer[i] == data[i]) continue;
-        oled_buffer[i] = data[i];
+        uint8_t c = *data++;
+        if (oled_buffer[i] == c) continue;
+        oled_buffer[i] = c;
         oled_dirty |= ((OLED_BLOCK_TYPE)1 << (i / OLED_BLOCK_SIZE));
     }
 }

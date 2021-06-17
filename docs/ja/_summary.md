@@ -155,6 +155,7 @@
     * [QMK への貢献](ja/contributing.md)
     * [QMK ドキュメントの翻訳](ja/translating.md)
     * [設定オプション](ja/config_options.md)
+    * [データ駆動型コンフィギュレーション](ja/data_driven_config.md)
     * [Make ドキュメント](ja/getting_started_make_guide.md)
     * [ドキュメント ベストプラクティス](ja/documentation_best_practices.md)
     * [ドキュメント テンプレート](ja/documentation_templates.md)
