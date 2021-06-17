@@ -11,9 +11,14 @@ buzzer, RGB LED underglow as well as encoders.
 * Hardware Availability: Open source design at
 https://github.com/yanghu/unicorne
 
+To enter bootloader, long press the reset button for 3-5 seconds then release.
+More details can be found at [keyboard
+wiki](https://github.com/yanghu/unicorne/wiki/Build-guide#testing-the-board). 
+
 Make example for this keyboard (after setting up your build environment):
 
 		qmk compile -kb yanghu/unicorne -km default
+
 
 See the [build environment
 setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make

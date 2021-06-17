@@ -119,12 +119,6 @@ void oled_render_mods(void) {
 
 void oneshot_mods_changed_user(uint8_t mods) { osmods = mods; }
 
-void oled_task_user(void) {
-    /* oled_render_keylog(); */
-    oled_render_layer();
-    oled_render_mods();
-}
-
 // Call this from "led_update_user" and use `led_state.caps_lock` to check
 // the status of capslock.
 void oled_render_capslock(bool caps_on) {
@@ -136,4 +130,12 @@ void oled_render_capslock(bool caps_on) {
             oled_write_ln(" ", false);
         }
     }
+}
+
+void oled_task_user(void) {
+    /* oled_render_keylog(); */
+    oled_render_layer();
+    oled_render_mods();
+    led_t led_state = host_keyboard_led_state();
+    oled_render_capslock(led_state.caps_lock);
 }
