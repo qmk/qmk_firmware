@@ -16,39 +16,19 @@
 #include QMK_KEYBOARD_H
 
 uint16_t layer_timer;
-short hold_layer;
 
 enum layer_keycodes {
-  TG_LAYER = 0x5F80
+  TG_LAYER = USER00
 };
-
-void keyboard_post_init_user(void) {
-  hold_layer = 1;
-}
-
-uint32_t layer_state_set_user(uint32_t state) {
-  switch(biton32(state)) {
-    case 0:
-    case 1:
-      hold_layer = 1;
-      break;
-    case 2:
-    case 3:
-      hold_layer = 3;
-      break;
-  };
-
-  return state;
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case TG_LAYER:
       if (record->event.pressed) {
         layer_timer = timer_read();
-        layer_on(hold_layer);
+        layer_on(layer_state << 1);
       } else {
-        layer_off(hold_layer);
+        layer_off(layer_state << 1);
 
         if (timer_elapsed(layer_timer) < TAPPING_TERM) {
           layer_invert(2);
