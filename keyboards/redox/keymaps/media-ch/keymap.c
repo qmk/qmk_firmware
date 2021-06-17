@@ -18,8 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "../../media/media.h"
 
-#define _QWERTZ 0 // standard layer
-#define _SYMB 1   // symbols layer
+enum layers {
+    _QWERTZ, // standard layer
+    _SYMB,   // symbols layer
+};
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
