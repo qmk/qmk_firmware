@@ -218,11 +218,11 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #    endif
 
 #    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
-    memcpy((void *)&i2c_buffer->led_matrix, (void *)&led_matrix_eeconfig, sizeof(i2c_buffer->led_matrix));
+    memcpy((void *)&led_matrix_eeconfig, (void *)&i2c_buffer->led_matrix, sizeof(i2c_buffer->led_matrix));
     led_matrix_set_suspend_state(i2c_buffer->led_suspend_state);
 #    endif
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
-    memcpy((void *)&i2c_buffer->rgb_matrix, (void *)&rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix));
+    memcpy((void *)&rgb_matrix_config, (void *)&i2c_buffer->rgb_matrix, sizeof(i2c_buffer->rgb_matrix));
     rgb_matrix_set_suspend_state(i2c_buffer->rgb_suspend_state);
 #    endif
 }
