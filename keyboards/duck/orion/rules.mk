@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = duck/orion/v2_5
+DEFAULT_FOLDER = duck/orion/v3
