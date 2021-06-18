@@ -124,8 +124,8 @@ void matrix_init_kb(void) {
                 }
             }
         }
-        max7219_write_frame();
         wait_ms(100);
+        max7219_write_frame();
     }
 #endif
 
