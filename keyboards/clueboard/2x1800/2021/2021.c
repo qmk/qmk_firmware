@@ -101,65 +101,36 @@ void matrix_init_kb(void) {
 
 #ifdef MAX7219_LED_SCROLL
     // Interrobang art
+    /*
     max7219_led_a[1][0] = 0b01100000;
     max7219_led_a[2][0] = 0b10000000;
     max7219_led_a[3][0] = 0b11101101;
     max7219_led_a[4][0] = 0b10010000;
     max7219_led_a[5][0] = 0b01100000;
+    */
 
-    max7219_led_a[7][0] = L_C[0];
-    max7219_led_a[0][1] = L_C[1];
-    max7219_led_a[1][1] = L_C[2];
-    max7219_led_a[2][1] = L_C[3];
-    max7219_led_a[3][1] = L_C[4];
+    // Letters
+    #define MESSAGE_LEN 52
+    uint8_t message[MESSAGE_LEN][6] = {L_A, L_B, L_C, L_D, L_E, L_F, L_G, L_H, L_I, L_J, L_K, L_L, L_M, L_N, L_O, L_P, L_Q, L_R, L_S, L_T, L_U, L_V, L_W, L_X, L_Y, L_Z, L_a, L_b, L_c, L_d, L_e, L_f, L_g, L_h, L_i, L_j, L_k, L_l, L_m, L_n, L_o, L_p, L_q, L_r, L_s, L_t, L_u, L_v, L_w, L_x, L_y, L_z};
+    uint8_t letter_num = 0;
+    uint8_t letter_col = 0;
 
-    max7219_led_a[5][1] = L_L[0];
-    max7219_led_a[6][1] = L_L[1];
-    max7219_led_a[7][1] = L_L[2];
-    max7219_led_a[0][2] = L_L[3];
-    max7219_led_a[1][2] = L_L[4];
+    for (int device_num=0; device_num<MAX7219_BUFFER_SIZE; device_num++) {
+        for (int col=0; col<8; col++) {
+            max7219_led_a[col][device_num] = message[letter_num][letter_col];
+            if (letter_col == 5) {
+                letter_num++;
+                letter_col = 0;
+            } else {
+                letter_col++;
+            }
 
-    max7219_led_a[3][2] = L_U[0];
-    max7219_led_a[4][2] = L_U[1];
-    max7219_led_a[5][2] = L_U[2];
-    max7219_led_a[6][2] = L_U[3];
-    max7219_led_a[7][2] = L_U[4];
-
-    max7219_led_a[1][3] = L_E[0];
-    max7219_led_a[2][3] = L_E[1];
-    max7219_led_a[3][3] = L_E[2];
-    max7219_led_a[4][3] = L_E[3];
-    max7219_led_a[5][3] = L_E[4];
-
-    max7219_led_a[7][3] = L_B[0];
-    max7219_led_a[0][4] = L_B[1];
-    max7219_led_a[1][4] = L_B[2];
-    max7219_led_a[2][4] = L_B[3];
-    max7219_led_a[3][4] = L_B[4];
-
-    max7219_led_a[5][4] = L_O[0];
-    max7219_led_a[6][4] = L_O[1];
-    max7219_led_a[7][4] = L_O[2];
-    max7219_led_a[0][5] = L_O[3];
-    max7219_led_a[1][5] = L_O[4];
-
-    max7219_led_a[3][5] = L_A[0];
-    max7219_led_a[4][5] = L_A[1];
-    max7219_led_a[5][5] = L_A[2];
-    max7219_led_a[6][5] = L_A[3];
-    max7219_led_a[7][5] = L_A[4];
-
-    max7219_led_a[1][6] = L_R[0];
-    max7219_led_a[2][6] = L_R[1];
-    max7219_led_a[3][6] = L_R[2];
-    max7219_led_a[4][6] = L_R[3];
-    max7219_led_a[5][6] = L_R[4];
-
-    max7219_led_a[7][6] = L_D[0];
-    max7219_led_a[0][7] = L_D[1];
-    max7219_led_a[1][7] = L_D[2];
-    max7219_led_a[2][7] = L_D[3];
-    max7219_led_a[3][7] = L_D[4];
+            if (letter_num >= MESSAGE_LEN) {
+                col=8; // End the outer loop
+                break;
+            }
+        }
+    }
 
     max7219_write_frame();
 
