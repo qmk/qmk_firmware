@@ -93,8 +93,7 @@ combo_t key_combos[COMBO_COUNT] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
 
 #ifdef COMBO_ENABLE
-    //switch(get_highest_layer(state)) {
-    switch(get_highest_layer(state|default_layer_state)) {
+    switch(get_highest_layer(state)) {
     case _GAME:
       combo_disable();
       break;
