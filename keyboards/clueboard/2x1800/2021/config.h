@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Configure our MAX7219's
 #define MAX7219_LOAD B0
 #define MAX7219_CONTROLLERS 4
-#define MAX7219_BUFFER_MULTIPLIER 4  // How many times wider the buffer is than the display area
+#define MAX7219_BUFFER_MULTIPLIER 2  // How many times wider the buffer is than the display area
 #define LED_INTENSITY 1  // Max: 15
 
 // Define this to test all LEDs

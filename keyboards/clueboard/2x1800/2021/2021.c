@@ -45,6 +45,7 @@
  */
 #include "2021.h"
 #include "max7219.h"
+#include "font.h"
 
 void matrix_init_kb(void) {
     max7219_init();
@@ -105,6 +106,61 @@ void matrix_init_kb(void) {
     max7219_led_a[3][0] = 0b11101101;
     max7219_led_a[4][0] = 0b10010000;
     max7219_led_a[5][0] = 0b01100000;
+
+    max7219_led_a[7][0] = L_C[0];
+    max7219_led_a[0][1] = L_C[1];
+    max7219_led_a[1][1] = L_C[2];
+    max7219_led_a[2][1] = L_C[3];
+    max7219_led_a[3][1] = L_C[4];
+
+    max7219_led_a[5][1] = L_L[0];
+    max7219_led_a[6][1] = L_L[1];
+    max7219_led_a[7][1] = L_L[2];
+    max7219_led_a[0][2] = L_L[3];
+    max7219_led_a[1][2] = L_L[4];
+
+    max7219_led_a[3][2] = L_U[0];
+    max7219_led_a[4][2] = L_U[1];
+    max7219_led_a[5][2] = L_U[2];
+    max7219_led_a[6][2] = L_U[3];
+    max7219_led_a[7][2] = L_U[4];
+
+    max7219_led_a[1][3] = L_E[0];
+    max7219_led_a[2][3] = L_E[1];
+    max7219_led_a[3][3] = L_E[2];
+    max7219_led_a[4][3] = L_E[3];
+    max7219_led_a[5][3] = L_E[4];
+
+    max7219_led_a[7][3] = L_B[0];
+    max7219_led_a[0][4] = L_B[1];
+    max7219_led_a[1][4] = L_B[2];
+    max7219_led_a[2][4] = L_B[3];
+    max7219_led_a[3][4] = L_B[4];
+
+    max7219_led_a[5][4] = L_O[0];
+    max7219_led_a[6][4] = L_O[1];
+    max7219_led_a[7][4] = L_O[2];
+    max7219_led_a[0][5] = L_O[3];
+    max7219_led_a[1][5] = L_O[4];
+
+    max7219_led_a[3][5] = L_A[0];
+    max7219_led_a[4][5] = L_A[1];
+    max7219_led_a[5][5] = L_A[2];
+    max7219_led_a[6][5] = L_A[3];
+    max7219_led_a[7][5] = L_A[4];
+
+    max7219_led_a[1][6] = L_R[0];
+    max7219_led_a[2][6] = L_R[1];
+    max7219_led_a[3][6] = L_R[2];
+    max7219_led_a[4][6] = L_R[3];
+    max7219_led_a[5][6] = L_R[4];
+
+    max7219_led_a[7][6] = L_D[0];
+    max7219_led_a[0][7] = L_D[1];
+    max7219_led_a[1][7] = L_D[2];
+    max7219_led_a[2][7] = L_D[3];
+    max7219_led_a[3][7] = L_D[4];
+
     max7219_write_frame();
 
     while (1) {
