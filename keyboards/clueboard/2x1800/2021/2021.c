@@ -101,23 +101,51 @@ void matrix_init_kb(void) {
 
 #ifdef MAX7219_LED_SCROLL
     while (1) {
-        for (int col=0; col<8; col++) {
-            for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
-                if (col % 2 == 0) {
-                    max7219_led_a[col][device_num] = 0b01010101;
+        max7219_led_a[7][3] = 0b11111111;
+        max7219_write_frame();
+
+        for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
+            for (int col=0; col<8; col++) {
+                /* This doesn't work and I don't understand why.
+
+                First loop I see this:
+
+                Clueboard:clueboard/2x1800/2021:1: 1 col:0 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:1 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:2 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:3 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:4 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:5 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:6 dev:3 val:255
+                Clueboard:clueboard/2x1800/2021:1: 2 col:7 dev:3 val:0
+
+                Second loop I see this:
+
+                Clueboard:clueboard/2x1800/2021:1: 1 col:0 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:1 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:2 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:3 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:4 dev:3 val:0
+                Clueboard:clueboard/2x1800/2021:1: 1 col:5 dev:3 val:255
+                Clueboard:clueboard/2x1800/2021:1: 1 col:6 dev:3 val:255
+                Clueboard:clueboard/2x1800/2021:1: 2 col:7 dev:3 val:0
+
+                Why is col:6 255 when it should be 0?
+                */
+                if (col < 7) {
+                    max7219_led_a[col][device_num] = max7219_led_a[col+1][device_num];
+                    xprintf("1 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
+                } else if (device_num == MAX7219_CONTROLLERS-1) {
+                    max7219_led_a[col][device_num] = 0;
+                    xprintf("2 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
                 } else {
-                    max7219_led_a[col][device_num] = 0b10101010;
+                    max7219_led_a[col][device_num] = max7219_led_a[0][device_num+1];
+                    xprintf("3 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
                 }
             }
         }
         max7219_write_frame();
-        for (int i=0; i<8*MAX7219_CONTROLLERS; i++) {
-            for (int row=0; row<8; row++) {
-                wait_ms(100);
-                shift_left(max7219_led_a[row], sizeof max7219_led_a[row]);
-            }
-            max7219_write_frame();
-        }
+        wait_ms(100);
     }
 #endif
 }
