@@ -99,61 +99,19 @@ void matrix_init_kb(void) {
     }
 #endif
 
-#ifdef MAX7219_LED_SCROLL
-    // Interrobang art
-    /*
-    max7219_led_a[1][0] = 0b01100000;
-    max7219_led_a[2][0] = 0b10000000;
-    max7219_led_a[3][0] = 0b11101101;
-    max7219_led_a[4][0] = 0b10010000;
-    max7219_led_a[5][0] = 0b01100000;
-    */
+#ifdef MAX7219_LED_FONTTEST
+    uint8_t message[104][6] = {L_TILDE, L_BANG, L_AT, L_POUND, L_PERCENT, L_CARET, L_AMPERSAND, L_LPAREN, L_RPAREN, L_UNDERSCORE, L_PLUS, L_BACKTICK, L_1, L_2, L_3, L_4, L_5, L_6, L_7, L_8, L_9, L_0, L_DASH, L_EQUAL, L_A, L_B, L_C, L_D, L_E, L_F, L_G, L_H, L_I, L_J, L_K, L_L, L_M, L_N, L_O, L_P, L_Q, L_R, L_S, L_T, L_U, L_V, L_W, L_X, L_Y, L_Z, L_a, L_b, L_c, L_d, L_e, L_f, L_g, L_h, L_i, L_j, L_k, L_l, L_m, L_n, L_o, L_p, L_q, L_r, L_s, L_t, L_u, L_v, L_w, L_x, L_y, L_z, L_LCURLY, L_RCURLY, L_PIPE, L_COLON, L_QUOTE, L_LESSTHAN, L_GREATERTHAN, L_QUESTIONMARK, L_INTERROBANG, L_LBRACKET, L_RBRACKET, L_BACKSLASH, L_SEMICOLON, L_APOSTROPHE, L_COMMA, L_PERIOD, L_SLASH, L_CENT, L_DEGREES, L_DEGREES_C, L_DEGREES_F, L_DIVISION, L_LEFT_ARROW, L_RIGHT_ARROW, L_UP_ARROW, L_DOWN_ARROW, L_PI, L_PSI};
+    max7219_message_sign(message, 104);
+#endif
 
-    // Letters
-    #define MESSAGE_LEN 52
-    uint8_t message[MESSAGE_LEN][6] = {L_A, L_B, L_C, L_D, L_E, L_F, L_G, L_H, L_I, L_J, L_K, L_L, L_M, L_N, L_O, L_P, L_Q, L_R, L_S, L_T, L_U, L_V, L_W, L_X, L_Y, L_Z, L_a, L_b, L_c, L_d, L_e, L_f, L_g, L_h, L_i, L_j, L_k, L_l, L_m, L_n, L_o, L_p, L_q, L_r, L_s, L_t, L_u, L_v, L_w, L_x, L_y, L_z};
-    uint8_t letter_num = 0;
-    uint8_t letter_col = 0;
+#ifdef MAX7219_LED_CLUEBOARD
+    uint8_t message[10][6] = {L_INTERROBANG, L_C, L_l, L_u, L_e, L_b, L_o, L_a, L_r, L_d};
+    max7219_message_sign(message, 10);
+#endif
 
-    for (int device_num=0; device_num<MAX7219_BUFFER_SIZE; device_num++) {
-        for (int col=0; col<8; col++) {
-            max7219_led_a[col][device_num] = message[letter_num][letter_col];
-            if (letter_col == 5) {
-                letter_num++;
-                letter_col = 0;
-            } else {
-                letter_col++;
-            }
-
-            if (letter_num >= MESSAGE_LEN) {
-                col=8; // End the outer loop
-                break;
-            }
-        }
-    }
-
-    max7219_write_frame();
-
-    while (1) {
-        uint8_t left_col = max7219_led_a[0][0];
-
-        for (int device_num=0; device_num<MAX7219_BUFFER_SIZE; device_num++) {
-            for (int col=0; col<8; col++) {
-                if (col < 7) {
-                    max7219_led_a[col][device_num] = max7219_led_a[col+1][device_num];
-                    xprintf("1 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
-                } else if (device_num == MAX7219_BUFFER_SIZE-1) {
-                    max7219_led_a[col][device_num] = left_col;
-                    xprintf("2 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
-                } else {
-                    max7219_led_a[col][device_num] = max7219_led_a[0][device_num+1];
-                    xprintf("3 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
-                }
-            }
-        }
-        wait_ms(100);
-        max7219_write_frame();
-    }
+#ifdef MAX7219_LED_QMK_POWERED
+    uint8_t message[15][6] = {L_PSI, L_P, L_o, L_w, L_e, L_r, L_e, L_d, L_SPACE, L_b, L_y, L_SPACE, L_Q, L_M, L_K};
+    max7219_message_sign(message, 15);
 #endif
 
     max7219_set_led(0, 0, true);

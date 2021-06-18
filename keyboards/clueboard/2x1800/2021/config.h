@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Configure our MAX7219's
 #define MAX7219_LOAD B0
 #define MAX7219_CONTROLLERS 4
-#define MAX7219_BUFFER_MULTIPLIER 10  // How many times wider the buffer is than the display area
+#define MAX7219_BUFFER_MULTIPLIER 4  // How many times wider the buffer is than the display area
 #define LED_INTENSITY 1  // Max: 15
 
 // Define this to test all LEDs
@@ -52,5 +52,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Define this to show a simple animation
 //#define MAX7219_LED_DANCE
 
-// Define this to show a simple scroll animation
-#define MAX7219_LED_SCROLL
+// Define this to show all the characters available
+//#define MAX7219_LED_FONTTEST
+
+// Define this to show Clueboard on the sign
+//#define MAX7219_LED_CLUEBOARD
+
+// Define this to show QMK on the sign
+#define MAX7219_LED_QMK_POWERED

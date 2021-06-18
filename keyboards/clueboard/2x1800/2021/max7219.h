@@ -45,13 +45,13 @@
 extern uint8_t max7219_led_a[8][MAX7219_BUFFER_SIZE];
 
 // Functions
-void shift_left(void *object, size_t size);
 void max7219_write(int device_num, volatile uint8_t opcode, volatile uint8_t data);
 void max7219_write_all(void);
 void max7219_write_frame(void);
 void max7219_clear_display(void);
 void max7219_display_test(int device_num, bool enabled);
 void max7219_init(void);
+void max7219_message_sign(uint8_t message[][6], size_t message_len);
 void max7219_set_decode_mode(int device_num, int mode);
 void max7219_set_intensity(int device_num, int intensity);
 void max7219_set_led(int row, int column, bool state);
