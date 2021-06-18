@@ -40,16 +40,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Configure our MAX7219's
 #define MAX7219_LOAD B0
 #define MAX7219_CONTROLLERS 4
-#define MAX7219_BUFFER_MULTIPLIER 4  // How many times wider the buffer is than the display area
 #define LED_INTENSITY 1  // Max: 15
 
-// Define this to test all LEDs
+/* This setting controls how big the scrollable area for your message sign
+ * is. If you set it to 0 your display will not work. If you set it to 1
+ * you will have no buffer area, and you will only be able to display a
+ * total of 6 characters. Every number after that increases the buffer area
+ * by 32 columns.
+ *
+ * You can calculate how big this should be:
+ *
+ *     <number of characters in message> * 6 / 32 + 1
+ *
+ * You can increase the time between loops by increasing this value.
+ */
+#define MAX7219_BUFFER_MULTIPLIER 4
+
+// You can only define one of these at a time:
+
+// Define this to test all LEDs. Keyboard functions will not work.
 //#define MAX7219_LED_TEST
 
-// Define this to iterate through LEDs 1 by 1
+// Define this to iterate through LEDs 1 by 1. Keyboard functions will not work.
 //#define MAX7219_LED_ITERATE
 
-// Define this to show a simple animation
+// Define this to show a simple animation. Keyboard functions will not work.
 //#define MAX7219_LED_DANCE
 
 // Define this to show all the characters available
@@ -58,5 +73,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Define this to show Clueboard on the sign
 //#define MAX7219_LED_CLUEBOARD
 
+// Define this to show the Konami code on the sign
+//#define MAX7219_LED_KONAMI
+
 // Define this to show QMK on the sign
-#define MAX7219_LED_QMK_POWERED
+//#define MAX7219_LED_QMK_POWERED
+
+// Define this to treat the message board like an etch-a-sketch
+#define DRAWING_TOY_MODE
+

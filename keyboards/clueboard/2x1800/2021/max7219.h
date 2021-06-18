@@ -29,6 +29,28 @@
 #include "quantum.h"
 #include "spi_master.h"
 
+/* Override the buffer multiplier for certain modes
+ */
+#ifdef MAX7219_LED_FONTTEST
+#    undef MAX7219_BUFFER_MULTIPLIER
+#    define MAX7219_BUFFER_MULTIPLIER 20
+#endif
+
+#ifdef MAX7219_LED_CLUEBOARD
+#    undef MAX7219_BUFFER_MULTIPLIER
+#    define MAX7219_BUFFER_MULTIPLIER 3
+#endif
+
+#ifdef MAX7219_LED_KONAMI
+#    undef MAX7219_BUFFER_MULTIPLIER
+#    define MAX7219_BUFFER_MULTIPLIER 7
+#endif
+
+#ifdef MAX7219_LED_QMK_POWERED
+#    undef MAX7219_BUFFER_MULTIPLIER
+#    define MAX7219_BUFFER_MULTIPLIER 4
+#endif
+
 // Configure our MAX7219's
 #define MAX_BYTES MAX7219_CONTROLLERS * 2
 #define LED_COUNT MAX7219_CONTROLLERS * 64
@@ -52,6 +74,7 @@ void max7219_clear_display(void);
 void max7219_display_test(int device_num, bool enabled);
 void max7219_init(void);
 void max7219_message_sign(uint8_t message[][6], size_t message_len);
+void max7219_message_sign_task(bool loop_message);
 void max7219_set_decode_mode(int device_num, int mode);
 void max7219_set_intensity(int device_num, int intensity);
 void max7219_set_led(int row, int column, bool state);

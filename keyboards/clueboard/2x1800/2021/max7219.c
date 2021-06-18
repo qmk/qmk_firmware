@@ -123,23 +123,32 @@ void max7219_message_sign(uint8_t message[][6], size_t message_len) {
     }
 
     max7219_write_frame();
-    while (1) {
-        uint8_t left_col = max7219_led_a[0][0];
+}
 
-        for (int device_num=0; device_num<MAX7219_BUFFER_SIZE; device_num++) {
-            for (int col=0; col<8; col++) {
-                if (col < 7) {
-                    max7219_led_a[col][device_num] = max7219_led_a[col+1][device_num];
-                } else if (device_num == MAX7219_BUFFER_SIZE-1) {
-                    max7219_led_a[col][device_num] = left_col;
-                } else {
-                    max7219_led_a[col][device_num] = max7219_led_a[0][device_num+1];
-                }
+/* Scroll the content on the sign left by 1 column.
+ *
+ * When loop_message is true columns that slide off the left will be added
+ * to the right to be displayed again.
+ */
+void max7219_message_sign_task(bool loop_message) {
+    uint8_t left_col = 0b00000000;
+
+    if (loop_message) {
+        left_col = max7219_led_a[0][0];
+    }
+
+    for (int device_num=0; device_num<MAX7219_BUFFER_SIZE; device_num++) {
+        for (int col=0; col<8; col++) {
+            if (col < 7) {
+                max7219_led_a[col][device_num] = max7219_led_a[col+1][device_num];
+            } else if (device_num == MAX7219_BUFFER_SIZE-1) {
+                max7219_led_a[col][device_num] = left_col;
+            } else {
+                max7219_led_a[col][device_num] = max7219_led_a[0][device_num+1];
             }
         }
-        wait_ms(50);
-        max7219_write_frame();
     }
+    max7219_write_frame();
 }
 
 /* Write data to a single max7219
