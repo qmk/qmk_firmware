@@ -48,7 +48,6 @@
 
 void matrix_init_kb(void) {
     max7219_init();
-    max7219_set_led(0, 0, true);
 
 #ifdef MAX7219_LED_TEST
     while(1) {
@@ -100,43 +99,24 @@ void matrix_init_kb(void) {
 #endif
 
 #ifdef MAX7219_LED_SCROLL
+    // Interrobang art
+    max7219_led_a[1][0] = 0b01100000;
+    max7219_led_a[2][0] = 0b10000000;
+    max7219_led_a[3][0] = 0b11101101;
+    max7219_led_a[4][0] = 0b10010000;
+    max7219_led_a[5][0] = 0b01100000;
+    max7219_write_frame();
+
     while (1) {
-        max7219_led_a[7][3] = 0b11111111;
-        max7219_write_frame();
+        uint8_t left_col = max7219_led_a[0][0];
 
         for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
             for (int col=0; col<8; col++) {
-                /* This doesn't work and I don't understand why.
-
-                First loop I see this:
-
-                Clueboard:clueboard/2x1800/2021:1: 1 col:0 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:1 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:2 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:3 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:4 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:5 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:6 dev:3 val:255
-                Clueboard:clueboard/2x1800/2021:1: 2 col:7 dev:3 val:0
-
-                Second loop I see this:
-
-                Clueboard:clueboard/2x1800/2021:1: 1 col:0 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:1 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:2 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:3 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:4 dev:3 val:0
-                Clueboard:clueboard/2x1800/2021:1: 1 col:5 dev:3 val:255
-                Clueboard:clueboard/2x1800/2021:1: 1 col:6 dev:3 val:255
-                Clueboard:clueboard/2x1800/2021:1: 2 col:7 dev:3 val:0
-
-                Why is col:6 255 when it should be 0?
-                */
                 if (col < 7) {
                     max7219_led_a[col][device_num] = max7219_led_a[col+1][device_num];
                     xprintf("1 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
                 } else if (device_num == MAX7219_CONTROLLERS-1) {
-                    max7219_led_a[col][device_num] = 0;
+                    max7219_led_a[col][device_num] = left_col;
                     xprintf("2 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
                 } else {
                     max7219_led_a[col][device_num] = max7219_led_a[0][device_num+1];
@@ -148,6 +128,8 @@ void matrix_init_kb(void) {
         wait_ms(100);
     }
 #endif
+
+    max7219_set_led(0, 0, true);
 }
 
 __attribute__ ((weak))

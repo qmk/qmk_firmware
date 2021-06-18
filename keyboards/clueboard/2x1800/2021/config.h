@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Configure our MAX7219's
 #define MAX7219_LOAD B0
 #define MAX7219_CONTROLLERS 4
-#define LED_INTENSITY 12  // Max: 15
+#define LED_INTENSITY 1  // Max: 15
 
 // Define this to test all LEDs
 //#define MAX7219_LED_TEST
