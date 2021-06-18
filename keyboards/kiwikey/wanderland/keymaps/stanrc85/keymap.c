@@ -85,7 +85,7 @@ void oled_task_user(void) {
 #endif
 
 // Backlight timeout feature
-#define BACKLIGHT_TIMEOUT 20    // in minutes
+#define BACKLIGHT_TIMEOUT 20   // in minutes
 static uint16_t idle_timer = 0;
 static uint8_t halfmin_counter = 0;
 static bool led_on = true;
@@ -107,7 +107,7 @@ void matrix_scan_user(void) {
         }
 };
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
             if (led_on == false || rgb_on == false ) {
         rgblight_enable_noeeprom();
@@ -118,4 +118,4 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         halfmin_counter = 0;
     }
     return true;
-  }
+}
