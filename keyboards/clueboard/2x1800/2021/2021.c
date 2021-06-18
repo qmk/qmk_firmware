@@ -49,6 +49,77 @@
 void matrix_init_kb(void) {
     max7219_init();
     max7219_set_led(0, 0, true);
+
+#ifdef MAX7219_LED_TEST
+    while(1) {
+        for (int i=0; i<MAX7219_CONTROLLERS; i++) {
+            max7219_display_test(i, true);
+            wait_ms(500);
+            max7219_display_test(i, false);
+        }
+    }
+#endif
+
+#ifdef MAX7219_LED_ITERATE
+    while (1) {
+        for (int row=0; row<8; row++) {
+            for(int col=0;col<8*MAX7219_CONTROLLERS;col++) {
+                max7219_set_led(row, col, true);
+                wait_ms(500);
+                max7219_set_led(row, col, false);
+            }
+        }
+    }
+#endif
+
+#ifdef MAX7219_LED_DANCE
+    while (1) {
+        for (int col=0; col<8; col++) {
+            for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
+                if (col % 2 == 0) {
+                    max7219_led_a[col][device_num] = 0b01010101;
+                } else {
+                    max7219_led_a[col][device_num] = 0b10101010;
+                }
+            }
+        }
+        max7219_write_frame();
+        wait_ms(500);
+        for (int col=0; col<8; col++) {
+            for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
+                if (col % 2 == 0) {
+                    max7219_led_a[col][device_num] = 0b10101010;
+                } else {
+                    max7219_led_a[col][device_num] = 0b01010101;
+                }
+            }
+        }
+        max7219_write_frame();
+        wait_ms(500);
+    }
+#endif
+
+#ifdef MAX7219_LED_SCROLL
+    while (1) {
+        for (int col=0; col<8; col++) {
+            for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
+                if (col % 2 == 0) {
+                    max7219_led_a[col][device_num] = 0b01010101;
+                } else {
+                    max7219_led_a[col][device_num] = 0b10101010;
+                }
+            }
+        }
+        max7219_write_frame();
+        for (int i=0; i<8*MAX7219_CONTROLLERS; i++) {
+            for (int row=0; row<8; row++) {
+                wait_ms(100);
+                shift_left(max7219_led_a[row], sizeof max7219_led_a[row]);
+            }
+            max7219_write_frame();
+        }
+    }
+#endif
 }
 
 __attribute__ ((weak))

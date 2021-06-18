@@ -39,6 +39,22 @@
 
 #include "max7219.h"
 
+// Datastructures
+uint8_t max7219_spidata[MAX_BYTES];
+uint8_t max7219_led_a[8][MAX7219_CONTROLLERS];
+
+void shift_left(void *object, size_t size) {
+   unsigned char *byte;
+   for (byte = object; size--; ++byte) {
+      unsigned char bit = 0;
+      if (size) {
+         bit = byte[1] & (1 << (CHAR_BIT - 1)) ? 1 : 0;
+      }
+      *byte <<= 1;
+      *byte |= bit;
+   }
+}
+
 /* Write max7219_spidata to all the max7219's
  */
 void max7219_write_all(void) {
@@ -54,7 +70,7 @@ void max7219_write_all(void) {
     }
 }
 
-/* Write the current frame in max7219_led_a to all the max's
+/* Write the current frame in max7219_led_a to all the max7219's
  */
 void max7219_write_frame(void) {
     dprintf("max7219_write_frame()\n");
@@ -91,12 +107,8 @@ void max7219_write(int device_num, volatile uint8_t opcode, volatile uint8_t dat
 
 /* Turn off all the LEDs
  */
-void max7219_clear_display(int device_num) {
-    dprintf("max7219_clear_display(%d);\n", device_num);
-
-    if (device_num<0 || device_num >= MAX7219_CONTROLLERS) {
-        return;
-    }
+void max7219_clear_display(void) {
+    dprintf("max7219_clear_display();\n");
 
     for (int col=0; col<8; col++) {
         for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
@@ -129,7 +141,7 @@ void max7219_init(void) {
     spi_init();
 
     for (int i=0; i<MAX7219_CONTROLLERS; i++) {
-        max7219_shutdown(i, false);
+        max7219_shutdown(i, true);
     }
 
     for (int i=0; i<MAX7219_CONTROLLERS; i++) {
@@ -137,10 +149,10 @@ void max7219_init(void) {
         max7219_display_test(i, false);
         max7219_set_scan_limit(i, 7);
         max7219_set_decode_mode(i, 0);
-        max7219_clear_display(i);
         max7219_set_intensity(i, LED_INTENSITY);
-        max7219_shutdown(i, true);
     }
+
+    max7219_clear_display();
 
     for (int i=0; i<MAX7219_CONTROLLERS; i++) {
         // Test this display
@@ -149,54 +161,9 @@ void max7219_init(void) {
         max7219_display_test(i, false);
     }
 
-#ifdef MAX7219_LED_TEST
-    while(1) {
-        for (int i=0; i<MAX7219_CONTROLLERS; i++) {
-            max7219_display_test(i, true);
-            wait_ms(500);
-            max7219_display_test(i, false);
-        }
+    for (int i=0; i<MAX7219_CONTROLLERS; i++) {
+        max7219_shutdown(i, false);
     }
-#endif
-
-#ifdef MAX7219_LED_ITERATE
-    while (1) {
-        for (int row=0; row<8; row++) {
-            for(int col=0;col<8*MAX7219_CONTROLLERS;col++) {
-                max7219_set_led(row, col, true);
-                wait_ms(500);
-                max7219_set_led(row, col, false);
-            }
-        }
-    }
-#endif
-
-#ifdef MAX7219_LED_DANCE
-    while (1) {
-        for (int col=0; col<8; col++) {
-            for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
-                if (col % 2 == 0) {
-                    max7219_led_a[col][device_num] = 0b01010101;
-                } else {
-                    max7219_led_a[col][device_num] = 0b10101010;
-                }
-            }
-        }
-        max7219_write_frame();
-        wait_ms(500);
-        for (int col=0; col<8; col++) {
-            for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
-                if (col % 2 == 0) {
-                    max7219_led_a[col][device_num] = 0b10101010;
-                } else {
-                    max7219_led_a[col][device_num] = 0b01010101;
-                }
-            }
-        }
-        max7219_write_frame();
-        wait_ms(500);
-    }
-#endif
 }
 
 /* Set the decode mode of the controller. You probably don't want to change this.
@@ -270,7 +237,7 @@ void max7219_set_scan_limit(int device_num, int limit) {
     }
 }
 
-/* Enable (false) or disable (true) the controller.
+/* Enable (true) or disable (false) the controller.
  */
 void max7219_shutdown(int device_num, bool shutdown) {
     dprintf("max7219_shutdown(%d, %d);\n", device_num, shutdown);
@@ -279,5 +246,5 @@ void max7219_shutdown(int device_num, bool shutdown) {
         return;
     }
 
-    max7219_write(device_num, OP_SHUTDOWN, shutdown);
+    max7219_write(device_num, OP_SHUTDOWN, !shutdown);
 }

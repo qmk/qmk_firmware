@@ -50,3 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Define this to show a simple animation
 //#define MAX7219_LED_DANCE
+
+// Define this to show a simple scroll animation
+#define MAX7219_LED_SCROLL
