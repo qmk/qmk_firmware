@@ -41,7 +41,7 @@
 
 // Datastructures
 uint8_t max7219_spidata[MAX_BYTES];
-uint8_t max7219_led_a[8][MAX7219_CONTROLLERS];
+uint8_t max7219_led_a[8][MAX7219_BUFFER_SIZE];
 
 void shift_left(void *object, size_t size) {
    unsigned char *byte;

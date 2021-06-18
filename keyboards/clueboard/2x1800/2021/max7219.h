@@ -32,6 +32,7 @@
 // Configure our MAX7219's
 #define MAX_BYTES MAX7219_CONTROLLERS * 2
 #define LED_COUNT MAX7219_CONTROLLERS * 64
+#define MAX7219_BUFFER_SIZE MAX7219_CONTROLLERS*MAX7219_BUFFER_MULTIPLIER
 
 // Opcodes for the MAX7219
 #define OP_DECODEMODE  9
@@ -41,7 +42,7 @@
 #define OP_DISPLAYTEST 15
 
 // Datastructures
-extern uint8_t max7219_led_a[8][MAX7219_CONTROLLERS];
+extern uint8_t max7219_led_a[8][MAX7219_BUFFER_SIZE];
 
 // Functions
 void shift_left(void *object, size_t size);

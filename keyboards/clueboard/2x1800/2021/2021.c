@@ -110,12 +110,12 @@ void matrix_init_kb(void) {
     while (1) {
         uint8_t left_col = max7219_led_a[0][0];
 
-        for (int device_num=0; device_num<MAX7219_CONTROLLERS; device_num++) {
+        for (int device_num=0; device_num<MAX7219_BUFFER_SIZE; device_num++) {
             for (int col=0; col<8; col++) {
                 if (col < 7) {
                     max7219_led_a[col][device_num] = max7219_led_a[col+1][device_num];
                     xprintf("1 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
-                } else if (device_num == MAX7219_CONTROLLERS-1) {
+                } else if (device_num == MAX7219_BUFFER_SIZE-1) {
                     max7219_led_a[col][device_num] = left_col;
                     xprintf("2 col:%d dev:%d val:%d\n", col, device_num, max7219_led_a[col][device_num]);
                 } else {
