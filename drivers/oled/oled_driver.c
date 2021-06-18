@@ -696,8 +696,7 @@ bool oled_invert(bool invert) {
         return oled_inverted;
     }
 
-    if (invert && !oled_inverted)
-    {
+    if (invert && !oled_inverted) {
         static const uint8_t PROGMEM display_inverted[] = {I2C_CMD, INVERT_DISPLAY};
         if (I2C_TRANSMIT_P(display_inverted) != I2C_STATUS_SUCCESS) {
             print("oled_invert cmd failed\n");
