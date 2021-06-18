@@ -17,6 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "portico.h"
 
+#ifndef RGB_BACKLIGHT_PORTICO
+#error RGB_BACKLIGHT_PORTICO not defined
+#endif
+
 #ifdef RGB_MATRIX_ENABLE
 
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
@@ -127,11 +131,7 @@ void suspend_wakeup_init_kb(void) {
 
 void rgb_matrix_indicators_kb(void) {
 	if (host_keyboard_led_state().caps_lock) {
-		rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
-	}
-	else { 
-		rgb_matrix_set_color(30, 0x00, 0x00, 0x00);
-	}
+		rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);}
 	if (!rgb_matrix_is_enabled()) {
 		rgb_matrix_driver.flush();
     }

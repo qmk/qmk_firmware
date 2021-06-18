@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
+#include "keyboards/wilba_tech/wt_rgb_backlight_keycodes.h"
+#include "via.h"
 
 #define XXX KC_NO
 
