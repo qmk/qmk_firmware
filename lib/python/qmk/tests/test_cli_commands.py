@@ -262,7 +262,7 @@ def test_generate_rules_mk():
 def test_generate_version_h():
     result = check_subcommand('generate-version-h')
     check_returncode(result)
-    assert Path('quantum/version.h').isfile()
+    assert Path('quantum/version.h').is_file()
 
 
 def test_generate_layouts():
