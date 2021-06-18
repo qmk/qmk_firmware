@@ -47,6 +47,10 @@
 #include "max7219.h"
 #include "font.h"
 
+#if !defined(MAX7219_LED_TEST) && !defined(MAX7219_LED_ITERATE) && !defined(MAX7219_LED_DANCE) && !defined(MAX7219_LED_FONTTEST) && !defined(MAX7219_LED_CLUEBOARD) && !defined(MAX7219_LED_KONAMI) && !defined(MAX7219_LED_QMK_POWERED) && !defined(MAX7219_DRAWING_TOY_MODE) && !defined(MAX7219_LED_CUSTOM)
+#    define MAX7219_LED_CLUEBOARD
+#endif
+
 #ifndef DRAWING_TOY_MODE
 static uint16_t led_frame_timer = 0;
 
@@ -163,6 +167,20 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         }
 
         max7219_set_led(led_position[1], led_position[0], true);
+#else
+        // Encoder 1, left
+        if (index == 0 && clockwise) {
+            tap_code(KC_MS_R);  // turned right
+        } else if (index == 0) {
+            tap_code(KC_MS_L);  // turned left
+        }
+
+        // Encoder 2, right
+        else if (index == 1 && clockwise) {
+            tap_code(KC_MS_U);  // turned right
+        } else if (index == 1) {
+            tap_code(KC_MS_D);  // turned left
+        }
 #endif
     }
     return true;  // FIXME: check which I should return

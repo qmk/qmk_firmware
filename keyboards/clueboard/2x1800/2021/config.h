@@ -80,5 +80,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAX7219_LED_QMK_POWERED
 
 // Define this to treat the message board like an etch-a-sketch
-#define DRAWING_TOY_MODE
+//#define DRAWING_TOY_MODE
 
