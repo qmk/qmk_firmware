@@ -26,6 +26,7 @@ void matrix_init_custom(void) {
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     uint32_t timeout = 0;
+    bool changed = false;
 
     //the s character requests the RF slave to send the matrix
     SERIAL_UART_DATA = 's';
@@ -52,9 +53,13 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     if (uart_data[11] == 0xE0) {
         //shifting and transferring the keystates to the QMK matrix variable
         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-            current_matrix[i] = (uint16_t) uart_data[i * 2] | (uint16_t) uart_data[i * 2 + 1] << 6;
+            matrix_row_t current_row = (uint16_t) uart_data[i * 2] | (uint16_t) uart_data[i * 2 + 1] << 6;
+            if (current_matrix[i] != current_row) {
+                changed = true;
+            }
+            current_matrix[i] = current_row;
         }
     }
 
-    return true;
+    return changed;
 }
