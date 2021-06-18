@@ -93,9 +93,7 @@ bool led_update_user(led_t led_state) {
     }
     rgblight_set_layer_state(CAPS, led_state.caps_lock);
     rgblight_set_layer_state(NUM, !led_state.num_lock);
-    writePin(LED_NUM_LOCK_PIN, !is_backlight_enabled());
-    writePin(LED_CAPS_LOCK_PIN, !is_backlight_enabled());
-    return false;
+    return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -111,17 +109,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed){
                 char hue[4];
                 itoa(rgblight_get_hue(), hue, 10);
-                hue[4] = '\0';
+                hue[3] = '\0';
                 send_string(hue);
                 SEND_STRING(", ");
                 char sat[4];
                 itoa(rgblight_get_sat(), sat, 10);
-                sat[4] = '\0';
+                sat[3] = '\0';
                 send_string(sat);
                 SEND_STRING(", ");
                 char val[4];
                 itoa(rgblight_get_val(), val, 10);
-                val[4] = '\0';
+                val[3] = '\0';
                 send_string(val);
                 SEND_STRING(" ");
             }
