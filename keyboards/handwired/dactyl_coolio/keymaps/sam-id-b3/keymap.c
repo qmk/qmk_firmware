@@ -5,7 +5,7 @@
 enum taps {
 	//TD_PRNS = 0,
 	//TD_BRCS, //Brackets
-	TD_EXLM = 0, //! and ?
+	TD_EXLM, //! and ?
 	TD_PCAS, //% and *
 	TD_PLMN, //+ and -
 	TD_ASDI, //* and /
