@@ -42,6 +42,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MAX7219_CONTROLLERS 4
 #define MAX7219_LED_INTENSITY 1  // Max: 15
 
+// Define this to disable the startup test
+//#define MAX7219_NO_STARTUP_TEST
+
 /* This setting controls how big the scrollable area for your message sign
  * is. If you set it to 0 your display will not work. If you set it to 1
  * you will have no buffer area, and you will only be able to display a

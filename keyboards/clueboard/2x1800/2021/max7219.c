@@ -220,12 +220,14 @@ void max7219_init(void) {
 
     max7219_clear_display();
 
+#ifndef MAX7219_NO_STARTUP_TEST
     for (int i=0; i<MAX7219_CONTROLLERS; i++) {
         // Test this display
         max7219_display_test(i, true);
         wait_ms(75);
         max7219_display_test(i, false);
     }
+#endif
 
     for (int i=0; i<MAX7219_CONTROLLERS; i++) {
         max7219_shutdown(i, false);
