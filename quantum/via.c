@@ -93,6 +93,9 @@ __attribute__((weak)) void via_init_kb(void) {}
 
 // Called by QMK core to initialize dynamic keymaps etc.
 void via_init(void) {
+
+    via_init_kb();
+    
     // If the EEPROM has the magic, the data is good.
     // OK to load from EEPROM.
     if (!via_eeprom_is_valid()) {
