@@ -29,28 +29,6 @@
 #include "quantum.h"
 #include "spi_master.h"
 
-/* Override the buffer multiplier for certain modes
- */
-#ifdef MAX7219_LED_FONTTEST
-#    undef MAX7219_BUFFER_MULTIPLIER
-#    define MAX7219_BUFFER_MULTIPLIER 20
-#endif
-
-#ifdef MAX7219_LED_CLUEBOARD
-#    undef MAX7219_BUFFER_MULTIPLIER
-#    define MAX7219_BUFFER_MULTIPLIER 3
-#endif
-
-#ifdef MAX7219_LED_KONAMI
-#    undef MAX7219_BUFFER_MULTIPLIER
-#    define MAX7219_BUFFER_MULTIPLIER 7
-#endif
-
-#ifdef MAX7219_LED_QMK_POWERED
-#    undef MAX7219_BUFFER_MULTIPLIER
-#    define MAX7219_BUFFER_MULTIPLIER 4
-#endif
-
 // Configure our MAX7219's
 #define MAX_BYTES MAX7219_CONTROLLERS * 2
 #define LED_COUNT MAX7219_CONTROLLERS * 64
@@ -65,7 +43,8 @@
 
 // Datastructures
 extern uint8_t max7219_led_a[8][MAX7219_BUFFER_SIZE];
-extern bool led_scrolling;
+extern bool max7219_led_scrolling;
+extern uint16_t max7219_buffer_end;
 
 // Functions
 void max7219_write(int device_num, volatile uint8_t opcode, volatile uint8_t data);

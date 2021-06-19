@@ -41,21 +41,10 @@
 #include "font.h"
 
 // Datastructures
-bool led_scrolling = true;
+bool max7219_led_scrolling = true;
+uint16_t max7219_buffer_end = 0;
 uint8_t max7219_spidata[MAX_BYTES];
 uint8_t max7219_led_a[8][MAX7219_BUFFER_SIZE];
-
-void shift_left(void *object, size_t size) {
-   unsigned char *byte;
-   for (byte = object; size--; ++byte) {
-      unsigned char bit = 0;
-      if (size) {
-         bit = byte[1] & (1 << (CHAR_BIT - 1)) ? 1 : 0;
-      }
-      *byte <<= 1;
-      *byte |= bit;
-   }
-}
 
 /* Write max7219_spidata to all the max7219's
  */
@@ -102,6 +91,7 @@ void max7219_write_frame(void) {
 void max7219_message_sign(uint8_t message[][6], size_t message_len) {
     uint8_t letter_num = 0;
     uint8_t letter_col = 0;
+    max7219_buffer_end = message_len * 6 + 32;
 
     for (int device_num=0; device_num<MAX7219_BUFFER_SIZE; device_num++) {
         for (int col=0; col<8; col++) {
@@ -130,7 +120,7 @@ void max7219_message_sign(uint8_t message[][6], size_t message_len) {
 void max7219_message_sign_task(bool loop_message) {
     uint8_t left_col = 0b00000000;
 
-    if (!led_scrolling) {
+    if (!max7219_led_scrolling) {
         return;
     }
 
@@ -138,9 +128,17 @@ void max7219_message_sign_task(bool loop_message) {
         left_col = max7219_led_a[0][0];
     }
 
+    int i=0;
+
     for (int device_num=0; device_num<MAX7219_BUFFER_SIZE; device_num++) {
         for (int col=0; col<8; col++) {
-            if (col < 7) {
+            i++;
+
+            if (i == max7219_buffer_end) {
+                max7219_led_a[col][device_num] = left_col;
+                device_num=MAX7219_BUFFER_SIZE;
+                break;
+            } else if (col < 7) {
                 max7219_led_a[col][device_num] = max7219_led_a[col+1][device_num];
             } else if (device_num == MAX7219_BUFFER_SIZE-1) {
                 max7219_led_a[col][device_num] = left_col;

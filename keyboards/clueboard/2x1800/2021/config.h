@@ -48,13 +48,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * total of 6 characters. Every number after that increases the buffer area
  * by 32 columns.
  *
- * You can calculate how big this should be:
+ * You can calculate how big to make this for the number of characters you
+ * want to display:
  *
  *     <number of characters in message> * 6 / 32 + 1
  *
- * You can increase the time between loops by increasing this value.
+ * You do not need to tune this unless you are trying to save ram.
  */
-#define MAX7219_BUFFER_MULTIPLIER 4
+#define MAX7219_BUFFER_MULTIPLIER 24
 
 // You can only define one of these at a time:
 

@@ -109,16 +109,16 @@ void matrix_init_kb(void) {
         wait_ms(500);
     }
 #elif defined(MAX7219_LED_FONTTEST)
-    uint8_t message[104][6] = MSG_FONTTEST;
+    uint8_t message[MSG_FONTTEST_LEN][6] = MSG_FONTTEST;
     max7219_message_sign(message, MSG_FONTTEST_LEN);
 #elif defined(MAX7219_LED_CLUEBOARD)
-    uint8_t message[10][6] = MSG_CLUEBOARD;
+    uint8_t message[MSG_CLUEBOARD_LEN][6] = MSG_CLUEBOARD;
     max7219_message_sign(message, MSG_CLUEBOARD_LEN);
 #elif defined(MAX7219_LED_KONAMI)
-    uint8_t message[36][6] = MSG_KONAMI;
+    uint8_t message[MSG_KONAMI_LEN][6] = MSG_KONAMI;
     max7219_message_sign(message, MSG_KONAMI_LEN);
 #elif defined(MAX7219_LED_QMK_POWERED)
-    uint8_t message[15][6] = MSG_QMK_POWERED;
+    uint8_t message[MSG_QMK_POWERED_LEN][6] = MSG_QMK_POWERED;
     max7219_message_sign(message, MSG_QMK_POWERED_LEN);
 #elif defined(DRAWING_TOY_MODE)
     max7219_set_led(0, 0, true);

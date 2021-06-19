@@ -5,7 +5,6 @@
 enum custom_keycodes {
     MSG_CB =  SAFE_RANGE,
     MSG_CS,
-    MSG_FT,
     MSG_KMI,
     MSG_QMK,
 };
@@ -27,21 +26,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MSG_CB:
-                led_scrolling=true;
+                max7219_led_scrolling=true;
                 uint8_t cb_msg[MSG_CLUEBOARD_LEN][6] = MSG_CLUEBOARD;
                 max7219_message_sign(cb_msg, MSG_CLUEBOARD_LEN);
                 return true;
             case MSG_CS:
-                led_scrolling=false;
+                max7219_led_scrolling=false;
                 max7219_message_sign(custom_message, 5);
                 return true;
             case MSG_KMI:
-                led_scrolling=true;
+                max7219_led_scrolling=true;
                 uint8_t kmi_msg[MSG_KONAMI_LEN][6] = MSG_KONAMI;
                 max7219_message_sign(kmi_msg, MSG_KONAMI_LEN);
                 return true;
             case MSG_QMK:
-                led_scrolling=true;
+                max7219_led_scrolling=true;
                 uint8_t qmk_msg[MSG_QMK_POWERED_LEN][6] = MSG_QMK_POWERED;
                 max7219_message_sign(qmk_msg, MSG_QMK_POWERED_LEN);
                 return true;
