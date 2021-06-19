@@ -24,6 +24,13 @@
 #    include "rgblight.h"
 #endif
 
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
+#endif
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix.h"
+#endif
+
 /** \brief suspend idle
  *
  * FIXME: needs doc
@@ -53,6 +60,13 @@ void suspend_power_down(void) {
     backlight_set(0);
 #endif
 
+#ifdef LED_MATRIX_ENABLE
+    led_matrix_task();
+#endif
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_task();
+#endif
+
     // Turn off LED indicators
     uint8_t leds_off = 0;
 #if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
@@ -68,6 +82,13 @@ void suspend_power_down(void) {
     // also shouldn't power down USB
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_suspend();
+#endif
+
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(true);
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(true);
 #endif
 #ifdef AUDIO_ENABLE
     stop_all_notes();
@@ -136,6 +157,13 @@ void suspend_wakeup_init(void) {
     led_set(host_keyboard_leds());
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_wakeup();
+#endif
+
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(false);
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(false);
 #endif
     suspend_wakeup_init_kb();
 }
