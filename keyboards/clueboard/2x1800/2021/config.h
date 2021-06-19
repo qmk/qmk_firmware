@@ -38,12 +38,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 // Configure our MAX7219's
-#define MAX7219_LOAD B0
-#define MAX7219_CONTROLLERS 4
-#define MAX7219_LED_INTENSITY 1  // Max: 15
+//#define MAX7219_LOAD B0
+//#define MAX7219_CONTROLLERS 4
+//#define MAX7219_LED_INTENSITY 1  // Max: 15
 
 // Define this to disable the startup test
 //#define MAX7219_NO_STARTUP_TEST
+
+/* This controls the speed of the sign, lower is faster. This is the minimal
+ * time between animation frames, in ms. Actual time between frames will
+ * always be slightly longer due to other keyboard tasks.
+ */
+//#define MAX7219_SCROLL_TIME 100
 
 /* This setting controls how big the scrollable area for your message sign
  * is. If you set it to 0 your display will not work. If you set it to 1
@@ -58,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * You do not need to tune this unless you are trying to save ram.
  */
-#define MAX7219_BUFFER_MULTIPLIER 24
+//#define MAX7219_BUFFER_MULTIPLIER 24
 
 // You can only define one of these at a time:
 

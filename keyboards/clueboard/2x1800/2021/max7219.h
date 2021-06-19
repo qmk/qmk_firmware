@@ -29,6 +29,31 @@
 #include "quantum.h"
 #include "spi_master.h"
 
+// Set defaults if they're not set
+#ifndef MAX7219_LOAD
+#    define MAX7219_LOAD B0
+#endif
+
+#ifndef MAX7219_CONTROLLERS
+#    define MAX7219_CONTROLLERS 4
+#endif
+
+#ifndef MAX7219_LED_INTENSITY
+#    define MAX7219_INTENSITY 1
+#endif
+
+#ifndef MAX7219_SCROLL_TIME
+#    define MAX7219_SCROLL_TIME 100
+#endif
+
+#ifndef MAX7219_BUFFER_MULTIPILER
+#    define MAX7219_BUFFER_MULTIPILER 24
+#endif
+
+#if !defined(MAX7219_LED_TEST) && !defined(MAX7219_LED_ITERATE) && !defined(MAX7219_LED_DANCE) && !defined(MAX7219_LED_FONTTEST) && !defined(MAX7219_LED_CLUEBOARD) && !defined(MAX7219_LED_KONAMI) && !defined(MAX7219_LED_QMK_POWERED) && !defined(MAX7219_DRAWING_TOY_MODE) && !defined(MAX7219_LED_CUSTOM)
+#    define MAX7219_QMK_POWERED
+#endif
+
 // Configure our MAX7219's
 #define MAX_BYTES MAX7219_CONTROLLERS * 2
 #define LED_COUNT MAX7219_CONTROLLERS * 64

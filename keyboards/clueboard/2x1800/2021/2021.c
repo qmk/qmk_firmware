@@ -18,10 +18,6 @@
 #include "max7219.h"
 #include "font.h"
 
-#if !defined(MAX7219_LED_TEST) && !defined(MAX7219_LED_ITERATE) && !defined(MAX7219_LED_DANCE) && !defined(MAX7219_LED_FONTTEST) && !defined(MAX7219_LED_CLUEBOARD) && !defined(MAX7219_LED_KONAMI) && !defined(MAX7219_LED_QMK_POWERED) && !defined(MAX7219_DRAWING_TOY_MODE) && !defined(MAX7219_LED_CUSTOM)
-#    define MAX7219_LED_CLUEBOARD
-#endif
-
 #ifndef DRAWING_TOY_MODE
 static uint16_t led_frame_timer = 0;
 
