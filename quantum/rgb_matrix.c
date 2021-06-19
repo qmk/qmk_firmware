@@ -34,7 +34,7 @@ const led_point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 #ifndef RGB_MATRIX_IMMEDIATE_EEPROM
 #    define rgb_eeconfig_update(v) rgb_update_eeprom |= v
 #else
-#    define rgb_eeconfig_update(v) eeconfig_update_rgb_matrix()
+#    define rgb_eeconfig_update(v) if (v) eeconfig_update_rgb_matrix()
 #endif
 
 __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
