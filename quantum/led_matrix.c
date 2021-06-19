@@ -33,11 +33,13 @@ const led_point_t k_led_matrix_center = {112, 32};
 const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #endif
 
+// clang-format off
 #ifndef LED_MATRIX_IMMEDIATE_EEPROM
 #    define led_eeconfig_update(v) led_update_eeprom |= v
 #else
 #    define led_eeconfig_update(v) if (v) eeconfig_update_led_matrix()
 #endif
+// clang-format on
 
 // Generic effect runners
 #include "led_matrix_runners/effect_runner_dx_dy_dist.h"
