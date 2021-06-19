@@ -143,13 +143,7 @@ def _pin_name(pin):
     elif pin == 'NO_PIN':
         return None
 
-    elif pin[0] in 'ABCDEFGHIJK' and pin[1].isdigit():
-        return pin
-
-    elif pin.startswith('LINE_PIN'):
-        return pin
-
-    raise ValueError(f'Invalid pin: {pin}')
+    return pin
 
 
 def _extract_pins(pins):
