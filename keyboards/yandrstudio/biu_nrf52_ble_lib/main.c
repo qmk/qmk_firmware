@@ -99,6 +99,7 @@ void midi_ep_task(void);
 
 #ifdef BIU_BLE5_ENABLE
 void bluetooth_task(void);
+bool bluetooth_init_pre(void);
 #endif
 
 /* TESTING
@@ -219,9 +220,7 @@ int main(void) {
         wait_ms(50);
     }
 
-// #ifdef BIU_BLE5_ENABLE
-//     bluetooth_init_pre();
-// #endif
+
     /* Do need to wait here!
      * Otherwise the next print might start a transfer on console EP
      * before the USB is completely ready, which sometimes causes
@@ -233,6 +232,9 @@ int main(void) {
     keyboard_init();
     host_set_driver(driver);
 
+#ifdef BIU_BLE5_ENABLE
+    bluetooth_init_pre();
+#endif
 
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();

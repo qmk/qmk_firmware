@@ -541,6 +541,7 @@ void bluetooth_send_battery_level() {
 bool bluetooth_init_pre(void) {
     // start the uart data trans
     uart_init(BIUNRF52UartBaud);
+    return true;
 }
 
 
@@ -549,7 +550,7 @@ bool bluetooth_init(void) {
     state.configured   = false;
     state.is_connected = false;
 
-
+    // bluetooth_init_pre();
     // Perform a hardware reset
     setPinOutput(BIUNRF52ResetPin);
     writePinHigh(BIUNRF52ResetPin);
