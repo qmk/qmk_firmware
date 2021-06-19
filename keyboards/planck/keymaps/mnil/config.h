@@ -1,4 +1,4 @@
-/* Copyright 2021 DZTECH <moyi4681@live.cn>
+/* Copyright 2021 Mats Nilsson
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #pragma once
-#include "config_common.h"
+
+#ifdef AUDIO_ENABLE
+#    define STARTUP_SONG SONG(NO_SOUND)
+#endif
+
+#define MIDI_BASIC

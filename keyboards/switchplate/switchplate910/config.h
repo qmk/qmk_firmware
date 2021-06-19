@@ -1,5 +1,5 @@
 /*
-Copyright 2020 rate
+Copyright 2021 Stefan Karsch
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,15 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x5255
-#define PRODUCT_ID   0xD0C2
-#define DEVICE_VER   0x0001
-#define MANUFACTURER rate
-#define PRODUCT      pistachio
+#define VENDOR_ID       0x54F3
+#define PRODUCT_ID      0x2065
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Switchplate Peripherals
+#define PRODUCT         910
 
 /* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -40,41 +40,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, D3}
+#define MATRIX_ROW_PINS { F4, F5, F6, F7, D1 }
+#define MATRIX_COL_PINS { D2, D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, B3, B2, B0, B1 }
 #define UNUSED_PINS
 
-#define USE_I2C
-
-/* COL2ROW, ROW2COL */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D2
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 1, 1 }
-#define RGBLED_NUM 2
-#define RGBLIGHT_LAYERS
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-
-#if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
-  #define USB_MAX_POWER_CONSUMPTION 400
-#else
-  #define USB_MAX_POWER_CONSUMPTION 100
-#endif
+#define BACKLIGHT_PIN B7
+// #define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
+
+/* define if matrix has ghost (lacks anti-ghosting diodes) */
+//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* nKey Rollover */
-#define FORCE_NKRO
+/*
+ * Feature disable options
+ *  These options are also useful to firmware size reduction.
+ */
+
+/* disable debug print */
+//#define NO_DEBUG
+
+/* disable print */
+//#define NO_PRINT
+
+/* disable action features */
+//#define NO_ACTION_LAYER
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+
+/* Bootmagic Lite key configuration */
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0

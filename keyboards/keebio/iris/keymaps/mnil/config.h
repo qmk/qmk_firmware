@@ -1,4 +1,4 @@
-/* Copyright 2021 DZTECH <moyi4681@live.cn>
+/* Copyright 2021 Mats Nilsson
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #pragma once
-#include "config_common.h"
+
+#define EE_HANDS
+
+#undef RGBLED_NUM
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 12
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#define RGBLIGHT_SPLIT \
+    { 6, 6 }
+#define RGBLIGHT_SLEEP
