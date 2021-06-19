@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISPLAY_ALL_ON 0xA5
 #define DISPLAY_ALL_ON_RESUME 0xA4
 #define NORMAL_DISPLAY 0xA6
+#define INVERT_DISPLAY 0xA7
 #define DISPLAY_ON 0xAF
 #define DISPLAY_OFF 0xAE
 #define NOP 0xE3
@@ -72,6 +73,7 @@ uint8_t *          st7565_cursor;
 ST7565_BLOCK_TYPE  st7565_dirty       = 0;
 bool               st7565_initialized = false;
 bool               st7565_active      = false;
+bool               st7565_inverted    = false;
 display_rotation_t st7565_rotation    = DISPLAY_ROTATION_0;
 #if ST7565_TIMEOUT > 0
 uint32_t st7565_timeout;
@@ -428,6 +430,20 @@ bool st7565_off(void) {
 __attribute__((weak)) void st7565_off_user(void) {}
 
 bool st7565_is_on(void) { return st7565_active; }
+
+bool st7565_invert(bool invert) {
+    if (!st7565_initialized) {
+        return st7565_inverted;
+    }
+
+    if (invert != st7565_inverted) {
+        spi_start(ST7565_SS_PIN, false, 0, ST7565_SPI_CLK_DIVISOR);
+        st7565_send_cmd(invert ? INVERT_DISPLAY : NORMAL_DISPLAY);
+        spi_stop();
+        st7565_inverted = invert;
+    }
+    return st7565_inverted;
+}
 
 uint8_t st7565_max_chars(void) { return ST7565_DISPLAY_WIDTH / ST7565_FONT_WIDTH; }
 
