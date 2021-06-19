@@ -29,9 +29,9 @@
 #define HALCONF_H
 
 #define _CHIBIOS_HAL_CONF_
-#define _CHIBIOS_HAL_CONF_VER_7_0_
+#define _CHIBIOS_HAL_CONF_VER_7_1_
 
-#include "mcuconf.h"
+#include <mcuconf.h>
 
 /**
  * @brief   Enables the PAL subsystem.
@@ -66,6 +66,13 @@
  */
 #if !defined(HAL_USE_DAC) || defined(__DOXYGEN__)
 #define HAL_USE_DAC                         TRUE
+#endif
+
+/**
+ * @brief   Enables the EFlash subsystem.
+ */
+#if !defined(HAL_USE_EFL) || defined(__DOXYGEN__)
+#define HAL_USE_EFL                         FALSE
 #endif
 
 /**
@@ -114,7 +121,7 @@
  * @brief   Enables the PWM subsystem.
  */
 #if !defined(HAL_USE_PWM) || defined(__DOXYGEN__)
-#define HAL_USE_PWM                         FALSE
+#define HAL_USE_PWM                         TRUE
 #endif
 
 /**
@@ -142,7 +149,7 @@
  * @brief   Enables the SERIAL over USB subsystem.
  */
 #if !defined(HAL_USE_SERIAL_USB) || defined(__DOXYGEN__)
-#define HAL_USE_SERIAL_USB                  FALSE
+#define HAL_USE_SERIAL_USB                  TRUE
 #endif
 
 /**
@@ -156,7 +163,7 @@
  * @brief   Enables the SPI subsystem.
  */
 #if !defined(HAL_USE_SPI) || defined(__DOXYGEN__)
-#define HAL_USE_SPI                         FALSE
+#define HAL_USE_SPI                         TRUE
 #endif
 
 /**
@@ -203,7 +210,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(PAL_USE_CALLBACKS) || defined(__DOXYGEN__)
-#define PAL_USE_CALLBACKS                   FALSE
+#define PAL_USE_CALLBACKS                   TRUE
 #endif
 
 /**
@@ -211,7 +218,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(PAL_USE_WAIT) || defined(__DOXYGEN__)
-#define PAL_USE_WAIT                        FALSE
+#define PAL_USE_WAIT                        TRUE
 #endif
 
 /*===========================================================================*/
@@ -451,7 +458,6 @@
 #define SPI_USE_CIRCULAR                    FALSE
 #endif
 
-
 /**
  * @brief   Enables the @p spiAcquireBus() and @p spiReleaseBus() APIs.
  * @note    Disabling this option saves both code and data space.
@@ -523,4 +529,3 @@
 #endif /* HALCONF_H */
 
 /** @} */
-

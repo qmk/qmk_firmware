@@ -9,6 +9,11 @@
 #define MANUFACTURER  percyjw
 #define PRODUCT       split65
 
+// Audio
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
+
 // Matrix Assignments
 #define MATRIX_ROWS 10 //Rows are doubled-up
 #define MATRIX_COLS 8
@@ -24,9 +29,11 @@
 // Split Keyboard specifics
 #define MASTER_LEFT
 #define SOFT_SERIAL_PIN A9
+#define USART_REMAP
 #define SELECT_SOFT_SERIAL_SPEED 1
 #define SERIAL_USART_DRIVER SD1
 #define SERIAL_USART_TX_PAL_MODE 7
+#define SERIAL_USART_TIMEOUT 100
 
 // Debounce to reduce unintended double-presses use 0 if not needed
 #define DEBOUNCE 5
