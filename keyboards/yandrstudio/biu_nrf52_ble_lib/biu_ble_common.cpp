@@ -2,6 +2,8 @@
 #include "biu_ble_common.h"
 
 __attribute__((weak)) bool bluetooth_init(void) { return true; }
+__attribute__((weak)) bool bluetooth_init_pre(void) { return true; }
+__attribute__((weak)) bool bluetooth_init_pos(void) { return true; }
 
 __attribute__((weak)) void bluetooth_task(void) {}
 

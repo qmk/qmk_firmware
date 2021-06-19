@@ -194,6 +194,8 @@ int main(void) {
     visualizer_init();
 #endif
 
+
+
     host_driver_t *driver = NULL;
 
     /* Wait until the USB or serial link is active */
@@ -217,6 +219,9 @@ int main(void) {
         wait_ms(50);
     }
 
+// #ifdef BIU_BLE5_ENABLE
+//     bluetooth_init_pre();
+// #endif
     /* Do need to wait here!
      * Otherwise the next print might start a transfer on console EP
      * before the USB is completely ready, which sometimes causes

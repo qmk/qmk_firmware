@@ -65,7 +65,7 @@
 #define BiuNrf52MsgTimeout 150             /* milliseconds */
 #define BiuNrf52MsgShortTimeout 10         /* milliseconds */
 #define BiuNrf52MsgBackOff 25              /* microseconds */
-#define BatteryUpdateInterval 60000         /* milliseconds */
+#define BatteryUpdateInterval 30000         /* milliseconds */
 
 
 enum biunrf52_type {
@@ -99,6 +99,11 @@ struct biunrf52_msg {
 } __attribute__((packed));
 
 enum queue_type {
+    QTStartAdv,
+    QTStopAdv,
+    QTDelAllDev,
+    QTDelDev,
+    QTSwDev,
     QTBatVMsg,
     QTKeyReport,  // 1-byte modifier + 6-byte key report
 #ifdef EXTRAKEY_ENABLE
@@ -124,6 +129,7 @@ struct queue_item {
     uint16_t        added;
     union __attribute__((packed)) {
         uint8_t bat_lev;
+        uint8_t device_id;
         struct __attribute__((packed)) {
             uint8_t modifier;
             uint8_t keys[6];
@@ -306,6 +312,27 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
 #endif
 
     switch (item->queue_type) {
+        case QTStartAdv:
+            cmdbuf[1] = START_ADV_WITH_WL;
+            cmdbuf[2] = BleUartTail;
+            return send_a_pkt(cmdbuf, 3, timeout);
+        case QTStopAdv:
+            cmdbuf[1] = STOP_ADV;
+            cmdbuf[2] = BleUartTail;
+            return send_a_pkt(cmdbuf, 3, timeout);
+        case QTDelAllDev:
+            cmdbuf[1] = DEL_ALL_BOUND;
+            cmdbuf[2] = BleUartTail;
+            return send_a_pkt(cmdbuf, 3, timeout);
+        case QTDelDev:
+            cmdbuf[1] = DEL_CURR_BOUND;
+            cmdbuf[2] = BleUartTail;
+            return send_a_pkt(cmdbuf, 3, timeout);
+        case QTSwDev:
+            cmdbuf[1] = SWITCH_BOUND;
+            cmdbuf[2] = item->device_id;
+            cmdbuf[3] = BleUartTail;
+            return send_a_pkt(cmdbuf, 4, timeout);
         case QTBatVMsg:
             cmdbuf[1] = GET_BAT_INFO;
             cmdbuf[2] = item->bat_lev;
@@ -505,10 +532,15 @@ void bluetooth_send_battery_level() {
 
     item.queue_type   = QTBatVMsg;
     item.added        = timer_read();
-    item.bat_lev = cur_bat_lev < 5 ? 5 : cur_bat_lev;
+    item.bat_lev = cur_bat_lev < 10 ? 10 : cur_bat_lev;
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
+}
+
+bool bluetooth_init_pre(void) {
+    // start the uart data trans
+    uart_init(BIUNRF52UartBaud);
 }
 
 
@@ -517,8 +549,7 @@ bool bluetooth_init(void) {
     state.configured   = false;
     state.is_connected = false;
 
-    // start the uart data trans
-    uart_init(BIUNRF52UartBaud);
+    bluetooth_init_pre();
 
     // Perform a hardware reset
     setPinOutput(BIUNRF52ResetPin);
@@ -545,14 +576,24 @@ bool bluetooth_init(void) {
 void connected(void) {
     uprintf("biu ble connected\n");
     // start adv with wl
-    uart_putchar(0xff);
+    struct queue_item item;
+
+    item.queue_type   = QTStartAdv;
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
     state.is_connected = true;
 }
 
 void disconnected(void) {
     uprintf("biu ble disconnected\n");
     // stop adv
-    uart_putchar(0xff);
+    struct queue_item item;
+
+    item.queue_type   = QTStopAdv;
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
     state.is_connected = false;
 }
 
@@ -562,25 +603,35 @@ bool bluetooth_is_connected(void) { return state.is_connected; }
 void bluetooth_unpair_all(void) {
     uprintf("biu ble del all\n");
     // stop adv and del all
-    uart_putchar(0xff);
+    struct queue_item item;
+
+    item.queue_type   = QTDelAllDev;
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
     state.is_connected = false;
 }
-void bluetooth_unpair_one(uint8_t device_id) {
-    uprintf("biu ble del %d\n", device_id);
+void bluetooth_unpair(uint8_t device_id) {
+    uprint("biu ble del current\n");
     // stop adv and del one
-    uart_putchar(0xff);
+    struct queue_item item;
+
+    item.queue_type   = QTDelDev;
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
     state.is_connected = false;
 }
-void bluetooth_pair(void) {
-    uprintf("biu ble pair cuurt\n");
-    // start adv with wl (auto)
-    uart_putchar(0xff);
-    state.is_connected = true;
-}
+
 void bluetooth_switch_one(uint8_t device_id) {
     uprintf("biu ble pair %d\n", device_id);
-    // switch adv with wl (auto)
-    uart_putchar(0xff);
+    struct queue_item item;
+
+    item.queue_type   = QTSwDev;
+    item.device_id    = device_id;
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
     state.is_connected = true;
 }
 

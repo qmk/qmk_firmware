@@ -33,7 +33,7 @@ void uart_init(uint32_t baud) {
         palSetLineMode(SD1_RX_PIN, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
 #else
         palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE(SD1_TX_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL);
-        palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE(SD1_RX_PAL_MODE) | PAL_MODE_INPUT_PULLUP);
+        palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE(SD1_RX_PAL_MODE) | PAL_MODE_INPUT);
 #endif
         sdStart(&SERIAL_DRIVER, &serialConfig);
     }

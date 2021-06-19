@@ -8,6 +8,8 @@ extern "C" {
 #endif
 
 bool bluetooth_init(void);
+bool bluetooth_init_pre(void);
+bool bluetooth_init_pos(void);
 void bluetooth_task(void);
 bool bluetooth_is_connected(void);
 void bluetooth_unpair_all(void);
