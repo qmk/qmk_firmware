@@ -505,7 +505,7 @@ void bluetooth_send_battery_level() {
 
     item.queue_type   = QTBatVMsg;
     item.added        = timer_read();
-    item.bat_lev = cur_bat_lev;
+    item.bat_lev = cur_bat_lev < 5 ? 5 : cur_bat_lev;
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
