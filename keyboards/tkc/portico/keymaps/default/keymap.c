@@ -33,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,             KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,   KC_UP,  KC_END,
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                               MO(1), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
-#ifdef RGB_BACKLIGHT_PORTICO    
-	[1] = LAYOUT_65_ansi_blocker(
+#ifdef RGB_BACKLIGHT_PORTICO
+    [1] = LAYOUT_65_ansi_blocker(
         KC_GESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_DEL, KC_HOME,
         _______,  EF_INC,  EF_DEC,  BR_INC,  BR_DEC,  H1_INC,  H1_DEC,  S1_INC,  S1_DEC, _______, KC_PSCR, KC_SLCK, KC_PAUS,   RESET, KC_PGUP,
         KC_CAPS, _______, _______, _______, _______,  H2_INC,  H2_DEC,  S2_INC,  S2_DEC, _______, _______, _______,          _______, KC_PGDN,
