@@ -35,6 +35,7 @@ enum layer_names {
     _Win0,
     _Win1,
     _Win2,
+    _WinALT,
     _CapsColor,
 };
 
@@ -81,6 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_TAB,   KC_Q,	    KC_W,    KC_E,	KC_R,	KC_T,		 KC_Y,	      KC_U,   KC_I,    KC_O,	KC_P,	 KC_LBRC,  KC_RBRC, KC_BSLS,
 			KC_CAPS,  KC_A,	    KC_S,    KC_D,	KC_F,	KC_G,		 KC_LEFT,	  KC_DOWN,KC_UP,   KC_RGHT,	KC_P,	 KC_QUOT,  KC_ENT,
 			_______,  KC_Z,	    KC_X,    KC_C,	KC_V,	KC_B,		 KC_N,	      KC_M,   KC_COMM, KC_DOT,	KC_SLSH,           KC_UP,	
+			_______,  _______, _______,					_______,     _______,             _______, _______,	_______, _______,  KC_DOWN, KC_RGHT),
 
 	[_WinALT] = LAYOUT_masahide(
 			KC_GESC,  KC_1,	   KC_2,     KC_3,	 KC_4,	KC_5,		 KC_6,	      KC_7,   KC_8,    KC_9,	KC_0,	 KC_MINS,  KC_EQL,	KC_BSPC,
@@ -208,6 +210,10 @@ const rgblight_segment_t PROGMEM my_5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 	{1, 4, HSV_WHITE},
 	{7, 4, HSV_WHITE}
 );
+const rgblight_segment_t PROGMEM my_6_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+	{1, 4, HSV_WHITE},
+	{7, 4, HSV_WHITE}
+);
 
 
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -225,6 +231,7 @@ const rgblight_segment_t* const PROGMEM my_layers[] = RGBLIGHT_LAYERS_LIST(
 	my_3_layer,
 	my_4_layer,
 	my_5_layer,
+	my_6_layer,
 	my_caps_layer
 );
 
@@ -242,6 +249,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	rgblight_set_layer_state(_Win0, layer_state_cmp(state, _Win0));
 	rgblight_set_layer_state(_Win1, layer_state_cmp(state, _Win1));
 	rgblight_set_layer_state(_Win2, layer_state_cmp(state, _Win2));
+	rgblight_set_layer_state(_WinALT,layer_state_cmp(state, _WinALT));
     biton32(default_layer_state) == _Win0 ? rgblight_set_layer_state(_Win0, true) : rgblight_set_layer_state(_Mac0, true);
 	return state;
 };
