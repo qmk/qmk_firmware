@@ -41,6 +41,7 @@
 #include "font.h"
 
 // Datastructures
+bool led_scrolling = true;
 uint8_t max7219_spidata[MAX_BYTES];
 uint8_t max7219_led_a[8][MAX7219_BUFFER_SIZE];
 
@@ -87,7 +88,7 @@ void max7219_write_frame(void) {
     }
 }
 
-/* Scrolls a message on the sign.
+/* Stores a message in the sign buffer.
  *
  * message should be a 2d array with the outer array having a length of your
  * message and the inner array having a length of 6. Use the L_<letter>
@@ -97,10 +98,6 @@ void max7219_write_frame(void) {
  *
  *      uint8_t message[10][6] = {L_INTERROBANG, L_C, L_l, L_u, L_e, L_b, L_o, L_a, L_r, L_d};
  *      max7219_message(message, 10);
- *
- * Caveats:
- *
- *  Currently this enters an infinite loop, your keyboard will not be responsive to keypresses.
  */
 void max7219_message_sign(uint8_t message[][6], size_t message_len) {
     uint8_t letter_num = 0;
@@ -132,6 +129,10 @@ void max7219_message_sign(uint8_t message[][6], size_t message_len) {
  */
 void max7219_message_sign_task(bool loop_message) {
     uint8_t left_col = 0b00000000;
+
+    if (!led_scrolling) {
+        return;
+    }
 
     if (loop_message) {
         left_col = max7219_led_a[0][0];
