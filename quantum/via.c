@@ -319,11 +319,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #endif
             break;
         }
+#ifdef VIA_EEPROM_ALLOW_RESET
         case id_eeprom_reset: {
             via_eeprom_set_valid(false);
             eeconfig_init_via();
             break;
         }
+#endif
         case id_dynamic_keymap_macro_get_count: {
             command_data[0] = dynamic_keymap_macro_get_count();
             break;
