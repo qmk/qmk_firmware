@@ -30,7 +30,7 @@
     defined(RGB_BACKLIGHT_NEBULA68) || \
     defined(RGB_BACKLIGHT_U80_A) || \
     defined(RGB_BACKLIGHT_DAWN60) || \
-	defined(RGB_BACKLIGHT_PORTICO) || \
+    defined(RGB_BACKLIGHT_PORTICO) || \
     defined(RGB_BACKLIGHT_WT60_B) || \
     defined(RGB_BACKLIGHT_WT60_BX) || \
     defined(RGB_BACKLIGHT_WT60_C) || \
@@ -3244,5 +3244,4 @@ void backlight_debug_led( bool state )
     }
 }
 #endif // defined(RGB_DEBUGGING_ONLY)
-
 
