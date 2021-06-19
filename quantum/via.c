@@ -93,7 +93,8 @@ __attribute__((weak)) void via_init_kb(void) {}
 
 // Called by QMK core to initialize dynamic keymaps etc.
 void via_init(void) {
-
+    // Let keyboard level test EEPROM valid state,
+    // but not set it valid, it is done here.
     via_init_kb();
 
     // If the EEPROM has the magic, the data is good.
