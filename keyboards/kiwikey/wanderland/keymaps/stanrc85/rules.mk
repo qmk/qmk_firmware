@@ -1,2 +1,1 @@
-USER_NAME := stanrc85
 OLED_DRIVER_ENABLE = yes
