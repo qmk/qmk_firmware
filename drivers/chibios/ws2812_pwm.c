@@ -27,6 +27,15 @@
 #    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM?_UP"
 #endif
 
+#ifndef WS2812_PWM_COMPLEMENTARY_OUTPUT
+#    define WS2812_PWM_OUTPUT_MODE PWM_OUTPUT_ACTIVE_HIGH
+#else
+#    if !STM32_PWM_USE_ADVANCED
+#        error "WS2812_PWM_COMPLEMENTARY_OUTPUT requires STM32_PWM_USE_ADVANCED == TRUE"
+#    endif
+#    define WS2812_PWM_OUTPUT_MODE PWM_COMPLEMENTARY_OUTPUT_ACTIVE_HIGH
+#endif
+
 // Push Pull or Open Drain Configuration
 // Default Push Pull
 #ifndef WS2812_EXTERNAL_PULLUP
@@ -247,7 +256,7 @@ void ws2812_init(void) {
         .channels =
             {
                 [0 ... 3]                = {.mode = PWM_OUTPUT_DISABLED, .callback = NULL},     // Channels default to disabled
-                [WS2812_PWM_CHANNEL - 1] = {.mode = PWM_OUTPUT_ACTIVE_HIGH, .callback = NULL},  // Turn on the channel we care about
+                [WS2812_PWM_CHANNEL - 1] = {.mode = WS2812_PWM_OUTPUT_MODE, .callback = NULL},  // Turn on the channel we care about
             },
         .cr2  = 0,
         .dier = TIM_DIER_UDE,  // DMA on update event for next period
