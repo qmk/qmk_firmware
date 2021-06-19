@@ -74,6 +74,11 @@ void matrix_scan_kb(void);
 void matrix_init_user(void);
 void matrix_scan_user(void);
 
+#ifdef SPLIT_KEYBOARD
+void matrix_slave_scan_kb(void);
+void matrix_slave_scan_user(void);
+#endif
+
 #ifdef __cplusplus
 }
 #endif
