@@ -44,7 +44,6 @@
 // Datastructures
 extern uint8_t max7219_led_a[8][MAX7219_BUFFER_SIZE];
 extern bool max7219_led_scrolling;
-extern uint16_t max7219_buffer_end;
 
 // Functions
 void max7219_write(int device_num, volatile uint8_t opcode, volatile uint8_t data);

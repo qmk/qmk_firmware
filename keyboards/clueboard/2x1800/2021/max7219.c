@@ -35,6 +35,8 @@
  * Unlike LedControl we are using the native SPI support, you will need to
  * use the native SPI pins for your MCU. You can set the CS pin with
  * `#define MAX7219_LOAD <pin>`.
+ *
+ * This has only been tested on AVR, specifically a Teensy 2.0++.
  */
 
 #include "max7219.h"
@@ -80,12 +82,12 @@ void max7219_write_frame(void) {
 /* Stores a message in the sign buffer.
  *
  * message should be a 2d array with the outer array having a length of your
- * message and the inner array having a length of 6. Use the L_<letter>
+ * message and the inner array having a length of 6. Use the CHR_<letter>
  * macros from font.h to populate your array.
  *
  * Example:
  *
- *      uint8_t message[10][6] = {L_INTERROBANG, L_C, L_l, L_u, L_e, L_b, L_o, L_a, L_r, L_d};
+ *      uint8_t message[10][6] = {CHR_INTERROBANG, CHR_C, CHR_l, CHR_u, CHR_e, CHR_b, CHR_o, CHR_a, CHR_r, CHR_d};
  *      max7219_message(message, 10);
  */
 void max7219_message_sign(uint8_t message[][6], size_t message_len) {
@@ -213,7 +215,7 @@ void max7219_init(void) {
         max7219_display_test(i, false);
         max7219_set_scan_limit(i, 7);
         max7219_set_decode_mode(i, 0);
-        max7219_set_intensity(i, LED_INTENSITY);
+        max7219_set_intensity(i, MAX7219_LED_INTENSITY);
     }
 
     max7219_clear_display();

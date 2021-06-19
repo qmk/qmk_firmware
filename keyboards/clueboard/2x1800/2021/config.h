@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Configure our MAX7219's
 #define MAX7219_LOAD B0
 #define MAX7219_CONTROLLERS 4
-#define LED_INTENSITY 1  // Max: 15
+#define MAX7219_LED_INTENSITY 1  // Max: 15
 
 /* This setting controls how big the scrollable area for your message sign
  * is. If you set it to 0 your display will not work. If you set it to 1

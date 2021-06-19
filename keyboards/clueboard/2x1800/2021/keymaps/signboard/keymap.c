@@ -9,7 +9,7 @@ enum custom_keycodes {
     MSG_QMK,
 };
 
-uint8_t custom_message[5][6] = {L_M, L_y, L_SPACE, L_2, L_CENT};
+uint8_t custom_message[5][6] = {CHR_M, CHR_y, CHR_SPACE, CHR_2, CHR_CENT};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT_all(
