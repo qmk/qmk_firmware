@@ -1659,7 +1659,7 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
 #elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA68) || defined(RGB_BACKLIGHT_KW_MEGA)
     IS31FL3733_set_color( index, red, green, blue );
 #elif defined (RGB_BACKLIGHT_PORTICO)
-	IS31FL3731_set_color( index, red, green, blue );
+    IS31FL3731_set_color( index, red, green, blue );
 #elif defined(RGB_BACKLIGHT_NK87)
     // This is done to avoid indicator LEDs being set
     if (( index != 63+64-1 ) && ( index != 48+64-1 )) {
@@ -3244,4 +3244,3 @@ void backlight_debug_led( bool state )
     }
 }
 #endif // defined(RGB_DEBUGGING_ONLY)
-
