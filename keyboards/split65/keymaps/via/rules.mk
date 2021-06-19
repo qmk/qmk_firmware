@@ -11,4 +11,5 @@ NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: ht
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = yes           # Audio output on port C6
 UNICODEMAP_ENABLE = no     # Unicode
-OLED_DRIVER_ENABLE= yes     # OLED display
+OLED_DRIVER_ENABLE = yes     # OLED display
+VIA_ENABLE = yes
