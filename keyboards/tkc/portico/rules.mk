@@ -20,21 +20,16 @@ BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no          # Enable Bluetooth
 AUDIO_ENABLE = no              # Audio output
-RGBLIGHT_ENABLE = no           # Enable WS2812 RGB underlight. - We have custom RGB underglow
-#wt_rgb_backlight implementation. Comment out to disable, uncomment other section to enable core RGB
+#RGB_MATRIX_ENABLE = no
+#RGB_MATRIX_DRIVER = IS31FL3731
 CIE1931_CURVE = yes
 
-
 # project specific files
-SRC +=	keyboards/wilba_tech/wt_main.c \
-		keyboards/wilba_tech/wt_rgb_backlight.c \
-		quantum/color.c \
-		drivers/issi/is31fl3731.c
+SRC += keyboards/wilba_tech/wt_main.c \
+       keyboards/wilba_tech/wt_rgb_backlight.c \
+       quantum/color.c \
+       drivers/issi/is31fl3731.c
 
 QUANTUM_LIB_SRC += i2c_master.c
-
-#Uncomment these lines and comment out section above to switch to core RGB
-#RGB_MATRIX_ENABLE = yes
-#RGB_MATRIX_DRIVER = IS31FL3731
 
 LAYOUTS = 65_ansi_blocker
