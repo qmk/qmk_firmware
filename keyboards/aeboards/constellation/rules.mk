@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = aeboards/constellation/rev2
+DEFAULT_FOLDER = aeboards/constellation/rev1
