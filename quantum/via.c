@@ -330,7 +330,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
         case id_dynamic_keymap_macro_get_buffer_size: {
-            uint16_t size   = dynamic_keymap_macroi_get_buffer_size();
+            uint16_t size   = dynamic_keymap_macro_get_buffer_size();
             command_data[0] = size >> 8;
             command_data[1] = size & 0xFF;
             break;
