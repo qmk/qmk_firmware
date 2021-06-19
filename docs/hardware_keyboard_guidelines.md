@@ -144,9 +144,37 @@ The `rules.mk` file can also be placed in a sub-folder, and its reading order is
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/rules.mk`
           * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
           * `users/a_user_folder/rules.mk`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_rules.mk`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/post_rules.mk`
+    * `keyboards/top_folder/sub_1/sub_2/post_rules.mk`
+  * `keyboards/top_folder/sub_1/post_rules.mk`
+* `keyboards/top_folder/post_rules.mk`
 * `common_features.mk`
 
 Many of the settings written in the `rules.mk` file are interpreted by `common_features.mk`, which sets the necessary source files and compiler options.
+
+The `post_rules.mk` file can interpret `features` of a keyboard-level before `common_features.mk`.  For example, when your designed keyboard has the option to implement backlighting or underglow using rgblight.c, writing the following in the `post_rules.mk` makes it easier for the user to configure the `rules.mk`.
+
+* `keyboards/top_folder/keymaps/a_keymap/rules.mk`
+  ```makefile
+  # Please set the following according to the selection of the hardware implementation option.
+  RGBLED_OPTION_TYPE = backlight   ## none, backlight or underglow
+  ```
+* `keyboards/top_folder/post_rules.mk`
+  ```makefile
+  ifeq ($(filter $(strip $(RGBLED_OPTION_TYPE))x, nonex backlightx underglowx x),)
+     $(error unknown RGBLED_OPTION_TYPE value "$(RGBLED_OPTION_TYPE)")
+  endif
+
+  ifeq ($(strip $(RGBLED_OPTION_TYPE)),backlight)
+    RGBLIGHT_ENABLE = yes
+    OPT_DEFS += -DRGBLED_NUM=30
+  endif
+  ifeq ($(strip $(RGBLED_OPTION_TYPE)),underglow)
+    RGBLIGHT_ENABLE = yes
+    OPT_DEFS += -DRGBLED_NUM=6
+  endif
+  ```
 
 ?> See `build_keyboard.mk` and `common_features.mk` for more details.
 
