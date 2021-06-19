@@ -549,7 +549,6 @@ bool bluetooth_init(void) {
     state.configured   = false;
     state.is_connected = false;
 
-    bluetooth_init_pre();
 
     // Perform a hardware reset
     setPinOutput(BIUNRF52ResetPin);
