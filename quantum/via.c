@@ -95,7 +95,7 @@ __attribute__((weak)) void via_init_kb(void) {}
 void via_init(void) {
 
     via_init_kb();
-    
+
     // If the EEPROM has the magic, the data is good.
     // OK to load from EEPROM.
     if (!via_eeprom_is_valid()) {
@@ -104,6 +104,8 @@ void via_init(void) {
 }
 
 void eeconfig_init_via(void) {
+    // set the magic number to false, in case this gets interrupted
+    via_eeprom_set_valid(false);
     // This resets the layout options
     via_set_layout_options(VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT);
     // This resets the keymaps in EEPROM to what is in flash.
