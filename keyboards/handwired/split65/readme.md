@@ -8,18 +8,18 @@ Hardware Availability: [Repository](https://github.com/PercyJW-2/Split65)
 
 Make example for this keyboard with an ProMicro:
 
-    make split65/promicro:default
+    make handwired/split65/promicro:default
     
 Make example for this keyboard with an Proton C:
 
-    make split65/stm32:default
+    make handwired/split65/stm32:default
     
 Example for flashing this keyboard with an ProMicro
 
-    make split65/promicro:default:flash
+    make handwired/split65/promicro:default:flash
 
 Example for flashing this keyboard with an Proton C
 
-    make split65/stm32:default:flash
+    make handwired/split65/stm32:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

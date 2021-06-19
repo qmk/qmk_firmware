@@ -3,10 +3,10 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_split65_stm32)
+#if defined(KEYBOARD_handwired_split65_stm32)
     #include "stm32.h"
-#elif defined(KEYBOARD_split65_promicro)
-    #include "promicro.h"      
+#elif defined(KEYBOARD_handwired_split65_promicro)
+    #include "promicro.h"
 #endif
 
 #endif
