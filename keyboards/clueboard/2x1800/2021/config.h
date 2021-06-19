@@ -82,3 +82,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Define this to treat the message board like an etch-a-sketch
 //#define DRAWING_TOY_MODE
 
+// Define this if you don't want any of the above
+//#define MAX7219_LED_CUSTOM
