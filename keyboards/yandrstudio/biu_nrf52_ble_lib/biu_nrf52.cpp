@@ -14,6 +14,7 @@
 #include "ring_buffer.hpp"
 
 
+
 // These are the pin assignments for the stm32f401ccu6 boards.
 // You may define them to something else in your config.h
 // if yours is wired up differently.
@@ -64,7 +65,7 @@
 #define BiuNrf52MsgTimeout 150             /* milliseconds */
 #define BiuNrf52MsgShortTimeout 10         /* milliseconds */
 #define BiuNrf52MsgBackOff 25              /* microseconds */
-#define BatteryUpdateInterval 60000 /* milliseconds */
+#define BatteryUpdateInterval 60000         /* milliseconds */
 
 
 enum biunrf52_type {
@@ -98,6 +99,7 @@ struct biunrf52_msg {
 } __attribute__((packed));
 
 enum queue_type {
+    QTBatVMsg,
     QTKeyReport,  // 1-byte modifier + 6-byte key report
 #ifdef EXTRAKEY_ENABLE
     QTConsumer,   // 16-bit key code
@@ -121,6 +123,7 @@ struct queue_item {
     enum queue_type queue_type;
     uint16_t        added;
     union __attribute__((packed)) {
+        uint8_t bat_lev;
         struct __attribute__((packed)) {
             uint8_t modifier;
             uint8_t keys[6];
@@ -203,6 +206,7 @@ static RingBuffer<uint16_t, 4> resp_buf;
 static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout) {
     uint16_t timerStart = timer_read();
     bool     ready      = false;
+
     dprint("BLE SEND: ");
     for (uint8_t i = 0; i<cmd_len; ++i) {
         dprintf("%#X ", cmd[i]);
@@ -302,6 +306,11 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
 #endif
 
     switch (item->queue_type) {
+        case QTBatVMsg:
+            cmdbuf[1] = GET_BAT_INFO;
+            cmdbuf[2] = item->bat_lev;
+            cmdbuf[3] = BleUartTail;
+            return send_a_pkt(cmdbuf, 4, timeout);
         case QTKeyReport:
             cmdbuf[1] = REPORT_INDEX_KEYBOARD;
             cmdbuf[2] = item->key.modifier;
@@ -486,11 +495,20 @@ void bluetooth_send_battery_level() {
     writePinHigh(BATTERY_LEVEL_SW_PIN);
 #endif
 
-    uint16_t bat_lev = (BATTERY_V_MAX*adc_val/BATTERY_ADC_MAX - BATTERY_V_LOW)*100/(BATTERY_V_HEI-BATTERY_V_LOW);
+    uint16_t curr_mv = BATTERY_V_MAX*adc_val/BATTERY_ADC_MAX;
+    if (curr_mv <= BATTERY_V_LOW) {
+        curr_mv = BATTERY_V_LOW; // bat too low, lower than BATTERY_V_LOW, normaly 3.5v
+    }
+    uint8_t cur_bat_lev = (curr_mv - BATTERY_V_LOW)*100/(BATTERY_V_HEI-BATTERY_V_LOW);
 
-    uart_putchar((bat_lev >> 8) & 0xFF); // H
-    uart_putchar(bat_lev & 0xFF);        // L
+    struct queue_item item;
 
+    item.queue_type   = QTBatVMsg;
+    item.added        = timer_read();
+    item.bat_lev = cur_bat_lev;
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
 }
 
 
