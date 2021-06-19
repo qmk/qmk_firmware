@@ -115,7 +115,7 @@ def write_version_h(skip_git=False, skip_all=False):
     """Generate and write quantum/version.h
     """
     if skip_all:
-        current_time = "2020-01-01-00:00:00"
+        current_time = "1970-01-01-00:00:00"
     else:
         current_time = strftime(time_fmt)
 
@@ -128,21 +128,19 @@ def write_version_h(skip_git=False, skip_all=False):
         chibios_version = get_git_version(current_time, "chibios", "os")
         chibios_contrib_version = get_git_version(current_time, "chibios-contrib", "os")
 
-    version_h_lines = [
-        '/* This file was automatically generated. Do not edit or copy.',
-        ' */',
-        '',
-        '#pragma once',
-        '',
-        f'#define QMK_VERSION "{git_version}"',
-        f'#define QMK_BUILDDATE "{current_time}"',
-        f'#define CHIBIOS_VERSION "{chibios_version}"',
-        f'#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"',
-        '',
-    ]
+    version_h_lines = f"""/* This file was automatically generated. Do not edit or copy.
+ */
+
+#pragma once
+
+#define QMK_VERSION "{git_version}"
+#define QMK_BUILDDATE "{current_time}"
+#define CHIBIOS_VERSION "{chibios_version}"
+#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"
+"""
 
     version_h = Path('quantum/version.h')
-    version_h.write_text('\n'.join(version_h_lines))
+    version_h.write_text(version_h_lines)
 
 
 def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
