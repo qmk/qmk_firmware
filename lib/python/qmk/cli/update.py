@@ -50,6 +50,13 @@ def qmk_repo_check():
         cli.log.error('Updating is only supported for the "master" and "develop" branches.\nPlease check out one of them.')
         sys.exit(5)
 
+    # Check if user committed anything into the local branch
+    cli.run(['git', 'fetch', 'upstream', active_branch])
+    output = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'])
+    if output.returncode != 0:
+        cli.log.error(f'The local "{active_branch}" branch contains commits not found in the upstream branch.')
+        sys.exit(6)
+
     return active_branch
 
 
