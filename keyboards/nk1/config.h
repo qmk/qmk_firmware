@@ -88,3 +88,6 @@
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
     #define RGBLIGHT_ANIMATIONS
 #endif
+
+/* There is only 1 Button so limiting VIA to 1 layer */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 1
