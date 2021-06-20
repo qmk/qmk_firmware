@@ -51,8 +51,11 @@ SLEEP_LED_ENABLE = no
 # Disable other unused options on all keyboards.
 AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = no
+GRAVE_ESC_ENABLE = no
 KEY_LOCK_ENABLE = no
 LEADER_ENABLE = no
+MAGIC_ENABLE = no
+SPACE_CADET_ENABLE = no
 SWAP_HANDS_ENABLE = no
 TAP_DANCE_ENABLE = no
 UCIS_ENABLE = no

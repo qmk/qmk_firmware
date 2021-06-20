@@ -21,6 +21,11 @@
 #if defined(KEYBOARD_crkbd_rev1)
 #    define EE_HANDS
 
+#    if defined(OLED_ENABLE)
+#        undef OLED_FONT_H
+#        define OLED_FONT_H "lib/glcdfont.c"
+#    endif
+
 #    if defined(RGB_MATRIX_ENABLE)
 /* Limit max RGB LED current to avoid tripping controller fuse. */
 #        undef RGB_MATRIX_MAXIMUM_BRIGHTNESS

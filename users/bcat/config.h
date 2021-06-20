@@ -14,6 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* Enable NKRO by default. All my devices support this, and it enables me to
+ * dispense with the NK_TOGG key, thus saving firmware space by not compiling
+ * magic keycode support.
+ */
+#define FORCE_NKRO
+
 /* Wait between tap_code register and unregister to fix flaky media keys. */
 #undef TAP_CODE_DELAY
 
@@ -46,8 +52,9 @@
 #    define RGB_MATRIX_VAL_STEP 17
 #    define RGB_MATRIX_SPD_STEP 17
 
-/* Turn on additional RGB animations. */
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+/* Turn on reactive RGB animations. (We don't enable
+ * RGB_MATRIX_FRAMEBUFFER_EFFECTS due to AVR size limits.)
+ */
 #    define RGB_MATRIX_KEYPRESSES
 #endif
 
@@ -77,3 +84,9 @@
 
 #    define BACKLIGHT_LEVELS 7
 #endif
+
+/* Turn off unused config options to reduce firmware size. */
+#define LAYER_STATE_8BIT
+#define NO_ACTION_ONESHOT
+#undef LOCKING_RESYNC_ENABLE
+#undef LOCKING_SUPPORT_ENABLE
