@@ -35,7 +35,7 @@ def os_check():
 def qmk_repo_check():
     # Check if QMK dir is a git repo
     if not (QMK_FIRMWARE / '.git').exists():
-        cli.log.error(f'{qmk_dir} is not a "qmk_firmware clone or not a git repository.')
+        cli.log.error(f'{QMK_FIRMWARE} is not a git repository.')
         sys.exit(3)
 
     # Check if the official repo is configured as a git remote 'upstream'
