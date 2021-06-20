@@ -13,11 +13,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x0000
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x94EE
+#define PRODUCT_ID      0x614A
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    su8044
 #define PRODUCT         Nostromo Ortho 5x12
