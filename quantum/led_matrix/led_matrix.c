@@ -42,19 +42,14 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 // clang-format on
 
 // Generic effect runners
-#include "led_matrix_runners/effect_runner_dx_dy_dist.h"
-#include "led_matrix_runners/effect_runner_dx_dy.h"
-#include "led_matrix_runners/effect_runner_i.h"
-#include "led_matrix_runners/effect_runner_sin_cos_i.h"
-#include "led_matrix_runners/effect_runner_reactive.h"
-#include "led_matrix_runners/effect_runner_reactive_splash.h"
+#include "led_matrix_runners.inc"
 
 // ------------------------------------------
 // -----Begin led effect includes macros-----
 #define LED_MATRIX_EFFECT(name)
 #define LED_MATRIX_CUSTOM_EFFECT_IMPLS
 
-#include "led_matrix_animations/led_matrix_effects.inc"
+#include "led_matrix_effects.inc"
 #ifdef LED_MATRIX_CUSTOM_KB
 #    include "led_matrix_kb.inc"
 #endif
@@ -325,7 +320,7 @@ static void led_task_render(uint8_t effect) {
     case LED_MATRIX_##name:                   \
         rendering = name(&led_effect_params); \
         break;
-#include "led_matrix_animations/led_matrix_effects.inc"
+#include "led_matrix_effects.inc"
 #undef LED_MATRIX_EFFECT
 
 #if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)

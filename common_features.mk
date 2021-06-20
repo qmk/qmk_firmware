@@ -230,9 +230,12 @@ ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
     # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
     OPT_DEFS += -DLIB8_ATTINY
 endif
-    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
-    SRC += $(QUANTUM_DIR)/led_matrix.c
-    SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix
+    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
+    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations/runners
+    SRC += process_backlight.c
+    SRC += led_matrix.c
+    SRC += led_matrix_drivers.c
     CIE1931_CURVE := yes
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3731)
@@ -255,9 +258,12 @@ ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
     # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
     OPT_DEFS += -DLIB8_ATTINY
 endif
-    SRC += $(QUANTUM_DIR)/color.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
+    SRC += color.c
+    SRC += rgb_matrix.c
+    SRC += rgb_matrix_drivers.c
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
 
