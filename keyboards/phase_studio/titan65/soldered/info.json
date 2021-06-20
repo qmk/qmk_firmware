@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Titan 65",
+    "keyboard_name": "Titan 65 (soldered)",
     "url": "",
     "maintainer": "drashna",
     "width": 16,
@@ -20,6 +20,7 @@
                 {"label":"K0A (B4,F0)", "x":10, "y":0},
                 {"label":"K0B (B4,F1)", "x":11, "y":0},
                 {"label":"K0C (B4,C7)", "x":12, "y":0},
+                {"label":"K0E (B4,F5)", "x":13, "y":0},
                 {"label":"K0E (B4,F5)", "x":13, "y":0, "w":2},
                 {"label":"K0F (B4,F6)", "x":15, "y":0},
                 {"label":"K10 (B5,B0)", "x":0, "y":1, "w":1.5},
