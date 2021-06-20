@@ -40,3 +40,17 @@ enum user_keycode {
     MC_ALTT = SAFE_RANGE,
     KEYMAP_SAFE_RANGE,
 };
+
+/* Keycode aliases shared across keymaps. */
+#define KY_CSPC LCTL(KC_SPC)
+#define KY_ZMIN LCTL(KC_EQL)
+#define KY_ZMOUT LCTL(KC_MINS)
+#define KY_ZMRST LCTL(KC_0)
+
+#if defined(BCAT_ORTHO_LAYERS)
+#    define LY_LWR MO(LAYER_LOWER)
+#    define LY_RSE MO(LAYER_RAISE)
+#else
+#    define LY_FN1 MO(LAYER_FUNCTION_1)
+#    define LY_FN2 MO(LAYER_FUNCTION_2)
+#endif

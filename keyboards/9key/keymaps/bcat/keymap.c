@@ -18,8 +18,6 @@
 
 #include "bcat.h"
 
-#define LY_FN1 MO(LAYER_FUNCTION_1)
-
 #define KY_LOCK LCA(KC_L) /* Cinnamon lock screen */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

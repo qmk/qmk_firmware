@@ -18,14 +18,6 @@
 
 #include "bcat.h"
 
-#define LY_LWR MO(LAYER_LOWER)
-#define LY_RSE MO(LAYER_RAISE)
-
-#define KY_CSPC LCTL(KC_SPC)
-#define KY_ZMIN LCTL(KC_EQL)
-#define KY_ZMOUT LCTL(KC_MINS)
-#define KY_ZMRST LCTL(KC_0)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     /* Default layer: http://www.keyboard-layout-editor.com/#/gists/2c11371c7a5f7cd08a0132631d3d3281 */

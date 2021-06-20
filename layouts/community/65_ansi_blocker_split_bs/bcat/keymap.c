@@ -18,8 +18,6 @@
 
 #include "bcat.h"
 
-#define LY_FN1 MO(LAYER_FUNCTION_1)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     /* Default layer: http://www.keyboard-layout-editor.com/#/gists/dd675b40cc4df2c7bb78847ac29f5988 */
