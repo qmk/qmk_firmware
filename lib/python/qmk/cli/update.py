@@ -44,8 +44,15 @@ def qmk_repo_check():
         cli.log.error('The official repository does not seem to be configured as git remote "upstream".')
         sys.exit(4)
 
-    # Check if master branch is checked out
+    # Check if either master or develop branch is checked out
     active_branch = cli.run(['git', 'branch', '--show-current']).stdout.strip()
+    if not active_branch:
+        # Workaround for older 'git' without the '--show-current' argument
+        active_branch = cli.run(['git', 'branch']).stdout.split('\n')
+        for branch in active_branch:
+            if branch.startswith('*'):
+                active_branch = branch.split()[1]
+                break
     if active_branch not in ['master', 'develop']:
         cli.log.error('Updating is only supported for the "master" and "develop" branches.\nPlease check out one of them.')
         sys.exit(5)
