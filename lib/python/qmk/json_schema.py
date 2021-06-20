@@ -41,7 +41,7 @@ def create_validator(schema):
     """
     schema_store = {}
 
-    for schema_file in Path(f'data/schemas/').glob('*.jsonschema'):
+    for schema_file in Path('data/schemas').glob('*.jsonschema'):
         schema_data = load_jsonschema(schema_file)
         if not isinstance(schema_data, dict):
             cli.log.debug('Skipping schema file %s', schema_file)
