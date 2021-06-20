@@ -34,9 +34,19 @@ bool process_record_vsc(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_LCTRL("b"));
             }
             break;
-        case M_VSC_CLOSEFILE:
+        case M_VSC_FILECLOSE:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTRL("w"));
+            }
+            break;
+        case M_VSC_FILENXT:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_K) SS_TAP(X_PGDOWN) SS_UP(X_LCTRL));
+            }
+            break;
+        case M_VSC_FILEPRV:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_K) SS_TAP(X_PGUP) SS_UP(X_LCTRL));
             }
             break;
         case M_VSC_DBGCNSLFOCUS:

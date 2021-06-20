@@ -36,7 +36,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_VSC_TERMFOCUS:
         case M_VSC_SIDEBARFOCUS:
         case M_VSC_SIDEBARCLOSE:
-        case M_VSC_CLOSEFILE:
+        case M_VSC_FILECLOSE:
+        case M_VSC_FILENXT:
+        case M_VSC_FILEPRV:
         case M_VSC_DBGCNSLFOCUS:
         case M_VSC_MVEDTRNXTGRP:
         case M_VSC_MVEDTRPRVGRP:
@@ -78,11 +80,9 @@ __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 1) { /* Bottom encoder */
         if(curr_layer == 2 || curr_layer == 3) {
             if (clockwise) {
-                SEND_STRING(SS_LCTRL("k"));
-                SEND_STRING(SS_LCTRL(SS_TAP(X_PGDOWN)));
+                moults31_tap_custom_code(M_VSC_FILENXT);
             } else {
-                SEND_STRING(SS_LCTRL("k"));
-                SEND_STRING(SS_LCTRL(SS_TAP(X_PGUP)));
+                moults31_tap_custom_code(M_VSC_FILEPRV);
             }
         }
         else {

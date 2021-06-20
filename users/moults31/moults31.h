@@ -35,7 +35,9 @@ enum custom_keycodes {
     M_VSC_MVEDTRPRVGRP,
     M_VSC_VIEWSIZEINC,
     M_VSC_VIEWSIZEDEC,
-    M_VSC_CLOSEFILE,
+    M_VSC_FILECLOSE,
+    M_VSC_FILENXT,
+    M_VSC_FILEPRV,
     // GDB keycodes (for vscode debugger)
     M_GDB_PLAY,
     M_GDB_PAUSE,

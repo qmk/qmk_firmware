@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           M_VSC_MVEDTRPRVGRP, M_VSC_MVEDTRNXTGRP,   KC_TRNS,         KC_TRNS,
                           M_VSC_EDGRPPRV,     M_VSC_EDGRPNXT,       KC_TRNS,         KC_TRNS,
          KC_TRNS,         M_VSC_SIDEBARFOCUS, M_VSC_SIDEBARCLOSE,   M_VSC_TERMFOCUS, KC_TRNS,
-         M_VSC_CLOSEFILE, MO(10),             KC_TRNS,              KC_TRNS,         KC_TRNS
+         M_VSC_FILECLOSE, MO(10),             KC_TRNS,              KC_TRNS,         KC_TRNS
 				 ),
 
 	[3] = LAYOUT_ortho(
