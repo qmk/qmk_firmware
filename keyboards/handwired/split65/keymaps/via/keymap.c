@@ -192,32 +192,6 @@ void oled_task_user(void) {
     }
 }
 #endif
-/*
-#ifdef OLED_DRIVER_ENABLE
-
-// When you add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
-const char *read_logo(void);
-uint8_t get_current_wpm(void);
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-const char *read_keylogs(void);
-
-void oeld_task_user(void) {
-    if (is_keyboard_master()) {
-        oled_write_ln(read_layer_state(), false);
-        oled_write_ln(read_keylog(), false);
-        oled_write_ln(read_keylogs(), false);
-
-        char wpm_str[12]={};
-	    sprintf(wpm_str,"WPM: %d", get_current_wpm());
-	    oled_write_ln(wpm_str, false);
-    } else {
-        oled_write(read_logo(), false);
-    }
-}
-#endif
-*/
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
