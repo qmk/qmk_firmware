@@ -1,4 +1,5 @@
 /* Copyright 2018 Jason Williams (Wilba)
+ * Copyright 2021 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +24,7 @@
 #define PRODUCT_ID      0x065C // 65 - Constellation
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEBoards
-#define PRODUCT         AEBoards Constellation
+#define PRODUCT         AEBoards Constellation Rev1
 
 /* key matrix size */
 #define MATRIX_ROWS 5
