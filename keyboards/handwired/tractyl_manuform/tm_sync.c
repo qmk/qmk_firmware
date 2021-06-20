@@ -110,7 +110,9 @@ void kb_state_sync(void) {
             if (timer_elapsed32(mouse_sync) >= 5) {
                 // always sync slave data, since it may contain device reports.
                 if (transaction_rpc_recv(RPC_ID_SLAVE_STATE, sizeof(kb_slave_data_t), &kb_slave)) {
-                    mouse_sync = timer_read32();
+                    if (kb_slave.mouse_x >= -127 && kb_slave.mouse_x <= 127 && kb_slave.mouse_y >= -127 && kb_slave.mouse_y <= 127) {
+                        mouse_sync = timer_read32();
+                    }
                 }
             }
         }
