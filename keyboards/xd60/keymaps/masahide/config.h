@@ -4,11 +4,41 @@
 /* Changes the number of taps required for layer toggle*/
 // #define TAPPING_TOGGLE 3
 
+//#undef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
 /* The RGB lighting will be switched off when the host goes to sleep */
-#define RGBLIGHT_SLEEP
-
+//#define RGBLIGHT_SLEEP
 // lighting layers
 #define RGBLIGHT_LAYERS
+#elif
+#undef BACKLIGHT_ENABLE
+#undef RGBLIGHT_LAYERS
+#endif
+
+//#define NO_ACTION_TAPPING
+#undef AUTO_SHIFT_ENABLE
+#undef AUTO_SHIFT_MODIFIERS
+#undef BACKLIGHT_BREATHING
+#undef COMBO_ENABLE
+#undef MIDI_ENABLE
+//#undef MOUSEKEY_ENABLE
+#undef POINTING_DEVICE_ENABLE
+#undef RGBLIGHT_ANIMATIONS
+#undef SPLIT_KEYBOARD
+#undef TAP_DANCE_ENABLE
+#undef SLEEP_LED_ENABLE
+#undef AUDIO_CLICKY
+#define NO_MUSIC_MODE
+#undef AUDIO_ENABLE
+
+#ifdef MOUSEKEY_ENABLE
+#define MK_KINETIC_SPEED
+#define MOUSEKEY_DELAY 8
+#define MOUSEKEY_INTERVAL 30
+#define MOUSEKEY_MOVE_DELTA 4
+#define MOUSEKEY_INITIAL_SPEED 1
+#define MOUSEKEY_BASE_SPEED 1000
+#endif
 
 #undef PRODUCT
 #define PRODUCT         XD60 3.0 masahide Split space
