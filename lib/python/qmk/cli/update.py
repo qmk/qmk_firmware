@@ -48,8 +48,7 @@ def qmk_repo_check():
     active_branch = cli.run(['git', 'branch', '--show-current']).stdout.strip()
     if active_branch not in ['master', 'develop']:
         cli.log.error('Updating is only supported for the "master" and "develop" branches.\nPlease check out one of them.')
-        # sys.exit(5)
-        active_branch = 'master'
+        sys.exit(5)
 
     return active_branch
 
