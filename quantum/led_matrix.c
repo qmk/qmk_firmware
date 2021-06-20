@@ -33,6 +33,14 @@ const led_point_t k_led_matrix_center = {112, 32};
 const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #endif
 
+// clang-format off
+#ifndef LED_MATRIX_IMMEDIATE_EEPROM
+#    define led_eeconfig_update(v) led_update_eeprom |= v
+#else
+#    define led_eeconfig_update(v) if (v) eeconfig_update_led_matrix()
+#endif
+// clang-format on
+
 // Generic effect runners
 #include "led_matrix_runners/effect_runner_dx_dy_dist.h"
 #include "led_matrix_runners/effect_runner_dx_dy.h"
@@ -104,6 +112,7 @@ last_hit_t g_last_hit_tracker;
 
 // internals
 static bool            suspend_state     = false;
+static bool            led_update_eeprom = false;
 static uint8_t         led_last_enable   = UINT8_MAX;
 static uint8_t         led_last_effect   = UINT8_MAX;
 static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
@@ -276,6 +285,7 @@ static void led_task_timers(void) {
 
 static void led_task_sync(void) {
     // next task
+    if (led_update_eeprom) eeconfig_update_led_matrix();
     if (sync_timer_elapsed32(g_led_timer) >= LED_MATRIX_LED_FLUSH_LIMIT) led_task_state = STARTING;
 }
 
@@ -465,9 +475,7 @@ bool led_matrix_get_suspend_state(void) { return suspend_state; }
 void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;
     led_task_state = STARTING;
-    if (write_to_eeprom) {
-        eeconfig_update_led_matrix();
-    }
+    led_eeconfig_update(write_to_eeprom);
     dprintf("led matrix toggle [%s]: led_matrix_eeconfig.enable = %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.enable);
 }
 void led_matrix_toggle_noeeprom(void) { led_matrix_toggle_eeprom_helper(false); }
@@ -475,7 +483,7 @@ void led_matrix_toggle(void) { led_matrix_toggle_eeprom_helper(true); }
 
 void led_matrix_enable(void) {
     led_matrix_enable_noeeprom();
-    eeconfig_update_led_matrix();
+    led_eeconfig_update(true);
 }
 
 void led_matrix_enable_noeeprom(void) {
@@ -485,7 +493,7 @@ void led_matrix_enable_noeeprom(void) {
 
 void led_matrix_disable(void) {
     led_matrix_disable_noeeprom();
-    eeconfig_update_led_matrix();
+    led_eeconfig_update(true);
 }
 
 void led_matrix_disable_noeeprom(void) {
@@ -507,9 +515,7 @@ void led_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
         led_matrix_eeconfig.mode = mode;
     }
     led_task_state = STARTING;
-    if (write_to_eeprom) {
-        eeconfig_update_led_matrix();
-    }
+    led_eeconfig_update(write_to_eeprom);
     dprintf("led matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.mode);
 }
 void led_matrix_mode_noeeprom(uint8_t mode) { led_matrix_mode_eeprom_helper(mode, false); }
@@ -536,9 +542,7 @@ void led_matrix_set_val_eeprom_helper(uint8_t val, bool write_to_eeprom) {
         return;
     }
     led_matrix_eeconfig.val = (val > LED_MATRIX_MAXIMUM_BRIGHTNESS) ? LED_MATRIX_MAXIMUM_BRIGHTNESS : val;
-    if (write_to_eeprom) {
-        eeconfig_update_led_matrix();
-    }
+    led_eeconfig_update(write_to_eeprom);
     dprintf("led matrix set val [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.val);
 }
 void led_matrix_set_val_noeeprom(uint8_t val) { led_matrix_set_val_eeprom_helper(val, false); }
@@ -556,9 +560,7 @@ void led_matrix_decrease_val(void) { led_matrix_decrease_val_helper(true); }
 
 void led_matrix_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
     led_matrix_eeconfig.speed = speed;
-    if (write_to_eeprom) {
-        eeconfig_update_led_matrix();
-    }
+    led_eeconfig_update(write_to_eeprom);
     dprintf("led matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.speed);
 }
 void led_matrix_set_speed_noeeprom(uint8_t speed) { led_matrix_set_speed_eeprom_helper(speed, false); }
