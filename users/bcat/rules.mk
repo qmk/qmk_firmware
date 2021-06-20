@@ -19,6 +19,10 @@ SRC += bcat.c
 
 # Include additional utilities that extend optional QMK features only enabled
 # on some keyboards.
+ifeq ($(strip $(OLED_ENABLE)), yes)
+	SRC += bcat_oled.c
+	WPM_ENABLE = yes  # for WPM and animated "keyboard pet" widgets
+endif
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 	SRC += bcat_rgblight.c
 endif

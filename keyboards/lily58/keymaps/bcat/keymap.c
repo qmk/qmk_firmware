@@ -18,6 +18,10 @@
 
 #include "bcat.h"
 
+#if defined(OLED_ENABLE)
+#    include "bcat_oled.h"
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     /* Default layer: http://www.keyboard-layout-editor.com/#/gists/e0eb3af65961e9fd612dcff3ddd88e4f */
@@ -54,3 +58,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // clang-format on
 };
+
+#if defined(OLED_ENABLE)
+oled_rotation_t oled_init_user(oled_rotation_t rotation) { return is_keyboard_master() ? OLED_ROTATION_270 : OLED_ROTATION_180; }
+
+void oled_task_user(void) {
+    if (is_keyboard_master()) {
+        render_oled_layers();
+        oled_advance_page(/*clearPageRemainder=*/false);
+        render_oled_indicators();
+        oled_advance_page(/*clearPageRemainder=*/false);
+        oled_advance_page(/*clearPageRemainder=*/false);
+        render_oled_wpm();
+    } else {
+        render_oled_logo();
+    }
+}
+#endif
