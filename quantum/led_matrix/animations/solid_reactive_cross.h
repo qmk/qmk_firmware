@@ -31,5 +31,5 @@ bool SOLID_REACTIVE_MULTICROSS(effect_params_t* params) { return effect_runner_r
 #            endif
 
 #        endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#    endif  // !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_CROSS) || !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS)
-#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
+#    endif      // !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_CROSS) || !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS)
+#endif          // LED_MATRIX_KEYREACTIVE_ENABLED

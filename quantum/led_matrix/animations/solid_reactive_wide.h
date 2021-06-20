@@ -26,5 +26,5 @@ bool SOLID_REACTIVE_MULTIWIDE(effect_params_t* params) { return effect_runner_re
 #            endif
 
 #        endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#    endif  // !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_WIDE) || !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTIWIDE)
-#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
+#    endif      // !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_WIDE) || !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTIWIDE)
+#endif          // LED_MATRIX_KEYREACTIVE_ENABLED
