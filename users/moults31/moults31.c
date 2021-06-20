@@ -73,7 +73,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 #ifdef ENCODER_ENABLE
-__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
+__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
     const layer_state_t curr_layer = get_highest_layer(layer_state);
     if (index == 1) { /* Bottom encoder */
         if(curr_layer == 2 || curr_layer == 3) {
@@ -109,5 +109,6 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
+    return false;
 }
 #endif
