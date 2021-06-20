@@ -16,11 +16,6 @@
 
 #include "bcat.h"
 
-#if defined(RGBLIGHT_ENABLE)
-/* Adjust RGB static hue ranges for shorter gradients than default. */
-const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 127, 63, 31, 15};
-#endif
-
 static int8_t alt_tab_layer = -1;
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
