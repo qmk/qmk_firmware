@@ -18,13 +18,6 @@
 
 #include "bcat.h"
 
-enum layer {
-    LAYER_DEFAULT,
-    LAYER_LOWER,
-    LAYER_RAISE,
-    LAYER_ADJUST,
-};
-
 #define LY_LWR MO(LAYER_LOWER)
 #define LY_RSE MO(LAYER_RAISE)
 
@@ -65,5 +58,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // clang-format on
 };
-
-layer_state_t layer_state_set_keymap(layer_state_t state) { return update_tri_layer_state(state, LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST); }

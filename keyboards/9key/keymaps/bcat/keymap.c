@@ -16,12 +16,10 @@
 
 #include QMK_KEYBOARD_H
 
-enum layer {
-    LAYER_DEFAULT,
-    LAYER_FUNCTION,
-};
+#include "bcat.h"
 
-#define LY_FUNC MO(LAYER_FUNCTION)
+#define LY_FN1 MO(LAYER_FUNCTION_1)
+
 #define KY_LOCK LCA(KC_L) /* Cinnamon lock screen */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -29,9 +27,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_DEFAULT] = LAYOUT(
         KC_MPLY,  KC_VOLU,  KC_MSTP,
         KC_MPRV,  KC_VOLD,  KC_MNXT,
-        KY_LOCK,  KC_MUTE,  LY_FUNC
+        KY_LOCK,  KC_MUTE,  LY_FN1
     ),
-    [LAYER_FUNCTION] = LAYOUT(
+    [LAYER_FUNCTION_1] = LAYOUT(
         EEP_RST,  _______,  RESET,
         _______,  _______,  _______,
         _______,  _______,  _______

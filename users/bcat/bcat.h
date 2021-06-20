@@ -16,8 +16,26 @@
 
 #pragma once
 
-#include "quantum.h"
+#include "keymap.h"
 
+/* Layer numbers shared across keymaps. */
+enum user_layer {
+    /* Base layers: */
+    LAYER_DEFAULT,
+
+#if defined(BCAT_ORTHO_LAYERS)
+    /* Function layers for ortho (and ergo) boards: */
+    LAYER_LOWER,
+    LAYER_RAISE,
+    LAYER_ADJUST,
+#else
+    /* Function layers for traditional boards: */
+    LAYER_FUNCTION_1,
+    LAYER_FUNCTION_2,
+#endif
+};
+
+/* Custom keycodes shared across keymaps. */
 enum user_keycode {
     MC_ALTT = SAFE_RANGE,
     KEYMAP_SAFE_RANGE,

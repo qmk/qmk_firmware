@@ -16,6 +16,8 @@
 
 #pragma once
 
+#define BCAT_ORTHO_LAYERS
+
 #if defined(KEYBOARD_crkbd_rev1)
 #    define EE_HANDS
 

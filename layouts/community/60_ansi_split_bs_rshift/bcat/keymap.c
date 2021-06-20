@@ -16,11 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum layer {
-    LAYER_DEFAULT,
-    LAYER_FUNCTION_1,
-    LAYER_FUNCTION_2,
-};
+#include "bcat.h"
 
 #define LY_FN1 MO(LAYER_FUNCTION_1)
 #define LY_FN2 MO(LAYER_FUNCTION_2)

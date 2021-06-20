@@ -16,6 +16,14 @@
 
 #include "bcat.h"
 
+#include <stdbool.h>
+#include <stdint.h>
+
+#include "action.h"
+#include "action_layer.h"
+#include "keycode.h"
+#include "quantum.h"
+
 static int8_t alt_tab_layer = -1;
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
@@ -46,6 +54,9 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = layer_state_set_keymap(state);
+#if defined(BCAT_ORTHO_LAYERS)
+    state = update_tri_layer_state(state, LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST);
+#endif
     if (alt_tab_layer >= 0 && !layer_state_cmp(state, alt_tab_layer)) {
         unregister_code(KC_LALT);
         alt_tab_layer = -1;
