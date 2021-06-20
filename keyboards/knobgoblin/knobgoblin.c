@@ -18,42 +18,23 @@
 
 #ifdef ENCODER_ENABLE
 /* assign keycodes to the encoder rotation */
-__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
-			const layer_state_t curr_layer = get_highest_layer(layer_state);
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+	if (!encoder_update_user(index, clockwise)) return false;
 			if (index == 1) { /* Bottom encoder */
-				if(curr_layer == 2 || curr_layer == 3) {
-					if (clockwise) {
-						SEND_STRING(SS_LCTRL("k"));
-						SEND_STRING(SS_LCTRL(SS_TAP(X_PGDOWN)));
-					} else {
-						SEND_STRING(SS_LCTRL("k"));
-						SEND_STRING(SS_LCTRL(SS_TAP(X_PGUP)));
-					}
-				}
-				else {
-					if (clockwise) {
-						tap_code(KC_VOLU);
-					} else {
-						tap_code(KC_VOLD);
-					}
+				if (clockwise) {
+					tap_code(KC_VOLU);
+				} else {
+					tap_code(KC_VOLD);
 				}
 			}
 			if (index == 0) { /* Top encoder */
-				if(curr_layer == 2 || curr_layer == 3) {
-					if (clockwise) {
-						SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_P))));
-					} else {
-						SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_O))));
-					}
-				}
-				else {
-					if (clockwise) {
-						tap_code(KC_MNXT);
-					} else {
-						tap_code(KC_MPRV);
-					}
+				if (clockwise) {
+					tap_code(KC_MNXT);
+				} else {
+					tap_code(KC_MPRV);
 				}
 			}
+	return true;
 }
 #endif
 

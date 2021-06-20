@@ -15,7 +15,8 @@
  */
  #include "nines.h"
 
-__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
     if (index == 0) { /* Left encoder */
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -29,4 +30,5 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }
