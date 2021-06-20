@@ -20,8 +20,8 @@ BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no          # Enable Bluetooth
 AUDIO_ENABLE = no              # Audio output
-#RGB_MATRIX_ENABLE = no
-#RGB_MATRIX_DRIVER = IS31FL3731
+RGB_MATRIX_ENABLE = no
+RGB_MATRIX_DRIVER = IS31FL3731
 CIE1931_CURVE = yes
 
 # project specific files
