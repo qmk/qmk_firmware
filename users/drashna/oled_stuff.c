@@ -25,7 +25,7 @@
 #endif
 
 uint32_t        oled_timer                       = 0;
-static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
+static char     keylog_str[KEYLOGGER_LENGTH + 1] = { 0 };
 static uint16_t log_timer                        = 0;
 
 // clang-format off
@@ -57,9 +57,13 @@ void add_keylog(uint16_t keycode) {
         keycode = 0;
     }
 
-    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) { keylog_str[i] = keylog_str[i - 1]; }
+    for (uint8_t i = 1; i < KEYLOGGER_LENGTH; i++) {
+        keylog_str[i-1] = keylog_str[i];
+    }
 
-    if (keycode < (sizeof(code_to_name) / sizeof(char))) { keylog_str[0] = pgm_read_byte(&code_to_name[keycode]); }
+    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+        keylog_str[(KEYLOGGER_LENGTH - 1)] = pgm_read_byte(&code_to_name[keycode]);
+    }
 
     log_timer = timer_read();
 }
@@ -357,6 +361,15 @@ void render_status_main(void) {
     render_user_status();
 
     render_keylogger_status();
+}
+
+__attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return rotation; }
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    for (uint8_t i = 0; i < (KEYLOGGER_LENGTH - 1); i++) {
+        add_keylog(0);
+    }
+    return oled_init_keymap(rotation);
 }
 
 void oled_task_user(void) {
