@@ -22,7 +22,15 @@ SRC += bcat.c
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += bcat_oled.c
 	WPM_ENABLE = yes  # for WPM and animated "keyboard pet" widgets
+
+	# OLED pets (animated critters that react to typing) take up a lot of
+	# firmware space, so only compile one, and only if requested.
+	ifeq ($(strip $(BCAT_OLED_PET)), luna)
+		SRC += bcat_oled_pet_luna.c
+		OPT_DEFS += -DBCAT_OLED_PET
+	endif
 endif
+
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 	SRC += bcat_rgblight.c
 endif

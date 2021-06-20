@@ -20,15 +20,23 @@
 #include <stdint.h>
 
 #include "bcat.h"
+#include "keycode.h"
 #include "led.h"
 #include "oled_driver.h"
 #include "progmem.h"
 #include "quantum.h"
 #include "timer.h"
-#include "wpm.h"
 
-static const char TRIANGLE_UP   = 0x1e;
-static const char TRIANGLE_DOWN = 0x1f;
+#if defined(BCAT_OLED_PET)
+#    include "bcat_oled_pet.h"
+#endif
+
+#define TRIANGLE_UP 0x1e
+#define TRIANGLE_DOWN 0x1f
+
+#if defined(BCAT_OLED_PET)
+static bool oled_pet_should_jump = false;
+#endif
 
 void render_oled_logo(void) {
     static const char PROGMEM logo[] = {
@@ -65,26 +73,23 @@ void render_oled_layers(void) {
 #endif
 }
 
-void render_oled_indicators(void) {
-    led_t led_state = host_keyboard_led_state();
+void render_oled_indicators(led_t leds) {
     oled_advance_char();
     oled_advance_char();
-    oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("   "), /*invert=*/false);
+    oled_write_P(leds.num_lock ? PSTR("NUM") : PSTR("   "), /*invert=*/false);
     oled_advance_char();
     oled_advance_char();
-    oled_write_P(led_state.caps_lock ? PSTR("CAP") : PSTR("   "), /*invert=*/false);
+    oled_write_P(leds.caps_lock ? PSTR("CAP") : PSTR("   "), /*invert=*/false);
     oled_advance_char();
     oled_advance_char();
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR") : PSTR("   "), /*invert=*/false);
+    oled_write_P(leds.scroll_lock ? PSTR("SCR") : PSTR("   "), /*invert=*/false);
 }
 
-void render_oled_wpm(void) {
-    static const uint16_t UPDATE_INTERVAL_MILLIS = 100;
-    static uint32_t       update_timeout         = 0;
+void render_oled_wpm(uint8_t wpm) {
+    static const uint16_t UPDATE_MILLIS  = 100;
+    static uint32_t       update_timeout = 0;
 
     if (timer_expired32(timer_read32(), update_timeout)) {
-        uint8_t wpm = get_current_wpm();
-
         char wpm_str[] = "   ";
         if (wpm > 0) {
             wpm_str[2] = '0' + wpm % 10;
@@ -103,6 +108,93 @@ void render_oled_wpm(void) {
         oled_advance_char();
         oled_write(wpm_str, /*invert=*/false);
 
-        update_timeout = timer_read32() + UPDATE_INTERVAL_MILLIS;
+        update_timeout = timer_read32() + UPDATE_MILLIS;
     }
 }
+
+#if defined(BCAT_OLED_PET)
+void process_record_oled(uint16_t keycode, const keyrecord_t *record) {
+    switch (keycode) {
+        case KC_SPACE:
+            if (oled_pet_can_jump()) {
+                oled_pet_should_jump = record->event.pressed;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+static void redraw_oled_pet(uint8_t col, uint8_t line, bool jumping, oled_pet_state_t state, uint8_t frame) {
+    oled_set_cursor(col, line);
+    if (jumping) {
+        oled_write_raw_P(oled_pet_frame(state, frame), oled_pet_frame_bytes());
+        oled_set_cursor(col, line + oled_pet_frame_lines());
+        oled_advance_page(/*clearPageRemainder=*/true);
+    } else {
+        oled_advance_page(/*clearPageRemainder=*/true);
+        oled_write_raw_P(oled_pet_frame(state, frame), oled_pet_frame_bytes());
+        oled_set_cursor(col, line + oled_pet_frame_lines() + 1);
+    }
+}
+
+bool render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_t wpm) {
+    /* Whether or not the animation state or frame has changed since the pet
+     * was last drawn. We track this to avoid redrawing the same frame
+     * repeatedly during idle. This allows the caller to draw on top of the pet
+     * without preventing the OLED from ever going to sleep.
+     */
+    static bool animation_changed = true;
+
+    /* Current animation state and frame to redraw. */
+    static oled_pet_state_t state = OLED_PET_IDLE;
+    static uint8_t          frame = 0;
+
+    /* Minimum time until the pet comes down after jumping. */
+    static const uint16_t JUMP_MILLIS  = 200;
+    static bool           jumping      = false;
+    static uint32_t       jump_timeout = 0;
+
+    /* Time until next animation state/frame change. */
+    static uint32_t update_timeout = 0;
+
+    /* If the user pressed the jump key, immediately redraw instead of waiting
+     * for the animation frame to update. That way, the pet appears to respond
+     * to jump commands quickly rather than lagging. If the user released the
+     * jump key, wait for the jump timeout to avoid overly brief jumps.
+     */
+    bool redraw = animation_changed;
+    if (oled_pet_should_jump && !jumping) {
+        redraw       = true;
+        jumping      = true;
+        jump_timeout = timer_read32() + JUMP_MILLIS;
+    } else if (!oled_pet_should_jump && jumping && timer_expired32(timer_read32(), jump_timeout)) {
+        redraw  = true;
+        jumping = false;
+    }
+
+    if (redraw) {
+        redraw_oled_pet(col, line, jumping, state, frame);
+    }
+
+    /* If the update timer expired, recompute the pet's animation state and
+     * possibly advance to the next frame.
+     */
+    animation_changed = false;
+    if (timer_expired32(timer_read32(), update_timeout)) {
+        oled_pet_state_t new_state = oled_pet_state(mods, leds, wpm);
+        if (state != new_state) {
+            state             = new_state;
+            animation_changed = true;
+        }
+        /* If the user stopped typing, cycle around to the initial frame. */
+        if (wpm > 0 || state != OLED_PET_IDLE || frame != 0) {
+            frame             = (frame + 1) % oled_pet_num_frames();
+            update_timeout    = timer_read32() + oled_pet_update_millis(wpm);
+            animation_changed = true;
+        }
+    }
+
+    return redraw;
+}
+#endif

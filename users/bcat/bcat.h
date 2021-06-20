@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include <stdbool.h>
+
 #include "keymap.h"
 
 /* Layer numbers shared across keymaps. */

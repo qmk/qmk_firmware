@@ -64,12 +64,18 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) { return is_keyboard_ma
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
+        uint8_t mods = get_mods();
+        led_t   leds = host_keyboard_led_state();
+        uint8_t wpm  = get_current_wpm();
+
         render_oled_layers();
         oled_advance_page(/*clearPageRemainder=*/false);
-        render_oled_indicators();
+        render_oled_indicators(leds);
         oled_advance_page(/*clearPageRemainder=*/false);
         oled_advance_page(/*clearPageRemainder=*/false);
-        render_oled_wpm();
+        render_oled_wpm(wpm);
+
+        render_oled_pet(/*col=*/0, /*line=*/12, mods, leds, wpm);
     } else {
         render_oled_logo();
     }
