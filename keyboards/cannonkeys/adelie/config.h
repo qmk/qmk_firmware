@@ -1,5 +1,5 @@
 /*
-Copyright 2020 adamws
+Copyright 2020 Andrew Kannan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
