@@ -40,7 +40,7 @@ def qmk_repo_check():
 
     # Check if the official repo is configured as a git remote 'upstream'
     output = cli.run(['git', 'remote', 'get-url', 'upstream'])
-    if output.returncode != 0 or 'qmk/qmk_firmware.git' not in output.stdout:
+    if output.returncode != 0 or 'qmk/qmk_firmware' not in output.stdout:
         cli.log.error('The official repository does not seem to be configured as git remote "upstream".')
         sys.exit(4)
 
