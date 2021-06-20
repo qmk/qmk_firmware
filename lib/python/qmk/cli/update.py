@@ -5,6 +5,7 @@ from pathlib import Path
 from importlib.util import find_spec
 
 from milc import cli
+from qmk.constants import QMK_FIRMWARE
 
 
 def os_check():
@@ -33,12 +34,7 @@ def os_check():
 
 def qmk_repo_check():
     # Check if QMK dir is a git repo
-    qmk_dir = cli.config.user.qmk_home
-    if not qmk_dir:
-        cli.log.error('No "qmk_firmware" directory is configured.\nPlease use "qmk config" to set the "user.qmk_home" variable.')
-        sys.exit(3)
-    qmk_dir = Path(qmk_dir)
-    if not (qmk_dir / '.git').exists():
+    if not (QMK_FIRMWARE / '.git').exists():
         cli.log.error(f'{qmk_dir} is not a "qmk_firmware clone or not a git repository.')
         sys.exit(3)
 
