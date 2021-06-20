@@ -15,7 +15,7 @@
  */
 #include "moults31.h"
 
-bool _tap_custom_code(uint16_t keycode) {
+bool moults31_tap_custom_code(uint16_t keycode) {
     keyrecord_t record = {
         .event = {
             .pressed = 1,
@@ -96,9 +96,9 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Top encoder */
         if(curr_layer == 2 || curr_layer == 3) {
             if (clockwise) {
-                _tap_custom_code(M_VSC_VIEWSIZEINC);
+                moults31_tap_custom_code(M_VSC_VIEWSIZEINC);
             } else {
-                _tap_custom_code(M_VSC_VIEWSIZEDEC);
+                moults31_tap_custom_code(M_VSC_VIEWSIZEDEC);
             }
         }
         else {

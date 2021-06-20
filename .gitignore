@@ -55,6 +55,7 @@ doxygen/
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/tasks.json
+.vscode/settings.json
 .vscode/last.sql
 .vscode/temp.sql
 .vscode/ipch/

@@ -21,6 +21,8 @@
 #include "obs.h"
 #include "gdb.h"
 
+bool moults31_tap_custom_code(uint16_t keycode);
+
 enum custom_keycodes {
     // VSCode keycodes
     M_VSC_TERMFOCUS = SAFE_RANGE,
