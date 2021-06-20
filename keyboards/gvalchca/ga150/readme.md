@@ -1,9 +1,10 @@
 # Gvalchca GA15.0
 
 Alps 60% PCB with some weird layouts support. To update the firmware connect the PCB to your computer and enter bootloader by pressing hardware Reset button near the MCU.
-![GA15.0 image](https://i.imgur.com/Z7tNlGD.jpeg)
 
-* Keyboard Maintainer: [Gvalchca](https://github.com/Gvalch-ca)  
+![GA15.0 image](https://i.imgur.com/Z7tNlGDh.jpeg)
+
+* Keyboard Maintainer: [Gvalchca](https://github.com/Gvalch-ca)
 * Hardware Supported: Gvalchca GA15.0
 * Hardware Availability: [KeebMeUp](https://keebmeup.com)
 
