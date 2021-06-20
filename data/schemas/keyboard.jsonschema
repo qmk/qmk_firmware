@@ -1,24 +1,102 @@
 {
-    "$schema": "http://json-schema.org/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "qmk.keyboard.v1",
     "title": "Keyboard Information",
     "type": "object",
+    "definitions": {
+        "boolean_array": {
+            "type": "object",
+            "additionalProperties": {"type": "boolean"}
+        },
+        "filename": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[0-9a-z_]*$"
+        },
+        "hex_number_2d": {
+            "type": "string",
+            "pattern": "^0x[0-9A-F]{2}$"
+        },
+        "hex_number_4d": {
+            "type": "string",
+            "pattern": "^0x[0-9A-F]{4}$"
+        },
+        "text_identifier": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 250
+        },
+        "layout_macro": {
+            "oneOf": [
+                {
+                    "type": "string",
+                    "enum": ["LAYOUT", "LAYOUT_planck_1x2uC"]
+                },
+                {
+                    "type": "string",
+                    "pattern": "^LAYOUT_[0-9a-z_]*$"
+                }
+            ]
+        },
+        "key_unit": {
+            "type": "number",
+            "min": 0.25
+        },
+        "mcu_pin_array": {
+            "type": "array",
+            "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+        },
+        "mcu_pin": {
+            "oneOf": [
+                {
+                    "type": "string",
+                    "pattern": "^[A-K]\\d{1,2}$"
+                },
+                {
+                    "type": "string",
+                    "pattern": "^LINE_PIN\\d{1,2}$"
+                },
+                {
+                    "type": "number",
+                    "multipleOf": 1
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "string_array": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "string_object": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "unsigned_decimal": {
+            "type": "number",
+            "min": 0
+        },
+        "unsigned_integer": {
+            "type": "number",
+            "min": 0,
+            "multipleOf": 1
+        }
+        "unsigned_integer_8": {
+            "type": "number",
+            "min": 0,
+            "max": 255,
+            "multipleOf": 1
+        }
+    }
     "properties": {
-        "keyboard_name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 250
-        },
-        "maintainer": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 250
-        },
-        "manufacturer": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 250
-        },
+        "keyboard_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
+        "maintainer": {"$ref": "qmk.definitions.v1#/text_identifier"},
+        "manufacturer": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "url": {
             "type": "string",
             "format": "uri"
@@ -40,62 +118,25 @@
             "type": "string",
             "enum": ["COL2ROW", "ROW2COL"]
         },
-        "debounce": {
-            "type": "number",
-            "min": 0,
-            "multipleOf": 1
-        },
-        "height": {
-            "type": "number",
-            "min": 0.25
-        },
-        "width": {
-            "type": "number",
-            "min": 0.25
-        },
+        "debounce": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
+        "height": {"$ref": "qmk.definitions.v1#/key_unit"},
+        "width": {"$ref": "qmk.definitions.v1#/key_unit"},
         "community_layouts": {
             "type": "array",
-            "items": {
-                "type": "string",
-                "minLength": 2,
-                "pattern": "^[0-9a-z_]*$"
-            }
+            "items": {"$ref": "qmk.definitions.v1#/filename"}
         },
-        "features": {
-            "type": "object",
-            "additionalProperties": {"type": "boolean"}
-        },
+        "features": {"$ref": "qmk.definitions.v1#/boolean_array"},
         "indicators": {
             "type": "object",
             "properties": {
-                "caps_lock": {
-                    "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
-                },
-                "num_lock": {
-                    "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
-                },
-                "scroll_lock": {
-                    "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
-                }
+                "caps_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "num_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "scroll_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"}
             }
         },
         "layout_aliases": {
             "type": "object",
-            "additionalProperties": {
-                "oneOf": [
-                    {
-                        "type": "string",
-                        "enum": ["LAYOUT", "LAYOUT_planck_1x2uC"]
-                    },
-                    {
-                        "type": "string",
-                        "pattern": "^LAYOUT_[0-9a-z_]*$"
-                    }
-                ]
-            }
+            "additionalProperties": {"$ref": "qmk.definitions.v1#/layout_macro"}
         },
         "layouts": {
             "type": "object",
@@ -109,11 +150,7 @@
                     "c_macro": {
                         "type": "boolean"
                     },
-                    "key_count": {
-                        "type": "number",
-                        "min": 0,
-                        "multipleOf": 1
-                    },
+                    "key_count": {"$ref": "qmk.definitions.v1#/key_unit"},
                     "layout": {
                         "type": "array",
                         "items": {
@@ -131,34 +168,14 @@
                                         "multipleOf": 1
                                     }
                                 },
-                                "h": {
-                                    "type": "number",
-                                    "min": 0.25
-                                },
-                                "r": {
-                                    "type": "number",
-                                    "min": 0
-                                },
-                                "rx": {
-                                    "type": "number",
-                                    "min": 0
-                                },
-                                "ry": {
-                                    "type": "number",
-                                    "min": 0
-                                },
-                                "w": {
-                                    "type": "number",
-                                    "min": 0.25
-                                },
-                                "x": {
-                                    "type": "number",
-                                    "min": 0
-                                },
-                                "y": {
-                                    "type": "number",
-                                    "min": 0
-                                }
+                                "key_count": {"$ref": "qmk.definitions.v1#/key_unit"},
+                                "r": {"$ref": "qmk.definitions.v1#/unsigned_decimal"},
+                                "rx": {"$ref": "qmk.definitions.v1#/unsigned_decimal"},
+                                "ry": {"$ref": "qmk.definitions.v1#/unsigned_decimal"},
+                                "h": {"$ref": "qmk.definitions.v1#/key_unit"},
+                                "w": {"$ref": "qmk.definitions.v1#/key_unit"},
+                                "x": {"$ref": "qmk.definitions.v1#/key_unit"},
+                                "y": {"$ref": "qmk.definitions.v1#/key_unit"}
                             }
                         }
                     }
@@ -171,73 +188,10 @@
             "properties": {
                 "direct": {
                     "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "oneOf": [
-                                {
-                                    "type": "string",
-                                    "pattern": "^[A-K]\\d{1,2}$"
-                                },
-                                {
-                                    "type": "string",
-                                    "pattern": "^LINE_PIN\\d{1,2}$"
-                                },
-                                {
-                                    "type": "number",
-                                    "multipleOf": 1
-                                },
-                                {
-                                    "type": "null"
-                                }
-                            ]
-                        }
-                    }
+                    "items": {$ref": "qmk.definitions.v1#/mcu_pin_array"}
                 },
-                "cols": {
-                    "type": "array",
-                    "items": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "pattern": "^[A-K]\\d{1,2}$"
-                            },
-                            {
-                                "type": "string",
-                                "pattern": "^LINE_PIN\\d{1,2}$"
-                            },
-                            {
-                                "type": "number",
-                                "multipleOf": 1
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
-                    }
-                },
-                "rows": {
-                    "type": "array",
-                    "items": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "pattern": "^[A-K]\\d{1,2}$"
-                            },
-                            {
-                                "type": "string",
-                                "pattern": "^LINE_PIN\\d{1,2}$"
-                            },
-                            {
-                                "type": "number",
-                                "multipleOf": 1
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
-                    }
-                }
+                "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
         },
         "rgblight": {
@@ -250,47 +204,19 @@
                         "type": "boolean"
                     }
                 },
-                "brightness_steps": {
-                    "type": "number",
-                    "min": 0,
-                    "multipleOf": 1
-                },
-                "hue_steps": {
-                    "type": "number",
-                    "min": 0,
-                    "multipleOf": 1
-                },
-                "led_count": {
-                    "type": "number",
-                    "min": 0,
-                    "multipleOf": 1
-                },
-                "max_brightness": {
-                    "type": "number",
-                    "min": 0,
-                    "max": 255,
-                    "multipleOf": 1
-                },
-                "pin": {
-                    "type": "string",
-                    "pattern": "^([A-K]\\d{1,2}|LINE_PIN\\d{1,2})$"
-                },
-                "saturation_steps": {
-                    "type": "number",
-                    "min": 0,
-                    "multipleOf": 1
-                },
+                "brightness_steps": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
+                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
+                "led_count": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_integer_8"},
+                "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
                 "sleep": {"type": "boolean"},
                 "split": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
                     "minLength": 2,
                     "maxLength": 2,
-                    "items": {
-                        "type": "number",
-                        "min": 0,
-                        "multipleOf": 1
-                    }
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_integer"}
                 }
             }
         },
@@ -298,40 +224,19 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "device_ver": {
-                    "type": "string",
-                    "pattern": "^[0-9A-F]x[0-9A-F][0-9A-F][0-9A-F][0-9A-F]"
-                },
-                "pid": {
-                    "type": "string",
-                    "pattern": "^[0-9A-F]x[0-9A-F][0-9A-F][0-9A-F][0-9A-F]"
-                },
-                "vid": {
-                    "type": "string",
-                    "pattern": "^[0-9A-F]x[0-9A-F][0-9A-F][0-9A-F][0-9A-F]"
-                }
+                "device_ver": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
+                "pid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
+                "vid": {"$ref": "qmk.definitions.v1#/hex_number_4d"}
             }
         },
         "qmk_lufa_bootloader": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "esc_output": {
-                    "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
-                },
-                "esc_input": {
-                    "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
-                },
-                "led": {
-                    "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
-                },
-                "speaker": {
-                    "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
-                }
+                "esc_output": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "esc_input": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "led": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "speaker": {"$ref": "qmk.definitions.v1#/mcu_pin"}
             }
         }
     }

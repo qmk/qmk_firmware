@@ -24,9 +24,10 @@ def json_load(json_file):
 
 def load_jsonschema(schema_name):
     """Read a jsonschema file from disk.
-
-    FIXME(skullydazed/anyone): Refactor to make this a public function.
     """
+    if Path(schema_name).exists():
+        return json_load(schema_name)
+
     schema_path = Path(f'data/schemas/{schema_name}.jsonschema')
 
     if not schema_path.exists():
@@ -35,24 +36,41 @@ def load_jsonschema(schema_name):
     return json_load(schema_path)
 
 
+def create_validator(schema):
+    """Creates a validator for the given schema id.
+    """
+    schema_store = {}
+
+    for schema_file in Path(f'data/schemas/').glob('*.jsonschema'):
+        schema_data = load_jsonschema(schema_file)
+        if not isinstance(schema_data, dict):
+            cli.log.debug('Skipping schema file %s', schema_file)
+            continue
+        schema_store[schema_data['$id']] = schema_data
+
+    resolver = jsonschema.RefResolver.from_schema(schema_store['qmk.keyboard.v1'], store=schema_store)
+
+    return jsonschema.Draft7Validator(schema_store[schema], resolver=resolver).validate
+
+
+def validate(data, schema):
+    """Validates data against a schema.
+    """
+    validator = create_validator(schema)
+
+    return validator(data)
+
+
 def keyboard_validate(data):
     """Validates data against the keyboard jsonschema.
     """
-    schema = load_jsonschema('keyboard')
-    validator = jsonschema.Draft7Validator(schema).validate
-
-    return validator(data)
+    return validate(data, 'qmk.keyboard.v1')
 
 
 def keyboard_api_validate(data):
     """Validates data against the api_keyboard jsonschema.
     """
-    base = load_jsonschema('keyboard')
-    relative = load_jsonschema('api_keyboard')
-    resolver = jsonschema.RefResolver.from_schema(base)
-    validator = jsonschema.Draft7Validator(relative, resolver=resolver).validate
-
-    return validator(data)
+    return validate(data, 'qmk.api.keyboard.v1')
 
 
 def deep_update(origdict, newdict):
