@@ -17,6 +17,8 @@
 
 #include "wpm.h"
 
+#include <math.h>
+
 // WPM Stuff
 static uint8_t  current_wpm = 0;
 static uint16_t wpm_timer   = 0;
@@ -73,7 +75,7 @@ void update_wpm(uint16_t keycode) {
             if (latest_wpm > UINT8_MAX) {
                 latest_wpm = UINT8_MAX;
             }
-            current_wpm += (latest_wpm - current_wpm) * wpm_smoothing;
+            current_wpm += ceilf((latest_wpm - current_wpm) * wpm_smoothing);
         }
         wpm_timer = timer_read();
     }
