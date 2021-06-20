@@ -1,5 +1,4 @@
-/* Copyright 2018 Jason Williams (Wilba)
- * Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2021 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Nothing to see here, move along... ;-)
+#include "rev2.h"
 
-#include "constellation.h"
+void matrix_io_delay(void) {
+    __asm__ volatile("nop\nnop\nnop\n");
+}
