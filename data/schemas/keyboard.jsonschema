@@ -70,15 +70,15 @@
             "properties": {
                 "caps_lock": {
                     "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
+                    "pattern": "^([A-K]\\d{1,2}|LINE_PIN\\d{1,2})$"
                 },
                 "num_lock": {
                     "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
+                    "pattern": "^([A-K]\\d{1,2}|LINE_PIN\\d{1,2})$"
                 },
                 "scroll_lock": {
                     "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
+                    "pattern": "^([A-K]\\d{1,2}|LINE_PIN\\d{1,2})$"
                 }
             }
         },
