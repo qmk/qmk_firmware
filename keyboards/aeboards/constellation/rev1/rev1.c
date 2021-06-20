@@ -15,6 +15,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Nothing to see here, move along... ;-)
-
-#include "constellation.h"
+#include "rev1.h"
