@@ -20,7 +20,7 @@
 /* USB Device descriptor parameter */
 #define MANUFACTURER DrHigsby
 #define PRODUCT ogurec
-#define VENDOR_ID 0x0420
+#define VENDOR_ID 0x0007
 #define PRODUCT_ID 0x0421
 #define DEVICE_VER 0x0420
 
