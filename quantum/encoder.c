@@ -134,15 +134,13 @@ static bool encoder_update(uint8_t index, uint8_t state) {
         encoder_update_handler(index, ENCODER_CLOCKWISE);
     }
     encoder_pulses[i] %= resolution;
+
 #ifdef ENCODER_DEFAULT_POS
     if ((state & 0x3) == ENCODER_DEFAULT_POS) {
         encoder_pulses[i] = 0;
     }
 #endif
 
-#ifdef ENCODER_KEYMAPPING
-    encoder_map_cleanup();
-#endif
     return changed;
 }
 
@@ -191,10 +189,9 @@ void encoder_update_raw(uint8_t* slave_state) {
 #    else
 #        define NUM_ENCODERS (NUMBER_OF_ENCODERS)
 #    endif
-uint8_t    encoder_keypos[NUM_ENCODERS][2][2] = { ENCODER_KEYMAPPING };
+uint8_t    encoder_keypos[NUM_ENCODERS][2][2] = {ENCODER_KEYMAPPING};
 keyevent_t encoder_ccw[NUM_ENCODERS];
 keyevent_t encoder_cw[NUM_ENCODERS];
-
 
 void encoder_init_keymapping(void) {
     for (uint8_t index = 0; index < NUM_ENCODERS; index++) {
