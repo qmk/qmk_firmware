@@ -48,9 +48,28 @@ If you are using different pinouts for the encoders on each half of a split keyb
 #define ENCODER_RESOLUTIONS_RIGHT { 2, 4 }
 ```
 
+## Encoder map
+
+Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your `rules.mk`:
+
+```make
+ENCODER_MAP_ENABLE = yes
+```
+
+Your `keymap.c` will then need an encoder mapping defined (for four layers and two encoders):
+
+```c
+const uint16_t encoder_map[][NUM_ENCODERS][2] = {
+  [_BASE] = { ENCODER_CW_CCW(KC_MS_WH_DOWN, KC_MS_WH_UP), ENCODER_CW_CCW(KC_VOLU, KC_VOLD) },
+  [_LOWER] = { ENCODER_CW_CCW(RGB_HUI, RGB_HUD), ENCODER_CW_CCW(RGB_SAI, RGB_SAD) },
+  [_RAISE] = { ENCODER_CW_CCW(RGB_VAI, RGB_VAD), ENCODER_CW_CCW(RGB_SPI, RGB_SPD) },
+  [_ADJUST] = { ENCODER_CW_CCW(RGB_MOD, RGB_RMOD), ENCODER_CW_CCW(KC_LEFT, KC_RIGHT) },
+};
+```
+
 ## Callbacks
 
-The callback functions can be inserted into your `<keyboard>.c`:
+When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
 bool encoder_update_kb(uint8_t index, bool clockwise) {
