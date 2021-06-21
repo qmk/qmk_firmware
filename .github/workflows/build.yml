@@ -11,9 +11,9 @@ jobs:
       fail-fast: false
       matrix:
         keyboard:
-          - handwired/stream_cheap/2x4
+          - handwired/stream_cheap/Zatarian
         keymap:
-          - default
+          - via
 
     steps:
     - uses: actions/checkout@v2
