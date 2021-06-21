@@ -92,7 +92,7 @@ static inline bool send(const uint8_t* source, const size_t size) {
  * @return false Receive failed.
  */
 static inline bool receive(uint8_t* destination, const size_t size) {
-    size_t success = (size_t)sdReadTimeout(serial_driver, destination, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
+    bool success = (size_t)sdReadTimeout(serial_driver, destination, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
     return success;
 }
 
