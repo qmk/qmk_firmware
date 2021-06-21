@@ -1,1 +1,1 @@
-# The default keymap for infinity87
+# The default keymap for serratus
