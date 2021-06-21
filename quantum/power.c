@@ -20,6 +20,10 @@
 enum power_state power_state;
 
 __attribute__((weak)) void notify_power_state_change_kb(enum power_state power_state) {
+    notify_power_state_change_user(power_state);
+}
+
+__attribute__((weak)) void notify_power_state_change_user(enum power_state power_state) {
 }
 
 static void notify_power_state_change(enum power_state power_state)
