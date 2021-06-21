@@ -44,13 +44,13 @@ void keyboard_post_init_user(void) {
 その後は、いくつかの異なった print 関数を使用することが出来ます:
 
 * `print("string")`: シンプルな文字列を出力します
-* `uprintf("%s string", var)`: 書式指定文字列を出力します
+* `uprintf("%s string", var)`: フォーマットされた文字列を出力します
 * `dprint("string")` デバッグモードが有効な場合のみ、シンプルな文字列を出力します
-* `dprintf("%s string", var)`: デバッグモードが有効な場合のみ、書式指定文字列を出力します
+* `dprintf("%s string", var)`: デバッグモードが有効な場合のみ、フォーマットされた文字列を出力します
 
 ## デバッグの例
 
-以下は現実世界での実際のデバッグ手法の例を集めたものです。追加情報は [QMK のデバッグ/トラブルシューティング](ja/faq_debug.md) を参照してください。
+以下は現実世界での実際のデバッグ手法の例を集めたものです。
 
 ### マトリックス上のどの場所でキー押下が起こったか？
 
@@ -61,7 +61,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // コンソールが有効化されている場合、マトリックス上の位置とキー押下状態を出力します
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif 
+#endif
   return true;
 }
 ```
