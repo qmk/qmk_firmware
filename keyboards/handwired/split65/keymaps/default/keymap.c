@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
 enum layer_names {
     _QWERTY,
@@ -192,12 +191,3 @@ void oled_task_user(void) {
     }
 }
 #endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        #ifdef OLERD_DRIVER_ENABLE
-        set_keylog(keycode, record)
-        #endif
-    }
-    return true;
-}
