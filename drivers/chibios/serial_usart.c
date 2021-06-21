@@ -38,46 +38,6 @@ static inline bool __attribute__((nonnull)) receive(uint8_t* destination, const 
 static inline bool __attribute__((nonnull)) send(const uint8_t* source, const size_t size);
 static inline int  initiate_transaction(uint8_t sstd_index);
 static inline void usart_clear(void);
-static inline void usart_discard_bytes(size_t n);
-
-/**
- * @brief   Discard bytes from the serial driver input queue, it is used in half-duplex mode.
- * @details This function is a copy of iq_read, without the memcpy calls to save some cycles.
- *
- * @param n Bytes to discard from the input queue.
- */
-static void usart_discard_bytes(size_t n) {
-    input_queue_t* iqp = &serial_driver->iqueue;
-    size_t         s1, s2;
-    size_t         bytes_to_discard = n;
-
-    osalDbgCheck(n > 0U);
-    while (bytes_to_discard > 0) {
-        osalSysLock();
-        /* Number of bytes that can be read in a single atomic operation.*/
-        if (n > iqGetFullI(iqp)) {
-            n = iqGetFullI(iqp);
-        }
-
-        /* Number of bytes before buffer limit.*/
-        s1 = (size_t)(iqp->q_top - iqp->q_rdptr);
-
-        if (n < s1) {
-            iqp->q_rdptr += n;
-        } else if (n > s1) {
-            s2           = n - s1;
-            iqp->q_rdptr = iqp->q_buffer + s2;
-        } else {
-            iqp->q_rdptr = iqp->q_buffer;
-        }
-
-        iqp->q_counter -= n;
-        osalSysUnlock();
-
-        bytes_to_discard -= n;
-        n = bytes_to_discard;
-    }
-}
 
 /**
  * @brief Clear the receive input queue.
@@ -114,8 +74,11 @@ static inline bool send(const uint8_t* source, const size_t size) {
 
 #if !defined(SERIAL_USART_FULL_DUPLEX)
     if (success) {
-        /* Half duplex fills the input queue with the data we wrote - just throw it away. */
-        usart_discard_bytes(size);
+        /* Half duplex fills the input queue with the data we wrote - just throw it away.
+           Under the right circumstances (e.g. bad cables paired with high baud rates)
+           less bytes can be present in the input queue, therefore a timeout is needed. */
+        uint8_t dump[size];
+        return receive(dump, size);
     }
 #endif
 
