@@ -19,7 +19,7 @@
 
 #include "trackball_mini.h"
 #include "wait.h"
-#include "print.h"
+#include "debug.h"
 
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
@@ -232,7 +232,4 @@ void matrix_init_kb(void) {
         eeconfig_init_kb();
     }
     matrix_init_user();
-}
-
-void keyboard_post_init_kb(void) {
 }
