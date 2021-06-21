@@ -273,8 +273,8 @@ static void process_nrf_ack_msg(struct biunrf52_msg * msg) {
     {
     case NRF_WORKING:
         state.initialized  = true;
-        state.is_connected = false;
-        state.configured   = false;
+        state.is_connected = true;
+        state.configured   = true;
         break;
     case NRF_DISCONNECT:
     case NRF_ADVING:
