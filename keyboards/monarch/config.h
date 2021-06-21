@@ -36,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { B5 }
 #define ENCODER_RESOLUTION 1
+#define ENCODER_KEYMAPPING { { 5, 0 }, { 5, 1 } }
 
 //LEDS A6
 #define BACKLIGHT_PIN A6
