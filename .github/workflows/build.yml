@@ -1,0 +1,54 @@
+name: Build firmware for keyboards
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        keyboard:
+          - planck/rev6
+          - preonic/rev3
+          - ergodox_ez
+          - clueboard/60
+          - clueboard/17
+          - atreus
+        keymap:
+          - default
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+        persist-credentials: false
+        submodules: true
+
+    - name: Build
+      id: build
+      run: |
+        TARGET="${{ matrix.keyboard }}"
+
+        if [ -n "${{ matrix.keymap }}" ]; then
+           TARGET="${TARGET}:${{ matrix.keymap }}"
+        fi
+        
+        sed -i 's/run --rm -it/run --rm/' util/docker_build.sh
+        util/docker_build.sh ${TARGET}
+
+        ls
+
+        echo ::set-output name=artifact-name::${TARGET//[:<>|*?\\\/]/_}
+        echo "Artifact-name: ${{ steps.build.outputs.artifact-name }}"
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: "${{ steps.build.outputs.artifact-name }}"
+        path: |
+          *.hex
+          *.bin
+      continue-on-error: true
