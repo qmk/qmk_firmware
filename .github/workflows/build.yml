@@ -11,12 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         keyboard:
-          - planck/rev6
-          - preonic/rev3
-          - ergodox_ez
-          - clueboard/60
-          - clueboard/17
-          - atreus
+          - handwired/stream_cheap/2x4
         keymap:
           - default
 
