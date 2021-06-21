@@ -25,7 +25,9 @@
 #include "quantum.h"
 #include "rgblight_list.h"
 
-#ifdef IS31FL3731
+#ifdef IS31FL3236
+#    include "is31fl3236.h"
+#elif defined(IS31FL3731)
 #    include "is31fl3731.h"
 #elif defined(IS31FL3733)
 #    include "is31fl3733.h"
@@ -33,8 +35,6 @@
 #    include "is31fl3737.h"
 #elif defined(IS31FL3741)
 #    include "is31fl3741.h"
-#elif defined(IS31FL3236)
-#    include "is31fl3236.h"
 #elif defined(WS2812)
 #    include "ws2812.h"
 #endif
