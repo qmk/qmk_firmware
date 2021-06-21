@@ -298,20 +298,22 @@ static void resp_buf_read_one() {
         return;
     }
 
-    // determine whether data transfer is possible
+    // determine whether uart_get is possible
     if (uart_available()) {
         if (receive_a_pkt(&msg, BiuNrf52MsgTimeout)) {
+            dprintf("recv latency %dms, resp_buf size %d\n", TIMER_DIFF_16(timer_read(), last_send), (int)resp_buf.size());
             resp_buf.get(last_send);
             process_nrf_ack_msg(&msg);
-            dprintf("recv latency %dms\n", TIMER_DIFF_16(timer_read(), last_send));
         } else {
-            dprint("Some thing wrong");
+            dprintf("Some thing wrong, resp_buf size %d\n", (int)resp_buf.size());
+            // Receive Wrong: consume this entry
+            resp_buf.get(last_send);
             state.initialized  = false;
             state.is_connected = false;
             state.configured   = false;
         }
     } else {
-        dprintf("waiting_for_result: timeout, resp_buf size %d\n", (int)resp_buf.size());
+        dprintf("Uart get buffer is empty, resp_buf size %d\n", (int)resp_buf.size());
         // Timed out: consume this entry
         resp_buf.get(last_send);
     }
@@ -357,6 +359,7 @@ static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout, bool 
         while (!resp_buf.enqueue(now)) {
             resp_buf_read_one();
         }
+        dprintf("Put a time into resp buf, resp_buf size %d\n", (int)resp_buf.size());
         uint16_t later = timer_read();
         if (TIMER_DIFF_16(later, now) > 0) {
             dprintf("waited %dms for resp_buf\n", TIMER_DIFF_16(later, now));
@@ -597,52 +600,7 @@ void bluetooth_send_battery_level() {
     }
 }
 
-bool bluetooth_init_pre(void) {
 
-    // set the ble state
-    state.initialized  = false;
-    state.configured   = false;
-    state.is_connected = false;
-
-    // start the uart data trans
-    uart_init(BIUNRF52UartBaud);
-
-    // hang up the reset pin
-    setPinOutput(BIUNRF52ResetPin);
-    writePinHigh(BIUNRF52ResetPin);
-
-    // set the adc read sw off
-#   ifdef BATTERY_LEVEL_SW_PIN
-        setPinOutput(BATTERY_LEVEL_SW_PIN);
-        writePinHigh(BATTERY_LEVEL_SW_PIN);
-#   endif
-
-    return true;
-}
-
-
-bool bluetooth_init(void) {
-
-    dprint("Start Init the Nrf!!!\n");
-    // performance a reset
-    writePinLow(BIUNRF52ResetPin);
-    wait_ms(100);
-    writePinHigh(BIUNRF52ResetPin);
-
-    struct queue_item item;
-
-    item.queue_type   = QTAskNrf;
-    item.added        = timer_read();
-    while (!send_buf.enqueue(item)) {
-        send_buf_send_one();
-    }
-    send_buf_send_one();
-    wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
-    // todo ack
-    resp_buf_read_one();
-
-    return state.initialized;
-}
 
 void connected(void) {
     uprintf("biu ble connected\n");
@@ -709,6 +667,54 @@ void bluetooth_switch_one(uint8_t device_id) {
         send_buf_send_one();
     }
     state.is_connected = true;
+}
+
+
+bool bluetooth_init_pre(void) {
+
+    // set the ble state
+    state.initialized  = false;
+    state.configured   = false;
+    state.is_connected = false;
+
+    // start the uart data trans
+    uart_init(BIUNRF52UartBaud);
+
+    // hang up the reset pin
+    setPinOutput(BIUNRF52ResetPin);
+    writePinHigh(BIUNRF52ResetPin);
+
+    // set the adc read sw off
+#   ifdef BATTERY_LEVEL_SW_PIN
+        setPinOutput(BATTERY_LEVEL_SW_PIN);
+        writePinHigh(BATTERY_LEVEL_SW_PIN);
+#   endif
+
+    return true;
+}
+
+
+bool bluetooth_init(void) {
+
+    dprint("Start Init the Nrf!!!\n");
+    // performance a reset
+    writePinLow(BIUNRF52ResetPin);
+    wait_ms(100);
+    writePinHigh(BIUNRF52ResetPin);
+
+    struct queue_item item;
+
+    item.queue_type   = QTAskNrf;
+    item.added        = timer_read();
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
+    send_buf_send_one();
+    wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
+    // todo ack
+    resp_buf_read_one();
+
+    return state.initialized;
 }
 
 
