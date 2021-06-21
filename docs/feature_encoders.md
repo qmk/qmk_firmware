@@ -60,10 +60,10 @@ Your `keymap.c` will then need an encoder mapping defined (for four layers and t
 
 ```c
 const uint16_t encoder_map[][NUM_ENCODERS][2] = {
-  [_BASE] = { ENCODER_CW_CCW(KC_MS_WH_DOWN, KC_MS_WH_UP), ENCODER_CW_CCW(KC_VOLU, KC_VOLD) },
-  [_LOWER] = { ENCODER_CW_CCW(RGB_HUI, RGB_HUD), ENCODER_CW_CCW(RGB_SAI, RGB_SAD) },
-  [_RAISE] = { ENCODER_CW_CCW(RGB_VAI, RGB_VAD), ENCODER_CW_CCW(RGB_SPI, RGB_SPD) },
-  [_ADJUST] = { ENCODER_CW_CCW(RGB_MOD, RGB_RMOD), ENCODER_CW_CCW(KC_LEFT, KC_RIGHT) },
+    [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
+    [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
+    [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
 };
 ```
 

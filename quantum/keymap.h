@@ -64,7 +64,7 @@ extern const uint16_t fn_actions[];
 #    endif  // SPLIT_KEYBOARD
 #    ifdef ENCODER_MAP_ENABLE
 extern const uint16_t encoder_map[][NUM_ENCODERS][2];
-#        define ENCODER_CW_CCW(cw, ccw) \
+#        define ENCODER_CCW_CW(ccw, cw) \
             { (cw), (ccw) }
 #    endif  // ENCODER_MAP_ENABLE
 #else       // defined(ENCODER_ENABLE)
