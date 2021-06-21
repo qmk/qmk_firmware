@@ -14,6 +14,7 @@ void bluetooth_task(void);
 bool bluetooth_is_connected(void);
 void bluetooth_unpair_all(void);
 void bluetooth_unpair_one(uint8_t device_id);
+void bluetooth_unpair_current(void);
 void bluetooth_pair(void);
 void bluetooth_switch_one(uint8_t device_id);
 

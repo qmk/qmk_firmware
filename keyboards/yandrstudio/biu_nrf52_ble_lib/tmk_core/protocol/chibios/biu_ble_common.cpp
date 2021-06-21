@@ -12,6 +12,7 @@ __attribute__((weak)) bool bluetooth_is_connected(void) { return true; }
 __attribute__((weak)) void bluetooth_unpair_all(void) {}
 
 __attribute__((weak)) void bluetooth_unpair_one(uint8_t device_id) {}
+__attribute__((weak)) void bluetooth_unpair_current(void) {}
 
 __attribute__((weak)) void bluetooth_pair(void) {}
 

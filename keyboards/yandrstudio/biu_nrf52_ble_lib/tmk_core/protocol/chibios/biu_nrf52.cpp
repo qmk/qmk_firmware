@@ -643,7 +643,7 @@ void bluetooth_unpair_all(void) {
     }
     state.is_connected = false;
 }
-void bluetooth_unpair(uint8_t device_id) {
+void bluetooth_unpair_current(void) {
     uprint("biu ble del current\n");
     // stop adv and del one
     struct queue_item item;
