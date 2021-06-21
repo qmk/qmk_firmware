@@ -14,32 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #pragma once
-#include_next <halconf.h>
 
-#undef HAL_USE_PWM
-#define HAL_USE_PWM    TRUE
+#define CH_CFG_ST_FREQUENCY 10000
 
-#undef HAL_USE_SERIAL
-#define HAL_USE_SERIAL TRUE
+#define CH_CFG_FACTORY_OBJECTS_REGISTRY TRUE
 
-#undef HAL_USE_SPI
-#define HAL_USE_SPI    FALSE
+#define CH_CFG_FACTORY_GENERIC_BUFFERS TRUE
 
-#undef HAL_USE_ADC
-#define HAL_USE_ADC    TRUE
+#define CH_CFG_FACTORY_SEMAPHORES TRUE
 
+#define CH_CFG_FACTORY_MAILBOXES TRUE
 
-#undef  SERIAL_USB_BUFFERS_SIZE
-#define SERIAL_USB_BUFFERS_SIZE 256
+#define CH_CFG_FACTORY_OBJ_FIFOS TRUE
 
-#undef  SERIAL_BUFFERS_SIZE
-#define SERIAL_BUFFERS_SIZE     128
+#define CH_CFG_FACTORY_PIPES TRUE
 
-#undef  SPI_USE_WAIT
-#define SPI_USE_WAIT TRUE
-
-#undef  SPI_SELECT_MODE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+#include_next <chconf.h>
 

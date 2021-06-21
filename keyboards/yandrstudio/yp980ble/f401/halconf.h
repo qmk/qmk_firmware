@@ -14,18 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+#include_next <halconf.h>
 
 #pragma once
 #include_next <halconf.h>
 
-#undef HAL_USE_PWM
-#define HAL_USE_PWM    TRUE
-
 #undef HAL_USE_SERIAL
 #define HAL_USE_SERIAL TRUE
 
-#undef HAL_USE_SPI
-#define HAL_USE_SPI    FALSE
 
 #undef HAL_USE_ADC
 #define HAL_USE_ADC    TRUE
@@ -42,4 +39,3 @@
 
 #undef  SPI_SELECT_MODE
 #define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-

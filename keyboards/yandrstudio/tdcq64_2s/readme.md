@@ -1,7 +1,7 @@
 tdcq64 2s
 ===
 
-A 68 keys keyboard with rgb (keys and underground).
+A 64 keys keyboard with rgb (underground).
 This keyboard use 8mhz HSE and STM32F401 as MCU.
 
 Keyboard Maintainer: https://github.com/jiaxin96
