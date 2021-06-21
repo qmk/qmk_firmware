@@ -17,4 +17,3 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 OLED_DRIVER_ENABLE = yes    # OLED display
 
 SPLIT_KEYBOARD = yes
-SERIAL_DRIVER = bitbang
