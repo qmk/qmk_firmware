@@ -54,11 +54,11 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
 }
 
 static inline uint8_t readMatrixPin(pin_t pin) {
-   if (pin != NO_PIN) {
-       return readPin(pin);
-   } else {
-       return 1;
-   }
+    if (pin != NO_PIN) {
+        return readPin(pin);
+    } else {
+        return 1;
+    }
 }
 
 // matrix code
@@ -130,9 +130,8 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
-
-    if (!select_row(current_row)) { // Select row
-        return;  // skip NO_PIN row
+    if (!select_row(current_row)) {  // Select row
+        return;                      // skip NO_PIN row
     }
     matrix_output_select_delay();
 
@@ -187,8 +186,8 @@ __attribute__((weak)) void matrix_init_pins(void) {
 
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     // Select col
-    if (!select_col(current_col)) { // select col
-        return; // skip NO_PIN col
+    if (!select_col(current_col)) {  // select col
+        return;                      // skip NO_PIN col
     }
     matrix_output_select_delay();
 
