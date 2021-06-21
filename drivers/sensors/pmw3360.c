@@ -16,8 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef POINTING_DEVICE_ENABLE
-
 #include "wait.h"
 #include "debug.h"
 #include "print.h"
@@ -29,17 +27,26 @@ bool _inBurst = false;
 #ifndef PMW_CPI
 #    define PMW_CPI 1600
 #endif
+#ifndef PMW_CLOCK_SPEED
+#    define PMW_CLOCK_SPEED 70000000
+#endif
+#ifndef SPI_MODE
+#    define SPI_MODE 3
+#endif
 #ifndef SPI_DIVISOR
-#    define SPI_DIVISOR 2
+#    define SPI_DIVISOR (F_CPU / PMW_CLOCK_SPEED)
 #endif
 #ifndef ROTATIONAL_TRANSFORM_ANGLE
 #    define ROTATIONAL_TRANSFORM_ANGLE 0x00
+#endif
+#ifndef PMW_CS_PIN
+#    define PMW_CS_PIN SPI_SS_PIN
 #endif
 
 void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
 
 bool spi_start_adv(void) {
-    bool status = spi_start(SPI_SS_PIN, false, 3, SPI_DIVISOR);
+    bool status = spi_start(PMW_CS_PIN, false, SPI_MODE, SPI_DIVISOR);
     wait_us(1);
     return status;
 }
@@ -57,7 +64,7 @@ spi_status_t spi_write_adv(uint8_t reg_addr, uint8_t data) {
     spi_start_adv();
     // send address of the register, with MSBit = 1 to indicate it's a write
     spi_status_t status = spi_write(reg_addr | 0x80);
-    status = spi_write(data);
+    status              = spi_write(data);
 
     // tSCLK-NCS for write operation
     wait_us(20);
@@ -86,14 +93,21 @@ uint8_t spi_read_adv(uint8_t reg_addr) {
 }
 
 void pmw_set_cpi(uint16_t cpi) {
-    int cpival = constrain((cpi / 100) - 1, 0, 0x77);  // limits to 0--119
+    uint8_t cpival = constrain((cpi / 100) - 1, 0, 0x77);  // limits to 0--119
 
     spi_start_adv();
     spi_write_adv(REG_Config1, cpival);
     spi_stop();
 }
 
+uint16_t pmw_get_cpi(void) {
+    uint8_t cpival = spi_read_adv(REG_Config1);
+    return (uint16_t)(cpival & 0xFF) * 100;
+}
+
 bool pmw_spi_init(void) {
+    setPinOutput(PMW_CS_PIN);
+
     spi_init();
     _inBurst = false;
 
@@ -101,7 +115,7 @@ bool pmw_spi_init(void) {
     spi_start_adv();
     spi_stop();
 
-    spi_write_adv(REG_Shutdown, 0xb6); // Shutdown first
+    spi_write_adv(REG_Shutdown, 0xb6);  // Shutdown first
     wait_ms(300);
 
     spi_start_adv();
@@ -127,14 +141,18 @@ bool pmw_spi_init(void) {
 
     wait_ms(1);
 
-    return pmw_check_signature();
-}
-
-void pmw_upload_firmware(void) {
     spi_write_adv(REG_Config2, 0x00);
 
     spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
 
+    bool init_success = pmw_check_signature();
+
+    writePinLow(PMW_CS_PIN);
+
+    return init_success;
+}
+
+void pmw_upload_firmware(void) {
     spi_write_adv(REG_SROM_Enable, 0x1d);
 
     wait_ms(10);
@@ -217,5 +235,3 @@ report_pmw_t pmw_read_burst(void) {
 
     return data;
 }
-
-#endif

@@ -19,20 +19,16 @@
 
 
 #include "adns5050.h"
-#include "quantum.h"
 #include "wait.h"
-
-#ifdef CONSOLE_ENABLE
-#    include "print.h"
-#endif
+#include "debug.h"
+#include "print.h"
+#include "gpio.h"
 
 #ifndef OPTIC_ROTATED
 #    define OPTIC_ROTATED false
 #endif
 
 // Definitions for the ADNS serial line.
-// These really ought to be defined in your config.h, but defaults are
-// here if you're really lazy.
 #ifndef ADNS_SCLK_PIN
 #    define ADNS_SCLK_PIN B7
 #endif

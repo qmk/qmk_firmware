@@ -27,6 +27,6 @@ POINTING_DEVICE_ENABLE = yes
 MOUSEKEY_ENABLE = no        # Mouse keys
 
 QUANTUM_LIB_SRC += analog.c
-SRC += adns5050.c opt_encoder.c
+SRC += drivers/sensors/adns5050.c opt_encoder.c
 
 DEFAULT_FOLDER = ploopyco/trackball_mini/rev1_001
