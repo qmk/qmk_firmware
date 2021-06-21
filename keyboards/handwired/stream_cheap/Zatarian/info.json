@@ -1,8 +1,5 @@
 {
-    "name": "Stream Cheap",
     "keyboard_name": "Stream Cheap",
-    "vendorId": "0x4C47",
-    "productId": "0x0001",
     "url": "https://www.thingiverse.com/thing:4497991",
     "maintainer": "qmk",
     "width": 4,
