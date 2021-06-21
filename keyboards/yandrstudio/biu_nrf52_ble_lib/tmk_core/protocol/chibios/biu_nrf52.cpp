@@ -62,10 +62,10 @@
 #endif
 
 // TIMEOUT INTERVAL SETTING
-#define BiuNrf52MsgTimeout 150             /* milliseconds */
-#define BiuNrf52MsgShortTimeout 10         /* milliseconds */
-#define BiuNrf52MsgBackOff 25              /* microseconds */
-#define BatteryUpdateInterval 30000         /* milliseconds */
+#define BiuNrf52MsgTimeout      150           /* milliseconds */
+#define BiuNrf52MsgShortTimeout 10            /* milliseconds */
+#define BiuNrf52MsgRecvTimeout  1000          /* microseconds */
+#define BatteryUpdateInterval   30000         /* milliseconds */
 
 
 enum biunrf52_type {
@@ -273,8 +273,8 @@ static void process_nrf_ack_msg(struct biunrf52_msg * msg) {
     {
     case NRF_WORKING:
         state.initialized  = true;
-        state.is_connected = true;
-        state.configured   = true;
+        state.is_connected = false;
+        state.configured   = false;
         break;
     case NRF_DISCONNECT:
     case NRF_ADVING:
@@ -499,8 +499,8 @@ void bluetooth_send_keyboard(report_keyboard_t *report) {
     struct queue_item item;
 
     item.queue_type   = QTKeyReport;
-    item.key.modifier = report->mods;
     item.added        = timer_read();
+    item.key.modifier = report->mods;
     memcpy(item.key.keys, report->keys, 6);
 
     while (!send_buf.enqueue(item)) {
@@ -519,6 +519,7 @@ void bluetooth_send_extra(uint8_t report_id, uint16_t data) {
     } else {
         item.queue_type = QTConsumer;
     }
+    item.added        = timer_read();
     item.extkey.consumer_h   = (data >> 8) & 0xff;
     item.extkey.consumer_l   = data & 0xff;
 
@@ -533,6 +534,7 @@ void bluetooth_send_extra(uint8_t report_id, uint16_t data) {
 void bluetooth_send_mouse(report_mouse_t *report) {
     struct queue_item item;
     item.queue_type        = QTMouseMove;
+    item.added        = timer_read();
     item.mousemove.buttons = report->buttons;
     item.mousemove.x       = report->x;
     item.mousemove.y       = report->y;
@@ -550,8 +552,8 @@ void bluetooth_send_keyboard_nkro(report_keyboard_t *report) {
     struct queue_item item;
 
     item.queue_type   = QTNkro;
-    item.nkey.mods = report->nkro.mods;
     item.added        = timer_read();
+    item.nkey.mods = report->nkro.mods;
     memcpy(item.nkey.bits, report->nkro.bits, KEYBOARD_REPORT_BITS);
 
     while (!send_buf.enqueue(item)) {
@@ -573,7 +575,7 @@ void bluetooth_send_battery_level() {
     writePinLow(BATTERY_LEVEL_SW_PIN);
 #endif
 
-    uint16_t adc_val = analogReadPinAdc(BATTERY_LEVEL_PIN,0);
+    uint16_t adc_val = analogReadPinAdc(BATTERY_LEVEL_PIN, 0);
 
 #ifdef BATTERY_LEVEL_SW_PIN
     writePinHigh(BATTERY_LEVEL_SW_PIN);
@@ -621,7 +623,7 @@ bool bluetooth_init_pre(void) {
 
 bool bluetooth_init(void) {
 
-
+    dprint("Start Init the Nrf!!!\n");
     // performance a reset
     writePinLow(BIUNRF52ResetPin);
     wait_ms(100);
@@ -630,11 +632,12 @@ bool bluetooth_init(void) {
     struct queue_item item;
 
     item.queue_type   = QTAskNrf;
+    item.added        = timer_read();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
     send_buf_send_one();
-    wait_ms(3000);  // Give it 1.5 second to initialize or some ack frame
+    wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
     // todo ack
     resp_buf_read_one();
 
@@ -647,6 +650,7 @@ void connected(void) {
     struct queue_item item;
 
     item.queue_type   = QTStartAdv;
+    item.added        = timer_read();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
@@ -659,6 +663,7 @@ void disconnected(void) {
     struct queue_item item;
 
     item.queue_type   = QTStopAdv;
+    item.added        = timer_read();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
@@ -674,6 +679,7 @@ void bluetooth_unpair_all(void) {
     struct queue_item item;
 
     item.queue_type   = QTDelAllDev;
+    item.added        = timer_read();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
@@ -685,6 +691,7 @@ void bluetooth_unpair(uint8_t device_id) {
     struct queue_item item;
 
     item.queue_type   = QTDelDev;
+    item.added        = timer_read();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
@@ -696,6 +703,7 @@ void bluetooth_switch_one(uint8_t device_id) {
     struct queue_item item;
 
     item.queue_type   = QTSwDev;
+    item.added        = timer_read();
     item.device_id    = device_id;
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
@@ -710,17 +718,18 @@ bool biu_ble_enable_keyboard(void) {
     if (!state.initialized && !bluetooth_init()) {
         return false;
     }
-    dprint("Init success!!!");
+    dprint("Start Configure the Nrf Connection!!!\n");
 
     struct queue_item item;
 
     item.queue_type   = QTAskNrf;
+    item.added        = timer_read();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
     send_buf_send_one();
 
-    wait_ms(3000);  // Give it 1.5 second to initialize or some ack frame
+    wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
     // todo ack
     resp_buf_read_one();
 
