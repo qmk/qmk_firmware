@@ -14,7 +14,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "stm32.h"
-
-void keyboard_pre_init_kb(void){
-    keyboard_pre_init_user();
-}
