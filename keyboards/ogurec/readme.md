@@ -6,7 +6,7 @@ ogurec is a 12u x 3u ortholinear keyboard
 
 * Keyboard Maintainer: [H. Bond](https://github.com/drhigsby)
 * Hardware Supported: ogurec (https://github.com/drhigsby/ogurec)
-* Hardware Availability: open source 3DP case available on Glow's github here: 
+* Hardware Availability: open source 3DP case available here https://github.com/drhigsby (case creator: https://github.com/dpalka15)
 
 Make example for this keyboard (after setting up your build environment):
 
