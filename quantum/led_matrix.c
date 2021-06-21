@@ -286,6 +286,7 @@ static void led_task_timers(void) {
 static void led_task_sync(void) {
     // next task
     if (led_update_eeprom) eeconfig_update_led_matrix();
+    led_update_eeprom = false;
     if (sync_timer_elapsed32(g_led_timer) >= LED_MATRIX_LED_FLUSH_LIMIT) led_task_state = STARTING;
 }
 
