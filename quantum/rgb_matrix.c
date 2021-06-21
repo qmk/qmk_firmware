@@ -321,6 +321,7 @@ static void rgb_task_timers(void) {
 static void rgb_task_sync(void) {
     // next task
     if (rgb_update_eeprom) eeconfig_update_rgb_matrix();
+    rgb_update_eeprom = false;
     if (sync_timer_elapsed32(g_rgb_timer) >= RGB_MATRIX_LED_FLUSH_LIMIT) rgb_task_state = STARTING;
 }
 
