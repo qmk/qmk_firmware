@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rev_a.h"
 
 void board_init(void) {
+    palSetLineMode(A5, PAL_MODE_ALTERNATE(0));
     setPinInputHigh(CAPS_PIN);
     setPinInputHigh(SCROLL_PIN);
     setPinInputHigh(NUM_PIN);
