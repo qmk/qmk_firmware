@@ -454,6 +454,9 @@ endif
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/encoder.c
     OPT_DEFS += -DENCODER_ENABLE
+    ifeq ($(strip $(ENCODER_KEYMAP_MAPPING_ENABLE)), yes)
+        OPT_DEFS += -DENCODER_KEYMAP_MAPPING_ENABLE
+    endif
 endif
 
 ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)

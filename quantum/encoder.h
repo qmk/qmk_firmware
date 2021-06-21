@@ -30,7 +30,7 @@ void encoder_state_raw(uint8_t* slave_state);
 void encoder_update_raw(uint8_t* slave_state);
 #endif
 
-#ifdef ENCODER_KEYMAPPING
+#ifdef ENCODER_KEYMAP_MAPPING_ENABLE
 void encoder_map_cleanup(void);
 void encoder_init_keymapping(void);
 bool encoder_update_keymapping(uint8_t index, bool clockwise);
