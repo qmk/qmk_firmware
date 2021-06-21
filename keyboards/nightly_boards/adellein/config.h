@@ -55,14 +55,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Encoders */
-
-#define ENCODERS 1
-
 #define ENCODERS_PAD_A { C7 }
 #define ENCODERS_PAD_B { C6 }
 
-#define ENCODERS_CW_KEY  { { 3, 3 } }
-#define ENCODERS_CCW_KEY { { 1, 3 } }
+#define ENCODER_KEYMAPPING { { 3, 3 }, { 3, 1} }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -74,5 +70,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-

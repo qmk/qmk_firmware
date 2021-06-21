@@ -23,4 +23,4 @@ AUDIO_ENABLE = yes             # Audio output
 ENCODER_ENABLE = yes          # Enable Rotary Encoders
 
 # Added encoder Action
-SRC +=  encoder_action.c
+ENCODER_KEYMAP_MAPPING_ENABLE = yes

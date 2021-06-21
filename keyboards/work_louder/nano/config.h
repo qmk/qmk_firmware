@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B5, B6, C6, NO_PIN, NO_PIN }
 
 /* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION        COL2ROW
+#define DIODE_DIRECTION    COL2ROW
 
 //#define LED_NUM_LOCK_PIN B0
 //#define LED_CAPS_LOCK_PIN B1
@@ -58,8 +58,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BACKLIGHT_LEVELS 3
 //#define BACKLIGHT_BREATHING
 
-#define RGBLIGHT_DI_PIN        C7
-#define RGBLED_NUM             6
+#define RGBLIGHT_DI_PIN    C7
+#define RGBLED_NUM         6
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
@@ -158,13 +158,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B \
     { B4 }
 
-#define ENCODERS 1
-
-#define ENCODERS_CW_KEY \
-    {                   \
-        { 3, 0 }        \
-    }
-#define ENCODERS_CCW_KEY \
-    {                    \
-        { 4, 0 }         \
+#define ENCODER_KEYMAPPING \
+    {                      \
+        {0, 4}, { 0, 3 }   \
     }

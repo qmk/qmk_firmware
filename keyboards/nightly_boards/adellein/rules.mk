@@ -22,4 +22,4 @@ ENCODER_ENABLE = yes          # Enable Rotary Encoders
 LTO_ENABLE = yes
 
 # Added encoder Action
-SRC += encoder_action.c
+ENCODER_KEYMAP_MAPPING_ENABLE = yes
