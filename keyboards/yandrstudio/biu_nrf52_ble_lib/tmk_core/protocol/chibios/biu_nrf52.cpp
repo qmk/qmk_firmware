@@ -99,6 +99,7 @@ struct biunrf52_msg {
 } __attribute__((packed));
 
 enum queue_type {
+    QTAskNrf,
     QTStartAdv,
     QTStopAdv,
     QTDelAllDev,
@@ -180,7 +181,12 @@ enum ble_command_biu {
       ASK_CURRENT_NRF_STATE, // 18 (12)
 };
 
-
+enum ble_state_biu {
+  NRF_WORKING    = 1,
+  NRF_DISCONNECT = 2,
+  NRF_ADVING     = 3,
+  NRF_ERROR      = 0xee
+};
 
 static struct {
     bool is_connected;
@@ -206,10 +212,113 @@ static RingBuffer<queue_item, 65> send_buf;
 static RingBuffer<uint16_t, 4> resp_buf;
 
 
+static void clear_uart_rx_buffer(void) {
+    while (!sdGetWouldBlock(&SERIAL_DRIVER)) {
+        uint8_t a  = uart_getchar();
+    }
+}
+// Read a single SDEP packet
+static bool receive_a_pkt(struct biunrf52_msg *msg, uint16_t timeout) {
+    uint16_t timerStart = timer_read();
+    bool     ready      = false;
+
+    do {
+        ready = !sdGetWouldBlock(&SERIAL_DRIVER);
+        if (ready) {
+            break;
+        }
+        wait_ms(BiuNrf52MsgShortTimeout);
+    } while (timer_elapsed(timerStart) < timeout);
+
+    if (ready) {
+        if (uart_getchar() == BleUartHead) {
+            if (!sdGetWouldBlock(&SERIAL_DRIVER)) {
+                msg->type = uart_getchar();
+            }
+            if (!sdGetWouldBlock(&SERIAL_DRIVER)) {
+                msg->len = uart_getchar();
+            }
+            if (msg->len > BiuNrf52MsgMaxPayload) {
+                clear_uart_rx_buffer();
+                return false;
+            }
+            for (uint8_t i = 0; i < msg->len; ++i) {
+                if (!sdGetWouldBlock(&SERIAL_DRIVER)) {
+                    msg->payload[i] = uart_getchar();
+                } else {
+                    return false;
+                }
+            }
+            if (!sdGetWouldBlock(&SERIAL_DRIVER)) {
+                if(uart_getchar() != BleUartTail) {
+                    clear_uart_rx_buffer();
+                    return false;
+                }
+            } else {
+                clear_uart_rx_buffer();
+                return false;
+            }
+        } else {
+            clear_uart_rx_buffer();
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
 
 
+static void process_nrf_ack_msg(struct biunrf52_msg * msg) {
+    switch (msg->type)
+    {
+    case NRF_WORKING:
+        state.initialized  = true;
+        state.is_connected = true;
+        state.configured   = true;
+        break;
+    case NRF_DISCONNECT:
+    case NRF_ADVING:
+        state.initialized  = true;
+        state.configured   = true;
+        state.is_connected = false;
+        break;
+    default:
+        state.initialized  = false;
+        state.is_connected = false;
+        state.configured   = false;
+        break;
+    }
+}
+static void resp_buf_read_one() {
+    uint16_t last_send;
+    struct biunrf52_msg msg;
 
-static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout) {
+    // if empty, then do nothing
+    if (!resp_buf.peek(last_send)) {
+        return;
+    }
+
+    // determine whether data transfer is possible
+    if (uart_available()) {
+        if (receive_a_pkt(&msg, BiuNrf52MsgTimeout)) {
+            resp_buf.get(last_send);
+            process_nrf_ack_msg(&msg);
+            dprintf("recv latency %dms\n", TIMER_DIFF_16(timer_read(), last_send));
+        } else {
+            dprint("Some thing wrong");
+            state.initialized  = false;
+            state.is_connected = false;
+            state.configured   = false;
+        }
+    } else {
+        dprintf("waiting_for_result: timeout, resp_buf size %d\n", (int)resp_buf.size());
+        // Timed out: consume this entry
+        resp_buf.get(last_send);
+    }
+}
+
+
+static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout, bool need_ack = false) {
     uint16_t timerStart = timer_read();
     bool     ready      = false;
 
@@ -239,62 +348,22 @@ static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout) {
         for (uint8_t i = 0; i < cmd_len; ++i) {
             uart_putchar((uint8_t)cmd[i]);
         }
-        return true;
+    } else {
+        return false;
     }
 
-
-    return false;
-}
-static void clear_uart_rx_buffer(void) {
-    while (!sdGetWouldBlock(&SERIAL_DRIVER)) {
-        uint8_t a  = uart_getchar();
-    }
-}
-
-// Read a single SDEP packet
-static bool receive_a_pkt(struct biunrf52_msg *msg, uint16_t timeout) {
-    uint16_t timerStart = timer_read();
-    bool     ready      = false;
-
-    do {
-        ready = !sdGetWouldBlock(&SERIAL_DRIVER);
-        if (ready) {
-            break;
+    if (need_ack) {
+        uint16_t now = timer_read();
+        while (!resp_buf.enqueue(now)) {
+            resp_buf_read_one();
         }
-        wait_ms(BiuNrf52MsgShortTimeout);
-    } while (timer_elapsed(timerStart) < timeout);
-
-    if (ready) {
-        if (uart_getchar() == BleUartHead) {
-            if (!sdGetWouldBlock(&SERIAL_DRIVER)) {
-                msg->type = uart_getchar();
-            }
-            if (!sdGetWouldBlock(&SERIAL_DRIVER)) {
-                msg->len = uart_getchar();
-            }
-            if (msg->len > BiuNrf52MsgMaxPayload) {
-                clear_uart_rx_buffer();
-                return false;
-            }
-            for (uint8_t i = 0; i < msg->len; ++i) {
-                if (!sdGetWouldBlock(&SERIAL_DRIVER)) {
-                    msg->payload[i] = uart_getchar();
-                }
-            }
-            if (!sdGetWouldBlock(&SERIAL_DRIVER)) {
-                if(uart_getchar() != BleUartTail) {
-                    clear_uart_rx_buffer();
-                }
-            } else {
-                clear_uart_rx_buffer();
-            }
-        } else {
-            clear_uart_rx_buffer();
-            return false;
+        uint16_t later = timer_read();
+        if (TIMER_DIFF_16(later, now) > 0) {
+            dprintf("waited %dms for resp_buf\n", TIMER_DIFF_16(later, now));
         }
-        return true;
     }
-    return false;
+
+    return true;
 }
 
 
@@ -312,6 +381,10 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
 #endif
 
     switch (item->queue_type) {
+        case QTAskNrf:
+            cmdbuf[1] = ASK_CURRENT_NRF_STATE;
+            cmdbuf[2] = BleUartTail;
+            return send_a_pkt(cmdbuf, 3, timeout, true);
         case QTStartAdv:
             cmdbuf[1] = START_ADV_WITH_WL;
             cmdbuf[2] = BleUartTail;
@@ -383,37 +456,20 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
 
 #   ifdef JOYSTICK_ENABLE
         case QTJoyStick:  // xx-byte report
-            return send_a_pkt(cmdbuf, NULL, 0, true, timeout);
+            cmdbuf[1] = REPORT_INDEX_NKRO;
+            cmdbuf[2] = item->nkey.mods;
+            memcpy(cmdbuf+3, item->nkey.bits, KEYBOARD_REPORT_BITS);
+            cmdbuf[KEYBOARD_REPORT_BITS+2+1] = BleUartTail;
+            return send_a_pkt(cmdbuf, KEYBOARD_REPORT_BITS+2+1+1, timeout);
 #   endif
 
         default:
-            return true;
+            return false;
     }
 }
 
 
-static void resp_buf_read_one() {
-    uint16_t last_send;
-    struct biunrf52_msg msg;
 
-    // if empty, then do nothing
-    if (!resp_buf.peek(last_send)) {
-        return;
-    }
-
-    // determine whether data transfer is possible
-    if (uart_available()) {
-        if (receive_a_pkt(&msg, BiuNrf52MsgTimeout)) {
-            resp_buf.get(last_send);
-            dprintf("recv latency %dms\n", TIMER_DIFF_16(timer_read(), last_send));
-        }
-    } else {
-        dprintf("waiting_for_result: timeout, resp_buf size %d\n", (int)resp_buf.size());
-
-        // Timed out: consume this entry
-        resp_buf.get(last_send);
-    }
-}
 
 static void send_buf_send_one(uint16_t timeout = BiuNrf52MsgTimeout) {
     struct queue_item item;
@@ -435,6 +491,7 @@ static void send_buf_send_one(uint16_t timeout = BiuNrf52MsgTimeout) {
         wait_ms(BiuNrf52MsgTimeout);
         resp_buf_read_one();
     }
+
 }
 
 void bluetooth_send_keyboard(report_keyboard_t *report) {
@@ -539,26 +596,18 @@ void bluetooth_send_battery_level() {
 }
 
 bool bluetooth_init_pre(void) {
-    // start the uart data trans
-    uart_init(BIUNRF52UartBaud);
-    return true;
-}
 
-
-bool bluetooth_init(void) {
+    // set the ble state
     state.initialized  = false;
     state.configured   = false;
     state.is_connected = false;
 
-    // bluetooth_init_pre();
-    // Perform a hardware reset
+    // start the uart data trans
+    uart_init(BIUNRF52UartBaud);
+
+    // hang up the reset pin
     setPinOutput(BIUNRF52ResetPin);
     writePinHigh(BIUNRF52ResetPin);
-    wait_ms(100);
-    writePinLow(BIUNRF52ResetPin);
-    wait_ms(100);
-    writePinHigh(BIUNRF52ResetPin);
-
 
     // set the adc read sw off
 #   ifdef BATTERY_LEVEL_SW_PIN
@@ -566,10 +615,29 @@ bool bluetooth_init(void) {
         writePinHigh(BATTERY_LEVEL_SW_PIN);
 #   endif
 
-    wait_ms(1500);  // Give it 1.5 second to initialize or some ack frame
-    // todo ack
+    return true;
+}
 
-    state.initialized = true;
+
+bool bluetooth_init(void) {
+
+
+    // performance a reset
+    writePinLow(BIUNRF52ResetPin);
+    wait_ms(100);
+    writePinHigh(BIUNRF52ResetPin);
+
+    struct queue_item item;
+
+    item.queue_type   = QTAskNrf;
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
+    send_buf_send_one();
+    wait_ms(3000);  // Give it 1.5 second to initialize or some ack frame
+    // todo ack
+    resp_buf_read_one();
+
     return state.initialized;
 }
 
@@ -642,20 +710,19 @@ bool biu_ble_enable_keyboard(void) {
     if (!state.initialized && !bluetooth_init()) {
         return false;
     }
+    dprint("Init success!!!");
 
-    state.configured = false;
+    struct queue_item item;
 
-    // ask the nrf state
-    // uart_putchar(0xff);
+    item.queue_type   = QTAskNrf;
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
+    send_buf_send_one();
 
-    // wait or some thing
-    // todo
-
-    // check the nrf returned msg
-    // uint8_t nrf_msg = uart_getchar();
-
-
-    state.configured = true;
+    wait_ms(3000);  // Give it 1.5 second to initialize or some ack frame
+    // todo ack
+    resp_buf_read_one();
 
     // Check connection status in a little while; allow the ATZ time
     // to kick in.
