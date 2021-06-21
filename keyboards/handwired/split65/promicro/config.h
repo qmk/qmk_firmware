@@ -38,7 +38,6 @@
 #define MATRIX_IO_DELAY 5
 
 // Split Keyboard specifics
-#define MASTER_LEFT
 #define SOFT_SERIAL_PIN D3
 #define SELECT_SOFT_SERIAL_SPEED 1
 
