@@ -42,7 +42,6 @@
 #define MATRIX_IO_DELAY 5
 
 // Split Keyboard specifics
-#define MASTER_LEFT
 #define SOFT_SERIAL_PIN A9
 #define USART_REMAP
 #define SELECT_SOFT_SERIAL_SPEED 1
