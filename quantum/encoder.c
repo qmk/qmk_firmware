@@ -134,9 +134,7 @@ static bool encoder_update(uint8_t index, uint8_t state) {
         encoder_update_handler(index, ENCODER_CLOCKWISE);
     }
     encoder_pulses[i] %= resolution;
-#ifdef ENCODER_KEYMAPPING
-    encoder_map_cleanup();
-#endif
+
     return changed;
 }
 

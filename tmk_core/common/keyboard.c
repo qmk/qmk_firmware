@@ -537,6 +537,10 @@ MATRIX_LOOP_END:
     joystick_task();
 #endif
 
+#if defined(ENCODER_ENABLE) && defined(ENCODER_KEYMAPPING)
+    encoder_map_cleanup();
+#endif
+
     // update LED
     if (led_status != host_keyboard_leds()) {
         led_status = host_keyboard_leds();
