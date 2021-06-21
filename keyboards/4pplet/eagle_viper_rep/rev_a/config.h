@@ -43,6 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN  A7
 #define WS2812_SPI  SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN A5
+#define WS2812_SPI_SCK_PAL_MODE 0
 #define RGBLED_NUM  16
 #define RGBLIGHT_ANIMATIONS
 
@@ -68,4 +70,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Added extra layer for use of layer leds */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
-
