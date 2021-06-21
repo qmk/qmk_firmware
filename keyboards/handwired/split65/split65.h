@@ -22,5 +22,3 @@
 #elif defined(KEYBOARD_handwired_split65_promicro)
     #include "promicro.h"
 #endif
-
-#endif
