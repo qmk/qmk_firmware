@@ -134,11 +134,10 @@ static void redraw_oled_pet(uint8_t col, uint8_t line, bool jumping, oled_pet_st
     } else {
         oled_advance_page(/*clearPageRemainder=*/true);
         oled_write_raw_P(oled_pet_frame(state, frame), oled_pet_frame_bytes());
-        oled_set_cursor(col, line + oled_pet_frame_lines() + 1);
     }
 }
 
-bool render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_t wpm) {
+void render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_t wpm) {
     /* Whether or not the animation state or frame has changed since the pet
      * was last drawn. We track this to avoid redrawing the same frame
      * repeatedly during idle. This allows the caller to draw on top of the pet
@@ -176,6 +175,8 @@ bool render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_
     if (redraw) {
         redraw_oled_pet(col, line, jumping, state, frame);
     }
+    oled_pet_post_render(col, line, jumping, mods, leds, wpm, redraw);
+    oled_set_cursor(col, line + oled_pet_frame_lines() + 1);
 
     /* If the update timer expired, recompute the pet's animation state and
      * possibly advance to the next frame.
@@ -194,7 +195,5 @@ bool render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_
             animation_changed = true;
         }
     }
-
-    return redraw;
 }
 #endif

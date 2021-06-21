@@ -154,3 +154,5 @@ const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame) {
             return IDLE_FRAMES[frame];
     }
 }
+
+void oled_pet_post_render(uint8_t col, uint8_t line, bool jumping, uint8_t mods, led_t leds, uint8_t wpm, bool redraw) {}

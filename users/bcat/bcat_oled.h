@@ -47,9 +47,6 @@ void render_oled_wpm(uint8_t wpm);
  *
  * The rendered image will be one line taller than the OLED pet's animation
  * frame height to accommodate pets that "jump" when the spacebar is pressed.
- *
- * Returns whether or not a new frame of the animation was displayed, in case
- * the caller wants to draw atop the pet animation (e.g., in empty space).
  */
-bool render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_t wpm);
+void render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_t wpm);
 #endif
