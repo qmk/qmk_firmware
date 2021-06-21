@@ -50,6 +50,7 @@ typedef struct {
  * 2) Matrix(255, 255) to make TICK event available
  */
 static inline bool IS_NOEVENT(keyevent_t event) { return event.time == 0 || (event.key.row == KEYLOC_TICK && event.key.col == KEYLOC_TICK); }
+static inline bool IS_KEYEVENT(keyevent_t event) { return (event.key.row < MATRIX_ROWS && event.key.col < MATRIX_COLS); }
 static inline bool IS_PRESSED(keyevent_t event) { return (!IS_NOEVENT(event) && event.pressed); }
 static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) && !event.pressed); }
 
