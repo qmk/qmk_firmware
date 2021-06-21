@@ -1,3 +1,4 @@
+RGBLIGHT_ENABLE              = yes
 RGBLIGHT_STARTUP_ANIMATION   = yes
 AUDIO_ENABLE                 = yes
 HAPTIC_ENABLE                = no
