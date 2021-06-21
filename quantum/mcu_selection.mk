@@ -136,10 +136,6 @@ ifneq ($(findstring STM32F042, $(MCU)),)
 
   USE_FPU ?= no
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
-
   # UF2 settings
   UF2_FAMILY ?= STM32F0
 endif
@@ -171,10 +167,6 @@ ifneq ($(findstring STM32F072, $(MCU)),)
   BOARD ?= GENERIC_STM32_F072XB
 
   USE_FPU ?= no
-
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 
   # UF2 settings
   UF2_FAMILY ?= STM32F0
@@ -208,10 +200,6 @@ ifneq ($(findstring STM32F103, $(MCU)),)
 
   USE_FPU ?= no
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
-
   # UF2 settings
   UF2_FAMILY ?= STM32F1
 endif
@@ -244,10 +232,6 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   USE_FPU ?= yes
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
-
   # UF2 settings
   UF2_FAMILY ?= STM32F3
 endif
@@ -279,10 +263,6 @@ ifneq ($(findstring STM32F401, $(MCU)),)
   BOARD ?= BLACKPILL_STM32_F401
 
   USE_FPU ?= yes
-
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 
   # UF2 settings
   UF2_FAMILY ?= STM32F4
@@ -321,10 +301,6 @@ ifneq ($(findstring STM32F411, $(MCU)),)
 
   USE_FPU ?= yes
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
-
   # UF2 settings
   UF2_FAMILY ?= STM32F4
 endif
@@ -357,10 +333,6 @@ ifneq ($(findstring STM32F446, $(MCU)),)
   BOARD ?= GENERIC_STM32_F446XE
 
   USE_FPU ?= yes
-
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 endif
 
 ifneq ($(findstring STM32G431, $(MCU)),)
@@ -390,10 +362,6 @@ ifneq ($(findstring STM32G431, $(MCU)),)
   BOARD ?= GENERIC_STM32_G431XB
 
   USE_FPU ?= yes
-
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 
   # UF2 settings
   UF2_FAMILY ?= STM32G4
@@ -426,10 +394,6 @@ ifneq ($(findstring STM32G474, $(MCU)),)
   BOARD ?= GENERIC_STM32_G474XE
 
   USE_FPU ?= yes
-
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 
   # UF2 settings
   UF2_FAMILY ?= STM32G4
@@ -464,10 +428,6 @@ ifneq (,$(filter $(MCU),STM32L433 STM32L443))
   PLATFORM_NAME ?= platform_l432
 
   USE_FPU ?= yes
-
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 
   # UF2 settings
   UF2_FAMILY ?= STM32L4
