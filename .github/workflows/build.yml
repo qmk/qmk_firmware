@@ -12,6 +12,7 @@ jobs:
       matrix:
         keyboard:
           - handwired/stream_cheap/Zatarian
+          - handwired/stream_cheap/Vancurls_Craigerbomb_Scuhzy
         keymap:
           - via
 
