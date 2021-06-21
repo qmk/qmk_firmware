@@ -60,14 +60,16 @@ If you are using different pinouts for the encoders on each half of a split keyb
 
 By enabling this config, you can place the keycodes for the encoders directly in the keymap itself.  If you have extra spots in your matrix (eg, not populated), you can use those locations.  To enable this you need to add a define that lists the row and column location to use. 
 
-```c
-#define ENCODER_KEYMAPPING { { 4, 0 }, { 4, 1 } }, { { 5, 0 }, { 5, 1 } }
-```
-
-And enable this in your rules.mk:
+Add this ton your `rules.mk`:
 
 ```make
 ENCODER_KEYMAP_MAPPING_ENABLE = yes
+```
+
+And then add the configuration for the encoders in your `config.h`:
+
+```c
+#define ENCODER_KEYMAPPING { { 4, 0 }, { 4, 1 } }, { { 5, 0 }, { 5, 1 } }
 ```
 
 This tells it to use row 4, column 0 for counter clockwise, row 4 column 1 for clockwise, and then row 5 column 0 and 1 for the second encoder.  
