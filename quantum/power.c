@@ -19,40 +19,40 @@
 
 enum power_state power_state;
 
-__attribute__((weak)) void notify_power_state_change_kb(void) {
+__attribute__((weak)) void notify_power_state_change_kb(enum power_state power_state) {
 }
 
-static void notify_power_state_change(void)
+static void notify_power_state_change(enum power_state power_state)
 {
-    notify_power_state_change_kb();
+    notify_power_state_change_kb(power_state);
 }
 
 void power_set_configuration(bool isConfigured, uint8_t configurationNumber)
 {
     power_state = isConfigured ? POWER_STATE_CONFIGURED : POWER_STATE_INIT;
-    notify_power_state_change();
+    notify_power_state_change(power_state);
 }
 
 void power_set_suspend(bool isConfigured, uint8_t configurationNumber)
 {
     power_state = POWER_STATE_SUSPEND;
-    notify_power_state_change();
+    notify_power_state_change(power_state);
 }
 
 void power_set_resume(bool isConfigured, uint8_t configurationNumber)
 {
     power_state = isConfigured ? POWER_STATE_CONFIGURED : POWER_STATE_INIT;
-    notify_power_state_change();
+    notify_power_state_change(power_state);
 }
 
 void power_set_reset(void)
 {
     power_state = POWER_STATE_INIT;
-    notify_power_state_change();
+    notify_power_state_change(power_state);
 }
 
 void power_init(void)
 {
     power_state = POWER_STATE_INIT;
-    notify_power_state_change();
+    notify_power_state_change(power_state);
 }

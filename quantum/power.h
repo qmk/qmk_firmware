@@ -33,4 +33,4 @@ enum power_state {
 
 extern enum power_state power_state;
 
-void notify_power_state_change_kb(void);
+void notify_power_state_change_kb(enum power_state power_state);
