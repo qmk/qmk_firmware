@@ -58,3 +58,5 @@
 //#define NO_PRINT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+
+#define OLED_DISPLAY_128X64

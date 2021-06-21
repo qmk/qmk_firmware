@@ -50,4 +50,4 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#endif
+#define OLED_DISPLAY_128X64
