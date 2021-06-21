@@ -4,5 +4,3 @@
 #define DEVICE_VER 0x0002
 
 #define RGBLED_NUM 28
-
-#define USB_POLLING_INTERVAL_MS 1
