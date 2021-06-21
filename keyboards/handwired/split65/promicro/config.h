@@ -15,8 +15,6 @@
  */
 #pragma once
 
-#ifndef PROMICRO_CONFIG_H
-#define PROMICRO_CONFIG_H
 
 #include "config_common.h"
 
