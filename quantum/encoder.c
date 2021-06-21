@@ -64,7 +64,7 @@ __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { 
 __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) { return encoder_update_user(index, clockwise); }
 
 static void encoder_update_handler(uint8_t index, bool clockwise) {
-#ifdef ENCODER_KEYMAPPING
+#ifdef ENCODER_KEYMAP_MAPPING_ENABLE
 #    ifdef ENCODER_PROCESS_CALLBACKS
     if (encoder_update_kb(index, clockwise))
 #    endif
@@ -100,7 +100,7 @@ void encoder_init(void) {
 
         encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
     }
-#ifdef ENCODER_KEYMAPPING
+#ifdef ENCODER_KEYMAP_MAPPING_ENABLE
     encoder_init_keymapping();
 #endif
 #ifdef SPLIT_KEYBOARD
@@ -183,7 +183,10 @@ void encoder_update_raw(uint8_t* slave_state) {
 }
 #endif
 
-#ifdef ENCODER_KEYMAPPING
+#ifdef ENCODER_KEYMAP_MAPPING_ENABLE
+#    ifndef ENCODER_KEYMAPPING
+#        error Encoder to keymap array not defined
+#    endif
 #    ifdef SPLIT_KEYBOARD
 #        define NUM_ENCODERS (NUMBER_OF_ENCODERS * 2)
 #    else

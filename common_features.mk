@@ -411,6 +411,15 @@ ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     OPT_DEFS += -DUSER_PRINT
 endif
 
+
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/encoder.c
+    OPT_DEFS += -DENCODER_ENABLE
+    ifeq ($(strip $(ENCODER_KEYMAP_MAPPING_ENABLE)), yes)
+        OPT_DEFS += -DENCODER_KEYMAP_MAPPING_ENABLE
+    endif
+endif
+
 ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes

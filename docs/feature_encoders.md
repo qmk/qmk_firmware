@@ -64,6 +64,12 @@ By enabling this config, you can place the keycodes for the encoders directly in
 #define ENCODER_KEYMAPPING { { 4, 0 }, { 4, 1 } }, { { 5, 0 }, { 5, 1 } }
 ```
 
+And enable this in your rules.mk:
+
+```make
+ENCODER_KEYMAP_MAPPING_ENABLE = yes
+```
+
 This tells it to use row 4, column 0 for counter clockwise, row 4 column 1 for clockwise, and then row 5 column 0 and 1 for the second encoder.  
 
 This works with most keycodes.  Tap-Hold keys may not work well for this, nor will special keys, like tap dances.  However, this will work with quantum keycodes, as well as custom macros. 

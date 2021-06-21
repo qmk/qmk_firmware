@@ -516,7 +516,7 @@ MATRIX_LOOP_END:
     programmable_button_send();
 #endif
 
-#if defined(ENCODER_ENABLE) && defined(ENCODER_KEYMAPPING)
+#if defined(ENCODER_ENABLE) && defined(ENCODER_KEYMAP_MAPPING_ENABLE)
     encoder_map_cleanup();
 #endif
 
