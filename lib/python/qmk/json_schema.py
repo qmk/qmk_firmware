@@ -61,20 +61,8 @@ def validate(data, schema):
     return validator(data)
 
 
-def keyboard_validate(data):
-    """Validates data against the keyboard jsonschema.
-    """
-    return validate(data, 'qmk.keyboard.v1')
-
-
-def keyboard_api_validate(data):
-    """Validates data against the api_keyboard jsonschema.
-    """
-    return validate(data, 'qmk.api.keyboard.v1')
-
-
 def deep_update(origdict, newdict):
-    """Update a dictionary in place, recursing to do a deep copy.
+    """Update a dictionary in place, recursing to do a depth-first deep copy.
     """
     for key, value in newdict.items():
         if isinstance(value, Mapping):
