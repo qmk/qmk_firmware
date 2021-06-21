@@ -19,7 +19,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Revisions
 
-There are two main revisions for the PloopyCo Tracball, everything up to 1.004, and 1.005.   
+There are two main revisions for the PloopyCo Tracball, everything up to 1.004, and 1.005-1.006.
 
 In the 1.005 revision, button for was changed from pin B5 to B6, and the debug LED pin was changed from F7 to B5. 
 
