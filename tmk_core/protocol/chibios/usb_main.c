@@ -413,7 +413,7 @@ static inline bool usb_event_queue_dequeue(usbevent_t *event) {
 }
 
 static inline void usb_event_suspend_handler(void) {
-    power_set_suspend(USB_DRIVER.configuration!=0, USB_DRIVER.configuration);
+    power_set_suspend(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
@@ -421,7 +421,7 @@ static inline void usb_event_suspend_handler(void) {
 
 static inline void usb_event_wakeup_handler(void) {
     suspend_wakeup_init();
-    power_set_resume(USB_DRIVER.configuration!=0, USB_DRIVER.configuration);
+    power_set_resume(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
     // NOTE: converters may not accept this
@@ -444,7 +444,7 @@ void usb_event_queue_task(void) {
                 usb_event_wakeup_handler();
                 break;
             case USB_EVENT_CONFIGURED:
-                power_set_configuration(USB_DRIVER.configuration!=0, USB_DRIVER.configuration);
+                power_set_configuration(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
                 break;
             case USB_EVENT_UNCONFIGURED:
                 power_set_configuration(false, 0);

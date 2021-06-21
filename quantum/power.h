@@ -26,9 +26,9 @@ void power_set_reset(void);
 void power_init(void);
 
 enum power_state {
-    POWER_STATE_INIT = 0,       // Can consume up to 100mA
-    POWER_STATE_CONFIGURED = 1, // Can consume up to what is specified in configuration descriptor, typically 500mA
-    POWER_STATE_SUSPEND = 2     // Can consume only suspend current
+    POWER_STATE_INIT       = 0,  // Can consume up to 100mA
+    POWER_STATE_CONFIGURED = 1,  // Can consume up to what is specified in configuration descriptor, typically 500mA
+    POWER_STATE_SUSPEND    = 2   // Can consume only suspend current
 };
 
 extern enum power_state power_state;
