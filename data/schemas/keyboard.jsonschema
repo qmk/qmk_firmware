@@ -3,96 +3,6 @@
     "$id": "qmk.keyboard.v1",
     "title": "Keyboard Information",
     "type": "object",
-    "definitions": {
-        "boolean_array": {
-            "type": "object",
-            "additionalProperties": {"type": "boolean"}
-        },
-        "filename": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "^[0-9a-z_]*$"
-        },
-        "hex_number_2d": {
-            "type": "string",
-            "pattern": "^0x[0-9A-F]{2}$"
-        },
-        "hex_number_4d": {
-            "type": "string",
-            "pattern": "^0x[0-9A-F]{4}$"
-        },
-        "text_identifier": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 250
-        },
-        "layout_macro": {
-            "oneOf": [
-                {
-                    "type": "string",
-                    "enum": ["LAYOUT", "LAYOUT_planck_1x2uC"]
-                },
-                {
-                    "type": "string",
-                    "pattern": "^LAYOUT_[0-9a-z_]*$"
-                }
-            ]
-        },
-        "key_unit": {
-            "type": "number",
-            "min": 0.25
-        },
-        "mcu_pin_array": {
-            "type": "array",
-            "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
-        },
-        "mcu_pin": {
-            "oneOf": [
-                {
-                    "type": "string",
-                    "pattern": "^[A-K]\\d{1,2}$"
-                },
-                {
-                    "type": "string",
-                    "pattern": "^LINE_PIN\\d{1,2}$"
-                },
-                {
-                    "type": "number",
-                    "multipleOf": 1
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
-        "string_array": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        },
-        "string_object": {
-            "type": "object",
-            "additionalProperties": {
-                "type": "string"
-            }
-        },
-        "unsigned_decimal": {
-            "type": "number",
-            "min": 0
-        },
-        "unsigned_integer": {
-            "type": "number",
-            "min": 0,
-            "multipleOf": 1
-        }
-        "unsigned_integer_8": {
-            "type": "number",
-            "min": 0,
-            "max": 255,
-            "multipleOf": 1
-        }
-    }
     "properties": {
         "keyboard_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "maintainer": {"$ref": "qmk.definitions.v1#/text_identifier"},
@@ -118,7 +28,7 @@
             "type": "string",
             "enum": ["COL2ROW", "ROW2COL"]
         },
-        "debounce": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
+        "debounce": {"$ref": "qmk.definitions.v1#/unsigned_int"},
         "height": {"$ref": "qmk.definitions.v1#/key_unit"},
         "width": {"$ref": "qmk.definitions.v1#/key_unit"},
         "community_layouts": {
@@ -204,19 +114,19 @@
                         "type": "boolean"
                     }
                 },
-                "brightness_steps": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
-                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
-                "led_count": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
-                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_integer_8"},
+                "brightness_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_integer"},
+                "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "sleep": {"type": "boolean"},
                 "split": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
                     "minLength": 2,
                     "maxLength": 2,
-                    "items": {"$ref": "qmk.definitions.v1#/unsigned_integer"}
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                 }
             }
         },

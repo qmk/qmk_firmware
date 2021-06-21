@@ -64,6 +64,19 @@
             }
         ]
     },
+    "signed_decimal": {
+        "type": "number"
+    },
+    "signed_int": {
+        "type": "number",
+        "multipleOf": 1
+    }
+    "signed_int_8": {
+        "type": "number",
+        "min": -127,
+        "max": 127,
+        "multipleOf": 1
+    }
     "string_array": {
         "type": "array",
         "items": {
@@ -80,12 +93,12 @@
         "type": "number",
         "min": 0
     },
-    "unsigned_integer": {
+    "unsigned_int": {
         "type": "number",
         "min": 0,
         "multipleOf": 1
     }
-    "unsigned_integer_8": {
+    "unsigned_int_8": {
         "type": "number",
         "min": 0,
         "max": 255,
