@@ -2,7 +2,6 @@
   "keyboard_name": "Tomato",
   "url": "",
   "maintainer": "qmk",
-  "bootloader": "",
   "width": 10,
   "height": 3,
   "layouts": {

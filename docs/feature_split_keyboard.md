@@ -60,6 +60,7 @@ The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0/D1/D2/D3 (aka
 The 4 wires of the TRRS cable need to connect GND, VCC, and SCL and SDA (aka PD0/pin 3 and PD1/pin 2, respectively) between the two Pro Micros. 
 
 The pull-up resistors may be placed on either half. If you wish to use the halves independently, it is also possible to use 4 resistors and have the pull-ups in both halves.
+Note that the total resistance for the connected system should be within spec at 2.2k-10kOhm, with an 'ideal' at 4.7kOhm, regardless of the placement and number.
 
 <img alt="sk-i2c-connection-mono" src="https://user-images.githubusercontent.com/2170248/92297182-92b98580-ef77-11ea-9d7d-d6033914af43.JPG" width="50%"/>
 
@@ -109,6 +110,10 @@ Normally, when a diode is connected to an intersection, it is judged to be left.
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 ```
 
+Note that adding a diode at a previously unused intersection will effectively tell the firmware that there is a key held down at that point. You can instruct qmk to ignore that intersection by defining `MATRIX_MASKED` and then defining a `matrix_row_t matrix_mask[MATRIX_ROWS]` array in your keyboard config. Each bit of a single value (starting form the least-significant bit) is used to tell qmk whether or not to pay attention to key presses at that intersection.
+
+While `MATRIX_MASKED` isn't necessary to use `SPLIT_HAND_MATRIX_GRID` successfully, without it you may experience issues trying to suspend your computer with your keyboard attached as the matrix will always report at least one key-press.
+
 #### Handedness by EEPROM
 
 This method sets the keyboard's handedness by setting a flag in the persistent storage (`EEPROM`).  This is checked when the controller first starts up, and determines what half the keyboard is, and how to orient the keyboard layout. 
@@ -128,6 +133,12 @@ However, you'll have to flash the EEPROM files for the correct hand to each cont
 * `:dfu-split-right`
 * `:dfu-util-split-left`
 * `:dfu-util-split-right`
+
+Example:
+
+```
+make crkbd:default:avrdude-split-left
+```
 
 This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
@@ -181,6 +192,22 @@ If you're having issues with serial communication, you can change this value, as
 * **`4`**: about 26kbps
 * **`5`**: about 20kbps
 
+```c
+#define SPLIT_MODS_ENABLE
+```
+
+This enables transmitting modifier state (normal, weak and oneshot) to the non
+primary side of the split keyboard.  This adds a few bytes of data to the split
+communication protocol and may impact the matrix scan speed when enabled.
+The purpose of this feature is to support cosmetic use of modifer state (e.g.
+displaying status on an OLED screen).
+
+```c
+#define SPLIT_TRANSPORT_MIRROR
+```
+
+This mirrors the master side matrix to the slave side for features that react or require knowledge of master side key presses on the slave side.  This adds a few bytes of data to the split communication protocol and may impact the matrix scan speed when enabled. The purpose of this feature is to support cosmetic use of key events (e.g. RGB reacting to Keypresses).
+
 ###  Hardware Configuration Options
 
 There are some settings that you may need to configure, based on how the hardware is set up. 
@@ -223,7 +250,12 @@ This sets how many LEDs are directly connected to each controller.  The first nu
 ```c
 #define SPLIT_USB_DETECT
 ```
-This option changes the startup behavior to detect an active USB connection when delegating master/slave. If this operation times out, then the half is assume to be a slave. This is the default behavior for ARM, and required for AVR Teensy boards (due to hardware limitations).
+
+Enabling this option changes the startup behavior to listen for an active USB communication to delegate which part is master and which is slave. With this option enabled and theres's USB communication, then that half assumes it is the master, otherwise it assumes it is the slave.
+
+Without this option, the master is the half that can detect voltage on the physical USB connection (VBUS detection).
+
+Enabled by default on ChibiOS/ARM.
 
 ?> This setting will stop the ability to demo using battery packs.
 
@@ -239,9 +271,13 @@ This sets the poll frequency when detecting master/slave when using `SPLIT_USB_D
 
 ## Hardware Considerations and Mods
 
-While most any Pro Micro can be used, micro controllers like the AVR Teensys and most (if not all) ARM boards require the Split USB Detect.
+Master/slave delegation is made either by detecting voltage on VBUS connection or waiting for USB communication (`SPLIT_USB_DETECT`). Pro Micro boards can use VBUS detection out of the box and be used with or without `SPLIT_USB_DETECT`.
 
-However, with the Teensy 2.0 and Teensy++ 2.0, there is a simple hardware mod that you can perform to add VBUS detection, so you don't need the Split USB detection option.
+Many ARM boards, but not all, do not support VBUS detection. Because it is common that ARM boards lack VBUS detection, `SPLIT_USB_DETECT` is automatically defined on ARM targets (technically when ChibiOS is targetted).
+
+### Teensy boards
+
+Teensy boards lack VBUS detection out of the box and must have `SPLIT_USB_DETECT` defined. With the Teensy 2.0 and Teensy++ 2.0, there is a simple hardware mod that you can perform to add VBUS detection, so you don't need the `SPLIT_USB_DETECT` option.
 
 You'll only need a few things:
 

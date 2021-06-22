@@ -105,8 +105,16 @@ void matrix_init_custom(void) {
 
 }
 
+static i2c_status_t mcp23018_status = I2C_STATUS_SUCCESS;
+
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool matrix_has_changed = false;
+
+#if defined(RIGHT_HALF)
+	if (mcp23018_status != I2C_STATUS_SUCCESS) {
+	    mcp23018_status = mcp23018_init();
+	}
+#endif
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         // Store last value of row prior to reading
@@ -124,7 +132,9 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 		// as 0x75 would be no keys pressed
 		uint8_t data = 0x7F;
 		// Receive the columns from right half
-		i2c_receive(TWI_ADDR_WRITE, &data, 1, I2C_TIMEOUT);
+		if (mcp23018_status == I2C_STATUS_SUCCESS) {
+			mcp23018_status = i2c_receive(TWI_ADDR_WRITE, &data, 1, I2C_TIMEOUT);
+		}
 #endif
 
         cols |= ((~(PINA | 0x80)) & 0x7F);
@@ -146,7 +156,9 @@ void matrix_set_row_status(uint8_t row) {
     //Set the remote row on port A
     txdata[0] = (GPIOA);
     txdata[1] = ( 0xFF & ~(1<<row) );
-    i2c_transmit(TWI_ADDR_WRITE, (uint8_t *)txdata, 2, I2C_TIMEOUT);
+	if (mcp23018_status == I2C_STATUS_SUCCESS) {
+	    mcp23018_status = i2c_transmit(TWI_ADDR_WRITE, (uint8_t *)txdata, 2, I2C_TIMEOUT);
+	}
 #endif
 
     //Set the local row on port B

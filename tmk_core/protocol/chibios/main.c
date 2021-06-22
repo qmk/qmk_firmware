@@ -51,12 +51,6 @@
 #ifdef MIDI_ENABLE
 #    include "qmk_midi.h"
 #endif
-#ifdef STM32_EEPROM_ENABLE
-#    include "eeprom_stm32.h"
-#endif
-#ifdef EEPROM_DRIVER
-#    include "eeprom_driver.h"
-#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -150,19 +144,13 @@ int main(void) {
     halInit();
     chSysInit();
 
-#ifdef STM32_EEPROM_ENABLE
-    EEPROM_Init();
-#endif
-#ifdef EEPROM_DRIVER
-    eeprom_driver_init();
-#endif
-
     // TESTING
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
     keyboard_setup();
 
     /* Init USB */
+    usb_event_queue_init();
     init_usb_driver(&USB_DRIVER);
 
 #ifdef MIDI_ENABLE
@@ -221,6 +209,8 @@ int main(void) {
 
     /* Main loop */
     while (true) {
+        usb_event_queue_task();
+
 #if !defined(NO_USB_STARTUP_CHECK)
         if (USB_DRIVER.state == USB_SUSPENDED) {
             print("[s]");
@@ -267,7 +257,6 @@ int main(void) {
 #endif
 
         // Run housekeeping
-        housekeeping_task_kb();
-        housekeeping_task_user();
+        housekeeping_task();
     }
 }
