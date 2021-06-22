@@ -1903,9 +1903,6 @@ void keyboard_post_init_user(void) {
 // EEPROM is getting reset!
 void eeconfig_init_user(void) {
     user_config.raw                 = 0;
-    user_config.do_wakeup_animation = false;  // We want this disabled by default
-    user_config.do_wakeup_audio     = false;  // We want this disabled by default
-    user_config.rgbcon_tracker      = 0;
     eeconfig_update_user(user_config.raw);  // Write default value to EEPROM now
 }
 
