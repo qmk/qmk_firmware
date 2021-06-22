@@ -1,3 +1,4 @@
+![Layout Image](https://github.com/rootiest/rootiest.github.io/raw/main/img/rootiest-planck_legend.png)
 # The Rootiest Planck Layout
 
 This layout takes advantage of as many QMK features as possible for a huge complicated beast of a keyboard!
@@ -26,8 +27,6 @@ Features include:
 - Unicode characters and emoji can be sent via custom tap-dance keys
 - Emoji and app-specific functions can be sent via leader-key chording
 - VelociKey and word-per-minute tracking are also included
-
-![Layout Image](https://github.com/rootiest/rootiest.github.io/raw/main/img/rootiest-planck_legend.png)
 
 See the layout here: [Keyboard Layout](http://www.keyboard-layout-editor.com/#/gists/e48e19bc251a8d07ff8475fc1a16f43b)
 
