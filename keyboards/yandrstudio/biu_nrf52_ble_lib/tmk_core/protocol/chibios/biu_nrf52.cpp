@@ -18,19 +18,22 @@
 // These are the pin assignments for the stm32f401ccu6 boards.
 // You may define them to something else in your config.h
 // if yours is wired up differently.
+
+// NRF RESET, WEAKUP
 #ifndef BIUNRF52ResetPin
 #    define BIUNRF52ResetPin A1
+#endif
+#ifndef BIUNRF52WKPin
+#    define BIUNRF52WKPin A3
 #endif
 
 // UART SETTING
 #ifndef BIUNRF52RxPin
 #    define BIUNRF52RxPin A10
 #endif
-
 #ifndef BIUNRF52TxPin
 #    define BIUNRF52TxPin A9
 #endif
-
 #ifndef BIUNRF52UartBaud
 #    define BIUNRF52UartBaud 115200
 #endif
@@ -40,23 +43,19 @@
 #ifndef BATTERY_LEVEL_PIN
 #    define BATTERY_LEVEL_PIN B0 // Adc pin
 #endif
-
-#ifndef BATTERY_LEVEL_SW_PIN
-#    define BATTERY_LEVEL_SW_PIN A1 // Adc pin
-#endif
+// #ifndef BATTERY_LEVEL_SW_PIN
+// #    define BATTERY_LEVEL_SW_PIN A1 // Adc pin
+// #endif
 
 #ifndef BATTERY_V_HEI
 #    define BATTERY_V_HEI 3800 // 3/8V
 #endif
-
 #ifndef BATTERY_V_LOW
 #    define BATTERY_V_LOW 3500 // 3.5V
 #endif
-
 #ifndef BATTERY_V_MAX
 #    define BATTERY_V_MAX 5000 // 5V
 #endif
-
 #ifndef BATTERY_ADC_MAX
 #    define BATTERY_ADC_MAX 3080
 #endif
@@ -64,7 +63,7 @@
 // TIMEOUT INTERVAL SETTING
 #define BiuNrf52MsgTimeout      150           /* milliseconds */
 #define BiuNrf52MsgShortTimeout 10            /* milliseconds */
-#define BiuNrf52MsgRecvTimeout  1000          /* microseconds */
+#define BiuNrf52MsgRecvTimeout  2000          /* microseconds */
 #define BatteryUpdateInterval   30000         /* milliseconds */
 
 
@@ -99,6 +98,7 @@ struct biunrf52_msg {
 } __attribute__((packed));
 
 enum queue_type {
+    QTNrfSysOff,
     QTAskNrf,
     QTStartAdv,
     QTStopAdv,
@@ -273,8 +273,8 @@ static void process_nrf_ack_msg(struct biunrf52_msg * msg) {
     {
     case NRF_WORKING:
         state.initialized  = true;
-        state.is_connected = true;
         state.configured   = true;
+        state.is_connected = true;
         break;
     case NRF_DISCONNECT:
     case NRF_ADVING:
@@ -384,6 +384,10 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
 #endif
 
     switch (item->queue_type) {
+        case QTNrfSysOff:
+            cmdbuf[1] = ENTER_INTO_SLEEP_MODEL;
+            cmdbuf[2] = BleUartTail;
+            return send_a_pkt(cmdbuf, 3, timeout, true);
         case QTAskNrf:
             cmdbuf[1] = ASK_CURRENT_NRF_STATE;
             cmdbuf[2] = BleUartTail;
@@ -666,7 +670,7 @@ void bluetooth_switch_one(uint8_t device_id) {
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
-    state.is_connected = true;
+    state.is_connected = false;
 }
 
 
@@ -676,6 +680,8 @@ bool bluetooth_init_pre(void) {
     state.initialized  = false;
     state.configured   = false;
     state.is_connected = false;
+    state.last_connection_update = timer_read();
+    state.last_battery_update = timer_read();
 
     // start the uart data trans
     uart_init(BIUNRF52UartBaud);
@@ -709,11 +715,16 @@ bool bluetooth_init(void) {
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
-    send_buf_send_one();
-    wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
+    // send_buf_send_one();
+    // wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
     // todo ack
-    resp_buf_read_one();
+    // resp_buf_read_one();
+    // state.last_connection_update = timer_read();
 
+    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
+        resp_buf_read_one();
+        state.last_connection_update = timer_read();
+    }
     return state.initialized;
 }
 
@@ -724,7 +735,7 @@ bool biu_ble_enable_keyboard(void) {
     if (!state.initialized && !bluetooth_init()) {
         return false;
     }
-    dprint("Start Configure the Nrf Connection!!!\n");
+    dprint("Start Configure the Nrf!!!\n");
 
     struct queue_item item;
 
@@ -735,20 +746,67 @@ bool biu_ble_enable_keyboard(void) {
     }
     send_buf_send_one();
 
-    wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
+    // wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
     // todo ack
-    resp_buf_read_one();
+    // resp_buf_read_one();
 
     // Check connection status in a little while; allow the ATZ time
     // to kick in.
-    state.last_connection_update = timer_read();
+    // state.last_connection_update = timer_read();
+
+    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
+        resp_buf_read_one();
+        state.last_connection_update = timer_read();
+    }
 
     return state.configured;
 }
 
+bool biu_ble_connection_check() {
+    if (!state.configured && !biu_ble_enable_keyboard()) {
+        return false;
+    }
+    dprint("Start Connect the Nrf!!!\n");
+
+    struct queue_item item;
+
+    item.queue_type   = QTAskNrf;
+    item.added        = timer_read();
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
+    send_buf_send_one();
+
+    // wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
+    // ack
+    // resp_buf_read_one();
+
+    // Check connection status in a little while; allow the ATZ time
+    // to kick in.
+    // state.last_connection_update = timer_read();
+
+    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
+        resp_buf_read_one();
+        state.last_connection_update = timer_read();
+    }
+
+    return state.is_connected;
+}
+
+void biu_ble_system_off() {
+    struct queue_item item;
+
+    item.queue_type   = QTNrfSysOff;
+    item.added        = timer_read();
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
+    }
+    send_buf_send_one();
+}
+
 void bluetooth_task(void) {
     char resbuf[128];
-    if (!state.configured && !biu_ble_enable_keyboard()) {
+    if (!state.is_connected && !biu_ble_connection_check()) {
         return;
     }
     resp_buf_read_one();

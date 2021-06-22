@@ -278,6 +278,11 @@ int main(void) {
 #endif
 
         keyboard_task();
+#ifdef BIU_BLE5_ENABLE
+        if (where_to_send() == OUTPUT_BLUETOOTH) {
+            bluetooth_task();
+        }
+#endif
 #ifdef CONSOLE_ENABLE
         console_task();
 #endif
@@ -289,11 +294,6 @@ int main(void) {
 #endif
 #ifdef RAW_ENABLE
         raw_hid_task();
-#endif
-#ifdef BIU_BLE5_ENABLE
-        if (where_to_send() == OUTPUT_BLUETOOTH) {
-            bluetooth_task();
-        }
 #endif
 
 

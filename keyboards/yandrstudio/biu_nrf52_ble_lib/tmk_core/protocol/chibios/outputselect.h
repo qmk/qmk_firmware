@@ -24,7 +24,7 @@ enum outputs {
 };
 
 #ifndef OUTPUT_DEFAULT
-#    define OUTPUT_DEFAULT OUTPUT_BLUETOOTH
+#    define OUTPUT_DEFAULT OUTPUT_USB
 #endif
 
 
