@@ -1,11 +1,13 @@
 """OS-specific functions for: Linux
 """
-from pathlib import Path
+import platform
 import shutil
+from pathlib import Path
 
 from milc import cli
+
 from qmk.constants import QMK_FIRMWARE
-from qmk.os_helpers import CheckStatus
+from .check import CheckStatus
 
 
 def _udev_rule(vid, pid=None, *args):
@@ -138,3 +140,23 @@ def check_modem_manager():
         """(TODO): Add check for non-systemd systems
         """
     return False
+
+
+def os_test_linux():
+    """Run the Linux specific tests.
+    """
+    # Don't bother with udev on WSL, for now
+    if 'microsoft' in platform.uname().release.lower():
+        cli.log.info("Detected {fg_cyan}Linux (WSL){fg_reset}.")
+
+        # https://github.com/microsoft/WSL/issues/4197
+        if QMK_FIRMWARE.as_posix().startswith("/mnt"):
+            cli.log.warning("I/O performance on /mnt may be extremely slow.")
+            return CheckStatus.WARNING
+
+        return CheckStatus.OK
+    else:
+        cli.log.info("Detected {fg_cyan}Linux{fg_reset}.")
+        from .linux import check_udev_rules
+
+        return check_udev_rules()
