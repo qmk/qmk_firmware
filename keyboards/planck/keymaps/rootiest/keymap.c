@@ -18,20 +18,22 @@
 #define KEEB_MODEL_NAME "The Rootiest BoogieBoard"
 
 // Give names to the layers so they are easier to reference
-#define _BASE 0
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _SYMBLS 3
-#define _RAISE 3
-#define _NUMBRS 4
-#define _LOWER 4
-#define _PLOVER 5
-#define _FEATURS 6
-#define _ADJUST 6
-#define _NUMPD 7
-#define _TABULA 8
-#define _MOUSY 9
+enum custom_layers {
+    _BASE,
+    _QWERTY = _BASE,
+    _COLEMAK,
+    _DVORAK,
+    _SYMBLS,
+    _RAISE = _SYMBLS,
+    _NUMBRS,
+    _LOWER = _NUMBRS,
+    _PLOVER,
+    _FEATURS,
+    _ADJUST = _FEATURS,
+    _NUMPD,
+    _TABULA,
+    _MOUSY,
+};
 
 #define LOWER MO(_NUMBRS)
 #define RAISE MO(_SYMBLS)
