@@ -1,9 +1,11 @@
+
 ![Layout Image](https://github.com/rootiest/rootiest.github.io/raw/main/img/rootiest-planck_legend.png)
+
 # The Rootiest Planck Layout
 
 This layout takes advantage of as many QMK features as possible for a huge complicated beast of a keyboard!
 
-Features include:
+## Features include
 
 - Encoder functions further extended by layers and modifiers
 - Extensive use of the on-board speaker
