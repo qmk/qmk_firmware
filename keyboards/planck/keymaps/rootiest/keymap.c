@@ -49,7 +49,7 @@ enum custom_layers {
 // #define USING_OLED_DISPLAY false
 
 // wait DELAY ms before unregistering media keys
-#define MEDIA_KEY_DELAY 10
+#define TAP_CODE_DELAY 10
 
 // Modifier remover
 #define WITHOUT_MODS(...)                      \
