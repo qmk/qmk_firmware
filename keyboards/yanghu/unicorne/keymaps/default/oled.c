@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef OLED_DRIVER_ENABLE
 #include QMK_KEYBOARD_H
 #include "layers.h"
 #include "oled.h"
