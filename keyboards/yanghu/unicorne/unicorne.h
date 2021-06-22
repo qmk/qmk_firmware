@@ -18,6 +18,11 @@
 
 #include "quantum.h"
 
+#ifdef OLED_DRIVER_ENABLE
+void oled_render_capslock(bool caps_on);
+void oled_render_mods(void);
+void oled_render_keylog(void);
+#endif
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
