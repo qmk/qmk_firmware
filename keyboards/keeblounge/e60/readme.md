@@ -1,6 +1,6 @@
 # E60
 
-![Planck](https://i.imgur.com/q2M3uEU.jpg)
+![E60](https://i.imgur.com/3IYT8Ne.jpg)
 
 A simple 5x12 pcb.
 
