@@ -13,7 +13,7 @@ More info at www.pearlboards.net :]
 
 * Keyboard Maintainer: Koobaczech
 * Hardware Supported: Pandora
-* Availability: Link to come
+* Availability: www.pearlboards.net
 
 Make example for this keyboard (after setting up your build environment):
 
