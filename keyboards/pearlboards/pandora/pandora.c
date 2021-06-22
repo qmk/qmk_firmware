@@ -1,4 +1,4 @@
-/* Copyright 2020 Koobaczech
+/* Copyright 2021 Koobaczech
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +21,13 @@ void matrix_init_kb(void) {
     led_init_ports();
 };
 
+/* Initiate indicator leds */
 void led_init_ports(void) {
     setPinOutput(E6);
     writePinHigh(E6);
 }
 
+/* Activate the leds */
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
