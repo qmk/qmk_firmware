@@ -59,41 +59,35 @@
 
 // A whole boatload of audio "songs" defined for use by the keyboard
 #ifdef AUDIO_ENABLE
-float planck_song[][2]     = SONG(PLANCK_SOUND);
-float hello_song[][2]      = SONG(ONE_UP_SOUND2);
-float bye_song[][2]        = SONG(GOODBYE_SOUND);
-float num_song[][2]        = SONG(DVORAK_SOUND);
-float qwerty_song[][2]     = SONG(QWERTY_SOUND);
-float colemak_song[][2]    = SONG(COLEMAK_SOUND);
-float dvorak_song[][2]     = SONG(DVORAK_SOUND);
-float funk_song[][2]       = SONG(COLEMAK_SOUND);
-float workman_song[][2]    = SONG(WORKMAN_SOUND);
-float term_song[][2]       = SONG(TERMINAL_SOUND);
-float lover_song[][2]      = SONG(PLOVER_SOUND);
-float ode_song[][2]        = SONG(ODE_TO_JOY);
-float rock_song[][2]       = SONG(ROCK_A_BYE_BABY);
-float clue_song[][2]       = SONG(CLUEBOARD_SOUND);
-float camp_song[][2]       = SONG(CAMPANELLA);
-float star_wars_song[][2]  = SONG(IMPERIAL_MARCH);
-float gameover_song[][2]   = SONG(MARIO_GAMEOVER);
-float old_spice_song[][2]  = SONG(OLD_SPICE);
-float ancients_song[][2]   = SONG(SONG_OF_THE_ANCIENTS);
-float basketcase_song[][2] = SONG(BASKET_CASE);
-float doom_song[][2]       = SONG(E1M1_DOOM);
-float disney_song[][2]     = SONG(DISNEY_SONG);
-float mario_song[][2]      = SONG(MARIO_THEME);
-float puzzle_song[][2]     = SONG(ZELDA_PUZZLE2);
-float caps_on[][2]         = SONG(CAPS_LOCK_ON_SOUND);
-float caps_off[][2]        = SONG(CAPS_LOCK_OFF_SOUND);
-float slctl_on[][2]        = SONG(SCROLL_LOCK_ON_SOUND);
-float slctl_off[][2]       = SONG(SCROLL_LOCK_OFF_SOUND);
-float slalt_on[][2]        = SONG(NUM_LOCK_ON_SOUND);
-float slalt_off[][2]       = SONG(NUM_LOCK_OFF_SOUND);
-float leader_started[][2]  = SONG(LEAD_START_SOUND);
-float leader_succeed[][2]  = SONG(LEAD_SUCCESS_SOUND);
-float leader_fail[][2]     = SONG(LEAD_FAIL_SOUND);
-float plover_song[][2]     = SONG(PLOVER_SOUND);
-float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+float planck_song[][2]    = SONG(PLANCK_SOUND);
+float hello_song[][2]     = SONG(ONE_UP_SOUND2);
+float bye_song[][2]       = SONG(GOODBYE_SOUND);
+float num_song[][2]       = SONG(DVORAK_SOUND);
+float qwerty_song[][2]    = SONG(QWERTY_SOUND);
+float colemak_song[][2]   = SONG(COLEMAK_SOUND);
+float dvorak_song[][2]    = SONG(DVORAK_SOUND);
+float funk_song[][2]      = SONG(COLEMAK_SOUND);
+float workman_song[][2]   = SONG(WORKMAN_SOUND);
+float term_song[][2]      = SONG(TERMINAL_SOUND);
+float lover_song[][2]     = SONG(PLOVER_SOUND);
+float ode_song[][2]       = SONG(ODE_TO_JOY);
+float rock_song[][2]      = SONG(ROCK_A_BYE_BABY);
+float clue_song[][2]      = SONG(CLUEBOARD_SOUND);
+float camp_song[][2]      = SONG(CAMPANELLA);
+float imp_march_song[][2] = SONG(IMPERIAL_MARCH);
+float gameover_song[][2]  = SONG(MARIO_GAMEOVER);
+float puzzle_song[][2]    = SONG(ZELDA_PUZZLE2);
+float caps_on[][2]        = SONG(CAPS_LOCK_ON_SOUND);
+float caps_off[][2]       = SONG(CAPS_LOCK_OFF_SOUND);
+float slctl_on[][2]       = SONG(SCROLL_LOCK_ON_SOUND);
+float slctl_off[][2]      = SONG(SCROLL_LOCK_OFF_SOUND);
+float slalt_on[][2]       = SONG(NUM_LOCK_ON_SOUND);
+float slalt_off[][2]      = SONG(NUM_LOCK_OFF_SOUND);
+float leader_started[][2] = SONG(LEAD_START_SOUND);
+float leader_succeed[][2] = SONG(LEAD_SUCCESS_SOUND);
+float leader_fail[][2]    = SONG(LEAD_FAIL_SOUND);
+float plover_song[][2]    = SONG(PLOVER_SOUND);
+float plover_gb_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
 // Declare stored memory config
@@ -425,13 +419,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
      */
 
     [_MOUSY] = LAYOUT_planck_mit(                                                                                                  //
-        KC_ESC, KC_BTN1, KC_MS_U, KC_BTN2, PRINT_WPM_KEY, WAKE_ANI_TOG, WAKE_AUD_TOG, UC_MOD, UC_M_WC, CG_TOGG, AG_TOGG, KC_BSPC,  //
+        KC_ESC, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, UC_MOD, UC_M_WC, CG_TOGG, AG_TOGG, KC_BSPC,  //
         KC_TAB, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, IRONY, VLK_TOG, KC_TRNS, KC_TRNS, KC_TRNS,                   //
         KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, KC_TRNS, KC_HOME, KC_BTN3, KC_END, KC_SFTENT,             //
         TO(_BASE), KC_LCTL, KC_LGUI, KC_LALT, KC_BTN1, ALT_TAB, KC_BTN2, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R)};
 /* MousePad Layer [9]
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |MsBtn1| MsUp |MsBtn2|  WPM |------|------|UCMode|UCWinC|CtGUTg|AltGTg|BckSpc|
+ * | Esc  |MsBtn1| MsUp |MsBtn2|------|------|------|UCMode|UCWinC|CtGUTg|AltGTg|BckSpc|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |   ~  |MsLeft|MsDown|MsRigt|------|------|------|  ⸮^‽ |Veloci|------|------|------|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -470,7 +464,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(m
                                                                                my_capslock_layer,  //
                                                                                my_warning_layer,   //
                                                                                my_allgood_layer);  // CapsLock Layer);
-
 
 // Configure encoders
 bool encoder_update_user(uint8_t index, bool clockwise) {
@@ -1123,6 +1116,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                         rgblight_sethsv(HSV_WHITE);
                         rgblight_mode(RGBLIGHT_MODE_BREATHING);
                         print("Changed RGB mode to: Breathing Lights\n");
+#ifdef AUDIO_ENABLE
+                        print("Played Marching song!\n");
+                        PLAY_SONG(imp_march_song);
+#endif
                         rgbcon_tracker++;
                         break;
                     case 4:
@@ -1138,7 +1135,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                         rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
                         print("Changed RGB mode to: Rainbow Mood\n");
 #ifdef AUDIO_ENABLE
-                        print("Played Mario Game Over song!\n");
+                        print("Played Game Over song!\n");
                         PLAY_SONG(gameover_song);
 #endif
                         rgbcon_tracker = 0;

@@ -100,3 +100,35 @@
 #define PERMISSIVE_HOLD_PER_KEY           // Control Permissive-Hold individually by key
 
 #define MK_KINETIC_SPEED  // Use kinetic acceleration for mouse-keys
+
+// Fall-back defines to prevent compile errors if user_song_list is missing
+#ifndef ZELDA_PUZZLE2
+#    define ZELDA_PUZZLE2 Q__NOTE(_G5)
+#endif
+#ifndef SONIC_RING2
+#    define SONIC_RING2 E__NOTE(_E6)
+#endif
+#ifndef ZELDA_CHEST2
+#    define ZELDA_CHEST2 Q__NOTE(_G5)
+#endif
+#ifndef COIN_SOUND2
+#    define COIN_SOUND2 E__NOTE(_A5)
+#endif
+#ifndef ONE_UP_SOUND2
+#    define ONE_UP_SOUND2 Q__NOTE(_E6)
+#endif
+#ifndef IMPERIAL_MARCH
+#    define IMPERIAL_MARCH HD_NOTE(_A4)
+#endif
+#ifndef MARIO_GAMEOVER
+#    define MARIO_GAMEOVER HD_NOTE(_C5)
+#endif
+#ifndef LEAD_START_SOUND
+#    define LEAD_START_SOUND E__NOTE(_C5)
+#endif
+#ifndef LEAD_SUCCESS_SOUND
+#    define LEAD_SUCCESS_SOUND E__NOTE(_A5), HD_NOTE(_E6),
+#endif
+#ifndef LEAD_FAIL_SOUND
+#    define LEAD_FAIL_SOUND E__NOTE(_A5), HD_NOTE(_E4),
+#endif
