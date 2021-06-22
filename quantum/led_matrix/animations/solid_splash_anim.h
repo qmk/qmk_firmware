@@ -26,5 +26,5 @@ bool SOLID_MULTISPLASH(effect_params_t* params) { return effect_runner_reactive_
 #            endif
 
 #        endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#    endif  // !defined(DISABLE_LED_MATRIX_SPLASH) && !defined(DISABLE_LED_MATRIX_MULTISPLASH)
-#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
+#    endif      // !defined(DISABLE_LED_MATRIX_SPLASH) && !defined(DISABLE_LED_MATRIX_MULTISPLASH)
+#endif          // LED_MATRIX_KEYREACTIVE_ENABLED

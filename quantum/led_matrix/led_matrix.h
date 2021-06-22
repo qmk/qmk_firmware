@@ -56,7 +56,7 @@ enum led_matrix_effects {
 // --------------------------------------
 // -----Begin led effect enum macros-----
 #define LED_MATRIX_EFFECT(name, ...) LED_MATRIX_##name,
-#include "led_matrix_animations/led_matrix_effects.inc"
+#include "led_matrix_effects.inc"
 #undef LED_MATRIX_EFFECT
 
 #if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)

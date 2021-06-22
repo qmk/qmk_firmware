@@ -42,19 +42,14 @@ const led_point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
 
 // Generic effect runners
-#include "rgb_matrix_runners/effect_runner_dx_dy_dist.h"
-#include "rgb_matrix_runners/effect_runner_dx_dy.h"
-#include "rgb_matrix_runners/effect_runner_i.h"
-#include "rgb_matrix_runners/effect_runner_sin_cos_i.h"
-#include "rgb_matrix_runners/effect_runner_reactive.h"
-#include "rgb_matrix_runners/effect_runner_reactive_splash.h"
+#include "rgb_matrix_runners.inc"
 
 // ------------------------------------------
 // -----Begin rgb effect includes macros-----
 #define RGB_MATRIX_EFFECT(name)
 #define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-#include "rgb_matrix_animations/rgb_matrix_effects.inc"
+#include "rgb_matrix_effects.inc"
 #ifdef RGB_MATRIX_CUSTOM_KB
 #    include "rgb_matrix_kb.inc"
 #endif
@@ -360,7 +355,7 @@ static void rgb_task_render(uint8_t effect) {
     case RGB_MATRIX_##name:                   \
         rendering = name(&rgb_effect_params); \
         break;
-#include "rgb_matrix_animations/rgb_matrix_effects.inc"
+#include "rgb_matrix_effects.inc"
 #undef RGB_MATRIX_EFFECT
 
 #if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
