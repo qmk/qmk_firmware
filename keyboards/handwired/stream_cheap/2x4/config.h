@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1214
+#define VENDOR_ID       0x7363
+#define PRODUCT_ID      0x3032
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kyle Hart
 #define PRODUCT         Stream Cheap 2x4
@@ -15,7 +15,6 @@
 
 /* define direct pins used */
 #define DIRECT_PINS { { B5,D7,C6,D1}, { B4,E6,D4,D0} }
-
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
