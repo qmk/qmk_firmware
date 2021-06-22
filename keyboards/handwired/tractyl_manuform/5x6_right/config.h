@@ -70,8 +70,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D2
 #define EE_HANDS
 
-#define ENCODERS_PAD_A { D6 }
-#define ENCODERS_PAD_B { D5 }
+#define ENCODERS_PAD_A { D5 }
+#define ENCODERS_PAD_B { D6 }
 #define ENCODER_RESOLUTION 1
 
 /* Set 0 if debouncing isn't needed */
