@@ -12,8 +12,8 @@ It's a DIY, QMK Powered Trackball...Mini!
 
 Make example for this trackball (after setting up your build environment):
 
-    make ploopyco/trackball_mini/rev1_001:default:flash
-    make ploopyco/trackball_mini/rev1_001:via:flash
+    make ploopyco/trackball_mini/rev1_002:default:flash
+    make ploopyco/trackball_mini/rev1_002:via:flash
     
 To jump to the bootloader, hold down "Button 4" (immediate right of the ball) 
 
@@ -51,13 +51,13 @@ This should allow you to more heavily customize the behavior.
 
 Alternatively, the `process_wheel` and `process_mouse` functions can both be replaced too, to allow for even more functionality.
 
-Additionally, you can change the DPI/CPI or speed of the trackball by calling `adns_set_cpi` at any time. Additionally, there is a `DPI_CONFIG` macro that will cycle through an array of options for the DPI.  This is set to 375, 750, and 1375, but can be changed.  750 is the default. 
+Additionally, you can change the DPI/CPI or speed of the trackball by calling `adns_set_cpi` at any time. Additionally, there is a `DPI_CONFIG` macro that will cycle through an array of options for the DPI.  This is set to 375, 750, and 1375, but can be changed. 1375 is the default. 
 
 To configure/set your own array, there are two defines to use, `PLOOPY_DPI_OPTIONS` to set the array, and `PLOOPY_DPI_DEFAULT`. 
 
 ```c
 #define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375}
-#define PLOOPY_DPI_DEFAULT 1
+#define PLOOPY_DPI_DEFAULT 2
 ```
 
 The `PLOOPY_DPI_OPTIONS` array sets the values that you want to be able to cycle through, and the order they are in.  The "default" define lets the firmware know which of these options is the default and should be loaded by default.
