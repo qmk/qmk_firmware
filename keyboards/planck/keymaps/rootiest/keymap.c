@@ -538,13 +538,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                             if (clockwise) {
                                 // Volume control requires extra timer to function correctly
                                 register_code(KC_VOLU);
-                                while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) {
+                                while (timer_elapsed(held_keycode_timer) < 10) {
                                     // no-op
                                 }
                                 unregister_code(KC_VOLD);
                             } else {
                                 register_code(KC_VOLD);
-                                while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) {
+                                while (timer_elapsed(held_keycode_timer) < 10) {
                                     // no-op
                                 }
                                 unregister_code(KC_VOLU);
