@@ -20,7 +20,8 @@
 enum layer_names {
     _BASE,
     _FN,
-    _MEDIA };
+    _MEDIA,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
