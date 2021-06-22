@@ -106,7 +106,7 @@ user_config_t user_config;
 
 // Initialize variable holding the binary
 // representation of active modifiers.
-uint8_t mod_state;
+uint8_t mod_state = 0;
 
 // Declare custom keycodes
 enum custom_keycodes {
