@@ -139,3 +139,4 @@ void oled_task_user(void) {
     led_t led_state = host_keyboard_led_state();
     oled_render_capslock(led_state.caps_lock);
 }
+#endif
