@@ -1,4 +1,4 @@
-"""OS-agnostic helper functions
+"""Check for specific programs.
 """
 from enum import Enum
 import re
@@ -30,7 +30,7 @@ ESSENTIAL_BINARIES = {
 }
 
 
-def parse_gcc_version(version):
+def _parse_gcc_version(version):
     m = re.match(r"(\d+)(?:\.(\d+))?(?:\.(\d+))?", version)
 
     return {
@@ -40,7 +40,7 @@ def parse_gcc_version(version):
     }
 
 
-def check_arm_gcc_version():
+def _check_arm_gcc_version():
     """Returns True if the arm-none-eabi-gcc version is not known to cause problems.
     """
     if 'output' in ESSENTIAL_BINARIES['arm-none-eabi-gcc']:
@@ -50,7 +50,7 @@ def check_arm_gcc_version():
     return CheckStatus.OK  # Right now all known arm versions are ok
 
 
-def check_avr_gcc_version():
+def _check_avr_gcc_version():
     """Returns True if the avr-gcc version is not known to cause problems.
     """
     rc = CheckStatus.ERROR
@@ -60,7 +60,7 @@ def check_avr_gcc_version():
         cli.log.info('Found avr-gcc version %s', version_number)
         rc = CheckStatus.OK
 
-        parsed_version = parse_gcc_version(version_number)
+        parsed_version = _parse_gcc_version(version_number)
         if parsed_version['major'] > 8:
             cli.log.warning('{fg_yellow}We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
             rc = CheckStatus.WARNING
@@ -68,7 +68,7 @@ def check_avr_gcc_version():
     return rc
 
 
-def check_avrdude_version():
+def _check_avrdude_version():
     if 'output' in ESSENTIAL_BINARIES['avrdude']:
         last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
         version_number = last_line.split()[2][:-1]
@@ -77,7 +77,7 @@ def check_avrdude_version():
     return CheckStatus.OK
 
 
-def check_dfu_util_version():
+def _check_dfu_util_version():
     if 'output' in ESSENTIAL_BINARIES['dfu-util']:
         first_line = ESSENTIAL_BINARIES['dfu-util']['output'].split('\n')[0]
         version_number = first_line.split()[1]
@@ -86,7 +86,7 @@ def check_dfu_util_version():
     return CheckStatus.OK
 
 
-def check_dfu_programmer_version():
+def _check_dfu_programmer_version():
     if 'output' in ESSENTIAL_BINARIES['dfu-programmer']:
         first_line = ESSENTIAL_BINARIES['dfu-programmer']['output'].split('\n')[0]
         version_number = first_line.split()[1]
@@ -111,7 +111,7 @@ def check_binary_versions():
     """Check the versions of ESSENTIAL_BINARIES
     """
     versions = []
-    for check in (check_arm_gcc_version, check_avr_gcc_version, check_avrdude_version, check_dfu_util_version, check_dfu_programmer_version):
+    for check in (_check_arm_gcc_version, _check_avr_gcc_version, _check_avrdude_version, _check_dfu_util_version, _check_dfu_programmer_version):
         versions.append(check())
     return versions
 

@@ -7,9 +7,10 @@ from subprocess import DEVNULL
 
 from milc import cli
 from milc.questions import yesno
+
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE
-from qmk.os_helpers import CheckStatus, check_binaries, check_binary_versions, check_submodules, check_git_repo
+from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules, check_git_repo
 
 
 def os_tests():
@@ -18,51 +19,17 @@ def os_tests():
     platform_id = platform.platform().lower()
 
     if 'darwin' in platform_id or 'macos' in platform_id:
+        from .macos import os_test_macos
         return os_test_macos()
     elif 'linux' in platform_id:
+        from .linux import os_test_linux
         return os_test_linux()
     elif 'windows' in platform_id:
+        from .windows import os_test_windows
         return os_test_windows()
     else:
         cli.log.warning('Unsupported OS detected: %s', platform_id)
         return CheckStatus.WARNING
-
-
-def os_test_linux():
-    """Run the Linux specific tests.
-    """
-    # Don't bother with udev on WSL, for now
-    if 'microsoft' in platform.uname().release.lower():
-        cli.log.info("Detected {fg_cyan}Linux (WSL){fg_reset}.")
-
-        # https://github.com/microsoft/WSL/issues/4197
-        if QMK_FIRMWARE.as_posix().startswith("/mnt"):
-            cli.log.warning("I/O performance on /mnt may be extremely slow.")
-            return CheckStatus.WARNING
-
-        return CheckStatus.OK
-    else:
-        cli.log.info("Detected {fg_cyan}Linux{fg_reset}.")
-        from qmk.os_helpers.linux import check_udev_rules
-
-        return check_udev_rules()
-
-
-def os_test_macos():
-    """Run the Mac specific tests.
-    """
-    cli.log.info("Detected {fg_cyan}macOS %s{fg_reset}.", platform.mac_ver()[0])
-
-    return CheckStatus.OK
-
-
-def os_test_windows():
-    """Run the Windows specific tests.
-    """
-    win32_ver = platform.win32_ver()
-    cli.log.info("Detected {fg_cyan}Windows %s (%s){fg_reset}.", win32_ver[0], win32_ver[1])
-
-    return CheckStatus.OK
 
 
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
