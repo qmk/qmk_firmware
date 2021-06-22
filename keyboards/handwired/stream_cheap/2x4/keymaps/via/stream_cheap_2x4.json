@@ -1,12 +1,12 @@
 {
-    "name": "Stream Cheap",
+    "name": "Stream Cheap 2x4",
     "vendorId": "0x7363",
     "productId": "0x3032",
     "lighting": "none",
     "matrix": {"rows": 2, "cols": 4},
     "layouts": {
         "keymap": [
-            {"name": "Stream Cheap"},
+            {"name": "Stream Cheap 2x4"},
             [
             "0,0",
             "0,1",
