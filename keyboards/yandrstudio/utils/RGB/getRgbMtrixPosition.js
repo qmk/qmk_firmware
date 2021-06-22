@@ -83,7 +83,7 @@ cal_u_rgb = function gen_rgb_matrix_2(rownum, colnum) {
 
 
 
-cal_a_row_rgb = function gen_rgb_matrix_2(row, rownum, colnum, reverse) {
+cal_a_row_rgb = function gen_rgb_matrix_3(row, rownum, colnum, reverse) {
     function get_x(col, colnum){
         var x = 224 / (colnum - 1) * col;
         return Math.round(x);
