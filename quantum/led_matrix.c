@@ -67,7 +67,7 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #    define LED_DISABLE_TIMEOUT 0
 #endif
 
-#if LED_DISABLE_WHEN_USB_SUSPENDED == false
+#if LED_DISABLE_WHEN_USB_SUSPENDED != 1
 #    undef LED_DISABLE_WHEN_USB_SUSPENDED
 #endif
 
