@@ -33,8 +33,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "bcat_oled.h"
 #include "keycode.h"
-#include "led.h"
 #include "progmem.h"
 
 enum state {
@@ -52,23 +52,25 @@ uint16_t oled_pet_frame_bytes(void) { return FRAME_BYTES; }
 uint8_t  oled_pet_frame_lines(void) { return 3 /* (24 pixel) / (8 pixel/line) */; }
 bool     oled_pet_can_jump(void) { return true; }
 
-oled_pet_state_t oled_pet_state(uint8_t mods, led_t led_state, uint8_t wpm) {
-    if (led_state.caps_lock) {
+oled_pet_state_t oled_pet_state(const oled_keyboard_state_t *keyboard_state) {
+    if (keyboard_state->leds.caps_lock) {
         return OLED_PET_BARK;
     }
-    if (mods & MOD_MASK_CTRL) {
+    if (keyboard_state->mods & MOD_MASK_CTRL) {
         return OLED_PET_SNEAK;
     }
-    if (wpm >= 100) {
+    if (keyboard_state->wpm >= 100) {
         return OLED_PET_RUN;
     }
-    if (wpm >= 25) {
+    if (keyboard_state->wpm >= 25) {
         return OLED_PET_WALK;
     }
     return OLED_PET_IDLE;
 }
 
-uint16_t oled_pet_update_millis(uint8_t wpm) { return 200; }
+uint16_t oled_pet_update_millis(const oled_keyboard_state_t *keyboard_state) { return 200; }
+
+void oled_pet_post_render(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state, bool jumping, bool redraw) {}
 
 const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame) {
     static const char PROGMEM IDLE_FRAMES[NUM_FRAMES][FRAME_BYTES] = {
@@ -154,5 +156,3 @@ const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame) {
             return IDLE_FRAMES[frame];
     }
 }
-
-void oled_pet_post_render(uint8_t col, uint8_t line, bool jumping, uint8_t mods, led_t leds, uint8_t wpm, bool redraw) {}

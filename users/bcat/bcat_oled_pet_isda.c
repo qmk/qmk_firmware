@@ -34,6 +34,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "bcat_oled.h"
 #include "led.h"
 #include "oled_driver.h"
 #include "progmem.h"
@@ -46,13 +47,36 @@ uint16_t oled_pet_frame_bytes(void) { return FRAME_BYTES; }
 uint8_t  oled_pet_frame_lines(void) { return 9 /* (72 pixel) / (8 pixel/line) */; }
 bool     oled_pet_can_jump(void) { return false; }
 
-oled_pet_state_t oled_pet_state(uint8_t mods, led_t led_state, uint8_t wpm) { return OLED_PET_IDLE; }
+oled_pet_state_t oled_pet_state(const oled_keyboard_state_t *keyboard_state) { return OLED_PET_IDLE; }
 
-uint16_t oled_pet_update_millis(uint8_t wpm) {
+uint16_t oled_pet_update_millis(const oled_keyboard_state_t *keyboard_state) {
     static const uint16_t MIN_MILLIS = 75;
     static const uint16_t MAX_MILLIS = 300;
     static const uint8_t  MAX_WPM    = 150;
-    return MAX_MILLIS - (MAX_MILLIS - MIN_MILLIS) * (wpm > MAX_WPM ? MAX_WPM : wpm) / MAX_WPM;
+    uint8_t               wpm        = keyboard_state->wpm;
+    if (wpm > MAX_WPM) {
+        wpm = MAX_WPM;
+    }
+    return MAX_MILLIS - (MAX_MILLIS - MIN_MILLIS) * wpm / MAX_WPM;
+}
+
+void oled_pet_post_render(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state, bool jumping, bool redraw) {
+    /* Draws LED indicator status in the bottom-right corner of the OLED pet,
+     * atop the animation frame. Redrawn only when necessary, e.g., when LED
+     * status changes or the animation itself updated (which overwrites any
+     * previously drawn indicators).
+     */
+    static led_t prev_leds = {.raw = 0};
+    led_t        leds      = keyboard_state->leds;
+    if (redraw || leds.raw != prev_leds.raw) {
+        oled_set_cursor(col + 4, line + !jumping + 4);
+        oled_write_char(leds.num_lock ? 'N' : ' ', /*invert=*/false);
+        oled_set_cursor(col + 4, line + !jumping + 6);
+        oled_write_char(leds.caps_lock ? 'C' : ' ', /*invert=*/false);
+        oled_set_cursor(col + 4, line + !jumping + 8);
+        oled_write_char(leds.scroll_lock ? 'S' : ' ', /*invert=*/false);
+        prev_leds = leds;
+    }
 }
 
 const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame) {
@@ -105,22 +129,4 @@ const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame) {
         // clang-format on
     };
     return FRAMES[frame];
-}
-
-/* Draws LED indicator status in the bottom-right corner of the OLED pet, atop
- * the animation frame. Redrawn only when necessary, e.g., when LED status
- * changes or the animation itself updated (which overwrites any previously
- * drawn indicators).
- */
-void oled_pet_post_render(uint8_t col, uint8_t line, bool jumping, uint8_t mods, led_t leds, uint8_t wpm, bool redraw) {
-    static led_t prev_leds = {.raw = 0};
-    if (redraw || leds.raw != prev_leds.raw) {
-        oled_set_cursor(col + 4, line + !jumping + 4);
-        oled_write_char(leds.num_lock ? 'N' : ' ', /*invert=*/false);
-        oled_set_cursor(col + 4, line + !jumping + 6);
-        oled_write_char(leds.caps_lock ? 'C' : ' ', /*invert=*/false);
-        oled_set_cursor(col + 4, line + !jumping + 8);
-        oled_write_char(leds.scroll_lock ? 'S' : ' ', /*invert=*/false);
-        prev_leds = leds;
-    }
 }

@@ -19,13 +19,16 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "action_util.h"
 #include "bcat.h"
+#include "host.h"
 #include "keycode.h"
 #include "led.h"
 #include "oled_driver.h"
 #include "progmem.h"
 #include "quantum.h"
 #include "timer.h"
+#include "wpm.h"
 
 #if defined(BCAT_OLED_PET)
 #    include "bcat_oled_pet.h"
@@ -38,7 +41,7 @@
 static bool oled_pet_should_jump = false;
 #endif
 
-__attribute__((weak)) void oled_task_keymap(void) {}
+__attribute__((weak)) void oled_task_keymap(const oled_keyboard_state_t *keyboard_state) {}
 
 bool oled_task_user(void) {
     static const uint16_t TIMEOUT_MILLIS = 60000 /* 1 min */;
@@ -51,7 +54,12 @@ bool oled_task_user(void) {
         if (!on) {
             oled_on();
         }
-        oled_task_keymap();
+        oled_keyboard_state_t keyboard_state = {
+            .mods = get_mods(),
+            .leds = host_keyboard_led_state(),
+            .wpm  = get_current_wpm(),
+        };
+        oled_task_keymap(&keyboard_state);
     } else if (on) {
         oled_off();
     }
@@ -158,7 +166,7 @@ static void redraw_oled_pet(uint8_t col, uint8_t line, bool jumping, oled_pet_st
     }
 }
 
-void render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_t wpm) {
+void render_oled_pet(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state) {
     /* Whether or not the animation state or frame has changed since the pet
      * was last drawn. We track this to avoid redrawing the same frame
      * repeatedly during idle. This allows the caller to draw on top of the pet
@@ -196,7 +204,7 @@ void render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_
     if (redraw) {
         redraw_oled_pet(col, line, jumping, state, frame);
     }
-    oled_pet_post_render(col, line, jumping, mods, leds, wpm, redraw);
+    oled_pet_post_render(col, line, keyboard_state, jumping, redraw);
     oled_set_cursor(col, line + oled_pet_frame_lines() + 1);
 
     /* If the update timer expired, recompute the pet's animation state and
@@ -204,15 +212,15 @@ void render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_
      */
     animation_changed = false;
     if (timer_expired32(timer_read32(), update_timeout)) {
-        oled_pet_state_t new_state = oled_pet_state(mods, leds, wpm);
+        oled_pet_state_t new_state = oled_pet_state(keyboard_state);
         if (state != new_state) {
             state             = new_state;
             animation_changed = true;
         }
         /* If the user stopped typing, cycle around to the initial frame. */
-        if (wpm > 0 || state != OLED_PET_IDLE || frame != 0) {
+        if (keyboard_state->wpm > 0 || state != OLED_PET_IDLE || frame != 0) {
             frame             = (frame + 1) % oled_pet_num_frames();
-            update_timeout    = timer_read32() + oled_pet_update_millis(wpm);
+            update_timeout    = timer_read32() + oled_pet_update_millis(keyboard_state);
             animation_changed = true;
         }
     }

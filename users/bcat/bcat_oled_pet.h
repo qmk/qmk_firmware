@@ -23,7 +23,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "led.h"
+#include "bcat_oled.h"
 
 /* Opaque token identifying what animation state the pet is currently in. */
 typedef uint8_t oled_pet_state_t;
@@ -56,16 +56,10 @@ uint8_t oled_pet_frame_lines(void);
 bool oled_pet_can_jump(void);
 
 /* Returns the current state to be animated based on current keyboard state. */
-oled_pet_state_t oled_pet_state(uint8_t mods, led_t leds, uint8_t wpm);
+oled_pet_state_t oled_pet_state(const oled_keyboard_state_t *keyboard_state);
 
 /* Returns the delay before the next animation frame should be displayed. */
-uint16_t oled_pet_update_millis(uint8_t wpm);
-
-/* Returns a PROGMEM pointer to the specified animation frame buffer for the
- * specified state. The animation frame has length given by
- * oled_pet_frame_bytes and is formatted as expected by oled_write_raw_P.
- */
-const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame);
+uint16_t oled_pet_update_millis(const oled_keyboard_state_t *keyboard_state);
 
 /* Called after the OLED pet is rendered during each OLED task invocation.
  * Receives the same keyboard state as render_oled_pet. The redraw param
@@ -75,4 +69,10 @@ const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame);
  * When this function is called, the cursor will be in an unspecified location,
  * not necessarily the top-left corner of the OLED pet.
  */
-void oled_pet_post_render(uint8_t col, uint8_t line, bool jumping, uint8_t mods, led_t leds, uint8_t wpm, bool redraw);
+void oled_pet_post_render(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state, bool jumping, bool redraw);
+
+/* Returns a PROGMEM pointer to the specified animation frame buffer for the
+ * specified state. The animation frame has length given by
+ * oled_pet_frame_bytes and is formatted as expected by oled_write_raw_P.
+ */
+const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame);

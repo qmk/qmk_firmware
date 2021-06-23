@@ -58,20 +58,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(OLED_ENABLE)
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return is_keyboard_master() ? OLED_ROTATION_270 : OLED_ROTATION_180; }
 
-void oled_task_keymap(void) {
+void oled_task_keymap(const oled_keyboard_state_t *keyboard_state) {
     if (is_keyboard_master()) {
-        uint8_t mods = get_mods();
-        led_t   leds = host_keyboard_led_state();
-        uint8_t wpm  = get_current_wpm();
-
         render_oled_layers();
         oled_advance_page(/*clearPageRemainder=*/false);
-        render_oled_indicators(leds);
+        render_oled_indicators(keyboard_state->leds);
         oled_advance_page(/*clearPageRemainder=*/false);
         oled_advance_page(/*clearPageRemainder=*/false);
-        render_oled_wpm(wpm);
-
-        render_oled_pet(/*col=*/0, /*line=*/12, mods, leds, wpm);
+        render_oled_wpm(keyboard_state->wpm);
+        render_oled_pet(/*col=*/0, /*line=*/12, keyboard_state);
     } else {
         render_oled_logo();
     }

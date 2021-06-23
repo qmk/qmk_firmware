@@ -21,6 +21,15 @@
 
 #include "led.h"
 
+/* Keyboard status passed to the oled_task_keymap function and used by the
+ * various keyboard pet implementations.
+ */
+typedef struct {
+    uint8_t mods;
+    led_t   leds;
+    uint8_t wpm;
+} oled_keyboard_state_t;
+
 /* Renders the logo embedded at the "standard" location in the OLED font at the
  * cursor. By default, this is a "QMK Firmware" logo, but many keyboards put
  * their own logo here instead. Occupies 21x3 character cells.
@@ -48,5 +57,5 @@ void render_oled_wpm(uint8_t wpm);
  * The rendered image will be one line taller than the OLED pet's animation
  * frame height to accommodate pets that "jump" when the spacebar is pressed.
  */
-void render_oled_pet(uint8_t col, uint8_t line, uint8_t mods, led_t leds, uint8_t wpm);
+void render_oled_pet(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state);
 #endif
