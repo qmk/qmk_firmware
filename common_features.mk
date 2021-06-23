@@ -233,9 +233,9 @@ endif
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations/runners
-    SRC += process_backlight.c
-    SRC += led_matrix.c
-    SRC += led_matrix_drivers.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
+    SRC += $(QUANTUM_DIR)/led_matrix/led_matrix.c
+    SRC += $(QUANTUM_DIR)/led_matrix/led_matrix_drivers.c
     CIE1931_CURVE := yes
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3731)
@@ -261,9 +261,9 @@ endif
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
-    SRC += color.c
-    SRC += rgb_matrix.c
-    SRC += rgb_matrix_drivers.c
+    SRC += $(QUANTUM_DIR)/color.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
 
