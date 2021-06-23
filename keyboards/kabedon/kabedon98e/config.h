@@ -3,11 +3,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B44
-#define PRODUCT_ID      0x3935
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Kabe_Don
-#define PRODUCT         98e
+#define VENDOR_ID      0x4B44
+#define PRODUCT_ID     0x3935
+#define DEVICE_VER     0x0002
+#define MANUFACTURER   Kabe_Don
+#define PRODUCT        98e
 
 /* key matrix size */
 #define MATRIX_ROWS 12
