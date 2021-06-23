@@ -2,7 +2,7 @@
 
 ![ogurec](https://imgur.com/gallery/OFF1Vyp)
 
-ogurec is a 12u x 3u ortholinear keyboard that offers left-sided and right-sided PM placement. 
+ogurec is a reversible 12u x 3u ortholinear keyboard that offers left-sided and right-sided PM placement
 
 * Keyboard Maintainer: [H. Bond](https://github.com/drhigsby)
 * Hardware Supported: ogurec (https://github.com/drhigsby/ogurec)
