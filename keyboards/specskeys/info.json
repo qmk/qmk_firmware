@@ -4,8 +4,11 @@
     "maintainer": "qmk",
     "width": 18.5,
     "height": 7,
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_iso_tsangan"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_iso_tsangan": {
             "layout": [
                 {"label":"ESC", "x":0, "y":0},
                 {"label":"F1", "x":2, "y":0},
