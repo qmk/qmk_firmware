@@ -196,10 +196,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
         $(error RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
     else
-        POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
+        COMMON_VPATH += $(QUANTUM_DIR)/rgblight
+        POST_CONFIG_H += $(QUANTUM_DIR)/rgblight/rgblight_post_config.h
         OPT_DEFS += -DRGBLIGHT_ENABLE
         SRC += $(QUANTUM_DIR)/color.c
-        SRC += $(QUANTUM_DIR)/rgblight.c
+        SRC += $(QUANTUM_DIR)/rgblight/rgblight.c
         CIE1931_CURVE := yes
         RGB_KEYCODES_ENABLE := yes
     endif

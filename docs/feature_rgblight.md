@@ -119,7 +119,7 @@ if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a n
 
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
 
-Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight.h` there is a contrast table between the old mode number and the current symbol.
+Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
 ### Effect and Animation Toggles
 
@@ -328,7 +328,7 @@ Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with 
 
 ## Functions
 
-If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight.h) for the full list, but the most commonly used functions include:
+If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight/rgblight.h) for the full list, but the most commonly used functions include:
 
 ### Utility Functions
 |Function                                    |Description                                                        |
