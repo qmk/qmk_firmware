@@ -116,9 +116,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Unselect row
     unselect_row(current_row);
-    if (current_row + 1 < MATRIX_ROWS) {
-        matrix_output_unselect_delay();  // wait for row signal to go HIGH
-    }
+    matrix_output_unselect_delay();  // wait for all Col signals to go HIGH
 
     // If the row has changed, store the row and return the changed flag.
     if (current_matrix[current_row] != current_row_value) {
@@ -178,9 +176,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
     // Unselect col
     unselect_col(current_col);
-    if (current_col + 1 < MATRIX_COLS) {
-        matrix_output_unselect_delay();  // wait for col signal to go HIGH
-    }
+    matrix_output_unselect_delay();  // wait for all Row signals to go HIGH
 
     return matrix_changed;
 }
