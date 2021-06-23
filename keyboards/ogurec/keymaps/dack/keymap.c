@@ -46,7 +46,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
         switch (keycode) {
         case TYPEDON:
-            SEND_STRING("[typed on an ??????]");
+            SEND_STRING("[typed on an ogurec]");
             return false;
         }
     }
