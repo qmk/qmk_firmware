@@ -23,5 +23,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 WS2812_DRIVER = pwm
 ENCODER_ENABLE = yes
-
-LAYOUTS = ortho_6x19
