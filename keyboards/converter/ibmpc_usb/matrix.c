@@ -427,22 +427,51 @@ uint8_t matrix_get_row(uint8_t row)
 inline
 static void matrix_make(uint8_t code)
 {
-    if (!matrix_is_on(ROW(code), COL(code))) {
-        matrix[ROW(code)] |= 1<<COL(code);
+    uint8_t newcode=0;
+    switch (keyboard_kind) {
+        case PC_XT:
+            newcode = map_cs1[ROW(code)][COL(code)];
+            break;
+        case PC_AT:
+            newcode = map_cs2[ROW(code)][COL(code)];
+            break;
+        case PC_TERMINAL:
+            newcode = map_cs3[ROW(code)][COL(code)];
+            break;
+        default:
+            break;
+    }
+    if (!matrix_is_on(ROW(newcode), COL(newcode))) {
+        matrix[ROW(newcode)] |= 1<<COL(newcode);
     }
 }
 
 inline
 static void matrix_break(uint8_t code)
 {
-    if (matrix_is_on(ROW(code), COL(code))) {
-        matrix[ROW(code)] &= ~(1<<COL(code));
+    uint8_t newcode=0;
+    switch (keyboard_kind) {
+        case PC_XT:
+            newcode = map_cs1[ROW(code)][COL(code)];
+            break;
+        case PC_AT:
+            newcode = map_cs2[ROW(code)][COL(code)];
+            break;
+        case PC_TERMINAL:
+            newcode = map_cs3[ROW(code)][COL(code)];
+            break;
+        default:
+            break;
+    }
+    if (matrix_is_on(ROW(newcode), COL(newcode))) {
+        matrix[ROW(newcode)] &= ~(1<<COL(newcode));
     }
 }
 
+inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix_get_row(row) & (1<<col));
+    return (matrix[row] & (1<<col));
 }
 
 void matrix_print(void)
