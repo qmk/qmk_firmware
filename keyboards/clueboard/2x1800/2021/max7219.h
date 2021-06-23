@@ -39,15 +39,15 @@
 #endif
 
 #ifndef MAX7219_LED_INTENSITY
-#    define MAX7219_INTENSITY 1
+#    define MAX7219_LED_INTENSITY 1
 #endif
 
 #ifndef MAX7219_SCROLL_TIME
 #    define MAX7219_SCROLL_TIME 100
 #endif
 
-#ifndef MAX7219_BUFFER_MULTIPILER
-#    define MAX7219_BUFFER_MULTIPILER 24
+#ifndef MAX7219_BUFFER_MULTIPLIER
+#    define MAX7219_BUFFER_MULTIPLIER 24
 #endif
 
 #if !defined(MAX7219_LED_TEST) && !defined(MAX7219_LED_ITERATE) && !defined(MAX7219_LED_DANCE) && !defined(MAX7219_LED_FONTTEST) && !defined(MAX7219_LED_CLUEBOARD) && !defined(MAX7219_LED_KONAMI) && !defined(MAX7219_LED_QMK_POWERED) && !defined(MAX7219_DRAWING_TOY_MODE) && !defined(MAX7219_LED_CUSTOM)
@@ -85,4 +85,3 @@ void max7219_set_led(int row, int column, bool state);
 void max7219_set_all_leds(uint8_t led_matrix[LED_COUNT]);
 void max7219_set_scan_limit(int device_num, int limit);
 void max7219_shutdown(int device_num, bool is_in_shutdown);
-
