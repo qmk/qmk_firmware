@@ -73,19 +73,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_1);
             }
             return false;
-            break;
         case L2:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_2);
             }
             return false;
-            break;
         case L3:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_3);
             }
             return false;
-            break;
     }
     return true;
 }
