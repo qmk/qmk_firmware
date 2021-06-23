@@ -53,8 +53,5 @@
 /* Send up to 4 key press events per scan */
 #define QMK_KEYS_PER_SCAN 4
 
-/* Force NKRO on boot up */
-#define FORCE_NKRO 
-
 /* Set debounce time to 5ms */
 #define DEBOUNCE 5
