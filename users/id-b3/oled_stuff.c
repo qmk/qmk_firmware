@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef OLED_DRIVER_ENABLE
 
 #ifdef WPM_ENABLE
-	//#include "wpm_oled.c"
-	#include "wpm_cat.c"
+	#include "wpm_oled.c"
+	//#include "wpm_cat.c"
 	char wpm_str[10];
 #endif
 
@@ -129,8 +129,8 @@ void oled_task_user(void) {
     } else {
 		
 		#ifdef WPM_ENABLE
-		//render_wpm_graph();
-		render_anim();
+		render_wpm_graph();
+		//render_anim();
         oled_set_cursor(0,6);
         sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
         oled_write(wpm_str, false);
