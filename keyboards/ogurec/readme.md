@@ -2,7 +2,7 @@
 
 ![ogurec](https://imgur.com/gallery/OFF1Vyp)
 
-ogurec is a 12u x 3u ortholinear keyboard
+ogurec is a 12u x 3u ortholinear keyboard that offers left-sided and right-sided PM placement. 
 
 * Keyboard Maintainer: [H. Bond](https://github.com/drhigsby)
 * Hardware Supported: ogurec (https://github.com/drhigsby/ogurec)
@@ -10,6 +10,7 @@ ogurec is a 12u x 3u ortholinear keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ogurec:default
+    make ogurec:default_right
+    make ogurec:default_left
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
