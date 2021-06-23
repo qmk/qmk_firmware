@@ -369,4 +369,4 @@
 #define ES_LA_40 KC_GRAVE //|
 
 // Extra CMS codes
-#define CSA_MOMEG RCTL(S(KC_Q)) //Ω
+#define CSA_MOMEG RCTL(RSFT(KC_Q)) //Ω
