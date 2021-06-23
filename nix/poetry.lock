@@ -239,7 +239,7 @@ python-versions = "*"
 
 [[package]]
 name = "qmk"
-version = "0.0.51"
+version = "0.0.52"
 description = "A program to help users work with QMK Firmware."
 category = "main"
 optional = false
@@ -443,8 +443,8 @@ pyusb = [
     {file = "pyusb-1.1.1.tar.gz", hash = "sha256:7d449ad916ce58aff60b89aae0b65ac130f289c24d6a5b7b317742eccffafc38"},
 ]
 qmk = [
-    {file = "qmk-0.0.51-py2.py3-none-any.whl", hash = "sha256:5f676f389b2450b0956d7eb8e7e378d2e6690d5859a887c91876da0a5faf75ed"},
-    {file = "qmk-0.0.51.tar.gz", hash = "sha256:efeef209cde1df92b9823db686d9684962cd00aae9f45ba5e3d494aa5b3c6b9a"},
+    {file = "qmk-0.0.52-py2.py3-none-any.whl", hash = "sha256:102f7b2559665279775ff78ba2e69d4e0a454812b1404133e4f45a3a7b76b5c1"},
+    {file = "qmk-0.0.52.tar.gz", hash = "sha256:98d17e6d185a2fa26135b44e9a36031e428aa2444800b7791596d1b7d2a0e574"},
 ]
 setuptools-scm = [
     {file = "setuptools_scm-6.0.1-py3-none-any.whl", hash = "sha256:c3bd5f701c8def44a5c0bfe8d407bef3f80342217ef3492b951f3777bd2d915c"},
