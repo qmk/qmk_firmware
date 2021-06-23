@@ -198,7 +198,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     else
         POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
         OPT_DEFS += -DRGBLIGHT_ENABLE
-        SRC += $(QUANTUM_DIR)/color.c
+        SRC += color.c
         SRC += $(QUANTUM_DIR)/rgblight.c
         CIE1931_CURVE := yes
         RGB_KEYCODES_ENABLE := yes
