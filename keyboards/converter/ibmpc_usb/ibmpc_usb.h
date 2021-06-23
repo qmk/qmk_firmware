@@ -31,13 +31,13 @@ void matrix_init_user(void);
 
 /*
                    F13, F14, F15, F16, F17, F18, F19, F20, F21, F22, F23, F24.
-                   F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F10, F12.
+                   F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12.
 
-PF1, PF2,     GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   -,     =, STB,BSP,    INS, HOM, PUP,   NLK, SLS, AST, MNS,
-PF3, PF4,     TAB,  Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   [,   ],              DEL, END, PDN,   7,   8,   9,   PLS,
-PF5, PF6,     CLK,   A,   S,   D,   F,   G,   H,   J,   K    L,   ;,   ',   \,     ENT,         UP,         4,   5,   6,   COM,
-PF7, PF8,     LSF, <,   Z,   X,   C,   V,   B,   N,   M,   ,,   .,   /,   STB      RSF,    LFT, SHT, RGT,   1,   2,   3,   ENT,
-PF9, PF10.    LCL,      LAT,                     SPC,           RAT,               RCL,         DN,         STB, 0,   DOT
+RST, ESC,     GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   -,     =, STB,BSP,    INS, HOM, PUP,   NLK, SLS, AST, MNS,
+SLK, MPL,     TAB,  Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   [,   ],      STB     DEL, END, PDN,   7,   8,   9,   PLS,
+BRK, INT5,    CLK,   A,   S,   D,   F,   G,   H,   J,   K    L,   ;,   ',   \,     ENT,         UP,         4,   5,   6,   COM,
+APP, PSC,     LSF, <,   Z,   X,   C,   V,   B,   N,   M,   ,,   .,   /,   STB      RSF,    LFT, SHT, RGT,   1,   2,   3,   ENT,
+RGU, LGU,     LCL,      LAT,                     SPC,           RAT,               RCL,         DN,         STB, 0,   STB, DOT
 
 */
 #define LAYOUT(\
