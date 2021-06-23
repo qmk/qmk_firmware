@@ -59,13 +59,17 @@
 #    define DRIVER_1_EN C13
 #endif
 
+#ifndef AW_SPI_DIVISOR
+#    define AW_SPI_DIVISOR 4
+#endif
+
 uint8_t g_spi_transfer_buffer[20] = {0};
 aw_led  g_pwm_buffer[DRIVER_LED_TOTAL];
 bool    g_pwm_buffer_update_required[DRIVER_LED_TOTAL];
 
 bool AW20216_write_register(pin_t slave_pin, uint8_t page, uint8_t reg, uint8_t data) {
     // Do we need to call spi_stop() if this fails?
-    if (!spi_start(slave_pin, false, 0, 16)) {
+    if (!spi_start(slave_pin, false, 0, AW_SPI_DIVISOR)) {
         return false;
     }
 
