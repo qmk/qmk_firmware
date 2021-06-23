@@ -37,6 +37,17 @@
  */
 #define TAPPING_FORCE_HOLD
 
+#if defined(OLED_ENABLE)
+/* The built-in OLED timeout wakes the OLED screen every time the buffer is
+ * updated, even if no user activity has occurred recently. This prevents the
+ * OLED from ever turning off during a continuously running animation. To avoid
+ * this, we disable the default timeout and implement our own in
+ * oled_task_user.
+ */
+#    undef OLED_TIMEOUT
+#    define OLED_DISABLE_TIMEOUT
+#endif
+
 #if defined(RGB_MATRIX_ENABLE)
 /* Turn off per-key RGB when the host goes to sleep. */
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED

@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(OLED_ENABLE)
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return is_keyboard_master() ? OLED_ROTATION_270 : OLED_ROTATION_180; }
 
-void oled_task_user(void) {
+void oled_task_keymap(void) {
     if (is_keyboard_master()) {
         uint8_t mods = get_mods();
         led_t   leds = host_keyboard_led_state();

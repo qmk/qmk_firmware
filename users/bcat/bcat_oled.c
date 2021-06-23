@@ -38,6 +38,27 @@
 static bool oled_pet_should_jump = false;
 #endif
 
+__attribute__((weak)) void oled_task_keymap(void) {}
+
+bool oled_task_user(void) {
+    static const uint16_t TIMEOUT_MILLIS = 60000 /* 1 min */;
+
+    /* Custom OLED timeout implementation that only considers user activity.
+     * Allows the OLED to turn off in the middle of a continuous animation.
+     */
+    bool on = is_oled_on();
+    if (last_input_activity_elapsed() < TIMEOUT_MILLIS) {
+        if (!on) {
+            oled_on();
+        }
+        oled_task_keymap();
+    } else if (on) {
+        oled_off();
+    }
+
+    return false;
+}
+
 void render_oled_logo(void) {
     static const char PROGMEM logo[] = {
         // clang-format off
