@@ -1,3 +1,5 @@
+#pragma once
+
 #define MOUSEKEY_DELAY 0 // default is 300ms
 #define MOUSEKEY_INTERVAL 16 // ~ 60Hz (1/60)
 #define MOUSEKEY_MAX_SPEED 8 // default is 10; the lower interval, the lower this ought to be
