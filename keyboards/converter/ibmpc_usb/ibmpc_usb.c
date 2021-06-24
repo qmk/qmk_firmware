@@ -15,6 +15,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+   these matrices map the scan codes as produced by matrix_scan to
+   the artificial layout as defined by ibmpc_usb.h LAYOUT.
+   Each codeset (1, 2, and 3) is mapped to 127 keys of LAYOUT.
+
+   There are some quirks with prefixed scancodes as shown in
+   process_cs1, process_cs2, and process_cs3.
+
+   This is done to use XT- (codeset 1), AT- (codeset 2),
+   and terminal-keyboards without recompiling the keymap and
+   to potentially support VIA in the future.
+*/
+
 #include "ibmpc_usb.h"
 const uint8_t map_cs1[MATRIX_ROWS][MATRIX_COLS] = {
     { XXX , 0x1a, 0x1c, 0x1d, 0x1e, 0x1f, 0x20, 0x21 }, /* 00-07 */
