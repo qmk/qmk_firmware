@@ -39,10 +39,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 #    ifdef MATRIX_ROW_PINS
+#        ifdef MATRIX_ROW_PINS_RIGHT
+static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+#        else
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+#        endif
 #    endif  // MATRIX_ROW_PINS
 #    ifdef MATRIX_COL_PINS
+#        ifdef MATRIX_COL_PINS_RIGHT
+static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+#        else
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+#        endif
 #    endif  // MATRIX_COL_PINS
 #endif
 
