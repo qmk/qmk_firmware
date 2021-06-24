@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MonitorWindow</class>
+ <widget class="QDialog" name="MonitorWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>200</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Keypress Monitor (Simple)</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_keyboardname">
+     <property name="text">
+      <string>Keyboard: LOADING...</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="layoutSel">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="currentText">
+      <string>LOADING...</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>LOADING...</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>*NOTE1: Normal keyboard input is disabled while this window is open.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="second_label">
+     <property name="text">
+      <string>*NOTE2: The numbers inside each key show the threshold value used.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>*NOTE3: The keystates shown here don't go through debouncing.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="last_label">
+       <property name="text">
+        <string>*NOTE4: Colors:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="last_label_2">
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #008000; color: #FFFFFF; padding-left:10px; padding-right: 10px</string>
+       </property>
+       <property name="text">
+        <string>Currently Pressed</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="last_label_3">
+       <property name="styleSheet">
+        <string notr="true">background-color: #00FF00; color: #000000; padding-left:10px; padding-right: 10px</string>
+       </property>
+       <property name="text">
+        <string>Was Pressed</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="last_label_4">
+       <property name="styleSheet">
+        <string notr="true">background-color: #FFFFFF; color: #000000; padding-left:10px; padding-right: 10px</string>
+       </property>
+       <property name="text">
+        <string>Never Pressed</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
