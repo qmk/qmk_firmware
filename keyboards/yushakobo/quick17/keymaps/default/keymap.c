@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "layer_prefs.h"
+#include "rgb_matrix.h"
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -33,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_EDIT1] = LAYOUT(
     KC_ESC, KC_W,   KC_E,   KC_R,   KC_Y,   KC_BSPC,
     KC_LCTL,KC_A,   KC_D,   KC_F,   KC_H,   LCTL(KC_Z),
-    KC_LSFT,KC_X,   KC_V,   KC_B,   _______,LCTL(KC_S)
+    KC_LSFT,KC_X,   KC_V,   KC_B,   KC_LSPC,LCTL(KC_S)
 ),
     [_EDIT2] = LAYOUT(
     KC_ESC, KC_Q,   KC_BTN3,KC_INS, KC_NO,  KC_DEL,
@@ -43,11 +44,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN] = LAYOUT(
     KC_ESC, KC_LANG,KC_NO,  RGB_TOG,KC_MNXT,KC_VOLU,
     KC_CAPS,KC_PDOT,KC_NO,  RGB_MOD,KC_MPRV,KC_VOLD,
-    CG_NORM,CG_SWAP,KC_NO,  KC_NO,  _______,KC_MUTE
+    CG_NORM,CG_SWAP,EEP_RST,KC_NO,  TO(0),  KC_MUTE
 )
 };
 
 //static bool _mode_jaen = false;
+static bool layer_shift = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -79,17 +81,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void encoder_update_user(uint8_t index, bool clockwise){
     if (index == 0) {
-        if (IS_LAYER_ON(_EDIT1) && !layer_shift){
-            if (clockwise) {
-                tap_code(KC_VOLU);
-            } else {
-                tap_code(KC_VOLD);
-            }
-        } else if (IS_LAYER_ON(_EDIT2)){
+        if (IS_LAYER_ON(_EDIT2)){
             if (clockwise) {
                 tap_code(KC_LBRC);
             } else {
                 tap_code(KC_RBRC);
+            }
+        } else if (IS_LAYER_ON(_EDIT1)){
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
             }
         } else if (IS_LAYER_ON(_FN)){
             if (clockwise) {
@@ -164,8 +166,15 @@ void encoder_update_user(uint8_t index, bool clockwise){
         return state;
     }
 #else
-    void keyboard_post_init_user(void){
-//      rgb_matrix_mode(RGB_MATRIX_CUSTOM_quick17_rgbm_effect);
-//      rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
-    }
+    #ifdef RGB_MATRIX_ENABLE
+        void keyboard_post_init_user(void){
+    //        rgb_matrix_set_color_all(RGB_TEAL);
+            rgb_matrix_mode(RGB_MATRIX_CUSTOM_quick17_rgbm_effect);
+    //        rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
+        }
+    #else
+        void keyboard_post_init_user(void){
+            rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
+        }
+    #endif
 #endif
