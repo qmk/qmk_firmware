@@ -57,46 +57,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 1) { /* left encoder*/
-        switch(get_highest_layer(layer_state)){
-
-			 case _NAV:
-                if (clockwise) {
-                tap_code16(C(KC_TAB));
-                } else {
-                tap_code16(C(S(KC_TAB)));
-                }
-                break;
-
-            default:
                 if (clockwise){
                     tap_code(KC_WH_U);
-                } else{
+                } else {
                     tap_code(KC_WH_D);
                 }
-                break;
-      }
     } else if (index == 0) { /* right encoder */
-        switch(get_highest_layer(layer_state)){
-				   
-            case _SYM:
-                if (clockwise) {
-                tap_code(KC_MPRV);
-                } else {
-                tap_code(KC_MNXT);
-                }
-                break;
-
-            default:
                 if (clockwise){
                     tap_code(KC_VOLU);
-                } else{
+                } else {
                     tap_code(KC_VOLD);
-                }
-                break;
         }
     }
+    return true;
 }
 
 #ifdef COMBO_ENABLE
