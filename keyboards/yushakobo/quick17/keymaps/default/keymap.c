@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "layer_prefs.h"
 #include "rgb_matrix.h"
+//#include "keymap_jp.h"
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -25,55 +26,52 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    [_CONTROL] = LAYOUT(
-    KC_TAB, KC_PGUP,KC_UP,  KC_PGDN,KC_HOME,KC_INS,
-    KC_LCTL,KC_LEFT,KC_DOWN,KC_RGHT,KC_END, KC_DEL,
-    KC_LSFT,KC_LGUI,KC_ESC, KC_LALT,LT(3,KC_SPC),TO(1)
-),
-    [_EDIT1] = LAYOUT(
-    KC_ESC, KC_W,   KC_E,   KC_R,   KC_Y,   KC_BSPC,
-    KC_LCTL,KC_A,   KC_D,   KC_F,   KC_H,   LCTL(KC_Z),
-    KC_LSFT,KC_X,   KC_V,   KC_B,   KC_LSPC,LCTL(KC_S)
-),
-    [_EDIT2] = LAYOUT(
-    KC_ESC, KC_Q,   KC_BTN3,KC_INS, KC_NO,  KC_DEL,
-    KC_LCTL,KC_LBRC,KC_RBRC,KC_PGDN,KC_PGUP,LCTL(KC_Y),
-    KC_LSFT,TO(3),  RGB_TOG,TO(0),  _______,RESET
-),
-    [_FN] = LAYOUT(
-    KC_ESC, KC_LANG,KC_NO,  RGB_TOG,KC_MNXT,KC_VOLU,
-    KC_CAPS,KC_PDOT,KC_NO,  RGB_MOD,KC_MPRV,KC_VOLD,
-    CG_NORM,CG_SWAP,EEP_RST,KC_NO,  TO(0),  KC_MUTE
-)
+        [_CONTROL] = LAYOUT(
+        KC_TAB, KC_PGUP,KC_UP,  KC_PGDN,KC_HOME,KC_INS,
+        KC_LCTL,KC_LEFT,KC_DOWN,KC_RGHT,KC_END, KC_DEL,
+        KC_LSFT,KC_LGUI,KC_ESC, KC_LALT,LT(3,KC_SPC),TO(1)
+    ),
+        [_EDIT1] = LAYOUT(
+        KC_ESC, KC_W,   KC_E,   KC_R,   KC_Y,   KC_BSPC,
+        KC_LCTL,KC_A,   KC_D,   KC_F,   KC_H,   LCTL(KC_Z),
+        KC_LSFT,KC_X,   KC_V,   KC_B,   LT(2,KC_SPC),LCTL(KC_S)
+    ),
+        [_EDIT2] = LAYOUT(
+        KC_ESC, KC_Q,   KC_BTN3,KC_INS, KC_NO,  KC_DEL,
+        KC_LCTL,KC_LBRC,KC_RBRC,KC_PGDN,KC_PGUP,LCTL(KC_Y),
+        KC_LSFT,TO(3),  RGB_TOG,TO(0),  _______,KC_NO
+    ),
+        [_FN] = LAYOUT(
+        KC_ESC, KC_LANG,KC_NO,  RGB_TOG,KC_MNXT,KC_VOLU,
+        KC_CAPS,KC_NO,  KC_NO,  RGB_MOD,KC_MPRV,KC_VOLD,
+        CG_NORM,LCG_SWP,EEP_RST,RESET,  TO(0),  KC_MUTE
+    )
 };
-
-//static bool _mode_jaen = false;
-static bool layer_shift = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_LSPC:
-            if (record->event.pressed){
-                layer_shift = 1;
-                layer_on(2);
-            }else{
-                layer_off(2);
-                if(layer_shift){
-                    register_code(KC_SPC);
-                    unregister_code(KC_SPC);
-                }
-            }
-            return false;
-            break;
         case KC_LANG:
             if (record->event.pressed){
-
+                if (keymap_config.swap_lctl_lgui == false){
+                    tap_code16(LALT(KC_GRV));
+                } else {
+                    switch(INPUT_MODE){
+                        case _INPUT_EN:
+                        register_code(KC_LANG1);
+                        INPUT_MODE = _INPUT_JP;
+                        break;
+                        case _INPUT_JP:
+                        register_code(KC_LANG2);
+                        INPUT_MODE = _INPUT_EN;
+                        break;
+                    }
+                }
+            } else {
+                unregister_code(KC_LANG1);
+                unregister_code(KC_LANG2);
             }
+            break;
         default:
-            if (record->event.pressed){
-                layer_shift = 0;
-            }
             break;
     }
     return true;
@@ -153,6 +151,7 @@ void encoder_update_user(uint8_t index, bool clockwise){
     void keyboard_post_init_user(void){
         rgblight_layers = quick17_rgb_layers;
         rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
+        INPUT_MODE = _INPUT_EN;
     }
     layer_state_t layer_state_set_user(layer_state_t state){
         rgblight_set_layer_state(0, layer_state_cmp(state, _CONTROL));
@@ -171,10 +170,12 @@ void encoder_update_user(uint8_t index, bool clockwise){
     //        rgb_matrix_set_color_all(RGB_TEAL);
             rgb_matrix_mode(RGB_MATRIX_CUSTOM_quick17_rgbm_effect);
     //        rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
+            INPUT_MODE = _INPUT_EN;
         }
     #else
         void keyboard_post_init_user(void){
             rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
+            INPUT_MODE = _INPUT_EN;
         }
     #endif
 #endif
