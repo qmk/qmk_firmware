@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #pragma once
 
 #include "config_common.h"
@@ -28,9 +28,11 @@
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11
- 
-#define MATRIX_ROW_PINS { F1, F4, F5, C7 }
-#define MATRIX_COL_PINS { D4, B4, B5, B6, C6, F7, F6, F0, B0, E6, B1 }
+
+#define MATRIX_ROW_PINS \
+    { F1, F4, F5, C7 }
+#define MATRIX_COL_PINS \
+    { D4, B4, B5, B6, C6, F7, F6, F0, B0, E6, B1 }
 
 #define UNUSED_PINS
 
@@ -38,12 +40,14 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* ROTARY ENCODERS */
-#define ENCODERS_PAD_A { B3, D6 }
-#define ENCODERS_PAD_B { B2, D7 }
+#define ENCODERS_PAD_A \
+    { B3, D6 }
+#define ENCODERS_PAD_B \
+    { B2, D7 }
 
-#define ENCODER_RESOLUTIONS { 3, 4 }
+#define ENCODER_RESOLUTIONS \
+    { 3, 4 }
 //#define ENCODER_DIRECTION_FLIP
-
 
 #define DEBOUNCE 7
 
