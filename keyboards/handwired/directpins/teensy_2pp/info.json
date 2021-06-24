@@ -36,7 +36,7 @@
     },
     "usb": {
         "device_ver": "0x0001",
-        "pid": "0x2322",
+        "pid": "0x2323",
         "vid": "0xFEED"
     },
     "layouts": {

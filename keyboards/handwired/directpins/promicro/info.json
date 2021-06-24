@@ -27,7 +27,7 @@
     "processor": "atmega32u4",
     "usb": {
         "device_ver": "0x0001",
-        "pid": "0x2321",
+        "pid": "0x2320",
         "vid": "0xFEED"
     },
     "layouts": {
