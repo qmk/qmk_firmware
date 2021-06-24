@@ -1,5 +1,5 @@
 BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
-CONSOLE_ENABLE = yes
+CONSOLE_ENABLE = no
 TAP_DANCE_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
 
