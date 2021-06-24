@@ -36,7 +36,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef DIRECT_PINS
+#    ifdef DIRECT_PINS_RIGHT
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+#    else
+static const pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+#    endif
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 #    ifdef MATRIX_ROW_PINS
 #        ifdef MATRIX_ROW_PINS_RIGHT
