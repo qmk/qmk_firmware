@@ -511,11 +511,7 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     # if 'lite' then skip the actual matrix implementation
     ifneq ($(strip $(CUSTOM_MATRIX)), lite)
         # Include the standard or split matrix code if needed
-        ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
-        else
-            QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
-        endif
+        QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
     endif
 endif
 
