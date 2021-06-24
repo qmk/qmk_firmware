@@ -66,7 +66,6 @@ K74, K75,   K76,       K77,               K78,                        K79,      
  { K68, K69, K6A, K6B, K6C, K6D, K6E, K6F }, \
  { K70, K71, K72, K73, K74, K75, K76, K77 }, \
  { K78, K79, K7A, K7B, K7C, K7D, K7E, K7F } \
-
 }
 
 typedef enum { NONE, PC_XT, PC_AT, PC_TERMINAL, PC_AT_Z150 } keyboard_kind_t;

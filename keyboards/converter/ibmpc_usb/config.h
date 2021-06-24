@@ -16,7 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
+
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6536
@@ -89,5 +91,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 } while (0)
 
 #define IBMPC_INT_VECT    INT1_vect
-#endif
 
+#endif
