@@ -1,6 +1,6 @@
 {
     "manufacturer": "Zach White",
-    "keyboard_name": "directpins",
+    "keyboard_name": "DirectPins ProMicro",
     "maintainer": "skullydazed",
     "bootloader": "atmel-dfu",
     "debounce": 5,
