@@ -64,6 +64,17 @@ def find_readme(keyboard):
     return cur_dir / 'readme.md'
 
 
+def is_keyboard_target(keyboard_target):
+    """Checks to make sure the supplied keyboard_target is valid.
+
+    This is mainly used by commands that accept --keyboard.
+    """
+    if keyboard_target in ['all', 'all-avr', 'all-chibios', 'all-arm_atsam']:
+        return keyboard_target
+
+    return keyboard_folder(keyboard_target)
+
+
 def keyboard_folder(keyboard):
     """Returns the actual keyboard folder.
 

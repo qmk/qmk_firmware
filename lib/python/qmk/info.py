@@ -1,22 +1,15 @@
 """Functions that help us generate and use info.json files.
 """
-from glob import glob
+from functools import lru_cache
 from pathlib import Path
 
 import jsonschema
-from dotty_dict import dotty
 from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
-from qmk.c_parse import find_layouts
-from qmk.json_schema import deep_update, json_load, validate
-from qmk.keyboard import config_h, rules_mk
+from qmk.json_schema import validate
 from qmk.keymap import list_keymaps
-from qmk.makefile import parse_rules_mk_file
-from qmk.math import compute
-
-true_values = ['1', 'on', 'yes']
-false_values = ['0', 'off', 'no']
+from qmk.metadata import basic_info_json, info_log_error
 
 
 def _valid_community_layout(layout):
@@ -25,24 +18,11 @@ def _valid_community_layout(layout):
     return (Path('layouts/default') / layout).exists()
 
 
+@lru_cache(maxsize=None)
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
-    cur_dir = Path('keyboards')
-    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
-    if 'DEFAULT_FOLDER' in rules:
-        keyboard = rules['DEFAULT_FOLDER']
-        rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk', rules)
-
-    info_data = {
-        'keyboard_name': str(keyboard),
-        'keyboard_folder': str(keyboard),
-        'keymaps': {},
-        'layouts': {},
-        'parse_errors': [],
-        'parse_warnings': [],
-        'maintainer': 'qmk',
-    }
+    info_data = basic_info_json(keyboard)
 
     # Populate the list of JSON keymaps
     for keymap in list_keymaps(keyboard, c=False, fullpath=True):
@@ -81,20 +61,20 @@ def info_json(keyboard):
         _find_missing_layouts(info_data, keyboard)
 
     if not info_data.get('layouts'):
-        _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
+        info_log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
 
     # Filter out any non-existing community layouts
     for layout in info_data.get('community_layouts', []):
         if not _valid_community_layout(layout):
             # Ignore layout from future checks
             info_data['community_layouts'].remove(layout)
-            _log_error(info_data, 'Claims to support a community layout that does not exist: %s' % (layout))
+            info_log_error(info_data, 'Claims to support a community layout that does not exist: %s' % (layout))
 
     # Make sure we supply layout macros for the community layouts we claim to support
     for layout in info_data.get('community_layouts', []):
         layout_name = 'LAYOUT_' + layout
         if layout_name not in info_data.get('layouts', {}) and layout_name not in info_data.get('layout_aliases', {}):
-            _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
+            info_log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
 
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
@@ -544,11 +524,11 @@ def _check_matrix(info_data):
 
         if col_count != actual_col_count and col_count != (actual_col_count / 2):
             # FIXME: once we can we should detect if split is enabled to do the actual_col_count/2 check.
-            _log_error(info_data, f'MATRIX_COLS is inconsistent with the size of MATRIX_COL_PINS: {col_count} != {actual_col_count}')
+            info_log_error(info_data, f'MATRIX_COLS is inconsistent with the size of MATRIX_COL_PINS: {col_count} != {actual_col_count}')
 
         if row_count != actual_row_count and row_count != (actual_row_count / 2):
             # FIXME: once we can we should detect if split is enabled to do the actual_row_count/2 check.
-            _log_error(info_data, f'MATRIX_ROWS is inconsistent with the size of MATRIX_ROW_PINS: {row_count} != {actual_row_count}')
+            info_log_error(info_data, f'MATRIX_ROWS is inconsistent with the size of MATRIX_ROW_PINS: {row_count} != {actual_row_count}')
 
 
 def _search_keyboard_h(keyboard):
@@ -594,20 +574,6 @@ def _find_missing_layouts(info_data, keyboard):
                     info_data['layout_aliases'] = {}
 
                 info_data['layout_aliases'][alias] = alias_text
-
-
-def _log_error(info_data, message):
-    """Send an error message to both JSON and the log.
-    """
-    info_data['parse_errors'].append(message)
-    cli.log.error('%s: %s', info_data.get('keyboard_folder', 'Unknown Keyboard!'), message)
-
-
-def _log_warning(info_data, message):
-    """Send a warning message to both JSON and the log.
-    """
-    info_data['parse_warnings'].append(message)
-    cli.log.warning('%s: %s', info_data.get('keyboard_folder', 'Unknown Keyboard!'), message)
 
 
 def arm_processor_rules(info_data, rules):
@@ -668,7 +634,7 @@ def merge_info_jsons(keyboard, info_data):
         new_info_data = json_load(info_file)
 
         if not isinstance(new_info_data, dict):
-            _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
+            info_log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
             continue
 
         try:
@@ -692,7 +658,7 @@ def merge_info_jsons(keyboard, info_data):
             if layout_name in info_data['layouts']:
                 if len(info_data['layouts'][layout_name]['layout']) != len(layout['layout']):
                     msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
-                    _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
+                    info_log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
                 else:
                     for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                         existing_key.update(new_key)
@@ -730,5 +696,4 @@ def find_info_json(keyboard):
             break
         keyboard_parent = keyboard_parent.parent
 
-    # Return a list of the info.json files that actually exist
-    return [info_json for info_json in info_jsons if info_json.exists()]
+    return info_data

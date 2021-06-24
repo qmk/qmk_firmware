@@ -55,7 +55,7 @@ def create_make_target(target, parallel=1, **env_vars):
     return [make_cmd, *get_make_parallel_args(parallel), *env, target]
 
 
-def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
+def create_make_command(keyboard, keymap, target=None, parallel=1, silent=False, **env_vars):
     """Create a make compile command
 
     Args:
@@ -79,12 +79,26 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
 
         A command that can be run to make the specified keyboard and keymap
     """
-    make_args = [keyboard, keymap]
+    make_cmd = [_find_make(), '--no-print-directory', '-r', '-R', '-C', './', '-f', 'build_keyboard.mk']
+
+    env_vars['KEYBOARD'] = keyboard
+    env_vars['KEYMAP'] = keymap
+    env_vars['QMK_BIN'] = 'bin/qmk' if 'DEPRECATED_BIN_QMK' in os.environ else 'qmk'
+    env_vars['VERBOSE'] = 'true' if cli.config.general.verbose else ''
+    env_vars['SILENT'] = 'true' if silent else 'false'
+    env_vars['COLOR'] = 'true' if cli.config.general.color else ''
+
+    if parallel > 1:
+        make_cmd.append('-j')
+        make_cmd.append(parallel)
 
     if target:
-        make_args.append(target)
+        make_cmd.append(target)
 
-    return create_make_target(':'.join(make_args), parallel, **env_vars)
+    for key, value in env_vars.items():
+        make_cmd.append(f'{key}={value}')
+
+    return keyboard, keymap, make_cmd
 
 
 def get_git_version(current_time, repo_dir='.', check_dir='.'):
@@ -236,7 +250,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         'QMK_BIN="qmk"',
     ])
 
-    return make_command
+    return user_keymap['keyboard'], user_keymap['keymap'], make_command
 
 
 def parse_configurator_json(configurator_file):
