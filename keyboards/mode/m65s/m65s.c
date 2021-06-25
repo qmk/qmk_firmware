@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "m65s.h"
+#include <i2c_master.h>
 
 #define LED_PIN_ON_STATE 1
 void led_init_ports(void) {
@@ -61,3 +62,5 @@ bool led_update_kb(led_t led_state) {
     }
     return res;
 }
+
+void board_init(void) { i2c_init(); }
