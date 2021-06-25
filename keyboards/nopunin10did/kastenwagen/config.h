@@ -35,15 +35,14 @@
 #define UNUSED_PINS
 
 /* Indicator LEDs */
-#define LED_INDICATOR_1     B0
-#define LED_INDICATOR_2     D4
-#define LED_INDICATOR_3     C6
+#define LED_INDICATOR_TOP   B0
+#define LED_INDICATOR_MID   D4
+#define LED_INDICATOR_BOT   C6
 
-/* Rotary Pins */
-#define ROTARY_0A_PIN       D0
-#define ROTARY_0B_PIN       D1
-#define ROTARY_1A_PIN       D3
-#define ROTARY_1B_PIN       D2
+/* Rotary encoder rotation pins */
+#define ENCODERS_PAD_A      { D0, D3 }
+#define ENCODERS_PAD_B      { D1, D2 }
+
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION     COL2ROW

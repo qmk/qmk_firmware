@@ -22,6 +22,9 @@
 #define ISO_LT      KC_NUBS
 #define ISO_GT      LSFT(KC_NUBS)
 
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [0] = LAYOUT_48(
@@ -50,3 +53,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  ,_______  ,_______,XXXXXXX              ,XXXXXXX          ,_______,_______  ,_______ ,XXXXXXX,XXXXXXX,XXXXXXX 
     )
 };
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        }
+        else {
+            tap_code(KC_VOLD);
+        }
+    }
+    else if (index == 1) {
+        if (clockwise) {
+            if (!is_alt_tab_active) {
+                is_alt_tab_active = true;
+                register_code(KC_LALT);
+            }
+            alt_tab_timer = timer_read();
+            tap_code16(KC_TAB);
+        }
+        else {
+            alt_tab_timer = timer_read();
+            tap_code16(S(KC_TAB));
+        }
+    }
+    
+    return true;
+}
+
+void matrix_scan_user(void) {
+    
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > 1250) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
+        }
+    }
+}

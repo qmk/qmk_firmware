@@ -15,3 +15,50 @@
  */
 
 #include "kastenwagen.h"
+
+#ifndef LAYER_LED_DISABLE
+
+void keyboard_pre_init_user(void) {
+    setPinOutput(LED_INDICATOR_TOP);
+    setPinOutput(LED_INDICATOR_MID);
+    setPinOutput(LED_INDICATOR_BOT);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    
+    switch(get_highest_layer(state) % 3) {
+        
+        case 1:
+            writePinLow(LED_INDICATOR_TOP);
+            writePinLow(LED_INDICATOR_MID);
+            writePinHigh(LED_INDICATOR_BOT);
+            break;
+        
+        case 2:
+            writePinLow(LED_INDICATOR_TOP);
+            writePinHigh(LED_INDICATOR_MID);
+            writePinLow(LED_INDICATOR_BOT);
+            break;
+            
+        case 3:
+            writePinHigh(LED_INDICATOR_TOP);
+            writePinLow(LED_INDICATOR_MID);
+            writePinLow(LED_INDICATOR_BOT);
+            break;
+            
+        default:
+            writePinLow(LED_INDICATOR_TOP);
+            writePinLow(LED_INDICATOR_MID);
+            writePinLow(LED_INDICATOR_BOT);
+            break;
+    }
+    
+    return state;
+}
+
+#endif
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    
+    return encoder_update_user(index, clockwise);  
+};
