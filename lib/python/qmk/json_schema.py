@@ -15,7 +15,7 @@ def json_load(json_file):
     Note: file must be a Path object.
     """
     try:
-        return hjson.load(json_file.open())
+        return hjson.load(json_file.open(encoding='utf-8'))
 
     except json.decoder.JSONDecodeError as e:
         cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)

@@ -107,8 +107,8 @@ def migrate_mcuconf_h(to_override, outfile):
         print("", file=outfile)
 
 
-@cli.argument('-i', '--input', type=normpath, arg_only=True, help='Specify input config file.')
-@cli.argument('-r', '--reference', type=normpath, arg_only=True, help='Specify the reference file to compare against')
+@cli.argument('-i', '--input', type=normpath, arg_only=True, required=True, help='Specify input config file.')
+@cli.argument('-r', '--reference', type=normpath, arg_only=True, required=True, help='Specify the reference file to compare against')
 @cli.argument('-o', '--overwrite', arg_only=True, action='store_true', help='Overwrites the input file during migration.')
 @cli.argument('-d', '--delete', arg_only=True, action='store_true', help='If the file has no overrides, migration will delete the input file.')
 @cli.argument('-f', '--force', arg_only=True, action='store_true', help='Re-migrates an already migrated file, even if it doesn\'t detect a full ChibiOS config.')
