@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
     KC_CTLE, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,           KC_PGUP,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,            KC_PGDN,
-    KC_LCTL, KC_LGUI, KC_LALT,                   LT_SPCF,          TD_TWIN, MO(_FN2_60),                KC_LEFT, KC_DOWN, KC_RGHT
+    KC_LCTL, KC_LGUI, KC_LALT,                   LT_SPCF,          TD_TWIN, MO(_FN2_60),               KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
   [_DEFAULT] = LAYOUT_65_ansi_blocker(
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
     KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,           KC_PGUP,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,            KC_PGDN,
-    KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,           MO(_FN1_60), MO(_FN2_60),                KC_LEFT, KC_DOWN, KC_RGHT
+    KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,           MO(_FN1_60), MO(_FN2_60),           KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
   [_FN1_60] = LAYOUT_65_ansi_blocker(
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, CA_QUOT, _______, CA_SCLN, KC_VOLU, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PSCR, _______, _______, KC_INS,  _______,
     KC_CAPS, _______, _______, KC_LCTL, KC_LSFT, KC_VOLD, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______,          _______,
     _______, KC_RDP,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
-    _______, _______, _______,                            _______,                   _______, _______,           _______, _______, _______
+    _______, _______, _______,                            _______,                   _______, _______,          _______, _______, _______
   ),
 
   [_FN2_60] = LAYOUT_65_ansi_blocker(
