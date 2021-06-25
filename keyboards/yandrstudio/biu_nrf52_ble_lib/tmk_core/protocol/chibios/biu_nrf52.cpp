@@ -61,10 +61,12 @@
 #endif
 
 // TIMEOUT INTERVAL SETTING
-#define BiuNrf52MsgTimeout      150           /* milliseconds */
-#define BiuNrf52MsgShortTimeout 10            /* milliseconds */
-#define BiuNrf52MsgRecvTimeout  2000          /* microseconds */
-#define BatteryUpdateInterval   30000         /* milliseconds */
+#define BiuNrf52MsgTimeout       150           /* milliseconds */
+#define BiuNrf52MsgShortTimeout  10            /* milliseconds */
+#define BiuNrf52MsgRecvTimeout   2000          /* microseconds */
+#define BiuNrf52SystemOffTimeout 30000         /* milliseconds */
+#define BatteryUpdateInterval    30000         /* milliseconds */
+
 
 
 enum biunrf52_type {
@@ -192,16 +194,12 @@ static struct {
     bool is_connected;
     bool initialized;
     bool configured;
-
-#define ProbedEvents 1
-#define UsingEvents 2
-    bool event_flags;
-
 #ifdef SAMPLE_BATTERY
     uint16_t last_battery_update;
     uint32_t vbat;
 #endif
     uint16_t last_connection_update;
+    bool has_send_ask;
 } state;
 
 // Items that we wish to send , 64+1, must has an empty pos
@@ -680,6 +678,7 @@ bool bluetooth_init_pre(void) {
     state.initialized  = false;
     state.configured   = false;
     state.is_connected = false;
+    state.has_send_ask     = false;
     state.last_connection_update = timer_read();
     state.last_battery_update = timer_read();
 
@@ -710,11 +709,16 @@ bool bluetooth_init(void) {
 
     struct queue_item item;
 
-    item.queue_type   = QTAskNrf;
-    item.added        = timer_read();
-    while (!send_buf.enqueue(item)) {
+    if (!state.has_send_ask) {
+        item.queue_type   = QTAskNrf;
+        item.added        = timer_read();
+        while (!send_buf.enqueue(item)) {
+            send_buf_send_one();
+        }
         send_buf_send_one();
+        state.has_send_ask = true;
     }
+
     // send_buf_send_one();
     // wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
     // todo ack
@@ -724,6 +728,7 @@ bool bluetooth_init(void) {
     if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
         resp_buf_read_one();
         state.last_connection_update = timer_read();
+        state.has_send_ask = false;
     }
     return state.initialized;
 }
@@ -739,12 +744,15 @@ bool biu_ble_enable_keyboard(void) {
 
     struct queue_item item;
 
-    item.queue_type   = QTAskNrf;
-    item.added        = timer_read();
-    while (!send_buf.enqueue(item)) {
+    if (!state.has_send_ask) {
+        item.queue_type   = QTAskNrf;
+        item.added        = timer_read();
+        while (!send_buf.enqueue(item)) {
+            send_buf_send_one();
+        }
         send_buf_send_one();
+        state.has_send_ask = true;
     }
-    send_buf_send_one();
 
     // wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
     // todo ack
@@ -757,6 +765,7 @@ bool biu_ble_enable_keyboard(void) {
     if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
         resp_buf_read_one();
         state.last_connection_update = timer_read();
+        state.has_send_ask = false;
     }
 
     return state.configured;
@@ -770,12 +779,15 @@ bool biu_ble_connection_check() {
 
     struct queue_item item;
 
-    item.queue_type   = QTAskNrf;
-    item.added        = timer_read();
-    while (!send_buf.enqueue(item)) {
+    if (!state.has_send_ask) {
+        item.queue_type   = QTAskNrf;
+        item.added        = timer_read();
+        while (!send_buf.enqueue(item)) {
+            send_buf_send_one();
+        }
         send_buf_send_one();
+        state.has_send_ask = true;
     }
-    send_buf_send_one();
 
     // wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
     // ack
@@ -788,12 +800,21 @@ bool biu_ble_connection_check() {
     if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
         resp_buf_read_one();
         state.last_connection_update = timer_read();
+        state.has_send_ask = false;
     }
 
     return state.is_connected;
 }
 
-void biu_ble_system_off() {
+void inline biu_ble_system_off() {
+
+    state.configured = false;
+    state.is_connected = false;
+    state.initialized = false;
+    state.has_send_ask = false;
+    state.last_battery_update = 0;
+    state.last_connection_update = 0;
+
     struct queue_item item;
 
     item.queue_type   = QTNrfSysOff;
@@ -802,6 +823,12 @@ void biu_ble_system_off() {
         send_buf_send_one();
     }
     send_buf_send_one();
+}
+
+void inline check_ble_system_off_timer(void) {
+    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) > BiuNrf52SystemOffTimeout) {
+        biu_ble_system_off();
+    }
 }
 
 void bluetooth_task(void) {
@@ -819,4 +846,5 @@ void bluetooth_task(void) {
         bluetooth_send_battery_level();
     }
 #endif
+    check_ble_system_off_timer();
 }
