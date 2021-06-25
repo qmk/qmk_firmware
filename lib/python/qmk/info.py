@@ -188,11 +188,26 @@ def _extract_direct_matrix(info_data, direct_pins):
     return direct_pin_array
 
 
+def _extract_audio(info_data, config_c):
+    """Populate the matrix information.
+    """
+    audio_pins = []
+
+    for pin in 'B5', 'B6', 'B7', 'C4', 'C5', 'C6':
+        if config_c.get(f'{pin}_AUDIO'):
+            audio_pins.append(pin)
+
+    if audio_pins:
+        info_data['audio'] = {'pins': audio_pins}
+
+
 def _extract_matrix_info(info_data, config_c):
     """Populate the matrix information.
     """
     row_pins = config_c.get('MATRIX_ROW_PINS', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS', '').replace('{', '').replace('}', '').strip()
+    unused_pin_text = config_c.get('UNUSED_PINS')
+    unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
     direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
 
     if 'MATRIX_ROWS' in config_c and 'MATRIX_COLS' in config_c:
@@ -218,6 +233,9 @@ def _extract_matrix_info(info_data, config_c):
             _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
 
         info_data['matrix_pins']['direct'] = _extract_direct_matrix(info_data, direct_pins)
+
+    if unused_pins and 'matirx_pins' in info_data:
+        info_data['matrix_pins']['unused'] = _extract_pins(unused_pins)
 
     return info_data
 
@@ -275,6 +293,7 @@ def _extract_config_h(info_data):
 
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
+    _extract_audio(info_data, config_c)
 
     return info_data
 

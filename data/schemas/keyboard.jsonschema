@@ -15,6 +15,29 @@
             "type": "string",
             "enum": ["cortex-m0", "cortex-m0plus", "cortex-m3", "cortex-m4", "MKL26Z64", "MK20DX128", "MK20DX256", "MK66F18", "STM32F042", "STM32F072", "STM32F103", "STM32F303", "STM32F401", "STM32F407", "STM32F411", "STM32F446", "STM32G431", "STM32G474", "STM32L412", "STM32L422", "STM32L433", "STM32L443", "atmega16u2", "atmega32u2", "atmega16u4", "atmega32u4", "at90usb162", "at90usb646", "at90usb647", "at90usb1286", "at90usb1287", "atmega32a", "atmega328p", "atmega328", "attiny85", "unknown"]
         },
+        "audio": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "voices": {"type": "boolean"}
+            }
+        },
+        "backlight": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "breathing": {"type": "boolean"},
+                "breathing_period": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "levels": {
+                    "type": "number",
+                    "min": 1,
+                    "max": 31,
+                    "multipleOf": 1
+                },
+                "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+            }
+        },
         "board": {
             "type": "string",
             "minLength": 2,
@@ -29,6 +52,13 @@
             "enum": ["COL2ROW", "ROW2COL"]
         },
         "debounce": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+        "combo": {
+            "type": "object",
+            "properties": {
+                "count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "term": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+            }
+        },
         "community_layouts": {
             "type": "array",
             "items": {"$ref": "qmk.definitions.v1#/filename"}
@@ -90,16 +120,34 @@
                 }
             }
         },
+        "leader_key": {
+            "type": "object",
+            "properties": {
+                "timing": {"type": "boolean"},
+                "strict_processing": {"type": "boolean"},
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+            }
+        },
         "matrix_pins": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "ghost": {"type": "boolean"},
+                "io_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "direct": {
                     "type": "array",
-                    "items": {$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
                 },
                 "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+            }
+        },
+        "oneshot": {
+            "type": "object",
+            "properties": {
+                "tap_toggle": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         },
         "rgblight": {
@@ -154,13 +202,41 @@
             "type": "array",
             "items": {"type": "string"}
         },
+        "tapping": {
+            "type": "object",
+            "properties": {
+                "force_hold": {"type": "boolean"},
+                "force_hold_per_key": {"type": "boolean"},
+                "ignore_mod_tap_interrupt": {"type": "boolean"},
+                "ignore_mod_tap_interrupt_per_key": {"type": "boolean"},
+                "permissive_hold": {"type": "boolean"},
+                "permissive_hold_per_key": {"type": "boolean"},
+                "retro": {"type": "boolean"},
+                "retro_per_key": {"type": "boolean"},
+                "term": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "term_per_key": {"type": "boolean"},
+                "toggle": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+            }
+        },
         "usb": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "device_ver": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
                 "pid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
-                "vid": {"$ref": "qmk.definitions.v1#/hex_number_4d"}
+                "vid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
+                "max_power": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "polling_interval": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+            }
+        },
+        "qmk": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "keys_per_scan": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "tap_keycode_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
             }
         },
         "qmk_lufa_bootloader": {
