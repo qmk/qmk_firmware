@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x05AC
+#define PRODUCT_ID      0x4577
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    frooastside
 #define PRODUCT         Frooastboard
