@@ -150,6 +150,10 @@
                 }
             }
         },
+        "tags": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
         "usb": {
             "type": "object",
             "additionalProperties": false,
