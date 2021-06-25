@@ -5,7 +5,7 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT_60": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"K80", "x":0, "y":0},
                 {"label":"K10", "x":1, "y":0},
