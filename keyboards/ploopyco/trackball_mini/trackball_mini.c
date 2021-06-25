@@ -18,6 +18,8 @@
  */
 
 #include "trackball_mini.h"
+#include "wait.h"
+#include "debug.h"
 
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
@@ -35,16 +37,8 @@
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
 
-#ifndef PLOOPY_DPI_OPTIONS
-#    define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375 }
-#    ifndef PLOOPY_DPI_DEFAULT
-#        define PLOOPY_DPI_DEFAULT 2
-#    endif
-#endif
-
-#ifndef PLOOPY_DPI_DEFAULT
-#    define PLOOPY_DPI_DEFAULT 1
-#endif
+#define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375 }
+#define PLOOPY_DPI_DEFAULT 2
 
 // Transformation constants for delta-X and delta-Y
 const static float ADNS_X_TRANSFORM = -1.0;
@@ -173,7 +167,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 void keyboard_pre_init_kb(void) {
     // debug_enable = true;
     // debug_matrix = true;
-    debug_mouse = true;
+    // debug_mouse = true;
     // debug_encoder = true;
 
     setPinInput(OPT_ENC1);
@@ -198,6 +192,22 @@ void keyboard_pre_init_kb(void) {
 void pointing_device_init(void) {
     adns_init();
     opt_encoder_init();
+
+    // reboot the adns.
+    // if the adns hasn't initialized yet, this is harmless.
+    adns_write_reg(REG_CHIP_RESET, 0x5a);
+
+    // wait maximum time before adns is ready.
+    // this ensures that the adns is actuall ready after reset.
+    wait_ms(55);
+
+    // read a burst from the adns and then discard it.
+    // gets the adns ready for write commands
+    // (for example, setting the dpi).
+    adns_read_burst();
+
+    // set the DPI.
+    adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
 void pointing_device_task(void) {
@@ -222,10 +232,4 @@ void matrix_init_kb(void) {
         eeconfig_init_kb();
     }
     matrix_init_user();
-}
-
-void keyboard_post_init_kb(void) {
-    adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
-
-    keyboard_post_init_user();
 }
