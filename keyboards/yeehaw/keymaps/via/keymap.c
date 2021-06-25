@@ -43,21 +43,21 @@ KC_TRNS, RGB_SAD, RGB_M_P, RGB_MOD, RGB_SPD,
     ),
 
       [2] = LAYOUT(
-        ____,
-        ____,
-        ____, ____, ____, ____,
-____, ____, ____, ____, ____,
-        ____, ____,
-             ____
+        KC_TRNS,
+        KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS,
+             KC_TRNS
     ),
 
       [3] = LAYOUT(
-        ____,
-        ____,
-        ____, ____, ____, ____,
-____, ____, ____, ____, ____,
-        ____, ____,
-             ____
+        KC_TRNS,
+        KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS,
+             KC_TRNS
     ),
 
 };
@@ -82,7 +82,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case SQUASHKB:
         if (record->event.pressed) {
-            SEND_STRING("http://squashkb.com");
+            SEND_STRING("https://squashkb.com");
         }
         break;
     }
