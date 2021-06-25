@@ -138,6 +138,18 @@ def generate_config_h(cli):
     if 'matrix_pins' in kb_info_json:
         config_h_lines.append(matrix_pins(kb_info_json['matrix_pins']))
 
+    if 'split' in kb_info_json:
+        if 'primary' in kb_info_json['split']:
+            config_h_lines.append('')
+            config_h_lines.append('#ifndef MASTER_LEFT')
+            config_h_lines.append('#   ifndef MASTER_RIGHT')
+            if kb_info_json['split']['primary'] == 'left':
+                config_h_lines.append('#       define MASTER_LEFT')
+            elif kb_info_json['split']['primary'] == 'right':
+                config_h_lines.append('#       define MASTER_RIGHT')
+            config_h_lines.append('#   endif // MASTER_RIGHT')
+            config_h_lines.append('#endif // MASTER_LEFT')
+
     # Show the results
     config_h = '\n'.join(config_h_lines)
 

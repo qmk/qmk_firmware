@@ -185,6 +185,10 @@
                 "hand_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "hand_matrix_grid": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
                 "mirror": {"type": "boolean"},
+                "primary": {
+                    "type": "string",
+                    "enum": ["left", "right"]
+                },
                 "transport": {
                     "type": "string",
                     "enum": ["custom", "mirror", "serial", "I2C"]

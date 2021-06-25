@@ -189,7 +189,7 @@ def _extract_direct_matrix(info_data, direct_pins):
 
 
 def _extract_audio(info_data, config_c):
-    """Populate the matrix information.
+    """Populate data about the audio configuration
     """
     audio_pins = []
 
@@ -199,6 +199,28 @@ def _extract_audio(info_data, config_c):
 
     if audio_pins:
         info_data['audio'] = {'pins': audio_pins}
+
+
+def _extract_split(info_data, config_c):
+    """Populate data about the split configuration
+    """
+    if config_c.get('MASTER_RIGHT') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'primary' in info_data['split']:
+            _log_warning(info_data, 'Split primary hand is specified in both config.h (MASTER_RIGHT) and split.primary (%s), the config.h value wins.')
+
+        info_data['split']['primary'] = 'right'
+
+    if config_c.get('MASTER_LEFT') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'primary' in info_data['split']:
+            _log_warning(info_data, 'Split primary hand is specified in both config.h (MASTER_RIGHT) and split.primary (%s), the config.h value wins.')
+
+        info_data['split']['primary'] = 'left'
 
 
 def _extract_matrix_info(info_data, config_c):
@@ -234,7 +256,10 @@ def _extract_matrix_info(info_data, config_c):
 
         info_data['matrix_pins']['direct'] = _extract_direct_matrix(info_data, direct_pins)
 
-    if unused_pins and 'matirx_pins' in info_data:
+    if unused_pins:
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
+
         info_data['matrix_pins']['unused'] = _extract_pins(unused_pins)
 
     return info_data
