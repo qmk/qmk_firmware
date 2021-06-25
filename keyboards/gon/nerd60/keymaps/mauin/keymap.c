@@ -23,9 +23,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------'
    */
   [BASE_LAYER] = LAYOUT_60(
-      F(0),     KC_1,     KC_2,     KC_3,    KC_4,     KC_5,     KC_6,     KC_7,    KC_8,    KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, \
+      F(0),     KC_1,     KC_2,     KC_3,    KC_4,     KC_5,     KC_6,     KC_7,    KC_8,    KC_9,     KC_0,     KC_MINS,  KC_EQL,   __x__,    KC_BSPC, \
       KC_TAB,   KC_Q,     KC_W,     KC_E,    KC_R,     KC_T,     KC_Y,     KC_U,    KC_I,    KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS, \
-      MO(1),    KC_A,     KC_S,     KC_D,    KC_F,     KC_G,     KC_H,     KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,  __x__,    KC_ENT,  \
+      MO(1),    KC_A,     KC_S,     KC_D,    KC_F,     KC_G,     KC_H,     KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,            KC_ENT,  \
       KC_LSFT,  __x__,    KC_Z,     KC_X,     KC_C,    KC_V,     KC_B,     KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  __x__,   \
       KC_LCTL,  KC_LALT,  KC_LGUI,                               KC_SPC,                               KC_RGUI,  KC_RALT,  MO(2),    KC_RCTL  \
   ),
@@ -44,9 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------'
    */
    [FUNCTION_LAYER] = LAYOUT_60(
-       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL, \
+       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  __x__,  KC_DEL, \
        __x__,   KC_MPRV, KC_MPLY, KC_MNXT, __x__,   __x__,   KC_PGUP, KC_HOME, KC_UP,   KC_END,  __x__,   KC_SLCK, KC_PAUS, __x__,  \
-       KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, __x__,   __x__,   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, __x__,   __x__,    __x__,  __x__,  \
+       KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, __x__,   __x__,   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, __x__,   __x__,            __x__,  \
        KC_LSFT,  __x__,  __x__,   __x__,   __x__,   __x__,   __x__,   __x__,   __x__,   __x__,   __x__,   __x__,    __x__,  __x__,  \
        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             __x__,   __x__,   __x__,   __x__   \
    ),
@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------'
    */
   [SYSTEM_LAYER] = LAYOUT_60(
-      RESET,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,   __x__, \
+      RESET,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,   __x__,   __x__, \
       __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,   __x__, \
-      __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,   __x__, \
+      __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,           __x__, \
       __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,   __x__, \
       __x__,  __x__,  __x__,                          __x__,                          __x__,  __x__,  KC_TRNS, __x__  \
   ),
