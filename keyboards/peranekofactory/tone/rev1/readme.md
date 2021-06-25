@@ -10,4 +10,4 @@ TONE_rev2 is macro_pad With RotaryEncoder.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tone:default
+    make peranekofactory/tone/rev1:default
