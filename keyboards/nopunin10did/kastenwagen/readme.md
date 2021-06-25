@@ -21,7 +21,7 @@ To jump the bootloader, either:
 # Use the physical reset switch on the Elite C **OR**
 # Briefly jump the Reset and Ground pins of the Elite C
 
-Make example for this keyboard (after setting up your build environment):
+Make example for the 1840 model (after setting up your build environment):
 
     make nopunin10did/kastenwagen:default
     
