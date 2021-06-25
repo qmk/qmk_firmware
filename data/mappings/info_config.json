@@ -3,14 +3,15 @@
 {
     # Format:
     # <config.h key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
-    # value_type: one of "array", "array.int", "int", "hex", "list", "mapping"
+    # value_type: one of "array", "array.int", "bool", "int", "hex", "list", "mapping"
     # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
     # to_c: Default `true`. Set to `false` to exclude this mapping from config.h
     # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
-    "DEBOUNCE": {"info_key": "debounce", "value_type": "int"}
+    "DEBOUNCE": {"info_key": "debounce", "value_type": "int"},
     "DEVICE_VER": {"info_key": "usb.device_ver", "value_type": "hex"},
     "DESCRIPTION": {"info_key": "keyboard_folder", "to_json": false},
     "DIODE_DIRECTION": {"info_key": "diode_direction"},
+    "EE_HANDS": {"info_key": "split.ee_hands"},
     "LAYOUTS": {"info_key": "layout_aliases", "value_type": "mapping"},
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
     "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
@@ -42,5 +43,10 @@
     "QMK_ESC_OUTPUT": {"info_key": "qmk_lufa_bootloader.esc_output"},
     "QMK_ESC_INPUT": {"info_key": "qmk_lufa_bootloader.esc_input"},
     "QMK_LED": {"info_key": "qmk_lufa_bootloader.led"},
-    "QMK_SPEAKER": {"info_key": "qmk_lufa_bootloader.speaker"}
+    "QMK_SPEAKER": {"info_key": "qmk_lufa_bootloader.speaker"},
+    "SPLIT_HAND_PIN": {"info_key": "split.hand_pin"},
+    "SPLIT_HAND_MATRIX_GRID": {"info_key": "split.hand_matrix_grid", "value_type": "array"},
+    "SPLIT_TRANSPORT_MIRROR": {"info_key": "split.mirror", "value_type": "bool"},
+    "SOFT_SERIAL_PIN": {"info_key": "split.soft_serial_pin"},
+    "SOFT_SERIAL_SPEED": {"info_key": "split.soft_serial_speed"}
 }

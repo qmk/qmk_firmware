@@ -128,6 +128,28 @@
                 }
             }
         },
+        "split": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "ee_hands": {"type": "boolean"},
+                "enabled": {"type": "boolean"},
+                "hand_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "hand_matrix_grid": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "mirror": {"type": "boolean"},
+                "transport": {
+                    "type": "string",
+                    "enum": ["custom", "mirror", "serial", "I2C"]
+                },
+                "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "soft_serial_speed": {
+                    "type": "number",
+                    "min": 0,
+                    "max": 5,
+                    "multipleOf": 1
+                }
+            }
+        },
         "usb": {
             "type": "object",
             "additionalProperties": false,
