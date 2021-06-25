@@ -42,21 +42,21 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_rev41lp(
-    KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   KC_BSPC,
-    KC_ESC,     KC_A,  LALT_S,  LSFT_D,  LCTL_F,    KC_G,             KC_H,  RCTL_J,  RSFT_K,  RALT_L, KC_SCLN,   KC_QUOT,
-    KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_SFTENT,
+    KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC,
+    KC_ESC,     KC_A,  LALT_S,  LSFT_D,  LCTL_F,    KC_G,             KC_H,  RCTL_J,  RSFT_K,  RALT_L, KC_SCLN, KC_QUOT,
+    KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
                                         KC_LGUI,   LOWER, SPC_NAV,   RAISE,   FUNCT
   ),
 
   [_LOWER] = LAYOUT_rev41lp(
-    KC_DEL,  KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
+    KC_GRV,  KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
     _______, _______, _______, _______, _______, _______,          KC_TILD, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
     _______, _______, KC_LGUI, KC_LALT, KC_CAPS, _______,          KC_PSCR, _______, _______, _______, _______, _______,
                                         _______, _______, _______, _______, _______
   ),
 
   [_RAISE] = LAYOUT_rev41lp(
-    KC_GRV,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,       KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+    KC_TILD,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,       KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
     _______, _______, _______, _______, _______, _______,          KC_GRV,  KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,
     _______, _______, KC_LGUI, KC_LALT, KC_CAPS, _______,          KC_PSCR, _______, _______, _______, _______, _______,
                                         _______, _______, _______, _______, _______
@@ -94,6 +94,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case RGUI_SCLN:
         case LALT_S:
         case RALT_L:
+        case LCTL_F:
+        case RCTL_J:
+//        case KC_SFTENT:
 //        case RSFT_K: // too long at 225
         case SPC_NAV:
             return 225;
