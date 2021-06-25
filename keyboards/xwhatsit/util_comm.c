@@ -14,10 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* MJW - 24-jun-2021 first quick review
+ Too much use of global defines!!!!!!!!!!!!!
+
+Defines in these fuctions need to replaced with varibes or stuctiures
+raw_hid_receive()
+
+
+Defines need to be moved out of the c source and into the header file.
+#define RAW_EPSIZE 32
+*/
+
 #include "quantum.h"
 #include "raw_hid.h"
 #include "util_comm.h"
-#include "matrix_manipulate.h"
+#include "capsense_matrix.h"
 #include <string.h>
 #include <tmk_core/common/eeprom.h>
 

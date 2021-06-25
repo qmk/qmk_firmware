@@ -1,0 +1,12 @@
+Matthew J Wolf 24-jun-2021
+
+There is too much use of defines in the code.
+
+In the config.h files the strings for the "MANUFACTURER" and "PRODUCT" may be too long. These strings are sent as part of the USB handshake. They are the USB device descriptors iManufacturer and iProduct.
+
+Removed util directory. This firmware not utility software. The utility should have it's know repo.
+
+I renamed directory "brand_new_model_f" to "model_f_labs".
+
+I renamed matrix.c to capsense_matrix.c
+I renamed matrix_manipulate.h capsense_matrix.h

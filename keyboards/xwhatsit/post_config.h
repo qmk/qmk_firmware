@@ -265,7 +265,7 @@
 #else
 
 #    ifndef CAPSENSE_DAC_SCLK
-#        error "Please select controller type in config.h, or please define each macro that is defined when selecting a particular macro type in matrix.c"
+#        error "Please select controller type in config.h, or please define each macro that is defined when selecting a particular macro type in capsense_capsense_matrix.c"
 #    endif
 #endif
 
