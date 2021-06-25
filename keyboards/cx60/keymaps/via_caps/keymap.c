@@ -24,22 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_DEL,
         KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RALT, MO(1), KC_LEFT, KC_DOWN, KC_RGHT),
 
-    // 1: Function Layer
-	
-	/* FN Layer
-   * ,-----------------------------------------------------------------------------------------.
-   * | Reset |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |    `~   |
-   * |-----------------------------------------------------------------------------------------+
-   * |        |RBB T|RGB M| Hue+| Hue-| Sat+| Sat-| Val+| Val-|     |     |      |      |      |
-   * |-----------------------------------------------------------------------------------------+
-   * |         | BL T| BL M| BL+ | BL- |     |     |     |     |     |     |     |             |
-   * |-----------------------------------------------------------------------------------------+
-   * |           |     |     |     |     |     |     |     |     |     |     |     |     |     |
-   * |-----------------------------------------------------------------------------------------+
-   * |      |       |       |                                   |     |      |     |     |     |
-   * `-----------------------------------------------------------------------------------------'
-   */
-	
+    // 1: Function Layer 1	
 	LAYOUT_all(
 		KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, RESET,
 		KC_TRNS, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, RGB_RMOD, RGB_MOD, KC_TRNS, KC_TRNS, RGB_TOG,
