@@ -1,5 +1,6 @@
 """Functions that help you work with QMK keymaps.
 """
+from functools import lru_cache
 import json
 import sys
 from pathlib import Path
@@ -306,6 +307,7 @@ def locate_keymap(keyboard, keymap):
                     return community_layout / 'keymap.c'
 
 
+@lru_cache()
 def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=False):
     """List the available keymaps for a keyboard.
 

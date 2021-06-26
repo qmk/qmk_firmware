@@ -82,6 +82,9 @@ def compile(cli):
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
     envs = {'REQUIRE_PLATFORM_KEY': ''}
+    if cli.config.compile.keyboard is None:
+        cli.config.compile.keyboard = ''
+
     silent = cli.config.compile.keyboard == 'all' or cli.config.compile.keyboard.startswith('all-') or cli.config.compile.keymap == 'all'
 
     # Setup the environment
@@ -103,6 +106,11 @@ def compile(cli):
             cli.log.info('Cleaning previous build files for keyboard {fg_cyan}%s{fg_reset} keymap {fg_cyan}%s', keyboard, keymap)
             _, _, make_cmd = create_make_command(keyboard, keymap, 'clean', cli.config.compile.parallel, silent, **envs)
             cli.run(make_cmd, capture_output=False, stdin=DEVNULL)
+
+    # If -f has been specified without a keyboard target, assume -kb all
+    if cli.args.filter and not cli.args.keyboard:
+        cli.log.debug('--filter supplied without --keyboard, assuming --keyboard all.')
+        cli.config.compile.keyboard = 'all'
 
     # Determine the compile command(s)
     commands = None
@@ -128,6 +136,10 @@ def compile(cli):
     if commands:
         returncodes = []
         for keyboard, keymap, command in commands:
+            if keymap not in list_keymaps(keyboard):
+                cli.log.debug('Skipping keyboard %s, no %s keymap found.', keyboard, keymap)
+                continue
+
             print()
             cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s', keyboard, keymap)
             cli.log.debug('Running make command: {fg_blue}%s', ' '.join(command))
