@@ -67,23 +67,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SHILL:
             if (record->event.pressed) {
                 SEND_STRING("Subscribe to ShandonCodes Kappa\n");
-            } else {
             }
-            break;
+            return false;
 
         case NUT:
             if (record->event.pressed) {
                 SEND_STRING("Hey Nutina HeyGuys\n");
-            } else {
             }
-            break;
+            return false;
 
         case FRACNO:
             if (record->event.pressed) {
                 SEND_STRING("OH MY GODDD!!!\n");
-            } else {
             }
-            break;
+            return false;
     }
     return true;
 }
