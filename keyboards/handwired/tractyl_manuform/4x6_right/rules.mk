@@ -5,23 +5,24 @@ MCU = at90usb1286
 BOOTLOADER = atmel-dfu
 
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-AUDIO_ENABLE = no           # Audio output
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
-RGBLIGHT_ENABLE = no
+AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-SWAP_HANDS_ENABLE = yes
+
 
 POINTING_DEVICE_ENABLE = yes
 MOUSE_SHARED_EP = no
