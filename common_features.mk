@@ -536,6 +536,7 @@ endif
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
+    CRC_ENABLE := yes
 
     # Include files used by all split keyboards
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
@@ -569,7 +570,7 @@ endif
 
 ifeq ($(strip $(CRC_ENABLE)), yes)
     OPT_DEFS += -DCRC_ENABLE
-    QUANTUM_LIB_SRC += crc.c
+    SRC += crc.c
 endif
 
 HAPTIC_ENABLE ?= no
