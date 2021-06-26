@@ -6,10 +6,10 @@ from pathlib import Path
 import os
 from glob import glob
 
+import qmk.path
 from qmk.c_parse import parse_config_h_file
 from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
-from qmk.path import is_keyboard
 
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
@@ -33,6 +33,37 @@ BOX_DRAWING_CHARACTERS = {
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
 
 
+def find_keyboard_from_dir():
+    """Returns a keyboard name based on the user's current directory.
+    """
+    relative_cwd = qmk.path.under_qmk_firmware()
+
+    if relative_cwd and len(relative_cwd.parts) > 1 and relative_cwd.parts[0] == 'keyboards':
+        # Attempt to extract the keyboard name from the current directory
+        current_path = Path('/'.join(relative_cwd.parts[1:]))
+
+        if 'keymaps' in current_path.parts:
+            # Strip current_path of anything after `keymaps`
+            keymap_index = len(current_path.parts) - current_path.parts.index('keymaps') - 1
+            current_path = current_path.parents[keymap_index]
+
+        if qmk.path.is_keyboard(current_path):
+            return str(current_path)
+
+
+def find_readme(keyboard):
+    """Returns the readme for this keyboard.
+    """
+    cur_dir = qmk.path.keyboard(keyboard)
+    keyboards_dir = Path('keyboards')
+    while not (cur_dir / 'readme.md').exists():
+        if cur_dir == keyboards_dir:
+            return None
+        cur_dir = cur_dir.parent
+
+    return cur_dir / 'readme.md'
+
+
 def keyboard_folder(keyboard):
     """Returns the actual keyboard folder.
 
@@ -49,7 +80,7 @@ def keyboard_folder(keyboard):
         rules_mk = parse_rules_mk_file(rules_mk_file)
         keyboard = rules_mk.get('DEFAULT_FOLDER', keyboard)
 
-    if not is_keyboard(keyboard):
+    if not qmk.path.is_keyboard(keyboard):
         raise ValueError(f'Invalid keyboard: {keyboard}')
 
     return keyboard
@@ -61,6 +92,12 @@ def _find_name(path):
     return path.replace(base_path, "").replace(os.path.sep + "rules.mk", "")
 
 
+def keyboard_completer(prefix, action, parser, parsed_args):
+    """Returns a list of keyboards for tab completion.
+    """
+    return list_keyboards()
+
+
 def list_keyboards():
     """Returns a list of all keyboards.
     """
@@ -68,7 +105,16 @@ def list_keyboards():
     kb_wildcard = os.path.join(base_path, "**", "rules.mk")
     paths = [path for path in glob(kb_wildcard, recursive=True) if 'keymaps' not in path]
 
-    return sorted(map(_find_name, paths))
+    return sorted(set(map(resolve_keyboard, map(_find_name, paths))))
+
+
+def resolve_keyboard(keyboard):
+    cur_dir = Path('keyboards')
+    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
+    while 'DEFAULT_FOLDER' in rules and keyboard != rules['DEFAULT_FOLDER']:
+        keyboard = rules['DEFAULT_FOLDER']
+        rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
+    return keyboard
 
 
 def config_h(keyboard):
@@ -82,8 +128,7 @@ def config_h(keyboard):
     """
     config = {}
     cur_dir = Path('keyboards')
-    rules = rules_mk(keyboard)
-    keyboard = Path(rules['DEFAULT_FOLDER'] if 'DEFAULT_FOLDER' in rules else keyboard)
+    keyboard = Path(resolve_keyboard(keyboard))
 
     for dir in keyboard.parts:
         cur_dir = cur_dir / dir
@@ -101,12 +146,9 @@ def rules_mk(keyboard):
     Returns:
         a dictionary representing the content of the entire rules.mk tree for a keyboard
     """
-    keyboard = Path(keyboard)
     cur_dir = Path('keyboards')
+    keyboard = Path(resolve_keyboard(keyboard))
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
-
-    if 'DEFAULT_FOLDER' in rules:
-        keyboard = Path(rules['DEFAULT_FOLDER'])
 
     for i, dir in enumerate(keyboard.parts):
         cur_dir = cur_dir / dir

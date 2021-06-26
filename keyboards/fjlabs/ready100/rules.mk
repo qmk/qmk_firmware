@@ -24,5 +24,3 @@ RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 KEYBOARD_LOCK_ENABLE = yes
-
-LAYOUTS = 64key
