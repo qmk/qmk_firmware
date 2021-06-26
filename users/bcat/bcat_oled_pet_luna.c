@@ -37,42 +37,51 @@
 #include "keycode.h"
 #include "progmem.h"
 
-enum state {
-    OLED_PET_WALK = OLED_PET_IDLE + 1,
-    OLED_PET_RUN,
-    OLED_PET_SNEAK,
-    OLED_PET_BARK,
+enum image {
+    IMAGE_IDLE,
+    IMAGE_WALK,
+    IMAGE_RUN,
+    IMAGE_SNEAK,
+    IMAGE_BARK,
 };
+
+typedef union {
+    oled_pet_state_t raw;
+    struct {
+        uint8_t image;
+        uint8_t frame;
+    };
+} luna_state_t;
 
 #define NUM_FRAMES 2
 #define FRAME_BYTES 96 /* (32 pixel) * (24 pixel) / (8 pixel/byte) */
 
-uint8_t  oled_pet_num_frames(void) { return NUM_FRAMES; }
 uint16_t oled_pet_frame_bytes(void) { return FRAME_BYTES; }
 uint8_t  oled_pet_frame_lines(void) { return 3 /* (24 pixel) / (8 pixel/line) */; }
 bool     oled_pet_can_jump(void) { return true; }
 
-oled_pet_state_t oled_pet_state(const oled_keyboard_state_t *keyboard_state) {
-    if (keyboard_state->leds.caps_lock) {
-        return OLED_PET_BARK;
-    }
-    if (keyboard_state->mods & MOD_MASK_CTRL) {
-        return OLED_PET_SNEAK;
-    }
-    if (keyboard_state->wpm >= 100) {
-        return OLED_PET_RUN;
-    }
-    if (keyboard_state->wpm >= 25) {
-        return OLED_PET_WALK;
-    }
-    return OLED_PET_IDLE;
-}
-
 uint16_t oled_pet_update_millis(const oled_keyboard_state_t *keyboard_state) { return 200; }
 
-void oled_pet_post_render(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state, bool jumping, bool redraw) {}
+oled_pet_state_t oled_pet_next_state(oled_pet_state_t state, const oled_keyboard_state_t *keyboard_state) {
+    luna_state_t luna_state = {.raw = state};
+    if (keyboard_state->leds.caps_lock) {
+        luna_state.image = IMAGE_BARK;
+    } else if (keyboard_state->mods & MOD_MASK_CTRL) {
+        luna_state.image = IMAGE_SNEAK;
+    } else if (keyboard_state->wpm >= 100) {
+        luna_state.image = IMAGE_RUN;
+    } else if (keyboard_state->wpm >= 25) {
+        luna_state.image = IMAGE_WALK;
+    } else {
+        luna_state.image = IMAGE_IDLE;
+    }
+    luna_state.frame = (luna_state.frame + 1) % NUM_FRAMES;
+    return luna_state.raw;
+}
 
-const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame) {
+void oled_pet_post_render(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state, bool redraw) {}
+
+const char *oled_pet_frame(oled_pet_state_t state) {
     static const char PROGMEM IDLE_FRAMES[NUM_FRAMES][FRAME_BYTES] = {
         // clang-format off
         {
@@ -143,16 +152,17 @@ const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame) {
         },
         // clang-format on
     };
-    switch (state) {
-        case OLED_PET_WALK:
-            return WALK_FRAMES[frame];
-        case OLED_PET_RUN:
-            return RUN_FRAMES[frame];
-        case OLED_PET_SNEAK:
-            return SNEAK_FRAMES[frame];
-        case OLED_PET_BARK:
-            return BARK_FRAMES[frame];
+    luna_state_t luna_state = {.raw = state};
+    switch (luna_state.image) {
+        case IMAGE_WALK:
+            return WALK_FRAMES[luna_state.frame];
+        case IMAGE_RUN:
+            return RUN_FRAMES[luna_state.frame];
+        case IMAGE_SNEAK:
+            return SNEAK_FRAMES[luna_state.frame];
+        case IMAGE_BARK:
+            return BARK_FRAMES[luna_state.frame];
         default:
-            return IDLE_FRAMES[frame];
+            return IDLE_FRAMES[luna_state.frame];
     }
 }

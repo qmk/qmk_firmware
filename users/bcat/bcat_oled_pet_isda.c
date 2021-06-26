@@ -42,12 +42,9 @@
 #define NUM_FRAMES 4
 #define FRAME_BYTES 288 /* (32 pixel) * (72 pixel) / (8 pixel/byte) */
 
-uint8_t  oled_pet_num_frames(void) { return NUM_FRAMES; }
 uint16_t oled_pet_frame_bytes(void) { return FRAME_BYTES; }
 uint8_t  oled_pet_frame_lines(void) { return 9 /* (72 pixel) / (8 pixel/line) */; }
 bool     oled_pet_can_jump(void) { return false; }
-
-oled_pet_state_t oled_pet_state(const oled_keyboard_state_t *keyboard_state) { return OLED_PET_IDLE; }
 
 uint16_t oled_pet_update_millis(const oled_keyboard_state_t *keyboard_state) {
     static const uint16_t MIN_MILLIS = 75;
@@ -60,7 +57,12 @@ uint16_t oled_pet_update_millis(const oled_keyboard_state_t *keyboard_state) {
     return MAX_MILLIS - (MAX_MILLIS - MIN_MILLIS) * wpm / MAX_WPM;
 }
 
-void oled_pet_post_render(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state, bool jumping, bool redraw) {
+oled_pet_state_t oled_pet_next_state(oled_pet_state_t state, const oled_keyboard_state_t *keyboard_state) {
+    /* When the user stops typing, cycle the animation to frame 0 and stop. */
+    return state != 0 || keyboard_state->wpm > 0 ? (state + 1) % NUM_FRAMES : 0;
+}
+
+void oled_pet_post_render(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state, bool redraw) {
     /* Draws LED indicator status in the bottom-right corner of the OLED pet,
      * atop the animation frame. Redrawn only when necessary, e.g., when LED
      * status changes or the animation itself updated (which overwrites any
@@ -69,17 +71,17 @@ void oled_pet_post_render(uint8_t col, uint8_t line, const oled_keyboard_state_t
     static led_t prev_leds = {.raw = 0};
     led_t        leds      = keyboard_state->leds;
     if (redraw || leds.raw != prev_leds.raw) {
-        oled_set_cursor(col + 4, line + !jumping + 4);
+        oled_set_cursor(col + 4, line + 4);
         oled_write_char(leds.num_lock ? 'N' : ' ', /*invert=*/false);
-        oled_set_cursor(col + 4, line + !jumping + 6);
+        oled_set_cursor(col + 4, line + 6);
         oled_write_char(leds.caps_lock ? 'C' : ' ', /*invert=*/false);
-        oled_set_cursor(col + 4, line + !jumping + 8);
+        oled_set_cursor(col + 4, line + 8);
         oled_write_char(leds.scroll_lock ? 'S' : ' ', /*invert=*/false);
         prev_leds = leds;
     }
 }
 
-const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame) {
+const char *oled_pet_frame(oled_pet_state_t state) {
     static const char PROGMEM FRAMES[NUM_FRAMES][FRAME_BYTES] = {
         // clang-format off
         {
@@ -128,5 +130,5 @@ const char *oled_pet_frame(oled_pet_state_t state, uint8_t frame) {
         },
         // clang-format on
     };
-    return FRAMES[frame];
+    return FRAMES[state];
 }

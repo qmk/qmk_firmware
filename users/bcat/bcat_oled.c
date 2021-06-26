@@ -154,44 +154,40 @@ void process_record_oled(uint16_t keycode, const keyrecord_t *record) {
     }
 }
 
-static void redraw_oled_pet(uint8_t col, uint8_t line, bool jumping, oled_pet_state_t state, uint8_t frame) {
+static void redraw_oled_pet(uint8_t col, uint8_t line, bool jumping, oled_pet_state_t state) {
     oled_set_cursor(col, line);
     if (jumping) {
-        oled_write_raw_P(oled_pet_frame(state, frame), oled_pet_frame_bytes());
+        oled_write_raw_P(oled_pet_frame(state), oled_pet_frame_bytes());
         oled_set_cursor(col, line + oled_pet_frame_lines());
         oled_advance_page(/*clearPageRemainder=*/true);
     } else {
         oled_advance_page(/*clearPageRemainder=*/true);
-        oled_write_raw_P(oled_pet_frame(state, frame), oled_pet_frame_bytes());
+        oled_write_raw_P(oled_pet_frame(state), oled_pet_frame_bytes());
     }
 }
 
 void render_oled_pet(uint8_t col, uint8_t line, const oled_keyboard_state_t *keyboard_state) {
-    /* Whether or not the animation state or frame has changed since the pet
-     * was last drawn. We track this to avoid redrawing the same frame
-     * repeatedly during idle. This allows the caller to draw on top of the pet
-     * without preventing the OLED from ever going to sleep.
+    /* Current animation to draw. We track changes to avoid redrawing the same
+     * frame repeatedly, allowing oled_pet_post_render to draw over the
+     * animation frame.
      */
-    static bool animation_changed = true;
-
-    /* Current animation state and frame to redraw. */
-    static oled_pet_state_t state = OLED_PET_IDLE;
-    static uint8_t          frame = 0;
+    static oled_pet_state_t state         = 0;
+    static bool             state_changed = true;
 
     /* Minimum time until the pet comes down after jumping. */
-    static const uint16_t JUMP_MILLIS  = 200;
-    static bool           jumping      = false;
-    static uint32_t       jump_timeout = 0;
+    static const uint16_t JUMP_MILLIS = 200;
+    static bool           jumping     = false;
 
-    /* Time until next animation state/frame change. */
+    /* Time until the next animation or jump state change. */
     static uint32_t update_timeout = 0;
+    static uint32_t jump_timeout   = 0;
 
     /* If the user pressed the jump key, immediately redraw instead of waiting
      * for the animation frame to update. That way, the pet appears to respond
      * to jump commands quickly rather than lagging. If the user released the
      * jump key, wait for the jump timeout to avoid overly brief jumps.
      */
-    bool redraw = animation_changed;
+    bool redraw = state_changed;
     if (oled_pet_should_jump && !jumping) {
         redraw       = true;
         jumping      = true;
@@ -201,28 +197,24 @@ void render_oled_pet(uint8_t col, uint8_t line, const oled_keyboard_state_t *key
         jumping = false;
     }
 
+    /* Draw the actual animation, then move the cursor to the end of the
+     * rendered area. (Note that we take up an extra line to account for
+     * jumping, which shifts the animation up or down a line.)
+     */
     if (redraw) {
-        redraw_oled_pet(col, line, jumping, state, frame);
+        redraw_oled_pet(col, line, jumping, state);
     }
-    oled_pet_post_render(col, line, keyboard_state, jumping, redraw);
+    oled_pet_post_render(col, line + !jumping, keyboard_state, redraw);
     oled_set_cursor(col, line + oled_pet_frame_lines() + 1);
 
-    /* If the update timer expired, recompute the pet's animation state and
-     * possibly advance to the next frame.
-     */
-    animation_changed = false;
+    /* If the update timer expired, recompute the pet's animation state. */
     if (timer_expired32(timer_read32(), update_timeout)) {
-        oled_pet_state_t new_state = oled_pet_state(keyboard_state);
-        if (state != new_state) {
-            state             = new_state;
-            animation_changed = true;
-        }
-        /* If the user stopped typing, cycle around to the initial frame. */
-        if (keyboard_state->wpm > 0 || state != OLED_PET_IDLE || frame != 0) {
-            frame             = (frame + 1) % oled_pet_num_frames();
-            update_timeout    = timer_read32() + oled_pet_update_millis(keyboard_state);
-            animation_changed = true;
-        }
+        oled_pet_state_t new_state = oled_pet_next_state(state, keyboard_state);
+        state_changed              = new_state != state;
+        state                      = new_state;
+        update_timeout             = timer_read32() + oled_pet_update_millis(keyboard_state);
+    } else {
+        state_changed = false;
     }
 }
 #endif
