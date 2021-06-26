@@ -166,6 +166,13 @@ def generate_config_h(cli):
                 config_h_lines.append('#   define EE_HANDS')
                 config_h_lines.append('#endif // EE_HANDS')
 
+        if 'protocol' in kb_info_json['split'].get('transport', {}):
+            if kb_info_json['split']['transport']['protocol'] == 'i2c':
+                config_h_lines.append('')
+                config_h_lines.append('#ifndef USE_I2C')
+                config_h_lines.append('#   define USE_I2C')
+                config_h_lines.append('#endif // USE_I2C')
+
     # Show the results
     config_h = '\n'.join(config_h_lines)
 

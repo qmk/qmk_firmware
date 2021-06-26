@@ -76,6 +76,10 @@ def generate_rules_mk(cli):
                 enabled = 'yes' if enabled else 'no'
                 rules_mk_lines.append(f'{feature}_ENABLE ?= {enabled}')
 
+    # Set SPLIT_TRANSPORT, if needed
+    if kb_info_json.get('split', {}).get('transport', {}).get('protocol') == 'custom':
+        rules_mk_lines.append('SPLIT_TRANSPORT ?= custom')
+
     # Show the results
     rules_mk = '\n'.join(rules_mk_lines) + '\n'
 
