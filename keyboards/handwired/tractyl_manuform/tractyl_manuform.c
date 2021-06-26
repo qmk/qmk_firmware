@@ -17,6 +17,8 @@
 #include "tractyl_manuform.h"
 #include "transactions.h"
 #include <string.h>
+#include "drivers/sensors/pmw3360.h"
+#include "pointing_device.h"
 
 #ifndef TRACKBALL_DPI_OPTIONS
 #    define TRACKBALL_DPI_OPTIONS \

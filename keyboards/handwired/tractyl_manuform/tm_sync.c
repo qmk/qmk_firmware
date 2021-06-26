@@ -19,6 +19,7 @@
 #    include "tractyl_manuform.h"
 #    include <transactions.h>
 #    include <string.h>
+#    include "drivers/sensors/pmw3360.h"
 
 kb_runtime_config_t kb_state;
 kb_slave_data_t     kb_slave;
