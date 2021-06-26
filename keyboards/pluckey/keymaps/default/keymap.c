@@ -26,9 +26,7 @@ enum layer_names {
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
     M_ARROW,
-    M_DTHIS,
-    QMKBEST = SAFE_RANGE,
-    QMKURL
+    M_DTHIS
 };
 
 #define MO_LOW MO(_LOWER)
@@ -90,41 +88,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("$this->");
             }
             break;
-        // general
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
     }
     return true;
 }
 
 #ifdef ENCODER_ENABLE
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_DOWN);
-        } else {
-            tap_code(KC_UP);
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0 || index == 1) {
+        switch (layer_state) {
+            case _BASE:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
+            case _LOWER:
+                if (clockwise) {
+                    tap_code16(LCTL(KC_Y));
+                } else {
+                    tap_code16(LCTL(KC_Z));
+                }
+                break;
+            case _RAISE:
+                if (clockwise) {
+                    tap_code(KC_WH_U);
+                } else {
+                    tap_code(KC_WH_D);
+                }
+                break;
+            case _ADJUST:
+                if (clockwise) {
+                    tap_code(KC_LEFT);
+                } else {
+                    tap_code(KC_RGHT);
+                }
+                break;
+            default:
+                break;
         }
     }
+    return true;
 }
 
 #endif

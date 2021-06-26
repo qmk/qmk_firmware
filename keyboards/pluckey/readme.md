@@ -1,13 +1,12 @@
 # Pluckey
 
-![pluckey](imgur.com image replace me!)
+![pluckey](https://gist.githubusercontent.com/floookay/ea7313862e407c9b5aaea3d6ed3ce233/raw/4c37d31cb414b9a7709810434a3b68f4b9b9c0dc/skeleton%2520sunshine.jpg)
 
-The plucky is an ergodox like split keyboard with a more extreme columnal stagger.  
-I took inspiration from splitkb's Kyria and the Ergodox design.
+The plucky is an ergodox like split keyboard with moderate columnal stagger and a horizontal space key.
 
 * Keyboard Maintainer: [floookay](https://github.com/floookay)
 * Hardware Supported: pluckey pcbs with pro micro controllers
-* Hardware Availability: [pcb &amp; case](https://github.com/floookay/pluckey)
+* Hardware Availability: [pcb &amp; case files](https://github.com/floookay/pluckey)
 
 Make example for this keyboard (after setting up your build environment):
 
