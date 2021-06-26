@@ -196,7 +196,7 @@ static void exec_keycode(uint16_t keycode) {
 #endif
 }
 
-void vial_encoder_update(uint8_t index, bool clockwise) {
+bool vial_encoder_update(uint8_t index, bool clockwise) {
     uint16_t code;
 
     layer_state_t layers = layer_state | default_layer_state;
@@ -206,12 +206,14 @@ void vial_encoder_update(uint8_t index, bool clockwise) {
             code = dynamic_keymap_get_encoder(i, index, clockwise);
             if (code != KC_TRNS) {
                 exec_keycode(code);
-                return;
+                return true;
             }
         }
     }
     /* fall back to layer 0 */
     code = dynamic_keymap_get_encoder(0, index, clockwise);
     exec_keycode(code);
+
+    return true;
 }
 #endif

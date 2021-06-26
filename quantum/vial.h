@@ -24,7 +24,7 @@
 void vial_handle_cmd(uint8_t *data, uint8_t length);
 
 #ifdef VIAL_ENCODERS_ENABLE
-void vial_encoder_update(uint8_t index, bool clockwise);
+bool vial_encoder_update(uint8_t index, bool clockwise);
 #endif
 
 extern int vial_unlocked;
