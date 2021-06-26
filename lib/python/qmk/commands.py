@@ -111,8 +111,8 @@ def get_git_version(current_time, repo_dir='.', check_dir='.'):
     return current_time
 
 
-def write_version_h(skip_git=False, skip_all=False):
-    """Generate and write quantum/version.h
+def create_version_h(skip_git=False, skip_all=False):
+    """Generate version.h contents
     """
     if skip_all:
         current_time = "1970-01-01-00:00:00"
@@ -139,8 +139,7 @@ def write_version_h(skip_git=False, skip_all=False):
 #define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"
 """
 
-    version_h = Path('quantum/version.h')
-    version_h.write_text(version_h_lines)
+    return version_h_lines
 
 
 def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
@@ -173,8 +172,8 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     keymap_dir.mkdir(exist_ok=True, parents=True)
     keymap_c.write_text(c_text)
 
-    # Write the version.h file
-    write_version_h()
+    version_h = Path('quantum/version.h')
+    version_h.write_text(create_version_h())
 
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
