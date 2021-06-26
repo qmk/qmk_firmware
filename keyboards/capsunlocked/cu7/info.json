@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "CU7",
+    "url": "",
+    "maintainer": "qmk",
+    "width": 3,
+    "height": 4.5,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"x":0, "y":2.5}, {"x":1, "y":2.5}, {"x":2, "y":2.5}, {"x":0, "y":3.5}, {"x":1, "y":3.5}, {"x":2, "y":3.5}]
+        }
+    }
+}

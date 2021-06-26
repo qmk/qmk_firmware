@@ -1,0 +1,18 @@
+{
+    "name": "CapsUnlocked CU7",
+    "vendorId": "0x4355",
+    "productId": "0x0007",
+    "lighting": "qmk_rgblight",
+    "matrix": {
+        "rows": 3,
+        "cols": 3
+    },
+    "layouts": {
+        "keymap": [
+            [{"x":0.25},"0,0\n\n\n\n\n\n\n\n\ne",{"x":0.5},"0,1\n\n\n\n\n\n\n\n\ne"],
+            [{"x":1.0},"0,1"],
+            ["1,0","1,1","1,2"],
+            ["2,0","2,1","2,2"]
+        ]
+    }
+}
