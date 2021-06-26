@@ -556,6 +556,6 @@ ifdef SKIP_VERSION
 VERSION_H_FLAGS := --skip-all
 SKIP_GIT := yes
 endif
-$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS)) -q -o quantum/version.h
+$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o quantum/version.h)
 
 include $(ROOT_DIR)/testlist.mk
