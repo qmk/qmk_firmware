@@ -1,6 +1,6 @@
 # flygone60
 
-![Flygone60](https://imgur.com/a/mZV0Dpi)
+![Flygone60](https://i.imgur.com/x63gMG2h.jpeg)
 
 A 60% that takes arrow keys seriously!
 
