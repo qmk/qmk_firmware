@@ -64,8 +64,11 @@
 #define BiuNrf52MsgTimeout       150           /* milliseconds */
 #define BiuNrf52MsgShortTimeout  10            /* milliseconds */
 #define BiuNrf52MsgRecvTimeout   2000          /* microseconds */
+
+#define BiuNrf52ResetTimeout     10000          /* microseconds */
+#define BiuNrf52InitTimeout      3000          /* microseconds */
 #define BiuNrf52SystemOffTimeout 30000         /* milliseconds */
-#define BatteryUpdateInterval    30000         /* milliseconds */
+#define BatteryUpdateInterval    300000         /* milliseconds */
 
 
 
@@ -199,6 +202,7 @@ static struct {
     uint32_t vbat;
 #endif
     uint16_t last_connection_update;
+    uint16_t last_reset_update;
     bool has_send_ask;
 } state;
 
@@ -336,7 +340,6 @@ static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout, bool 
     do {
         // some to confirm the uart is start and can put new data
         ready = !sdPutWouldBlock(&SERIAL_DRIVER);
-
         if (ready) {
             break;
         }
@@ -346,7 +349,7 @@ static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout, bool 
     if (ready) {
         // uart is ready; send the rest of the packet
         for (uint8_t i = 0; i < cmd_len; ++i) {
-            uart_putchar((uint8_t)cmd[i]);
+            uart_putchar(cmd[i]);
         }
     } else {
         return false;
@@ -686,8 +689,12 @@ bool bluetooth_init_pre(void) {
     uart_init(BIUNRF52UartBaud);
 
     // hang up the reset pin
-    setPinOutput(BIUNRF52ResetPin);
-    writePinHigh(BIUNRF52ResetPin);
+    palSetLineMode(BIUNRF52ResetPin, PAL_MODE_OUTPUT_PUSHPULL);
+    palClearLine(BIUNRF52ResetPin);
+    wait_ms(200);
+    palSetLine(BIUNRF52ResetPin);
+    wait_ms(3000);
+    state.last_reset_update = timer_read();
 
     // set the adc read sw off
 #   ifdef BATTERY_LEVEL_SW_PIN
@@ -699,17 +706,20 @@ bool bluetooth_init_pre(void) {
 }
 
 
-bool bluetooth_init(void) {
 
-    dprint("Start Init the Nrf!!!\n");
-    // performance a reset
-    writePinLow(BIUNRF52ResetPin);
-    wait_ms(100);
-    writePinHigh(BIUNRF52ResetPin);
+bool bluetooth_init(void) {
 
     struct queue_item item;
 
     if (!state.has_send_ask) {
+        dprint("Start Init the Nrf!!!\n");
+        // performance a reset
+        if (TIMER_DIFF_16(timer_read(), state.last_reset_update) >= BiuNrf52ResetTimeout) {
+            palClearLine(BIUNRF52ResetPin);
+            wait_ms(200);
+            palSetLine(BIUNRF52ResetPin);
+            state.last_reset_update = timer_read();
+        }
         item.queue_type   = QTAskNrf;
         item.added        = timer_read();
         while (!send_buf.enqueue(item)) {
@@ -725,7 +735,7 @@ bool bluetooth_init(void) {
     // resp_buf_read_one();
     // state.last_connection_update = timer_read();
 
-    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
+    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52InitTimeout) {
         resp_buf_read_one();
         state.last_connection_update = timer_read();
         state.has_send_ask = false;
@@ -740,11 +750,11 @@ bool biu_ble_enable_keyboard(void) {
     if (!state.initialized && !bluetooth_init()) {
         return false;
     }
-    dprint("Start Configure the Nrf!!!\n");
 
     struct queue_item item;
 
     if (!state.has_send_ask) {
+        dprint("Start Configure the Nrf!!!\n");
         item.queue_type   = QTAskNrf;
         item.added        = timer_read();
         while (!send_buf.enqueue(item)) {
@@ -775,11 +785,11 @@ bool biu_ble_connection_check() {
     if (!state.configured && !biu_ble_enable_keyboard()) {
         return false;
     }
-    dprint("Start Connect the Nrf!!!\n");
 
     struct queue_item item;
 
     if (!state.has_send_ask) {
+        dprint("Start Connect the Nrf!!!\n");
         item.queue_type   = QTAskNrf;
         item.added        = timer_read();
         while (!send_buf.enqueue(item)) {
