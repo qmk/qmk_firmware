@@ -15,9 +15,6 @@
  */
 
 #include "4x6_right.h"
-#include "spi_master.h"
-#include "drivers/sensors/pmw3360.h"
-#include "pointing_device.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {

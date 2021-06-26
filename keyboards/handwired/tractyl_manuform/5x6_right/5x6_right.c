@@ -15,9 +15,6 @@
  */
 
 #include "5x6_right.h"
-#include "spi_master.h"
-#include "drivers/sensors/pmw3360.h"
-#include "pointing_device.h"
 
 #ifdef SWAP_HANDS_ENABLE
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
