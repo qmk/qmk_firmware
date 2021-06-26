@@ -86,10 +86,16 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
     return create_make_target(':'.join(make_args), parallel, **env_vars)
 
 
-def get_git_version(repo_dir='.', check_dir='.'):
+def get_git_version(current_time, repo_dir='.', check_dir='.'):
     """Returns the current git version for a repo, or the current time.
     """
     git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
+
+    if repo_dir != '.':
+        repo_dir = Path('lib') / repo_dir
+
+    if check_dir != '.':
+        check_dir = repo_dir / check_dir
 
     if Path(check_dir).exists():
         git_describe = cli.run(git_describe_cmd, stdin=DEVNULL, cwd=repo_dir)
@@ -100,23 +106,40 @@ def get_git_version(repo_dir='.', check_dir='.'):
         else:
             cli.log.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
             print(git_describe.stderr)
-            return strftime(time_fmt)
+            return current_time
 
-    return strftime(time_fmt)
+    return current_time
 
 
-def write_version_h(git_version, build_date, chibios_version, chibios_contrib_version):
-    """Generate and write quantum/version.h
+def create_version_h(skip_git=False, skip_all=False):
+    """Generate version.h contents
     """
-    version_h = [
-        f'#define QMK_VERSION "{git_version}"',
-        f'#define QMK_BUILDDATE "{build_date}"',
-        f'#define CHIBIOS_VERSION "{chibios_version}"',
-        f'#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"',
-    ]
+    if skip_all:
+        current_time = "1970-01-01-00:00:00"
+    else:
+        current_time = strftime(time_fmt)
 
-    version_h_file = Path('quantum/version.h')
-    version_h_file.write_text('\n'.join(version_h))
+    if skip_git:
+        git_version = "NA"
+        chibios_version = "NA"
+        chibios_contrib_version = "NA"
+    else:
+        git_version = get_git_version(current_time)
+        chibios_version = get_git_version(current_time, "chibios", "os")
+        chibios_contrib_version = get_git_version(current_time, "chibios-contrib", "os")
+
+    version_h_lines = f"""/* This file was automatically generated. Do not edit or copy.
+ */
+
+#pragma once
+
+#define QMK_VERSION "{git_version}"
+#define QMK_BUILDDATE "{current_time}"
+#define CHIBIOS_VERSION "{chibios_version}"
+#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"
+"""
+
+    return version_h_lines
 
 
 def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
@@ -149,13 +172,8 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     keymap_dir.mkdir(exist_ok=True, parents=True)
     keymap_c.write_text(c_text)
 
-    # Write the version.h file
-    git_version = get_git_version()
-    build_date = strftime('%Y-%m-%d-%H:%M:%S')
-    chibios_version = get_git_version("lib/chibios", "lib/chibios/os")
-    chibios_contrib_version = get_git_version("lib/chibios-contrib", "lib/chibios-contrib/os")
-
-    write_version_h(git_version, build_date, chibios_version, chibios_contrib_version)
+    version_h = Path('quantum/version.h')
+    version_h.write_text(create_version_h())
 
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
@@ -181,10 +199,6 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         make_command.append(f'{key}={value}')
 
     make_command.extend([
-        f'GIT_VERSION={git_version}',
-        f'BUILD_DATE={build_date}',
-        f'CHIBIOS_VERSION={chibios_version}',
-        f'CHIBIOS_CONTRIB_VERSION={chibios_contrib_version}',
         f'KEYBOARD={user_keymap["keyboard"]}',
         f'KEYMAP={user_keymap["keymap"]}',
         f'KEYBOARD_FILESAFE={keyboard_filesafe}',
