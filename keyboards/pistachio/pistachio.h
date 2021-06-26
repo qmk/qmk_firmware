@@ -18,8 +18,8 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_pistachio_rev1
-    #include "rev1.h"
-#elif KEYBOARD_pistachio_rev2
-    #include "rev2.h"
+#if defined(KEYBOARD_pistachio_rev1)
+#    include "rev1.h"
+#elif defined(KEYBOARD_pistachio_rev2)
+#    include "rev2.h"
 #endif
