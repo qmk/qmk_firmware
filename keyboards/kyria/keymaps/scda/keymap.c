@@ -3,34 +3,22 @@
 
 enum layers { _LETTERS = 0, _SYMBOLS, _NUMBERS, _MEDIA, _KBD_CTRL };
 
-// Left-hand home row mods
-#define HOMEROW_H CTL_T(KC_H)
-#define HOMEROW_A ALT_T(KC_A)
-#define HOMEROW_E GUI_T(KC_E)
-#define HOMEROW_I SFT_T(KC_I)
-
-// Right-hand home row mods
-#define HOMEROW_T SFT_T(KC_T)
-#define HOMEROW_R GUI_T(KC_R)
-#define HOMEROW_N ALT_T(KC_N)
-#define HOMEROW_S CTL_T(KC_S)
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
         G(KC_TAB), KC_X, DE_DOT, KC_O, DE_COMM, KC_Y,
         KC_V, KC_G, KC_C, KC_L, KC_J, G(KC_SPC),
-        LT(4,KC_ESC), HOMEROW_H, HOMEROW_A, HOMEROW_E, HOMEROW_I, KC_U,
-        KC_D, HOMEROW_T, HOMEROW_R, HOMEROW_N, HOMEROW_S, KC_F,
+        LT(4,KC_ESC), CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I), KC_U,
+        KC_D, SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
         KC_NO, KC_K, KC_Q, DE_ADIA, DE_UDIA, DE_ODIA, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_B, KC_P, KC_W, KC_M, KC_Z, DE_SS,
-        KC_HOME, KC_BSPC, LT(_SYMBOLS,KC_TAB), LT(_NUMBERS,KC_SPC), LT(_MEDIA,KC_ENT),
-        LT(_MEDIA,KC_ENT), LT(_NUMBERS,KC_SPC), LT(_SYMBOLS,KC_TAB), KC_DEL, KC_END),
+        KC_HOME, KC_BSPC, LT(_SYMBOLS, KC_TAB), LT(_NUMBERS, KC_SPC), LT(_MEDIA, KC_ENT),
+        LT(_MEDIA, KC_ENT), LT(_NUMBERS, KC_SPC), LT(_SYMBOLS, KC_TAB), KC_DEL, KC_END),
     [_SYMBOLS] = LAYOUT(
         KC_TRNS, DE_AT, DE_PERC, DE_LCBR, DE_RCBR, DE_PIPE,
         DE_EXLM, KC_GRV, S(KC_GRV), DE_EQL, DE_AMPR, KC_TRNS,
-        KC_TRNS, KC_NUBS, DE_TILD, DE_LPRN, DE_RPRN, DE_ASTR,
-        DE_QUES, DE_SLSH, DE_COLN, DE_MINS, DE_UNDS, KC_NO,
+        KC_TRNS, CTL_T(KC_NUBS), ALT_T(DE_TILD), GUI_T(DE_LPRN), SFT_T(DE_RPRN), DE_ASTR,
+        DE_QUES, SFT_T(DE_SLSH), GUI_T(DE_COLN), ALT_T(DE_MINS), CTL_T(DE_UNDS), KC_NO,
         KC_TRNS, DE_EURO, DE_DLR, DE_LBRC, DE_RBRC, DE_HASH, KC_NO, KC_NO,
         KC_NO, KC_NO, DE_GRV, DE_BSLS, DE_SCLN, DE_PLUS, DE_DQUO, DE_QUOT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -38,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUMBERS] = LAYOUT(
         KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,
         KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-        KC_TRNS, DE_1, DE_2, DE_3, DE_4, DE_5,
-        DE_6, DE_7, DE_8, DE_9, DE_0, KC_F12,
+        KC_TRNS, CTL_T(DE_1), ALT_T(DE_2), GUI_T(DE_3), SFT_T(DE_4), DE_5,
+        DE_6, SFT_T(DE_7), GUI_T(DE_8), ALT_T(DE_9), CTL_T(DE_0), KC_F12,
         KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -65,7 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
@@ -85,13 +72,11 @@ static void render_status(void) {
             oled_write_P(PSTR("Media\n"), false);
             break;
         case _KBD_CTRL:
-            oled_write_P(PSTR("KBD_CTRL\n"), false);
+            oled_write_P(PSTR("Ctrl\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
     }
-
-    // if (get_mods() & MOD_MASK_SHIFT) {
 
     // Host Keyboard LED Status
     uint8_t led_usb_state = host_keyboard_leds();
@@ -100,15 +85,9 @@ static void render_status(void) {
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
-static void render_modifiers(void) {
-    // TODO: missing
-}
-
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-    } else {
-        render_modifiers();
+        render_status();  // Renders the current keyboard state (layers and locks)
     }
 }
 #endif
