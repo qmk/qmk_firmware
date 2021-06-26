@@ -181,6 +181,29 @@
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"},
+                "matrix_pins": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "right": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "direct": {
+                                        "type": "array",
+                                        "items": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                                    },
+                                    "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                                    "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                                    "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                                }
+                            }
+                        }
+                    }
+                },
                 "primary": {
                     "type": "string",
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
