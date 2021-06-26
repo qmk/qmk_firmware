@@ -39,7 +39,7 @@
 従って、例を挙げると、`01000010` は LShift+RALT の内部表現です。
 C 言語におけるビット演算のより詳しい情報は、[ここ](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) をクリックして、Wikipedia のページのトピックを開いてください。
 
-実行するうえで、左右のモディファイアの違いが重要でなく、両方にマッチすることを望むなら、`get_mods() & MOD_BIT(KC_<modifier>)` ([モディファイアキーコードのリスト](ja/keycodes_basic.md#modifiers) 参照) でも `get_mods() & MOD_MASK_<modifier>` でも、与えられたモディファイアがアクティブか確認できることを意味しています。`get_mods()` を `get_oneshot_mods()` に置き換えれば、ワンショットモディファイアでも同じことができます。
+実際には、`get_mods() & MOD_BIT(KC_<modifier>)`([モディファイアキーコードのリスト](ja/keycodes_basic.md#modifiers) 参照) で、あるモディファイアが有効かどうかをチェックできるということです、また左右のモディファイアの違いが重要ではなく、両方にマッチさせたい場合は、`get_mods() & MOD_MASK_<modifier>`とします。ワンショットモディファイアについても、`get_mods()` を `get_oneshot_mods()` に置き換えれば同じことができます。
 
 モディファイアの特定の組み合わせが同時にアクティブなのか確認する*だけ*なら、上で説明したモディファイアの状態とモッドマスクの論理積と、モッドマスク自身の結果を比較します。: `get_mods() & <mod mask> == <mod mask>`
 
