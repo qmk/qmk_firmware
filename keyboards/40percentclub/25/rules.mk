@@ -33,4 +33,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 # Enable generic behavior for split boards
 SPLIT_KEYBOARD = yes
 
-LAYOUTS = ortho_5x5 ortho_5x10
+LAYOUTS = ortho_5x10
