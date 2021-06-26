@@ -1,4 +1,5 @@
 /* Copyright 2020 Purdea Andrei
+ * Copyright 2021 Matthew J Wolf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,17 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* MJW - 24-jun-2021 first quick review
- Too much use of global defines!!!!!!!!!!!!!
-
-Defines in these fuctions need to replaced with varibes or stuctiures
-raw_hid_receive()
-
-
-Defines need to be moved out of the c source and into the header file.
-#define RAW_EPSIZE 32
-*/
-
 #include "quantum.h"
 #include "raw_hid.h"
 #include "util_comm.h"
@@ -36,15 +26,19 @@ Defines need to be moved out of the c source and into the header file.
 #error "Enabling the KEYBOARD_SHARED_EP will make the util be unable to communicate with the firmware, because due to hidapi limiations, the util can't figure out which interface to talk to, so it hardcodes interface zero."
 #endif
 
-#ifndef RAW_EPSIZE
-#define RAW_EPSIZE 32
-#endif
-
-#define min(x, y) (((x) < (y))?(x):(y))
-
 extern const char *KEYBOARD_FILENAME; // This must be defined in keyboard_name.c to equal the filename. This is sent back to the PC-side software for it to determine which keyboard we are using.
 
 static const uint8_t magic[] = UTIL_COMM_MAGIC;
+
+// Has well know issues.
+//#define min(x, y) (((x) < (y))?(x):(y))
+
+inline int min(int x, int y) {
+  if (x > y) {
+    return y;
+  }
+  return x;
+}
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     if (0 != memcmp(data, magic, sizeof(magic))) {
@@ -171,6 +165,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 response[2] = UTIL_COMM_RESPONSE_OK;
                 response[3] = MATRIX_COLS;
                 response[4] = MATRIX_ROWS;
+                response[5] = GET_KEYBOARD_DETAILS_5;
+/*
                 #if defined(CONTROLLER_IS_XWHATSIT_BEAMSPRING_REV_4)
                 response[5] = 1;
                 #elif defined(CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F)
@@ -182,6 +178,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 #else
                 response[5] = 0;
                 #endif
+*/
                 response[6] = CAPSENSE_KEYBOARD_SETTLE_TIME_US;
                 response[7] = CAPSENSE_DAC_SETTLE_TIME_US;
                 response[8] = CAPSENSE_HARDCODED_SAMPLE_TIME;

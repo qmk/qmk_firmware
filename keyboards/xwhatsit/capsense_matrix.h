@@ -14,6 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
+#define TRACKING_TEST_TIME 4
+// Key 1 is the always non-pressed key under the space bar to the right.
+#define TRACKING_KEY_1_COL 6
+#define TRACKING_KEY_1_ROW 4
+// Key 2 is the always-pressed calibration pad to the far right-bottom of the keyboard. (both on F62 and F77)
+#define TRACKING_KEY_2_COL 15
+#define TRACKING_KEY_2_ROW 6
+// Key 3 is the F key
+#define TRACKING_KEY_3_COL 2
+#define TRACKING_KEY_3_ROW 5
+// Key 4 is the half of the split backspace that is unused if the user has a normal backspace.
+#define TRACKING_KEY_4_COL 7
+#define TRACKING_KEY_4_ROW 3
+// Key 5 is hidden key next to the left shift, which is only used in ISO layouts.
+#define TRACKING_KEY_5_COL 0
+#define TRACKING_KEY_5_ROW 7
+
+#define TRACKING_REPS 16
+
+
 
 #ifndef MATRIX_MANIPULATE_H
 #define MATRIX_MANIPULATE_H

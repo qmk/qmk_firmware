@@ -10,3 +10,7 @@ I renamed directory "brand_new_model_f" to "model_f_labs".
 
 I renamed matrix.c to capsense_matrix.c
 I renamed matrix_manipulate.h capsense_matrix.h
+
+25 jun 2021
+
+for x in ibm model_f_labs sneakyrobb; do for y in $(ls keyboards/xwhatsit/$x); do for z in universal wcass xwhatsit; do echo "make xwhatsit/$x/$y/$z:all"; done; done; done
