@@ -2,17 +2,16 @@
 """
 import json
 import os
-import platform
-import subprocess
-import shlex
 import shutil
 from pathlib import Path
+from subprocess import DEVNULL
 from time import strftime
 
 from milc import cli
 
 import qmk.keymap
 from qmk.constants import KEYBOARD_OUTPUT_PREFIX
+from qmk.json_schema import json_load
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
 
@@ -26,6 +25,33 @@ def _find_make():
         make_cmd = 'gmake' if shutil.which('gmake') else 'make'
 
     return make_cmd
+
+
+def create_make_target(target, parallel=1, **env_vars):
+    """Create a make command
+
+    Args:
+
+        target
+            Usually a make rule, such as 'clean' or 'all'.
+
+        parallel
+            The number of make jobs to run in parallel
+
+        **env_vars
+            Environment variables to be passed to make.
+
+    Returns:
+
+        A command that can be run to make the specified keyboard and keymap
+    """
+    env = []
+    make_cmd = _find_make()
+
+    for key, value in env_vars.items():
+        env.append(f'{key}={value}')
+
+    return [make_cmd, '-j', str(parallel), *env, target]
 
 
 def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
@@ -52,17 +78,12 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
 
         A command that can be run to make the specified keyboard and keymap
     """
-    env = []
     make_args = [keyboard, keymap]
-    make_cmd = _find_make()
 
     if target:
         make_args.append(target)
 
-    for key, value in env_vars.items():
-        env.append(f'{key}={value}')
-
-    return [make_cmd, '-j', str(parallel), *env, ':'.join(make_args)]
+    return create_make_target(':'.join(make_args), parallel, **env_vars)
 
 
 def get_git_version(repo_dir='.', check_dir='.'):
@@ -71,13 +92,13 @@ def get_git_version(repo_dir='.', check_dir='.'):
     git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
 
     if Path(check_dir).exists():
-        git_describe = cli.run(git_describe_cmd, cwd=repo_dir)
+        git_describe = cli.run(git_describe_cmd, stdin=DEVNULL, cwd=repo_dir)
 
         if git_describe.returncode == 0:
             return git_describe.stdout.strip()
 
         else:
-            cli.args.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
+            cli.log.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
             print(git_describe.stderr)
             return strftime(time_fmt)
 
@@ -180,6 +201,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
+        f'QMK_BIN={"bin/qmk" if "DEPRECATED_BIN_QMK" in os.environ else "qmk"}',
     ])
 
     return make_command
@@ -190,22 +212,14 @@ def parse_configurator_json(configurator_file):
     """
     # FIXME(skullydazed/anyone): Add validation here
     user_keymap = json.load(configurator_file)
+    orig_keyboard = user_keymap['keyboard']
+    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+
+    if orig_keyboard in aliases:
+        if 'target' in aliases[orig_keyboard]:
+            user_keymap['keyboard'] = aliases[orig_keyboard]['target']
+
+        if 'layouts' in aliases[orig_keyboard] and user_keymap['layout'] in aliases[orig_keyboard]['layouts']:
+            user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
 
     return user_keymap
-
-
-def run(command, *args, **kwargs):
-    """Run a command with subprocess.run
-    """
-    platform_id = platform.platform().lower()
-
-    if isinstance(command, str):
-        raise TypeError('`command` must be a non-text sequence such as list or tuple.')
-
-    if 'windows' in platform_id:
-        safecmd = map(str, command)
-        safecmd = map(shlex.quote, safecmd)
-        safecmd = ' '.join(safecmd)
-        command = [os.environ['SHELL'], '-c', safecmd]
-
-    return subprocess.run(command, *args, **kwargs)

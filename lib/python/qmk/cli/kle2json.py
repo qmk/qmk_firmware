@@ -4,14 +4,15 @@ import json
 import os
 from pathlib import Path
 
+from argcomplete.completers import FilesCompleter
 from milc import cli
 from kle2xy import KLE2xy
 
 from qmk.converter import kle2qmk
-from qmk.info_json_encoder import InfoJSONEncoder
+from qmk.json_encoders import InfoJSONEncoder
 
 
-@cli.argument('filename', help='The KLE raw txt to convert')
+@cli.argument('filename', completer=FilesCompleter('.json'), help='The KLE raw txt to convert')
 @cli.argument('-f', '--force', action='store_true', help='Flag to overwrite current info.json')
 @cli.subcommand('Convert a KLE layout to a Configurator JSON', hidden=False if cli.config.user.developer else True)
 def kle2json(cli):

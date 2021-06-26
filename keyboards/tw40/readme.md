@@ -2,13 +2,16 @@
 
 ![tw40](https://cdn.shopify.com/s/files/1/0501/7537/7592/products/tw40_600x.jpg?v=1607835284)
 
-* Keyboard Maintainer: [KnoblesseOblige](https://github.com/yourusername)
+* Keyboard Maintainer: [KnoblesseOblige](https://github.com/KnoblesseOblige)
 * Hardware Supported: Training Wheel 40 PCB
 * Hardware Availability: https://p3dstore.com/products/tw40-gb
 
 Make example for this keyboard (after setting up your build environment):
 
     make tw40:default
+
+
+To flash a new firmware plug in the keyboard while holding Esc (top left key) and then run the commands below.
 
 Flashing example for this keyboard:
 
