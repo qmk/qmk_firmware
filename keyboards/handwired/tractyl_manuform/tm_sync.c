@@ -17,7 +17,7 @@
 #ifdef SPLIT_TRANSACTION_IDS_KB
 
 #    include "tractyl_manuform.h"
-#    include <transactions.h>
+#    include "transactions.h"
 #    include <string.h>
 #    include "drivers/sensors/pmw3360.h"
 
