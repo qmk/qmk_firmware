@@ -3,13 +3,25 @@
 
 enum layers { _LETTERS = 0, _SYMBOLS, _NUMBERS, _MEDIA, _KBD_CTRL };
 
+// Left-hand home row mods
+#define HOMEROW_H CTL_T(KC_H)
+#define HOMEROW_A ALT_T(KC_A)
+#define HOMEROW_E GUI_T(KC_E)
+#define HOMEROW_I SFT_T(KC_I)
+
+// Right-hand home row mods
+#define HOMEROW_T SFT_T(KC_T)
+#define HOMEROW_R GUI_T(KC_R)
+#define HOMEROW_N ALT_T(KC_N)
+#define HOMEROW_S CTL_T(KC_S)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
         G(KC_TAB), KC_X, DE_DOT, KC_O, DE_COMM, KC_Y,
         KC_V, KC_G, KC_C, KC_L, KC_J, G(KC_SPC),
-        LT(4,KC_ESC), KC_H, KC_A, KC_E, KC_I, KC_U,
-        KC_D, KC_T, KC_R, KC_N, KC_S, KC_F,
+        LT(4,KC_ESC), HOMEROW_H, HOMEROW_A, HOMEROW_E, HOMEROW_I, KC_U,
+        KC_D, HOMEROW_T, HOMEROW_R, HOMEROW_N, HOMEROW_S, KC_F,
         KC_NO, KC_K, KC_Q, DE_ADIA, DE_UDIA, DE_ODIA, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_B, KC_P, KC_W, KC_M, KC_Z, DE_SS,
         KC_HOME, KC_BSPC, LT(_SYMBOLS,KC_TAB), LT(_NUMBERS,KC_SPC), LT(_MEDIA,KC_ENT),
@@ -53,13 +65,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-/*
-// not fully understood yet, see https://docs.qmk.fm/#/ref_functions?id=update_tri_layer_statestate-x-y-z
-// seems like layer 3 can only be accessed from layer 1 and 2 or something like that?
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _SYMBOLS, _NUMBERS, _MEDIA);
-}
-*/
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
