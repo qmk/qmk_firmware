@@ -91,17 +91,20 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     uprintf("%ud rgb speed\n", rgb_matrix_config.speed);
 
     // uprintf("%ud g_rgb_time scale8\n", scale16by8(g_rgb_timer, rgb_matrix_config.speed / 4));
-    uint16_t keycode = KC_TRNS;
     if (clockwise) {
-        keycode = dynamic_keymap_get_keycode(biton32(layer_state), 4, 3);
+        uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 4, 3);
+        if (keycode >= MACRO00 && keycode <= MACRO15) {
+            dynamic_keymap_macro_send(keycode - MACRO00);
+        } else {
+            tap_code16(keycode);
+        }
     } else {
-        keycode = dynamic_keymap_get_keycode(biton32(layer_state), 4, 4);
-    }
-
-    if (keycode >= MACRO00 && keycode <= MACRO15) {
-        dynamic_keymap_macro_send(keycode - MACRO00);
-    } else {
-        tap_code16(keycode);
+        uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 4, 4);
+        if (keycode >= MACRO00 && keycode <= MACRO15) {
+            dynamic_keymap_macro_send(keycode - MACRO00);
+        } else {
+            tap_code16(keycode);
+        }
     }
 }
 #endif

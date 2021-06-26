@@ -13,31 +13,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
 
-/* OLED */
-#ifdef OLED_DRIVER_ENABLE
-// #    define OLED_DISPLAY_128X64
-#    define I2C_DRIVER I2CD1
-#    define I2C1_TIMINGR_PRESC 0U
-#    define I2C1_TIMINGR_SCLDEL 7U
-#    define I2C1_TIMINGR_SDADEL 0U
-#    define I2C1_TIMINGR_SCLH 38U
-#    define I2C1_TIMINGR_SCLL 129U
-#    define OLED_BRIGHTNESS 50
-#    define OLED_TIMEOUT 300000
-// #    define OLED_TIMEOUT 0
-#    define OLED_FONT_HEIGHT 8
-#    define OLED_FONT_WIDTH 6
-#    define OLED_FONT_H "../../jason_fount.c"
-#    define OLED_FONT_END 127
-#    define OLED_FONT_START 0
-#endif
+#include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xAA96
+#define PRODUCT_ID      0xAAA4
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    JasonRen biu
+#define PRODUCT         whiteMouse69
 
-#ifdef TAP_DANCE_ENABLE
-#define TAPPING_TERM 200
+// enable the nkro when using the VIA.
+#define FORCE_NKRO
 
-#endif
+// fix VIA RGB_light
+#define VIA_HAS_BROKEN_KEYCODES
+
+/* define if matrix has ghost */
+//#define MATRIX_HAS_GHOST
+
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCE 5
+
+// #define DEBUG_MATRIX_SCAN_RATE
 
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 4
+

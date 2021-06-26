@@ -19,18 +19,18 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAA04
+#define PRODUCT_ID      0xAA05
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    JasonRen biu
-#define PRODUCT         whiteMouse28T
+#define PRODUCT         m60ble
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 7
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 14
 
-//                        0    1    2   3   4    5   6
-#define MATRIX_COL_PINS { B14, B15, A8, A2, A3, B4, B3}
-#define MATRIX_ROW_PINS { B13, B12, B7, B6}
+//                        0    1    2    3   4   5   6   7   8   9   10  11  12  13
+#define MATRIX_COL_PINS { B12, B13, B14, B15,A8, B5, B4, B3, A15,B6, B7, B8, B9, A2}
+#define MATRIX_ROW_PINS { C14, C15, C13, A5, A4}
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -48,8 +48,6 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-// #define DEBUG_MATRIX_SCAN_RATE
 
-#define USB_POLLING_INTERVAL_MS 1
-#define QMK_KEYS_PER_SCAN 4
+
 
