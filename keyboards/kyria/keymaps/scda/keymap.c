@@ -3,6 +3,7 @@
 
 enum layers { _LETTERS = 0, _SYMBOLS, _NUMBERS, _MEDIA, _KBD_CTRL };
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
         G(KC_TAB), KC_X, DE_DOT, KC_O, DE_COMM, KC_Y,
@@ -11,8 +12,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_D, KC_T, KC_R, KC_N, KC_S, KC_F,
         KC_NO, KC_K, KC_Q, DE_ADIA, DE_UDIA, DE_ODIA, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_B, KC_P, KC_W, KC_M, KC_Z, DE_SS,
-        KC_HOME, KC_BSPC, LT(3,KC_TAB), LT(2,KC_SPC), LT(1,KC_ENT),
-        LT(1,KC_ENT), LT(2,KC_SPC), LT(3,KC_TAB), KC_DEL, KC_END),
+        KC_HOME, KC_BSPC, LT(_SYMBOLS,KC_TAB), LT(_NUMBERS,KC_SPC), LT(_MEDIA,KC_ENT),
+        LT(_MEDIA,KC_ENT), LT(_NUMBERS,KC_SPC), LT(_SYMBOLS,KC_TAB), KC_DEL, KC_END),
     [_SYMBOLS] = LAYOUT(
         KC_TRNS, DE_AT, DE_PERC, DE_LCBR, DE_RCBR, DE_PIPE,
         DE_EXLM, KC_GRV, S(KC_GRV), DE_EQL, DE_AMPR, KC_TRNS,
@@ -50,6 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
+// clang-format on
 
 /*
 // not fully understood yet, see https://docs.qmk.fm/#/ref_functions?id=update_tri_layer_statestate-x-y-z
@@ -69,7 +71,7 @@ static void render_status(void) {
             oled_write_P(PSTR("Letters\n"), false);
             break;
         case _SYMBOLS:
-            oled_write_P(PSTR("Signs\n"), false);
+            oled_write_P(PSTR("Symbols\n"), false);
             break;
         case _NUMBERS:
             oled_write_P(PSTR("Numbers\n"), false);
@@ -84,7 +86,7 @@ static void render_status(void) {
             oled_write_P(PSTR("Undefined\n"), false);
     }
 
-    //if (get_mods() & MOD_MASK_SHIFT) {
+    // if (get_mods() & MOD_MASK_SHIFT) {
 
     // Host Keyboard LED Status
     uint8_t led_usb_state = host_keyboard_leds();
@@ -94,7 +96,7 @@ static void render_status(void) {
 }
 
 static void render_modifiers(void) {
-  // TODO: missing
+    // TODO: missing
 }
 
 void oled_task_user(void) {
@@ -103,5 +105,41 @@ void oled_task_user(void) {
     } else {
         render_modifiers();
     }
+}
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+// called post init on every "boot"
+// will set the initial lightings
+void keyboard_post_init_user(void) {
+    rgblight_enable_noeeprom();  // enables Rgb, without saving settings
+    rgblight_mode_noeeprom(RGBLIGHT_DEFAULT_MODE);
+    rgblight_sethsv_noeeprom(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+}
+
+// called on every layer change
+// set the colour according to active layer
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case _LETTERS:
+            rgblight_sethsv_noeeprom(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            break;
+        case _SYMBOLS:
+            rgblight_sethsv_noeeprom(23, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            break;
+        case _NUMBERS:
+            rgblight_sethsv_noeeprom(121, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            break;
+        case _MEDIA:
+            rgblight_sethsv_noeeprom(165, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            break;
+        case _KBD_CTRL:
+            rgblight_sethsv_noeeprom(246, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            break;
+        default:  //  for any other layers, or the default layer
+            rgblight_sethsv_noeeprom(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            break;
+    }
+    return state;
 }
 #endif
