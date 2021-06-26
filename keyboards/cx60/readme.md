@@ -4,7 +4,7 @@
 
 ![Top View of a pair of CX60 Keyboard](https://i.imgur.com/3Jq2743.jpg)
 
-* Keyboard Maintainer: QMK Community; code cleanup by Horns Lyn/MYMKB (Malaysia Mechanical Keyboard)
+* Keyboard Maintainer: QMK Community
 * Hardware Supported: CX60 PCB
 * Hardware Availability: [晨星XCstore](https://item.taobao.com/item.htm?id=641932740480)
 
