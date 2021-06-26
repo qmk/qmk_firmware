@@ -33,11 +33,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BTN1, KC_BTN2, KC_WH_U, KC_WH_D, KC_TRNS),
     [_MEDIA] = LAYOUT(
         KC_TRNS, KC_NO, KC_MUTE, KC_NO, KC_NO, KC_NO,
-        KC_NO, G(KC_X), G(KC_R), KC_NO, KC_NO, KC_TRNS,
+        KC_NO, G(KC_X), G(KC_R), KC_NO, C(KC_LEFT), KC_TRNS,
         KC_TRNS, KC_BRIU, KC_VOLU, KC_MPLY, KC_MNXT, KC_NO,
-        G(C(KC_SPACE)), G(KC_C), G(KC_Z), G(KC_F), G(S(KC_T)), KC_NO,
+        G(C(KC_SPACE)), G(KC_C), G(KC_Z), G(KC_F), C(KC_UP), KC_NO,
         KC_TRNS, KC_BRID, KC_VOLD, KC_NO, KC_MPRV, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, G(KC_V), G(KC_Z), KC_NO, KC_NO, KC_TRNS,
+        KC_NO, KC_NO, KC_NO, G(KC_V), G(KC_Z), KC_NO, C(KC_RGHT), KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [_KBD_CTRL] = LAYOUT(
