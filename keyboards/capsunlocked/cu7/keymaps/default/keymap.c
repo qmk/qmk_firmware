@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Volume up/down on the encoder
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   uint16_t held_keycode_timer = timer_read();
 
   if (clockwise) {
@@ -45,4 +45,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) {}
     unregister_code(KC_VOLD);
   }
+
+  return true;
 }
