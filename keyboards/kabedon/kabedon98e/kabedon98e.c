@@ -14,14 +14,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "kabedon98e.h"
-
-void keyboard_pre_init_user(void) {
-  setPinOutput(A13);
-}
-
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-		writePin(A13, !led_state.caps_lock);
-    }
-    return true;
-}
