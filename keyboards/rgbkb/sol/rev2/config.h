@@ -28,23 +28,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B7
 
-#define BACKLIGHT_LEDS 124
-
-#ifdef FULLHAND_ENABLE
-  #define FULLHAND_LEDS 24
-#elif SF_ENABLE
-  #define FULLHAND_LEDS 38
-#else
-  #define FULLHAND_LEDS 0
-#endif
-
 // Underglow / DIY Tent Glow are parallel to the top row leds, no separate define
-
-#ifdef LED_MIRRORED
-  #define RGBLED_NUM ((BACKLIGHT_LEDS + FULLHAND_LEDS) / 2)
+#ifdef FULLHAND_ENABLE
+  #ifdef LED_MIRRORED
+    #define RGBLED_NUM 74
+  #else
+    #define RGBLED_NUM 148
+  #endif
+#elif SF_ENABLE
+  #ifdef LED_MIRRORED
+    #define RGBLED_NUM 81
+  #else
+    #define RGBLED_NUM 162
+  #endif
 #else
-  #define RGBLED_NUM (BACKLIGHT_LEDS + FULLHAND_LEDS)
+  #define RGBLED_NUM 0
 #endif
+
 #define DRIVER_LED_TOTAL  RGBLED_NUM
 
 #define RGB_MATRIX_CENTER { 112, 37 }
