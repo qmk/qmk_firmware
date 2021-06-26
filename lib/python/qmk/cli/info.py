@@ -93,15 +93,6 @@ def print_friendly_output(kb_info_json):
         aliases = [f'{key}={value}' for key, value in kb_info_json['layout_aliases'].items()]
         cli.echo('{fg_blue}Layout aliases:{fg_reset} %s' % (', '.join(aliases),))
 
-    if cli.config.info.layouts:
-        show_layouts(kb_info_json, True)
-
-    if cli.config.info.matrix:
-        show_matrix(kb_info_json, True)
-
-    if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
-        show_keymap(kb_info_json, True)
-
 
 def print_text_output(kb_info_json):
     """Print the info.json in a plain text format.
@@ -120,6 +111,24 @@ def print_text_output(kb_info_json):
 
     if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
         show_keymap(kb_info_json, False)
+
+
+def print_dotted_output(kb_info_json, prefix=''):
+    """Print the info.json in a plain text format with dot-joined keys.
+    """
+    for key in sorted(kb_info_json):
+        new_prefix = f'{prefix}.{key}' if prefix else key
+
+        if key in ['parse_errors', 'parse_warnings']:
+            continue
+        elif key == 'layouts' and prefix == '':
+            cli.echo('{fg_blue}layouts{fg_reset}: %s', ', '.join(sorted(kb_info_json['layouts'].keys())))
+        elif isinstance(kb_info_json[key], dict):
+            print_dotted_output(kb_info_json[key], new_prefix)
+        elif isinstance(kb_info_json[key], list):
+            cli.echo('{fg_blue}%s{fg_reset}: %s', new_prefix, ', '.join(sorted(kb_info_json[key])))
+        else:
+            cli.echo('{fg_blue}%s{fg_reset}: %s', new_prefix, kb_info_json[key])
 
 
 def print_parsed_rules_mk(keyboard_name):
@@ -162,10 +171,22 @@ def info(cli):
     # Output in the requested format
     if cli.args.format == 'json':
         print(json.dumps(kb_info_json, cls=InfoJSONEncoder))
+        return True
     elif cli.args.format == 'text':
-        print_text_output(kb_info_json)
+        print_dotted_output(kb_info_json)
+        title_caps = False
     elif cli.args.format == 'friendly':
         print_friendly_output(kb_info_json)
+        title_caps = True
     else:
         cli.log.error('Unknown format: %s', cli.args.format)
         return False
+
+    if cli.config.info.layouts:
+        show_layouts(kb_info_json, title_caps)
+
+    if cli.config.info.matrix:
+        show_matrix(kb_info_json, title_caps)
+
+    if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
+        show_keymap(kb_info_json, title_caps)
