@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2021 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,28 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
+#include QMK_KEYBOARD_H
 
-#ifndef USB_VBUS_PIN
-#    define SPLIT_USB_DETECT  // Force this on when dedicated pin is not used
-#endif
-
-#if defined(STM32F1XX)
-#    define USE_GPIOV1
-#endif
-
-#if defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32L1XX)
-#    define USE_I2CV1
-#endif
-
-// teensy
-#if defined(K20x) || defined(KL2x)
-#    define USE_I2CV1
-#    define USE_I2CV1_CONTRIB  // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
-#    define USE_GPIOV1
-#    define STM32_SYSCLK KINETIS_SYSCLK_FREQUENCY
-#endif
-
-#if defined(MK66F18)
-#    define STM32_SYSCLK KINETIS_SYSCLK_FREQUENCY
-#endif
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+[0] = LAYOUT_ortho_1x1( /* Base */
+    KC_ENT)
+};

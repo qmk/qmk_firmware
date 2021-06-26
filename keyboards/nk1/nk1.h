@@ -1,4 +1,4 @@
-/* Copyright 2019 mechmerlin
+/* Copyright 2021 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +16,10 @@
 
 #pragma once
 
-// place overrides here
+#include "quantum.h"
+
+#define LAYOUT_ortho_1x1( \
+    K00 \
+) { \
+    { K00 } \
+}
