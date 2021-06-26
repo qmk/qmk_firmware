@@ -1,5 +1,4 @@
 import platform
-from pathlib import Path
 from subprocess import DEVNULL
 
 from milc import cli
@@ -262,7 +261,7 @@ def test_generate_rules_mk():
 def test_generate_version_h():
     result = check_subcommand('generate-version-h')
     check_returncode(result)
-    assert Path('quantum/version.h').is_file()
+    assert '#define QMK_VERSION' in result.stdout
 
 
 def test_generate_layouts():
