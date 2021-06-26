@@ -18,6 +18,9 @@
 
 #include "tractyl_manuform.h"
 #include "quantum.h"
+#include "spi_master.h"
+#include "drivers/sensors/pmw3360.h"
+#include "pointing_device.h"
 
 #define ___ KC_NO
 
