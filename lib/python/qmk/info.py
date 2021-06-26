@@ -61,8 +61,8 @@ def info_json(keyboard):
 
     # Merge in the data from info.json, config.h, and rules.mk
     info_data = merge_info_jsons(keyboard, info_data)
-    info_data = _extract_config_h(info_data)
     info_data = _extract_rules_mk(info_data)
+    info_data = _extract_config_h(info_data)
 
     # Ensure that we have matrix row and column counts
     info_data = _matrix_size(info_data)
@@ -204,12 +204,40 @@ def _extract_audio(info_data, config_c):
 def _extract_split(info_data, config_c):
     """Populate data about the split configuration
     """
+    if config_c.get('SPLIT_HAND_PIN') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'primary' in info_data['split']:
+            _log_warning(info_data, 'Split primary hand is specified in both config.h (SPLIT_HAND_PIN) and info.json (split.primary) (Value: %s), the config.h value wins.')
+
+        info_data['split']['primary'] = 'pin'
+
+    if config_c.get('SPLIT_HAND_MATRIX_GRID'):
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'primary' in info_data['split']:
+            _log_warning(info_data, 'Split primary hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID) and info.json (split.primary) (Value: %s), the config.h value wins.')
+
+        info_data['split']['primary'] = 'matrix_grid'
+        info_data['split']['matrix_grid'] = _extract_pins(config_c['SPLIT_HAND_MATRIX_GRID'])
+
+    if config_c.get('EE_HANDS') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'primary' in info_data['split']:
+            _log_warning(info_data, 'Split primary hand is specified in both config.h (EE_HANDS) and info.json (split.primary) (Value: %s), the config.h value wins.')
+
+        info_data['split']['primary'] = 'eeprom'
+
     if config_c.get('MASTER_RIGHT') is True:
         if 'split' not in info_data:
             info_data['split'] = {}
 
         if 'primary' in info_data['split']:
-            _log_warning(info_data, 'Split primary hand is specified in both config.h (MASTER_RIGHT) and split.primary (%s), the config.h value wins.')
+            _log_warning(info_data, 'Split primary hand is specified in both config.h (MASTER_RIGHT) and info.json (split.primary) (Value: %s), the config.h value wins.')
 
         info_data['split']['primary'] = 'right'
 
@@ -218,9 +246,30 @@ def _extract_split(info_data, config_c):
             info_data['split'] = {}
 
         if 'primary' in info_data['split']:
-            _log_warning(info_data, 'Split primary hand is specified in both config.h (MASTER_RIGHT) and split.primary (%s), the config.h value wins.')
+            _log_warning(info_data, 'Split primary hand is specified in both config.h (MASTER_LEFT) and info.json (split.primary) (Value: %s), the config.h value wins.')
 
         info_data['split']['primary'] = 'left'
+
+    if config_c.get('USE_I2C') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'transport' not in info_data['split']:
+            info_data['split']['transport'] = {}
+
+        if 'protocol' in info_data['split']['transport']:
+            _log_warning(info_data, 'Split transport is specified in both config.h (USE_I2C) and info.json (split.transport.protocol) (Value: %s), the config.h value wins.')
+
+        info_data['split']['transport']['protocol'] = 'i2c'
+
+    elif 'protocol' not in info_data.get('split', {}).get('transport', {}):
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'transport' not in info_data['split']:
+            info_data['split']['transport'] = {}
+
+        info_data['split']['transport']['protocol'] = 'serial'
 
 
 def _extract_matrix_info(info_data, config_c):

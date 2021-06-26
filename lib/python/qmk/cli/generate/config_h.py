@@ -140,15 +140,31 @@ def generate_config_h(cli):
 
     if 'split' in kb_info_json:
         if 'primary' in kb_info_json['split']:
-            config_h_lines.append('')
-            config_h_lines.append('#ifndef MASTER_LEFT')
-            config_h_lines.append('#   ifndef MASTER_RIGHT')
-            if kb_info_json['split']['primary'] == 'left':
-                config_h_lines.append('#       define MASTER_LEFT')
-            elif kb_info_json['split']['primary'] == 'right':
-                config_h_lines.append('#       define MASTER_RIGHT')
-            config_h_lines.append('#   endif // MASTER_RIGHT')
-            config_h_lines.append('#endif // MASTER_LEFT')
+            if kb_info_json['split']['primary'] in ('left', 'right'):
+                config_h_lines.append('')
+                config_h_lines.append('#ifndef MASTER_LEFT')
+                config_h_lines.append('#   ifndef MASTER_RIGHT')
+                if kb_info_json['split']['primary'] == 'left':
+                    config_h_lines.append('#       define MASTER_LEFT')
+                elif kb_info_json['split']['primary'] == 'right':
+                    config_h_lines.append('#       define MASTER_RIGHT')
+                config_h_lines.append('#   endif // MASTER_RIGHT')
+                config_h_lines.append('#endif // MASTER_LEFT')
+            elif kb_info_json['split']['primary'] == 'pin':
+                config_h_lines.append('')
+                config_h_lines.append('#ifndef SPLIT_HAND_PIN')
+                config_h_lines.append('#   define SPLIT_HAND_PIN')
+                config_h_lines.append('#endif // SPLIT_HAND_PIN')
+            elif kb_info_json['split']['primary'] == 'matrix_grid':
+                config_h_lines.append('')
+                config_h_lines.append('#ifndef SPLIT_HAND_MATRIX_GRID')
+                config_h_lines.append('#   define SPLIT_HAND_MATRIX_GRID {%s}' % (','.join(kb_info_json["split"]["matrix_grid"],)))
+                config_h_lines.append('#endif // SPLIT_HAND_MATRIX_GRID')
+            elif kb_info_json['split']['primary'] == 'eeprom':
+                config_h_lines.append('')
+                config_h_lines.append('#ifndef EE_HANDS')
+                config_h_lines.append('#   define EE_HANDS')
+                config_h_lines.append('#endif // EE_HANDS')
 
     # Show the results
     config_h = '\n'.join(config_h_lines)

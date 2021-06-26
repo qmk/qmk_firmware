@@ -180,19 +180,24 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "ee_hands": {"type": "boolean"},
                 "enabled": {"type": "boolean"},
-                "hand_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "hand_matrix_grid": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "mirror": {"type": "boolean"},
                 "primary": {
                     "type": "string",
-                    "enum": ["left", "right"]
+                    "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
                 },
                 "transport": {
-                    "type": "string",
-                    "enum": ["custom", "mirror", "serial", "I2C"]
-                },
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "protocol": {
+                            "type": "string",
+                            "enum": ["custom", "i2c", "serial"]
+                        },
+                        "mirror": {"type": "boolean"},
+                        "mods": {"type": "boolean"},
+
+                    }
+                }
                 "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "soft_serial_speed": {
                     "type": "number",

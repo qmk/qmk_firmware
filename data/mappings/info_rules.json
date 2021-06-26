@@ -13,5 +13,5 @@
     "LED_MATRIX_DRIVER": {"info_key": "led_matrix.driver"},
     "MCU": {"info_key": "processor", "warn_duplicate": false},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
-    "SPLIT_TRANSPORT": {"info_key": "split.transport", "value_type": "str"}
+    "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "value_type": "str"}
 }
