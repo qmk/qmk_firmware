@@ -239,23 +239,37 @@ python-versions = "*"
 
 [[package]]
 name = "qmk"
-version = "0.0.52"
+version = "0.1.0"
 description = "A program to help users work with QMK Firmware."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
-dotty-dict = "*"
-flake8 = "*"
-hid = "*"
-hjson = "*"
-jsonschema = ">=3"
-milc = ">=1.4.0"
-nose2 = "*"
-pygments = "*"
-pyusb = "*"
-yapf = "*"
+appdirs = "1.4.4"
+argcomplete = "1.12.3"
+attrs = "21.2.0"
+colorama = "0.4.4"
+coverage = "5.5"
+dotty-dict = "1.3.0"
+flake8 = "3.9.2"
+halo = "0.0.31"
+hid = "1.0.4"
+hjson = "3.0.2"
+jsonschema = "3.2.0"
+log-symbols = "0.0.14"
+mccabe = "0.6.1"
+milc = "1.4.2"
+nose2 = "0.10.0"
+pycodestyle = "2.7.0"
+pyflakes = "2.3.1"
+Pygments = "2.9.0"
+pyrsistent = "0.17.3"
+pyusb = "1.1.1"
+six = "1.16.0"
+spinners = "0.0.24"
+termcolor = "1.1.0"
+yapf = "0.31.0"
 
 [[package]]
 name = "setuptools-scm"
@@ -294,7 +308,7 @@ python-versions = "*"
 
 [[package]]
 name = "yapf"
-version = "0.30.0"
+version = "0.31.0"
 description = "A formatter for Python code."
 category = "main"
 optional = false
@@ -303,7 +317,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "5e181d51536240d08c74ba6a46bd0988ee4ca72ac3d5b388965ca8023e9b9a99"
+content-hash = "41ac906d2babfd226f713474d77e95535800dfc41d0c797055308b2d0196676d"
 
 [metadata.files]
 appdirs = [
@@ -443,8 +457,8 @@ pyusb = [
     {file = "pyusb-1.1.1.tar.gz", hash = "sha256:7d449ad916ce58aff60b89aae0b65ac130f289c24d6a5b7b317742eccffafc38"},
 ]
 qmk = [
-    {file = "qmk-0.0.52-py2.py3-none-any.whl", hash = "sha256:102f7b2559665279775ff78ba2e69d4e0a454812b1404133e4f45a3a7b76b5c1"},
-    {file = "qmk-0.0.52.tar.gz", hash = "sha256:98d17e6d185a2fa26135b44e9a36031e428aa2444800b7791596d1b7d2a0e574"},
+    {file = "qmk-0.1.0-py2.py3-none-any.whl", hash = "sha256:d87cb1ab3ebeac85b8038ab9207c8eeffeb6317ab7baceb7f7b7ab6259f3f5ec"},
+    {file = "qmk-0.1.0.tar.gz", hash = "sha256:76654b2fff92857f04201cdea3effc8af1f6039b4fcbe64157edb62666928251"},
 ]
 setuptools-scm = [
     {file = "setuptools_scm-6.0.1-py3-none-any.whl", hash = "sha256:c3bd5f701c8def44a5c0bfe8d407bef3f80342217ef3492b951f3777bd2d915c"},
@@ -462,6 +476,6 @@ termcolor = [
     {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},
 ]
 yapf = [
-    {file = "yapf-0.30.0-py2.py3-none-any.whl", hash = "sha256:3abf61ba67cf603069710d30acbc88cfe565d907e16ad81429ae90ce9651e0c9"},
-    {file = "yapf-0.30.0.tar.gz", hash = "sha256:3000abee4c28daebad55da6c85f3cd07b8062ce48e2e9943c8da1b9667d48427"},
+    {file = "yapf-0.31.0-py2.py3-none-any.whl", hash = "sha256:e3a234ba8455fe201eaa649cdac872d590089a18b661e39bbac7020978dd9c2e"},
+    {file = "yapf-0.31.0.tar.gz", hash = "sha256:408fb9a2b254c302f49db83c59f9aa0b4b0fd0ec25be3a5c51181327922ff63d"},
 ]
