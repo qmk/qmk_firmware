@@ -64,6 +64,17 @@ The `PLOOPY_DPI_OPTIONS` array sets the values that you want to be able to cycle
 
 The `DPI_CONFIG` macro will cycle through the values in the array, each time you hit it.  It stores this value in persistent memory, so it will load it the next time the device powers up.
 
+## Drag Scroll
+
+Drag Sroll is a custom keycode for the Ploopy devices that allow you to hold or tap a button and have the mouse movement translate into scrolling instead. 
+
+Nothing needs to be enabled to use this functionality.  Just add the `DRAG_SCROLL` to your keymap. 
+
+### Drag Scroll Configuration
+
+* `#define PLOOPY_DRAGSCROLL_MOMENTARY` - Makes the key into a momentary key, rather than a toggle.
+* `#define PLOOPY_DRAGSCROLL_DPI CPI375` - When the fixed DPI option is enabled, this sets the DPI to be used for Drag Scroll.
+* `#define PLOOPY_DRAGSCROLL_INVERT` - This reverses the direction that the scroll is performed. 
 ## Fuse settings
 
 When flashing the bootloader, use the following fuse settings:
