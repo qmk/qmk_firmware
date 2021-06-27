@@ -51,7 +51,7 @@ You can find the default layout in `thedora/keymaps/default/keymap.c`
 This is the bit of code at the end of `keymap.c` that needs to changed if you want to change the behavior of the rotary encoder.
 
 ```
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
       tap_code(KC_PGDN); // What the rotary encoder repeatedly does when turned right.
@@ -59,6 +59,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_PGUP); // What it does when turned to the left.
     }
   }
+    return true;
 }
 ```
 
