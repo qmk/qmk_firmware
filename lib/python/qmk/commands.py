@@ -96,7 +96,7 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, silent=False,
 
     if parallel > 1:
         make_cmd.append('-j')
-        make_cmd.append(parallel)
+        make_cmd.append(str(parallel))
 
     if target:
         make_cmd.append(target)
