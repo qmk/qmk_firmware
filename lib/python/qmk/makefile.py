@@ -1,8 +1,10 @@
 """ Functions for working with Makefiles
 """
+from functools import lru_cache
 from pathlib import Path
 
 
+@lru_cache(maxsize=0)
 def parse_rules_mk_file(file, rules_mk=None):
     """Turn a rules.mk file into a dictionary.
 

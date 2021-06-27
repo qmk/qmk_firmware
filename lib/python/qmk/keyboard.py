@@ -1,10 +1,11 @@
 """Functions that help us work with keyboards.
 """
+import os
 from array import array
+from functools import lru_cache
+from glob import glob
 from math import ceil
 from pathlib import Path
-import os
-from glob import glob
 
 import qmk.path
 from qmk.c_parse import parse_config_h_file
@@ -217,6 +218,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
     return '\n'.join(lines)
 
 
+@lru_cache(maxsize=0)
 def render_layouts(info_json, render_ascii):
     """Renders all the layouts from an `info_json` structure.
     """

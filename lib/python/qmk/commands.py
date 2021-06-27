@@ -22,6 +22,7 @@ from qmk.keyboard import list_keyboards
 time_fmt = '%Y-%m-%d-%H:%M:%S'
 
 
+@lru_cache(maxsize=0)
 def _find_make():
     """Returns the correct make command for this environment.
     """
@@ -106,6 +107,7 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, silent=False,
     return make_cmd
 
 
+@lru_cache(maxsize=0)
 def get_git_version(current_time, repo_dir='.', check_dir='.'):
     """Returns the current git version for a repo, or the current time.
     """
@@ -258,6 +260,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     return user_keymap['keyboard'], user_keymap['keymap'], make_command
 
 
+@lru_cache(maxsize=0)
 def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """

@@ -3,12 +3,14 @@
 import logging
 import os
 import argparse
+from functools import lru_cache
 from pathlib import Path
 
 from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE
 from qmk.errors import NoSuchKeyboardError
 
 
+@lru_cache(maxsize=0)
 def is_keyboard(keyboard_name):
     """Returns True if `keyboard_name` is a keyboard we can compile.
     """
@@ -19,6 +21,7 @@ def is_keyboard(keyboard_name):
         return rules_mk.exists()
 
 
+@lru_cache(maxsize=0)
 def under_qmk_firmware():
     """Returns a Path object representing the relative path under qmk_firmware, or None.
     """
@@ -30,12 +33,14 @@ def under_qmk_firmware():
         return None
 
 
+@lru_cache(maxsize=0)
 def keyboard(keyboard_name):
     """Returns the path to a keyboard's directory relative to the qmk root.
     """
     return Path('keyboards') / keyboard_name
 
 
+@lru_cache(maxsize=0)
 def keymap(keyboard_name):
     """Locate the correct directory for storing a keymap.
 
@@ -56,6 +61,7 @@ def keymap(keyboard_name):
     raise NoSuchKeyboardError('Could not find keymaps directory for: %s' % keyboard_name)
 
 
+@lru_cache(maxsize=0)
 def normpath(path):
     """Returns a `pathlib.Path()` object for a given path.
 

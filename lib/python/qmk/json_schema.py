@@ -10,6 +10,7 @@ import jsonschema
 from milc import cli
 
 
+@lru_cache(maxsize=0)
 def json_load(json_file):
     """Load a json file from disk.
 

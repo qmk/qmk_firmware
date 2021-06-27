@@ -1,8 +1,10 @@
 """Functions for working with QMK's submodules.
 """
+from functools import lru_cache
 from milc import cli
 
 
+@lru_cache(maxsize=0)
 def status():
     """Returns a dictionary of submodules.
 

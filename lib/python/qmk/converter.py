@@ -1,8 +1,10 @@
 """Functions to convert to and from QMK formats
 """
 from collections import OrderedDict
+from functools import lru_cache
 
 
+@lru_cache(maxsize=0)
 def kle2qmk(kle):
     """Convert a KLE layout to QMK's layout format.
     """
