@@ -97,6 +97,7 @@ def _extract_features(info_data, rules):
     return info_data
 
 
+@lru_cache(maxsize=None)
 def _pin_name(pin):
     """Returns the proper representation for a pin.
     """
@@ -114,6 +115,7 @@ def _pin_name(pin):
     return pin
 
 
+@lru_cache(maxsize=None)
 def _extract_pins(pins):
     """Returns a list of pins from a comma separated string of pins.
     """
@@ -306,6 +308,7 @@ def _extract_rules_mk(info_data):
     return info_data
 
 
+@lru_cache(maxsize=None)
 def _search_keyboard_h(path):
     current_path = Path('keyboards/')
     aliases = {}
@@ -334,17 +337,29 @@ def _find_all_layouts(info_data, keyboard):
     if not layouts:
         # If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
         info_data['parse_warnings'].append('%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
+        layouts, new_aliases = _deep_search_layouts(keyboard)
+        aliases.update(new_aliases)
 
-        for file in glob('keyboards/%s/*.h' % keyboard):
-            if file.endswith('.h'):
-                these_layouts, these_aliases = find_layouts(file)
+    return layouts, aliases
 
-                if these_layouts:
-                    layouts.update(these_layouts)
 
-                for alias, alias_text in these_aliases.items():
-                    if alias_text in layouts:
-                        aliases[alias] = alias_text
+@lru_cache(maxsize=None)
+def _deep_search_layouts(keyboard):
+    """Do a wider (error-prone) search for layout macros.
+    """
+    layouts = {}
+    aliases = {}
+
+    for file in glob('keyboards/%s/*.h' % keyboard):
+        if file.endswith('.h'):
+            these_layouts, these_aliases = find_layouts(file)
+
+            if these_layouts:
+                layouts.update(these_layouts)
+
+            for alias, alias_text in these_aliases.items():
+                if alias_text in layouts:
+                    aliases[alias] = alias_text
 
     return layouts, aliases
 
@@ -458,6 +473,7 @@ def merge_info_jsons(keyboard, info_data):
     return info_data
 
 
+@lru_cache(maxsize=None)
 def find_info_json(keyboard):
     """Finds all the info.json files associated with a keyboard.
     """

@@ -12,6 +12,7 @@ from qmk.keymap import list_keymaps
 from qmk.metadata import basic_info_json, info_log_error
 
 
+@lru_cache(maxsize=None)
 def _valid_community_layout(layout):
     """Validate that a declared community list exists
     """
