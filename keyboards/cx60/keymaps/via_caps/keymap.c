@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 /* rgb underglow capslock indicator; by Dominic Lee/MYMKB; */
-const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 14, HSV_RED} );
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS( {127, 127, HSV_CYAN} );
 
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(0, led_state.caps_lock);
