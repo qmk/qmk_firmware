@@ -35,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 
+#define SOFT_SERIAL_PIN D2
+#define SERIAL_USE_MULTI_TRANSACTION
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
