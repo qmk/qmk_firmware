@@ -49,35 +49,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
-/**
-// for normal capslock led, you can use this;
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_NUM_LOCK)) {} else {}
-  	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        DDRB |= (1 << 5); PORTB &= ~(1 << 5);
-    } else {
-        DDRB &= ~(1 << 5); PORTB &= ~(1 << 5);
-  	}
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {} else {}
-}
-*/
-
-// rgb underglow capslock indicator; by Dominic Lee/MYMKB;
-const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 127, HSV_CYAN}
-);
+/* rgb underglow capslock indicator; by Dominic Lee/MYMKB; */
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 14, HSV_RED} );
 
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(0, led_state.caps_lock);
     return true;
 }
 
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_capslock_layer
-);
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST( my_capslock_layer );
 
 void keyboard_post_init_user(void) {
-    // Enable the LED layers
+    /* Enable the LED layers */
     rgblight_layers = my_rgb_layers;
 }
-// rgb underglow capslock indicator; end;
+/* rgb underglow capslock indicator; end; */

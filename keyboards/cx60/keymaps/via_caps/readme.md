@@ -1,1 +1,1 @@
-# The CX60-VIA default layout, with rgb underglow capslock indicator
+# The CX60-VIA default layout

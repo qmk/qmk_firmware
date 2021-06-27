@@ -2,7 +2,7 @@
 
 64-key 60% with dedicated arrow keys, single-layout, VIA-enabled.
 
-![Top View of a pair of CX60 Keyboard](https://i.imgur.com/Q2YVuhd.jpeg)
+![Top View of a pair of CX60 Keyboard](https://i.imgur.com/Q2YVuhd.jpg)
 
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: CX60 PCB
