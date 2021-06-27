@@ -2,6 +2,7 @@
 """
 from functools import lru_cache
 from glob import glob
+import os
 from pathlib import Path
 
 import jsonschema
@@ -23,7 +24,7 @@ false_values = ['0', 'off', 'no', 'false']
 def basic_info_json(keyboard):
     """Generate a subset of info.json for a specific keyboard.
 
-    This does no validation, and should only be used as needed to avoid loops or when performance is critical.
+    This does minimal validation, and should only be used as needed to avoid loops or when performance is critical.
     """
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
@@ -428,6 +429,36 @@ def unknown_processor_rules(info_data, rules):
     return info_data
 
 
+def store_mtime(file):
+    """Stores the mtime for a json file.
+    """
+    cli.log.debug('store_mtime(%s)', file)
+    mtime = str(os.stat(file).st_mtime)
+    cache_file = f'.build/json_times/{file}'
+    cache_dir = os.path.dirname(cache_file)
+    os.makedirs(cache_dir, exist_ok=True)
+    with open(cache_file, 'w') as fd:
+        fd.write(mtime)
+
+
+def has_been_validated(file):
+    """Returns True if file is in the json cache.
+    """
+    cli.log.debug('has_been_validated(%s)', file)
+    mtime_file = f'.build/json_times/{file}'
+    if os.path.exists(mtime_file):
+        with open(mtime_file) as fd:
+            cache_mtime = fd.read()
+        cache_mtime = cache_mtime.strip()
+        file_mtime = str(os.stat(file).st_mtime)
+        if cache_mtime == file_mtime:
+            return True
+        else:
+            os.remove(mtime_file)
+
+    return False
+
+
 def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
@@ -439,13 +470,16 @@ def merge_info_jsons(keyboard, info_data):
             info_log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
             continue
 
-        try:
-            validate(new_info_data, 'qmk.keyboard.v1')
-        except jsonschema.ValidationError as e:
-            json_path = '.'.join([str(p) for p in e.absolute_path])
-            cli.log.error('Not including data from file: %s', info_file)
-            cli.log.error('\t%s: %s', json_path, e.message)
-            continue
+        if not has_been_validated(info_file):
+            try:
+                validate(new_info_data, 'qmk.keyboard.v1')
+            except jsonschema.ValidationError as e:
+                json_path = '.'.join([str(p) for p in e.absolute_path])
+                cli.log.error('Not including data from file: %s', info_file)
+                cli.log.error('\t%s: %s', json_path, e.message)
+                continue
+
+            store_mtime(info_file)
 
         # Merge layout data in
         if 'layout_aliases' in new_info_data:
