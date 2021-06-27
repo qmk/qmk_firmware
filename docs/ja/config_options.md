@@ -81,13 +81,13 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * 非推奨。`#define AUDIO_PIN C6` を使ってください
 * `#define B5_AUDIO`
   * ピン B5 のオーディオを有効にします (C ピンの1つとともに B ピンの1つが有効にされている場合、疑似ステレオが有効にされます)
-  * 非推奨。`AUDIO_PIN` とともに `C` ピンが有効にされている場合、`#define AUDIO_PIN B5` か `#define AUDIO_PIN_ALT B5` を使ってください
+  * 非推奨。もし `AUDIO_PIN` で `C` ピンを有効にしている場合は、`#define AUDIO_PIN_ALT B5` を使い、そうでなければ `#define AUDIO_PIN B5` を使います。
 * `#define B6_AUDIO`
   * ピン B6 のオーディオを有効にします (C ピンの1つとともに B ピンの1つが有効にされている場合、疑似ステレオが有効にされます)
-  * 非推奨。`AUDIO_PIN` とともに `C` ピンが有効にされている場合、`#define AUDIO_PIN B6` か `#define AUDIO_PIN_ALT B6` を使ってください
+  * 非推奨。もし `AUDIO_PIN` で `C` ピンを有効にしている場合は、`#define AUDIO_PIN_ALT B6` を使い、そうでなければ `#define AUDIO_PIN B6` を使います。
 * `#define B7_AUDIO`
   * ピン B7 のオーディオを有効にします (C ピンの1つとともに B ピンの1つが有効にされている場合、疑似ステレオが有効にされます)
-  * 非推奨。`AUDIO_PIN` とともに `C` ピンが有効にされている場合、`#define AUDIO_PIN B7` か `#define AUDIO_PIN_ALT B7` を使ってください
+  * 非推奨。もし `AUDIO_PIN` で `C` ピンを有効にしている場合は、`#define AUDIO_PIN_ALT B7` を使い、そうでなければ `#define AUDIO_PIN B7` を使います。
 * `#define BACKLIGHT_PIN B7`
   * バックライトのピン
 * `#define BACKLIGHT_LEVELS 3`
@@ -109,7 +109,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define USB_POLLING_INTERVAL_MS 10`
   * キーボード、マウス および 共有 (NKRO/メディアキー) インタフェースのための USB ポーリングレートをミリ秒で設定します
 * `#define USB_SUSPEND_WAKEUP_DELAY 200`
-  * ウェイクアップパケットを送信した後で停止するミリ秒を設定します
+   * ウェイクアップパケットを送信した後で一時停止するミリ秒を設定します
 * `#define F_SCL 100000L`
   * I2C を使用するキーボードのための I2C クロックレート速度を設定します。デフォルトは `400000L` ですが、`split_common` を使っているキーボードは別でデフォルトは `100000L` です。
 
