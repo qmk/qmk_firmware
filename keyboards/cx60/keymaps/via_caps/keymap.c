@@ -62,18 +62,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
-/* rgb underglow capslock indicator; by Dominic Lee/MYMKB; */
+/* capslock - rgb underglow; start; */
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 14, HSV_RED} );
+
+/* light all LEDs in cyan when keyboard layer 1 is active; */
+const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 127, HSV_CYAN} );
+
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_capslock_layer,
+    my_layer1_layer
+);
 
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(0, led_state.caps_lock);
     return true;
 }
 
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST( my_capslock_layer );
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
+    return state;
+}
 
 void keyboard_post_init_user(void) {
     /* Enable the LED layers */
     rgblight_layers = my_rgb_layers;
 }
-/* rgb underglow capslock indicator; end; */
+/* capslock - rgb underglow; end; */
