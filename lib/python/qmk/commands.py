@@ -353,17 +353,20 @@ def in_virtualenv():
     return active_prefix != sys.prefix
 
 
-def do_compile(keyboard, keymap, parallel, target=None):
+def do_compile(keyboard, keymap, parallel, target=None, filters=None, environment=None):
     """Shared code between `qmk compile` and `qmk flash`.
     """
     if keyboard is None:
         keyboard = ''
 
+    if environment is None:
+        environment = {}
+
     envs = {'REQUIRE_PLATFORM_KEY': ''}
     silent = keyboard == 'all' or keyboard.startswith('all-') or keymap == 'all'
 
     # Setup the environment
-    for env in cli.args.env:
+    for env in environment:
         if '=' in env:
             key, value = env.split('=', 1)
             if key in envs:
@@ -382,18 +385,10 @@ def do_compile(keyboard, keymap, parallel, target=None):
             _, _, make_cmd = create_make_command(keyboard, keymap, 'clean', parallel, silent, **envs)
             cli.run(make_cmd, capture_output=False, stdin=DEVNULL)
 
-    # If -f has been specified without a keyboard target, assume -kb all
-    if cli.args.filter and not cli.args.keyboard:
-        cli.log.debug('--filter supplied without --keyboard, assuming --keyboard all.')
-        keyboard = 'all'
-
     # Determine the compile command(s)
     commands = None
 
     if cli.args.filename:
-        if cli.args.filter:
-            cli.log.warning('Ignoring --filter because a keymap.json was provided.')
-
         if cli.args.keyboard:
             cli.log.warning('Ignoring --keyboard because a keymap.json was provided.')
 
@@ -405,10 +400,10 @@ def do_compile(keyboard, keymap, parallel, target=None):
         commands = [compile_configurator_json(user_keymap, parallel=parallel, **envs)]
 
     elif keyboard and keymap:
-        if cli.args.filter:
+        if filters:
             cli.log.info('Generating the list of keyboards to compile, this may take some time.')
 
-        commands = [create_make_command(keyboard, keymap, target=target, parallel=parallel, silent=silent, **envs) for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap)]
+        commands = [create_make_command(keyboard, keymap, target=target, parallel=parallel, silent=silent, **envs) for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap, filters)]
 
     elif not keyboard:
         cli.log.error('Could not determine keyboard!')
@@ -448,7 +443,7 @@ def do_compile(keyboard, keymap, parallel, target=None):
                     keyboard, keymap, command = commands[i]
                     cli.echo('\tkeyboard: {fg_cyan}%s{fg_reset} keymap: {fg_cyan}%s', keyboard, keymap)
 
-    elif cli.args.filter:
+    elif filters:
         cli.log.error('No keyboards found after applying filter(s)!')
         return False
 
@@ -468,28 +463,19 @@ def _keyboard_list(keyboard):
     return [keyboard]
 
 
-def keyboard_keymap_iter(cli_keyboard, cli_keymap):
+def keyboard_keymap_iter(cli_keyboard, cli_keymap, filters):
     """Iterates over the keyboard/keymap for this command and yields a pairing of each.
     """
     for keyboard in _keyboard_list(cli_keyboard):
         continue_flag = False
-        if cli.args.filter:
-            info_data = dotty(info_json(keyboard))
-            for filter in cli.args.filter:
-                if '=' in filter:
-                    key, value = filter.split('=', 1)
-                    if value in true_values:
-                        value = True
-                    elif value in false_values:
-                        value = False
-                    elif value.isdigit():
-                        value = int(value)
-                    elif '.' in value and value.replace('.').isdigit():
-                        value = float(value)
 
-                    if info_data.get(key) != value:
-                        continue_flag = True
-                        break
+        if filters:
+            info_data = dotty(info_json(keyboard))
+
+            for key, value in filters.items():
+                if info_data.get(key) != value:
+                    continue_flag = True
+                    break
 
             if continue_flag:
                 continue
@@ -497,5 +483,6 @@ def keyboard_keymap_iter(cli_keyboard, cli_keymap):
         if cli_keymap == 'all':
             for keymap in qmk.keymap.list_keymaps(keyboard):
                 yield keyboard, keymap
+
         else:
             yield keyboard, cli_keymap

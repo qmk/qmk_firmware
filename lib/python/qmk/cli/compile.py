@@ -13,6 +13,7 @@ from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import do_compile
 from qmk.keyboard import keyboard_completer, is_keyboard_target
 from qmk.keymap import keymap_completer
+from qmk.metadata import true_values, false_values
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='The configurator export to compile')
@@ -34,4 +35,31 @@ def compile(cli):
 
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
-    do_compile(cli.config.compile.keyboard, cli.config.compile.keymap, cli.config.compile.parallel, cli.config.compile.target)
+    # If -f has been specified without a keyboard target, assume -kb all
+    keyboard = cli.config.compile.keyboard or ''
+
+    if cli.args.filter and not cli.args.keyboard:
+        cli.log.debug('--filter supplied without --keyboard, assuming --keyboard all.')
+        keyboard = 'all'
+
+    if cli.args.filename and cli.args.filter:
+        cli.log.warning('Ignoring --filter because a keymap.json was provided.')
+
+    filters = {}
+
+    for filter in cli.args.filter:
+        if '=' in filter:
+            key, value = filter.split('=', 1)
+
+            if value in true_values:
+                value = True
+            elif value in false_values:
+                value = False
+            elif value.isdigit():
+                value = int(value)
+            elif '.' in value and value.replace('.').isdigit():
+                value = float(value)
+
+            filters[key] = value
+
+    return do_compile(keyboard, cli.config.compile.keymap, cli.config.compile.parallel, cli.config.compile.target, filters)
