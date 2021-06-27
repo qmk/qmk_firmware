@@ -37,13 +37,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,KC_X,   KC_V,   KC_B,   LT(2,KC_SPC),LCTL(KC_S)
     ),
         [_EDIT2] = LAYOUT(
-        KC_ESC, KC_Q,   KC_BTN3,KC_INS, KC_NO,  KC_DEL,
+        KC_ESC, KC_Q,   KC_BTN3,KC_INS, KC_ENT, KC_DEL,
         KC_LCTL,KC_LBRC,KC_RBRC,KC_PGDN,KC_PGUP,LCTL(KC_Y),
         KC_LSFT,TO(3),  RGB_TOG,TO(0),  _______,KC_NO
     ),
         [_FN] = LAYOUT(
         KC_ESC, KC_LANG,KC_NO,  RGB_TOG,KC_MNXT,KC_VOLU,
-        KC_CAPS,KC_NO,  KC_NO,  RGB_MOD,KC_MPRV,KC_VOLD,
+        KC_CAPS,KC_NLCK,KC_NO,  RGB_MOD,KC_MPRV,KC_VOLD,
         CG_NORM,LCG_SWP,EEP_RST,RESET,  TO(0),  KC_MUTE
     )
 };
@@ -57,13 +57,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     switch(INPUT_MODE){
                         case _INPUT_EN:
-                        register_code(KC_LANG1);
-                        INPUT_MODE = _INPUT_JP;
-                        break;
+                            register_code(KC_LANG1);
+                            INPUT_MODE = _INPUT_JP;
+                            break;
                         case _INPUT_JP:
-                        register_code(KC_LANG2);
-                        INPUT_MODE = _INPUT_EN;
-                        break;
+                            register_code(KC_LANG2);
+                            INPUT_MODE = _INPUT_EN;
+                            break;
                     }
                 }
             } else {
