@@ -2,10 +2,13 @@
 #include "keymap_danish.h"
 
 enum userspace_layers {
-  _DEADKEY = 14            // Change if more than 16 layers are required
+  _DEADKEY = 14,            // Change if more than 16 layers are required
+  _NAV
 };
 
 enum userspace_custom_keycodes {
+  CU_GAME = SAFE_RANGE,     // Toggle game mode on/off
+  CU_NAV,                   // NAV | ESC
 
   #ifdef DANISH_ENABLE
   CU_LSFT,                  // LSFT | (
@@ -51,6 +54,8 @@ extern bool esct;
 
 extern bool navesc;
 extern uint16_t navesc_timer;
+
+extern bool game;
 
 void timer_timeout(void);
 

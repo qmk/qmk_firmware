@@ -61,6 +61,9 @@ void unreg_prev(void){
 bool navesc = false;
 uint16_t navesc_timer = 0;
 
+// If true Gui keys and Space Cadet Shift get disabled
+bool game = false;
+
 // Interrupts all timers
 void timer_timeout(void){
   #ifdef DANISH_ENABLE
@@ -81,7 +84,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_RGUI:
     if (record->event.pressed)
       timer_timeout();
-    return true;
+    if (game)
+      return false;
+    else
+      return true;
+  case CU_NAV:
+    if(record->event.pressed) {
+      navesc = true;
+      navesc_timer = timer_read();
+      layer_on(_NAV);
+    } else {
+      if (timer_elapsed(navesc_timer) < TAPPING_TERM && navesc) {
+        register_code(KC_ESC);
+        unregister_code(KC_ESC);
+      }
+      layer_off(_NAV);
+    }
+    return false;
 
   #ifdef DANISH_ENABLE
   case CU_LSFT:
@@ -92,8 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LSFT);
       lshift = true;
     } else {
-      if (timer_elapsed(lshift_timer) < TAPPING_TERM && lshiftp) {
-
+      if (timer_elapsed(lshift_timer) < TAPPING_TERM && lshiftp && !game) {
         register_code(KC_LSFT);
         register_code(KC_8);
         unregister_code(KC_8);
@@ -113,7 +131,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LSFT);
       rshift = true;
     } else {
-      if (timer_elapsed(rshift_timer) < TAPPING_TERM && rshiftp) {
+      if (timer_elapsed(rshift_timer) < TAPPING_TERM && rshiftp && !game) {
         register_code(KC_LSFT);
         register_code(KC_9);
         unregister_code(KC_9);
