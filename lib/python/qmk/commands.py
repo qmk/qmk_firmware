@@ -5,9 +5,10 @@ import json
 import os
 import sys
 import shutil
+import threading
 from pathlib import Path
 from subprocess import DEVNULL
-from time import strftime
+from time import sleep, strftime
 
 from dotty_dict import dotty
 from milc import cli
@@ -17,7 +18,6 @@ from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
 from qmk.info import info_json
 from qmk.json_schema import json_load
 from qmk.keyboard import list_keyboards
-from qmk.metadata import true_values, false_values
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
 
@@ -383,9 +383,9 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
 
     # Run clean if necessary
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
-        for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap):
-            cli.log.info('Cleaning previous build files for keyboard {fg_cyan}%s{fg_reset} keymap {fg_cyan}%s', keyboard, keymap)
-            _, _, make_cmd = create_make_command(keyboard, keymap, 'clean', parallel, multiple_compiles, **envs)
+        for kb, km in keyboard_keymap_iter(keyboard, keymap, {}):
+            cli.log.info('Cleaning previous build files for keyboard {fg_cyan}%s{fg_reset} keymap {fg_cyan}%s', kb, km)
+            make_cmd = create_make_command(kb, km, 'clean', 1, multiple_compiles, **envs)
             cli.run(make_cmd, capture_output=False, stdin=DEVNULL)
 
     # Determine the compile command(s)
@@ -418,8 +418,13 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
     if command == 'multiple':
         returncodes = []
         for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap, filters):
-            command = create_make_command(keyboard, keymap, target=target, parallel=parallel, silent=multiple_compiles, **envs)
-            _execute_compile(keyboard, keymap, command, target)
+            command = create_make_command(keyboard, keymap, target=target, parallel=1, silent=multiple_compiles, **envs)
+            while threading.active_count() >= parallel + 1:
+                sleep(1)
+            threading.Thread(target=_execute_compile, args=(keyboard, keymap, command, target, returncodes)).start()
+
+        while threading.active_count() > 1:
+            sleep(1)
 
         if any(returncodes):
             print()
@@ -446,7 +451,10 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
         return False
 
 
-def _execute_compile(keyboard, keymap, command, target):
+def _execute_compile(keyboard, keymap, command, target, returncodes=None):
+    if not returncodes:
+        returncodes = []
+
     if keymap not in qmk.keymap.list_keymaps(keyboard):
         cli.log.debug('Skipping keyboard %s, no %s keymap found.', keyboard, keymap)
         return 0
@@ -460,13 +468,15 @@ def _execute_compile(keyboard, keymap, command, target):
 
     if not cli.args.dry_run:
         compile = cli.run(command, capture_output=False)
+
+        cli.acquire_lock()
+        returncodes.append(compile.returncode)
+        cli.release_lock()
+
         if compile.returncode == 0:
             cli.log.info('Success!')
         else:
             cli.log.error('Failed!')
-        return compile.returncode
-
-    return 0
 
 
 @lru_cache()
