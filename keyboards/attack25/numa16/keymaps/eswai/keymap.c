@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_CUR]= LAYOUT_ortho_4x4(
 	KC_PENT, KC_BSPC  , KC_UP    , KC_DEL,
-	KC_PCMM, KC_LEFT  , KC_DOWN  , KC_RGHT,
+	KC_COMM, KC_LEFT  , KC_DOWN  , KC_RGHT,
 	XXXXXXX, KC_SPC   , XXXXXXX  , XXXXXXX,
 	_______, XXXXXXX  , XXXXXXX  , XXXXXXX),
 
@@ -296,7 +296,7 @@ void rgb_matrix_indicators_user(void) {
     }
 
     void led_set_user(uint8_t usb_led) {
-         if (!RGB_momentary_on && !MAC_mode){
+         if (!RGB_momentary_on){
 	        if (usb_led & (1 << USB_LED_NUM_LOCK)) {
                 rgblight_sethsv_noeeprom(RGB_current_config.hue, RGB_current_config.sat, RGB_current_config.val);
 			    rgblight_mode_noeeprom(RGB_current_config.mode);
