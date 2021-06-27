@@ -65,32 +65,29 @@ bool led_update_kb(led_t led_state) {
 
     wait_ms(10); // gets rid of tick
 
-    if (!is_playing_notes())
+    if (led_state.caps_lock && !old_led_state.caps_lock)
     {
-        if (led_state.caps_lock && !old_led_state.caps_lock)
-        {
-            PLAY_SONG(tone_caps_on);
-        }
-        else if (!led_state.caps_lock && old_led_state.caps_lock)
-        {
-            PLAY_SONG(tone_caps_off);
-        }
-        else if (led_state.num_lock && !old_led_state.num_lock)
-        {
-            PLAY_SONG(tone_numlk_on);
-        }
-        else if (!led_state.num_lock && old_led_state.num_lock)
-        {
-            PLAY_SONG(tone_numlk_off);
-        }
-        else if (led_state.scroll_lock && !old_led_state.scroll_lock)
-        {
-            PLAY_SONG(tone_scroll_on);
-        }
-        else if (!led_state.scroll_lock && old_led_state.scroll_lock)
-        {
-            PLAY_SONG(tone_scroll_off);
-        }
+        PLAY_SONG(tone_caps_on);
+    }
+    else if (!led_state.caps_lock && old_led_state.caps_lock)
+    {
+        PLAY_SONG(tone_caps_off);
+    }
+    else if (led_state.num_lock && !old_led_state.num_lock)
+    {
+        PLAY_SONG(tone_numlk_on);
+    }
+    else if (!led_state.num_lock && old_led_state.num_lock)
+    {
+        PLAY_SONG(tone_numlk_off);
+    }
+    else if (led_state.scroll_lock && !old_led_state.scroll_lock)
+    {
+        PLAY_SONG(tone_scroll_on);
+    }
+    else if (!led_state.scroll_lock && old_led_state.scroll_lock)
+    {
+        PLAY_SONG(tone_scroll_off);
     }
 
     old_led_state = led_state;

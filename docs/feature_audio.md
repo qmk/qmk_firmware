@@ -8,7 +8,7 @@ To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
 On Atmega32U4 based boards, up to two simultaneous tones can be rendered.
 With one speaker connected to a PWM capable pin on PORTC driven by timer 3 and the other on one of the PWM pins on PORTB driven by timer 1.
 
-The following pins can be configured as audio outputs in `config.h` - for one speaker set eiter one out of:
+The following pins can be configured as audio outputs in `config.h` - for one speaker set either one out of:
 
 * `#define AUDIO_PIN C4`
 * `#define AUDIO_PIN C5`
@@ -131,11 +131,13 @@ You can override the default songs by doing something like this in your `config.
 
 ```c
 #ifdef AUDIO_ENABLE
-  #define STARTUP_SONG SONG(STARTUP_SOUND)
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 ```
 
 A full list of sounds can be found in [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) - feel free to add your own to this list! All available notes can be seen in [quantum/audio/musical_notes.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/musical_notes.h).
+
+Additionally, if you with to maintain your own list of songs (such as ones that may be copyrighted) and not have them added to the repo, you can create a `user_song_list.h` file and place it in your keymap (or userspace) folder.  This file will be automatically included, it just needs to exist.
 
 To play a custom sound at a particular time, you can define a song like this (near the top of the file):
 
@@ -166,7 +168,7 @@ The available keycodes for audio are:
 !> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
 
 ## Tempo
-the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lenghts are defined relative to that.
+the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lengths are defined relative to that.
 The initial/default tempo is set to 120 bpm, but can be configured by setting `TEMPO_DEFAULT` in `config.c`.
 There is also a set of functions to modify the tempo from within the user/keymap code:
 ```c
@@ -291,7 +293,7 @@ You can configure the default, min and max frequencies, the stepping and built i
 |--------|---------------|-------------|
 | `AUDIO_CLICKY_FREQ_DEFAULT` | 440.0f | Sets the default/starting audio frequency for the clicky sounds. |
 | `AUDIO_CLICKY_FREQ_MIN` | 65.0f | Sets the lowest frequency (under 60f are a bit buggy). |
-| `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the the highest frequency. Too high may result in coworkers attacking you. |
+| `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the highest frequency. Too high may result in coworkers attacking you. |
 | `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN key codes.  This is a multiplicative factor.  The default steps the frequency up/down by a musical minor third.  |
 | `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical, and `1.0f` will make this sound much like the 90's computer screen scrolling/typing effect. | 
 | `AUDIO_CLICKY_DELAY_DURATION` | 1 | An integer note duration where 1 is 1/16th of the tempo, or a sixty-fourth note (see `quantum/audio/musical_notes.h` for implementation details). The main clicky effect will be delayed by this duration.  Adjusting this to values around 6-12 will help compensate for loud switches. |
@@ -301,8 +303,7 @@ You can configure the default, min and max frequencies, the stepping and built i
 
 ## MIDI Functionality
 
-This is still a WIP, but check out `quantum/process_keycode/process_midi.c` to see what's happening. Enable from the Makefile.
-
+See [MIDI](feature_midi.md)
 
 ## Audio Keycodes
 
@@ -319,114 +320,3 @@ This is still a WIP, but check out `quantum/process_keycode/process_midi.c` to s
 |`MU_OFF`        |         |Turns off Music Mode              |
 |`MU_TOG`        |         |Toggles Music Mode                |
 |`MU_MOD`        |         |Cycles through the music modes    |
-
-<!-- FIXME: this formatting needs work
-
-## Audio
-
-```c
-#ifdef AUDIO_ENABLE
-    AU_ON,
-    AU_OFF,
-    AU_TOG,
-
-    // Music mode on/off/toggle
-    MU_ON,
-    MU_OFF,
-    MU_TOG,
-
-    // Music voice iterate
-    MUV_IN,
-    MUV_DE,
-#endif
-```
-
-### Midi
-
-#if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
-    MI_ON,  // send midi notes when music mode is enabled
-    MI_OFF, // don't send midi notes when music mode is enabled
-#endif
-
-MIDI_TONE_MIN,
-MIDI_TONE_MAX
-
-MI_C = MIDI_TONE_MIN,
-MI_Cs,
-MI_Db = MI_Cs,
-MI_D,
-MI_Ds,
-MI_Eb = MI_Ds,
-MI_E,
-MI_F,
-MI_Fs,
-MI_Gb = MI_Fs,
-MI_G,
-MI_Gs,
-MI_Ab = MI_Gs,
-MI_A,
-MI_As,
-MI_Bb = MI_As,
-MI_B,
-
-MIDI_TONE_KEYCODE_OCTAVES > 1
-
-where x = 1-5:
-MI_C_x,
-MI_Cs_x,
-MI_Db_x = MI_Cs_x,
-MI_D_x,
-MI_Ds_x,
-MI_Eb_x = MI_Ds_x,
-MI_E_x,
-MI_F_x,
-MI_Fs_x,
-MI_Gb_x = MI_Fs_x,
-MI_G_x,
-MI_Gs_x,
-MI_Ab_x = MI_Gs_x,
-MI_A_x,
-MI_As_x,
-MI_Bb_x = MI_As_x,
-MI_B_x,
-
-MI_OCT_Nx 1-2
-MI_OCT_x 0-7
-MIDI_OCTAVE_MIN = MI_OCT_N2,
-MIDI_OCTAVE_MAX = MI_OCT_7,
-MI_OCTD, // octave down
-MI_OCTU, // octave up
-
-MI_TRNS_Nx 1-6
-MI_TRNS_x 0-6
-MIDI_TRANSPOSE_MIN = MI_TRNS_N6,
-MIDI_TRANSPOSE_MAX = MI_TRNS_6,
-MI_TRNSD, // transpose down
-MI_TRNSU, // transpose up
-
-MI_VEL_x 1-10
-MIDI_VELOCITY_MIN = MI_VEL_1,
-MIDI_VELOCITY_MAX = MI_VEL_9,
-MI_VELD, // velocity down
-MI_VELU, // velocity up
-
-MI_CHx 1-16
-MIDI_CHANNEL_MIN = MI_CH1
-MIDI_CHANNEL_MAX = MI_CH16,
-MI_CHD, // previous channel
-MI_CHU, // next channel
-
-MI_ALLOFF, // all notes off
-
-MI_SUS, // sustain
-MI_PORT, // portamento
-MI_SOST, // sostenuto
-MI_SOFT, // soft pedal
-MI_LEG,  // legato
-
-MI_MOD, // modulation
-MI_MODSD, // decrease modulation speed
-MI_MODSU, // increase modulation speed
-#endif // MIDI_ADVANCED
-
--->
