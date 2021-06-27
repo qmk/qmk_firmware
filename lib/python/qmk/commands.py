@@ -1,5 +1,6 @@
 """Helper functions for commands.
 """
+from functools import lru_cache
 import json
 import os
 import sys
@@ -8,11 +9,15 @@ from pathlib import Path
 from subprocess import DEVNULL
 from time import strftime
 
+from dotty_dict import dotty
 from milc import cli
 
 import qmk.keymap
 from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
+from qmk.info import info_json
 from qmk.json_schema import json_load
+from qmk.keyboard import list_keyboards
+from qmk.metadata import true_values, false_values
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
 
@@ -346,3 +351,151 @@ def in_virtualenv():
     """
     active_prefix = getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
     return active_prefix != sys.prefix
+
+
+def do_compile(keyboard, keymap, parallel, target=None):
+    """Shared code between `qmk compile` and `qmk flash`.
+    """
+    if keyboard is None:
+        keyboard = ''
+
+    envs = {'REQUIRE_PLATFORM_KEY': ''}
+    silent = keyboard == 'all' or keyboard.startswith('all-') or keymap == 'all'
+
+    # Setup the environment
+    for env in cli.args.env:
+        if '=' in env:
+            key, value = env.split('=', 1)
+            if key in envs:
+                cli.log.warning('Overwriting existing environment variable %s=%s with %s=%s!', key, envs[key], key, value)
+            envs[key] = value
+        else:
+            cli.log.warning('Invalid environment variable: %s', env)
+
+    if keyboard.startswith('all-'):
+        envs['REQUIRE_PLATFORM_KEY'] = keyboard[4:]
+
+    # Run clean if necessary
+    if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
+        for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap):
+            cli.log.info('Cleaning previous build files for keyboard {fg_cyan}%s{fg_reset} keymap {fg_cyan}%s', keyboard, keymap)
+            _, _, make_cmd = create_make_command(keyboard, keymap, 'clean', parallel, silent, **envs)
+            cli.run(make_cmd, capture_output=False, stdin=DEVNULL)
+
+    # If -f has been specified without a keyboard target, assume -kb all
+    if cli.args.filter and not cli.args.keyboard:
+        cli.log.debug('--filter supplied without --keyboard, assuming --keyboard all.')
+        keyboard = 'all'
+
+    # Determine the compile command(s)
+    commands = None
+
+    if cli.args.filename:
+        if cli.args.filter:
+            cli.log.warning('Ignoring --filter because a keymap.json was provided.')
+
+        if cli.args.keyboard:
+            cli.log.warning('Ignoring --keyboard because a keymap.json was provided.')
+
+        if cli.args.keymap:
+            cli.log.warning('Ignoring --keymap because a keymap.json was provided.')
+
+        # If a configurator JSON was provided generate a keymap and compile it
+        user_keymap = parse_configurator_json(cli.args.filename)
+        commands = [compile_configurator_json(user_keymap, parallel=parallel, **envs)]
+
+    elif keyboard and keymap:
+        if cli.args.filter:
+            cli.log.info('Generating the list of keyboards to compile, this may take some time.')
+
+        commands = [create_make_command(keyboard, keymap, target=target, parallel=parallel, silent=silent, **envs) for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap)]
+
+    elif not keyboard:
+        cli.log.error('Could not determine keyboard!')
+
+    elif not keymap:
+        cli.log.error('Could not determine keymap!')
+
+    # Compile the firmware, if we're able to
+    if commands:
+        returncodes = []
+        for keyboard, keymap, command in commands:
+            if keymap not in qmk.keymap.list_keymaps(keyboard):
+                cli.log.debug('Skipping keyboard %s, no %s keymap found.', keyboard, keymap)
+                continue
+
+            print()
+            if target:
+                cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s{fg_reset} and target {fg_cyan}%s', keyboard, keymap, target)
+            else:
+                cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s', keyboard, keymap)
+            cli.log.debug('Running make command: {fg_blue}%s', ' '.join(command))
+
+            if not cli.args.dry_run:
+                compile = cli.run(command, capture_output=False)
+                returncodes.append(compile.returncode)
+                if compile.returncode == 0:
+                    cli.log.info('Success!')
+                else:
+                    cli.log.error('Failed!')
+
+        if any(returncodes):
+            print()
+            cli.log.error('Could not compile all targets, look above this message for more details. Failing target(s):')
+
+            for i, returncode in enumerate(returncodes):
+                if returncode != 0:
+                    keyboard, keymap, command = commands[i]
+                    cli.echo('\tkeyboard: {fg_cyan}%s{fg_reset} keymap: {fg_cyan}%s', keyboard, keymap)
+
+    elif cli.args.filter:
+        cli.log.error('No keyboards found after applying filter(s)!')
+        return False
+
+    else:
+        cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
+        cli.print_help()
+        return False
+
+
+@lru_cache()
+def _keyboard_list(keyboard):
+    """Returns a list of keyboards matching keyboard.
+    """
+    if keyboard == 'all' or keyboard.startswith('all-'):
+        return list_keyboards()
+
+    return [keyboard]
+
+
+def keyboard_keymap_iter(cli_keyboard, cli_keymap):
+    """Iterates over the keyboard/keymap for this command and yields a pairing of each.
+    """
+    for keyboard in _keyboard_list(cli_keyboard):
+        continue_flag = False
+        if cli.args.filter:
+            info_data = dotty(info_json(keyboard))
+            for filter in cli.args.filter:
+                if '=' in filter:
+                    key, value = filter.split('=', 1)
+                    if value in true_values:
+                        value = True
+                    elif value in false_values:
+                        value = False
+                    elif value.isdigit():
+                        value = int(value)
+                    elif '.' in value and value.replace('.').isdigit():
+                        value = float(value)
+
+                    if info_data.get(key) != value:
+                        continue_flag = True
+                        break
+
+            if continue_flag:
+                continue
+
+        if cli_keymap == 'all':
+            for keymap in qmk.keymap.list_keymaps(keyboard):
+                yield keyboard, keymap
+        else:
+            yield keyboard, cli_keymap
