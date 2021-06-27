@@ -103,7 +103,7 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, silent=False,
     for key, value in env_vars.items():
         make_cmd.append(f'{key}={value}')
 
-    return keyboard, keymap, make_cmd
+    return make_cmd
 
 
 def get_git_version(current_time, repo_dir='.', check_dir='.'):
@@ -362,10 +362,13 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
     if environment is None:
         environment = {}
 
-    envs = {'REQUIRE_PLATFORM_KEY': ''}
-    silent = keyboard == 'all' or keyboard.startswith('all-') or keymap == 'all'
+    all_keyboards = keyboard == 'all' or keyboard.startswith('all-')
+    all_keymaps = keymap == 'all'
+    multiple_compiles = all_keyboards or all_keymaps
 
     # Setup the environment
+    envs = {'REQUIRE_PLATFORM_KEY': ''}
+
     for env in environment:
         if '=' in env:
             key, value = env.split('=', 1)
@@ -382,11 +385,11 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
         for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap):
             cli.log.info('Cleaning previous build files for keyboard {fg_cyan}%s{fg_reset} keymap {fg_cyan}%s', keyboard, keymap)
-            _, _, make_cmd = create_make_command(keyboard, keymap, 'clean', parallel, silent, **envs)
+            _, _, make_cmd = create_make_command(keyboard, keymap, 'clean', parallel, multiple_compiles, **envs)
             cli.run(make_cmd, capture_output=False, stdin=DEVNULL)
 
     # Determine the compile command(s)
-    commands = None
+    command = None
 
     if cli.args.filename:
         if cli.args.keyboard:
@@ -397,13 +400,13 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
 
         # If a configurator JSON was provided generate a keymap and compile it
         user_keymap = parse_configurator_json(cli.args.filename)
-        commands = [compile_configurator_json(user_keymap, parallel=parallel, **envs)]
+        command = compile_configurator_json(user_keymap, parallel=parallel, **envs)
 
     elif keyboard and keymap:
-        if filters:
-            cli.log.info('Generating the list of keyboards to compile, this may take some time.')
-
-        commands = [create_make_command(keyboard, keymap, target=target, parallel=parallel, silent=silent, **envs) for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap, filters)]
+        if multiple_compiles:
+            command = 'multiple'
+        else:
+            command = create_make_command(keyboard, keymap, target=target, parallel=parallel, silent=multiple_compiles, **envs)
 
     elif not keyboard:
         cli.log.error('Could not determine keyboard!')
@@ -412,27 +415,11 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
         cli.log.error('Could not determine keymap!')
 
     # Compile the firmware, if we're able to
-    if commands:
+    if command == 'multiple':
         returncodes = []
-        for keyboard, keymap, command in commands:
-            if keymap not in qmk.keymap.list_keymaps(keyboard):
-                cli.log.debug('Skipping keyboard %s, no %s keymap found.', keyboard, keymap)
-                continue
-
-            print()
-            if target:
-                cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s{fg_reset} and target {fg_cyan}%s', keyboard, keymap, target)
-            else:
-                cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s', keyboard, keymap)
-            cli.log.debug('Running make command: {fg_blue}%s', ' '.join(command))
-
-            if not cli.args.dry_run:
-                compile = cli.run(command, capture_output=False)
-                returncodes.append(compile.returncode)
-                if compile.returncode == 0:
-                    cli.log.info('Success!')
-                else:
-                    cli.log.error('Failed!')
+        for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap, filters):
+            command = create_make_command(keyboard, keymap, target=target, parallel=parallel, silent=multiple_compiles, **envs)
+            _execute_compile(keyboard, keymap, command, target)
 
         if any(returncodes):
             print()
@@ -443,6 +430,12 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
                     keyboard, keymap, command = commands[i]
                     cli.echo('\tkeyboard: {fg_cyan}%s{fg_reset} keymap: {fg_cyan}%s', keyboard, keymap)
 
+    elif command:
+        if _execute_compile(keyboard, keymap, command, target) != 0:
+            print()
+            cli.log.error('Could not compile all targets, look above this message for more details. Failing target(s):')
+            cli.echo('\tkeyboard: {fg_cyan}%s{fg_reset} keymap: {fg_cyan}%s', keyboard, keymap)
+
     elif filters:
         cli.log.error('No keyboards found after applying filter(s)!')
         return False
@@ -451,6 +444,29 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
         cli.print_help()
         return False
+
+
+def _execute_compile(keyboard, keymap, command, target):
+    if keymap not in qmk.keymap.list_keymaps(keyboard):
+        cli.log.debug('Skipping keyboard %s, no %s keymap found.', keyboard, keymap)
+        return 0
+
+    print()
+    if target:
+        cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s{fg_reset} and target {fg_cyan}%s', keyboard, keymap, target)
+    else:
+        cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s', keyboard, keymap)
+    cli.log.debug('Running make command: {fg_blue}%s', ' '.join(command))
+
+    if not cli.args.dry_run:
+        compile = cli.run(command, capture_output=False)
+        if compile.returncode == 0:
+            cli.log.info('Success!')
+        else:
+            cli.log.error('Failed!')
+        return compile.returncode
+
+    return 0
 
 
 @lru_cache()
