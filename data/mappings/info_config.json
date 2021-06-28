@@ -7,7 +7,7 @@
     # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
     # to_c: Default `true`. Set to `false` to exclude this mapping from config.h
     # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
-    "AUDIO_VOICES": {"info_key": "matrix_pins.ghost", "value_type": "bool"},
+    "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BREATHING_PERIOD": {"info_key": "backlight.breathing_period", "value_type": "int"},
     "BACKLIGHT_PIN": {"info_key": "backlight.pin"},
