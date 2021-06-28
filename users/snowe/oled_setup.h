@@ -1,4 +1,5 @@
-/* Copyright 2019 mechmerlin
+/*
+ * Copyright 2021 Tyler Thrailkill (@snowe/@snowe2010) <tyler.b.thrailkill@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +17,14 @@
 
 #pragma once
 
-// place overrides here
+#include "quantum.h"
+#ifdef OLED_DRIVER_ENABLE
+#    include "oled_driver.h"
+#    define OLED_RENDER_WPM_COUNTER " WPM: "
+#endif
+#ifdef LUNA_ENABLE
+#    include "luna.h"
+#endif
+#ifdef OCEAN_DREAM_ENABLE
+#    include "ocean_dream.h"
+#endif
