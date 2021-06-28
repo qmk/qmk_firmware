@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         * Holding F or J activates Symbols layer
         * Holding / acts as Shift
         * Double tap on ' acts as "
-        * Doulbe tap on Menu activates CapsLock
+        * Double tap on Menu activates CapsLock
         * 
         * Nav and Num layers are togglable with triple tapping on relative keys while holding them will activate layers momentarily.
         * 
