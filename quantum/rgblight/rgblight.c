@@ -890,7 +890,7 @@ void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
         animation_status.restart = true;
     }
 #        endif /* RGBLIGHT_SPLIT_NO_ANIMATION_SYNC */
-#    endif /* RGBLIGHT_USE_TIMER */
+#    endif     /* RGBLIGHT_USE_TIMER */
 }
 #endif /* RGBLIGHT_SPLIT */
 
