@@ -345,7 +345,7 @@ def _extract_matrix_info(info_data, config_c):
         }
 
     if row_pins and col_pins:
-        if 'matrix_pins' in info_data:
+        if 'matrix_pins' in info_data and 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             _log_warning(info_data, 'Matrix pins are specified in both info.json and config.h, the config.h values win.')
 
         info_data['matrix_pins'] = {
@@ -354,7 +354,7 @@ def _extract_matrix_info(info_data, config_c):
         }
 
     if direct_pins:
-        if 'matrix_pins' in info_data:
+        if 'matrix_pins' in info_data and 'direct' in info_data['matrix_pins']:
             _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
 
         info_data['matrix_pins']['direct'] = _extract_direct_matrix(info_data, direct_pins)
