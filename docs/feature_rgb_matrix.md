@@ -624,6 +624,35 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
+### Indicator Examples :id=indicator-examples
+
+Caps Lock indicator with alpha numberic flagged keys:
+```c
+void rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) { rgb_matrix_set_color(i, RGB_RED); }
+        }
+    }
+}
+```
+
+Layer indicator with all flagged keys:
+```c
+void rgb_matrix_indicators_user(void) {
+    switch(get_highest_layer(layer_state|default_layer_state)) {
+        case RAISE:
+            rgb_matrix_set_color_all(RGB_BLUE);
+            break;
+        case LOWER:
+            rgb_matrix_set_color_all(RGB_YELLOW);
+            break;
+        default:
+            break;
+    }
+}
+```
+
 ### Suspended state :id=suspended-state
 To use the suspend feature, make sure that `#define RGB_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
 
