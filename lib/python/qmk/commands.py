@@ -462,7 +462,6 @@ def _execute_compile(keyboard, keymap, command, target, returncodes=None):
         cli.log.debug('Skipping keyboard %s, no %s keymap found.', keyboard, keymap)
         return 0
 
-    print()
     if target:
         cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s{fg_reset} and target {fg_cyan}%s', keyboard, keymap, target)
     else:
@@ -470,16 +469,15 @@ def _execute_compile(keyboard, keymap, command, target, returncodes=None):
     cli.log.debug('Running make command: {fg_blue}%s', ' '.join(command))
 
     if not cli.args.dry_run:
-        compile = cli.run(command, capture_output=False)
+        compile = cli.run(command, combined_output=True)
 
         cli.acquire_lock()
         returncodes.append(compile.returncode)
         cli.release_lock()
 
-        if compile.returncode == 0:
-            cli.log.info('Success!')
-        else:
-            cli.log.error('Failed!')
+        if compile.returncode != 0:
+            cli.log.info('Could not build firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s', keyboard, keymap)
+            print(compile.stdout)
 
 
 @lru_cache()
