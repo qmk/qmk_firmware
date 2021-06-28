@@ -15,10 +15,12 @@
  */
 #include QMK_KEYBOARD_H
 
-#define BASE 0
-#define CLOSE 1
-#define FAR 2
-#define FUNKY 3
+enum custom_layers {
+    _BASE,
+    _CLOSE,
+    _FAR,
+    _FUNKY,
+};
 #define CLS_SPC LT(CLOSE, KC_SPC)
 #define FAR_F LT(FAR, KC_F)
 #define FNK_D LT(FUNKY, KC_D)
