@@ -6,50 +6,31 @@ enum layers { _LETTERS = 0, _SYMBOLS, _NUMBERS, _MEDIA, _KBD_CTRL };
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
-        G(KC_TAB), KC_X, DE_DOT, KC_O, DE_COMM, KC_Y,
-        KC_V, KC_G, KC_C, KC_L, KC_J, G(KC_SPC),
-        LT(4,KC_ESC), CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I), KC_U,
-        KC_D, SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
-        KC_NO, KC_K, KC_Q, DE_ADIA, DE_UDIA, DE_ODIA, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_B, KC_P, KC_W, KC_M, KC_Z, DE_SS,
-        KC_HOME, KC_BSPC, LT(_SYMBOLS, KC_TAB), LT(_NUMBERS, KC_SPC), LT(_MEDIA, KC_ENT),
-        LT(_MEDIA, KC_ENT), LT(_NUMBERS, KC_SPC), LT(_SYMBOLS, KC_TAB), KC_DEL, KC_END),
+        C(KC_LEFT), KC_X, DE_DOT, KC_O, DE_COMM, KC_Y,                                          KC_V, KC_G, KC_C, KC_L, KC_J, C(KC_RGHT),
+        LT(4,KC_ESC), CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I), KC_U,                 KC_D, SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
+        KC_NO, KC_K, KC_Q, DE_ADIA, DE_UDIA, DE_ODIA, KC_NO, KC_NO,                             KC_NO, KC_NO, KC_B, KC_P, KC_W, KC_M, KC_Z, DE_SS,
+        KC_HOME, KC_BSPC, LT(1,KC_TAB), LT(2,KC_SPC), LT(3,KC_ENT),                             LT(3,KC_ENT), LT(2,KC_SPC), LT(1,KC_TAB), KC_DEL, KC_END),
+        // LT(_LAYER_NAME, KC_XY) will break the json import in the configurator, so use numbers
     [_SYMBOLS] = LAYOUT(
-        KC_TRNS, DE_AT, DE_PERC, DE_LCBR, DE_RCBR, DE_PIPE,
-        DE_EXLM, KC_GRV, S(KC_GRV), DE_EQL, DE_AMPR, KC_TRNS,
-        KC_TRNS, CTL_T(KC_NUBS), ALT_T(DE_TILD), GUI_T(DE_LPRN), SFT_T(DE_RPRN), DE_ASTR,
-        DE_QUES, SFT_T(DE_SLSH), GUI_T(DE_COLN), ALT_T(DE_MINS), CTL_T(DE_UNDS), KC_NO,
-        KC_TRNS, DE_EURO, DE_DLR, DE_LBRC, DE_RBRC, DE_HASH, KC_NO, KC_NO,
-        KC_NO, KC_NO, DE_GRV, DE_BSLS, DE_SCLN, DE_PLUS, DE_DQUO, DE_QUOT,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+        KC_TRNS, DE_AT, DE_PERC, DE_LCBR, DE_RCBR, DE_PIPE,                                     DE_EXLM, KC_GRV, S(KC_GRV), DE_EQL, DE_AMPR, KC_TRNS,
+        KC_TRNS, CTL_T(KC_NUBS), ALT_T(DE_TILD), GUI_T(DE_LPRN), SFT_T(DE_RPRN), DE_ASTR,       DE_QUES, SFT_T(DE_SLSH), GUI_T(DE_COLN), ALT_T(DE_MINS), CTL_T(DE_UNDS), KC_NO,
+        KC_TRNS, DE_EURO, DE_DLR, DE_LBRC, DE_RBRC, DE_HASH, KC_NO, KC_NO,                      KC_NO, KC_NO, DE_GRV, DE_BSLS, DE_SCLN, DE_PLUS, DE_DQUO, DE_QUOT,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [_NUMBERS] = LAYOUT(
-        KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,
-        KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-        KC_TRNS, CTL_T(DE_1), ALT_T(DE_2), GUI_T(DE_3), SFT_T(DE_4), DE_5,
-        DE_6, SFT_T(DE_7), GUI_T(DE_8), ALT_T(DE_9), CTL_T(DE_0), KC_F12,
-        KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_BTN1, KC_BTN2, KC_WH_U, KC_WH_D, KC_TRNS),
+        KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                                             KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
+        KC_TRNS, CTL_T(DE_1), ALT_T(DE_2), GUI_T(DE_3), SFT_T(DE_4), DE_5,                      DE_6, SFT_T(DE_7), GUI_T(DE_8), ALT_T(DE_9), CTL_T(DE_0), KC_F12,
+        KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO, KC_NO,                         KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_BTN1, KC_BTN2, KC_WH_U, KC_WH_D, KC_TRNS),
     [_MEDIA] = LAYOUT(
-        KC_TRNS, KC_NO, KC_MUTE, KC_NO, KC_NO, KC_NO,
-        KC_NO, G(KC_X), G(KC_R), KC_NO, C(KC_LEFT), KC_TRNS,
-        KC_TRNS, KC_BRIU, KC_VOLU, KC_MPLY, KC_MNXT, KC_NO,
-        G(C(KC_SPACE)), G(KC_C), G(KC_Z), G(KC_F), C(KC_UP), KC_NO,
-        KC_TRNS, KC_BRID, KC_VOLD, KC_NO, KC_MPRV, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, G(KC_V), G(KC_Z), KC_NO, C(KC_RGHT), KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+        KC_TRNS, KC_NO, KC_MUTE, KC_NO, KC_NO, KC_NO,                                           KC_NO, G(KC_X), G(KC_R), KC_NO, C(KC_LEFT), KC_TRNS,
+        KC_TRNS, KC_BRIU, KC_VOLU, KC_MPLY, KC_MNXT, KC_NO,                                     G(C(KC_SPACE)), G(KC_C), G(KC_Z), G(KC_F), C(KC_UP), KC_NO,
+        KC_TRNS, KC_BRID, KC_VOLD, KC_NO, KC_MPRV, KC_NO, KC_NO, KC_NO,                         KC_NO, KC_NO, KC_NO, G(KC_V), G(KC_Z), KC_NO, C(KC_RGHT), KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [_KBD_CTRL] = LAYOUT(
-        KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
-        KC_TRNS, KC_NO, RGB_SAI, RGB_HUI, RGB_VAI, KC_NO,
-        KC_NO, RGB_TOG, RGB_MOD, RGB_SPI, KC_NO, KC_NO,
-        KC_TRNS, KC_NO, RGB_SAD, RGB_HUD, RGB_VAD, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, RGB_RMOD, RGB_SPD, KC_NO, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
+        KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
+        KC_TRNS, KC_NO, RGB_SAI, RGB_HUI, RGB_VAI, KC_NO,                                       KC_NO, RGB_TOG, RGB_MOD, RGB_SPI, KC_NO, KC_NO,
+        KC_TRNS, KC_NO, RGB_SAD, RGB_HUD, RGB_VAD, KC_NO, KC_NO, KC_NO,                         KC_NO, KC_NO, KC_NO, KC_NO, RGB_RMOD, RGB_SPD, KC_NO, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 // clang-format on
 
