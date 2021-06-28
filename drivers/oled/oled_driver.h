@@ -226,13 +226,17 @@ void oled_write(const char *data, bool invert);
 void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
+// Useful for moving the screen in preparation for new drawing
 void oled_pan(bool left);
 
 // Returns a pointer to the requested start index in the buffer plus remaining
 // buffer length as struct
 oled_buffer_reader_t oled_read_raw(uint16_t start_index);
 
+// Writes a string to the buffer at current cursor position
 void oled_write_raw(const char *data, uint16_t size);
+
+// Writes a single byte into the buffer at the specified index
 void oled_write_raw_byte(const char data, uint16_t index);
 
 // Sets a specific pixel on or off
@@ -251,17 +255,11 @@ void oled_write_P(const char *data, bool invert);
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 
+// Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
 #else
-// Writes a string to the buffer at current cursor position
-// Advances the cursor while writing, inverts the pixels if true
 #    define oled_write_P(data, invert) oled_write(data, invert)
-
-// Writes a string to the buffer at current cursor position
-// Advances the cursor while writing, inverts the pixels if true
-// Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 #    define oled_write_ln_P(data, invert) oled_write(data, invert)
-
 #    define oled_write_raw_P(data, size) oled_write_raw(data, size)
 #endif  // defined(__AVR__)
 
