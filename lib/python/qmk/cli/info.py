@@ -24,19 +24,15 @@ def show_keymap(kb_info_json, title_caps=True):
     keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap)
 
     if keymap_path and keymap_path.suffix == '.json':
-        if title_caps:
-            cli.echo('{fg_blue}Keymap "%s"{fg_reset}:', cli.config.info.keymap)
-        else:
-            cli.echo('{fg_blue}keymap.%s{fg_reset}:', cli.config.info.keymap)
-
         keymap_data = json.load(keymap_path.open(encoding='utf-8'))
         layout_name = keymap_data['layout']
+        layout_name = kb_info_json.get('layout_aliases', {}).get(layout_name, layout_name)  # Resolve alias names
 
         for layer_num, layer in enumerate(keymap_data['layers']):
             if title_caps:
-                cli.echo('{fg_cyan}Layer %s{fg_reset}:', layer_num)
+                cli.echo('{fg_cyan}Keymap %s Layer %s{fg_reset}:', cli.config.info.keymap, layer_num)
             else:
-                cli.echo('{fg_cyan}layer_%s{fg_reset}:', layer_num)
+                cli.echo('{fg_cyan}keymap.%s.layer.%s{fg_reset}:', cli.config.info.keymap, layer_num)
 
             print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
 
