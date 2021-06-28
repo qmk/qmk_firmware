@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER ctrlshiftba
 #define PRODUCT ergo_single
-#define DESCRIPTION a keycap friendly ergo. the non-split version
 
 /* key matrix size */
 #define MATRIX_ROWS 10

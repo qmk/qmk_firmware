@@ -20,7 +20,7 @@ Veuillez noter que lancer `make` avec `sudo` est généralement une **mauvaise**
 
 ### Règles `udev` pour Linux
 
-Sous Linux, vous aurez besoin des permissions appropriées pour accéder au MCU (le micro-contrôleur). Vous avez le choix d'utiliser `sudo` en flashant le firmware, ou placer ces fichiers dans `/etc/udev/rules.d`. Une fois ajouté, lancez les commandes suivantes :
+Sous Linux, vous aurez besoin des permissions appropriées pour accéder au MCU (le micro-contrôleur). Vous avez le choix d'utiliser `sudo` en flashant le firmware, ou placer ces fichiers dans `/etc/udev/rules.d`. Une fois ajouté, lancez les commandes suivantes:
 
 ```console
 sudo udevadm control --reload-rules
@@ -96,8 +96,8 @@ La plupart des boards QMK utilisent `0xFEED` comme vendor ID. Vérifiez les autr
 https://github.com/tmk/tmk_keyboard/issues/150
 
 Vous pouvez acheter un VID:PID unique ici. Je ne pense pas que ce soit nécessaire pour un usage personnel.
-- http://www.obdev.at/products/vusb/license.html
-- http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
+- https://www.obdev.at/products/vusb/license.html
+- https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ## BOOTLOADER_SIZE pour AVR
 

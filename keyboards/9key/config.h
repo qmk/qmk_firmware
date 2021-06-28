@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 		0x0001
 #define MANUFACTURER    Bishop Keyboards
 #define PRODUCT         9Key
-#define DESCRIPTION     Bishop Keyboards 9Key // Charleston, SC Meetup Handout
 
 /* key matrix size */
 #define MATRIX_ROWS 3

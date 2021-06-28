@@ -24,7 +24,7 @@
  */
 #pragma once
 
-#include "ch.h"
+#include <ch.h>
 #include <hal.h>
 
 #ifdef I2C1_BANK
@@ -81,7 +81,14 @@
 #    define I2C_DRIVER I2CD1
 #endif
 
-#ifndef USE_GPIOV1
+#ifdef USE_GPIOV1
+#    ifndef I2C1_SCL_PAL_MODE
+#        define I2C1_SCL_PAL_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#    endif
+#    ifndef I2C1_SDA_PAL_MODE
+#        define I2C1_SDA_PAL_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#    endif
+#else
 // The default PAL alternate modes are used to signal that the pins are used for I2C
 #    ifndef I2C1_SCL_PAL_MODE
 #        define I2C1_SCL_PAL_MODE 4

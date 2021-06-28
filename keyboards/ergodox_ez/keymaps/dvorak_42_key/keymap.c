@@ -6,6 +6,8 @@
 
 // to build this keymap
 // make ergodox_ez:dvorak_42_key:teensy
+// or:
+// qmk compile -kb ergodox_ez -km dvorak_42_key
 // flashing from rpi:
 // sudo teensy_loader_cli -v -w .build/ergodox_ez_dvorak_42_key.hex --mcu atmega32u4
 
@@ -50,6 +52,38 @@ enum custom_keycodes {
   SHELL_EXPAND_OE_LOGPATTERN,
   SHELL_EXPAND_OE_TRANPATTERN,
 
+  SCREEN_TAB_LEFT,
+  SCREEN_TAB_RIGHT,
+
+  SCREEN_NEW_TAB,
+  SCREEN_DETACH,
+  SCREEN_RENAME,
+  SCREEN_NUMBER,
+
+  SCREEN_0,
+  SCREEN_1,
+  SCREEN_2,
+  SCREEN_3,
+  SCREEN_4,
+  SCREEN_5,
+  SCREEN_6,
+  SCREEN_7,
+  SCREEN_8,
+  SCREEN_9,
+
+  SCREEN_COPY_MODE,
+  SCREEN_PASTE,
+
+  SCREEN_UP_JUMP,
+  SCREEN_DOWN_JUMP,
+
+  SCREEN_READREG_1,
+  SCREEN_READREG_2,
+  SCREEN_READREG_3, 
+  SCREEN_PASTEREG_1,
+  SCREEN_PASTEREG_2, 
+  SCREEN_PASTEREG_3,
+
   // Windows 10 macros,
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
@@ -69,34 +103,6 @@ enum custom_keycodes {
 #define VSCODE           9 // visual studio code specific layer
 
 
-// macros
-#define SCREEN_TAB_LEFT 4
-#define SCREEN_TAB_RIGHT 5
-#define SCREEN_NEW_TAB 6
-#define SCREEN_COPY_MODE 8
-#define SCREEN_PASTE 9
-#define SCREEN_RENAME 10
-#define SCREEN_NUMBER 11
-#define SCREEN_0 12
-#define SCREEN_1 13
-#define SCREEN_2 14
-#define SCREEN_3 15
-#define SCREEN_4 16
-#define SCREEN_5 17
-#define SCREEN_6 18
-#define SCREEN_7 19
-#define SCREEN_8 20
-#define SCREEN_9 21
-#define SCREEN_DETACH 22
-#define SCREEN_UP_JUMP 23
-#define SCREEN_DOWN_JUMP 24
-#define SCREEN_READREG_1 25
-#define SCREEN_READREG_2 26
-#define SCREEN_READREG_3 27
-#define SCREEN_PASTEREG_1 28
-#define SCREEN_PASTEREG_2 29
-#define SCREEN_PASTEREG_3 30
-#define DEL_TO_HOME 36
 
 // Android Studio shortcuts
 #define AS_TABLEFT LALT(KC_LEFT)
@@ -109,9 +115,13 @@ enum custom_keycodes {
 #define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
 #define AS_CLOSETAB LCTL(KC_F4)
 #define AS_CLOSETOOLWINDOW LCTL(LSFT(KC_F4))
+#define AS_COPYLINEDOWN LCTL(KC_D)
+#define AS_DEL_LINE LCTL(KC_Y)
+#define AS_LINE LCTL(KC_G)
 
 // visual studio code shortcuts
 #define VS_FILE LCTL(KC_P)
+#define VS_OPEN_FILE LCTL(KC_O)
 #define VS_LINE LCTL(KC_G)
 #define VS_SYMBOLEDITOR LCTL(LSFT(KC_O))
 #define VS_DEFINITION KC_F12
@@ -123,6 +133,8 @@ enum custom_keycodes {
 #define VS_TABRIGHT LCTL(KC_PGDN)
 #define VS_CLOSETAB LCTL(KC_W)
 #define VS_CLOSEPANEL LCTL(LSFT(KC_W))
+#define VS_GROUP_1 LCTL(KC_1)
+#define VS_GROUP_2 LCTL(KC_2)
 #define VS_TERMINAL LCTL(KC_GRAVE)
 #define VS_BUILD LCTL(LSFT(KC_B))
 #define VS_COMMANDS LCTL(LSFT(KC_P))
@@ -185,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
       // left hand
       KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
-      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
+      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MO(ANDROID_STUDIO),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
       OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
       MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
@@ -222,7 +234,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,         MEH(KC_G),
     KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,         MEH(KC_H),
             LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),  MEH(KC_I),
-    KC_TRNS,M(DEL_TO_HOME),RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,       MEH(KC_J),
+    KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,       MEH(KC_J),
                            KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), MEH(KC_K),
 
     // right thumb cluster
@@ -297,11 +309,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
-       KC_TRNS, M(SCREEN_NEW_TAB),  M(SCREEN_7), M(SCREEN_8), M(SCREEN_9), M(SCREEN_RENAME),    KC_TRNS,
-                M(SCREEN_TAB_LEFT), M(SCREEN_4), M(SCREEN_5), M(SCREEN_6), M(SCREEN_TAB_RIGHT), KC_TRNS,
-       KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), M(SCREEN_NUMBER),    KC_TRNS,
+       KC_TRNS, SCREEN_NEW_TAB,     SCREEN_7,    SCREEN_8,    SCREEN_9,    SCREEN_RENAME,       KC_TRNS,
+                SCREEN_TAB_LEFT,    SCREEN_4,    SCREEN_5,    SCREEN_6,    SCREEN_TAB_RIGHT,    KC_TRNS,
+       KC_TRNS, KC_TRNS,            SCREEN_1,    SCREEN_2,    SCREEN_3,    SCREEN_NUMBER,       KC_TRNS,
                                     // bottom row
-                                    M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             M(SCREEN_DETACH),
+                                    SCREEN_0,    KC_TRNS,     KC_TRNS,     KC_TRNS,             SCREEN_DETACH,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -313,8 +325,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
        // left hand
        KC_NO,  KC_TRNS,    KC_TRNS,              KC_TRNS,     		  KC_TRNS,               KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    M(SCREEN_READREG_3),  M(SCREEN_READREG_2),  M(SCREEN_READREG_1),   KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    M(SCREEN_PASTEREG_3), M(SCREEN_PASTEREG_2), M(SCREEN_PASTEREG_1),  KC_TRNS,
+       KC_TRNS,KC_TRNS,    SCREEN_READREG_3,     SCREEN_READREG_2,    SCREEN_READREG_1,      KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    SCREEN_PASTEREG_3,    SCREEN_PASTEREG_2,   SCREEN_PASTEREG_1,     KC_TRNS,
        KC_TRNS,KC_TRNS,    KC_TRNS,     		 KC_TRNS,     	      KC_TRNS,               KC_TRNS,   KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -323,10 +335,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,         KC_TRNS,    		  KC_TRNS,
-       KC_TRNS,    KC_TRNS,    KC_0,           KC_UP,           KC_DLR,          M(SCREEN_UP_JUMP),   KC_TRNS,
-                   KC_B,       KC_LEFT,        KC_DOWN,         KC_RIGHT,   	 KC_W,       		  M(SCREEN_COPY_MODE),
-       KC_TRNS,    KC_TRNS,    S(KC_W),        S(KC_Y),         M(SCREEN_PASTE), M(SCREEN_DOWN_JUMP), MEH(KC_V),
+       KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,         KC_TRNS,          KC_TRNS,
+       KC_TRNS,    KC_TRNS,    KC_0,           KC_UP,           KC_DLR,          SCREEN_UP_JUMP,   KC_TRNS,
+                   KC_B,       KC_LEFT,        KC_DOWN,         KC_RIGHT,   	 KC_W,             SCREEN_COPY_MODE,
+       KC_TRNS,    KC_TRNS,    S(KC_W),        S(KC_Y),         SCREEN_PASTE,    SCREEN_DOWN_JUMP, MEH(KC_V),
                    // bottom row (match functionality of base layer)
                    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,    KC_TRNS,
        // thumb cluster
@@ -350,16 +362,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,              KC_TRNS,
-       KC_TRNS, KC_TRNS,     KC_TRNS,       AS_FINDUSAGE,     AS_GO_DECLARATION,         AS_GO_IMPLEMENTATION, KC_TRNS,
-                AS_CLOSETAB, AS_TABLEFT,    AS_TABRIGHT,      AS_SYMBOL,                 AS_CLASS,             AS_BACK,
-       KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,                   AS_CLOSETOOLWINDOW,   KC_TRNS,
+       KC_TRNS, KC_TRNS,         KC_TRNS,       KC_TRNS,           KC_TRNS,              KC_TRNS,              KC_TRNS,
+       KC_TRNS, AS_COPYLINEDOWN, AS_FINDUSAGE,  AS_GO_DECLARATION, AS_GO_IMPLEMENTATION, AS_LINE,              KC_TRNS,
+                AS_CLOSETAB,     AS_TABLEFT,    AS_TABRIGHT,       AS_SYMBOL,            AS_CLASS,             AS_BACK,
+       KC_TRNS, KC_TRNS,         KC_TRNS,       KC_TRNS,           KC_TRNS,              AS_CLOSETOOLWINDOW,   KC_TRNS,
                          // bottom row
-                         KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+                         KC_TRNS,     KC_TRNS,     KC_TRNS,        KC_TRNS,              KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       KC_TRNS, AS_DEL_LINE, KC_TRNS
   ),
 
     // vscode shortcuts shortcuts
@@ -379,9 +391,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,      KC_TRNS,          KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
        VS_CMT_LINE,  VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
                      VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
-       VS_CMT_BLOCK, KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_BM_LIST,          VS_BM_LISTALL,   VS_BM_TOGGLE,
+       VS_CMT_BLOCK, KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
                                        // bottom row
-                                       VS_COMMANDS,   VS_BUILD,         VS_TERMINAL,         VS_CLOSEPANEL,   VS_BM_LABEL,
+                                       VS_COMMANDS,   VS_OPEN_FILE,     VS_TERMINAL,         VS_CLOSEPANEL,   VS_BM_LABEL,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -440,105 +452,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// leaving this in place for compatibilty with old keymaps cloned and re-compiled.
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case SCREEN_TAB_LEFT:
-            if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(P), END);
-            }
-            break;
-        case SCREEN_TAB_RIGHT:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(N), END);
-            }
-            break;
-        case SCREEN_NEW_TAB:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(C), END);
-            }
-        break;
-        case SCREEN_DETACH:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(D), END);
-            }
-        break;
-        case SCREEN_RENAME:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(A), U(LSFT), END);
-            }
-        break;
-        case SCREEN_NUMBER:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),
-                              T(N),
-                              T(U),
-                              T(M),
-                              T(B),
-                              T(E),
-                              T(R),
-                              T(SPC),
-                             END);
-            }
-        break;
-
-		MACRO_SCREEN_REG(SCREEN_READREG_1,1);
-		MACRO_SCREEN_REG(SCREEN_READREG_2,2);
-		MACRO_SCREEN_REG(SCREEN_READREG_3,3);
-
-		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_1,1);
-		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_2,2);
-		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_3,3);
-
-        MACRO_SCREEN_NUM(SCREEN_0,0);
-        MACRO_SCREEN_NUM(SCREEN_1,1);
-        MACRO_SCREEN_NUM(SCREEN_2,2);
-        MACRO_SCREEN_NUM(SCREEN_3,3);
-        MACRO_SCREEN_NUM(SCREEN_4,4);
-        MACRO_SCREEN_NUM(SCREEN_5,5);
-        MACRO_SCREEN_NUM(SCREEN_6,6);
-        MACRO_SCREEN_NUM(SCREEN_7,7);
-        MACRO_SCREEN_NUM(SCREEN_8,8);
-        MACRO_SCREEN_NUM(SCREEN_9,9);
-
-		case SCREEN_UP_JUMP:
-            if (record->event.pressed) {
-                return MACRO( T(5), T(UP), END);
-            }
-		break;
-
-		case SCREEN_DOWN_JUMP:
-            if (record->event.pressed) {
-                return MACRO( T(5), T(DOWN), END);
-            }
-		break;
-
-        case SCREEN_COPY_MODE:
-            if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(ESC), END);
-            }
-        break;
-        case SCREEN_PASTE:
-            if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(RBRC), END);
-            }
-        break;
-
-	case DEL_TO_HOME:
-            if (record->event.pressed) {
-                return MACRO(
-				// delete to the beginning of the line
- 				D(LSFT), T(HOME), U(LSFT),
-				T(DELETE),
-				END);
-            }
-  	    break;
-
-
-      }
-    return MACRO_NONE;
-};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -557,7 +470,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case RGB_SLD:
       if (record->event.pressed) {
-        rgblight_mode(1);
+        // rgblight_mode(1);
       }
       return false;
       break;
@@ -634,27 +547,122 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("htcBounce -j ");
             return true;
             break;
-	case SHELL_EXPAND_OE_LOGPATTERN:
-            SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTRL("x")SS_LSFT("8"));
-	    break;
-	case SHELL_EXPAND_OE_TRANPATTERN:
-            SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
-	    break;
-        case SHELL_DUMPTLOG:
-            SEND_STRING(" | dumptlog - ");
-            return true;
+        case SHELL_EXPAND_OE_LOGPATTERN:
+                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTRL("x")SS_LSFT("8"));
             break;
-        case WINDOWS10_WORKSPACE_LEFT:
-            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
-            return true;
+        case SHELL_EXPAND_OE_TRANPATTERN:
+                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
             break;
-        case WINDOWS10_WORKSPACE_RIGHT:
-            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+            case SHELL_DUMPTLOG:
+                SEND_STRING(" | dumptlog - ");
+                return true;
+                break;
+            case WINDOWS10_WORKSPACE_LEFT:
+                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
+                return true;
+                break;
+            case WINDOWS10_WORKSPACE_RIGHT:
+                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+                break;
+            case WINDOWS10_TASK_VIEW:
+                SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+                break;
+        // linux screen shortcuts
+        case SCREEN_TAB_LEFT:
+            SEND_STRING(SS_LCTL("a") "p");
             break;
-        case WINDOWS10_TASK_VIEW:
-            SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+        case SCREEN_TAB_RIGHT:
+            SEND_STRING(SS_LCTL("a") "n");
+            break;
+        case SCREEN_NEW_TAB:
+            SEND_STRING(SS_LCTL("a") "c");
+            break;
+        case SCREEN_DETACH:
+            SEND_STRING(SS_LCTL("a") "d");
+            break;
+        case SCREEN_RENAME:
+            SEND_STRING(SS_LCTL("a") SS_LSFT("a"));
+            break;
+        case SCREEN_NUMBER:
+            SEND_STRING(SS_LCTL("a") ":number ");
+            break;
+        case SCREEN_0:
+            SEND_STRING(SS_LCTL("a") "0");
+            break;
+        case SCREEN_1:
+            SEND_STRING(SS_LCTL("a") "1");
+            break;
+        case SCREEN_2:
+            SEND_STRING(SS_LCTL("a") "2");
+            break;
+        case SCREEN_3:
+            SEND_STRING(SS_LCTL("a") "3");
+            break;
+        case SCREEN_4:
+            SEND_STRING(SS_LCTL("a") "4");
+            break;
+        case SCREEN_5:
+            SEND_STRING(SS_LCTL("a") "5");
+            break;
+        case SCREEN_6:
+            SEND_STRING(SS_LCTL("a") "6");
+            break;
+        case SCREEN_7:
+            SEND_STRING(SS_LCTL("a") "7");
+            break;
+        case SCREEN_8:
+            SEND_STRING(SS_LCTL("a") "8");
+            break;
+        case SCREEN_9:
+            SEND_STRING(SS_LCTL("a") "9");
+            break;
+        case SCREEN_COPY_MODE:
+            SEND_STRING(SS_LCTL("a") "[");
+            break;
+        case SCREEN_PASTE:
+            SEND_STRING(SS_LCTL("a") "]");
             break;
 
+        case SCREEN_UP_JUMP:
+            tap_code(KC_5);
+            tap_code(KC_UP);
+            break;
+		case SCREEN_DOWN_JUMP:
+            tap_code(KC_5);
+            tap_code(KC_DOWN);
+            break;
+
+        case SCREEN_READREG_1:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("readreg 1\n");
+            break;
+        case SCREEN_READREG_2:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("readreg 2\n");
+            break;
+        case SCREEN_READREG_3:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("readreg 3\n");
+            break;
+
+        case SCREEN_PASTEREG_1:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("paste 1\n");
+            break;        
+        case SCREEN_PASTEREG_2:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("paste 2\n");
+            break;
+        case SCREEN_PASTEREG_3:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("paste 3\n");
+            break;
     }
   }
 

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maple Computing
 #define PRODUCT         C39
-#define DESCRIPTION     A compact 39 key keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3

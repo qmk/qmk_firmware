@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Hexwire
 #define PRODUCT         Atreus 50 Keyboard
-#define DESCRIPTION     Atreus layout with extra column
 
 /* key matrix size */
 #define MATRIX_ROWS 4

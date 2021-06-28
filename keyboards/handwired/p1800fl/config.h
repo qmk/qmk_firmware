@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER marhalloweenvt
 #define PRODUCT p1800fl
-#define DESCRIPTION A compact 1800 layout keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6

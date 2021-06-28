@@ -26,7 +26,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    OK60
 #define PRODUCT         OK60
-#define DESCRIPTION     qmk keyboard firmware for OK60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
