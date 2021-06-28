@@ -44,7 +44,7 @@ def strip_info_json(kb_info_json):
 
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
 @cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
-@cli.argument('-o', '--output', arg_only=True, help='Write the output to a file.')
+@cli.argument('-o', '--output', action='store_true', help='Write the output to a file.')
 @cli.subcommand('Generate an info.json file for a keyboard.', hidden=False if cli.config.user.developer else True)
 @automagic_keyboard
 @automagic_keymap
