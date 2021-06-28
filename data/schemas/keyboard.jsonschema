@@ -162,9 +162,25 @@
                 },
                 "brightness_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "layers": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "blink": {"type": "boolean"},
+                        "enabled": {"type": "boolean"},
+                        "max": {
+                            "type": "number",
+                            "min": 1,
+                            "max": 32,
+                            "multipleOf": 1
+                        },
+                        "override_rgb": {"type": "boolean"}
+                    }
+                },
                 "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "rgbw": {"type": "boolean"},
                 "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "sleep": {"type": "boolean"},
                 "split": {"type": "boolean"},
