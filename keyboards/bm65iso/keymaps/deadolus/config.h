@@ -1,4 +1,4 @@
-/* Copyright 2019-present Tomek Wójcik <contact@bthlabs.pl>
+/* Copyright 2021 deadolus
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,18 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-#undef RGBLIGHT_ANIMATIONS
-/*== all animations enable ==*/
-   // #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-     #define RGBLIGHT_EFFECT_BREATHING
-     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//     #define RGBLIGHT_EFFECT_SNAKE
-//     #define RGBLIGHT_EFFECT_KNIGHT
-//     #define RGBLIGHT_EFFECT_CHRISTMAS
-//     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#     #define RGBLIGHT_EFFECT_RGB_TEST
-//     #define RGBLIGHT_EFFECT_ALTERNATING
 // place overrides here
+
+#pragma once
+#define LSPO_KEYS KC_LSFT, KC_LSFT, KC_8
+#define RSPC_KEYS KC_RSFT, KC_LSFT, KC_9
+#define LAPO_KEYS KC_LALT, KC_RALT, KC_QUOT
+#define RAPC_KEYS KC_RALT, KC_RALT, KC_NUHS
+
+#define LEADER_TIMEOUT 1000
+#define LEADER_PER_KEY_TIMING 250
+
