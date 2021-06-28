@@ -143,6 +143,17 @@
                 "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
         },
+        "mouse_key": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                "interval": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                "max_speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                "time_to_max": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                "wheel_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+            }
+        },
         "oneshot": {
             "type": "object",
             "properties": {

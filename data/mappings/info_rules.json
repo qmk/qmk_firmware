@@ -1,4 +1,4 @@
-# This file maps keys between `rules.mk` and `info.json`. It is used by QMK 
+# This file maps keys between `rules.mk` and `info.json`. It is used by QMK
 # to correctly and consistently map back and forth between the two systems.
 {
     # Format:
@@ -12,6 +12,7 @@
     "LAYOUTS": {"info_key": "community_layouts", "value_type": "list"},
     "LED_MATRIX_DRIVER": {"info_key": "led_matrix.driver"},
     "MCU": {"info_key": "processor", "warn_duplicate": false},
+    "MOUSEKEY_ENABLE": {"info_key": "mouse_key.enabled", "value_type": "bool"},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
     "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "value_type": "str", "to_c": false}
 }
