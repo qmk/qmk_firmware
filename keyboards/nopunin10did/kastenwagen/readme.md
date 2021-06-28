@@ -17,9 +17,9 @@ For more information, join the [NoPunIn10Key Discord](https://discord.gg/sku2Y6w
 * Hardware Availability: Currently by request only
 
 To jump the bootloader, either:
-# If loaded with the default layout, use Function-Escape *(the function button is the farthest righthand 1.25u on the bottom row)* **OR**
-# Use the physical reset switch on the Elite C **OR**
-# Briefly jump the Reset and Ground pins of the Elite C
+* If loaded with the default layout, use Function-Escape *(the function button is the farthest righthand 1.25u on the bottom row)* **OR**
+* Use the physical reset switch on the Elite C **OR**
+* Briefly jump the Reset and Ground pins of the Elite C
 
 Make example for the 1840 model (after setting up your build environment):
 
