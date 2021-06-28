@@ -24,15 +24,15 @@ enum custom_layers {
     _MO3,
 };
 
-
 enum custom_keycodes {
   KC_00 = SAFE_RANGE,
-}
+};
 
 // Tap Dance Definitions
-enum {
+enum custom_tapdance {
   TD_LSFT_CAPSLOCK,
 };
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   // Tap once for shift, twice for Caps Lock
   [TD_LSFT_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
