@@ -30,6 +30,17 @@ enum custom_keycodes {
   ENCFUNC = SAFE_RANGE, // encoder function keys
 };
 
+// Tap Dance Definitions
+enum custom_tapdance {
+  TD_LSFT_CAPSLOCK,
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // Tap once for shift, twice for Caps Lock
+  [TD_LSFT_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+};
+
+#define KC_LSFTCAPS TD(TD_LSFT_CAPSLOCK)
 #define KC_CAD	LALT(LCTL(KC_DEL))
 #define KC_AF4	LALT(KC_F4)
 #define KC_TASK	LCTL(LSFT(KC_ESC))

@@ -12,6 +12,7 @@ Features
   - MOUSEKEYS is disbled
   - shutdown oled when powered down to prevent OLED from showing Mercutio all the time
   - add WPM indicator when wpm is > 20 wpm
+  - add double tap of Left Shift to toggle Caps Lock
   
   - FN layer has encoder selectable key codes and displayed on OLED
         
