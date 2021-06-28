@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "redox.h"
 #include "quantum.h"
-#if defined(KEYBOARD_redox_media)
-#    include "media.h"
-#endif
 
 // rows are doubled
 #define LAYOUT( \
