@@ -20,14 +20,6 @@
 
 #define ___ KC_NO
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
 #define LAYOUT( \
     K00, K01, K02, K03, K04, \
     K10, K11, K12, K13, K14, \
@@ -41,31 +33,28 @@
     { K20, K21, K22, K23, K24 }, \
     { K30, K31, K32, K33, ___ }, \
     { K40, K41, K42, K43, K44 }, \
-    { K50, K51, ___, K53, ___ } \
+    { K50, K51, ___, K53, ___ }, \
+    { ___, ___, ___, ___, ___ }  \
 }
 
 #ifdef ENCODER_ENABLE
 
-#ifndef NUMBER_OF_ENCODERS
-    #define NUMBER_OF_ENCODERS 1
-#endif
-#define ENCODER_KEYMAP_CLOCKWISE { {5, 4} }
-#define ENCODER_KEYMAP_COUTERCLOCKWISE { {5, 2} }
-
 #define LAYOUT_27_encoder( \
-    K00, K01, K02, K03, K52, K04, K54, \
+    K00, K01, K02, K03, K04, \
     K10, K11, K12, K13, K14, \
     K20, K21, K22, K23, K24, \
     K30, K31, K32, K33,      \
     K40, K41, K42, K43, K44, \
-    K50, K51,      K53       \
+    K50, K51,      K53,      \
+    K60, K61                 \
 ) { \
     { K00, K01, K02, K03, K04 }, \
     { K10, K11, K12, K13, K14 }, \
     { K20, K21, K22, K23, K24 }, \
     { K30, K31, K32, K33, ___ }, \
     { K40, K41, K42, K43, K44 }, \
-    { K50, K51, K52, K53, K54 } \
+    { K50, K51, ___, K53, ___ }, \
+    { K60, K61, ___, ___, ___ }  \
 }
 
 #endif
