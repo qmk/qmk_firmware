@@ -365,6 +365,15 @@ def _extract_matrix_info(info_data, config_c):
 
         info_data['matrix_pins']['unused'] = _extract_pins(unused_pins)
 
+    if config_c.get('CUSTOM_MATRIX', 'no') != 'no':
+        if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
+            _log_warning(info_data, 'Custom Matrix is specified in both info.json and config.h, the config.h values win.')
+
+        info_data['matrix_pins']['custom'] = True
+
+        if config_c['CUSTOM_MATRIX'] == 'lite':
+            info_data['matrix_pins']['custom_lite'] = True
+
     return info_data
 
 

@@ -38,6 +38,17 @@
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
             }
         },
+        "bluetooth": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["AdafruitBLE", "RN42"]
+                },
+                "lto": {"type": "boolean"},
+            }
+        },
         "board": {
             "type": "string",
             "minLength": 2,
@@ -45,7 +56,22 @@
         },
         "bootloader": {
             "type": "string",
-            "enum": ["atmel-dfu", "bootloadHID", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "micronucleus", "qmk-dfu", "qmk-hid", "stm32-dfu", "stm32duino", "unknown", "USBasp", "tinyuf2"]
+            "enum": ["atmel-dfu", "bootloadHID", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "micronucleus", "qmk-dfu", "qmk-hid", "stm32-dfu", "stm32duino", "unknown", "USBasp", "tinyuf2"],
+        },
+        "build": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "debounce_type": {
+                    "type": "string",
+                    "enum": ["custom", "eager_pk", "eager_pr", "sym_defer_pk", "sym_eager_pk"]
+                },
+                "firmware_format": {
+                    "type": "string",
+                    "enum": ["bin", "hex", "uf2"]
+                },
+                "lto": {"type": "boolean"},
+            }
         },
         "diode_direction": {
             "type": "string",
@@ -132,6 +158,8 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "custom": {"type": "boolean"},
+                "custom_lite": {"type": "boolean"},
                 "ghost": {"type": "boolean"},
                 "io_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "direct": {
@@ -293,8 +321,18 @@
                 "pid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
                 "vid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
                 "max_power": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "no_startup_check": {"type": "boolean"},
                 "polling_interval": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                "shared_endpoint": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "keyboard": {"type": "boolean"},
+                        "mouse": {"type": "boolean"}
+                    }
+                },
+                "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "wait_for": {"type": "boolean"},
             }
         },
         "qmk": {
