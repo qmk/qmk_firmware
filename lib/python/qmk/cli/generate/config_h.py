@@ -12,7 +12,7 @@ from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import is_keyboard, normpath
 
 
-def direct_pins(direct_pins):
+def direct_pins(direct_pins, postfix):
     """Return the config.h lines that set the direct pins.
     """
     rows = []
@@ -24,51 +24,51 @@ def direct_pins(direct_pins):
     col_count = len(direct_pins[0])
     row_count = len(direct_pins)
 
-    return """
-#ifndef MATRIX_COLS
-#   define MATRIX_COLS %s
-#endif // MATRIX_COLS
+    return f"""
+#ifndef MATRIX_COLS{postfix}
+#   define MATRIX_COLS{postfix} {col_count}
+#endif // MATRIX_COLS{postfix}
 
-#ifndef MATRIX_ROWS
-#   define MATRIX_ROWS %s
-#endif // MATRIX_ROWS
+#ifndef MATRIX_ROWS{postfix}
+#   define MATRIX_ROWS{postfix} {row_count}
+#endif // MATRIX_ROWS{postfix}
 
-#ifndef DIRECT_PINS
-#   define DIRECT_PINS {%s}
-#endif // DIRECT_PINS
-""" % (col_count, row_count, ','.join(rows))
+#ifndef DIRECT_PINS{postfix}
+#   define DIRECT_PINS{postfix} {{ {", ".join(rows)} }}
+#endif // DIRECT_PINS{postfix}
+"""
 
 
-def pin_array(define, pins):
+def pin_array(define, pins, postfix):
     """Return the config.h lines that set a pin array.
     """
     pin_num = len(pins)
     pin_array = ', '.join(map(str, [pin or 'NO_PIN' for pin in pins]))
 
     return f"""
-#ifndef {define}S
-#   define {define}S {pin_num}
-#endif // {define}S
+#ifndef {define}S{postfix}
+#   define {define}S{postfix} {pin_num}
+#endif // {define}S{postfix}
 
-#ifndef {define}_PINS
-#   define {define}_PINS {{ {pin_array} }}
-#endif // {define}_PINS
+#ifndef {define}_PINS{postfix}
+#   define {define}_PINS{postfix} {{ {pin_array} }}
+#endif // {define}_PINS{postfix}
 """
 
 
-def matrix_pins(matrix_pins):
+def matrix_pins(matrix_pins, postfix=''):
     """Add the matrix config to the config.h.
     """
     pins = []
 
     if 'direct' in matrix_pins:
-        pins.append(direct_pins(matrix_pins['direct']))
+        pins.append(direct_pins(matrix_pins['direct'], postfix))
 
     if 'cols' in matrix_pins:
-        pins.append(pin_array('MATRIX_COL', matrix_pins['cols']))
+        pins.append(pin_array('MATRIX_COL', matrix_pins['cols'], postfix))
 
     if 'rows' in matrix_pins:
-        pins.append(pin_array('MATRIX_ROW', matrix_pins['rows']))
+        pins.append(pin_array('MATRIX_ROW', matrix_pins['rows'], postfix))
 
     return '\n'.join(pins)
 
@@ -172,6 +172,9 @@ def generate_config_h(cli):
                 config_h_lines.append('#ifndef USE_I2C')
                 config_h_lines.append('#   define USE_I2C')
                 config_h_lines.append('#endif // USE_I2C')
+
+        if 'right' in kb_info_json['split'].get('matrix_pins', {}):
+            config_h_lines.append(matrix_pins(kb_info_json['split']['matrix_pins']['right'], '_RIGHT'))
 
     # Show the results
     config_h = '\n'.join(config_h_lines)

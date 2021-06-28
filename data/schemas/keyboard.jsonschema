@@ -189,17 +189,13 @@
                             "type": "object",
                             "additionalProperties": false,
                             "properties": {
-                                "type": "object",
-                                "additionalProperties": false,
-                                "properties": {
-                                    "direct": {
-                                        "type": "array",
-                                        "items": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
-                                    },
-                                    "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                                    "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                                    "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
-                                }
+                                "direct": {
+                                    "type": "array",
+                                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                                },
+                                "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                                "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
                             }
                         }
                     }
