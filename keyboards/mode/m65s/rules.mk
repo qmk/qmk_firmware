@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F401
+MCU = STM32F411
 
 # Build Options
 #   change yes to no to disable

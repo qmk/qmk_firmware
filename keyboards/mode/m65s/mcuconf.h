@@ -22,6 +22,7 @@
 #pragma once
 
 #include_next <mcuconf.h>
+
 #undef STM32_PLLM_VALUE
 #undef STM32_PLLN_VALUE
 #undef STM32_PLLP_VALUE
