@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MINUS, KC_UNDS, KC_EQL,  KC_PLUS, _______, _______, vvv,     _______, KC_SCOLON,  KC_COLON, KC_SLSH, KC_QUES
   ),
 
-    [FAR] = LAYOUT_LEFT(
+    [_FAR] = LAYOUT_LEFT(
         KC_ESC,  TYPEDON, KC_BSLS, RUS_TGL,_______,  _______,  _______,  KC_PGUP,   KC_HOME,    KC_UP,    KC_END,    KC_INS,
         KC_CAPS, KC_TAB,  KC_PIPE, vvv,    LOCK,     _______,  _______,  KC_PGDN,   KC_LEFT,    KC_DOWN,  KC_RIGHT,  KC_DEL,
         UNDO,    CUT,     COPY,    PASTE,  KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,   _______,    _______,  _______,   _______
