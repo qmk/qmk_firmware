@@ -60,55 +60,6 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-#elif (DIODE_DIRECTION == COL2ROW)
-
-static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
-}
-
-static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
-
-static void unselect_rows(void) {
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
-    }
-}
-
-static void init_pins(void) {
-    unselect_rows();
-    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
-    }
-}
-
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
-    // Store last value of row prior to reading
-    matrix_row_t last_row_value = current_matrix[current_row];
-
-    // Clear data in matrix row
-    current_matrix[current_row] = 0;
-
-    // Select row and wait for row selecton to stabilize
-    select_row(current_row);
-    wait_us(30);
-
-    // For each col...
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-
-        // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
-
-        // Populate the matrix row with the state of the col pin
-        current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
-    }
-
-    // Unselect row
-    unselect_row(current_row);
-
-    return (last_row_value != current_matrix[current_row]);
-}
-
 #elif (DIODE_DIRECTION == ROW2COL)
 
 /* Cols 0 - 16
@@ -426,12 +377,7 @@ void matrix_init_custom(void) {
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
 
-#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
-    // Set row, read cols
-    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        changed |= read_cols_on_row(current_matrix, current_row);
-    }
-#elif (DIODE_DIRECTION == ROW2COL)
+#if defined(DIRECT_PINS) || (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
         changed |= read_rows_on_col(current_matrix, current_col);
