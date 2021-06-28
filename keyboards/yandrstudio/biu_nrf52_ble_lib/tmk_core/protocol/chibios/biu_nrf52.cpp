@@ -65,10 +65,11 @@
 #define BiuNrf52MsgShortTimeout  10            /* milliseconds */
 #define BiuNrf52MsgRecvTimeout   2000          /* microseconds */
 
-#define BiuNrf52ResetTimeout     10000          /* microseconds */
+#define BiuNrf52ResetTimeout     25000          /* microseconds */
 #define BiuNrf52InitTimeout      3000          /* microseconds */
+// #define BiuNrf52SystemOffTimeout 300000         /* milliseconds */
 #define BiuNrf52SystemOffTimeout 30000         /* milliseconds */
-#define BatteryUpdateInterval    300000         /* milliseconds */
+#define BatteryUpdateInterval    60000         /* milliseconds */
 
 
 
@@ -202,6 +203,7 @@ static struct {
     uint32_t vbat;
 #endif
     uint16_t last_connection_update;
+    uint16_t last_success_conn_update;
     uint16_t last_reset_update;
     bool has_send_ask;
 } state;
@@ -277,6 +279,7 @@ static void process_nrf_ack_msg(struct biunrf52_msg * msg) {
         state.initialized  = true;
         state.configured   = true;
         state.is_connected = true;
+        state.last_success_conn_update = timer_read();
         break;
     case NRF_DISCONNECT:
     case NRF_ADVING:
@@ -684,6 +687,7 @@ bool bluetooth_init_pre(void) {
     state.has_send_ask     = false;
     state.last_connection_update = timer_read();
     state.last_battery_update = timer_read();
+    state.last_success_conn_update = timer_read();
 
     // start the uart data trans
     uart_init(BIUNRF52UartBaud);
@@ -824,6 +828,7 @@ void inline biu_ble_system_off() {
     state.has_send_ask = false;
     state.last_battery_update = 0;
     state.last_connection_update = 0;
+    state.last_success_conn_update = 0;
 
     struct queue_item item;
 
@@ -836,8 +841,16 @@ void inline biu_ble_system_off() {
 }
 
 void inline check_ble_system_off_timer(void) {
-    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) > BiuNrf52SystemOffTimeout) {
-        biu_ble_system_off();
+    if (state.is_connected) {
+        if (TIMER_DIFF_16(timer_read(), state.last_connection_update) > BiuNrf52SystemOffTimeout) {
+            biu_ble_system_off();
+        }
+    } else {
+        if (0 == state.last_success_conn_update) { // avoid died after last sysoff
+            state.last_success_conn_update = timer_read();
+        } else if (TIMER_DIFF_16(timer_read(), state.last_success_conn_update) > BiuNrf52SystemOffTimeout) {
+            biu_ble_system_off();
+        }
     }
 }
 

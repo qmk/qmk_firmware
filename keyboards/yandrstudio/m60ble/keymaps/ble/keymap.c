@@ -96,6 +96,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case BL_SW_2:
         case BL_SW_3:
             if (record->event.pressed) {
+                set_output(OUTPUT_BLUETOOTH);
                 bluetooth_switch_one(keycode - BL_SW_0);
             }
             return false;

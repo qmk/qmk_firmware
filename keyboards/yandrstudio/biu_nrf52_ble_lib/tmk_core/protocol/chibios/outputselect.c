@@ -35,8 +35,8 @@ uint8_t desired_output = OUTPUT_DEFAULT;
  * FIXME: Needs doc
  */
 void set_output(uint8_t output) {
-    set_output_user(output);
     desired_output = output;
+    set_output_user(output);
 }
 
 /** \brief Set Output User
