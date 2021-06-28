@@ -227,7 +227,15 @@
                         "mods": {"type": "boolean"}
                     }
                 },
-                "usb_detect": {"type": "boolean"},
+                "usb_detect": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "enabled": {"type": "boolean"},
+                        "polling_interval": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                    }
+                }
             }
         },
         "tags": {
