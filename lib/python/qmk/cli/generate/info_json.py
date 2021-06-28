@@ -6,6 +6,7 @@ import json
 
 from jsonschema import Draft7Validator, validators
 from milc import cli
+from pathlib import Path
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
@@ -43,6 +44,7 @@ def strip_info_json(kb_info_json):
 
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
 @cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
+@cli.argument('-o', '--output', arg_only=True, help='Write the output to a file.')
 @cli.subcommand('Generate an info.json file for a keyboard.', hidden=False if cli.config.user.developer else True)
 @automagic_keyboard
 @automagic_keymap
@@ -65,3 +67,11 @@ def generate_info_json(cli):
 
     # Display the results
     print(json.dumps(kb_info_json, indent=2, cls=InfoJSONEncoder))
+
+    # Write to a file if --output flag was specified
+    if cli.args.output:
+        output_path = Path('keyboards') / cli.config.generate_info_json.keyboard / 'info.json'
+        with open(output_path, 'w+') as json_file:
+            json_object = json.dumps(kb_info_json, indent=4, cls=InfoJSONEncoder)
+            json_file.write(json_object)
+            cli.log.info('Wrote file to %s.', output_path)
