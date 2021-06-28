@@ -1,6 +1,6 @@
 # Pteron36
 
-![Pteron36](https://imgur.com/PuXPWYf)
+![Pteron36](https://i.imgur.com/PuXPWYf.jpg)
 
 A 36 key keyboard with a bit more natural thumb cluster.
 
