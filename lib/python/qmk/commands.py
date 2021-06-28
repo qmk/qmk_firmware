@@ -419,6 +419,8 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
 
     # Compile the firmware, if we're able to
     if command == 'multiple':
+        cli.log.info('Building {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s', keyboard, keymap)
+
         returncodes = []
         for keyboard, keymap in keyboard_keymap_iter(keyboard, keymap, filters):
             command = create_make_command(keyboard, keymap, target=target, parallel=1, silent=multiple_compiles, **envs)
@@ -439,6 +441,11 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
                     cli.echo('\tkeyboard: {fg_cyan}%s{fg_reset} keymap: {fg_cyan}%s', keyboard, keymap)
 
     elif command:
+        if target:
+            cli.log.info('Building {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s{fg_reset} and target {fg_cyan}%s', keyboard, keymap, target)
+        else:
+            cli.log.info('Building {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s', keyboard, keymap)
+
         if _execute_compile(keyboard, keymap, command, target) != 0:
             print()
             cli.log.error('Could not compile all targets, look above this message for more details. Failing target(s):')
@@ -462,10 +469,6 @@ def _execute_compile(keyboard, keymap, command, target, returncodes=None):
         cli.log.debug('Skipping keyboard %s, no %s keymap found.', keyboard, keymap)
         return 0
 
-    if target:
-        cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s{fg_reset} and target {fg_cyan}%s', keyboard, keymap, target)
-    else:
-        cli.log.info('Building firmware for {fg_cyan}%s{fg_reset} with keymap {fg_cyan}%s', keyboard, keymap)
     cli.log.debug('Running make command: {fg_blue}%s', ' '.join(command))
 
     if not cli.args.dry_run:
