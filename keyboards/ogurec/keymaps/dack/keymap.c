@@ -21,9 +21,9 @@ enum custom_layers {
     _FAR,
     _FUNKY,
 };
-#define CLS_SPC LT(CLOSE, KC_SPC)
-#define FAR_F LT(FAR, KC_F)
-#define FNK_D LT(FUNKY, KC_D)
+#define CLS_SPC LT(_CLOSE, KC_SPC)
+#define FAR_F LT(_FAR, KC_F)
+#define FNK_D LT(_FUNKY, KC_D)
 #define SFT_Z LSFT_T(KC_Z)
 #define SFT_ENT RSFT_T(KC_ENT)
 #define CTL_X LCTL_T(KC_X)
