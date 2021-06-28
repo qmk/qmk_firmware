@@ -33,4 +33,4 @@ RGB_MATRIX_DRIVER = WS2812
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 
 DEBOUNCE_TYPE	  = sym_defer_pk
-RGB_MATRIX_CUSTOM_USER = yes
+RGB_MATRIX_CUSTOM_KB = yes
