@@ -22,6 +22,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 ENCODER_ENABLE = yes        # Enable rotary encoder input
-
-VIA_ENABLE = yes            # VIA support
-LTO_ENABLE = yes            #
