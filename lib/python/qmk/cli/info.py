@@ -27,7 +27,7 @@ def show_keymap(kb_info_json, title_caps=True):
         if title_caps:
             cli.echo('{fg_blue}Keymap "%s"{fg_reset}:', cli.config.info.keymap)
         else:
-            cli.echo('{fg_blue}keymap_%s{fg_reset}:', cli.config.info.keymap)
+            cli.echo('{fg_blue}keymap.%s{fg_reset}:', cli.config.info.keymap)
 
         keymap_data = json.load(keymap_path.open(encoding='utf-8'))
         layout_name = keymap_data['layout']
@@ -45,7 +45,7 @@ def show_layouts(kb_info_json, title_caps=True):
     """Render the layouts with info.json labels.
     """
     for layout_name, layout_art in render_layouts(kb_info_json, cli.config.info.ascii).items():
-        title = layout_name.title() if title_caps else layout_name
+        title = f'Layout {layout_name.title()}' if title_caps else f'layouts.{layout_name}'
         cli.echo('{fg_cyan}%s{fg_reset}:', title)
         print(layout_art)  # Avoid passing dirty data to cli.echo()
 
