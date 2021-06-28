@@ -204,6 +204,13 @@
                     "type": "string",
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
                 },
+                "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "soft_serial_speed": {
+                    "type": "number",
+                    "min": 0,
+                    "max": 5,
+                    "multipleOf": 1
+                },
                 "transport": {
                     "type": "object",
                     "additionalProperties": false,
@@ -213,17 +220,10 @@
                             "enum": ["custom", "i2c", "serial"]
                         },
                         "mirror": {"type": "boolean"},
-                        "mods": {"type": "boolean"},
-
+                        "mods": {"type": "boolean"}
                     }
-                }
-                "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "soft_serial_speed": {
-                    "type": "number",
-                    "min": 0,
-                    "max": 5,
-                    "multipleOf": 1
-                }
+                },
+                "usb_detect": {"type": "boolean"},
             }
         },
         "tags": {

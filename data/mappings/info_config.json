@@ -1,4 +1,4 @@
-# This file maps keys between `config.h` and `info.json`. It is used by QMK 
+# This file maps keys between `config.h` and `info.json`. It is used by QMK
 # to correctly and consistently map back and forth between the two systems.
 {
     # Format:
@@ -66,6 +66,7 @@
     "QMK_SPEAKER": {"info_key": "qmk_lufa_bootloader.speaker"},
     "SPLIT_MODS_ENABLE": {"info_key": "split.transport.mods", "value_type": "bool"},
     "SPLIT_TRANSPORT_MIRROR": {"info_key": "split.transport.mirror", "value_type": "bool"},
+    "SPLIT_USB_DETECT": {"info_key": "split.usb_detect", "value_type": "bool"},
     "SOFT_SERIAL_PIN": {"info_key": "split.soft_serial_pin"},
     "SOFT_SERIAL_SPEED": {"info_key": "split.soft_serial_speed"},
     "TAP_CODE_DELAY": {"info_key": "qmk.tap_keycode_delay", "value_type": "int"},
