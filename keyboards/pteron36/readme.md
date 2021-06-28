@@ -1,6 +1,6 @@
 # Pteron36
 
-![Pteron36](https://github.com/harshitgoel96/pteron36-split-keyboard)
+![Pteron36](https://imgur.com/PuXPWYf)
 
 A 36 key keyboard with a bit more natural thumb cluster.
 

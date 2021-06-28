@@ -21,7 +21,7 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-enum custom_keycodes {
+enum layer_names  {
   _QWERTY,
   _SYMB,
   _NAV,
