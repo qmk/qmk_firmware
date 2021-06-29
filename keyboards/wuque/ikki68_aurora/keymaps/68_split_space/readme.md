@@ -1,1 +1,1 @@
-# The 68_split_Space keymap for ikki68_aurora
+# The 68_split_space keymap for ikki68_aurora

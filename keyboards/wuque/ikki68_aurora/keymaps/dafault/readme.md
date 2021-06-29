@@ -1,1 +1,1 @@
-# The LAYOUT_All keymap for ikki68_aurora
+# The default keymap for ikki68_aurora

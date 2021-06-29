@@ -1,1 +1,1 @@
-# The 68_split_Lshift keymap for ikki68_aurora
+# The 68_split_lshift keymap for ikki68_aurora

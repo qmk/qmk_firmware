@@ -1,1 +1,1 @@
-# The default keymap for ikki68_aurora
+# The 68_ansi keymap for ikki68_aurora
