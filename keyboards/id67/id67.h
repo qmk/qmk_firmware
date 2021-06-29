@@ -1,6 +1,3 @@
-#ifndef ID67_H
-#define ID67_H
-
 /* Copyright 2021 Tybera
  *
  * This program is free software: you can redistribute it and/or modify
@@ -34,5 +31,3 @@
 	{ K300,  KC_NO, K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  K312,  K313,  K314 }, \
 	{ K400,  K401,  KC_NO, K403,  KC_NO, KC_NO, K406,  KC_NO, KC_NO, KC_NO, K410,  K411,  K412,  K413,  K414 }  \
 }
-
-#endif
