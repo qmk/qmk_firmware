@@ -22,4 +22,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUT = LAYOUT_68_anis LAYOUT_all LAYOUT_68_iso LAYOUT_68_split_bs LAYOUT_68_split_lshift LAYOUT_68_split_rshift LAYOUT_68_split_space
+LAYOUT = 68_ansi 68_iso
