@@ -554,28 +554,29 @@ For inspiration and examples, check out the built-in effects under `quantum/rgb_
 
 These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
 
-|RGB                |HSV                |
-|-------------------|-------------------|
-|`RGB_WHITE`        |`HSV_WHITE`        |
-|`RGB_RED`          |`HSV_RED`          |
-|`RGB_CORAL`        |`HSV_CORAL`        |
-|`RGB_ORANGE`       |`HSV_ORANGE`       |
-|`RGB_GOLDENROD`    |`HSV_GOLDENROD`    |
-|`RGB_GOLD`         |`HSV_GOLD`         |
-|`RGB_YELLOW`       |`HSV_YELLOW`       |
-|`RGB_CHARTREUSE`   |`HSV_CHARTREUSE`   |
-|`RGB_GREEN`        |`HSV_GREEN`        |
-|`RGB_SPRINGGREEN`  |`HSV_SPRINGGREEN`  |
-|`RGB_TURQUOISE`    |`HSV_TURQUOISE`    |
-|`RGB_TEAL`         |`HSV_TEAL`         |
-|`RGB_CYAN`         |`HSV_CYAN`         |
-|`RGB_AZURE`        |`HSV_AZURE`        |
-|`RGB_BLUE`         |`HSV_BLUE`         |
-|`RGB_PURPLE`       |`HSV_PURPLE`       |
-|`RGB_MAGENTA`      |`HSV_MAGENTA`      |
-|`RGB_PINK`         |`HSV_PINK`         |
+|RGB                  |HSV                  |
+|---------------------|---------------------|
+|`RGB_AZURE`          |`HSV_AZURE`          |
+|`RGB_BLACK`/`RGB_OFF`|`HSV_BLACK`/`HSV_OFF`|
+|`RGB_BLUE`           |`HSV_BLUE`           |
+|`RGB_CHARTREUSE`     |`HSV_CHARTREUSE`     |
+|`RGB_CORAL`          |`HSV_CORAL`          |
+|`RGB_CYAN`           |`HSV_CYAN`           |
+|`RGB_GOLD`           |`HSV_GOLD`           |
+|`RGB_GOLDENROD`      |`HSV_GOLDENROD`      |
+|`RGB_GREEN`          |`HSV_GREEN`          |
+|`RGB_MAGENTA`        |`HSV_MAGENTA`        |
+|`RGB_ORANGE`         |`HSV_ORANGE`         |
+|`RGB_PINK`           |`HSV_PINK`           |
+|`RGB_PURPLE`         |`HSV_PURPLE`         |
+|`RGB_RED`            |`HSV_RED`            |
+|`RGB_SPRINGGREEN`    |`HSV_SPRINGGREEN`    |
+|`RGB_TEAL`           |`HSV_TEAL`           |
+|`RGB_TURQUOISE`      |`HSV_TURQUOISE`      |
+|`RGB_WHITE`          |`HSV_WHITE`          |
+|`RGB_YELLOW`         |`HSV_YELLOW`         |
 
-These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
+These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h). Feel free to add to this list!
 
 
 ## Additional `config.h` Options :id=additional-configh-options
