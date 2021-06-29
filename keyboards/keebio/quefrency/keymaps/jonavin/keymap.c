@@ -59,7 +59,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_65(
       KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_INS,
@@ -88,13 +87,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
-    uint8_t selected_layer = 0;
     bool encoder_update_user(uint8_t index, bool clockwise) {
 
         if ( clockwise ) {
-            if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                selected_layer ++;
-                layer_move(selected_layer);
+            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                tap_code(KC_PGUP);
             } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
                     tap_code16(LCTL(KC_RGHT));
             } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
@@ -103,9 +100,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
             }
         } else {
-            if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
-                selected_layer --;
-                layer_move(selected_layer);
+            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+                 tap_code(KC_PGUP);
             } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
                 tap_code16(LCTL(KC_LEFT));
             } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
