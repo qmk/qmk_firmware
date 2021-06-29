@@ -1,7 +1,6 @@
 # MCU name
 MCU = atmega32u4
 
-
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
@@ -23,4 +22,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUT = LAYOUT_68_ANIS LAYOUT_All LAYOUT_68_ISO LAYOUT_68_split_Bs LAYOUT_68_split_Lshift LAYOUT_68_split_Rshift LAYOUT_68_split_Space
+LAYOUT = LAYOUT_68_anis LAYOUT_all LAYOUT_68_iso LAYOUT_68_split_bs LAYOUT_68_split_lshift LAYOUT_68_split_rshift LAYOUT_68_split_space
