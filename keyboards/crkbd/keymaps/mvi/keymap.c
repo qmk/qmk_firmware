@@ -443,11 +443,11 @@ void oled_task_user(void) {
     else { oled_on(); }
 #endif
 
-    if (is_master) {
-        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc.)
-    } else {
-        render_status_secondary();
-    }
+    //    if (is_master) {
+    render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc.)
+    //    } else {
+    //        render_status_secondary();
+    //    }
 }
 
 #endif
@@ -471,6 +471,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_BEPO);
       }
       return false;
+      break;
     case NUMPAD:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_NUMPAD);
