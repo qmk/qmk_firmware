@@ -469,7 +469,7 @@
                 { "label": "\u2192", "x": 16.5, "y": 4 }
             ]
         },
-        "LAYOUT_68_split_Space": {
+        "LAYOUT_68_split_space": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
