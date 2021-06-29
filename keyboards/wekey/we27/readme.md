@@ -1,12 +1,12 @@
 # we27
 
-![we27](imgur.com image replace me!)
+![we27](https://i.imgur.com/DvZ3EBa.jpg)
 
-*A short description of the keyboard/project*
+A customizable 20% hot-swap, RGB numpad and encoder.
 
 * Keyboard Maintainer: [@wekey](https://github.com/wekey-dev)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: WE27 PCB rev1
+* Hardware Availability: custom pcb group buys
 
 Make example for this keyboard (after setting up your build environment):
 
