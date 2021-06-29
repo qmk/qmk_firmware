@@ -626,7 +626,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 ### Indicator Examples :id=indicator-examples
 
-Caps Lock indicator on alpha numberic flagged keys:
+Caps Lock indicator on alphanumeric flagged keys:
 ```c
 void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
