@@ -53,7 +53,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 
-
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 0
