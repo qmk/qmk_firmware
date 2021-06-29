@@ -5,7 +5,7 @@
     "width": 17.5,
     "height": 6,
     "layouts": {
-        "default": {
+        "LAYOUT_default": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
@@ -86,7 +86,7 @@
                 { "label": "\u2192", "x": 16.5, "y": 4 }
             ]
         },
-        "LAYOUT_68_anis": {
+        "LAYOUT_68_ansi": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
