@@ -476,6 +476,11 @@ ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/dynamic_keymap.c
 endif
 
+ifeq ($(strip $(QMK_SETTINGS)), yes)
+    SRC += $(QUANTUM_DIR)/qmk_settings.c
+    OPT_DEFS += -DQMK_SETTINGS
+endif
+
 ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     OPT_DEFS += -DDIP_SWITCH_ENABLE
     SRC += $(QUANTUM_DIR)/dip_switch.c

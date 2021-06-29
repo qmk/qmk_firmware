@@ -50,6 +50,10 @@ _Static_assert(sizeof(vial_unlock_combo_rows) == sizeof(vial_unlock_combo_cols),
 #define VIAL_ENCODER_KEYCODE_DELAY 10
 #endif
 
+#ifdef QMK_SETTINGS
+#include "qmk_settings.h"
+#endif
+
 void vial_handle_cmd(uint8_t *msg, uint8_t length) {
     /* All packets must be fixed 32 bytes */
     if (length != VIAL_RAW_EPSIZE)
@@ -158,6 +162,21 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
 #ifndef VIAL_INSECURE
             vial_unlocked = 0;
 #endif
+            break;
+        }
+        case vial_qmk_settings_query: {
+            break;
+        }
+        case vial_qmk_settings_get: {
+            uint16_t qsid = msg[2] | (msg[3] << 8);
+            msg[0] = qmk_settings_get(qsid, &msg[1], length - 1);
+
+            break;
+        }
+        case vial_qmk_settings_set: {
+            uint16_t qsid = msg[2] | (msg[3] << 8);
+            msg[0] = qmk_settings_set(qsid, &msg[4], length - 4);
+
             break;
         }
     }
