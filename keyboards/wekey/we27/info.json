@@ -6,7 +6,6 @@
     "height": 6.25, 
     "layouts": {
         "LAYOUT": {
-            "key_count": 27,
             "layout": [
                 {"label":"$", "x":0, "y":0}, {"label":"(", "x":1, "y":0}, {"label":")", "x":2, "y":0}, {"label":"FN", "x":3, "y":0}, {"label":"DEL", "x":4, "y":0}, 
                 {"label":"NLCK", "x":0, "y":1.25}, {"label":"ESC", "x":1, "y":1.25}, {"label":"/", "x":2, "y":1.25}, {"label":"*", "x":3, "y":1.25}, {"label":"-", "x":4, "y":1.25}, 
@@ -17,7 +16,6 @@
             ]
         },
         "LAYOUT_27_encoder": {
-            "key_count": 29,
             "layout": [
                 {"label":"$", "x":0, "y":0.75}, {"label":"(", "x":1, "y":0.75}, {"label":")", "x":2, "y":0.75}, {"label":"FN", "x":3, "y":0.75}, {"label":"MUTE", "x":4.75, "y":0.5, "w":0.75, "h":0.75},
                 {"label":"NLCK", "x":0, "y":2}, {"label":"ESC", "x":1, "y":2}, {"label":"/", "x":2, "y":2}, {"label":"*", "x":3, "y":2}, {"label":"-", "x":4, "y":2}, 
