@@ -87,11 +87,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
-    bool encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    switch (index)
+    {
+    case 0:  // first encoder (Left Macro set)
+            if (clockwise) {
+            tap_code(KC_PGDN);
+        }  else {
+            tap_code(KC_PGUP);
+        }
 
+    default: // other encoder (Top right)
         if ( clockwise ) {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                tap_code(KC_PGUP);
+            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, Page up
+                unregister_mods(MOD_BIT(KC_LSFT));
+                register_code(KC_PGDN);
+                register_mods(MOD_BIT(KC_LSFT));
             } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
                     tap_code16(LCTL(KC_RGHT));
             } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
@@ -101,7 +112,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             }
         } else {
             if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
-                 tap_code(KC_PGDN);
+                unregister_mods(MOD_BIT(KC_LSFT));
+                register_code(KC_PGUP);
+                register_mods(MOD_BIT(KC_LSFT));
             } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
                 tap_code16(LCTL(KC_LEFT));
             } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
@@ -110,6 +123,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 tap_code(KC_VOLD);
             }
         }
-        return true;
+        break;
     }
+    return true;
+}
 #endif
