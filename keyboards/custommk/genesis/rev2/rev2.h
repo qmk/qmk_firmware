@@ -20,7 +20,7 @@
 #include QMK_KEYBOARD_H
 #include "encoder.h"
 
-#define LAYOUT_numpad_5x4(   \
+#define LAYOUT_numpad(   \
     E00A, E00B,  E01A, E01B, \
 	K00,  K01,   K02,  K03,  \
 	K10,  K11,   K12,        \
@@ -36,7 +36,7 @@
 	{ E00A,  E00B,  E01A,  E01B } \
 }
 
-#define LAYOUT_ortho_5x4( \
+#define LAYOUT_ortho( \
     E00A, E00B,  E01A, E01B, \
 	K00,  K01,   K02,  K03,  \
 	K10,  K11,   K12,  K13,  \
