@@ -113,10 +113,16 @@ define EXEC_DFU
 	if [ "$(1)" ]; then \
 		echo "Flashing '$(1)' for EE_HANDS split keyboard support." ;\
 	fi; \
-	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
-		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
-		sleep 5 ;\
-	done; \
+	if ! $(DFU_PROGRAMMER) $(MCU) get bootloader-version >/dev/null 2>/dev/null; then\
+		printf "$(MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY)" ;\
+		sleep $(BOOTLOADER_RETRY_TIME) ;\
+		while ! $(DFU_PROGRAMMER) $(MCU) get bootloader-version >/dev/null 2>/dev/null; do\
+			printf "." ;\
+			sleep $(BOOTLOADER_RETRY_TIME) ;\
+		done ;\
+		printf "\n" ;\
+	fi; \
+	$(DFU_PROGRAMMER) $(MCU) get bootloader-version ;\
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
 		$(DFU_PROGRAMMER) $(MCU) erase --force; \
 		if [ "$(1)" ]; then \
@@ -172,7 +178,7 @@ define EXEC_AVRDUDE
 	TMP2=`mktemp`; \
 	list_devices > $$TMP1; \
 	while [ -z "$$USB" ]; do \
-		sleep 0.5; \
+		sleep $(BOOTLOADER_RETRY_TIME); \
 		printf "."; \
 		list_devices > $$TMP2; \
 		USB=`comm -13 $$TMP1 $$TMP2 | $(GREP) -o '/dev/tty.*'`; \
@@ -187,7 +193,7 @@ define EXEC_AVRDUDE
 		sleep 1; \
 	else \
 		printf "Waiting for $$USB to become writable."; \
-		while [ ! -w "$$USB" ]; do sleep 0.5; printf "."; done; echo ""; \
+		while [ ! -w "$$USB" ]; do sleep $(BOOTLOADER_RETRY_TIME); printf "."; done; echo ""; \
 	fi; \
 	if [ -z "$(1)" ]; then \
 		$(AVRDUDE_PROGRAMMER) -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
@@ -294,7 +300,7 @@ ifneq ($(strip $(BOOTLOADER)), qmk-dfu)
 	$(error Please set BOOTLOADER = qmk-dfu first!)
 endif
 	make -C lib/lufa/Bootloaders/DFU/ clean
-	bin/qmk generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/DFU/Keyboard.h
+	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/DFU/Keyboard.h
 	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval PROGRAM_SIZE_KB=$(shell n=`expr $(MAX_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval BOOT_SECTION_SIZE_KB=$(shell n=`expr  $(BOOTLOADER_SIZE) / 1024` && echo $$(($$n)) || echo 0))
