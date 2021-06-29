@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             }
         } else {
             if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
-                 tap_code(KC_PGUP);
+                 tap_code(KC_PGDN);
             } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
                 tap_code16(LCTL(KC_LEFT));
             } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
