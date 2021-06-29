@@ -17,5 +17,3 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 WS2812_DRIVER = i2c
-
-OPT_DEFS = -DDEBUG_LEVEL=0

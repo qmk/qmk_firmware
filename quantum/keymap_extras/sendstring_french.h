@@ -21,6 +21,8 @@
 #include "keymap_french.h"
 #include "quantum.h"
 
+// clang-format off
+
 const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -65,20 +67,20 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     // BS    TAB      LF       VT       FF       CR       SO       SI
-    KC_BSPC, KC_TAB, KC_ENT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     // DLE   DC1      DC2      DC3      DC4      NAK      SYN      ETB
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     // CAN   EM       SUB      ESC      FS       GS       RS       US
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  FR_EXLM, FR_QUOT, FR_DQUO, FR_DLR,  FR_UGRV, FR_AMPR, FR_QUOT,
+    KC_SPC,  FR_EXLM, FR_DQUO, FR_DQUO, FR_DLR,  FR_UGRV, FR_AMPR, FR_QUOT,
     // (     )        *        +        ,        -        .        /
-    FR_LPRN, FR_RPRN, FR_ASTR, FR_EQL, FR_COMM, FR_MINS, FR_SCLN, FR_COLN,
+    FR_LPRN, FR_RPRN, FR_ASTR, FR_EQL,  FR_COMM, FR_MINS, FR_SCLN, FR_COLN,
     // 0     1        2        3        4        5        6        7
     FR_AGRV, FR_AMPR, FR_EACU, FR_DQUO, FR_QUOT, FR_LPRN, FR_MINS, FR_EGRV,
     // 8     9        :        ;        <        =        >        ?
-    FR_CCED, FR_AGRV, FR_COLN, FR_SCLN, FR_LABK, FR_EQL,  FR_LABK, FR_COMM,
+    FR_UNDS, FR_CCED, FR_COLN, FR_SCLN, FR_LABK, FR_EQL,  FR_LABK, FR_COMM,
     // @     A        B        C        D        E        F        G
     FR_AGRV, FR_A,    FR_B,    FR_C,    FR_D,    FR_E,    FR_F,    FR_G,
     // H     I        J        K        L        M        N        O

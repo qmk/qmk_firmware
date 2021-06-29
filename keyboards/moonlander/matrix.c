@@ -1,18 +1,19 @@
-/*
-Copyright 2018 Jack Humbert <jack.humb@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
+ * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
@@ -45,6 +46,10 @@ static uint16_t     debouncing_time_right = 0;
 
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
 
+#ifndef MATRIX_IO_DELAY
+#    define MATRIX_IO_DELAY 20
+#endif
+
 extern bool mcp23018_leds[3];
 extern bool is_launching;
 
@@ -55,6 +60,8 @@ __attribute__((weak)) void matrix_scan_user(void) {}
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 
 __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
 
 bool           mcp23018_initd = false;
 static uint8_t mcp23018_reset_loop;
@@ -134,7 +141,7 @@ uint8_t matrix_scan(void) {
         }
 
         // need wait to settle pin state
-        wait_us(20);
+        matrix_io_delay();
 
         // read col data
         data = (
@@ -262,10 +269,8 @@ void matrix_print(void) {
 
 // DO NOT REMOVE
 // Needed for proper wake/sleep
-
 void matrix_power_up(void) {
     bool temp_launching = is_launching;
-
     // outputs
     setPinOutput(B10);
     setPinOutput(B11);

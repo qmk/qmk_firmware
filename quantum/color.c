@@ -96,7 +96,6 @@ RGB hsv_to_rgb_impl(HSV hsv, bool use_cie) {
     return rgb;
 }
 
-
 RGB hsv_to_rgb(HSV hsv) {
 #ifdef USE_CIE1931_CURVE
     return hsv_to_rgb_impl(hsv, true);

@@ -66,7 +66,7 @@ static void init(void) {
 #        endif
 #    endif
 
-    for (int index = 0; index < LED_DRIVER_LED_COUNT; index++) {
+    for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
 #    ifdef IS31FL3731
         IS31FL3731_set_led_control_register(index, true);
 #    else

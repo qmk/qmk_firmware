@@ -1,12 +1,27 @@
 """Functions for working with config.h files.
 """
 from pathlib import Path
+import re
 
 from milc import cli
 
 from qmk.comment_remover import comment_remover
 
 default_key_entry = {'x': -1, 'y': 0, 'w': 1}
+single_comment_regex = re.compile(r' */[/*].*$')
+multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
+
+
+def strip_line_comment(string):
+    """Removes comments from a single line string.
+    """
+    return single_comment_regex.sub('', string)
+
+
+def strip_multiline_comment(string):
+    """Removes comments from a single line string.
+    """
+    return multi_comment_regex.sub('', string)
 
 
 def c_source_files(dir_names):
@@ -31,7 +46,7 @@ def find_layouts(file):
     parsed_layouts = {}
 
     # Search the file for LAYOUT macros and aliases
-    file_contents = file.read_text()
+    file_contents = file.read_text(encoding='utf-8')
     file_contents = comment_remover(file_contents)
     file_contents = file_contents.replace('\\\n', '')
 
@@ -52,8 +67,11 @@ def find_layouts(file):
             layout = layout.strip()
             parsed_layout = [_default_key(key) for key in layout.split(',')]
 
-            for key in parsed_layout:
-                key['matrix'] = matrix_locations.get(key['label'])
+            for i, key in enumerate(parsed_layout):
+                if 'label' not in key:
+                    cli.log.error('Invalid LAYOUT macro in %s: Empty parameter name in macro %s at pos %s.', file, macro_name, i)
+                elif key['label'] in matrix_locations:
+                    key['matrix'] = matrix_locations[key['label']]
 
             parsed_layouts[macro_name] = {
                 'key_count': len(parsed_layout),
@@ -69,12 +87,7 @@ def find_layouts(file):
             except ValueError:
                 continue
 
-    # Populate our aliases
-    for alias, text in aliases.items():
-        if text in parsed_layouts and 'KEYMAP' not in alias:
-            parsed_layouts[alias] = parsed_layouts[text]
-
-    return parsed_layouts
+    return parsed_layouts, aliases
 
 
 def parse_config_h_file(config_h_file, config_h=None):
@@ -86,14 +99,12 @@ def parse_config_h_file(config_h_file, config_h=None):
     config_h_file = Path(config_h_file)
 
     if config_h_file.exists():
-        config_h_text = config_h_file.read_text()
+        config_h_text = config_h_file.read_text(encoding='utf-8')
         config_h_text = config_h_text.replace('\\\n', '')
+        config_h_text = strip_multiline_comment(config_h_text)
 
         for linenum, line in enumerate(config_h_text.split('\n')):
-            line = line.strip()
-
-            if '//' in line:
-                line = line[:line.index('//')].strip()
+            line = strip_line_comment(line).strip()
 
             if not line:
                 continue
@@ -156,6 +167,6 @@ def _parse_matrix_locations(matrix, file, macro_name):
         row = row.replace('{', '').replace('}', '')
         for col_num, identifier in enumerate(row.split(',')):
             if identifier != 'KC_NO':
-                matrix_locations[identifier] = (row_num, col_num)
+                matrix_locations[identifier] = [row_num, col_num]
 
     return matrix_locations

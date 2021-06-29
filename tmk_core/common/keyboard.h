@@ -52,8 +52,6 @@ static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) &&
 #define TICK \
     (keyevent_t) { .key = (keypos_t){.row = 255, .col = 255}, .pressed = false, .time = (timer_read() | 1) }
 
-void disable_jtag(void);
-
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);
 /* it runs once after initializing host side protocol, debug and MCU peripherals. */
@@ -74,6 +72,15 @@ void keyboard_post_init_user(void);
 
 void housekeeping_task_kb(void);
 void housekeeping_task_user(void);
+
+uint32_t last_input_activity_time(void);     // Timestamp of the last matrix or encoder activity
+uint32_t last_input_activity_elapsed(void);  // Number of milliseconds since the last matrix or encoder activity
+
+uint32_t last_matrix_activity_time(void);     // Timestamp of the last matrix activity
+uint32_t last_matrix_activity_elapsed(void);  // Number of milliseconds since the last matrix activity
+
+uint32_t last_encoder_activity_time(void);     // Timestamp of the last encoder activity
+uint32_t last_encoder_activity_elapsed(void);  // Number of milliseconds since the last encoder activity
 
 uint32_t get_matrix_scan_rate(void);
 

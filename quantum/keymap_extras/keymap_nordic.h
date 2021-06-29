@@ -66,8 +66,3 @@
 
 #define NO_BSLS ALGR(KC_MINS)
 #define NO_MU ALGR(KC_M)
-
-// Icelandic characters
-#define NO_TH KC_SLSH //Þ
-#define NO_ETH KC_LBRC //Ð
-#define NO_UMLT KC_MINS //Ö

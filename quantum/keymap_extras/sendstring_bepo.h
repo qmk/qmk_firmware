@@ -21,6 +21,7 @@
 #include "keymap_bepo.h"
 #include "quantum.h"
 
+// clang-format off
 
 const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -66,16 +67,16 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     // BS    TAB      LF       VT       FF       CR       SO       SI
-    KC_BSPC, KC_TAB, KC_ENT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     // DLE   DC1      DC2      DC3      DC4      NAK      SYN      ETB
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     // CAN   EM       SUB      ESC      FS       GS       RS       US
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
     KC_SPC,  BP_DCIR, BP_DQUO, BP_DLR,  BP_DLR,  BP_PERC, BP_P,    BP_QUOT,
     // (     )        *        +        ,        -        .        /
-    BP_LPRN, BP_RPRN, BP_ASTR, BP_PLUS, BP_COMM, BP_MINS, BP_DOT, BP_SLSH,
+    BP_LPRN, BP_RPRN, BP_ASTR, BP_PLUS, BP_COMM, BP_MINS, BP_DOT,  BP_SLSH,
     // 0     1        2        3        4        5        6        7
     BP_ASTR, BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN, BP_AT,   BP_PLUS,
     // 8     9        :        ;        <        =        >        ?
@@ -95,4 +96,5 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // p     q        r        s        t        u        v        w
     BP_P,    BP_Q,    BP_R,    BP_S,    BP_T,    BP_U,    BP_V,    BP_W,
     // x     y        z        {        |        }        ~        DEL
-    BP_X,    BP_Y,    BP_Z,    BP_Y,    BP_B,    BP_X,    BP_K,    KC_DEL};
+    BP_X,    BP_Y,    BP_Z,    BP_Y,    BP_B,    BP_X,    BP_K,    KC_DEL
+};

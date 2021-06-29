@@ -34,57 +34,57 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define NRW_PIPE KC_GRV  // |
-#define NRW_1    KC_1    // 1
-#define NRW_2    KC_2    // 2
-#define NRW_3    KC_3    // 3
-#define NRW_4    KC_4    // 4
-#define NRW_5    KC_5    // 5
-#define NRW_6    KC_6    // 6
-#define NRW_7    KC_7    // 7
-#define NRW_8    KC_8    // 8
-#define NRW_9    KC_9    // 9
-#define NRW_0    KC_0    // 0
-#define NRW_PLUS KC_MINS // +
-#define NRW_BSLS KC_EQL  // (backslash)
+#define NWG_PIPE KC_GRV  // |
+#define NWG_1    KC_1    // 1
+#define NWG_2    KC_2    // 2
+#define NWG_3    KC_3    // 3
+#define NWG_4    KC_4    // 4
+#define NWG_5    KC_5    // 5
+#define NWG_6    KC_6    // 6
+#define NWG_7    KC_7    // 7
+#define NWG_8    KC_8    // 8
+#define NWG_9    KC_9    // 9
+#define NWG_0    KC_0    // 0
+#define NWG_PLUS KC_MINS // +
+#define NWG_BSLS KC_EQL  // (backslash)
 // Row 2
-#define NRW_Q    KC_Q    // Q
-#define NRW_W    KC_W    // W
-#define NRW_E    KC_E    // E
-#define NRW_R    KC_R    // R
-#define NRW_T    KC_T    // T
-#define NRW_Y    KC_Y    // Y
-#define NRW_U    KC_U    // U
-#define NRW_I    KC_I    // I
-#define NRW_O    KC_O    // O
-#define NRW_P    KC_P    // P
-#define NRW_ARNG KC_LBRC // Å
-#define NRW_DIAE KC_RBRC // ¨ (dead)
+#define NWG_Q    KC_Q    // Q
+#define NWG_W    KC_W    // W
+#define NWG_E    KC_E    // E
+#define NWG_R    KC_R    // R
+#define NWG_T    KC_T    // T
+#define NWG_Y    KC_Y    // Y
+#define NWG_U    KC_U    // U
+#define NWG_I    KC_I    // I
+#define NWG_O    KC_O    // O
+#define NWG_P    KC_P    // P
+#define NWG_ARNG KC_LBRC // Å
+#define NWG_DIAE KC_RBRC // ¨ (dead)
 // Row 3
-#define NRW_A    KC_A    // A
-#define NRW_S    KC_S    // S
-#define NRW_D    KC_D    // D
-#define NRW_F    KC_F    // F
-#define NRW_G    KC_G    // G
-#define NRW_H    KC_H    // H
-#define NRW_J    KC_J    // J
-#define NRW_K    KC_K    // K
-#define NRW_L    KC_L    // L
-#define NRW_OSTR KC_SCLN // Ø
-#define NRW_AE   KC_QUOT // Æ
-#define NRW_QUOT KC_NUHS // '
+#define NWG_A    KC_A    // A
+#define NWG_S    KC_S    // S
+#define NWG_D    KC_D    // D
+#define NWG_F    KC_F    // F
+#define NWG_G    KC_G    // G
+#define NWG_H    KC_H    // H
+#define NWG_J    KC_J    // J
+#define NWG_K    KC_K    // K
+#define NWG_L    KC_L    // L
+#define NWG_OSTR KC_SCLN // Ø
+#define NWG_AE   KC_QUOT // Æ
+#define NWG_QUOT KC_NUHS // '
 // Row 4
-#define NRW_LABK KC_NUBS // <
-#define NRW_Z    KC_Z    // Z
-#define NRW_X    KC_X    // X
-#define NRW_C    KC_C    // C
-#define NRW_V    KC_V    // V
-#define NRW_B    KC_B    // B
-#define NRW_N    KC_N    // N
-#define NRW_M    KC_M    // M
-#define NRW_COMM KC_COMM // ,
-#define NRW_DOT  KC_DOT  // .
-#define NRW_MINS KC_SLSH // -
+#define NWG_LABK KC_NUBS // <
+#define NWG_Z    KC_Z    // Z
+#define NWG_X    KC_X    // X
+#define NWG_C    KC_C    // C
+#define NWG_V    KC_V    // V
+#define NWG_B    KC_B    // B
+#define NWG_N    KC_N    // N
+#define NWG_M    KC_M    // M
+#define NWG_COMM KC_COMM // ,
+#define NWG_DOT  KC_DOT  // .
+#define NWG_MINS KC_SLSH // -
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -100,28 +100,28 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define NRW_SECT S(NRW_PIPE) // §
-#define NRW_EXLM S(NRW_1)    // !
-#define NRW_DQUO S(NRW_2)    // "
-#define NRW_HASH S(NRW_3)    // #
-#define NRW_CURR S(NRW_4)    // ¤
-#define NRW_PERC S(NRW_5)    // %
-#define NRW_AMPR S(NRW_6)    // &
-#define NRW_SLSH S(NRW_7)    // /
-#define NRW_LPRN S(NRW_8)    // (
-#define NRW_RPRN S(NRW_9)    // )
-#define NRW_EQL  S(NRW_0)    // =
-#define NRW_QUES S(NRW_PLUS) // ?
-#define NRW_GRV  S(NRW_BSLS) // ` (dead)
+#define NWG_SECT S(NWG_PIPE) // §
+#define NWG_EXLM S(NWG_1)    // !
+#define NWG_DQUO S(NWG_2)    // "
+#define NWG_HASH S(NWG_3)    // #
+#define NWG_CURR S(NWG_4)    // ¤
+#define NWG_PERC S(NWG_5)    // %
+#define NWG_AMPR S(NWG_6)    // &
+#define NWG_SLSH S(NWG_7)    // /
+#define NWG_LPRN S(NWG_8)    // (
+#define NWG_RPRN S(NWG_9)    // )
+#define NWG_EQL  S(NWG_0)    // =
+#define NWG_QUES S(NWG_PLUS) // ?
+#define NWG_GRV  S(NWG_BSLS) // ` (dead)
 // Row 2
-#define NRW_CIRC S(NRW_DIAE) // ^ (dead)
+#define NWG_CIRC S(NWG_DIAE) // ^ (dead)
 // Row 3
-#define NRW_ASTR S(NRW_QUOT) // *
+#define NWG_ASTR S(NWG_QUOT) // *
 // Row 4
-#define NRW_RABK S(NRW_LABK) // >
-#define NRW_SCLN S(NRW_COMM) // ;
-#define NRW_COLN S(NRW_DOT)  // :
-#define NRW_UNDS S(NRW_MINS) // _
+#define NWG_RABK S(NWG_LABK) // >
+#define NWG_SCLN S(NWG_COMM) // ;
+#define NWG_COLN S(NWG_DOT)  // :
+#define NWG_UNDS S(NWG_MINS) // _
 
 /* AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -137,39 +137,40 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define NRW_AT   ALGR(NRW_2)    // @
-#define NRW_PND  ALGR(NRW_3)    // £
-#define NRW_DLR  ALGR(NRW_4)    // $
-#define NRW_EURO ALGR(NRW_5)    // €
-#define NRW_LCBR ALGR(NRW_7)    // {
-#define NRW_LBRC ALGR(NRW_8)    // [
-#define NRW_RBRC ALGR(NRW_9)    // ]
-#define NRW_RCBR ALGR(NRW_0)    // }
-#define NRW_ACUT ALGR(NRW_BSLS) // ´ (dead)
+
+#define NWG_AT   ALGR(NWG_2)    // @
+#define NWG_PND  ALGR(NWG_3)    // £
+#define NWG_DLR  ALGR(NWG_4)    // $
+#define NWG_EURO ALGR(NWG_5)    // €
+#define NWG_LCBR ALGR(NWG_7)    // {
+#define NWG_LBRC ALGR(NWG_8)    // [
+#define NWG_RBRC ALGR(NWG_9)    // ]
+#define NWG_RCBR ALGR(NWG_0)    // }
+#define NWG_ACUT ALGR(NWG_BSLS) // ´ (dead)
 // Row 2
-#define NRW_TILD ALGR(NRW_DIAE) // ~ (dead)
+#define NWG_TILD ALGR(NWG_DIAE) // ~ (dead)
 // Row 4
-#define NRW_MICR ALGR(NRW_M)    // µ
+#define NWG_MICR ALGR(NWG_M)    // µ
 
 // DEPRECATED
-#define NRW_AM       NRW_ARNG
-#define NRW_AA       NRW_ARNG
-#define NRW_OSLH     NRW_OSTR
-#define NRW_APOS     NRW_QUOT
-#define NRW_LESS     NRW_LABK
-#define NRW_QUO2     NRW_DQUO
-#define NRW_BULT     NRW_CURR
-#define NRW_GRTR     NRW_RABK
-#define NRW_MU       NRW_MICR
+#define NWG_AM       NWG_ARNG
+#define NWG_AA       NWG_ARNG
+#define NWG_OSLH     NWG_OSTR
+#define NWG_APOS     NWG_QUOT
+#define NWG_LESS     NWG_LABK
+#define NWG_QUO2     NWG_DQUO
+#define NWG_BULT     NWG_CURR
+#define NWG_GRTR     NWG_RABK
+#define NWG_MU       NWG_MICR
 // Norwegian macOS symbols
-#define NRW_ACUT_MAC NRW_BSLS       // ´
-#define NRW_APOS_MAC NRW_LABK       // '
-#define NRW_AT_MAC   NRW_QUOT       // @
-#define NRW_BSLS_MAC S(ALGR(NRW_7)) // (backslash)
-#define NRW_DLR_MAC  S(NRW_4)       // $
-#define NRW_GRV_MAC  ALGR(NRW_BSLS) // `
-#define NRW_GRTR_MAC S(NRW_PIPE)    // >
-#define NRW_LCBR_MAC S(ALGR(NRW_8)) // {
-#define NRW_LESS_MAC NRW_PIPE       // <
-#define NRW_PIPE_MAC ALGR(NRW_7)    // |
-#define NRW_RCBR_MAC S(ALGR(NRW_9)) // }
+#define NWG_ACUT_MAC NWG_BSLS       // ´
+#define NWG_APOS_MAC NWG_LABK       // '
+#define NWG_AT_MAC   NWG_QUOT       // @
+#define NWG_BSLS_MAC S(ALGR(NWG_7)) // (backslash)
+#define NWG_DLR_MAC  S(NWG_4)       // $
+#define NWG_GRV_MAC  ALGR(NWG_BSLS) // `
+#define NWG_GRTR_MAC S(NWG_PIPE)    // >
+#define NWG_LCBR_MAC S(ALGR(NWG_8)) // {
+#define NWG_LESS_MAC NWG_PIPE       // <
+#define NWG_PIPE_MAC ALGR(NWG_7)    // |
+#define NWG_RCBR_MAC S(ALGR(NWG_9)) // }

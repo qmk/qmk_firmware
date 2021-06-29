@@ -8,6 +8,8 @@ Vagrant.configure(2) do |config|
   # VMware/Virtualbox ( and also Hyperv/Parallels) 64 bit
   config.vm.box = "generic/debian9"
 
+  config.vm.synced_folder '.', '/vagrant'
+
   # This section allows you to customize the Virtualbox VM
   # settings, ie showing the GUI or upping the memory
   # or cores if desired

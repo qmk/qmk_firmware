@@ -1,6 +1,5 @@
 os: linux
 dist: trusty
-sudo: required
 group: edge
 language: c
 branches:
@@ -21,6 +20,9 @@ script:
   - bash util/travis_build.sh
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-7
     packages:
     - pandoc
     - diffutils

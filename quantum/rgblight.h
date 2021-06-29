@@ -150,7 +150,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_TWINKLE_LIFE
-#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 75
+#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 200
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_TWINKLE_PROBABILITY
@@ -169,9 +169,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #    ifndef RGBLIGHT_LIMIT_VAL
 #        define RGBLIGHT_LIMIT_VAL 255
 #    endif
-
-#    define RGBLED_TIMER_TOP F_CPU / (256 * 64)
-// #define RGBLED_TIMER_TOP 0xFF10
 
 #    include <stdint.h>
 #    include <stdbool.h>

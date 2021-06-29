@@ -167,6 +167,7 @@ int main(void) {
     keyboard_setup();
 
     /* Init USB */
+    usb_event_queue_init();
     init_usb_driver(&USB_DRIVER);
 
 #ifdef MIDI_ENABLE
@@ -225,6 +226,8 @@ int main(void) {
 
     /* Main loop */
     while (true) {
+        usb_event_queue_task();
+
 #if !defined(NO_USB_STARTUP_CHECK)
         if (USB_DRIVER.state == USB_SUSPENDED) {
             print("[s]");

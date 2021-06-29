@@ -42,7 +42,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_ALT_GUI:
-            case MAGIC_SWAP_LCTL_LGUI ... MAGIC_TOGGLE_CTL_GUI:
+            case MAGIC_SWAP_LCTL_LGUI ... MAGIC_EE_HANDS_RIGHT:
                 /* keymap config */
                 keymap_config.raw = eeconfig_read_keymap();
                 switch (keycode) {
@@ -158,15 +158,14 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                         clear_keyboard();  // clear first buffer to prevent stuck keys
                         keymap_config.nkro = !keymap_config.nkro;
                         break;
-#if 0
                     case MAGIC_EE_HANDS_LEFT:
                         eeconfig_update_handedness(true);
                         break;
                     case MAGIC_EE_HANDS_RIGHT:
                         eeconfig_update_handedness(false);
                         break;
-#endif
                 }
+
                 eeconfig_update_keymap(keymap_config.raw);
                 clear_keyboard();  // clear to prevent stuck keys
 

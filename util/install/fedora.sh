@@ -4,7 +4,7 @@ _qmk_install() {
     echo "Installing dependencies"
 
     # TODO: Check whether devel/headers packages are really needed
-    sudo dnf -y install \
+    sudo dnf $SKIP_PROMPT install \
         clang diffutils git gcc glibc-headers kernel-devel kernel-headers make unzip wget zip \
         python3 \
         avr-binutils avr-gcc avr-libc \

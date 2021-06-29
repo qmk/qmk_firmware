@@ -24,11 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x3297
-#define PRODUCT_ID      0x4974
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ZSA Technology Labs Inc
+#define MANUFACTURER    ZSA Technology Labs
+#define PRODUCT_ID      0x4974
 #define PRODUCT         ErgoDox EZ
-#define WEBUSB_LANDING_PAGE_URL u8"configure.ergodox-ez.com"
 
 /* key matrix size */
 #define MATRIX_ROWS 14
@@ -44,7 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_EXPANDER_COL_PINS { 5, 4, 3, 2, 1, 0 }
 #define MATRIX_EXPANDER_ROW_PINS { 0, 1, 2, 3, 4, 5, 6 }
 
-
 #define MOUSEKEY_INTERVAL           20
 #define MOUSEKEY_DELAY              0
 #define MOUSEKEY_TIME_TO_MAX        60
@@ -53,6 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_INTERVAL     MOUSEKEY_INTERVAL
 #define MOUSEKEY_WHEEL_MAX_SPEED    MOUSEKEY_MAX_SPEED
 #define MOUSEKEY_WHEEL_TIME_TO_MAX  MOUSEKEY_TIME_TO_MAX
+
+#define DEBOUNCE 30
 
 #define TAPPING_TOGGLE  1
 
@@ -114,9 +114,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * manufacturer specs.
  */
 
-#define DEBOUNCE 30
-
-#define USB_MAX_POWER_CONSUMPTION 500
 
 // RGB backlight
 #define DRIVER_ADDR_1 0b1110100

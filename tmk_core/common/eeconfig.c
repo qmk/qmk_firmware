@@ -6,6 +6,7 @@
 #ifdef ORYX_ENABLE
 #    include "oryx.h"
 #endif
+
 #ifdef STM32_EEPROM_ENABLE
 #    include <hal.h>
 #    include "eeprom_stm32.h"
@@ -60,18 +61,17 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     eeprom_update_dword(EECONFIG_RGB_MATRIX, 0);
     eeprom_update_byte(EECONFIG_RGB_MATRIX_SPEED, 0);
-
+#ifdef ORYX_ENABLE
+    eeconfig_init_oryx();
+#endif
     // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
     //        within the emulated eeprom via dfu-util or another tool
 #if defined INIT_EE_HANDS_LEFT
-    #pragma message "Faking EE_HANDS for left hand"
+#    pragma message "Faking EE_HANDS for left hand"
     eeprom_update_byte(EECONFIG_HANDEDNESS, 1);
 #elif defined INIT_EE_HANDS_RIGHT
-    #pragma message "Faking EE_HANDS for right hand"
+#    pragma message "Faking EE_HANDS for right hand"
     eeprom_update_byte(EECONFIG_HANDEDNESS, 0);
-#endif
-#ifdef ORYX_ENABLE
-    eeconfig_init_oryx();
 #endif
 
 #if defined(HAPTIC_ENABLE)

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 _qmk_install_prepare() {
-    pacman -Syu
+    pacman -Syu $MSYS2_CONFIRM
 }
 
 _qmk_install() {

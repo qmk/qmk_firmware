@@ -49,7 +49,7 @@
 #    include <hal.h>
 #endif
 #ifdef WEBUSB_ENABLE
-#include "webusb_descriptor.h"
+#     include "webusb_descriptor.h"
 #endif
 
 /*
@@ -271,6 +271,7 @@ enum usb_endpoints {
 #    define WEBUSB_IN_EPADDR         (ENDPOINT_DIR_IN  | WEBUSB_IN_EPNUM)
 #    define WEBUSB_OUT_EPADDR        (ENDPOINT_DIR_OUT | WEBUSB_OUT_EPNUM)
 #endif
+
 #ifdef JOYSTICK_ENABLE
     JOYSTICK_IN_EPNUM = NEXT_EPNUM,
 #    if STM32_USB_USE_OTG1

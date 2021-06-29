@@ -173,12 +173,12 @@ typedef enum {
 
 // Initialize the oled display, rotating the rendered output based on the define passed in.
 // Returns true if the OLED was initialized successfully
-bool oled_init(uint8_t rotation);
+bool oled_init(oled_rotation_t rotation);
 
 // Called at the start of oled_init, weak function overridable by the user
 // rotation - the value passed into oled_init
-// Return new uint8_t if you want to override default rotation
-uint8_t oled_init_user(uint8_t rotation);
+// Return new oled_rotation_t if you want to override default rotation
+oled_rotation_t oled_init_user(oled_rotation_t rotation);
 
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);

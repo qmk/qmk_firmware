@@ -43,6 +43,7 @@ extern inline void ergodox_right_led_set(uint8_t led, uint8_t n);
 extern inline void ergodox_led_all_set(uint8_t n);
 
 keyboard_config_t keyboard_config;
+
 bool i2c_initialized = 0;
 i2c_status_t mcp23018_status = 0x20;
 
@@ -243,16 +244,6 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef RGB_MATRIX_ENABLE
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /*   driver
  *   |  R location
@@ -348,13 +339,26 @@ led_config_t g_led_config = { {
     4, 4, 1, 1, 1, 1
 } };
 
+void suspend_power_down_kb(void) {
+    rgb_matrix_set_color_all(0, 0, 0);
+    rgb_matrix_set_suspend_state(true);
+    suspend_power_down_user();
+}
+
+ void suspend_wakeup_init_kb(void) {
+    rgb_matrix_set_suspend_state(false);
+    suspend_wakeup_init_user();
+}
+
+#    ifdef ORYX_CONFIGURATOR
 void keyboard_post_init_kb(void) {
     rgb_matrix_enable_noeeprom();
     keyboard_post_init_user();
 }
+#    endif
 #endif
 
-
+#ifdef ORYX_CONFIGURATOR
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LED_LEVEL:
@@ -399,6 +403,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return process_record_user(keycode, record);
 }
+#endif
 
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     keyboard_config.raw = 0;
