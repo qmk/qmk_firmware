@@ -626,7 +626,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 ### Indicator Examples :id=indicator-examples
 
-Caps Lock indicator with alpha numberic flagged keys:
+Caps Lock indicator on alpha numberic flagged keys:
 ```c
 void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
@@ -639,7 +639,7 @@ void rgb_matrix_indicators_user(void) {
 }
 ```
 
-Layer indicator with all flagged keys:
+Layer indicator on all flagged keys:
 ```c
 void rgb_matrix_indicators_user(void) {
     switch(get_highest_layer(layer_state|default_layer_state)) {
