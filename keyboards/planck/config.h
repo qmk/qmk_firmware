@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_SPEAKER C6
 
 #define AUDIO_VOICES
-#define AUDIO_PIN C6
+#define C6_AUDIO
 
 #define BACKLIGHT_PIN B7
 

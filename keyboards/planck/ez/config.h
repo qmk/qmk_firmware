@@ -57,10 +57,7 @@
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES
-#undef AUDIO_PIN
-#define AUDIO_PIN A5
-#define AUDIO_PIN_ALT A4
-#define AUDIO_PIN_ALT_AS_NEGATIVE
+#undef C6_AUDIO
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6

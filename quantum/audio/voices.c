@@ -1,5 +1,4 @@
 /* Copyright 2016 Jack Humbert
- * Copyright 2020 JohSchneider
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,73 +17,35 @@
 #include "audio.h"
 #include <stdlib.h>
 
-uint8_t note_timbre      = TIMBRE_DEFAULT;
-bool    glissando        = false;
-bool    vibrato          = false;
-float   vibrato_strength = 0.5;
-float   vibrato_rate     = 0.125;
+// these are imported from audio.c
+extern uint16_t envelope_index;
+extern float    note_timbre;
+extern float    polyphony_rate;
+extern bool     glissando;
 
-uint16_t voices_timer = 0;
-
-#ifdef AUDIO_VOICE_DEFAULT
-voice_type voice = AUDIO_VOICE_DEFAULT;
-#else
 voice_type voice = default_voice;
-#endif
 
 void set_voice(voice_type v) { voice = v; }
 
 void voice_iterate() { voice = (voice + 1) % number_of_voices; }
 void voice_deiterate() { voice = (voice - 1 + number_of_voices) % number_of_voices; }
 
-#ifdef AUDIO_VOICES
-float mod(float a, int b) {
-    float r = fmod(a, b);
-    return r < 0 ? r + b : r;
-}
-
-// Effect: 'vibrate' a given target frequency slightly above/below its initial value
-float voice_add_vibrato(float average_freq) {
-    float vibrato_counter = mod(timer_read() / (100 * vibrato_rate), VIBRATO_LUT_LENGTH);
-
-    return average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
-}
-
-// Effect: 'slides' the 'frequency' from the starting-point, to the target frequency
-float voice_add_glissando(float from_freq, float to_freq) {
-    if (to_freq != 0 && from_freq < to_freq && from_freq < to_freq * pow(2, -440 / to_freq / 12 / 2)) {
-        return from_freq * pow(2, 440 / from_freq / 12 / 2);
-    } else if (to_freq != 0 && from_freq > to_freq && from_freq > to_freq * pow(2, 440 / to_freq / 12 / 2)) {
-        return from_freq * pow(2, -440 / from_freq / 12 / 2);
-    } else {
-        return to_freq;
-    }
-}
-#endif
-
 float voice_envelope(float frequency) {
     // envelope_index ranges from 0 to 0xFFFF, which is preserved at 880.0 Hz
-//    __attribute__((unused)) uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / frequency));
-#ifdef AUDIO_VOICES
-    uint16_t envelope_index    = timer_elapsed(voices_timer);  // TODO: multiply in some factor?
-    uint16_t compensated_index = envelope_index / 100;         // TODO: correct factor would be?
-#endif
+    __attribute__((unused)) uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / frequency));
 
     switch (voice) {
         case default_voice:
-            glissando = false;
-            // note_timbre    = TIMBRE_50; //Note: leave the user the possibility to adjust the timbre with 'audio_set_timbre'
+            glissando      = false;
+            note_timbre    = TIMBRE_50;
+            polyphony_rate = 0;
             break;
 
 #ifdef AUDIO_VOICES
 
-        case vibrating:
-            glissando = false;
-            vibrato   = true;
-            break;
-
         case something:
-            glissando = false;
+            glissando      = false;
+            polyphony_rate = 0;
             switch (compensated_index) {
                 case 0 ... 9:
                     note_timbre = TIMBRE_12;
@@ -95,23 +56,24 @@ float voice_envelope(float frequency) {
                     break;
 
                 case 20 ... 200:
-                    note_timbre = 12 + 12;
+                    note_timbre = .125 + .125;
                     break;
 
                 default:
-                    note_timbre = 12;
+                    note_timbre = .125;
                     break;
             }
             break;
 
         case drums:
-            glissando = false;
+            glissando      = false;
+            polyphony_rate = 0;
             // switch (compensated_index) {
             //     case 0 ... 10:
-            //         note_timbre = 50;
+            //         note_timbre = 0.5;
             //         break;
             //     case 11 ... 20:
-            //         note_timbre = 50 * (21 - compensated_index) / 10;
+            //         note_timbre = 0.5 * (21 - compensated_index) / 10;
             //         break;
             //     default:
             //         note_timbre = 0;
@@ -125,10 +87,10 @@ float voice_envelope(float frequency) {
                 frequency = (rand() % (int)(40)) + 60;
                 switch (envelope_index) {
                     case 0 ... 10:
-                        note_timbre = 50;
+                        note_timbre = 0.5;
                         break;
                     case 11 ... 20:
-                        note_timbre = 50 * (21 - envelope_index) / 10;
+                        note_timbre = 0.5 * (21 - envelope_index) / 10;
                         break;
                     default:
                         note_timbre = 0;
@@ -140,10 +102,10 @@ float voice_envelope(float frequency) {
                 frequency = (rand() % (int)(1000)) + 1000;
                 switch (envelope_index) {
                     case 0 ... 5:
-                        note_timbre = 50;
+                        note_timbre = 0.5;
                         break;
                     case 6 ... 20:
-                        note_timbre = 50 * (21 - envelope_index) / 15;
+                        note_timbre = 0.5 * (21 - envelope_index) / 15;
                         break;
                     default:
                         note_timbre = 0;
@@ -155,10 +117,10 @@ float voice_envelope(float frequency) {
                 frequency = (rand() % (int)(2000)) + 3000;
                 switch (envelope_index) {
                     case 0 ... 15:
-                        note_timbre = 50;
+                        note_timbre = 0.5;
                         break;
                     case 16 ... 20:
-                        note_timbre = 50 * (21 - envelope_index) / 5;
+                        note_timbre = 0.5 * (21 - envelope_index) / 5;
                         break;
                     default:
                         note_timbre = 0;
@@ -170,10 +132,10 @@ float voice_envelope(float frequency) {
                 frequency = (rand() % (int)(2000)) + 3000;
                 switch (envelope_index) {
                     case 0 ... 35:
-                        note_timbre = 50;
+                        note_timbre = 0.5;
                         break;
                     case 36 ... 50:
-                        note_timbre = 50 * (51 - envelope_index) / 15;
+                        note_timbre = 0.5 * (51 - envelope_index) / 15;
                         break;
                     default:
                         note_timbre = 0;
@@ -182,7 +144,8 @@ float voice_envelope(float frequency) {
             }
             break;
         case butts_fader:
-            glissando = true;
+            glissando      = true;
+            polyphony_rate = 0;
             switch (compensated_index) {
                 case 0 ... 9:
                     frequency   = frequency / 4;
@@ -195,7 +158,7 @@ float voice_envelope(float frequency) {
                     break;
 
                 case 20 ... 200:
-                    note_timbre = 12 - (uint8_t)(pow(((float)compensated_index - 20) / (200 - 20), 2) * 12.5);
+                    note_timbre = .125 - pow(((float)compensated_index - 20) / (200 - 20), 2) * .125;
                     break;
 
                 default:
@@ -205,6 +168,7 @@ float voice_envelope(float frequency) {
             break;
 
             // case octave_crunch:
+            //     polyphony_rate = 0;
             //     switch (compensated_index) {
             //         case 0 ... 9:
             //         case 20 ... 24:
@@ -222,13 +186,14 @@ float voice_envelope(float frequency) {
 
             //         default:
             //             note_timbre = TIMBRE_12;
-            //          break;
+            //         	break;
             //     }
             //  break;
 
         case duty_osc:
             // This slows the loop down a substantial amount, so higher notes may freeze
-            glissando = true;
+            glissando      = true;
+            polyphony_rate = 0;
             switch (compensated_index) {
                 default:
 #    define OCS_SPEED 10
@@ -236,36 +201,38 @@ float voice_envelope(float frequency) {
                     // sine wave is slow
                     // note_timbre = (sin((float)compensated_index/10000*OCS_SPEED) * OCS_AMP / 2) + .5;
                     // triangle wave is a bit faster
-                    note_timbre = (uint8_t)abs((compensated_index * OCS_SPEED % 3000) - 1500) * (OCS_AMP / 1500) + (1 - OCS_AMP) / 2;
+                    note_timbre = (float)abs((compensated_index * OCS_SPEED % 3000) - 1500) * (OCS_AMP / 1500) + (1 - OCS_AMP) / 2;
                     break;
             }
             break;
 
         case duty_octave_down:
-            glissando   = true;
-            note_timbre = (uint8_t)(100 * (envelope_index % 2) * .125 + .375 * 2);
-            if ((envelope_index % 4) == 0) note_timbre = 50;
+            glissando      = true;
+            polyphony_rate = 0;
+            note_timbre    = (envelope_index % 2) * .125 + .375 * 2;
+            if ((envelope_index % 4) == 0) note_timbre = 0.5;
             if ((envelope_index % 8) == 0) note_timbre = 0;
             break;
         case delayed_vibrato:
-            glissando   = true;
-            note_timbre = TIMBRE_50;
+            glissando      = true;
+            polyphony_rate = 0;
+            note_timbre    = TIMBRE_50;
 #    define VOICE_VIBRATO_DELAY 150
 #    define VOICE_VIBRATO_SPEED 50
             switch (compensated_index) {
                 case 0 ... VOICE_VIBRATO_DELAY:
                     break;
                 default:
-
                     frequency = frequency * vibrato_lut[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1)) / 1000 * VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
                     break;
             }
             break;
             // case delayed_vibrato_octave:
+            //     polyphony_rate = 0;
             //     if ((envelope_index % 2) == 1) {
-            //         note_timbre = 55;
+            //         note_timbre = 0.55;
             //     } else {
-            //         note_timbre = 45;
+            //         note_timbre = 0.45;
             //     }
             //     #define VOICE_VIBRATO_DELAY 150
             //     #define VOICE_VIBRATO_SPEED 50
@@ -278,64 +245,35 @@ float voice_envelope(float frequency) {
             //     }
             //     break;
             // case duty_fifth_down:
-            //     note_timbre = TIMBRE_50;
+            //     note_timbre = 0.5;
             //     if ((envelope_index % 3) == 0)
-            //         note_timbre = TIMBRE_75;
+            //         note_timbre = 0.75;
             //     break;
             // case duty_fourth_down:
-            //     note_timbre = 0;
+            //     note_timbre = 0.0;
             //     if ((envelope_index % 12) == 0)
-            //         note_timbre = TIMBRE_75;
+            //         note_timbre = 0.75;
             //     if (((envelope_index % 12) % 4) != 1)
-            //         note_timbre = TIMBRE_75;
+            //         note_timbre = 0.75;
             //     break;
             // case duty_third_down:
-            //     note_timbre = TIMBRE_50;
+            //     note_timbre = 0.5;
             //     if ((envelope_index % 5) == 0)
-            //         note_timbre = TIMBRE_75;
+            //         note_timbre = 0.75;
             //     break;
             // case duty_fifth_third_down:
-            //     note_timbre = TIMBRE_50;
+            //     note_timbre = 0.5;
             //     if ((envelope_index % 5) == 0)
-            //         note_timbre = TIMBRE_75;
+            //         note_timbre = 0.75;
             //     if ((envelope_index % 3) == 0)
-            //         note_timbre = TIMBRE_25;
+            //         note_timbre = 0.25;
             //     break;
 
-#endif  // AUDIO_VOICES
+#endif
 
         default:
             break;
     }
 
-#ifdef AUDIO_VOICES
-    if (vibrato && (vibrato_strength > 0)) {
-        frequency = voice_add_vibrato(frequency);
-    }
-
-    if (glissando) {
-        // TODO: where to keep track of the start-frequency?
-        // frequency = voice_add_glissando(??, frequency);
-    }
-#endif  // AUDIO_VOICES
-
     return frequency;
 }
-
-// Vibrato functions
-
-void voice_set_vibrato_rate(float rate) { vibrato_rate = rate; }
-void voice_increase_vibrato_rate(float change) { vibrato_rate *= change; }
-void voice_decrease_vibrato_rate(float change) { vibrato_rate /= change; }
-void voice_set_vibrato_strength(float strength) { vibrato_strength = strength; }
-void voice_increase_vibrato_strength(float change) { vibrato_strength *= change; }
-void voice_decrease_vibrato_strength(float change) { vibrato_strength /= change; }
-
-// Timbre functions
-
-void voice_set_timbre(uint8_t timbre) {
-    if ((timbre > 0) && (timbre < 100)) {
-        note_timbre = timbre;
-    }
-}
-uint8_t voice_get_timbre(void) { return note_timbre; }
