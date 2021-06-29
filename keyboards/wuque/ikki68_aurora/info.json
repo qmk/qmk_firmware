@@ -162,7 +162,7 @@
                 { "label": "\u2192", "x": 16.5, "y": 4 }
             ]
         },
-        "LAYOUT_68_split_Lshift": {
+        "LAYOUT_68_split_lshift": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
