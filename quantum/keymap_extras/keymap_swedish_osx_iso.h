@@ -188,11 +188,11 @@
 
 /* Shift+Alted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │   │ ¡ │ ” │ ¥ │ ¢ │ ‰ │ ¶ │ \ │ { │ } │ ≠ │ ¿ │   │     │
+ * │   │ ¡ │ ” │ ¥ │ ¢ │ ‰ │   │ \ │ { │ } │ ≠ │ ¿ │   │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │ ° │ ˝ │ É │ √ │ ‡ │ ˜ │ Ü │ ˆ │ Œ │ ∏ │ ˚ │ ^ │   │
+ * │     │ ° │ ˝ │   │   │ ‡ │ ˜ │   │ ˆ │   │ ∏ │ ˚ │ ^ │   │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │ ◊ │ ∑ │ ∆ │ ∫ │ ¯ │ ˘ │ ¬ │ º │ ﬂ │ Ø │ Æ │   │  │
+ * │      │ ◊ │ ∑ │ ∆ │ ∫ │ ¯ │ ˘ │ ¬ │ º │ ﬂ │   │   │   │  │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
  * │    │ ≥ │ ⁄ │ ˇ │   │ « │ » │ “ │ ” │ „ │ · │ — │        │
  * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
@@ -204,7 +204,6 @@
 #define SE_YEN  S(A(SE_3))    // ¥
 #define SE_CENT S(A(SE_4))    // ¢
 #define SE_PERM S(A(SE_5))    // ‰
-#define SE_PILC S(A(SE_6))    // ¶
 #define SE_BSLS S(A(SE_7))    // (backslash)
 #define SE_LCBR S(A(SE_8))    // {
 #define SE_RCBR S(A(SE_9))    // }
@@ -213,13 +212,9 @@
 // Row 2
 #define SE_DEG  S(A(SE_Q))    // °
 #define SE_DACU S(A(SE_W))    // ˝
-#define SE_EACU S(A(SE_E))    // É
-#define SE_SQRT S(A(SE_V))    // √
 #define SE_DDAG S(A(SE_T))    // ‡
 #define SE_STIL S(A(SE_Y))    // ˜
-#define SE_UDIA S(A(SE_U))    // Ü
 #define SE_DCIR S(A(SE_I))    // ˆ
-#define SE_OE   S(A(SE_O))    // Œ
 #define SE_NARP S(A(SE_P))    // ∏
 #define SE_RNGA S(A(SE_ARNG)) // ˚
 // Row 3
