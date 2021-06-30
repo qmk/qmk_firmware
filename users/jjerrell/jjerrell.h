@@ -1,4 +1,5 @@
 /**
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  * Copyright (C) 2021 Jerrell, Jacob <@jjerrell>
  * 
  * This file is part of qmk_firmware.
@@ -21,12 +22,15 @@
 #include QMK_KEYBOARD_H
 
 /** QMK Includes **/
-// #include "version.h"
-// #include "eeprom.h"
+#include "version.h"
+#include "eeprom.h"
 
 /** Userspace Includes **/
 #include "process_records.h"
 #include "wrappers.h"
+#if defined(RGB_MATRIX_ENABLE)
+#    include "rgb_matrix_stuff.h"
+#endif
 
 /************************* Userspace Layers *************************
  *    Keymaps can define additional layers by making the first case
@@ -41,15 +45,22 @@ enum userspace_layers {
     LAYER_SAFE_RANGE,
 };
 
+/************************ Userspace Keycodes ************************/
+
+enum custom_keycodes {
+    VRSN = SAFE_RANGE,
+    KC_MAKE,
+    KC_RESET,
+    NEWPLACEHOLDER  // use "NEWPLACEHOLDER for keymap specific codes
+};
+
 /********************** Custom Helper Methods **********************/
 
 // bool          mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
 // bool          mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 
-/*********************** Keymap Method Access **********************
- *    These methods are implemented at the keymap level but called 
- * from the userspace
- *******************************************************************/
+/************************* Keymap Methods **************************/
+
 void          matrix_init_keymap(void); //
 void          matrix_scan_keymap(void);
 void          eeconfig_init_keymap(void);

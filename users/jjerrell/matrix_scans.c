@@ -17,3 +17,5 @@
  * along with qmk_firmware.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "jjerrell.h"
+#include "version.h"

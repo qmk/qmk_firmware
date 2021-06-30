@@ -1,5 +1,6 @@
 /**
  * Copyright (C) 2021 Jerrell, Jacob <@jjerrell>
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  * 
  * This file is part of qmk_firmware.
  * 
@@ -17,3 +18,5 @@
  * along with qmk_firmware.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "jjerrell.h"
+#include "version.h"
