@@ -8,4 +8,4 @@ By daily work involves a lot of coding. I find an ANSI layout superior and decid
 
 ## More details
 
-Tracking the current state of the shift code is nessesary for it to work. User spacebarracecar has documented the idea thoroughly and should serve you as a starting point if you wish to implement this code. I modified the code to suit Danish input language. Additionally, a coupled of functions were added to accomodate the altgr key.
+Tracking the current state of the shift code is nessesary for it to work. User spacebarracecar has documented the idea thoroughly and should serve you as a starting point if you wish to implement this code. I modified the code to suit Danish input language. Additionally, a couple of functions were added to accomodate the altgr key.
