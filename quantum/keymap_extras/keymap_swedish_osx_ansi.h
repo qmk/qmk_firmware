@@ -122,7 +122,7 @@
 
 /* Alted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │ ≤ │ © │ @ │ £ │ $ │ ∞ │   │ | │ [ │ ] │ ≈ │ ± │   │     │
+ * │ ≤ │ © │ @ │ £ │ $ │ ∞ │ § │ | │ [ │ ] │ ≈ │ ± │   │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
  * │     │ • │ Ω │ é │ ® │ † │ µ │ ü │ ı │ œ │ π │ ˙ │ ~ │ ™ │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
@@ -141,6 +141,7 @@
 #define SE_PND  A(SE_3)    // £
 #define SE_DLR  A(SE_4)    // $
 #define SE_INFN A(SE_5)    // ∞
+#define SE_SECT A(SE_6)    // §
 #define SE_PIPE A(SE_7)    // |
 #define SE_LBRC A(SE_8)    // [
 #define SE_RBRC A(SE_9)    // ]
@@ -185,11 +186,11 @@
 
 /* Shift+Alted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │ ≥ │ ¡ │   │ ¥ │ ¢ │ ‰ │   │ \ │ { │ } │ ≠ │ ¿ │   │     │
+ * │ ≥ │ ¡ │ ” │ ¥ │ ¢ │ ‰ │ ¶ │ \ │ { │ } │ ≠ │ ¿ │   │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │   │   │   │   │ ‡ │   │   │   │   │   │ ˚ │   │   │
+ * │     │ ° │ ˝ │ É │ √ │ ‡ │ ˜ │ Ü │ ˆ │ Œ │ ∏ │ ˚ │ ^ │   │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
- * │      │ ◊ │ ∑ │ ∆ │ ∫ │ ¯ │ ˘ │ ¬ │ º │   │   │   │      │
+ * │      │ ◊ │ ∑ │ ∆ │ ∫ │ ¯ │ ˘ │ ¬ │ º │ ﬂ │ Ø │ Æ │      │
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴──────┤
  * │        │ ⁄ │ ˇ │   │ « │ » │ “ │ ” │ „ │ · │ — │        │
  * ├─────┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
@@ -203,14 +204,25 @@
 #define SE_YEN  S(A(SE_3))    // ¥
 #define SE_CENT S(A(SE_4))    // ¢
 #define SE_PERM S(A(SE_5))    // ‰
+#define SE_PILC S(A(SE_6))    // ¶
 #define SE_BSLS S(A(SE_7))    // (backslash)
 #define SE_LCBR S(A(SE_8))    // {
 #define SE_RCBR S(A(SE_9))    // }
 #define SE_NEQL S(A(SE_0))    // ≠
 #define SE_IQUE S(A(SE_PLUS)) // ¿
 // Row 2
+#define SE_DEG  S(A(SE_Q))    // °
+#define SE_DACU S(A(SE_W))    // ˝
+#define SE_EACU S(A(SE_E))    // É
+#define SE_SQRT S(A(SE_V))    // √
 #define SE_DDAG S(A(SE_T))    // ‡
+#define SE_STIL S(A(SE_Y))    // ˜
+#define SE_UDIA S(A(SE_U))    // Ü
+#define SE_DCIR S(A(SE_I))    // ˆ
+#define SE_OE   S(A(SE_O))    // Œ
+#define SE_NARP S(A(SE_P))    // ∏
 #define SE_RNGA S(A(SE_ARNG)) // ˚
+                              // ^ (duplicate)
 // Row 3
 #define SE_LOZN S(A(SE_A))    // ◊
 #define SE_NARS S(A(SE_S))    // ∑
@@ -220,9 +232,13 @@
 #define SE_BREV S(A(SE_H))    // ˘
 #define SE_NOT  S(A(SE_J))    // ¬
 #define SE_MORD S(A(SE_K))    // º
+#define SE_FL   S(A(SE_L))    // ﬂ
+#define SE_OSTR S(A(SE_ODIA)) // Ø
+#define SE_AE   S(A(SE_ADIA)) // Æ
 // Row 4
 #define SE_FRSL S(A(SE_Z))    // ⁄
 #define SE_CARN S(A(SE_X))    // ˇ
+#define SE_CCCE S(A(SE_C))    // Ç
 #define SE_LDAQ S(A(SE_V))    // «
 #define SE_RDAQ S(A(SE_B))    // »
 #define SE_LDQU S(A(SE_N))    // “

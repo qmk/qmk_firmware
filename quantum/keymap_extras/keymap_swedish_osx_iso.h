@@ -188,13 +188,13 @@
 
 /* Shift+Alted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │   │ ¡ │   │ ¥ │ ¢ │ ‰ │   │ \ │ { │ } │ ≠ │ ¿ │   │     │
+ * │   │ ¡ │ ” │ ¥ │ ¢ │ ‰ │ ¶ │ \ │ { │ } │ ≠ │ ¿ │   │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │   │   │   │   │ ‡ │   │   │   │   │   │ ˚ │   │   │
+ * │     │ ° │ ˝ │ É │ √ │ ‡ │ ˜ │ Ü │ ˆ │ Œ │ ∏ │ ˚ │ ^ │   │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │ ◊ │ ∑ │ ∆ │ ∫ │ ¯ │ ˘ │ ¬ │ º │   │   │   │   │  │
+ * │      │ ◊ │ ∑ │ ∆ │ ∫ │ ¯ │ ˘ │ ¬ │ º │ ﬂ │ Ø │ Æ │   │  │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
- * │    │   │ ⁄ │ ˇ │   │ « │ » │ “ │ ” │ „ │ · │ — │        │
+ * │    │ ≥ │ ⁄ │ ˇ │   │ « │ » │ “ │ ” │ „ │ · │ — │        │
  * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
  * │     │    │     │                       │     │    │     │
  * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
@@ -204,13 +204,23 @@
 #define SE_YEN  S(A(SE_3))    // ¥
 #define SE_CENT S(A(SE_4))    // ¢
 #define SE_PERM S(A(SE_5))    // ‰
+#define SE_PILC S(A(SE_6))    // ¶
 #define SE_BSLS S(A(SE_7))    // (backslash)
 #define SE_LCBR S(A(SE_8))    // {
 #define SE_RCBR S(A(SE_9))    // }
 #define SE_NEQL S(A(SE_0))    // ≠
 #define SE_IQUE S(A(SE_PLUS)) // ¿
 // Row 2
+#define SE_DEG  S(A(SE_Q))    // °
+#define SE_DACU S(A(SE_W))    // ˝
+#define SE_EACU S(A(SE_E))    // É
+#define SE_SQRT S(A(SE_V))    // √
 #define SE_DDAG S(A(SE_T))    // ‡
+#define SE_STIL S(A(SE_Y))    // ˜
+#define SE_UDIA S(A(SE_U))    // Ü
+#define SE_DCIR S(A(SE_I))    // ˆ
+#define SE_OE   S(A(SE_O))    // Œ
+#define SE_NARP S(A(SE_P))    // ∏
 #define SE_RNGA S(A(SE_ARNG)) // ˚
 // Row 3
 #define SE_LOZN S(A(SE_A))    // ◊
@@ -221,7 +231,11 @@
 #define SE_BREV S(A(SE_H))    // ˘
 #define SE_NOT  S(A(SE_J))    // ¬
 #define SE_MORD S(A(SE_K))    // º
+#define SE_FL   S(A(SE_L))    // ﬂ
+#define SE_OSTR S(A(SE_ODIA)) // Ø
+#define SE_AE   S(A(SE_ADIA)) // Æ
 // Row 4
+#define SE_GTEQ S(A(SE_LABK)) // ≥
 #define SE_FRSL S(A(SE_Z))    // ⁄
 #define SE_CARN S(A(SE_X))    // ˇ
 #define SE_LDAQ S(A(SE_V))    // «
