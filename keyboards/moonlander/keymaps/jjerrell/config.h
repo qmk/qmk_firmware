@@ -1,7 +1,7 @@
 /* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
  * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
  * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
- * Copyright 2021 Jacob Jerrell <jjerrell+github@gmail.com>
+ * Copyright 2021 Jacob Jerrell <@jjerrell>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
