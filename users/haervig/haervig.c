@@ -78,9 +78,6 @@ void unreg_prev(void){
 bool navesc = false;
 uint16_t navesc_timer = 0;
 
-// If true Gui keys and Space Cadet Shift get disabled
-bool game = false;
-
 // Interrupts all timers
 void timer_timeout(void){
   #ifdef DANISH_ENABLE
@@ -98,13 +95,6 @@ void timer_timeout_keymap(void){
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case KC_LGUI:
-  case KC_RGUI:
-    if (record->event.pressed)
-      timer_timeout();
-    if (game)
-      return false;
-    else
-      return true;
   case CU_NAV:
     if(record->event.pressed) {
       navesc = true;
@@ -128,7 +118,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LSFT);
       lshift = true;
     } else {
-      if (timer_elapsed(lshift_timer) < TAPPING_TERM && lshiftp && !game) {
+      if (timer_elapsed(lshift_timer) < TAPPING_TERM && lshiftp) {
         register_code(KC_LSFT);
         register_code(KC_8);
         unregister_code(KC_8);
@@ -148,7 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LSFT);
       rshift = true;
     } else {
-      if (timer_elapsed(rshift_timer) < TAPPING_TERM && rshiftp && !game) {
+      if (timer_elapsed(rshift_timer) < TAPPING_TERM && rshiftp) {
         register_code(KC_LSFT);
         register_code(KC_9);
         unregister_code(KC_9);
