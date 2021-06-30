@@ -1,5 +1,3 @@
-DEFAULT_FOLDER = ianklug/grooveboard/au
-
 # MCU name
 MCU = atmega32u4
 
