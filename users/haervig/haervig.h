@@ -24,7 +24,8 @@ enum userspace_layers {
 };
 
 enum userspace_custom_keycodes {
-  CU_NAV,                   // NAV | ESC
+  //CU_GAME = SAFE_RANGE,     // Toggle game mode on/off
+  CU_NAV = SAFE_RANGE,                   // NAV | ESC
 
   #ifdef DANISH_ENABLE
   CU_LSFT,                  // LSFT | (
@@ -89,6 +90,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define GUIR RGUI(KC_RIGHT)
 
 #define CTLENT CTL_T(KC_ENT)
+
+#define EMOJI LWIN(KC_DOT)
 
 /*
 Templates for Keys, with custom shifted and non shifted Characters
@@ -264,13 +267,11 @@ if (record->event.pressed) { \
   register_code(KC_ALGR); \
   if (lshift || rshift) { \
     unregister_code(kc2); \
-    register_code(kc2); \
-    unregister_code(kc2); \
+    tap_code(kc2); \
     register_code(KC_LSFT); \
   } else { \
     unregister_code(kc1); \
-    register_code(kc1); \
-    unregister_code(kc1); \
+    tap_code(kc1); \
   } \
   unregister_code(KC_ALGR); \
 } \

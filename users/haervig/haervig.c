@@ -94,6 +94,11 @@ void timer_timeout_keymap(void){
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+  case KC_LGUI:
+  case KC_RGUI:
+    if (record->event.pressed)
+      timer_timeout();
+    return true;
   case CU_NAV:
     if(record->event.pressed) {
       navesc = true;
@@ -164,8 +169,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (lshift || rshift) { \
         register_code(KC_LSFT); \
         register_code(KC_ALGR); \
+        unregister_code(KC_3); \
         tap_code(KC_3); \
+        unregister_code(KC_3); \
       } else { \
+        unregister_code(KC_4); \
         tap_code(KC_4); \
       } \
       unregister_code(KC_ALGR); \
@@ -198,6 +206,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_RCTL:
     if(!record->event.pressed) {
       timer_timeout();
+      unregister_code(KC_Z);
+      unregister_code(KC_Y);
     }
     return true;
   #endif
