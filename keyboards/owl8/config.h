@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT      owl8
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 16
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
@@ -40,8 +40,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { NO_PIN }
-#define MATRIX_COL_PINS { F4, F7, B3, B6, F5, F6, B1, B2, D4, C6, D7, E6 }
+#define DIRECT_PINS { \
+    { F4, F7, B3, B6 }, \
+    { F5, F6, B1, B2 }, \
+    { D4, C6, D7, E6 }, \
+    { NO_PIN, NO_PIN, NO_PIN, NO_PIN } \
+}
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
