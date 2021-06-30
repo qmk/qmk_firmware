@@ -25,4 +25,4 @@ API_SYSEX_ENABLE = no
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
 
-SRC = matrix.c ibmpc.c ibmpc_usb.c
+SRC = matrix.c ibmpc.c
