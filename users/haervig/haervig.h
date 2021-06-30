@@ -300,17 +300,3 @@ if(record->event.pressed) { \
     unregister_code(kc2); \
 } \
 return false;
-
-// Template for keys on deadkey layer (mostly Umlaute)
-#define UML(kc) \
-if(record->event.pressed) { \
-  timer_timeout(); \
-  if (lshift || rshift) \
-    register_code(KC_LSFT); \
-  else \
-    unregister_code(KC_LSFT); \
-  register_code(kc); \
-  unregister_code(kc); \
-  layer_off(_DEADKEY); \
-} \
-return false;
