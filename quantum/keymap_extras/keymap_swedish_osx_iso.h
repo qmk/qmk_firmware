@@ -190,7 +190,7 @@
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
  * │   │ ¡ │ ” │ ¥ │ ¢ │ ‰ │   │ \ │ { │ } │ ≠ │ ¿ │   │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │ ° │ ˝ │   │   │ ‡ │ ˜ │   │ ˆ │   │ ∏ │ ˚ │ ^ │   │
+ * │     │   │ ˝ │   │   │ ‡ │ ˜ │   │ ˆ │   │ ∏ │ ˚ │ ^ │   │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
  * │      │ ◊ │ ∑ │ ∆ │ ∫ │ ¯ │ ˘ │ ¬ │ º │ ﬂ │   │   │   │  │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
@@ -210,7 +210,6 @@
 #define SE_NEQL S(A(SE_0))    // ≠
 #define SE_IQUE S(A(SE_PLUS)) // ¿
 // Row 2
-#define SE_DEG  S(A(SE_Q))    // °
 #define SE_DACU S(A(SE_W))    // ˝
 #define SE_DDAG S(A(SE_T))    // ‡
 #define SE_STIL S(A(SE_Y))    // ˜
@@ -227,8 +226,6 @@
 #define SE_NOT  S(A(SE_J))    // ¬
 #define SE_MORD S(A(SE_K))    // º
 #define SE_FL   S(A(SE_L))    // ﬂ
-#define SE_OSTR S(A(SE_ODIA)) // Ø
-#define SE_AE   S(A(SE_ADIA)) // Æ
 // Row 4
 #define SE_GTEQ S(A(SE_LABK)) // ≥
 #define SE_FRSL S(A(SE_Z))    // ⁄
