@@ -1,6 +1,6 @@
 # Creator Pro
 
-![Creator Pro Layout](https://i.imgur.com/0PmpLcM.png)
+![Creator Pro Layout](https://i.imgur.com/G3Yf20D.jpg)
 
 This Keypad has 1 rows x 9 columns of keys. It has the top/default layer that
 has a few 1-8 keys as well as one dedicated encoder key for change layer. The
