@@ -16,8 +16,6 @@
 
 #include "we27.h"
 
-#ifdef RGB_MATRIX_ENABLE
-
 #define __ NO_LED
 
 led_config_t g_led_config = { {
@@ -43,17 +41,12 @@ led_config_t g_led_config = { {
     1, 4,    4
 } };
 
-
-#endif
-
-#ifdef ENCODER_ENABLE
-
 #define NUMBER_OF_ENCODERS 1
-#define ENCODER_KEYMAP_CLOCKWISE { {6, 1} }
-#define ENCODER_KEYMAP_COUTERCLOCKWISE { {6, 0} }
+#define ENCODER_KEYMAP_CLOCKWISE { {5, 4} }
+#define ENCODER_KEYMAP_COUNTERCLOCKWISE { {3, 4} }
 
 const uint8_t encoder_km_clockwise[NUMBER_OF_ENCODERS][2] = ENCODER_KEYMAP_CLOCKWISE;
-const uint8_t encoder_km_couterclockwise[NUMBER_OF_ENCODERS][2] = ENCODER_KEYMAP_COUTERCLOCKWISE;
+const uint8_t encoder_km_counterclockwise[NUMBER_OF_ENCODERS][2] = ENCODER_KEYMAP_COUNTERCLOCKWISE;
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) return false;
@@ -65,15 +58,13 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
             key.row = encoder_km_clockwise[index][0];
             key.col = encoder_km_clockwise[index][1];
         } else {
-            key.row = encoder_km_couterclockwise[index][0];
-            key.col = encoder_km_couterclockwise[index][1];
+            key.row = encoder_km_counterclockwise[index][0];
+            key.col = encoder_km_counterclockwise[index][1];
         }
         keycode = keymap_key_to_keycode(get_highest_layer(layer_state), key);
         if (keycode != 0) {
-            tap_code(keycode);
+            tap_code16(keycode);
         }
     }
     return true;
 }
-
-#endif
