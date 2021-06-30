@@ -101,8 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       layer_on(_NAV);
     } else {
       if (timer_elapsed(navesc_timer) < TAPPING_TERM && navesc) {
-        register_code(KC_ESC);
-        unregister_code(KC_ESC);
+        tap_code(KC_ESC);
       }
       layer_off(_NAV);
     }
@@ -119,8 +118,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       if (timer_elapsed(lshift_timer) < TAPPING_TERM && lshiftp) {
         register_code(KC_LSFT);
-        register_code(KC_8);
-        unregister_code(KC_8);
+        tap_code(KC_8);
         unregister_code(KC_LSFT);
       }
       unreg_prev();
@@ -139,8 +137,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       if (timer_elapsed(rshift_timer) < TAPPING_TERM && rshiftp) {
         register_code(KC_LSFT);
-        register_code(KC_9);
-        unregister_code(KC_9);
+        tap_code(KC_9);
         unregister_code(KC_LSFT);
       }
       unreg_prev();
@@ -167,13 +164,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (lshift || rshift) { \
         register_code(KC_LSFT); \
         register_code(KC_ALGR); \
-        unregister_code(KC_3); \
-        register_code(KC_3); \
-        unregister_code(KC_3); \
+        tap_code(KC_3); \
       } else { \
-        unregister_code(KC_4); \
-        register_code(KC_4); \
-        unregister_code(KC_4); \
+        tap_code(KC_4); \
       } \
       unregister_code(KC_ALGR); \
       unregister_code(KC_LSFT); \
@@ -205,8 +198,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_RCTL:
     if(!record->event.pressed) {
       timer_timeout();
-      unregister_code(KC_Z);
-      unregister_code(KC_Y);
     }
     return true;
   #endif
