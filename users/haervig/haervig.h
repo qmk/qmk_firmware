@@ -1,3 +1,20 @@
+/*
+Copyright 2021 Jakob Hærvig <jakob.haervig@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "quantum.h"
 #include "keymap_danish.h"
 
@@ -134,12 +151,10 @@ if (record->event.pressed) { \
   timer_timeout(); \
   register_code(KC_LSFT); \
   if (lshift || rshift) { \
-    unregister_code(kc2); \
-    register_code(kc2); \
+    tap_code(kc2); \
     add_to_prev(kc2); \
   } else { \
-    unregister_code(kc1); \
-    register_code(kc1); \
+    tap_code(kc1); \
     add_to_prev(kc1); \
   } \
 } else { \
@@ -159,12 +174,10 @@ if (record->event.pressed) { \
   timer_timeout(); \
   unregister_code(KC_LSFT); \
   if (lshift || rshift) { \
-    unregister_code(kc2); \
-    register_code(kc2); \
+    tap_code(kc2); \
     add_to_prev(kc2); \
   } else { \
-    unregister_code(kc1); \
-    register_code(kc1); \
+    tap_code(kc1); \
   } \
 } else { \
   unregister_code(kc1); \
@@ -184,14 +197,12 @@ if (record->event.pressed) { \
   if (lshift || rshift) { \
     register_code(KC_ALGR); \
     unregister_code(KC_LSFT); \
-    unregister_code(kc2); \
-    register_code(kc2); \
+    tap_code(kc2); \
     unregister_code(KC_ALGR); \
   } else { \
     unregister_code(KC_ALGR); \
     unregister_code(KC_LSFT); \
-    unregister_code(kc1); \
-    register_code(kc1); \
+    tap_code(kc1); \
   } \
 } else { \
   unregister_code(kc1); \
