@@ -28,8 +28,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [_KBD_CTRL] = LAYOUT(
         KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
-        KC_TRNS, KC_NO, RGB_SAI, RGB_HUI, RGB_VAI, KC_NO,                                       KC_NO, RGB_TOG, RGB_MOD, RGB_SPI, KC_NO, KC_NO,
-        KC_TRNS, KC_NO, RGB_SAD, RGB_HUD, RGB_VAD, KC_NO, KC_NO, KC_NO,                         KC_NO, KC_NO, KC_NO, KC_NO, RGB_RMOD, RGB_SPD, KC_NO, KC_TRNS,
+        KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                             KC_NO, RGB_TOG, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                               KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 // clang-format on
@@ -96,10 +96,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgblight_sethsv_noeeprom(121, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
             break;
         case _MEDIA:
-            rgblight_sethsv_noeeprom(165, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            rgblight_sethsv_noeeprom(246, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
             break;
         case _KBD_CTRL:
-            rgblight_sethsv_noeeprom(246, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            rgblight_sethsv_noeeprom_white();
             break;
         default:  //  for any other layers, or the default layer
             rgblight_sethsv_noeeprom(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
