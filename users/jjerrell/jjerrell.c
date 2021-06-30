@@ -19,16 +19,20 @@
 
 #include "jjerrell.h"
 
+__attribute__((weak)) void eeconfig_init_config(void) {}
+__attribute__((weak)) void keyboard_pre_init_config(void) {}
+
+__attribute__((weak)) void keyboard_post_init_rgb(void) {}
+__attribute__((weak)) void shutdown_user_rgb(void) {}
+
+__attribute__((weak)) void eeconfig_init_keymap(void) {}
+__attribute__((weak)) void keyboard_pre_init_keymap(void) {}
+__attribute__((weak)) void keyboard_post_init_keymap(void) {}
+__attribute__((weak)) void shutdown_keymap(void) {}
+
 #ifdef ENABLE_USERSPACE_CONFIG
 userspace_config_t userspace_config;
 
-__attribute__((weak)) void keyboard_pre_init_keymap(void) {}
-void keyboard_pre_init_user(void) {
-    userspace_config.raw = eeconfig_read_user();
-    keyboard_pre_init_keymap();
-}
-
-__attribute__((weak)) void eeconfig_init_keymap(void) {}
 void eeconfig_init_user(void) {
     userspace_config.raw              = 0;
     userspace_config.rgb_layer_change = RGB_MATRIX_ENABLE;
@@ -36,18 +40,24 @@ void eeconfig_init_user(void) {
     eeconfig_init_keymap();
     keyboard_init();
 }
+
+void keyboard_pre_init_user(void) {
+    userspace_config.raw = eeconfig_read_user();
+    keyboard_pre_init_keymap();
+}
+
 #endif // ENABLE_USERSPACE_CONFIG
+
+void 
 
 #ifdef RGB_MATRIX_ENABLE
 
-__attribute__((weak)) void keyboard_post_init_keymap(void) {}
 void keyboard_post_init_user(void) {
     keyboard_post_init_rgb_matrix();
     keyboard_post_init_keymap();
 }
 
 void rgb_matrix_update_pwm_buffers(void);
-__attribute__((weak)) void shutdown_keymap(void) {}
 void shutdown_user(void) {
     rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
