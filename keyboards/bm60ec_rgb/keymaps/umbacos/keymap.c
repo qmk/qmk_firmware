@@ -16,6 +16,9 @@
 #include QMK_KEYBOARD_H
 #include "keymap_italian.h"
 
+// this keymap allows you to have a standard ansi layout, but use italian accented letters
+// to do so, keep the language of your operating system set to italian
+
 enum layers {
   _QWERTY,
   _SHIFT,
@@ -32,14 +35,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GESC,        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    IT_MINS, IT_EQL,  KC_BSPC, KC_MUTE,
         KC_TAB,         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    IT_LBRC, IT_RBRC, IT_BSLS,
         SFT_T(KC_CAPS), KC_A,    KC_S,    LT(_NAVIGATOR, KC_D),    SFT_T(KC_F),    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    IT_SCLN, IT_QUOT,  SFT_T(KC_ENT),
-        LT(_SHIFT, KC_DEL),     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  MO(_SHIFT), KC_UP,   IT_SLSH,
+        LT(_SHIFT, KC_DEL),     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SHIFT, KC_PSLS), LT(_SHIFT, KC_UP), LT(_SHIFT, KC_PSLS),
         KC_LCTL,        KC_LALT, KC_LGUI,                        LT(_ACCENT, KC_SPC),                    KC_RALT, MO(_SERVICE),   KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_SHIFT] = LAYOUT(
         S(KC_GESC), IT_EXLM,    IT_AT,   IT_SHRP, IT_DLR,  IT_PERC, IT_CIRC, IT_AMPR, IT_ASTR,    IT_LPRN,   IT_RPRN,    IT_UNDS,    IT_PLUS,    KC_DEL,     S(KC_MUTE),
         S(KC_TAB),  S(KC_Q),    S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I),    S(KC_O),   S(KC_P),    IT_LCBR,    IT_RCBR,    IT_PIPE,
         KC_LSFT,    S(KC_A),    S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K),    S(KC_L),   IT_COLN,    IT_DQUO,                S(KC_ENT),
-        KC_LSFT,    S(KC_Z),    S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), S(KC_M), IT_LESS,    IT_MORE,        KC_RSFT,                S(KC_UP),   IT_QST,
+        KC_LSFT,    S(KC_Z),    S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), S(KC_M), IT_LESS,    IT_MORE,        IT_QST,                S(KC_UP),   IT_QST,
         S(KC_LCTL), S(KC_LALT), S(KC_LGUI),                      S(KC_SPC),                    S(KC_RALT), MO(_SERVICE), S(KC_LEFT), S(KC_DOWN), S(KC_RGHT)
     ),
     [_ACCENT] = LAYOUT(
