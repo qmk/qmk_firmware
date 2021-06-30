@@ -24,7 +24,6 @@ enum userspace_layers {
 };
 
 enum userspace_custom_keycodes {
-  CU_GAME = SAFE_RANGE,     // Toggle game mode on/off
   CU_NAV,                   // NAV | ESC
 
   #ifdef DANISH_ENABLE
