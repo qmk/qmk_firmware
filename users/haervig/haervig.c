@@ -94,7 +94,6 @@ void timer_timeout_keymap(void){
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case KC_LGUI:
   case CU_NAV:
     if(record->event.pressed) {
       navesc = true;
