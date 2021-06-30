@@ -1,9 +1,26 @@
+ /* Copyright 2021 Milan Düwel
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+
 #include QMK_KEYBOARD_H
 
-/*  This keymap is designed for use with a German keyboard layout.
-    It is essentially the same as the default via keymap but adds combo functionality to type umlauts as well as lighting layers for various actions.
-    Layers 2 and 3 are currently unused and unaccessible but are configurable within via.
-*/
+ /* This keymap is designed for use with a German keyboard layout.
+  * It is essentially the same as the default via keymap but adds combo functionality to type umlauts as well as lighting layers for various actions.
+  * Toggling the combo feature also disables KC_LGUI so both can be turned off for gaming. If you want to get rid of it without reflashing new firmware, use KC_RGUI instead.
+  * Layers 2 and 3 are currently unused but are configurable within via.
+  */
 
 enum combos {
   UML_AE,
@@ -39,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
     KC_TRNS, RGB_TOG, KC_TRNS, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
     BL_TOGG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, BL_DEC,  BL_TOGG, BL_INC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_PGUP, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, CMB_TOG, BL_TOGG, BL_INC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_PGUP, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE,
     KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END,  KC_TRNS, KC_TRNS, KC_MUTE),
 
 	[2] = LAYOUT(
@@ -116,6 +133,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_CAPS:
         case KC_MUTE:
+        case CMB_TOG:
             if (record->event.pressed) {
                 rgblight_blink_layer(4, 250);
             }
@@ -126,4 +144,18 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
     }
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+        case KC_LGUI:   //use combo toggle to disable the win key while gaming
+            if (record->event.pressed) {
+                if (is_combo_enabled()==false) {
+                    return false;
+                }
+            }
+            return true; // Let QMK send the enter press/release events
+        default:
+            return true; // Process all other keycodes normally
+  }
 };
