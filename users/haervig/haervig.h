@@ -72,8 +72,6 @@ extern bool esct;
 extern bool navesc;
 extern uint16_t navesc_timer;
 
-extern bool game;
-
 void timer_timeout(void);
 
 void timer_timeout_keymap(void);
