@@ -35,8 +35,6 @@ uint8_t mod_state;
 static uint32_t oled_timer = 0;
 #endif
 
-extern uint8_t is_master;
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -443,11 +441,11 @@ void oled_task_user(void) {
     else { oled_on(); }
 #endif
 
-    //    if (is_master) {
-    render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc.)
-    //    } else {
-    //        render_status_secondary();
-    //    }
+    if (is_keyboard_master()) {
+      render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc.)
+    } else {
+      render_status_secondary();
+    }
 }
 
 #endif
