@@ -42,11 +42,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //#define MATRIX_ROW_PINS { D0, D5 }
 //#define MATRIX_COL_PINS { F1, F0, B0 }
-/* #define DIRECT_PINS { \
- *     { B5, B6, D6, D7 } \
- * }
- * #define UNUSED_PINS
- */
+#define DIRECT_PINS { \
+    { B5, B6, D6, D7 } \
+}
+#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 //#define DIODE_DIRECTION COL2ROW
