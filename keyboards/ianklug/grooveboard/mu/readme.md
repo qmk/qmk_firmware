@@ -2,9 +2,13 @@
 
 *A four-key mechanical keyboard for rhythm games.*
 
+![Grooveboard Choc PCB](https://i.imgur.com/bqnpp9g.jpg)
+
 * Keyboard Maintainer: [ianklug](https://github.com/ianklug)
 * Hardware Supported: *grooveboard mu, grooveboard mx mu, grooveboard choc mu*
 * Hardware Availability: *https://github.com/ianklug/grooveboard*
+
+Press the button on the back of the keyboard to enter bootloader mode.
 
 Make example for this keyboard (after setting up your build environment):
 
