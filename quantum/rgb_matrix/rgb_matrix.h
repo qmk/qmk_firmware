@@ -23,7 +23,7 @@
 #include "rgb_matrix_types.h"
 #include "color.h"
 #include "quantum.h"
-#include "rgblight_list.h"
+#include "rgblight\rgblight_list.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731.h"
@@ -37,6 +37,8 @@
 #    include "aw20216.h"
 #elif defined(WS2812)
 #    include "ws2812.h"
+#elif defined(AW20216S)
+#    include "aw20216s.h"
 #endif
 
 #ifndef RGB_MATRIX_LED_FLUSH_LIMIT
