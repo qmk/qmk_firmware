@@ -20,6 +20,7 @@
 #    include <stdio.h>
 
 #    include "process_auto_shift.h"
+#    include "qmk_settings.h"
 
 static uint16_t autoshift_time    = 0;
 static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
@@ -45,16 +46,14 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
         return true;
     }
 
-#    ifndef AUTO_SHIFT_MODIFIERS
+if (!QS_auto_shift_modifiers) {
     if (get_mods()) {
         return true;
     }
-#    endif
-#    ifdef AUTO_SHIFT_REPEAT
+}
+if (QS_auto_shift_repeat) {
     const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
-#        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
-    if (!autoshift_flags.lastshifted) {
-#        endif
+    if (QS_auto_shift_no_auto_repeat || !autoshift_flags.lastshifted) {
         if (elapsed < TAPPING_TERM && keycode == autoshift_lastkey) {
             // Allow a tap-then-hold for keyrepeat.
             if (!autoshift_flags.lastshifted) {
@@ -66,10 +65,8 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
             }
             return false;
         }
-#        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
     }
-#        endif
-#    endif
+}
 
     // Record the keycode so we can simulate it later.
     autoshift_lastkey           = keycode;
@@ -105,12 +102,12 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger) {
             add_weak_mods(MOD_BIT(KC_LSFT));
             register_code(autoshift_lastkey);
             autoshift_flags.lastshifted = true;
-#    if defined(AUTO_SHIFT_REPEAT) && !defined(AUTO_SHIFT_NO_AUTO_REPEAT)
+if (QS_auto_shift_repeat && !QS_auto_shift_no_auto_repeat) {
             if (matrix_trigger) {
                 // Prevents release.
                 return;
             }
-#    endif
+}
         }
 
 #    if TAP_CODE_DELAY > 0
@@ -140,6 +137,8 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger) {
  *  to be released.
  */
 void autoshift_matrix_scan(void) {
+    if (!QS_auto_shift_enable) return;
+
     if (autoshift_flags.in_progress) {
         const uint16_t now     = timer_read();
         const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
@@ -178,6 +177,7 @@ uint16_t get_autoshift_timeout(void) { return autoshift_timeout; }
 void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
+    if (!QS_auto_shift_enable)  return true;
     // Note that record->event.time isn't reliable, see:
     // https://github.com/qmk/qmk_firmware/pull/9826#issuecomment-733559550
     const uint16_t now = timer_read();
@@ -229,18 +229,16 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 
 __attribute__((weak)) bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-#    ifndef NO_AUTO_SHIFT_ALPHA
         case KC_A ... KC_Z:
-#    endif
-#    ifndef NO_AUTO_SHIFT_NUMERIC
+            if (!QS_auto_shift_no_auto_shift_alpha) return true;
         case KC_1 ... KC_0:
-#    endif
-#    ifndef NO_AUTO_SHIFT_SPECIAL
+            if (!QS_auto_shift_no_auto_shift_numeric) return true;
+            break;
         case KC_TAB:
         case KC_MINUS ... KC_SLASH:
         case KC_NONUS_BSLASH:
-#    endif
-            return true;
+            if (!QS_auto_shift_no_auto_shift_special) return true;
+            break;
     }
     return false;
 }

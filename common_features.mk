@@ -477,8 +477,9 @@ ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(QMK_SETTINGS)), yes)
+    AUTO_SHIFT_ENABLE := yes
     SRC += $(QUANTUM_DIR)/qmk_settings.c
-    OPT_DEFS += -DQMK_SETTINGS
+    OPT_DEFS += -DQMK_SETTINGS -DAUTO_SHIFT_NO_SETUP
 endif
 
 ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)

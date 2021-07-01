@@ -5,16 +5,22 @@
 
 #include "progmem.h"
 #include "dynamic_keymap.h"
+#include "process_auto_shift.h"
 
 qmk_settings_t QS;
 
 #define DECLARE_SETTING(id, field)  { .qsid=id, .ptr=&QS.field, .sz=sizeof(QS.field) }
+#define DECLARE_SETTING_CB(id, field, callback) { .qsid=id, .ptr=&QS.field, .sz=sizeof(QS.field), .cb=callback }
+
+static void auto_shift_timeout_apply(void) {
+    set_autoshift_timeout(QS.auto_shift_timeout);
+}
 
 static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING(1, grave_esc_override),
    DECLARE_SETTING(2, debounce_time),
    DECLARE_SETTING(3, auto_shift),
-   DECLARE_SETTING(4, auto_shift_timeout),
+   DECLARE_SETTING_CB(4, auto_shift_timeout, auto_shift_timeout_apply),
    DECLARE_SETTING(5, osk_tap_toggle),
    DECLARE_SETTING(6, osk_timeout),
    DECLARE_SETTING(7, tapping_term),
@@ -48,6 +54,13 @@ static void save_settings(void) {
 
 void qmk_settings_init(void) {
     load_settings();
+    /* execute all callbacks to initialize the settings */
+    for (size_t i = 0; i < sizeof(protos)/sizeof(*protos); ++i) {
+        const qmk_settings_proto_t *proto = &protos[i];
+        qmk_setting_callback_t cb = pgm_read_ptr(&proto->cb);
+        if (cb)
+            cb();
+    }
 }
 
 void qmk_settings_reset(void) {
@@ -62,6 +75,8 @@ void qmk_settings_reset(void) {
     QS.tap_hold = 0;
 
     save_settings();
+    /* to trigger all callbacks */
+    qmk_settings_init();
 }
 
 void qmk_settings_query(uint16_t qsid_gt, void *buffer, size_t sz) {
@@ -98,5 +113,8 @@ int qmk_settings_set(uint16_t qsid, const void *setting, size_t maxsz) {
         return -1;
     memcpy(pgm_read_ptr(&proto->ptr), setting, pgm_read_word(&proto->sz));
     save_settings();
+    qmk_setting_callback_t cb = pgm_read_ptr(&proto->cb);
+    if (cb)
+        cb();
     return 0;
 }
