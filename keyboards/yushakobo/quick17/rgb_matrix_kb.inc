@@ -59,8 +59,8 @@ static void led_color_set(uint8_t index, uint8_t color_patterns) {
     RGB rgb_indc4 = hsv_to_rgb(_HSV(106, 255, hsv.v)); // HSV_SPRINGGREEN
     RGB rgb_indc5 = hsv_to_rgb(_HSV(234, 128, hsv.v)); // HSV_PINK
     RGB rgb_indc6 = hsv_to_rgb(_HSV(213, 255, hsv.v)); // HSV_MAGENTA
-    RGB rgb_indc_ja = hsv_to_rgb(_HSV(  0, 255, hsv.v)); // HSV_RED
-    RGB rgb_indc_en = hsv_to_rgb(_HSV( 85, 255, hsv.v)); // HSV_GREEN
+    RGB rgb_indc_ja =  hsv_to_rgb(_HSV(  0, 255, hsv.v)); // HSV_RED
+    RGB rgb_indc_en =  hsv_to_rgb(_HSV( 85, 255, hsv.v)); // HSV_GREEN
     RGB rgb_indc_win = hsv_to_rgb(_HSV(170, 255, hsv.v)); // HSV_BLUE
     switch(color_patterns){
         case BOUT:  rgb_matrix_set_color(index, RGB_BLACK); break;

@@ -18,8 +18,6 @@
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    BASE = SAFE_RANGE,
-    KC_LSPC,
     KC_LANG
 };
 
