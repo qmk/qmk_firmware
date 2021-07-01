@@ -1,11 +1,11 @@
 {
-    "keyboard_name": "Dactyl Manuform 5x6",
+    "keyboard_name": "Tractyl Manuform 4x6",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "drashna",
     "width": 17,
     "height": 8,
     "layouts": {
-        "LAYOUT_5x6_right_trackball": {
+        "LAYOUT_5x6_right": {
             "layout": [
                 {"label":"L00", "x":0, "y":0},
                 {"label":"L01", "x":1, "y":0},

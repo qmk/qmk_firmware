@@ -1,4 +1,4 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+/* Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,10 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "5x6_right_trackball.h"
+#include "tractyl_manuform.h"
+#include "transactions.h"
+#include <string.h>
+#include "drivers/sensors/pmw3360.h"
 
 #ifndef TRACKBALL_DPI_OPTIONS
-#    define TRACKBALL_DPI_OPTIONS { 1200, 1600, 2400 }
+#    define TRACKBALL_DPI_OPTIONS \
+        { 1200, 1600, 2400 }
 #    ifndef TRACKBALL_DPI_DEFAULT
 #        define TRACKBALL_DPI_DEFAULT 1
 #    endif
@@ -26,12 +30,15 @@
 #    define TRACKBALL_DPI_DEFAULT 0
 #endif
 
+extern kb_runtime_config_t kb_state;
+extern kb_slave_data_t     kb_slave;
+
 keyboard_config_t keyboard_config;
-uint16_t dpi_array[] = TRACKBALL_DPI_OPTIONS;
+uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
-bool     BurstState        = false;  // init burst state for Trackball module
-uint16_t MotionStart       = 0;      // Timer for accel, 0 is resting state
+bool     BurstState  = false; // init burst state for Trackball module
+uint16_t MotionStart = 0;     // Timer for accel, 0 is resting state
 
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     mouse_report->x = x;
@@ -53,12 +60,8 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
             MotionStart = timer_read();
         }
 
-        if (debug_mouse) {
-            dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart);
-        }
-        if (debug_mouse) {
-            dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy);
-        }
+        if (debug_mouse) { dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart); }
+        if (debug_mouse) { dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy); }
 #if defined(PROFILE_LINEAR)
         float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
         data.dx *= scale;
@@ -85,7 +88,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef POINTING_DEVICE_ENABLE
     if (keycode == DPI_CONFIG && record->event.pressed) {
-        if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
             keyboard_config.dpi_config = (keyboard_config.dpi_config - 1) % DPI_OPTION_SIZE;
         } else {
             keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
@@ -146,19 +149,11 @@ void pointing_device_init(void) {
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
-static bool has_report_changed(report_mouse_t new, report_mouse_t old) {
-    return (new.buttons != old.buttons) ||
-           (new.x && new.x != old.x) ||
-           (new.y && new.y != old.y) ||
-           (new.h && new.h != old.h) ||
-           (new.v && new.v != old.v);
-}
+static bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
 
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
-    if (!is_keyboard_left()) {
-        process_mouse(&mouse_report);
-    }
+    if (!is_keyboard_left()) { process_mouse(&mouse_report); }
 
     pointing_device_set_report(mouse_report);
     pointing_device_send();
@@ -178,24 +173,20 @@ void matrix_init_kb(void) {
     // is safe to just read DPI setting since matrix init
     // comes before pointing device init.
     keyboard_config.raw = eeconfig_read_kb();
-    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) {
-        eeconfig_init_kb();
-    }
+    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) { eeconfig_init_kb(); }
     matrix_init_user();
 }
 
 #ifdef POINTING_DEVICE_ENABLE
 void pointing_device_send(void) {
-    static report_mouse_t old_report = {};
-    report_mouse_t mouseReport = pointing_device_get_report();
+    static report_mouse_t old_report  = {};
+    report_mouse_t        mouseReport = pointing_device_get_report();
     if (is_keyboard_master()) {
         int8_t x = mouseReport.x, y = mouseReport.y;
         mouseReport.x = 0;
         mouseReport.y = 0;
         process_mouse_user(&mouseReport, x, y);
-        if (has_report_changed(mouseReport, old_report)) {
-            host_mouse_send(&mouseReport);
-        }
+        if (has_report_changed(mouseReport, old_report)) { host_mouse_send(&mouseReport); }
     } else {
         master_mouse_send(mouseReport.x, mouseReport.y);
     }
@@ -203,26 +194,25 @@ void pointing_device_send(void) {
     mouseReport.y = 0;
     mouseReport.v = 0;
     mouseReport.h = 0;
-    old_report = mouseReport;
+    old_report    = mouseReport;
     pointing_device_set_report(mouseReport);
 }
 #endif
 
-#ifdef SWAP_HANDS_ENABLE
-const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
-    /* Left hand, matrix positions */
-    {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},
-    {{5, 7}, {4, 7}, {3, 7}, {2, 7}, {1, 7}, {0, 7}},
-    {{5, 8}, {4, 8}, {3, 8}, {2, 8}, {1, 8}, {0, 8}},
-    {{5, 9}, {4, 9}, {3, 9}, {2, 9}, {1, 9}, {0, 9}},
-    {{5, 10}, {4, 10}, {3, 10}, {2, 10}, {1, 10}, {0, 10}},
-    {{5, 11}, {4, 11}, {3, 11}, {2, 11}, {1, 11}, {0, 11}},
-    /* Right hand, matrix positions */
-    {{5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},
-    {{5, 1}, {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1}},
-    {{5, 2}, {4, 2}, {3, 2}, {2, 2}, {1, 2}, {0, 2}},
-    {{5, 3}, {4, 3}, {3, 3}, {2, 3}, {1, 3}, {0, 3}},
-    {{5, 4}, {4, 4}, {3, 4}, {2, 4}, {1, 4}, {0, 4}},
-    {{5, 5}, {4, 5}, {3, 5}, {2, 5}, {1, 5}, {0, 5}}
-};
+#ifdef POINTING_DEVICE_ENABLE
+void master_mouse_send(int8_t x, int8_t y) {
+#ifdef SPLIT_TRANSACTION_IDS_KB
+    kb_slave.mouse_x += x;
+    kb_slave.mouse_y += y;
+#endif
+}
+void trackball_set_cpi(uint16_t cpi) {
+    if (!is_keyboard_left()) {
+        pmw_set_cpi(cpi);
+    } else {
+#ifdef SPLIT_TRANSACTION_IDS_KB
+        kb_state.device_cpi = cpi;
+#endif
+    }
+}
 #endif
