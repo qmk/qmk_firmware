@@ -100,6 +100,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
 #endif
+#ifdef QMK_SETTINGS
+#   include "qmk_settings.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) { return last_input_modification_time; }
@@ -242,6 +245,9 @@ void keyboard_setup(void) {
 #endif
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
+#endif
+#ifdef QMK_SETTINGS
+    qmk_settings_init();
 #endif
     matrix_setup();
     keyboard_pre_init_kb();

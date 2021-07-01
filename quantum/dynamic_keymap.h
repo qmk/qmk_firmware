@@ -30,6 +30,10 @@ void     dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, 
 uint16_t dynamic_keymap_get_encoder(uint8_t layer, uint8_t idx, uint8_t dir);
 void dynamic_keymap_set_encoder(uint8_t layer, uint8_t idx, uint8_t dir, uint16_t keycode);
 #endif
+#ifdef QMK_SETTINGS
+uint8_t dynamic_keymap_get_qmk_settings(uint16_t offset);
+void dynamic_keymap_set_qmk_settings(uint16_t offset, uint8_t value);
+#endif
 void     dynamic_keymap_reset(void);
 // These get/set the keycodes as stored in the EEPROM buffer
 // Data is big-endian 16-bit values (the keycodes)

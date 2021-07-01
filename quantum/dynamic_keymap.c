@@ -76,9 +76,19 @@ static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 #define VIAL_ENCODERS_SIZE 0
 #endif
 
+#define VIAL_QMK_SETTINGS_EEPROM_ADDR (VIAL_ENCODERS_EEPROM_ADDR + VIAL_ENCODERS_SIZE)
+
+// QMK settings area is just past encoders, or dynamic keymaps if encoders aren't enabled
+#ifdef QMK_SETTINGS
+#include "qmk_settings.h"
+#define VIAL_QMK_SETTINGS_SIZE (sizeof(qmk_settings_t))
+#else
+#define VIAL_QMK_SETTINGS_SIZE 0
+#endif
+
 // Dynamic macro starts after encoders, or dynamic keymaps if encoders aren't enabled
 #ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_ENCODERS_EEPROM_ADDR + VIAL_ENCODERS_SIZE)
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_QMK_SETTINGS_EEPROM_ADDR + VIAL_QMK_SETTINGS_SIZE)
 #endif
 
 // Sanity check that dynamic keymaps fit in available EEPROM
@@ -157,6 +167,24 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t idx, uint8_t dir, uint16_
 }
 #endif
 
+#ifdef QMK_SETTINGS
+uint8_t dynamic_keymap_get_qmk_settings(uint16_t offset) {
+    if (offset >= VIAL_QMK_SETTINGS_SIZE)
+        return 0;
+
+    void *address = (void*)(VIAL_QMK_SETTINGS_EEPROM_ADDR + offset);
+    return eeprom_read_byte(address);
+}
+
+void dynamic_keymap_set_qmk_settings(uint16_t offset, uint8_t value) {
+    if (offset >= VIAL_QMK_SETTINGS_SIZE)
+        return;
+
+    void *address = (void*)(VIAL_QMK_SETTINGS_EEPROM_ADDR + offset);
+    eeprom_update_byte(address, value);
+}
+#endif
+
 #if defined(VIAL_ENCODERS_ENABLE) && defined(VIAL_ENCODER_DEFAULT)
 static const uint16_t PROGMEM vial_encoder_default[] = VIAL_ENCODER_DEFAULT;
 _Static_assert(sizeof(vial_encoder_default)/sizeof(*vial_encoder_default) == 2 * DYNAMIC_KEYMAP_LAYER_COUNT * NUMBER_OF_ENCODERS,
@@ -192,6 +220,10 @@ void dynamic_keymap_reset(void) {
     }
 #endif
     }
+
+#ifdef QMK_SETTINGS
+    qmk_settings_reset();
+#endif
 
 #ifdef VIAL_ENABLE
     /* re-lock the keyboard */
