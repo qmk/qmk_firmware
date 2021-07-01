@@ -34,7 +34,7 @@ enum custom_layers {
 //aliases for clarity in layering
 #define SftEnt SFT_T(KC_ENT)   // Shift when held, Enter when tapped
 #define BSCTL  LCTL_T(KC_BSPC) // Ctrl when held, Backspace when tapped
-#define CTAB   LCTL(KC_TAB)
+#define CTAB   LCLT(KC_TAB)
 #define ATAB   LALT(KC_TAB)
 
 //aliases for Navigation layer
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,                     CTLPGUP, KC_LEFT , KC_DOWN, KC_RGHT, CTLPGDN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        RESET, _______, _______, _______, _______, _______,                      ATAB   , CBSPC , KC_HOME, KC_END, _______, _______,
+        RESET, _______, _______, _______, _______, _______,                      ATAB   , CBSPC , KC_HOME, KC_END,    G_GRV , _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
