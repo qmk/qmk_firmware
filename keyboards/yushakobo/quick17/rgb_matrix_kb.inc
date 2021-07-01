@@ -4,8 +4,6 @@ RGB_MATRIX_EFFECT(quick17_rgbm_effect)
 
 #include "quick17_prefs.h"
 
-extern uint8_t INPUT_MODE;
-
 #define LED_LAYOUT(\
     L00, L01, L02, L03, L04, L05, \
     L10, L11, L12, L13, L14, L15, \
@@ -61,39 +59,25 @@ static void led_color_set(uint8_t index, uint8_t color_patterns) {
     RGB rgb_indc4 = hsv_to_rgb(_HSV(106, 255, hsv.v)); // HSV_SPRINGGREEN
     RGB rgb_indc5 = hsv_to_rgb(_HSV(234, 128, hsv.v)); // HSV_PINK
     RGB rgb_indc6 = hsv_to_rgb(_HSV(213, 255, hsv.v)); // HSV_MAGENTA
-    RGB rgb_indc_ja = hsv_to_rgb(_HSV(28, 255, hsv.v)); // HSV_ORANGE
+    RGB rgb_indc_ja = hsv_to_rgb(_HSV(  0, 255, hsv.v)); // HSV_RED
     RGB rgb_indc_en = hsv_to_rgb(_HSV( 85, 255, hsv.v)); // HSV_GREEN
     RGB rgb_indc_win = hsv_to_rgb(_HSV(170, 255, hsv.v)); // HSV_BLUE
     switch(color_patterns){
-        case BOUT:
-            rgb_matrix_set_color(index, RGB_BLACK);break;
-        case _____:
-            rgb_matrix_set_color(index, _RGB(rgb_white));break;
-        case INDC1:
-            rgb_matrix_set_color(index, _RGB(rgb_indc1));break;
-        case INDC2:
-            rgb_matrix_set_color(index, _RGB(rgb_indc2));break;
-        case INDC3:
-            rgb_matrix_set_color(index, _RGB(rgb_indc3));break;
-        case INDC4:
-            rgb_matrix_set_color(index, _RGB(rgb_indc4));break;
-        case INDC5:
-            rgb_matrix_set_color(index, _RGB(rgb_indc5));break;
+        case BOUT:  rgb_matrix_set_color(index, RGB_BLACK); break;
+        case _____: rgb_matrix_set_color(index, _RGB(rgb_white)); break;
+        case INDC1: rgb_matrix_set_color(index, _RGB(rgb_indc1)); break;
+        case INDC2: rgb_matrix_set_color(index, _RGB(rgb_indc2)); break;
+        case INDC3: rgb_matrix_set_color(index, _RGB(rgb_indc3)); break;
+        case INDC4: rgb_matrix_set_color(index, _RGB(rgb_indc4)); break;
+        case INDC5: rgb_matrix_set_color(index, _RGB(rgb_indc5)); break;
         case JA_EN:
             if (keymap_config.swap_lctl_lgui == false) {
                 rgb_matrix_set_color(index, _RGB(rgb_indc_win));
             } else {
-                switch (INPUT_MODE){
-                    case _INPUT_JP:
-                        rgb_matrix_set_color(index, _RGB(rgb_indc_ja));
-                        break;
-                    case _INPUT_EN:
-                        rgb_matrix_set_color(index, _RGB(rgb_indc_en));
-                        break;
-                    default:
-                        rgb_matrix_set_color(index, _RGB(rgb_white));
-                        break;
-
+                if (input_mode()){
+                    rgb_matrix_set_color(index, _RGB(rgb_indc_ja));
+                } else {
+                    rgb_matrix_set_color(index, _RGB(rgb_indc_en));
                 }
             }
             break;

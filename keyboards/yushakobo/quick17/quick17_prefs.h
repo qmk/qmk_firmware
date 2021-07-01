@@ -8,9 +8,5 @@ enum layer_names {
 #define _HSV(H, S, V) (HSV){ .h = H, .s = S, .v = V }
 #define _RGB(rgb) rgb.r, rgb.g, rgb.b
 
-enum _mode_ja {
-    _INPUT_JP = 0,
-    _INPUT_EN
-};
-
-static uint8_t INPUT_MODE;
+bool input_mode(void);
+void set_input_mode(bool _mode_jaen);

@@ -53,15 +53,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (keymap_config.swap_lctl_lgui == false){
                     tap_code16(LALT(KC_GRV));
                 } else {
-                    switch(INPUT_MODE){
-                        case _INPUT_EN:
-                            register_code(KC_LANG1);
-                            INPUT_MODE = _INPUT_JP;
-                            break;
-                        case _INPUT_JP:
-                            register_code(KC_LANG2);
-                            INPUT_MODE = _INPUT_EN;
-                            break;
+                    if(input_mode()){
+                        register_code(KC_LANG2);
+                        set_input_mode(false);
+                    } else {
+                        register_code(KC_LANG1);
+                        set_input_mode(true);
                     }
                 }
             } else {
@@ -108,11 +105,11 @@ void encoder_update_user(uint8_t index, bool clockwise){
 #ifdef RGB_MATRIX_ENABLE
     void keyboard_post_init_user(void){
         rgb_matrix_mode(RGB_MATRIX_CUSTOM_quick17_rgbm_effect);
-        INPUT_MODE = _INPUT_EN;
+        set_input_mode(false);
     }
 #else
     void keyboard_post_init_user(void){
         rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
-        INPUT_MODE = _INPUT_EN;
+        set_input_mode(false);
     }
 #endif
