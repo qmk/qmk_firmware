@@ -2,6 +2,7 @@
 """
 import json
 import os
+import sys
 import shutil
 from pathlib import Path
 from subprocess import DEVNULL
@@ -10,7 +11,7 @@ from time import strftime
 from milc import cli
 
 import qmk.keymap
-from qmk.constants import KEYBOARD_OUTPUT_PREFIX
+from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
 from qmk.json_schema import json_load
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
@@ -237,3 +238,71 @@ def parse_configurator_json(configurator_file):
             user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
 
     return user_keymap
+
+
+def git_check_repo():
+    """Checks that the .git directory exists inside QMK_HOME.
+
+    This is a decent enough indicator that the qmk_firmware directory is a
+    proper Git repository, rather than a .zip download from GitHub.
+    """
+    dot_git_dir = QMK_FIRMWARE / '.git'
+
+    return dot_git_dir.is_dir()
+
+
+def git_get_branch():
+    """Returns the current branch for a repo, or None.
+    """
+    git_branch = cli.run(['git', 'branch', '--show-current'])
+    if not git_branch.returncode != 0 or not git_branch.stdout:
+        # Workaround for Git pre-2.22
+        git_branch = cli.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
+
+    if git_branch.returncode == 0:
+        return git_branch.stdout.strip()
+
+
+def git_is_dirty():
+    """Returns 1 if repo is dirty, or 0 if clean
+    """
+    git_diff_staged_cmd = ['git', 'diff', '--quiet']
+    git_diff_unstaged_cmd = [*git_diff_staged_cmd, '--cached']
+
+    unstaged = cli.run(git_diff_staged_cmd)
+    staged = cli.run(git_diff_unstaged_cmd)
+
+    return unstaged.returncode != 0 or staged.returncode != 0
+
+
+def git_get_remotes():
+    """Returns the current remotes for a repo.
+    """
+    remotes = {}
+
+    git_remote_show_cmd = ['git', 'remote', 'show']
+    git_remote_get_cmd = ['git', 'remote', 'get-url']
+
+    git_remote_show = cli.run(git_remote_show_cmd)
+    if git_remote_show.returncode == 0:
+        for name in git_remote_show.stdout.splitlines():
+            git_remote_name = cli.run([*git_remote_get_cmd, name])
+            remotes[name.strip()] = {"url": git_remote_name.stdout.strip()}
+
+    return remotes
+
+
+def git_check_deviation(active_branch):
+    """Return True if branch has custom commits
+    """
+    cli.run(['git', 'fetch', 'upstream', active_branch])
+    deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'])
+    return bool(deviations.returncode)
+
+
+def in_virtualenv():
+    """Check if running inside a virtualenv.
+    Based on https://stackoverflow.com/a/1883251
+    """
+    active_prefix = getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
+    return active_prefix != sys.prefix
