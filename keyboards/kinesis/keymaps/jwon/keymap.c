@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "keymap_dvp.h"
 
 enum layer_names {
     _BASE_DVORAK,
@@ -25,11 +26,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE_DVORAK] = LAYOUT (
            // Left Hand
            MACLOCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,
-           KC_DLR,  KC_PLUS, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,
-           KC_TAB,  KC_SCLN, KC_COMM, KC_DOT,  KC_P,    KC_Y,
-           SFT_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,
-           KC_LCTL, KC_QUOT, KC_Q,    KC_J,    KC_K,    KC_X,
-                    KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
+           DP_DLR,  DP_PLUS, DP_LBRC, DP_LCBR, DP_LPRN, DP_AMPR,
+           KC_TAB,  DP_SCLN, DP_COMM, DP_DOT,  DP_P,    DP_Y,
+           SFT_ESC, DP_A,    DP_O,    DP_E,    DP_U,    DP_I,
+           KC_LCTL, DP_QUOT, DP_Q,    DP_J,    DP_K,    DP_X,
+                    DP_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
            // Left Thumb
                     KC_LGUI, KC_LALT,
                              MACPAST,
@@ -37,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
            // Right Hand
            KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, KEYPAD,  RESET,
-           KC_EQL,  KC_RPRN, KC_RCBR, KC_RBRC, KC_ASTR, KC_EXLM,
-           KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
-           KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
-           KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-                    KC_DOWN, KC_UP,   KC_AT,   KC_BSLS,
+           DP_EQL,  DP_RPRN, DP_RCBR, DP_RBRC, DP_ASTR, DP_EXLM,
+           DP_F,    DP_G,    DP_C,    DP_R,    DP_L,    DP_SLSH,
+           DP_D,    DP_H,    DP_T,    DP_N,    DP_S,    DP_MINS,
+           DP_B,    DP_M,    DP_W,    DP_V,    DP_Z,    KC_RSFT,
+                    KC_DOWN, KC_UP,   DP_AT,   DP_BSLS,
            // Right Thumb
            KEYPAD,  LSA_,
            MACUNDO,
@@ -51,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT (
            // Left Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
-           KC_TILD, KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,
+           DP_TILD, DP_1,    DP_2,    DP_3,    DP_4,    DP_5,
            _______, _______, _______, _______, _______, _______,
            _______, _______, _______, _______, _______, _______,
            _______, _______, _______, _______, _______, _______,
-                    KC_PIPE, _______, _______, _______,
+                    DP_PIPE, _______, _______, _______,
            // Left Thumb
                     _______, _______,
                              _______,
@@ -63,11 +64,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
            // Right Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
-           KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_PERC,
+           DP_6,    DP_7,    DP_8,    DP_9,    DP_0,    DP_PERC,
            _______, _______, _______, _______, _______, _______,
            _______, _______, _______, _______, _______, _______,
            _______, _______, _______, _______, _______, _______,
-                    _______, _______, KC_CIRC, KC_HASH,
+                    _______, _______, DP_CIRC, DP_HASH,
            // Right Thumb
            _______, _______,
            _______,
