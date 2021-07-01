@@ -22,7 +22,8 @@ enum layout_names {
     WINDOWS,    // Base ayout for Windows
     MACOS,      // Base Layout for MacOS
     FN_LOCK_LAYER,
-    FUNCTIONS,  // Function Layout: The function key activated layout with default functions and some added ones
+    FUNCTIONS,  // Function Layout: The function key activated layout with default functions and
+                // some added ones
     GIT,        // GIT Layout: GIT shortcuts and macros
     SECRETS,
     RGB_L,
@@ -52,22 +53,22 @@ enum custom_keycodes {
 enum git_macros {
     // The start of this enum should always be equal to end of ctrl_keycodes + 1
     G_INIT = KC_WPM_RGB + 1,  // git init
-    G_CLONE,                   // git clone
-    G_CONF,                    // git config --global
-    G_ADD,                     // git add
-    G_DIFF,                    // git diff
-    G_RESET,                   // git reset
-    G_REBAS,                   // git rebase
-    G_BRANH,                   // git branch
-    G_CHECK,                   // git checkout
-    G_MERGE,                   // git merge
-    G_REMTE,                   // git remote add
-    G_FETCH,                   // git fetch
-    G_PULL,                    // git pull
-    G_PUSH,                    // git push
-    G_COMM,                    // git commit
-    G_STAT,                    // git status
-    G_LOG,                     // git log
+    G_CLONE,                  // git clone
+    G_CONF,                   // git config --global
+    G_ADD,                    // git add
+    G_DIFF,                   // git diff
+    G_RESET,                  // git reset
+    G_REBAS,                  // git rebase
+    G_BRANH,                  // git branch
+    G_CHECK,                  // git checkout
+    G_MERGE,                  // git merge
+    G_REMTE,                  // git remote add
+    G_FETCH,                  // git fetch
+    G_PULL,                   // git pull
+    G_PUSH,                   // git push
+    G_COMM,                   // git commit
+    G_STAT,                   // git status
+    G_LOG,                    // git log
     NEW_SAFE_RANGE,
 };
 
@@ -95,7 +96,7 @@ enum combos {
 #define KC_RST KC_RESET
 
 #define OS_GIT OSL(GIT)
-#define TT_FN MO(FUNCTIONS)
+#define TT_FN TT(FUNCTIONS)
 #define FN_LOCK TG(FN_LOCK_LAYER)
 
 #define OS_LGUI OSM(MOD_LGUI)
