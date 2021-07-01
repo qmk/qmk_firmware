@@ -35,10 +35,19 @@
 #ifdef QMK_SETTINGS
 /* dynamic settings framework is enabled */
 
-/* actual settings - stored in RAM and backed by EEPROM */
+/* actual settings - stored in RAM and backed by EEPROM
+   these are in arbitrary order to ensure they are aligned w/o any holes, and the order can be changed at will */
 typedef struct {
     uint8_t grave_esc_override;
+    uint8_t auto_shift;
+    uint8_t osk_tap_toggle;
+    uint8_t tap_hold;
+    uint16_t debounce_time;
+    uint16_t auto_shift_timeout;
+    uint16_t osk_timeout;
+    uint16_t tapping_term;
 } qmk_settings_t;
+_Static_assert(sizeof(qmk_settings_t) == 12, "unexpected size of the qmk_settings_t structure");
 
 /* setting prototype - describes how to get/set settings, stored in flash */
 typedef struct {

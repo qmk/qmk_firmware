@@ -10,6 +10,13 @@ qmk_settings_t QS;
 
 static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING(1, grave_esc_override),
+   DECLARE_SETTING(2, debounce_time),
+   DECLARE_SETTING(3, auto_shift),
+   DECLARE_SETTING(4, auto_shift_timeout),
+   DECLARE_SETTING(5, osk_tap_toggle),
+   DECLARE_SETTING(6, osk_timeout),
+   DECLARE_SETTING(7, tapping_term),
+   DECLARE_SETTING(8, tap_hold),
 };
 
 static const qmk_settings_proto_t *find_setting(uint16_t qsid) {
