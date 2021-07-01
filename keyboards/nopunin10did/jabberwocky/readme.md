@@ -15,10 +15,10 @@ For more information, join the [NoPunIn10Key Discord](https://discord.gg/sku2Y6w
 * Hardware Availability: Currently by request only
 
 To jump the bootloader, either:
-# If loaded with the default layout, use Function-Escape or Function-R *(the function buttons are the 1u keys next to B and N)* **OR**
-# Use the physical reset switch near the USB port *(if provided for your version of the board)* **OR**
-# Use the physical reset switch on the Elite C **OR**
-# Briefly jump the Reset and Ground pins of the Elite C
+* If loaded with the default layout, use Function-Escape or Function-R *(the function buttons are the 1u keys next to B and N)* **OR**
+* Use the physical reset switch near the USB port *(if provided for your version of the board)* **OR**
+* Use the physical reset switch on the Elite C **OR**
+* Briefly jump the Reset and Ground pins of the Elite C
 
 Make example for this keyboard (after setting up your build environment):
 
