@@ -26,7 +26,7 @@ void keyboard_pre_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     
-    switch(get_highest_layer(state) % 3) {
+    switch(get_highest_layer(state) % 4) {
         
         case 1:
             writePinLow(LED_INDICATOR_TOP);
@@ -52,7 +52,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             writePinLow(LED_INDICATOR_BOT);
             break;
     }
-    
     return state;
 }
 
