@@ -14,9 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "layer_prefs.h"
-#include "rgb_matrix.h"
-//#include "keymap_jp.h"
+#include "quick17_prefs.h"
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -107,75 +105,14 @@ void encoder_update_user(uint8_t index, bool clockwise){
     }
 }
 
-#ifdef RGBLIGHT_LAYERS
-#define INDICATOR_LAYERS 5
-#define INDICATOR_PCS 17
-#define INDICATOR_LANG 11
-    const rgblight_segment_t PROGMEM mode_mac[] = RGBLIGHT_LAYER_SEGMENTS(
-        {INDICATOR_PCS, 1, HSV_WHITE}
-    );
-    const rgblight_segment_t PROGMEM mode_win[] = RGBLIGHT_LAYER_SEGMENTS(
-        {INDICATOR_PCS, 1, HSV_AZURE}
-    );
-    const rgblight_segment_t PROGMEM layer_ctrl[] = RGBLIGHT_LAYER_SEGMENTS(
-        {INDICATOR_LAYERS, 1, HSV_TEAL}
-    );
-    const rgblight_segment_t PROGMEM layer_edit1[] = RGBLIGHT_LAYER_SEGMENTS(
-        {INDICATOR_LAYERS, 1, HSV_GREEN}
-    );
-    const rgblight_segment_t PROGMEM layer_edit2[] = RGBLIGHT_LAYER_SEGMENTS(
-        {INDICATOR_LAYERS, 1, HSV_GOLD}
-    );
-    const rgblight_segment_t PROGMEM layer_fn[] = RGBLIGHT_LAYER_SEGMENTS(
-        {INDICATOR_LAYERS, 1, HSV_BLUE},
-        {1, 1, HSV_RED},
-        {2, 1, HSV_PURPLE}                
-    );
-    const rgblight_segment_t PROGMEM lang_ja[] = RGBLIGHT_LAYER_SEGMENTS(
-        {INDICATOR_LANG, 1, HSV_RED}
-    );
-    const rgblight_segment_t PROGMEM lang_en[] = RGBLIGHT_LAYER_SEGMENTS(
-        {INDICATOR_LANG, 1, HSV_PURPLE}
-    );
-    const rgblight_segment_t* const PROGMEM quick17_rgb_layers[] = 
-    RGBLIGHT_LAYERS_LIST(
-        layer_ctrl,
-        layer_edit1,
-        layer_edit2,
-        layer_fn,
-        mode_mac,
-        mode_win,
-        lang_ja,
-        lang_en
-    );
+#ifdef RGB_MATRIX_ENABLE
     void keyboard_post_init_user(void){
-        rgblight_layers = quick17_rgb_layers;
+        rgb_matrix_mode(RGB_MATRIX_CUSTOM_quick17_rgbm_effect);
+        INPUT_MODE = _INPUT_EN;
+    }
+#else
+    void keyboard_post_init_user(void){
         rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
         INPUT_MODE = _INPUT_EN;
     }
-    layer_state_t layer_state_set_user(layer_state_t state){
-        rgblight_set_layer_state(0, layer_state_cmp(state, _CONTROL));
-        rgblight_set_layer_state(1, layer_state_cmp(state, _EDIT1));
-        rgblight_set_layer_state(2, layer_state_cmp(state, _EDIT2));
-        rgblight_set_layer_state(3, layer_state_cmp(state, _FN));
-        rgblight_set_layer_state(4, keymap_config.swap_lctl_lgui == true);
-        rgblight_set_layer_state(5, keymap_config.swap_lctl_lgui == false);
-        rgblight_set_layer_state(6, _mode_jaen);
-        rgblight_set_layer_state(7, !_mode_jaen);
-        return state;
-    }
-#else
-    #ifdef RGB_MATRIX_ENABLE
-        void keyboard_post_init_user(void){
-    //        rgb_matrix_set_color_all(RGB_TEAL);
-            rgb_matrix_mode(RGB_MATRIX_CUSTOM_quick17_rgbm_effect);
-    //        rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
-            INPUT_MODE = _INPUT_EN;
-        }
-    #else
-        void keyboard_post_init_user(void){
-            rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
-            INPUT_MODE = _INPUT_EN;
-        }
-    #endif
 #endif

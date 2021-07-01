@@ -2,7 +2,7 @@ RGB_MATRIX_EFFECT(quick17_rgbm_effect)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-#include "layer_prefs.h"
+#include "quick17_prefs.h"
 
 extern uint8_t INPUT_MODE;
 
@@ -53,39 +53,32 @@ const uint8_t rgb_keymaps [][DRIVER_LED_TOTAL] = {
 };
 
 static void led_color_set(uint8_t index, uint8_t color_patterns) {
-    HSV hsv = rgb_matrix_config.hsv;
-    RGB rgb_white = hsv_to_rgb(_HSV(  0,   0, hsv.v)); //HSV_WHITE
-    RGB rgb_indc1 = hsv_to_rgb(_HSV(128, 255, hsv.v)); //HSV_TEAL
-    RGB rgb_indc2 = hsv_to_rgb(_HSV(191, 255, hsv.v)); //HSV_PURPLE
-    RGB rgb_indc3 = hsv_to_rgb(_HSV( 64, 255, hsv.v)); //HSV_CHARTREUSE
-    RGB rgb_indc4 = hsv_to_rgb(_HSV(106, 255, hsv.v)); //HSV_SPRINGGREEN
-    RGB rgb_indc5 = hsv_to_rgb(_HSV(234, 128, hsv.v)); //HSV_PINK
-    RGB rgb_indc6 = hsv_to_rgb(_HSV(213, 255, hsv.v)); //HSV_MAGENTA
-    RGB rgb_indc_ja = hsv_to_rgb(_HSV(28, 255, hsv.v)); //HSV_ORANGE
-    RGB rgb_indc_en = hsv_to_rgb(_HSV( 85, 255, hsv.v)); //HSV_GREEN
-    RGB rgb_indc_win = hsv_to_rgb(_HSV(170, 255, hsv.v)); //HSV_BLUE
+    HSV hsv = rgb_matrix_config.hsv; // 'quantum/rgblight_list.h'
+    RGB rgb_white = hsv_to_rgb(_HSV(  0,   0, hsv.v)); // HSV_WHITE
+    RGB rgb_indc1 = hsv_to_rgb(_HSV(128, 255, hsv.v)); // HSV_TEAL
+    RGB rgb_indc2 = hsv_to_rgb(_HSV(191, 255, hsv.v)); // HSV_PURPLE
+    RGB rgb_indc3 = hsv_to_rgb(_HSV( 64, 255, hsv.v)); // HSV_CHARTREUSE
+    RGB rgb_indc4 = hsv_to_rgb(_HSV(106, 255, hsv.v)); // HSV_SPRINGGREEN
+    RGB rgb_indc5 = hsv_to_rgb(_HSV(234, 128, hsv.v)); // HSV_PINK
+    RGB rgb_indc6 = hsv_to_rgb(_HSV(213, 255, hsv.v)); // HSV_MAGENTA
+    RGB rgb_indc_ja = hsv_to_rgb(_HSV(28, 255, hsv.v)); // HSV_ORANGE
+    RGB rgb_indc_en = hsv_to_rgb(_HSV( 85, 255, hsv.v)); // HSV_GREEN
+    RGB rgb_indc_win = hsv_to_rgb(_HSV(170, 255, hsv.v)); // HSV_BLUE
     switch(color_patterns){
         case BOUT:
-            rgb_matrix_set_color(index, RGB_BLACK);
-            break;
+            rgb_matrix_set_color(index, RGB_BLACK);break;
         case _____:
-            rgb_matrix_set_color(index, _RGB(rgb_white));
-            break;
+            rgb_matrix_set_color(index, _RGB(rgb_white));break;
         case INDC1:
-            rgb_matrix_set_color(index, _RGB(rgb_indc1));
-            break;
+            rgb_matrix_set_color(index, _RGB(rgb_indc1));break;
         case INDC2:
-            rgb_matrix_set_color(index, _RGB(rgb_indc2));
-            break;
+            rgb_matrix_set_color(index, _RGB(rgb_indc2));break;
         case INDC3:
-            rgb_matrix_set_color(index, _RGB(rgb_indc3));
-            break;
+            rgb_matrix_set_color(index, _RGB(rgb_indc3));break;
         case INDC4:
-            rgb_matrix_set_color(index, _RGB(rgb_indc4));
-            break;
+            rgb_matrix_set_color(index, _RGB(rgb_indc4));break;
         case INDC5:
-            rgb_matrix_set_color(index, _RGB(rgb_indc5));
-            break;
+            rgb_matrix_set_color(index, _RGB(rgb_indc5));break;
         case JA_EN:
             if (keymap_config.swap_lctl_lgui == false) {
                 rgb_matrix_set_color(index, _RGB(rgb_indc_win));
@@ -104,9 +97,6 @@ static void led_color_set(uint8_t index, uint8_t color_patterns) {
                 }
             }
             break;
-
-
-
         case CAPSL:
             if (host_keyboard_led_state().caps_lock) {
                 rgb_matrix_set_color(index, _RGB(rgb_indc6));
