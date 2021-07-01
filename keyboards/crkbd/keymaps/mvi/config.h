@@ -31,11 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef USE_I2C
 #undef SSD1306OLED
 
-#define USE_SERIAL_PD2
-
 #ifdef OLED_DRIVER_ENABLE
    // Time unused before switching off oled screeen
-   #define OLED_SWITCHOFF 30000
+   #define OLED_TIMEOUT 30000
 #endif
 
 //#undef FORCE_NKRO
