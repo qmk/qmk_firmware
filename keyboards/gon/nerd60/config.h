@@ -3,11 +3,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6FD7
-#define DEVICE_VER      0x0001
+#define VENDOR_ID       0x7283
+#define PRODUCT_ID      0x3630
+#define DEVICE_VER      0x7283
 #define MANUFACTURER    GON
-#define PRODUCT         NerD 60
+#define PRODUCT         NerD60
 
 /* key matrix size */
 #define MATRIX_ROWS 10
