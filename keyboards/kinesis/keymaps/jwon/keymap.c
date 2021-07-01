@@ -8,11 +8,11 @@ enum layer_names {
 };
 
 // Mac-specific macros
-#define MACCOPY LGUI(KC_C)
-#define MACPAST LGUI(KC_V)
-#define MACUNDO LGUI(KC_Z)
-#define MACREDO LGUI(KC_Y)
-#define MACLOCK LGUI(LCTL(KC_Q))
+#define MACCOPY LGUI(DP_C)
+#define MACPAST LGUI(DP_V)
+#define MACUNDO LGUI(DP_Z)
+#define MACREDO LGUI(DP_Y)
+#define MACLOCK LGUI(LCTL(DP_Q))
 
 #define LSA_ LSA(KC_NO)
 #define SFT_ESC SFT_T(KC_ESC)
