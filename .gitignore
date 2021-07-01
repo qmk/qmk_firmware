@@ -55,7 +55,6 @@ quantum/version.h
 build/
 cmake-build-debug
 CMakeLists.txt
-tags
 
 # Let these ones be user specific, since we have so many different configurations
 *.code-workspace
@@ -67,6 +66,7 @@ tags
 .vscode/launch.json
 .vscode/tasks.json
 .vscode/temp.sql
+tags
 
 # Ignore image files
 *.gif
