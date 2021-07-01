@@ -27,9 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         PS/2 Keyboard
 #define DESCRIPTION     convert IBM PC keyboard to USB
 
-#define LED_NUM_LOCK_PIN PF6
-#define LED_CAPS_LOCK_PIN PF5
-#define LED_SCROLL_LOCK_PIN PF7
+// #define LED_NUM_LOCK_PIN PF6
+// #define LED_CAPS_LOCK_PIN PF5
+// #define LED_SCROLL_LOCK_PIN PF7
 
 /* matrix size */
 #define MATRIX_ROWS 16  // keycode bit: 3-0
