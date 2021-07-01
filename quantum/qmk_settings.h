@@ -58,6 +58,7 @@ typedef struct {
 
 void qmk_settings_init(void);
 void qmk_settings_reset(void);
+void qmk_settings_query(uint16_t qsid_gt, void *buffer, size_t sz);
 int qmk_settings_get(uint16_t qsid, void *setting, size_t maxsz);
 int qmk_settings_set(uint16_t qsid, const void *setting, size_t maxsz);
 

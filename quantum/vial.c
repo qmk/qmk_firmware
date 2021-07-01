@@ -165,6 +165,8 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             break;
         }
         case vial_qmk_settings_query: {
+            uint16_t qsid_greater_than = msg[2] | (msg[3] << 8);
+            qmk_settings_query(qsid_greater_than, msg, length);
             break;
         }
         case vial_qmk_settings_get: {

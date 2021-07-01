@@ -64,6 +64,26 @@ void qmk_settings_reset(void) {
     save_settings();
 }
 
+void qmk_settings_query(uint16_t qsid_gt, void *buffer, size_t sz) {
+    /* set all FFs, so caller can identify when all settings are retrieved by looking for an 0xFFFF entry */
+    memset(buffer, 0xFF, sz);
+
+    size_t buffer_offset = 0;
+    for (size_t i = 0; i < sizeof(protos)/sizeof(*protos); ++i) {
+        uint16_t qsid;
+
+        /* if output buffer has no space left, bail out */
+        if (buffer_offset + sizeof(qsid) > sz)
+            break;
+
+        qsid = pgm_read_word(&protos[i].qsid);
+        if (qsid > qsid_gt) {
+            memcpy((char*)buffer + buffer_offset, &qsid, sizeof(qsid));
+            buffer_offset += sizeof(qsid);
+        }
+    }
+}
+
 int qmk_settings_get(uint16_t qsid, void *setting, size_t maxsz) {
     const qmk_settings_proto_t *proto = find_setting(qsid);
     if (!proto || pgm_read_word(&proto->sz) > maxsz)
