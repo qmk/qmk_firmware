@@ -47,6 +47,15 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* 1000Hz USB polling - it's the default on stock firmware */
+#define USB_POLLING_INTERVAL_MS 1
+
+/* Send up to 4 key press events per scan */
+#define QMK_KEYS_PER_SCAN 4
+
+/* Set debounce time to 5ms */
+#define DEBOUNCE 5
+
 /* SPI Config for LED Driver */
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
