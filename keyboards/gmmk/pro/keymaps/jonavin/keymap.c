@@ -26,6 +26,7 @@ enum custom_layers {
 
 enum custom_keycodes {
   KC_00 = SAFE_RANGE,
+  KC_WINLCK,    //Toggles Win key on and off
 };
 
 // Tap Dance Definitions
@@ -40,6 +41,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 #define KC_LSFTCAPS TD(TD_LSFT_CAPSLOCK)
 
+bool _isWinKeyDisabled = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case KC_00:
@@ -49,6 +52,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             // when keycode KC_00 is released
         }
+        break;
+
+    case KC_WINLCK:
+        if (record->event.pressed) {
+            _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
+            if(_isWinKeyDisabled) {
+                process_magic(GUI_OFF, record);
+            } else {
+                process_magic(GUI_ON, record);
+            }
+        } else  unregister_code16(keycode);
         break;
     }
     return true;
@@ -80,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, RGB_VAI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, RESET,            KC_HOME,
         KC_CAPS, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_END,
         _______,          _______, RGB_HUI, _______, _______, _______, KC_NLCK, _______, _______, _______, _______,          _______, RGB_MOD, _______,
-        _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
+        _______, KC_WINLCK, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
 
     [_MO2] = LAYOUT(
