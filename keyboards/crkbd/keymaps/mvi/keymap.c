@@ -433,10 +433,6 @@ void render_status_secondary(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > OLED_SWITCHOFF) {
-        oled_off();
-        return;
-    }
 #ifndef SPLIT_KEYBOARD
     else { oled_on(); }
 #endif
@@ -572,15 +568,3 @@ void matrix_scan_user(void) { // The very important timer for alt/tab macro.
     }
   }
 }
-
-#ifdef RGB_MATRIX_ENABLE
-
-void suspend_power_down_keymap(void) {
-    rgb_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_keymap(void) {
-    rgb_matrix_set_suspend_state(false);
-}
-
-#endif
