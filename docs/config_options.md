@@ -211,6 +211,8 @@ If you define these options you will enable the associated feature, which may in
   * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
 * `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
   * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
+* `#define RGBMATRIX_INDICATORS_OVERRIDE_RGB_OFF`
+  * If defined, then [matrix indicators](feature_rgb_matrix?id=overriding-rgb-matrix-onoff-status) will be shown even if RGB Matrix is off.
 * `#define RGBLED_NUM 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`

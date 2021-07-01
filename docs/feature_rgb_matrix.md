@@ -694,6 +694,10 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
+#### Overriding RGB Matrix on/off status
+Normally lighting indicators are not shown when the RGB Matrix is disabled (e.g. through `RGB_TOG`, etc.). If you would like indicators to work even when the RGB Matrix is otherwise off, add `#define RGBMATRIX_INIDACTORS_OVERRIDE_RGB_OFF` to your `config.h`
+
+
 ### Suspended state :id=suspended-state
 To use the suspend feature, make sure that `#define RGB_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
 
