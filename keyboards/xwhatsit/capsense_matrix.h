@@ -15,6 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
+
+#define nSHDN_BIT 12
+#define MCP_DAC_GAIN_2X 0
+#define MCP_DAC_GAIN_1X 1
+#define nGA_BIT 13
+#define BUF_BIT 14
+
 #define TRACKING_TEST_TIME 4
 // Key 1 is the always non-pressed key under the space bar to the right.
 #define TRACKING_KEY_1_COL 6
@@ -52,5 +59,7 @@ uint16_t measure_middle_keymap_coords(uint8_t col, uint8_t row, uint8_t time, ui
 void shift_data(uint32_t data, int data_idle, int shcp_idle, int stcp_idle);
 void dac_write_threshold(uint16_t value);
 uint8_t test_single(uint8_t col, uint16_t time, uint8_t *interference_ptr);
+void shift_select_col_no_strobe(uint8_t col);
+void shift_select_nothing(void);
 
 #endif

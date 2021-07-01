@@ -19,7 +19,6 @@
   Too much use of global defines!!!!!!!!!!!!!
 
 Defines in these fuctions need to replaced with varibes or stuctiures
-dac_write_threshold()
 test_multiple()
 test_single()
 measure_middle()
@@ -28,8 +27,6 @@ calibration_measure_all_valid_keys()
 calibration()
 matrix_scan_raw()
 
-Defines need to be fuctions.
-#define SHIFT_BITS
 
 Defines need to ned moved out of the c source and into the header file.
 #define NRTIMES 64
@@ -76,6 +73,7 @@ static inline uint8_t read_rows(void)
     return CAPSENSE_READ_ROWS_VALUE;
 }
 
+
 #if defined(CAPSENSE_DAC_MCP4921)
 
 void dac_init(void)
@@ -92,13 +90,8 @@ void dac_init(void)
 void dac_write_threshold(uint16_t value)
 {
     const uint16_t buffered = 0;
-    #define nSHDN_BIT 12
     value |= 1 << nSHDN_BIT; // nSHDN = 0 -- make sure output is not floating.
-    #define MCP_DAC_GAIN_2X 0
-    #define MCP_DAC_GAIN_1X 1
-    #define nGA_BIT 13
     value |= MCP_DAC_GAIN_1X << nGA_BIT;
-    #define BUF_BIT 14;
     value |= buffered << BUF_BIT;
 
     writePin(CAPSENSE_DAC_NCS, 0);
@@ -147,14 +140,23 @@ void dac_write_threshold(uint16_t value)
 
 #endif
 
+/*
 #define SHIFT_BITS (((CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(MATRIX_COLS - 1) >= 16) || \
-                     (CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(0) >= 16)) ? 24 : 16)
+                       (CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(0) >= 16)) ? 24 : 16)
+*/
+
+inline int shift_bits(void)
+{
+  return (((CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(MATRIX_COLS - 1) >= 16) || \
+                       (CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(0) >= 16)) ? 24 : 16 );
+}
 
 void shift_select_nothing(void)
 {
     writePin(CAPSENSE_SHIFT_DIN, 0);
     int i;
-    for (i=0;i<SHIFT_BITS;i++)
+    for (i=0;i<shift_bits();i++)
+    // for (i=0;i<SHIFT_BITS;i++)
     {
         writePin(CAPSENSE_SHIFT_SHCP, 1);
         writePin(CAPSENSE_SHIFT_SHCP, 0);
@@ -168,9 +170,11 @@ void shift_data(uint32_t data, int data_idle, int shcp_idle, int stcp_idle)
     int i;
     writePin(CAPSENSE_SHIFT_SHCP, 0);
     writePin(CAPSENSE_SHIFT_STCP, 0);
-    for (i=SHIFT_BITS-1; i>=0; i--)
+    for (i=shift_bits()-1; i>=0; i--)
+    //for (i=SHIFT_BITS-1; i>=0; i--)
     {
-        writePin(CAPSENSE_SHIFT_DIN, (data >> (SHIFT_BITS - 1)) & 1);
+        writePin(CAPSENSE_SHIFT_DIN, (data >> (shift_bits() - 1)) & 1);
+        //writePin(CAPSENSE_SHIFT_DIN, (data >> (SHIFT_BITS - 1)) & 1);
         writePin(CAPSENSE_SHIFT_SHCP, 1);
         if (!((i == 0) && (shcp_idle))) {
             writePin(CAPSENSE_SHIFT_SHCP, 0);
@@ -187,7 +191,8 @@ void shift_data(uint32_t data, int data_idle, int shcp_idle, int stcp_idle)
 void shift_select_col_no_strobe(uint8_t col)
 {
     int i;
-    for (i=SHIFT_BITS-1; i>=0; i--)
+    for (i=shift_bits()-1; i>=0; i--)
+    // for (i=SHIFT_BITS-1; i>=0; i--)
     {
         writePin(CAPSENSE_SHIFT_DIN, !!(col == i));
         writePin(CAPSENSE_SHIFT_SHCP, 1);
@@ -407,6 +412,7 @@ void test_v2(void) {
     {
         uprintf("Testing threshold: %d\n", d);
         dac_write_threshold(d);
+//WHY ?
         #if 1
             int c;
             for (c=0; c<MATRIX_COLS;c++)
