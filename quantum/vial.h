@@ -43,6 +43,7 @@ enum {
     vial_qmk_settings_query = 0x09,
     vial_qmk_settings_get = 0x0A,
     vial_qmk_settings_set = 0x0B,
+    vial_qmk_settings_reset = 0x0C,
 };
 
 /* Fake encoder position in keyboard matrix, can't use 255 as that is immediately rejected by IS_NOEVENT  */

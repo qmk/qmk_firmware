@@ -179,6 +179,10 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
 
             break;
         }
+        case vial_qmk_settings_reset: {
+            qmk_settings_reset();
+            break;
+        }
     }
 }
 
