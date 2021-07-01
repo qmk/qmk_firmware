@@ -30,6 +30,7 @@ void rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
 
+
     if (rgb_matrix_is_enabled() && enabled) {
         set_layer_rgb(led_min, led_max, get_highest_layer(layer_state | default_layer_state));
     }
@@ -41,16 +42,18 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
 
 void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer) {
-    const rgb_matrix_layer *l = &ledmaps[layer];
+    const ledmap *l = &(ledmaps[layer]);
 
     uint8_t val = rgb_matrix_get_val();
 
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         HSV hsv = {
-            .h = (l->layout[i][0]),
-            .s = (l->layout[i][1]),
+            .h = (*l)[i][0],
+            .s = (*l)[i][1],
             .v = val,
         };
+
+        dprintf("i = %d, h = %d, s = %d, v = %d", i, hsv.h, hsv.s, hsv.v);
 
         if (hsv.h || hsv.s) {
             RGB rgb = hsv_to_rgb(hsv);
