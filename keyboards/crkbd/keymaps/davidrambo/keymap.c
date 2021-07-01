@@ -34,7 +34,7 @@ enum custom_layers {
 //aliases for clarity in layering
 #define SftEnt SFT_T(KC_ENT)   // Shift when held, Enter when tapped
 #define BSCTL  LCTL_T(KC_BSPC) // Ctrl when held, Backspace when tapped
-#define CTAB   LCLT(KC_TAB)
+#define CTAB   LCTL(KC_TAB)
 #define ATAB   LALT(KC_TAB)
 
 //aliases for Navigation layer
