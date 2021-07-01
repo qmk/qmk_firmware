@@ -3,7 +3,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x7283
+#define VENDOR_ID       0x4E45
 #define PRODUCT_ID      0x3630
 #define DEVICE_VER      0x7283
 #define MANUFACTURER    GON
