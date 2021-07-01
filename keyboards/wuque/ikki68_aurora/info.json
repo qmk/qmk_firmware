@@ -81,7 +81,7 @@
                 { "label": "\u2192", "x": 16.5, "y": 4 }
             ]
         },
-        "default": {
+        "LAYOUT_default": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
