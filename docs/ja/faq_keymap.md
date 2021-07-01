@@ -1,8 +1,8 @@
 # キーマップの FAQ
 
 <!---
-  original document: 0.8.62:docs/faq_keymap.md
-  git diff 0.8.62 HEAD -- docs/faq_keymap.md | cat
+  original document: 0.13.15:docs/faq_keymap.md
+  git diff 0.13.15 HEAD -- docs/faq_keymap.md | cat
 -->
 
 このページは人々がキーマップについてしばしば持つ疑問について説明します。まだ読んだことが無い場合には、[キーマップの概要](ja/keymap.md)を最初に読むべきです。
