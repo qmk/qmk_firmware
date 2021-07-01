@@ -544,13 +544,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case BEPO: // base layer, bépo layout using azerty driver on windows
       if (record->event.pressed) {
 	set_single_persistent_default_layer(_BEPO);
-	layer_off(_AZ_LOWER);
-	layer_off(_AZ_RAISE);
-	layer_off(_SHIFT);
-	layer_off(_ALTGR);
-	layer_off(_SHALT);
-	layer_off(_LOWERAG);
-	layer_off(_RAISEAG);
+ 	layer_clear();
       }
       return false;
       break;
