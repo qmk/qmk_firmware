@@ -628,11 +628,11 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 Caps Lock indicator on alpha numberic flagged keys:
 ```c
-void rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
             if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
-                rgb_matrix_set_color(i, RGB_RED);
+                RGB_MATRIX_INDICATOR_SET_COLOR(i, RGB_RED);
             }
         }
     }
@@ -641,7 +641,7 @@ void rgb_matrix_indicators_user(void) {
 
 Layer indicator on all flagged keys:
 ```c
-void rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     switch(get_highest_layer(layer_state|default_layer_state)) {
         case RAISE:
             rgb_matrix_set_color_all(RGB_BLUE);
