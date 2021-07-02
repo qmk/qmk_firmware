@@ -118,6 +118,13 @@ NOTE: remember to follow the instructions printed at the end of installation (us
 
 <!-- tabs:start -->
 
+Tips for FreeBSD 13.0:
+
+I'm on FreeBSD 13.0 and I've had two problems:
+py37-setuptools was a tad too old, I had version 44 and qmk cli needed 45, so I downloaded a newer wheel (57) from pipy and installed it.
+Once all the python dependencies went through, the cli wouldn't work, due to library issues. I resolved it by completely uninstalling python hid packages I had, and compiling one from source.
+I downloaded hid-1.0.4.tar.gz, ran python setup.py build, then python setup.py install and my cli started working...
+
 ### ** Windows **
 
 After installing QMK you can set it up with this command:
