@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x5c06
-#define PRODUCT_ID   0x4f0d
+#define VENDOR_ID    0x5C06
+#define PRODUCT_ID   0x4F0D
 #define DEVICE_VER   0x0001
 #define MANUFACTURER gtips
 #define PRODUCT      reviung5
@@ -54,14 +54,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
-	#define RGBLED_NUM 4
-	#define RGBLIGHT_HUE_STEP 16
-	#define RGBLIGHT_SAT_STEP 16
-	#define RGBLIGHT_VAL_STEP 16
-	#define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-	#define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+#　define RGBLED_NUM 4
+#　define RGBLIGHT_HUE_STEP 16
+#　define RGBLIGHT_SAT_STEP 16
+#  define RGBLIGHT_VAL_STEP 16
+#  define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#  define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 	/*== all animations enable ==*/
-	#define RGBLIGHT_ANIMATIONS
+#  define RGBLIGHT_ANIMATIONS
 /*== or choose animations ==*/
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
