@@ -630,9 +630,9 @@ Caps Lock indicator on alphanumeric flagged keys:
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
-        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+        for (uint8_t i = led_min; i <= led_max; i++) {
             if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
-                RGB_MATRIX_INDICATOR_SET_COLOR(i, RGB_RED);
+                rgb_matrix_set_color(i, RGB_RED);
             }
         }
     }
