@@ -55,8 +55,8 @@
 #include <avr/interrupt.h>
 #include "drivers/avr/i2c_master.h"
 #else
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 #include "drivers/chibios/i2c_master.h"
 #endif
 

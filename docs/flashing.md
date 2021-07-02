@@ -1,242 +1,277 @@
 # Flashing Instructions and Bootloader Information
 
-There are quite a few different types of bootloaders that keyboards use, and just about all of them use a different flashing method. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to be compatible with all the different types without having to think about it much, but this article will describe the different types of bootloaders, and available methods for flashing them.
+There are quite a few different types of bootloaders that keyboards use, and almost all of them use their own flashing method and tools. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to support as many of them as possible, but this article will describe the different types of bootloaders, and available methods for flashing them.
 
-If you have a bootloader selected with the `BOOTLOADER` variable in your `rules.mk`, QMK will automatically calculate if your .hex file is the right size to be flashed to the device, and output the total size in bytes (along with the max).
+For AVR-based keyboards, QMK will automatically calculate if your `.hex` file is the right size to be flashed to the device based on the `BOOTLOADER` value set in `rules.mk`, and output the total size in bytes (along with the max).
 
-## DFU
+You will also be able to use the CLI to flash your keyboard, by running:
+```
+$ qmk flash -kb <keyboard> -km <keymap>
+```
+See the [`qmk flash`](cli_commands.md#qmk-flash) documentation for more information.
 
-Atmel's DFU bootloader comes on all atmega32u4 chips by default, and is used by many keyboards that have their own ICs on their PCBs (Older OLKB boards, Clueboards). Some keyboards may also use LUFA's DFU bootloader (or QMK's fork) (Newer OLKB boards) that adds in additional features specific to that hardware.
+## Atmel DFU
 
-To ensure compatibility with the DFU bootloader, make sure this block is present your `rules.mk` (optionally with `lufa-dfu` or `qmk-dfu` instead):
+Atmel's DFU bootloader comes on all USB AVRs by default (except for 16/32U4RC), and is used by many keyboards that have their own ICs on their PCBs (older OLKB boards, Clueboards). Some keyboards may also use LUFA's DFU bootloader, or QMK's fork of it (newer OLKB boards), that adds in additional features specific to that hardware.
+
+To ensure compatibility with the DFU bootloader, make sure this block is present in your `rules.mk` (optionally with `lufa-dfu` or `qmk-dfu` instead):
 
 ```make
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 ```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` in QMK (recommended command line)
+* [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` target in QMK (recommended command line)
 
 Flashing sequence:
 
-1. Press the `RESET` keycode, or tap the RESET button (or short RST to GND).
+1. Enter the bootloader using any of the following methods:
+    * Press the `RESET` keycode
+    * Press the `RESET` button on the PCB if available
+    * Short RST to GND quickly
 2. Wait for the OS to detect the device
-3. Erase the memory (may be done automatically)
+3. Erase the flash memory (will be done automatically if using the Toolbox or CLI/`make` command)
 4. Flash a .hex file
-5. Reset the device into application mode (may be done automatically)
-
-or:
-
-    make <keyboard>:<keymap>:dfu
+5. Reset the device into application mode (will be done automatically as above)
 
 ### QMK DFU
 
-QMK has a fork of the LUFA DFU bootloader that allows for a simple matrix scan for exiting the bootloader and returning to the application, as well as flashing an LED/making a ticking noise with a speaker when things are happening. To enable these features, use this block in your `config.h` (The key that exits the bootloader needs to be hooked-up to the INPUT and OUTPUT defined here):
+QMK maintains [a fork of the LUFA DFU bootloader](https://github.com/qmk/lufa/tree/master/Bootloaders/DFU) that additionally performs a simple matrix scan for exiting the bootloader and returning to the application, as well as flashing an LED/making a ticking noise with a speaker when things are happening. To enable these features, add the following defines to your `config.h`:
 
-    #define QMK_ESC_OUTPUT F1 // usually COL
-    #define QMK_ESC_INPUT D5 // usually ROW
-    #define QMK_LED E6
-    #define QMK_SPEAKER C6
+```c
+#define QMK_ESC_OUTPUT F1  // COL pin if COL2ROW
+#define QMK_ESC_INPUT  D5  // ROW pin if COL2ROW
+// Optional:
+//#define QMK_LED E6
+//#define QMK_SPEAKER C6
+```
+Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
 
-The Manufacturer and Product names are automatically pulled from your `config.h`, and "Bootloader" is added to the product.
+The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
-To generate this bootloader, use the `bootloader` target, eg `make planck/rev4:default:bootloader`.
+To generate this bootloader, use the `bootloader` target, eg. `make planck/rev4:default:bootloader`. To generate a production-ready .hex file (combining QMK and the bootloader), use the `production` target, eg. `make planck/rev4:default:production`.
 
-To generate a production-ready .hex file (containing the application and the bootloader), use the `production` target, eg `make planck/rev4:default:production`.
+### `make` Targets
 
-### DFU commands
-
-There are a number of DFU commands that you can use to flash firmware to a DFU device:
-
-* `:dfu` - This is the normal option and waits until a DFU device is available, and then flashes the firmware. This will check every 5 seconds, to see if a DFU device has appeared.
-* `:dfu-ee` - This flashes an `eep` file instead of the normal hex.  This is uncommon. 
-* `:dfu-split-left` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
-* `:dfu-split-right` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
+* `:dfu`: Checks every 5 seconds until a DFU device is available, and then flashes the firmware.
+* `:dfu-split-left` and `:dfu-split-right`: Flashes the firmware as with `:dfu`, but also sets the handedness setting in EEPROM. This is ideal for Elite-C-based split keyboards.
 
 ## Caterina
 
-Arduino boards and their clones use the [Caterina bootloader](https://github.com/arduino/ArduinoCore-avr/tree/master/bootloaders/caterina) (any keyboard built with a Pro Micro, or clone), and uses the avr109 protocol to communicate through virtual serial. Bootloaders like [A-Star](https://www.pololu.com/docs/0J61/9) are based on Caterina.
+Arduino boards and their clones use the [Caterina bootloader](https://github.com/arduino/ArduinoCore-avr/tree/master/bootloaders/caterina) or a variant of it (any keyboard built with a Pro Micro or clone, and the Pololu A-Star), and uses the AVR109 protocol to communicate through virtual serial.
 
-To ensure compatibility with the Caterina bootloader, make sure this block is present your `rules.mk`:
+To ensure compatibility with the Caterina bootloader, make sure this block is present in your `rules.mk`:
 
 ```make
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = caterina
 ```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](http://www.nongnu.org/avrdude/) with avr109 / `:avrdude` (recommended command line)
+* [avrdude](https://www.nongnu.org/avrdude/) with the `avr109` programmer / `:avrdude` target in QMK (recommended command line)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 Flashing sequence:
 
-1. Press the `RESET` keycode, or short RST to GND quickly (you only have 7 seconds to flash once it enters)
+1. Enter the bootloader using any of the following methods (you only have 7 seconds to flash once it enters; some variants may require you to reset twice within 750 milliseconds):
+    * Press the `RESET` keycode
+    * Press the `RESET` button on the PCB if available
+    * Short RST to GND quickly
 2. Wait for the OS to detect the device
 3. Flash a .hex file
 4. Wait for the device to reset automatically
 
-or
+### `make` Targets
 
-    make <keyboard>:<keymap>:avrdude
+* `:avrdude`: Checks every 5 seconds until a Caterina device is available (by detecting a new COM port), and then flashes the firmware.
+* `:avrdude-loop`: Flashes the firmware as with `:avrdude`, but after each device is flashed, will attempt to flash again. This is useful for bulk flashing. Hit Ctrl+C to escape the loop.
+* `:avrdude-split-left` and `:avrdude-split-right`: Flashes the firmware as with `:avrdude`, but also sets the handedness setting in EEPROM. This is ideal for Pro Micro-based split keyboards.
 
+## HalfKay
 
-### Caterina commands
+HalfKay is a super-slim bootloader developed by PJRC that presents itself as an HID device (which requires no additional driver), and comes preflashed on all Teensys, namely the 2.0. It is currently closed-source, and thus once overwritten (eg. via ISP flashing another bootloader), cannot be restored.
 
-There are a number of DFU commands that you can use to flash firmware to a DFU device:
-
-* `:avrdude` - This is the normal option which waits until a Caterina device is available (by detecting a new COM port), and then flashes the firmware.
-* `:avrdude-loop` - This runs the same command as `:avrdude`, but after each device is flashed, it will attempt to flash again.  This is useful for bulk flashing. _This requires you to manually escape the loop by hitting Ctrl+C._
-* `:avrdude-split-left` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
-* `:avrdude-split-right` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
-
-
-
-## Halfkay
-
-Halfkay is a super-slim protocol developed by PJRC that uses HID, and comes on all Teensys (namely the 2.0).
-
-To ensure compatibility with the Halfkay bootloader, make sure this block is present your `rules.mk`:
+To ensure compatibility with the Halfkay bootloader, make sure this block is present in your `rules.mk`:
 
 ```make
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = halfkay
 ```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [Teensy Loader Command Line](https://www.pjrc.com/teensy/loader_cli.html) / `:teensy` target in QMK (recommended command line)
 * [Teensy Loader](https://www.pjrc.com/teensy/loader.html)
-* [Teensy Loader Command Line](https://www.pjrc.com/teensy/loader_cli.html) (recommended command line)
 
 Flashing sequence:
 
-1. Press the `RESET` keycode, or short RST to GND quickly (you only have 7 seconds to flash once it enters)
+1. Enter the bootloader using any of the following methods (you only have 7 seconds to flash once it enters):
+    * Press the `RESET` keycode
+    * Press the `RESET` button on the Teensy or PCB if available
+    * short RST to GND quickly
 2. Wait for the OS to detect the device
 3. Flash a .hex file
 4. Reset the device into application mode (may be done automatically)
 
 ## USBasploader
 
-USBasploader is a bootloader developed by matrixstorm. It is used in some non-USB AVR chips such as the ATmega328P, which run V-USB.
+USBasploader is a bootloader originally by [Objective Development](https://www.obdev.at/products/vusb/usbasploader.html). It emulates a USBasp ISP programmer and is used in some non-USB AVR chips such as the ATmega328P, which run V-USB.
 
 To ensure compatibility with the USBasploader bootloader, make sure this block is present in your `rules.mk`:
 
 ```make
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = USBasp
 ```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](http://www.nongnu.org/avrdude/) with the `usbasp` programmer
+* [avrdude](https://www.nongnu.org/avrdude/) with the `usbasp` programmer / `:usbasp` target in QMK (recommended command line)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 Flashing sequence:
 
-1. Press the `RESET` keycode, or keep the boot pin shorted to GND while quickly shorting RST to GND
+1. Enter the bootloader using any of the following methods:
+    * Press the `RESET` keycode
+    * Keep the `BOOT` button held while quickly tapping the `RESET` button on the PCB
 2. Wait for the OS to detect the device
 3. Flash a .hex file
-4. Reset the device into application mode (may be done automatically)
+4. Press the `RESET` button on the PCB or short RST to GND
 
 ## BootloadHID
 
-BootloadHID is a USB bootloader for AVR microcontrollers. The uploader tool requires no kernel level driver on Windows and can therefore be run without installing any DLLs.
+BootloadHID is a USB bootloader for AVR microcontrollers. It presents itself as an HID input device, much like HalfKay, and can therefore be run without installing any driver on Windows.
 
-To ensure compatibility with the bootloadHID bootloader, make sure this block is present your `rules.mk`:
+To ensure compatibility with the bootloadHID bootloader, make sure this block is present in your `rules.mk`:
 
 ```make
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
 ```
 
 Compatible flashers:
 
-* [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash) (recommended Windows GUI)
-* [bootloadhid Command Line](https://www.obdev.at/products/vusb/bootloadhid.html) / `:BootloadHID` in QMK (recommended command line)
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadHID` target in QMK (recommended command line)
+* [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash)
 
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode (may not work on all devices)
-    * Hold the salt key while plugging the keyboard in (usually documented within keyboard readme) 
+    * Tap the `RESET` keycode
+    * Hold the salt key while plugging the keyboard in - for PS2AVRGB boards, this is usually the key connected to MCU pins A0 and B0, otherwise it will be documented in your keyboard's readme
 2. Wait for the OS to detect the device
 3. Flash a .hex file
 4. Reset the device into application mode (may be done automatically)
 
-or:
+## STM32/APM32 DFU
 
-    make <keyboard>:<keymap>:bootloadHID
+All STM32 and APM32 MCUs, except for F103 (see the [STM32duino section](#stm32duino)) come preloaded with a factory bootloader that cannot be modified nor deleted.
 
-## STM32
+To ensure compatibility with the STM32-DFU bootloader, make sure this block is present in your `rules.mk` (optionally with `apm32-dfu` instead):
 
-All STM32 chips come preloaded with a factory bootloader that cannot be modified nor deleted. Some STM32 chips have bootloaders that do not come with USB programming (e.g. STM32F103) but the process is still the same.
-
-At the moment, no `BOOTLOADER` variable is needed on `rules.mk` for STM32.
+```make
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [dfu-util](https://github.com/Stefan-Schmidt/dfu-util) / `:dfu-util` (recommended command line)
+* [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
 
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
     * Tap the `RESET` keycode (may not work on STM32F042 devices)
-    * If a reset circuit is present, tap the RESET button
-    * Otherwise, you need to bridge BOOT0 to VCC (via BOOT0 button or bridge), short RESET to GND (via RESET button or bridge), and then let go of the BOOT0 bridge
+    * If a reset circuit is present, tap the `RESET` button on the PCB; some boards may also have a toggle switch that must be flipped
+    * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge
 2. Wait for the OS to detect the device
 3. Flash a .bin file
-    * You will receive a warning about the DFU signature; Just ignore it
 4. Reset the device into application mode (may be done automatically)
-    * If you are building from command line (e.g. `make planck/rev6:default:dfu-util`), make sure that `:leave` is passed to the `DFU_ARGS` variable inside your `rules.mk` (e.g. `DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave`) so that your device resets after flashing
 
-### STM32 Commands
+### `make` Targets
 
-There are a number of DFU commands that you can use to flash firmware to a STM32 device:
+* `:dfu-util`: Waits until an STM32 bootloader device is available, and then flashes the firmware.
+* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:avrdude`, but also sets the handedness setting in EEPROM. This is ideal for Proton-C-based split keyboards.
+* `:st-link-cli`: Allows you to flash the firmware via the ST-Link CLI utility, rather than dfu-util. Requires an ST-Link dongle.
+* `:st-flash`: Allows you to flash the firmware via the `st-flash` utility from [STLink Tools](https://github.com/stlink-org/stlink), rather than dfu-util. Requires an ST-Link dongle.
 
-* `:dfu-util` - The default command for flashing to STM32 devices, and will wait until an STM32 bootloader device is present.
-* `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
-* `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
-* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. 
-* `:st-flash` - This allows you to flash the firmware via the `st-flash` utility from [STLink Tools](https://github.com/stlink-org/stlink), rather than dfu-util.
+## STM32duino
+
+This bootloader is used almost exclusively for STM32F103 boards, as they do not come with a USB DFU bootloader. The source code and prebuilt binaries can be found [here](https://github.com/rogerclarkmelbourne/STM32duino-bootloader).
+
+To ensure compatibility with the STM32duino bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = stm32duino
+```
+
+Compatible flashers:
+
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `RESET` keycode
+    * If a reset circuit is present, tap the `RESET` button on the PCB
+    * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+4. Reset the device into application mode (may be done automatically)
+
+## Kiibohd DFU
+
+Keyboards produced by Input Club use NXP Kinetis microcontrollers rather than STM32, and come with their own [custom bootloader](https://github.com/kiibohd/controller/tree/master/Bootloader), however the process and protocol is largely the same.
+
+The `rules.mk` setting for this bootloader is `kiibohd`, but since this bootloader is limited to Input Club boards, it should not be necessary to set at keymap or user level.
+
+Compatible flashers:
+
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `RESET` keycode (this may only enter the MCU into a "secure" bootloader mode; see https://github.com/qmk/qmk_firmware/issues/6112)
+    * Press the `RESET` button on the PCB
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+4. Reset the device into application mode (may be done automatically)
+
+## tinyuf2
+
+Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F411 blackpill.
+
+The `rules.mk` setting for this bootloader is `tinyuf2`, and can be specified at the keymap or user level.
+
+To ensure compatibility with the tinyuf2 bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = tinyuf2
+```
+
+Compatible flashers:
+
+* Any application able to copy a file from one place to another, such as _macOS Finder_ or _Windows Explorer_.
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `RESET` keycode
+    * Double-tap the `nRST` button on the PCB.
+2. Wait for the OS to detect the device
+3. Copy the .uf2 file to the new USB disk
+4. Wait for the keyboard to become available

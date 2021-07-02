@@ -450,7 +450,7 @@ xatoi:
 	brcs	70f		;/
 	cpi	r22, 10		;if(r22 >= 10) {
 	brcs	53f		; r22 -= 7;
-	subi	r22, 7		; if(r22 < 10) 
+	subi	r22, 7		; if(r22 < 10)
 	cpi	r22, 10		;
 	brcs	70f		;}
 53:	cp	r22, r25	;if(r22 >= r25) error;
@@ -496,5 +496,3 @@ xatoi:
 	ret
 .endfunc
 #endif
-
-

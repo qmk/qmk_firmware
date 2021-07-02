@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef VISUALIZER_H
-#define VISUALIZER_H
+#pragma once
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -152,5 +152,3 @@ void user_visualizer_suspend(visualizer_state_t* state);
 void initialize_user_visualizer(visualizer_state_t* state);
 // Called when the computer resumes from a suspend
 void user_visualizer_resume(visualizer_state_t* state);
-
-#endif /* VISUALIZER_H */

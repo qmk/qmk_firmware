@@ -307,8 +307,7 @@ int main(void) {
 #endif  // CONSOLE_ENABLE
 
         // Run housekeeping
-        housekeeping_task_kb();
-        housekeeping_task_user();
+        housekeeping_task();
     }
 
     return 1;

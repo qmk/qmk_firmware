@@ -21,10 +21,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-#include "hal.h"
+#include <hal.h>
 #include "timer.h"
 #include "wait.h"
-#include "printf.h"
+#include "print.h"
 #include "matrix.h"
 #include "action.h"
 #include "keycode.h"
@@ -82,14 +82,14 @@ void mcp23018_init(void) {
     mcp23018_tx[2] = 0b00111111;  // B is inputs
 
     if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, I2C_TIMEOUT)) {
-        printf("error hori\n");
+        dprintf("error hori\n");
     } else {
         mcp23018_tx[0] = 0x0C;        // GPPUA
         mcp23018_tx[1] = 0b10000000;  // A is not pulled-up
         mcp23018_tx[2] = 0b11111111;  // B is pulled-up
 
         if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, I2C_TIMEOUT)) {
-            printf("error hori\n");
+            dprintf("error hori\n");
         } else {
             mcp23018_initd = is_launching = true;
         }
@@ -97,7 +97,7 @@ void mcp23018_init(void) {
 }
 
 void matrix_init(void) {
-    printf("matrix init\n");
+    dprintf("matrix init\n");
     // debug_matrix = true;
 
     // outputs
@@ -205,7 +205,7 @@ uint8_t matrix_scan(void) {
         mcp23018_tx[2] = ((uint8_t)!mcp23018_leds[1] << 6) | ((uint8_t)!mcp23018_leds[0] << 7);  // activate row
 
         if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, I2C_TIMEOUT)) {
-            printf("error hori\n");
+            dprintf("error hori\n");
             mcp23018_initd = false;
         }
 
@@ -213,7 +213,7 @@ uint8_t matrix_scan(void) {
 
         mcp23018_tx[0] = 0x13;  // GPIOB
         if (MSG_OK != i2c_readReg(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx[0], &mcp23018_rx[0], 1, I2C_TIMEOUT)) {
-            printf("error vert\n");
+            dprintf("error vert\n");
             mcp23018_initd = false;
         }
 
@@ -255,17 +255,17 @@ bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1 << col));
 matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
 
 void matrix_print(void) {
-    printf("\nr/c 01234567\n");
+    dprintf("\nr/c 01234567\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        printf("%X0: ", row);
+        dprintf("%X0: ", row);
         matrix_row_t data = matrix_get_row(row);
         for (int col = 0; col < MATRIX_COLS; col++) {
             if (data & (1 << col))
-                printf("1");
+                dprintf("1");
             else
-                printf("0");
+                dprintf("0");
         }
-        printf("\n");
+        dprintf("\n");
     }
 }
 

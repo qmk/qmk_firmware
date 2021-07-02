@@ -75,7 +75,7 @@ uint8_t g_led_control_registers[LED_DRIVER_COUNT][18] = {{0}, {0}, {0}};
 #elif LED_DRIVER_COUNT == 4
 uint8_t g_led_control_registers[LED_DRIVER_COUNT][18] = {{0}, {0}, {0}, {0}};
 #endif
-bool    g_led_control_registers_update_required[LED_DRIVER_COUNT] = {false};
+bool g_led_control_registers_update_required[LED_DRIVER_COUNT] = {false};
 
 // This is the bit pattern in the LED control registers
 // (for matrix A, add one to register for matrix B)
@@ -186,7 +186,7 @@ void IS31FL3731_init(uint8_t addr) {
 }
 
 void IS31FL3731_set_value(int index, uint8_t value) {
-    if (index >= 0 && index < LED_DRIVER_LED_COUNT) {
+    if (index >= 0 && index < DRIVER_LED_TOTAL) {
         is31_led led = g_is31_leds[index];
 
         // Subtract 0x24 to get the second index of g_pwm_buffer
@@ -196,7 +196,7 @@ void IS31FL3731_set_value(int index, uint8_t value) {
 }
 
 void IS31FL3731_set_value_all(uint8_t value) {
-    for (int i = 0; i < LED_DRIVER_LED_COUNT; i++) {
+    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         IS31FL3731_set_value(i, value);
     }
 }

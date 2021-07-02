@@ -1,4 +1,4 @@
-﻿# The Default Zinc Layout
+# The Default Zinc Layout
 ## layout
 
 ### Qwerty
