@@ -172,7 +172,7 @@
 #define SE_FORD A(SE_K)    // ª
 #define SE_FI   A(SE_L)    // ﬁ
 #define SE_OSTR A(SE_ODIA) // Ø
-#define SE_AE   A(SE_ADIA) // æ
+#define SE_AE   A(SE_ADIA) // Æ
 #define SE_TM   A(SE_QUOT) // ™
 // Row 4
 #define SE_LTEQ A(SE_LABK) // ≤
