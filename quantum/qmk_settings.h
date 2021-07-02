@@ -91,8 +91,18 @@ typedef struct {
     uint16_t auto_shift_timeout;
     uint16_t osk_timeout;
     uint16_t tapping_term;
+
+    uint16_t mousekey_delay;
+    uint16_t mousekey_interval;
+    uint16_t mousekey_move_delta;
+    uint16_t mousekey_max_speed;
+    uint16_t mousekey_time_to_max;
+    uint16_t mousekey_wheel_delay;
+    uint16_t mousekey_wheel_interval;
+    uint16_t mousekey_wheel_max_speed;
+    uint16_t mousekey_wheel_time_to_max;
 } qmk_settings_t;
-_Static_assert(sizeof(qmk_settings_t) == 12, "unexpected size of the qmk_settings_t structure");
+_Static_assert(sizeof(qmk_settings_t) == 30, "unexpected size of the qmk_settings_t structure");
 
 typedef void (*qmk_setting_callback_t)(void);
 
@@ -131,6 +141,9 @@ extern qmk_settings_t QS;
 #define QS_oneshot_tap_toggle (QS.osk_tap_toggle)
 #define QS_oneshot_timeout (QS.osk_timeout)
 
+/* Mouse keys */
+#define QS_mousekey_move_delta (QS.mousekey_move_delta)
+
 #else
 /* dynamic settings framework is disabled => hardcode the settings and let the compiler optimize extra branches out */
 
@@ -152,5 +165,8 @@ extern qmk_settings_t QS;
 /* One Shot Keys */
 #define QS_oneshot_tap_toggle ONESHOT_TAP_TOGGLE
 #define QS_oneshot_timeout ONESHOT_TIMEOUT
+
+/* Mouse keys */
+#define QS_mousekey_move_delta MOUSEKEY_MOVE_DELTA
 
 #endif

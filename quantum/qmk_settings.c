@@ -6,6 +6,7 @@
 #include "progmem.h"
 #include "dynamic_keymap.h"
 #include "process_auto_shift.h"
+#include "mousekey.h"
 
 qmk_settings_t QS;
 
@@ -14,6 +15,17 @@ qmk_settings_t QS;
 
 static void auto_shift_timeout_apply(void) {
     set_autoshift_timeout(QS.auto_shift_timeout);
+}
+
+static void mousekey_apply(void) {
+    mk_delay = QS.mousekey_delay / 10;
+    mk_interval = QS.mousekey_interval;
+    mk_max_speed = QS.mousekey_max_speed;
+    mk_time_to_max = QS.mousekey_time_to_max;
+    mk_wheel_delay = QS.mousekey_wheel_delay / 10;
+    mk_wheel_interval    = QS.mousekey_wheel_interval;
+    mk_wheel_max_speed   = QS.mousekey_wheel_max_speed;
+    mk_wheel_time_to_max = QS.mousekey_wheel_time_to_max;
 }
 
 static const qmk_settings_proto_t protos[] PROGMEM = {
@@ -25,6 +37,15 @@ static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING(6, osk_timeout),
    DECLARE_SETTING(7, tapping_term),
    DECLARE_SETTING(8, tap_hold),
+   DECLARE_SETTING_CB(9, mousekey_delay, mousekey_apply),
+   DECLARE_SETTING_CB(10, mousekey_interval, mousekey_apply),
+   DECLARE_SETTING_CB(11, mousekey_move_delta, mousekey_apply),
+   DECLARE_SETTING_CB(12, mousekey_max_speed, mousekey_apply),
+   DECLARE_SETTING_CB(13, mousekey_time_to_max, mousekey_apply),
+   DECLARE_SETTING_CB(14, mousekey_wheel_delay, mousekey_apply),
+   DECLARE_SETTING_CB(15, mousekey_wheel_interval, mousekey_apply),
+   DECLARE_SETTING_CB(16, mousekey_wheel_max_speed, mousekey_apply),
+   DECLARE_SETTING_CB(17, mousekey_wheel_time_to_max, mousekey_apply),
 };
 
 static const qmk_settings_proto_t *find_setting(uint16_t qsid) {
@@ -73,6 +94,16 @@ void qmk_settings_reset(void) {
     QS.osk_timeout = 5000;
     QS.tapping_term = 200;
     QS.tap_hold = 0;
+
+    QS.mousekey_delay = MOUSEKEY_DELAY;
+    QS.mousekey_interval = MOUSEKEY_INTERVAL;
+    QS.mousekey_move_delta = MOUSEKEY_MOVE_DELTA;
+    QS.mousekey_max_speed = MOUSEKEY_MAX_SPEED;
+    QS.mousekey_time_to_max = MOUSEKEY_TIME_TO_MAX;
+    QS.mousekey_wheel_delay = MOUSEKEY_WHEEL_DELAY;
+    QS.mousekey_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
+    QS.mousekey_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
+    QS.mousekey_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
     save_settings();
     /* to trigger all callbacks */
