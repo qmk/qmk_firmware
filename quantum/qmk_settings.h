@@ -127,6 +127,10 @@ extern qmk_settings_t QS;
 #define QS_auto_shift_repeat (QS.auto_shift & 32)
 #define QS_auto_shift_no_auto_repeat (QS.auto_shift & 64)
 
+/* One Shot Keys */
+#define QS_oneshot_tap_toggle (QS.osk_tap_toggle)
+#define QS_oneshot_timeout (QS.osk_timeout)
+
 #else
 /* dynamic settings framework is disabled => hardcode the settings and let the compiler optimize extra branches out */
 
@@ -144,5 +148,9 @@ extern qmk_settings_t QS;
 #define QS_auto_shift_no_auto_shift_alpha NO_AUTO_SHIFT_ALPHA_Defined
 #define QS_auto_shift_repeat AUTO_SHIFT_REPEAT_Defined
 #define QS_auto_shift_no_auto_repeat AUTO_SHIFT_NO_AUTO_REPEAT_Defined
+
+/* One Shot Keys */
+#define QS_oneshot_tap_toggle ONESHOT_TAP_TOGGLE
+#define QS_oneshot_timeout ONESHOT_TIMEOUT
 
 #endif
