@@ -34,10 +34,12 @@
 #define US_BETWEEN_REG_WRITE_DELAY 100
 #define PWM_REGISTER_COUNT 216
 
-#define SPI_CLOCK_SPEED 2000000
-#define SPI_MODE 3
-//#define SPI_DIVISOR               (F_CPU / SPI_CLOCK_SPEED)
-#define SPI_DIVISOR 4  // around 8 MHz (smooth transitions)
+#ifndef SPI_MODE
+#    define SPI_MODE 0
+#endif
+#ifndef SPI_DIVISOR
+#    define SPI_DIVISOR 4 
+#endif
 
 // These buffers match the AW20216S PWM registers 0x00-0xD7.
 uint8_t g_pwm_buffer[DRIVER_COUNT][PWM_REGISTER_COUNT];
