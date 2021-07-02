@@ -162,7 +162,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 response[3] = MATRIX_COLS;
                 response[4] = MATRIX_ROWS;
                 response[5] = GET_KEYBOARD_DETAILS_5;
-/*
                 #if defined(CONTROLLER_IS_XWHATSIT_BEAMSPRING_REV_4)
                 response[5] = 1;
                 #elif defined(CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F)
@@ -174,7 +173,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 #else
                 response[5] = 0;
                 #endif
-*/
                 response[6] = CAPSENSE_KEYBOARD_SETTLE_TIME_US;
                 response[7] = CAPSENSE_DAC_SETTLE_TIME_US;
                 response[8] = CAPSENSE_HARDCODED_SAMPLE_TIME;
