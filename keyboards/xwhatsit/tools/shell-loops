@@ -1,0 +1,33 @@
+
+
+for y in $(ls keyboards/xwhatsit/through_hole/ibm);do   make xwhatsit/through_hole/ibm/$y; done
+
+
+
+for x in ibm model_f_labs sneakyrobb; do for y in $(ls keyboards/xwhatsit/$x); do for z in universal wcass xwhatsit; do echo "make xwhatsit/$
+x/$y/$z:all"; done; done; done
+
+
+
+grep -s CONTROLLER_IS_THROUGH_HOLE */*/*/* | grep -v // | awk 'BEGIN{ FS="/"} { print $1"/"$2}'| \
+while read -r z;  do echo $z; mkdir -p through-hole/$z; mv $z/universal through-hole/$z/universal; done
+
+
+ls -l | awk '{print $9}' | \
+while read -r i; do cp ../../ibm/$i/info.json $i/info.json;\
+cp -a ../../ibm/$i/keymaps $i/keymaps; done
+
+
+grep -s CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F */*/*/* | grep -v // | awk 'BEGIN{ FS="/"} { print $1"/"$2"/"$3}'| while read -r z;  do echo $z;  mkdir -p type_f/$z; mv $z type_f/$z; done
+
+
+for i in $(ls keyboards/xwhatsit/type_f/ibm); do echo $i; make xwhatsit/type_f/ibm/$i/wcass; done
+
+for i in $(ls keyboards/xwhatsit/type_f/ibm); do echo $i; make xwhatsit/type_f/ibm/$i/xwhatsit; done
+
+
+grep -s CONTROLLER_IS_XWHATSIT_BEAMSPRING_REV_4 */*/*/* | grep -v // | awk 'BEGIN{ FS="/"} { print $1"/"$2}' | while read -r z; do echo $z; mkdir -p rev4/$z; mv $z/xwhatsit_rev4 rev4/$z/xwhatsit_rev4; done
+
+
+ for i in $(ls); do echo $i; sed -i 's/\/matrix.c/\/capsense_matrix.c/g' $i/rules.mk; done
+
