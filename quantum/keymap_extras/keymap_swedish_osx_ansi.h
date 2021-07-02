@@ -124,9 +124,9 @@
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
  * │ ≤ │ © │ @ │ £ │ $ │ ∞ │ § │ | │ [ │ ] │ ≈ │ ± │   │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │ • │ Ω │ é │ ® │ † │ µ │ ü │ ı │ œ │ π │ ˙ │ ~ │ ™ │
+ * │     │ • │ Ω │ É │ ® │ † │ µ │ Ü │ ı │ Œ │ π │ ˙ │ ~ │ ™ │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
- * │      │  │ ß │ ∂ │ ƒ │ ¸ │ ˛ │ √ │ ª │ ﬁ │ ø │ æ │      │
+ * │      │  │ ß │ ∂ │ ƒ │ ¸ │ ˛ │ √ │ ª │ ﬁ │ Ø │ Æ │      │
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴──────┤
  * │        │ ÷ │   │ ç │ ‹ │ › │ ‘ │ ’ │ ‚ │ … │ – │        │
  * ├─────┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
@@ -154,9 +154,9 @@
 #define SE_REGD A(SE_R)    // ®
 #define SE_DAGG A(SE_T)    // †
 #define SE_MICR A(SE_Y)    // µ
-#define SE_UDIA A(SE_U)    // ü
+#define SE_UDIA A(SE_U)    // Ü
 #define SE_DLSI A(SE_I)    // ı
-#define SE_OE   A(SE_O)    // œ
+#define SE_OE   A(SE_O)    // Œ
 #define SE_PI   A(SE_P)    // π
 #define SE_DOTA A(SE_ARNG) // ˙
 #define SE_TILD A(SE_DIAE) // ~ (dead)
@@ -171,8 +171,8 @@
 #define SE_SQRT A(SE_J)    // √
 #define SE_FORD A(SE_K)    // ª
 #define SE_FI   A(SE_L)    // ﬁ
-#define SE_OSTR A(SE_ODIA) // ø
-#define SE_AE   A(SE_ADIA) // æ
+#define SE_OSTR A(SE_ODIA) // Ø
+#define SE_AE   A(SE_ADIA) // Æ
 // Row 4
 #define SE_DIV  A(SE_Z)    // ÷
 #define SE_CCCE A(SE_C)    // ç
