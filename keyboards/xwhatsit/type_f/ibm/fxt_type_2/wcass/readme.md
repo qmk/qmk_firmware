@@ -1,6 +1,6 @@
-# xwhatsit/type_f/type_f/ibm/fxt_type_2/wcass
+# xwhatsit/type_f/ibm/fxt_type_2/wcass
 
-![xwhatsit/type_f/type_f/ibm/fxt_type_2/wcass](https://deskthority.net/wiki/images/8/84/IBM_XT_top.JPG)
+![xwhatsit/type_f/ibm/fxt_type_2/wcass](https://deskthority.net/wiki/images/8/84/IBM_XT_top.JPG)
 
 A short description of the keyboard/project
 
@@ -14,6 +14,6 @@ A short description of the keyboard/project
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xwhatsit/type_f/type_f/ibm/fxt_type_2/wcass:default
+    make xwhatsit/type_f/ibm/fxt_type_2/wcass:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
