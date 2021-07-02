@@ -1,7 +1,7 @@
 #!/bin/bash
 
 _qmk_install_prepare() {
-    pacman -Syu
+    pacman -Syu $MSYS2_CONFIRM
 }
 
 _qmk_install() {
@@ -9,11 +9,10 @@ _qmk_install() {
 
     pacman --needed --noconfirm --disable-download-timeout -S pactoys-git
     pacboy sync --needed --noconfirm --disable-download-timeout \
-        base-devel: toolchain:x clang:x git: unzip: \
-        python3-pip:x \
-        avr-binutils:x avr-gcc:x avr-libc:x \
-        arm-none-eabi-binutils:x arm-none-eabi-gcc:x arm-none-eabi-newlib:x \
-        avrdude:x bootloadhid:x dfu-programmer:x dfu-util:x teensy-loader-cli:x
+        base-devel: toolchain:x clang:x git: unzip: python3-pip:x \
+        avr-binutils:x avr-gcc:x avr-libc:x arm-none-eabi-binutils:x \
+        arm-none-eabi-gcc:x arm-none-eabi-newlib:x avrdude:x bootloadhid:x \
+        dfu-programmer:x dfu-util:x teensy-loader-cli:x hidapi:x
 
     _qmk_install_drivers
 

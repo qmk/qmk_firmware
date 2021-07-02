@@ -2,11 +2,9 @@
 """
 import json
 import os
-import platform
-import subprocess
-import shlex
 import shutil
 from pathlib import Path
+from subprocess import DEVNULL
 from time import strftime
 
 from milc import cli
@@ -94,7 +92,7 @@ def get_git_version(repo_dir='.', check_dir='.'):
     git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
 
     if Path(check_dir).exists():
-        git_describe = cli.run(git_describe_cmd, cwd=repo_dir)
+        git_describe = cli.run(git_describe_cmd, stdin=DEVNULL, cwd=repo_dir)
 
         if git_describe.returncode == 0:
             return git_describe.stdout.strip()
@@ -203,6 +201,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
+        f'QMK_BIN={"bin/qmk" if "DEPRECATED_BIN_QMK" in os.environ else "qmk"}',
     ])
 
     return make_command
@@ -224,20 +223,3 @@ def parse_configurator_json(configurator_file):
             user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
 
     return user_keymap
-
-
-def run(command, *args, **kwargs):
-    """Run a command with subprocess.run
-    """
-    platform_id = platform.platform().lower()
-
-    if isinstance(command, str):
-        raise TypeError('`command` must be a non-text sequence such as list or tuple.')
-
-    if 'windows' in platform_id:
-        safecmd = map(str, command)
-        safecmd = map(shlex.quote, safecmd)
-        safecmd = ' '.join(safecmd)
-        command = [os.environ.get('SHELL', '/usr/bin/bash'), '-c', safecmd]
-
-    return subprocess.run(command, *args, **kwargs)
