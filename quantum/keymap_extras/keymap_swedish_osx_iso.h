@@ -157,7 +157,7 @@
 #define SE_MICR A(SE_Y)    // µ
 #define SE_UDIA A(SE_U)    // Ü
 #define SE_DLSI A(SE_I)    // ı
-#define SE_OE   A(SE_O)    // œ
+#define SE_OE   A(SE_O)    // Œ
 #define SE_PI   A(SE_P)    // π
 #define SE_DOTA A(SE_ARNG) // ˙
 #define SE_TILD A(SE_DIAE) // ~ (dead)
