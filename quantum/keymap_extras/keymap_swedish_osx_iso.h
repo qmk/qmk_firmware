@@ -139,7 +139,7 @@
 // Row 1 
 #define SE_PILC A(SE_SECT) // ¶
 #define SE_COPY A(SE_1)    // ©
-#define SE_AT   A(SE_2)    // @
+#define SE_TM   A(SE_2)    // ™
 #define SE_PND  A(SE_3)    // £
 #define SE_DLR  A(SE_4)    // $
 #define SE_INFN A(SE_5)    // ∞
