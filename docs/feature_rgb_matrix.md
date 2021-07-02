@@ -642,15 +642,17 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 Layer indicator on all flagged keys:
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    switch(get_highest_layer(layer_state|default_layer_state)) {
-        case RAISE:
-            rgb_matrix_set_color_all(RGB_BLUE);
-            break;
-        case LOWER:
-            rgb_matrix_set_color_all(RGB_YELLOW);
-            break;
-        default:
-            break;
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case RAISE:
+                rgb_matrix_set_color(i, RGB_BLUE);
+                break;
+            case LOWER:
+                rgb_matrix_set_color(i, RGB_YELLOW);
+                break;
+            default:
+                break;
+        }
     }
 }
 ```
