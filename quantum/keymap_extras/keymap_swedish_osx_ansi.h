@@ -160,7 +160,7 @@
 #define SE_PI   A(SE_P)    // π
 #define SE_DOTA A(SE_ARNG) // ˙
 #define SE_TILD A(SE_DIAE) // ~ (dead)
-#define SE_TM   A(SE_QUOT) // ™
+#define SE_AT   A(SE_QUOT) // @
 // Row 3
 #define SE_APPL A(SE_A)    //  (Apple logo)
 #define SE_SS   A(SE_S)    // ß
