@@ -83,39 +83,3 @@ void oled_task_user(void) {
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 }
 #endif
-
-// Backlight timeout feature
-#define BACKLIGHT_TIMEOUT 20   // in minutes
-static uint16_t idle_timer = 0;
-static uint8_t halfmin_counter = 0;
-static bool led_on = true;
-static bool rgb_on = true;
-
-void matrix_scan_user(void) {
-  // idle_timer needs to be set one time
-    if (idle_timer == 0) idle_timer = timer_read();
-        if ( (led_on && timer_elapsed(idle_timer) > 30000) || (rgb_on && timer_elapsed(idle_timer) > 30000)) {
-            halfmin_counter++;
-            idle_timer = timer_read();
-        }
-
-        if ( (led_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2) || (rgb_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2)) {
-            rgblight_disable_noeeprom();
-            led_on = false;
-            rgb_on = false;
-            halfmin_counter = 0;
-        }
-};
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-            if (led_on == false || rgb_on == false ) {
-        rgblight_enable_noeeprom();
-                led_on = true;
-        rgb_on = true;
-            }
-        idle_timer = timer_read();
-        halfmin_counter = 0;
-    }
-    return true;
-}
