@@ -218,7 +218,6 @@
 #define SE_DCIR S(A(SE_I))    // ˆ
 #define SE_NARP S(A(SE_P))    // ∏
 #define SE_RNGA S(A(SE_ARNG)) // ˚
-                              // ^ (duplicate)
 // Row 3
 #define SE_LOZN S(A(SE_A))    // ◊
 #define SE_NARS S(A(SE_S))    // ∑
