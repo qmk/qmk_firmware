@@ -171,7 +171,7 @@
 #define SE_SQRT A(SE_J)    // √
 #define SE_FORD A(SE_K)    // ª
 #define SE_FI   A(SE_L)    // ﬁ
-#define SE_OSTR A(SE_ODIA) // ø
+#define SE_OSTR A(SE_ODIA) // Ø
 #define SE_AE   A(SE_ADIA) // æ
 #define SE_TM   A(SE_QUOT) // ™
 // Row 4
