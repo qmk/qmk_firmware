@@ -30,13 +30,10 @@ static void mousekey_apply(void) {
 
 static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING(1, grave_esc_override),
-   DECLARE_SETTING(2, debounce_time),
    DECLARE_SETTING(3, auto_shift),
    DECLARE_SETTING_CB(4, auto_shift_timeout, auto_shift_timeout_apply),
    DECLARE_SETTING(5, osk_tap_toggle),
    DECLARE_SETTING(6, osk_timeout),
-   DECLARE_SETTING(7, tapping_term),
-   DECLARE_SETTING(8, tap_hold),
    DECLARE_SETTING_CB(9, mousekey_delay, mousekey_apply),
    DECLARE_SETTING_CB(10, mousekey_interval, mousekey_apply),
    DECLARE_SETTING_CB(11, mousekey_move_delta, mousekey_apply),
@@ -85,15 +82,11 @@ void qmk_settings_init(void) {
 }
 
 void qmk_settings_reset(void) {
-    /* TODO: this should take values from various #define's */
     QS.grave_esc_override = 0;
-    QS.debounce_time = 5;
     QS.auto_shift = 0;
-    QS.auto_shift_timeout = 175;
+    QS.auto_shift_timeout = AUTO_SHIFT_TIMEOUT;
     QS.osk_tap_toggle = 0;
     QS.osk_timeout = 5000;
-    QS.tapping_term = 200;
-    QS.tap_hold = 0;
 
     QS.mousekey_delay = MOUSEKEY_DELAY;
     QS.mousekey_interval = MOUSEKEY_INTERVAL;
