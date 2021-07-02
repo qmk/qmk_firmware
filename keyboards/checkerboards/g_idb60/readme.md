@@ -8,7 +8,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make g_idb60:default
+    make checkerboards/g_idb60:default
 
 Enter the bootloader by shorting RESET and GND next to the spacebar switch.
 

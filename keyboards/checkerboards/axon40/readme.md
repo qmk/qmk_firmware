@@ -1,15 +1,14 @@
-Axon40
-===
+# Axon40
 
 The Axon40 PCB is a modified layout for the Neuron ortho. It's ortho but with a bottom row with larger than 1u keys. 
 
-Keyboard Maintainer: Nasp  
-Hardware Supported: Axon40  
-Hardware Availability: www.CheckerBoards.xyz
+- Keyboard Maintainer: Nasp
+- Hardware Supported: Axon40
+- Hardware Availability: www.CheckerBoards.xyz
 
 Make example for this keyboard (after setting up your build environment):
 
-    make axon40:default
+    make checkerboards/axon40:default
 
 Enter the bootloader by shorting GND and RESET between switches 37 and 38.
 
