@@ -155,7 +155,7 @@
 #define SE_REGD A(SE_R)    // ®
 #define SE_DAGG A(SE_T)    // †
 #define SE_MICR A(SE_Y)    // µ
-#define SE_UDIA A(SE_U)    // ü
+#define SE_UDIA A(SE_U)    // Ü
 #define SE_DLSI A(SE_I)    // ı
 #define SE_OE   A(SE_O)    // œ
 #define SE_PI   A(SE_P)    // π
