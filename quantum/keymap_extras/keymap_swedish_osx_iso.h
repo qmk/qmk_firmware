@@ -177,7 +177,7 @@
 // Row 4
 #define SE_LTEQ A(SE_LABK) // ≤
 #define SE_DIV  A(SE_Z)    // ÷
-#define SE_CCCE A(SE_C)    // ç
+#define SE_CCED A(SE_C)    // Ç
 #define SE_LSAQ A(SE_V)    // ‹
 #define SE_RSAQ A(SE_B)    // ›
 #define SE_LSQU A(SE_N)    // ‘
