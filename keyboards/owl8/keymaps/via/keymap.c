@@ -51,32 +51,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    keypos_t key;
-
-    if (index == 0) {
+    if (index == 0) { /* First encoder */
         if (clockwise) {
-            key.row = 3;
-            key.col = 1;
+            tap_code(KC_PGDN);
         } else {
-            key.row = 3;
-            key.col = 0;
+            tap_code(KC_PGUP);
         }
-        uint8_t  layer   = layer_switch_get_layer(key);
-        uint16_t keycode = keymap_key_to_keycode(layer, key);
-
-        tap_code16(keycode);
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            key.row = 3;
-            key.col = 3;
+            tap_code(KC_DOWN);
         } else {
-            key.row = 3;
-            key.col = 2;
+            tap_code(KC_UP);
         }
-        uint8_t  layer   = layer_switch_get_layer(key);
-        uint16_t keycode = keymap_key_to_keycode(layer, key);
-
-        tap_code16(keycode);
     }
     return true;
 }
