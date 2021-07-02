@@ -58,3 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 5
 #define BACKLIGHT_BREATHING
+
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_COLUMN 13
