@@ -113,6 +113,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { D3 }
 #define ENCODERS_PAD_B { D2 } 
 #define ENCODER_RESOLUTION 2
+
+#define ENCODERS 1
+#define ENCODERS_CW_KEY  { { 4, 5 } }
+#define ENCODERS_CCW_KEY { { 4, 3 } }
 #endif
 
 //#define LED_NUM_LOCK_PIN B0

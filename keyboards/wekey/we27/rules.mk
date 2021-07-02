@@ -26,3 +26,5 @@ RGB_MATRIX_DRIVER = WS2812
 
 DEBOUNCE_TYPE	  = sym_defer_pk
 RGB_MATRIX_CUSTOM_KB = yes
+
+SRC += encoder_actions.c

@@ -41,30 +41,3 @@ led_config_t g_led_config = { {
     1, 4,    4
 } };
 
-#define NUMBER_OF_ENCODERS 1
-#define ENCODER_KEYMAP_CLOCKWISE { {5, 4} }
-#define ENCODER_KEYMAP_COUNTERCLOCKWISE { {3, 4} }
-
-const uint8_t encoder_km_clockwise[NUMBER_OF_ENCODERS][2] = ENCODER_KEYMAP_CLOCKWISE;
-const uint8_t encoder_km_counterclockwise[NUMBER_OF_ENCODERS][2] = ENCODER_KEYMAP_COUNTERCLOCKWISE;
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
-    extern layer_state_t layer_state;
-    if (index == 0) {
-        keypos_t key;
-        uint16_t keycode;
-        if (clockwise) {
-            key.row = encoder_km_clockwise[index][0];
-            key.col = encoder_km_clockwise[index][1];
-        } else {
-            key.row = encoder_km_counterclockwise[index][0];
-            key.col = encoder_km_counterclockwise[index][1];
-        }
-        keycode = keymap_key_to_keycode(get_highest_layer(layer_state), key);
-        if (keycode != 0) {
-            tap_code16(keycode);
-        }
-    }
-    return true;
-}
