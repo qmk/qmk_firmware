@@ -21,11 +21,11 @@ void set_target_os(bool layer)
 {
 	if(layer)
 	{
-		layer_off(2);
+		default_layer_set(1UL << 0);
 	}
 	else
 	{
-		layer_on(2);
+		default_layer_set(1UL << 2);
 	}
 }
 
