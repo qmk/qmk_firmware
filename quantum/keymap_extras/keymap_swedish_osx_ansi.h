@@ -204,6 +204,7 @@
 #define SE_YEN  S(A(SE_3))    // ¥
 #define SE_CENT S(A(SE_4))    // ¢
 #define SE_PERM S(A(SE_5))    // ‰
+#define SE_PILC S(A(SE_6))    // ¶
 #define SE_BSLS S(A(SE_7))    // (backslash)
 #define SE_LCBR S(A(SE_8))    // {
 #define SE_RCBR S(A(SE_9))    // }
