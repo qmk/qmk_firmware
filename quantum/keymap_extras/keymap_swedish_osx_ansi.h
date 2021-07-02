@@ -150,7 +150,7 @@
 // Row 2
 #define SE_BULT A(SE_Q)    // •
 #define SE_OMEG A(SE_W)    // Ω
-#define SE_EACU A(SE_E)    // é
+#define SE_EACU A(SE_E)    // É
 #define SE_REGD A(SE_R)    // ®
 #define SE_DAGG A(SE_T)    // †
 #define SE_MICR A(SE_Y)    // µ
