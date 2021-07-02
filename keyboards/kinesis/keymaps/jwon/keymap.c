@@ -101,3 +101,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, KC_P0
     )
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _KEYPAD:
+        writePinLow(LED_COMPOSE_PIN);
+        break;
+    case _RAISE:
+        writePinLow(LED_CAPS_LOCK_PIN);
+        break;
+    default: //  for any other layers, or the default layer
+        writePinHigh(LED_NUM_LOCK_PIN);
+        writePinHigh(LED_CAPS_LOCK_PIN);
+        writePinHigh(LED_SCROLL_LOCK_PIN);
+        writePinHigh(LED_COMPOSE_PIN);
+        break;
+    }
+  return state;
+}
+
+bool led_update_user(led_t led_state) {
+    // Disable led_update_kb() so that layer indication code doesn't get overridden.
+    return false;
+}
