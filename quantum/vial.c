@@ -355,10 +355,7 @@ static void on_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
             if (td_entry.on_tap_hold) {
                 register_code16(td_entry.on_tap_hold);
             } else {
-                if (td_entry.on_double_tap) {
-                    tap_code16(td_entry.on_double_tap);
-                    register_code16(td_entry.on_double_tap);
-                } else if (td_entry.on_tap) {
+                if (td_entry.on_tap) {
                     tap_code16(td_entry.on_tap);
                     if (td_entry.on_hold)
                         register_code16(td_entry.on_hold);
@@ -409,9 +406,7 @@ static void on_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
             if (td_entry.on_tap_hold) {
                 unregister_code16(td_entry.on_tap_hold);
             } else {
-                if (td_entry.on_double_tap) {
-                    unregister_code16(td_entry.on_double_tap);
-                } else if (td_entry.on_tap) {
+                if (td_entry.on_tap) {
                     if (td_entry.on_hold)
                         unregister_code16(td_entry.on_hold);
                     else
