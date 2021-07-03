@@ -346,7 +346,7 @@ static void on_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
             if (td_entry.on_double_tap) {
                 register_code16(td_entry.on_double_tap);
             } else if (td_entry.on_tap) {
-                register_code16(td_entry.on_tap);
+                tap_code16(td_entry.on_tap);
                 register_code16(td_entry.on_tap);
             }
             break;
@@ -355,7 +355,10 @@ static void on_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
             if (td_entry.on_tap_hold) {
                 register_code16(td_entry.on_tap_hold);
             } else {
-                if (td_entry.on_tap) {
+                if (td_entry.on_double_tap) {
+                    tap_code16(td_entry.on_double_tap);
+                    register_code16(td_entry.on_double_tap);
+                } else if (td_entry.on_tap) {
                     tap_code16(td_entry.on_tap);
                     if (td_entry.on_hold)
                         register_code16(td_entry.on_hold);
@@ -381,7 +384,6 @@ static void on_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
     uint8_t index = (uintptr_t)user_data;
     if (dynamic_keymap_get_tap_dance(index, &td_entry) != 0)
         return;
-    wait_ms(10);
     switch (dance_state[index]) {
         case SINGLE_TAP: {
             if (td_entry.on_tap)
@@ -400,7 +402,6 @@ static void on_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
                 unregister_code16(td_entry.on_double_tap);
             } else if (td_entry.on_tap) {
                 unregister_code16(td_entry.on_tap);
-                unregister_code16(td_entry.on_tap);
             }
             break;
         }
@@ -408,7 +409,9 @@ static void on_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
             if (td_entry.on_tap_hold) {
                 unregister_code16(td_entry.on_tap_hold);
             } else {
-                if (td_entry.on_tap) {
+                if (td_entry.on_double_tap) {
+                    unregister_code16(td_entry.on_double_tap);
+                } else if (td_entry.on_tap) {
                     if (td_entry.on_hold)
                         unregister_code16(td_entry.on_hold);
                     else
