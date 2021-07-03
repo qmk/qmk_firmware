@@ -20,8 +20,13 @@
 #    define STM32F303xC
 #    include "stm32f3xx.h"
 #elif defined(EEPROM_EMU_STM32F103xB)
-#    define STM32F103xB
-#    include "stm32f1xx.h"
+#    if defined(STM32F1)
+#        define STM32F103xB
+#        include "stm32f1xx.h"
+#    else
+#        include "gd32vf103.h" /* GigaDevice GD32VF103 is a STM32F103 clone at heart. */
+#        include "gd32_compatibility.h"
+#    endif
 #elif defined(EEPROM_EMU_STM32F072xB)
 #    define STM32F072xB
 #    include "stm32f0xx.h"
