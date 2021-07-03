@@ -33,7 +33,6 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 PS2_MOUSE_ENABLE = yes
 PS2_USE_INT = yes
-API_SYSEX_ENABLE = no
 CUSTOM_MATRIX = yes
 BLUETOOTH = AdafruitBLE
 

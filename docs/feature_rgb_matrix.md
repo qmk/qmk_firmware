@@ -228,6 +228,75 @@ Configure the hardware via your `config.h`:
 ```
 
 ---
+### AW20216 :id=aw20216
+There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = AW20216
+```
+
+You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
+| `DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
+| `DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
+| `DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
+| `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
+| `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
+| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+| `AW_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
+| `AW_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
+| `AW_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
+
+Here is an example using 2 drivers.
+
+```c
+#define DRIVER_1_CS B13
+#define DRIVER_2_CS B14
+// Hardware enable lines may be connected to the same pin
+#define DRIVER_1_EN C13
+#define DRIVER_2_EN C13
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 66
+#define DRIVER_2_LED_TOTAL 32
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+```
+
+!> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+```c
+const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
+/* Each AW20216 channel is controlled by a register at some offset between 0x00
+ * and 0xD7 inclusive.
+ * See drivers/awinic/aw20216.h for the mapping between register offsets and
+ * driver pin locations.
+ *    driver
+ *    |  R location
+ *    |  |        G location
+ *    |  |        |        B location
+ *    |  |        |        | */
+    { 0, CS1_SW1, CS2_SW1, CS3_SW1 },
+    { 0, CS4_SW1, CS5_SW1, CS6_SW1 },
+    { 0, CS7_SW1, CS8_SW1, CS9_SW1 },
+    { 0, CS10_SW1, CS11_SW1, CS12_SW1 },
+    { 0, CS13_SW1, CS14_SW1, CS15_SW1 },
+    ...
+    { 1, CS1_SW1, CS2_SW1, CS3_SW1 },
+    { 1, CS13_SW1, CS14_SW1, CS15_SW1 },
+    { 1, CS16_SW1, CS17_SW1, CS18_SW1 },
+    { 1, CS4_SW2, CS5_SW2, CS6_SW2 },
+    ...
+};
+```
+
+---
 
 ## Common Configuration :id=common-configuration
 
@@ -485,28 +554,29 @@ For inspiration and examples, check out the built-in effects under `quantum/rgb_
 
 These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
 
-|RGB                |HSV                |
-|-------------------|-------------------|
-|`RGB_WHITE`        |`HSV_WHITE`        |
-|`RGB_RED`          |`HSV_RED`          |
-|`RGB_CORAL`        |`HSV_CORAL`        |
-|`RGB_ORANGE`       |`HSV_ORANGE`       |
-|`RGB_GOLDENROD`    |`HSV_GOLDENROD`    |
-|`RGB_GOLD`         |`HSV_GOLD`         |
-|`RGB_YELLOW`       |`HSV_YELLOW`       |
-|`RGB_CHARTREUSE`   |`HSV_CHARTREUSE`   |
-|`RGB_GREEN`        |`HSV_GREEN`        |
-|`RGB_SPRINGGREEN`  |`HSV_SPRINGGREEN`  |
-|`RGB_TURQUOISE`    |`HSV_TURQUOISE`    |
-|`RGB_TEAL`         |`HSV_TEAL`         |
-|`RGB_CYAN`         |`HSV_CYAN`         |
-|`RGB_AZURE`        |`HSV_AZURE`        |
-|`RGB_BLUE`         |`HSV_BLUE`         |
-|`RGB_PURPLE`       |`HSV_PURPLE`       |
-|`RGB_MAGENTA`      |`HSV_MAGENTA`      |
-|`RGB_PINK`         |`HSV_PINK`         |
+|RGB                  |HSV                  |
+|---------------------|---------------------|
+|`RGB_AZURE`          |`HSV_AZURE`          |
+|`RGB_BLACK`/`RGB_OFF`|`HSV_BLACK`/`HSV_OFF`|
+|`RGB_BLUE`           |`HSV_BLUE`           |
+|`RGB_CHARTREUSE`     |`HSV_CHARTREUSE`     |
+|`RGB_CORAL`          |`HSV_CORAL`          |
+|`RGB_CYAN`           |`HSV_CYAN`           |
+|`RGB_GOLD`           |`HSV_GOLD`           |
+|`RGB_GOLDENROD`      |`HSV_GOLDENROD`      |
+|`RGB_GREEN`          |`HSV_GREEN`          |
+|`RGB_MAGENTA`        |`HSV_MAGENTA`        |
+|`RGB_ORANGE`         |`HSV_ORANGE`         |
+|`RGB_PINK`           |`HSV_PINK`           |
+|`RGB_PURPLE`         |`HSV_PURPLE`         |
+|`RGB_RED`            |`HSV_RED`            |
+|`RGB_SPRINGGREEN`    |`HSV_SPRINGGREEN`    |
+|`RGB_TEAL`           |`HSV_TEAL`           |
+|`RGB_TURQUOISE`      |`HSV_TURQUOISE`      |
+|`RGB_WHITE`          |`HSV_WHITE`          |
+|`RGB_YELLOW`         |`HSV_YELLOW`         |
 
-These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
+These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h). Feel free to add to this list!
 
 
 ## Additional `config.h` Options :id=additional-configh-options
@@ -621,6 +691,39 @@ In addition, there are the advanced indicator functions.  These are aimed at tho
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
+}
+```
+
+### Indicator Examples :id=indicator-examples
+
+Caps Lock indicator on alphanumeric flagged keys:
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
+                rgb_matrix_set_color(i, RGB_RED);
+            }
+        }
+    }
+}
+```
+
+Layer indicator on all flagged keys:
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case RAISE:
+                rgb_matrix_set_color(i, RGB_BLUE);
+                break;
+            case LOWER:
+                rgb_matrix_set_color(i, RGB_YELLOW);
+                break;
+            default:
+                break;
+        }
+    }
 }
 ```
 

@@ -37,7 +37,6 @@ MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output on port C6
 BLUETOOTH = AdafruitBLE
-LAYOUTS = pad
 RGBLIGHT_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
 ENCODER_ENABLE = yes

@@ -86,17 +86,18 @@ OTHER_OPTION_NAMES = \
   LTO_ENABLE
 
 define NAME_ECHO
-	@echo "  $1 = $($1)		# $(origin $1)"
+       @printf "  %-30s = %-16s # %s\\n" "$1" "$($1)" "$(origin $1)"
 
 endef
 
 .PHONY: show_build_options0 show_build_options
 show_build_options0:
-	@echo " KEYBOARD = $(KEYBOARD)"
-	@echo " KEYMAP   = $(KEYMAP)"
-	@echo " MCU      = $(MCU)"
-	@echo " MCU_SERIES = $(MCU_SERIES)"
-	@echo " PLATFORM = $(PLATFORM)"
+	@echo " KEYBOARD        = $(KEYBOARD)"
+	@echo " KEYMAP          = $(KEYMAP)"
+	@echo " MCU             = $(MCU)"
+	@echo " MCU_SERIES      = $(MCU_SERIES)"
+	@echo " PLATFORM        = $(PLATFORM)"
+	@echo " BOOTLOADER      = $(BOOTLOADER)"
 	@echo " FIRMWARE_FORMAT = $(FIRMWARE_FORMAT)"
 	@echo
 	@echo "Build Options:"
