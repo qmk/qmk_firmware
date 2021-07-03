@@ -16,9 +16,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-inline void cx60_caps_led_on(void)    { DDRB |= (1 << 5); PORTB &= ~(1 << 5); }
-inline void cx60_caps_led_off(void)   { DDRB &= ~(1 << 5); PORTB &= ~(1 << 5); }
-
 /* CX60 Keymap Definition Macro */
 #define LAYOUT_all( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
