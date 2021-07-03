@@ -14,9 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
 #include QMK_KEYBOARD_H
-char wpm_str[10];
+char wpm_str[4];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
@@ -150,8 +149,13 @@ void oled_task_user(void) {
     render_anim();  // renders pixelart
 
     oled_set_cursor(0, 0);                            // sets cursor to (row, column) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
-    sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // edit the string to change wwhat shows up, edit %03d to change how many digits show up
-    oled_write(wpm_str, false);                       // writes wpm on top left corner of string
+    uint8_t n = get_current_wpm();
+    wpm_str[3] = '\0';
+    wpm_str[2] = '0' + n % 10;
+    wpm_str[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_str[0] = n / 10 ? '0' + n / 10 : ' ';
+    oled_write_P(PSTR("WPM: "), false);
+    oled_write(wpm_str, false);
 
     led_t led_state = host_keyboard_led_state();  // caps lock stuff, prints CAPS on new line if caps led is on
     oled_set_cursor(0, 1);
