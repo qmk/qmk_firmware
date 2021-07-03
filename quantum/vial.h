@@ -54,8 +54,9 @@ enum {
     dynamic_vial_tap_dance_set = 0x02,
 };
 
-/* Fake encoder position in keyboard matrix, can't use 255 as that is immediately rejected by IS_NOEVENT  */
-#define VIAL_ENCODER_MATRIX_MAGIC 254
+/* Fake position in keyboard matrix, can't use 255 as that is immediately rejected by IS_NOEVENT
+   used to send arbitrary keycodes thru process_record_quantum_helper */
+#define VIAL_MATRIX_MAGIC 254
 
 #ifdef TAP_DANCE_ENABLE
 

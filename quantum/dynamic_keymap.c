@@ -341,9 +341,7 @@ void dynamic_keymap_set_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
     }
 }
 
-#ifdef VIAL_ENCODERS_ENABLE
 extern uint16_t g_vial_magic_keycode_override;
-#endif
 
 // This overrides the one in quantum/keymap_common.c
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
@@ -351,10 +349,8 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
     /* Disable any keycode processing while unlocking */
     if (vial_unlock_in_progress)
         return KC_NO;
-#endif
 
-#ifdef VIAL_ENCODERS_ENABLE
-    if (key.row == VIAL_ENCODER_MATRIX_MAGIC && key.col == VIAL_ENCODER_MATRIX_MAGIC)
+    if (key.row == VIAL_MATRIX_MAGIC && key.col == VIAL_MATRIX_MAGIC)
         return g_vial_magic_keycode_override;
 #endif
 
