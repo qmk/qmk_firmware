@@ -14,8 +14,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "tronguylabs.h"
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// This is here because we actually do some things on various key actions
-	return process_record_user(keycode, record);
-}
