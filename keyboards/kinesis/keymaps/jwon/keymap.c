@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "keymap_dvp.h"
 
 enum layer_names {
     _BASE_DVORAK,
@@ -8,16 +7,17 @@ enum layer_names {
 };
 
 // Mac-specific macros
-#define MACCOPY LGUI(DP_C)
-#define MACPAST LGUI(DP_V)
-#define MACUNDO LGUI(DP_Z)
-#define MACREDO LGUI(DP_Y)
-#define MACLOCK LGUI(LCTL(DP_Q))
+#define MACCOPY LGUI(KC_C)
+#define MACPAST LGUI(KC_V)
+#define MACUNDO LGUI(KC_Z)
+#define MACREDO LGUI(KC_Y)
+#define MACLOCK LGUI(LCTL(KC_Q))
 
 #define LSA_ LSA(KC_NO)
 #define SFT_ESC SFT_T(KC_ESC)
+#define S_TRNS S(KC_TRNS)
 #define KEYPAD TG(_KEYPAD)
-#define RAISE LM(_RAISE, MOD_LSFT)
+#define RAISE MO(_RAISE)
 
 // clang-format off
 
@@ -26,11 +26,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE_DVORAK] = LAYOUT (
            // Left Hand
            MACLOCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,
-           DP_DLR,  DP_PLUS, DP_LBRC, DP_LCBR, DP_LPRN, DP_AMPR,
-           KC_TAB,  DP_SCLN, DP_COMM, DP_DOT,  DP_P,    DP_Y,
-           SFT_ESC, DP_A,    DP_O,    DP_E,    DP_U,    DP_I,
-           KC_LCTL, DP_QUOT, DP_Q,    DP_J,    DP_K,    DP_X,
-                    DP_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
+           KC_PIPE, KC_PLUS, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,
+           KC_TAB,  KC_SCLN, KC_COMM, KC_DOT,  KC_P,    KC_Y,
+           SFT_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,
+           KC_LCTL, KC_QUOT, KC_Q,    KC_J,    KC_K,    KC_X,
+                    KC_DLR,  KC_BSLS, KC_LEFT, KC_RGHT,
            // Left Thumb
                     KC_LGUI, KC_LALT,
                              MACPAST,
@@ -38,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
            // Right Hand
            KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, KEYPAD,  RESET,
-           DP_EQL,  DP_RPRN, DP_RCBR, DP_RBRC, DP_ASTR, DP_EXLM,
-           DP_F,    DP_G,    DP_C,    DP_R,    DP_L,    DP_SLSH,
-           DP_D,    DP_H,    DP_T,    DP_N,    DP_S,    DP_MINS,
-           DP_B,    DP_M,    DP_W,    DP_V,    DP_Z,    KC_RSFT,
-                    KC_DOWN, KC_UP,   DP_AT,   DP_BSLS,
+           KC_EQL,  KC_RPRN, KC_RCBR, KC_RBRC, KC_ASTR, KC_EXLM,
+           KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS,
+           KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
+           KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
+                    KC_DOWN, KC_UP,   KC_SLSH, KC_AT,
            // Right Thumb
            KEYPAD,  LSA_,
            MACUNDO,
@@ -52,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT (
            // Left Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
-           DP_TILD, DP_1,    DP_2,    DP_3,    DP_4,    DP_5,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-                    DP_PIPE, _______, _______, _______,
+           KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+           _______, S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,
+           _______, S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,
+           _______, S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,
+                    KC_TILD, S_TRNS,  _______, _______,
            // Left Thumb
                     _______, _______,
                              _______,
@@ -64,11 +64,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
            // Right Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
-           DP_6,    DP_7,    DP_8,    DP_9,    DP_0,    DP_PERC,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-                    _______, _______, DP_CIRC, DP_HASH,
+           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_PERC,
+           S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  KC_HASH,
+           S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,
+           S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  _______,
+                    _______, _______, S_TRNS,  KC_CIRC,
            // Right Thumb
            _______, _______,
            _______,
