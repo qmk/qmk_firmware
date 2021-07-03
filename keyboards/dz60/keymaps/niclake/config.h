@@ -1,5 +1,4 @@
-/* Copyright 2020 rate
- *
+/*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -16,10 +15,4 @@
 
 #pragma once
 
-#include "quantum.h"
-
-#if defined(KEYBOARD_pistachio_rev1)
-#    include "rev1.h"
-#elif defined(KEYBOARD_pistachio_rev2)
-#    include "rev2.h"
-#endif
+#define TAPPING_TOGGLE 2
