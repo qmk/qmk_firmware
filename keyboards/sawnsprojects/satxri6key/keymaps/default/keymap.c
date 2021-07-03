@@ -21,28 +21,14 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         
-        KC_P4,  KC_P5,  KC_P6,
-        KC_P1,  KC_P2,  KC_P3      ),
+        KC_ESC,  KC_GRV,  TO(1),
+        KC_Z,  KC_X,  KC_C      ),
 
     [1] = LAYOUT(
         
-        KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, TO(0),
         KC_TRNS, KC_TRNS, KC_TRNS      ),
 
 
 };
 
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = { {
-  //Key Matrix to LED Index
-  {0,         1,         2},
-  {5,         4,         3}
-}, {
-  //LED Index to Physical Positon
-  {0,0},       {112,  0},   {224,  0},
-  {0,224},     {112,224},   {224,224},
-}, {
-  1,          1,          1,          
-  1,          1,          1,          
-} };
-#endif

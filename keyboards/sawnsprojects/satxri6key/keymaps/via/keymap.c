@@ -21,13 +21,22 @@ char wpm_str[10];
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         
-        KC_P4,  KC_P5,  KC_P6,
-        KC_P1,  KC_P2,  KC_P3      ),
+        KC_ESC,  KC_GRV,  TO(1),
+        KC_Z,  KC_X,  KC_C      ),
 
     [1] = LAYOUT(
         
+        KC_TRNS, KC_TRNS, TO(0),
+        KC_TRNS, KC_TRNS, KC_TRNS      ),
+    [2] = LAYOUT(
+        
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS      ),
+    [3] = LAYOUT(
+        
+        KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS      ),
+    
 
 
 };

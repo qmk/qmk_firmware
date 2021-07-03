@@ -15,4 +15,17 @@
  */
 
 #include "satxri6key.h"
-
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = { {
+  //Key Matrix to LED Index
+  {0,         1,         2},
+  {5,         4,         3}
+}, {
+  //LED Index to Physical Positon
+  {0,0},       {112,  0},   {224,  0},
+  {0,224},     {112,224},   {224,224},
+}, {
+  1,          1,          1,          
+  1,          1,          1,          
+} };
+#endif
