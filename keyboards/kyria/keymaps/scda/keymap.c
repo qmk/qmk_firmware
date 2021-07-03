@@ -12,8 +12,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_HOME, KC_BSPC, LT(1,KC_TAB), LT(2,KC_SPC), LT(3,KC_ENT),                             LT(3,KC_ENT), LT(2,KC_SPC), LT(1,KC_TAB), KC_DEL, KC_END),
         // LT(_LAYER_NAME, KC_XY) will break the json import in the configurator, so use numbers
     [_SYMBOLS] = LAYOUT(
+        // no home-row mods on this layer, will destroy some shifted keycodes
         KC_TRNS, DE_AT, DE_PERC, DE_LCBR, DE_RCBR, DE_PIPE,                                     DE_EXLM, KC_GRV, S(KC_GRV), DE_EQL, DE_AMPR, KC_TRNS,
-        KC_TRNS, CTL_T(KC_NUBS), ALT_T(DE_TILD), GUI_T(DE_LPRN), SFT_T(DE_RPRN), DE_ASTR,       DE_QUES, SFT_T(DE_SLSH), GUI_T(DE_COLN), ALT_T(DE_MINS), CTL_T(DE_UNDS), KC_NO,
+        KC_TRNS, KC_NUBS, DE_TILD, DE_LPRN, DE_RPRN, DE_ASTR,                                   DE_QUES, DE_SLSH, DE_COLN, DE_MINS, DE_UNDS, KC_NO,
         KC_TRNS, DE_EURO, DE_DLR, DE_LBRC, DE_RBRC, DE_HASH, KC_NO, KC_NO,                      KC_NO, KC_NO, DE_GRV, DE_BSLS, DE_SCLN, DE_PLUS, DE_DQUO, DE_QUOT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [_NUMBERS] = LAYOUT(
