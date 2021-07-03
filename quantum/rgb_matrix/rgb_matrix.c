@@ -387,10 +387,12 @@ static void rgb_task_render(uint8_t effect) {
     // next task
     if (!rendering) {
         rgb_task_state = FLUSHING;
+#ifndef RGBMATRIX_INDICATORS_OVERRIDE_RGB_OFF
         if (!rgb_effect_params.init && effect == RGB_MATRIX_NONE) {
             // We only need to flush once if we are RGB_MATRIX_NONE
             rgb_task_state = SYNCING;
         }
+#endif
     }
 }
 
@@ -425,7 +427,10 @@ void rgb_matrix_task(void) {
             break;
         case RENDERING:
             rgb_task_render(effect);
-            if (effect) {
+#ifndef RGBMATRIX_INDICATORS_OVERRIDE_RGB_OFF
+            if (effect)
+#endif
+            {
                 rgb_matrix_indicators();
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }
