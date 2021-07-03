@@ -117,7 +117,7 @@ layer_state_t layer_state_set_kb(layer_state_t state);
 
 #    define layer_state_set(layer)
 #    define layer_state_is(layer) (layer == 0)
-#    define layer_state_cmp(state, layer) (state == 0 ? layer == 0 : (state & 1UL << layer) != 0)
+#    define layer_state_cmp(state, layer) (state == 0 ? layer == 0 : (state & (layer_state_t)1 << layer) != 0)
 
 #    define layer_debug()
 #    define layer_clear()

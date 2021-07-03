@@ -340,13 +340,13 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
 #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
     PLAY_SONG(default_layer_songs[default_layer]);
 #endif
-    eeconfig_update_default_layer(1U << default_layer);
-    default_layer_set(1U << default_layer);
+    eeconfig_update_default_layer((layer_state_t)1 << default_layer);
+    default_layer_set((layer_state_t)1 << default_layer);
 }
 
 layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-    layer_state_t mask12 = (1UL << layer1) | (1UL << layer2);
-    layer_state_t mask3  = 1UL << layer3;
+    layer_state_t mask12 = ((layer_state_t)1 << layer1) | ((layer_state_t)1 << layer2);
+    layer_state_t mask3  = (layer_state_t)1 << layer3;
     return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
 }
 
