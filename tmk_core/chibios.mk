@@ -296,23 +296,44 @@ endif
 #
 #
 
-# Shared settings for all toolchains
+# Shared Compiler flags for all toolchains
 COMPILEFLAGS += -fomit-frame-pointer
 COMPILEFLAGS += -ffunction-sections
 COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fno-common
 COMPILEFLAGS += -fshort-wchar
 
-ifeq ($(strip $(MCU)), risc-v)
-# RISC-V toolchain
-    TRGT = riscv32-unknown-elf-
+# Shared Linker flags for all toolchains
+LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
+LDFLAGS +=-Wl,--gc-sections
 
-    COMPILEFLAGS += -mstrict-align 
-    LDFLAGS += -nostartfiles -mstrict-align 
-    MCUFLAGS = -march=$(MCU_ARCH) -mabi=$(MCU_ABI) -mcmodel=$(MCU_CMODEL)
+# Define stack size of main thread
+LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
+LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
+
+# RISC-V toolchain specific configuration
+ifeq ($(strip $(MCU)), risc-v)
+    ifeq ($(strip $(TOOLCHAIN)),)
+        ifneq ($(shell which riscv32-unknown-elf-gcc 2>/dev/null),)
+            TOOLCHAIN ?= riscv32-unknown-elf-
+        else
+            ifneq ($(shell which riscv64-unknown-elf-gcc 2>/dev/null),)
+                TOOLCHAIN ?= riscv64-unknown-elf-
+            else
+                $(error "No RISC-V toolchain found. Can't find riscv32-unknown-elf-gcc or riscv64-unknown-elf-gcc found in your systems PATH variable. Please install a valid toolchain and make it accessible!")
+            endif
+        endif
+    endif
+
+    COMPILEFLAGS += -mstrict-align    
+    LDFLAGS      += -nostartfiles -mstrict-align
+
+    MCUFLAGS     += -march=$(MCU_ARCH)
+    MCUFLAGS     += -mabi=$(MCU_ABI)
+    MCUFLAGS     += -mcmodel=$(MCU_CMODEL)
 else
-# ARM toolchain
-    TRGT = arm-none-eabi-
+# ARM toolchain specific configuration
+    TOOLCHAIN ?= arm-none-eabi-
 
     THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
@@ -320,49 +341,43 @@ else
     COMPILEFLAGS += $(THUMBFLAGS)
 
     LDFLAGS += -mno-thumb-interwork -mthumb
-    LDFLAGS +=-Wl,--no-wchar-size-warning
+    LDFLAGS += -Wl,--no-wchar-size-warning
     LDFLAGS += --specs=nano.specs
     ASFLAGS += $(THUMBFLAGS)
 
     MCUFLAGS = -mcpu=$(MCU)
 
-    # FPU options default (Cortex-M4 and Cortex-M7 single precision).
-    USE_FPU_OPT ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant
-
     # FPU-related options
     USE_FPU ?= no
     ifneq ($(USE_FPU),no)
-    COMPILEFLAGS += $(USE_FPU_OPT)
-    OPT_DEFS += -DCORTEX_USE_FPU=TRUE
+        # FPU options default (Cortex-M4 and Cortex-M7 single precision).
+        USE_FPU_OPT ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant
+        COMPILEFLAGS += $(USE_FPU_OPT)
+        OPT_DEFS += -DCORTEX_USE_FPU=TRUE
     else
-    OPT_DEFS += -DCORTEX_USE_FPU=FALSE
+        OPT_DEFS += -DCORTEX_USE_FPU=FALSE
     endif
-
 endif
 
-CC = $(TRGT)gcc
-OBJCOPY = $(TRGT)objcopy
-OBJDUMP = $(TRGT)objdump
-SIZE = $(TRGT)size
-AR = $(TRGT)ar
-NM = $(TRGT)nm
-HEX = $(OBJCOPY) -O $(FORMAT)
-EEP =
-BIN = $(OBJCOPY) -O binary
+# GCC Toolchain 
+CC      = $(TOOLCHAIN)gcc
+OBJCOPY = $(TOOLCHAIN)objcopy
+OBJDUMP = $(TOOLCHAIN)objdump
+SIZE    = $(TOOLCHAIN)size
+AR      = $(TOOLCHAIN)ar
+NM      = $(TOOLCHAIN)nm
+HEX     = $(OBJCOPY) -O $(FORMAT)
+EEP     =
+BIN     = $(OBJCOPY) -O binary
 
 COMMON_VPATH += $(DRIVER_PATH)/chibios
 
+# C Compiler flags
 CFLAGS += $(COMPILEFLAGS)
 
-ASFLAGS += $(THUMBFLAGS)
-
+# C++ Compiler flags
 CXXFLAGS += $(COMPILEFLAGS)
 CXXFLAGS += -fno-rtti
-
-LDFLAGS +=-Wl,--gc-sections
-LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
-LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
-LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
