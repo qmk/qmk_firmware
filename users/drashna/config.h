@@ -169,7 +169,7 @@
 #undef PERMISSIVE_HOLD
 //#define TAPPING_FORCE_HOLD_PER_KEY
 //#define RETRO_TAPPING_PER_KEY
-#ifndef KEYBOARD_kyria_rev1
+#if !defined(KEYBOARD_kyria) && !defined(KEYBOARD_splitkb_kyria)
 #    define TAPPING_TERM_PER_KEY
 #endif
 
