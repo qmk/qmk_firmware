@@ -45,4 +45,5 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN F0
+#define DRIVER_LED_TOTAL 6
 #define RGBLED_NUM 6
