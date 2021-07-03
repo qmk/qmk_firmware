@@ -21,10 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x3A0E
-#define PRODUCT_ID   0x4C82
+#define PRODUCT_ID   0x4C83
 #define DEVICE_VER   0x0001
 #define MANUFACTURER kkatano
-#define PRODUCT      Bakeneko 65
+#define PRODUCT      Bakeneko 65 V3
 
 /* key matrix size */
 #define MATRIX_ROWS 5
