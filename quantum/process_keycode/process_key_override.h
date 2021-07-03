@@ -58,7 +58,7 @@ typedef enum {
 /** Defines a single key override */
 typedef struct {
     // The non-modifier keycode that triggers the override. This keycode, and the necessary modifiers (trigger_mods) must be pressed to activate this override. Set this to the keycode of the key that should activate the override. Set to KC_NO to require only the necessary modifiers to be pressed and no non-modifier.
-    uint16_t trigger; 
+    uint16_t trigger;
 
     // Which mods need to be down for activation. If both sides of a modifier are set (e.g. left ctrl and right ctrl) then only one is required to be pressed (e.g. left ctrl suffices). Use the MOD_MASK_XXX and MOD_BIT() macros for this.
     uint8_t trigger_mods;
@@ -105,7 +105,7 @@ extern bool key_override_is_enabled(void);
 
 /**
  *  Preferrably use these macros to create key overrides. They fix many of the options to a standard setting that should satisfy most basic use-cases. Only directly create a key_override_t struct when you really need to.
-*/
+ */
 
 // clang-format off
 

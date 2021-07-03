@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2021 Jonas Gessner
  *
  * This program is free software: you can redistribute it and/or modify
@@ -174,8 +174,8 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     const uint8_t mod_free_replacement = clear_mods_from(active_override->replacement);
 
-    bool unregister_replacement = mod_free_replacement != KC_NO && // KC_NO is never registered
-                                  mod_free_replacement < SAFE_RANGE; // Custom keycodes are never registered
+    bool unregister_replacement = mod_free_replacement != KC_NO &&    // KC_NO is never registered
+                                  mod_free_replacement < SAFE_RANGE;  // Custom keycodes are never registered
 
     // Try firing the custom handler
     if (active_override->custom_action != NULL) {
@@ -232,8 +232,7 @@ static bool check_activation_event(const key_override_t *override, const bool ke
         } else {
             return (options & ko_option_activation_negative_mod_up) != 0;
         }
-    }
-    else {
+    } else {
         if (key_down) {
             return (options & ko_option_activation_trigger_down) != 0;
         } else {
@@ -330,8 +329,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
             // When activating a key override the trigger is is always unregistered. In the case where the key that newly pressed is not the trigger key, we have to explicitly remove the trigger key from the keyboard report. If the trigger was just pressed down we simply suppress the event which also has the effect of the trigger key not being registered in the keyboard report.
             if (IS_KEY(override->trigger)) {
                 del_key(override->trigger);
-            }
-            else {
+            } else {
                 unregister_code(override->trigger);
             }
         }
@@ -383,14 +381,16 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 }
 
 void matrix_scan_key_override(void) {
-    if (deferred_register == 0) { return; }
+    if (deferred_register == 0) {
+        return;
+    }
 
     if (timer_elapsed32(defer_reference_time) >= defer_delay) {
         key_override_printf("Registering deferred key\n");
         register_code16(deferred_register);
-        deferred_register = 0;
+        deferred_register    = 0;
         defer_reference_time = 0;
-        defer_delay = 0;
+        defer_delay          = 0;
     }
 }
 
@@ -455,14 +455,14 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
             last_key_down      = 0;
             last_key_down_time = 0;
             // We also cancel any deferred registers because, again, no keys are sending any input. Only the last key that is pressed creates an input – this key was just lifted.
-            deferred_register  = 0;
+            deferred_register = 0;
         }
     }
 
     key_override_printf("key down: %u keycode: %u is mod: %u effective mods: %u\n", key_down, keycode, is_mod, effective_mods);
 
     bool send_key_action = true;
-    bool activated = false;
+    bool activated       = false;
 
     // Non-mod key up events never activate a key override
     if (is_mod || key_down) {
