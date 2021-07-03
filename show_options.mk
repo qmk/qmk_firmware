@@ -92,11 +92,12 @@ endef
 
 .PHONY: show_build_options0 show_build_options
 show_build_options0:
-	@echo " KEYBOARD = $(KEYBOARD)"
-	@echo " KEYMAP   = $(KEYMAP)"
-	@echo " MCU      = $(MCU)"
-	@echo " MCU_SERIES = $(MCU_SERIES)"
-	@echo " PLATFORM = $(PLATFORM)"
+	@echo " KEYBOARD        = $(KEYBOARD)"
+	@echo " KEYMAP          = $(KEYMAP)"
+	@echo " MCU             = $(MCU)"
+	@echo " MCU_SERIES      = $(MCU_SERIES)"
+	@echo " PLATFORM        = $(PLATFORM)"
+	@echo " BOOTLOADER      = $(BOOTLOADER)"
 	@echo " FIRMWARE_FORMAT = $(FIRMWARE_FORMAT)"
 	@echo
 	@echo "Build Options:"
