@@ -79,15 +79,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
                 }
                 send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAP_CODE_DELAY);
-#ifdef RGB_MATRIX_SPLIT_RIGHT
-                send_string_with_delay_P(PSTR(" RGB_MATRIX_SPLIT_RIGHT=yes"), TAP_CODE_DELAY);
-#    ifndef OLED_DRIVER_ENABLE
-                send_string_with_delay_P(PSTR(" OLED_DRIVER_ENABLE=no"), TAP_CODE_DELAY);
-#    endif
+#ifdef CONVERT_TO_PROTON_C
+                send_string_with_delay_P(PSTR(" -e CTPC=yes"), TAP_CODE_DELAY);
 #endif
                 send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
             }
-
             break;
 
         case VRSN: // Prints firmware version
