@@ -168,9 +168,9 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
 #ifdef SWAP_HANDS_ENABLE
         case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
 #ifdef MAGIC_ENFORCE_HANDLING
-            action.code = ACTION(ACT_SWAP_HANDS, keycode_config(keycode & 0xff));
+            action.code = ACTION(ACT_SWAP_HANDS, keycode_config(keycode & 0xFF));
 #else
-            action.code = ACTION(ACT_SWAP_HANDS, keycode & 0xff);
+            action.code = ACTION(ACT_SWAP_HANDS, keycode & 0xFF);
 #endif
             break;
 #endif
