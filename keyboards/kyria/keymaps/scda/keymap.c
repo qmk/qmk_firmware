@@ -1,36 +1,50 @@
 #include QMK_KEYBOARD_H
 #include "keymap_german_osx.h"
 
-enum layers { _LETTERS = 0, _SYMBOLS, _NUMBERS, _MEDIA, _KBD_CTRL };
-
+enum layers { _LETTERS = 0, _SYMBOLS, _NUMBERS, _CODE, _NAV, _FN, _MEDIA, _KBD_CTRL };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
-        C(KC_LEFT), KC_X, DE_DOT, KC_O, DE_COMM, DE_Y,                                          KC_V, KC_G, KC_C, KC_L, KC_J, C(KC_RGHT),
-        LT(4,KC_ESC), CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I), KC_U,                 KC_D, SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
-        KC_NO, KC_K, KC_Q, DE_ADIA, DE_UDIA, DE_ODIA, KC_NO, KC_NO,                             KC_NO, KC_NO, KC_B, KC_P, KC_W, KC_M, DE_Z, DE_SS,
-        KC_HOME, KC_BSPC, LT(1,KC_TAB), LT(2,KC_SPC), LT(3,KC_ENT),                             LT(3,KC_ENT), LT(2,KC_SPC), LT(1,KC_TAB), KC_DEL, KC_END),
+        C(KC_LEFT), KC_X,        DE_DOT,      KC_O,        DE_COMM,     DE_Y,                                                                           KC_V,         KC_G,        KC_C,        KC_L,        KC_J,        C(KC_RGHT),
+        KC_ESC,     CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I), LT(7, KC_U),                                                                    KC_D,         SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
+        C(KC_UP),   KC_K,        KC_Q,        DE_ADIA,     DE_UDIA,     DE_ODIA,      KC_NO,        KC_NO,                  KC_NO,        KC_NO,        KC_B,         KC_P,        KC_W,        KC_M,        DE_Z,        DE_SS,
+                                              KC_HOME,     KC_BSPC,     LT(2,KC_TAB), LT(3,KC_SPC), LT(4,KC_ENT),           LT(6,KC_ENT), LT(5,KC_SPC), LT(1,KC_TAB), KC_DEL,      KC_END),
     [_SYMBOLS] = LAYOUT(
-        KC_TRNS, DE_AT, DE_PERC, DE_LCBR, DE_RCBR, DE_PIPE,                                     DE_EXLM, KC_GRV, S(KC_GRV), DE_EQL, DE_AMPR, KC_TRNS,
-        KC_TRNS, KC_NUBS, DE_TILD, DE_LPRN, DE_RPRN, DE_ASTR,                                   DE_QUES, DE_SLSH, DE_COLN, DE_MINS, DE_UNDS, KC_NO,
-        KC_TRNS, DE_EURO, DE_DLR, DE_LBRC, DE_RBRC, DE_HASH, KC_NO, KC_NO,                      KC_NO, KC_NO, DE_GRV, DE_BSLS, DE_SCLN, DE_PLUS, DE_DQUO, DE_QUOT,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+        KC_NO, DE_AT,   DE_PERC, DE_LCBR, DE_RCBR, DE_PIPE,                                                  DE_EXLM, KC_GRV,  S(KC_GRV), DE_EQL,  DE_AMPR, KC_NO,
+        KC_NO, KC_NUBS, DE_TILD, DE_LPRN, DE_RPRN, DE_ASTR,                                                  DE_QUES, DE_SLSH, DE_COLN,   DE_MINS, DE_UNDS, KC_NO,
+        KC_NO, DE_EURO, DE_DLR,  DE_LBRC, DE_RBRC, DE_HASH, KC_NO,   KC_NO,                KC_NO,   KC_NO,   DE_GRV,  DE_BSLS, DE_SCLN,   DE_PLUS, DE_DQUO, DE_QUOT,
+                                 KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO),
     [_NUMBERS] = LAYOUT(
-        KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                                             KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-        KC_TRNS, CTL_T(DE_1), ALT_T(DE_2), GUI_T(DE_3), SFT_T(DE_4), DE_5,                      DE_6, SFT_T(DE_7), GUI_T(DE_8), ALT_T(DE_9), CTL_T(DE_0), KC_F12,
-        KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO, KC_NO,                         KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_BTN1, KC_BTN2, KC_WH_D, KC_WH_U, KC_TRNS),
+        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                    KC_NO,   DE_7,  DE_8, DE_9, KC_NO, KC_NO,
+        KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO,                                                    DE_0,    DE_4,  DE_5, DE_6, KC_NO, KC_NO,
+        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   KC_NO,   DE_1,  DE_2, DE_3, KC_NO, KC_NO,
+                                 KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO),
+    [_CODE] = LAYOUT(
+        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                    KC_NO,      G(KC_X),  KC_NO,      KC_NO,      KC_NO,   KC_NO,
+        KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO,                                                    G(DE_Z),    G(KC_C),  G(S(DE_D)), G(KC_UP),   G(KC_F), KC_NO,
+        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   G(S(DE_Z)), G(KC_V),  G(DE_Y),    G(KC_DOWN), G(KC_R), KC_NO,
+                                 KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS, KC_TRNS,    KC_NO,    KC_NO),
+    [_NAV] = LAYOUT(
+        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                    G(A(KC_RGHT)), KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,
+        KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO,                                                    G(A(KC_UP)),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PGUP,
+        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   G(A(KC_LEFT)), KC_BTN1, KC_BTN2, KC_WH_D, KC_WH_U, KC_PGDN,
+                                 KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS, KC_TRNS,       KC_NO,   KC_NO),
+    [_FN] = LAYOUT(
+        KC_NO, KC_F9, KC_F10, KC_F11, KC_F12, KC_NO,                                                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_NO, KC_F5, KC_F6,  KC_F7,  KC_F8,  KC_NO,                                                         KC_NO,   KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, KC_NO,
+        KC_NO, KC_F1, KC_F2,  KC_F3,  KC_F4,  KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                              KC_NO,  KC_NO,  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO),
     [_MEDIA] = LAYOUT(
-        KC_TRNS, KC_NO, KC_VOLU, KC_NO, KC_NO, KC_NO,                                           KC_NO, G(KC_X), G(KC_R), KC_NO, C(KC_LEFT), KC_TRNS,
-        KC_TRNS, KC_BRIU, KC_MUTE, KC_MPLY, KC_MNXT, KC_NO,                                     G(C(KC_SPACE)), G(KC_C), G(DE_Z), G(KC_F), C(KC_UP), KC_NO,
-        KC_TRNS, KC_BRID, KC_VOLD, KC_NO, KC_MPRV, KC_NO, KC_NO, KC_NO,                         KC_NO, KC_NO, KC_NO, G(KC_V), G(S(DE_Z)), KC_NO, C(KC_RGHT), KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+        KC_NO, KC_NO,   KC_VOLU, KC_NO,   KC_NO,   KC_NO,                                                    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_NO, KC_BRIU, KC_MUTE, KC_MPLY, KC_MNXT, G(C(KC_SPACE)),                                           KC_NO,   KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, KC_NO,
+        KC_NO, KC_BRID, KC_VOLD, KC_NO,   KC_MPRV, KC_NO,          KC_NO,   KC_NO,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                 KC_NO,   KC_NO,   KC_TRNS,        KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO),
     [_KBD_CTRL] = LAYOUT(
-        KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
-        KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                             KC_NO, RGB_TOG, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                               KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                            KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,                                                          RGB_TOG, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                             KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO)
     // [_TEMPLATE] = LAYOUT(
     //     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     //     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -46,22 +60,32 @@ static void render_status(void) {
     // Host Keyboard Layer Status
     switch (get_highest_layer(layer_state)) {
         case _LETTERS:
-            oled_write_P(PSTR("Letters\n"), false);
+            oled_write_P(PSTR("Letters\n###\n"), false);
             break;
         case _SYMBOLS:
-            oled_write_P(PSTR("Symbols\n"), false);
+            oled_write_P(PSTR("Symbols\n###\n"), false);
             break;
         case _NUMBERS:
-            oled_write_P(PSTR("Numbers\n"), false);
+            oled_write_P(PSTR("Numbers\n>>>\n"), false);
+            break;
+        case _CODE:
+            oled_write_P(PSTR("Code\n>>>\n"), false);
+            break;
+        case _NAV:
+            oled_write_P(PSTR("Nav\n>>>\n"), false);
+            break;
+        case _FN:
+            oled_write_P(PSTR("Fn\n<<<\n"), false);
             break;
         case _MEDIA:
-            oled_write_P(PSTR("Media\n"), false);
+            oled_write_P(PSTR("Media\n<<<\n"), false);
             break;
         case _KBD_CTRL:
-            oled_write_P(PSTR("Ctrl\n"), false);
+            oled_write_P(PSTR("Keeb Ctrl\n"), false);
             break;
         default:
-            oled_write_P(PSTR("Undefined\n"), false);
+            oled_write_P(PSTR("\n"), false);
+            break;
     }
 
     // Host Keyboard LED Status
@@ -72,8 +96,8 @@ static void render_status(void) {
 }
 
 void oled_task_user(void) {
-    if (is_keyboard_master()) {
-        render_status();  // Renders the current keyboard state (layers and locks)
+    if (is_keyboard_left()) {
+        render_status();
     }
 }
 #endif
@@ -84,7 +108,7 @@ void oled_task_user(void) {
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();  // enables Rgb, without saving settings
     rgblight_mode_noeeprom(RGBLIGHT_DEFAULT_MODE);
-    rgblight_sethsv_noeeprom(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+    rgblight_sethsv_noeeprom_chartreuse();
 }
 
 // called on every layer change
@@ -95,19 +119,28 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgblight_sethsv_noeeprom(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
             break;
         case _SYMBOLS:
-            rgblight_sethsv_noeeprom(23, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            rgblight_sethsv_noeeprom(106, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
             break;
         case _NUMBERS:
-            rgblight_sethsv_noeeprom(121, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            rgblight_sethsv_noeeprom(148, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            break;
+        case _CODE:
+            rgblight_sethsv_noeeprom(21, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            break;
+        case _NAV:
+            rgblight_sethsv_noeeprom(222, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            break;
+        case _FN:
+            rgblight_sethsv_noeeprom(180, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
             break;
         case _MEDIA:
-            rgblight_sethsv_noeeprom(246, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            rgblight_sethsv_noeeprom(169, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
             break;
         case _KBD_CTRL:
             rgblight_sethsv_noeeprom_white();
             break;
-        default:  //  for any other layers, or the default layer
-            rgblight_sethsv_noeeprom(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+        default:  //  for any other layers (that should not exist/be accessible)
+            rgblight_sethsv_noeeprom_red();
             break;
     }
     return state;

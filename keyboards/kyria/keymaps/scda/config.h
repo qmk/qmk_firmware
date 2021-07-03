@@ -20,20 +20,19 @@
 #    define RGBLIGHT_DEFAULT_VAL 150  // 0-255
 
 #    define RGBLIGHT_SLEEP
-// #    define RGBLIGHT_ANIMATIONS    // animations disabled
+// #    define RGBLIGHT_ANIMATIONS    // animations are disabled
 #endif
 
 /*** CONTROLLERS ***/
 
 // see https://docs.qmk.fm/#/feature_split_keyboard?id=hardware-configuration-options
-// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-#define SPLIT_USB_DETECT
-#define NO_USB_STARTUP_CHECK
+#define SPLIT_USB_DETECT        // side with usb-connection becomes master
+#define NO_USB_STARTUP_CHECK    // allows the slave to wake up the pc
+// #define SPLIT_MODS_ENABLE       // shares modifier state between both sides (adds communication!)
+// #define SPLIT_TRANSPORT_MIRROR  // shares master matrix with slave (adds communication!)
 
 /*** MOD_TAP ***/
-/*
-great guide on this topic https://precondition.github.io/home-row-mods
-*/
+// great guide on this topic https://precondition.github.io/home-row-mods
 
 /*
 the minimum time you have to hold a key to activate the "hold" key
