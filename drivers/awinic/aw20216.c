@@ -43,6 +43,10 @@
 #define AW_CONFIG_DEFAULT 0b10110000
 #define AW_CHIPEN 1
 
+#define AW_PWM_REGISTER_COUNT 216
+
+#define AW_SPI_START(PIN) spi_start(PIN, false, 0, AW_SPI_DIVISOR)
+
 #ifndef AW_SCALING_MAX
 #    define AW_SCALING_MAX 150
 #endif
@@ -63,13 +67,13 @@
 #    define AW_SPI_DIVISOR 4
 #endif
 
-uint8_t g_spi_transfer_buffer[20] = {0};
-aw_led  g_pwm_buffer[DRIVER_LED_TOTAL];
-bool    g_pwm_buffer_update_required[DRIVER_LED_TOTAL];
+uint8_t g_spi_transfer_buffer[3] = {0};
+uint8_t g_pwm_buffer[DRIVER_COUNT][AW_PWM_REGISTER_COUNT];
+bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
 bool AW20216_write_register(pin_t slave_pin, uint8_t page, uint8_t reg, uint8_t data) {
     // Do we need to call spi_stop() if this fails?
-    if (!spi_start(slave_pin, false, 0, AW_SPI_DIVISOR)) {
+    if (!AW_SPI_START(slave_pin)) {
         return false;
     }
 
@@ -147,10 +151,11 @@ void AW20216_init(void) {
 }
 
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    g_pwm_buffer[index].r               = red;
-    g_pwm_buffer[index].g               = green;
-    g_pwm_buffer[index].b               = blue;
-    g_pwm_buffer_update_required[index] = true;
+    aw_led led                               = g_aw_leds[index];
+    g_pwm_buffer[led.driver][led.r]          = red;
+    g_pwm_buffer[led.driver][led.g]          = green;
+    g_pwm_buffer[led.driver][led.b]          = blue;
+    g_pwm_buffer_update_required[led.driver] = true;
     return;
 }
 void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
@@ -159,12 +164,19 @@ void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     }
     return;
 }
+
+void AW20216_write_pwm_buffer(pin_t slave_pin, uint8_t buffer_idx) {
+    AW_SPI_START(slave_pin);
+    spi_write((AWINIC_ID | AW_PAGE_PWM | AW_WRITE));
+    spi_write(0);
+    spi_transmit(g_pwm_buffer[buffer_idx], AW_PWM_REGISTER_COUNT);
+    spi_stop();
+}
+
 void AW20216_update_pwm_buffers(void) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        if (g_pwm_buffer_update_required[i]) {
-            AW20216_update_pwm(i, g_pwm_buffer[i].r, g_pwm_buffer[i].g, g_pwm_buffer[i].b);
-            g_pwm_buffer_update_required[i] = false;
-        }
-    }
+    AW20216_write_pwm_buffer(DRIVER_1_CS, 0);
+#ifdef DRIVER_2_CS
+    AW20216_write_pwm_buffer(DRIVER_2_CS, 1);
+#endif
     return;
 }
