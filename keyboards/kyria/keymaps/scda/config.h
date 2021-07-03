@@ -12,12 +12,12 @@
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_LIMIT_VAL 150
+#    define RGBLIGHT_LIMIT_VAL 100
 
 #    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
-#    define RGBLIGHT_DEFAULT_HUE 70   // 0-255
-#    define RGBLIGHT_DEFAULT_SAT 255  // 0-255
-#    define RGBLIGHT_DEFAULT_VAL 150  // 0-255
+#    define RGBLIGHT_DEFAULT_HUE 70                  // 0-255
+#    define RGBLIGHT_DEFAULT_SAT 255                 // 0-255
+#    define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL  // 0-255
 
 #    define RGBLIGHT_SLEEP
 // #    define RGBLIGHT_ANIMATIONS    // animations are disabled
@@ -26,8 +26,8 @@
 /*** CONTROLLERS ***/
 
 // see https://docs.qmk.fm/#/feature_split_keyboard?id=hardware-configuration-options
-#define SPLIT_USB_DETECT        // side with usb-connection becomes master
-#define NO_USB_STARTUP_CHECK    // allows the slave to wake up the pc
+#define SPLIT_USB_DETECT      // side with usb-connection becomes master
+#define NO_USB_STARTUP_CHECK  // allows the slave to wake up the pc
 // #define SPLIT_MODS_ENABLE       // shares modifier state between both sides (adds communication!)
 // #define SPLIT_TRANSPORT_MIRROR  // shares master matrix with slave (adds communication!)
 

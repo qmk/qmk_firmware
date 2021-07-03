@@ -41,10 +41,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_BRID, KC_VOLD, KC_NO,   KC_MPRV, KC_NO,          KC_NO,   KC_NO,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                  KC_NO,   KC_NO,   KC_TRNS,        KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO),
     [_KBD_CTRL] = LAYOUT(
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                            KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,                                                          RGB_TOG, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                             KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO)
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                            KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,                                                          RGB_TOG, RGB_VAI, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   RGB_VAD, KC_NO, KC_NO, KC_NO, KC_NO,
+                             KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO)
     // [_TEMPLATE] = LAYOUT(
     //     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     //     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -108,39 +108,48 @@ void oled_task_user(void) {
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();  // enables Rgb, without saving settings
     rgblight_mode_noeeprom(RGBLIGHT_DEFAULT_MODE);
-    rgblight_sethsv_noeeprom_chartreuse();
+    rgblight_setrgb(RGB_CHARTREUSE);
 }
 
 // called on every layer change
 // set the colour according to active layer
 layer_state_t layer_state_set_user(layer_state_t state) {
+    // setrgb, sethsv_noeeprom, setrgb_range do not write to eeprom
     switch (get_highest_layer(state)) {
         case _LETTERS:
-            rgblight_sethsv_noeeprom(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            rgblight_setrgb(RGB_CHARTREUSE);
             break;
         case _SYMBOLS:
-            rgblight_sethsv_noeeprom(106, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            rgblight_setrgb(RGB_GOLDENROD);
             break;
         case _NUMBERS:
-            rgblight_sethsv_noeeprom(148, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+            rgblight_setrgb_range(RGB_OFF, 0, 4);
+            rgblight_setrgb_range(RGB_RED, 5, 9);
+            rgblight_setrgb_range(RGB_BLUE, 7, 19);
+            // rgblight_sethsv_master(HSV_OFF);
+            // rgblight_sethsv_slave(HSV_SPRINGGREEN);
             break;
-        case _CODE:
-            rgblight_sethsv_noeeprom(21, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
-            break;
-        case _NAV:
-            rgblight_sethsv_noeeprom(222, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
-            break;
-        case _FN:
-            rgblight_sethsv_noeeprom(180, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
-            break;
-        case _MEDIA:
-            rgblight_sethsv_noeeprom(169, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
-            break;
-        case _KBD_CTRL:
-            rgblight_sethsv_noeeprom_white();
-            break;
+        // case _CODE:
+        //     rgblight_sethsv_master(HSV_OFF);
+        //     rgblight_sethsv_slave(HSV_PINK);
+        //     break;
+        // case _NAV:
+        //     rgblight_sethsv_master(HSV_OFF);
+        //     rgblight_sethsv_slave(HSV_CYAN);
+        //     break;
+        // case _FN:
+        //     rgblight_sethsv_master(HSV_PURPLE);
+        //     rgblight_sethsv_slave(HSV_OFF);
+        //     break;
+        // case _MEDIA:
+        //     rgblight_sethsv_master(HSV_TEAL);
+        //     rgblight_sethsv_slave(HSV_OFF);
+        //     break;
+        // case _KBD_CTRL:
+        //     rgblight_sethsv_noeeprom_white();
+        //     break;
         default:  //  for any other layers (that should not exist/be accessible)
-            rgblight_sethsv_noeeprom_red();
+            rgblight_setrgb(RGB_RED);
             break;
     }
     return state;
