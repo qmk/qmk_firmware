@@ -68,7 +68,7 @@
 #endif
 
 uint8_t g_spi_transfer_buffer[3] = {0};
-uint8_t  g_pwm_buffer[DRIVER_COUNT][AW_PWM_REGISTER_COUNT];
+uint8_t g_pwm_buffer[DRIVER_COUNT][AW_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
 bool AW20216_write_register(pin_t slave_pin, uint8_t page, uint8_t reg, uint8_t data) {
@@ -151,10 +151,10 @@ void AW20216_init(void) {
 }
 
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    aw_led led = g_aw_leds[index];
-    g_pwm_buffer[led.driver][led.r] = red;
-    g_pwm_buffer[led.driver][led.g] = green;
-    g_pwm_buffer[led.driver][led.b] = blue;
+    aw_led led                               = g_aw_leds[index];
+    g_pwm_buffer[led.driver][led.r]          = red;
+    g_pwm_buffer[led.driver][led.g]          = green;
+    g_pwm_buffer[led.driver][led.b]          = blue;
     g_pwm_buffer_update_required[led.driver] = true;
     return;
 }
@@ -180,4 +180,3 @@ void AW20216_update_pwm_buffers(void) {
 #endif
     return;
 }
-
