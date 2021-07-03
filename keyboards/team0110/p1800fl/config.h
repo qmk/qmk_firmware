@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x3EAE
 #define DEVICE_VER 0x0001
-#define MANUFACTURER marhalloweenvt
+#define MANUFACTURER team0110
 #define PRODUCT p1800fl
 
 /* key matrix size */
@@ -51,6 +51,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 5
 
+/* RGB Lighting */
+#define RGB_DI_PIN C6
+#ifdef RGB_DI_PIN
+#    define RGBLIGHT_ANIMATIONS
+#    define RGBLED_NUM 8
+#    define RGBLIGHT_HUE_STEP 8
+#    define RGBLIGHT_SAT_STEP 8
+#    define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_LIMIT_VAL 255
+#    define RGBLIGHT_SLEEP
+#endif
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
@@ -66,6 +78,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-/* QMK DFU key configuration */
-#define QMK_ESC_OUTPUT C7 // usually COL
-#define QMK_ESC_INPUT B6 // usually ROW
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
