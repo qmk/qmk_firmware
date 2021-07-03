@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0xBB91
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Phase Studio
-#define PRODUCT         Titan 65
+#define PRODUCT         Titan 65 (hotswap)
 
 /* key matrix size */
 #define MATRIX_ROWS 5
