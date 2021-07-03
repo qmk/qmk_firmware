@@ -198,37 +198,9 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-## Retro Shift
+### Retro Shift
 
-Holding and releasing a Tap Hold key without pressing another key will result in only the hold. With Retro Shift enabled this action will also produce a shifted version of the tap keycode on release.
-
-This is a supplement to [Auto Shift](feature_auto_shift.md), which does not support Tap Hold.  Auto Shift will be enabled automatically if it is not already, but you should read the Auto Shift documentation and configure the Auto Shift timeout matching the tapping term.  All additional Auto Shift defines are respected, including keyrepeat.
-
-Retro Shift does not require [Retro Tapping](#retro-tapping) to be enabled, and if both are enabled the state of Retro Tapping will only apply if the tap keycode is not matched by Auto Shift. `RETRO_TAPPING_PER_KEY`, however, is checked before Retro Shift if defined.
-
-To enable Retro Shift, add the following to your `config.h`:
-
-```c
-#define RETRO_SHIFT
-```
-
-If `RETRO_SHIFT` is defined to a value, hold times greater than that value will not produce a tap on release for Mod Taps.  This enables modifiers to be held for combining with mouse clicks without generating taps on release.  For example:
-
-```c
-#define RETRO_SHIFT 500
-```
-
-This value (if set) must be greater than one's `TAPPING_TERM`, as the key press must be designated as a 'hold' by `process_tapping` before we send the modifier. There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT` for normal keys.
-
-### Retro Shift and Tap Hold Configurations
-
-Tap Hold Configurations work a little differently when using Retro Shift. Referencing `TAPPING_TERM` makes little sense, as holding longer will result in shifting one of the keys.
-
-`IGNORE_MOD_TAP_INTERRUPT` changes *only* rolling from a mod tap (releasing it first), sending both keys instead of the modifier on the second. Its effects on nested presses are ignored.
-
-As nested taps were changed to act as though `PERMISSIVE_HOLD` is set unless only `IGNORE_MOD_TAP_INTERRUPT` is (outside of Retro Shift), and Retro Shift ignores `IGNORE_MOD_TAP_INTERRUPT`, `PERMISSIVE_HOLD` has no effect on Mod Taps.
-
-Nested taps will *always* act as though the `TAPPING_TERM` was exceeded for both Mod and Layer Tap keys.
+[Auto Shift,](feature_auto_shift.md) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](feature_auto_shift.md#retro-shift) for more information.
 
 ## Why do we include the key record for the per key functions?
 

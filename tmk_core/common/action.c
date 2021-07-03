@@ -43,11 +43,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int tp_buttons;
 
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
 int retro_tapping_counter = 0;
 #endif
 
-#if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
+#if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
 #    include "process_auto_shift.h"
 #endif
 
@@ -75,7 +75,7 @@ void action_exec(keyevent_t event) {
         dprint("EVENT: ");
         debug_event(event);
         dprintln();
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
         retro_tapping_counter++;
 #endif
     }
@@ -110,7 +110,7 @@ void action_exec(keyevent_t event) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-#    ifdef RETRO_SHIFT
+#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
     if (event.pressed) {
         retroshift_poll_time(&event);
     }
@@ -690,7 +690,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
+#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
     if (!is_tap_action(action)) {
         retro_tapping_counter = 0;
     } else {
@@ -707,7 +707,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     get_retro_tapping(get_event_keycode(record->event, false), record) &&
 #        endif
                     retro_tapping_counter == 2) {
-#        ifdef RETRO_SHIFT
+#        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
                     process_auto_shift(action.layer_tap.code, record);
 #        else
                     tap_code(action.layer_tap.code);

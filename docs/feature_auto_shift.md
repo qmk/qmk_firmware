@@ -45,7 +45,7 @@ Yes, unfortunately.
    and then tapping something lowercase (whether or not it's an Auto Shift key)
    will result in the capital's *key* still being held, but shift not.
 3. Auto Shift does not apply to Tap Hold keys. For automatic shifting of Tap Hold
-   keys see [Retro Shift](tap_hold.md#retro-shift).
+   keys see [Retro Shift](#retro-shift).
 
 ## How Do I Enable Auto Shift?
 
@@ -111,15 +111,15 @@ For more granular control of this feature, you can add the following to your `co
 You can then add the following function to your keymap:
 
 ```c
-uint16_t (get_autoshift_timeout)(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         case AUTO_SHIFT_NUMERIC:
-            return 2 * get_autoshift_timeout();
+            return 2 * get_generic_autoshift_timeout();
         case AUTO_SHIFT_SPECIAL:
-            return get_autoshift_timeout() + 50;
+            return get_generic_autoshift_timeout() + 50;
         case AUTO_SHIFT_ALPHA:
         default:
-            return get_autoshift_timeout();
+            return get_generic_autoshift_timeout();
     }
 }
 ```
@@ -129,8 +129,6 @@ if you are using them; trying to add a case for `KC_A` in the above example will
 not compile as `AUTO_SHIFT_ALPHA` is there. A possible solution is a second switch
 above to handle individual keys with no default case and only referencing the
 groups in the below fallback switch.
-
-The parentheses around `get_autoshift_timeout` are required.
 
 ### NO_AUTO_SHIFT_SPECIAL (simple define)
 
@@ -194,7 +192,7 @@ Enables keyrepeat.
 
 Disables automatically keyrepeating when `AUTO_SHIFT_TIMEOUT` is exceeded.
 
-### Custom Shifted Values
+## Custom Shifted Values
 
 Especially on small keyboards, the default shifted value for many keys is not
 optimal. To provide more customizability, there are two user-definable
@@ -246,6 +244,53 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
     }
 }
 ```
+
+## Retro Shift
+
+Holding and releasing a Tap Hold key without pressing another key will ordinarily
+result in only the hold. With `retro shift` enabled this action will instead
+produce a shifted version of the tap keycode on release.
+
+It does not require [Retro Tapping](tap_hold.md#retro-tapping) to be enabled, and
+if both are enabled the state of `retro tapping` will only apply if the tap keycode
+is not matched by Auto Shift. `RETRO_TAPPING_PER_KEY` and its corresponding
+function, however, are checked before `retro shift` is applied.
+
+To enable `retro shift`, add the following to your `config.h`:
+
+```c
+#define RETRO_SHIFT
+```
+
+If `RETRO_SHIFT` is defined to a value, hold times greater than that value will
+not produce a tap on release for Mod Taps, and instead triggers the hold action.
+This enables modifiers to be held for combining with mouse clicks without
+generating taps on release. For example:
+
+```c
+#define RETRO_SHIFT 500
+```
+
+This value (if set) must be greater than one's `TAPPING_TERM`, as the key press
+must be designated as a 'hold' by `process_tapping` before we send the modifier.
+There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT` for normal keys.
+
+### Retro Shift and Tap Hold Configurations
+
+Tap Hold Configurations work a little differently when using Retro Shift.
+Referencing `TAPPING_TERM` makes little sense, as holding longer would result in
+shifting one of the keys.
+
+`IGNORE_MOD_TAP_INTERRUPT` changes *only* rolling from a mod tap (releasing it
+first), sending both keys instead of the modifier on the second. Its effects on
+nested presses are ignored.
+
+As nested taps were changed to act as though `PERMISSIVE_HOLD` is set unless only
+`IGNORE_MOD_TAP_INTERRUPT` is (outside of Retro Shift), and Retro Shift ignores
+`IGNORE_MOD_TAP_INTERRUPT`, `PERMISSIVE_HOLD` has no effect on Mod Taps.
+
+Nested taps will *always* act as though the `TAPPING_TERM` was exceeded for both
+Mod and Layer Tap keys.
 
 ## Using Auto Shift Setup
 

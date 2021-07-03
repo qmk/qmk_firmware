@@ -27,11 +27,6 @@
 #define IS_RETRO(kc) (IS_MT(kc) || IS_LT(kc))
 #define DO_GET_AUTOSHIFT_TIMEOUT(keycode, record, ...) record
 // clang-format off
-#define get_autoshift_timeout(...) _Generic(        \
-        (DO_GET_AUTOSHIFT_TIMEOUT(__VA_ARGS__, 0)), \
-            keyrecord_t *: (get_autoshift_timeout), \
-            default: get_generic_autoshift_timeout  \
-)(__VA_ARGS__)
 #define AUTO_SHIFT_ALPHA KC_A ... KC_Z
 #define AUTO_SHIFT_NUMERIC KC_1 ... KC_0
 #define AUTO_SHIFT_SPECIAL          \

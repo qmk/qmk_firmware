@@ -324,10 +324,8 @@ void autoshift_timer_report(void) {
 
 bool get_autoshift_state(void) { return autoshift_flags.enabled; }
 
-uint16_t get_generic_autoshift_timeout() { return autoshift_timeout; }
-// clang-format off
-__attribute__((weak)) uint16_t (get_autoshift_timeout)(uint16_t keycode, keyrecord_t *record) { return autoshift_timeout; }
-// clang-format on
+uint16_t                       get_generic_autoshift_timeout() { return autoshift_timeout; }
+__attribute__((weak)) uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) { return autoshift_timeout; }
 
 void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 

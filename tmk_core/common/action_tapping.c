@@ -35,7 +35,7 @@ __attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t 
 __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) { return false; }
 #    endif
 
-#    ifdef RETRO_SHIFT
+#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
 #        include "process_auto_shift.h"
 #    endif
 
@@ -102,7 +102,7 @@ void action_tapping_process(keyrecord_t record) {
 /* return true when key event is processed or consumed. */
 bool process_tapping(keyrecord_t *keyp) {
     keyevent_t event = keyp->event;
-#    if defined(RETRO_SHIFT) || defined(TAPPING_TERM_PER_KEY) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY)
+#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(TAPPING_TERM_PER_KEY) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY)
     uint16_t tapping_keycode = get_event_keycode(tapping_key.event, false);
 #    endif
 
@@ -110,7 +110,7 @@ bool process_tapping(keyrecord_t *keyp) {
     if (IS_TAPPING_PRESSED()) {
         // clang-format off
         if (WITHIN_TAPPING_TERM(event)
-#    ifdef RETRO_SHIFT
+#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
             || (
 #        ifdef RETRO_TAPPING_PER_KEY
                 get_retro_tapping(tapping_keycode, keyp) &&
@@ -122,7 +122,7 @@ bool process_tapping(keyrecord_t *keyp) {
             // clang-format on
             if (tapping_key.tap.count == 0) {
                 if (IS_TAPPING_KEY(event.key) && !event.pressed) {
-#    ifdef RETRO_SHIFT
+#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
                     retroshift_swap_times();
 #    endif
                     // first tap!
@@ -141,7 +141,7 @@ bool process_tapping(keyrecord_t *keyp) {
                  * useful for long TAPPING_TERM but may prevent fast typing.
                  */
                 // clang-format off
-#    if defined(TAPPING_TERM_PER_KEY) || (TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(RETRO_SHIFT)
+#    if defined(TAPPING_TERM_PER_KEY) || (TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
                 else if (
                     (
                         (
@@ -163,7 +163,7 @@ bool process_tapping(keyrecord_t *keyp) {
                     )
                     // Causes nested taps to not wait past TAPPING_TERM/RETRO_SHIFT
                     // unnecessarily and fixes them for Layer Taps.
-#        ifdef RETRO_SHIFT
+#        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
                     || (
 #            ifdef RETRO_TAPPING_PER_KEY
                         get_retro_tapping(tapping_keycode, keyp) &&
@@ -317,7 +317,7 @@ bool process_tapping(keyrecord_t *keyp) {
     } else if (IS_TAPPING_RELEASED()) {
         // clang-format off
         if (WITHIN_TAPPING_TERM(event)
-#    ifdef RETRO_SHIFT
+#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
             || (
 #        ifdef RETRO_TAPPING_PER_KEY
                 get_retro_tapping(tapping_keycode, keyp) &&
