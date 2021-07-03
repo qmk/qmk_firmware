@@ -51,7 +51,8 @@ KNOWN_BOOTLOADERS = {
     ('239A', '000E'): 'caterina: Adafruit ItsyBitsy 32U4 5v',
     ('2A03', '0036'): 'caterina: Arduino Leonardo',
     ('2A03', '0037'): 'caterina: Arduino Micro',
-    ('314B', '0106'): 'apm32-dfu: APM32 DFU ISP Mode'
+    ('314B', '0106'): 'apm32-dfu: APM32 DFU ISP Mode',
+    ('28E9', '0189'): 'gd32-dfu: GD32 DFU BOOTLOADER'
 }
 
 

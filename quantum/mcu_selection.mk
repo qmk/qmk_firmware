@@ -496,10 +496,6 @@ ifneq ($(findstring GD32VF103, $(MCU)),)
   BOARD ?= SIPEED_LONGAN_NANO
 
   USE_FPU ?= no
-
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 28e9:0189 -a 0 -s 0x08000000:leave -w
-  DFU_SUFFIX_ARGS ?= -v 28e9 -p 0189
 endif
 
 ifneq (,$(filter $(MCU),at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647 at90usb1286 at90usb1287))
