@@ -196,10 +196,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
         $(error RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
     else
-        POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
+        COMMON_VPATH += $(QUANTUM_DIR)/rgblight
+        POST_CONFIG_H += $(QUANTUM_DIR)/rgblight/rgblight_post_config.h
         OPT_DEFS += -DRGBLIGHT_ENABLE
         SRC += $(QUANTUM_DIR)/color.c
-        SRC += $(QUANTUM_DIR)/rgblight.c
+        SRC += $(QUANTUM_DIR)/rgblight/rgblight.c
         CIE1931_CURVE := yes
         RGB_KEYCODES_ENABLE := yes
     endif
@@ -223,14 +224,20 @@ VALID_LED_MATRIX_TYPES := IS31FL3731 custom
 
 ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_LED_MATRIX_TYPES)),)
-        $(error LED_MATRIX_DRIVER="$(LED_MATRIX_DRIVER)" is not a valid matrix type)
-    else
-        BACKLIGHT_ENABLE = yes
-        BACKLIGHT_DRIVER = custom
-        OPT_DEFS += -DLED_MATRIX_ENABLE
-        SRC += $(QUANTUM_DIR)/led_matrix.c
-        SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+        $(error "$(LED_MATRIX_DRIVER)" is not a valid matrix type)
     endif
+    OPT_DEFS += -DLED_MATRIX_ENABLE
+ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
+    # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
+    OPT_DEFS += -DLIB8_ATTINY
+endif
+    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix
+    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
+    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations/runners
+    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
+    SRC += $(QUANTUM_DIR)/led_matrix/led_matrix.c
+    SRC += $(QUANTUM_DIR)/led_matrix/led_matrix_drivers.c
+    CIE1931_CURVE := yes
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3731)
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
@@ -241,7 +248,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
 endif
 
 RGB_MATRIX_ENABLE ?= no
-VALID_RGB_MATRIX_TYPES := IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
+VALID_RGB_MATRIX_TYPES := AW20216 IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
@@ -252,11 +259,24 @@ ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
     # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
     OPT_DEFS += -DLIB8_ATTINY
 endif
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
+    # Get rid of this!
+    COMMON_VPATH += $(QUANTUM_DIR)/rgblight
+
     SRC += $(QUANTUM_DIR)/color.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
+
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), AW20216)
+        OPT_DEFS += -DAW20216 -DSTM32_SPI -DHAL_USE_SPI=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/awinic
+        SRC += aw20216.c
+        QUANTUM_LIB_SRC += spi_master.c
+    endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3731)
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
@@ -347,7 +367,11 @@ endif
 VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
-BACKLIGHT_DRIVER ?= pwm
+ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
+    BACKLIGHT_DRIVER ?= software
+else
+    BACKLIGHT_DRIVER ?= pwm
+endif
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(filter $(BACKLIGHT_DRIVER),$(VALID_BACKLIGHT_TYPES)),)
         $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
@@ -422,10 +446,6 @@ ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     OPT_DEFS += -DUSER_PRINT
 endif
 
-ifeq ($(strip $(USB_HID_ENABLE)), yes)
-    include $(TMK_DIR)/protocol/usb_hid.mk
-endif
-
 ifeq ($(strip $(WPM_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/wpm.c
     OPT_DEFS += -DWPM_ENABLE
@@ -458,6 +478,23 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     OPT_DEFS += -DDIP_SWITCH_ENABLE
     SRC += $(QUANTUM_DIR)/dip_switch.c
 endif
+
+VALID_MAGIC_TYPES := yes full lite
+BOOTMAGIC_ENABLE ?= no
+ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
+  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
+    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
+  endif
+  ifneq ($(strip $(BOOTMAGIC_ENABLE)), full)
+      OPT_DEFS += -DBOOTMAGIC_LITE
+      QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_lite.c
+  else
+    OPT_DEFS += -DBOOTMAGIC_ENABLE
+    QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_full.c
+  endif
+endif
+COMMON_VPATH += $(QUANTUM_DIR)/bootmagic
+QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/magic.c
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 
@@ -503,13 +540,18 @@ endif
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
+    CRC_ENABLE := yes
 
     # Include files used by all split keyboards
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/transport.c
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c \
+                       $(QUANTUM_DIR)/split_common/transactions.c
+
+        OPT_DEFS += -DSPLIT_COMMON_TRANSACTIONS
+
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
         ifeq ($(PLATFORM),AVR)
@@ -528,6 +570,11 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         endif
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
+endif
+
+ifeq ($(strip $(CRC_ENABLE)), yes)
+    OPT_DEFS += -DCRC_ENABLE
+    SRC += crc.c
 endif
 
 HAPTIC_ENABLE ?= no
@@ -558,6 +605,14 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/oled
     QUANTUM_LIB_SRC += i2c_master.c
     SRC += oled_driver.c
+endif
+
+ifeq ($(strip $(ST7565_ENABLE)), yes)
+    OPT_DEFS += -DST7565_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled # For glcdfont.h
+    COMMON_VPATH += $(DRIVER_PATH)/lcd
+    QUANTUM_LIB_SRC += spi_master.c
+    SRC += st7565.c
 endif
 
 include $(DRIVER_PATH)/qwiic/qwiic.mk

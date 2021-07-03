@@ -9,7 +9,7 @@ from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts
-from qmk.json_schema import deep_update, json_load, keyboard_validate, keyboard_api_validate
+from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps
 from qmk.makefile import parse_rules_mk_file
@@ -17,6 +17,12 @@ from qmk.math import compute
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
+
+
+def _valid_community_layout(layout):
+    """Validate that a declared community list exists
+    """
+    return (Path('layouts/default') / layout).exists()
 
 
 def info_json(keyboard):
@@ -60,7 +66,7 @@ def info_json(keyboard):
 
     # Validate against the jsonschema
     try:
-        keyboard_api_validate(info_data)
+        validate(info_data, 'qmk.api.keyboard.v1')
 
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
@@ -70,6 +76,13 @@ def info_json(keyboard):
     # Make sure we have at least one layout
     if not info_data.get('layouts'):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
+
+    # Filter out any non-existing community layouts
+    for layout in info_data.get('community_layouts', []):
+        if not _valid_community_layout(layout):
+            # Ignore layout from future checks
+            info_data['community_layouts'].remove(layout)
+            _log_error(info_data, 'Claims to support a community layout that does not exist: %s' % (layout))
 
     # Make sure we supply layout macros for the community layouts we claim to support
     for layout in info_data.get('community_layouts', []):
@@ -130,10 +143,7 @@ def _pin_name(pin):
     elif pin == 'NO_PIN':
         return None
 
-    elif pin[0] in 'ABCDEFGHIJK' and pin[1].isdigit():
-        return pin
-
-    raise ValueError(f'Invalid pin: {pin}')
+    return pin
 
 
 def _extract_pins(pins):
@@ -480,7 +490,7 @@ def merge_info_jsons(keyboard, info_data):
             continue
 
         try:
-            keyboard_validate(new_info_data)
+            validate(new_info_data, 'qmk.keyboard.v1')
         except jsonschema.ValidationError as e:
             json_path = '.'.join([str(p) for p in e.absolute_path])
             cli.log.error('Not including data from file: %s', info_file)

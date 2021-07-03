@@ -314,45 +314,44 @@ static void Console_Task(void) {
 void send_joystick_packet(joystick_t *joystick) {
     uint8_t timeout = 255;
 
-    joystick_report_t r = {
+    static joystick_report_t;
+    r = (joystick_report_t) {
 #    if JOYSTICK_AXES_COUNT > 0
         .axes =
-            {
-                joystick->axes[0],
+        { joystick->axes[0],
 
 #        if JOYSTICK_AXES_COUNT >= 2
-                joystick->axes[1],
+          joystick->axes[1],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 3
-                joystick->axes[2],
+          joystick->axes[2],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 4
-                joystick->axes[3],
+          joystick->axes[3],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 5
-                joystick->axes[4],
+          joystick->axes[4],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 6
-                joystick->axes[5],
+          joystick->axes[5],
 #        endif
-            },
+        },
 #    endif  // JOYSTICK_AXES_COUNT>0
 
 #    if JOYSTICK_BUTTON_COUNT > 0
-        .buttons =
-            {
-                joystick->buttons[0],
+        .buttons = {
+            joystick->buttons[0],
 
 #        if JOYSTICK_BUTTON_COUNT > 8
-                joystick->buttons[1],
+            joystick->buttons[1],
 #        endif
 #        if JOYSTICK_BUTTON_COUNT > 16
-                joystick->buttons[2],
+            joystick->buttons[2],
 #        endif
 #        if JOYSTICK_BUTTON_COUNT > 24
-                joystick->buttons[3],
+            joystick->buttons[3],
 #        endif
-            }
+        }
 #    endif  // JOYSTICK_BUTTON_COUNT>0
     };
 
@@ -768,7 +767,8 @@ static void send_extra(uint8_t report_id, uint16_t data) {
 
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
 
-    report_extra_t r = {.report_id = report_id, .usage = data};
+    static report_extra_t r;
+    r = (report_extra_t){.report_id = report_id, .usage = data};
     Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
@@ -829,9 +829,10 @@ static void send_consumer(uint16_t data) {
  * FIXME: Needs doc
  */
 int8_t sendchar(uint8_t c) {
-    // Not wait once timeouted.
+    // Do not wait if the previous write has timed_out.
     // Because sendchar() is called so many times, waiting each call causes big lag.
-    static bool timeouted = false;
+    // The `timed_out` state is an approximation of the ideal `is_listener_disconnected?` state.
+    static bool timed_out = false;
 
     // prevents Console_Task() from running during sendchar() runs.
     // or char will be lost. These two function is mutually exclusive.
@@ -845,11 +846,11 @@ int8_t sendchar(uint8_t c) {
         goto ERROR_EXIT;
     }
 
-    if (timeouted && !Endpoint_IsReadWriteAllowed()) {
+    if (timed_out && !Endpoint_IsReadWriteAllowed()) {
         goto ERROR_EXIT;
     }
 
-    timeouted = false;
+    timed_out = false;
 
     uint8_t timeout = SEND_TIMEOUT;
     while (!Endpoint_IsReadWriteAllowed()) {
@@ -860,7 +861,7 @@ int8_t sendchar(uint8_t c) {
             goto ERROR_EXIT;
         }
         if (!(timeout--)) {
-            timeouted = true;
+            timed_out = true;
             goto ERROR_EXIT;
         }
         _delay_ms(1);
@@ -1106,8 +1107,7 @@ int main(void) {
 #endif
 
         // Run housekeeping
-        housekeeping_task_kb();
-        housekeeping_task_user();
+        housekeeping_task();
     }
 }
 

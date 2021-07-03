@@ -25,5 +25,5 @@ POINTING_DEVICE_ENABLE = yes
 DEFAULT_FOLDER = oddball/v1
 
 SRC += spi_master.c
-SRC += adns/adns.c
+SRC += drivers/sensors/adns9800.c
 SRC += pmw/pmw.c
