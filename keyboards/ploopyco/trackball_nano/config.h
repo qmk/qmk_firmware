@@ -23,7 +23,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x5043
-#define PRODUCT_ID 0x1EAB
+#define PRODUCT_ID 0x54A3
 #define DEVICE_VER 0x0001
 #define PRODUCT Trackball Nano
 
