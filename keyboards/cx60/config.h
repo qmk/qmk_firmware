@@ -56,3 +56,4 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 17
 
 #define LED_CAPS_LOCK_PIN B5
+#define LED_PIN_ON_STATE 0
