@@ -92,6 +92,6 @@ MSG_PYTHON_MISSING = $(ERROR_COLOR)ERROR:$(NO_COLOR) Can not run \"qmk\" command
 	Please run $(BOLD)util/qmk_install.sh$(NO_COLOR) to install all the dependencies QMK requires.\n\n
 MSG_FLASH_BOOTLOADER = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's bootloader is not specified or is not supported by the \":flash\" target at this time.\n\n
 MSG_FLASH_ARCH = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's architecture is not supported by the \":flash\" target at this time.\n\n
-MSG_BOOTLOADER_NOT_FOUND = $(ERROR_COLOR)ERROR:$(NO_COLOR) Bootloader not found. Trying again in 5s.\n
+MSG_BOOTLOADER_NOT_FOUND = $(ERROR_COLOR)ERROR:$(NO_COLOR) Bootloader not found. Trying again in 5s (Ctrl+C to cancel)\n
 BOOTLOADER_RETRY_TIME ?= 0.5
-MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY = Bootloader not found. Trying again every $(BOOTLOADER_RETRY_TIME)s
+MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY = Bootloader not found. Trying again every $(BOOTLOADER_RETRY_TIME)s (Ctrl+C to cancel)
