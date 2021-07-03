@@ -16,8 +16,9 @@ Make example for this keyboard (after setting up your build environment):
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the
 [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
-A schematic and Gerber files are included for those wishing to have carrier boards made
-professionally instead of handwiring things. The M122 matrix connectors plug right into it.
+A schematic and Gerber files are publicly available for those wishing to have carrier boards made
+professionally instead of handwiring things. The M122 matrix connectors plug right into it. It can
+be found at https://github.com/jmaynard/tronguylabs-m122-blackpill .
 
 This is derived from Luke Stanley's handwired/ibm122m keyboard, with my own keymapping and
 rework of the I/O for the BlackPill. There's also a version for the Teensy++ 2.0, since that
