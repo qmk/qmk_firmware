@@ -70,7 +70,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise){
+bool encoder_update_user(uint8_t index, bool clockwise){
     if (index == 0) {
         if (IS_LAYER_ON(_EDIT2)){
             if (clockwise) {
@@ -98,6 +98,7 @@ void encoder_update_user(uint8_t index, bool clockwise){
             }
         }
     }
+    return false;
 }
 
 #ifdef RGB_MATRIX_ENABLE
