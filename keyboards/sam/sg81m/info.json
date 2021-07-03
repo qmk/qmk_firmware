@@ -5,8 +5,8 @@
     "width": 18.5,
     "height": 5.5,
     "layouts": {
-        "LAYOUT": {
-            "layout_7u_space": [
+        "LAYOUT_7u_space": {
+            "layout": [
                 {"label":"K00 (F0,B7)", "x":0, "y":0},
                 {"label":"K01 (F0,B6)", "x":1, "y":0},
                 {"label":"K02 (F0,B5)", "x":2, "y":0},
@@ -89,7 +89,8 @@
                 {"label":"K59 (F7,D3)", "x":16.5, "y":4.25},
                 {"label":"K5A (F7,D4)", "x":17.5, "y":4.25}
             ],
-            "layout_6.25u_space": [
+        "LAYOUT_6.25u_space": {
+            "layout": [
                 {"label":"K00 (F0,B7)", "x":0, "y":0},
                 {"label":"K01 (F0,B6)", "x":1, "y":0},
                 {"label":"K02 (F0,B5)", "x":2, "y":0},
