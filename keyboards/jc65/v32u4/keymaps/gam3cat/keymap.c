@@ -1,32 +1,4 @@
-#include QMK_KEYBOARD_H
-#include "version.h"
-
-enum layers {
-    _BL = 0,    // Base Layer
-    _WL,        // Workman Layer
-    _NL,        // Norman Layer
-    _DL,        // Dvorak Layer
-    _CL,        // Base Layer
-    _FL,        // Function Layer
-    _AL,        // Adjust Layer
-};
-
-enum custom_keycodes {
-    QMK_REV = SAFE_RANGE,
-    KC_WEB,
-    KC_SP4,
-    DYNAMIC_MACRO_RANGE
-};
-
-extern backlight_config_t backlight_config;
-
-#include "dynamic_macro.h"
-#define FN_CAPS LT(_FL, KC_CAPS)
-#define KC_DMR1 DYN_REC_START1
-#define KC_DMR2 DYN_REC_START2
-#define KC_DMP1 DYN_MACRO_PLAY1
-#define KC_DMP2 DYN_MACRO_PLAY2
-#define KC_DMRS DYN_REC_STOP
+#include "gam3cat.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*#### _BL: Base Layer - Mostly standard 65% QWERTY layout.
@@ -163,104 +135,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  *---------------------------------------------------------------*
     */
     [_AL] = LAYOUT(
-        QMK_REV, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, BL_TOGG, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX, KC_DMP1,
-        _______,          DF(_BL), DF(_WL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DMR1,
-        _______,          XXXXXXX, XXXXXXX, DF(_DL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_DMRS,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(_CL), XXXXXXX, DF(_BL), DF(_NL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, KC_DMR2,
-        RESET,   XXXXXXX,          XXXXXXX, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DMP2
+        QMK_REV, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, BL_TOGG, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX, DM_PLY1,
+        _______,          DF(_BL), DF(_WL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DM_REC1,
+        _______,          XXXXXXX, XXXXXXX, DF(_DL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          DM_RSTP,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(_CL), XXXXXXX, DF(_BL), DF(_NL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, DM_REC2,
+        RESET,   XXXXXXX,          XXXXXXX, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DM_PLY2
     ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMK_REV:
-            if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP "@" QMK_VERSION ":" QMK_BUILDDATE);
-            }
-            return false;
-            break;
-        case KC_WEB:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LGUI("r"));
-                wait_ms(100);
-                SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.new;topicseen#new\n");
-            }
-            return false;
-            break;
-        case KC_SP4:
-            if (record->event.pressed) {
-                SEND_STRING ("    ");
-            }
-            return false;
-            break;
-    }
-    // Dynamic Macros.
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
-    return true;
-}
-
-void custom_backlight_level(uint8_t level) {
-    if (level > BACKLIGHT_LEVELS)
-        level = BACKLIGHT_LEVELS;
-    backlight_config.level = level;
-    backlight_config.enable = !!backlight_config.level;
-    backlight_set(backlight_config.level);
-}
-
-void matrix_init_user(void) {
-    #ifdef BACKLIGHT_ENABLE
-        custom_backlight_level(0);
-    #endif
-    #ifdef RGBLIGHT_ENABLE
-        rgblight_mode(1);
-        rgblight_sethsv_noeeprom(180,100,100);
-    #endif
-}
-
-void matrix_scan_user(void) {
-
-}
-
-uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
-       case _BL:
-           custom_backlight_level(0);
-           rgblight_sethsv_noeeprom(180,100,255);
-           break;
-       case _WL:
-           custom_backlight_level(1);
-           rgblight_sethsv_noeeprom(180,95,240);
-           break;
-       case _NL:
-           custom_backlight_level(1);
-           rgblight_sethsv_noeeprom(180,90,225);
-           break;
-       case _DL:
-           custom_backlight_level(1);
-           rgblight_sethsv_noeeprom(180,85,210);
-           break;
-       case _CL:
-           custom_backlight_level(1);
-           rgblight_sethsv_noeeprom(180,80,195);
-           break;
-       case _FL:
-           custom_backlight_level(2);
-           rgblight_sethsv_noeeprom(230,255,255);
-           break;
-       case _AL:
-           custom_backlight_level(3);
-           rgblight_sethsv_noeeprom(250,255,255);
-           break;
-       default:
-           custom_backlight_level(0);
-           rgblight_sethsv_noeeprom(180,100,100);
-           break;
-    }
-    return state;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}
