@@ -5,6 +5,7 @@
  * we just redefine the GD32 names. */
 
 /* Close your eyes kids. */
+#define MCU_STM32
 
 /* Clock redefines. */
 #define STM32_SYSCLK GD32_SYSCLK
