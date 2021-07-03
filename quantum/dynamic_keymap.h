@@ -34,6 +34,10 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t idx, uint8_t dir, uint16_
 uint8_t dynamic_keymap_get_qmk_settings(uint16_t offset);
 void dynamic_keymap_set_qmk_settings(uint16_t offset, uint8_t value);
 #endif
+#ifdef VIAL_TAP_DANCE_ENABLE
+int dynamic_keymap_get_tap_dance(uint8_t index, vial_tap_dance_entry_t *entry);
+int dynamic_keymap_set_tap_dance(uint8_t index, const vial_tap_dance_entry_t *entry);
+#endif
 void     dynamic_keymap_reset(void);
 // These get/set the keycodes as stored in the EEPROM buffer
 // Data is big-endian 16-bit values (the keycodes)

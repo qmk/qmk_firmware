@@ -103,6 +103,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef QMK_SETTINGS
 #   include "qmk_settings.h"
 #endif
+#ifdef VIAL_ENABLE
+#   include "vial.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) { return last_input_modification_time; }
@@ -245,6 +248,9 @@ void keyboard_setup(void) {
 #endif
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
+#endif
+#ifdef VIAL_ENABLE
+    vial_init();
 #endif
 #ifdef QMK_SETTINGS
     qmk_settings_init();

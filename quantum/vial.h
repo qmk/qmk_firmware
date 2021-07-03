@@ -21,6 +21,7 @@
 
 #define VIAL_PROTOCOL_VERSION ((uint32_t)0x00000004)
 
+void vial_init(void);
 void vial_handle_cmd(uint8_t *data, uint8_t length);
 
 #ifdef VIAL_ENCODERS_ENABLE
@@ -44,7 +45,36 @@ enum {
     vial_qmk_settings_get = 0x0A,
     vial_qmk_settings_set = 0x0B,
     vial_qmk_settings_reset = 0x0C,
+    vial_dynamic_entry_op = 0x0D,  /* operate on tapdance, combos, etc */
+};
+
+enum {
+    dynamic_vial_get_number_of_entries = 0x00,
+    dynamic_vial_tap_dance_get = 0x01,
+    dynamic_vial_tap_dance_set = 0x02,
 };
 
 /* Fake encoder position in keyboard matrix, can't use 255 as that is immediately rejected by IS_NOEVENT  */
 #define VIAL_ENCODER_MATRIX_MAGIC 254
+
+#ifdef TAP_DANCE_ENABLE
+
+#define VIAL_TAP_DANCE_ENABLE
+
+#ifndef VIAL_TAP_DANCE_ENTRIES
+#define VIAL_TAP_DANCE_ENTRIES 16
+#endif
+
+typedef struct {
+    uint16_t on_tap;
+    uint16_t on_hold;
+    uint16_t on_double_tap;
+    uint16_t on_tap_hold;
+    uint16_t custom_tapping_term;
+} vial_tap_dance_entry_t;
+_Static_assert(sizeof(vial_tap_dance_entry_t) == 10, "Unexpected size of the vial_tap_dance_entry_t structure");
+
+#else
+#undef VIAL_TAP_DANCE_ENTRIES
+#define VIAL_TAP_DANCE_ENTRIES 0
+#endif
