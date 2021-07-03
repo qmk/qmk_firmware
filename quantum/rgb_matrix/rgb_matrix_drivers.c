@@ -230,9 +230,9 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    include "spi_master.h"
 
 static void init(void) {
-    AW20216S_enable(SPI_SS_DRIVER_1_PIN, ENABLE_DRIVERS_PIN);
+    AW20216S_enable(SPI_SS_DRIVER_1_PIN, ENABLE_DRIVER_1_PIN);
 #    ifdef SPI_SS_DRIVER_2_PIN
-    AW20216S_enable(SPI_SS_DRIVER_2_PIN, ENABLE_DRIVERS_PIN);
+    AW20216S_enable(SPI_SS_DRIVER_2_PIN, ENABLE_DRIVER_2_PIN);
 #    endif
 
     spi_init();
