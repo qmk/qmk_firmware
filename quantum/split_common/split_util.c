@@ -77,7 +77,7 @@ __attribute__((weak)) bool is_keyboard_left(void) {
 #if defined(SPLIT_HAND_PIN)
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
     setPinInput(SPLIT_HAND_PIN);
-#    ifdef SPLIT_HAND_LOW_IS_LEFT
+#    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
     return !readPin(SPLIT_HAND_PIN);
 #    else
     return readPin(SPLIT_HAND_PIN);
