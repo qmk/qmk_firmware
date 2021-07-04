@@ -16,6 +16,10 @@
 
 #pragma once
 
+#ifdef VIAL_ENABLE
+#include "vial.h"
+#endif
+
 #include "progmem.h"
 #include "quantum.h"
 #include <stdint.h>

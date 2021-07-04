@@ -454,6 +454,7 @@ endif
 
 ifeq ($(strip $(VIAL_ENABLE)), yes)
     TAP_DANCE_ENABLE ?= yes
+    COMBO_ENABLE ?= yes
     SRC += $(QUANTUM_DIR)/vial.c
     EXTRAINCDIRS += $(KEYMAP_OUTPUT)
     OPT_DEFS += -DVIAL_ENABLE -DNO_DEBUG

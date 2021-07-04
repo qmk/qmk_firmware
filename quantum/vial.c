@@ -200,6 +200,7 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             case dynamic_vial_get_number_of_entries: {
                 memset(msg, 0, length);
                 msg[0] = VIAL_TAP_DANCE_ENTRIES;
+                msg[1] = VIAL_COMBO_ENTRIES;
                 break;
             }
             case dynamic_vial_tap_dance_get: {
@@ -458,4 +459,18 @@ static void reload_tap_dance(void) {
         }
     }
 }
+#endif
+
+#ifdef VIAL_COMBO_ENABLE
+const uint16_t PROGMEM test_combo[] = {KC_X, KC_Z, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {COMBO_ACTION(test_combo)};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    uprintf("combo event %d\n", combo_index);
+    if (pressed)
+        vial_keycode_down(0x5F12);
+    else
+        vial_keycode_up(0x5F12);
+}
+
 #endif

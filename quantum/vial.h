@@ -79,3 +79,19 @@ _Static_assert(sizeof(vial_tap_dance_entry_t) == 10, "Unexpected size of the via
 #undef VIAL_TAP_DANCE_ENTRIES
 #define VIAL_TAP_DANCE_ENTRIES 0
 #endif
+
+#ifdef COMBO_ENABLE
+#define VIAL_COMBO_ENABLE
+
+#ifndef VIAL_COMBO_ENTRIES
+#define VIAL_COMBO_ENTRIES 16
+#endif
+
+/* also to catch wrong include order in e.g. process_combo.h */
+#ifdef COMBO_COUNT
+#error COMBO_COUNT redefined - define VIAL_COMBO_ENTRIES instead
+#endif
+
+#define COMBO_COUNT VIAL_COMBO_ENTRIES
+
+#endif
