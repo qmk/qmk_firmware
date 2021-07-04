@@ -209,6 +209,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
             mouse_timer = timer_read();
             break;
         default:
+            if (IS_NOEVENT(record->event)) break;
             if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
                 layer_off(_MOUSE);
             }
