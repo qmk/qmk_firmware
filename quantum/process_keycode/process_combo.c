@@ -145,10 +145,6 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     drop_buffer                = false;
     bool no_combo_keys_pressed = true;
 
-    if (keycode == KC_NO) {
-        return true;
-    }
-
     if (keycode == CMB_ON && record->event.pressed) {
         combo_enable();
         return true;
