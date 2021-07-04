@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Rotary Encoder Functions
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -56,4 +56,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLU);
         }
     }
+    return true;
 }

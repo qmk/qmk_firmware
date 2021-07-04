@@ -22,6 +22,7 @@ safe_commands = [
     # A list of subcommands we always run, even when the module imports fail
     'clone',
     'config',
+    'doctor',
     'env',
     'setup',
 ]
@@ -190,7 +191,7 @@ for subcommand in subcommands:
     try:
         __import__(subcommand)
 
-    except ModuleNotFoundError as e:
+    except (ImportError, ModuleNotFoundError) as e:
         if safe_command:
             print(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
         else:
