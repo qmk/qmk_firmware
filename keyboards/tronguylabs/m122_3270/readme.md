@@ -11,7 +11,8 @@ Hardware Availability: [BlackPill](https://www.adafruit.com/product/4877), [Teen
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tronguylabs/m122-3270:default
+    make tronguylabs/m122_3270/blackpill:default
+    make tronguylabs/m122_3270/teensy:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the
 [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
