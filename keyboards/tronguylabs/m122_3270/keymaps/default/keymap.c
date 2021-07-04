@@ -16,9 +16,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    PLACEHOLDER = SAFE_RANGE,
-
-    JM_DOT,       // . both shifted and unshifted
+    JM_DOT = SAFE_RANGE, // . both shifted and unshifted
     JM_COMM,      // , both shitfted and unshifted
     JM_GRLS,      // < and > on one key
     JM_CBRC,      // { and } on one key
