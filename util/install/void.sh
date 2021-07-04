@@ -3,7 +3,7 @@
 _qmk_install() {
     echo "Installing dependencies"
 
-    sudo xbps-install \
+    sudo xbps-install $SKIP_PROMPT \
         gcc git make wget unzip zip \
         python3-pip \
         avr-binutils avr-gcc avr-libc \

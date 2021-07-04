@@ -435,6 +435,7 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 ```c
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #define RGB_DISABLE_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended

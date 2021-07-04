@@ -359,9 +359,9 @@ rgblight_set(); // Utility functions do not call rgblight_set() automatically, s
 
 Example:
 ```c
-rgblight_sethsv(HSV_WHITE, 0); // led 0
-rgblight_sethsv(HSV_RED,   1); // led 1
-rgblight_sethsv(HSV_GREEN, 2); // led 2
+rgblight_sethsv_at(HSV_WHITE, 0); // led 0
+rgblight_sethsv_at(HSV_RED,   1); // led 1
+rgblight_sethsv_at(HSV_GREEN, 2); // led 2
 // The above functions automatically calls rgblight_set(), so there is no need to call it explicitly.
 // Note that it is inefficient to call repeatedly.
 ```
