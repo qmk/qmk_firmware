@@ -16,6 +16,7 @@
 
 #include "print.h"
 #include "process_combo.h"
+#include "qmk_settings.h"
 
 #ifdef VIAL_COMBO_ENABLE
 #include "dynamic_keymap.h"
@@ -222,7 +223,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_combo(void) {
-    if (b_combo_enable && timer && timer_elapsed(timer) > COMBO_TERM) {
+    if (b_combo_enable && timer && timer_elapsed(timer) > QS_combo_term) {
         /* This disables the combo, meaning key events for this
          * combo will be handled by the next processors in the chain
          */

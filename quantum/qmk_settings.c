@@ -7,6 +7,7 @@
 #include "dynamic_keymap.h"
 #include "process_auto_shift.h"
 #include "mousekey.h"
+#include "process_combo.h"
 
 qmk_settings_t QS;
 
@@ -30,6 +31,7 @@ static void mousekey_apply(void) {
 
 static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING(1, grave_esc_override),
+   DECLARE_SETTING(2, combo_term),
    DECLARE_SETTING(3, auto_shift),
    DECLARE_SETTING_CB(4, auto_shift_timeout, auto_shift_timeout_apply),
    DECLARE_SETTING(5, osk_tap_toggle),
@@ -97,6 +99,8 @@ void qmk_settings_reset(void) {
     QS.mousekey_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
     QS.mousekey_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
     QS.mousekey_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+
+    QS.combo_term = COMBO_TERM;
 
     save_settings();
     /* to trigger all callbacks */
