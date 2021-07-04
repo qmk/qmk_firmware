@@ -18,6 +18,7 @@
 
 #define __ NO_LED
 
+#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     { 0,  1,  2,  3,  4  },
     { 9,  8,  7,  6,  5  },
@@ -40,4 +41,4 @@ led_config_t g_led_config = { {
     1, 4, 4, 4, 4,
     1, 4,    4
 } };
-
+#endif
