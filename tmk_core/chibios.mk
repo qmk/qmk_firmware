@@ -313,9 +313,7 @@ SHARED_CFLAGS = -fomit-frame-pointer \
 # Shared Linker flags for all toolchains
 SHARED_LDFLAGS = -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS) \
                  -Wl,--gc-sections \
-                 -nostartfiles \
-                 -nostdlib \
-                 -Wl,-lc -lm -lgcc
+                 -nostartfiles
 
 ifeq ($(strip $(MCU)), risc-v)
     # RISC-V toolchain specific configuration
@@ -378,7 +376,7 @@ CFLAGS   += $(SHARED_CFLAGS) $(TOOLCHAIN_CFLAGS)
 CXXFLAGS += $(CFLAGS) $(SHARED_CXXFLAGS) $(TOOLCHAIN_CXXFLAGS) -fno-rtti
 
 # Linker flags
-LDFLAGS  += $(SHARED_LDFLAGS) $(TOOLCHAIN_LDFLAGS)
+LDFLAGS  += $(SHARED_LDFLAGS) $(TOOLCHAIN_LDFLAGS) $(MCUFLAGS)
 
 # Speed up recompilations by opt-in usage of ccache
 USE_CCACHE ?= no
