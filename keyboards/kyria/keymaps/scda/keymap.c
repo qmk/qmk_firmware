@@ -108,8 +108,10 @@ void oled_task_user(void) {
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();  // enables Rgb, without saving settings
     rgblight_mode_noeeprom(RGBLIGHT_DEFAULT_MODE);
-    rgblight_setrgb(RGB_CHARTREUSE);
+    rgblight_sethsv_noeeprom(HSV_CHARTREUSE);
 }
+
+void sethsv_master(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_sethsv_range(hue, sat, val, 0, (uint8_t)RGBLED_NUM / 2); }
 
 // called on every layer change
 // set the colour according to active layer
@@ -117,39 +119,36 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // setrgb, sethsv_noeeprom, setrgb_range do not write to eeprom
     switch (get_highest_layer(state)) {
         case _LETTERS:
-            rgblight_setrgb(RGB_CHARTREUSE);
+            rgblight_sethsv_noeeprom(HSV_CHARTREUSE);
             break;
         case _SYMBOLS:
-            rgblight_setrgb(RGB_GOLDENROD);
+            rgblight_sethsv_noeeprom(HSV_ORANGE);
             break;
         case _NUMBERS:
-            rgblight_setrgb_range(RGB_OFF, 0, 4);
-            rgblight_setrgb_range(RGB_RED, 5, 9);
-            rgblight_setrgb_range(RGB_BLUE, 7, 19);
-            // rgblight_sethsv_master(HSV_OFF);
-            // rgblight_sethsv_slave(HSV_SPRINGGREEN);
+            rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
+            sethsv_master(HSV_OFF);
             break;
-        // case _CODE:
-        //     rgblight_sethsv_master(HSV_OFF);
-        //     rgblight_sethsv_slave(HSV_PINK);
-        //     break;
-        // case _NAV:
-        //     rgblight_sethsv_master(HSV_OFF);
-        //     rgblight_sethsv_slave(HSV_CYAN);
-        //     break;
-        // case _FN:
-        //     rgblight_sethsv_master(HSV_PURPLE);
-        //     rgblight_sethsv_slave(HSV_OFF);
-        //     break;
-        // case _MEDIA:
-        //     rgblight_sethsv_master(HSV_TEAL);
-        //     rgblight_sethsv_slave(HSV_OFF);
-        //     break;
-        // case _KBD_CTRL:
-        //     rgblight_sethsv_noeeprom_white();
-        //     break;
+        case _CODE:
+            rgblight_sethsv_noeeprom(HSV_PINK);
+            sethsv_master(HSV_OFF);
+            break;
+        case _NAV:
+            rgblight_sethsv_noeeprom(HSV_CYAN);
+            sethsv_master(HSV_OFF);
+            break;
+        case _FN:
+            rgblight_sethsv_noeeprom(HSV_OFF);
+            sethsv_master(HSV_PURPLE);
+            break;
+        case _MEDIA:
+            rgblight_sethsv_noeeprom(HSV_OFF);
+            sethsv_master(HSV_TEAL);
+            break;
+        case _KBD_CTRL:
+            rgblight_sethsv_noeeprom_white();
+            break;
         default:  //  for any other layers (that should not exist/be accessible)
-            rgblight_setrgb(RGB_RED);
+            rgblight_setrgb(HSV_RED);
             break;
     }
     return state;

@@ -13,3 +13,6 @@ These are some reminders or rules that are the result of interesting behaviour I
         -   [docs](https://docs.qmk.fm/#/keycodes_us_ansi_shifted)
 -   scrolling keys are reversed from their intended usage - seems like macOS applies natural scrolling here as well
 -   the slave display can apparently not easily display the current layer etc. (even with `SPLIT_MODS_ENABLE`)
+-   the slave side LEDs can apparently not be controlled separately/directly either
+    -   even the `rgblight_sethsv_range` or `rgblight_sethsv_master` have no effect. For some reason
+    -   What does work: setting the full keyboard settings and then overwriting the master side (specific pins only)

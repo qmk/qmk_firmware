@@ -26,10 +26,11 @@
 /*** CONTROLLERS ***/
 
 // see https://docs.qmk.fm/#/feature_split_keyboard?id=hardware-configuration-options
-#define SPLIT_USB_DETECT      // side with usb-connection becomes master
-#define NO_USB_STARTUP_CHECK  // allows the slave to wake up the pc
-// #define SPLIT_MODS_ENABLE       // shares modifier state between both sides (adds communication!)
-// #define SPLIT_TRANSPORT_MIRROR  // shares master matrix with slave (adds communication!)
+#define SPLIT_USB_DETECT            // side with usb-connection becomes master
+#define NO_USB_STARTUP_CHECK        // allows the slave to wake up the pc
+// #define RGBLIGHT_SPLIT           // share rgb light mode
+// #define SPLIT_MODS_ENABLE        // shares modifier state between both sides (adds communication!)
+// #define SPLIT_TRANSPORT_MIRROR   // shares master matrix with slave (adds communication!)
 
 /*** MOD_TAP ***/
 // great guide on this topic https://precondition.github.io/home-row-mods
