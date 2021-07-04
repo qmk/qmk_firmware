@@ -15,7 +15,6 @@ enum layer_names {
 
 #define LSA_ LSA(KC_NO)
 #define SFT_ESC SFT_T(KC_ESC)
-#define S_TRNS S(KC_TRNS)
 #define KEYPAD TG(_KEYPAD)
 #define RAISE MO(_RAISE)
 
@@ -53,10 +52,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Left Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
-           _______, S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,
-           _______, S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,
-           _______, S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,
-                    KC_TILD, S_TRNS,  _______, _______,
+           _______, KC_COLN, KC_LABK, KC_RABK, S(KC_P), S(KC_Y),
+           _______, S(KC_A), S(KC_O), S(KC_E), S(KC_U), S(KC_I),
+           _______, KC_DQUO, S(KC_Q), S(KC_J), S(KC_K), S(KC_X),
+                    KC_TILD, KC_PIPE, _______, _______,
            // Left Thumb
                     _______, _______,
                              _______,
@@ -65,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Right Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_PERC,
-           S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  KC_HASH,
-           S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,
-           S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  S_TRNS,  _______,
-                    _______, _______, S_TRNS,  KC_CIRC,
+           S(KC_F), S(KC_G), S(KC_C), S(KC_R), S(KC_L), KC_HASH,
+           S(KC_D), S(KC_H), S(KC_T), S(KC_N), S(KC_S), KC_UNDS,
+           S(KC_B), S(KC_M), S(KC_W), S(KC_V), S(KC_Z), _______,
+                    _______, _______, KC_QUES, KC_CIRC,
            // Right Thumb
            _______, _______,
            _______,
