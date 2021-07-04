@@ -9,6 +9,13 @@ More info / sales / PCB designs available at [draytronics.co.uk/elise](https://d
 * Hardware Supported: ELISE PCB / ATMega32U4
 * Hardware Availability: [draytronics.co.uk](https://draytronics.co.uk)
 
+
+Entering DFU mode (to allow flashing):
+
+ - Pressing the reset button on the back of the board when it is plugged in will enter DFU.
+ - Holding down the ESC key whilst plugging in the keyboard will enter DFU.
+ - If you have one of the provided keymaps flashed, then pressing FN-Tab will enter DFU.
+    
 Make example for this keyboard (after setting up your build environment):
 
     make draytronics/elise:default
