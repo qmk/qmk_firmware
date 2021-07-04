@@ -41,12 +41,15 @@ enum userspace_keycodes {
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
+// clang-format off
 #define QWERTY  KC_QWERTY
 #define WORKMN  KC_WORKMAN
 
 #define KC_RST  RESET
 
-#define HYP_LBK ALL_T(KC_LBRACKET)
-#define MEH_RBK MEH_T(KC_RBRACKET)
-#define HYP_LPR ALL_T(KC_LPRN)
-#define MEH_RPR MEH_T(KC_RPRN)
+#define MO_LWR  MO(_LOWER)
+#define MO_RSE  MO(_RAISE)
+#define MO_SPL  MO(_SPECIAL)
+
+#define KC_ARRW  KC_ARROW
+// clang-format on

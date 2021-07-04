@@ -21,11 +21,43 @@
 #pragma once
 #include "jjerrell.h"
 
+/****************************** Layout Blocks *******************************/
+
+/**
+ * Numerics
+ */
+
+#define __________________NUMS__LHS__________________   KC_1, KC_2, KC_3, KC_4, KC_5
+#define __________________NUMS__RHS__________________   KC_6, KC_7, KC_8, KC_9, KC_0
+
+#define __________________SYMB__LHS__________________   KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC
+#define __________________SYMB__RHS__________________   KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_EQL
+
+/**
+ * Alpha
+ */
+
+#define __________________WORKMN_L1__________________   KC_Q, KC_D, KC_R, KC_W, KC_B
+#define __________________WORKMN_L2__________________   KC_A, KC_S, KC_H, KC_T, KC_G
+#define __________________WORKMN_L3__________________   KC_Z, KC_X, KC_M, KC_C, KC_V
+
+#define __________________WORKMN_R1__________________   KC_J, KC_F, KC_U,    KC_P,   KC_SCLN
+#define __________________WORKMN_R2__________________   KC_Y, KC_N, KC_E,    KC_O,   KC_I
+#define __________________WORKMN_R3__________________   KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH
+
+#define __________________QWERTY_L1__________________   KC_Q, KC_W, KC_E, KC_R, KC_T
+#define __________________QWERTY_L2__________________   KC_A, KC_S, KC_D, KC_F, KC_G
+#define __________________QWERTY_L3__________________   KC_Z, KC_X, KC_C, KC_V, KC_B
+
+#define __________________QWERTY_R1__________________   KC_Y, KC_U, KC_I,    KC_O,   KC_P
+#define __________________QWERTY_R2__________________   KC_H, KC_J, KC_K,    KC_L,   KC_SCLN
+#define __________________QWERTY_R3__________________   KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH
+
+/************************* Keyboard Layout Wrappers *************************/
+
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #    define LAYOUT KEYMAP
 #endif
-
-/************************* Keyboard Layout Wrappers *************************/
 
 /**
  *  Moonlander
@@ -60,39 +92,3 @@
  * Planck
  */
 
-/****************************** Layout Blocks *******************************/
-
-/**
- * Numerics
- */
-
-#define __________________NUMS__LHS__________________   KC_1, KC_2, KC_3, KC_4, KC_5
-#define __________________NUMS__RHS__________________   KC_6, KC_7, KC_8, KC_9, KC_0
-
-#define __________________SYMB__LHS__________________   KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC
-#define __________________SYMB__RHS__________________   KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_EQL
-
-/**
- * Alpha
- */
-
-#define __________________WORKMN_L1__________________   KC_Q, KC_D, KC_R, KC_W, KC_B
-#define __________________WORKMN_L2__________________   KC_A, KC_S, KC_H, KC_T, KC_G
-#define __________________WORKMN_L3__________________   KC_Z, KC_X, KC_M, KC_C, KC_V
-
-#define __________________WORKMN_R1__________________   KC_J, KC_F, KC_U,    KC_P,   KC_SCLN
-#define __________________WORKMN_R2__________________   KC_Y, KC_N, KC_E,    KC_O,   KC_I
-#define __________________WORKMN_R3__________________   KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH
-
-#define __________________QWERTY_L1__________________   KC_Q, KC_W, KC_E, KC_R, KC_T
-#define __________________QWERTY_L2__________________   KC_A, KC_S, KC_D, KC_F, KC_G
-#define __________________QWERTY_L3__________________   KC_Z, KC_X, KC_C, KC_V, KC_B
-
-#define __________________QWERTY_R1__________________   KC_Y, KC_U, KC_I,    KC_O,   KC_P
-#define __________________QWERTY_R2__________________   KC_H, KC_J, KC_K,    KC_L,   KC_SCLN
-#define __________________QWERTY_R3__________________   KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH
-
-
-/**
- * Extra
- */

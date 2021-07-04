@@ -43,6 +43,7 @@ enum userspace_layers {
     _LOWER,
     _RAISE,
     _ADJUST,
+    _SPECIAL,
     LAYER_SAFE_RANGE,
 };
 
