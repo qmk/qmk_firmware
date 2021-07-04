@@ -35,7 +35,6 @@
   )
 #define LAYOUT_base_wrapper(...)       LAYOUT_5x6_right_base(__VA_ARGS__)
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
         _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
@@ -66,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, _______,
         _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           _______, _______,                                                            _______, _______,
-                                            _______, _______,                                 _______,
+                                            _______, _______,                                 KC_BTN3,
                                                      _______, _______,               _______,
                                                      _______, _______,      _______, _______
     ),
@@ -121,6 +120,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,    KC_NUKE, _______
     ),
 };
+
+#define BASE_ENCODERS { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } }
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_DEFAULT_LAYER_1] = BASE_ENCODERS,
+    [_DEFAULT_LAYER_2] = BASE_ENCODERS,
+    [_DEFAULT_LAYER_3] = BASE_ENCODERS,
+    [_DEFAULT_LAYER_4] = BASE_ENCODERS,
+    [_GAMEPAD]         = { { _______, _______ }, { _______, _______ } },
+    [_DIABLO]          = { { _______, _______ }, { _______, _______ } },
+    [_MOUSE]           = { { _______, _______ }, { KC_WH_D, KC_WH_U } },
+    [_MEDIA]           = { { _______, _______ }, { _______, _______ } },
+    [_RAISE]           = { { _______, _______ }, { KC_PGDN, KC_PGUP } },
+    [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
+    [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
+};
+#endif
 // clang-format on
 
 #ifdef POINTING_DEVICE_ENABLE

@@ -8,4 +8,5 @@ UNICODE_ENABLE               = yes
 OLED_DRIVER_ENABLE           = yes
 WPM_ENABLE                   = yes
 ENCODER_ENABLE               = yes
+ENCODER_MAP_ENABLE           = yes
 # DEBOUNCE_TYPE = sym_eager_pk

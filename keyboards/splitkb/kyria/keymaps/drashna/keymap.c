@@ -102,6 +102,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                  _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
 //     ),
 };
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_DEFAULT_LAYER_1] = { { KC_DOWN, KC_UP   }, { KC_VOLD, KC_VOLU } },
+    [_DEFAULT_LAYER_2] = { { _______, _______ }, { _______, _______ } },
+    [_DEFAULT_LAYER_3] = { { _______, _______ }, { _______, _______ } },
+    [_DEFAULT_LAYER_4] = { { _______, _______ }, { _______, _______ } },
+    [_GAMEPAD]         = { { _______, _______ }, { _______, _______ } },
+    [_DIABLO]          = { { _______, _______ }, { _______, _______ } },
+    [_MOUSE]           = { { _______, _______ }, { KC_WH_D, KC_WH_U } },
+    [_MEDIA]           = { { _______, _______ }, { _______, _______ } },
+    [_RAISE]           = { { _______, _______ }, { KC_PGDN, KC_PGUP } },
+    [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
+    [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
+};
+#endif
 // clang-format on
 
 #ifdef OLED_DRIVER_ENABLE
