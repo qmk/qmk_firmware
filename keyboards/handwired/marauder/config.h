@@ -41,9 +41,10 @@
  */
 #define MATRIX_ROW_PINS { D2, D4, C6, D7, E6, B4, B5, B7, D5, C7, F1, F0 }
 #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4, B0 }
-
 #define DIODE_DIRECTION COL2ROW
 #define LAYER_STATE_8BIT
+#define USB_POLLING_INTERVAL_MS 1 //1000Hz polling rate
+#define QMK_KEYS_PER_SCAN 12 // moar gaming code
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 7

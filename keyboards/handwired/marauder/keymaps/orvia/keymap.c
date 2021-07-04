@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #    define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
-#    define ANIM_SIZE 622  // number of bytes in array, minimize for adequate firmware size, max is 1024
+#    define ANIM_SIZE 610  // number of bytes in array, minimize for adequate firmware size, max is 1024
 
 uint32_t anim_timer         = 0;
 uint32_t anim_sleep         = 0;
@@ -166,11 +166,11 @@ void oled_task_user(void) {
 
     led_t led_state = host_keyboard_led_state();  // caps lock stuff, prints CAPS on new line if caps led is on
     oled_set_cursor(0, 1);
-    oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("       "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
     oled_set_cursor(0, 2);
-    oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("       "), false);
+    oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("   "), false);
     oled_set_cursor(4, 2);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCLK") : PSTR("       "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCLK") : PSTR("    "), false);
     oled_set_cursor(0, 3);
     switch (get_highest_layer(layer_state)) {
         case 0:
@@ -188,5 +188,7 @@ void oled_task_user(void) {
         default:
             oled_write_ln_P(PSTR("Undefined"), false);
     }
+    oled_set_cursor(17, 3);
+    oled_write_P(PSTR("NKRO"), keymap_config.nkro);
 }
 #endif
