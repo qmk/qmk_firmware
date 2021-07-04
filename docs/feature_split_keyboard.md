@@ -94,7 +94,7 @@ This will read the specified pin. By default, if it's high, then the controller 
 This behaviour can be flipped by adding this to you `config.h` file:
 
 ```c
-#define	SPLIT_HAND_LOW_IS_LEFT
+#define	SPLIT_HAND_PIN_LOW_IS_LEFT
 ```
 
 #### Handedness by Matrix Pin
