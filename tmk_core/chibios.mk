@@ -34,7 +34,7 @@ CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
 
 ifeq ($(strip $(MCU)), risc-v)
     # RISC-V Support
-    # As of 4.7.2021 there is only one supported RISC-V platform in Chibios-Contrib,
+    # As of 7.4.2021 there is only one supported RISC-V platform in Chibios-Contrib,
     # therefore all required settings are hard-coded
     STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
     PORT_V = $(CHIBIOS_CONTRIB)/os/common/ports/RISCV-ECLIC/compilers/GCC/mk/port.mk
@@ -229,15 +229,15 @@ include $(CHIBIOS)/os/rt/rt.mk
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
 CHIBISRC = $(STARTUPSRC) \
-       $(KERNSRC) \
-       $(PORTSRC) \
-       $(OSALSRC) \
-       $(HALSRC) \
-       $(PLATFORMSRC) \
-       $(BOARDSRC) \
-       $(STREAMSSRC) \
-       $(CHIBIOS)/os/various/syscalls.c \
-       $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c
+           $(KERNSRC) \
+           $(PORTSRC) \
+           $(OSALSRC) \
+           $(HALSRC) \
+           $(PLATFORMSRC) \
+           $(BOARDSRC) \
+           $(STREAMSSRC) \
+           $(CHIBIOS)/os/various/syscalls.c \
+           $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
@@ -245,12 +245,17 @@ QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
 EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
-         $(TOP_DIR)/platforms/chibios/$(BOARD)/configs \
-         $(TOP_DIR)/platforms/chibios/common/configs \
-         $(HALCONFDIR) $(CHCONFDIR) \
-         $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
-         $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
+                $(TOP_DIR)/platforms/chibios/$(BOARD)/configs \
+                $(TOP_DIR)/platforms/chibios/common/configs \
+                $(HALCONFDIR) $(CHCONFDIR) \
+                $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
+                $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
+                $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
+
+COMMON_VPATH += $(DRIVER_PATH)/chibios
+# Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
+OPT_DEFS += -DPROTOCOL_CHIBIOS \
+            -DPORT_IGNORE_GCC_VERSION_CHECK=1
 
 #
 # ChibiOS-Contrib
@@ -292,73 +297,88 @@ ifneq ("$(wildcard $(BOARD_PATH)/configs/post_config.h)","")
 endif
 
 ##############################################################################
-# Compiler settings
+# Compiler and Linker configuration
 #
-#
+
+# Use defined stack sizes of the main thread in linker scripts
+LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 
 # Shared Compiler flags for all toolchains
-COMPILEFLAGS += -fomit-frame-pointer
-COMPILEFLAGS += -ffunction-sections
-COMPILEFLAGS += -fdata-sections
-COMPILEFLAGS += -fno-common
-COMPILEFLAGS += -fshort-wchar
+SHARED_CFLAGS = -fomit-frame-pointer \
+                -ffunction-sections \
+                -fdata-sections \
+                -fno-common \
+                -fshort-wchar
 
 # Shared Linker flags for all toolchains
-LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
-LDFLAGS +=-Wl,--gc-sections
+SHARED_LDFLAGS = -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS) \
+                 -Wl,--gc-sections \
+                 -nostartfiles \
+                 -nostdlib \
+                 -Wl,-lc -lm -lgcc
 
-# Define stack size of main thread
-LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
-LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
-
-# RISC-V toolchain specific configuration
 ifeq ($(strip $(MCU)), risc-v)
+    # RISC-V toolchain specific configuration
+    # Find suitable GCC compiler
     ifeq ($(strip $(TOOLCHAIN)),)
         ifneq ($(shell which riscv32-unknown-elf-gcc 2>/dev/null),)
-            TOOLCHAIN ?= riscv32-unknown-elf-
+            TOOLCHAIN = riscv32-unknown-elf-
         else
             ifneq ($(shell which riscv64-unknown-elf-gcc 2>/dev/null),)
-                TOOLCHAIN ?= riscv64-unknown-elf-
+                TOOLCHAIN = riscv64-unknown-elf-
             else
                 $(error "No RISC-V toolchain found. Can't find riscv32-unknown-elf-gcc or riscv64-unknown-elf-gcc found in your systems PATH variable. Please install a valid toolchain and make it accessible!")
             endif
         endif
     endif
 
-    COMPILEFLAGS += -mstrict-align    
-    LDFLAGS      += -nostartfiles -mstrict-align
-
-    MCUFLAGS     += -march=$(MCU_ARCH)
-    MCUFLAGS     += -mabi=$(MCU_ABI)
-    MCUFLAGS     += -mcmodel=$(MCU_CMODEL)
+    # MCU architecture flags
+    MCUFLAGS = -march=$(MCU_ARCH) \
+               -mabi=$(MCU_ABI) \
+               -mcmodel=$(MCU_CMODEL) \
+               -mstrict-align
 else
-# ARM toolchain specific configuration
+    # ARM toolchain specific configuration
     TOOLCHAIN ?= arm-none-eabi-
 
-    THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
+    # Toolchain specific Linker flags
+    TOOLCHAIN_LDFLAGS = -Wl,--no-wchar-size-warning \
+                        --specs=nano.specs
 
-    COMPILEFLAGS += -falign-functions=16
-    COMPILEFLAGS += $(THUMBFLAGS)
+    # MCU architecture flags
+    MCUFLAGS = -mcpu=$(MCU) \
+               -mthumb -DTHUMB_PRESENT \
+               -mno-thumb-interwork -DTHUMB_NO_INTERWORKING \
+               -mno-unaligned-access
 
-    LDFLAGS += -mno-thumb-interwork -mthumb
-    LDFLAGS += -Wl,--no-wchar-size-warning
-    LDFLAGS += --specs=nano.specs
-    ASFLAGS += $(THUMBFLAGS)
-
-    MCUFLAGS = -mcpu=$(MCU)
-
-    # FPU-related options
+    # Some ARM cores like the M4 and M7 have floating point units which can be enabled
     USE_FPU ?= no
+
     ifneq ($(USE_FPU),no)
-        # FPU options default (Cortex-M4 and Cortex-M7 single precision).
-        USE_FPU_OPT ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant
-        COMPILEFLAGS += $(USE_FPU_OPT)
         OPT_DEFS += -DCORTEX_USE_FPU=TRUE
+
+        # Default is single precision floats
+        USE_FPU_OPT ?= -mfloat-abi=hard \
+                       -mfpu=fpv4-sp-d16 \
+                       -fsingle-precision-constant
+
+        MCUFLAGS += $(USE_FPU_OPT)
     else
         OPT_DEFS += -DCORTEX_USE_FPU=FALSE
     endif
 endif
 
+# Assembler flags
+ASFLAGS  += $(SHARED_ASFLAGS) $(TOOLCHAIN_ASFLAGS)
+
+# C Compiler flags
+CFLAGS   += $(SHARED_CFLAGS) $(TOOLCHAIN_CFLAGS)
+
+# C++ Compiler flags
+CXXFLAGS += $(CFLAGS) $(SHARED_CXXFLAGS) $(TOOLCHAIN_CXXFLAGS) -fno-rtti
+
+# Linker flags
+LDFLAGS  += $(SHARED_LDFLAGS) $(TOOLCHAIN_LDFLAGS)
 # GCC Toolchain 
 CC      = $(TOOLCHAIN)gcc
 OBJCOPY = $(TOOLCHAIN)objcopy
@@ -370,25 +390,15 @@ HEX     = $(OBJCOPY) -O $(FORMAT)
 EEP     =
 BIN     = $(OBJCOPY) -O binary
 
-COMMON_VPATH += $(DRIVER_PATH)/chibios
-
-# C Compiler flags
-CFLAGS += $(COMPILEFLAGS)
-
-# C++ Compiler flags
-CXXFLAGS += $(COMPILEFLAGS)
-CXXFLAGS += -fno-rtti
-
-OPT_DEFS += -DPROTOCOL_CHIBIOS
-
-# Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
-OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
+##############################################################################
+# Make targets
+#
 
 DEBUG = gdb
 
 DFU_ARGS ?=
 ifneq ("$(SERIAL)","")
-	DFU_ARGS += -S $(SERIAL)
+    DFU_ARGS += -S $(SERIAL)
 endif
 
 ST_LINK_ARGS ?=
@@ -473,9 +483,7 @@ else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(call EXEC_TEENSY)
 else ifeq ($(strip $(MCU_FAMILY)),MIMXRT1062)
 	$(call EXEC_TEENSY)
-else ifeq ($(strip $(MCU_FAMILY)),STM32)
-	$(call EXEC_DFU_UTIL)
-else ifeq ($(strip $(MCU_FAMILY)),GD)
+else ifneq (,$(filter $(MCU_FAMILY),STM32 GD))
 	$(call EXEC_DFU_UTIL)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
