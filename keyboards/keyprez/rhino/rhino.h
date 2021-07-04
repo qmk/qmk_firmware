@@ -77,3 +77,4 @@
     { k47,   k48,   k49,   k50,   k51,   k52,   k53 },  \
     { KC_NO, KC_NO, KC_NO, KC_NO, k63,   k64,   k65 }  \
 }
+
