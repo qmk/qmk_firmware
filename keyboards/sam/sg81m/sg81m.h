@@ -33,7 +33,7 @@
     { K50,   K51,   K52,   K53,   K54,   K55,   K56,   K57,   K58,   K59,   K5A,   KC_NO, KC_NO, KC_NO }, \
 }
 
-#define LAYOUT_6.25u_space( \
+#define LAYOUT_6_25u_space( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D,     K2D, K3D, K4D, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,     K56, K57, K58, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,          K53, K54, K55, \
