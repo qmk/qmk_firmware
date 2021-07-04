@@ -379,8 +379,15 @@ CXXFLAGS += $(CFLAGS) $(SHARED_CXXFLAGS) $(TOOLCHAIN_CXXFLAGS) -fno-rtti
 
 # Linker flags
 LDFLAGS  += $(SHARED_LDFLAGS) $(TOOLCHAIN_LDFLAGS)
-# GCC Toolchain 
-CC      = $(TOOLCHAIN)gcc
+
+# Speed up recompilations by opt-in usage of ccache
+USE_CCACHE ?= no
+ifneq ($(USE_CCACHE),no)
+    CC_PREFIX ?= ccache
+endif
+
+# Construct GCC toolchain
+CC      = $(CC_PREFIX) $(TOOLCHAIN)gcc
 OBJCOPY = $(TOOLCHAIN)objcopy
 OBJDUMP = $(TOOLCHAIN)objdump
 SIZE    = $(TOOLCHAIN)size
