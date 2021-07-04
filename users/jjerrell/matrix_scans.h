@@ -17,3 +17,6 @@
 
 #pragma once
 #include "jjerrell.h"
+
+void matrix_scan_secrets(void);
+void matrix_scan_keymap(void);

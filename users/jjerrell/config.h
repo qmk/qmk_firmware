@@ -19,6 +19,8 @@
 
 #define EECONFIG_MAGIC_NUMBER (uint16_t)0x1339
 
+#define ENABLE_USERSPACE_CONFIG
+
 // /* Set Polling rate to 1000Hz */
 // #define USB_POLLING_INTERVAL_MS 1
 
@@ -93,7 +95,7 @@
 #    define TAPPING_TERM 175
 #endif
 
-// #define TAP_CODE_DELAY 5
+#define TAP_CODE_DELAY 10
 
 /* Disable unused and unneeded features to reduce on firmware size */
 #ifdef LOCKING_SUPPORT_ENABLE

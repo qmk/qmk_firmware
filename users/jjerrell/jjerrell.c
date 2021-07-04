@@ -21,42 +21,39 @@
 
 /*************** Early Keyboard Initialization ***************/
 
-__attribute__((weak)) void eeconfig_init_user_config(void) {}
-__attribute__((weak)) void keyboard_pre_init_config(void) {}
-
-#ifdef ENABLE_USERSPACE_CONFIG
 
 userspace_config_t userspace_config;
-
+#ifdef ENABLE_USERSPACE_CONFIG
 void eeconfig_init_user_config(void) {
     userspace_config.raw              = 0;
 #  ifdef RGB_MATRIX_ENABLE
     userspace_config.rgb_layer_change = true;
-#  endif
+#  endif // RGB_MATRIX_ENABLE
     eeconfig_update_user(userspace_config.raw);
 }
 
 void keyboard_pre_init_config(void) {
     userspace_config.raw = eeconfig_read_user();
 }
-
+#else
+__attribute__((weak)) void eeconfig_init_user_config(void) {}
+__attribute__((weak)) void keyboard_pre_init_config(void) {}
 #endif // ENABLE_USERSPACE_CONFIG
 
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
-void keyboard_pre_init_keymap() {
+void keyboard_pre_init_user() {
     keyboard_pre_init_config();
     keyboard_pre_init_keymap();
 }
 
 __attribute__((weak)) void eeconfig_init_keymap(void) {}
 void eeconfig_init_user(void) {
-    eeconfig_init_config();
+    eeconfig_init_user_config();
     eeconfig_init_keymap();
     keyboard_init(); // Initialize keyboard
 }
 
 /************* Initialize Userspace and Keymap *************/
-
 
 __attribute__((weak)) void matrix_init_rgb(void) {}
 __attribute__((weak)) void startup_keymap(void) {}
@@ -67,11 +64,7 @@ void startup_user(void) {
 
 /************** Post Keyboard Initialization **************/
 
-__attribute__((weak)) void keyboard_post_init_rgb(void) {}
-__attribute__((weak)) void shutdown_user_rgb(void) {}
-
 #ifdef RGB_MATRIX_ENABLE
-
 void keyboard_post_init_rgb(void) {
     keyboard_post_init_rgb_matrix();
 }
@@ -81,7 +74,9 @@ void shutdown_user_rgb(void) {
     rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
 }
-
+#else
+__attribute__((weak)) void keyboard_post_init_rgb(void) {}
+__attribute__((weak)) void shutdown_user_rgb(void) {}
 #endif // RGB_MATRIX_ENABLE
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
@@ -113,43 +108,9 @@ void shutdown_user(void) {
 
 /************************* Matrix *************************/
 
-__attribute__((weak)) void matrix_scan_secrets(void) {}
-
-// TODO: Use rules.mk to include a scan_leader.h if enabled
-#ifdef LEADER_ENABLE
-LEADER_EXTERNS();
-void matrix_scan_leader(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        // Website Refresh / XCode "Run"
-        SEQ_ONE_KEY(KC_R) {
-            SEND_STRING(SS_LGUI("r"));
-        } else
-
-        SEQ_TWO_KEYS(KC_B, KC_D) {
-            SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE);
-        }
-
-        #ifndef NO_SECRETS
-        matrix_scan_secrets();
-        #endif // !NO_SECRETS
-    }
-}
-#endif // LEADER_ENABLE
-
 __attribute__((weak)) void matrix_init_keymap(void) {}
 void matrix_init_user(void) {
     matrix_init_keymap();
-}
-
-__attribute__((weak)) void matrix_scan_keymap(void) {}
-__attribute__((weak)) void matrix_scan_rgb_matrix(void) {}
-void matrix_scan_user(void) {
-    matrix_scan_leader();
-    matrix_scan_rgb_matrix();
-    matrix_scan_keymap();
 }
 
 /*********************** LED Control ***********************/

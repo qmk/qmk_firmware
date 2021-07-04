@@ -27,6 +27,7 @@
 
 /** Userspace Includes **/
 #include "process_records.h"
+#include "matrix_scans.h"
 #include "wrappers.h"
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb_matrix_stuff.h"
@@ -45,15 +46,6 @@ enum userspace_layers {
     LAYER_SAFE_RANGE,
 };
 
-/************************ Userspace Keycodes ************************/
-
-enum custom_keycodes {
-    VRSN = SAFE_RANGE,
-    KC_MAKE,
-    KC_RESET,
-    NEWPLACEHOLDER  // use "NEWPLACEHOLDER for keymap specific codes
-};
-
 /********************** Custom Helper Methods **********************/
 
 // bool          mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
@@ -61,8 +53,7 @@ enum custom_keycodes {
 
 /************************* Keymap Methods **************************/
 
-void          matrix_init_keymap(void); //
-void          matrix_scan_keymap(void);
+void          matrix_init_keymap(void);
 void          eeconfig_init_keymap(void);
 
 void          shutdown_keymap(void);
@@ -81,7 +72,6 @@ typedef union userspace_config_t {
         bool    rgb_layer_change     :1;
         bool    rgb_matrix_idle_anim :1;
     };
-};
-
-extern userspace_config_t userspace_config;
+} userspace_config_t;
 #endif // ENABLE_USERSPACE_CONFIG
+extern userspace_config_t userspace_config;
