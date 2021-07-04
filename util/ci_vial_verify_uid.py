@@ -9,7 +9,7 @@ from collections import defaultdict
 
 def main():
     error = 0
-    uid_to_keyboards = defaultdict(list)
+    uid_to_keyboards = defaultdict(set)
 
     for filename in glob("keyboards/**/vial.json", recursive=True):
         keyboard = filename[10:-10].split("/keymaps/")[0]
@@ -38,7 +38,7 @@ def main():
         uid = uid[0].split(",")
         uid = [int(x, 16) for x in uid]
         uid = struct.pack("BBBBBBBB", *uid).hex()
-        uid_to_keyboards[uid].append(keyboard)
+        uid_to_keyboards[uid].add(keyboard)
 
         print("{} uses UID {}".format(keyboard, uid))
 
