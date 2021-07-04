@@ -5,7 +5,7 @@
     "width": 13,
     "height": 4,
     "layouts": {
-        "KEYMAP": {
+        "LAYOUT": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
