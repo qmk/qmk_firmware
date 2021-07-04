@@ -52,6 +52,8 @@ enum {
     dynamic_vial_get_number_of_entries = 0x00,
     dynamic_vial_tap_dance_get = 0x01,
     dynamic_vial_tap_dance_set = 0x02,
+    dynamic_vial_combo_get = 0x03,
+    dynamic_vial_combo_set = 0x04,
 };
 
 /* Fake position in keyboard matrix, can't use 255 as that is immediately rejected by IS_NOEVENT
@@ -86,6 +88,12 @@ _Static_assert(sizeof(vial_tap_dance_entry_t) == 10, "Unexpected size of the via
 #ifndef VIAL_COMBO_ENTRIES
 #define VIAL_COMBO_ENTRIES 16
 #endif
+
+typedef struct {
+    uint16_t input[4];
+    uint16_t output;
+} vial_combo_entry_t;
+_Static_assert(sizeof(vial_combo_entry_t) == 10, "Unexpected size of the vial_combo_entry_t structure");
 
 /* also to catch wrong include order in e.g. process_combo.h */
 #ifdef COMBO_COUNT

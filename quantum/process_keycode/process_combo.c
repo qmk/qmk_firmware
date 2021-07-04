@@ -17,6 +17,10 @@
 #include "print.h"
 #include "process_combo.h"
 
+#ifdef VIAL_COMBO_ENABLE
+#include "dynamic_keymap.h"
+#endif
+
 #ifndef COMBO_VARIABLE_LEN
 __attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {};
 #else
@@ -84,12 +88,27 @@ static inline void dump_key_buffer(bool emit) {
 static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     uint8_t  count = 0;
     uint16_t index = -1;
+#ifdef VIAL_COMBO_ENABLE
+    uint8_t combo_idx = (uintptr_t)combo->keys;
+    vial_combo_entry_t entry;
+    if (dynamic_keymap_get_combo(combo_idx, &entry) != 0)
+        return false;
+    for (count = 0; count < sizeof(entry.input)/sizeof(*entry.input); ++count) {
+        uint16_t key = entry.input[count];
+        if (key == KC_NO) break;
+        if (key == keycode) index = count;
+    }
+    /* must have at least 2 keys in the combo */
+    if (count < 2)
+        return false;
+#else
     /* Find index of keycode and number of combo keys */
     for (const uint16_t *keys = combo->keys;; ++count) {
         uint16_t key = pgm_read_word(&keys[count]);
         if (keycode == key) index = count;
         if (COMBO_END == key) break;
     }
+#endif
 
     /* Continue processing if not a combo key */
     if (-1 == (int8_t)index) return false;

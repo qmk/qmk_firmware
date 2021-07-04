@@ -58,9 +58,16 @@ _Static_assert(sizeof(vial_unlock_combo_rows) == sizeof(vial_unlock_combo_cols),
 static void reload_tap_dance(void);
 #endif
 
+#ifdef VIAL_COMBO_ENABLE
+static void init_combo(void);
+#endif
+
 void vial_init(void) {
 #ifdef VIAL_TAP_DANCE_ENABLE
     reload_tap_dance();
+#endif
+#ifdef VIAL_COMBO_ENABLE
+    init_combo();
 #endif
 }
 
@@ -216,6 +223,20 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 memcpy(&td, &msg[4], sizeof(td));
                 msg[0] = dynamic_keymap_set_tap_dance(idx, &td);
                 reload_tap_dance();
+                break;
+            }
+            case dynamic_vial_combo_get: {
+                uint8_t idx = msg[3];
+                vial_combo_entry_t entry = { 0 };
+                msg[0] = dynamic_keymap_get_combo(idx, &entry);
+                memcpy(&msg[1], &entry, sizeof(entry));
+                break;
+            }
+            case dynamic_vial_combo_set: {
+                uint8_t idx = msg[3];
+                vial_combo_entry_t entry;
+                memcpy(&entry, &msg[4], sizeof(entry));
+                msg[0] = dynamic_keymap_set_combo(idx, &entry);
                 break;
             }
             }
@@ -462,15 +483,23 @@ static void reload_tap_dance(void) {
 #endif
 
 #ifdef VIAL_COMBO_ENABLE
-const uint16_t PROGMEM test_combo[] = {KC_X, KC_Z, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO_ACTION(test_combo)};
+combo_t key_combos[VIAL_COMBO_ENTRIES];
+
+static void init_combo(void) {
+    for (size_t i = 0; i < VIAL_COMBO_ENTRIES; ++i) {
+        key_combos[i].keys = (void*)(uintptr_t)i;
+    }
+}
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
-    uprintf("combo event %d\n", combo_index);
+    vial_combo_entry_t entry;
+    if (dynamic_keymap_get_combo(combo_index, &entry) != 0)
+        return;
+
     if (pressed)
-        vial_keycode_down(0x5F12);
+        vial_keycode_down(entry.output);
     else
-        vial_keycode_up(0x5F12);
+        vial_keycode_up(entry.output);
 }
 
 #endif

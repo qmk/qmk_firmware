@@ -86,6 +86,7 @@ static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 #define VIAL_QMK_SETTINGS_SIZE 0
 #endif
 
+// Tap-dance
 #define VIAL_TAP_DANCE_EEPROM_ADDR (VIAL_QMK_SETTINGS_EEPROM_ADDR + VIAL_QMK_SETTINGS_SIZE)
 
 #ifdef VIAL_TAP_DANCE_ENABLE
@@ -94,9 +95,18 @@ static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 #define VIAL_TAP_DANCE_SIZE 0
 #endif
 
-// Dynamic macro starts after tap-dance
+// Combos
+#define VIAL_COMBO_EEPROM_ADDR (VIAL_TAP_DANCE_EEPROM_ADDR + VIAL_TAP_DANCE_SIZE)
+
+#ifdef VIAL_COMBO_ENABLE
+#define VIAL_COMBO_SIZE (sizeof(vial_combo_entry_t) * VIAL_COMBO_ENTRIES)
+#else
+#define VIAL_COMBO_SIZE 0
+#endif
+
+// Dynamic macro
 #ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_TAP_DANCE_EEPROM_ADDR + VIAL_TAP_DANCE_SIZE)
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_COMBO_EEPROM_ADDR + VIAL_COMBO_SIZE)
 #endif
 
 // Sanity check that dynamic keymaps fit in available EEPROM
@@ -104,7 +114,7 @@ static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 // The keyboard should override DYNAMIC_KEYMAP_LAYER_COUNT to reduce it,
 // or DYNAMIC_KEYMAP_EEPROM_MAX_ADDR to increase it, *only if* the microcontroller has
 // more than the default.
-_Static_assert(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR >= 100, "Dynamic keymaps are configured to use more EEPROM than is available.");
+_Static_assert(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR >= DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + 100, "Dynamic keymaps are configured to use more EEPROM than is available.");
 
 // Dynamic macros are stored after the keymaps and use what is available
 // up to and including DYNAMIC_KEYMAP_EEPROM_MAX_ADDR.
@@ -215,6 +225,28 @@ int dynamic_keymap_set_tap_dance(uint8_t index, const vial_tap_dance_entry_t *en
 }
 #endif
 
+#ifdef VIAL_COMBO_ENABLE
+int dynamic_keymap_get_combo(uint8_t index, vial_combo_entry_t *entry) {
+    if (index >= VIAL_COMBO_ENTRIES)
+        return -1;
+
+    void *address = (void*)(VIAL_COMBO_EEPROM_ADDR + index * sizeof(vial_combo_entry_t));
+    eeprom_read_block(entry, address, sizeof(vial_combo_entry_t));
+
+    return 0;
+}
+
+int dynamic_keymap_set_combo(uint8_t index, const vial_combo_entry_t *entry) {
+    if (index >= VIAL_COMBO_ENTRIES)
+        return -1;
+
+    void *address = (void*)(VIAL_COMBO_EEPROM_ADDR + index * sizeof(vial_combo_entry_t));
+    eeprom_write_block(entry, address, sizeof(vial_combo_entry_t));
+
+    return 0;
+}
+#endif
+
 #if defined(VIAL_ENCODERS_ENABLE) && defined(VIAL_ENCODER_DEFAULT)
 static const uint16_t PROGMEM vial_encoder_default[] = VIAL_ENCODER_DEFAULT;
 _Static_assert(sizeof(vial_encoder_default)/sizeof(*vial_encoder_default) == 2 * DYNAMIC_KEYMAP_LAYER_COUNT * NUMBER_OF_ENCODERS,
@@ -260,6 +292,12 @@ void dynamic_keymap_reset(void) {
     for (size_t i = 0; i < VIAL_TAP_DANCE_ENTRIES; ++i) {
         dynamic_keymap_set_tap_dance(i, &td);
     }
+#endif
+
+#ifdef VIAL_COMBO_ENABLE
+    vial_combo_entry_t combo = { 0 };
+    for (size_t i = 0; i < VIAL_COMBO_ENTRIES; ++i)
+        dynamic_keymap_set_combo(i, &combo);
 #endif
 
 #ifdef VIAL_ENABLE
