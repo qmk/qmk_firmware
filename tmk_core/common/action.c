@@ -700,7 +700,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #        ifdef RETRO_TAPPING_PER_KEY
                     get_retro_tapping(get_event_keycode(record->event, false), record) &&
 #        endif
-                    retro_tapping_counter == 1) {
+                    retro_tapping_counter >= 1) {
                     tap_code(action.layer_tap.code);
                 }
                 retro_tapping_counter = 0;
