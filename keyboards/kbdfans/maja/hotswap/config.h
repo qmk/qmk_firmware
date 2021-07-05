@@ -2,30 +2,24 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4B42 // KB
-#define PRODUCT_ID      0x1224
+#define VENDOR_ID       0x4B42
+#define PRODUCT_ID      0x6068
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDfans
-#define PRODUCT         KBD67mkII RGB v1
+#define PRODUCT         Maja Hotswap
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-#define MATRIX_ROW_PINS { B1, B10, B11, B14, B12 }
-#define MATRIX_COL_PINS {A6, A7, B0, B13, B15, A8, A15, B3, B4, B5, B8, B9, C13, C14, C15 }
+#define MATRIX_ROW_PINS { F0, B6, B5, B4, D7 }
+#define MATRIX_COL_PINS { C6, C7, F7, F6, F5, F4, F1, B0, B1, B2, B3, B7, D2, D3, D5 }
 
 #define DIODE_DIRECTION COL2ROW
 
 #define DEBOUNCE 5
 
 #ifdef RGB_MATRIX_ENABLE
-#   define DRIVER_ADDR_1 0b1110100
-#   define DRIVER_ADDR_2 0b1110111
-#   define DRIVER_COUNT 2
-#   define DRIVER_1_LED_TOTAL 35
-#   define DRIVER_2_LED_TOTAL 32
-#   define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+#   define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #   define RGB_MATRIX_KEYPRESSES
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #   define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
@@ -40,5 +34,10 @@
 #   define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
 #   define DISABLE_RGB_MATRIX_SPLASH
 #   define DISABLE_RGB_MATRIX_SOLID_SPLASH
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#   define DRIVER_ADDR_1 0b1110100
+#   define DRIVER_ADDR_2 0b1110110
+#   define DRIVER_COUNT 2
+#   define DRIVER_1_LED_TOTAL 36
+#   define DRIVER_2_LED_TOTAL 31
+#   define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 #endif

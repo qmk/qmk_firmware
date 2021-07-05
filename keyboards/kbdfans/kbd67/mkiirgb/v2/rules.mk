@@ -15,7 +15,7 @@ BOOTLOADER = atmel-dfu
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes       # Mouse keys
+MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
@@ -30,6 +30,5 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 RGB_MATRIX_ENABLE = yes     # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3731
-NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 
 LAYOUTS = 65_ansi_blocker
