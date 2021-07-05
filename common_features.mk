@@ -453,6 +453,7 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(VIAL_ENABLE)), yes)
+    QMK_SETTINGS ?= yes
     TAP_DANCE_ENABLE ?= yes
     COMBO_ENABLE ?= yes
     SRC += $(QUANTUM_DIR)/vial.c
