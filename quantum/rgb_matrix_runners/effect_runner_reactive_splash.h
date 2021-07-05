@@ -16,7 +16,7 @@ bool effect_runner_reactive_splash(uint8_t start, effect_params_t* params, react
             int16_t  dx   = g_led_config.point[i].x - g_last_hit_tracker.x[j];
             int16_t  dy   = g_led_config.point[i].y - g_last_hit_tracker.y[j];
             uint8_t  dist = sqrt16(dx * dx + dy * dy);
-            uint16_t tick = scale16by8(g_last_hit_tracker.tick[j], rgb_matrix_config.speed);
+            uint16_t tick = scale16by8(g_last_hit_tracker.tick[j], qadd8(rgb_matrix_config.speed, 1));
             hsv           = effect_func(hsv, dx, dy, dist, tick);
         }
         hsv.v   = scale8(hsv.v, rgb_matrix_config.hsv.v);
