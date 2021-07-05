@@ -82,4 +82,12 @@
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
+
+#define DISABLE_RGB_MATRIX_HUE_BREATHING
+#define DISABLE_RGB_MATRIX_HUE_PENDULUM
+#define DISABLE_RGB_MATRIX_HUE_WAVE
+
+// This allows VIA to control RGB Matrix settings in the 'Lighting' section.
+#define VIA_QMK_RGBLIGHT_ENABLE
+
 #endif /* RGB_MATRIX_ENABLE */
