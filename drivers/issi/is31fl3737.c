@@ -153,7 +153,7 @@ void IS31FL3737_init(uint8_t addr) {
 
 void IS31FL3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        // set the led ptr to the led config in progmem
+        // copy the led config from progmem to SRAM
         is31_led led;
         memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
@@ -171,7 +171,7 @@ void IS31FL3737_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3737_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    // set the led ptr to the led config in progmem
+    // copy the led config from progmem to SRAM
     is31_led led;
     memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
