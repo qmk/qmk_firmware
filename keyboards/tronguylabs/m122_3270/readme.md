@@ -5,9 +5,9 @@
 This is a replacement controller for the IBM Model M 122 key terminal keyboard running on a STM32F411 BlackPill, intended
 to act as closely to the 3270 keyboard's functioning as possible while still being usable on a PC.
 
-Keyboard Maintainer: [Jay Maynard](https://github.com/jmaynard)  
-Hardware Supported: BlackPill STM32F411, Teensy++ 2.0
-Hardware Availability: [BlackPill](https://www.adafruit.com/product/4877), [Teensy](https://www.pjrc.com/store/teensypp.html)
+* Keyboard Maintainer: [Jay Maynard](https://github.com/jmaynard)
+* Hardware Supported: BlackPill STM32F411, Teensy++ 2.0
+* Hardware Availability: [BlackPill](https://www.adafruit.com/product/4877), [Teensy](https://www.pjrc.com/store/teensypp.html)
 
 Make example for this keyboard (after setting up your build environment):
 
