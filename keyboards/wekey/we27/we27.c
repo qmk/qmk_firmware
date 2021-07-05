@@ -15,10 +15,12 @@
  */
 
 #include "we27.h"
+#include "encoder_actions.h"
+
+#ifdef RGB_MATRIX_ENABLE
 
 #define __ NO_LED
 
-#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     { 0,  1,  2,  3,  4  },
     { 9,  8,  7,  6,  5  },
@@ -41,4 +43,16 @@ led_config_t g_led_config = { {
     1, 4, 4, 4, 4,
     1, 4,    4
 } };
+
 #endif
+
+void matrix_scan_kb(void) {
+    encoder_action_unregister();
+    matrix_scan_user();
+}
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
+    encoder_action_register(index, clockwise);
+    return true;
+};
