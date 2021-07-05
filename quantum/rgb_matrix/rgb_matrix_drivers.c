@@ -65,7 +65,7 @@ static void init(void) {
 #        endif
 #    elif defined(IS31FL3737)
     IS31FL3737_init(DRIVER_ADDR_1);
-#       ifdef DRIVER_ADDR_2 && (DRIVER_ADDR_2 != DRIVER_ADDR_1)
+#       if defined(DRIVER_ADDR_2) && (DRIVER_ADDR_2 != DRIVER_ADDR_1) // provides backward compatibility
     IS31FL3737_init(DRIVER_ADDR_2);
 #       endif
 #    else
@@ -109,7 +109,7 @@ static void init(void) {
 #        endif
 #    elif defined(IS31FL3737)
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_1, 0);
-#        ifdef DRIVER_ADDR_2 && (DRIVER_ADDR_2 != DRIVER_ADDR_1)
+#        if defined(DRIVER_ADDR_2) && (DRIVER_ADDR_2 != DRIVER_ADDR_1) // provides backward compatibility
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_2, 1);
 #        endif
 #    else
@@ -160,7 +160,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    elif defined(IS31FL3737)
 static void flush(void) {
     IS31FL3737_update_pwm_buffers(DRIVER_ADDR_1, 0);
-#        ifdef DRIVER_ADDR_2 && (DRIVER_ADDR_2 != DRIVER_ADDR_1)
+#        if defined(DRIVER_ADDR_2) && (DRIVER_ADDR_2 != DRIVER_ADDR_1) // provides backward compatibility
     IS31FL3737_update_pwm_buffers(DRIVER_ADDR_2, 1);
 #        endif
 }
