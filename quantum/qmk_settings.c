@@ -87,8 +87,8 @@ void qmk_settings_reset(void) {
     QS.grave_esc_override = 0;
     QS.auto_shift = 0;
     QS.auto_shift_timeout = AUTO_SHIFT_TIMEOUT;
-    QS.osk_tap_toggle = 0;
-    QS.osk_timeout = 5000;
+    QS.osk_tap_toggle = ONESHOT_TAP_TOGGLE;
+    QS.osk_timeout = ONESHOT_TIMEOUT;
 
     QS.mousekey_delay = MOUSEKEY_DELAY;
     QS.mousekey_interval = MOUSEKEY_INTERVAL;
