@@ -60,6 +60,7 @@ void matrix_scan_kb(void) {
 }
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encorder_update_user(index, clockwise) { return false; }
     encoder_action_register(index, clockwise);
     // don't return user actions, because they are in the keymap
     // encoder_update_user(index, clockwise);

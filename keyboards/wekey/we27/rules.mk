@@ -28,3 +28,5 @@ DEBOUNCE_TYPE	  = sym_defer_pk
 RGB_MATRIX_CUSTOM_KB = yes
 
 SRC += encoder_actions.c
+
+LAYOUTS = numpad_6x5
