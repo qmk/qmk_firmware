@@ -182,10 +182,15 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             break;
         }
         case vial_qmk_settings_query: {
+#ifdef QMK_SETTINGS
             uint16_t qsid_greater_than = msg[2] | (msg[3] << 8);
             qmk_settings_query(qsid_greater_than, msg, length);
+#else
+            memset(msg, 0xFF, length); /* indicate that we don't support any qsid */
+#endif
             break;
         }
+#ifdef QMK_SETTINGS
         case vial_qmk_settings_get: {
             uint16_t qsid = msg[2] | (msg[3] << 8);
             msg[0] = qmk_settings_get(qsid, &msg[1], length - 1);
@@ -202,6 +207,7 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             qmk_settings_reset();
             break;
         }
+#endif
         case vial_dynamic_entry_op: {
             switch (msg[2]) {
             case dynamic_vial_get_number_of_entries: {

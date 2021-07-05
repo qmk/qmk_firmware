@@ -77,6 +77,17 @@
 #define AUTO_SHIFT_NO_AUTO_REPEAT_Defined 0
 #endif
 
+/* ========================================================================== */
+/* One shot keys                                                              */
+/* ========================================================================== */
+#ifndef ONESHOT_TAP_TOGGLE
+#define ONESHOT_TAP_TOGGLE 5
+#endif
+
+#ifndef ONESHOT_TIMEOUT
+#define ONESHOT_TIMEOUT 5000
+#endif
+
 #ifdef QMK_SETTINGS
 /* dynamic settings framework is enabled */
 
