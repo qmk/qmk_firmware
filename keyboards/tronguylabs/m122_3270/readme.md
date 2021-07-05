@@ -1,6 +1,6 @@
 # m122-3270
 
-![IBM Model M 122 key](https://i.imgur.com/Oo3Ozqz.jpg)
+![IBM Model M 122 key](https://i.imgur.com/Oo3Ozqzh.jpg)
 
 This is a replacement controller for the IBM Model M 122 key terminal keyboard running on a STM32F411 BlackPill, intended
 to act as closely to the 3270 keyboard's functioning as possible while still being usable on a PC.
