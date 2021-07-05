@@ -22,4 +22,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes
 ENCODER_ENABLE = yes
-OLED_DRIVER_ENABLE = no      # Future release
+OLED_ENABLE = no      # Future release

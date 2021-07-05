@@ -113,7 +113,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_status(void) {
     oled_write_P(PSTR("Tau.4 v1.0\n\n"), false);

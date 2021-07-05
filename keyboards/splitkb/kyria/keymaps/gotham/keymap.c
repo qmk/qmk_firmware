@@ -22,7 +22,7 @@
 #    include "encoder_utils.h"
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled_utils.h"
 #endif
 
@@ -103,7 +103,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
 void oled_task_user(void) { render_status(); }
@@ -113,12 +113,12 @@ void oled_task_user(void) { render_status(); }
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         encoder_action(get_encoder_mode(true), clockwise);
-#    ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_ENABLE
         oled_on();
 #    endif
     } else if (index == 1) {
         encoder_action(get_encoder_mode(false), clockwise);
-#    ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_ENABLE
         oled_on();
 #    endif
     }

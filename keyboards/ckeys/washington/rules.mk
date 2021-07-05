@@ -29,4 +29,5 @@ MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 ENCODER_ENABLE = yes        # Enable support for encoders
-OLED_DRIVER_ENABLE = yes    # Enable support for OLED displays
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306    # Enable support for OLED displays

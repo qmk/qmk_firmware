@@ -46,7 +46,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_amigopunk_logo(void) {
     static const char PROGMEM amigopunk_logo[] = {

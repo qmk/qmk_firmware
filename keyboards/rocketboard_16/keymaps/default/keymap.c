@@ -54,7 +54,7 @@ bool encoder_update_user(uint8_t index, bool clockwise){
     return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {

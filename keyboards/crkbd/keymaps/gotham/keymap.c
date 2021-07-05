@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keycodes.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled.c"
 #endif
 
@@ -78,7 +78,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     if (record->event.pressed) {
         oled_timer = timer_read();
         add_keylog(keycode);

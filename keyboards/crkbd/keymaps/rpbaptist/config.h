@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 #define EE_HANDS
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    undef SSD1306OLED
 #    define OLED_TIMEOUT 600000
 #endif

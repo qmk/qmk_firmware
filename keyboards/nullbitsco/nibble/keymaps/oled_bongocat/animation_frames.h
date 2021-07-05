@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 // Enable OLED bitmpa compression selectively.
 #define USE_OLED_BITMAP_COMPRESSION
@@ -401,4 +401,4 @@ static const char PROGMEM tap_frames[NUM_TAP_FRAMES][NUM_OLED_BYTES] = {
     },
   };
 #endif //USE_BITMAP_COMPRESSION
-#endif //OLED_DRIVER_ENABLE
+#endif //OLED_ENABLE

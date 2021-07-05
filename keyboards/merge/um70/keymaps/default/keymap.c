@@ -89,7 +89,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void suspend_power_down_user(void) {
     oled_off();
 }

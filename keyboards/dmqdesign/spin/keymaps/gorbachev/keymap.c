@@ -160,7 +160,7 @@ layer_state_t layer_state_set_user(layer_state_t state) { //This will run every 
     return state;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static const char *ANIMATION_NAMES[] = {
 	"unknown",

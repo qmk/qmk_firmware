@@ -21,7 +21,7 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-OLED_DRIVER_ENABLE = no    # OLED display; work in progress to add support. will be update in future.
+OLED_ENABLE = no    # OLED display; work in progress to add support. will be update in future.
 SPLIT_KEYBOARD = yes
 
 LAYOUTS = split_3x5_3
