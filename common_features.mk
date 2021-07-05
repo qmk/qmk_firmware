@@ -601,11 +601,26 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     OPT_DEFS += -DHD44780_ENABLE
 endif
 
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
-    OPT_DEFS += -DOLED_DRIVER_ENABLE
-    COMMON_VPATH += $(DRIVER_PATH)/oled
-    QUANTUM_LIB_SRC += i2c_master.c
-    SRC += oled_driver.c
+VALID_OLED_DRIVER_TYPES := SSD1306 custom
+OLED_DRIVER ?= SSD1306
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    ifeq ($(filter $(OLED_DRIVER),$(VALID_OLED_DRIVER_TYPES)),)
+        $(error OLED_DRIVER="$(OLED_DRIVER)" is not a valid OLED driver)
+    else
+        OPT_DEFS += -DOLED_ENABLE
+        COMMON_VPATH += $(DRIVER_PATH)/oled
+
+        ifeq ($(strip $(OLED_DRIVER)), SSD1306)
+            SRC += ssd1306_sh1106.c
+        endif
+        # add extra deps
+        ifeq ($(strip $(OLED_DRIVER)), SSD1306)
+            QUANTUM_LIB_SRC += i2c_master.c
+        endif
+        # ifeq ($(strip $(OLED_DRIVER)), SSD1322)
+        #     QUANTUM_LIB_SRC += spi_master.c
+        # endif
+    endif
 endif
 
 ifeq ($(strip $(ST7565_ENABLE)), yes)
