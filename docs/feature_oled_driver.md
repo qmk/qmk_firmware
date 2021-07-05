@@ -21,13 +21,18 @@ Hardware configurations using Arm-based microcontrollers or different sizes of O
 To enable the OLED feature, there are three steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
 
 ```make
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
 ```
+
+## OLED type
+|OLED Driver        |Supported Device      |Notes                      |
+|-------------------|----------------------|---------------------------|
+|SSD1306 (default)  |Specific OLED version |For both SSD1306 and SH1106|
 
 Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
 
 ```c
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -114,7 +119,7 @@ static void fade_display(void) {
 In split keyboards, it is very common to have two OLED displays that each render different content and are oriented or flipped differently. You can do this by switching which content to render by using the return value from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
 
 ```c
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
