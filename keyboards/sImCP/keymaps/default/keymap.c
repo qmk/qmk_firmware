@@ -15,13 +15,18 @@
  */
 #include QMK_KEYBOARD_H
 
+#define JOY_INITIAL_DELAY 20            // 20ms delay until first joystick action
+#define JOY_REPEAT_RATE 250             //repeat every 250ms, 4 times per second.  Delete this for single press
+#define JOY_BUTTON_SINGLE_ACTION 1      //The button by itself will only act once.  Delete this to repeat while held like the directions.
+
+#define TAP_CODE_DELAY 100              // add 100ms to key release for better key register
+
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
 };
 
-enum {
-    DOB_PUSH,
+enum alias_keycodes {
     FUN1 = LCTL(KC_A),
     FUN2 = LCTL(KC_O),
     FUN3 = LCTL(KC_U),
@@ -47,14 +52,19 @@ enum {
     COM2P = LCTL(KC_J),
     UP = LCTL(KC_K),
     DOWN = LCTL(KC_X),
-    DOB_UP = LCTL(KC_M),
-    DOB_DOWN = LCTL(KC_V),
-    DOB_LEFT = RCTL(KC_M),
-    DOB_RIGHT = RCTL(KC_V),
+    D_UP = LCTL(KC_M),
+    D_RIGHT = RCTL(KC_V),
+    D_DOWN = LCTL(KC_V),
+    D_LEFT = RCTL(KC_M),
+    D_PUSH = RCTL(KC_W),
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [DOB_PUSH] = ACTION_TAP_DANCE_DOUBLE(KC_NO, RCTL(KC_W)),
+enum custom_keycodes {
+    DOB_UP = SAFE_RANGE,
+    DOB_RIGHT,
+    DOB_DOWN,
+    DOB_LEFT,
+    DOB_PUSH,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -65,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         N4,     N5,         N6,         COM2P,      SEL3,
         N7,     N8,         N9,         UP,         SEL4,
         CRL,    N0,         ENT,        DOWN,       SEL5,
-        DOB_UP, DOB_LEFT,   DOB_DOWN,   DOB_RIGHT,  TD(DOB_PUSH)
+        DOB_UP, DOB_LEFT,   DOB_DOWN,   DOB_RIGHT,  DOB_PUSH
     ),
 };
 
@@ -74,11 +84,6 @@ void led_keypress_update(pin_t led_pin, uint16_t keycode, keyrecord_t *record) {
     writePin(led_pin, !record->event.pressed);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Update LED state
-    led_keypress_update(LED, keycode, record);
-    return true;
-}
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Encoder on the LEFT */
@@ -102,3 +107,77 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 
+
+bool joy_pins_active[5] = {false};  //track which pins are active
+bool joy_first_move = false;  //activates a delay in matrix_scan_user()
+bool joy_held = false;
+uint16_t joy_timer = 0;
+
+void process_joystick(void) { 
+	if (joy_pins_active[0]) {
+		//JOY_N code
+        tap_code16(D_UP);
+	}
+	if (joy_pins_active[1]) {
+		//JOY_E code
+        tap_code16(D_RIGHT);
+    }
+	if (joy_pins_active[2]) {
+		//JOY_S code
+        tap_code16(D_DOWN);
+    }
+	if (joy_pins_active[3]) {
+		//JOY_W code
+        tap_code16(D_LEFT);
+	}
+
+    //if N, E, S, or W is active, do nothing
+    for (int i=0; i<4; i++) if (joy_pins_active[i]) return;
+    tap_code16(D_PUSH);
+    //JOY_P code will run here if only the button is pressed.
+    
+    #ifdef JOY_BUTTON_SINGLE_ACTION
+        joy_held = false;
+    #endif
+}
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	if (DOB_UP <= keycode && keycode <= DOB_PUSH) {  //if a joystick pin changes state
+		if (record->event.pressed) {  //if that pin turned on
+			joy_pins_active[keycode - DOB_UP] = true;  //set that pin's bool to true
+			joy_first_move = true;  //set a flag for matrix_scan_user() to begin an initial delay
+			joy_timer = timer_read();  //set joy_timer to the current time
+			joy_held = true;  //the joystick is held down
+		} else {  //when that pin is released.
+			joy_pins_active[keycode - DOB_UP] = false;  //set that pin's bool to false
+			joy_held = false;  //the joystick is no longer held down
+		}
+	}
+
+    // Update LED state
+    led_keypress_update(LED, keycode, record);
+    return true;
+};
+
+/* If the joystick is in a moved position, check if it was just moved.
+ * The first action should be done as soon as possible, so we check against JOY_INITIAL_DELAY
+ * We then call process_joystick(), which will check which direction the joystick is and act accordingly.
+ * Set joy_first_move to false so it knows to check against the repeat rate instead of initial delay.
+ * If you have JOY_REPEAT_RATE defined, it will call process_joystick() every JOY_REPEAT_RATE milliseconds as long as the joystick is held.
+ */
+void matrix_scan_user(void) {
+	if (joy_held) {
+		if (joy_first_move && timer_elapsed(joy_timer) > JOY_INITIAL_DELAY) {
+			joy_first_move = false;
+			joy_timer = timer_read();
+			process_joystick();
+		}
+#ifdef JOY_REPEAT_RATE
+		else if (timer_elapsed(joy_timer) > JOY_REPEAT_RATE) {
+			joy_timer = timer_read();
+			process_joystick();
+		}			
+#endif  //JOY_REPEAT_RATE
+    }
+}
