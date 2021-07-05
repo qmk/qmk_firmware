@@ -149,6 +149,18 @@ You can use between 1 and 2 IS31FL3737 IC's. Do not specify `DRIVER_ADDR_2` defi
 
 Configure the hardware via your `config.h`:
 
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
+| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
+
+
+Here is an example using 2 drivers.
+
 ```c
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
