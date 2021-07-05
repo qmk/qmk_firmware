@@ -1,8 +1,15 @@
-SMALLKEYBOARD
+# SMALLKEYBOARD
 
-Keyboard Maintainer: zhouqiong19840119
-Hardware Availability: https://github.com/zhouqiong19840119/MacroKeyboard-little/blob/main/Small%20(1).jpg
-Make example for this keyboard (after setting up your build environment):
+![](https://github.com/zhouqiong19840119/MacroKeyboard-little/blob/main/Small%20(1).jpg)
 
-make smallkeyboard:default
-See the build environment setup and the make instructions for more information. Brand new to QMK? Start with our Complete Newbs Guide.
+* Keyboard Maintainer: zhouqiong19840119
+* Hardware Availability: 
+* Make example for this keyboard (after setting up your build environment):
+
+    make smallkeyboard:default
+
+Flashing example for this keyboard:
+
+    make smallkeyboard:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
