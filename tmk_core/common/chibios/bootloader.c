@@ -99,7 +99,6 @@ void enter_bootloader_mode_if_requested(void) {
 
 #    define DBGMCU_KEY_UNLOCK 0x4B5A6978
 #    define DBGMCU_CMD_RESET 0x1
-#    define BOOTLOADER_MAGIC_BKP 0xDEAD
 
 __IO uint32_t *DBGMCU_KEY = DBGMCU_BASE + 0x0C;
 __IO uint32_t *DBGMCU_CMD = DBGMCU_BASE + 0x08;
