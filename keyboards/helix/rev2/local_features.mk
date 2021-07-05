@@ -156,7 +156,8 @@ endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(OLED_SELECT)),core)
-        OLED_DRIVER_ENABLE = yes
+        OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
         ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
            OPT_DEFS += -DOLED_FONT_H=\<helixfont.h\>
         else
@@ -177,7 +178,7 @@ ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
   $(eval $(call HELIX_CUSTOMISE_MSG))
   ifneq ($(strip $(SHOW_VERBOSE_INFO)),)
      $(info -- RGBLIGHT_ENABLE    = $(RGBLIGHT_ENABLE))
-     $(info -- OLED_DRIVER_ENABLE = $(OLED_DRIVER_ENABLE))
+     $(info -- OLED_ENABLE		  = $(OLED_ENABLE))
      $(info -- CONSOLE_ENABLE     = $(CONSOLE_ENABLE))
      $(info -- OPT_DEFS           = $(OPT_DEFS))
      $(info -- SPLIT_KEYBOARD     = $(SPLIT_KEYBOARD))

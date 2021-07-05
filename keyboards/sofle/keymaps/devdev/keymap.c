@@ -393,7 +393,7 @@ void keyboard_post_init_user(void) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {

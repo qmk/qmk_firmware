@@ -29,7 +29,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* 
+/*
  * Base Layer: QWERTY
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
@@ -137,7 +137,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //     switch (keycode) {
-//         case MyCustomKeycode: 
+//         case MyCustomKeycode:
 //             if (record->event.pressed) {
 //                 // What to do if the button was pressed
 //             } else {
@@ -148,7 +148,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 //     return true;
 // }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }

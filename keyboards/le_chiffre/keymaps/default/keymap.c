@@ -90,7 +90,7 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 #endif
 
-#ifdef OLED_DRIVER_ENABLE  //Special thanks to Sickbabies for this great OLED widget!
+#ifdef OLED_ENABLE  //Special thanks to Sickbabies for this great OLED widget!
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_90;  // rotates for proper orientation
 }

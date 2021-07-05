@@ -1,4 +1,4 @@
-    
+
 /* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,13 +16,13 @@
  */
 #include "yampad.h"
 
-#if defined(OLED_DRIVER_ENABLE)
+#if defined(OLED_ENABLE)
 __attribute__((weak))
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;  // flips the display 270 degrees
 }
 
-__attribute__((weak)) 
+__attribute__((weak))
 void oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer"), false);

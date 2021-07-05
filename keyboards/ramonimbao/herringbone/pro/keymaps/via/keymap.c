@@ -76,7 +76,7 @@ void matrix_scan_user(void) {
     }
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 uint8_t current_frame = 0;

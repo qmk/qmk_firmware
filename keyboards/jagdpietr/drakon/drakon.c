@@ -28,7 +28,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 // Defines names for use in layer keycodes and the keymap
 enum Layer_names {

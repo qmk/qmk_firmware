@@ -34,7 +34,7 @@ void keyboard_post_init_user(void) {
 
 
 // Rev3 and above only
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
   oled_write_ln_P(PSTR("Plaid-Pad ///////////"), false);
 }

@@ -21,4 +21,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = no         # Rotary Encoder
-OLED_DRIVER_ENABLE = yes    # I2C OLED
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306    # I2C OLED

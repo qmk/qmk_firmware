@@ -83,7 +83,7 @@ case _DEL:
     return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR(""), false);
