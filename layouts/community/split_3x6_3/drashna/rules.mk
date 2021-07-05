@@ -20,7 +20,7 @@ SWAP_HANDS_ENABLE          = no  # Enable one-hand typing
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
-    OLED_DRIVER_ENABLE = yes
+    OLED_ENABLE = yes
     RGB_MATRIX_ENABLE = yes
     HAPTIC_ENABLE = no
     BOOTLOADER = qmk-dfu
