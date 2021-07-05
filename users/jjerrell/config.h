@@ -97,6 +97,10 @@
 
 #define TAP_CODE_DELAY 10
 
+#define LEADER_TIMEOUT 300
+#define LEADER_PER_KEY_TIMING
+#define LEADER_NO_TIMEOUT
+
 /* Disable unused and unneeded features to reduce on firmware size */
 #ifdef LOCKING_SUPPORT_ENABLE
 #    undef LOCKING_SUPPORT_ENABLE

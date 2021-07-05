@@ -16,7 +16,8 @@
 # along with qmk_firmware.  If not, see <http://www.gnu.org/licenses/>.
 
 SRC += jjerrell.c \
-       process_records.c
+       process_records.c \
+	   matrix_scans.c
 
 LEADER_ENABLE = yes
 MOUSEKEY_ENABLE = no

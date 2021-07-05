@@ -18,5 +18,5 @@
 #pragma once
 #include "jjerrell.h"
 
-void matrix_scan_secrets(void);
+bool leader_scan_secrets(uint8_t mods);
 void matrix_scan_keymap(void);
