@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       // Right hand
       MDIA_SYMB_KP_LAYERS,  ___SYMBOL_BEPO_R___,  BP_EQL,
-      BP_DCRC, ___BEPO_FR_R1___, BP_W,
+      BP_DCIR, ___BEPO_FR_R1___, BP_W,
       /*    */ ___BEPO_FR_R2___, BP_CCED,
       BP_C,    ___BEPO_FR_R3___, KC_RSFT,
 
