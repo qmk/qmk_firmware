@@ -13,9 +13,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-#ifndef USERSPACE
-#define USERSPACE
-
 #pragma once
 #include QMK_KEYBOARD_H
 #include "quantum.h"
@@ -199,6 +196,3 @@ enum userspace_custom_keycodes {
     SM_VXW,
     NEW_SAFE_RANGE
 };
-
-
-#endif
