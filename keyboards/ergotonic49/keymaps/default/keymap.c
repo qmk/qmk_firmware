@@ -116,7 +116,7 @@ bool led_update_user(led_t led_state) {
 
 void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
-    rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RGB_TEST);
 #ifdef CONSOLE_ENABLE
     debug_enable = true;
     debug_matrix = true;
