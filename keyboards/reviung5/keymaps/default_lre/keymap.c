@@ -52,24 +52,4 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         break;
     }
   return state;
-    /* Colors
-    RGB_WHITE
-    RGB_RED
-    RGB_CORAL
-    RGB_ORANGE
-    RGB_GOLDENROD
-    RGB_GOLD
-    RGB_YELLOW
-    RGB_CHARTREUSE
-    RGB_GREEN
-    RGB_SPRINGGREEN
-    RGB_TURQUOISE
-    RGB_TEAL
-    RGB_CYAN
-    RGB_AZURE
-    RGB_BLUE
-    RGB_PURPLE
-    RGB_MAGENTA
-    RGB_PINK
-    */
 }
