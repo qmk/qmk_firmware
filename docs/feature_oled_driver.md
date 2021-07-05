@@ -25,9 +25,14 @@ OLED_ENABLE = yes
 ```
 
 ## OLED type
-|OLED Driver        |Supported Device      |Notes                      |
-|-------------------|----------------------|---------------------------|
-|SSD1306 (default)  |Specific OLED version |For both SSD1306 and SH1106|
+|OLED Driver        |Supported Device           |
+|-------------------|---------------------------|
+|SSD1306 (default)  |For both SSD1306 and SH1106|
+
+e.g.
+```make
+OLED_DRIVER = SSD1306
+```
 
 Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
 
