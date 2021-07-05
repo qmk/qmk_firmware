@@ -1,12 +1,12 @@
 # momoka_ergo
 
-![momoka_ergo](imgur.com image replace me!)
+![momoka_ergo](https://github.com/StefanGrindelwald/TestDemo/blob/master/Momoka_ergo.jpg?raw=true)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [StefanGrindelwald](https://github.com/StefanGrindelwald)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: momoka.co/ergo
+* Hardware Availability: momoka.co/ergo
 
 Make example for this keyboard (after setting up your build environment):
 
