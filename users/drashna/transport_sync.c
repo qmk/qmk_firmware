@@ -24,13 +24,13 @@ void keyboard_post_init_transport_sync(void) {
 void user_state_update(void) {
     if (is_keyboard_master()) {
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
         user_state.oled_on = is_oled_on();
 #endif
 
         user_state.keymap_config = keymap_config.raw;
     } else {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
         if (user_state.oled_on) {
             oled_on();
         } else {

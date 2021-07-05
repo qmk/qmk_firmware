@@ -29,7 +29,7 @@
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb_matrix_stuff.h"
 #endif
-#if defined(OLED_DRIVER_ENABLE)
+#if defined(OLED_ENABLE)
 #    include "oled_stuff.h"
 #endif
 #if defined(PIMORONI_TRACKBALL_ENABLE)

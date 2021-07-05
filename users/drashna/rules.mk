@@ -65,7 +65,7 @@ ifeq ($(strip $(PROTOCOL)), VUSB)
 endif
 
 CUSTOM_OLED_DRIVER ?= yes
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
         SRC += oled_stuff.c
     endif
