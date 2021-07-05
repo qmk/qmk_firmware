@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Hotswap
 #define PRODUCT         POKER-87
-#define DESCRIPTION     Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
