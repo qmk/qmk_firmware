@@ -89,7 +89,7 @@ void IS31FL3737_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 #endif
 }
 
-bool IS31FL3737_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+void IS31FL3737_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // assumes PG1 is already selected
 
     // transmit PWM registers in 12 transfers of 16 bytes
@@ -107,17 +107,12 @@ bool IS31FL3737_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT) != 0) {
-                return false;
-            }
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT) == 0) break;
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT) != 0) {
-            return false;
-        }
+        i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT);
 #endif
     }
-    return true;
 }
 
 void IS31FL3737_init(uint8_t addr) {
