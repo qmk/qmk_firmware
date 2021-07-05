@@ -151,8 +151,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BOOTMAGIC_LITE_COLUMN 0
 
 
-#define ENCODERS_PAD_A { B1, B2, D2}
-#define ENCODERS_PAD_B { B3, B6, B5}
+#define ENCODERS_PAD_A { B1, B2, B5 }
+#define ENCODERS_PAD_B { B3, B6, D2 }
 #define ENCODER_RESOLUTIONS { 4,4,4 }
 
 #define AUTO_SHIFT_TIMEOUT 190
