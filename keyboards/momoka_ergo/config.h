@@ -52,48 +52,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define SOFT_SERIAL_PIN D1  // or D1, D2, D3, E6
 
-//#define LED_NUM_LOCK_PIN B0
-//#define LED_CAPS_LOCK_PIN B1
-//#define LED_SCROLL_LOCK_PIN B2
-//#define LED_COMPOSE_PIN B3
-//#define LED_KANA_PIN B4
-
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
-#define RGB_DI_PIN D6
-#ifdef RGB_DI_PIN
-//#define RGBLIGHT_ANIMATIONS
-//#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLED_NUM 13
+#define RGB_DI_PIN C7
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 22
+#define RGBLED_SPLIT { 11, 11 }
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
-/*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
-//#    define RGBLIGHT_EFFECT_BREATHING
-//#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//#    define RGBLIGHT_EFFECT_SNAKE
-//#    define RGBLIGHT_EFFECT_KNIGHT
-//#    define RGBLIGHT_EFFECT_CHRISTMAS
-//#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//#    define RGBLIGHT_EFFECT_RGB_TEST
-//#    define RGBLIGHT_EFFECT_ALTERNATING
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-//#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 3	
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -151,6 +119,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
+//#define BOOTMAGIC_LITE_COLUMN 0	
+#define BOOTMAGIC_KEY_SALT     KC_RSFT||KC_LSFT
+#define BOOTMAGIC_KEY_SKIP 	KC_ESC
+#define BOOTMAGIC_KEY_EEPROM_CLEAR 	KC_NO
+#define OOTMAGIC_KEY_BOOTLOADER 	KC_RCTL||KC_LCTL
+#define BOOTMAGIC_KEY_EE_HANDS_LEFT 	KC_T
+#define BOOTMAGIC_KEY_EE_HANDS_RIGHT 	KC_Y
 #define USE_SERIAL
 #define SPLIT_USB_DETECT
+#define EE_HANDS
