@@ -341,10 +341,15 @@ ST_LINK_CLI ?= st-link_cli
 ST_FLASH ?= st-flash
 
 define EXEC_DFU_UTIL
-	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
-		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
-		sleep 5 ;\
-	done
+	if ! $(DFU_UTIL) -l | grep -q "Found DFU"; then \
+		printf "$(MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY)" ;\
+		sleep $(BOOTLOADER_RETRY_TIME) ;\
+		while ! $(DFU_UTIL) -l | grep -q "Found DFU"; do \
+			printf "." ;\
+			sleep $(BOOTLOADER_RETRY_TIME) ;\
+		done ;\
+		printf "\n" ;\
+	fi
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 endef
 
@@ -385,8 +390,10 @@ ifndef TEENSY_LOADER_CLI
     endif
 endif
 
+TEENSY_LOADER_CLI_MCU ?= $(MCU_LDSCRIPT)
+
 define EXEC_TEENSY
-	$(TEENSY_LOADER_CLI) -mmcu=$(MCU_LDSCRIPT) -w -v $(BUILD_DIR)/$(TARGET).hex
+	$(TEENSY_LOADER_CLI) -mmcu=$(TEENSY_LOADER_CLI_MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 endef
 
 teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
@@ -402,6 +409,8 @@ ifneq ($(strip $(PROGRAM_CMD)),)
 else ifeq ($(strip $(BOOTLOADER)),kiibohd)
 	$(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
+	$(call EXEC_TEENSY)
+else ifeq ($(strip $(MCU_FAMILY)),MIMXRT1062)
 	$(call EXEC_TEENSY)
 else ifeq ($(strip $(MCU_FAMILY)),STM32)
 	$(call EXEC_DFU_UTIL)

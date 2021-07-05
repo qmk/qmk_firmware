@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISPLAY_ALL_ON 0xA5
 #define DISPLAY_ALL_ON_RESUME 0xA4
 #define NORMAL_DISPLAY 0xA6
+#define INVERT_DISPLAY 0xA7
 #define DISPLAY_ON 0xAF
 #define DISPLAY_OFF 0xAE
 #define NOP 0xE3
@@ -114,8 +115,9 @@ OLED_BLOCK_TYPE oled_dirty          = 0;
 bool            oled_initialized    = false;
 bool            oled_active         = false;
 bool            oled_scrolling      = false;
+bool            oled_inverted       = false;
 uint8_t         oled_brightness     = OLED_BRIGHTNESS;
-uint8_t         oled_rotation       = 0;
+oled_rotation_t oled_rotation       = 0;
 uint8_t         oled_rotation_width = 0;
 uint8_t         oled_scroll_speed   = 0;  // this holds the speed after being remapped to ssd1306 internal values
 uint8_t         oled_scroll_start   = 0;
@@ -158,7 +160,7 @@ static void InvertCharacter(uint8_t *cursor) {
     }
 }
 
-bool oled_init(uint8_t rotation) {
+bool oled_init(oled_rotation_t rotation) {
 #if defined(USE_I2C) && defined(SPLIT_KEYBOARD)
     if (!is_keyboard_master()) {
         return true;
@@ -491,8 +493,9 @@ void oled_write_raw(const char *data, uint16_t size) {
     uint16_t cursor_start_index = oled_cursor - &oled_buffer[0];
     if ((size + cursor_start_index) > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE - cursor_start_index;
     for (uint16_t i = cursor_start_index; i < cursor_start_index + size; i++) {
-        if (oled_buffer[i] == data[i]) continue;
-        oled_buffer[i] = data[i];
+        uint8_t c = *data++;
+        if (oled_buffer[i] == c) continue;
+        oled_buffer[i] = c;
         oled_dirty |= ((OLED_BLOCK_TYPE)1 << (i / OLED_BLOCK_SIZE));
     }
 }
@@ -687,6 +690,30 @@ bool oled_scroll_off(void) {
         oled_dirty     = OLED_ALL_BLOCKS_MASK;
     }
     return !oled_scrolling;
+}
+
+bool oled_invert(bool invert) {
+    if (!oled_initialized) {
+        return oled_inverted;
+    }
+
+    if (invert && !oled_inverted) {
+        static const uint8_t PROGMEM display_inverted[] = {I2C_CMD, INVERT_DISPLAY};
+        if (I2C_TRANSMIT_P(display_inverted) != I2C_STATUS_SUCCESS) {
+            print("oled_invert cmd failed\n");
+            return oled_inverted;
+        }
+        oled_inverted = true;
+    } else if (!invert && oled_inverted) {
+        static const uint8_t PROGMEM display_normal[] = {I2C_CMD, NORMAL_DISPLAY};
+        if (I2C_TRANSMIT_P(display_normal) != I2C_STATUS_SUCCESS) {
+            print("oled_invert cmd failed\n");
+            return oled_inverted;
+        }
+        oled_inverted = false;
+    }
+
+    return oled_inverted;
 }
 
 uint8_t oled_max_chars(void) {

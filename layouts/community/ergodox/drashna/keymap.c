@@ -19,7 +19,7 @@
 #ifdef UNICODEMAP_ENABLE
 #    include "drashna_unicode.h"
 #endif  // UNICODEMAP_ENABLE
-
+#include "drivers/sensors/pimoroni_trackball.h"
 enum more_custom_keycodes {
     KC_SWAP_NUM = NEW_SAFE_RANGE,
     PM_SCROLL,
@@ -317,13 +317,14 @@ void shutdown_keymap(void) {
 
 static bool mouse_button_one, trackball_button_one;
 
-void trackball_check_click(bool pressed, report_mouse_t* mouse) {
-    if (mouse_button_one | pressed) {
-        mouse->buttons |= MOUSE_BTN1;
+void trackball_register_button(bool pressed, enum mouse_buttons button) {
+    report_mouse_t currentReport = pointing_device_get_report();
+    if (pressed) {
+        currentReport.buttons |= button;
     } else {
-        mouse->buttons &= ~MOUSE_BTN1;
+        currentReport.buttons &= ~button;
     }
-    trackball_button_one = pressed;
+    pointing_device_set_report(currentReport);
 }
 #endif
 

@@ -51,8 +51,10 @@ This is a C header file that is one of the first things included, and will persi
   * the number of columns in your keyboard's matrix
 * `#define MATRIX_ROW_PINS { D0, D5, B5, B6 }`
   * pins of the rows, from top to bottom
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 * `#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }`
   * pins of the columns, from left to right
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 * `#define MATRIX_IO_DELAY 30`
   * the delay in microseconds when between changing matrix pin state and reading values
 * `#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }`
@@ -272,7 +274,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 ### Other Options
 
 * `#define USE_I2C`
-  * For using I2C instead of Serial (defaults to serial)
+  * For using I2C instead of Serial (default is serial; serial transport is supported on ARM -- I2C is AVR-only)
 
 * `#define SOFT_SERIAL_PIN D0`
   * When using serial, define this. `D0` or `D1`,`D2`,`D3`,`E6`.
@@ -280,6 +282,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 
 * `#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
   * If you want to specify a different direct pinout for the right half than the left half, you can define `DIRECT_PINS_RIGHT`. Currently, the size of `DIRECT_PINS` must be the same as `DIRECT_PINS_RIGHT`.
@@ -300,13 +303,35 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_USB_DETECT`
   * Detect (with timeout) USB connection when delegating master/slave
   * Default behavior for ARM
-  * Required for AVR Teensy
+  * Required for AVR Teensy (without hardware mods)
 
 * `#define SPLIT_USB_TIMEOUT 2000`
   * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
 
 * `#define SPLIT_USB_TIMEOUT_POLL 10`
   * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
+* `#define FORCED_SYNC_THROTTLE_MS 100`
+  * Deadline for synchronizing data from master to slave when using the QMK-provided split transport.
+
+* `#define SPLIT_TRANSPORT_MIRROR`
+  * Mirrors the master-side matrix on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_LAYER_STATE_ENABLE`
+  * Ensures the current layer state is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_LED_STATE_ENABLE`
+  * Ensures the current host indicator state (caps/num/scroll) is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_MODS_ENABLE`
+  * Ensures the current modifier state (normal, weak, and oneshot) is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_WPM_ENABLE`
+  * Ensures the current WPM is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_TRANSACTION_IDS_KB .....`
+* `#define SPLIT_TRANSACTION_IDS_USER .....`
+  * Allows for custom data sync with the slave when using the QMK-provided split transport. See [custom data sync between sides](feature_split_keyboard.md#custom-data-sync) for more information.
 
 # The `rules.mk` File
 

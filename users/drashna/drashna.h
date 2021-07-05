@@ -22,7 +22,7 @@
 #include "process_records.h"
 #ifdef TAP_DANCE_ENABLE
 #    include "tap_dances.h"
-#endif  // TAP_DANCE_ENABLE
+#endif // TAP_DANCE_ENABLE
 #if defined(RGBLIGHT_ENABLE)
 #    include "rgb_stuff.h"
 #endif
@@ -33,7 +33,10 @@
 #    include "oled_stuff.h"
 #endif
 #if defined(PIMORONI_TRACKBALL_ENABLE)
-#    include "pimoroni_trackball.h"
+#    include "drivers/sensors/pimoroni_trackball.h"
+#endif
+#ifdef SPLIT_KEYBOARD
+#    include "transport_sync.h"
 #endif
 
 /* Define layer names */
@@ -98,12 +101,12 @@ We use custom codes here, so we can substitute the right stuff
 #    define KC_D3_2 TD(TD_D3_2)
 #    define KC_D3_3 TD(TD_D3_3)
 #    define KC_D3_4 TD(TD_D3_4)
-#else  // TAP_DANCE_ENABLE
+#else // TAP_DANCE_ENABLE
 #    define KC_D3_1 KC_1
 #    define KC_D3_2 KC_2
 #    define KC_D3_3 KC_3
 #    define KC_D3_4 KC_4
-#endif  // TAP_DANCE_ENABLE
+#endif // TAP_DANCE_ENABLE
 
 #if defined(DRASHNA_CUSTOM_TRANSPORT) && defined(POINTING_DEVICE_ENABLE)
 void master_mouse_send(int8_t x, int8_t y);

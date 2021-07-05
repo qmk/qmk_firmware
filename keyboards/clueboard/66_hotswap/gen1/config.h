@@ -18,12 +18,6 @@
 #pragma once
 #include "config_common.h"
 
-/* Address for jumping to bootloader on STM32 chips. */
-/* It is chip dependent, the correct number can be looked up here:
- * http://www.st.com/web/en/resource/technical/document/application_note/CD00167594.pdf
- */
-#define STM32_BOOTLOADER_ADDRESS 0x1FFFD800
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
 

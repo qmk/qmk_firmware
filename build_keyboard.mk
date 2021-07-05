@@ -103,6 +103,15 @@ MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/rules.mk)
 include $(INFO_RULES_MK)
 
+ifneq ($(FORCE_LAYOUT),)
+    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+
+# Object files and generated keymap directory
+#     To put object files in current directory, use a dot (.), do NOT make
+#     this an empty or blank macro!
+KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
+
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
 
@@ -143,10 +152,6 @@ endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
     include platforms/chibios/QMK_PROTON_C/convert_to_proton_c.mk
-endif
-
-ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
 endif
 
 include quantum/mcu_selection.mk
@@ -232,6 +237,7 @@ ifdef MCU_FAMILY
     PLATFORM=CHIBIOS
     PLATFORM_KEY=chibios
     FIRMWARE_FORMAT?=bin
+    OPT_DEFS += -DMCU_$(MCU_FAMILY)
 else ifdef ARM_ATSAM
     PLATFORM=ARM_ATSAM
     PLATFORM_KEY=arm_atsam
@@ -326,11 +332,6 @@ endif
 
 # Disable features that a keyboard doesn't support
 -include disable_features.mk
-
-# Object files directory
-#     To put object files in current directory, use a dot (.), do NOT make
-#     this an empty or blank macro!
-KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
