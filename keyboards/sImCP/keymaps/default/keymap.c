@@ -16,10 +16,10 @@
 #include QMK_KEYBOARD_H
 
 #define JOY_INITIAL_DELAY 20            // 20ms delay until first joystick action
-#define JOY_REPEAT_RATE 250             //repeat every 250ms, 4 times per second.  Delete this for single press
+// #define JOY_REPEAT_RATE 250             //repeat every 250ms, 4 times per second.  Delete this for single press
 #define JOY_BUTTON_SINGLE_ACTION 1      //The button by itself will only act once.  Delete this to repeat while held like the directions.
 
-#define TAP_CODE_DELAY 100              // add 100ms to key release for better key register
+#define TAP_CODE_DELAY 200              // add 100ms to key release for better key register
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -116,24 +116,24 @@ uint16_t joy_timer = 0;
 void process_joystick(void) { 
 	if (joy_pins_active[0]) {
 		//JOY_N code
-        tap_code16(D_UP);
+        register_code16(D_UP);
 	}
 	if (joy_pins_active[1]) {
 		//JOY_E code
-        tap_code16(D_RIGHT);
+        register_code16(D_RIGHT);
     }
 	if (joy_pins_active[2]) {
 		//JOY_S code
-        tap_code16(D_DOWN);
+        register_code16(D_DOWN);
     }
 	if (joy_pins_active[3]) {
 		//JOY_W code
-        tap_code16(D_LEFT);
+        register_code16(D_LEFT);
 	}
 
     //if N, E, S, or W is active, do nothing
     for (int i=0; i<4; i++) if (joy_pins_active[i]) return;
-    tap_code16(D_PUSH);
+    register_code16(D_PUSH);
     //JOY_P code will run here if only the button is pressed.
     
     #ifdef JOY_BUTTON_SINGLE_ACTION
@@ -152,6 +152,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		} else {  //when that pin is released.
 			joy_pins_active[keycode - DOB_UP] = false;  //set that pin's bool to false
 			joy_held = false;  //the joystick is no longer held down
+            clear_keyboard();
 		}
 	}
 
