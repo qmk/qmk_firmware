@@ -38,7 +38,7 @@
 #    define SPI_MODE 0
 #endif
 #ifndef SPI_DIVISOR
-#    define SPI_DIVISOR 4 
+#    define SPI_DIVISOR 4
 #endif
 
 // These buffers match the AW20216S PWM registers 0x00-0xD7.
