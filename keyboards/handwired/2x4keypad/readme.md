@@ -22,3 +22,9 @@ Make example for this keyboard (after setting up your build environment):
     make handwired/2x4keyapd:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+Tested on Teensy 2.0 (not 2.0++).
+Instructions for loading firmware:
+*) Launch Teensy Loader app (https://www.pjrc.com/teensy/loader.html)
+*) Open firmware file (produced from the previous "make" step)
+*) Press "Auto" or the green thick arrow to push firmware onto the board.
