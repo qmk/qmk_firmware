@@ -34,7 +34,7 @@ QMK には、マイクロコントローラに依存しない GPIO 制御抽象�
 例:
 ```c
 void some_function() {
-     // some process
+     // 通常の処理
      ATOMIC_BLOCK_FORCEON {
         // Atomic Processing
      }
