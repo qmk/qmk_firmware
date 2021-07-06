@@ -17,18 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ctrl.h"
 
-#include "d51_util.h"
-#include "debug.h"
-#include "clks.h"
 #include <string.h>
 
 #ifndef MATRIX_IO_DELAY
 #    define MATRIX_IO_DELAY 1
 #endif
-
-matrix_row_t mlatest[MATRIX_ROWS];
-matrix_row_t mlast[MATRIX_ROWS];
-matrix_row_t mdebounced[MATRIX_ROWS];
 
 uint8_t row_ports[] = { MATRIX_ROW_PORTS };
 uint8_t row_pins[] = { MATRIX_ROW_PINS };
@@ -38,30 +31,8 @@ uint32_t row_masks[2]; //NOTE: If more than PA PB used in the future, adjust cod
 
 __attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
 
-__attribute__ ((weak))
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
-__attribute__ ((weak))
-void matrix_init_user(void) {
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
-
-void matrix_init(void)
+void matrix_init_custom(void)
 {
-    memset(mlatest, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(mlast, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(mdebounced, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-
     row_masks[PA] = 0;
     row_masks[PB] = 0;
 
@@ -81,19 +52,15 @@ void matrix_init(void)
         PORT->Group[col_ports[col]].DIRSET.reg = 1 << col_pins[col]; //Output
         PORT->Group[col_ports[col]].OUTCLR.reg = 1 << col_pins[col]; //Low
     }
-
-    matrix_init_quantum();
 }
 
-uint64_t mdebouncing = 0;
-uint8_t matrix_scan(void)
+bool matrix_scan_custom(matrix_row_t mlast[])
 {
     uint8_t mchanged;
     uint8_t row;
     uint8_t col;
     uint32_t scans[2]; //PA PB
-
-    if (timer_read64() < mdebouncing) return 1; //mdebouncing == 0 when no debouncing active
+    matrix_row_t mlatest[MATRIX_ROWS];
 
     memset(mlatest, 0, MATRIX_ROWS * sizeof(matrix_row_t)); //Zero the result buffer
 
@@ -125,58 +92,5 @@ uint8_t matrix_scan(void)
         mlast[row] = mlatest[row];
     }
 
-    if (!mchanged)
-    {
-        for (row = 0; row < MATRIX_ROWS; row++)
-            mdebounced[row] = mlatest[row];
-        mdebouncing = 0;
-    }
-    else
-    {
-        //Begin or extend debounce on change
-        mdebouncing = timer_read64() + DEBOUNCE;
-    }
-
-    matrix_scan_quantum();
-
-    return 1;
-}
-
-matrix_row_t matrix_get_row(uint8_t row)
-{
-    return mdebounced[row];
-}
-
-void matrix_print(void)
-{
-    char buf[(MATRIX_COLS+8)*(MATRIX_ROWS+1)] = "R C";
-    char *pbuf = buf+3;
-    uint32_t cols;
-    uint32_t rows;
-    matrix_row_t row;
-
-    for (cols = 1; cols <= MATRIX_COLS; cols++)
-    {
-        *pbuf = (cols%10)+48;
-        pbuf++;
-    }
-    *pbuf = '\r'; pbuf++;
-    *pbuf = '\n'; pbuf++;
-
-    for (rows = 1; rows <= MATRIX_ROWS; rows++)
-    {
-        row = matrix_get_row(rows-1);
-        if (rows < 10) { *pbuf = rows+48; pbuf++; *pbuf = ' '; pbuf++; *pbuf = ' '; pbuf++; }
-        else { *pbuf = (rows/10)+48; pbuf++; *pbuf = (rows%10)+48; pbuf++; *pbuf = ' '; pbuf++; }
-        for (cols = 0; cols < MATRIX_COLS; cols++)
-        {
-            if (row & 1 << cols) *pbuf = 'X';
-            else                 *pbuf = '.';
-            pbuf++;
-        }
-        *pbuf = '\r'; pbuf++;
-        *pbuf = '\n'; pbuf++;
-    }
-    *pbuf = 0;
-    dprint(buf);
+    return mchanged;
 }
