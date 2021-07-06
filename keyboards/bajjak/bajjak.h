@@ -42,10 +42,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern i2c_status_t mcp23018_status;
 #define BAJJAK_EZ_I2C_TIMEOUT 100
 
-void init_BAJJAK(void);
-void BAJJAK_blink_all_leds(void);
+void init_bajjak(void);
+void bajjak_blink_all_leds(void);
 uint8_t init_mcp23018(void);
-uint8_t BAJJAK_left_leds_update(void);
+uint8_t bajjak_left_leds_update(void);
 
 #ifndef LED_BRIGHTNESS_LO
 #define LED_BRIGHTNESS_LO       15
@@ -55,66 +55,66 @@ uint8_t BAJJAK_left_leds_update(void);
 #endif
 
 
-inline void BAJJAK_board_led_on(void)      { DDRD |=  (1<<6); PORTD |=  (1<<6); }
-inline void BAJJAK_right_led_1_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
-inline void BAJJAK_right_led_2_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
-inline void BAJJAK_right_led_3_on(void)    { DDRB |=  (1<<7); PORTB |=  (1<<7); }
-inline void BAJJAK_right_led_on(uint8_t led) { DDRB |= (1<<(led+4)); PORTB |= (1<<(led+4)); }
+inline void bajjak_board_led_on(void)      { DDRD |=  (1<<6); PORTD |=  (1<<6); }
+inline void bajjak_right_led_1_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
+inline void bajjak_right_led_2_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
+inline void bajjak_right_led_3_on(void)    { DDRB |=  (1<<7); PORTB |=  (1<<7); }
+inline void bajjak_right_led_on(uint8_t led) { DDRB |= (1<<(led+4)); PORTB |= (1<<(led+4)); }
 
-inline void BAJJAK_board_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
-inline void BAJJAK_right_led_1_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
-inline void BAJJAK_right_led_2_off(void)   { DDRB &= ~(1<<6); PORTB &= ~(1<<6); }
-inline void BAJJAK_right_led_3_off(void)   { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
-inline void BAJJAK_right_led_off(uint8_t led) { DDRB &= ~(1<<(led+4)); PORTB &= ~(1<<(led+4)); }
+inline void bajjak_board_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
+inline void bajjak_right_led_1_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
+inline void bajjak_right_led_2_off(void)   { DDRB &= ~(1<<6); PORTB &= ~(1<<6); }
+inline void bajjak_right_led_3_off(void)   { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
+inline void bajjak_right_led_off(uint8_t led) { DDRB &= ~(1<<(led+4)); PORTB &= ~(1<<(led+4)); }
 
 #ifdef LEFT_LEDS
-bool BAJJAK_left_led_1;
-bool BAJJAK_left_led_2;
-bool BAJJAK_left_led_3;
+bool bajjak_left_led_1;
+bool bajjak_left_led_2;
+bool bajjak_left_led_3;
 
-inline void BAJJAK_left_led_1_on(void)    { BAJJAK_left_led_1 = 1; }
-inline void BAJJAK_left_led_2_on(void)    { BAJJAK_left_led_2 = 1; }
+inline void bajjak_left_led_1_on(void)    { bajjak_left_led_1 = 1; }
+inline void bajjak_left_led_2_on(void)    { bajjak_left_led_2 = 1; }
 
-inline void BAJJAK_left_led_1_off(void)    { BAJJAK_left_led_1 = 0; }
-inline void BAJJAK_left_led_2_off(void)    { BAJJAK_left_led_2 = 0; }
+inline void bajjak_left_led_1_off(void)    { bajjak_left_led_1 = 0; }
+inline void bajjak_left_led_2_off(void)    { bajjak_left_led_2 = 0; }
 #endif // LEFT_LEDS
 
-inline void BAJJAK_led_all_on(void) {
-    BAJJAK_board_led_on();
-    BAJJAK_right_led_1_on();
-    BAJJAK_right_led_2_on();
-    BAJJAK_right_led_3_on();
+inline void bajjak_led_all_on(void) {
+    bajjak_board_led_on();
+    bajjak_right_led_1_on();
+    bajjak_right_led_2_on();
+    bajjak_right_led_3_on();
 #ifdef LEFT_LEDS
-    BAJJAK_left_led_1_on();
-    BAJJAK_left_led_2_on();
+    bajjak_left_led_1_on();
+    bajjak_left_led_2_on();
 #endif // LEFT_LEDS
 }
 
-inline void BAJJAK_led_all_off(void)
+inline void bajjak_led_all_off(void)
 {
-    BAJJAK_board_led_off();
-    BAJJAK_right_led_1_off();
-    BAJJAK_right_led_2_off();
-    BAJJAK_right_led_3_off();
+    bajjak_board_led_off();
+    bajjak_right_led_1_off();
+    bajjak_right_led_2_off();
+    bajjak_right_led_3_off();
 #ifdef LEFT_LEDS
-    BAJJAK_left_led_1_off();
-    BAJJAK_left_led_2_off();
+    bajjak_left_led_1_off();
+    bajjak_left_led_2_off();
 #endif // LEFT_LEDS
 }
 
-inline void BAJJAK_right_led_1_set(uint8_t n)    { OCR1A = n; }
-inline void BAJJAK_right_led_2_set(uint8_t n)    { OCR1B = n; }
-inline void BAJJAK_right_led_3_set(uint8_t n)    { OCR1C = n; }
-inline void BAJJAK_right_led_set(uint8_t led, uint8_t n)  {
+inline void bajjak_right_led_1_set(uint8_t n)    { OCR1A = n; }
+inline void bajjak_right_led_2_set(uint8_t n)    { OCR1B = n; }
+inline void bajjak_right_led_3_set(uint8_t n)    { OCR1C = n; }
+inline void bajjak_right_led_set(uint8_t led, uint8_t n)  {
     (led == 1) ? (OCR1A = n) :
     (led == 2) ? (OCR1B = n) :
                  (OCR1C = n);
 }
 
-inline void BAJJAK_led_all_set(uint8_t n) {
-    BAJJAK_right_led_1_set(n);
-    BAJJAK_right_led_2_set(n);
-    BAJJAK_right_led_3_set(n);
+inline void bajjak_led_all_set(uint8_t n) {
+    bajjak_right_led_1_set(n);
+    bajjak_right_led_2_set(n);
+    bajjak_right_led_3_set(n);
 }
 
 enum BAJJAK_ez_keycodes {

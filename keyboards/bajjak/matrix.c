@@ -88,13 +88,13 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
-                BAJJAK_blink_all_leds();
+                bajjak_blink_all_leds();
             }
         }
     }
 
 #ifdef LEFT_LEDS
-    mcp23018_status = BAJJAK_left_leds_update();
+    mcp23018_status = bajjak_left_leds_update();
 #endif  // LEFT_LEDS
     bool changed = false;
     for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {

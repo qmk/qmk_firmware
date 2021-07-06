@@ -21,27 +21,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "bajjak.h"
 
-extern inline void BAJJAK_board_led_on(void);
-extern inline void BAJJAK_right_led_1_on(void);
-extern inline void BAJJAK_right_led_2_on(void);
-extern inline void BAJJAK_right_led_3_on(void);
-extern inline void BAJJAK_right_led_on(uint8_t led);
+extern inline void bajjak_board_led_on(void);
+extern inline void bajjak_right_led_1_on(void);
+extern inline void bajjak_right_led_2_on(void);
+extern inline void bajjak_right_led_3_on(void);
+extern inline void bajjak_right_led_on(uint8_t led);
 
-extern inline void BAJJAK_board_led_off(void);
-extern inline void BAJJAK_right_led_1_off(void);
-extern inline void BAJJAK_right_led_2_off(void);
-extern inline void BAJJAK_right_led_3_off(void);
-extern inline void BAJJAK_right_led_off(uint8_t led);
+extern inline void bajjak_board_led_off(void);
+extern inline void bajjak_right_led_1_off(void);
+extern inline void bajjak_right_led_2_off(void);
+extern inline void bajjak_right_led_3_off(void);
+extern inline void bajjak_right_led_off(uint8_t led);
 
-extern inline void BAJJAK_led_all_on(void);
-extern inline void BAJJAK_led_all_off(void);
+extern inline void bajjak_led_all_on(void);
+extern inline void bajjak_led_all_off(void);
 
-extern inline void BAJJAK_right_led_1_set(uint8_t n);
-extern inline void BAJJAK_right_led_2_set(uint8_t n);
-extern inline void BAJJAK_right_led_3_set(uint8_t n);
-extern inline void BAJJAK_right_led_set(uint8_t led, uint8_t n);
+extern inline void bajjak_right_led_1_set(uint8_t n);
+extern inline void bajjak_right_led_2_set(uint8_t n);
+extern inline void bajjak_right_led_3_set(uint8_t n);
+extern inline void bajjak_right_led_set(uint8_t led, uint8_t n);
 
-extern inline void BAJJAK_led_all_set(uint8_t n);
+extern inline void bajjak_led_all_set(uint8_t n);
 
 keyboard_config_t keyboard_config;
 
@@ -65,55 +65,55 @@ void matrix_init_kb(void) {
     PORTE |=  (1<<6);
 
     keyboard_config.raw = eeconfig_read_kb();
-    BAJJAK_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
-    BAJJAK_blink_all_leds();
+    bajjak_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+    bajjak_blink_all_leds();
 
     matrix_init_user();
 }
 
-void BAJJAK_blink_all_leds(void)
+void bajjak_blink_all_leds(void)
 {
-    BAJJAK_led_all_off();
-    BAJJAK_led_all_set(LED_BRIGHTNESS_DEFAULT);
-    BAJJAK_right_led_1_on();
+    bajjak_led_all_off();
+    bajjak_led_all_set(LED_BRIGHTNESS_DEFAULT);
+    bajjak_right_led_1_on();
     _delay_ms(50);
-    BAJJAK_right_led_2_on();
+    bajjak_right_led_2_on();
     _delay_ms(50);
-    BAJJAK_right_led_3_on();
+    bajjak_right_led_3_on();
     _delay_ms(50);
 #ifdef LEFT_LEDS
-    BAJJAK_left_led_1_on();
+    bajjak_left_led_1_on();
     _delay_ms(50);
     if (!mcp23018_status) {
-      mcp23018_status = BAJJAK_left_leds_update();
+      mcp23018_status = bajjak_left_leds_update();
     }
-    BAJJAK_left_led_2_on();
+    bajjak_left_led_2_on();
     _delay_ms(50);
     if (!mcp23018_status) {
-      mcp23018_status = BAJJAK_left_leds_update();
+      mcp23018_status = bajjak_left_leds_update();
     }
 #endif
-    BAJJAK_right_led_1_off();
+    bajjak_right_led_1_off();
     _delay_ms(50);
-    BAJJAK_right_led_2_off();
+    bajjak_right_led_2_off();
     _delay_ms(50);
-    BAJJAK_right_led_3_off();
+    bajjak_right_led_3_off();
 #ifdef LEFT_LEDS
     _delay_ms(50);
-    BAJJAK_left_led_1_off();
+    bajjak_left_led_1_off();
     if (!mcp23018_status) {
-      mcp23018_status = BAJJAK_left_leds_update();
+      mcp23018_status = bajjak_left_leds_update();
     }
     _delay_ms(50);
-    BAJJAK_left_led_2_off();
+    bajjak_left_led_2_off();
     if (!mcp23018_status) {
-      mcp23018_status = BAJJAK_left_leds_update();
+      mcp23018_status = bajjak_left_leds_update();
     }
 #endif
 
-    //BAJJAK_led_all_on();
+    //bajjak_led_all_on();
     //_delay_ms(333);
-    BAJJAK_led_all_off();
+    bajjak_led_all_off();
 }
 
 uint8_t init_mcp23018(void) {
@@ -156,7 +156,7 @@ out:
     i2c_stop();
 
 #ifdef LEFT_LEDS
-    if (!mcp23018_status) mcp23018_status = BAJJAK_left_leds_update();
+    if (!mcp23018_status) mcp23018_status = bajjak_left_leds_update();
 #endif // LEFT_LEDS
 
     // SREG=sreg_prev;
@@ -165,7 +165,7 @@ out:
 }
 
 #ifdef LEFT_LEDS
-uint8_t BAJJAK_left_leds_update(void) {
+uint8_t bajjak_left_leds_update(void) {
     if (mcp23018_status) { // if there was an error
         return mcp23018_status;
     }
@@ -181,11 +181,11 @@ uint8_t BAJJAK_left_leds_update(void) {
     mcp23018_status = i2c_write(OLATA, BAJJAK_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b11111111
-                                & ~(BAJJAK_left_led_1<<LEFT_LED_1_SHIFT),
+                                & ~(bajjak_left_led_1<<LEFT_LED_1_SHIFT),
                                 BAJJAK_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b11111111
-                                & ~(BAJJAK_left_led_2<<LEFT_LED_2_SHIFT),
+                                & ~(bajjak_left_led_2<<LEFT_LED_2_SHIFT),
                                 BAJJAK_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
 

@@ -151,39 +151,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
-    BAJJAK_right_led_1_off();
-    BAJJAK_right_led_2_off();
-    BAJJAK_right_led_3_off();
+    bajjak_right_led_1_off();
+    bajjak_right_led_2_off();
+    bajjak_right_led_3_off();
 
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case 0:
             break;
         case 1:
-            BAJJAK_right_led_1_on();
+            bajjak_right_led_1_on();
             break;
         case 2:
-            BAJJAK_right_led_2_on();
+            bajjak_right_led_2_on();
             break;
         case 3:
-            BAJJAK_right_led_3_on();
+            bajjak_right_led_3_on();
             break;
         case 4:
-            BAJJAK_right_led_1_on();
-            BAJJAK_right_led_2_on();
+            bajjak_right_led_1_on();
+            bajjak_right_led_2_on();
             break;
         case 5:
-            BAJJAK_right_led_1_on();
-            BAJJAK_right_led_3_on();
+            bajjak_right_led_1_on();
+            bajjak_right_led_3_on();
             break;
         case 6:
-            BAJJAK_right_led_2_on();
-            BAJJAK_right_led_3_on();
+            bajjak_right_led_2_on();
+            bajjak_right_led_3_on();
             break;
         case 7:
-            BAJJAK_right_led_1_on();
-            BAJJAK_right_led_2_on();
-            BAJJAK_right_led_3_on();
+            bajjak_right_led_1_on();
+            bajjak_right_led_2_on();
+            bajjak_right_led_3_on();
             break;
         default:
             break;
