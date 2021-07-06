@@ -38,7 +38,7 @@ void some_function() {
      ATOMIC_BLOCK_FORCEON {
         // アトミックであることが必要な処理
      }
-     // some process
+     // 通常の処理
 }
 ```
 
