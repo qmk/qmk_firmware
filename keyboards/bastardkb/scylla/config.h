@@ -43,7 +43,7 @@
 #    define SPLIT_TRANSPORT_MIRROR
 #    define DRIVER_LED_TOTAL 58 // Number of LEDs
 #    define RGB_MATRIX_SPLIT { 29, 29 }
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
 #    ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
 #        define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #    endif
