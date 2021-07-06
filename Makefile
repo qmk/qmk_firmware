@@ -242,7 +242,7 @@ define PARSE_RULE
         $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
-    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(shell util/list_keyboards.sh | sort -u)),true)
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(shell qmk list-keyboards)),true)
         KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     # Otherwise use the KEYBOARD variable, which is determined either by
