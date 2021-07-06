@@ -13,6 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+// To add a new functionality define a new state here and then assign
+// the handler to the `encoder_callback`
+#include "quantum.h"
+
 enum encoder_state {
     ENCODER_VOLUME = 0,
     ENCODER_RGB_HUE,
@@ -21,6 +26,8 @@ enum encoder_state {
     ENCODER_RGB_EFFECT_SPEED,
     ENCODER_RGB_EFFECT,
 };
+
+typedef void (*encoder_callback)(void);
 
 #define ENCODER_DEFAULT ENCODER_VOLUME
 

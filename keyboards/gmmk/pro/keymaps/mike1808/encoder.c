@@ -17,9 +17,8 @@
 #include "mike1808.h"
 #include "print.h"
 #include "utils.h"
+#include "process_record.h"
 #include "rgb_matrix_ledmaps.h"
-
-typedef void (*encoder_callback)(void);
 
 static uint8_t state = ENCODER_DEFAULT;
 
@@ -37,21 +36,12 @@ const encoder_callback encoder_mapping[][2] = {
 
 // clang-format on
 
-void volume_up() {
-    tap_code(KC_VOLU);
-}
+void volume_up() { tap_code(KC_VOLU); }
 
-void volume_down() {
-    tap_code(KC_VOLD);
-}
+void volume_down() { tap_code(KC_VOLD); }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     dprintf("current encoder state is: %d\n", state);
-
-#ifdef RGB_MATRIX_LEDMAPS_ENABLED
-// disable layers so we can adjust RGB effects
-rgb_matrix_layers_disable();
-#endif // RGB_MATRIX_LEDMAPS_ENABLED
 
     if (clockwise) {
         (*encoder_mapping[state][0])();
@@ -59,12 +49,23 @@ rgb_matrix_layers_disable();
         (*encoder_mapping[state][1])();
     }
 
-#ifdef RGB_MATRIX_LEDMAPS_ENABLED
-// disable layers so we can adjust RGB effects
-rgb_matrix_layers_enable();
-#endif // RGB_MATRIX_LEDMAPS_ENABLED
-
     return true;
+}
+
+void handle_rgb_key(bool pressed) {
+    dprintf("handle_rgb_key %d\f", pressed);
+
+    if (pressed) {
+        rgb_matrix_layers_disable();
+    } else {
+        rgb_matrix_layers_enable();
+    }
+}
+
+static KeyPressState *rgb_state;
+
+void keyboard_post_init_encoder() {
+    rgb_state = NewKeyPressState(handle_rgb_key);
 }
 
 bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
@@ -72,10 +73,10 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_RGB_ENC_HUE ... KC_RGB_ENC_EFFECT:
             if (record->event.pressed) {
-#ifdef RGB_MATRIX_LEDMAPS_ENABLED
+#    ifdef RGB_MATRIX_LEDMAPS_ENABLED
                 // disable layers so we can adjust RGB effects
-                rgb_matrix_layers_disable();
-#endif // RGB_MATRIX_LEDMAPS_ENABLED
+                rgb_state->press(rgb_state);
+#    endif  // RGB_MATRIX_LEDMAPS_ENABLED
 
                 switch (keycode) {
                     case KC_RGB_ENC_HUE:
@@ -95,17 +96,16 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
                         break;
                 }
             } else {
-#ifdef RGB_MATRIX_LEDMAPS_ENABLED
-// disable layers so we can adjust RGB effects
-                rgb_matrix_layers_enable();
-#endif // RGB_MATRIX_LEDMAPS_ENABLED
+#    ifdef RGB_MATRIX_LEDMAPS_ENABLED
+                rgb_state->release(rgb_state);
+#    endif  // RGB_MATRIX_LEDMAPS_ENABLED
                 state = ENCODER_DEFAULT;
                 store_rgb_state_to_eeprom();
             }
 
             return false;
     }
-#endif // RGB_MATRIX_ENABLE
+#endif  // RGB_MATRIX_ENABLE
 
     return true;
 }

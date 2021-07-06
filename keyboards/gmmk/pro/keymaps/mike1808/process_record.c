@@ -16,6 +16,7 @@
  */
 #include "mike1808.h"
 #include "print.h"
+#include "process_record.h"
 
 uint16_t copy_paste_timer;
 
@@ -28,6 +29,8 @@ __attribute__((weak)) bool process_record_encoder(uint16_t keycode, keyrecord_t 
 __attribute__((weak)) bool process_record_fun(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
+
+__attribute__((weak)) void keyboard_post_init_encoder(void) { return; }
 
 static const char *git_commands[] = {
     "git init ",     "git clone ", "git config --global ", "git add ",
@@ -112,3 +115,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_record_encoder(keycode, record) && process_record_secrets(keycode, record) &&
            process_record_fun(keycode, record);
 }
+
+void keyboard_post_init_user() { keyboard_post_init_encoder(); }

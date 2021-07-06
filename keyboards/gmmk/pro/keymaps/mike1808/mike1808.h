@@ -21,12 +21,10 @@ enum layout_names {
     LINUX = 0,  // Base Layout: The main keyboard layout that has all the characters
     WINDOWS,    // Base ayout for Windows
     MACOS,      // Base Layout for MacOS
-    FN_LOCK_LAYER,
     FUNCTIONS,  // Function Layout: The function key activated layout with default functions and
                 // some added ones
     GIT,        // GIT Layout: GIT shortcuts and macros
-    SECRETS,
-    RGB_L,
+    SECRETS,    // Layer with secrets
 };
 
 enum custom_keycodes {
@@ -97,7 +95,6 @@ enum combos {
 
 #define OS_GIT OSL(GIT)
 #define TT_FN TT(FUNCTIONS)
-#define FN_LOCK TG(FN_LOCK_LAYER)
 
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_RGUI OSM(MOD_RGUI)
@@ -109,3 +106,6 @@ enum combos {
 #define OS_RALT OSM(MOD_RALT)
 #define OS_MEH OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
+
+#define CAPS_LOCK_COLOR HSV_RED
+

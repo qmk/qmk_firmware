@@ -19,8 +19,7 @@
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
 
-#    define RGB_MATRIX_LAYERS_MAX_SEGMENTS 4
-
+// no association keycode
 #    define XXX \
         { 0, 0, 0 }
 
@@ -57,6 +56,7 @@ void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer);
 void rgb_matrix_layers_enable(void);
 void rgb_matrix_layers_disable(void);
 
+// Just a handy defines to make our ledmaps look better
 #    define RED \
         { HSV_RED }
 #    define CORAL \

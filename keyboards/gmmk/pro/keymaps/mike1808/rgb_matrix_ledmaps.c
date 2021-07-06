@@ -29,8 +29,6 @@ static bool enabled = true;
 void rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
-
-
     if (rgb_matrix_is_enabled() && enabled) {
         set_layer_rgb(led_min, led_max, get_highest_layer(layer_state | default_layer_state));
     }
@@ -53,8 +51,6 @@ void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer) {
             .v = val,
         };
 
-        dprintf("i = %d, h = %d, s = %d, v = %d", i, hsv.h, hsv.s, hsv.v);
-
         if (hsv.h || hsv.s) {
             RGB rgb = hsv_to_rgb(hsv);
             RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
@@ -62,8 +58,14 @@ void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer) {
     }
 }
 
-void rgb_matrix_layers_enable() { enabled = true; }
+void rgb_matrix_layers_enable() {
+    dprintf("ledmaps are enabled\n");
+    enabled = true;
+}
 
-void rgb_matrix_layers_disable() { enabled = false; }
+void rgb_matrix_layers_disable() {
+    dprintf("ledmaps are disabled\n");
+    enabled = false;
+}
 
 #endif  // RGB_MATRIX_LEDMAPS_ENABLED

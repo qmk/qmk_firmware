@@ -16,8 +16,11 @@
 #pragma once
 #include "mike1808.h"
 
+
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_encoder(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_fun(uint16_t keycode, keyrecord_t *record);
+
+void keyboard_post_init_encoder(void);

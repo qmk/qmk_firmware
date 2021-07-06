@@ -52,8 +52,9 @@ void suspend_wakeup_init_user(void) {
 
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+    // Turn on sideglow when CAPS LOCK is activated
     if (host_keyboard_led_state().caps_lock) {
-        HSV hsv = {HSV_RED};
+        HSV hsv = {CAPS_LOCK_COLOR};
         hsv.v = rgb_matrix_get_val();
         RGB rgb = hsv_to_rgb(hsv);
 
@@ -65,4 +66,3 @@ void rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     }
 }
 #endif  // RGB_MATRIX_ENABLE
-

@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [FUNCTIONS] = LAYOUT(
-        FN_LOCK, KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_PSCR,          _______,
+        _______, KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_PSCR,          _______,
         _______, KC_LINX, KC_MAC,  KC_WIN,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_INS,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  KC_RST,          _______,
         KC_CAPS, _______, _______, _______, _______,  OS_GIT, _______, _______, _______, _______, _______, _______,          _______,          _______,
@@ -82,12 +82,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const ledmap PROGMEM ledmaps[] = {
          //  LU = Left Underglow, RU = Right Underglow
-         //  LU_1    ESC      F1       F2       F3       F4       F5       F6       F7       F8       F9       F10      F11      F12	     Prt           Rotary(Mute)  RU_1 
-         //  LU_2    ~        1        2        3        4        5        6        7        8        9        0         -       (=)	     BackSpc           Del       RU_2 
-         //  LU_3    Tab      Q        W        E        R        T        Y        U        I        O        P        [        ]        \                 PgUp         RU_3 
-         //  LU_4    Caps     A        S        D        F        G        H        J        K        L        ;        "                 Enter             PgDn         RU_4 
-         //  LU_5    Sh_L              Z        X        C        V        B        N        M        ,        .        ?                 Sh_R     Up       End          RU_5 
-         //  LU_6    Ct_L     Win_L    Alt_L                               SPACE                               Alt_R    FN       Ct_R     Left     Down     Right        RU_6 
+         //  LU_1    ESC      F1       F2       F3       F4       F5       F6       F7       F8       F9       F10      F11      F12	     Prt           Rotary(Mute)  RU_1
+         //  LU_2    ~        1        2        3        4        5        6        7        8        9        0         -       (=)	     BackSpc           Del       RU_2
+         //  LU_3    Tab      Q        W        E        R        T        Y        U        I        O        P        [        ]        \                 PgUp         RU_3
+         //  LU_4    Caps     A        S        D        F        G        H        J        K        L        ;        "                 Enter             PgDn         RU_4
+         //  LU_5    Sh_L              Z        X        C        V        B        N        M        ,        .        ?                 Sh_R     Up       End          RU_5
+         //  LU_6    Ct_L     Win_L    Alt_L                               SPACE                               Alt_R    FN       Ct_R     Left     Down     Right        RU_6
     [LINUX] = RGB_MATRIX_LAYOUT_LEDMAP(
           PURPLE,    ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______,    PURPLE,
           PURPLE,    ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______,    PURPLE,
@@ -110,16 +110,16 @@ const ledmap PROGMEM ledmaps[] = {
           YELLOW,    ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______,    PURPLE,
           YELLOW,    ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______,         ______,    PURPLE,
           YELLOW,    ______,         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______, ______, ______,    PURPLE,
-          YELLOW,    ______,    RED, ______,                         ______,                         ______, ______, ______, ______, ______, ______,    PURPLE
+          YELLOW,    ______, ______,    RED,                         ______,                         ______, ______, ______, ______, ______, ______,    PURPLE
     ),
 
     [FUNCTIONS] = RGB_MATRIX_LAYOUT_LEDMAP(
-          CYAN,      RED,    RED,    RED,    RED,    RED,    RED, ______, ______, ______, ______,    RED,    RED,    RED,    RED,         ______,    PURPLE,
-          CYAN,   ______,    RED,    RED,    RED, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,            RED,    PURPLE,
-          CYAN,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,    RED,         ______,    PURPLE,
-          CYAN,      RED, ______, ______, ______, ______,    RED, ______, ______, ______, ______, ______, ______,         ______,         ______,    PURPLE,
+          CYAN,    GREEN,  GREEN,  GREEN,  GREEN,  GREEN,  GREEN, ______, ______, ______, ______,  GREEN,  GREEN,  GREEN,  GREEN,         ______,    PURPLE,
+          CYAN,   ______,   GOLD,   GOLD,   GOLD, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,           GOLD,    PURPLE,
+          CYAN,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,   TEAL,         ______,    PURPLE,
+          CYAN,     TURQ, ______, ______, ______, ______,   TURQ, ______, ______, ______, ______, ______, ______,         ______,         ______,    PURPLE,
           CYAN,   ______,            RED,    RED,    RED,    RED,    RED,    RED, ______, ______, ______, ______,         ______,    RED, ______,    PURPLE,
-          CYAN,   ______, ______,    RED,                         ______,                         ______, ______, ______, ______, ______, ______,    PURPLE
+          CYAN,   ______, ______,   BLUE,                         ______,                         ______, ______, ______, ______, ______, ______,    PURPLE
     ),
 };
 
