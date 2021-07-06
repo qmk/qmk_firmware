@@ -75,10 +75,10 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLD);
-        rgb_matrix_disable();
+        //rgb_matrix_disable();
     } else {
         tap_code(KC_VOLU);
-        rgb_matrix_enable();
+        //rgb_matrix_enable();
     }
     return true;
 }
