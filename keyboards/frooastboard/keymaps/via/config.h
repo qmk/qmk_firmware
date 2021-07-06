@@ -1,0 +1,5 @@
+#pragma once
+
+#define RGBLIGHT_ANIMATIONS
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 2

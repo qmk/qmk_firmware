@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x05AC
-#define PRODUCT_ID      0x4577
+#define VENDOR_ID       0x4642 /*F rooast B oards*/
+#define PRODUCT_ID      0x6F21 /*osu!*/
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    frooastside
 #define PRODUCT         Frooastboard
@@ -17,6 +17,9 @@
 #define MATRIX_ROW_PINS { B0, B1 }
 #define MATRIX_COL_PINS { B2, B3 }
 #define UNUSED_PINS
+
+#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_COLUMN 1
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

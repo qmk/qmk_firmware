@@ -1,0 +1,13 @@
+{
+  "name": "Frooastboard",
+  "vendorId": "0x4642",
+  "productId": "0x6F21",
+  "lighting": "qmk_rgblight",
+  "matrix": {"rows": 2, "cols": 2},
+  "layouts": {
+    "keymap": [
+      ["0,0", "0,1"],
+      ["1,0", "1,1"]
+    ]
+  }
+}
