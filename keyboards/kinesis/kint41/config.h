@@ -58,7 +58,7 @@
             LINE_PIN2,  /* ROW_MIN */ \
             LINE_PIN17, /* ROW_ESC */ \
             LINE_PIN23, /* ROW_F1 */  \
-            LINE_PIN21, /* ROW_F2 */  \
+            LINE_PIN21 /* ROW_F2 */  \
     }
 
 #define MATRIX_COL_PINS             \
