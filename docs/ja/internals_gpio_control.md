@@ -36,7 +36,7 @@ QMK には、マイクロコントローラに依存しない GPIO 制御抽象�
 void some_function() {
      // 通常の処理
      ATOMIC_BLOCK_FORCEON {
-        // Atomic Processing
+        // アトミックであることが必要な処理
      }
      // some process
 }
