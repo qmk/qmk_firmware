@@ -1,5 +1,4 @@
 /**
- * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  * Copyright (C) 2021 Jerrell, Jacob <@jjerrell>
  * 
  * This file is part of qmk_firmware.
@@ -24,14 +23,11 @@
 /** QMK Includes **/
 #include "version.h"
 #include "eeprom.h"
+#include "muse.h"
 
-/** Userspace Includes **/
 #include "process_records.h"
 #include "matrix_scans.h"
 #include "wrappers.h"
-#if defined(RGB_MATRIX_ENABLE)
-#    include "rgb_matrix_stuff.h"
-#endif
 
 /************************* Userspace Layers *************************
  *    Keymaps can define additional layers by making the first case
@@ -47,32 +43,6 @@ enum userspace_layers {
     LAYER_SAFE_RANGE,
 };
 
-/********************** Custom Helper Methods **********************/
-
-// bool          mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
-// bool          mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
-
-/************************* Keymap Methods **************************/
-
-void          matrix_init_keymap(void);
-void          eeconfig_init_keymap(void);
-
-void          shutdown_keymap(void);
-void          suspend_power_down_keymap(void);
-void          suspend_wakeup_init_keymap(void);
-
 layer_state_t layer_state_set_keymap(layer_state_t state);
-layer_state_t default_layer_state_set_keymap(layer_state_t state);
-void          led_set_keymap(uint8_t usb_led);
-
-/************************** EEPROM Config **************************/
-#ifdef ENABLE_USERSPACE_CONFIG
-typedef union userspace_config_t {
-    uint32_t raw;
-    struct {
-        bool    rgb_layer_change     :1;
-        bool    rgb_matrix_idle_anim :1;
-    };
-} userspace_config_t;
-#endif // ENABLE_USERSPACE_CONFIG
-extern userspace_config_t userspace_config;
+void dip_switch_update_keymap(uint8_t index, bool active);
+bool music_mask_keymap(uint16_t keycode);

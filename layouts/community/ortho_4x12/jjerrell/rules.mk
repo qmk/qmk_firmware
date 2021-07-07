@@ -1,17 +1,45 @@
-# Copyright (C) 2021 Jerrell, Jacob <@jjerrell>
-# 
-# This file is part of qmk_firmware.
-# 
-# qmk_firmware is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# qmk_firmware is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with qmk_firmware.  If not, see <http://www.gnu.org/licenses/>.
+SRC += muse.c
 
+BOOTMAGIC_ENABLE   = lite       # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE    = no       # Mouse keys(+4700)
+EXTRAKEY_ENABLE    = yes       # Audio control and System control(+450)
+TAP_DANCE_ENABLE   = no
+SPACE_CADET_ENABLE = no
+NKRO_ENABLE        = yes
+
+# ifneq ($(strip $(KEYBOARD)), planck/rev6)
+#     CONSOLE_ENABLE    			= no
+#     COMMAND_ENABLE    			= no
+#     ifeq ($(strip $(LAYOUT_HAS_RGB)), yes)
+#         RGBLIGHT_ENABLE         	= yes
+#         INDICATOR_LIGHTS            = yes
+#         RGBLIGHT_TWINKLE            = yes
+#         RGBLIGHT_STARTUP_ANIMATION  = yes
+#     endif
+# else
+#     CONSOLE_ENABLE    			= yes
+#     COMMAND_ENABLE    			= yes
+#     RGBLIGHT_ENABLE             = yes
+#     RGBLIGHT_STARTUP_ANIMATION  = yes
+#     RGB_MATRIX_ENABLE           = no
+#     AUDIO_ENABLE       			= yes
+#     EEPROM_DRIVER 				= i2c
+# endif
+# ifeq ($(strip $(KEYBOARD)), planck/light)
+#     RGB_MATRIX_ENABLE           = yes
+#     RGBLIGHT_ENABLE             = yes
+#     RGBLIGHT_STARTUP_ANIMATION  = yes
+#     AUDIO_ENABLE       			= yes
+#     # HAPTIC_ENABLE               += SOLENOID
+# endif
+ifeq ($(strip $(KEYBOARD)), planck/ez)
+    # RGBLIGHT_ENABLE 			= yes
+    ENCODER_ENABLE 				= yes
+    # RGB_MATRIX_ENABLE 			= IS31FL3737
+    INDICATOR_LIGHTS            = yes
+    RGBLIGHT_TWINKLE            = yes
+    RGBLIGHT_STARTUP_ANIMATION  = yes
+    CONSOLE_ENABLE    			= yes
+    COMMAND_ENABLE    			= yes
+    AUDIO_ENABLE       			= yes
+endif

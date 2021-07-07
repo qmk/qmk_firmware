@@ -24,16 +24,16 @@
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORKMAN] = OVERLAY_moonlander(
-        XXXXXXX, __________________NUMS__LHS__________________, KC_ARRW,    KC_MINS, __________________NUMS__RHS__________________,KC_EQUAL,
+         KC_ESC, __________________NUMS__LHS__________________, KC_ARRW,    KC_MINS, __________________NUMS__RHS__________________,KC_EQUAL,
         XXXXXXX, __________________WORKMN_L1__________________, KC_LPRN,    KC_RPRN, __________________WORKMN_L1__________________, XXXXXXX,
         KC_LEAD, __________________WORKMN_L2__________________, KC_LBRC,    KC_RBRC, __________________WORKMN_L2__________________, KC_QUOT,
         KC_LSFT, __________________WORKMN_L3__________________,                      __________________WORKMN_L3__________________, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MO_RSE,              MO_SPL,    MO_SPL,              MO_RSE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MO_RSE,             KC_LEAD,    MO_SPL,              MO_RSE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                                KC_SPC , KC_BSPC, MO_LWR,    MO_LWR, KC_TAB , KC_ENT
     ),
 
     [_QWERTY] = OVERLAY_moonlander(
-        XXXXXXX, __________________NUMS__LHS__________________, KC_ARRW,    KC_MINS, __________________NUMS__RHS__________________,KC_EQUAL,
+         KC_ESC, __________________NUMS__LHS__________________, KC_ARRW,    KC_MINS, __________________NUMS__RHS__________________,KC_EQUAL,
         XXXXXXX, __________________QWERTY_L1__________________, KC_LPRN,    KC_LPRN, __________________QWERTY_L1__________________, XXXXXXX,
         KC_LEAD, __________________QWERTY_L2__________________, KC_LBRC,    KC_RBRC, __________________QWERTY_L2__________________, KC_QUOT,
         KC_LSFT, __________________QWERTY_L3__________________,                      __________________QWERTY_L3__________________, XXXXXXX,
@@ -43,11 +43,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT_moonlander_wrapper(
         XXXXXXX, __________________SYMB__LHS__________________, XXXXXXX,  KC_UNDS, __________________SYMB__RHS__________________, KC_PLUS,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, KC_ARRW, _______,    _______, KC_EXLM, KC_QUES,  KC_DOT, KC_LABK, KC_RABK, KC_DQUO,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,          _______,    _______,          _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                            XXXXXXX, XXXXXXX, _______,    _______, XXXXXXX, XXXXXXX
+        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,  _______, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_LBRC,  KC_LPRN, KC_RPRN,  KC_RBRC, KC_ARRW, _______,  _______, KC_EXLM,  KC_QUES,  KC_DOT,  KC_LABK, KC_RABK, KC_DQUO,
+        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,                    XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  _______,          _______,  _______,           _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
+                                              XXXXXXX, XXXXXXX, _______,  _______, XXXXXXX,  XXXXXXX
     ),
 
     [_RAISE] = OVERLAY_moonlander(
