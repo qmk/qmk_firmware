@@ -33,7 +33,6 @@ For first Flashing from initial Stock's Firmware
 - Put board into Bootloader mode, using the same method as when backing up the original Firmware (above)
 - Here are a few options for performing the initial Flash:
   - Using [QMK Toolbox](https://github.com/qmk/qmk_toolbox)
-  - Using DFuseDemo.exe if STTub30 driver is used.
   - Using dfu-util:
 
         dfu-util --alt 0 --dfuse-address 0x08000000 --download ${NEW_QMK_BIN}
