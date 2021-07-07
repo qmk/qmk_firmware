@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Gowla
 #define PRODUCT         Gowla Macro Board
-#define DESCRIPTION     3x3 PCB
 
 /* Matrix size */
 #define MATRIX_ROWS 3

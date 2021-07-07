@@ -16,7 +16,6 @@
 
 #pragma once
 
-// #define B6_AUDIO
 
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
 #    define RGB_DI_PIN B1

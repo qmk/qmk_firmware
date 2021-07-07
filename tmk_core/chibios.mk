@@ -71,6 +71,9 @@ else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk)","
     BOARD_PATH = $(TOP_DIR)/platforms/chibios/$(BOARD)
     BOARD_MK += $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk
     KEYBOARD_PATHS += $(BOARD_PATH)/configs
+    ifneq ("$(wildcard $(BOARD_PATH)/rules.mk)","")
+        include $(BOARD_PATH)/rules.mk
+    endif
 endif
 
 ifeq ("$(wildcard $(BOARD_MK))","")
@@ -187,6 +190,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/$(BOARD)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")
@@ -204,7 +209,8 @@ CHIBISRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
-       $(CHIBIOS)/os/various/syscalls.c
+       $(CHIBIOS)/os/various/syscalls.c \
+       $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
@@ -308,6 +314,7 @@ LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
+LDFLAGS += --specs=nano.specs
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
@@ -334,10 +341,15 @@ ST_LINK_CLI ?= st-link_cli
 ST_FLASH ?= st-flash
 
 define EXEC_DFU_UTIL
-	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
-		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
-		sleep 5 ;\
-	done
+	if ! $(DFU_UTIL) -l | grep -q "Found DFU"; then \
+		printf "$(MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY)" ;\
+		sleep $(BOOTLOADER_RETRY_TIME) ;\
+		while ! $(DFU_UTIL) -l | grep -q "Found DFU"; do \
+			printf "." ;\
+			sleep $(BOOTLOADER_RETRY_TIME) ;\
+		done ;\
+		printf "\n" ;\
+	fi
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 endef
 

@@ -24,5 +24,9 @@
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
+    },
+    "python.formatting.provider": "yapf",
+    "[json]": {
+	    "editor.formatOnSave": false
     }
 }

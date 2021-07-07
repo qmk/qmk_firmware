@@ -24,7 +24,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Alexander Tulloh
 #define PRODUCT Oddball
-#define DESCRIPTION A ballin keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -59,9 +58,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

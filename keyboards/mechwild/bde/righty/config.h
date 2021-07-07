@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0203
 #define MANUFACTURER    MechWild
 #define PRODUCT         BDE Righty
-#define DESCRIPTION     41-key ortholinear 30% with numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

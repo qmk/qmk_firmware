@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Walletburner
 #define PRODUCT         Neuron
-#define DESCRIPTION     Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
