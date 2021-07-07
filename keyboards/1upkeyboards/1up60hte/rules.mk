@@ -26,4 +26,4 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 LTO_ENABLE = yes
 
-LAYOUTS = 60_hhkb
+LAYOUTS = 60_hhkb 60_tsangan_hhkb
