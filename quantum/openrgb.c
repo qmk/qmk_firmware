@@ -128,7 +128,7 @@ static const uint8_t openrgb_rgb_matrix_effects_indexes[]           = {
 #if defined RGB_MATRIX_KEYREACTIVE_ENABLED && !defined DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     31,
 #endif
-#if defined RGB_MATRIX_KEYREACTIVE_ENABLED && !defined RGB_MATRIX_SOLID_REACTIVE
+#if defined RGB_MATRIX_KEYREACTIVE_ENABLED && !defined DISABLE_RGB_MATRIX_SOLID_REACTIVE
     32,
 #endif
 #if defined RGB_MATRIX_KEYREACTIVE_ENABLED && !defined DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
@@ -181,8 +181,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case OPENRGB_GET_LED_INFO:
             openrgb_get_led_info(data);
             break;
-        case OPENRGB_GET_IS_MODE_ENABLED:
-            openrgb_get_is_mode_enabled(data);
+        case OPENRGB_GET_ENABLED_MODES:
+            openrgb_get_enabled_modes();
             break;
 
         case OPENRGB_SET_MODE:
@@ -298,17 +298,11 @@ void openrgb_get_led_info(uint8_t *data) {
         }
     }
 }
-void openrgb_get_is_mode_enabled(uint8_t *data) {
-    raw_hid_buffer[0] = OPENRGB_GET_IS_MODE_ENABLED;
-
-    const uint8_t mode = data[1];
-    for (int i = 0; i < RGB_MATRIX_EFFECT_MAX - 1; i++) {
-        if (openrgb_rgb_matrix_effects_indexes[i] == mode) {
-            raw_hid_buffer[1] = OPENRGB_SUCCESS;
-            break;
-        } else {
-            raw_hid_buffer[1] = OPENRGB_FAILURE;
-        }
+void openrgb_get_enabled_modes(void) {
+    raw_hid_buffer[0] = OPENRGB_GET_ENABLED_MODES;
+    const uint8_t size = sizeof openrgb_rgb_matrix_effects_indexes / sizeof openrgb_rgb_matrix_effects_indexes[0];
+    for (int i = 0; i < size; i++) {
+        raw_hid_buffer[i + 1] = openrgb_rgb_matrix_effects_indexes[i];
     }
 }
 

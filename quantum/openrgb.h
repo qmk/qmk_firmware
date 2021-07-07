@@ -28,7 +28,7 @@ enum openrgb_command_id {
     OPENRGB_GET_DEVICE_INFO,
     OPENRGB_GET_MODE_INFO,
     OPENRGB_GET_LED_INFO,
-    OPENRGB_GET_IS_MODE_ENABLED,
+    OPENRGB_GET_ENABLED_MODES,
 
     OPENRGB_SET_MODE,
     OPENRGB_DIRECT_MODE_SET_SINGLE_LED,
@@ -48,7 +48,7 @@ void openrgb_get_qmk_version(void);
 void openrgb_get_device_info(void);
 void openrgb_get_mode_info(void);
 void openrgb_get_led_info(uint8_t *data);
-void openrgb_get_is_mode_enabled(uint8_t *data);
+void openrgb_get_enabled_modes(void);
 
 void openrgb_set_mode(uint8_t *data);
 void openrgb_direct_mode_set_single_led(uint8_t *data);
