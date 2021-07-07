@@ -24,4 +24,7 @@ AUDIO_ENABLE = no           # Audio output
 OLED_DRIVER_ENABLE = no    # OLED display; work in progress to add support. will be update in future.
 SPLIT_KEYBOARD = yes
 
+#Encoder
+ENCODER_ENABLE = yes
+
 LAYOUTS = split_3x5_3
