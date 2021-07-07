@@ -89,7 +89,13 @@ You can configure the firmware to read a pin on the controller to determine hand
 #define SPLIT_HAND_PIN B7
 ```
 
-This will read the specified pin. If it's high, then the controller assumes it is the left hand, and if it's low, it's assumed to be the right side. 
+This will read the specified pin. By default, if it's high, then the controller assumes it is the left hand, and if it's low, it's assumed to be the right side. 
+
+This behaviour can be flipped by adding this to you `config.h` file:
+
+```c
+#define	SPLIT_HAND_PIN_LOW_IS_LEFT
+```
 
 #### Handedness by Matrix Pin
 

@@ -128,7 +128,11 @@ static uint16_t cie_lightness(uint16_t v) {
     return y * 65535.0f;
 }
 
+#ifdef VISUALIZER_ENABLE
 void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b) {
+#else
+void ergodox_infinity_lcd_color(uint16_t r, uint16_t g, uint16_t b) {
+#endif
     CHANNEL_RED.CnV   = cie_lightness(r);
     CHANNEL_GREEN.CnV = cie_lightness(g);
     CHANNEL_BLUE.CnV  = cie_lightness(b);
@@ -144,6 +148,13 @@ void keyboard_pre_init_kb() {
     // Turn on LED controller
     setPinOutput(B16);
     writePinHigh(B16);
+#endif
+#ifndef VISUALIZER_ENABLE
+    // The backlight always has to be initialized, otherwise it will stay lit
+    lcd_backlight_hal_init();
+#    ifdef ST7565_ENABLE
+    ergodox_infinity_lcd_color(UINT16_MAX / 2, UINT16_MAX / 2, UINT16_MAX / 2);
+#    endif
 #endif
     keyboard_pre_init_user();
 }
@@ -165,10 +176,6 @@ void matrix_init_kb(void) {
 #endif
 
     matrix_init_user();
-    // The backlight always has to be initialized, otherwise it will stay lit
-#ifndef VISUALIZER_ENABLE
-    lcd_backlight_hal_init();
-#endif
 #if (defined(LED_MATRIX_ENABLE) || defined(WPM_ENABLE))
     add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t *));
 #endif
@@ -403,4 +410,65 @@ led_config_t g_led_config = {
                        1, 1, 1,
     }
 };
+#endif
+
+#ifdef ST7565_ENABLE
+__attribute__((weak)) void st7565_on_user(void) {
+    ergodox_infinity_lcd_color(UINT16_MAX / 2, UINT16_MAX / 2, UINT16_MAX / 2);
+}
+
+__attribute__((weak)) void st7565_off_user(void) {
+    ergodox_infinity_lcd_color(0, 0, 0);
+}
+
+static void format_layer_bitmap_string(char* buffer, uint8_t offset) {
+    for (int i = 0; i < 16 && i + offset < MAX_LAYER; i++) {
+        if (i == 0 || i == 4 || i == 8 || i == 12) {
+            *buffer = ' ';
+            ++buffer;
+        }
+
+        uint8_t layer = i + offset;
+        if (layer_state_cmp(default_layer_state, layer)) {
+            *buffer = 'D';
+        } else if (layer_state_is(layer)) {
+            *buffer = '1';
+        } else {
+            *buffer = '_';
+        }
+        ++buffer;
+    }
+    *buffer = 0;
+}
+
+__attribute__((weak)) void st7565_task_user(void) {
+    if (is_keyboard_master()) {
+        // Draw led and layer status
+        led_t leds = host_keyboard_led_state();
+        if(leds.num_lock) { st7565_write("Num ", false); }
+        if(leds.caps_lock) { st7565_write("Cap ", false); }
+        if(leds.scroll_lock) { st7565_write("Scrl ", false); }
+        if(leds.compose) { st7565_write("Com ", false); }
+        if(leds.kana) { st7565_write("Kana", false); }
+        st7565_advance_page(true);
+
+        char layer_buffer[16 + 5];  // 3 spaces and one null terminator
+        st7565_set_cursor(0, 1);
+        format_layer_bitmap_string(layer_buffer, 0);
+        st7565_write_ln(layer_buffer, false);
+        format_layer_bitmap_string(layer_buffer, 16);
+        st7565_write_ln(layer_buffer, false);
+        st7565_write_ln("  1=On    D=Default", false);
+    } else {
+        // Draw logo
+        static const char qmk_logo[] = {
+            0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
+            0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
+            0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
+        };
+
+        st7565_write(qmk_logo, false);
+        st7565_write("  Infinity  Ergodox  ", false);
+    }
+}
 #endif

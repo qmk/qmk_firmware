@@ -77,7 +77,11 @@ __attribute__((weak)) bool is_keyboard_left(void) {
 #if defined(SPLIT_HAND_PIN)
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
     setPinInput(SPLIT_HAND_PIN);
+#    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
+    return !readPin(SPLIT_HAND_PIN);
+#    else
     return readPin(SPLIT_HAND_PIN);
+#    endif
 #elif defined(SPLIT_HAND_MATRIX_GRID)
 #    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
     return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);

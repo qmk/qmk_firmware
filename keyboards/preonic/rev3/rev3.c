@@ -53,11 +53,11 @@ void matrix_scan_kb(void) {
 
 #ifdef DIP_SWITCH_ENABLE
  __attribute__((weak))
-void dip_update(uint8_t index, bool active) {}
+bool dip_update(uint8_t index, bool active) { return true;}
 
  __attribute__((weak))
-void dip_switch_update_user(uint8_t index, bool active) {
-    dip_update(index, active);
+bool dip_switch_update_user(uint8_t index, bool active) {
+    return dip_update(index, active);
 }
 #endif
 

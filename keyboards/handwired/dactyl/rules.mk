@@ -26,7 +26,6 @@ NKRO_ENABLE             = yes # USB Nkey Rollover
 UNICODE_ENABLE          = yes # Unicode
 SWAP_HANDS_ENABLE       = yes # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE        = no
-API_SYSEX_ENABLE        = no
 RGBLIGHT_ENABLE         = no
 
 # project specific files

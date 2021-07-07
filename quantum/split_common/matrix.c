@@ -67,6 +67,14 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
     ATOMIC_BLOCK_FORCEON { setPinInputHigh(pin); }
 }
 
+static inline uint8_t readMatrixPin(pin_t pin) {
+    if (pin != NO_PIN) {
+        return readPin(pin);
+    } else {
+        return 1;
+    }
+}
+
 // matrix code
 
 #ifdef DIRECT_PINS
@@ -101,20 +109,34 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 #    if defined(MATRIX_ROW_PINS) && defined(MATRIX_COL_PINS)
 #        if (DIODE_DIRECTION == COL2ROW)
 
-static void select_row(uint8_t row) { setPinOutput_writeLow(row_pins[row]); }
+static bool select_row(uint8_t row) {
+    pin_t pin = row_pins[row];
+    if (pin != NO_PIN) {
+        setPinOutput_writeLow(pin);
+        return true;
+    }
+    return false;
+}
 
-static void unselect_row(uint8_t row) { setPinInputHigh_atomic(row_pins[row]); }
+static void unselect_row(uint8_t row) {
+    pin_t pin = row_pins[row];
+    if (pin != NO_PIN) {
+        setPinInputHigh_atomic(pin);
+    }
+}
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-        setPinInputHigh_atomic(row_pins[x]);
+        unselect_row(x);
     }
 }
 
 __attribute__((weak)) void matrix_init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh_atomic(col_pins[x]);
+        if (col_pins[x] != NO_PIN) {
+            setPinInputHigh_atomic(col_pins[x]);
+        }
     }
 }
 
@@ -122,14 +144,14 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
-    // Select row
-    select_row(current_row);
+    if (!select_row(current_row)) {  // Select row
+        return;                      // skip NO_PIN row
+    }
     matrix_output_select_delay();
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = readMatrixPin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
@@ -145,32 +167,48 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 
 #        elif (DIODE_DIRECTION == ROW2COL)
 
-static void select_col(uint8_t col) { setPinOutput_writeLow(col_pins[col]); }
+static bool select_col(uint8_t col) {
+    pin_t pin = col_pins[col];
+    if (pin != NO_PIN) {
+        setPinOutput_writeLow(pin);
+        return true;
+    }
+    return false;
+}
 
-static void unselect_col(uint8_t col) { setPinInputHigh_atomic(col_pins[col]); }
+static void unselect_col(uint8_t col) {
+    pin_t pin = col_pins[col];
+    if (pin != NO_PIN) {
+        setPinInputHigh_atomic(pin);
+    }
+}
 
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh_atomic(col_pins[x]);
+        unselect_col(x);
     }
 }
 
 __attribute__((weak)) void matrix_init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-        setPinInputHigh_atomic(row_pins[x]);
+        if (row_pins[x] != NO_PIN) {
+            setPinInputHigh_atomic(row_pins[x]);
+        }
     }
 }
 
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     // Select col
-    select_col(current_col);
+    if (!select_col(current_col)) {  // select col
+        return;                      // skip NO_PIN col
+    }
     matrix_output_select_delay();
 
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
         // Check row pin state
-        if (readPin(row_pins[row_index]) == 0) {
+        if (readMatrixPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         } else {

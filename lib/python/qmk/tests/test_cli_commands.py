@@ -258,6 +258,12 @@ def test_generate_rules_mk():
     assert 'MCU ?= atmega32u4' in result.stdout
 
 
+def test_generate_version_h():
+    result = check_subcommand('generate-version-h')
+    check_returncode(result)
+    assert '#define QMK_VERSION' in result.stdout
+
+
 def test_generate_layouts():
     result = check_subcommand('generate-layouts', '-kb', 'handwired/pytest/basic')
     check_returncode(result)
