@@ -25,7 +25,6 @@ For first Flashing from initial Stock Firmware
 - Short Boot0 to Vdd (See below)
 - Plug In USB
 - Make a Flash Image's Backup in case you wanted to restore the Keyboard to Stock's Image:
-  - Using DFUseDemo.exe from ST's STSW-STM32080: https://www.st.com/en/development-tools/stsw-stm32080.html
   - Using dfu-util:
 
         dfu-util --list
@@ -35,7 +34,6 @@ For first Flashing from initial Stock Firmware
 - Put board into Bootloader mode, using the same method as when backing up the original Firmware (above)
 - Here are a few options for performing the initial Flash:
   - Using [QMK Toolbox](https://github.com/qmk/qmk_toolbox)
-  - Using DFuseDemo.exe if STTub30 driver is used.
   - Using dfu-util:
 
         dfu-util --alt 0 --dfuse-address 0x08000000 --download ${NEW_QMK_BIN}
