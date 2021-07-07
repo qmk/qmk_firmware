@@ -8,8 +8,9 @@
 #ifndef _GDISP_LLD_BOARD_H
 #define _GDISP_LLD_BOARD_H
 
-#define ST7565_LCD_BIAS ST7565_LCD_BIAS_9  // actually 6
-#define ST7565_ADC ST7565_ADC_NORMAL
+#include "quantum.h"
+
+#define ST7565_LCD_BIAS ST7565_LCD_BIAS_7
 #define ST7565_COM_SCAN ST7565_COM_SCAN_DEC
 #define ST7565_PAGE_ORDER 0, 1, 2, 3
 /*
@@ -17,19 +18,12 @@
  * #define ST7565_PAGE_ORDER       4,5,6,7,0,1,2,3
  */
 
-#define ST7565_GPIOPORT GPIOC
-#define ST7565_PORT PORTC
-#define ST7565_A0_PIN 7
-#define ST7565_RST_PIN 8
-#define ST7565_MOSI_PIN 6
-#define ST7565_SLCK_PIN 5
-#define ST7565_SS_PIN 4
+#define ST7565_A0_PIN C7
+#define ST7565_RST_PIN C8
+#define ST7565_MOSI_PIN C6
+#define ST7565_SCLK_PIN C5
+#define ST7565_SS_PIN C4
 
-#define palSetPadModeRaw(portname, bits) ST7565_PORT->PCR[ST7565_##portname##_PIN] = bits
-
-#define palSetPadModeNamed(portname, portmode) palSetPadMode(ST7565_GPIOPORT, ST7565_##portname##_PIN, portmode)
-
-#define ST7565_SPI_MODE PORTx_PCRn_DSE | PORTx_PCRn_MUX(2)
 // DSPI Clock and Transfer Attributes
 // Frame Size: 8 bits
 // MSB First
@@ -38,9 +32,9 @@ static const SPIConfig spi1config = {
     // Operation complete callback or @p NULL.
     .end_cb = NULL,
     // The chip select line port - when not using pcs.
-    .ssport = ST7565_GPIOPORT,
+    .ssport = PAL_PORT(ST7565_SS_PIN),
     // brief The chip select line pad number - when not using pcs.
-    .sspad = ST7565_SS_PIN,
+    .sspad = PAL_PAD(ST7565_SS_PIN),
     // SPI initialization data.
     .tar0 = SPIx_CTARn_FMSZ(7)     // Frame size = 8 bytes
             | SPIx_CTARn_ASC(1)    // After SCK Delay Scaler (min 50 ns) = 55.56ns
@@ -66,13 +60,14 @@ static GFXINLINE void release_bus(GDisplay *g) {
 
 static GFXINLINE void init_board(GDisplay *g) {
     (void)g;
-    palSetPadModeNamed(A0, PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPad(ST7565_GPIOPORT, ST7565_A0_PIN);
-    palSetPadModeNamed(RST, PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPad(ST7565_GPIOPORT, ST7565_RST_PIN);
-    palSetPadModeRaw(MOSI, ST7565_SPI_MODE);
-    palSetPadModeRaw(SLCK, ST7565_SPI_MODE);
-    palSetPadModeNamed(SS, PAL_MODE_OUTPUT_PUSHPULL);
+    setPinOutput(ST7565_A0_PIN);
+    writePinHigh(ST7565_A0_PIN);
+    setPinOutput(ST7565_RST_PIN);
+    writePinHigh(ST7565_RST_PIN);
+    setPinOutput(ST7565_SS_PIN);
+
+    palSetPadMode(PAL_PORT(ST7565_MOSI_PIN), PAL_PAD(ST7565_MOSI_PIN), PAL_MODE_ALTERNATIVE_2);
+    palSetPadMode(PAL_PORT(ST7565_SCLK_PIN), PAL_PAD(ST7565_SCLK_PIN), PAL_MODE_ALTERNATIVE_2);
 
     spiInit();
     spiStart(&SPID1, &spi1config);
@@ -83,19 +78,18 @@ static GFXINLINE void post_init_board(GDisplay *g) { (void)g; }
 
 static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
     (void)g;
-    if (state) {
-        palClearPad(ST7565_GPIOPORT, ST7565_RST_PIN);
-    } else {
-        palSetPad(ST7565_GPIOPORT, ST7565_RST_PIN);
-    }
+    writePin(ST7565_RST_PIN, !state);
 }
 
-static GFXINLINE void enter_data_mode(GDisplay *g) { palSetPad(ST7565_GPIOPORT, ST7565_A0_PIN); }
-
-static GFXINLINE void enter_cmd_mode(GDisplay *g) { palClearPad(ST7565_GPIOPORT, ST7565_A0_PIN); }
-
-static GFXINLINE void write_data(GDisplay *g, uint8_t *data, uint16_t length) {
+static GFXINLINE void write_cmd(GDisplay *g, gU8 cmd) {
     (void)g;
+    writePinLow(ST7565_A0_PIN);
+    spiSend(&SPID1, 1, &cmd);
+}
+
+static GFXINLINE void write_data(GDisplay *g, gU8 *data, gU16 length) {
+    (void)g;
+    writePinHigh(ST7565_A0_PIN);
     spiSend(&SPID1, length, data);
 }
 

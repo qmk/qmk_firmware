@@ -14,9 +14,9 @@ BOOTLOADER = caterina
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE  = yes	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE  = full	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE  = no	# Mouse keys
-EXTRAKEY_ENABLE  = no	# Audio control and System control
+EXTRAKEY_ENABLE  = yes	# Audio control and System control
 CONSOLE_ENABLE  = yes	# Console for debug
 COMMAND_ENABLE  = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE  = no  # Breathing sleep LED during USB suspend
@@ -26,3 +26,8 @@ AUDIO_ENABLE  = no # This can be enabled if a speaker is connected to the expans
 RGBLIGHT_ENABLE  = no # This can be enabled if a ws2812 strip is connected to the expansion port.
 
 LAYOUTS = ortho_4x12 planck_mit
+
+# Disable unsupported hardware
+RGBLIGHT_SUPPORTED = no
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

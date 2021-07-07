@@ -5,7 +5,6 @@
     "width": 4,
     "layouts": {
         "LAYOUT_ortho_5x4": {
-            "height": 5,
             "key_count": 20,
             "layout": [
                 {"x":0, "y":0},
@@ -31,7 +30,6 @@
             ]
         },
         "LAYOUT_ortho_6x4": {
-            "height": 6,
             "key_count": 24,
             "layout": [
                 {"x":0, "y":0},
@@ -61,7 +59,6 @@
             ]
         },
         "LAYOUT_numpad_5x4": {
-            "height": 5,
             "key_count": 17,
             "layout": [
                 {"x":0, "y":0},
@@ -84,7 +81,6 @@
             ]
         },
         "LAYOUT_numpad_6x4": {
-            "height": 6,
             "key_count": 21,
             "layout": [
                 {"x":0, "y":0},

@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Seth-Senpai
 #define PRODUCT         GameNum
-#define DESCRIPTION     Numpad with gamelayers
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Eagle
 #define PRODUCT         II
-#define DESCRIPTION     Eagle II Keyboard
 
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 12

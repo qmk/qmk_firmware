@@ -23,6 +23,7 @@ typedef void (*rgb_func_pointer)(void);
  *
  * noinline to optimise for firmware size not speed (not in hot path)
  */
+#if (defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)) || (defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES))
 static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
     if (is_shifted) {
         dec_func();
@@ -30,6 +31,7 @@ static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted,
         inc_func();
     }
 }
+#endif
 
 /**
  * Wrapper for animation mode
@@ -56,7 +58,9 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
     // Split keyboards need to trigger on key-up for edge-case issue
     if (!record->event.pressed) {
 #endif
+#if (defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)) || (defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES))
         uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
+#endif
         switch (keycode) {
             case RGB_TOG:
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
@@ -163,7 +167,7 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
 #endif
                 return false;
             case RGB_MODE_RAINBOW:
-#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined( RGBLIGHT_EFFECT_RAINBOW_MOOD)
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_RAINBOW_MOOD)
                 handleKeycodeRGBMode(RGBLIGHT_MODE_RAINBOW_MOOD, RGBLIGHT_MODE_RAINBOW_MOOD_end);
 #endif
 #if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES) && !defined(DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT)
@@ -171,7 +175,7 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
 #endif
                 return false;
             case RGB_MODE_SWIRL:
-#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined( RGBLIGHT_EFFECT_RAINBOW_SWIRL)
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL)
                 handleKeycodeRGBMode(RGBLIGHT_MODE_RAINBOW_SWIRL, RGBLIGHT_MODE_RAINBOW_SWIRL_end);
 #endif
 #if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES) && !defined(DISABLE_RGB_MATRIX_CYCLE_PINWHEEL)
@@ -179,28 +183,33 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
 #endif
                 return false;
             case RGB_MODE_SNAKE:
-#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined( RGBLIGHT_EFFECT_SNAKE)
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_SNAKE)
                 handleKeycodeRGBMode(RGBLIGHT_MODE_SNAKE, RGBLIGHT_MODE_SNAKE_end);
 #endif
                 return false;
             case RGB_MODE_KNIGHT:
-#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined( RGBLIGHT_EFFECT_KNIGHT)
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_KNIGHT)
                 handleKeycodeRGBMode(RGBLIGHT_MODE_KNIGHT, RGBLIGHT_MODE_KNIGHT_end);
 #endif
                 return false;
             case RGB_MODE_XMAS:
-#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined( RGBLIGHT_EFFECT_CHRISTMAS)
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_CHRISTMAS)
                 rgblight_mode(RGBLIGHT_MODE_CHRISTMAS);
 #endif
                 return false;
             case RGB_MODE_GRADIENT:
-#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined( RGBLIGHT_EFFECT_STATIC_GRADIENT)
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_STATIC_GRADIENT)
                 handleKeycodeRGBMode(RGBLIGHT_MODE_STATIC_GRADIENT, RGBLIGHT_MODE_STATIC_GRADIENT_end);
 #endif
                 return false;
             case RGB_MODE_RGBTEST:
-#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined( RGBLIGHT_EFFECT_RGB_TEST)
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_RGB_TEST)
                 rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
+#endif
+                return false;
+            case RGB_MODE_TWINKLE:
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_TWINKLE)
+                handleKeycodeRGBMode(RGBLIGHT_MODE_TWINKLE, RGBLIGHT_MODE_TWINKLE_end);
 #endif
                 return false;
         }

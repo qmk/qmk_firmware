@@ -4,9 +4,12 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 MOUSEKEY_ENABLE = no
 RGBLIGHT_ENABLE = no
-RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
 
 # If you want to change the display of OLED, you need to change here
 SRC +=  logo_reader.c \
 				layer.c
+
+VPATH += keyboards/crkbd/lib
+LIB_SRC += ssd1306.c i2c.c

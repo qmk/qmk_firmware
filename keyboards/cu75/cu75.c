@@ -10,7 +10,7 @@
 
 #ifdef AUDIO_ENABLE
 float test_sound[][2] = SONG(STARTUP_SOUND);
-#include <audio/audio.h>
+#include "audio.h"
 #endif
 
 uint16_t click_hz = CLICK_HZ;

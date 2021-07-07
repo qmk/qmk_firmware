@@ -1,4 +1,24 @@
-#include QMK_KEYBOARD_H
+/*
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2015 ZSA Technology Labs Inc (@zsa)
+Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "ergodox_ez.h"
 
 extern inline void ergodox_board_led_on(void);
 extern inline void ergodox_right_led_1_on(void);
@@ -200,7 +220,7 @@ uint8_t ergodox_left_leds_update(void) {
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 // swap-hands action needs a matrix to define the swap
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     /* Left hand, matrix positions */
     {{0,13}, {1,13}, {2,13}, {3,13}, {4,13}, {5,13}},
     {{0,12}, {1,12}, {2,12}, {3,12}, {4,12}, {5,12}},

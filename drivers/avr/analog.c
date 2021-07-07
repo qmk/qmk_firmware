@@ -97,10 +97,11 @@ uint8_t pinToMux(pin_t pin) {
 #endif
             // clang-format on
     }
+    return 0;
 }
 
 int16_t adc_read(uint8_t mux) {
-    uint8_t low;
+    uint16_t low;
 
     // Enable ADC and configure prescaler
     ADCSRA = _BV(ADEN) | ADC_PRESCALER;
@@ -128,5 +129,10 @@ int16_t adc_read(uint8_t mux) {
     // Must read LSB first
     low = ADCL;
     // Must read MSB only once!
-    return (ADCH << 8) | low;
+    low |= (ADCH << 8);
+
+    // turn off the ADC
+    ADCSRA &= ~(1 << ADEN);
+
+    return low;
 }

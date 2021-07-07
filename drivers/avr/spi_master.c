@@ -14,13 +14,11 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <avr/io.h>
-
 #include "spi_master.h"
-#include "quantum.h"
+
 #include "timer.h"
 
-#if defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+#if defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #    define SPI_SCK_PIN B1
 #    define SPI_MOSI_PIN B2
 #    define SPI_MISO_PIN B3
@@ -140,27 +138,33 @@ spi_status_t spi_read() {
 }
 
 spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
-    spi_status_t status = SPI_STATUS_ERROR;
+    spi_status_t status;
 
     for (uint16_t i = 0; i < length; i++) {
         status = spi_write(data[i]);
+
+        if (status < 0) {
+            return status;
+        }
     }
 
-    return status;
+    return SPI_STATUS_SUCCESS;
 }
 
 spi_status_t spi_receive(uint8_t *data, uint16_t length) {
-    spi_status_t status = SPI_STATUS_ERROR;
+    spi_status_t status;
 
     for (uint16_t i = 0; i < length; i++) {
         status = spi_read();
 
-        if (status > 0) {
+        if (status >= 0) {
             data[i] = status;
+        } else {
+            return status;
         }
     }
 
-    return (status < 0) ? status : SPI_STATUS_SUCCESS;
+    return SPI_STATUS_SUCCESS;
 }
 
 void spi_stop(void) {

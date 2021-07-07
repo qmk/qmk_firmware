@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    bpiphany
 #define PRODUCT         sixshooter
-#define DESCRIPTION     A PCB for the CM Storm switch tester utilizing a Teensy 2.0.
 
 /* key matrix size */
 #define MATRIX_ROWS 2
