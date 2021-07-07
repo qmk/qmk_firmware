@@ -35,7 +35,4 @@ LCD_DRIVER = st7565
 LCD_WIDTH = 128
 LCD_HEIGHT = 32
 
-# project specific files
-SRC = led.c
-
 LAYOUTS = ergodox
