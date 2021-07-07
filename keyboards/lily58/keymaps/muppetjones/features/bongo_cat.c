@@ -9,7 +9,6 @@ Source:
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-#include "config.h"  // for OLED_TIMEOUT
 
 #ifdef OLED_DRIVER_ENABLE
 
@@ -95,7 +94,12 @@ static const char PROGMEM ANIM_TAP[TAP_FRAMES][ANIM_SIZE] = {
 /* Functions */
 
 const char *wpm_state(void) {
-  sprintf(wpm_str, "WPM: %03d", get_current_wpm());
+    uint8_t n = get_current_wpm();
+    char wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
   return wpm_str;
 }
 

@@ -16,8 +16,7 @@
 
 #pragma once
 
-#ifdef POINTING_DEVICE_ENABLE
-#    ifdef ENCODER_ENABLE
+#if defined(POINTING_DEVICE_ENABLE) && defined(ENCODER_ENABLE)
 
 /* max value on report descriptor */
 #        ifndef MOUSEKEY_MOVE_MAX
@@ -57,5 +56,4 @@
  */
 bool encoder_update_mouse(uint8_t index, bool clockwise);
 
-#    endif
 #endif

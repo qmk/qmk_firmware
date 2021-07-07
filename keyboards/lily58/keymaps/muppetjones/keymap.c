@@ -18,13 +18,6 @@
 #include "muppetjones.h"
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
-#ifdef PROTOCOL_LUFA
-#  include "lufa.h"
-#  include "split_util.h"
-#endif
-#ifdef SSD1306OLED
-#  include "ssd1306.h"
-#endif
 
 /*
  *  qmk compile -kb lily58/rev1 -km muppetjones
@@ -34,7 +27,6 @@
 #define HR_LBRC LCTL_T(KC_LBRC)
 #define HR_RBRC LSFT_T(KC_RBRC)
 
-extern uint8_t is_master;
 
 /*
 enum layer_number {

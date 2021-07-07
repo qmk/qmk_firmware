@@ -3,7 +3,7 @@
 # also requires in config.h
 #	NO_ACTION_MACRO
 #	NO_ACTION_FUNCTION
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 
 SRC += muppetjones.c
 SRC += ./features/casemodes.c

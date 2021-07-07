@@ -6,9 +6,7 @@
 # Reduce firmware size
 # 	https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 # also requires in config.h
-#	NO_ACTION_MACRO
-#	NO_ACTION_FUNCTION
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 
 
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
