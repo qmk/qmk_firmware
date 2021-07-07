@@ -159,5 +159,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { F4 }
 
 //right encoder
-#define ENCODERS_PAD_B_RIGHT { F5 }
 #define ENCODERS_PAD_A_RIGHT { F4 }
+#define ENCODERS_PAD_B_RIGHT { F5 }
