@@ -18,7 +18,7 @@
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
-char wpm_str[10];
+char wpm_str[4];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
