@@ -1,0 +1,100 @@
+Matthew J Wolf 07-July-2021 
+
+The original source used Purdea Andrei xwhatsit code that was retrieved on
+24 June 2021.
+
+Disclaimer:
+The firmware compiles. I time I created this document I have no way to test the
+firmware.
+
+Only wcass type of xwhatsit
+---------------------------
+Joe of Model F Labs asked that I remove all the other xwhatis types other then
+wcass. 
+
+Changes to Source Files 
+-----------------------
+
+- File System
+-- Changed directory "brand_new_model_f" to "model_f_labs".
+-- Changed matrix.c to capsense_matrix.c
+-- Changed matrix_manipulate.h capsense_matrix.h
+-- Updated all of the rules.mk
+
+- Source Changes 
+-- Moved defines from source to headers
+-- Replaced define macros with functions
+
+Refactored the Build
+--------------------
+The QMK reviewers wants the keyboard directory index by organization. I have
+refactored Purdea Andrei code into the three organization of ibm, model_f_labs,
+and sneakyrobb.
+
+In my git branch there are new directories:
+keyboards/ibm
+keyboards/model_f_labs
+keyboards/sneakyrobb
+
+I copied the organization directories from the original source into the 
+keyboards directory.
+
+In the root each of the organization keyboards directories I added a xwhatsit
+sub-directory. This is where I placed the xwhatsit source. The contents of this
+directory are likely what should be moved into QMK core.
+
+I removed the hardware "type"  / "style from the original xwhatsit/post_config.h
+file. I placed the hardware details into each keyboard's config.h.
+
+Type / Style
+- Define cause in original post_config.h
+
+wcass    (type_f)
+- CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F
+
+Finely I updated the needed files with the updated file paths.
+
+
+Possible Issues
+---------------
+In the config.h files the strings for the "MANUFACTURER" and "PRODUCT" may be
+too long. These strings are sent as part of the USB handshake. They are the USB
+device descriptors iManufacturer and iProduct.
+
+
+Other
+-----
+Removed util directory. This firmware not utility software. The utility should
+have it's know repo.
+
+List of model_f_labs hex Files That Compile 
+-------------------------------------------
+model_f_labs_f62_wcass_ansi_hhkb_split_shift_regular_backspace.hex
+model_f_labs_f62_wcass_ansi_hhkb_split_shift_split_backspace.hex
+model_f_labs_f62_wcass_ansi_nonhhkb_split_shift_regular_backspace.hex
+model_f_labs_f62_wcass_ansi_nonhhkb_split_shift_split_backspace.hex
+model_f_labs_f62_wcass_ansi_regular_shift_regular_backspace.hex
+model_f_labs_f62_wcass_ansi_regular_shift_split_backspace.hex
+model_f_labs_f62_wcass_default.hex
+model_f_labs_f62_wcass_iso_hhkb_split_shift_regular_backspace.hex
+model_f_labs_f62_wcass_iso_hhkb_split_shift_split_backspace.hex
+model_f_labs_f62_wcass_iso_nonhhkb_split_shift_regular_backspace.hex
+model_f_labs_f62_wcass_iso_nonhhkb_split_shift_split_backspace.hex
+model_f_labs_f62_wcass_iso_regular_shift_regular_backspace.hex
+model_f_labs_f62_wcass_iso_regular_shift_split_backspace.hex
+model_f_labs_f77_wcass_ansi_hhkb_split_shift_regular_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_ansi_hhkb_split_shift_split_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_ansi_nonhhkb_split_shift_regular_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_ansi_nonhhkb_split_shift_split_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_ansi_regular_shift_regular_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_ansi_regular_shift_regular_backspace_prscr_scrlock_etc.hex
+model_f_labs_f77_wcass_ansi_regular_shift_split_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_default.hex
+model_f_labs_f77_wcass_iso_hhkb_split_shift_regular_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_iso_hhkb_split_shift_split_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_iso_nonhhkb_split_shift_regular_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_iso_nonhhkb_split_shift_split_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_iso_regular_shift_regular_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_iso_regular_shift_split_backspace_0_9_and_cursor_keys.hex
+model_f_labs_f77_wcass_iso_uk_nonhhkb_split_shift_regular_backspace_0_9_and_cursor_keys.hex
+

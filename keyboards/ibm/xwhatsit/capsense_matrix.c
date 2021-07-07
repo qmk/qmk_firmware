@@ -15,25 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /* MJW - 24-jun-2021 first quick review
-  Too much use of global defines!!!!!!!!!!!!!
-
-Defines in these fuctions need to replaced with varibes or stuctiures
-test_multiple()
-test_single()
-measure_middle()
-measure_middle_settled()
-calibration_measure_all_valid_keys()
-calibration()
-matrix_scan_raw()
-
-
+/* MJW - 24-jun-2021 first quick review
 Defines need to ned moved out of the c source and into the header file.
 #define NRTIMES 64
 #define TESTATONCE 8
 #define REPS_V2 15
-
- */
+*/
 
 #include "quantum.h"
 #include "capsense_matrix.h"

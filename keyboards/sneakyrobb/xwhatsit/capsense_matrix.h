@@ -41,8 +41,6 @@
 
 #define TRACKING_REPS 16
 
-
-
 #ifndef MATRIX_MANIPULATE_H
 #define MATRIX_MANIPULATE_H
 
