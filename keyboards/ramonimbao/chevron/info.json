@@ -1,5 +1,10 @@
 {
     "keyboard_name": "Chevron",
+<<<<<<< HEAD
+=======
+    "url": "",
+    "maintainer": "ramonimbao",
+>>>>>>> 72540f7d837550d2c54f4069b11b1e5d9fcf374c
     "width": 14.5,
     "height": 5,
     "layouts": {
