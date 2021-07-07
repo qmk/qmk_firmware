@@ -171,7 +171,7 @@ Currently only a single drivers is supported, but it would be trivial to support
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
