@@ -19,6 +19,7 @@
 #include "is31fl3737.h"
 #include "i2c_master.h"
 #include "wait.h"
+#include "progmem.h"
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
