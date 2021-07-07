@@ -2,6 +2,8 @@
 
 You can compile a keymap already in the repo or using a QMK Configurator export.
 """
+from subprocess import DEVNULL
+
 from argcomplete.completers import FilesCompleter
 from milc import cli
 
@@ -31,8 +33,7 @@ def compile(cli):
     """
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
         command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean')
-        # FIXME(skullydazed/anyone): Remove text=False once milc 1.0.11 has had enough time to be installed everywhere.
-        cli.run(command, capture_output=False, text=False)
+        cli.run(command, capture_output=False, stdin=DEVNULL)
 
     # Build the environment vars
     envs = {}
