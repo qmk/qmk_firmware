@@ -51,7 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
   #define DRIVER_LED_TOTAL 8
   #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-  #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+  #define RGB_DISABLE_WHEN_USB_SUSPENDED true
+  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 250
   #define RGB_MATRIX_KEYPRESSES
   #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
   #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -70,17 +71,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define DISABLE_RGB_MATRIX_SOLID_SPLASH
   #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
   #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
-  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 250
-  #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO

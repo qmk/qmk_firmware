@@ -1,12 +1,14 @@
 # Albacore
 
-*A small 7-key macropad featuring howswap and per-key RGB*
+*A small 7-key macropad featuring hotswap and per-key RGB*
+
+![Albacore](https://github.com/paprikman/my_files/blob/master/albacore_macropad.jpg)
 
 * Keyboard Maintainer: paprikman
 * Hardware Supported: Albacore hotswap pcb
 * Hardware Availability: Private group buy
 
-Build and falsh firmware (via support is considered by default):
+Build and flash firmware (via support is considered by default):
 
     qmk flash -kb paprikman/albacore -km via
 
