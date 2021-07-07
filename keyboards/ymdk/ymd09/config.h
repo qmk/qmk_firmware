@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0909
+#define VENDOR_ID 0x594D // "YM"
+#define PRODUCT_ID 0x4409 // "D" + 09
 #define DEVICE_VER 0x0001
 #define MANUFACTURER YMDK
 #define PRODUCT YMD09
-#define DESCRIPTION 9-Key Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -60,7 +59,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
-#endif
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION

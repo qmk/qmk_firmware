@@ -3,12 +3,10 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
+#define VENDOR_ID       0x594D // "YM"
+#define PRODUCT_ID      0x604D // 60 "M"
 #define MANUFACTURER    YMDK
 #define PRODUCT         YD60MQ
-#define DESCRIPTION     Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -37,10 +35,8 @@
 /* prevent stuck modifiers */
 
 #define RGB_DI_PIN E2
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 12
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
+// RGBLED_NUM is defined in revisions

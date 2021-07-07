@@ -14,7 +14,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = full	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no	# Console for debug
@@ -26,3 +26,7 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 
 LAYOUTS = ortho_4x12 planck_mit
+
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

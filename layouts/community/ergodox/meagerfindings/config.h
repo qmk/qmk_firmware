@@ -8,8 +8,6 @@
 #define MANUFACTURER    meagerfindings
 #undef PRODUCT
 #define PRODUCT         ErgoDox
-#undef DESCRIPTION
-#define DESCRIPTION     meagerfindings firmware for Ergodox
 
 #define USB_MAX_POWER_CONSUMPTION 500
 

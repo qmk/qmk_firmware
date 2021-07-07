@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ckeys_handwire
 #define PRODUCT         ckeys_handwire
-#define DESCRIPTION     4x4 handwire workshop board
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -68,9 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
@@ -158,12 +154,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_SLEEP_LED      Z
 
 // Audio Click
-#define AUDIO_CLICKY
+//#define AUDIO_CLICKY
 
 // Music Mode Polyphony
 // NOTE: Must change polyphony_rate to a number higher than 0 in voices.c
-#define AUDIO_VOICES
-#define PITCH_STANDARD_A 880.0f
+//#define AUDIO_VOICES
+//#define PITCH_STANDARD_A 880.0f
 
 // Mouse keys
 #define MOUSEKEY_DELAY          0

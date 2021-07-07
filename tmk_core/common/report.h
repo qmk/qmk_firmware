@@ -15,65 +15,110 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REPORT_H
-#define REPORT_H
+#pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "keycode.h"
 
-/* report id */
-#define REPORT_ID_KEYBOARD 1
-#define REPORT_ID_MOUSE 2
-#define REPORT_ID_SYSTEM 3
-#define REPORT_ID_CONSUMER 4
-#define REPORT_ID_NKRO 5
+// clang-format off
 
-/* mouse buttons */
-#define MOUSE_BTN1 (1 << 0)
-#define MOUSE_BTN2 (1 << 1)
-#define MOUSE_BTN3 (1 << 2)
-#define MOUSE_BTN4 (1 << 3)
-#define MOUSE_BTN5 (1 << 4)
+/* HID report IDs */
+enum hid_report_ids {
+    REPORT_ID_KEYBOARD = 1,
+    REPORT_ID_MOUSE,
+    REPORT_ID_SYSTEM,
+    REPORT_ID_CONSUMER,
+    REPORT_ID_NKRO,
+    REPORT_ID_JOYSTICK
+};
 
-/* Consumer Page(0x0C)
- * following are supported by Windows: http://msdn.microsoft.com/en-us/windows/hardware/gg463372.aspx
- * see also https://docs.microsoft.com/en-us/windows-hardware/drivers/hid/display-brightness-control
+/* Mouse buttons */
+#define MOUSE_BTN_MASK(n) (1 << (n))
+enum mouse_buttons {
+    MOUSE_BTN1 = MOUSE_BTN_MASK(0),
+    MOUSE_BTN2 = MOUSE_BTN_MASK(1),
+    MOUSE_BTN3 = MOUSE_BTN_MASK(2),
+    MOUSE_BTN4 = MOUSE_BTN_MASK(3),
+    MOUSE_BTN5 = MOUSE_BTN_MASK(4),
+    MOUSE_BTN6 = MOUSE_BTN_MASK(5),
+    MOUSE_BTN7 = MOUSE_BTN_MASK(6),
+    MOUSE_BTN8 = MOUSE_BTN_MASK(7)
+};
+
+/* Consumer Page (0x0C)
+ *
+ * See https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf#page=75
  */
-#define AUDIO_MUTE 0x00E2
-#define AUDIO_VOL_UP 0x00E9
-#define AUDIO_VOL_DOWN 0x00EA
-#define TRANSPORT_NEXT_TRACK 0x00B5
-#define TRANSPORT_PREV_TRACK 0x00B6
-#define TRANSPORT_STOP 0x00B7
-#define TRANSPORT_STOP_EJECT 0x00CC
-#define TRANSPORT_PLAY_PAUSE 0x00CD
-#define BRIGHTNESS_UP 0x006F
-#define BRIGHTNESS_DOWN 0x0070
-/* application launch */
-#define AL_CC_CONFIG 0x0183
-#define AL_EMAIL 0x018A
-#define AL_CALCULATOR 0x0192
-#define AL_LOCAL_BROWSER 0x0194
-/* application control */
-#define AC_SEARCH 0x0221
-#define AC_HOME 0x0223
-#define AC_BACK 0x0224
-#define AC_FORWARD 0x0225
-#define AC_STOP 0x0226
-#define AC_REFRESH 0x0227
-#define AC_BOOKMARKS 0x022A
-/* supplement for Bluegiga iWRAP HID(not supported by Windows?) */
-#define AL_LOCK 0x019E
-#define TRANSPORT_RECORD 0x00B2
-#define TRANSPORT_FAST_FORWARD 0x00B3
-#define TRANSPORT_REWIND 0x00B4
-#define TRANSPORT_EJECT 0x00B8
-#define AC_MINIMIZE 0x0206
+enum consumer_usages {
+    // 15.5 Display Controls
+    SNAPSHOT               = 0x065,
+    BRIGHTNESS_UP          = 0x06F, // https://www.usb.org/sites/default/files/hutrr41_0.pdf
+    BRIGHTNESS_DOWN        = 0x070,
+    // 15.7 Transport Controls
+    TRANSPORT_RECORD       = 0x0B2,
+    TRANSPORT_FAST_FORWARD = 0x0B3,
+    TRANSPORT_REWIND       = 0x0B4,
+    TRANSPORT_NEXT_TRACK   = 0x0B5,
+    TRANSPORT_PREV_TRACK   = 0x0B6,
+    TRANSPORT_STOP         = 0x0B7,
+    TRANSPORT_EJECT        = 0x0B8,
+    TRANSPORT_RANDOM_PLAY  = 0x0B9,
+    TRANSPORT_STOP_EJECT   = 0x0CC,
+    TRANSPORT_PLAY_PAUSE   = 0x0CD,
+    // 15.9.1 Audio Controls - Volume
+    AUDIO_MUTE             = 0x0E2,
+    AUDIO_VOL_UP           = 0x0E9,
+    AUDIO_VOL_DOWN         = 0x0EA,
+    // 15.15 Application Launch Buttons
+    AL_CC_CONFIG           = 0x183,
+    AL_EMAIL               = 0x18A,
+    AL_CALCULATOR          = 0x192,
+    AL_LOCAL_BROWSER       = 0x194,
+    AL_LOCK                = 0x19E,
+    AL_CONTROL_PANEL       = 0x19F,
+    AL_ASSISTANT           = 0x1CB,
+    AL_KEYBOARD_LAYOUT     = 0x1AE,
+    // 15.16 Generic GUI Application Controls
+    AC_NEW                 = 0x201,
+    AC_OPEN                = 0x202,
+    AC_CLOSE               = 0x203,
+    AC_EXIT                = 0x204,
+    AC_MAXIMIZE            = 0x205,
+    AC_MINIMIZE            = 0x206,
+    AC_SAVE                = 0x207,
+    AC_PRINT               = 0x208,
+    AC_PROPERTIES          = 0x209,
+    AC_UNDO                = 0x21A,
+    AC_COPY                = 0x21B,
+    AC_CUT                 = 0x21C,
+    AC_PASTE               = 0x21D,
+    AC_SELECT_ALL          = 0x21E,
+    AC_FIND                = 0x21F,
+    AC_SEARCH              = 0x221,
+    AC_HOME                = 0x223,
+    AC_BACK                = 0x224,
+    AC_FORWARD             = 0x225,
+    AC_STOP                = 0x226,
+    AC_REFRESH             = 0x227,
+    AC_BOOKMARKS           = 0x22A
+};
 
-/* Generic Desktop Page(0x01) - system power control */
-#define SYSTEM_POWER_DOWN 0x0081
-#define SYSTEM_SLEEP 0x0082
-#define SYSTEM_WAKE_UP 0x0083
+/* Generic Desktop Page (0x01)
+ *
+ * See https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf#page=26
+ */
+enum desktop_usages {
+    // 4.5.1 System Controls - Power Controls
+    SYSTEM_POWER_DOWN             = 0x81,
+    SYSTEM_SLEEP                  = 0x82,
+    SYSTEM_WAKE_UP                = 0x83,
+    SYSTEM_RESTART                = 0x8F,
+    // 4.10 System Display Controls
+    SYSTEM_DISPLAY_TOGGLE_INT_EXT = 0xB5
+};
+
+// clang-format on
 
 #define NKRO_SHARED_EP
 /* key report size(NKRO or boot mode) */
@@ -98,12 +143,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define KEYBOARD_REPORT_KEYS 6
-
-/* VUSB hardcodes keyboard and mouse+extrakey only */
-#if defined(PROTOCOL_VUSB)
-#    undef KEYBOARD_SHARED_EP
-#    undef MOUSE_SHARED_EP
-#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -165,6 +204,20 @@ typedef struct {
     int8_t  v;
     int8_t  h;
 } __attribute__((packed)) report_mouse_t;
+
+typedef struct {
+#if JOYSTICK_AXES_COUNT > 0
+#    if JOYSTICK_AXES_RESOLUTION > 8
+    int16_t axes[JOYSTICK_AXES_COUNT];
+#    else
+    int8_t axes[JOYSTICK_AXES_COUNT];
+#    endif
+#endif
+
+#if JOYSTICK_BUTTON_COUNT > 0
+    uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
+#endif
+} __attribute__((packed)) joystick_report_t;
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
@@ -236,6 +289,7 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
 
 uint8_t has_anykey(report_keyboard_t* keyboard_report);
 uint8_t get_first_key(report_keyboard_t* keyboard_report);
+bool    is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key);
 
 void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
 void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
@@ -250,6 +304,4 @@ void clear_keys_from_report(report_keyboard_t* keyboard_report);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

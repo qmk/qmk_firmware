@@ -7,7 +7,7 @@ from milc import cli
 
 
 @cli.argument('-p', '--port', default=8936, type=int, help='Port number to use.')
-@cli.subcommand('Run a local webserver for QMK documentation.')
+@cli.subcommand('Run a local webserver for QMK documentation.', hidden=False if cli.config.user.developer else True)
 def docs(cli):
     """Spin up a local HTTPServer instance for the QMK docs.
     """

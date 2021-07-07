@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x00C6
 #define MANUFACTURER    PeiorisBoards
 #define PRODUCT         Ixora Rev1
-#define DESCRIPTION     6key Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -22,3 +21,7 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 0
+
+#define LED_NUM_LOCK_PIN A9
+#define LED_CAPS_LOCK_PIN A10
+#define LED_SCROLL_LOCK_PIN A8

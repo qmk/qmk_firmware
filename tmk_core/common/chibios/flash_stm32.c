@@ -25,6 +25,9 @@
 #elif defined(EEPROM_EMU_STM32F072xB)
 #    define STM32F072xB
 #    include "stm32f0xx.h"
+#elif defined(EEPROM_EMU_STM32F042x6)
+#    define STM32F042x6
+#    include "stm32f0xx.h"
 #else
 #    error "not implemented."
 #endif

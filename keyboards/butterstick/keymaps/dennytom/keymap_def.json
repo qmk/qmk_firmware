@@ -1,0 +1,309 @@
+{
+  "keys": [
+    "TOP1", "TOP2", "TOP3", "TOP4", "TOP5", "TOP6", "TOP7", "TOP8", "TOP9", "TOP0", 
+    "BOT1", "BOT2", "BOT3", "BOT4", "BOT5", "BOT6", "BOT7", "BOT8", "BOT9", "BOT0"
+  ],
+  "parameters": {
+    "layout_function_name": "LAYOUT_butter",
+    "chord_timeout": 100,
+    "dance_timeout": 200,
+    "leader_timeout": 750,
+    "tap_timeout": 50,
+    "command_max_length": 5,
+    "leader_max_length": 5,
+    "dynamic_macro_max_length": 20,
+    "string_max_length": 16,
+    "long_press_multiplier": 3,
+    "default_pseudolayer": "QWERTY"
+  },
+  "layers": [
+    {
+      "type": "auto"
+    }
+  ],
+  "chord_sets": [
+    {
+      "name": "rows",
+      "chords": [
+        ["TOP1"], ["TOP2"], ["TOP3"], ["TOP4"], ["TOP5"], ["TOP6"], ["TOP7"], ["TOP8"], ["TOP9"], ["TOP0"],
+        ["TOP1", "BOT1"], ["TOP2", "BOT2"], ["TOP3", "BOT3"], ["TOP4", "BOT4"], ["TOP5", "BOT5"], ["TOP6", "BOT6"], ["TOP7", "BOT7"], ["TOP8", "BOT8"], ["TOP9", "BOT9"], ["TOP0", "BOT0"],
+        ["BOT1"], ["BOT2"], ["BOT3"], ["BOT4"], ["BOT5"], ["BOT6"], ["BOT7"], ["BOT8"], ["BOT9"], ["BOT0"]
+      ]
+    },
+    {
+      "name": "cols",
+      "chords": [
+        ["TOP1", "TOP2"], ["TOP2", "TOP3"], ["TOP3", "TOP4"], ["TOP4", "TOP5"], ["TOP5", "TOP6"], ["TOP6", "TOP7"], ["TOP7", "TOP8"], ["TOP8", "TOP9"], ["TOP9", "TOP0"],
+        ["TOP1", "TOP2", "BOT1", "BOT2"], ["TOP2", "TOP3", "BOT2", "BOT3"], ["TOP3", "TOP4", "BOT3", "BOT4"], ["TOP4", "TOP5", "BOT4", "BOT5"], ["TOP5", "TOP6", "BOT5", "BOT6"], ["TOP6", "TOP7", "BOT6", "BOT7"], ["TOP7", "TOP8", "BOT7", "BOT8"], ["TOP8", "TOP9", "BOT8", "BOT9"], ["TOP9", "TOP0", "BOT9", "BOT0"],
+        ["BOT1", "BOT2"], ["BOT2", "BOT3"], ["BOT3", "BOT4"], ["BOT4", "BOT5"], ["BOT5", "BOT6"], ["BOT6", "BOT7"], ["BOT7", "BOT8"], ["BOT8", "BOT9"], ["BOT9", "BOT0"]
+      ]
+    },
+    {
+      "name": "asetniop",
+      "chords": [
+        ["TOP1"], ["TOP2"], ["TOP3"], ["TOP4"], ["TOP7"], ["TOP8"], ["TOP9"], ["TOP0"],
+        ["TOP1", "TOP2"], ["TOP2", "TOP3"], ["TOP3", "TOP4"], ["TOP4", "TOP7"], ["TOP7", "TOP8"], ["TOP8", "TOP9"], ["TOP9", "TOP0"],
+        ["TOP1", "TOP3"], ["TOP2", "TOP4"], ["TOP3", "TOP7"], ["TOP4", "TOP8"], ["TOP7", "TOP9"], ["TOP8", "TOP0"],
+        ["TOP1", "TOP4"], ["TOP2", "TOP7"], ["TOP3", "TOP8"], ["TOP4", "TOP9"], ["TOP7", "TOP0"],
+        ["TOP1", "TOP7"], ["TOP2", "TOP8"], ["TOP3", "TOP9"], ["TOP4", "TOP0"],
+        ["TOP1", "TOP8"], ["TOP2", "TOP9"], ["TOP3", "TOP0"],
+        ["TOP1", "TOP9"], ["TOP2", "TOP0"],
+        ["TOP1", "TOP0"]
+      ]
+    }
+  ],
+  "pseudolayers": [
+    {
+      "name": "ALWAYS_ON",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "cols",
+          "keycodes": [
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ",
+            "LOCK", "  AT", "    ", "    ", " CMD", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    "
+          ]
+        },
+        {
+          "type": "visual",
+          "chord": [
+            "X", "X", " ", " ", " ", " ", " ", " ", "X", "X",
+            "X", "X", " ", " ", " ", " ", " ", " ", "X", "X"
+          ],
+          "keycode": "CLEAR_KB"
+        }
+      ]
+    },
+    {
+      "name": "QWERTY",
+        "chords": [
+          {
+            "type": "chord_set",
+            "set": "rows",
+            "keycodes": [
+              "AS(Q)", "AS(W)", "AS(E)", "AS(R)", "AS(T)", "AS(Y)", "AS(U)", "AS(I)", "AS(O)", "AS(P)",
+              "AS(A)", "AS(S)", "AS(D)", "AS(F)", "AS(G)", "AS(H)", "AS(J)", "AS(K)", "AS(L)", "AS(;)",
+              "AS(Z)", "AS(X)", "AS(C)", "AS(V)", "AS(B)", "AS(N)", "AS(M)", "AS(,)", "AS(.)", "AS(/)"
+            ]
+          },
+          {
+            "type": "chord_set",
+            "set": "cols",
+              "keycodes": [
+                "    ESC", "MO(MOV)", "    TAB", "      ", "O(RGUI)", "      ", "    INS", "    DEL", "   BSPC",
+                "       ", "       ", "       ", "      ", "       ", "      ", "       ", "       ", "  ENTER",
+                "O(LSFT)", "O(LCTL)", "O(LALT)", "O(NUM)", "O(LGUI)", "O(NUM)", "O(RALT)", "O(RCTL)", "O(RSFT)"
+              ]
+          },
+          {
+            "type": "simple",
+            "chord": ["BOT1", "BOT0"],
+            "keycode": "SPACE"
+          },
+          {
+            "type": "visual",
+            "chord": [
+              "X", "X", "X", "X", " ", " ", " ", " ", " ", " ",
+              " ", " ", " ", " ", " ", " ", " ", " ", " ", " "
+            ],
+            "keycode": "MO(MOUSE)"
+          },
+          {
+            "type": "visual",
+              "chord": [
+                "X", "X", "X", "X", " ", " ", "X", "X", "X", "X",
+                " ", " ", " ", " ", " ", " ", " ", " ", " ", " "
+              ],
+              "keycode": "DF(ASETNIOP)"
+          }
+        ]
+    },
+    {
+      "name": "NUM",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            "AS(1)", "AS(2)", "AS(3)", "AS(4)", "AS(5)",  "AS(6)", "AS(7)", "AS(8)", "AS(9)", "AS(0)",
+            "   F1", "   F2", "   F3", "   F4", "   F5",  "   F6", "   F7", "   F8", "   F9", "  F10",
+            "AS(`)", "AS(-)", "AS(=)", "AS([)", "AS(])", "AS(\\)", "AS(')", "     ", "  F11", "  F12"
+          ]
+        },
+        {
+          "type": "chord_set",
+          "set": "cols",
+          "keycodes": [
+            "    ESC", "       ", "    TAB", "      ", "O(RGUI)", "      ", "    INS", "    DEL", "    BSPC",
+            "       ", "       ", "       ", "      ", "       ", "      ", "       ", "       ", "   ENTER",
+            "O(LSFT)", "O(LCTL)", "O(LALT)", "      ", "O(LGUI)", "      ", "O(RALT)", "O(RCTL)", " O(RSFT)"
+          ]
+        },
+        {
+          "type": "simple",
+          "chord": ["BOT1", "BOT0"],
+          "keycode": "SPACE"
+        }
+      ]
+    },
+    {
+      "name": "MOV",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            "     ", "     ", "     ", "     ", "     ", "     ", " HOME", "   UP", "  END", " PGUP",
+            "     ", "     ", "     ", "     ", "     ", "     ", "     ", "     ", "     ", "     ",
+            "     ", "     ", " LSFT", " LCTL", " LALT", " LGUI", " LEFT", " DOWN", "RIGHT", " PGDN"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MOUSE",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            "     ", "     ", "     ", "     ", "     ", "     ", " BTN1", " MS_U", " BTN2", " WH_U",
+            "     ", "     ", "     ", "     ", "     ", "     ", "     ", "     ", "     ", "     ",
+            "     ", "     ", " LSFT", " LCTL", " LALT", " LGUI", " MS_L", " MS_D", " MS_R", " WH_D"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ASETNIOP",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "asetniop",
+          "keycodes": [
+            "A", "S", "E", "T", "N", "I", "O", "P",
+            "W", "D", "R", "B", "H", "L", ";",
+            "X", "C", "Y", "V", "U",  "",
+            "F", "J", ",", "G", "M",
+            "Q", "K", "-", "BSPC",
+            "Z", ".", "'",
+            "[", "]",
+            "/"
+          ]
+        },
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            "    ", "    ", "    ", "    ", " ESC", " DEL", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "LSFT", "LCTL", "LALT", "KL(SPACE, ASETNIOP_123)", "", "", ""
+          ]
+        },
+        {
+          "type": "chord_set",
+          "set": "cols",
+          "keycodes": [
+            "    ", "    ", "    ", "    ", "LGUI", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    "
+          ]
+        },
+        {
+          "type": "visual",
+          "chord": [
+            "X", "X", "X", "X", " ", " ", " ", " ", " ", " ",
+            " ", " ", " ", " ", " ", " ", " ", " ", " ", " "
+          ],
+          "keycode": "DF(QWERTY)"
+        },
+        {
+          "type": "visual",
+          "chord": [
+            " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
+            " ", " ", " ", "X", " ", " ", "X", " ", " ", " "
+          ],
+          "keycode": "MO(ASETNIOP_FN)"
+        }
+      ]
+    },
+    {
+      "name": "ASETNIOP_123",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "asetniop",
+          "keycodes": [
+            "1", "2", "3", "4", "7",  "8", "9", "0",
+            " ", " ", "5", "=", "6", "\\", ";",
+            " ", " ", " ", " ", " ",  " ",
+            " ", " ", " ", " ", " ",
+            " ", " ", " ", "BSPC",
+            " ", " ", " ",
+            " ", " ",
+            " "
+          ]
+        },
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            "    ", "    ", "    ", "    ", " ESC", " DEL", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "LSFT", "LCTL", "LALT", "    ", "    ", "    ", "    "
+          ]
+        },
+        {
+          "type": "chord_set",
+          "set": "cols",
+          "keycodes": [
+            "    ", "    ", "    ", "    ", "LGUI", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    "
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ASETNIOP_FN",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "asetniop",
+          "keycodes": [
+            "HOME", "PGDN", "PGUP", " END", "LEFT", "DOWN", "  UP", "RIGHT",
+            "  F1", "  F2", "  F3", "  F4", "  F5", "  F6", "  F7",
+            " F10", "    ", "    ", "    ", "    ", "  F8",
+            " F11", "    ", "    ", "    ", "  F9",
+            " F12", "    ", "    ", "BSPC",
+            "    ", "    ", "    ",
+            "    ", "    ",
+            "    "
+          ]
+        },
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            "    ", "    ", "    ", "    ", " ESC", " DEL", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "LSFT", "LCTL", "LALT", "    ", "    ", "    ", "    "
+          ]
+        },
+        {
+          "type": "chord_set",
+          "set": "cols",
+          "keycodes": [
+            "    ", "    ", "    ", "    ", "LGUI", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ",
+            "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    ", "    "
+          ]
+        }
+      ]
+    }
+  ],
+  "leader_sequences": [],
+  "extra_code": "",
+  "extra_dependencies": []
+}

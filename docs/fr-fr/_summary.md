@@ -81,7 +81,7 @@
   * [Macros](fr-fr/feature_macros.md)
   * [Boutons de souris](fr-fr/feature_mouse_keys.md)
   * [Pilotes / Drivers OLED](fr-fr/feature_oled_driver.md)
-  * [Touche one-shot](fr-fr/feature_advanced_keycodes.md#one-shot-keys)
+  * [Touche one-shot](fr-fr/one_shot_keys.md)
   * [Périphériques de pointage](fr-fr/feature_pointing_device.md)
   * [Souris PS/2](fr-fr/feature_ps2_mouse.md)
   * [Éclairage RGB](fr-fr/feature_rgblight.md)
@@ -101,7 +101,8 @@
   * [Guide des claviers soudés à la main](fr-fr/hand_wire.md)
   * [Guide de flash de l’ISP](fr-fr/isp_flashing_guide.md)
   * [Guide du débogage ARM](fr-fr/arm_debugging.md)
-  * [Drivers i2c](fr-fr/i2c_driver.md)
+  * [Drivers I2C](fr-fr/i2c_driver.md)
+  * [Drivers SPI](fr-fr/spi_driver.md)
   * [Contrôles des GPIO](fr-fr/internals_gpio_control.md)
   * [Conversion en Proton C](fr-fr/proton_c_conversion.md)
 
@@ -112,7 +113,7 @@
 * Autres sujets
   * [Utiliser Eclipse avec QMK](fr-fr/other_eclipse.md)
   * [Utiliser VSCode avec QMK](fr-fr/other_vscode.md)
-  * [Support](fr-fr/support.md)
+  * [Support](fr-fr/getting_started_getting_help.md)
   * [Comment ajouter des traductions](fr-fr/translating.md)
 
 * À l’intérieur de QMK (En cours de documentation)

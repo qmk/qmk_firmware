@@ -17,15 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+/* Ensure we jump to bootloader if the RESET keycode was pressed */
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
+/* LSE clock */
+#define STM32_LSECLK 32768
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0x57F5
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
 #define PRODUCT Satisfaction75
-#define DESCRIPTION Satisfaction 75 Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -38,6 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { B9 }
 #define ENCODERS_PAD_B { B8 }
 
+#define ENCODER_RESOLUTION 2
+
 //LEDS A6, RGB B15
 #define BACKLIGHT_LEVELS 24
 #define BACKLIGHT_BREATHING
@@ -46,6 +51,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
+// I2C config
+#define I2C_DRIVER I2CD1
+#define I2C1_SCL_BANK GPIOB
+#define I2C1_SCL 6
+#define I2C1_SDA 7
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
+#define I2C1_TIMINGR_PRESC 0x00U
+#define I2C1_TIMINGR_SCLDEL 0x03U
+#define I2C1_TIMINGR_SDADEL 0x01U
+#define I2C1_TIMINGR_SCLH 0x03U
+#define I2C1_TIMINGR_SCLL 0x09U
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
