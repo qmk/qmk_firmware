@@ -1,5 +1,6 @@
-/* Copyright 2016 Jack Humbert
- *
+/* Copyright 2016-2020 Jack Humbert
+ * Copyright 2020 JohSchneider
+
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -13,150 +14,86 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#include <stdio.h>
-#include <string.h>
-//#include <math.h>
-#if defined(__AVR__)
-#    include <avr/pgmspace.h>
-#    include <avr/interrupt.h>
-#    include <avr/io.h>
-#endif
-#include "print.h"
 #include "audio.h"
-#include "keymap.h"
+#include "eeconfig.h"
+#include "timer.h"
 #include "wait.h"
 
-#include "eeconfig.h"
+/* audio system:
+ *
+ * audio.[ch] takes care of all overall state, tracking the actively playing
+ *            notes/tones; the notes a SONG consists of;
+ *            ...
+ *            = everything audio-related that is platform agnostic
+ *
+ * driver_[avr|chibios]_[dac|pwm] take care of the lower hardware dependent parts,
+ *            specific to each platform and the used subsystem/driver to drive
+ *            the output pins/channels with the calculated frequencies for each
+ *            active tone
+ *            as part of this, the driver has to trigger regular state updates by
+ *            calling 'audio_update_state' through some sort of timer - be it a
+ *            dedicated one or piggybacking on for example the timer used to
+ *            generate a pwm signal/clock.
+ *
+ *
+ * A Note on terminology:
+ * tone, pitch and frequency are used somewhat interchangeably, in a strict Wikipedia-sense:
+ *    "(Musical) tone, a sound characterized by its duration, pitch (=frequency),
+ *    intensity (=volume), and timbre"
+ * - intensity/volume is currently not handled at all, although the 'dac_additive' driver could do so
+ * - timbre is handled globally (TODO: only used with the pwm drivers at the moment)
+ *
+ * in musical_note.h a 'note' is the combination of a pitch and a duration
+ * these are used to create SONG arrays; during playback their frequencies
+ * are handled as single successive tones, while the durations are
+ * kept track of in 'audio_update_state'
+ *
+ * 'voice' as it is used here, equates to a sort of instrument with its own
+ * characteristics sound and effects
+ * the audio system as-is deals only with (possibly multiple) tones of one
+ * instrument/voice at a time (think: chords). since the number of tones that
+ * can be reproduced depends on the hardware/driver in use: pwm can only
+ * reproduce one tone per output/speaker; DACs can reproduce/mix multiple
+ * when doing additive synthesis.
+ *
+ * 'duration' can either be in the beats-per-minute related unit found in
+ * musical_notes.h, OR in ms; keyboards create SONGs with the former, while
+ * the internal state of the audio system does its calculations with the later - ms
+ */
 
-#define CPU_PRESCALER 8
-
-// -----------------------------------------------------------------------------
-// Timer Abstractions
-// -----------------------------------------------------------------------------
-
-// Currently we support timers 1 and 3 used at the sime time, channels A-C,
-// pins PB5, PB6, PB7, PC4, PC5, and PC6
-#if defined(C6_AUDIO)
-#    define CPIN_AUDIO
-#    define CPIN_SET_DIRECTION DDRC |= _BV(PORTC6);
-#    define INIT_AUDIO_COUNTER_3 TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
-#    define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3A)
-#    define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3A)
-#    define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A |= _BV(COM3A1);
-#    define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A &= ~(_BV(COM3A1) | _BV(COM3A0));
-#    define TIMER_3_PERIOD ICR3
-#    define TIMER_3_DUTY_CYCLE OCR3A
-#    define TIMER3_AUDIO_vect TIMER3_COMPA_vect
+#ifndef AUDIO_TONE_STACKSIZE
+#    define AUDIO_TONE_STACKSIZE 8
 #endif
-#if defined(C5_AUDIO)
-#    define CPIN_AUDIO
-#    define CPIN_SET_DIRECTION DDRC |= _BV(PORTC5);
-#    define INIT_AUDIO_COUNTER_3 TCCR3A = (0 << COM3B1) | (0 << COM3B0) | (1 << WGM31) | (0 << WGM30);
-#    define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3B)
-#    define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3B)
-#    define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A |= _BV(COM3B1);
-#    define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A &= ~(_BV(COM3B1) | _BV(COM3B0));
-#    define TIMER_3_PERIOD ICR3
-#    define TIMER_3_DUTY_CYCLE OCR3B
-#    define TIMER3_AUDIO_vect TIMER3_COMPB_vect
-#endif
-#if defined(C4_AUDIO)
-#    define CPIN_AUDIO
-#    define CPIN_SET_DIRECTION DDRC |= _BV(PORTC4);
-#    define INIT_AUDIO_COUNTER_3 TCCR3A = (0 << COM3C1) | (0 << COM3C0) | (1 << WGM31) | (0 << WGM30);
-#    define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3C)
-#    define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3C)
-#    define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A |= _BV(COM3C1);
-#    define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A &= ~(_BV(COM3C1) | _BV(COM3C0));
-#    define TIMER_3_PERIOD ICR3
-#    define TIMER_3_DUTY_CYCLE OCR3C
-#    define TIMER3_AUDIO_vect TIMER3_COMPC_vect
-#endif
+uint8_t        active_tones = 0;             // number of tones pushed onto the stack by audio_play_tone - might be more than the hardware is able to reproduce at any single time
+musical_tone_t tones[AUDIO_TONE_STACKSIZE];  // stack of currently active tones
 
-#if defined(B5_AUDIO)
-#    define BPIN_AUDIO
-#    define BPIN_SET_DIRECTION DDRB |= _BV(PORTB5);
-#    define INIT_AUDIO_COUNTER_1 TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
-#    define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1A)
-#    define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1A)
-#    define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1A1);
-#    define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1A1) | _BV(COM1A0));
-#    define TIMER_1_PERIOD ICR1
-#    define TIMER_1_DUTY_CYCLE OCR1A
-#    define TIMER1_AUDIO_vect TIMER1_COMPA_vect
-#endif
-#if defined(B6_AUDIO)
-#    define BPIN_AUDIO
-#    define BPIN_SET_DIRECTION DDRB |= _BV(PORTB6);
-#    define INIT_AUDIO_COUNTER_1 TCCR1A = (0 << COM1B1) | (0 << COM1B0) | (1 << WGM11) | (0 << WGM10);
-#    define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1B)
-#    define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1B)
-#    define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1B1);
-#    define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1B1) | _BV(COM1B0));
-#    define TIMER_1_PERIOD ICR1
-#    define TIMER_1_DUTY_CYCLE OCR1B
-#    define TIMER1_AUDIO_vect TIMER1_COMPB_vect
-#endif
-#if defined(B7_AUDIO)
-#    define BPIN_AUDIO
-#    define BPIN_SET_DIRECTION DDRB |= _BV(PORTB7);
-#    define INIT_AUDIO_COUNTER_1 TCCR1A = (0 << COM1C1) | (0 << COM1C0) | (1 << WGM11) | (0 << WGM10);
-#    define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1C)
-#    define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1C)
-#    define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1C1);
-#    define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1C1) | _BV(COM1C0));
-#    define TIMER_1_PERIOD ICR1
-#    define TIMER_1_DUTY_CYCLE OCR1C
-#    define TIMER1_AUDIO_vect TIMER1_COMPC_vect
-#endif
-// -----------------------------------------------------------------------------
+bool playing_melody = false;  // playing a SONG?
+bool playing_note   = false;  // or (possibly multiple simultaneous) tones
+bool state_changed  = false;  // global flag, which is set if anything changes with the active_tones
 
-int   voices        = 0;
-int   voice_place   = 0;
-float frequency     = 0;
-float frequency_alt = 0;
-int   volume        = 0;
-long  position      = 0;
+// melody/SONG related state variables
+float (*notes_pointer)[][2];                            // SONG, an array of MUSICAL_NOTEs
+uint16_t notes_count;                                   // length of the notes_pointer array
+bool     notes_repeat;                                  // PLAY_SONG or PLAY_LOOP?
+uint16_t melody_current_note_duration = 0;              // duration of the currently playing note from the active melody, in ms
+uint8_t  note_tempo                   = TEMPO_DEFAULT;  // beats-per-minute
+uint16_t current_note                 = 0;              // index into the array at notes_pointer
+bool     note_resting                 = false;          // if a short pause was introduced between two notes with the same frequency while playing a melody
+uint16_t last_timestamp               = 0;
 
-float frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-int   volumes[8]     = {0, 0, 0, 0, 0, 0, 0, 0};
-bool  sliding        = false;
-
-float place = 0;
-
-uint8_t* sample;
-uint16_t sample_length = 0;
-
-bool     playing_notes  = false;
-bool     playing_note   = false;
-float    note_frequency = 0;
-float    note_length    = 0;
-uint8_t  note_tempo     = TEMPO_DEFAULT;
-float    note_timbre    = TIMBRE_DEFAULT;
-uint16_t note_position  = 0;
-float (*notes_pointer)[][2];
-uint16_t notes_count;
-bool     notes_repeat;
-bool     note_resting = false;
-
-uint16_t current_note = 0;
-uint8_t  rest_counter = 0;
-
-#ifdef VIBRATO_ENABLE
-float vibrato_counter  = 0;
-float vibrato_strength = .5;
-float vibrato_rate     = 0.125;
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+#    ifndef AUDIO_MAX_SIMULTANEOUS_TONES
+#        define AUDIO_MAX_SIMULTANEOUS_TONES 3
+#    endif
+uint16_t tone_multiplexing_rate        = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
+uint8_t  tone_multiplexing_index_shift = 0;  // offset used on active-tone array access
 #endif
 
-float polyphony_rate = 0;
-
-static bool audio_initialized = false;
-
-audio_config_t audio_config;
-
-uint16_t envelope_index = 0;
-bool     glissando      = true;
+// provided and used by voices.c
+extern uint8_t  note_timbre;
+extern bool     glissando;
+extern bool     vibrato;
+extern uint16_t voices_timer;
 
 #ifndef STARTUP_SONG
 #    define STARTUP_SONG SONG(STARTUP_SOUND)
@@ -171,570 +108,56 @@ float startup_song[][2]   = STARTUP_SONG;
 float audio_on_song[][2]  = AUDIO_ON_SONG;
 float audio_off_song[][2] = AUDIO_OFF_SONG;
 
+static bool    audio_initialized    = false;
+static bool    audio_driver_stopped = true;
+audio_config_t audio_config;
+
 void audio_init() {
+    if (audio_initialized) {
+        return;
+    }
+
     // Check EEPROM
+#ifdef EEPROM_ENABLE
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
     audio_config.raw = eeconfig_read_audio();
+#else  // EEPROM settings
+    audio_config.enable        = true;
+#    ifdef AUDIO_CLICKY_ON
+    audio_config.clicky_enable = true;
+#    endif
+#endif  // EEPROM settings
 
-    if (!audio_initialized) {
-// Set audio ports as output
-#ifdef CPIN_AUDIO
-        CPIN_SET_DIRECTION
-        DISABLE_AUDIO_COUNTER_3_ISR;
-#endif
-#ifdef BPIN_AUDIO
-        BPIN_SET_DIRECTION
-        DISABLE_AUDIO_COUNTER_1_ISR;
-#endif
-
-// TCCR3A / TCCR3B: Timer/Counter #3 Control Registers TCCR3A/TCCR3B, TCCR1A/TCCR1B
-// Compare Output Mode (COM3An and COM1An) = 0b00 = Normal port operation
-//   OC3A -- PC6
-//   OC3B -- PC5
-//   OC3C -- PC4
-//   OC1A -- PB5
-//   OC1B -- PB6
-//   OC1C -- PB7
-
-// Waveform Generation Mode (WGM3n) = 0b1110 = Fast PWM Mode 14. Period = ICR3, Duty Cycle OCR3A)
-//   OCR3A - PC6
-//   OCR3B - PC5
-//   OCR3C - PC4
-//   OCR1A - PB5
-//   OCR1B - PB6
-//   OCR1C - PB7
-
-// Clock Select (CS3n) = 0b010 = Clock / 8
-#ifdef CPIN_AUDIO
-        INIT_AUDIO_COUNTER_3
-        TCCR3B             = (1 << WGM33) | (1 << WGM32) | (0 << CS32) | (1 << CS31) | (0 << CS30);
-        TIMER_3_PERIOD     = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
-        TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
-#endif
-#ifdef BPIN_AUDIO
-        INIT_AUDIO_COUNTER_1
-        TCCR1B             = (1 << WGM13) | (1 << WGM12) | (0 << CS12) | (1 << CS11) | (0 << CS10);
-        TIMER_1_PERIOD     = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
-        TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
-#endif
-
-        audio_initialized = true;
+    for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
+        tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
     }
 
+    if (!audio_initialized) {
+        audio_driver_initialize();
+        audio_initialized = true;
+    }
+    stop_all_notes();
+}
+
+void audio_startup(void) {
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
     }
+
+    last_timestamp = timer_read();
 }
-
-void stop_all_notes() {
-    dprintf("audio stop all notes");
-
-    if (!audio_initialized) {
-        audio_init();
-    }
-    voices = 0;
-
-#ifdef CPIN_AUDIO
-    DISABLE_AUDIO_COUNTER_3_ISR;
-    DISABLE_AUDIO_COUNTER_3_OUTPUT;
-#endif
-
-#ifdef BPIN_AUDIO
-    DISABLE_AUDIO_COUNTER_1_ISR;
-    DISABLE_AUDIO_COUNTER_1_OUTPUT;
-#endif
-
-    playing_notes = false;
-    playing_note  = false;
-    frequency     = 0;
-    frequency_alt = 0;
-    volume        = 0;
-
-    for (uint8_t i = 0; i < 8; i++) {
-        frequencies[i] = 0;
-        volumes[i]     = 0;
-    }
-}
-
-void stop_note(float freq) {
-    dprintf("audio stop note freq=%d", (int)freq);
-
-    if (playing_note) {
-        if (!audio_initialized) {
-            audio_init();
-        }
-        for (int i = 7; i >= 0; i--) {
-            if (frequencies[i] == freq) {
-                frequencies[i] = 0;
-                volumes[i]     = 0;
-                for (int j = i; (j < 7); j++) {
-                    frequencies[j]     = frequencies[j + 1];
-                    frequencies[j + 1] = 0;
-                    volumes[j]         = volumes[j + 1];
-                    volumes[j + 1]     = 0;
-                }
-                break;
-            }
-        }
-        voices--;
-        if (voices < 0) voices = 0;
-        if (voice_place >= voices) {
-            voice_place = 0;
-        }
-        if (voices == 0) {
-#ifdef CPIN_AUDIO
-            DISABLE_AUDIO_COUNTER_3_ISR;
-            DISABLE_AUDIO_COUNTER_3_OUTPUT;
-#endif
-#ifdef BPIN_AUDIO
-            DISABLE_AUDIO_COUNTER_1_ISR;
-            DISABLE_AUDIO_COUNTER_1_OUTPUT;
-#endif
-            frequency     = 0;
-            frequency_alt = 0;
-            volume        = 0;
-            playing_note  = false;
-        }
-    }
-}
-
-#ifdef VIBRATO_ENABLE
-
-float mod(float a, int b) {
-    float r = fmod(a, b);
-    return r < 0 ? r + b : r;
-}
-
-float vibrato(float average_freq) {
-#    ifdef VIBRATO_STRENGTH_ENABLE
-    float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
-#    else
-    float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
-#    endif
-    vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
-    return vibrated_freq;
-}
-
-#endif
-
-#ifdef CPIN_AUDIO
-ISR(TIMER3_AUDIO_vect) {
-    float freq;
-
-    if (playing_note) {
-        if (voices > 0) {
-#    ifdef BPIN_AUDIO
-            float freq_alt = 0;
-            if (voices > 1) {
-                if (polyphony_rate == 0) {
-                    if (glissando) {
-                        if (frequency_alt != 0 && frequency_alt < frequencies[voices - 2] && frequency_alt < frequencies[voices - 2] * pow(2, -440 / frequencies[voices - 2] / 12 / 2)) {
-                            frequency_alt = frequency_alt * pow(2, 440 / frequency_alt / 12 / 2);
-                        } else if (frequency_alt != 0 && frequency_alt > frequencies[voices - 2] && frequency_alt > frequencies[voices - 2] * pow(2, 440 / frequencies[voices - 2] / 12 / 2)) {
-                            frequency_alt = frequency_alt * pow(2, -440 / frequency_alt / 12 / 2);
-                        } else {
-                            frequency_alt = frequencies[voices - 2];
-                        }
-                    } else {
-                        frequency_alt = frequencies[voices - 2];
-                    }
-
-#        ifdef VIBRATO_ENABLE
-                    if (vibrato_strength > 0) {
-                        freq_alt = vibrato(frequency_alt);
-                    } else {
-                        freq_alt = frequency_alt;
-                    }
-#        else
-                    freq_alt = frequency_alt;
-#        endif
-                }
-
-                if (envelope_index < 65535) {
-                    envelope_index++;
-                }
-
-                freq_alt = voice_envelope(freq_alt);
-
-                if (freq_alt < 30.517578125) {
-                    freq_alt = 30.52;
-                }
-
-                TIMER_1_PERIOD     = (uint16_t)(((float)F_CPU) / (freq_alt * CPU_PRESCALER));
-                TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq_alt * CPU_PRESCALER)) * note_timbre);
-            }
-#    endif
-
-            if (polyphony_rate > 0) {
-                if (voices > 1) {
-                    voice_place %= voices;
-                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
-                        voice_place = (voice_place + 1) % voices;
-                        place       = 0.0;
-                    }
-                }
-
-#    ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(frequencies[voice_place]);
-                } else {
-                    freq = frequencies[voice_place];
-                }
-#    else
-                freq = frequencies[voice_place];
-#    endif
-            } else {
-                if (glissando) {
-                    if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, 440 / frequency / 12 / 2);
-                    } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, -440 / frequency / 12 / 2);
-                    } else {
-                        frequency = frequencies[voices - 1];
-                    }
-                } else {
-                    frequency = frequencies[voices - 1];
-                }
-
-#    ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(frequency);
-                } else {
-                    freq = frequency;
-                }
-#    else
-                freq = frequency;
-#    endif
-            }
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-
-            freq = voice_envelope(freq);
-
-            if (freq < 30.517578125) {
-                freq = 30.52;
-            }
-
-            TIMER_3_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-        }
-    }
-
-    if (playing_notes) {
-        if (note_frequency > 0) {
-#    ifdef VIBRATO_ENABLE
-            if (vibrato_strength > 0) {
-                freq = vibrato(note_frequency);
-            } else {
-                freq = note_frequency;
-            }
-#    else
-            freq = note_frequency;
-#    endif
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-            freq = voice_envelope(freq);
-
-            TIMER_3_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-        } else {
-            TIMER_3_PERIOD     = 0;
-            TIMER_3_DUTY_CYCLE = 0;
-        }
-
-        note_position++;
-        bool end_of_note = false;
-        if (TIMER_3_PERIOD > 0) {
-            if (!note_resting)
-                end_of_note = (note_position >= (note_length / TIMER_3_PERIOD * 0xFFFF - 1));
-            else
-                end_of_note = (note_position >= (note_length));
-        } else {
-            end_of_note = (note_position >= (note_length));
-        }
-
-        if (end_of_note) {
-            current_note++;
-            if (current_note >= notes_count) {
-                if (notes_repeat) {
-                    current_note = 0;
-                } else {
-                    DISABLE_AUDIO_COUNTER_3_ISR;
-                    DISABLE_AUDIO_COUNTER_3_OUTPUT;
-                    playing_notes = false;
-                    return;
-                }
-            }
-            if (!note_resting) {
-                note_resting = true;
-                current_note--;
-                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
-                    note_frequency = 0;
-                    note_length    = 1;
-                } else {
-                    note_frequency = (*notes_pointer)[current_note][0];
-                    note_length    = 1;
-                }
-            } else {
-                note_resting   = false;
-                envelope_index = 0;
-                note_frequency = (*notes_pointer)[current_note][0];
-                note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-            }
-
-            note_position = 0;
-        }
-    }
-
-    if (!audio_config.enable) {
-        playing_notes = false;
-        playing_note  = false;
-    }
-}
-#endif
-
-#ifdef BPIN_AUDIO
-ISR(TIMER1_AUDIO_vect) {
-#    if defined(BPIN_AUDIO) && !defined(CPIN_AUDIO)
-    float freq = 0;
-
-    if (playing_note) {
-        if (voices > 0) {
-            if (polyphony_rate > 0) {
-                if (voices > 1) {
-                    voice_place %= voices;
-                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
-                        voice_place = (voice_place + 1) % voices;
-                        place       = 0.0;
-                    }
-                }
-
-#        ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(frequencies[voice_place]);
-                } else {
-                    freq = frequencies[voice_place];
-                }
-#        else
-                freq = frequencies[voice_place];
-#        endif
-            } else {
-                if (glissando) {
-                    if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, 440 / frequency / 12 / 2);
-                    } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, -440 / frequency / 12 / 2);
-                    } else {
-                        frequency = frequencies[voices - 1];
-                    }
-                } else {
-                    frequency = frequencies[voices - 1];
-                }
-
-#        ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(frequency);
-                } else {
-                    freq = frequency;
-                }
-#        else
-                freq = frequency;
-#        endif
-            }
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-
-            freq = voice_envelope(freq);
-
-            if (freq < 30.517578125) {
-                freq = 30.52;
-            }
-
-            TIMER_1_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-        }
-    }
-
-    if (playing_notes) {
-        if (note_frequency > 0) {
-#        ifdef VIBRATO_ENABLE
-            if (vibrato_strength > 0) {
-                freq = vibrato(note_frequency);
-            } else {
-                freq = note_frequency;
-            }
-#        else
-            freq = note_frequency;
-#        endif
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-            freq = voice_envelope(freq);
-
-            TIMER_1_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-        } else {
-            TIMER_1_PERIOD     = 0;
-            TIMER_1_DUTY_CYCLE = 0;
-        }
-
-        note_position++;
-        bool end_of_note = false;
-        if (TIMER_1_PERIOD > 0) {
-            if (!note_resting)
-                end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF - 1));
-            else
-                end_of_note = (note_position >= (note_length));
-        } else {
-            end_of_note = (note_position >= (note_length));
-        }
-
-        if (end_of_note) {
-            current_note++;
-            if (current_note >= notes_count) {
-                if (notes_repeat) {
-                    current_note = 0;
-                } else {
-                    DISABLE_AUDIO_COUNTER_1_ISR;
-                    DISABLE_AUDIO_COUNTER_1_OUTPUT;
-                    playing_notes = false;
-                    return;
-                }
-            }
-            if (!note_resting) {
-                note_resting = true;
-                current_note--;
-                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
-                    note_frequency = 0;
-                    note_length    = 1;
-                } else {
-                    note_frequency = (*notes_pointer)[current_note][0];
-                    note_length    = 1;
-                }
-            } else {
-                note_resting   = false;
-                envelope_index = 0;
-                note_frequency = (*notes_pointer)[current_note][0];
-                note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-            }
-
-            note_position = 0;
-        }
-    }
-
-    if (!audio_config.enable) {
-        playing_notes = false;
-        playing_note  = false;
-    }
-#    endif
-}
-#endif
-
-void play_note(float freq, int vol) {
-    dprintf("audio play note freq=%d vol=%d", (int)freq, vol);
-
-    if (!audio_initialized) {
-        audio_init();
-    }
-
-    if (audio_config.enable && voices < 8) {
-#ifdef CPIN_AUDIO
-        DISABLE_AUDIO_COUNTER_3_ISR;
-#endif
-#ifdef BPIN_AUDIO
-        DISABLE_AUDIO_COUNTER_1_ISR;
-#endif
-
-        // Cancel notes if notes are playing
-        if (playing_notes) stop_all_notes();
-
-        playing_note = true;
-
-        envelope_index = 0;
-
-        if (freq > 0) {
-            frequencies[voices] = freq;
-            volumes[voices]     = vol;
-            voices++;
-        }
-
-#ifdef CPIN_AUDIO
-        ENABLE_AUDIO_COUNTER_3_ISR;
-        ENABLE_AUDIO_COUNTER_3_OUTPUT;
-#endif
-#ifdef BPIN_AUDIO
-#    ifdef CPIN_AUDIO
-        if (voices > 1) {
-            ENABLE_AUDIO_COUNTER_1_ISR;
-            ENABLE_AUDIO_COUNTER_1_OUTPUT;
-        }
-#    else
-        ENABLE_AUDIO_COUNTER_1_ISR;
-        ENABLE_AUDIO_COUNTER_1_OUTPUT;
-#    endif
-#endif
-    }
-}
-
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
-    if (!audio_initialized) {
-        audio_init();
-    }
-
-    if (audio_config.enable) {
-#ifdef CPIN_AUDIO
-        DISABLE_AUDIO_COUNTER_3_ISR;
-#endif
-#ifdef BPIN_AUDIO
-        DISABLE_AUDIO_COUNTER_1_ISR;
-#endif
-
-        // Cancel note if a note is playing
-        if (playing_note) stop_all_notes();
-
-        playing_notes = true;
-
-        notes_pointer = np;
-        notes_count   = n_count;
-        notes_repeat  = n_repeat;
-
-        place        = 0;
-        current_note = 0;
-
-        note_frequency = (*notes_pointer)[current_note][0];
-        note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-        note_position  = 0;
-
-#ifdef CPIN_AUDIO
-        ENABLE_AUDIO_COUNTER_3_ISR;
-        ENABLE_AUDIO_COUNTER_3_OUTPUT;
-#endif
-#ifdef BPIN_AUDIO
-#    ifndef CPIN_AUDIO
-        ENABLE_AUDIO_COUNTER_1_ISR;
-        ENABLE_AUDIO_COUNTER_1_OUTPUT;
-#    endif
-#endif
-    }
-}
-
-bool is_playing_notes(void) { return playing_notes; }
-
-bool is_audio_on(void) { return (audio_config.enable != 0); }
 
 void audio_toggle(void) {
+    if (audio_config.enable) {
+        stop_all_notes();
+    }
     audio_config.enable ^= 1;
     eeconfig_update_audio(audio_config.raw);
-    if (audio_config.enable) audio_on_user();
+    if (audio_config.enable) {
+        audio_on_user();
+    }
 }
 
 void audio_on(void) {
@@ -747,59 +170,370 @@ void audio_on(void) {
 void audio_off(void) {
     PLAY_SONG(audio_off_song);
     wait_ms(100);
-    stop_all_notes();
+    audio_stop_all();
     audio_config.enable = 0;
     eeconfig_update_audio(audio_config.raw);
 }
 
-#ifdef VIBRATO_ENABLE
+bool audio_is_on(void) { return (audio_config.enable != 0); }
 
-// Vibrato rate functions
+void audio_stop_all() {
+    if (audio_driver_stopped) {
+        return;
+    }
 
-void set_vibrato_rate(float rate) { vibrato_rate = rate; }
+    active_tones = 0;
 
-void increase_vibrato_rate(float change) { vibrato_rate *= change; }
+    audio_driver_stop();
 
-void decrease_vibrato_rate(float change) { vibrato_rate /= change; }
+    playing_melody = false;
+    playing_note   = false;
 
-#    ifdef VIBRATO_STRENGTH_ENABLE
+    melody_current_note_duration = 0;
 
-void set_vibrato_strength(float strength) { vibrato_strength = strength; }
+    for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
+        tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
+    }
 
-void increase_vibrato_strength(float change) { vibrato_strength *= change; }
+    audio_driver_stopped = true;
+}
 
-void decrease_vibrato_strength(float change) { vibrato_strength /= change; }
+void audio_stop_tone(float pitch) {
+    if (pitch < 0.0f) {
+        pitch = -1 * pitch;
+    }
 
-#    endif /* VIBRATO_STRENGTH_ENABLE */
+    if (playing_note) {
+        if (!audio_initialized) {
+            audio_init();
+        }
+        bool found = false;
+        for (int i = AUDIO_TONE_STACKSIZE - 1; i >= 0; i--) {
+            found = (tones[i].pitch == pitch);
+            if (found) {
+                tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
+                for (int j = i; (j < AUDIO_TONE_STACKSIZE - 1); j++) {
+                    tones[j]     = tones[j + 1];
+                    tones[j + 1] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
+                }
+                break;
+            }
+        }
+        if (!found) {
+            return;
+        }
 
-#endif /* VIBRATO_ENABLE */
+        state_changed = true;
+        active_tones--;
+        if (active_tones < 0) active_tones = 0;
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+        if (tone_multiplexing_index_shift >= active_tones) {
+            tone_multiplexing_index_shift = 0;
+        }
+#endif
+        if (active_tones == 0) {
+            audio_driver_stop();
+            audio_driver_stopped = true;
+            playing_note         = false;
+        }
+    }
+}
 
-// Polyphony functions
+void audio_play_note(float pitch, uint16_t duration) {
+    if (!audio_config.enable) {
+        return;
+    }
 
-void set_polyphony_rate(float rate) { polyphony_rate = rate; }
+    if (!audio_initialized) {
+        audio_init();
+    }
 
-void enable_polyphony() { polyphony_rate = 5; }
+    if (pitch < 0.0f) {
+        pitch = -1 * pitch;
+    }
 
-void disable_polyphony() { polyphony_rate = 0; }
+    // round-robin: shifting out old tones, keeping only unique ones
+    // if the new frequency is already amongst the active tones, shift it to the top of the stack
+    bool found = false;
+    for (int i = active_tones - 1; i >= 0; i--) {
+        found = (tones[i].pitch == pitch);
+        if (found) {
+            for (int j = i; (j < active_tones - 1); j++) {
+                tones[j]     = tones[j + 1];
+                tones[j + 1] = (musical_tone_t){.time_started = timer_read(), .pitch = pitch, .duration = duration};
+            }
+            return;  // since this frequency played already, the hardware was already started
+        }
+    }
 
-void increase_polyphony_rate(float change) { polyphony_rate *= change; }
+    // frequency/tone is actually new, so we put it on the top of the stack
+    active_tones++;
+    if (active_tones > AUDIO_TONE_STACKSIZE) {
+        active_tones = AUDIO_TONE_STACKSIZE;
+        // shift out the oldest tone to make room
+        for (int i = 0; i < active_tones - 1; i++) {
+            tones[i] = tones[i + 1];
+        }
+    }
+    state_changed           = true;
+    playing_note            = true;
+    tones[active_tones - 1] = (musical_tone_t){.time_started = timer_read(), .pitch = pitch, .duration = duration};
 
-void decrease_polyphony_rate(float change) { polyphony_rate /= change; }
+    // TODO: needs to be handled per note/tone -> use its timestamp instead?
+    voices_timer = timer_read();  // reset to zero, for the effects added by voices.c
 
-// Timbre function
+    if (audio_driver_stopped) {
+        audio_driver_start();
+        audio_driver_stopped = false;
+    }
+}
 
-void set_timbre(float timbre) { note_timbre = timbre; }
+void audio_play_tone(float pitch) { audio_play_note(pitch, 0xffff); }
+
+void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
+    if (!audio_config.enable) {
+        audio_stop_all();
+        return;
+    }
+
+    if (!audio_initialized) {
+        audio_init();
+    }
+
+    // Cancel note if a note is playing
+    if (playing_note) audio_stop_all();
+
+    playing_melody = true;
+    note_resting   = false;
+
+    notes_pointer = np;
+    notes_count   = n_count;
+    notes_repeat  = n_repeat;
+
+    current_note = 0;  // note in the melody-array/list at note_pointer
+
+    // start first note manually, which also starts the audio_driver
+    // all following/remaining notes are played by 'audio_update_state'
+    audio_play_note((*notes_pointer)[current_note][0], audio_duration_to_ms((*notes_pointer)[current_note][1]));
+    last_timestamp               = timer_read();
+    melody_current_note_duration = audio_duration_to_ms((*notes_pointer)[current_note][1]);
+}
+
+float click[2][2];
+void  audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
+    uint16_t duration_tone  = audio_ms_to_duration(duration);
+    uint16_t duration_delay = audio_ms_to_duration(delay);
+
+    if (delay <= 0.0f) {
+        click[0][0] = pitch;
+        click[0][1] = duration_tone;
+        click[1][0] = 0.0f;
+        click[1][1] = 0.0f;
+        audio_play_melody(&click, 1, false);
+    } else {
+        // first note is a rest/pause
+        click[0][0] = 0.0f;
+        click[0][1] = duration_delay;
+        // second note is the actual click
+        click[1][0] = pitch;
+        click[1][1] = duration_tone;
+        audio_play_melody(&click, 2, false);
+    }
+}
+
+bool audio_is_playing_note(void) { return playing_note; }
+
+bool audio_is_playing_melody(void) { return playing_melody; }
+
+uint8_t audio_get_number_of_active_tones(void) { return active_tones; }
+
+float audio_get_frequency(uint8_t tone_index) {
+    if (tone_index >= active_tones) {
+        return 0.0f;
+    }
+    return tones[active_tones - tone_index - 1].pitch;
+}
+
+float audio_get_processed_frequency(uint8_t tone_index) {
+    if (tone_index >= active_tones) {
+        return 0.0f;
+    }
+
+    int8_t index = active_tones - tone_index - 1;
+    // new tones are stacked on top (= appended at the end), so the most recent/current is MAX-1
+
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+    index = index - tone_multiplexing_index_shift;
+    if (index < 0)  // wrap around
+        index += active_tones;
+#endif
+
+    if (tones[index].pitch <= 0.0f) {
+        return 0.0f;
+    }
+
+    return voice_envelope(tones[index].pitch);
+}
+
+bool audio_update_state(void) {
+    if (!playing_note && !playing_melody) {
+        return false;
+    }
+
+    bool     goto_next_note = false;
+    uint16_t current_time   = timer_read();
+
+    if (playing_melody) {
+        goto_next_note = timer_elapsed(last_timestamp) >= melody_current_note_duration;
+        if (goto_next_note) {
+            uint16_t delta         = timer_elapsed(last_timestamp) - melody_current_note_duration;
+            last_timestamp         = current_time;
+            uint16_t previous_note = current_note;
+            current_note++;
+            voices_timer = timer_read();  // reset to zero, for the effects added by voices.c
+
+            if (current_note >= notes_count) {
+                if (notes_repeat) {
+                    current_note = 0;
+                } else {
+                    audio_stop_all();
+                    return false;
+                }
+            }
+
+            if (!note_resting && (*notes_pointer)[previous_note][0] == (*notes_pointer)[current_note][0]) {
+                note_resting = true;
+
+                // special handling for successive notes of the same frequency:
+                // insert a short pause to separate them audibly
+                audio_play_note(0.0f, audio_duration_to_ms(2));
+                current_note                 = previous_note;
+                melody_current_note_duration = audio_duration_to_ms(2);
+
+            } else {
+                note_resting = false;
+
+                // TODO: handle glissando here (or remember previous and current tone)
+                /* there would need to be a freq(here we are) -> freq(next note)
+                 * and do slide/glissando in between problem here is to know which
+                 * frequency on the stack relates to what other? e.g. a melody starts
+                 * tones in a sequence, and stops expiring one, so the most recently
+                 * stopped is the starting point for a glissando to the most recently started?
+                 * how to detect and preserve this relation?
+                 * and what about user input, chords, ...?
+                 */
+
+                // '- delta': Skip forward in the next note's length if we've over shot
+                //            the last, so the overall length of the song is the same
+                uint16_t duration = audio_duration_to_ms((*notes_pointer)[current_note][1]);
+
+                // Skip forward past any completely missed notes
+                while (delta > duration && current_note < notes_count - 1) {
+                    delta -= duration;
+                    current_note++;
+                    duration = audio_duration_to_ms((*notes_pointer)[current_note][1]);
+                }
+
+                if (delta < duration) {
+                    duration -= delta;
+                } else {
+                    // Only way to get here is if it is the last note and
+                    // we have completely missed it. Play it for 1ms...
+                    duration = 1;
+                }
+
+                audio_play_note((*notes_pointer)[current_note][0], duration);
+                melody_current_note_duration = duration;
+            }
+        }
+    }
+
+    if (playing_note) {
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+        tone_multiplexing_index_shift = (int)(current_time / tone_multiplexing_rate) % MIN(AUDIO_MAX_SIMULTANEOUS_TONES, active_tones);
+        goto_next_note                = true;
+#endif
+        if (vibrato || glissando) {
+            // force update on each cycle, since vibrato shifts the frequency slightly
+            goto_next_note = true;
+        }
+
+        // housekeeping: stop notes that have no playtime left
+        for (int i = 0; i < active_tones; i++) {
+            if ((tones[i].duration != 0xffff)  // indefinitely playing notes, started by 'audio_play_tone'
+                && (tones[i].duration != 0)    // 'uninitialized'
+            ) {
+                if (timer_elapsed(tones[i].time_started) >= tones[i].duration) {
+                    audio_stop_tone(tones[i].pitch);  // also sets 'state_changed=true'
+                }
+            }
+        }
+    }
+
+    // state-changes have a higher priority, always triggering the hardware to update
+    if (state_changed) {
+        state_changed = false;
+        return true;
+    }
+
+    return goto_next_note;
+}
+
+// Tone-multiplexing functions
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+void audio_set_tone_multiplexing_rate(uint16_t rate) { tone_multiplexing_rate = rate; }
+void audio_enable_tone_multiplexing(void) { tone_multiplexing_rate = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT; }
+void audio_disable_tone_multiplexing(void) { tone_multiplexing_rate = 0; }
+void audio_increase_tone_multiplexing_rate(uint16_t change) {
+    if ((0xffff - change) > tone_multiplexing_rate) {
+        tone_multiplexing_rate += change;
+    }
+}
+void audio_decrease_tone_multiplexing_rate(uint16_t change) {
+    if (change <= tone_multiplexing_rate) {
+        tone_multiplexing_rate -= change;
+    }
+}
+#endif
 
 // Tempo functions
 
-void set_tempo(uint8_t tempo) { note_tempo = tempo; }
+void audio_set_tempo(uint8_t tempo) {
+    if (tempo < 10) note_tempo = 10;
+    //  else if (tempo > 250)
+    //      note_tempo = 250;
+    else
+        note_tempo = tempo;
+}
 
-void decrease_tempo(uint8_t tempo_change) { note_tempo += tempo_change; }
+void audio_increase_tempo(uint8_t tempo_change) {
+    if (tempo_change > 255 - note_tempo)
+        note_tempo = 255;
+    else
+        note_tempo += tempo_change;
+}
 
-void increase_tempo(uint8_t tempo_change) {
-    if (note_tempo - tempo_change < 10) {
+void audio_decrease_tempo(uint8_t tempo_change) {
+    if (tempo_change >= note_tempo - 10)
         note_tempo = 10;
-    } else {
+    else
         note_tempo -= tempo_change;
-    }
+}
+
+// TODO in the int-math version are some bugs; songs sometimes abruptly end - maybe an issue with the timer/system-tick wrapping around?
+uint16_t audio_duration_to_ms(uint16_t duration_bpm) {
+#if defined(__AVR__)
+    // doing int-math saves us some bytes in the overall firmware size, but the intermediate result is less accurate before being cast to/returned as uint
+    return ((uint32_t)duration_bpm * 60 * 1000) / (64 * note_tempo);
+    // NOTE: beware of uint16_t overflows when note_tempo is low and/or the duration is long
+#else
+    return ((float)duration_bpm * 60) / (64 * note_tempo) * 1000;
+#endif
+}
+uint16_t audio_ms_to_duration(uint16_t duration_ms) {
+#if defined(__AVR__)
+    return ((uint32_t)duration_ms * 64 * note_tempo) / 60 / 1000;
+#else
+    return ((float)duration_ms * 64 * note_tempo) / 60 / 1000;
+#endif
 }

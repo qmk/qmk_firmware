@@ -5,11 +5,13 @@ NK65
 
 This is a standard fixed layout 65% PCB. It supports VIA and full per-key RGB.
 
-Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)   
+Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)   
 Hardware Supported: A 65% keyboard with STM32F303CC   
 Hardware Availability: https://novelkeys.xyz/   
 
 Due to the RGB implementation, the NK65 is currently not compatible with community layouts.
+
+NOTE: For PCBs with revision v1.4 or later please use nk65/v1_4 in the make command.
 
 ## Instructions
 
@@ -17,7 +19,7 @@ Due to the RGB implementation, the NK65 is currently not compatible with communi
 
 Make example for this keyboard (after setting up your build environment):
 
-    make nk65:default_via
+    make nk65:via
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

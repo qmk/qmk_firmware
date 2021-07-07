@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_LEADER_H
-#define PROCESS_LEADER_H
+#pragma once
 
 #include "quantum.h"
 
@@ -36,6 +35,9 @@ void qk_leader_start(void);
     extern uint16_t leader_time;        \
     extern uint16_t leader_sequence[5]; \
     extern uint8_t  leader_sequence_size
-#define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 
+#ifdef LEADER_NO_TIMEOUT
+#    define LEADER_DICTIONARY() if (leading && leader_sequence_size > 0 && timer_elapsed(leader_time) > LEADER_TIMEOUT)
+#else
+#    define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 #endif

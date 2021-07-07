@@ -57,7 +57,7 @@
 #include "stdarg.h"
 #include "tmk_core/protocol/arm_atsam/clks.h"
 
-#ifdef CDC
+#ifdef VIRTSER_ENABLE
 
 #    ifdef UDI_CDC_LOW_RATE
 #        ifdef USB_DEVICE_HS_SUPPORT

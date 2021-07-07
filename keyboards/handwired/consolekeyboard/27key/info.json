@@ -1,0 +1,42 @@
+{
+    "keyboard_name": "Console Keyboard",
+    "url": "https://www.thingiverse.com/thing:3167050",
+    "maintainer": "Gareth Edwards",
+    "width": 11,
+    "height": 3,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"K00 (D1,D4)", "x":0, "y":0},
+                {"label":"K01 (D1,C6)", "x":1, "y":0},
+                {"label":"K02 (D1,D7)", "x":2, "y":0},
+                {"label":"K04 (D1,B3)", "x":4, "y":0},
+                {"label":"K05 (D1,B2)", "x":5, "y":0},
+                {"label":"K06 (D1,B6)", "x":6, "y":0},
+                {"label":"K08 (D1,E6)", "x":8, "y":0},
+                {"label":"K09 (D1,C4)", "x":9, "y":0},
+                {"label":"K0A (D1,C5)", "x":10, "y":0},
+                {"label":"K10 (D0,D4)", "x":0, "y":1},
+                {"label":"K11 (D0,C6)", "x":1, "y":1},
+                {"label":"K12 (D0,D7)", "x":2, "y":1},
+                {"label":"K14 (D0,B3)", "x":4, "y":1},
+                {"label":"K15 (D0,B2)", "x":5, "y":1},
+                {"label":"K16 (D0,B6)", "x":6, "y":1},
+                {"label":"K18 (D0,E6)", "x":8, "y":1},
+                {"label":"K19 (D0,C4)", "x":9, "y":1},
+                {"label":"K1A (D0,C5)", "x":10, "y":1},
+                {"label":"K20 (F7,D4)", "x":0, "y":2},
+                {"label":"K21 (F7,C6)", "x":1, "y":2},
+                {"label":"K22 (F7,D7)", "x":2, "y":2},
+                {"label":"K24 (F7,B3)", "x":4, "y":2},
+                {"label":"K25 (F7,B2)", "x":5, "y":2},
+                {"label":"K26 (F7,B6)", "x":6, "y":2},
+                {"label":"K27 (F7,E6)", "x":8, "y":2},
+                {"label":"K29 (F7,C4)", "x":9, "y":2},
+                {"label":"K2A (F7,C5)", "x":10, "y":2}
+
+            ]
+        }
+    }
+
+}

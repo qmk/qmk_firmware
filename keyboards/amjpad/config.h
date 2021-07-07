@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    AMJ
 #define PRODUCT         PAD
-#define DESCRIPTION     QMK keyboard firmware for AMJ PAD
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -53,6 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define LED_NUM_LOCK_PIN D6
+#define LED_PIN_ON_STATE 0
 
 /* Backlight configuration
  */

@@ -1,0 +1,12 @@
+{
+  "keyboard_name": "Little Alby",
+  "url": "",
+  "maintainer": "albybarber",
+  "width": 1,
+  "height": 1,
+  "layouts": {
+    "LAYOUT": {
+      "layout": [ {"x": 0, "y": 0 }]
+    }
+  }
+}

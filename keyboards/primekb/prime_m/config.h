@@ -1,5 +1,6 @@
 /*
 Copyright 2018 Jumail Mundekkat
+Copyright 2020 Holten Campbell
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,12 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x4024
+#define VENDOR_ID       0x5052 // "PR"
+#define PRODUCT_ID      0x504D // "PM"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    PrimeKB
 #define PRODUCT         Prime_M
-#define DESCRIPTION     6x5 Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 5
