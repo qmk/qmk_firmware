@@ -19,6 +19,7 @@
 //common encoder setup
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_upadate_user(index, clockwise)) { return false; }
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC__VOLUP);
