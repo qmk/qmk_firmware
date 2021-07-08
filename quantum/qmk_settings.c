@@ -8,6 +8,7 @@
 #include "process_auto_shift.h"
 #include "mousekey.h"
 #include "process_combo.h"
+#include "action_tapping.h"
 
 qmk_settings_t QS;
 
@@ -36,6 +37,8 @@ static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING_CB(4, auto_shift_timeout, auto_shift_timeout_apply),
    DECLARE_SETTING(5, osk_tap_toggle),
    DECLARE_SETTING(6, osk_timeout),
+   DECLARE_SETTING(7, tapping_term),
+   DECLARE_SETTING(8, tapping),
    DECLARE_SETTING_CB(9, mousekey_delay, mousekey_apply),
    DECLARE_SETTING_CB(10, mousekey_interval, mousekey_apply),
    DECLARE_SETTING_CB(11, mousekey_move_delta, mousekey_apply),
@@ -101,6 +104,8 @@ void qmk_settings_reset(void) {
     QS.mousekey_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
     QS.combo_term = COMBO_TERM;
+    QS.tapping_term = TAPPING_TERM;
+    QS.tapping = 0;
 
     save_settings();
     /* to trigger all callbacks */
@@ -145,4 +150,24 @@ int qmk_settings_set(uint16_t qsid, const void *setting, size_t maxsz) {
     if (cb)
         cb();
     return 0;
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    return QS.tapping_term;
+}
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    return QS.tapping & 1;
+}
+
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+    return QS.tapping & 2;
+}
+
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    return QS.tapping & 4;
+}
+
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    return QS.tapping & 8;
 }

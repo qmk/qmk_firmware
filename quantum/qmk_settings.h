@@ -106,12 +106,13 @@ typedef struct {
     uint16_t mousekey_wheel_max_speed;
     uint16_t mousekey_wheel_time_to_max;
     uint16_t combo_term;
+    uint16_t tapping_term;
     uint8_t grave_esc_override;
     uint8_t auto_shift;
     uint8_t osk_tap_toggle;
-    uint8_t padding0;
+    uint8_t tapping;
 } qmk_settings_t;
-_Static_assert(sizeof(qmk_settings_t) == 28, "unexpected size of the qmk_settings_t structure");
+_Static_assert(sizeof(qmk_settings_t) == 30, "unexpected size of the qmk_settings_t structure");
 
 typedef void (*qmk_setting_callback_t)(void);
 
