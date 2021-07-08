@@ -103,6 +103,8 @@ volatile bool wheel_shift = false;
 // Used to accumulate movement for the wheel.
 int16_t wheel_accum_v = 0;
 int16_t wheel_accum_h = 0;
+int16_t prev_delta_x = 0;
+int16_t prev_delta_y = 0;
 
 void adns_begin(void){
     spi_start(NCS, false, 3, 8);
@@ -261,11 +263,30 @@ void update_wheel(int16_t * accum, int8_t * report) {
     }
 }
 
-void pointing_device_task(void) {
-    readSensor();
-    report_mouse_t report = pointing_device_get_report();
+bool is_outlier(int16_t prev_delta, int16_t delta) {
+    prev_delta = abs(prev_delta);
+    delta = abs(delta);
+    if (prev_delta > 20 || delta < 5) {
+        return false;
+    }
+    if (prev_delta < 5 && delta > 20 ) {
+        return true;
+    }
+    if (prev_delta > 5 && delta > prev_delta * 10) {
+        return true;
+    }
+    return false;
+}
 
-    if(motion_ind) {
+void pointing_device_task(void) {
+    bool discard_delta = false;
+
+    readSensor();
+
+    discard_delta = is_outlier(prev_delta_x, delta_x) || is_outlier(prev_delta_y , delta_y);
+
+    if(!discard_delta && motion_ind) {
+        report_mouse_t report = pointing_device_get_report();
         // Switch y and x to get the trackball rotated -90 degrees.
         // clamp deltas from -127 to 127
         if (!wheel_shift) {
@@ -274,21 +295,22 @@ void pointing_device_task(void) {
         } else {
             wheel_accum_h += delta_y;
             update_wheel(&wheel_accum_h, &(report.h));
-            wheel_accum_v += delta_x;
+            wheel_accum_v -= delta_x;
             update_wheel(&wheel_accum_v, &(report.v));
-            report.v = -report.v;
         }
         pointing_device_set_report(report);
+        prev_delta_x = delta_x;
+        prev_delta_y = delta_y;
+    }
+    if (motion_ind) {
         pointing_device_send();
     }
     // reset deltas
     delta_x = 0;
     delta_y = 0;
-
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    report_mouse_t report = pointing_device_get_report();
     int button = -1;
     bool pressed = record->event.pressed;
     switch (keycode) {
@@ -317,6 +339,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
       default:
         return process_record_user(keycode, record);
     }
+    report_mouse_t report = pointing_device_get_report();
     if (pressed) {
         report.buttons |= button;
     } else {
