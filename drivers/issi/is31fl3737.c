@@ -19,7 +19,7 @@
 #include "is31fl3737.h"
 #include "i2c_master.h"
 #include "wait.h"
-#include "progmem.h"
+
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -67,10 +67,7 @@ uint8_t g_twi_transfer_buffer[20];
 // buffers and the transfers in IS31FL3737_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
 
-
-
-
-uint8_t g_pwm_buffer[DRIVER_COUNT][(192)];
+uint8_t g_pwm_buffer[DRIVER_COUNT][192];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
 uint8_t g_led_control_registers[DRIVER_COUNT][24] = {0};

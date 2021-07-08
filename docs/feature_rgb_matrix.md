@@ -181,7 +181,7 @@ Here is an example using 2 drivers.
 ```
 !> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
 
-Currently only two drivers are supported, but it would be trivial to support all 4 combinations. 
+Currently only 2 drivers are supported, but it would be trivial to support all 4 combinations. 
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
@@ -706,6 +706,39 @@ In addition, there are the advanced indicator functions.  These are aimed at tho
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
+}
+```
+
+### Indicator Examples :id=indicator-examples
+
+Caps Lock indicator on alphanumeric flagged keys:
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
+                rgb_matrix_set_color(i, RGB_RED);
+            }
+        }
+    }
+}
+```
+
+Layer indicator on all flagged keys:
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case RAISE:
+                rgb_matrix_set_color(i, RGB_BLUE);
+                break;
+            case LOWER:
+                rgb_matrix_set_color(i, RGB_YELLOW);
+                break;
+            default:
+                break;
+        }
+    }
 }
 ```
 
