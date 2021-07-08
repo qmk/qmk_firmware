@@ -20,7 +20,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
@@ -223,4 +222,3 @@ void IS31FL3737_update_led_control_registers(uint8_t addr, uint8_t index) {
     }
     g_led_control_registers_update_required[index] = false;
 }
-
