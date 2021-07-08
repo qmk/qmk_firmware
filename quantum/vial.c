@@ -44,8 +44,6 @@ _Static_assert(VIAL_UNLOCK_NUM_KEYS < 15, "Max 15 unlock keys");
 _Static_assert(sizeof(vial_unlock_combo_rows) == sizeof(vial_unlock_combo_cols), "The number of unlock cols and rows should be the same");
 #endif
 
-#define VIAL_RAW_EPSIZE 32
-
 #ifndef VIAL_ENCODER_KEYCODE_DELAY
 #define VIAL_ENCODER_KEYCODE_DELAY 10
 #endif
@@ -82,11 +80,15 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
         case vial_get_keyboard_id: {
             uint8_t keyboard_uid[] = VIAL_KEYBOARD_UID;
 
+            memset(msg, 0, length);
             msg[0] = VIAL_PROTOCOL_VERSION & 0xFF;
             msg[1] = (VIAL_PROTOCOL_VERSION >> 8) & 0xFF;
             msg[2] = (VIAL_PROTOCOL_VERSION >> 16) & 0xFF;
             msg[3] = (VIAL_PROTOCOL_VERSION >> 24) & 0xFF;
             memcpy(&msg[4], keyboard_uid, 8);
+#ifdef VIALRGB_ENABLE
+            msg[12] = 1; /* bit flag to indicate vialrgb is supported - so third-party apps don't have to query json */
+#endif
             break;
         }
         /* Retrieve keyboard definition size */

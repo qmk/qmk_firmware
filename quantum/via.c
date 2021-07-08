@@ -52,6 +52,10 @@
 #include "vial.h"
 #endif
 
+#ifdef VIALRGB_ENABLE
+#include "vialrgb.h"
+#endif
+
 // Forward declare some helpers.
 #if defined(VIA_QMK_BACKLIGHT_ENABLE)
 void via_qmk_backlight_set_value(uint8_t *data);
@@ -322,10 +326,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
             via_qmk_rgblight_set_value(command_data);
 #endif
+#if defined(VIALRGB_ENABLE)
+            vialrgb_set_value(data, length);
+#endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIALRGB_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -338,10 +345,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
             via_qmk_rgblight_get_value(command_data);
 #endif
+#if defined(VIALRGB_ENABLE)
+            vialrgb_get_value(data, length);
+#endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIALRGB_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -354,10 +364,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
             eeconfig_update_rgblight_current();
 #endif
+#if defined(VIALRGB_ENABLE)
+            vialrgb_save(data, length);
+#endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIALRGB_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif

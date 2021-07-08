@@ -20,6 +20,7 @@
 #include <stdbool.h>
 
 #define VIAL_PROTOCOL_VERSION ((uint32_t)0x00000004)
+#define VIAL_RAW_EPSIZE 32
 
 void vial_init(void);
 void vial_handle_cmd(uint8_t *data, uint8_t length);
