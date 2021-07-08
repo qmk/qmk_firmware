@@ -41,6 +41,12 @@
 
 #define TRACKING_REPS 16
 
+#ifndef NO_PRINT
+#define NRTIMES 64
+#define TESTATONCE 8
+#define REPS_V2 15
+#endif
+
 #ifndef MATRIX_MANIPULATE_H
 #define MATRIX_MANIPULATE_H
 

@@ -15,13 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* MJW - 24-jun-2021 first quick review
-Defines need to ned moved out of the c source and into the header file.
-#define NRTIMES 64
-#define TESTATONCE 8
-#define REPS_V2 15
-*/
-
 #include "quantum.h"
 #include "capsense_matrix.h"
 #include <string.h>
@@ -307,9 +300,6 @@ uint8_t test_single(uint8_t col, uint16_t time, uint8_t *interference_ptr)
 }
 
 #ifndef NO_PRINT
-#define NRTIMES 64
-#define TESTATONCE 8
-#define REPS_V2 15
 void test_col_print_data_v2(uint8_t col)
 {
     uprintf("%d: ", col);

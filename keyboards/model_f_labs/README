@@ -1,18 +1,18 @@
-Matthew J Wolf 07-July-2021 
+Matthew J Wolf 08-July-2021 model_f_labs
 
 The original source used Purdea Andrei xwhatsit code that was retrieved on
 24 June 2021.
 
 Disclaimer:
-The firmware compiles. I time I created this document I have no way to test the
-firmware.
+The firmware compiles. At the time I created this document I have no way to test
+the firmware.
 
 Only wcass type of xwhatsit
 ---------------------------
 Joe of Model F Labs asked that I remove all the other xwhatis types other then
-wcass. 
+wcass.
 
-Changes to Source Files 
+Changes to Source Files
 -----------------------
 
 - File System
@@ -21,7 +21,7 @@ Changes to Source Files
 -- Changed matrix_manipulate.h capsense_matrix.h
 -- Updated all of the rules.mk
 
-- Source Changes 
+- Source Changes
 -- Moved defines from source to headers
 -- Replaced define macros with functions
 
@@ -36,7 +36,7 @@ keyboards/ibm
 keyboards/model_f_labs
 keyboards/sneakyrobb
 
-I copied the organization directories from the original source into the 
+I copied the organization directories from the original source into the
 keyboards directory.
 
 In the root each of the organization keyboards directories I added a xwhatsit
@@ -67,8 +67,9 @@ Other
 Removed util directory. This firmware not utility software. The utility should
 have it's know repo.
 
-List of model_f_labs hex Files That Compile 
+List of model_f_labs hex Files That Compile
 -------------------------------------------
+model_f_labs_f62_wcass_10t8or_spacefn.hex
 model_f_labs_f62_wcass_ansi_hhkb_split_shift_regular_backspace.hex
 model_f_labs_f62_wcass_ansi_hhkb_split_shift_split_backspace.hex
 model_f_labs_f62_wcass_ansi_nonhhkb_split_shift_regular_backspace.hex
@@ -97,4 +98,3 @@ model_f_labs_f77_wcass_iso_nonhhkb_split_shift_split_backspace_0_9_and_cursor_ke
 model_f_labs_f77_wcass_iso_regular_shift_regular_backspace_0_9_and_cursor_keys.hex
 model_f_labs_f77_wcass_iso_regular_shift_split_backspace_0_9_and_cursor_keys.hex
 model_f_labs_f77_wcass_iso_uk_nonhhkb_split_shift_regular_backspace_0_9_and_cursor_keys.hex
-
