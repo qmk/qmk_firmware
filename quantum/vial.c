@@ -216,6 +216,7 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 msg[1] = VIAL_COMBO_ENTRIES;
                 break;
             }
+#ifdef VIAL_TAP_DANCE_ENABLE
             case dynamic_vial_tap_dance_get: {
                 uint8_t idx = msg[3];
                 vial_tap_dance_entry_t td = { 0 };
@@ -231,6 +232,8 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 reload_tap_dance();
                 break;
             }
+#endif
+#ifdef VIAL_COMBO_ENABLE
             case dynamic_vial_combo_get: {
                 uint8_t idx = msg[3];
                 vial_combo_entry_t entry = { 0 };
@@ -245,6 +248,7 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 msg[0] = dynamic_keymap_set_combo(idx, &entry);
                 break;
             }
+#endif
             }
 
             break;
@@ -277,6 +281,8 @@ static void vial_keycode_up(uint16_t keycode) {
         });
     }
 }
+
+static void vial_keycode_tap(uint16_t keycode) __attribute__((unused));
 
 static void vial_keycode_tap(uint16_t keycode) {
     vial_keycode_down(keycode);

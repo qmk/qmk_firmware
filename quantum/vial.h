@@ -102,4 +102,6 @@ _Static_assert(sizeof(vial_combo_entry_t) == 10, "Unexpected size of the vial_co
 
 #define COMBO_COUNT VIAL_COMBO_ENTRIES
 
+#else
+#define VIAL_COMBO_ENTRIES 0
 #endif
