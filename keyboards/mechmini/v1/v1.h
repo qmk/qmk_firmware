@@ -15,13 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef V1_H
-#define V2_H
+#pragma once
 
-#include "../mechmini.h"
-#include "keycode.h"
-#include "action.h"
-#include "quantum.h"
+#include "mechmini.h"
 
 #define ___ KC_NO
 
@@ -50,5 +46,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, ___ }, \
     { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B } \
 }
-
-#endif
