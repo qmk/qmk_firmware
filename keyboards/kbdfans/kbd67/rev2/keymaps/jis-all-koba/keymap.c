@@ -21,27 +21,27 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap (Base Layer) Default Layer
    * ,---------------------------------------------------------------.
-   * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  ^|Yen|BSp|Del|
+   * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  ^|Yen|BSp|MUp|
    * |---------------------------------------------------------------|
    * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  @|  [|    \|PUp|
    * |---------------------------------------------------------------|
    * |H/Z   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  :|     Ent|PDn|
    * |---------------------------------------------------------------|
-   * |Shif|BSl|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Up |PSc|
+   * |Shif|BSl|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Up |MDn|
    * |---------------------------------------------------------------|
    * |Ctrl|Win |Alt | Space    |Fn  | Space  |Alt|Ctr|   |Lef|Dow|Rig|
    * `---------------------------------------------------------------'
    */
 [0] = LAYOUT_all(
-  KC_ESC,  KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, JP_CIRC,  JP_YEN, KC_BSPC, KC_DEL,  \
+  KC_ESC,  KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, JP_CIRC,  JP_YEN, KC_BSPC, KC_WH_U,  \
   KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    JP_AT,   JP_LBRC, JP_RBRC,       KC_PGUP, \
   KC_ZKHK,       KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, JP_COLN,       KC_ENT,        KC_PGDN, \
-  KC_LSFT, JP_BSLS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   XXXXXXX, \
+  KC_LSFT, JP_BSLS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_WH_D, \
   KC_LCTL, KC_LGUI, KC_LALT,        KC_SPC,         MO(1),          KC_SPC,          KC_RALT, KC_RGUI, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT),
 
   /* Keymap Fn Layer
    * ,---------------------------------------------------------------.
-   * |Rst| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |Ins|   |
+   * |Rst| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |Del|Ins|
    * |---------------------------------------------------------------|
    * |     |M- |M+ |RGB|H- |H+ |   |   |Prt|SLk|Pau|   |   |     |   |
    * |---------------------------------------------------------------|
@@ -49,13 +49,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |        |BL-|BL+|BL |V- |V+ |  +|  -|End|PDn|NBs|      |PUp|   |
    * |---------------------------------------------------------------|
-   * |    |    |    | Muhenkan |    | Henkan |Kna|Men|   |Hom|PDn|End|
+   * |    |    |    | Muhenkan |    | Henkan |Kna|   |Mnu|Hom|PDn|End|
    * `---------------------------------------------------------------'
    */
 [1] = LAYOUT_all(
-   _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______, KC_INS, _______,  \
+   _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______, KC_DEL, KC_INS,  \
    _______,   RGB_RMO,RGB_MOD,RGB_TOG,RGB_HUD,RGB_HUI,XXXXXXX,XXXXXXX,KC_PSCR,KC_SLCK,KC_PAUS,XXXXXXX,XXXXXXX,XXXXXXX,     _______, \
    KC_CAPS,     KC_VOLD,KC_VOLU,KC_MUTE,RGB_SAD,RGB_SAI,KC_PAST,KC_PSLS,KC_HOME,KC_PGUP,XXXXXXX,XXXXXXX,      KC_PENT,     _______, \
    _______,_______,BL_DEC, BL_INC, BL_TOGG,RGB_VAD,RGB_VAI,KC_PPLS,KC_PMNS,KC_END, KC_PGDN,KC_NUBS,_______,        KC_PGUP,_______, \
-   _______,_______,_______,        JP_MHEN,        _______,        JP_HENK,        JP_KANA,KC_APP, _______,KC_HOME,KC_PGDN,KC_END),
+   _______,_______,_______,        JP_MHEN,        _______,        JP_HENK,        JP_KANA,_______, KC_APP,KC_HOME,KC_PGDN,KC_END),
 };
