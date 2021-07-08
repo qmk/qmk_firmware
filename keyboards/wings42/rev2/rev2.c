@@ -14,17 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include "quantum.h"
-
-#ifdef KEYBOARD_wings42_rev1
-#    include "rev1.h"
-#endif
-#ifdef KEYBOARD_wings42_rev1_extkeys
-#    include "rev1_extkeys.h"
-#endif
-#ifdef KEYBOARD_wings42_rev2
-#    include "rev2.h"
-#endif
-
+#include "rev2.h"
