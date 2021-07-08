@@ -1,6 +1,9 @@
 # quick17
 
-![quick17](imgur.com image replace me!)
+![quick17](https://github.com/yushakobo/build-documents/raw/add_buildguide_for_quick17/Quick17/imgs/IMG_4941.JPG)
+
+[//]: # "the image above is the temporary address"
+
 
 *A simple macropad for the beginners*
 
