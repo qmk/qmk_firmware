@@ -27,7 +27,6 @@ enum combo_events {
   combo_TAB,
   combo_DELETE,
   combo_ENTER,
-  combo_QUOT,
   combo_LPRN,
   combo_RPRN,
 };
@@ -35,9 +34,8 @@ enum combo_events {
 const uint16_t PROGMEM esc_combo[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM bspc_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_A, KC_S, COMBO_END};
-const uint16_t PROGMEM del_combo[] = {KC_Q, KC_P, COMBO_END};
+const uint16_t PROGMEM del_combo[] = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM enter_combo[] = {KC_L, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM quot_combo[] = {KC_P, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM lprn_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM rprn_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 
@@ -48,7 +46,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [combo_TAB] = COMBO(tab_combo, KC_TAB),
   [combo_DELETE] = COMBO(del_combo, KC_DEL),
   [combo_ENTER] = COMBO(enter_combo, KC_ENT),
-  [combo_QUOT] = COMBO(quot_combo, KC_QUOT),
   [combo_LPRN] = COMBO(lprn_combo, KC_LPRN),
   [combo_RPRN] = COMBO(rprn_combo, KC_RPRN),
 };
@@ -67,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT_ortho_3x12_flipped(
         KC_1, KC_2, KC_3, KC_4, KC_5, KC_HOME, KC_PGUP, KC_6, KC_7, KC_8, KC_9, KC_0,
         KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_END, KC_PGDN, KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,
-        KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_LCBR, KC_LT, KC_GT, KC_RCBR, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
+        KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_LCBR, KC_LT, KC_GT, KC_RCBR, KC_PIPE, KC_BSLS, KC_DQUO, KC_QUOT
   ),
 
     [_FN] = LAYOUT_ortho_3x12_flipped(
