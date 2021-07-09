@@ -110,9 +110,7 @@ if (QS_auto_shift_repeat && !QS_auto_shift_no_auto_repeat) {
 }
         }
 
-#    if TAP_CODE_DELAY > 0
-        wait_ms(TAP_CODE_DELAY);
-#    endif
+        wait_ms(QS_tap_code_delay);
         unregister_code(autoshift_lastkey);
         del_weak_mods(MOD_BIT(KC_LSFT));
     } else {

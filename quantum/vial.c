@@ -286,11 +286,7 @@ static void vial_keycode_tap(uint16_t keycode) __attribute__((unused));
 
 static void vial_keycode_tap(uint16_t keycode) {
     vial_keycode_down(keycode);
-
-#if TAP_CODE_DELAY > 0
-    wait_ms(TAP_CODE_DELAY);
-#endif
-
+    wait_ms(QS_tap_code_delay);
     vial_keycode_up(keycode);
 }
 
@@ -429,6 +425,7 @@ static void on_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
     uint8_t index = (uintptr_t)user_data;
     if (dynamic_keymap_get_tap_dance(index, &td_entry) != 0)
         return;
+    wait_ms(QS_tap_code_delay);
     uint8_t st = dance_state[index];
     state->count = 0;
     dance_state[index] = 0;

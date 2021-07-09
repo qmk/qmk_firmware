@@ -16,6 +16,7 @@
 
 #include "quantum.h"
 #include "magic.h"
+#include "qmk_settings.h"
 
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
@@ -107,9 +108,7 @@ void unregister_code16(uint16_t code) {
 
 void tap_code16(uint16_t code) {
     register_code16(code);
-#if TAP_CODE_DELAY > 0
-    wait_ms(TAP_CODE_DELAY);
-#endif
+    wait_ms(QS_tap_code_delay);
     unregister_code16(code);
 }
 

@@ -5,6 +5,13 @@
 
 /* take qmk config macros and set up helper variables for default settings */
 
+#ifndef TAP_CODE_DELAY
+#    define TAP_CODE_DELAY 0
+#endif
+#ifndef TAP_HOLD_CAPS_DELAY
+#    define TAP_HOLD_CAPS_DELAY 80
+#endif
+
 /* ========================================================================== */
 /* Grave escape                                                               */
 /* ========================================================================== */
@@ -111,8 +118,10 @@ typedef struct {
     uint8_t auto_shift;
     uint8_t osk_tap_toggle;
     uint8_t tapping;
+    uint16_t tap_code_delay;
+    uint16_t tap_hold_caps_delay;
 } qmk_settings_t;
-_Static_assert(sizeof(qmk_settings_t) == 30, "unexpected size of the qmk_settings_t structure");
+_Static_assert(sizeof(qmk_settings_t) == 34, "unexpected size of the qmk_settings_t structure");
 
 typedef void (*qmk_setting_callback_t)(void);
 
@@ -157,6 +166,10 @@ extern qmk_settings_t QS;
 /* Combo */
 #define QS_combo_term (QS.combo_term)
 
+/* Tap delays */
+#define QS_tap_code_delay (QS.tap_code_delay)
+#define QS_tap_hold_caps_delay (QS.tap_hold_caps_delay)
+
 #else
 /* dynamic settings framework is disabled => hardcode the settings and let the compiler optimize extra branches out */
 
@@ -184,5 +197,9 @@ extern qmk_settings_t QS;
 
 /* Combo */
 #define QS_combo_term COMBO_TERM
+
+/* Tap delays */
+#define QS_tap_code_delay TAP_CODE_DELAY
+#define QS_tap_hold_caps_delay TAP_HOLD_CAPS_DELAY
 
 #endif

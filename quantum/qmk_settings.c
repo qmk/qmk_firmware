@@ -48,6 +48,8 @@ static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING_CB(15, mousekey_wheel_interval, mousekey_apply),
    DECLARE_SETTING_CB(16, mousekey_wheel_max_speed, mousekey_apply),
    DECLARE_SETTING_CB(17, mousekey_wheel_time_to_max, mousekey_apply),
+   DECLARE_SETTING(18, tap_code_delay),
+   DECLARE_SETTING(19, tap_hold_caps_delay),
 };
 
 static const qmk_settings_proto_t *find_setting(uint16_t qsid) {
@@ -106,6 +108,8 @@ void qmk_settings_reset(void) {
     QS.combo_term = COMBO_TERM;
     QS.tapping_term = TAPPING_TERM;
     QS.tapping = 0;
+    QS.tap_code_delay = TAP_CODE_DELAY;
+    QS.tap_hold_caps_delay = TAP_HOLD_CAPS_DELAY;
 
     save_settings();
     /* to trigger all callbacks */

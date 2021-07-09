@@ -56,12 +56,6 @@ __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrec
 __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
-#ifndef TAP_CODE_DELAY
-#    define TAP_CODE_DELAY 0
-#endif
-#ifndef TAP_HOLD_CAPS_DELAY
-#    define TAP_HOLD_CAPS_DELAY 80
-#endif
 /** \brief Called to execute an action.
  *
  * FIXME: Needs documentation.
@@ -370,9 +364,9 @@ if (QS_oneshot_tap_toggle > 1) {
                         if (tap_count > 0) {
                             dprint("MODS_TAP: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
-                                wait_ms(TAP_HOLD_CAPS_DELAY);
+                                wait_ms(QS_tap_hold_caps_delay);
                             } else {
-                                wait_ms(TAP_CODE_DELAY);
+                                wait_ms(QS_tap_code_delay);
                             }
                             unregister_code(action.key.code);
                         } else {
@@ -595,9 +589,9 @@ if (QS_oneshot_tap_toggle > 1) {
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
-                                wait_ms(TAP_HOLD_CAPS_DELAY);
+                                wait_ms(QS_tap_hold_caps_delay);
                             } else {
-                                wait_ms(TAP_CODE_DELAY);
+                                wait_ms(QS_tap_code_delay);
                             }
                             unregister_code(action.layer_tap.code);
                         } else {
@@ -676,7 +670,7 @@ if (QS_oneshot_tap_toggle > 1) {
                         if (event.pressed) {
                             register_code(action.swap.code);
                         } else {
-                            wait_ms(TAP_CODE_DELAY);
+                            wait_ms(QS_tap_code_delay);
                             unregister_code(action.swap.code);
                             *record = (keyrecord_t){};  // hack: reset tap mode
                         }
@@ -932,7 +926,7 @@ void tap_code_delay(uint8_t code, uint16_t delay) {
  *
  * \param code The basic keycode to tap. If `code` is `KC_CAPS`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
  */
-void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
+void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS ? QS_tap_hold_caps_delay : QS_tap_code_delay); }
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
