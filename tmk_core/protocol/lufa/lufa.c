@@ -1238,8 +1238,7 @@ int main(void) {
 #endif
 
         // Run housekeeping
-        housekeeping_task_kb();
-        housekeeping_task_user();
+        housekeeping_task();
     }
 }
 

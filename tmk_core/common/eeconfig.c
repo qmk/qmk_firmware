@@ -60,10 +60,12 @@ void eeconfig_init_quantum(void) {
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
     eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     eeprom_update_dword(EECONFIG_RGB_MATRIX, 0);
-    eeprom_update_byte(EECONFIG_RGB_MATRIX_SPEED, 0);
+    eeprom_update_word(EECONFIG_RGB_MATRIX_EXTENDED, 0);
+
 #ifdef ORYX_ENABLE
     eeconfig_init_oryx();
 #endif
+
     // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
     //        within the emulated eeprom via dfu-util or another tool
 #if defined INIT_EE_HANDS_LEFT
@@ -159,17 +161,6 @@ void eeconfig_update_keymap(uint16_t val) {
     eeprom_update_byte(EECONFIG_KEYMAP_LOWER_BYTE, val & 0xFF);
     eeprom_update_byte(EECONFIG_KEYMAP_UPPER_BYTE, (val >> 8) & 0xFF);
 }
-
-/** \brief eeconfig read backlight
- *
- * FIXME: needs doc
- */
-uint8_t eeconfig_read_backlight(void) { return eeprom_read_byte(EECONFIG_BACKLIGHT); }
-/** \brief eeconfig update backlight
- *
- * FIXME: needs doc
- */
-void eeconfig_update_backlight(uint8_t val) { eeprom_update_byte(EECONFIG_BACKLIGHT, val); }
 
 /** \brief eeconfig read audio
  *
