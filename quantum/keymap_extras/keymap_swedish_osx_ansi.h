@@ -100,7 +100,7 @@
  */
 // Row 1
 #define SE_RABK S(SE_LABK) // >
-#define SE_EXLM S(SE_1)    // ! 
+#define SE_EXLM S(SE_1)    // !
 #define SE_DQUO S(SE_2)    // "
 #define SE_HASH S(SE_3)    // #
 #define SE_EURO S(SE_4)    // €
