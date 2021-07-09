@@ -6,11 +6,6 @@
 #include "rgb_matrix.h"
 #include "vial.h"
 
-#if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
-#    undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
-#endif
-
 /* Based on https://github.com/qmk/qmk_firmware/pull/13036 */
 
 void vialrgb_get_value(uint8_t *data, uint8_t length) {
