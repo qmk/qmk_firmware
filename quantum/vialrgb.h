@@ -13,6 +13,7 @@ enum {
 enum {
     vialrgb_get_info = 0x40,
     vialrgb_get_mode = 0x41,
+    vialrgb_get_supported = 0x42,
 };
 
 void vialrgb_get_value(uint8_t *data, uint8_t length);
