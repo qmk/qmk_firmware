@@ -65,11 +65,13 @@ void vialrgb_get_value(uint8_t *data, uint8_t length) {
         args[2] = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
         break;
     case vialrgb_get_mode: {
-        args[0] = qmk_id_to_vialrgb_id(rgb_matrix_get_mode());
-        args[1] = rgb_matrix_get_speed();
-        args[2] = rgb_matrix_get_hue();
-        args[3] = rgb_matrix_get_sat();
-        args[4] = rgb_matrix_get_val();
+        uint16_t vialrgb_id = qmk_id_to_vialrgb_id(rgb_matrix_get_mode());
+        args[0] = vialrgb_id & 0xFF;
+        args[1] = vialrgb_id >> 8;
+        args[2] = rgb_matrix_get_speed();
+        args[3] = rgb_matrix_get_hue();
+        args[4] = rgb_matrix_get_sat();
+        args[5] = rgb_matrix_get_val();
         break;
     }
     case vialrgb_get_supported: {
@@ -87,9 +89,10 @@ void vialrgb_set_value(uint8_t *data, uint8_t length) {
     uint8_t *args = &data[2];
     switch (cmd) {
     case vialrgb_set_mode: {
-        rgb_matrix_mode_noeeprom(vialrgb_id_to_qmk_id(args[0]));
-        rgb_matrix_set_speed_noeeprom(args[1]);
-        rgb_matrix_sethsv_noeeprom(args[2], args[3], args[4]);
+        uint16_t vialrgb_id = args[0] | (args[1] << 8);
+        rgb_matrix_mode_noeeprom(vialrgb_id_to_qmk_id(vialrgb_id));
+        rgb_matrix_set_speed_noeeprom(args[2]);
+        rgb_matrix_sethsv_noeeprom(args[3], args[4], args[5]);
         break;
     }
     }
