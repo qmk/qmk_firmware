@@ -884,22 +884,6 @@ typedef void (*effect_func_t)(animation_status_t *anim);
 
 // Animation timer -- use system timer (AVR Timer0)
 void rgblight_timer_init(void) {
-    // OLD!!!! Animation timer -- AVR Timer3
-    // static uint8_t rgblight_timer_is_init = 0;
-    // if (rgblight_timer_is_init) {
-    //   return;
-    // }
-    // rgblight_timer_is_init = 1;
-    // /* Timer 3 setup */
-    // TCCR3B = _BV(WGM32) // CTC mode OCR3A as TOP
-    //       | _BV(CS30); // Clock selelct: clk/1
-    // /* Set TOP value */
-    // uint8_t sreg = SREG;
-    // cli();
-    // OCR3AH = (RGBLED_TIMER_TOP >> 8) & 0xff;
-    // OCR3AL = RGBLED_TIMER_TOP & 0xff;
-    // SREG = sreg;
-
     rgblight_status.timer_enabled = false;
     RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
 }

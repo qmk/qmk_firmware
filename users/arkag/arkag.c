@@ -1,4 +1,5 @@
 #include "arkag.h"
+#include "eeprom.h"
 
 /*
  Current Layout and Keeb:
@@ -40,6 +41,7 @@ uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
 }
 // End: Written by Chris Lewis
 
+static int shift_int = 0;
 uint8_t       current_os,
               mod_primary_mask,
               fade_interval,
@@ -53,6 +55,8 @@ fadeState     fade_state    = add_fade;
 activityState state         = boot;
 bool          aesthetic     = false,
               shifty        = false;
+
+float song_ussr[][2]     = SONG(USSR_ANTHEM);
 
 void set_color (Color new, bool update) {
   rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
@@ -188,21 +192,17 @@ void set_os (uint8_t os, bool update) {
   case OS_MAC:
     set_unicode_input_mode(UC_OSX);
     underglow = (Color){ 213, 255, 255 };
-    mod_primary_mask = MOD_GUI_MASK;
     break;
   case OS_WIN:
     set_unicode_input_mode(UC_WINC);
     underglow = (Color){ 128, 255, 255 };
-    mod_primary_mask = MOD_CTL_MASK;
     break;
   case OS_NIX:
     set_unicode_input_mode(UC_LNX);
     underglow = (Color){ 43, 255, 255 };
-    mod_primary_mask = MOD_CTL_MASK;
     break;
   default:
     underglow = (Color){ 0, 0, 255 };
-    mod_primary_mask = MOD_CTL_MASK;
   }
   set_color(underglow, update);
   flash_color           = underglow;
@@ -245,6 +245,17 @@ void sec_mod(bool press) {
   }
 }
 
+// register Meh if Win or Hyper if other
+// KC_MEH/HYPR registers both sides, causes issues with some apps
+// I'll do it myself, then
+void meh_hyper(bool press) {
+  if (current_os == OS_WIN) {
+    (press) ? register_mods(L_BIT_MEH) : unregister_mods(L_BIT_MEH);
+  } else {
+    (press) ? register_mods(L_BIT_HYPR) : unregister_mods(L_BIT_HYPR);
+  }
+}
+
 void multi_tap(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
   if (use_shift) {
     register_code(KC_LSFT);
@@ -257,19 +268,23 @@ void multi_tap(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
   }
 }
 
-void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
-  if (use_shift) {
-    register_code(KC_LSFT);
-  }
+void pair_surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
   for (int i = 0; i < num_of_chars; i++) {
+    (use_shift) ? register_mods(MOD_BIT( KC_LSFT)) : NULL;  
     tap_code(keycode);
-  }
-  if (use_shift) {
-    unregister_code(KC_LSFT);
-  }
-  for (int i = 0; i < (num_of_chars/2); i++) {
+    tap_code((keycode == KC_LCBR) ? KC_RCBR : (keycode == KC_LBRC) ? KC_RBRC : (keycode == KC_LPRN) ? KC_RPRN : KC_NO);
+    (use_shift) ? unregister_mods(MOD_BIT( KC_LSFT)) : NULL;
     tap_code(KC_LEFT);
   }
+}
+
+void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
+  for (int i = 0; i < num_of_chars; i++) {
+    (use_shift) ? register_mods(MOD_BIT( KC_LSFT)) : NULL;
+    tap_code(keycode);
+    (use_shift) ? unregister_mods(MOD_BIT( KC_LSFT)) : NULL;
+  }
+  multi_tap(num_of_chars / 2, KC_LEFT, false);
 }
 
 void long_keystroke(size_t num_of_keys, uint16_t keys[]) {
@@ -280,6 +295,12 @@ void long_keystroke(size_t num_of_keys, uint16_t keys[]) {
   for (int i = 0; i < num_of_keys-1; i++) {
     unregister_code(keys[i]);
   }
+}
+
+void pri_mod_keystroke(uint16_t key) {
+  pri_mod(true);
+  tap_code(key);
+  pri_mod(false);
 }
 
 void matrix_init_user(void) {
@@ -326,27 +347,14 @@ void matrix_scan_user(void) {
       } else {
       }
     }
-    SEQ_THREE_KEYS(KC_C, KC_S, KC_E) {
-      if (current_os == OS_WIN) {
-        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LSFT, KC_ESC});
-      } else {
-      }
-    }
-    SEQ_FOUR_KEYS(KC_C, KC_A, KC_L, KC_C) {
-      if (current_os == OS_WIN) {
-        SEND_STRING(SS_TAP(X_CALCULATOR));
-      } else if (current_os == OS_MAC) {
-        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI) "calculator" SS_TAP(X_ENTER));
-      }
-    }
     // end OS functions
 
     // begin format functions
     SEQ_ONE_KEY(KC_B) {
-      surround_type(4, KC_8, true);
+      surround_type(2, KC_8, true);
     }
     SEQ_ONE_KEY(KC_I) {
-      surround_type(2, KC_8, true);
+      surround_type(2, KC_MINS, true);
     }
     SEQ_ONE_KEY(KC_U) {
       surround_type(4, KC_MINS, true);
@@ -356,6 +364,18 @@ void matrix_scan_user(void) {
     }
     SEQ_ONE_KEY(KC_C) {
       send_unicode_hex_string("00E7");
+    }
+    SEQ_TWO_KEYS(KC_A, KC_V) {
+      surround_type(2, KC_QUOT, true);
+      pair_surround_type(2, KC_LCBR, true);
+      surround_type(2, KC_SPC, false);
+    }
+    SEQ_TWO_KEYS(KC_M, KC_L) {
+      pair_surround_type(1, KC_LBRC, false);
+      SEND_STRING("LINK_NAME");
+      tap_code(KC_RGHT);
+      pair_surround_type(1, KC_LPRN, true);
+      pri_mod_keystroke(KC_V);
     }
     SEQ_TWO_KEYS(KC_C, KC_C) {
       surround_type(2, KC_GRAVE, false);
@@ -369,28 +389,18 @@ void matrix_scan_user(void) {
     SEQ_TWO_KEYS(KC_E, KC_E) {
       send_unicode_hex_string("00E9");
     }
-    SEQ_TWO_KEYS(KC_T, KC_I) {
-      surround_type(4, KC_MINS, true);
-    }
-    SEQ_TWO_KEYS(KC_T, KC_B) {
-      surround_type(4, KC_8, true);
-    }
     // end format functions
 
     // start fancy functions
     SEQ_THREE_KEYS(KC_C, KC_C, KC_ENT) {
       surround_type(6, KC_GRAVE, false);
-      pri_mod(true);
-      tap_code(KC_V);
-      pri_mod(false);
+      pri_mod_keystroke(KC_V);
       multi_tap(3, KC_RGHT, false);
       tap_code(KC_ENTER);
     }
     SEQ_THREE_KEYS(KC_T, KC_C, KC_ENT) {
       multi_tap(3, KC_GRAVE, false);
-      pri_mod(true);
-      tap_code(KC_V);
-      pri_mod(false);
+      pri_mod_keystroke(KC_V);
       multi_tap(2, KC_ENTER, false);
     }
     // end fancy functions
@@ -406,9 +416,7 @@ void matrix_scan_user(void) {
     SEQ_THREE_KEYS(KC_D, KC_D, KC_D) {
       SEND_STRING(".\\Administrator");
       tap_code(KC_TAB);
-      pri_mod(true);
-      tap_code(KC_V);
-      pri_mod(false);
+      pri_mod_keystroke(KC_V);
       tap_code(KC_ENTER);
     }
     SEQ_THREE_KEYS(KC_L, KC_O, KC_D) {
@@ -426,7 +434,7 @@ void matrix_scan_user(void) {
       // ┬─┬ノ( º _ º ノ)
       send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 0020 30CE 0029");
     }
-    SEQ_THREE_KEYS(KC_L, KC_E, KC_N) {
+    SEQ_THREE_KEYS(KC_L, KC_O, KC_L) {
       // ( ͡° ͜ʖ ͡°)
       send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
     }
@@ -469,18 +477,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case KC_A ... KC_Z:
       if (record->event.pressed) {
-        static int shift_int = 1;
-        int shift = shift_int % 2;
-        shift_int++;
+        shift_int += (rand() % 5);
+        int shift = ((shift_int % 2) == 1) ? true : false;
         state = active;
         velocikey_accelerate();
-        if (shift == 1){
-          register_code(KC_LSFT);
-        }
+        (shift) ? register_code(KC_LSFT) : NULL;
         tap_code(keycode);
-        if (shift == 1){
-          unregister_code(KC_LSFT);
-        }
+        (shift) ? unregister_code(KC_LSFT) : NULL;
       }
       return false;
     case KC_SPC:
@@ -496,13 +499,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-  case M_PMOD:
-    pri_mod(record->event.pressed);
-    return false;
-
-  case M_SMOD:
-    sec_mod(record->event.pressed);
-    return false;
+  #ifdef AUDIO_ENABLE
+        case M_USSR:
+            PLAY_SONG(song_ussr);
+            return false;
+  #endif
 
   case M_OS:
     if (record->event.pressed){
@@ -515,6 +516,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       send_unicode_hex_string("2014");
     }
     return false;
+  case M_LMHYP:
+  case M_EHYPR:
+    (keycode = M_LMHYP) ? (record->event.pressed) ? layer_on(_ARROW) : layer_off(_ARROW) : NULL;
+    meh_hyper(record->event.pressed);
+    return false;
+
+  case M_SFTY:
+    if(record->event.pressed){
+      num_extra_flashes_off = (shifty) ?  1 : 0;
+      shifty = !shifty;
+      flash_color = underglow;
+      flash_state = flash_off;
+      return false;
+    }
+
+  case M_AEST:
+    if(record->event.pressed){
+      num_extra_flashes_off = (aesthetic) ? 1 : 0;
+      aesthetic = !aesthetic;
+      flash_color = underglow;
+      flash_state = flash_off;
+      return false;
+    }
 
   default:
     if (record->event.pressed) {

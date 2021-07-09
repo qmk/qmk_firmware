@@ -46,7 +46,7 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
     }
 
 #    ifndef AUTO_SHIFT_MODIFIERS
-    if (get_mods() & (~MOD_BIT(KC_LSFT))) {
+    if (get_mods()) {
         return true;
     }
 #    endif
