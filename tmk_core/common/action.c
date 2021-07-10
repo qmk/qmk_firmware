@@ -82,7 +82,8 @@ void action_exec(keyevent_t event) {
     }
 
 #ifdef SWAP_HANDS_ENABLE
-    if (!IS_NOEVENT(event)) {
+    // Swap hands is only available for the normal matrix, for now.
+    if (IS_KEYEVENT(event)) {
         process_hand_swap(&event);
     }
 #endif
