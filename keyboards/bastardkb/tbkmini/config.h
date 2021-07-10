@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -45,13 +45,6 @@
 #define F_SCL 400000L
 #define USB_POLLING_INTERVAL_MS 1
 #define MASTER_RIGHT
-
-#ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 42
-#   define RGBLED_SPLIT { 21, 21 }
-#   define RGBLIGHT_LIMIT_VAL 50
-#   define RGBLIGHT_ANIMATIONS
-#endif
 
 // RGB matrix support
 #ifdef RGB_MATRIX_ENABLE
