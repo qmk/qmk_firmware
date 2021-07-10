@@ -79,16 +79,9 @@ extern bool disable_action_cache;
 #ifdef SWAP_HANDS_ENABLE
 extern bool                   swap_hands;
 extern const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
-#    if (MATRIX_COLS <= 8)
-typedef uint8_t swap_state_row_t;
-#    elif (MATRIX_COLS <= 16)
-typedef uint16_t swap_state_row_t;
-#    elif (MATRIX_COLS <= 32)
-typedef uint32_t swap_state_row_t;
-#    else
-#        error "MATRIX_COLS: invalid value"
-#    endif
-
+#    ifdef ENCODER_MAP_ENABLE
+extern const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS];
+#    endif  // ENCODER_MAP_ENABLE
 void process_hand_swap(keyevent_t *record);
 #endif
 
