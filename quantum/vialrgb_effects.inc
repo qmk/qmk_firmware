@@ -49,7 +49,9 @@ enum {
 
 static const PROGMEM vialrgb_supported_mode_t supported_modes[] = {
     { VIALRGB_EFFECT_OFF, 0 },
-    // { VIALRGB_EFFECT_DIRECT, 0 }, TODO
+#ifdef RGB_MATRIX_EFFECT_VIALRGB_DIRECT
+    { VIALRGB_EFFECT_DIRECT, RGB_MATRIX_VIALRGB_DIRECT },
+#endif
 #ifdef RGB_MATRIX_EFFECT_SOLID_COLOR
     { VIALRGB_EFFECT_SOLID_COLOR, RGB_MATRIX_SOLID_COLOR },
 #endif

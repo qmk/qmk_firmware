@@ -8,12 +8,15 @@
    even though they likely wouldn't be enabled together with vialrgb */
 enum {
     vialrgb_set_mode = 0x41,
+    vialrgb_direct_fastset = 0x42,
 };
 
 enum {
     vialrgb_get_info = 0x40,
     vialrgb_get_mode = 0x41,
     vialrgb_get_supported = 0x42,
+    vialrgb_get_number_leds = 0x43,
+    vialrgb_get_led_info = 0x44,
 };
 
 void vialrgb_get_value(uint8_t *data, uint8_t length);
