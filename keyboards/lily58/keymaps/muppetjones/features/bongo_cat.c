@@ -12,25 +12,24 @@ Source:
 
 #ifdef OLED_DRIVER_ENABLE
 
-#  define IDLE_FRAMES 5
-#  define IDLE_SPEED 30  // below this wpm value your animation will idle
+#    define IDLE_FRAMES 5
+#    define IDLE_SPEED 30  // below this wpm value your animation will idle
 
 // #define PREP_FRAMES 1 // uncomment if >1
 
-#  define TAP_FRAMES 2
-#  define TAP_SPEED 40  // above this wpm value typing animation to triggere
+#    define TAP_FRAMES 2
+#    define TAP_SPEED 40  // above this wpm value typing animation to triggere
 
-#  define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
+#    define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
-#  define ANIM_SIZE 636  // number of bytes in array, minimize for adequate firmware size, max is 1024
+#    define ANIM_SIZE 636  // number of bytes in array, minimize for adequate firmware size, max is 1024
 
 uint32_t anim_timer         = 0;
 uint32_t anim_sleep         = 0;
 uint8_t  current_idle_frame = 0;
 // uint8_t current_prep_frame = 0; // uncomment if PREP_FRAMES >1
 uint8_t current_tap_frame = 0;
-
-char wpm_str[12];
+char    wpm_str[12];
 
 /* Animation */
 
@@ -94,46 +93,49 @@ static const char PROGMEM ANIM_TAP[TAP_FRAMES][ANIM_SIZE] = {
 /* Functions */
 
 const char *wpm_state(void) {
-    uint8_t n = get_current_wpm();
-    char wpm_counter[4];
-    wpm_counter[3] = '\0';
-    wpm_counter[2] = '0' + n % 10;
-    wpm_counter[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
-  return wpm_str;
+    sprintf(wpm_str, "WPM: %03d", get_current_wpm());
+    return wpm_str;
+    //
+    // uint8_t n           = get_current_wpm();
+    // char *  wpm_counter = "WPM:    ";
+    // // wpm_counter[7] = '\0';
+    // wpm_counter[7] = '0' + n % 10;
+    // wpm_counter[6] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    // wpm_counter[5] = n / 10 ? '0' + n / 10 : ' ';
+    // return wpm_counter;
 }
 
 void animation_phase(uint8_t wpm) {
-  // NOTE: Optimized the conditional. We don't need to recheck each.
-  // NOTE: Move this and the animation outside of the function.
+    // NOTE: Optimized the conditional. We don't need to recheck each.
+    // NOTE: Move this and the animation outside of the function.
 
-  if (IDLE_SPEED >= wpm) {
-    current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
-    oled_write_raw_P(ANIM_IDLE[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
-  } else if (TAP_SPEED > wpm) {
-    oled_write_raw_P(ANIM_PREP[0], ANIM_SIZE);
-  } else {
-    current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
-    oled_write_raw_P(ANIM_TAP[abs((TAP_FRAMES - 1) - current_tap_frame)], ANIM_SIZE);
-  }
+    if (IDLE_SPEED >= wpm) {
+        current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
+        oled_write_raw_P(ANIM_IDLE[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
+    } else if (TAP_SPEED > wpm) {
+        oled_write_raw_P(ANIM_PREP[0], ANIM_SIZE);
+    } else {
+        current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
+        oled_write_raw_P(ANIM_TAP[abs((TAP_FRAMES - 1) - current_tap_frame)], ANIM_SIZE);
+    }
 }
 
 // Images credit j-inc(/James Incandenza) and pixelbenny. Credit to obosob for initial animation approach.
 void render_bongo_cat(void) {
-  const uint8_t curr_wpm = get_current_wpm();
+    const uint8_t curr_wpm = get_current_wpm();
 
-  if (curr_wpm > 000) {
-    oled_on();
-    anim_sleep = timer_read32();
-  } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-    oled_off();
-    return;
-  }
+    if (curr_wpm > 000) {
+        oled_on();
+        anim_sleep = timer_read32();
+    } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+        oled_off();
+        return;
+    }
 
-  if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
-    anim_timer = timer_read32();
-    animation_phase(curr_wpm);
-  }
+    if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
+        anim_timer = timer_read32();
+        animation_phase(curr_wpm);
+    }
 }
 
 #endif

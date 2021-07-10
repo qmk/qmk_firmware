@@ -18,7 +18,6 @@
 #include "muppetjones.h"
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
-
 /*
  *  qmk compile -kb lily58/rev1 -km muppetjones
  */
@@ -26,7 +25,6 @@
 // GACS (Lower)
 #define HR_LBRC LCTL_T(KC_LBRC)
 #define HR_RBRC LSFT_T(KC_RBRC)
-
 
 /*
 enum layer_number {
@@ -61,8 +59,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    CAPSWRD,                   __BLANK____________________________________, KC_BSPC,
     CAPSWRD, __COLEMAK_MOD_DH_L1________________________,                   __COLEMAK_MOD_DH_R1________________________, KC_BSLS,
     HY_ESC,  __COLEMAK_MOD_DH_L2_W_GACS_________________,                   __COLEMAK_MOD_DH_R2_W_SCAG_________________, KC_QUOT,
-    TD_LAYR, __COLEMAK_MOD_DH_L3________________________, HY_ESC,  KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
-                                KC_DEL,  KC_DEL,  HY_ESC, LOW_ENT, RAI_SPC, HY_ESC,   RAI_TAB, KC_BSPC
+    TD_LAYR, __COLEMAK_MOD_DH_L3________________________, CAPSWRD, KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
+                                KC_DEL,  HY_ESC, LOW_SPC, RAI_ENT, KC_BSPC, NAV_SPC, HY_ESC, KC_BSPC
 ),
 
 /* QWERTY
@@ -183,8 +181,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_DRIVER_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master()) return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-  return rotation;
+    if (!is_keyboard_master()) return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    return rotation;
 }
 
 // When you add source files to SRC in rules.mk, you can use functions.
@@ -202,36 +200,36 @@ const char *read_keylogs(void);
 // const char *read_timelog(void);
 
 void oled_task_user(void) {
-  if (is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
-    oled_write_ln(read_keylog(), false);
-    oled_write_ln(read_keylogs(), false);
-    // oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    // oled_write_ln(read_host_led_state(), false);
-    // oled_write_ln(read_timelog(), false);
-  } else {
-    render_bongo_cat();
-    oled_set_cursor(0, 6);
-    oled_write(wpm_state(), false);
-    // oled_write(read_logo(), false);
-  }
+    if (is_keyboard_master()) {
+        // If you want to change the display of OLED, you need to change here
+        oled_write_ln(read_layer_state(), false);
+        oled_write_ln(read_keylog(), false);
+        oled_write_ln(read_keylogs(), false);
+        // oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
+        // oled_write_ln(read_host_led_state(), false);
+        // oled_write_ln(read_timelog(), false);
+    } else {
+        render_bongo_cat();
+        oled_set_cursor(0, 6);
+        oled_write(wpm_state(), false);
+        // oled_write(read_logo(), false);
+    }
 }
 #endif  // OLED_DRIVER_ENABLE
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
+    if (record->event.pressed) {
 #ifdef OLED_DRIVER_ENABLE
-    set_keylog(keycode, record);
+        set_keylog(keycode, record);
 #endif
-    // set_timelog();
-  }
+        // set_timelog();
+    }
 
-  // Regular user keycode case statement
-  switch (keycode) {
-    default:
-      return true;
-  }
+    // Regular user keycode case statement
+    switch (keycode) {
+        default:
+            return true;
+    }
 
-  return true;
+    return true;
 }

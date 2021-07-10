@@ -6,7 +6,7 @@
 LTO_ENABLE = yes
 
 SRC += muppetjones.c
-SRC += ./features/casemodes.c
+SRC += features/casemodes.c
 
 ifdef ENCODER_ENABLE
 	SRC += ./features/etchamouse.c
