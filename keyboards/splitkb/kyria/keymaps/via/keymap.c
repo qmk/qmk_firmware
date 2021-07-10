@@ -66,8 +66,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 static uint8_t  encoder_state[2] = {0};
-static keypos_t encoder_cw[2]    = {{0, 0}, {0, 1}};
-static keypos_t encoder_ccw[2]   = {{1, 0}, {1, 1}};
+static keypos_t encoder_ccw[2]   = {{0, 0}, {0, 1}};
+static keypos_t encoder_cw[2]    = {{1, 0}, {1, 1}};
 
 void encoder_action_unregister(void) {
     for (int index = 0; index < 2; ++index) {

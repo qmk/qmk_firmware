@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xD0B2
+#define VENDOR_ID    0x8D1D
 #define PRODUCT_ID   0x9D9D
 #define DEVICE_VER   0x0001
 #define MANUFACTURER splitKB
