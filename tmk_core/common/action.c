@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "keycode.h"
 #include "keyboard.h"
+#include "keymap.h"
 #include "mousekey.h"
 #include "command.h"
 #include "led.h"
@@ -119,10 +120,15 @@ void action_exec(keyevent_t event) {
 }
 
 #ifdef SWAP_HANDS_ENABLE
+extern const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
+#    ifdef ENCODER_MAP_ENABLE
+extern const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS];
+#    endif  // ENCODER_MAP_ENABLE
+
 bool swap_hands = false;
 bool swap_held  = false;
 
-void should_swap_hands(size_t index, uint8_t *swap_state, bool pressed) {
+bool should_swap_hands(size_t index, uint8_t *swap_state, bool pressed) {
     size_t  array_index = index / 8;
     size_t  bit_index   = index % 8;
     uint8_t bit_val     = 1 << bit_index;
@@ -152,7 +158,7 @@ void process_hand_swap(keyevent_t *event) {
 #    endif  // ENCODER_MAP_ENABLE
     keypos_t pos = event->key;
     if (pos.row < MATRIX_ROWS && pos.col < MATRIX_COLS) {
-        size_t index   = key.row * MATRIX_ROWS + key.col;
+        size_t index   = pos.row * MATRIX_ROWS + pos.col;
         bool   do_swap = should_swap_hands(index, matrix_swap_state, event->pressed);
         if (do_swap) {
             event->key.row = pgm_read_byte(&hand_swap_config[pos.row][pos.col].row);
@@ -164,7 +170,8 @@ void process_hand_swap(keyevent_t *event) {
     }
 #    ifdef ENCODER_MAP_ENABLE
     else if (pos.row == KEYLOC_ENCODER_CW || pos.row == KEYLOC_ENCODER_CCW) {
-        bool do_swap = should_swap_hands(pos.col, encoder_swap_state, event->pressed);
+        size_t index = pos.col;
+        bool do_swap = should_swap_hands(index, encoder_swap_state, event->pressed);
         if (do_swap) {
             event->key.row = pos.row;
             event->key.col = pgm_read_byte(&encoder_hand_swap_config[pos.col]);
