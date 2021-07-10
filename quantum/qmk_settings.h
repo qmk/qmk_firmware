@@ -6,7 +6,7 @@
 /* take qmk config macros and set up helper variables for default settings */
 
 #ifndef TAP_CODE_DELAY
-#    define TAP_CODE_DELAY 0
+#    define TAP_CODE_DELAY 10
 #endif
 #ifndef TAP_HOLD_CAPS_DELAY
 #    define TAP_HOLD_CAPS_DELAY 80
