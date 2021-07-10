@@ -217,19 +217,23 @@ uint8_t read_source_layers_cache_impl(uint8_t entry_number, uint8_t cache[][MAX_
 
 #    ifdef ENCODER_MAP_ENABLE
 uint8_t encoder_source_layers_cache[(NUM_ENCODERS + 7) / 8][MAX_LAYER_BITS] = {{0}};
+#    endif  // ENCODER_MAP_ENABLE
 
 /** \brief update encoder source layers cache
  *
  * Updates the cached encoders when changing layers
  */
 void update_source_layers_cache(keypos_t key, uint8_t layer) {
-    if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
+    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
+        const uint8_t entry_number = key.col + (key.row * MATRIX_COLS);
+        update_source_layers_cache_impl(layer, entry_number, source_layers_cache);
+    }
+#    ifdef ENCODER_MAP_ENABLE
+    else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
         const uint8_t entry_number = key.col;
         update_source_layers_cache_impl(layer, entry_number, encoder_source_layers_cache);
-    } else if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        const uint8_t entry_number = key.col + (key.row * MATRIX_COLS);
-        update_source_layers_cache_impl(layer, entry_number, source_layers_cache);
     }
+#    endif  // ENCODER_MAP_ENABLE
 }
 
 /** \brief read source layers cache
@@ -237,39 +241,18 @@ void update_source_layers_cache(keypos_t key, uint8_t layer) {
  * reads the cached keys stored when the layer was changed
  */
 uint8_t read_source_layers_cache(keypos_t key) {
-    if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
+    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
+        const uint8_t entry_number = key.col + (key.row * MATRIX_COLS);
+        return read_source_layers_cache_impl(entry_number, source_layers_cache);
+    }
+#    ifdef ENCODER_MAP_ENABLE
+    else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
         const uint8_t entry_number = key.col;
         return read_source_layers_cache_impl(entry_number, encoder_source_layers_cache);
-    } else if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        const uint8_t entry_number = key.col + (key.row * MATRIX_COLS);
-        return read_source_layers_cache_impl(entry_number, source_layers_cache);
     }
-    return 0;
-}
-#    else   // ENCODER_MAP_ENABLE
-/** \brief update encoder source layers cache
- *
- * Updates the cached encoders when changing layers
- */
-void update_source_layers_cache(keypos_t key, uint8_t layer) {
-    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        const uint8_t entry_number = key.col + (key.row * MATRIX_COLS);
-        update_source_layers_cache_impl(layer, entry_number, source_layers_cache);
-    }
-}
-
-/** \brief read source layers cache
- *
- * reads the cached keys stored when the layer was changed
- */
-uint8_t read_source_layers_cache(keypos_t key) {
-    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        const uint8_t entry_number = key.col + (key.row * MATRIX_COLS);
-        return read_source_layers_cache_impl(entry_number, source_layers_cache);
-    }
-    return 0;
-}
 #    endif  // ENCODER_MAP_ENABLE
+    return 0;
+}
 #endif
 
 /** \brief Store or get action (FIXME: Needs better summary)
