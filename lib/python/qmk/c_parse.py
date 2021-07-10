@@ -1,7 +1,8 @@
 """Functions for working with config.h files.
 """
-from pathlib import Path
 import re
+from functools import lru_cache
+from pathlib import Path
 
 from milc import cli
 
@@ -12,18 +13,21 @@ single_comment_regex = re.compile(r'\s+/[/*].*$')
 multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
 
 
+@lru_cache(maxsize=0)
 def strip_line_comment(string):
     """Removes comments from a single line string.
     """
     return single_comment_regex.sub('', string)
 
 
+@lru_cache(maxsize=0)
 def strip_multiline_comment(string):
     """Removes comments from a single line string.
     """
     return multi_comment_regex.sub('', string)
 
 
+@lru_cache(maxsize=0)
 def c_source_files(dir_names):
     """Returns a list of all *.c, *.h, and *.cpp files for a given list of directories
 
@@ -38,6 +42,7 @@ def c_source_files(dir_names):
     return files
 
 
+@lru_cache(maxsize=0)
 def find_layouts(file):
     """Returns list of parsed LAYOUT preprocessor macros found in the supplied include file.
     """
@@ -144,6 +149,7 @@ def _default_key(label=None):
     return new_key
 
 
+@lru_cache(maxsize=0)
 def _parse_layout_macro(layout_macro):
     """Split the LAYOUT macro into its constituent parts
     """
@@ -154,6 +160,7 @@ def _parse_layout_macro(layout_macro):
     return macro_name, layout, matrix
 
 
+@lru_cache(maxsize=0)
 def _parse_matrix_locations(matrix, file, macro_name):
     """Parse raw matrix data into a dictionary keyed by the LAYOUT identifier.
     """

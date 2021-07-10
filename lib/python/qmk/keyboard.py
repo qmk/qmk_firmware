@@ -1,10 +1,11 @@
 """Functions that help us work with keyboards.
 """
+import os
 from array import array
+from functools import lru_cache
+from glob import glob
 from math import ceil
 from pathlib import Path
-import os
-from glob import glob
 
 import qmk.path
 from qmk.c_parse import parse_config_h_file
@@ -62,6 +63,17 @@ def find_readme(keyboard):
         cur_dir = cur_dir.parent
 
     return cur_dir / 'readme.md'
+
+
+def is_keyboard_target(keyboard_target):
+    """Checks to make sure the supplied keyboard_target is valid.
+
+    This is mainly used by commands that accept --keyboard.
+    """
+    if keyboard_target in ['all', 'all-avr', 'all-chibios', 'all-arm_atsam']:
+        return keyboard_target
+
+    return keyboard_folder(keyboard_target)
 
 
 def keyboard_folder(keyboard):
@@ -206,6 +218,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
     return '\n'.join(lines)
 
 
+@lru_cache(maxsize=0)
 def render_layouts(info_json, render_ascii):
     """Renders all the layouts from an `info_json` structure.
     """

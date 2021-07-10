@@ -2,6 +2,7 @@
 """
 import json
 import sys
+from functools import lru_cache
 from pathlib import Path
 from subprocess import DEVNULL
 
@@ -14,6 +15,7 @@ from pygments import lex
 import qmk.path
 from qmk.keyboard import find_keyboard_from_dir, rules_mk
 from qmk.errors import CppError
+from qmk.metadata import basic_info_json
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -30,6 +32,7 @@ __KEYMAP_GOES_HERE__
 """
 
 
+@lru_cache(maxsize=0)
 def template_json(keyboard):
     """Returns a `keymap.json` template for a keyboard.
 
@@ -47,6 +50,7 @@ def template_json(keyboard):
     return template
 
 
+@lru_cache(maxsize=0)
 def template_c(keyboard):
     """Returns a `keymap.c` template for a keyboard.
 
@@ -122,6 +126,7 @@ def keymap_completer(prefix, action, parser, parsed_args):
     return []
 
 
+@lru_cache(maxsize=0)
 def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
     """Return True if Path object `keymap` has a keymap file inside.
 
@@ -180,6 +185,7 @@ def generate_json(keymap, keyboard, layout, layers):
     return new_keymap
 
 
+@lru_cache(maxsize=0)
 def generate_c(keyboard, layout, layers):
     """Returns a `keymap.c` or `keymap.json` for the specified keyboard, layout, and layers.
 
@@ -266,6 +272,7 @@ def write(keyboard, keymap, layout, layers):
     return write_file(keymap_file, keymap_content)
 
 
+@lru_cache(maxsize=0)
 def locate_keymap(keyboard, keymap):
     """Returns the path to a keymap for a specific keyboard.
     """
@@ -305,6 +312,7 @@ def locate_keymap(keyboard, keymap):
                     return community_layout / 'keymap.c'
 
 
+@lru_cache(maxsize=0)
 def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=False):
     """List the available keymaps for a keyboard.
 
@@ -327,40 +335,38 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     Returns:
         a sorted list of valid keymap names.
     """
-    # parse all the rules.mk files for the keyboard
-    rules = rules_mk(keyboard)
+    info_data = basic_info_json(keyboard)
     names = set()
 
-    if rules:
-        keyboards_dir = Path('keyboards')
-        kb_path = keyboards_dir / keyboard
+    keyboards_dir = Path('keyboards')
+    kb_path = keyboards_dir / info_data['keyboard_folder']
 
-        # walk up the directory tree until keyboards_dir
-        # and collect all directories' name with keymap.c file in it
-        while kb_path != keyboards_dir:
-            keymaps_dir = kb_path / "keymaps"
+    # walk up the directory tree until keyboards_dir
+    # and collect all directories' name with keymap.c file in it
+    while kb_path != keyboards_dir:
+        keymaps_dir = kb_path / "keymaps"
 
-            if keymaps_dir.is_dir():
-                for keymap in keymaps_dir.iterdir():
-                    if is_keymap_dir(keymap, c, json, additional_files):
-                        keymap = keymap if fullpath else keymap.name
-                        names.add(keymap)
+        if keymaps_dir.is_dir():
+            for keymap in keymaps_dir.iterdir():
+                if is_keymap_dir(keymap, c, json, additional_files):
+                    keymap = keymap if fullpath else keymap.name
+                    names.add(keymap)
 
-            kb_path = kb_path.parent
+        kb_path = kb_path.parent
 
-        # if community layouts are supported, get them
-        if "LAYOUTS" in rules:
-            for layout in rules["LAYOUTS"].split():
-                cl_path = Path('layouts/community') / layout
-                if cl_path.is_dir():
-                    for keymap in cl_path.iterdir():
-                        if is_keymap_dir(keymap, c, json, additional_files):
-                            keymap = keymap if fullpath else keymap.name
-                            names.add(keymap)
+    # if community layouts are supported, get them
+    for layout in info_data.get('community_layouts', []):
+        cl_path = Path('layouts/community') / layout
+        if cl_path.is_dir():
+            for keymap in cl_path.iterdir():
+                if is_keymap_dir(keymap, c, json, additional_files):
+                    keymap = keymap if fullpath else keymap.name
+                    names.add(keymap)
 
     return sorted(names)
 
 
+@lru_cache(maxsize=0)
 def _c_preprocess(path, stdin=DEVNULL):
     """ Run a file through the C pre-processor
 
@@ -380,6 +386,7 @@ def _c_preprocess(path, stdin=DEVNULL):
     return pre_processed_keymap.stdout
 
 
+@lru_cache(maxsize=0)
 def _get_layers(keymap):  # noqa C901 : until someone has a good idea how to simplify/split up this code
     """ Find the layers in a keymap.c file.
 
@@ -500,6 +507,7 @@ def _get_layers(keymap):  # noqa C901 : until someone has a good idea how to sim
     return layers
 
 
+@lru_cache(maxsize=0)
 def parse_keymap_c(keymap_file, use_cpp=True):
     """ Parse a keymap.c file.
 
@@ -529,6 +537,7 @@ def parse_keymap_c(keymap_file, use_cpp=True):
     return keymap
 
 
+@lru_cache(maxsize=0)
 def c2json(keyboard, keymap, keymap_file, use_cpp=True):
     """ Convert keymap.c to keymap.json
 

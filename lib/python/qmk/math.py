@@ -3,12 +3,22 @@
 Gratefully copied from https://stackoverflow.com/a/9558001
 """
 import ast
-import operator as op
+import operator
+from functools import lru_cache
 
 # supported operators
-operators = {ast.Add: op.add, ast.Sub: op.sub, ast.Mult: op.mul, ast.Div: op.truediv, ast.Pow: op.pow, ast.BitXor: op.xor, ast.USub: op.neg}
+operators = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+    ast.Pow: operator.pow,
+    ast.BitXor: operator.xor,
+    ast.USub: operator.neg,
+}
 
 
+@lru_cache(maxsize=0)
 def compute(expr):
     """Parse a mathematical expression and return the answer.
 
@@ -22,6 +32,7 @@ def compute(expr):
     return _eval(ast.parse(expr, mode='eval').body)
 
 
+@lru_cache(maxsize=0)
 def _eval(node):
     if isinstance(node, ast.Num):  # <number>
         return node.n

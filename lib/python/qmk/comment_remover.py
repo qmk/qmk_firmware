@@ -3,6 +3,7 @@
 Gratefully adapted from https://stackoverflow.com/a/241506
 """
 import re
+from functools import lru_cache
 
 comment_pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)
 
@@ -14,6 +15,7 @@ def _comment_stripper(match):
     return ' ' if s.startswith('/') else s
 
 
+@lru_cache(maxsize=0)
 def comment_remover(text):
     """Remove C/C++ style comments from text.
     """
