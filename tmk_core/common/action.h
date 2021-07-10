@@ -77,8 +77,8 @@ extern bool disable_action_cache;
 
 /* Code for handling one-handed key modifiers. */
 #ifdef SWAP_HANDS_ENABLE
-extern bool                   swap_hands;
-void process_hand_swap(keyevent_t *record);
+extern bool swap_hands;
+void        process_hand_swap(keyevent_t *record);
 #endif
 
 void process_record_nocache(keyrecord_t *record);

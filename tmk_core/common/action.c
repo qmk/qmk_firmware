@@ -140,7 +140,7 @@ void set_swap_hands_state(size_t index, uint8_t *swap_state, bool on) {
     size_t  array_index = index / 8;
     size_t  bit_index   = index % 8;
     uint8_t bit_val     = 1 << bit_index;
-    if(on) {
+    if (on) {
         swap_state[array_index] |= bit_val;
     } else {
         swap_state[array_index] &= ~bit_val;
@@ -170,8 +170,8 @@ void process_hand_swap(keyevent_t *event) {
     }
 #    ifdef ENCODER_MAP_ENABLE
     else if (pos.row == KEYLOC_ENCODER_CW || pos.row == KEYLOC_ENCODER_CCW) {
-        size_t index = pos.col;
-        bool do_swap = should_swap_hands(index, encoder_swap_state, event->pressed);
+        size_t index   = pos.col;
+        bool   do_swap = should_swap_hands(index, encoder_swap_state, event->pressed);
         if (do_swap) {
             event->key.row = pos.row;
             event->key.col = pgm_read_byte(&encoder_hand_swap_config[pos.col]);
