@@ -22,7 +22,7 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
 
-//Add RGB underglow and top facil lighting
+//Add RGB underglow and top facing lighting
 #define RGB_DI_PIN D3
 #ifdef RGB_MATRIX_ENABLE
 #define RGBLED_NUM 36    // Number of LEDs
