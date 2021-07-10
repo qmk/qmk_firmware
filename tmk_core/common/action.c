@@ -161,7 +161,7 @@ void process_hand_swap(keyevent_t *event) {
     }
 #    ifdef ENCODER_MAP_ENABLE
     else if (pos.row == KEYLOC_ENCODER_CW || pos.row == KEYLOC_ENCODER_CCW) {
-        bool do_swap = should_swap_hands(index, encoder_swap_state, event->pressed);
+        bool do_swap = should_swap_hands(pos.col, encoder_swap_state, event->pressed);
         if (do_swap) {
             event->key.row = pos.row;
             event->key.col = pgm_read_byte(&encoder_hand_swap_config[pos.col]);
