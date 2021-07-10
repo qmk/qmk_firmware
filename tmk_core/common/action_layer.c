@@ -186,6 +186,9 @@ void layer_debug(void) { dprintf("%08lX(%u)", layer_state, get_highest_layer(lay
  */
 
 uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS] = {{0}};
+#    ifdef ENCODER_MAP_ENABLE
+uint8_t encoder_source_layers_cache[(NUM_ENCODERS + 7) / 8][MAX_LAYER_BITS] = {{0}};
+#    endif  // ENCODER_MAP_ENABLE
 
 /** \brief update source layers cache impl
  *
@@ -214,10 +217,6 @@ uint8_t read_source_layers_cache_impl(uint8_t entry_number, uint8_t cache[][MAX_
 
     return layer;
 }
-
-#    ifdef ENCODER_MAP_ENABLE
-uint8_t encoder_source_layers_cache[(NUM_ENCODERS + 7) / 8][MAX_LAYER_BITS] = {{0}};
-#    endif  // ENCODER_MAP_ENABLE
 
 /** \brief update encoder source layers cache
  *
