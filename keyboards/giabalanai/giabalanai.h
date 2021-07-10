@@ -33,8 +33,8 @@
           l30, l31, l32, l33, l34, l35, l36, l37, l38, l39, l3a, l3b, \
             l40, l41, l42, l43, l44, l45, l46, l47, l48, l49, l4a, l4b, \
     \
-    r20, \
-      r00, r01, r02, r03, r04, r05, r06, r07, r08, r09, r0a, r0b,   renc, \
+    r20,                                                          ccw, cw, \
+      r00, r01, r02, r03, r04, r05, r06, r07, r08, r09, r0a, r0b,   renc,  \
     r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r1a, r1b, r1c,  \
       r21, r22, r23, r24, r25, r26, r27, r28, r29, r2a, r2b, r2c   \
 ) { \
@@ -45,7 +45,7 @@
     { l04,   l14,  l24, l34, l44, l07, l17, l27,   l37,   l47 }, \
     { l05,   l15,  l25, l35, l45, l06, l16, l26,   l36,   l46 }, \
     \
-    { r00,   r01,  r02, r03, r04, r05, r06, KC_NO, KC_NO, KC_NO }, \
+    { r00,   r01,  r02, r03, r04, r05, r06, KC_NO, ccw,   cw    }, \
     { r10,   r11,  r12, r13, r14, r15, r16, KC_NO, KC_NO, KC_NO }, \
     { r20,   r21,  r22, r23, r24, r25, r26, KC_NO, KC_NO, KC_NO }, \
     { KC_NO, renc, r0b, r0a, r09, r08, r07, KC_NO, KC_NO, KC_NO }, \
