@@ -17,7 +17,9 @@ typedef struct {
 
 #define SUPPORTED_MODES_LENGTH (sizeof(supported_modes)/sizeof(*supported_modes))
 
+#ifdef RGB_MATRIX_EFFECT_VIALRGB_DIRECT
 HSV g_direct_mode_colors[DRIVER_LED_TOTAL];
+#endif
 
 static void get_supported(uint8_t *args, uint8_t length) {
     /* retrieve supported effects (VialRGB IDs) with ID > gt */
@@ -71,6 +73,7 @@ static void set_mode(uint16_t mode) {
     }
 }
 
+#ifdef RGB_MATRIX_EFFECT_VIALRGB_DIRECT
 static void get_matrix_pos_for_led(uint16_t led, uint8_t *output) {
     /* reset initially so if we cannot locate the led, it's considered not part of kb matrix */
     output[0] = output[1] = 0xFF;
@@ -105,6 +108,7 @@ static void fast_set_leds(uint8_t *args, size_t length) {
         g_direct_mode_colors[i + first_index].v = (val > RGB_MATRIX_MAXIMUM_BRIGHTNESS) ? RGB_MATRIX_MAXIMUM_BRIGHTNESS : val;
     }
 }
+#endif
 
 void vialrgb_get_value(uint8_t *data, uint8_t length) {
     if (length != VIAL_RAW_EPSIZE) return;
@@ -132,6 +136,7 @@ void vialrgb_get_value(uint8_t *data, uint8_t length) {
         get_supported(args, length - 2);
         break;
     }
+#ifdef RGB_MATRIX_EFFECT_VIALRGB_DIRECT
     case vialrgb_get_number_leds: {
         args[0] = DRIVER_LED_TOTAL & 0xFF;
         args[1] = DRIVER_LED_TOTAL >> 8;
@@ -149,6 +154,7 @@ void vialrgb_get_value(uint8_t *data, uint8_t length) {
         get_matrix_pos_for_led(led, &args[3]);
         break;
     }
+#endif
     }
 }
 
@@ -166,10 +172,12 @@ void vialrgb_set_value(uint8_t *data, uint8_t length) {
         rgb_matrix_sethsv_noeeprom(args[3], args[4], args[5]);
         break;
     }
+#ifdef RGB_MATRIX_EFFECT_VIALRGB_DIRECT
     case vialrgb_direct_fastset: {
         fast_set_leds(args, length);
         break;
     }
+#endif
     }
 }
 
