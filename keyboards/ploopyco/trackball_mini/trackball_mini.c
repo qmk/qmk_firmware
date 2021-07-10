@@ -18,6 +18,8 @@
  */
 
 #include "trackball_mini.h"
+#include "wait.h"
+#include "debug.h"
 
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
@@ -35,15 +37,14 @@
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
 
-#ifndef PLOOPY_DPI_OPTIONS
-#    define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375 }
-#    ifndef PLOOPY_DPI_DEFAULT
-#        define PLOOPY_DPI_DEFAULT 2
-#    endif
-#endif
+#define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375 }
+#define PLOOPY_DPI_DEFAULT 2
 
-#ifndef PLOOPY_DPI_DEFAULT
-#    define PLOOPY_DPI_DEFAULT 1
+#ifndef PLOOPY_DRAGSCROLL_DPI
+#    define PLOOPY_DRAGSCROLL_DPI CPI375 // Fixed-DPI Drag Scroll
+#endif
+#ifndef PLOOPY_DRAGSCROLL_MULTIPLIER
+#    define PLOOPY_DRAGSCROLL_MULTIPLIER 0.75 // Variable-DPI Drag Scroll
 #endif
 
 // Transformation constants for delta-X and delta-Y
@@ -67,6 +68,7 @@ uint16_t lastScroll = 0;  // Previous confirmed wheel event
 uint16_t lastMidClick = 0;  // Stops scrollwheel from being read if it was pressed
 uint8_t OptLowPin = OPT_ENC1;
 bool debug_encoder = false;
+bool     is_drag_scroll    = false;
 
 __attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
     mouse_report->h = h;
@@ -148,6 +150,16 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
+    if (keycode == DRAG_SCROLL) {
+#ifndef PLOOPY_DRAGSCROLL_MOMENTARY
+        if (record->event.pressed)
+#endif
+        {
+            is_drag_scroll ^= 1;
+        }
+        adns_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
+    }
+
 /* If Mousekeys is disabled, then use handle the mouse button
  * keycodes.  This makes things simpler, and allows usage of
  * the keycodes in a consistent manner.  But only do this if
@@ -173,7 +185,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 void keyboard_pre_init_kb(void) {
     // debug_enable = true;
     // debug_matrix = true;
-    debug_mouse = true;
+    // debug_mouse = true;
     // debug_encoder = true;
 
     setPinInput(OPT_ENC1);
@@ -198,12 +210,41 @@ void keyboard_pre_init_kb(void) {
 void pointing_device_init(void) {
     adns_init();
     opt_encoder_init();
+
+    // reboot the adns.
+    // if the adns hasn't initialized yet, this is harmless.
+    adns_write_reg(REG_CHIP_RESET, 0x5a);
+
+    // wait maximum time before adns is ready.
+    // this ensures that the adns is actuall ready after reset.
+    wait_ms(55);
+
+    // read a burst from the adns and then discard it.
+    // gets the adns ready for write commands
+    // (for example, setting the dpi).
+    adns_read_burst();
+
+    // set the DPI.
+    adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_wheel(&mouse_report);
     process_mouse(&mouse_report);
+
+    if (is_drag_scroll) {
+        mouse_report.h = mouse_report.x;
+#ifdef PLOOPY_DRAGSCROLL_INVERT
+        // Invert vertical scroll direction
+        mouse_report.v = -mouse_report.y;
+#else
+        mouse_report.v = mouse_report.y;
+#endif
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+
     pointing_device_set_report(mouse_report);
     pointing_device_send();
 }
@@ -222,10 +263,4 @@ void matrix_init_kb(void) {
         eeconfig_init_kb();
     }
     matrix_init_user();
-}
-
-void keyboard_post_init_kb(void) {
-    adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
-
-    keyboard_post_init_user();
 }
