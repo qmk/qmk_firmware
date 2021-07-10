@@ -134,8 +134,11 @@ void set_swap_hands_state(size_t index, uint8_t *swap_state, bool on) {
     size_t  array_index = index / 8;
     size_t  bit_index   = index % 8;
     uint8_t bit_val     = 1 << bit_index;
-    bool    do_swap     = pressed ? swap_hands : swap_state[array_index] & bit_val;
-    return do_swap;
+    if(on) {
+        swap_state[array_index] |= bit_val;
+    } else {
+        swap_state[array_index] &= ~bit_val;
+    }
 }
 
 /** \brief Process Hand Swap
