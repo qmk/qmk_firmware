@@ -26,7 +26,6 @@
 #include "muse.h"
 
 #include "process_records.h"
-#include "matrix_scans.h"
 #include "wrappers.h"
 
 /************************* Userspace Layers *************************
@@ -43,6 +42,12 @@ enum userspace_layers {
     LAYER_SAFE_RANGE,
 };
 
+void matrix_scan_keymap(void);
 layer_state_t layer_state_set_keymap(layer_state_t state);
 void dip_switch_update_keymap(uint8_t index, bool active);
 bool music_mask_keymap(uint16_t keycode);
+layer_state_t default_layer_state_set_keymap(layer_state_t state);
+void startup_keymap(void);
+void shutdown_keymap(void);
+void music_on_keymap(void);
+void music_scale_keymap(void);

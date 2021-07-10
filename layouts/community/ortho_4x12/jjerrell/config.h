@@ -17,7 +17,7 @@
 
 #pragma once
 
-// Allows time for repositioning hands due to awkward placement
+// Allows time for repositioning hands due to awkward key placement
 #define LEADER_NO_TIMEOUT
 
 #ifdef AUDIO_ENABLE
@@ -28,6 +28,13 @@
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND) \
                                 }
+#endif
+
+//ZSA Technology Labs Planck EZ Glow (3297:C6CF:0000)
+
+#ifdef KEYBOARD_planck_ez_glow
+#undef   PRODUCT
+#define  PRODUCT  Planck EZ Glow - Modified by <@jjerrell>
 #endif
 
 /*

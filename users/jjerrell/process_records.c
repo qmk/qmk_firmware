@@ -19,8 +19,11 @@
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
+static uint16_t key_timer;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_keymap(keycode, record)) {
+        key_timer = timer_read();
         switch (keycode) {
         case KC_QWERTY:
             if (record->event.pressed) {
@@ -38,3 +41,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+
+  // if (timer_elapsed(key_timer) < 100) {
+  //   // do something if less than 100ms have passed
+  // } else {
+  //   // do something if 100ms or more have passed
+  // }
+
+  // case KC_CCCV:  // One key copy/paste
+  //           if (record->event.pressed) {
+  //               copy_paste_timer = timer_read();
+  //           } else {
+  //               if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+  //                   tap_code16(LCTL(KC_C));
+  //               } else {  // Tap, paste
+  //                   tap_code16(LCTL(KC_V));
+  //               }
+  //           }
+  //           break;

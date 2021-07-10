@@ -40,6 +40,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 // clang-format off
 #define QWERTY  KC_QWERTY
 #define WORKMN  KC_WORKMAN
+#define ___held  _______
 
 #define KC_RST  RESET
 
@@ -47,8 +48,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define MO_RSE  MO(_RAISE)
 #define MO_SPL  MO(_SPECIAL)
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-
-#define KC_ARRW  KC_ARROW
+#define LW_BSPC LT(_LOWER, KC_BSPC)
+#define RS_ENTR LT(_RAISE, KC_ENT)
+#define SH_SPCE SFT_T(KC_SPC)
 // clang-format on
