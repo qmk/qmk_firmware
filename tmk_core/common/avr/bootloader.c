@@ -55,7 +55,7 @@
  */
 #define FLASH_SIZE (FLASHEND + 1L)
 
-#if !defined(BOOTLOADER_SIZE)
+#if !defined(BOOTLOADER_SIZE) || defined(BOOTLOADER_MS)
 uint16_t bootloader_start;
 #endif
 
@@ -78,7 +78,7 @@ uint32_t reset_key __attribute__((section(".noinit,\"aw\",@nobits;")));
  * FIXME: needs doc
  */
 __attribute__((weak)) void bootloader_jump(void) {
-#if !defined(BOOTLOADER_SIZE)
+#if !defined(BOOTLOADER_SIZE) || defined(BOOTLOADER_MS)
     uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
 
     if (high_fuse & ~(FUSE_BOOTSZ0 & FUSE_BOOTSZ1)) {
@@ -283,7 +283,7 @@ void bootloader_jump_after_watchdog_reset(void) {
         wdt_disable();
 
 // This is compled into 'icall', address should be in word unit, not byte.
-#    ifdef BOOTLOADER_SIZE
+#    if defined(BOOTLOADER_SIZE) && !defined(BOOTLOADER_MS)
         ((void (*)(void))((FLASH_SIZE - BOOTLOADER_SIZE) >> 1))();
 #    else
         asm("ijmp" ::"z"(bootloader_start));
