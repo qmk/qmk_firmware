@@ -89,6 +89,9 @@ void register_code16(uint16_t code) {
     } else {
         do_code16(code, register_weak_mods);
     }
+ #if TAP_MOD_DELAY > 0
+    wait_ms(TAP_MOD_DELAY);
+#endif
     register_code(code);
 }
 
