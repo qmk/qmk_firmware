@@ -354,11 +354,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CAPSENSE_READ_ROWS_LOCAL_VARS uint8_t dest_row_1, dest_row_2
 #define CAPSENSE_READ_ROWS_EXTRACT_FROM_ARRAY do { dest_row_1 = array[p0++]; dest_row_2 = array[p0++]; } while (0)
 
-/*
 #ifndef CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL
   #define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) (col)
 #endif
-*/
 
 #if (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS)) && (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS))
   #define CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS
