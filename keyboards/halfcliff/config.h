@@ -21,36 +21,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x0335
-#define PRODUCT_ID   0x0015
+#define PRODUCT_ID   0x0021
 #define DEVICE_VER   0x0001
 #define MANUFACTURER n2
 #define PRODUCT      halfcliff
 
 /* key matrix size */
-//#define MATRIX_ROWS 10
 #define MATRIX_ROWS 20
-//#define MATRIX_COLS 10
 #define MATRIX_COLS 5
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
 #define MATRIX_ROW_PINS { F5, F6, F7, D7, B5, F5, F6, F7, D7, B5 }
 #define MATRIX_COL_PINS { B4, E6, C6, B6, B2 }
 #define UNUSED_PINS
+
 //#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { D4 }
 #define ENCODERS_PAD_B { F4 }
 #define ENCODER_RESOLUTION 2
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.

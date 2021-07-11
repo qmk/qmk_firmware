@@ -65,6 +65,9 @@ void oled_task_user(void) {
           case _LOWER:
               oled_write_P(PSTR("LOWER\n"), false);
           break;
+          case _ADJUST:
+              oled_write_P(PSTR("ADJUST\n"), false);
+          break;
           default:
               // Or use the write_ln shortcut over adding '\n' to the end of your string
           oled_write_ln_P(PSTR("Undefined"), false);
@@ -170,9 +173,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) { /* Right side encoder */
         if (clockwise) {
-            tap_code(KC_DOWN);
+            tap_code(KC_WH_U);
         } else {
-            tap_code(KC_UP);
+            tap_code(KC_WH_D);
         }
     }
     return true;
