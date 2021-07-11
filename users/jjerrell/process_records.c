@@ -25,7 +25,6 @@ static uint16_t key_timer;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_keymap(keycode, record)) {
-        key_timer = timer_read();
         switch (keycode) {
         case KC_QWERTY:
             if (record->event.pressed) {
@@ -36,6 +35,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_WORKMAN:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_WORKMAN);
+            }
+            return false;
+            break;
+        case KC_CCCV:
+            if (record->event.pressed) {
+                key_timer = timer_read();
+            } else {
+                if (timer_elapsed(key_timer) > TAPPING_TERM) {  // Hold, copy
+                    tap_code16(C(KC_C));
+                } else {  // Tap, paste
+                    tap_code16(C(KC_V));
+                }
             }
             return false;
             break;

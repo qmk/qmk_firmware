@@ -37,7 +37,8 @@
         K01,     K02,     K03,     K04,     K05, XXXXXXX,  XXXXXXX, K08,     K09,     K0A,     K0B,     K0C,      \
         K11,     K12,     K13,     K14,     K15, XXXXXXX,  XXXXXXX, K18,     K19,     K1A,     K1B,     K1C,      \
         K21,     K22,     K23,     K24,     K25, XXXXXXX,  XXXXXXX, K28,     K29,     K2A,     K2B,     K2C,      \
-    KC_LSFT, KC_LEAD, XXXXXXX,  KC_MEH, KC_BSPC,  KC_SPC,  XXXXXXX, KC_ENT,  KC_HYPR, RGB_TOG, RGB_IDL, LED_LEVEL )
+    KC_LSFT, KC_LEAD, KC_CCCV,  KC_MEH, LT(_LOWER, KC_BSPC),  SFT_T(KC_SPC),  XXXXXXX, LT(_RAISE, KC_ENT),  KC_HYPR, RGB_TOG, RGB_IDL, LED_LEVEL )
+    
 /**
  * Shifted Key conflicts:
  * K12, K13, K14, K19, K1A, K1B, K21, K2C
@@ -50,7 +51,7 @@
                 K01 ,       K02 ,       K03 ,       K04 ,                K05 ,      XXXXXXX , XXXXXXX, K08,                 K09 ,       K0A ,       K0B ,       K0C,        \
                 K11 , SFT_T(K12), GUI_T(K13), ALT_T(K14),                K15 ,      XXXXXXX , XXXXXXX, K18,                 ALT_T(K19), GUI_T(K1A), SFT_T(K1B), K1C,        \
           CTL_T(K21),       K22 ,       K23 ,       K24 ,                K25 ,      XXXXXXX , XXXXXXX, K28,                 K29 ,       K2A ,       K2B ,       CTL_T(K2C), \
-             KC_LSFT,    KC_LEAD,    XXXXXXX,     KC_MEH, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_HYPR,    RGB_TOG,    RGB_IDL,    LED_LEVEL   )
+             KC_LSFT,    KC_LEAD,    KC_CCCV,     KC_MEH, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_HYPR,    RGB_TOG,    RGB_IDL,    LED_LEVEL   )
 
 #   define WRAPPER_planck_mods( \
         K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, \

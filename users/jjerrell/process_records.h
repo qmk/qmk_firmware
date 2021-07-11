@@ -32,6 +32,7 @@ enum userspace_keycodes {
     KC_VRSN,       // Print QMK Firmware and board info
     RGB_IDL,       // Toggle RGB Idle animations
     RGB_TGL,       // Toggle RGB Layer Indication
+    KC_CCCV,       // One key copy/paste
     NEW_SAFE_RANGE // use NEW_SAFE_RANGE for keymap specific codes
 };
 
@@ -40,11 +41,4 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 // clang-format off
 #define QWERTY  KC_QWERTY
 #define WORKMN  KC_WORKMAN
-#define ___held  _______
-
-#define KC_RST  RESET
-
-#define MO_LWR  MO(_LOWER)
-#define MO_RSE  MO(_RAISE)
-#define MO_SPL  MO(_SPECIAL)
 // clang-format on
