@@ -2,15 +2,8 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 
-
-# Reduce firmware size
-# 	https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
-# also requires in config.h
-LTO_ENABLE = yes
-
-
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes       # Mouse keys
+MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = no        # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
@@ -27,6 +20,9 @@ WPM_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+TAP_DANCE_ENABLE = yes
+
+LTO_ENABLE = yes
 
 # If you want to change the display of OLED, you need to change here
 # SRC +=  ./lib/rgb_state_reader.c
@@ -38,3 +34,8 @@ SRC +=  ./features/bongo_cat.c
         # ./lib/mode_icon_reader.c \
         # ./lib/host_led_state_reader.c \
         # ./lib/timelogger.c \
+
+# Reduce firmware size
+# 	https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
+# also requires in config.h
+# LTO_ENABLE = yes

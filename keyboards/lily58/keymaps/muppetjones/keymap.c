@@ -16,7 +16,12 @@
 
 #include QMK_KEYBOARD_H
 #include "muppetjones.h"
+#include "features/bongo_cat.h"
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
+
+#ifdef PROTOCOL_LUFA
+#    include "split_util.h"
+#endif
 
 /*
  *  qmk compile -kb lily58/rev1 -km muppetjones
@@ -25,18 +30,6 @@
 // GACS (Lower)
 #define HR_LBRC LCTL_T(KC_LBRC)
 #define HR_RBRC LSFT_T(KC_RBRC)
-
-/*
-enum layer_number {
-  _CLMK_DH = 0,
-  _QWERTY,
-  _MOUSE,
-  _LOWER,
-  _RAISE,
-  _NAV,
-  _ADJUST,
-};
-*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
@@ -56,10 +49,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_CLMK_DH] = LAYOUT_wrapper(
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    CAPSWRD,                   __BLANK____________________________________, KC_BSPC,
-    CAPSWRD, __COLEMAK_MOD_DH_L1________________________,                   __COLEMAK_MOD_DH_R1________________________, KC_BSLS,
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_CAPS,                   __BLANK____________________________________, KC_BSPC,
+    KC_CAPS, __COLEMAK_MOD_DH_L1________________________,                   __COLEMAK_MOD_DH_R1________________________, KC_BSLS,
     HY_ESC,  __COLEMAK_MOD_DH_L2_W_GACS_________________,                   __COLEMAK_MOD_DH_R2_W_SCAG_________________, KC_QUOT,
-    TD_LAYR, __COLEMAK_MOD_DH_L3________________________, CAPSWRD, KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
+    TD_LAYR, __COLEMAK_MOD_DH_L3________________________, KC_CAPS, KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
                                 KC_DEL,  HY_ESC, LOW_SPC, RAI_ENT, KC_BSPC, NAV_SPC, HY_ESC, KC_BSPC
 ),
 
@@ -168,15 +161,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format on
 };
 
-// Setting ADJUST layer RGB back to default
-// void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-//   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-//     layer_on(layer3);
-//   } else {
-//     layer_off(layer3);
-//   }
-// }
-
 // SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
 #ifdef OLED_DRIVER_ENABLE
 
@@ -186,33 +170,53 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 // When you add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
-const char *read_logo(void);
-const char *wpm_state(void);
-void        render_bongo_cat(void);
+const char *read_layer_state_user(void);
 void        set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
 
-// const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
-// void set_timelog(void);
-// const char *read_timelog(void);
+char layer_state_str[24];
+
+const char *read_layer_state_user(void) {
+    switch (get_highest_layer(layer_state)) {
+        case _CLMK_DH:
+            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Default");
+            break;
+        case _QWERTY:
+            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Qwerty");
+            break;
+        case _MOUSE:
+            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Mouse");
+            break;
+        case _LOWER:
+            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower");
+            break;
+        case _RAISE:
+            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
+            break;
+        case _NAV:
+            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Nav");
+            break;
+        case _ADJUST:
+            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
+            break;
+        default:
+            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+    }
+
+    return layer_state_str;
+}
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
         // If you want to change the display of OLED, you need to change here
-        oled_write_ln(read_layer_state(), false);
+        oled_write_ln(read_layer_state_user(), false);
         oled_write_ln(read_keylog(), false);
         oled_write_ln(read_keylogs(), false);
-        // oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-        // oled_write_ln(read_host_led_state(), false);
-        // oled_write_ln(read_timelog(), false);
     } else {
         render_bongo_cat();
         oled_set_cursor(0, 6);
         oled_write(wpm_state(), false);
-        // oled_write(read_logo(), false);
     }
 }
 #endif  // OLED_DRIVER_ENABLE

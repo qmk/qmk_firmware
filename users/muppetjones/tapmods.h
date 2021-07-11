@@ -17,6 +17,11 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
+/* Define a stand-in from dancelayers.h in case tap-dance isn't enabled */
+#ifndef TAP_DANCE_ENABLE
+#    define TD_LAYR XXXXXXX
+#endif
+
 /* Misc */
 
 #define HY_ESC HYPR_T(KC_ESC)

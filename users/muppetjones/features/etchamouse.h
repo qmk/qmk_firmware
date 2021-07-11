@@ -19,35 +19,35 @@
 #if defined(POINTING_DEVICE_ENABLE) && defined(ENCODER_ENABLE)
 
 /* max value on report descriptor */
-#        ifndef MOUSEKEY_MOVE_MAX
-#            define MOUSEKEY_MOVE_MAX 127
-#        elif MOUSEKEY_MOVE_MAX > 127
-#            error MOUSEKEY_MOVE_MAX needs to be smaller than 127
-#        endif
-#        ifndef MOUSEKEY_MOVE_DELTA
-#            define MOUSEKEY_MOVE_DELTA 25
-#        endif
-#        ifndef MOUSEKEY_INITIAL_SPEED
-#            define MOUSEKEY_INITIAL_SPEED 100
-#        endif
-#        ifndef MOUSEKEY_INTERVAL
-#            define MOUSEKEY_INTERVAL 50
-#        endif
+#    ifndef MOUSEKEY_MOVE_MAX
+#        define MOUSEKEY_MOVE_MAX 127
+#    elif MOUSEKEY_MOVE_MAX > 127
+#        error MOUSEKEY_MOVE_MAX needs to be smaller than 127
+#    endif
+#    ifndef MOUSEKEY_MOVE_DELTA
+#        define MOUSEKEY_MOVE_DELTA 25
+#    endif
+#    ifndef MOUSEKEY_INITIAL_SPEED
+#        define MOUSEKEY_INITIAL_SPEED 100
+#    endif
+#    ifndef MOUSEKEY_INTERVAL
+#        define MOUSEKEY_INTERVAL 75
+#    endif
 
 /** Amount of time (ms) before zeroing out the count.
  *  A higher value will result in smoother curves but may lower accuracy
  */
-#        ifndef TAPPING_TERM_PERSISTENCE
-#            define TAPPING_TERM_PERSISTENCE 601
-#        endif
+#    ifndef TAPPING_TERM_PERSISTENCE
+#        define TAPPING_TERM_PERSISTENCE 150
+#    endif
 
 /** Amount of time (ms) to register consecutive key presses
  *  A higher value will smooth out mouse movement and increase speed for
  *  consecutive presses.
  */
-#        ifndef TAPPING_TERM_MOUSE_ENCODER
-#            define TAPPING_TERM_MOUSE_ENCODER 200
-#        endif
+#    ifndef TAPPING_TERM_MOUSE_ENCODER
+#        define TAPPING_TERM_MOUSE_ENCODER 50
+#    endif
 
 /** @brief Update mouse position based on encoder movement.
  *  @param index The encoder index. 0 controls x-axis; 1 controls y-axis.

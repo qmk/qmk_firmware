@@ -51,17 +51,16 @@ features instead.
 #include "etchamouse.h"
 #include "pointing_device.h"
 
-#ifdef POINTING_DEVICE_ENABLE
-#    ifdef ENCODER_ENABLE
+#if defined(POINTING_DEVICE_ENABLE) && defined(ENCODER_ENABLE)
 
 /** Track movement separately in both directions. This will allow us to
  *  smooth out the movement along diagonals
  */
 typedef struct {
-    bool     clockwise;
-    uint8_t  count;
-    uint16_t timer;
-    uint16_t elapsed;
+    bool     clockwise : 1;
+    uint8_t  count : 7;
+    uint16_t timer : 16;
+    uint16_t elapsed : 16;
 } key_tracker_t;
 
 static key_tracker_t tracker_x = {false, 0, 0, 0};
@@ -132,5 +131,4 @@ bool encoder_update_mouse(uint8_t index, bool clockwise) {
     return true;
 }
 
-#    endif
 #endif

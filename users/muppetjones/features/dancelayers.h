@@ -38,6 +38,7 @@ typedef enum {
 enum {
     TD_LAYERS = 0,  // NOTE: Start at 0 as this is also an array index
 };
+#    define TD_LAYR TD(TD_LAYERS)
 
 typedef struct {
     bool       is_press_action;

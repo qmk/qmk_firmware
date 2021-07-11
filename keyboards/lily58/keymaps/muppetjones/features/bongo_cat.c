@@ -8,7 +8,6 @@ Source:
 */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
 #ifdef OLED_DRIVER_ENABLE
 
@@ -93,16 +92,13 @@ static const char PROGMEM ANIM_TAP[TAP_FRAMES][ANIM_SIZE] = {
 /* Functions */
 
 const char *wpm_state(void) {
-    sprintf(wpm_str, "WPM: %03d", get_current_wpm());
-    return wpm_str;
-    //
-    // uint8_t n           = get_current_wpm();
-    // char *  wpm_counter = "WPM:    ";
-    // // wpm_counter[7] = '\0';
-    // wpm_counter[7] = '0' + n % 10;
-    // wpm_counter[6] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    // wpm_counter[5] = n / 10 ? '0' + n / 10 : ' ';
-    // return wpm_counter;
+    uint8_t n = get_current_wpm();
+    // index:            01234567
+    char *wpm_counter = "WPM:    ";
+    wpm_counter[7]    = '0' + n % 10;
+    wpm_counter[6]    = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[5]    = n / 10 ? '0' + n / 10 : ' ';
+    return wpm_counter;
 }
 
 void animation_phase(uint8_t wpm) {

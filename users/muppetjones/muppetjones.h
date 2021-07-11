@@ -27,9 +27,6 @@
 
 #ifdef TAP_DANCE_ENABLE
 #    include "features/dancelayers.h"
-#    define TD_LAYR TD(TD_LAYERS)
-#else
-#    define TD_LAYR XXXXXXX
 #endif
 
 /* Define layer names */
