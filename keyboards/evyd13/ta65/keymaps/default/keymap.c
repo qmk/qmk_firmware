@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
   switch(get_highest_layer(layer_state)){
     case 1: //Layer 1
       if (!clockwise) { // Remove ! to reverse direction
@@ -35,5 +35,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       }
       break;
   }
-    return true;
 }

@@ -46,7 +46,11 @@ extern midi_config_t midi_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             FN_MUTE,          MI_SUS,                            KC_VOLD, KC_VOLU,                                                                                                               \
+=======
+            FN_MUTE,          _______,                                                                                                                                                           \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             MI_BENDU,                                                                                                                                                                            \
         SHIFTDN, SHIFTUP,    MI_C_1, MI_D_1, MI_E_1,  MI_Fs_1, MI_Ab_1, MI_Bb_1, MI_C_2, MI_D_2, MI_E_2, MI_Fs_2, MI_Ab_2, MI_Bb_2, MI_C_3,  MI_D_3,  MI_E_3, MI_Fs_3, MI_Ab_3, MI_Bb_3, MI_C_4, \
             MI_BENDD,           MI_Db_1, MI_Eb_1, MI_F_1,  MI_G_1,  MI_A_1,  MI_B_1, MI_Db_2, MI_Eb_2, MI_F_2,  MI_G_2, MI_A_2,  MI_B_2, MI_Db_3, MI_Eb_3, MI_F_3,  MI_G_3,  MI_A_3,  MI_B_3     \
@@ -55,7 +59,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Trans   This layer must locate 1 layer above _BASE layer. */
     [_TRANS] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             _______,          _______,                             _______, _______,                                                                                                                     \
+=======
+            _______,          _______,                                                                                                                                                                   \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             _______,                                                                                                                                                                                     \
         MI_TRNSD, MI_TRNSU,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
             _______,               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______      \
@@ -63,14 +71,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Shift   This layer must locate 1 layer above _BASE layer. */
     [_RESERVE] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             _______,          _______,                             _______, _______,                                                                                                                     \
+=======
+            _______,          _______,                                                                                                                                                                   \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             XXXXXXX,                                                                                                                                                                                     \
         XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   \
             XXXXXXX,               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX      \
     ),
 
     [_FN] =  LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             _______,          _______,                             XXXXXXX, XXXXXXX,                                                                                                                        \
+=======
+            _______,          _______,                                                                                                                                                                      \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             MI_VELU,                                                                                                                                                                                        \
         MI_OCTD, MI_OCTU,   L_BASE, DF(_RESERVE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  \
             MI_VELD,               L_TRANS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SAD, RGB_HUD, RGB_SPD, RGB_VAD, RGB_RMOD, TGLINDI        \
@@ -118,3 +134,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+<<<<<<< HEAD
+=======
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    return true;
+}
+#endif  // ENCODER_ENABLE
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba

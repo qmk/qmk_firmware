@@ -144,11 +144,13 @@ bool led_update_kb(led_t led_state) {
     return res;
 }
 
-__attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return encoder_update_keymap(index, clockwise); }
+__attribute__ ((weak))
+bool encoder_update_keymap(int8_t index, bool clockwise) {
+    return false;
+}
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
+void encoder_update_kb(int8_t index, bool clockwise) {
+    if (!encoder_update_keymap(index, clockwise)) {
         // Encoder 1, outside left
         if (index == 0 && clockwise) {
             tap_code(KC_MS_U);  // turned right
@@ -177,5 +179,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
             tap_code(KC_MS_L);   // turned left
         }
     }
-    return true;
 }

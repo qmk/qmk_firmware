@@ -1,4 +1,5 @@
 RGBLIGHT_STARTUP_ANIMATION   = yes
+HAPTIC_ENABLE                = SOLENOID
 COMMAND_ENABLE               = no
 AUDIO_ENABLE                 = yes
 TAP_DANCE_ENABLE             = yes

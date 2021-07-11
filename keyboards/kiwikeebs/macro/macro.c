@@ -16,8 +16,7 @@
 
 #include "macro.h"
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
+void encoder_update_kb(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_AUDIO_VOL_UP);
@@ -25,5 +24,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
             tap_code(KC_AUDIO_VOL_DOWN);
         }
     }
-    return true;
 }

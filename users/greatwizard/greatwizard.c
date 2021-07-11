@@ -70,7 +70,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
 #ifdef LAYERS_PROGRAMMER
@@ -90,7 +90,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
             break;
     }
-    return true;
 }
 #endif
 

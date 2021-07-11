@@ -18,9 +18,7 @@
 
 #include <ch.h>
 #include <hal.h>
-#include <stdbool.h>
-
-#include "gpio.h"
+#include "quantum.h"
 
 #ifndef SPI_DRIVER
 #    define SPI_DRIVER SPID2

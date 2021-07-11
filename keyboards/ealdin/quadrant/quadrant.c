@@ -17,8 +17,7 @@
 
 
 // Rotary encoder functions:
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
+__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
   uint16_t mapped_code = 0;
   if (index == 0) {
     if (clockwise) {
@@ -50,7 +49,6 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     tap_code(mapped_code);
   }
-    return true;
 }
 
 void keyboard_pre_init_kb(void) {
@@ -65,3 +63,4 @@ bool led_update_kb(led_t led_state) {
     }
     return true;
 }
+

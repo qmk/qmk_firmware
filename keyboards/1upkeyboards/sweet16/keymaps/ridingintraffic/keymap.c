@@ -91,21 +91,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
-            case CLOUD:
+            case CLOUD:       // (っ◕‿◕)っ
                 if(record->event.pressed){
-                    send_unicode_string("(っ◕‿◕)っ");
+                    send_unicode_hex_string("0028 3063 25D5 203F 25D5 0029 3063");
                 }
                 return false;
                 break;
-            case FU:
+            case FU:       // t(-_-t)
                 if(record->event.pressed){
                     SEND_STRING("t(-_-t)");
                 }
                 return false;
                 break;  
-            case HAPPYFACE:
+            case HAPPYFACE:       // ʘ‿ʘ 
                 if(record->event.pressed){
-                     send_unicode_string("ʘ‿ʘ");
+                     send_unicode_hex_string("0298 203F 0298");
                 }
                 return false;
                 break; 
@@ -118,33 +118,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;  
-            case SHRUG:
+            case SHRUG: // ¯\_(ツ)_/¯
                 if (record->event.pressed) {
-                    send_unicode_string("¯\\_(ツ)_/¯");
+                    send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
                 }
                 return false; 
                 break;
-            case HEARTFACE:
+            case HEARTFACE:       // ♥‿♥
                 if(record->event.pressed){
-                    send_unicode_string("♥‿♥");
+                    send_unicode_hex_string("2665 203F 2665");
                 }
                 return false;
                 break;  
-            case DISFACE:
+            case DISFACE:       // ಠ_ಠ 
                 if(record->event.pressed){
-                    send_unicode_string("ಠ_ಠ");
+                    send_unicode_hex_string("0CA0 005F 0CA0");
                 }
                 return false;
                 break;
-            case TFLIP:
+            case TFLIP:         // (╯°□°)╯ ︵ ┻━┻ 
                 if(record->event.pressed){
-                    send_unicode_string("(╯°□°)╯ ︵ ┻━┻");
+                    send_unicode_hex_string("0028 256F 00B0 25A1 00B0 0029 256F 0020 FE35 0020 253B 2501 253B");
                 }
                 return false;
                 break;
-            case TFLIP2:
+            case TFLIP2:         // ┻━┻︵ \(°□°)/ ︵ ┻━┻  
                 if(record->event.pressed){
-                    send_unicode_string("┻━┻︵ \\(°□°)/ ︵ ┻━┻");
+                    send_unicode_hex_string("253B 2501 253B FE35 0020 005C 0028 00B0 25A1 00B0 0029 002F 0020 FE35 0020 253B 2501 253B");
                 }
                 return false;
                 break;

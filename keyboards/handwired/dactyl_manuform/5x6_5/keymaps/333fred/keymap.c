@@ -561,7 +561,7 @@ void oled_task_user(void) {
     }
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     // On the left, control the volume. On the right, scroll the page
     if (index == 0) {
         if (clockwise) {
@@ -576,5 +576,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
-    return true;
 }

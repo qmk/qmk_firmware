@@ -8,6 +8,13 @@
 .clang_complete
 .build/
 *.elf
+<<<<<<< HEAD
+=======
+*.hex
+*.qmk
+!util/bootloader.hex
+!quantum/tools/eeprom_reset.hex
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
 *.log
 *.lss
 *.lst

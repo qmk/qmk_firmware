@@ -11,6 +11,8 @@ extern rgblight_config_t rgblight_config;
 static uint32_t oled_timer = 0;
 #endif
 
+extern uint8_t is_master;
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -36,7 +38,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_split_3x6_3(
+  [_QWERTY] = LAYOUT(
   //,-----------------------------------------.                ,---------------------------------------------.
      KC_TAB,  KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,                   KC_Y,  KC_U,  KC_I,  KC_O,  KC_P,  KC_BSPC,
   //|------+------+------+------+------+------|                |------+------+-------+------+-------+--------|
@@ -48,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
   ),
 
-  [_LOWER] = LAYOUT_split_3x6_3(
+  [_LOWER] = LAYOUT(
   //,---------------------------------------------.                ,-----------------------------------------.
      KC_ESC,  KC_1, KC_2,   KC_3,   KC_4,   KC_5,                    KC_6,  KC_7,  KC_8,  KC_9,  KC_0, KC_DEL,
   //|------+------+-------+-------+-------+-------|                |------+------+------+------+------+------|
@@ -60,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   //`--------------------'  `--------------------'
   ),
 
-  [_RAISE] = LAYOUT_split_3x6_3(
+  [_RAISE] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
      KC_ESC,KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,              KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_BSPC,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -72,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
   ),
 
-  [_ADJUST] = LAYOUT_split_3x6_3(
+  [_ADJUST] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
       RESET,RGBRST, KC_NO, KC_NO, KC_NO, KC_NO,                  KC_NO,KC__MUTE, KC_NO, KC_NO, KC_NO, KC_NO,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -296,10 +298,6 @@ void render_status_secondary(void) {
     render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
 }
 
-void suspend_power_down_user() {
-    oled_off();
-}
-
 void oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 30000) {
         oled_off();
@@ -309,7 +307,7 @@ void oled_task_user(void) {
     else { oled_on(); }
 #endif
 
-    if (is_keyboard_master()) {
+    if (is_master) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();

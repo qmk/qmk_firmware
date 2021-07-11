@@ -13,9 +13,6 @@
 #ifdef KEYBOARD_kinesis_nguyenvietyen
 	#include "nguyenvietyen.h"
 #endif
-#ifdef KEYBOARD_kinesis_kint36
-	#include "kint36.h"
-#endif
 
 #include "quantum.h"
 

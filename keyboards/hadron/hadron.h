@@ -1,17 +1,16 @@
 #ifndef HADRON_H
 #define HADRON_H
 
-#include "quantum.h"
-
-#ifdef KEYBOARD_hadron_ver0
+#ifdef SUBPROJECT_ver0
     #include "ver0.h"
 #endif
-#ifdef KEYBOARD_hadron_ver2
+#ifdef SUBPROJECT_ver2
     #include "ver2.h"
 #endif
-#ifdef KEYBOARD_hadron_ver3
+#ifdef SUBPROJECT_ver3
     #include "ver3.h"
 #endif
+#include "quantum.h"
 
 
 #define LAYOUT( \

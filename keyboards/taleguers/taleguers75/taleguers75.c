@@ -17,12 +17,10 @@
 #include "taleguers75.h"
 
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
+__attribute__ ((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 	if (!clockwise) {
 		tap_code(KC_AUDIO_VOL_DOWN);
 	} else {
 		tap_code(KC_AUDIO_VOL_UP);
 	}
-    return true;
 }

@@ -154,6 +154,7 @@ uint8_t shift_led_indicator_right(uint8_t scale_indicator_col){
     }
     return scale_indicator_col;
 }
+<<<<<<< HEAD
 
 
 #ifdef ENCODER_ENABLE
@@ -189,3 +190,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 #endif  // ENCODER_ENABLE
+=======
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba

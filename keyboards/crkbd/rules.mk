@@ -24,6 +24,7 @@ RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 
 # if firmware size over limit, try this option
+<<<<<<< HEAD
 # LTO_ENABLE = yes
 
 DEFAULT_FOLDER = crkbd/rev1
@@ -32,3 +33,9 @@ RGBLIGHT_SUPPORTED = yes
 RGB_MATRIX_SUPPORTED = yes
 
 LAYOUTS = split_3x5_3 split_3x6_3
+=======
+# CFLAGS += -flto
+LAYOUTS = split_3x5_3 split_3x6_3
+
+DEFAULT_FOLDER = crkbd/rev1/legacy
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba

@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
    switch(get_highest_layer(layer_state)){
 case _BASE:
     if (clockwise) {
@@ -80,7 +80,6 @@ case _DEL:
     }
    break;
 }
-    return true;
 }
 
 #ifdef OLED_DRIVER_ENABLE

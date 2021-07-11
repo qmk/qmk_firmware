@@ -1,14 +1,14 @@
-# LED Matrix Lighting :id=led-matrix-lighting
+# LED Matrix Lighting
 
 This feature allows you to use LED matrices driven by external drivers. It hooks into the backlight system so you can use the same keycodes as backlighting to control it.
 
 If you want to use RGB LED's you should use the [RGB Matrix Subsystem](feature_rgb_matrix.md) instead.
 
-## Driver configuration :id=driver-configuration
----
-### IS31FL3731 :id=is31fl3731
+## Driver configuration
 
-There is basic support for addressable LED matrix lighting with the I2C IS31FL3731 LED controller. To enable it, add this to your `rules.mk`:
+### IS31FL3731
+
+There is basic support for addressable LED matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
 ```make
 LED_MATRIX_ENABLE = yes
@@ -19,7 +19,7 @@ You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
 | `LED_DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
 | `DRIVER_LED_TOTAL` | (Required) How many LED lights are present across all drivers | |
@@ -42,29 +42,30 @@ Here is an example using 2 drivers.
 #define LED_DRIVER_ADDR_2 0b1110110
 
 #define LED_DRIVER_COUNT 2
-#define LED_DRIVER_1_LED_TOTAL 25
-#define LED_DRIVER_2_LED_TOTAL 24
-#define DRIVER_LED_TOTAL (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)
+#define LED_DRIVER_1_LED_COUNT 25
+#define LED_DRIVER_2_LED_COUNT 24
+#define DRIVER_LED_TOTAL LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL
 ```
 
-!> Note the parentheses, this is so when `LED_DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)` will give very different results than `rand() % LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL`.
+Currently only 2 drivers are supported, but it would be trivial to support all 4 combinations.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
-/* Refer to IS31 manual for these locations
- *    driver
- *    |  LED address
- *    |  | */
-    { 0, C1_1  },
-    { 0, C1_15 },
-    // ...
-}
+    const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+    /* Refer to IS31 manual for these locations
+     *    driver
+     *    |  LED address
+     *    |  | */
+        { 0, C1_1  },
+        { 0, C1_15 },
+       // ...
+    }
 ```
 
 Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731-simple.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
 
+<<<<<<< HEAD
 ---
 
 ## Common Configuration :id=common-configuration
@@ -298,82 +299,38 @@ Where `28` is an unused index from `eeconfig.h`.
 |`led_matrix_enable_noeeprom()`              |Turn effect range LEDs on, based on their previous state (not written to EEPROM) |
 |`led_matrix_disable()`                      |Turn effect range LEDs off, based on their previous state |
 |`led_matrix_disable_noeeprom()`             |Turn effect range LEDs off, based on their previous state (not written to EEPROM) |
+=======
+## Keycodes
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
 
-### Change Effect Mode :id=change-effect-mode
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`led_matrix_mode(mode)`                     |Set the mode, if LED animations are enabled |
-|`led_matrix_mode_noeeprom(mode)`            |Set the mode, if LED animations are enabled (not written to EEPROM) |
-|`led_matrix_step()`                         |Change the mode to the next LED animation in the list of enabled LED animations |
-|`led_matrix_step_noeeprom()`                |Change the mode to the next LED animation in the list of enabled LED animations (not written to EEPROM) |
-|`led_matrix_step_reverse()`                 |Change the mode to the previous LED animation in the list of enabled LED animations |
-|`led_matrix_step_reverse_noeeprom()`        |Change the mode to the previous LED animation in the list of enabled LED animations (not written to EEPROM) |
-|`led_matrix_increase_speed()`               |Increase the speed of the animations |
-|`led_matrix_increase_speed_noeeprom()`      |Increase the speed of the animations (not written to EEPROM) |
-|`led_matrix_decrease_speed()`               |Decrease the speed of the animations |
-|`led_matrix_decrease_speed_noeeprom()`      |Decrease the speed of the animations (not written to EEPROM) |
-|`led_matrix_set_speed(speed)`               |Set the speed of the animations to the given value where `speed` is between 0 and 255 |
-|`led_matrix_set_speed_noeeprom(speed)`      |Set the speed of the animations to the given value where `speed` is between 0 and 255 (not written to EEPROM) |
+All LED matrix keycodes are currently shared with the [backlight system](feature_backlight.md).
 
-### Change Value :id=change-value
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`led_matrix_increase_val()`                 |Increase the value for effect range LEDs. This wraps around at maximum value |
-|`led_matrix_increase_val_noeeprom()`        |Increase the value for effect range LEDs. This wraps around at maximum value (not written to EEPROM) |
-|`led_matrix_decrease_val()`                 |Decrease the value for effect range LEDs. This wraps around at minimum value |
-|`led_matrix_decrease_val_noeeprom()`        |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
+## LED Matrix Effects
 
-### Query Current Status :id=query-current-status
-|Function                         |Description                |
-|---------------------------------|---------------------------|
-|`led_matrix_is_enabled()`        |Gets current on/off status |
-|`led_matrix_get_mode()`          |Gets current mode          |
-|`led_matrix_get_val()`           |Gets current val           |
-|`led_matrix_get_speed()`         |Gets current speed         |
-|`led_matrix_get_suspend_state()` |Gets current suspend state |
+Currently no LED matrix effects have been created.
 
-## Callbacks :id=callbacks
+## Custom Layer Effects
 
-### Indicators :id=indicators
+Custom layer effects can be done by defining this in your `<keyboard>.c`:
 
-If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `led_matrix_indicators_kb` or `led_matrix_indicators_user` function for that: 
 ```c
 void led_matrix_indicators_kb(void) {
-    led_matrix_set_color(index, value);
+    led_matrix_set_index_value(index, value);
 }
 ```
 
-In addition, there are the advanced indicator functions.  These are aimed at those with heavily customized displays, where rendering every LED per cycle is expensive.  This includes a special macro to help make this easier to use: `LED_MATRIX_INDICATOR_SET_VALUE(i, v)`.
+A similar function works in the keymap as `led_matrix_indicators_user`.
 
-```c
-void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    LED_MATRIX_INDICATOR_SET_VALUE(index, value);
-}
-```
+## Suspended State
 
-## Suspended State :id=suspended-state
-To use the suspend feature, make sure that `#define LED_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
-
-Additionally add this to your `<keyboard>.c`:
+To use the suspend feature, add this to your `<keyboard>.c`:
 
 ```c
 void suspend_power_down_kb(void) {
     led_matrix_set_suspend_state(true);
-    suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
-    led_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-```
-or add this to your `keymap.c`:
-```c
-void suspend_power_down_user(void) {
-    led_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_user(void) {
     led_matrix_set_suspend_state(false);
 }
 ```

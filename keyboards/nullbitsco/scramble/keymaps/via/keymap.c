@@ -52,11 +52,10 @@ void matrix_init_user(void) {
     set_scramble_LED(LED_OFF);
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
     } else {
         tap_code(KC_VOLD);
-    }
-    return true;
+    }   
 }

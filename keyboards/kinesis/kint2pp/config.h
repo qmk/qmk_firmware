@@ -40,7 +40,3 @@
 #define DEBOUNCE 20
 
 #define IGNORE_MOD_TAP_INTERRUPT
-
-// Reduce input latency by lowering the USB polling interval
-// from its 10ms default to the 1ms minimum that USB 1.x (Full Speed) allows:
-#define USB_POLLING_INTERVAL_MS 1

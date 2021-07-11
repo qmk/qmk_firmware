@@ -1,0 +1,1 @@
+# The default keymap for s60-x

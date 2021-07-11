@@ -58,12 +58,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
       case KC_A:
         if (record->event.pressed) {
-          send_unicode_string("Λ ");
+          send_unicode_hex_string("039B");
+          tap_code(KC_SPC);
         }
         return false;
       case KC_E:
         if (record->event.pressed) {
-          send_unicode_string("Ξ ");
+          send_unicode_hex_string("039E");
+          tap_code(KC_SPC);
         }
         return false;
 #else
@@ -173,154 +175,154 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // TRANSLATE
       case KC_A:
         if (record->event.pressed) {
-          register_unicode(0x0250); // ɐ
+          send_unicode_hex_string("0250");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_C:
         if (record->event.pressed) {
-          register_unicode(0x0254); // ɔ
+          send_unicode_hex_string("0254");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_E:
         if (record->event.pressed) {
-          register_unicode(0x01DD); // ǝ
+          send_unicode_hex_string("01DD");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_F:
         if (record->event.pressed) {
-          register_unicode(0x025F); // ɟ
+          send_unicode_hex_string("025F");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_G:
         if (record->event.pressed) {
-          register_unicode(0x0183); // ƃ
+          send_unicode_hex_string("0183");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_H:
         if (record->event.pressed) {
-          register_unicode(0x0265); // ɥ
+          send_unicode_hex_string("0265");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_I:
         if (record->event.pressed) {
-          register_unicode(0x1D09); // ᴉ
+          send_unicode_hex_string("1D09");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_J:
         if (record->event.pressed) {
-          register_unicode(0x027E); // ɾ
+          send_unicode_hex_string("027E");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_K:
         if (record->event.pressed) {
-          register_unicode(0x029E); // ʞ
+          send_unicode_hex_string("029E");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_M:
         if (record->event.pressed) {
-          register_unicode(0x026F); // ɯ
+          send_unicode_hex_string("026F");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_R:
         if (record->event.pressed) {
-          register_unicode(0x0279); // ɹ
+          send_unicode_hex_string("0279");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_T:
         if (record->event.pressed) {
-          register_unicode(0x0287); // ʇ
+          send_unicode_hex_string("0287");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_V:
         if (record->event.pressed) {
-          register_unicode(0x028C); // ʌ
+          send_unicode_hex_string("028C");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_W:
         if (record->event.pressed) {
-          register_unicode(0x028D); // ʍ
+          send_unicode_hex_string("028D");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_X:
         if (record->event.pressed) {
-          register_unicode(0x2717); // ✗
+          send_unicode_hex_string("2717");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_Y:
         if (record->event.pressed) {
-          register_unicode(0x028E); // ʎ
+          send_unicode_hex_string("028E");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_1:
         if (record->event.pressed) {
-          register_unicode(0x0269); // ɩ
+          send_unicode_hex_string("0269");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_2:
         if (record->event.pressed) {
-          register_unicode(0x3139); // ㄹ
+          send_unicode_hex_string("3139");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_3:
         if (record->event.pressed) {
-          register_unicode(0x0190); // Ɛ
+          send_unicode_hex_string("0190");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_4:
         if (record->event.pressed) {
-          register_unicode(0x3123); // ㄣ
+          send_unicode_hex_string("3123");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_5:
         if (record->event.pressed) {
-          register_unicode(0x03DB); // ϛ
+          send_unicode_hex_string("03DB");
           tap_code(KC_LEFT);
           return false;
         }
         break;
       case KC_7:
         if (record->event.pressed) {
-          register_unicode(0x3125); // ㄥ
+          send_unicode_hex_string("3125");
           tap_code(KC_LEFT);
         }
         return false;
@@ -399,7 +401,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         user_mod_state = get_mods() & MOD_MASK_ALT;
         if (user_mod_state) {
           unregister_mods(MOD_BIT(KC_RALT));
-          register_unicode(0x00B0); // °
+          send_unicode_hex_string("00B0");
           set_mods(user_mod_state);
           return false;
         }
@@ -472,7 +474,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed && record->event.key.col == 4 && record->event.key.row == 1) {
         if (get_mods() & MOD_BIT(KC_RALT)) {
           unregister_mods(MOD_BIT(KC_RALT));
-          //register_unicode(0x262D); // ☭
+          //send_unicode_hex_string("262D");
 	  tap_code(KC_BSPC);
           set_mods(MOD_BIT(KC_RALT));
           return false;

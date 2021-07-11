@@ -237,7 +237,7 @@ void rgb_matrix_indicators_user(void) {
 void matrix_init_keymap(void) {}
 
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update(bool clockwise) {
     switch (get_highest_layer(layer_state)) {
         case _RAISE:
             clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
@@ -260,7 +260,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #    ifdef AUDIO_CLICKY
     clicky_play();
 #    endif
-    return true;
 }
 #endif  // ENCODER_ENABLE
 

@@ -21,8 +21,7 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-//    if (!encoder_update_user(index, clockwise)) return false;
+void encoder_update_kb(uint8_t index, bool clockwise) {
     encoder_action_register(index, clockwise);
-    return true;
+    // encoder_update_user(index, clockwise);
 };

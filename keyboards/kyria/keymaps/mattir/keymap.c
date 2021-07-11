@@ -204,7 +204,7 @@ void oled_task_user(void) {
 
 // Layer-specific encoder knob functions
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { // left knob
     switch (get_highest_layer(layer_state)) {
       case QWERTY: // Volume
@@ -287,6 +287,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         break;
     }
   }
-    return true;
 }
 #endif

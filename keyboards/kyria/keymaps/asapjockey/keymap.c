@@ -29,7 +29,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
+/* 
  * Base Layer: QWERTY
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
@@ -256,7 +256,7 @@ void oled_task_user(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
             case QWERTY:
@@ -308,6 +308,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     }
-    return true;
 }
 #endif

@@ -212,7 +212,11 @@ static uint8_t key_separator_col = _KEY01;  //  (_KEY01 .. _KEY37).     By defau
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             FN_MUTE,         MI_SUS,                             KC_VOLD, KC_VOLU,                                                                                                               \
+=======
+            FN_MUTE,         MI_SUS,                                                                                                                                                             \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             MI_BENDU,                                                                                                                                                                            \
         SHIFT_L, SHIFT_R,    MI_C_2, MI_D_2, MI_E_2,  MI_Fs_2, MI_Ab_2, MI_Bb_2, MI_C_3, MI_D_3, MI_E_3, MI_Fs_3, MI_Ab_3, MI_Bb_3, MI_C_4,  MI_D_4,  MI_E_4, MI_Fs_4, MI_Ab_4, MI_Bb_4, MI_C_5, \
             MI_BENDD,           MI_Db_2, MI_Eb_2, MI_F_2,  MI_G_2,  MI_A_2,  MI_B_2, MI_Db_3, MI_Eb_3, MI_F_3,  MI_G_3, MI_A_3,  MI_B_3, MI_Db_4, MI_Eb_4, MI_F_4,  MI_G_4,  MI_A_4,  MI_B_4     \
@@ -220,7 +224,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* 1 octave on the left side is ch2, others are ch1 (normal) */
     [_SEPALEFTOCT] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             _______,          _______,                             _______, _______,                                                                                                                  \
+=======
+            _______,          _______,                                                                                                                                                                \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             _______,                                                                                                                                                                                  \
         SHIFT_L, SHIFT_R,     YM_C_2, YM_D_2, YM_E_2,  YM_Fs_2, YM_Ab_2, YM_Bb_2,     MI_C_3, MI_D_3, MI_E_3, MI_Fs_3, MI_Ab_3, MI_Bb_3, MI_C_4,  MI_D_4,  MI_E_4, MI_Fs_4, MI_Ab_4, MI_Bb_4, MI_C_5, \
             _______,             YM_Db_2, YM_Eb_2, YM_F_2,  YM_G_2,  YM_A_2,  YM_B_2,     MI_Db_3, MI_Eb_3, MI_F_3,  MI_G_3, MI_A_3,  MI_B_3, MI_Db_4, MI_Eb_4, MI_F_4,  MI_G_4,  MI_A_4,  MI_B_4     \
@@ -228,7 +236,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Half ch2, half ch1 (normal) */
     [_SEPAHALF] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             _______,           _______,                             _______, _______,                                                                                                                    \
+=======
+            _______,           _______,                                                                                                                                                                  \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             _______,                                                                                                                                                                                     \
         SHIFT_L, SHIFT_R,      YM_C_2, YM_D_2, YM_E_2,  YM_Fs_2, YM_Ab_2, YM_Bb_2, YM_C_3, YM_D_3, YM_E_3,       MI_Fs_3, MI_Ab_3, MI_Bb_3, MI_C_4,  MI_D_4,  MI_E_4, MI_Fs_4, MI_Ab_4, MI_Bb_4, MI_C_5, \
             _______,               YM_Db_2, YM_Eb_2, YM_F_2,  YM_G_2,  YM_A_2,  YM_B_2, YM_Db_3, YM_Eb_3, YM_F_3,    MI_G_3, MI_A_3,  MI_B_3, MI_Db_4, MI_Eb_4, MI_F_4,  MI_G_4,  MI_A_4,  MI_B_4        \
@@ -236,7 +248,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* 2 octave on the left side is ch2, others are ch1 (normal) */
     [_SEPARIGHTOCT] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             _______,           _______,                             _______, _______,                                                                                                                   \
+=======
+            _______,           _______,                                                                                                                                                                 \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             _______,                                                                                                                                                                                    \
         SHIFT_L, SHIFT_R,      YM_C_2, YM_D_2, YM_E_2,  YM_Fs_2, YM_Ab_2, YM_Bb_2, YM_C_3, YM_D_3, YM_E_3, YM_Fs_3, YM_Ab_3, YM_Bb_3,      MI_C_4,  MI_D_4,  MI_E_4, MI_Fs_4, MI_Ab_4, MI_Bb_4, MI_C_5, \
             _______,               YM_Db_2, YM_Eb_2, YM_F_2,  YM_G_2,  YM_A_2,  YM_B_2, YM_Db_3, YM_Eb_3, YM_F_3,  YM_G_3, YM_A_3,  YM_B_3,     MI_Db_4, MI_Eb_4, MI_F_4,  MI_G_4,  MI_A_4,  MI_B_4     \
@@ -244,7 +260,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* TRANS   This layer must locate 1 layer below _FN layer. */
     [_TRANS] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             _______,           _______,                             _______, _______,                                                                                                                    \
+=======
+            _______,           _______,                                                                                                                                                                  \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             _______,                                                                                                                                                                                     \
         MI_TRNSD, MI_TRNSU,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
             _______,               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______      \
@@ -252,7 +272,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Flip Base    SFIFTUP and SHIFT_L are swapped. */
     [_FLIPBASE] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             FN_MUTE,          MI_SUS,                             KC_VOLD, KC_VOLU,                                                                                                               \
+=======
+            FN_MUTE,          _______,                                                                                                                                                            \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             MI_BENDU,                                                                                                                                                                             \
         SHIFT_L, SHIFT_R,     MI_C_5, MI_Bb_4, MI_Ab_4,  MI_Fs_4, MI_E_4, MI_D_4, MI_C_4, MI_Bb_3, MI_Ab_3, MI_Fs_3, MI_E_3, MI_D_3, MI_C_3,  MI_Bb_2,  MI_Ab_2, MI_Fs_2, MI_E_2, MI_D_2, MI_C_2, \
             MI_BENDD,           MI_B_4, MI_A_4, MI_G_4,  MI_F_4,  MI_Eb_4,  MI_Db_4, MI_B_3, MI_A_3, MI_G_3,  MI_F_3, MI_Eb_3,  MI_Db_3, MI_B_2, MI_A_2, MI_G_2,  MI_F_2,  MI_Eb_2,  MI_Db_2      \
@@ -260,14 +284,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Flip Trans   This layer must locate 1 layer above _FLIPBASE layer.  MI_TRNSU and MI_TRNSD are swapped. */
     [_FLIPTRANS] = LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             _______,          _______,                             _______, _______,                                                                                                                     \
+=======
+            _______,          _______,                                                                                                                                                                   \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             _______,                                                                                                                                                                                     \
         MI_TRNSU, MI_TRNSD,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
             _______,               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______      \
     ),
 
     [_FN] =  LAYOUT_with_sustain_pedal( \
+<<<<<<< HEAD
             _______,          _______,                             XXXXXXX, XXXXXXX,                                                                                                                     \
+=======
+            _______,          _______,                                                                                                                                                                   \
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
             MI_VELU,                                                                                                                                                                                     \
         MI_OCTD, MI_OCTU,     B_BASE,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_LEFT, XXXXXXX, XXXXXXX, B_CENTER, XXXXXXX, XXXXXXX, B_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_FLIP,  \
             MI_VELD,               TGLINTR, TGLTRNS, TGLCHGR, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, RGB_RMOD, RGB_MOD, EEP_RST, TGLINDI, RGB_TOG     \
@@ -671,3 +703,25 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 #endif
+<<<<<<< HEAD
+=======
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+// #if CONSOLE_ENABLE
+//             uprintf("scale_indicator_col=%u, layer =%u, is_trans_mode =%u, is_flip_mode = %u, default_layer_state = %u\n", scale_indicator_col, layer_state, is_trans_mode, is_flip_mode, default_layer_state);
+// #endif
+            tap_code(KC_VOLU);
+        } else {
+#if CONSOLE_ENABLE
+            uprintf("scale_indicator_col=%u, layer =%u, is_trans_mode =%u, default_layer_state = %u\n", scale_indicator_col, layer_state, is_trans_mode, default_layer_state);
+#endif
+            tap_code(KC_VOLD);
+        }
+    }
+    return true;
+}
+#endif  // ENCODER_ENABLE
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba

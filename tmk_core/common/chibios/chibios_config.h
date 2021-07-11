@@ -15,10 +15,13 @@
  */
 #pragma once
 
+<<<<<<< HEAD
 #ifndef USB_VBUS_PIN
 #    define SPLIT_USB_DETECT  // Force this on when dedicated pin is not used
 #endif
 
+=======
+>>>>>>> 382a8faad674a6b9a7b8966c4452eabafbf84eba
 #if defined(STM32F1XX)
 #    define USE_GPIOV1
 #endif
@@ -32,9 +35,4 @@
 #    define USE_I2CV1
 #    define USE_I2CV1_CONTRIB  // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
 #    define USE_GPIOV1
-#    define STM32_SYSCLK KINETIS_SYSCLK_FREQUENCY
-#endif
-
-#if defined(MK66F18)
-#    define STM32_SYSCLK KINETIS_SYSCLK_FREQUENCY
 #endif

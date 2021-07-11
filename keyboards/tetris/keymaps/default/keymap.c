@@ -149,7 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
   return (true);
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
   RGB_encoder_timer = timer_read();
   RGB_encoder_timer2 = timer_read();
   uint8_t layer = biton32(layer_state);
@@ -183,5 +183,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       }));
     }
   }
-    return true;
 }

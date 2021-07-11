@@ -9,8 +9,6 @@
   #include "ez.h"
 #elif defined(KEYBOARD_planck_light)
   #include "light.h"
-#elif defined(KEYBOARD_planck_thk)
-  #include "thk.h"
 #elif defined(KEYBOARD_planck_rev1)
   #include "rev1.h"
 #elif defined(KEYBOARD_planck_rev2)
