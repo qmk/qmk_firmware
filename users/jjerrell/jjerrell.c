@@ -35,7 +35,7 @@ __attribute__((weak)) void leader_scan_secrets(void) {}
             }
 
             SEQ_TWO_KEYS(KC_B, KC_D) {
-                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE), TAPPING_TERM);
+                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE), TAP_CODE_DELAY);
             }
 
             #ifndef NO_SECRETS
@@ -104,14 +104,14 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 __attribute__((weak)) void startup_keymap(void) {}
 void startup_user(void)
 {
-    wait_ms(TAPPING_TERM); // gets rid of tick
+    wait_ms(TAP_CODE_DELAY); // gets rid of tick
     startup_keymap();
 }
 
 __attribute__((weak))  void shutdown_keymap(void) {}
 void shutdown_user(void)
 {
-    wait_ms(TAPPING_TERM);
+    wait_ms(TAP_CODE_DELAY);
     stop_all_notes();
     shutdown_keymap();
 }

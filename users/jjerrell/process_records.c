@@ -44,7 +44,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 key_timer = timer_read();
             } else {
-                if (timer_elapsed(key_timer) > TAPPING_TERM) {  // Hold, copy
+                if (timer_elapsed(key_timer) > TAP_CODE_DELAY) {  // Hold, copy
                     tap_code16(G(KC_C));
                 } else {  // Tap, paste
                     tap_code16(G(KC_V));
@@ -72,25 +72,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 clear_mods();
                 clear_oneshot_mods();
 #endif
-                send_string_with_delay_P(PSTR("qmk"), TAPPING_TERM);
+                send_string_with_delay_P(PSTR("qmk"), TAP_CODE_DELAY);
 #ifndef MAKE_BOOTLOADER
                 if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
 #endif
                 {
-                    send_string_with_delay_P(PSTR(" flash "), TAPPING_TERM);
+                    send_string_with_delay_P(PSTR(" flash "), TAP_CODE_DELAY);
 #ifndef MAKE_BOOTLOADER
                 } else {
-                    send_string_with_delay_P(PSTR(" compile "), TAPPING_TERM);
+                    send_string_with_delay_P(PSTR(" compile "), TAP_CODE_DELAY);
 #endif
                 }
-                send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAPPING_TERM);
-                send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAPPING_TERM);
+                send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAP_CODE_DELAY);
+                send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
             }
             return false;
             break;
         case KC_VRSN:
             if (!record->event.pressed) {
-                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE), TAPPING_TERM);
+                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE), TAP_CODE_DELAY);
             }
             return false;
             break;

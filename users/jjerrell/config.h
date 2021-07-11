@@ -19,3 +19,8 @@
 
 #define LEADER_TIMEOUT 250
 #define LEADER_PER_KEY_TIMING
+
+#if defined(TAP_CODE_DELAY)
+#    undef TAP_CODE_DELAY
+#endif
+#define TAP_CODE_DELAY 20
