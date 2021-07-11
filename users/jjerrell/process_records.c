@@ -25,6 +25,8 @@ static uint16_t key_timer;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_keymap(keycode, record)) {
+        static uint8_t mods = 0;
+        mods = get_mods();
         switch (keycode) {
         case KC_QWERTY:
             if (record->event.pressed) {
@@ -50,26 +52,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case KC_ARROW:
+            if (record->event.pressed) {
+                clear_mods();
+                if (mods & MOD_MASK_SHIFT) {
+                    SEND_STRING("=>");
+                } else {
+                    SEND_STRING("->"); 
+                }
+                set_mods(mods);
+            }
+            return false;
+            break;
+        case KC_MAKE:
+            if (!record->event.pressed) {
+#ifndef MAKE_BOOTLOADER
+                uint8_t temp_mod = mod_config(get_mods());
+                uint8_t temp_osm = mod_config(get_oneshot_mods());
+                clear_mods();
+                clear_oneshot_mods();
+#endif
+                send_string_with_delay_P(PSTR("qmk"), TAPPING_TERM);
+#ifndef MAKE_BOOTLOADER
+                if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
+#endif
+                {
+                    send_string_with_delay_P(PSTR(" flash "), TAPPING_TERM);
+#ifndef MAKE_BOOTLOADER
+                } else {
+                    send_string_with_delay_P(PSTR(" compile "), TAPPING_TERM);
+#endif
+                }
+                send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAPPING_TERM);
+                send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAPPING_TERM);
+            }
+            return false;
+            break;
+        case KC_VRSN:
+            if (!record->event.pressed) {
+                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE), TAPPING_TERM);
+            }
+            return false;
+            break;
         }
     }
     return true;
 }
-
-
-  // if (timer_elapsed(key_timer) < 100) {
-  //   // do something if less than 100ms have passed
-  // } else {
-  //   // do something if 100ms or more have passed
-  // }
-
-  // case KC_CCCV:  // One key copy/paste
-  //           if (record->event.pressed) {
-  //               copy_paste_timer = timer_read();
-  //           } else {
-  //               if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
-  //                   tap_code16(LCTL(KC_C));
-  //               } else {  // Tap, paste
-  //                   tap_code16(LCTL(KC_V));
-  //               }
-  //           }
-  //           break;

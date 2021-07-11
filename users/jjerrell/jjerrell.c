@@ -19,7 +19,6 @@
 
 #include "jjerrell.h"
 
-
 __attribute__((weak)) void matrix_scan_keymap(void) {}
 __attribute__((weak)) void leader_scan_secrets(void) {}
 
@@ -36,7 +35,7 @@ __attribute__((weak)) void leader_scan_secrets(void) {}
             }
 
             SEQ_TWO_KEYS(KC_B, KC_D) {
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE);
+                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE), TAPPING_TERM);
             }
 
             #ifndef NO_SECRETS
@@ -105,14 +104,14 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 __attribute__((weak)) void startup_keymap(void) {}
 void startup_user(void)
 {
-    // _delay_ms(20); // gets rid of tick
+    wait_ms(TAPPING_TERM); // gets rid of tick
     startup_keymap();
 }
 
 __attribute__((weak))  void shutdown_keymap(void) {}
 void shutdown_user(void)
 {
-    // _delay_ms(150);
+    wait_ms(TAPPING_TERM);
     stop_all_notes();
     shutdown_keymap();
 }

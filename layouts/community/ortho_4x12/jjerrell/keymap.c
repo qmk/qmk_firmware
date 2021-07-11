@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       __________________WORKMN_L3__________________,       __________________WORKMN_R3__________________
   ),
 
-  /* Lower
+  /* Lower - Nav/Select/Nums
   * ,-----------------------------------------------------------------------------------.
   * | PGUP | BSPC |  UP  | DEL  | PGDN |      |      |      |   7  |   8  |   9  |  *   |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -42,38 +42,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LSFT, KC_LEAD, KC_CCCV, KC_MEH,  KC_BSPC,  KC_SPC, XXXXXXX,    KC_ENT, KC_0, KC_DOT, KC_COMM, LED_LEVEL
   ),
 
-  /* Raise
+  /* Raise - Symbols
   * ,-----------------------------------------------------------------------------------.
-  * |      |   _  |   [  |   ]  |   ^  |      |      |   !  |   <  |   >  |   =  |      |
+  * |   %  |   _  |   [  |   ]  |   ^  |      |      |   !  |   <  |   >  |   =  |  :   |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * |   \  |   /  |   {  |   }  |   *  |      |      |   ?  |   (  |   )  |   -  |  :   |
+  * |   \  |   /  |   {  |   }  |   *  |      |      |   ?  |   (  |   )  |   -  |  ;   |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * |   #  |   $  |   |  |   ~  |   `  |      |      |   @  |   %  |   '  |   +  |  &   |
+  * |   #  |   $  |   |  |   ~  |   `  |      |      |   @  |   "  |   '  |   +  |  &   |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
   * |      | LEAD |      |      | BSPC |    SPACE    | held |      |      |      |      |
   * `-----------------------------------------------------------------------------------'
   */
   [_RAISE] = LAYOUT_planck_common(
-      XXXXXXX, KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC,    KC_EXLM, KC_LABK, KC_RABK, KC_EQL , XXXXXXX,
+      KC_PERC, KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC,    KC_EXLM, KC_LABK, KC_RABK, KC_EQL , KC_COLN,
       KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR,    KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_SCLN,
-      KC_HASH, KC_DLR , KC_PIPE, KC_TILD, KC_GRV ,    KC_AT,   KC_PERC, KC_QUOT, KC_PLUS, KC_AMPR
+      KC_HASH, KC_DLR , KC_PIPE, KC_TILD, KC_GRV ,    KC_AT,   KC_DQUO, KC_QUOT, KC_PLUS, KC_AMPR
   ),
 
   /* Adjust (Lower + Raise)
   * ,-----------------------------------------------------------------------------------.
-  * |      | Debug|Reset |TermOn|TrmOff|      |      |MusMod|Mus On|MusOff|MidiOn|MidOff|
+  * | Make | Debug|Reset |TermOn|TrmOff|      |      |MusMod|Mus On|MusOff|MidiOn|MidOff|
   * |------+------+------+------+------+------+------+------+------+------+------+------|
   * | Mute | Vol- | Vol+ | Play | Skip |      |      |Voice-| HUE+ | HUE- | SAT+ | SAT- |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * |      | AudOn|AudOff|CGswap|CGnorm|      |      |Voice+|RGBTog|RGBMod|BRGHT+|BRGHT-|
+  * | Vrsn | AudOn|AudOff|CGswap|CGnorm|      |      |Voice+|RGBTog|RGBMod|BRGHT+|BRGHT-|
   * |------+------+------+------+------+------+------+------+------+------+------+------|
   * |      |      |      |      | held |             | held |      |      |      |      |
   * `-----------------------------------------------------------------------------------'
   */
   [_ADJUST] = LAYOUT_planck_common(
-       XXXXXXX,       DEBUG,     RESET, TERM_ON, TERM_OFF,      MU_MOD, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,
+       KC_MAKE,       DEBUG,     RESET, TERM_ON, TERM_OFF,      MU_MOD, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,
       KC__MUTE, KC__VOLDOWN, KC__VOLUP, KC_MPLY,  KC_MNXT,      MUV_IN, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,
-       XXXXXXX,       AU_ON,    AU_OFF, CG_SWAP,  CG_NORM,      MUV_DE, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD
+       KC_VRSN,       AU_ON,    AU_OFF, CG_SWAP,  CG_NORM,      MUV_DE, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD
   )
 
 };
