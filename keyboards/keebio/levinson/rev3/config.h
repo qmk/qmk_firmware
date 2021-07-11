@@ -19,14 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x1146
+#define PRODUCT_ID      0x3146
 #define DEVICE_VER      0x0300
 #define MANUFACTURER    Keebio
 #define PRODUCT         Levinson
-#define DESCRIPTION     Split 40 percent ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -39,6 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS_RIGHT { D4, B2, B3, B1 }
 #define MATRIX_COL_PINS_RIGHT { F4, F7, D3, B5, B4, E6 }
 #define SPLIT_HAND_PIN D2
+
+#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

@@ -1,25 +1,72 @@
-"""QMK Python Doctor
+"""QMK Doctor
 
-Check up for QMK environment.
+Check out the user's QMK environment and make sure it's ready to compile.
 """
-import os
 import platform
-import shutil
-import subprocess
-import glob
+from subprocess import DEVNULL
 
 from milc import cli
+from milc.questions import yesno
+from qmk import submodules
+from qmk.constants import QMK_FIRMWARE
+from qmk.os_helpers import CheckStatus, check_binaries, check_binary_versions, check_submodules, check_git_repo
 
 
-def _udev_rule(vid, pid=None):
-    """ Helper function that return udev rules
+def os_tests():
+    """Determine our OS and run platform specific tests
     """
-    if pid:
-        return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", MODE:="0666"' % (vid, pid)
+    platform_id = platform.platform().lower()
+
+    if 'darwin' in platform_id or 'macos' in platform_id:
+        return os_test_macos()
+    elif 'linux' in platform_id:
+        return os_test_linux()
+    elif 'windows' in platform_id:
+        return os_test_windows()
     else:
-        return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", MODE:="0666"' % vid
+        cli.log.warning('Unsupported OS detected: %s', platform_id)
+        return CheckStatus.WARNING
 
 
+def os_test_linux():
+    """Run the Linux specific tests.
+    """
+    # Don't bother with udev on WSL, for now
+    if 'microsoft' in platform.uname().release.lower():
+        cli.log.info("Detected {fg_cyan}Linux (WSL){fg_reset}.")
+
+        # https://github.com/microsoft/WSL/issues/4197
+        if QMK_FIRMWARE.as_posix().startswith("/mnt"):
+            cli.log.warning("I/O performance on /mnt may be extremely slow.")
+            return CheckStatus.WARNING
+
+        return CheckStatus.OK
+    else:
+        cli.log.info("Detected {fg_cyan}Linux{fg_reset}.")
+        from qmk.os_helpers.linux import check_udev_rules
+
+        return check_udev_rules()
+
+
+def os_test_macos():
+    """Run the Mac specific tests.
+    """
+    cli.log.info("Detected {fg_cyan}macOS %s{fg_reset}.", platform.mac_ver()[0])
+
+    return CheckStatus.OK
+
+
+def os_test_windows():
+    """Run the Windows specific tests.
+    """
+    win32_ver = platform.win32_ver()
+    cli.log.info("Detected {fg_cyan}Windows %s (%s){fg_reset}.", win32_ver[0], win32_ver[1])
+
+    return CheckStatus.OK
+
+
+@cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
+@cli.argument('-n', '--no', action='store_true', arg_only=True, help='Answer no to all questions.')
 @cli.subcommand('Basic QMK environment checks')
 def doctor(cli):
     """Basic QMK environment checks.
@@ -30,75 +77,61 @@ def doctor(cli):
         * [ ] Compile a trivial program with each compiler
     """
     cli.log.info('QMK Doctor is checking your environment.')
+    cli.log.info('CLI version: %s', cli.version)
+    cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
+
+    status = os_tests()
+
+    # Make sure our QMK home is a Git repo
+    git_ok = check_git_repo()
+
+    if git_ok == CheckStatus.WARNING:
+        cli.log.warning("QMK home does not appear to be a Git repository! (no .git folder)")
+        status = CheckStatus.WARNING
 
     # Make sure the basic CLI tools we need are available and can be executed.
-    binaries = ['dfu-programmer', 'avrdude', 'dfu-util', 'avr-gcc', 'arm-none-eabi-gcc', 'bin/qmk']
-    ok = True
+    bin_ok = check_binaries()
 
-    for binary in binaries:
-        res = shutil.which(binary)
-        if res is None:
-            cli.log.error("{fg_red}QMK can't find %s in your path.", binary)
-            ok = False
-        else:
-            check = subprocess.run([binary, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
-            if check.returncode in [0, 1]:
-                cli.log.info('Found {fg_cyan}%s', binary)
-            else:
-                cli.log.error("{fg_red}Can't run `%s --version`", binary)
-                ok = False
+    if not bin_ok:
+        if yesno('Would you like to install dependencies?', default=True):
+            cli.run(['util/qmk_install.sh', '-y'], stdin=DEVNULL, capture_output=False)
+            bin_ok = check_binaries()
 
-    # Determine our OS and run platform specific tests
-    OS = platform.system()  # noqa (N806), uppercase name is ok in this instance
-
-    if OS == "Darwin":
-        cli.log.info("Detected {fg_cyan}macOS.")
-
-    elif OS == "Linux":
-        cli.log.info("Detected {fg_cyan}Linux.")
-        # Checking for udev rules
-        udev_dir = "/etc/udev/rules.d/"
-        # These are the recommended udev rules
-        desired_rules = {
-            'dfu': {_udev_rule("03eb", "2ff4"), _udev_rule("03eb", "2ffb"), _udev_rule("03eb", "2ff0")},
-            'tmk': {_udev_rule("feed")},
-            'input_club': {_udev_rule("1c11")},
-            'stm32': {_udev_rule("1eaf", "0003"), _udev_rule("0483", "df11")},
-            'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'},
-        }
-
-        if os.path.exists(udev_dir):
-            udev_rules = [rule for rule in glob.iglob(os.path.join(udev_dir, "*.rules")) if os.path.isfile(rule)]
-            # Collect all rules from the config files
-            current_rules = set()
-            for rule in udev_rules:
-                with open(rule, "r") as fd:
-                    for line in fd.readlines():
-                        line = line.strip()
-                        if not line.startswith("#") and len(line):
-                            current_rules.add(line)
-
-            # Check if the desired rules are among the currently present rules
-            for bootloader, rules in desired_rules.items():
-                if not rules.issubset(current_rules):
-                    # If the rules for catalina are not present, check if ModemManager is running
-                    if bootloader == "caterina":
-                        if shutil.which("systemctl"):
-                            mm_check = subprocess.run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
-                            if mm_check.returncode == 0:
-                                ok = False
-                                cli.log.warn("{bg_yellow}Detected ModemManager without udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
-                        else:
-                            cli.log.warn("Can't find systemctl to check for ModemManager.")
-                    else:
-                        cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. You'll need to use `sudo` in order to flash them.", bootloader)
-
+    if bin_ok:
+        cli.log.info('All dependencies are installed.')
     else:
-        cli.log.info("Assuming {fg_cyan}Windows.")
+        status = CheckStatus.ERROR
+
+    # Make sure the tools are at the correct version
+    ver_ok = check_binary_versions()
+    if CheckStatus.ERROR in ver_ok:
+        status = CheckStatus.ERROR
+    elif CheckStatus.WARNING in ver_ok and status == CheckStatus.OK:
+        status = CheckStatus.WARNING
+
+    # Check out the QMK submodules
+    sub_ok = check_submodules()
+
+    if sub_ok == CheckStatus.OK:
+        cli.log.info('Submodules are up to date.')
+    else:
+        if yesno('Would you like to clone the submodules?', default=True):
+            submodules.update()
+            sub_ok = check_submodules()
+
+        if sub_ok == CheckStatus.ERROR:
+            status = CheckStatus.ERROR
+        elif sub_ok == CheckStatus.WARNING and status == CheckStatus.OK:
+            status = CheckStatus.WARNING
 
     # Report a summary of our findings to the user
-    if ok:
+    if status == CheckStatus.OK:
         cli.log.info('{fg_green}QMK is ready to go')
+        return 0
+    elif status == CheckStatus.WARNING:
+        cli.log.info('{fg_yellow}QMK is ready to go, but minor problems were found')
+        return 1
     else:
-        cli.log.info('{fg_yellow}Problems detected, please fix these problems before proceeding.')
-        # FIXME(skullydazed): Link to a document about troubleshooting, or discord or something
+        cli.log.info('{fg_red}Major problems detected, please fix these problems before proceeding.')
+        cli.log.info('{fg_blue}Check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/Uq7gcHh) for help.')
+        return 2

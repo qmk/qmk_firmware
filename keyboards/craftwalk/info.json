@@ -1,0 +1,27 @@
+{
+    "keyboard_name": "craftwalk",
+    "url": "https://github.com/sotoba/craftwalk",
+    "maintainer": "sotoba",
+    "width": 7.25,
+    "height": 4.5,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+              {"label":"Q", "x":1.25, "y":0.25},
+              {"label":"W", "x":2.25, "y":0},
+              {"label":"E", "x":3.25, "y":0.25},
+              {"label":"Ctrl", "x":0, "y":1},
+              {"label":"A", "x":1.25, "y":1.25},
+              {"label":"S", "x":2.25, "y":1},
+              {"label":"D", "x":3.25, "y":1.25},
+              {"label":"Shift", "x":0, "y":2},
+              {"label":"Adjust", "x":1.25, "y":2.25},
+              {"label":"Mouse", "x":2.25, "y":2},
+              {"label":"Mouse", "x":3.25, "y":2.25},
+              {"label":"F", "x":4.25, "y":2},
+              {"label":"Num", "x":5.25, "y":3, "h":1.5},
+              {"label":"Space", "x":6.25, "y":3, "h":1.5}
+            ]
+        }
+    }
+}

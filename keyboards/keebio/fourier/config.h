@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Fourier
-#define DESCRIPTION     Split 40 percent staggered keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -36,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { F4, D7, E6, B4 }
 #define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }
+
+#define DIODE_DIRECTION COL2ROW
 
 #define QMK_ESC_OUTPUT F5
 #define QMK_ESC_INPUT F4
@@ -63,6 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 14    // Number of LEDs
+#define RGBLED_SPLIT { 7, 7 }
 
 /*
  * Feature disable options

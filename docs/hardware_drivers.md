@@ -33,3 +33,7 @@ Support for up to 2 drivers. Each driver impliments 2 charlieplex matrices to in
 ## IS31FL3733
 
 Support for up to a single driver with room for expansion. Each driver can control 192 individual LEDs or 64 RGB LEDs. For more information on how to setup the driver see the [RGB Matrix](feature_rgb_matrix.md) page.
+
+## 24xx series external I2C EEPROM
+
+Support for an external I2C-based EEPROM instead of using the on-chip EEPROM. For more information on how to setup the driver see the [EEPROM Driver](eeprom_driver.md) page.

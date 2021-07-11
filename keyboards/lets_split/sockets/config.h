@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Duckle29
 #define PRODUCT         Lets Split Sockets
-#define DESCRIPTION     A split keyboard for the cheapish makers
 
 /* key matrix size */
 // Rows are doubled-up
@@ -35,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B1, B5, E6, B4 }
 #define MATRIX_COL_PINS { F4, F7, D7, B3, B2, B6}
 // #define MATRIX_COL_PINS { B6, B2, B3, D7, F7, F4} //uncomment this line and comment line above if you need to reverse left-to-right key order
+
+#define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -60,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio settings */
 #ifdef AUDIO_ENABLE
-    #define C6_AUDIO // Define this to enable the buzzer
+    #define AUDIO_PIN C6 // Define this to enable the buzzer
 #endif
 
 /*

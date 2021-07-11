@@ -26,8 +26,12 @@
 #include "quantum/color.h"
 #include "tmk_core/common/eeprom.h"
 
-#include "via.h" // uses only the EEPROM address
+#include "via.h" // uses EEPROM address, lighting value IDs
 #define MONO_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
+
+#if VIA_EEPROM_CUSTOM_CONFIG_SIZE == 0
+#error VIA_EEPROM_CUSTOM_CONFIG_SIZE was not defined to store backlight_config struct
+#endif
 
 #include "drivers/issi/is31fl3736.h"
 

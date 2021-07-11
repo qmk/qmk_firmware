@@ -15,14 +15,13 @@
  * GPL v2 or later.
  */
 
-#ifndef _USB_MAIN_H_
-#define _USB_MAIN_H_
+#pragma once
 
 // TESTING
 // extern uint8_t blinkLed;
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 /* -------------------------
  * General USB driver header
@@ -34,6 +33,20 @@
 
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
+
+/* Restart the USB driver and bus */
+void restart_usb_driver(USBDriver *usbp);
+
+/* ---------------
+ * USB Event queue
+ * ---------------
+ */
+
+/* Initialisation of the FIFO */
+void usb_event_queue_init(void);
+
+/* Task to dequeue and execute any handlers for the USB events on the main thread */
+void usb_event_queue_task(void);
 
 /* ---------------
  * Keyboard header
@@ -72,20 +85,6 @@ void mouse_in_cb(USBDriver *usbp, usbep_t ep);
 /* shared IN request callback handler */
 void shared_in_cb(USBDriver *usbp, usbep_t ep);
 
-/* ---------------
- * Extrakey header
- * ---------------
- */
-
-#ifdef EXTRAKEY_ENABLE
-
-/* extra report structure */
-typedef struct {
-    uint8_t  report_id;
-    uint16_t usage;
-} __attribute__((packed)) report_extra_t;
-#endif /* EXTRAKEY_ENABLE */
-
 /* --------------
  * Console header
  * --------------
@@ -100,7 +99,3 @@ int8_t sendchar(uint8_t c);
 void console_flush_output(void);
 
 #endif /* CONSOLE_ENABLE */
-
-void sendchar_pf(void *p, char c);
-
-#endif /* _USB_MAIN_H_ */

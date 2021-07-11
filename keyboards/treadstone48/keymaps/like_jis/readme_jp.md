@@ -19,17 +19,12 @@ Layer Tapはタップで指定したキー、長押しで指定したレイヤ�
 Mod Tapはタップで視程したキー、長押しで視程したレイヤーに移動します。  
 例：LSFT_T(KC_Z) → タップでZ、長押しで左シフト
 
-Tap Danceは指定した二つのキーをシングルタップ、ダブルタップで切り替えられます。  
-例：[TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT) → シングルタップでCOMM、ダブルタップでDOT
-
 もう少し詳しい内容についてはQMK Documentをお読みいただくかネットを検索すれば情報が載っていますので別途検索してみてください。  
 
 ## 機能
 
 　QWERTYキーマップをベースにしていて、LowerレイヤーとRaiseレイヤーに他のキーを配置しています。  
 　LowerとRaiseを同時押しでAdjustレイヤーを使うことが出来ます。  
-　DOTの横、SLROと書いてあるのはシングルタップで/記号、ダブルタップで\記号が入力出来るようになっています。
-　Lの横、SCCLと書いてあるのはシングルタップで;記号、ダブルタップで:記号が入力出来るようになっています。
 　マウスキーの割り当てがありますので、もし使用したい場合はrules.mkでMOUSEKEY_ENABLE = yesにしてmakeすると使用することができます。  
 
 ## 48キー目について
@@ -39,8 +34,8 @@ Tap Danceは指定した二つのキーをシングルタップ、ダブルタ�
 　各レイヤーの最下段の
 
 ```c
-      XXXXX \
-  // ExtraKey: Split backspace key or it is below the enter key.
+      XXXXXXX \
+  // ExtraKey: This key is an extra key. REV1 is a split back space. REV2 is to the right of the arrow-up key.
 ```
 
 　のXXXXXに任意のキーを入れることでPの右隣のキーとして動作するようになっています。その右隣りに従来のキーが配置されています。  

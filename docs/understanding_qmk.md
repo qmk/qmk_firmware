@@ -142,7 +142,6 @@ The `process_record()` function itself is deceptively simple, but hidden within 
     * [`bool process_haptic(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/2cee371bf125a6ec541dd7c5a809573facc7c456/drivers/haptic/haptic.c#L216)
     * [`bool process_record_kb(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/keyboards/clueboard/card/card.c#L20)
       * [`bool process_record_user(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/keyboards/clueboard/card/keymaps/default/keymap.c#L58)
-    * [`bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/rgb_matrix.c#L139)
     * [`bool process_midi(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_midi.c#L81)
     * [`bool process_audio(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_audio.c#L19)
     * [`bool process_steno(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_steno.c#L160)
@@ -162,6 +161,15 @@ The `process_record()` function itself is deceptively simple, but hidden within 
 
 At any step during this chain of events a function (such as `process_record_kb()`) can `return false` to halt all further processing.
 
+After this is called, `post_process_record()` is called, which can be used to handle additional cleanup that needs to be run after the keycode is normally handled. 
+
+* [`void post_process_record(keyrecord_t *record)`]()
+  * [`void post_process_record_quantum(keyrecord_t *record)`]()
+    * [Map this record to a keycode]()
+    * [`void post_process_clicky(uint16_t keycode, keyrecord_t *record)`]()
+    * [`void post_process_record_kb(uint16_t keycode, keyrecord_t *record)`]()
+      * [`void post_process_record_user(uint16_t keycode, keyrecord_t *record)`]()
+      
 <!--
 #### Mouse Handling
 

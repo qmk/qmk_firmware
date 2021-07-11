@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Bit Trade One
 #define PRODUCT         ADKB96
-#define DESCRIPTION
 
 /* key matrix size */
 // Rows are doubled-up
@@ -32,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4 }
+
+#define DIODE_DIRECTION COL2ROW
 
 #define SOFT_SERIAL_PIN D0
 

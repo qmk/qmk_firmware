@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x422D
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    KBDfans
-#define PRODUCT         KBDPAD-MKI
+#define PRODUCT         KBDPAD Mk. I
 
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -32,6 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A0, A1, A2, A3 }
 
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_NUM_LOCK_PIN D0
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_BREATHING

@@ -34,3 +34,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 
 LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no
+
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

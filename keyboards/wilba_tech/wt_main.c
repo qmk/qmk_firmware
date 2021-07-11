@@ -89,6 +89,29 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
     process_record_backlight(keycode, record);
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 
+    switch (keycode) {
+        case FN_MO13:
+            if (record->event.pressed) {
+                layer_on(1);
+                update_tri_layer(1, 2, 3);
+            } else {
+                layer_off(1);
+                update_tri_layer(1, 2, 3);
+            }
+            return false;
+            break;
+        case FN_MO23:
+            if (record->event.pressed) {
+                layer_on(2);
+                update_tri_layer(1, 2, 3);
+            } else {
+                layer_off(2);
+                update_tri_layer(1, 2, 3);
+            }
+            return false;
+            break;
+    }
+
     return process_record_user(keycode, record);
 }
 
@@ -123,17 +146,17 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
     switch ( *command_id )
     {
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-        case id_backlight_config_set_value:
+        case id_lighting_set_value:
         {
             backlight_config_set_value(command_data);
             break;
         }
-        case id_backlight_config_get_value:
+        case id_lighting_get_value:
         {
             backlight_config_get_value(command_data);
             break;
         }
-        case id_backlight_config_save:
+        case id_lighting_save:
         {
             backlight_config_save();
             break;

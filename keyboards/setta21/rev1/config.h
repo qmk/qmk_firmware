@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0011
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         setta21
-#define DESCRIPTION     A custom tenkeypad
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -33,6 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
+
+#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

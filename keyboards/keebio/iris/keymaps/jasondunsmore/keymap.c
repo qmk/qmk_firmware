@@ -4,144 +4,61 @@ extern keymap_config_t keymap_config;
 
 // Layers
 #define _QWERTY 0 // Base layer
-#define _NUMB 1
-#define _NAVI 2
+#define _NAVI   1 // Navigation layer
+#define _NUMP   2 // Numpad layer
 
 // Keys
-#define KC_NUMB MO(_NUMB)
-#define KC_NAVI MO(_NAVI)
+#define KC_NAVI TT(_NAVI)
+#define KC_NUMP TT(_NUMP)
 #define KC_AGRV LALT_T(KC_GRAVE)
+#define KC_AQUO RALT_T(KC_QUOTE)
 #define KC_GUIE LGUI_T(KC_ESC)
-#define KC_REST RESET
-#define KC_DBUG DEBUG
-
-// Tap Dance Declarations
-enum {
-  TD_LALT_GRV_BSLS = 0,
-  TD_LSFT_LBRC,
-  TD_RSFT_RBRC,
-};
-
-void alt_grave_backslash(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-      if (!state->pressed) {
-        register_code(KC_GRAVE);
-      } else {
-        register_code(KC_LALT);
-      }
-    } else if (state->count == 2) {
-      register_code(KC_BSLASH);
-    }
-}
-
-void alt_grave_backslash_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-      unregister_code(KC_GRAVE);
-      unregister_code(KC_LALT);
-    } else if (state->count == 2) {
-      unregister_code(KC_BSLASH);
-    }
-}
-
-void left_brackets(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    if (!state->pressed) {
-      register_code(KC_LSFT);
-      register_code(KC_9);
-    } else {
-      register_code(KC_LSFT);
-    }
-  } else if (state->count == 2) {
-    register_code(KC_LBRC);
-  }
-}
-
-void left_brackets_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-      unregister_code(KC_LSFT);
-      unregister_code(KC_9);
-    } else if (state->count == 2) {
-      unregister_code(KC_LBRC);
-    }
-}
-
-void right_brackets(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-      if (!state->pressed) {
-        register_code(KC_RSFT);
-        register_code(KC_0);
-      } else {
-        register_code(KC_RSFT);
-      }
-    } else if (state->count == 2) {
-      register_code(KC_RBRC);
-    }
-}
-
-void right_brackets_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        unregister_code(KC_RSFT);
-        unregister_code(KC_0);
-    } else if (state->count == 2) {
-      unregister_code(KC_RBRC);
-    }
-}
-
-
-// Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // Tap once for KC_SLSH, twice for KC_BSLS
-  [TD_LALT_GRV_BSLS]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_grave_backslash, alt_grave_backslash_reset),
-  [TD_LSFT_LBRC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, left_brackets, left_brackets_reset),
-  [TD_RSFT_RBRC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, right_brackets, right_brackets_reset)
-};
-
-// Tap Dance Keys
-#define KC_AGRB TD(TD_LALT_GRV_BSLS)
-#define KC_LSBK TD(TD_LSFT_LBRC)
-#define KC_RSBK TD(TD_RSFT_RBRC)
+#define KC_DSFT RSFT_T(KC_DEL)
+#define KC_PSFT LSFT_T(KC_KP_PLUS)
+#define KC_MCTL RCTL_T(KC_MINS)
+#define KC_ECTL LCTL_T(KC_EQL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_kc(
+  [_QWERTY] = LAYOUT(
 //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-   GUIE, 1,   2,   3,   4,   5,                  6,   7,   8,   9,   0,  DEL,
+   KC_GUIE, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                  KC_6,   KC_7,   KC_8,   KC_9,   KC_0,  KC_BSLS,
 //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-   TAB,  Q,   W,   E,   R,   T,                  Y,   U,   I,   O,   P,  BSPC,
+   KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                  KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,  KC_BSPC,
 //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-   AGRB, A,   S,   D,   F,   G,                  H,   J,   K,   L,  SCLN,QUOT,
+   KC_AGRV, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                  KC_H,   KC_J,   KC_K,   KC_L,  KC_SCLN,KC_AQUO,
 //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-   LSBK, Z,   X,   C,   V,   B,  MINS,     EQL,  N,   M,  COMM,DOT, SLSH,RSBK,
+   KC_PSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  KC_NAVI,     KC_NAVI, KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLSH,KC_DSFT,
 //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                     NUMB,LCTL,SPC,          ENT, RCTL,NAVI
+                     KC_NAVI,KC_ECTL, KC_SPC,         KC_ENT, KC_MCTL,KC_NAVI
 //                  `----+----+----'        `----+----+----'
      ),
 
-  [_NUMB] = LAYOUT_kc(
+  [_NAVI] = LAYOUT(
 //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-   F12,  F1,  F2,  F3,  F4,  F5,                 F6,  F7,  F8,  F9, F10, F11,
+   KC_F12,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,                 KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11,
 //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-    NO, F17, F18, F19, F20,  NO,                 NO,  7,   8,   9,   0,  TRNS,
+   KC_TRNS,KC_TRNS,KC_MUTE,KC_VOLU,KC_TRNS,KC_TRNS,               KC_PGUP,KC_HOME, KC_UP, KC_END, KC_TRNS,KC_TRNS,
 //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-   TRNS,F13, F14, F15, F16,  NO,                ASTR, 4,   5,   6,  PLUS,TRNS,
+   KC_TRNS,KC_TRNS,KC_BRID,KC_VOLD,KC_BRIU,KC_TRNS,               KC_PGDN,KC_LEFT,KC_DOWN,KC_RGHT,KC_TRNS,KC_TRNS,
 //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-   TRNS,F21, F22, F23, F24,  NO, TRNS,     TRNS,SLSH, 1,   2,   3,  MINS,TRNS,
+   KC_TRNS,KC_TRNS,KC_TRNS,KC_NUMP,KC_INS, KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS,KC_CAPS,KC_LBRC,KC_RBRC,KC_TRNS,KC_TRNS,
 //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                     TRNS,TRNS,TRNS,         TRNS,DOT, TRNS
+                     KC_TRNS,KC_TRNS,KC_TRNS,         KC_TRNS,KC_TRNS,KC_TRNS
 //                  `----+----+----'        `----+----+----'
-      ),
+     ),
 
- [_NAVI] = LAYOUT_kc(
+  [_NUMP] = LAYOUT(
 //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-   PWR, MUTE,VOLD,VOLU,BRID,BRIU,               REST,DBUG, NO,  NO,  NO, TRNS,
+   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,               KC_TRNS,KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,KC_TRNS,
 //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-   WAKE,HOME,PGUP, UP, PGDN,TRNS,                NO,  NO,  NO,  NO,  NO, TRNS,
+   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,               KC_TRNS, KC_P7,  KC_P8,  KC_P9, KC_PPLS,KC_TRNS,
 //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-   TRNS,END, LEFT,DOWN,RGHT,TRNS,               PAUS,CAPS,PSCR,SLCK,INS, TRNS,
+   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,               KC_TRNS, KC_P4,  KC_P5,  KC_P6, KC_PCMM,KC_TRNS,
 //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-   TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS, NO,  NO,  NO,  NO,  NO, TRNS,
+   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS, KC_P1,  KC_P2,  KC_P3, KC_PEQL,KC_TRNS,
 //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                     TRNS,TRNS,TRNS,         TRNS,TRNS,TRNS
+                     KC_TRNS,KC_TRNS,KC_TRNS,         KC_PENT, KC_P0, KC_PDOT
 //                  `----+----+----'        `----+----+----'
      )
 };

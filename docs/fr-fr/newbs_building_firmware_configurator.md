@@ -4,7 +4,7 @@ Le [Configurateur de QMK](https://config.qmk.fm) est une interface graphique en 
 
 ?> **S'il vous plaît, suivez les étapes suivantes dans l'ordre.**
 
-Regardez le [Tutoriel vidéo](https://youtu.be/tx54jkRC9ZY)
+Regardez le [Tutoriel vidéo](https://youtu.be/tx54jkRC9ZY)https://www.youtube.com/watch?v=-imgglzDMdY)
 
 Le configurateur de QMK fonctionne mieux avec Chrome et Firefox.
 

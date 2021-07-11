@@ -5,8 +5,16 @@
 #include "action_layer.h"
 
 #ifdef STM32_EEPROM_ENABLE
-#    include "hal.h"
+#    include <hal.h>
 #    include "eeprom_stm32.h"
+#endif
+
+#if defined(EEPROM_DRIVER)
+#    include "eeprom_driver.h"
+#endif
+
+#if defined(HAPTIC_ENABLE)
+#    include "haptic.h"
 #endif
 
 /** \brief eeconfig enable
@@ -32,6 +40,9 @@ void eeconfig_init_quantum(void) {
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Erase();
 #endif
+#if defined(EEPROM_DRIVER)
+    eeprom_driver_erase();
+#endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
     eeprom_update_byte(EECONFIG_DEBUG, 0);
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER, 0);
@@ -46,7 +57,7 @@ void eeconfig_init_quantum(void) {
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
     eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     eeprom_update_dword(EECONFIG_RGB_MATRIX, 0);
-    eeprom_update_byte(EECONFIG_RGB_MATRIX_SPEED, 0);
+    eeprom_update_word(EECONFIG_RGB_MATRIX_EXTENDED, 0);
 
     // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
     //        within the emulated eeprom via dfu-util or another tool
@@ -56,6 +67,15 @@ void eeconfig_init_quantum(void) {
 #elif defined INIT_EE_HANDS_RIGHT
 #    pragma message "Faking EE_HANDS for right hand"
     eeprom_update_byte(EECONFIG_HANDEDNESS, 0);
+#endif
+
+#if defined(HAPTIC_ENABLE)
+    haptic_reset();
+#else
+    // this is used in case haptic is disabled, but we still want sane defaults
+    // in the haptic configuration eeprom. All zero will trigger a haptic_reset
+    // when a haptic-enabled firmware is loaded onto the keyboard.
+    eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #endif
 
     eeconfig_init_kb();
@@ -80,6 +100,9 @@ void eeconfig_enable(void) { eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_N
 void eeconfig_disable(void) {
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Erase();
+#endif
+#if defined(EEPROM_DRIVER)
+    eeprom_driver_erase();
 #endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }
@@ -131,17 +154,6 @@ void eeconfig_update_keymap(uint16_t val) {
     eeprom_update_byte(EECONFIG_KEYMAP_LOWER_BYTE, val & 0xFF);
     eeprom_update_byte(EECONFIG_KEYMAP_UPPER_BYTE, (val >> 8) & 0xFF);
 }
-
-/** \brief eeconfig read backlight
- *
- * FIXME: needs doc
- */
-uint8_t eeconfig_read_backlight(void) { return eeprom_read_byte(EECONFIG_BACKLIGHT); }
-/** \brief eeconfig update backlight
- *
- * FIXME: needs doc
- */
-void eeconfig_update_backlight(uint8_t val) { eeprom_update_byte(EECONFIG_BACKLIGHT, val); }
 
 /** \brief eeconfig read audio
  *

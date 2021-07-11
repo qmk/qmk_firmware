@@ -2,48 +2,14 @@
 """CLI wrapper for running QMK commands.
 """
 import os
-import subprocess
 import sys
-from importlib.util import find_spec
-from time import strftime
+from pathlib import Path
 
 # Add the QMK python libs to our path
-script_dir = os.path.dirname(os.path.realpath(__file__))
-qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
-python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
-sys.path.append(python_lib_dir)
-
-# Make sure our modules have been setup
-with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
-    for line in fd.readlines():
-        line = line.strip().replace('<', '=').replace('>', '=')
-
-        if line[0] == '#':
-            continue
-
-        if '#' in line:
-            line = line.split('#')[0]
-
-        module = line.split('=')[0] if '=' in line else line
-
-        if module in ['pep8-naming']:
-            # Not every module is importable by its own name.
-            continue
-
-        if not find_spec(module):
-            print('Could not find module %s!' % module)
-            print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
-            exit(255)
-
-# Figure out our version
-# TODO(skullydazed/anyone): Find a method that doesn't involve git. This is slow in docker and on windows.
-command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
-result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-if result.returncode == 0:
-    os.environ['QMK_VERSION'] = result.stdout.strip()
-else:
-    os.environ['QMK_VERSION'] = 'nogit-' + strftime('%Y-%m-%d-%H:%M:%S') + '-dirty'
+script_dir = Path(os.path.realpath(__file__)).parent
+qmk_dir = script_dir.parent
+python_lib_dir = Path(qmk_dir / 'lib' / 'python').resolve()
+sys.path.append(str(python_lib_dir))
 
 # Setup the CLI
 import milc  # noqa
@@ -63,9 +29,13 @@ def main():
     """
     # Change to the root of our checkout
     os.environ['ORIG_CWD'] = os.getcwd()
+    os.environ['DEPRECATED_BIN_QMK'] = '1'
     os.chdir(qmk_dir)
 
+    print('Warning: The bin/qmk script is being deprecated. Please install the QMK CLI: python3 -m pip install qmk', file=sys.stderr)
+
     # Import the subcommands
+    import milc.subcommand.config  # noqa
     import qmk.cli  # noqa
 
     # Execute

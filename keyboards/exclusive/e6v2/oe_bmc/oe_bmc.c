@@ -15,33 +15,3 @@
  */
 
 #include "oe_bmc.h"
-
-void backlight_init_ports(void) {
-    // initialize pins D0, D1, D4 and D6 as output
-    setPinOutput(D0);
-    setPinOutput(D1);
-    setPinOutput(D4);
-    setPinOutput(D6);
-
-    // turn backlight LEDs on
-    writePinHigh(D0);
-    writePinHigh(D1);
-    writePinHigh(D4);
-    writePinHigh(D6);
-}
-
-void backlight_set(uint8_t level) {
-    if (level == 0) {
-        // turn backlight LEDs off
-        writePinLow(D0);
-        writePinLow(D1);
-        writePinLow(D4);
-        writePinLow(D6);
-    } else {
-        // turn backlight LEDs on
-        writePinHigh(D0);
-        writePinHigh(D1);
-        writePinHigh(D4);
-        writePinHigh(D6);
-    }
-}

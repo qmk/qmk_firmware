@@ -46,7 +46,7 @@ FORMAT = ihex
 # Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
-OPT = s
+OPT ?= s
 
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
@@ -65,9 +65,9 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C++ sources
-#CPPDEFS += -D__STDC_LIMIT_MACROS
-#CPPDEFS += -D__STDC_CONSTANT_MACROS
-#CPPDEFS +=
+#CXXDEFS += -D__STDC_LIMIT_MACROS
+#CXXDEFS += -D__STDC_CONSTANT_MACROS
+#CXXDEFS +=
 
 
 
@@ -79,7 +79,12 @@ CSTANDARD = -std=gnu99
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-ifndef SKIP_DEBUG_INFO
+DEBUG_ENABLE ?= yes
+ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
+  DEBUG_ENABLE=no
+endif
+
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
   CFLAGS += -g$(DEBUG)
 endif
 CFLAGS += $(CDEFS)
@@ -103,6 +108,10 @@ endif
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 
+# This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
+# Fixing of multiple variable definitions must be made.
+CFLAGS += -fcommon
+
 #---------------- Compiler Options C++ ----------------
 #  -g*:          generate debugging information
 #  -O*:          optimization level
@@ -110,25 +119,26 @@ CFLAGS += $(CSTANDARD)
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-ifndef SKIP_DEBUG_INFO
-  CPPFLAGS += -g$(DEBUG)
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
+  CXXFLAGS += -g$(DEBUG)
 endif
-CPPFLAGS += $(CPPDEFS)
-CPPFLAGS += -O$(OPT)
+CXXFLAGS += $(CXXDEFS)
+CXXFLAGS += -O$(OPT)
 # to supress "warning: only initialized variables can be placed into program memory area"
-CPPFLAGS += -w
-CPPFLAGS += -Wall
-CPPFLAGS += -Wundef
+CXXFLAGS += -w
+CXXFLAGS += -Wall
+CXXFLAGS += -Wundef
+
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
-    CPPFLAGS += -Werror
+    CXXFLAGS += -Werror
 endif
-#CPPFLAGS += -mshort-calls
-#CPPFLAGS += -fno-unit-at-a-time
-#CPPFLAGS += -Wstrict-prototypes
-#CPPFLAGS += -Wunreachable-code
-#CPPFLAGS += -Wsign-compare
-CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-#CPPFLAGS += $(CSTANDARD)
+#CXXFLAGS += -mshort-calls
+#CXXFLAGS += -fno-unit-at-a-time
+#CXXFLAGS += -Wstrict-prototypes
+#CXXFLAGS += -Wunreachable-code
+#CXXFLAGS += -Wsign-compare
+CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+#CXXFLAGS += $(CSTANDARD)
 
 #---------------- Assembler Options ----------------
 #  -Wa,...:   tell GCC to pass this to the assembler.
@@ -140,10 +150,13 @@ CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS)
-ifndef SKIP_DEBUG_INFO
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
+endif
+ifeq ($(VERBOSE_AS_CMD),yes)
+	ASFLAGS += -v
 endif
 
 #---------------- Library Options ----------------
@@ -187,6 +200,9 @@ CREATE_MAP ?= yes
 ifeq ($(CREATE_MAP),yes)
 	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 endif
+ifeq ($(VERBOSE_LD_CMD),yes)
+	LDFLAGS += -v
+endif
 #LDFLAGS += -Wl,--relax
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
@@ -202,7 +218,16 @@ REMOVEDIR = rmdir
 COPY = cp
 WINSHELL = cmd
 SECHO = $(SILENT) || echo
+MD5SUM ?= md5sum
+ifneq ($(filter Darwin FreeBSD,$(shell uname -s)),)
+  MD5SUM = md5
+endif
 
+# UF2 format settings
+# To produce a UF2 file in your build, add to your keyboard's rules.mk:
+#      FIRMWARE_FORMAT = uf2
+UF2CONV = $(TOP_DIR)/util/uf2conv.py
+UF2_FAMILY ?= 0x0
 
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
@@ -213,7 +238,7 @@ GENDEPFLAGS = -MMD -MP -MF $(patsubst %.o,%.td,$@)
 # Add target processor to flags.
 # You can give extra flags at 'make' command line like: make EXTRAFLAGS=-DFOO=bar
 ALL_CFLAGS = $(MCUFLAGS) $(CFLAGS) $(EXTRAFLAGS)
-ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(EXTRAFLAGS)
+ALL_CXXFLAGS = $(MCUFLAGS) -x c++ $(CXXFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = $(MCUFLAGS) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 define NO_LTO
@@ -223,6 +248,12 @@ $(foreach LOBJ, $(NO_LTO_OBJ), $(eval $(call NO_LTO,$(LOBJ))))
 
 MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
+# For a ChibiOS build, ensure that the board files have the hook overrides injected
+define BOARDSRC_INJECT_HOOKS
+$(KEYBOARD_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): INIT_HOOK_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
+endef
+$(foreach LOBJ, $(BOARDSRC), $(eval $(call BOARDSRC_INJECT_HOOKS,$(LOBJ))))
+
 # Add QMK specific flags
 DFU_SUFFIX ?= dfu-suffix
 DFU_SUFFIX_ARGS ?=
@@ -230,6 +261,7 @@ DFU_SUFFIX_ARGS ?=
 
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
+uf2: $(BUILD_DIR)/$(TARGET).uf2
 cpfirmware: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
@@ -258,34 +290,46 @@ gccversion :
 
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
-	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	$(eval CMD=$(HEX) $< $@)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
+	@$(BUILD_CMD)
+
+%.uf2: %.hex
+	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex -o $(BUILD_DIR)/$(TARGET).uf2 -c -f $(UF2_FAMILY) >/dev/null 2>&1)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 %.eep: %.elf
-	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
 	$(eval CMD=$(EEP) $< $@ || exit 0)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 # Create extended listing file from ELF output file.
 %.lss: %.elf
-	@$(SILENT) || printf "$(MSG_EXTENDED_LISTING) $@" | $(AWK_CMD)
 	$(eval CMD=$(OBJDUMP) -h -S -z $< > $@)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_EXTENDED_LISTING) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 # Create a symbol table from ELF output file.
 %.sym: %.elf
-	@$(SILENT) || printf "$(MSG_SYMBOL_TABLE) $@" | $(AWK_CMD)
 	$(eval CMD=$(NM) -n $< > $@ )
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_SYMBOL_TABLE) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 %.bin: %.elf
-	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
 	$(eval CMD=$(BIN) $< $@ || exit 0)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
 		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
 	fi
+	#$(SILENT) || printf "$(MSG_EXECUTING) '$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null':\n" ;\
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
 BEGIN = gccversion sizebefore
@@ -306,27 +350,38 @@ ifdef $1_CONFIG
 $1_CONFIG_FLAGS += $$(patsubst %,-include %,$$($1_CONFIG))
 endif
 $1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
-$1_CPPFLAGS= $$(ALL_CPPFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
-$1_ASFLAGS= $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
+$1_CXXFLAGS = $$(ALL_CXXFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
+$1_ASFLAGS = $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
 
 # Compile: create object files from C source files.
 $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
-	$$(eval CMD := $$(CC) -c $$($1_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CC_EXEC := $$(CC))
+    ifneq ($$(VERBOSE_C_CMD),)
+	$$(if $$(filter $$(notdir $$(VERBOSE_C_CMD)),$$(notdir $$<)),$$(eval CC_EXEC += -v))
+    endif
+    ifneq ($$(VERBOSE_C_INCLUDE),)
+	$$(if $$(filter $$(notdir $$(VERBOSE_C_INCLUDE)),$$(notdir $$<)),$$(eval CC_EXEC += -H))
+    endif
+	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
+    ifneq ($$(DUMP_C_MACROS),)
+	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$<)
+	@$$(if $$(filter $$(notdir $$(DUMP_C_MACROS)),$$(notdir $$<)),$$(BUILD_CMD))
+    endif
 
 # Compile: create object files from C++ source files.
-$1/%.o : %.cpp $1/%.d $1/cppflags.txt $1/compiler.txt | $(BEGIN)
+$1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
-	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CPPFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
-$1/%.o : %.cc $1/%.d $1/cppflags.txt $1/compiler.txt | $(BEGIN)
+$1/%.o : %.cc $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
-	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CPPFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
@@ -347,8 +402,8 @@ $1/force:
 $1/cflags.txt: $1/force
 	echo '$$($1_CFLAGS)' | cmp -s - $$@ || echo '$$($1_CFLAGS)' > $$@
 
-$1/cppflags.txt: $1/force
-	echo '$$($1_CPPFLAGS)' | cmp -s - $$@ || echo '$$($1_CPPFLAGS)' > $$@
+$1/cxxflags.txt: $1/force
+	echo '$$($1_CXXFLAGS)' | cmp -s - $$@ || echo '$$($1_CXXFLAGS)' > $$@
 
 $1/asflags.txt: $1/force
 	echo '$$($1_ASFLAGS)' | cmp -s - $$@ || echo '$$($1_ASFLAGS)' > $$@
@@ -390,6 +445,12 @@ show_path:
 	@echo SRC=$(SRC)
 	@echo OBJ=$(OBJ)
 
+dump_vars: ERROR_IF_EMPTY=""
+dump_vars: ERROR_IF_NONBOOL=""
+dump_vars: ERROR_IF_UNSET=""
+dump_vars:
+	@$(foreach V,$(sort $(.VARIABLES)),$(if $(filter-out environment% default automatic,$(origin $V)),$(info $V=$($V))))
+
 objs-size:
 	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
 
@@ -419,6 +480,9 @@ check-size:
 	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
 endif
 
+check-md5:
+	$(MD5SUM) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)
+
 # Create build directory
 $(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
 
@@ -430,10 +494,10 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 
 # Listing of phony targets.
-.PHONY : all finish sizebefore sizeafter qmkversion \
-gccversion build elf hex eep lss sym coff extcoff \
+.PHONY : all dump_vars finish sizebefore sizeafter qmkversion \
+gccversion build elf hex uf2 eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
-program teensy dfu flip dfu-ee flip-ee dfu-start \
+program teensy dfu dfu-ee dfu-start \
 flash dfu-split-left dfu-split-right \
 avrdude-split-left avrdude-split-right \
 avrdude-loop usbasp

@@ -15,8 +15,8 @@
  * GPL v2 or later.
  */
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #include "usb_main.h"
 
@@ -31,12 +31,14 @@
 #include "led.h"
 #include "sendchar.h"
 #include "debug.h"
-#include "printf.h"
-#include "rgblight_reconfig.h"
+#include "print.h"
 
-#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
+#ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+// Change this to be TRUE once we've migrated keyboards to the new init system
+// Remember to change docs/platformdev_chibios_earlyinit.md as well.
+#    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
 #endif
+
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif
@@ -48,9 +50,6 @@
 #endif
 #ifdef MIDI_ENABLE
 #    include "qmk_midi.h"
-#endif
-#ifdef STM32_EEPROM_ENABLE
-#    include "eeprom_stm32.h"
 #endif
 #include "suspend.h"
 #include "wait.h"
@@ -81,6 +80,9 @@ void raw_hid_task(void);
 #ifdef CONSOLE_ENABLE
 void console_task(void);
 #endif
+#ifdef MIDI_ENABLE
+void midi_ep_task(void);
+#endif
 
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
@@ -102,6 +104,39 @@ void console_task(void);
 //   }
 // }
 
+/* Early initialisation
+ */
+__attribute__((weak)) void early_hardware_init_pre(void) {
+#if EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+    void enter_bootloader_mode_if_requested(void);
+    enter_bootloader_mode_if_requested();
+#endif  // EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+}
+
+__attribute__((weak)) void early_hardware_init_post(void) {}
+
+__attribute__((weak)) void board_init(void) {}
+
+// This overrides what's normally in ChibiOS board definitions
+void __early_init(void) {
+    early_hardware_init_pre();
+
+    // This is the renamed equivalent of __early_init in the board.c file
+    void __chibios_override___early_init(void);
+    __chibios_override___early_init();
+
+    early_hardware_init_post();
+}
+
+// This overrides what's normally in ChibiOS board definitions
+void boardInit(void) {
+    // This is the renamed equivalent of boardInit in the board.c file
+    void __chibios_override_boardInit(void);
+    __chibios_override_boardInit();
+
+    board_init();
+}
+
 /* Main thread
  */
 int main(void) {
@@ -109,20 +144,14 @@ int main(void) {
     halInit();
     chSysInit();
 
-#ifdef STM32_EEPROM_ENABLE
-    EEPROM_Init();
-#endif
-
     // TESTING
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
     keyboard_setup();
 
     /* Init USB */
+    usb_event_queue_init();
     init_usb_driver(&USB_DRIVER);
-
-    /* init printf */
-    init_printf(NULL, sendchar_pf);
 
 #ifdef MIDI_ENABLE
     setup_midi();
@@ -180,6 +209,8 @@ int main(void) {
 
     /* Main loop */
     while (true) {
+        usb_event_queue_task();
+
 #if !defined(NO_USB_STARTUP_CHECK)
         if (USB_DRIVER.state == USB_SUSPENDED) {
             print("[s]");
@@ -195,6 +226,7 @@ int main(void) {
                 /* Remote wakeup */
                 if (suspend_wakeup_condition()) {
                     usbWakeupHost(&USB_DRIVER);
+                    restart_usb_driver(&USB_DRIVER);
                 }
             }
             /* Woken up */
@@ -214,14 +246,17 @@ int main(void) {
 #ifdef CONSOLE_ENABLE
         console_task();
 #endif
+#ifdef MIDI_ENABLE
+        midi_ep_task();
+#endif
 #ifdef VIRTSER_ENABLE
         virtser_task();
 #endif
 #ifdef RAW_ENABLE
         raw_hid_task();
 #endif
-#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
-        rgblight_task();
-#endif
+
+        // Run housekeeping
+        housekeeping_task();
     }
 }
