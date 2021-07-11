@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5644
-#define PRODUCT_ID      0x5111
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    Viktus Design
-#define PRODUCT         SP Mini
+#define PRODUCT_ID      0x534D
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Viktus_Design
+#define PRODUCT         SP_Mini
 
 /* key matrix size */
 // Rows are doubled-up
@@ -38,15 +38,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { B6, C6, C7, D4, D2, D3, D5 } // no B7 on left hand
 #define MATRIX_ROW_PINS_RIGHT { F0, B5, B4, D7, D6 }
 #define MATRIX_COL_PINS_RIGHT { B6, C6, C7, D4, D2, D3, D5, B7 }
-//#define MATRIX_COL_PINS_RIGHT { B7, D5, D3, D2, D4, C7, C6, B6 }
+
 
 #define DIODE_DIRECTION COL2ROW
 
 /* Split Defines */
 #define SPLIT_USB_DETECT
-
 #define MASTER_LEFT
-
 #define USE_I2C
 
 /* serial.c configuration for split keyboard */
