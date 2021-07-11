@@ -1,14 +1,16 @@
 { avr ? true, arm ? true, teensy ? true }:
 let
   # We specify sources via Niv: use "niv update nixpkgs" to update nixpkgs, for example.
-  sources = import ./nix/sources.nix {};
-  pkgs = import sources.nixpkgs {};
+  sources = import ./nix/sources.nix { };
+  pkgs = import sources.nixpkgs { };
+
+  poetry2nix = pkgs.callPackage (import sources.poetry2nix) { };
 
   # Builds the python env based on nix/pyproject.toml and
   # nix/poetry.lock Use the "poetry update --lock", "poetry add
   # --lock" etc. in the nix folder to adjust the contents of those
   # files if the requirements*.txt files change
-  pythonEnv = pkgs.poetry2nix.mkPoetryEnv {
+  pythonEnv = poetry2nix.mkPoetryEnv {
     projectDir = ./nix;
   };
 in

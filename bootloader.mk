@@ -90,7 +90,7 @@ ifeq ($(strip $(BOOTLOADER)), USBasp)
 endif
 ifeq ($(strip $(BOOTLOADER)), lufa-ms)
     OPT_DEFS += -DBOOTLOADER_MS
-    BOOTLOADER_SIZE = 6144
+    BOOTLOADER_SIZE ?= 8192
     FIRMWARE_FORMAT = bin
     $(info LUFA MASS STORAGE Bootloader selected)
     $(info DO NOT USE THIS BOOTLOADER IN NEW PROJECTS!)

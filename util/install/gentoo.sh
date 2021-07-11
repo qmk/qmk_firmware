@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 _qmk_install_prepare() {
     echo "This script will make a USE change in order to ensure that that QMK works on your system."

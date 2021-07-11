@@ -35,6 +35,7 @@ def main():
     print('Warning: The bin/qmk script is being deprecated. Please install the QMK CLI: python3 -m pip install qmk', file=sys.stderr)
 
     # Import the subcommands
+    import milc.subcommand.config  # noqa
     import qmk.cli  # noqa
 
     # Execute

@@ -11,3 +11,6 @@
 #ifdef KEYBOARD_keebio_quefrency_rev3
     #include "rev3.h"
 #endif
+#ifdef KEYBOARD_keebio_quefrency_rev4
+    #include "rev4.h"
+#endif

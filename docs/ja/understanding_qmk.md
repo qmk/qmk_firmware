@@ -1,8 +1,8 @@
 # QMK のコードの理解
 
 <!---
-  original document: 0.9.55:docs/understanding_qmk.md
-  git diff 0.9.55 HEAD -- docs/understanding_qmk.md | cat
+  original document: 0.13.15:docs/understanding_qmk.md
+  git diff 0.13.15 HEAD -- docs/understanding_qmk.md | cat
 -->
 
 このドキュメントでは、QMK ファームウェアがどのように機能するかを非常に高いレベルから説明しようとしています。基本的なプログラミングの概念を理解していることを前提としていますが、(実例を示す必要がある場合を除き) C に精通していることを前提にはしていません。以下のドキュメントの基本的な知識があることを前提としています。

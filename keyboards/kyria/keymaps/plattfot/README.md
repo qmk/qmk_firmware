@@ -1,6 +1,6 @@
 # plattfot's keymap for [Kyria](https://github.com/splitkb/kyria)
 
-![Keyboard](https://i.imgur.com/Pvsm973l.jpg)
+![Keyboard](https://i.imgur.com/mcefoHnh.jpg)
 
 Designed to be ease of use when programming, typing in both English
 and Swedish and navigating around in a tiling window manager, in my
@@ -11,28 +11,44 @@ This keymap avoids [Mod-tap](https://docs.qmk.fm/#/mod_tap) as they do
 not work for me. [Kyria](https://github.com/splitkb/kyria) has enough
 thumb keys to make it work without them.
 
+The symbols are split into two layers, one for each hand. Then the
+layers are activated by the opposite thumb. Found that having all
+symbols on one layer then have one thumb activate them made it awkward
+to press keys with the index finger on the same hand.
+
+Custom feature I call the close tap (Clotap) key, I based on a code
+snippet from a
+[reddit post](https://www.reddit.com/r/olkb/comments/citkbx/double_key_press_modifier_qmkwould_work_like/ev9cue8).
+When pressed, it will insert the closing equivivalent key and press
+`←` (left arrow). For example tapping Clotap then press `(` will
+result in the keypresses `()←`, if pressing `"` will result in `""←`,
+if pressing `)` will result in `)←(`. Really nice to have when
+programming, it is editor agnostic and saves me two keypresses (need
+to press NAV+j for `←`). It also removes the need for having specific
+macros for these as I had before.
+
 
 # Base Layer: Default
 ```
- // ,-------------------------------------------.                              ,-------------------------------------------.
- // |   `    |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |   Å    |
- // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- // |  Tab   |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
- // |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- // | LShift |   Z  |   X  |   C  |   V  |   B  | Lead | RAISE|  | LOWER|DBLTAP|   N  |   M  | ,  < | . >  | /  ? | RShift |
- // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- //                        | MPlay| GUI  | LCtrl| Space| LALT |  | Enter|BSpace| NAV  | LCTL+|Worksp|
- //                        |      |      |      |      |      |  |      |      |      | LALT |toggle|
- //                        `----------------------------------'  `----------------------------------'
+//  ,-------------------------------------------.                              ,-------------------------------------------.
+//  |  Esc   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Del   |
+//  |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+//  |  Tab   |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  |   ;  |   '    |
+//  |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+//  | LShift |   Z  |   X  |   C  |   V  |   B  | Lead | RAISE|  | LOWER|BSpace|   N  |   M  |   ,  |   .  |   /  | RShift |
+//  `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+//                         | MPlay| GUI  | LCtrl| Space| LALT |  | RCtrl| Enter| NAV  | RALT |Scroll|
+//                         |      |      |      |      |      |  |      |      |      |      | Lock |
+//                         `----------------------------------'  `----------------------------------'
 ```
 
-Setup for typing in both English and Swedish (hence the Å in the top
-right corner, which is just [ on an US layout).
+Setup for using the
+[EurKey](https://eurkey.steffen.bruentjen.eu/layout.html) layout. As
+it's annoying to have to toggle us and swedish layout which shifts
+symbols around.
 
-Modifiers are mostly on the left hand, to make it comfortable when
-require keyboard and mouse. For example working in a DCC (Digital
-Content Creation tool) like [Houdini](https://www.sidefx.com/) and
-[Maya](https://www.autodesk.com/products/maya/overview).
+AltGr is used to access the extra keys in the
+[EurKey](https://eurkey.steffen.bruentjen.eu/layout.html) layout.
 
 ## Notable features on this layer
 
@@ -41,9 +57,7 @@ Left rotary encoder
 - Rotate: Volume control
 
 Right rotary encoder
-- Press: Call keybinding that toggles between two recent workspaces.
-         For [sway](https://swaywm.org/) that is `workspace
-         back_and_forth`
+- Press: Scroll lock
 - Rotate: Page up/Page down. Used mouse scrolling at first. But
           scrolling only works in the window where the mouse pointer
           is. Which kind of defeated the purpose of having the scroll
@@ -53,102 +67,91 @@ Right rotary encoder
 [Leader key](https://docs.qmk.fm/#/feature_leader_key) is mainly used
 for jumping between workspaces. Otherwise I would need to use both
 hands everytime I need to switch. With the leader key I can jump
-between 1-5 with just the left hand. The right rotary encoder also
-helps jumping back and forth between two workspaces by just pressing
-down my right palm.
+between 1-5 with just the left hand.
 
-The double tap key, which I based on a code snippet from a
-[reddit post](https://www.reddit.com/r/olkb/comments/citkbx/double_key_press_modifier_qmkwould_work_like/ev9cue8).
-When pressed, it will repeat the next key twice. Reason for this is
-that I found it a bit awkward to hold down the lower key when I need
-to type a symbol twice. Which happens a lot when programming or
-running commands on the command line. Does not save me any key presses
-but more comfortable to type double keys, for example `--` and `&&`.
-
-# Lower Layer: Symbols
+# Lower Layer: Left symbols/Right function keys
 ```
- //
- // ,-------------------------------------------.                              ,-------------------------------------------.
- // |   ~    |  !   |  @   |  #   |  $   |  %   |                              |   ^  |  &   |  *   |  (   |  )   |        |
- // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- // |        |  |   |  _   |  \   |  -   |  +   |                              |   =  |  {   |  }   |  [   |  ]   |   ''   |
- // |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- // |        |  []  |  {}  |  ()  |  <>  |      |      |      |  |      |      |      |      |  <   |  >   |  ?   |        |
- // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- //                        | Mute |      |      |      |      |  |      |      |      |      |      |
- //                        |      |      |      |      |      |  |      |      |      |      |      |
- //                        `----------------------------------'  `----------------------------------'
+//  ,-------------------------------------------.                              ,-------------------------------------------.
+//  |        |  !   |  @   |  #   |  $   |  %   |                              |  F6  |  F7  |  F8  |  F9  | F10  |        |
+//  |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+//  |        |  |   |  _   |  \   |  -   |  +   |                              | F12  |      |      |      |      |        |
+//  |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+//  |        |  °   |  :   |  (   |  )   |  ×   |      |ADJUST|  |      |      |CLOTAP|      |      |      |      |        |
+//  `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+//                         |      |      |      |      |      |  |      |      |      |      |      |
+//                         |      |      |      |      |      |  |      |      |      |      |      |
+//                         `----------------------------------'  `----------------------------------'
 ```
 
-Contains most of the symbols, only exceptions are those that are
-already on the default US base layer i.e. quotes, punctuation and
-forward slash.
+Symbols for the left hand, function keys for the right hand.
+
+I had the function keys at the bottom on the navigation layer. But it
+was annoying when typing version strings. Hitting f1-5+f11 involved
+both hands. And it turned out that my keybinding for closing a window
+(Super+Shift+c) and rebooting my machine (Super+Shift+f3) ended up on
+the same physical keys.
+
+Splitting them up like this allows me to hit all the function keys
+with just one hand and I wont accidentally reboot my machine when
+trying to close a window.
+
+## Notable features on this layer
+
+Left rotary encoder
+- Rotate: Skip next/previous song
+
+Clotap on the right hand.
+
+Has two Eurkey specific symbols `°` and `×` on the left hand.
+
+# Raise Layer: Left function/Right symbols + state keys
+```
+//  ,-------------------------------------------.                              ,-------------------------------------------.
+//  |        |  F1  |  F2  |  F3  |  F4  |  F5  |                              |   ^  |  &   |  *   |  ~   |  ?   |        |
+//  |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+//  |        |      |      |      |      | F11  |                              |   =  |  {   |  }   |  [   |  ]   |   `    |
+//  |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+//  |        |      |      |      |      |CLOTAP|      |      |  |ADJUST|      |   …  |  "   |  <   |  >   |  /   |CapsLock|
+//  `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+//                         | Mute |      |      |      |      |  |      |      |      |      |Insert|
+//                         |      |      |      |      |      |  |      |      |      |      |      |
+//                         `----------------------------------'  `----------------------------------'
+```
+
+Function keys for the left hand, symbols for the right hand. 
+
+This layer also includes caps lock and insert.
 
 ## Notable features on this layer
 
 Left rotary encoder
 - Press: mute
-- Rotate: Skip next/previous song
-
-The left letter bottom row contains macros to quickly type the
-different types of brackets and move the cursor to be inside. For
-example lower+c will type `()←`, where `←` is pressing the left arrow.
-Same principle for the `''` macro. Really nice to have when
-programming, and it is editor agnostic.
-
-# Raise Layer: Function keys
-```
- // ,-------------------------------------------.                              ,-------------------------------------------.
- // |        |  F1  |  F2  |  F3  |  F4  |  F5  |                              |  F6  |  F7  |  F8  |  F9  | F10  |        |
- // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- // |        |      |      |      |      | F11  |                              | F12  |      |      |      |      |        |
- // |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- // |        |      |      |      |      |      |ScLock|      |  |      | Ins  |      |      |      |      |      |CapsLock|
- // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- //                        |      |      |      |      |      |  |      |      |      | RAlt |      |
- //                        |      |      |      |      |      |  |      |      |      |      |      |
- //                        `----------------------------------'  `----------------------------------'
-```
-
-Access to the functional keys, which I mostly use to run `emacs`
-compilation mode.
-
-This layer also includes key that changes the state, like insert and
-caps lock.
-
-Scroll Lock is used to toggle between English and Swedish.
-
-## Notable features on this layer
 
 Right rotary encoder
-- Press: Right Alt, rarely use this, but it is needed for the Swedish
-         layout to type some symbols. But I find I mostly switch back
-         to the English layout if I need to type symbols. Might change
-         this in the future.
-- Rotate: Moving between tabs in the browser, as described in this
-          [blog post](https://docs.splitkb.com/hc/en-us/articles/360010513760-How-can-I-use-a-rotary-encoder-).
+- Press: Toggle insert mode
+- Rotate: Scrolling between workspaces in `sway`.
+
+Clotap on the left hand.
 
 # Navigation Layer: Number keys, navigation
 ```
+ //
  // ,-------------------------------------------.                              ,-------------------------------------------.
  // |        |   1  |  2   |  3   |  4   |  5   |                              |  6   |  7   |  8   |  9   |  0   |        |
  // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- // |        |      | ESC  |  DEL |      |      |                              |      | Left | Up   | Down | Right|        |
+ // |        |      |      |      |      |      |                              |      | Left | Up   | Down | Right|        |
  // |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  // |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- //                        |      |      |      |      |      |  |      |      |      | RCtrl|      |
+ //                        |      |      |      |      |      |  |      |      |      |      |      |
  //                        |      |      |      |      |      |  |      |      |      |      |      |
  //                        `----------------------------------'  `----------------------------------'
 ```
 
-Access to the number as well as the arrow keys. Got use to the number
-row after using [ErgoDox](https://www.ergodox.io/) keyboards for a few
+Access to the number and the arrow keys. Got use to the number row
+after using [ErgoDox](https://www.ergodox.io/) keyboards for a few
 years. Do not feel I need a numpad layer, which seems to be quite
 common with small keyboards like this.
-
-Esc and Delete is also on this layer as they are easy to reach and they
-only need to be chord with the modifiers.
 
 # Adjust Layer: RGB
 ```
@@ -165,4 +168,5 @@ only need to be chord with the modifiers.
  //                        `----------------------------------'  `----------------------------------'
 ```
 
-Right now it only contains adjustment to the underglow.
+Right now it only contains adjustment to the underglow. Activated by
+holding down `RAISE` and `LOWER` at the same time.

@@ -2,9 +2,9 @@
 
 ![Geminate60](https://www.hualigs.cn/image/600d9391f16d7.jpg)
 
-A 60% keyboard based on STM32f303
+A 60% keyboard based on STM32F303.
 
-* Keyboard Maintainer:  [Weirdo](https://weirdo-f.github.io)(https://github.com/1248314361)
+* Keyboard Maintainer:  [Weirdo](https://github.com/weirdo-f) ([weirdo-f.github.io](https://))
 * Hardware Supported: Geminate60
 * Hardware Availability: Not yet
 

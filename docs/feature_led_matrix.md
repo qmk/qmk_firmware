@@ -67,6 +67,8 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 
 ---
 
+## Common Configuration :id=common-configuration
+
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
 ```c

@@ -131,11 +131,13 @@ You can override the default songs by doing something like this in your `config.
 
 ```c
 #ifdef AUDIO_ENABLE
-  #define STARTUP_SONG SONG(STARTUP_SOUND)
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 ```
 
 A full list of sounds can be found in [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) - feel free to add your own to this list! All available notes can be seen in [quantum/audio/musical_notes.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/musical_notes.h).
+
+Additionally, if you with to maintain your own list of songs (such as ones that may be copyrighted) and not have them added to the repo, you can create a `user_song_list.h` file and place it in your keymap (or userspace) folder.  This file will be automatically included, it just needs to exist.
 
 To play a custom sound at a particular time, you can define a song like this (near the top of the file):
 
