@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debounce.h"
 #include "quantum.h"
 #ifdef SPLIT_KEYBOARD
-#    include "split_util.h"
-#    include "transactions.h"
+#    include "split_common/split_util.h"
+#    include "split_common/transactions.h"
 
 #    ifndef ERROR_DISCONNECT_COUNT
 #        define ERROR_DISCONNECT_COUNT 5
