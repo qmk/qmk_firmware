@@ -44,7 +44,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 key_timer = timer_read();
             } else {
-                if (timer_elapsed(key_timer) > TAP_CODE_DELAY) {  // Hold, copy
+                if (timer_elapsed(key_timer) > TAPPING_TERM) {  // Hold, copy
                     tap_code16(G(KC_C));
                 } else {  // Tap, paste
                     tap_code16(G(KC_V));
