@@ -21,14 +21,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0913
+#define DEVICE_VER      0x0007
 #define MANUFACTURER    imchipwood
 #define PRODUCT         dumbpad
 
 /* Column/Row IO definitions */
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 5
+#define MATRIX_ROW_PINS { F4, F5, F6, F7 }
+#define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
+#define UNUSED_PINS
+
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+/* Single rotary encoder */
+#define ENCODERS_PAD_A { B2, D0 }
+#define ENCODERS_PAD_B { D4, D1 }
+#define ENCODER_RESOLUTIONS { 4, 4 }
 
-/* Reduce tapdance required taps from 5 to 2 */
-#define TAPPING_TOGGLE 2
+/* Onboard LEDs */
+#define LED_00 B3
+#define LED_01 B1
+
+/* Bootmagic - hold down rotary encoder pushbutton while plugging in to enter bootloader */
+#define BOOTMAGIC_LITE_ROW 3
+#define BOOTMAGIC_LITE_COLUMN 0
