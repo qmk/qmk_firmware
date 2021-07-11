@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Astro65
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 16
+#define MATRIX_COLS 15
 
 // ROWS: Top to bottom, COLS: Left to right
 
