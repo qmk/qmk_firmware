@@ -22,6 +22,10 @@
 #include "dynamic_keymap.h"
 #include "via.h"  // for default VIA_EEPROM_ADDR_END
 
+#ifdef STM32_EEPROM_ENABLE
+#    include "eeprom_stm32.h"
+#endif
+
 #ifdef VIAL_ENABLE
 #include "vial.h"
 #endif
@@ -41,6 +45,8 @@
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
 #    elif defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_AT90USB162__) || defined(__AVR_ATtiny85__)
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 511
+#    elif defined(FEE_DENSITY_BYTES)
+#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR FEE_DENSITY_BYTES-1
 #    else
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
 #    endif
