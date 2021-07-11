@@ -375,11 +375,11 @@ def _check_matrix(info_data):
             col_count = len(info_data['matrix_pins']['cols'])
             row_count = len(info_data['matrix_pins']['rows'])
 
-        if col_count != actual_col_count and col_count != actual_col_count/2:
+        if col_count != actual_col_count and col_count != (actual_col_count / 2):
             # FIXME: once we can we should detect if split is enabled to do the actual_col_count/2 check.
             _log_error(info_data, f'MATRIX_COLS is inconsistent with the size of MATRIX_COL_PINS: {col_count} != {actual_col_count}')
 
-        if row_count != actual_row_count and row_count != actual_row_count/2:
+        if row_count != actual_row_count and row_count != (actual_row_count / 2):
             # FIXME: once we can we should detect if split is enabled to do the actual_row_count/2 check.
             _log_error(info_data, f'MATRIX_ROWS is inconsistent with the size of MATRIX_ROW_PINS: {row_count} != {actual_row_count}')
 
