@@ -1,5 +1,5 @@
 # Bloop65
-![Bloop65](https://imgur.com/WH56BIu.png)
+![Bloop65](https://imgur.com/WH56BIuh.png)
 
 [Interest check page here](https://geekhack.org/index.php?topic=110483.0)
 
