@@ -29,3 +29,10 @@ bool encoder_update_user(uint8_t index, bool clockwise);
 void encoder_state_raw(uint8_t* slave_state);
 void encoder_update_raw(uint8_t* slave_state);
 #endif
+
+#ifdef ENCODER_MATRIX
+typedef struct {
+    uint8_t row;
+    uint8_t col;
+} encoder_pin_pair_t;
+#endif
