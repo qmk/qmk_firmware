@@ -17,17 +17,11 @@
 
 #include "jjerrell.h"
 
-enum planck_keycodes {
-  BACKLIT = NEW_SAFE_RANGE,
-  TH_LVL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_WORKMAN] = LAYOUT_planck_mods(
+  [_WORKMAN] = LAYOUT_planck_base(
       __________________WORKMN_L1__________________,       __________________WORKMN_R1__________________,
       __________________WORKMN_L2__________________,       __________________WORKMN_R2__________________,
-      __________________WORKMN_L3__________________,       __________________WORKMN_R3__________________,
-                                          LW_BSPC, SH_SPCE, RS_ENTR
+      __________________WORKMN_L3__________________,       __________________WORKMN_R3__________________
   ),
 
   /* Lower
@@ -42,10 +36,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-----------------------------------------------------------------------------------'
   */
   [_LOWER] = LAYOUT_planck_mods(
-      KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,     XXXXXXX, KC_7, KC_8,   KC_9,    KC_ASTR,
-      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,      XXXXXXX, KC_4, KC_5,   KC_6,    KC_SLSH,
-      KC_ESC,  KC_TAB,  XXXXXXX, KC_ENT,  XXXXXXX,     XXXXXXX, KC_1, KC_2,   KC_3,    KC_MINS,
-                                          LW_BSPC, SH_SPCE, RS_ENTR
+      KC_PGUP, KC_TAB,  KC_UP,   KC_ENT,  KC_PGDN, XXXXXXX, XXXXXXX,   XXXXXXX, KC_7, KC_8,   KC_9,    KC_ASTR,
+      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, XXXXXXX, XXXXXXX,   XXXXXXX, KC_4, KC_5,   KC_6,    KC_SLSH,
+      KC_ESC,  KC_BSPC, XXXXXXX, KC_DEL,  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, KC_1, KC_2,   KC_3,    KC_MINS,
+      KC_LSFT, KC_LEAD, XXXXXXX, KC_MEH,  KC_BSPC,  KC_SPC, XXXXXXX,    KC_ENT, KC_0, KC_DOT, KC_COMM, LED_LEVEL
   ),
 
   /* Raise
@@ -56,59 +50,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |------+------+------+------+------+------+------+------+------+------+------+------|
   * |   #  |   $  |   |  |   ~  |   `  |      |      |   @  |   %  |   '  |   +  |  &   |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * |      | LEAD |      |      | TAB  |    SPACE    | held |      |      |      |      |
+  * |      | LEAD |      |      | Bspc |    SPACE    | held |      |      |      |      |
   * `-----------------------------------------------------------------------------------'
   */
   [_RAISE] = LAYOUT_planck_common(
-      XXXXXXX, KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC,       KC_EXLM, KC_LABK, KC_RABK, KC_EQL , XXXXXXX,
-      KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR,       KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_SCLN,
-      KC_HASH, KC_DLR , KC_PIPE, KC_TILD, KC_GRV ,       KC_AT,   KC_PERC, KC_QUOT, KC_PLUS, KC_AMPR,
-                                          LW_BSPC, SH_SPCE, RS_ENTR
+      XXXXXXX, KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC,    KC_EXLM, KC_LABK, KC_RABK, KC_EQL , XXXXXXX,
+      KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR,    KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_SCLN,
+      KC_HASH, KC_DLR , KC_PIPE, KC_TILD, KC_GRV ,    KC_AT,   KC_PERC, KC_QUOT, KC_PLUS, KC_AMPR
   ),
 
   /* Adjust (Lower + Raise)
-  *                      v------------------------RGB CONTROL--------------------v
   * ,-----------------------------------------------------------------------------------.
-  * |      | Reset|Debug | RGB  |RGBMOD| HUE+ | HUE- | SAT+ | SAT- |BRGTH+|BRGTH-|  Del |
+  * |      | Debug|Reset |TermOn|TrmOff|      |      |MusMod|Mus On|MusOff|MidiOn|MidOff|
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * |      |      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+  * | Mute | Vol- | Vol+ | Play | Skip |      |      |Voice-| HUE+ | HUE- | SAT+ | SAT- |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|TermOn|TermOf|      |      |      |
+  * |      | AudOn|AudOff|CGswap|CGnorm|      |      |Voice+|RGBTog|RGBMod|BRGHT+|BRGHT-|
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * |      |      |      |      |      |             |      |      |      |      |      |
+  * |      |      |      |      | held |             | held |      |      |      |      |
   * `-----------------------------------------------------------------------------------'
   */
   [_ADJUST] = LAYOUT_planck_common(
-      RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI,      RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD,
-      _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM,      AG_SWAP, QWERTY,  WORKMN,   _______, _______,
-      MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,        MI_OFF,  TERM_ON, TERM_OFF, _______, _______,
-                                          LW_BSPC, SH_SPCE, RS_ENTR
+       XXXXXXX,       DEBUG,     RESET, TERM_ON, TERM_OFF,      MU_MOD, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,
+      KC__MUTE, KC__VOLDOWN, KC__VOLUP, KC_MPLY,  KC_MNXT,      MUV_IN, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,
+       XXXXXXX,       AU_ON,    AU_OFF, CG_SWAP,  CG_NORM,      MUV_DE, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD
   )
 
 };
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case BACKLIT:
-    if (record->event.pressed) {
-      register_code(KC_RSFT);
-      # ifdef BACKLIGHT_ENABLE
-        backlight_step();
-      # endif
-    # ifdef KEYBOARD_planck_rev5
-      writePinLow(E6);
-    # endif
-    } else {
-      unregister_code(KC_RSFT);
-    # ifdef KEYBOARD_planck_rev5
-      writePinHigh(E6);
-    # endif
-    }
-    return false;
-    break;
-  }
-  return true;
-}
 
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
@@ -149,27 +117,27 @@ bool encoder_update(bool clockwise) {
   return true;
 }
 
-// void dip_switch_update_keymap(uint8_t index, bool active) {
-//     switch (index) {
-//         case 0: {
-//             if (active) {
-//                 layer_on(_ADJUST);
-//             } else {
-//                 layer_off(_ADJUST);
-//             }
-//             break;
-//         }
-//         case 1:
-//             if (active) {
-//                 muse_mode = true;
-//             } else {
-//                 muse_mode = false;
-//             }
-//     }
-// }
+void dip_switch_update_keymap(uint8_t index, bool active) {
+    switch (index) {
+        case 0: {
+            if (active) {
+                layer_on(_ADJUST);
+            } else {
+                layer_off(_ADJUST);
+            }
+            break;
+        }
+        case 1:
+            if (active) {
+                muse_mode = true;
+            } else {
+                muse_mode = false;
+            }
+    }
+}
 
-void matrix_scan_keymap(void) {
 #ifdef AUDIO_ENABLE
+void matrix_scan_keymap(void) {
     if (muse_mode) {
         if (muse_counter == 0) {
             uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
@@ -186,8 +154,31 @@ void matrix_scan_keymap(void) {
             muse_counter = 0;
         }
     }
-#endif
 }
+#endif
+
+
+#ifdef KEYBOARD_planck_ez
+layer_state_t layer_state_set_keymap(layer_state_t state) {
+    planck_ez_left_led_off();
+    planck_ez_right_led_off();
+    switch (get_highest_layer(state)) {
+        case _LOWER:
+            planck_ez_left_led_on();
+            break;
+        case _RAISE:
+            planck_ez_right_led_on();
+            break;
+        case _ADJUST:
+            planck_ez_right_led_on();
+            planck_ez_left_led_on();
+            break;
+        default:
+            break;
+    }
+    return state;
+}
+#endif
 
 bool music_mask_keymap(uint16_t keycode) {
   switch (keycode) {

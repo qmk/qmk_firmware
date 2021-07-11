@@ -30,31 +30,46 @@
 #   define WRAPPER_ortho_4x12(...) LAYOUT_ortho_4x12(__VA_ARGS__)
 
 #   define WRAPPER_planck_common( \
-        K01, K02, K03, K04, K05,           K08, K09, K0A, K0B, K0C, \
-        K11, K12, K13, K14, K15,           K18, K19, K1A, K1B, K1C, \
-        K21, K22, K23, K24, K25,           K28, K29, K2A, K2B, K2C, \
-                            K35,    K36,    K38                     \
+        K01, K02, K03, K04, K05,     K08, K09, K0A, K0B, K0C, \
+        K11, K12, K13, K14, K15,     K18, K19, K1A, K1B, K1C, \
+        K21, K22, K23, K24, K25,     K28, K29, K2A, K2B, K2C  \
     ) WRAPPER_ortho_4x12( \
-        K01,     K02,     K03,     K04,     K05, XXXXXXX,  XXXXXXX,      K08,      K09,     K0A,     K0B,     K0C, \
-        K11,     K12,     K13,     K14,     K15, XXXXXXX,  XXXXXXX,      K18,      K19,     K1A,     K1B,     K1C, \
-        K21,     K22,     K23,     K24,     K25, XXXXXXX,  XXXXXXX,      K28,      K29,     K2A,     K2B,     K2C, \
-    KC_LSFT, KC_LEAD, XXXXXXX,  KC_MEH,     K35,     K36,  XXXXXXX,      K38,  KC_HYPR, XXXXXXX, XXXXXXX, BACKLIT  \
-    )
+        K01,     K02,     K03,     K04,     K05, XXXXXXX,  XXXXXXX, K08,     K09,     K0A,     K0B,     K0C,      \
+        K11,     K12,     K13,     K14,     K15, XXXXXXX,  XXXXXXX, K18,     K19,     K1A,     K1B,     K1C,      \
+        K21,     K22,     K23,     K24,     K25, XXXXXXX,  XXXXXXX, K28,     K29,     K2A,     K2B,     K2C,      \
+    KC_LSFT, KC_LEAD, XXXXXXX,  KC_MEH, KC_BSPC,  KC_SPC,  XXXXXXX, KC_ENT,  KC_HYPR, RGB_TOG, RGB_IDL, LED_LEVEL )
+/**
+ * Shifted Key conflicts:
+ * K12, K13, K14, K19, K1A, K1B, K21, K2C
+ */
+#   define WRAPPER_planck_base( \
+        K01, K02, K03, K04, K05,     K08, K09, K0A, K0B, K0C, \
+        K11, K12, K13, K14, K15,     K18, K19, K1A, K1B, K1C, \
+        K21, K22, K23, K24, K25,     K28, K29, K2A, K2B, K2C  \
+    ) WRAPPER_ortho_4x12( \
+                K01 ,       K02 ,       K03 ,       K04 ,                K05 ,      XXXXXXX , XXXXXXX, K08,                 K09 ,       K0A ,       K0B ,       K0C,        \
+                K11 , SFT_T(K12), GUI_T(K13), ALT_T(K14),                K15 ,      XXXXXXX , XXXXXXX, K18,                 ALT_T(K19), GUI_T(K1A), SFT_T(K1B), K1C,        \
+          CTL_T(K21),       K22 ,       K23 ,       K24 ,                K25 ,      XXXXXXX , XXXXXXX, K28,                 K29 ,       K2A ,       K2B ,       CTL_T(K2C), \
+             KC_LSFT,    KC_LEAD,    XXXXXXX,     KC_MEH, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_HYPR,    RGB_TOG,    RGB_IDL,    LED_LEVEL   )
 
 #   define WRAPPER_planck_mods( \
-        K01, K02, K03, K04, K05,           K08, K09, K0A, K0B, K0C, \
-        K11, K12, K13, K14, K15,           K18, K19, K1A, K1B, K1C, \
-        K21, K22, K23, K24, K25,           K28, K29, K2A, K2B, K2C, \
-                            K35,    K36,    K38                     \
-    ) WRAPPER_planck_common( \
-                K01 ,       K02 ,       K03 ,       K04 , K05,            K08 ,       K09 ,       K0A ,       K0B ,       K0C , \
-                K11 , SFT_T(K12), GUI_T(K13), ALT_T(K14), K15,            K18 , ALT_T(K19), GUI_T(K1A), SFT_T(K1B),       K1C , \
-          CTL_T(K21),       K22 ,       K23 ,       K24 , K25,            K28 ,       K29 ,       K2A ,       K2B , CTL_T(K2C), \
-                                                          K35,    K36,    K38                                                   \
-        )
+        K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, \
+        K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, \
+        K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, \
+        K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C  \
+    ) WRAPPER_ortho_4x12( \
+                K01 ,       K02 ,       K03 ,       K04 ,            K05 ,         K06 ,     K07, K08,             K09 ,       K0A ,       K0B ,       K0C,        \
+                K11 , SFT_T(K12), GUI_T(K13), ALT_T(K14),            K15 ,         K16 ,     K17, K18,             ALT_T(K19), GUI_T(K1A), SFT_T(K1B), K1C,        \
+          CTL_T(K21),       K22 ,       K23 ,       K24 ,            K25 ,         K26 ,     K27, K28,             K29 ,       K2A ,       K2B ,       CTL_T(K2C), \
+                K31,        K32 ,       K33 ,       K34 , LT(_LOWER, K35),   SFT_T(K36), XXXXXXX, LT(_RAISE, K38), K39 ,       K3A ,       K3B,        K3C         )
 
-#   define LAYOUT_planck_common(...)    WRAPPER_planck_common(__VA_ARGS__)
-#   define LAYOUT_planck_mods(...)      WRAPPER_planck_mods(__VA_ARGS__)
+
+
+// These macros are used when defining layouts in keymap.c
+#   define LAYOUT_planck_base(...)    WRAPPER_planck_base(__VA_ARGS__)
+#   define LAYOUT_planck_common(...)  WRAPPER_planck_common(__VA_ARGS__)
+#   define LAYOUT_planck_mods(...)    WRAPPER_planck_mods(__VA_ARGS__)
+
 #endif // KEYBOARD_planck_ez
 /**
  * Alpha

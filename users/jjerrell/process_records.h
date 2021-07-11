@@ -47,8 +47,4 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define MO_LWR  MO(_LOWER)
 #define MO_RSE  MO(_RAISE)
 #define MO_SPL  MO(_SPECIAL)
-
-#define LW_BSPC LT(_LOWER, KC_BSPC)
-#define RS_ENTR LT(_RAISE, KC_ENT)
-#define SH_SPCE SFT_T(KC_SPC)
 // clang-format on

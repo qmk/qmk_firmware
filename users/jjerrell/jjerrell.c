@@ -19,8 +19,42 @@
 
 #include "jjerrell.h"
 
+
 __attribute__((weak)) void matrix_scan_keymap(void) {}
+__attribute__((weak)) void leader_scan_secrets(void) {}
+
+#ifdef LEADER_ENABLE
+    LEADER_EXTERNS();
+    void matrix_scan_leader(void) {
+        LEADER_DICTIONARY() {
+            leading = false;
+            leader_end();
+
+            // Website Refresh / XCode "Run"
+            SEQ_ONE_KEY(KC_R) {
+                SEND_STRING(SS_LGUI("r"));
+            }
+
+            SEQ_TWO_KEYS(KC_B, KC_D) {
+                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE);
+            }
+
+            #ifndef NO_SECRETS
+            leader_scan_secrets();
+            #endif // !NO_SECRETS
+        }
+    }
+#endif
+
+static bool is_first_run = true;
 void matrix_scan_user(void) {
+    if (is_first_run) {
+        is_first_run = false;
+        startup_user();
+    }
+    #ifdef LEADER_ENABLE
+    matrix_scan_leader();
+    #endif
     matrix_scan_keymap();
 }
 
@@ -34,8 +68,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         return state;
     }
 
-    state = layer_state_set_keymap(state);
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+    state = layer_state_set_keymap(state);
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
 #endif  // RGBLIGHT_ENABLE
@@ -63,14 +97,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     if (!is_keyboard_master()) {
         return state;
     }
-
-    state = default_layer_state_set_keymap(state);
-#if 0
-#    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-  state = default_layer_state_set_rgb(state);
-#    endif  // RGBLIGHT_ENABLE
-#endif
-    return state;
+    return default_layer_state_set_keymap(state);
 }
 
 #ifdef AUDIO_ENABLE
@@ -78,14 +105,14 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 __attribute__((weak)) void startup_keymap(void) {}
 void startup_user(void)
 {
-    _delay_ms(20); // gets rid of tick
+    // _delay_ms(20); // gets rid of tick
     startup_keymap();
 }
 
 __attribute__((weak))  void shutdown_keymap(void) {}
 void shutdown_user(void)
 {
-    _delay_ms(150);
+    // _delay_ms(150);
     stop_all_notes();
     shutdown_keymap();
 }
@@ -95,13 +122,6 @@ void music_on_user(void)
 {
     music_scale_user();
     music_on_keymap();
-}
-
-__attribute__((weak)) void music_scale_keymap(void) {}
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-    music_scale_keymap();
 }
 
 #endif

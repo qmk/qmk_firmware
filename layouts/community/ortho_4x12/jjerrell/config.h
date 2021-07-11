@@ -30,8 +30,6 @@
                                 }
 #endif
 
-//ZSA Technology Labs Planck EZ Glow (3297:C6CF:0000)
-
 #ifdef KEYBOARD_planck_ez_glow
 #undef   PRODUCT
 #define  PRODUCT  Planck EZ Glow - Modified by <@jjerrell>

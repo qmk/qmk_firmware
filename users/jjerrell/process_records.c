@@ -17,6 +17,8 @@
  * along with qmk_firmware.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "jjerrell.h"
+
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 static uint16_t key_timer;

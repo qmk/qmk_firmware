@@ -50,4 +50,4 @@ layer_state_t default_layer_state_set_keymap(layer_state_t state);
 void startup_keymap(void);
 void shutdown_keymap(void);
 void music_on_keymap(void);
-void music_scale_keymap(void);
+// void music_scale_keymap(void);
