@@ -122,7 +122,7 @@ def print_dotted_output(kb_info_json, prefix=''):
         elif isinstance(kb_info_json[key], dict):
             print_dotted_output(kb_info_json[key], new_prefix)
         elif isinstance(kb_info_json[key], list):
-            cli.echo('{fg_blue}%s{fg_reset}: %s', new_prefix, ', '.join(sorted(kb_info_json[key])))
+            cli.echo('{fg_blue}%s{fg_reset}: %s', new_prefix, ', '.join(map(str, sorted(kb_info_json[key]))))
         else:
             cli.echo('{fg_blue}%s{fg_reset}: %s', new_prefix, kb_info_json[key])
 

@@ -201,7 +201,7 @@ def _extract_audio(info_data, config_c):
         info_data['audio'] = {'pins': audio_pins}
 
 
-def _extract_split(info_data, config_c):
+def _extract_split_primary(info_data, config_c):
     """Populate data about the split configuration
     """
     # Figure out how the primary half is determined
@@ -251,6 +251,8 @@ def _extract_split(info_data, config_c):
 
         info_data['split']['primary'] = 'left'
 
+
+def _extract_split_transport(info_data, config_c):
     # Figure out the transport method
     if config_c.get('USE_I2C') is True:
         if 'split' not in info_data:
@@ -273,6 +275,8 @@ def _extract_split(info_data, config_c):
 
         info_data['split']['transport']['protocol'] = 'serial'
 
+
+def _extract_split_right_pins(info_data, config_c):
     # Figure out the right half matrix pins
     row_pins = config_c.get('MATRIX_ROW_PINS_RIGHT', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS_RIGHT', '').replace('{', '').replace('}', '').strip()
@@ -431,7 +435,9 @@ def _extract_config_h(info_data):
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
-    _extract_split(info_data, config_c)
+    _extract_split_primary(info_data, config_c)
+    _extract_split_transport(info_data, config_c)
+    _extract_split_right_pins(info_data, config_c)
 
     return info_data
 
