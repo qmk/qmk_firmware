@@ -3,6 +3,7 @@
 #if defined(__AVR__)
 #    include <avr/pgmspace.h>
 #else
+#    include <string.h>
 #    define PROGMEM
 #    define PSTR(x) x
 #    define PGM_P const char*
