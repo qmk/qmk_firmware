@@ -45,9 +45,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 key_timer = timer_read();
             } else {
                 if (timer_elapsed(key_timer) > TAPPING_TERM) {  // Hold, copy
-                    tap_code16(C(KC_C));
+                    tap_code16(G(KC_C));
                 } else {  // Tap, paste
-                    tap_code16(C(KC_V));
+                    tap_code16(G(KC_V));
                 }
             }
             return false;

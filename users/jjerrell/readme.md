@@ -36,7 +36,8 @@ across my current keyboards.
 - Layer Macros
   - WRAPPER defines in [wrapper.c] simplify consistent keymaps
 - Leader key secrets
-  - [jjerrell.c] sets up the functionality for this feature and calls into the leader_scan_secrets method
+  - [jjerrell.c] sets up the functionality for this feature and calls into the leader_scan_secrets method.
+  - TODO: add documentation for leader_scan_secrets implementation
 
 ## Issues
 
@@ -45,3 +46,5 @@ across my current keyboards.
 An immediate part of my love for QMK was it's ability to differentiate between holds and presses to a level where you can apply modifiers when a normal alpha code is held. This feature was the single-most health related improvement to adopting QMK, in my opinion.
 
 Beloved as it may be it comes with some baggage; shifted keycodes will be applied as their unshifted counterparts. I've worked around this in the past but the solution this time is a close adoption of the symbol layer inspired by the Neo keyboard.
+
+There is also a problem with relying on SFT_T() for all of your shifting needs because if you attempt to swap which fingers are holding it and don't release the first before pressing the second, shift won't register anymore. This could probably be fixed but it discourages typing in all caps because it becomes too tedious. However, most layers do have a dedicated shift key to counteract this when necessary.
