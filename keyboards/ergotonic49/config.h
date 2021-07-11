@@ -166,3 +166,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_MAX_LAYERS 8
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
+
+
+#define TAP_MOD_DELAY  10
