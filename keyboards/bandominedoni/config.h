@@ -223,8 +223,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
 #       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
 
-// #       if defined(REDUCE_RGB_MATRIX_EFFECTS_2) || defined(VIA_ENABLE)
-#       ifdef REDUCE_RGB_MATRIX_EFFECTS_2
+#       if defined(REDUCE_RGB_MATRIX_EFFECTS_2) || defined(VIA_ENABLE)
+// #       ifdef REDUCE_RGB_MATRIX_EFFECTS_2
 #           define DISABLE_RGB_MATRIX_BAND_VAL
 #           define DISABLE_RGB_MATRIX_CYCLE_ALL
 #           define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
