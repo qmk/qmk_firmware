@@ -171,6 +171,11 @@ else
         OPT_DEFS += -DEEPROM_DRIVER
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
         SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
+      else ifeq ($(MCU_SERIES), STM32F4xx)
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+        OPT_DEFS += -DEEPROM_EMU_STM32F411xC
+        OPT_DEFS += -DSTM32_EEPROM_ENABLE
       else
         # This will effectively work the same as "transient" if not supported by the chip
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c

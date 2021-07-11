@@ -56,8 +56,12 @@ void EEPROM_Init(void) {
 static void eeprom_clear(void) {
     FLASH_Unlock();
 
+#if defined(EEPROM_EMU_STM32F4)
+    FLASH_ErasePage(FEE_SECTOR_ID);
+#else
     for (uint32_t erase_address = SNAPSHOT_START; erase_address < WRITELOG_END; erase_address += FEE_PAGE_SIZE)
         FLASH_ErasePage(erase_address);
+#endif
 
     FLASH_Lock();
 
