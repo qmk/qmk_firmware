@@ -64,6 +64,9 @@ def info_json(keyboard):
     info_data = _extract_config_h(info_data)
     info_data = _extract_rules_mk(info_data)
 
+    # Ensure that we have matrix row and column counts
+    info_data = _matrix_size(info_data)
+
     # Validate against the jsonschema
     try:
         validate(info_data, 'qmk.api.keyboard.v1')
@@ -89,6 +92,9 @@ def info_json(keyboard):
         layout_name = 'LAYOUT_' + layout
         if layout_name not in info_data.get('layouts', {}) and layout_name not in info_data.get('layout_aliases', {}):
             _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
+
+    # Check that the reported matrix size is consistent with the actual matrix size
+    _check_matrix(info_data)
 
     return info_data
 
@@ -336,6 +342,46 @@ def _extract_rules_mk(info_data):
     _extract_features(info_data, rules)
 
     return info_data
+
+
+def _matrix_size(info_data):
+    """Add info_data['matrix_size'] if it doesn't exist.
+    """
+    if 'matrix_size' not in info_data and 'matrix_pins' in info_data:
+        info_data['matrix_size'] = {}
+
+        if 'direct' in info_data['matrix_pins']:
+            info_data['matrix_size']['cols'] = len(info_data['matrix_pins']['direct'][0])
+            info_data['matrix_size']['rows'] = len(info_data['matrix_pins']['direct'])
+        elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
+            info_data['matrix_size']['cols'] = len(info_data['matrix_pins']['cols'])
+            info_data['matrix_size']['rows'] = len(info_data['matrix_pins']['rows'])
+
+    return info_data
+
+
+def _check_matrix(info_data):
+    """Check the matrix to ensure that row/column count is consistent.
+    """
+    if 'matrix_pins' in info_data and 'matrix_size' in info_data:
+        actual_col_count = info_data['matrix_size'].get('cols', 0)
+        actual_row_count = info_data['matrix_size'].get('rows', 0)
+        col_count = row_count = 0
+
+        if 'direct' in info_data['matrix_pins']:
+            col_count = len(info_data['matrix_pins']['direct'][0])
+            row_count = len(info_data['matrix_pins']['direct'])
+        elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
+            col_count = len(info_data['matrix_pins']['cols'])
+            row_count = len(info_data['matrix_pins']['rows'])
+
+        if col_count != actual_col_count and col_count != (actual_col_count / 2):
+            # FIXME: once we can we should detect if split is enabled to do the actual_col_count/2 check.
+            _log_error(info_data, f'MATRIX_COLS is inconsistent with the size of MATRIX_COL_PINS: {col_count} != {actual_col_count}')
+
+        if row_count != actual_row_count and row_count != (actual_row_count / 2):
+            # FIXME: once we can we should detect if split is enabled to do the actual_row_count/2 check.
+            _log_error(info_data, f'MATRIX_ROWS is inconsistent with the size of MATRIX_ROW_PINS: {row_count} != {actual_row_count}')
 
 
 def _merge_layouts(info_data, new_info_data):
