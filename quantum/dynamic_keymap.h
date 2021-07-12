@@ -18,6 +18,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#ifdef VIAL_ENABLE
+#include "vial.h"
+#endif
+
 #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #endif

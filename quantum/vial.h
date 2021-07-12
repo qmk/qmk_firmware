@@ -19,6 +19,8 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
+#include "dynamic_keymap_eeprom.h"
+
 #define VIAL_PROTOCOL_VERSION ((uint32_t)0x00000004)
 #define VIAL_RAW_EPSIZE 32
 
@@ -66,7 +68,15 @@ enum {
 #define VIAL_TAP_DANCE_ENABLE
 
 #ifndef VIAL_TAP_DANCE_ENTRIES
-#define VIAL_TAP_DANCE_ENTRIES 16
+    #if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 4000
+        #define VIAL_TAP_DANCE_ENTRIES 32
+    #elif DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 2000
+        #define VIAL_TAP_DANCE_ENTRIES 16
+    #elif DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 1000
+        #define VIAL_TAP_DANCE_ENTRIES 8
+    #else
+        #define VIAL_TAP_DANCE_ENTRIES 4
+    #endif
 #endif
 
 typedef struct {
@@ -87,7 +97,15 @@ _Static_assert(sizeof(vial_tap_dance_entry_t) == 10, "Unexpected size of the via
 #define VIAL_COMBO_ENABLE
 
 #ifndef VIAL_COMBO_ENTRIES
-#define VIAL_COMBO_ENTRIES 16
+    #if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 4000
+        #define VIAL_COMBO_ENTRIES 32
+    #elif DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 2000
+        #define VIAL_COMBO_ENTRIES 16
+    #elif DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 1000
+        #define VIAL_COMBO_ENTRIES 8
+    #else
+        #define VIAL_COMBO_ENTRIES 4
+    #endif
 #endif
 
 typedef struct {
@@ -104,5 +122,6 @@ _Static_assert(sizeof(vial_combo_entry_t) == 10, "Unexpected size of the vial_co
 #define COMBO_COUNT VIAL_COMBO_ENTRIES
 
 #else
+#undef VIAL_COMBO_ENTRIES
 #define VIAL_COMBO_ENTRIES 0
 #endif
