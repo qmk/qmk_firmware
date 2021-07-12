@@ -19,6 +19,7 @@
 #include "is31fl3737.h"
 #include "i2c_master.h"
 #include "wait.h"
+#include "progmem.h"
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -153,7 +154,9 @@ void IS31FL3737_init(uint8_t addr) {
 
 void IS31FL3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        is31_led led = g_is31_leds[index];
+        // copy the led config from progmem to SRAM
+        is31_led led;
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         g_pwm_buffer[led.driver][led.r] = red;
         g_pwm_buffer[led.driver][led.g] = green;
@@ -169,7 +172,9 @@ void IS31FL3737_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3737_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led = g_is31_leds[index];
+    // copy the led config from progmem to SRAM
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
     uint8_t control_register_r = led.r / 8;
     uint8_t control_register_g = led.g / 8;
