@@ -61,34 +61,32 @@ enum planck_keycodes {
     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     K26,     K27,     K28,     K29, RCTL_T(K2A), KC_ENT,  \
     BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, PLNK_1,  PLNK_2,  PLNK_3,  PLNK_4,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
   )
-#define LAYOUT_ortho_4x12_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
+        _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+        _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+        _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    ),
 
-  [_QWERTY] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-    _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
-  ),
-
-    [_COLEMAK_DH] = LAYOUT_ortho_4x12_base_wrapper(
+    [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
         ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
         ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
         ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
     ),
+    [_DEFAULT_LAYER_3] = LAYOUT_base_wrapper(
+        _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
+        _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
+        _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
+    ),
 
-  [_COLEMAK] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
-    _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
-    _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
-  ),
-
-  [_DVORAK] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
-    _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
-    _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-  ),
+    [_DEFAULT_LAYER_4] = LAYOUT_base_wrapper(
+        _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+        _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+        _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
+    ),
 
   [_LOWER] = LAYOUT_ortho_4x12_wrapper(
     KC_TILD, _________________LOWER_L1__________________, _________________LOWER_R1__________________, KC_BSPC,
@@ -231,16 +229,16 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             default:
                 {
                     switch (get_highest_layer(default_layer_state)) {
-                        case _QWERTY:
+                        case _DEFAULT_LAYER_1:
                             rgb_matrix_layer_helper(HSV_CYAN, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                             break;
-                        case _COLEMAK_DH:
+                        case _DEFAULT_LAYER_2:
                             rgb_matrix_layer_helper(HSV_MAGENTA, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                             break;
-                        case _COLEMAK:
+                        case _DEFAULT_LAYER_3:
                             rgb_matrix_layer_helper(HSV_SPRINGGREEN, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                             break;
-                        case _DVORAK:
+                        case _DEFAULT_LAYER_4:
                             rgb_matrix_layer_helper(HSV_GOLDENROD, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                             break;
                     }
@@ -250,16 +248,16 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 
     switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
+        case _DEFAULT_LAYER_1:
             RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0x00, 0xFF, 0xFF);
             break;
-        case _COLEMAK_DH:
+        case _DEFAULT_LAYER_2:
             RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0xFF, 0x00, 0xFF);
             break;
-        case _COLEMAK:
+        case _DEFAULT_LAYER_3:
             RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0x00, 0xFF, 0x00);
             break;
-        case _DVORAK:
+        case _DEFAULT_LAYER_4:
             RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0xD9, 0xA5, 0x21);
             break;
     }

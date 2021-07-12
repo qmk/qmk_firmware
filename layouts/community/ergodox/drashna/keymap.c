@@ -56,101 +56,33 @@ bool skip_leds = false;
                               KC_SPC, LT(_LOWER, KC_BSPC), OS_LWR,                  OS_RSE, LT(_RAISE, KC_DEL), KC_ENT                              \
     )
 
-#define LAYOUT_ergodox_pretty_base_wrapper(...)       LAYOUT_ergodox_pretty_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...)       LAYOUT_ergodox_pretty_base(__VA_ARGS__)
 
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: QWERTY Layer
- *
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   = +  |  1 ! | 2 @  | 3 #  | 4 $  | 5 %  | TG(4)|           | TG(4)| 6 ^  | 7 &  |  8 * | 9 (  |  0 ) |  - _   |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |   TAB  |   Q  |   W  |   E  |   R  |   T  | TG(3)|           |TG(3) |   Y  |   U  |   I  |   O  |   P  |  \ |   |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  Bksp  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |  ' "   |
- * |--------+------+------+------+------+------| TG(2)|           | TG(2)|------+------+------+------+------+--------|
- * | Shift  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  , < |  . > |  ? / | Shift  |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `/SYM|  MEH | LGUI |  [ { | ] }  |                                       | LEFT | DOWN |  UP  |RIGHT | SYMB |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,--------------.       ,--------------.
- *                                        |Alt/Ap|  Win  |       | Alt  |Ctl/Esc|
- *                                 ,------|------|-------|       |------+-------+------.
- *                                 |      |      | Home  |       | PgUp |       |      |
- *                                 | Space| Bksp |-------|       |------|  DEL  |Enter |
- *                                 |      |      | End   |       | PgDn |       |      |
- *                                 `---------------------'       `---------------------'
- */
-  [_QWERTY] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-    _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
-  ),
+    [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
+        _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+        _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+        _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    ),
 
-    [_COLEMAK_DH] = LAYOUT_ergodox_pretty_base_wrapper(
+    [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
         ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
         ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
         ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
     ),
+    [_DEFAULT_LAYER_3] = LAYOUT_base_wrapper(
+        _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
+        _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
+        _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
+    ),
 
-/* Keymap 0: COLEMAK layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   W  |   F  |   P  |   G  |  L1  |           |  L1  |   J  |   L  |   U  |   Y  |   ;  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |O / L2|   '    |
- * |--------+------+------+------+------+------| OVER |           | Meh  |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |//Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `/SYM|  MEH | LGUI |  [ { | ] }  |                                       | LEFT | DOWN |  UP  |RIGHT | SYMB |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-  [_COLEMAK] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
-    _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
-    _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
-  ),
-/* Keymap 0: DVORAK Layout
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   \    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   '  |   ,  |   .  |   P  |   Y  |  L1  |           |  L1  |   F  |   G  |   C  |   R  |   L  |   /    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |S / L2|   -    |
- * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift |:/Ctrl|   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |Z/Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `/SYM|  MEH | LGUI |  [ { | ] }  |                                       | LEFT | DOWN |  UP  |RIGHT | SYMB |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-  [_DVORAK] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
-    _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
-    _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-  ),
+    [_DEFAULT_LAYER_4] = LAYOUT_base_wrapper(
+        _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+        _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+        _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
+    ),
 
 /* Keymap 4: Customized Overwatch Layout
  *
@@ -423,16 +355,16 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             case _ADJUST:
                 rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _QWERTY:
+            case _DEFAULT_LAYER_1:
                 rgb_matrix_layer_helper(HSV_CYAN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _COLEMAK_DH:
+            case _DEFAULT_LAYER_2:
                 rgb_matrix_layer_helper(HSV_MAGENTA, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _COLEMAK:
+            case _DEFAULT_LAYER_3:
                 rgb_matrix_layer_helper(HSV_SPRINGGREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _DVORAK:
+            case _DEFAULT_LAYER_4:
                 rgb_matrix_layer_helper(HSV_GOLDENROD, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
         }

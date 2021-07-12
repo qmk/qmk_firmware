@@ -39,32 +39,32 @@ enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                         RGB_MOD,  KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
   )
-#define LAYOUT_split_3x6_3_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-    _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
-  ),
+    [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
+        _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+        _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+        _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    ),
 
-    [_COLEMAK_DH] = LAYOUT_split_3x6_3_base_wrapper(
+    [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
         ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
         ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
         ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
     ),
 
-  [_COLEMAK] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
-    _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
-    _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
-  ),
+    [_DEFAULT_LAYER_3] = LAYOUT_base_wrapper(
+        _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
+        _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
+        _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
+    ),
 
-  [_DVORAK] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
-    _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
-    _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-  ),
+    [_DEFAULT_LAYER_4] = LAYOUT_base_wrapper(
+        _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+        _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+        _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
+    ),
 
   [_LOWER] = LAYOUT_split_3x6_3_wrapper(
     KC_F11,  _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_F11,
