@@ -5,8 +5,8 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
-            "2x3u": [
+        "LAYOUT_2x3u": {
+            "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
                 {"label":"@", "x":2, "y":0},
@@ -77,8 +77,8 @@
                 {"label":"Ctrl", "x":13.5, "y":4, "w":1.5}
             ]
         },
-        "LAYOUT": {
-            "7u": [
+        "LAYOUT_7u": {
+            "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
                 {"label":"@", "x":2, "y":0},
