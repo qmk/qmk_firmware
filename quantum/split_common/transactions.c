@@ -31,10 +31,16 @@
 #    define FORCED_SYNC_THROTTLE_MS 100
 #endif  // FORCED_SYNC_THROTTLE_MS
 
+// Max number of consecutive failed communications before the communication is seen as disconnected.
+// All built-in transactions (i.e. not transaction_rpc_*-based ones) are given 10 attempts each, and most send one transaction over the transport, so 40 errors is basically (up to) four completely failed built-in transactions.
+// On the other hand, each RPC transaction consists of four transport transactions without retries, so 40 errors is roughly ten completely failed RPC transactions.
+// Set to a negative value to disable the disconnection check altogether.
 #ifndef SPLIT_MAX_CONNECTION_ERRORS
-#    define SPLIT_MAX_CONNECTION_ERRORS 25
+#    define SPLIT_MAX_CONNECTION_ERRORS 40
 #endif  // SPLIT_MAX_CONNECTION_ERRORS
 
+// How long (in milliseconds) to block all connection attempts after the communication has been flagged as disconnected.
+// Each [this amount of time], one connection attempt will be allowed. If that succeeds, the communication is seen as up again.
 #ifndef SPLIT_CONNECTION_CHECK_TIMEOUT
 #    define SPLIT_CONNECTION_CHECK_TIMEOUT 500
 #endif  // SPLIT_CONNECTION_CHECK_TIMEOUT
@@ -62,7 +68,10 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
 // Helpers
 
 bool transport_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
-    // Throttle transaction attempts if target isn't connected
+#if SPLIT_MAX_CONNECTION_ERRORS < 0
+    return transport_execute_transaction(id, initiator2target_buf, initiator2target_length, target2initiator_buf, target2initiator_length);
+#else  // SPLIT_MAX_CONNECTION_ERRORS < 0
+    // Throttle transaction attempts if target doesn't seem to be connected
     // Without this, a solo half becomes unusable due to constant read timeouts
     static uint8_t  connection_errors      = 0;
     static uint16_t connection_check_timer = 0;
@@ -85,6 +94,7 @@ bool transport_transaction(int8_t id, const void *initiator2target_buf, uint16_t
 
     connection_errors = 0;
     return true;
+#endif  // SPLIT_MAX_CONNECTION_ERRORS < 0
 }
 
 bool transaction_handler_master(bool okay, matrix_row_t master_matrix[], matrix_row_t slave_matrix[], const char *prefix, bool (*handler)(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])) {
