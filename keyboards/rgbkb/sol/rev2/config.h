@@ -30,19 +30,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Underglow / DIY Tent Glow are parallel to the top row leds, no separate define
 #ifdef FULLHAND_ENABLE
+  #define FULLHAND_LEDS 24
   #ifdef LED_MIRRORED
     #define RGBLED_NUM 74
   #else
     #define RGBLED_NUM 148
   #endif
 #elif SF_ENABLE
+  #define FULLHAND_LEDS 38
   #ifdef LED_MIRRORED
     #define RGBLED_NUM 81
   #else
     #define RGBLED_NUM 162
   #endif
 #else
-  #define RGBLED_NUM 0
+  #define FULLHAND_LEDS 0
+  #define RGBLED_NUM 124
 #endif
 
 #define DRIVER_LED_TOTAL  RGBLED_NUM
