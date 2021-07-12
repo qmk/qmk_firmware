@@ -149,7 +149,7 @@ static void unselect_row(uint8_t row) {
 }
 
 static void unselect_rows(void) {
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+    for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
         unselect_row(x);
     }
 }
@@ -214,7 +214,7 @@ static void unselect_cols(void) {
 
 __attribute__((weak)) void matrix_init_pins(void) {
     unselect_cols();
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+    for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
         if (row_pins[x] != NO_PIN) {
             setPinInputHigh_atomic(row_pins[x]);
         }
