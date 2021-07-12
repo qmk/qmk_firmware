@@ -31,9 +31,13 @@
 #    define FORCED_SYNC_THROTTLE_MS 100
 #endif  // FORCED_SYNC_THROTTLE_MS
 
-#ifndef SYNC_CONNECTION_CHECK_TIMEOUT
-#    define SYNC_CONNECTION_CHECK_TIMEOUT 500
-#endif
+#ifndef SPLIT_MAX_CONNECTION_ERRORS
+#    define SPLIT_MAX_CONNECTION_ERRORS 25
+#endif  // SPLIT_MAX_CONNECTION_ERRORS
+
+#ifndef SPLIT_CONNECTION_CHECK_TIMEOUT
+#    define SPLIT_CONNECTION_CHECK_TIMEOUT 500
+#endif  // SPLIT_CONNECTION_CHECK_TIMEOUT
 
 #define sizeof_member(type, member) sizeof(((type *)NULL)->member)
 
@@ -60,22 +64,26 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
 bool transport_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
     // Throttle transaction attempts if target isn't connected
     // Without this, a solo half becomes unusable due to constant read timeouts
-    static bool     target_connected       = true;
+    static uint8_t  connection_errors      = 0;
     static uint16_t connection_check_timer = 0;
-    if (!target_connected && timer_elapsed(connection_check_timer) < SYNC_CONNECTION_CHECK_TIMEOUT) {
+    if (connection_errors >= SPLIT_MAX_CONNECTION_ERRORS && timer_elapsed(connection_check_timer) < SPLIT_CONNECTION_CHECK_TIMEOUT) {
         return false;
     }
     connection_check_timer = timer_read();
 
     if (!transport_execute_transaction(id, initiator2target_buf, initiator2target_length, target2initiator_buf, target2initiator_length)) {
-        target_connected = false;
-        dprintln("Target disconnected, throttling connection attempts");
+        if (connection_errors < UINT8_MAX) {
+            connection_errors++;
+        }
+        if (connection_errors >= SPLIT_MAX_CONNECTION_ERRORS) {
+            dprintln("Target disconnected, throttling connection attempts");
+        }
         return false;
-    } else if (!target_connected) {
+    } else if (connection_errors >= SPLIT_MAX_CONNECTION_ERRORS) {
         dprintln("Target connected");
     }
 
-    target_connected = true;
+    connection_errors = 0;
     return true;
 }
 
