@@ -26,7 +26,7 @@
 
 typedef int16_t mcp23018_status_t;
 
-void              msp23018_init(void);
+void              msp23018_init(const uint8_t* iodir, const uint8_t* gppu, const uint8_t* gpio);
 bool              mcp23018_reset_required(void);
 mcp23018_status_t mcp23018_writeReg(uint8_t regaddr, const uint8_t* data, uint16_t length);
 mcp23018_status_t mcp23018_readReg(uint8_t regaddr, uint8_t* data, uint16_t length);

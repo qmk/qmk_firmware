@@ -26,20 +26,11 @@
 
 static i2c_status_t mcp23018_status = I2C_STATUS_ERROR;
 
-void msp23018_init(void) {
+void msp23018_init(const uint8_t* iodir, const uint8_t* gppu, const uint8_t* gpio) {
     mcp23018_status = I2C_STATUS_SUCCESS;
-
-    // Set pin direction
-    uint8_t iodir[] = {0b00001111, 0b11111111};
-    mcp23018_writeReg(IODIRA, iodir, 2);
-
-    // Set pull-up
-    uint8_t gppu[] = {0b00001111, 0b11111000};
-    mcp23018_writeReg(GPPUA, gppu, 2);
-
-    // LEDs output high
-    uint8_t gpio[] = {0b00000000, 0b00000111};
     mcp23018_writeReg(GPIOA, gpio, 2);
+    mcp23018_writeReg(IODIRA, iodir, 2);
+    mcp23018_writeReg(GPPUA, gppu, 2);
 }
 
 bool mcp23018_reset_required(void) { return mcp23018_status != I2C_STATUS_SUCCESS; }

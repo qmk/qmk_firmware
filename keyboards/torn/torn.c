@@ -20,6 +20,10 @@
 
 static uint8_t led_state[3] = {1, 1, 1};
 
+static const uint8_t mcp23018_iodir[] = MCP23018_IODIR;
+static const uint8_t mcp23018_gppu[]  = MCP23018_GPPU;
+static const uint8_t mcp23018_gpio[]  = MCP23018_GPIO;
+
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
@@ -32,7 +36,7 @@ void matrix_scan_kb(void) {
     // put your looping keyboard code here
     // runs every cycle (a lot)
     if (mcp23018_reset_required()) {
-        msp23018_init();
+        msp23018_init(mcp23018_iodir, mcp23018_gppu, mcp23018_gpio);
         secondary_encoder_init();
         // torn_set_led(2, 1);
     }

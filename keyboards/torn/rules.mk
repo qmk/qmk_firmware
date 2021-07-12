@@ -21,11 +21,9 @@ OLED_DRIVER_ENABLE = yes
 WPM_ENABLE = yes
 CUSTOM_MATRIX = lite
 
-LAYOUTS = split_3x6_4
-
-SRC += matrix.c \
-    bongocat.c \
+SRC += bongocat.c \
     mcp23018.c \
+    mcp23018_matrix.c \
     torn_encoder.c
 
 QUANTUM_LIB_SRC += i2c_master.c

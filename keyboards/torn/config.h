@@ -52,6 +52,13 @@
 #define SECONDARY_COL_PINS \
     { (1 << 3), (1 << 2), (1 << 1), (1 << 0), (1 << 15), (1 << 14) }
 
+#define MCP23018_IODIR \
+    { 0b00001111, 0b11111111 }
+#define MCP23018_GPPU \
+    { 0b00001111, 0b11111000 }
+#define MCP23018_GPIO \
+    { 0b00000000, 0b00000111 }
+
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
