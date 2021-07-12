@@ -70,7 +70,7 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
 bool transport_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
 #if SPLIT_MAX_CONNECTION_ERRORS < 0
     return transport_execute_transaction(id, initiator2target_buf, initiator2target_length, target2initiator_buf, target2initiator_length);
-#else  // SPLIT_MAX_CONNECTION_ERRORS < 0
+#else   // SPLIT_MAX_CONNECTION_ERRORS < 0
     // Throttle transaction attempts if target doesn't seem to be connected
     // Without this, a solo half becomes unusable due to constant read timeouts
     static uint8_t  connection_errors      = 0;
