@@ -60,7 +60,7 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
 bool transport_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
     // Throttle transaction attempts if target isn't connected
     // Without this, a solo half becomes unusable due to constant read timeouts
-    static bool target_connected = true;
+    static bool     target_connected       = true;
     static uint16_t connection_check_timer = 0;
     if (!target_connected && timer_elapsed(connection_check_timer) < SYNC_CONNECTION_CHECK_TIMEOUT) {
         return false;
