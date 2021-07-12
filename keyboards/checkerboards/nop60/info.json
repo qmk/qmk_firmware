@@ -4,8 +4,12 @@
     "maintainer": "nasp",
     "width": 15,
     "height": 5,
+    "layout_aliases": {
+        "LAYOUT_2x3u": "LAYOUT_60_tsangan_hhkb_split_space",
+        "LAYOUT_7u": "LAYOUT_60_tsangan_hhkb"
+    },
     "layouts": {
-        "LAYOUT_2x3u": {
+        "LAYOUT_60_tsangan_hhkb_split_space": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
@@ -77,7 +81,7 @@
                 {"label":"Ctrl", "x":13.5, "y":4, "w":1.5}
             ]
         },
-        "LAYOUT_7u": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
