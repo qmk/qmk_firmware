@@ -101,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
   [_EXTEND] = LAYOUT(
-      XXXXXXX, TMUX_1, TMUX_2, TMUX_3, TMUX_4,  TMUX_5,                        KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, XXXXXXX,
-      _______, TMUX_3, DE_7,   DE_8,   DE_9,    DE_PLUS,                       KC_HOME, KC_PGUP, VIM_ALT, XXXXXXX, KC_DEL,  XXXXXXX,
-      _______, TMUX_2, DE_4,   DE_5,   DE_6,    DE_MINS,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
-      _______, TMUX_1, DE_1,   DE_2,   DE_3,    XXXXXXX,  A(KC_BSPC), RESET,   KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                       _______, SFT_ZERO, KC_LALT,    _______, _______, _______
+      XXXXXXX, TMUX_1, TMUX_2, TMUX_3, TMUX_4,  TMUX_5,                     KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, XXXXXXX,
+      _______, TMUX_3, DE_7,   DE_8,   DE_9,    DE_PLUS,                    KC_HOME, KC_PGUP, VIM_ALT, XXXXXXX, KC_DEL,  XXXXXXX,
+      _______, TMUX_2, DE_4,   DE_5,   DE_6,    DE_MINS,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
+      _______, TMUX_1, DE_1,   DE_2,   DE_3,    XXXXXXX,  _______, RESET,   KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                       _______, SFT_ZERO, KC_LALT, _______, _______, _______
       ),
 
   [_SYMBOLS] = LAYOUT(
