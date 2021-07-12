@@ -78,13 +78,13 @@ bool transport_transaction(int8_t id, const void *initiator2target_buf, uint16_t
     if (connection_errors >= SPLIT_MAX_CONNECTION_ERRORS && timer_elapsed(connection_check_timer) < SPLIT_CONNECTION_CHECK_TIMEOUT) {
         return false;
     }
-    connection_check_timer = timer_read();
 
     if (!transport_execute_transaction(id, initiator2target_buf, initiator2target_length, target2initiator_buf, target2initiator_length)) {
         if (connection_errors < UINT8_MAX) {
             connection_errors++;
         }
         if (connection_errors >= SPLIT_MAX_CONNECTION_ERRORS) {
+            connection_check_timer = timer_read();
             dprintln("Target disconnected, throttling connection attempts");
         }
         return false;
