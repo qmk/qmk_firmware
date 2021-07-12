@@ -108,7 +108,7 @@ void unregister_code16(uint16_t code) {
 
 void tap_code16(uint16_t code) {
     register_code16(code);
-    wait_ms(QS_tap_code_delay);
+    qs_wait_ms(QS_tap_code_delay);
     unregister_code16(code);
 }
 

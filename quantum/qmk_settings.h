@@ -203,3 +203,12 @@ extern qmk_settings_t QS;
 #define QS_tap_hold_caps_delay TAP_HOLD_CAPS_DELAY
 
 #endif
+
+#if defined(__AVR__) && defined(QMK_SETTINGS)
+#include <util/delay.h>
+static inline void qs_wait_ms(uint16_t timer) {
+    while (timer--) _delay_ms(1);
+}
+#else
+    #define qs_wait_ms wait_ms
+#endif

@@ -364,9 +364,9 @@ if (QS_oneshot_tap_toggle > 1) {
                         if (tap_count > 0) {
                             dprint("MODS_TAP: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
-                                wait_ms(QS_tap_hold_caps_delay);
+                                qs_wait_ms(QS_tap_hold_caps_delay);
                             } else {
-                                wait_ms(QS_tap_code_delay);
+                                qs_wait_ms(QS_tap_code_delay);
                             }
                             unregister_code(action.key.code);
                         } else {
@@ -589,9 +589,9 @@ if (QS_oneshot_tap_toggle > 1) {
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
-                                wait_ms(QS_tap_hold_caps_delay);
+                                qs_wait_ms(QS_tap_hold_caps_delay);
                             } else {
-                                wait_ms(QS_tap_code_delay);
+                                qs_wait_ms(QS_tap_code_delay);
                             }
                             unregister_code(action.layer_tap.code);
                         } else {
@@ -670,7 +670,7 @@ if (QS_oneshot_tap_toggle > 1) {
                         if (event.pressed) {
                             register_code(action.swap.code);
                         } else {
-                            wait_ms(QS_tap_code_delay);
+                            qs_wait_ms(QS_tap_code_delay);
                             unregister_code(action.swap.code);
                             *record = (keyrecord_t){};  // hack: reset tap mode
                         }
