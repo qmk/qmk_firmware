@@ -17,19 +17,6 @@
  */
 
 #include "torn.h"
-#include "mcp23018.h"
-
-#ifndef ENCODER_RESOLUTION
-#    define ENCODER_RESOLUTION 4
-#endif
-
-#define ENCODER_CLOCKWISE true
-#define ENCODER_COUNTER_CLOCKWISE false
-
-static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
-
-static uint8_t encoder_state  = 0;
-static int8_t  encoder_pulses = 0;
 
 __attribute__((weak)) extern const uint16_t PROGMEM encoder_keymaps[][2][2];
 
@@ -55,41 +42,3 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     tap_code16(code);
     return true;
 }
-
-static bool encoder_read_state(uint8_t *state) {
-    uint8_t           mcp23018_pin_state;
-    mcp23018_status_t status = mcp23018_readReg(GPIOB, &mcp23018_pin_state, 1);
-    if (status == 0) {
-        *state = (mcp23018_pin_state & 0b110000) >> 4;
-        return true;
-    }
-    return false;
-}
-
-static void encoder_update(int8_t index, uint8_t state) {
-    encoder_pulses += encoder_LUT[state & 0xF];
-    if (encoder_pulses >= ENCODER_RESOLUTION) {
-        encoder_update_kb(index, ENCODER_CLOCKWISE);
-    }
-    if (encoder_pulses <= -ENCODER_RESOLUTION) {  // direction is arbitrary here, but this clockwise
-        encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
-    }
-    encoder_pulses %= ENCODER_RESOLUTION;
-}
-
-/**
- * Read the secondary encoder over i2c
- */
-void secondary_encoder_read(void) {
-    uint8_t state;
-    if (encoder_read_state(&state)) {
-        encoder_state <<= 2;
-        encoder_state |= state;
-        encoder_update(1, encoder_state);
-    }
-}
-
-/**
- * Initialize the secondary encoder over i2c
- */
-void secondary_encoder_init(void) { encoder_read_state(&encoder_state); }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Richard Titmuss (richard.titmuss@gmail.com)
+ * Copyright 2021 Richard Titmuss (richard.titmuss@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,18 +15,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#define IODIRA 0x00
-#define IODIRB 0x01
-#define GPPUA 0x0C
-#define GPPUB 0x0D
-#define GPIOA 0x12
-#define GPIOB 0x13
-
-typedef int16_t mcp23018_status_t;
-
-void              msp23018_init(void);
-bool              mcp23018_reset_required(void);
-mcp23018_status_t mcp23018_writeReg(uint8_t regaddr, const uint8_t* data, uint16_t length);
-mcp23018_status_t mcp23018_readReg(uint8_t regaddr, uint8_t* data, uint16_t length);
+void mcp2301x_encoder_read(void);
+void mcp2301x_encoder_init(void);

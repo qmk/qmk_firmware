@@ -47,10 +47,14 @@
     { B3, B4, B5, B0, D7, D6 }
 #define UNUSED_PINS
 
-#define SECONDARY_ROW_PINS \
-    { (1 << 5), (1 << 6), (1 << 7), (1 << 4) }
-#define SECONDARY_COL_PINS \
-    { (1 << 3), (1 << 2), (1 << 1), (1 << 0), (1 << 15), (1 << 14) }
+#define MCP2301X_ROW_PINS \
+    { GPA5, GPA6, GPA7, GPA4 }
+#define MCP2301X_COL_PINS \
+    { GPA3, GPA2, GPA1, GPA0, GPB7, GPB6 }
+
+#define MCP2301X_INPUT   ( GPA0 | GPA1 | GPA2 | GPA3 | GPB0 | GPB1 | GPB2 | GPB3 | GPB4 | GPB5 | GPB6 | GPB7 )
+#define MCP2301X_PULLUP  ( GPA0 | GPA1 | GPA2 | GPA3 | GPB3 | GPB4 | GPB5 | GPB6 | GPB7 )
+#define MCP2301X_ENABLED ( GPB0 | GPB1 | GPB2 )
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -59,6 +63,9 @@
     { B2 }
 #define ENCODERS_PAD_B \
     { B1 }
+
+#define MCP2301X_ENCODERS_PAD_A { GPB5 }
+#define MCP2301X_ENCODERS_PAD_B { GPB4 }
 
 #define USB_MAX_POWER_CONSUMPTION 100
 

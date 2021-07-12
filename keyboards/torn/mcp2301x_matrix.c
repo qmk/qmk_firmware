@@ -17,17 +17,17 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "mcp23018.h"
+#include "mcp2301x.h"
 
-#define SPLIT_MATRIX_COLS (MATRIX_COLS / 2)
-#define SECONDARY_ROW_OFFSET (MATRIX_ROWS / 2)
+// TODO support ROW2COL
 
-typedef uint16_t mcp23018_pin_t;
+#define PRIMARY_COLS (sizeof(col_pins) / sizeof(pin_t))
+#define SECONDARY_COLS (sizeof(secondary_col_pins) / sizeof(mcp2301x_pin_t))
 
-static const pin_t          row_pins[MATRIX_ROWS]                 = MATRIX_ROW_PINS;
-static const pin_t          col_pins[SPLIT_MATRIX_COLS]           = MATRIX_COL_PINS;
-static const mcp23018_pin_t secondary_row_pins[MATRIX_ROWS]       = SECONDARY_ROW_PINS;
-static const mcp23018_pin_t secondary_col_pins[SPLIT_MATRIX_COLS] = SECONDARY_COL_PINS;
+static const pin_t          row_pins[]                 = MATRIX_ROW_PINS;
+static const pin_t          col_pins[]                 = MATRIX_COL_PINS;
+static const mcp2301x_pin_t secondary_row_pins[]       = MCP2301X_ROW_PINS;
+static const mcp2301x_pin_t secondary_col_pins[]       = MCP2301X_COL_PINS;
 
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
@@ -42,14 +42,11 @@ static void unselect_rows(void) {
     }
 }
 
-static void select_secondary_row(uint8_t row) {
-    uint8_t gpioa = 0xFF & ~secondary_row_pins[row];
-    mcp23018_writeReg(GPIOA, &gpioa, 1);
-}
+static void select_secondary_row(uint8_t row) { mcp2301x_writePins(~secondary_row_pins[row]); }
 
 static void init_pins(void) {
     unselect_rows();
-    for (uint8_t x = 0; x < SPLIT_MATRIX_COLS; x++) {
+    for (uint8_t x = 0; x < PRIMARY_COLS; x++) {
         setPinInputHigh(col_pins[x]);
     }
 }
@@ -58,7 +55,7 @@ static matrix_row_t read_cols(void) {
     matrix_row_t state = 0;
 
     // For each col...
-    for (uint8_t col_index = 0; col_index < SPLIT_MATRIX_COLS; col_index++) {
+    for (uint8_t col_index = 0; col_index < PRIMARY_COLS; col_index++) {
         // Select the col pin to read (active low)
         uint8_t pin_state = readPin(col_pins[col_index]);
 
@@ -72,14 +69,12 @@ static matrix_row_t read_cols(void) {
 static matrix_row_t read_secondary_cols(void) {
     matrix_row_t state = 0;
 
-    uint8_t mcp23018_pin_state[2];
-    if (mcp23018_readReg(GPIOA, mcp23018_pin_state, 2)) {
+    mcp2301x_pin_t pins;
+    if (mcp2301x_readPins(&pins)) {
         return 0;
     }
 
-    uint16_t pins = mcp23018_pin_state[0] | (mcp23018_pin_state[1] << 8);
-
-    for (uint8_t col_index = 0; col_index < SPLIT_MATRIX_COLS; col_index++) {
+    for (uint8_t col_index = 0; col_index < SECONDARY_COLS; col_index++) {
         uint16_t pin_state = pins & (secondary_col_pins[col_index]);
         state |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
@@ -93,7 +88,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     select_row(current_row);
     select_secondary_row(current_row);
 
-    current_matrix[current_row] = read_cols() | (read_secondary_cols() << 6);
+    current_matrix[current_row] = read_cols() | (read_secondary_cols() << PRIMARY_COLS);
 
     unselect_row(current_row);
 

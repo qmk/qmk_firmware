@@ -16,7 +16,8 @@
  */
 #include "torn.h"
 #include "i2c_master.h"
-#include "mcp23018.h"
+#include "mcp2301x.h"
+#include "mcp2301x_encoder.h"
 
 static uint8_t led_state[3] = {1, 1, 1};
 
@@ -31,22 +32,21 @@ void matrix_init_kb(void) {
 void matrix_scan_kb(void) {
     // put your looping keyboard code here
     // runs every cycle (a lot)
-    if (mcp23018_reset_required()) {
-        msp23018_init();
-        secondary_encoder_init();
-        // torn_set_led(2, 1);
+    if (mcp2301x_reset_required()) {
+        mcp2301x_init(MCP2301X_INPUT, MCP2301X_PULLUP, MCP2301X_ENABLED);
+        mcp2301x_encoder_init();
     }
 
     matrix_scan_user();
-    secondary_encoder_read();
+    mcp2301x_encoder_read();
 }
 
 void torn_set_led(uint8_t led, bool state) {
     led_state[led] = !state;
 
     // toggle leds by setting the pin direction
-    uint8_t iodir = 0b11111000 | led_state[0] << 2 | led_state[1] << 1 | led_state[2];
-    mcp23018_writeReg(IODIRB, &iodir, 1);
+    uint8_t iodir = ((MCP2301X_INPUT >> 8) & ~0b111) | led_state[0] << 2 | led_state[1] << 1 | led_state[2];
+    mcp2301x_writeReg(IODIRB, &iodir, 1);
 }
 
 // clang-format off
