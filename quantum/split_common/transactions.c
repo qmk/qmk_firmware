@@ -40,7 +40,7 @@
 #endif  // SPLIT_MAX_CONNECTION_ERRORS
 
 // How long (in milliseconds) to block all connection attempts after the communication has been flagged as disconnected.
-// Each [this amount of time], one connection attempt will be allowed. If that succeeds, the communication is seen as up again.
+// One communication attempt will be allowed everytime this amount of time has passed since the last attempt. If that attempt succeeds, the communication is seen as working again.
 #ifndef SPLIT_CONNECTION_CHECK_TIMEOUT
 #    define SPLIT_CONNECTION_CHECK_TIMEOUT 500
 #endif  // SPLIT_CONNECTION_CHECK_TIMEOUT
