@@ -47,5 +47,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  K312,  KC_NO }, \
     { KC_NO, K401,  K402,  KC_NO, KC_NO, KC_NO, K406,  KC_NO, KC_NO, KC_NO, K410,  K411,  KC_NO, K413 }  \
 }
-
-#define LAYOUT_tsangan LAYOUT_60_tsangan_hhkb
