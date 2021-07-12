@@ -96,7 +96,7 @@ void render_default_layer_state(void) {
             oled_write_P(PSTR(OLED_RENDER_LAYOUT_QWERTY), false);
             break;
         case _COLEMAK_DH:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK), false);
+            oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK_DH), false);
             break;
         case _COLEMAK:
             oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK), false);
