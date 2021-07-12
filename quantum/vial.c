@@ -48,9 +48,7 @@ _Static_assert(sizeof(vial_unlock_combo_rows) == sizeof(vial_unlock_combo_cols),
 #define VIAL_ENCODER_KEYCODE_DELAY 10
 #endif
 
-#ifdef QMK_SETTINGS
 #include "qmk_settings.h"
-#endif
 
 #ifdef VIAL_TAP_DANCE_ENABLE
 static void reload_tap_dance(void);
