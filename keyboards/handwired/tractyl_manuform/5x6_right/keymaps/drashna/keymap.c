@@ -43,6 +43,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
     ),
 
+    [_COLEMAK_DH] = LAYOUT_5x6_right_base_wrapper(
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
+
     [_COLEMAK] = LAYOUT_5x6_right_base_wrapper(
         _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
         _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
@@ -53,36 +59,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
         _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-    ),
-
-    [_WORKMAN] = LAYOUT_5x6_right_base_wrapper(
-        _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-        _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-        _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
-    ),
-
-    [_NORMAN] = LAYOUT_5x6_right_base_wrapper(
-        _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-        _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-        _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
-    ),
-
-    [_MALTRON] = LAYOUT_5x6_right_base_wrapper(
-        _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-        _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-        _________________MALTRON_L3________________, _________________MALTRON_R3________________
-    ),
-
-    [_EUCALYN] = LAYOUT_5x6_right_base_wrapper(
-        _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-        _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-        _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-    ),
-
-    [_CARPLAX] = LAYOUT_5x6_right_base_wrapper(
-        _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-        _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-        _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
     ),
 
     [_MOUSE] = LAYOUT_5x6_right(
@@ -157,7 +133,9 @@ bool            tap_toggling          = false;
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     if ((x || y) && timer_elapsed(mouse_timer) > 125) {
         mouse_timer = timer_read();
-        if (!layer_state_is(_MOUSE) && !(layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO)) && timer_elapsed(mouse_debounce_timer) > 125) { layer_on(_MOUSE); }
+        if (!layer_state_is(_MOUSE) && !(layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO)) && timer_elapsed(mouse_debounce_timer) > 125) {
+            layer_on(_MOUSE);
+        }
     }
 
 #    ifdef TAPPING_TERM_PER_KEY
@@ -175,9 +153,13 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
 }
 
 void matrix_scan_keymap(void) {
-    if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) { layer_off(_MOUSE); }
+    if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
+        layer_off(_MOUSE);
+    }
     if (tap_toggling) {
-        if (!layer_state_is(_MOUSE)) { layer_on(_MOUSE); }
+        if (!layer_state_is(_MOUSE)) {
+            layer_on(_MOUSE);
+        }
     }
 }
 
@@ -211,7 +193,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
             mouse_timer = timer_read();
             break;
         default:
-            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) { layer_off(_MOUSE); }
+            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
+                layer_off(_MOUSE);
+            }
             mouse_keycode_tracker = 0;
             mouse_debounce_timer  = timer_read();
             break;
@@ -220,7 +204,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
 }
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
-    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO)) { state |= ((layer_state_t)1 << _MOUSE); }
+    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO)) {
+        state |= ((layer_state_t)1 << _MOUSE);
+    }
     return state;
 }
 #endif

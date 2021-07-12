@@ -88,6 +88,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
     _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
   ),
+
+    [_COLEMAK_DH] = LAYOUT_ergodox_pretty_base_wrapper(
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
+
 /* Keymap 0: COLEMAK layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -143,57 +150,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
     _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
     _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-  ),
-/* Keymap 0: WORKMAN layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   D  |   R  |   W  |   B  |  L1  |           |  L1  |   J  |   F  |   U  |   P  |   ;  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   S  |   H  |   T  |   D  |------|           |------|   Y  |   N  |   E  |   O  |   I  |   '    |
- * |--------+------+------+------+------+------| OVER |           | Meh  |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   M  |   C  |   V  |      |           |      |   K  |   L  |   ,  |   .  |//Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `/SYM|  MEH | LGUI |  [ { | ] }  |                                       | LEFT | DOWN |  UP  |RIGHT | SYMB |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
- */
-
-  [_WORKMAN] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-    _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-    _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
-  ),
-
-  [_NORMAN] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-    _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-    _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
-  ),
-
-  [_MALTRON] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-    _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-    _________________MALTRON_L3________________, _________________MALTRON_R3________________
-  ),
-
-  [_EUCALYN] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-    _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-    _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-  ),
-
-  [_CARPLAX] = LAYOUT_ergodox_pretty_base_wrapper(
-    _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-    _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-    _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
   ),
 
 /* Keymap 4: Customized Overwatch Layout
@@ -311,9 +267,7 @@ void keyboard_post_init_keymap(void) {
     // trackball_set_precision(1.5);
     trackball_set_rgbw(RGB_MAGENTA, 0x00);
 }
-void shutdown_keymap(void) {
-    trackball_set_rgbw(RGB_RED, 0x00);
-}
+void shutdown_keymap(void) { trackball_set_rgbw(RGB_RED, 0x00); }
 
 static bool mouse_button_one, trackball_button_one;
 
@@ -327,8 +281,6 @@ void trackball_register_button(bool pressed, enum mouse_buttons button) {
     pointing_device_set_report(currentReport);
 }
 #endif
-
-
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -371,17 +323,17 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             }
             run_trackball_cleanup();
             break;
-#if !defined(MOUSEKEY_ENABLE)
-                    case KC_MS_BTN1:
-                        mouse_button_one = record->event.pressed;
-                        trackball_register_button(mouse_button_one | trackball_button_one, MOUSE_BTN1);
-                        break;
-                    case KC_MS_BTN2:
-                        trackball_register_button(record->event.pressed, MOUSE_BTN2);
-                        break;
-                    case KC_MS_BTN3:
-                        trackball_register_button(record->event.pressed, MOUSE_BTN3);
-                        break;
+#    if !defined(MOUSEKEY_ENABLE)
+        case KC_MS_BTN1:
+            mouse_button_one = record->event.pressed;
+            trackball_register_button(mouse_button_one | trackball_button_one, MOUSE_BTN1);
+            break;
+        case KC_MS_BTN2:
+            trackball_register_button(record->event.pressed, MOUSE_BTN2);
+            break;
+        case KC_MS_BTN3:
+            trackball_register_button(record->event.pressed, MOUSE_BTN3);
+            break;
 #    endif
 #endif
     }
@@ -434,7 +386,6 @@ void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-
     if (layer_state_is(_GAMEPAD)) {
         RGB_MATRIX_INDICATOR_SET_COLOR(32, 0x00, 0xFF, 0x00);  // Q
         RGB_MATRIX_INDICATOR_SET_COLOR(31, 0x00, 0xFF, 0xFF);  // W
@@ -447,7 +398,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
         RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 26 : 27), 0xFF, 0xFF, 0xFF);  // 1
         RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 27 : 26), 0x00, 0xFF, 0x00);  // 2
-        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0x7A, 0x00, 0xFF);                                          // 3
+        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0x7A, 0x00, 0xFF);                                            // 3
     }
 
 #    if defined(RGBLIGHT_ENABLE)
@@ -456,7 +407,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (userspace_config.rgb_layer_change)
 #    endif
     {
-        switch (get_highest_layer(layer_state|default_layer_state)) {
+        switch (get_highest_layer(layer_state | default_layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
@@ -475,26 +426,14 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             case _QWERTY:
                 rgb_matrix_layer_helper(HSV_CYAN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _COLEMAK:
+            case _COLEMAK_DH:
                 rgb_matrix_layer_helper(HSV_MAGENTA, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _DVORAK:
+            case _COLEMAK:
                 rgb_matrix_layer_helper(HSV_SPRINGGREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _WORKMAN:
+            case _DVORAK:
                 rgb_matrix_layer_helper(HSV_GOLDENROD, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _NORMAN:
-                rgb_matrix_layer_helper(HSV_CORAL, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _MALTRON:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _EUCALYN:
-                rgb_matrix_layer_helper(HSV_PINK, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _CARPLAX:
-                rgb_matrix_layer_helper(HSV_BLUE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
         }
     }
