@@ -35,7 +35,7 @@
 #define RGB_DI_PIN    C6
 
 #ifdef  BACKLIGHT_PIN
-#	define BACKLIGHT_LEVELS    10		 
+#	define BACKLIGHT_LEVELS    10
 #	define BACKLIGHT_ON_STATE  1 
 #	define BACKLIGHT_LIMIT_VAL 255
 #endif
@@ -48,4 +48,3 @@
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_SLEEP
 #endif
-
