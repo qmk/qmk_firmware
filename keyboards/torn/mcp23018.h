@@ -24,9 +24,28 @@
 #define GPIOA 0x12
 #define GPIOB 0x13
 
+#define GPA0 (1 << 0)
+#define GPA1 (1 << 1)
+#define GPA2 (1 << 2)
+#define GPA3 (1 << 3)
+#define GPA4 (1 << 4)
+#define GPA5 (1 << 5)
+#define GPA6 (1 << 6)
+#define GPA7 (1 << 7)
+#define GPB0 (1 << 8)
+#define GPB1 (1 << 9)
+#define GPB2 (1 << 10)
+#define GPB3 (1 << 11)
+#define GPB4 (1 << 12)
+#define GPB5 (1 << 13)
+#define GPB6 (1 << 14)
+#define GPB7 (1 << 15)
+
+typedef uint16_t mcp23018_pin_t;
+
 typedef int16_t mcp23018_status_t;
 
-void              msp23018_init(const uint8_t* iodir, const uint8_t* gppu, const uint8_t* gpio);
+void              msp23018_init(mcp23018_pin_t input, mcp23018_pin_t pullup, mcp23018_pin_t enabled);
 bool              mcp23018_reset_required(void);
 mcp23018_status_t mcp23018_writeReg(uint8_t regaddr, const uint8_t* data, uint16_t length);
 mcp23018_status_t mcp23018_readReg(uint8_t regaddr, uint8_t* data, uint16_t length);

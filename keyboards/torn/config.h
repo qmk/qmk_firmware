@@ -48,16 +48,13 @@
 #define UNUSED_PINS
 
 #define SECONDARY_ROW_PINS \
-    { (1 << 5), (1 << 6), (1 << 7), (1 << 4) }
+    { GPA5, GPA6, GPA7, GPA4 }
 #define SECONDARY_COL_PINS \
-    { (1 << 3), (1 << 2), (1 << 1), (1 << 0), (1 << 15), (1 << 14) }
+    { GPA3, GPA2, GPA1, GPA0, GPB7, GPB6 }
 
-#define MCP23018_IODIR \
-    { 0b00001111, 0b11111111 }
-#define MCP23018_GPPU \
-    { 0b00001111, 0b11111000 }
-#define MCP23018_GPIO \
-    { 0b00000000, 0b00000111 }
+#define MCP23018_INPUT   ( GPA0 | GPA1 | GPA2 | GPA3 | GPB0 | GPB1 | GPB2 | GPB3 | GPB4 | GPB5 | GPB6 | GPB7 )
+#define MCP23018_PULLUP  ( GPA0 | GPA1 | GPA2 | GPA3 | GPB3 | GPB4 | GPB5 | GPB6 | GPB7 )
+#define MCP23018_ENABLED ( GPB0 | GPB1 | GPB2 )
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

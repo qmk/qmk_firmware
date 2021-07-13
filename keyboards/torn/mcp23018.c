@@ -24,9 +24,15 @@
 
 #define MCP23018_TIMEOUT 100
 
+#define PIN2REG(pin) { pin & 0xFF, pin >> 8 }
+
 static i2c_status_t mcp23018_status = I2C_STATUS_ERROR;
 
-void msp23018_init(const uint8_t* iodir, const uint8_t* gppu, const uint8_t* gpio) {
+void msp23018_init(mcp23018_pin_t input, mcp23018_pin_t pullup, mcp23018_pin_t enabled) {
+    const uint8_t gpio[] = PIN2REG(enabled);
+    const uint8_t iodir[] = PIN2REG(input);
+    const uint8_t gppu[] = PIN2REG(pullup);
+
     mcp23018_status = I2C_STATUS_SUCCESS;
     mcp23018_writeReg(GPIOA, gpio, 2);
     mcp23018_writeReg(IODIRA, iodir, 2);

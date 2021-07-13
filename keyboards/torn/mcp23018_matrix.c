@@ -22,8 +22,6 @@
 #define SPLIT_MATRIX_COLS (MATRIX_COLS / 2)
 #define SECONDARY_ROW_OFFSET (MATRIX_ROWS / 2)
 
-typedef uint16_t mcp23018_pin_t;
-
 static const pin_t          row_pins[MATRIX_ROWS]                 = MATRIX_ROW_PINS;
 static const pin_t          col_pins[SPLIT_MATRIX_COLS]           = MATRIX_COL_PINS;
 static const mcp23018_pin_t secondary_row_pins[MATRIX_ROWS]       = SECONDARY_ROW_PINS;
