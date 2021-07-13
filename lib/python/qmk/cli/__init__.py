@@ -2,32 +2,197 @@
 
 We list each subcommand here explicitly because all the reliable ways of searching for modules are slow and delay startup.
 """
+import os
+import shlex
 import sys
+from importlib.util import find_spec
+from pathlib import Path
+from subprocess import run
 
-from milc import cli
+from milc import cli, __VERSION__
+from milc.questions import yesno
 
-from . import c2json
-from . import cformat
-from . import chibios
-from . import clean
-from . import compile
-from . import config
-from . import docs
-from . import doctor
-from . import fileformat
-from . import flash
-from . import generate
-from . import hello
-from . import info
-from . import json
-from . import json2c
-from . import lint
-from . import list
-from . import kle2json
-from . import new
-from . import pyformat
-from . import pytest
+import_names = {
+    # A mapping of package name to importable name
+    'pep8-naming': 'pep8ext_naming',
+    'pyusb': 'usb.core',
+}
 
-if sys.version_info[0] != 3 or sys.version_info[1] < 6:
-    cli.log.error('Your Python is too old! Please upgrade to Python 3.6 or later.')
+safe_commands = [
+    # A list of subcommands we always run, even when the module imports fail
+    'clone',
+    'config',
+    'doctor',
+    'env',
+    'setup',
+]
+
+subcommands = [
+    'qmk.cli.bux',
+    'qmk.cli.c2json',
+    'qmk.cli.cformat',
+    'qmk.cli.chibios.confmigrate',
+    'qmk.cli.clean',
+    'qmk.cli.compile',
+    'qmk.cli.console',
+    'qmk.cli.docs',
+    'qmk.cli.doctor',
+    'qmk.cli.fileformat',
+    'qmk.cli.flash',
+    'qmk.cli.format.json',
+    'qmk.cli.generate.api',
+    'qmk.cli.generate.config_h',
+    'qmk.cli.generate.dfu_header',
+    'qmk.cli.generate.docs',
+    'qmk.cli.generate.info_json',
+    'qmk.cli.generate.keyboard_h',
+    'qmk.cli.generate.layouts',
+    'qmk.cli.generate.rgb_breathe_table',
+    'qmk.cli.generate.rules_mk',
+    'qmk.cli.hello',
+    'qmk.cli.info',
+    'qmk.cli.json2c',
+    'qmk.cli.lint',
+    'qmk.cli.list.keyboards',
+    'qmk.cli.list.keymaps',
+    'qmk.cli.kle2json',
+    'qmk.cli.multibuild',
+    'qmk.cli.new.keyboard',
+    'qmk.cli.new.keymap',
+    'qmk.cli.pyformat',
+    'qmk.cli.pytest',
+]
+
+
+def _run_cmd(*command):
+    """Run a command in a subshell.
+    """
+    if 'windows' in cli.platform.lower():
+        safecmd = map(shlex.quote, command)
+        safecmd = ' '.join(safecmd)
+        command = [os.environ['SHELL'], '-c', safecmd]
+
+    return run(command)
+
+
+def _find_broken_requirements(requirements):
+    """ Check if the modules in the given requirements.txt are available.
+
+    Args:
+
+        requirements
+            The path to a requirements.txt file
+
+    Returns a list of modules that couldn't be imported
+    """
+    with Path(requirements).open() as fd:
+        broken_modules = []
+
+        for line in fd.readlines():
+            line = line.strip().replace('<', '=').replace('>', '=')
+
+            if len(line) == 0 or line[0] == '#' or line.startswith('-r'):
+                continue
+
+            if '#' in line:
+                line = line.split('#')[0]
+
+            module_name = line.split('=')[0] if '=' in line else line
+            module_import = module_name.replace('-', '_')
+
+            # Not every module is importable by its own name.
+            if module_name in import_names:
+                module_import = import_names[module_name]
+
+            if not find_spec(module_import):
+                broken_modules.append(module_name)
+
+        return broken_modules
+
+
+def _broken_module_imports(requirements):
+    """Make sure we can import all the python modules.
+    """
+    broken_modules = _find_broken_requirements(requirements)
+
+    for module in broken_modules:
+        print('Could not find module %s!' % module)
+
+    if broken_modules:
+        return True
+
+    return False
+
+
+# Make sure our python is new enough
+#
+# Supported version information
+#
+# Based on the OSes we support these are the minimum python version available by default.
+# Last update: 2021 Jan 02
+#
+# Arch: 3.9
+# Debian: 3.7
+# Fedora 31: 3.7
+# Fedora 32: 3.8
+# Fedora 33: 3.9
+# FreeBSD: 3.7
+# Gentoo: 3.7
+# macOS: 3.9 (from homebrew)
+# msys2: 3.8
+# Slackware: 3.7
+# solus: 3.7
+# void: 3.9
+
+if sys.version_info[0] != 3 or sys.version_info[1] < 7:
+    print('Error: Your Python is too old! Please upgrade to Python 3.7 or later.')
     exit(127)
+
+milc_version = __VERSION__.split('.')
+
+if int(milc_version[0]) < 2 and int(milc_version[1]) < 4:
+    requirements = Path('requirements.txt').resolve()
+
+    print(f'Your MILC library is too old! Please upgrade: python3 -m pip install -U -r {str(requirements)}')
+    exit(127)
+
+# Check to make sure we have all our dependencies
+msg_install = 'Please run `python3 -m pip install -r %s` to install required python dependencies.'
+args = sys.argv[1:]
+while args and args[0][0] == '-':
+    del args[0]
+
+safe_command = args and args[0] in safe_commands
+
+if not safe_command:
+    if _broken_module_imports('requirements.txt'):
+        if yesno('Would you like to install the required Python modules?'):
+            _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt')
+        else:
+            print()
+            print(msg_install % (str(Path('requirements.txt').resolve()),))
+            print()
+            exit(1)
+
+    if cli.config.user.developer and _broken_module_imports('requirements-dev.txt'):
+        if yesno('Would you like to install the required developer Python modules?'):
+            _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements-dev.txt')
+        elif yesno('Would you like to disable developer mode?'):
+            _run_cmd(sys.argv[0], 'config', 'user.developer=None')
+        else:
+            print()
+            print(msg_install % (str(Path('requirements-dev.txt').resolve()),))
+            print('You can also turn off developer mode: qmk config user.developer=None')
+            print()
+            exit(1)
+
+# Import our subcommands
+for subcommand in subcommands:
+    try:
+        __import__(subcommand)
+
+    except (ImportError, ModuleNotFoundError) as e:
+        if safe_command:
+            print(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
+        else:
+            raise

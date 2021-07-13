@@ -25,18 +25,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static report_mouse_t mouseReport = {};
 
+__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
+
 __attribute__((weak)) void pointing_device_init(void) {
     // initialize device, if that needs to be done.
 }
 
 __attribute__((weak)) void pointing_device_send(void) {
+    static report_mouse_t old_report = {};
+
     // If you need to do other things, like debugging, this is the place to do it.
-    host_mouse_send(&mouseReport);
+    if (has_mouse_report_changed(mouseReport, old_report)) {
+        host_mouse_send(&mouseReport);
+    }
     // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device
     mouseReport.x = 0;
     mouseReport.y = 0;
     mouseReport.v = 0;
     mouseReport.h = 0;
+    old_report    = mouseReport;
 }
 
 __attribute__((weak)) void pointing_device_task(void) {
