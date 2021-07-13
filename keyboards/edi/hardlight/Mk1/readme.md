@@ -10,7 +10,7 @@ A compact 60% keyboard designed by Fate Everywhere. Born out of the desire for a
 
 Build example for this keyboard (after setting up your build environment):
 
-    make edi/hardlight:default
+    make edi/hardlight/mk1:default
 
 Flash example for this keyboard (after setting up your build environment):
  
