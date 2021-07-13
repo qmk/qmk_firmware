@@ -4,6 +4,9 @@
     "maintainer": "Xelus22",
     "width": 16,
     "height": 5,
+    "layout_aliases": {
+        "LAYOUT_65_all": "LAYOUT_all"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
