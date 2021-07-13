@@ -2,7 +2,7 @@
 MCU = STM32F303
 
 # Bootloader selection
-# BOOTLOADER =
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable
