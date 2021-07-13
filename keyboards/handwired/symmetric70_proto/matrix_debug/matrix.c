@@ -35,8 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define MATRIX_DEBUG_GAP()  asm volatile("nop \n nop":::"memory")
 #endif
 
-#ifndef MATRIX_IO_DELAY_ALLWAYS
-#    define MATRIX_IO_DELAY_ALLWAYS 0
+#ifndef MATRIX_IO_DELAY_ALWAYS
+#    define MATRIX_IO_DELAY_ALWAYS 0
 #endif
 
 #ifdef DIRECT_PINS
