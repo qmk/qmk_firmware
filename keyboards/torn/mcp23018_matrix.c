@@ -40,11 +40,7 @@ static void unselect_rows(void) {
     }
 }
 
-static void select_secondary_row(uint8_t row) {
-    uint16_t pins            = 0xFFFF & ~secondary_row_pins[row];
-    uint8_t  mcp23018_pins[] = {pins & 0xFF, pins >> 8};
-    mcp23018_writeReg(GPIOA, mcp23018_pins, 2);
-}
+static void select_secondary_row(uint8_t row) { mcp23018_writeGpio(~secondary_row_pins[row]); }
 
 static void init_pins(void) {
     unselect_rows();
@@ -71,12 +67,10 @@ static matrix_row_t read_cols(void) {
 static matrix_row_t read_secondary_cols(void) {
     matrix_row_t state = 0;
 
-    uint8_t mcp23018_pin_state[2];
-    if (mcp23018_readReg(GPIOA, mcp23018_pin_state, 2)) {
+    mcp23018_pin_t pins;
+    if (mcp23018_readGpio(&pins)) {
         return 0;
     }
-
-    uint16_t pins = mcp23018_pin_state[0] | (mcp23018_pin_state[1] << 8);
 
     for (uint8_t col_index = 0; col_index < SPLIT_MATRIX_COLS; col_index++) {
         uint16_t pin_state = pins & (secondary_col_pins[col_index]);

@@ -24,7 +24,8 @@
 
 #define MCP23018_TIMEOUT 100
 
-#define PIN2REG(pin) { pin & 0xFF, pin >> 8 }
+#define PIN2REG(pin) \
+    { pin & 0xFF, pin >> 8 }
 
 static i2c_status_t mcp23018_status = I2C_STATUS_ERROR;
 
@@ -40,6 +41,21 @@ void msp23018_init(mcp23018_pin_t input, mcp23018_pin_t pullup, mcp23018_pin_t e
 }
 
 bool mcp23018_reset_required(void) { return mcp23018_status != I2C_STATUS_SUCCESS; }
+
+mcp23018_status_t mcp23018_writeGpio(mcp23018_pin_t gpio) {
+    const uint8_t reg[2] = PIN2REG(gpio);
+    return mcp23018_writeReg(GPIOA, reg, 2);
+}
+
+mcp23018_status_t mcp23018_readGpio(mcp23018_pin_t* gpio) {
+    uint8_t           reg[2];
+    mcp23018_status_t status = mcp23018_readReg(GPIOA, reg, 2);
+    if (!status) {
+        *gpio = reg[0] | (reg[1] << 8);
+    }
+
+    return status;
+}
 
 i2c_status_t mcp23018_writeReg(uint8_t regaddr, const uint8_t* data, uint16_t length) {
     if (mcp23018_status) {
