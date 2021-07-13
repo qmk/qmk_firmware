@@ -34,11 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "cpp_map.h"
 
 #if defined(MATRIX_EXTENSION_74HC157) || defined(MATRIX_EXTENSION_74HC153)
-#   define  MATRIX_EXTANSION "matrix_extension_74hc15x.c"
+#   define  MATRIX_EXTENSION "matrix_extension_74hc15x.c"
 #endif
 
-#ifdef MATRIX_EXTANSION
-#    include MATRIX_EXTANSION
+#ifdef MATRIX_EXTENSION
+#    include MATRIX_EXTENSION
 #endif
 
 #ifdef MATRIX_GPIO_NEED_SEPARATE_ATOMIC
