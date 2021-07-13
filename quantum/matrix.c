@@ -182,7 +182,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 
     // Unselect row
     unselect_row(current_row);
-    matrix_output_unselect_delay();  // wait for all Col signals to go HIGH
+    matrix_output_unselect_delay(current_row, current_row_value != 0);  // wait for all Col signals to go HIGH
 
     // Update the matrix
     current_matrix[current_row] = current_row_value;
@@ -222,6 +222,8 @@ __attribute__((weak)) void matrix_init_pins(void) {
 }
 
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
+    bool key_pressed = false;
+
     // Select col
     if (!select_col(current_col)) {  // select col
         return;                      // skip NO_PIN col
@@ -234,6 +236,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
         if (readMatrixPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
+            key_pressed = true;
         } else {
             // Pin HI, clear col bit
             current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
@@ -242,7 +245,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
 
     // Unselect col
     unselect_col(current_col);
-    matrix_output_unselect_delay();  // wait for all Row signals to go HIGH
+    matrix_output_unselect_delay(current_col, key_pressed);  // wait for all Row signals to go HIGH
 }
 
 #        else
