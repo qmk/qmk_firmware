@@ -29,20 +29,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B7
 
 // Underglow / DIY Tent Glow are parallel to the top row leds, no separate define
-#ifdef FULLHAND_ENABLE
-  #ifdef LED_MIRRORED
+// Full Hand case adds 24 LEDs, Star Fighter case adds 38 LEDs
+// For mirrored LED control (each MCU controls half the LEDs), total LED counts are divided in half
+#ifdef LED_MIRRORED
+  #ifdef FULLHAND_ENABLE
+    #define FULLHAND_LEDS 24
     #define RGBLED_NUM 74
-  #else
-    #define RGBLED_NUM 148
-  #endif
-#elif SF_ENABLE
-  #ifdef LED_MIRRORED
+  #elif SF_ENABLE
+    #define FULLHAND_LEDS 38
     #define RGBLED_NUM 81
   #else
-    #define RGBLED_NUM 162
+    #define FULLHAND_LEDS 0
+    #define RGBLED_NUM 62
   #endif
 #else
-  #define RGBLED_NUM 0
+  #ifdef FULLHAND_ENABLE
+    #define FULLHAND_LEDS 24
+    #define RGBLED_NUM 148
+  #elif SF_ENABLE
+    #define FULLHAND_LEDS 38
+    #define RGBLED_NUM 162
+  #else
+    #define FULLHAND_LEDS 0
+    #define RGBLED_NUM 124
+  #endif
 #endif
 
 #define DRIVER_LED_TOTAL  RGBLED_NUM
