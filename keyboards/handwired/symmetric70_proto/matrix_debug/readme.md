@@ -104,8 +104,8 @@ This matrix.c is quantum/matrix.c with the following additions:
  - Frequency of matrix scan 4.35kHz (230.0us)  
    ![DS1Z_QuickPrint16](https://user-images.githubusercontent.com/2170248/116131295-2ad2cd80-a707-11eb-8d0a-6f7912456e03.png)
 
-#### Allways call `matrix_output_unselect_delay()` (show `matrix_scan()` time, default MATRIX_IO_DELAY)
- - `make MTEST=matrix_debug_scan,allways_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
+#### Always call `matrix_output_unselect_delay()` (show `matrix_scan()` time, default MATRIX_IO_DELAY)
+ - `make MTEST=matrix_debug_scan,always_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
  - CH1: Row 0
  - CH2: Row 1
  - CH3: Row 4
