@@ -514,6 +514,11 @@ enum quantum_keycodes {
     // RGB underglow/matrix (continued)
     RGB_MODE_TWINKLE,
 
+    // Key Overrides
+    KEY_OVERRIDE_TOGGLE,
+    KEY_OVERRIDE_ON,
+    KEY_OVERRIDE_OFF,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };

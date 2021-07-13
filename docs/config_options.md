@@ -195,6 +195,8 @@ If you define these options you will enable the associated feature, which may in
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 * `#define TAP_HOLD_CAPS_DELAY 80`
   * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
+* `#define KEY_OVERRIDE_REPEAT_DELAY 500`
+  * Sets the key repeat interval for [key overrides](feature_key_overrides.md).
 
 ## RGB Light Configuration
 
@@ -400,6 +402,8 @@ Use these to enable or disable building certain features. The more you have enab
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
+* `KEY_OVERRIDE_ENABLE`
+  * Enable the key override feature
 * `RGBLIGHT_ENABLE`
   * Enable keyboard underlight functionality
 * `LEADER_ENABLE`

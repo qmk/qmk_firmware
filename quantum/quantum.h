@@ -118,6 +118,10 @@ extern layer_state_t layer_state;
 #    include "process_unicodemap.h"
 #endif
 
+#ifdef KEY_OVERRIDE_ENABLE
+#    include "process_key_override.h"
+#endif
+
 #ifdef TAP_DANCE_ENABLE
 #    include "process_tap_dance.h"
 #endif

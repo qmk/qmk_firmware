@@ -335,6 +335,11 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
     SRC += $(TMK_DIR)/protocol/serial_uart.c
 endif
 
+ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
+    OPT_DEFS += -DKEY_OVERRIDE_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_key_override.c
+endif
+
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
     SERIAL_SRC := $(wildcard $(SERIAL_PATH)/protocol/*.c)
     SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
