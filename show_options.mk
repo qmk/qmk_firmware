@@ -83,7 +83,8 @@ OTHER_OPTION_NAMES = \
   RGB_MATRIX_KEYPRESSES \
   LED_MIRRORED \
   RGBLIGHT_FULL_POWER \
-  LTO_ENABLE
+  LTO_ENABLE \
+  TAP_TERM_KEYS_ENABLE
 
 define NAME_ECHO
        @printf "  %-30s = %-16s # %s\\n" "$1" "$($1)" "$(origin $1)"

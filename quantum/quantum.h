@@ -199,6 +199,9 @@ extern layer_state_t layer_state;
 #ifdef WPM_ENABLE
 #    include "wpm.h"
 #endif
+#ifdef TAP_TERM_KEYS_ENABLE
+#    include "process_tap_term_keys.h"
+#endif
 
 #ifdef USBPD_ENABLE
 #    include "usbpd.h"

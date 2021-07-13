@@ -514,6 +514,11 @@ enum quantum_keycodes {
     // RGB underglow/matrix (continued)
     RGB_MODE_TWINKLE,
 
+    // Tapping term setup
+    TK_PRNT,
+    TK_UP,
+    TK_DOWN,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };

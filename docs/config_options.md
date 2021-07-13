@@ -420,6 +420,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+* `TAP_TERM_KEYS_ENABLE`
+  * Allows to configure the global tapping term on the fly.
 
 ## USB Endpoint Limitations
 

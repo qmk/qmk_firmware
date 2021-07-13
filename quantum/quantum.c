@@ -279,6 +279,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef JOYSTICK_ENABLE
             process_joystick(keycode, record) &&
 #endif
+#ifdef TAP_TERM_KEYS_ENABLE
+            process_tap_term_keys(keycode, record) &&
+#endif
             true)) {
         return false;
     }
