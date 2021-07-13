@@ -677,6 +677,45 @@ See also: [One Shot Keys](one_shot_keys.md)
 |`OS_OFF`    |Turns One Shot keys off           |
 |`OS_TOGG`   |Toggles One Shot keys status      |
 
+## Programmable Button Support :id=programmable-button
+
+See also: [Programmable Button](feature_programmable_button.md)
+
+|Key                       |Description                                                     |
+|--------------------------|----------------------|
+|`KC_PROGRAMMABLE_BUTTON1` |Programmable button 1 |
+|`KC_PROGRAMMABLE_BUTTON2` |Programmable button 2 |
+|`KC_PROGRAMMABLE_BUTTON3` |Programmable button 3 |
+|`KC_PROGRAMMABLE_BUTTON4` |Programmable button 4 |
+|`KC_PROGRAMMABLE_BUTTON5` |Programmable button 5 |
+|`KC_PROGRAMMABLE_BUTTON6` |Programmable button 6 |
+|`KC_PROGRAMMABLE_BUTTON7` |Programmable button 7 |
+|`KC_PROGRAMMABLE_BUTTON8` |Programmable button 8 |
+|`KC_PROGRAMMABLE_BUTTON9` |Programmable button 9 |
+|`KC_PROGRAMMABLE_BUTTON10`|Programmable button 10|
+|`KC_PROGRAMMABLE_BUTTON11`|Programmable button 11|
+|`KC_PROGRAMMABLE_BUTTON12`|Programmable button 12|
+|`KC_PROGRAMMABLE_BUTTON13`|Programmable button 13|
+|`KC_PROGRAMMABLE_BUTTON14`|Programmable button 14|
+|`KC_PROGRAMMABLE_BUTTON15`|Programmable button 15|
+|`KC_PROGRAMMABLE_BUTTON16`|Programmable button 16|
+|`KC_PROGRAMMABLE_BUTTON17`|Programmable button 17|
+|`KC_PROGRAMMABLE_BUTTON18`|Programmable button 18|
+|`KC_PROGRAMMABLE_BUTTON19`|Programmable button 19|
+|`KC_PROGRAMMABLE_BUTTON20`|Programmable button 20|
+|`KC_PROGRAMMABLE_BUTTON21`|Programmable button 21|
+|`KC_PROGRAMMABLE_BUTTON22`|Programmable button 22|
+|`KC_PROGRAMMABLE_BUTTON23`|Programmable button 23|
+|`KC_PROGRAMMABLE_BUTTON24`|Programmable button 24|
+|`KC_PROGRAMMABLE_BUTTON25`|Programmable button 25|
+|`KC_PROGRAMMABLE_BUTTON26`|Programmable button 26|
+|`KC_PROGRAMMABLE_BUTTON27`|Programmable button 27|
+|`KC_PROGRAMMABLE_BUTTON28`|Programmable button 28|
+|`KC_PROGRAMMABLE_BUTTON29`|Programmable button 29|
+|`KC_PROGRAMMABLE_BUTTON30`|Programmable button 30|
+|`KC_PROGRAMMABLE_BUTTON31`|Programmable button 31|
+|`KC_PROGRAMMABLE_BUTTON32`|Programmable button 32|
+
 ## Space Cadet :id=space-cadet
 
 See also: [Space Cadet](feature_space_cadet.md)

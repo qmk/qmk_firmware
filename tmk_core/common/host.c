@@ -31,6 +31,7 @@ extern keymap_config_t keymap_config;
 static host_driver_t *driver;
 static uint16_t       last_system_report   = 0;
 static uint16_t       last_consumer_report = 0;
+static uint32_t       last_programmable_button_report = 0;
 
 void host_set_driver(host_driver_t *d) { driver = d; }
 
@@ -103,6 +104,16 @@ void host_consumer_send(uint16_t report) {
     (*driver->send_consumer)(report);
 }
 
+void host_programmable_button_send(uint32_t report) {
+    if (report == last_programmable_button_report) return;
+    last_programmable_button_report = report;
+
+    if (!driver) return;
+    (*driver->send_programmable_button)(report);
+}
+
 uint16_t host_last_system_report(void) { return last_system_report; }
 
 uint16_t host_last_consumer_report(void) { return last_consumer_report; }
+
+uint32_t host_last_programmable_button_report(void) { return last_programmable_button_report; }

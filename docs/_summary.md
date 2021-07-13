@@ -116,6 +116,7 @@
     * [Stenography](feature_stenography.md)
     * [Thermal Printer](feature_thermal_printer.md)
     * [Velocikey](feature_velocikey.md)
+    * [Programmable Button](feature_programmable_button.md)
 
 * Developing QMK
   * [PR Checklist](pr_checklist.md)
