@@ -1,12 +1,12 @@
 # Grooveboard
 
-*A four-key mechanical keyboard for rhythm games.*
+A four-key mechanical keyboard for rhythm games.
 
 ![Grooveboard Choc PCB](https://i.imgur.com/wbMkbHX.jpg)
 
 * Keyboard Maintainer: [ianklug](https://github.com/ianklug)
-* Hardware Supported: *grooveboard, grooveboard mx, grooveboard choc*
-* Hardware Availability: *https://github.com/ianklug/grooveboard*
+* Hardware Supported: grooveboard, grooveboard mx, grooveboard choc
+* Hardware Availability: https://github.com/ianklug/grooveboard
 
 Press the button on the back of the keyboard to enter bootloader mode.
 
