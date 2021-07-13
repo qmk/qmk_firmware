@@ -42,8 +42,8 @@ ifneq ($(strip $(MTEST)),)
     ifeq ($(strip $1),adaptive_delay_fast)
         ADAPTIVE_DELAY_FAST = yes
     endif
-    ifeq ($(strip $1),allways_delay)
-        ALLWAYS_DELAY = yes
+    ifeq ($(strip $1),always_delay)
+        ALWAYS_DELAY = yes
     endif
     ifeq ($(strip $1),matrix_debug_delay)
         MATRIX_DEBUG_DELAY = yes
