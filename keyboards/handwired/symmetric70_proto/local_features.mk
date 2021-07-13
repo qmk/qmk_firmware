@@ -76,8 +76,8 @@ ifeq ($(strip $(ADAPTIVE_DELAY_FAST)),yes)
     OPT_DEFS += -DMATRIX_IO_DELAY_ADAPTIVE_FAST
 endif
 
-ifeq ($(strip $(ALLWAYS_DELAY)),yes)
-    OPT_DEFS += -DMATRIX_IO_DELAY_ALLWAYS
+ifeq ($(strip $(ALWAYS_DELAY)),yes)
+    OPT_DEFS += -DMATRIX_IO_DELAY_ALWAYS
 endif
 
 ifeq ($(strip $(MATRIX_DEBUG_DELAY)),yes)
