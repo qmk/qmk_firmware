@@ -82,36 +82,36 @@ uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
 bool encoder_update(bool clockwise) {
-  if (muse_mode) {
-    if (IS_LAYER_ON(_RAISE)) {
-      if (clockwise) {
-        muse_offset++;
+    if (muse_mode) {
+        if (IS_LAYER_ON(_RAISE)) {
+            if (clockwise) {
+                muse_offset++;
+            } else {
+                muse_offset--;
+            }
         } else {
-        muse_offset--;
+            if (clockwise) {
+                muse_tempo+=1;
+            } else {
+                muse_tempo-=1;
+            }
         }
-      } else {
-      if (clockwise) {
-        muse_tempo+=1;
-        } else {
-        muse_tempo-=1;
-        }
-      }
     } else {
-    if (clockwise) {
-      #ifdef MOUSEKEY_ENABLE
-      tap_code(KC_MS_WH_DOWN);
-        #else
-      tap_code(KC_PGDN);
-        #endif
-      } else {
-      #ifdef MOUSEKEY_ENABLE
-      tap_code(KC_MS_WH_UP);
-        #else
-      tap_code(KC_PGUP);
-        #endif
-      }
+        if (clockwise) {
+#         ifdef MOUSEKEY_ENABLE
+            tap_code(KC_MS_WH_DOWN);
+#         else
+            tap_code(KC_PGDN);
+#         endif
+        } else {
+#         ifdef MOUSEKEY_ENABLE
+            tap_code(KC_MS_WH_UP);
+#         else
+            tap_code(KC_PGUP);
+#         endif
+        }
     }
-  return true;
+    return true;
 }
 
 void dip_switch_update_keymap(uint8_t index, bool active) {

@@ -23,6 +23,15 @@
 #endif
 
 #if (defined(KEYBOARD_planck_ez))
+
+#   define ____________________________________________________________PLANCK_VERBOSE_BOTTOM_ROW_____________________________________________________________ \
+           KC_LSFT, KC_LEAD, KC_CCCV, KC_MEH, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_HYPR,    RGB_TOG,    RGB_IDL,    LED_LEVEL
+
+#   define _________________________________________PLANCK_LOWER_BOTTOM_ROW_________________________________________ \
+           KC_LSFT, KC_LEAD, KC_CCCV, KC_MEH,  KC_BSPC,  KC_SPC, XXXXXXX,   KC_ENT, KC_0, KC_DOT, KC_COMM, LED_LEVEL
+// TODO: It would be nice to find a way to apply the bottom row with optional left/right varargs. 
+//       I'm completely unsure if this language can support something like that though.
+
 /**
  * Basic Planck EZ Wrapper to expand "block" defines before sending 
  * to LAYOUT_ortho_4x12
@@ -70,7 +79,8 @@
 #   define LAYOUT_planck_base(...)    WRAPPER_planck_base(__VA_ARGS__)
 #   define LAYOUT_planck_common(...)  WRAPPER_planck_common(__VA_ARGS__)
 #   define LAYOUT_planck_mods(...)    WRAPPER_planck_mods(__VA_ARGS__)
-#elif (defined(KEYBOARD_moonlander))
+
+#elif defined(KEYBOARD_moonlander)
 /**
  * ( \
         k00, k01, k02, k03, k04, k05, k06,   k60, k61, k62, k63, k64, k65, k66, \
@@ -94,9 +104,54 @@
         k40, k41, k42, k43, k44,      k53,   kb3,      ka2, ka3, ka4, ka5, ka6, \
                 LT(_LOWER, k50), k51, k52,   kb4, kb5, LT(_RAISE, kb6) \
     )
+#elif defined(KEYBOARD_ergodox_ez)
+/*  ---------- LEFT HAND -----------   ---------- RIGHT HAND ----------
+    (                                                                    \
+    L00,L01,L02,L03,L04,L05,L06,           R00,R01,R02,R03,R04,R05,R06,  \
+    L10,L11,L12,L13,L14,L15,L16,           R10,R11,R12,R13,R14,R15,R16,  \
+    L20,L21,L22,L23,L24,L25,                   R21,R22,R23,R24,R25,R26,  \
+    L30,L31,L32,L33,L34,L35,L36,           R30,R31,R32,R33,R34,R35,R36,  \
+    L40,L41,L42,L43,L44,                           R42,R43,R44,R45,R46,  \
+                            L55,L56,   R50,R51,                          \
+                                L54,   R52,                              \
+                        L53,L52,L51,   R55,R54,R53                       \
+    )
+*/
+#   define WRAPPER_ergodox_ez(...)     LAYOUT_ergodox_pretty(__VA_ARGS__)
+
+#   define WRAPPER_ergodox_common( \
+        L11,L12,L13,L14,L15,           R11,R12,R13,R14,R15,  \
+        L21,L22,L23,L24,L25,           R21,R22,R23,R24,R25,  \
+        L31,L32,L33,L34,L35,           R31,R32,R33,R34,R35,  \
+        L41,L42,L43,L44,                   R42,R43,R44,R45   \
+    ) WRAPPER_ergodox_ez( \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   \
+        XXXXXXX,     L11,     L12,     L13,     L14,     L15, XXXXXXX,           XXXXXXX,     R11,     R12,     R13,     R14,     R15, XXXXXXX,   \
+        XXXXXXX,     L21,     L22,     L23,     L24,     L25,                                 R21,     R22,     R23,     R24,     R25, XXXXXXX,   \
+        XXXXXXX,     L31,     L32,     L33,     L34,     L35, XXXXXXX,           XXXXXXX,     R31,     R32,     R33,     R34,     R35, XXXXXXX,   \
+        XXXXXXX,     L41,     L42,     L43,     L44,                                                   R42,     R43,     R44,     R45, XXXXXXX,   \
+                                                                                                                                                  \
+                                                      XXXXXXX,XXXXXXX,           XXXXXXX,XXXXXXX,                                                 \
+                                                              XXXXXXX,           XXXXXXX,                                                         \
+                           LT(_LOWER, KC_SPC),HYPR_T(KC_BSPC),KC_LEAD,           KC_CCCV,MEH_T(KC_TAB),LT(_RAISE, KC_ENT)                         )
+
+#   define WRAPPER_ergodox_mods( \
+        L11,L12,L13,L14,L15,           R11,R12,R13,R14,R15,  \
+        L21,L22,L23,L24,L25,           R21,R22,R23,R24,R25,  \
+        L31,L32,L33,L34,L35,           R31,R32,R33,R34,R35,  \
+        L41,L42,L43,L44,                   R42,R43,R44,R45   \
+    ) WRAPPER_ergodox_common( \
+              L11 ,       L12 ,       L13 ,       L14 , L15,           R11,       R12 ,       R13 ,       R14 ,        R15,  \
+              L21 , SFT_T(L22), GUI_T(L23), ALT_T(L24), L25,           R21, ALT_T(R22), GUI_T(R23), SFT_T(R24),        R25,  \
+        CTL_T(L31),       L32 ,       L33 ,       L34 , L35,           R31,       R32 ,       R33 ,       R34 , CTL_T(R35),  \
+              L41 ,       L42 ,       L43 ,       L44 ,                           R42 ,       R43 ,       R44 ,        R45   )
+
+// These macros are used when defining layouts in keymap.c
+#   define LAYOUT_ergodox_common(...)  WRAPPER_ergodox_common(__VA_ARGS__)
+#   define LAYOUT_ergodox_mods(...)    WRAPPER_ergodox_mods(__VA_ARGS__)
 #endif // END Keyboard specific wrapper defines
 /**
- * Alpha-area key wrappers for portability
+ * Alpha/Num key wrappers for portability
  */
 
 // Workman
@@ -108,10 +163,6 @@
 #define __________________WORKMN_R2__________________   KC_Y, KC_N, KC_E,    KC_O,   KC_I
 #define __________________WORKMN_R3__________________   KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH
 
-#if (defined(KEYBOARD_planck_ez))
-#   define ____________________________________________________________PLANCK_VERBOSE_BOTTOM_ROW_____________________________________________________________ \
-           KC_LSFT, KC_LEAD, KC_CCCV, KC_MEH, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_HYPR,    RGB_TOG,    RGB_IDL,    LED_LEVEL
-#endif
 // Lower
 #define __________________LOWER_L1___________________   KC_PGUP, KC_TAB,  KC_UP,   KC_ENT,  KC_PGDN
 #define __________________LOWER_L2___________________   KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END
@@ -121,12 +172,6 @@
 #define __________________LOWER_R2___________________   XXXXXXX, KC_4, KC_5,   KC_6,    KC_SLSH
 #define __________________LOWER_R3___________________   XXXXXXX, KC_1, KC_2,   KC_3,    KC_MINS
 //  Relevant keys: ->                                            KC_0, KC_DOT, KC_COMM, KC_PLUS <- pretty much the only reasons I can't always apply common or base
-#if (defined(KEYBOARD_planck_ez))
-#   define _________________________________________PLANCK_LOWER_BOTTOM_ROW_________________________________________ \
-           KC_LSFT, KC_LEAD, KC_CCCV, KC_MEH,  KC_BSPC,  KC_SPC, XXXXXXX,   KC_ENT, KC_0, KC_DOT, KC_COMM, LED_LEVEL
-// TODO: It would be cool to find a way to use a function or something to apply the bottom row with optional left/right varargs. I'm completely unsure if this 
-//       language can support something like that though.
-#endif // KEYBOARD_planck_ez
  
 // Raise
 #define __________________RAISE_L1___________________   KC_PERC, KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC
@@ -138,9 +183,9 @@
 #define __________________RAISE_R3___________________   KC_AT,   KC_DQUO, KC_QUOT, KC_PLUS, KC_AMPR
 
 // Adjust
-#define __________________ADJUST_L1__________________   KC_MAKE,       DEBUG,     RESET, TERM_ON, TERM_OFF
+#define __________________ADJUST_L1__________________   KC_MAKE,        DEBUG,     RESET, TERM_ON, TERM_OFF
 #define __________________ADJUST_L2__________________   KC__MUTE, KC__VOLDOWN, KC__VOLUP, KC_MPLY,  KC_MNXT
-#define __________________ADJUST_L3__________________   KC_VRSN,       AU_ON,    AU_OFF, CG_SWAP,  CG_NORM
+#define __________________ADJUST_L3__________________   KC_VRSN,        AU_ON,    AU_OFF, CG_SWAP,  CG_NORM
 
 #define __________________ADJUST_R1__________________   MU_MOD, MU_ON,   MU_OFF,  MI_ON,   MI_OFF
 #define __________________ADJUST_R2__________________   MUV_IN, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD

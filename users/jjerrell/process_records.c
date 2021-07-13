@@ -44,11 +44,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 key_timer = timer_read();
             } else {
+                clear_mods();
                 if (timer_elapsed(key_timer) > TAPPING_TERM) {  // Hold, copy
                     tap_code16(G(KC_C));
-                } else {  // Tap, paste
+                } else if (mods & MOD_MASK_SHIFT) {  
+                    // Tap w/ shift held, open [Paste App](https://pasteapp.io) (no affiliation)
+                    // Shift + Command(GUI) + V                
+                    tap_code16(S(G(KC_V)));
+                } else { // Regular tap, do paste
                     tap_code16(G(KC_V));
                 }
+                set_mods(mods);
             }
             return false;
             break;

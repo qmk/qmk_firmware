@@ -15,3 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with qmk_firmware.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifdef KEYBOARD_ergodox_ez
+#undef   PRODUCT
+#define  PRODUCT  ErgoDox EZ - Modified by <@jjerrell>
+#endif
