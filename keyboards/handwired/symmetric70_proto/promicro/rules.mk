@@ -20,8 +20,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-
-CUSTOM_MATRIX = lite
-SRC += matrix.c
-
-## CONSOLE_ENABLE = yes # matrix dump
