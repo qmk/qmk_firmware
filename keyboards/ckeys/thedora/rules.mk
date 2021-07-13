@@ -17,6 +17,6 @@ COMMAND_ENABLE = no    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes     # USB Nkey Rollover
 AUDIO_ENABLE = yes
-MIDI_ENABLE = yes     # MIDI controls
+MIDI_ENABLE = yes           # MIDI support
 RGBLIGHT_ENABLE = no
 ENCODER_ENABLE = yes
