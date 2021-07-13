@@ -123,3 +123,14 @@ bool led_update_user(led_t led_state) {
     // Disable led_update_kb() so that layer indication code doesn't get overridden.
     return false;
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        if (get_mods() & MOD_MASK_SHIFT) {
+            writePinLow(LED_NUM_LOCK_PIN)
+        } else {
+            writePinHigh(LED_NUM_LOCK_PIN)
+        }
+    }
+    return true;
+}
