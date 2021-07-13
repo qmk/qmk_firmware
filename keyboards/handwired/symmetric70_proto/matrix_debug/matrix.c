@@ -202,7 +202,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         } while (state);
     }
 #endif
-    if (MATRIX_IO_DELAY_ALLWAYS || current_row + 1 < MATRIX_ROWS) {
+    if (MATRIX_IO_DELAY_ALWAYS || current_row + 1 < MATRIX_ROWS) {
         MATRIX_DEBUG_DELAY_START();
         matrix_output_unselect_delay();  // wait for col signal to go HIGH
         MATRIX_DEBUG_DELAY_END();
