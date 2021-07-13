@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0300
 #define MANUFACTURER    Kumao Kobo
 #define PRODUCT         The Kudox Keyboard
-#define DESCRIPTION     Split row staggered 5x7 custom keyboard
 
 /* key matrix size */
 // Rows are doubled-up

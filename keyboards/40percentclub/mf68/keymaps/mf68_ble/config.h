@@ -21,10 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Overrides for Feather 32u4 Bluefruit */
 
-/* USB Device descriptor parameter */
-#undef DESCRIPTION
-#define DESCRIPTION     Magicforce 68 BLE
-
 /*
  * Keyboard Matrix Assignments
  *

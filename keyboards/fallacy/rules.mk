@@ -21,9 +21,10 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 # project specific files
 SRC += indicators.c \
        drivers/issi/is31fl3731-simple.c
 QUANTUM_LIB_SRC += i2c_master.c
+
+LAYOUTS = alice alice_split_bs

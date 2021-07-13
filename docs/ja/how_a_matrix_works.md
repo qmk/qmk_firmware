@@ -1,8 +1,8 @@
 # キーボードマトリックスの仕組み
 
 <!---
-  original document: 0.9.32:docs/how_a_matrix_works.md
-  git diff 0.9.32 HEAD -- docs/how_a_matrix_works.md | cat
+  original document: 0.13.15:docs/how_a_matrix_works.md
+  git diff 0.13.15 HEAD -- docs/how_a_matrix_works.md | cat
 -->
 
 キーボードスイッチのマトリックスは行と列に配置されます。マトリックス回路がなければ、各スイッチはコントローラに直接配線する必要があります。
@@ -100,5 +100,5 @@
 - [Wikipedia の記事](https://en.wikipedia.org/wiki/Keyboard_matrix_circuit)
 - [Deskthority の記事](https://deskthority.net/wiki/Keyboard_matrix)
 - [Dave Dribin による Keyboard Matrix Help (2000)](https://www.dribin.org/dave/keyboard/one_html/)
-- [PCBheaven による How Key Matrices Works](http://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (アニメーションの例)
-- [キーボードの仕組み - QMK ドキュメント](how_keyboards_work.md)
+- [PCBheaven による How Key Matrices Works](https://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (アニメーションの例)
+- [キーボードの仕組み - QMK ドキュメント](ja/how_keyboards_work.md)

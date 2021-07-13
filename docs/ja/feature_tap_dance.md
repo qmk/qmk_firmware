@@ -1,9 +1,9 @@
 # タップダンス: 1つのキーが3つ、5つまたは100の異なる動作をします
 
 <!---
-  original document: 0.9.44:docs/feature_tap_dance.md
-  git diff 0.9.44 HEAD -- docs/feature_tap_dance.md | cat
---> 
+  original document: 0.10.33:docs/feature_tap_dance.md
+  git diff 0.10.33 HEAD -- docs/feature_tap_dance.md | cat
+-->
 
 ## イントロダクション :id=introduction
 
@@ -32,7 +32,9 @@
 * `ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer)`: 1回タップすると `kc` キーコードが送信され、2回タップすると `layer` の状態をトグルします(これは `TG` レイヤーキーコードのように機能します)。
 * `ACTION_TAP_DANCE_FN(fn)`: ユーザーキーマップに定義した指定の関数が呼び出されます。タップダンス実行の回数分タップすると、最後の時点で呼び出されます。
 * `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: タップする度にユーザーキーマップに定義した最初の関数が呼び出されます。タップダンスの実行が終わった時点で2番目の関数が呼び出され、タップダンスの実行をリセットするときに最後の関数が呼び出されます。
-* `ACTION_TAP_DANCE_FN_ADVANCED_TIME(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn, tap_specific_tapping_term)`: これは `ACTION_TAP_DANCE_FN_ADVANCED` と同じように機能します。しかし、`TAPPING_TERM` で事前に定義した時間に代えて、カスタマイズしたタップ時間を使えます。
+* ~~`ACTION_TAP_DANCE_FN_ADVANCED_TIME(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn, tap_specific_tapping_term)`~~: これは `ACTION_TAP_DANCE_FN_ADVANCED` 関数と同じように機能します。しかし、`TAPPING_TERM` で事前に定義した時間の代わりに、カスタマイズしたタップ時間を使います。
+    * [ここ](ja/custom_quantum_functions.md#Custom_Tapping_Term)で概説するように、これはキーごとのタッピング時間機能を優先して非推奨になりました。この特定のタップダンス機能を使う代わりに、使いたい特定の `TD()` マクロ(`TD(TD_ESC_CAPS)` のような)を確認する必要があります。
+
 
 最初のオプションで、1つのキーに2つの役割を持たせる大抵のケースには十分です。例えば、`ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` は、1回タップすると `Space` を送信し、2回タップすると `Enter` を送信します。
 
@@ -55,7 +57,7 @@
 異なる場合、まず、古いタップダンスを処理し、続いて新しいタップダンスを登録します。
 同じ場合、カウンタの値を増やし、タイマーをリセットします。
 
-このことは、あなたは再びキーをタップするまでの時間として `TAPPING_TERM` の時間を持っていることを意味します。そのため、あなたは1つの `TAPPING_TERM` の時間内に全てのタップを行う必要はありません。これにより、キーの反応への影響を最小限に抑えながら、より長いタップ回数を可能にします。 
+このことは、あなたは再びキーをタップするまでの時間として `TAPPING_TERM` の時間を持っていることを意味します。そのため、あなたは1つの `TAPPING_TERM` の時間内に全てのタップを行う必要はありません。これにより、キーの反応への影響を最小限に抑えながら、より長いタップ回数を可能にします。
 
 次は `matrix_scan_tap_dance()` です。この関数はタップダンスキーのタイムアウトを制御します。
 

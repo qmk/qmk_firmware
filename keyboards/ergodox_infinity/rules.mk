@@ -1,18 +1,12 @@
 # MCU name
 MCU = MK20DX256
 
-# Vector table for application
-# 0x00000000-0x00001000 area is occupied by bootlaoder.*/
-# The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
-OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
-
 # Bootloader selection
 BOOTLOADER = kiibohd
 
 # Build Options
 #   comment out to disable the options.
 #
-
 BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
 MOUSEKEY_ENABLE  = yes # Mouse keys
 EXTRAKEY_ENABLE  = yes # Audio control and System control

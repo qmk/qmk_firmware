@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    PH
 #define PRODUCT         Redragon Vara 
-#define DESCRIPTION     HandWired Redragon Vara
 
 /* key matrix size */
 #define MATRIX_ROWS 12

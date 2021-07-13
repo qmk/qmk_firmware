@@ -84,8 +84,8 @@ Architecture
       /          /| Keys/Mouse | Protocol  |d| | Action      | | | Protocol  |
      /__________/ |<-----------|  LUFA     |r| |  Layer, Tap | | |  Matrix   |
      |.--------.| |   LED      |  V-USB    |i| |-------------| | |  PS/2,IBM |             __________________
-     ||        || |----------->|  iWRAP(BT)|v| | Keymap      | | |  ADB,M0110|  Keys      / /_/_/_/_/_/_/_/ /|
-     ||  Host  || |  Console   |  UART     |e| | Mousekey    | | |  SUN/NEWS |<----------/ /_/_/_/_/_/_/_/ / /
+     ||        || |----------->|  UART     |v| | Keymap      | | |  ADB,M0110|  Keys      / /_/_/_/_/_/_/_/ /|
+     ||  Host  || |  Console   |           |e| | Mousekey    | | |  SUN/NEWS |<----------/ /_/_/_/_/_/_/_/ / /
      ||________||/.<-----------|           |r| | Report      | | |  X68K/PC98| Control  / /_/_/_/_/_/_/_/ / /
      `_========_'/|            |---------------------------------------------|-------->/___ /_______/ ___/ /
      |_o______o_|/             | Sendchar, Print, Debug, Command, ...        |         |_________________|/
@@ -133,7 +133,6 @@ Files and Directories
 ### Keyboard Protocols
 * lufa/     - LUFA USB stack
 * vusb/     - Objective Development V-USB
-* iwrap/    - Bluetooth HID for Bluegiga iWRAP
 * ps2.c     - PS/2 protocol
 * adb.c     - Apple Desktop Bus protocol
 * m0110.c   - Macintosh 128K/512K/Plus keyboard protocol

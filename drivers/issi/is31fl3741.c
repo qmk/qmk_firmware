@@ -78,23 +78,6 @@ bool    g_scaling_registers_update_required[DRIVER_COUNT] = {false};
 
 uint8_t g_scaling_registers[DRIVER_COUNT][ISSI_MAX_LEDS];
 
-uint32_t IS31FL3741_get_cw_sw_position(uint8_t cs, uint8_t sw) {
-    uint32_t pos = 0;
-
-    if (cs < 31) {
-        if (sw < 7) {
-            pos = (sw - 1) * 30 + (cs - 1);
-
-        } else {
-            pos = 0xB4 + (sw - 7) * 30 + (cs - 1);
-        }
-    } else {
-        pos = 0xB4 + 0x5A + (sw - 1) * 9 + (cs - 31);
-    }
-
-    return pos;
-}
-
 void IS31FL3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     g_twi_transfer_buffer[0] = reg;
     g_twi_transfer_buffer[1] = data;
@@ -114,14 +97,13 @@ bool IS31FL3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
 
     for (int i = 0; i < 342; i += 18) {
-        g_twi_transfer_buffer[0] = i % 180;
-
         if (i == 180) {
             // unlock the command register and select PG2
             IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
             IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM1);
         }
 
+        g_twi_transfer_buffer[0] = i % 180;
         memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 18);
 
 #if ISSI_PERSISTENCE > 0
@@ -186,16 +168,11 @@ void IS31FL3741_init(uint8_t addr) {
 void IS31FL3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
         is31_led led = g_is31_leds[index];
-        uint32_t rp = 0, gp = 0, bp = 0;
 
-        rp = IS31FL3741_get_cw_sw_position(led.rcs, led.rsw);
-        gp = IS31FL3741_get_cw_sw_position(led.gcs, led.gsw);
-        bp = IS31FL3741_get_cw_sw_position(led.bcs, led.bsw);
-
-        g_pwm_buffer[led.driver][rp] = red;
-        g_pwm_buffer[led.driver][gp] = green;
-        g_pwm_buffer[led.driver][bp] = blue;
-        g_pwm_buffer_update_required = true;
+        g_pwm_buffer[led.driver][led.r] = red;
+        g_pwm_buffer[led.driver][led.g] = green;
+        g_pwm_buffer[led.driver][led.b] = blue;
+        g_pwm_buffer_update_required    = true;
     }
 }
 
@@ -208,26 +185,22 @@ void IS31FL3741_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 void IS31FL3741_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
     is31_led led = g_is31_leds[index];
 
-    uint32_t scaling_register_r = IS31FL3741_get_cw_sw_position(led.rcs, led.rsw);
-    uint32_t scaling_register_g = IS31FL3741_get_cw_sw_position(led.gcs, led.gsw);
-    uint32_t scaling_register_b = IS31FL3741_get_cw_sw_position(led.bcs, led.bsw);
-
     if (red) {
-        g_scaling_registers[led.driver][scaling_register_r] = 0xFF;
+        g_scaling_registers[led.driver][led.r] = 0xFF;
     } else {
-        g_scaling_registers[led.driver][scaling_register_r] = 0x00;
+        g_scaling_registers[led.driver][led.r] = 0x00;
     }
 
     if (green) {
-        g_scaling_registers[led.driver][scaling_register_g] = 0xFF;
+        g_scaling_registers[led.driver][led.g] = 0xFF;
     } else {
-        g_scaling_registers[led.driver][scaling_register_g] = 0x00;
+        g_scaling_registers[led.driver][led.g] = 0x00;
     }
 
     if (blue) {
-        g_scaling_registers[led.driver][scaling_register_b] = 0xFF;
+        g_scaling_registers[led.driver][led.b] = 0xFF;
     } else {
-        g_scaling_registers[led.driver][scaling_register_b] = 0x00;
+        g_scaling_registers[led.driver][led.b] = 0x00;
     }
 
     g_scaling_registers_update_required[led.driver] = true;
@@ -242,15 +215,9 @@ void IS31FL3741_update_pwm_buffers(uint8_t addr1, uint8_t addr2) {
 }
 
 void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue) {
-    uint32_t rp = 0, gp = 0, bp = 0;
-
-    rp = IS31FL3741_get_cw_sw_position(pled->rcs, pled->rsw);
-    gp = IS31FL3741_get_cw_sw_position(pled->gcs, pled->gsw);
-    bp = IS31FL3741_get_cw_sw_position(pled->bcs, pled->bsw);
-
-    g_pwm_buffer[pled->driver][rp] = red;
-    g_pwm_buffer[pled->driver][gp] = green;
-    g_pwm_buffer[pled->driver][bp] = blue;
+    g_pwm_buffer[pled->driver][pled->r] = red;
+    g_pwm_buffer[pled->driver][pled->g] = green;
+    g_pwm_buffer[pled->driver][pled->b] = blue;
 
     g_pwm_buffer_update_required = true;
 }
@@ -261,7 +228,8 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
         IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
         IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_SCALING_0);
 
-        for (int i = 0; i < 180; ++i) {
+        // CS1_SW1 to CS30_SW6 are on PG2
+        for (int i = CS1_SW1; i <= CS30_SW6; ++i) {
             IS31FL3741_write_register(addr, i, g_scaling_registers[0][i]);
         }
 
@@ -269,8 +237,9 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
         IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
         IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_SCALING_1);
 
-        for (int i = 0; i < 171; ++i) {
-            IS31FL3741_write_register(addr, i, g_scaling_registers[0][180 + i]);
+        // CS1_SW7 to CS39_SW9 are on PG3
+        for (int i = CS1_SW7; i <= CS39_SW9; ++i) {
+            IS31FL3741_write_register(addr, i - CS1_SW7, g_scaling_registers[0][i]);
         }
 
         g_scaling_registers_update_required[index] = false;
@@ -278,13 +247,9 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
 }
 
 void IS31FL3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue) {
-    uint32_t rp = 0, gp = 0, bp = 0;
+    g_scaling_registers[pled->driver][pled->r] = red;
+    g_scaling_registers[pled->driver][pled->g] = green;
+    g_scaling_registers[pled->driver][pled->b] = blue;
 
-    rp = IS31FL3741_get_cw_sw_position(pled->rcs, pled->rsw);
-    gp = IS31FL3741_get_cw_sw_position(pled->gcs, pled->gsw);
-    bp = IS31FL3741_get_cw_sw_position(pled->bcs, pled->bsw);
-
-    g_scaling_registers[pled->driver][rp] = red;
-    g_scaling_registers[pled->driver][gp] = green;
-    g_scaling_registers[pled->driver][bp] = blue;
+    g_scaling_registers_update_required[pled->driver] = true;
 }

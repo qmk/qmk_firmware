@@ -3,12 +3,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xF7E0
+#define VENDOR_ID       0x4273 // "Bs" - Boardsource
 #define PRODUCT_ID      0x0412
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    Boardsource
 #define PRODUCT         4x12
-#define DESCRIPTION     40 percent ortho keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -121,9 +120,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

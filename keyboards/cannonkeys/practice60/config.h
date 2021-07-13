@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER CannonKeys
 #define PRODUCT Practice 60
-#define DESCRIPTION Practice 60
 
 /* key matrix size */
 #define MATRIX_ROWS 5

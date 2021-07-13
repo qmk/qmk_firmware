@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Alabahuy
 #define PRODUCT         RARTPAD
-#define DESCRIPTION     5x4 Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 5

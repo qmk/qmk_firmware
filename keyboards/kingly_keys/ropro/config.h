@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kingly-Keys
 #define PRODUCT         The_RoPro
-#define DESCRIPTION     A 75-key ortholinear keyboard with rotary encoder
 
  /* key matrix size */
 #define MATRIX_ROWS 7

@@ -1,8 +1,8 @@
 # QMK の設定
 
 <!---
-  original document: 0.9.43:docs/config_options.md
-  git diff 0.9.43 HEAD -- docs/config_options.md | cat
+  original document: 0.13.17:docs/config_options.md
+  git diff 0.13.17 HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
@@ -34,7 +34,9 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 
 これは最初に include されるものの 1 つである C ヘッダファイルで、プロジェクト全体(もし含まれる場合)にわたって持続します。多くの変数をここで設定し、他の場所からアクセスすることができます。`config.h` ファイルでは、以下のもの以外の、他の `config.h`  ファイルやその他のファイルの include をしないでください:
 
-    #include "config_common.h"
+```c
+#include "config_common.h"
+```
 
 
 ## ハードウェアオプション
@@ -70,16 +72,22 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * (循環させるために)代替音声を有効にします
 * `#define C4_AUDIO`
   * ピン C4 のオーディオを有効にします
+  * 非推奨。`#define AUDIO_PIN C4` を使ってください
 * `#define C5_AUDIO`
   * ピン C5 のオーディオを有効にします
+  * 非推奨。`#define AUDIO_PIN C5` を使ってください
 * `#define C6_AUDIO`
   * ピン C6 のオーディオを有効にします
+  * 非推奨。`#define AUDIO_PIN C6` を使ってください
 * `#define B5_AUDIO`
-  * ピン B5 のオーディオを有効にします (C[4-6]\_AUDIO の1つとともに B[5-7]\_AUDIO の1つが有効にされている場合、疑似ステレオが有効にされます)
+  * ピン B5 のオーディオを有効にします (C ピンの1つとともに B ピンの1つが有効にされている場合、疑似ステレオが有効にされます)
+  * 非推奨。もし `AUDIO_PIN` で `C` ピンを有効にしている場合は、`#define AUDIO_PIN_ALT B5` を使い、そうでなければ `#define AUDIO_PIN B5` を使います。
 * `#define B6_AUDIO`
-  * ピン B6 のオーディオを有効にします (C[4-6]\_AUDIO の1つとともに B[5-7]\_AUDIO の1つが有効にされている場合、疑似ステレオが有効にされます)
+  * ピン B6 のオーディオを有効にします (C ピンの1つとともに B ピンの1つが有効にされている場合、疑似ステレオが有効にされます)
+  * 非推奨。もし `AUDIO_PIN` で `C` ピンを有効にしている場合は、`#define AUDIO_PIN_ALT B6` を使い、そうでなければ `#define AUDIO_PIN B6` を使います。
 * `#define B7_AUDIO`
-  * ピン B7 のオーディオを有効にします (C[4-6]\_AUDIO の1つとともに B[5-7]\_AUDIO の1つが有効にされている場合、疑似ステレオが有効にされます)
+  * ピン B7 のオーディオを有効にします (C ピンの1つとともに B ピンの1つが有効にされている場合、疑似ステレオが有効にされます)
+  * 非推奨。もし `AUDIO_PIN` で `C` ピンを有効にしている場合は、`#define AUDIO_PIN_ALT B7` を使い、そうでなければ `#define AUDIO_PIN B7` を使います。
 * `#define BACKLIGHT_PIN B7`
   * バックライトのピン
 * `#define BACKLIGHT_LEVELS 3`
@@ -91,7 +99,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define DEBOUNCE 5`
   * ピンの値を読み取る時の遅延 (5がデフォルト)
 * `#define LOCKING_SUPPORT_ENABLE`
-  * メカニカルロックのサポート。キーマップで KC_LCAP、 KC_LNUM そして KC_LSCR を使えるようにします
+  * メカニカルロックのサポート。キーマップで KC_LCAP、KC_LNUM そして KC_LSCR を使えるようにします
 * `#define LOCKING_RESYNC_ENABLE`
   * キーボードの LED の状態をスイッチの状態と一致させ続けようとします
 * `#define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)`
@@ -100,6 +108,8 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * デバイスの USB 経由の最大電力(mA) を設定します (デフォルト: 500)
 * `#define USB_POLLING_INTERVAL_MS 10`
   * キーボード、マウス および 共有 (NKRO/メディアキー) インタフェースのための USB ポーリングレートをミリ秒で設定します
+* `#define USB_SUSPEND_WAKEUP_DELAY 200`
+   * ウェイクアップパケットを送信した後で一時停止するミリ秒を設定します
 * `#define F_SCL 100000L`
   * I2C を使用するキーボードのための I2C クロックレート速度を設定します。デフォルトは `400000L` ですが、`split_common` を使っているキーボードは別でデフォルトは `100000L` です。
 
@@ -140,6 +150,8 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define RETRO_TAPPING`
   * 押下とリリースの間に他のキーによる中断がなければ、TAPPING_TERM の後であってもとにかくタップします
   * 詳細は [Retro Tapping](ja/tap_hold.md#retro-tapping) を見てください
+* `#define RETRO_TAPPING_PER_KEY`
+  * キーごとの `RETRO_TAPPING` 設定の処理を有効にします
 * `#define TAPPING_TOGGLE 2`
   * トグルを引き起こす前のタップ数
 * `#define PERMISSIVE_HOLD`
@@ -238,7 +250,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
    * DFU ブートローダを搭載したボードでは、これらの EEPROM ファイルを書き込むために `:dfu-split-left`/`:dfu-split-right` を使うことができます
    * Caterina ブートローダを搭載したボード (標準的な Pro Micros など)では、`:avrdude-split-left`/`:avrdude-split-right` を使ってください
    * ARM DFU ブートローダを搭載したボード (Proton C など)では、`:dfu-util-split-left`/`:dfu-util-split-right` を使ってください
-3. `MASTER_RIGHT` を設定します: USBポートに差し込まれた側はマスター側で右側であると決定されます(デフォルトの逆)
+3. `MASTER_RIGHT` を設定します: USB ポートに差し込まれた側はマスター側で右側であると決定されます(デフォルトの逆)
 4. デフォルト: USB ポートに差し込まれている側がマスター側であり、左側であると見なされます。スレーブ側は右側です
 
 #### 左右を定義します
@@ -322,11 +334,9 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
     ```
 * `LAYOUTS`
   * このキーボードがサポートする[レイアウト](ja/feature_layouts.md)のリスト
-* `LINK_TIME_OPTIMIZATION_ENABLE`
+* `LTO_ENABLE`
   * キーボードをコンパイルする時に、Link Time Optimization (LTO) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。
 ただし、LTO が有効な場合、古い TMK のマクロと関数の機能が壊れるため、自動的にこれらの機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます。(メモ: これは QMK の [マクロ](ja/feature_macros.md) と [レイヤー](ja/feature_layers.md) には影響を与えません。)
-* `LTO_ENABLE`
-  * LINK_TIME_OPTIMIZATION_ENABLE と同じ意味です。`LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
 
 ## AVR MCU オプション
 * `MCU = atmega32u4`
@@ -371,10 +381,8 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * MIDI 制御
 * `UNICODE_ENABLE`
   * Unicode
-* `BLUETOOTH_ENABLE`
-  * Adafruit EZ-Key HID で Bluetooth を有効にするレガシーオプション。BLUETOOTH を見てください
 * `BLUETOOTH`
-  * 現在のオプションは、AdafruitEzKey、AdafruitBLE、RN42
+  * 現在のオプションは、AdafruitBLE、RN42
 * `SPLIT_KEYBOARD`
   * 分割キーボード (let's split や bakingpy のキーボードのようなデュアル MCU) のサポートを有効にし、quantum/split_common にある全ての必要なファイルをインクルードします
 * `CUSTOM_MATRIX`

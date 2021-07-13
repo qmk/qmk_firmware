@@ -11,13 +11,13 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 **Usage for Configurator Exports**:
 
 ```
-qmk compile <configuratorExport.json>
+qmk compile [-c] <configuratorExport.json>
 ```
 
 **Usage for Keymaps**:
 
 ```
-qmk compile -kb <keyboard_name> -km <keymap_name>
+qmk compile [-c] [-e <var>=<value>] -kb <keyboard_name> -km <keymap_name>
 ```
 
 **Usage in Keyboard Directory**:  
@@ -82,13 +82,13 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 **Usage for Configurator Exports**:
 
 ```
-qmk flash <configuratorExport.json> -bl <bootloader>
+qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] <configuratorExport.json>
 ```
 
 **Usage for Keymaps**:
 
 ```
-qmk flash -kb <keyboard_name> -km <keymap_name> -bl <bootloader>
+qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>]
 ```
 
 **Listing the Bootloaders**
@@ -105,6 +105,54 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 
 ```
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
+```
+
+## `qmk console`
+
+This command lets you connect to keyboard consoles to get debugging messages. It only works if your keyboard firmware has been compiled with `CONSOLE_ENABLED=yes`.
+
+**Usage**:
+
+```
+qmk console [-d <pid>:<vid>[:<index>]] [-l] [-n] [-t] [-w <seconds>]
+```
+
+**Examples**:
+
+Connect to all available keyboards and show their console messages:
+
+```
+qmk console
+```
+
+List all devices:
+
+```
+qmk console -l
+```
+
+Show only messages from clueboard/66/rev3 keyboards:
+
+```
+qmk console -d C1ED:2370
+```
+
+Show only messages from the second clueboard/66/rev3:
+
+```
+qmk console -d C1ED:2370:2
+```
+
+Show timestamps and VID:PID instead of names:
+
+```
+qmk console -n -t
+```
+
+Disable bootloader messages:
+
+```
+qmk console --no-bootloaders
 ```
 
 ## `qmk doctor`
@@ -130,6 +178,16 @@ Check your environment and automatically fix any problems found:
 Check your environment and report problems only:
 
     qmk doctor -n
+
+## `qmk format-json`
+
+Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if neccesary.
+
+**Usage**:
+
+```
+qmk format-json [-f FORMAT] <json_file>
+```
 
 ## `qmk info`
 
@@ -167,6 +225,35 @@ Creates a keymap.c from a QMK Configurator export.
 qmk json2c [-o OUTPUT] filename
 ```
 
+## `qmk c2json`
+
+Creates a keymap.json from a keymap.c.  
+**Note:** Parsing C source files is not easy, therefore this subcommand may not work with your keymap. In some cases not using the C pre-processor helps.
+
+**Usage**:
+
+```
+qmk c2json -km KEYMAP -kb KEYBOARD [-q] [--no-cpp] [-o OUTPUT] filename
+```
+
+## `qmk lint`
+
+Checks over a keyboard and/or keymap and highlights common errors, problems, and anti-patterns.
+
+**Usage**:
+
+```
+qmk lint [-km KEYMAP] [-kb KEYBOARD] [--strict]
+```
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
+
+**Examples**:
+
+Do a basic lint check:
+
+    qmk lint -kb rominronin/katana60/rev2
+
 ## `qmk list-keyboards`
 
 This command lists all the keyboards currently defined in `qmk_firmware`
@@ -189,6 +276,18 @@ This command is directory aware. It will automatically fill in KEYBOARD if you a
 qmk list-keymaps -kb planck/ez
 ```
 
+## `qmk new-keyboard`
+
+This command creates a new keyboard based on available templates.
+
+This command will prompt for input to guide you though the generation process.
+
+**Usage**:
+
+```
+qmk new-keyboard
+```
+
 ## `qmk new-keymap`
 
 This command creates a new keymap based on a keyboard's existing default keymap.
@@ -199,6 +298,16 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 
 ```
 qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
+```
+
+## `qmk clean`
+
+This command cleans up the `.build` folder. If `--all` is passed, any .hex or .bin files present in the `qmk_firmware` directory will also be deleted.
+
+**Usage**:
+
+```
+qmk clean [-a]
 ```
 
 ---
@@ -247,6 +356,26 @@ This command starts a local HTTP server which you can use for browsing or improv
 qmk docs [-p PORT]
 ```
 
+## `qmk generate-docs`
+
+This command allows you to generate QMK documentation locally. It can be uses for general browsing or improving the docs. External tools such as [serve](https://www.npmjs.com/package/serve) can be used to browse the generated files.
+
+**Usage**:
+
+```
+qmk generate-docs
+```
+
+## `qmk generate-rgb-breathe-table`
+
+This command generates a lookup table (LUT) header file for the [RGB Lighting](feature_rgblight.md) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/`.
+
+**Usage**:
+
+```
+qmk generate-rgb-breathe-table [-q] [-o OUTPUT] [-m MAX] [-c CENTER]
+```
+
 ## `qmk kle2json`
 
 This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
@@ -288,4 +417,3 @@ This command runs the python test suite. If you make changes to python code you 
 ```
 qmk pytest
 ```
-

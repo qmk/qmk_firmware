@@ -15,28 +15,33 @@
  */
 
 #include "spi_master.h"
-#include "quantum.h"
+
 #include "timer.h"
 
 static pin_t     currentSlavePin = NO_PIN;
 static SPIConfig spiConfig       = {false, NULL, 0, 0, 0, 0};
 
 __attribute__((weak)) void spi_init(void) {
-    // Try releasing special pins for a short time
-    palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_INPUT);
-    palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_INPUT);
-    palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_INPUT);
+    static bool is_initialised = false;
+    if (!is_initialised) {
+        is_initialised = true;
 
-    chThdSleepMilliseconds(10);
+        // Try releasing special pins for a short time
+        palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_INPUT);
+        palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_INPUT);
+        palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_INPUT);
+
+        chThdSleepMilliseconds(10);
 #if defined(USE_GPIOV1)
-    palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-    palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-    palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+        palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+        palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+        palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
 #else
-    palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
-    palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
-    palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
+        palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
+        palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
+        palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
 #endif
+    }
 }
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
@@ -110,11 +115,17 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     return true;
 }
 
-spi_status_t spi_write(uint8_t data) { return spi_transmit(&data, 1); }
+spi_status_t spi_write(uint8_t data) {
+    uint8_t rxData;
+    spiExchange(&SPI_DRIVER, 1, &data, &rxData);
+
+    return rxData;
+}
 
 spi_status_t spi_read(void) {
     uint8_t data = 0;
-    spi_receive(&data, 1);
+    spiReceive(&SPI_DRIVER, 1, &data);
+
     return data;
 }
 
