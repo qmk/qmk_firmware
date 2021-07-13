@@ -1,6 +1,6 @@
 # KiwiKeebs MacroBoard V1.0
 
-![KiwiKeebs](https://i.imgur.com/h5i9jBl.png)
+![KiwiKeebs](https://kiwikeebs.co.uk/wp-content/themes/storefront-child-theme-master/images/kiwikeebs-logo.svg)
 
 A 6 Key PCB with Rotary Encoder Knob + Button made from solid CNC aluminium.
 
