@@ -45,7 +45,7 @@ typedef uint16_t mcp23018_pin_t;
 
 typedef int16_t mcp23018_status_t;
 
-void              msp23018_init(mcp23018_pin_t input, mcp23018_pin_t pullup, mcp23018_pin_t enabled);
+void              mcp23018_init(mcp23018_pin_t input, mcp23018_pin_t pullup, mcp23018_pin_t enabled);
 bool              mcp23018_reset_required(void);
 mcp23018_status_t mcp23018_writeGpio(mcp23018_pin_t gpio);
 mcp23018_status_t mcp23018_readGpio(mcp23018_pin_t* gpio);

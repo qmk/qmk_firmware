@@ -29,7 +29,7 @@
 
 static i2c_status_t mcp23018_status = I2C_STATUS_ERROR;
 
-void msp23018_init(mcp23018_pin_t input, mcp23018_pin_t pullup, mcp23018_pin_t enabled) {
+void mcp23018_init(mcp23018_pin_t input, mcp23018_pin_t pullup, mcp23018_pin_t enabled) {
     const uint8_t gpio[] = PIN2REG(enabled);
     const uint8_t iodir[] = PIN2REG(input);
     const uint8_t gppu[] = PIN2REG(pullup);

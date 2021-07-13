@@ -17,6 +17,7 @@
 #include "torn.h"
 #include "i2c_master.h"
 #include "mcp23018.h"
+#include "mcp23018_encoder.h"
 
 static uint8_t led_state[3] = {1, 1, 1};
 
@@ -32,13 +33,13 @@ void matrix_scan_kb(void) {
     // put your looping keyboard code here
     // runs every cycle (a lot)
     if (mcp23018_reset_required()) {
-        msp23018_init(MCP23018_INPUT, MCP23018_PULLUP, MCP23018_ENABLED);
-        secondary_encoder_init();
+        mcp23018_init(MCP23018_INPUT, MCP23018_PULLUP, MCP23018_ENABLED);
+        mcp23018_encoder_init();
         // torn_set_led(2, 1);
     }
 
     matrix_scan_user();
-    secondary_encoder_read();
+    mcp23018_encoder_read();
 }
 
 void torn_set_led(uint8_t led, bool state) {

@@ -23,6 +23,7 @@ CUSTOM_MATRIX = lite
 
 SRC += bongocat.c \
     mcp23018.c \
+    mcp23018_encoder.c \
     mcp23018_matrix.c \
     torn_encoder.c
 
