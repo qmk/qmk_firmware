@@ -107,11 +107,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         writePinLow(LED_COMPOSE_PIN);
         break;
     case _RAISE:
-        writePinLow(LED_CAPS_LOCK_PIN);
+        writePinLow(LED_NUM_LOCK_PIN);
         break;
     default: //  for any other layers, or the default layer
         writePinHigh(LED_NUM_LOCK_PIN);
-        writePinHigh(LED_CAPS_LOCK_PIN);
         writePinHigh(LED_SCROLL_LOCK_PIN);
         writePinHigh(LED_COMPOSE_PIN);
         break;
@@ -127,10 +126,10 @@ bool led_update_user(led_t led_state) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (get_mods() & MOD_MASK_SHIFT) {
-            writePinLow(LED_NUM_LOCK_PIN)
-        } else {
-            writePinHigh(LED_NUM_LOCK_PIN)
+            writePinLow(LED_CAPS_LOCK_PIN);
         }
+    } else {
+        writePinHigh(LED_CAPS_LOCK_PIN);
     }
     return true;
 }
