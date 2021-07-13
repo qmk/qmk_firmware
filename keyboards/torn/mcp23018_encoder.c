@@ -32,10 +32,10 @@ static uint8_t encoder_state  = 0;
 static int8_t  encoder_pulses = 0;
 
 static bool encoder_read_state(uint8_t *state) {
-    uint8_t           mcp23018_pin_state;
-    mcp23018_status_t status = mcp23018_readReg(GPIOB, &mcp23018_pin_state, 1);
+    mcp23018_pin_t    pins;
+    mcp23018_status_t status = mcp23018_readGpio(&pins);
     if (status == 0) {
-        *state = (mcp23018_pin_state & 0b110000) >> 4;
+        *state = ((pins & SECONDARY_ENCODER_PAD_A) > 0) << 0 | ((pins & SECONDARY_ENCODER_PAD_B) > 0) << 1;
         return true;
     }
     return false;

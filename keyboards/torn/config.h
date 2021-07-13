@@ -64,6 +64,9 @@
 #define ENCODERS_PAD_B \
     { B1 }
 
+#define SECONDARY_ENCODER_PAD_A GPB5
+#define SECONDARY_ENCODER_PAD_B GPB4
+
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
