@@ -23,7 +23,7 @@ This matrix.c is quantum/matrix.c with the following additions:
 * Measure delay time.
   * `make MTEST=matrix_debug_delay[,<other options>..] handwired/symmetric70_proto/promicro/normal:default:flash`
 * Change the behavior of delay
-  * `make MTEST=matrix_debug_delay,allways_delay handwired/symmetric70_proto/promicro/normal:default:flash`
+  * `make MTEST=matrix_debug_delay,always_delay handwired/symmetric70_proto/promicro/normal:default:flash`
   * `make MTEST=matrix_debug_delay,adaptive_delay,mdelay0 handwired/symmetric70_proto/promicro/normal:default:flash`
   * `make MTEST=matrix_debug_delay,adaptive_delay_fast,mdelay0 handwired/symmetric70_proto/promicro/normal:default:flash`
 
