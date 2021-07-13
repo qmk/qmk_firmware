@@ -2,7 +2,7 @@
 
 *A four-key mechanical keyboard for rhythm games.*
 
-![Grooveboard Choc PCB](https://i.imgur.com/bqnpp9g.jpg)
+![Grooveboard Choc PCB](https://i.imgur.com/wbMkbHX.jpg)
 
 * Keyboard Maintainer: [ianklug](https://github.com/ianklug)
 * Hardware Supported: *grooveboard, grooveboard mx, grooveboard choc*
