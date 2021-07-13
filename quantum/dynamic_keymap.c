@@ -14,13 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
-#include "keymap.h"  // to get keymaps[][][]
-#include "tmk_core/common/eeprom.h"
-#include "progmem.h"  // to read default from flash
-#include "quantum.h"  // for send_string()
 #include "dynamic_keymap.h"
-#include "via.h"  // for default VIA_EEPROM_ADDR_END
 
 #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 4
@@ -54,10 +48,14 @@
 // If DYNAMIC_KEYMAP_EEPROM_ADDR not explicitly defined in config.h,
 // default it start after VIA_EEPROM_CUSTOM_ADDR+VIA_EEPROM_CUSTOM_SIZE
 #ifndef DYNAMIC_KEYMAP_EEPROM_ADDR
-#    ifdef VIA_EEPROM_CUSTOM_CONFIG_ADDR
-#        define DYNAMIC_KEYMAP_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
+#    ifdef VIA_ENABLE
+#        ifdef VIA_EEPROM_CUSTOM_CONFIG_ADDR
+#            define DYNAMIC_KEYMAP_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
+#        else
+#            error DYNAMIC_KEYMAP_EEPROM_ADDR not defined
+#        endif
 #    else
-#        error DYNAMIC_KEYMAP_EEPROM_ADDR not defined
+#        define DYNAMIC_KEYMAP_EEPROM_ADDR EECONFIG_SIZE
 #    endif
 #endif
 

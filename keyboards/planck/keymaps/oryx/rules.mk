@@ -4,3 +4,4 @@ SRC += muse.c
 LTO_ENABLE = yes
 COMMAND_ENABLE = no
 MOUSEKEY_ENABLE = no
+ORYX_ENABLE = yes

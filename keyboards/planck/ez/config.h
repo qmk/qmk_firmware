@@ -26,7 +26,12 @@
 #undef PRODUCT
 #define PRODUCT         Planck EZ
 /* USB Device descriptor parameter */
+#undef MANUFACTURER
+#define MANUFACTURER    ZSA
+#undef PRODUCT
+#define PRODUCT         Planck EZ
 #define DEVICE_VER 0x0000
+#define WEBUSB_LANDING_PAGE_URL u8"configure.ergodox-ez.com"
 
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
@@ -162,3 +167,6 @@
 #define MOUSEKEY_TIME_TO_MAX    60
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
+
+#define FIRMWARE_VERSION_SIZE 17
+#define DYNAMIC_KEYMAP_EEPROM_ADDR (EECONFIG_SIZE + FIRMWARE_VERSION_SIZE)

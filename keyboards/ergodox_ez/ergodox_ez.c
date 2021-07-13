@@ -409,3 +409,39 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }
+
+#ifdef ORYX_ENABLE
+static uint16_t loops = 0;
+static bool is_on = false;
+
+void matrix_scan_kb(void) {
+    if(webusb_state.pairing == true) {
+        if(loops == 0) {
+            ergodox_right_led_1_off();
+            ergodox_right_led_2_off();
+            ergodox_right_led_3_off();
+        }
+        if(loops % WEBUSB_BLINK_STEPS == 0) {
+            if(is_on) {
+                ergodox_right_led_2_off();
+            }
+            else {
+                ergodox_right_led_2_on();
+            }
+            is_on ^= 1;
+        }
+        if(loops > WEBUSB_BLINK_END) {
+            webusb_state.pairing = false;
+            layer_state_set_user(layer_state);
+            loops = 0;
+        }
+        loops++;
+    }
+    else if(loops > 0) {
+      loops = 0;
+      layer_state_set_user(layer_state);
+    }
+    matrix_scan_user();
+}
+
+#endif

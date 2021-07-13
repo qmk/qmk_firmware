@@ -14,13 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RAW_ENABLE
-#    error "RAW_ENABLE is not enabled"
-#endif
+#include "quantum.h"
 
-#ifndef DYNAMIC_KEYMAP_ENABLE
-#    error "DYNAMIC_KEYMAP_ENABLE is not enabled"
-#endif
+#include "via.h"
+
+#include "raw_hid.h"
+#include "dynamic_keymap.h"
+#include "tmk_core/common/eeprom.h"
+#include "version.h"  // for QMK_BUILDDATE used in EEPROM magic
+#include "via_ensure_keycode.h"
 
 // If VIA_CUSTOM_LIGHTING_ENABLE is not defined, then VIA_QMK_BACKLIGHT_ENABLE is set
 // if BACKLIGHT_ENABLE is set, so handling of QMK Backlight values happens here by default.
@@ -37,16 +39,6 @@
 #if defined(RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
-
-#include "quantum.h"
-
-#include "via.h"
-
-#include "raw_hid.h"
-#include "dynamic_keymap.h"
-#include "tmk_core/common/eeprom.h"
-#include "version.h"  // for QMK_BUILDDATE used in EEPROM magic
-#include "via_ensure_keycode.h"
 
 // Forward declare some helpers.
 #if defined(VIA_QMK_BACKLIGHT_ENABLE)

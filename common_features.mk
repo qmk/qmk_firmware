@@ -451,6 +451,10 @@ ifeq ($(strip $(WPM_ENABLE)), yes)
     OPT_DEFS += -DWPM_ENABLE
 endif
 
+ifeq ($(strip $(WEBUSB_ENABLE)), yes)
+    SRC += $(TMK_DIR)/common/webusb.c
+endif
+
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/encoder.c
     OPT_DEFS += -DENCODER_ENABLE
@@ -459,6 +463,12 @@ endif
 ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
     OPT_DEFS += -DVELOCIKEY_ENABLE
     SRC += $(QUANTUM_DIR)/velocikey.c
+endif
+
+ifeq ($(strip $(ORYX_ENABLE)), yes)
+    WEBUSB_ENABLE := yes
+    SRC += $(QUANTUM_DIR)/oryx.c
+    OPT_DEFS += -DORYX_ENABLE
 endif
 
 ifeq ($(strip $(VIA_ENABLE)), yes)

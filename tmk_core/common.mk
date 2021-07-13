@@ -52,6 +52,11 @@ ifeq ($(strip $(RAW_ENABLE)), yes)
     TMK_COMMON_DEFS += -DRAW_ENABLE
 endif
 
+ifeq ($(strip $(WEBUSB_ENABLE)), yes)
+    TMK_COMMON_SRC += $(TMK_DIR)/common/webusb.c
+    TMK_COMMON_DEFS += -DWEBUSB_ENABLE
+endif
+
 ifeq ($(strip $(CONSOLE_ENABLE)), yes)
     TMK_COMMON_DEFS += -DCONSOLE_ENABLE
 else
