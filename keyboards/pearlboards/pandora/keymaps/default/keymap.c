@@ -37,8 +37,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             rgblight_setrgb_at(0, 0, 0, 10);
             rgblight_setrgb_at(0, 0, 0, 11);
         }
-        else {
-        }
         break;
     }
     return true;
