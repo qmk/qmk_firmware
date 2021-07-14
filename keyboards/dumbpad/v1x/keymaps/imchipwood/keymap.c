@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <print.h>
 #include "imchipwood.h"
 
 enum custom_layers {
@@ -63,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _BASE:
                 // main layer - volume up/down
                 if (clockwise) {
