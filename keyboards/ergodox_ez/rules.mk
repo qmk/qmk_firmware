@@ -1,7 +1,7 @@
 # MCU name
 MCU = atmega32u4
 
-
+# Bootloader selection
 BOOTLOADER = halfkay
 
 # If you have Left LEDs (see
