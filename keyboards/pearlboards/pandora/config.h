@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0002
 #define MANUFACTURER Koobaczech
 #define PRODUCT Pandora
-#define DESCRIPTION Premium 60% with an encoder, rgb, usb passthrough 10u support and lock indicators
 
 /* key matrix size */
 #define MATRIX_ROWS 5
