@@ -22,8 +22,7 @@
 extern "C" {
 #endif
 
-#include <ch.h>
-#include <hal.h>
+#include <stdint.h>
 
 typedef enum { FLASH_BUSY = 1, FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_ERROR_OPT, FLASH_COMPLETE, FLASH_TIMEOUT, FLASH_BAD_ADDRESS } FLASH_Status;
 
