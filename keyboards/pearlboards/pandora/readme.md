@@ -1,6 +1,6 @@
 # Pandora
 
-![Pandora](https://i.imgur.com/fQRmwfO.jpg)
+![Pandora](https://i.imgur.com/fQRmwfOh.jpg)
 
 Pandora is an ultra premium 60 percent keyboard. The construction uses 6063 alu,
 pvd coated brass/stainless steel and dyed polycarbonate. The finishes include

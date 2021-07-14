@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0002
 #define MANUFACTURER Koobaczech
 #define PRODUCT Pandora
-#define DESCRIPTION Premium 60% with cool ass shiz developed by Koobae
+#define DESCRIPTION Premium 60% with an encoder, rgb, usb passthrough 10u support and lock indicators
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -54,10 +54,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define ENCODER_DIRECTION_FLIP
 #define ENCODER_RESOLUTION 1
 #define DIP_SWITCH_PINS { B2, B5 }
-
-//#define BACKLIGHT_PIN
-//#define BACKLIGHT_LEVELS 5
-// #define BACKLIGHT_BREATHING
 
 /*== all animations enabled ==*/
 /* If RGBLIGHT_SLEEP defined, the RGB lighting will be switched off when the host goes to sleep */
