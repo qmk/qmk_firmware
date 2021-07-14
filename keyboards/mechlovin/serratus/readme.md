@@ -1,6 +1,6 @@
 # serratus
 
-![serratus](https://i.imgur.com/VN38ogY.jpeg)
+![serratus](https://i.imgur.com/VN38ogYh.jpeg)
 
 A TKL PCB TypeC for Serratus keyboard.
 
