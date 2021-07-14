@@ -17,9 +17,7 @@
         "xstddef": "c",
         "type_traits": "c",
         "utility": "c",
-        "ranges": "c",
-        "system_error": "c",
-        "regex": "c"
+        "ranges": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
