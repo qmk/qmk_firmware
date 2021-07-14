@@ -825,7 +825,7 @@ void encoder_cycle_mode(bool up) {
     }
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     // Select encoder mode
     switch (enc_mode) {
         case ENC_MODE_CHAR_LINE:
@@ -846,5 +846,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(clockwise ? KC_VOLU : KC_VOLD);
             break;
     }
+
+    return true;
 }
 #endif
