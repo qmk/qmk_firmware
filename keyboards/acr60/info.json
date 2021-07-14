@@ -4,6 +4,9 @@
     "maintainer": "qmk",
     "width": 15,
     "height": 5,
+    "layout_aliases": {
+        "LAYOUT_2_shifts": "LAYOUT_all"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -218,7 +221,7 @@
                 {"label":"K411", "x":11.5, "y":4}
             ]
         },
-        "LAYOUT_2_shifts": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"K000", "x":0, "y":0},
                 {"label":"K001", "x":1, "y":0},
