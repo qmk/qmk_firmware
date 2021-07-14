@@ -9,6 +9,18 @@
 #define NUMB_SYMB_MAC 3 // numbers and symbols mac
 #define FUNCTION 4 // function keys
 
+enum custom_keycodes {
+    TILDE_NO = SAFE_RANGE,
+    LESS_NO,
+    GRTR_NO,
+    CIRC_NO,
+    ACUT_NO,
+    GRV_NO,
+    LESS_NO_MAC,
+    GRTR_NO_MAC,
+    ACUT_NO_MAC
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Keymap 0: Basic layer PC
@@ -43,11 +55,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               NO_PLUS,
                                                OSM(MOD_LSFT),CTL_T(KC_DOT),ALT_T(NO_MINS),
         // right hand
-             KC_FN5, NO_DLR, NO_LPRN, NO_RPRN ,KC_FN3, KC_FN4,NO_AT,
+             CIRC_NO, NO_DLR, NO_LPRN, NO_RPRN ,LESS_NO, GRTR_NO,NO_AT,
              NO_QUOT,      KC_J,    KC_L,    KC_U,      KC_Y,     NO_ARNG, NO_AE  ,
                            KC_H,    KC_N,    KC_E,      KC_I,      KC_O,    NO_OSTR,
              NO_EQL,        KC_K,    KC_M, KC_RIGHT,  KC_DOWN,   KC_UP, NO_UNDS,
-                                  KC_LEFT,  KC_ESC,   KC_FN7,   KC_HASH,   MO(2),
+                                  KC_LEFT,  KC_ESC,   GRV_NO,   KC_HASH,   MO(2),
              KC_INSERT,  NO_SLSH,
              KC_DEL,
              KC_BSPC,KC_ENT,KC_SPC
@@ -83,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRNS,
                                   KC_TRNS,GUI_T(KC_DOT) , KC_TRNS,
     // right hand
-       KC_TRNS,  S(NO_4), KC_TRNS,KC_TRNS,KC_FN8, KC_FN9,NO_QUOT,
+       KC_TRNS,  S(NO_4), KC_TRNS,KC_TRNS,LESS_NO_MAC, GRTR_NO_MAC,NO_QUOT,
        NO_LABK,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -125,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_FN2, KC_FN6 , KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, TILDE_NO, ACUT_NO , KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_5, KC_6, KC_7, KC_8, KC_TRNS,
        KC_TRNS,  KC_HOME, KC_9, KC_END, KC_PGDN, KC_PGUP, KC_TRNS,
                           KC_HOME, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -166,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS , KC_TRNS, KC_TRNS , KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_FN2, KC_FN10, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, TILDE_NO, ACUT_NO_MAC, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_5, KC_6, KC_7, KC_8, KC_TRNS,
        KC_TRNS,  KC_HOME, KC_9, KC_END, KC_PGDN, KC_PGUP, KC_TRNS,
                           KC_HOME, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -217,47 +229,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-enum macro_id {
-    TILDE_NO, LESS_NO, GRTR_NO, CIRC_NO, ACUT_NO,  GRV_NO, LESS_NO_MAC, GRTR_NO_MAC, ACUT_NO_MAC
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [2] = ACTION_MACRO(TILDE_NO), // Completed ~ character(pc and mac), no space needed.
-    [3] = ACTION_MACRO(LESS_NO), // < completed on keypress down, to avoid shifting the next character if it is not released first.
-    [4] = ACTION_MACRO(GRTR_NO), // > completed on keypress down, to avoid shifting the next character if it is not released first.
-    [5] = ACTION_MACRO(CIRC_NO), // Completed ^ character, no space needed.
-    [6] = ACTION_MACRO(ACUT_NO), // Completed ´ character, no space needed.
-    [7] = ACTION_MACRO(GRV_NO), // Completed ` character, no space needed.
-    [8] = ACTION_MACRO(LESS_NO_MAC), // < completed on keypress down, to avoid same button problem when typing <> quickly
-    [9] = ACTION_MACRO(GRTR_NO_MAC), // > completed on keypress down, to avoid same button problem when typing <> quickly
-    [10] = ACTION_MACRO(ACUT_NO_MAC), // Completed ´ character, no space needed
-};
-
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    keyevent_t event = record->event;
-
-    switch (id) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
         case TILDE_NO:
-            return (event.pressed ? MACRO( D(RALT), T(RBRC), U(RALT), T(SPC), END ) : MACRO_NONE);
+            if (record->event.pressed) {
+                tap_code16(ALGR(KC_RBRC));
+                tap_code(KC_SPC);
+            }
+            return false;
         case LESS_NO:
-            return (event.pressed ? MACRO( T(NUBS), END ) : MACRO_NONE);
+            if (record->event.pressed) {
+                tap_code(KC_NUBS);
+            }
+            return false;
         case GRTR_NO:
-            return (event.pressed ? MACRO( D(LSFT), T(NUBS), U(LSFT), END ) : MACRO_NONE);
+            if (record->event.pressed) {
+                tap_code16(S(KC_NUBS));
+            }
+            return false;
         case CIRC_NO:
-            return (event.pressed ? MACRO( D(LSFT), T(RBRC), U(LSFT), T(SPC), END ) : MACRO_NONE);
+            if (record->event.pressed) {
+                tap_code16(S(KC_RBRC));
+                tap_code(KC_SPC);
+            }
+            return false;
         case ACUT_NO:
-            return (event.pressed ? MACRO( D(RALT), T(EQL), U(RALT), T(SPC),  END ) : MACRO_NONE);
+            if (record->event.pressed) {
+                tap_code16(ALGR(KC_EQL));
+                tap_code(KC_SPC);
+            }
+            return false;
         case GRV_NO:
-            return (event.pressed ? MACRO( D(LSFT), T(EQL), T(SPC), U(LSFT),  END ) : MACRO_NONE);
+            if (record->event.pressed) {
+                SEND_STRING(SS_LSFT("= "));
+            }
+            return false;
         case LESS_NO_MAC:
-            return (event.pressed ? MACRO( T(GRV), END ) : MACRO_NONE);
+            if (record->event.pressed) {
+                tap_code(KC_GRV);
+            }
+            return false;
         case GRTR_NO_MAC:
-            return (event.pressed ? MACRO( D(LSFT), T(GRV), U(LSFT), END ) : MACRO_NONE);
+            if (record->event.pressed) {
+                tap_code16(S(KC_GRV));
+            }
+            return false;
         case ACUT_NO_MAC:
-            return (event.pressed ? MACRO( T(EQL), T(SPC),  END ) : MACRO_NONE);
+            if (record->event.pressed) {
+                tap_code(KC_EQL);
+                tap_code(KC_SPC);
+            }
+            return false;
     }
-    return MACRO_NONE;
-};
+    return true;
+}
