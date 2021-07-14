@@ -6,7 +6,6 @@
     "height": 5,
     "layouts": {
         "LAYOUT": {
-            "key_count": 67,
             "layout": [
                 {"label":"K000", "x":0, "y":0},
                 {"label":"K001", "x":1, "y":0},
@@ -82,7 +81,6 @@
             ]
         },
         "LAYOUT_hhkb": {
-            "key_count": 61,
             "layout": [
                 {"label":"K000", "x":0, "y":0},
                 {"label":"K001", "x":1, "y":0},
@@ -152,7 +150,6 @@
             ]
         },
         "LAYOUT_true_hhkb": {
-            "key_count": 61,
             "layout": [
                 {"label":"K000", "x":0, "y":0},
                 {"label":"K001", "x":1, "y":0},
@@ -222,7 +219,6 @@
             ]
         },
         "LAYOUT_2_shifts": {
-            "key_count": 68,
             "layout": [
                 {"label":"K000", "x":0, "y":0},
                 {"label":"K001", "x":1, "y":0},
@@ -299,7 +295,6 @@
             ]
         },
         "LAYOUT_directional": {
-            "key_count": 67,
             "layout": [
                 {"label":"K000", "x":0, "y":0},
                 {"label":"K001", "x":1, "y":0},
@@ -375,7 +370,6 @@
             ]
         },
         "LAYOUT_mitchsplit": {
-            "key_count": 64,
             "layout": [
                 {"label":"K000", "x":0, "y":0},
                 {"label":"K001", "x":1, "y":0},
