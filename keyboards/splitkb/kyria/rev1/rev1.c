@@ -48,17 +48,26 @@ __attribute__((weak)) void oled_task_user(void) {
 
         // Host Keyboard Layer Status
         oled_write_P(PSTR("Layer: "), false);
-        switch (get_highest_layer(layer_state)) {
+        switch (get_highest_layer(layer_state | default_layer_state)) {
             case 0:
-                oled_write_P(PSTR("Default\n"), false);
+                oled_write_P(PSTR("QWERTY\n"), false);
                 break;
             case 1:
-                oled_write_P(PSTR("Lower\n"), false);
+                oled_write_P(PSTR("Dvorak\n"), false);
                 break;
             case 2:
-                oled_write_P(PSTR("Raise\n"), false);
+                oled_write_P(PSTR("Colemak-DH\n"), false);
                 break;
             case 3:
+                oled_write_P(PSTR("Nav\n"), false);
+                break;
+            case 4:
+                oled_write_P(PSTR("Sym\n"), false);
+                break;
+            case 5:
+                oled_write_P(PSTR("Function\n"), false);
+                break;
+            case 6:
                 oled_write_P(PSTR("Adjust\n"), false);
                 break;
             default:
