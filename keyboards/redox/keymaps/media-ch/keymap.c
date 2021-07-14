@@ -22,14 +22,6 @@ enum layers {
     _SYMB,   // symbols layer
 };
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  debug_keyboard=true;
-  //debug_mouse=true;
-};
-
 enum custom_keycodes {
   QWERTZ = SAFE_RANGE,
   SYMB,
@@ -38,7 +30,6 @@ enum custom_keycodes {
 // Shortcut to make keymap more readable
 #define KC_BKSL KC_BSLASH
 #define SYM_L   MO(_SYMB)
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
