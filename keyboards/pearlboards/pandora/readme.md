@@ -2,13 +2,8 @@
 
 ![Pandora](https://i.imgur.com/fQRmwfOh.jpg)
 
-Pandora is an ultra premium 60 percent keyboard. The construction uses 6063 alu,
-pvd coated brass/stainless steel and dyed polycarbonate. The finishes include
-e-coating, anodizing, micro arc anodization, metal polish and fine beadblasting.
-Layouts are limited to a few ANSI variations such as tsangan/wkl and ISO. The
-keyboard also has a usb-c daugtherboard, an integrated usb hub and rotary
-encoder. The case has indicator lights for caps and is gasket mounted. The pcb
-is designed by me in house and has some super cool tricks up its sleeve as well.
+Pandora is an ultra premium 60 percent keyboard. The construction uses 6063 alu, pvd coated brass/stainless steel and dyed polycarbonate. The finishes include e-coating, anodizing, micro arc anodization, metal polish and fine beadblasting. Layouts are limited to a few ANSI variations such as tsangan/wkl and ISO. The keyboard also has a usb-c daugtherboard, an integrated usb hub and rotary encoder. The case has indicator lights for caps and is gasket mounted. The pcb is designed by me in house and has some super cool tricks up its sleeve as well.
+
 More info at www.pearlboards.net :]
 
 * Keyboard Maintainer: Koobaczech
