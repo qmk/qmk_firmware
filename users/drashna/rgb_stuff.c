@@ -180,7 +180,11 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
         switch (get_highest_layer(state | default_layer_state)) {
             case _MOUSE:  // mouse
                 if (!layer_state_cmp(state, _GAMEPAD) && !layer_state_cmp(state, _DIABLO)) {
+#        ifdef RGBLIGHT_MODE_TWINKLE
                     rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_TWINKLE + 5);
+#        else
+                    rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_BREATHING + 3);
+#        endif
                 }
                 break;
             case _MEDIA:
