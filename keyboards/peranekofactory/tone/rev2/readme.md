@@ -10,7 +10,7 @@ TONE_rev2 is macro_pad With RotaryEncoder.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make peranekofactory/tone/rev2:default
+    make peranekofactory/tone:default
 
 Flashing example for this keyboard:
 
