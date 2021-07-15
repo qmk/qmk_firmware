@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 // clang-format off
 enum layer_names {
   _HOME,
@@ -133,24 +132,41 @@ static void render_info(void) {
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 }
-static void render_rgbled_status(bool full) {
-#ifdef RGBLIGHT_ENABLE
-  char buf[30];
-  if (RGBLIGHT_MODES > 1 && rgblight_is_enabled() && get_highest_layer(layer_state) == _RGB) {
-      if (full) {
-          snprintf(buf, sizeof(buf), "RGB mode %2d: %d,%d,%d  \n",
-                   rgblight_get_mode(),
-                   rgblight_get_hue()/RGBLIGHT_HUE_STEP,
-                   rgblight_get_sat()/RGBLIGHT_SAT_STEP,
-                   rgblight_get_val()/RGBLIGHT_VAL_STEP);
-      } else {
-          snprintf(buf, sizeof(buf), "[%2d] ", rgblight_get_mode());
-      }
-      oled_write(buf, false);
-  } else {
-      oled_write_ln_P(PSTR("\n"), false);
-  }
-#endif
+static void render_rgbled_status() {
+    char string[4];
+    if (RGBLIGHT_MODES > 1 && rgblight_is_enabled() && get_highest_layer(layer_state) == _RGB) {
+        uint16_t m = rgblight_get_mode();
+        string[3] = '\0';
+        string[2] = '0' + m % 10;
+        string[1] = ( m /= 10) % 10 ? '0' + (m) % 10 : (m / 10) % 10 ? '0' : ' ';
+        string[0] =  m / 10 ? '0' + m / 10 : ' ';
+        oled_write_P(PSTR("Conf:"), false);
+        oled_write(string, false);
+        uint16_t h = rgblight_get_hue()/RGBLIGHT_HUE_STEP;
+        string[3] = '\0';
+        string[2] = '0' + h % 10;
+        string[1] = ( h /= 10) % 10 ? '0' + (h) % 10 : (h / 10) % 10 ? '0' : ' ';
+        string[0] =  h / 10 ? '0' + h / 10 : ' ';
+        oled_write_P(PSTR(","), false);
+        oled_write(string, false);
+        uint16_t s = rgblight_get_sat()/RGBLIGHT_SAT_STEP;
+        string[3] = '\0';
+        string[2] = '0' + s % 10;
+        string[1] = ( s /= 10) % 10 ? '0' + (s) % 10 : (s / 10) % 10 ? '0' : ' ';
+        string[0] =  s / 10 ? '0' + s / 10 : ' ';
+        oled_write_P(PSTR(","), false);
+        oled_write(string, false);
+        uint16_t v = rgblight_get_val()/RGBLIGHT_VAL_STEP;
+        string[3] = '\0';
+        string[2] = '0' + v % 10;
+        string[1] = ( v /= 10) % 10 ? '0' + (v) % 10 : (v / 10) % 10 ? '0' : ' ';
+        string[0] =  v / 10 ? '0' + v / 10 : ' ';
+        oled_write_P(PSTR(","), false);
+        oled_write(string, false);
+        oled_write_ln_P(PSTR("\n     MOD HUE SAT VAR"), false);
+    } else {
+        oled_write_ln_P(PSTR("\n"), false);
+    }
 }
 void oled_task_user(void) {
     static bool finished_timer = false;
