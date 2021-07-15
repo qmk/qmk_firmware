@@ -42,7 +42,11 @@ avrdude -c avr109 -p m32u4 -P /dev/tty.usbmodem14522301 -U eeprom:w:"./quantum/s
 qmk compile -kb redox/media -km media-CH
 ```
 The generated files are output to the `.build` directory. You'll want the `.hex` file.
-- Finally flash the generated hex (make sure the COM port is the correct one) from the QMK root:
+- Finally flash the generated hex. You can go ahead and try to use the comfortable QMK flash command:
+```
+qmk flash
+```
+or use the more explicit command invoking avrdude (make sure the COM port is the correct one) from the QMK root:
 ```
 avrdude -p atmega32u4 -c avr109 -U flash:w:./.build/redox_media_media.hex:i -P /dev/tty.usbmodem14522301
 ```
