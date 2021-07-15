@@ -155,7 +155,6 @@ uint8_t shift_led_indicator_right(uint8_t scale_indicator_col){
     return scale_indicator_col;
 }
 
-
 #ifdef ENCODER_ENABLE
 const uint16_t rt_matrix[2][2] = {
     {1, 7}, {2, 7}

@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN] =  LAYOUT_with_sustain_pedal( \
-            _______,          _______,                             XXXXXXX, XXXXXXX,                                                                                                                        \
+            _______,          XXXXXXX,                             XXXXXXX, XXXXXXX,                                                                                                                        \
             MI_VELU,                                                                                                                                                                                        \
         MI_OCTD, MI_OCTU,   L_BASE, DF(_RESERVE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  \
             MI_VELD,               L_TRANS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SAD, RGB_HUD, RGB_SPD, RGB_VAD, RGB_RMOD, TGLINDI        \
