@@ -22,7 +22,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 To enable the features from Oryx (ZSA's Configurator), either compile the the `oryx` keymap, or add `#define ORYX_CONFIGURATOR` to your `config.h` file.  
 
-This enableds the front Indicator LEDs, and the `TOGGLE_LAYER_COLOR`, and `LED_LEVEL` keycodes.  The `TOGGLE_LAYER_COLOR` keycode toggles the customized LED map configured on Oryx. The `LED_LEVEL` cycles through the brightness levels for the front "teeth" LEDs. 
+This enables the front Indicator LEDs, and the `TOGGLE_LAYER_COLOR`, and `LED_LEVEL` keycodes.  The `TOGGLE_LAYER_COLOR` keycode toggles the customized LED map configured on Oryx. The `LED_LEVEL` cycles through the brightness levels for the front "teeth" LEDs. 
 
 ### Indicator LEDs
 
