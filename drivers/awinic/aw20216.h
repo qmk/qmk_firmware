@@ -40,6 +40,13 @@ typedef struct ag_led {
 #define SW_LINES_ENABLED_1_TO_11 0xA
 #define SW_LINES_ENABLED_1_TO_12 0xB
 
+#ifndef SW_LINES_ENABLE_DRIVER_1
+#    define SW_LINES_ENABLE_DRIVER_1 SW_LINES_ENABLED_1_TO_12
+#endif
+#ifndef SW_LINES_ENABLE_DRIVER_2
+#    define SW_LINES_ENABLE_DRIVER_2 SW_LINES_ENABLED_1_TO_12
+#endif
+
 extern const aw_led g_aw_leds[DRIVER_LED_TOTAL];
 
 void AW20216S_enable(int32_t csPin, int32_t enablePin);
