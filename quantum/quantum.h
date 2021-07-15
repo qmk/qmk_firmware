@@ -38,11 +38,11 @@
 #endif
 
 #if defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
+#    include "rgblight/rgblight.h"
 #elif defined(RGB_MATRIX_ENABLE)
 // Dummy define RGBLIGHT_MODE_xxxx
 #    define RGBLIGHT_H_DUMMY_DEFINE
-#    include "rgblight.h"
+#    include "rgblight/rgblight.h"
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

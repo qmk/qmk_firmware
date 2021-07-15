@@ -182,22 +182,6 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 };
 #    endif
 
-#elif defined(AW20216)
-#    include "spi_master.h"
-static void init(void) {
-    spi_init();
-    AW20216_init();
-}
-
-static void flush(void) { AW20216_update_pwm_buffers(); }
-
-const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init          = init,
-    .flush         = flush,
-    .set_color     = AW20216_set_color,
-    .set_color_all = AW20216_set_color_all,
-};
-
 #elif defined(WS2812)
 #    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_CUSTOM_DRIVER)
 #        pragma message "Cannot use RGBLIGHT and RGB Matrix using WS2812 at the same time."
@@ -236,4 +220,36 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color     = setled,
     .set_color_all = setled_all,
 };
+
+#elif defined(AW20216)
+#    include "spi_master.h"
+
+static void init(void) {
+    AW20216S_enable(SPI_SS_DRIVER_1_PIN, ENABLE_DRIVER_1_PIN);
+#    ifdef SPI_SS_DRIVER_2_PIN
+    AW20216S_enable(SPI_SS_DRIVER_2_PIN, ENABLE_DRIVER_2_PIN);
+#    endif
+
+    spi_init();
+
+    AW20216S_init(SPI_SS_DRIVER_1_PIN, SW_LINES_ENABLE_DRIVER_1);
+#    ifdef SPI_SS_DRIVER_2_PIN
+    AW20216S_init(SPI_SS_DRIVER_2_PIN, SW_LINES_ENABLE_DRIVER_2);
+#    endif
+}
+
+static void flush(void) {
+    AW20216S_update_pwm_buffers(SPI_SS_DRIVER_1_PIN, 0);
+#    ifdef SPI_SS_DRIVER_2_PIN
+    AW20216S_update_pwm_buffers(SPI_SS_DRIVER_2_PIN, 1);
+#    endif
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init          = init,
+    .flush         = flush,
+    .set_color     = AW20216S_set_color,
+    .set_color_all = AW20216S_set_color_all,
+};
+
 #endif
