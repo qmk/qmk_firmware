@@ -29,7 +29,7 @@ There are 6 functions for enabling and disabling the LEDs on the top of the boar
 By default, the Indicator LEDs are used to indicate the layer state for the keyboard.  If you wish to change this (and indicate caps/num/scroll lock status instead), then define `MOONLANDER_USER_LEDS` in your `config.h` file. 
 
 
-### Oryx Configuation
+### Oryx Configuration
 
 To enable the features from Oryx (ZSA's Configurator), either compile the the `default` keymap, or add `#define ORYX_CONFIGURATOR` to your `config.h` file.  
 
