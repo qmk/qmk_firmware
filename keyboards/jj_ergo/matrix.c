@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "util.h"
-#include "sp64.h"
+#include "jj_ergo.h"
 #include "debounce.h"
 
 /* matrix state(1:on, 0:off) */

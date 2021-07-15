@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "sp64.h"
+#include "jj_ergo.h"
 
 #ifdef RIGHT_HALF
 bool i2c_initialized = 0;
