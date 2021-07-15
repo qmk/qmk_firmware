@@ -46,7 +46,7 @@ The generated files are output to the `.build` directory. You'll want the `.hex`
 ```
 qmk flash
 ```
-or use the more explicit command invoking avrdude (make sure the COM port is the correct one) from the QMK root:
+or use the more explicit command invoking avrdude from the QMK root (make sure the COM port is the correct one):
 ```
 avrdude -p atmega32u4 -c avr109 -U flash:w:./.build/redox_media_media.hex:i -P /dev/tty.usbmodem14522301
 ```
