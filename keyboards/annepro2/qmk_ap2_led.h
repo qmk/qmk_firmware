@@ -1,42 +1,68 @@
 #pragma once
 
-#define CMD_LED_ON                          0x1
-#define CMD_LED_OFF                         0x2
-#define CMD_LED_SET                         0x3
-#define CMD_LED_SET_ROW                     0x4
-#define CMD_LED_SET_PROFILE                 0x5
-#define CMD_LED_NEXT_PROFILE                0x6
-#define CMD_LED_PREV_PROFILE                0x7
-#define CMD_LED_GET_PROFILE                 0x8
-#define CMD_LED_GET_NUM_PROFILES            0x9
-#define CMD_LED_SET_MASK                    0xA
-#define CMD_LED_CLEAR_MASK                  0xB
-#define CMD_LED_NEXT_INTENSITY              0xC
-#define CMD_LED_NEXT_ANIMATION_SPEED        0xD
-#define CMD_LED_SET_FOREGROUND_COLOR        0xE
-#define CMD_LED_CLEAR_FOREGROUND_COLOR      0xF
-#define CMD_LED_IAP                         0x10
-#define CMD_LED_KEYPRESS                    0x11
+#include "protocol.h"
+
+// Struct defining an LED and its RGB color components
+// Compatible with Shine firmware.
+typedef union {
+    struct {
+        /* Little endian ordering to match uint32_t */
+        uint8_t blue, green, red;
+        /* Used in mask; nonzero means - use color from mask. */
+        uint8_t alpha;
+    } p; /* parts */
+    /* Parts vector access: 0 - blue, 1 - green, 2 - red */
+    uint8_t pv[4];
+    /* 0xrgb in mem is b g r a */
+    uint32_t rgb;
+} annepro2Led_t;
+
+#define ROWCOL2IDX(row, col) (NUM_COLUMN * (row) + (col))
+#define NUM_COLUMN 14
+#define NUM_ROW 5
+#define KEY_COUNT 70
+
+/* Local copy of ledMask, used to override colors on the board */
+extern annepro2Led_t ledMask[KEY_COUNT];
+
+/* Handle incoming messages */
+extern void ledCommandCallback(const message_t *msg);
 
 void annepro2SetIAP(void);
 void annepro2LedDisable(void);
 void annepro2LedEnable(void);
-void annepro2LedUpdate(uint8_t row, uint8_t col);
-void annepro2LedUpdateRow(uint8_t row);
 void annepro2LedSetProfile(uint8_t prof);
-uint8_t annepro2LedGetProfile(void);
-uint8_t annepro2LedGetNumProfiles(void);
+void annepro2LedGetStatus(void);
 void annepro2LedNextProfile(void);
 void annepro2LedPrevProfile(void);
-void annepro2LedSetMask(uint8_t key);
-void annepro2LedClearMask(uint8_t key);
 void annepro2LedNextIntensity(void);
 void annepro2LedNextAnimationSpeed(void);
-void annepro2LedSetForegroundColor(uint8_t red, uint8_t green, uint8_t blue);
-void annepro2LedResetForegroundColor(void);
 void annepro2LedForwardKeypress(uint8_t row, uint8_t col);
 
+/* Set single key to a given color; alpha controls which is displayed */
+void annepro2LedMaskSetKey(uint8_t row, uint8_t col, annepro2Led_t color);
+/* Push a whole local row to the shine */
+void annepro2LedMaskSetRow(uint8_t row);
+/* Synchronize all rows */
+void annepro2LedMaskSetAll(void);
 
-extern bool AP2_LED_ENABLED;
-extern bool AP2_LED_DYNAMIC_PROFILE;
-extern bool AP2_FOREGROUND_COLOR_SET;
+/* Set all keys to a given color */
+void annepro2LedMaskSetMono(annepro2Led_t color);
+
+/* Blink given key `count` times by masking it with a `color`. Blink takes `hundredths` of a second */
+void annepro2LedBlink(uint8_t row, uint8_t col, annepro2Led_t color, uint8_t count, uint8_t hundredths);
+
+/* Kept for compatibility, but implemented using masks */
+void annepro2LedSetForegroundColor(uint8_t red, uint8_t green, uint8_t blue);
+void annepro2LedResetForegroundColor(void);
+
+typedef struct {
+    uint8_t amountOfProfiles;
+    uint8_t currentProfile;
+    uint8_t matrixEnabled;
+    uint8_t isReactive;
+    uint8_t ledIntensity;
+    uint8_t errors;
+} annepro2LedStatus_t;
+
+extern annepro2LedStatus_t annepro2LedStatus;

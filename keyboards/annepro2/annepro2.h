@@ -18,11 +18,11 @@
 #pragma once
 #include "quantum.h"
 
-#define OVERRIDE __attribute__ ((noinline))
+#define OVERRIDE __attribute__((noinline))
 
 typedef struct __attribute__((__packed__)) {
     uint8_t _dummy[10];
-    bool caps_lock;
+    bool    caps_lock;
 } ble_capslock_t;
 
 extern uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS];
