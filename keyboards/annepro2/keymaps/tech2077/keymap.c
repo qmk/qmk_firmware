@@ -21,9 +21,6 @@ typedef union {
 // define out default user_config
 user_config_t user_config = {.magic = 0xDE, .leds_on = 0, .leds_profile = 0};
 
-// keep the number of profiles so we can track along with the shine proc
-uint8_t numProfiles = 0;
-
 static uint8_t usb_buf[256];
 static uint8_t buf_fil = 0;
 
@@ -165,7 +162,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
         return false;
     case KC_AP_LED_NEXT_PROFILE:
         if (record->event.pressed) {
-            user_config.leds_profile = (user_config.leds_profile + 1) % numProfiles;
+            user_config.leds_profile = (user_config.leds_profile + 1) % annepro2LedStatus.amountOfProfiles;
             annepro2LedSetProfile(user_config.leds_profile);
             eeprom_write((void*)&user_config, 0, sizeof(user_config_t));
         }
@@ -206,6 +203,4 @@ void keyboard_post_init_user(void)
         annepro2LedDisable();
     }
 #endif
-
-    numProfiles = annepro2LedGetNumProfiles();
 }

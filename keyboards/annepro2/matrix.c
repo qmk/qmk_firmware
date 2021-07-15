@@ -27,7 +27,7 @@
 
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-static uint32_t debounce_times[MATRIX_ROWS];
+static uint32_t     debounce_times[MATRIX_ROWS];
 
 extern ioline_t row_list[MATRIX_ROWS];
 extern ioline_t col_list[MATRIX_COLS];
@@ -45,7 +45,10 @@ uint8_t matrix_scan(void) {
     // scan each row
     for (int row = 0; row < MATRIX_ROWS; row++) {
         palClearLine(row_list[row]);
-        __NOP(); __NOP(); __NOP(); __NOP();
+        __NOP();
+        __NOP();
+        __NOP();
+        __NOP();
         // read i/o ports
         port_cache[0] = palReadPort(IOPORTA);
         port_cache[1] = palReadPort(IOPORTB);
@@ -67,10 +70,10 @@ uint8_t matrix_scan(void) {
         if (matrix_debouncing[row] != data) {
             // whenever row changes restart debouncing
             matrix_debouncing[row] = data;
-            debounce_times[row] = timer_read32();
-        } else if(debounce_times[row] && timer_elapsed32(debounce_times[row]) >= DEBOUNCE){
+            debounce_times[row]    = timer_read32();
+        } else if (debounce_times[row] && timer_elapsed32(debounce_times[row]) >= DEBOUNCE) {
             // when debouncing complete, update matrix
-            matrix[row] = matrix_debouncing[row];
+            matrix[row]         = matrix_debouncing[row];
             debounce_times[row] = 0;
         }
     }
@@ -79,13 +82,8 @@ uint8_t matrix_scan(void) {
     return 1;
 }
 
-bool matrix_is_on(uint8_t row, uint8_t col) {
-    return (matrix[row] & (1 << col));
-}
+bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1 << col)); }
 
-matrix_row_t matrix_get_row(uint8_t row) {
-    return matrix[row];
-}
+matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
 
-void matrix_print(void) {
-}
+void matrix_print(void) {}

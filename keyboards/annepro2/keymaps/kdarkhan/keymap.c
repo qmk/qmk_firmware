@@ -32,9 +32,6 @@ enum tap_dance_codes {
 // define out default user_config
 user_config_t user_config = {.magic = 0xDE, .leds_on = 0, .leds_profile = 0};
 
-// keep the number of profiles so we can track along with the shine proc
-uint8_t numProfiles = 0;
-
 // this means that there should not be more than 16 profiles
 uint16_t dyn_key_mask = 0;
 
@@ -177,7 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_AP_LED_ON:
     if (record->event.pressed) {
       if (user_config.leds_on) {
-        user_config.leds_profile = (user_config.leds_profile + 1) % numProfiles;
+        user_config.leds_profile = (user_config.leds_profile + 1) % annepro2LedStatus.amountOfProfiles;
       } else {
         user_config.leds_on = true;
       }
@@ -187,7 +184,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case KC_AP_LED_NEXT_PROFILE:
     if (record->event.pressed) {
-      user_config.leds_profile = (user_config.leds_profile + 1) % numProfiles;
+      user_config.leds_profile = (user_config.leds_profile + 1) % annepro2LedStatus.amountOfProfiles;
       annepro2LedSetProfile(user_config.leds_profile);
       eeprom_write((void *)&user_config, 0, sizeof(user_config_t));
     }
@@ -233,8 +230,6 @@ void keyboard_post_init_user(void) {
     annepro2LedDisable();
   }
 #endif
-
-  numProfiles = annepro2LedGetNumProfiles();
 }
 
 void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {

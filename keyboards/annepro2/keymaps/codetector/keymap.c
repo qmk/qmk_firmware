@@ -137,9 +137,23 @@ layer_state_t layer_state_set_user(layer_state_t layer) {
 
 bool led_update_user(led_t leds) {
   if (leds.caps_lock) {
-    annepro2LedSetMask(CAPS_LOCATION);
+    const annepro2Led_t color = {
+        .p.red = 0xff,
+        .p.green = 0x00,
+        .p.blue = 0x00,
+        .p.alpha = 0xff
+    };
+
+    annepro2LedMaskSetKey(2, 0, color);
+
   } else {
-    annepro2LedClearMask(CAPS_LOCATION);
+    const annepro2Led_t color = {
+        .p.red = 0xff,
+        .p.green = 0x00,
+        .p.blue = 0x00,
+        .p.alpha = 0x00
+    };
+    annepro2LedMaskSetKey(2, 0, color);
   }
   return true;
 }

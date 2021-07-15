@@ -3,7 +3,8 @@ SRC = \
 	matrix.c \
 	hardfault_handler.c \
 	annepro2_ble.c \
-	qmk_ap2_led.c
+	qmk_ap2_led.c \
+	protocol.c
 
 ifeq ($(strip $(ANNEPRO2_EEPROM)), yes)
     OPT_DEFS += -DANNEPRO2_EEPROM
