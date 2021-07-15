@@ -28,7 +28,6 @@
 #include <stdbool.h>
 #include "util.h"
 #include "sendchar.h"
-#include "progmem.h"
 
 void print_set_sendchar(sendchar_func_t func);
 
@@ -36,19 +35,9 @@ void print_set_sendchar(sendchar_func_t func);
 #    if __has_include_next("_print.h")
 #        include_next "_print.h" /* Include the platforms print.h */
 #    else
-// Fall back to lib/printf
-#        include "printf.h"  // lib/printf/printf.h
-
-// Create user & normal print defines
-#        define print(s) printf(s)
-#        define println(s) printf(s "\r\n")
-#        define xprintf printf
-#        define uprint(s) printf(s)
-#        define uprintln(s) printf(s "\r\n")
-#        define uprintf printf
-
-#    endif /* __AVR__ / PROTOCOL_CHIBIOS / PROTOCOL_ARM_ATSAM */
-#else      /* NO_PRINT */
+#        include "lib_printf.h" /* Fall back to the lib/printf integration */
+#    endif
+#else /* NO_PRINT */
 #    undef xprintf
 // Remove print defines
 #    define print(s)
@@ -57,7 +46,6 @@ void print_set_sendchar(sendchar_func_t func);
 #    define uprintf(fmt, ...)
 #    define uprint(s)
 #    define uprintln(s)
-
 #endif /* NO_PRINT */
 
 #ifdef USER_PRINT
