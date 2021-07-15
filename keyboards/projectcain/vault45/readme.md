@@ -1,6 +1,6 @@
 # vault45
 
-![vault45](https://imgur.com/a/ShWl4h8)
+![vault45](https://i.imgur.com/SYrsbQE.jpeg)
 
 *This is a 40% HHKB-style keyboard inspired by the JD45 with updated bottom row options and rotary encoders.*
 
