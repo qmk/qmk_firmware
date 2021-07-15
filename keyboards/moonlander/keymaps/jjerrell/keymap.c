@@ -19,8 +19,6 @@
 
 #include "jjerrell.h"
 
-#define OVERLAY_moonlander(...) LAYOUT_moonlander_overlay(__VA_ARGS__)
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORKMAN] = LAYOUT_moonlander_mods(

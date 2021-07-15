@@ -72,7 +72,6 @@ void matrix_scan_user(void) {
     matrix_scan_keymap();
 }
 
-
 __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
 
 // on layer change, no matter where the change was initiated
@@ -115,7 +114,6 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 #ifdef AUDIO_ENABLE
-
 __attribute__((weak)) void startup_keymap(void) {}
 void startup_user(void)
 {
@@ -137,5 +135,4 @@ void music_on_user(void)
     music_scale_user();
     music_on_keymap();
 }
-
-#endif
+#endif // AUDIO_ENABLE

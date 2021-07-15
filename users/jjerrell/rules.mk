@@ -37,6 +37,7 @@ ifneq ($(strip $(NO_SECRETS)), yes)
     endif
 endif
 
+# TODO: RGB is next
 # RGB_MATRIX_ENABLE ?= no
 # ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 #     SRC += rgb_matrix_stuff.c
