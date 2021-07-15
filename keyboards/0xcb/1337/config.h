@@ -60,6 +60,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+  /* default setup after eeprom reset */
+  #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_EFFECT_BREATHING + 2
+  #define RGBLIGHT_DEFAULT_HUE 152
+  #define RGBLIGHT_DEFAULT_SAT 232
+  #define RGBLIGHT_DEFAULT_VAR 255
+  #define RGBLIGHT_DEFAULT_SPD 2
 #endif
 // clang-format on
 
