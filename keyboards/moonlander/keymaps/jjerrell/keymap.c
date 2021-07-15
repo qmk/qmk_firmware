@@ -68,8 +68,6 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
     ML_LED_5(0);
     ML_LED_6(0);
 
-    // state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-
     switch (get_highest_layer(state)) {
         case 1:
             ML_LED_1(1);

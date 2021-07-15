@@ -20,3 +20,6 @@
 #pragma once
 
 #define ORYX_CONFIGURATOR
+
+#undef PRODUCT
+#define PRODUCT         Moonlander Mark I - Modified by <@jjerrell>
