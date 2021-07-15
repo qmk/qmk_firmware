@@ -21,7 +21,7 @@ COMMAND_ENABLE     = no  # Commands for debug and configuration
 CONSOLE_ENABLE 	   = yes
 SPACE_CADET_ENABLE = no
 KEY_LOCK_ENABLE    = no
-MOUSEKEY_ENABLE    = no
+MOUSEKEY_ENABLE    = yes
 EXTRAKEY_ENABLE	   = yes # Audio control and System control(+450)
 LEADER_ENABLE	   = yes
 

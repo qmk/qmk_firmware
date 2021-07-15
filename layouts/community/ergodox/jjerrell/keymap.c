@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __________________WORKMN_L1__________________, __________________WORKMN_R1__________________,
         __________________WORKMN_L2__________________, __________________WORKMN_R2__________________,
         __________________WORKMN_L3__________________, __________________WORKMN_R3__________________,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT,                       KC_RSFT, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     /* Lower - Nav/Select/Nums
     * ,-----------------------------------------------------------------------------------.
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __________________LOWER_L1___________________, __________________LOWER_R1___________________,
         __________________LOWER_L2___________________, __________________LOWER_R2___________________,
         __________________LOWER_L3___________________, __________________LOWER_R3___________________,
-          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         KC_0, KC_DOT, KC_COMM, KC_PLUS
+          XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT,                         KC_0, KC_DOT, KC_COMM, KC_PLUS
     ),
     /* Raise - Symbols
     * ,-----------------------------------------------------------------------------------.
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __________________RAISE_L1___________________, __________________RAISE_R1___________________,
         __________________RAISE_L2___________________, __________________RAISE_R2___________________,
         __________________RAISE_L3___________________, __________________RAISE_R3___________________,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT,                       KC_RSFT, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     /* Adjust (Lower + Raise)
     * ,-----------------------------------------------------------------------------------.
@@ -76,7 +76,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          __________________ADJUST_L1__________________, __________________ADJUST_R1__________________,
          __________________ADJUST_L2__________________, __________________ADJUST_R2__________________,
          __________________ADJUST_L3__________________, __________________ADJUST_R3__________________,
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+         XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT,                       KC_RSFT, XXXXXXX, XXXXXXX, XXXXXXX
+    ),
+    [_SPECIAL] = LAYOUT_ergodox_common(
+        XXXXXXX, XXXXXXX, KC_WH_D, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_WH_L, KC_WH_U, KC_WH_R, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 // clang-format on
 };
@@ -99,7 +105,11 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
             break;
         case _ADJUST:
             ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
             ergodox_right_led_3_on();
+            break;
+        case _SPECIAL:
+            ergodox_right_led_2_on();
             break;
         default:
             break;
@@ -140,7 +150,7 @@ void matrix_scan_keymap(void) {
         } else {
             ergodox_right_led_3_off();
         }
-    } else if (!(modifiers) && (layer_is_workman)) {
+    } else if (layer_is_workman) {
         ergodox_right_led_1_off();
         ergodox_right_led_2_off();
         ergodox_right_led_3_off();

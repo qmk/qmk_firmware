@@ -24,6 +24,18 @@
 
 #if (defined(KEYBOARD_planck_ez))
 
+/** Planck EZ Empty
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+
 #   define ____________________________________________________________PLANCK_VERBOSE_BOTTOM_ROW_____________________________________________________________ \
            KC_LSFT, KC_LEAD, KC_CCCV, KC_MEH, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_HYPR,    RGB_TOG,    RGB_IDL,    LED_LEVEL
 
@@ -81,7 +93,7 @@
 #   define LAYOUT_planck_mods(...)    WRAPPER_planck_mods(__VA_ARGS__)
 
 #elif defined(KEYBOARD_moonlander)
-/**
+/** Moonlander Empty
  * ( \
         k00, k01, k02, k03, k04, k05, k06,   k60, k61, k62, k63, k64, k65, k66, \
         k10, k11, k12, k13, k14, k15, k16,   k70, k71, k72, k73, k74, k75, k76, \
@@ -95,17 +107,52 @@
 #   define WRAPPER_moonlander_common( \
              k11, k12, k13, k14, k15,             k71, k72, k73, k74, k75, \
              k21, k22, k23, k24, k25,             k81, k82, k83, k84, k85, \
-             k31, k32, k33, k34, k35,             k91, k92, k93, k94, k95  \
+             k31, k32, k33, k34, k35,             k91, k92, k93, k94, k95, \
+             k41, k42, k43, k44,                       ka2, ka3, ka4, ka5  \
     ) WRAPPER_moonlander( \
-        k00, k01, k02, k03, k04, k05, k06,   k60, k61, k62, k63, k64, k65, k66, \
-        k10, k11, k12, k13, k14, k15, k16,   k70, k71, k72, k73, k74, k75, k76, \
-        k20, k21, k22, k23, k24, k25, k26,   k80, k81, k82, k83, k84, k85, k86, \
-        k30, k31, k32, k33, k34, k35,             k91, k92, k93, k94, k95, k96, \
-        k40, k41, k42, k43, k44,      k53,   kb3,      ka2, ka3, ka4, ka5, ka6, \
-                LT(_LOWER, k50), k51, k52,   kb4, kb5, LT(_RAISE, kb6) \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      \
+        XXXXXXX,     k11,     k12,     k13,     k14,     k15, XXXXXXX,   XXXXXXX, k71,     k72,     k73,     k74,     k75,     XXXXXXX,      \
+        XXXXXXX,     k21,     k22,     k23,     k24,     k25, XXXXXXX,   XXXXXXX, k81,     k82,     k83,     k84,     k85,     XXXXXXX,      \
+        KC_LSFT,     k31,     k32,     k33,     k34,     k35,                     k91,     k92,     k93,     k94,     k95,     KC_RSFT,      \
+   MO(_SPECIAL),     k41,     k42,     k43,     k44,          XXXXXXX,   XXXXXXX,          ka2,     ka3,     ka4,     ka5,     MO(_SPECIAL), \
+                           LT(_LOWER, KC_SPC),HYPR_T(KC_BSPC),KC_LEAD,   KC_CCCV,SFT_T(KC_TAB),LT(_RAISE, KC_ENT)                            )
+
+#   define WRAPPER_moonlander_mods( \
+        k11, k12, k13, k14, k15,             k71, k72, k73, k74, k75, \
+        k21, k22, k23, k24, k25,             k81, k82, k83, k84, k85, \
+        k31, k32, k33, k34, k35,             k91, k92, k93, k94, k95, \
+        k41, k42, k43, k44,                       ka2, ka3, ka4, ka5  \
+    ) WRAPPER_moonlander_common( \
+              k11 ,       k12 ,       k13 ,       k14 , k15,             k71, k72,        k73,        k74,        k75, \
+              k21 , SFT_T(k22), GUI_T(k23), ALT_T(k24), k25,             k81, ALT_T(k82), GUI_T(k83), SFT_T(k84), k85, \
+        CTL_T(k31),       k32 ,       k33 ,       k34 , k35,             k91, k92,        k93,        k94,        CTL_T(k95), \
+              k41 ,       k42 ,       k43 ,       k44 ,                       ka2,        ka3,        ka4,        ka5  \
     )
+
+#   define LAYOUT_moonlander_common(...) WRAPPER_moonlander_common(__VA_ARGS__)
+#   define LAYOUT_moonlander_mods(...)   WRAPPER_moonlander_mods(__VA_ARGS__)
 #elif defined(KEYBOARD_ergodox_ez)
-/*  ---------- LEFT HAND -----------   ---------- RIGHT HAND ----------
+/** Ergodox EZ Empty
+     .---------------------------------------------. .---------------------------------------------.
+     |       |     |     |     |     |     |       | !       |     |     |     |     |     |       |
+     !-------+-----+-----+-----+-----+-------------! !-------+-----+-----+-----+-----+-----+-------!
+     |       |     |     |     |     |     |       | !       |     |     |     |     |     |       |
+     !-------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+-------!
+     |       |     |     |     |     |     |-------! !-------!     |     |     |     |     |       |
+     !-------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+-------!
+     |       |     |     |     |     |     |       | !       |     |     |     |     |     |       |
+     '-------+-----+-----+-----+-----+-------------' '-------------+-----+-----+-----+-----+-------'
+      |      |     |     |     |     |                             !     |     |     |     |      |
+      '------------------------------'                             '------------------------------'
+                                   .---------------. .---------------.
+                                   |       |       | !       |       |
+                           .-------+-------+-------! !-------+-------+-------.
+                           !       !       |       | !       |       !       !
+                           !       !       !-------! !-------!       !       !
+                           |       |       |       | !       |       |       |
+                           '-----------------------' '-----------------------'
+
+    ---------- LEFT HAND -----------   ---------- RIGHT HAND ----------
     (                                                                    \
     L00,L01,L02,L03,L04,L05,L06,           R00,R01,R02,R03,R04,R05,R06,  \
     L10,L11,L12,L13,L14,L15,L16,           R10,R11,R12,R13,R14,R15,R16,  \
@@ -119,22 +166,62 @@
 */
 #   define WRAPPER_ergodox_ez(...)     LAYOUT_ergodox_pretty(__VA_ARGS__)
 
+/** Common Wrapper
+     .---------------------------------------------. .---------------------------------------------.
+     |   X   |  X  |  X  |  X  |  X  |  X  |   X   | !   X   |  X  |  X  |  X  |  X  |  X  |   X   |
+     !-------+-----+-----+-----+-----+-------------! !-------+-----+-----+-----+-----+-----+-------!
+     |   X   |     |     |     |     |     |   X   | !   X   |     |     |     |     |     |   X   |
+     !-------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+-------!
+     |   X   |     |     |     |     |     |-------! !-------!     |     |     |     |     |   X   |
+     !-------+-----+-----+-----x-----x-----!   X   ! !   X   !-----x-----x-----+-----+-----+-------!
+     |   X   |     |     |     |     |     |       | !       |     |     |     |     |     |   X   |
+     '-------+-----+-----+-----+-----+-------------' '-------------+-----+-----+-----+-----+-------'
+      | SPCL |     |     |     |     |                             !     |     |     |     | SPCL |
+      '------------------------------'                             '------------------------------'
+                                   .---------------. .---------------.
+                                   |   X   |   X   | !   X   |   X   |
+                           .-------+-------+-------! !-------+-------+-------.
+                           ! Space ! BSpace|   X   | !   X   |  Tab  ! Enter !
+                           !   /   !   /   !-------! !-------!   /   !   /   !
+                           | LOWER | Hyper |  LEAD | !  CCCV |  Meh  | RAISE |
+                           '-----------------------' '-----------------------'
+*/
 #   define WRAPPER_ergodox_common( \
         L11,L12,L13,L14,L15,           R11,R12,R13,R14,R15,  \
         L21,L22,L23,L24,L25,           R21,R22,R23,R24,R25,  \
         L31,L32,L33,L34,L35,           R31,R32,R33,R34,R35,  \
         L41,L42,L43,L44,                   R42,R43,R44,R45   \
     ) WRAPPER_ergodox_ez( \
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   \
-        XXXXXXX,     L11,     L12,     L13,     L14,     L15, XXXXXXX,           XXXXXXX,     R11,     R12,     R13,     R14,     R15, XXXXXXX,   \
-        XXXXXXX,     L21,     L22,     L23,     L24,     L25,                                 R21,     R22,     R23,     R24,     R25, XXXXXXX,   \
-        XXXXXXX,     L31,     L32,     L33,     L34,     L35, XXXXXXX,           XXXXXXX,     R31,     R32,     R33,     R34,     R35, XXXXXXX,   \
-        XXXXXXX,     L41,     L42,     L43,     L44,                                                   R42,     R43,     R44,     R45, XXXXXXX,   \
-                                                                                                                                                  \
-                                                      XXXXXXX,XXXXXXX,           XXXXXXX,XXXXXXX,                                                 \
-                                                              XXXXXXX,           XXXXXXX,                                                         \
-                           LT(_LOWER, KC_SPC),HYPR_T(KC_BSPC),KC_LEAD,           KC_CCCV,MEH_T(KC_TAB),LT(_RAISE, KC_ENT)                         )
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, \
+        XXXXXXX,     L11,     L12,     L13,     L14,     L15, XXXXXXX,           XXXXXXX,     R11,     R12,     R13,     R14,     R15,      XXXXXXX, \
+        XXXXXXX,     L21,     L22,     L23,     L24,     L25,                                 R21,     R22,     R23,     R24,     R25,      XXXXXXX, \
+        KC_LSFT,     L31,     L32,     L33,     L34,     L35, XXXXXXX,           XXXXXXX,     R31,     R32,     R33,     R34,     R35,      KC_RSFT, \
+   MO(_SPECIAL),     L41,     L42,     L43,     L44,                                                   R42,     R43,     R44,     R45, MO(_SPECIAL), \
+                                                                                                                                                     \
+                                                      XXXXXXX,XXXXXXX,           XXXXXXX,XXXXXXX,                                                    \
+                                                              XXXXXXX,           XXXXXXX,                                                            \
+                           LT(_LOWER, KC_SPC),HYPR_T(KC_BSPC),KC_LEAD,           KC_CCCV,SFT_T(KC_TAB),LT(_RAISE, KC_ENT)                            )
 
+/** Common Wrapper with Mod Tap/Hold overlay
+     .---------------------------------------------. .---------------------------------------------.
+     |   X   |  X  |  X  |  X  |  X  |  X  |   X   | !   X   |  X  |  X  |  X  |  X  |  X  |   X   |
+     !-------+-----+-----+-----+-----+-------------! !-------+-----+-----+-----+-----+-----+-------!
+     |   X   |     |     |     |     |     |   X   | !   X   |     |     |     |     |     |   X   |
+     !-------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+-------!
+     |   X   |     |Shift| Cmd | Alt |     |-------! !-------!     | Alt | Cmd |Shift|     |   X   |
+     !-------+-----+-----+-----x-----x-----!   X   ! !   X   !-----x-----x-----+-----+-----+-------!
+     |  Sft  | Ctl |     |     |     |     |       | !       |     |     |     |     | Ctl |  Sft  |
+     '-------+-----+-----+-----+-----+-------------' '-------------+-----+-----+-----+-----+-------'
+      | SPCL |     |     |     |     |                             !     |     |     |     | SPCL |
+      '------------------------------'                             '------------------------------'
+                                   .---------------. .---------------.
+                                   |   X   |   X   | !   X   |   X   |
+                           .-------+-------+-------! !-------+-------+-------.
+                           ! Space ! BSpace|   X   | !   X   |  Tab  ! Enter !
+                           !   /   !   /   !-------! !-------!   /   !   /   !
+                           | LOWER | Hyper |  LEAD | !  CCCV |  Meh  | RAISE |
+                           '-----------------------' '-----------------------'
+*/
 #   define WRAPPER_ergodox_mods( \
         L11,L12,L13,L14,L15,           R11,R12,R13,R14,R15,  \
         L21,L22,L23,L24,L25,           R21,R22,R23,R24,R25,  \
@@ -171,16 +258,16 @@
 #define __________________LOWER_R1___________________   XXXXXXX, KC_7, KC_8,   KC_9,    KC_ASTR
 #define __________________LOWER_R2___________________   XXXXXXX, KC_4, KC_5,   KC_6,    KC_SLSH
 #define __________________LOWER_R3___________________   XXXXXXX, KC_1, KC_2,   KC_3,    KC_MINS
-//  Relevant keys: ->                                            KC_0, KC_DOT, KC_COMM, KC_PLUS <- pretty much the only reasons I can't always apply common or base
+//  Relevant keys: ->                                            KC_0, KC_DOT, KC_COMM, KC_PLUS <- these keys break our lovely wrapper pattern
  
 // Raise
-#define __________________RAISE_L1___________________   KC_PERC, KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC
+#define __________________RAISE_L1___________________   KC_PIPE, KC_UNDS, KC_LBRC, KC_RBRC, KC_AMPR
 #define __________________RAISE_L2___________________   KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR
-#define __________________RAISE_L3___________________   KC_HASH, KC_DLR , KC_PIPE, KC_TILD, KC_GRV
+#define __________________RAISE_L3___________________   KC_HASH, KC_DLR , KC_PERC, KC_TILD, KC_GRV
 
-#define __________________RAISE_R1___________________   KC_EXLM, KC_LABK, KC_RABK, KC_EQL , KC_COLN
-#define __________________RAISE_R2___________________   KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_SCLN
-#define __________________RAISE_R3___________________   KC_AT,   KC_DQUO, KC_QUOT, KC_PLUS, KC_AMPR
+#define __________________RAISE_R1___________________   KC_EXLM, KC_LABK, KC_RABK, KC_MINS, KC_SCLN
+#define __________________RAISE_R2___________________   KC_QUES, KC_LPRN, KC_RPRN, KC_EQL,  KC_COLN
+#define __________________RAISE_R3___________________   KC_AT,   KC_QUOT, KC_DQUO, KC_PLUS, KC_CIRC
 
 // Adjust
 #define __________________ADJUST_L1__________________   KC_MAKE,        DEBUG,     RESET, TERM_ON, TERM_OFF

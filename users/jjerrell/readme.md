@@ -19,9 +19,9 @@
 
 # JJerrell's QMK Userspace
 
-This userspace showcases my personal journey with QMK keyboards and aims to simplify
-additional development, reduce code duplication, and maintain a consistent experience
-across my current keyboards.
+This userspace showcases my personal journey with QMK keyboards and aims to simplify additional development, reduce code duplication, and maintain a consistent experience across my current keyboards. My original userspace has been archived because I wanted to take the time to grasp _how_ what I was doing worked -- rather than copy/pasta and blind luck.
+
+Some keyboard specific code is stored here because it's contextually relevant. It may be somewhat pedantic, but an effort has been made to wrap this code with preprocessor checks. i.e. `#if (defined(KEYBOARD_planck_ez))`.
 
 ## Daily Drivers
 
