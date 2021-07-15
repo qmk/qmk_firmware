@@ -69,7 +69,7 @@ uint8_t g_twi_transfer_buffer[20];
 uint8_t g_pwm_buffer[DRIVER_COUNT][192];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
-uint8_t g_led_control_registers[DRIVER_COUNT][24] = {0};
+uint8_t g_led_control_registers[DRIVER_COUNT][24]             = {0};
 bool    g_led_control_registers_update_required[DRIVER_COUNT] = {false};
 
 void IS31FL3737_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
@@ -156,9 +156,9 @@ void IS31FL3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
         is31_led led = g_is31_leds[index];
 
-        g_pwm_buffer[led.driver][led.r] = red;
-        g_pwm_buffer[led.driver][led.g] = green;
-        g_pwm_buffer[led.driver][led.b] = blue;
+        g_pwm_buffer[led.driver][led.r]          = red;
+        g_pwm_buffer[led.driver][led.g]          = green;
+        g_pwm_buffer[led.driver][led.b]          = blue;
         g_pwm_buffer_update_required[led.driver] = true;
     }
 }
@@ -205,8 +205,6 @@ void IS31FL3737_update_pwm_buffers(uint8_t addr, uint8_t index) {
         IS31FL3737_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
 
         IS31FL3737_write_pwm_buffer(addr, g_pwm_buffer[index]);
-
-
     }
     g_pwm_buffer_update_required[index] = false;
 }
