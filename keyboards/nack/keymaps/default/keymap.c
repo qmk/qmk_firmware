@@ -1,4 +1,4 @@
-/* Copyright 2020 pastapojken <pastapojken@gmail.com>
+/* Copyright 2020 farfalleflickan <farfalleflickan@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  | |---SHIFT----|---Z--------|---X--------|----C-------|-----V------|-----B------|-----N------|------M-----|---( ,; )---|---( .: )---|---( -_ )---|----UP------|-BACKSPACE--|  
        KC_LSFT,     KC_Z,        KC_X,        KC_C,        KC_V,        KC_B,        KC_N,        KC_M,        KC_COMM,     KC_DOT,      KC_SLSH,     KC_UP,       KC_BSPC,
 //  | |---CTRL-----|---ALT------|---META-----|----FN_1----|----------SPACE----------|----FN_2----|----AltGr---|--( <>| )---|---ENETER---|-LEFT-------|---DOWN-----|--RIGHT-----|  
-       KC_LCTL,     KC_LALT,     KC_LGUI,     TT(NUM),     KC_SPC,      KC_NO,       TT(FN),      KC_RALT,     KC_NUBS,     KC_ENT,     KC_LEFT,      KC_DOWN,     KC_RIGHT
+       KC_LCTL,     KC_LALT,     KC_LGUI,     MO(NUM),     KC_SPC,      KC_NO,       MO(FN),      KC_RALT,     KC_NUBS,     KC_ENT,     KC_LEFT,      KC_DOWN,     KC_RIGHT
 //   \|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|         
     ),
     [NUM] = LAYOUT(
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  | |---SHIFT----|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|  
        _______,     KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,
 //  | |---CTRL-----|---ALT------|---META-----|---FN_1-----|------------|------------|----FN_2----|--AltGr-----|---( §½ )---|------------|------------|------------|------------|  
-       _______,     _______,     _______,     TT(FN),      KC_NO,       KC_NO,       TO(BASE),    _______,     KC_GRV,      KC_NO,       KC_NO,       KC_NO,       KC_NO
+       _______,     _______,     _______,     MO(FN),      KC_NO,       KC_NO,       TO(BASE),    _______,     KC_GRV,      KC_NO,       KC_NO,       KC_NO,       KC_NO
 //   \|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|         
     ),
     [FN] = LAYOUT(
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  | |------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|-RGB LIGHT +|------------|  
        KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       RGB_VAI,     KC_NO,
 //  | |------------|------------|------------|---FN_1-----|------------|------------|----FN_2----|------------|------------|------------|------------|-RGB LIGHT -|------------|  
-       KC_NO,       KC_NO,       KC_NO,       TT(NUM),     KC_NO,       KC_NO,       TO(BASE),    KC_NO,       KC_NO,       KC_NO,       KC_NO,       RGB_VAD,     KC_NO
+       KC_NO,       KC_NO,       KC_NO,       MO(NUM),     KC_NO,       KC_NO,       TO(BASE),    KC_NO,       KC_NO,       KC_NO,       KC_NO,       RGB_VAD,     KC_NO
 //   \|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|         
     )
 };
