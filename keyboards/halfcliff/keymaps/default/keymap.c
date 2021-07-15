@@ -49,7 +49,7 @@ void oled_task_user(void) {
   } else {
       // Host Keyboard Layer Status
       oled_write_P(PSTR("Layer: "), false);
-      switch (biton32(layer_state)) {
+      switch (get_highest_layer(layer_state)) {
           case _DEFAULT:
               oled_write_P(PSTR("DEFAULT\n"), false);
               break;
