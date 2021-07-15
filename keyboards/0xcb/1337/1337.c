@@ -27,7 +27,7 @@ void eeconfig_init_kb(void) {
 // clang-format off
 #    ifdef RGBLIGHT_ANIMATIONS
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2);
-    #endif
+#    endif
 // clang-format on
 #endif
 
