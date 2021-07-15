@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     uprintf("%ud raw g_rgb_time\n", g_rgb_timer);
     uprintf("%ud rgb speed\n", rgb_matrix_config.speed);
 
@@ -106,6 +106,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code16(keycode);
         }
     }
+    return false;
 }
 #endif
 
