@@ -296,9 +296,7 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
 
 bootloader:
-ifneq ($(strip $(BOOTLOADER)), qmk-dfu)
-	$(error Please set BOOTLOADER = qmk-dfu first!)
-endif
+ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
 	make -C lib/lufa/Bootloaders/DFU/ clean
 	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/DFU/Keyboard.h
 	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
@@ -308,6 +306,19 @@ endif
 	make -C lib/lufa/Bootloaders/DFU/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
 	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
+else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
+	make -C lib/lufa/Bootloaders/HID/ clean
+	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/HID/Keyboard.h
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval PROGRAM_SIZE_KB=$(shell n=`expr $(MAX_SIZE) / 1024` && echo $$(($$n)) || echo 0))
+	$(eval BOOT_SECTION_SIZE_KB=$(shell n=`expr  $(BOOTLOADER_SIZE) / 1024` && echo $$(($$n)) || echo 0))
+	$(eval FLASH_SIZE_KB=$(shell n=`expr $(PROGRAM_SIZE_KB) + $(BOOT_SECTION_SIZE_KB)` && echo $$(($$n)) || echo 0))
+	make -C lib/lufa/Bootloaders/HID/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
+	printf "BootloaderHID.hex copied to $(TARGET)_bootloader.hex\n"
+	cp lib/lufa/Bootloaders/HID/BootloaderHID.hex $(TARGET)_bootloader.hex
+else
+	$(error Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
+endif
 
 production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	@cat $(BUILD_DIR)/$(TARGET).hex | awk '/^:00000001FF/ == 0' > $(TARGET)_production.hex
