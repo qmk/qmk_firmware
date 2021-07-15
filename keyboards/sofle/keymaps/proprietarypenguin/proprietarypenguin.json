@@ -5,7 +5,7 @@
   "keyboard": "sofle/rev1",
   "keymap": "sofle_rev1_layout_mine",
   "layout": "LAYOUT",
-  "layers": [ 
+  "layers": [
     [
       "KC_GRV",
       "KC_1",
@@ -31,7 +31,7 @@
       "KC_O",
       "KC_P",
       "KC_BSPC",
-      "KC_ESC",
+      "LCTL(KC_ESC)",
       "KC_A",
       "KC_S",
       "KC_D",
@@ -143,7 +143,7 @@
       "KC_F9",
       "KC_F10",
       "KC_F11",
-      "KC_TILD", 
+      "KC_TILD",
       "KC_EXLM",
       "KC_AT",
       "KC_HASH",
