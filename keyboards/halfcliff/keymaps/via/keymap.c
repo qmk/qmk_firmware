@@ -14,9 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-//#include "keymap_jp.h"
-#include <stdio.h>
-#include "keycode.h"
 #include "keymap_jp.h"
 
 #define RAISE FN_MO13
