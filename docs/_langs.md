@@ -3,6 +3,7 @@
   - [:cn: 中文](/zh-cn/)
   - [:es: Español](/es/)
   - [:fr: Français](/fr-fr/)
+  - [:id: Indonesia](/id/)
   - [:he: עברית](/he-il/)
   - [:brazil: Português](/pt-br/)
   - [:ru: Русский](/ru-ru/)
