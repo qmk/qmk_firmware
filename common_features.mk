@@ -610,16 +610,11 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
         OPT_DEFS += -DOLED_ENABLE
         COMMON_VPATH += $(DRIVER_PATH)/oled
 
+        OPT_DEFS += -DOLED_DRIVER_$(strip $(shell echo $(OLED_DRIVER) | tr '[:lower:]' '[:upper:]'))
         ifeq ($(strip $(OLED_DRIVER)), SSD1306)
             SRC += ssd1306_sh1106.c
-        endif
-        # add extra deps
-        ifeq ($(strip $(OLED_DRIVER)), SSD1306)
             QUANTUM_LIB_SRC += i2c_master.c
         endif
-        # ifeq ($(strip $(OLED_DRIVER)), SSD1322)
-        #     QUANTUM_LIB_SRC += spi_master.c
-        # endif
     endif
 endif
 
