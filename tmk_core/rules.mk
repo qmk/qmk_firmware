@@ -105,7 +105,10 @@ endif
 #CFLAGS += -Wundef
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wsign-compare
+GCC_VERSION := $(shell gcc --version 2>/dev/null)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 CFLAGS += $(CSTANDARD)
 
 # This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
@@ -137,7 +140,9 @@ endif
 #CXXFLAGS += -Wstrict-prototypes
 #CXXFLAGS += -Wunreachable-code
 #CXXFLAGS += -Wsign-compare
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 #CXXFLAGS += $(CSTANDARD)
 
 #---------------- Assembler Options ----------------
@@ -150,10 +155,12 @@ CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 ifeq ($(strip $(DEBUG_ENABLE)),yes)
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
+endif
 endif
 ifeq ($(VERBOSE_AS_CMD),yes)
 	ASFLAGS += -v
