@@ -63,6 +63,7 @@ subcommands = [
     'qmk.cli.new.keymap',
     'qmk.cli.pyformat',
     'qmk.cli.pytest',
+    'qmk.cli.update',
 ]
 
 
