@@ -274,6 +274,7 @@ int main(void) {
 #    ifdef VISUALIZER_ENABLE
             visualizer_resume();
 #    endif
+            suspend_wakeup_init();
         }
 #endif
 
