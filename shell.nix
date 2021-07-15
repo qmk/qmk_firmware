@@ -1,3 +1,7 @@
+# To use, simly run `nix-shell` with the nix package manager installed. This
+# will drop you into a shell with all of the dependencies to run ./bin/qmk from
+# this repo.
+#
 { avr ? true, arm ? true, teensy ? true }:
 let
   # We specify sources via Niv: use "niv update nixpkgs" to update nixpkgs, for example.
