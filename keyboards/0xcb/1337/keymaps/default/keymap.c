@@ -132,7 +132,7 @@ static void render_info(void) {
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 }
-static void render_rgbled_status() {
+static void render_rgbled_status(bool) {
     char string[4];
     if (RGBLIGHT_MODES > 1 && rgblight_is_enabled() && get_highest_layer(layer_state) == _RGB) {
         uint16_t m = rgblight_get_mode();
