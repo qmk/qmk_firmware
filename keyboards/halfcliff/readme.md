@@ -2,7 +2,7 @@
 
 ![halfcliff](https://user-images.githubusercontent.com/54104281/125184713-0b096b00-e25b-11eb-8237-5f4d2a286bc4.jpg)
 
-*A short description of the keyboard/project*
+Halfcliff keyboard is a split keyboard using a single-sided board.
 
 * Keyboard Maintainer: [n2](https://github.com/N2-Sumikko)
 * Hardware Supported:  halfcliff PCB, Pro Micro
