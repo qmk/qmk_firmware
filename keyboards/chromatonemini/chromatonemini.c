@@ -160,7 +160,7 @@ const uint16_t rt_matrix[2][2] = {
     {1, 7}, {2, 7}
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (index == 0) {
         keypos_t key;
         int cw = 0;
@@ -177,9 +177,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             record.event.pressed = true;
             process_midi(keycode, &record);
-            for (uint16_t i = TAP_CODE_DELAY; i > 0; i--) {
-                wait_ms(1);
-            }
+            wait_ms(TAP_CODE_DELAY);
             record.event.pressed = false;
             process_midi(keycode, &record);
         }
