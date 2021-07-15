@@ -35,7 +35,7 @@ def strip_info_json(kb_info_json):
     """Remove the API-only properties from the info.json.
     """
     pruning_draft_7_validator = pruning_validator(Draft7Validator)
-    schema = load_jsonschema('keyboard')
+    schema = load_jsonschema('qmk.keyboard.v1')
     validator = pruning_draft_7_validator(schema).validate
 
     return validator(kb_info_json)

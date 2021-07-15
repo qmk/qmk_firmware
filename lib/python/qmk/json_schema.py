@@ -2,6 +2,7 @@
 """
 import json
 from collections.abc import Mapping
+from functools import lru_cache
 from pathlib import Path
 
 import hjson
@@ -22,6 +23,7 @@ def json_load(json_file):
         exit(1)
 
 
+@lru_cache(maxsize=0)
 def load_jsonschema(schema_name):
     """Read a jsonschema file from disk.
     """
@@ -36,6 +38,7 @@ def load_jsonschema(schema_name):
     return json_load(schema_path)
 
 
+@lru_cache(maxsize=0)
 def create_validator(schema):
     """Creates a validator for the given schema id.
     """
