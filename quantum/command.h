@@ -73,6 +73,16 @@ bool command_proc(uint8_t code);
 #    define MAGIC_KEY_DEBUG_MOUSE M
 #endif
 
+#ifdef STM32_EEPROM_ENABLE
+#    ifndef MAGIC_KEY_PRINT_EEPROM
+#        define MAGIC_KEY_PRINT_EEPROM P
+#    endif
+#endif
+
+#ifndef MAGIC_KEY_DEBUG_EEPROM
+#    define MAGIC_KEY_DEBUG_EEPROM R
+#endif
+
 #ifndef MAGIC_KEY_VERSION
 #    define MAGIC_KEY_VERSION V
 #endif

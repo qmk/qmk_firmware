@@ -226,11 +226,10 @@ def dumpVia(data, base, layers, cols, rows, macros,
     magicMonth = data[base + 1]
     magicDay   = data[base + 2]
     # Sanity check
-    if not 10 <= magicYear <= 100:
-        return
-    if not 0 <= magicMonth <= 12:
-        return
-    if not 0 <= magicDay <= 31:
+    if not 10 <= magicYear <= 0x99 or \
+       not 0 <= magicMonth <= 0x12 or \
+       not 0 <= magicDay <= 0x31:
+        print("ERROR: VIA Signature is not valid; Year:%x, Month:%x, Day:%x" % (magicYear, magicMonth, magicDay))
         return
     if cols is None or rows is None:
         print("ERROR: VIA dump requires specifying --rows and --cols", file=sys.stderr)

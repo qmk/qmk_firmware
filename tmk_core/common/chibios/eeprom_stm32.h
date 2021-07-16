@@ -23,13 +23,6 @@
 
 #pragma once
 
-#ifdef FLASH_STM32_MOCKED
-#    include <stdint.h>
-#else
-#    include <ch.h>
-#    include <hal.h>
-#endif
-
 uint16_t EEPROM_Init(void);
 void     EEPROM_Erase(void);
 uint8_t  EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte);
@@ -37,6 +30,4 @@ uint8_t  EEPROM_WriteDataWord(uint16_t Address, uint16_t DataWord);
 uint8_t  EEPROM_ReadDataByte(uint16_t Address);
 uint16_t EEPROM_ReadDataWord(uint16_t Address);
 
-#ifdef DEBUG_EEPROM
-void dumpEepromDataBuf(void);
-#endif
+void print_eeprom(void);

@@ -24,6 +24,10 @@ extern "C" {
 
 #include <stdint.h>
 
+#ifdef FLASH_STM32_MOCKED
+extern uint8_t FlashBuf[MOCK_FLASH_SIZE];
+#endif
+
 typedef enum { FLASH_BUSY = 1, FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_ERROR_OPT, FLASH_COMPLETE, FLASH_TIMEOUT, FLASH_BAD_ADDRESS } FLASH_Status;
 
 #define IS_FLASH_ADDRESS(ADDRESS) (((ADDRESS) >= 0x08000000) && ((ADDRESS) < 0x0807FFFF))

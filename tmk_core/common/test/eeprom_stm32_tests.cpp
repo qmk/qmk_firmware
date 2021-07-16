@@ -18,7 +18,6 @@
 
 extern "C" {
 #include "flash_stm32.h"
-#include "flash_stm32_mock.h"
 #include "eeprom_stm32.h"
 #include "eeprom.h"
 }
@@ -49,7 +48,7 @@ extern "C" {
 
 #define EEPROM_SIZE (FEE_PAGE_SIZE * FEE_DENSITY_PAGES / 2)
 #define LOG_SIZE EEPROM_SIZE
-#define LOG_BASE (FLASH_SIZE - LOG_SIZE)
+#define LOG_BASE (MOCK_FLASH_SIZE - LOG_SIZE)
 #define EEPROM_BASE (LOG_BASE - EEPROM_SIZE)
 
 /* Log encoding helpers */
@@ -82,7 +81,7 @@ TEST_F(EepromStm32Test, TestErase) {
 
 TEST_F(EepromStm32Test, TestReadGarbage) {
     uint8_t garbage = 0x3c;
-    for (int i = 0; i < FLASH_SIZE; ++i) {
+    for (int i = 0; i < MOCK_FLASH_SIZE; ++i) {
         garbage ^= 0xa3;
         garbage += i;
         FlashBuf[i] = garbage;
