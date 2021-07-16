@@ -30,7 +30,7 @@ If you find that you can no longer type with the keyboard, you may have accident
 
 ![A healthy keyboard as seen by Zadig](https://i.imgur.com/Hx0E5kC.png)
 
-Open the Device Manager, select **View → Devices by container**, and look for a device that looks like your keyboard.
+Open the Device Manager, select **View → Devices by container**, and look for an entry with your keyboard's name.
 
 ![The board with the wrong driver installed, in Device Manager](https://i.imgur.com/o7WLvBl.png)
 
