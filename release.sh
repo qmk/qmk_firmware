@@ -2,7 +2,7 @@
 
 version=0_10_0
 
-for keyboard in ble_micro_pro kugel toybox/bmp crkbd_ecwl/bmp keyboard_quantizer/bmp
+for keyboard in ble_micro_pro kugel toybox/bmp crkbd_ecwl/bmp keyboard_quantizer/kqb
     do
         make $keyboard:default:uf2 -j8
         make $keyboard:default:zip -j8
