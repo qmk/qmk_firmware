@@ -1,3 +1,4 @@
+SRC += report_parser.c report_descriptor_parser.c
 # Additional source
 CUSTOM_MATRIX = yes # This flag should be on for nrf52
 

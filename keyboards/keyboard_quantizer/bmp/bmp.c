@@ -88,6 +88,8 @@ uint32_t qt_get_device_col() { return MATRIX_COLS_DEFAULT; }
 uint32_t qt_matrix_scan(matrix_row_t *matrix_raw) {
     bool changed = process_packet(matrix_raw);
 
+    uart_flush_rx_buffer();
+
     return changed ? 1 : 0;
 }
 

@@ -119,6 +119,7 @@ endif
   LDFLAGS += -Wl,--gc-sections
   # use newlib in nano version
   LDFLAGS += --specs=nano.specs -lc -lnosys
+  LDFLAGS += -Xlinker --print-memory-usage
 #  LDFLAGS += -L. $(NRFLIB)
 
 # Project, sources and paths

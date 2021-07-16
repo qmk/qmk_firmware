@@ -295,16 +295,28 @@ bmp_error_t nus_rcv_callback(const uint8_t* dat, uint32_t len)
 }
 
 static bool is_usb_connected_ = false;
+static bool is_usb_powered_   = false;
 static bool is_ble_connected_ = false;
 
 bool is_usb_connected() { return is_usb_connected_; }
+bool is_usb_powered() { return is_usb_powered_; }
 bool is_ble_connected() { return is_ble_connected_; }
+
+__attribute__((weak)) void bmp_state_change_cb_user(bmp_api_event_t event) {}
+__attribute__((weak)) void bmp_state_change_cb_kb(bmp_api_event_t event) {
+    bmp_state_change_cb_user(event);
+}
 
 bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
 {
   switch (event)
   {
     case USB_CONNECTED:
+        is_usb_powered_ = true;
+        break;
+
+    case USB_HID_READY:
+        is_usb_powered_   = true;
         is_usb_connected_ = true;
         if (!is_ble_connected()) {
             select_usb();
@@ -313,6 +325,7 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
         break;
 
     case USB_DISCONNECTED:
+        is_usb_powered_   = false;
         is_usb_connected_ = false;
         if (is_ble_connected()) {
             select_ble();
@@ -326,7 +339,7 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
     case BLE_ADVERTISING_STOP:
       bmp_indicator_set(INDICATOR_TURN_OFF, 0);
 
-      if (!is_usb_connected()) {
+      if (!is_usb_powered()) {
           sleep_enter_counter = 1;
       }
       break;
@@ -350,10 +363,13 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
     default:
       break;
   }
+
+  bmp_state_change_cb_kb(event);
+
   return BMP_OK;
 }
 
-void bmp_hid_raw_receive_cb(const uint8_t * data, uint8_t len) {
+static void bmp_hid_raw_receive_cb(const uint8_t * data, uint8_t len) {
     // xprintf("<hidraw>receive %d bytes", len);
     static uint8_t via_data[32];
     if (len > sizeof(via_data) + 1) {
@@ -363,7 +379,20 @@ void bmp_hid_raw_receive_cb(const uint8_t * data, uint8_t len) {
 
     memcpy(via_data, data, len - 1);
 
-    bmp_via_receive_cb(via_data, len - 1);
+    bmp_via_receive_cb(via_data, len - 1, BMPAPI->usb.raw_send);
+}
+
+static void bmp_ble_raw_receive_cb(const uint8_t * data, uint8_t len) {
+    xprintf("<hidraw>receive %d bytes\n", len);
+    static uint8_t via_data[32];
+    if (len > sizeof(via_data)) {
+        xprintf("<hidraw>Too large packet");
+        return;
+    }
+
+    memcpy(via_data, data, len);
+
+    bmp_via_receive_cb(via_data, len, BMPAPI->ble.raw_send);
 }
 
 static bool checkKeyIsPressedOnStartup(bmp_api_config_t const * const config, uint8_t row, uint8_t col)
@@ -429,6 +458,36 @@ static bool is_safe_mode_ = false;
 
 bool is_safe_mode() { return is_safe_mode_; }
 
+const bmp_api_config_t default_config = {
+    .version     = CONFIG_VERSION,
+    .mode        = BMP_DEFAULT_MODE == 0   ? SINGLE
+                   : BMP_DEFAULT_MODE == 1 ? SPLIT_MASTER
+                   : BMP_DEFAULT_MODE == 2 ? SPLIT_SLAVE
+                                           : SINGLE,
+    .device_info = {PRODUCT_ID, VENDOR_ID, STR(PRODUCT), STR(MANUFACTURER),
+                    STR(DESCRIPTION)},
+    .matrix =
+        {
+            .rows            = MATRIX_ROWS_DEFAULT,
+            .cols            = MATRIX_COLS_DEFAULT,
+            .device_rows     = THIS_DEVICE_ROWS,
+            .device_cols     = THIS_DEVICE_COLS,
+            .debounce        = 1,
+            .is_left_hand    = IS_LEFT_HAND ? 1 : 0,
+            .diode_direction = DIODE_DIRECTION == ROW2COL ? 1 : 0,
+            .row_pins        = MATRIX_ROW_PINS,
+            .col_pins        = MATRIX_COL_PINS,
+            .layout          = MATRIX_LAYOUT,
+        },
+    .param_peripheral = {60, 30, 7},
+    .param_central    = {60, 30, 7},
+    .led              = {.pin = RGB_DI_PIN, .num = RGBLED_NUM_DEFAULT},
+    .keymap = {.locale = KEYMAP_PRIOR_LOCALE, .use_ascii = KEYMAP_ASCII},
+#ifdef CONFIG_RESERVED
+    .reserved = CONFIG_RESERVED
+#endif
+};
+
 void bmp_init()
 {
 
@@ -439,33 +498,6 @@ void bmp_init()
 
   BMPAPI->logger.init();
   BMPAPI->logger.info("logger init");
-  static const bmp_api_config_t default_config = {
-      .version = CONFIG_VERSION,
-      .mode = BMP_DEFAULT_MODE == 0 ? SINGLE:
-                BMP_DEFAULT_MODE == 1 ? SPLIT_MASTER:
-                BMP_DEFAULT_MODE == 2 ? SPLIT_SLAVE : SINGLE,
-      .device_info = {PRODUCT_ID, VENDOR_ID,
-        STR(PRODUCT), STR(MANUFACTURER), STR(DESCRIPTION)},
-      .matrix = {
-          .rows = MATRIX_ROWS_DEFAULT,
-          .cols = MATRIX_COLS_DEFAULT,
-          .device_rows = THIS_DEVICE_ROWS,
-          .device_cols = THIS_DEVICE_COLS,
-          .debounce = 1,
-          .is_left_hand = IS_LEFT_HAND ? 1:0,
-          .diode_direction = DIODE_DIRECTION == ROW2COL ? 1:0,
-          .row_pins = MATRIX_ROW_PINS,
-          .col_pins = MATRIX_COL_PINS,
-          .layout = MATRIX_LAYOUT,
-      },
-      .param_peripheral = {60, 30, 7},
-      .param_central = {60, 30, 7},
-      .led = {.pin = RGB_DI_PIN, .num = RGBLED_NUM_DEFAULT},
-      .keymap = {.locale = KEYMAP_PRIOR_LOCALE, .use_ascii = KEYMAP_ASCII},
-#ifdef CONFIG_RESERVED
-      .reserved = CONFIG_RESERVED
-#endif
-  };
 
   is_safe_mode_ = (BMPAPI->app.init(&default_config) > 0);
 
@@ -491,6 +523,7 @@ void bmp_init()
   BMPAPI->usb.set_msc_write_cb(msc_write_callback);
   BMPAPI->app.set_state_change_cb(bmp_state_change_cb);
   BMPAPI->usb.set_raw_receive_cb(bmp_hid_raw_receive_cb);
+  BMPAPI->ble.set_raw_receive_cb(bmp_ble_raw_receive_cb);
 
   uint16_t vcc_percent = BMPAPI->app.get_vcc_percent();
   int32_t battery_level = 1;
@@ -562,10 +595,22 @@ void set_ble_enabled(bool enabled) { ble_enabled = enabled; }
 bool get_usb_enabled() { return usb_enabled & has_usb; }
 void set_usb_enabled(bool enabled) { usb_enabled = enabled; }
 void select_ble(void) {
+    if (usb_enabled) {
+        report_keyboard_t report_keyboard = {0};
+        report_mouse_t    rep_mouse       = {0};
+        host_keyboard_send(&report_keyboard);
+        host_mouse_send(&rep_mouse);
+    }
     ble_enabled = true;
     usb_enabled = false;
 }
 void select_usb(void) {
+    if (ble_enabled) {
+        report_keyboard_t report_keyboard = {0};
+        report_mouse_t    rep_mouse       = {0};
+        host_keyboard_send(&report_keyboard);
+        host_mouse_send(&rep_mouse);
+    }
     ble_enabled = false;
     usb_enabled = true;
 }

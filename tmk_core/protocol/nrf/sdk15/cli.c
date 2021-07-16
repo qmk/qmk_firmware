@@ -24,24 +24,29 @@
 #include "apidef.h"
 #include "configurator.h"
 
-typedef struct {
-    void (*func)(void*);
-    void* data;
-} cli_app_t;
-
 static cli_app_t cli_app = {NULL, NULL};
+
+void set_cli_app(cli_app_t *const p_cli_app) {
+    if (p_cli_app == NULL) {
+        cli_app.func = NULL;
+        cli_app.data = NULL;
+    }
+    cli_app = *p_cli_app;
+}
 
 void cli_puts(const char *str);
 static MSCMD_USER_RESULT usrcmd_version(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_reset(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_advertise(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_disconnect(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_select_connection(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_bootloader(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_bonding_information(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_delete_bonding(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_help(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_keymap(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_config(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_tapping_term(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_keystr_conv(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_keycode_conv(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_update_file(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
@@ -53,6 +58,7 @@ static MSCMD_USER_RESULT usrcmd_led_control(MSOPT *msopt, MSCMD_USER_OBJECT usro
 static MSCMD_USER_RESULT usrcmd_eeprom_control(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_webconfig_enter(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_i2c_test(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_cpu_temp(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 
 static MSCMD_USER_RESULT usrcmd_file_streaming_mode(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_encoder(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
@@ -66,12 +72,14 @@ static const MSCMD_COMMAND_TABLE table[] = {
     {"reset", usrcmd_reset, "Reset system"},
     {"adv", usrcmd_advertise, "Start advertising"},
     {"dis", usrcmd_disconnect, "Disconnect BLE"},
+    {"sel", usrcmd_select_connection, "Select USB/BLE"},
     {"dfu", usrcmd_bootloader, "Jump to bootloader"},
     {"show", usrcmd_bonding_information, "Show bonded devices"},
     {"del", usrcmd_delete_bonding, "Delete bond information"},
     {"help", usrcmd_help, "Show this message"},
     {"map", usrcmd_keymap, "Show keymap"},
     {"conf", usrcmd_config, "Show config"},
+    {"tap", usrcmd_tapping_term, "Show tapping term config"},
     {"enc", usrcmd_encoder, "Show encoder config"},
     {"conv", usrcmd_keystr_conv, "Convert string to keycode"},
     {"iconv", usrcmd_keycode_conv, "Convert keycode to string"},
@@ -84,6 +92,7 @@ static const MSCMD_COMMAND_TABLE table[] = {
     {"ee", usrcmd_eeprom_control, "eeprom control"},
     {"web", usrcmd_webconfig_enter, "Start web config mode"},
     {"i2c", usrcmd_i2c_test, "Test i2c"},
+    {"temp", usrcmd_cpu_temp, "Measure CPU temperature"},
     {"file", usrcmd_file_streaming_mode, "Enter file streaming mode"},
     {"ind", usrcmd_indicator, "Test indicator LED"},
 #ifdef USER_DEFINED_MSCMD
@@ -128,9 +137,8 @@ static MSCMD_USER_RESULT usrcmd_advertise(MSOPT *msopt, MSCMD_USER_OBJECT usrobj
     if (config->mode != SPLIT_SLAVE) {
         if (msopt->argc >= 2) {
             msopt_get_argv(msopt, 1, arg, sizeof(arg));
-            if(arg[0] >='0' && arg[0] <= '9') {
-                BMPAPI->ble.advertise(arg[0]-'0');
-            }
+            uint8_t id = (uint8_t)atoi(arg);
+            BMPAPI->ble.advertise(id);
         } else {
             BMPAPI->ble.advertise(255);
         }
@@ -147,6 +155,26 @@ static MSCMD_USER_RESULT usrcmd_disconnect(MSOPT *msopt, MSCMD_USER_OBJECT usrob
         print("disconnect device\n");
         BMPAPI->ble.disconnect(0);
     }
+    return 0;
+}
+
+static MSCMD_USER_RESULT usrcmd_select_connection(MSOPT *           msopt,
+                                                  MSCMD_USER_OBJECT usrobj) {
+    char arg[16];
+
+    xprintf("Usage: select <usb/ble>\n");
+
+    if (msopt->argc >= 2) {
+        msopt_get_argv(msopt, 1, arg, sizeof(arg));
+        if (strcmp(arg, "ble") == 0) {
+            xprintf("Switch to BLE\n");
+            select_ble();
+        } else if (strcmp(arg, "usb") == 0) {
+            xprintf("Switch to USB\n");
+            select_usb();
+        }
+    }
+
     return 0;
 }
 
@@ -169,10 +197,11 @@ static MSCMD_USER_RESULT usrcmd_bonding_information(MSOPT *msopt,
 
     for (int i = 0; i < peer_cnt; i++) {
         // print mac address
-        tfp_printf("{\"id\":%2d, \"type\":\"%s\",\"mac\":\"%02x:%02x:%02x:%02x:%02x:%02x\"}",
+        tfp_printf("{\"id\":%2d, \"type\":\"%s\",\"name\":\"%s\",\"mac\":\"%02x:%02x:%02x:%02x:%02x:%02x\"}",
                 peers[i].id,
                 (peers[i].role == 2) ? "Slave " :
                 (config->mode == SPLIT_SLAVE) ? "Master" : "Device",
+                peers[i].name,
                 peers[i].addr[5], peers[i].addr[4], peers[i].addr[3],
                 peers[i].addr[2], peers[i].addr[1], peers[i].addr[0]);
 
@@ -275,6 +304,12 @@ static MSCMD_USER_RESULT usrcmd_remove_file(MSOPT *msopt,
 static MSCMD_USER_RESULT usrcmd_config(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
     cli_app.func = print_long_string;
     cli_app.data = (void*)get_config_string();
+    return 0;
+}
+
+static MSCMD_USER_RESULT usrcmd_tapping_term(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
+    cli_app.func = print_long_string;
+    cli_app.data = (void*)get_qmk_config_string();
     return 0;
 }
 
@@ -484,6 +519,13 @@ static MSCMD_USER_RESULT usrcmd_i2c_test(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
     {
         tfp_printf("Invalid option\r\n");
     }
+    return 0;
+}
+
+static MSCMD_USER_RESULT usrcmd_cpu_temp(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
+{
+    tfp_printf("%d/100[deg]\n", (int)(BMPAPI->temp.read()*100));
+
     return 0;
 }
 

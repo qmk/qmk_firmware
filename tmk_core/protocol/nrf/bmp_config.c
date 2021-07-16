@@ -40,6 +40,7 @@ const bmp_encoder_config_t *get_bmp_encoder_config() {
 const char *get_keymap_string() { return keymap_string; }
 const char *get_config_string() { return config_string; }
 const char *get_encoder_string() { return encoder_config_string; }
+const char *get_qmk_config_string() { return qmk_config_string; }
 
 char *strnstr(const char *haystack, const char *needle, size_t len) {
     int    i;
@@ -558,8 +559,14 @@ int load_encoder_config_file() {
     return 0;
 }
 
+__attribute__((weak)) uint16_t keymap_key_to_keycode_bmp(uint8_t  layer,
+                                                         keypos_t key) {
+    return BMPAPI->app.keymap_key_to_keycode(layer,
+                                                 (bmp_api_keypos_t *)&key);
+}
+
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
-    return BMPAPI->app.keymap_key_to_keycode(layer, (bmp_api_keypos_t *)&key);
+    return keymap_key_to_keycode_bmp(layer, key);
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {

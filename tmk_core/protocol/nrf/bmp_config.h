@@ -12,6 +12,7 @@ const bmp_encoder_config_t* get_bmp_encoder_config();
 const char*                 get_keymap_string();
 const char*                 get_config_string();
 const char*                 get_encoder_string();
+const char*                 get_qmk_config_string();
 
 bmp_error_t webnus_write_callback(const uint8_t* dat, uint32_t len);
 

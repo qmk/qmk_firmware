@@ -5,9 +5,11 @@
 
 #include "error_def.h"
 
-#define API_VERSION 11
+#define API_VERSION 12
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
+
+#define DEVICE_NAME_MAX_LEN 32
 
 typedef uint32_t bmp_api_matrix_row_t;
 typedef uint32_t bmp_api_matrix_col_t;
@@ -19,6 +21,8 @@ typedef enum {
     QMK_EE_RECORD,
     BMP_EX_KEYCODE_RECORD,
     BMP_ENC_RECORD,
+    BMP_PAIR_DEVICE_RECORD,
+    BMP_MACRO_RECORD,
 } CONFIGURATION_RECORD_ID;
 
 typedef enum {
@@ -46,6 +50,18 @@ typedef struct {
 } bmp_api_spim_config_t;
 
 typedef struct {
+    uint8_t miso;
+    uint8_t mosi;
+    uint8_t sck;
+    uint8_t cs;
+    uint8_t cs_pullup;
+    uint8_t mode;
+    uint8_t default_data;
+    uint8_t over_read_data;
+    void (*complete_callback)(uint16_t receive_len);
+} bmp_api_spis_config_t;
+
+typedef struct {
     bmp_api_i2c_freq_t freq;
     uint8_t            sda;
     uint8_t            scl;
@@ -69,6 +85,7 @@ typedef struct {
     uint16_t id;
     uint8_t  role;
     uint8_t  addr[6];
+    uint8_t  name[DEVICE_NAME_MAX_LEN];
 } bmp_api_bonding_info_t;
 
 typedef enum {
@@ -91,6 +108,9 @@ typedef enum {
     BLE_DISCONNECTED,
     BLE_ADVERTISING_START,
     BLE_ADVERTISING_STOP,
+    USB_CDC_ACM_OPEND,
+    USB_CDC_ACM_CLOSED,
+    USB_HID_READY,
 } bmp_api_event_t;
 
 typedef enum {
@@ -216,6 +236,7 @@ typedef struct {
     uint8_t  rx_pin;
     uint32_t baudrate;
     void (*rx_callback)(uint8_t recv);
+    uint8_t  rx_protocol;
 } bmp_uart_config_t;
 
 typedef struct {
@@ -259,6 +280,7 @@ typedef struct {
     void (*enable)(void);
     void (*process)(void);
     void (*send_key)(bmp_api_key_report_t*);
+    uint8_t (*get_indicator_led)(void);
     void (*send_mouse)(bmp_api_mouse_report_t*);
     void (*send_system)(uint16_t);
     void (*send_consumer)(uint16_t);
@@ -280,12 +302,15 @@ typedef struct {
     bmp_error_t (*get_bonding_info)(bmp_api_bonding_info_t* info, uint32_t* len);
     void (*delete_bond)(uint8_t);
     void (*send_key)(bmp_api_key_report_t*);
+    uint8_t (*get_indicator_led)(void);
     void (*send_mouse)(bmp_api_mouse_report_t*);
     void (*send_system)(uint16_t);
     void (*send_consumer)(uint16_t);
     bmp_error_t (*nus_send_bytes)(uint8_t* buf, uint16_t len);
     bmp_error_t (*set_nus_rcv_cb)(bmp_error_t (*callback)(const uint8_t* dat, uint32_t len));
     bmp_error_t (*set_nus_disconnect_cb)(bmp_error_t (*callback)(void));
+    void (*set_raw_receive_cb)(void (*raw_receive_cb)(const uint8_t* data, uint8_t length));
+    int (*raw_send)(const uint8_t* data, uint8_t length);
 } bmp_api_ble_t;
 
 typedef struct {
@@ -362,6 +387,11 @@ typedef struct {
 } bmp_api_spi_master_t;
 
 typedef struct {
+    int (*init)(bmp_api_spis_config_t const* const);
+    int (*start)(uint8_t* p_tx_buffer, size_t tx_length, uint8_t* p_rx_buffer, size_t rx_length);
+} bmp_api_spi_slave_t;
+
+typedef struct {
     uint8_t g;
     uint8_t r;
     uint8_t b;
@@ -398,9 +428,23 @@ typedef struct {
     void (*discharge_capacitor)();
 } bmp_api_ecs_t;
 
+typedef struct {
+    float (*read)();
+} bmp_api_cpu_temp_t;
+
+#ifndef BMP_PAGE_SIZE
+#    define BMP_PAGE_SIZE 1024
+#endif
 #define LAYOUT_NAME_MAX_LEN 32
 #define LAYOUT_CODE_LEN 4
-#define DYNAMIC_KEYMAP_MAX_LEN (507 - LAYOUT_NAME_MAX_LEN / 2 - LAYOUT_CODE_LEN / 2)  // 2 + 508 * 2 + 3 + 5 <= 1024 byte
+#define DYNAMIC_KEYMAP_MAX_LEN                           \
+    ((BMP_PAGE_SIZE /*Page size(word)*/                  \
+      - 2           /*Page tag*/                         \
+      - 3           /*FS Header*/                        \
+      - 1           /*len*/                              \
+      - 1           /*Library requirement?*/             \
+      - LAYOUT_NAME_MAX_LEN / 4 - LAYOUT_CODE_LEN / 4) * \
+     2)
 
 typedef struct {
     //////DO NOT CHANGE///////
@@ -422,6 +466,8 @@ typedef struct {
     bmp_api_adc_t        adc;
     bmp_api_uart_t       uart;
     bmp_api_ecs_t        ecs;
+    bmp_api_cpu_temp_t   temp;
+    bmp_api_spi_slave_t  spis;
 } bmp_api_t;
 
 #define BMPAPI ((bmp_api_t*)0xFDE00)
