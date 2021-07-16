@@ -30,7 +30,7 @@ If you find that you can no longer type with the keyboard, you may have accident
 
 ![A healthy keyboard as seen by Zadig](https://i.imgur.com/Hx0E5kC.png)
 
-Open the Device Manager and look for a device that looks like your keyboard. A handy tip is to select **View → Devices by container**, which will group the entries in a more logical manner.
+Open the Device Manager, select **View → Devices by container**, and look for a device that looks like your keyboard.
 
 ![The board with the wrong driver installed, in Device Manager](https://i.imgur.com/o7WLvBl.png)
 
@@ -44,7 +44,11 @@ Click **Action → Scan for hardware changes**. At this point, you should be abl
 
 ## Uninstallation
 
-To uninstall bootloader device drivers, use the Device Manager to find the `Inf name` property in the Details tab of the device you want to remove. This should generally be something like `oemXX.inf`:
+Uninstallation of bootloader devices is a little more involved than installation.
+
+Open the Device Manager, select **View → Devices by container**, and look for the bootloader device. Match up the USB VID and PID in Zadig with one from [the table below](#list-of-known-bootloaders).
+
+Find the `Inf name` value in the Details tab of the device properties. This should generally be something like `oemXX.inf`:
 
 ![Device properties showing the Inf name value](https://i.imgur.com/Bu4mk9m.png)
 
@@ -53,6 +57,8 @@ Then, open a new Command Prompt window as an Administrator (type in `cmd` into t
 ![pnputil output with matching driver highlighted](https://i.imgur.com/3RrSjzW.png)
 
 Run `pnputil /delete-driver oemXX.inf /uninstall`. This will delete the driver and remove it from any devices using it. Note that this will not uninstall the device itself.
+
+As with the previous section, this process may need to be repeated multiple times, as multiple drivers can be applicable to the same device.
 
 !> **WARNING:** Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
 
