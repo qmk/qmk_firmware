@@ -21,6 +21,7 @@
 
 void oled_driver_render_logo(void);
 bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);
+extern uint32_t oled_timer;
 
 #ifdef OLED_DISPLAY_128X64
 #    define OLED_RENDER_KEYLOGGER "Keylogger: "
@@ -35,7 +36,7 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);
 #    define OLED_RENDER_LAYOUT_EUCALYN "Eucalyn"
 #    define OLED_RENDER_LAYOUT_CARPLAX "Carplax"
 
-#    define OLED_RENDER_LAYER_NAME   "Layer:\n"
+#    define OLED_RENDER_LAYER_NAME   "Layer:"
 #    define OLED_RENDER_LAYER_LOWER  "Lower"
 #    define OLED_RENDER_LAYER_RAISE  "Raise"
 #    define OLED_RENDER_LAYER_ADJUST "Adjust"
@@ -46,7 +47,7 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);
 #    define OLED_RENDER_LOCK_CAPS "CAPS"
 #    define OLED_RENDER_LOCK_SCLK "SCLK"
 
-#    define OLED_RENDER_MODS_NAME "Mods: "
+#    define OLED_RENDER_MODS_NAME "Mods:"
 #    define OLED_RENDER_MODS_SFT  "Sft"
 #    define OLED_RENDER_MODS_CTL  "Ctl"
 #    define OLED_RENDER_MODS_ALT  "Alt"
@@ -56,6 +57,8 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);
 #    define OLED_RENDER_BOOTMAGIC_NKRO  "NKRO"
 #    define OLED_RENDER_BOOTMAGIC_NOGUI "nGUI"
 #    define OLED_RENDER_BOOTMAGIC_GRV   "GRV"
+#    define OLED_RENDER_BOOTMAGIC_ONESHOT "1SHT"
+#    define OLED_RENDER_BOOTMAGIC_SWAP "SWAP"
 #    define OLED_RENDER_BOOTMAGIC_CAPS  "CAPS"
 
 #    define OLED_RENDER_USER_NAME "USER:"
@@ -63,6 +66,7 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);
 #    define OLED_RENDER_USER_LAYR "Layr"
 #    define OLED_RENDER_USER_NUKE "Nuke"
 
+#    define OLED_RENDER_WPM_COUNTER "WPM: "
 #else
 #    define OLED_RENDER_KEYLOGGER "KLogr"
 
@@ -83,25 +87,29 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);
 #    define OLED_RENDER_LAYER_MODS   " Mods"
 
 #    define OLED_RENDER_LOCK_NAME "Lock:"
-#    define OLED_RENDER_LOCK_NUML "N"
-#    define OLED_RENDER_LOCK_CAPS "C"
-#    define OLED_RENDER_LOCK_SCLK "S"
+#    define OLED_RENDER_LOCK_NUML "NumL"
+#    define OLED_RENDER_LOCK_CAPS "CapL"
+#    define OLED_RENDER_LOCK_SCLK "ScrL"
 
 #    define OLED_RENDER_MODS_NAME "Mods: "
-#    define OLED_RENDER_MODS_SFT  "S"
-#    define OLED_RENDER_MODS_CTL  "C"
-#    define OLED_RENDER_MODS_ALT  "A"
-#    define OLED_RENDER_MODS_GUI  "G"
+#    define OLED_RENDER_MODS_SFT  "Shft"
+#    define OLED_RENDER_MODS_CTL  "Ctrl"
+#    define OLED_RENDER_MODS_ALT  "Alt\n"
+#    define OLED_RENDER_MODS_GUI  "GUI\n"
 
 #    define OLED_RENDER_BOOTMAGIC_NAME  "BTMGK"
 #    define OLED_RENDER_BOOTMAGIC_NKRO  "NKRO"
 #    define OLED_RENDER_BOOTMAGIC_NOGUI "nGUI"
 #    define OLED_RENDER_BOOTMAGIC_GRV   "GRV"
+#    define OLED_RENDER_BOOTMAGIC_ONESHOT "1SHT"
+#    define OLED_RENDER_BOOTMAGIC_SWAP "SWAP"
 #    define OLED_RENDER_BOOTMAGIC_CAPS  "CAPS"
 
 #    define OLED_RENDER_USER_NAME "USER:"
 #    define OLED_RENDER_USER_ANIM "Anim"
 #    define OLED_RENDER_USER_LAYR "Layr"
 #    define OLED_RENDER_USER_NUKE "Nuke"
+
+#    define OLED_RENDER_WPM_COUNTER "WPM: "
 
 #endif

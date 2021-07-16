@@ -67,16 +67,22 @@ This is a C header file that is one of the first things included, and will persi
   * turns on the alternate audio voices (to cycle through)
 * `#define C4_AUDIO`
   * enables audio on pin C4
+  * Deprecated. Use `#define AUDIO_PIN C4`
 * `#define C5_AUDIO`
   * enables audio on pin C5
+  * Deprecated. Use `#define AUDIO_PIN C5`
 * `#define C6_AUDIO`
   * enables audio on pin C6
+  * Deprecated. Use `#define AUDIO_PIN C6`
 * `#define B5_AUDIO`
-  * enables audio on pin B5 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
+  * enables audio on pin B5 (duophony is enabled if one of B pins is enabled along with one of C pins)
+  * Deprecated. Use `#define AUDIO_PIN B5`, or use `#define AUDIO_PIN_ALT B5` if a `C` pin is enabled with `AUDIO_PIN`
 * `#define B6_AUDIO`
-  * enables audio on pin B6 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
+  * enables audio on pin B6 (duophony is enabled if one of B pins is enabled along with one of C pins)
+  * Deprecated. Use `#define AUDIO_PIN B6`, or use `#define AUDIO_PIN_ALT B6` if a `C` pin is enabled with `AUDIO_PIN`
 * `#define B7_AUDIO`
-  * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
+  * enables audio on pin B7 (duophony is enabled if one of B pins is enabled along with one of C pins)
+  * Deprecated. Use `#define AUDIO_PIN B7`, or use `#define AUDIO_PIN_ALT B7` if a `C` pin is enabled with `AUDIO_PIN`
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight
 * `#define BACKLIGHT_LEVELS 3`
@@ -97,6 +103,8 @@ This is a C header file that is one of the first things included, and will persi
   * sets the maximum power (in mA) over USB for the device (default: 500)
 * `#define USB_POLLING_INTERVAL_MS 10`
   * sets the USB polling rate in milliseconds for the keyboard, mouse, and shared (NKRO/media keys) interfaces
+* `#define USB_SUSPEND_WAKEUP_DELAY 200`
+  * set the number of milliseconde to pause after sending a wakeup packet
 * `#define F_SCL 100000L`
   * sets the I2C clock rate speed for keyboards using I2C. The default is `400000L`, except for keyboards using `split_common`, where the default is `100000L`.
 

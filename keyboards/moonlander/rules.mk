@@ -1,5 +1,9 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
+
+# Bootloader selection
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -22,7 +26,6 @@ DEBOUNCE_TYPE = custom
 SWAP_HANDS_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3731
-#SERIAL_LINK_ENABLE = yes
 EEPROM_DRIVER = i2c
 
 #project specific files

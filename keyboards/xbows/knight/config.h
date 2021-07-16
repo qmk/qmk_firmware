@@ -5,7 +5,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    X-BOWS
 #define PRODUCT         KNIGHT
-#define DESCRIPTION     XBOWS SPLIT keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -20,6 +19,10 @@
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
+
+#define LED_NUM_LOCK_PIN D1
+#define LED_CAPS_LOCK_PIN C7
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 // #define BACKLIGHT_LEVELS 3

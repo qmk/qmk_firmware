@@ -75,94 +75,90 @@ enum custom_keycodes {
 #define KC_CAD LCA(KC_DEL)
 #define KC_RST RESET
 
-// Fillers to make layering more clear
-#define KC_ KC_TRNS
-#define KC_XXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_kc(
+  [_QWERTY] = LAYOUT(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-     CAEC, Q  , W  , E  , R  , T  ,                 Y  , U  , I  , O  , P  ,DEL ,
+     KC_CAEC, KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,                 KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_DEL ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-     CSTB, A  , S  , D  , F  , G  ,LPRN,      RPRN, H  , J  , K  , L  ,SCLN,BSPC,
+     KC_CSTB, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,KC_LPRN,      KC_RPRN, KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_BSPC,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,LBRC,      RBRC, N  , M  ,COMM,DOT ,SLSH,QUOT,
+     KC_LSFT, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,KC_LBRC,      KC_RBRC, KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_QUOT,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                         IMOF,LWR ,SPCT,      ENSF,RSE ,IMON
+                         KC_IMOF,KC_LWR ,KC_SPCT,      KC_ENSF,KC_RSE ,KC_IMON
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_LOWER] = LAYOUT_kc(
+  [_LOWER] = LAYOUT(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-         ,EXLM, AT ,HASH,DLR ,PERC,                CIRC,AMPR,ASTR,LPRN,RPRN,    ,
+     _______,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,_______,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-         , F1 , F2 , F3 , F4 , F5 , F6 ,      GRV ,BSLS,MINS,EQL ,LBRC,RBRC,    ,
+     _______, KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,      KC_GRV ,KC_BSLS,KC_MINS,KC_EQL ,KC_LBRC,KC_RBRC,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-         , F7 , F8 , F9 , F10, F11, F12,      TILD,PIPE,UNDS,PLUS,LCBR,RCBR,    ,
+     _______, KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11, KC_F12,      KC_TILD,KC_PIPE,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,
+                         _______,_______,_______,      _______,_______,_______
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_RAISE] = LAYOUT_kc(
+  [_RAISE] = LAYOUT(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-         , 1  , 2  , 3  , 4  , 5  ,                 6  , 7  , 8  , 9  , 0  ,    ,
+     _______, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                 KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,_______,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,      XXXX,LEFT,DOWN, UP ,RGHT,END ,    ,
+     _______,_______,_______,_______,_______,_______,_______,      XXXXXXX,KC_LEFT,KC_DOWN, KC_UP ,KC_RGHT,KC_END ,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,      HOME,XXXX,PGDN,PGUP,XXXX,XXXX,    ,
+     _______,_______,_______,_______,_______,_______,_______,      KC_HOME,XXXXXXX,KC_PGDN,KC_PGUP,XXXXXXX,XXXXXXX,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,
+                         _______,_______,_______,      _______,_______,_______
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_PSEUDO_US] = LAYOUT_kc(
+  [_PSEUDO_US] = LAYOUT(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-     CAEC, Q  , W  , E  , R  , T  ,                 Y  , U  , I  , O  , P  ,DEL ,
+     KC_CAEC, KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,                 KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_DEL ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-     CSTB, A  , S  , D  , F  , G  ,JLPR,      JRPR, H  , J  , K  , L  ,J2US,BSPC,
+     KC_CSTB, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,KC_JLPR,      KC_JRPR, KC_H  , KC_J  , KC_K  , KC_L  ,KC_J2US,KC_BSPC,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,J2US,      J2US, N  , M  ,COMM,DOT ,SLSH,J2US,
+     KC_LSFT, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,KC_J2US,      KC_J2US, KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_J2US,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                         IMOF,P_LW,SPCT,      ENSF,P_RS,IMON
+                         KC_IMOF,KC_P_LW,KC_SPCT,      KC_ENSF,KC_P_RS,KC_IMON
   //                    +----+----+---/       \---+----+----+
   ),
 
 
-  [_PSEUDO_US_LOWER] = LAYOUT_kc(
+  [_PSEUDO_US_LOWER] = LAYOUT(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-         ,EXLM,JAT ,HASH,DLR ,PERC,                JCIR,JAMP,JAST,JLPR,JRPR,    ,
+     _______,KC_EXLM,KC_JAT ,KC_HASH,KC_DLR ,KC_PERC,                KC_JCIR,KC_JAMP,KC_JAST,KC_JLPR,KC_JRPR,_______,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-         , F1 , F2 , F3 , F4 , F5 , F6 ,      JGRV,JBSL,MINS,JEQL,JLBR,JRBR,    ,
+     _______, KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,      KC_JGRV,KC_JBSL,KC_MINS,KC_JEQL,KC_JLBR,KC_JRBR,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-         , F7 , F8 , F9 , F10, F11, F12,      JTIL,JPIP,JUND,JPLU,JLCB,JRCB,    ,
+     _______, KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11, KC_F12,      KC_JTIL,KC_JPIP,KC_JUND,KC_JPLU,KC_JLCB,KC_JRCB,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,
+                         _______,_______,_______,      _______,_______,_______
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_PSEUDO_US_RAISE] = LAYOUT_kc(
+  [_PSEUDO_US_RAISE] = LAYOUT(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-         , 1  , 2  , 3  , 4  , 5  ,                 6  , 7  , 8  , 9  , 0  ,    ,
+     _______, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                 KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,_______,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,JZHT,      XXXX,LEFT,DOWN, UP ,RGHT,END ,    ,
+     _______,_______,_______,_______,_______,_______,KC_JZHT,      XXXXXXX,KC_LEFT,KC_DOWN, KC_UP ,KC_RGHT,KC_END ,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,      HOME,XXXX,PGDN,PGUP,XXXX,XXXX,    ,
+     _______,_______,_______,_______,_______,_______,_______,      KC_HOME,XXXXXXX,KC_PGDN,KC_PGUP,XXXXXXX,XXXXXXX,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,
+                         _______,_______,_______,      _______,_______,_______
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_ADJUST] = LAYOUT_kc(
+  [_ADJUST] = LAYOUT(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-         ,    ,    ,    ,    ,    ,                    ,    ,    ,    ,    ,    ,
+     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,CAD ,      QWRT,    ,    ,    ,    ,    ,    ,
+     _______,_______,_______,_______,_______,_______,KC_CAD ,      KC_QWRT,_______,_______,_______,_______,_______,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,RST ,      P_US,    ,    ,    ,    ,    ,    ,
+     _______,_______,_______,_______,_______,_______,KC_RST ,      KC_P_US,_______,_______,_______,_______,_______,_______,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,
+                         _______,_______,_______,      _______,_______,_______
   //                    +----+----+---/       \---+----+----+
   )
 

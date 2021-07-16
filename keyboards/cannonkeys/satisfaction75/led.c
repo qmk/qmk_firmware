@@ -80,6 +80,21 @@ void backlight_init_ports(void) {
   }
 }
 
+void suspend_power_down_user(void) {
+    backlight_set(0);
+}
+void suspend_wakeup_init_user(void) {
+  if(kb_backlight_config.enable){
+    if(kb_backlight_config.breathing){
+      breathing_enable();
+    } else{
+      backlight_set(kb_backlight_config.level);
+    }
+  } else {
+    backlight_set(0);
+  }
+}
+
 void backlight_set(uint8_t level) {
   uint32_t duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / BACKLIGHT_LEVELS));
   if (level == 0) {

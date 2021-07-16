@@ -85,7 +85,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef POINTING_DEVICE_ENABLE
     if (keycode == DPI_CONFIG && record->event.pressed) {
-        keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+        if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
+            keyboard_config.dpi_config = (keyboard_config.dpi_config - 1) % DPI_OPTION_SIZE;
+        } else {
+            keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+        }
         eeconfig_update_kb(keyboard_config.raw);
         trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
@@ -142,7 +146,7 @@ void pointing_device_init(void) {
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
-static bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) {
+static bool has_report_changed(report_mouse_t new, report_mouse_t old) {
     return (new.buttons != old.buttons) ||
            (new.x && new.x != old.x) ||
            (new.y && new.y != old.y) ||
@@ -163,8 +167,11 @@ void pointing_device_task(void) {
 
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = TRACKBALL_DPI_DEFAULT;
+#ifdef POINTING_DEVICE_ENABLE
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+#endif
     eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
 }
 
 void matrix_init_kb(void) {
@@ -186,7 +193,7 @@ void pointing_device_send(void) {
         mouseReport.x = 0;
         mouseReport.y = 0;
         process_mouse_user(&mouseReport, x, y);
-        if (has_mouse_report_changed(mouseReport, old_report)) {
+        if (has_report_changed(mouseReport, old_report)) {
             host_mouse_send(&mouseReport);
         }
     } else {
@@ -202,7 +209,7 @@ void pointing_device_send(void) {
 #endif
 
 #ifdef SWAP_HANDS_ENABLE
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     /* Left hand, matrix positions */
     {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},
     {{5, 7}, {4, 7}, {3, 7}, {2, 7}, {1, 7}, {0, 7}},

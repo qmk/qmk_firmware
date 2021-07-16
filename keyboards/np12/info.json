@@ -1,0 +1,26 @@
+{
+  "keyboard_name": "np12",
+  "url": "https://github.com/nut1414/np12",
+  "maintainer": "nut1414",
+  "width": 4,
+  "height": 4,
+  "layouts": {
+    "LAYOUT": {
+      "layout":   [
+		{ "label": "k34", "x": 3, "y": 0 },
+        { "label": "k00", "x": 0, "y": 1 },
+        { "label": "k01", "x": 1, "y": 1 },
+        { "label": "k02", "x": 2, "y": 1 },
+        { "label": "k03", "x": 3, "y": 1 },
+        { "label": "k10", "x": 0, "y": 2 },
+        { "label": "k11", "x": 1, "y": 2 },
+        { "label": "k12", "x": 2, "y": 2 },
+        { "label": "k13", "x": 3, "y": 2 },
+        { "label": "k20", "x": 0, "y": 3 },
+        { "label": "k21", "x": 1, "y": 3 },
+        { "label": "k22", "x": 2, "y": 3 },
+        { "label": "k23", "x": 3, "y": 3 }
+      ]
+    }
+  }
+}
