@@ -19,12 +19,19 @@
 #    define SPLIT_USB_DETECT  // Force this on when dedicated pin is not used
 #endif
 
-#if defined(STM32F1XX)
+#if defined(STM32F1XX) || defined(GD32VF103)
 #    define USE_GPIOV1
 #endif
 
-#if defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32L1XX)
+#if defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32L1XX) || defined(GD32VF103)
 #    define USE_I2CV1
+#endif
+
+#if defined(GD32VF103)
+/* This chip has the same API as STM32F103, but uses different names for literally the same thing.
+ * As of 4.7.2021 QMK is tailored to use STM32 defines/names, for compatibility sake
+ * we just redefine the GD32 names. */
+#    include "gd32_compatibility.h"
 #endif
 
 // teensy

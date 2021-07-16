@@ -73,5 +73,6 @@ The device name here is the name that appears in Zadig, and may not be what the 
 |`USBasp`     |USBasp                        |`16C0:05DC`   |libusbK|
 |`apm32-dfu`  |APM32 DFU ISP Mode            |`314B:0106`   |WinUSB |
 |`stm32-dfu`  |STM32 BOOTLOADER              |`0483:DF11`   |WinUSB |
+|`gd32-dfu`   |GD32 BOOTLOADER               |`28E9:0189`   |WinUSB |
 |`kiibohd`    |Kiibohd DFU Bootloader        |`1C11:B007`   |WinUSB |
 |`stm32duino` |Maple 003                     |`1EAF:0003`   |WinUSB |

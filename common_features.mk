@@ -146,7 +146,7 @@ else
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F303xC
         OPT_DEFS += -DSTM32_EEPROM_ENABLE
-      else ifeq ($(MCU_SERIES), STM32F1xx)
+      else ifeq ($(MCU_SERIES),$(filter $(MCU_SERIES),STM32F1xx GD32VF103))
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F103xB
