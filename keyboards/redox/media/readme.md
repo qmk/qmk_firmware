@@ -30,23 +30,22 @@ Mine is called `/dev/tty.usbmodem14522301` for example.
 
 Obviously start by [installing QMK](https://docs.qmk.fm/#/getting_started_build_tools?id=set-up-your-environment).
 
-Once you are comfortable flashing your Pro Micros and your setup works continue with the following steps:
-
-- I've had greatest success with using the `EE_HANDS` setting and flashing the EEPROM to indentify left and right halves of the keyboard. To do this start with flashing the EEPROM of the 2 pro micros (make sure the COM port is the correct one and change left to right hand for other half) Reset the device: connect GND to RST twice, then you have 8 seconds to upload the new eep file with this command (from the qmk root). From the root of the QMK repo:
-```
-avrdude -c avr109 -p m32u4 -P /dev/tty.usbmodem14522301 -U eeprom:w:"./quantum/split_common/eeprom-lefthand.eep":a
-```
-
-- Next compile the firmware from the qmk repo root:
+- Before flashing the firmware you should make sure that it compiles. Thus assuring that your QMK setup works fine and the keyboard and keymap files are correct:
 ```
 qmk compile -kb redox/media -km media-CH
 ```
-The generated files are output to the `.build` directory. You'll want the `.hex` file.
-- Finally flash the generated hex. You can go ahead and try to use the comfortable QMK flash command:
+The generated files are output to the `.build` directory in the QMK root. You'll want the `.hex` file.
+
+Once you are comfortable flashing your Pro Micros and your setup works continue with the following steps:
+
+- I've had the most success with using the `EE_HANDS` setting and flashing the EEPROM to the left and right halves of the keyboard respectively. To do this start with flashing the EEPROM of the 2 pro micros separately by setting the bootloader flag in the flash command (the pro micro uses the avrdude bootloader):
 ```
-qmk flash
+qmk flash -kb redox/media -km media-CH -bl avrdude-split-left
+qmk flash -kb redox/media -km media-CH -bl avrdude-split-right
 ```
-or use the more explicit command invoking avrdude from the QMK root (make sure the COM port is the correct one):
+Note that you need to reset the pro micro to set it to bootloader mode before you can flash it: connect GND to RST twice in quick succession (750ms), then you have 8 seconds to upload the new eep file.
+
+- For completeness this is the avrdude command with which you could manually do the flashing steps, you might want to use it for debugging. Make sure to set the correct port for flashing (`ll /dev | grep "tty\."`):
 ```
 avrdude -p atmega32u4 -c avr109 -U flash:w:./.build/redox_media_media.hex:i -P /dev/tty.usbmodem14522301
 ```
