@@ -45,9 +45,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | Pwr  |Pwr Dn| Sleep| Wake | XXXX | XXXX |                    |  \|  |  `~  |  }   |  -_  |  =+  |BackSP|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  Tab | Tab  | ESC  |Enter |LCTRL |  {   |                    |BackSP|  Tab |  Up  |  {[  |  ]}  |  \|  |
+ * |  Tab | Tab  | ESC  |Enter |LCTRL |  {   |                    |   )  |  Tab |  Up  |  {[  |  ]}  |  \|  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |LShift|LShift| LGUI | LAlt |   _  |  (   |-------.    ,-------|   )  | Left | Down |Right |   =  |Enter |
+ * |LShift|LShift| LGUI | LAlt |   _  |  (   |-------.    ,-------|BackSP| Left | Down |Right |   =  |Enter |
  * |------+------+------+------+------+------| CAPS  |    |  `~   |------+------+------+------+------+------|
  * |LCTRL |LCTRL | Home |Pg Up |Pg Dwn| End  |-------|    |-------|   B  |   V  |   C  |   X  |   Z  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -57,8 +57,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SUPER] = LAYOUT( \
   KC_POWER,  KC_PWR,   KC_SLEP,  KC_WAKE,  KC_NO,     KC_NO,                         KC_BSLS,  KC_GRV,   KC_RCBR,  KC_MINS,  KC_EQL,  KC_BSPC,\
-  KC_TAB,    KC_TAB,   KC_ESC,   KC_ENT,   KC_LCTRL,  KC_LCBR,                       KC_BSPC,  KC_TAB,   KC_UP,    KC_LBRC,  KC_RBRC, KC_TRNS, \
-  KC_LSFT,   KC_LSFT,  KC_LGUI,  KC_LALT,  KC_UNDS,   KC_LPRN,                       KC_RPRN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_EQL,  KC_ENT, \
+  KC_TAB,    KC_TAB,   KC_ESC,   KC_ENT,   KC_LCTRL,  KC_LCBR,                       KC_RPRN,  KC_TAB,   KC_UP,    KC_LBRC,  KC_RBRC, KC_TRNS, \
+  KC_LSFT,   KC_LSFT,  KC_LGUI,  KC_LALT,  KC_UNDS,   KC_LPRN,                       KC_BSPC,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_EQL,  KC_ENT, \
   KC_LCTL,   KC_LCTL,  KC_HOME,  KC_PGUP,  KC_PGDN,   KC_END,   KC_CAPS,  KC_GRV,    KC_B,     KC_V,     KC_C,     KC_X,     KC_Z,    KC_RSFT, \
                                    KC_TRNS, KC_LALT, KC_LGUI, KC_TRNS,      KC_SPC, KC_DEL, KC_RGUI, KC_TRNS\
 ),
