@@ -1,6 +1,6 @@
 # a65i
 
-![a65i](https://i.imgur.com/J4fzVVt.jpg)
+![a65i](https://i.imgur.com/J4fzVVth.jpg)
 
 PCB designed by Lfgberg for the AnomalyKB a65i.
 
