@@ -12,6 +12,13 @@
     - holding Left Ctrl, navigate prev/next word
     - holding Left Alt, change media prev/next track
     - default is change volume
+    
+- LED/RGB Functionality
+    - Capslock, Scroll Lock, and Num Lock (not set) indicator on left side LED
+    - Layer indicator on  right side LED
+    - Fn key light up red when Fn layer activate
+    - Win Key light up red when Win Lock mode enabled
+    - Layer 2 activation lights up Numpad area
 
 ## All layers diagram
 Default layer
