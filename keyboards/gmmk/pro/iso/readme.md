@@ -1,6 +1,6 @@
-# GMMK PRO
+# GMMK PRO (ISO)
 
-A tenkeyless 75%  keyboard made and sold by Glorious LLC. Equipped with the STM32 ARM Cortex-M4 microcontroller, with support for rotary encoders and three additional layouts. [More info at Glorious](https://www.pcgamingrace.com/products/glorious-gmmk-pro-75-barebone-black-reservation)
+A tenkeyless 75% keyboard made and sold by Glorious LLC. Equipped with the STM32 ARM Cortex-M4 microcontroller, with support for rotary encoders and three additional layouts. [More info at Glorious](https://www.pcgamingrace.com/products/glorious-gmmk-pro-75-barebone-black-reservation)
 
 * Keyboard Maintainer: [GloriousThrall](https://github.com/GloriousThrall)
 * Hardware Supported: GMMK Pro
@@ -8,12 +8,10 @@ A tenkeyless 75%  keyboard made and sold by Glorious LLC. Equipped with the STM3
 
 Make example for this keyboard (after setting up your build environment):
 
-    make gmmk/pro/ansi:default  # For GMMK Pro ANSI
-    make gmmk/pro/iso:iso       # For GMMK Pro ISO
+    make gmmk/pro/iso:default
 
 Flashing example for this keyboard:
 
-    make gmmk/pro/ansi:default:flash
     make gmmk/pro/iso:default:flash
 
 To reset the board into bootloader mode, do one of the following:

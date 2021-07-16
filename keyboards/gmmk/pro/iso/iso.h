@@ -28,7 +28,7 @@
 //  Ct_L    Win_L   Alt_L      SPACE          Alt_R   FN   Ct_R     Left Down Right
 
 // clang-format off
-#define LAYOUT_iso( \
+#define LAYOUT( \
     k13, k26, k36, k31, k33, k07, k63, k71, k76, ka6, ka7, ka3, ka5, k97,     k01, \
     k16, k17, k27, k37, k47, k46, k56, k57, k67, k77, k87, k86, k66, ka1,     k65, \
     k11, k10, k20, k30, k40, k41, k51, k50, k60, k70, k80, k81, k61,          k15, \
