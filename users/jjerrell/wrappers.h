@@ -37,10 +37,10 @@
  */
 
 #   define ____________________________________________________________PLANCK_VERBOSE_BOTTOM_ROW_____________________________________________________________ \
-           KC_LSFT, KC_LEAD, KC_CCCV, KC_MEH, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_HYPR,    RGB_TOG,    RGB_IDL,    LED_LEVEL
+           KC_LEAD, KC_LSFT, KC_CCCV, KC_HYPR, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_MEH,    RGB_TOG,    RGB_IDL,    LED_LEVEL
 
 #   define _________________________________________PLANCK_LOWER_BOTTOM_ROW_________________________________________ \
-           KC_LSFT, KC_LEAD, KC_CCCV, KC_MEH,  KC_BSPC,  KC_SPC, XXXXXXX,   KC_ENT, KC_0, KC_DOT, KC_COMM, LED_LEVEL
+           KC_LEAD, KC_LSFT, KC_CCCV, KC_HYPR,  KC_BSPC,  KC_SPC, XXXXXXX,   KC_ENT, KC_0, KC_DOT, KC_COMM, LED_LEVEL
 // TODO: It would be nice to find a way to apply the bottom row with optional left/right varargs. 
 //       I'm completely unsure if this language can support something like that though.
 
