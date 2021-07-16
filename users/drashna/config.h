@@ -57,7 +57,7 @@
 #        define UNICODE_SONG_BSD  SONG(WORKMAN_SOUND)
 #        define UNICODE_SONG_WINC SONG(PLOVER_GOODBYE_SOUND)
 #    endif
-#endif // !AUDIO_ENABLE
+#endif  // !AUDIO_ENABLE
 
 #define UNICODE_SELECTED_MODES UC_WIN, UC_MAC
 
@@ -73,10 +73,10 @@
 #    endif
 #    define RGBLIGHT_EFFECT_TWINKLE_LIFE        250
 #    define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1 / 24
-#endif // RGBLIGHT_ENABLE
+#endif  // RGBLIGHT_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
+#    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses (will slow down matrix scan by a lot)
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
@@ -120,8 +120,8 @@
 #        define DISABLE_RGB_MATRIX_MULTISPLASH
 #        define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #        define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#    endif // AVR
-#endif     // RGB_MATRIX_ENABLE
+#    endif  // AVR
+#endif      // RGB_MATRIX_ENABLE
 
 #ifdef OLED_DRIVER_ENABLE
 #    ifdef SPLIT_KEYBOARD
@@ -150,16 +150,21 @@
 
 #ifndef ONESHOT_TAP_TOGGLE
 #    define ONESHOT_TAP_TOGGLE 2
-#endif // !ONESHOT_TAP_TOGGLE
+#endif  // !ONESHOT_TAP_TOGGLE
 
 #ifndef ONESHOT_TIMEOUT
 #    define ONESHOT_TIMEOUT 3000
-#endif // !ONESHOT_TIMEOUT
+#endif  // !ONESHOT_TIMEOUT
 
 #ifdef QMK_KEYS_PER_SCAN
 #    undef QMK_KEYS_PER_SCAN
+#endif  // QMK_KEYS_PER_SCAN
+
+#ifdef REGISTER_MULTIPLE_KEYEVENTS_ENABLE
+#    define QMK_KEYS_PER_SCAN 4
+#else  // REGISTER_MULTIPLE_KEYEVENTS_ENABLE
 #    define QMK_KEYS_PER_SCAN 2
-#endif // !QMK_KEYS_PER_SCAN
+#endif  // REGISTER_MULTIPLE_KEYEVENTS_ENABLE
 
 // this makes it possible to do rolling combos (zx) with keys that
 // convert to other keys on hold (z becomes ctrl when you hold it,
@@ -181,7 +186,7 @@
 
 #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
-#endif // TAPPING_TERM
+#endif  // TAPPING_TERM
 #if defined(KEYBOARD_ergodox_ez)
 #    define TAPPING_TERM 185
 #elif defined(KEYBOARD_crkbd)
@@ -295,4 +300,4 @@
 #    ifndef MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS
 #        define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
 #    endif
-#endif // MOUSEKEY_ENABLE
+#endif  // MOUSEKEY_ENABLE
