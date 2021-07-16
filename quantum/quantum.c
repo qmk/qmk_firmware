@@ -49,9 +49,6 @@ float goodbye_song[][2] = GOODBYE_SONG;
 #    ifdef DEFAULT_LAYER_SONGS
 float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
-#    ifdef SENDSTRING_BELL
-float bell_song[][2] = SONG(TERMINAL_SOUND);
-#    endif
 #endif
 
 #ifdef AUTO_SHIFT_ENABLE
