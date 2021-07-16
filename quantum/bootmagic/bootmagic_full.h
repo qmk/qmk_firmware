@@ -113,3 +113,5 @@
 #ifndef BOOTMAGIC_KEY_DEFAULT_LAYER_7
 #    define BOOTMAGIC_KEY_DEFAULT_LAYER_7 KC_7
 #endif
+
+void bootmagic_full(void);

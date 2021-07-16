@@ -466,10 +466,13 @@ ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/velocikey.c
 endif
 
+BOOTMAGIC_ENABLE ?= no
 ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes
+  ifneq ($(strip $(BOOTMAGIC_ENABLE)), both)
     BOOTMAGIC_ENABLE := lite
+  endif
     SRC += $(QUANTUM_DIR)/via.c
     OPT_DEFS += -DVIA_ENABLE
 endif
@@ -484,13 +487,15 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/dip_switch.c
 endif
 
-VALID_MAGIC_TYPES := yes full lite
-BOOTMAGIC_ENABLE ?= no
+VALID_MAGIC_TYPES := yes full lite both
 ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
     $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
   endif
-  ifneq ($(strip $(BOOTMAGIC_ENABLE)), full)
+  ifeq ($(strip $(BOOTMAGIC_ENABLE)), both)
+      OPT_DEFS += -DBOOTMAGIC_LITE -DBOOTMAGIC_ENABLE
+      QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_full.c $(QUANTUM_DIR)/bootmagic/bootmagic_lite.c
+  else ifneq ($(strip $(BOOTMAGIC_ENABLE)), full)
       OPT_DEFS += -DBOOTMAGIC_LITE
       QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_lite.c
   else

@@ -14,12 +14,19 @@ On some keyboards Bootmagic is disabled by default. If this is the case, it must
 BOOTMAGIC_ENABLE = full
 ```
 
-?> You may see `yes` being used in place of `full`, and this is okay. However, `yes` is deprecated, and ideally `full` (or `lite`) should be used instead.
-
 Additionally, you can use [Bootmagic Lite](#bootmagic-lite) (a scaled down, very basic version of Bootmagic) by adding the following to your `rules.mk` file:
 
 ```make
 BOOTMAGIC_ENABLE = lite
+```
+
+?> You may see `yes` being used in place of `lite`, and this is okay. However, `yes` is deprecated, and ideally `full` or `lite` should be used instead.
+
+
+You can enable both `full` and `lite` mode by adding the following to your `rules.mk` file:
+
+```make
+BOOTMAGIC_ENABLE = both
 ```
 
 ## Hotkeys

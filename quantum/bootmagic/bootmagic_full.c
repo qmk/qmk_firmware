@@ -53,7 +53,7 @@ static bool bootmagic_scan_keycode(uint8_t keycode) {
     return scan_keycode(keycode);
 }
 
-void bootmagic(void) {
+void bootmagic_full(void) {
     /* do scans in case of bounce */
     print("bootmagic scan: ... ");
     uint8_t scan = 100;
