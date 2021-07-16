@@ -17,9 +17,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include "flash_stm32.h"
-#include "flash_stm32_mock.h"
 
-uint8_t FlashBuf[FLASH_SIZE] = {0};
+uint8_t FlashBuf[MOCK_FLASH_SIZE] = {0};
 
 static bool flash_locked = true;
 
@@ -27,7 +26,7 @@ FLASH_Status FLASH_ErasePage(uint32_t Page_Address) {
     if (flash_locked) return FLASH_ERROR_WRP;
     Page_Address -= (uintptr_t)FlashBuf;
     Page_Address -= (Page_Address % FEE_PAGE_SIZE);
-    if (Page_Address >= FLASH_SIZE) return FLASH_BAD_ADDRESS;
+    if (Page_Address >= MOCK_FLASH_SIZE) return FLASH_BAD_ADDRESS;
     memset(&FlashBuf[Page_Address], '\xff', FEE_PAGE_SIZE);
     return FLASH_COMPLETE;
 }
@@ -35,7 +34,7 @@ FLASH_Status FLASH_ErasePage(uint32_t Page_Address) {
 FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
     if (flash_locked) return FLASH_ERROR_WRP;
     Address -= (uintptr_t)FlashBuf;
-    if (Address >= FLASH_SIZE) return FLASH_BAD_ADDRESS;
+    if (Address >= MOCK_FLASH_SIZE) return FLASH_BAD_ADDRESS;
     uint16_t oldData = *(uint16_t*)&FlashBuf[Address];
     if (oldData == 0xFFFF || Data == 0) {
         *(uint16_t*)&FlashBuf[Address] = Data;
