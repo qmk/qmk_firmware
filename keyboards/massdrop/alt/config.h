@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
+//#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID           0x04D8
@@ -32,17 +32,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
+
+#define MATRIX_ROW_PINS { A0,  A1,  A2,  A3,  A4 }
+#define MATRIX_COL_PINS { B4,  B5,  B6,  B7,  B8,  B9, B10, B11, B12, B13,  A5,  A6,  A7, A10, A11 }
+#define UNUSED_PINS
+
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
 /* MCU Port name definitions */
 #define PA 0
 #define PB 1
-
-/* Port and Pin definition of key row hardware configuration */
-#define MATRIX_ROW_PORTS PA, PA, PA, PA, PA
-#define MATRIX_ROW_PINS   0,  1,  2,  3,  4
-
-/* Port and Pin definition of key column hardware configuration */
-#define MATRIX_COL_PORTS PB, PB, PB, PB, PB, PB, PB, PB, PB, PB, PA, PA, PA, PA, PA
-#define MATRIX_COL_PINS   4,  5,  6,  7,  8,  9, 10, 11, 12, 13,  5,  6,  7, 10, 11
 
 /* This Shift Register expands available hardware output lines to control additional peripherals */
 /* It uses four lines from the MCU to provide 16 output lines */
