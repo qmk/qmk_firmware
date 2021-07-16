@@ -15,3 +15,52 @@
   */
 
 #include "ristretto.h"
+
+enum layers {
+	_BASE,
+	_RAISE,
+	_LOWER,
+	_ADJUST
+};
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+	if(index == 0) {
+		if (clockwise) {
+			tap_code(KC_VOLD);
+		} else {
+			tap_code(KC_VOLU);
+			}
+		}
+	return true;
+}
+
+#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+	return OLED_ROTATION_270;
+}
+
+static void print_oled(void) {
+	oled_write_P(PSTR("\n\n"), false);
+	oled_write_ln_P(PSTR("LAYER"), false);
+	oled_write_ln_P(PSTR(""), false);
+	switch (get_highest_layer(layer_state)) {
+		case _BASE:
+			oled_write_P(PSTR("BASE\n"), false);
+			break;
+		case _RAISE:
+			oled_write_P(PSTR("RAISE\n"), false);
+			break;
+		case _LOWER:
+			oled_write_P(PSTR("LOWER\n"), false);
+			break;
+		case _ADJUST:
+			oled_write_P(PSTR("ADJ\n"), false);
+			break;
+	}
+}
+
+void oled_task_user(void) {
+	print_oled();
+}
+
+#endif

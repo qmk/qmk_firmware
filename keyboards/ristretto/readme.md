@@ -9,6 +9,8 @@ An Integrated, Column Stagger, 40% Keyboard with OLED and Rotary Encoder
 * Hardware Supported: Ristretto PCB, Atmega32u4
 * Hardware Availability: Through Group Buy - May 2021
 
+    To enter the bootloader, press the button marked "SW1" on the bottom of the PCB.
+
 Make example for this keyboard (after setting up your build envionment):
 
     make ristretto:default
