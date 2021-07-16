@@ -6,8 +6,8 @@
 #define VENDOR_ID 0x1209
 #define PRODUCT_ID 0x2201
 #define DEVICE_VER 0x0001
-#define MANUFACTURER dygma
-#define PRODUCT raise
+#define MANUFACTURER Dygma
+#define PRODUCT Raise
 
 /* key matrix size */
 // rows are doubled for split
