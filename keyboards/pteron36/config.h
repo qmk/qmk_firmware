@@ -161,3 +161,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //right encoder
 #define ENCODERS_PAD_A_RIGHT { F4 }
 #define ENCODERS_PAD_B_RIGHT { F5 }
+
+//RGB Underglow
+#define RGB_DI_PIN B6
+#define RGBLED_NUM 10
