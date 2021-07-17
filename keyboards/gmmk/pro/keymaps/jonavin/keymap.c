@@ -205,8 +205,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
 
-#ifdef RGB_MATRIX_ENABLE
-  rgblight_sethsv_noeeprom(180, 255, 255); // Default startup colour set to cyan
-#endif
+    #ifdef RGB_MATRIX_ENABLE
+       rgblight_sethsv_noeeprom(180, 255, 255); // Default startup colour set to cyan
+    #endif
 
 }
