@@ -149,3 +149,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         return true;
     }
 #endif
+
+#ifdef RGB_MATRIX_ENABLE
+// Capslock, Scroll lock and Numlock  indicator on Left side lights.
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+	if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+	    RGB_MATRIX_INDICATOR_SET_COLOR(83, 0xFF, 0x00, 0x00);
+	    RGB_MATRIX_INDICATOR_SET_COLOR(87, 0xFF, 0x00, 0x00);
+    }
+    if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
+	    RGB_MATRIX_INDICATOR_SET_COLOR(70, 0x00, 0xFF, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(73, 0x00, 0xFF, 0x00);
+    }
+    if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // on if NUM lock is OFF
+	    RGB_MATRIX_INDICATOR_SET_COLOR(76, 0xFF, 0x00, 0xFF);
+	    RGB_MATRIX_INDICATOR_SET_COLOR(80, 0xFF, 0x00, 0xFF);
+    }
+    if (_isWinKeyDisabled) {
+	    RGB_MATRIX_INDICATOR_SET_COLOR(11, 0xFF, 0x00, 0x00);  //light up Win key when disabled
+    }
+                        switch(get_highest_layer(layer_state)){  // special handling per layer
+        case _FN1:  // on Fn layer select what the encoder does when pressed
+            RGB_MATRIX_INDICATOR_SET_COLOR(88, 0xFF, 0x00, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR(92, 0xFF, 0x00, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR(55, 0xFF, 0x00, 0x00); //FN key
+            break;
+        case _MO2:
+            RGB_MATRIX_INDICATOR_SET_COLOR(40, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(41, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(42, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(43, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(45, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(46, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(47, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(48, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(51, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(52, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(53, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(54, 0xFF, 0x00, 0xFF);
+            break;
+        case _MO3:
+            RGB_MATRIX_INDICATOR_SET_COLOR(71, 0x00, 0xFF, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR(74, 0x00, 0xFF, 0x00);
+            break;
+        default:
+            break;
+        break;
+    }
+}
+#endif
