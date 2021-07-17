@@ -367,7 +367,7 @@ void led_set_kb(uint8_t usb_led) {
     led_set_user(usb_led);
 }
 
-layer_state_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     current_layer_state = state;
 
     if (LAYER_ON(state, L_SYSLEDS)) {
@@ -379,4 +379,3 @@ layer_state_t layer_state_set_kb(uint32_t state) {
 
     return update_tri_layer_state(state, L_SYMBOLS, L_NAVIGATION, L_MACROS);
 }
-
