@@ -42,6 +42,7 @@ all: elf
 VPATH += $(COMMON_VPATH)
 PLATFORM:=TEST
 PLATFORM_KEY:=test
+
 ifeq ($(strip $(DEBUG)), 1)
 CONSOLE_ENABLE = yes
 endif
