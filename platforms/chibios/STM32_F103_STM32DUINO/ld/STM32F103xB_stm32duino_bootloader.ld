@@ -17,8 +17,6 @@
 /*
  * STM32F103xB memory setup for use with the STM32Duino bootloader.
  */
-SEARCH_DIR("platforms/chibios/common/ld");
-
 f103_flash_size = 128k;
 
 INCLUDE stm32duino_bootloader_common.ld
