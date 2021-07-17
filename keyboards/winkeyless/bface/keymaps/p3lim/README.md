@@ -6,8 +6,9 @@ My layout using the winkeyless b.face X2 PCB. The keys indicated with a gray col
 
 ### Building & Flashing
 
-- Hold <kbd>LCTRL</kbd> while connecting to put in flashing mode
-- Follow instructions in the main _bface_ directory
+- [Set up bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid)
+- Build and flash with `make winkeyless/bface:p3lim:flash`
+- Hold bottom-left key while connecting to put in flashing mode
 
 ### Layout notes
 
