@@ -1,1 +1,1 @@
-# The default via keymap for ikki68_aurora
+# The via keymap for ikki68_aurora
