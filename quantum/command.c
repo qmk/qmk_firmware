@@ -550,22 +550,22 @@ static void mousekey_param_print(void) {
 #    if !defined(NO_PRINT) && !defined(USER_PRINT)
     print("\n\t- Values -\n");
     print("1: delay(*10ms): ");
-    pdec(mk_delay);
+    print_dec(mk_delay);
     print("\n");
     print("2: interval(ms): ");
-    pdec(mk_interval);
+    print_dec(mk_interval);
     print("\n");
     print("3: max_speed: ");
-    pdec(mk_max_speed);
+    print_dec(mk_max_speed);
     print("\n");
     print("4: time_to_max: ");
-    pdec(mk_time_to_max);
+    print_dec(mk_time_to_max);
     print("\n");
     print("5: wheel_max_speed: ");
-    pdec(mk_wheel_max_speed);
+    print_dec(mk_wheel_max_speed);
     print("\n");
     print("6: wheel_time_to_max: ");
-    pdec(mk_wheel_time_to_max);
+    print_dec(mk_wheel_time_to_max);
     print("\n");
 #    endif /* !NO_PRINT */
 }

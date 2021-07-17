@@ -154,7 +154,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef AUDIO_ENABLE
   #define AUDIO_VOICES
-  #define C6_AUDIO
+  #define AUDIO_PIN C6
   #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 

@@ -45,6 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_NUM_LOCK_PIN A3
+#define LED_CAPS_LOCK_PIN A4
 
 #define BACKLIGHT_PIN B0
 #define BACKLIGHT_BREATHING

@@ -220,12 +220,6 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
     AU_OFF,
     AU_TOG,
 
-    #ifdef FAUXCLICKY_ENABLE
-        FC_ON,
-        FC_OFF,
-        FC_TOG,
-    #endif
-
     // Music mode on/off/toggle
     MU_ON,
     MU_OFF,

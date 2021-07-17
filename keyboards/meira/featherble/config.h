@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define QMK_SPEAKER B5
-#define B5_AUDIO
+#define AUDIO_PIN B5
 #define AUDIO_VOICES
 
 // #define BACKLIGHT_PIN B7

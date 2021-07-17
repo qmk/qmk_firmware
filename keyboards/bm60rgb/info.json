@@ -4,9 +4,11 @@
     "maintainer": "qmk",
     "width": 15,
     "height": 5,
+    "layout_aliases": {
+      "LAYOUT": "LAYOUT_60_ansi_arrow"
+    },
     "layouts": {
-        "LAYOUT": {
-            "key_count": 63,
+        "LAYOUT_60_ansi_arrow": {
             "layout": [
                 {"label":"K00 (B0,D0)", "x":0, "y":0},
                 {"label":"K01 (B0,D1)", "x":1, "y":0},

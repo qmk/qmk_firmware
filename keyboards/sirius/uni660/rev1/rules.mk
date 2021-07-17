@@ -24,4 +24,4 @@ UNICODE_ENABLE = yes        # Unicode
 CUSTOM_MATRIX = yes
 
 # project specific files
-SRC += matrix.c
+SRC += matrix.c serial_uart.c

@@ -1,7 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 QMK_FIRMWARE_DIR=$(cd -P -- "$(dirname -- "$0")/.." && pwd -P)
 QMK_FIRMWARE_UTIL_DIR=$QMK_FIRMWARE_DIR/util
+if [ "$1" = "-y" ]; then
+    SKIP_PROMPT='-y'
+    MSYS2_CONFIRM='--noconfirm'
+else
+    SKIP_PROMPT=''
+    MSYS2_CONFIRM=''
+fi
 
 case $(uname -a) in
     *Darwin*)
@@ -25,10 +32,6 @@ case $(uname -a) in
                 . "$QMK_FIRMWARE_UTIL_DIR/install/fedora.sh";;
             *gentoo*)
                 . "$QMK_FIRMWARE_UTIL_DIR/install/gentoo.sh";;
-            *opensuse*|*tumbleweed*)
-                . "$QMK_FIRMWARE_UTIL_DIR/install/opensuse.sh";;
-            *sabayon*)
-                . "$QMK_FIRMWARE_UTIL_DIR/install/sabayon.sh";;
             *slackware*)
                 . "$QMK_FIRMWARE_UTIL_DIR/install/slackware.sh";;
             *solus*)
@@ -36,9 +39,9 @@ case $(uname -a) in
             *void*)
                 . "$QMK_FIRMWARE_UTIL_DIR/install/void.sh";;
             *)
-                echo "Sorry, we don't recognize your distribution. Help us by contributing support!"
+                echo "Sorry, we don't recognize your distribution. Try using the docker image instead:"
                 echo
-                echo "https://docs.qmk.fm/#/contributing"
+                echo "https://docs.qmk.fm/#/getting_started_docker"
                 exit 1;;
         esac
 
