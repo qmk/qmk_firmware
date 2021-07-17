@@ -23,7 +23,6 @@
 #include "rgb_matrix_types.h"
 #include "color.h"
 #include "quantum.h"
-#include "rgblight_list.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731.h"
