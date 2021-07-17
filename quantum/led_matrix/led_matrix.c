@@ -219,7 +219,7 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
         memcpy(&last_hit_buffer.y[0], &last_hit_buffer.y[led_count], LED_HITS_TO_REMEMBER - led_count);
         memcpy(&last_hit_buffer.tick[0], &last_hit_buffer.tick[led_count], (LED_HITS_TO_REMEMBER - led_count) * 2);  // 16 bit
         memcpy(&last_hit_buffer.index[0], &last_hit_buffer.index[led_count], LED_HITS_TO_REMEMBER - led_count);
-        last_hit_buffer.count--;
+        last_hit_buffer.count = LED_HITS_TO_REMEMBER - led_count;
     }
 
     for (uint8_t i = 0; i < led_count; i++) {

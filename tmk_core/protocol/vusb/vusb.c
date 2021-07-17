@@ -599,10 +599,10 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorProduct = {
 #if defined(SERIAL_NUMBER)
 const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1),
+        .bLength         = USB_STRING_LEN(sizeof(SERIAL_NUMBER) - 1),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(SERIAL_NUMBER)
+    .bString             = USBSTR(SERIAL_NUMBER)
 };
 #endif
 
