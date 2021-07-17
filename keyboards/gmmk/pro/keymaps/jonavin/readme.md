@@ -14,6 +14,7 @@
     - default is change volume
     
 - LED/RGB Functionality
+    - LED address location map
     - Capslock, Scroll Lock, and Num Lock (not set) indicator on left side LED
     - Layer indicator on  right side LED
     - Fn key light up red when Fn layer activate

@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "keymap.h"
+#include "rgb_matrix_map.h"
 
 enum custom_layers {
     _BASE,
@@ -155,37 +155,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
     void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L1, 0x00, 0xFF, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L2, 0x00, 0xFF, 0x00);
+            rgb_matrix_set_color(LED_L1, RGB_GREEN);
+            rgb_matrix_set_color(LED_L2, RGB_GREEN);
         }
         if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // on if NUM lock is OFF
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L3, 0xFF, 0x00, 0xFF);
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L4, 0xFF, 0x00, 0xFF);
+            rgb_matrix_set_color(LED_L3, RGB_MAGENTA);
+            rgb_matrix_set_color(LED_L4, RGB_MAGENTA);
         }
         if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L5, 0xFF, 0x00, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L6, 0xFF, 0x00, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L7, 0xFF, 0x00, 0x00);
+            rgb_matrix_set_color(LED_L5, RGB_RED);
+            rgb_matrix_set_color(LED_L6, RGB_RED);
+            rgb_matrix_set_color(LED_L7, RGB_RED);
         }
         if (_isWinKeyDisabled) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_LWIN, 0xFF, 0x00, 0x00);  //light up Win key when disabled
+            rgb_matrix_set_color(LED_LWIN, RGB_RED);  //light up Win key when disabled
         }
                             switch(get_highest_layer(layer_state)){  // special handling per layer
             case _FN1:  // on Fn layer select what the encoder does when pressed
-                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R2, 0xFF, 0x00, 0x00);
-                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R3, 0xFF, 0x00, 0x00);
-                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R4, 0xFF, 0x00, 0x00);
-                RGB_MATRIX_INDICATOR_SET_COLOR(LED_FN, 0xFF, 0x00, 0x00); //FN key
+                rgb_matrix_set_color(LED_R2, RGB_RED);
+                rgb_matrix_set_color(LED_R3, RGB_RED);
+                rgb_matrix_set_color(LED_R4, RGB_RED);
+                rgb_matrix_set_color(LED_FN, RGB_RED); //FN key
                 break;
             case _MO2:
                 for (uint8_t i=0; i<sizeof(LED_LIST_NUMPAD)/sizeof(LED_LIST_NUMPAD[0]); i++) {
-                    RGB_MATRIX_INDICATOR_SET_COLOR(LED_LIST_NUMPAD[i], 0xFF, 0x00, 0xFF );
+                    rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_MAGENTA);
                 }
                 break;
             case _MO3:
-                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R6, 0x00, 0xFF, 0x00);
-                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R7, 0x00, 0xFF, 0x00);
-                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R8, 0x00, 0xFF, 0x00);
+                rgb_matrix_set_color(LED_R6, RGB_TURQUOISE);
+                rgb_matrix_set_color(LED_R7, RGB_TURQUOISE);
+                rgb_matrix_set_color(LED_R8, RGB_TURQUOISE);
                 break;
             default:
                 break;
@@ -206,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_user(void) {
 
     #ifdef RGB_MATRIX_ENABLE
-       rgblight_sethsv_noeeprom(180, 255, 255); // Default startup colour set to cyan
+       rgb_matrix_set_color_all(RGB_GODSPEED); // Default startup colour
     #endif
 
 }
