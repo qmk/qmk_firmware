@@ -2,7 +2,7 @@
 
 ![Technik-S](https://i.imgur.com/0QLgu5V.jpeg)
 
-*A short description of the keyboard/project*
+The technik-s is a 40% staggard keyboard that is designed to fit in the same case as the technik-o a 4x12 ortho
 
 * Keyboard Maintainer: [Boardsource](https://github.com/boardsource)
 * Hardware Supported: V1 pcb
