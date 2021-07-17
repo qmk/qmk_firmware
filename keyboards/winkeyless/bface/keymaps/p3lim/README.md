@@ -9,6 +9,8 @@ My layout using the winkeyless b.face X2 PCB.
 - Set up QMK
 	- `pip install --user qmk`
 	- `qmk setup`
+- Add udev rules if on Linux
+	- Follow the docs: <https://docs.qmk.fm/#/faq_build?id=linux-udev-rules>
 - Build and flash
 	- `qmk flash -kb winkeyless/bface -km p3lim`
 - Hold bottom-left key while connecting to put in flashing mode
