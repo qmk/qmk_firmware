@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* |-----------------------------------------------------------------------------------------+
 	* |  Caps  | Home| Up  | End | PgUp|     |     |     |     |     |     |     |     |        |
 	* |---------------------------------------------------------------------------------|       |
-	* |         | Left| Down|Right| PgDn|     |     |     |     |     |     |     |     |       |
+	* |         | Left| Down|Right| PgDn|PrtSc|     |     |     |     |     |     |     |       |
 	* |-----------------------------------------------------------------------------------------+
 	* |           | KVM1| KVM2| KVM3| KVM4|     |     |     |     |     |     |           |     |
 	* |-----------------------------------------------------------------------------------------+
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[1] = LAYOUT_p3lim(
 		C_ESC1,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
 		KC_CAPS, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, _______, _______, _______, _______, _______, _______,
-		_______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, _______,
 		_______, C_KVM1,  C_KVM2,  C_KVM3,  C_KVM4,  _______, _______, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______,                   _______,                            KC_NO,   _______, _______
 	),
@@ -122,6 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	*/
 };
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
 	const uint8_t mods = get_mods();
