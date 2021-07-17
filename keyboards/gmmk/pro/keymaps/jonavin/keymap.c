@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "keymap.h"
 
 enum custom_layers {
     _BASE,
@@ -150,94 +151,62 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     }
 #endif
 
-// RGB LED locations
-#define LED_CAPS    3
-#define LED_LSFT    4
-#define LED_LWIN    11
-#define LED_SPC     33
-#define LED_KC_W    14
-#define LED_KC_A    9
-#define LED_KC_S    15
-#define LED_KC_D    21
-#define LED_KC_7    40
-#define LED_KC_8    45
-#define LED_KC_9    51
-#define LED_KC_U    41
-#define LED_KC_I    46
-#define LED_KC_O    52
-#define LED_KC_J    42
-#define LED_KC_K    47
-#define LED_KC_L    53
-#define LED_KC_M    43
-#define LED_CMMA    48
-#define LED_DOT     54
-#define LED_FN      55
-#define LED_L1  67
-#define LED_R1  68
-#define LED_L2  70
-#define LED_R2  71
-#define LED_L3  73
-#define LED_R3  74
-#define LED_L4  76
-#define LED_R4  77
-#define LED_L5  80
-#define LED_R5  81
-#define LED_L6  83
-#define LED_R6  84
-#define LED_L7  87
-#define LED_R7  88
-#define LED_L8  91
-#define LED_R8  92
+#ifdef RGB_MATRIX_ENABLE
+    // Capslock, Scroll lock and Numlock  indicator on Left side lights.
+    void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+        if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L1, 0x00, 0xFF, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L2, 0x00, 0xFF, 0x00);
+        }
+        if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // on if NUM lock is OFF
+            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L3, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L4, 0xFF, 0x00, 0xFF);
+        }
+        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L5, 0xFF, 0x00, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L6, 0xFF, 0x00, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR(LED_L7, 0xFF, 0x00, 0x00);
+        }
+        if (_isWinKeyDisabled) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(LED_LWIN, 0xFF, 0x00, 0x00);  //light up Win key when disabled
+        }
+                            switch(get_highest_layer(layer_state)){  // special handling per layer
+            case _FN1:  // on Fn layer select what the encoder does when pressed
+                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R2, 0xFF, 0x00, 0x00);
+                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R3, 0xFF, 0x00, 0x00);
+                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R4, 0xFF, 0x00, 0x00);
+                RGB_MATRIX_INDICATOR_SET_COLOR(LED_FN, 0xFF, 0x00, 0x00); //FN key
+                break;
+            case _MO2:
+                for (uint8_t i=0; i<sizeof(LED_LIST_NUMPAD)/sizeof(LED_LIST_NUMPAD[0]); i++) {
+                    RGB_MATRIX_INDICATOR_SET_COLOR(LED_LIST_NUMPAD[i], 0xFF, 0x00, 0xFF );
+                }
+                break;
+            case _MO3:
+                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R6, 0x00, 0xFF, 0x00);
+                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R7, 0x00, 0xFF, 0x00);
+                RGB_MATRIX_INDICATOR_SET_COLOR(LED_R8, 0x00, 0xFF, 0x00);
+                break;
+            default:
+                break;
+            break;
+        }
+    }
+
+    void suspend_power_down_user(void) {
+        rgb_matrix_set_suspend_state(true);
+    }
+
+    void suspend_wakeup_init_user(void) {
+        rgb_matrix_set_suspend_state(false);
+    }
+#endif
+
+
+void keyboard_post_init_user(void) {
 
 #ifdef RGB_MATRIX_ENABLE
-const uint8_t LED_LIST_WASD[] = { LED_KC_W, LED_KC_A, LED_KC_S, LED_KC_D };
-const uint8_t LED_LIST_NUMPAD[] = {
-    LED_KC_7, LED_KC_8, LED_KC_9,
-    LED_KC_U, LED_KC_I, LED_KC_O,
-    LED_KC_J, LED_KC_K, LED_KC_L,
-    LED_KC_M, LED_CMMA, LED_DOT
-    };
-const uint8_t LED_SIDE_LEFT[] = { LED_L1, LED_L2, LED_L3, LED_L4, LED_L5, LED_L6, LED_L7, LED_L8};
-const uint8_t LED_SIDE_RIGHT[] = { LED_L1, LED_L2, LED_L3, LED_L4, LED_L5, LED_L6, LED_L7, LED_L8};
-
-// Capslock, Scroll lock and Numlock  indicator on Left side lights.
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
-	    RGB_MATRIX_INDICATOR_SET_COLOR(LED_L1, 0x00, 0xFF, 0x00);
-        RGB_MATRIX_INDICATOR_SET_COLOR(LED_L2, 0x00, 0xFF, 0x00);
-    }
-    if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // on if NUM lock is OFF
-	    RGB_MATRIX_INDICATOR_SET_COLOR(LED_L3, 0xFF, 0x00, 0xFF);
-	    RGB_MATRIX_INDICATOR_SET_COLOR(LED_L4, 0xFF, 0x00, 0xFF);
-    }
-	if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-	    RGB_MATRIX_INDICATOR_SET_COLOR(LED_L5, 0xFF, 0x00, 0x00);
-	    RGB_MATRIX_INDICATOR_SET_COLOR(LED_L6, 0xFF, 0x00, 0x00);
-	    RGB_MATRIX_INDICATOR_SET_COLOR(LED_L7, 0xFF, 0x00, 0x00);
-    }
-    if (_isWinKeyDisabled) {
-	    RGB_MATRIX_INDICATOR_SET_COLOR(LED_LWIN, 0xFF, 0x00, 0x00);  //light up Win key when disabled
-    }
-                        switch(get_highest_layer(layer_state)){  // special handling per layer
-        case _FN1:  // on Fn layer select what the encoder does when pressed
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_R2, 0xFF, 0x00, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_R3, 0xFF, 0x00, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_R4, 0xFF, 0x00, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_FN, 0xFF, 0x00, 0x00); //FN key
-            break;
-        case _MO2:
-            for (uint8_t i=0; i<sizeof(LED_LIST_NUMPAD)/sizeof(LED_LIST_NUMPAD[0]); i++) {
-			    RGB_MATRIX_INDICATOR_SET_COLOR(LED_LIST_NUMPAD[i], 0xFF, 0x00, 0xFF );
-		    }
-            break;
-        case _MO3:
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_R6, 0x00, 0xFF, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_R7, 0x00, 0xFF, 0x00);
-            RGB_MATRIX_INDICATOR_SET_COLOR(LED_R8, 0x00, 0xFF, 0x00);
-            break;
-        default:
-            break;
-        break;
-    }
-}
+  rgblight_sethsv_noeeprom(180, 255, 255); // Default startup colour set to cyan
 #endif
+
+}

@@ -26,3 +26,5 @@
     //Always send Escape if Control is pressed
 
 #define TAPPING_TERM 180
+
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
