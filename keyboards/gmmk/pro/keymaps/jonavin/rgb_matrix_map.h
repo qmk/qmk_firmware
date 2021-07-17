@@ -23,7 +23,6 @@
 
     // RGB LED locations
     enum led_location_map {
-
         LED_ESC, // 0, ESC, k13
         LED_GRV, // 1, ~, k16
         LEB_TAB, // 2, Tab, k11
