@@ -1,0 +1,33 @@
+name: Build and publish new firmware
+
+on:
+    push:
+        branches:
+            - master
+    workflow_dispatch:
+
+jobs:
+    build_publish:
+        runs-on: ubuntu-latest
+        container: qmkfm/base_container
+
+        # protect against those who develop with their fork on master
+        if: github.repository == 'qmk/qmk_firmware'
+
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 1
+                  persist-credentials: false
+
+            - name: Compile firmware
+              run: qmk setup -y
+
+            - name: Compile firmware
+              run: qmk compile -kb keebio/bfo9000 -km morgan
+
+            - name: upload artifact
+              uses: actions/upload-artifact@v2
+              with:
+                  name: firmware
+                  path: keebio_bfo9000_morgan.hex
