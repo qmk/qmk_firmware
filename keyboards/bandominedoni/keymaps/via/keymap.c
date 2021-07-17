@@ -34,79 +34,79 @@ enum layer_names {
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_OPEN] = LAYOUT( \
-                  MI_Gs_1, MI_As_1, MI_Cs_2, MI_F_2, MI_Gs_3, \
-       MI_E_1, MI_A_1, MI_G_2, MI_Ds_2, MI_F_3, MI_As_2, MI_F_1, \
-         MI_D_2, MI_A_2, MI_C_3, MI_E_3, MI_C_2, MI_G_1, TG_SWAP, \
-       MI_E_2, MI_Gs_2, MI_B_2, MI_D_3, MI_Fs_3, MI_Cs_3, MI_Fs_1, \
-     MI_D_1, MI_B_1, MI_G_3, MI_A_3, MI_Ds_3, MI_Fs_2, MI_Ds_1, MI_C_1,  \
-     \
-     MO_SWAP,    MI_B_5, MI_Gs_5, MI_G_5, MI_F_5,     FN_MUTE, \
-         MI_Cs_3, MI_A_5, MI_Fs_5, MI_E_5, MI_Ds_5, KC_VOLD, KC_VOLU,\
-        MI_C_3, MI_D_3, MI_G_3, MI_As_4, MI_C_5, MI_D_5, \
-     TG_SWAP, MI_B_2, MI_E_3, MI_Cs_4, MI_Fs_3, MI_A_3, MI_C_4, MI_E_4, \
-       MI_A_2, MI_F_3, MI_As_3, MI_Gs_3, MI_B_3, MI_D_4, MI_Gs_4, MI_B_4, \
-     MI_Gs_2, MI_As_2, MI_Ds_3, MI_F_4, MI_Ds_4, MI_Fs_4, MI_A_4, MI_Cs_5, MI_G_4 \
+    [_OPEN] = LAYOUT(
+                  MI_Gs_1, MI_As_1, MI_Cs_2, MI_F_2, MI_Gs_3,
+       MI_E_1, MI_A_1, MI_G_2, MI_Ds_2, MI_F_3, MI_As_2, MI_F_1,
+         MI_D_2, MI_A_2, MI_C_3, MI_E_3, MI_C_2, MI_G_1, TG_SWAP,
+       MI_E_2, MI_Gs_2, MI_B_2, MI_D_3, MI_Fs_3, MI_Cs_3, MI_Fs_1,
+     MI_D_1, MI_B_1, MI_G_3, MI_A_3, MI_Ds_3, MI_Fs_2, MI_Ds_1, MI_C_1,
+
+     MO_SWAP,    MI_B_5, MI_Gs_5, MI_G_5, MI_F_5,     FN_MUTE,
+         MI_Cs_3, MI_A_5, MI_Fs_5, MI_E_5, MI_Ds_5, KC_VOLD, KC_VOLU,
+        MI_C_3, MI_D_3, MI_G_3, MI_As_4, MI_C_5, MI_D_5,
+     TG_SWAP, MI_B_2, MI_E_3, MI_Cs_4, MI_Fs_3, MI_A_3, MI_C_4, MI_E_4,
+       MI_A_2, MI_F_3, MI_As_3, MI_Gs_3, MI_B_3, MI_D_4, MI_Gs_4, MI_B_4,
+     MI_Gs_2, MI_As_2, MI_Ds_3, MI_F_4, MI_Ds_4, MI_Fs_4, MI_A_4, MI_Cs_5, MI_G_4
     ),
 
-    [_CLOSE] = LAYOUT( \
-                  MI_Gs_1, MI_As_1, MI_Ds_2, MI_Ds_3, MI_G_3, \
-       MI_D_1, MI_D_2, MI_As_2, MI_C_3, MI_Cs_2, MI_C_2, MI_Fs_1, \
-         MI_G_1, MI_G_2, MI_B_2, MI_D_3, MI_F_3, MI_Fs_2, TG_SWAP, \
-       MI_A_1, MI_E_2, MI_A_2, MI_Cs_3, MI_E_3, MI_Gs_2, MI_B_1, \
-     MI_E_1, MI_E_2, MI_Fs_3, MI_Gs_3, MI_B_3, MI_F_2, MI_Cs_1, MI_F_1,  \
-     \
-     MO_SWAP,    MI_A_5, MI_Gs_5, MI_Fs_5, MI_F_5,     FN_MUTE, \
-         MI_C_3, MI_G_5, MI_As_4, MI_C_5, MI_Ds_5, KC_VOLD, KC_VOLU,\
-        MI_D_3, MI_Cs_3, MI_Gs_3, MI_As_3, MI_C_4, MI_D_5, \
-     TG_SWAP, MI_B_2, MI_Fs_3, MI_Fs_4, MI_G_3, MI_B_3, MI_D_4, MI_G_4, \
-       MI_A_2, MI_F_3, MI_E_3, MI_A_3, MI_Cs_4, MI_E_4, MI_A_4, MI_Cs_5, \
-     MI_Gs_2, MI_As_2, MI_Ds_3, MI_F_4, MI_E_4, MI_Gs_4, MI_B_4, MI_E_5, MI_Ds_4 \
+    [_CLOSE] = LAYOUT(
+                  MI_Gs_1, MI_As_1, MI_Ds_2, MI_Ds_3, MI_G_3,
+       MI_D_1, MI_D_2, MI_As_2, MI_C_3, MI_Cs_2, MI_C_2, MI_Fs_1,
+         MI_G_1, MI_G_2, MI_B_2, MI_D_3, MI_F_3, MI_Fs_2, TG_SWAP,
+       MI_A_1, MI_E_2, MI_A_2, MI_Cs_3, MI_E_3, MI_Gs_2, MI_B_1,
+     MI_E_1, MI_E_2, MI_Fs_3, MI_Gs_3, MI_B_3, MI_F_2, MI_Cs_1, MI_F_1,
+
+     MO_SWAP,    MI_A_5, MI_Gs_5, MI_Fs_5, MI_F_5,     FN_MUTE,
+         MI_C_3, MI_G_5, MI_As_4, MI_C_5, MI_Ds_5, KC_VOLD, KC_VOLU,
+        MI_D_3, MI_Cs_3, MI_Gs_3, MI_As_3, MI_C_4, MI_D_5,
+     TG_SWAP, MI_B_2, MI_Fs_3, MI_Fs_4, MI_G_3, MI_B_3, MI_D_4, MI_G_4,
+       MI_A_2, MI_F_3, MI_E_3, MI_A_3, MI_Cs_4, MI_E_4, MI_A_4, MI_Cs_5,
+     MI_Gs_2, MI_As_2, MI_Ds_3, MI_F_4, MI_E_4, MI_Gs_4, MI_B_4, MI_E_5, MI_Ds_4
     ),
 
-    [_QWERTY] = LAYOUT_wrapper( \
-                   _________________NUMBER_L__________________, \
-       KC_GESC, KC_TAB, _________________QWERTY_L1_________________, \
-          KC_CAPS, _________________QWERTY_L2_________________, KC_H, \
-       KC_LSFT, _________________QWERTY_L3_________________, KC_N, \
-     KC_LCTL, KC_GRV, KC_LGUI, KC_LALT, MIS_EIS, KC_SPC, KC_SPC, KC_PSCR,  \
-     \
-     MO(_MISC),        KC_LBRC, KC_RBRC, KC_BSLS, KC_0,         _______, \
-                  KC_6, KC_7, KC_8, KC_9, KC_BSPC, _______, _______,\
-                _________________QWERTY_R1_________________, KC_DEL, \
-     KC_PGUP, KC_G, _________________QWERTY_R2_________________, KC_ENT, \
-            KC_PGDN, KC_B, _________________QWERTY_R3_________________, KC_RSFT, \
-         KC_HOME, KC_END, KC_SPC, MIS_KAN, KC_RALT, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
+    [_QWERTY] = LAYOUT_wrapper(
+                   _________________NUMBER_L__________________,
+       KC_GESC, KC_TAB, _________________QWERTY_L1_________________,
+          KC_CAPS, _________________QWERTY_L2_________________, KC_H,
+       KC_LSFT, _________________QWERTY_L3_________________, KC_N,
+     KC_LCTL, KC_GRV, KC_LGUI, KC_LALT, MIS_EIS, KC_SPC, KC_SPC, KC_PSCR,
+
+     MO(_MISC),        KC_LBRC, KC_RBRC, KC_BSLS, KC_0,         _______,
+                  KC_6, KC_7, KC_8, KC_9, KC_BSPC, _______, _______,
+                _________________QWERTY_R1_________________, KC_DEL,
+     KC_PGUP, KC_G, _________________QWERTY_R2_________________, KC_ENT,
+            KC_PGDN, KC_B, _________________QWERTY_R3_________________, KC_RSFT,
+         KC_HOME, KC_END, KC_SPC, MIS_KAN, KC_RALT, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
     ),
 
-    [_MISC] = LAYOUT_wrapper( \
-                    _________________FUNC__L___________________, \
-       _______, _______, _______, _______, _______, _______, _______, \
-          _______, _______, _______, _______, _______, _______, _______, \
-       _______, _______, _______, _______, _______, _______, _______, \
-     _______, _______, _______, _______, _______, _______, _______, _______,  \
-     \
-     _______,        _______, _______, _______, KC_F10,         _______, \
-                  KC_F6, KC_F7, KC_F8, KC_F9, _______, _______, _______,\
-                _______, _______, _______, _______, _______, _______, \
-     _______, _______, _______, _______, _______, _______, KC_QUOT, _______, \
-            _______, _______, _______, _______, _______, _______, _______, _______, \
-         _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+    [_MISC] = LAYOUT_wrapper(
+                    _________________FUNC__L___________________,
+       _______, _______, _______, _______, _______, _______, _______,
+          _______, _______, _______, _______, _______, _______, _______,
+       _______, _______, _______, _______, _______, _______, _______,
+     _______, _______, _______, _______, _______, _______, _______, _______,
+
+     _______,        _______, _______, _______, KC_F10,         _______,
+                  KC_F6, KC_F7, KC_F8, KC_F9, _______, _______, _______,
+                _______, _______, _______, _______, _______, _______,
+     _______, _______, _______, _______, _______, _______, KC_QUOT, _______,
+            _______, _______, _______, _______, _______, _______, _______, _______,
+         _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
-    [_FN] = LAYOUT( \
-                   DF_SWAP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-       XXXXXXX, DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-     XXXXXXX, XXXXXXX, AG_NORM, AG_SWAP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  \
-     \
-     _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______, \
-                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
-                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-            RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, \
-          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD, EEP_RST, RGB_TOG \
+    [_FN] = LAYOUT(
+                   DF_SWAP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+     XXXXXXX, XXXXXXX, AG_NORM, AG_SWAP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+
+     _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______,
+                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+            RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI,
+          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD, EEP_RST, RGB_TOG
     )
 };
 
