@@ -22,30 +22,46 @@
  * So we don't want to be too permissive here. */
 // TODO(ibash) not convinced this is needed...
 #define MY_I2C_TIMEOUT 10
+#define ROWS_PER_HAND (MATRIX_ROWS / 2)
+
+typedef enum {
+    CHANGED,
+    OFFLINE,
+    UNCHANGED
+} read_hand_t;
 
 static matrix_row_t rows[MATRIX_ROWS];
-#define ROWS_PER_HAND (MATRIX_ROWS / 2)
+static read_hand_t last_state[2] = { OFFLINE, OFFLINE };
 
 inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
 
 inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
 
-static int i2c_read_hand(int hand) {
+static read_hand_t i2c_read_hand(int hand) {
+    // dygma raise firmware says online is true iff we get the number of
+    // expected bytes (e.g. 6 bytes or ROWS_PER_HAND + 1).
+    // In the case where no keys are pressed the keyscanner will send the same 0
+    // byte over and over. -- so this case is set.
+    //
+    // On the stm32 side if we don't get as many bytes as expecetd the
+    // i2c_receive times out -- so online can be defined as getting
+    // "I2C_STATUS_SUCCESS".
+
     uint8_t      buf[ROWS_PER_HAND + 1];
     i2c_status_t ret = i2c_receive(I2C_ADDR(hand), buf, sizeof(buf), MY_I2C_TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
-        return 1;
+        return OFFLINE;
     }
 
     if (buf[0] != TWI_REPLY_KEYDATA) {
-        return 2;
+        return UNCHANGED;
     }
 
     int      start_row = hand ? ROWS_PER_HAND : 0;
     uint8_t *out       = &rows[start_row];
     memcpy(out, &buf[1], ROWS_PER_HAND);
 
-    return 0;
+    return CHANGED;
 }
 
 static int i2c_set_keyscan_interval(int hand, int delay) {
@@ -67,18 +83,27 @@ void matrix_init(void) {
 }
 
 uint8_t matrix_scan(void) {
-    // TODO(ibash) set changed = true if the matrix has changed
-    bool changed = false;
-
     // HACK(ibash) without the delay between the two calls to i2c_read_hand, the
     // second call to i2c_read_hand breaks. I observed that the i2s start isn't
     // sent, or maybe it is, but the address matcher in the attiny can't recognize
     // it. In any case, a short delay fixes it.
-    i2c_read_hand(LEFT);
+    read_hand_t left_state = i2c_read_hand(LEFT);
     wait_us(10);
-    i2c_read_hand(RIGHT);
+    read_hand_t right_state = i2c_read_hand(RIGHT);
 
     matrix_scan_quantum();
+
+    if ((last_state[LEFT] == OFFLINE && left_state != OFFLINE) ||
+        (last_state[RIGHT] == OFFLINE && right_state != OFFLINE)) {
+        // reinitialize both sides
+        i2c_set_keyscan_interval(LEFT, 50);
+        i2c_set_keyscan_interval(RIGHT, 50);
+    }
+
+    last_state[LEFT] = left_state;
+    last_state[RIGHT] = right_state;
+
+    bool changed = left_state == CHANGED || right_state == CHANGED;
 
     return (uint8_t)changed;
 }
