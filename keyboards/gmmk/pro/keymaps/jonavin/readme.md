@@ -14,7 +14,8 @@
     - default is change volume
     
 - LED/RGB Functionality
-    - LED address location map
+    - LED address location map as enum definition
+    - LED group arrays for arrows, numpad, left and right side LEDs
     - default startuo in single mode with default colour 
     - Capslock, Scroll Lock, and Num Lock (not set) indicator on left side LED
     - Layer indicator on  right side LED
