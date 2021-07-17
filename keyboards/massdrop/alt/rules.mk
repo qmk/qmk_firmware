@@ -6,7 +6,7 @@ SRC += config_led.c
 ARM_ATSAM = SAMD51J18A
 MCU = cortex-m4
 
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 
 # Build Options
 #   comment out to disable the options.
