@@ -14,6 +14,8 @@ DIP スイッチは、以下を `rules.mk` に追加することでサポート�
 ```c
 // Connects each switch in the dip switch to the GPIO pin of the MCU
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
+// For split keyboards, you can separately define the right side pins
+#define DIP_SWITCH_PINS_RIGHT { ... }
 ```
 
 あるいは
