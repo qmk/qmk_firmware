@@ -1,0 +1,6 @@
+FILE=massdrop_alt_default.bin
+rm $FILE
+make massdrop/alt:default
+if [ -f "$FILE" ]; then
+  ./mdloader_mac --first --download massdrop_alt_default.bin --restart
+fi

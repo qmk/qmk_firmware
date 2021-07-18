@@ -1,0 +1,3 @@
+rm keebio_bdn9_umbacos_proton_c.bin
+make keebio/bdn9:umbacos:dfu-util CTPC=yes
+

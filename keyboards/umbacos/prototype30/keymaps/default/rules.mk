@@ -1,0 +1,4 @@
+
+MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+RGBLIGHT_ENABLE = yes
+TAP_DANCE_ENABLE=yes

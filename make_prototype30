@@ -1,0 +1,5 @@
+rm *.bin
+make umbacos/prototype30:default:dfu-util CTPC=yes
+exit 0
+make umbacos/prototype30:default:flash
+
