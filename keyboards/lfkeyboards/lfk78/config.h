@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 200
 
-#define C6_AUDIO
+#define AUDIO_PIN C6
 #define AUDIO_VOICES
 
 #define RGB_DI_PIN C7 // Have to set it to something to get the ws2812 code to compile
@@ -163,9 +163,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

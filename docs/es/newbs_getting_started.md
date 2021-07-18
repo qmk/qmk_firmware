@@ -43,7 +43,7 @@ instale el resto.
 
 Necesitarás instalar MSYS2 y Git.
 
-* Sigue las instrucciones de instalación en la [página de MSYS2](http://www.msys2.org).
+* Sigue las instrucciones de instalación en la [página de MSYS2](https://www.msys2.org).
 * Cierra las terminales abiertas de MSYS2 y abre una nueva termial de MSYS2 MinGW 64-bit.
 * Instala Git ejecutando este comando: `pacman -S git`.
 

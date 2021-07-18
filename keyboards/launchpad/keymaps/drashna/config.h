@@ -27,5 +27,5 @@
 #define RGBLIGHT_VAL_STEP 17
 
 #define DRIVER_LED_TOTAL RGBLED_NUM
-#define B7_AUDIO
+#define AUDIO_PIN B7
 #define AUDIO_CLICKY

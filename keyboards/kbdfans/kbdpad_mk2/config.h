@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN B4
+#define LED_NUM_LOCK_PIN B4
 #define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN B7
@@ -196,9 +196,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

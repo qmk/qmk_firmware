@@ -108,6 +108,10 @@ endif
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 
+# This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
+# Fixing of multiple variable definitions must be made.
+CFLAGS += -fcommon
+
 #---------------- Compiler Options C++ ----------------
 #  -g*:          generate debugging information
 #  -O*:          optimization level
@@ -124,6 +128,7 @@ CXXFLAGS += -O$(OPT)
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
+
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif
@@ -218,6 +223,12 @@ ifneq ($(filter Darwin FreeBSD,$(shell uname -s)),)
   MD5SUM = md5
 endif
 
+# UF2 format settings
+# To produce a UF2 file in your build, add to your keyboard's rules.mk:
+#      FIRMWARE_FORMAT = uf2
+UF2CONV = $(TOP_DIR)/util/uf2conv.py
+UF2_FAMILY ?= 0x0
+
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
 GENDEPFLAGS = -MMD -MP -MF $(patsubst %.o,%.td,$@)
@@ -250,6 +261,7 @@ DFU_SUFFIX_ARGS ?=
 
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
+uf2: $(BUILD_DIR)/$(TARGET).uf2
 cpfirmware: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
@@ -278,34 +290,46 @@ gccversion :
 
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
-	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	$(eval CMD=$(HEX) $< $@)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
+	@$(BUILD_CMD)
+
+%.uf2: %.hex
+	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex -o $(BUILD_DIR)/$(TARGET).uf2 -c -f $(UF2_FAMILY) >/dev/null 2>&1)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 %.eep: %.elf
-	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
 	$(eval CMD=$(EEP) $< $@ || exit 0)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 # Create extended listing file from ELF output file.
 %.lss: %.elf
-	@$(SILENT) || printf "$(MSG_EXTENDED_LISTING) $@" | $(AWK_CMD)
 	$(eval CMD=$(OBJDUMP) -h -S -z $< > $@)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_EXTENDED_LISTING) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 # Create a symbol table from ELF output file.
 %.sym: %.elf
-	@$(SILENT) || printf "$(MSG_SYMBOL_TABLE) $@" | $(AWK_CMD)
 	$(eval CMD=$(NM) -n $< > $@ )
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_SYMBOL_TABLE) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 %.bin: %.elf
-	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
 	$(eval CMD=$(BIN) $< $@ || exit 0)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
 		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
 	fi
+	#$(SILENT) || printf "$(MSG_EXECUTING) '$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null':\n" ;\
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
 BEGIN = gccversion sizebefore
@@ -471,7 +495,7 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 # Listing of phony targets.
 .PHONY : all dump_vars finish sizebefore sizeafter qmkversion \
-gccversion build elf hex eep lss sym coff extcoff \
+gccversion build elf hex uf2 eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu dfu-ee dfu-start \
 flash dfu-split-left dfu-split-right \

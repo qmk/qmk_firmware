@@ -32,7 +32,7 @@ This will create all the files needed to support your new keyboard, and populate
 
 ## `readme.md`
 
-This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates.md#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](http://imgur.com) to host the images.
+This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates.md#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](https://imgur.com) to host the images.
 
 ## `<keyboard>.c`
 

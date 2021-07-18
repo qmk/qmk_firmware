@@ -1,6 +1,5 @@
 {
   "keyboard_name": "downbubble",
-  "url": "",
   "maintainer": "flehrad",
   "width": 22.75,
   "height": 6,
@@ -429,7 +428,7 @@
         {"label":"K53", "x":3.75, "y":5, "w":1.25},
         {"label":"K54", "x":5, "y":5, "w":2.25},
         {"label":"K56", "x":7.75, "y":5},
-        {"Label":"K57", "x":8.75, "y":5},
+        {"label":"K57", "x":8.75, "y":5},
         {"label":"K58", "x":9.75, "y":5},
         {"label":"K59", "x":10.75, "y":5},
         {"label":"K510", "x":13, "y":5, "w":2},

@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "host_driver.h"
+#include <usbdrv/usbdrv.h>
 
 typedef struct usbDescriptorHeader {
     uchar bLength;
@@ -118,6 +119,8 @@ typedef struct usbConfigurationDescriptor {
 } __attribute__((packed)) usbConfigurationDescriptor_t;
 
 #define USB_STRING_LEN(s) (sizeof(usbDescriptorHeader_t) + ((s) << 1))
+
+extern bool vusb_suspended;
 
 host_driver_t *vusb_driver(void);
 void           vusb_transfer_keyboard(void);

@@ -101,7 +101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
  * Heisenberg-specific definitions
  */
-#define B5_AUDIO
+#define AUDIO_PIN B5
 /**
  * Heisenberg-specific definitions END
  */
@@ -208,9 +208,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
