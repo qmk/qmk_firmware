@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <inttypes.h>
+
 #define VIALRGB_PROTOCOL_VERSION 1
 
 /* Start at 0x40 in order to not conflict with existing "enum via_lighting_value",
