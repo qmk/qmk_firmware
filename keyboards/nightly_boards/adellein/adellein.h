@@ -17,7 +17,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "encoder_action.h"
 
 /* This is a shortcut to help you visually see your layout.
  *
@@ -52,4 +51,3 @@
     { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C   }, \
     { K30,   E00A,  K32,  E00B,   K34,   K35,   KC_NO, K37,   KC_NO, K39,   KC_NO, KC_NO, K3C   }, \
 }
-

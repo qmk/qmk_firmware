@@ -63,6 +63,19 @@ __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { 
 
 __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) { return encoder_update_user(index, clockwise); }
 
+static void encoder_update_handler(uint8_t index, bool clockwise) {
+#ifdef ENCODER_KEYMAP_MAPPING_ENABLE
+#    ifdef ENCODER_PROCESS_CALLBACKS
+    if (encoder_update_kb(index, clockwise))
+#    endif
+    {
+        encoder_update_keymapping(index, clockwise);
+    }
+#else
+    encoder_update_kb(index, clockwise);
+#endif
+}
+
 void encoder_init(void) {
 #if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
     if (!isLeftHand) {
@@ -87,7 +100,9 @@ void encoder_init(void) {
 
         encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
     }
-
+#ifdef ENCODER_KEYMAP_MAPPING_ENABLE
+    encoder_init_keymapping();
+#endif
 #ifdef SPLIT_KEYBOARD
     thisHand = isLeftHand ? 0 : NUMBER_OF_ENCODERS;
     thatHand = NUMBER_OF_ENCODERS - thisHand;
@@ -111,14 +126,15 @@ static bool encoder_update(uint8_t index, uint8_t state) {
     if (encoder_pulses[i] >= resolution) {
         encoder_value[index]++;
         changed = true;
-        encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
+        encoder_update_handler(index, ENCODER_COUNTER_CLOCKWISE);
     }
     if (encoder_pulses[i] <= -resolution) {  // direction is arbitrary here, but this clockwise
         encoder_value[index]--;
         changed = true;
-        encoder_update_kb(index, ENCODER_CLOCKWISE);
+        encoder_update_handler(index, ENCODER_CLOCKWISE);
     }
     encoder_pulses[i] %= resolution;
+
     return changed;
 }
 
@@ -146,17 +162,72 @@ void encoder_update_raw(uint8_t* slave_state) {
             delta--;
             encoder_value[index]++;
             changed = true;
-            encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
+            encoder_update_handler(index, ENCODER_COUNTER_CLOCKWISE);
         }
         while (delta < 0) {
             delta++;
             encoder_value[index]--;
             changed = true;
-            encoder_update_kb(index, ENCODER_CLOCKWISE);
+            encoder_update_handler(index, ENCODER_CLOCKWISE);
         }
     }
 
     // Update the last encoder input time -- handled external to encoder_read() when we're running a split
     if (changed) last_encoder_activity_trigger();
+}
+#endif
+
+#ifdef ENCODER_KEYMAP_MAPPING_ENABLE
+#    ifndef ENCODER_KEYMAPPING
+#        error Encoder to keymap array not defined
+#    endif
+#    ifdef SPLIT_KEYBOARD
+#        define NUM_ENCODERS (NUMBER_OF_ENCODERS * 2)
+#    else
+#        define NUM_ENCODERS (NUMBER_OF_ENCODERS)
+#    endif
+uint8_t    encoder_keypos[NUM_ENCODERS][2][2] = {ENCODER_KEYMAPPING};
+keyevent_t encoder_ccw[NUM_ENCODERS];
+keyevent_t encoder_cw[NUM_ENCODERS];
+
+void encoder_init_keymapping(void) {
+    for (uint8_t index = 0; index < NUM_ENCODERS; index++) {
+        encoder_cw[index].key.row  = encoder_keypos[index][0][0];
+        encoder_cw[index].key.col  = encoder_keypos[index][0][1];
+        encoder_cw[index].pressed  = false;
+        encoder_cw[index].time     = 1;
+        encoder_ccw[index].key.row = encoder_keypos[index][1][0];
+        encoder_ccw[index].key.col = encoder_keypos[index][1][1];
+        encoder_ccw[index].pressed = false;
+        encoder_ccw[index].time    = 1;
+    }
+}
+
+void encoder_map_cleanup(void) {
+    for (uint8_t index = 0; index < NUM_ENCODERS; index++) {
+        if (IS_PRESSED(encoder_ccw[index])) {
+            encoder_ccw[index].pressed = false;
+            encoder_ccw[index].time    = (timer_read() | 1);
+            action_exec(encoder_ccw[index]);
+        }
+        if (IS_PRESSED(encoder_cw[index])) {
+            encoder_cw[index].pressed = false;
+            encoder_cw[index].time    = (timer_read() | 1);
+            action_exec(encoder_cw[index]);
+        }
+    }
+}
+
+bool encoder_update_keymapping(uint8_t index, bool clockwise) {
+    if (clockwise) {
+        encoder_cw[index].pressed = true;
+        encoder_cw[index].time    = (timer_read() | 1);
+        action_exec(encoder_cw[index]);
+    } else {
+        encoder_ccw[index].pressed = true;
+        encoder_ccw[index].time    = (timer_read() | 1);
+        action_exec(encoder_ccw[index]);
+    }
+    return true;
 }
 #endif

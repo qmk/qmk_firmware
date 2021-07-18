@@ -148,5 +148,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Encoder */
 #define ENCODERS_PAD_A { A0 }
 #define ENCODERS_PAD_B { A1 }
+#define ENCODER_KEYMAPPING { { 4 , 0 }, { 4 , 1 } }
 
 //#define ENCODER_DIRECTION_FLIP
