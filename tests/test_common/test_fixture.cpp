@@ -15,32 +15,15 @@ void set_time(uint32_t t);
 void advance_time(uint32_t ms);
 }
 
-int8_t sendchar(uint8_t c) {
-    fprintf(stderr, "%c", c);
-    return 0;
-}
-
-void init_logging(void) {
-    print_set_sendchar(sendchar);
-
-    // Customise these values to desired behaviour
-    debug_enable   = true;
-    debug_matrix   = true;
-    debug_keyboard = true;
-    debug_mouse    = true;
-
-    // The following is enough to bootstrap the above values
-    eeconfig_init_quantum();
-    eeconfig_update_debug(debug_config.raw);
-}
-
 using testing::_;
 using testing::AnyNumber;
 using testing::Between;
 using testing::Return;
 
 void TestFixture::SetUpTestCase() {
-    init_logging();
+    // The following is enough to bootstrap the test_log values
+    eeconfig_init_quantum();
+    eeconfig_update_debug(debug_config.raw);
 
     TestDriver driver;
     EXPECT_CALL(driver, send_keyboard_mock(_));
