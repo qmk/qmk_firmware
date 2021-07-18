@@ -6,6 +6,7 @@
         "rows": 7,
         "cols": 19
     },
+    "lighting": "qmk_backlight",
     "layouts": {
         "labels":[
                     [
