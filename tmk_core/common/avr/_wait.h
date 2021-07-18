@@ -19,6 +19,8 @@
 
 #define wait_ms(ms) _delay_ms(ms)
 #define wait_us(us) _delay_us(us)
+#define wait_cpuclock(n) __builtin_avr_delay_cycles(n)
+#define CPU_CLOCK F_CPU
 
 /* The AVR series GPIOs have a one clock read delay for changes in the digital input signal.
  * But here's more margin to make it two clocks. */
@@ -26,4 +28,4 @@
 #    define GPIO_INPUT_PIN_DELAY 2
 #endif
 
-#define waitInputPinDelay() __builtin_avr_delay_cycles(GPIO_INPUT_PIN_DELAY)
+#define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
