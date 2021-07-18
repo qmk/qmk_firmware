@@ -21,18 +21,24 @@
 #include <string.h>
 #include "eeprom_stm32.h"
 
-/* In-memory contents of emulated eeprom for faster access */
+#define SNAPSHOT_START (FEE_BASE_ADDRESS)
+#define SNAPSHOT_END (FEE_BASE_ADDRESS+FEE_SNAPSHOT_SIZE)
+#define WRITELOG_START (SNAPSHOT_END)
+#define WRITELOG_END (WRITELOG_START+FEE_WRITELOG_SIZE)
+
+/* In-memory contents of emulated eeprom for direct faster access */
 static uint8_t DataBuf[FEE_DENSITY_BYTES];
 
-/* Pointer to the first available slot within flash area */
+/* Pointer to the first available slot within the writelog */
 static uint8_t *empty_slot;
 
 void EEPROM_Init(void) {
-    memset(DataBuf, 0, sizeof(DataBuf));
+    /* First, load the snapshot directly from flash */
+    memcpy(DataBuf, (void*)FEE_BASE_ADDRESS, FEE_SNAPSHOT_SIZE);
 
-    /* Load emulated eeprom contents from flash into memory */
+    /* Then, process writelog to update DataBuf entries */
     uint8_t *addr;
-    for (addr = (uint8_t*)FEE_PAGE_BASE_ADDRESS; addr < (uint8_t*)FEE_LAST_PAGE_ADDRESS; addr += 4) {
+    for (addr = (uint8_t*)WRITELOG_START; addr < (uint8_t*)WRITELOG_END; addr += 4) {
         uint16_t address;
         uint8_t value;
         memcpy(&address, addr, sizeof(address));
@@ -46,16 +52,20 @@ void EEPROM_Init(void) {
     empty_slot = addr;
 }
 
-/* Clear flash contents (doesn't touch in-memory DataBuf) */
+/* Erase flash contents so we can put updated data in (doesn't touch in-memory DataBuf) */
 static void eeprom_clear(void) {
     FLASH_Unlock();
 
-    for (uint32_t page_num = 0; page_num < FEE_DENSITY_PAGES; ++page_num)
-        FLASH_ErasePage(FEE_PAGE_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE));
+#if defined(EEPROM_EMU_STM32F4)
+    FLASH_ErasePage(FEE_SECTOR_ID);
+#else
+    for (uint32_t erase_address = SNAPSHOT_START; erase_address < WRITELOG_END; erase_address += FEE_PAGE_SIZE)
+        FLASH_ErasePage(erase_address);
+#endif
 
     FLASH_Lock();
 
-    empty_slot = (void*)FEE_PAGE_BASE_ADDRESS;
+    empty_slot = (void*)WRITELOG_START;
 }
 
 /* Erase emulated eeprom */
@@ -67,29 +77,28 @@ void EEPROM_Erase(void) {
 
 static void eeprom_writedatabyte(uint16_t Address, uint8_t DataByte);
 
-/* Dump in-memory contents into flash */
-static void eeprom_restore(void) {
-    for (uint32_t i = 0; i < FEE_DENSITY_BYTES; ++i) {
-        /* don't bother writing zeroes */
-        if (DataBuf[i]) {
-            eeprom_writedatabyte(i, DataBuf[i]);
-        }
+/* Dump in-memory eeprom contents into the snapshot area */
+static void eeprom_write_snapshot(void) {
+    FLASH_Unlock();
+
+    for (uint32_t i = 0; i < FEE_DENSITY_BYTES; i += 2) {
+        uint16_t halfword;
+        memcpy(&halfword, &DataBuf[i], sizeof(halfword));
+
+        FLASH_ProgramHalfWord(SNAPSHOT_START + i, halfword);
     }
+
+    FLASH_Lock();
 }
 
 static void eeprom_writedatabyte(uint16_t Address, uint8_t DataByte) {
     /* if couldn't find an empty spot, we must re-initialize emulated eeprom */
-    if (empty_slot >= (uint8_t*)FEE_LAST_PAGE_ADDRESS) {
-        /* ensure that the following call to eeprom_restore will write our desired byte value */
-        DataBuf[Address] = DataByte;
-
+    if (empty_slot >= (uint8_t*)WRITELOG_END) {
         /* fully erase emulated eeprom */
         eeprom_clear();
 
         /* and then write DataBuf contents back into flash */
-        eeprom_restore();
-
-        /* don't need to do anything else as eeprom_restore already wrote our value */
+        eeprom_write_snapshot();
         return;
     }
 
@@ -106,7 +115,7 @@ static void eeprom_writedatabyte(uint16_t Address, uint8_t DataByte) {
     empty_slot += 4;
 }
 
-void EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte) {
+static void EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte) {
     /* if the address is out-of-bounds, do nothing */
     if (Address >= FEE_DENSITY_BYTES)
         return;
@@ -115,14 +124,14 @@ void EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte) {
     if (DataBuf[Address] == DataByte)
         return;
 
-    /* perform the write into flash memory */
-    eeprom_writedatabyte(Address, DataByte);
-
     /* keep DataBuf cache in sync */
     DataBuf[Address] = DataByte;
+
+    /* perform the write into flash memory */
+    eeprom_writedatabyte(Address, DataByte);
 }
 
-uint8_t EEPROM_ReadDataByte(uint16_t Address) {
+static uint8_t EEPROM_ReadDataByte(uint16_t Address) {
     uint8_t DataByte = 0x00;
 
     if (Address < FEE_DENSITY_BYTES)

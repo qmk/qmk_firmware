@@ -224,3 +224,8 @@ extern last_hit_t g_last_hit_tracker;
 #ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
 #endif
+
+#if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
+#    undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#endif

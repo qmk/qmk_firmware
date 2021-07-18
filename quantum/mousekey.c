@@ -22,6 +22,7 @@
 #include "print.h"
 #include "debug.h"
 #include "mousekey.h"
+#include "qmk_settings.h"
 
 inline int8_t times_inv_sqrt2(int8_t x) {
     // 181/256 is pretty close to 1/sqrt(2)
@@ -74,17 +75,17 @@ uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 static uint8_t move_unit(void) {
     uint16_t unit;
     if (mousekey_accel & (1 << 0)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / 4;
+        unit = (QS_mousekey_move_delta * mk_max_speed) / 4;
     } else if (mousekey_accel & (1 << 1)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / 2;
+        unit = (QS_mousekey_move_delta * mk_max_speed) / 2;
     } else if (mousekey_accel & (1 << 2)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed);
+        unit = (QS_mousekey_move_delta * mk_max_speed);
     } else if (mousekey_repeat == 0) {
-        unit = MOUSEKEY_MOVE_DELTA;
+        unit = QS_mousekey_move_delta;
     } else if (mousekey_repeat >= mk_time_to_max) {
-        unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
+        unit = QS_mousekey_move_delta * mk_max_speed;
     } else {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
+        unit = (QS_mousekey_move_delta * mk_max_speed * mousekey_repeat) / mk_time_to_max;
     }
     return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
 }

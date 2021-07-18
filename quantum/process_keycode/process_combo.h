@@ -16,16 +16,23 @@
 
 #pragma once
 
+#ifdef VIAL_ENABLE
+#include "vial.h"
+#endif
+
 #include "progmem.h"
 #include "quantum.h"
 #include <stdint.h>
 
 #ifdef EXTRA_EXTRA_LONG_COMBOS
-#    define MAX_COMBO_LENGTH 32
+#    define MAX_COMBO_LENGTH 31
+#    define COMBO_COMPLETE 0x80000000u
 #elif EXTRA_LONG_COMBOS
-#    define MAX_COMBO_LENGTH 16
+#    define MAX_COMBO_LENGTH 15
+#    define COMBO_COMPLETE 0x8000u
 #else
-#    define MAX_COMBO_LENGTH 8
+#    define MAX_COMBO_LENGTH 7
+#    define COMBO_COMPLETE 0x80u
 #endif
 
 typedef struct {

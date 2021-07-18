@@ -37,23 +37,30 @@
 #    define MCU_STM32F072CB
 #elif defined(EEPROM_EMU_STM32F042x6)
 #    define MCU_STM32F042K6
-#else
-#    error "not implemented."
+#elif defined(EEPROM_EMU_STM32F411xC)
+#    define MCU_STM32F411xC
 #endif
 
-#ifndef EEPROM_PAGE_SIZE
+/* The page_size * density_pages should provide 8k of space, split 4k/4k between snapshot and writelog in the default config */
+#ifndef FEE_DENSITY_PAGES
 #    if defined(MCU_STM32F103RB) || defined(MCU_STM32F042K6)
 #        define FEE_PAGE_SIZE (uint16_t)0x400  // Page size = 1KByte
 #        define FEE_DENSITY_PAGES 8            // How many pages are used
 #    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE) || defined(MCU_STM32F103RD) || defined(MCU_STM32F303CC) || defined(MCU_STM32F072CB)
 #        define FEE_PAGE_SIZE (uint16_t)0x800  // Page size = 2KByte
 #        define FEE_DENSITY_PAGES 4            // How many pages are used
+#    elif defined(MCU_STM32F411xC)
+#        define FEE_PAGE_SIZE (uint32_t)0x20000  // Page size = 128KByte
+#        define FEE_DENSITY_PAGES 1              // How many pages are used
+#        define FEE_SECTOR_ID 5                  // sector id of the flash
 #    else
-#        error "No MCU type specified. Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)."
+#        error "No MCU type specified and FEE_DENSITY_PAGES not defined.\
+Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)\
+or define FEE_DENSITY_PAGES yourself."
 #    endif
 #endif
 
-#ifndef EEPROM_START_ADDRESS
+#ifndef FEE_MCU_FLASH_SIZE
 #    if defined(MCU_STM32F103RB) || defined(MCU_STM32F072CB)
 #        define FEE_MCU_FLASH_SIZE 128  // Size in Kb
 #    elif defined(MCU_STM32F042K6)
@@ -64,24 +71,35 @@
 #        define FEE_MCU_FLASH_SIZE 384  // Size in Kb
 #    elif defined(MCU_STM32F303CC)
 #        define FEE_MCU_FLASH_SIZE 256  // Size in Kb
+#    elif defined(MCU_STM32F411xC)
+#        define FEE_MCU_FLASH_SIZE 256  // Size in Kb
 #    else
-#        error "No MCU type specified. Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)."
+#        error "No MCU type specified and FEE_MCU_FLASH_SIZE not defined.\
+Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)\
+or define FEE_MCU_FLASH_SIZE yourself."
 #    endif
 #endif
 
-/* Start of the emulated eeprom flash area */
-#define FEE_PAGE_BASE_ADDRESS ((uint32_t)(0x8000000 + FEE_MCU_FLASH_SIZE * 1024 - FEE_DENSITY_PAGES * FEE_PAGE_SIZE))
-/* End of the emulated eeprom flash area */
-#define FEE_LAST_PAGE_ADDRESS (FEE_PAGE_BASE_ADDRESS + (FEE_PAGE_SIZE * FEE_DENSITY_PAGES))
-/* Size of emulated eeprom */
-#define FEE_DENSITY_BYTES 1024
+#ifndef FEE_BASE_ADDRESS
+    /* Start of the emulated eeprom flash area, place it at the end of the flash memory */
+    #define FEE_BASE_ADDRESS ((uint32_t)(0x8000000 + FEE_MCU_FLASH_SIZE * 1024 - FEE_DENSITY_PAGES * FEE_PAGE_SIZE))
+#endif
+
+#ifndef FEE_SNAPSHOT_SIZE
+    /* Size of eeprom snapshot, in bytes. This is equal to emulated eeprom size. */
+    #define FEE_SNAPSHOT_SIZE 4096
+#endif
+
+#ifndef FEE_WRITELOG_SIZE
+    /* Size of eeprom writelog, in bytes. By default, use all the remaining amount of flash bank. */
+    #define FEE_WRITELOG_SIZE (FEE_DENSITY_PAGES * FEE_PAGE_SIZE - FEE_SNAPSHOT_SIZE)
+#endif
+
 /* Flash word value after erase */
 #define FEE_EMPTY_WORD ((uint16_t)0xFFFF)
 
-_Static_assert(FEE_DENSITY_PAGES * FEE_PAGE_SIZE >= FEE_DENSITY_BYTES * 8,
-    "flash memory for emulated eeprom is too small; for correct functionality ensure it is at least 8x FEE_DENSITY_BYTES");
+/* Size of emulated eeprom */
+#define FEE_DENSITY_BYTES FEE_SNAPSHOT_SIZE
 
 void     EEPROM_Init(void);
 void     EEPROM_Erase(void);
-void     EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte);
-uint8_t  EEPROM_ReadDataByte(uint16_t Address);

@@ -171,6 +171,11 @@ else
         OPT_DEFS += -DEEPROM_DRIVER
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
         SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
+      else ifeq ($(MCU_SERIES), STM32F4xx)
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+        OPT_DEFS += -DEEPROM_EMU_STM32F411xC
+        OPT_DEFS += -DSTM32_EEPROM_ENABLE
       else
         # This will effectively work the same as "transient" if not supported by the chip
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
@@ -453,6 +458,9 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(VIAL_ENABLE)), yes)
+    QMK_SETTINGS ?= yes
+    TAP_DANCE_ENABLE ?= yes
+    COMBO_ENABLE ?= yes
     SRC += $(QUANTUM_DIR)/vial.c
     EXTRAINCDIRS += $(KEYMAP_OUTPUT)
     OPT_DEFS += -DVIAL_ENABLE -DNO_DEBUG
@@ -471,9 +479,20 @@ ifeq ($(strip $(VIAL_ENCODERS_ENABLE)), yes)
     OPT_DEFS += -DVIAL_ENCODERS_ENABLE
 endif
 
+ifeq ($(strip $(VIALRGB_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/vialrgb.c
+    OPT_DEFS += -DVIALRGB_ENABLE
+endif
+
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
     SRC += $(QUANTUM_DIR)/dynamic_keymap.c
+endif
+
+ifeq ($(strip $(QMK_SETTINGS)), yes)
+    AUTO_SHIFT_ENABLE := yes
+    SRC += $(QUANTUM_DIR)/qmk_settings.c
+    OPT_DEFS += -DQMK_SETTINGS -DAUTO_SHIFT_NO_SETUP -DTAPPING_TERM_PER_KEY -DPERMISSIVE_HOLD_PER_KEY -DIGNORE_MOD_TAP_INTERRUPT_PER_KEY -DTAPPING_FORCE_HOLD_PER_KEY -DRETRO_TAPPING_PER_KEY
 endif
 
 ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)

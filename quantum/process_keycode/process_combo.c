@@ -16,6 +16,11 @@
 
 #include "print.h"
 #include "process_combo.h"
+#include "qmk_settings.h"
+
+#ifdef VIAL_COMBO_ENABLE
+#include "dynamic_keymap.h"
+#endif
 
 #ifndef COMBO_VARIABLE_LEN
 __attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {};
@@ -29,7 +34,6 @@ __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool presse
 static uint16_t timer               = 0;
 static uint16_t current_combo_index = 0;
 static bool     drop_buffer         = false;
-static bool     is_active           = false;
 static bool     b_combo_enable      = true;  // defaults to enabled
 
 static uint8_t buffer_size = 0;
@@ -71,7 +75,19 @@ static inline void dump_key_buffer(bool emit) {
     buffer_size = 0;
 }
 
-#define ALL_COMBO_KEYS_ARE_DOWN (((1 << count) - 1) == combo->state)
+static void end_incomplete_combos(void) {
+#ifndef COMBO_VARIABLE_LEN
+    for (current_combo_index = 0; current_combo_index < COMBO_COUNT; ++current_combo_index) {
+#else
+    for (current_combo_index = 0; current_combo_index < COMBO_LEN; ++current_combo_index) {
+#endif
+        combo_t *combo = &key_combos[current_combo_index];
+        if (!(combo->state & COMBO_COMPLETE))
+            combo->state = 0;
+    }
+}
+
+#define ALL_COMBO_KEYS_ARE_DOWN (((1 << count) - 1) == (combo->state & ~COMBO_COMPLETE))
 #define KEY_STATE_DOWN(key)         \
     do {                            \
         combo->state |= (1 << key); \
@@ -80,27 +96,45 @@ static inline void dump_key_buffer(bool emit) {
     do {                             \
         combo->state &= ~(1 << key); \
     } while (0)
+#define KEY_STATE(key) (combo->state & (1 << (key)))
 
 static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     uint8_t  count = 0;
     uint16_t index = -1;
+#ifdef VIAL_COMBO_ENABLE
+    uint8_t combo_idx = (uintptr_t)combo->keys;
+    vial_combo_entry_t entry;
+    if (dynamic_keymap_get_combo(combo_idx, &entry) != 0)
+        return false;
+    for (count = 0; count < sizeof(entry.input)/sizeof(*entry.input); ++count) {
+        uint16_t key = entry.input[count];
+        if (key == KC_NO) break;
+        if (key == keycode) index = count;
+    }
+    /* must have at least 2 keys in the combo */
+    if (count < 2)
+        return false;
+#else
     /* Find index of keycode and number of combo keys */
     for (const uint16_t *keys = combo->keys;; ++count) {
         uint16_t key = pgm_read_word(&keys[count]);
         if (keycode == key) index = count;
         if (COMBO_END == key) break;
     }
+#endif
 
     /* Continue processing if not a combo key */
     if (-1 == (int8_t)index) return false;
 
-    bool is_combo_active = is_active;
+    bool is_combo_active = true;
 
     if (record->event.pressed) {
         KEY_STATE_DOWN(index);
 
         if (is_combo_active) {
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
+                dump_key_buffer(false);
+                combo->state |= COMBO_COMPLETE;
                 send_combo(combo->keycode, true);
                 drop_buffer = true;
             }
@@ -108,22 +142,31 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     } else {
         if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
             send_combo(combo->keycode, false);
-        } else {
-            /* continue processing without immediately returning */
-            is_combo_active = false;
         }
 
-        KEY_STATE_UP(index);
+        /* don't consume the key unless it is a part of a completed combo */
+        is_combo_active = false;
+        if (KEY_STATE(index)) {
+            KEY_STATE_UP(index);
+
+            if (combo->state & COMBO_COMPLETE) {
+                /* Consume the key on release, only if the combo was complete */
+                is_combo_active = true;
+
+                /* if all keys are up, reset the combo */
+                if (combo->state == COMBO_COMPLETE)
+                    combo->state = 0;
+            }
+        }
     }
 
     return is_combo_active;
 }
 
-#define NO_COMBO_KEYS_ARE_DOWN (0 == combo->state)
+#define NO_COMBO_KEYS_ARE_DOWN (0 == (combo->state & ~COMBO_COMPLETE))
 
 bool process_combo(uint16_t keycode, keyrecord_t *record) {
     bool is_combo_key          = false;
-    drop_buffer                = false;
     bool no_combo_keys_pressed = true;
 
     if (keycode == CMB_ON && record->event.pressed) {
@@ -158,17 +201,12 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
         /* buffer is only dropped when we complete a combo, so we refresh the timer
          * here */
         timer = timer_read();
-        dump_key_buffer(false);
+        drop_buffer = false;
     } else if (!is_combo_key) {
         /* if no combos claim the key we need to emit the keybuffer */
         dump_key_buffer(true);
-
-        // reset state if there are no combo keys pressed at all
-        if (no_combo_keys_pressed) {
-            timer     = 0;
-            is_active = true;
-        }
-    } else if (record->event.pressed && is_active) {
+        end_incomplete_combos();
+    } else if (record->event.pressed) {
         /* otherwise the key is consumed and placed in the buffer */
         timer = timer_read();
 
@@ -185,19 +223,19 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_combo(void) {
-    if (b_combo_enable && is_active && timer && timer_elapsed(timer) > COMBO_TERM) {
+    if (b_combo_enable && timer && timer_elapsed(timer) > QS_combo_term) {
         /* This disables the combo, meaning key events for this
          * combo will be handled by the next processors in the chain
          */
-        is_active = false;
         dump_key_buffer(true);
+        end_incomplete_combos();
     }
 }
 
 void combo_enable(void) { b_combo_enable = true; }
 
 void combo_disable(void) {
-    b_combo_enable = is_active = false;
+    b_combo_enable = false;
     timer                      = 0;
     dump_key_buffer(true);
 }
