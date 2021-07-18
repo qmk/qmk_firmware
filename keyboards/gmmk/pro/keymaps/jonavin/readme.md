@@ -32,7 +32,7 @@ Default layer
 ![image](https://user-images.githubusercontent.com/71780717/124177658-82324880-da7e-11eb-9421-b69100131062.png)
 
 Fn Layer
-![image](https://user-images.githubusercontent.com/71780717/124176887-8742c800-da7d-11eb-9b19-156bd67cac7d.png)
+![image](https://user-images.githubusercontent.com/71780717/126086069-bc539ffc-3ab6-4ebb-9bef-5005f8add294.png)
 
 Layer 2 (Caps Lock Mod)
 ![image](https://user-images.githubusercontent.com/71780717/124177683-8b231a00-da7e-11eb-9434-e2475f679a54.png)
