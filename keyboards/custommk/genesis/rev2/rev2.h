@@ -21,7 +21,6 @@
 #include "encoder.h"
 
 #define LAYOUT_numpad(   \
-    E00A, E00B,  E01A, E01B, \
 	K00,  K01,   K02,  K03,  \
 	K10,  K11,   K12,        \
 	K20,  K21,   K22,  K23,  \
@@ -33,10 +32,26 @@
 	{ K20,   K21,   K22,   K23 }, \
 	{ K30,   K31,   K32,   KC_NO }, \
 	{ K40,   KC_NO, K42,   K43 }, \
-	{ E00A,  E00B,  E01A,  E01B } \
+	{ KC_NO, KC_NO, KC_NO, KC_NO} \
 }
 
 #define LAYOUT_ortho( \
+	K00,  K01,   K02,  K03,  \
+	K10,  K11,   K12,  K13,  \
+	K20,  K21,   K22,  K23,  \
+	K30,  K31,   K32,  K33,  \
+	K40,  K41,   K42,  K43   \
+) { \
+	{ K00,   K01,   K02,   K03  }, \
+	{ K10,   K11,   K12,   K13  }, \
+	{ K20,   K21,   K22,   K23  }, \
+	{ K30,   K31,   K32,   K33  }, \
+	{ K40,   K41,   K42,   K43  }, \
+	{ KC_NO, KC_NO, KC_NO, KC_NO}  \
+}
+
+
+#define LAYOUT_via( \
     E00A, E00B,  E01A, E01B, \
 	K00,  K01,   K02,  K03,  \
 	K10,  K11,   K12,  K13,  \
@@ -51,4 +66,3 @@
 	{ K40,   K41,   K42,   K43  }, \
 	{ E00A,  E00B,  E01A,  E01B }  \
 }
-
