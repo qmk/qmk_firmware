@@ -1,0 +1,12 @@
+[package]
+name = "qmk"
+version = "0.1.0"
+authors = ["Daniel Prilik <danielprilik@gmail.com>"]
+edition = "2018"
+
+[features]
+default = []
+malloc = []
+
+[dependencies]
+# makefile provides qmk_sys

@@ -1,0 +1,11 @@
+[package]
+name = "qmk-sys"
+version = "0.1.0"
+authors = ["Daniel Prilik <danielprilik@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+# makefile provides qmk and qmk_sys
+
+[build-dependencies]
+bindgen = "0.51"
