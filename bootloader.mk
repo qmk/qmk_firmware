@@ -26,6 +26,7 @@
 #     atmel-dfu   Atmel factory DFU
 #     lufa-dfu    LUFA DFU
 #     qmk-dfu     QMK DFU (LUFA + blinkenlight)
+#     qmk-hid     QMK HID (LUFA + blinkenlight)
 #     bootloadHID HIDBootFlash compatible (ATmega32A)
 #     USBasp      USBaspLoader (ATmega328P)
 # ARM:
