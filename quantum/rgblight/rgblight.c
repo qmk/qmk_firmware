@@ -64,12 +64,13 @@
 #endif
 
 #define _RGBM_SINGLE_STATIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_SINGLE_DYNAMIC(sym)
+#define _RGBM_SINGLE_DYNAMIC(sym) 0,
 #define _RGBM_MULTI_STATIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_MULTI_DYNAMIC(sym)
+#define _RGBM_MULTI_DYNAMIC(sym) 0,
 #define _RGBM_TMP_STATIC(sym, msym) RGBLIGHT_MODE_##sym,
-#define _RGBM_TMP_DYNAMIC(sym, msym)
-static uint8_t static_effect_table[] = {
+#define _RGBM_TMP_DYNAMIC(sym, msym) 0,
+static const uint8_t static_effect_table[] = {
+    0,  // RGBLIGHT_MODE_zero
 #include "rgblight_modes.h"
 };
 
@@ -104,7 +105,7 @@ static uint8_t mode_base_table[] = {
 #    define RGBLIGHT_DEFAULT_SPD 0
 #endif
 
-static inline int is_static_effect(uint8_t mode) { return memchr(static_effect_table, mode, sizeof(static_effect_table)) != NULL; }
+static inline bool is_static_effect(uint8_t mode) { return static_effect_table[mode] != 0; }
 
 #ifdef RGBLIGHT_LED_MAP
 const uint8_t led_map[] PROGMEM = RGBLIGHT_LED_MAP;
