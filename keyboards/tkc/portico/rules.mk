@@ -20,7 +20,16 @@ BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no          # Enable Bluetooth
 AUDIO_ENABLE = no              # Audio output
-RGB_MATRIX_ENABLE = yes        # Use RGB matrix
+RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = IS31FL3731
+CIE1931_CURVE = yes
+
+# project specific files
+SRC += keyboards/wilba_tech/wt_main.c \
+       keyboards/wilba_tech/wt_rgb_backlight.c \
+       quantum/color.c \
+       drivers/issi/is31fl3731.c
+
+QUANTUM_LIB_SRC += i2c_master.c
 
 LAYOUTS = 65_ansi_blocker
