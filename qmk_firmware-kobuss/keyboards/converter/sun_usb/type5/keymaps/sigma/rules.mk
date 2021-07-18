@@ -1,0 +1,2 @@
+BOOTLOADER = halfkay
+UNICODE_ENABLE = yes

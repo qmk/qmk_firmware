@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "Big Series 4-Key",
+    "url": "",
+    "maintainer": "qmk",
+    "width": 8,
+    "height": 8,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 4, "h": 4},
+                {"x": 4, "y": 0, "w": 4, "h": 4},
+
+                {"x": 0, "y": 4, "w": 4, "h": 4},
+                {"x": 4, "y": 4, "w": 4, "h": 4}
+            ]
+        }
+    }
+}

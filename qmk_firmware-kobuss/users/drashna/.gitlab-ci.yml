@@ -1,0 +1,24 @@
+stages:
+  - test
+
+QMK Firmware:
+  stage: test
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  tags:
+    - linux
+  image: qmkfm/base_container
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi git libnewlib-arm-none-eabi gcc-avr python3 unzip wget zip
+    - avr-gcc --version
+    - uname -a
+  script:
+    - make planck/rev6:default planck/rev5:default
+    - make all:drashna -j2
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - ./*.hex
+      - ./*.bin
+    expire_in: 1 month

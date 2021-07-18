@@ -1,0 +1,138 @@
+[
+  {
+    "name": "The Aviator",
+    "author": "John Ramsay",
+    "notes": "Designed for aeronautical data entry on the OLKB Planck.",
+    "switchMount": "cherry",
+    "switchBrand": "gateron",
+    "switchType": "KS-3-Green",
+    "plate": true
+  },
+  [
+    {
+      "c": "#ADADAD",
+      "t": "#000000\n#3f76d4\n#d67509"
+    },
+    "\nDel\nDel\n\n\n\n\n\n\nEsc",
+    {
+      "c": "#CDC1B0"
+    },
+    "\n!\nF1\n\n\n\n\n\n\nQ",
+    "\n@\nF2\n\n\n\n\n\n\nW",
+    "\n#\nF3\n\n\n\n\n\n\nE",
+    "\n$\nF4\n\n\n\n\n\n\nR",
+    "\n%\n\n\n\n\n\n\n\nT",
+    "\n^\nN\n\n\n\n\n\n\nY",
+    "\n&\nS\n\n\n\n\n\n\nU",
+    "\n*\n7\n\n\n\n\n\n\nI",
+    "\n(\n8\n\n\n\n\n\n\nO",
+    "\n)\n9\n\n\n\n\n\n\nP",
+    {
+      "c": "#ADADAD",
+      "t": "#000000",
+      "a": 7
+    },
+    "Back Space"
+  ],
+  [
+    "Tab",
+    {
+      "c": "#CDC1B0",
+      "t": "#000000\n#3f76d4\n#d67509",
+      "a": 4
+    },
+    "\n~\nF5\n\n\n\n\n\n\nA",
+    "\n`\nF6\n\n\n\n\n\n\nS",
+    {
+      "t": "#000000\n\n#d67509"
+    },
+    "\n\nF7\n\n\n\n\n\n\nD",
+    "\n\nF8\n\n\n\n\n\n\nF",
+    {
+      "t": "#000000",
+      "a": 7
+    },
+    "G",
+    {
+      "t": "#000000\n\n#d67509",
+      "a": 4
+    },
+    "\n\nE\n\n\n\n\n\n\nH",
+    {
+      "t": "#000000\n#3f76d4\n#d67509"
+    },
+    "\n_\nW\n\n\n\n\n\n\nJ",
+    "\n+\n4\n\n\n\n\n\n\nK",
+    "\n{\n5\n\n\n\n\n\n\nL",
+    "\n}\n6\n\n\n\n\n\n\n:\n;",
+    "\n\\\nTab\n\n\n\n\n\n\n\"\n'"
+  ],
+  [
+    {
+      "c": "#ADADAD",
+      "t": "#000000",
+      "a": 7
+    },
+    "Shift",
+    {
+      "c": "#CDC1B0",
+      "t": "#000000\n\n#d67509",
+      "a": 4
+    },
+    "\n\nF9\n\n\n\n\n\n\nZ",
+    "\n\nF10\n\n\n\n\n\n\nX",
+    "\n\nF11\n\n\n\n\n\n\nC",
+    "\n\nF12\n\n\n\n\n\n\nV",
+    {
+      "t": "#000000",
+      "a": 7
+    },
+    "B",
+    {
+      "t": "#000000\n\n#d67509",
+      "a": 4
+    },
+    "\n\n+\n\n\n\n\n\n\nN",
+    {
+      "t": "#000000\n#3f76d4\n#d67509"
+    },
+    "\n-\n-\n\n\n\n\n\n\nM",
+    "\n=\n1\n\n\n\n\n\n\n<\n,",
+    "\n[\n2\n\n\n\n\n\n\n>\n.",
+    "\n]\n3\n\n\n\n\n\n\n?\n/",
+    {
+      "c": "#ADADAD",
+      "t": "#000000",
+      "a": 7
+    },
+    "Return"
+  ],
+  [
+    "Fn",
+    "Ctrl",
+    "Alt",
+    "Meta",
+    {
+      "c": "#9FACBF"
+    },
+    "&dArr;",
+    {
+      "c": "#CDC1B0"
+    },
+    "",
+    "",
+    {
+      "c": "#E5A65B"
+    },
+    "&uArr;",
+    {
+      "c": "#ADADAD",
+      "t": "#000000\n#3f76d4\n#d67509",
+      "a": 4
+    },
+    "\nHome\n0\n\n\n\n\n\n\n&larr;",
+    "\nPDwn\n.\n\n\n\n\n\n\n&darr;",
+    "\nPUp\nShift\n\n\n\n\n\n\n&uarr;",
+    "\nEnd\nReturn\n\n\n\n\n\n\n&rarr;"
+  ]
+]

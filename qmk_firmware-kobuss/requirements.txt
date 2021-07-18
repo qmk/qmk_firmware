@@ -1,0 +1,7 @@
+# Python requirements
+appdirs
+argcomplete
+colorama
+hjson
+milc
+pygments

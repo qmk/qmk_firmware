@@ -1,0 +1,42 @@
+name: Update Develop API Data
+
+on:
+  push:
+    branches:
+    - develop
+    paths:
+    - 'keyboards/**'
+    - 'layouts/community/**'
+
+jobs:
+  api_data:
+    runs-on: ubuntu-latest
+    container: qmkfm/base_container
+
+    # protect against those who work in their fork on develop
+    if: github.repository == 'qmk/qmk_firmware'
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+        persist-credentials: false
+
+    - name: Generate API Data
+      run: qmk generate-api
+
+    - name: Install rsync
+      run: |
+        apt-get update && apt-get install -y rsync
+
+    - name: Upload API Data
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        ACCESS_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: main
+        FOLDER: api_data/v1
+        CLEAN: true
+        GIT_CONFIG_EMAIL: hello@qmk.fm
+        REPOSITORY_NAME: qmk/qmk_keyboards_devel
+        TARGET_FOLDER: v1
