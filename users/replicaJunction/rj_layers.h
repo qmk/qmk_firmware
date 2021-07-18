@@ -14,12 +14,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
-#include "replicaJunction.h"
+#pragma once
 
-__attribute__ ((weak))
-void keyboard_post_init_user_kb(void) { }
+enum rj_layers {
+    L_BASE,
 
-void keyboard_post_init_user(void) {
-    keyboard_post_init_user_kb();
-}
+#ifdef USER_INCLUDE_QWERTY
+    L_QWERTY,
+#endif
+
+#ifdef USER_INCLUDE_GAMING_LAYER
+    L_GAMING,
+#endif
+
+    L_NUMBERS,
+    L_SYMBOLS,
+    L_NAVIGATION,
+    L_FN,
+
+#ifdef USER_INCLUDE_MACRO_LAYER
+    L_MACROS,
+#endif
+
+    _LAYER_SAFE_RANGE
+};

@@ -14,12 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 #include QMK_KEYBOARD_H
-#include "replicaJunction.h"
+#include "rj_keycodes.h"
 
-__attribute__ ((weak))
-void keyboard_post_init_user_kb(void) { }
+bool is_caps_word_enabled(void);
+void enable_caps_word(void);
+void disable_caps_word(void);
+void toggle_caps_word(void);
 
-void keyboard_post_init_user(void) {
-    keyboard_post_init_user_kb();
-}
+bool process_record_caps_word(uint16_t keycode, const keyrecord_t *record);

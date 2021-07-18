@@ -14,12 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 #include QMK_KEYBOARD_H
-#include "replicaJunction.h"
+#include "rj_keycodes.h"
 
-__attribute__ ((weak))
-void keyboard_post_init_user_kb(void) { }
+#ifndef USER_SUPER_ALT_TAB_TIMEOUT
+#    define USER_SUPER_ALT_TAB_TIMEOUT 500
+#endif
 
-void keyboard_post_init_user(void) {
-    keyboard_post_init_user_kb();
-}
+void matrix_scan_super_alt_tab(void);
+
+bool process_record_super_alt_tab(uint16_t keycode, const keyrecord_t *record);
