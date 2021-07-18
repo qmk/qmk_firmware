@@ -15,17 +15,18 @@ void init_logging(void) {
     print_set_sendchar(sendchar);
 
     // Customise these values to desired behaviour
-    debug_enable   = true;
-    debug_matrix   = true;
-    debug_keyboard = true;
-    debug_mouse    = true;
+    // debug_enable   = true;
+    // debug_matrix   = true;
+    // debug_keyboard = true;
+    // debug_mouse    = true;
+    debug_config.raw = 0xFF;
 }
 }
 
 int main(int argc, char **argv) {
-  ::testing::InitGoogleTest(&argc, argv);
+    ::testing::InitGoogleTest(&argc, argv);
 
-  init_logging();
-  
-  return RUN_ALL_TESTS();
+    init_logging();
+
+    return RUN_ALL_TESTS();
 }
