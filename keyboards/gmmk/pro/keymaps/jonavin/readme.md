@@ -8,7 +8,8 @@
 - Layer 2 left spacebar Backspace
 - add double tap of Left Shift to toggle Caps Lock
 - additional encoder functionality
-    - holding L shift, Navigate page up/down
+    - holding Left Shift, change layers
+    - holding Right Shift, Navigate page up/down
     - holding Left Ctrl, navigate prev/next word
     - holding Left Alt, change media prev/next track
     - default is change volume
