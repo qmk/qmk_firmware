@@ -15,5 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #pragma once
 
-//GRAVE_ESC override for CTRL+SHIFT+ESC Windows task manager shortcut.
-#define GRAVE_ESC_CTRL_OVERRIDE
+//Force NKRO to be enabled.
+#define FORCE_NKRO
+
+//Force polling rate.
+#define USB_POLLING_INTERVAL_MS 1
+#define QMK_KEYS_PER_SCAN 12

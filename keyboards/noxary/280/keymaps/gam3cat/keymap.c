@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |Ctrl |Win|Alt  |      Space                |RAlt |Fn |Ctrl |Lft|Dwn|Rgt|
     *    *-----------------------------------------------------------------------*
     */
-    [_BL] = LAYOUT_all(
+    [_BL] = LAYOUT(
         KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_PSCR, KC_SLCK, KC_PAUS,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_DEL,  KC_END,  KC_PGDN,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |   |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_WL] = LAYOUT_all(
+    [_WL] = LAYOUT(
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, KC_Q   , KC_D   , KC_R   , KC_W   , KC_B   , KC_J   , KC_F   , KC_U   , KC_P   , KC_SCLN, _______, _______, _______,          _______, _______, _______,
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |   |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_NL] = LAYOUT_all(
+    [_NL] = LAYOUT(
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, KC_Q   , KC_W   , KC_D   , KC_F   , KC_K   , KC_J   , KC_U   , KC_R   , KC_L   , KC_SCLN, _______, _______, _______,          _______, _______, _______,
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |   |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_DL] = LAYOUT_all(
+    [_DL] = LAYOUT(
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______, _______, _______, _______,
         _______, KC_QUOT, KC_COMM, KC_DOT , KC_P   , KC_Y   , KC_F   , KC_G   , KC_C   , KC_R   , KC_L   , KC_SLSH, KC_EQL , _______,          _______, _______, _______,
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |   |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_CL] = LAYOUT_all(
+    [_CL] = LAYOUT(
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, KC_Q   , KC_W   , KC_F   , KC_P   , KC_G   , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN, _______, _______, _______,          _______, _______, _______,
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |      SP4                  |     |Fn |     |WBk|   |WFw|
     *    *-----------------------------------------------------------------------*
     */
-    [_FL] = LAYOUT_all(
+    [_FL] = LAYOUT(
         SM_VVGQ,          SM_VXE,  SM_VXC,  SM_VXW,  SM_VXD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WEB,  KC_MUTE, KC_VOLD, KC_VOLU,          XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, SM_GLHF, SM_VVGG, SM_VVGN, SM_VAA,  SM_VRR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         MO(_AL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
@@ -154,11 +154,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,                   XXXXXXX,
         XXXXXXX, XXXXXXX, KC_MENU,                            KC_SP4,                             XXXXXXX, _______, XXXXXXX, XXXXXXX,          KC_WBAK, XXXXXXX, KC_WFWD
     ),
-    /*#### _AL: Adjust Layer - Keymap select, LED backlight, and Dynamic Macro settings.
+    /*#### _AL: Adjust Layer - Keymap select and Dynamic Macro settings.
     *    .-----------------------------------------------------------------------.
     *    |   |||||   |   |   |   |||   |   |   |   |||   |   |   |   |   |Rst|   |
     *    .-----------------------------------------------------------|-----------|
-    *    |Rev|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |BLT|BL-|BL+|       |   |MR1|MP1|
+    *    |Rev|   |   |   |   |   |   |   |   |   |   |   |   |       |   |MR1|MP1|
     *    |-----------------------------------------------------------|-----------|
     *    |Fn_AL|_BL|_WL|   |   |   |   |   |   |   |   |   |   |     | MS|MR2|MP2|
     *    |-----------------------------------------------------------|-----------|
@@ -169,9 +169,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |Fn |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_AL] = LAYOUT_all(
+    [_AL] = LAYOUT(
         XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, RESET,   XXXXXXX,
-        QMK_REV, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, BL_TOGG, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX, XXXXXXX, DM_REC1, DM_PLY1,
+        QMK_REV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DM_REC1, DM_PLY1,
         _______, DF(_BL), DF(_WL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          DM_RSTP, DM_REC2, DM_PLY2,
         _______, XXXXXXX, XXXXXXX, DF(_DL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(_CL), XXXXXXX, DF(_BL), DF(_NL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,                   XXXXXXX,

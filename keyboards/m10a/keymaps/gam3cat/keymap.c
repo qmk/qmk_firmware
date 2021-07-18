@@ -1,7 +1,19 @@
-#include QMK_KEYBOARD_H
-#include "version.h"
+/*Copyright 2021 @Gam3cat
 
-extern keymap_config_t keymap_config;
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
+
+#include "gam3cat.h"
 
 enum layers {
     _L0 = 0,
@@ -17,21 +29,12 @@ enum layers {
 };
 
 enum custom_keycodes {
-    QMK_REV = SAFE_RANGE,
-    KC_WEB,
-    KC_WCLS,
-    DYNAMIC_MACRO_RANGE
+    KC_WCLS = NEW_SAFE_RANGE,
 };
 
 extern backlight_config_t backlight_config;
 
-#include "dynamic_macro.h"
 #define FN_ZERO LT(_L9, KC_KP_0)
-#define KC_DMR1 DYN_REC_START1
-#define KC_DMR2 DYN_REC_START2
-#define KC_DMP1 DYN_MACRO_PLAY1
-#define KC_DMP2 DYN_MACRO_PLAY2
-#define KC_DMRS DYN_REC_STOP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*## Layout Config:
@@ -61,37 +64,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_L4] = {{KC_VOLU, KC_MNXT, KC_MFFD}, {KC_MUTE, KC_MSTP, KC_MPLY}, {KC_VOLD, KC_MPRV, KC_MRWD}, {XXXXXXX, XXXXXXX, MO(_L9)}},
     [_L5] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
     [_L6] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L7] = {{KC_DMP1, _______, KC_DMP2}, {_______, KC_DMRS, _______}, {KC_DMR1, _______, KC_DMR2}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L7] = {{DM_PLY1, _______, DM_PLY2}, {_______, DM_RSTP, _______}, {DM_REC1, _______, DM_REC2}, {XXXXXXX, XXXXXXX, MO(_L9)}},
     [_L8] = {{_______, _______, RESET  }, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
     [_L9] = {{DF(_L6), DF(_L7), DF(_L8)}, {DF(_L3), DF(_L4), DF(_L5)}, {DF(_L0), DF(_L1), DF(_L2)}, {XXXXXXX, XXXXXXX, _______}},
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QMK_REV:
-            if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP "@" QMK_VERSION ":" QMK_BUILDDATE);
-            }
-            return false;
-            break;
-        case KC_WEB:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LGUI("r"));
-                wait_ms(100);
-                SEND_STRING("chrome.exe\n");
-            }
-            return false;
-            break;
         case KC_WCLS:
             if (record->event.pressed) {
                 SEND_STRING (SS_LCTRL("w"));
             }
             return false;
             break;
-    }
-    // Dynamic Macros.
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
     }
     return true;
 }
@@ -108,10 +93,6 @@ void matrix_init_user(void) {
   #ifdef BACKLIGHT_ENABLE
     custom_backlight_level(0);
   #endif
-}
-
-void matrix_scan_user(void) {
-
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
@@ -151,8 +132,4 @@ uint32_t layer_state_set_user(uint32_t state) {
             break;
     }
     return state;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

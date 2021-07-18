@@ -1,4 +1,4 @@
-/*Copyright 2021 @Gam3cat
+Copyright 2021 @Gam3cat
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -11,9 +11,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-
-#pragma once
-
-//GRAVE_ESC override for CTRL+SHIFT+ESC Windows task manager shortcut.
-#define GRAVE_ESC_CTRL_OVERRIDE
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
