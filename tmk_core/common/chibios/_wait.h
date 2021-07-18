@@ -16,6 +16,7 @@
 #pragma once
 
 #include <ch.h>
+#include <hal.h>
 
 /* chThdSleepX of zero maps to infinite - so we map to a tiny delay to still yield */
 #define wait_ms(ms)                     \
@@ -26,7 +27,21 @@
             chThdSleepMicroseconds(1);  \
         }                               \
     } while (0)
-#define wait_us(us)                     \
+
+#ifdef WAIT_US_TIMER
+void wait_us_timer(gptcnt_t duration);
+#    define wait_us(us)                                     \
+    do {                                                    \
+        if (us == 0) {                                      \
+            wait_us_timer(1);                               \
+        } else if (us < (1ULL << (sizeof(gptcnt_t) * 8))) { \
+            wait_us_timer(us);                              \
+        } else {                                            \
+            chThdSleepMicroseconds(us);                     \
+        }                                                   \
+    } while (0)
+#else
+#    define wait_us(us)                 \
     do {                                \
         if (us != 0) {                  \
             chThdSleepMicroseconds(us); \
@@ -34,6 +49,7 @@
             chThdSleepMicroseconds(1);  \
         }                               \
     } while (0)
+#endif
 
 /* For GPIOs on ARM-based MCUs, the input pins are sampled by the clock of the bus
  * to which the GPIO is connected.
@@ -46,7 +62,7 @@
  * (A fairly large value of 0.25 microseconds is set.)
  */
 
-#include "wait.c"
+#include "_wait.c"
 
 #ifndef GPIO_INPUT_PIN_DELAY
 #    define GPIO_INPUT_PIN_DELAY (STM32_SYSCLK / 1000000L / 4)
