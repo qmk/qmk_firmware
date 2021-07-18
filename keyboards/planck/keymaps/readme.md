@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+# Default layout
+Default layout that shipped with the NIU mini
+=======
 # How to add your own keymap
 
 Folders can be named however you'd like (will be approved upon merging), or should follow the format with a preceding `_`:
@@ -21,3 +25,4 @@ When adding your keymap to this list, keep it organised alphabetically (select l
 
 * **default** default Planck layout
 * **cbbrowne** cbbrowne's Planck layout
+>>>>>>> master
