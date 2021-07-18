@@ -101,18 +101,19 @@
 #    define RGBLIGHT_USE_TIMER
 #endif
 
+#include "rgblight_modes.h"
+
 // clang-format on
 
-#define _RGBM_SINGLE_STATIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_SINGLE_DYNAMIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_MULTI_STATIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_MULTI_DYNAMIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_TMP_STATIC(sym, msym) RGBLIGHT_MODE_##sym,
-#define _RGBM_TMP_DYNAMIC(sym, msym) RGBLIGHT_MODE_##sym,
+#define _RGBLIGHT_EFFECT_MODE_DEFINE(sym, num, type)          \
+    , RGBLIGHT_MODE_##sym,                                    \
+    RGBLIGHT_MODE_##sym##_end = RGBLIGHT_MODE_##sym + num -1
+#define RGBLIGHT_EFFECT_MODE_DEFINE(x) _RGBLIGHT_EFFECT_MODE_DEFINE x
+
 enum RGBLIGHT_EFFECT_MODE {
-    RGBLIGHT_MODE_zero = 0,
-#include "rgblight_modes.h"
-    RGBLIGHT_MODE_last
+    RGBLIGHT_MODE_zero = 0
+    MAP(RGBLIGHT_EFFECT_MODE_DEFINE, RGBLIGHT_EFECTS__LIST)
+    , RGBLIGHT_MODE_last
 };
 
 #define RGBLIGHT_MODES (RGBLIGHT_MODE_last - 1)

@@ -63,26 +63,25 @@
 #    define RGBLIGHT_SPLIT_ANIMATION_TICK
 #endif
 
-#define _RGBM_SINGLE_STATIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_SINGLE_DYNAMIC(sym) 0,
-#define _RGBM_MULTI_STATIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_MULTI_DYNAMIC(sym) 0,
-#define _RGBM_TMP_STATIC(sym, msym) RGBLIGHT_MODE_##sym,
-#define _RGBM_TMP_DYNAMIC(sym, msym) 0,
+#define _RGBM_IS_STATIC 1
+#define _RGBM_IS_DYNAMIC 0
+#define __RGBLIGHT_STATIC_EFECT_DEFINE(sym, num, type)                \
+    ,[RGBLIGHT_MODE_##sym ... RGBLIGHT_MODE_##sym##_end] = (RGBLIGHT_MODE_##sym)*(type)
+#define _RGBLIGHT_STATIC_EFECT_DEFINE(sym, num, type) \
+    __RGBLIGHT_STATIC_EFECT_DEFINE(sym, num, _RGBM_IS_##type)
+#define RGBLIGHT_STATIC_EFECT_DEFINE(x) _RGBLIGHT_STATIC_EFECT_DEFINE x
 static const uint8_t static_effect_table[] = {
-    0,  // RGBLIGHT_MODE_zero
-#include "rgblight_modes.h"
+    0  // RGBLIGHT_MODE_zero
+    MAP(RGBLIGHT_STATIC_EFECT_DEFINE, RGBLIGHT_EFECTS__LIST)
 };
 
-#define _RGBM_SINGLE_STATIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_SINGLE_DYNAMIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_MULTI_STATIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_MULTI_DYNAMIC(sym) RGBLIGHT_MODE_##sym,
-#define _RGBM_TMP_STATIC(sym, msym) RGBLIGHT_MODE_##msym,
-#define _RGBM_TMP_DYNAMIC(sym, msym) RGBLIGHT_MODE_##msym,
+#define _RGBLIGHT_BASE_MODE_DEFINE(sym, num, type) \
+    ,[RGBLIGHT_MODE_##sym ... RGBLIGHT_MODE_##sym##_end] = RGBLIGHT_MODE_##sym
+#define RGBLIGHT_BASE_MODE_DEFINE(x) _RGBLIGHT_BASE_MODE_DEFINE x
+
 static uint8_t mode_base_table[] = {
-    0,  // RGBLIGHT_MODE_zero
-#include "rgblight_modes.h"
+    0  // RGBLIGHT_MODE_zero
+    MAP(RGBLIGHT_BASE_MODE_DEFINE, RGBLIGHT_EFECTS__LIST)
 };
 
 #if !defined(RGBLIGHT_DEFAULT_MODE)
