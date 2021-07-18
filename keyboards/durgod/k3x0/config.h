@@ -1,4 +1,5 @@
-/* Copyright 2021 kuenhlee and Don Kjer
+/* Copyright 2021 kuenhlee, Don Kjer, Tyler Tidman
+ * Copyright 2021 Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,16 +21,11 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xD60D
-#define PRODUCT_ID      0x3200
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    Hoksi Technology
-#define PRODUCT         DURGOD Taurus K320 (QMK)
 
-/* key matrix size */
-#define MATRIX_ROWS 7
+/* key matrix size (rows in specific keyboard variant) */
 #define MATRIX_COLS 16
 
-#define MATRIX_ROW_PINS { A0, A1, A2, A3, A4, A5, A6 }
 #define MATRIX_COL_PINS { C4, C5, B0, B1, B2, B10, B11, B12, B13, B14, B15, C6, C7, C10, C11, C12 }
 
 /* COL2ROW, ROW2COL*/
@@ -42,6 +38,7 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
+// #define USB_POLLING_INTERVAL_MS 1
 
 /* Bootmagic Lite key configuration */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
@@ -54,3 +51,6 @@
 #define LED_WIN_LOCK_PIN    A9
 #define LED_MR_LOCK_PIN     A10
 #define LED_PIN_ON_STATE    0
+
+/* Original hardware "reset" button on pin D2 */
+#define HARDWARE_RESET_PIN  D2
