@@ -63,6 +63,7 @@
 #    define RGBLIGHT_SPLIT_ANIMATION_TICK
 #endif
 
+// clang-format off
 #define _RGBM_IS_STATIC 1
 #define _RGBM_IS_DYNAMIC 0
 #define _RGBLIGHT_STATIC_EFECT_DEFINE(sym, num, type)      \
@@ -83,6 +84,7 @@ static uint8_t mode_base_table[] = {
     0  // RGBLIGHT_MODE_zero
     MAP(RGBLIGHT_BASE_MODE_DEFINE, RGBLIGHT_EFECTS__LIST)
 };
+// clang-format on
 
 #if !defined(RGBLIGHT_DEFAULT_MODE)
 #    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
