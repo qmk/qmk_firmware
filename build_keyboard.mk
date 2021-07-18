@@ -93,6 +93,15 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
     include $(KEYBOARD_PATH_1)/rules.mk
 endif
 
+
+# Userspace setup and definitions.
+# Process before keymaps, but after keyboards.
+ifeq ("$(USER_NAME)","")
+    USER_NAME := $(KEYMAP)
+endif
+USER_PATH := users/$(USER_NAME)
+-include $(USER_PATH)/rules.mk
+
 MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
@@ -283,6 +292,7 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
 endif
 
+<<<<<<< HEAD
 # Pull in stuff from info.json
 INFO_JSON_FILES :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/info.json)","")
@@ -316,18 +326,12 @@ generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/def
 
 .INTERMEDIATE : generated-files
 
-# Userspace setup and definitions
-ifeq ("$(USER_NAME)","")
-    USER_NAME := $(KEYMAP)
-endif
-USER_PATH := users/$(USER_NAME)
 
--include $(USER_PATH)/rules.mk
+# Userspace makefile second pass
+-include $(USER_PATH)/post_keymap.mk
+# Userspace config.h first pass
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
-endif
-ifneq ("$(wildcard $(USER_PATH)/post_config.h)","")
-    POST_CONFIG_H += $(USER_PATH)/post_config.h
 endif
 
 # Disable features that a keyboard doesn't support
@@ -335,6 +339,11 @@ endif
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
+endif
+
+# Userspace post config.h pass
+ifneq ("$(wildcard $(USER_PATH)/post_config.h)","")
+    POST_CONFIG_H += $(USER_PATH)/post_config.h
 endif
 
 # project specific files
