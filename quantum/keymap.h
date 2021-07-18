@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #include "print.h"
 #include "debug.h"
 #include "keycode_config.h"
+#include "gpio.h"  // for pin_t
 
 // ChibiOS uses RESET in its FlagStatus enumeration
 // Therefore define it as QK_RESET here, to avoid name collision
@@ -54,3 +55,18 @@ uint16_t keymap_function_id_to_action(uint16_t function_id);
 
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t fn_actions[];
+
+#if defined(ENCODER_ENABLE)
+#    ifdef SPLIT_KEYBOARD
+#        define NUM_ENCODERS (2 * sizeof(((pin_t[])ENCODERS_PAD_A)) / sizeof(pin_t))
+#    else  // SPLIT_KEYBOARD
+#        define NUM_ENCODERS (sizeof(((pin_t[])ENCODERS_PAD_A)) / sizeof(pin_t))
+#    endif  // SPLIT_KEYBOARD
+#    ifdef ENCODER_MAP_ENABLE
+extern const uint16_t encoder_map[][NUM_ENCODERS][2];
+#        define ENCODER_CCW_CW(ccw, cw) \
+            { (cw), (ccw) }
+#    endif  // ENCODER_MAP_ENABLE
+#else       // defined(ENCODER_ENABLE)
+#    define NUM_ENCODERS 0
+#endif  // defined(ENCODER_ENABLE)

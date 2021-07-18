@@ -178,8 +178,17 @@ __attribute__((weak)) void action_function(keyrecord_t *record, uint8_t id, uint
 
 // translates key to keycode
 __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
-    // Read entire word (16bits)
-    return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
+        return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+    }
+#ifdef ENCODER_MAP_ENABLE
+    else if (key.row == KEYLOC_ENCODER_CW && key.col < NUM_ENCODERS) {
+        return pgm_read_word(&encoder_map[layer][key.col][0]);
+    } else if (key.row == KEYLOC_ENCODER_CCW && key.col < NUM_ENCODERS) {
+        return pgm_read_word(&encoder_map[layer][key.col][1]);
+    }
+#endif  // ENCODER_MAP_ENABLE
+    return KC_NO;
 }
 
 // translates function id to action

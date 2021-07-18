@@ -16,6 +16,8 @@
 
 #include <stdint.h>
 #include <string.h>
+#include <debug.h>
+#include <timer.h>
 
 /*
     Note that the implementations of eeprom_XXXX_YYYY on AVR are normally
