@@ -65,11 +65,11 @@
 
 #define _RGBM_IS_STATIC 1
 #define _RGBM_IS_DYNAMIC 0
-#define __RGBLIGHT_STATIC_EFECT_DEFINE(sym, num, type)                \
-    ,[RGBLIGHT_MODE_##sym ... RGBLIGHT_MODE_##sym##_end] = (RGBLIGHT_MODE_##sym)*(type)
-#define _RGBLIGHT_STATIC_EFECT_DEFINE(sym, num, type) \
-    __RGBLIGHT_STATIC_EFECT_DEFINE(sym, num, _RGBM_IS_##type)
+#define _RGBLIGHT_STATIC_EFECT_DEFINE(sym, num, type)      \
+    ,[RGBLIGHT_MODE_##sym ... RGBLIGHT_MODE_##sym##_end] = \
+        (RGBLIGHT_MODE_##sym)*(_RGBM_IS_##type)
 #define RGBLIGHT_STATIC_EFECT_DEFINE(x) _RGBLIGHT_STATIC_EFECT_DEFINE x
+
 static const uint8_t static_effect_table[] = {
     0  // RGBLIGHT_MODE_zero
     MAP(RGBLIGHT_STATIC_EFECT_DEFINE, RGBLIGHT_EFECTS__LIST)
