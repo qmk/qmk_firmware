@@ -1,0 +1,53 @@
+{
+    "manufacturer": "Zach White",
+    "keyboard_name": "DirectPins Teensy LC",
+    "maintainer": "skullydazed",
+    "debounce": 5,
+    "processor": "MKL26Z64",
+    "features": {
+        "bootmagic_lite": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["LINE_PIN0",  null,         null],
+            ["LINE_PIN1",  null,         null],
+            ["LINE_PIN2",  null,         "LINE_PIN23"],
+            ["LINE_PIN3",  "LINE_PIN24", "LINE_PIN22"],
+            ["LINE_PIN4",  "LINE_PIN25", "LINE_PIN21"],
+            ["LINE_PIN5",  null,         "LINE_PIN20"],
+            ["LINE_PIN6",  null,         "LINE_PIN19"],
+            ["LINE_PIN7",  null,         "LINE_PIN18"],
+            ["LINE_PIN8",  null,         "LINE_PIN17"],
+            ["LINE_PIN9",  null,         "LINE_PIN16"],
+            ["LINE_PIN10", null,         "LINE_PIN15"],
+            ["LINE_PIN11", null,         "LINE_PIN14"],
+            ["LINE_PIN12", "E30",        "LINE_PIN13"],
+        ]
+    },
+    "usb": {
+        "device_ver": "0x0001",
+        "pid": "0x2325",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [
+                { "label": "0", "matrix": [0, 0], "x": 0, "y": 1 },
+                { "label": "1", "matrix": [1, 0], "x": 0, "y": 2 },
+                { "label": "2", "matrix": [2, 0], "x": 0, "y": 3 },                                                           { "label": "23", "matrix": [2, 2], "x": 3, "y": 3 },
+                { "label": "3", "matrix": [3, 0], "x": 0, "y": 4 },    { "label": "24", "matrix": [3, 1], "x": 2, "y": 4 },   { "label": "22", "matrix": [3, 2], "x": 3, "y": 4 },
+                { "label": "4", "matrix": [4, 0], "x": 0, "y": 5 },    { "label": "25", "matrix": [4, 1], "x": 2, "y": 5 },   { "label": "21", "matrix": [4, 2], "x": 3, "y": 5 },
+                { "label": "5", "matrix": [5, 0], "x": 0, "y": 6 },                                                           { "label": "20", "matrix": [5, 2], "x": 3, "y": 6 },
+                { "label": "6", "matrix": [6, 0], "x": 0, "y": 7 },                                                           { "label": "19", "matrix": [6, 2], "x": 3, "y": 7 },
+                { "label": "7", "matrix": [7, 0], "x": 0, "y": 8 },                                                           { "label": "18", "matrix": [7, 2], "x": 3, "y": 8 },
+                { "label": "8", "matrix": [8, 0], "x": 0, "y": 9 },                                                           { "label": "17", "matrix": [8, 2], "x": 3, "y": 9 },
+                { "label": "9", "matrix": [9, 0], "x": 0, "y": 10 },                                                          { "label": "16", "matrix": [9, 2], "x": 3, "y": 10 },
+                { "label": "10", "matrix": [10, 0], "x": 0, "y": 11 },                                                        { "label": "15", "matrix": [10, 2], "x": 3, "y": 11 },
+                { "label": "11", "matrix": [11, 0], "x": 0, "y": 12 },                                                        { "label": "14", "matrix": [11, 2], "x": 3, "y": 12 },
+                { "label": "12", "matrix": [12, 0], "x": 0, "y": 13 }, { "label": "26", "matrix": [12, 1], "x": 2, "y": 13 }, { "label": "13", "matrix": [12, 2], "x": 3, "y": 13 }
+            ]
+        }
+    }
+}
