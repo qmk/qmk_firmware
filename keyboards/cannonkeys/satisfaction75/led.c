@@ -19,6 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led_custom.h"
 #include "satisfaction75.h"
 
+#ifdef QWIIC_MICRO_OLED_ENABLE
+#include "micro_oled.h"
+#include "qwiic.h"
+#endif
+
 static void breathing_callback(PWMDriver *pwmp);
 
 static PWMConfig pwmCFG = {
@@ -82,6 +87,8 @@ void backlight_init_ports(void) {
 
 void suspend_power_down_user(void) {
     backlight_set(0);
+	send_command(DISPLAYOFF);      /* 0xAE */
+    oled_sleeping = true;
 }
 void suspend_wakeup_init_user(void) {
   if(kb_backlight_config.enable){
