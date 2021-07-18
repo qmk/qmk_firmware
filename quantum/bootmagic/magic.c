@@ -43,7 +43,12 @@ void magic(void) {
     debug_config.raw  = eeconfig_read_debug();
     keymap_config.raw = eeconfig_read_keymap();
 
-    bootmagic();
+#if defined(BOOTMAGIC_LITE)
+    bootmagic_lite();
+#endif
+#if defined(BOOTMAGIC_ENABLE)
+    bootmagic_full();
+#endif
 
     /* read here just incase bootmagic process changed its value */
     layer_state_t default_layer = (layer_state_t)eeconfig_read_default_layer();

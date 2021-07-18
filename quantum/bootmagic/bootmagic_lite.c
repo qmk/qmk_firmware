@@ -62,5 +62,3 @@ __attribute__((weak)) void bootmagic_lite(void) {
         bootloader_jump();
     }
 }
-
-void bootmagic(void) { bootmagic_lite(); }
