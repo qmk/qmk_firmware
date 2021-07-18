@@ -5,7 +5,7 @@
     "width": 4, 
     "height": 6, 
     "layouts": {
-        "LAYOUT_ortho": {
+        "LAYOUT_ortho_5x4": {
             "layout": [{"label":"MO(1)", "x":0, "y":0},
                        {"label":"/", "x":1, "y":0},
                        {"label":"*", "x":2, "y":0},
@@ -27,7 +27,7 @@
                        {"label":".", "x":2, "y":4},
                        {"label":"Enter", "x":3, "y":4}]
         },
-        "LAYOUT_numpad": {
+        "LAYOUT_numpad_5x4": {
             "layout": [{"label":"MO(1)", "x":0, "y":0},
                 {"label":"/", "x":1, "y":0},
                 {"label":"*", "x":2, "y":0},
@@ -46,7 +46,7 @@
                 {"label":"0", "x":0, "y":4, "w":2},
                 {"label":".", "x":2, "y":4}]
         },
-        "LAYOUT_via": {
+        "LAYOUT_via_6x4": {
             "layout": [{"label":"Vol-", "x":0, "y":0},
                        {"label":"Vol+", "x":1, "y":0},
                        {"label":"Vol-", "x":3, "y":0},

@@ -24,7 +24,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT_via(
+	[0] = LAYOUT_via_6x4(
 		    KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU,
 			MO(1),   KC_PSLS, KC_PAST, KC_PMNS, 
 			KC_P7,   KC_P8,   KC_P9,   KC_PPLS, 
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_P1,   KC_P2,   KC_P3,   KC_PGDN, 
 			KC_P0,   KC_SPC,  KC_PDOT, KC_PENT),
 
-	[1] = LAYOUT_via(
+	[1] = LAYOUT_via_6x4(
 		    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 			KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			RGB_HUI, RGB_HUD, KC_TRNS, KC_TRNS),
 
-	[2] = LAYOUT_via(
+	[2] = LAYOUT_via_6x4(
 		    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	[3] = LAYOUT_via(
+	[3] = LAYOUT_via_6x4(
 		    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
