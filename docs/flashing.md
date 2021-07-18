@@ -174,7 +174,17 @@ Flashing sequence:
 
 ### QMK HID
 
-QMK maintains [a fork of the LUFA HID bootloader](https://github.com/qmk/lufa/tree/master/Bootloaders/HID), which uses a USB HID Endpoint for flashing in the way that the PJRC's Teensy Loader flasher and Halfkay bootloader work. Additionally, it performs a simple matrix scan for exiting the bootloader and returning to the application, as well as flashing an LED/making a ticking noise with a speaker when things are happening. To enable these features, add the following defines to your `config.h`:
+QMK maintains [a fork of the LUFA HID bootloader](https://github.com/qmk/lufa/tree/master/Bootloaders/HID), which uses a USB HID Endpoint for flashing in the way that the PJRC's Teensy Loader flasher and Halfkay bootloader work. Additionally, it performs a simple matrix scan for exiting the bootloader and returning to the application, as well as flashing an LED/making a ticking noise with a speaker when things are happening. 
+
+
+To ensure compatibility with the QMK HID bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = qmk-hid
+```
+
+To enable the additional features, add the following defines to your `config.h`:
 
 ```c
 #define QMK_ESC_OUTPUT F1  // COL pin if COL2ROW
@@ -183,13 +193,32 @@ QMK maintains [a fork of the LUFA HID bootloader](https://github.com/qmk/lufa/tr
 //#define QMK_LED E6
 //#define QMK_SPEAKER C6
 ```
+
 Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
 
 The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
 To generate this bootloader, use the `bootloader` target, eg. `make planck/rev4:default:bootloader`. To generate a production-ready .hex file (combining QMK and the bootloader), use the `production` target, eg. `make planck/rev4:default:production`.
 
-!> Currently, you need to either use the [python script](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp_python) in the lufa repo, or compile the [`hid_bootloader_cli`](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp) from the LUFA repo.   Homebrew may (will) have support for this directly (via `brew install qmk/qmk/hid_bootloader_cli`)
+
+Compatible flashers:
+
+* TBD
+  * Currently, you need to either use the [python script](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp_python) in the lufa repo, or compile the [`hid_bootloader_cli`](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp) from the LUFA repo.   Homebrew may (will) have support for this directly (via `brew install qmk/qmk/hid_bootloader_cli`)
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods (you only have 7 seconds to flash once it enters):
+    * Press the `RESET` keycode
+    * Press the `RESET` button on the Teensy or PCB if available
+    * short RST to GND quickly
+2. Wait for the OS to detect the device
+3. Flash a .hex file
+4. Reset the device into application mode (may be done automatically)
+
+### `make` Targets
+
+* `:qmk-hid`: Checks every 5 seconds until a DFU device is available, and then flashes the firmware.
 
 ## STM32/APM32 DFU
 
