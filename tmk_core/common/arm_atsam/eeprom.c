@@ -13,8 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#include "samd51j18a.h"
 #include "eeprom.h"
+#include "core_cm4.h"
+#include "component/nvmctrl.h"
 
 #ifndef EEPROM_SIZE
 #    include "eeconfig.h"
@@ -22,15 +24,40 @@
 #endif
 
 __attribute__((aligned(4))) static uint8_t buffer[EEPROM_SIZE];
+volatile uint8_t *SmartEEPROM8 = (uint8_t *) SEEPROM_ADDR;
 
 uint8_t eeprom_read_byte(const uint8_t *addr) {
     uintptr_t offset = (uintptr_t)addr;
-    return buffer[offset];
+    if (offset >= EEPROM_SIZE)
+        return 0x0;
+
+    if (NVMCTRL->SEESTAT.bit.PSZ == 0 || NVMCTRL->SEESTAT.bit.SBLK == 0)
+        return buffer[offset];
+
+    int timeout = 10000;
+    while (NVMCTRL->SEESTAT.bit.BUSY && timeout-- > 0)
+        ;
+    if (!NVMCTRL->SEESTAT.bit.BUSY)
+        return SmartEEPROM8[offset];
+
+    return 0;
 }
 
 void eeprom_write_byte(uint8_t *addr, uint8_t value) {
     uintptr_t offset = (uintptr_t)addr;
-    buffer[offset]   = value;
+    if (offset >= EEPROM_SIZE)
+        return;
+
+    if (NVMCTRL->SEESTAT.bit.PSZ == 0 || NVMCTRL->SEESTAT.bit.SBLK == 0) {
+        buffer[offset] = value;
+        return;
+    }
+
+    int timeout = 10000;
+    while (NVMCTRL->SEESTAT.bit.BUSY && timeout-- > 0)
+        ;
+    if (!NVMCTRL->SEESTAT.bit.BUSY)
+        SmartEEPROM8[offset] = value;
 }
 
 uint16_t eeprom_read_word(const uint16_t *addr) {
