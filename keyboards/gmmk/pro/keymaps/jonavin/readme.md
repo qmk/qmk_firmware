@@ -15,7 +15,9 @@
     - default is change volume
     
 - LED/RGB Functionality
-    - add RGB timeout (default 5 minutes)
+    - RGB timeout (default 5 minutes)
+        - Can be changed in FN layer with < and >
+        - indicators in FN layer using RGB in FN and number rows to show the timeout in minutes
     - LED address location map as enum definition
     - LED group arrays for arrows, numpad, left and right side LEDs
     - default startuo in single mode with default colour 

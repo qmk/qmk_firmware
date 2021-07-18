@@ -28,6 +28,8 @@ enum custom_layers {
 enum custom_keycodes {
   KC_00 = SAFE_RANGE,
   KC_WINLCK,    //Toggles Win key on and off
+  RGB_TOI,   // Timeout idle time up
+  RGB_TOD,   // Timeout idle time down
 };
 
 // Tap Dance Definitions
@@ -69,8 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_TOG,
         _______, _______, RGB_VAI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, RESET,            KC_HOME,
         KC_CAPS, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_END,
-        _______,          _______, RGB_HUI, _______, _______, _______, KC_NLCK, _______, _______, _______, _______,          _______, RGB_MOD, _______,
-        _______, KC_WINLCK, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
+        _______,          _______, RGB_HUI, _______, _______, _______, KC_NLCK, _______, RGB_TOD, RGB_TOI, _______,          _______, RGB_MOD, _______,
+        _______, KC_WINLCK, _______,                            _______,                          _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
 
     [_MO2] = LAYOUT(
@@ -95,59 +97,77 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // TIMEOUTS
+#define TIMEOUT_THRESHOLD_DEFAULT   5    // default timeout minutes
+#define TIMEOUT_THRESHOLD_MAX       140  // upper limits (2 hours and 10 minutes -- no rgb indicators above this value)
 static uint16_t timeout_timer = 0;
 static uint16_t timeout_counter = 0;  //in minute intervals
-#define RGBTIMEOUT_THRESHOLD 5  // minutes
+static uint16_t timeout_threshold = TIMEOUT_THRESHOLD_DEFAULT;
 
 void timeout_reset_timer(void) {
     timeout_timer = timer_read();
     timeout_counter = 0;
 };
 
+void timeout_update_threshold(bool increase) {
+    if (increase && timeout_threshold < TIMEOUT_THRESHOLD_MAX) timeout_threshold++;
+    if (!increase && timeout_threshold > 0) timeout_threshold--;
+};
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_00:
-            if (record->event.pressed) {
-                // when keycode KC_00 is pressed
-                SEND_STRING("00");
+    case KC_00:
+        if (record->event.pressed) {
+            // when keycode KC_00 is pressed
+            SEND_STRING("00");
+        } else {
+            // when keycode KC_00 is released
+        }
+        break;
+    case KC_WINLCK:
+        if (record->event.pressed) {
+            _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
+            if(_isWinKeyDisabled) {
+                process_magic(GUI_OFF, record);
             } else {
-                // when keycode KC_00 is released
+                process_magic(GUI_ON, record);
             }
-            break;
-
-        case KC_WINLCK:
-            if (record->event.pressed) {
-                _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
-                if(_isWinKeyDisabled) {
-                    process_magic(GUI_OFF, record);
-                } else {
-                    process_magic(GUI_ON, record);
-                }
-            } else  unregister_code16(keycode);
-            break;
-
-        default:
-            if (record->event.pressed) { //reset activity timer
-                #ifdef RGB_MATRIX_ENABLE
-                    rgb_matrix_enable();
-                #endif
-                timeout_reset_timer();
-            }
-            break;
+        } else  unregister_code16(keycode);
+        break;
+    case RGB_TOI:
+        if(record->event.pressed) {
+            timeout_update_threshold(true);
+        } else  unregister_code16(keycode);
+        break;
+    case RGB_TOD:
+        if(record->event.pressed) {
+             timeout_update_threshold(false);  //decrease timeout
+        } else  unregister_code16(keycode);
+        break;
+    default:
+        if (record->event.pressed) { //reset activity timer
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_enable();
+            #endif
+            timeout_reset_timer();
+        }
+        break;
     }
     return true;
 };
 
 void matrix_scan_user(void) {
-    if (timer_elapsed(timeout_timer) >= 60000) {// 1 minute tick
-        timeout_counter++;
-        timeout_timer = timer_read();
-    }
-    #ifdef RGB_MATRIX_ENABLE
-        if (timeout_counter >= RGBTIMEOUT_THRESHOLD) {
-            rgb_matrix_disable();
+    if (timeout_threshold > 0) {
+        if (timer_elapsed(timeout_timer) >= 60000) { // 1 minute tick
+            timeout_counter++;
+            timeout_timer = timer_read();
         }
-    #endif
+        #ifdef RGB_MATRIX_ENABLE
+            if (timeout_threshold > 0 && timeout_counter >= timeout_threshold) {
+                rgb_matrix_disable();
+            }
+        #endif
+    } // timeout_threshold = 0 will disable timeout
 };
 
 
@@ -155,7 +175,6 @@ void matrix_scan_user(void) {
     uint8_t selected_layer = 0;
 
     bool encoder_update_user(uint8_t index, bool clockwise) {
-
         if ( clockwise ) {
             if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
                 selected_layer ++;
@@ -169,7 +188,14 @@ void matrix_scan_user(void) {
             } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
                 tap_code(KC_MEDIA_NEXT_TRACK);
             } else  {
-                tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
+                switch (selected_layer) {
+                case _FN1:
+                    timeout_update_threshold(true);
+                    break;
+                default:
+                    tap_code(KC_VOLU);       // Otherwise it just changes volume
+                    break;
+                }
             }
         } else {
             if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
@@ -184,9 +210,17 @@ void matrix_scan_user(void) {
             } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
                 tap_code(KC_MEDIA_PREV_TRACK);
             } else {
-                tap_code(KC_VOLD);
+                switch (selected_layer) {
+                case _FN1:
+                    timeout_update_threshold(false);
+                    break;
+                default:
+                    tap_code(KC_VOLD);
+                    break;
+                }
             }
         }
+
         return true;
     }
 #endif
@@ -216,6 +250,17 @@ void matrix_scan_user(void) {
             rgb_matrix_set_color(LED_R3, RGB_RED);
             rgb_matrix_set_color(LED_R4, RGB_RED);
             rgb_matrix_set_color(LED_FN, RGB_RED); //FN key
+
+            // Add RGB Timeout Indicator -- shows 0 to 139 using F row and num row;  larger numbers using 16bit code
+            if (timeout_threshold <= 10) rgb_matrix_set_color(LED_LIST_FUNCROW[timeout_threshold], RGB_RED);
+            else if (timeout_threshold < 140) {
+                rgb_matrix_set_color(LED_LIST_FUNCROW[(timeout_threshold / 10)], RGB_RED);
+                rgb_matrix_set_color(LED_LIST_NUMROW[(timeout_threshold % 10)], RGB_RED);
+            } else { // >= 140 minutes, just show these 3 lights
+                rgb_matrix_set_color(LED_LIST_NUMROW[10], RGB_RED);
+                rgb_matrix_set_color(LED_LIST_NUMROW[11], RGB_RED);
+                rgb_matrix_set_color(LED_LIST_NUMROW[12], RGB_RED);
+            }
             break;
         case _MO2:
             for (uint8_t i=0; i<sizeof(LED_LIST_NUMPAD)/sizeof(LED_LIST_NUMPAD[0]); i++) {
