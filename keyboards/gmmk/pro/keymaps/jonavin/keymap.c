@@ -177,25 +177,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         if (_isWinKeyDisabled) {
             rgb_matrix_set_color(LED_LWIN, RGB_RED);  //light up Win key when disabled
         }
-                            switch(get_highest_layer(layer_state)){  // special handling per layer
-            case _FN1:  // on Fn layer select what the encoder does when pressed
-                rgb_matrix_set_color(LED_R2, RGB_RED);
-                rgb_matrix_set_color(LED_R3, RGB_RED);
-                rgb_matrix_set_color(LED_R4, RGB_RED);
-                rgb_matrix_set_color(LED_FN, RGB_RED); //FN key
-                break;
-            case _MO2:
-                for (uint8_t i=0; i<sizeof(LED_LIST_NUMPAD)/sizeof(LED_LIST_NUMPAD[0]); i++) {
-                    rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_MAGENTA);
-                }
-                break;
-            case _MO3:
-                rgb_matrix_set_color(LED_R6, RGB_TURQUOISE);
-                rgb_matrix_set_color(LED_R7, RGB_TURQUOISE);
-                rgb_matrix_set_color(LED_R8, RGB_TURQUOISE);
-                break;
-            default:
-                break;
+        switch(get_highest_layer(layer_state)){  // special handling per layer
+        case _FN1:  // on Fn layer select what the encoder does when pressed
+            rgb_matrix_set_color(LED_R2, RGB_RED);
+            rgb_matrix_set_color(LED_R3, RGB_RED);
+            rgb_matrix_set_color(LED_R4, RGB_RED);
+            rgb_matrix_set_color(LED_FN, RGB_RED); //FN key
+            break;
+        case _MO2:
+            for (uint8_t i=0; i<sizeof(LED_LIST_NUMPAD)/sizeof(LED_LIST_NUMPAD[0]); i++) {
+                rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_MAGENTA);
+            }
+            rgb_matrix_set_color(LED_R4, RGB_MAGENTA);
+            rgb_matrix_set_color(LED_R5, RGB_MAGENTA);
+            rgb_matrix_set_color(LED_R6, RGB_MAGENTA);
+            break;
+        case _MO3:
+            rgb_matrix_set_color(LED_R6, RGB_GREEN);
+            rgb_matrix_set_color(LED_R7, RGB_GREEN);
+            rgb_matrix_set_color(LED_R8, RGB_GREEN);
+            break;
+        default:
             break;
         }
     }
