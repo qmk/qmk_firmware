@@ -1,0 +1,14 @@
+MCU = atmega32u4
+BOOTLOADER = atmel-dfu
+
+SPLIT_KEYBOARD   = yes
+LTO_ENABLE       = yes
+
+BOOTMAGIC_ENABLE = yes
+MOUSEKEY_ENABLE  = no
+EXTRAKEY_ENABLE  = yes
+CONSOLE_ENABLE   = yes
+COMMAND_ENABLE   = yes
+NKRO_ENABLE      = yes
+UNICODE_ENABLE   = no
+BLUETOOTH_ENABLE = no
