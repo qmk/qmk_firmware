@@ -13,22 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE,
-    _FN
-};
+#include "macro2.0.h"
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    [_BASE] = LAYOUT(
-        KC_DEL,  KC_HOME, LT(_FN,KC_END),
-        KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE
-    ),
-    [_FN] = LAYOUT(
-        RESET,    KC_UP,   _______,
-        KC_LEFT, KC_DOWN, KC_RGHT, MAGIC_TOGGLE_NKRO
-    )
-};
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_AUDIO_VOL_UP);
+        } else {
+            tap_code(KC_AUDIO_VOL_DOWN);
+        }
+    }
+    return true;
+}
