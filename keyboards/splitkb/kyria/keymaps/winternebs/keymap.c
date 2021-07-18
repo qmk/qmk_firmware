@@ -699,9 +699,15 @@ void oled_task_user(void) {
 	if (is_keyboard_master()) {
 		render_anim();
 		oled_set_cursor(0,7);
-		sprintf(wpm_str, "APM: %03d   ", get_current_wpm());
-		oled_write(wpm_str, false);
-		switch (get_highest_layer(layer_state)) {
+        uint8_t n = get_current_wpm();
+        wpm_str[3] = '\0';
+        wpm_str[2] = '0' + n % 10;
+        wpm_str[1] = '0' + (n /= 10) % 10;
+        wpm_str[0] = '0' + n / 10 ;
+        oled_write_P(PSTR("WPM: "), false);
+        oled_write(wpm_str, false);
+        oled_write_P(PSTR("   "), false);
+    		switch (get_highest_layer(layer_state)) {
 			case _QWERTY:
 				oled_write_ln_P(PSTR("base"), false);
 				break;
