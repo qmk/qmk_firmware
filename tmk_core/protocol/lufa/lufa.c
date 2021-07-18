@@ -1062,7 +1062,7 @@ int main(void) {
 #if !defined(NO_USB_STARTUP_CHECK)
         if (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
-            while (USB_DeviceState == DEVICE_STATE_Suspended) {
+            if (USB_DeviceState == DEVICE_STATE_Suspended) {
                 suspend_power_down();
                 if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
                     USB_Device_SendRemoteWakeup();
@@ -1076,6 +1076,7 @@ int main(void) {
                     //
                     // Pause for a while to let things settle...
                     wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+                    clear_keyboard();
 #    endif
                 }
             }
