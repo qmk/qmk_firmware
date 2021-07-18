@@ -237,6 +237,16 @@ endef
 bootloadHID: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_BOOTLOADHID)
 
+
+HID_BOOTLOADER_CLI ?= hid_bootloader_cli
+
+define EXEC_HID_LUFA
+	$(HID_BOOTLOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
+endef
+
+hid_bootloader: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_HID_LUFA)
+
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
@@ -337,6 +347,8 @@ else ifeq ($(strip $(BOOTLOADER)), USBasp)
 	$(call EXEC_USBASP)
 else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
 	$(call EXEC_BOOTLOADHID)
+else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
+	$(call EXEC_HID_LUFA)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif
