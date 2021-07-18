@@ -1,4 +1,4 @@
-/* Copyright 2021 Afternoon Labs
+/* Copyright 2021 eithanshavit
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
