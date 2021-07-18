@@ -1,3 +1,3 @@
-# ortho_5x12
+# ortho_5x10
 
-    LAYOUT_ortho_5x12
+    LAYOUT_ortho_5x10
