@@ -207,7 +207,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _NN, _MS, _SP);
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 char wpm_str[10];
 
 // static void render_logo(void) {

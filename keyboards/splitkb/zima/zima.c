@@ -21,7 +21,7 @@
 extern haptic_config_t haptic_config;
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static bool is_asleep = false;
 static uint32_t oled_timer;
 
@@ -94,7 +94,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-#    ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_ENABLE
     oled_timer = timer_read32();
 #    endif
 #    if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)

@@ -19,7 +19,8 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
 
 # OLED enable
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 
 # Encoder enable
 ENCODER_ENABLE = yes

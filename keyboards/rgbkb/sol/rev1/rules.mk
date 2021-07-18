@@ -25,5 +25,5 @@ RGBLIGHT_FULL_POWER     = no        # Allow maximum RGB brightness for RGBLIGHT 
 IOS_DEVICE_ENABLE       = no        # Limit max brightness to connect to IOS device (iPad,iPhone)
 
 # Misc
-OLED_DRIVER_ENABLE      = no        # Enable the OLED Driver
+OLED_ENABLE     = no        # Enable the OLED Driver
 SWAP_HANDS_ENABLE       = no        # Enable one-hand typing

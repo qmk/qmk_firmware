@@ -16,7 +16,8 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 WS2812_DRIVER = bitbang
 ENCODER_ENABLE = yes
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 
 # RGB layout selection
 RGB_ENCODERS = yes # For RGB encoders, solder on both WS2811 chips

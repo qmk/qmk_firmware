@@ -103,7 +103,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-#if OLED_DRIVER_ENABLE
+#if OLED_ENABLE
 const char* layer_name_user(uint32_t layer) {
   switch (layer) {
     case _QWERTY:
