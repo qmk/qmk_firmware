@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# https://github.com/manna-harbour/qmk_firmware/blob/crkbd/keyboards/crkbd/keymaps/manna-harbour/readme.org
+
+
+size=`convert "$1" -ping -format "%wx%h" info:`
+
+case "$size"
+in
+  '32x128'|'64x128')
+    rotate=180
+    portrait='true'
+  ;;
+  '128x32'|'128x64')
+    rotate=90
+    portrait='false'
+  ;;
+  *)
+    echo "$0: unsupported image size: $size." >&2
+    exit 65 #EX_DATAERR
+esac
+
+cat <<'EOF'
+// https://github.com/manna-harbour/qmk_firmware/blob/crkbd/keyboards/crkbd/keymaps/manna-harbour/readme.org
+
+#include "mh_image.h"
+const char mh_image[] PROGMEM = {
+EOF
+
+convert "$1" -rotate "$rotate" -crop 8x +repage -gravity North -reverse -append \
+ -depth 1 GRAY:- | \
+ xxd -i -c 16
+
+cat <<'EOF'
+
+};
+const int mh_image_size = sizeof(mh_image);
+EOF
+
+cat <<EOF
+const bool mh_image_portrait = $portrait;
+EOF

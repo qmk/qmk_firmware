@@ -1,0 +1,336 @@
+#+Title: Crkbd Keymap by Manna Harbour
+
+[[https://raw.githubusercontent.com/manna-harbour/crkbd/master/crkbd.jpg]]
+
+This keymap includes crkbd-specific hardware feature support.  It provides easy
+selection of the following:
+
+- hotswap trackpoint module in OLED port, or OLED with new or old drivers
+- automatic mouse buttons layer activation on trackpoint movement
+- keyboard-side mouse acceleration, or low rates for use with host-side
+  acceleration
+- static image display, or use as caps lock indicator
+- built-in logo, or image from data file, with automatic rotation
+- automatic conversion of image files
+- matrix, light, or underglow RGB
+
+It imports [[https://github.com/manna-harbour/qmk_firmware/blob/miryoku/users/manna-harbour_miryoku/miryoku.org][miryoku]], an ergonomic, minimal, orthogonal layout for ergo or ortho
+keyboards.
+
+Please see the [[https://github.com/manna-harbour/qmk_firmware/blob/crkbd/keyboards/crkbd/keymaps/manna-harbour/readme.org][development branch]] for any [[https://github.com/qmk/qmk_firmware/compare/master...manna-harbour:crkbd][updates not yet merged into QMK]].
+
+Hotswap trackpoint module hardware details and additional OLED image data files
+are provided outside QMK in the [[https://github.com/manna-harbour/crkbd/blob/master/readme.org][Crkbd Keymap by Manna Harbour (Extras)
+repository]].
+
+
+* Contents                                                              :TOC:
+- [[#features][Features]]
+  - [[#mh_module][MH_MODULE]]
+  - [[#mh_auto_buttons][MH_AUTO_BUTTONS]]
+  - [[#mh_low_mouse][MH_LOW_MOUSE]]
+  - [[#mh_oled_mode][MH_OLED_MODE]]
+  - [[#mh_oled_image][MH_OLED_IMAGE]]
+  - [[#mh_rgb][MH_RGB]]
+  - [[#user_name][USER_NAME]]
+- [[#building-and-flashing][Building and Flashing]]
+  - [[#sample-configurations][Sample Configurations]]
+  - [[#setup][Setup]]
+- [[#documentation][Documentation]]
+- [[#contact][Contact]]
+
+* Features
+
+The following features are provided.  They can be selected by editing [[./rules.mk][rules.mk]]
+or by [[#sample-configurations][providing options to make when building]].  When enabling multiple features
+~LTO_ENABLE=yes~ may be required to reduce firmware size.
+
+Additional configuration options can be configured by editing [[./config.h][config.h]].
+
+** MH_MODULE
+
+Select drivers for the module installed in the OLED socket.
+
+Please note: if module support is enabled in the firmware and flashed to the
+keyboard but the module is not physically installed the keyboard will not
+operate correctly until the module is installed or correctly configured firmware
+is flashed.
+
+*** trackpoint
+
+Enables support for a hotswap trackpoint module installed on the master.
+
+
+*** oled
+
+Enables OLED support.
+
+Configuration options:
+
+- MH_OLED_TIMEOUT
+
+  Fix for lack of OLED timeout on the crkbd.  Enabled by default.  See [[https://github.com/qmk/qmk_firmware/issues/5982][#5982]].
+
+
+*** oled_old
+
+Enables OLED support using the old API.
+
+
+** MH_AUTO_BUTTONS
+
+Automatic mouse buttons layer activation on trackpoint movement.
+
+Requires MH_MODULE=trackpoint (or other PS/2 trackpoint, trackball or trackpad
+with PS2_MOUSE_ENABLE).
+
+Configuration options:
+
+- MH_AUTO_BUTTONS_LAYER
+
+  Layer to activate on movement.
+
+  Provide mousekeys mouse buttons (e.g. on the thumb keys below the
+  trackpoint).
+
+  All other keys should be transparent so that a mousekeys layer can be
+  activated manually if desired, and normal typing (other than the button
+  keys) can continue without having to wait for the timeout.
+
+  Position the layer in the layer stack for desired precedence.
+
+- MH_AUTO_BUTTONS_TIMEOUT
+
+  Time in ms to deactivate layer after last movement.
+
+  Timeout will be disabled while a button is held to prevent drags from being
+  canceled.
+
+  If using ~unclutter~, use with the same timeout (e.g. ~unclutter -idle
+  0.75~) for a visual indication of activation state.
+
+
+** MH_LOW_MOUSE
+
+Keyboard-side mouse acceleration or low rates for use with host-side
+acceleration.
+
+The mousekeys feature has good control over acceleration, however the ps2_mouse
+driver only offers the limited acceleration provided by the protocol, and
+further increasing speed loses precision.
+
+This option uses low rates and linear response for mouse movement so that
+acceleration can be implemented on the host for higher acceleration without loss
+of precision.  Only a single combined mouse device is seen on the host, so both
+mousekeys and ps2_mouse are adjusted.
+
+When enabled, the USB device product name is changed to "Corne Keyboard (crkbd)
+with low rate mouse" for matching on the host.  E.g. using ~xinput~:
+
+#+BEGIN_SRC sh :tangle no
+xinput -set-prop 'pointer:foostan Corne Keyboard (crkbd) with low rate mouse' 'Device Accel Profile' 2
+xinput -set-prop 'pointer:foostan Corne Keyboard (crkbd) with low rate mouse' 'Device Accel Velocity Scaling' 10000
+#+END_SRC
+
+
+** MH_OLED_MODE
+
+Selects use of the OLED.
+
+Requires MH_OLED_IMAGE.
+
+*** static
+
+Static image display.
+
+
+*** caps
+
+Displays image as caps lock indicator.
+
+
+** MH_OLED_IMAGE
+
+Selects image to display on OLED.
+
+Portrait images will be displayed in portrait orientation.  Landscape images
+will be displayed with a CCW rotation of 90 degrees on the left and a CW
+rotation of 90 degrees on the right.
+
+*** /file.c/
+
+Selects image data file under ~mh_images/converted/~.
+
+Requires MH_MODULE=oled.
+
+Full size QMK and corne logo files are provided.
+
+**** Automatic Conversion
+
+If an image file with the same basename is found under ~mh_images/originals/~,
+with resolution 128x32 or 32x128, it will be automatically converted to an image
+data file under ~mh_images/converted/~.
+
+Requires ~convert~ (ImageMagick) and ~xxd~ (vim).
+
+
+*** logo
+
+Logo included in default OLED font.
+
+Requires MH_MODULE=oled (QMK logo) or MH_MODULE=oled_old (corne logo).
+
+
+** MH_RGB
+
+Selects drivers and configuration for RGB.
+
+*** matrix
+
+Selects RGB Matrix driver.
+
+Configuration options:
+
+- MH_RGB_TOGGLE_OFF
+
+  Work-around for RGB sync issue on the crkbd and lack of RGB_OFF keycode.
+  Occasionally when flashing RGB firmware to the crkbd the on / off state will
+  be out of sync between halves.  Use shift-RGB_TOG to turn RGB off on both
+  halves.  Enabled by default.  See [[https://github.com/qmk/qmk_firmware/issues/6594][#6594]] and [[https://github.com/qmk/qmk_firmware/pull/5998][#5998]].
+
+
+*** light
+
+Selects RGB Light driver.
+
+
+
+*** underglow
+
+Select RGB Light driver and enables only the bottom-facing LEDs.
+
+
+** USER_NAME
+
+This keymap (customised QMK configuration for an individual keyboard and user)
+does not contain a keymap (mapping of keys to keycodes), which is imported from
+elsewhere.
+
+This feature can be used to select the imported keymap.  See the miryoku
+userspace for reference, but test for the KEYBOARD_crkbd macro and use the crkbd
+LAYOUT.
+
+
+* Building and Flashing
+
+** Sample Configurations
+
+#+BEGIN_SRC sh :tangle no
+
+# Hotswap PS/2 trackpoint module installed in the OLED socket.  Master side only.
+make crkbd:manna-harbour:flash MH_MODULE=trackpoint
+
+# As above with automatic mouse buttons layer activation on trackpoint movement.
+make crkbd:manna-harbour:flash MH_MODULE=trackpoint MH_AUTO_BUTTONS=yes
+
+# As above with low mouse movement rates for acceleration on the host.
+make crkbd:manna-harbour:flash MH_MODULE=trackpoint MH_AUTO_BUTTONS=yes MH_LOW_MOUSE=yes
+
+
+# OLED with static image from image data file mh_images/converted/qmk.c.
+make crkbd:manna-harbour:flash MH_MODULE=oled MH_OLED_MODE=static MH_OLED_IMAGE=qmk.c
+
+# As above but with automatic convertion from mh_images/originals/image.*.
+make crkbd:manna-harbour:flash MH_MODULE=oled MH_OLED_MODE=static MH_OLED_IMAGE=image.c
+
+# OLED with image display as caps lock indicator.  Master side only.
+make crkbd:manna-harbour:flash MH_MODULE=oled MH_OLED_MODE=caps MH_OLED_IMAGE=qmk.c
+
+# OLED with static built-in logo image (qmk logo).
+make crkbd:manna-harbour:flash MH_MODULE=oled MH_OLED_MODE=static MH_OLED_IMAGE=logo
+
+# As above but with old driver (corne logo).
+make crkbd:manna-harbour:flash MH_MODULE=oled_old MH_OLED_MODE=static MH_OLED_IMAGE=logo
+
+# As above but with image display as caps lock indicator.  Master side only.
+make crkbd:manna-harbour:flash MH_MODULE=oled_old MH_OLED_MODE=caps MH_OLED_IMAGE=logo
+
+
+# RGB matrix.
+make crkbd:manna-harbour:flash MH_MODULE=no MH_RGB=matrix
+
+# RGB light.
+make crkbd:manna-harbour:flash MH_MODULE=no MH_RGB=light
+
+# As above but bottom-facing LEDs only.
+make crkbd:manna-harbour:flash MH_MODULE=no MH_RGB=underglow
+
+
+# Change miryoku alphas
+make crkbd:manna-harbour:flash MIRYOKU_ALPHAS=QWERTY
+
+# Use keymap from users/user
+make crkbd:manna-harbour:flash USER_NAME=user
+
+
+# Trackpoint, automatic mouse button layer, RGB matrix, LTO to reduce firmware size.  Master side only.
+make crkbd:manna-harbour:flash MH_MODULE=trackpoint MH_AUTO_BUTTONS=yes MH_RGB=matrix LTO_ENABLE=yes
+
+# OLED with static image, RGB matrix, LTO to reduce firmware size
+make crkbd:manna-harbour:flash MH_MODULE=oled MH_OLED_MODE=static MH_OLED_IMAGE=qmk.c MH_RGB=matrix LTO_ENABLE=yes
+#+END_SRC
+
+
+** Setup
+
+*** Erase
+
+#+BEGIN_SRC sh :tangle no
+avrdude -p m32U4 -P /dev/ttyACM0 -c avr109 -e
+#+END_SRC
+
+
+*** Set Handedness for EE_HANDS
+
+#+BEGIN_SRC sh :tangle no
+make crkbd:manna-harbour:avrdude-split-left # left
+make crkbd:manna-harbour:avrdude-split-right # right
+#+END_SRC
+
+
+*** Build
+
+#+BEGIN_SRC sh :tangle no
+make crkbd:manna-harbour
+#+END_SRC
+
+
+*** Build and Flash
+
+#+BEGIN_SRC sh :tangle no
+make crkbd:manna-harbour:flash
+#+END_SRC
+
+
+* Documentation
+
+- https://docs.qmk.fm/#/custom_quantum_functions
+- https://docs.qmk.fm/#/feature_layers
+- https://docs.qmk.fm/#/feature_mouse_keys
+- https://docs.qmk.fm/#/feature_oled_driver
+- https://docs.qmk.fm/#/feature_ps2_mouse
+- https://docs.qmk.fm/#/feature_split_keyboard
+- https://docs.qmk.fm/#/feature_userspace
+- https://docs.qmk.fm/#/flashing
+- https://docs.qmk.fm/#/newbs_testing_debugging
+- https://docs.qmk.fm/#/understanding_qmk
+- https://imagemagick.org/script/formats.php
+
+
+* Contact
+
+For issues with this branch, please [[https://github.com/manna-harbour/qmk_firmware/issues/new][open an issue]].
+
+For more general discussion, please join a recent relevant [[https://www.reddit.com/user/manna_harbour/][thread]] or [[https://www.reddit.com/message/compose/?to=manna_harbour][send a PM]].
+
+[[https://github.com/manna-harbour][https://raw.githubusercontent.com/manna-harbour/crkbd/master/manna-harbour-boa-32.png]]
