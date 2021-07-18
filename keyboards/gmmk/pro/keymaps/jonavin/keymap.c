@@ -119,11 +119,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
+    uint8_t selected_layer = 0;
 
     bool encoder_update_user(uint8_t index, bool clockwise) {
 
         if ( clockwise ) {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, Page up
+            if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                selected_layer ++;
+                layer_move(selected_layer);
+            } else if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, Page up
                 unregister_mods(MOD_BIT(KC_LSFT));
                 register_code(KC_PGDN);
                 register_mods(MOD_BIT(KC_LSFT));
@@ -135,7 +139,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
             }
         } else {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+            if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+                selected_layer --;
+                layer_move(selected_layer);
+            } else if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) {
                 unregister_mods(MOD_BIT(KC_LSFT));
                 register_code(KC_PGUP);
                 register_mods(MOD_BIT(KC_LSFT));
