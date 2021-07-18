@@ -156,6 +156,14 @@ After installing QMK you can set it up with this command:
 
 In most situations you will want to answer `y` to all of the prompts.
 
+Tips for FreeBSD 13.0:
+
+On FreeBSD 13.0 you're likely to encounter the following problems:
+py37-setuptools was a tad too old, with v44 by default, while QMK cli needed v45. This is easy to solve by installing newer wheel (v57) from pipy and installing it (pip install py37-setuptools.whl).
+In some cases (especially with FreeBSD having undergone upgrades from earlier versions), you might run into HID  library issues.
+Try completely uninstalling any python HID packages, and compile hid from source:
+Download hid-1.0.4.tar.gz, run python setup.py build, then python setup.py install and your cli should start working...
+
 <!-- tabs:end -->
 
 ?> The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration.md?id=single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
