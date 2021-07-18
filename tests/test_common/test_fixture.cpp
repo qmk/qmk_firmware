@@ -21,7 +21,7 @@ using testing::Between;
 using testing::Return;
 
 void TestFixture::SetUpTestCase() {
-    // The following is enough to bootstrap the test_log values
+    // The following is enough to bootstrap the values set in main
     eeconfig_init_quantum();
     eeconfig_update_debug(debug_config.raw);
 

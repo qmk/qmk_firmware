@@ -34,7 +34,8 @@ CREATE_MAP := no
 
 VPATH +=\
 	$(LIB_PATH)/googletest\
-	$(LIB_PATH)/googlemock
+	$(LIB_PATH)/googlemock\
+	$(LIB_PATH)/printf
 
 all: elf
 
@@ -56,13 +57,12 @@ include $(QUANTUM_PATH)/sequencer/tests/rules.mk
 include $(QUANTUM_PATH)/serial_link/tests/rules.mk
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
 include build_full_test.mk
-else
-$(TEST)_SRC += $(LIB_PATH)/printf/printf.c
-$(TEST)_SRC += $(COMMON_DIR)/printf.c
-VPATH += $(LIB_PATH)/printf
 endif
 
-$(TEST)_SRC += tests/test_common/main.c
+$(TEST)_SRC += \
+	tests/test_common/main.c \
+	$(LIB_PATH)/printf/printf.c \
+	$(COMMON_DIR)/printf.c
 
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
 $(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)
