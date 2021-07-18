@@ -15,11 +15,11 @@
 */
 
 /*
- * ST32F103xB memory setup for use with the maplemini bootloader.
+ * STM32Duino bootloader common memory setup.
  */
 MEMORY
 {
-    flash0  : org = 0x08002000, len = 64k - 0x2000
+    flash0  : org = 0x08002000, len = f103_flash_size - 0x2000
     flash1  : org = 0x00000000, len = 0
     flash2  : org = 0x00000000, len = 0
     flash3  : org = 0x00000000, len = 0
