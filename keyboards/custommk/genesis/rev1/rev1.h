@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT_numpad( \
+#define LAYOUT_numpad_5x4( \
 	K00, K01, K02, K03, \
 	K10, K11, K12,      \
 	K20, K21, K22, K23, \
@@ -32,7 +32,7 @@
 	{ K40,   KC_NO, K42,   K43 }  \
 }
 
-#define LAYOUT_ortho( \
+#define LAYOUT_ortho_5x4( \
 	K00, K01, K02, K03, \
 	K10, K11, K12, K13, \
 	K20, K21, K22, K23, \
