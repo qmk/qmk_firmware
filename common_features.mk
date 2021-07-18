@@ -112,6 +112,43 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
+QUANTUM_PAINTER_ENABLE ?= no
+VALID_QUANTUM_PAINTER_DRIVERS := qmk_oled_wrapper ili9341
+QUANTUM_PAINTER_DRIVERS ?=
+ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
+    OPT_DEFS += -DQUANTUM_PAINTER_ENABLE
+    COMMON_VPATH += \
+        $(QUANTUM_DIR)/painter \
+        $(DRIVER_PATH)/painter/fallback
+    SRC += \
+        $(QUANTUM_DIR)/utf8.c \
+        $(QUANTUM_DIR)/painter/qp.c \
+        $(QUANTUM_DIR)/painter/qp_utils.c \
+        $(DRIVER_PATH)/painter/fallback/qp_fallback.c
+
+    define handle_quantum_painter_driver
+        CURRENT_PAINTER_DRIVER := $1
+        ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),qmk_oled_wrapper)
+            OPT_DEFS += -DQUANTUM_PAINTER_QMK_OLED_WRAPPER_ENABLE
+            OLED_DRIVER_ENABLE = yes
+            COMMON_VPATH += $(DRIVER_PATH)/painter/qmk_oled_wrapper
+            SRC += $(DRIVER_PATH)/painter/qmk_oled_wrapper/qp_qmk_oled_wrapper.c
+        else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ili9341)
+            OPT_DEFS += -DQUANTUM_PAINTER_ILI9341_ENABLE
+            QUANTUM_LIB_SRC += spi_master.c
+            COMMON_VPATH += \
+                $(DRIVER_PATH)/painter/ili9xxx_common \
+                $(DRIVER_PATH)/painter/ili9341
+            SRC += \
+                $(DRIVER_PATH)/painter/ili9xxx_common/qp_ili9xxx.c \
+                $(DRIVER_PATH)/painter/ili9341/qp_ili9341.c
+        else
+            $$(error "$$(CURRENT_PAINTER_DRIVER)" is not a valid quantum painter driver)
+        endif
+    endef
+    $(foreach qp_driver,$(QUANTUM_PAINTER_DRIVERS),$(eval $(call handle_quantum_painter_driver,$(qp_driver))))
+endif
+
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
@@ -634,7 +671,8 @@ ifeq ($(strip $(UNICODE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c \
+           $(QUANTUM_DIR)/utf8.c
 endif
 
 SPACE_CADET_ENABLE ?= yes

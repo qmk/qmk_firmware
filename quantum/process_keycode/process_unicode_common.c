@@ -16,6 +16,7 @@
 
 #include "process_unicode_common.h"
 #include "eeprom.h"
+#include "utf8.h"
 #include <ctype.h>
 #include <string.h>
 
@@ -229,35 +230,6 @@ void send_unicode_hex_string(const char *str) {
 }
 
 // clang-format on
-
-// Borrowed from https://nullprogram.com/blog/2017/10/06/
-static const char *decode_utf8(const char *str, int32_t *code_point) {
-    const char *next;
-
-    if (str[0] < 0x80) {  // U+0000-007F
-        *code_point = str[0];
-        next        = str + 1;
-    } else if ((str[0] & 0xE0) == 0xC0) {  // U+0080-07FF
-        *code_point = ((int32_t)(str[0] & 0x1F) << 6) | ((int32_t)(str[1] & 0x3F) << 0);
-        next        = str + 2;
-    } else if ((str[0] & 0xF0) == 0xE0) {  // U+0800-FFFF
-        *code_point = ((int32_t)(str[0] & 0x0F) << 12) | ((int32_t)(str[1] & 0x3F) << 6) | ((int32_t)(str[2] & 0x3F) << 0);
-        next        = str + 3;
-    } else if ((str[0] & 0xF8) == 0xF0 && (str[0] <= 0xF4)) {  // U+10000-10FFFF
-        *code_point = ((int32_t)(str[0] & 0x07) << 18) | ((int32_t)(str[1] & 0x3F) << 12) | ((int32_t)(str[2] & 0x3F) << 6) | ((int32_t)(str[3] & 0x3F) << 0);
-        next        = str + 4;
-    } else {
-        *code_point = -1;
-        next        = str + 1;
-    }
-
-    // part of a UTF-16 surrogate pair - invalid
-    if (*code_point >= 0xD800 && *code_point <= 0xDFFF) {
-        *code_point = -1;
-    }
-
-    return next;
-}
 
 void send_unicode_string(const char *str) {
     if (!str) {
