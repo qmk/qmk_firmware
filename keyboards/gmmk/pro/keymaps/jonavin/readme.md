@@ -15,6 +15,7 @@
     - default is change volume
     
 - LED/RGB Functionality
+    - add RGB timeout (default 5 minutes)
     - LED address location map as enum definition
     - LED group arrays for arrows, numpad, left and right side LEDs
     - default startuo in single mode with default colour 

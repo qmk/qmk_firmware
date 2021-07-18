@@ -44,31 +44,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 bool _isWinKeyDisabled = false;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case KC_00:
-        if (record->event.pressed) {
-            // when keycode KC_00 is pressed
-            SEND_STRING("00");
-        } else {
-            // when keycode KC_00 is released
-        }
-        break;
-
-    case KC_WINLCK:
-        if (record->event.pressed) {
-            _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
-            if(_isWinKeyDisabled) {
-                process_magic(GUI_OFF, record);
-            } else {
-                process_magic(GUI_ON, record);
-            }
-        } else  unregister_code16(keycode);
-        break;
-    }
-    return true;
-};
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -117,6 +92,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
+
+
+// TIMEOUTS
+static uint16_t timeout_timer = 0;
+static uint16_t timeout_counter = 0;  //in minute intervals
+#define RGBTIMEOUT_THRESHOLD 5  // minutes
+
+void timeout_reset_timer(void) {
+    timeout_timer = timer_read();
+    timeout_counter = 0;
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_00:
+            if (record->event.pressed) {
+                // when keycode KC_00 is pressed
+                SEND_STRING("00");
+            } else {
+                // when keycode KC_00 is released
+            }
+            break;
+
+        case KC_WINLCK:
+            if (record->event.pressed) {
+                _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
+                if(_isWinKeyDisabled) {
+                    process_magic(GUI_OFF, record);
+                } else {
+                    process_magic(GUI_ON, record);
+                }
+            } else  unregister_code16(keycode);
+            break;
+
+        default:
+            if (record->event.pressed) { //reset activity timer
+                #ifdef RGB_MATRIX_ENABLE
+                    rgb_matrix_enable();
+                #endif
+                timeout_reset_timer();
+            }
+            break;
+    }
+    return true;
+};
+
+void matrix_scan_user(void) {
+    if (timer_elapsed(timeout_timer) >= 60000) {// 1 minute tick
+        timeout_counter++;
+        timeout_timer = timer_read();
+    }
+    #ifdef RGB_MATRIX_ENABLE
+        if (timeout_counter >= RGBTIMEOUT_THRESHOLD) {
+            rgb_matrix_disable();
+        }
+    #endif
+};
+
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
     uint8_t selected_layer = 0;
@@ -214,8 +247,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
 
+    if (IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // turn on Num lock by defautl so that the numpad layer always has predictable results
+        tap_code(KC_NUMLOCK);
+    }
+    timeout_timer = timer_read(); // set inital time for ide timeout
     #ifdef RGB_MATRIX_ENABLE
-       rgb_matrix_set_color_all(RGB_GODSPEED); // Default startup colour
+        rgb_matrix_set_color_all(RGB_GODSPEED); // Default startup colour
     #endif
-
 }
