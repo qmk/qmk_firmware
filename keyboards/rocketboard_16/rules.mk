@@ -2,7 +2,18 @@
 MCU = STM32F103
 
 # Bootloader selection
-BOOTLOADER = stm32duino
+# BOOTLOADER = stm32duino
+
+# Custom loader configuration
+MCU_LDSCRIPT = STM32F103C8T6_custom
+OPT_DEFS += -DBOOTLOADER_STM32DUINO
+BOARD = STM32_F103_STM32DUINO
+STM32_BOOTLOADER_ADDRESS = 0x80000000
+DFU_ARGS = -d 1EAF:0003 -a 2 -R
+DFU_SUFFIX_ARGS = -v 1EAF -p 0003
+
+# Extra include
+SRC += keycode_lookup.c
 
 # Build Options
 #   change yes to no to disable
@@ -23,5 +34,9 @@ AUDIO_ENABLE = no           # Audio output
 OLED_DRIVER_ENABLE = yes
 ENCODER_ENABLE = yes
 
+RAW_ENABLE = yes            # Enables HID RAW communication between the board and the PC
+
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
+
+LTO_ENABLE = yes

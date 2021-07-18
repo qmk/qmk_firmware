@@ -51,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // OLED stuff
 #define OLED_DISPLAY_128X64
+#define OLED_FONT_H "custom_font.h"
 
 // Allows for rotary encoder volume control
 #define TAP_CODE_DELAY 20
