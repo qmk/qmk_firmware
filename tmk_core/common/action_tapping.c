@@ -35,6 +35,10 @@ __attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t 
 __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) { return false; }
 #    endif
 
+#    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+__attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) { return false; }
+#    endif
+
 static keyrecord_t tapping_key                         = {};
 static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {};
 static uint8_t     waiting_buffer_head                 = 0;
@@ -170,6 +174,19 @@ bool process_tapping(keyrecord_t *keyp) {
                     // set interrupted flag when other key preesed during tapping
                     if (event.pressed) {
                         tapping_key.tap.interrupted = true;
+#    if defined(HOLD_ON_OTHER_KEY_PRESS) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#        if defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+                        if (get_hold_on_other_key_press(get_event_keycode(tapping_key.event, false), &tapping_key))
+#        endif
+                        {
+                            debug("Tapping: End. No tap. Interfered by pressed key\n");
+                            process_record(&tapping_key);
+                            tapping_key = (keyrecord_t){};
+                            debug_tapping_key();
+                            // enqueue
+                            return false;
+                        }
+#    endif
                     }
                     // enqueue
                     return false;
