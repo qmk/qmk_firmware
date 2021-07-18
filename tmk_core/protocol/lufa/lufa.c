@@ -142,9 +142,7 @@ static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_system(uint16_t data);
 static void    send_consumer(uint16_t data);
-host_driver_t  lufa_driver = {
-    keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer,
-};
+host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
 
 #ifdef VIRTSER_ENABLE
 // clang-format off
@@ -524,6 +522,11 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
 #ifdef JOYSTICK_ENABLE
     /* Setup joystick endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((JOYSTICK_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, JOYSTICK_EPSIZE, 1);
+#endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+    /* Setup digitizer endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((DIGITIZER_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, DIGITIZER_EPSIZE, 1);
 #endif
 }
 
@@ -982,6 +985,23 @@ void virtser_send(const uint8_t byte) {
     }
 }
 #endif
+
+void send_digitizer(report_digitizer_t *report) {
+#ifdef DIGITIZER_ENABLE
+    uint8_t timeout = 255;
+
+    if (USB_DeviceState != DEVICE_STATE_Configured) return;
+
+    Endpoint_SelectEndpoint(DIGITIZER_IN_EPNUM);
+
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    if (!Endpoint_IsReadWriteAllowed()) return;
+
+    Endpoint_Write_Stream_LE(report, sizeof(report_digitizer_t), NULL);
+    Endpoint_ClearIN();
+#endif
+}
 
 /*******************************************************************************
  * main
