@@ -278,6 +278,14 @@ EEP =
 BIN = $(OBJCOPY) -O binary
 
 COMMON_VPATH += $(DRIVER_PATH)/chibios
+I2C_DRIVER?=vendor
+ifeq ($(I2C_DRIVER),vendor)
+COMMON_VPATH += $(DRIVER_PATH)/chibios/i2c_master
+else ifeq ($(I2C_DRIVER),bitbang)
+COMMON_VPATH += $(DRIVER_PATH)/i2c_bitbang
+else
+$(error I2C_DRIVER=$(I2C_DRIVER) not recognized)
+endif
 
 THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
