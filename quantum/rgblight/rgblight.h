@@ -103,8 +103,6 @@
 
 #include "rgblight_modes.h"
 
-// clang-format on
-
 #define _RGBLIGHT_EFFECT_MODE_DEFINE(sym, num, type)          \
     , RGBLIGHT_MODE_##sym,                                    \
     RGBLIGHT_MODE_##sym##_end = RGBLIGHT_MODE_##sym + num -1
@@ -115,6 +113,8 @@ enum RGBLIGHT_EFFECT_MODE {
     MAP(RGBLIGHT_EFFECT_MODE_DEFINE, RGBLIGHT_EFECTS__LIST)
     , RGBLIGHT_MODE_last
 };
+
+// clang-format on
 
 #define RGBLIGHT_MODES (RGBLIGHT_MODE_last - 1)
 
