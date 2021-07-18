@@ -16,9 +16,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "util.h"
+#include "bitwise.h"
+
+#if defined(__GNUC__) || (__has_builtin(__builtin_popcount) && __has_builtin(__builtin_popcountl))
+
+extern Q_ALWAYS_INLINE uint8_t bitpop(uint8_t bits);
+extern Q_ALWAYS_INLINE uint8_t bitpop16(uint16_t bits);
+extern Q_ALWAYS_INLINE uint8_t bitpop32(uint32_t bits);
+
+#else /* __GNUC__ || (__builtin_popcount && __builtin_popcountl) */
 
 // bit population - return number of on-bit
-__attribute__((noinline)) uint8_t bitpop(uint8_t bits) {
+Q_NEVER_INLINE uint8_t bitpop(uint8_t bits) {
     uint8_t c;
     for (c = 0; bits; c++) bits &= bits - 1;
     return c;
@@ -40,9 +49,19 @@ uint8_t bitpop32(uint32_t bits) {
     return c;
 }
 
+#endif /* __GNUC__ || (__builtin_popcount && __builtin_popcountl) */
+
+#if defined(__GNUC__) || (__has_builtin(__builtin_clz) && __has_builtin(__builtin_clzl))
+
+extern Q_ALWAYS_INLINE uint8_t biton(uint8_t bits);
+extern Q_ALWAYS_INLINE uint8_t biton16(uint16_t bits);
+extern Q_ALWAYS_INLINE uint8_t biton32(uint32_t bits);
+
+#else /* __GNUC__ || (__builtin_clz && __builtin_clzl) */
+
 // most significant on-bit - return highest location of on-bit
 // NOTE: return 0 when bit0 is on or all bits are off
-__attribute__((noinline)) uint8_t biton(uint8_t bits) {
+Q_NEVER_INLINE uint8_t biton(uint8_t bits) {
     uint8_t n = 0;
     if (bits >> 4) {
         bits >>= 4;
@@ -105,7 +124,9 @@ uint8_t biton32(uint32_t bits) {
     return n;
 }
 
-__attribute__((noinline)) uint8_t bitrev(uint8_t bits) {
+#endif /* __GNUC__ || (__builtin_clz && __builtin_clzl) */
+
+Q_NEVER_INLINE uint8_t bitrev(uint8_t bits) {
     bits = (bits & 0x0f) << 4 | (bits & 0xf0) >> 4;
     bits = (bits & 0b00110011) << 2 | (bits & 0b11001100) >> 2;
     bits = (bits & 0b01010101) << 1 | (bits & 0b10101010) >> 1;
