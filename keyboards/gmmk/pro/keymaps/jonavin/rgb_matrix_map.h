@@ -92,7 +92,7 @@
         LED_F12, // 66, F12, ka5
         LED_L1, // 67, LED, l01
         LED_R1, // 68, LED, l11
-        LED_Ins, // 69, Prt, k97  -- remapped to Ins
+        LED_INS, // 69, Prt, k97  -- remapped to Ins
         LED_L2, // 70, LED, l02
         LED_R2, // 71, LED, l12
         LED_DEL, // 72, Del, k65
@@ -126,6 +126,12 @@
     const uint8_t LED_LIST_WASD[] = { LED_W, LED_A, LED_S, LED_D };
 
     const uint8_t LED_LIST_ARROWS[] = { LED_LEFT, LED_RIGHT, LED_UP, LED_DOWN };
+
+    const uint8_t LED_LIST_FUNCROW[] = { LED_ESC, LED_F1, LED_F2, LED_F3, LED_F4, LED_F5, LED_F6, LED_F7, LED_F8, LED_F9, LED_F10, LED_F11, LED_F12, LED_INS};
+
+    const uint8_t LED_LIST_NUMROW[] = { LED_GRV, LED_1, LED_2, LED_3, LED_4, LED_5, LED_6, LED_7, LED_8, LED_9, LED_0, LED_MINS, LED_EQL, LED_BSPC, LED_DEL};
+
+    const uint8_t LED_LIST_16BIT[] = { LED_ESC, LED_F1, LED_F2, LED_F3, LED_F4, LED_F5, LED_F6, LED_F7, LED_GRV, LED_1, LED_2, LED_3, LED_4, LED_5, LED_6, LED_7};
 
     const uint8_t LED_LIST_NUMPAD[] = {
         LED_7, LED_8, LED_9,
