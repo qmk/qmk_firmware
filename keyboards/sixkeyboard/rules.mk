@@ -29,3 +29,4 @@ BLUETOOTH_ENABLE = no	# Enable Bluetooth with the Adafruit EZ-Key HID
 CUSTOM_MATRIX = yes
 
 SRC = matrix.c
+LAYOUTS = ortho_2x3
