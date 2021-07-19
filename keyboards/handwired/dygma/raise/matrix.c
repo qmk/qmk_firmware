@@ -27,7 +27,6 @@
 #define LEFT 0
 #define RIGHT 1
 
-
 /* If no key events have occurred, the scanners will time out on reads.
  * So we don't want to be too permissive here. */
 // TODO(ibash) not convinced this is needed...

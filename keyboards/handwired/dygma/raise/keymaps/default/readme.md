@@ -1,5 +1,5 @@
 # The default keymap for Dygma's Raise
 
 ```sh
-make dygma/raise:default
+make handwired/dygma/raise:default
 ```

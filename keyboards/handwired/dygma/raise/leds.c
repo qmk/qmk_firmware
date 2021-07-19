@@ -20,6 +20,7 @@
 #include "rgb_matrix.h"
 #include <string.h>
 #include "raise.h"
+#include "wire-protocol-constants.h"
 #include "print.h"
 #include "leds.h"
 
@@ -33,6 +34,15 @@ struct __attribute__((packed)) cRGB {
 #define LED_BANKS 9
 #define LEDS_PER_BANK 8
 #define LED_BYTES_PER_BANK (sizeof(cRGB) * LEDS_PER_BANK)
+
+// shifting << 1 is because drivers/chibios/i2c_master.h expects the address
+// shifted.
+// 0x58 and 0x59 are the addresses defined in dygma/raise/Hand.h
+#define I2C_ADDR_LEFT (0x58 << 1)
+#define I2C_ADDR_RIGHT (0x59 << 1)
+#define I2C_ADDR(hand) ((hand) ? I2C_ADDR_RIGHT : I2C_ADDR_LEFT)
+#define LEFT 0
+#define RIGHT 1
 
 static cRGB led_state[2 * LEDS_PER_HAND];
 
