@@ -2,7 +2,7 @@
 
 ![Emi20](https://i.imgur.com/Tt9ogmW.jpg)
 
-A compact 20% (4x5) ortholinear keyboard made by Project Aqua and sold by .
+A compact 4x5 ortholinear keyboard made by Project Aqua and sold by Evil-cables.
 
 * Keyboard Maintainer: [AquaCylinder](https://github.com/AquaCylinder)
 * Hardware Supported: PCB, Atmega32u4
