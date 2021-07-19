@@ -16,7 +16,7 @@
     
 - LED/RGB Functionality
     - RGB timeout (default 5 minutes)
-        - Can be changed in FN layer with < and >
+        - Can be changed in FN layer with < and > or encoder, setting to zero disables timeout
         - indicators in FN layer using RGB in FN and number rows to show the timeout in minutes
     - LED address location map as enum definition
     - LED group arrays for arrows, numpad, left and right side LEDs
