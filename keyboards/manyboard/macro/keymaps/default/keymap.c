@@ -17,22 +17,22 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_ortho_4x4( 
-    KC_F1,  KC_F2,  KC_F3,  KC_F4, 
-    KC_F5,  KC_F6,  KC_F7,  KC_F8, 
-    KC_F9,  KC_F10, KC_F11, KC_F12, 
+  [0] = LAYOUT_ortho_4x4(
+    KC_F1,  KC_F2,  KC_F3,  KC_F4,
+    KC_F5,  KC_F6,  KC_F7,  KC_F8,
+    KC_F9,  KC_F10, KC_F11, KC_F12,
     KC_F13, KC_F14, KC_F15, TO(1)
   ),
-  [1] = LAYOUT_ortho_4x4( 
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, 
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, 
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, 
+  [1] = LAYOUT_ortho_4x4(
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  TO(2)
   ),
-  [2] = LAYOUT_ortho_4x4( 
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, 
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, 
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, 
+  [2] = LAYOUT_ortho_4x4(
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  TO(0)
   ),
 };
@@ -55,7 +55,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   /* With an if statement we can check which encoder was turned. */
   if (index == 0) { /* First encoder */
     /* And with another if statement we can check the direction. */
@@ -69,5 +69,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       /* And likewise for the other direction, this time Vol Down is pressed. */
       tap_code(KC_AUDIO_VOL_DOWN);
     }
-  } 
+  }
+  return true;
 }
