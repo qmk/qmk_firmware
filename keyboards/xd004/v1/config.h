@@ -32,7 +32,6 @@ where some things are disabled to save space as well.
 // Note: unsure about manufacturer
 #define MANUFACTURER XIUDI
 #define PRODUCT XD004 v1
-#define DESCRIPTION XD004 v1 Keyboard PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 1

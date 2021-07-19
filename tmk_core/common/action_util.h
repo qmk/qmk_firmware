@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef ACTION_UTIL_H
-#define ACTION_UTIL_H
+
+#pragma once
 
 #include <stdint.h>
 #include "report.h"
@@ -85,6 +85,11 @@ void oneshot_mods_changed_kb(uint8_t mods);
 void oneshot_layer_changed_user(uint8_t layer);
 void oneshot_layer_changed_kb(uint8_t layer);
 
+void oneshot_toggle(void);
+void oneshot_enable(void);
+void oneshot_disable(void);
+bool is_oneshot_enabled(void);
+
 /* inspect */
 uint8_t has_anymod(void);
 
@@ -97,6 +102,4 @@ void clear_oneshot_swaphands(void);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

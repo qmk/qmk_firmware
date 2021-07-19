@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x1001
 #define MANUFACTURER    Pixlup
 #define PRODUCT         TENKI
-#define DESCRIPTION     Customizable Mechanical Numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 5

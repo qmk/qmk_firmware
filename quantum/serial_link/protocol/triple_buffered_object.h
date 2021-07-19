@@ -22,8 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef SERIAL_LINK_TRIPLE_BUFFERED_OBJECT_H
-#define SERIAL_LINK_TRIPLE_BUFFERED_OBJECT_H
+#pragma once
 
 #include <stdint.h>
 
@@ -43,5 +42,3 @@ void triple_buffer_init(triple_buffer_object_t* object);
 void* triple_buffer_begin_write_internal(uint16_t object_size, triple_buffer_object_t* object);
 void  triple_buffer_end_write_internal(triple_buffer_object_t* object);
 void* triple_buffer_read_internal(uint16_t object_size, triple_buffer_object_t* object);
-
-#endif

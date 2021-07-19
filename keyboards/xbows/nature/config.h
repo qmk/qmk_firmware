@@ -29,10 +29,11 @@
 #define MATRIX_COL_PINS { B0, B1, B2, B3, B7, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6 }
 #define DIODE_DIRECTION COL2ROW
 
+#define DEBOUNCE 3
+
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 18
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
-#    define DEBOUNCE 3
 #    define RGB_DISABLE_AFTER_TIMEOUT 0          // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES

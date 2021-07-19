@@ -206,7 +206,7 @@ It's possible to enable a "scroll button/s" that when pressed will cause the mou
 To enable the feature, you must set a scroll button mask as follows:
 
 ```c
-#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BUTTON_MIDDLE) /* Default */
+#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BTN_MIDDLE) /* Default */
 ```
 
 To disable the scroll button feature:

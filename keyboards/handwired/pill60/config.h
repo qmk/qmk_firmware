@@ -44,10 +44,3 @@
 #define ENCODERS_PAD_B \
     { B8 }
 #define ENCODER_RESOLUTION 2
-
-/* OLED */
-#define I2C_DRIVER I2CD1
-#define I2C1_SCL_BANK GPIOB
-#define I2C1_SDA_BANK GPIOB
-#define I2C1_SCL 6
-#define I2C1_SDA 7

@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Hexwire
 #define PRODUCT         Ortho 5x13
-#define DESCRIPTION     Handwired 5x13 ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

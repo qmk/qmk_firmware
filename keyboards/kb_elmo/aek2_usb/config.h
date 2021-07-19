@@ -40,6 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_NUM_LOCK_PIN B2
+#define LED_CAPS_LOCK_PIN B1
+#define LED_SCROLL_LOCK_PIN B0
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
@@ -47,3 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* reduce VIA layer count because of EEPROM size */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 2

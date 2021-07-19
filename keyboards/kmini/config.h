@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0104
 #define MANUFACTURER    Revo
 #define PRODUCT         KMAC Kmini
-#define DESCRIPTION     QMK keyboard firmware for Revo KMAC Mini
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "nicekey handwired",
+    "url": "",
+    "maintainer": "spydon",
+    "width": 1,
+    "height": 1,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0, "y":0}
+            ]
+        }
+    }
+}

@@ -18,6 +18,18 @@ LTO_ENABLE = no  # if firmware size over limit, try this option
 # LED_ANIMATIONS = yes        # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
+# OLED_ENABLE が yes のとき
+#   OLED_SELECT が core ならば QMK 標準の oled_dirver.c を使用します。
+#   OLED_SELECT が core 以外ならば従来どおり helix/local_drivers/ssd1306.c を使用します。
+# If OLED_ENABLE is 'yes'
+#   If OLED_SELECT is 'core', use QMK standard oled_dirver.c.
+#   If OLED_SELECT is other than 'core', use helix/local_drivers/ssd1306.c.
+OLED_SELECT = core
+
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    SRC += oled_display.c
+endif
+
 # convert Helix-specific options (that represent combinations of standard options)
 #   into QMK standard options.
 include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))

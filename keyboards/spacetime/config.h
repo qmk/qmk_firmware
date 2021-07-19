@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x4A1F
 #define MANUFACTURER    Kyle Terry
 #define PRODUCT         spacetime
-#define DESCRIPTION     A split ortho keyboard with a 30 degree thumb cluster and support for oled
 
 /* key matrix size */
 #define MATRIX_ROWS 4*2
@@ -192,9 +191,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

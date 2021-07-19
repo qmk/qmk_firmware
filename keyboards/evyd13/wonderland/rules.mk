@@ -29,3 +29,4 @@ BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 AUTO_SHIFT_ENABLE = no
 VELOCIKEY_ENABLE = yes
 
+LAYOUTS = alice alice_split_bs
