@@ -10,7 +10,7 @@ float song_test[][2]       = SONG(QWERTY_SOUND);
 #endif
 
 // SYMBOL + SYSCTL = KBCTL
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     uint32_t intermediate_state = update_tri_layer_state(state, LR_SYMBOL, LR_SYSCTL, LR_KBCTL);
     intermediate_state          = layer_state_set_user_keymap(intermediate_state);
     return intermediate_state;
