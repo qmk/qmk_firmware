@@ -170,22 +170,25 @@ void oled_task_user(void) {
 }
 #endif
 
-#ifndef RGBLIGHT_SPLIT
 int slave_hue_buffer = 0;
 void h_change_slave(int change) {
     slave_hue_buffer = (slave_hue_buffer + change) % 256;
-    rgblight_sethsv_slave(slave_hue_buffer, 255, 255);
+    rgblight_sethsv_range(slave_hue_buffer, 255, 255, 10, 20);
 }
 
 int master_hue_buffer = 0;
 void h_change_master(int change) {
     master_hue_buffer = (master_hue_buffer + change) % 256;
-    rgblight_sethsv_master(master_hue_buffer, 255, 255);
+    rgblight_enable_noeeprom();
+    rgblight_sethsv_range(master_hue_buffer, 255, 255, 0, 15);
 }
-#endif
 
+void keyboard_post_init_user(void) {
+    rgblight_enable_noeeprom();
+    rgblight_sethsv_range(HSV_BLUE, 0, 10);
+    rgblight_sethsv_range(HSV_RED, 10, 20);
+}
 
-#ifdef ENCODER_ENABLE
 bool handle_left(bool clockwise) {
     switch (biton32(layer_state))
     {
@@ -231,12 +234,12 @@ bool handle_right(bool clockwise) {
             tap_code(KC_BRIGHTNESS_DOWN);
         }
         break;
-        if (clockwise) {
-            h_change_slave(5);
-        } else {
-            h_change_slave(-5);
-        }
     default:
+        if (clockwise) {
+            rgblight_increase_hue();
+        } else {
+            rgblight_decrease_hue();
+        }
         break;
     }
     return true;
@@ -251,4 +254,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
-#endif
