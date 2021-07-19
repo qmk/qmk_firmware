@@ -8,16 +8,16 @@
 - Layer 2 left spacebar Backspace
 - add double tap of Left Shift to toggle Caps Lock
 - additional encoder functionality
-    - holding Left Shift, change layers
-    - holding Right Shift, Navigate page up/down
+    - holding Left shift, change layers
+    - holding right shift, Navigate page up/down
     - holding Left Ctrl, navigate prev/next word
     - holding Left Alt, change media prev/next track
     - default is change volume
     
 - LED/RGB Functionality
     - RGB timeout (default 5 minutes)
-        - Can be changed in FN layer with < and >
-        - indicators in FN layer using RGB in FN and number rows to show the timeout in minutes 
+        - Can be changed in FN layer with < and > or encoder, setting to zero disables timeout
+        - indicators in FN layer using RGB in FN and number rows to show the timeout in minutes
     - LED address location map as enum definition
     - LED group arrays for arrows, numpad, left and right side LEDs
     - default startuo in single mode with default colour 
