@@ -171,11 +171,9 @@ Flashing sequence:
 3. Flash a .hex file
 4. Reset the device into application mode (may be done automatically)
 
-
 ### QMK HID
 
-QMK maintains [a fork of the LUFA HID bootloader](https://github.com/qmk/lufa/tree/master/Bootloaders/HID), which uses a USB HID Endpoint for flashing in the way that the PJRC's Teensy Loader flasher and Halfkay bootloader work. Additionally, it performs a simple matrix scan for exiting the bootloader and returning to the application, as well as flashing an LED/making a ticking noise with a speaker when things are happening. 
-
+QMK maintains [a fork of the LUFA HID bootloader](https://github.com/qmk/lufa/tree/master/Bootloaders/HID), which uses a USB HID Endpoint for flashing in the way that the PJRC's Teensy Loader flasher and HalfKay bootloader work. Additionally, it performs a simple matrix scan for exiting the bootloader and returning to the application, as well as flashing an LED/making a ticking noise with a speaker when things are happening.
 
 To ensure compatibility with the QMK HID bootloader, make sure this block is present in your `rules.mk`:
 
@@ -200,17 +198,16 @@ The manufacturer and product strings are automatically pulled from `config.h`, w
 
 To generate this bootloader, use the `bootloader` target, eg. `make planck/rev4:default:bootloader`. To generate a production-ready .hex file (combining QMK and the bootloader), use the `production` target, eg. `make planck/rev4:default:production`.
 
-
 Compatible flashers:
 
 * TBD
-  * Currently, you need to either use the [python script](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp_python) in the lufa repo, or compile the [`hid_bootloader_cli`](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp) from the LUFA repo.   Homebrew may (will) have support for this directly (via `brew install qmk/qmk/hid_bootloader_cli`)
+  * Currently, you need to either use the [Python script](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp_python), or compile [`hid_bootloader_cli`](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp), from the LUFA repo. Homebrew may (will) have support for this directly (via `brew install qmk/qmk/hid_bootloader_cli`).
 
 Flashing sequence:
 
-1. Enter the bootloader using any of the following methods (you only have 7 seconds to flash once it enters):
+1. Enter the bootloader using any of the following methods:
     * Press the `RESET` keycode
-    * Press the `RESET` button on the Teensy or PCB if available
+    * Press the `RESET` button on the PCB if available
     * short RST to GND quickly
 2. Wait for the OS to detect the device
 3. Flash a .hex file

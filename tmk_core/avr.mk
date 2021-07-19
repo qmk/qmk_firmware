@@ -237,7 +237,6 @@ endef
 bootloadHID: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_BOOTLOADHID)
 
-
 HID_BOOTLOADER_CLI ?= hid_bootloader_cli
 
 define EXEC_HID_LUFA
@@ -304,8 +303,6 @@ coff: $(BUILD_DIR)/$(TARGET).elf
 extcoff: $(BUILD_DIR)/$(TARGET).elf
 	@$(SECHO) $(MSG_EXTENDED_COFF) $(BUILD_DIR)/$(TARGET).cof
 	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
-
-
 
 ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
 QMK_BOOTLOADER_TYPE = DFU
