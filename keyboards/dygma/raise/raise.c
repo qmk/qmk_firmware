@@ -14,18 +14,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
-#include "i2c_master.h"
-#include <string.h>
 #include "raise.h"
 
-void matrix_init_kb(void) {
+void keyboard_post_init_kb(void) {
     set_all_leds_to(0, 0, 0);
-    matrix_init_user();
+    keyboard_post_init_user();
 }
-
-void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__((weak)) void matrix_scan_user(void) {}
-
-__attribute__((weak)) void matrix_init_user(void) {}

@@ -79,15 +79,4 @@
 		{ R30, R31, R32, R33, R34, R35, XXX, XXX }, \
 		{ R40, R41, R42, R43, R44, R45, R46, R47 } \
 }
-
-// shifting << 1 is because drivers/chibios/i2c_master.h expects the address
-// shifted.
-// 0x58 and 0x59 are the addresses defined in dygma/raise/Hand.h
-#define I2C_ADDR_LEFT (0x58 << 1)
-#define I2C_ADDR_RIGHT (0x59 << 1)
-#define I2C_ADDR(hand) ((hand) ? I2C_ADDR_RIGHT : I2C_ADDR_LEFT)
-#define LEFT 0
-#define RIGHT 1
-
-#include "wire-protocol-constants.h"
 #include "leds.h"

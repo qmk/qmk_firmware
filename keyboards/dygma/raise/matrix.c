@@ -16,7 +16,17 @@
 #include "quantum.h"
 #include "i2c_master.h"
 #include <string.h>
-#include "raise.h"
+#include "wire-protocol-constants.h"
+
+// shifting << 1 is because drivers/chibios/i2c_master.h expects the address
+// shifted.
+// 0x58 and 0x59 are the addresses defined in dygma/raise/Hand.h
+#define I2C_ADDR_LEFT (0x58 << 1)
+#define I2C_ADDR_RIGHT (0x59 << 1)
+#define I2C_ADDR(hand) ((hand) ? I2C_ADDR_RIGHT : I2C_ADDR_LEFT)
+#define LEFT 0
+#define RIGHT 1
+
 
 /* If no key events have occurred, the scanners will time out on reads.
  * So we don't want to be too permissive here. */
@@ -32,6 +42,11 @@ typedef enum {
 
 static matrix_row_t rows[MATRIX_ROWS];
 static read_hand_t last_state[2] = { OFFLINE, OFFLINE };
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+__attribute__((weak)) void matrix_init_user(void) {}
+__attribute__((weak)) void matrix_scan_user(void) {}
 
 inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
 
@@ -118,12 +133,4 @@ void matrix_print(void) {
         print_bin_reverse16(matrix_get_row(row));
         print("\n");
     }
-}
-
-void keyboard_post_init_user(void) {
-    // for debugging remember to set "CONSOLE_ENABLE = yes" in rules.mk
-    // debug_enable=true;
-    // debug_matrix=true;
-    // debug_keyboard=true;
-    // debug_mouse=true;
 }

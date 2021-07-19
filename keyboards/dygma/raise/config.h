@@ -13,10 +13,6 @@
 // rows are doubled for split
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
-
-#define USE_I2CV1
-#define I2C1_CLOCK_SPEED 100000
-
 /* The scanners already debounce for us */
 #define DEBOUNCE 0
 
