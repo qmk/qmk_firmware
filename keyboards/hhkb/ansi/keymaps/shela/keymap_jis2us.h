@@ -40,10 +40,10 @@ const uint16_t PROGMEM keymap_jis2us[][2] = {
     [KC_BSLS] = { JP_YEN,  JP_PIPE }, /* ] and } -> \ and | */
     [KC_NUHS] = { JP_YEN,  JP_PIPE }, /* ] and } -> \ and | */
     [KC_SCLN] = { JP_SCLN, JP_COLN }, /* ; and + -> ; and : */
-    [KC_QUOT] = { JP_QUOT, JP_DQT  }, /* : and * -> ' and " */
+    [KC_QUOT] = { JP_QUOT, JP_DQUO }, /* : and * -> ' and " */
     [KC_GRV]  = { JP_GRV,  JP_TILD }, /* Han/Zen -> ` and ~ */
-    [KC_COMM] = { JP_COMM, JP_LT   }, /* , and < -> , and < */
-    [KC_DOT]  = { JP_DOT,  JP_GT   }, /* . and > -> . and > */
+    [KC_COMM] = { JP_COMM, JP_LABK }, /* , and < -> , and < */
+    [KC_DOT]  = { JP_DOT,  JP_RABK }, /* . and > -> . and > */
     [KC_SLSH] = { JP_SLSH, JP_QUES }, /* / and ? -> / and ? */
 };
 // clang-format on

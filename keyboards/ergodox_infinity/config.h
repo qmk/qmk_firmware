@@ -62,6 +62,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_BRIGHTNESS_LO       100
 #define LED_BRIGHTNESS_HI       255
 
+/* LED matrix driver */
+#define LED_DRIVER_ADDR_1 0x74
+#define LED_DRIVER_COUNT 1
+#define DRIVER_LED_TOTAL 76
+#define LED_MATRIX_SPLIT { 38, 38 }
+#define LED_DISABLE_WHEN_USB_SUSPENDED
+
+/* i2c (for LED matrix) */
+#define I2C1_CLOCK_SPEED 400000
+#define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
+#define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
+#define I2C1_BANK GPIOB
+#define I2C1_SCL 0
+#define I2C1_SDA 1
+
+#ifdef ST7565_ENABLE
+/* LCD driver */
+#    define ST7565_A0_PIN C7
+#    define ST7565_RST_PIN C8
+#    define ST7565_SS_PIN C4
+#    define ST7565_SPI_CLK_DIVISOR 2
+#    define ST7565_CONTRAST 22
+#    define ST7565_DISPLAY_WIDTH 128
+#    define ST7565_DISPLAY_HEIGHT 32
+
+/* SPI (for LCD) */
+#    define SPI_DRIVER SPID1
+#    define SPI_SCK_PIN C5
+#    define SPI_SCK_PAL_MODE PAL_MODE_ALTERNATIVE_2
+#    define SPI_MOSI_PIN C6
+#    define SPI_MOSI_PAL_MODE PAL_MODE_ALTERNATIVE_2
+#    define SPI_MISO_PIN A4  // Just an unused pin, the "normal" MISO pin (C7) is used for other things
+#    define SPI_MISO_PAL_MODE PAL_MODE_ALTERNATIVE_7  // Default for A4
+#endif
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 

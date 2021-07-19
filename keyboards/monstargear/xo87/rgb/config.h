@@ -36,7 +36,7 @@
 #define DIODE_DIRECTION ROW2COL
 #define RGB_DI_PIN D7
 #define DRIVER_LED_TOTAL 110
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100 // limits maximum brightness of LEDs to 100 out of 255.
 #define RGBLIGHT_LIMIT_VAL 100 // limits maximum brightness of LEDs to 100 out of 255.

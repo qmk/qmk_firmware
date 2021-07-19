@@ -28,10 +28,10 @@ enum french_key {
 	FR_X,
 	FR_Y,
 	FR_W,
-	FR_AMP,  
+	FR_AMPR,  
 	FR_EACU,
-	FR_QUOT,		/* 0x20 */
-	FR_APOS,
+	FR_DQUO,		/* 0x20 */
+	FR_QUOT,
 	FR_LPAR,
 	FR_MINS,
 	FR_EGRV,
@@ -94,7 +94,7 @@ enum french_key {
 	FR_9,
 	FR_0,
 	FR_DOT,
-	FR_LESS,
+	FR_LABK,
 	FR_EQ			=0x67 /* END KEYPAD */,
 	FR_F13,
     	FR_F14,

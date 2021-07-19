@@ -20,21 +20,21 @@ SWAP_HANDS_ENABLE= yes # Allow swapping hands of keyboard
 
 CUSTOM_MATRIX = yes # Custom matrix file
 SERIAL_LINK_ENABLE = yes
-VISUALIZER_ENABLE = yes
-LCD_ENABLE = yes
-BACKLIGHT_ENABLE = yes
-BACKLIGHT_DRIVER = custom
-LCD_BACKLIGHT_ENABLE = yes
+
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
 
+ST7565_ENABLE = yes
+
+LED_MATRIX_ENABLE = yes
+LED_MATRIX_DRIVER = IS31FL3731
+
+# Config for Visualizer (set VISUALIZER_ENABLE = yes and ST7565_ENABLE = no to use)
+LCD_ENABLE = yes
+LCD_BACKLIGHT_ENABLE = yes
 LCD_DRIVER = st7565
 LCD_WIDTH = 128
 LCD_HEIGHT = 32
-
-LED_DRIVER = is31fl3731c
-LED_WIDTH = 7
-LED_HEIGHT = 7
 
 # project specific files
 SRC = matrix.c \

@@ -74,34 +74,35 @@ endif
 ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     POINTING_DEVICE_ENABLE := yes
     OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
-    SRC += pimoroni_trackball.c
+    SRC += drivers/sensors/pimoroni_trackball.c
     QUANTUM_LIB_SRC += i2c_master.c
 endif
 
 CUSTOM_SPLIT_TRANSPORT ?= yes
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-    ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
-        ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT)), yes)
-            SPLIT_TRANSPORT = custom
-            QUANTUM_LIB_SRC += drashna_transport.c
-            OPT_DEFS += -DDRASHNA_CUSTOM_TRANSPORT
-            # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
-            ifeq ($(PLATFORM),AVR)
-                ifneq ($(NO_I2C),yes)
-                    QUANTUM_LIB_SRC += i2c_master.c \
-                                    i2c_slave.c
-                endif
-            endif
+    QUANTUM_LIB_SRC += transport_sync.c
+    # ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
+    #     ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT)), yes)
+    #         SPLIT_TRANSPORT = custom
+    #         QUANTUM_LIB_SRC += drashna_transport.c
+    #         OPT_DEFS += -DDRASHNA_CUSTOM_TRANSPORT
+    #         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
+    #         ifeq ($(PLATFORM),AVR)
+    #             ifneq ($(NO_I2C),yes)
+    #                 QUANTUM_LIB_SRC += i2c_master.c \
+    #                                 i2c_slave.c
+    #             endif
+    #         endif
 
-            SERIAL_DRIVER ?= bitbang
-            OPT_DEFS += -DSERIAL_DRIVER_$(strip $(shell echo $(SERIAL_DRIVER) | tr '[:lower:]' '[:upper:]'))
-            ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
-                QUANTUM_LIB_SRC += serial.c
-            else
-                QUANTUM_LIB_SRC += serial_$(strip $(SERIAL_DRIVER)).c
-            endif
-        endif
-    endif
+    #         SERIAL_DRIVER ?= bitbang
+    #         OPT_DEFS += -DSERIAL_DRIVER_$(strip $(shell echo $(SERIAL_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    #         ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
+    #             QUANTUM_LIB_SRC += serial.c
+    #         else
+    #             QUANTUM_LIB_SRC += serial_$(strip $(SERIAL_DRIVER)).c
+    #         endif
+    #     endif
+    # endif
 endif
 
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api

@@ -77,6 +77,7 @@
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)
+    * [Key Overrides](feature_key_overrides.md)
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
@@ -93,6 +94,7 @@
   * Hardware Features
     * Displays
       * [HD44780 LCD Controller](feature_hd44780.md)
+      * [ST7565 LCD Driver](feature_st7565.md)
       * [OLED Driver](feature_oled_driver.md)
     * Lighting
       * [Backlight](feature_backlight.md)
