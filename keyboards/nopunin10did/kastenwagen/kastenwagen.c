@@ -47,9 +47,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
             
         default:
-            writePinLow(LED_INDICATOR_TOP);
-            writePinLow(LED_INDICATOR_MID);
-            writePinLow(LED_INDICATOR_BOT);
+            writePinHigh(LED_INDICATOR_TOP);
+            writePinHigh(LED_INDICATOR_MID);
+            writePinHigh(LED_INDICATOR_BOT);
             break;
     }
     return state;
