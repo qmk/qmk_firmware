@@ -85,6 +85,8 @@ void bootmagic(void) {
             debug_config.keyboard = !debug_config.keyboard;
         } else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEBUG_MOUSE)) {
             debug_config.mouse = !debug_config.mouse;
+        } else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEBUG_EEPROM)) {
+            debug_config.eeprom = !debug_config.eeprom;
         } else {
             debug_config.enable = !debug_config.enable;
         }

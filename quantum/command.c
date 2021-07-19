@@ -35,6 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "version.h"
 
+#ifdef STM32_EEPROM_ENABLE
+#    include "eeprom_stm32.h"
+#endif
+
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
@@ -104,29 +108,50 @@ bool command_console_extra(uint8_t code) {
  * Command common
  ***********************************************************/
 static void command_common_help(void) {
-    print("\n\t- Magic -\n" STR(MAGIC_KEY_DEBUG) ":	Debug Message Toggle\n" STR(MAGIC_KEY_DEBUG_MATRIX) ":	Matrix Debug Mode Toggle - Show keypresses in matrix grid\n" STR(MAGIC_KEY_DEBUG_KBD) ":	Keyboard Debug Toggle - Show keypress report\n" STR(MAGIC_KEY_DEBUG_MOUSE) ":	Debug Mouse Toggle\n" STR(MAGIC_KEY_VERSION) ":	Version\n" STR(MAGIC_KEY_STATUS) ":	Status\n" STR(MAGIC_KEY_CONSOLE) ":	Activate Console Mode\n"
+    print("\n\t- Magic -\n"
+          STR(MAGIC_KEY_DEBUG) ":	Debug Message Toggle\n"
+          STR(MAGIC_KEY_DEBUG_MATRIX) ":	Matrix Debug Mode Toggle - Show keypresses in matrix grid\n"
+          STR(MAGIC_KEY_DEBUG_KBD) ":	Keyboard Debug Toggle - Show keypress report\n"
+          STR(MAGIC_KEY_DEBUG_MOUSE) ":	Debug Mouse Toggle\n"
+          STR(MAGIC_KEY_DEBUG_EEPROM) ":	Debug EEPROM Toggle\n"
+#ifdef STM32_EEPROM_ENABLE
+          STR(MAGIC_KEY_PRINT_EEPROM) ":	Print EEPROM Contents\n"
+#endif
+          STR(MAGIC_KEY_VERSION) ":	Version\n"
+          STR(MAGIC_KEY_STATUS) ":	Status\n"
+          STR(MAGIC_KEY_CONSOLE) ":	Activate Console Mode\n"
 
 #if MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-          STR(MAGIC_KEY_LAYER0) ":	Switch to Layer 0\n" STR(MAGIC_KEY_LAYER1) ":	Switch to Layer 1\n" STR(MAGIC_KEY_LAYER2) ":	Switch to Layer 2\n" STR(MAGIC_KEY_LAYER3) ":	Switch to Layer 3\n" STR(MAGIC_KEY_LAYER4) ":	Switch to Layer 4\n" STR(MAGIC_KEY_LAYER5) ":	Switch to Layer 5\n" STR(MAGIC_KEY_LAYER6) ":	Switch to Layer 6\n" STR(MAGIC_KEY_LAYER7) ":	Switch to Layer 7\n" STR(MAGIC_KEY_LAYER8) ":	Switch to Layer 8\n" STR(MAGIC_KEY_LAYER9) ":	Switch to Layer 9\n"
+          STR(MAGIC_KEY_LAYER0) ":	Switch to Layer 0\n"
+          STR(MAGIC_KEY_LAYER1) ":	Switch to Layer 1\n"
+          STR(MAGIC_KEY_LAYER2) ":	Switch to Layer 2\n"
+          STR(MAGIC_KEY_LAYER3) ":	Switch to Layer 3\n"
+          STR(MAGIC_KEY_LAYER4) ":	Switch to Layer 4\n"
+          STR(MAGIC_KEY_LAYER5) ":	Switch to Layer 5\n"
+          STR(MAGIC_KEY_LAYER6) ":	Switch to Layer 6\n"
+          STR(MAGIC_KEY_LAYER7) ":	Switch to Layer 7\n"
+          STR(MAGIC_KEY_LAYER8) ":	Switch to Layer 8\n"
+          STR(MAGIC_KEY_LAYER9) ":	Switch to Layer 9\n"
 #endif
 
 #if MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                               "F1-F10:	Switch to Layer 0-9 (F10 = L0)\n"
+          "F1-F10:	Switch to Layer 0-9 (F10 = L0)\n"
 #endif
 
 #if MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                               "0-9:	Switch to Layer 0-9\n"
+          "0-9:	Switch to Layer 0-9\n"
 #endif
 
           STR(MAGIC_KEY_LAYER0_ALT) ":	Switch to Layer 0 (alternate)\n"
-
-          STR(MAGIC_KEY_BOOTLOADER) ":	Jump to Bootloader\n" STR(MAGIC_KEY_BOOTLOADER_ALT) ":	Jump to Bootloader (alternate)\n"
+          STR(MAGIC_KEY_BOOTLOADER) ":	Jump to Bootloader\n"
+          STR(MAGIC_KEY_BOOTLOADER_ALT) ":	Jump to Bootloader (alternate)\n"
 
 #ifdef KEYBOARD_LOCK_ENABLE
           STR(MAGIC_KEY_LOCK) ":	Lock Keyboard\n"
 #endif
 
-          STR(MAGIC_KEY_EEPROM) ":	Print EEPROM Settings\n" STR(MAGIC_KEY_EEPROM_CLEAR) ":	Clear EEPROM\n"
+          STR(MAGIC_KEY_EEPROM) ":	Print EEPROM Settings\n"
+          STR(MAGIC_KEY_EEPROM_CLEAR) ":	Clear EEPROM\n"
 
 #ifdef NKRO_ENABLE
           STR(MAGIC_KEY_NKRO) ":	NKRO Toggle\n"
@@ -142,8 +167,8 @@ static void print_version(void) {
     // print version & information
     print("\n\t- Version -\n");
     print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
-                                                       "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
-                                                                                                "VER: " STR(DEVICE_VER) "\n");
+          "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
+          "VER: " STR(DEVICE_VER) "\n");
     print("BUILD:  (" __DATE__ ")\n");
 #ifndef SKIP_VERSION
 #    ifdef PROTOCOL_CHIBIOS
@@ -233,6 +258,9 @@ static void print_eeconfig(void) {
     print("\n");
     print(".mouse: ");
     print_dec(dc.mouse);
+    print("\n");
+    print(".eeprom: ");
+    print_dec(dc.eeprom);
     print("\n");
 
     keymap_config_t kc;
@@ -343,6 +371,7 @@ static bool command_common(uint8_t code) {
             debug_matrix   = false;
             debug_keyboard = false;
             debug_mouse    = false;
+            debug_eeprom   = false;
             debug_enable   = false;
             command_console_help();
             print("C> ");
@@ -366,6 +395,7 @@ static bool command_common(uint8_t code) {
                 debug_matrix   = false;
                 debug_keyboard = false;
                 debug_mouse    = false;
+                debug_eeprom   = false;
             }
             break;
 
@@ -401,6 +431,25 @@ static bool command_common(uint8_t code) {
                 print("\nmouse: off\n");
             }
             break;
+
+        // debug eeprom toggle
+        case MAGIC_KC(MAGIC_KEY_DEBUG_EEPROM):
+            debug_eeprom = !debug_eeprom;
+            if (debug_eeprom) {
+                print("\neeprom: on\n");
+                debug_enable = true;
+            } else {
+                print("\neeprom: off\n");
+            }
+            break;
+
+#ifdef STM32_EEPROM_ENABLE
+        // print eeprom contents
+        case MAGIC_KC(MAGIC_KEY_PRINT_EEPROM):
+            print("EEPROM Contents:\n");
+            print_eeprom();
+            break;
+#endif
 
         // print version
         case MAGIC_KC(MAGIC_KEY_VERSION):
