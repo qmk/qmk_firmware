@@ -525,7 +525,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 `cur_dance()` と `ql_tap_state` の使い方は、上の例と似ています。
 
-`ql_finished` 関数における `case:TD_SINGLE_TAP` は、上の例と似ています。`TD_SINGLE_HOLD` の case では、`ql_reset()` と連動してタップダンスキーを押している間 `_MY_LAYER` に切り替わり、キーを離した時に `_MY_LAYER` から離れます。これは、`MO(_MY_LAYER)` に似ています。`TD_DOUBLE_TAP` の case では、`_MY_LAYER` がアクティブレイヤーかどうかを確認することによって動きます。そして、その結果に基づいてレイヤーのオン・オフをトグルします。これは `TG(_MY_LAYER)` に似ています。
+`ql_finished` 関数における `case: TD_SINGLE_TAP` は、上の例と似ています。`TD_SINGLE_HOLD` の case では、`ql_reset()` と連動してタップダンスキーを押している間 `_MY_LAYER` に切り替わり、キーを離した時に `_MY_LAYER` から離れます。これは、`MO(_MY_LAYER)` に似ています。`TD_DOUBLE_TAP` の case では、`_MY_LAYER` がアクティブレイヤーかどうかを確認することによって動きます。そして、その結果に基づいてレイヤーのオン・オフをトグルします。これは `TG(_MY_LAYER)` に似ています。
 
 `tap_dance_actions[]` は、上の例に似ています。 `ACTION_TAP_DANCE_FN_ADVANCED()` の代わりに `ACTION_TAP_DANCE_FN_ADVANCED_TIME()` を使ったことに注意してください。
 この理由は、私は、非タップダンスキーを使うにあたり `TAPPING_TERM` が短い(175ミリ秒以内)方が好きなのですが、タップダンスのアクションを確実に完了させるには短すぎるとわかったからです——そのため、ここでは時間を275ミリ秒に増やしています。
