@@ -180,7 +180,7 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
         switch (get_highest_layer(state | default_layer_state)) {
             case _MOUSE:  // mouse
                 if (!layer_state_cmp(state, _GAMEPAD) && !layer_state_cmp(state, _DIABLO)) {
-#        ifdef RGBLIGHT_MODE_TWINKLE
+#        if defined(RGBLIGHT_MODE_TWINKLE) || defined(RGBLIGHT_ANIMATIONS)
                     rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_TWINKLE + 5);
 #        else
                     rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_BREATHING + 3);
@@ -205,17 +205,17 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
             case _ADJUST:
                 rgblight_set_hsv_and_mode(HSV_RED, RGBLIGHT_MODE_KNIGHT + 2);
                 break;
-            case _COLEMAK_DH:
-                rgblight_set_hsv_and_mode(HSV_MAGENTA, RGBLIGHT_MODE_STATIC_LIGHT);
+            case _DEFAULT_LAYER_1:
+                rgblight_set_hsv_and_mode(HSV_CYAN, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
-            case _COLEMAK:
+            case _DEFAULT_LAYER_2:
                 rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
-            case _DVORAK:
-                rgblight_set_hsv_and_mode(HSV_GOLDENROD, RGBLIGHT_MODE_STATIC_LIGHT);
+            case _DEFAULT_LAYER_3:
+                rgblight_set_hsv_and_mode(HSV_MAGENTA, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
-            default:
-                rgblight_set_hsv_and_mode(HSV_CYAN, RGBLIGHT_MODE_STATIC_LIGHT);
+            case _DEFAULT_LAYER_4:
+                rgblight_set_hsv_and_mode(HSV_GOLDENROD, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
         }
     }
