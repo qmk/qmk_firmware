@@ -18,6 +18,7 @@
 
 #include "quantum.h"
 
+// clang-format off
 #define LAYOUT( \
     K00,      K01, K11, K02, K12,   K03, K13, K04, K14,    K05, K15, K06, K16,  K07, K18, K09,  \
     K20, K30, K21, K31, K22, K32, K23, K33, K24, K34, K25, K35, K26, K36,       K27, K38, K29,  \
@@ -39,3 +40,4 @@
     { KA0,   KA1,   KA2,   KA3,   KA4,   KA5,   KA6,   KA7,   KC_NO, KA9   }, \
     { KB0,   KC_NO, KC_NO, KC_NO, KC_NO, KB5,   KB6,   KC_NO, KB8,   KC_NO }, \
 }
+// clang-format on
