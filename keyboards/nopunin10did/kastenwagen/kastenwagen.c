@@ -18,39 +18,31 @@
 
 #ifndef LAYER_LED_DISABLE
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
     setPinOutput(LED_INDICATOR_TOP);
     setPinOutput(LED_INDICATOR_MID);
     setPinOutput(LED_INDICATOR_BOT);
+    keyboard_pre_init_user();
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
+    writePinHigh(LED_INDICATOR_TOP);
+    writePinHigh(LED_INDICATOR_MID);
+    writePinHigh(LED_INDICATOR_BOT);
+
     switch(get_highest_layer(state) % 4) {
-        
-        case 1:
-            writePinLow(LED_INDICATOR_TOP);
-            writePinLow(LED_INDICATOR_MID);
-            writePinHigh(LED_INDICATOR_BOT);
-            break;
-        
-        case 2:
-            writePinLow(LED_INDICATOR_TOP);
-            writePinHigh(LED_INDICATOR_MID);
-            writePinLow(LED_INDICATOR_BOT);
-            break;
-            
-        case 3:
-            writePinHigh(LED_INDICATOR_TOP);
-            writePinLow(LED_INDICATOR_MID);
-            writePinLow(LED_INDICATOR_BOT);
-            break;
-            
-        default:
-            writePinHigh(LED_INDICATOR_TOP);
-            writePinHigh(LED_INDICATOR_MID);
-            writePinHigh(LED_INDICATOR_BOT);
-            break;
+    case 1:
+        writePinLow(LED_INDICATOR_TOP);
+        writePinLow(LED_INDICATOR_MID);
+        break;
+    case 2:
+        writePinLow(LED_INDICATOR_TOP);
+        writePinLow(LED_INDICATOR_BOT);
+        break;
+    case 3:
+        writePinLow(LED_INDICATOR_MID);
+        writePinLow(LED_INDICATOR_BOT);
+        break;
     }
     return state;
 }
@@ -58,6 +50,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    
-    return encoder_update_user(index, clockwise);  
+   if (!encoder_update_user(index, clockwise)) { return false; }
+   if (clockwise) {
+       tap_code(KC_PGUP);
+   } else {
+       tap_code(KC_PGUP);
+   }
+   return true;
 };
