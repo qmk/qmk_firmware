@@ -194,6 +194,5 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 
 ## 追加説明 :id=additional-reading
-##  :id=additional-reading
 
 QMK Configurator があなたのキーボードをサポートするためには、あなたのキーボードが `qmk_firmware` リポジトリの `master` ブランチに存在していなければなりません。この点の説明は、[キーボードサポート](https://docs.qmk.fm/#/ja/reference_configurator_support)を参照してください。
