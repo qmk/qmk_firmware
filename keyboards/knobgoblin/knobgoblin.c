@@ -19,7 +19,7 @@
 #ifdef ENCODER_ENABLE
 /* assign keycodes to the encoder rotation */
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-	if (!encoder_update_user(index, clockwise)) return false;
+    if (!encoder_update_user(index, clockwise)) return false;
 			if (index == 1) { /* Bottom encoder */
 				if (clockwise) {
 					tap_code(KC_VOLU);
@@ -34,7 +34,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 					tap_code(KC_MPRV);
 				}
 			}
-	return true;
+    return true;
 }
 #endif
 
@@ -80,23 +80,24 @@ __attribute__((weak)) void oled_task_user(void) {
 
 	switch (get_highest_layer(layer_state)) {
 		case 0:
-			oled_write_P(PSTR(" NUM\n"), false);
+			oled_write_P(PSTR(" ONE\n"), false);
 			break;
 		case 1:
-			oled_write_P(PSTR(" NAV\n"), false);
+			oled_write_P(PSTR(" TWO\n"), false);
 			break;
 		case 2:
-			oled_write_P(PSTR(" CODE\n"), false);
+			oled_write_P(PSTR("THREE\n"), false);
 			break;
 		case 3:
-			oled_write_P(PSTR(" GDB\n"), false);
+			oled_write_P(PSTR(" FOUR\n"), false);
 			break;
 		case 4:
-			oled_write_P(PSTR(" OBS\n"), false);
+			oled_write_P(PSTR(" FIVE\n"), false);
 			break;
-		default:
-			oled_write_P(PSTR(" NONE\n"), false);
+		case 5:
+			oled_write_P(PSTR(" SIX\n"), false);
 			break;
+
 	}
 }
 #endif
