@@ -13,3 +13,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "rartland.h"
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    switch (index) {
+        case 0:
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+        break;
+    }
+    return true;
+}
+#endif
+
+#ifdef OLED_DRIVER_ENABLE
+void oled_task_user(void) {
+    // Host Keyboard Layer Status
+    oled_write_P(PSTR("R A R T L A N D\nLayer: "), false);
+
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("Default\n"), false);
+            break;
+        case 1:
+            oled_write_P(PSTR("FN\n"), false);
+            break;
+        default:
+            // Or use the write_ln shortcut over adding '\n' to the end of your string
+            oled_write_ln_P(PSTR("Undefined\n"), false);
+    }
+
+    // Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+}
+#endif
