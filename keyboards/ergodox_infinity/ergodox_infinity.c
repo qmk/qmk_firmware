@@ -8,47 +8,6 @@
 #    include "lcd_backlight.h"
 #endif
 
-#if (defined(LED_MATRIX_ENABLE) || defined(WPM_ENABLE))
-#    include "serial_link/protocol/transport.h"
-
-#    ifdef LED_MATRIX_ENABLE
-MASTER_TO_ALL_SLAVES_OBJECT(led_matrix, led_eeconfig_t);
-MASTER_TO_ALL_SLAVES_OBJECT(led_suspend_state, bool);
-static led_eeconfig_t last_sent_led_matrix;
-static uint16_t       led_matrix_sent_timer = 0;
-
-void send_led_suspend_state(void) {
-    if (is_serial_link_master()) {
-        *begin_write_led_suspend_state() = led_matrix_get_suspend_state();
-        end_write_led_suspend_state();
-    }
-}
-#    endif
-
-#    ifdef WPM_ENABLE
-#        include "wpm.h"
-MASTER_TO_ALL_SLAVES_OBJECT(current_wpm, uint8_t);
-static uint8_t last_sent_wpm = 0;
-#    endif
-
-static remote_object_t *remote_objects[] = {
-#    ifdef LED_MATRIX_ENABLE
-    REMOTE_OBJECT(led_matrix),
-    REMOTE_OBJECT(led_suspend_state),
-#    endif
-#    ifdef WPM_ENABLE
-    REMOTE_OBJECT(current_wpm),
-#    endif
-};
-#endif
-
-void init_serial_link_hal(void) {
-    PORTA->PCR[1] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(2);
-    PORTA->PCR[2] = PORTx_PCRn_DSE | PORTx_PCRn_SRE | PORTx_PCRn_MUX(2);
-    PORTE->PCR[0] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(3);
-    PORTE->PCR[1] = PORTx_PCRn_DSE | PORTx_PCRn_SRE | PORTx_PCRn_MUX(3);
-}
-
 #define RED_PIN 1
 #define GREEN_PIN 2
 #define BLUE_PIN 3
@@ -176,68 +135,13 @@ void matrix_init_kb(void) {
 #endif
 
     matrix_init_user();
-#if (defined(LED_MATRIX_ENABLE) || defined(WPM_ENABLE))
-    add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t *));
-#endif
 }
 
 void matrix_scan_kb(void) {
     // put your looping keyboard code here
     // runs every cycle (a lot)
 
-#ifdef LED_MATRIX_ENABLE
-    if (is_serial_link_master()) {
-        if (!led_matrix_get_suspend_state()) {
-            if (timer_elapsed(led_matrix_sent_timer) >= 5000 || memcmp((void *)&last_sent_led_matrix, (void *)&led_matrix_eeconfig, sizeof(last_sent_led_matrix))) {
-                led_matrix_sent_timer = timer_read();
-                memcpy((void *)&last_sent_led_matrix, (void *)&led_matrix_eeconfig, sizeof(last_sent_led_matrix));
-                *begin_write_led_matrix() = last_sent_led_matrix;
-                end_write_led_matrix();
-            }
-        }
-    } else if (is_serial_link_connected()) {
-        bool *new_led_suspend_state = read_led_suspend_state();
-        if (new_led_suspend_state) {
-            led_matrix_set_suspend_state(*new_led_suspend_state);
-        }
-        if (!led_matrix_get_suspend_state()) {
-            led_eeconfig_t *new_led_matrix = read_led_matrix();
-            if (new_led_matrix) {
-                memcpy((void *)&led_matrix_eeconfig, (void *)new_led_matrix, sizeof(last_sent_led_matrix));
-            }
-        }
-    }
-#endif
-
-#ifdef WPM_ENABLE
-    if (is_serial_link_master()) {
-        uint8_t current_wpm = get_current_wpm();
-        if (current_wpm != last_sent_wpm) {
-            *begin_write_current_wpm() = current_wpm;
-            end_write_current_wpm();
-            last_sent_wpm = current_wpm;
-        }
-    } else if (is_serial_link_connected()) {
-        uint8_t *new_wpm = read_current_wpm();
-        if (new_wpm) {
-            set_current_wpm(*new_wpm);
-        }
-    }
-#endif
-
     matrix_scan_user();
-}
-
-bool is_keyboard_master(void) { return is_serial_link_master(); }
-
-bool is_keyboard_left(void) {
-#if defined(EE_HANDS)
-    return eeconfig_read_handedness();
-#elif defined(MASTER_IS_ON_RIGHT)
-    return !is_keyboard_master();
-#else
-    return is_keyboard_master();
-#endif
 }
 
 __attribute__ ((weak)) void ergodox_board_led_on(void) {}
@@ -261,20 +165,6 @@ __attribute__ ((weak)) void ergodox_right_led_1_set(uint8_t n) {}
 __attribute__ ((weak)) void ergodox_right_led_2_set(uint8_t n) {}
 
 __attribute__ ((weak)) void ergodox_right_led_3_set(uint8_t n) {}
-
-void suspend_power_down_kb(void) {
-#ifdef LED_MATRIX_ENABLE
-    send_led_suspend_state();
-#endif
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-#ifdef LED_MATRIX_ENABLE
-    send_led_suspend_state();
-#endif
-    suspend_wakeup_init_user();
-}
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
@@ -470,5 +360,21 @@ __attribute__((weak)) void st7565_task_user(void) {
         st7565_write(qmk_logo, false);
         st7565_write("  Infinity  Ergodox  ", false);
     }
+}
+#endif
+
+#if defined(SPLIT_KEYBOARD)
+void usart_master_init(SerialDriver **driver) {
+    PORTA->PCR[1] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(2);
+    PORTA->PCR[2] = PORTx_PCRn_DSE | PORTx_PCRn_SRE | PORTx_PCRn_MUX(2);
+
+    // driver is set to SD1 in config.h
+}
+
+void usart_slave_init(SerialDriver **driver) {
+    PORTE->PCR[0] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(3);
+    PORTE->PCR[1] = PORTx_PCRn_DSE | PORTx_PCRn_SRE | PORTx_PCRn_MUX(3);
+
+    *driver = &SD2;
 }
 #endif
