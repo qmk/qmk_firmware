@@ -1,6 +1,6 @@
 # OrangeBoyErgo (OBE)
 
-![obe](https://i.imgur.com/bzqi2XO.png)
+![obe](https://i.imgur.com/bzqi2XOh.png)
 
 An affordable Alice-like keyboard kit powered by the STM32 Blackpill.
 
