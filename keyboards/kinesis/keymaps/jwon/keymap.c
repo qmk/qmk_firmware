@@ -2,8 +2,9 @@
 
 enum layer_names {
     _BASE_DVORAK,
-    _RAISE,
+    _RAISE_DVORAK,
     _KEYPAD,
+    _QWERTY,
 };
 
 // Mac-specific macros
@@ -16,7 +17,8 @@ enum layer_names {
 #define LSA_ LSA(KC_NO)
 #define SFT_ESC SFT_T(KC_ESC)
 #define KEYPAD TG(_KEYPAD)
-#define RAISE MO(_RAISE)
+#define QWERTY TG(_QWERTY)
+#define RAISE MO(_RAISE_DVORAK)
 
 // clang-format off
 
@@ -36,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_BSPC, KC_SPC,  MACCOPY,
 
            // Right Hand
-           KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, KEYPAD,  RESET,
+           KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, QWERTY,  RESET,
            KC_EQL,  KC_RPRN, KC_RCBR, KC_RBRC, KC_ASTR, KC_EXLM,
            KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS,
            KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
@@ -48,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            MACREDO, RAISE, KC_ENT
     ),
 
-[_RAISE] = LAYOUT (
+[_RAISE_DVORAK] = LAYOUT (
            // Left Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -98,6 +100,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______,
            _______,
            _______, _______, KC_P0
+    ),
+
+[_QWERTY] = LAYOUT(
+           // Left Hand
+           KC_ESC,  _______, _______, _______, _______, _______, _______, _______, _______,
+           KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+           KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+           KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+           KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
+                    KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
+           // Left Thumb
+                    KC_LGUI, KC_LALT,
+                             KC_HOME,
+           KC_BSPC, KC_DEL,  KC_END ,
+
+           // Right Hand
+           _______, _______, _______, _______, _______, _______, _______, _______, _______,
+	       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+	       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+	       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+	       KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+		            KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,
+           // Right Thumb
+           KC_RGUI, KC_RCTL,
+           KC_PGUP,
+           KC_PGDN, KC_ENT,  KC_SPC
     )
 };
 
@@ -106,8 +134,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case _KEYPAD:
         writePinLow(LED_COMPOSE_PIN);
         break;
-    case _RAISE:
+    case _RAISE_DVORAK:
         writePinLow(LED_NUM_LOCK_PIN);
+        break;
+    case _QWERTY:
+        writePinLow(LED_SCROLL_LOCK_PIN);
         break;
     default: //  for any other layers, or the default layer
         writePinHigh(LED_NUM_LOCK_PIN);
