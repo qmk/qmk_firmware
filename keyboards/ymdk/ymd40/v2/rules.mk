@@ -25,4 +25,4 @@ KEY_LOCK_ENABLE = no        # Enable KC_LOCK support
 
 AUDIO_SUPPORTED = no
 
-LAYOUTS = ortho_4x12
+LAYOUTS = ortho_4x12 ymd40v2_2x2u ymd40v2_1x2uR ymd40v2_1x2uL ymd40v2_1x2uC
