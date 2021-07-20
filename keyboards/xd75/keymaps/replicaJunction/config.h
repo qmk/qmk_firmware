@@ -34,7 +34,7 @@
 // release it without pressing another key, without this setting nothing
 // would happen. With this setting, it sends the key's tap function.
 // https://precondition.github.io/home-row-mods#retro-tapping
-#define ENABLE_RETRO_TAPPING
+#define RETRO_TAPPING
 
 // Disable some unused features to save space
 #undef LOCKING_SUPPORT_ENABLE
