@@ -15,13 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+// #ifndef CONFIG_H
+// #define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4d53 
+#define VENDOR_ID       0x4D53 
 #define PRODUCT_ID      0x6844 //hD
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    h0oni
@@ -76,4 +77,4 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 200
 
-#endif
+// #endif
