@@ -118,7 +118,6 @@ enum layer_names {
 
 ### いくつかのカスタムコードはサポート対象外 :id=custom-code
 
-keyboard level will prevent Configurator from compiling **any** firmware for that keyboard. This is limited both by the API and the current spec of our JSON keymap format.
 タップダンスやユニコードのように keymap.c ファイルに関数を追加する必要がある機能は、QMK Configurator では **全て**コンパイルできません。`qmk_firmware` リポジトリ内のキーボードレベルで `TAP_DANCE_ENABLE = yes` と設定しても、QMK Configurator はファームウェアをコンパイルできません。これは、API と 現在の JSON キーマップ形式の仕様による制限です。
 
 
@@ -191,7 +190,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-Note the call to `process_record_user()` at the end. Additionally, users of the keyboard will need to use `NEW_SAFE_RANGE` instead of `SAFE_RANGE` if they wish to add their own custom keycodes at keymap level, beyond what is provided by the keyboard.
 最後に `process_record_user()` を呼び出すことに注意してください。さらに、ユーザーが自身のカスタムキーコードをキーボードによって提供される以上にキーマップレベルで追加したい場合のために、`SAFE_RANGE` の代わりに `NEW_SAFE_RANGE` を使う必要があります。
 
 
