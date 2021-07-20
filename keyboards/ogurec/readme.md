@@ -1,6 +1,6 @@
 # ogurec
 
-![ogurec](https://imgur.com/gallery/OFF1Vyp)
+![ogurec](https://i.imgur.com/OJ5UnXT.png)
 
 ogurec is a reversible 12u x 3u ortholinear keyboard that offers left-sided and right-sided PM placement
 
