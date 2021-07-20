@@ -38,8 +38,8 @@
 static pin_t encoder_row_pins[] = ENCODER_ROW_PINS;
 static pin_t encoder_col_pins[] = ENCODER_COL_PINS;
 
-static encoder_pin_pair_t PROGMEM encoders_pad_a[] = ENCODERS_PAD_A;
-static encoder_pin_pair_t PROGMEM encoders_pad_b[] = ENCODERS_PAD_B;
+static const encoder_pin_pair_t PROGMEM encoders_pad_a[] = ENCODERS_PAD_A;
+static const encoder_pin_pair_t PROGMEM encoders_pad_b[] = ENCODERS_PAD_B;
 /* max 32 cols for now */
 static uint32_t encoder_matrix[ENCODER_ROWS];
 
