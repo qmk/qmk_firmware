@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make ogurec:default
 
-The default Ogurec keymap is for right-sided PM placement.
+The default Ogurec keymap is for left-sided PM placement.
 
 To place the keyboard into bootloader mode, solder a reset switch onto the PCB and press it OR short the GND and RST pins on the pro micro. 
 
