@@ -11,7 +11,7 @@ from milc import cli
 @cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all core files.')
 @cli.argument('--core-only', arg_only=True, action='store_true', help='Format core files only.')
 @cli.argument('files', nargs='*', arg_only=True, help='Filename(s) to format.')
-@cli.subcommand('Pointer to the new command name: qmk format-c.', hidden=False if cli.config.user.developer else True)
+@cli.subcommand('Pointer to the new command name: qmk format-c.', hidden=True)
 def cformat(cli):
     """Pointer to the new command name: qmk format-c.
     """

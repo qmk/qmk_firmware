@@ -6,7 +6,7 @@ from pathlib import Path
 from milc import cli
 
 
-@cli.subcommand('Pointer to the new command name: qmk format-text.', hidden=False if cli.config.user.developer else True)
+@cli.subcommand('Pointer to the new command name: qmk format-text.', hidden=True)
 def fileformat(cli):
     """Pointer to the new command name: qmk format-text.
     """
