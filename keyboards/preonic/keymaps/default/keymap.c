@@ -212,6 +212,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef BACKLIGHT_ENABLE
               backlight_step();
             #endif
+            #ifdef RGBLIGHT_ENABLE
+              rgblight_step();
+            #endif
             #ifdef __AVR__
             writePinLow(E6);
             #endif
