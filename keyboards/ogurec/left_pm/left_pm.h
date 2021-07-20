@@ -26,7 +26,7 @@
  * represents the switch matrix.
  */
 
-#define LAYOUT_ortho_3x12( \
+#define LAYOUT_ortho_3x12_grid( \
     k011, k010, k009, k008, k007, k006, k005, k004, k003, k002, k001, k000, \
     k111, k110, k109, k108, k107, k106, k105, k104, k103, k102, k101, k100,  \
     k211, k210, k209, k208, k207, k206, k205, k204, k203, k202, k201, k200    \
