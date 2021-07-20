@@ -44,5 +44,8 @@
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID  { {0,1} }
 
+/* Disable DIP switch in matrix data */
+#define MATRIX_MASKED
+
 /* NKRO */
 #define FORCE_NKRO

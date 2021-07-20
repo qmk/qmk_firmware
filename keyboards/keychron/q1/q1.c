@@ -16,6 +16,14 @@
 
 #include "q1.h"
 
+const matrix_row_t matrix_mask[] = {
+    0b0111111111111101,
+    0b0111111111111111,
+    0b0111111111111111,
+    0b0111111111111111,
+    0b0111111111111111,
+    0b0111111111111111,
+};
 
 void dip_switch_update_kb(uint8_t index, bool active) { 
     if (index == 0) {
