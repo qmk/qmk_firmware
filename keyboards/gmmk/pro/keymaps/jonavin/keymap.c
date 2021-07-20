@@ -251,7 +251,7 @@ void matrix_scan_user(void) {
             rgb_matrix_set_color(LED_R4, RGB_RED);
             rgb_matrix_set_color(LED_FN, RGB_RED); //FN key
 
-            // Add RGB Timeout Indicator -- shows 0 to 139 using F row and num row;  larger numbers using 16bit code
+            // Add RGB Timeout Indicator -- shows 0 to 139 using F row and num row;  larger numbers light up section
             if (timeout_threshold <= 10) rgb_matrix_set_color(LED_LIST_FUNCROW[timeout_threshold], RGB_RED);
             else if (timeout_threshold < 140) {
                 rgb_matrix_set_color(LED_LIST_FUNCROW[(timeout_threshold / 10)], RGB_RED);
