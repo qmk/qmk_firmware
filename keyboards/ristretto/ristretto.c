@@ -40,7 +40,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_270;
 }
 
-static void print_oled(void) {
+__attribute__((weak)) void oled_task_user(void) {
 	oled_write_P(PSTR("\n\n"), false);
 	oled_write_ln_P(PSTR("LAYER"), false);
 	oled_write_ln_P(PSTR(""), false);
@@ -58,10 +58,6 @@ static void print_oled(void) {
 			oled_write_P(PSTR("ADJ\n"), false);
 			break;
 	}
-}
-
-void oled_task_user(void) {
-	print_oled();
 }
 
 #endif
