@@ -315,6 +315,7 @@ LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
 LDFLAGS += --specs=nano.specs
+LDFLAGS += -Wl,-Map=$(TARGET).map
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 

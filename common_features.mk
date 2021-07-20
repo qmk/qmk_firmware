@@ -141,7 +141,12 @@ else
     ifeq ($(PLATFORM),AVR)
       # Automatically provided by avr-libc, nothing required
     else ifeq ($(PLATFORM),CHIBIOS)
-      ifeq ($(MCU_SERIES), STM32F3xx)
+      ifeq ($(MCU_SERIES), STM32F4xx)
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32/eeprom.c
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32/stm32f4xx_flash.c
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32/avr_shim.c
+        OPT_DEFS += -DSTM32_EEPROM_ENABLE
+      else ifeq ($(MCU_SERIES), STM32F3xx)
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F303xC

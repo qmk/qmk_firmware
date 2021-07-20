@@ -35,11 +35,11 @@
 uint16_t DataVar = 0;
 
 /* Virtual address defined by the user: 0xFFFF value is prohibited */
-extern uint16_t VirtAddVarTab[NB_OF_VAR];
+uint16_t VirtAddVarTab[NB_OF_VAR] = {};
+
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
-static FLASH_Status EE_Format(void);
 static uint16_t EE_FindValidPage(uint8_t Operation);
 static uint16_t EE_VerifyPageFullWriteVariable(uint16_t VirtAddress, uint16_t Data);
 static uint16_t EE_PageTransfer(uint16_t VirtAddress, uint16_t Data);
@@ -63,6 +63,12 @@ uint16_t EE_Init(void)
   PageStatus0 = (*(__IO uint16_t*)PAGE0_BASE_ADDRESS);
   /* Get Page1 status */
   PageStatus1 = (*(__IO uint16_t*)PAGE1_BASE_ADDRESS);
+
+  // SUBTLE(ibash) don't start VirtAddVarTab at 0, because when the memory is
+  // clear it will incorrectly match a valid address. The number 7 is arbitrary.
+  for (VarIdx = 0; VarIdx < NB_OF_VAR; VarIdx++){
+    VirtAddVarTab[VarIdx] = 7 + VarIdx;
+  }
 
   /* Check for invalid header states and repair if necessary */
   switch (PageStatus0)
@@ -349,7 +355,7 @@ uint16_t EE_WriteVariable(uint16_t VirtAddress, uint16_t Data)
   * @retval Status of the last operation (Flash write or erase) done during
   *         EEPROM formating
   */
-static FLASH_Status EE_Format(void)
+FLASH_Status EE_Format(void)
 {
   FLASH_Status FlashStatus = FLASH_COMPLETE;
 
@@ -362,7 +368,7 @@ static FLASH_Status EE_Format(void)
     return FlashStatus;
   }
 
-  /* Set Page0 as valid page: Write VALID_PAGE at Page0 base address */
+  // /* Set Page0 as valid page: Write VALID_PAGE at Page0 base address */
   FlashStatus = FLASH_ProgramHalfWord(PAGE0_BASE_ADDRESS, VALID_PAGE);
 
   /* If program operation was failed, a Flash error code is returned */

@@ -95,7 +95,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "dip_switch.h"
 #endif
 #ifdef STM32_EEPROM_ENABLE
-#    include "eeprom_stm32.h"
+/*#    include "eeprom_stm32.h"*/
+#    include "eeprom_stm32/eeprom.h"
 #endif
 #ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
@@ -238,7 +239,8 @@ void keyboard_setup(void) {
 #endif
     print_set_sendchar(sendchar);
 #ifdef STM32_EEPROM_ENABLE
-    EEPROM_Init();
+    /*EEPROM_Init();*/
+    EE_Init();
 #endif
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
