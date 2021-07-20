@@ -1,35 +1,39 @@
-# Adding Default Keymaps to QMK Configurator :id=adding-default-keymaps
+# QMK Configurator にデフォルトキーマップを追加する :id=adding-default-keymaps
+<!---
+  original document: 0.13.15:docs/configurator_default_keymaps.md
+  git diff 0.13.15 HEAD -- docs/configurator_default_keymaps.md | cat
+-->
 
-This page covers how to add a default keymap for a keyboard to QMK Configurator.
+このページは、QMK Configurator にキーボードのデフォルトキーマップを追加する方法を取り上げます。
 
 
-## Technical Information :id=technical-information
+## 技術情報 :id=technical-information
 
-QMK Configurator uses JSON as its native file format for keymaps. As much as possible, these should be kept such that they behave the same as running `make <keyboard>:default` from `qmk_firmware`.
+QMK Configurator は、キーマップのネイティブファイル形式に JSON ファイルを使います。可能な限り、QMK Configurator で作成したファームウェアと、`qmk_firmware` で `make <keyboard>:default` を実行して作成したファームウェアが同じ動作となるべきです。
 
-Keymaps in this directory require four key-value pairs:
+このディレクトリ内のキーマップは、4つのキー/値ペアを必要とします。
 
-* `keyboard` (string)
-  * This is the name of the keyboard, the same as would be used when running a compile job through `make` (e.g. `make 1upkeyboards/1up60rgb:default`).
-* `keymap` (string)
-  * Should be set to `default`.
-* `layout` (string)
-  * This is the layout macro used by the default keymap.
-* `layers` (array)
-  * The keymap itself. This key should contain one array per layer, which themselves should contain the keycodes that make up that layer.
+* `keyboard` (文字列)
+  * これはキーボード名で、`make` コマンドでコンパイルするときに使われるものと同じです。 (例: `make 1upkeyboards/1up60rgb:default`).
+* `keymap` (文字列)
+  * `default` と設定する必要があります。
+* `layout` (文字列)
+  * デフォルトキーマップによって使われるレイアウトマクロです。
+* `layers` (配列)
+  * 自身のキーマップです。このキーは、レイヤー毎に1つの配列を含む必要があり、配列はレイヤーを構成するキーコードを含む必要があります。
 
-Additionally, most keymaps contain a `commit` key. This key is not consumed by the API that back-stops QMK Configurator, but is used by Configurator's maintainers to tell which version of a keymap was used to create the JSON keymap in this repository. The value is the SHA of the last commit to modify a board's default `keymap.c` in the `qmk_firmware` repository. The SHA is found by checking out [the `master` branch of the `qmk/qmk_firmware` repository](https://github.com/qmk/qmk_firmware/tree/master/) and running `git log -1 --pretty=oneline -- keyboards/<keyboard>/keymaps/default/keymap.c` (use `keymap.json` if the keyboard in question has this file instead), which should return something similar to:
+さらに、たいていのキーマップは `commit` キーを含みます。このキーは、QMK Configurator の逆回転防止 API によって消費されませんが、QMK Configurator のメンテナーがリポジトリ内の JSON 形式のキーマップを作るために使われるキーマップのバージョンを告知するために使われます。この値は、`qmk_firmware` リポジトリ内のキーボードのデフォルトの `keymap.c` を変更するための最後のコミットの SHA です。この SHA の値は、[`qmk_firmware` リポジトリの `master` ブランチ](https://github.com/qmk/qmk_firmware/tree/master/) をチェックアウトして、`git log -1 --pretty=oneline -- keyboards/<keyboard>/keymaps/default/keymap.c` (`keymap.json` ファイルがあれば、代わりにそれを使います。) を実行したときの返り値で見つけられます。
 
 ```shell
 f14629ed1cd7c7ec9089604d64f29a99981558e8 Remove/migrate action_get_macro()s from default keymaps (#5625)
 ```
 
-In this example, `f14629ed1cd7c7ec9089604d64f29a99981558e8` is the value that should be used for `commit`.
+この例では、`f14629ed1cd7c7ec9089604d64f29a99981558e8` が `commit` キーで使われるべき値です。
 
 
-## Example :id=example
+## 例 :id=example
 
-If one wished to add a default keymap for the H87a by Hineybush, one would run the `git log` command above against the H87a's default keymap in `qmk_firmware`:
+もし、Hineybush の H87a キーボードのデフォルトキーマップを追加したいなら、`qmk_firmware` ディレクトリの H87a のデフォルトキーマップに対して上記の `git log` コマンドを実行します。
 
 ```shell
 user ~/qmk_firmware (master)
@@ -37,7 +41,7 @@ $ git log -1 --pretty=oneline master -- keyboards/hineybush/h87a/keymaps/default
 ef8878fba5d3786e3f9c66436da63a560cd36ac9 Hineybush h87a lock indicators (#8237)
 ```
 
-Now that we have the commit hash, we need the keymap (edited for readability):
+これでコミットハッシュを入手しましたので、次はキーマップが必要です。(キーマップは読みやすさのために編集しています)
 
 ```c
 ...
@@ -64,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
-The default keymap uses the `LAYOUT_all` macro, so that will be the value of the `layout` key. Compiled to a QMK Configurator JSON keymap, our resulting file should be:
+デフォルトキーマップが使う `LAYOUT_all` マクロが `layout` キーの値となります。QMK Configurator が JSON キーマップにコンパイルすると、結果は次のようになるはずです。
 
 ```json
 {
@@ -93,14 +97,14 @@ The default keymap uses the `LAYOUT_all` macro, so that will be the value of the
 }
 ```
 
-The white space in the `layers` arrays have no effect on the functionality of the keymap, but are used to make these files easier for humans to read.
+`layers` 配列にあるホワイトスペースはキーマップの機能に影響を及ぼしませんが、これらのファイルを人間が読みやすくするために使われています。
 
 
-## Caveats :id=caveats
+## 注意書き :id=caveats
 
-### Layers can only be referenced by number :id=layer-references
+### レイヤーは数値で参照する :id=layer-references
 
-A common QMK convention is to name layers using a series of `#define`s, or an `enum` statement:
+通常の QMK の慣習では、レイヤーを命名するためにいくつかの `#define` か `enum` 宣言を使います。
 
 ```c
 enum layer_names {
@@ -110,15 +114,17 @@ enum layer_names {
 };
 ```
 
-This works in C, but for Configurator, you *must* use the layer's numeric index – `MO(_FN)` would need to be `MO(2)` in the above example.
+これは C 言語では動作しますが、QMK Configurator では動作しません。レイヤーのインデックスには数値を使用する *必要があります*。上記の例だと、`MO(_FN)` ではなく `MO(2)` とする必要があります。
 
-### No support for custom code of any kind :id=custom-code
+### いくつかのカスタムコードはサポート対象外 :id=custom-code
 
-Features that require adding functions to the keymap.c file, such as Tap Dance or Unicode, can not be compiled in Configurator **at all**. Even setting `TAP_DANCE_ENABLE = yes` in the `qmk_firmware` repository at the keyboard level will prevent Configurator from compiling **any** firmware for that keyboard. This is limited both by the API and the current spec of our JSON keymap format.
+keyboard level will prevent Configurator from compiling **any** firmware for that keyboard. This is limited both by the API and the current spec of our JSON keymap format.
+タップダンスやユニコードのように keymap.c ファイルに関数を追加する必要がある機能は、QMK Configurator では **全て**コンパイルできません。`qmk_firmware` リポジトリ内のキーボードレベルで `TAP_DANCE_ENABLE = yes` と設定しても、QMK Configurator はファームウェアをコンパイルできません。これは、API と 現在の JSON キーマップ形式の仕様による制限です。
 
-### Limited Support for Custom keycodes :id=custom-keycodes
 
-There is a way to support custom keycodes: if the logic for a custom keycode is implemented at the keyboard level instead of the keymap level in qmk_firmware, that keycode *can* be used in Configurator and it *will* compile and work. Instead of using the following in your `keymap.c`:
+### カスタムキーコードの限定的なサポート :id=custom-keycodes
+
+カスタムキーコードをサポートする方法はあります。: QMK_Firmware 内のキーマップレベルではなくキーボードレベルでカスタムキーコードのロジックが実装されていれば、それらのキーコードが QMK Configurator で*使用可能となり*、コンパイルして機能*するようになります*。
 
 ```c
 enum custom_keycodes {
@@ -149,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-... add the keycode `enum` block to your keyboard's header file (`<keyboard>.h`) as follows (note that the `enum` is named `keyboard_keycodes` here):
+... `enum` ブロックのキーコードをキーボードのヘッダーファイル (`<keyboard>.h`) に次のとおり追加します。 (`enum` がここでは `keyboard_keycodes` と命名されていることに注意してください):
 
 ```c
 enum keyboard_keycodes {
@@ -160,7 +166,7 @@ enum keyboard_keycodes {
 };
 ```
 
-... then the logic to your `<keyboard>.c` through `process_record_kb()`:
+... それから、`<keyboard>.c` の `process_record_kb()` にカスタムキーコードのロジックを追加します: 
 
 ```c
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -186,8 +192,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 ```
 
 Note the call to `process_record_user()` at the end. Additionally, users of the keyboard will need to use `NEW_SAFE_RANGE` instead of `SAFE_RANGE` if they wish to add their own custom keycodes at keymap level, beyond what is provided by the keyboard.
+最後に `process_record_user()` を呼び出すことに注意してください。さらに、ユーザーが自身のカスタムキーコードをキーボードによって提供される以上にキーマップレベルで追加したい場合のために、`SAFE_RANGE` の代わりに `NEW_SAFE_RANGE` を使う必要があります。
 
 
-## Additional Reading :id=additional-reading
+## 追加説明 :id=additional-reading
+##  :id=additional-reading
 
-For QMK Configurator to support your keyboard, your keyboard must be present in the `master` branch of the `qmk_firmware` repository. For instructions on this, please see [Supporting Your Keyboard in QMK Configurator](reference_configurator_support.md).
+QMK Configurator があなたのキーボードをサポートするためには、あなたのキーボードが `qmk_firmware` リポジトリの `master` ブランチに存在していなければなりません。この点の説明は、[キーボードサポート](https://docs.qmk.fm/#/ja/reference_configurator_support)を参照してください。
