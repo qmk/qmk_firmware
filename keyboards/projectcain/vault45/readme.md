@@ -2,7 +2,7 @@
 
 ![vault45](https://i.imgur.com/SYrsbQE.jpeg)
 
-*This is a 40% HHKB-style keyboard inspired by the JD45 with updated bottom row options and rotary encoders.*
+This is a 40% HHKB-style keyboard inspired by the JD45 with updated bottom row options and rotary encoders.
 
 * Keyboard Maintainer: [projectcain](https://github.com/projectcain)
 * Hardware Supported: *Vault 45 PCB*
