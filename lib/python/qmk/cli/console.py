@@ -6,8 +6,9 @@ from pathlib import Path
 from threading import Thread
 from time import sleep, strftime
 
-import hid
 import usb.core
+
+from qmk import hid
 
 from milc import cli
 
