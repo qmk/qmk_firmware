@@ -17,6 +17,16 @@
 #include "halfcliff.h"
 
 #ifdef OLED_DRIVER_ENABLE
+
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    _DEFAULT = 0,
+    _RAISE,
+    _LOWER,
+    _ADJUST
+/*    _FN */
+};
+
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -66,9 +76,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) { /* Left side encoder */
         if (clockwise) {
-            tap_code(KC_WH_D);
-        } else {
             tap_code(KC_WH_U);
+        } else {
+            tap_code(KC_WH_D);
         }
     } else if (index == 1) { /* Right side encoder */
         if (clockwise) {
@@ -79,3 +89,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     return true;
 }
+#endif
