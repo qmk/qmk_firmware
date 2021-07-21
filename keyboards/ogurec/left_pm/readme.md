@@ -6,7 +6,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make ogurec:default:flash
+    make ogurec/left_pm:default:flash
 
 To place the keyboard into bootloader mode, solder a reset switch onto the PCB and press it OR short the GND and RST pins on the pro micro. 
 
