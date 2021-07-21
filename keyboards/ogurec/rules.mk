@@ -21,4 +21,3 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 DEFAULT_FOLDER = ogurec/left_pm
-LAYOUTS = ortho_3x12_grid
