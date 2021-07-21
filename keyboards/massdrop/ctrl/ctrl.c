@@ -16,5 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "ctrl.h"
 
+/* Temporary solution for matrix delay */
 void matrix_output_select_delay(void) { matrix_io_delay(); }
 void matrix_output_unselect_delay(void) { }

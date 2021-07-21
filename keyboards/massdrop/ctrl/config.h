@@ -40,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Temporary solution for matrix delay */
-#define MATRIX_IO_DELAY 5
 #define IGNORE_ATOMIC_BLOCK
 
 /* MCU Port name definitions */
