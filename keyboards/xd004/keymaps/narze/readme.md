@@ -10,4 +10,4 @@
 ## Build & Flash
 
 - Put this board in DFU : bridge the last two pins (#5 & 6) of the 6-pin "J2" header on the opposite edge of the board to the USB port.
-- `make xd004/v1:narze:dfu` or `qmk flash -kb xd004/v1 -km narze`
+- `make xd004/v1:narze:flash` or `qmk flash -kb xd004/v1 -km narze`

@@ -6,8 +6,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_all(HYPR(KC_F2), HYPR(KC_F1), LCTL(KC_B), LCTL(KC_X)),
 
 };
-
-// Loop
-void matrix_scan_user(void){
-    // Empty
-};
