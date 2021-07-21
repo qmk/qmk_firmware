@@ -98,7 +98,7 @@ uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record);
+void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed);
 
 void rgb_matrix_task(void);
 
@@ -216,7 +216,6 @@ extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 extern rgb_config_t rgb_matrix_config;
 
-extern bool         g_suspend_state;
 extern uint32_t     g_rgb_timer;
 extern led_config_t g_led_config;
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED

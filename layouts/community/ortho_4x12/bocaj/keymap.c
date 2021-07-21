@@ -87,21 +87,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___________________LOWER_L1_EXT____________________, ___________________LOWER_R1_EXT____________________,
     ___________________LOWER_L2_EXT____________________, ___________________LOWER_R2_EXT____________________,
     ___________________LOWER_L3_EXT____________________, ___________________LOWER_R3_EXT____________________,
-    _______, _______, _______, _______, _______,     _______,      KC_0,  KC_DOT,  KC_COMM, _______, _______
+    _______, _______, _______, _______, _______, _______,  _______, KC_0,  KC_DOT,  KC_COMM, _______, _______
   ),
 
   [_RAISE] = LAYOUT_ortho_4x12_bocaj(
     KC_TILD, _________________RAISE_L1__________________, _________________RAISE_R1__________________, KC_EQUAL,
     KC_F11,  _________________RAISE_L2__________________, _________________RAISE_R2__________________, KC_F12,
     _______, _________________RAISE_L3__________________, _________________RAISE_R3__________________, _______,
-    _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
 
   [_ADJUST] = WRAPPER_ortho_4x12(
     KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST,
     VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
     TH_LVL,  _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, RGB_IDL,
-    HPT_TOG, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
+    HPT_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 
 };
@@ -237,7 +237,7 @@ void rgb_matrix_indicators_user(void) {
 void matrix_init_keymap(void) {}
 
 #ifdef ENCODER_ENABLE
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
         case _RAISE:
             clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
@@ -260,6 +260,7 @@ void encoder_update(bool clockwise) {
 #    ifdef AUDIO_CLICKY
     clicky_play();
 #    endif
+    return true;
 }
 #endif  // ENCODER_ENABLE
 
