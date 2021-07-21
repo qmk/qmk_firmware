@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// #include "config_common.h"
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID           0x04D8
@@ -32,12 +32,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 8
 
-#define MATRIX_ROW_PINS { B4, B5, B6, B7, B8, B9, A10, A11, B10, B11, B12 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7 }
+#define MATRIX_ROW_PINS { B04, B05, B06, B07, B08, B09, A10, A11, B10, B11, B12 }
+#define MATRIX_COL_PINS { A00, A01, A02, A03, A04, A05, A06, A07 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+/* Temporary solution for matrix delay */
+#define MATRIX_IO_DELAY 5
+#define IGNORE_ATOMIC_BLOCK
 
 /* MCU Port name definitions */
 #define PA 0

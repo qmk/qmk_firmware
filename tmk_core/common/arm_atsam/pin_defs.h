@@ -17,16 +17,16 @@
 
 #include "samd51j18a.h"
 
-#define A0 PIN_PA00
-#define A1 PIN_PA01
-#define A2 PIN_PA02
-#define A3 PIN_PA03
-#define A4 PIN_PA04
-#define A5 PIN_PA05
-#define A6 PIN_PA06
-#define A7 PIN_PA07
-#define A8 PIN_PA08
-#define A9 PIN_PA09
+#define A00 PIN_PA00
+#define A01 PIN_PA01
+#define A02 PIN_PA02
+#define A03 PIN_PA03
+#define A04 PIN_PA04
+#define A05 PIN_PA05
+#define A06 PIN_PA06
+#define A07 PIN_PA07
+#define A08 PIN_PA08
+#define A09 PIN_PA09
 #define A10 PIN_PA10
 #define A11 PIN_PA11
 #define A12 PIN_PA12
@@ -50,16 +50,16 @@
 #define A30 PIN_PA30
 #define A31 PIN_PA31
 
-#define B0 PIN_PB00
-#define B1 PIN_PB01
-#define B2 PIN_PB02
-#define B3 PIN_PB03
-#define B4 PIN_PB04
-#define B5 PIN_PB05
-#define B6 PIN_PB06
-#define B7 PIN_PB07
-#define B8 PIN_PB08
-#define B9 PIN_PB09
+#define B00 PIN_PB00
+#define B01 PIN_PB01
+#define B02 PIN_PB02
+#define B03 PIN_PB03
+#define B04 PIN_PB04
+#define B05 PIN_PB05
+#define B06 PIN_PB06
+#define B07 PIN_PB07
+#define B08 PIN_PB08
+#define B09 PIN_PB09
 #define B10 PIN_PB10
 #define B11 PIN_PB11
 #define B12 PIN_PB12
