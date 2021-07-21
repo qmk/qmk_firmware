@@ -223,10 +223,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
 
         case NORMAL:
-            layer_off(_NUMBER);
-            layer_off(_ARROWS);
-            layer_off(_CURSOR);
-            layer_off(_SYSTEM);
+            layer_clear();
             return false;
     }
     return true;
@@ -235,39 +232,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SHFTESC:
-            return true;
         case NUMSPAC:
-            return true;
         case SFTENTR:
-            return true;
         case ALT__A:
-            return true;
         case ALTSCLN:
-            return true;
         case ALT__O:
-            return true;
         case GUI__S:
-            return true;
         case GUI__L:
-            return true;
         case GUI__R:
-            return true;
         case GUI__I:
-            return true;
         case SFT__D:
-            return true;
         case SFT__K:
-            return true;
         case SFT__S:
-            return true;
         case SFT__E:
-            return true;
         case CTL__F:
-            return true;
         case CTL__J:
-            return true;
         case CTL__T:
-            return true;
         case CTL__N:
             return true;
         default:
@@ -278,33 +258,19 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case ALT__A:
-            return true;
         case ALTSCLN:
-            return true;
         case ALT__O:
-            return true;
         case GUI__S:
-            return true;
         case GUI__L:
-            return true;
         case GUI__R:
-            return true;
         case GUI__I:
-            return true;
         case SFT__D:
-            return true;
         case SFT__K:
-            return true;
         case SFT__S:
-            return true;
         case SFT__E:
-            return true;
         case CTL__F:
-            return true;
         case CTL__J:
-            return true;
         case CTL__T:
-            return true;
         case CTL__N:
             return true;
         default:
