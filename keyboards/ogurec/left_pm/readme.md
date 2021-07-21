@@ -2,7 +2,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ogurec:default
+    make ogurec/left_pm:default
 
 Flashing example for this keyboard:
 
