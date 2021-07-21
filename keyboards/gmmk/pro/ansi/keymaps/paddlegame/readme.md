@@ -1,4 +1,4 @@
-![GMMK Pro Paddle Game zLayout Image](https://i.imgur.com/rI1ud8y.png)
+![GMMK Pro Paddle Game zLayout Image](https://i.imgur.com/RYcKyOj.png)
 
 # Paddle Game GMMK Pro layout by Tomas Guinan
 
@@ -16,4 +16,3 @@
 	- Player has 4 lives, indicated by nav cluster
 	- Deflect white balls while avoiding red ones
 	- Press Fn to quit game
-	
