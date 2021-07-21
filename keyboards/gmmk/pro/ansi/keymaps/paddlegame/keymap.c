@@ -189,24 +189,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			// Light up FN layer keys
 			if (!fn_active) {
 				fn_active = true;
-				r_value = 0xff;
-				g_value = 0x00;
-				b_value = 0x00;
+				rgb_value.r = 0xff;
+				rgb_value.g = 0x00;
+				rgb_value.b = 0x00;
 			}
 			
-			if (r_value == 0xff && g_value < 0xff) {
-				if (b_value > 0) --b_value;
-				else ++g_value;
-			} else if (g_value == 0xff && b_value < 0xff) {
-				if (r_value > 0) --r_value;
-				else ++b_value;
-			} else if (b_value == 0xff && r_value < 0xff) {
-				if (g_value > 0) --g_value;
-				else ++r_value;
+			if (rgb_value.r == 0xff && rgb_value.g < 0xff) {
+				if (rgb_value.b > 0) { --rgb_value.b; }
+				else { ++rgb_value.g; }
+			} else if (rgb_value.g == 0xff && rgb_value.b < 0xff) {
+				if (rgb_value.r > 0) { --rgb_value.r; }
+				else { ++rgb_value.b; }
+			} else if (rgb_value.b == 0xff && rgb_value.r < 0xff) {
+				if (rgb_value.g > 0) { --rgb_value.g; }
+				else { ++rgb_value.r; }
 			}
 			
             for (uint8_t i=0; i<sizeof(LED_RGB)/sizeof(LED_RGB[0]); i++) {
-                rgb_matrix_set_color(LED_RGB[i], r_value, g_value, b_value);
+                rgb_matrix_set_color(LED_RGB[i], rgb_value.r, rgb_value.g, rgb_value.b);
             }
 			
             for (uint8_t i=0; i<sizeof(LED_WHITE)/sizeof(LED_WHITE[0]); i++) {
@@ -231,9 +231,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				last_hsv = rgb_matrix_get_hsv();
 				rgb_matrix_sethsv_noeeprom(0, 0, 0);
 
-				r_value = 0xff;
-				g_value = 0x00;
-				b_value = 0x00;
+				rgb_value.r = 0xff;
+				rgb_value.g = 0x00;
+				rgb_value.b = 0x00;
 				
 				paddle_pos_full = 8;
 				paddle_lives = 4;
@@ -284,24 +284,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			
 			} else if (level_number >= 12) {
 				// You win
-				if (r_value == 0xff && g_value < 0xff) {
-					if (b_value > 0) --b_value;
-					else ++g_value;
-				} else if (g_value == 0xff && b_value < 0xff) {
-					if (r_value > 0) --r_value;
-					else ++b_value;
-				} else if (b_value == 0xff && r_value < 0xff) {
-					if (g_value > 0) --g_value;
-					else ++r_value;
+				if (rgb_value.r == 0xff && rgb_value.g < 0xff) {
+					if (rgb_value.b > 0) { --rgb_value.b; }
+					else { ++rgb_value.g; }
+				} else if (rgb_value.g == 0xff && rgb_value.b < 0xff) {
+					if (rgb_value.r > 0) { --rgb_value.r; }
+					else { ++rgb_value.b; }
+				} else if (rgb_value.b == 0xff && rgb_value.r < 0xff) {
+					if (rgb_value.g > 0) { --rgb_value.g; }
+					else { ++rgb_value.r; }
 				}
 				
 				for (uint8_t i=0; i < 3 ; i++) {
-					rgb_matrix_set_color(GAME_PADDLE[paddle_pos + i], r_value, g_value, b_value);
+					rgb_matrix_set_color(GAME_PADDLE[paddle_pos + i], rgb_value.r, rgb_value.g, rgb_value.b);
 				}
-				rgb_matrix_set_color(GAME_SMILE1[paddle_pos], r_value, g_value, b_value);
-				rgb_matrix_set_color(GAME_SMILE1[paddle_pos + 3], r_value, g_value, b_value);
-				rgb_matrix_set_color(GAME_SMILE2[paddle_pos], r_value, g_value, b_value);
-				rgb_matrix_set_color(GAME_SMILE2[paddle_pos + 3], r_value, g_value, b_value);
+				rgb_matrix_set_color(GAME_SMILE1[paddle_pos], rgb_value.r, rgb_value.g, rgb_value.b);
+				rgb_matrix_set_color(GAME_SMILE1[paddle_pos + 3], rgb_value.r, rgb_value.g, rgb_value.b);
+				rgb_matrix_set_color(GAME_SMILE2[paddle_pos], rgb_value.r, rgb_value.g, rgb_value.b);
+				rgb_matrix_set_color(GAME_SMILE2[paddle_pos + 3], rgb_value.r, rgb_value.g, rgb_value.b);
 			
 			} else {
 				// normal game loop
@@ -363,7 +363,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 						if (!ball[i].up && ball[i].y == 4 && (ball[i].x == paddle_pos || ball[i].x == paddle_pos - 1 || ball[i].x == paddle_pos + 1)) {
 							if (!ball[i].enemy) {
 								--ball[i].y;
-								if (!ball[i].left) ++ball[i].x;
+								if (!ball[i].left) { ++ball[i].x; }
 								ball[i].up = true;
 							} else {
 								hurt_paddle();
@@ -374,38 +374,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 						// Ball display
 						switch (ball[i].y) {
 							case 0:
-							if (ball[i].enemy)
+							if (ball[i].enemy) {
 								rgb_matrix_set_color(GAME_R0[ball[i].x], RGB_RED);
-							else
+							} else {
 								rgb_matrix_set_color(GAME_R0[ball[i].x], RGB_WHITE);
+							}
 							break;
 
 							case 1:
-							if (ball[i].enemy)
+							if (ball[i].enemy) {
 								rgb_matrix_set_color(GAME_R1[ball[i].x], RGB_RED);
-							else
+							} else {
 								rgb_matrix_set_color(GAME_R1[ball[i].x], RGB_WHITE);
+							}
 							break;
 
 							case 2:
-							if (ball[i].enemy)
+							if (ball[i].enemy) {
 								rgb_matrix_set_color(GAME_R2[ball[i].x], RGB_RED);
-							else
+							} else {
 								rgb_matrix_set_color(GAME_R2[ball[i].x], RGB_WHITE);
+							}
 							break;
 
 							case 3:
-							if (ball[i].enemy)
+							if (ball[i].enemy) {
 								rgb_matrix_set_color(GAME_R3[ball[i].x], RGB_RED);
-							else
+							} else {
 								rgb_matrix_set_color(GAME_R3[ball[i].x], RGB_WHITE);
+							}
 							break;
 
 							case 4:
-							if (ball[i].enemy)
+							if (ball[i].enemy) {
 								rgb_matrix_set_color(GAME_R4[ball[i].x], RGB_RED);
-							else
+							} else {
 								rgb_matrix_set_color(GAME_R4[ball[i].x], RGB_WHITE);
+							}
 							break;
 						}
 					}

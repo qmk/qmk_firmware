@@ -22,9 +22,7 @@
 	bool caps_flash_on = false;
 
 	static uint16_t caps_flasher = 0;
-	static uint8_t r_value = 0xff;
-	static uint8_t g_value = 0x00;
-	static uint8_t b_value = 0x00;
+	RGB rgb_value;
 
     // RGB LED locations
     enum led_location_map {
