@@ -169,3 +169,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //default trans keycode.
 #define VIAL_ENCODER_DEFAULT { KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS}
+
+//overwrite default tapping behaviour
+#define IGNORE_MOD_TAP_INTERRUPT
+//RGB Underglow
+#define RGB_DI_PIN B6
+#define RGBLED_NUM 17
+#define RGBLIGHT_SPLIT
+#define RGBLIGHT_EFFECT_KNIGHT
+
+//EE Handness
+#define EE_HANDS

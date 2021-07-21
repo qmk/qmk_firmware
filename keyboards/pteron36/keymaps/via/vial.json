@@ -2,7 +2,7 @@
     "name": "Pteron36",
     "vendorId": "0x4847",
     "productId": "0x5054",
-    "lighting": "none",
+    "lighting": "qmk_rgblight",
     "matrix": {
         "rows": 8,
         "cols": 5
