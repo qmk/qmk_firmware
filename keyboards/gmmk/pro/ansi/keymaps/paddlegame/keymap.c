@@ -32,9 +32,6 @@ enum custom_keycodes {
   KC_WINLK,    //Toggles Win key on and off
 };
 
-
-bool _isWinKeyDisabled = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case KC_00:
@@ -48,8 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KC_WINLK:
         if (record->event.pressed) {
-            _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
-            if(_isWinKeyDisabled) {
+            if(!keymap_config.no_gui) {
                 process_magic(GUI_OFF, record);
             } else {
                 process_magic(GUI_ON, record);
@@ -459,7 +455,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
             rgb_matrix_set_color(LED_F10,  RGB_WHITE);
         }
-        if (_isWinKeyDisabled) {
+        if (keymap_config.no_gui) {
             rgb_matrix_set_color(LED_LWIN, RGB_RED);  //light up Win key when disabled
         }
     }
