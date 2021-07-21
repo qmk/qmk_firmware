@@ -110,8 +110,12 @@ void encoder_init(void) {
 #endif
 
 #ifdef ENCODER_MATRIX
-    for (size_t i = 0; i < ENCODER_ROWS; ++i) setPinInputHigh_atomic(encoder_row_pins[i]);
-    for (size_t i = 0; i < ENCODER_COLS; ++i) setPinInputHigh_atomic(encoder_col_pins[i]);
+    for (size_t i = 0; i < ENCODER_ROWS; ++i) {
+        setPinInputHigh_atomic(encoder_row_pins[i]);
+    }
+    for (size_t i = 0; i < ENCODER_COLS; ++i) {
+        setPinInputHigh_atomic(encoder_col_pins[i]);
+    }
 #else
     for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
         setPinInputHigh(encoders_pad_a[i]);
@@ -163,7 +167,7 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 #ifdef ENCODER_MATRIX
 static void encoder_matrix_read_row(size_t row) {
     setPinOutput_writeLow(encoder_row_pins[row]);
-    matrix_io_delay();
+    matrix_output_select_delay();
 
     uint32_t line = 0;
     for (size_t col = 0; col < ENCODER_COLS; ++col) {
@@ -172,7 +176,7 @@ static void encoder_matrix_read_row(size_t row) {
     }
 
     setPinInputHigh_atomic(encoder_row_pins[row]);
-    matrix_io_delay();
+    matrix_output_select_delay();
 
     encoder_matrix[row] = line;
 }
