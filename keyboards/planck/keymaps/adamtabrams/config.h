@@ -3,7 +3,7 @@
 // General Configs
 #define NO_ACTION_ONESHOT
 #define FORCE_NKRO
-#define TAPPING_TOGGLE 2
+#define TAPPING_TOGGLE 3
 
 // Mouse Configs
 #define MK_3_SPEED
@@ -15,7 +15,7 @@
 #define MK_W_INTERVAL_UNMOD 80
 
 // Tap-Hold Configs
-#define TAPPING_TERM 250
+#define TAPPING_TERM 180
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
 #define IGNORE_MOD_TAP_INTERRUPT_PER_KEY

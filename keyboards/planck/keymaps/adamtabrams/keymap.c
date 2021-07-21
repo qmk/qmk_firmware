@@ -134,15 +134,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* ## Arrows
 
 |      |      |A(->) |      |      |A(<-) |      | P_Up | P_Up |C(->) |      |      |
-|      |C(->) |      |P_Down|      |      | Left | Down |  Up  |Right |C(<-) |      |
+|      |      |      |P_Down|      |      | Left | Down |  Up  |Right |C(<-) |      |
 |      |      |      |      |P_Down|A(<-) |      |      |      |      |      |      |
 |      |      |      |      |      |      |      | \\/  |      |      |      |Normal|
  */
 
 [_ARROWS] = LAYOUT_planck_grid(
-    _______, XXXXXXX, ALTRGHT, XXXXXXX, XXXXXXX, ALTLEFT, XXXXXXX, KC_PGUP, KC_PGUP, CTLRGHT, XXXXXXX, _______,
-    _______, CTLRGHT, XXXXXXX, KC_PGDN, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, CTLLEFT, _______,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, ALTLEFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    _______, _______, ALTRGHT, _______, _______, ALTLEFT, _______, KC_PGUP, KC_PGUP, CTLRGHT, _______, _______,
+    _______, _______, _______, KC_PGDN, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, CTLLEFT, _______,
+    _______, _______, _______, _______, KC_PGDN, ALTLEFT, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, NORMAL
 ),
 
@@ -155,9 +155,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_CURSOR] = LAYOUT_planck_grid(
-    _______, XXXXXXX, XXXXXXX, KC_WH_D, KC_BTN2, XXXXXXX, XXXXXXX, KC_WH_D, KC_WH_D, XXXXXXX, XXXXXXX, _______,
-    _______, KC_ACL2, KC_ACL1, KC_WH_U, KC_BTN1, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, _______,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_U, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    _______, _______, _______, KC_WH_D, KC_BTN2, _______, _______, KC_WH_D, KC_WH_D, _______, _______, _______,
+    _______, KC_ACL2, KC_ACL1, KC_WH_U, KC_BTN1, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
+    _______, _______, _______, _______, KC_WH_U, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, NORMAL
 ),
 
