@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// #ifndef CONFIG_H
-// #define CONFIG_H
 #pragma once
 
 #include "config_common.h"
@@ -64,7 +62,7 @@
  */
 #define RGB_DI_PIN F4
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 20    			// Number of LEDs
+#define RGBLED_NUM 20    			
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 15
 #define RGBLIGHT_VAL_STEP 15
@@ -74,6 +72,3 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define TAPPING_TERM 200
-
-// #endif
