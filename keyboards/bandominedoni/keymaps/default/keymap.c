@@ -24,13 +24,9 @@ enum layer_names {
 #ifdef PEDAL_NORMALLY_CLOSED
     _OPEN,
 #endif
-    _QWERTY,
-    _MISC,
     _FN
 };
 
-// Alias layout macros that expand groups of keys.
-#define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_OPEN] = LAYOUT(
@@ -63,42 +59,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MI_Gs_2, MI_As_2, MI_Ds_3, MI_F_4, MI_E_4, MI_Gs_4, MI_B_4, MI_E_5, MI_Ds_4
     ),
 
-    [_QWERTY] = LAYOUT_wrapper(
-                   _________________NUMBER_L__________________,
-       KC_GESC, KC_TAB, _________________QWERTY_L1_________________,
-          KC_CAPS, _________________QWERTY_L2_________________, KC_H,
-       KC_LSFT, _________________QWERTY_L3_________________, KC_N,
-     KC_LCTL, KC_GRV, KC_LGUI, KC_LALT, MIS_EIS, KC_SPC, KC_SPC, KC_PSCR,
-
-     MO(_MISC),        KC_LBRC, KC_RBRC, KC_BSLS, KC_0,         _______,
-                  KC_6, KC_7, KC_8, KC_9, KC_BSPC,          _______, _______,
-                _________________QWERTY_R1_________________, KC_DEL,
-     KC_PGUP, KC_G, _________________QWERTY_R2_________________, KC_ENT,
-            KC_PGDN, KC_B, _________________QWERTY_R3_________________, KC_RSFT,
-         KC_HOME, KC_END, KC_SPC, MIS_KAN, KC_RALT, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
-    ),
-
-    [_MISC] = LAYOUT_wrapper(
-                    _________________FUNC__L___________________,
-       _______, _______, _______, _______, _______, _______, _______,
-          _______, _______, _______, _______, _______, _______, _______,
-       _______, _______, _______, _______, _______, _______, _______,
-     _______, _______, _______, _______, _______, _______, _______, _______,
-
-     _______,        _______, _______, _______, KC_F10,         _______,
-                  KC_F6, KC_F7, KC_F8, KC_F9, _______,          _______, _______,
-                _______, _______, _______, _______, _______, _______,
-     _______, _______, _______, _______, _______, _______, KC_QUOT, _______,
-            _______, _______, _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
-
     [_FN] = LAYOUT(
                    DF_SWAP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-       XXXXXXX, DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-     XXXXXXX, XXXXXXX, AG_NORM, AG_SWAP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
      _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______,
                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
