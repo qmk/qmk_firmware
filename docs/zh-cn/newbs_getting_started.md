@@ -42,7 +42,7 @@ QMK 工具箱 是一种可选的Windows和macOS下的图形化工具，它可以
 
 你需要安装MSYS2和Git.
 
-* 按照以下安装说明进行操作[MSYS2 主页](http://www.msys2.org)。
+* 按照以下安装说明进行操作[MSYS2 主页](https://www.msys2.org)。
 * 关闭所有打开的MSYS2终端并打开新的MSYS2 MinGW 64-bit终端。
 * 使用以下命令安装Git: `pacman -S git`。
 

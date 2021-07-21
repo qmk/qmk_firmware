@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Function 2 layer: http://www.keyboard-layout-editor.com/#/gists/6e1068e4f91bbacccaf5ac0acbeec79c */
     [LAYER_FUNCTION_2] = LAYOUT_60_ansi_split_bs_rshift(
         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_DEL,
-        _______,  _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  BL_BRTG,  EEP_RST,  RESET,    _______,  _______,  _______,  RGB_VAI,  _______,  _______,
+        _______,  NK_TOGG,  KC_MPLY,  KC_VOLU,  KC_MSTP,  BL_BRTG,  EEP_RST,  RESET,    _______,  _______,  _______,  RGB_VAI,  _______,  _______,
         _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  BL_INC,   _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_RMOD, RGB_MOD,            RGB_TOG,
         _______,  _______,  _______,  KC_MUTE,  _______,  BL_DEC,   _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  _______,                      _______,
         _______,  _______,  _______,                                _______,                                          _______,  _______,  _______,  _______

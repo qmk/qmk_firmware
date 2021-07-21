@@ -1,0 +1,35 @@
+{
+    "keyboard_name": "numeros",
+    "url": "www.clawboards.xyz",
+    "maintainer": "AAClawson (AlisGraveNil)",
+    "width": 4,
+    "height": 5,
+    "layouts": {
+        "LAYOUT_numpad_5x4": {
+            "layout": [
+                {"x":0, "y":0},
+                {"x":1, "y":0},
+                {"x":2, "y":0},
+                {"x":3, "y":0},
+
+                {"x":0, "y":1},
+                {"x":1, "y":1},
+                {"x":2, "y":1},
+
+                {"x":0, "y":2},
+                {"x":1, "y":2},
+                {"x":2, "y":2},
+                {"x":3, "y":1, "h":2},
+
+                {"x":0, "y":3},
+                {"x":1, "y":3},
+                {"x":2, "y":3},
+
+                {"x":0, "y":4, "w":2},
+                {"x":2, "y":4},
+                {"x":3, "y":3, "h":2}
+            ]
+        }
+    }
+    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
+}

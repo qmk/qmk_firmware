@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_COMBO_H
-#define PROCESS_COMBO_H
+#pragma once
 
 #include "progmem.h"
 #include "quantum.h"
@@ -56,11 +55,9 @@ typedef struct {
 
 bool process_combo(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_combo(void);
-void process_combo_event(uint8_t combo_index, bool pressed);
+void process_combo_event(uint16_t combo_index, bool pressed);
 
 void combo_enable(void);
 void combo_disable(void);
 void combo_toggle(void);
 bool is_combo_enabled(void);
-
-#endif

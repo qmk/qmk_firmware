@@ -2,7 +2,7 @@
 
 QMK est un firmware Open Source pour votre clavier mécanique. Vous pouvez utiliser QMK pour customiser votre clavier de manière simple et puissante. Tout le monde, du débutant complet au développeur avancé, ont utilisé avec succès QMK pour customiser leur clavier. Ce guide vous aidera à faire de même, quelles que soient vos compétences.
 
-Vous voulez savoir si votre clavier peut utiliser QMK? Si c'est un clavier mécanique que vous avez vous-même construit, il y a de bonnes chances que vous pouvez. Nous supportons un [grand nombre de "hobbyist boards"](http://qmk.fr/keyboards), donc même si votre clavier ne peut pas utiliser QMK, vous ne devriez pas avoir trop de problème pour en trouver un qui vous convienne.
+Vous voulez savoir si votre clavier peut utiliser QMK? Si c'est un clavier mécanique que vous avez vous-même construit, il y a de bonnes chances que vous pouvez. Nous supportons un [grand nombre de "hobbyist boards"](https://qmk.fm/keyboards), donc même si votre clavier ne peut pas utiliser QMK, vous ne devriez pas avoir trop de problème pour en trouver un qui vous convienne.
 
 ## Vue d'ensemble
 

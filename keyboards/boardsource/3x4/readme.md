@@ -1,5 +1,6 @@
 # 3x4
-![Boardsource 3x4 macro](https://i.imgur.com/EiPF1hh.jpg)
+
+![Boardsource 3x4 macro](https://i.imgur.com/EiPF1hhl.jpg)
 
 this macro pad / small 12 key was inspired by the plaid look
 

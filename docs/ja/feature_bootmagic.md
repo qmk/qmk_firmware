@@ -1,8 +1,8 @@
 # ブートマジック
 
 <!---
-  original document: 5d5ff80:docs/feature_bootmagic.md
-  git diff 5d5ff80 HEAD -- docs/feature_bootmagic.md | cat
+  original document: 0.9.0:docs/feature_bootmagic.md
+  git diff 0.9.0 HEAD -- docs/feature_bootmagic.md | cat
 -->
 
 再書き込みせずにキーボードの挙動を変更することができる、3つの独立した関連する機能があります。それぞれは似たような機能を持ちますが、キーボードがどのように設定されているかによって異なる方法でアクセスされます。
@@ -148,6 +148,17 @@ BOOTMAGIC_ENABLE = lite
 ブートローダを起動するには、キーボードを接続する時にこのキーを押し続けます。たった1つのキーです。
 
 !> ブートマジックライトを使用すると、EEPROM を**常にリセットします**。つまり保存された全ての設定は失われます。
+
+## 分割キーボード
+
+`SPLIT_HAND_PIN` のようなオプションで、左右の設定があらかじめ決められている場合は、キーボードの左右で別のキーを設定する必要があるかもしれません。これを行うには、`config.h` ファイルに以下のエントリを追加します。
+
+```c
+#define BOOTMAGIC_LITE_ROW_RIGHT 4
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 1
+```
+
+デフォルトでは、これらの値は設定されていません。
 
 ## 高度なブートマジックライト
 
