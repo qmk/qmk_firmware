@@ -35,22 +35,50 @@
 #ifdef ENCODER_MATRIX
 #    define ENCODER_ROWS (sizeof(encoder_row_pins) / sizeof(*encoder_row_pins))
 #    define ENCODER_COLS (sizeof(encoder_col_pins) / sizeof(*encoder_col_pins))
-static pin_t encoder_row_pins[] = ENCODER_ROW_PINS;
-static pin_t encoder_col_pins[] = ENCODER_COL_PINS;
+#    ifdef ENCODER_ROW_PINS_RIGHT
+#        define SPLIT_MUTABLE_ROW
+#    else
+#        define SPLIT_MUTABLE_ROW const
+#    endif
+#    ifdef ENCODER_COL_PINS_RIGHT
+#        define SPLIT_MUTABLE_COL
+#    else
+#        define SPLIT_MUTABLE_COL const
+#    endif
 
-static const encoder_pin_pair_t PROGMEM encoders_pad_a[] = ENCODERS_PAD_A;
-static const encoder_pin_pair_t PROGMEM encoders_pad_b[] = ENCODERS_PAD_B;
+static SPLIT_MUTABLE_ROW pin_t encoder_row_pins[] = ENCODER_ROW_PINS;
+static SPLIT_MUTABLE_COL pin_t encoder_col_pins[] = ENCODER_COL_PINS;
+
+typedef encoder_pin_pair_t encoder_pad_t;
+
 /* max 32 cols for now */
 static uint32_t encoder_matrix[ENCODER_ROWS];
 
 #    define ENCODER_MATRIX_READ(row, col) (!!(encoder_matrix[row] & (((uint32_t)1) << col)))
 #else
-static pin_t   encoders_pad_a[]                  = ENCODERS_PAD_A;
-static pin_t   encoders_pad_b[]                  = ENCODERS_PAD_B;
+typedef pin_t  encoder_pad_t;
 #endif
 
+#ifdef ENCODERS_PAD_A_RIGHT
+#    define SPLIT_MUTABLE_PAD_A
+#else
+#    define SPLIT_MUTABLE_PAD_A const
+#endif
+#ifdef ENCODERS_PAD_B_RIGHT
+#    define SPLIT_MUTABLE_PAD_B
+#else
+#    define SPLIT_MUTABLE_PAD_B const
+#endif
+static SPLIT_MUTABLE_PAD_A encoder_pad_t encoders_pad_a[] = ENCODERS_PAD_A;
+static SPLIT_MUTABLE_PAD_B encoder_pad_t encoders_pad_b[] = ENCODERS_PAD_B;
+
 #ifdef ENCODER_RESOLUTIONS
-static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
+#    ifdef ENCODER_RESOLUTIONS_RIGHT
+#        define SPLIT_MUTABLE_RESOLUTIONS
+#    else
+#        define SPLIT_MUTABLE_RESOLUTIONS const
+#    endif
+static SPLIT_MUTABLE_RESOLUTIONS uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
 #endif
 
 #ifndef ENCODER_DIRECTION_FLIP
@@ -60,6 +88,7 @@ static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
 #    define ENCODER_CLOCKWISE         false
 #    define ENCODER_COUNTER_CLOCKWISE true
 #endif
+
 static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 
 static uint8_t encoder_state[NUMBER_OF_ENCODERS]  = {0};
@@ -92,20 +121,38 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
 #endif
 
 void encoder_init(void) {
-#if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
+#if defined(SPLIT_KEYBOARD)
     if (!isLeftHand) {
-        const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
-        const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
+#    if defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
+        const encoder_pad_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
+        const encoder_pad_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
+#    endif
 #    if defined(ENCODER_RESOLUTIONS_RIGHT)
         const uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
 #    endif
         for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
+#    if defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
             encoders_pad_a[i] = encoders_pad_a_right[i];
             encoders_pad_b[i] = encoders_pad_b_right[i];
+#    endif
 #    if defined(ENCODER_RESOLUTIONS_RIGHT)
             encoder_resolutions[i] = encoder_resolutions_right[i];
 #    endif
         }
+#    ifdef ENCODER_ENABLE
+#        if defined(ENCODER_ROW_PINS_RIGHT)
+        const pin_t encoder_row_pins_right[] = ENCODER_ROW_PINS_RIGHT;
+        for (size_t i = 0; i < ENCODER_ROWS; ++i) {
+            encoder_row_pins[i] = encoder_row_pins_right[i];
+        }
+#        endif
+#        if defined(ENCODER_COL_PINS_RIGHT)
+        const pin_t encoder_col_pins_right[] = ENCODER_COL_PINS_RIGHT;
+        for (size_t i = 0; i < ENCODER_COLS; ++i) {
+            encoder_col_pins[i] = encoder_col_pins_right[i];
+        }
+#        endif
+#    endif
     }
 #endif
 
@@ -196,8 +243,8 @@ bool encoder_read(void) {
     for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
         uint8_t state;
 #ifdef ENCODER_MATRIX
-        size_t row_a = pgm_read_byte(&encoders_pad_a[i].row), col_a = pgm_read_byte(&encoders_pad_a[i].col);
-        size_t row_b = pgm_read_byte(&encoders_pad_b[i].row), col_b = pgm_read_byte(&encoders_pad_b[i].col);
+        size_t row_a = encoders_pad_a[i].row, col_a = encoders_pad_a[i].col;
+        size_t row_b = encoders_pad_b[i].row, col_b = encoders_pad_b[i].col;
         state = (ENCODER_MATRIX_READ(row_a, col_a) << 0) | (ENCODER_MATRIX_READ(row_b, col_b) << 1);
 #else
         state = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
