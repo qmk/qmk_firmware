@@ -154,13 +154,6 @@ bool led_update_user(led_t led_state) {
     return false;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-            writePinLow(LED_CAPS_LOCK_PIN);
-        }
-    } else {
-        writePinHigh(LED_CAPS_LOCK_PIN);
-    }
-    return true;
+void matrix_scan_user(void) {
+    writePin(LED_CAPS_LOCK_PIN, !(get_mods() & MOD_MASK_SHIFT));
 }
