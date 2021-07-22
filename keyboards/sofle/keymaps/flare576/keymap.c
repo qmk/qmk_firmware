@@ -17,6 +17,16 @@ bool isJumping = false;
 bool showedJump = true;
 int current_wpm = 0;
 
+static void render_logo(void) {
+    static const char PROGMEM qmk_logo[] = {
+        0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+        0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+        0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0
+    };
+
+    oled_write_P(qmk_logo, false);
+}
+
 static void render_luna(int LUNA_X, int LUNA_Y) {
 
     static const char PROGMEM sit[2][ANIM_SIZE] = {
@@ -149,7 +159,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         anim_timer = timer_read32();
         animation_phase();
     }
-
+/*
     // screen on and off
     if (current_wpm > 0) {
         oled_on();
@@ -157,6 +167,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
     } else if(timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
         oled_off();
     }
+    */
 }
 // END Luna vars
 
@@ -164,7 +175,7 @@ enum _layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _BASE,
     _MOUS,
-    _NUMS,
+    _SYMS,
     _MDIA,
     _NPAD,
     _GAME,
@@ -175,6 +186,8 @@ enum custom_keycodes {
     _COMP2,
     V_C_W,
     T_M_A,
+    V_FS,
+    T_FS,
 };
 
 enum custom_tapdance {
@@ -201,21 +214,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |LCtrl |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * |LCtrl |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |+/SHFT|
  * `-----------------------------------------/       /     \Enter \-----------------------------------------'
  *            |Gaming| LGUI | LAlt | ESC/ | /Space  /       \ or   \  | Bspc | Alt +|Delete|NUMPAD|
  *            |      |      |      |Number|/       /         \Mouse \ |      |Shift |      |      |
  *            `----------------------------------'           '------''---------------------------'
- *            it would be cool to be able to hold both shift keys and send +
- *            Probably just take the number keys off the num layer and call it sym
  */
 
 [_BASE] = LAYOUT(
   LT(_MDIA,KC_GRV), KC_1,      KC_2,    KC_3,              KC_4,    KC_5,                   KC_6,               KC_7,    KC_8,          KC_9,   KC_0,     KC_MINS,
   LALT_T(KC_TAB),   KC_Q,      KC_W,    KC_E,              KC_R,    KC_T,                   KC_Y,               KC_U,    KC_I,          KC_O,   KC_P,     KC_BSLS,
   KC_LSFT,          KC_A,      KC_S,    KC_D,              KC_F,    KC_G,                   KC_H,               KC_J,    KC_K,          KC_L,   KC_SCLN,  KC_QUOT,
-  KC_LCTRL,         KC_Z,      KC_X,    KC_C,              KC_V,    KC_B, KC_TPLY, KC_THME, KC_N,               KC_M,    KC_COMM,       KC_DOT, KC_SLSH,  LSFT_T(KC_PLUS),
-                    TG(_GAME), KC_LALT, LT(_NUMS,KC_ESC),  KC_LGUI, KC_SPC,                 LT(_MOUS, KC_ENT),  KC_BSPC, LALT(KC_LSFT), KC_DEL, TG(_NPAD)
+  KC_LCTRL,         KC_Z,      KC_X,    KC_C,              KC_V,    KC_B, KC_TPLY, KC_THME, KC_N,               KC_M,    KC_COMM,       KC_DOT, KC_SLSH,  RSFT_T(KC_PLUS),
+                    TG(_GAME), KC_LALT, LT(_SYMS,KC_ESC),  KC_LGUI, KC_SPC,                 LT(_MOUS, KC_ENT),  KC_BSPC, LALT(KC_LSFT), KC_DEL, TG(_NPAD)
 ),
 /*
  * MOUS
@@ -225,10 +236,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      | M UP | HOME | PGUP |                    |M Wl U|M Wl D|M Wl L|M Wl R| HOME |COMP1 |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | TRNS |PRNTSC|M LFT |M DWN |M RGHT|SC LCK|-------.    ,-------|  UP  | DOWN | LEFT |RIGHT | END  |COMP2 |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      |      | END  | PGDN |-------|    |-------|MOUS1 |MOUS2 |   {  |   }  |      |      |
+ * |------+------+------+------+------+------| TRNS  |    | TRNS  |------+------+------+------+------+------|
+ * |      |      |      |      | END  | PGDN |-------|    |-------|MOUS1 |MOUS2 |      |      |PAUSE |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            |      |      |      |      | /       /       \ TRNS \  |MOUS3 |MOUS4 |MOUS5 |      |
+ *            | TRNS | TRNS | TRNS |TRNS  | / TRNS  /       \ TRNS \  |MOUS3 |MOUS4 |MOUS5 |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -237,18 +248,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,                        KC_F7,    KC_F8,    KC_F9,    KC_F10,    KC_F11,   KC_F12,
   XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MS_U,  KC_HOME,  KC_PGUP,                      KC_WH_U,  KC_WH_D,  KC_WH_L,  KC_WH_R,   KC_HOME,  _COMP1,
   _______,  KC_PSCR,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_SLCK,                      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  KC_END,   _COMP2,
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_END,   KC_PGDOWN, _______,  _______, KC_BTN1,  KC_BTN2,  KC_LCBR,  KC_RCBR,   KC_PAUS,  XXXXXXX,
-            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      _______,  KC_BTN3,  KC_BTN4,  KC_BTN5,   XXXXXXX
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_END,   KC_PGDOWN, _______,  _______, KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,   KC_PAUS,  XXXXXXX,
+            _______,  _______,  _______,  _______,  _______,                      _______,  KC_BTN3,  KC_BTN4,  KC_BTN5,   XXXXXXX
 ),
-/* NUMS
+/* SYMS
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |V_C_W |T_M_A |      |      |      |      |                    |      |      |      |      |      |  _   |
+ * |V_C_W |T_M_A |      |      |      |      |                    |      |      |      |   [  |   ]  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TRNS |   !  |   @  |   #  |   $  |   %  |                    |   ^  |   &  |   *  |   (  |   )  |  |   |
+ * | TRNS |      |      |      |      |      |                    |      |      |      |   {  |   }  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TRNS |   1  |   2  |   3  |   4  |   5  |-------.    ,-------|   6  |   7  |   8  |   9  |   0  |  =   |
- * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
-   | TRNS |      |      |      |      |      |-------|    |-------|      |      |      |   [  |   ]  |  +   |
+ * | TRNS |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |      |
+ * |------+------+------+------+------+------| TRNS  |    | TRNS  |------+------+------+------+------+------|
+   | TRNS | V_FS | T_FS |      |      |      |-------|    |-------|      |      |      |   <  |   >  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | TRNS | TRNS | TRNS | TRNS | / TRNS  /       \ TRNS \  | TRNS | TRNS | TRNS | TRNS |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -258,11 +269,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ideas for macros -
  * switch keys around so parens and square braces line up
  */
-[_NUMS] = LAYOUT(+\
-  V_C_W,    T_M_A,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-  _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                          KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PIPE,
-  _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                             KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
-  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   _______,    _______,   XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LBRC,  KC_RBRC,  KC_PLUS,
+[_SYMS] = LAYOUT(+\
+  V_C_W,    T_M_A,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LBRC,  KC_RBRC,  XXXXXXX,
+  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LCBR,  KC_RCBR,  XXXXXXX,
+  _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                          KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  XXXXXXX,
+  _______,  V_FS,     T_FS,     XXXXXXX,  XXXXXXX,  XXXXXXX,   _______,    _______,   XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LT,    KC_GT,    XXXXXXX,
                 _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______
 ),
 
@@ -327,7 +338,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_GAME] = LAYOUT(
   KC_ESC,  KC_1,            KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,       KC_7,       KC_8,          KC_9,          KC_0,          KC_BSPC,
-  KC_T,    LALT_T(KC_TAB),  KC_Q,    KC_W,    KC_E,    KC_R,                        MEH(KC_Y),  MEH(KC_U),  MEH(KC_I),     MEH(KC_O),     MEH(KC_P),     KC_PGUP,
+  KC_T,    KC_TAB,          KC_Q,    KC_W,    KC_E,    KC_R,                        MEH(KC_Y),  MEH(KC_U),  MEH(KC_I),     MEH(KC_O),     MEH(KC_P),     KC_PGUP,
   KC_G,    KC_LSFT,         KC_A,    KC_S,    KC_D,    KC_F,                        MEH(KC_H),  MEH(KC_J),  MEH(KC_K),     MEH(KC_L),     MEH(KC_SCLN),  KC_PGDN,
   KC_B,    KC_LCTRL,        KC_Z,    KC_X,    KC_C,    KC_V,  _______,    _______,  MEH(KC_N),  MEH(KC_M),  MEH(KC_COMM),  MEH(KC_DOT),   MEH(KC_SLSH),  KC_RIGHT,
            _______,         XXXXXXX, XXXXXXX, KC_LALT, KC_SPC,                      KC_ENT,     KC_PSCR,    XXXXXXX,       XXXXXXX,       _______
@@ -336,24 +347,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_DRIVER_ENABLE
 static void print_status_narrow(void) {
+    isSneaking = false;
     // Print current mode
     oled_write_P(PSTR("\n\n"), false);
     oled_write_ln_P(PSTR("Flare"), false);
     oled_write_ln_P(PSTR("Sofle"), false);
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_P(PSTR("\n"), false);
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
-    switch (get_highest_layer(layer_state)) {
+    int layer = get_highest_layer(layer_state);
+    switch (layer) {
         case _BASE:
             oled_write_ln_P(PSTR("ALL"), false);
             oled_write_P(PSTR(" YOUR"), false);
             oled_write_ln_P(PSTR("BASE"), false);
             break;
         case _MOUS:
+            isSneaking = true;
             oled_write_ln_P(PSTR("Mouse"), false);
             break;
-        case _NUMS:
-            oled_write_ln_P(PSTR("Nums"), false);
+        case _SYMS:
+            oled_write_ln_P(PSTR("@$*&#"), false);
             break;
         case _MDIA:
             oled_write_ln_P(PSTR("Media"), false);
@@ -367,26 +381,26 @@ static void print_status_narrow(void) {
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
+    if (layer != _BASE) {
+        oled_write_P(PSTR("\n"), false);
+    }
+
+    render_luna(0,13);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    }
+    return rotation;
 }
 
 void oled_task_user(void) {
     current_wpm = get_current_wpm();
     if (is_keyboard_master()) {
-        switch (get_highest_layer(layer_state)) {
-            case _MOUS:
-                isSneaking = true;
-                break;
-            default:
-                isSneaking = false;
-        }
-        render_luna(0,13);
-    } else {
         print_status_narrow();
+    } else {
+        render_logo();
     }
 }
 
@@ -402,12 +416,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case _COMP1:
             if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_PSCR) SS_DELAY(100) SS_TAP(X_PSCR) SS_DELAY(100) "1");
+                SEND_STRING(SS_TAP(X_LCTRL) SS_DELAY(100) SS_TAP(X_LCTRL) SS_DELAY(100) "1");
             }
             return false;
         case _COMP2:
             if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_PSCR) SS_DELAY(100) SS_TAP(X_PSCR) SS_DELAY(100) "2");
+                SEND_STRING(SS_TAP(X_LCTRL) SS_DELAY(100) SS_TAP(X_LCTRL) SS_DELAY(100) "2");
             }
             return false;
         case V_C_W:
@@ -418,6 +432,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case T_M_A:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT("a"));
+            }
+            return false;
+        case V_FS:
+            if (record->event.pressed) {
+                SEND_STRING(",\n");
+            }
+            return false;
+        case T_FS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT("a") "\n");
             }
             return false;
         case KC_SPC:
