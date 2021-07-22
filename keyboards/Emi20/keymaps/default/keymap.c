@@ -62,7 +62,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
 	}
     return true;
-;}
+}
 
 //Reset key combo and a example to make our own, more complex, macro's
 void process_combo_event(uint16_t combo_index, bool pressed) {
