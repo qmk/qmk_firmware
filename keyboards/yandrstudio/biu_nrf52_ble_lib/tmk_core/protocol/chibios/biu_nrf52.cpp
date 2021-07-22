@@ -19,7 +19,7 @@
 // You may define them to something else in your config.h
 // if yours is wired up differently.
 
-// NRF RESET, WEAKUP
+// NRF RESET, WakeUp
 #ifndef BIUNRF52ResetPin
 #    define BIUNRF52ResetPin A1
 #endif
@@ -48,7 +48,7 @@
 // #endif
 
 #ifndef BATTERY_V_HEI
-#    define BATTERY_V_HEI 3800 // 3/8V
+#    define BATTERY_V_HEI 3750 // 3.75V
 #endif
 #ifndef BATTERY_V_LOW
 #    define BATTERY_V_LOW 3500 // 3.5V
@@ -61,40 +61,25 @@
 #endif
 
 // TIMEOUT INTERVAL SETTING
-#define BiuNrf52MsgTimeout       150           /* milliseconds */
-#define BiuNrf52MsgShortTimeout  10            /* milliseconds */
-#define BiuNrf52MsgRecvTimeout   2000          /* microseconds */
+#define BiuNrf52MsgTimeout               150           /* milliseconds  */
+#define BiuNrf52MsgShortTimeout          10            /* milliseconds  */
+#define BiuNrf52MsgRecvTimeout           2000          /* 2 second      */
 
-#define BiuNrf52ResetTimeout     25000          /* microseconds */
-#define BiuNrf52InitTimeout      3000          /* microseconds */
-// #define BiuNrf52SystemOffTimeout 300000         /* milliseconds */
-#define BiuNrf52SystemOffTimeout 30000         /* milliseconds */
-#define BatteryUpdateInterval    60000         /* milliseconds */
+#define BiuNrf52ResetTimeout             30000          /* 30 second    */
+#define BiuNrf52InitTimeout              1500           /* 1.5 second   */
+#define BiuNrf52KeepConnectionTimeout    30000          /* 30 second    */
+#define BiuNrf52SystemOffTimeoutFast     120000         /* 2 minute     */
+#define BiuNrf52SystemOffTimeout         120000         /* 5 minute     */
+// #define BiuNrf52SystemOffTimeout         300000         /* 5 minute     */
+#define BatteryUpdateInterval            60000          /* 1 minute     */
+
+#define BiuStm32IdleTimeout              5000           /* 3 second     */
 
 
-
-enum biunrf52_type {
-    BiuNrf52MsgCommand       = 0x10,
-    BiuNrf52MsgResponse      = 0x20,
-    BiuNrf52MsgAlert         = 0x40,
-    BiuNrf52MsgError         = 0x80,
-    BiuNrf52MsgSlaveNotReady = 0xFE,  // Try again later
-    BiuNrf52MsgSlaveOverflow = 0xFF,  // You read more data than is available
-};
-
-enum ble_cmd {
+enum ble_msg_ht {
     BleUartHead     = 0xFF,
     BleUartTail     = 0xFE,
 };
-
-enum ble_system_event_bits {
-    BleSystemConnected    = 0,
-    BleSystemDisconnected = 1,
-    BleSystemUartRx       = 8,
-    BleSystemMidiRx       = 10,
-};
-
-
 
 #define BiuNrf52MsgMaxPayload 64
 struct biunrf52_msg {
@@ -106,6 +91,7 @@ struct biunrf52_msg {
 enum queue_type {
     QTNrfSysOff,
     QTAskNrf,
+    QTKeepConn,
     QTStartAdv,
     QTStopAdv,
     QTDelAllDev,
@@ -123,7 +109,7 @@ enum queue_type {
 #endif
 
 #ifdef NKRO_ENABLE
-    QTNkro,  // KEYBOARD_REPORT_BITS+1 -byte report
+    QTNkro,  // KEYBOARD_REPORT_BITS+1 byte report
 #endif
 
 #ifdef JOYSTICK_ENABLE
@@ -133,7 +119,7 @@ enum queue_type {
 
 struct queue_item {
     enum queue_type queue_type;
-    uint16_t        added;
+    uint32_t        added;
     union __attribute__((packed)) {
         uint8_t bat_lev;
         uint8_t device_id;
@@ -198,23 +184,30 @@ static struct {
     bool is_connected;
     bool initialized;
     bool configured;
+    bool is_sleeped;
+    bool start_wakeup;
 #ifdef SAMPLE_BATTERY
-    uint16_t last_battery_update;
+    uint32_t last_battery_update;
     uint32_t vbat;
 #endif
-    uint16_t last_connection_update;
-    uint16_t last_success_conn_update;
-    uint16_t last_reset_update;
+    uint32_t last_connection_update;
+    uint32_t last_system_off_update;
+    uint32_t last_reset_update;
+    uint32_t keep_connection_update;
     bool has_send_ask;
 } state;
 
-// Items that we wish to send , 64+1, must has an empty pos
-static RingBuffer<queue_item, 65> send_buf;
+// Items that we wish to send , 128+1, must has an empty pos
+static RingBuffer<queue_item, 129> send_buf;
 // Pending response; while pending, we can't send any more requests.
 // This records the time at which we sent the command for which we
 // are expecting a response.
-static RingBuffer<uint16_t, 4> resp_buf;
+static RingBuffer<uint32_t, 8> resp_buf;
 
+void bluetooth_clear_buf(void) {
+    send_buf.clear();
+    resp_buf.clear();
+}
 
 static void clear_uart_rx_buffer(void) {
     while (!sdGetWouldBlock(&SERIAL_DRIVER)) {
@@ -223,7 +216,7 @@ static void clear_uart_rx_buffer(void) {
 }
 // Read a single SDEP packet
 static bool receive_a_pkt(struct biunrf52_msg *msg, uint16_t timeout) {
-    uint16_t timerStart = timer_read();
+    uint16_t timerStart = timer_read32();
     bool     ready      = false;
 
     do {
@@ -279,23 +272,25 @@ static void process_nrf_ack_msg(struct biunrf52_msg * msg) {
         state.initialized  = true;
         state.configured   = true;
         state.is_connected = true;
-        state.last_success_conn_update = timer_read();
+        state.is_sleeped   = false;
         break;
     case NRF_DISCONNECT:
     case NRF_ADVING:
         state.initialized  = true;
         state.configured   = true;
         state.is_connected = false;
+        state.is_sleeped   = false;
         break;
     default:
         state.initialized  = false;
         state.is_connected = false;
         state.configured   = false;
+        state.is_sleeped   = false;
         break;
     }
 }
 static void resp_buf_read_one() {
-    uint16_t last_send;
+    uint32_t last_send;
     struct biunrf52_msg msg;
 
     // if empty, then do nothing
@@ -306,7 +301,7 @@ static void resp_buf_read_one() {
     // determine whether uart_get is possible
     if (uart_available()) {
         if (receive_a_pkt(&msg, BiuNrf52MsgTimeout)) {
-            dprintf("recv latency %dms, resp_buf size %d\n", TIMER_DIFF_16(timer_read(), last_send), (int)resp_buf.size());
+            dprintf("recv latency %dms, resp_buf size %d\n", TIMER_DIFF_32(timer_read32(), last_send), (int)resp_buf.size());
             resp_buf.get(last_send);
             process_nrf_ack_msg(&msg);
         } else {
@@ -316,6 +311,7 @@ static void resp_buf_read_one() {
             state.initialized  = false;
             state.is_connected = false;
             state.configured   = false;
+            state.is_sleeped   = false;
         }
     } else {
         dprintf("Uart get buffer is empty, resp_buf size %d\n", (int)resp_buf.size());
@@ -325,8 +321,12 @@ static void resp_buf_read_one() {
 }
 
 
-static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout, bool need_ack = false) {
-    uint16_t timerStart = timer_read();
+static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout, bool need_ack = false, bool need_update_conn_time = true) {
+    if (need_update_conn_time) {
+        state.last_connection_update = timer_read32();
+    }
+
+    uint16_t timerStart = timer_read32();
     bool     ready      = false;
 
     dprint("BLE SEND: ");
@@ -359,14 +359,14 @@ static bool send_a_pkt(const char *cmd, uint8_t cmd_len, uint16_t timeout, bool 
     }
 
     if (need_ack) {
-        uint16_t now = timer_read();
+        uint32_t now = timer_read32();
         while (!resp_buf.enqueue(now)) {
             resp_buf_read_one();
         }
         dprintf("Put a time into resp buf, resp_buf size %d\n", (int)resp_buf.size());
-        uint16_t later = timer_read();
-        if (TIMER_DIFF_16(later, now) > 0) {
-            dprintf("waited %dms for resp_buf\n", TIMER_DIFF_16(later, now));
+        uint32_t later = timer_read32();
+        if (TIMER_DIFF_32(later, now) > 0) {
+            dprintf("waited %dms for resp_buf\n", TIMER_DIFF_32(later, now));
         }
     }
 
@@ -378,12 +378,9 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
     char cmdbuf[128] = {0};
     cmdbuf[0] = BleUartHead;
 
-    // Arrange to re-check connection after keys have settled
-    state.last_connection_update = timer_read();
-
 #if 1
-    if (TIMER_DIFF_16(state.last_connection_update, item->added) > 0) {
-        dprintf("send latency %dms\n", TIMER_DIFF_16(state.last_connection_update, item->added));
+    if (TIMER_DIFF_32(timer_read32(), item->added) > 0) {
+        dprintf("send latency %dms\n", TIMER_DIFF_32(timer_read32(), item->added));
     }
 #endif
 
@@ -391,44 +388,51 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
         case QTNrfSysOff:
             cmdbuf[1] = ENTER_INTO_SLEEP_MODEL;
             cmdbuf[2] = BleUartTail;
-            return send_a_pkt(cmdbuf, 3, timeout, true);
+            return send_a_pkt(cmdbuf, 3, timeout, false, false);
         case QTAskNrf:
             cmdbuf[1] = ASK_CURRENT_NRF_STATE;
             cmdbuf[2] = BleUartTail;
-            return send_a_pkt(cmdbuf, 3, timeout, true);
+            return send_a_pkt(cmdbuf, 3, timeout, true, true);
+        case QTKeepConn:
+            cmdbuf[1] = ASK_CURRENT_NRF_STATE;
+            cmdbuf[2] = BleUartTail;
+            return send_a_pkt(cmdbuf, 3, timeout, true, false); // need ack to update the nrf state, but do not update the connection
         case QTStartAdv:
             cmdbuf[1] = START_ADV_WITH_WL;
             cmdbuf[2] = BleUartTail;
-            return send_a_pkt(cmdbuf, 3, timeout);
+            return send_a_pkt(cmdbuf, 3, timeout, false, false);
         case QTStopAdv:
             cmdbuf[1] = STOP_ADV;
             cmdbuf[2] = BleUartTail;
-            return send_a_pkt(cmdbuf, 3, timeout);
+            state.is_connected = false;
+            return send_a_pkt(cmdbuf, 3, timeout, false, false);
         case QTDelAllDev:
             cmdbuf[1] = DEL_ALL_BOUND;
             cmdbuf[2] = BleUartTail;
-            return send_a_pkt(cmdbuf, 3, timeout);
+            state.is_connected = false;
+            return send_a_pkt(cmdbuf, 3, timeout, false, false);
         case QTDelDev:
             cmdbuf[1] = DEL_CURR_BOUND;
             cmdbuf[2] = BleUartTail;
-            return send_a_pkt(cmdbuf, 3, timeout);
+            state.is_connected = false;
+            return send_a_pkt(cmdbuf, 3, timeout, false, false);
         case QTSwDev:
             cmdbuf[1] = SWITCH_BOUND;
             cmdbuf[2] = item->device_id;
             cmdbuf[3] = BleUartTail;
-            return send_a_pkt(cmdbuf, 4, timeout);
+            return send_a_pkt(cmdbuf, 4, timeout, false, false);
         case QTBatVMsg:
             cmdbuf[1] = GET_BAT_INFO;
             cmdbuf[2] = item->bat_lev;
             cmdbuf[3] = BleUartTail;
-            return send_a_pkt(cmdbuf, 4, timeout);
+            return send_a_pkt(cmdbuf, 4, timeout, false, false); // /don't update the connection time, to avoid never sleeping
         case QTKeyReport:
             cmdbuf[1] = REPORT_INDEX_KEYBOARD;
             cmdbuf[2] = item->key.modifier;
             cmdbuf[3] = 0x00; // reserved
             memcpy(cmdbuf+4, item->key.keys, 6);
             cmdbuf[10] = BleUartTail;
-            return send_a_pkt(cmdbuf, 11, timeout);
+            return send_a_pkt(cmdbuf, 11, timeout); // do not need ack, need update the connection time
 #   ifdef EXTRAKEY_ENABLE
         case QTConsumer:   // 16-bit key code
             cmdbuf[1] = REPORT_INDEX_CONSUMER;
@@ -505,12 +509,23 @@ static void send_buf_send_one(uint16_t timeout = BiuNrf52MsgTimeout) {
 
 }
 
+bool bluetooth_send_report_check() {
+    if (!state.is_connected) {
+        // try wake up module
+        bluetooth_wakeup_once();
+        return true;
+    }
+    return false;
+}
+
 void bluetooth_send_keyboard(report_keyboard_t *report) {
+
+    if (bluetooth_send_report_check()) return;
 
     struct queue_item item;
 
     item.queue_type   = QTKeyReport;
-    item.added        = timer_read();
+    item.added        = timer_read32();
     item.key.modifier = report->mods;
     memcpy(item.key.keys, report->keys, 6);
 
@@ -524,13 +539,15 @@ void bluetooth_send_keyboard(report_keyboard_t *report) {
 #ifdef EXTRAKEY_ENABLE
 void bluetooth_send_extra(uint8_t report_id, uint16_t data) {
 
+    if (bluetooth_send_report_check()) return;
+
     struct queue_item item;
     if (report_id == REPORT_ID_SYSTEM) {
         item.queue_type = QTSystem;
     } else {
         item.queue_type = QTConsumer;
     }
-    item.added        = timer_read();
+    item.added        = timer_read32();
     item.extkey.consumer_h   = (data >> 8) & 0xff;
     item.extkey.consumer_l   = data & 0xff;
 
@@ -543,9 +560,12 @@ void bluetooth_send_extra(uint8_t report_id, uint16_t data) {
 
 #ifdef MOUSE_ENABLE
 void bluetooth_send_mouse(report_mouse_t *report) {
+
+    if (bluetooth_send_report_check()) return;
+
     struct queue_item item;
     item.queue_type        = QTMouseMove;
-    item.added        = timer_read();
+    item.added        = timer_read32();
     item.mousemove.buttons = report->buttons;
     item.mousemove.x       = report->x;
     item.mousemove.y       = report->y;
@@ -560,10 +580,13 @@ void bluetooth_send_mouse(report_mouse_t *report) {
 
 #ifdef NKRO_ENABLE
 void bluetooth_send_keyboard_nkro(report_keyboard_t *report) {
+
+    if (bluetooth_send_report_check()) return;
+
     struct queue_item item;
 
     item.queue_type   = QTNkro;
-    item.added        = timer_read();
+    item.added        = timer_read32();
     item.nkey.mods = report->nkro.mods;
     memcpy(item.nkey.bits, report->nkro.bits, KEYBOARD_REPORT_BITS);
 
@@ -576,10 +599,15 @@ void bluetooth_send_keyboard_nkro(report_keyboard_t *report) {
 #ifdef JOYSTICK_ENABLE
 void bluetooth_send_joystick(joystick_report_t *report) {
 
+    if (bluetooth_send_report_check()) return;
+
+
 }
 #endif
 
 void bluetooth_send_battery_level() {
+
+    if (bluetooth_send_report_check()) return;
 
 #ifdef BATTERY_LEVEL_SW_PIN
     setPinOutput(BATTERY_LEVEL_SW_PIN);
@@ -587,6 +615,7 @@ void bluetooth_send_battery_level() {
 #endif
 
     uint16_t adc_val = analogReadPinAdc(BATTERY_LEVEL_PIN, 0);
+    dprintf("ADC read value:%d \n", adc_val);
 
 #ifdef BATTERY_LEVEL_SW_PIN
     writePinHigh(BATTERY_LEVEL_SW_PIN);
@@ -601,8 +630,8 @@ void bluetooth_send_battery_level() {
     struct queue_item item;
 
     item.queue_type   = QTBatVMsg;
-    item.added        = timer_read();
-    item.bat_lev = cur_bat_lev < 10 ? 10 : cur_bat_lev;
+    item.added        = timer_read32();
+    item.bat_lev = cur_bat_lev < 10 ? 10 : cur_bat_lev > 100 ? 100 : cur_bat_lev;
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
@@ -616,7 +645,7 @@ void connected(void) {
     struct queue_item item;
 
     item.queue_type   = QTStartAdv;
-    item.added        = timer_read();
+    item.added        = timer_read32();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
@@ -629,7 +658,7 @@ void disconnected(void) {
     struct queue_item item;
 
     item.queue_type   = QTStopAdv;
-    item.added        = timer_read();
+    item.added        = timer_read32();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
@@ -637,6 +666,7 @@ void disconnected(void) {
 }
 
 bool bluetooth_is_connected(void) { return state.is_connected; }
+bool bluetooth_is_configured(void) { return state.configured; }
 
 
 void bluetooth_unpair_all(void) {
@@ -645,7 +675,7 @@ void bluetooth_unpair_all(void) {
     struct queue_item item;
 
     item.queue_type   = QTDelAllDev;
-    item.added        = timer_read();
+    item.added        = timer_read32();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
@@ -657,7 +687,7 @@ void bluetooth_unpair_current(void) {
     struct queue_item item;
 
     item.queue_type   = QTDelDev;
-    item.added        = timer_read();
+    item.added        = timer_read32();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
@@ -669,7 +699,7 @@ void bluetooth_switch_one(uint8_t device_id) {
     struct queue_item item;
 
     item.queue_type   = QTSwDev;
-    item.added        = timer_read();
+    item.added        = timer_read32();
     item.device_id    = device_id;
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
@@ -677,17 +707,29 @@ void bluetooth_switch_one(uint8_t device_id) {
     state.is_connected = false;
 }
 
+uint8_t bluetooth_working_state(void) {
+    if (state.is_sleeped) {
+        return SLEEPING;
+    }
+    if (state.is_connected) {
+        return WORKING;
+    }
+    if (state.configured || state.initialized) {
+        return WAITING;
+    }
+    return STOPWORK;
+}
+
 
 bool bluetooth_init_pre(void) {
 
     // set the ble state
-    state.initialized  = false;
-    state.configured   = false;
-    state.is_connected = false;
+    state.initialized      = false;
+    state.configured       = false;
+    state.is_connected     = false;
     state.has_send_ask     = false;
-    state.last_connection_update = timer_read();
-    state.last_battery_update = timer_read();
-    state.last_success_conn_update = timer_read();
+    state.is_sleeped       = false;
+
 
     // start the uart data trans
     uart_init(BIUNRF52UartBaud);
@@ -698,7 +740,10 @@ bool bluetooth_init_pre(void) {
     wait_ms(200);
     palSetLine(BIUNRF52ResetPin);
     wait_ms(3000);
-    state.last_reset_update = timer_read();
+    state.last_reset_update        = 0;
+    state.last_battery_update      = 0;
+    state.last_connection_update   = 0;
+    state.last_system_off_update   = 0;
 
     // set the adc read sw off
 #   ifdef BATTERY_LEVEL_SW_PIN
@@ -706,9 +751,54 @@ bool bluetooth_init_pre(void) {
         writePinHigh(BATTERY_LEVEL_SW_PIN);
 #   endif
 
+    // set wakeup nrf pin
+    palSetLineMode(BIUNRF52WKPin, PAL_MODE_OUTPUT_PUSHPULL);
+    palSetLine(BIUNRF52WKPin);
+
     return true;
 }
+bool bluetooth_wakeup_helper(void) {
 
+    struct queue_item item;
+
+    if (!state.has_send_ask) {
+        dprint("Start Wake Up the  Nrf!!!\n");
+        // performance a wakeup
+        if (0 == state.last_reset_update|| TIMER_DIFF_32(timer_read32(), state.last_reset_update) >= BiuNrf52ResetTimeout) {
+            palClearLine(BIUNRF52WKPin);
+            wait_ms(200);
+            palSetLine(BIUNRF52WKPin);
+            state.last_reset_update = timer_read32();
+        }
+        item.queue_type   = QTAskNrf;
+        item.added        = timer_read32();
+        while (!send_buf.enqueue(item)) {
+            send_buf_send_one();
+        }
+        send_buf_send_one();
+        state.has_send_ask = true;
+    }
+
+
+    if (TIMER_DIFF_32(timer_read32(), state.last_connection_update) >= BiuNrf52InitTimeout) {
+        resp_buf_read_one();
+        state.has_send_ask = false;
+    }
+    return state.initialized;
+}
+
+void bluetooth_wakeup_once(void) {
+    if (state.is_sleeped) {
+        if (false == state.start_wakeup) {
+            state.last_reset_update        = 0;
+            state.last_battery_update      = 0;
+            state.last_connection_update   = 0;
+            state.last_system_off_update   = 0;
+            bluetooth_clear_buf();
+            state.start_wakeup = true;
+        }
+    }
+}
 
 
 bool bluetooth_init(void) {
@@ -718,14 +808,14 @@ bool bluetooth_init(void) {
     if (!state.has_send_ask) {
         dprint("Start Init the Nrf!!!\n");
         // performance a reset
-        if (TIMER_DIFF_16(timer_read(), state.last_reset_update) >= BiuNrf52ResetTimeout) {
+        if (0 == state.last_reset_update || TIMER_DIFF_32(timer_read32(), state.last_reset_update) >= BiuNrf52ResetTimeout) {
             palClearLine(BIUNRF52ResetPin);
             wait_ms(200);
             palSetLine(BIUNRF52ResetPin);
-            state.last_reset_update = timer_read();
+            state.last_reset_update = timer_read32();
         }
         item.queue_type   = QTAskNrf;
-        item.added        = timer_read();
+        item.added        = timer_read32();
         while (!send_buf.enqueue(item)) {
             send_buf_send_one();
         }
@@ -733,15 +823,9 @@ bool bluetooth_init(void) {
         state.has_send_ask = true;
     }
 
-    // send_buf_send_one();
-    // wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
-    // todo ack
-    // resp_buf_read_one();
-    // state.last_connection_update = timer_read();
 
-    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52InitTimeout) {
+    if (TIMER_DIFF_32(timer_read32(), state.last_connection_update) >= BiuNrf52InitTimeout) {
         resp_buf_read_one();
-        state.last_connection_update = timer_read();
         state.has_send_ask = false;
     }
     return state.initialized;
@@ -760,7 +844,7 @@ bool biu_ble_enable_keyboard(void) {
     if (!state.has_send_ask) {
         dprint("Start Configure the Nrf!!!\n");
         item.queue_type   = QTAskNrf;
-        item.added        = timer_read();
+        item.added        = timer_read32();
         while (!send_buf.enqueue(item)) {
             send_buf_send_one();
         }
@@ -768,17 +852,9 @@ bool biu_ble_enable_keyboard(void) {
         state.has_send_ask = true;
     }
 
-    // wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
-    // todo ack
-    // resp_buf_read_one();
 
-    // Check connection status in a little while; allow the ATZ time
-    // to kick in.
-    // state.last_connection_update = timer_read();
-
-    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
+    if (TIMER_DIFF_32(timer_read32(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
         resp_buf_read_one();
-        state.last_connection_update = timer_read();
         state.has_send_ask = false;
     }
 
@@ -795,7 +871,7 @@ bool biu_ble_connection_check() {
     if (!state.has_send_ask) {
         dprint("Start Connect the Nrf!!!\n");
         item.queue_type   = QTAskNrf;
-        item.added        = timer_read();
+        item.added        = timer_read32();
         while (!send_buf.enqueue(item)) {
             send_buf_send_one();
         }
@@ -803,17 +879,9 @@ bool biu_ble_connection_check() {
         state.has_send_ask = true;
     }
 
-    // wait_ms(BiuNrf52MsgRecvTimeout);  // Give it 1.5 second to initialize or some ack frame
-    // ack
-    // resp_buf_read_one();
 
-    // Check connection status in a little while; allow the ATZ time
-    // to kick in.
-    // state.last_connection_update = timer_read();
-
-    if (TIMER_DIFF_16(timer_read(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
+    if (TIMER_DIFF_32(timer_read32(), state.last_connection_update) >= BiuNrf52MsgRecvTimeout) {
         resp_buf_read_one();
-        state.last_connection_update = timer_read();
         state.has_send_ask = false;
     }
 
@@ -822,52 +890,94 @@ bool biu_ble_connection_check() {
 
 void inline biu_ble_system_off() {
 
-    state.configured = false;
-    state.is_connected = false;
-    state.initialized = false;
-    state.has_send_ask = false;
-    state.last_battery_update = 0;
+    state.configured    = false;
+    state.is_connected  = false;
+    state.initialized   = false;
+    state.has_send_ask  = false;
+    state.is_sleeped    = true;
+
+    state.last_battery_update    = 0;
     state.last_connection_update = 0;
-    state.last_success_conn_update = 0;
+    state.last_system_off_update = 0;
+    state.keep_connection_update = 0;
+
+
 
     struct queue_item item;
 
     item.queue_type   = QTNrfSysOff;
-    item.added        = timer_read();
+    item.added        = timer_read32();
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
     send_buf_send_one();
+    bluetooth_clear_buf();
 }
 
+void inline check_ble_connection_state(void) {
+    if (0 == state.keep_connection_update || TIMER_DIFF_32(timer_read32(), state.keep_connection_update) > BiuNrf52KeepConnectionTimeout) {
+        struct queue_item item;
+        item.queue_type   = QTKeepConn;
+        item.added        = timer_read32();
+        while (!send_buf.enqueue(item)) {
+            send_buf_send_one();
+        }
+        send_buf_send_one();
+        state.keep_connection_update = item.added;
+    }
+}
 void inline check_ble_system_off_timer(void) {
     if (state.is_connected) {
-        if (TIMER_DIFF_16(timer_read(), state.last_connection_update) > BiuNrf52SystemOffTimeout) {
+        if (TIMER_DIFF_32(timer_read32(), state.last_connection_update) % 20000 == 1) {
+            dprintf("last connection update latency %dms\n", TIMER_DIFF_32(timer_read32(), state.last_connection_update));
+        }
+        if (TIMER_DIFF_32(timer_read32(), state.last_connection_update) > BiuNrf52SystemOffTimeout) {
             biu_ble_system_off();
         }
     } else {
-        if (0 == state.last_success_conn_update) { // avoid died after last sysoff
-            state.last_success_conn_update = timer_read();
-        } else if (TIMER_DIFF_16(timer_read(), state.last_success_conn_update) > BiuNrf52SystemOffTimeout) {
+        if (0 == state.last_system_off_update) { // avoid died after last sysoff
+            state.last_system_off_update = timer_read32();
+        } else if (TIMER_DIFF_32(timer_read32(), state.last_system_off_update) > BiuNrf52SystemOffTimeoutFast) {
             biu_ble_system_off();
         }
     }
 }
 
+
+void bluetooth_power_manager(void) {
+
+}
+
+
+bool once_print = false;
 void bluetooth_task(void) {
     char resbuf[128];
-    if (!state.is_connected && !biu_ble_connection_check()) {
-        return;
-    }
-    resp_buf_read_one();
-    send_buf_send_one(BiuNrf52MsgTimeout);
-
-
+    if (!state.is_sleeped) {
+        if (state.is_connected || biu_ble_connection_check()) {
+            resp_buf_read_one();
+            send_buf_send_one(BiuNrf52MsgTimeout);
+        }
+        check_ble_system_off_timer();
+        check_ble_connection_state();
 #ifdef SAMPLE_BATTERY
-    if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval) {
-        state.last_battery_update = timer_read();
-        bluetooth_send_battery_level();
-    }
+        if (state.initialized) {
+            if (timer_elapsed32(state.last_battery_update) > BatteryUpdateInterval) {
+                state.last_battery_update = timer_read32();
+                bluetooth_send_battery_level();
+            }
+        }
 #endif
-    check_ble_system_off_timer();
+    } else {
+        if (state.start_wakeup) {
+            if (once_print == false) {
+                dprint("Wake Up module!!!!!!!!\n");
+                once_print = true;
+            }
+            if (bluetooth_wakeup_helper()) {
+                state.start_wakeup = false;
+                state.is_sleeped   = false;
+            }
+        }
+        // todo wake up
+    }
 }

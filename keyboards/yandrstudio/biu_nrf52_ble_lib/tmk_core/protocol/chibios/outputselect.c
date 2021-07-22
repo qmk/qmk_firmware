@@ -22,10 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 
 
-bool biu_ble5_is_connected() {
-    return bluetooth_is_connected();
-}
-
 
 
 uint8_t desired_output = OUTPUT_DEFAULT;
@@ -60,11 +56,9 @@ uint8_t auto_detect_output(void) {
         return OUTPUT_USB;
     }
 
-#ifdef BIU_BLE5_ENABLE
-    if (biu_ble5_is_connected()) {
+    if (bluetooth_is_configured()) {
         return OUTPUT_BLUETOOTH;
     }
-#endif
 
     return OUTPUT_NONE;
 }

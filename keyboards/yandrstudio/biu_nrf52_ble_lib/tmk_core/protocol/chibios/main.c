@@ -33,12 +33,10 @@
 #include "debug.h"
 #include "print.h"
 
-
 #ifdef BIU_BLE5_ENABLE
-#include "biu_ble_common.h"
-#include "outputselect.h"
+#   include "biu_ble_common.h"
+#   include "outputselect.h"
 #endif
-
 
 #ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 // Change this to be TRUE once we've migrated keyboards to the new init system
@@ -58,12 +56,6 @@
 #ifdef MIDI_ENABLE
 #    include "qmk_midi.h"
 #endif
-#ifdef STM32_EEPROM_ENABLE
-#    include "eeprom_stm32.h"
-#endif
-#ifdef EEPROM_DRIVER
-#    include "eeprom_driver.h"
-#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -72,12 +64,12 @@
  * -------------------------
  */
 
-// /* declarations */
-// uint8_t keyboard_leds(void);
-// void    send_keyboard(report_keyboard_t *report);
-// void    send_mouse(report_mouse_t *report);
-// void    send_system(uint16_t data);
-// void    send_consumer(uint16_t data);
+/* declarations */
+uint8_t keyboard_leds(void);
+void    send_keyboard(report_keyboard_t *report);
+void    send_mouse(report_mouse_t *report);
+void    send_system(uint16_t data);
+void    send_consumer(uint16_t data);
 
 /* host struct */
 host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
@@ -157,27 +149,15 @@ void boardInit(void) {
 
 /* Main thread
  */
-
-int cut_usb_st = 0;
-
-int main(void) __attribute__((weak));
 int main(void) {
     /* ChibiOS/RT init */
     halInit();
     chSysInit();
 
-#ifdef STM32_EEPROM_ENABLE
-    EEPROM_Init();
-#endif
-#ifdef EEPROM_DRIVER
-    eeprom_driver_init();
-#endif
-
     // TESTING
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
     keyboard_setup();
-
 
     /* Init USB */
     usb_event_queue_init();
@@ -194,8 +174,6 @@ int main(void) {
 #ifdef VISUALIZER_ENABLE
     visualizer_init();
 #endif
-
-
 
     host_driver_t *driver = NULL;
 
@@ -220,13 +198,14 @@ int main(void) {
         wait_ms(50);
     }
 
-
     /* Do need to wait here!
      * Otherwise the next print might start a transfer on console EP
      * before the USB is completely ready, which sometimes causes
      * HardFaults.
      */
     wait_ms(50);
+
+    print("USB configured.\n");
 
     /* init TMK modules */
     keyboard_init();
@@ -245,7 +224,7 @@ int main(void) {
     /* Main loop */
     while (true) {
         usb_event_queue_task();
-
+#ifndef BIU_BLE5_ENABLE
 #if !defined(NO_USB_STARTUP_CHECK)
         if (USB_DRIVER.state == USB_SUSPENDED) {
             print("[s]");
@@ -277,6 +256,7 @@ int main(void) {
             suspend_wakeup_init();
         }
 #endif
+#endif
 
         keyboard_task();
 #ifdef BIU_BLE5_ENABLE
@@ -297,9 +277,10 @@ int main(void) {
         raw_hid_task();
 #endif
 
-
         // Run housekeeping
-        housekeeping_task_kb();
-        housekeeping_task_user();
+        housekeeping_task(); // jason:should run powwer manager here
+
+        // __WFI();
+
     }
 }

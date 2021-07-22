@@ -64,4 +64,8 @@ class RingBuffer {
   inline bool peek(T &item) {
     return get(item, false);
   }
+  inline void clear() {
+      head_ = 0;
+      tail_ = 0;
+  }
 };

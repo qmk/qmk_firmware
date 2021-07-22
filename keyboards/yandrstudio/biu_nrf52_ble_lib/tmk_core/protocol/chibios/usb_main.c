@@ -48,9 +48,6 @@
 #include "biu_ble_common.h"
 #endif
 
-
-
-
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
 
@@ -788,7 +785,6 @@ uint8_t keyboard_leds(void) { return keyboard_led_state; }
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
-
 #ifdef BIU_BLE5_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
 #ifdef NKRO_ENABLE
@@ -878,7 +874,6 @@ void mouse_in_cb(USBDriver *usbp, usbep_t ep) {
 #    endif
 
 void send_mouse(report_mouse_t *report) {
-
 #ifdef BIU_BLE5_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
         bluetooth_send_mouse(report);
@@ -936,6 +931,7 @@ static void send_extra(uint8_t report_id, uint16_t data) {
         return;
     }
 #endif
+
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
         osalSysUnlock();
