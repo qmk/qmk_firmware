@@ -29,7 +29,7 @@
      LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,                K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                        OS_LGUI, OS_LALT,                                                OS_RGUI, OS_RALT, \
-                                KC_PSCR, KC_GRV,                                        MEH_T(KC_BTN3),  \
+                                KC_MUTE, KC_GRV,                                        KC_BTN3,  \
                                          KC_SPC,  OS_LGUI,                     KC_ENT,  \
                                          BK_LWER, TT(_MOUSE),      TT(_MOUSE), DL_RAIS  \
   )
