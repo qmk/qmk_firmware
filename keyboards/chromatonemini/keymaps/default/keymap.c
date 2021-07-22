@@ -44,7 +44,7 @@ extern midi_config_t midi_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT_with_sustain_pedal(
+    [_BASE] = LAYOUT(
             FN_MUTE,          MI_SUS,                            KC_VOLD, KC_VOLU,
             MI_BENDU,
         SHIFTDN, SHIFTUP,    MI_C_1, MI_D_1, MI_E_1,  MI_Fs_1, MI_Ab_1, MI_Bb_1, MI_C_2, MI_D_2, MI_E_2, MI_Fs_2, MI_Ab_2, MI_Bb_2, MI_C_3,  MI_D_3,  MI_E_3, MI_Fs_3, MI_Ab_3, MI_Bb_3, MI_C_4,
@@ -52,14 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* Trans   This layer must locate 1 layer above _BASE layer. */
-    [_TRANS] = LAYOUT_with_sustain_pedal(
+    [_TRANS] = LAYOUT(
             _______,          _______,                             _______, _______,
             _______,
         MI_TRNSD, MI_TRNSU,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
             _______,               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
-    [_FN] =  LAYOUT_with_sustain_pedal(
+    [_FN] =  LAYOUT(
             _______,          XXXXXXX,                             XXXXXXX, XXXXXXX,
             MI_VELU,
         MI_OCTD, MI_OCTU,     L_BASE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,

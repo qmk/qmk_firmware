@@ -26,7 +26,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_with_sustain_pedal( \
+#define LAYOUT( \
         enc,       sustain,                  ccw, cw,                                                             \
         up,                                                                                                       \
     left, right,   k01, k03, k05, k07, k09, k11, k13, k15, k17, k19, k21, k23, k25, k27, k29, k31, k33, k35, k37, \
