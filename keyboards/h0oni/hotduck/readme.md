@@ -2,8 +2,8 @@
 
 Built-in WS2182 RGB LED for underglow lighting.
 
-* Keyboard Maintainer: h0oni 
-* Hardware Supported: hotDuck_tkl  
+* Keyboard Maintainer: h0oni
+* Hardware Supported: hotDuck_tkl
 
 Make example for this keyboard (after setting up your build environment):
 

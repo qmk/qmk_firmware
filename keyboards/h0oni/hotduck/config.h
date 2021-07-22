@@ -58,11 +58,11 @@
 #define DEBOUNCE 5
 
 /* RGB Underglow
- * F5 PIN for DO60's pre-soldered WS2812 LEDs
+ * F4 PIN for pre-soldered WS2812 LEDs
  */
 #define RGB_DI_PIN F4
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 20    			
+#define RGBLED_NUM 20
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 15
 #define RGBLIGHT_VAL_STEP 15
