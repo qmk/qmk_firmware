@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* LED Indicators *?
+/* LED Indicators */
 #define LED_CAPS_LOCK_PIN F5
 #define LED_NUM_LOCK_PIN F6
 #define LED_SCROLL_LOCK_PIN F7
