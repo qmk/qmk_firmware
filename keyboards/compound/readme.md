@@ -1,6 +1,6 @@
 # Compound
 
-![Compound](https://imgur.com/0DC9F9d.jpg)
+![Compound](https://imgur.com/0DC9F9dh.jpg)
 
 A compact 60% Compound keyboard with fixed Tsangan style layout.
 
