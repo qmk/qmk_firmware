@@ -34,7 +34,7 @@ jobs:
     - name: Run qmk cformat and qmk pyformat
       shell: 'bash {0}'
       run: |
-        qmk cformat -n $(< ~/files.txt)
+        qmk cformat --core-only -n $(< ~/files.txt)
         cformat_exit=$?
         qmk pyformat -n
         pyformat_exit=$?
