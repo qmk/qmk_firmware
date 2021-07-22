@@ -1,8 +1,8 @@
-# A keymap for Durgod Taurus K320 that supports toggling between Mac and Windows
+# A keymap for Durgod Taurus K310/K320 that supports toggling between Mac and Windows
 
 Supports both ANSI and ISO layouts.
 
-Layer 0 : Standard 87/88 keys TKL layout (Windows)
+Layer 0 : Standard layout (Windows)
 
 Layer 1 : Media control and Windows lock key (Windows)
 - Reusing Durgod's Original Media Control for Fn + F1 ~ Fn + F7
@@ -14,7 +14,7 @@ Layer 2 : System layer (Windows)
 - Fn + Menu + F4  : Turning Off System
 - Fn + Menu + F12 : Switch to Mac layout
 
-Layer 3 : Mac 87/88 keys TKL layout
+Layer 3 : Mac layout
 
 Layer 4 : Media control and Media lock key (Mac)
  - Standard Mac Media keys for Fn + F1 ~ Fn + F12.
@@ -39,14 +39,14 @@ You can change the default & alternate layout by setting the following flags to 
 
 For example, to configure Mac as the default layer, and Windows to be the alternate layout, compile with these flags:
 
-    make EXTRAFLAGS="-DDEFAULT_LAYOUT=_MBL -DALT_LAYOUT=_WBL" durgod/k320:default_toggle_mac_windows
+    make EXTRAFLAGS="-DDEFAULT_LAYOUT=_MBL -DALT_LAYOUT=_WBL" durgod/k3x0/k310:typhon
 
 ## Windows key lock
 
 In windows layout, you can hold down Fn + Windows key to disable the Windows key while in locked mode.  The 'Lock' LED
 indicates if the Windows key is locked.
 
-This is similar to the stock K320 Windows key lock functionality.
+This is similar to the stock K310/K320 Windows key lock functionality.
 
 ## Mac Media Lock
 
