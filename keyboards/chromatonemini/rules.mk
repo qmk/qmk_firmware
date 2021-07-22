@@ -22,3 +22,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 MIDI_ENABLE = yes           # MIDI support
 ENCODER_ENABLE = yes        # encoder on mute button
+RGB_MATRIX_DRIVER = WS2812  #

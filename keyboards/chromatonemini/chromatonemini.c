@@ -161,6 +161,7 @@ const uint16_t rt_matrix[2][2] = {
 };
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) {
         keypos_t key;
         int cw = 0;
