@@ -2,8 +2,8 @@
     "keyboard_name": "hotDuck", 
     "url": "", 
     "maintainer": "h0oni", 
-    "width": 10, 
-    "height": 7, 
+    "width": 17.25, 
+    "height": 4, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [{"label":"Esc", "x":0, "y":0}, 
@@ -19,8 +19,8 @@
                 {"label":")", "x":10, "y":0}, 
                 {"label":"_", "x":11, "y":0}, 
                 {"label":"+", "x":12, "y":0}, 
-                {"label":"Bksp", "x":13, "y":0}, 
-                {"label":"Menu", "x":15.25, "y":0}, 
+                {"label":"Bksp", "x":13, "y":0, "w":2},
+                {"label":"Menu", "x":15.25, "y":0},
                 {"label":"Home", "x":16.25, "y":0},
                 {"label":"PgUp", "x":17.25, "y":0},
 
@@ -67,9 +67,9 @@
                 {"label":"<", "x":9.25, "y":3}, 
                 {"label":">", "x":10.25, "y":3}, 
                 {"label":"?", "x":11.25, "y":3}, 
-                {"label":"Shift", "x":12.25, "y":3},
-                {"label":"\u2191", "x":16.25, "y":3}, 
-
+                {"label":"Shift", "x":12.25, "y":3,"w":2.75},
+                {"label":"\u2191", "x":16.25, "y":3},
+                
                 {"label":"Ctrl", "x":0, "y":4, "w":1.25}, 
 				{"label":"Alt", "x":1.25, "y":4, "w":1.25}, 
 				{"label":"Win", "x":2.5, "y":4, "w":1.25}, 
