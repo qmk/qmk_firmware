@@ -39,9 +39,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [ENLCK_reset] = COMBO_ACTION(reset_combo),
 };
 
-void matrix_init_user(void) {
-}			//Extra functionality, can be ignored for most users
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case MACRO1: //This is where the macro's are located
@@ -64,7 +61,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
 	}
-    return true
+    return true;
 ;}
 
 //Reset key combo and a example to make our own, more complex, macro's
