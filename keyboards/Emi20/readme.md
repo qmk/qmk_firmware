@@ -11,7 +11,6 @@ Make example for this keyboard (after setting up your build environment):
 
     make emi20:default
 
-
 To reset the board into bootloader mode, press the physical reset button on the back of the PCB or use the keycombo (on layer 1) with the bottom left key and the second key from the top right diagonally.
 
 The default keymap.c file has comments to help you on your journey,
