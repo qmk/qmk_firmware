@@ -1,4 +1,4 @@
-#include "kb.h"
+#include QMK_KEYBOARD_H
 bool is_ERESET_active = false;
 uint16_t ERESET_timer = 0; 
 
@@ -18,14 +18,14 @@ const uint16_t PROGMEM reset_combo[] = {KC_NLCK, KC_MPLY, COMBO_END};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			//Macro's are mentioned here allong with the keycodes
-	KEYMAP( //Base layer (0)
+	LAYOUT_ortho_5x4( //Base layer (0)
 		TG(1), 		KC_VOLD, 	KC_VOLU, 	KC_BSPC,
 		KC_P7, 		KC_P8, 		KC_P9, 		KC_PSLS, 
 		KC_P4, 		KC_P5, 		KC_P6, 		KC_PAST, 
 		KC_P1, 		KC_P2, 		KC_P3, 		KC_PMNS, 
 		KC_P0, 		KC_PDOT, 	KC_PENT, 	KC_PPLS),
 
-	KEYMAP( //Layer 1
+	LAYOUT_ortho_5x4( //Layer 1
 		KC_TRNS, 	KC_VOLD, 	KC_VOLU, 	KC_CALC, 
 		KC_MPRV, 	KC_MSTP, 	KC_MPLY, 	KC_MNXT, 
 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 

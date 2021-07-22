@@ -1,6 +1,6 @@
 # Emi20
 
-![Emi20](https://i.imgur.com/Tt9ogmW.jpg)
+![Emi20](https://i.imgur.com/Tt9ogmWl.jpg)
 
 A compact 4x5 ortholinear keyboard made by Project Aqua and sold by Evil-cables.
 
