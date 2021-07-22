@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    CherryB.Studio
 #define PRODUCT         CherryB.Studio CB1800
-#define DESCRIPTION     CherryB.Studio CB1800
 
 /* key matrix size */
 #define MATRIX_ROWS 10
