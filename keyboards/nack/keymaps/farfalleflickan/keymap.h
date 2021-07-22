@@ -1,4 +1,4 @@
-/* Copyright 2020 pastapojken <pastapojken@gmail.com>
+/* Copyright 2020 farfalleflickan <farfalleflickan@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,6 @@
 
 #pragma once
 #include "quantum.h"
-
-#define TAPPING_TOGGLE 2
-
-#ifdef AUDIO_ENABLE
-  #define STARTUP_SONG SONG(NO_SOUND)
-#endif
 
 void add_to_prev(uint16_t kc);
 void unreg_prev(void);
