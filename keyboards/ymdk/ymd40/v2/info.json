@@ -60,7 +60,7 @@
                 {"label":"K3B (B1,D7)", "x":11, "y":3}
             ]
         },
-        "LAYOUT_ymd40v2_2x2u": {
+        "LAYOUT_ortho_4x12_2x2u": {
             "layout": [
                 {"label":"K00 (D0,F1)", "x":0, "y":0},
                 {"label":"K01 (D0,F0)", "x":1, "y":0},
@@ -113,7 +113,7 @@
                 {"label":"K3B (B1,D7)", "x":11, "y":3}
             ]
         },
-        "LAYOUT_ymd40v2_1x2uR": {
+        "LAYOUT_ortho_4x12_1x2uR": {
             "layout": [
                 {"label":"K00 (D0,F1)", "x":0, "y":0},
                 {"label":"K01 (D0,F0)", "x":1, "y":0},
@@ -167,7 +167,7 @@
                 {"label":"K3B (B1,D7)", "x":11, "y":3}
             ]
         },
-        "LAYOUT_ymd40v2_1x2uL": {
+        "LAYOUT_ortho_4x12_1x2uL": {
             "layout": [
                 {"label":"K00 (D0,F1)", "x":0, "y":0},
                 {"label":"K01 (D0,F0)", "x":1, "y":0},
@@ -221,7 +221,7 @@
                 {"label":"K3B (B1,D7)", "x":11, "y":3}
             ]
         },
-        "LAYOUT_ymd40v2_1x2uC": {
+        "LAYOUT_ortho_4x12_1x2uC": {
             "layout": [
                 {"label":"K00 (D0,F1)", "x":0, "y":0},
                 {"label":"K01 (D0,F0)", "x":1, "y":0},
