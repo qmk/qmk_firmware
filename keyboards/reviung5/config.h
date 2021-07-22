@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT      reviung5
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
+#define MATRIX_ROWS  1
+#define MATRIX_COLS  5
 
 /*
  * Keyboard Matrix Assignments
@@ -40,28 +40,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F4 }
-#define MATRIX_COL_PINS { D4, C6, D7, E6, B4 }
+#define MATRIX_ROW_PINS \
+    { F4 }
+#define MATRIX_COL_PINS \
+    { D4, C6, D7, E6, B4 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Encoder */
-#define ENCODERS_PAD_A { D0 }
-#define ENCODERS_PAD_B { D1 }
-
+#define ENCODERS_PAD_A \
+    { D0 }
+#define ENCODERS_PAD_B \
+    { D1 }
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
-#　define RGBLED_NUM 4
-#　define RGBLIGHT_HUE_STEP 16
-#　define RGBLIGHT_SAT_STEP 16
-#  define RGBLIGHT_VAL_STEP 16
-#  define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-#  define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-	/*== all animations enable ==*/
-#  define RGBLIGHT_ANIMATIONS
+#    define RGBLED_NUM         4
+#    define RGBLIGHT_HUE_STEP  16
+#    define RGBLIGHT_SAT_STEP  16
+#    define RGBLIGHT_VAL_STEP  16
+#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/*== all animations enable ==*/
+#    define RGBLIGHT_ANIMATIONS
 /*== or choose animations ==*/
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
