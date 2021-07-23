@@ -4,7 +4,8 @@ MCU = atmega32a
 # Bootloader selection
 BOOTLOADER = USBasp
 
-F_CPU ?= 16000000
+# Processor frequency
+F_CPU = 16000000
 
 # Build Options
 #   change yes to no to disable
