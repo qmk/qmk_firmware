@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef IBMPC_USB_H
-#define IBMPC_USB_H
+#pragma once
 
 #include "quantum.h"
 #define XXX KC_NO
@@ -80,4 +79,3 @@ extern keyboard_kind_t keyboard_kind;
 extern const uint8_t map_cs1[MATRIX_ROWS][MATRIX_COLS];
 extern const uint8_t map_cs2[MATRIX_ROWS][MATRIX_COLS];
 extern const uint8_t map_cs3[MATRIX_ROWS][MATRIX_COLS];
-#endif
