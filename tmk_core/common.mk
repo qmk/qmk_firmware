@@ -1,14 +1,8 @@
 COMMON_DIR = common
 PLATFORM_COMMON_DIR = $(COMMON_DIR)/$(PLATFORM_KEY)
 
-TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
-	$(COMMON_DIR)/keyboard.c \
-	$(COMMON_DIR)/action.c \
-	$(COMMON_DIR)/action_tapping.c \
-	$(COMMON_DIR)/action_macro.c \
-	$(COMMON_DIR)/action_layer.c \
-	$(COMMON_DIR)/action_util.c \
-	$(COMMON_DIR)/eeconfig.c \
+TMK_COMMON_SRC +=	\
+	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/report.c \
 	$(COMMON_DIR)/sync_timer.c \
 	$(COMMON_DIR)/usb_util.c \

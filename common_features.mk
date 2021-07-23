@@ -20,6 +20,13 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/send_string.c \
     $(QUANTUM_DIR)/bitwise.c \
     $(QUANTUM_DIR)/led.c \
+    $(QUANTUM_DIR)/action.c \
+    $(QUANTUM_DIR)/action_layer.c \
+    $(QUANTUM_DIR)/action_macro.c \
+    $(QUANTUM_DIR)/action_tapping.c \
+    $(QUANTUM_DIR)/action_util.c \
+    $(QUANTUM_DIR)/eeconfig.c \
+    $(QUANTUM_DIR)/keyboard.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
     $(QUANTUM_DIR)/logging/debug.c \
