@@ -2,7 +2,7 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Christian Sandven](https://github.com/yourusername)
+* Keyboard Maintainer: [Christian Sandven](https://github.com/csandven)
 * Hardware Supported: *Pro micro compatible boards*
 * Hardware Availability: *TBA*
 
