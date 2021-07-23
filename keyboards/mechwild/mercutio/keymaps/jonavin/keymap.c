@@ -97,7 +97,7 @@ static const keycodedescType PROGMEM keyselection[] = {
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
         {"PLAY",    KC_MEDIA_PLAY_PAUSE},
-        {"RESET!",  RESET},
+        {"RESET",  RESET},
 };
 
 #define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
@@ -123,7 +123,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case ENCFUNC:
         if (record->event.pressed) {
-            tap_code16(selectedkey_rec.keycode);
+            selectedkey_rec.keycode == RESET ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle RESET code
         } else {
             // when keycode is released
         }
@@ -252,7 +252,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             render_logo();
             oled_set_cursor(8,2);
             char fn_str[12];
-            oled_write_P(_isWinKeyDisabled ? PSTR("WL ") : PSTR(" "), false);
             switch(selected_layer){
                 case 0:
                     oled_write_P(PSTR("BASE"), false);
@@ -271,6 +270,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 default:
                     oled_write_P(PSTR("Layer ?"), false);    // Should never display, here as a catchall
             }
+            oled_write_P(_isWinKeyDisabled ? PSTR(" WL") : PSTR("   "), false);
             oled_set_cursor(8,3);
             if (get_highest_layer(layer_state) == selected_layer) {
                 oled_write_P(PSTR("             "), false);
