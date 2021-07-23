@@ -1,4 +1,4 @@
-/* Copyright 2018 Jason Williams (Wilba)
+/* Copyright 2021 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
 #define PRODUCT         Dharma
-#define DESCRIPTION     Dharma
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -46,3 +45,7 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define LED_CAPS_LOCK_PIN B7
+#define LED_NUM_LOCK_PIN F0
+#define LED_PIN_ON_STATE 1
