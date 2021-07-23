@@ -200,4 +200,3 @@ static inline void inhibit_xt(void)
     clock_hi();
     data_lo();
 }
-#endif
