@@ -66,17 +66,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case KC_BTN1 ... KC_BTN5: {
-            report_mouse_t mouse = pointing_device_get_report();
-            if (record->event.pressed) {
-                mouse.buttons |= (1 << (keycode - KC_BTN1));
-            } else {
-                mouse.buttons &= ~(1 << (keycode - KC_BTN1));
-            }
-            pointing_device_set_report(mouse);
-
-            return false;
-        } break;
+        case KC_BTN1 ... KC_BTN5:
+            mouse_send_flag = true;
+            return true;
+            break;
 
         default:
             break;
@@ -177,11 +170,11 @@ void matrix_scan_user(void) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
-    // if (keycode >= QK_MOMENTARY && keycode <= QK_MOMENTARY_MAX) {
-    //     if (record->event.pressed && gesture_wait == false) {
-    //         gesture_start();
-    //     }
-    // }
+    if (keycode >= QK_MOMENTARY && keycode <= QK_MOMENTARY_MAX) {
+        if (record->event.pressed && gesture_wait == false) {
+            gesture_start();
+        }
+    }
 
     if ((keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MOMENTARY && keycode <= QK_MOMENTARY_MAX)) {
         if (gesture_wait == true && (!record->event.pressed)) {
