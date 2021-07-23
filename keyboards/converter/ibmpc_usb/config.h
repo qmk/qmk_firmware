@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define LED_SCROLL_LOCK_PIN PF7
 
 /* matrix size */
-#define MATRIX_ROWS 16  // keycode bit: 3-0
-#define MATRIX_COLS 8   // keycode bit: 6-4
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 16
 
 /* legacy keymap support */
 #define USE_LEGACY_KEYMAP
@@ -46,54 +46,74 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Pin and interrupt configuration
  */
-/* clock line */
+// clock requires External Interrupt pin(INT*)
 #define IBMPC_CLOCK_PORT  PORTD
 #define IBMPC_CLOCK_PIN   PIND
 #define IBMPC_CLOCK_DDR   DDRD
-#define IBMPC_CLOCK_BIT   1
-/* data line */
 #define IBMPC_DATA_PORT   PORTD
 #define IBMPC_DATA_PIN    PIND
 #define IBMPC_DATA_DDR    DDRD
+
+// primary interface
+#define IBMPC_CLOCK_BIT   1
 #define IBMPC_DATA_BIT    0
-/* reset line */
-#define IBMPC_RST_PORT    PORTB
-#define IBMPC_RST_PIN     PINB
-#define IBMPC_RST_DDR     DDRB
-#define IBMPC_RST_BIT1    6
-#define IBMPC_RST_BIT2    7
 
-/* reset for XT Type-1 keyboard: low pulse for 500ms */
-#define IBMPC_RST_HIZ() do { \
-    IBMPC_RST_PORT &= ~(1<<IBMPC_RST_BIT1);  \
-    IBMPC_RST_DDR  &= ~(1<<IBMPC_RST_BIT1);  \
-    IBMPC_RST_PORT &= ~(1<<IBMPC_RST_BIT2);  \
-    IBMPC_RST_DDR  &= ~(1<<IBMPC_RST_BIT2);  \
-} while (0)
-
-#define IBMPC_RST_LO() do { \
-    IBMPC_RST_PORT &= ~(1<<IBMPC_RST_BIT1);  \
-    IBMPC_RST_DDR  |=  (1<<IBMPC_RST_BIT1);  \
-    IBMPC_RST_PORT &= ~(1<<IBMPC_RST_BIT2);  \
-    IBMPC_RST_DDR  |=  (1<<IBMPC_RST_BIT2);  \
-} while (0)
-
-/* interrupt for clock line */
 #define IBMPC_INT_INIT()  do {  \
     EICRA |= ((1<<ISC11) |      \
               (0<<ISC10));      \
 } while (0)
-
-/* NOTE: clear flag and enabling to ditch unwanted interrupt */
 #define IBMPC_INT_ON()  do {    \
     EIFR  |= (1<<INTF1);        \
     EIMSK |= (1<<INT1);         \
 } while (0)
-
 #define IBMPC_INT_OFF() do {    \
     EIMSK &= ~(1<<INT1);        \
 } while (0)
-
 #define IBMPC_INT_VECT    INT1_vect
+
+// secondary interface
+#ifdef IBMPC_SECONDARY
+#define IBMPC_CLOCK_BIT1  3
+#define IBMPC_DATA_BIT1   2
+
+#define IBMPC_INT_INIT1()  do { \
+    EICRA |= ((1<<ISC31) |      \
+              (0<<ISC30));      \
+} while (0)
+#define IBMPC_INT_ON1()  do {   \
+    EIFR  |= (1<<INTF3);        \
+    EIMSK |= (1<<INT3);         \
+} while (0)
+#define IBMPC_INT_OFF1() do {   \
+    EIMSK &= ~(1<<INT3);        \
+} while (0)
+#define IBMPC_INT_VECT1   INT3_vect
+#endif
+
+/* reset line */
+#define IBMPC_RST_PORT    PORTB
+#define IBMPC_RST_PIN     PINB
+#define IBMPC_RST_DDR     DDRB
+#define IBMPC_RST_BIT0    6
+#define IBMPC_RST_BIT1    7
+
+/* reset for XT Type-1 keyboard: low pulse for 500ms */
+#define IBMPC_RST_HIZ() do { \
+    IBMPC_RST_PORT &= ~(1<<IBMPC_RST_BIT0);  \
+    IBMPC_RST_DDR  &= ~(1<<IBMPC_RST_BIT0);  \
+    IBMPC_RST_PORT &= ~(1<<IBMPC_RST_BIT1);  \
+    IBMPC_RST_DDR  &= ~(1<<IBMPC_RST_BIT1);  \
+} while (0)
+
+#define IBMPC_RST_LO() do { \
+    IBMPC_RST_PORT &= ~(1<<IBMPC_RST_BIT0);  \
+    IBMPC_RST_DDR  |=  (1<<IBMPC_RST_BIT0);  \
+    IBMPC_RST_PORT &= ~(1<<IBMPC_RST_BIT1);  \
+    IBMPC_RST_DDR  |=  (1<<IBMPC_RST_BIT1);  \
+} while (0)
+
+// for debug
+#define LED_ON()    do { DDRD |= (1<<6); PORTD |=  (1<<6); } while (0)
+#define LED_OFF()   do { DDRD |= (1<<6); PORTD &= ~(1<<6); } while (0)
 
 #endif

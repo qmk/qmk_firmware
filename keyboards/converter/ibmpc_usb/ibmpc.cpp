@@ -42,60 +42,52 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <stdbool.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
-#include "ibmpc.h"
 #include "debug.h"
 #include "timer.h"
 #include "wait.h"
-#include "ringbuf.h"
+#include "ibmpc.hpp"
 
 
 #define WAIT(stat, us, err) do { \
     if (!wait_##stat(us)) { \
-        ibmpc_error = err; \
+        error = err; \
         goto ERROR; \
     } \
 } while (0)
 
 
-volatile uint16_t ibmpc_isr_debug = 0;
-volatile uint8_t ibmpc_protocol = IBMPC_PROTOCOL_NO;
-volatile uint8_t ibmpc_error = IBMPC_ERR_NONE;
+IBMPC IBMPC::interface0 = IBMPC(IBMPC_CLOCK_BIT, IBMPC_DATA_BIT);
+#if defined(IBMPC_CLOCK_BIT1) && defined(IBMPC_DATA_BIT1)
+IBMPC IBMPC::interface1 = IBMPC(IBMPC_CLOCK_BIT1, IBMPC_DATA_BIT1);
+#endif
 
-/* buffer for data received from device */
-#define RINGBUF_SIZE    16
-static uint8_t rbuf[RINGBUF_SIZE];
-static ringbuf_t rb = {};
 
-/* internal state of receiving data */
-static volatile uint16_t isr_state = 0x8000;
-static uint8_t timer_start = 0;
-
-void ibmpc_host_init(void)
+void IBMPC::host_init(void)
 {
     // initialize reset pin to HiZ
     IBMPC_RST_HIZ();
     inhibit();
-    IBMPC_INT_INIT();
-    IBMPC_INT_OFF();
-    ringbuf_init(&rb, rbuf, RINGBUF_SIZE);
+    int_init();
+    int_off();
+    host_isr_clear();
 }
 
-void ibmpc_host_enable(void)
+void IBMPC::host_enable(void)
 {
-    IBMPC_INT_ON();
+    int_on();
     idle();
 }
 
-void ibmpc_host_disable(void)
+void IBMPC::host_disable(void)
 {
-    IBMPC_INT_OFF();
+    int_off();
     inhibit();
 }
 
-int16_t ibmpc_host_send(uint8_t data)
+int16_t IBMPC::host_send(uint8_t data)
 {
     bool parity = true;
-    ibmpc_error = IBMPC_ERR_NONE;
+    error = IBMPC_ERR_NONE;
     uint8_t retry = 0;
 
     dprintf("w%02X ", data);
@@ -110,7 +102,7 @@ int16_t ibmpc_host_send(uint8_t data)
     // Not data Lo
     if (!data_in()) dprintf("d:%u ", wait_data_hi(1000));
 
-    IBMPC_INT_OFF();
+    int_off();
 
 RETRY:
     /* terminate a transmission if we have */
@@ -152,76 +144,72 @@ RETRY:
     WAIT(clock_hi, 300, 8);
 
     // clear buffer to get response correctly
-    ibmpc_host_isr_clear();
+    host_isr_clear();
 
     idle();
-    IBMPC_INT_ON();
-    return ibmpc_host_recv_response();
+    int_on();
+    return host_recv_response();
 ERROR:
     // Retry for Z-150 AT start bit error
-    if (ibmpc_error == 1 && retry++ < 10) {
-        ibmpc_error = IBMPC_ERR_NONE;
+    if (error == 1 && retry++ < 10) {
+        error = IBMPC_ERR_NONE;
         dprintf("R ");
         goto RETRY;
     }
 
-    ibmpc_error |= IBMPC_ERR_SEND;
+    error |= IBMPC_ERR_SEND;
     inhibit();
     wait_ms(2);
     idle();
-    IBMPC_INT_ON();
+    int_on();
     return -1;
 }
 
 /*
  * Receive data from keyboard
  */
-int16_t ibmpc_host_recv(void)
+int16_t IBMPC::host_recv(void)
 {
     int16_t ret = -1;
 
     // Enable ISR if buffer was full
-    if (ringbuf_is_full(&rb)) {
-        ibmpc_host_isr_clear();
-        IBMPC_INT_ON();
+    if (ringbuf_is_full()) {
+        host_isr_clear();
+        int_on();
         idle();
     }
 
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        ret = ringbuf_get(&rb);
+        ret = ringbuf_get();
     }
     if (ret != -1) dprintf("r%02X ", ret&0xFF);
     return ret;
 }
 
-int16_t ibmpc_host_recv_response(void)
+int16_t IBMPC::host_recv_response(void)
 {
     // Command may take 25ms/20ms at most([5]p.46, [3]p.21)
     uint8_t retry = 25;
     int16_t data = -1;
-    while (retry-- && (data = ibmpc_host_recv()) == -1) {
+    while (retry-- && (data = host_recv()) == -1) {
         wait_ms(1);
     }
     return data;
 }
 
-void ibmpc_host_isr_clear(void)
+void IBMPC::host_isr_clear(void)
 {
-    ibmpc_isr_debug = 0;
-    ibmpc_protocol = 0;
-    ibmpc_error = 0;
+    isr_debug = 0;
+    protocol = 0;
+    error = 0;
     isr_state = 0x8000;
-    ringbuf_reset(&rb);
+    ringbuf_reset();
 }
 
-
-// NOTE: With this ISR data line should be read within 5us after clock falling edge.
-// Confirmed that ATmega32u4 can read data line in 2.5us from interrupt after
-// ISR prologue pushs r18, r19, r20, r21, r24, r25 r30 and r31 with GCC 5.4.0
-ISR(IBMPC_INT_VECT)
+inline void IBMPC::isr(void)
 {
     uint8_t dbit;
-    dbit = IBMPC_DATA_PIN&(1<<IBMPC_DATA_BIT);
+    dbit = IBMPC_DATA_PIN&(1<<data_bit);
 
     // Timeout check
     uint8_t t;
@@ -233,8 +221,8 @@ ISR(IBMPC_INT_VECT)
     } else {
         // This gives 2.0ms at least before timeout
         if ((uint8_t)(t - timer_start) >= 3) {
-            ibmpc_isr_debug = isr_state;
-            ibmpc_error = IBMPC_ERR_TIMEOUT;
+            isr_debug = isr_state;
+            error = IBMPC_ERR_TIMEOUT;
             goto ERROR;
 
             // timeout error recovery - start receiving new data
@@ -271,7 +259,7 @@ ISR(IBMPC_INT_VECT)
     //      b7 b6 b5 b4   b3 b2 b1 b0 |  1  0 *1  0    0  0  0  0     XT_IBM-done ^2
     //      pr b7 b6 b5   b4 b3 b2 b1 |  1  0 *1  0    0  0  0  0     AT-midway[b0=1] ^2
     //      b7 b6 b5 b4   b3 b2 b1 b0 |  1  1 *1  0    0  0  0  0     XT_IBM-error-done
-    //       x  x  x  x    x  x  x  x |  x  1  1  0    0  0  0  0     illegal
+    //       x  x  x  x    x  x  x  x |  0  1 *1  0    0  0  0  0     illegal
     //      st pr b7 b6   b5 b4 b3 b2 | b1 b0  0 *1    0  0  0  0     AT-done
     //       x  x  x  x    x  x  x  x |  x  x  1 *1    0  0  0  0     illegal
     //                                all other states than above     illegal
@@ -291,43 +279,51 @@ ISR(IBMPC_INT_VECT)
             {
                 uint8_t us = 100;
                 // wait for rising and falling edge of b7 of XT_IBM
-                while (!(IBMPC_CLOCK_PIN&(1<<IBMPC_CLOCK_BIT)) && us) { wait_us(1); us--; }
-                while (  IBMPC_CLOCK_PIN&(1<<IBMPC_CLOCK_BIT)  && us) { wait_us(1); us--; }
+                if (!protocol) {
+                    while (!(IBMPC_CLOCK_PIN & clock_mask) && us) { wait_us(1); us--; }
+                    while ( (IBMPC_CLOCK_PIN & clock_mask) && us) { wait_us(1); us--; }
+                } else if (protocol == IBMPC_PROTOCOL_XT_CLONE) {
+                    us = 0;
+                }
 
                 if (us) {
                     // XT_IBM-error: read start(0) as 1
                     goto NEXT;
                 } else {
                     // XT_Clone-done
-                    ibmpc_isr_debug = isr_state;
+                    isr_debug = isr_state;
                     isr_state = isr_state>>8;
-                    ibmpc_protocol = IBMPC_PROTOCOL_XT_CLONE;
+                    protocol = IBMPC_PROTOCOL_XT_CLONE;
                     goto DONE;
                 }
             }
             break;
         case 0b11100000:
             // XT_IBM-error-done
-            ibmpc_isr_debug = isr_state;
+            isr_debug = isr_state;
             isr_state = isr_state>>8;
-            ibmpc_protocol = IBMPC_PROTOCOL_XT_ERROR;
+            protocol = IBMPC_PROTOCOL_XT_ERROR;
             goto DONE;
             break;
         case 0b10100000:    // ^2
             {
                 uint8_t us = 100;
                 // wait for rising and falling edge of AT stop bit to discriminate between XT and AT
-                while (!(IBMPC_CLOCK_PIN&(1<<IBMPC_CLOCK_BIT)) && us) { wait_us(1); us--; }
-                while (  IBMPC_CLOCK_PIN&(1<<IBMPC_CLOCK_BIT)  && us) { wait_us(1); us--; }
+                if (!protocol) {
+                    while (!(IBMPC_CLOCK_PIN & clock_mask) && us) { wait_us(1); us--; }
+                    while ( (IBMPC_CLOCK_PIN & clock_mask) && us) { wait_us(1); us--; }
+                } else if (protocol == IBMPC_PROTOCOL_XT_IBM) {
+                    us = 0;
+                }
 
                 if (us) {
                     // found stop bit: AT-midway - process the stop bit in next ISR
                     goto NEXT;
                 } else {
                     // no stop bit: XT_IBM-done
-                    ibmpc_isr_debug = isr_state;
+                    isr_debug = isr_state;
                     isr_state = isr_state>>8;
-                    ibmpc_protocol = IBMPC_PROTOCOL_XT_IBM;
+                    protocol = IBMPC_PROTOCOL_XT_IBM;
                     goto DONE;
                 }
              }
@@ -338,14 +334,14 @@ ISR(IBMPC_INT_VECT)
         case 0b11010000:
             // AT-done
             // TODO: parity check?
-            ibmpc_isr_debug = isr_state;
+            isr_debug = isr_state;
             // stop bit check
             if (isr_state & 0x8000) {
-                ibmpc_protocol = IBMPC_PROTOCOL_AT;
+                protocol = IBMPC_PROTOCOL_AT;
             } else {
                 // Zenith Z-150 AT(beige/white lable) asserts stop bit as low
                 // https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-AT-Keyboard-Protocol#zenith-z-150-beige
-                ibmpc_protocol = IBMPC_PROTOCOL_AT_Z150;
+                protocol = IBMPC_PROTOCOL_AT_Z150;
             }
             isr_state = isr_state>>6;
             goto DONE;
@@ -357,26 +353,25 @@ ISR(IBMPC_INT_VECT)
         case 0b11110000:
         default:            // xxxx_oooo(any 1 in low nibble)
             // Illegal
-            ibmpc_isr_debug = isr_state;
-            ibmpc_error = IBMPC_ERR_ILLEGAL;
+            protocol = 0;
+            isr_debug = isr_state;
+            error = IBMPC_ERR_ILLEGAL;
             goto ERROR;
             break;
     }
 
 DONE:
     // store data
-    ringbuf_push(&rb, isr_state & 0xFF);
-    if (ringbuf_is_full(&rb)) {
-        // just became full
+    ringbuf_put(isr_state & 0xFF);
+    if (ringbuf_is_full()) {
         // Disable ISR if buffer is full
-        IBMPC_INT_OFF();
-        // inhibit: clock_lo
-        IBMPC_CLOCK_PORT &= ~(1<<IBMPC_CLOCK_BIT);
-        IBMPC_CLOCK_DDR  |=  (1<<IBMPC_CLOCK_BIT);
+        int_off();
+        // inhibit: clock_lo() instead of inhibit() for ISR optimization
+        clock_lo();
     }
-    if (ringbuf_is_empty(&rb)) {
+    if (ringbuf_is_empty()) {
         // buffer overflow
-        ibmpc_error = IBMPC_ERR_FULL;
+        error = IBMPC_ERR_FULL;
     }
 ERROR:
     // clear for next data
@@ -386,9 +381,25 @@ NEXT:
 }
 
 /* send LED state to keyboard */
-void ibmpc_host_set_led(uint8_t led)
+void IBMPC::host_set_led(uint8_t led)
 {
-    if (0xFA == ibmpc_host_send(0xED)) {
-        ibmpc_host_send(led);
+    if (0xFA == host_send(0xED)) {
+        host_send(led);
     }
 }
+
+
+// NOTE: With this ISR data line should be read within 5us after clock falling edge.
+// Confirmed that ATmega32u4 can read data line in 2.5us from interrupt after
+// ISR prologue pushs r18, r19, r20, r21, r24, r25 r30 and r31 with GCC 5.4.0
+ISR(IBMPC_INT_VECT)
+{
+    IBMPC::interface0.isr();
+}
+
+#if defined(IBMPC_CLOCK_BIT1) && defined(IBMPC_DATA_BIT1) && defined(IBMPC_INT_VECT1)
+ISR(IBMPC_INT_VECT1)
+{
+    IBMPC::interface1.isr();
+}
+#endif
