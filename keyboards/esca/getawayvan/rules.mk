@@ -1,5 +1,5 @@
-# MCU name
-MCU = STM32F072
+# Bootloader Selection
+Bootloader = stm32-dfu
 
 
 # Build Options
