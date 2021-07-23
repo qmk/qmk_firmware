@@ -23,3 +23,4 @@ RGB_MATRIX_DRIVER = WS2812  # RGB matrix driver support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
+LTO_ENABLE = yes
