@@ -1,5 +1,6 @@
 #pragma once
 #define ENCODER_DIRECTION_FLIP
+#define OLED_TIMEOUT 10000
 
 #define MOUSEKEY_INTERVAL 16
 #define MOUSEKEY_DELAY 0
