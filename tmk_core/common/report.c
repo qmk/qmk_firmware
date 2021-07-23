@@ -143,19 +143,10 @@ void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code) {
     cb_tail                        = RO_INC(cb_tail);
     cb_count++;
 #else
-    int8_t i     = 0;
-    int8_t empty = -1;
-    for (; i < KEYBOARD_REPORT_KEYS; i++) {
-        if (keyboard_report->keys[i] == code) {
+    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS && keyboard_report->keys[i] != code; i++) {
+        if (keyboard_report->keys[i] == 0) {
+            keyboard_report->keys[i] = code;
             break;
-        }
-        if (empty == -1 && keyboard_report->keys[i] == 0) {
-            empty = i;
-        }
-    }
-    if (i == KEYBOARD_REPORT_KEYS) {
-        if (empty != -1) {
-            keyboard_report->keys[empty] = code;
         }
     }
 #endif
