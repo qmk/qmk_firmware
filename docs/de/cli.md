@@ -88,14 +88,14 @@ qmk compile <configuratorExport.json>
 qmk compile -kb <keyboard_name> -km <keymap_name>
 ```
 
-## `qmk cformat`
+## `qmk format-c`
 
 Dieser Befehl formatiert C-Code im clang-Format. Benutze ihn ohne Argumente, um den core-Code zu formatieren, oder benutze Namen von Dateien in der CLI, um den Befehl auf bestimmte Dateien anzuwenden.
 
 **Anwendung**:
 
 ```
-qmk cformat [file1] [file2] [...] [fileN]
+qmk format-c [file1] [file2] [...] [fileN]
 ```
 
 ## `qmk config`
@@ -148,14 +148,14 @@ Dieser Befehl erstellt eine neue Keymap basierend auf einer existierenden Standa
 qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 ```
 
-## `qmk pyformat`
+## `qmk format-py`
 
 Dieser Befehl formatiert Python-Code in `qmk_firmware`.
 
 **Anwendung**:
 
 ```
-qmk pyformat
+qmk format-py
 ```
 
 ## `qmk pytest`

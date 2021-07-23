@@ -31,13 +31,13 @@ def check_returncode(result, expected=[0]):
     assert result.returncode in expected
 
 
-def test_cformat():
-    result = check_subcommand('cformat', '-n', 'quantum/matrix.c')
+def test_format_c():
+    result = check_subcommand('format-c', '-n', 'quantum/matrix.c')
     check_returncode(result)
 
 
-def test_cformat_all():
-    result = check_subcommand('cformat', '-n', '-a')
+def test_format_c_all():
+    result = check_subcommand('format-c', '-n', '-a')
     check_returncode(result, [0, 1])
 
 
@@ -80,8 +80,8 @@ def test_hello():
     assert 'Hello,' in result.stdout
 
 
-def test_pyformat():
-    result = check_subcommand('pyformat', '--dry-run')
+def test_format_python():
+    result = check_subcommand('format-python', '--dry-run')
     check_returncode(result)
     assert 'Python code in `bin/qmk` and `lib/python` is correctly formatted.' in result.stdout
 

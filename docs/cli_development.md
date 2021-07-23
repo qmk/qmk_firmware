@@ -188,7 +188,7 @@ cli.log.info('Reading from %s and writing to %s', cli.args.filename, cli.args.ou
 
 # Testing, and Linting, and Formatting (oh my!)
 
-We use nose2, flake8, and yapf to test, lint, and format code. You can use the `pytest` and `pyformat` subcommands to run these tests:
+We use nose2, flake8, and yapf to test, lint, and format code. You can use the `pytest` and `format-py` subcommands to run these tests:
 
 ### Testing and Linting
 
@@ -196,7 +196,7 @@ We use nose2, flake8, and yapf to test, lint, and format code. You can use the `
 
 ### Formatting
 
-    qmk pyformat
+    qmk format-py
 
 ## Formatting Details
 
