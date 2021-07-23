@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "timer.h"
 #include "matrix.h"
+#include "avr/timer_avr.h"
 #include "hhkb_avr.h"
 #include <avr/wdt.h>
 #include "suspend.h"
