@@ -14,8 +14,6 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#include "kuatsure.h"
-
 #pragma once
 
 #ifdef AUDIO_ENABLE
