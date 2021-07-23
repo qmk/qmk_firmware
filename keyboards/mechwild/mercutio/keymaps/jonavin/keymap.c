@@ -96,7 +96,8 @@ static const keycodedescType PROGMEM keyselection[] = {
         {"Break",   KC_PAUS},
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
-        {"PLAY",    KC_MEDIA_PLAY_PAUSE}
+        {"PLAY",    KC_MEDIA_PLAY_PAUSE},
+        {"RESET!",  RESET},
 };
 
 #define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
