@@ -54,7 +54,7 @@
                 { "label": "Ctrl", "x": 11.75, "y": 3 }
             ]
         },
-        "LAYOUT_3u": {
+        "LAYOUT_2x3u": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "Q", "x": 1, "y": 0 },
