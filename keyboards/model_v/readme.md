@@ -1,6 +1,6 @@
 # model-v
 
-![](https://i.imgur.com/uqL3HSW.png)
+![](https://i.imgur.com/uqL3HSWl.png)
 
 A minivan case compatible PCB with flex cuts.
 
