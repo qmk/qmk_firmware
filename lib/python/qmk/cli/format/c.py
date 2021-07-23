@@ -127,7 +127,7 @@ def format_c(cli):
 
     # Sanity check
     if not files:
-        cli.log.error('No changed files detected. Use "qmk cformat -a" to format all core files')
+        cli.log.error('No changed files detected. Use "qmk format-c -a" to format all core files')
         return False
 
     # Run clang-format on the files we've found

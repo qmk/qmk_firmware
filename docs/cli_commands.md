@@ -314,7 +314,18 @@ qmk clean [-a]
 
 # Developer Commands
 
-## `qmk cformat`
+## `qmk format-text`
+
+This command formats text files to have proper line endings. 
+
+Every text file in the repository needs to have Unix (LF) line ending.
+If you are working on **Windows**, you must ensure that line endings are corrected in order to get your PRs merged.
+
+```
+qmk format-text
+```
+
+## `qmk format-c`
 
 This command formats C code using clang-format. 
 
@@ -325,25 +336,25 @@ Run it with `-a` to format all core code, or pass filenames on the command line 
 **Usage for specified files**:
 
 ```
-qmk cformat [file1] [file2] [...] [fileN]
+qmk format-c [file1] [file2] [...] [fileN]
 ```
 
 **Usage for all core files**:
 
 ```
-qmk cformat -a
+qmk format-c -a
 ```
 
 **Usage for only changed files against origin/master**:
 
 ```
-qmk cformat
+qmk format-c
 ```
 
 **Usage for only changed files against branch_name**:
 
 ```
-qmk cformat -b branch_name
+qmk format-c -b branch_name
 ```
 
 ## `qmk docs`
@@ -398,14 +409,14 @@ $ qmk kle2json -f kle.txt -f
 Ψ Wrote out to info.json
 ```
 
-## `qmk pyformat`
+## `qmk format-python`
 
 This command formats python code in `qmk_firmware`.
 
 **Usage**:
 
 ```
-qmk pyformat
+qmk format-python
 ```
 
 ## `qmk pytest`
