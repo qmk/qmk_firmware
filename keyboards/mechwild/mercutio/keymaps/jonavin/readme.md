@@ -13,6 +13,7 @@ Features
   - shutdown oled when powered down to prevent OLED from showing Mercutio all the time
   - add WPM indicator when wpm is > 20 wpm
   - add double tap of Left Shift to toggle Caps Lock
+  - add WinLock feature with FN + Win; display WL on OLED when enabled
   
   - FN layer has encoder selectable key codes and displayed on OLED
         
@@ -28,8 +29,9 @@ Features
                 {"Break",   KC_PAUS},
                 {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
                 {"AltF4",   KC_AF4},
-                {"PLAY",    KC_MEDIA_PLAY_PAUSE}
-        };
+                {"PLAY",    KC_MEDIA_PLAY_PAUSE},
+                {"RESET",   RESET},  // firmware flash mode
+       };
 
   - Additional encoder functionality 
         While holding Left Ctrl, navigates next or previous word

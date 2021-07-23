@@ -97,7 +97,7 @@ static const keycodedescType PROGMEM keyselection[] = {
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
         {"PLAY",    KC_MEDIA_PLAY_PAUSE},
-        {"RESET",  RESET},
+        {"RESET",   RESET},   // firmware flash mode
 };
 
 #define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
