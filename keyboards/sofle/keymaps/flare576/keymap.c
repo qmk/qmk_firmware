@@ -233,11 +233,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  | F6   |                    |  F7  |  F8  |  F9  | F10  | F11  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      | M UP | HOME | PGUP |                    |M Wl U|M Wl D|M Wl L|M Wl R| HOME |COMP1 |
+ * | TRNS |PRNTSC|      | M UP | HOME | PGUP |                    |M Wl U|M Wl D|M Wl L|M Wl R|      |COMP1 |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TRNS |PRNTSC|M LFT |M DWN |M RGHT|SC LCK|-------.    ,-------|  UP  | DOWN | LEFT |RIGHT | END  |COMP2 |
+ * | TRNS |SC LCK|M LFT |M DWN |M RGHT|      |-------.    ,-------|  UP  | DOWN | LEFT |RIGHT |      |COMP2 |
  * |------+------+------+------+------+------| TRNS  |    | TRNS  |------+------+------+------+------+------|
- * |      |      |      |      | END  | PGDN |-------|    |-------|MOUS1 |MOUS2 |      |      |PAUSE |      |
+ * | TRNS |PAUSE |      |      | END  | PGDN |-------|    |-------|MOUS1 |MOUS2 |  [   |   ]  |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | TRNS | TRNS | TRNS |TRNS  | / TRNS  /       \ TRNS \  |MOUS3 |MOUS4 |MOUS5 |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -246,34 +246,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MOUS] = LAYOUT(
   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,                        KC_F7,    KC_F8,    KC_F9,    KC_F10,    KC_F11,   KC_F12,
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MS_U,  KC_HOME,  KC_PGUP,                      KC_WH_U,  KC_WH_D,  KC_WH_L,  KC_WH_R,   KC_HOME,  _COMP1,
-  _______,  KC_PSCR,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_SLCK,                      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  KC_END,   _COMP2,
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_END,   KC_PGDOWN, _______,  _______, KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,   KC_PAUS,  XXXXXXX,
+  _______,  KC_PSCR,  XXXXXXX,  KC_MS_U,  KC_HOME,  KC_PGUP,                      KC_WH_U,  KC_WH_D,  KC_WH_L,  KC_WH_R,   XXXXXXX,  _COMP1,
+  _______,  KC_SLCK,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,                      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  XXXXXXX,  _COMP2,
+  _______,  KC_PAUS,  XXXXXXX,  XXXXXXX,  KC_END,   KC_PGDN,  _______,  _______,  KC_BTN1,  KC_BTN2,  KC_LBRC,  KC_RBRC,   XXXXXXX,  XXXXXXX,
             _______,  _______,  _______,  _______,  _______,                      _______,  KC_BTN3,  KC_BTN4,  KC_BTN5,   XXXXXXX
 ),
 /* SYMS
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |V_C_W |T_M_A |      |      |      |      |                    |      |      |      |   [  |   ]  |      |
+ * |V_C_W |T_M_A |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TRNS |      |      |      |      |      |                    |      |      |      |   {  |   }  |      |
+ * | TRNS |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TRNS |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |      |
+ * | TRNS |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |  )   |      |
  * |------+------+------+------+------+------| TRNS  |    | TRNS  |------+------+------+------+------+------|
-   | TRNS | V_FS | T_FS |      |      |      |-------|    |-------|      |      |      |   <  |   >  |      |
+   | TRNS | V_FS | T_FS |      |      |      |-------|    |-------|      |      |   (  |   )  |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | TRNS | TRNS | TRNS | TRNS | / TRNS  /       \ TRNS \  | TRNS | TRNS | TRNS | TRNS |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
-/*
- * ideas for macros -
- * switch keys around so parens and square braces line up
- */
-[_SYMS] = LAYOUT(+\
-  V_C_W,    T_M_A,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LBRC,  KC_RBRC,  XXXXXXX,
-  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LCBR,  KC_RCBR,  XXXXXXX,
+[_SYMS] = LAYOUT(
+  V_C_W,    T_M_A,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                          KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  XXXXXXX,
-  _______,  V_FS,     T_FS,     XXXXXXX,  XXXXXXX,  XXXXXXX,   _______,    _______,   XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LT,    KC_GT,    XXXXXXX,
+  _______,  V_FS,     T_FS,     XXXXXXX,  XXXXXXX,  XXXXXXX,   _______,    _______,   XXXXXXX,  XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,
                 _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______
 ),
 
@@ -338,9 +334,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_GAME] = LAYOUT(
   KC_ESC,  KC_1,            KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,       KC_7,       KC_8,          KC_9,          KC_0,          KC_BSPC,
-  KC_T,    KC_TAB,          KC_Q,    KC_W,    KC_E,    KC_R,                        MEH(KC_Y),  MEH(KC_U),  MEH(KC_I),     MEH(KC_O),     MEH(KC_P),     KC_PGUP,
-  KC_G,    KC_LSFT,         KC_A,    KC_S,    KC_D,    KC_F,                        MEH(KC_H),  MEH(KC_J),  MEH(KC_K),     MEH(KC_L),     MEH(KC_SCLN),  KC_PGDN,
-  KC_B,    KC_LCTRL,        KC_Z,    KC_X,    KC_C,    KC_V,  _______,    _______,  MEH(KC_N),  MEH(KC_M),  MEH(KC_COMM),  MEH(KC_DOT),   MEH(KC_SLSH),  KC_RIGHT,
+  KC_T,    KC_TAB,          KC_Q,    KC_W,    KC_E,    KC_R,                        RCTL(KC_Y), RCTL(KC_U), RCTL(KC_I),    RCTL(KC_O),    RCTL(KC_P),    KC_PGUP,
+  KC_G,    KC_LSFT,         KC_A,    KC_S,    KC_D,    KC_F,                        RCTL(KC_H), RCTL(KC_J), RCTL(KC_K),    RCTL(KC_L),    RCTL(KC_SCLN), KC_PGDN,
+  KC_B,    KC_LCTRL,        KC_Z,    KC_X,    KC_C,    KC_V,  _______,    _______,  RCTL(KC_N), RCTL(KC_M), RCTL(KC_COMM), RCTL(KC_DOT),  RCTL(KC_SLSH), KC_RIGHT,
            _______,         XXXXXXX, XXXXXXX, KC_LALT, KC_SPC,                      KC_ENT,     KC_PSCR,    XXXXXXX,       XXXXXXX,       _______
 )
 };
