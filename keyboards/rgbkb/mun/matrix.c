@@ -19,7 +19,7 @@
 #include "transactions.h"
 
 #define ERROR_DISCONNECT_COUNT 5
-#define ROWS_PER_HAND (MATRIX_ROWS / 2)
+#define ROWS_PER_HAND          (MATRIX_ROWS / 2)
 
 static const pin_t row_pins[ROWS_PER_HAND] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
@@ -141,7 +141,7 @@ uint8_t matrix_scan(void) {
 
         /* Drive row pin high again. */
         ATOMIC_BLOCK_FORCEON { writePinHigh(row_pins[row_idx]); }
-        matrix_output_unselect_delay();
+        matrix_output_unselect_delay(row_idx, row_pins[row_idx] != 0);
     }
 
     if (memcmp(raw_matrix, current_matrix, sizeof(current_matrix)) != 0) {
