@@ -20,5 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define TAPPING_TOGGLE 2
 // TT set to two taps
 
-#define TAPPING_TERM 250
-#define RGBLIGHT_DEFAULT_MODE SOLID_WHITE
+#define TAPPING_TERM 350
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
+#define RGB_DEFAULT_HUE 0 // red
+#define RGB_DEFAULT_SAT 0
