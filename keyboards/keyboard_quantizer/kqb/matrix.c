@@ -21,11 +21,22 @@ matrix_row_t* matrix_mouse_dest;
 
 static uint8_t  spis_tx_buf[4] = {0xfe, 0xff, 0xff, 0xff};
 static uint8_t  spis_rx_buf[1024];
+static uint16_t spis_receive_len;
 static uint16_t led_on_count = 0;
 
 void qt_spis_callback(uint16_t receive_len) {
-    // discard head 4 byte
-    for (int idx = 4; idx < receive_len; idx++) {
+    spis_receive_len = receive_len;
+}
+
+void qt_spis_receive(uint16_t receive_len) {
+    int idx = 0;
+
+    // discard heading bytes
+    while (spis_rx_buf[idx] == 0xc0) {
+        idx++;
+    }
+
+    for (; idx < receive_len; idx++) {
         uart_recv_callback(spis_rx_buf[idx]);
     }
 
@@ -48,11 +59,9 @@ void qt_spis_callback(uint16_t receive_len) {
         memcpy(spis_tx_buf + 1, qt_cmd_buf, sizeof(qt_cmd_buf));
         memset(qt_cmd_buf, 0xff, sizeof(qt_cmd_buf));
         qt_cmd_new = false;
-        // send_flag = true;
         // xprintf("SPIS Send:%d,%d,%d,%d\n", spis_tx_buf[0], spis_tx_buf[1], spis_tx_buf[2], spis_tx_buf[3]);
     } else {
         memset(spis_tx_buf + 1, 0xff, sizeof(spis_tx_buf) - 1);
-        // send_flag = false;
     }
 
     BMPAPI->spis.start(spis_tx_buf, sizeof(spis_tx_buf), spis_rx_buf,
@@ -99,6 +108,10 @@ void qt_matrix_init() {
 uint32_t qt_get_device_row() { return MATRIX_ROWS_DEFAULT; }
 uint32_t qt_get_device_col() { return MATRIX_COLS_DEFAULT; }
 uint32_t qt_matrix_scan(matrix_row_t *matrix_raw) {
+    if (spis_receive_len > 0) {
+        qt_spis_receive(spis_receive_len);
+        spis_receive_len = 0;
+    }
 
     if (led_on_count) {
         led_on_count--;
