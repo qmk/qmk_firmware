@@ -12,7 +12,7 @@ from pathlib import Path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.json_encoders import InfoJSONEncoder
-from qmk.json_schema import compile_schema_store, load_jsonschema
+from qmk.json_schema import compile_schema_store
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import is_keyboard, normpath
 
