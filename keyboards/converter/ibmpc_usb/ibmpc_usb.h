@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef IBMPC_USB_H
-#define IBMPC_USB_H
+#pragma once
 
 #include "quantum.h"
 #define XXX KC_NO
