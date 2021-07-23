@@ -205,7 +205,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 #        endif
     if (MATRIX_IO_DELAY_ALWAYS || current_row + 1 < MATRIX_ROWS) {
         MATRIX_DEBUG_DELAY_START();
-        matrix_output_unselect_delay(current_row, current_row_value != 0);
+        matrix_output_unselect_delay(current_row, current_row_value != 0);  // wait for col signal to go HIGH
         MATRIX_DEBUG_DELAY_END();
     }
 
@@ -238,6 +238,7 @@ static void init_pins(void) {
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     bool matrix_changed = false;
+    bool key_pressed = false;
 
     // Select col
     select_col(current_col);
@@ -253,6 +254,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         if (readPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_row_value |= (MATRIX_ROW_SHIFTER << current_col);
+            key_pressed = true;
         } else {
             // Pin HI, clear col bit
             current_row_value &= ~(MATRIX_ROW_SHIFTER << current_col);
@@ -268,7 +270,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // Unselect col
     unselect_col(current_col);
     if (MATRIX_IO_DELAY_ALWAYS || current_col + 1 < MATRIX_COLS) {
-        matrix_output_unselect_delay(current_row, current_row_value != 0);
+        matrix_output_unselect_delay(current_col, key_pressed);  // wait for col signal to go HIGH
     }
 
     return matrix_changed;
