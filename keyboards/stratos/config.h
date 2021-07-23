@@ -1,5 +1,5 @@
 /*
-Copyright 2020 kb-elmo<mail@elmo.space>
+Copyright 2021 kb-elmo<mail@elmo.space>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,38 +20,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xA68C
-#define PRODUCT_ID 0xDB52
-#define DEVICE_VER 0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT AEK II USB
+#define VENDOR_ID    0xD5D0
+#define PRODUCT_ID   0x992D
+#define DEVICE_VER   0x0001
+#define MANUFACTURER eggyolk
+#define PRODUCT      stratos
 
 /* key matrix size */
-#define MATRIX_ROWS 8
+#define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
-/*
- * Keyboard Matrix Assignments
- */
-#define MATRIX_ROW_PINS { D5, C1, C4, D0, C3, C2, B3, B4 }
-#define MATRIX_COL_PINS { A1, A0, A2, A3, A4, A5, A6, A7, C7, C6, C5, C0, D6, D1 }
+/* Keyboard Matrix Assignments */
+#define MATRIX_ROW_PINS { B1, B2, B3, F0, F1 }
+#define MATRIX_COL_PINS { F4, F7, F5, F6, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_NUM_LOCK_PIN B2
-#define LED_CAPS_LOCK_PIN B1
-#define LED_SCROLL_LOCK_PIN B0
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* reduce EEPROM usage */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-#define LAYER_STATE_8BIT
+/* RGB LEDs */
+#ifdef RGBLIGHT_ENABLE
+#define RGB_DI_PIN D2
+#define RGBLED_NUM 14
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#define RGBLIGHT_LIMIT_VAL 200
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_ANIMATIONS
+#endif
