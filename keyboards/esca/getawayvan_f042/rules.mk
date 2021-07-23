@@ -1,3 +1,6 @@
+# MCU name
+MCU = STM32F042
+
 # Bootloader selection
 BOOTLOADER = stm32-dfu
 
