@@ -79,4 +79,3 @@ extern keyboard_kind_t keyboard_kind;
 extern const uint8_t map_cs1[MATRIX_ROWS][MATRIX_COLS];
 extern const uint8_t map_cs2[MATRIX_ROWS][MATRIX_COLS];
 extern const uint8_t map_cs3[MATRIX_ROWS][MATRIX_COLS];
-#endif
