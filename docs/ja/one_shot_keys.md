@@ -28,7 +28,7 @@
 
 ワンショットキーをマクロあるいはタップダンスルーチンの一部として有効にしたい場合があります。
 
-ワンショットレイヤーについては、キーを押した時に `set_oneshot_layer(LAYER, ONESHOT_START)` を呼び出し、キーを放した時に `clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED)` を呼び出す必要があります。ワンショットをキャンセルする場合は、`reset_oneshot_layer()` を呼び出してください。
+ワンショットレイヤーについては、キーを押した時に `set_oneshot_layer(LAYER, ONESHOT_START)` を呼び出し、キーを放した時に `clear_oneshot_layer_state(ONESHOT_PRESSED)` を呼び出す必要があります。ワンショットをキャンセルする場合は、`reset_oneshot_layer()` を呼び出してください。
 
 ワンショットモッドについては、設定するためには `set_oneshot_mods(MOD_BIT(KC_*))` を呼び出し、キャンセルするためには `clear_oneshot_mods()` を呼び出す必要があります。
 
