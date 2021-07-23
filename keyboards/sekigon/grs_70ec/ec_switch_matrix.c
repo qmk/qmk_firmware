@@ -20,19 +20,9 @@
 #include "analog.h"
 #include "print.h"
 
-// sensing channel definitions
-#define S0 0
-#define S1 1
-#define S2 2
-#define S3 3
-#define S4 4
-#define S5 5
-#define S6 6
-#define S7 7
-
 // pin connections
 const uint8_t row_pins[]     = MATRIX_ROW_PINS;
-const uint8_t col_channels[] = MATRIX_COL_PINS;
+const uint8_t col_channels[] = MATRIX_COL_CHANNELS;
 const uint8_t mux_sel_pins[] = MUX_SEL_PINS;
 
 _Static_assert(sizeof(mux_sel_pins) == 3, "invalid MUX_SEL_PINS");
