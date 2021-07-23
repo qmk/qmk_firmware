@@ -313,6 +313,10 @@ bool oled_scroll_left(void);
 // Returns true if the screen was not scrolling or stops scrolling
 bool oled_scroll_off(void);
 
+// Inverts the display
+// Returns true if the screen was or is inverted
+bool oled_invert(bool invert);
+
 // Returns the maximum number of characters that will fit on a line
 uint8_t oled_max_chars(void);
 

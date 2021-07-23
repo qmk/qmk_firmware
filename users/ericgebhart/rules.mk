@@ -12,4 +12,3 @@ CONSOLE_ENABLE   = no  # Console for debug
 BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
 UNICODE_ENABLE   = no
 SLEEP_LED_ENABLE = no
-API_SYSEX_ENABLE = no

@@ -26,7 +26,7 @@ uint8_t diablo_times[] = {0, 1, 3, 5, 10, 30};
 
 // Cycle through the times for the macro, starting at 0, for disabled.
 void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
-    diable_keys_t *diablo_keys = (diable_keys_t *)user_data;
+    diable_keys_t *diablo_keys               = (diable_keys_t *)user_data;
     // Sets the keycode based on the index
     diablo_timer[diablo_keys->index].keycode = diablo_keys->keycode;
 
@@ -34,7 +34,7 @@ void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count >= (sizeof(diablo_times) / sizeof(uint8_t))) {
         diablo_timer[diablo_keys->index].key_interval = 0;
         reset_tap_dance(state);
-    } else {  // else set the interval (tapdance count starts at 1, array starts at 0, so offset by one)
+    } else { // else set the interval (tapdance count starts at 1, array starts at 0, so offset by one)
         diablo_timer[diablo_keys->index].key_interval = diablo_times[state->count - 1];
     }
 }
@@ -64,9 +64,7 @@ void run_diablo_macro_check(void) {
             // reset the timer, since enough time has passed
             diablo_timer[index].timer = timer_read();
             // send keycode ONLY if we're on the diablo layer.
-            if (IS_LAYER_ON(_DIABLO)) {
-                tap_code(diablo_timer[index].keycode);
-            }
+            if (IS_LAYER_ON(_DIABLO)) { tap_code(diablo_timer[index].keycode); }
         }
     }
 }

@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        | FN     | RGB TG |        | MS W L | MS W R |        | RESET  |        | MS 1   | MS 2   | RGB RMD| RGB MD | FN     |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- 
+
  [_FN] = LAYOUT_ortho_5x15( /* FUNCTION */
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   RGB_HUD, _______, RGB_HUI, KC_F7,   KC_F8,   KC_F9,   KC_F10  , KC_F11 , KC_F12,
   KC_WH_U, _______, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, RGB_SAD, _______, RGB_SAI, KC_LBRC, KC_RBRC, KC_UP  , _______ , KC_EQL , KC_BSLS,
@@ -80,35 +80,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         PORTF ^= (1 << 5);
       }
       return false;
-        
+
     // case A_BL_Y:
     //   if (record->event.pressed) {
     //     keycaps_led_on();
     //   }
     //   return false;
-      
+
     // case A_BL_N:
     //   if (record->event.pressed) {
     //     keycaps_led_off();
     //   }
     //   return false;
-      
+
     default:
       return true;
   }
 }
 
 // Runs whenever there is a layer state change.
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   uint8_t layer = biton32(state);
-    
+
   gp100_led_off();
   gp103_led_off();
-  
+
   // turns on gp100 (top left led) for odd layers
   if (layer & (1<<0)) gp100_led_on();
   // turns on gp103 (top mid led) for layers 2, 6, ...
   if (layer & (1<<1)) gp103_led_on();
-  
+
   return state;
 }

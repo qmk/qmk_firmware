@@ -86,6 +86,9 @@ void keyboard_post_init_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
     keyboard_post_init_rgb_matrix();
 #endif
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+    keyboard_post_init_transport_sync();
+#endif
     keyboard_post_init_keymap();
 }
 
@@ -100,12 +103,12 @@ void shutdown_user(void) {
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
     rgblight_setrgb_red();
-#endif  // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
 
-#endif  // RGB_MATRIX_ENABLE
+#endif // RGB_MATRIX_ENABLE
     shutdown_keymap();
 }
 
@@ -120,7 +123,11 @@ void suspend_power_down_user(void) {
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 
-void suspend_wakeup_init_user(void) { suspend_wakeup_init_keymap(); }
+void suspend_wakeup_init_user(void) {
+    if (layer_state_is(_GAMEPAD)) { layer_off(_GAMEPAD); }
+    if (layer_state_is(_DIABLO)) { layer_off(_DIABLO); }
+    suspend_wakeup_init_keymap();
+}
 
 __attribute__((weak)) void matrix_scan_keymap(void) {}
 
@@ -135,13 +142,13 @@ void matrix_scan_user(void) {
         startup_user();
     }
 
-#ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
+#ifdef TAP_DANCE_ENABLE // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
-#endif  // TAP_DANCE_ENABLE
+#endif // TAP_DANCE_ENABLE
 
 #if defined(RGBLIGHT_ENABLE)
     matrix_scan_rgb_light();
-#endif  // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_ENABLE
 #if defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb_matrix();
 #endif
@@ -160,15 +167,13 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) {
-        return state;
-    }
+    if (!is_keyboard_master()) { return state; }
 
     state = layer_state_set_keymap(state);
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
-#endif  // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_ENABLE
 #if defined(AUDIO_ENABLE) && !defined(__arm__)
     static bool is_gamepad_on = false;
     if (layer_state_cmp(state, _GAMEPAD) != is_gamepad_on) {
@@ -187,15 +192,13 @@ __attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t
 
 // Runs state check and changes underglow color and animation
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) {
-        return state;
-    }
+    if (!is_keyboard_master()) { return state; }
 
     state = default_layer_state_set_keymap(state);
 #if 0
 #    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   state = default_layer_state_set_rgb(state);
-#    endif  // RGBLIGHT_ENABLE
+#    endif // RGBLIGHT_ENABLE
 #endif
     return state;
 }

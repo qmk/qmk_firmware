@@ -88,7 +88,7 @@ uint8_t matrix_key_count(void) {
 __attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
 
 __attribute__((weak)) void matrix_output_select_delay(void) { waitInputPinDelay(); }
-__attribute__((weak)) void matrix_output_unselect_delay(void) { matrix_io_delay(); }
+__attribute__((weak)) void matrix_output_unselect_delay(uint8_t line, bool key_pressed) { matrix_io_delay(); }
 
 // CUSTOM MATRIX 'LITE'
 __attribute__((weak)) void matrix_init_custom(void) {}

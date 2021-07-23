@@ -43,4 +43,4 @@ enum {
     TD_D3_4
 };
 // clang-format on
-#endif  // TAP_DANCE_ENABLE
+#endif // TAP_DANCE_ENABLE

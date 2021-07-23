@@ -273,7 +273,7 @@ bool music_mask_user(uint16_t keycode) {
         return true;
     }
 }
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     palClearPad(GPIOB, 8);
     palClearPad(GPIOB, 9);
     uint8_t layer = biton32(state);

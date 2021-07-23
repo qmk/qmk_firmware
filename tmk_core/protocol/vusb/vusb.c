@@ -272,7 +272,8 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     last_id   = report_id;
     last_data = data;
 
-    report_extra_t report = {.report_id = report_id, .usage = data};
+    static report_extra_t report;
+    report = (report_extra_t){.report_id = report_id, .usage = data};
     if (usbInterruptIsReadyShared()) {
         usbSetInterruptShared((void *)&report, sizeof(report_extra_t));
     }
@@ -598,10 +599,10 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorProduct = {
 #if defined(SERIAL_NUMBER)
 const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1),
+        .bLength         = USB_STRING_LEN(sizeof(SERIAL_NUMBER) - 1),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(SERIAL_NUMBER)
+    .bString             = USBSTR(SERIAL_NUMBER)
 };
 #endif
 

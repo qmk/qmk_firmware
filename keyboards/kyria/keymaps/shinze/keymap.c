@@ -24,15 +24,15 @@ enum layers {
 };
 
 #define RESC LT(_RAISE, KC_ESC)
-#define BP_EA BP_E_ACUTE
+#define BP_EA BP_EACU
 #define BP_AG BP_AGRV
-#define BP_EG BP_E_GRAVE
-#define BP_DC BP_DCRC
-#define BP_AP BP_APOS
+#define BP_EG BP_EGRV
+#define BP_DC BP_DCIR
+#define BP_AP BP_QUOT
 #define BP_CO BP_COMM
 #define BP_DT BP_DOT
 #define LS KC_LSFT
-#define BP_DOL BP_DOLLAR
+#define BP_DOL BP_DLR
 
 /* Bottom Row */
 #define BR01 KC_LCTL
@@ -86,8 +86,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_LOWER] = LAYOUT(
-      BP_DOL , BP_DQUO, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN,                                       BP_AT, BP_PLUS, BP_MINS, BP_SLASH, BP_ASTR, BP_EQL,
-      BP_HASH, BP_1,    BP_2,    BP_3,    BP_4,    BP_5,                                          BP_6,    BP_7,     BP_8,    BP_9,    BP_0,   BP_DEGR,
+      BP_DOL , BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN,                                       BP_AT, BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, BP_EQL,
+      BP_HASH, BP_1,    BP_2,    BP_3,    BP_4,    BP_5,                                          BP_6,    BP_7,     BP_8,    BP_9,    BP_0,   BP_DEG,
       BP_PERC, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______, BP_GRV,
                                  _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
     ),

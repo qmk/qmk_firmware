@@ -41,7 +41,7 @@ void keyboard_post_init_user(void) {
   led_set_user(host_keyboard_leds());
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   switch (biton32(state)) {
     case _FUNC:
       rgblight_sethsv_noeeprom(170,255,255);
@@ -60,7 +60,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
       break;
   }
-  
+
   return state;
 }
 
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, MO(_META), KC_LGUI, KC_LALT, MO(_SYM),KC_SPC,KC_SPC,MO(_FUNC),KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT       \
     ),
 
-	
+
     [_FUNC] = LAYOUT( \
        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  \
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY  \
     ),
 
-	
+
     [_SYM] = LAYOUT( \
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
         _______,S(KC_1),S(KC_2),S(KC_LBRC),S(KC_RBRC),S(KC_BSLS),_______, S(KC_MINS), _______, _______, _______, _______, \
@@ -123,8 +123,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, S(KC_5), S(KC_6), KC_LBRC,KC_RBRC,S(KC_GRV), S(KC_7),KC_EQL, _______, _______, _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______	\
     ),
-    
-	
+
+
     [_META] = LAYOUT( \
        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET, \
        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \

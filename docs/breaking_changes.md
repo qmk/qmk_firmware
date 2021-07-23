@@ -100,3 +100,7 @@ This happens immediately after the previous `develop` branch is merged.
     * [ ] `git pull --ff-only`
     * [ ] `git merge --no-ff develop`
     * [ ] `git push upstream master`
+
+## Post-merge operations
+
+* (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)
