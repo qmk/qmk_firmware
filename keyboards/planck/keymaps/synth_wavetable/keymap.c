@@ -308,7 +308,7 @@ uint16_t dac_value_generate(void) {
   return value;
 }
 
-bool encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (clockwise) {
     dac_morph = (dac_morph + 1) % AUDIO_DAC_WAVETABLE_CUSTOM_LENGTH;
   } else {

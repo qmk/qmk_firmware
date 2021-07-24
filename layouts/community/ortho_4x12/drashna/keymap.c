@@ -368,7 +368,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif  // ENCODER_ENABLE
 
 #ifdef KEYBOARD_planck_rev6
-void dip_update(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if (active) {
@@ -391,6 +391,7 @@ void dip_update(uint8_t index, bool active) {
             userspace_config.nuke_switch = active;
             break;
     }
+    return true;
 }
 #endif  // KEYBOARD_planck_rev6
 
