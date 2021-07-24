@@ -46,6 +46,7 @@
 /* RGB Matrix configuration */
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES
+#    define DRIVER_LED_TOTAL 22
 #endif
 
 #define RGB_DI_PIN F7
@@ -58,10 +59,6 @@
 #    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
 #    define RGBLIGHT_ANIMATIONS
-// RGB Matrix
-#    ifdef RGB_MATRIX_ENABLE
-#        define DRIVER_LED_TOTAL RGBLED_NUM
-#    endif
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
