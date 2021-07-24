@@ -109,7 +109,7 @@ qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 
 ## `qmk console`
 
-This command lets you connect to keyboard consoles to get debugging messages. It only works if your keyboard firmware has been compiled with `CONSOLE_ENABLED=yes`.
+This command lets you connect to keyboard consoles to get debugging messages. It only works if your keyboard firmware has been compiled with `CONSOLE_ENABLE=yes`.
 
 **Usage**:
 
