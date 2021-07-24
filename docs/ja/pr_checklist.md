@@ -1,8 +1,8 @@
 # PR チェックリスト
 
 <!---
-  original document: 0.10.7:docs/pr_checklist.md
-  git diff 0.10.7 HEAD -- docs/pr_checklist.md | cat
+  original document: 0.13.24:docs/pr_checklist.md
+  git diff 0.13.24 HEAD -- docs/pr_checklist.md | cat
 -->
 
 これは、提出された PR を QMK の協力者がレビューする際に何をチェックするのかの非網羅的なチェックリストです。
@@ -73,11 +73,13 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - キーボードが QMK で起動するために最低限必要なコードが存在する必要があります
         - マトリックスと重要なデバイスの初期化コード
         - (カスタムキーコードや特別なアニメーションなど)商用キーボードの既存の機能をミラーリングする場合は、`default` ではないキーマップを使って処理する必要があります
+    - VIAL 関連のファイルまたは変更は QMK ファームウェアで使用されないため受け入れられません (VIAL 固有のコアコードは提出またはマージされていません)
 - `keyboard.c`
     - 空の `xxxx_xxxx_kb()` または他の weak-define のデフォルト実装関数が削除されていること
     - コメントアウトされた関数も削除されていること
     - `matrix_init_board()` などが `keyboard_pre_init_kb()` に移行されました。[keyboard_pre_init*](https://docs.qmk.fm/#/ja/custom_quantum_functions?id=keyboard_pre_init_-function-documentation) を参照してください
     - カスタムマトリックスを使用する場合は、`CUSTOM_MATRIX = lite` を選択し、標準のデバウンスを許可します。[マトリックスコードの部分置き換え](https://docs.qmk.fm/#/ja/custom_matrix?id=lite) を参照してください
+    - 可能な場合は、独自の  `led_update_*()` 実装よりも LED インジケータの [設定オプション](https://docs.qmk.fm/#/ja/feature_led_indicators?id=configuration-options)を優先してください。
 - `keyboard.h`
     - 先頭に `#include "quantum.h"` を置きます
     - `LAYOUT` マクロは、該当する場合は標準の定義を使用してください
@@ -98,6 +100,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - これらのキーマップで推奨される標準レイアウト（可能な場合）
 - PR の提出者は、同じ PR に機能を紹介する個人的な（または豪華な）キーマップを持たせることができますが、「デフォルト」のキーマップに埋め込むべきではありません
 - PR の提出者はまた、既存の商用キーボードへ QMK を移植する場合、その商用製品の既存の機能を反映する「製造業者に一致する」キーマップを持つことができます
+- PR に VIA の json ファイルを含めないでください。これらは QMK ファームウェアで使われないため QMK レポジトリに属しません -- それらは [VIA のキーボードレポジトリ](https://github.com/the-via/keyboards)に属します。
 
 さらに、ChibiOS に固有で:
 - 既存の ChibiOS ボード定義を使用することを**強く**推奨します。
@@ -132,3 +135,9 @@ There are instructions on how to keep your fork updated here:
 
 Thanks for contributing!
 ```
+
+## レビュープロセス
+
+一般的に、PR がマージの対象となる前に、意味のある(例えば、コードを検査した)2つ(またはそれ以上)の承認を確認したいと考えています。これらのレビューはコラボレータに限られません -- 時間を割いてくれるコミュニティメンバーは誰でも歓迎(奨励)されます。唯一の違いは、チェックマークが緑にならないことですが、それは問題ありません。
+
+また、PR レビューは自由な時間に行われるものです。それは好意で行われるものなので、私たちはレビューに費やす時間に対して報酬も補償もされません。そのため、プルリクエストに取り掛かるのに時間がかかるかもしれないことを意味します。家族や人生のことが PR に取り掛かる邪魔になる可能性があり、燃え尽き症候群は深刻な問題となります。QMK ファームウェアリポジトリは、毎月平均200件の PR が開かれ、200件の PR がマージされますので、しばらくお待ちください。
