@@ -170,14 +170,11 @@ enum RGBLIGHT_EFFECT_MODE {
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "progmem.h"
 #include "eeconfig.h"
 #include "ws2812.h"
 #include "color.h"
 #include "rgblight_list.h"
-
-#if defined(__AVR__)
-#    include <avr/pgmspace.h>
-#endif
 
 #ifdef RGBLIGHT_LAYERS
 typedef struct {
