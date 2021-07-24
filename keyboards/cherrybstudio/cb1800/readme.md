@@ -1,6 +1,6 @@
 # CherryB Studio CB1800
 
-![cb1800](https://i.imgur.com/QRJ6DFs.jpg)
+![cb1800](https://i.imgur.com/QRJ6DFsl.jpg)
 
 A G80-1800 inspired PCB for CB1800 Zakabato and any suitable 1800 layout keyboards.
 
