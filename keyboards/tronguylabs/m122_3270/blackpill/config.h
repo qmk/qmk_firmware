@@ -16,8 +16,6 @@
 
 #pragma once
 
-// place overrides below
-
 // Blackpill pin assignments: reversed the rows from the Teensy version for easier PCB layout
 // DO NOT USE the following pins: A9 (has pulldown on it), A11/A12 (USB lines), B2 (external pulldown)
 // C13 has an LED, and C13/C14/C15 are best used as inputs (with DIODE_DIRECTION set to ROW2COL, the
@@ -26,4 +24,4 @@
 #define MATRIX_ROW_PINS { C13, C14, C15, A0, A1, A2, A3, A4 }
 
 // The BlackPill version is version 2
-#define DEVICE_VER      0x0002
+#define DEVICE_VER 0x0002
