@@ -2,9 +2,9 @@
 
 A Mini 1800 - esque keyboard by [Janglad](https://qoda.studio/dharma/)
 
-Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)  
-Hardware Supported: Dharma 
-Hardware Availability: Custom keyboard group buys
+* Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)
+* Hardware Supported: Dharma
+* Hardware Availability: Custom keyboard group buys
 
 Make example for this keyboard (after setting up your build environment):
 
