@@ -18,8 +18,7 @@
 
 // 20m timeout (20m * 60s * 1000mil)
 // #define RGB_DISABLE_TIMEOUT 1200000
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
-
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
 // 224B per layer right now
@@ -29,4 +28,3 @@
 #define VIA_QMK_RGBLIGHT_ENABLE
 
 #define STM32_ONBOARD_EEPROM_SIZE 2048
-
