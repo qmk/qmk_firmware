@@ -16,7 +16,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
       case RGB_HUI:
-        rgblight_increase_hue();
+        rgblite_increase_hue();
         break;
       case QMKURL:
         SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
@@ -27,5 +27,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void keyboard_post_init_user(void) {
-  rgblight_increase_hue();
+  rgblite_increase_hue();
 }
