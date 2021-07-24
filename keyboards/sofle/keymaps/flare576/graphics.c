@@ -9,7 +9,6 @@
 #define ANIM_SIZE 96 // number of bytes in array, minimize for adequate firmware size, max is 1024
 
 uint32_t anim_timer = 0;
-uint32_t anim_sleep = 0;
 
 uint8_t current_frame = 0;
 bool isSneaking = false;
@@ -203,7 +202,10 @@ static void main_board(void) {
         oled_write_P(PSTR("\n"), false);
     }
 
-    render_luna(0,13);
+    // Don't re-write if not in use
+    if (current_wpm > 0) {
+        render_luna(0,13);
+    }
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -219,12 +221,9 @@ void oled_task_user(void) {
         set_current_wpm(10);
     }
     current_wpm = get_current_wpm();
-    // Don't re-write if not in use
-    if (current_wpm > 0) {
-        if (is_keyboard_master()) {
-            main_board();
-            anim_sleep = timer_read32();
-        } else {
-            render_logo();
-        }
-    }}
+    if (is_keyboard_master()) {
+        main_board();
+    } else {
+        render_logo();
+    }
+}
