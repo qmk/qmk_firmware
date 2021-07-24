@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F7, F6, F5, F4 }
 // Column pins to demux in LSB order
 #define MATRIX_COL_PINS { B1, B3, B2, B6, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
+#define MATRIX_COL_PINS_SCANNED { B1, B3, B2, B6 }
+
 #define LED_EN_PIN D2
 #define UNUSED_PINS
 
