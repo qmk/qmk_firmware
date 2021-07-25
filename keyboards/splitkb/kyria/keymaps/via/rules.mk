@@ -4,3 +4,6 @@ RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 VIA_ENABLE = yes
 NKRO_ENABLE = yes
 KEY_LOCK_ENABLE = no
+SPACE_CADET_ENABLE = no
+MAGIC_ENABLE = no
+GRAVE_ESCAPE_ENABLE = no
