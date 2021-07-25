@@ -2,10 +2,10 @@
 
 ![Hard Light Mark 2](https://i.imgur.com/X6Katarh.png)
 
-A compact 60% keyboard designed by Fate Everywhere. Born out of the desire for a Planck with a numpad for technical work and a lack of reliance on the Elite-C.
+A compact 60% keyboard designed by Fate Everywhere. Born out of the desire for a Planck with a numpad for technical work and a lack of reliance on the Elite-C. Now includes the majesty of 32-bit computing and elaborate LED underlighting rig that makes Mk 1 look like it's from the 80s.
 
 * Keyboard Maintainer: [Fate Everywhere](https://github.com/fateeverywhere)
-* Hardware Supported: Mark 2 Hard Light.
+* Hardware Supported: Rev 2F and Mark 2 Hard Light.
 * Hardware Availability: [Seven Store](https://store.7storm.org).
 
 Build example for this keyboard (after setting up your build environment):
