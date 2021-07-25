@@ -118,16 +118,16 @@ void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t led_max) {
     switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
-            rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _COLEMAK_DH:
-            rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _COLEMAK:
-            rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _DVORAK:
-            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
     }
 }

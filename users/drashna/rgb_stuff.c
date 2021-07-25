@@ -206,16 +206,16 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
                 rgblight_set_hsv_and_mode(HSV_RED, RGBLIGHT_MODE_KNIGHT + 2);
                 break;
             case _DEFAULT_LAYER_1:
-                rgblight_set_hsv_and_mode(HSV_CYAN, RGBLIGHT_MODE_STATIC_LIGHT);
+                rgblight_set_hsv_and_mode(DEFAULT_LAYER_1_HSV, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             case _DEFAULT_LAYER_2:
-                rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, RGBLIGHT_MODE_STATIC_LIGHT);
+                rgblight_set_hsv_and_mode(DEFAULT_LAYER_2_HSV, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             case _DEFAULT_LAYER_3:
-                rgblight_set_hsv_and_mode(HSV_MAGENTA, RGBLIGHT_MODE_STATIC_LIGHT);
+                rgblight_set_hsv_and_mode(DEFAULT_LAYER_3_HSV, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             case _DEFAULT_LAYER_4:
-                rgblight_set_hsv_and_mode(HSV_GOLDENROD, RGBLIGHT_MODE_STATIC_LIGHT);
+                rgblight_set_hsv_and_mode(DEFAULT_LAYER_4_HSV, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
         }
     }

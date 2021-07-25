@@ -356,16 +356,16 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DEFAULT_LAYER_1:
-                rgb_matrix_layer_helper(HSV_CYAN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DEFAULT_LAYER_2:
-                rgb_matrix_layer_helper(HSV_MAGENTA, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DEFAULT_LAYER_3:
-                rgb_matrix_layer_helper(HSV_SPRINGGREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DEFAULT_LAYER_4:
-                rgb_matrix_layer_helper(HSV_GOLDENROD, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
         }
     }

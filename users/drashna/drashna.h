@@ -75,6 +75,11 @@ enum userspace_layers {
 #    endif
 #endif
 
+#define DEFAULT_LAYER_1_HSV HSV_CYAN
+#define DEFAULT_LAYER_2_HSV HSV_SPRINGGREEN
+#define DEFAULT_LAYER_3_HSV HSV_MAGENTA
+#define DEFAULT_LAYER_4_HSV HSV_GOLDENROD
+
 bool          mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
 bool          mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 void          matrix_init_keymap(void);
