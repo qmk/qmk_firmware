@@ -25,7 +25,7 @@ def keyboard_name(name):
 def validate_keyboard_name(name):
     """Returns True if the given keyboard name contains only lowercase a-z, 0-9 and underscore characters.
     """
-    regex = re.compile('^[a-z0-9\/_]+$')
+    regex = re.compile(r'^[a-z0-9/_]+$')
     return bool(regex.match(name))
 
 
