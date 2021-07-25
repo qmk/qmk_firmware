@@ -1,4 +1,4 @@
-/* Copyright 2019 iw0rm3r
+/* Copyright 2021 8bits4ever
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
