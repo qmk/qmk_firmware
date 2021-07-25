@@ -237,6 +237,15 @@ endef
 bootloadHID: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_BOOTLOADHID)
 
+HID_BOOTLOADER_CLI ?= hid_bootloader_cli
+
+define EXEC_HID_LUFA
+	$(HID_BOOTLOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
+endef
+
+hid_bootloader: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_HID_LUFA)
+
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
@@ -295,19 +304,26 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	@$(SECHO) $(MSG_EXTENDED_COFF) $(BUILD_DIR)/$(TARGET).cof
 	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
 
-bootloader:
-ifneq ($(strip $(BOOTLOADER)), qmk-dfu)
-	$(error Please set BOOTLOADER = qmk-dfu first!)
+ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
+QMK_BOOTLOADER_TYPE = DFU
+else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
+QMK_BOOTLOADER_TYPE = HID
 endif
-	make -C lib/lufa/Bootloaders/DFU/ clean
-	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/DFU/Keyboard.h
+
+bootloader:
+ifeq ($(strip $(QMK_BOOTLOADER_TYPE)),)
+	$(error Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
+else
+	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ clean
+	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Keyboard.h
 	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval PROGRAM_SIZE_KB=$(shell n=`expr $(MAX_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval BOOT_SECTION_SIZE_KB=$(shell n=`expr  $(BOOTLOADER_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval FLASH_SIZE_KB=$(shell n=`expr $(PROGRAM_SIZE_KB) + $(BOOT_SECTION_SIZE_KB)` && echo $$(($$n)) || echo 0))
-	make -C lib/lufa/Bootloaders/DFU/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
-	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
-	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
+	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
+	printf "Bootloader$(QMK_BOOTLOADER_TYPE).hex copied to $(TARGET)_bootloader.hex\n"
+	cp lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Bootloader$(QMK_BOOTLOADER_TYPE).hex $(TARGET)_bootloader.hex
+endif
 
 production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	@cat $(BUILD_DIR)/$(TARGET).hex | awk '/^:00000001FF/ == 0' > $(TARGET)_production.hex
@@ -328,6 +344,8 @@ else ifeq ($(strip $(BOOTLOADER)), USBasp)
 	$(call EXEC_USBASP)
 else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
 	$(call EXEC_BOOTLOADHID)
+else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
+	$(call EXEC_HID_LUFA)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif

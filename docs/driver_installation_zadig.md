@@ -95,3 +95,4 @@ The device name here is the name that appears in Zadig, and may not be what the 
 |`stm32-dfu`  |STM32 BOOTLOADER              |`0483:DF11`   |WinUSB |
 |`kiibohd`    |Kiibohd DFU Bootloader        |`1C11:B007`   |WinUSB |
 |`stm32duino` |Maple 003                     |`1EAF:0003`   |WinUSB |
+|`qmk-hid`    |(keyboard name) Bootloader    |`03EB:2067`   |HidUsb |
