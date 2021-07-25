@@ -229,6 +229,7 @@ __attribute__((weak)) bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *r
     switch (keycode) {
         case KC_A ... KC_Z:
             if (!QS_auto_shift_no_auto_shift_alpha) return true;
+            break;
         case KC_1 ... KC_0:
             if (!QS_auto_shift_no_auto_shift_numeric) return true;
             break;
