@@ -19,6 +19,11 @@
 
 #include "jjerrell.h"
 
+enum moonlander_layers {
+    _GAME_LOWER = LAYER_SAFE_RANGE,
+    // _GAME_RAISE,
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORKMAN] = LAYOUT_moonlander_mods(
@@ -54,6 +59,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, KC_WH_L, KC_WH_U, KC_WH_R, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT,                       KC_RALT, XXXXXXX, XXXXXXX, XXXXXXX
+    ),
+
+    [_GAME] = LAYOUT_moonlander_gamepad(
+        KC_ESC,  KC_1,     KC_2,      KC_3,     KC_4,     KC_5, KC_6,
+        KC_TAB,  __________________QWERTY_L1__________________, KC_SLSH,
+        KC_LALT, __________________QWERTY_L2__________________, KC_BSLS,
+        KC_LSFT, __________________QWERTY_L3__________________,
+        KC_LGUI, MACRO_1, MACRO_2, MACRO_3, MACRO_4,   KC_LOCK,
+                                    KC_SPC, KC_BTN2, MO(_LOWER)
+    ),
+    [_GAME_LOWER] = LAYOUT_moonlander_gamepad(
+        KC_GRV,  KC_7,     KC_8,      KC_9,     KC_0,  KC_MINS, KC_EQL,
+        KC_TAB,  __________________QWERTY_L1__________________, KC_SLSH,
+        KC_LALT, __________________QWERTY_L2__________________, KC_BSLS,
+        KC_LSFT, __________________QWERTY_L3__________________,
+        KC_LGUI, MACRO_5, MACRO_6, MACRO_7, MACRO_8,   KC_LOCK,
+                                    KC_SPC, KC_BTN2, MO(_LOWER)
     )
 };
 // clang-format on
@@ -65,7 +87,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
     ML_LED_4(0);
     ML_LED_5(0);
     ML_LED_6(0);
-
+    state = update_tri_layer_state(state, _GAME, _LOWER, _GAME_LOWER);
     switch (get_highest_layer(state)) {
         case 1:
             ML_LED_1(1);

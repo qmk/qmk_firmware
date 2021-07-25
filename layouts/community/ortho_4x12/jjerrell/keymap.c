@@ -17,8 +17,15 @@
 
 #include "jjerrell.h"
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+enum planck_layers {
+    _GAME_LOWER = LAYER_SAFE_RANGE,
+    // _GAME_RAISE,
+};
+
+#define LAYOUT_planck_plain(...)     WRAPPER_ortho_4x12(__VA_ARGS__)
+
 // clang-format off
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORKMAN] = LAYOUT_planck_base(
         __________________WORKMN_L1__________________, __________________WORKMN_R1__________________,
         __________________WORKMN_L2__________________, __________________WORKMN_R2__________________,
@@ -72,14 +79,69 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          __________________ADJUST_L1__________________, __________________ADJUST_R1__________________,
          __________________ADJUST_L2__________________, __________________ADJUST_R2__________________,
          __________________ADJUST_L3__________________, __________________ADJUST_R3__________________
+    ),
+    [_GAME] = LAYOUT_planck_plain(
+           __________________QWERTY_L1__________________,        _______, _______,              XXXXXXX,  KC_9,    KC_0,    KC_MINS,  KC_EQL,
+           __________________QWERTY_L2__________________,        XXXXXXX, XXXXXXX,              XXXXXXX,  KC_5,    KC_6,    KC_7,     KC_8,
+           __________________QWERTY_L3__________________,        XXXXXXX, XXXXXXX,              XXXXXXX,  KC_1,    KC_2,    KC_3,     KC_4,
+     KC_LSFT,  KC_LGUI, KC_LALT,  KC_LCTL, LT(_LOWER, KC_BSPC),  KC_SPC,  XXXXXXX, LT(_WORKMAN, KC_ENT),  MACRO_1, MACRO_2, MACRO_3,  MACRO_4
+    ),
+    [_GAME_LOWER] = LAYOUT_planck_plain(
+        _______, _______, _______, _______, _______, _______, _______, _______, C(_______), C(_______), C(_______), C(_______),
+        _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, C(_______), C(_______), C(_______), C(_______),
+        _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, C(_______), C(_______), C(_______), C(_______),
+        MACRO_1, MACRO_2, MACRO_3, MACRO_4, _______, _______, XXXXXXX, _______, MACRO_5,    MACRO_6,    MACRO_7,    MACRO_8
     )
-// clang-format on
+
 };
+// clang-format on
+
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
+
+#ifdef KEYBOARD_planck_ez
+void planck_ez_teeth_set(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case _LOWER:
+            planck_ez_left_led_level(40);
+            break;
+        case _RAISE:
+            planck_ez_right_led_level(40);
+            break;
+        case _ADJUST:
+            planck_ez_left_led_level(40);
+            planck_ez_right_led_level(40);
+            break;
+        case _GAME_LOWER:
+            planck_ez_left_led_level(20);
+            break;
+// todo case _GAME_RAISE:
+        //     planck_ez_right_led_level(20);
+        //     break;
+        case _WORKMAN:
+            if (IS_LAYER_ON(_GAME)) {
+                planck_ez_left_led_level(60);
+                planck_ez_right_led_level(60);
+                break;
+            }
+        default:
+            planck_ez_left_led_off();
+            planck_ez_right_led_off();
+            break;
+    }
+}
+
+layer_state_t layer_state_set_keymap(layer_state_t state) {
+    planck_ez_left_led_off();
+    planck_ez_right_led_off();
+    state = update_tri_layer_state(state, _GAME, _LOWER, _GAME_LOWER);
+    planck_ez_teeth_set(state);
+    return state;
+}
+#endif
 
 bool encoder_update(bool clockwise) {
     if (muse_mode) {
@@ -151,29 +213,6 @@ void matrix_scan_keymap(void) {
             muse_counter = 0;
         }
     }
-}
-#endif
-
-
-#ifdef KEYBOARD_planck_ez
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-    planck_ez_left_led_off();
-    planck_ez_right_led_off();
-    switch (get_highest_layer(state)) {
-        case _LOWER:
-            planck_ez_left_led_on();
-            break;
-        case _RAISE:
-            planck_ez_right_led_on();
-            break;
-        case _ADJUST:
-            planck_ez_right_led_on();
-            planck_ez_left_led_on();
-            break;
-        default:
-            break;
-    }
-    return state;
 }
 #endif
 

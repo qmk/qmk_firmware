@@ -14,8 +14,25 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with qmk_firmware.  If not, see <http://www.gnu.org/licenses/>.
+
 #pragma once
 #include "jjerrell.h"
+
+#define QWERTY  KC_QWERTY
+#define WORKMN  KC_WORKMAN
+
+#define KC_CUT  LGUI(KC_X) 
+
+// Non-sane shortcuts for software macros or keybindings
+#define MACRO_1 ALL_T(KC_F12)
+#define MACRO_2 ALL_T(KC_F13)
+#define MACRO_3 ALL_T(KC_F14)
+#define MACRO_4 ALL_T(KC_F15)
+
+#define MACRO_5 ALL_T(KC_F16)
+#define MACRO_6 ALL_T(KC_F17)
+#define MACRO_7 ALL_T(KC_F18)
+#define MACRO_8 ALL_T(KC_F19)
 
 // clang-format off
 #if (!defined(LAYOUT) && defined(KEYMAP))
@@ -23,7 +40,6 @@
 #endif
 
 #if (defined(KEYBOARD_planck_ez))
-
 /** Planck EZ Empty
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -69,7 +85,7 @@
         K11, K12, K13, K14, K15,     K18, K19, K1A, K1B, K1C, \
         K21, K22, K23, K24, K25,     K28, K29, K2A, K2B, K2C  \
     ) WRAPPER_ortho_4x12( \
-                K01 ,       K02 ,       K03 ,       K04 ,                K05 ,      XXXXXXX , XXXXXXX, K08,                 K09 ,       K0A ,       K0B ,       K0C,        \
+                K01 ,       K02 ,       K03 ,       K04 ,                K05 ,      KC_GAME , KC_GAME, K08,                 K09 ,       K0A ,       K0B ,       K0C,        \
                 K11 , SFT_T(K12), GUI_T(K13), ALT_T(K14),                K15 ,      XXXXXXX , XXXXXXX, K18,                 ALT_T(K19), GUI_T(K1A), SFT_T(K1B), K1C,        \
           CTL_T(K21),       K22 ,       K23 ,       K24 ,                K25 ,      XXXXXXX , XXXXXXX, K28,                 K29 ,       K2A ,       K2B ,       CTL_T(K2C), \
                 ____________________________________________________________PLANCK_VERBOSE_BOTTOM_ROW_____________________________________________________________   )
@@ -114,7 +130,7 @@
         XXXXXXX,     k11,     k12,     k13,     k14,     k15, XXXXXXX,   XXXXXXX, k71,     k72,     k73,     k74,     k75,     XXXXXXX,      \
         XXXXXXX,     k21,     k22,     k23,     k24,     k25, XXXXXXX,   XXXXXXX, k81,     k82,     k83,     k84,     k85,     XXXXXXX,      \
         KC_LSFT,     k31,     k32,     k33,     k34,     k35,                     k91,     k92,     k93,     k94,     k95,     KC_RSFT,      \
-   MO(_SPECIAL),     k41,     k42,     k43,     k44,          XXXXXXX,   XXXXXXX,          ka2,     ka3,     ka4,     ka5,     MO(_SPECIAL), \
+   MO(_SPECIAL),     k41,     k42,     k43,     k44,        TO(_GAME),   XXXXXXX,          ka2,     ka3,     ka4,     ka5,     MO(_SPECIAL), \
                            LT(_LOWER, KC_SPC),HYPR_T(KC_BSPC),KC_LEAD,   KC_CCCV,SFT_T(KC_TAB),LT(_RAISE, KC_ENT)                            )
 
 #   define WRAPPER_moonlander_mods( \
@@ -128,9 +144,25 @@
         CTL_T(k31),       k32 ,       k33 ,       k34 , k35,             k91, k92,        k93,        k94,        CTL_T(k95), \
               k41 ,       k42 ,       k43 ,       k44 ,                       ka2,        ka3,        ka4,        ka5  \
     )
+#   define WRAPPER_moonlander_gamepad( \
+        k00, k01, k02, k03, k04, k05, k06, \
+        k10, k11, k12, k13, k14, k15, k16, \
+        k20, k21, k22, k23, k24, k25, k26, \
+        k30, k31, k32, k33, k34, k35,      \
+        k40, k41, k42, k43, k44,      k53, \
+                            k50, k51, k52  \
+    ) WRAPPER_moonlander( \
+        k00, k01, k02, k03, k04, k05, k06,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+        k10, k11, k12, k13, k14, k15, k16,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+        k20, k21, k22, k23, k24, k25, k26,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+        k30, k31, k32, k33, k34, k35,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+        k40, k41, k42, k43, k44,      k53,   XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+                            k50, k51, k52,   XXXXXXX, XXXXXXX, TO(_WORKMAN) \
+    )
 
-#   define LAYOUT_moonlander_common(...) WRAPPER_moonlander_common(__VA_ARGS__)
-#   define LAYOUT_moonlander_mods(...)   WRAPPER_moonlander_mods(__VA_ARGS__)
+#   define LAYOUT_moonlander_common(...)  WRAPPER_moonlander_common(__VA_ARGS__)
+#   define LAYOUT_moonlander_mods(...)    WRAPPER_moonlander_mods(__VA_ARGS__)
+#   define LAYOUT_moonlander_gamepad(...) WRAPPER_moonlander_gamepad(__VA_ARGS__)
 #elif defined(KEYBOARD_ergodox_ez)
 /** Ergodox EZ Empty
      .---------------------------------------------. .---------------------------------------------.
@@ -250,10 +282,27 @@
 #define __________________WORKMN_R2__________________   KC_Y, KC_N, KC_E,    KC_O,   KC_I
 #define __________________WORKMN_R3__________________   KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH
 
+// QWERTY
+#define __________________QWERTY_L1__________________   KC_Q, KC_W, KC_E, KC_R, KC_T
+#define __________________QWERTY_L2__________________   KC_A, KC_S, KC_D, KC_F, KC_G
+#define __________________QWERTY_L3__________________   KC_Z, KC_X, KC_C, KC_V, KC_B
+
+#define __________________QWERTY_R1__________________   KC_Y, KC_U, KC_I,    KC_O,   KC_P
+#define __________________QWERTY_R2__________________   KC_H, KC_J, KC_K,    KC_L,   KC_SCLN
+#define __________________QWERTY_R3__________________   KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH
+
+#define ________________QWERTY_R1_LHS________________   KC_P,    KC_O,   KC_I,     KC_U, KC_Y
+#define ________________QWERTY_R2_LHS________________   KC_SCLN, KC_L,   KC_K,     KC_J, KC_H
+#define ________________QWERTY_R3_LHS________________   KC_SLSH, KC_DOT, KC_COMM,  KC_M, KC_N
+
+// Nums
+#define ___________________NUMS_L____________________   KC_1, KC_2, KC_3, KC_4, KC_5,    KC_6
+#define ___________________NUMS_R____________________   KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL
+
 // Lower
 #define __________________LOWER_L1___________________   KC_PGUP, KC_TAB,  KC_UP,   KC_ENT,  KC_PGDN
-#define __________________LOWER_L2___________________   KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END
-#define __________________LOWER_L3___________________   KC_ESC,  KC_BSPC, XXXXXXX, KC_DEL,  XXXXXXX
+#define __________________LOWER_L2___________________   KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END
+#define __________________LOWER_L3___________________   KC_ESC,  KC_BSPC, KC_CUT,  KC_DEL,  KC_CCCV
 
 #define __________________LOWER_R1___________________   XXXXXXX, KC_7, KC_8,   KC_9,    KC_ASTR
 #define __________________LOWER_R2___________________   XXXXXXX, KC_4, KC_5,   KC_6,    KC_SLSH

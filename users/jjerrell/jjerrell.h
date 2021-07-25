@@ -39,6 +39,7 @@ enum userspace_layers {
     _RAISE,
     _ADJUST,
     _SPECIAL,
+    _GAME,
     LAYER_SAFE_RANGE,
 };
 

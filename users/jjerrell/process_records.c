@@ -19,6 +19,10 @@
 
 #include "jjerrell.h"
 
+float game_song[][2] = SONG(TO_BOLDLY_GO);
+float work_song[][2] = SONG(MARIO_GAMEOVER);
+float doom_song[][2] = SONG(E1M1_DOOM);
+
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 static uint16_t key_timer;
@@ -26,6 +30,7 @@ static uint16_t key_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_keymap(keycode, record)) {
         static uint8_t mods = 0;
+        // static uint8_t layer = 0;
         mods = get_mods();
         switch (keycode) {
         case KC_QWERTY:
@@ -97,6 +102,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_VRSN:
             if (!record->event.pressed) {
                 send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE), TAP_CODE_DELAY);
+            }
+            return false;
+            break;
+        case KC_GAME:
+            if (record->event.pressed) {
+                key_timer = timer_read();
+            } else {
+                if (IS_LAYER_OFF(_GAME)) {
+                    if (timer_elapsed(key_timer) > TAPPING_TERM) {
+                        layer_move(_GAME);
+#ifdef AUDIO_ENABLE
+PLAY_SONG(game_song);
+#endif
+                    }
+                    break;
+                    // todo: cycle game layers
+                // } else if (mods & MOD_MASK_SHIFT) {
+// #ifdef AUDIO_ENABLE
+// PLAY_SONG(doom_song);
+// #endif
+//                     break;
+                } else {
+                    layer_move(_WORKMAN);
+#ifdef AUDIO_ENABLE
+PLAY_SONG(work_song);
+#endif
+                    break;
+                }
             }
             return false;
             break;
