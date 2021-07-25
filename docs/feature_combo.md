@@ -98,7 +98,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 }
 ```
 
-This will send "the" if you hit Backspace and T, and clear the current line with Backspace and Left-Shift. But you could change this to do stuff like play sounds or change settings.
+This will send "john.doe@example.com" if you chord E and M together, and clear the current line with Backspace and Left-Shift. You could change this to do stuff like play sounds or change settings.
 
 It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to run your own custom keycodes from combos. Just define the custom keycode, program its functionality in `process_record_user`, and define a combo with `COMBO(<key_array>, <your_custom_keycode>)`.
 
