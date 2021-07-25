@@ -134,6 +134,7 @@ Defining `EXTRA_SHORT_COMBOS` combines a combo's internal state into just one by
 Processing combos has two buffers, one for the key presses, another for the combos being activated. Use the following options to configure the sizes of these buffers:
 
 | Define                              | Default                                              |
+|-------------------------------------|------------------------------------------------------|
 | `#define COMBO_KEY_BUFFER_LENGTH 8` | 8 (the key amount `(EXTRA_)EXTRA_LONG_COMBOS` gives) |
 | `#define COMBO_BUFFER_LENGTH 4`     | 4                                                    |
 
