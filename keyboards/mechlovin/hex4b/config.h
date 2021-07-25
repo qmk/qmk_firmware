@@ -61,4 +61,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Bootmagic Lite key configuration, Backspace */
 #define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 13
+#define BOOTMAGIC_LITE_COLUMN 14
