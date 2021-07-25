@@ -83,19 +83,19 @@ def new_keyboard(cli):
 
     # Replace all the placeholders
     keyboard_basename = keyboard_path.name
-    replacements = [ # noqa
+    replacements = [
         ('%YEAR%', str(date.today().year)),
         ('%KEYBOARD%', keyboard_basename),
-        ('%YOUR_NAME%', user_name)
+        ('%YOUR_NAME%', user_name),
     ]
-    filenames = [ # noqa
+    filenames = [
         keyboard_path / 'config.h',
         keyboard_path / 'info.json',
         keyboard_path / 'readme.md',
         keyboard_path / f'{keyboard_basename}.c',
         keyboard_path / f'{keyboard_basename}.h',
         keyboard_path / 'keymaps/default/readme.md',
-        keyboard_path / 'keymaps/default/keymap.c'
+        keyboard_path / 'keymaps/default/keymap.c',
     ]
     replace_placeholders(replacements, filenames)
 
