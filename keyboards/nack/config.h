@@ -1,5 +1,5 @@
 /*
-Copyright 2020 pastapojken <pastapojken@gmail.com>
+Copyright 2020 farfalleflickan <farfalleflickan@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0xDA12
 #define PRODUCT_ID 0x6060
 #define DEVICE_VER 0x0001
-#define MANUFACTURER pastapojken
+#define MANUFACTURER farfalleflickan
 #define PRODUCT nack keyboard
 
 #define MATRIX_ROWS 4
@@ -48,12 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(NO_SOUND)
     #define AUDIO_PIN A5
     #define AUDIO_PIN_ALT A4
-    #define AUDIO_PIN_ALT_AS_NEGATIVE
-    /*
-     * Basically, change this section once pull request 6165 has been merged
-     * https://github.com/qmk/qmk_firmware/pull/6165
-     */
+    #define STARTUP_SONG SONG(NO_SOUND)
+    #define AUDIO_DAC_SAMPLE_MAX 4095U
 #endif

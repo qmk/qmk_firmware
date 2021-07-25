@@ -1,12 +1,9 @@
 # project specific files
-SRC = matrix.c
 SRC += config_led.c
 
 #For platform and packs
 ARM_ATSAM = SAMD51J18A
 MCU = cortex-m4
-
-CUSTOM_MATRIX = yes
 
 # Build Options
 #   comment out to disable the options.
