@@ -240,6 +240,15 @@ def parse_configurator_json(configurator_file):
     return user_keymap
 
 
+def git_get_username():
+    """Retrieves user's username from Git config, if set.
+    """
+    git_username = cli.run(['git', 'config', '--get', 'user.name'])
+
+    if git_username.returncode == 0 and git_username.stdout:
+        return git_username.stdout.strip()
+
+
 def git_check_repo():
     """Checks that the .git directory exists inside QMK_HOME.
 

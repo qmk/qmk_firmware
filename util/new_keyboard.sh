@@ -129,6 +129,12 @@ if [ ! -d "quantum" ]; then
     exit 1
 fi
 
+echo_bold "########################################"
+echo_bold "#                NOTICE                #"
+echo_bold "#   This script has been deprecated.   #"
+echo_bold "# Please use qmk new-keyboard instead. #"
+echo_bold "########################################"
+echo
 echo_bold "Generating a new QMK keyboard directory"
 echo
 
