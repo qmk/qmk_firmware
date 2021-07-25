@@ -1,4 +1,4 @@
-# A1500
+# A1200
 
 Pins of the Teensy board you should use by default:
 ```  
