@@ -340,8 +340,8 @@ void render_status_secondary(void) {
     render_default_layer_state();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
-    // render_keylogger_status();
-    render_keylock_status(host_keyboard_leds());
+
+    // render_keylock_status(host_keyboard_leds());
 }
 
 void render_status_main(void) {
@@ -364,7 +364,7 @@ void render_status_main(void) {
     render_bootmagic_status();
     render_user_status();
 
-    render_keylogger_status();
+    // render_keylogger_status();
 }
 
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return rotation; }
@@ -386,8 +386,15 @@ void oled_task_user(void) {
         } else {
             oled_on();
         }
+    }
+    if (is_keyboard_left()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
+    }
+    if (is_keyboard_master()) {
+        render_keylogger_status();
+    } else {
+        render_keylock_status(host_keyboard_leds());
     }
 }
