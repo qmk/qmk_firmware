@@ -30,6 +30,7 @@ void set_mac_mode(bool macmode) {
     eeconfig_update_keymap(keymap_config.raw);
 }
 
+#ifdef DIP_SWITCH_ENABLE
 void dip_switch_update_kb(uint8_t index, bool active) {
     switch (index) {
     case 0:
@@ -44,3 +45,4 @@ void dip_switch_update_kb(uint8_t index, bool active) {
         break;
     }
 }
+#endif
