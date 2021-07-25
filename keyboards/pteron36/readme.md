@@ -35,7 +35,3 @@ The VIA keymap is working as intended.
   make pteron36:via 
   qmk compile -kb pteron36  -km via
 
-The VIA config merge is open under [Pteron36 PR](https://github.com/the-via/keyboards/pull/789), one the pr is pulled, keyboard should be detected by via  without any changes. Please check  [pteron36 repository](https://github.com/harshitgoel96/pteron36-split-keyboard/releases/tag/v1.2.0) for via config json. you need to load this in VIA UI through design lab.
-## OLED and RotaryEncoder
-
-I am working on adding OLED and RotaryEncoder support in keyboard config. 
