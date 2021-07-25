@@ -11,7 +11,6 @@ import qmk.path
 from milc import cli
 from milc.questions import choice, question
 
-
 KEYBOARD_TYPES = ['avr', 'ps2avrgb']
 
 
@@ -84,12 +83,12 @@ def new_keyboard(cli):
 
     # Replace all the placeholders
     keyboard_basename = keyboard_path.name
-    replacements = [
+    replacements = [ # noqa
         ('%YEAR%', str(date.today().year)),
         ('%KEYBOARD%', keyboard_basename),
         ('%YOUR_NAME%', user_name)
     ]
-    filenames = [
+    filenames = [ # noqa
         keyboard_path / 'config.h',
         keyboard_path / 'info.json',
         keyboard_path / 'readme.md',
