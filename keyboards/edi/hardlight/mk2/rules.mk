@@ -36,7 +36,7 @@ KEY_LOCK_ENABLE = yes
 VELOCIKEY_ENABLE = yes
 
 # Layout definitions
-LAYOUTS = ortho_4x16
+# LAYOUTS = ortho_4x16
 
 # Wildcard to allow APM32 MCU 
 DFU_SUFFIX_ARGS = -p FFFF -v FFFF
