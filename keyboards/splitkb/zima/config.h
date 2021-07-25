@@ -33,17 +33,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Keyboard Matrix Assignments
  */
-#define DIRECT_PINS                                              \
-    {                                                            \
-        {C6, D6, D5}, {C7, F7, D4}, {E6, F5, F6}, { F0, F1, F4 } \
-    }
-
+#define DIRECT_PINS { \
+    { C6, D6, D5 }, \
+    { C7, F7, D4 }, \
+    { E6, F5, F6 }, \
+    { F0, F1, F4 }, \
+}
 #define UNUSED_PINS
 
-#define ENCODERS_PAD_A \
-    { B4 }
-#define ENCODERS_PAD_B \
-    { D7 }
+#define ENCODERS_PAD_A { B4 }
+#define ENCODERS_PAD_B { D7 }
 
 // #define QMK_ESC_OUTPUT B7
 // #define QMK_ESC_INPUT C6
