@@ -4,7 +4,7 @@ Modification of the Model-M 101 membrane adapter (converter/modelm101) to work w
 
 This adapter is meant to allow using the original Amiga keyboard as a USB input device, either with a desktop PC or a R-Pi/FPGA board hosted inside the Amiga case.
 
-Files have been modified in accordance to fit Amiga keyboard layout and features. A second layer has been implemented ("Help" key) to access unexistent keys (like F11 and F12). This is a work in progress.
+Files have been modified in accordance to fit Amiga keyboard layout and features. A second layer has been implemented (momentary toggle "Help" key) to access unexistent keys (like F11 and F12). This is a work in progress.
 
 
 Pins of the Teensy board you should use by default:
