@@ -67,9 +67,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_DEFAULT_LEVEL 3
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 12    // Number of LEDs
 #define RGBLED_SPLIT { 6, 6 }
 #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_DEFAULT_VAL 128
+#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
