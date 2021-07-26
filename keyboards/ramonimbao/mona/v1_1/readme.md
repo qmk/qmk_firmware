@@ -1,12 +1,11 @@
-# Mona
+# Mona v1.1
 
-![Mona](https://i.imgur.com/jaRv4vW.png)
+![Mona v1.1](https://i.imgur.com/VaWcIkjl.png)
 
-A gummy-worm o-ring mount 60% marble keyboard.
+A gummy-worm o-ring mount 60% marble keyboard. Now with ALPS/MX, Caps Lock LED, and split spacebar support.
 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: ATmega32u4
-* Hardware Availability: [Erbakeys](https://www.erbakeys.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
