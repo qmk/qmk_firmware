@@ -11,7 +11,7 @@ A 60% PCB with some add-ons
 
 Keyboard Maintainer: [jfescobar18](https://github.com/jfescobar18)
 Hardware Supported: Undead 60M PCB
-Hardware Availability: https://mechanickeys.com//
+Hardware Availability: https://www.facebook.com/MechanicKeys-104963764775280
 
     make undead60m/:default
     Or
