@@ -1,8 +1,8 @@
-# lSJ Ares
+# LSJ Ares
 
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: LSJ Ares PCB
-* Hardware Availability: <https://geekhack.org/index.php?topic=93146.0>
+* Hardware Availability: [2018 Geekhack Group Buy](https://geekhack.org/index.php?topic=93146.0)
 
 Make example for this keyboard (after setting up your build environment):
 
