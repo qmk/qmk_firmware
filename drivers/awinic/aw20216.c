@@ -63,8 +63,8 @@ bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 bool AW20216_write(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t* data, uint8_t len) {
     static uint8_t s_spi_transfer_buffer[2] = {0};
 
-    // Do we need to call spi_stop() if this fails?
     if (!spi_start(cs_pin, false, 0, AW_SPI_DIVISOR)) {
+        spi_stop();
         return false;
     }
 
