@@ -157,14 +157,14 @@ bool lcd_keyframe_draw_logo(keyframe_animation_t* animation, visualizer_state_t*
     (void)animation;
     // Read the uGFX documentation for information how to use the displays
     // http://wiki.ugfx.org/index.php/Main_Page
-    gdispClear(White);
+    gdispClear(Black);
 
     // You can use static variables for things that can't be found in the animation
     // or state structs, here we use the image
 
     // gdispGBlitArea is a tricky function to use since it supports blitting part of the image
     // if you have full screen image, then just use LCD_WIDTH and LCD_HEIGHT for both source and target dimensions
-    gdispGBlitArea(GDISP, 0, 0, LCD_WIDTH, LCD_HEIGHT, 0, 0, LCD_WIDTH, (pixel_t*)resource_lcd_logo);
+    gdispGBlitArea(GDISP, 0, 0, 128, 32, 0, 0, LCD_WIDTH, (pixel_t*)resource_lcd_logo);
 
     return false;
 }

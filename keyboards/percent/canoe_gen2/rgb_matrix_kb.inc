@@ -22,12 +22,14 @@ RGB_MATRIX_EFFECT(indicator_static)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static bool indicator_static(effect_params_t* params) {
+    HSV hsv = rgb_matrix_config.hsv;
+    RGB rgb = hsv_to_rgb(hsv);
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min ; i < 74; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
     for (uint8_t i = 74 ; i < led_max; i++) {
-        rgb_matrix_set_color(i, 0xff, 0xff, 0xff);
+        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < DRIVER_LED_TOTAL;
 }

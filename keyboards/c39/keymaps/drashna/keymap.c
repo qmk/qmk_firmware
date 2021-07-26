@@ -24,14 +24,15 @@
  * of use. K## is a placeholder to pass through the individual keycodes
  */
 // clang-format off
+#define LAYOUT_wrapper(...)            LAYOUT(__VA_ARGS__)
 #define LAYOUT_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,     KC_NO,   K06,     K07,     K08,     K09,     K0A,     KC_DEL, \
-    ALT_T(KC_TAB), K11, K12,  K13,      K14,     K15,     KC_BSPC, K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+    ALT_T(KC_TAB), K11, K12,  K13,      K14,     K15,     KC_BSPC, K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
     KC_MLSF, CTL_T(K21), K22, K23,   K24, LT(_LOWER,K25), KC_SPC, LT(_RAISE,K26), K27, K28,   K29, RCTL_T(K2A), KC_ENT \
   )
 #define LAYOUT_base_wrapper(...)       LAYOUT_base(__VA_ARGS__)
@@ -84,12 +85,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
     _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
     _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
-  ),
-
-  [_MODS] = LAYOUT_wrapper(
-    _______, ___________________BLANK___________________, _______, ___________________BLANK___________________, _______,
-    _______, ___________________BLANK___________________, _______, ___________________BLANK___________________, _______,
-    KC_LSFT, ___________________BLANK___________________, _______, ___________________BLANK___________________, _______
   ),
 
   [_LOWER] = LAYOUT_wrapper(

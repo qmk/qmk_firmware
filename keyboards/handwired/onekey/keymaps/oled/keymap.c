@@ -144,6 +144,12 @@ static void dance_oled_finished(qk_tap_dance_state_t *state, void *user_data) {
                 }
             }
             break;
+        case 4:
+            if (!state->pressed) {
+                // quadruple tap - step through brightness levels
+                oled_set_brightness(oled_get_brightness() + 0x10);
+            }
+            break;
         default:
             break;
     }
@@ -276,7 +282,7 @@ void test_slow_update(void) {
             if (++x >= oled_max_chars()) {
                 x = 0;
                 if (++y >= oled_max_lines()) {
-                    // The whole screen was filled - start the next phase.
+                    // The whole screen was filled - start the next phase.
                     ++phase;
                     x = y = 0;
                 }

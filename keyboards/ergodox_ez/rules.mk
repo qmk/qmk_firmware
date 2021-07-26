@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = halfkay
 
 # If you have Left LEDs (see
@@ -31,7 +24,8 @@ SWAP_HANDS_ENABLE= yes  # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
 
-RGB_MATRIX_ENABLE = no  # enable later
+RGB_MATRIX_ENABLE = no # enable later
+RGB_MATRIX_DRIVER = IS31FL3731
 DEBOUNCE_TYPE = eager_pr
 
 # project specific files
@@ -40,3 +34,7 @@ SRC += matrix.c \
 QUANTUM_LIB_SRC += i2c_master.c
 
 LAYOUTS = ergodox
+
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

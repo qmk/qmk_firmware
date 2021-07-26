@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * See https://web.archive.org/web/20060218214400/http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
  * or http://www.usb.org/developers/hidpage/Hut1_12v2.pdf (older)
  */
-#ifndef KEYCODE_H
-#define KEYCODE_H
+
+#pragma once
 
 /* FIXME: Add doxygen comments here */
 
@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IS_MOUSEKEY(code) (KC_MS_UP <= (code) && (code) <= KC_MS_ACCEL2)
 #define IS_MOUSEKEY_MOVE(code) (KC_MS_UP <= (code) && (code) <= KC_MS_RIGHT)
-#define IS_MOUSEKEY_BUTTON(code) (KC_MS_BTN1 <= (code) && (code) <= KC_MS_BTN5)
+#define IS_MOUSEKEY_BUTTON(code) (KC_MS_BTN1 <= (code) && (code) <= KC_MS_BTN8)
 #define IS_MOUSEKEY_WHEEL(code) (KC_MS_WH_UP <= (code) && (code) <= KC_MS_WH_RIGHT)
 #define IS_MOUSEKEY_ACCEL(code) (KC_MS_ACCEL0 <= (code) && (code) <= KC_MS_ACCEL2)
 
@@ -205,6 +205,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_BTN3 KC_MS_BTN3
 #define KC_BTN4 KC_MS_BTN4
 #define KC_BTN5 KC_MS_BTN5
+#define KC_BTN6 KC_MS_BTN6
+#define KC_BTN7 KC_MS_BTN7
+#define KC_BTN8 KC_MS_BTN8
 #define KC_WH_U KC_MS_WH_UP
 #define KC_WH_D KC_MS_WH_DOWN
 #define KC_WH_L KC_MS_WH_LEFT
@@ -520,16 +523,29 @@ enum internal_special_keycodes {
 };
 
 enum mouse_keys {
-    /* Mouse Buttons */
+/* Mouse Buttons */
+#ifdef VIA_ENABLE
     KC_MS_UP = 0xF0,
+#else
+    KC_MS_UP = 0xED,
+#endif
     KC_MS_DOWN,
     KC_MS_LEFT,
-    KC_MS_RIGHT,
+    KC_MS_RIGHT,  // 0xF0
     KC_MS_BTN1,
     KC_MS_BTN2,
     KC_MS_BTN3,
     KC_MS_BTN4,
     KC_MS_BTN5,
+#ifdef VIA_ENABLE
+    KC_MS_BTN6 = KC_MS_BTN5,
+    KC_MS_BTN7 = KC_MS_BTN5,
+    KC_MS_BTN8 = KC_MS_BTN5,
+#else
+    KC_MS_BTN6,
+    KC_MS_BTN7,
+    KC_MS_BTN8,
+#endif
 
     /* Mouse Wheel */
     KC_MS_WH_UP,
@@ -540,6 +556,5 @@ enum mouse_keys {
     /* Acceleration */
     KC_MS_ACCEL0,
     KC_MS_ACCEL1,
-    KC_MS_ACCEL2
+    KC_MS_ACCEL2  // 0xFF
 };
-#endif
