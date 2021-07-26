@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2021 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,11 +13,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "haptic.h"
 #include "process_haptic.h"
+#include "quantum_keycodes.h"
 
 __attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode) {
-#    ifdef NO_HAPTIC_MOD
+    switch (keycode) {
+#ifdef NO_HAPTIC_MOD
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             if (record->tap.count == 0) return false;
             break;
@@ -29,14 +31,14 @@ __attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t 
             break;
         case KC_LCTRL ... KC_RGUI:
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
-#    endif
-#    ifdef NO_HAPTIC_FN
+#endif
+#ifdef NO_HAPTIC_FN
         case KC_FN0 ... KC_FN31:
-#    endif
-#    ifdef NO_HAPTIC_ALPHA
+#endif
+#ifdef NO_HAPTIC_ALPHA
         case KC_A ... KC_Z:
-#    endif
-#    ifdef NO_HAPTIC_PUNCTUATION
+#endif
+#ifdef NO_HAPTIC_PUNCTUATION
         case KC_ENTER:
         case KC_ESCAPE:
         case KC_BSPACE:
@@ -54,13 +56,13 @@ __attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t 
         case KC_SLASH:
         case KC_DOT:
         case KC_NONUS_BSLASH:
-#    endif
-#    ifdef NO_HAPTIC_LOCKKEYS
+#endif
+#ifdef NO_HAPTIC_LOCKKEYS
         case KC_CAPSLOCK:
         case KC_SCROLLLOCK:
         case KC_NUMLOCK:
-#    endif
-#    ifdef NO_HAPTIC_NAV
+#endif
+#ifdef NO_HAPTIC_NAV
         case KC_PSCREEN:
         case KC_PAUSE:
         case KC_INSERT:
@@ -73,54 +75,58 @@ __attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t 
         case KC_DOWN:
         case KC_END:
         case KC_HOME:
-#    endif
-#    ifdef NO_HAPTIC_NUMERIC
+#endif
+#ifdef NO_HAPTIC_NUMERIC
         case KC_1 ... KC_0:
-#    endif
-         return false;
+#endif
+            return false;
     }
     return true;
 }
 
 bool process_haptic(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == HPT_ON && record->event.pressed) {
-        haptic_enable();
-    }
-    if (keycode == HPT_OFF && record->event.pressed) {
-        haptic_disable();
-    }
-    if (keycode == HPT_TOG && record->event.pressed) {
-        haptic_toggle();
-    }
-    if (keycode == HPT_RST && record->event.pressed) {
-        haptic_reset();
-    }
-    if (keycode == HPT_FBK && record->event.pressed) {
-        haptic_feedback_toggle();
-    }
-    if (keycode == HPT_BUZ && record->event.pressed) {
-        haptic_buzz_toggle();
-    }
-    if (keycode == HPT_MODI && record->event.pressed) {
-        haptic_mode_increase();
-    }
-    if (keycode == HPT_MODD && record->event.pressed) {
-        haptic_mode_decrease();
-    }
-    if (keycode == HPT_DWLI && record->event.pressed) {
-        haptic_dwell_increase();
-    }
-    if (keycode == HPT_DWLD && record->event.pressed) {
-        haptic_dwell_decrease();
-    }
-    if (keycode == HPT_CONT && record->event.pressed) {
-        haptic_toggle_continuous();
-    }
-    if (keycode == HPT_CONI && record->event.pressed) {
-        haptic_cont_increase();
-    }
-    if (keycode == HPT_COND && record->event.pressed) {
-        haptic_cont_decrease();
+    if (record->event.pressed) {
+        switch (keycode) {
+            case HPT_ON:
+                haptic_enable();
+                break;
+            case HPT_OFF:
+                haptic_disable();
+                break;
+            case HPT_TOG:
+                haptic_toggle();
+                break;
+            case HPT_RST:
+                haptic_reset();
+                break;
+            case HPT_FBK:
+                haptic_feedback_toggle();
+                break;
+            case HPT_BUZ:
+                haptic_buzz_toggle();
+                break;
+            case HPT_MODI:
+                haptic_mode_increase();
+                break;
+            case HPT_MODD:
+                haptic_mode_decrease();
+                break;
+            case HPT_DWLI:
+                haptic_dwell_increase();
+                break;
+            case HPT_DWLD:
+                haptic_dwell_decrease();
+                break;
+            case HPT_CONT:
+                haptic_toggle_continuous();
+                break;
+            case HPT_CONI:
+                haptic_cont_increase();
+                break;
+            case HPT_COND:
+                haptic_cont_decrease();
+                break;
+        }
     }
 
     if (haptic_get_enable()) {
@@ -136,5 +142,6 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
             }
         }
     }
+
     return true;
 }

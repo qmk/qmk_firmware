@@ -18,7 +18,7 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
-#include "quantum.h"
+// #include "quantum.h"
 #ifdef DRV2605L
 #    include "DRV2605L.h"
 #endif

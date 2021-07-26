@@ -16,7 +16,6 @@
  */
 #include "haptic.h"
 #include "eeconfig.h"
-#include "progmem.h"
 #include "debug.h"
 #ifdef DRV2605L
 #    include "DRV2605L.h"
