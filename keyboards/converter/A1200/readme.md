@@ -1,6 +1,6 @@
 # Amiga 1200 Keyboard Converter
 
-Modification of the Model-M 101 membrane adapter (converter/modelm101) to work with Amiga 1200 keyboard (and possibly Amiga 500/600 too). It would be very convenient to manufacture a small PCB adapter to make easy the task of connecting the keyboard membrane and the Teensy 2.0 board.
+Modification of the Model-M 101 membrane adapter (converter/modelm101) to work with Amiga 1200 keyboard (and possibly Amiga 500/600 too). It would be very convenient to manufacture a small PCB adapter to make easier the task of connecting the keyboard membrane and the Teensy 2.0 board.
 
 This adapter is meant to allow using the original Amiga keyboard as a USB input device, either with a desktop PC or a R-Pi/FPGA board hosted inside the Amiga case.
 
