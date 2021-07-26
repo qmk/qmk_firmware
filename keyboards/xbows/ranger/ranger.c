@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  #include "ranger.h"
- #include "rgblight.h"
  #ifdef RGB_MATRIX_ENABLE
  const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 
