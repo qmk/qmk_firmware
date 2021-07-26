@@ -87,8 +87,6 @@ def print_friendly_output(kb_info_json):
         cli.echo('{fg_blue}Maintainer{fg_reset}: %s', kb_info_json['maintainer'])
     cli.echo('{fg_blue}Keyboard Folder{fg_reset}: %s', kb_info_json.get('keyboard_folder', 'Unknown'))
     cli.echo('{fg_blue}Layouts{fg_reset}: %s', ', '.join(sorted(kb_info_json['layouts'].keys())))
-    if 'width' in kb_info_json and 'height' in kb_info_json:
-        cli.echo('{fg_blue}Size{fg_reset}: %s x %s' % (kb_info_json['width'], kb_info_json['height']))
     cli.echo('{fg_blue}Processor{fg_reset}: %s', kb_info_json.get('processor', 'Unknown'))
     cli.echo('{fg_blue}Bootloader{fg_reset}: %s', kb_info_json.get('bootloader', 'Unknown'))
     if 'layout_aliases' in kb_info_json:
