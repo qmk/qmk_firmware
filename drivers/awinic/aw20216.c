@@ -98,23 +98,24 @@ static void AW20216_init_scaling(pin_t cs_pin) {
 }
 
 static inline void AW20216_init_current_limits(pin_t cs_pin) {
+    // Push config
     AW20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_GLOBALCURRENT, AW_GLOBAL_CURRENT_MAX);
 }
 
 static inline void AW20216_soft_enable(pin_t cs_pin) {
+    // Push config
     AW20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_CONFIGURATION, AW_CONFIG_DEFAULT | AW_CHIPEN);
 }
 
 void AW20216_init(pin_t cs_pin, pin_t en_pin) {
-    // All drivers should start with all scaling and PWM registers as off
     setPinOutput(en_pin);
     writePinHigh(en_pin);
 
+    // Drivers should start with all scaling and PWM registers as off
     AW20216_init_current_limits(cs_pin);
     AW20216_init_scaling(cs_pin);
 
     AW20216_soft_enable(cs_pin);
-
 }
 
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
