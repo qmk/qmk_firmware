@@ -7,6 +7,9 @@ A compact 60% keyboard designed by Fate Everywhere. Born out of the desire for a
 * Keyboard Maintainer: [Fate Everywhere](https://github.com/fateeverywhere)
 * Hardware Supported: Mark 2 Hard Light.
 * Hardware Availability: [Seven Store](https://store.7storm.org).
+* To Enter Bootloader: 
+    If keyboard is operational, hold RAISE and LOWER then press ENTER.
+    If keyboard is unresponsive, unplug board then hold the BTLDR button on the bottom of the PCB and plug in the keyboard.
 
 Build example for this keyboard (after setting up your build environment):
 
