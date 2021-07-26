@@ -9,7 +9,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         C(KC_LEFT), KC_X,        DE_DOT,      KC_O,          DE_COMM,     DE_Y,                                                                            KC_V,          KC_G,        KC_C,        KC_L,        KC_J,        C(KC_RGHT),
         KC_ESC,     CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E),   SFT_T(KC_I), KC_U,                                                                            KC_D,          SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
         C(KC_UP),   KC_K,        KC_Q,        DE_ADIA,       DE_UDIA,     DE_ODIA,      KC_NO,        KC_NO,                  KC_NO,         KC_NO,        KC_B,          KC_P,        KC_W,        KC_M,        DE_Z,        DE_SS,
-                                              LT(7,KC_NO),   KC_NO,       LT(3,KC_TAB), LT(2,KC_SPC), LT(4,KC_ENT),           LT(6,KC_BSPC), LT(1,KC_DEL), LT(5,KC_HOME), KC_END,      KC_NO),
+                                              LT(7,KC_NO),   G(DE_Z),     LT(3,KC_TAB), LT(2,KC_SPC), LT(4,KC_ENT),           LT(6,KC_BSPC), LT(1,KC_DEL), LT(5,KC_HOME), KC_END,      KC_NO),
     [_SYMBOLS] = LAYOUT(
         KC_NO, DE_AT,   DE_PERC, DE_LCBR, DE_RCBR, DE_PIPE,                                                  DE_EXLM, KC_GRV,  S(KC_GRV), DE_EQL,  DE_AMPR, KC_NO,
         KC_NO, KC_NUBS, DE_TILD, DE_LPRN, DE_RPRN, DE_ASTR,                                                  DE_QUES, DE_SLSH, DE_COLN,   DE_MINS, DE_UNDS, KC_NO,
