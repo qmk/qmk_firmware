@@ -24,4 +24,4 @@ AUDIO_ENABLE = no          # Audio output on port C6
 SPLIT_KEYBOARD = yes       # Split common
 LTO_ENABLE = yes
 
-DEFAULT_FOLDER = kyria/rev1
+DEFAULT_FOLDER = splitkb/kyria/rev1

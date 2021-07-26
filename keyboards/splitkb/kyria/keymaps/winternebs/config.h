@@ -15,17 +15,17 @@
  */
 #pragma once
 
-#include "quantum.h"
-
-#if defined(KEYBOARD_kyria_rev1)
-#    include "rev1.h"
+#define OLED_FONT_H "keyboards/splitkb/kyria/keymaps/winternebs/glcdfont.c"
+#define OLED_FONT_END 127
+#ifdef OLED_DRIVER_ENABLE
+  #define OLED_DISPLAY_128X64
 #endif
 
-/* This a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
+#define FORCE_NKRO
+#define ENCODER_RESOLUTION 4
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#define NO_ACTION_ONESHOT
+#define TAPPING_FORCE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
