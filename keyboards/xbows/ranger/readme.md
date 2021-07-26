@@ -7,6 +7,15 @@ Ranger, A 87 keys keyboard with RGB backlight.
 * Hardware Supported: X-BOWS Ranger
 * Hardware Availability: [X-BOWS](https://x-bows.com/)
 
+Enter the bootloader in 3 ways:
+* Software reset on Fn + ESC
+* Bootmagic reset: hold down the top left key (usually escape) and plugin the keyboard
+* Physical reset button: There is a button on the back of the PCB, please press it briefly.
+
+Flash new firmware in 2 ways:
+* Use the QMK toolbox：https://github.com/qmk/qmk_toolbox/releases
+* Use the QMK MSYS：https://msys.qmk.fm/
+
 Make example for this keyboard (after setting up your build environment):
 
     make xbows/ranger:default
