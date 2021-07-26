@@ -12,8 +12,6 @@ enum _layers {
 enum custom_keycodes {
     _COMP1  = SAFE_RANGE,
     _COMP2,
-    V_C_W,
-    T_M_A,
     V_FS,
     T_FS,
 };

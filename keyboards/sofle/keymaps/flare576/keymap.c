@@ -64,11 +64,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* SYMS
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |V_C_W |T_M_A |      |      |      |      |                    |      |      |      |      |      |      |
+ * |CTRL+W|ALT+A |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | TRNS |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TRNS |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |  )   |      |
+ * | TRNS |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |      |      |      |
  * |------+------+------+------+------+------| TRNS  |    | TRNS  |------+------+------+------+------+------|
    | TRNS | V_FS | T_FS |      |      |      |-------|    |-------|      |      |   (  |   )  |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -77,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_SYMS] = LAYOUT(
-  V_C_W,    T_M_A,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-  _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                          KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  XXXXXXX,
-  _______,  V_FS,     T_FS,     XXXXXXX,  XXXXXXX,  XXXXXXX,   _______,    _______,   XXXXXXX,  XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,
-                _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______
+  LCTL(KC_W), LALT(KC_A), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+  _______,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+  _______,    KC_EXLM,    KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                          KC_CIRC,  KC_AMPR,  KC_ASTR,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+  _______,    V_FS,       T_FS,     XXXXXXX,  XXXXXXX,  XXXXXXX,   _______,    _______,   XXXXXXX,  XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,
+              _______,    _______,  _______,  _______,  _______,                          _______, _______,   _______,  _______,  _______
 ),
 
 /* MDIA
@@ -162,16 +162,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case _COMP2:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_LCTRL) SS_DELAY(100) SS_TAP(X_LCTRL) SS_DELAY(100) "2");
-            }
-            return false;
-        case V_C_W:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LCTL("w"));
-            }
-            return false;
-        case T_M_A:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT("a"));
             }
             return false;
         case V_FS:
