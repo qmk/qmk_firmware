@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x5492
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    TREASURE
-#define PRODUCT         TREASURE TYPE-9 Series II
+#define PRODUCT         TYPE-9 Series II
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -52,5 +52,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
 
