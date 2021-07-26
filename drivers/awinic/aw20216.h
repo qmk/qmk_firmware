@@ -18,7 +18,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <gpio.h>
+#include "gpio.h"
 
 typedef struct aw_led {
     uint8_t driver : 2;
