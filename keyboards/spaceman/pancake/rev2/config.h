@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Spaceman
 #define PRODUCT         Pancake 2
-#define DESCRIPTION     Choc Ortho Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
