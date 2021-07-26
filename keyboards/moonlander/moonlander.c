@@ -1,6 +1,6 @@
 /* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
  * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
- * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -340,15 +340,6 @@ led_config_t g_led_config = { {
 } };
 // clang-format on
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 #endif
 
 #ifdef AUDIO_ENABLE
