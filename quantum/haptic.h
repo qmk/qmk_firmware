@@ -18,9 +18,6 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
-#ifdef DRV2605L
-#    include "DRV2605L.h"
-#endif
 
 #ifndef HAPTIC_FEEDBACK_DEFAULT
 #    define HAPTIC_FEEDBACK_DEFAULT 0

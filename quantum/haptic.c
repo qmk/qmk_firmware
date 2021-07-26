@@ -27,7 +27,6 @@
 haptic_config_t haptic_config;
 
 void haptic_init(void) {
-    debug_enable = 1;  // Debug is ON!
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
@@ -64,7 +63,7 @@ void haptic_task(void) {
 }
 
 void eeconfig_debug_haptic(void) {
-    dprintf("haptic_config eprom\n");
+    dprintf("haptic_config eeprom\n");
     dprintf("haptic_config.enable = %d\n", haptic_config.enable);
     dprintf("haptic_config.mode = %d\n", haptic_config.mode);
 }
@@ -255,14 +254,11 @@ void haptic_disable_continuous(void) {
 }
 
 void haptic_toggle_continuous(void) {
-#ifdef DRV2605L
     if (haptic_config.cont) {
         haptic_disable_continuous();
     } else {
         haptic_enable_continuous();
     }
-    eeconfig_update_haptic(haptic_config.raw);
-#endif
 }
 
 void haptic_cont_increase(void) {
