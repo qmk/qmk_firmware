@@ -20,3 +20,5 @@ COMMAND_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = no
 WS2812_DRIVER = i2c
+
+LAYOUTS = 60_ansi_split_bs_rshift 60_hhkb
