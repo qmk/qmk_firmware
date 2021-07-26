@@ -220,10 +220,10 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
             process_clicky(keycode, record) &&
-#endif  // AUDIO_CLICKY
+#endif
 #ifdef HAPTIC_ENABLE
             process_haptic(keycode, record) &&
-#endif  // HAPTIC_ENABLE
+#endif
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif

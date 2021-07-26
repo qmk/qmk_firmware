@@ -18,10 +18,6 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
-#include "quantum.h"
-#ifdef DRV2605L
-#    include "DRV2605L.h"
-#endif
 
 #ifndef HAPTIC_FEEDBACK_DEFAULT
 #    define HAPTIC_FEEDBACK_DEFAULT 0
@@ -52,7 +48,6 @@ typedef enum HAPTIC_FEEDBACK {
     HAPTIC_FEEDBACK_MAX,
 } HAPTIC_FEEDBACK;
 
-bool    process_haptic(uint16_t keycode, keyrecord_t *record);
 void    haptic_init(void);
 void    haptic_task(void);
 void    eeconfig_debug_haptic(void);
@@ -69,6 +64,7 @@ void    haptic_set_mode(uint8_t mode);
 void    haptic_set_dwell(uint8_t dwell);
 void    haptic_set_buzz(uint8_t buzz);
 void    haptic_buzz_toggle(void);
+uint8_t haptic_get_enable(void);
 uint8_t haptic_get_mode(void);
 uint8_t haptic_get_feedback(void);
 void    haptic_dwell_increase(void);

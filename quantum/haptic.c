@@ -16,7 +16,6 @@
  */
 #include "haptic.h"
 #include "eeconfig.h"
-#include "progmem.h"
 #include "debug.h"
 #ifdef DRV2605L
 #    include "DRV2605L.h"
@@ -28,7 +27,6 @@
 haptic_config_t haptic_config;
 
 void haptic_init(void) {
-    debug_enable = 1;  // Debug is ON!
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
@@ -65,7 +63,7 @@ void haptic_task(void) {
 }
 
 void eeconfig_debug_haptic(void) {
-    dprintf("haptic_config eprom\n");
+    dprintf("haptic_config eeprom\n");
     dprintf("haptic_config.enable = %d\n", haptic_config.enable);
     dprintf("haptic_config.mode = %d\n", haptic_config.mode);
 }
@@ -214,6 +212,8 @@ void haptic_set_dwell(uint8_t dwell) {
     xprintf("haptic_config.dwell = %u\n", haptic_config.dwell);
 }
 
+uint8_t haptic_get_enable(void) { return haptic_config.enable; }
+
 uint8_t haptic_get_mode(void) {
     if (!haptic_config.enable) {
         return false;
@@ -254,14 +254,11 @@ void haptic_disable_continuous(void) {
 }
 
 void haptic_toggle_continuous(void) {
-#ifdef DRV2605L
     if (haptic_config.cont) {
         haptic_disable_continuous();
     } else {
         haptic_enable_continuous();
     }
-    eeconfig_update_haptic(haptic_config.raw);
-#endif
 }
 
 void haptic_cont_increase(void) {
@@ -289,130 +286,6 @@ void haptic_play(void) {
 #ifdef SOLENOID_ENABLE
     solenoid_fire();
 #endif
-}
-
-__attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode) {
-#    ifdef NO_HAPTIC_MOD
-        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            if (record->tap.count == 0) return false;
-            break;
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
-            if (record->tap.count != TAPPING_TOGGLE) return false;
-            break;
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-            if (record->tap.count == 0) return false;
-            break;
-        case KC_LCTRL ... KC_RGUI:
-        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
-#    endif
-#    ifdef NO_HAPTIC_FN
-        case KC_FN0 ... KC_FN31:
-#    endif
-#    ifdef NO_HAPTIC_ALPHA
-        case KC_A ... KC_Z:
-#    endif
-#    ifdef NO_HAPTIC_PUNCTUATION
-        case KC_ENTER:
-        case KC_ESCAPE:
-        case KC_BSPACE:
-        case KC_SPACE:
-        case KC_MINUS:
-        case KC_EQUAL:
-        case KC_LBRACKET:
-        case KC_RBRACKET:
-        case KC_BSLASH:
-        case KC_NONUS_HASH:
-        case KC_SCOLON:
-        case KC_QUOTE:
-        case KC_GRAVE:
-        case KC_COMMA:
-        case KC_SLASH:
-        case KC_DOT:
-        case KC_NONUS_BSLASH:
-#    endif
-#    ifdef NO_HAPTIC_LOCKKEYS
-        case KC_CAPSLOCK:
-        case KC_SCROLLLOCK:
-        case KC_NUMLOCK:
-#    endif
-#    ifdef NO_HAPTIC_NAV
-        case KC_PSCREEN:
-        case KC_PAUSE:
-        case KC_INSERT:
-        case KC_DELETE:
-        case KC_PGDOWN:
-        case KC_PGUP:
-        case KC_LEFT:
-        case KC_UP:
-        case KC_RIGHT:
-        case KC_DOWN:
-        case KC_END:
-        case KC_HOME:
-#    endif
-#    ifdef NO_HAPTIC_NUMERIC
-        case KC_1 ... KC_0:
-#    endif
-         return false;
-    }
-    return true;
-}
-
-bool process_haptic(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == HPT_ON && record->event.pressed) {
-        haptic_enable();
-    }
-    if (keycode == HPT_OFF && record->event.pressed) {
-        haptic_disable();
-    }
-    if (keycode == HPT_TOG && record->event.pressed) {
-        haptic_toggle();
-    }
-    if (keycode == HPT_RST && record->event.pressed) {
-        haptic_reset();
-    }
-    if (keycode == HPT_FBK && record->event.pressed) {
-        haptic_feedback_toggle();
-    }
-    if (keycode == HPT_BUZ && record->event.pressed) {
-        haptic_buzz_toggle();
-    }
-    if (keycode == HPT_MODI && record->event.pressed) {
-        haptic_mode_increase();
-    }
-    if (keycode == HPT_MODD && record->event.pressed) {
-        haptic_mode_decrease();
-    }
-    if (keycode == HPT_DWLI && record->event.pressed) {
-        haptic_dwell_increase();
-    }
-    if (keycode == HPT_DWLD && record->event.pressed) {
-        haptic_dwell_decrease();
-    }
-    if (keycode == HPT_CONT && record->event.pressed) {
-        haptic_toggle_continuous();
-    }
-    if (keycode == HPT_CONI && record->event.pressed) {
-        haptic_cont_increase();
-    }
-    if (keycode == HPT_COND && record->event.pressed) {
-        haptic_cont_decrease();
-    }
-
-    if (haptic_config.enable) {
-        if (record->event.pressed) {
-            // keypress
-            if (haptic_config.feedback < 2 && get_haptic_enabled_key(keycode, record)) {
-                haptic_play();
-            }
-        } else {
-            // keyrelease
-            if (haptic_config.feedback > 0 && get_haptic_enabled_key(keycode, record)) {
-                haptic_play();
-            }
-        }
-    }
-    return true;
 }
 
 void haptic_shutdown(void) {
