@@ -1,4 +1,4 @@
-Matthew J Wolf 08-July-2021 model_f_labs
+Matthew J Wolf 25-July-2021 model_f_labs
 
 The original source used Purdea Andrei xwhatsit code that was retrieved on
 24 June 2021.
@@ -24,6 +24,19 @@ Changes to Source Files
 - Source Changes
 -- Moved defines from source to headers
 -- Replaced define macros with functions
+
+Items Removed
+-------------
+
+- Removed 10t8or_spacefn keymap.
+-- GitHub user EDEADLINK commented that it was a user custom keymap. I agreed because
+   the keymap is not listed in the info.json file.
+
+- Removed custom key codes. 
+-- The key codes printed:
+   "QMK is the best thing ever!" 
+   "https://qmk.fm/\n"
+-- Removed unneeded comments for disabled features.
 
 Refactored the Build
 --------------------
