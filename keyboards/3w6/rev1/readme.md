@@ -1,16 +1,30 @@
-# 3w6
+# 3W6
 
-![3w6](https://raw.githubusercontent.com/weteor/3W6/main/board.jpg)
+![3W6](https://raw.githubusercontent.com/weteor/3W6/main/3w6_1s.jpg)
+![3W6](https://raw.githubusercontent.com/weteor/3W6/main/3w6_3s.jpg)
 
 The 3w6 is a low profile, split ortholinear keyboard with 36 keys.
 
-I needed a keyboard for work and wasn't really satisfied with the available alternatives (namely Corne, Kyria and Ferris), mostly because they were rather large and didn't had the spacing I would like.
+* Rev1: 
+  - onboard microcontroller (ATMega32U4)
+  - USB-C connector Board <-> PC
+  - USB-C connectors between both split halfs
+  - choc spacing (18x17mm)
+  - aggressive pinky stagger
+  - support for Choc V1 switches
 
-It's designed to be a no frills, cheap and small keyboard to be taken everywhere.
-
-So no hotswap, no multiple switchtypes, no encoders, no LEDs.
-
-BUT with onboard controllers (so no extra ProMicros, Elite-C), production files including SMT assembly files, and sturdy through hole mounted USB-C connectors.*
+---
 
 * Keyboard Maintainer: [weteor](https://github.com/weteor)
-* [3W6 git with production files](https://github.com/weteor/3W6)
+* Hardware Supported: 
+    * 3w6 rev1
+* Hardware Availability (this is an older version, current revision is rev2): 
+    * make one yourself: [Design and Productionfiles](https://github.com/weteor/3w6)
+---
+Make examples for this keyboard (after setting up your build environment):
+
+    make 3w6/rev1:default
+   
+ ---
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
