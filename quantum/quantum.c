@@ -49,21 +49,22 @@ float goodbye_song[][2] = GOODBYE_SONG;
 #    ifdef DEFAULT_LAYER_SONGS
 float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
-#    ifdef SENDSTRING_BELL
-float bell_song[][2] = SONG(TERMINAL_SOUND);
-#    endif
 #endif
 
 #ifdef AUTO_SHIFT_ENABLE
 #    include "process_auto_shift.h"
 #endif
 
-static void do_code16(uint16_t code, void (*f)(uint8_t)) {
+#ifdef KEY_OVERRIDE_ENABLE
+#    include "process_key_override_private.h"
+#endif
+
+uint8_t extract_mod_bits(uint16_t code) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
             break;
         default:
-            return;
+            return 0;
     }
 
     uint8_t mods_to_send = 0;
@@ -80,8 +81,10 @@ static void do_code16(uint16_t code, void (*f)(uint8_t)) {
         if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LGUI);
     }
 
-    f(mods_to_send);
+    return mods_to_send;
 }
+
+static void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
 
 void register_code16(uint16_t code) {
     if (IS_MOD(code) || code == KC_NO) {
@@ -217,10 +220,10 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
             process_clicky(keycode, record) &&
-#endif  // AUDIO_CLICKY
+#endif
 #ifdef HAPTIC_ENABLE
             process_haptic(keycode, record) &&
-#endif  // HAPTIC_ENABLE
+#endif
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
@@ -242,6 +245,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
             process_music(keycode, record) &&
+#endif
+#ifdef KEY_OVERRIDE_ENABLE
+            process_key_override(keycode, record) &&
 #endif
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
@@ -340,13 +346,13 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
 #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
     PLAY_SONG(default_layer_songs[default_layer]);
 #endif
-    eeconfig_update_default_layer(1U << default_layer);
-    default_layer_set(1U << default_layer);
+    eeconfig_update_default_layer((layer_state_t)1 << default_layer);
+    default_layer_set((layer_state_t)1 << default_layer);
 }
 
 layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-    layer_state_t mask12 = (1UL << layer1) | (1UL << layer2);
-    layer_state_t mask3  = 1UL << layer3;
+    layer_state_t mask12 = ((layer_state_t)1 << layer1) | ((layer_state_t)1 << layer2);
+    layer_state_t mask3  = (layer_state_t)1 << layer3;
     return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
 }
 
@@ -406,6 +412,10 @@ void matrix_scan_quantum() {
 
 #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
+#endif
+
+#ifdef KEY_OVERRIDE_ENABLE
+    matrix_scan_key_override();
 #endif
 
 #ifdef SEQUENCER_ENABLE

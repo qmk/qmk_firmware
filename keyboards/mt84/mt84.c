@@ -1,22 +1,22 @@
- /* Copyright 2020 MT<704340378@qq.com> 
-  * 
-  * This program is free software: you can redistribute it and/or modify 
-  * it under the terms of the GNU General Public License as published by 
-  * the Free Software Foundation, either version 2 of the License, or 
-  * (at your option) any later version. 
-  * 
-  * This program is distributed in the hope that it will be useful, 
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-  * GNU General Public License for more details. 
-  * 
-  * You should have received a copy of the GNU General Public License 
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-  */ 
+ /* Copyright 2020 MT<704340378@qq.com>
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
 #include "mt84.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
  /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -40,7 +40,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
    {1, D_12,   E_12,   F_12},
    {1, G_12,   H_12,   I_12},
    {1, J_12,   K_12,   L_12},
-       
+
    {0, A_1,   B_1,   C_1},
    {0, D_1,   E_1,   F_1},
    {0, G_1,   H_1,   I_1},
@@ -72,7 +72,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
    {1, A_7,   B_7,   C_7},
    {1, D_7,   E_7,   F_7},
    {1, G_7,   H_7,   I_7},
-       
+
    {0, A_3,   B_3,   C_3},
    {0, D_3,   E_3,   F_3},
    {0, G_3,   H_3,   I_3},
@@ -87,7 +87,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
    {1, J_3,   K_3,   L_3},
    {1, A_8,   B_8,   C_8},
    {1, G_8,   H_8,   I_8},
-       
+
    {0, A_4,   B_4,   C_4},
    {0, D_4,   E_4,   F_4},
    {0, G_4,   H_4,   I_4},
@@ -130,7 +130,7 @@ led_config_t g_led_config = {{
     {   9, 52 }, {  27, 52 }, {  43, 52 }, {  59, 52 }, {  75, 52 }, { 91, 52 }, { 107, 52 }, { 123, 52 }, { 139, 52 }, { 155, 52 }, { 171, 52 }, { 187, 52 }, { 212,  52 }, { 224,  52 },
 {   2, 64 }, {  18, 64 }, {  33, 64 },                 {  93, 64 },                                                                              { 150, 64 }, { 165,  64 }, { 180, 64 }, { 195, 64 }, { 210, 64 }, { 224, 64 }
 }, {
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,

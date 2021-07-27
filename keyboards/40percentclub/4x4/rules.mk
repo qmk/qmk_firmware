@@ -29,7 +29,7 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
-LAYOUTS = ortho_4x4  ortho_4x8  ortho_4x12  ortho_4x16
+LAYOUTS = ortho_4x4 ortho_4x12
 
 # Disable unsupported hardware
 RGBLIGHT_SUPPORTED = no

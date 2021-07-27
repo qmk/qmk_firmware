@@ -178,9 +178,13 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
 #    ifdef RGBLIGHT_ENABLE
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(state | default_layer_state)) {
-            case _MACROS: // mouse
+            case _MOUSE:  // mouse
                 if (!layer_state_cmp(state, _GAMEPAD) && !layer_state_cmp(state, _DIABLO)) {
+#        if defined(RGBLIGHT_EFFECT_TWINKLE)
+                    rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_TWINKLE + 5);
+#        else
                     rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_BREATHING + 3);
+#        endif
                 }
                 break;
             case _MEDIA:
@@ -201,29 +205,17 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
             case _ADJUST:
                 rgblight_set_hsv_and_mode(HSV_RED, RGBLIGHT_MODE_KNIGHT + 2);
                 break;
-            case _COLEMAK:
-                rgblight_set_hsv_and_mode(HSV_MAGENTA, RGBLIGHT_MODE_STATIC_LIGHT);
+            case _DEFAULT_LAYER_1:
+                rgblight_set_hsv_and_mode(DEFAULT_LAYER_1_HSV, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
-            case _DVORAK:
-                rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, RGBLIGHT_MODE_STATIC_LIGHT);
+            case _DEFAULT_LAYER_2:
+                rgblight_set_hsv_and_mode(DEFAULT_LAYER_2_HSV, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
-            case _WORKMAN:
-                rgblight_set_hsv_and_mode(HSV_GOLDENROD, RGBLIGHT_MODE_STATIC_LIGHT);
+            case _DEFAULT_LAYER_3:
+                rgblight_set_hsv_and_mode(DEFAULT_LAYER_3_HSV, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
-            case _NORMAN:
-                rgblight_set_hsv_and_mode(HSV_CORAL, RGBLIGHT_MODE_STATIC_LIGHT);
-                break;
-            case _MALTRON:
-                rgblight_set_hsv_and_mode(HSV_YELLOW, RGBLIGHT_MODE_STATIC_LIGHT);
-                break;
-            case _EUCALYN:
-                rgblight_set_hsv_and_mode(HSV_PINK, RGBLIGHT_MODE_STATIC_LIGHT);
-                break;
-            case _CARPLAX:
-                rgblight_set_hsv_and_mode(HSV_BLUE, RGBLIGHT_MODE_STATIC_LIGHT);
-                break;
-            default:
-                rgblight_set_hsv_and_mode(HSV_CYAN, RGBLIGHT_MODE_STATIC_LIGHT);
+            case _DEFAULT_LAYER_4:
+                rgblight_set_hsv_and_mode(DEFAULT_LAYER_4_HSV, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
         }
     }

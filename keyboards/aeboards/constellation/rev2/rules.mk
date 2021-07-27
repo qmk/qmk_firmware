@@ -1,5 +1,8 @@
 # MCU name
-MCU = STM32L433
+MCU = STM32L422
+
+# Bootloader selection
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable

@@ -105,6 +105,10 @@ extern layer_state_t layer_state;
 #    include "process_unicodemap.h"
 #endif
 
+#ifdef KEY_OVERRIDE_ENABLE
+#    include "process_key_override.h"
+#endif
+
 #ifdef TAP_DANCE_ENABLE
 #    include "process_tap_dance.h"
 #endif
@@ -157,10 +161,15 @@ extern layer_state_t layer_state;
 
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
+#    include "process_haptic.h"
 #endif
 
 #ifdef OLED_DRIVER_ENABLE
 #    include "oled_driver.h"
+#endif
+
+#ifdef ST7565_ENABLE
+#    include "st7565.h"
 #endif
 
 #ifdef DIP_SWITCH_ENABLE
