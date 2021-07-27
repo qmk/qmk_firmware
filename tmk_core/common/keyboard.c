@@ -103,6 +103,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
 #endif
+#if defined(CRC_ENABLE)
+#    include "crc.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) { return last_input_modification_time; }
@@ -300,6 +303,9 @@ void keyboard_init(void) {
     timer_init();
     sync_timer_init();
     matrix_init();
+#if defined(CRC_ENABLE)
+    crc_init();
+#endif
 #ifdef VIA_ENABLE
     via_init();
 #endif

@@ -114,7 +114,7 @@ void matrix_scan_user(void) {
 
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (biton32(state)) {
         case _L0:
             custom_backlight_level(0);

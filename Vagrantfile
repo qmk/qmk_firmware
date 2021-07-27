@@ -6,7 +6,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "qmk_firmware"
 
   # VMware/Virtualbox ( and also Hyperv/Parallels) 64 bit
-  config.vm.box = "generic/debian9"
+  config.vm.box = "generic/debian10"
   
   config.vm.synced_folder '.', '/vagrant'
 

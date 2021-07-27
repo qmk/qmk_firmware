@@ -953,10 +953,10 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
 #if defined(SERIAL_NUMBER)
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
     .Header = {
-        .Size                   = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1), // Subtract 1 for null terminator
+        .Size                   = USB_STRING_LEN(sizeof(SERIAL_NUMBER) - 1), // Subtract 1 for null terminator
         .Type                   = DTYPE_String
     },
-    .UnicodeString              = LSTR(SERIAL_NUMBER)
+    .UnicodeString              = USBSTR(SERIAL_NUMBER)
 };
 #endif
 

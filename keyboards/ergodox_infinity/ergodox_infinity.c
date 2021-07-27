@@ -8,47 +8,6 @@
 #    include "lcd_backlight.h"
 #endif
 
-#if (defined(LED_MATRIX_ENABLE) || defined(WPM_ENABLE))
-#    include "serial_link/protocol/transport.h"
-
-#    ifdef LED_MATRIX_ENABLE
-MASTER_TO_ALL_SLAVES_OBJECT(led_matrix, led_eeconfig_t);
-MASTER_TO_ALL_SLAVES_OBJECT(led_suspend_state, bool);
-static led_eeconfig_t last_sent_led_matrix;
-static uint16_t       led_matrix_sent_timer = 0;
-
-void send_led_suspend_state(void) {
-    if (is_serial_link_master()) {
-        *begin_write_led_suspend_state() = led_matrix_get_suspend_state();
-        end_write_led_suspend_state();
-    }
-}
-#    endif
-
-#    ifdef WPM_ENABLE
-#        include "wpm.h"
-MASTER_TO_ALL_SLAVES_OBJECT(current_wpm, uint8_t);
-static uint8_t last_sent_wpm = 0;
-#    endif
-
-static remote_object_t *remote_objects[] = {
-#    ifdef LED_MATRIX_ENABLE
-    REMOTE_OBJECT(led_matrix),
-    REMOTE_OBJECT(led_suspend_state),
-#    endif
-#    ifdef WPM_ENABLE
-    REMOTE_OBJECT(current_wpm),
-#    endif
-};
-#endif
-
-void init_serial_link_hal(void) {
-    PORTA->PCR[1] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(2);
-    PORTA->PCR[2] = PORTx_PCRn_DSE | PORTx_PCRn_SRE | PORTx_PCRn_MUX(2);
-    PORTE->PCR[0] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(3);
-    PORTE->PCR[1] = PORTx_PCRn_DSE | PORTx_PCRn_SRE | PORTx_PCRn_MUX(3);
-}
-
 #define RED_PIN 1
 #define GREEN_PIN 2
 #define BLUE_PIN 3
@@ -128,7 +87,11 @@ static uint16_t cie_lightness(uint16_t v) {
     return y * 65535.0f;
 }
 
+#ifdef VISUALIZER_ENABLE
 void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b) {
+#else
+void ergodox_infinity_lcd_color(uint16_t r, uint16_t g, uint16_t b) {
+#endif
     CHANNEL_RED.CnV   = cie_lightness(r);
     CHANNEL_GREEN.CnV = cie_lightness(g);
     CHANNEL_BLUE.CnV  = cie_lightness(b);
@@ -144,6 +107,13 @@ void keyboard_pre_init_kb() {
     // Turn on LED controller
     setPinOutput(B16);
     writePinHigh(B16);
+#endif
+#ifndef VISUALIZER_ENABLE
+    // The backlight always has to be initialized, otherwise it will stay lit
+    lcd_backlight_hal_init();
+#    ifdef ST7565_ENABLE
+    ergodox_infinity_lcd_color(UINT16_MAX / 2, UINT16_MAX / 2, UINT16_MAX / 2);
+#    endif
 #endif
     keyboard_pre_init_user();
 }
@@ -165,72 +135,13 @@ void matrix_init_kb(void) {
 #endif
 
     matrix_init_user();
-    // The backlight always has to be initialized, otherwise it will stay lit
-#ifndef VISUALIZER_ENABLE
-    lcd_backlight_hal_init();
-#endif
-#if (defined(LED_MATRIX_ENABLE) || defined(WPM_ENABLE))
-    add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t *));
-#endif
 }
 
 void matrix_scan_kb(void) {
     // put your looping keyboard code here
     // runs every cycle (a lot)
 
-#ifdef LED_MATRIX_ENABLE
-    if (is_serial_link_master()) {
-        if (!led_matrix_get_suspend_state()) {
-            if (timer_elapsed(led_matrix_sent_timer) >= 5000 || memcmp((void *)&last_sent_led_matrix, (void *)&led_matrix_eeconfig, sizeof(last_sent_led_matrix))) {
-                led_matrix_sent_timer = timer_read();
-                memcpy((void *)&last_sent_led_matrix, (void *)&led_matrix_eeconfig, sizeof(last_sent_led_matrix));
-                *begin_write_led_matrix() = last_sent_led_matrix;
-                end_write_led_matrix();
-            }
-        }
-    } else if (is_serial_link_connected()) {
-        bool *new_led_suspend_state = read_led_suspend_state();
-        if (new_led_suspend_state) {
-            led_matrix_set_suspend_state(*new_led_suspend_state);
-        }
-        if (!led_matrix_get_suspend_state()) {
-            led_eeconfig_t *new_led_matrix = read_led_matrix();
-            if (new_led_matrix) {
-                memcpy((void *)&led_matrix_eeconfig, (void *)new_led_matrix, sizeof(last_sent_led_matrix));
-            }
-        }
-    }
-#endif
-
-#ifdef WPM_ENABLE
-    if (is_serial_link_master()) {
-        uint8_t current_wpm = get_current_wpm();
-        if (current_wpm != last_sent_wpm) {
-            *begin_write_current_wpm() = current_wpm;
-            end_write_current_wpm();
-            last_sent_wpm = current_wpm;
-        }
-    } else if (is_serial_link_connected()) {
-        uint8_t *new_wpm = read_current_wpm();
-        if (new_wpm) {
-            set_current_wpm(*new_wpm);
-        }
-    }
-#endif
-
     matrix_scan_user();
-}
-
-bool is_keyboard_master(void) { return is_serial_link_master(); }
-
-bool is_keyboard_left(void) {
-#if defined(EE_HANDS)
-    return eeconfig_read_handedness();
-#elif defined(MASTER_IS_ON_RIGHT)
-    return !is_keyboard_master();
-#else
-    return is_keyboard_master();
-#endif
 }
 
 __attribute__ ((weak)) void ergodox_board_led_on(void) {}
@@ -254,20 +165,6 @@ __attribute__ ((weak)) void ergodox_right_led_1_set(uint8_t n) {}
 __attribute__ ((weak)) void ergodox_right_led_2_set(uint8_t n) {}
 
 __attribute__ ((weak)) void ergodox_right_led_3_set(uint8_t n) {}
-
-void suspend_power_down_kb(void) {
-#ifdef LED_MATRIX_ENABLE
-    send_led_suspend_state();
-#endif
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-#ifdef LED_MATRIX_ENABLE
-    send_led_suspend_state();
-#endif
-    suspend_wakeup_init_user();
-}
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
@@ -403,4 +300,81 @@ led_config_t g_led_config = {
                        1, 1, 1,
     }
 };
+#endif
+
+#ifdef ST7565_ENABLE
+__attribute__((weak)) void st7565_on_user(void) {
+    ergodox_infinity_lcd_color(UINT16_MAX / 2, UINT16_MAX / 2, UINT16_MAX / 2);
+}
+
+__attribute__((weak)) void st7565_off_user(void) {
+    ergodox_infinity_lcd_color(0, 0, 0);
+}
+
+static void format_layer_bitmap_string(char* buffer, uint8_t offset) {
+    for (int i = 0; i < 16 && i + offset < MAX_LAYER; i++) {
+        if (i == 0 || i == 4 || i == 8 || i == 12) {
+            *buffer = ' ';
+            ++buffer;
+        }
+
+        uint8_t layer = i + offset;
+        if (layer_state_cmp(default_layer_state, layer)) {
+            *buffer = 'D';
+        } else if (layer_state_is(layer)) {
+            *buffer = '1';
+        } else {
+            *buffer = '_';
+        }
+        ++buffer;
+    }
+    *buffer = 0;
+}
+
+__attribute__((weak)) void st7565_task_user(void) {
+    if (is_keyboard_master()) {
+        // Draw led and layer status
+        led_t leds = host_keyboard_led_state();
+        if(leds.num_lock) { st7565_write("Num ", false); }
+        if(leds.caps_lock) { st7565_write("Cap ", false); }
+        if(leds.scroll_lock) { st7565_write("Scrl ", false); }
+        if(leds.compose) { st7565_write("Com ", false); }
+        if(leds.kana) { st7565_write("Kana", false); }
+        st7565_advance_page(true);
+
+        char layer_buffer[16 + 5];  // 3 spaces and one null terminator
+        st7565_set_cursor(0, 1);
+        format_layer_bitmap_string(layer_buffer, 0);
+        st7565_write_ln(layer_buffer, false);
+        format_layer_bitmap_string(layer_buffer, 16);
+        st7565_write_ln(layer_buffer, false);
+        st7565_write_ln("  1=On    D=Default", false);
+    } else {
+        // Draw logo
+        static const char qmk_logo[] = {
+            0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
+            0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
+            0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
+        };
+
+        st7565_write(qmk_logo, false);
+        st7565_write("  Infinity  Ergodox  ", false);
+    }
+}
+#endif
+
+#if defined(SPLIT_KEYBOARD)
+void usart_master_init(SerialDriver **driver) {
+    PORTA->PCR[1] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(2);
+    PORTA->PCR[2] = PORTx_PCRn_DSE | PORTx_PCRn_SRE | PORTx_PCRn_MUX(2);
+
+    // driver is set to SD1 in config.h
+}
+
+void usart_slave_init(SerialDriver **driver) {
+    PORTE->PCR[0] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(3);
+    PORTE->PCR[1] = PORTx_PCRn_DSE | PORTx_PCRn_SRE | PORTx_PCRn_MUX(3);
+
+    *driver = &SD2;
+}
 #endif

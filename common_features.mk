@@ -196,10 +196,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
         $(error RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
     else
-        POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
+        COMMON_VPATH += $(QUANTUM_DIR)/rgblight
+        POST_CONFIG_H += $(QUANTUM_DIR)/rgblight/rgblight_post_config.h
         OPT_DEFS += -DRGBLIGHT_ENABLE
         SRC += $(QUANTUM_DIR)/color.c
-        SRC += $(QUANTUM_DIR)/rgblight.c
+        SRC += $(QUANTUM_DIR)/rgblight/rgblight.c
         CIE1931_CURVE := yes
         RGB_KEYCODES_ENABLE := yes
     endif
@@ -230,9 +231,13 @@ ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
     # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
     OPT_DEFS += -DLIB8_ATTINY
 endif
+    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix
+    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
+    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations/runners
     SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
-    SRC += $(QUANTUM_DIR)/led_matrix.c
-    SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+    SRC += $(QUANTUM_DIR)/led_matrix/led_matrix.c
+    SRC += $(QUANTUM_DIR)/led_matrix/led_matrix_drivers.c
+    SRC += $(LIB_PATH)/lib8tion/lib8tion.c
     CIE1931_CURVE := yes
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3731)
@@ -255,9 +260,13 @@ ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
     # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
     OPT_DEFS += -DLIB8_ATTINY
 endif
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
     SRC += $(QUANTUM_DIR)/color.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
+    SRC += $(LIB_PATH)/lib8tion/lib8tion.c
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
 
@@ -325,6 +334,11 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
     SRC += $(TMK_DIR)/protocol/serial_uart.c
 endif
 
+ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
+    OPT_DEFS += -DKEY_OVERRIDE_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_key_override.c
+endif
+
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
     SERIAL_SRC := $(wildcard $(SERIAL_PATH)/protocol/*.c)
     SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
@@ -347,11 +361,6 @@ endif
 
 ifeq ($(strip $(LCD_ENABLE)), yes)
     CIE1931_CURVE := yes
-endif
-
-# backward compat
-ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
-    BACKLIGHT_DRIVER := custom
 endif
 
 VALID_BACKLIGHT_TYPES := pwm timer software custom
@@ -501,11 +510,7 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     # if 'lite' then skip the actual matrix implementation
     ifneq ($(strip $(CUSTOM_MATRIX)), lite)
         # Include the standard or split matrix code if needed
-        ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
-        else
-            QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
-        endif
+        QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
     endif
 endif
 
@@ -530,13 +535,18 @@ endif
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
+    CRC_ENABLE := yes
 
     # Include files used by all split keyboards
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/transport.c
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c \
+                       $(QUANTUM_DIR)/split_common/transactions.c
+
+        OPT_DEFS += -DSPLIT_COMMON_TRANSACTIONS
+
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
         ifeq ($(PLATFORM),AVR)
@@ -557,11 +567,17 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
 
+ifeq ($(strip $(CRC_ENABLE)), yes)
+    OPT_DEFS += -DCRC_ENABLE
+    SRC += crc.c
+endif
+
 HAPTIC_ENABLE ?= no
 ifneq ($(strip $(HAPTIC_ENABLE)),no)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
-    SRC += haptic.c
     OPT_DEFS += -DHAPTIC_ENABLE
+    SRC += $(QUANTUM_DIR)/haptic.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_haptic.c
 endif
 
 ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )

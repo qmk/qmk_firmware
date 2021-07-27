@@ -262,6 +262,10 @@ void st7565_task(void);
 // Called at the start of st7565_task, weak function overridable by the user
 void st7565_task_user(void);
 
+// Inverts the display
+// Returns true if the screen was or is inverted
+bool st7565_invert(bool invert);
+
 // Returns the maximum number of characters that will fit on a line
 uint8_t st7565_max_chars(void);
 

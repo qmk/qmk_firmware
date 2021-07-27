@@ -1,0 +1,1 @@
+# default ogurec keymap 
