@@ -3,7 +3,7 @@
     "vendorId": "0xFB9C",
     "productId": "0x3F42",
     "lighting": "none",
-    "matrix": { "rows": 5, "cols": 16 },
+    "matrix": { "rows": 5, "cols": 15 },
     "layouts": {
         "labels": [
             ["Backspace", "Standard", "Split"],
@@ -114,15 +114,15 @@
                 "3,10",
                 {
                     "c": "#aaaaaa",
-                    "w": 2.75
-                },
-                "3,11\n\n\n1,1",
-                {
-                    "x": 0.25,
                     "w": 1.75
                 },
                 "3,11\n\n\n1,0",
-                "3,12\n\n\n1,0"
+                "3,12\n\n\n1,0",
+                {
+                    "x": 0.25,
+                    "w": 2.75
+                },
+                "3,11\n\n\n1,1"
             ],
             [
                 {
