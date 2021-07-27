@@ -4,9 +4,9 @@
 
 The 3w6 is a low profile, split ortholinear keyboard with 36 keys.
 
-I needed a keyboard for work and wasn't really satisfied with the available alternatives (namely Corne, Kyria and Ferris), mostly because they were rather large and didn't had the spacing I would like.
+I needed a keyboard for work and wasn't really satisfied with the available alternatives (namely Corne, Kyria and Ferris), mostly because they are either rather large and/or don't have the spacing I would like.
 
-It's designed to be a simple, realiable, cheap and small keyboard to be taken everywhere. 
+The 3w6 is designed to be a simple, realiable, cheap and small keyboard to be taken everywhere. 
 
 There are currently two revisions:
 * Rev1: 
