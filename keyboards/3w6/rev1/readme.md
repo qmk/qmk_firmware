@@ -1,7 +1,7 @@
 # 3W6
 
-![3W6](https://raw.githubusercontent.com/weteor/3W6/main/3w6_1s.jpg)
-![3W6](https://raw.githubusercontent.com/weteor/3W6/main/3w6_3s.jpg)
+![3W6](https://raw.githubusercontent.com/weteor/3W6/main/images/3w6_1s.jpg)
+![3W6](https://raw.githubusercontent.com/weteor/3W6/main/images/3w6_3s.jpg)
 
 The 3w6 is a low profile, split ortholinear keyboard with 36 keys.
 
