@@ -44,11 +44,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { D0, D3, D2, F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4 }
 #define UNUSED_PINS
 
-/* indicator LEDs */
-#define LED_CAPS_LOCK_PIN B3
-
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+/* indicator LEDs */
+#define LED_CAPS_LOCK_PIN B3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
