@@ -78,7 +78,7 @@
                 {"x":14, "y":4}
             ]
         },
-        "LAYOUT_grid": {
+        "LAYOUT_ortho_5x15": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
