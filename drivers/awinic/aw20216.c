@@ -45,8 +45,6 @@
 
 #define AW_PWM_REGISTER_COUNT 216
 
-#define AW_SPI_START(PIN) spi_start(PIN, false, 0, AW_SPI_DIVISOR)
-
 #ifndef AW_SCALING_MAX
 #    define AW_SCALING_MAX 150
 #endif
@@ -55,128 +53,89 @@
 #    define AW_GLOBAL_CURRENT_MAX 150
 #endif
 
-#ifndef DRIVER_1_CS
-#    define DRIVER_1_CS B13
-#endif
-
-#ifndef DRIVER_1_EN
-#    define DRIVER_1_EN C13
-#endif
-
 #ifndef AW_SPI_DIVISOR
 #    define AW_SPI_DIVISOR 4
 #endif
 
-uint8_t g_spi_transfer_buffer[3] = {0};
 uint8_t g_pwm_buffer[DRIVER_COUNT][AW_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
-bool AW20216_write_register(pin_t slave_pin, uint8_t page, uint8_t reg, uint8_t data) {
-    // Do we need to call spi_stop() if this fails?
-    if (!AW_SPI_START(slave_pin)) {
-        return false;
-    }
+bool AW20216_write(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t* data, uint8_t len) {
+    static uint8_t s_spi_transfer_buffer[2] = {0};
 
-    g_spi_transfer_buffer[0] = (AWINIC_ID | page | AW_WRITE);
-    g_spi_transfer_buffer[1] = reg;
-    g_spi_transfer_buffer[2] = data;
-
-    if (spi_transmit(g_spi_transfer_buffer, 3) != SPI_STATUS_SUCCESS) {
+    if (!spi_start(cs_pin, false, 0, AW_SPI_DIVISOR)) {
         spi_stop();
         return false;
     }
+
+    s_spi_transfer_buffer[0] = (AWINIC_ID | page | AW_WRITE);
+    s_spi_transfer_buffer[1] = reg;
+
+    if (spi_transmit(s_spi_transfer_buffer, 2) != SPI_STATUS_SUCCESS) {
+        spi_stop();
+        return false;
+    }
+
+    if (spi_transmit(data, len) != SPI_STATUS_SUCCESS) {
+        spi_stop();
+        return false;
+    }
+
     spi_stop();
     return true;
 }
 
-bool AW20216_init_scaling(void) {
+static inline bool AW20216_write_register(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t value) {
+    // Little wrapper so callers need not care about sending a buffer
+    return AW20216_write(cs_pin, page, reg, &value, 1);
+}
+
+static void AW20216_init_scaling(pin_t cs_pin) {
     // Set constant current to the max, control brightness with PWM
-    aw_led led;
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_aw_leds[i];
-        if (led.driver == 0) {
-            AW20216_write_register(DRIVER_1_CS, AW_PAGE_SCALING, led.r, AW_SCALING_MAX);
-            AW20216_write_register(DRIVER_1_CS, AW_PAGE_SCALING, led.g, AW_SCALING_MAX);
-            AW20216_write_register(DRIVER_1_CS, AW_PAGE_SCALING, led.b, AW_SCALING_MAX);
-        }
-#ifdef DRIVER_2_CS
-        else if (led.driver == 1) {
-            AW20216_write_register(DRIVER_2_CS, AW_PAGE_SCALING, led.r, AW_SCALING_MAX);
-            AW20216_write_register(DRIVER_2_CS, AW_PAGE_SCALING, led.g, AW_SCALING_MAX);
-            AW20216_write_register(DRIVER_2_CS, AW_PAGE_SCALING, led.b, AW_SCALING_MAX);
-        }
-#endif
+    for (uint8_t i = 0; i < AW_PWM_REGISTER_COUNT; i++) {
+        AW20216_write_register(cs_pin, AW_PAGE_SCALING, i, AW_SCALING_MAX);
     }
-    return true;
 }
 
-bool AW20216_soft_enable(void) {
-    AW20216_write_register(DRIVER_1_CS, AW_PAGE_FUNCTION, AW_REG_CONFIGURATION, AW_CONFIG_DEFAULT | AW_CHIPEN);
-#ifdef DRIVER_2_CS
-    AW20216_write_register(DRIVER_2_CS, AW_PAGE_FUNCTION, AW_REG_CONFIGURATION, AW_CONFIG_DEFAULT | AW_CHIPEN);
-#endif
-    return true;
+static inline void AW20216_init_current_limit(pin_t cs_pin) {
+    // Push config
+    AW20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_GLOBALCURRENT, AW_GLOBAL_CURRENT_MAX);
 }
 
-void AW20216_update_pwm(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    aw_led led = g_aw_leds[index];
-    if (led.driver == 0) {
-        AW20216_write_register(DRIVER_1_CS, AW_PAGE_PWM, led.r, red);
-        AW20216_write_register(DRIVER_1_CS, AW_PAGE_PWM, led.g, green);
-        AW20216_write_register(DRIVER_1_CS, AW_PAGE_PWM, led.b, blue);
-    }
-#ifdef DRIVER_2_CS
-    else if (led.driver == 1) {
-        AW20216_write_register(DRIVER_2_CS, AW_PAGE_PWM, led.r, red);
-        AW20216_write_register(DRIVER_2_CS, AW_PAGE_PWM, led.g, green);
-        AW20216_write_register(DRIVER_2_CS, AW_PAGE_PWM, led.b, blue);
-    }
-#endif
-    return;
+static inline void AW20216_soft_enable(pin_t cs_pin) {
+    // Push config
+    AW20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_CONFIGURATION, AW_CONFIG_DEFAULT | AW_CHIPEN);
 }
 
-void AW20216_init(void) {
-    // All LEDs should start with all scaling and PWM registers as off
-    setPinOutput(DRIVER_1_EN);
-    writePinHigh(DRIVER_1_EN);
-    AW20216_write_register(DRIVER_1_CS, AW_PAGE_FUNCTION, AW_REG_GLOBALCURRENT, AW_GLOBAL_CURRENT_MAX);
-#ifdef DRIVER_2_EN
-    setPinOutput(DRIVER_2_EN);
-    writePinHigh(DRIVER_2_EN);
-    AW20216_write_register(DRIVER_2_CS, AW_PAGE_FUNCTION, AW_REG_GLOBALCURRENT, AW_GLOBAL_CURRENT_MAX);
-#endif
-    AW20216_init_scaling();
-    AW20216_soft_enable();
-    return;
+void AW20216_init(pin_t cs_pin, pin_t en_pin) {
+    setPinOutput(en_pin);
+    writePinHigh(en_pin);
+
+    // Drivers should start with all scaling and PWM registers as off
+    AW20216_init_current_limit(cs_pin);
+    AW20216_init_scaling(cs_pin);
+
+    AW20216_soft_enable(cs_pin);
 }
 
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    aw_led led                               = g_aw_leds[index];
+    aw_led led = g_aw_leds[index];
+
     g_pwm_buffer[led.driver][led.r]          = red;
     g_pwm_buffer[led.driver][led.g]          = green;
     g_pwm_buffer[led.driver][led.b]          = blue;
     g_pwm_buffer_update_required[led.driver] = true;
-    return;
 }
+
 void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         AW20216_set_color(i, red, green, blue);
     }
-    return;
 }
 
-void AW20216_write_pwm_buffer(pin_t slave_pin, uint8_t buffer_idx) {
-    AW_SPI_START(slave_pin);
-    spi_write((AWINIC_ID | AW_PAGE_PWM | AW_WRITE));
-    spi_write(0);
-    spi_transmit(g_pwm_buffer[buffer_idx], AW_PWM_REGISTER_COUNT);
-    spi_stop();
-}
-
-void AW20216_update_pwm_buffers(void) {
-    AW20216_write_pwm_buffer(DRIVER_1_CS, 0);
-#ifdef DRIVER_2_CS
-    AW20216_write_pwm_buffer(DRIVER_2_CS, 1);
-#endif
-    return;
+void AW20216_update_pwm_buffers(pin_t cs_pin, uint8_t index) {
+    if (g_pwm_buffer_update_required[index]) {
+        AW20216_write(cs_pin, AW_PAGE_PWM, 0, g_pwm_buffer[index], AW_PWM_REGISTER_COUNT);
+    }
+    g_pwm_buffer_update_required[index] = false;
 }
