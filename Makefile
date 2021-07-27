@@ -262,8 +262,10 @@ define PARSE_RULE
         $$(info | Examples:)
         $$(info |     keyboards/dz60, keyboards/dz60/keymaps/default)
         $$(info |       -> make dz60:default)
+        $$(info |       -> qmk compile -kb dz60 -km default)
         $$(info |     keyboards/planck/rev6, keyboards/planck/keymaps/default)
         $$(info |       -> make planck/rev6:default:flash)
+        $$(info |       -> qmk flash -kb planck/rev6 -km default)
         $$(info |)
     endif
 endef
