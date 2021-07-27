@@ -8,6 +8,8 @@ Treasure TYPE-9 Series II is a 3x3 Macropad.
 * Hardware Supported: Treasure TYPE-9 Series II PCB
 * Hardware Availability: [Treasure Store](http://treasuretypes.com)
 
+To place the keyboard into bootloader mode in order to flash it, use the reset button on the PCB.    
+
 Make example for this keyboard (after setting up your build environment):
 
     make treasure/type9s2:default
