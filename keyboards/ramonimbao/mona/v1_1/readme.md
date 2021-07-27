@@ -7,6 +7,8 @@ A gummy-worm o-ring mount 60% marble keyboard. Now with ALPS/MX, Caps Lock LED, 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: ATmega32u4
 
+To get to the bootloader, with the USB cable plugged in, press the `RESET` button on the back of the PCB.
+
 Make example for this keyboard (after setting up your build environment):
 
     make ramonimbao/mona:default
