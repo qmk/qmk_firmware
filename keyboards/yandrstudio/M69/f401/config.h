@@ -26,7 +26,7 @@
 #define MATRIX_ROW_PINS { B0,  B1,  B2, A5,   A6,  A7}
 
 /* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
+#define DIODE_DIRECTION ROW2COL
 
 
 /* RGN Matrix */
@@ -79,4 +79,6 @@
 
 
 
-
+#define LED_CAPS_LOCK_PIN    B13
+#define LED_SCROLL_LOCK_PIN  B13
+#define LED_PIN_ON_STATE     0
