@@ -61,7 +61,7 @@ void keyboard_post_init_kb(void) {
 
 void kb_state_update(void) {
 #    ifdef POINTING_DEVICE_ENABLE
-    if (is_keyboard_master() && !is_keyboard_left()) {
+    if (is_keyboard_master()) {
         static uint16_t cpi = 0;
         if (cpi != kb_state.device_cpi) {
             cpi = kb_state.device_cpi;

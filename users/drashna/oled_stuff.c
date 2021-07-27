@@ -315,12 +315,11 @@ void render_wpm(void) {
 }
 
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
-extern keyboard_config_t keyboard_config;
-extern uint16_t          dpi_array[];
 
+extern kb_runtime_config_t kb_state;
 void render_pointing_dpi_status(void) {
     char     dpi_status[6];
-    uint16_t n    = dpi_array[keyboard_config.dpi_config];
+    uint16_t n    = kb_state.device_cpi;
     dpi_status[5] = '\0';
     dpi_status[4] = '0' + n % 10;
     dpi_status[3] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';

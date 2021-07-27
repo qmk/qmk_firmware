@@ -23,12 +23,13 @@
 #define USB_POLLING_INTERVAL_MS 1
 
 #if defined(SPLIT_KEYBOARD)
-#    define SPLIT_MODS_ENABLE
+// #    define SPLIT_TRANSPORT_MIRROR
 #    define SPLIT_LAYER_STATE_ENABLE
 #    define SPLIT_LED_STATE_ENABLE
-
-// #    define SPLIT_TRANSPORT_MIRROR
-#    define SERIAL_USE_MULTI_TRANSACTION
+#    define SPLIT_MODS_ENABLE
+#    ifdef WPM_ENABLE
+#        define SPLIT_WPM_ENABLE
+#    endif
 #    define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC
 #endif
 
