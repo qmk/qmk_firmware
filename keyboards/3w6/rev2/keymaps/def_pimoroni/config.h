@@ -1,0 +1,5 @@
+#pragma once
+
+#define PIMORONI_TRACKBALL_INVERT_Y
+#define PIMORONI_TRACKBALL_ROTATE
+
