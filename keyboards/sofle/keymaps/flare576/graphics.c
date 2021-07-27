@@ -306,7 +306,7 @@ void oled_task_user(void) {
         set_current_wpm(10);
     }
     current_wpm = get_current_wpm();
-    if (!is_keyboard_master()) {
+    if (is_keyboard_master()) {
         main_board();
     } else if (current_wpm > 0) {
         render_logos();
