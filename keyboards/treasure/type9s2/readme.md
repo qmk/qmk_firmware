@@ -1,6 +1,6 @@
 # Treasure TYPE-9 Series II
 
-![TYPE9SII](https://i.imgur.com/lohJ0Da.png)
+![TYPE9SII](https://i.imgur.com/lohJ0Dal.png)
 
 Treasure TYPE-9 Series II is a 3x3 Macropad.
 
