@@ -14,9 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#ifndef ALU84_H
-#define ALU84_H
+#pragma once
 
 #include "quantum.h"
 
@@ -37,5 +35,3 @@
 	{ K40, ___, K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B, ___, K4D, K4E, K4F }, \
 	{ K50, K51, ___, K53, ___, ___, K56, ___, ___, ___, K5A, K5B, K5C, K5D, K5E, K5F }  \
 }
-
-#endif
