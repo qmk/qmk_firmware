@@ -7,10 +7,10 @@
 #include "action_tapping.h"
 
 extern "C" {
+#include "debug.h"
+#include "eeconfig.h"
 #include "action_layer.h"
-}
 
-extern "C" {
 void set_time(uint32_t t);
 void advance_time(uint32_t ms);
 }
@@ -21,6 +21,10 @@ using testing::Between;
 using testing::Return;
 
 void TestFixture::SetUpTestCase() {
+    // The following is enough to bootstrap the values set in main
+    eeconfig_init_quantum();
+    eeconfig_update_debug(debug_config.raw);
+
     TestDriver driver;
     EXPECT_CALL(driver, send_keyboard_mock(_));
     keyboard_init();

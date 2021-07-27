@@ -20,9 +20,6 @@
 
 #ifdef OLED_DRIVER_ENABLE
 #    define OLED_DISPLAY_128X64
-#    define OLED_FONT_H "font_gmk_bad.h"
-#    define OLED_DISABLE_TIMEOUT
-#    define OLED_SCROLL_TIMEOUT_RIGHT 60000
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -32,11 +29,7 @@
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_SPLIT
-#    define RGBLIGHT_LAYERS
+// #    define RGBLIGHT_LAYERS
 #endif
-
-// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-#define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT 1000
 
 #define KEYLOGGER_LENGTH 10

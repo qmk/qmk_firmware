@@ -6,7 +6,7 @@
 #include "serial.h"
 #include "wait.h"
 
-#include "hal.h"
+#include <hal.h>
 
 // TODO: resolve/remove build warnings
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT) && defined(PROTOCOL_CHIBIOS) && defined(WS2812_DRIVER_BITBANG)

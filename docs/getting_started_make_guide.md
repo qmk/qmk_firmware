@@ -14,16 +14,32 @@ The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, 
 The `<target>` means the following
 * If no target is given, then it's the same as `all` below
 * `all` compiles as many keyboard/revision/keymap combinations as specified. For example, `make planck/rev4:default` will generate a single .hex, while `make planck/rev4:all` will generate a hex for every keymap available to the planck.
-* `flash`, `dfu`, `teensy`, `avrdude`, `dfu-util`, or `bootloadHID` compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme.
- * **Note**: some operating systems need root access for these commands to work, so in that case you need to run for example `sudo make planck/rev4:default:flash`.
+* `flash`, `dfu`, `teensy`, `avrdude`, `dfu-util`, or `bootloadHID` compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme. 
+  Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
+  * **Note**: some operating systems need privileged access for these commands to work. This means that you may need to setup [`udev rules`](faq_build.md#linux-udev-rules) to access these without root access, or to run the command with root access (`sudo make planck/rev4:default:flash`).
 * `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
+* `distclean` removes .hex files and .bin files.
+
+The following targets are for developers:
+
+* `show_path` shows the path of the source and object files.
+* `dump_vars` dumps the makefile variable.
+* `objs-size` displays the size of individual object files.
+* `show_build_options` shows the options set in 'rules.mk'.
+* `check-md5` displays the md5 checksum of the generated binary file.
 
 You can also add extra options at the end of the make command line, after the target
 
 * `make COLOR=false` - turns off color output
 * `make SILENT=true` - turns off output besides errors/warnings
 * `make VERBOSE=true` - outputs all of the gcc stuff (not interesting, unless you need to debug)
-* `make EXTRAFLAGS=-E` - Preprocess the code without doing any compiling (useful if you are trying to debug #define commands)
+* `make VERBOSE_LD_CMD=yes` - execute the ld command with the -v option.
+* `make VERBOSE_AS_CMD=yes` - execute the as command with the -v option.
+* `make VERBOSE_C_CMD=<c_source_file>` - add the -v option when compiling the specified C source file.
+* `make DUMP_C_MACROS=<c_source_file>` - dump preprocessor macros when compiling the specified C source file.
+* `make DUMP_C_MACROS=<c_source_file> > <logfile>` - dump preprocessor macros to `<logfile>` when compiling the specified C source file.
+* `make VERBOSE_C_INCLUDE=<c_source_file>` - dumps the file names to be included when compiling the specified C source file.
+* `make VERBOSE_C_INCLUDE=<c_source_file> 2> <logfile>` - dumps the file names to be included to `<logfile>` when compiling the specified C source file.
 
 The make command itself also has some additional options, type `make --help` for more information. The most useful is probably `-jx`, which specifies that you want to compile using more than one CPU, the `x` represents the number of CPUs that you want to use. Setting that can greatly reduce the compile times, especially if you are compiling many keyboards/keymaps. I usually set it to one less than the number of CPUs that I have, so that I have some left for doing other things while it's compiling. Note that not all operating systems and make versions supports that option.
 
@@ -104,10 +120,6 @@ For further details, as well as limitations, see the [Unicode page](feature_unic
 `AUDIO_ENABLE`
 
 This allows you output audio on the C6 pin (needs abstracting). See the [audio page](feature_audio.md) for more information.
-
-`FAUXCLICKY_ENABLE`
-
-Uses buzzer to emulate clicky switches. A cheap imitation of the Cherry blue switches. By default, uses the C6 pin, same as `AUDIO_ENABLE`.
 
 `VARIABLE_TRACE`
 

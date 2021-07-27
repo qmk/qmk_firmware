@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef KEYMAP_NORDIC_H
-#define KEYMAP_NORDIC_H
+
+#pragma once
 
 #include "keymap.h"
 
@@ -66,5 +66,3 @@
 
 #define NO_BSLS ALGR(KC_MINS)
 #define NO_MU ALGR(KC_M)
-
-#endif

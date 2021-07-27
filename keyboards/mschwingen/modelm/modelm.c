@@ -47,19 +47,19 @@ static cRGB led[RGBLED_NUM] = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}
 
 static const cRGB black = {.r = 0, .g = 0, .b = 0};
 
-static const cRGB green  = {.r = 0, .g = BRIGHT, .b = 0};
-static const cRGB lgreen = {.r = 0, .g = DIM, .b = 0};
+static const __attribute__((unused)) cRGB green  = {.r = 0, .g = BRIGHT, .b = 0};
+static const __attribute__((unused)) cRGB lgreen = {.r = 0, .g = DIM, .b = 0};
 
-static const cRGB red  = {.r = BRIGHT, .g = 0, .b = 0};
-static const cRGB lred = {.r = DIM, .g = 0, .b = 0};
+static const __attribute__((unused)) cRGB red  = {.r = BRIGHT, .g = 0, .b = 0};
+static const __attribute__((unused)) cRGB lred = {.r = DIM, .g = 0, .b = 0};
 
-static const cRGB blue  = {.r = 0, .g = 0, .b = BRIGHT};
-static const cRGB lblue = {.r = 0, .g = 0, .b = DIM};
+static const __attribute__((unused)) cRGB blue  = {.r = 0, .g = 0, .b = BRIGHT};
+static const __attribute__((unused)) cRGB lblue = {.r = 0, .g = 0, .b = DIM};
 
-static const cRGB turq  = {.r = 0, .g = BRIGHT, .b = BRIGHT};
-static const cRGB lturq = {.r = 0, .g = DIM, .b = DIM};
+static const __attribute__((unused)) cRGB turq  = {.r = 0, .g = BRIGHT, .b = BRIGHT};
+static const __attribute__((unused)) cRGB lturq = {.r = 0, .g = DIM, .b = DIM};
 
-static const cRGB white = {.r = BRIGHT, .g = BRIGHT, .b = BRIGHT};
+static const __attribute__((unused)) cRGB white = {.r = BRIGHT, .g = BRIGHT, .b = BRIGHT};
 
 static led_t   led_state;
 static uint8_t layer;

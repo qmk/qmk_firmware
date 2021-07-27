@@ -5,6 +5,8 @@
 
 #pragma once
 
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID  0x4D58   // MX
 #define PRODUCT_ID 0x20AD   // 8XV2.0 Additional
@@ -45,7 +47,8 @@
 #define COL15_MASK 0x04
 #define COL16_MASK 0x02
 
-#define MATRIX_ROW_PINS { \
+// Note: MATRIX_ROW_PINS only works with standard pin names.
+#define MATRIX_M20_ROW_PINS { \
     DEF_PIN(TCA6424_PORT2, 7), \
     DEF_PIN(TCA6424_PORT2, 6), \
     DEF_PIN(TCA6424_PORT2, 0), \
@@ -53,7 +56,8 @@
     DEF_PIN(TCA6424_PORT2, 4), \
     DEF_PIN(TCA6424_PORT2, 5) }
 
-#define MATRIX_COL_PINS { \
+// Note: MATRIX_COL_PINS only works with standard pin names.
+#define MATRIX_M20_COL_PINS { \
     DEF_PIN(TCA6424_PORT2, 1), \
     DEF_PIN(TCA6424_PORT1, 7), \
     DEF_PIN(TCA6424_PORT1, 6), \
@@ -78,7 +82,6 @@
 #define DEBOUNCE    5
 
 // i2c setting
-#define USE_I2CV1
 #define I2C1_SCL 8
 #define I2C1_SDA 9
 #define I2C1_CLOCK_SPEED 400000
@@ -92,5 +95,3 @@
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_COUNT 1
 #define DRIVER_LED_TOTAL RGBLED_NUM
-
-#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE    // disable jump to system bootloader

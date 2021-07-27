@@ -37,18 +37,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "nodebug.h"
 #endif
 
-int tp_buttons;
-
-#ifdef RETRO_TAPPING
-int retro_tapping_counter = 0;
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing_device.h"
 #endif
 
-#ifdef FAUXCLICKY_ENABLE
-#    include <fauxclicky.h>
+int tp_buttons;
+
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+int retro_tapping_counter = 0;
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
+#endif
+
+#ifdef RETRO_TAPPING_PER_KEY
+__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
 #ifndef TAP_CODE_DELAY
@@ -67,20 +71,15 @@ void action_exec(keyevent_t event) {
         dprint("EVENT: ");
         debug_event(event);
         dprintln();
-#ifdef RETRO_TAPPING
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
         retro_tapping_counter++;
 #endif
     }
 
-#ifdef FAUXCLICKY_ENABLE
-    if (IS_PRESSED(event)) {
-        FAUXCLICKY_ACTION_PRESS;
+    if (event.pressed) {
+        // clear the potential weak mods left by previously pressed keys
+        clear_weak_mods();
     }
-    if (IS_RELEASED(event)) {
-        FAUXCLICKY_ACTION_RELEASE;
-    }
-    fauxclicky_check();
-#endif
 
 #ifdef SWAP_HANDS_ENABLE
     if (!IS_NOEVENT(event)) {
@@ -134,7 +133,8 @@ void process_hand_swap(keyevent_t *event) {
     bool             do_swap = event->pressed ? swap_hands : swap_state[pos.row] & (col_bit);
 
     if (do_swap) {
-        event->key = hand_swap_config[pos.row][pos.col];
+        event->key.row = pgm_read_byte(&hand_swap_config[pos.row][pos.col].row);
+        event->key.col = pgm_read_byte(&hand_swap_config[pos.row][pos.col].col);
         swap_state[pos.row] |= col_bit;
     } else {
         swap_state[pos.row] &= ~(col_bit);
@@ -220,6 +220,19 @@ void process_record_handler(keyrecord_t *record) {
     process_action(record, action);
 }
 
+#if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
+void register_button(bool pressed, enum mouse_buttons button) {
+#    ifdef PS2_MOUSE_ENABLE
+    tp_buttons = pressed ? tp_buttons | button : tp_buttons & ~button;
+#    endif
+#    ifdef POINTING_DEVICE_ENABLE
+    report_mouse_t currentReport = pointing_device_get_report();
+    currentReport.buttons        = pressed ? currentReport.buttons | button : currentReport.buttons & ~button;
+    pointing_device_set_report(currentReport);
+#    endif
+}
+#endif
+
 /** \brief Take an action and processes it.
  *
  * FIXME: Needs documentation.
@@ -229,11 +242,6 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
 #endif
-
-    if (event.pressed) {
-        // clear the potential weak mods left by previously pressed keys
-        clear_weak_mods();
-    }
 
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
@@ -403,40 +411,22 @@ void process_action(keyrecord_t *record, action_t action) {
         case ACT_MOUSEKEY:
             if (event.pressed) {
                 mousekey_on(action.key.code);
-                switch (action.key.code) {
-#    ifdef PS2_MOUSE_ENABLE
-                    case KC_MS_BTN1:
-                        tp_buttons |= (1 << 0);
-                        break;
-                    case KC_MS_BTN2:
-                        tp_buttons |= (1 << 1);
-                        break;
-                    case KC_MS_BTN3:
-                        tp_buttons |= (1 << 2);
-                        break;
-#    endif
-                    default:
-                        mousekey_send();
-                        break;
-                }
             } else {
                 mousekey_off(action.key.code);
-                switch (action.key.code) {
-#    ifdef PS2_MOUSE_ENABLE
-                    case KC_MS_BTN1:
-                        tp_buttons &= ~(1 << 0);
-                        break;
-                    case KC_MS_BTN2:
-                        tp_buttons &= ~(1 << 1);
-                        break;
-                    case KC_MS_BTN3:
-                        tp_buttons &= ~(1 << 2);
-                        break;
+            }
+            switch (action.key.code) {
+#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
+#        ifdef POINTING_DEVICE_ENABLE
+                case KC_MS_BTN1 ... KC_MS_BTN8:
+#        else
+                case KC_MS_BTN1 ... KC_MS_BTN3:
+#        endif
+                    register_button(event.pressed, MOUSE_BTN_MASK(action.key.code - KC_MS_BTN1));
+                    break;
 #    endif
-                    default:
-                        mousekey_send();
-                        break;
-                }
+                default:
+                    mousekey_send();
+                    break;
             }
             break;
 #endif
@@ -692,20 +682,23 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-#    ifdef RETRO_TAPPING
+#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
     if (!is_tap_action(action)) {
         retro_tapping_counter = 0;
     } else {
         if (event.pressed) {
             if (tap_count > 0) {
                 retro_tapping_counter = 0;
-            } else {
             }
         } else {
             if (tap_count > 0) {
                 retro_tapping_counter = 0;
             } else {
-                if (retro_tapping_counter == 2) {
+                if (
+#        ifdef RETRO_TAPPING_PER_KEY
+                    get_retro_tapping(get_event_keycode(record->event, false), record) &&
+#        endif
+                    retro_tapping_counter == 2) {
                     tap_code(action.layer_tap.code);
                 }
                 retro_tapping_counter = 0;
@@ -780,10 +773,9 @@ void register_code(uint8_t code) {
     }
 #endif
 
-    else if
-        IS_KEY(code) {
-            // TODO: should push command_proc out of this block?
-            if (command_proc(code)) return;
+    else if IS_KEY (code) {
+        // TODO: should push command_proc out of this block?
+        if (command_proc(code)) return;
 
 #ifndef NO_ACTION_ONESHOT
 /* TODO: remove
@@ -800,35 +792,33 @@ void register_code(uint8_t code) {
         } else
 */
 #endif
-            {
-                // Force a new key press if the key is already pressed
-                // without this, keys with the same keycode, but different
-                // modifiers will be reported incorrectly, see issue #1708
-                if (is_key_pressed(keyboard_report, code)) {
-                    del_key(code);
-                    send_keyboard_report();
-                }
-                add_key(code);
+        {
+            // Force a new key press if the key is already pressed
+            // without this, keys with the same keycode, but different
+            // modifiers will be reported incorrectly, see issue #1708
+            if (is_key_pressed(keyboard_report, code)) {
+                del_key(code);
                 send_keyboard_report();
             }
-        }
-    else if
-        IS_MOD(code) {
-            add_mods(MOD_BIT(code));
+            add_key(code);
             send_keyboard_report();
         }
+    } else if IS_MOD (code) {
+        add_mods(MOD_BIT(code));
+        send_keyboard_report();
+    }
 #ifdef EXTRAKEY_ENABLE
-    else if
-        IS_SYSTEM(code) { host_system_send(KEYCODE2SYSTEM(code)); }
-    else if
-        IS_CONSUMER(code) { host_consumer_send(KEYCODE2CONSUMER(code)); }
+    else if IS_SYSTEM (code) {
+        host_system_send(KEYCODE2SYSTEM(code));
+    } else if IS_CONSUMER (code) {
+        host_consumer_send(KEYCODE2CONSUMER(code));
+    }
 #endif
 #ifdef MOUSEKEY_ENABLE
-    else if
-        IS_MOUSEKEY(code) {
-            mousekey_on(code);
-            mousekey_send();
-        }
+    else if IS_MOUSEKEY (code) {
+        mousekey_on(code);
+        mousekey_send();
+    }
 #endif
 }
 
@@ -873,42 +863,43 @@ void unregister_code(uint8_t code) {
     }
 #endif
 
-    else if
-        IS_KEY(code) {
-            del_key(code);
-            send_keyboard_report();
-        }
-    else if
-        IS_MOD(code) {
-            del_mods(MOD_BIT(code));
-            send_keyboard_report();
-        }
-    else if
-        IS_SYSTEM(code) { host_system_send(0); }
-    else if
-        IS_CONSUMER(code) { host_consumer_send(0); }
+    else if IS_KEY (code) {
+        del_key(code);
+        send_keyboard_report();
+    } else if IS_MOD (code) {
+        del_mods(MOD_BIT(code));
+        send_keyboard_report();
+    } else if IS_SYSTEM (code) {
+        host_system_send(0);
+    } else if IS_CONSUMER (code) {
+        host_consumer_send(0);
+    }
 #ifdef MOUSEKEY_ENABLE
-    else if
-        IS_MOUSEKEY(code) {
-            mousekey_off(code);
-            mousekey_send();
-        }
+    else if IS_MOUSEKEY (code) {
+        mousekey_off(code);
+        mousekey_send();
+    }
 #endif
 }
 
-/** \brief Utilities for actions. (FIXME: Needs better description)
+/** \brief Tap a keycode with a delay.
  *
- * FIXME: Needs documentation.
+ * \param code The basic keycode to tap.
+ * \param delay The amount of time in milliseconds to leave the keycode registered, before unregistering it.
  */
-void tap_code(uint8_t code) {
+void tap_code_delay(uint8_t code, uint16_t delay) {
     register_code(code);
-    if (code == KC_CAPS) {
-        wait_ms(TAP_HOLD_CAPS_DELAY);
-    } else {
-        wait_ms(TAP_CODE_DELAY);
+    for (uint16_t i = delay; i > 0; i--) {
+        wait_ms(1);
     }
     unregister_code(code);
 }
+
+/** \brief Tap a keycode with the default delay.
+ *
+ * \param code The basic keycode to tap. If `code` is `KC_CAPS`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
+ */
+void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
@@ -977,16 +968,16 @@ void clear_keyboard_but_mods(void) {
  * FIXME: Needs documentation.
  */
 void clear_keyboard_but_mods_and_keys() {
+#ifdef EXTRAKEY_ENABLE
+    host_system_send(0);
+    host_consumer_send(0);
+#endif
     clear_weak_mods();
     clear_macro_mods();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();
     mousekey_send();
-#endif
-#ifdef EXTRAKEY_ENABLE
-    host_system_send(0);
-    host_consumer_send(0);
 #endif
 }
 

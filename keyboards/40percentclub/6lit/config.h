@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0F61
 #define MANUFACTURER    di0ib
 #define PRODUCT         The 6lit Macropad
-#define DESCRIPTION     A split 12 key Macropad
 
 #define USE_SERIAL
 
@@ -179,9 +178,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

@@ -8,7 +8,6 @@
 #define DEVICE_VER		0x0001
 #define MANUFACTURER    Elias Sjögreen
 #define PRODUCT         4by3
-#define DESCRIPTION     A small 12 key keypad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

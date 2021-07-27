@@ -148,4 +148,3 @@ The following old names for existing algorithms will continue to be supported, h
 * eager_pk - old name for sym_eager_pk
 * sym_pk - old name for sym_defer_pk
 * eager_pr - old name for sym_eager_pr
-
