@@ -38,56 +38,30 @@
                                  KC_MUTE, OS_LALT, KC_GRV,  KC_SPC,  BK_LWER,     DL_RAIS, KC_ENT,  OS_RGUI, UC(0x03A8), UC(0x2E2E) \
     )
 /* Re-pass though to allow templates to be used */
-#define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    [_QWERTY] = LAYOUT_kyria_base_wrapper(
+    [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
         _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
         _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
         _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
     ),
 
-    [_COLEMAK] = LAYOUT_kyria_base_wrapper(
+    [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
+    [_DEFAULT_LAYER_3] = LAYOUT_base_wrapper(
         _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
         _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
         _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
     ),
 
-    [_DVORAK] = LAYOUT_kyria_base_wrapper(
+    [_DEFAULT_LAYER_4] = LAYOUT_base_wrapper(
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
         _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-    ),
-
-    [_WORKMAN] = LAYOUT_kyria_base_wrapper(
-        _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-        _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-        _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
-    ),
-
-    [_NORMAN] = LAYOUT_kyria_base_wrapper(
-        _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-        _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-        _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
-    ),
-
-    [_MALTRON] = LAYOUT_kyria_base_wrapper(
-        _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-        _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-        _________________MALTRON_L3________________, _________________MALTRON_R3________________
-    ),
-
-    [_EUCALYN] = LAYOUT_kyria_base_wrapper(
-        _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-        _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-        _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-    ),
-
-    [_CARPLAX] = LAYOUT_kyria_base_wrapper(
-        _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-        _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-        _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
     ),
 
     [_GAMEPAD] = LAYOUT_wrapper(
@@ -128,6 +102,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                  _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
 //     ),
 };
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_DEFAULT_LAYER_1] = { { KC_DOWN, KC_UP   }, { KC_VOLD, KC_VOLU } },
+    [_DEFAULT_LAYER_2] = { { _______, _______ }, { _______, _______ } },
+    [_DEFAULT_LAYER_3] = { { _______, _______ }, { _______, _______ } },
+    [_DEFAULT_LAYER_4] = { { _______, _______ }, { _______, _______ } },
+    [_GAMEPAD]         = { { _______, _______ }, { _______, _______ } },
+    [_DIABLO]          = { { _______, _______ }, { _______, _______ } },
+    [_MOUSE]           = { { _______, _______ }, { KC_WH_D, KC_WH_U } },
+    [_MEDIA]           = { { _______, _______ }, { _______, _______ } },
+    [_RAISE]           = { { _______, _______ }, { KC_PGDN, KC_PGUP } },
+    [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
+    [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
+};
+#endif
 // clang-format on
 
 #ifdef OLED_DRIVER_ENABLE
@@ -156,39 +146,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef RGBLIGHT_LAYERS
-const rgblight_segment_t PROGMEM shift_layers[] = RGBLIGHT_LAYER_SEGMENTS(
-    {  8, 1, 120, 255, 255},
-    { 18, 1, 120, 255, 255}
-);
-const rgblight_segment_t PROGMEM control_layers[] = RGBLIGHT_LAYER_SEGMENTS(
-    {  6, 1, 0, 255, 255},
-    { 16, 1, 0, 255, 255}
-);
-const rgblight_segment_t PROGMEM alt_layers[] = RGBLIGHT_LAYER_SEGMENTS(
-    {  2, 1, 240, 255, 255},
-    { 17, 1, 250, 255, 255}
-);
-const rgblight_segment_t PROGMEM gui_layers[] = RGBLIGHT_LAYER_SEGMENTS(
-    {  7, 1, 51, 255, 255},
-    { 12, 1, 51, 255, 255}
-);
+const rgblight_segment_t PROGMEM shift_layers[]   = RGBLIGHT_LAYER_SEGMENTS({8, 1, 120, 255, 255}, {18, 1, 120, 255, 255});
+const rgblight_segment_t PROGMEM control_layers[] = RGBLIGHT_LAYER_SEGMENTS({6, 1, 0, 255, 255}, {16, 1, 0, 255, 255});
+const rgblight_segment_t PROGMEM alt_layers[]     = RGBLIGHT_LAYER_SEGMENTS({2, 1, 240, 255, 255}, {17, 1, 250, 255, 255});
+const rgblight_segment_t PROGMEM gui_layers[]     = RGBLIGHT_LAYER_SEGMENTS({7, 1, 51, 255, 255}, {12, 1, 51, 255, 255});
 
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    shift_layers,
-    control_layers,
-    alt_layers,
-    gui_layers
-);
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(shift_layers, control_layers, alt_layers, gui_layers);
 
-void keyboard_post_init_keymap(void) {
-    rgblight_layers = my_rgb_layers;
-}
+void keyboard_post_init_keymap(void) { rgblight_layers = my_rgb_layers; }
 
 void matrix_scan_keymap(void) {
-        uint8_t mods = mod_config(get_mods()|get_oneshot_mods());
-        rgblight_set_layer_state(0, mods & MOD_MASK_SHIFT);
-        rgblight_set_layer_state(1, mods & MOD_MASK_CTRL);
-        rgblight_set_layer_state(2, mods & MOD_MASK_ALT);
-        rgblight_set_layer_state(3, mods & MOD_MASK_GUI);
+    uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
+    rgblight_set_layer_state(0, mods & MOD_MASK_SHIFT);
+    rgblight_set_layer_state(1, mods & MOD_MASK_CTRL);
+    rgblight_set_layer_state(2, mods & MOD_MASK_ALT);
+    rgblight_set_layer_state(3, mods & MOD_MASK_GUI);
 }
 #endif

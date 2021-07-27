@@ -1,10 +1,10 @@
 #ifdef SPLIT_TRANSACTION_IDS_USER
-#include "transport_sync.h"
-#include "transactions.h"
-#include <string.h>
+#    include "transport_sync.h"
+#    include "transactions.h"
+#    include <string.h>
 
 typedef struct {
-    bool            oled_on;
+    bool     oled_on;
     uint16_t keymap_config;
 } user_runtime_config_t;
 
@@ -23,20 +23,19 @@ void keyboard_post_init_transport_sync(void) {
 
 void user_state_update(void) {
     if (is_keyboard_master()) {
-
-#ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_DRIVER_ENABLE
         user_state.oled_on = is_oled_on();
-#endif
+#    endif
 
         user_state.keymap_config = keymap_config.raw;
     } else {
-#ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_DRIVER_ENABLE
         if (user_state.oled_on) {
             oled_on();
         } else {
             oled_off();
         }
-#endif
+#    endif
         if (keymap_config.raw != user_state.keymap_config) {
             keymap_config.raw = user_state.keymap_config;
         }

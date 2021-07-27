@@ -39,56 +39,32 @@ enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                         RGB_MOD,  KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
   )
-#define LAYOUT_split_3x6_3_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-    _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
-  ),
+    [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
+        _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+        _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+        _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    ),
 
-  [_COLEMAK] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
-    _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
-    _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
-  ),
+    [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
 
-  [_DVORAK] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
-    _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
-    _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-  ),
+    [_DEFAULT_LAYER_3] = LAYOUT_base_wrapper(
+        _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
+        _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
+        _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
+    ),
 
-  [_WORKMAN] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-    _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-    _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
-  ),
-
-  [_NORMAN] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-    _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-    _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
-  ),
-
-  [_MALTRON] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-    _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-    _________________MALTRON_L3________________, _________________MALTRON_R3________________
-  ),
-
-  [_EUCALYN] = LAYOUT_split_3x6_3_base_wrapper(
-    _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-    _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-    _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-  ),
-
-  [_CARPLAX] = LAYOUT_split_3x6_3_base_wrapper(
-    _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-    _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-    _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
-  ),
+    [_DEFAULT_LAYER_4] = LAYOUT_base_wrapper(
+        _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+        _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+        _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
+    ),
 
   [_LOWER] = LAYOUT_split_3x6_3_wrapper(
     KC_F11,  _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_F11,
@@ -114,9 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 #ifdef OLED_DRIVER_ENABLE
-oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;
-}
+oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 #endif
 
 #ifdef TAPPING_TERM_PER_KEY
@@ -129,7 +103,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 #endif
-
 
 void matrix_slave_scan_user(void) {
 #ifdef RGB_MATRIX_ENABLE
@@ -145,28 +118,16 @@ void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t led_max) {
     switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
-            rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            break;
+        case _COLEMAK_DH:
+            rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _COLEMAK:
-            rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _DVORAK:
-            rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type, led_min, led_max);
-            break;
-        case _WORKMAN:
-            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type, led_min, led_max);
-            break;
-        case _NORMAN:
-            rgb_matrix_layer_helper(HSV_CORAL, mode, rgb_matrix_config.speed, type, led_min, led_max);
-            break;
-        case _MALTRON:
-            rgb_matrix_layer_helper(HSV_YELLOW, mode, rgb_matrix_config.speed, type, led_min, led_max);
-            break;
-        case _EUCALYN:
-            rgb_matrix_layer_helper(HSV_PINK, mode, rgb_matrix_config.speed, type, led_min, led_max);
-            break;
-        case _CARPLAX:
-            rgb_matrix_layer_helper(HSV_BLUE, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
     }
 }
@@ -189,10 +150,11 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             case _ADJUST:
                 rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
-            default: {
-                check_default_layer(0, LED_FLAG_UNDERGLOW, led_min, led_max);
-                break;
-            }
+            default:
+                {
+                    check_default_layer(0, LED_FLAG_UNDERGLOW, led_min, led_max);
+                    break;
+                }
         }
         check_default_layer(0, LED_FLAG_MODIFIER, led_min, led_max);
     }

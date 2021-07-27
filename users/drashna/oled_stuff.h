@@ -29,6 +29,7 @@ extern uint32_t oled_timer;
 
 #    define OLED_RENDER_LAYOUT_NAME       "Layout: "
 #    define OLED_RENDER_LAYOUT_QWERTY     "Qwerty"
+#    define OLED_RENDER_LAYOUT_COLEMAK_DH "Colemak-DH"
 #    define OLED_RENDER_LAYOUT_COLEMAK    "Colemak"
 #    define OLED_RENDER_LAYOUT_DVORAK     "Dvorak"
 #    define OLED_RENDER_LAYOUT_WORKMAN    "Workman"
@@ -73,6 +74,7 @@ extern uint32_t oled_timer;
 
 #    define OLED_RENDER_LAYOUT_NAME       "Lyout"
 #    define OLED_RENDER_LAYOUT_QWERTY     " QRTY"
+#    define OLED_RENDER_LAYOUT_COLEMAK_DH " cmDH"
 #    define OLED_RENDER_LAYOUT_COLEMAK    " COLE"
 #    define OLED_RENDER_LAYOUT_DVORAK     " DVRK"
 #    define OLED_RENDER_LAYOUT_WORKMAN    " WKMN"

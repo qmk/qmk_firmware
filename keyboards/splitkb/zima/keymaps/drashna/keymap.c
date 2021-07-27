@@ -22,6 +22,7 @@
 extern haptic_config_t haptic_config;
 #endif
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_4x3( /* Base */
         KC_MUTE, TG(1),   TG(2),
@@ -43,12 +44,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { { KC_DOWN, KC_UP   } },
+    [1] = { { KC_VOLD, KC_VOLU } },
+    [2] = { { RGB_MOD, RGB_RMOD} },
+};
+#endif
+// clang-format on
 
-static bool is_asleep = false;
+static bool     is_asleep = false;
 static uint32_t oled_timer;
 
 void render_oled_logo(void) {
-        // clang-format off
+    // clang-format off
     static const char PROGMEM qmk_logo[] = {
         0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
         0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
@@ -68,9 +77,7 @@ void render_user_status(void) {
     oled_write_P(nukem_good[0], haptic_config.enable);
 }
 
-void keyboard_post_init_user(void) {
-    oled_scroll_set_speed(0);
-}
+void keyboard_post_init_user(void) { oled_scroll_set_speed(0); }
 
 void oled_task_user(void) {
     if (is_asleep) {
@@ -107,20 +114,15 @@ void oled_task_user(void) {
     }
 }
 
-void suspend_power_down_user(void) {
-    is_asleep = true;
-}
+void suspend_power_down_user(void) { is_asleep = true; }
 
-void suspend_wakeup_init_user(void) {
-    is_asleep = false;
-}
+void suspend_wakeup_init_user(void) { is_asleep = false; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     oled_timer = timer_read32();
 
     return true;
 }
-
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {

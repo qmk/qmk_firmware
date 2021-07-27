@@ -28,61 +28,35 @@
      SH_TT,   K01,    K02,      K03,     K04,     K05,                K06,     K07,     K08,     K09,     K0A,     SH_TT, \
      LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,                K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
-                       OS_LGUI, OS_LALT,                                                OS_RGUI, OS_RALT, \
-                                KC_PSCR, KC_GRV,                                        MEH_T(KC_BTN3),  \
+                       OS_LALT, OS_LGUI,                                                OS_RGUI, OS_RALT, \
+                                KC_MUTE, KC_GRV,                                        KC_BTN3,  \
                                          KC_SPC,  OS_LGUI,                     KC_ENT,  \
                                          BK_LWER, TT(_MOUSE),      TT(_MOUSE), DL_RAIS  \
   )
-#define LAYOUT_5x6_right_base_wrapper(...)       LAYOUT_5x6_right_base(__VA_ARGS__)
-
+#define LAYOUT_base_wrapper(...)       LAYOUT_5x6_right_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_5x6_right_base_wrapper(
+    [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
         _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
         _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
         _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
     ),
 
-    [_COLEMAK] = LAYOUT_5x6_right_base_wrapper(
+    [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
+    [_DEFAULT_LAYER_3] = LAYOUT_base_wrapper(
         _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
         _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
         _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
     ),
 
-    [_DVORAK] = LAYOUT_5x6_right_base_wrapper(
+    [_DEFAULT_LAYER_4] = LAYOUT_base_wrapper(
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
         _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-    ),
-
-    [_WORKMAN] = LAYOUT_5x6_right_base_wrapper(
-        _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-        _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-        _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
-    ),
-
-    [_NORMAN] = LAYOUT_5x6_right_base_wrapper(
-        _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-        _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-        _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
-    ),
-
-    [_MALTRON] = LAYOUT_5x6_right_base_wrapper(
-        _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-        _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-        _________________MALTRON_L3________________, _________________MALTRON_R3________________
-    ),
-
-    [_EUCALYN] = LAYOUT_5x6_right_base_wrapper(
-        _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-        _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-        _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-    ),
-
-    [_CARPLAX] = LAYOUT_5x6_right_base_wrapper(
-        _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-        _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-        _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
     ),
 
     [_MOUSE] = LAYOUT_5x6_right(
@@ -91,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, _______,
         _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           _______, _______,                                                            _______, _______,
-                                            _______, _______,                                 _______,
+                                            _______, _______,                                 KC_BTN3,
                                                      _______, _______,               _______,
                                                      _______, _______,      _______, _______
     ),
@@ -146,6 +120,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,    KC_NUKE, _______
     ),
 };
+
+#define BASE_ENCODERS { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } }
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_DEFAULT_LAYER_1] = BASE_ENCODERS,
+    [_DEFAULT_LAYER_2] = BASE_ENCODERS,
+    [_DEFAULT_LAYER_3] = BASE_ENCODERS,
+    [_DEFAULT_LAYER_4] = BASE_ENCODERS,
+    [_GAMEPAD]         = { { _______, _______ }, { _______, _______ } },
+    [_DIABLO]          = { { _______, _______ }, { _______, _______ } },
+    [_MOUSE]           = { { _______, _______ }, { KC_WH_D, KC_WH_U } },
+    [_MEDIA]           = { { _______, _______ }, { _______, _______ } },
+    [_RAISE]           = { { _______, _______ }, { KC_PGDN, KC_PGUP } },
+    [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
+    [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
+};
+#else
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        tap_code_delay(clockwise ? KC_VOLU : KC_VOLD, 5);
+    } else if (index == 1) {
+        tap_code_delay(clockwise ? KC_WH_U : KC_WH_D, 5);
+    }
+    return false;
+}
+#endif
 // clang-format on
 
 #ifdef POINTING_DEVICE_ENABLE
@@ -189,26 +190,27 @@ void matrix_scan_keymap(void) {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case TT(_MOUSE): {
-            if (record->event.pressed) {
-                mouse_keycode_tracker++;
-            } else {
-#    if TAPPING_TOGGLE != 0
-                if (record->tap.count == TAPPING_TOGGLE) {
-                    tap_toggling ^= 1;
-#        if TAPPING_TOGGLE == 1
-                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count + 1;
-#        else
-                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count;
-#        endif
+        case TT(_MOUSE):
+            {
+                if (record->event.pressed) {
+                    mouse_keycode_tracker++;
                 } else {
-                    mouse_keycode_tracker--;
-                }
+#    if TAPPING_TOGGLE != 0
+                    if (record->tap.count == TAPPING_TOGGLE) {
+                        tap_toggling ^= 1;
+#        if TAPPING_TOGGLE == 1
+                        if (!tap_toggling) mouse_keycode_tracker -= record->tap.count + 1;
+#        else
+                        if (!tap_toggling) mouse_keycode_tracker -= record->tap.count;
+#        endif
+                    } else {
+                        mouse_keycode_tracker--;
+                    }
 #    endif
+                }
+                mouse_timer = timer_read();
+                break;
             }
-            mouse_timer = timer_read();
-            break;
-        }
         case MO(_MOUSE):
         case DPI_CONFIG:
         case KC_MS_UP ... KC_MS_WH_RIGHT:
@@ -216,11 +218,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
             mouse_timer = timer_read();
             break;
         default:
+            if (IS_NOEVENT(record->event)) break;
             if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
                 layer_off(_MOUSE);
             }
             mouse_keycode_tracker = 0;
-            mouse_debounce_timer = timer_read();
+            mouse_debounce_timer  = timer_read();
             break;
     }
     return true;
@@ -228,7 +231,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
     if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO)) {
-        state |= (1UL << _MOUSE);
+        state |= ((layer_state_t)1 << _MOUSE);
     }
     return state;
 }
@@ -245,6 +248,4 @@ void matrix_init_keymap(void) {
 #endif
 }
 
-void keyboard_post_init_keymap(void) {
-    matrix_init_keymap();
-}
+void keyboard_post_init_keymap(void) { matrix_init_keymap(); }
