@@ -186,10 +186,18 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    include "spi_master.h"
 static void init(void) {
     spi_init();
-    AW20216_init();
+    AW20216_init(DRIVER_1_CS, DRIVER_1_EN);
+#    ifdef DRIVER_2_CS
+    AW20216_init(DRIVER_2_CS, DRIVER_2_EN);
+#    endif
 }
 
-static void flush(void) { AW20216_update_pwm_buffers(); }
+static void flush(void) {
+    AW20216_update_pwm_buffers(DRIVER_1_CS, 0);
+#    ifdef DRIVER_2_CS
+    AW20216_update_pwm_buffers(DRIVER_2_CS, 1);
+#    endif
+}
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = init,
