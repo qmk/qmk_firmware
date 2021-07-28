@@ -77,20 +77,23 @@ static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
 static void init(void) {}
 
 static void flush(void) {
-    uint8_t *bank_data = (uint8_t *)&led_state[0];
     uint8_t  command[1 + LED_BYTES_PER_BANK];
-    for (int hand = 0; hand < 2; hand++) {
-        int addr = I2C_ADDR(hand);
 
-        for (int bank = 0; bank < LED_BANKS; bank++) {
+    // SUBTLE(ibash) alternate hands when transmitting led data, otherwise the
+    // mcu in the hand seems to have trouble keeping up with the i2c
+    // transmission
+    for (int bank = 0; bank < LED_BANKS; bank++) {
+        for (int hand = 0; hand < 2; hand++) {
+            int addr = I2C_ADDR(hand);
+            int i = (hand * LEDS_PER_HAND) + (bank * LEDS_PER_BANK);
+            uint8_t *bank_data = (uint8_t *)&led_state[i];
+
             command[0] = TWI_CMD_LED_BASE + bank;
             memcpy(&command[1], bank_data, LED_BYTES_PER_BANK);
             i2c_transmit(addr, command, sizeof(command), I2C_TIMEOUT);
 
             // delay to prevent issues with the i2c bus
             wait_us(10);
-
-            bank_data += LED_BYTES_PER_BANK;
         }
     }
 }
