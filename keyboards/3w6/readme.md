@@ -1,12 +1,12 @@
 # 3W6
 
-![3W6](https://raw.githubusercontent.com/weteor/3W6/main/images/3w6_2s.jpg)
+![3W6](https://raw.githubusercontent.com/weteor/3W6/main/images/3w6_rev2_2s.jpg)
 
 The 3w6 is a low profile, split ortholinear keyboard with 36 keys.
 
-I needed a keyboard for work and wasn't really satisfied with the available alternatives (namely Corne, Kyria and Ferris), mostly because they were rather large and didn't had the spacing I would like.
+I needed a keyboard for work and wasn't really satisfied with the available alternatives (namely Corne, Kyria and Ferris), mostly because they are either rather large and/or don't have the spacing I would like.
 
-It's designed to be a simple, realiable, cheap and small keyboard to be taken everywhere. 
+The 3w6 is designed to be a simple, realiable, cheap and small keyboard to be taken everywhere. 
 
 There are currently two revisions:
 * Rev1: 
@@ -31,8 +31,9 @@ There are currently two revisions:
 * Hardware Availability: 
     * make one yourself: [Design and Productionfiles](https://github.com/weteor/3w6)
     * maintainer is selling kits when available
-
 ---
+To reach the bootloader, connect the board to the PC and push the reset button on left half.
+
 Make examples for this keyboard (after setting up your build environment):
 
     rev1:
