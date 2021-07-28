@@ -23,6 +23,7 @@
 #include "rgb_matrix_types.h"
 #include "color.h"
 #include "quantum.h"
+#include "rgb_matrix_legacy_enables.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731.h"
@@ -64,10 +65,6 @@
 
 #define RGB_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
-
-#ifdef RGB_MATRIX_LEGACY_ENABLES
-#include "rgb_matrix_legacy_enables.h"
-#endif
 
 enum rgb_matrix_effects {
     RGB_MATRIX_NONE = 0,
