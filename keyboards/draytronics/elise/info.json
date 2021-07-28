@@ -4,6 +4,14 @@
     "maintainer": "ghostseven",
     "width": 16,
     "height": 5,
+    "layout_aliases": {
+        "LAYOUT_65_ansi_right_lrg": "LAYOUT_65_ansi_rwkl",
+        "LAYOUT_65_ansi_left_lrg": "LAYOUT_65_ansi_lwkl",
+        "LAYOUT_65_ansi_lrg": "LAYOUT_65_ansi_wkl",
+        "LAYOUT_65_iso_right_lrg": "LAYOUT_65_iso_rwkl",
+        "LAYOUT_65_iso_left_lrg": "LAYOUT_65_iso_lwkl",
+        "LAYOUT_65_iso_lrg": "LAYOUT_65_iso_wkl"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
@@ -81,7 +89,7 @@
                 {"label":"\u2192", "x":15, "y":4}
             ]
         },
-        "LAYOUT_65_ansi_right_lrg": {
+        "LAYOUT_65_ansi_rwkl": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
@@ -156,7 +164,7 @@
                 {"label":"\u2192", "x":15, "y":4}
             ]
         },
-        "LAYOUT_65_ansi_left_lrg": {
+        "LAYOUT_65_ansi_lwkl": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
@@ -231,7 +239,7 @@
                 {"label":"\u2192", "x":15, "y":4}
             ]
         },
-        "LAYOUT_65_ansi_lrg": {
+        "LAYOUT_65_ansi_wkl": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
@@ -381,7 +389,7 @@
                 {"label":"\u2192", "x":15, "y":4}
             ]
         },
-        "LAYOUT_65_iso_right_lrg": {
+        "LAYOUT_65_iso_rwkl": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
@@ -456,7 +464,7 @@
                 {"label":"\u2192", "x":15, "y":4}
             ]
         },
-        "LAYOUT_65_iso_left_lrg": {
+        "LAYOUT_65_iso_lwkl": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
@@ -531,7 +539,7 @@
                 {"label":"\u2192", "x":15, "y":4}
             ]
         },
-        "LAYOUT_65_iso_lrg": {
+        "LAYOUT_65_iso_wkl": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
