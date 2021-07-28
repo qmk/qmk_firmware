@@ -24,7 +24,7 @@ void matrix_init_kb(void) {
 
 bool led_update_kb(led_t led_state) {
     // Only update if left half
-    if (isLeftHand && led_update_user(led_state)) {
+    if (led_update_user(led_state) && isLeftHand) {
         writePin(CAPS_LOCK_LED_PIN, !led_state.caps_lock);
     }
     return true;
