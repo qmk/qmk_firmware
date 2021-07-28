@@ -60,31 +60,31 @@ static void render_status(void) {
     // Host Keyboard Layer Status
     switch (get_highest_layer(layer_state)) {
         case _LETTERS:
-            oled_write_P(PSTR("Letters\n###\n"), false);
+            oled_write_P(PSTR("\n\nLetters"), false);
             break;
         case _SYMBOLS:
-            oled_write_P(PSTR("Symbols\n###\n"), false);
+            oled_write_P(PSTR("\n\nSymbols"), false);
             break;
         case _NUMBERS:
-            oled_write_P(PSTR("Numbers\n>>>\n"), false);
+            oled_write_P(PSTR("-->\n\nNumbers"), false);
             break;
         case _CODE:
-            oled_write_P(PSTR("Code\n>>>\n"), false);
+            oled_write_P(PSTR("-->\n\nCode"), false);
             break;
         case _NAV:
-            oled_write_P(PSTR("Nav\n>>>\n"), false);
+            oled_write_P(PSTR("-->\n\nNav"), false);
             break;
         case _FN:
-            oled_write_P(PSTR("Fn\n<<<\n"), false);
+            oled_write_P(PSTR("<--\n\nFn"), false);
             break;
         case _MEDIA:
-            oled_write_P(PSTR("Media\n<<<\n"), false);
+            oled_write_P(PSTR("<--\n\nMedia"), false);
             break;
         case _KBD_CTRL:
-            oled_write_P(PSTR("Keeb Ctrl\n"), false);
+            oled_write_P(PSTR("\n\nKeeb Ctrl"), false);
             break;
         default:
-            oled_write_P(PSTR("\n"), false);
+            oled_write_P(PSTR("\n\nFallback"), false);
             break;
     }
 
