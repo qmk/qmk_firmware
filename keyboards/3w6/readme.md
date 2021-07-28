@@ -31,8 +31,9 @@ There are currently two revisions:
 * Hardware Availability: 
     * make one yourself: [Design and Productionfiles](https://github.com/weteor/3w6)
     * maintainer is selling kits when available
-
 ---
+To reach the bootloader, connect the board to the PC and push the reset button on left half.
+
 Make examples for this keyboard (after setting up your build environment):
 
     rev1:
