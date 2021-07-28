@@ -1,8 +1,8 @@
 # QMK Configurator でのキーボードのサポート
 
 <!---
-  original document: 0.9.46:docs/reference_configurator_support.md
-  git diff 0.9.46 HEAD -- docs/reference_configurator_support.md | cat
+  original document: 0.13.15:docs/reference_configurator_support.md
+  git diff 0.13.15 HEAD -- docs/reference_configurator_support.md | cat
 -->
 
 このページは [QMK Configurator](https://config.qmk.fm/) でキーボードを適切にサポートする方法について説明します。

@@ -32,17 +32,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
+
+#define MATRIX_ROW_PINS { A00, A01, A02, A03, A04 }
+#define MATRIX_COL_PINS { B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, A05, A06, A07, A10, A11 }
+#define UNUSED_PINS
+
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
+/* Temporary solution for matrix delay */
+#define IGNORE_ATOMIC_BLOCK
+
 /* MCU Port name definitions */
 #define PA 0
 #define PB 1
-
-/* Port and Pin definition of key row hardware configuration */
-#define MATRIX_ROW_PORTS PA, PA, PA, PA, PA
-#define MATRIX_ROW_PINS   0,  1,  2,  3,  4
-
-/* Port and Pin definition of key column hardware configuration */
-#define MATRIX_COL_PORTS PB, PB, PB, PB, PB, PB, PB, PB, PB, PB, PA, PA, PA, PA, PA
-#define MATRIX_COL_PINS   4,  5,  6,  7,  8,  9, 10, 11, 12, 13,  5,  6,  7, 10, 11
 
 /* This Shift Register expands available hardware output lines to control additional peripherals */
 /* It uses four lines from the MCU to provide 16 output lines */

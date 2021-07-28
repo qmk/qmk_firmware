@@ -19,9 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CU80_RGB
 
 /* update the product for RGB Matrix variant in VIA/VIAL and Remap-keys.app */
-#undef PRODUCT_ID
 #undef PRODUCT
-#define PRODUCT_ID      0x0083
 #define PRODUCT         CU80 v2 ISO RGB
 
 /* moved to RGB specific */
