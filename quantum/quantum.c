@@ -411,7 +411,7 @@ void matrix_scan_quantum() {
 #endif
 
 #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
-    matrix_scan_music();
+    music_task();
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
@@ -419,15 +419,15 @@ void matrix_scan_quantum() {
 #endif
 
 #ifdef SEQUENCER_ENABLE
-    matrix_scan_sequencer();
+    sequencer_task();
 #endif
 
 #ifdef TAP_DANCE_ENABLE
-    matrix_scan_tap_dance();
+    tap_dance_task();
 #endif
 
 #ifdef COMBO_ENABLE
-    matrix_scan_combo();
+    combo_task();
 #endif
 
 #ifdef LED_MATRIX_ENABLE
