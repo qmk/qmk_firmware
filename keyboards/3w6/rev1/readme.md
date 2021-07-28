@@ -21,6 +21,8 @@ The 3w6 is a low profile, split ortholinear keyboard with 36 keys.
 * Hardware Availability (this is an older version, current revision is rev2): 
     * make one yourself: [Design and Productionfiles](https://github.com/weteor/3w6)
 ---
+To reach the bootloader, connect the board to the PC and push the reset button on left half.
+
 Make examples for this keyboard (after setting up your build environment):
 
     make 3w6/rev1:default

@@ -1,6 +1,7 @@
 # 3W6
 
-![3W6](https://raw.githubusercontent.com/weteor/3W6/main/3w6_2s.jpg)
+![3W6_rev2](https://raw.githubusercontent.com/weteor/3W6/main/images/3w6_rev2_2s.jpg)
+![3W6_rev2](https://raw.githubusercontent.com/weteor/3W6/main/images/3w6_rev2_1s.jpg)
 
 The 3w6 is a low profile, split ortholinear keyboard with 36 keys.
 
@@ -25,6 +26,8 @@ The 3w6 is a low profile, split ortholinear keyboard with 36 keys.
     * maintainer is selling kits when available
 
 ---
+To reach the bootloader, connect the board to the PC and push the reset button on left half.
+
 Make examples for this keyboard (after setting up your build environment):
            
     make 3w6/rev2:default
