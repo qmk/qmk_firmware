@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Matthias Schröder-Jahr weteor
+Copyright 2021 weteor
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
