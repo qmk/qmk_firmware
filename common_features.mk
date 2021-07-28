@@ -272,7 +272,7 @@ endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), AW20216)
         OPT_DEFS += -DAW20216 -DSTM32_SPI -DHAL_USE_SPI=TRUE
-        COMMON_VPATH += $(DRIVER_PATH)/awinic
+        COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += aw20216.c
         QUANTUM_LIB_SRC += spi_master.c
     endif
@@ -422,7 +422,7 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
 endif
 
 ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
-    COMMON_VPATH += $(DRIVER_PATH)/apa102
+    COMMON_VPATH += $(DRIVER_PATH)/led
     SRC += apa102.c
 endif
 
