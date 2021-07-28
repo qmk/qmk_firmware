@@ -380,7 +380,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
     return true;
 }
 
-void matrix_scan_key_override(void) {
+void key_override_task(void) {
     if (deferred_register == 0) {
         return;
     }

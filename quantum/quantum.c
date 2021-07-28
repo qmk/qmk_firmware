@@ -55,10 +55,6 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    include "process_auto_shift.h"
 #endif
 
-#ifdef KEY_OVERRIDE_ENABLE
-#    include "process_key_override_private.h"
-#endif
-
 uint8_t extract_mod_bits(uint16_t code) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
@@ -415,7 +411,7 @@ void matrix_scan_quantum() {
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
-    matrix_scan_key_override();
+    key_override_task();
 #endif
 
 #ifdef SEQUENCER_ENABLE
