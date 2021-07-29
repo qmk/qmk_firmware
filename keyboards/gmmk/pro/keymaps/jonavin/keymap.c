@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "rgb_matrix_map.h"
 
+#define ARRAYSIZE(arr)  sizeof(arr)/sizeof(arr[0])
+
 enum custom_layers {
     _BASE,
     _FN1,
@@ -176,9 +178,11 @@ void matrix_scan_user(void) {
 
     bool encoder_update_user(uint8_t index, bool clockwise) {
         if ( clockwise ) {
-            if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                selected_layer ++;
-                layer_move(selected_layer);
+            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                if(selected_layer  < 3) {
+                    selected_layer ++;
+                    layer_move(selected_layer);
+                }
             } else if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, Page up
                 unregister_mods(MOD_BIT(KC_LSFT));
                 register_code(KC_PGDN);
@@ -198,9 +202,11 @@ void matrix_scan_user(void) {
                 }
             }
         } else {
-            if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
-                selected_layer --;
-                layer_move(selected_layer);
+            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+                if (selected_layer  > 0) {
+                    selected_layer --;
+                    layer_move(selected_layer);
+                }
             } else if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) {
                 unregister_mods(MOD_BIT(KC_LSFT));
                 register_code(KC_PGUP);
@@ -251,7 +257,7 @@ void matrix_scan_user(void) {
             rgb_matrix_set_color(LED_R4, RGB_RED);
             rgb_matrix_set_color(LED_FN, RGB_RED); //FN key
 
-            // Add RGB Timeout Indicator -- shows 0 to 139 using F row and num row;  larger numbers light up section
+            // Add RGB Timeout Indicator -- shows 0 to 139 using F row and num row;  larger numbers using 16bit code
             if (timeout_threshold <= 10) rgb_matrix_set_color(LED_LIST_FUNCROW[timeout_threshold], RGB_RED);
             else if (timeout_threshold < 140) {
                 rgb_matrix_set_color(LED_LIST_FUNCROW[(timeout_threshold / 10)], RGB_RED);
@@ -263,7 +269,7 @@ void matrix_scan_user(void) {
             }
             break;
         case _MO2:
-            for (uint8_t i=0; i<sizeof(LED_LIST_NUMPAD)/sizeof(LED_LIST_NUMPAD[0]); i++) {
+            for (uint8_t i=0; i<ARRAYSIZE(LED_LIST_NUMPAD); i++) {
                 rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_MAGENTA);
             }
             rgb_matrix_set_color(LED_R4, RGB_MAGENTA);
@@ -297,6 +303,6 @@ void keyboard_post_init_user(void) {
     }
     timeout_timer = timer_read(); // set inital time for ide timeout
     #ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_set_color_all(RGB_GODSPEED); // Default startup colour
+        rgb_matrix_set_color_all(RGB_NAUTILUS); // Default startup colour
     #endif
 }
