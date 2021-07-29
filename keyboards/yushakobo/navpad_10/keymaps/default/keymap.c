@@ -24,7 +24,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] =LAYOUT (\
-    KC_PSCR,   KC_SLCK,   KC_PAUS,   KC_1,\
+    KC_PSCR,   KC_SLCK,   KC_PAUS,   KC_NO,\
 	  KC_INS,    KC_HOME,   KC_PGUP,   KC_ESC,    KC_PSLS,    KC_PAST,   KC_PMNS,\
   	KC_DEL,    KC_END,    KC_PGDN,   KC_P7,     KC_P8,      KC_P9,     KC_PPLS,\
                                      KC_P4,     KC_P5,      KC_P6,     KC_PPLS,\
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] =LAYOUT (\
-  	RESET,     EEP_RST,   KC_NO,     KC_NO,\
+  	RESET,     EEP_RST,   KC_NO,     LCTL(KC_S),\
   	KC_NO,     KC_NO,     KC_NO,     KC_NLCK,   KC_QUOT,   KC_NO,      KC_NO,\
   	KC_CAPS,   KC_NLCK,   KC_SLCK,   S(KC_9),   KC_UP,     S(KC_0),    S(KC_SPC),\
                                      KC_LEFT,   KC_NO,     KC_RGHT,    S(KC_SPC),\
