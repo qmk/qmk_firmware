@@ -5,7 +5,8 @@
     "width": 15,
     "height": 5,
     "layout_aliases": {
-        "LAYOUT_default": "LAYOUT_all"
+        "LAYOUT_default": "LAYOUT_all",
+        "LAYOUT_hhkb": "LAYOUT_60_hhkb"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -221,7 +222,7 @@
                 {"x": 13.75,  "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_hhkb": {
+        "LAYOUT_60_hhkb": {
             "layout": [
                 {"x": 0,      "y": 0},
                 {"x": 1,      "y": 0},
