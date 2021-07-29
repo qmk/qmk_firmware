@@ -4,8 +4,11 @@
     "maintainer": "gaclee3b",
     "width": 15,
     "height": 5,
+    "layout_aliases": {
+        "LAYOUT_default": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_all": {
             "layout": [
                 {"x": 0,      "y": 0},
                 {"x": 1,      "y": 0},
