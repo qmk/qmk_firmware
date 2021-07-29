@@ -166,7 +166,7 @@ void matrix_scan_user(void) {
         }
         #ifdef RGB_MATRIX_ENABLE
             if (timeout_threshold > 0 && timeout_counter >= timeout_threshold) {
-                rgb_matrix_disable();
+                rgb_matrix_disable_noeeprom();
             }
         #endif
     } // timeout_threshold = 0 will disable timeout
