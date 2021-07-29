@@ -1,6 +1,6 @@
 # ALU84
 
-![alu84](https://i.imgur.com/wBfazDc.jpg)
+![alu84](https://i.imgur.com/wBfazDch.jpg)
 
 A 75% keyboard made and sold by MECHKEYS.
 
