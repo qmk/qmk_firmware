@@ -16,11 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
-#define LAYERNUM 2
+#define LAYERNUM 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, TO(1)),
-    [1] = LAYOUT(KC_TRNS, KC_MSTP, KC_MRWD, KC_MFFD, TO(0))
+    [1] = LAYOUT(KC_TRNS, KC_MSTP, KC_MRWD, KC_MFFD, TO(2)),
+    [2] = LAYOUT(LSFT_T(RGB_TOG), RGB_MOD, RGB_HUI, RGB_SAI, TO(0))
 };
 
 int get_icon_start_position(int key_position) {
@@ -44,13 +45,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 oled_write_P(UP_ICON, false);
             } else {
                 tap_code(KC_VOLD);
-
                 oled_set_cursor(get_icon_start_position(7), 2);
                 oled_write_P(PSTR(" "), false);
                 oled_set_cursor(get_icon_start_position(7), 3);
                 oled_write_P(DOWN_ICON, false);
             }
-        } else {
+        } else if (layer_state_is(1)) {
             if (clockwise) {
                 tap_code(KC_BRIU);
                 oled_set_cursor(get_icon_start_position(7), 3);
@@ -59,6 +59,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 oled_write_P(UP_ICON, false);
             } else {
                 tap_code(KC_BRID);
+                oled_set_cursor(get_icon_start_position(7), 2);
+                oled_write_P(PSTR(" "), false);
+                oled_set_cursor(get_icon_start_position(7), 3);
+                oled_write_P(DOWN_ICON, false);
+            }
+        } else if (layer_state_is(2)) {
+            if (clockwise) {
+                rgblight_increase_val();
+                oled_set_cursor(get_icon_start_position(7), 3);
+                oled_write_P(PSTR(" "), false);
+                oled_set_cursor(get_icon_start_position(7), 2);
+                oled_write_P(UP_ICON, false);
+            } else {
+                rgblight_decrease_val();
                 oled_set_cursor(get_icon_start_position(7), 2);
                 oled_write_P(PSTR(" "), false);
                 oled_set_cursor(get_icon_start_position(7), 3);
@@ -189,6 +203,9 @@ void oled_task_user(void) {
         case 1:
             oled_write_P(PSTR("2ND "), false);
             break;
+        case 2:
+            oled_write_P(PSTR("3RD "), false);
+            break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_P(PSTR("UNDF"), false);
@@ -203,6 +220,9 @@ void oled_task_user(void) {
             break;
         case 1:
             oled_write_P(PSTR("BRGT"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("RGB "), false);
             break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
