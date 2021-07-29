@@ -22,6 +22,7 @@ else
     RGB_MATRIX_ENABLE           = no
     AUDIO_ENABLE       			= yes
     EEPROM_DRIVER 				= i2c
+    ENCODER_MAP_ENABLE          = yes
 endif
 ifeq ($(strip $(KEYBOARD)), planck/light)
     RGB_MATRIX_ENABLE           = yes
@@ -31,13 +32,14 @@ ifeq ($(strip $(KEYBOARD)), planck/light)
     # HAPTIC_ENABLE               += SOLENOID
 endif
 ifeq ($(strip $(KEYBOARD)), planck/ez)
-    RGBLIGHT_ENABLE = no
-    ENCODER_ENABLE = yes
-    RGB_MATRIX_ENABLE = yes
+    RGBLIGHT_ENABLE             = no
+    ENCODER_ENABLE              = yes
+    ENCODER_MAP_ENABLE          = yes
+    RGB_MATRIX_ENABLE           = yes
     INDICATOR_LIGHTS            = yes
     RGBLIGHT_TWINKLE            = yes
     RGBLIGHT_STARTUP_ANIMATION  = yes
-    CONSOLE_ENABLE    			= yes
-    COMMAND_ENABLE    			= yes
-    AUDIO_ENABLE       			= yes
+    CONSOLE_ENABLE              = yes
+    COMMAND_ENABLE              = yes
+    AUDIO_ENABLE                = yes
 endif

@@ -25,7 +25,7 @@
 #endif
 
 uint32_t        oled_timer                       = 0;
-static char     keylog_str[KEYLOGGER_LENGTH + 1] = { 0 };
+static char     keylog_str[KEYLOGGER_LENGTH + 1] = {0};
 static uint16_t log_timer                        = 0;
 
 // clang-format off
@@ -58,7 +58,7 @@ void add_keylog(uint16_t keycode) {
     }
 
     for (uint8_t i = 1; i < KEYLOGGER_LENGTH; i++) {
-        keylog_str[i-1] = keylog_str[i];
+        keylog_str[i - 1] = keylog_str[i];
     }
 
     if (keycode < (sizeof(code_to_name) / sizeof(char))) {
@@ -92,14 +92,18 @@ void render_keylogger_status(void) {
 void render_default_layer_state(void) {
     oled_write_P(PSTR(OLED_RENDER_LAYOUT_NAME), false);
     switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY: oled_write_P(PSTR(OLED_RENDER_LAYOUT_QWERTY), false); break;
-        case _COLEMAK: oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK), false); break;
-        case _DVORAK: oled_write_P(PSTR(OLED_RENDER_LAYOUT_DVORAK), false); break;
-        case _WORKMAN: oled_write_P(PSTR(OLED_RENDER_LAYOUT_WORKMAN), false); break;
-        case _NORMAN: oled_write_P(PSTR(OLED_RENDER_LAYOUT_NORMAN), false); break;
-        case _MALTRON: oled_write_P(PSTR(OLED_RENDER_LAYOUT_MALTRON), false); break;
-        case _EUCALYN: oled_write_P(PSTR(OLED_RENDER_LAYOUT_EUCALYN), false); break;
-        case _CARPLAX: oled_write_P(PSTR(OLED_RENDER_LAYOUT_CARPLAX), false); break;
+        case _QWERTY:
+            oled_write_P(PSTR(OLED_RENDER_LAYOUT_QWERTY), false);
+            break;
+        case _COLEMAK_DH:
+            oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK_DH), false);
+            break;
+        case _COLEMAK:
+            oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK), false);
+            break;
+        case _DVORAK:
+            oled_write_P(PSTR(OLED_RENDER_LAYOUT_DVORAK), false);
+            break;
     }
 #ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
@@ -336,8 +340,8 @@ void render_status_secondary(void) {
     render_default_layer_state();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
-    // render_keylogger_status();
-    render_keylock_status(host_keyboard_leds());
+
+    // render_keylock_status(host_keyboard_leds());
 }
 
 void render_status_main(void) {
@@ -360,7 +364,7 @@ void render_status_main(void) {
     render_bootmagic_status();
     render_user_status();
 
-    render_keylogger_status();
+    // render_keylogger_status();
 }
 
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return rotation; }
@@ -382,8 +386,15 @@ void oled_task_user(void) {
         } else {
             oled_on();
         }
-        render_status_main(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    }
+    if (is_keyboard_left()) {
+        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
+    }
+    if (is_keyboard_master()) {
+        render_keylogger_status();
+    } else {
+        render_keylock_status(host_keyboard_leds());
     }
 }

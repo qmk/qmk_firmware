@@ -211,7 +211,7 @@ void sequencer_phase_pause(void) {
     sequencer_internal_state.phase        = SEQUENCER_PHASE_ATTACK;
 }
 
-void matrix_scan_sequencer(void) {
+void sequencer_task(void) {
     if (!sequencer_config.enabled) {
         return;
     }

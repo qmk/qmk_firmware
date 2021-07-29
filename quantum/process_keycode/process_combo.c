@@ -184,7 +184,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     return !is_combo_key;
 }
 
-void matrix_scan_combo(void) {
+void combo_task(void) {
     if (b_combo_enable && is_active && timer && timer_elapsed(timer) > COMBO_TERM) {
         /* This disables the combo, meaning key events for this
          * combo will be handled by the next processors in the chain

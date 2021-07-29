@@ -212,10 +212,6 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 #define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
 #define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
-void     matrix_init_kb(void);
-void     matrix_scan_kb(void);
-void     matrix_init_user(void);
-void     matrix_scan_user(void);
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
 uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     process_action_kb(keyrecord_t *record);
