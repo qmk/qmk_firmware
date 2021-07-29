@@ -177,9 +177,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                 default:   // all other layers
                     if ( clockwise ) {
-                        if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                            selected_layer ++;
-                            layer_move(selected_layer);
+                        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                            if(selected_layer  < 3) {
+                                selected_layer ++;
+                                layer_move(selected_layer);
+                            }
                         } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
                              tap_code16(LCTL(KC_RGHT));
                         } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
@@ -188,9 +190,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
                         }
                     } else if ( !clockwise ) {
-                        if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
-                            selected_layer --;
-                            layer_move(selected_layer);
+                        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+                            if (selected_layer  > 0) {
+                                selected_layer --;
+                                layer_move(selected_layer);
+                            }
                         } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
                             tap_code16(LCTL(KC_LEFT));
                         } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
