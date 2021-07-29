@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BASE_WORKMAN__DEF_BASE
 //#define BASE_WORKMAN__ALT_BASE
 //#define BASE_NUMPAD__ALT_BASE 
+//#define BASE_HEBREW__DEF_BASE
+//#define BASE_HEBREW__ALT_BASE
 
 //#define MINIFAN_SINGLE_LAYOUT 
 

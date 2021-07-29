@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • Colemak
                     • Workman
                     • Numpad
+                    • Hebrew
 
                             -2- ➡ Eviscerations ( ① / ② ) ⬅
                     • Single layout
@@ -175,6 +176,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //  _Activate_ to get Numpad on Alternate. There is no option for Numpad on ‛Default’ base.
   #define BASE_NUMPAD__ALT_BASE // _Activate_ if you want Numpad on the ‛Alternate’ spot
         // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./base_numpad.c
+        //
+        //          • Hebrew
+        //                  (a simple Hebrew layout)
+        // _Activate_ one of these two, _remove_ the other.
+//#define BASE_HEBREW__DEF_BASE // _Activate_ if you want Hebrew on the ‛Default’ spot
+//#define BASE_HEBREW__ALT_BASE // _Activate_ if you want Hebrew on the ‛Alternate’ spot
         //
         /*                  -2- ➡ Eviscerations ( ① / ② ) ⬅
          */
