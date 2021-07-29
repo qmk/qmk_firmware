@@ -6,7 +6,8 @@
     "height": 5,
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT_all",
-        "LAYOUT_hhkb": "LAYOUT_60_hhkb"
+        "LAYOUT_hhkb": "LAYOUT_60_hhkb",
+        "LAYOUT_iso": "LAYOUT_60_iso_split_bs_rshift"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -290,7 +291,7 @@
                 {"x": 12.5,   "y": 4}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_60_iso_split_bs_rshift": {
             "layout": [
                 {"x": 0,      "y": 0},
                 {"x": 1,      "y": 0},
