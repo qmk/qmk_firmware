@@ -1,4 +1,4 @@
-Matthew J Wolf 25-July-2021 model_f_labs
+Matthew J Wolf 28-July-2021 model_f_labs
 
 The original source used Purdea Andrei xwhatsit code that was retrieved on
 24 June 2021.
@@ -24,6 +24,22 @@ Changes to Source Files
 - Source Changes
 -- Moved defines from source to headers
 -- Replaced define macros with functions
+
+USB Descriptor Changes
+----------------------
+
+- PRODUCT_ID
+Roland Huber's VIA product IDs
+-- 62 = 0x00F0 
+-- 77 = 0x00C0
+
+- MANUFACTURER =  Model F Labs
+
+- PRODUCT 
+-- 62 = Reproduction IBM F62 Keyboard 
+-- 77 = Reproduction IBM F77 Keyboard
+
+- DESCRIPTION  = Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
 
 Items Removed
 -------------
