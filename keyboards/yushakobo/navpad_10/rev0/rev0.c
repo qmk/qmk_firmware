@@ -14,21 +14,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "rev0.h"
 
-#include "quantum.h"
-
-#ifdef KEYBOARD_yushakobo_navpad_10_rev0
-    #include "rev0.h"
-#endif
-
-#ifdef KEYBOARD_yushakobo_navpad_10_rev1
-    #include "rev1.h"
-#endif
-
-enum layer_name {
-    _BASE,
-    _FN1,
-    _FN2,
-    _FN3
-};
