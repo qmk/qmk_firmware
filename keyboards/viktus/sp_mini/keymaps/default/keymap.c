@@ -46,3 +46,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
+
+void keyboard_pre_init_user(void) {
+    setPinOutput(F5);  // initialize F5 for left LED
+    setPinOutput(F6);  // initialize F6 for center LED
+    setPinOutput(F7);  // initialize F7 for right LED
+
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case _FN1:
+            writePinHigh(F5);
+            writePinLow(F6);
+            writePinLow(F7);
+            break;
+        case _FN2:
+            writePinHigh(F6);
+            writePinLow(F5);
+            writePinLow(F7);
+            break;
+//        case _XXXX: // replace 'XXXX' with the layer or function name
+//            writePinHigh(F7);
+//            writePinLow(F5);
+//            writePinLow(F6);
+//            break;
+        default:
+            writePinLow(F5);
+            writePinLow(F6);
+            writePinLow(F7);
+            break;
+        }
+    return state;
+}
+
+// void encoder_update_user(uint8_t index, bool clockwise) {
+//     if (index == 0) { /* First encoder */
+//         if (clockwise) {
+//             tap_code(KC_PGDN);
+//         } else {
+//             tap_code(KC_PGUP);
+//         }
+//     } else if (index == 1) { /* Second encoder */
+//         if (clockwise) {
+//         tap_code(KC_VOLU);
+//     } else {
+//         tap_code(KC_VOLD);
+//         }
+//     }
+// }

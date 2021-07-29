@@ -2,15 +2,8 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
-# BOOTLOADER = atmel-dfu
-BOOTLOADER = qmk-dfu
+BOOTLOADER = atmel-dfu
+# BOOTLOADER = qmk-dfu
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
@@ -33,3 +26,4 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes
+ENCODER_ENABLE = yes
