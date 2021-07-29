@@ -1,4 +1,4 @@
-/* Copyright 2015-2017 Jack Humbert
+/* Copyright 2021 Gun Pinyo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* modified by Gun Pinyo */
-
 #include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
@@ -25,141 +23,276 @@ enum planck_layers {
   LY_0100, LY_0101, LY_0110, LY_0111,
   LY_1000, LY_1001, LY_1010, LY_1011,
   LY_1100, LY_1101, LY_1110, LY_1111,
+  LY_THAI_A, LY_THAI_B, LY_THAI_C,
+  LY_SANDBOX, LY_STICK,
 };
 
 enum planck_keycodes {
-  FN_A = SAFE_RANGE,
-  FN_B,
-  FN_C,
-  FN_D,
+  MIN_KC = SAFE_RANGE,
+  FUNC_A, FUNC_B, FUNC_C, FUNC_D,
+  SANDBOX, STICK,
+  LTHAI_A, LTHAI_B, LTHAI_C,
+  LSW0110, LSW1111, LSW0100,
+  USER_NAME, USER_EMAIL,
+  MAX_KC,
   DYNAMIC_MACRO_RANGE,
 };
 
-#include "dynamic_macro.h"
+#define KC_L2_0 KC_LSFT
+#define KC_L3_0 KC_LCTL
+#define KC_L3_1 KC_LALT
+#define KC_L3_2 KC_LGUI
 
-#define MFN_R1 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define MFN_R2 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define MFN_R3 XXXXXXX, FN_A,    FN_B,    FN_C,    XXXXXXX, XXXXXXX
-#define MFN_R4 XXXXXXX, KC_LCTL, KC_LSFT, KC_LALT, FN_D,    XXXXXXX
-#define UNUSED_LAYER {\
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MFN_R1},\
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MFN_R2},\
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MFN_R3},\
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MFN_R4}},
-#define MC(kc) LCTL(kc)
-#define MA(kc) LALT(kc)
-#define MG(kc) LGUI(kc)          // ModGui, for i3 shortcuts
+#define KC_R2_1 FUNC_A
+#define KC_R2_2 FUNC_B
+#define KC_R2_3 FUNC_C
+#define KC_R2_4 FUNC_D
+
+#define KC_R2_5 KC_RSFT
+#define KC_R3_0 KC_R2_4
+#define KC_R3_1 KC_SPC
+
+#define LAYOUT_gunp( k00, k01, k02, k03, k04, k05, \
+                     k10, k11, k12, k13, k14, k15, \
+                     k20, k21, k22, k23, k24, k25, \
+                     k30, k31, k32, k33, k34, k35) \
+LAYOUT_ortho_4x12( \
+k00,k01,k02,k03,k04,k05, LSW0110, KC_LEFT, KC_BSPC, KC_RIGHT,XXXXXXX, XXXXXXX,\
+k10,k11,k12,k13,k14,k15, LSW1111, LTHAI_A, LTHAI_B, LTHAI_C, XXXXXXX, XXXXXXX,\
+k20,k21,k22,k23,k24,k25, LSW0100, KC_R2_1, KC_R2_2, KC_R2_3, KC_R2_4, KC_R2_5,\
+k30,k31,k32,k33,k34,k35, KC_R3_0, KC_R3_1, KC_ENT,  KC_RGUI, KC_RALT, KC_RCTL)
+
+#define UNUSED_LAYER LAYOUT_gunp(\
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
+
+#define F1_F12_LAYER(M) LAYOUT_gunp(\
+  S(M(KC_F7 )), S(M(KC_F8 )), M(KC_F7 ), M(KC_F8 ), M(KC_F9 ), S(M(KC_F9 )),\
+  S(M(KC_F4 )), S(M(KC_F5 )), M(KC_F4 ), M(KC_F5 ), M(KC_F6 ), S(M(KC_F6 )),\
+  S(M(KC_F1 )), S(M(KC_F2 )), M(KC_F1 ), M(KC_F2 ), M(KC_F3 ), S(M(KC_F3 )),\
+  S(M(KC_F10)), S(M(KC_F11)), M(KC_F10), M(KC_F11), M(KC_F12), S(M(KC_F12))),
+
+#define MC(kc)  LCTL(kc)
+#define MA(kc)  LALT(kc)
+#define MG(kc)  LGUI(kc)
 #define MSC(kc) LSFT(LCTL(kc))
-#define MSA(kc) LSFT(LALT(kc))
-#define MCA(kc) LCTL(LALT(kc))
-#define XX XXXXXXX
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[LY_0000] = LAYOUT_planck_grid(
- KC_DEL,  KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_K, KC_TAB,
- KC_BSPC, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_ENT,
- KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_M, FN_A, FN_B, FN_C, XX,  KC_LSFT,
- XX,KC_F21,KC_F22,KC_ESC,KC_SPC,KC_F23,KC_F24,KC_LCTL,KC_LSFT,KC_LALT,FN_D,XX
+[LY_0000] = LAYOUT_ortho_4x12(
+  KC_PGUP, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_K, KC_TAB,
+  KC_PGDN, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, STICK,
+  KC_L2_0, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_M,
+                                KC_R2_1, KC_R2_2,    KC_R2_3, KC_UP,   KC_R2_5,
+  KC_L3_0, KC_L3_1, KC_L3_2, KC_ESCAPE,  KC_BSPACE,  KC_ENTER,
+                       KC_R3_0, KC_R3_1, KC_PSCREEN, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
-[LY_1000] = LAYOUT_planck_grid(
-  UC(L'∃'), KC_SLSH,  KC_RCBR,  KC_RPRN,  KC_RBRC,  KC_GT,    MFN_R1,
-  UC(L'∀'), KC_BSLS,  KC_LCBR,  KC_LPRN,  KC_LBRC,  KC_LT,    MFN_R2,
-  KC_AMPR,  KC_PIPE,  KC_AT,    KC_TILD,  KC_DLR,   KC_CIRC,  MFN_R3,
-  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    MFN_R4,
+[LY_1000] = LAYOUT_gunp(
+  XXXXXXX,   KC_PERC,   KC_QUES,   KC_EXLM,   KC_GRV,    XXXXXXX,
+  XXXXXXX,   KC_AT,     KC_COMM,   KC_DOT,    KC_QUOT,   KC_EQL,
+  KC_L2_0,   KC_DLR,    KC_SCLN,   KC_COLN,   KC_DQUO,   KC_UNDS,
+  KC_L3_0,   KC_L3_1,   KC_L3_2,   XXXXXXX,   XXXXXXX,   XXXXXXX
 ),
-[LY_0010] = LAYOUT_planck_grid(
-  UC(L'×'), KC_ASTR,  KC_QUES,  KC_EXLM,  KC_GRV,   KC_HASH,  MFN_R1,
-  UC(L'→'), KC_MINS,  KC_COMM,  KC_DOT,   KC_QUOT,  KC_EQL,   MFN_R2,
-  UC(L'∘'), KC_PLUS,  KC_SCLN,  KC_COLN,  KC_DQUO,  KC_UNDS,  MFN_R3,
-  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   MFN_R4,
+[LY_0010] = LAYOUT_gunp(
+  XXXXXXX,   KC_AMPR,   KC_PIPE,   KC_TILD,   KC_CIRC,   XXXXXXX,
+  XXXXXXX,   KC_LCBR,   KC_LBRC,   KC_LPRN,   KC_LT,     KC_SLSH,
+  KC_L2_0,   KC_RCBR,   KC_RBRC,   KC_RPRN,   KC_GT,     KC_BSLS,
+  KC_L3_0,   KC_L3_1,   KC_L3_2,   XXXXXXX,   XXXXXXX,   XXXXXXX
 ),
-[LY_1010] = LAYOUT_planck_grid(
-  UC(L'⊗'), UC(L'⊕'), KC_7,     KC_8,     KC_9,     UC(L'┻'), MFN_R1,
-  UC(L'⊚'), KC_0,     KC_1,     KC_2,     KC_3,     UC(L'┃'), MFN_R2,
-  UC(L'┏'), UC(L'┓'), KC_4,     KC_5,     KC_6,     UC(L'┳'), MFN_R3,
-  UC(L'┗'), UC(L'┛'), UC(L'┫'), UC(L'━'), UC(L'┣'), UC(L'╋'), MFN_R4
+[LY_1010] = LAYOUT_gunp(
+  XXXXXXX,   KC_HASH,   KC_7,      KC_8,      KC_9,      XXXXXXX,
+  XXXXXXX,   KC_ASTR,   KC_4,      KC_5,      KC_6,      KC_PLUS,
+  KC_L2_0,   KC_0,      KC_1,      KC_2,      KC_3,      KC_MINS,
+  KC_L3_0,   KC_L3_1,   KC_L3_2,   XXXXXXX,   XXXXXXX,   XXXXXXX
 ),
-[LY_0100] = LAYOUT_planck_grid(
- KC_F13, KC_WSCH,     KC_HOME,     KC_UP,     KC_END,     KC_PGUP,     MFN_R1,
- KC_F14, XXXXXXX,     KC_LEFT,     KC_DOWN,   KC_RGHT,    KC_PGDN,     MFN_R2,
- KC_F15, KC_WBAK,     KC_WFWD,     MC(KC_A),  MC(KC_Z),   MSC(KC_Z),   MFN_R3,
- KC_F16, MA(KC_LEFT), MC(KC_LEFT), MC(KC_F),  MC(KC_RGHT),MA(KC_RGHT), MFN_R4,
+[LY_0100] = LAYOUT_gunp(
+  XXXXXXX,   MC(KC_G),   KC_HOME,      KC_UP,      KC_END,        MC(KC_UP),
+  XXXXXXX,   KC_PGUP,    KC_LEFT,      KC_DOWN,    KC_RIGHT,      MC(KC_DOWN),
+  XXXXXXX,   KC_PGDN,    MC(KC_S),     MC(KC_A),   MC(KC_Z),      MSC(KC_Z),
+  XXXXXXX,   XXXXXXX,    MC(KC_LEFT),  MC(KC_F),   MC(KC_RIGHT),  XXXXXXX
 ),
-[LY_1100] = LAYOUT_planck_grid(
- KC_F17, MC(KC_WSCH), S(KC_HOME),  S(KC_UP),  S(KC_END),  MC(KC_PGUP), MFN_R1,
- KC_F18, XXXXXXX,     S(KC_LEFT),  S(KC_DOWN),S(KC_RGHT), MC(KC_PGDN), MFN_R2,
- KC_F19, MC(KC_S),    MC(KC_X),    MC(KC_C),  MC(KC_V),   MC(KC_L),    MFN_R3,
- KC_F20, MCA(KC_LEFT),MSC(KC_LEFT),MCA(KC_F),MSC(KC_RGHT),MCA(KC_RGHT),MFN_R4,
+[LY_1100] = LAYOUT_gunp(
+  XXXXXXX,   MSC(KC_G),  S(KC_HOME),   S(KC_UP),   S(KC_END),     MSC(KC_UP),
+  XXXXXXX,   S(KC_PGUP), S(KC_LEFT),   S(KC_DOWN), S(KC_RIGHT),   MSC(KC_DOWN),
+  XXXXXXX,   S(KC_PGDN), MC(KC_X),     MC(KC_C),   MC(KC_V),      MC(KC_L),
+  XXXXXXX,   XXXXXXX,    MSC(KC_LEFT), MC(KC_R),   MSC(KC_RIGHT), XXXXXXX
 ),
-[LY_0110] = LAYOUT_planck_grid(
-  MC(KC_F1) ,MC(KC_F2) ,MC(KC_F3) ,MC(KC_F4) ,MC(KC_F5) ,MC(KC_F6) , MFN_R1,
-  MC(KC_F7) ,MC(KC_F8) ,MC(KC_F9) ,MC(KC_F10),MC(KC_F11),MC(KC_F12), MFN_R2,
-  MC(KC_F13),MC(KC_F14),MC(KC_F15),MC(KC_F16),MC(KC_F17),MC(KC_F18), MFN_R3,
-  MC(KC_F19),MC(KC_F20),MC(KC_F21),MC(KC_F22),MC(KC_F23),MC(KC_F24), MFN_R4
+[LY_0110] = F1_F12_LAYER()
+[LY_1110] = F1_F12_LAYER(MG)
+
+[LY_0001] = LAYOUT_gunp(
+  MC(KC_H),      MC(KC_0),      MSC(KC_PGUP),  KC_BRIU,  MSC(KC_PGDN), KC_VOLU,
+  MSC(KC_T),     MC(KC_PLUS),   MC(KC_PGUP),   KC_BRID,  MC(KC_PGDN),  KC_VOLD,
+  OSM(MOD_LSFT), MC(KC_MINS),   MA(KC_LEFT),   MC(KC_T), MA(KC_RIGHT), KC_MUTE,
+  OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), MC(KC_W), KC_DELETE,    KC_APP
 ),
-[LY_1110] = LAYOUT_planck_grid(
-  MG(KC_F1) ,MG(KC_F2) ,MG(KC_F3) ,MG(KC_F4) ,MG(KC_F5) ,MG(KC_F6) , MFN_R1,
-  MG(KC_F7) ,MG(KC_F8) ,MG(KC_F9) ,MG(KC_F10),MG(KC_F11),MG(KC_F12), MFN_R2,
-  MG(KC_F13),MG(KC_F14),MG(KC_F15),MG(KC_F16),MG(KC_F17),MG(KC_F18), MFN_R3,
-  MG(KC_F19),MG(KC_F20),MG(KC_F21),MG(KC_F22),MG(KC_F23),MG(KC_F24), MFN_R4
+[LY_1101] = LAYOUT_gunp(
+  SANDBOX,   XXXXXXX,    AU_TOG,       KC_LOCK,    RGB_TOG,       RESET,
+  KC_WAKE,   KC_CLCK,    USER_NAME,    USER_EMAIL, RGB_MOD,       DEBUG,
+  KC_SLEP,   KC_NLCK,    DM_REC1,      DM_PLY1,    XXXXXXX,       EEP_RST,
+  KC_PWR,    KC_SLCK,    DM_REC2,      DM_PLY2,    DM_RSTP,       KC_INSERT
 ),
-[LY_1111] = LAYOUT_planck_grid(
- KC_MPRV, DYN_REC_STOP,    KC_WH_L,         KC_MS_U, KC_WH_R, KC_WH_U, MFN_R1,
- KC_CAPS, XXXXXXX,         KC_MS_L,         KC_MS_D, KC_MS_R, KC_WH_D, MFN_R2,
- KC_MNXT, DYN_MACRO_PLAY2, DYN_MACRO_PLAY1, KC_MPLY, KC_MRWD, KC_MFFD, MFN_R3,
- KC_MSTP, DYN_REC_START2,  DYN_REC_START1,  KC_BTN2, KC_BTN1, KC_BTN3, MFN_R4,
+[LY_1111] = LAYOUT_gunp(
+  KC_ACL1,   KC_ACL0,    KC_WH_L,      KC_MS_U,    KC_WH_R,       KC_WH_U,
+  KC_ACL2,   XXXXXXX,    KC_MS_L,      KC_MS_D,    KC_MS_R,       KC_WH_D,
+  KC_MPRV,   KC_BTN5,    KC_MRWD,      KC_MPLY,    KC_MFFD,       KC_BTN3,
+  KC_MNXT,   KC_BTN4,    KC_PAUSE,     KC_MSTP,    KC_BTN1,       KC_BTN2
 ),
-[LY_1101] = LAYOUT_planck_grid(
-  XXXXXXX, MU_ON,   MU_OFF,      PRINT_ON, PRINT_OFF,   DEBUG,   MFN_R1,
-  XXXXXXX, KC_APP,  KC_VOLD,     KC_MUTE,  KC_VOLU,     XXXXXXX, MFN_R2,
-  XXXXXXX, KC_MAIL, S(KC_VOLD),  KC_INS,   S(KC_VOLU),  KC_PSCR, MFN_R3,
-  XXXXXXX, MUV_DE,  MUV_IN,      AU_ON,    AU_OFF,      RESET,   MFN_R4,
-),
-[LY_0011] = LAYOUT_planck_grid(
-  UC(L'็'),  UC(L'์'),  UC(L'่'),  UC(L'้'),  UC(L'๊'),  UC(L'๋'), MFN_R1,
-  UC(L'โ'),  UC(L'แ'),  UC(L'เ'),  UC(L'า'),  UC(L'ั'),  UC(L'ะ'), MFN_R2,
-  UC(L'ไ'),  UC(L'ใ'),  UC(L'ิ'),  UC(L'ี'),  UC(L'ึ'),  UC(L'ื'), MFN_R3,
-  UC(L'ๅ'),  UC(L'ฺ'),  UC(L'ํ'),  UC(L'ุ'),  UC(L'ู'),  UC(L'ำ'), MFN_R4,
-),
-[LY_1011] = LAYOUT_planck_grid(
-  UC(L'ฐ'),  UC(L'ฎ'),  UC(L'ฏ'),  UC(L'ฮ'),  UC(L'ข'),  UC(L'ฃ'), MFN_R1,
-  UC(L'ถ'),  UC(L'ด'),  UC(L'ต'),  UC(L'อ'),  UC(L'ก'),  UC(L'จ'), MFN_R2,
-  UC(L'ภ'),  UC(L'บ'),  UC(L'ป'),  UC(L'ส'),  UC(L'ห'),  UC(L'ฉ'), MFN_R3,
-  UC(L'ฯ'),  UC(L'ผ'),  UC(L'ฝ'),  UC(L'ศ'),  UC(L'ษ'),  UC(L'ๆ'), MFN_R4,
-),
-[LY_0111] = LAYOUT_planck_grid(
-  UC(L'ฒ'),  UC(L'ฤ'),  UC(L'ฦ'),  UC(L'ม'),  UC(L'ค'),  UC(L'ฅ'), MFN_R1,
-  UC(L'ณ'),  UC(L'ร'),  UC(L'ล'),  UC(L'น'),  UC(L'ว'),  UC(L'ง'), MFN_R2,
-  UC(L'ญ'),  UC(L'ช'),  UC(L'ซ'),  UC(L'ย'),  UC(L'ท'),  UC(L'ฑ'), MFN_R3,
-  UC(L'ฌ'),  UC(L'ฬ'),  UC(L'ฟ'),  UC(L'พ'),  UC(L'ธ'),  UC(L'ฆ'), MFN_R4,
-),
-[LY_0001] = UNUSED_LAYER
-[LY_0101] = UNUSED_LAYER
+[LY_0111] = UNUSED_LAYER
+[LY_1011] = UNUSED_LAYER
+
 [LY_1001] = UNUSED_LAYER
+[LY_0101] = UNUSED_LAYER
+[LY_0011] = UNUSED_LAYER
+
+/* mapping from US QWERTY to TH Kedmanee */
+[LY_THAI_A] = LAYOUT_gunp(
+  S(KC_G),  KC_PIPE,  KC_8,     KC_COMM,  S(KC_A),  KC_QUES,
+  S(KC_I),  KC_SCLN,  KC_QUOT,  KC_O,     KC_I,     KC_RBRC,
+  S(KC_P),  S(KC_T),  KC_M,     KC_P,     KC_EQL,   KC_COLN,
+  KC_LT,    S(KC_S),  S(KC_R),  KC_GT,    KC_R,     KC_A
+),
+[LY_THAI_B] = LAYOUT_gunp(
+  S(KC_N),  S(KC_H),  KC_J,     KC_H,     S(KC_U),  S(KC_J),
+  S(KC_F),  KC_C,     KC_G,     KC_K,     KC_Y,     KC_T,
+  KC_DOT,   KC_W,     KC_B,     KC_U,     KC_7,     KC_N,
+  KC_1,     S(KC_B),  S(KC_Y),  KC_E,     KC_6,     KC_CIRC
+),
+[LY_THAI_C] = LAYOUT_gunp(
+  KC_4,     KC_BSLS,  KC_MINS,  S(KC_V),  S(KC_E),  S(KC_D),
+  KC_5,     KC_0,     KC_D,     KC_V,     KC_F,     KC_9,
+  S(KC_L),  S(KC_K),  KC_L,     KC_S,     KC_LBRC,  KC_X,
+  S(KC_O),  KC_Q,     KC_LCBR,  S(KC_C),  KC_Z,     KC_SLSH
+),
+[LY_SANDBOX] = LAYOUT_ortho_4x12(
+  KC_LCBR, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_K, KC_RCBR,
+  KC_LBRC, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_RBRC,
+  KC_LPRN,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_M,KC_COMM,KC_DOT,KC_SCLN,KC_COLN,KC_RPRN,
+  KC_LT  , KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_GT
+),
+[LY_STICK] = UNUSED_LAYER // as a gateway to other persistant layers
 };
 
-#ifdef AUDIO_ENABLE
-  float plover_song[][2]     = SONG(PLOVER_SOUND);
-  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+#define NUM_LANGS 2
+#define LANG_ENG  0
+#define LANG_THAI 1
+
+uint16_t cur_layer = LY_0000;
+uint16_t cur_lang = LANG_ENG;
+bool is_layer_persistant = false;
+
+void change_layer(uint16_t new_layer) {
+  if(cur_layer != new_layer) {
+    layer_off(cur_layer);
+    layer_on(new_layer);
+    cur_layer = new_layer;
+  }
+}
+
+void change_lang(uint16_t lang) {
+  while(lang != cur_lang) {
+    SEND_STRING(SS_LGUI(" "));
+    cur_lang = (cur_lang + 1) % NUM_LANGS;
+  }
+}
+
+void user_panic(void) {
+  SEND_STRING("Planck Keyboard: User Panic!");
+}
+
+void update_env_thai(void) {
+  if(LY_THAI_A <= cur_layer && cur_layer <= LY_THAI_C) {
+    change_lang(LANG_THAI);
+  } else {
+    change_lang(LANG_ENG);
+  }
+}
+
+uint16_t get_persistant_layer_from_keycode(uint16_t keycode) {
+  switch(keycode) {
+    case FUNC_A:   return LY_1000;
+    case FUNC_B:   return LY_1010;
+    case FUNC_C:   return LY_0010;
+    case FUNC_D:   return LY_0000;
+    case LTHAI_A:  return LY_THAI_A;
+    case LTHAI_B:  return LY_THAI_B;
+    case LTHAI_C:  return LY_THAI_C;
+    case LSW0110:  return LY_0110;
+    case LSW1111:  return LY_1111;
+    case LSW0100:  return LY_0100;
+  }
+  return 0; // this line is unreachable but be here to make the complier happy
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  if(!is_layer_persistant && FUNC_A <= keycode && keycode <= FUNC_D) {
+    uint16_t mask = 1 << (3 - (keycode - FUNC_A));
+    uint16_t cur_layer_code = cur_layer - LY_0000;
+    if(!(LY_0000 <= cur_layer && cur_layer <= LY_1111))
+      user_panic();
+    if(!(cur_layer_code & mask) == record->event.pressed)
+      change_layer((mask ^ cur_layer_code) + LY_0000);
+    return false;
+  }
+
+  if(!(record->event.pressed))
+    return !(MIN_KC <= keycode && keycode <= MAX_KC);
+
+  switch(keycode) {
+    case USER_NAME:
+      SEND_STRING("Gun Pinyo");
+      return false;
+
+    case USER_EMAIL:
+      SEND_STRING("gunpinyo@gmail.com");
+      return false;
+
+    case SANDBOX:
+    case STICK:
+      change_layer(keycode == STICK ? LY_STICK : LY_SANDBOX);
+      change_lang(LANG_ENG);
+      is_layer_persistant = true;
+      return false;
+
+    case FUNC_A:  case FUNC_B:  case FUNC_C:   case FUNC_D:
+    case LTHAI_A: case LTHAI_B: case LTHAI_C:
+    case LSW0110: case LSW1111: case LSW0100:
+      if(is_layer_persistant) {
+        change_layer(get_persistant_layer_from_keycode(keycode));
+        update_env_thai();
+        // `FUNC_D` resets the layer configuration when `is_layer_persistant`
+        is_layer_persistant = keycode != FUNC_D;
+        if(!is_layer_persistant) {
+          clear_keyboard();
+          layer_clear();
+        }
+      }
+      return false;
+  }
+  return true;
+}
+
+#ifdef RGB_MATRIX_ENABLE
+  void rgb_matrix_indicators_kb(void) {
+    // `42` is the index of the middle light at the bottom row (in planck light)
+    // it is disabled because it does not have a cover, hence irritates my eyes
+    rgb_matrix_set_color(42, 0, 0, 0);
+  }
 #endif
 
-uint16_t cur_layer_code = 0;
-
 #ifdef AUDIO_ENABLE
+  float tone_startup[][2]    = SONG(STARTUP_SOUND);
+  float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
 
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_plover[][2]     = SONG(PLOVER_SOUND);
-float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
+  float tone_ly_normal[][2]  = SONG(QWERTY_SOUND);
+  float tone_ly_spacial[][2] = SONG(DVORAK_SOUND);
+
+  float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 #endif
 
 void startup_user() {
-  _delay_ms(20); // gets rid of tick
-  set_unicode_input_mode(UC_LNX);
 #ifdef AUDIO_ENABLE
   PLAY_SONG(tone_startup);
 #endif
@@ -168,22 +301,6 @@ void startup_user() {
 void shutdown_user() {
 #ifdef AUDIO_ENABLE
   PLAY_SONG(tone_goodbye);
-  _delay_ms(150);
   stop_all_notes();
 #endif
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t mask = 1 << (3 - (keycode - FN_A));
-  if (!process_record_dynamic_macro(keycode, record))
-    return false;
-  if(FN_A <= keycode && keycode <= FN_D) {
-    if(!(cur_layer_code & mask) == record->event.pressed) {
-      layer_off(cur_layer_code + LY_0000);
-      cur_layer_code ^= mask;
-      layer_on(cur_layer_code + LY_0000);
-    }
-    return false;
-  }
-  return true;
 }

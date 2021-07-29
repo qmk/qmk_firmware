@@ -216,7 +216,6 @@ extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 extern rgb_config_t rgb_matrix_config;
 
-extern bool         g_suspend_state;
 extern uint32_t     g_rgb_timer;
 extern led_config_t g_led_config;
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED

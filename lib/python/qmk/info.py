@@ -19,6 +19,12 @@ true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
 
 
+def _valid_community_layout(layout):
+    """Validate that a declared community list exists
+    """
+    return (Path('layouts/default') / layout).exists()
+
+
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
@@ -70,6 +76,13 @@ def info_json(keyboard):
     # Make sure we have at least one layout
     if not info_data.get('layouts'):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
+
+    # Filter out any non-existing community layouts
+    for layout in info_data.get('community_layouts', []):
+        if not _valid_community_layout(layout):
+            # Ignore layout from future checks
+            info_data['community_layouts'].remove(layout)
+            _log_error(info_data, 'Claims to support a community layout that does not exist: %s' % (layout))
 
     # Make sure we supply layout macros for the community layouts we claim to support
     for layout in info_data.get('community_layouts', []):

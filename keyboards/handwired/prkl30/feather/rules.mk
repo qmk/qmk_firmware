@@ -18,7 +18,7 @@ BOOTLOADER = caterina
 #   change yes to no to disable
 #
 BLUETOOTH = AdafruitBLE
-BOOTMAGIC_ENABLE  = yes     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE  = full     # Virtual DIP switch configuration
 ENCODER_ENABLE = yes
 MOUSEKEY_ENABLE  = no       # Mouse keys
 EXTRAKEY_ENABLE  = no       # Audio control and System control

@@ -20,12 +20,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {
     switch(get_highest_layer(layer_state)) {
     case 1: //EDIT THESE FOR THE ENCODER'S FUNCTION WHEN PRESSING MO(1)
 	  if (clockwise) {
-        tap_code16 (KC_VOLU); 
+        tap_code16 (KC_VOLU);
       } else {
         tap_code16(KC_VOLD);
       }
@@ -39,4 +39,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       break;
     }
   }
+    return true;
 };

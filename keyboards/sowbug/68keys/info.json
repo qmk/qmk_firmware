@@ -5,7 +5,7 @@
     "width": 17.25,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_default": {
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":1, "y":0},
