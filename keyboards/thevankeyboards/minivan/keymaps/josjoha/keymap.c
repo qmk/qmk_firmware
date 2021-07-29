@@ -614,6 +614,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #     include "./base_numpad.c" // Numbers pad
 # endif
 
+//                         * Hebrew *
+# if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
+#     include "./base_hebrew.c" // Hebrew
+# endif
+
 // // ⬇ insert your ./base_YOUR_KEYMAP.c #include here:
 
 

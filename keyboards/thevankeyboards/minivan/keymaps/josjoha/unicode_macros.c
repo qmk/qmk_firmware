@@ -281,36 +281,37 @@ enum custom_keycodes {
 
 // Hebrew
 # if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
-    HB_ALEF,
-    HB_BET,
-    HB_GIMEL,
-    HB_DALET,
-    HB_HE,
-    HB_VAV,
-    HB_ZAYIN,
-    HB_HET,
-    HB_TET,
-    HB_YOD,
-    HB_FKAF,
-    HB_KAF,
-    HB_LAMED,
-    HB_FMEM,
-    HB_MEM,
-    HB_FNUN,
-    HB_NUN,
-    HB_SAMEG,
-    HB_AYIN,
-    HB_F_PE,
-    HB_PE,
-    HB_FTSDI,
-    HB_TSADI,
-    HB_QOF,
-    HB_RESH,
-    HB_SHIN,
-    HB_TAV,
-    HB_D_VAV,
-    HB_VAVYD,
-    HB_D_YOD,
+    XP_HEB_AA,
+    XP_HEB_AB,
+    XP_HEB_AC,
+    XP_HEB_AD,
+    XP_HEB_AE,
+    XP_HEB_AF,
+    XP_HEB_AG,
+    XP_HEB_AH,
+    XP_HEB_AI,
+    XP_HEB_AJ,
+    XP_HEB_BA,
+    XP_HEB_BB,
+    XP_HEB_BC,
+    XP_HEB_BD,
+    XP_HEB_BE,
+    XP_HEB_BF,
+    XP_HEB_BG,
+    XP_HEB_BH,
+    XP_HEB_BI,
+    XP_HEB_BJ,
+    XP_HEB_BK,
+    XP_HEB_CA,
+    XP_HEB_CB,
+    XP_HEB_CC,
+    XP_HEB_CD,
+    XP_HEB_CE,
+    XP_HEB_CF,
+    XP_HEB_CG,
+    XP_HEB_CH,
+    XP_HEB_CI,
+    XP_HEB_CJ,
 # endif // Hebrew
 };
 
@@ -2378,6 +2379,208 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
 # endif // REMOVE_BON 
+
+// Hebrew
+# if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
+        case XP_HEB_AA: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_MULT);//
+            }
+            break;
+
+        // These letters on the upper left follow Dvorak layout.
+        // The reason is space on the device: these are not macros.
+        // Also: typing compatibility between Dvorak and Hebrew
+        // for these similar/same symbols: ,<.>. Idealy these symbols
+        // should be the hebrew variation, if space allows it.
+        /* 
+        case XP_HEB_AB: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_MULT);// 
+            }
+            break;
+
+        case XP_HEB_AC: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_MULT);// 
+            }
+            break;
+        */
+        case XP_HEB_AD: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_RESH);// 
+            }
+            break;
+
+        case XP_HEB_AE: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_ALEF);// 
+    
+            }
+            break;
+
+        case XP_HEB_AF: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_TET);// 
+            }
+            break;
+
+        case XP_HEB_AG: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_VAV);// 
+            }
+            break;
+
+        case XP_HEB_AH: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_NUNS);// 
+            }
+            break;
+
+        case XP_HEB_AI: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_MEMS);// 
+            }
+            break;
+
+        case XP_HEB_AJ: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_PE);// 
+            }
+            break;
+
+   // ------------------------- row 3
+        case XP_HEB_BA: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_SHIN);// 
+            }
+            break;
+
+        case XP_HEB_BB: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_DALET);// 
+            }
+            break;
+
+        case XP_HEB_BC: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_GIMEL);// 
+            }
+            break;
+
+        case XP_HEB_BD: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_KAF);// 
+            }
+            break;
+
+        case XP_HEB_BE: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_AYIN);// 
+            }
+            break;
+
+        case XP_HEB_BF: // 
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_YOD);// 
+            }
+            break;
+
+        case XP_HEB_BG: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_GET);// 
+            }
+            break;
+
+        case XP_HEB_BH: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_LAMED);// 
+            }
+            break;
+
+        case XP_HEB_BI: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_KAFS);// 
+            }
+            break;
+
+        case XP_HEB_BJ: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_PES);// 
+            }
+            break;
+
+        case XP_HEB_BK: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_MAQAF);// 
+            }
+            break;
+
+   // ------------------------- row 2
+        case XP_HEB_CA: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_ZAYIN);// 
+            }
+            break;
+
+        case XP_HEB_CB: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_SAMEG);// 
+            }
+            break;
+
+        case XP_HEB_CC: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_BET);// 
+            }
+            break;
+
+        case XP_HEB_CD: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_HE);// 
+            }
+            break;
+
+        case XP_HEB_CE: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_NUN);// 
+            }
+            break;
+
+        case XP_HEB_CF: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_MEM);// 
+            }
+            break;
+
+        case XP_HEB_CG: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_TSADI);// 
+            }
+            break;
+
+        case XP_HEB_CH: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_TAV);// 
+            }
+            break;
+
+        case XP_HEB_CI: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_TSDIS);// 
+            }
+            break;
+
+        case XP_HEB_CJ: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_QOF);// 
+            }
+            break;
+
+    // HB_D_VAV,
+    // HB_VAVYD,
+    // HB_D_YOD,
+# endif // Hebrew Base layer
     }
 
     return true;

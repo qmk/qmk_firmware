@@ -27,14 +27,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BASE_QWERTY_BASEARROW__ALT_BASE
   #define BASE_DVORAK__DEF_BASE
 //#define BASE_DVORAK__ALT_BASE
-  #define BASE_DVORAK_DESCRAMBLE__ALT_BASE 
+//#define BASE_DVORAK_DESCRAMBLE__ALT_BASE 
 //#define BASE_COLEMAK__DEF_BASE
 //#define BASE_COLEMAK__ALT_BASE 
 //#define BASE_WORKMAN__DEF_BASE
 //#define BASE_WORKMAN__ALT_BASE
 //#define BASE_NUMPAD__ALT_BASE 
 //#define BASE_HEBREW__DEF_BASE
-//#define BASE_HEBREW__ALT_BASE
+  #define BASE_HEBREW__ALT_BASE
 
 //#define MINIFAN_SINGLE_LAYOUT 
 
@@ -102,5 +102,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define FULL_DRA_4THROW 
   #define FULL_BON_4THROW 
 
-  #define LEDS_OFF_BASE_DEF 
-  #define LEDS_OFF_BASE_ALT
+//#define LEDS_OFF_BASE_DEF 
+//#define LEDS_OFF_BASE_ALT
