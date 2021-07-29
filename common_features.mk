@@ -490,6 +490,9 @@ ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(QMK_SETTINGS)), yes)
+    ifeq ($(strip $(MOUSEKEY_ENABLE)), no)
+        $(error QMK_SETTINGS requires MOUSEKEY_ENABLE, either disable QMK_SETTINGS explicitly or enable MOUSEKEY_ENABLE)
+    endif
     AUTO_SHIFT_ENABLE := yes
     SRC += $(QUANTUM_DIR)/qmk_settings.c
     OPT_DEFS += -DQMK_SETTINGS -DAUTO_SHIFT_NO_SETUP -DTAPPING_TERM_PER_KEY -DPERMISSIVE_HOLD_PER_KEY -DIGNORE_MOD_TAP_INTERRUPT_PER_KEY -DTAPPING_FORCE_HOLD_PER_KEY -DRETRO_TAPPING_PER_KEY
