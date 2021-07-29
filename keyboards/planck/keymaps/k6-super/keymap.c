@@ -17,8 +17,7 @@ enum planck_layers {
 
 enum td_keycodes {
     SUPSPC,
-    SUPSHF,
-    SUPQUO
+    SUPSHF
 };
 
 typedef enum {
@@ -42,7 +41,6 @@ td_state_t cur_dance(qk_tap_dance_state_t *state);
 #define ADJUST MO(_ADJUST)
 #define TDSUSP TD(SUPSPC)
 #define TDSUSF TD(SUPSHF)
-#define TDSUQU TD(SUPQUO)
 #define SUFUNC MO(_SUFUNC)
 
 #define SHFTUP RSFT_T(KC_UP)
@@ -62,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_SUQWER] = LAYOUT_planck_1x2uC(
         KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,
-        KC_BSPC,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   TDSUQU, KC_ENT,     
+        KC_BSPC,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   SUQSYM, KC_ENT,     
         KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,SHFTUP,
         KC_LCTL,SUFUNC, KC_LGUI,KC_LALT,TDSUSF, TDSUSP, KC_SPC,         SUFNAP, KC_LEFT,KC_RGHT,CTLDN
         ),
@@ -97,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SUSYM] = LAYOUT_planck_1x2uC(
         KC_ESC, KC_BSLS,KC_LBRC,KC_RBRC,KC_LPRN,KC_RPRN,KC_NO,  KC_LPRN,KC_RPRN,KC_LBRC,KC_RBRC,KC_BSLS,
         KC_NO,  KC_QUOT,KC_SCLN,KC_NO,  KC_LCBR,KC_RCBR,KC_NO,  KC_LCBR,KC_RCBR,KC_SCLN,KC_TRNS,KC_NO,
-        KC_TRNS,KC_SLSH,KC_LABK,KC_RABK,KC_LSFT,KC_NO,  KC_NO,  KC_NO,  KC_LABK,KC_RABK,KC_SLSH,KC_PGUP,
-        KC_TRNS,KC_NO,  KC_TRNS,KC_TRNS,KC_TRNS,KC_SPC, KC_NO,          KC_NO,  KC_HOME,KC_END, KC_PGDN
+        KC_TRNS,KC_SLSH,KC_LABK,KC_RABK,KC_LSFT,KC_NO,  KC_NO,  KC_NO,  KC_LABK,KC_RABK,KC_SLSH,KC_NO,  
+        KC_TRNS,KC_NO,  KC_TRNS,KC_TRNS,KC_TRNS,KC_SPC, KC_NO,          KC_NO,  KC_NO,  KC_NO,  KC_NO
         ),
 /* SUFUNC
  * ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┐
@@ -114,8 +112,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SUFUNC] = LAYOUT_planck_1x2uC(
         KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,
         KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_HOME,KC_PGUP,KC_VOLD,KC_VOLU,KC_MUTE,
-        KC_TRNS,KC_CAPS,ADJUST, KC_PSCR,KC_SLCK,KC_PAUS,KC_DEL, KC_END, KC_PGDN,KC_BRID,KC_BRIU,SHFTUP,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_NO,  KC_NO,  KC_NO,          KC_TRNS,KC_LEFT,KC_RGHT,CTLDN
+        KC_TRNS,KC_CAPS,ADJUST, KC_PSCR,KC_SLCK,KC_PAUS,KC_DEL, KC_END, KC_PGDN,KC_BRID,KC_BRIU,KC_PGUP,
+        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_NO,  KC_NO,  KC_NO,          KC_TRNS,KC_HOME,KC_END, KC_PGDN
         ),
     /* ADJUST
  * ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┐
@@ -129,9 +127,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └──────┴──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┘
  */
     [_ADJUST] = LAYOUT_planck_1x2uC(
-        KC_NO,  RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD,KC_NO,  KC_NO,  RESET,
-        KC_NO,  KC_NO,  KC_NO,  MU_MOD, AU_ON,  AU_OFF, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-        KC_NO,  KC_NO,  KC_TRNS,MUV_DE, MUV_IN, MU_ON,  MU_OFF, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+        BL_TOGG,RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD,KC_NO,  KC_NO,  RESET,
+        BL_STEP,KC_NO,  KC_NO,  MU_MOD, AU_ON,  AU_OFF, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+        BL_BRTG,KC_NO,  KC_TRNS,MUV_DE, MUV_IN, MU_ON,  MU_OFF, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
         KC_NO,  KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_TRNS,KC_NO,  KC_NO,  KC_NO
         )
 };
@@ -221,6 +219,7 @@ void supshf_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code16(KC_SPC);
             break;
         case TD_DOUBLE_HOLD:
+            layer_on(_SUSYM);
             break;
         case TD_DOUBLE_SINGLE_TAP:
             tap_code16(KC_SPC);
@@ -255,71 +254,14 @@ void supshf_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void supquo_finished(qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case TD_NONE:
-            break;
-        case TD_UNKNOWN:
-            break;
-        case TD_SINGLE_TAP:
-            register_code16(KC_QUOT);
-            break;
-        case TD_SINGLE_HOLD:
-            layer_on(_SUSYM);
-            break;
-        case TD_DOUBLE_TAP:
-            tap_code16(KC_QUOT);
-            register_code16(KC_QUOT);
-            break;
-        case TD_DOUBLE_HOLD:
-            tap_code16(KC_QUOT);
-            layer_on(_SUSYM);
-            break;
-        case TD_DOUBLE_SINGLE_TAP:
-            tap_code16(KC_QUOT);
-            register_code16(KC_QUOT);
-            break;
-
-    }
-}
-
-void supquo_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case TD_NONE:
-            break;
-        case TD_UNKNOWN:
-            break;
-        case TD_SINGLE_TAP:
-            unregister_code16(KC_QUOT);
-            break;
-        case TD_SINGLE_HOLD:
-            layer_off(_SUSYM);
-            break;
-        case TD_DOUBLE_TAP:
-            unregister_code16(KC_QUOT);
-            break;
-        case TD_DOUBLE_HOLD:
-            layer_off(_SUSYM);
-            break;
-        case TD_DOUBLE_SINGLE_TAP:
-            unregister_code16(KC_QUOT);
-            break;
-    }
-}
-
-
 qk_tap_dance_action_t tap_dance_actions[] = {
     [SUPSPC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, supspc_finished, supspc_reset),
-    [SUPSHF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, supshf_finished, supshf_reset),
-    [SUPQUO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, supquo_finished, supquo_reset)
+    [SUPSHF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, supshf_finished, supshf_reset)
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TD(SUPSPC):
-            return 200;
-        case TD(SUPQUO):
             return 200;
         default:
             return TAPPING_TERM;
