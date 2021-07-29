@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void encoder_update_user(int8_t index, bool clockwise) {
+bool encoder_update_user(int8_t index, bool clockwise) {
 	/* top left encoder */
 	if (index == 0) {
 		if (clockwise) {
@@ -69,7 +69,8 @@ void encoder_update_user(int8_t index, bool clockwise) {
 		} else {
 			tap_code(KC_VOLD);
 		}
-	}    
+	}
+	return false;
 }
 
 #ifdef GENESIS_LAYER_COLORS

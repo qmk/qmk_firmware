@@ -65,7 +65,8 @@ void matrix_scan_kb(void) {
 }
 
 
-void encoder_update_kb(int8_t index, bool clockwise) {
+bool encoder_update_kb(int8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
 	if (index == 0) {
 		if (clockwise) {
 			encoder_left_cw.pressed = true;
@@ -87,6 +88,5 @@ void encoder_update_kb(int8_t index, bool clockwise) {
 			action_exec(encoder_right_ccw);
 		}
 	}
-	
-	encoder_update_user(index, clockwise);
+    return true;
 }
