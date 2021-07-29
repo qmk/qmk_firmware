@@ -3,6 +3,12 @@
     "maintainer": "Lfgberg",
     "width": 16,
     "height": 5,
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
+        "LAYOUT_ansi_splitbs": "LAYOUT_65_ansi_blocker_split_bs",
+        "LAYOUT_iso": "LAYOUT_65_iso_blocker",
+        "LAYOUT_iso_splitbs": "LAYOUT_65_iso_blocker_split_bs"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -83,7 +89,7 @@
                 {"label":"Right", "x":15, "y":4}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
@@ -158,7 +164,7 @@
                 {"label":"Right", "x":15, "y":4}
             ]
         },
-        "LAYOUT_ansi_splitbs": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
@@ -234,7 +240,7 @@
                 {"label":"Right", "x":15, "y":4}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_65_iso_blocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
@@ -310,7 +316,7 @@
                 {"label":"Right", "x":15, "y":4}
             ]
         },
-        "LAYOUT_iso_splitbs": {
+        "LAYOUT_65_iso_blocker_split_bs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
