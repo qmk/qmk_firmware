@@ -19,6 +19,7 @@
 #define REV6_CONFIG_H
 
 /* USB Device descriptor parameter */
+#define PRODUCT_ID 0xA4F9
 #define DEVICE_VER 0x0006
 
 #undef MATRIX_ROWS
@@ -53,8 +54,10 @@
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES
-// Note: following undef isn't really necessary on STM32, C6_AUDIO is AVR related
-#undef C6_AUDIO
+#undef AUDIO_PIN
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
@@ -107,9 +110,6 @@
  * MIDI options
  */
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -139,5 +139,9 @@
 #define WS2812_PWM_PAL_MODE 1
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2
 #define WS2812_DMA_CHANNEL 2
+
+#ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#endif
 
 #endif

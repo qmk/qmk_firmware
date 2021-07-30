@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER hineybush keyboards
 #define PRODUCT h60
-#define DESCRIPTION A 60% PCB.
 
 /* key matrix size */
 #define MATRIX_ROWS 5

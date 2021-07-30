@@ -68,7 +68,7 @@
 #        define COMxx1 COM3A1
 #        define OCRxx OCR3A
 #    endif
-#elif (defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
+#elif (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
 #    define HARDWARE_PWM
 #    define ICRx ICR1
 #    define TCCRxA TCCR1A
@@ -126,7 +126,7 @@
 #        define COMxx1 COM1B1
 #        define OCRxx OCR1B
 #    endif
-#elif !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
+#elif (AUDIO_PIN != B5) && (AUDIO_PIN != B6) && (AUDIO_PIN != B7) && (AUDIO_PIN_ALT != B5) && (AUDIO_PIN_ALT != B6) && (AUDIO_PIN_ALT != B7)
 // Timer 1 is not in use by Audio feature, Backlight can use it
 #    pragma message "Using hardware timer 1 with software PWM"
 #    define HARDWARE_PWM
@@ -145,7 +145,7 @@
 
 #    define OCIExA OCIE1A
 #    define OCRxx OCR1A
-#elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
+#elif (AUDIO_PIN != C4) && (AUDIO_PIN != C5) && (AUDIO_PIN != C6)
 #    pragma message "Using hardware timer 3 with software PWM"
 // Timer 3 is not in use by Audio feature, Backlight can use it
 #    define HARDWARE_PWM

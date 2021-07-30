@@ -16,11 +16,6 @@
 
 #include "drashna.h"
 
-#ifdef RGBLIGHT_ENABLE
-// Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
 
 /*
@@ -31,16 +26,18 @@ enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
  * of use. K## is a placeholder to pass through the individual keycodes
  */
 
+// clang-format off
+#define LAYOUT_split_3x6_3_wrapper(...)      LAYOUT_split_3x6_3(__VA_ARGS__)
 #define LAYOUT_split_3x6_3_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_split_3x6_3_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
-    ALT_T(KC_TAB), K11,  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+    ALT_T(KC_TAB), K11,  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
-                                        KC_GRV,  KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
+                                        RGB_MOD,  KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
   )
 #define LAYOUT_split_3x6_3_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
 
@@ -93,13 +90,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
   ),
 
-  [_MODS] = LAYOUT_split_3x6_3_wrapper(
-      _______, ___________________BLANK___________________,                  ___________________BLANK___________________, _______,
-      _______, ___________________BLANK___________________,                  ___________________BLANK___________________, _______,
-      KC_LSFT, ___________________BLANK___________________,                  ___________________BLANK___________________, KC_RSFT,
-                                     _______, _______, _______,        _______, _______, _______
-  ),
-
   [_LOWER] = LAYOUT_split_3x6_3_wrapper(
     KC_F11,  _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_F11,
     KC_F12,  _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, KC_PIPE,
@@ -123,31 +113,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-#ifndef SPLIT_KEYBOARD
-        if (keycode == RESET && !is_master) {
-            return false;
-        }
-#endif
-    }
-    return true;
-}
-
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-#    ifndef SPLIT_KEYBOARD
-    if (is_master) {
-#    endif
-        return OLED_ROTATION_270;
-#    ifndef SPLIT_KEYBOARD
-    }  else {
-        return rotation;
-    }
-#    endif
+    return OLED_ROTATION_270;
 }
 #endif
 
+#ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case ALT_T(KC_A):
@@ -156,75 +128,73 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
+#endif
+
+
+void matrix_slave_scan_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_task();
+#endif
+}
 
 #ifdef RGB_MATRIX_ENABLE
-
 void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
-void check_default_layer(uint8_t mode, uint8_t type) {
+void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t led_max) {
     switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
-            rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type);
+            rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _COLEMAK:
-            rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type);
+            rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _DVORAK:
-            rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type);
+            rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _WORKMAN:
-            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type);
+            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _NORMAN:
-            rgb_matrix_layer_helper(HSV_CORAL, mode, rgb_matrix_config.speed, type);
+            rgb_matrix_layer_helper(HSV_CORAL, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _MALTRON:
-            rgb_matrix_layer_helper(HSV_YELLOW, mode, rgb_matrix_config.speed, type);
+            rgb_matrix_layer_helper(HSV_YELLOW, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _EUCALYN:
-            rgb_matrix_layer_helper(HSV_PINK, mode, rgb_matrix_config.speed, type);
+            rgb_matrix_layer_helper(HSV_PINK, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
         case _CARPLAX:
-            rgb_matrix_layer_helper(HSV_BLUE, mode, rgb_matrix_config.speed, type);
+            rgb_matrix_layer_helper(HSV_BLUE, mode, rgb_matrix_config.speed, type, led_min, led_max);
             break;
     }
 }
 
-void rgb_matrix_indicators_user(void) {
-    if (userspace_config.rgb_layer_change &&
-#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-        !g_suspend_state &&
-#    endif
-#    if defined(RGBLIGHT_ENABLE)
-        (!rgblight_config.enable && rgb_matrix_config.enable)
-#    else
-        rgb_matrix_config.enable
-#    endif
-    ) {
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_GREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             default: {
-                check_default_layer(IS_LAYER_ON(_MODS), LED_FLAG_UNDERGLOW);
+                check_default_layer(0, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             }
         }
-        check_default_layer(0, LED_FLAG_MODIFIER);
+        check_default_layer(0, LED_FLAG_MODIFIER, led_min, led_max);
     }
 }
 #endif

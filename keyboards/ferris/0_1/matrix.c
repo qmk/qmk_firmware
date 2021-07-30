@@ -72,40 +72,25 @@ uint8_t init_mcp23017(void) {
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    mcp23017_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-    if (mcp23017_status) goto out;
-    mcp23017_status = i2c_write(IODIRA, I2C_TIMEOUT);
-    if (mcp23017_status) goto out;
     // This means: we will read all the bits on GPIOA
-    mcp23017_status = i2c_write(0b11111111, I2C_TIMEOUT);
-    if (mcp23017_status) goto out;
     // This means: we will write to the pins 0-4 on GPIOB (in select_rows)
-    mcp23017_status = i2c_write(0b11110000, I2C_TIMEOUT);
-    if (mcp23017_status) goto out;
-    i2c_stop();
-
-    // set pull-up
-    // - unused  : on  : 1
-    // - input   : on  : 1
-    // - driving : off : 0
-    mcp23017_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-    if (mcp23017_status) goto out;
-    mcp23017_status = i2c_write(GPPUA, I2C_TIMEOUT);
-    if (mcp23017_status) goto out;
-    // This means: we will read all the bits on GPIOA
-    mcp23017_status = i2c_write(0b11111111, I2C_TIMEOUT);
-    if (mcp23017_status) goto out;
-    // This means: we will write to the pins 0-4 on GPIOB (in select_rows)
-    mcp23017_status = i2c_write(0b11110000, I2C_TIMEOUT);
-    if (mcp23017_status) goto out;
-
-out:
-    i2c_stop();
+    uint8_t buf[]   = {IODIRA, 0b11111111, 0b11110000};
+    mcp23017_status = i2c_transmit(I2C_ADDR_WRITE, buf, sizeof(buf), I2C_TIMEOUT);
+    if (!mcp23017_status) {
+        // set pull-up
+        // - unused  : on  : 1
+        // - input   : on  : 1
+        // - driving : off : 0
+        // This means: we will read all the bits on GPIOA
+        // This means: we will write to the pins 0-4 on GPIOB (in select_rows)
+        uint8_t pullup_buf[] = {GPPUA, 0b11111111, 0b11110000};
+        mcp23017_status      = i2c_transmit(I2C_ADDR_WRITE, pullup_buf, sizeof(pullup_buf), I2C_TIMEOUT);
+    }
     return mcp23017_status;
 }
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+static matrix_row_t matrix[MATRIX_ROWS];  // debounced values
 
 static matrix_row_t read_cols(uint8_t row);
 static void         init_cols(void);
@@ -124,7 +109,7 @@ void matrix_init_custom(void) {
 
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        matrix[i]     = 0;
+        matrix[i] = 0;
     }
 }
 
@@ -217,25 +202,18 @@ static matrix_row_t read_cols(uint8_t row) {
         if (mcp23017_status) {  // if there was an error
             return 0;
         } else {
-            uint8_t data    = 0;
-            mcp23017_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-            if (mcp23017_status) goto out;
-            mcp23017_status = i2c_write(GPIOA, I2C_TIMEOUT);
-            if (mcp23017_status) goto out;
-            mcp23017_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);
-            if (mcp23017_status) goto out;
-            mcp23017_status = i2c_read_nack(I2C_TIMEOUT);
-            if (mcp23017_status < 0) goto out;
+            uint8_t buf[]   = {GPIOA};
+            mcp23017_status = i2c_transmit(I2C_ADDR_WRITE, buf, sizeof(buf), I2C_TIMEOUT);
             // We read all the pins on GPIOA.
             // The initial state was all ones and any depressed key at a given column for the currently selected row will have its bit flipped to zero.
             // The return value is a row as represented in the generic matrix code were the rightmost bits represent the lower columns and zeroes represent non-depressed keys while ones represent depressed keys.
             // Since the pins connected to eact columns are sequential, and counting from zero up (col 5 -> GPIOA0, col 6 -> GPIOA1 and so on), the only transformation needed is a bitwise not to swap all zeroes and ones.
-            data            = ~((uint8_t)mcp23017_status);
-            mcp23017_status = I2C_STATUS_SUCCESS;
-        out:
-            i2c_stop();
-            // return reverse_bits(data, MATRIX_COLS_PER_SIDE);
-            return data;
+            uint8_t data[] = {0};
+            if (!mcp23017_status) {
+                mcp23017_status = i2c_receive(I2C_ADDR_READ, data, sizeof(data), I2C_TIMEOUT);
+                data[0]         = ~(data[0]);
+            }
+            return data[0];
         }
     }
 }
@@ -266,17 +244,10 @@ static void select_row(uint8_t row) {
         if (mcp23017_status) {  // if there was an error
                                 // do nothing
         } else {
-            mcp23017_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-            if (mcp23017_status) goto out;
-            mcp23017_status = i2c_write(GPIOB, I2C_TIMEOUT);
-            if (mcp23017_status) goto out;
             // Select the desired row by writing a byte for the entire GPIOB bus where only the bit representing the row we want to select is a zero (write instruction) and every other bit is a one.
             // Note that the row - MATRIX_ROWS_PER_SIDE reflects the fact that being on the right hand, the columns are numbered from MATRIX_ROWS_PER_SIDE to MATRIX_ROWS, but the pins we want to write to are indexed from zero up on the GPIOB bus.
-            mcp23017_status = i2c_write(0xFF & ~(1 << (row - MATRIX_ROWS_PER_SIDE)), I2C_TIMEOUT);
-
-            if (mcp23017_status) goto out;
-        out:
-            i2c_stop();
+            uint8_t buf[]   = {GPIOB, 0xFF & ~(1 << (row - MATRIX_ROWS_PER_SIDE))};
+            mcp23017_status = i2c_transmit(I2C_ADDR_WRITE, buf, sizeof(buf), I2C_TIMEOUT);
         }
     }
 }

@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE   = yes
+BOOTMAGIC_ENABLE   = full
 TAP_DANCE_ENABLE   = no
 COMMAND_ENABLE     = no  # Commands for debug and configuration
 CONSOLE_ENABLE 	   = yes

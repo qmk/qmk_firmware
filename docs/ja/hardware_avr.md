@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.10.33:docs/hardware_avr.md
-  git diff 0.10.33 HEAD -- docs/hardware_avr.md | cat
+  original document: 0.12.41:docs/hardware_avr.md
+  git diff 0.12.41 HEAD -- docs/hardware_avr.md | cat
 -->
 
 このページでは QMK における AVR マイコンのサポートについて説明します。AVR マイコンには、Atmel 社製の atmega32u4、atmega32u2、at90usb1286 やその他のマイコンを含みます。AVR マイコンは、簡単に動かせるよう設計された8ビットの MCU です。キーボードでよく使用される AVR マイコンには USB 機能や大きなキーボードマトリックスのためのたくさんの GPIO を搭載しています。これらは、現在、キーボードで使われる最も一般的な MCU です。
@@ -38,7 +38,7 @@ or open the directory in your favourite text editor.
 
 ## `readme.md`
 
-このファイルではキーボードに関する説明を記述します。[キーボード Readme テンプレート](ja/documentation_templates.md#keyboard-readmemd-template)に従って `readme.md` を記入して下さい。`readme.md` の上部に画像を配置することをお勧めします。画像は [Imgur](http://imgur.com) のような外部サービスを利用してください。
+このファイルではキーボードに関する説明を記述します。[キーボード Readme テンプレート](ja/documentation_templates.md#keyboard-readmemd-template)に従って `readme.md` を記入して下さい。`readme.md` の上部に画像を配置することをお勧めします。画像は [Imgur](https://imgur.com) のような外部サービスを利用してください。
 
 ## `<keyboard>.c`
 
@@ -83,7 +83,7 @@ or open the directory in your favourite text editor.
 #define PRODUCT         my_awesome_keyboard
 ```
 
-?> Windows や macOS では、`MANUFACTURER` と `PRODUCT` が USBデバイスのリストに表示されます。Linux 上の `lsusb` では、代わりにデフォルトで [USB ID Repository](http://www.linux-usb.org/usb-ids.html) によって維持されているリストからこれらを取得します。`lsusb -v` を使用するとデバイスから示された値を表示します。また、接続したときのカーネルログにも表示されます。
+?> Windows や macOS では、`MANUFACTURER` と `PRODUCT` が USBデバイスのリストに表示されます。Linux 上の `lsusb` では、代わりに [USB ID Repository](http://www.linux-usb.org/usb-ids.html) によって維持されているリストの値を優先します。デフォルトでは、リストに `VENDOR_ID` / `PRODUCT_ID` を含まない場合にのみ、`MANUFACTURER` と `PRODUCT` を使います。`sudo lsusb -v` を使用するとデバイスから示された値を表示します。また、接続したときのカーネルログにも表示されます。
 
 ### キーボードマトリックスの設定
 

@@ -25,9 +25,22 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
- 
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define LED_NUM_LOCK_PIN C5
+#define LED_CAPS_LOCK_PIN C1
+#define LED_SCROLL_LOCK_PIN C4
+#define LED_COMPOSE_PIN C3
+#define LED_PIN_ON_STATE 0
+
+/* Well-worn Cherry MX key switches can bounce for up to 20ms, despite the
+ * Cherry data sheet specifying 5ms. Because we use the sym_eager_pk debounce
+ * algorithm, this debounce latency only affects key releases (not key
+ * presses). */
+#undef DEBOUNCE
+#define DEBOUNCE 20
 
 #define IGNORE_MOD_TAP_INTERRUPT
+
+// Reduce input latency by lowering the USB polling interval
+// from its 10ms default to the 1ms minimum that USB 1.x (Full Speed) allows:
+#define USB_POLLING_INTERVAL_MS 1

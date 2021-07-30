@@ -17,6 +17,8 @@ SERIAL_PATH := $(QUANTUM_PATH)/serial_link
 
 QUANTUM_SRC += \
     $(QUANTUM_DIR)/quantum.c \
+    $(QUANTUM_DIR)/send_string.c \
+    $(QUANTUM_DIR)/bitwise.c \
     $(QUANTUM_DIR)/led.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
@@ -24,6 +26,8 @@ QUANTUM_SRC += \
 ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
     CONSOLE_ENABLE = yes
+else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
+    OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
@@ -34,12 +38,36 @@ ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/api.c
 endif
 
+ifeq ($(strip $(COMMAND_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/command.c
+    OPT_DEFS += -DCOMMAND_ENABLE
+endif
+
+AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
+    ifeq ($(PLATFORM),CHIBIOS)
+        AUDIO_DRIVER ?= dac_basic
+        ifeq ($(strip $(AUDIO_DRIVER)), dac_basic)
+            OPT_DEFS += -DAUDIO_DRIVER_DAC
+        else ifeq ($(strip $(AUDIO_DRIVER)), dac_additive)
+            OPT_DEFS += -DAUDIO_DRIVER_DAC
+        ## stm32f2 and above have a usable DAC unit, f1 do not, and need to use pwm instead
+        else ifeq ($(strip $(AUDIO_DRIVER)), pwm_software)
+            OPT_DEFS += -DAUDIO_DRIVER_PWM
+        else ifeq ($(strip $(AUDIO_DRIVER)), pwm_hardware)
+            OPT_DEFS += -DAUDIO_DRIVER_PWM
+        endif
+    else
+        # fallback for all other platforms is pwm
+        AUDIO_DRIVER ?= pwm_hardware
+        OPT_DEFS += -DAUDIO_DRIVER_PWM
+    endif
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE = yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
-    SRC += $(QUANTUM_DIR)/audio/audio_$(PLATFORM_KEY).c
+    SRC += $(QUANTUM_DIR)/audio/audio.c ## common audio code, hardware agnostic
+    SRC += $(QUANTUM_DIR)/audio/driver_$(PLATFORM_KEY)_$(strip $(AUDIO_DRIVER)).c
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
@@ -72,9 +100,10 @@ ifeq ($(strip $(VIRTSER_ENABLE)), yes)
     OPT_DEFS += -DVIRTSER_ENABLE
 endif
 
-ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
-    OPT_DEFS += -DFAUXCLICKY_ENABLE
-    SRC += $(QUANTUM_DIR)/fauxclicky.c
+ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
+    OPT_DEFS += -DMOUSEKEY_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
+    SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
@@ -133,7 +162,7 @@ else
         # This ensures that the EEPROM page buffer fits into RAM
         USE_PROCESS_STACKSIZE = 0x600
         USE_EXCEPTIONS_STACKSIZE = 0x300
-        
+
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F042x6
@@ -154,20 +183,39 @@ else
   endif
 endif
 
-ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-    POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
-    OPT_DEFS += -DRGBLIGHT_ENABLE
-    SRC += $(QUANTUM_DIR)/color.c
-    SRC += $(QUANTUM_DIR)/rgblight.c
-    CIE1931_CURVE := yes
-    RGB_KEYCODES_ENABLE := yes
-    ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
-        OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
-    else
-        WS2812_DRIVER_REQUIRED := yes
-    endif
+RGBLIGHT_ENABLE ?= no
+VALID_RGBLIGHT_TYPES := WS2812 APA102 custom
+
+ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
+    RGBLIGHT_DRIVER ?= custom
 endif
 
+ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+    RGBLIGHT_DRIVER ?= WS2812
+
+    ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
+        $(error RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
+    else
+        POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
+        OPT_DEFS += -DRGBLIGHT_ENABLE
+        SRC += $(QUANTUM_DIR)/color.c
+        SRC += $(QUANTUM_DIR)/rgblight.c
+        CIE1931_CURVE := yes
+        RGB_KEYCODES_ENABLE := yes
+    endif
+
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), WS2812)
+        WS2812_DRIVER_REQUIRED := yes
+    endif
+
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), APA102)
+        APA102_DRIVER_REQUIRED := yes
+    endif
+
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), custom)
+        OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
+    endif
+endif
 
 LED_MATRIX_ENABLE ?= no
 VALID_LED_MATRIX_TYPES := IS31FL3731 custom
@@ -175,14 +223,17 @@ VALID_LED_MATRIX_TYPES := IS31FL3731 custom
 
 ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_LED_MATRIX_TYPES)),)
-        $(error LED_MATRIX_DRIVER="$(LED_MATRIX_DRIVER)" is not a valid matrix type)
-    else
-        BACKLIGHT_ENABLE = yes
-        BACKLIGHT_DRIVER = custom
-        OPT_DEFS += -DLED_MATRIX_ENABLE
-        SRC += $(QUANTUM_DIR)/led_matrix.c
-        SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+        $(error "$(LED_MATRIX_DRIVER)" is not a valid matrix type)
     endif
+    OPT_DEFS += -DLED_MATRIX_ENABLE
+ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
+    # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
+    OPT_DEFS += -DLIB8_ATTINY
+endif
+    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
+    SRC += $(QUANTUM_DIR)/led_matrix.c
+    SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+    CIE1931_CURVE := yes
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3731)
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
@@ -200,7 +251,7 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
         $(error "$(RGB_MATRIX_DRIVER)" is not a valid matrix type)
     endif
     OPT_DEFS += -DRGB_MATRIX_ENABLE
-ifneq (,$(filter $(MCU), atmega16u2 atmega32u2))
+ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
     # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
     OPT_DEFS += -DLIB8_ATTINY
 endif
@@ -241,6 +292,11 @@ endif
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), WS2812)
         OPT_DEFS += -DWS2812
         WS2812_DRIVER_REQUIRED := yes
+    endif
+
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), APA102)
+        OPT_DEFS += -DAPA102
+        APA102_DRIVER_REQUIRED := yes
     endif
 
     ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
@@ -294,7 +350,11 @@ endif
 VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
-BACKLIGHT_DRIVER ?= pwm
+ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
+    BACKLIGHT_DRIVER ?= software
+else
+    BACKLIGHT_DRIVER ?= pwm
+endif
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(filter $(BACKLIGHT_DRIVER),$(VALID_BACKLIGHT_TYPES)),)
         $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
@@ -345,6 +405,11 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
     endif
 endif
 
+ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
+    COMMON_VPATH += $(DRIVER_PATH)/apa102
+    SRC += apa102.c
+endif
+
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
     CIE1931_CURVE := yes
 endif
@@ -362,10 +427,6 @@ ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_terminal.c
     OPT_DEFS += -DTERMINAL_ENABLE
     OPT_DEFS += -DUSER_PRINT
-endif
-
-ifeq ($(strip $(USB_HID_ENABLE)), yes)
-    include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
 ifeq ($(strip $(WPM_ENABLE)), yes)
@@ -400,6 +461,23 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     OPT_DEFS += -DDIP_SWITCH_ENABLE
     SRC += $(QUANTUM_DIR)/dip_switch.c
 endif
+
+VALID_MAGIC_TYPES := yes full lite
+BOOTMAGIC_ENABLE ?= no
+ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
+  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
+    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
+  endif
+  ifneq ($(strip $(BOOTMAGIC_ENABLE)), full)
+      OPT_DEFS += -DBOOTMAGIC_LITE
+      QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_lite.c
+  else
+    OPT_DEFS += -DBOOTMAGIC_ENABLE
+    QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_full.c
+  endif
+endif
+COMMON_VPATH += $(QUANTUM_DIR)/bootmagic
+QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/magic.c
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 
@@ -451,7 +529,7 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
-        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
         ifeq ($(PLATFORM),AVR)
@@ -591,4 +669,28 @@ endif
 
 ifeq ($(strip $(JOYSTICK_ENABLE)), digital)
     OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
+endif
+
+USBPD_ENABLE ?= no
+VALID_USBPD_DRIVER_TYPES = custom vendor
+USBPD_DRIVER ?= vendor
+ifeq ($(strip $(USBPD_ENABLE)), yes)
+    ifeq ($(filter $(strip $(USBPD_DRIVER)),$(VALID_USBPD_DRIVER_TYPES)),)
+        $(error USBPD_DRIVER="$(USBPD_DRIVER)" is not a valid USBPD driver)
+    else
+        OPT_DEFS += -DUSBPD_ENABLE
+        ifeq ($(strip $(USBPD_DRIVER)), vendor)
+            # Vendor-specific implementations
+            OPT_DEFS += -DUSBPD_VENDOR
+            ifeq ($(strip $(MCU_SERIES)), STM32G4xx)
+                OPT_DEFS += -DUSBPD_STM32G4
+                SRC += usbpd_stm32g4.c
+            else
+                $(error There is no vendor-provided USBPD driver available)
+            endif
+        else ifeq ($(strip $(USBPD_DRIVER)), custom)
+            OPT_DEFS += -DUSBPD_CUSTOM
+            # Board designers can add their own driver to $(SRC)
+        endif
+    endif
 endif

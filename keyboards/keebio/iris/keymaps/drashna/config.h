@@ -43,7 +43,7 @@
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
-#    define C6_AUDIO
+#    define AUDIO_PIN C6
 #    ifdef RGBLIGHT_ENABLE
 #        ifndef __arm__
 #            define NO_MUSIC_MODE

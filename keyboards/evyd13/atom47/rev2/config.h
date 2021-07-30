@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Vortex
 #define PRODUCT         Core
-#define DESCRIPTION     Atom47 PCB for the Vortex Core Rev.2
 
 /* key matrix size */
 #define MATRIX_ROWS 4

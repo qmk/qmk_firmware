@@ -46,19 +46,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Interface indexes
  */
 enum usb_interfaces {
+#ifndef KEYBOARD_SHARED_EP
     KEYBOARD_INTERFACE = NEXT_INTERFACE,
+#else
+    SHARED_INTERFACE = NEXT_INTERFACE,
+#    define KEYBOARD_INTERFACE SHARED_INTERFACE
+#endif
+
 // It is important that the Raw HID interface is at a constant
 // interface number, to support Linux/OSX platforms and chrome.hid
 // If Raw HID is enabled, let it be always 1.
 #ifdef RAW_ENABLE
     RAW_INTERFACE = NEXT_INTERFACE,
 #endif
-#if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE))
-    MOUSE_EXTRA_INTERFACE = NEXT_INTERFACE,
+
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
+    SHARED_INTERFACE = NEXT_INTERFACE,
 #endif
+
 #ifdef CONSOLE_ENABLE
     CONSOLE_INTERFACE = NEXT_INTERFACE,
 #endif
+
     TOTAL_INTERFACES = NEXT_INTERFACE
 };
 
@@ -90,7 +99,16 @@ void vusb_transfer_keyboard(void) {
     for (int i = 0; i < VUSB_TRANSFER_KEYBOARD_MAX_TRIES; i++) {
         if (usbInterruptIsReady()) {
             if (kbuf_head != kbuf_tail) {
+#ifndef KEYBOARD_SHARED_EP
                 usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
+#else
+                // Ugly hack! :(
+                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t) - 1);
+                while (!usbInterruptIsReady()) {
+                    usbPoll();
+                }
+                usbSetInterrupt((void *)(&(kbuf[kbuf_tail].keys[5])), 1);
+#endif
                 kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
                 if (debug_keyboard) {
                     dprintf("V-USB: kbuf[%d->%d](%02X)\n", kbuf_tail, kbuf_head, (kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
@@ -230,16 +248,18 @@ static void send_keyboard(report_keyboard_t *report) {
     keyboard_report_sent = *report;
 }
 
-typedef struct {
-    uint8_t        report_id;
-    report_mouse_t report;
-} __attribute__((packed)) vusb_mouse_report_t;
+#ifndef KEYBOARD_SHARED_EP
+#    define usbInterruptIsReadyShared usbInterruptIsReady3
+#    define usbSetInterruptShared usbSetInterrupt3
+#else
+#    define usbInterruptIsReadyShared usbInterruptIsReady
+#    define usbSetInterruptShared usbSetInterrupt
+#endif
 
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
-    vusb_mouse_report_t r = {.report_id = REPORT_ID_MOUSE, .report = *report};
-    if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)&r, sizeof(vusb_mouse_report_t));
+    if (usbInterruptIsReadyShared()) {
+        usbSetInterruptShared((void *)report, sizeof(report_mouse_t));
     }
 #endif
 }
@@ -253,8 +273,8 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     last_data = data;
 
     report_extra_t report = {.report_id = report_id, .usage = data};
-    if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)&report, sizeof(report));
+    if (usbInterruptIsReadyShared()) {
+        usbSetInterruptShared((void *)&report, sizeof(report_extra_t));
     }
 }
 #endif
@@ -360,10 +380,18 @@ void usbFunctionWriteOut(uchar *data, uchar len) {
  * Descriptors                                                      *
  *------------------------------------------------------------------*/
 
+#ifdef KEYBOARD_SHARED_EP
+const PROGMEM uchar shared_hid_report[] = {
+#    define SHARED_REPORT_STARTED
+#else
 const PROGMEM uchar keyboard_hid_report[] = {
+#endif
     0x05, 0x01,  // Usage Page (Generic Desktop)
     0x09, 0x06,  // Usage (Keyboard)
     0xA1, 0x01,  // Collection (Application)
+#ifdef KEYBOARD_SHARED_EP
+    0x85, REPORT_ID_KEYBOARD,  // Report ID
+#endif
     // Modifiers (8 bits)
     0x05, 0x07,  //   Usage Page (Keyboard/Keypad)
     0x19, 0xE0,  //   Usage Minimum (Keyboard Left Control)
@@ -398,12 +426,17 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x95, 0x01,  //   Report Count (1)
     0x75, 0x03,  //   Report Size (3)
     0x91, 0x03,  //   Output (Constant)
-    0xC0         // End Collection
+    0xC0,        // End Collection
+#ifndef KEYBOARD_SHARED_EP
 };
+#endif
 
-#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
-const PROGMEM uchar mouse_extra_hid_report[] = {
-#    ifdef MOUSE_ENABLE
+#if defined(SHARED_EP_ENABLE) && !defined(SHARED_REPORT_STARTED)
+const PROGMEM uchar shared_hid_report[] = {
+#    define SHARED_REPORT_STARTED
+#endif
+
+#ifdef MOUSE_ENABLE
     // Mouse report descriptor
     0x05, 0x01,             // Usage Page (Generic Desktop)
     0x09, 0x02,             // Usage (Mouse)
@@ -411,19 +444,15 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x85, REPORT_ID_MOUSE,  //   Report ID
     0x09, 0x01,             //   Usage (Pointer)
     0xA1, 0x00,             //   Collection (Physical)
-    // Buttons (5 bits)
+    // Buttons (8 bits)
     0x05, 0x09,  //     Usage Page (Button)
     0x19, 0x01,  //     Usage Minimum (Button 1)
-    0x29, 0x05,  //     Usage Maximum (Button 5)
+    0x29, 0x08,  //     Usage Maximum (Button 8)
     0x15, 0x00,  //     Logical Minimum (0)
     0x25, 0x01,  //     Logical Maximum (1)
-    0x95, 0x05,  //     Report Count (5)
+    0x95, 0x08,  //     Report Count (8)
     0x75, 0x01,  //     Report Size (1)
     0x81, 0x02,  //     Input (Data, Variable, Absolute)
-    // Button padding (3 bits)
-    0x95, 0x01,  //     Report Count (1)
-    0x75, 0x03,  //     Report Size (3)
-    0x81, 0x03,  //     Input (Constant)
 
     // X/Y position (2 bytes)
     0x05, 0x01,  //     Usage Page (Generic Desktop)
@@ -452,9 +481,9 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x81, 0x06,        //     Input (Data, Variable, Relative)
     0xC0,              //   End Collection
     0xC0,              // End Collection
-#    endif
+#endif
 
-#    ifdef EXTRAKEY_ENABLE
+#ifdef EXTRAKEY_ENABLE
     // Extrakeys report descriptor
     0x05, 0x01,              // Usage Page (Generic Desktop)
     0x09, 0x80,              // Usage (System Control)
@@ -481,7 +510,8 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x75, 0x10,                //   Report Size (16)
     0x81, 0x00,                //   Input (Data, Array, Absolute)
     0xC0                       // End Collection
-#    endif
+#endif
+#ifdef SHARED_EP_ENABLE
 };
 #endif
 
@@ -618,6 +648,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bMaxPower           = USB_MAX_POWER_CONSUMPTION / 2
     },
 
+#    ifndef KEYBOARD_SHARED_EP
     /*
      * Keyboard
      */
@@ -655,6 +686,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
+#    endif
 
 #    if defined(RAW_ENABLE)
     /*
@@ -705,24 +737,30 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
 #    endif
-#    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
+
+#    ifdef SHARED_EP_ENABLE
     /*
-     * Mouse/Extrakeys
+     * Shared
      */
-    .mouseExtraInterface = {
+    .sharedInterface = {
         .header = {
             .bLength         = sizeof(usbInterfaceDescriptor_t),
             .bDescriptorType = USBDESCR_INTERFACE
         },
-        .bInterfaceNumber    = MOUSE_EXTRA_INTERFACE,
+        .bInterfaceNumber    = SHARED_INTERFACE,
         .bAlternateSetting   = 0x00,
         .bNumEndpoints       = 1,
         .bInterfaceClass     = 0x03,
+#        ifdef KEYBOARD_SHARED_EP
+        .bInterfaceSubClass  = 0x01,
+        .bInterfaceProtocol  = 0x01,
+#        else
         .bInterfaceSubClass  = 0x00,
         .bInterfaceProtocol  = 0x00,
+#        endif
         .iInterface          = 0x00
     },
-    .mouseExtraHID = {
+    .sharedHID = {
         .header = {
             .bLength         = sizeof(usbHIDDescriptor_t),
             .bDescriptorType = USBDESCR_HID
@@ -731,19 +769,24 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bCountryCode        = 0x00,
         .bNumDescriptors     = 1,
         .bDescriptorType     = USBDESCR_HID_REPORT,
-        .wDescriptorLength   = sizeof(mouse_extra_hid_report)
+        .wDescriptorLength   = sizeof(shared_hid_report)
     },
-    .mouseExtraINEndpoint = {
+    .sharedINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
             .bDescriptorType = USBDESCR_ENDPOINT
         },
+#        ifdef KEYBOARD_SHARED_EP
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | 1),
+#        else
         .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP3_NUMBER),
+#        endif
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
 #    endif
+
 #    if defined(CONSOLE_ENABLE)
     /*
      * Console
@@ -791,7 +834,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = CONSOLE_EPSIZE,
         .bInterval           = 0x01
-    },
+    }
 #    endif
 };
 
@@ -833,22 +876,27 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
             break;
         case USBDESCR_HID:
             switch (rq->wValue.bytes[0]) {
+#ifndef KEYBOARD_SHARED_EP
                 case KEYBOARD_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.keyboardHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
+#endif
+
 #if defined(RAW_ENABLE)
                 case RAW_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.rawHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #endif
-#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
-                case MOUSE_EXTRA_INTERFACE:
-                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.mouseExtraHID;
+
+#ifdef SHARED_EP_ENABLE
+                case SHARED_INTERFACE:
+                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.sharedHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #endif
+
 #if defined(CONSOLE_ENABLE)
                 case CONSOLE_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.consoleHID;
@@ -860,22 +908,27 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
         case USBDESCR_HID_REPORT:
             /* interface index */
             switch (rq->wIndex.word) {
+#ifndef KEYBOARD_SHARED_EP
                 case KEYBOARD_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)keyboard_hid_report;
                     len       = sizeof(keyboard_hid_report);
                     break;
+#endif
+
 #if defined(RAW_ENABLE)
                 case RAW_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)raw_hid_report;
                     len       = sizeof(raw_hid_report);
                     break;
 #endif
-#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
-                case MOUSE_EXTRA_INTERFACE:
-                    usbMsgPtr = (usbMsgPtr_t)mouse_extra_hid_report;
-                    len       = sizeof(mouse_extra_hid_report);
+
+#ifdef SHARED_EP_ENABLE
+                case SHARED_INTERFACE:
+                    usbMsgPtr = (usbMsgPtr_t)shared_hid_report;
+                    len       = sizeof(shared_hid_report);
                     break;
 #endif
+
 #if defined(CONSOLE_ENABLE)
                 case CONSOLE_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)console_hid_report;

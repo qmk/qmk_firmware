@@ -58,7 +58,7 @@ git
     nix-shell --arg arm false
 
 ## 맥
-당신이 홈브루([homebrew](http://brew.sh/))를 사용한다면, 다음을 입력하세요.
+당신이 홈브루([homebrew](https://brew.sh/))를 사용한다면, 다음을 입력하세요.
 
     brew tap osx-cross/avr
     brew tap PX4/homebrew-px4
@@ -70,12 +70,12 @@ git
     brew install gcc-arm-none-eabi
     brew install avrdude
 
-이 방법을 가장 추천합니다. 만약 홈브루가 없다면 커맨드라인 환경에서 매우 편한 [Homebrew](http://brew.sh/)를 다운받는 것을 추천합니다. 참고로 `avr-gcc@7`를 설치하는 중 `make`과 `make install`는 대개 20분 넘게 걸리고 CPU 사용량이 높아집니다.
+이 방법을 가장 추천합니다. 만약 홈브루가 없다면 커맨드라인 환경에서 매우 편한 [Homebrew](https://brew.sh/)를 다운받는 것을 추천합니다. 참고로 `avr-gcc@7`를 설치하는 중 `make`과 `make install`는 대개 20분 넘게 걸리고 CPU 사용량이 높아집니다.
 
 ## msys2를 사용하는 윈도우 (추천)
-윈도우 비스타 부터 최신버젼까지 가장추천되는 환경은 [msys2](http://www.msys2.org)를 이용하는 것입니다. (윈도우 7과 윈도우 10에서 모두 테스트되었음)
+윈도우 비스타 부터 최신버젼까지 가장추천되는 환경은 [msys2](https://www.msys2.org)를 이용하는 것입니다. (윈도우 7과 윈도우 10에서 모두 테스트되었음)
 
-* 이 사이트에 있는 설명을 이용해 msys2를 설치하세요: http://www.msys2.org
+* 이 사이트에 있는 설명을 이용해 msys2를 설치하세요: https://www.msys2.org
 * ``MSYS2 MingGW 64-bit`` 를 여세요
 * QMK폴더로 이동하세요. c드라이브 루트에 있는경우:
  * `$ cd /c/qmk_firmware`
@@ -85,7 +85,7 @@ git
 만약 당신의 윈도우 10이 크리에이터 업데이트 버전 또는 더 높은 버전이라면 바로 컴파일과 프로그램 업로드(flashing)를 할 수 있습니다. 크리에이터 업데이트 전 버전이라면 컴파일만 가능합니다. 만약 당신이 잘 모르겠거나 업데이트된 버전이 아니라면 [이 링크](https://support.microsoft.com/en-us/instantanswers/d4efb316-79f0-1aa1-9ef3-dcada78f3fa0/get-the-windows-10-creators-update)를 확인해 보십시오.
 
 ### 리눅스용 윈도우 하위 시스템 사용 (Windows10 Subsystem for Linux)
-크리에이터 업데이트에 추가로 만약 당신이 리눅스용 윈도우 하위 시스템이 필요하다면 이 링크에서 다운받으십시오: [설명](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
+크리에이터 업데이트에 추가로 만약 당신이 리눅스용 윈도우 하위 시스템이 필요하다면 이 링크에서 다운받으십시오: [설명](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
 
 만약 당신이 이미 리눅스용 윈도우 하위 시스템을 Anniversary업데이트를 통해 받았다면 이 링크에서 16.04LTS로 업데이트 하는것을 추천합니다. 왜냐하면 업데이트 없이는 일부키보드가 14.04LTS에 포함되있는 도구들로 컴파일되지 않을수 있기때문입니다 : [WSL 업데이트](https://betanews.com/2017/04/14/upgrade-windows-subsystem-for-linux/)
 

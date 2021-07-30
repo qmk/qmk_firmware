@@ -19,9 +19,6 @@
 #ifdef UNICODEMAP_ENABLE
 #    include "drashna_unicode.h"
 #endif  // UNICODEMAP_ENABLE
-#ifndef UNICODE_ENABLE
-#    define UC(x) KC_NO
-#endif
 
 enum more_custom_keycodes {
     KC_SWAP_NUM = NEW_SAFE_RANGE,
@@ -40,17 +37,20 @@ bool skip_leds = false;
  * ease of use. K## is a placeholder to pass through the individual keycodes
  */
 // clang-format off
+#define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
+#define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
+
 #define LAYOUT_ergodox_pretty_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_ergodox_pretty_wrapper( \
       KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,                 UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS, \
-      LALT_T(KC_TAB), K01, K02, K03,      K04,     K05,     TG(_DIABLO),         TG(_DIABLO), K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-      KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
-      KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG(_GAMEPAD),       TG(_GAMEPAD), K26,     K27,     K28,     K29,  RCTL_T(K2A), KC_MRSF, \
-      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_BTN1, KC_BTN3, KC_BTN2,   PM_SCROLL, PM_PRECISION,        \
+      LALT_T(KC_TAB), K01, K02, K03,      K04,     K05,     TG_DBLO,         TG_DBLO, K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
+      KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
+      KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG_GAME,       TG_GAME, K26,     K27,     K28,     K29, RCTL_T(K2A), KC_MRSF, \
+      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_BTN1, KC_BTN3, KC_BTN2,   PM_SCROLL, PM_PRECISION,  \
                                                   OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE),                                      \
                                                            KC_APP,                  KC_MENU,                                                        \
                               KC_SPC, LT(_LOWER, KC_BSPC), OS_LWR,                  OS_RSE, LT(_RAISE, KC_DEL), KC_ENT                              \
@@ -196,20 +196,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
   ),
 
-
-// Reverts OSM(Shift) to normal Shifts. However, may not need since we fixed the issue with RDP (LOCAL RESOURCES)
-  [_MODS] = LAYOUT_ergodox_pretty_wrapper(
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
-             KC_LSFT, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, KC_RSFT,
-             _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
-                                                          _______, _______,                 _______, _______,
-                                                                   _______,                 _______,
-                                                 _______, _______, _______,                 _______, _______, _______
-            ),
-
-
 /* Keymap 4: Customized Overwatch Layout
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -235,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3, HYPR(KC_Q), HYPR(KC_GRV),            KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
              KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    UC_SHRG, UC_DISA, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                                      KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-             KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_TRNS,            TG(_GAMEPAD), KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_TRNS,            TG_GAME, KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_GRV,  KC_U,    KC_I,    KC_Y,    KC_T,                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
                                                           KC_O,    KC_P,                    MAGIC_TOGGLE_NKRO, LALT(KC_PSCR),
                                                                    KC_LGUI,                 KC_HYPR,
@@ -300,7 +286,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
              VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _________________ADJUST_R1_________________, EEP_RST,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
-             _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG(_MODS),
+             _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG_MODS,
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
@@ -446,22 +432,21 @@ void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
-void rgb_matrix_indicators_user(void) {
-    if (g_suspend_state || !rgb_matrix_config.enable) return;
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (layer_state_is(_GAMEPAD)) {
-        rgb_matrix_set_color(32, 0x00, 0xFF, 0x00);  // Q
-        rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF);  // W
-        rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);  // E
-        rgb_matrix_set_color(29, 0xFF, 0x80, 0x00);  // R
-        rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF);  // A
-        rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF);  // S
-        rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF);  // D
-        rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF);  // F
+        RGB_MATRIX_INDICATOR_SET_COLOR(32, 0x00, 0xFF, 0x00);  // Q
+        RGB_MATRIX_INDICATOR_SET_COLOR(31, 0x00, 0xFF, 0xFF);  // W
+        RGB_MATRIX_INDICATOR_SET_COLOR(30, 0xFF, 0x00, 0x00);  // E
+        RGB_MATRIX_INDICATOR_SET_COLOR(29, 0xFF, 0x80, 0x00);  // R
+        RGB_MATRIX_INDICATOR_SET_COLOR(37, 0x00, 0xFF, 0xFF);  // A
+        RGB_MATRIX_INDICATOR_SET_COLOR(36, 0x00, 0xFF, 0xFF);  // S
+        RGB_MATRIX_INDICATOR_SET_COLOR(35, 0x00, 0xFF, 0xFF);  // D
+        RGB_MATRIX_INDICATOR_SET_COLOR(34, 0x7A, 0x00, 0xFF);  // F
 
-        rgb_matrix_set_color(userspace_config.swapped_numbers ? 27 : 26, 0xFF, 0xFF, 0xFF);  // 1
-        rgb_matrix_set_color(userspace_config.swapped_numbers ? 26 : 27, 0x00, 0xFF, 0x00);  // 2
-        rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF);                                          // 3
+        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 26 : 27), 0xFF, 0xFF, 0xFF);  // 1
+        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 27 : 26), 0x00, 0xFF, 0x00);  // 2
+        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0x7A, 0x00, 0xFF);                                          // 3
     }
 
 #    if defined(RGBLIGHT_ENABLE)
@@ -470,46 +455,45 @@ void rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change)
 #    endif
     {
-        bool mods_enabled = IS_LAYER_ON(_MODS);
         switch (get_highest_layer(layer_state|default_layer_state)) {
             case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _QWERTY:
-                rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_CYAN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _COLEMAK:
-                rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_MAGENTA, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DVORAK:
-                rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_SPRINGGREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _WORKMAN:
-                rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_GOLDENROD, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _NORMAN:
-                rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_CORAL, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _MALTRON:
-                rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _EUCALYN:
-                rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_PINK, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _CARPLAX:
-                rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_BLUE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
         }
     }
@@ -517,6 +501,7 @@ void rgb_matrix_indicators_user(void) {
 
 #endif  // RGB_MATRIX_INIT
 
+#ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) {
         if (mod_config(keycode & 0xf) & MOD_MASK_ALT) {
@@ -525,3 +510,4 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
     return TAPPING_TERM;
 }
+#endif

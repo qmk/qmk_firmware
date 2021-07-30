@@ -95,11 +95,11 @@ void m0110_init(void) {
         uint8_t data;
         m0110_send(M0110_MODEL);
         data = m0110_recv();
-        print("m0110_init model: "); phex(data); print("\n");
+        print("m0110_init model: "); print_hex8(data); print("\n");
 
         m0110_send(M0110_TEST);
         data = m0110_recv();
-        print("m0110_init test: "); phex(data); print("\n");
+        print("m0110_init test: "); print_hex8(data); print("\n");
     */
 }
 
@@ -122,7 +122,7 @@ uint8_t m0110_send(uint8_t data) {
     return 1;
 ERROR:
     print("m0110_send err: ");
-    phex(m0110_error);
+    print_hex8(m0110_error);
     print("\n");
     _delay_ms(500);
     idle();
@@ -146,7 +146,7 @@ uint8_t m0110_recv(void) {
     return data;
 ERROR:
     print("m0110_recv err: ");
-    phex(m0110_error);
+    print_hex8(m0110_error);
     print("\n");
     _delay_ms(500);
     idle();

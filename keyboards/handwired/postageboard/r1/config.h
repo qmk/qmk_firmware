@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER LifeIsOnTheWire
 #define PRODUCT PostageBoard
-#define DESCRIPTION "A Handwire Controller Board"
 
 /* key matrix size */
 #define MATRIX_ROWS 1

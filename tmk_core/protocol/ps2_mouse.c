@@ -190,7 +190,7 @@ static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report) {
 static inline void ps2_mouse_print_report(report_mouse_t *mouse_report) {
     if (!debug_mouse) return;
     print("ps2_mouse: [");
-    phex(mouse_report->buttons);
+    print_hex8(mouse_report->buttons);
     print("|");
     print_hex8((uint8_t)mouse_report->x);
     print(" ");

@@ -1,10 +1,10 @@
 # Bakeneko 65
 
-An open source O-ring gasket mount keyboard
+A simple 65% keyboard
 
 * Keyboard Maintainer: [kkatano](https://github.com/kkatano)
 * Hardware Supported: Bakeneko 65
-* Hardware Availability: [Open source on GitHub](https://github.com/kkatano/bakeneko-65-pcb)
+* Hardware Availability: [Open source on GitHub](https://github.com/kkatano/bakeneko-65)
 
 Make example for this keyboard (after setting up your build environment):
 

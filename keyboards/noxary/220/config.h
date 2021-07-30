@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4E58 //"NX"
-#define PRODUCT_ID      0x00DC //220
+#define PRODUCT_ID      0x0899 //2201
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Noxary
 #define PRODUCT         220
-#define DESCRIPTION     A custom numpad keyboard.
+
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -168,9 +168,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

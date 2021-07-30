@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    panc.co
 #define PRODUCT         Minorca
-#define DESCRIPTION     QMK Firmware for panc.co Minorca
 
 /* key matrix size */
 #define MATRIX_ROWS 4

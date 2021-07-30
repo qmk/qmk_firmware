@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    astro
 #define PRODUCT         DP60
-#define DESCRIPTION     60% rgb keyboard with ble extension
 
 /* key matrix size */
 #define MATRIX_ROWS 5

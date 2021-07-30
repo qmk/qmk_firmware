@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0101
 #define MANUFACTURER    Keebio
 #define PRODUCT         Tragicforce 68
-#define DESCRIPTION     Programmable PCB replacement for Magicforce 68
 
 /* key matrix size */
 #define MATRIX_ROWS 9

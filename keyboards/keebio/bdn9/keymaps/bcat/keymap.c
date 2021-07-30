@@ -21,13 +21,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
         /* Top-left encoder (volume) */
         case 0:
             tap_code(clockwise ? KC_VOLU : KC_VOLD);
             break;
-    
+
         /* Top-right encoder (backlight brightness) */
         case 1:
             if (clockwise) {
@@ -41,4 +41,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             }
             break;
     }
+    return true;
 }

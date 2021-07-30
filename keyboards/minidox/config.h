@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3060
 #define MANUFACTURER    That-Canadian
 #define PRODUCT         MiniDox
-#define DESCRIPTION     A compact version of the Ergo Dox
 
 /* key matrix size */
 // Rows are doubled-up

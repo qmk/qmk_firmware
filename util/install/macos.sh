@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 _qmk_install_prepare() {
     echo "Checking Homebrew installation"
@@ -9,7 +9,7 @@ _qmk_install_prepare() {
         return 1
     fi
 
-    brew update && brew upgrade
+    brew update && brew upgrade --ignore-pinned
 }
 
 _qmk_install() {

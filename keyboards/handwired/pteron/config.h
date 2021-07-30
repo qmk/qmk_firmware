@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    QMK Community
 #define PRODUCT         Pteron Keyboard
-#define DESCRIPTION     Pteron Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

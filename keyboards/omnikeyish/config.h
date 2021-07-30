@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x1337
 #define MANUFACTURER    Henrik O. Sørensen
 #define PRODUCT         Omnikey(-ish) Keyboard
-#define DESCRIPTION     Replacement PCB for Omnikey keyboards
 
 /* key matrix size */
 #define MATRIX_ROWS 6

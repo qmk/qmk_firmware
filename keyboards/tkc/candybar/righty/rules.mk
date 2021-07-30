@@ -1,6 +1,9 @@
 # MCU name
 MCU = STM32F072
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Build Options
 #   comment out to disable the options.
 #
@@ -16,7 +19,6 @@ SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes     # USB Nkey Rollover
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
-SERIAL_LINK_ENABLE = no
 
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread

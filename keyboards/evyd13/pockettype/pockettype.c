@@ -22,6 +22,10 @@ void matrix_init_kb(void) {
 };
 
 void led_init_ports(void) {
+    // * Enable LED anodes (Vbus pin is replaced by B0 on some boards)
+    setPinOutput(B0);
+    writePinHigh(B0);
+
     // * Set our LED pins as output and high
     setPinOutput(F5);
     writePinHigh(F5);

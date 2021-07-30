@@ -1,0 +1,1 @@
+LTO_ENABLE=yes

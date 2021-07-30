@@ -8,12 +8,12 @@ MCU_LDSCRIPT = noah_boot
 
 # Board: it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
-BOARD = noah_bd
+BOARD = ST_NUCLEO64_F411RE
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes	    # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug

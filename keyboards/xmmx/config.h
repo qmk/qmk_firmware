@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    farmakon
 #define PRODUCT         "XMMX"
-#define DESCRIPTION     "XMMX"
 
 /* key matrix size */
 #define MATRIX_ROWS 6

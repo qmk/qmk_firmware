@@ -1,37 +1,42 @@
-name: Format Codebase
+name: PR Lint Format
 
 on:
-  push:
-    branches:
-    - master
+  pull_request:
+    paths:
+    - 'drivers/**'
+    - 'lib/arm_atsam/**'
+    - 'lib/lib8tion/**'
+    - 'lib/python/**'
+    - 'platforms/**'
+    - 'quantum/**'
+    - 'tests/**'
+    - 'tmk_core/**'
 
 jobs:
-  format:
+  lint:
     runs-on: ubuntu-latest
+
     container: qmkfm/base_container
 
-    # protect against those who develop with their fork on master
-    if: github.repository == 'qmk/qmk_firmware'
-
     steps:
+    - uses: rlespinasse/github-slug-action@v3.x
+
     - uses: actions/checkout@v2
       with:
-        token: ${{ secrets.API_TOKEN_GITHUB }}
+        fetch-depth: 0
 
-    - name: Install dependencies
-      run: |
-        apt-get update && apt-get install -y dos2unix
-
-    - name: Format files
-      run: |
-        bin/qmk cformat -a
-        bin/qmk pyformat
-        bin/qmk fileformat
-
-    - name: Commit files
-      uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: trilom/file-changes-action@v1.2.4
+      id: file_changes
       with:
-        commit_message: Format code according to conventions for $GITHUB_SHA
-        commit_user_name: QMK Bot
-        commit_user_email: hello@qmk.fm
-        commit_author: QMK Bot <hello@qmk.fm>
+        output: ' '
+        fileOutput: ' '
+
+    - name: Run qmk cformat and qmk pyformat
+      shell: 'bash {0}'
+      run: |
+        qmk cformat --core-only -n $(< ~/files.txt)
+        cformat_exit=$?
+        qmk pyformat -n
+        pyformat_exit=$?
+
+        exit $((cformat_exit + pyformat_exit))

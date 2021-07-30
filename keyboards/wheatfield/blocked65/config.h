@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Dou
 #define PRODUCT         Blocked65
-#define DESCRIPTION     65% keyboard with arrow cluster blocker
 
 /* key matrix size */
 #define MATRIX_ROWS 5

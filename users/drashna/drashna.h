@@ -17,7 +17,6 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
-#include "version.h"
 #include "eeprom.h"
 #include "wrappers.h"
 #include "process_records.h"
@@ -48,7 +47,6 @@ enum userspace_layers {
     _MALTRON,
     _EUCALYN,
     _CARPLAX,
-    _MODS, /* layer 8 */
     _GAMEPAD,
     _DIABLO,
     _MACROS,
@@ -58,13 +56,17 @@ enum userspace_layers {
     _ADJUST,
 };
 
+#define _MOUSE _MACROS
+
 bool          mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
 bool          mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 void          matrix_init_keymap(void);
+void          matrix_init_secret(void);
 void          shutdown_keymap(void);
 void          suspend_power_down_keymap(void);
 void          suspend_wakeup_init_keymap(void);
 void          matrix_scan_keymap(void);
+void          matrix_scan_secret(void);
 layer_state_t layer_state_set_keymap(layer_state_t state);
 layer_state_t default_layer_state_set_keymap(layer_state_t state);
 void          led_set_keymap(uint8_t usb_led);
@@ -102,3 +104,7 @@ We use custom codes here, so we can substitute the right stuff
 #    define KC_D3_3 KC_3
 #    define KC_D3_4 KC_4
 #endif  // TAP_DANCE_ENABLE
+
+#if defined(DRASHNA_CUSTOM_TRANSPORT) && defined(POINTING_DEVICE_ENABLE)
+void master_mouse_send(int8_t x, int8_t y);
+#endif

@@ -1,12 +1,11 @@
 {
   "keyboard_name": "IBM 5291",
-  "keyboard_folder": "converter/ibm_5291",
   "url": "https://deskthority.net/wiki/IBM_Model_F#IBM_5291_Keyboard",
   "maintainer": "listofoptions",
   "width": 21,
   "height": 5,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_5291": {
       "layout": [
         {"label":"Sys Req", "x":0, "y":0},
         {"label":"Cmd", "x":1, "y":0},
