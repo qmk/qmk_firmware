@@ -69,10 +69,10 @@ def new_keyboard(cli):
     # Get username
     user_name = None
     while not user_name:
-        git_username = git_get_username()
-        user_name = cli.args.username if cli.args.username else question('Your Name:', default=git_username)
+        user_name = question('Your Name:', default=find_user_name())
+
         if not user_name:
-            cli.log.error('You didn\'t provide a username, and we couldn\'t find one set in your Git config. Please try again.')
+            cli.log.error('You didn\'t provide a username, and we couldn\'t find one set in your QMK or Git configs. Please try again.')
 
             # Exit if passed by arg
             if cli.args.username:
@@ -104,6 +104,13 @@ def new_keyboard(cli):
     cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}{keyboard_path}{{fg_reset}},')
     cli.log.info('or open the directory in your preferred text editor.')
 
+def find_user_name():
+    if cli.args.username:
+        return cli.args.username
+    elif cli.config.user.name:
+        return cli.config.user.name
+    else:
+        return git_get_username()
 
 def copy_templates(keyboard_type, keyboard_path):
     """Copies the template files from quantum/template to the new keyboard directory.
