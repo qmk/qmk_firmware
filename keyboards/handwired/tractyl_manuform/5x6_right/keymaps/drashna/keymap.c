@@ -140,9 +140,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        tap_code_delay(clockwise ? KC_VOLU : KC_VOLD, 5);
+        tap_code_delay(clockwise ? KC_VOLD : KC_VOLU, 5);
     } else if (index == 1) {
-        tap_code_delay(clockwise ? KC_WH_U : KC_WH_D, 5);
+        tap_code_delay(clockwise ? KC_WH_D : KC_WH_U, 5);
     }
     return false;
 }
