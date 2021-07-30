@@ -28,7 +28,7 @@ def _is_split(keyboard_name):
     return True if 'SPLIT_KEYBOARD' in rules_mk and rules_mk['SPLIT_KEYBOARD'].lower() == 'yes' else False
 
 
-@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs to run.")
+@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.argument('-f', '--filter', arg_only=True, action='append', default=[], help="Filter the list of keyboards based on the supplied value in rules.mk. Supported format is 'SPLIT_KEYBOARD=yes'. May be passed multiple times.")
 @cli.argument('-km', '--keymap', type=str, default='default', help="The keymap name to build. Default is 'default'.")
