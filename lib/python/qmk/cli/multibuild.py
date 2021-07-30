@@ -10,7 +10,7 @@ from subprocess import DEVNULL
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE
-from qmk.commands import _find_make
+from qmk.commands import _find_make, get_make_parallel_args
 import qmk.keyboard
 import qmk.keymap
 
@@ -80,7 +80,7 @@ all: {keyboard_safe}_binary
                 )
                 # yapf: enable
 
-    cli.run([make_cmd, '-j', str(cli.args.parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
+    cli.run([make_cmd, *get_make_parallel_args(cli.args.parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
 
     # Check for failures
     failures = [f for f in builddir.glob(f'failed.log.{os.getpid()}.*')]
