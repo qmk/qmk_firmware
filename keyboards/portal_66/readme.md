@@ -5,6 +5,8 @@ A 65% keyboard
 * Keyboard Maintainer: matthewdias
 * Hardware Supported: Portal 66
 
+To reset the keyboard into bootloader mode, press the reset switch on the underside.
+
 Make example for this keyboard (after setting up your build environment):
 
     make portal_66:default
