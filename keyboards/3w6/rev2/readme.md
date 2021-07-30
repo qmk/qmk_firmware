@@ -31,9 +31,7 @@ To reach the bootloader, connect the board to the PC and push the reset button o
 Make examples for this keyboard (after setting up your build environment):
            
     make 3w6/rev2:default
-    
-    with pimoroni: 
-    make 3w6/rev2:def_pimoroni
+    make 3w6/rev2:default_pimoroni
    
  ---
 
