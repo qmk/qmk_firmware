@@ -34,5 +34,5 @@ LAYOUTS = 60_hhkb
 SRC =	keyboards/wilba_tech/wt_main.c \
 		keyboards/wilba_tech/wt_rgb_backlight.c \
 		quantum/color.c \
-		drivers/issi/is31fl3731.c \
+		drivers/led/issi/is31fl3731.c \
 		drivers/avr/i2c_master.c

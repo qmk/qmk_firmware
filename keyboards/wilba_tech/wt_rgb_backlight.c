@@ -78,19 +78,19 @@ LED_TYPE g_ws2812_leds[WS2812_LED_TOTAL];
 #endif
 
 #if defined(RGB_BACKLIGHT_M6_B)
-#include "drivers/issi/is31fl3218.h"
+#include "drivers/led/issi/is31fl3218.h"
 #define BACKLIGHT_LED_COUNT 6
 #elif defined(RGB_BACKLIGHT_HS60)
-#include "drivers/issi/is31fl3733.h"
+#include "drivers/led/issi/is31fl3733.h"
 #define BACKLIGHT_LED_COUNT 64
 #elif defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA68) || defined(RGB_BACKLIGHT_KW_MEGA)
-#include "drivers/issi/is31fl3733.h"
+#include "drivers/led/issi/is31fl3733.h"
 #define BACKLIGHT_LED_COUNT 69
 #elif defined(RGB_BACKLIGHT_NK87)
-#include "drivers/issi/is31fl3733.h"
+#include "drivers/led/issi/is31fl3733.h"
 #define BACKLIGHT_LED_COUNT 128
 #else
-#include "drivers/issi/is31fl3731.h"
+#include "drivers/led/issi/is31fl3731.h"
 #if defined(RGB_BACKLIGHT_U80_A)
 #define BACKLIGHT_LED_COUNT 108
 #elif defined(RGB_BACKLIGHT_DAWN60)
