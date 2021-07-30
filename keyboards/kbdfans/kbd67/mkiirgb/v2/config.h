@@ -39,5 +39,5 @@
 #   define DRIVER_1_LED_TOTAL 35
 #   define DRIVER_2_LED_TOTAL 32
 #   define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #endif
