@@ -90,13 +90,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
   ),
 
-  [_MODS] = LAYOUT_split_3x6_3_wrapper(
-      _______, ___________________BLANK___________________,                  ___________________BLANK___________________, _______,
-      _______, ___________________BLANK___________________,                  ___________________BLANK___________________, _______,
-      KC_LSFT, ___________________BLANK___________________,                  ___________________BLANK___________________, KC_RSFT,
-                                     _______, _______, _______,        _______, _______, _______
-  ),
-
   [_LOWER] = LAYOUT_split_3x6_3_wrapper(
     KC_F11,  _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_F11,
     KC_F12,  _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, KC_PIPE,
@@ -179,7 +172,6 @@ void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t le
 }
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (!is_keyboard_master()) return;
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
@@ -198,7 +190,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             default: {
-                check_default_layer(IS_LAYER_ON(_MODS), LED_FLAG_UNDERGLOW, led_min, led_max);
+                check_default_layer(0, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             }
         }

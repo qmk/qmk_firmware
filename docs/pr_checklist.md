@@ -68,7 +68,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - bare minimum required code for a board to boot into QMK should be present
         - initialisation code for the matrix and critical devices
         - mirroring existing functionality of a commercial board (like custom keycodes and special animations etc.) should be handled through non-`default` keymaps
-    - VIAL-related files or changes will not be accepted, as they are not used by QMK firmware (no VIAL-specific core code has been submitted or merged)
+    - Vial-related files or changes will not be accepted, as they are not used by QMK firmware (no Vial-specific core code has been submitted or merged)
 - `keyboard.c`
     - empty `xxxx_xxxx_kb()` or other weak-defined default implemented functions removed
     - commented-out functions removed too
