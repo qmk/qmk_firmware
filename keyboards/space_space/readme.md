@@ -1,11 +1,11 @@
 # space_space
 
-![space_space](https://i.imgur.com/SxjhzIM.jpg)
+![space_space](https://i.imgur.com/SxjhzIMl.jpg)
 
 Give your space some space  
 
 * Keyboard Maintainer: https://github.com/qpockets
-* Hardware Availability: https://p3dstore.com/products/space-space-acrylic-case?_pos=21&_sid=c75de6a78&_ss=r&variant=39907740844216
+* Hardware Availability: [p3dstore](https://p3dstore.com/products/space-space-acrylic-case?_pos=21&_sid=c75de6a78&_ss=r&variant=39907740844216)
 
 Make example for this keyboard (after setting up your build environment):
 
