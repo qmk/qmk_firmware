@@ -6,5 +6,6 @@ WPM_ENABLE = yes
 # bongo cat
 
 # Size optimisations
+CONSOLE_ENABLE = no
 MOUSEKEY_ENABLE = no
 # Size optimisations END

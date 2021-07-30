@@ -1,5 +1,4 @@
-Ardakilic's Corne Layout
---------
+# Ardakilic's Corne Layout
 
 This layout is optimised to use Turkish characters on Corne on macOS.
 

@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
-
+/* CONSOLE_ENABLE = no achieves this
 // Size optimisations
 #ifndef NO_DEBUG
 #define NO_DEBUG
@@ -49,3 +49,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_ACTION_ONESHOT
 // Size optimisations END
+*/

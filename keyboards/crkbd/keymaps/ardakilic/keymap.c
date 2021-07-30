@@ -21,13 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Layers
 enum {
-  _QWERTY = 0,
-  _LOWER = 1,
-  _RAISE = 2,
-  _SPACE = 3,
-  _NUMPAD = 4,
-  _SODA = 5,
-  _ADJUST = 6
+  _QWERTY,
+  _LOWER,
+  _RAISE,
+  _SPACE,
+  _NUMPAD,
+  _SODA,
+  _ADJUST
 };
 
 //KC_NONUS_BSLASH (\|) is equivalent to ["é] key in Turkish keyboards.
@@ -250,12 +250,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef OLED_DRIVER_ENABLE
-#include <stdio.h>
+// #include <stdio.h>
 
 // bongo cat
 // Taken from
 // https://github.com/nwii/oledbongocat
-char wpm_str[10];
+// char wpm_str[10]; // sprintf changed with more optimized code
 
 
 // WPM-responsive animation stuff here
@@ -367,7 +367,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
-    switch (get_higest_layer(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case _QWERTY:
             oled_write_ln_P(PSTR("Default"), false);
             break;
@@ -461,10 +461,22 @@ void oled_task_user(void) {
         render_anim();  // renders pixelart
 
         oled_set_cursor(0, 0);                            // sets cursor to (row, column) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
-        sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // edit the string to change wwhat shows up, edit %03d to change how many digits show up
-        oled_write(wpm_str, false);                       // writes wpm on top left corner of string
+        // sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // edit the string to change wwhat shows up, edit %03d to change how many digits show up
+        // oled_write(wpm_str, false);                       // writes wpm on top left corner of string
+
+        // This way it's more size efficient than calling sprintf
+        uint8_t n = get_current_wpm();
+        char wpm_counter[4];
+        wpm_counter[3] = '\0';
+        wpm_counter[2] = '0' + n % 10;
+        wpm_counter[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+        wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
+        oled_write_P(PSTR("WPM: "), false);
+        oled_write(wpm_counter, false);
+        // This way it's more size efficient than calling sprintf
 
         led_t led_state = host_keyboard_led_state();  // caps lock stuff, prints CAPS on new line if caps led is on
+
         oled_set_cursor(0, 1);
         oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("       "), false);
         // bongo cat
