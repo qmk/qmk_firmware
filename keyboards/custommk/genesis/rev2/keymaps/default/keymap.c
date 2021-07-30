@@ -40,26 +40,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-	/* top left encoder */
-	if (index == 0) {
-		if (clockwise) {
-			tap_code(KC_VOLU);
-		} else {
-			tap_code(KC_VOLD);
-		}
-	}
-	/* top right encoder */
-	else if (index == 1) {
-		if (clockwise) {
-			tap_code(KC_VOLU);
-		} else {
-			tap_code(KC_VOLD);
-		}
-	}
-	return false;
-}
-
 
 #ifdef GENESIS_LAYER_COLORS
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
