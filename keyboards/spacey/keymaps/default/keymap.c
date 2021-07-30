@@ -45,18 +45,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_NO, KC_ESC, KC_LALT, KC_SPC,  KC_NO,  KC_BSPC,   KC_RALT, KC_NO,     KC_APP, KC_RGUI, KC_RCTL, KC_MS_R
     )
 };
-
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-// }
-
-void encoder_update_user(uint8_t index, bool clockwise){
-    if (index == 0){
-        if(clockwise){
-            tap_code(KC_VOLD);
-        } else{
-            tap_code(KC_VOLU);
-        }
-    }
-    return;
-} 
