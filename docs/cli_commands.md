@@ -280,12 +280,12 @@ qmk list-keymaps -kb planck/ez
 
 This command creates a new keyboard based on available templates.
 
-This command will prompt for input to guide you though the generation process.
+Any arguments that are not provided will prompt for input. If `-u` is not passed and `user.name` is set in .gitconfig, it will be used as the default username in the prompt.
 
 **Usage**:
 
 ```
-qmk new-keyboard
+qmk new-keyboard [-kb KEYBOARD] [-t {avr,ps2avrgb}] -u USERNAME
 ```
 
 ## `qmk new-keymap`
