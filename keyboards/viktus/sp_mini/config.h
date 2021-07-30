@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Viktus_Design
 #define PRODUCT         SP_Mini
+//#define VIAL_KEYBOARD_UID {0xC5, 0x02, 0x78, 0x7D, 0x10, 0xBF, 0x5C, 0x55}
 
 /* key matrix size */
 // Rows are doubled-up
@@ -44,13 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Split Defines */
 #define SPLIT_USB_DETECT
-// #define MASTER_LEFTf
-//#define RIGHT_HALF_INT_I2C_PULLUPS_OFF
-#define LEFT_HALF_INT_I2C_PULLUPS_ON
+#define MASTER_LEFT
 #define USE_I2C
-//#define SPLIT_TRANSPORT_MIRROR
-#define SPLIT_USB_TIMEOUT 2500 // This sets the maximum timeout when detecting master/slave when using SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT_POLL 5 // This sets the poll frequency when detecting master/slave when using SPLIT_USB_DETECT
 
 /* serial.c configuration for split keyboard */
 //#define SOFT_SERIAL_PIN D1
@@ -70,15 +66,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN E6
 #define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_SPLIT
+//#define RGBLIGHT_SPLIT
 #define RGBLED_NUM 24    // Number of LEDs
 #define RGBLED_SPLIT { 12, 12 }
 
+
+
 #define ENCODERS_PAD_A {F4}
 #define ENCODERS_PAD_B {F1}
-#define ENCODERS_PAD_A_RIGHT {F4}
-#define ENCODERS_PAD_B_RIGHT {F1}
+//#define ENCODERS_PAD_A_RIGHT {F4}
+//#define ENCODERS_PAD_B_RIGHT {F1}
 
+#define ENCODER_RESOLUTIONS { 8, 8 }
 
 /*
  * Feature disable options

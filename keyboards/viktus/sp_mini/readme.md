@@ -2,14 +2,13 @@
 
 ![sp_mini](imgur.com image replace me!)
 
-The SP Mini is a 40% version of the SP-111 created in a collaboration of OneCreativeMind and BlindAssassin111 (Viktus owner). All design done by BlindAssassin111. The layout includes an F Row, left macro column, and arrows. Rotary encoders are supported in the top left and right positions. The board also features three through hole LED indicators and RGB underglow.
+The SP Mini is a 40% version of the SP-111 created in a collaboration of OneCreativeMind and BlindAssassin111 (Viktus owner). All design done by BlindAssassin111. The layout includes an F Row, left macro column, and arrows. Rotary encoders are supported in the top left and right positions. 
 
-
-The SP Mini has dual ATMEGA32U4 controllers linked with USB Type C. Each PCB half needs to be flashed with the firmware file, and each has a single reset button used for entering DFU mode. Each half also has a standard AVR ISP header for reprogramming the MCU in case of a bootloader issue. 
+The SP Mini has dual ATMEGA32U4 controllers linked with USB Type C. Each PCB half has a single reset button and a standard AVR ISP header.
 
 * Keyboard Maintainer: [jrfhoutx](https://github.com/jrfhoutx)
 * Hardware Supported: SP Mini FE (Founder's Edition), SP Mini LC (Low Cal)
-* Hardware Availability: Viktus Designs, LLC. (https://viktus.design/)
+* Hardware Availability: Viktus Designs, LLC.
 
 Make example for this keyboard (after setting up your build environment):
 

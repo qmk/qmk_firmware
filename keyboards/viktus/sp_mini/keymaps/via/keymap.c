@@ -23,19 +23,19 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_all(
-    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
-    _______,   KC_ESC,    KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      KC_DEL,    KC_BSPC,   _______,
-    _______,   KC_TAB,    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      KC_H,      KC_J,      KC_K,      KC_L,      KC_QUOT,              KC_ENT,    _______,
+    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   KC_F24,    _______,   _______,
+    MO(1),     KC_ESC,    KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      KC_DEL,    KC_BSPC,   _______,
+    MO(2),     KC_TAB,    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      KC_H,      KC_J,      KC_K,      KC_L,      KC_QUOT,              KC_ENT,    _______,
     _______,   KC_LSFT,   KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,                 KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_RSFT,   KC_UP,
     _______,   KC_LCTL,   KC_LALT,   KC_LGUI,   KC_FN1,    SPFN1,                                      BSFN2,     KC_RALT,   KC_FN2,    KC_LEFT,   KC_DOWN,   KC_RGHT
   ),
 
   [_FN1] = LAYOUT_all(
-    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
+    _______,   RESET,     _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
     _______,   KC_GRV,    KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      KC_MINS,   KC_EQL,    _______,
-    _______,   RESET,     RGB_HUI,   RGB_SAI,   RGB_VAI,   KC_VOLU,   KC_LBRC,   KC_RBRC,   KC_4,      KC_5,      KC_6,      KC_SCLN,              _______,   _______,
+    _______,   RGB_TOG,   RGB_HUI,   RGB_SAI,   RGB_VAI,   KC_VOLU,   KC_LBRC,   KC_RBRC,   KC_4,      KC_5,      KC_6,      KC_SCLN,              _______,   _______,
     _______,   RGB_MOD,   RGB_HUD,   RGB_SAD,   RGB_VAD,   KC_VOLD,   KC_LCBR,              KC_RCBR,   KC_1,      KC_2,      KC_3,      _______,   KC_UP,
-    _______,   RGB_TOG,   _______,   _______,   _______,   _______,                                    KC_DEL,    KC_0,      _______,   KC_LEFT,   KC_DOWN,   KC_RGHT
+    _______,   _______,   _______,   _______,   _______,   _______,                                    KC_DEL,    KC_0,      _______,   KC_LEFT,   KC_DOWN,   KC_RGHT
   ),
 
   [_FN2] = LAYOUT_all(
@@ -47,18 +47,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN3] = LAYOUT_all(
-    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
-    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
-    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,              _______,   _______,
-    _______,   _______,   _______,   _______,   _______,   _______,   _______,              _______,   _______,   _______,   _______,   _______,   _______,
-    _______,   _______,   _______,   _______,   _______,   _______,                                    _______,   _______,   _______,   _______,   _______,   _______
+    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   KC_F24,    _______,   _______,
+    MO(1),     KC_ESC,    KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      KC_DEL,    KC_BSPC,   _______,
+    MO(2),     KC_TAB,    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      KC_H,      KC_J,      KC_K,      KC_L,      KC_QUOT,              KC_ENT,    _______,
+    _______,   KC_LSFT,   KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,                 KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_RSFT,   KC_UP,
+    _______,   KC_LCTL,   KC_LALT,   KC_LGUI,   KC_FN1,    SPFN1,                                      BSFN2,     KC_RALT,   KC_FN2,    KC_LEFT,   KC_DOWN,   KC_RGHT
   )
+
 };
 
 void keyboard_pre_init_user(void) {
-    setPinOutput(F5);  // initialize F5 for left LED
-    setPinOutput(F6);  // initialize F6 for center LED
-    setPinOutput(F7);  // initialize F7 for right LED
+    setPinOutput(F5);  // initialize F5 for LED
+    setPinOutput(F6);  // initialize F6 for LED
+    setPinOutput(F7);  // initialize F7 for LED
 
 }
 
@@ -74,11 +75,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             writePinLow(F5);
             writePinLow(F7);
             break;
-//        case _XXXX: // replace 'XXXX' with the layer or function name
-//            writePinHigh(F7);
-//            writePinLow(F5);
-//            writePinLow(F6);
-//            break;
+        case _FN3:  // replace 'XXXX' with the layer or function name
+            writePinHigh(F7);
+            writePinLow(F5);
+            writePinLow(F6);
+            break;
+        case KC_F24:
+            writePinHigh(F7);
+            writePinHigh(F5);
+            writePinHigh(F6);
+            break;
         default:
             writePinLow(F5);
             writePinLow(F6);
@@ -88,18 +94,40 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-// void encoder_update_user(uint8_t index, bool clockwise) {
-//     if (index == 0) { /* First encoder */
-//         if (clockwise) {
-//             tap_code(KC_PGDN);
-//         } else {
-//             tap_code(KC_PGUP);
-//         }
-//     } else if (index == 1) { /* Second encoder */
-//         if (clockwise) {
-//         tap_code(KC_VOLU);
-//     } else {
-//         tap_code(KC_VOLD);
-//         }
-//     }
-// }
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+        tap_code(KC_VOLU);
+    } else {
+        tap_code(KC_VOLD);
+        }
+    }
+}
+
+bool spongebob_mode = false;
+bool spongebob_case = false;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (spongebob_mode) {
+    switch(keycode) {
+      case KC_A...KC_Z:
+        if (record->event.pressed) {
+          (spongebob_case ^= 1) == 0 ? tap_code16(S(keycode)) : tap_code(keycode);
+          return false; break;
+        }
+    }
+  }
+  switch(keycode) {
+    case KC_F24:
+      if (record->event.pressed) {
+        spongebob_mode ^= 1;
+      }
+      return false; break;
+  }
+  return true;
+}
