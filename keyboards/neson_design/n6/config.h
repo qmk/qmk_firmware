@@ -24,7 +24,7 @@
 #define VENDOR_ID       0x694E  //'iN'
 #define PRODUCT_ID      0x4E36  //'N6'
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    iNETT Studio
+#define MANUFACTURER    Neson Design
 #define PRODUCT         N6 Keyboard
 
 /* key matrix size */
