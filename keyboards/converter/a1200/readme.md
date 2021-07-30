@@ -21,9 +21,9 @@ Pins:        B6       5V
 
 Please note that some versions of Model M have LED connected with a ribbon cable, and not with separate wires.  
 
-Keyboard Maintainer: [8bits4ever](https://github.com/8bits4ever)  
-Hardware Supported: Teensy 2.0++ board by PJRC  
-Hardware Availability: https://www.pjrc.com/store/teensypp.html 
+* Keyboard Maintainer: [8bits4ever](https://github.com/8bits4ever)
+* Hardware Supported: Teensy 2.0++ board by PJRC
+* Hardware Availability: https://www.pjrc.com/store/teensypp.html
 
 For first time flashing use the reset button on the Teensy board enter in bootloader mode. Once the board is flashed you can use "HELP"+"R" on the Amiga keyboard for the same purpose.  
 
