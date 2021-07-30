@@ -7,7 +7,7 @@ The ph100 is a 100-key modular keyboard from Phrygian Design.
 * Keyboard Maintainer: https://github.com/phrygiandesign
 * Hardware Supported: ph100 PCB
 * Hardware Availability: https://phrygiandesign.com/products/ph100-mechanical-keyboard
-Keyboard support: contact@phrygiandesign.com
+* Keyboard support: contact@phrygiandesign.com
 
 Make example for this keyboard:
 
@@ -18,4 +18,3 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 #### Note: Booting into the STM32 USB Bootloader
 The STM32F042 range of microcontrollers have problems with entering into the USB bootloader with QMK's bootloader key sequence.  
 To boot into the bootloader, apply power to the keyboard while holding down "SW0" on the bottom of PCB near the USB port.
-
