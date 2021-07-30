@@ -29,6 +29,6 @@ For first time flashing use the reset button on the Teensy board enter in bootlo
 
 Make example for this keyboard (after setting up your build environment):
 
-    make converter/A1200:8bits4ever
+    make converter/a1200:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
