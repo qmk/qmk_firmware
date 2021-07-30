@@ -25,5 +25,5 @@ bool encoder_update_kb(uint8_t index, bool clockwise){
             tap_code(KC_VOLU);
         }
     }
-    return;
+    return true;
 } 
