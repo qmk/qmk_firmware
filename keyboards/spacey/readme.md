@@ -2,7 +2,7 @@
 
 ![spacey](https://i.imgur.com/Dzon2hbh.jpeg)
 
-*A short description of the keyboard/project*
+Spacey, designed by Vanilla Keyboards is a 45/65% keyboard with a little personality. Hosting ortholinear alphas with traditional modifiers, diamond shaped arrows, rotary encoder, and a couple optional spacebars at the top of the board, it's a balance between functional and unique.
 
 * Keyboard Maintainer: [vanilla](https://github.com/vanillakeyboards)
 * Hardware Supported: Elite C, Spacey PCB plates and acrylic drop_in case
