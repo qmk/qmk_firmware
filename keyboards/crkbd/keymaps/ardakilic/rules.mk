@@ -7,5 +7,7 @@ WPM_ENABLE = yes
 
 # Size optimisations
 CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+EXTRAFLAGS+=-flto
 MOUSEKEY_ENABLE = no
 # Size optimisations END
