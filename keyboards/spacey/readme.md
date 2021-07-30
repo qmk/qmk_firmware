@@ -1,6 +1,6 @@
 # spacey
 
-![spacey](https://imgur.com/a/ljJw87d)
+![spacey](https://i.imgur.com/Dzon2hbh.jpeg)
 
 *A short description of the keyboard/project*
 
