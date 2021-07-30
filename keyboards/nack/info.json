@@ -4,8 +4,11 @@
     "maintainer": "farfalleflickan",
     "width": 13,
     "height": 4,
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_4x13"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_4x13": {
             "layout": [
                 {"label":"Tab", "x":0, "y":0},
                 {"label":"Q", "x":1, "y":0},
