@@ -30,14 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern i2c_status_t tca9555_status;
 #define I2C_TIMEOUT 1000
 
-// For a better understanding of the i2c protocol, this is a good read:
-// https://www.robot-electronics.co.uk/i2c-tutorial
-
 // I2C address:
-// See the datasheet, section 3.3.1 on addressing I2C devices and figure 3-6 for an
-// illustration
-// http://ww1.microchip.com/downloads/en/devicedoc/20001952c.pdf
-// All address pins of the tca9555 are connected to the ground on the ferris
+// All address pins of the tca9555 are connected to the ground
 // | 0  | 1  | 0  | 0  | A2 | A1 | A0 |
 // | 0  | 1  | 0  | 0  | 0  | 0  | 0  |
 #define I2C_ADDR 0b0100000
@@ -45,7 +39,6 @@ extern i2c_status_t tca9555_status;
 #define I2C_ADDR_READ ((I2C_ADDR << 1) | I2C_READ)
 
 // Register addresses
-// See https://github.com/adafruit/Adafruit-tca9555-Arduino-Library/blob/master/Adafruit_tca9555.h
 #define IODIRA 0x06  // i/o direction register
 #define IODIRB 0x07
 #define IREGP0 0x00  // GPIO pull-up resistor register
@@ -75,10 +68,10 @@ uint8_t init_tca9555(void) {
     if (tca9555_status) goto out;
     tca9555_status = i2c_write(IODIRA, I2C_TIMEOUT);
     if (tca9555_status) goto out;
-    // This means: write on pin 5 of port 0, read on rest
+    // This means: read all pins of port 0
     tca9555_status = i2c_write(0b11111111, I2C_TIMEOUT);
     if (tca9555_status) goto out;
-    // This means: we will write on pins 0 to 2 on port 1. read rest
+    // This means: we will write on pins 0 to 3 on port 1. read rest
     tca9555_status = i2c_write(0b11110000, I2C_TIMEOUT);
     if (tca9555_status) goto out;
 
@@ -137,7 +130,6 @@ static inline bool store_matrix_row(matrix_row_t current_matrix[], uint8_t index
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     if (tca9555_status) {  // if there was an error
         if (++tca9555_reset_loop == 0) {
-            // if (++tca9555_reset_loop >= 1300) {
             // since tca9555_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
             // this will be approx bit more frequent than once per second
             dprint("trying to reset tca9555\n");
@@ -216,17 +208,17 @@ static matrix_row_t read_cols(uint8_t row) {
             // We read all the pins on GPIOA.
             // The initial state was all ones and any depressed key at a given column for the currently selected row will have its bit flipped to zero.
             // The return value is a row as represented in the generic matrix code were the rightmost bits represent the lower columns and zeroes represent non-depressed keys while ones represent depressed keys.
-            // Since the pins connected to eact columns are sequential, and counting from zero up (col 5 -> GPIOA0, col 6 -> GPIOA1 and so on), the only transformation needed is a bitwise not to swap all zeroes and ones.
+            // the pins connected to eact columns are sequential, but in reverse order, and counting from zero down (col 5 -> GPIO04, col6  -> GPIO03 and so on).
             data |= ( port0 & 0x01 ) << 4; 
             data |= ( port0 & 0x02 ) << 2; 
             data |= ( port0 & 0x04 ); 
             data |= ( port0 & 0x08 ) >> 2; 
             data |= ( port0 & 0x10 ) >> 4; 
-            /* data            = ~((uint8_t)tca9555_status); */
+
             tca9555_status = I2C_STATUS_SUCCESS;
         out:
             i2c_stop();
-            // return reverse_bits(data, MATRIX_COLS_PER_SIDE);
+
             return data;
         }
     }
@@ -268,16 +260,13 @@ static void select_row(uint8_t row) {
                 default:                    break;
             }
 
+            // Select the desired row by writing a byte for the entire GPIOB bus where only the bit representing the row we want to select is a zero (write instruction) and every other bit is a one.
+            // Note that the row - MATRIX_ROWS_PER_SIDE reflects the fact that being on the right hand, the columns are numbered from MATRIX_ROWS_PER_SIDE to MATRIX_ROWS, but the pins we want to write to are indexed from zero up on the GPIOB bus.
             tca9555_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
             if (tca9555_status) goto out;
             tca9555_status = i2c_write(OREGP1, I2C_TIMEOUT);
             if (tca9555_status) goto out;
             tca9555_status = i2c_write(port1, I2C_TIMEOUT);
-            if (tca9555_status) goto out;
-            // Select the desired row by writing a byte for the entire GPIOB bus where only the bit representing the row we want to select is a zero (write instruction) and every other bit is a one.
-            // Note that the row - MATRIX_ROWS_PER_SIDE reflects the fact that being on the right hand, the columns are numbered from MATRIX_ROWS_PER_SIDE to MATRIX_ROWS, but the pins we want to write to are indexed from zero up on the GPIOB bus.
-            /* tca9555_status = i2c_write(0xFF & ~(1 << (row - MATRIX_ROWS_PER_SIDE)), I2C_TIMEOUT); */
-
             if (tca9555_status) goto out;
         out:
             i2c_stop();
