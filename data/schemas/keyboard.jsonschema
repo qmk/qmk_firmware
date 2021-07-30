@@ -29,8 +29,6 @@
             "enum": ["COL2ROW", "ROW2COL"]
         },
         "debounce": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-        "height": {"$ref": "qmk.definitions.v1#/key_unit"},
-        "width": {"$ref": "qmk.definitions.v1#/key_unit"},
         "community_layouts": {
             "type": "array",
             "items": {"$ref": "qmk.definitions.v1#/filename"}
