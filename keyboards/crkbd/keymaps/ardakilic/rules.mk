@@ -8,6 +8,8 @@ WPM_ENABLE = yes
 # Size optimisations
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
-EXTRAFLAGS+=-flto
+LTO_ENABLE = yes
+SPACE_CADET_ENABLE = no
+GRAVE_ESCAPE_ENABLE = no
 MOUSEKEY_ENABLE = no
 # Size optimisations END
