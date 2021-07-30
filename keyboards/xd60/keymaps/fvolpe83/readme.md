@@ -1,4 +1,4 @@
-# shura30's keymap for XIUDI's 60% XD60 PCB rev3
+# fvolpe83's keymap for XIUDI's 60% XD60 PCB rev3
 
 3 layers in ISO:
 
@@ -12,7 +12,7 @@
 
 ## Additional Notes
 
-RGB lighting enabled and goes to sleep with the host, each layer has its own color including capslock layer:
+RGB lighting enabled and goes to sleep with the host, each layer has its own color, caps layer is still there (can be enabled via software) but acts as FN
 
 - 0 = cyan/blue
 - caps = red
@@ -21,13 +21,13 @@ RGB lighting enabled and goes to sleep with the host, each layer has its own col
 
 tapping toggle has been defined to 3 in the separate config.h
 
-via has been enabled, waiting for official support on their end
+via has been enabled
 
 ## Build
 
 To build the keymap, simply run:
 
-    make xd60/rev3:shura30  # XD60 rev3
+    make xd60/rev3:fvolpe83  # XD60 rev3
 	
 	
 ![Keyboard Layout (Physical appearence)](https://i.imgur.com/CSRPjbX.png "physical layout")
