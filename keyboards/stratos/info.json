@@ -272,7 +272,7 @@
                 {"x":13.5, "y":4, "w":1.5}
             ]
         },
-        "LAYOUT_60_ansi_tsangan_hhkb": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
