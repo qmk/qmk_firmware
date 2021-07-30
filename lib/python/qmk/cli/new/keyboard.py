@@ -104,6 +104,7 @@ def new_keyboard(cli):
     cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}{keyboard_path}{{fg_reset}},')
     cli.log.info('or open the directory in your preferred text editor.')
 
+
 def find_user_name():
     if cli.args.username:
         return cli.args.username
@@ -111,6 +112,7 @@ def find_user_name():
         return cli.config.user.name
     else:
         return git_get_username()
+
 
 def copy_templates(keyboard_type, keyboard_path):
     """Copies the template files from quantum/template to the new keyboard directory.
