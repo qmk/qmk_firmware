@@ -18,6 +18,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "progmem.h"
 
 // Simple interface option.
 // If these aren't defined, just define them to make it compile
@@ -37,7 +38,7 @@ typedef struct is31_led {
     uint8_t b;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led g_is31_leds[DRIVER_LED_TOTAL];
+extern const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL];
 
 void IS31FL3736_init(uint8_t addr);
 void IS31FL3736_write_register(uint8_t addr, uint8_t reg, uint8_t data);
