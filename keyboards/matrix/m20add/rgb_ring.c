@@ -21,7 +21,7 @@
 #include <string.h>
 #include "quantum.h"
 #include "rgblight.h"
-#include "issi/is31fl3731.h"
+#include "drivers/led/issi/is31fl3731.h"
 #include "i2c_master.h"
 
 
