@@ -1,18 +1,18 @@
-# US ANSI Shifted Symbols
+# US ANSI シフト記号
 
-These keycodes correspond to characters that are "shifted" on a standard US ANSI keyboard. They do not have keycodes of their own but are simply shortcuts for `LSFT(kc)`, and as such send a Left Shift with the unshifted keycode, not the symbol itself.
+これらのキーコードは、スタンダードな US ANSI 配列のキーボードで「Shift キーと一緒に押した」文字列に一致します。これらのキーコードは、自身のキーコードを持たず、記号自体でもありません。`LSFT(kc)` のシンプルなショートカットで、Shift キー抜きのキーコードと左 Shift キーを送信するものです。
 
-## Caveats
+## 注意書き
 
-Unfortunately, these keycodes cannot be used in Mod-Taps or Layer-Taps, since any modifiers specified in the keycode are ignored.
+不運なことに、これらのキーコードは、モッドタップやレイヤータップの中で使えません。モディファイヤが、無視されるキーコードを規定しているからです。
 
-Additionally, you may run into issues when using Remote Desktop Connection on Windows. Because these codes send shift very fast, Remote Desktop may miss the codes.
+さらに、Windows のリモートデスクトップ接続中に課題に出くわすかもしれません。なぜならば、これらのコードは Shift キーを非常に速く送信するため、リモートデスクトップソフトがコードを見落とすかもしれないからです。
 
-To fix this, open Remote Desktop Connection, click on "Show Options", open the the "Local Resources" tab. In the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
+この問題を解決するには、リモートデスクトップ接続を開いて「オプションの表示」をクリックし、「ローカルリソース」タブを開きます。そのタブの中のキーボードセクションのドロップダウンリストを「このコンピュータ」に変更します。これで問題が解決され、文字列が正しく機能するようになります。
 
-## Keycodes
+## キーコード
 
-|Key                     |Aliases            |Description|
+|キー                    |エイリアス         |説明       |
 |------------------------|-------------------|-----------|
 |`KC_TILDE`              |`KC_TILD`          |`~`        |
 |`KC_EXCLAIM`            |`KC_EXLM`          |`!`        |
