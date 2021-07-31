@@ -18,6 +18,16 @@
 #include "i2c_master.h"
 #include "print.h"
 
+#ifndef TRACKBALL_ADDRESS
+#    define TRACKBALL_ADDRESS 0x0A
+#endif
+#ifndef TRACKBALL_INTERVAL_MS
+#    define TRACKBALL_INTERVAL_MS 8
+#endif
+#ifndef TRACKBALL_DEBOUNCE_ONCLICK
+#    define TRACKBALL_DEBOUNCE_ONCLICK 5
+#endif
+
 #define TRACKBALL_TIMEOUT 100
 #define TRACKBALL_REG_LED_RED 0x00
 #define TRACKBALL_REG_LED_GRN 0x01
@@ -27,6 +37,14 @@
 #define TRACKBALL_REG_RIGHT 0x05
 #define TRACKBALL_REG_UP 0x06
 #define TRACKBALL_REG_DOWN 0x07
+
+typedef struct pimoroni_data {
+    uint8_t left;
+    uint8_t right;
+    uint8_t up;
+    uint8_t down;
+    uint8_t click;
+} pimoroni_data;
 
 static pimoroni_data  current_pimoroni_data;
 static report_mouse_t mouse_report;
