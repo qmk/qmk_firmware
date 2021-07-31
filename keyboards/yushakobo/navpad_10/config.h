@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D2  // or D0, D1, D3, E6
 
 #define RGB_DI_PIN D3
-#ifdef RGB_ENABLE
+#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 9
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
