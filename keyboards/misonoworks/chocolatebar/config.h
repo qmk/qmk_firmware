@@ -49,11 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MK_3_SPEED
 #define TERMINAL_HELP
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 #define RGB_DI_PIN B1
 #ifdef RGB_DI_PIN
