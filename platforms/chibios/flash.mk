@@ -73,15 +73,15 @@ teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
 
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 ifneq ($(strip $(PROGRAM_CMD)),)
-	$(PROGRAM_CMD)
+	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(BOOTLOADER)),kiibohd)
-	$(call EXEC_DFU_UTIL)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
-	$(call EXEC_TEENSY)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)
 else ifeq ($(strip $(MCU_FAMILY)),MIMXRT1062)
-	$(call EXEC_TEENSY)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)
 else ifeq ($(strip $(MCU_FAMILY)),STM32)
-	$(call EXEC_DFU_UTIL)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif
