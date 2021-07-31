@@ -42,7 +42,7 @@ RGB_MATRIX_DRIVER = custom  # Enable RGB matrix effects.
 COMMON_VPATH += $(DRIVER_PATH)/issi
 
 # project specific files
-SRC +=  drivers/issi/is31fl3731.c \
+SRC +=  drivers/led/issi/is31fl3731.c \
         ws2812.c
 
 QUANTUM_LIB_SRC += i2c_master.c 

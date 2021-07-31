@@ -18,7 +18,7 @@
 #include <i2c_master.h>
 #include <led_tables.h>
 #include <rgb_matrix.h>
-#include "drivers/issi/is31fl3731.h"
+#include "drivers/led/issi/is31fl3731.h"
 #include "ws2812.h"
 #include "rev1_qmk.h"
 

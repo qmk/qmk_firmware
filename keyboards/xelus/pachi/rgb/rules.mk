@@ -29,7 +29,7 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = custom
 
 COMMON_VPATH += $(DRIVER_PATH)/issi
-SRC += drivers/issi/is31fl3741.c
+SRC += drivers/led/issi/is31fl3741.c
 
 LTO_ENABLE = yes
 OPT = 2
