@@ -3,6 +3,7 @@
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
 
+#pragma once
 // 15,  the default,  is too low for Kailh Coppers. I get lots of double presses.
 // (ba-dum tish)
 // #undef  DEBOUNCE
