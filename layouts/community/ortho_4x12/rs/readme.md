@@ -1,1 +1,0 @@
-See [rs readme](../../../../users/rs/readme.md).
