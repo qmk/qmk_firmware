@@ -1,6 +1,6 @@
 LAYOUTS_PATH := layouts
 
-define SEARCH_LAYOUTS_REPO
+define SEARCH_LAYOUTS
     LAYOUT_KEYMAP_PATH := $$(LAYOUTS_PATH)/$$(LAYOUT)/$$(KEYMAP)
     LAYOUT_KEYMAP_JSON := $$(LAYOUT_KEYMAP_PATH)/keymap.json
     LAYOUT_KEYMAP_C := $$(LAYOUT_KEYMAP_PATH)/keymap.c
@@ -14,10 +14,6 @@ define SEARCH_LAYOUTS_REPO
         KEYMAP_C := $$(LAYOUT_KEYMAP_C)
         KEYMAP_PATH := $$(LAYOUT_KEYMAP_PATH)
     endif
-endef
-
-define SEARCH_LAYOUTS
-    $$(eval $$(call SEARCH_LAYOUTS_REPO))
 endef
 
 ifneq ($(FORCE_LAYOUT),)
