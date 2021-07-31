@@ -55,7 +55,7 @@ static int16_t        h_offset  = 0;
 static int16_t        v_offset  = 0;
 static uint16_t       precision = 128;
 
-float trackball_get_precision(void) { return (float)(precision >> 7); }
+float trackball_get_precision(void) { return ((float)precision / 128); }
 void  trackball_set_precision(float floatprecision) { precision = (floatprecision * 128); }
 bool  trackball_is_scrolling(void) { return scrolling; }
 void  trackball_set_scrolling(bool scroll) { scrolling = scroll; }
