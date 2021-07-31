@@ -12,10 +12,6 @@ Genesis is a 5x4 ortholinear macro pad designed and produced by customMK.
 Make example for this keyboard (after setting up your build environment):
 
     make custommk/genesis:default
-    
-However, most likely you want the VIA compatible-version with:
-
-    make custommk/genesis/rev2:via  
 
 Flashing example for this keyboard:
 

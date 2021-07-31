@@ -8,11 +8,11 @@ Genesis Rev2 is the same as Genesis Rev1 firmware, except Rev2 allows encoder fu
 
 Make example for this keyboard (after setting up your build environment):
 
-    make custommk/genesis/rev2:via
+    make custommk/genesis/rev2:default
 
 Flashing example for this keyboard:
 
-    make custommk/genesis/rev2:via:flash
+    make custommk/genesis/rev2:default:flash
 
 Genesis Macro Pad has qmk-dfu bootloader preinstalled. To enter the bootloader, run the flashing command above, and then either plug in the USB connection while holding the top-left key, or alternatively, plug in the USB connection and then press the reset button on the PCB
 
