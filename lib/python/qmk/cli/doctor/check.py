@@ -159,6 +159,6 @@ def check_git_repo():
     This is a decent enough indicator that the qmk_firmware directory is a
     proper Git repository, rather than a .zip download from GitHub.
     """
-    dot_git_dir = QMK_FIRMWARE / '.git'
+    dot_git = QMK_FIRMWARE / '.git'
 
-    return CheckStatus.OK if dot_git_dir.is_dir() else CheckStatus.WARNING
+    return CheckStatus.OK if dot_git.exists() else CheckStatus.WARNING
