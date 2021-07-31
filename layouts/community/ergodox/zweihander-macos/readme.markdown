@@ -6,11 +6,9 @@ This README refers to two secondary layers: the Media Layer and the Symbol Layer
 
 This layout is tuned for people who…
 
-
 ## use macOS
 
 While this layout works fine in Windows, it’s not tuned for it. No sane person who primarily uses Windows would put this many Windows keys on a keyboard layout. That said, Print Screen, Scroll Lock, and Pause are available in their usual order on the Media Layer if you need them.
-
 
 ## mouse left-handed while doing other things with the right hand
 
@@ -28,7 +26,6 @@ I also have a few keys dedicated to window management:
 - ⌘⇧\` — Move Focus to Previous Window
 
 Cut, Copy, and Paste (⌘X, ⌘C, and ⌘V) are also available on the three bottommost right-thumb buttons if you hold ;.
-
 
 ## use lots of modifier keys in OS X menu-item shortcuts
 
@@ -48,23 +45,19 @@ Pressing and holding / will give you Option. This makes a number of keyboard sho
 - ⌥⇧↑ — Copy Line Up / Go To Previous Channel With Unread Messages
 - ⌥⇧↓ — Copy Line Down / Go To Next Channel With Unread Messages
 
-
 ## use Emacs-style shortcuts
 
 I press C-a, C-e, and C-k all the time. It’s difficult to press these key combinations with the Control key on the far left, so the leftmost thumb button on the right side is another Control key.
 
 Having trouble remembering which innermost thumb key is Alt and which is Control? The two’re like on the lower right of a normal keyboard — leftmost is Alt, rightmost is Control.
 
-
 ## use spreadsheets
 
 All the common spreadsheet operations (+-*/=) are on the right side of the Symbol Layer. Make-numbers-bigger (+, \*) operations on the right; make-numbers-smaller (-, /) on the left. There’s also a colon there for entering times and maybe IPv6 addresses.
 
-
 ## know the ↑↓←→ fn-key shortcuts for MacBooks
 
 Have you looked at the Page Up, Page Down, Home, and End keys on the EDSF keys and wondered why they’re arranged that way? They’re arranged the same way as the fn-key shortcuts on an Apple laptop’s arrow keys. On Apple keyboards with an\* fn key, if you press fn-↑, you’ll get Page Up; if you press fn-← you’ll get Home. Similarly, on Zweihander, ;-E is Page Up and ;-S is Home.
-
 
 ## use Siri
 
