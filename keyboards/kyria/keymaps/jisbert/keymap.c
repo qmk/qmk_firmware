@@ -171,16 +171,16 @@ static void render_status(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("Alfa\n"), false);
             break;
         case _LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
+            oled_write_P(PSTR("Movimiento\n"), false);
             break;
         case _RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
+            oled_write_P(PSTR("C. Especiales\n"), false);
             break;
         case _ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
+            oled_write_P(PSTR("Config.\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
