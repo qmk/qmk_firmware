@@ -22,7 +22,7 @@ false_values = ['0', 'off', 'no']
 def _valid_community_layout(layout):
     """Validate that a declared community list exists
     """
-    return (Path('layouts/default') / layout).exists()
+    return (Path('layouts') / layout).exists()
 
 
 def info_json(keyboard):
