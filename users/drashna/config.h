@@ -30,7 +30,7 @@
 #    ifdef WPM_ENABLE
 #        define SPLIT_WPM_ENABLE
 #    endif
-#    define SELECT_SOFT_SERIAL_SPEED 0
+#    define SELECT_SOFT_SERIAL_SPEED   0
 #    define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC
 #endif
 
@@ -167,8 +167,8 @@
 
 #ifdef QMK_KEYS_PER_SCAN
 #    undef QMK_KEYS_PER_SCAN
-#    define QMK_KEYS_PER_SCAN 2
-#endif  // !QMK_KEYS_PER_SCAN
+#endif
+#define QMK_KEYS_PER_SCAN 4
 
 // this makes it possible to do rolling combos (zx) with keys that
 // convert to other keys on hold (z becomes ctrl when you hold it,
