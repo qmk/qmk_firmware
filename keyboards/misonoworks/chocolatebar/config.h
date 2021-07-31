@@ -46,9 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 #define FORCE_NKRO
-#define MK_3_SPEED
-#define TERMINAL_HELP
-
 
 #define RGB_DI_PIN B1
 #ifdef RGB_DI_PIN
