@@ -1,4 +1,4 @@
-/* Copyright %YEAR% %YOUR_NAME%
+/* Copyright 2021 David Dansby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -221,17 +221,9 @@ static void render_lfc_logo(void) {
 
 void oled_task_user(void) {
   if (is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
     render_logo();
-//    oled_write_ln(read_layer_state(), false);
-//    oled_write_ln(read_keylog(), false);
-//    oled_write_ln(read_keylogs(), false);
-    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    //oled_write_ln(read_host_led_state(), false);
-    //oled_write_ln(read_timelog(), false);
   } else {
     render_lfc_logo();
-//    oled_write(read_logo(), false);
   }
 }
 #endif // OLED_DRIVER_ENABLE
@@ -239,9 +231,36 @@ void oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef OLED_DRIVER_ENABLE
-//    set_keylog(keycode, record);
 #endif
-    // set_timelog();
   }
   return true;
 }
+
+#include <stdio.h>
+#include "lily58.h"
+
+#define L_BASE 0
+#define L_SUPER (1 << 1)
+#define L_RAISE (1 << 2)
+
+char layer_state_str[24];
+
+const char *read_layer_state(void) {
+  switch (layer_state)
+  {
+  case L_BASE:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Default");
+    break;
+  case L_RAISE:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
+    break;
+  case L_SUPER:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Super");
+    break;
+  default:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+  }
+
+  return layer_state_str;
+}
+
