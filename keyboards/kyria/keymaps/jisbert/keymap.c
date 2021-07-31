@@ -203,40 +203,29 @@ void oled_task_user(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;
-
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
-        case _RAISE:
+        case _LOWER:
             if (clockwise) {
-                tap_code16(C(KC_RGHT));
-            } else {
                 tap_code16(C(KC_LEFT));
+            } else {
+                tap_code16(C(KC_RGHT));
+            }
+            break;
+        case _ADJUST:
+            if (clockwise) {
+                tap_code16(KC_VOLU);
+            } else {
+                tap_code16(KC_VOLD);
             }
             break;
         default:
             if (clockwise) {
-                if (!is_alt_tab_active) {
-                    is_alt_tab_active = true;
-                    register_code(KC_LALT);
-                }
-                alt_tab_timer = timer_read();
-                tap_code16(KC_TAB);
-            } else {
-                alt_tab_timer = timer_read();
                 tap_code16(S(KC_TAB));
+            } else {
+                tap_code16(KC_TAB);
             }
     }
     return true;
-}
-
-void matrix_scan_user(void) {
-    if (is_alt_tab_active) {
-        if (timer_elapsed(alt_tab_timer) > 1250) {
-            unregister_code(KC_LALT);
-            is_alt_tab_active = false;
-        }
-    }
 }
 #endif
