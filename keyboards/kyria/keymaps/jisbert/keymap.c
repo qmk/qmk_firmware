@@ -34,9 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |  ESC   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Ç     |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  º  ª  |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  |   Ñ  |  ?  !  |
+ * |  ¿  ¡  |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  |   Ñ  |  ?  !  |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |  ¿  ¡  |   Z  |   X  |   C  |   V  |   B  |SH/Del| Alt  |  | Tab  |LShift|   N  |   M  | ,  ; | . :  | -  _ |  ´  ¨  |
+ * |  º  ª  |   Z  |   X  |   C  |   V  |   B  |SH/Del| Alt  |  | Tab  |LShift|   N  |   M  | ,  ; | . :  | -  _ |  ´  ¨  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | GUI  | @  € | Raise| Bksp | Ctrl |  | Enter| Space| Lower| AltGr|  ≡   |
  *                        `----------------------------------'  `----------------------------------'
@@ -51,19 +51,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Lower Layer: navigation
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |     |     |  M1   |  M2   |      |                              |      | Home | C+Hom|  End | C+End|        |
- * |--------+-----+-----+-------+-------+------|                              |------+------+------+------+------+--------|
- * |        |MLeft| MUp | MRight| MDown |      |                              |      | Left |  Up  | Right| Down |        |
+ * |        |      |  M1  |  MUp |  M2  |      |                              |      | PagUp|  Up  | C+Hom| C+Hom|        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      | MLeft| MDown|MRight|      |                              | Home | Left | Down | Right|  End |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      |      | PagUp| PagUp| PDown| PDown|        |
+ * |        |      |      |      |      |      |      |      |  |      |      | PDown| PDown| PDown| C+End| C+End|        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |Ctrl+C|
  *                        `----------------------------------'  `----------------------------------'
  */
     [_LOWER] = LAYOUT(
-      _______, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX,                                     XXXXXXX,    KC_HOME, C(KC_HOME),   KC_END,  C(KC_END), XXXXXXX,
-      XXXXXXX, KC_MS_L, KC_MS_U, KC_MS_R, KC_MS_D, XXXXXXX,                                     C(KC_LEFT), KC_LEFT,      KC_UP,   KC_RGHT,   KC_DOWN, C(KC_RGHT),
-      XXXXXXX, _______, _______, _______, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX,    KC_PGUP,    KC_PGUP,   KC_PGDN,   KC_PGDN, XXXXXXX,
+      _______, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,                                     _______, KC_PGUP, KC_UP,   C(KC_HOME), C(KC_HOME), XXXXXXX,
+      XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,                                     KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,    KC_END,     XXXXXXX,
+      XXXXXXX, _______, _______, _______, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, KC_PGDN, KC_PGDN, C(KC_END),  C(KC_END),  XXXXXXX,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, C(KC_C)
     ),
 /*
