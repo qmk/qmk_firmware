@@ -41,20 +41,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,    KC_TRNS,     KC_TRNS,                                       KC_TRNS,                                 KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS
   ),
 
-[2] = LAYOUT_60_ansi(
+  [2] = LAYOUT_60_ansi(
     BL_TOGG, BL_STEP,   BL_ON,   BL_OFF,   BL_INC,   BL_DEC,   BL_BRTG,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  BL_DEC,  BL_INC,   KC_TRNS, 
     KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, 
     KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, 
     KC_TRNS,  KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS
-  )
+  ),
 
-// [3] = LAYOUT_60_ansi(
-//     KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, 
-//     KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-//     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, 
-//     KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, 
-//     KC_TRNS,  KC_TRNS,  KC_TRNS,                            KC_TRNS,                            KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS
-//   )
+ [3] = LAYOUT_60_ansi(
+     KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, 
+     KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, 
+     KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, 
+     KC_TRNS,  KC_TRNS,  KC_TRNS,                            KC_TRNS,                            KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS
+   )
 
 };

@@ -18,11 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID	0x4254
+#define PRODUCT_ID	0x7070
 #define DEVICE_VER      0x0001
 #define MANUFACTURER bt66tech
-#define PRODUCT bt66tech 60% 
+#define PRODUCT bt66tech 60%
 
 /* key matrix size */
 #define MATRIX_ROWS 5
