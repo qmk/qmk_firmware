@@ -16,7 +16,7 @@
 
 #include "navpad_10.h"
 
-#ifdef RGB_ENABLE
+#ifdef RGB_DI_PIN
 #define LOCK_COLOR_1 HSV_TEAL
 
 const rgblight_segment_t PROGMEM navpad10_capslock[] = RGBLIGHT_LAYER_SEGMENTS(
