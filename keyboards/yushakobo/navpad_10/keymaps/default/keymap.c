@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] =LAYOUT (\
-  	RESET,     EEP_RST,   KC_NO,     LCTL(KC_S),\
+  	RESET,     EEP_RST,   KC_NO,     TO(2),\
   	KC_NO,     KC_NO,     KC_NO,     KC_NLCK,   KC_QUOT,   KC_PEQL,      KC_NO,\
   	KC_CAPS,   KC_NLCK,   KC_SLCK,   S(KC_9),   KC_UP,     S(KC_0),    S(KC_SPC),\
                                      KC_LEFT,   KC_NO,     KC_RGHT,    S(KC_SPC),\
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN2] =LAYOUT (\
-  	KC_NO,     KC_NO,     KC_NO,     KC_NO,\
+  	KC_NO,     KC_NO,     KC_NO,     TO(0),\
   	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,\
   	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,\
                                      KC_NO,     KC_NO,     KC_NO,     KC_NO,\
@@ -61,13 +61,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //}
 
+#ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
-    if (clockwise) {
-      tap_code16(KC_WH_U);
-    } else {
-      tap_code16(KC_WH_D);
+    if (IS_LAYER_ON(_BASE)){
+      if (clockwise) {
+        tap_code16(KC_WH_U);
+      } else {
+        tap_code16(KC_WH_D);
+      }
+    } else if (IS_LAYER_ON(_FN2)){
+      if (clockwise) {
+        tap_code16(KC_WH_U);
+      } else {
+        tap_code16(KC_WH_D);
+      }
     }
   }
   return false;
 }
+#endif

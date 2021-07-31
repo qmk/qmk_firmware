@@ -16,6 +16,7 @@
 
 #include "navpad_10.h"
 
+#ifdef RGB_ENABLE
 #define LOCK_COLOR_1 HSV_TEAL
 
 const rgblight_segment_t PROGMEM navpad10_capslock[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -49,3 +50,4 @@ void keyboard_post_init_kb(void) {
     // Enable the LED layers
     rgblight_layers = navpad_10_rgb_layers;
 }
+#endif
