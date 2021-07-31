@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MisonoWorks
 #define PRODUCT         Chocolate Bar
-#define DESCRIPTION     An 1800-styled Choc Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
