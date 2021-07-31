@@ -19,10 +19,6 @@
 #include "features/bongo_cat.h"
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
-#ifdef PROTOCOL_LUFA
-#    include "split_util.h"
-#endif
-
 /*
  *  qmk compile -kb lily58/rev1 -km muppetjones
  */
@@ -52,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_CAPS,                   __BLANK____________________________________, KC_BSPC,
     KC_CAPS, __COLEMAK_MOD_DH_L1________________________,                   __COLEMAK_MOD_DH_R1________________________, KC_BSLS,
     HY_ESC,  __COLEMAK_MOD_DH_L2_W_GACS_________________,                   __COLEMAK_MOD_DH_R2_W_SCAG_________________, KC_QUOT,
-    TD_LAYR, __COLEMAK_MOD_DH_L3________________________, KC_CAPS, KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
-                                KC_DEL,  HY_ESC, LOW_SPC, RAI_ENT, KC_BSPC, NAV_SPC, HY_ESC, KC_BSPC
+    TD_LAYR, __COLEMAK_MOD_DH_L3_W_SFTV_________________, KC_CAPS, KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
+                                KC_DEL,  HY_ESC, LOW_SPC, RAI_ENT, HY_BSPC, NAV_SPC, HY_ESC, KC_BSPC
 ),
 
 /* QWERTY
@@ -123,9 +119,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE] = LAYOUT_wrapper(
     _______, __BLANK____________________________________,                   __BLANK____________________________________, _______,
-    _______, XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX,                   __NAV_R1___________________________________, _______,
-    _______, KC_LGUI, KC_LALT, HR_LBRC, HR_RBRC, KC_MINS,                   __NAV_R2___________________________________, _______,
-    _______, XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, KC_EQL,  _______, _______, __NAV_R3___________________________________, _______,
+    _______, __SYMBOLS_L1_______________________________,                   __NAV_R1___________________________________, _______,
+    _______, __SYMBOLS_L2_______________________________,                   __NAV_R2___________________________________, _______,
+    _______, __SYMBOLS_L3_______________________________, _______, _______, __NAV_R3___________________________________, _______,
                                _______, _______, _______, _______, _______, _______, _______, _______
 ),
 [_NAV] = LAYOUT_wrapper(
@@ -151,10 +147,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_ADJUST] = LAYOUT_wrapper(
-    _______, __BLANK____________________________________,                   __BLANK____________________________________, _______,
-    RESET,   _______, _______, _______, _______, _______,                   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
-    _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,
-    _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______, _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
+    _______, __BLANK____________________________________,                   _______, CLMK_DH, QWERTY,  _______, _______, _______,
+    RESET,   __ADJUST_L1________________________________,                   __MEDIA_R1_________________________________, _______,
+    _______, __ADJUST_L2________________________________,                   __MEDIA_R2_________________________________, _______,
+    _______, __ADJUST_L3________________________________, _______, _______, __MEDIA_R3_________________________________, _______,
                                _______, _______, _______, _______, _______, _______, _______, _______
 )
 
@@ -178,32 +174,35 @@ const char *read_keylogs(void);
 char layer_state_str[24];
 
 const char *read_layer_state_user(void) {
+    // NOTE;
     switch (get_highest_layer(layer_state)) {
         case _CLMK_DH:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Default");
+            return "Layer: Colemak";
             break;
         case _QWERTY:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Qwerty");
+            return "Layer: QWERTY ";
             break;
         case _MOUSE:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Mouse");
+            return "Layer: Mouse  ";
             break;
         case _LOWER:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower");
+            return "Layer: Lower  ";
             break;
         case _RAISE:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
+            return "Layer: Raise  ";
             break;
         case _NAV:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Nav");
+            return "Layer: Nav    ";
             break;
         case _ADJUST:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
+            return "Layer: Adjust ";
             break;
         default:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+            break;
     }
 
+    char *layer_state_str = "Layer: Und-  ";
+    layer_state_str[10]   = '0' + layer_state % 10;
     return layer_state_str;
 }
 

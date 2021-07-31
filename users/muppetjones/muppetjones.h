@@ -21,8 +21,16 @@
 #include "wrappers.h"
 #include "features/casemodes.h"
 
+#ifdef COMBO_ENABLE
+#    include "features/combos.h"
+#endif
+
 #ifdef ENCODER_ENABLE
 #    include "features/etchamouse.h"
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+#    include "features/rgblayers.h"
 #endif
 
 #ifdef TAP_DANCE_ENABLE

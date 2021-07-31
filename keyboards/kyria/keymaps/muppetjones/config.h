@@ -20,16 +20,6 @@
 #    define OLED_DISPLAY_128X64
 #endif
 
-#ifdef RGBLIGHT_ENABLE
-// #    define RGBLIGHT_ANIMATIONS
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 16
-#    define RGBLIGHT_VAL_STEP 16
-#    define RGBLIGHT_LIMIT_VAL 150
-#    define RGBLIGHT_SLEEP
-// #    define RGBLIGHT_LAYERS
-#endif
-
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK
@@ -66,3 +56,5 @@
 
 // Allows media codes to properly register in macros and rotary encoder code
 #define TAP_CODE_DELAY 10
+
+#define COMBO_COUNT 1

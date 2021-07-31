@@ -12,40 +12,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-# Description
-
-Use encoders to control mouse movement. Movement speed is determined by
-how quickly and how many times you've "clicked" the encoder. Turning both
-encoders together will yield diagonal movement.
-
-Several of the macros defined in quantum/mousekey.h are reused here.
-However, the mouse movement is actually performed using the pointing_device
-features instead.
-
-# Usage
-
-- Add the following to your rules.mk
-
-        ENCODER_ENABLE = yes       # Enables the use of one or more encoders
-        POINTING_DEVICE_ENABLE = yes
-
-- Add the following block to your keymap.c
-
-        #ifdef ENCODER_ENABLE
-        void encoder_update_user(uint8_t index, bool clockwise) {
-        #    ifdef POINTING_DEVICE_ENABLE
-            encoder_update_mouse(index, clockwise);
-        #    endif
-            return;
-        #endif
-
-# Description
-
-- The faster you turn, the faster the mouse moves.
-- The more turns for a given axis, the greater the movement on that axis.
-
-*/
+ */
 
 #include QMK_KEYBOARD_H
 #include "etchamouse.h"

@@ -17,7 +17,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # FEATURES
 
-- [Etch-a-sketch Encoders](readme/etchasketchencoders.md)
+- [Etch-a-sketch Encoders](readme/etchamouse.md)
 - [RGB Layers](readme/rgblayers.md)
 - [Tap Dance Layers](readme/dancelayers.md)
 - [Tap Mods](readme/tapmods.md)

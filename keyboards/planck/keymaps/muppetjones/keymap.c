@@ -21,7 +21,6 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 #include "muppetjones.h"
-#include "tapmods.h"
 
 #define LAYOUT_planck_wrapper(...) LAYOUT_planck_grid(__VA_ARGS__)
 
@@ -44,16 +43,6 @@ enum planck_keycodes {
     EXT_PLV,
 };
 
-#define TM_VSFT LSFT_T(KC_V)
-
-// GACS (Lower)
-#define HR_LBRC LCTL_T(KC_LBRC)
-#define HR_RBRC LSFT_T(KC_RBRC)
-
-// Left-hand home row mods (lower)---
-// #define HOME_UND LCTL_T(KC_UNDS)  // NOTE: Mod-tap restricted to basic keycodes
-#define HOME_MIN LSFT_T(KC_MINS)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
 
@@ -69,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_CLMK_DH] = LAYOUT_planck_wrapper(
-    __COLEMAK_MOD_DH_L1________________________, KC_DEL,  KC_BSPC, __COLEMAK_MOD_DH_R1________________________,
+    __COLEMAK_MOD_DH_L1________________________, KC_DEL,  KC_BSPC, __COLEMAK_MOD_DH_R1_W_QUOT_________________,
     __COLEMAK_MOD_DH_L2_W_GACS_________________, CAPSWRD, KC_QUOT, __COLEMAK_MOD_DH_R2_W_SCAG_________________,
-    __COLEMAK_MOD_DH_L3________________________, KC_ENT,  KC_TAB,  __COLEMAK_MOD_DH_R3________________________,
+    __COLEMAK_MOD_DH_L3_W_SFTV_________________, KC_ENT,  KC_TAB,  __COLEMAK_MOD_DH_R3________________________,
     TD_LAYR,  XXXXXXX, XXXXXXX, HY_ESC, LOW_ENT, KC_BSPC, KC_BSPC, RAI_SPC, HY_ESC,  KC_BSPC, XXXXXXX, XXXXXXX
 ),
 
@@ -134,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * 21.03.28: Completely revamped to contain 10-key numpad and symbols.
  */
 [_LOWER] = LAYOUT_planck_wrapper(
-    XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KC_TILD, _______, _______, __NUMPAD_R1________________________________,
+    KC_TILD, KC_GRV,  KC_LPRN, KC_RPRN, KC_TILD, _______, _______, __NUMPAD_R1________________________________,
     KC_LGUI, KC_LALT, HR_LBRC, HR_RBRC, KC_GRV,  _______, _______, __NUMPAD_R2________________________________,
     XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, KC_LSFT, _______, _______, __NUMPAD_R3________________________________,
     _______, _______, _______, _______, _______, _______, _______, __NUMPAD_R4________________________________
@@ -201,10 +190,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_wrapper(
-    __ADJUST_L1________________________________,   AU_ON,  AU_OFF, __ADJUST_R1________________________________,
-    __ADJUST_L2________________________________,  MUV_DE,  MUV_IN, XXXXXXX, CLMK_DH, QWERTY,   PLOVER, XXXXXXX,
-    __ADJUST_L3________________________________,   MI_ON,  MI_OFF, __ADJUST_R3________________________________,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  MU_MOD,   MU_ON,  MU_OFF, __BLANK_NOOP_______________________________
+    __ADJUST_L1________________________________, MUV_IN,  PLOVER,  __MEDIA_R1_________________________________,
+    __ADJUST_L2________________________________, MUV_DE,  CLMK_DH, __MEDIA_R2_________________________________,
+    __ADJUST_L3________________________________, MU_MOD,  QWERTY,  __MEDIA_R3_________________________________,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 )
 
 /*
@@ -233,30 +222,6 @@ float plover_song[][2]    = SONG(PLOVER_SOUND);
 float plover_gb_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-/* Setup layer lighting
-#define HSV_WHITE 0, 0, 255
-#define HSV_RED 0, 255, 255
-#define HSV_CORAL 11, 176, 255
-#define HSV_ORANGE 28, 255, 255
-#define HSV_GOLDENROD 30, 218, 218
-#define HSV_GOLD 36, 255, 255
-#define HSV_YELLOW 43, 255, 255
-#define HSV_CHARTREUSE 64, 255, 255
-#define HSV_GREEN 85, 255, 255
-#define HSV_SPRINGGREEN 106, 255, 255
-#define HSV_TURQUOISE 123, 90, 112
-#define HSV_TEAL 128, 255, 128
-#define HSV_CYAN 128, 255, 255
-#define HSV_AZURE 132, 102, 255
-#define HSV_BLUE 170, 255, 255
-#define HSV_PURPLE 191, 255, 255
-#define HSV_MAGENTA 213, 255, 255
-#define HSV_PINK 234, 128, 255
-#define HSV_BLACK 0, 0, 0
-#define HSV_OFF HSV_BLACK
- *
- */
-
 #define LIGHT_GOLDEN 30, 255, 100
 #define LIGHT_MAGENTA 213, 255, 100
 #define LIGHT_AZURE 148, 255, 100
@@ -275,12 +240,9 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // rgblight_set_layer_state(0, layer_state_cmp(state, _CLMK_DH));
-    // rgblight_set_layer_state(1, layer_state_cmp(state, _NUMPD));
     rgblight_set_layer_state(1, layer_state_cmp(state, _LOWER));
     rgblight_set_layer_state(2, layer_state_cmp(state, _RAISE));
     return state;
-    // return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {

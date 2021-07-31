@@ -44,3 +44,5 @@
 // also requires EXTRAFLAGS in config.h
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+
+#define COMBO_COUNT 3

@@ -25,6 +25,7 @@
 /* Misc */
 
 #define HY_ESC HYPR_T(KC_ESC)
+#define HY_BSPC HYPR_T(KC_BSPC)
 
 /* Tap Mod Layers */
 
@@ -60,3 +61,14 @@ NOTE: Uses GACS.
 #define HR_4 RSFT_T(KC_4)
 #define HR_5 RCTL_T(KC_5)
 #define HR_6 LALT_T(KC_6)
+
+// Layout-specific mods
+#define TM_VSFT LSFT_T(KC_V)  // For Using V in layer combos (e.g., planck)
+
+// GACS (Lower)
+#define HR_LBRC LCTL_T(KC_LBRC)
+#define HR_RBRC LSFT_T(KC_RBRC)
+
+// Left-hand home row mods (lower)---
+// #define HOME_UND LCTL_T(KC_UNDS)  // NOTE: Mod-tap restricted to basic keycodes
+#define HOME_MIN LSFT_T(KC_MINS)

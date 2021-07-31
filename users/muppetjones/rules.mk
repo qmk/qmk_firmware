@@ -8,8 +8,16 @@ LTO_ENABLE = yes
 SRC += muppetjones.c
 SRC += features/casemodes.c
 
+ifdef COMBO_ENABLE
+	SRC += ./features/combos.c
+endif
+
 ifdef ENCODER_ENABLE
 	SRC += ./features/etchamouse.c
+endif
+
+ifdef RGBLIGHT_ENABLE
+	SRC += ./features/rgblayers.c
 endif
 
 ifdef TAP_DANCE_ENABLE

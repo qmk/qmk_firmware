@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "muppetjones.h"
 #include "rgblight.h"
+#include <stdio.h>
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
@@ -34,13 +35,6 @@
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_standard(uint8_t index, bool clockwise);
-#endif
-
-#ifdef RGBLIGHT_ENABLE
-static rgblight_config_t home_rgb;
-
-void set_rgb_home(void);
-void set_rgb_by_layer(layer_state_t);
 #endif
 
 /*
@@ -82,23 +76,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_BTN1, _______, _______, _______, _______, _______, _______, _______, _______, KC_BTN2
 ),
 /*
- * Lower Layer: Numpad
+ * Lower Layer: Numpad and some symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              | / ?  | 7 &  | 8 *  | 9 (  | - _  |        |
+ * |        |  ~   |  `   |  (   |  )   | xxxx |                              | / ?  | 7 &  | 8 *  | 9 (  | - _  |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | GUI  | ALT  | CTL  | SFT  |      |                              | *    | 4 $  | 5 %  | 6 ^  | , <  | +      |
+ * |        | LGUI | LALT |LCTL [|LSFT ]| _ -  |                              | *    | 4 $  | 5 %  | 6 ^  | , <  | +      |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      | 0 )  | 1 !  | 2 @  | 3 #  | = +  |        |
+ * |        | xxxx | xxxx |  {   |  }   | LSFT |      |      |  |      |      | 0 )  | 1 !  | 2 @  | 3 #  | = +  |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      | Lower|      |      |  |      | Nav  | 0    | .    |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_LOWER] = LAYOUT_wrapper(
-      _______, __BLANK____________________________________,                                     __NUMPAD_R1________________________________, _______,
-      _______, __BLANK_W_GACS_____________________________,                                     __NUMPAD_R2________________________________, KC_PLUS,
-      _______, __BLANK____________________________________, _______, _______, _______, _______, __NUMPAD_R3________________________________, _______,
+      _______, __SYMBOLS_L1_______________________________,                                     __NUMPAD_R1________________________________, _______,
+      _______, __SYMBOLS_L2_______________________________,                                     __NUMPAD_R2________________________________, KC_PLUS,
+      _______, __SYMBOLS_L3_______________________________, _______, _______, _______, _______, __NUMPAD_R3________________________________, _______,
                                  __BLANK____________________________________, _______, _______, KC_0,    KC_DOT,  _______
     ),
 /*
@@ -122,13 +116,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     // ),
     [_RAISE] = LAYOUT_wrapper(
-      _______, _______, _______, KC_GRV,  KC_GRV,  KC_BSLS,                                     _______, KC_LPRN, KC_RPRN, KC_ASTR, _______, _______,
-      _______, _______, _______, KC_UNDS, KC_MINS, KC_TILD,                                     KC_UNDS, KC_LBRC, KC_RBRC, KC_PERC, _______, _______,
-      _______, _______, _______, _______, KC_EQL,  _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, _______, _______, _______,
+      _______, XXXXXXX, XXXXXXX, KC_GRV,  KC_GRV,  KC_BSLS,                                     XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KC_ASTR, _______,
+      _______, XXXXXXX, XXXXXXX, KC_UNDS, KC_MINS, KC_TILD,                                     KC_UNDS, KC_MINS, KC_LBRC, KC_RBRC, KC_PERC, _______,
+      _______, XXXXXXX, XXXXXXX, KC_PLUS, KC_EQL,  KC_GRV,  _______, _______, _______, _______, KC_PLUS, KC_EQL,  KC_LCBR, KC_RCBR, XXXXXXX, _______,
                                  __BLANK____________________________________, __BLANK____________________________________
     ),
 /*
- * Navigation Layer
+ * Navigation Layer (w/ symbols on left)
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      |      |      |      |      |                              | PgUp | Home | Up   | End  |      | ScrlLk |
@@ -142,9 +136,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT_wrapper(
-      _______, __BLANK____________________________________,                                     __NAV_R1___________________________________, KC_SLCK,
-      _______, __BLANK_W_GACS_____________________________,                                     __NAV_R2___________________________________, KC_CAPS,
-      _______, __BLANK____________________________________, _______, _______, _______, _______, __NAV_R3___________________________________, _______,
+      _______, __SYMBOLS_L1_______________________________,                                     __NAV_R1___________________________________, KC_SLCK,
+      _______, __SYMBOLS_L2_______________________________,                                     __NAV_R2___________________________________, KC_CAPS,
+      _______, __SYMBOLS_L3_______________________________, _______, _______, _______, _______, __NAV_R3___________________________________, _______,
                                  __BLANK____________________________________, __BLANK____________________________________
     ),
     /*
@@ -207,34 +201,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     set_rgb_by_layer(state);
 #endif
     return state;
-    // return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
     // Regular user keycode case statement
     switch (keycode) {
         default:
             return true;
     }
     return true;
-}
-
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Regular user keycode case statement
-    switch (keycode) {
-#ifdef RGBLIGHT_ENABLE
-        case RGB_HUD:
-        case RGB_HUI:
-        case RGB_SAD:
-        case RGB_SAI:
-        case RGB_VAD:
-        case RGB_VAI:
-            set_rgb_home();
-            break;
-#endif
-        default:
-            break;
-    }
 }
 
 #ifdef ENCODER_ENABLE
@@ -257,51 +232,46 @@ bool encoder_update_standard(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         // Page up/Page down
+#    ifdef MOUSEKEY_ENABLE
+        if (clockwise) {
+            tap_code(KC_WH_D);
+        } else {
+            tap_code(KC_WH_U);
+        }
+#    else
         if (clockwise) {
             tap_code(KC_PGDN);
         } else {
             tap_code(KC_PGUP);
         }
+#    endif
     }
     return true;
 }
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-
-void set_rgb_home(void) {
-    home_rgb.raw = eeconfig_read_rgblight();
-    // these get the current -- not eeprom
-    // home_rgb.hue = rgblight_get_hue();
-    // home_rgb.sat = rgblight_get_sat();
-    // home_rgb.val = rgblight_get_val();
-}
-
-void set_rgb_by_layer(layer_state_t state) {
-    if (!rgblight_is_enabled()) {
-        return;  // lighting not enabled
-    }
-
-    uint8_t offset = 0;
+void set_layer_hsv(layer_state_t state, HSV* layer_color) {
+    int32_t h = layer_color->h, s = layer_color->s, v = layer_color->v;
     switch (get_highest_layer(state)) {
         case _RAISE:
-            offset = 2 * RGBLIGHT_HUE_STEP;
+            h += 2 * RGBLIGHT_HUE_STEP;
             break;
         case _LOWER:
-            offset = -2 * RGBLIGHT_HUE_STEP;
+            h += -2 * RGBLIGHT_HUE_STEP;
             break;
         case _NAV:
-            offset = 1 * RGBLIGHT_HUE_STEP;
+            h += 1 * RGBLIGHT_HUE_STEP;
             break;
         case _MOUSE:
-            offset = -10 * RGBLIGHT_HUE_STEP;
+            h += -7 * RGBLIGHT_HUE_STEP;
             break;
-        // case _ADJUST:  // layer color not recommended on layer w/ rgb keys
-        //     offset = -96;
-        //     break;
-        default:  //  for any other layers, or the default layer
+        default:
             break;
     }
-    rgblight_sethsv_noeeprom((home_rgb.hue + offset) % 255, home_rgb.sat, home_rgb.val);
+    layer_color->h = h % 255;
+    layer_color->s = s;
+    layer_color->v = v % 255;
+    return;
 }
 #endif

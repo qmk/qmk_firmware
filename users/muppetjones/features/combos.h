@@ -15,8 +15,3 @@
  */
 
 #pragma once
-#ifdef RGBLIGHT_ENABLE
-
-void set_rgb_by_layer(layer_state_t);
-void set_rgb_home(void);
-#endif

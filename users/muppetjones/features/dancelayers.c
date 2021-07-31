@@ -20,11 +20,6 @@
 #    include "muppetjones.h"
 #    include "dancelayers.h"
 
-// typedef struct {
-//     bool       is_press_action;
-//     td_state_t state;
-// } td_tap_t;
-
 // Initialize tap structure associated with example tap dance key
 static td_tap_t lyr_tap_state = {.is_press_action = true, .state = TD_NONE};
 

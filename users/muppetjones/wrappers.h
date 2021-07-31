@@ -49,9 +49,10 @@
 #define __BLANK_W_SCAG_____________________________ _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI
 
 /* Adjust */
+// NOTE: The "BACKLIT" keycode is planck specific
 #define __ADJUST_L1________________________________ RESET,   DEBUG,   XXXXXXX, TERM_ON, TERM_OFF
 #define __ADJUST_L2________________________________ RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD
-#define __ADJUST_L3________________________________ BACKLIT, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX
+#define __ADJUST_L3________________________________ XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX
 
 #define __ADJUST_R1________________________________ XXXXXXX, AG_NORM, AG_SWAP, XXXXXXX, XXXXXXX
 #define __ADJUST_R2________________________________ XXXXXXX, CLMK_DH, QWERTY,  XXXXXXX, XXXXXXX
@@ -61,10 +62,56 @@
 #define __COLEMAK_MOD_DH_L1________________________ KC_Q,    KC_W,    KC_F,     KC_P,   KC_B
 #define __COLEMAK_MOD_DH_L2_W_GACS_________________ HR_A,    HR_R,    HR_S,     HR_T,   KC_G
 #define __COLEMAK_MOD_DH_L3________________________ KC_Z,    KC_X,    KC_C,     KC_D,   KC_V
+#define __COLEMAK_MOD_DH_L3_W_SFTV_________________ KC_Z,    KC_X,    KC_C,     KC_D,   TM_VSFT
 
+#define __COLEMAK_MOD_DH_R1_W_QUOT_________________ KC_J,    KC_L,    KC_U,     KC_Y,   KC_QUOT
 #define __COLEMAK_MOD_DH_R1________________________ KC_J,    KC_L,    KC_U,     KC_Y,   KC_SCLN
 #define __COLEMAK_MOD_DH_R2_W_SCAG_________________ KC_M,    HR_N,    HR_E,     HR_I,   HR_O
 #define __COLEMAK_MOD_DH_R3________________________ KC_K,    KC_H,    KC_COMM,  KC_DOT, KC_SLASH
+
+/* Guitar
+ * ,----------------------------------.
+ * | Pg Up| Next | Prev | Brm+ | Vol+ |
+ * |------+------+------+------+------|
+ * | Pg Dn| Play | Stop | Brm- | Vol- |
+ * |------+------+------+------+------|
+ * | xxxx | xxxx | xxxx | xxxx | xxxx |
+ * `----------------------------------'
+ */
+//      _______, _______, _______, _______, _______, _______
+// Not sure why, but this does not work
+// #ifdef MIDI_ADVANCED
+// #define __GUITAR_1E_L______________________________ MI_E_1,  MI_F_1,  MI_Fs_1, MI_G_1,  MI_Gs_1
+// #define __GUITAR_2A_L______________________________ MI_A_1,  MI_As_1, MI_B_1,  MI_C_2,  MI_Cs_2
+// #define __GUITAR_3D_L______________________________ MI_D_2,  MI_Ds_2, MI_E_2,  MI_F_2,  MI_Fs_2
+// #define __GUITAR_4G_L______________________________ MI_G_2,  MI_Gs_2, MI_A_2,  MI_As_2, MI_B_2
+// #define __GUITAR_5B_L______________________________ MI_B_2,  MI_C_3,  MI_Cs_3, MI_D_3,  MI_Ds_3
+// #define __GUITAR_6E_L______________________________ MI_E_3,  MI_F_3,  MI_Fs_3, MI_G_3,  MI_Gs_3
+//
+// #define __GUITAR_1E_R______________________________ MI_A_1,  MI_As_1, MI_B_1,  MI_C_2,  MI_Cs_2
+// #define __GUITAR_2A_R______________________________ MI_D_2,  MI_Ds_2, MI_E_2,  MI_F_2,  MI_Fs_2
+// #define __GUITAR_3D_R______________________________ MI_G_2,  MI_Gs_2, MI_A_2,  MI_As_2, MI_B_2
+// #define __GUITAR_4G_R______________________________ MI_C_3,  MI_Cs_3, MI_D_3,  MI_Ds_3, MI_E_3
+// #define __GUITAR_5B_R______________________________ MI_E_3,  MI_F_3,  MI_Fs_3, MI_G_3,  MI_Gs_3
+// #define __GUITAR_6E_R______________________________ MI_A_3,  MI_As_3, MI_B_3,  MI_C_4,  MI_Cs_4
+// #endif
+
+
+/* MEDIA
+ * ,----------------------------------.
+ * | Pg Up| Next | Prev | Brm+ | Vol+ |
+ * |------+------+------+------+------|
+ * | Pg Dn| Play | Stop | Brm- | Vol- |
+ * |------+------+------+------+------|
+ * | xxxx | xxxx | xxxx | xxxx | xxxx |
+ * `----------------------------------'
+ */
+// What it MUV_IN and MUV_DE (5C2A and B)?
+// https://github.com/qmk/qmk_firmware/blob/7e832e46de26989b81f2fbf58a0f391b2b0c1aaf/quantum/quantum_keycodes.h#L135
+#define __MEDIA_R1_________________________________ AU_ON,   MI_ON,   MU_ON,   KC_BRMU, KC_VOLU
+#define __MEDIA_R2_________________________________ AU_OFF,  MI_OFF,  MU_OFF,  KC_BRMD, KC_VOLD
+#define __MEDIA_R3_________________________________ KC_MPLY, KC_MSTP, KC_MNXT, KC_MPRV, KC_MUTE
+
 
 /* NAV
  * ,----------------------------------.
@@ -105,6 +152,19 @@
 #define __QWERTY_R1________________________________ KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define __QWERTY_R2________________________________ KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
 #define __QWERTY_R3________________________________ KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+
+/* SYMBOLS
+ * ,----------------------------------.
+ * |  ~   |  `   |  (   |  )   |      |
+ * |------+------+------+------+------|
+ * | LGUI | LALT |LCTL [|LSFT ]|  _ - |
+ * |------+------+------+------+------|
+ * | xxxx | xxxx |  {   |  }   | LSFT |
+ * `----------------------------------'
+ */
+ #define __SYMBOLS_L1_______________________________ KC_TILD, KC_GRV,  KC_LPRN, KC_RPRN, XXXXXXX
+ #define __SYMBOLS_L2_______________________________ KC_LGUI, KC_LALT, HR_LBRC, HR_RBRC, KC_UNDS
+ #define __SYMBOLS_L3_______________________________ XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, KC_LSFT
 
 // clang-format on
 // __END__
