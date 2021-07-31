@@ -297,7 +297,7 @@ def locate_keymap(keyboard, keymap):
 
     if "LAYOUTS" in rules:
         for layout in rules["LAYOUTS"].split():
-            community_layout = Path('layouts/community') / layout / keymap
+            community_layout = Path('layouts') / layout / keymap
             if community_layout.exists():
                 if (community_layout / 'keymap.json').exists():
                     return community_layout / 'keymap.json'
@@ -351,7 +351,7 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
         # if community layouts are supported, get them
         if "LAYOUTS" in rules:
             for layout in rules["LAYOUTS"].split():
-                cl_path = Path('layouts/community') / layout
+                cl_path = Path('layouts') / layout
                 if cl_path.is_dir():
                     for keymap in cl_path.iterdir():
                         if is_keymap_dir(keymap, c, json, additional_files):
