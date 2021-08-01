@@ -135,6 +135,15 @@ void        led_matrix_decrease_speed_noeeprom(void);
 led_flags_t led_matrix_get_flags(void);
 void        led_matrix_set_flags(led_flags_t flags);
 
+inline bool led_matrix_finished_all_leds(uint8_t last_led_idx) {
+    #if defined(RGB_MATRIX_SPLIT)
+        if (is_keyboard_left()) return led_max < k_rgb_matrix_split[0];
+        else return led_max < DRIVER_LED_TOTAL;
+    #else
+        return led_max < DRIVER_LED_TOTAL;
+    #endif
+}
+
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
     void (*init)(void);
