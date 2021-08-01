@@ -22,6 +22,8 @@ Table of Contents
                 3.1.6 Workman
           3.2 Special layouts
                 3.2.1 Numbers pad
+          3.3 Non-Latin languages
+                3.3.1 Hebrew
       4 The common system
           4.1 Layer access
           4.2 Layout in graphics
@@ -193,6 +195,19 @@ with a normal layout on ‛Default’. How this works is explained below.
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_single_va.jpg)
 
 For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad.md) ⬅
+
+
+3.3 Non-Latin languages
+=======================
+These are unusual layouts. Most people will probably only want one of these on the ‛Alternate’ layout,
+with a normal layout on ‛Default’. How this works is explained below.
+
+3.3.1 Hebrew
+------------
+
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_hebrew_single_va.jpg)
+
+For the readme about the Hebrew version, see ➡ ![base_hebrew.md](./base_hebrew.md) ⬅
 
 
 4 The common system

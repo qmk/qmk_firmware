@@ -67,8 +67,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
-         Esc        '"    ,<    .>    ר     א     | ט     ו     ן     ם     פ          Bksp
-         Tab+LCtl   ש     ד     ג     כ     ע     | י     ח     ל     ך     ף         ־/RLM //Right-Left-Mark
+         Esc        '"    ,<    .>    ר     א     | ט     ו     ן     ם׳    פ״         Bksp
+         Tab+LCtl   ש     ד     ג     כ₪    ע     | י     ח     ל     ך     ף         ־/RLM //Right-Left-Mark
          LSht+_PAD  ז     ס     ב     ה     נ     | מ     צ     ת     ץ     ק     RSht+_FUN
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
