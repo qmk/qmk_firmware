@@ -6,6 +6,9 @@ A replacement PCB for the Uniqey C70.
 * Hardware Supported: Gud70 PCB
 * Hardware Availability: [Open source on GitHub](https://github.com/evyd13/gud70-pcb)
 
+
+To flash a new layout, press the reset button located under the space bar.
+
 Make example for this keyboard (after setting up your build environment):
 
     make evyd13/gud70:default
