@@ -17,15 +17,12 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes        # Enable rotary encoder
-MCP2301x_ENABLE = yes
+GPIO_MCP2301X_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
 WPM_ENABLE = yes
 CUSTOM_MATRIX = lite
 
 SRC += bongocat.c \
-    mcp2301x.c \
     mcp2301x_encoder.c \
     mcp2301x_matrix.c \
     torn_encoder.c
-
-QUANTUM_LIB_SRC += i2c_master.c

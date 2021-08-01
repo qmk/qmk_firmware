@@ -581,6 +581,13 @@ ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
     OPT_DEFS += -DDRV2605L
 endif
 
+ifeq ($(strip $(GPIO_MCP2301X_ENABLE)), yes)
+    SRC += drivers/gpio/mcp2301x.c
+    QUANTUM_LIB_SRC += i2c_master.c
+    COMMON_VPATH += $(DRIVER_PATH)/gpio
+    OPT_DEFS += -DGPIO_MCP2301X_ENABLE
+endif
+
 ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
     SRC += solenoid.c
     OPT_DEFS += -DSOLENOID_ENABLE
