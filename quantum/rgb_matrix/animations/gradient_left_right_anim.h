@@ -15,7 +15,7 @@ bool GRADIENT_LEFT_RIGHT(effect_params_t* params) {
         RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    RGB_MATRIX_FINISHED_ALL_LEDS
 }
 
 #    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

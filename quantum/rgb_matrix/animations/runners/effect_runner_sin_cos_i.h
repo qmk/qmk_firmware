@@ -13,10 +13,5 @@ bool effect_runner_sin_cos_i(effect_params_t* params, sin_cos_i_f effect_func) {
         RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    #if defined(RGB_MATRIX_SPLIT)
-        if (is_keyboard_left()) return led_max < k_rgb_matrix_split[0];
-        else return led_max < DRIVER_LED_TOTAL;
-    #else
-        return led_max < DRIVER_LED_TOTAL;
-    #endif
+    RGB_MATRIX_FINISHED_ALL_LEDS
 }

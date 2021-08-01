@@ -32,7 +32,7 @@ bool RAINDROPS(effect_params_t* params) {
     for (int i = led_min; i < led_max; i++) {
         raindrops_set_color(i, params);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    RGB_MATRIX_FINISHED_ALL_LEDS
 }
 
 #    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
