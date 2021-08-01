@@ -84,6 +84,6 @@
 #define ENCODERS_PAD_A { B7, A5 }
 #define ENCODERS_PAD_B { B8, A6 }
 
-#define ENCODER_RESOLUTIONS { 2, 2 }
+#define ENCODER_RESOLUTIONS { 4, 4 }
 
 #endif
