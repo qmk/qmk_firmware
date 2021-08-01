@@ -93,12 +93,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #endif
 
 #ifdef ENCODER_ENABLE
-__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code16(KC_VOLU);
-    } else {
-        tap_code16(KC_VOLD);
-    }
+bool encoder_update_kb(uint8_t index, bool clockwise) {
 #    ifdef OLED_DRIVER_ENABLE
     oled_timer = timer_read32();
 #    endif
@@ -108,5 +103,12 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 #    ifdef HAPTIC_ENABLE
     if (haptic_config.enable) haptic_play();
 #    endif
+    if (!encoder_update_user(index, clockwise)) return false;
+    if (clockwise) {
+        tap_code16(KC_VOLU);
+    } else {
+        tap_code16(KC_VOLD);
+    }
+    return true;
 }
 #endif

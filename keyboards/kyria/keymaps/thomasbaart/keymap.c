@@ -30,7 +30,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* 
+/*
  * Base Layer: QWERTY
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
@@ -308,7 +308,7 @@ void oled_task_user(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (biton32(layer_state)) {
             case QWERTY:
@@ -326,7 +326,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     if (!is_alt_tab_active) {
                         is_alt_tab_active = true;
                         register_code(KC_LALT);
-                    } 
+                    }
                     alt_tab_timer = timer_read();
                     tap_code16(KC_TAB);
                 } else {
@@ -354,5 +354,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     }
+    return true;
 }
 #endif

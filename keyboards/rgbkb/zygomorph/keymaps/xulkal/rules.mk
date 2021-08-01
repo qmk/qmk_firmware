@@ -8,11 +8,13 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE = yes       # Enable global lighting effects. Do not enable with RGB Matrix
-RGBLIGHT_ANIMATIONS = yes   # LED animations
-RGBLIGHT_SPLIT_ENABLE = yes # Split RGBLight Support
-RGB_MATRIX_ENABLE = no      # Enable per-key coordinate based RGB effects. Do not enable with RGBlight
+RGBLIGHT_ENABLE = no        # Enable global lighting effects. Do not enable with RGB Matrix
+RGBLIGHT_ANIMATIONS = no    # LED animations
+RGBLIGHT_SPLIT_ENABLE = no  # Split RGBLight Support
+RGB_MATRIX_ENABLE = yes  	# Enable per-key coordinate based RGB effects. Do not enable with RGBlight
+RGB_MATRIX_DRIVER = WS2812
 RGB_MATRIX_KEYPRESSES = no  # Enable reactive per-key effects.
+SPLIT_RGB_MATRIX_ENABLE = yes # For split RGB Matrix support
 RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
 UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
@@ -39,4 +41,8 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_SPLIT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_SPLIT_ENABLE
+endif
+
+ifeq ($(strip $(SPLIT_RGB_MATRIX_ENABLE)), yes)
+    OPT_DEFS += -DSPLIT_TRANSPORT_MIRROR
 endif
