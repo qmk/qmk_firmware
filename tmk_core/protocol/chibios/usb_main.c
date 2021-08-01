@@ -518,7 +518,7 @@ static uint16_t get_hword(uint8_t *p) {
  * Other Device    Required    Optional    Optional    Optional    Optional    Optional
  */
 
-static uint8_t set_report_buf[2] __attribute__((aligned(2)));
+static uint8_t set_report_buf[2] __attribute__((aligned(4)));
 static void    set_led_transfer_cb(USBDriver *usbp) {
     if (usbp->setup[6] == 2) { /* LSB(wLength) */
         uint8_t report_id = set_report_buf[0];
