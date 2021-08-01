@@ -41,14 +41,14 @@
 #define GPB6 (1 << 14)
 #define GPB7 (1 << 15)
 
-typedef uint16_t mcp23018_pin_t;
+typedef uint16_t mcp2301x_pin_t;
 
-typedef int16_t mcp23018_status_t;
+typedef int16_t mcp2301x_status_t;
 
-void              mcp23018_init(mcp23018_pin_t input, mcp23018_pin_t pullup, mcp23018_pin_t enabled);
-bool              mcp23018_reset_required(void);
-mcp23018_status_t mcp23018_writeGpio(mcp23018_pin_t gpio);
-mcp23018_status_t mcp23018_readGpio(mcp23018_pin_t* gpio);
+void              mcp2301x_init(mcp2301x_pin_t input, mcp2301x_pin_t pullup, mcp2301x_pin_t enabled);
+bool              mcp2301x_reset_required(void);
+mcp2301x_status_t mcp2301x_writePins(mcp2301x_pin_t gpio);
+mcp2301x_status_t mcp2301x_readPins(mcp2301x_pin_t* gpio);
 
-mcp23018_status_t mcp23018_writeReg(uint8_t regaddr, const uint8_t* data, uint16_t length);
-mcp23018_status_t mcp23018_readReg(uint8_t regaddr, uint8_t* data, uint16_t length);
+mcp2301x_status_t mcp2301x_writeReg(uint8_t regaddr, const uint8_t* data, uint16_t length);
+mcp2301x_status_t mcp2301x_readReg(uint8_t regaddr, uint8_t* data, uint16_t length);

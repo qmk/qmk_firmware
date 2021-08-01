@@ -15,5 +15,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-void mcp23018_encoder_read(void);
-void mcp23018_encoder_init(void);
+void mcp2301x_encoder_read(void);
+void mcp2301x_encoder_init(void);
