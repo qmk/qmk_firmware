@@ -12,7 +12,7 @@ MCU = atmega16u2
 BOOTLOADER = atmel-dfu
 
 # Build Options
-BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes        # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug

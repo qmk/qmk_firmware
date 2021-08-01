@@ -14,7 +14,7 @@ BOOTLOADER = caterina
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no
 #MOUSEKEY_ENABLE = yes	# Mouse keys
 POINTING_DEVICE_ENABLE = yes # Generic Pointer, not as big as mouse keys hopefully.
 EXTRAKEY_ENABLE = yes	# Audio control and System control
