@@ -8,7 +8,7 @@ A very small keyboard made for ergonomic enthusiasts.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bastardkb/skeletyl:manna-harbour_miryoku
+    make bastardkb/skeletyl:default
     
 This keyboard is made to be used with the Miryoku layout, do not use the default keymap.
 
