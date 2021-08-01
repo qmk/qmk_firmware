@@ -235,14 +235,16 @@ typedef struct {
     void (*flush)(void);
 } rgb_matrix_driver_t;
 
-inline bool rgb_matrix_finished_all_leds(uint8_t last_led_idx) {
-    #if defined(RGB_MATRIX_SPLIT)
-        if (is_keyboard_left()) return last_led_idx < k_rgb_matrix_split[0];
-        else return last_led_idx < DRIVER_LED_TOTAL;
-    #else
-        return last_led_idx < DRIVER_LED_TOTAL;
-    #endif
-}
+
+#if defined(RGB_MATRIX_SPLIT)
+#define RGB_MATRIX_FINISHED_ALL_LEDS \
+    if (is_keyboard_left()) return led_max < k_rgb_matrix_split[0]; \
+    else return led_max < DRIVER_LED_TOTAL;
+#else
+#define RGB_MATRIX_FINISHED_ALL_LEDS \
+    return led_max < DRIVER_LED_TOTAL;
+
+#endif
 
 extern const rgb_matrix_driver_t rgb_matrix_driver;
 
