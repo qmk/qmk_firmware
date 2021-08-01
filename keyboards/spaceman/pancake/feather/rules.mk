@@ -18,7 +18,7 @@ BOOTLOADER = caterina
 #   comment out to disable the options.
 #
 BLUETOOTH = AdafruitBLE
-BOOTMAGIC_ENABLE = full
+BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE  = no	# Mouse keys
 EXTRAKEY_ENABLE  = yes	# Audio control and System control
 CONSOLE_ENABLE  = yes	# Console for debug

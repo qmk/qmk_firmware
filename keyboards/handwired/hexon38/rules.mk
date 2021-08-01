@@ -12,7 +12,7 @@ MCU = atmega32u4
 BOOTLOADER = halfkay
 
 # Enabled build options:
-BOOTMAGIC_ENABLE = full
+BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)

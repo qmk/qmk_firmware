@@ -7,7 +7,7 @@ BOARD = ST_NUCLEO64_F103RB
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = full
+BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
