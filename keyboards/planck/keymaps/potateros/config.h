@@ -1,5 +1,7 @@
 #pragma once
 
+#define MANUFACTURER    OLKB x potateros lol
+#define PRODUCT         Wafflerinator 3000
 // #define TAPPING_TERM 100
 #define LEADER_TIMEOUT 400
 #define DYNAMIC_MACRO_NO_NESTING
