@@ -99,14 +99,11 @@ static void vusb_wakeup(void) {
  */
 static void setup_usb(void) { initForUsbConnectivity(); }
 
-/** \brief Main
- *
- * FIXME: Needs doc
- */
-int main(void) __attribute__((weak));
-int main(void) {
+uint16_t sof_timer = 0;
+
+void protocol_setup(void) {
 #if USB_COUNT_SOF
-    uint16_t sof_timer = timer_read();
+    sof_timer = timer_read();
 #endif
 
 #ifdef CLKPR
@@ -115,9 +112,14 @@ int main(void) {
     clock_prescale_set(clock_div_1);
 #endif
     keyboard_setup();
+}
+
+void protocol_init(void) {
     setup_usb();
     sei();
+
     keyboard_init();
+
     host_set_driver(vusb_driver());
 
     wait_ms(50);
@@ -125,55 +127,52 @@ int main(void) {
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
+}
 
-    while (1) {
+void protocol_task(void) {
 #if USB_COUNT_SOF
-        if (usbSofCount != 0) {
-            usbSofCount = 0;
-            sof_timer   = timer_read();
-            if (vusb_suspended) {
-                vusb_wakeup();
-            }
-        } else {
-            // Suspend when no SOF in 3ms-10ms(7.1.7.4 Suspending of USB1.1)
-            if (!vusb_suspended && timer_elapsed(sof_timer) > 5) {
-                vusb_suspend();
-            }
-        }
-#endif
+    if (usbSofCount != 0) {
+        usbSofCount = 0;
+        sof_timer   = timer_read();
         if (vusb_suspended) {
+            vusb_wakeup();
+        }
+    } else {
+        // Suspend when no SOF in 3ms-10ms(7.1.7.4 Suspending of USB1.1)
+        if (!vusb_suspended && timer_elapsed(sof_timer) > 5) {
             vusb_suspend();
-            if (suspend_wakeup_condition()) {
-                vusb_send_remote_wakeup();
-            }
-        } else {
-            usbPoll();
+        }
+    }
+#endif
+    if (vusb_suspended) {
+        vusb_suspend();
+        if (suspend_wakeup_condition()) {
+            vusb_send_remote_wakeup();
+        }
+    } else {
+        usbPoll();
 
-            // TODO: configuration process is inconsistent. it sometime fails.
-            // To prevent failing to configure NOT scan keyboard during configuration
-            if (usbConfiguration && usbInterruptIsReady()) {
-                keyboard_task();
-            }
-            vusb_transfer_keyboard();
+        // TODO: configuration process is inconsistent. it sometime fails.
+        // To prevent failing to configure NOT scan keyboard during configuration
+        if (usbConfiguration && usbInterruptIsReady()) {
+            keyboard_task();
+        }
+        vusb_transfer_keyboard();
 
 #ifdef RAW_ENABLE
-            usbPoll();
+        usbPoll();
 
-            if (usbConfiguration && usbInterruptIsReady3()) {
-                raw_hid_task();
-            }
+        if (usbConfiguration && usbInterruptIsReady3()) {
+            raw_hid_task();
+        }
 #endif
 
 #ifdef CONSOLE_ENABLE
-            usbPoll();
+        usbPoll();
 
-            if (usbConfiguration && usbInterruptIsReady3()) {
-                console_task();
-            }
-#endif
-
-            // Run housekeeping
-            housekeeping_task();
+        if (usbConfiguration && usbInterruptIsReady3()) {
+            console_task();
         }
+#endif
     }
 }

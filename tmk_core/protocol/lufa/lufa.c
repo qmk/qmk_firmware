@@ -1033,18 +1033,16 @@ static void setup_usb(void) {
     USB_Device_EnableSOFEvents();
 }
 
-/** \brief Main
- *
- * FIXME: Needs doc
- */
-int main(void) __attribute__((weak));
-int main(void) {
+void protocol_setup(void) {
 #ifdef MIDI_ENABLE
     setup_midi();
 #endif
 
     setup_mcu();
     keyboard_setup();
+}
+
+void protocol_init(void) {
     setup_usb();
     sei();
 
@@ -1078,57 +1076,55 @@ int main(void) {
 #endif
 
     print("Keyboard start.\n");
-    while (1) {
+}
+
+void protocol_task(void) {
 #if !defined(NO_USB_STARTUP_CHECK)
-        if (USB_DeviceState == DEVICE_STATE_Suspended) {
-            print("[s]");
-            while (USB_DeviceState == DEVICE_STATE_Suspended) {
-                suspend_power_down();
-                if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
-                    USB_Device_SendRemoteWakeup();
-                    clear_keyboard();
+    if (USB_DeviceState == DEVICE_STATE_Suspended) {
+        print("[s]");
+        while (USB_DeviceState == DEVICE_STATE_Suspended) {
+            suspend_power_down();
+            if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
+                USB_Device_SendRemoteWakeup();
+                clear_keyboard();
 
 #    if USB_SUSPEND_WAKEUP_DELAY > 0
-                    // Some hubs, kvm switches, and monitors do
-                    // weird things, with USB device state bouncing
-                    // around wildly on wakeup, yielding race
-                    // conditions that can corrupt the keyboard state.
-                    //
-                    // Pause for a while to let things settle...
-                    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+                // Some hubs, kvm switches, and monitors do
+                // weird things, with USB device state bouncing
+                // around wildly on wakeup, yielding race
+                // conditions that can corrupt the keyboard state.
+                //
+                // Pause for a while to let things settle...
+                wait_ms(USB_SUSPEND_WAKEUP_DELAY);
 #    endif
-                }
             }
-            suspend_wakeup_init();
         }
+        suspend_wakeup_init();
+    }
 #endif
 
-        keyboard_task();
+    keyboard_task();
 
 #ifdef MIDI_ENABLE
-        MIDI_Device_USBTask(&USB_MIDI_Interface);
+    MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
 #ifdef MODULE_ADAFRUIT_BLE
-        adafruit_ble_task();
+    adafruit_ble_task();
 #endif
 
 #ifdef VIRTSER_ENABLE
-        virtser_task();
-        CDC_Device_USBTask(&cdc_device);
+    virtser_task();
+    CDC_Device_USBTask(&cdc_device);
 #endif
 
 #ifdef RAW_ENABLE
-        raw_hid_task();
+    raw_hid_task();
 #endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
-        USB_USBTask();
+    USB_USBTask();
 #endif
-
-        // Run housekeeping
-        housekeeping_task();
-    }
 }
 
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint16_t wIndex, const void **const DescriptorAddress) { return get_usb_descriptor(wValue, wIndex, DescriptorAddress); }
