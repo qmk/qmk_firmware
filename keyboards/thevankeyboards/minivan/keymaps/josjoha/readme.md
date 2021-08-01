@@ -1053,7 +1053,9 @@ You can remove the layers `_ACC`, `_DRA` and/or `_BON` (see
 
 You can remove a set of symbols from one or more of Unicode layers,
 such as not having box drawing characters on `_BON`, or no sub-script
-numbers on `_DRA`.
+numbers on `_DRA` (see ![./user_config.h](./user_config.h) under 
+`Eviscerations ②/②` ) ⬅
+
 
 12 Key associations
 ===================

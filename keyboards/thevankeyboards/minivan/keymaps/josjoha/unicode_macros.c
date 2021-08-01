@@ -1688,11 +1688,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AA: // because '", the opening „“ at the ‛open’ of the keyboard (left/up)
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_DQUHR, CS_DQUL);// “ „
-#     else
-                unicode_hex2output_single (CS_DQUHR);// “
-#     endif
 
             }
             break;
@@ -1700,11 +1696,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AB: // because to the right of opening “, ≤ on <
             if (record->event.pressed) { // key down
 
-#    ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_DQUH, CS_ELTHAN);// ” ≤
-#    else
-                unicode_hex2output_single (CS_DQUH);// ”
-#    endif
 
             }
             break;
@@ -1712,11 +1704,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AC: // because this is where the £ is on an English keyboard, on 'any' money symbols ¤; ≥ on >
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_POUND, CS_EGTHAN);// £ ≥
-#     else
-                unicode_hex2output_single (CS_POUND);// £
-#     endif
 
             }
             break;
@@ -1726,6 +1714,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_NONE, CS_CENT);// ∅ ¢
+#     else
+                unicode_hex2output_single (CS_NONE);// ∅ ¢
 #     endif
 
             }
@@ -1746,11 +1736,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AF: // Because left of 🙂, on top of ★
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_FLEUR, CS_HEART);// ❦ ♥
-#     else
-                unicode_hex2output_single (CS_HEART);// ♥
-#     endif
 
             }
             break;
@@ -1758,9 +1744,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AG: // because 😊 ⍨ 
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_SMIL, CS_SAD_);// 🙂 🙁
-#     endif
 
             }
             break;
@@ -1768,9 +1752,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AH: // because «no reason», next to 😊 (emoticons)
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_THUP, CS_THDN);// 👍 👎
-#     endif
 
             }
             break;
@@ -2382,9 +2364,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Hebrew
 # if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
+// The layout follows a standard hebrew keyboard, with the exception
+// of ק, which is displaced by “.>” copied from the Dvorak layout.
         case XP_HEB_AA: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (CS_MULT);//
+                unicode_hex2output_single (CS_MULT);// '"
             }
             break;
 
@@ -2396,184 +2380,188 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         /* 
         case XP_HEB_AB: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (CS_MULT);// 
+                unicode_hex2output_single (CS_MULT);// ,<
             }
             break;
 
         case XP_HEB_AC: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (CS_MULT);// 
+                unicode_hex2output_single (CS_MULT);// .>
             }
             break;
         */
         case XP_HEB_AD: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_RESH);// 
+                unicode_hex2output_single (HB_RESH);// ר
             }
             break;
 
         case XP_HEB_AE: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_ALEF);// 
+                unicode_hex2output_single (HB_ALEF);// א
     
             }
             break;
 
         case XP_HEB_AF: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_TET);// 
+                unicode_hex2output_single (HB_TET);// ט
             }
             break;
 
         case XP_HEB_AG: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_VAV);// 
+                unicode_hex2output_single (HB_VAV);// ו
             }
             break;
 
         case XP_HEB_AH: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_NUNS);// 
+                unicode_hex2output_single (HB_NUNS);// ן
             }
             break;
 
-        case XP_HEB_AI: //
+        case XP_HEB_AI: // The logic is that it mirrors '", “„, ”≤, ‛’ in Dvorak Base and other layers.
+                        // Therefore the little and ring fingers are used. Mirroring ━─ and ┄┅ on DRA_
+                        // layer, the outside on the keyboard is “big/fat”, the inside is “small/thin”,
+                        // like something protected in a shell. Hence: ……׳״
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_MEMS);// 
+                unicode_hex2output (HB_MEMS, HB_GERSH);// ם׳
             }
             break;
 
         case XP_HEB_AJ: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_PE);// 
+                unicode_hex2output (HB_PE, HB_GRSHM);// פ״
             }
             break;
 
    // ------------------------- row 3
         case XP_HEB_BA: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_SHIN);// 
+                unicode_hex2output_single (HB_SHIN);// ש
             }
             break;
 
         case XP_HEB_BB: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_DALET);// 
+                unicode_hex2output_single (HB_DALET);// ד
             }
             break;
 
         case XP_HEB_BC: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_GIMEL);// 
+                unicode_hex2output_single (HB_GIMEL);// ג
             }
             break;
 
-        case XP_HEB_BD: //
+        case XP_HEB_BD: // The logic is that כ is the same key as 4 on another layer, which connects
+                        // with $, and other currencies in the same region (ƒ£). 
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_KAF);// 
+                unicode_hex2output (HB_KAF, HB_SHEKL);// כ₪
             }
             break;
 
         case XP_HEB_BE: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_AYIN);// 
+                unicode_hex2output_single (HB_AYIN);// ע
             }
             break;
 
         case XP_HEB_BF: // 
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_YOD);// 
+                unicode_hex2output_single (HB_YOD);// י
             }
             break;
 
         case XP_HEB_BG: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_GET);// 
+                unicode_hex2output_single (HB_GET);// ח
             }
             break;
 
         case XP_HEB_BH: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_LAMED);// 
+                unicode_hex2output_single (HB_LAMED);// ל 
             }
             break;
 
         case XP_HEB_BI: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_KAFS);// 
+                unicode_hex2output_single (HB_KAFS);// ך
             }
             break;
 
         case XP_HEB_BJ: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_PES);// 
+                unicode_hex2output_single (HB_PES);// ף
             }
             break;
 
         case XP_HEB_BK: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_MAQAF);// 
+                unicode_hex2output (HB_MAQAF, HB_RLM);// ־{RLM}
             }
             break;
 
    // ------------------------- row 2
         case XP_HEB_CA: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_ZAYIN);// 
+                unicode_hex2output_single (HB_ZAYIN);// ז
             }
             break;
 
         case XP_HEB_CB: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_SAMEG);// 
+                unicode_hex2output_single (HB_SAMEG);// ס
             }
             break;
 
         case XP_HEB_CC: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_BET);// 
+                unicode_hex2output_single (HB_BET);// ב
             }
             break;
 
         case XP_HEB_CD: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_HE);// 
+                unicode_hex2output_single (HB_HE);// ה
             }
             break;
 
         case XP_HEB_CE: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_NUN);// 
+                unicode_hex2output_single (HB_NUN);// נ
             }
             break;
 
         case XP_HEB_CF: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_MEM);// 
+                unicode_hex2output_single (HB_MEM);// מ
             }
             break;
 
         case XP_HEB_CG: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_TSADI);// 
+                unicode_hex2output_single (HB_TSADI);// צ 
             }
             break;
 
         case XP_HEB_CH: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_TAV);// 
+                unicode_hex2output_single (HB_TAV);// ת
             }
             break;
 
         case XP_HEB_CI: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_TSDIS);// 
+                unicode_hex2output_single (HB_TSDIS);// ץ 
             }
             break;
 
-        case XP_HEB_CJ: //
+        case XP_HEB_CJ: // anomaly
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_QOF);// 
+                unicode_hex2output_single (HB_QOF);// ק
             }
             break;
 
