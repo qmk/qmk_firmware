@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_INS,
 		KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
 		KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
-		KC_LCTL, KC_LGUI, KC_LALT, KC_PGUP, KC_PGDN,KC_SPC, KC_VOLU, KC_VOLD, KC_RALT,  M(1), KC_LEFT, KC_DOWN, KC_RGHT),
+		KC_LCTL, KC_LGUI, KC_LALT, KC_PGUP, KC_PGDN, KC_SPC, KC_VOLU, KC_VOLD, KC_RALT,  M(1), KC_LEFT, KC_DOWN, KC_RGHT),
 
 	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -60,50 +60,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-
-
-    // uprintf("%ud g_rgb_time scale8\n", scale16by8(g_rgb_timer, rgb_matrix_config.speed / 4));
-
-    return false;
-
-    switch (index)
-    {
-    case 0:
-        if (clockwise) {
-            uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 5, 4);
-            if (keycode >= MACRO00 && keycode <= MACRO15) {
-                dynamic_keymap_macro_send(keycode - MACRO00);
+    switch (index) {
+        case 0:
+            if (clockwise) {
+                uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 5, 4);
+                if (keycode >= MACRO00 && keycode <= MACRO15) {
+                    dynamic_keymap_macro_send(keycode - MACRO00);
+                } else {
+                    tap_code16(keycode);
+                }
             } else {
-                tap_code16(keycode);
+                uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 5, 5);
+                if (keycode >= MACRO00 && keycode <= MACRO15) {
+                    dynamic_keymap_macro_send(keycode - MACRO00);
+                } else {
+                    tap_code16(keycode);
+                }
             }
-        } else {
-            uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 5, 5);
-            if (keycode >= MACRO00 && keycode <= MACRO15) {
-                dynamic_keymap_macro_send(keycode - MACRO00);
+            break;
+        case 1:
+            if (clockwise) {
+                uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 5, 7);
+                if (keycode >= MACRO00 && keycode <= MACRO15) {
+                    dynamic_keymap_macro_send(keycode - MACRO00);
+                } else {
+                    tap_code16(keycode);
+                }
             } else {
-                tap_code16(keycode);
+                uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 5, 8);
+                if (keycode >= MACRO00 && keycode <= MACRO15) {
+                    dynamic_keymap_macro_send(keycode - MACRO00);
+                } else {
+                    tap_code16(keycode);
+                }
             }
-        }
-        break;
-    case 1:
-        if (clockwise) {
-            uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 5, 7);
-            if (keycode >= MACRO00 && keycode <= MACRO15) {
-                dynamic_keymap_macro_send(keycode - MACRO00);
-            } else {
-                tap_code16(keycode);
-            }
-        } else {
-            uint16_t keycode = dynamic_keymap_get_keycode(biton32(layer_state), 5, 8);
-            if (keycode >= MACRO00 && keycode <= MACRO15) {
-                dynamic_keymap_macro_send(keycode - MACRO00);
-            } else {
-                tap_code16(keycode);
-            }
-        }
-        break;
-    default:
-        break;
+            break;
+        default:
+            break;
     }
 
     return false;
@@ -113,3 +106,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 
+void keyboard_post_init_user(void) {
+    // eeconfig_init();
+    // Customise these values to desired behaviour
+    // debug_enable=true;
+    // debug_matrix=false;
+    // debug_keyboard=true;
+    //debug_mouse=true;
+}
