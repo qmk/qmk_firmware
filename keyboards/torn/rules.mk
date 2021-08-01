@@ -20,9 +20,8 @@ ENCODER_ENABLE = yes        # Enable rotary encoder
 GPIO_MCP2301X_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
 WPM_ENABLE = yes
-CUSTOM_MATRIX = lite
+CUSTOM_MATRIX = mcp2301x
 
 SRC += bongocat.c \
     mcp2301x_encoder.c \
-    mcp2301x_matrix.c \
     torn_encoder.c

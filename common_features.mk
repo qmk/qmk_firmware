@@ -490,7 +490,7 @@ endif
 COMMON_VPATH += $(QUANTUM_DIR)/bootmagic
 QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/magic.c
 
-VALID_CUSTOM_MATRIX_TYPES:= yes lite no
+VALID_CUSTOM_MATRIX_TYPES:= yes lite mcp2301x no
 
 CUSTOM_MATRIX ?= no
 
@@ -503,7 +503,9 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     QUANTUM_SRC += $(QUANTUM_DIR)/matrix_common.c
 
     # if 'lite' then skip the actual matrix implementation
-    ifneq ($(strip $(CUSTOM_MATRIX)), lite)
+    ifeq ($(strip $(CUSTOM_MATRIX)), mcp2301x)
+        QUANTUM_SRC += $(QUANTUM_DIR)/matrix_mcp2301x.c
+    else ifneq ($(strip $(CUSTOM_MATRIX)), lite)
         # Include the standard or split matrix code if needed
         QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
     endif
