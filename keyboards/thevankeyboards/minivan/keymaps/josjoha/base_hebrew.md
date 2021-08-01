@@ -38,9 +38,9 @@ Layers (text)
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
-         Escoxxxxxxx'"xxxx,<xxxx.>xxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxם׳xxxxפ״xxxxxxxxxBksp
-         Tab+LCtloxxשxxxxxדxxxxxגxxxxxכ₪xxxxעxxxxx|xיxxxxxחxxxxxלxxxxxךxxxxxףxxxxxxxxx־/RLM //RightxLeftxMark
-         LSht+_PADoxזxxxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxתxxxxxץxxxxxקxxxxxRSht+_FUN
+         Escxxxxxxxx'"xxxx,<xxxx.>xxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxם׳xxxxפ״xxxxxxxxxBksp
+         Tab+LCtlxxxשxxxxxדxxxxxגxxxxxכ₪xxxxעxxxxx|xיxxxxxחxxxxxלxxxxxךxxxxxףxxxxxxxxx־/RLM //Right-Left-Mark
+         LSht+_PADxxזxxxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxתxxxxxץxxxxxקxxxxxRSht+_FUN
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) RGUI    Right;_RAR 
