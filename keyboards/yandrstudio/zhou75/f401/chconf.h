@@ -15,22 +15,22 @@
  */
 
 #pragma once
-#include_next <halconf.h>
 
-#pragma once
-#include_next <halconf.h>
+#define CH_CFG_ST_FREQUENCY 10000
 
-#undef HAL_USE_PWM
-#define HAL_USE_PWM    TRUE
+#define CH_CFG_ST_RESOLUTION 16
 
-#undef  SERIAL_USB_BUFFERS_SIZE
-#define SERIAL_USB_BUFFERS_SIZE 256
+#define CH_CFG_FACTORY_OBJECTS_REGISTRY TRUE
 
-#undef  SERIAL_BUFFERS_SIZE
-#define SERIAL_BUFFERS_SIZE     128
+#define CH_CFG_FACTORY_GENERIC_BUFFERS TRUE
 
-#undef  SPI_USE_WAIT
-#define SPI_USE_WAIT TRUE
+#define CH_CFG_FACTORY_SEMAPHORES TRUE
 
-#undef  SPI_SELECT_MODE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+#define CH_CFG_FACTORY_MAILBOXES TRUE
+
+#define CH_CFG_FACTORY_OBJ_FIFOS TRUE
+
+#define CH_CFG_FACTORY_PIPES TRUE
+
+#include_next <chconf.h>
+

@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-#include_next <halconf.h>
 
 #pragma once
 #include_next <halconf.h>
@@ -34,3 +32,4 @@
 
 #undef  SPI_SELECT_MODE
 #define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+
