@@ -38,9 +38,9 @@ Layers (text)
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
-         Escolllllll'"llll,<llll.>llllרlllllאlllll|lטlllllוlllllןlllllם׳llllפ״lllllllllBksp
-         Tab+LCtlollשlllllדlllllגlllllכ₪llllעlllll|lיlllllחlllllלlllllךlllllףlllllllll־/RLM //RightlLeftlMark
-         LSht+_PADolזlllllסlllllבlllllהlllllנlllll|lמlllllצlllllתlllllץlllllקlllllRSht+_FUN
+         Escoxxxxxxx'"xxxx,<xxxx.>xxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxם׳xxxxפ״xxxxxxxxxBksp
+         Tab+LCtloxxשxxxxxדxxxxxגxxxxxכ₪xxxxעxxxxx|xיxxxxxחxxxxxלxxxxxךxxxxxףxxxxxxxxx־/RLM //RightxLeftxMark
+         LSht+_PADoxזxxxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxתxxxxxץxxxxxקxxxxxRSht+_FUN
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) RGUI    Right;_RAR 
@@ -72,7 +72,7 @@ Holding both `_DEF_NSY` keys left and right of the "split space bar" (enter, spa
 Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>), with the `_ACC` layer key
 (on <2) results in layer `_BON`.
 
-(The `_` around the letters is to prevent certain display systems to change the direction of letters.)
+(The `x` around the letters is to prevent certain display systems to change the direction of letters.)
 - - -
 
      Layer _..._NSY (Numbers and SYmbols)
