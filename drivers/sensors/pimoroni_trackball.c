@@ -18,14 +18,20 @@
 #include "i2c_master.h"
 #include "print.h"
 
-#ifndef TRACKBALL_ADDRESS
-#    define TRACKBALL_ADDRESS 0x0A
+#ifndef PIMORONI_TRACKBALL_ADDRESS
+#    define PIMORONI_TRACKBALL_ADDRESS 0x0A
 #endif
-#ifndef TRACKBALL_INTERVAL_MS
-#    define TRACKBALL_INTERVAL_MS 8
+#ifndef PIMORONI_TRACKBALL_INTERVAL_MS
+#    define PIMORONI_TRACKBALL_INTERVAL_MS 8
 #endif
-#ifndef TRACKBALL_DEBOUNCE_ONCLICK
-#    define TRACKBALL_DEBOUNCE_ONCLICK 5
+#ifndef PIMORONI_TRACKBALL_MOUSE_SCALE
+#    define PIMORONI_TRACKBALL_MOUSE_SCALE 5
+#endif
+#ifndef PIMORONI_TRACKBALL_SCROLL_SCALE
+#    define PIMORONI_TRACKBALL_SCROLL_SCALE 1
+#endif
+#ifndef PIMORONI_TRACKBALL_DEBOUNCE_CYCLES
+#    define PIMORONI_TRACKBALL_DEBOUNCE_CYCLES 20
 #endif
 
 #define TRACKBALL_TIMEOUT 100
@@ -37,14 +43,6 @@
 #define TRACKBALL_REG_RIGHT 0x05
 #define TRACKBALL_REG_UP 0x06
 #define TRACKBALL_REG_DOWN 0x07
-
-typedef struct pimoroni_data {
-    uint8_t left;
-    uint8_t right;
-    uint8_t up;
-    uint8_t down;
-    uint8_t click;
-} pimoroni_data;
 
 static pimoroni_data  current_pimoroni_data;
 static report_mouse_t mouse_report;
@@ -62,15 +60,18 @@ void  trackball_set_scrolling(bool scroll) { scrolling = scroll; }
 
 void trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     uint8_t                              data[4] = {r, g, b, w};
-    __attribute__((unused)) i2c_status_t status  = i2c_writeReg(TRACKBALL_ADDRESS << 1, TRACKBALL_REG_LED_RED, data, sizeof(data), TRACKBALL_TIMEOUT);
+    __attribute__((unused)) i2c_status_t status  = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, TRACKBALL_REG_LED_RED, data, sizeof(data), TRACKBALL_TIMEOUT);
+#ifdef TRACKBALL_DEBUG
     dprintf("Trackball RGBW i2c_status_t: %d\n", status);
+#endif
 }
 
-void read_pimoroni_trackball(pimoroni_data* data) {
-    __attribute__((unused)) i2c_status_t status = i2c_readReg(TRACKBALL_ADDRESS << 1, TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), TRACKBALL_TIMEOUT);
-#ifdef TRACKBALL_DEBUG_READ
+i2c_status_t read_pimoroni_trackball(pimoroni_data* data) {
+    i2c_status_t status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), TRACKBALL_TIMEOUT);
+#ifdef TRACKBALL_DEBUG
     dprintf("Trackball READ i2c_status_t: %d\nLeft: %d\nRight: %d\nUp: %d\nDown: %d\nSwtich: %d\n", status, data->left, data->right, data->up, data->down, data->click);
 #endif
+    return status;
 }
 
 __attribute__((weak)) void pointing_device_init(void) {
@@ -78,7 +79,7 @@ __attribute__((weak)) void pointing_device_init(void) {
     trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
 }
 
-int16_t get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
+int16_t trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
     uint8_t offset     = 0;
     bool    isnegative = false;
     if (negative_dir > positive_dir) {
@@ -91,96 +92,97 @@ int16_t get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
     return isnegative ? -(int16_t)(magnitude) : (int16_t)(magnitude);
 }
 
-void update_values(int8_t* member, int16_t* offset) {
+void trackball_adapt_values(int8_t* mouse, int16_t* offset) {
     if (*offset > 127) {
-        *member = 127;
+        *mouse = 127;
         *offset -= 127;
     } else if (*offset < -127) {
-        *member = -127;
+        *mouse = -127;
         *offset += 127;
     } else {
-        *member = *offset;
+        *mouse  = *offset;
         *offset = 0;
     }
 }
 
-__attribute__((weak)) void trackball_check_click(bool pressed, report_mouse_t* mouse) {
+__attribute__((weak)) void trackball_click(bool pressed, report_mouse_t* mouse) {
+#ifdef PIMORONI_TRACKBALL_CLICK
     if (pressed) {
         mouse->buttons |= MOUSE_BTN1;
     } else {
         mouse->buttons &= ~MOUSE_BTN1;
     }
+#endif
 }
+
+__attribute__((weak)) bool pointing_device_task_user(pimoroni_data* trackball_data) { return true; };
 
 void pointing_device_task() {
     static fast_timer_t throttle = 0;
-    static uint8_t      debounce = 0;
+    static uint16_t     debounce = 0;
 
-    if (timer_elapsed_fast(throttle) > TRACKBALL_INTERVAL_MS) {
-        static pimoroni_data last_read_data = {0};
-        mouse_report                        = pointing_device_get_report();
-        read_pimoroni_trackball(&current_pimoroni_data);
+    if (timer_elapsed_fast(throttle) >= PIMORONI_TRACKBALL_INTERVAL_MS) {
+        i2c_status_t status = read_pimoroni_trackball(&current_pimoroni_data);
 
-        if (!debounce) {
-            if (memcmp(&last_read_data, &current_pimoroni_data, sizeof(current_pimoroni_data))) {
-                memcpy(&last_read_data, &current_pimoroni_data, sizeof(current_pimoroni_data));
+        if (status == I2C_STATUS_SUCCESS && pointing_device_task_user(&current_pimoroni_data)) {
+            mouse_report = pointing_device_get_report();
 
-#ifdef PIMORONI_TRACKBALL_CLICK
-                if (current_pimoroni_data.click & 128) {
-                    trackball_check_click(true, &mouse_report);
-                    debounce = TRACKBALL_DEBOUNCE_ONCLICK;
-                } else {
-                    trackball_check_click(false, &mouse_report);
-                }
-#endif
-                if (scrolling) {
+            if (!(current_pimoroni_data.click & 128)) {
+                trackball_click(false, &mouse_report);
+                if (!debounce) {
+                    if (scrolling) {
 #ifdef PIMORONI_TRACKBALL_INVERT_X
-                    h_offset += get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, 5);
+                        h_offset += trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_SCROLL_SCALE);
 #else
-                    h_offset -= get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, 5);
+                        h_offset -= trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_SCROLL_SCALE);
 #endif
 #ifdef PIMORONI_TRACKBALL_INVERT_Y
-                    v_offset += get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, 5);
+                        v_offset += trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_SCROLL_SCALE);
 #else
-                    v_offset -= get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, 5);
+                        v_offset -= trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_SCROLL_SCALE);
 #endif
-                } else {
+                    } else {
 #ifdef PIMORONI_TRACKBALL_INVERT_X
-                    x_offset -= get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, 5);
+                        x_offset -= trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
 #else
-                    x_offset += get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, 5);
+                        x_offset += trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
 #endif
 #ifdef PIMORONI_TRACKBALL_INVERT_Y
-                    y_offset -= get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, 5);
+                        y_offset -= trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
 #else
-                    y_offset += get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, 5);
+                        y_offset += trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
 #endif
+                    }
+                    if (scrolling) {
+#ifndef PIMORONI_TRACKBALL_ROTATE
+                        trackball_adapt_values(&mouse_report.h, &h_offset);
+                        trackball_adapt_values(&mouse_report.v, &v_offset);
+#else
+                        trackball_adapt_values(&mouse_report.h, &v_offset);
+                        trackball_adapt_values(&mouse_report.v, &h_offset);
+#endif
+                        mouse_report.x = 0;
+                        mouse_report.y = 0;
+                    } else {
+#ifndef PIMORONI_TRACKBALL_ROTATE
+                        trackball_adapt_values(&mouse_report.x, &x_offset);
+                        trackball_adapt_values(&mouse_report.y, &y_offset);
+#else
+                        trackball_adapt_values(&mouse_report.x, &y_offset);
+                        trackball_adapt_values(&mouse_report.y, &x_offset);
+#endif
+                        mouse_report.h = 0;
+                        mouse_report.v = 0;
+                    }
+                } else {
+                    debounce--;
                 }
+            } else {
+                trackball_click(true, &mouse_report);
+                debounce = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
             }
-        } else {
-            debounce--;
         }
-        if (scrolling) {
-#ifndef PIMORONI_TRACKBALL_ROTATE
-            update_values(&mouse_report.h, &h_offset);
-            update_values(&mouse_report.v, &v_offset);
-#else
-            update_values(&mouse_report.h, &v_offset);
-            update_values(&mouse_report.v, &h_offset);
-#endif
-            mouse_report.x = 0;
-            mouse_report.y = 0;
-        } else {
-#ifndef PIMORONI_TRACKBALL_ROTATE
-            update_values(&mouse_report.x, &x_offset);
-            update_values(&mouse_report.y, &y_offset);
-#else
-            update_values(&mouse_report.x, &y_offset);
-            update_values(&mouse_report.y, &x_offset);
-#endif
-            mouse_report.h = 0;
-            mouse_report.v = 0;
-        }
+
         pointing_device_set_report(mouse_report);
         pointing_device_send();
 
