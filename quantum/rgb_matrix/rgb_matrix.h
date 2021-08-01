@@ -54,8 +54,6 @@
                 uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;          \
                 if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;  \
                 uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT; \
-                k_rgb_matrix_split[1] += 1; \
-                k_rgb_matrix_split[1] -= 1; \
                 if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0] ; \
                 if( !(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0]; 
     #else
