@@ -17,7 +17,11 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+
+#include "action_layer.h"
 
 /**
  * Key overrides allow you to send a different key-modifier combination or perform a custom action when a certain modifier-key combination is pressed.
