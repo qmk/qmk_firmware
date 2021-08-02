@@ -2,7 +2,7 @@
 MCU = at90usb1286
 
 # Bootloader selection
-BOOTLOADER = atmel-dfu
+BOOTLOADER = halfkay
 
 # Build Options
 #   change yes to no to disable
