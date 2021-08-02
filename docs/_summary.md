@@ -60,6 +60,7 @@
     * [Language-Specific Keycodes](reference_keymap_extras.md)
     * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
+    * [Magic Keycodes](keycodes_magic.md)
 
   * Advanced Keycodes
     * [Command](feature_command.md)
@@ -103,7 +104,7 @@
       * [RGB Matrix](feature_rgb_matrix.md)
     * [Audio](feature_audio.md)
     * [Bluetooth](feature_bluetooth.md)
-    * [Bootmagic](feature_bootmagic.md)
+    * [Bootmagic Lite](feature_bootmagic.md)
     * [Custom Matrix](custom_matrix.md)
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)

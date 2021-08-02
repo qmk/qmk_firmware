@@ -48,7 +48,7 @@ QMK maintains [a fork of the LUFA DFU bootloader](https://github.com/qmk/lufa/tr
 //#define QMK_LED E6
 //#define QMK_SPEAKER C6
 ```
-Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
+Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
 
 The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
@@ -192,7 +192,7 @@ To enable the additional features, add the following defines to your `config.h`:
 //#define QMK_SPEAKER C6
 ```
 
-Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
+Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
 
 The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
