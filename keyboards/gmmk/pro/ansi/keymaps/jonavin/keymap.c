@@ -272,6 +272,9 @@ void matrix_scan_user(void) {
             for (uint8_t i=0; i<ARRAYSIZE(LED_LIST_NUMPAD); i++) {
                 rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_MAGENTA);
             }
+            for (uint8_t i=0; i<ARRAYSIZE(LED_LIST_WASD); i++) {
+                rgb_matrix_set_color(LED_LIST_WASD[i], RGB_MAGENTA);
+            }
             rgb_matrix_set_color(LED_R4, RGB_MAGENTA);
             rgb_matrix_set_color(LED_R5, RGB_MAGENTA);
             rgb_matrix_set_color(LED_R6, RGB_MAGENTA);

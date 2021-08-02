@@ -22,12 +22,12 @@
         - indicators in FN layer using RGB in FN and number rows to show the timeout in minutes
     - LED address location map as enum definition
     - LED group lists for arrows, numpad, F row, num row, left and right side LEDs
-    - default startuo in single mode with default colour 
+    - default startuo in single mode with default colour
     - Capslock, Scroll Lock, and Num Lock (not set) indicator on left side LED
     - Layer indicator on right side LED
     - Fn key light up red when Fn layer activate
     - Win Key light up red when Win Lock mode enabled
-    - Layer 2 activation lights up Numpad area
+    - Layer 2 activation lights up Numpad and WASD area
 
 ## All layers diagram
 Default layer
