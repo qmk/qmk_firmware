@@ -1,9 +1,6 @@
 # oem_ansi_fullsize
 
 ![oem_ansi_fullsize](https://imgur.com/a/Tw7dwK4)
-
-*Description*
-
 This is a basic layout for a full-sized ANSI board. It should be compatible with any 100% full-sized layout, for example [RobotDoctor's MECH-104](https://www.thingiverse.com/thing:4205065).
 
 * Keyboard Maintainer: [Cian Johnston](https://github.com/johnstcn)
