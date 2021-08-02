@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0x0000
+#define DEVICE_VER 0x0001
 #define MANUFACTURER Cian Johnston
-#define PRODUCT      oem_ansi_fullsize
+#define PRODUCT oem_ansi_fullsize
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  Teensy++ 2.0 Pin Layout
  *
  *                   ┌──────┐
- *              ┌────┴──────┴────┐    
+ *              ┌────┴──────┴────┐
  *          +5V │o              o│ GND
  *    CL <== B6 │o              o│ B7 ==> CE
  *    CK <== B5 │o              o│ D0 ==> CD
@@ -71,10 +71,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 //                        R0  R1  R2  R3  R4  R5
-#define MATRIX_ROW_PINS { F5, F4, F3, F2, F1, F0 }
+#define MATRIX_ROW_PINS \
+    { F5, F4, F3, F2, F1, F0 }
 
 //                        C0  C1  C2  C3  C4  C5  C6  C7  C8  C9  CA  CB  CC  CD  CE  CF  CG  CH  CI  CJ  CK  CL
-#define MATRIX_COL_PINS { C3, C2, C1, C0, E1, E0, D7, E6, D5, D4, D3, D2, D1, D0, B7, B0, B1, B2, B3, B4, B5, F6  }
+#define MATRIX_COL_PINS \
+    { C3, C2, C1, C0, E1, E0, D7, E6, D5, D4, D3, D2, D1, D0, B7, B0, B1, B2, B3, B4, B5, F6 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
