@@ -1,18 +1,16 @@
 
 #ifndef CONFIG_H
 #define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter*/
-#define VENDOR_ID       0x4F53  //defines your VID, and for most DIY projects, can be whatever you want, 0x4F53 OS for owl studio
+#define VENDOR_ID       0x4F53  //0x4F53 OS for owl studio
 #define PRODUCT_ID      0x4A53  //0x4A4C JL for jelly, 0x4A53 JS for jelly solder
-#define DEVICE_VER      0x0001 //defines the device version (often used for revisions)
-
+#define DEVICE_VER      0x0001 
 #define MANUFACTURER    OwLab 
-
 #define PRODUCT         JELLY
-
 #define DESCRIPTION     A custom 75% Keyboard by OwLab
 
 
@@ -22,7 +20,6 @@
 
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, A15, B10 }
 #define MATRIX_COL_PINS { A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, B11, B8, B9, C13 }
-// #define UNUSED_PINS
 
 
 /* NKRO */
@@ -49,10 +46,7 @@
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 26
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 
 #    define RGB_MATRIX_STARTUP_VAL     128 
-// #    define DISABLE_RGB_MATRIX_SPLASH
-// #    define DISABLE_RGB_MATRIX_MULTISPLASH
-// #    define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-// #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+
 
 
 #endif
@@ -85,9 +79,8 @@
 #define DIODE_DIRECTION COL2ROW
 
 
-#define TAP_CODE_DELAY 10
-
 #define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 // #define LOCKING_SUPPORT_ENABLE
@@ -99,8 +92,4 @@
 #define IS_COMMAND() ( \
      keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
-
-
-
-
 #endif
