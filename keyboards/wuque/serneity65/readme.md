@@ -1,20 +1,19 @@
-# zoom65
-![zoom65](https://i.imgur.com/NIbreqd.jpeg) 
+# serneity65
 
-Zoom's first mass-produced mechanical keyboard.  
-More Info at [zoom](https://zoom65.com/).
+More Info at [serneity65](https://shop.wuquestudio.com/)
 ​
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
 * Hardware Supported: zoom65 Standard
-* Hardware Availability: [zoom](https://zoom65.com/)  
+* Hardware Availability: [serneity65](https://shop.wuquestudio.com/)  
 ​
 Make example for this keyboard (after setting up your build environment):
 
-    make zoom/zoom65:default
+
+    make wuque/serneity65:default
 
 Flashing example for this keyboard:
 
-    make zoom/zoom65:default:flash
+    make wuque/serneity65:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 

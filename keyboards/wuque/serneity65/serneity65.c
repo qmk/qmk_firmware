@@ -1,4 +1,4 @@
-/* Copyright 2021 zoom
+/* Copyright 2021 wuque
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "zoom65.h"
+#include "serneity65.h"
 
 bool encoder_update_kb(uint8_t index, bool clockwise)
 {
@@ -23,7 +23,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise)
 
 bool encoder_update_user(uint8_t index, bool clockwise)
 {
-    if (index == 0) /* First encoder */
+    if (index == 0)
     {
         if (clockwise)
         {
