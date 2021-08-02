@@ -1,6 +1,6 @@
 # LS_60
 
-![LS_60](https://www.hualigs.cn/image/600d9391f16d7.jpg)
+![LS_60](https://www.hualigs.cn/image/6108151699aea.jpg)
 
 A 60% keyboard based on STM32f303
 
