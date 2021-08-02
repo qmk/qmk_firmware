@@ -60,15 +60,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLU);
         }
         break;
-
       case 1: /* Layer 2: Scroll */
         if (clockwise) {
-            tap_code(KC_WH_D);
-        } else {
             tap_code(KC_WH_U);
+        } else {
+            tap_code(KC_WH_D);
         }
         break;
-
       case 2: /* Layer 3: Change Track */
         if (clockwise) {
             tap_code(KC_MPRV);
@@ -76,7 +74,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_MNXT);
         }
         break;
-
       case 3: /* Layer 4: Brightness */
         if (clockwise) {
             tap_code(KC_BRID);
@@ -84,12 +81,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_BRIU);
         }
         break;
-
       default: /* Default: Volume */
         if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
             tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
         }
         break;
     }
