@@ -35,3 +35,5 @@ def cd(cli):
             # Set the prompt for the new shell
             qmk_env['MSYS2_PS1'] = qmk_env['PS1']
             run([os.environ.get('SHELL', '/usr/bin/bash')], env=qmk_env)
+    else:
+        cli.log.info("Already within qmk_firmware directory.")
