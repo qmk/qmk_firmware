@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 // clang-format off
-#define LAYOUT( \
+#define LAYOUT_all( \
                                                            K15, \
     K00, K10, K01, K11, K02, K12, K03, K13, K04, K14, K05, K35, \
     K20, K30, K21, K31, K22, K32, K23, K33, K24, K34,      K25, \
