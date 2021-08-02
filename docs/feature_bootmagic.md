@@ -146,7 +146,7 @@ And to trigger the bootloader, you hold this key down when plugging the keyboard
 
 ## Split Keyboards
 
-When handedness is predetermined via an option like `SPLIT_HAND_PIN`, you might need to configure a different key between halves. This To do so, add these entries to your `config.h` file:
+When handedness is predetermined via an option like `SPLIT_HAND_PIN`, you might need to configure a different key between halves. To do so, add these entries to your `config.h` file:
 
 ```c
 #define BOOTMAGIC_LITE_ROW_RIGHT 4
