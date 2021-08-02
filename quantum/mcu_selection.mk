@@ -296,10 +296,6 @@ ifneq ($(findstring STM32F407, $(MCU)),)
 
   USE_FPU ?= yes
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
-
   # UF2 settings
   UF2_FAMILY ?= STM32F4
 endif
