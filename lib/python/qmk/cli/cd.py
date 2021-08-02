@@ -1,5 +1,6 @@
 """Open a shell in the QMK Home directory
 """
+import sys
 import os
 
 from milc import cli
@@ -11,6 +12,10 @@ from qmk.path import under_qmk_firmware
 def cd(cli):
     """Go to QMK Home
     """
+    if not sys.stdout.isatty():
+        cli.log.error("This command is for interactive usage only. For non-interactive usage, 'cd $(qmk env QMK_HOME)' is more robust.")
+        sys.exit(1)
+
     if not under_qmk_firmware():
         # Only do anything if the user is not under qmk_firmware already
         # in order to reduce the possibility of starting multiple shells
