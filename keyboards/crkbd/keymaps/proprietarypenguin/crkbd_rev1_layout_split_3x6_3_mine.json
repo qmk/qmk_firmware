@@ -45,7 +45,7 @@
       "RSFT_T(KC_ENT)",
       "KC_LALT",
       "MO(1)",
-      "KC_ENT",
+      "KC_LGUI",
       "KC_SPC",
       "MO(2)",
       "MO(4)"
@@ -131,7 +131,7 @@
       "KC_HOME",
       "KC_END",
       "KC_MPLY",
-      "KC_LGUI",
+      "KC_TRNS",
       "MO(3)",
       "KC_SPC",
       "KC_BSPC",
@@ -219,9 +219,9 @@
       "KC_NO",
       "KC_NO",
       "KC_TRNS",
+      "KC_LALT",
       "KC_LCTL",
       "KC_LGUI",
-      "KC_NO",
       "KC_NO",
       "KC_NO",
       "KC_TRNS"
