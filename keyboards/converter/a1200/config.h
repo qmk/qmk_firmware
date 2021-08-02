@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    8bits4ever
-#define PRODUCT         MiSS-1200
+#define PRODUCT         Amiga-1200
 
 /* key matrix size */
 #define MATRIX_ROWS 8
