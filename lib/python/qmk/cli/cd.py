@@ -14,6 +14,8 @@ def cd(cli):
     if not under_qmk_firmware():
         # Only do anything if the user is not under qmk_firmware already
         # in order to reduce the possibility of starting multiple shells
+        cli.log.info("Spawning a subshell in your QMK_HOME directory.")
+        cli.log.info("Type 'exit' to get back to the parent shell.")
         if not cli.platform.lower().startswith('windows'):
             # For Linux/Mac/etc
             # Check the user's login shell from 'passwd'
@@ -30,10 +32,9 @@ def cd(cli):
             # For Windows
             # We just start a new subshell using $SHELL and
             # fall back to '/usr/bin/bash'.
-            from qmk.commands import run
             qmk_env = os.environ.copy()
             # Set the prompt for the new shell
             qmk_env['MSYS2_PS1'] = qmk_env['PS1']
-            run([os.environ.get('SHELL', '/usr/bin/bash')], env=qmk_env)
+            cli.run([os.environ.get('SHELL', '/usr/bin/bash')], env=qmk_env)
     else:
         cli.log.info("Already within qmk_firmware directory.")
