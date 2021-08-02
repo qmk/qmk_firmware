@@ -3,8 +3,11 @@
     "maintainer": "matthewdias", 
     "width": 16, 
     "height": 5, 
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker_split_bs"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"label":"0,0", "x":0, "y":0},
                 {"label":"0,1", "x":1, "y":0},
