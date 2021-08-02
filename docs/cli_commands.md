@@ -109,9 +109,7 @@ qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 
 ## `qmk cd`
 
-This command opens a new shell in your `qmk_firmware` directory. Note that if you are already somewhere within `QMK_HOME` (for example, the `keyboards/` folder), nothing will happen.
-
-To exit out into the parent shell, simply type `exit`.
+This command opens a new shell in your `qmk_firmware` directory.
 
 Note that if you are already somewhere within `QMK_HOME` (for example, the `keyboards/` folder), nothing will happen.
 
