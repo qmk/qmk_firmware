@@ -2,10 +2,10 @@
 
 ![Sneakbox AVA](https://i.imgur.com/lVaAmfS.jpg)
 
-An Alice-like keyboard PCB with compact arrangement of blocked arrow keys in replacement of right shift. Left sided four-key nav cluster. Pushbutton rotary encoder socket placed at the top left key position. Firmware covers both soldered and hotswap versions of the PCB.
+An Alice-like keyboard featuring a blocked arrow cluster in place of the right shift position. The left sided nav cluster contains four keys. Optional pushbutton rotary encoder socket positioned at the top left key position. Firmware covers both soldered and hotswap versions of the PCB.
 
 * Keyboard Maintainer: [mujimanic](https://github.com/mujimanic)
-* Hardware Supported: Any Alice-layout case.
+* Hardware Supported: AVA-compatible keyboard case. This PCB is different from and is not compatible with conventional Alice keyboard cases or Arisu format cases (right sided arrow cluster + right sided nav cluster).
 * Hardware Availability: [sneakbox.design](https://sneakbox.com/collections/frontpage/products/infopre-order-ava-keyboard-shell)
 
 Make example for this keyboard (after setting up your build environment):
