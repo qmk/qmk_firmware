@@ -76,35 +76,35 @@ void bajjak_blink_all_leds(void)
     bajjak_led_all_off();
     bajjak_led_all_set(LED_BRIGHTNESS_DEFAULT);
     bajjak_right_led_1_on();
-    _delay_ms(50);
+    wait_ms(50);
     bajjak_right_led_2_on();
-    _delay_ms(50);
+    wait_ms(50);
     bajjak_right_led_3_on();
-    _delay_ms(50);
+    wait_ms(50);
 #ifdef LEFT_LEDS
     bajjak_left_led_1_on();
-    _delay_ms(50);
+    wait_ms(50);
     if (!mcp23018_status) {
       mcp23018_status = bajjak_left_leds_update();
     }
     bajjak_left_led_2_on();
-    _delay_ms(50);
+    wait_ms(50);
     if (!mcp23018_status) {
       mcp23018_status = bajjak_left_leds_update();
     }
 #endif
     bajjak_right_led_1_off();
-    _delay_ms(50);
+    wait_ms(50);
     bajjak_right_led_2_off();
-    _delay_ms(50);
+    wait_ms(50);
     bajjak_right_led_3_off();
 #ifdef LEFT_LEDS
-    _delay_ms(50);
+    wait_ms(50);
     bajjak_left_led_1_off();
     if (!mcp23018_status) {
       mcp23018_status = bajjak_left_leds_update();
     }
-    _delay_ms(50);
+    wait_ms(50);
     bajjak_left_led_2_off();
     if (!mcp23018_status) {
       mcp23018_status = bajjak_left_leds_update();
@@ -112,7 +112,7 @@ void bajjak_blink_all_leds(void)
 #endif
 
     //bajjak_led_all_on();
-    //_delay_ms(333);
+    //wait_ms(333);
     bajjak_led_all_off();
 }
 
@@ -128,10 +128,10 @@ uint8_t init_mcp23018(void) {
     if (i2c_initialized == 0) {
         i2c_init();  // on pins D(1,0)
         i2c_initialized = true;
-        _delay_ms(1000);
+        wait_ms(1000);
     }
     // i2c_init(); // on pins D(1,0)
-    // _delay_ms(1000);
+    // wait_ms(1000);
 
     // set pin direction
     // - unused  : input  : 1

@@ -55,17 +55,17 @@ uint8_t bajjak_left_leds_update(void);
 #endif
 
 
-inline void bajjak_board_led_on(void)      { DDRD |=  (1<<6); PORTD |=  (1<<6); }
-inline void bajjak_right_led_1_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
-inline void bajjak_right_led_2_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
-inline void bajjak_right_led_3_on(void)    { DDRB |=  (1<<7); PORTB |=  (1<<7); }
-inline void bajjak_right_led_on(uint8_t led) { DDRB |= (1<<(led+4)); PORTB |= (1<<(led+4)); }
+inline void bajjak_board_led_on(void)      { setPinOutput(D6); writePinHigh(D6); }
+inline void bajjak_right_led_1_on(void)    { setPinOutput(B5); writePinHigh(B5); }
+inline void bajjak_right_led_2_on(void)    { setPinOutput(B6); writePinHigh(B6); }
+inline void bajjak_right_led_3_on(void)    { setPinOutput(B7); writePinHigh(B7); }
+inline void bajjak_right_led_on(uint8_t led) { setPinOutput(led+4); writePinHigh(led+4); }
 
-inline void bajjak_board_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
-inline void bajjak_right_led_1_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
-inline void bajjak_right_led_2_off(void)   { DDRB &= ~(1<<6); PORTB &= ~(1<<6); }
-inline void bajjak_right_led_3_off(void)   { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
-inline void bajjak_right_led_off(uint8_t led) { DDRB &= ~(1<<(led+4)); PORTB &= ~(1<<(led+4)); }
+inline void bajjak_board_led_off(void)     { setPinInput(D6); writePinLow(D6); }
+inline void bajjak_right_led_1_off(void)   { setPinInput(B5); writePinLow(B5); }
+inline void bajjak_right_led_2_off(void)   { setPinInput(B6); writePinLow(B6); }
+inline void bajjak_right_led_3_off(void)   { setPinInput(B7); writePinLow(B7); }
+inline void bajjak_right_led_off(uint8_t led) { setPinInput(led+4); writePinLow(led+4); }
 
 #ifdef LEFT_LEDS
 bool bajjak_left_led_1;
