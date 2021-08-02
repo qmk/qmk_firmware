@@ -167,5 +167,5 @@ extern keyboard_config_t keyboard_config;
         { R03, R13, R23, R33, R43,   R53,   R63   }, \
         { R04, R14, R24, R34, R44,   R54,   R64   }, \
         { R05, R15, R25, R35, R45,   R55,   R65   },\
-        { R06, R16, R26, R36, R46,   R56,   KC_NO }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                \
+        { R06, R16, R26, R36, R46,   R56,   KC_NO } \
     }
