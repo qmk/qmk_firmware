@@ -48,14 +48,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Audio support */
-#define C6_AUDIO
+#define AUDIO_PIN C6
 
 #ifdef AUDIO_ENABLE
   #define STARTUP_SONG SONG(E__NOTE(_C7), E__NOTE(_C6))
 #endif
 
 /* Mouse Keys Combined mode */
-#define MK_COMBINED
+//#define MK_COMBINED
 
 /* Layer Count */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
@@ -105,9 +105,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+//#define LOCKING_RESYNC_ENABLE
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
