@@ -151,9 +151,7 @@ extern keyboard_config_t keyboard_config;
                                                  L65, L66,  R60, R61,                          \
                                                       L64,  R62,                               \
                                             L63, L62, L61,  R65, R64, R63                      \
-                        )                                                                      \
-    /* matrix positions */                                                                                                                                                                                                                                                                                                                                                                                                                                                               \
-    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \
+                        ) { \
         { L00, L10, L20, L30, L40,   L50,   KC_NO }, \
         { L01, L11, L21, L31, L41,   L51,   L61   }, \
         { L02, L12, L22, L32, L42,   L52,   L62   }, \
