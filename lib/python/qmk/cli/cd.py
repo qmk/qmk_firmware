@@ -21,20 +21,17 @@ def cd(cli):
             # Check the user's login shell from 'passwd'
             # alternatively fall back to $SHELL env var
             # and finally to '/bin/bash'.
-            import pty
             import getpass
             import pwd
             shell = pwd.getpwnam(getpass.getuser()).pw_shell
             if not shell:
                 shell = os.environ.get('SHELL', '/bin/bash')
-            pty.spawn(shell)
         else:
             # For Windows
-            # We just start a new subshell using $SHELL and
-            # fall back to '/usr/bin/bash'.
-            qmk_env = os.environ.copy()
-            # Set the prompt for the new shell
-            qmk_env['MSYS2_PS1'] = qmk_env['PS1']
-            cli.run([os.environ.get('SHELL', '/usr/bin/bash')], env=qmk_env)
+            # Check the $SHELL env var
+            # and fall back to '/usr/bin/bash'.
+            shell = os.environ.get('SHELL', '/usr/bin/bash')
+        # Start the new subshell
+        os.execl(shell, shell)
     else:
         cli.log.info("Already within qmk_firmware directory.")
