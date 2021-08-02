@@ -16,7 +16,7 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(PLATFORM_COMMON_DIR)/timer.c \
 	$(PLATFORM_COMMON_DIR)/bootloader.c \
 
-# Use platform provided print - fall back to lib/printf
+# Use platform provided print if it exists
 -include $(TMK_PATH)/$(PLATFORM_COMMON_DIR)/printf.mk
 
 SHARED_EP_ENABLE = no

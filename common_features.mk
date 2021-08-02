@@ -26,6 +26,7 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/logging/sendchar.c \
 
 VPATH += $(QUANTUM_DIR)/logging
+# Fall back to lib/printf if there is no platform provided print
 ifeq ("$(wildcard $(TMK_PATH)/common/$(PLATFORM_KEY)/printf.mk)","")
     include $(QUANTUM_PATH)/logging/print.mk
 endif
