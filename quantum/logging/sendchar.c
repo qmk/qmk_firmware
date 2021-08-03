@@ -14,10 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "uart.h"
 #include "sendchar.h"
 
-int8_t sendchar(uint8_t c) {
-    uart_putchar(c);
-    return 0;
-}
+/* default noop "null" implementation */
+__attribute__((weak)) int8_t sendchar(uint8_t c) { return 0; }
