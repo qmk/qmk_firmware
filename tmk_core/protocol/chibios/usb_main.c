@@ -415,14 +415,18 @@ static inline void usb_event_wakeup_handler(void) {
 #endif /* SLEEP_LED_ENABLE */
 }
 
+bool last_suspend_state = false;
+
 void usb_event_queue_task(void) {
     usbevent_t event;
     while (usb_event_queue_dequeue(&event)) {
         switch (event) {
             case USB_EVENT_SUSPEND:
+                last_suspend_state = true;
                 usb_event_suspend_handler();
                 break;
             case USB_EVENT_WAKEUP:
+                last_suspend_state = false;
                 usb_event_wakeup_handler();
                 break;
             default:
@@ -464,6 +468,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 qmkusbConfigureHookI(&drivers.array[i].driver);
             }
             osalSysUnlockFromISR();
+            if (last_suspend_state) {
+                usb_event_queue_enqueue(USB_EVENT_WAKEUP);
+            }
             return;
         case USB_EVENT_SUSPEND:
             usb_event_queue_enqueue(USB_EVENT_SUSPEND);
