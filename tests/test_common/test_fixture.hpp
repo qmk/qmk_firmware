@@ -25,6 +25,8 @@
 
 class TestFixture : public testing::Test {
    public:
+    static TestFixture* m_this;
+
     TestFixture();
     ~TestFixture();
     static void SetUpTestCase();
@@ -39,6 +41,9 @@ class TestFixture : public testing::Test {
     void run_one_scan_loop();
     void idle_for(unsigned ms);
 
+    void expect_layer_state(layer_t layer) const;
+
    protected:
+    void                   print_test_log() const;
     std::vector<KeymapKey> keymap;
 };
