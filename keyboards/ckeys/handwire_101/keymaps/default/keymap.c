@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  0  |  .  |  =  |  +  |
    * `---------------------- '
    */
-  [_BASE] = LAYOUT(
+  [_BASE] = LAYOUT_ortho_4x4(
     KC_KP_7, KC_KP_8, KC_KP_9, LT(MO(_LAYERS), KC_PSLS), \
     KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST,                  \
     KC_KP_1, KC_KP_2, KC_KP_3, KC_PMNS,                  \
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  ADMIN  |     |     |     |
    * `---------------------------'
    */
-  [_LAYERS] = LAYOUT(
+  [_LAYERS] = LAYOUT_ortho_4x4(
     TG(_MUSIC),    _______, _______, _______, \
     TG(_MOUSE),    _______, _______, _______, \
     TG(_TERMINAL), _______, _______, _______, \
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `---------------------- '
    */
   // TODO: Make this music layer the one to jump to other music layers (different octaves)
-  [_MUSIC] = LAYOUT(
+  [_MUSIC] = LAYOUT_ortho_4x4(
     _______,  _______, _______, _______,             \
     _______,  _______, _______, TG(_MUSIC_4_LIFE), \
     MU_OFF,   _______, _______, _______,             \
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  ♫  |  ♫  |  ♫  |  ♫  |
    * `---------------------- '
    */
-  [_MUSIC_4_LIFE] = LAYOUT(
+  [_MUSIC_4_LIFE] = LAYOUT_ortho_4x4(
     KC_M, KC_M, KC_M, KC_M, \
     KC_M, KC_M, KC_M, KC_M, \
     KC_M, KC_M, KC_M, KC_M, \
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  BUTTON 3 |SCROLL LEFT|SCROLL DOWN |SCROLL RIGHT|
    * `-------------------------------------------------'
    */
-  [_MOUSE] = LAYOUT(
+  [_MOUSE] = LAYOUT_ortho_4x4(
     KC_MS_BTN5, _______,       KC_MS_WH_UP,   _______,         \
     _______,    KC_MS_BTN1,    KC_MS_UP,      KC_MS_BTN2,    \
     KC_MS_BTN4, KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,   \
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |TERMINAL ON |HELP |          |         |
    * `--------=======------------------------'
    */
-  [_TERMINAL] = LAYOUT(
+  [_TERMINAL] = LAYOUT_ortho_4x4(
     _______,    TERM_ABOUT, _______, _______, \
     TERM_OFF,   TERM_PRINT, _______, _______, \
     _______,    TERM_FLUSH, _______, _______, \
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |     X      |     |CLICKY DOWN|CLICKY ON |
    * `-----------------------------------------'
    */
-  [_ADMIN] = LAYOUT(
+  [_ADMIN] = LAYOUT_ortho_4x4(
     RESET,       _______, _______, _______,  \
     CKEYS_ABOUT, _______, _______, _______,  \
     _______,     _______, _______, CK_OFF, \
