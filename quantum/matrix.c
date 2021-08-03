@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "split_common/split_util.h"
 #    include "split_common/transactions.h"
 
-#    ifndef ERROR_DISCONNECT_COUNT
-#        define ERROR_DISCONNECT_COUNT 5
-#    endif  // ERROR_DISCONNECT_COUNT
-
 #    define ROWS_PER_HAND (MATRIX_ROWS / 2)
 #else
 #    define ROWS_PER_HAND (MATRIX_ROWS)
@@ -310,13 +306,9 @@ void matrix_init(void) {
 bool matrix_post_scan(void) {
     bool changed = false;
     if (is_keyboard_master()) {
-        static uint8_t error_count;
-
         matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
         if (!transport_master(matrix + thisHand, slave_matrix)) {
-            error_count++;
-
-            if (error_count > ERROR_DISCONNECT_COUNT) {
+            if (!is_transport_connected()) {
                 // reset other half if disconnected
                 for (int i = 0; i < ROWS_PER_HAND; ++i) {
                     matrix[thatHand + i] = 0;
@@ -326,8 +318,6 @@ bool matrix_post_scan(void) {
                 changed = true;
             }
         } else {
-            error_count = 0;
-
             for (int i = 0; i < ROWS_PER_HAND; ++i) {
                 if (matrix[thatHand + i] != slave_matrix[i]) {
                     matrix[thatHand + i] = slave_matrix[i];
