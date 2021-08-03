@@ -19,8 +19,8 @@
 
 
 enum planck_layers {
-  _WINDOWS,
   _MACOS,
+  _WINDOWS,
   _LOWER,
   _RAISE,
   _FUNCT,
@@ -29,10 +29,9 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-  WINDOWS = SAFE_RANGE,
-  MACOS,
+  MACOS = SAFE_RANGE,
+  WINDOWS,
   PLOVER,
-  // BACKLIT,
   EXT_PLV
 };
 
@@ -44,23 +43,6 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Windows
- * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Enter|
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Func | GUI  | LAPO |Lower |    Space    |Raise | RAlt | RShft | App | RCtrl|
- * `-----------------------------------------------------------------------------------'
- */
-[_WINDOWS] = LAYOUT_planck_grid(
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,     KC_BSPC,
-    KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,   KC_K,    KC_L,    KC_SCLN,  KC_QUOT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_ENT,
-    KC_LCTL, FUNCT,   KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,  KC_HOME, KC_RALT, KC_RSFT,  KC_END
-),
 /* macOS
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
@@ -77,6 +59,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,   KC_K,          KC_L,    KC_SCLN,  KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM,       KC_DOT,  KC_SLSH,  KC_ENT,
     KC_LCTL, FUNCT,   KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,  LGUI(KC_LEFT), KC_RALT, KC_RSFT,  LGUI(KC_RGHT)
+),
+/* Windows
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Enter|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Func | GUI  | LAPO |Lower |    Space    |Raise | RAlt | RShft | App | RCtrl|
+ * `-----------------------------------------------------------------------------------'
+ */
+[_WINDOWS] = LAYOUT_planck_grid(
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,     KC_BSPC,
+    KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,   KC_K,    KC_L,    KC_SCLN,  KC_QUOT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_ENT,
+    KC_LCTL, FUNCT,   KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,  KC_HOME, KC_RALT, KC_RSFT,  KC_END
 ),
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -171,8 +170,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-  float windows_song[][2]    = SONG(QWERTY_SOUND);
-  float macos_song[][2]      = SONG(DVORAK_SOUND);
+  float windows_song[][2]    = SONG(WINDOWS_SONG);
+  float macos_song[][2]      = SONG(MACOS_SONG);
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 
@@ -288,14 +287,4 @@ void matrix_scan_user(void) {
     leader_end();
   }
 #endif
-}
-
-bool music_mask_user(uint16_t keycode) {
-  switch (keycode) {
-    case RAISE:
-    case LOWER:
-      return false;
-    default:
-      return true;
-  }
 }

@@ -147,7 +147,7 @@
 #define USSR_ANTHEM B__NOTE(_G5), B__NOTE(_C6), W__NOTE(_G5), H__NOTE(_A5), B__NOTE(_B5), W__NOTE(_E5), W__NOTE(_E5), B__NOTE(_A5), W__NOTE(_G5), H__NOTE(_F5), B__NOTE(_G5), W__NOTE(_C5), W__NOTE(_C5), B__NOTE(_D5), W__NOTE(_D5), W__NOTE(_E5), B__NOTE(_D5), W__NOTE(_D5), W__NOTE(_G5), B__NOTE(_F5), W__NOTE(_G5), W__NOTE(_A5), B__NOTE(_B5),
 
 /* Removed sounds
- +   This list is here solely for compatibility, so that removed songs don't just break things
+ *   This list is here solely for compatibility, so that removed songs don't just break things
  *   If you think that any of these songs were wrongfully removed, let us know and provide
  *   proof of permission to use them, or public domain status.
  */
@@ -269,46 +269,19 @@
     Q__NOTE(_B4), Q__NOTE(_C4), Q__NOTE(_B4), E__NOTE(_A4), Q__NOTE(_G3), Q__NOTE(_G3), Q__NOTE(_G3), Q__NOTE(_G3), E__NOTE(_A4), E__NOTE(_C4), QD_NOTE(_B4), HD_NOTE(_B4)
 
 #define OVERWATCH_THEME \
-    HD_NOTE(_A4 ), \
-    Q__NOTE(_E4 ), \
-    Q__NOTE(_A4 ), \
-    HD_NOTE(_B4 ), \
-    Q__NOTE(_E4 ), \
-    Q__NOTE(_B4 ), \
-    W__NOTE(_CS5),
+    HD_NOTE(_A4 ), Q__NOTE(_E4 ), Q__NOTE(_A4 ), HD_NOTE(_B4 ), Q__NOTE(_E4 ), \
+    Q__NOTE(_B4 ), W__NOTE(_CS5),
 
 #define MARIO_THEME \
-    Q__NOTE(_E5), \
-    H__NOTE(_E5), \
-    H__NOTE(_E5), \
-    Q__NOTE(_C5), \
-    H__NOTE(_E5), \
-    W__NOTE(_G5), \
-    Q__NOTE(_G4),
+    Q__NOTE(_E5), H__NOTE(_E5), H__NOTE(_E5), Q__NOTE(_C5), H__NOTE(_E5), \
+    W__NOTE(_G5), Q__NOTE(_G4),
 
 #define NUMBER_ONE \
-    HD_NOTE(_F4 ), \
-    Q__NOTE(_C5 ), \
-    E__NOTE(_B4 ), \
-    E__NOTE(_C5 ), \
-    E__NOTE(_B4 ), \
-    E__NOTE(_C5 ), \
-    Q__NOTE(_B4 ), \
-    Q__NOTE(_C5 ), \
-    H__NOTE(_AF4), \
-    HD_NOTE(_F4 ), \
-    Q__NOTE(_F4 ), \
-    Q__NOTE(_AF4), \
-    Q__NOTE(_C5 ), \
-    H__NOTE(_DF5), \
-    H__NOTE(_AF4), \
-    H__NOTE(_DF5), \
-    H__NOTE(_EF5), \
-    Q__NOTE(_C5 ), \
-    Q__NOTE(_DF5), \
-    Q__NOTE(_C5 ), \
-    Q__NOTE(_DF5), \
-    H__NOTE(_C5 ),
+    HD_NOTE(_F4 ), Q__NOTE(_C5 ), E__NOTE(_B4 ), E__NOTE(_C5 ), E__NOTE(_B4 ), \
+    E__NOTE(_C5 ), Q__NOTE(_B4 ), Q__NOTE(_C5 ), H__NOTE(_AF4), HD_NOTE(_F4 ), \
+    Q__NOTE(_F4 ), Q__NOTE(_AF4), Q__NOTE(_C5 ), H__NOTE(_DF5), H__NOTE(_AF4), \
+    H__NOTE(_DF5), H__NOTE(_EF5), Q__NOTE(_C5 ), Q__NOTE(_DF5), Q__NOTE(_C5 ), \
+    Q__NOTE(_DF5), H__NOTE(_C5 ),
 
 #define ALL_STAR \
     H__NOTE(_AS4), W__NOTE(_FS4), Q__NOTE(_FS4), Q__NOTE(_DS4), H__NOTE(_FS4), W__NOTE(_FS4), Q__NOTE(_FS4), Q__NOTE(_DS4), \
@@ -321,32 +294,14 @@
     H__NOTE(_AS4), WD_NOTE(_DS4)
 
 #define RICK_ROLL      \
-    Q__NOTE(_F4),      \
-    Q__NOTE(_G4),      \
-    Q__NOTE(_BF4),     \
-    Q__NOTE(_G4),      \
-    HD_NOTE(_D5),      \
-    HD_NOTE(_D5),      \
-    W__NOTE(_C5),      \
-    S__NOTE(_REST),    \
-    Q__NOTE(_F4),      \
-    Q__NOTE(_G4),      \
-    Q__NOTE(_BF4),     \
-    Q__NOTE(_G4),      \
-    HD_NOTE(_C5),      \
-    HD_NOTE(_C5),      \
-    W__NOTE(_BF4),     \
-    S__NOTE(_REST),    \
-    Q__NOTE(_F4),      \
-    Q__NOTE(_G4),      \
-    Q__NOTE(_BF4),     \
-    Q__NOTE(_G4),      \
-    W__NOTE(_BF4),     \
-    H__NOTE(_C5),      \
-    H__NOTE(_A4),      \
-    H__NOTE(_A4),      \
-    H__NOTE(_G4),      \
-    H__NOTE(_F4),      \
-    H__NOTE(_F4),      \
-    W__NOTE(_C5),      \
-    W__NOTE(_BF4),
+    Q__NOTE(_F4), Q__NOTE(_G4), Q__NOTE(_BF4), Q__NOTE(_G4), HD_NOTE(_D5), HD_NOTE(_D5),     \
+    W__NOTE(_C5), S__NOTE(_REST), Q__NOTE(_F4), Q__NOTE(_G4), Q__NOTE(_BF4), Q__NOTE(_G4),   \
+    HD_NOTE(_C5), HD_NOTE(_C5), W__NOTE(_BF4), S__NOTE(_REST), Q__NOTE(_F4), Q__NOTE(_G4),   \
+    Q__NOTE(_BF4), Q__NOTE(_G4), W__NOTE(_BF4), H__NOTE(_C5), H__NOTE(_A4), H__NOTE(_A4),    \
+    H__NOTE(_G4), H__NOTE(_F4), H__NOTE(_F4), W__NOTE(_C5), W__NOTE(_BF4),
+
+#define MACOS_SONG  \
+    Q__NOTE(_A4), W__NOTE(_D4),
+
+#define WINDOWS_SONG \
+    Q__NOTE(_A4), W__NOTE(_E3),

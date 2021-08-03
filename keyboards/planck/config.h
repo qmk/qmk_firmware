@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x03A8
 #define MANUFACTURER    OLKB
-#define PRODUCT         Planck
+#define PRODUCT         Wafflerinator 3000
 
 /* key matrix size */
 #define MATRIX_ROWS 4

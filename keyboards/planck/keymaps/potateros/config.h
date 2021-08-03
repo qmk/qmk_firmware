@@ -1,13 +1,17 @@
 #pragma once
 
-#define MANUFACTURER    OLKB x potateros lol
-#define PRODUCT         Wafflerinator 3000
 // #define TAPPING_TERM 100
 #define LEADER_TIMEOUT 400
 #define DYNAMIC_MACRO_NO_NESTING
+#define USB_MAX_POWER_CONSUMPTION 80
 
 #ifdef AUDIO_ENABLE
-   #define STARTUP_SONG SONG(STARTUP_SOUND)
+   #define STARTUP_SONG SONG(PLANCK_SOUND)
+    // #define STARTUP_SONG SONG(NO_SOUND)
+
+   #define DEFAULT_LAYER_SONGS { SONG(MACOS_SONG), \
+                                 SONG(WINDOWS_SONG) \
+                              }
 #endif
 
 /*
