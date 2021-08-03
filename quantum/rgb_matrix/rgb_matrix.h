@@ -236,9 +236,10 @@ typedef struct {
 
 inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
 #if defined(RGB_MATRIX_SPLIT)
-    if (is_keyboard_left())
+    if (is_keyboard_left()){
         uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT; 
         return led_idx < k_rgb_matrix_split[0];
+    }
     else
         return led_idx < DRIVER_LED_TOTAL;
 #else
