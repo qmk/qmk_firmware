@@ -7,7 +7,36 @@ This is a basic layout for a full-sized ANSI board. It should be compatible with
 * Hardware Supported: Teensy®++ 2.0 as it has enough pins for the matrix.
 * Hardware Availability: [pjrc.com](https://www.pjrc.com/store/teensypp.html)
 
-*NOTE:* Be sure to avoid pin D6 on the Teensy!
+The pin layout I used is shown below. Change it as you wish, but be sure to avoid pin D6!
+
+```
+                   ┌──────┐
+              ┌────┴──────┴────┐
+          +5V │o              o│ GND
+    CL <== B6 │o              o│ B7 ==> CE
+    CK <== B5 │o              o│ D0 ==> CD
+    CJ <== B4 │o              o│ D1 ==> CC
+    CI <== B3 │o              o│ D2 ==> CB
+    CH <== B2 │o              o│ D3 ==> CA
+    CG <== B1 │o              o│ D4 ==> C9
+    CF <== B0 │o              o│ D5 ==> C8
+           E7 │o              o│ D6 ==> NOPE
+    C7 <== E6 │o              o│ D7 ==> C6
+          GND │o              o│ E0 ==> C5
+          RST │o              o│ E1 ==> C4
+    R5 <== F0 │o              o│ C0 ==> C3
+    R4 <== F1 │o  A0 o  o A4  o│ C1 ==> C2
+    R3 <== F2 │o  A1 o  o A5  o│ C2 ==> C1
+    R2 <== F3 │o  A2 o  o A6  o│ C3 ==> C0
+    R1 <== F4 │o  A3 o  o A7  o│ C4
+    R0 <== F5 │o              o│ C5
+           F6 │o              o│ C6
+           F7 │o  o   o   o   o│ C7
+              └────────────────┘
+                  R   G   +
+                  S   N   5
+                  T   D   V
+```
 
 Make example for this keyboard (after setting up your build environment):
 

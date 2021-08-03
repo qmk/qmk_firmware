@@ -70,13 +70,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  T   D   V
  */
 
-//                        R0  R1  R2  R3  R4  R5
+
 #define MATRIX_ROW_PINS \
     { F5, F4, F3, F2, F1, F0 }
+//    R0  R1  R2  R3  R4  R5
 
-//                        C0  C1  C2  C3  C4  C5  C6  C7  C8  C9  CA  CB  CC  CD  CE  CF  CG  CH  CI  CJ  CK  CL
 #define MATRIX_COL_PINS \
     { C3, C2, C1, C0, E1, E0, D7, E6, D5, D4, D3, D2, D1, D0, B7, B0, B1, B2, B3, B4, B5, F6 }
+//    C0  C1  C2  C3  C4  C5  C6  C7  C8  C9  CA  CB  CC  CD  CE  CF  CG  CH  CI  CJ  CK  CL
+
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
