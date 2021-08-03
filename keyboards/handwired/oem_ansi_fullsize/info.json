@@ -5,7 +5,7 @@
     "width": 22.5,
     "height": 6.25,
     "layouts": {
-        "LAYOUT_ansi_fullsize": {
+        "LAYOUT_fullsize_ansi": {
             "layout": [
                 {"matrix": [0, 0], "label": "ESC", "x":0, "y":0},
                 {"matrix": [0, 2], "label": "F1", "x":2, "y":0},
