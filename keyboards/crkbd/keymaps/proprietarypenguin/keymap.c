@@ -29,13 +29,21 @@ enum crkbd_layers {
     _MOUSE,
 };
 
+enum custom_keycodes {
+    CAFF_ON = SAFE_RANGE,
+    CAFF_OFF,
+};
+
+bool caffeine_mode = false;
+uint16_t caffeine_timer = 0; 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT_split_3x6_3(KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, LCTL_T(KC_ESC), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, RSFT_T(KC_ENT), KC_LALT, MO(1), KC_ENT, KC_SPC, MO(2), MO(4)),
 	[_LOWER] = LAYOUT_split_3x6_3(KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_INS, KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TRNS, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_END, KC_PSCR, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_ENT, KC_SPC, MO(3), KC_RALT),
 	[_RAISE] = LAYOUT_split_3x6_3(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_VOLU, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_VOLD, KC_MPRV, KC_MNXT, KC_HOME, KC_END, KC_MPLY, KC_LGUI, MO(3), KC_BSPC, KC_SPC, KC_TRNS, KC_TRNS),
 	[_ADJUST] = LAYOUT_split_3x6_3(RGB_MOD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RESET, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, AG_SWAP, AG_NORM, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LGUI, KC_TRNS, KC_ENT, KC_SPC, KC_TRNS, KC_TRNS),
 	[_VIM] = LAYOUT_split_3x6_3(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(5), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_LGUI, KC_LCTL, KC_NO, KC_NO, KC_NO, KC_TRNS),
-    [_MOUSE] = LAYOUT_split_3x6_3(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0), KC_NO, KC_WH_U, KC_BTN3, KC_NO, KC_ACL0, KC_NO, KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL1, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_WH_D, KC_BTN5, KC_NO, KC_ACL2, KC_NO, KC_NO, KC_NO, KC_NO, KC_BTN1, KC_BTN2, KC_BTN4)
+    [_MOUSE] = LAYOUT_split_3x6_3(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0), KC_NO, KC_WH_U, KC_BTN3, KC_NO, KC_ACL0, KC_NO, KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL1, CAFF_OFF, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_WH_D, KC_BTN5, KC_NO, KC_ACL2, CAFF_ON, KC_NO, KC_NO, KC_NO, KC_BTN1, KC_BTN2, KC_BTN4)
 };
 
 #ifdef OLED_DRIVER_ENABLE
@@ -71,19 +79,29 @@ void oled_print_layer_state(void) {
         default:
             oled_write_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n"), false);
+}
     
-    oled_write_P(PSTR("MODE:"), false);
+void oled_print_os_state(void) {
+    oled_write_P(PSTR("\nMODE:"), false);
     //oled_write_ln_P(PSTR(""), false);
     if (keymap_config.swap_lalt_lgui) {
         oled_write_P(PSTR("macOS"), false);
     } else {
         oled_write_P(PSTR("Linux"), false);
     }
+}
+
+void oled_print_caffeine_state(void) {
+    oled_write_P(PSTR("\nCaffeine:"), false);
+    if (caffeine_mode == true) {
+        oled_write_P(PSTR("On"), false);
+    } else {
+        oled_write_P(PSTR("Off"), false);
+    }
+}
 
     /*led_t led_usb_state = host_keyboard_led_state();
     oled_write_P(PSTR("  CAPSLK"), led_usb_state.caps_lock);*/
-}
 
 char keylog_str[24] = {};
 
@@ -106,7 +124,21 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
   // update keylog
   snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
            record->event.key.row, record->event.key.col,
-           keycode, name);
+           keycode, name); 
+
+  if (caffeine_mode) {
+    caffeine_timer = timer_read();
+  }
+}
+
+void set_caffeine(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == CAFF_ON && caffeine_mode == false) {
+        caffeine_mode = true;
+        caffeine_timer = timer_read();
+    } 
+    if (keycode == CAFF_OFF && caffeine_mode == true) {
+        caffeine_mode = false;
+    }
 }
 
 void oled_render_keylog(void) {
@@ -140,8 +172,9 @@ void oled_render_logo(void) {
 
 void oled_task_user(void) {
     if (is_master) {
-        //oled_render_layer_state();
         oled_print_layer_state();
+        oled_print_os_state();
+        oled_print_caffeine_state();
         oled_render_keylog();
     } else {
         oled_render_logo();
@@ -151,7 +184,21 @@ void oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
+    set_caffeine(keycode, record);
   }
   return true;
 }
 #endif // OLED_DRIVER_ENABLE
+
+void matrix_scan_user(void) {
+    if (caffeine_mode) {
+        if (timer_elapsed(caffeine_timer) > 10000) {
+            //tap_code(KC_MS_UP);
+            //tap_code(KC_MS_RIGHT);
+            //tap_code(KC_MS_DOWN);
+            //tap_code(KC_MS_LEFT);
+            tap_code(KC_NLCK);
+            //caffeine_timer = timer_read();
+        }
+    }
+}
