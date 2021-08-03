@@ -31,12 +31,16 @@ def cd(cli):
             shell = pwd.getpwnam(getpass.getuser()).pw_shell
             if not shell:
                 shell = os.environ.get('SHELL', '/bin/bash')
+            # Start the new subshell
+            os.execl(shell, shell)
         else:
             # For Windows
             # Check the $SHELL env var
             # and fall back to '/usr/bin/bash'.
-            shell = os.environ.get('SHELL', '/usr/bin/bash')
-        # Start the new subshell
-        os.execl(shell, shell)
+            qmk_env = os.environ.copy()
+            # Set the prompt for the new shell
+            qmk_env['MSYS2_PS1'] = qmk_env['PS1']
+            # Start the new subshell
+            cli.run([os.environ.get('SHELL', '/usr/bin/bash')], env=qmk_env)
     else:
         cli.log.info("Already within qmk_firmware directory.")
