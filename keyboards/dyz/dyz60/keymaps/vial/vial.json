@@ -1,7 +1,7 @@
 {
     "name": "dyz60",
     "vendorId": "0xD772",
-    "productId": "0x0017",
+    "productId": "0x000A",
     "lighting": "qmk_rgblight",
     "matrix": {
       "rows": 5,
