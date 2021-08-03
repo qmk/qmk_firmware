@@ -18,6 +18,8 @@
 #include "muse.h"
 #include "kuatsure.h"
 
+#define LAYOUT_planck_grid_wrapper(...)   LAYOUT_planck_grid(__VA_ARGS__)
+
 enum planck_layers {
   _QWERTY,
   _GAME,
