@@ -6,11 +6,9 @@ BOOTLOADER = kiibohd
 
 # Board: it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
-# - BOARD =
-#   - PJRC_TEENSY_LC for Teensy LC
-#   - PJRC_TEENSY_3 for Teensy 3.0
-#   - PJRC_TEENSY_3_1 for Teensy 3.1 or 3.2
-#   - MCHCK_K20 for Infinity KB
+# This board was copied from PJRC_TEENSY_3_1. The only difference should be a
+# hack to ensure the watchdog has started before trying to disable it, and an
+# override to disable restart of USB driver after returning from suspend.
 BOARD = IC_TEENSY_3_1
 
 # Build Options
