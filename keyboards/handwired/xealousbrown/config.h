@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define DEBUG_MATRIX_SCAN_RATE
 //debug scans taking longer than one ms
 //#define BENCHMARK_MATRIX
-#define MATRIX_IO_DELAY 10
+#define MATRIX_IO_DELAY 15
 /*
  * Keyboard Matrix Assignments
  *
