@@ -537,7 +537,7 @@ static bool my_cool_effect(effect_params_t* params) {
   for (uint8_t i = led_min; i < led_max; i++) {
     rgb_matrix_set_color(i, 0xff, 0xff, 0x00);
   }
-  RGB_MATRIX_FINISHED_ALL_LEDS
+  return rgb_matrix_check_finished_leds(led_max);
 }
 
 // e.g: A more complex effect, relying on external methods and state, with
@@ -551,7 +551,7 @@ static bool my_cool_effect2_complex_run(effect_params_t* params) {
   for (uint8_t i = led_min; i < led_max; i++) {
     rgb_matrix_set_color(i, 0xff, some_global_state++, 0xff);
   }
-  RGB_MATRIX_FINISHED_ALL_LEDS
+  return rgb_matrix_check_finished_leds(led_max);
 }
 static bool my_cool_effect2(effect_params_t* params) {
   if (params->init) my_cool_effect2_complex_init(params);

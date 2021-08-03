@@ -23,7 +23,7 @@ bool effect_runner_reactive_splash(uint8_t start, effect_params_t* params, react
         RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    RGB_MATRIX_FINISHED_ALL_LEDS
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED

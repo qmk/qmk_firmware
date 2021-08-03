@@ -11,5 +11,5 @@ bool effect_runner_i(effect_params_t* params, i_f effect_func) {
         RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    RGB_MATRIX_FINISHED_ALL_LEDS
+    return rgb_matrix_check_finished_leds(led_max);
 }

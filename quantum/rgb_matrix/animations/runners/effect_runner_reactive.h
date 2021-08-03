@@ -24,7 +24,7 @@ bool effect_runner_reactive(effect_params_t* params, reactive_f effect_func) {
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
 
     }
-    RGB_MATRIX_FINISHED_ALL_LEDS
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED
