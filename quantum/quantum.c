@@ -356,10 +356,7 @@ void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) { layer_st
 
 void matrix_init_quantum() {
     magic();
-#if defined(LED_NUM_LOCK_PIN) || defined(LED_CAPS_LOCK_PIN) || defined(LED_SCROLL_LOCK_PIN) || defined(LED_COMPOSE_PIN) || defined(LED_KANA_PIN)
-    // TODO: remove calls to led_init_ports from keyboards and remove ifdef
     led_init_ports();
-#endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
 #endif
