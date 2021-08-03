@@ -1,4 +1,4 @@
-# German keymap for Redox
+# German keymap for Redox-media
 
 A layout for the Redox MEDIA revision.
 The layout acommodates the German umlauts and the punctuation symbols
