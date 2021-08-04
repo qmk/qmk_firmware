@@ -18,4 +18,4 @@ RGBLIGHT_ENABLE = no
 FORCE_NKRO = yes
 EXTRAKEY_ENABLE = no
 MOUSEKEY_ENABLE = no        # Mouse keys
-STENO_ENABLE = yes      
+STENO_ENABLE = yes
