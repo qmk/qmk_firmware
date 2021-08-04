@@ -270,7 +270,7 @@ void led_set_layer(int layer) {
 /*
  * Prepare all LED ports for output
  */
-void led_init_ports_user() {
+void led_init_ports_user(void) {
     setPinOutput(D7);  // Switch 1 LED
     setPinOutput(C6);  // Switch 2 LED Pin1
     setPinOutput(C7);  // Switch 2 LED Pin2
