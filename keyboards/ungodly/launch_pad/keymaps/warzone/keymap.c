@@ -17,6 +17,13 @@
 #include "analog.h"
 #include "qmk_midi.h"
 
+/* Force Numlock on */
+void matrix_init_user (void) {
+  if (!host_keyboard_led_state().num_lock) {
+      tap_code(KC_NUMLOCK);
+  }
+}
+
 // Tap Dance declarations
 enum {
     TD_ESC_TAB,
