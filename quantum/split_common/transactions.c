@@ -69,8 +69,8 @@ bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_t slave
     return false;
 }
 
-#define TRANSACTION_HANDLER_MASTER(prefix)                                                                \
-    do {                                                                                                  \
+#define TRANSACTION_HANDLER_MASTER(prefix)                                                                     \
+    do {                                                                                                       \
         if (!transaction_handler_master(master_matrix, slave_matrix, #prefix, &prefix##_master)) return false; \
     } while (0)
 
@@ -594,7 +594,9 @@ void transaction_register_rpc(int8_t transaction_id, slave_callback_t callback) 
 
 bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
     // Prevent transaction attempts while transport is disconnected
-    if (!is_transport_connected()) { return false; }
+    if (!is_transport_connected()) {
+        return false;
+    }
     // Prevent invoking RPC on QMK core sync data
     if (transaction_id <= GET_RPC_RESP_DATA) return false;
     // Prevent sizing issues
