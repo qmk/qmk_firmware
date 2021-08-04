@@ -2366,11 +2366,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 # if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
 // The layout follows a standard hebrew keyboard, with the exception
 // of ק, which is displaced by “.>” copied from the Dvorak layout.
-        case XP_HEB_AA: //
-            if (record->event.pressed) { // key down
-                unicode_hex2output_single (CS_MULT);// '"
-            }
-            break;
 
         // These letters on the upper left follow Dvorak layout.
         // The reason is space on the device: these are not macros.
@@ -2378,6 +2373,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // for these similar/same symbols: ,<.>. Idealy these symbols
         // should be the hebrew variation, if space allows it.
         /* 
+        case XP_HEB_AA: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_MULT);// '"
+            }
+            break;
+
         case XP_HEB_AB: //
             if (record->event.pressed) { // key down
                 unicode_hex2output_single (CS_MULT);// ,<
@@ -2449,9 +2450,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case XP_HEB_BC: //
+        case XP_HEB_BC: //Right-left-mark to the first free strong homerow finger on the left (middle)
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_GIMEL);// ג
+                unicode_hex2output (HB_GIMEL, HB_RLM);// ג {RLM}
             }
             break;
 
@@ -2494,20 +2495,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case XP_HEB_BJ: //
             if (record->event.pressed) { // key down
+// Todo: Qwerty harmonization + ':' (see ז in HEBREW_DVORAK)
                 unicode_hex2output_single (HB_PES);// ף
+// ^
             }
             break;
 
-        case XP_HEB_BK: //
+// Todo: Qwerty harmonization '" in Qwerty.
+        case XP_HEB_BK: // follows -_ on Dvorak
             if (record->event.pressed) { // key down
-                unicode_hex2output (HB_MAQAF, HB_RLM);// ־{RLM}
+                unicode_hex2output_single (HB_MAQAF);// ־
             }
             break;
+// ^
 
    // ------------------------- row 2
         case XP_HEB_CA: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_ZAYIN);// ז
+                if (shift_ison) send_string (":"); //
+                else unicode_hex2output_single (HB_ZAYIN);// ז
             }
             break;
 

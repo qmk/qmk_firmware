@@ -4,9 +4,49 @@ Compiled for: Hebrew
 ====================
 
 This file details the compile version `#define BASE_HEBREW__DEF_BASE,
-BASE_HEBREW__ALT_BASE`. This is a Hebrew layout.
+BASE_HEBREW__ALT_BASE`. This is a basic Hebrew layout, without niqqud.
 
-This adds several dozen new Unicode symbols, which takes up a certain
+The design is make it work easily with a Latin layer (Qwerty, Dvorak, etc),
+together as a dual layout system. For this reason the common writing symbols
+which tend to be present on the letters base layer, are kept as much as
+possible in the same locations. Within that framework, the hebrew letters
+are positioned according to the standard keyboard in Israel. When there is
+a conflict between these two objectives, the hebrew letter which conflicts with
+a symbol is moved to whatever open space there might be.
+
+      '",<.>-_?/;:
+
+The hebrew alphabet has 27 symbols. The additional letter compared to Latin
+(26 letters) is resolved by combining a letter with the symbol “:” on shift.
+This looses the symbol “;”, which is not present on some basic hebrew layouts
+either.
+
+Options
+=======
+
+You can compile the hebrew to harmonize the punctuation symbols with either
+Dvorak or Qwerty. 
+
+Dvorak with Hebrew
+------------------
+The letter ק gets displaced from the standard hebrew layout.
+
+Qwerty with Hebrew ⚠ Not implemented yet.
+------------------
+The letters ת, ץ get displaced from the standard hebrew layout.
+
+Qwerty derivatives with Hebrew
+------------------------------
+It is adviced to use Qwerty with Hebrew, and adjust by hand as needed. 
+There are no special option for these layouts. “Workman” should harmonize
+the same as Qwerty. Colemak displaced the “;:” key relative to Qwerty,
+and therefore you may like to change the “:” shifted symbol to harmonize
+with Colemak (by hand). 
+
+Flash memory cost
+-----------------
+
+This layout adds several dozen new Unicode symbols, which takes up a certain
 amount of additional space in keyboard memory. If you end up going over
 the limit, you may need to change your compilation software setup, and/or
 you can look into the “Eviscerations” chapter to cut away other Unicode
@@ -34,13 +74,14 @@ For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 Layers (text)
 =============
  
+                                            HEBREW_DVORAK
          Layer _..._BASE (LeTteRs, standard Hebrew)
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
          Escxxxxxxxx'"xxxx,<xxxx.>xxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxםx׳xxxפx״xxxxxxxxBksp
-         Tab+LCtlxxxשxxxxxדxxxxxגxxxxxכx₪xxxעxxxxx|xיxxxxxחxxxxxלxxxxxךxxxxxףxxxxxxxxx־/RLM //Right-Left-Mark
-         LSht+_PADxxזxxxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxתxxxxxץxxxxxקxxxxxRSht+_FUN
+         Tab+LCtlxxxשxxxxxדxxxxxגxRLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxלxxxxxךxxxxxףxxxxxxxxxxxxx־ //Right-Left-Mark
+         LSht+_PADxxזx:xxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxתxxxxxץxxxxxקxxxxxRSht+_FUN
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) RGUI    Right;_RAR 
@@ -77,6 +118,7 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
 
      Layer _..._NSY (Numbers and SYmbols)
     
+                                      HEBREW_DVORAK
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
