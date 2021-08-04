@@ -5,9 +5,9 @@ A 43% (kind of ANSI) mechanical keyboard.
 This firmware was originally taken from a kbfirmware.json and converted through [kbf_qmk_converter](https://noroadsleft.github.io/kbf_qmk_converter/). You may find the original `.json` files [here](https://drive.google.com/drive/folders/11DowBYrFN_uCNa9Q9bXwuMn91vmZYBcG).
 
 
-Keyboard Maintainer: [bitstarr](https://github.com/bitstarr)
-Hardware Supported: bm43hsrgb PCB
-Hardware Availability: [KPRepublic](https://kprepublic.com/collections/bm43/products/bm43-rgb-43-keys-40-custom-mechanical-keyboard-pcb-programmed-via-qmk-firmware-with-rgb-bottom-underglow-hot-swapping-switch)
+* Keyboard Maintainer: [bitstarr](https://github.com/bitstarr)
+* Hardware Supported: bm43hsrgb PCB
+* Hardware Availability: [KPRepublic](https://kprepublic.com/collections/bm43/products/bm43-rgb-43-keys-40-custom-mechanical-keyboard-pcb-programmed-via-qmk-firmware-with-rgb-bottom-underglow-hot-swapping-switch)
 
 Make example for this keyboard (after setting up your build environment):
 
