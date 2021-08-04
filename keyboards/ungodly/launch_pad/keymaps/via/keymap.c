@@ -17,10 +17,55 @@
 #include "analog.h"
 #include "qmk_midi.h"
 
+/* Force Numlock on */
+void matrix_init_user (void) {
+  if (!(host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))) {
+      register_code(KC_NUMLOCK);
+      unregister_code(KC_NUMLOCK);
+  }
+}
+
+/* Custom Layer Up/Down Keystrokes */
+enum custom_keycodes {
+    KC_LUP = SAFE_RANGE, //cycle layers in up direction
+    KC_LDN //cycle layers in down direction
+};
+#define HIGHEST_LAYER 2 //replace X with your highest layer
+static uint8_t current_layer = 0;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case KC_LUP:
+    if(record->event.pressed) {
+      if (current_layer == HIGHEST_LAYER){
+        current_layer=0;
+      } else {
+        current_layer++;
+      }
+      layer_clear();
+      layer_on(current_layer);
+    }
+    return false;
+  case KC_LDN:
+    if(record->event.pressed) {
+      if (current_layer == 0){
+        current_layer=HIGHEST_LAYER;
+      } else {
+        current_layer--;
+      }
+      layer_clear();
+      layer_on(current_layer);
+    }
+    return false;
+  default:
+    return true;
+  }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap _BL: (Base Layer) Default Numpad Layer
  * ,-------------------.
- * | NV | /  | *  |BK/FN|
+ * |LAYR| /  | *  |BACK |
  * |----|----|----|-----|
  * | 7  | 8  | 9  |  -  |
  * |----|----|----|-----|
@@ -32,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------'
  */
  [0] = LAYOUT_ortho_5x4(
-   TG(1),  KC_PSLS,  KC_PAST, LT(2, KC_BSPC),
+   KC_LUP,  KC_PSLS,  KC_PAST, LT(2, KC_BSPC),
    KC_P7,    KC_P8,    KC_P9,        KC_PMNS,
    KC_P4,    KC_P5,    KC_P6,        KC_PPLS,
    KC_P1,    KC_P2,    KC_P3,        KC_PENT,
@@ -41,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Keymap _NV: Navigation layer
 * ,-------------------.
-* | BL |    |    | FN |
+* |LAYR|    |    |NUM |
 * |----|----|----|----|
 * |HOME| UP |PGUP|    |
 * |----|----|----|----|
@@ -53,20 +98,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-------------------'
 */
 [1] = LAYOUT_ortho_5x4(
-  _______,   XXXXXXX,  XXXXXXX,     MO(2),
-  KC_HOME,   KC_UP,  KC_PGUP,   XXXXXXX,
-  KC_LEFT, XXXXXXX,  KC_RGHT,   XXXXXXX,
-  KC_END,  KC_DOWN,  KC_PGDN,   KC_PENT,
-  KC_INS,   KC_INS,   KC_DEL,   KC_PENT
+  KC_LUP, KC_NUMLOCK, XXXXXXX,    XXXXXXX,
+  KC_HOME,   KC_UP,   KC_PGUP,    XXXXXXX,
+  KC_LEFT, XXXXXXX,   KC_RGHT,    XXXXXXX,
+  KC_END,  KC_DOWN,   KC_PGDN,    KC_PENT,
+  KC_INS,   KC_INS,   KC_DEL,     KC_PENT
 ),
 
 /* Keymap _FN: RGB Function Layer
  * ,-------------------.
- * |RMOD|RGBP|RTOG|    |
+ * |LAYR|    |    |RTOG|
  * |----|----|----|----|
- * |HUD |HUI |    |    |
+ * |HUD |HUI |    |RGBP|
  * |----|----|----|----|
- * |SAD |SAI |    |    |
+ * |SAD |SAI |    |RMOD|
  * |----|----|----|----|
  * |VAD |VAS |    |    |
  * |----|----|----|----|
@@ -74,9 +119,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------'
  */
   [2] = LAYOUT_ortho_5x4(
-    RGB_MOD,  RGB_M_P,  RGB_TOG,   _______,
-    RGB_HUD,  RGB_HUI,  XXXXXXX,   XXXXXXX,
-    RGB_SAD,  RGB_SAI,  XXXXXXX,   XXXXXXX,
+    KC_LUP,  XXXXXXX,  XXXXXXX,   RGB_TOG,
+    RGB_HUD,  RGB_HUI,  XXXXXXX,   RGB_M_P,
+    RGB_SAD,  RGB_SAI,  XXXXXXX,   RGB_MOD,
     RGB_VAD,  RGB_VAI,  XXXXXXX,   XXXXXXX,
       RESET,    RESET,  XXXXXXX,   XXXXXXX
   ),
@@ -103,10 +148,6 @@ void slider(void){
 
 void matrix_scan_user(void) {
   slider();
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, 0, 1, 2);
 }
 
 // 0.91" OLED, 128x32 resolution
