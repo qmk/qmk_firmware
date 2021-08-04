@@ -21,14 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 
 #include "apidef.h"
+#include "bmp_macro.h"
 #include "bmp_config.h"
 #include "bmp_via.h"
 
 bool       via_keymap_update_flag = false;
 extern int bootloader_jump_counter;
 
-static bool via_layout_update_flag = false;
-static uint32_t via_layout_code = 0;
+static bool     via_layout_update_flag = false;
+static uint32_t via_layout_code        = 0;
 
 static inline const bmp_api_config_t *get_config() {
     return BMPAPI->app.get_config();
@@ -156,6 +157,8 @@ void raw_hid_receive_bmp(uint8_t *data, uint8_t length) {
                         } else {
                             data[2] = 0xFF;
                         }
+
+                        bmp_macro_save_file();
                     }
                     break;
             }
@@ -187,7 +190,7 @@ uint32_t via_get_layout_options(void) {
 }
 
 void via_set_layout_options(uint32_t value) {
-    via_layout_code = value;
+    via_layout_code        = value;
     via_layout_update_flag = true;
 }
 
@@ -295,36 +298,43 @@ void bmp_via_receive_cb(uint8_t *data, uint8_t length,
             break;
         }
         case id_dynamic_keymap_macro_get_count: {
-            xprintf("<via>dynamic_macro_get_count:not implemented\n");
-            command_data[0] = 0;
-            // command_data[0] = dynamic_keymap_macro_get_count();
+            xprintf("<via>dynamic_macro_get_count\n");
+            command_data[0] = BMP_MACRO_COUNT;
             break;
         }
         case id_dynamic_keymap_macro_get_buffer_size: {
-            xprintf("<via>dynamic_macro_get_buffer_size:not implemented\n");
-            uint16_t size = 0;
-            // uint16_t size   = dynamic_keymap_macro_get_buffer_size();
+            xprintf("<via>dynamic_macro_get_buffer_size\n");
+            uint16_t size = BMP_MACRO_FILE_LEN;
+
             command_data[0] = size >> 8;
             command_data[1] = size & 0xFF;
             break;
         }
         case id_dynamic_keymap_macro_get_buffer: {
-            xprintf("<via>dynamic_macro_get_buffer:not implemented\n");
-            // uint16_t offset = (command_data[0] << 8) | command_data[1];
-            // uint16_t size   = command_data[2];  // size <= 28
-            // dynamic_keymap_macro_get_buffer(offset, size, &command_data[3]);
+            uint16_t offset = (command_data[0] << 8) | command_data[1];
+            uint16_t size   = command_data[2];  // size <= 28
+            xprintf("<via>dynamic_macro_get_buffer, offset:%d, size:%d\n", offset, size);
+
+            bmp_macro_get_buffer(offset, size, &command_data[3]);
             break;
         }
         case id_dynamic_keymap_macro_set_buffer: {
-            xprintf("<via>dynamic_macro_set_buffer:not implemented\n");
-            // uint16_t offset = (command_data[0] << 8) | command_data[1];
-            // uint16_t size   = command_data[2];  // size <= 28
-            // dynamic_keymap_macro_set_buffer(offset, size, &command_data[3]);
+            uint16_t offset = (command_data[0] << 8) | command_data[1];
+            uint16_t size   = command_data[2];  // size <= 28
+            xprintf("<via>dynamic_macro_set_buffer, offset:%d, size:%d\n", offset, size);
+
+            bmp_macro_set_buffer(offset, size, &command_data[3]);
+
+            if (size == 1 && offset + size == BMP_MACRO_FILE_LEN &&
+                command_data[3] == 0) {
+                bmp_macro_save_file();
+            }
+
             break;
         }
         case id_dynamic_keymap_macro_reset: {
-            xprintf("<via>id_dynamic_keymap_macro_reset:not implemented\n");
-            // dynamic_keymap_macro_reset();
+            xprintf("<via>id_dynamic_keymap_macro_reset\n");
+            bmp_macro_reset();
             break;
         }
         case id_dynamic_keymap_get_layer_count: {
@@ -336,17 +346,20 @@ void bmp_via_receive_cb(uint8_t *data, uint8_t length,
         case id_dynamic_keymap_get_buffer: {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
             uint16_t size   = command_data[2];
-            dynamic_keymap_get_buffer(offset, size, &command_data[3]);
             xprintf("<via>dynamic_keymap_get_buffer, offset:%d, size:%d\n",
                     offset, size);
+
+            dynamic_keymap_get_buffer(offset, size, &command_data[3]);
             break;
         }
         case id_dynamic_keymap_set_buffer: {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
             uint16_t size   = command_data[2];
-            dynamic_keymap_set_buffer(offset, size, &command_data[3]);
             xprintf("<via>dynamic_keymap_set_buffer, offset:%d, size:%d\n",
                     offset, size);
+
+            dynamic_keymap_set_buffer(offset, size, &command_data[3]);
+
             break;
         }
         case id_eeprom_reset: {
@@ -370,6 +383,16 @@ void bmp_via_receive_cb(uint8_t *data, uint8_t length,
     raw_hid_send(data, length);
 }
 
-bool process_record_via(uint16_t keycode, keyrecord_t *record) { return true; }
+bool process_record_via(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        if (keycode >= MACRO00 && keycode <= MACRO15) {
+            uint8_t id = keycode - MACRO00;
+            bmp_macro_send(id);
+            return false;
+        }
+    }
+
+    return true;
+}
 
 void via_init(void) {}

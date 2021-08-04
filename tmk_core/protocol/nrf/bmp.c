@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bmp_custom_keycode.h"
 #include "bmp_process_extended_keycode.h"
 #include "bmp_indicator_led.h"
+#include "bmp_macro.h"
 #include "keycode_str_converter.h"
 
 #include <stdint.h>
@@ -264,6 +265,8 @@ MATRIX_LOOP_END:
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled()) { velocikey_decelerate();  }
 #endif
+
+    bmp_macro_task();
 
     // update LED
     if (led_status != host_keyboard_leds()) {
@@ -570,6 +573,7 @@ void bmp_init()
   load_tapping_term_file();
   load_eeprom_emulation_file();
   load_encoder_config_file();
+  bmp_macro_load_file();
 
   if (config->mode == WEBNUS_CONFIG)
   {

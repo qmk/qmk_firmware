@@ -24,6 +24,8 @@ NRF_DIR = $(PROTOCOL_DIR)/nrf
        $(NRF_DIR)/bmp_process_extended_keycode.c \
        $(NRF_DIR)/bmp_indicator_led.c \
        $(NRF_DIR)/bmp_encoder_actions.c \
+       $(NRF_DIR)/bmp_macro.c \
+       $(NRF_DIR)/bmp_macro_parser.c \
        $(NRF_DIR)/encoder.c \
        $(NRF_DIR)/via.c \
 

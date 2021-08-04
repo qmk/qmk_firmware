@@ -35,6 +35,7 @@ typedef enum {
     PARSER_KEYMAP,
     PARSER_QMK,
     PARSER_ENCODER,
+    PARSER_MACRO,
     PARSER_NONE,
 } parser_type_t;
 

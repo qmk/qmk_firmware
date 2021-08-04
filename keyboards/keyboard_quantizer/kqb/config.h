@@ -24,8 +24,6 @@
 
 #define QUANTIZER_REPORT_PARSER REPORT_PARSER_USER
 
-#define VIA_ENABLE
-
 #define MATRIX_ROW_PINS \
     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 #define MATRIX_COL_PINS \

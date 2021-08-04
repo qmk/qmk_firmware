@@ -30,6 +30,8 @@ NRFCFLAGS += -DMATRIX_ROWS=32
 NRFCFLAGS += -DMATRIX_COLS=32
 NRFCFLAGS += -DRGBLED_NUM=128
 NRFCFLAGS += -DEEPROM_SIZE=32
+NRFCFLAGS += -DVIA_ENABLE  # Define here(not in rules.mk) to use VIA keycode definitions, and do not complie quantum/via.c
+
 
 NRF_VER_DIR = sdk$(NRFSDK_VER)
 

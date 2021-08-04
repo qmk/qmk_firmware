@@ -15,10 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "apidef.h"
 #include "bmp.h"
 #include "bmp_config.h"
+#include "bmp_macro.h"
+#include "bmp_macro_parser.h"
 
 #ifndef TAPPING_TERM
 #    define TAPPING_TERM 200
@@ -30,6 +31,7 @@ static bmp_qmk_config_t     bmp_qmk_config;
 static char                 qmk_config_string[1024];
 static bmp_encoder_config_t bmp_encoder_config;
 static char                 encoder_config_string[1024];
+static char                 macro_string[1024];
 
 bmp_ex_keycode_t bmp_ex_keycodes[BMP_EX_KC_LEN];
 uint32_t         bmp_ex_keycode_num;
@@ -201,6 +203,31 @@ int save_encoder_config(void) {
     return res;
 }
 
+int parse_macro_string(void) {
+    // skip key
+    char *src = macro_string;
+    while (*src++ != '\n') {
+        continue;
+    }
+
+    // parse
+    bmp_macro_file_parse(bmp_macro_get_file_buffer(), (const uint8_t *)src,
+                         strlen(src));
+
+    return 0;
+}
+
+int save_macro_string(void) {
+    int res = BMPAPI->app.save_file(BMP_MACRO_RECORD);
+    if (res == 0) {
+        xprintf("Succeed to save macro");
+    } else {
+        xprintf("Failed to save macro");
+    }
+
+    return res;
+}
+
 const file_string_parser_setting_t file_string_parser_setting[] = {
     {.key        = "\"config\"",
      .string_dst = config_string,
@@ -221,7 +248,13 @@ const file_string_parser_setting_t file_string_parser_setting[] = {
      .string_dst = encoder_config_string,
      .dst_len    = sizeof(encoder_config_string),
      parse_encoder_config,
-     save_encoder_config}};
+     save_encoder_config},
+    {.key        = "macro\n",
+     .string_dst = macro_string,
+     .dst_len    = sizeof(macro_string),
+     parse_macro_string,
+     save_macro_string},
+};
 
 static file_string_parser_t parser = {NULL, 0};
 
@@ -270,13 +303,20 @@ int stream_write_callback(const uint8_t *dat, uint32_t len) {
         parser.write_idx += len;
     }
 
-    if (parser.setting != NULL) {
+    if (parser.setting == &file_string_parser_setting[PARSER_MACRO]) {
+        dst[parser.write_idx] = '\0';
+        int res               = parser.setting->parse();
+        parser.write_idx      = 0;
+        BMPAPI->logger.info("text received");
+
+        return res == 0 ? 0 : 1;
+    } else if (parser.setting != NULL) {
         json_close = is_json_closed((const char *)dst, parser.write_idx);
         if (json_close == 0) {
             dst[parser.write_idx] = '\0';
             int res               = parser.setting->parse();
             parser.write_idx      = 0;
-            BMPAPI->logger.info("Received json");
+            BMPAPI->logger.info("json received");
 
             return res == 0 ? 0 : 1;
         } else if (json_close == -1) {
@@ -385,10 +425,22 @@ static inline void update_tapping_term_string(bmp_api_config_t const *config,
     BMPAPI->usb.create_file("TAPTERM JSN", (uint8_t *)str, strlen(str));
 }
 
-static inline void update_ecoder_config_string(bmp_encoder_config_t const *config,
-                                              char *str, uint32_t len) {
+static inline void update_ecoder_config_string(
+    bmp_encoder_config_t const *config, char *str, uint32_t len) {
     encoder_config_to_json(config, str, len);
     BMPAPI->usb.create_file("ENCODER JSN", (uint8_t *)str, strlen(str));
+}
+
+static inline void update_macro_string(char *str, uint32_t len) {
+    // put key
+    uint32_t toklen = strlen(file_string_parser_setting[PARSER_MACRO].key);
+    strcpy(str, file_string_parser_setting[PARSER_MACRO].key);
+
+    // stringify macro
+    uint8_t *macro = bmp_macro_get_file_buffer();
+    bmp_macro_file_stringify(macro, (uint8_t *)str + toklen, len - toklen);
+
+    BMPAPI->usb.create_file("MACRO   TXT", (uint8_t *)str, strlen(str));
 }
 
 __attribute__((weak)) void create_user_file() {}
@@ -561,8 +613,7 @@ int load_encoder_config_file() {
 
 __attribute__((weak)) uint16_t keymap_key_to_keycode_bmp(uint8_t  layer,
                                                          keypos_t key) {
-    return BMPAPI->app.keymap_key_to_keycode(layer,
-                                                 (bmp_api_keypos_t *)&key);
+    return BMPAPI->app.keymap_key_to_keycode(layer, (bmp_api_keypos_t *)&key);
 }
 
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
@@ -602,6 +653,7 @@ void update_config_files() {
                                sizeof(qmk_config_string));
     update_ecoder_config_string(&bmp_encoder_config, encoder_config_string,
                                 sizeof(encoder_config_string));
+    update_macro_string(macro_string, sizeof(macro_string));
     create_info_file();
     create_index_html();
     create_user_file();

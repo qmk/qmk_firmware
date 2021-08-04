@@ -560,6 +560,7 @@ enum {
     APP_UPDATE_CONFIG,
     APP_UPDATE_QMK,
     APP_UPDATE_ENCODER,
+    APP_UPDATE_MACRO,
 };
 
 void app_file_upadte(void *dat) {
@@ -636,6 +637,10 @@ static MSCMD_USER_RESULT usrcmd_file_streaming_mode(MSOPT *msopt, MSCMD_USER_OBJ
     else if (strcmp(arg, "encoder") == 0) {
         cli_app.data = (void*)APP_UPDATE_ENCODER;
         set_parser(PARSER_ENCODER);
+    }
+    else if (strcmp(arg, "macro") == 0) {
+        cli_app.data = (void*)APP_UPDATE_MACRO;
+        set_parser(PARSER_MACRO);
     }
     else {
         set_parser(PARSER_NONE);

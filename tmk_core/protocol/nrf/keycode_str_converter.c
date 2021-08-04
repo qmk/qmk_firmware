@@ -16,6 +16,7 @@
 #include "keycode.h"
 #include "quantum_keycodes.h"
 #include "keymap_jp.h"
+#include "via.h"
 #include "bmp_custom_keycode.h"
 
 const key_string_map_t regular_keys = {
@@ -333,6 +334,28 @@ const key_string_map_t gesc_key = {
     "GESC\0"
 };
 
+const key_string_map_t macro_key = {
+  .start_kc = MACRO00,
+  .end_kc = MACRO15,
+  .key_strings =
+    "00\0"
+    "01\0"
+    "02\0"
+    "03\0"
+    "04\0"
+    "05\0"
+    "06\0"
+    "07\0"
+    "08\0"
+    "09\0"
+    "10\0"
+    "11\0"
+    "12\0"
+    "13\0"
+    "14\0"
+    "15\0"
+};
+
 const key_string_map_t shifted_keys1 = {
   .start_kc = KC_EXLM,
   .end_kc = KC_RPRN,
@@ -571,6 +594,7 @@ typedef enum
   MAP_SCS2,
   MAP_MAGIC,
   MAP_GESC,
+  MAP_MACRO,
 } KEY_STRING_MAP_IDX;
 
 const key_string_map_t* key_string_maps[] = {
@@ -585,6 +609,7 @@ const key_string_map_t* key_string_maps[] = {
   [MAP_SCS2] = &sp_cad_sft_keys2,
   [MAP_MAGIC] = &magic_keys,
   [MAP_GESC] = &gesc_key,
+  [MAP_MACRO] = &macro_key,
 };
 
 const key_string_map_t* key_ascii_maps[] = {
@@ -933,6 +958,10 @@ uint8_t quantum_keycode2str_locale(uint16_t qk, char* str, uint32_t len,
   case_proc_qkc(qk, locale, use_ascii, "MAGIC_%s", keycode_str);
   break;
 
+  case MACRO00...MACRO15:
+  case_proc_qkc(qk, locale, use_ascii, "MACRO%s", keycode_str);
+  break;
+
   default:
   case_proc_qkc(qk, locale, use_ascii, "%s", keycode_str);
   break;
@@ -949,7 +978,7 @@ uint8_t quantum_keycode2str(uint16_t qk, char* str, uint32_t len) {
 typedef enum
 {
  KC, JP, MO, TG, TO, TT, DF, OSL, LT, MT,
- RGB, MAGIC, ANY,
+ RGB, MAGIC, MACRO, ANY,
  LCTL, LSFT, LALT, LGUI, RCTL, RSFT, RALT, RGUI,
  LCA, MEH, ALL, C_S,
  HYPR, LCAG, RCAG, SGUI, OSM, EX,
@@ -1359,6 +1388,7 @@ uint16_t str2quantum_keycode_locale(const char* str, uint32_t len,
       PREFIX_PAIR(MT),
       PREFIX_PAIR(RGB),
       PREFIX_PAIR(MAGIC),
+      PREFIX_PAIR(MACRO),
       PREFIX_PAIR(ANY),
       PREFIX_PAIR(LCTL),
       PREFIX_PAIR(LSFT),
@@ -1418,6 +1448,9 @@ uint16_t str2quantum_keycode_locale(const char* str, uint32_t len,
     break;
   case MAGIC:
 	  return conv(str + prefix_len, len-prefix_len, MAP_MAGIC);
+  case MACRO:
+      prefix_len--; // no paren
+	  return conv(str + prefix_len, len-prefix_len, MAP_MACRO);
   case ANY:
     kc = atoi(str + prefix_len);
     if (kc == KC_NO)
