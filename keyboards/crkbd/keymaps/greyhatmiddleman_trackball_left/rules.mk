@@ -15,11 +15,7 @@ LTO_ENABLE          = yes
 SPLIT_KEYBOARD = yes
 SPLIT_TRANSPORT = mirror
 
-PIMORONI_TRACKBALL_ENABLE = no
+USER_NAME := greyhatmiddleman
 
-ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
-    SRC += pimoroni_trackball.c
-    OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
-    POINTING_DEVICE_ENABLE := yes
-endif
+PIMORONI_TRACKBALL_ENABLE = no
 
