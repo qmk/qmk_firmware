@@ -12,3 +12,21 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+#define LSFT_CAPSLOCK_ENABLE
+    This will enable double tap on Left Shift to toggle CAPSLOCK
+
+
+#define IDLE_TIMEOUT_ENABLE
+    Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
+    
+    Functions:
+        void timeout_update_threshold(bool increase)  // change threshold: true = increase, false = decrease     
+        void timeout_reset_timer(void)  // resets timer (put in process_record_user if you override it)
+        void timeout_tick_timer(void)   // registers time ticks (put in maxtrix_scan_user if you override it)
+
+
+Other Functions:
+
+activate_numlock(bool turn_on)  // true = turn on NUM LOCK, false = off 

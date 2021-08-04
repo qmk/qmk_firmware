@@ -16,16 +16,11 @@
 
 #pragma once
 
-#include "quantum.h"
-
-#define TAPPING_TOGGLE 2
-// TT set to two taps
+#define TAPPING_TOGGLE 2           // TT () set to two taps
 
 /*  Handle GRAVESC combo keys */
-#define GRAVE_ESC_ALT_OVERRIDE
-    //Always send Escape if Alt is pressed
-#define GRAVE_ESC_CTRL_OVERRIDE
-    //Always send Escape if Control is pressed
+#define GRAVE_ESC_ALT_OVERRIDE     // Always send Escape if Alt is pressed
+#define GRAVE_ESC_CTRL_OVERRIDE    // Always send Escape if Control is pressed
 
 #define TAPPING_TERM 180
 
@@ -33,9 +28,7 @@
     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
     #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
-    // Custom RGB Colours
+//RGB custom colours
     #define RGB_GODSPEED 0x00, 0xE4, 0xFF // colour for matching keycaps
     #define RGB_NAUTILUS 0x00, 0xA4, 0xA9 // Nautilus Font colours
 #endif
-
-
