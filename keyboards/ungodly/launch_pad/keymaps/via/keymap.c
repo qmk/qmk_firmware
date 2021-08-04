@@ -19,9 +19,8 @@
 
 /* Force Numlock on */
 void matrix_init_user (void) {
-  if (!(host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))) {
-      register_code(KC_NUMLOCK);
-      unregister_code(KC_NUMLOCK);
+  if (!host_keyboard_led_state().num_lock) {
+      tap_code(KC_NUMLOCK);
   }
 }
 
