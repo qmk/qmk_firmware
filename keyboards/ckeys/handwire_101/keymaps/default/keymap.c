@@ -163,33 +163,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TERM_ABOUT:
             if (record->event.pressed) {
                 // when keycode TERM_ABOUT is pressed
-                SEND_STRING("about" SS_TAP(X_ENTER));
-            } else {
-                // when keycode TERM_ABOUT is released
+                SEND_STRING("about\n");
             }
             break;
         case TERM_PRINT:
             if (record->event.pressed) {
-                SEND_STRING("print" SS_TAP(X_ENTER));
-            } else {
+                SEND_STRING("print\n");
             }
             break;
         case TERM_FLUSH:
             if (record->event.pressed) {
-                SEND_STRING("flush" SS_TAP(X_ENTER));
-            } else {
+                SEND_STRING("flush\n");
             }
             break;
         case TERM_HELP:
             if (record->event.pressed) {
-                SEND_STRING("help" SS_TAP(X_ENTER));
-            } else {
+                SEND_STRING("help\n");
             }
             break;
         case CKEYS_ABOUT:
             if (record->event.pressed) {
-                SEND_STRING("https://cKeys.org" SS_TAP(X_ENTER) "Making people smile one keyboard at a time." SS_TAP(X_ENTER) "cKeys is a volunteer-run 501(c)(3) nonprofit organization." SS_TAP(X_ENTER));
-            } else {
+                SEND_STRING("https://cKeys.org\nMaking people smile one keyboard at a time.\ncKeys is a volunteer-run 501(c)(3) nonprofit organization.\n");
             }
             break;
     }
