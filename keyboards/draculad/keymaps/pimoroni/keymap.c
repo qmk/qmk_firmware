@@ -38,9 +38,6 @@ enum custom_keycodes {
   BALL_MCL,//middle click
 };
 
-
-char wpm_as_str[8];
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] =  LAYOUT(
         KC_Q,         KC_W,    KC_E,    KC_R,    KC_T,                                         KC_Y,            KC_U,             KC_I,    KC_O,    KC_P,
@@ -168,14 +165,20 @@ static void render_logo(void) {
 }
 
 static void render_status(void) {
-  oled_write_P(PSTR("This is\n~~~~~~~~~\nDracu\nLad\n~~~~~~~~~\nv1.0\n~~~~~~~~~\n"), false);
-  sprintf(wpm_as_str, "WPM %03d", get_current_wpm());
-  oled_write(wpm_as_str,false);
-  led_t led_state = host_keyboard_led_state();
-  oled_write_P(PSTR("\nCaps: "), false);
-  oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
-  oled_write_P(PSTR("\n"),false);
-  switch (get_highest_layer(layer_state)) {
+    oled_write_P(PSTR("This is\n~~~~~~~~~\nDracu\nLad\n~~~~~~~~~\nv1.0\n~~~~~~~~~\n"), false);
+    uint8_t n = get_current_wpm();
+    char    wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
+    oled_write_P(PSTR("WPM:"), false);
+    oled_write(wpm_counter, false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(PSTR("\nCaps: "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
+    oled_write_P(PSTR("\n"), false);
+    switch (get_highest_layer(layer_state)) {
         case _BASE:
             oled_write_P(PSTR("Base   "), false);
             break;
