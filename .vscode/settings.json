@@ -27,5 +27,13 @@
     "[json]": {
 	    "editor.formatOnSave": false
     },
-    "C_Cpp.errorSquiggles": "Enabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "cSpell.words": [
+        "MNXT",
+        "MPLY",
+        "MPRV"
+    ],
+    "cSpell.ignoreWords": [
+        "blnk"
+    ]
 }

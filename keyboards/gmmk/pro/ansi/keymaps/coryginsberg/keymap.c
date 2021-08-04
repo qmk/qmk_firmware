@@ -18,6 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+enum custom_layers {
+    _MAC, // Mac Layout
+    _WIN, // Windows Layout (TODO: Figure out how to implement using fn layer)
+    _NUM, // Number pad
+    _FN, // Fn Layer
+    _BLNK, // Default blank/transparent
+};
+
 void dance_media(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code(KC_MPLY);
@@ -33,7 +41,7 @@ void dance_media(qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for shift, twice for Caps Lock
     [0] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [1] = ACTION_TAP_DANCE_FN(dance_media),}
+    [1] = ACTION_TAP_DANCE_FN(dance_media)};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -52,39 +60,73 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //
     // To put the keyboard in bootloader mode, use FN+backslash. If you accidentally put it into bootloader, you can just unplug the USB cable and
     // it'll be back to normal when you plug it back in.
-    [0] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  TD(1),            TD(2),
+    [_MAC] = LAYOUT(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  TD(1),            KC_MUTE,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_DEL,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        TO(1),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        MO(_NUM),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
         TD(0),   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RALT, MO(2),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RALT, MO(_FN), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
-    [1] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,          TD(2),
+    [_WIN] = LAYOUT(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,          KC_MUTE,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_DEL,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        TO(0),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        MO(_NUM),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
         TD(0),   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(2),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(_FN), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
-    [2] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TD(1),            _______,
+    [_NUM] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_P, _______, _______, RESET,            RGB_MODE_FORWARD,
-        _______, _______, RGB_SAI, _______, _______, _______, RGB_HUI, _______, _______, _______, _______, _______,          _______,          RGB_MODE_REVERSE,
-        _______,          _______, _______, _______, RGB_VAI, _______, _______, _______, _______, _______, _______,          _______, _______, RGB_TOG,
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    KC_PPLS, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_4,    KC_5,    KC_6,    KC_PPLS, _______,          KC_PENT,          _______,
+        _______,          _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_P3,   KC_PEQL,          _______, _______, _______,
+        _______, _______, _______,                            KC_P0,                              KC_PDOT, _______, _______, _______, _______, _______
+    ),
+    [_FN] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TD(1),                                    _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                                  _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_P, _______, _______, RESET,                                    RGB_MODE_FORWARD,
+        _______, _______, RGB_SAI, _______, _______, _______, RGB_HUI, _______, _______, _______, _______, _______,          _______,                                  RGB_MODE_REVERSE,
+        _______,          _______, _______, _______, RGB_VAI, _______, _______, _______, _______, _______, _______,          _______,             _______,             RGB_TOG,
         _______, _______, _______,                            _______,                            _______, _______, _______, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK
+    ),
+    [_BLNK] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
     ),
 };
 
-
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
-      tap_code(KC_VOLU);
+        if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {  // If you are holding L shift, Page up
+            unregister_mods(MOD_BIT(KC_LSFT));
+            register_code(KC_PGDN);
+            register_mods(MOD_BIT(KC_LSFT));
+        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
+            tap_code16(LCTL(KC_RGHT));
+        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
+            tap_code(KC_MEDIA_NEXT_TRACK);
+        } else {
+            tap_code(KC_VOLU);  // Otherwise it just changes volume
+        }
     } else {
-      tap_code(KC_VOLD);
+        if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
+            unregister_mods(MOD_BIT(KC_LSFT));
+            register_code(KC_PGUP);
+            register_mods(MOD_BIT(KC_LSFT));
+        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
+            tap_code16(LCTL(KC_LEFT));
+        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
+            tap_code(KC_MEDIA_PREV_TRACK);
+        } else {
+            tap_code(KC_VOLD);
+        }
     }
     return true;
 }
-
