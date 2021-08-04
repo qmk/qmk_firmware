@@ -116,12 +116,15 @@ __attribute__ ((weak)) bool _isWinKeyDisabled = false;
 
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
+    #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
+        #define DYNAMIC_KEYMAP_LAYER_COUNT 4  //default in case this is not already defined elsewhere
+    #endif
     __attribute__ ((weak)) uint8_t selected_layer = 0;
 
     __attribute__ ((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
         if ( clockwise ) {
             if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                if(selected_layer  < 3) {
+                if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT - 1)) {
                     selected_layer ++;
                     layer_move(selected_layer);
                 }
