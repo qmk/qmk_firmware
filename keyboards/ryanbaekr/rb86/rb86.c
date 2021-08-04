@@ -1,4 +1,4 @@
-/* Copyright 2021 Jonathan Rascher
+/* Copyright 2021 ryanbaekr
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include "quantum.h"
-
-enum user_keycode {
-    MC_ALTT = SAFE_RANGE,
-    KEYMAP_SAFE_RANGE,
-};
+#include "rb86.h"
