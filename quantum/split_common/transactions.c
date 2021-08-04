@@ -41,8 +41,8 @@
     { &dummy, 0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb }
 #define trans_target2initiator_initializer(member) trans_target2initiator_initializer_cb(member, NULL)
 
-#define transport_write(id, data, length) transport_transaction(id, data, length, NULL, 0)
-#define transport_read(id, data, length) transport_transaction(id, NULL, 0, data, length)
+#define transport_write(id, data, length) transport_execute_transaction(id, data, length, NULL, 0)
+#define transport_read(id, data, length) transport_execute_transaction(id, NULL, 0, data, length)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 // Forward-declare the RPC callback handlers
@@ -53,29 +53,25 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
 ////////////////////////////////////////////////////
 // Helpers
 
-bool transaction_handler_master(bool okay, matrix_row_t master_matrix[], matrix_row_t slave_matrix[], const char *prefix, bool (*handler)(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])) {
-    if (okay) {
-        bool this_okay = true;
-        for (int iter = 1; iter <= 10; ++iter) {
-            if (!this_okay) {
-                for (int i = 0; i < iter * iter; ++i) {
-                    wait_us(10);
-                }
+bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[], const char *prefix, bool (*handler)(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])) {
+    int num_retries = is_transport_connected() ? 10 : 1;
+    for (int iter = 1; iter <= num_retries; ++iter) {
+        if (iter > 1) {
+            for (int i = 0; i < iter * iter; ++i) {
+                wait_us(10);
             }
-            ATOMIC_BLOCK_FORCEON { this_okay = handler(master_matrix, slave_matrix); };
-            if (this_okay) break;
         }
-        okay &= this_okay;
-        if (!okay) {
-            dprintf("Failed to execute %s\n", prefix);
-        }
+        bool this_okay = true;
+        ATOMIC_BLOCK_FORCEON { this_okay = handler(master_matrix, slave_matrix); };
+        if (this_okay) return true;
     }
-    return okay;
+    dprintf("Failed to execute %s\n", prefix);
+    return false;
 }
 
 #define TRANSACTION_HANDLER_MASTER(prefix)                                                                \
     do {                                                                                                  \
-        okay &= transaction_handler_master(okay, master_matrix, slave_matrix, #prefix, &prefix##_master); \
+        if (!transaction_handler_master(master_matrix, slave_matrix, #prefix, &prefix##_master)) return false; \
     } while (0)
 
 #define TRANSACTION_HANDLER_SLAVE(prefix)                                      \
@@ -554,7 +550,6 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
 };
 
 bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    bool okay = true;
     TRANSACTIONS_SLAVE_MATRIX_MASTER();
     TRANSACTIONS_MASTER_MATRIX_MASTER();
     TRANSACTIONS_ENCODERS_MASTER();
@@ -567,7 +562,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_LED_MATRIX_MASTER();
     TRANSACTIONS_RGB_MATRIX_MASTER();
     TRANSACTIONS_WPM_MASTER();
-    return okay;
+    return true;
 }
 
 void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
@@ -598,6 +593,8 @@ void transaction_register_rpc(int8_t transaction_id, slave_callback_t callback) 
 }
 
 bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
+    // Prevent transaction attempts while transport is disconnected
+    if (!is_transport_connected()) { return false; }
     // Prevent invoking RPC on QMK core sync data
     if (transaction_id <= GET_RPC_RESP_DATA) return false;
     // Prevent sizing issues

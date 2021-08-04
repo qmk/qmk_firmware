@@ -204,11 +204,9 @@ If you're having issues with serial communication, you can change this value, as
 This sets the maximum number of milliseconds before forcing a synchronization of data from master to slave. Under normal circumstances this sync occurs whenever the data _changes_, for safety a data transfer occurs after this number of milliseconds if no change has been detected since the last sync. 
 
 ```c
-#define SPLIT_MAX_CONNECTION_ERRORS 40
+#define SPLIT_MAX_CONNECTION_ERRORS 10
 ```
-This sets the maximum number of failed communication attempts from the master part before it assumes that no slave part is connected. This makes it possible to use a master part without the slave part connected.
-
-All built-in transactions (i.e. not `transaction_rpc_*`-based ones) are given 10 attempts each, and most send one transaction each over the transport, so 40 errors is basically (up to) four completely failed built-in transactions. On the other hand, each RPC transaction consists of four transport transactions without retries, so 40 errors is roughly ten completely failed RPC transactions. Setting it to a negative value will disable the disconnection check altogether.
+This sets the maximum number of failed communication attempts (one per scan cycle) from the master part before it assumes that no slave part is connected. This makes it possible to use a master part without the slave part connected.
 
 ```c
 #define SPLIT_CONNECTION_CHECK_TIMEOUT 500

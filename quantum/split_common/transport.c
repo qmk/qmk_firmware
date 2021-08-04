@@ -22,12 +22,10 @@
 #include "transaction_id_define.h"
 #include "atomic_util.h"
 
-// Max number of consecutive failed communications before the communication is seen as disconnected.
-// All built-in transactions (i.e. not transaction_rpc_*-based ones) are given 10 attempts each, and most send one transaction over the transport, so 40 errors is basically (up to) four completely failed built-in transactions.
-// On the other hand, each RPC transaction consists of four transport transactions without retries, so 40 errors is roughly ten completely failed RPC transactions.
+// Max number of consecutive failed communications (one per scan cycle) before the communication is seen as disconnected.
 // Set to a negative value to disable the disconnection check altogether.
 #ifndef SPLIT_MAX_CONNECTION_ERRORS
-#    define SPLIT_MAX_CONNECTION_ERRORS 40
+#    define SPLIT_MAX_CONNECTION_ERRORS 10
 #endif  // SPLIT_MAX_CONNECTION_ERRORS
 
 // How long (in milliseconds) to block all connection attempts after the communication has been flagged as disconnected.
@@ -71,7 +69,7 @@ i2c_status_t transport_trigger_callback(int8_t id) {
     return i2c_writeReg(SLAVE_I2C_ADDRESS, trans->initiator2target_offset, split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size, SLAVE_I2C_TIMEOUT);
 }
 
-static bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
+bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
     i2c_status_t              status;
     split_transaction_desc_t *trans = &split_transaction_table[id];
     if (initiator2target_length > 0) {
@@ -108,7 +106,7 @@ split_shared_memory_t *const split_shmem = &shared_memory;
 void transport_master_init(void) { soft_serial_initiator_init(); }
 void transport_slave_init(void) { soft_serial_target_init(); }
 
-static bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
+bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
     split_transaction_desc_t *trans = &split_transaction_table[id];
     if (initiator2target_length > 0) {
         size_t len = trans->initiator2target_buffer_size < initiator2target_length ? trans->initiator2target_buffer_size : initiator2target_length;
@@ -129,13 +127,11 @@ static bool transport_execute_transaction(int8_t id, const void *initiator2targe
 
 #endif  // USE_I2C
 
-bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { return transactions_master(master_matrix, slave_matrix); }
+bool is_transport_connected(void) { return connection_errors < SPLIT_MAX_CONNECTION_ERRORS; }
 
-void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { transactions_slave(master_matrix, slave_matrix); }
-
-bool transport_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
+bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
 #if SPLIT_MAX_CONNECTION_ERRORS < 0
-    return transport_execute_transaction(id, initiator2target_buf, initiator2target_length, target2initiator_buf, target2initiator_length);
+    return transactions_master(master_matrix, slave_matrix);
 #else   // SPLIT_MAX_CONNECTION_ERRORS < 0
     // Throttle transaction attempts if target doesn't seem to be connected
     // Without this, a solo half becomes unusable due to constant read timeouts
@@ -144,7 +140,7 @@ bool transport_transaction(int8_t id, const void *initiator2target_buf, uint16_t
         return false;
     }
 
-    if (!transport_execute_transaction(id, initiator2target_buf, initiator2target_length, target2initiator_buf, target2initiator_length)) {
+    if (!transactions_master(master_matrix, slave_matrix)) {
         if (connection_errors < UINT8_MAX) {
             connection_errors++;
         }
@@ -162,4 +158,4 @@ bool transport_transaction(int8_t id, const void *initiator2target_buf, uint16_t
 #endif  // SPLIT_MAX_CONNECTION_ERRORS < 0
 }
 
-bool is_transport_connected(void) { return connection_errors < SPLIT_MAX_CONNECTION_ERRORS; }
+void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { transactions_slave(master_matrix, slave_matrix); }
