@@ -127,7 +127,7 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
            keycode, name); 
 
   if (caffeine_mode) {
-    caffeine_timer = timer_read();
+    caffeine_timer = caffeine_timer - 10000;
   }
 }
 
@@ -197,8 +197,8 @@ void matrix_scan_user(void) {
             //tap_code(KC_MS_RIGHT);
             //tap_code(KC_MS_DOWN);
             //tap_code(KC_MS_LEFT);
-            tap_code(KC_NLCK);
-            //caffeine_timer = timer_read();
+            tap_code(KC_F24);
+            caffeine_timer = caffeine_timer - 10000;
         }
     }
 }
