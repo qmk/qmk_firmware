@@ -32,3 +32,6 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 LAYOUTS = ortho_4x12
+
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no

@@ -49,7 +49,7 @@ int foo(void) {
 
 [Clang-format](https://clang.llvm.org/docs/ClangFormat.html) is part of LLVM and can automatically format your code for you, because ain't nobody got time to do it manually. We supply a configuration file for it that applies most of the coding conventions listed above. It will only change whitespace and newlines, so you will still have to remember to include optional braces yourself.
 
-Use the [full LLVM installer](http://llvm.org/builds/) to get clang-format on Windows, or use `sudo apt install clang-format` on Ubuntu.
+Use the [full LLVM installer](https://llvm.org/builds/) to get clang-format on Windows, or use `sudo apt install clang-format` on Ubuntu.
 
 If you run it from the command-line, pass `-style=file` as an option and it will automatically find the .clang-format configuration file in the QMK root directory.
 

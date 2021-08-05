@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTS_TEST_COMMON_TEST_DRIVER_H_
-#define TESTS_TEST_COMMON_TEST_DRIVER_H_
+#pragma once
 
 #include "gmock/gmock.h"
 #include <stdint.h>
@@ -28,7 +27,7 @@ public:
     TestDriver();
     ~TestDriver();
     void set_leds(uint8_t leds) { m_leds = leds; }
-    
+
     MOCK_METHOD1(send_keyboard_mock, void (report_keyboard_t&));
     MOCK_METHOD1(send_mouse_mock, void (report_mouse_t&));
     MOCK_METHOD1(send_system_mock, void (uint16_t));
@@ -43,6 +42,3 @@ private:
     uint8_t m_leds = 0;
     static TestDriver* m_this;
 };
-
-
-#endif /* TESTS_TEST_COMMON_TEST_DRIVER_H_ */

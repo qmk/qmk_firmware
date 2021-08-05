@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Matthew Cordier
 #define PRODUCT         Zlant
-#define DESCRIPTION     keyboard firmware for Zlant
 
 /* key matrix size */
 #define MATRIX_ROWS 4

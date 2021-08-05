@@ -15,10 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "hal.h"
+#include <hal.h>
 #include "led_custom.h"
 #include "satisfaction75.h"
-#include "printf.h"
 
 static void breathing_callback(PWMDriver *pwmp);
 
@@ -70,6 +69,21 @@ static uint16_t cie_lightness(uint16_t v) {
 void backlight_init_ports(void) {
   palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(1));
   pwmStart(&PWMD3, &pwmCFG);
+  if(kb_backlight_config.enable){
+    if(kb_backlight_config.breathing){
+      breathing_enable();
+    } else{
+      backlight_set(kb_backlight_config.level);
+    }
+  } else {
+    backlight_set(0);
+  }
+}
+
+void suspend_power_down_user(void) {
+    backlight_set(0);
+}
+void suspend_wakeup_init_user(void) {
   if(kb_backlight_config.enable){
     if(kb_backlight_config.breathing){
       breathing_enable();

@@ -1,4 +1,4 @@
-/* Copyright 2020 Drashna Jael're  <drashna@live.com>
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,8 @@
  */
 
 
-
 #pragma once
 
 #define TAPPING_TERM_PER_KEY
+#define WAIT_FOR_USB
+// #define NO_USB_STARTUP_CHECK

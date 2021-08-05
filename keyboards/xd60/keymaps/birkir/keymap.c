@@ -31,32 +31,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-// Macros
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) { register_code(KC_RSFT); }
-      else { unregister_code(KC_RSFT); }
-      break;
-  }
-
-  return MACRO_NONE;
-};
-
-// Loop
-void matrix_scan_user(void) {
-  // empty
-};
-
 bool edit = false;
 uint32_t mode;
 uint16_t hue;
 uint8_t sat;
 uint8_t val;
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 
   if (state == 0 && edit == true) {
     mode = rgblight_get_mode();

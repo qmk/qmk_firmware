@@ -16,16 +16,16 @@ BUILD_OPTION_NAMES = \
 HARDWARE_OPTION_NAMES = \
   SLEEP_LED_ENABLE \
   BACKLIGHT_ENABLE \
-  BACKLIGHT_CUSTOM_DRIVER \
+  BACKLIGHT_DRIVER \
   RGBLIGHT_ENABLE \
   RGBLIGHT_CUSTOM_DRIVER \
   RGB_MATRIX_ENABLE \
+  RGB_MATRIX_DRIVER \
   SERIAL_LINK_ENABLE \
   CIE1931_CURVE \
   MIDI_ENABLE \
   BLUETOOTH_ENABLE \
   AUDIO_ENABLE \
-  FAUXCLICKY_ENABLE \
   HD44780_ENABLE \
   ENCODER_ENABLE \
   LCD_ENABLE \
@@ -44,11 +44,13 @@ OTHER_OPTION_NAMES = \
   AUTO_SHIFT_MODIFIERS \
   COMBO_ENABLE \
   KEY_LOCK_ENABLE \
+  KEY_OVERRIDE_ENABLE \
   LEADER_ENABLE \
   PRINTING_ENABLE \
   STENO_ENABLE \
   TAP_DANCE_ENABLE \
   VIRTSER_ENABLE \
+  OLED_DRIVER_ENABLE \
   OLED_ENABLE \
   LED_BACK_ENABLE \
   LED_UNDERGLOW_ENABLE \
@@ -85,7 +87,7 @@ OTHER_OPTION_NAMES = \
   LTO_ENABLE
 
 define NAME_ECHO
-	@echo "  $1 = $(strip $($1))		# $(origin $1)"
+       @printf "  %-30s = %-16s # %s\\n" "$1" "$($1)" "$(origin $1)"
 
 endef
 
@@ -96,11 +98,12 @@ endef
 
 .PHONY: show_build_options0 show_build_options
 show_build_options0:
-	@echo " KEYBOARD = $(KEYBOARD)"
-	@echo " KEYMAP   = $(KEYMAP)"
-	@echo " MCU      = $(MCU)"
-	@echo " MCU_SERIES = $(MCU_SERIES)"
-	@echo " PLATFORM = $(PLATFORM)"
+	@echo " KEYBOARD        = $(KEYBOARD)"
+	@echo " KEYMAP          = $(KEYMAP)"
+	@echo " MCU             = $(MCU)"
+	@echo " MCU_SERIES      = $(MCU_SERIES)"
+	@echo " PLATFORM        = $(PLATFORM)"
+	@echo " BOOTLOADER      = $(BOOTLOADER)"
 	@echo " FIRMWARE_FORMAT = $(FIRMWARE_FORMAT)"
 	@echo
 	@echo "Build Options:"

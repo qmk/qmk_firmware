@@ -1,6 +1,6 @@
 #include "matrix.h"
 #include "i2c_master.h"
-#include "led_matrix.h"
+#include "md_rgb_matrix.h"
 #include "suspend.h"
 
 /** \brief Suspend idle

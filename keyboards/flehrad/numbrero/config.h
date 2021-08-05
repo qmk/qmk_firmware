@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Flehrad
 #define PRODUCT         Numbrero
-#define DESCRIPTION     Pro Micro-powered Reversible L/H Numpad with Extra Macro Keys
 
 /* key matrix size */
 #define MATRIX_ROWS 5

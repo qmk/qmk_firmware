@@ -23,12 +23,10 @@ MOUSEKEY_ENABLE = no
 TERMINAL_ENABLE = no
 
 # Disable unused hardware options on all keyboards.
-FAUXCLICKY_ENABLE = no
 MIDI_ENABLE = no
 SLEEP_LED_ENABLE = no
 
 # Disable other unused options on all keyboards.
-API_SYSEX_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = no
 KEYBOARD_LOCK_ENABLE = no

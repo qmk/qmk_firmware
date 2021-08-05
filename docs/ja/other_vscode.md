@@ -1,8 +1,8 @@
 # QMK 開発用の Visual Studio Code のセットアップ
 
 <!---
-  original document: 0.9.34:docs/other_vscode.md
-  git diff 0.9.34 HEAD -- docs/other_vscode.md | cat
+  original document: 0.13.17:docs/other_vscode.md
+  git diff 0.13.17 HEAD -- docs/other_vscode.md | cat
 -->
 
 [Visual Studio Code](https://code.visualstudio.com/) (VS Code) は多くの異なるプログラミング言語をサポートするオープンソースのコードエディタです。
@@ -53,7 +53,7 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 
 ### VS Code の設定
 
-最初に、IntelliSense をセットアップする必要があります。これは厳密には必要ではありませんが、あなたの人生をずっと楽にします。これを行うには、QMK ファームウェアフォルダに `.vscode/c_cpp_properies.json` ファイルを作成する必要があります。これは全て手動で行うことができますが、ほとんどの作業は既に完了しています。
+最初に、IntelliSense をセットアップする必要があります。これは厳密には必要ではありませんが、あなたの人生をずっと楽にします。これを行うには、QMK ファームウェアフォルダに `.vscode/c_cpp_properties.json` ファイルを作成する必要があります。これは全て手動で行うことができますが、ほとんどの作業は既に完了しています。
 
 [このファイル](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e8) を取得して保存します。MSYS2 をデフォルトの場所にインストールしなかった、または WSL か LxSS を使っている場合、このファイルを編集する必要があります。
 
@@ -64,7 +64,7 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 
 次に、VSCode に統合ターミナルとして表示されるように、MSYS2 ウィンドウを設定します。これには多くの利点があります。ほとんどの場合で、エラー上で Ctrl + クリックするとこれらのファイルにジャンプできます。これによりデバッグがはるかに簡単になります。また、他のウィンドウへジャンプする必要が無いという点でも優れています。
 
-1. <kbd><kbd>File</kbd> > <kbd>Preferences ></kbd> > <kbd>Settings</kbd> </kbd> をクリックします。
+1. <kbd><kbd>ファイル</kbd> > <kbd>ユーザー設定 ></kbd> > <kbd>設定</kbd> </kbd> をクリックします。
 2. 右上の <kbd>{}</kbd> ボタンをクリックし、`settings.json` ファイルを開きます。
 3. ファイルの内容を以下のように設定します:
 
@@ -82,11 +82,11 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
     }
     ```
 
-   ここに既に設定がある場合は、最初と最後の波括弧の間に全てを追加します。
+   ここに既に設定がある場合は、最初と最後の波括弧の間に全てを追加し、既存の設定を新しく追加された設定とカンマで区切ります。
 
 ?> MSYS2 を別のフォルダにインストールした場合は、`terminal.integrated.shell.windows` のパスをシステムの正しいパスに変更する必要があります。
 
-4. Ctrl-` (grave) を押して、ターミナルを起動します。
+4. Ctrl-<code>&#96;</code> (Grave) を押して、ターミナルを起動するか、<kbd><kbd>表示</kbd> > <kbd>ターミナル</kbd></kbd> (コマンド `workbench.action.terminal.toggleTerminal`)に進みます。まだターミナルが開いていない場合は、新しいターミナルが開きます。
 
    これにより、ワークスペースフォルダ(つまり `qmk_firmware` フォルダ)でターミナルが起動し、キーボードをコンパイルすることができます。
 
@@ -115,8 +115,8 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 いずれかの拡張機能をインストールしたら、再起動します。
 
 # QMK 用の VS Code の設定
-1. <kbd><kbd>File</kbd> > <kbd>Open Folder</kbd></kbd> をクリックします
+1. <kbd><kbd>ファイル</kbd> > <kbd>フォルダーを開く</kbd></kbd> をクリックします
 2. GitHub からクローンした QMK ファームウェアフォルダを開きます。
-3. <kbd><kbd>File</kbd> > <kbd>Save Workspace As...</kbd></kbd> をクリックします
+3. <kbd><kbd>ファイル</kbd> > <kbd>名前を付けてワークスペースを保存...</kbd></kbd> をクリックします
 
 これで、VS Code で QMK ファームウェアをコーディングする準備ができました。

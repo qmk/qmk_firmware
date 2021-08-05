@@ -4,7 +4,7 @@ Macros allow you to send multiple keystrokes when pressing just one key. QMK has
 
 !> **Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets a hold of your keyboard will be able to access that information by opening a text editor.
 
-## The New Way: `SEND_STRING()` & `process_record_user`
+## `SEND_STRING()` & `process_record_user`
 
 Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 
@@ -182,7 +182,9 @@ Which would send Left Control+`a` (Left Control down, `a`, Left Control up) - no
 
 By default, it assumes a US keymap with a QWERTY layout; if you want to change that (e.g. if your OS uses software Colemak), include this somewhere in your keymap:
 
-    #include <sendstring_colemak.h>
+```c
+#include "sendstring_colemak.h"
+```
 
 ### Strings in Memory
 
@@ -207,7 +209,7 @@ SEND_STRING(".."SS_TAP(X_END));
 
 There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro, if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
 
-?> You can also use the functions described in [Useful function](ref_functions.md) for additional functionality. For example `reset_keyboard()` allows you to reset the keyboard as part of a macro.
+?> You can also use the functions described in [Useful function](ref_functions.md) and [Checking modifier state](feature_advanced_keycodes#checking-modifier-state) for additional functionality. For example, `reset_keyboard()` allows you to reset the keyboard as part of a macro and `get_mods() & MOD_MASK_SHIFT` lets you check for the existence of active shift modifiers.
 
 ### `record->event.pressed`
 
@@ -231,9 +233,15 @@ Parallel to `register_code` function, this sends the `<kc>` keyup event to the c
 
 ### `tap_code(<kc>);`
 
-This will send `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if you want to send both the press and release events ("tap" the key, rather than hold it).
+Sends `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if you want to send both the press and release events ("tap" the key, rather than hold it).
 
-If you're having issues with taps (un)registering, you can add a delay between the register and unregister events by setting `#define TAP_CODE_DELAY 100` in your `config.h` file. The value is in milliseconds.
+If `TAP_CODE_DELAY` is defined (default 0), this function waits that many milliseconds before calling `unregister_code(<kc>)`. This can be useful when you are having issues with taps (un)registering.
+
+If the keycode is `KC_CAPS`, it waits `TAP_HOLD_CAPS_DELAY` milliseconds instead (default 80), as macOS prevents accidental Caps Lock activation by waiting for the key to be held for a certain amount of time.
+
+### `tap_code_delay(<kc>, <delay>);`
+
+Like `tap_code(<kc>)`, but with a `delay` parameter for specifying arbitrary intervals before sending the unregister event.
 
 ### `register_code16(<kc>);`, `unregister_code16(<kc>);` and `tap_code16(<kc>);`
 
@@ -260,15 +268,15 @@ This will clear all keys besides the mods currently pressed.
 This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows.
 
 ```c
-bool is_alt_tab_active = false;    # ADD this near the begining of keymap.c
-uint16_t alt_tab_timer = 0;        # we will be using them soon.
+bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;     // we will be using them soon.
 
-enum custom_keycodes {             # Make sure have the awesome keycode ready
+enum custom_keycodes {          // Make sure have the awesome keycode ready
   ALT_TAB = SAFE_RANGE,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {               # This will do most of the grunt work with the keycodes.
+  switch (keycode) { // This will do most of the grunt work with the keycodes.
     case ALT_TAB:
       if (record->event.pressed) {
         if (!is_alt_tab_active) {
@@ -285,7 +293,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_scan_user(void) {     # The very important timer.
+void matrix_scan_user(void) { // The very important timer.
   if (is_alt_tab_active) {
     if (timer_elapsed(alt_tab_timer) > 1000) {
       unregister_code(KC_LALT);
@@ -293,105 +301,4 @@ void matrix_scan_user(void) {     # The very important timer.
     }
   }
 }
-```
-
----
-
-##  **(DEPRECATED)** The Old Way: `MACRO()` & `action_get_macro`
-
-!> This is inherited from TMK, and hasn't been updated - it's recommended that you use `SEND_STRING` and `process_record_user` instead.
-
-By default QMK assumes you don't have any macros. To define your macros you create an `action_get_macro()` function. For example:
-
-```c
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    if (record->event.pressed) {
-        switch(id) {
-            case 0:
-                return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
-            case 1:
-                return MACRO(D(LSFT), T(B), U(LSFT), T(Y), T(E), D(LSFT), T(1), U(LSFT), END);
-        }
-    }
-    return MACRO_NONE;
-};
-```
-
-This defines two macros which will be run when the key they are assigned to is pressed. If instead you'd like them to run when the key is released you can change the if statement:
-
-    if (!record->event.pressed) {
-
-### Macro Commands
-
-A macro can include the following commands:
-
-* I() change interval of stroke in milliseconds.
-* D() press key.
-* U() release key.
-* T() type key(press and release).
-* W() wait (milliseconds).
-* END end mark.
-
-### Mapping a Macro to a Key
-
-Use the `M()` function within your keymap to call a macro. For example, here is the keymap for a 2-key keyboard:
-
-```c
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
-        M(0), M(1)
-    ),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    if (record->event.pressed) {
-        switch(id) {
-            case 0:
-                return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
-            case 1:
-                return MACRO(D(LSFT), T(B), U(LSFT), T(Y), T(E), D(LSFT), T(1), U(LSFT), END);
-        }
-    }
-    return MACRO_NONE;
-};
-```
-
-When you press the key on the left it will type "Hi!" and when you press the key on the right it will type "Bye!".
-
-### Naming Your Macros
-
-If you have a bunch of macros you want to refer to from your keymap while keeping the keymap easily readable you can name them using `#define` at the top of your file.
-
-```c
-#define M_HI M(0)
-#define M_BYE M(1)
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
-        M_HI, M_BYE
-    ),
-};
-```
-
-
-## Advanced Example:
-
-### Single-Key Copy/Paste
-
-This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released.
-
-```c
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch(id) {
-        case 0: {
-            if (record->event.pressed) {
-                return MACRO( D(LCTL), T(C), U(LCTL), END  );
-            } else {
-                return MACRO( D(LCTL), T(V), U(LCTL), END  );
-            }
-            break;
-        }
-    }
-    return MACRO_NONE;
-};
 ```

@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 */
-#include "hal.h"
+#include <hal.h>
 
 #if HAL_USE_PAL || defined(__DOXYGEN__)
 /**
@@ -144,3 +144,8 @@ void __early_init(void) {
  * @todo    Add your board-specific code, if any.
  */
 void boardInit(void) {}
+
+
+void restart_usb_driver(USBDriver *usbp) {
+    // Do nothing. Restarting the USB driver on these boards breaks it.
+}

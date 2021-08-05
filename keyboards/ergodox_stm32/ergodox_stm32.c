@@ -12,6 +12,10 @@ extern inline void ergodox_led_all_off(void);
 volatile int mcp23017_status = 0x20;
 uint8_t i2c_initializied = 0;
 
+void board_init(void) {
+    AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
+}
+
 void matrix_init_kb(void)
 {
     // Init LED Ports

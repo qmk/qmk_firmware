@@ -7,9 +7,6 @@
 
 #define MUSIC_MASK (keycode != KC_NO)
 
-/* prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 #define MIDI_BASIC
 
 /* enable advanced MIDI features */

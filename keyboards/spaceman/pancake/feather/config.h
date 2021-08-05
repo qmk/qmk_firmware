@@ -24,3 +24,5 @@
 #define AdafruitBleResetPin D4
 #define AdafruitBleCSPin B4
 #define AdafruitBleIRQPin E6
+
+#define VIA_HAS_BROKEN_KEYCODES

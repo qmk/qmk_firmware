@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ROTR
 #define PRODUCT         ROTR
-#define DESCRIPTION     Macro Pad and Big Knob
 
 /* key matrix size */
 #define MATRIX_ROWS 1

@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    40 Percent Club
 #define PRODUCT         Tomato
-#define DESCRIPTION     A 30 key ortholinear keyboard with RGB backlighting
 
 /* key matrix size */
 #define MATRIX_ROWS 5

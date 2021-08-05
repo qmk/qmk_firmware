@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    1upkeyboards
 #define PRODUCT         1UP RGB Underglow PCB
-#define DESCRIPTION     60% keyboard with RGB underglow
 
 /* key matrix size */
 #define MATRIX_ROWS 5

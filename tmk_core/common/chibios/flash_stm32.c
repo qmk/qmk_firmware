@@ -25,6 +25,9 @@
 #elif defined(EEPROM_EMU_STM32F072xB)
 #    define STM32F072xB
 #    include "stm32f0xx.h"
+#elif defined(EEPROM_EMU_STM32F042x6)
+#    define STM32F042x6
+#    include "stm32f0xx.h"
 #else
 #    error "not implemented."
 #endif
@@ -158,9 +161,11 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
  * @retval None
  */
 void FLASH_Unlock(void) {
-    /* Authorize the FPEC Access */
-    FLASH->KEYR = FLASH_KEY1;
-    FLASH->KEYR = FLASH_KEY2;
+    if (FLASH->CR & FLASH_CR_LOCK) {
+        /* Authorize the FPEC Access */
+        FLASH->KEYR = FLASH_KEY1;
+        FLASH->KEYR = FLASH_KEY2;
+    }
 }
 
 /**

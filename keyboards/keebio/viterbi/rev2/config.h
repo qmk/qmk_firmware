@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    Keebio
 #define PRODUCT         The Viterbi Keyboard
-#define DESCRIPTION     Split 5x14 ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up

@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Play Keyboard
 #define PRODUCT         pk60
-#define DESCRIPTION     A 60% keyboard PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -22,6 +21,9 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN F4
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 #define BACKLIGHT_PIN B7

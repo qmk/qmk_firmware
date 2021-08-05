@@ -1,8 +1,8 @@
 # ドキュメントベストプラクティス
 
 <!---
-  original document: 0.9.19:docs/documentation_best_practices.md
-  git diff 0.9.19 HEAD -- docs/documentation_best_practices.md | cat
+  original document: 0.10.33:docs/documentation_best_practices.md
+  git diff 0.10.33 HEAD -- docs/documentation_best_practices.md | cat
 -->
 
 このページは QMK のためのドキュメントを作成する時のベストプラクティスを文章化するためのものです。これらのガイドラインに従うことで、一貫したトーンとスタイルを維持することでき、他の人が QMK をより理解しやすくすることができます。

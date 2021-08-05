@@ -11,3 +11,6 @@ OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
 OPT_DEFS += -DOLED_90ROTATION
 
 SPLIT_KEYBOARD = yes
+
+# Explicitly disable helix standard post-processing
+KEYBOARD_LOCAL_FEATURES_MK :=

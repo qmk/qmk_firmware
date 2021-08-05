@@ -159,19 +159,6 @@ const uint16_t PROGMEM fn_actions[] = {
     ACTION_FUNCTION(LFK_DEBUG_SETTINGS),                      // FN12 - prints LED and click settings to HID
   };
 
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-      }
-    return MACRO_NONE;
-};
-
-void matrix_init_user(void) {
-
-}
-
 void matrix_scan_user(void) {
     if(spam_space && !(get_mods() & (MOD_BIT(KC_LGUI)))){
         register_code(KC_SPC);
@@ -187,8 +174,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   }
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

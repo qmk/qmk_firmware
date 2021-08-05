@@ -1,6 +1,6 @@
 /* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
  * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
- * Copyright 2020 Drashna Jael're  <drashna@live.com>
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -159,10 +159,10 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-#ifdef ORYX_CONFIGURATOR
+#if !defined(MOONLANDER_USER_LEDS)
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
-    if (is_launching) return state;
+    if (is_launching || !keyboard_config.led_level) return state;
 
     ML_LED_1(false);
     ML_LED_2(false);
@@ -203,7 +203,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -340,15 +340,6 @@ led_config_t g_led_config = { {
 } };
 // clang-format on
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -370,7 +361,7 @@ bool music_mask_kb(uint16_t keycode) {
 #ifdef SWAP_HANDS_ENABLE
 // swap-hands action needs a matrix to define the swap
 // clang-format off
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     /* Left hand, matrix positions */
     {{6,6}, {5,6}, {4,6}, {3,6}, {2,6}, {1,6},{0,6}},
     {{6,7}, {5,7}, {4,7}, {3,7}, {2,7}, {1,7},{0,7}},
@@ -415,6 +406,24 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if (!record->event.pressed && !webusb_state.pairing) layer_state_set_kb(layer_state);
             break;
 #endif
+#if !defined(MOONLANDER_USER_LEDS)
+        case LED_LEVEL:
+            if (record->event.pressed) {
+                keyboard_config.led_level ^= 1;
+                eeconfig_update_kb(keyboard_config.raw);
+                if (keyboard_config.led_level) {
+                    layer_state_set_kb(layer_state);
+                } else {
+                    ML_LED_1(false);
+                    ML_LED_2(false);
+                    ML_LED_3(false);
+                    ML_LED_4(false);
+                    ML_LED_5(false);
+                    ML_LED_6(false);
+                }
+            }
+            break;
+#endif
 #ifdef RGB_MATRIX_ENABLE
         case TOGGLE_LAYER_COLOR:
             if (record->event.pressed) {
@@ -449,6 +458,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_kb(void) {
     keyboard_config.raw = eeconfig_read_kb();
 
+    if (!keyboard_config.led_level && !keyboard_config.led_level_res) {
+        keyboard_config.led_level = true;
+        keyboard_config.led_level_res = 0b11;
+        eeconfig_update_kb(keyboard_config.raw);
+    }
 #ifdef RGB_MATRIX_ENABLE
     if (keyboard_config.rgb_matrix_enable) {
         rgb_matrix_set_flags(LED_FLAG_ALL);
@@ -461,6 +475,8 @@ void matrix_init_kb(void) {
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     keyboard_config.raw = 0;
     keyboard_config.rgb_matrix_enable = true;
+    keyboard_config.led_level = true;
+    keyboard_config.led_level_res = 0b11;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }

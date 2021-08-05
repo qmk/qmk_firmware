@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_ESC,  DE_1,    DE_2,     DE_3,    DE_4,     DE_5,    DE_ACUT,
  KC_TAB,  DE_X,    DE_V,     DE_L,    DE_C,     DE_W,    KC_PSCR,
  MO(1),   DE_U,    DE_I,     DE_A,    DE_E,     DE_O,
- KC_LSFT, DE_UE,   DE_OE,    DE_AE,   DE_P,     DE_Z,    KC_SPACE,
+ KC_LSFT, DE_UDIA, DE_ODIA,  DE_ADIA, DE_P,     DE_Z,    KC_SPACE,
  KC_LCTL, KC_LGUI, KC_LALT,  MO(3),   MO(2),
  /*-*/    /*-*/    /*-*/     /*-*/    /*-*/     KC_VOLD, KC_VOLU,
  /*-*/    /*-*/    /*-*/     /*-*/    /*-*/     /*-*/    KC_TRNS,
@@ -82,9 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS,
  /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, DE_EXLM, DE_LESS, DE_MORE, DE_EQL,  DE_AMPR, KC_TRNS,
- /*-*/    DE_QST,  DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, DE_AT,
- KC_TRNS, DE_PLUS, DE_PERC, DE_DQOT, DE_QUOT, DE_SCLN, KC_TRNS,
+ KC_TRNS, DE_EXLM, DE_LABK, DE_RABK, DE_EQL,  DE_AMPR, KC_TRNS,
+ /*-*/    DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, DE_AT,
+ KC_TRNS, DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, KC_TRNS,
  /*-*/    /*-*/    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS,
  KC_TRNS,
@@ -341,28 +341,6 @@ void unicode_action_function(uint16_t hi, uint16_t lo) {
         break;
     }
 }
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    if (!record->event.pressed) {
-        return MACRO_NONE;
-    }
-    // MACRODOWN only works in this function
-    switch(id) {
-        case UM:
-            unicode_mode = (unicode_mode + 1) % 2;
-            break;
-
-
-        default:
-            break;
-    }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {

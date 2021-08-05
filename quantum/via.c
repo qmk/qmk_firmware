@@ -46,6 +46,7 @@
 #include "dynamic_keymap.h"
 #include "tmk_core/common/eeprom.h"
 #include "version.h"  // for QMK_BUILDDATE used in EEPROM magic
+#include "via_ensure_keycode.h"
 
 // Forward declare some helpers.
 #if defined(VIA_QMK_BACKLIGHT_ENABLE)
@@ -186,7 +187,7 @@ bool process_record_via(uint16_t keycode, keyrecord_t *record) {
 
 // Keyboard level code can override this to handle custom messages from VIA.
 // See raw_hid_receive() implementation.
-// DO NOT call raw_hid_send() in the overide function.
+// DO NOT call raw_hid_send() in the override function.
 __attribute__((weak)) void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
     uint8_t *command_id = &(data[0]);
     *command_id         = id_unhandled;
@@ -368,19 +369,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
             uint16_t size   = command_data[2];  // size <= 28
             dynamic_keymap_set_buffer(offset, size, &command_data[3]);
-            break;
-        }
-        case id_eeprom_reset: {
-            via_eeprom_reset();
-            break;
-        }
-        case id_bootloader_jump: {
-            // Need to send data back before the jump
-            // Informs host that the command is handled
-            raw_hid_send(data, length);
-            // Give host time to read it
-            wait_ms(100);
-            bootloader_jump();
             break;
         }
         default: {

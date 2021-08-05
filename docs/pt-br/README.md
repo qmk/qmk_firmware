@@ -8,7 +8,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
 
 ## O que é o firmware QMK?
-QMK (*Quantum Mechanical Keyboard*) é uma comunidade de código aberto que mantém o QMK Firmware, o QMK Toolbox, qmk.fm e suas documentações. O QMK Firmware é um software embarcado ("firmware") de teclado baseado no [tmk\_keyboard](http://github.com/tmk/tmk_keyboard) com alguns recursos úteis para os controladores Atmel AVR e, mais especificamente, na [linha de produtos OLKB](http://olkb.com), o teclado [ErgoDox EZ](http://www.ergodox-ez.com) e a [linha de produtos Clueboard](http://clueboard.co/). Também foi portado para chips ARM usando o ChibiOS. Você pode usá-lo no seu próprio teclado com fio ou personalizado.
+QMK (*Quantum Mechanical Keyboard*) é uma comunidade de código aberto que mantém o QMK Firmware, o QMK Toolbox, qmk.fm e suas documentações. O QMK Firmware é um software embarcado ("firmware") de teclado baseado no [tmk\_keyboard](https://github.com/tmk/tmk_keyboard) com alguns recursos úteis para os controladores Atmel AVR e, mais especificamente, na [linha de produtos OLKB](https://olkb.com), o teclado [ErgoDox EZ](https://www.ergodox-ez.com) e a [linha de produtos Clueboard](https://clueboard.co/). Também foi portado para chips ARM usando o ChibiOS. Você pode usá-lo no seu próprio teclado com fio ou personalizado.
 
 ## Como obter e usar o QMK
 
@@ -28,4 +28,4 @@ Isso compilaria a revisão `rev4` do teclado ` planck` com o mapa de teclas `def
 
 ## Como personalizar
 
-O QMK tem muitos [recursos](features.md) para explorar e uma boa quantidade de [documentação de referência](http://docs.qmk.fm) para explorar. A maioria dos recursos é aproveitada modificando seu [keymap](keymap.md) e alterando os [keycodes](keycodes.md).
+O QMK tem muitos [recursos](features.md) para explorar e uma boa quantidade de [documentação de referência](https://docs.qmk.fm) para explorar. A maioria dos recursos é aproveitada modificando seu [keymap](keymap.md) e alterando os [keycodes](keycodes.md).

@@ -1,8 +1,8 @@
 # リーダーキー: 新しい種類のモディファイア
 
 <!---
-  original document: 0.8.134:docs/feature_leader_key.md
-  git diff 0.8.134 HEAD -- docs/feature_leader_key.md | cat
+  original document: 0.10.33:docs/feature_leader_key.md
+  git diff 0.10.33 HEAD -- docs/feature_leader_key.md | cat
 -->
 
 もしあなたが Vim を使ったことがある場合、リーダーキーは何であるかを知っています。そうでなければ、素晴らしい概念を発見しようとしています。:) 例えば、Alt+Shift+W を押す(3つのキーを同時に押す)代わりに、キーの_シーケンス_を押すことができたらどうでしょう？つまり、特別なモディファイア (リーダーキー)を押して、続けて W と C を押すと (単純にキーを高速に繋げます)、何かが起こります。

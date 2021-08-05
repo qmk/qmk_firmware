@@ -2,49 +2,43 @@
 #include "bocaj.h"
 
 #if defined(KEYMAP_SAFE_RANGE)
-  #define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#    define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
 #else
-  #define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
+#    define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
 #endif
 
 enum userspace_custom_keycodes {
-  KC_EPRM = PLACEHOLDER_SAFE_RANGE, // can always be here
-  KC_MWRK,
-  KC_WWRK,
-  KC_MQWR,
-  KC_VRSN,
-  LM_GRAVE,            // Shift if held, layer change if tapped
-  JJ_COPY,
-  JJ_PSTE,
-  JJ_ARRW,
-  KC_CCCV,
-  MC_LOCK,
-  KC_DCLR,
-  KC_MAKE,
-  UC_FLIP,           // (ಠ痊ಠ)┻━┻
-  UC_TABL,           // ┬─┬ノ( º _ ºノ)
-  UC_SHRG,           // ¯\_(ツ)_/¯
-  UC_DISA,           // ಠ_ಠ
-  NEW_SAFE_RANGE  //use "NEWPLACEHOLDER for keymap specific codes
+    VRSN = PLACEHOLDER_SAFE_RANGE,  // Prints QMK Firmware and board info
+    KC_WORKMAN,                     // Sets default layer to WORKMAN
+    KC_QWERTY,                      // Sets default layer to QWERTY
+    // KC_COLEMAK,                     // Sets default layer to COLEMAK
+    // KC_DVORAK,                      // Sets default layer to DVORAK
+    KC_MAKE,                        // Run keyboard's customized make command
+    KC_RGB_T,                       // Toggles RGB Layer Indication mode
+    RGB_IDL,                        // RGB Idling animations
+    MC_ARRW,                        // ->
+    UC_FLIP,                        // (ಠ痊ಠ)┻━┻
+    UC_TABL,                        // ┬─┬ノ( º _ ºノ)
+    UC_SHRG,                        // ¯\_(ツ)_/¯
+    UC_DISA,                        // ಠ_ಠ
+    NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
 };
 
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
-// One Shot
-#define OS_LSFT OSM(MOD_LSFT)
+#define QWERTY  KC_QWERTY
+#define WORKMAN KC_WORKMAN
 
-// Space Cadet Hyper/Meh and [/]
+#define KC_ARRW MC_ARRW
+
+#define KC_RST   RESET
+
+#define MO_MOD MO(_MOD)
+#define ALT_APP ALT_T(KC_APP)
 #define HYP_LBK ALL_T(KC_LBRACKET)
 #define MEH_RBK MEH_T(KC_RBRACKET)
+#define HYP_LPR ALL_T(KC_LPRN)
+#define MEH_RPR MEH_T(KC_RPRN)
 
-#define GUI_CTR(os, kc) MT( (os == 0) ? (MOD_LGUI) : (MOD_LCTL), kc )
-
-// Layout beauti-/simpli-fication
-#define KC_LWEN LT(_LOWER, KC_ENTER)
-#define KC_ADJS TT(_ADJUST)
-#define KC_NUMS TT(_LOWER)
-#define KC_GAME TT(_DIABLO)
-
-// Other Keycodes
-#define KC_RST RESET
-#define KC_BS  KC_BSLASH
+#define MG_NKRO MAGIC_TOGGLE_NKRO

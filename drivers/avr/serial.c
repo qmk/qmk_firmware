@@ -20,49 +20,110 @@
 
 #ifdef SOFT_SERIAL_PIN
 
-#    ifdef __AVR_ATmega32U4__
-// if using ATmega32U4 I2C, can not use PD0 and PD1 in soft serial.
-#        ifdef USE_AVR_I2C
-#            if SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1
-#                error Using ATmega32U4 I2C, so can not use PD0, PD1
-#            endif
+#    if !(defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+#        error serial.c is not supported for the currently selected MCU
+#    endif
+// if using ATmega32U4/2, AT90USBxxx I2C, can not use PD0 and PD1 in soft serial.
+#    if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+#        if defined(USE_AVR_I2C) && (SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1)
+#            error Using I2C, so can not use PD0, PD1
 #        endif
+#    endif
+// PD0..PD3, common config
+#    if SOFT_SERIAL_PIN == D0
+#        define EIMSK_BIT _BV(INT0)
+#        define EICRx_BIT (~(_BV(ISC00) | _BV(ISC01)))
+#        define SERIAL_PIN_INTERRUPT INT0_vect
+#        define EICRx EICRA
+#    elif SOFT_SERIAL_PIN == D1
+#        define EIMSK_BIT _BV(INT1)
+#        define EICRx_BIT (~(_BV(ISC10) | _BV(ISC11)))
+#        define SERIAL_PIN_INTERRUPT INT1_vect
+#        define EICRx EICRA
+#    elif SOFT_SERIAL_PIN == D2
+#        define EIMSK_BIT _BV(INT2)
+#        define EICRx_BIT (~(_BV(ISC20) | _BV(ISC21)))
+#        define SERIAL_PIN_INTERRUPT INT2_vect
+#        define EICRx EICRA
+#    elif SOFT_SERIAL_PIN == D3
+#        define EIMSK_BIT _BV(INT3)
+#        define EICRx_BIT (~(_BV(ISC30) | _BV(ISC31)))
+#        define SERIAL_PIN_INTERRUPT INT3_vect
+#        define EICRx EICRA
+#    endif
 
-#        define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#        define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-#        define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#        define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#        define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
+// ATmegaxxU2/AT90USB162 specific config
+#    if defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_AT90USB162__)
+// PD4(INT5), PD6(INT6), PD7(INT7), PC7(INT4)
+#        if SOFT_SERIAL_PIN == D4
+#            define EIMSK_BIT _BV(INT5)
+#            define EICRx_BIT (~(_BV(ISC50) | _BV(ISC51)))
+#            define SERIAL_PIN_INTERRUPT INT5_vect
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == D6
+#            define EIMSK_BIT _BV(INT6)
+#            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
+#            define SERIAL_PIN_INTERRUPT INT6_vect
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == D7
+#            define EIMSK_BIT _BV(INT7)
+#            define EICRx_BIT (~(_BV(ISC70) | _BV(ISC71)))
+#            define SERIAL_PIN_INTERRUPT INT7_vect
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == C7
+#            define EIMSK_BIT _BV(INT4)
+#            define EICRx_BIT (~(_BV(ISC40) | _BV(ISC41)))
+#            define SERIAL_PIN_INTERRUPT INT4_vect
+#            define EICRx EICRB
+#        endif
+#    endif
 
-#        if SOFT_SERIAL_PIN >= D0 && SOFT_SERIAL_PIN <= D3
-#            if SOFT_SERIAL_PIN == D0
-#                define EIMSK_BIT _BV(INT0)
-#                define EICRx_BIT (~(_BV(ISC00) | _BV(ISC01)))
-#                define SERIAL_PIN_INTERRUPT INT0_vect
-#            elif SOFT_SERIAL_PIN == D1
-#                define EIMSK_BIT _BV(INT1)
-#                define EICRx_BIT (~(_BV(ISC10) | _BV(ISC11)))
-#                define SERIAL_PIN_INTERRUPT INT1_vect
-#            elif SOFT_SERIAL_PIN == D2
-#                define EIMSK_BIT _BV(INT2)
-#                define EICRx_BIT (~(_BV(ISC20) | _BV(ISC21)))
-#                define SERIAL_PIN_INTERRUPT INT2_vect
-#            elif SOFT_SERIAL_PIN == D3
-#                define EIMSK_BIT _BV(INT3)
-#                define EICRx_BIT (~(_BV(ISC30) | _BV(ISC31)))
-#                define SERIAL_PIN_INTERRUPT INT3_vect
-#            endif
+// ATmegaxxU4 specific config
+#    if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
+// PE6(INT6)
+#        if SOFT_SERIAL_PIN == E6
+#            define EIMSK_BIT _BV(INT6)
+#            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
+#            define SERIAL_PIN_INTERRUPT INT6_vect
+#            define EICRx EICRB
+#        endif
+#    endif
+
+// AT90USBxxx specific config
+#    if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+// PE4..PE7(INT4..INT7)
+#        if SOFT_SERIAL_PIN == E4
+#            define EIMSK_BIT _BV(INT4)
+#            define EICRx_BIT (~(_BV(ISC40) | _BV(ISC41)))
+#            define SERIAL_PIN_INTERRUPT INT4_vect
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == E5
+#            define EIMSK_BIT _BV(INT5)
+#            define EICRx_BIT (~(_BV(ISC50) | _BV(ISC51)))
+#            define SERIAL_PIN_INTERRUPT INT5_vect
+#            define EICRx EICRB
 #        elif SOFT_SERIAL_PIN == E6
 #            define EIMSK_BIT _BV(INT6)
 #            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
 #            define SERIAL_PIN_INTERRUPT INT6_vect
-#        else
-#            error invalid SOFT_SERIAL_PIN value
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == E7
+#            define EIMSK_BIT _BV(INT7)
+#            define EICRx_BIT (~(_BV(ISC70) | _BV(ISC71)))
+#            define SERIAL_PIN_INTERRUPT INT7_vect
+#            define EICRx EICRB
 #        endif
-
-#    else
-#        error serial.c now support ATmega32U4 only
 #    endif
+
+#    ifndef SERIAL_PIN_INTERRUPT
+#        error invalid SOFT_SERIAL_PIN value
+#    endif
+
+#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
+#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
+#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
+#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
 #    define ALWAYS_INLINE __attribute__((always_inline))
 #    define NO_INLINE __attribute__((noinline))
@@ -163,15 +224,8 @@
 #    define SERIAL_DELAY_HALF2 (SERIAL_DELAY - SERIAL_DELAY / 2)
 
 #    define SLAVE_INT_WIDTH_US 1
-#    ifndef SERIAL_USE_MULTI_TRANSACTION
-#        define SLAVE_INT_RESPONSE_TIME SERIAL_DELAY
-#    else
-#        define SLAVE_INT_ACK_WIDTH_UNIT 2
-#        define SLAVE_INT_ACK_WIDTH 4
-#    endif
-
-static SSTD_t *Transaction_table      = NULL;
-static uint8_t Transaction_table_size = 0;
+#    define SLAVE_INT_ACK_WIDTH_UNIT 2
+#    define SLAVE_INT_ACK_WIDTH 4
 
 inline static void serial_delay(void) ALWAYS_INLINE;
 inline static void serial_delay(void) { _delay_us(SERIAL_DELAY); }
@@ -198,27 +252,17 @@ inline static void serial_low(void) { writePinLow(SOFT_SERIAL_PIN); }
 inline static void serial_high(void) ALWAYS_INLINE;
 inline static void serial_high(void) { writePinHigh(SOFT_SERIAL_PIN); }
 
-void soft_serial_initiator_init(SSTD_t *sstd_table, int sstd_table_size) {
-    Transaction_table      = sstd_table;
-    Transaction_table_size = (uint8_t)sstd_table_size;
+void soft_serial_initiator_init(void) {
     serial_output();
     serial_high();
 }
 
-void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size) {
-    Transaction_table      = sstd_table;
-    Transaction_table_size = (uint8_t)sstd_table_size;
+void soft_serial_target_init(void) {
     serial_input_with_pullup();
 
-    // Enable INT0-INT3,INT6
+    // Enable INT0-INT7
     EIMSK |= EIMSK_BIT;
-#    if SOFT_SERIAL_PIN == E6
-    // Trigger on falling edge of INT6
-    EICRB &= EICRx_BIT;
-#    else
-    // Trigger on falling edge of INT0-INT3
-    EICRA &= EICRx_BIT;
-#    endif
+    EICRx &= EICRx_BIT;
 }
 
 // Used by the sender to synchronize timing with the reciver.
@@ -340,19 +384,14 @@ static inline uint8_t nibble_bits_count(uint8_t bits) {
 
 // interrupt handle to be used by the target device
 ISR(SERIAL_PIN_INTERRUPT) {
-#    ifndef SERIAL_USE_MULTI_TRANSACTION
-    serial_low();
-    serial_output();
-    SSTD_t *trans = Transaction_table;
-#    else
     // recive transaction table index
     uint8_t tid, bits;
     uint8_t pecount = 0;
     sync_recv();
-    bits = serial_read_chunk(&pecount, 7);
+    bits = serial_read_chunk(&pecount, 8);
     tid  = bits >> 3;
-    bits = (bits & 7) != nibble_bits_count(tid);
-    if (bits || pecount > 0 || tid > Transaction_table_size) {
+    bits = (bits & 7) != (nibble_bits_count(tid) & 7);
+    if (bits || pecount > 0 || tid > NUM_TOTAL_TRANSACTIONS) {
         return;
     }
     serial_delay_half1();
@@ -360,18 +399,22 @@ ISR(SERIAL_PIN_INTERRUPT) {
     serial_high();  // response step1 low->high
     serial_output();
     _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT * SLAVE_INT_ACK_WIDTH);
-    SSTD_t *trans = &Transaction_table[tid];
+    split_transaction_desc_t *trans = &split_transaction_table[tid];
     serial_low();  // response step2 ack high->low
-#    endif
+
+    // If the transaction has a callback, we can execute it now
+    if (trans->slave_callback) {
+        trans->slave_callback(trans->initiator2target_buffer_size, split_trans_initiator2target_buffer(trans), trans->target2initiator_buffer_size, split_trans_target2initiator_buffer(trans));
+    }
 
     // target send phase
-    if (trans->target2initiator_buffer_size > 0) serial_send_packet((uint8_t *)trans->target2initiator_buffer, trans->target2initiator_buffer_size);
+    if (trans->target2initiator_buffer_size > 0) serial_send_packet((uint8_t *)split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size);
     // target switch to input
     change_sender2reciver();
 
     // target recive phase
     if (trans->initiator2target_buffer_size > 0) {
-        if (serial_recive_packet((uint8_t *)trans->initiator2target_buffer, trans->initiator2target_buffer_size)) {
+        if (serial_recive_packet((uint8_t *)split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size)) {
             *trans->status = TRANSACTION_ACCEPTED;
         } else {
             *trans->status = TRANSACTION_DATA_ERROR;
@@ -393,14 +436,12 @@ ISR(SERIAL_PIN_INTERRUPT) {
 //    TRANSACTION_NO_RESPONSE
 //    TRANSACTION_DATA_ERROR
 // this code is very time dependent, so we need to disable interrupts
-#    ifndef SERIAL_USE_MULTI_TRANSACTION
-int soft_serial_transaction(void) {
-    SSTD_t *trans = Transaction_table;
-#    else
 int soft_serial_transaction(int sstd_index) {
-    if (sstd_index > Transaction_table_size) return TRANSACTION_TYPE_ERROR;
-    SSTD_t *trans = &Transaction_table[sstd_index];
-#    endif
+    if (sstd_index > NUM_TOTAL_TRANSACTIONS) return TRANSACTION_TYPE_ERROR;
+    split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
+
+    if (!trans->status) return TRANSACTION_TYPE_ERROR;  // not registered
+
     cli();
 
     // signal to the target that we want to start a transaction
@@ -408,27 +449,11 @@ int soft_serial_transaction(int sstd_index) {
     serial_low();
     _delay_us(SLAVE_INT_WIDTH_US);
 
-#    ifndef SERIAL_USE_MULTI_TRANSACTION
-    // wait for the target response
-    serial_input_with_pullup();
-    _delay_us(SLAVE_INT_RESPONSE_TIME);
-
-    // check if the target is present
-    if (serial_read_pin()) {
-        // target failed to pull the line low, assume not present
-        serial_output();
-        serial_high();
-        *trans->status = TRANSACTION_NO_RESPONSE;
-        sei();
-        return TRANSACTION_NO_RESPONSE;
-    }
-
-#    else
     // send transaction table index
     int tid = (sstd_index << 3) | (7 & nibble_bits_count(sstd_index));
     sync_send();
     _delay_sub_us(TID_SEND_ADJUST);
-    serial_write_chunk(tid, 7);
+    serial_write_chunk(tid, 8);
     serial_delay_half1();
 
     // wait for the target response (step1 low->high)
@@ -449,12 +474,11 @@ int soft_serial_transaction(int sstd_index) {
         }
         _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT);
     }
-#    endif
 
     // initiator recive phase
     // if the target is present syncronize with it
     if (trans->target2initiator_buffer_size > 0) {
-        if (!serial_recive_packet((uint8_t *)trans->target2initiator_buffer, trans->target2initiator_buffer_size)) {
+        if (!serial_recive_packet((uint8_t *)split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size)) {
             serial_output();
             serial_high();
             *trans->status = TRANSACTION_DATA_ERROR;
@@ -468,7 +492,7 @@ int soft_serial_transaction(int sstd_index) {
 
     // initiator send phase
     if (trans->initiator2target_buffer_size > 0) {
-        serial_send_packet((uint8_t *)trans->initiator2target_buffer, trans->initiator2target_buffer_size);
+        serial_send_packet((uint8_t *)split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size);
     }
 
     // always, release the line when not in use
@@ -479,9 +503,8 @@ int soft_serial_transaction(int sstd_index) {
     return TRANSACTION_END;
 }
 
-#    ifdef SERIAL_USE_MULTI_TRANSACTION
 int soft_serial_get_and_clean_status(int sstd_index) {
-    SSTD_t *trans = &Transaction_table[sstd_index];
+    split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
     cli();
     int retval     = *trans->status;
     *trans->status = 0;
@@ -489,8 +512,6 @@ int soft_serial_get_and_clean_status(int sstd_index) {
     sei();
     return retval;
 }
-#    endif
-
 #endif
 
 // Helix serial.c history

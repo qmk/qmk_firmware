@@ -1,5 +1,9 @@
+# MCU name
 MCU = STM32F303
-BOOTLOADER =
+BOARD = QMK_PROTON_C
+
+# Bootloader selection
+BOOTLOADER = stm32-dfu
 
 BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)

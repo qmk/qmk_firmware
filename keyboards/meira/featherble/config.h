@@ -32,12 +32,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { F7, F6, F5, F4 }
 // Column pins to demux in LSB order
-#define MATRIX_COL_PINS { C7, B7, B6, C6 }
+#define MATRIX_COL_PINS { C7, B7, B6, C6, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
+#define MATRIX_COL_PINS_SCANNED { C7, B7, B6, C6 }
 #define LED_EN_PIN D2
 #define UNUSED_PINS
 
 #define QMK_SPEAKER B5
-#define B5_AUDIO
+#define AUDIO_PIN B5
 #define AUDIO_VOICES
 
 // #define BACKLIGHT_PIN B7
@@ -147,9 +148,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

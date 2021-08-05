@@ -20,14 +20,22 @@
        Read or write to the necessary buffer according to the opperation.
  */
 
-#ifndef I2C_SLAVE_H
-#define I2C_SLAVE_H
+#pragma once
 
-#define I2C_SLAVE_REG_COUNT 30
+#ifndef I2C_SLAVE_REG_COUNT
+
+#    if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#        include "transport.h"
+#        define I2C_SLAVE_REG_COUNT sizeof(split_shared_memory_t)
+#    else  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#        define I2C_SLAVE_REG_COUNT 30
+#    endif  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+
+#endif  // I2C_SLAVE_REG_COUNT
+
+_Static_assert(I2C_SLAVE_REG_COUNT < 256, "I2C target registers must be single byte");
 
 extern volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
 
 void i2c_slave_init(uint8_t address);
 void i2c_slave_stop(void);
-
-#endif  // I2C_SLAVE_H

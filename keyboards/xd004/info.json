@@ -1,6 +1,6 @@
 {
     "keyboard_name": "XD004", 
-    "maintainer": "", 
+    "maintainer": "qmk", 
     "width": 4, 
     "height": 1, 
     "layouts": {

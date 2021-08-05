@@ -33,7 +33,7 @@
 #error VIA_EEPROM_CUSTOM_CONFIG_SIZE was not defined to store backlight_config struct
 #endif
 
-#include "drivers/issi/is31fl3736.h"
+#include "drivers/led/issi/is31fl3736.h"
 
 #define ISSI_ADDR_DEFAULT 0x50
 

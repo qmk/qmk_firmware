@@ -26,6 +26,20 @@
 #define WKSP_U LALT(LCTL(KC_UP))
 #define WKSP_R LALT(LCTL(KC_RGHT))
 
+#define AM_CYC A(S(KC_SPC))
+#define AM_SHR A(S(KC_COMM))
+#define AM_GRW A(S(KC_DOT))
+#define AM_REL A(S(KC_Z))
+#define AM_LFT A(S(KC_H))
+#define AM_RGH A(S(KC_L))
+#define AM_CW A(S(KC_K))
+#define AM_CCW A(S(KC_J))
+#define AM_TLL A(S(KC_1))
+#define AM_TLW A(S(KC_2))
+#define AM_BSP A(S(KC_3))
+#define AM_FUL A(S(KC_4))
+
+
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
@@ -78,19 +92,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      | Home |PgDwn | PgUp | End  |      |
+ * |      |AmCycl|AmShrk|AmGrow|AmReld|      |      | Home |PgDwn | PgUp | End  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |PrScr | Menu |      |      |      |      | Left | Down |  Up  |Right |      |
+ * |      |AmLeft|AmCcw |AmCw  |AmRght|      |      | Left | Down |  Up  |Right |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |CapsLk|NumLck| Ins  |      |      |      |WkLeft|WkDown| WkUp |WkRigh|      |
+ * |      |AmTall|AmTllW|AmBsp |AmFull|      |      |WkLeft|WkDown| WkUp |WkRigh|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |Raise |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX,
-   XXXXXXX, KC_PSCR, KC_MENU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX,
-   XXXXXXX, KC_CAPS, KC_LNUM,  KC_INS, XXXXXXX, XXXXXXX, XXXXXXX,  WKSP_L,  WKSP_D,  WKSP_U,  WKSP_R, XXXXXXX,
+   XXXXXXX,  AM_CYC,  AM_SHR,  AM_GRW,  AM_REL, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX,
+   XXXXXXX,  AM_LFT,  AM_CCW,   AM_CW,  AM_RGH, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX,
+   XXXXXXX,  AM_TLL,  AM_TLW,  AM_BSP,  AM_FUL, XXXXXXX, XXXXXXX,  WKSP_L,  WKSP_D,  WKSP_U,  WKSP_R, XXXXXXX,
    _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 

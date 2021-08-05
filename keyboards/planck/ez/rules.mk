@@ -1,12 +1,15 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
+
+# Bootloader selection
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
-## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
+BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes      # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes         # Console for debug
@@ -18,16 +21,13 @@ AUDIO_ENABLE = yes           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
-API_SYSEX_ENABLE = no
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 
-CUSTOM_MATRIX = no # Custom matrix file
-# SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
-RGB_MATRIX_ENABLE = IS31FL3737
+RGB_MATRIX_DRIVER = IS31FL3737
 
 LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no

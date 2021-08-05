@@ -5,7 +5,7 @@ MCU = STM32F103
 MCU_LDSCRIPT = wm1_f103
 BOARD = STM32_F103_STM32DUINO
 
-PROGRAM_CMD=echo 'CLI flashing not supported' >&2
+PROGRAM_CMD = echo 'CLI flashing not supported' >&2
 
 # Build Options
 #   change yes to no to disable
@@ -25,7 +25,6 @@ MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 LTO_ENABLE = yes
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread

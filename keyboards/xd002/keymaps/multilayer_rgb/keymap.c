@@ -158,10 +158,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _FUNC:
-        rgblight_setrgb_red();
+        rgblite_setrgb(RGB_RED);
         break;
     default: //  for any other layers, or the default layer
-        rgblight_setrgb_green();
+        rgblite_setrgb(RGB_GREEN);
         break;
     }
   return state;
@@ -169,5 +169,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // default color
 void keyboard_post_init_user(void) {
-    rgblight_setrgb_green();
+    rgblite_setrgb(RGB_GREEN);
 }

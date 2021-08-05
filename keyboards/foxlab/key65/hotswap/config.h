@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER Fox Lab
 #define PRODUCT Key 65 Hotswap
-#define DESCRIPTION Key 65 Hotswap
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -45,6 +44,9 @@
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_SCROLL_LOCK_PIN E6
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING

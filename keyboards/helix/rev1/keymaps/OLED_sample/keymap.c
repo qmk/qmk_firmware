@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "bootloader.h"
-#include "LUFA/Drivers/Peripheral/TWI.h"
+#include <LUFA/Drivers/Peripheral/TWI.h>
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
