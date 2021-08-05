@@ -2367,30 +2367,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // The layout follows a standard hebrew keyboard, with the exception
 // of ק, which is displaced by “.>” copied from the Dvorak layout.
 
+        // HEBREW_DVORAK
         // These letters on the upper left follow Dvorak layout.
         // The reason is space on the device: these are not macros.
         // Also: typing compatibility between Dvorak and Hebrew
         // for these similar/same symbols: ,<.>. Idealy these symbols
         // should be the hebrew variation, if space allows it.
-        /* 
+
+# ifdef HEBREW_QWERTY 
+
         case XP_HEB_AA: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (CS_MULT);// '"
+                unicode_hex2output_single (HB_TAV);// ת
             }
             break;
 
         case XP_HEB_AB: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (CS_MULT);// ,<
+                unicode_hex2output_single (HB_TSDIS);// ץ 
             }
             break;
 
         case XP_HEB_AC: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (CS_MULT);// .>
+                unicode_hex2output_single (HB_QOF);// ק
             }
             break;
-        */
+
+# endif // #HEBREW_QWERTY 
+
         case XP_HEB_AD: //
             if (record->event.pressed) { // key down
                 unicode_hex2output_single (HB_RESH);// ר
@@ -2483,7 +2488,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case XP_HEB_BH: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_LAMED);// ל 
+                unicode_hex2output (HB_LAMED, HB_LRM);// ל {LRM}
             }
             break;
 
@@ -2495,25 +2500,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case XP_HEB_BJ: //
             if (record->event.pressed) { // key down
-// Todo: Qwerty harmonization + ':' (see ז in HEBREW_DVORAK)
+
+# ifdef HEBREW_DVORAK
                 unicode_hex2output_single (HB_PES);// ף
-// ^
+# elif defined(HEBREW_QWERTY)
+                if (shift_ison) send_string (":"); // :
+                else unicode_hex2output_single (HB_PES);// ף
+// Qwerty harmonization + ':' (see ז in HEBREW_DVORAK)
+# endif // HEBREW_DVORAK/QWERTY
+
             }
             break;
 
-// Todo: Qwerty harmonization '" in Qwerty.
-        case XP_HEB_BK: // follows -_ on Dvorak
+        case XP_HEB_BK: // follows -_ on Dvorak. In HEBREW_QWERTY this is used on _NSY layer.
             if (record->event.pressed) { // key down
                 unicode_hex2output_single (HB_MAQAF);// ־
             }
             break;
-// ^
 
    // ------------------------- row 2
         case XP_HEB_CA: //
             if (record->event.pressed) { // key down
+// Hebrew harmonization + ':'
+# ifdef HEBREW_DVORAK
                 if (shift_ison) send_string (":"); //
                 else unicode_hex2output_single (HB_ZAYIN);// ז
+# elif defined(HEBREW_QWERTY)
+                unicode_hex2output_single (HB_ZAYIN);// ז
+# endif
             }
             break;
 

@@ -566,7 +566,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # endif
 //                         * Qwerty Base Arrow *
 # if defined(BASE_QWERTY_BASEARROW__DEF_BASE) || defined(BASE_QWERTY_BASEARROW__ALT_BASE)
-#     include "./base_qwerty_basearrow.h" // Your Keymap header/configuration file.
+#     include "./base_qwerty_basearrow.h" // qwerty base arrow, header
+# endif
+//                         * Hebrew *
+# if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
+#     include "./base_hebrew.h" // Hebrew header
 # endif
 
 // // ⬇ insert your ./base_YOUR_KEYMAP.h #include here:

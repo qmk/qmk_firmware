@@ -6,42 +6,57 @@ Compiled for: Hebrew
 This file details the compile version `#define BASE_HEBREW__DEF_BASE,
 BASE_HEBREW__ALT_BASE`. This is a basic Hebrew layout, without niqqud.
 
+Only the most common symbols are implemented. This is (again) all done in 
+Unicode. Niqqud are not implemented.
+
 The design is make it work easily with a Latin layer (Qwerty, Dvorak, etc),
 together as a dual layout system. For this reason the common writing symbols
 which tend to be present on the letters base layer, are kept as much as
-possible in the same locations. Within that framework, the hebrew letters
-are positioned according to the standard keyboard in Israel. When there is
-a conflict between these two objectives, the hebrew letter which conflicts with
-a symbol is moved to whatever open space there might be.
+possible in the same locations.
 
       '",<.>-_?/;:
+
+Within that framework, the hebrew letters are positioned according to
+the standard keyboard in Israel. When there is a conflict between these
+two objectives, the hebrew letter which conflicts with a symbol is moved
+to whatever open space there might be.
 
 The hebrew alphabet has 27 symbols. The additional letter compared to Latin
 (26 letters) is resolved by combining a letter with the symbol “:” on shift.
 This looses the symbol “;”, which is not present on some basic hebrew layouts
 either.
 
+In all cases the hebrew layout variations will closely resemble the
+standard Israeli hebrew layout. This is not about a phonetic re-ordering
+to Latin letter sounds. The goal is to keep the common symbols on the
+same place, to avoid typing errors when switching layouts.
+
 Options
 =======
 
 You can compile the hebrew to harmonize the punctuation symbols with either
-Dvorak or Qwerty. 
+Dvorak or Qwerty. See the configuration file ![./base_hebrew.h](./base_hebrew.h)
+
+Israeli Hebrew
+-------------- 
+⚠ not implemented yet
+As close to a simple standard hebrew layout as possible.
 
 Dvorak with Hebrew
 ------------------
 The letter ק gets displaced from the standard hebrew layout.
 
-Qwerty with Hebrew ⚠ Not implemented yet.
+Qwerty with Hebrew
 ------------------
 The letters ת, ץ get displaced from the standard hebrew layout.
 
 Qwerty derivatives with Hebrew
 ------------------------------
-It is adviced to use Qwerty with Hebrew, and adjust by hand as needed. 
-There are no special option for these layouts. “Workman” should harmonize
-the same as Qwerty. Colemak displaced the “;:” key relative to Qwerty,
-and therefore you may like to change the “:” shifted symbol to harmonize
-with Colemak (by hand). 
+It is adviced to use Qwerty with Hebrew in this case, and adjust by hand
+coding if needed.  “Workman” should harmonize the same as Qwerty.
+Colemak displaces the “;:” key relative to Qwerty, therefore you may
+like to change the “:” shifted symbol (by hand). The obscurity of this
+use case gets extreme, there will not be options for this.
 
 Flash memory cost
 -----------------
@@ -80,8 +95,8 @@ Layers (text)
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
          Escxxxxxxxx'"xxxx,<xxxx.>xxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxםx׳xxxפx״xxxxxxxxBksp
-         Tab+LCtlxxxשxxxxxדxxxxxגxRLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxלxxxxxךxxxxxףxxxxxxxxxxxxx־ //Right-Left-Mark
-         LSht+_PADxxזx:xxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxתxxxxxץxxxxxקxxxxxRSht+_FUN
+         Tab+LCtlxxxשxxxxxדxxxxxגxRLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxלxLRMxךxxxxxףxxxxxxxxxxxxx־ //Right/Left-Mark
+         LSht+_PADxxזx:xxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxתxxxxxץxxxxxק•xxxxRSht+_FUN
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) RGUI    Right;_RAR 
@@ -91,7 +106,18 @@ Layers (text)
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
         (LGUI)                                                               (_MOV)
-     
+
+                                            HEBREW_QWERTY 
+                                                  | Right hand
+         <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
+         -o-                                     <|>                                    ... //-o- BASE access
+         Escxxxxxxxxת•xxxxץ•xxxxקxxxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxםx׳xxxפx״xxxxxxxxBksp
+         Tab+LCtlxxxשxxxxxדxxxxxג/RLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxל/LRMxךxxxxxףx:xxxxxxxxxx'" //Right-Left-Mark
+         LSht+_PADxxזxxxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxx,<xxxx.>xxxx/?xxxxRSht+_FUN
+             +_MOV⁵                               |                                   +_RAR⁶
+     ---------------------------------------------------------------------------------------
+         (…)
+
      ₁) Dual hold for _DRA, single hold for _DEF_NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
      ₃) 'South paw' hardware configuration. Configurable, default shown.
@@ -100,6 +126,7 @@ Layers (text)
           a 12x12x12x11 or 12x12x12x12 layouts.
      ₅) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
      ₆) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
+     ⁷) Letters marked with • are displaced from standard hebrew layout.
 
 Remarks: The left modifiers have a slight delay in combination with an outside pointer device (mouse, stylus).
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
@@ -118,7 +145,7 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
 
      Layer _..._NSY (Numbers and SYmbols)
     
-                                      HEBREW_DVORAK
+                                      HEBREW_DVORAK (Same as standard Dvorak)
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
@@ -131,4 +158,14 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
                         ^                                   ^
                       (LGUI)                              (_MOV)
 
+
+                                      HEBREW_QWERTY (- becomes ־ Maqaf)
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+              -*-                          <|>                                  //(toggle) Access on _FUN
+     BASExxxxx!xxxxx@xxxxx#xxxxx$xxxxx%xxxxx|x^xxxxx&xxxxx*xxxxx(xxxx)xxxxxxxDel
+     Tab+LCtlx1!xxxx2@xxxx3#xxxx4$xxxx5%xxxx|x6^xxxx7&xxxx8*xxxx9(xxx0)xx`~+RCtl
+     -+LShtxxx[{xxxx]}xxxx־xxxxx\|xxxx=+xxxx|x+xxxxx|xxxxx_xxxxx{xxxxx}xxx~+RShtx
+                          ^(Maqaf)                        ^                       // Only difference with HEBREW_DVORAK
+     ---------------------------------------------------------------------------
+     (…)
 - - -

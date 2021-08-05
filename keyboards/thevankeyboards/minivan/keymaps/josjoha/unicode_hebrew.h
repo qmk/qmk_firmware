@@ -59,6 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // special
 #define HB_RLM   0x200F //      "           , "RLM" for Right-Left-Mark: <non-printing>
+#define HB_LRM   0x200E //      "           , "LRM" for Left-Right-Mark: <non-printing>
 
 
 // The below are displacing symbols on other layers, some of which are quite obscure
