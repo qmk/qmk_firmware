@@ -55,6 +55,7 @@ void trackball_sleep(void);
 void trackball_set_brightness(uint8_t brightness);
 void trackball_set_hsv(uint8_t hue, uint8_t sat, uint8_t brightness);
 void trackball_set_scrolling (bool scroll);
+void trackball_set_accelerating(bool accelerate);
 
 trackball_state_t trackball_get_state(void);
 

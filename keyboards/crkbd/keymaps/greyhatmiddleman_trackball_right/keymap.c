@@ -100,6 +100,12 @@ void pointing_device_task() {
 
 
     if (layer_state_is(_NAV)) {
+        trackball_set_accelerating(true);
+    } else {
+        trackball_set_accelerating(false);
+    }
+
+    if (layer_state_is(_SYM)) {
         trackball_set_scrolling(true);
     } else {
         trackball_set_scrolling(false);

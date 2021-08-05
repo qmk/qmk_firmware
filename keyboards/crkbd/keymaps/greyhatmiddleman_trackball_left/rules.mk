@@ -15,7 +15,7 @@ LTO_ENABLE          = yes
 SPLIT_KEYBOARD = yes
 SPLIT_TRANSPORT = mirror
 
-USER_NAME := greyhatmiddleman
+USER_NAME := greyhatmiddleman	# all necessary sources are stored in this userspace
 
 PIMORONI_TRACKBALL_ENABLE = no
 

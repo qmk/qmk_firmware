@@ -29,6 +29,7 @@
 #define TRACKBALL_TIMEOUT 5
 
 bool scrolling = false;
+bool accelerating = false;
 bool trackball_idle = true;
 uint8_t tb_brightness = 42;
 
@@ -65,6 +66,10 @@ void trackball_read_state(uint8_t* data, uint16_t size_of_data) {
 
 void trackball_set_scrolling(bool scroll) {
     scrolling = scroll;
+}
+
+void trackball_set_accelerating(bool accelerate) {
+    accelerating = accelerate;
 }
 
 trackball_state_t trackball_get_state(void) {
@@ -176,6 +181,7 @@ static int16_t v_offset = 0;
 static int16_t h_offset = 0;
 static int16_t tb_timer = 0;
 uint16_t acceleration_timer = 0;
+float var_accel = 2; //acceleration factor
 
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse) {
     static int8_t new_x_offset = 0;
@@ -195,7 +201,13 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse) {
             }
         } else {
             float power = 1.5;
-            float var_accel = 2; //acceleration factor
+
+	    /* added condition to accelerate mouse - greyhatmiddleman */
+	    if(accelerating){
+		var_accel = 5;
+	    } else {
+		var_accel = 2;
+	    }
             double newlen = pow(state.vector_length, power);
 
             if (state.vector_length > 2 && (timer_elapsed(acceleration_timer) == 0 || timer_elapsed(acceleration_timer) < TRACKBALL_ACCELERATION_WINDOW)) {
