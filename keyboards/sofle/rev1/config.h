@@ -19,6 +19,7 @@
 
 #define TAPPING_TERM 200
 #define DEBOUNCE 5
+#define USB_MAX_POWER_CONSUMPTION 100
 
 /* encoder support */
 #define ENCODERS_PAD_A { F5 }

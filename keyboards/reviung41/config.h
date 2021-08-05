@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER gtips
 #define PRODUCT reviung41
 
+#define USB_MAX_POWER_CONSUMPTION 100
+#define TAPPING_TERM 200
+
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 6
