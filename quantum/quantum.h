@@ -15,16 +15,7 @@
  */
 #pragma once
 
-#if defined(__AVR__)
-#    include <avr/pgmspace.h>
-#    include <avr/io.h>
-#    include <avr/interrupt.h>
-#endif
-#if defined(PROTOCOL_CHIBIOS)
-#    include <hal.h>
-#    include "chibios_config.h"
-#endif
-
+#include "platform.h"
 #include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
@@ -38,10 +29,6 @@
 #endif
 
 #if defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
-#elif defined(RGB_MATRIX_ENABLE)
-// Dummy define RGBLIGHT_MODE_xxxx
-#    define RGBLIGHT_H_DUMMY_DEFINE
 #    include "rgblight.h"
 #endif
 
