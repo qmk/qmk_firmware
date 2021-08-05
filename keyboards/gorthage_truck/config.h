@@ -49,3 +49,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
+
+// LEFT -> RIGHT
+// D5, D3, D2
+#define LED_NUM_LOCK_PIN D5
+#define LED_CAPS_LOCK_PIN D3
+#define LED_SCROLL_LOCK_PIN D2
+
+#define ENCODERS_PAD_A { F6 }
+#define ENCODERS_PAD_B { F7 }
+
+#define ENCODER_RESOLUTION 4
