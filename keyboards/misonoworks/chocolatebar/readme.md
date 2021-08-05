@@ -1,6 +1,7 @@
 # Chocolate Bar
 
-![Choc](https://i.imgur.com/IwF9JkV.jpg)
+![Choc](https://i.imgur.com/IwF9JkVh.jpg)
+
 
 An 1800-Style 40% Choc Keyboard
 
