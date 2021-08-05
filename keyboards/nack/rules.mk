@@ -24,5 +24,5 @@ AUDIO_ENABLE = yes          # Audio output
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 WS2812_DRIVER = spi
-AUDIO_DRIVER = dac_additive # How to drive the 2 speakers
+AUDIO_DRIVER = dac_basic 	# How to drive the 2 speakers
 UNICODE_ENABLE = yes        # Unicode support

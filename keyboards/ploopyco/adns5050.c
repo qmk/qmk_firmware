@@ -142,7 +142,7 @@ uint8_t adns_read_reg(uint8_t reg_addr) {
 
 void adns_write_reg(uint8_t reg_addr, uint8_t data) {
     adns_cs_select();
-    adns_serial_write(reg_addr);
+    adns_serial_write( 0b10000000 | reg_addr );
     adns_serial_write(data);
     adns_cs_deselect();
 }
