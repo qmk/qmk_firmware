@@ -155,26 +155,29 @@ static uint16_t mouse_debounce_timer  = 0;
 static uint8_t  mouse_keycode_tracker = 0;
 bool            tap_toggling          = false;
 
+#    ifdef TAPPING_TERM_PER_KEY
+#        define TAP_CHECK get_tapping_term(KC_BTN1, NULL)
+#    else
+#        ifndef TAPPING_TERM
+#            define TAPPING_TERM 200
+#        endif
+#        define TAP_CHECK TAPPING_TERM
+#    endif
+
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
-    if ((x || y) && timer_elapsed(mouse_timer) > 125) {
+    if (x != 0 && y != 0) {
         mouse_timer = timer_read();
-        if (!layer_state_is(_MOUSE) && !(layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO)) && timer_elapsed(mouse_debounce_timer) > 125) {
-            layer_on(_MOUSE);
+#    ifdef OLED_DRIVER_ENABLE
+        oled_timer = timer_read32();
+#    endif
+        if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
+            mouse_report->x = x;
+            mouse_report->y = y;
+            if (!layer_state_is(_MOUSE)) {
+                layer_on(_MOUSE);
+            }
         }
     }
-
-#    ifdef TAPPING_TERM_PER_KEY
-    if (timer_elapsed(mouse_debounce_timer) > get_tapping_term(KC_BTN1, NULL)
-#    else
-    if (timer_elapsed(mouse_debounce_timer) > TAPPING_TERM
-#    endif
-        || (layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO))) {
-        mouse_report->x = x;
-        mouse_report->y = y;
-    }
-#    ifdef OLED_DRIVER_ENABLE
-    if (x || y) oled_timer = timer_read32();
-#    endif
 }
 
 void matrix_scan_keymap(void) {
