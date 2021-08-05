@@ -270,6 +270,16 @@ Fine control over the scrolling is supported with the following defines:
 #define PS2_MOUSE_SCROLL_DIVISOR_V 2
 ```
 
+### Invert Mouse buttons :id=invert-buttons
+
+To invert the left & right buttons you can put:
+
+```c
+#define PS2_MOUSE_INVERT_BUTTONS
+```
+
+into config.h.
+
 ### Invert Mouse and Scroll Axes :id=invert-mouse-and-scroll-axes
 
 To invert the X and Y axes you can put:
