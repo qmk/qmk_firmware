@@ -344,7 +344,7 @@ void render_status_secondary(void) {
 }
 
 void render_status_main(void) {
-#if defined(OLED_DISPLAY_128X64) e
+#if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
 #    ifdef DEBUG_MATRIX_SCAN_RATE
     render_matrix_scan_rate();
