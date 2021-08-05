@@ -26,7 +26,6 @@ SWAP_HANDS_ENABLE = no  # Allow swapping hands of keyboard.
 # MIDI_ENABLE       = no
 # BLUETOOTH_ENABLE  = no
 # AUDIO_ENABLE      = no
-# FAUXCLICKY_ENABLE = no
 # VARIABLE_TRACE    = no
 # BACKLIGHT_ENABLE  = no
 # RGB_MATRIX_ENABLE = no

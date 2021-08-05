@@ -2,7 +2,7 @@
 MCU = STM32F103
 
 MCU_LDSCRIPT = jm60_bootloader
-BOARD = JM60_BOARD
+BOARD = ST_NUCLEO64_F103RB
 
 # Build Options
 #   change yes to no to disable

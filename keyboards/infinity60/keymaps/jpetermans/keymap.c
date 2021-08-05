@@ -228,16 +228,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   }
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    return MACRO_NONE;
-};
-
-
-bool process_record_user (uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 

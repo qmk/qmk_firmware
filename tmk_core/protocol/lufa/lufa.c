@@ -435,7 +435,9 @@ void EVENT_USB_Device_Suspend() {
  */
 void EVENT_USB_Device_WakeUp() {
     print("[W]");
+#if defined(NO_USB_STARTUP_CHECK)
     suspend_wakeup_init();
+#endif
 
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
@@ -669,9 +671,7 @@ static void send_keyboard(report_keyboard_t *report) {
     uint8_t timeout = 255;
 
 #ifdef BLUETOOTH_ENABLE
-    uint8_t where = where_to_send();
-
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
 #    ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
 #    elif MODULE_RN42
@@ -684,9 +684,6 @@ static void send_keyboard(report_keyboard_t *report) {
             serial_send(report->keys[i]);
         }
 #    endif
-    }
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
 #endif
@@ -727,9 +724,7 @@ static void send_mouse(report_mouse_t *report) {
     uint8_t timeout = 255;
 
 #    ifdef BLUETOOTH_ENABLE
-    uint8_t where = where_to_send();
-
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
 #        ifdef MODULE_ADAFRUIT_BLE
         // FIXME: mouse buttons
         adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
@@ -744,9 +739,6 @@ static void send_mouse(report_mouse_t *report) {
         serial_send(report->h);  // should try sending the wheel h here
         serial_send(0x00);
 #        endif
-    }
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
 #    endif
@@ -805,9 +797,7 @@ static void send_system(uint16_t data) {
 static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
 #    ifdef BLUETOOTH_ENABLE
-    uint8_t where = where_to_send();
-
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
 #        ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_send_consumer_key(data);
 #        elif MODULE_RN42
@@ -821,9 +811,6 @@ static void send_consumer(uint16_t data) {
         serial_send(bitmap & 0xFF);
         serial_send((bitmap >> 8) & 0xFF);
 #        endif
-    }
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
 #    endif
@@ -842,9 +829,10 @@ static void send_consumer(uint16_t data) {
  * FIXME: Needs doc
  */
 int8_t sendchar(uint8_t c) {
-    // Not wait once timeouted.
+    // Do not wait if the previous write has timed_out.
     // Because sendchar() is called so many times, waiting each call causes big lag.
-    static bool timeouted = false;
+    // The `timed_out` state is an approximation of the ideal `is_listener_disconnected?` state.
+    static bool timed_out = false;
 
     // prevents Console_Task() from running during sendchar() runs.
     // or char will be lost. These two function is mutually exclusive.
@@ -858,11 +846,11 @@ int8_t sendchar(uint8_t c) {
         goto ERROR_EXIT;
     }
 
-    if (timeouted && !Endpoint_IsReadWriteAllowed()) {
+    if (timed_out && !Endpoint_IsReadWriteAllowed()) {
         goto ERROR_EXIT;
     }
 
-    timeouted = false;
+    timed_out = false;
 
     uint8_t timeout = SEND_TIMEOUT;
     while (!Endpoint_IsReadWriteAllowed()) {
@@ -873,7 +861,7 @@ int8_t sendchar(uint8_t c) {
             goto ERROR_EXIT;
         }
         if (!(timeout--)) {
-            timeouted = true;
+            timed_out = true;
             goto ERROR_EXIT;
         }
         _delay_ms(1);
@@ -1023,7 +1011,6 @@ static void setup_usb(void) {
 
     // for Console_Task
     USB_Device_EnableSOFEvents();
-    print_set_sendchar(sendchar);
 }
 
 /** \brief Main
@@ -1073,12 +1060,26 @@ int main(void) {
     print("Keyboard start.\n");
     while (1) {
 #if !defined(NO_USB_STARTUP_CHECK)
-        while (USB_DeviceState == DEVICE_STATE_Suspended) {
+        if (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
-            suspend_power_down();
-            if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
-                USB_Device_SendRemoteWakeup();
+            while (USB_DeviceState == DEVICE_STATE_Suspended) {
+                suspend_power_down();
+                if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
+                    USB_Device_SendRemoteWakeup();
+                    clear_keyboard();
+
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
+                    // Some hubs, kvm switches, and monitors do
+                    // weird things, with USB device state bouncing
+                    // around wildly on wakeup, yielding race
+                    // conditions that can corrupt the keyboard state.
+                    //
+                    // Pause for a while to let things settle...
+                    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#    endif
+                }
             }
+            suspend_wakeup_init();
         }
 #endif
 
@@ -1106,8 +1107,7 @@ int main(void) {
 #endif
 
         // Run housekeeping
-        housekeeping_task_kb();
-        housekeeping_task_user();
+        housekeeping_task();
     }
 }
 

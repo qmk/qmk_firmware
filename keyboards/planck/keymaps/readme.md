@@ -11,7 +11,7 @@ and contain the following files:
 * `keymap.c`
 * `readme.md` *recommended*
 * `config.h` *optional*, found automatically when compiling
-* `Makefile` *optional*, found automatically when compling
+* `Makefile` *optional*, found automatically when compiling
 
 When adding your keymap to this list, keep it organised alphabetically (select list, edit->sort lines), and use this format:
 

@@ -28,7 +28,7 @@ For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can 
 
 Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
 
-## Sending Your Own Debug Messages
+## Sending Your Own Debug Messages :id=debug-api
 
 Sometimes it's useful to print debug messages from within your [custom code](custom_quantum_functions.md). Doing so is pretty simple. Start by including `print.h` at the top of your file:
 
@@ -108,6 +108,19 @@ Listening:
 If you can't get this 'Listening:' message try building with `CONSOLE_ENABLE=yes` in [Makefile]
 
 You may need privileges to access the device an OS like Linux. Try `sudo hid_listen`.
+
+On many Linux distros you can avoid having to run hid_listen as root
+by creating a file called `/etc/udev/rules.d/70-hid-listen.rules` with
+the following content:
+
+```
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="abcd", ATTRS{idProduct}=="def1", TAG+="uaccess", RUN{builtin}+="uaccess"
+```
+
+Replace abcd and def1 with your keyboard's vendor and product id,
+letters must be lowercase. The `RUN{builtin}+="uaccess"` part is only
+needed for older distros.
+
 
 ## Can't Get Message on Console
 Check:

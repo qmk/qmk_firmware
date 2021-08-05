@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x552F
+#define VENDOR_ID 0x524D
+#define PRODUCT_ID 0x0001
 #define DEVICE_VER 0x0002
 #define MANUFACTURER Montsinger
 #define PRODUCT Rebound

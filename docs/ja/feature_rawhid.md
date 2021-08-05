@@ -1,8 +1,8 @@
 # Raw HID
 
 <!---
-  original document: 0.10.47:docs/feature_rawhid.md
-  git diff 0.10.47 HEAD -- docs/feature_rawhid.md | cat
+  original document: 0.12.41:docs/feature_rawhid.md
+  git diff 0.12.41 HEAD -- docs/feature_rawhid.md | cat
 -->
 
 Raw HID は、HID インタフェースを介して QMK とホストコンピュータ間の双方向通信を可能にします。これには、キーマップをその場で切り替えたり、RGB LED の色とモードを変更したりなど、多くの潜在的な使用方法があります。
@@ -34,7 +34,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 ```
 
-`raw_hid_receive` はホストから最大長 `RAW_EPSIZE` の可変サイズのパケットを受信することができます。一方、`raw_hid_send` はパケットを厳密に `RAW_EPSIZE` の長さで送信するため、長さ `RAW_EPSIZE` のデータを使う必要があります。
+これら2つの関数は、ホストとの間で長さ `RAW_EPSIZE` バイトのパケットを送受信します (LUFA/ChibiOS/V-USB では 32、ATSAM では 64)。
 
 ホスト側での作業を進める前に、raw 対応のファームウェアを書き込むようにしてください。
 

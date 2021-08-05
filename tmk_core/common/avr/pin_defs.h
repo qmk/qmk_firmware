@@ -29,7 +29,7 @@
 #    define PIND_ADDRESS 0x9
 #    define PINE_ADDRESS 0xC
 #    define PINF_ADDRESS 0xF
-#elif defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
+#elif defined(__AVR_AT90USB162__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
 #    define ADDRESS_BASE 0x00
 #    define PINB_ADDRESS 0x3
 #    define PINC_ADDRESS 0x6

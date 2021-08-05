@@ -22,8 +22,8 @@ The `<target>` means the following
 
 The following targets are for developers:
 
-* `show-path` shows the path of the source and object files.
-* `dump-vars` dumps the makefile variable.
+* `show_path` shows the path of the source and object files.
+* `dump_vars` dumps the makefile variable.
 * `objs-size` displays the size of individual object files.
 * `show_build_options` shows the options set in 'rules.mk'.
 * `check-md5` displays the md5 checksum of the generated binary file.
@@ -120,10 +120,6 @@ For further details, as well as limitations, see the [Unicode page](feature_unic
 `AUDIO_ENABLE`
 
 This allows you output audio on the C6 pin (needs abstracting). See the [audio page](feature_audio.md) for more information.
-
-`FAUXCLICKY_ENABLE`
-
-Uses buzzer to emulate clicky switches. A cheap imitation of the Cherry blue switches. By default, uses the C6 pin, same as `AUDIO_ENABLE`.
 
 `VARIABLE_TRACE`
 

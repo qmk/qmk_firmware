@@ -1,11 +1,10 @@
 {
     "keyboard_name": "YMDK NP21",
-    "url": "",
     "maintainer": "qmk",
+    "width": 4,
+    "height": 6.25,
     "layouts": {
         "LAYOUT_ortho_6x4": {
-            "width": 4,
-            "height": 6.25,
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
@@ -39,8 +38,6 @@
             ]
         },
         "LAYOUT_ortho_4x6": {
-            "width": 6.25,
-            "height": 4,
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
@@ -72,8 +69,6 @@
             ]
         },
         "LAYOUT_numpad_6x4": {
-            "width": 4,
-            "height": 6.25,
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},

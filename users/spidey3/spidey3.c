@@ -14,49 +14,44 @@ static uint32_t matrix_scan_count = 0;
 static bool     reported_version  = false;
 
 #    if defined(SPI_DEBUG_SCAN_RATE)
-static uint32_t matrix_timer           = 0;
-static uint32_t last_matrix_scan_count = 0;
+static uint32_t matrix_timer = 0;
 #    endif
 
+void report_version(void) {
+    uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+    reported_version = true;
+}
+#endif
+
 void matrix_scan_user(void) {
+#if defined(CONSOLE_ENABLE) && !defined(NO_DEBUG)
 #    if defined(SPI_DEBUG_SCAN_RATE)
     matrix_scan_count++;
     if (debug_enable) {
         uint32_t timer_now = timer_read32();
         if (matrix_timer == 0) {
-            matrix_timer           = timer_now;
-            last_matrix_scan_count = matrix_scan_count;
-            matrix_scan_count      = 0;
+            matrix_timer      = timer_now;
+            matrix_scan_count = 0;
         } else if (TIMER_DIFF_32(timer_now, matrix_timer) > SPI_SCAN_RATE_INTERVAL * 1000) {
-            matrix_timer           = timer_now;
-            last_matrix_scan_count = matrix_scan_count;
-            matrix_scan_count      = 0;
-            if (!reported_version) {
-                uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
-                reported_version = true;
-            }
-            uprintf("scan rate: %lu/s\n", last_matrix_scan_count / SPI_SCAN_RATE_INTERVAL);
+            matrix_timer = timer_now;
+            uprintf("scan rate: %lu/s\n", matrix_scan_count / SPI_SCAN_RATE_INTERVAL);
+            matrix_scan_count = 0;
+            if (!reported_version) report_version();
         }
     }
 #    else
     if (!reported_version) {
         matrix_scan_count++;
-        if (matrix_scan_count > 300) {
-            uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
-            reported_version = true;
-        }
+        if (matrix_scan_count > 300) report_version();
     }
 #    endif
+#endif
+#ifdef RGBLIGHT_ENABLE
+    matrix_scan_user_rgb();
+#endif
 }
-#endif
 
-bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph) {
-    uint8_t temp_mod = get_mods();
-#ifndef NO_ACTION_ONESHOT
-    uint8_t temp_osm = get_oneshot_mods();
-#else
-    uint8_t temp_osm = 0;
-#endif
+bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph, uint8_t temp_mod, uint8_t temp_osm) {
     if ((((temp_mod | temp_osm) & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))) == 0) {
         switch (keycode) {
             case KC_A ... KC_Z:
@@ -121,21 +116,43 @@ bool process_gflock(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    dprintf("key event: kc: %02X, col: %02u, row: %02u, pressed: %u mods: %08b "
+#if !defined(NO_ACTION_ONESHOT)
+            "os: %08b "
+#endif
+            "weak: %08b\n",
+            keycode, record->event.key.col, record->event.key.row, record->event.pressed, bitrev(get_mods()),
+#if !defined(NO_ACTION_ONESHOT)
+            bitrev(get_oneshot_mods()),
+#endif
+            bitrev(get_weak_mods()));
+
     if (!rand_seeded) {
         srand(record->event.time % keycode);
         rand_seeded = true;
     }
+
+    uint8_t mods = get_mods();
+#ifndef NO_ACTION_ONESHOT
+    uint8_t osm = get_oneshot_mods();
+#else
+    uint8_t osm = 0;
+#endif
 
     if (record->event.pressed) {
         switch (keycode) {
 #ifndef NO_DEBUG
             // Re-implement this here, but fix the persistence!
             case DEBUG:
-                if (!debug_enable) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    debug_enable   = 0;
+                    debug_keyboard = 0;
+                    debug_matrix   = 0;
+                } else if (!debug_enable) {
                     debug_enable = 1;
 #    if defined(SPI_DEBUG_SCAN_RATE)
-                    matrix_timer     = 0;
-                    reported_version = false;
+                    matrix_timer = 0;
+                    report_version();
 #    endif
                 } else if (!debug_keyboard) {
                     debug_keyboard = 1;
@@ -157,31 +174,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
             case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
 
+#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+            case SPI_LNX: set_unicode_input_mode(UC_LNX); break;
+            case SPI_OSX: set_unicode_input_mode(UC_OSX); break;
+            case SPI_WIN: set_unicode_input_mode(UC_WINC); break;
+#endif
                 // clang-format on
-
-            case SPI_LNX:
-                dprint("SPI_LNX\n");
-                set_single_persistent_default_layer(_BASE);
-                layer_off(_OSX);
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
-                set_unicode_input_mode(UC_LNX);
-#endif
-                break;
-            case SPI_OSX:
-                dprint("SPI_OSX\n");
-                set_single_persistent_default_layer(_OSX);
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
-                set_unicode_input_mode(UC_OSX);
-#endif
-                break;
-            case SPI_WIN:
-                dprint("SPI_WIN\n");
-                set_single_persistent_default_layer(_BASE);
-                layer_off(_OSX);
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
-                set_unicode_input_mode(UC_WINC);
-#endif
-                break;
 
             case SPI_NORMAL ... SPI_FRAKTR:
                 spi_replace_mode = (spi_replace_mode == keycode) ? SPI_NORMAL : keycode;
@@ -193,14 +191,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 dprintf("spi_gflock = %u\n", spi_gflock);
                 break;
 
-            case KC_PSCR: {
-                uint8_t mods = get_mods();
-#ifndef NO_ACTION_ONESHOT
-                uint8_t osm = get_oneshot_mods();
-#else
-                uint8_t osm = 0;
+            case SPI_KP_00:
+                tap_code(KC_KP_0);
+#if TAP_CODE_DELAY > 0
+                wait_ms(TAP_CODE_DELAY);
 #endif
+                register_code(KC_KP_0);
+                return false;
 
+            case KC_PSCR: {
+                // It's kind of a hack, but we use unicode input mode
+                // to determine what Print Screen key should do. The
+                // idea here is to make it consistent across hosts.
                 switch (get_unicode_input_mode()) {
                     case UC_MAC:
                         if ((mods | osm) & MOD_MASK_ALT) {
@@ -265,6 +267,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CH_ASST:
                 host_consumer_send(0);
                 return false;
+
+            case SPI_KP_00:
+                unregister_code(KC_KP_0);
+                return false;
         }
     }
 
@@ -273,32 +279,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_SPACE:
             switch (spi_replace_mode) {
                 case SPI_WIDE:
-                    return process_record_glyph_replacement(keycode, record, 0xFF41, 0xFF21, 0xFF10, 0xFF11, 0x2003);
+                    return process_record_glyph_replacement(keycode, record, 0xFF41, 0xFF21, 0xFF10, 0xFF11, 0x2003, mods, osm);
                 case SPI_SCRIPT:
-                    return process_record_glyph_replacement(keycode, record, 0x1D4EA, 0x1D4D0, 0x1D7CE, 0x1D7CF, 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1D4EA, 0x1D4D0, 0x1D7CE, 0x1D7CF, 0x2002, mods, osm);
                 case SPI_BLOCKS:
-                    return process_record_glyph_replacement(keycode, record, 0x1F170, 0x1F170, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1F170, 0x1F170, '0', '1', 0x2002, mods, osm);
                 case SPI_CIRCLE:
-                    return process_record_glyph_replacement(keycode, record, 0x1F150, 0x1F150, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1F150, 0x1F150, '0', '1', 0x2002, mods, osm);
                 case SPI_SQUARE:
-                    return process_record_glyph_replacement(keycode, record, 0x1F130, 0x1F130, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1F130, 0x1F130, '0', '1', 0x2002, mods, osm);
                 case SPI_PARENS:
-                    return process_record_glyph_replacement(keycode, record, 0x1F110, 0x1F110, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1F110, 0x1F110, '0', '1', 0x2002, mods, osm);
                 case SPI_FRAKTR:
-                    return process_record_glyph_replacement(keycode, record, 0x1D586, 0x1D56C, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1D586, 0x1D56C, '0', '1', 0x2002, mods, osm);
             }
             break;
 
         case KC_F1 ... KC_F12:
             return process_gflock(keycode, record);
+
+#ifdef SHIFT_BACKSPACE_DELETE
+        case KC_BSPC: {
+            static bool delkey_registered;
+            if (record->event.pressed) {
+                if ((mods | osm) & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+#ifndef NO_ACTION_ONESHOT
+                    clear_oneshot_mods();
+#endif
+                    register_code(KC_DEL);
+                    delkey_registered = true;
+                    set_mods(mods);
+                    return false;
+                }
+            } else {  // on release of KC_BSPC
+                // In case KC_DEL is still being sent even after the release of KC_BSPC
+                if (delkey_registered) {
+                    unregister_code(KC_DEL);
+                    delkey_registered = false;
+                    return false;
+                }
+            }
+        }
+#endif
     }
 
 #ifdef RGBLIGHT_ENABLE
-    bool res = process_record_user_rgb(keycode, record);
-    if (!res) return false;
-#endif
-
+    return process_record_user_rgb(keycode, record);
+#else
     return true;
+#endif
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {

@@ -2,21 +2,20 @@
 
 Compile an info.json for a particular keyboard and pretty-print it.
 """
+import sys
 import json
-import platform
 
 from milc import cli
 
+from qmk.json_encoders import InfoJSONEncoder
+from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.keyboard import render_layouts, render_layout
+from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, rules_mk
 from qmk.keymap import locate_keymap
 from qmk.info import info_json
 from qmk.path import is_keyboard
 
-platform_id = platform.platform().lower()
-
-ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
-COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
+UNICODE_SUPPORT = sys.stdout.encoding.lower().startswith('utf')
 
 
 def show_keymap(kb_info_json, title_caps=True):
@@ -30,7 +29,7 @@ def show_keymap(kb_info_json, title_caps=True):
         else:
             cli.echo('{fg_blue}keymap_%s{fg_reset}:', cli.config.info.keymap)
 
-        keymap_data = json.load(keymap_path.open())
+        keymap_data = json.load(keymap_path.open(encoding='utf-8'))
         layout_name = keymap_data['layout']
 
         for layer_num, layer in enumerate(keymap_data['layers']):
@@ -58,7 +57,7 @@ def show_matrix(kb_info_json, title_caps=True):
         # Build our label list
         labels = []
         for key in layout['layout']:
-            if key['matrix']:
+            if 'matrix' in key:
                 row = ROW_LETTERS[key['matrix'][0]]
                 col = COL_LETTERS[key['matrix'][1]]
 
@@ -92,6 +91,9 @@ def print_friendly_output(kb_info_json):
         cli.echo('{fg_blue}Size{fg_reset}: %s x %s' % (kb_info_json['width'], kb_info_json['height']))
     cli.echo('{fg_blue}Processor{fg_reset}: %s', kb_info_json.get('processor', 'Unknown'))
     cli.echo('{fg_blue}Bootloader{fg_reset}: %s', kb_info_json.get('bootloader', 'Unknown'))
+    if 'layout_aliases' in kb_info_json:
+        aliases = [f'{key}={value}' for key, value in kb_info_json['layout_aliases'].items()]
+        cli.echo('{fg_blue}Layout aliases:{fg_reset} %s' % (', '.join(aliases),))
 
     if cli.config.info.layouts:
         show_layouts(kb_info_json, True)
@@ -122,12 +124,20 @@ def print_text_output(kb_info_json):
         show_keymap(kb_info_json, False)
 
 
-@cli.argument('-kb', '--keyboard', help='Keyboard to show info for.')
+def print_parsed_rules_mk(keyboard_name):
+    rules = rules_mk(keyboard_name)
+    for k in sorted(rules.keys()):
+        print('%s = %s' % (k, rules[k]))
+    return
+
+
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
 @cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
-@cli.argument('--ascii', action='store_true', default='windows' in platform_id, help='Render layout box drawings in ASCII only.')
+@cli.argument('--ascii', action='store_true', default=not UNICODE_SUPPORT, help='Render layout box drawings in ASCII only.')
+@cli.argument('-r', '--rules-mk', action='store_true', help='Render the parsed values of the keyboard\'s rules.mk file.')
 @cli.subcommand('Keyboard information.')
 @automagic_keyboard
 @automagic_keymap
@@ -144,12 +154,16 @@ def info(cli):
         cli.log.error('Invalid keyboard: "%s"', cli.config.info.keyboard)
         return False
 
+    if bool(cli.args.rules_mk):
+        print_parsed_rules_mk(cli.config.info.keyboard)
+        return False
+
     # Build the info.json file
     kb_info_json = info_json(cli.config.info.keyboard)
 
     # Output in the requested format
     if cli.args.format == 'json':
-        print(json.dumps(kb_info_json))
+        print(json.dumps(kb_info_json, cls=InfoJSONEncoder))
     elif cli.args.format == 'text':
         print_text_output(kb_info_json)
     elif cli.args.format == 'friendly':

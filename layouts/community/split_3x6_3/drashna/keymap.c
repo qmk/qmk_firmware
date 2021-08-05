@@ -27,14 +27,15 @@ enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
  */
 
 // clang-format off
+#define LAYOUT_split_3x6_3_wrapper(...)      LAYOUT_split_3x6_3(__VA_ARGS__)
 #define LAYOUT_split_3x6_3_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_split_3x6_3_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
-    ALT_T(KC_TAB), K11,  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+    ALT_T(KC_TAB), K11,  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                         RGB_MOD,  KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
   )
@@ -89,13 +90,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
   ),
 
-  [_MODS] = LAYOUT_split_3x6_3_wrapper(
-      _______, ___________________BLANK___________________,                  ___________________BLANK___________________, _______,
-      _______, ___________________BLANK___________________,                  ___________________BLANK___________________, _______,
-      KC_LSFT, ___________________BLANK___________________,                  ___________________BLANK___________________, KC_RSFT,
-                                     _______, _______, _______,        _______, _______, _______
-  ),
-
   [_LOWER] = LAYOUT_split_3x6_3_wrapper(
     KC_F11,  _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_F11,
     KC_F12,  _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, KC_PIPE,
@@ -121,11 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
-        return OLED_ROTATION_270;
-    } else {
-        return rotation;
-    }
+    return OLED_ROTATION_270;
 }
 #endif
 
@@ -182,7 +172,6 @@ void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t le
 }
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (!is_keyboard_master()) return;
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
@@ -201,7 +190,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             default: {
-                check_default_layer(IS_LAYER_ON(_MODS), LED_FLAG_UNDERGLOW, led_min, led_max);
+                check_default_layer(0, LED_FLAG_UNDERGLOW, led_min, led_max);
                 break;
             }
         }

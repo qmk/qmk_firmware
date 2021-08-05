@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define QMK_ESC_INPUT C6
 // #define QMK_SPEAKER B6
 
-#define B6_AUDIO
+#define AUDIO_PIN B6
 #define AUDIO_CLICKY
 #define NO_MUSIC_MODE
 
