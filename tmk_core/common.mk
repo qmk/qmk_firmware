@@ -128,3 +128,4 @@ endif
 # Search Path
 VPATH += $(TMK_PATH)/$(COMMON_DIR)
 VPATH += $(TMK_PATH)/$(PLATFORM_COMMON_DIR)
+VPATH += platforms/$(PLATFORM_KEY)/$(DRIVER_DIR)
