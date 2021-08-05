@@ -1,4 +1,4 @@
-/* Copyright 2021 juan
+/* Copyright 2021 s8erdude
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
