@@ -24,6 +24,6 @@ POINTING_DEVICE_ENABLE = yes
 MOUSEKEY_ENABLE = yes       # Mouse keys
 
 QUANTUM_LIB_SRC += analog.c spi_master.c
-SRC += pmw3360.c opt_encoder.c
+SRC += drivers/sensors/pmw3360.c opt_encoder.c
 
 DEFAULT_FOLDER = ploopyco/trackball/rev1_005

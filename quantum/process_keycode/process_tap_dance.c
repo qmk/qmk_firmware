@@ -117,6 +117,10 @@ void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
             action->state.interrupting_keycode = keycode;
             process_tap_dance_action_on_dance_finished(action);
             reset_tap_dance(&action->state);
+
+            // Tap dance actions can leave some weak mods active (e.g., if the tap dance is mapped to a keycode with
+            // modifiers), but these weak mods should not affect the keypress which interrupted the tap dance.
+            clear_weak_mods();
         }
     }
 }
@@ -157,7 +161,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_tap_dance() {
+void tap_dance_task() {
     if (highest_td == -1) return;
     uint16_t tap_user_defined;
 

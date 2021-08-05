@@ -72,7 +72,7 @@ typedef struct {
 #define KEYCODE_IS_MOD(code) (IS_MOD(code) || (code >= QK_MODS && code <= QK_MODS_MAX && !(code & QK_BASIC_MAX)))
 
 bool process_combo(uint16_t keycode, keyrecord_t *record);
-void matrix_scan_combo(void);
+void combo_task(void);
 void process_combo_event(uint16_t combo_index, bool pressed);
 
 void combo_enable(void);

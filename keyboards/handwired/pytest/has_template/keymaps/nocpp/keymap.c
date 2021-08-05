@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT(KC_ENTER)
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
 	if (index == 0) {
 		if (clockwise) {
 			tap_code(KC_UP);
@@ -19,5 +19,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 			tap_code(KC_DOWN);
 		}
 	}
-
+    return true;
 };

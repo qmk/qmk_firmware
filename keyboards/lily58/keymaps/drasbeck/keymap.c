@@ -1,4 +1,4 @@
-/* Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck 
+/* Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck
  *
  * You are free to:
  *
@@ -153,7 +153,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   // index 1 == minion side
   if (index == 1) {
     if (clockwise) {
@@ -162,5 +162,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_VOLU);
     }
   }
+    return true;
 }
 #endif

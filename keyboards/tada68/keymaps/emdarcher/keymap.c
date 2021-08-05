@@ -5,7 +5,7 @@
 #define _CL 2
 #define _ML 3
 
-#define KC_X0   LT(_CL, KC_CAPS)   
+#define KC_X0   LT(_CL, KC_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 //layer state control
-uint32_t layer_state_set_user(uint32_t state){
+layer_state_t layer_state_set_user(layer_state_t state){
     //switch to _ML if both _FL and _CL are activated
     return update_tri_layer_state(state, _FL, _CL, _ML);
 }

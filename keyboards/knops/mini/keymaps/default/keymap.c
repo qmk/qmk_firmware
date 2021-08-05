@@ -129,72 +129,52 @@ void set_layer_led(int layerId) {
 	}
 }
 
-void matrix_init_user(void) {
-	led_init_ports();
-	
-	PORTB |= (1 << 7);
-	DDRB &= ~(1<<7);
-	
-	PORTD |= (1<<7);
-	PORTC |= (1<<6);
-	PORTC |= (1<<7);
-	PORTD |= (1<<4);
-	PORTE |= (1<<6);
-	PORTB |= (1<<4);
-	PORTD |= (1<<6);
-	
-	set_layer_led(0);
-}
-
-void matrix_scan_user(void) {
-}
-
-void led_init_ports() {
+void led_init_ports_user(void) {
   // led voor switch #1
 	DDRD |= (1<<7);
 	PORTD &= ~(1<<7);
-	
+
   // led voor switch #2
 	DDRC |= (1<<6);
 	DDRC |= (1<<7);
 	PORTC &= ~(1<<6);
 	PORTC &= ~(1<<7);
-	
+
   // led voor switch #3
 	DDRD |= (1<<4);
 	PORTD &= ~(1<<4);
-	
+
   // led voor switch #4
 	DDRE |= (1<<6);
 	PORTE &= ~(1<<6);
-	
+
   // led voor switch #5
 	DDRB |= (1<<4);
 	PORTB &= ~(1<<4);
-	
+
   // led voor switch #6
 	DDRD |= (1<<6);
 	PORTD &= ~(1<<6);
-	
+
 	/*
 	DDRD |= (1<<7);
 	PORTD |= (1<<7);
-	
+
 	DDRC |= (1<<6);
 	PORTC |= (1<<6);
-	
+
 	DDRD |= (1<<4);
 	PORTD |= (1<<4);
-	
+
 	DDRE |= (1<<6);
 	PORTE |= (1<<6);
-	
+
 	DDRB |= (1<<4);
 	PORTB |= (1<<4);
-	
+
 	DDRD |= (1<<6);
 	PORTD |= (1<<6);
-	// */	
+	// */
 
 	DDRD |= (1<<5);
 	DDRB |= (1<<6);
@@ -202,42 +182,62 @@ void led_init_ports() {
 	//led_set_layer(0);
 }
 
+void matrix_init_user(void) {
+	led_init_ports_user();
+
+	PORTB |= (1 << 7);
+	DDRB &= ~(1<<7);
+
+	PORTD |= (1<<7);
+	PORTC |= (1<<6);
+	PORTC |= (1<<7);
+	PORTD |= (1<<4);
+	PORTE |= (1<<6);
+	PORTB |= (1<<4);
+	PORTD |= (1<<6);
+
+	set_layer_led(0);
+}
+
+void matrix_scan_user(void) {
+}
+
 void led_set_user(uint8_t usb_led) {
 
 	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_COMPOSE)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_KANA)) {
-		
+
 	} else {
-		
+
 	}
 
 }
 
 
-/*  
+/*
 *   NOTE:
 *
 *   In case you don't understand this coding stuff, please
@@ -257,11 +257,11 @@ void led_set_user(uint8_t usb_led) {
 *	| 	  | | 	  | | 	  |       |	  set_switch_led( [1-6], [true/false]);
 *	|  4  | |  5  | |  6  |    <---
 *	|_____| |_____| |_____|
-*	
+*
 *	 < 0 >   < 1 >   < 2 >     <---      These front-LEDs are called 'Layer LEDs'
 *							             To turn one of them on, use:
 *										 set_layer_led( [0-2] );
-*										 
+*
 */
 
 /*
@@ -272,14 +272,14 @@ void led_set_user(uint8_t usb_led) {
 */
 void led_set_layer(int layer) {
 	switch(layer) {
-			
+
 			/**
 			*   Here is an example to turn LEDs on and of. By default:
 			*   - the LEDs are turned on in layer 0
 			*   - the LEDs are turned off in layer 1
 			*   - the LEDs don't change from state for layer 2
-			*/			
-			
+			*/
+
 		case 0:
 			set_layer_led(0); // Turn on only the first/left layer indicator
 			set_switch_led(1, true);
@@ -289,7 +289,7 @@ void led_set_layer(int layer) {
 			set_switch_led(5, true);
 			set_switch_led(6, true);
 			break;
-			
+
 		case 1:
 			set_layer_led(1); // Turn on only the second/middle layer indicator
 			set_switch_led(1, false);
@@ -299,12 +299,12 @@ void led_set_layer(int layer) {
 			set_switch_led(5, false);
 			set_switch_led(6, false);
 			break;
-			
+
 		case 2:
 			set_layer_led(2); // Turn on only the third/right layer indicator
-			
+
 			// Keep leds for layer two in their current state, since we don't use set_switch_led(SWITCH_ID, TRUE_OR_FALSE)
-			
+
 			break;
 	}
 }

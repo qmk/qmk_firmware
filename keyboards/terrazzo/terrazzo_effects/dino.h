@@ -148,7 +148,7 @@ static uint8_t dino_bg[10][42] = {
 };
 
 void DINO(uint8_t i, bool dir) {
-    led_matrix_set_index_value_all(0);
+    led_matrix_set_value_all(0);
     if (dir) {
         terrazzo_draw_at(0, 7, 7, 8, dino_frames[i % 2]);
     } else {

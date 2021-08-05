@@ -86,6 +86,9 @@ void keyboard_post_init_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
     keyboard_post_init_rgb_matrix();
 #endif
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+    keyboard_post_init_transport_sync();
+#endif
     keyboard_post_init_keymap();
 }
 
@@ -120,7 +123,15 @@ void suspend_power_down_user(void) {
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 
-void suspend_wakeup_init_user(void) { suspend_wakeup_init_keymap(); }
+void suspend_wakeup_init_user(void) {
+    if (layer_state_is(_GAMEPAD)) {
+        layer_off(_GAMEPAD);
+    }
+    if (layer_state_is(_DIABLO)) {
+        layer_off(_DIABLO);
+    }
+    suspend_wakeup_init_keymap();
+}
 
 __attribute__((weak)) void matrix_scan_keymap(void) {}
 
@@ -164,6 +175,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         return state;
     }
 
+    state = layer_state_set_keymap(state);
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
@@ -179,7 +191,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         }
     }
 #endif
-    return layer_state_set_keymap(state);
+    return state;
 }
 
 __attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t state) { return state; }

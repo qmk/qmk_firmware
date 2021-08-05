@@ -31,6 +31,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 
 SPLIT_KEYBOARD = yes
 
-LAYOUTS = ortho_4x14
-
 DEFAULT_FOLDER = ergo42/rev1

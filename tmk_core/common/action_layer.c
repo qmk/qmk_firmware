@@ -131,32 +131,32 @@ bool layer_state_cmp(layer_state_t cmp_layer_state, uint8_t layer) {
     if (!cmp_layer_state) {
         return layer == 0;
     }
-    return (cmp_layer_state & (1UL << layer)) != 0;
+    return (cmp_layer_state & ((layer_state_t)1 << layer)) != 0;
 }
 
 /** \brief Layer move
  *
  * Turns on the given layer and turn off all other layers
  */
-void layer_move(uint8_t layer) { layer_state_set(1UL << layer); }
+void layer_move(uint8_t layer) { layer_state_set((layer_state_t)1 << layer); }
 
 /** \brief Layer on
  *
  * Turns on given layer
  */
-void layer_on(uint8_t layer) { layer_state_set(layer_state | (1UL << layer)); }
+void layer_on(uint8_t layer) { layer_state_set(layer_state | ((layer_state_t)1 << layer)); }
 
 /** \brief Layer off
  *
  * Turns off given layer
  */
-void layer_off(uint8_t layer) { layer_state_set(layer_state & ~(1UL << layer)); }
+void layer_off(uint8_t layer) { layer_state_set(layer_state & ~((layer_state_t)1 << layer)); }
 
 /** \brief Layer invert
  *
  * Toggle the given layer (set it if it's unset, or unset it if it's set)
  */
-void layer_invert(uint8_t layer) { layer_state_set(layer_state ^ (1UL << layer)); }
+void layer_invert(uint8_t layer) { layer_state_set(layer_state ^ ((layer_state_t)1 << layer)); }
 
 /** \brief Layer or
  *
@@ -258,7 +258,7 @@ uint8_t layer_switch_get_layer(keypos_t key) {
     layer_state_t layers = layer_state | default_layer_state;
     /* check top layer first */
     for (int8_t i = MAX_LAYER - 1; i >= 0; i--) {
-        if (layers & (1UL << i)) {
+        if (layers & ((layer_state_t)1 << i)) {
             action = action_for_key(i, key);
             if (action.code != ACTION_TRANSPARENT) {
                 return i;

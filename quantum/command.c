@@ -781,6 +781,6 @@ uint8_t numkey2num(uint8_t code) {
 
 static void switch_default_layer(uint8_t layer) {
     xprintf("L%d\n", layer);
-    default_layer_set(1UL << layer);
+    default_layer_set((layer_state_t)1 << layer);
     clear_keyboard();
 }

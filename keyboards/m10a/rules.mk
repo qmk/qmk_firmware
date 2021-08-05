@@ -22,4 +22,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 UNICODE_ENABLE = yes        # Unicode
-API_SYSEX_ENABLE = yes

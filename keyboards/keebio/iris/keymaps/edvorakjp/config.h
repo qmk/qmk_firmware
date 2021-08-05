@@ -1,5 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 /* Use I2C or Serial, not both */
 #define USE_SERIAL
@@ -22,5 +21,3 @@
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-
-#endif // CONFIG_USER_H

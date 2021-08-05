@@ -36,6 +36,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 SRC += matrix.c
 DEBOUNCE_TYPE = eager_pk
 
-LAYOUTS = split60
-
 DEFAULT_FOLDER = handwired/xealous/rev1

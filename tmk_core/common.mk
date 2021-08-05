@@ -8,22 +8,16 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_macro.c \
 	$(COMMON_DIR)/action_layer.c \
 	$(COMMON_DIR)/action_util.c \
-	$(COMMON_DIR)/debug.c \
-	$(COMMON_DIR)/sendchar_null.c \
 	$(COMMON_DIR)/eeconfig.c \
 	$(COMMON_DIR)/report.c \
+	$(COMMON_DIR)/sync_timer.c \
 	$(COMMON_DIR)/usb_util.c \
 	$(PLATFORM_COMMON_DIR)/suspend.c \
 	$(PLATFORM_COMMON_DIR)/timer.c \
-	$(COMMON_DIR)/sync_timer.c \
 	$(PLATFORM_COMMON_DIR)/bootloader.c \
 
-# Use platform provided print - fall back to lib/printf
-ifneq ("$(wildcard $(TMK_PATH)/$(PLATFORM_COMMON_DIR)/printf.mk)","")
-    include $(TMK_PATH)/$(PLATFORM_COMMON_DIR)/printf.mk
-else
-    include $(TMK_PATH)/$(COMMON_DIR)/lib_printf.mk
-endif
+# Use platform provided print if it exists
+-include $(TMK_PATH)/$(PLATFORM_COMMON_DIR)/printf.mk
 
 SHARED_EP_ENABLE = no
 MOUSE_SHARED_EP ?= yes
@@ -55,6 +49,7 @@ endif
 ifeq ($(strip $(CONSOLE_ENABLE)), yes)
     TMK_COMMON_DEFS += -DCONSOLE_ENABLE
 else
+    # TODO: decouple this so other print backends can exist
     TMK_COMMON_DEFS += -DNO_PRINT
     TMK_COMMON_DEFS += -DNO_DEBUG
 endif

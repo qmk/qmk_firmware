@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = halfkay
 
 # If you have Left LEDs (see
@@ -29,7 +22,6 @@ NKRO_ENABLE      = yes  # USB Nkey Rollover - if this doesn't work, see here: ht
 UNICODE_ENABLE   = yes  # Unicode
 SWAP_HANDS_ENABLE= yes  # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE = no
-API_SYSEX_ENABLE = no
 
 RGB_MATRIX_ENABLE = no # enable later
 RGB_MATRIX_DRIVER = IS31FL3731

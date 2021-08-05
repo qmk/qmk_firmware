@@ -522,7 +522,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     return !is_combo_key;
 }
 
-void matrix_scan_combo(void) {
+void combo_task(void) {
     if (!b_combo_enable) {
         return;
     }

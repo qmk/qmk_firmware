@@ -29,6 +29,7 @@
     * [Overview](cli.md)
     * [Configuration](cli_configuration.md)
     * [Commands](cli_commands.md)
+    * [Tab Completion](cli_tab_complete.md)
 
 * Using QMK
   * Guides
@@ -76,6 +77,7 @@
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)
+    * [Key Overrides](feature_key_overrides.md)
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
@@ -92,6 +94,7 @@
   * Hardware Features
     * Displays
       * [HD44780 LCD Controller](feature_hd44780.md)
+      * [ST7565 LCD Driver](feature_st7565.md)
       * [OLED Driver](feature_oled_driver.md)
     * Lighting
       * [Backlight](feature_backlight.md)
@@ -107,6 +110,7 @@
     * [Haptic Feedback](feature_haptic_feedback.md)
     * [Joystick](feature_joystick.md)
     * [LED Indicators](feature_led_indicators.md)
+    * [MIDI](feature_midi.md)
     * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
@@ -119,7 +123,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20210227.md "QMK v0.12.0 - 2021 Feb 27")
+    * [Most Recent ChangeLog](ChangeLog/20210529.md "QMK v0.13.0 - 2021 May 29")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development

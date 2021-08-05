@@ -155,17 +155,6 @@ void eeconfig_update_keymap(uint16_t val) {
     eeprom_update_byte(EECONFIG_KEYMAP_UPPER_BYTE, (val >> 8) & 0xFF);
 }
 
-/** \brief eeconfig read backlight
- *
- * FIXME: needs doc
- */
-uint8_t eeconfig_read_backlight(void) { return eeprom_read_byte(EECONFIG_BACKLIGHT); }
-/** \brief eeconfig update backlight
- *
- * FIXME: needs doc
- */
-void eeconfig_update_backlight(uint8_t val) { eeprom_update_byte(EECONFIG_BACKLIGHT, val); }
-
 /** \brief eeconfig read audio
  *
  * FIXME: needs doc

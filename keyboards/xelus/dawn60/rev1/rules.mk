@@ -42,7 +42,7 @@ CIE1931_CURVE = yes
 SRC +=	keyboards/wilba_tech/wt_main.c \
 		keyboards/wilba_tech/wt_rgb_backlight.c \
 		quantum/color.c \
-		drivers/issi/is31fl3731.c \
+		drivers/led/issi/is31fl3731.c \
 		ws2812.c
 
 QUANTUM_LIB_SRC += i2c_master.c
