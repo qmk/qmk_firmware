@@ -23,32 +23,46 @@ typedef struct {
     bool     audio_clicky_enable;
     bool     tap_toggling;
     bool     unicode_mode;
-    uint16_t keymap_config;
-    uint8_t  userspace_config;
     bool     swap_hands;
+    uint8_t  reserved :2;
 } user_runtime_config_t;
+
+uint16_t transport_keymap_config    = 0;
+uint32_t transport_userspace_config = 0;
 
 user_runtime_config_t user_state;
 
-void user_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
+void user_state_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
     if (initiator2target_buffer_size == sizeof(user_state)) {
         memcpy(&user_state, initiator2target_buffer, initiator2target_buffer_size);
+    }
+}
+void user_keymap_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
+    if (initiator2target_buffer_size == sizeof(transport_keymap_config)) {
+        memcpy(&transport_keymap_config, initiator2target_buffer, initiator2target_buffer_size);
+    }
+}
+void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
+    if (initiator2target_buffer_size == sizeof(transport_userspace_config)) {
+        memcpy(&transport_userspace_config, initiator2target_buffer, initiator2target_buffer_size);
     }
 }
 
 void keyboard_post_init_transport_sync(void) {
     // Register keyboard state sync split transaction
-    transaction_register_rpc(RPC_ID_USER_STATE_SYNC, user_sync);
+    transaction_register_rpc(RPC_ID_USER_STATE_SYNC, user_state_sync);
+    transaction_register_rpc(RPC_ID_USER_KEYMAP_SYNC, user_keymap_sync);
+    transaction_register_rpc(RPC_ID_USER_CONFIG_SYNC, user_config_sync);
 }
 
-void user_state_update(void) {
+void user_transport_update(void) {
     if (is_keyboard_master()) {
 #    ifdef OLED_DRIVER_ENABLE
         user_state.oled_on = is_oled_on();
 #    endif
 
-        user_state.keymap_config = keymap_config.raw;
-        user_state.userspace_config = userspace_config.raw & 0xF;
+        transport_keymap_config    = keymap_config.raw;
+        transport_userspace_config = userspace_config.raw;
 #    ifdef AUDIO_ENABLE
         user_state.audio_enable        = is_audio_on();
         user_state.audio_clicky_enable = is_clicky_on();
@@ -68,8 +82,8 @@ void user_state_update(void) {
             oled_off();
         }
 #    endif
-        keymap_config.raw    = user_state.keymap_config;
-        userspace_config.raw = user_state.userspace_config;
+        keymap_config.raw    = transport_keymap_config;
+        userspace_config.raw = transport_userspace_config;
 #    ifdef UNICODE_ENABLE
         unicode_config.input_mode = user_state.unicode_mode;
 #    endif
@@ -98,11 +112,13 @@ void user_state_update(void) {
     }
 }
 
-void user_state_sync(void) {
+void user_transport_sync(void) {
     if (is_keyboard_master()) {
         // Keep track of the last state, so that we can tell if we need to propagate to slave
         static user_runtime_config_t last_user_state;
-        static uint32_t              last_sync;
+        static uint16_t              last_keymap = 0;
+        static uint32_t              last_config = 0;
+        static uint32_t              last_sync[3];
         bool                         needs_sync = false;
 
         // Check if the state values are different
@@ -110,16 +126,53 @@ void user_state_sync(void) {
             needs_sync = true;
             memcpy(&last_user_state, &user_state, sizeof(user_state));
         }
-
         // Send to slave every 500ms regardless of state change
-        if (timer_elapsed32(last_sync) > 250) {
+        if (timer_elapsed32(last_sync[0]) > 250) {
             needs_sync = true;
         }
 
         // Perform the sync if requested
         if (needs_sync) {
             if (transaction_rpc_send(RPC_ID_USER_STATE_SYNC, sizeof(user_state), &user_state)) {
-                last_sync = timer_read32();
+                last_sync[0] = timer_read32();
+            }
+            needs_sync = false;
+        }
+
+        // Check if the state values are different
+        if (memcmp(&transport_keymap_config, &last_keymap, sizeof(transport_keymap_config))) {
+            needs_sync = true;
+            memcpy(&last_keymap, &transport_keymap_config, sizeof(transport_keymap_config));
+        }
+
+        // Send to slave every 500ms regardless of state change
+        if (timer_elapsed32(last_sync[1]) > 250) {
+            needs_sync = true;
+        }
+
+        // Perform the sync if requested
+        if (needs_sync) {
+            if (transaction_rpc_send(RPC_ID_USER_KEYMAP_SYNC, sizeof(transport_keymap_config), &transport_keymap_config)) {
+                last_sync[1] = timer_read32();
+            }
+            needs_sync = false;
+        }
+
+        // Check if the state values are different
+        if (memcmp(&user_state, &last_config, sizeof(transport_userspace_config))) {
+            needs_sync = true;
+            memcpy(&last_config, &user_state, sizeof(transport_userspace_config));
+        }
+
+        // Send to slave every 500ms regardless of state change
+        if (timer_elapsed32(last_sync[2]) > 250) {
+            needs_sync = true;
+        }
+
+        // Perform the sync if requested
+        if (needs_sync) {
+            if (transaction_rpc_send(RPC_ID_USER_CONFIG_SYNC, sizeof(transport_userspace_config), &transport_userspace_config)) {
+                last_sync[2] = timer_read32();
             }
         }
     }
@@ -127,9 +180,9 @@ void user_state_sync(void) {
 
 void housekeeping_task_user(void) {
     // Update kb_state so we can send to slave
-    user_state_update();
+    user_transport_update();
 
     // Data sync from master to slave
-    user_state_sync();
+    user_transport_sync();
 }
 #endif
