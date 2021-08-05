@@ -31,4 +31,5 @@ ifeq ($(strip $(CTPC)), yes)
     WS2812_DRIVER = pwm # won't work without a patch to the ctpc mk file
     SERIAL_DRIVER = usart
     SWAP_HANDS_ENABLE = yes
+	WPM_ENABLE = yes
 endif

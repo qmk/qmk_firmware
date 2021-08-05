@@ -141,10 +141,8 @@ void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), led_usb_state & (1 << USB_LED_CAPS_LOCK));
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
-#ifndef OLED_DISPLAY_128X64
-    oled_advance_page(true);
-#endif
 }
+
 void render_matrix_scan_rate(void) {
 #ifdef DEBUG_MATRIX_SCAN_RATE
     char     matrix_rate[5];
@@ -339,16 +337,18 @@ void render_status_secondary(void) {
     render_default_layer_state();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
-
+#if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE)
+    render_wpm();
+#endif
     // render_keylock_status(host_keyboard_leds());
 }
 
 void render_status_main(void) {
-#if defined(OLED_DISPLAY_128X64)
+#if defined(OLED_DISPLAY_128X64) e
     oled_driver_render_logo();
 #    ifdef DEBUG_MATRIX_SCAN_RATE
     render_matrix_scan_rate();
-#    else
+#    elif defined(WPM_ENABLE)
     render_wpm();
 #    endif
 #    if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
