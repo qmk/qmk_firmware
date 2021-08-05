@@ -29,9 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap_us_international.h"
 
 enum crkbd_layers {
-	_BASE,
-	_NAV,
-	_SYM
+    _BASE,
+    _NAV,
+    _SYM
 };
 
 

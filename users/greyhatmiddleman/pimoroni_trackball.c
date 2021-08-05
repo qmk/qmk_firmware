@@ -202,12 +202,12 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse) {
         } else {
             float power = 1.5;
 
-	    /* added condition to accelerate mouse - greyhatmiddleman */
-	    if(accelerating){
-		var_accel = 5;
-	    } else {
-		var_accel = 2;
-	    }
+            /* added condition to accelerate mouse - greyhatmiddleman */
+            if(accelerating){
+                var_accel = 5;
+            } else {
+                var_accel = 2;
+            }
             double newlen = pow(state.vector_length, power);
 
             if (state.vector_length > 2 && (timer_elapsed(acceleration_timer) == 0 || timer_elapsed(acceleration_timer) < TRACKBALL_ACCELERATION_WINDOW)) {
