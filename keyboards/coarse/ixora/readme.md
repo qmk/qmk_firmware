@@ -6,13 +6,13 @@ Ixora
 
 Ixora is an ARM-powered 6-key macropad with a USB connector, hotswap sockets, and indicator LEDs.
 
-Keyboard Maintainer: [Peioris](https://github.com/coarse)  
+Keyboard Maintainer: [Coarse](https://github.com/coarse)  
 Hardware Supported: Ixora PCB  
-Hardware Availability: [Peioris](https://github.com/coarse)
+Hardware Availability: [Coarse](https://github.com/coarse)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make peiorisboards/ixora:default:dfu-util
+    make coarse/ixora:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
