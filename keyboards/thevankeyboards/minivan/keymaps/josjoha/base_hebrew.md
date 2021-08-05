@@ -6,8 +6,18 @@ Compiled for: Hebrew
 This file details the compile version `#define BASE_HEBREW__DEF_BASE,
 BASE_HEBREW__ALT_BASE`. This is a basic Hebrew layout, without niqqud.
 
-Only the most common symbols are implemented. This is (again) all done in 
-Unicode. Niqqud are not implemented.
+Only the most common symbols are implemented. 
+Niqqud are not implemented. 
+Hebrew symbols are all done in Unicode.
+This means it is not a “normal, common”
+hebrew keyboard, because such keyboards likely use computer side recoding.
+This is still a US language keyboard (with Unicode apabilities), in terms
+of how the computer sees it.
+
+See also ![./readme.md](./readme.md) chapter 7 _Language support_.
+
+Design
+======
 
 The design is make it work easily with a Latin layer (Qwerty, Dvorak, etc),
 together as a dual layout system. For this reason the common writing symbols

@@ -110,7 +110,7 @@ the western European group of languages, native from the keyboard.
 This keymap might not function as expected if you want to use a
 different keyboard language setting in your operating system.
 
-See also chapter 6 _Language support_.
+See also chapter 7 _Language support_.
 
 2 'make' example
 ================
