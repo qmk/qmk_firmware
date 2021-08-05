@@ -91,6 +91,11 @@ define NAME_ECHO
 
 endef
 
+define YAML_NAME_ECHO
+	@echo '  $1 : "$(strip $($1))"'
+
+endef
+
 .PHONY: show_build_options0 show_build_options
 show_build_options0:
 	@echo " KEYBOARD        = $(KEYBOARD)"
@@ -131,3 +136,18 @@ show_full_features: show_build_options0
 	@echo "Other Options:"
 	$(foreach A_OPTION_NAME,$(sort $(OTHER_OPTION_NAMES)),\
 		$(call NAME_ECHO,$(A_OPTION_NAME)))
+
+.PHONY: yaml_build_options
+yaml_build_options:
+	@echo '- KEYBOARD : "$(KEYBOARD)"'
+	@echo '  KEYMAP : "$(KEYMAP)"'
+	@echo '  MCU : "$(MCU)"'
+	@echo '  MCU_SERIES : "$(MCU_SERIES)"'
+	@echo '  PLATFORM : "$(PLATFORM)"'
+	@echo '  FIRMWARE_FORMAT : "$(FIRMWARE_FORMAT)"'
+	$(foreach A_OPTION_NAME,$(sort $(BUILD_OPTION_NAMES)),\
+		$(call YAML_NAME_ECHO,$(A_OPTION_NAME)))
+	$(foreach A_OPTION_NAME,$(sort $(HARDWARE_OPTION_NAMES)),\
+		$(if $($(A_OPTION_NAME)),$(call YAML_NAME_ECHO,$(A_OPTION_NAME))))
+	$(foreach A_OPTION_NAME,$(sort $(OTHER_OPTION_NAMES)),\
+		$(if $($(A_OPTION_NAME)),$(call YAML_NAME_ECHO,$(A_OPTION_NAME))))
