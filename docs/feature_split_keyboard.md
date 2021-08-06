@@ -208,12 +208,16 @@ This sets the maximum number of milliseconds before forcing a synchronization of
 ```
 This sets the maximum number of failed communication attempts (one per scan cycle) from the master part before it assumes that no slave part is connected. This makes it possible to use a master part without the slave part connected.
 
+Set to 0 to disable the disconnection check altogether.
+
 ```c
 #define SPLIT_CONNECTION_CHECK_TIMEOUT 500
 ```
 How long (in milliseconds) the master part should block all connection attempts to the slave after the communication has been flagged as disconnected (see `SPLIT_MAX_CONNECTION_ERRORS` above).
 
 One communication attempt will be allowed everytime this amount of time has passed since the last attempt. If that attempt succeeds, the communication is seen as working again.
+
+Set to 0 to disable this throttling of communications while disconnected. This can save you a couple of bytes of firmware size.
 
 ```c
 #define SPLIT_TRANSPORT_MIRROR

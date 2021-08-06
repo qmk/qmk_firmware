@@ -24,13 +24,14 @@
 #include "atomic_util.h"
 
 // Max number of consecutive failed communications (one per scan cycle) before the communication is seen as disconnected.
-// Set to a negative value to disable the disconnection check altogether.
+// Set to 0 to disable the disconnection check altogether.
 #ifndef SPLIT_MAX_CONNECTION_ERRORS
 #    define SPLIT_MAX_CONNECTION_ERRORS 10
 #endif  // SPLIT_MAX_CONNECTION_ERRORS
 
 // How long (in milliseconds) to block all connection attempts after the communication has been flagged as disconnected.
 // One communication attempt will be allowed everytime this amount of time has passed since the last attempt. If that attempt succeeds, the communication is seen as working again.
+// Set to 0 to disable communication throttling while disconnected
 #ifndef SPLIT_CONNECTION_CHECK_TIMEOUT
 #    define SPLIT_CONNECTION_CHECK_TIMEOUT 500
 #endif  // SPLIT_CONNECTION_CHECK_TIMEOUT
@@ -131,32 +132,36 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
 bool is_transport_connected(void) { return connection_errors < SPLIT_MAX_CONNECTION_ERRORS; }
 
 bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-#if SPLIT_MAX_CONNECTION_ERRORS < 0
-    return transactions_master(master_matrix, slave_matrix);
-#else   // SPLIT_MAX_CONNECTION_ERRORS < 0
+#if SPLIT_MAX_CONNECTION_ERRORS > 0 && SPLIT_CONNECTION_CHECK_TIMEOUT > 0
     // Throttle transaction attempts if target doesn't seem to be connected
     // Without this, a solo half becomes unusable due to constant read timeouts
     static uint16_t connection_check_timer = 0;
-    if (!is_transport_connected() && timer_elapsed(connection_check_timer) < SPLIT_CONNECTION_CHECK_TIMEOUT) {
+    const bool      is_disconnected        = !is_transport_connected();
+    if (is_disconnected && timer_elapsed(connection_check_timer) < SPLIT_CONNECTION_CHECK_TIMEOUT) {
         return false;
     }
+#endif  // SPLIT_MAX_CONNECTION_ERRORS > 0 && SPLIT_CONNECTION_CHECK_TIMEOUT > 0
 
-    if (!transactions_master(master_matrix, slave_matrix)) {
+    bool okay = transactions_master(master_matrix, slave_matrix);
+#if SPLIT_MAX_CONNECTION_ERRORS > 0
+    if (!okay) {
         if (connection_errors < UINT8_MAX) {
             connection_errors++;
         }
+#    if SPLIT_CONNECTION_CHECK_TIMEOUT > 0
         if (!is_transport_connected()) {
             connection_check_timer = timer_read();
             dprintln("Target disconnected, throttling connection attempts");
         }
         return false;
-    } else if (!is_transport_connected()) {
+    } else if (is_disconnected) {
         dprintln("Target connected");
+#    endif  // SPLIT_CONNECTION_CHECK_TIMEOUT > 0
     }
 
     connection_errors = 0;
-    return true;
-#endif  // SPLIT_MAX_CONNECTION_ERRORS < 0
+#endif  // SPLIT_MAX_CONNECTION_ERRORS > 0
+    return okay;
 }
 
 void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { transactions_slave(master_matrix, slave_matrix); }
