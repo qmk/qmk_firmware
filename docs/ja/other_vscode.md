@@ -1,8 +1,8 @@
 # QMK 開発用の Visual Studio Code のセットアップ
 
 <!---
-  original document: 0.10.33:docs/other_vscode.md
-  git diff 0.10.33 HEAD -- docs/other_vscode.md | cat
+  original document: 0.13.17:docs/other_vscode.md
+  git diff 0.13.17 HEAD -- docs/other_vscode.md | cat
 -->
 
 [Visual Studio Code](https://code.visualstudio.com/) (VS Code) は多くの異なるプログラミング言語をサポートするオープンソースのコードエディタです。

@@ -56,7 +56,7 @@ This happens immediately after the previous `develop` branch is merged.
     * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
     * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
     * [ ] `git tag <next_version>` # Prevent the breakpoint tag from confusing version incrementing
-    * [ ] `git push origin develop`
+    * [ ] `git push upstream develop`
     * [ ] `git push --tags`
 
 ## 4 Weeks Before Merge
@@ -86,13 +86,17 @@ This happens immediately after the previous `develop` branch is merged.
 * `qmk_firmware` git commands
     * [ ] `git checkout develop`
     * [ ] `git pull --ff-only`
-    * [ ] `git rebase origin/master`
     * [ ] Edit `readme.md`
         * [ ] Remove the notes about `develop`
     * [ ] Roll up the ChangeLog into one file.
     * [ ] `git commit -m 'Merge point for <DATE> Breaking Change'`
-    * [ ] `git push origin develop`
+    * [ ] `git push upstream develop`
 * GitHub Actions
     * [ ] Create a PR for `develop`
     * [ ] Make sure travis comes back clean
-    * [ ] Merge `develop` PR
+    * [ ] **Turn off 'Automatically delete head branches' for the repository** -- confirm with @qmk/directors that it is done before continuing
+* `qmk_firmware` git commands
+    * [ ] `git checkout master`
+    * [ ] `git pull --ff-only`
+    * [ ] `git merge --no-ff develop`
+    * [ ] `git push upstream master`
