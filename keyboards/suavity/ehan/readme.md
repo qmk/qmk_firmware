@@ -6,13 +6,13 @@
 
 ## Introduction
 
-hanjie is a compact southpaw function-row-less keyboard. 
+ehan is a 10.5° Split TKL that supports 3U Spacebars, 
 
 * Keyboard Maintainer: [Suavity Designs](https://github.com/suavity)
 * Hardware Supported: ARM STM32F072CBT6
 * Hardware Availability: [suavity.cc/ehan](https://suavity.cc/keyboards/ehan/)
 
-The latest iteration of the PCB is v2.80 as of 03/21. This is noted on the back of the PCB. 
+The latest iteration of the PCB is v3.00 as of 07/'21. This is noted on the back of the PCB. 
 * Default Keymap: [See here](http://www.keyboard-layout-editor.com/#/gists/6504b0b388736213f43b64df1d576139)
 * PCB Supported Layouts: [See here](http://www.keyboard-layout-editor.com/#/gists/9aab5e15a89469138da760f968df26ae)
 
