@@ -185,6 +185,14 @@ This function gets called at every matrix scan, which is basically as often as t
 
 You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LEDs or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
 
+# Keyboard housekeeping
+
+* Keyboard/Revision: `void housekeeping_task_kb(void)`
+* Keymap: `void housekeeping_task_user(void)`
+
+This function gets called at the end of all QMK processing, before starting the next iteration. You can safely assume that QMK has dealt with the last matrix scan at the time that these functions are invoked -- layer states have been updated, USB reports have been sent, LEDs have been updated, and displays have been drawn.
+
+Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To keep your board responsive, it's suggested to do as little as possible during these function calls, potentially throtting their behaviour if you do indeed require implementing something special.
 
 # Keyboard Idling/Wake Code
 

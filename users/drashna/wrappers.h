@@ -21,19 +21,6 @@ Since our quirky block definitions are basically a list of comma separated
 arguments, we need a wrapper in order for these definitions to be
 expanded before being used as arguments to the LAYOUT_xxx macro.
 */
-#if (!defined(LAYOUT) && defined(KEYMAP))
-#    define LAYOUT KEYMAP
-#endif
-
-// clang-format off
-#define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
-#define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
-#define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
-#define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
-#define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
-#define LAYOUT_ortho_5x12_wrapper(...)       LAYOUT_ortho_5x12(__VA_ARGS__)
-#define LAYOUT_gergo_wrapper(...)            LAYOUT_gergo(__VA_ARGS__)
-#define LAYOUT_split_3x6_3_wrapper(...)      LAYOUT_split_3x6_3(__VA_ARGS__)
 
 /*
 Blocks for each of the four major keyboard layouts
@@ -46,14 +33,14 @@ NOTE: These are all the same length.  If you do a search/replace
   then you need to add/remove underscores to keep the
   lengths consistent.
 */
+// clang-format off
+#define _________________QWERTY_L1_________________       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
+#define _________________QWERTY_L2_________________       KC_A,    KC_S,    KC_D,    KC_F,    KC_G
+#define _________________QWERTY_L3_________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
-#define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define _________________QWERTY_L2_________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#define _________________QWERTY_L3_________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-
-#define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________QWERTY_R1_________________       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
+#define _________________QWERTY_R2_________________       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT
+#define _________________QWERTY_R3_________________       KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
 
 
 #define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
@@ -61,15 +48,15 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________COLEMAK_L3________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
 #define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O
-#define _________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT
+#define _________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
 
 #define ______________COLEMAK_MOD_DH_L1____________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
 #define ______________COLEMAK_MOD_DH_L2____________       KC_A,    KC_R,    KC_S,    KC_T,    KC_G
 #define ______________COLEMAK_MOD_DH_L3____________       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
 
 #define ______________COLEMAK_MOD_DH_R1____________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define ______________COLEMAK_MOD_DH_R2____________       KC_M,    KC_N,    KC_E,    KC_I,    KC_O
+#define ______________COLEMAK_MOD_DH_R2____________       KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT
 #define ______________COLEMAK_MOD_DH_R3____________       KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH
 
 
@@ -78,7 +65,7 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________DVORAK_L3_________________        KC_SCLN, KC_Q,    KC_J,   KC_K,     KC_X
 
 #define _________________DVORAK_R1_________________        KC_F,    KC_G,    KC_C,    KC_R,    KC_L
-#define _________________DVORAK_R2_________________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
+#define _________________DVORAK_R2_________________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH
 #define _________________DVORAK_R3_________________        KC_B,    KC_M,    KC_W,    KC_V,    KC_Z
 
 
@@ -87,79 +74,106 @@ NOTE: These are all the same length.  If you do a search/replace
 #define ________________DVORAK_AU_L3_______________        KC_SCLN, KC_Q,    KC_J,   KC_K,     KC_X
 
 #define ________________DVORAK_AU_R1_______________        KC_F,    KC_G,    KC_C,    KC_R,    KC_L
-#define ________________DVORAK_AU_R2_______________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
+#define ________________DVORAK_AU_R2_______________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH
 #define ________________DVORAK_AU_R3_______________        KC_B,    KC_M,    KC_W,    KC_V,    KC_Z
 
-#define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
-#define _________________WORKMAN_L2________________       KC_A,    KC_S,    KC_H,   KC_T,     KC_G
-#define _________________WORKMAN_L3________________       KC_Z,    KC_X,    KC_M,   KC_C,     KC_V
+#define _________________WORKMAN_L1________________        KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
+#define _________________WORKMAN_L2________________        KC_A,    KC_S,    KC_H,   KC_T,     KC_G
+#define _________________WORKMAN_L3________________        KC_Z,    KC_X,    KC_M,   KC_C,     KC_V
 
-#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
-#define _________________WORKMAN_R2________________       KC_Y,    KC_N,    KC_E,    KC_O,    KC_I
-#define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLASH
-
-
-#define _________________NORMAN_L1_________________       KC_Q,    KC_W,    KC_D,    KC_F,    KC_K
-#define _________________NORMAN_L2_________________       KC_A,    KC_S,    KC_E,    KC_T,    KC_G
-#define _________________NORMAN_L3_________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-
-#define _________________NORMAN_R1_________________       KC_J,    KC_U,    KC_R,    KC_L,    KC_SCLN
-#define _________________NORMAN_R2_________________       KC_Y,    KC_N,    KC_I,    KC_O,    KC_U
-#define _________________NORMAN_R3_________________       KC_P,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________WORKMAN_R1________________        KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
+#define _________________WORKMAN_R2________________        KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT
+#define _________________WORKMAN_R3________________        KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH
 
 
-#define _________________MALTRON_L1________________       KC_Q,    KC_P,    KC_Y,    KC_C,    KC_B
-#define _________________MALTRON_L2________________       KC_A,    KC_N,    KC_I,    KC_S,    KC_F
-#define _________________MALTRON_L3________________       KC_SCLN, KC_SLSH, KC_J,    KC_G,    KC_COMM
+#define _________________NORMAN_L1_________________        KC_Q,    KC_W,    KC_D,    KC_F,    KC_K
+#define _________________NORMAN_L2_________________        KC_A,    KC_S,    KC_E,    KC_T,    KC_G
+#define _________________NORMAN_L3_________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
-#define _________________MALTRON_R1________________       KC_V,    KC_M,    KC_U,    KC_Z,    KC_L
-#define _________________MALTRON_R2________________       KC_D,    KC_T,    KC_D,    KC_O,    KC_R
-#define _________________MALTRON_R3________________       KC_DOT,  KC_W,    KC_K,    KC_MINS, KC_X
-
-
-#define _________________EUCALYN_L1________________       KC_SLSH, KC_COMM, KC_DOT,  KC_F,    KC_Q
-#define _________________EUCALYN_L2________________       KC_A,    KC_O,    KC_E,    KC_I,    KC_U
-#define _________________EUCALYN_L3________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_W
-
-#define _________________EUCALYN_R1________________       KC_M,    KC_R,    KC_D,    KC_Y,    KC_P
-#define _________________EUCALYN_R2________________       KC_G,    KC_T,    KC_K,    KC_S,    KC_N
-#define _________________EUCALYN_R3________________       KC_B,    KC_H,    KC_J,    KC_L,    KC_SCLN
+#define _________________NORMAN_R1_________________        KC_J,    KC_U,    KC_R,    KC_L,    KC_SCLN
+#define _________________NORMAN_R2_________________        KC_Y,    KC_N,    KC_I,    KC_O,    KC_U,    KC_QUOT
+#define _________________NORMAN_R3_________________        KC_P,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
 
 
-#define _____________CARPLAX_QFMLWY_L1_____________       KC_Q,    KC_F,    KC_M,    KC_L,    KC_W
-#define _____________CARPLAX_QFMLWY_L2_____________       KC_D,    KC_S,    KC_T,    KC_N,    KC_R
-#define _____________CARPLAX_QFMLWY_L3_____________       KC_Z,    KC_V,    KC_G,    KC_C,    KC_X
+#define _________________MALTRON_L1________________        KC_Q,    KC_P,    KC_Y,    KC_C,    KC_B
+#define _________________MALTRON_L2________________        KC_A,    KC_N,    KC_I,    KC_S,    KC_F
+#define _________________MALTRON_L3________________        KC_SCLN, KC_SLSH, KC_J,    KC_G,    KC_COMM
 
-#define _____________CARPLAX_QFMLWY_R1_____________       KC_Y,    KC_U,    KC_O,    KC_B,    KC_J
-#define _____________CARPLAX_QFMLWY_R2_____________       KC_I,    KC_A,    KC_E,    KC_H,    KC_SCLN
-#define _____________CARPLAX_QFMLWY_R3_____________       KC_P,    KC_K,    KC_COMM, KC_DOT,  KC_SLSH
-
-
-#define _____________CARPLAX_QGMLWB_L1_____________       KC_Q,    KC_G,    KC_M,    KC_L,    KC_W
-#define _____________CARPLAX_QGMLWB_L2_____________       KC_D,    KC_S,    KC_T,    KC_N,    KC_R
-#define _____________CARPLAX_QGMLWB_L3_____________       KC_Z,   KC_X,    KC_C,    KC_F,    KC_J
-
-#define _____________CARPLAX_QGMLWB_R1_____________       KC_B,    KC_Y,    KC_U,    KC_V,    KC_SCLN
-#define _____________CARPLAX_QGMLWB_R2_____________       KC_I,    KC_A,    KC_E,    KC_O,    KC_H
-#define _____________CARPLAX_QGMLWB_R3_____________       KC_K,    KC_P,    KC_COMM, KC_DOT,  KC_SLSH
+#define _________________MALTRON_R1________________        KC_V,    KC_M,    KC_U,    KC_Z,    KC_L
+#define _________________MALTRON_R2________________        KC_D,    KC_T,    KC_D,    KC_O,    KC_R,    KC_QUOT
+#define _________________MALTRON_R3________________        KC_DOT,  KC_W,    KC_K,    KC_MINS, KC_X
 
 
-#define _____________CARPLAX_QGMLWY_L1_____________       KC_Q,    KC_G,    KC_M,    KC_L,    KC_W
-#define _____________CARPLAX_QGMLWY_L2_____________       KC_D,    KC_S,    KC_T,    KC_N,    KC_R
-#define _____________CARPLAX_QGMLWY_L3_____________       KC_Z,   KC_X,    KC_C,    KC_V,    KC_J
+#define _________________EUCALYN_L1________________        KC_Q,    KC_W,    KC_COMM, KC_DOT,  KC_SCLN
+#define _________________EUCALYN_L2________________        KC_A,    KC_O,    KC_E,    KC_I,    KC_U
+#define _________________EUCALYN_L3________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_F
 
-#define _____________CARPLAX_QGMLWY_R1_____________       KC_Y,    KC_F,    KC_U,    KC_B,    KC_SCLN
-#define _____________CARPLAX_QGMLWY_R2_____________       KC_I,    KC_A,    KC_E,    KC_O,    KC_H
-#define _____________CARPLAX_QGMLWY_R3_____________       KC_K,    KC_P,    KC_COMM, KC_DOT,  KC_SLSH
+#define _________________EUCALYN_R1________________        KC_M,    KC_R,    KC_D,    KC_Y,    KC_P
+#define _________________EUCALYN_R2________________        KC_G,    KC_T,    KC_K,    KC_S,    KC_N,    KC_QUOT
+#define _________________EUCALYN_R3________________        KC_B,    KC_H,    KC_J,    KC_L,    KC_SLSH
+
+// Qwerty-like
+#define _____________CARPLAX_QFMLWY_L1_____________        KC_Q,    KC_F,    KC_M,    KC_L,    KC_W
+#define _____________CARPLAX_QFMLWY_L2_____________        KC_D,    KC_S,    KC_T,    KC_N,    KC_R
+#define _____________CARPLAX_QFMLWY_L3_____________        KC_Z,    KC_V,    KC_G,    KC_C,    KC_X
+
+#define _____________CARPLAX_QFMLWY_R1_____________        KC_Y,    KC_U,    KC_O,    KC_B,    KC_J
+#define _____________CARPLAX_QFMLWY_R2_____________        KC_I,    KC_A,    KC_E,    KC_H,    KC_SCLN, KC_QUOT
+#define _____________CARPLAX_QFMLWY_R3_____________        KC_P,    KC_K,    KC_COMM, KC_DOT,  KC_SLSH
+
+// Colemak like
+#define _____________CARPLAX_QGMLWB_L1_____________        KC_Q,    KC_G,    KC_M,    KC_L,    KC_W
+#define _____________CARPLAX_QGMLWB_L2_____________        KC_D,    KC_S,    KC_T,    KC_N,    KC_R
+#define _____________CARPLAX_QGMLWB_L3_____________        KC_Z,    KC_X,    KC_C,    KC_F,    KC_J
+
+#define _____________CARPLAX_QGMLWB_R1_____________        KC_B,    KC_Y,    KC_U,    KC_V,    KC_SCLN
+#define _____________CARPLAX_QGMLWB_R2_____________        KC_I,    KC_A,    KC_E,    KC_O,    KC_H,    KC_QUOT
+#define _____________CARPLAX_QGMLWB_R3_____________        KC_K,    KC_P,    KC_COMM, KC_DOT,  KC_SLSH
+
+// colemak like, zxcv fixed
+#define _____________CARPLAX_QGMLWY_L1_____________        KC_Q,    KC_G,    KC_M,    KC_L,    KC_W
+#define _____________CARPLAX_QGMLWY_L2_____________        KC_D,    KC_S,    KC_T,    KC_N,    KC_R
+#define _____________CARPLAX_QGMLWY_L3_____________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_J
+
+#define _____________CARPLAX_QGMLWY_R1_____________        KC_Y,    KC_F,    KC_U,    KC_B,    KC_SCLN
+#define _____________CARPLAX_QGMLWY_R2_____________        KC_I,    KC_A,    KC_E,    KC_O,    KC_H,    KC_QUOT
+#define _____________CARPLAX_QGMLWY_R3_____________        KC_K,    KC_P,    KC_COMM, KC_DOT,  KC_SLSH
+
+// teeheehee
+#define _____________CARPLAX_TNWCLR_L1_____________        KC_T,    KC_N,    KC_W,    KC_C,    KC_L
+#define _____________CARPLAX_TNWCLR_L2_____________        KC_S,    KC_K,    KC_J,    KC_X,    KC_G
+#define _____________CARPLAX_TNWCLR_L3_____________        KC_E,    KC_O,    KC_D,    KC_I,    KC_A
+
+#define _____________CARPLAX_TNWCLR_R1_____________        KC_R,    KC_B,    KC_F,    KC_M,    KC_H
+#define _____________CARPLAX_TNWCLR_R2_____________        KC_P,    KC_Q,    KC_Z,    KC_V,    KC_SCLN, KC_QUOT
+#define _____________CARPLAX_TNWCLR_R3_____________        KC_U,    KC_Y,    KC_COMM, KC_DOT,  KC_SLSH
 
 
-#define _________________WHITE_R1__________________       KC_V,    KC_Y,    KC_D,    KC_COMM, KC_QUOT
-#define _________________WHITE_R2__________________       KC_A,    KC_T,    KC_H,    KC_E,    KC_B
-#define _________________WHITE_R3__________________       KC_P,    KC_K,    KC_G,    KC_W,    KC_Q
+#define _________________WHITE_R1__________________        KC_V,    KC_Y,    KC_D,    KC_COMM, KC_QUOT
+#define _________________WHITE_R2__________________        KC_A,    KC_T,    KC_H,    KC_E,    KC_B
+#define _________________WHITE_R3__________________        KC_P,    KC_K,    KC_G,    KC_W,    KC_Q
 
-#define _________________WHITE_L1__________________       KC_INT1, KC_J,    KC_M,    KC_L,    KC_U
-#define _________________WHITE_L2__________________       KC_MINS, KC_C,    KC_S,    KC_N,    KC_O  // KC_I
-#define _________________WHITE_L3__________________       KC_X,    KC_R,    KC_F,    KC_DOT,  KC_Z
+#define _________________WHITE_L1__________________        KC_INT1, KC_J,    KC_M,    KC_L,    KC_U
+#define _________________WHITE_L2__________________        KC_MINS, KC_C,    KC_S,    KC_N,    KC_O,    KC_I
+#define _________________WHITE_L3__________________        KC_X,    KC_R,    KC_F,    KC_DOT,  KC_Z
+
+
+#define _________________HALMAK_L1_________________        KC_W,    KC_L,    KC_R,    KC_B,    KC_Z
+#define _________________HALMAK_L2_________________        KC_S,    KC_H,    KC_N,    KC_T,    KC_COMM
+#define _________________HALMAK_L3_________________        KC_F,    KC_M,    KC_V,    KC_V,    KC_SLASH
+
+#define _________________HALMAK_R1_________________        KC_SCLN, KC_Q,    KC_U,    KC_D,    KC_J
+#define _________________HALMAK_R2_________________        KC_DOT,  KC_A,    KC_E,    KC_O,    KC_I,    KC_QUOTE
+#define _________________HALMAK_R3_________________        KC_G,    KC_P,    KC_X,    KC_K,    KC_Y
+
+
+#define _________________HALMAK_L1_________________        KC_W,    KC_L,    KC_R,    KC_B,    KC_Z
+#define _________________HALMAK_L2_________________        KC_S,    KC_H,    KC_N,    KC_T,    KC_COMM
+#define _________________HALMAK_L3_________________        KC_F,    KC_M,    KC_V,    KC_V,    KC_SLASH
+
+#define _________________HALMAK_R1_________________        KC_SCLN, KC_Q,    KC_U,    KC_D,    KC_J
+#define _________________HALMAK_R2_________________        KC_DOT,  KC_A,    KC_E,    KC_O,    KC_I,    KC_QUOTE
+#define _________________HALMAK_R3_________________        KC_G,    KC_P,    KC_X,    KC_K,    KC_Y
 
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
@@ -176,7 +190,7 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________LOWER_R1__________________        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN
 #define _________________LOWER_R2__________________        _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR
-#define _________________LOWER_R3__________________        _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+#define _________________LOWER_R3__________________        _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 
 
 
@@ -186,7 +200,7 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________RAISE_R1__________________        ________________NUMBER_RIGHT_______________
 #define _________________RAISE_R2__________________        _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC
-#define _________________RAISE_R3__________________        _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
+#define _________________RAISE_R3__________________        _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
 

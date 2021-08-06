@@ -1,15 +1,15 @@
 # QMK 用語集
 
 <!---
-  original document: 0.9.46:docs/reference_glossary.md
-  git diff 0.9.46 HEAD -- docs/reference_glossary.md | cat
+  original document: 0.13.15:docs/reference_glossary.md
+  git diff 0.13.15 HEAD -- docs/reference_glossary.md | cat
 -->
 
 ## ARM
 Atmel、Cypress、Kinetis、NXP、ST、TI など多くの企業が生産する 32 ビット MCU のライン。
 
 ## AVR
-[Atmel](http://www.microchip.com/) が生産する 8 ビット MCU のライン。AVR は TMK がサポートしていた元のプラットフォームでした。
+[Atmel](https://www.microchip.com/) が生産する 8 ビット MCU のライン。AVR は TMK がサポートしていた元のプラットフォームでした。
 
 ## AZERTY
 標準的な Français (フランス) キーボードレイアウト。キーボードの最初の6つのキーから命名されました。
@@ -131,7 +131,7 @@ QMK にコードを送信するリクエスト。全てのユーザが個人の�
 キーが既に押されている間にキーを押すことを指す用語。似たものに 2KRO、6KRO、NKRO が含まれます。
 
 ## スキャンコード
-単一のキーを表す USB 経由の HID レポートの一部として送信される1バイトの数値。これらの値は、[USB-IF](http://www.usb.org/) が発行する [HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) に記載されています。
+単一のキーを表す USB 経由の HID レポートの一部として送信される1バイトの数値。これらの値は、[USB-IF](https://www.usb.org/) が発行する [HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) に記載されています。
 
 ## スペースカデットシフト
 左または右 shift を1回以上タップすることで、様々なタイプの括弧を入力できる特別な shift キーのセット。

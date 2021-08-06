@@ -33,4 +33,3 @@ Soporte para hasta 2 controladores. Cada controlador implementa 2 matrices charl
 ## IS31FL3733
 
 Soporte para hasta un solo controlador con espacio para expansión. Cada controlador puede controlar 192 LEDs individuales o 64 LEDs RGB. Para obtener más información sobre cómo configurar el controlador, consulta la página de [Matriz RGB](feature_rgb_matrix.md).
-

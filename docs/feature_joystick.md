@@ -141,6 +141,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
+### Axis Resolution
+
+By default, the resolution of each axis is 8 bit, giving a range of -127 to +127. If you need higher precision, you can increase it by defining eg. `JOYSTICK_AXES_RESOLUTION 12` in your `config.h`. The resolution must be between 8 and 16.
+
+Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MCUs.
+
 ### Triggering Joystick Buttons
 
 Joystick buttons are normal Quantum keycodes, defined as `JS_BUTTON0` to `JS_BUTTON31`, depending on the number of buttons you have configured.

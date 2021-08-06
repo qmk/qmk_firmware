@@ -19,13 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+/* Ensure we jump to bootloader if the RESET keycode was pressed */
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
+/* LSE clock */
+#define STM32_LSECLK 32768
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x8968
 #define PRODUCT_ID      0x5337
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         NEBULA12
-#define DESCRIPTION     "A 12-key, tool-free RGB keyboard"
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -95,6 +100,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define WS2812_SPI SPID2 // default: SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 0 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
+#define WS2812_SPI_SCK_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN B13
 
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN

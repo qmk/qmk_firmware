@@ -362,6 +362,7 @@
 #define X_BRIGHTNESS_DOWN    be
 
 /* Mouse Buttons (unallocated range in HID spec) */
+#ifdef VIA_ENABLE
 #define X_MS_UP              f0
 #define X_MS_DOWN            f1
 #define X_MS_LEFT            f2
@@ -371,6 +372,23 @@
 #define X_MS_BTN3            f6
 #define X_MS_BTN4            f7
 #define X_MS_BTN5            f8
+#define X_MS_BTN6            f8
+#define X_MS_BTN7            f8
+#define X_MS_BTN8            f8
+#else
+#define X_MS_UP              ed
+#define X_MS_DOWN            ee
+#define X_MS_LEFT            ef
+#define X_MS_RIGHT           f0
+#define X_MS_BTN1            f1
+#define X_MS_BTN2            f2
+#define X_MS_BTN3            f3
+#define X_MS_BTN4            f4
+#define X_MS_BTN5            f5
+#define X_MS_BTN6            f6
+#define X_MS_BTN7            f7
+#define X_MS_BTN8            f8
+#endif
 #define X_MS_WH_UP           f9
 #define X_MS_WH_DOWN         fa
 #define X_MS_WH_LEFT         fb

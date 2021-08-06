@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef POINTING_DEVICE_H
-#define POINTING_DEVICE_H
+#pragma once
 
 #include <stdint.h>
 #include "host.h"
@@ -27,5 +26,4 @@ void           pointing_device_task(void);
 void           pointing_device_send(void);
 report_mouse_t pointing_device_get_report(void);
 void           pointing_device_set_report(report_mouse_t newMouseReport);
-
-#endif
+bool           has_mouse_report_changed(report_mouse_t new, report_mouse_t old);

@@ -41,6 +41,10 @@
 #include "usb_descriptor.h"
 #include "usb_descriptor_common.h"
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 // clang-format off
 
 /*
@@ -112,19 +116,15 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
         HID_RI_USAGE(8, 0x01),             // Pointer
         HID_RI_COLLECTION(8, 0x00),        // Physical
-            // Buttons (5 bits)
+            // Buttons (8 bits)
             HID_RI_USAGE_PAGE(8, 0x09),    // Button
             HID_RI_USAGE_MINIMUM(8, 0x01), // Button 1
-            HID_RI_USAGE_MAXIMUM(8, 0x05), // Button 5
+            HID_RI_USAGE_MAXIMUM(8, 0x08), // Button 8
             HID_RI_LOGICAL_MINIMUM(8, 0x00),
             HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-            HID_RI_REPORT_COUNT(8, 0x05),
+            HID_RI_REPORT_COUNT(8, 0x08),
             HID_RI_REPORT_SIZE(8, 0x01),
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-            // Button padding (3 bits)
-            HID_RI_REPORT_COUNT(8, 0x01),
-            HID_RI_REPORT_SIZE(8, 0x03),
-            HID_RI_INPUT(8, HID_IOF_CONSTANT),
 
             // X/Y position (2 bytes)
             HID_RI_USAGE_PAGE(8, 0x01),    // Generic Desktop
@@ -308,10 +308,17 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
             HID_RI_USAGE(8, 0x35),      // Rz
 #    endif
 #    if JOYSTICK_AXES_COUNT >= 1
-            HID_RI_LOGICAL_MINIMUM(8, -127),
-            HID_RI_LOGICAL_MAXIMUM(8, 127),
+     # if JOYSTICK_AXES_RESOLUTION == 8
+            HID_RI_LOGICAL_MINIMUM(8, -JOYSTICK_RESOLUTION),
+            HID_RI_LOGICAL_MAXIMUM(8, JOYSTICK_RESOLUTION),
             HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
             HID_RI_REPORT_SIZE(8, 0x08),
+     # else
+            HID_RI_LOGICAL_MINIMUM(16, -JOYSTICK_RESOLUTION),
+            HID_RI_LOGICAL_MAXIMUM(16, JOYSTICK_RESOLUTION),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x10),
+     # endif
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 #    endif
 
@@ -345,7 +352,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
         .Type                   = DTYPE_Device
     },
     .USBSpecification           = VERSION_BCD(1, 1, 0),
-    
+
 #if VIRTSER_ENABLE
     .Class                      = USB_CSCP_IADDeviceClass,
     .SubClass                   = USB_CSCP_IADDeviceSubclass,
@@ -363,7 +370,11 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
     .ReleaseNumber              = DEVICE_VER,
     .ManufacturerStrIndex       = 0x01,
     .ProductStrIndex            = 0x02,
+#if defined(SERIAL_NUMBER)
     .SerialNumStrIndex          = 0x03,
+#else
+    .SerialNumStrIndex          = 0x00,
+#endif
     .NumberOfConfigurations     = FIXED_NUM_CONFIGURATIONS
 };
 
@@ -939,10 +950,7 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
     .UnicodeString              = LSTR(PRODUCT)
 };
 
-#ifndef SERIAL_NUMBER
-#    define SERIAL_NUMBER 0
-#endif
-
+#if defined(SERIAL_NUMBER)
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
     .Header = {
         .Size                   = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1), // Subtract 1 for null terminator
@@ -950,6 +958,7 @@ const USB_Descriptor_String_t PROGMEM SerialNumberString = {
     },
     .UnicodeString              = LSTR(SERIAL_NUMBER)
 };
+#endif
 
 // clang-format on
 
@@ -994,11 +1003,13 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     Size    = pgm_read_byte(&ProductString.Header.Size);
 
                     break;
+#if defined(SERIAL_NUMBER)
                 case 0x03:
                     Address = &SerialNumberString;
                     Size    = pgm_read_byte(&SerialNumberString.Header.Size);
 
                     break;
+#endif
             }
 
             break;

@@ -1,7 +1,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #include "ctrl.h"
 
-#include "led_matrix.h"
+#include "md_rgb_matrix.h"
 #include "rgb_matrix.h"
 #include "config_led.h"
 
@@ -75,7 +75,7 @@ led_config_t g_led_config = { {
 #ifdef USB_LED_INDICATOR_ENABLE
 void rgb_matrix_indicators_kb(void)
 {
-  led_matrix_indicators();
+  md_rgb_matrix_indicators();
 }
 #endif // USB_LED_INDICATOR_ENABLE
 

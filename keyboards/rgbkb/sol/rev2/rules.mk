@@ -16,7 +16,8 @@ RGBLIGHT_ENABLE         = no        # Enable global lighting effects. Do not ena
 RGBLIGHT_ANIMATIONS     = no        # LED animations
 LED_MIRRORED            = no        # Mirror LEDs across halves (enable DIP 1 on slave, and DIP 2 and 3 on master)
 
-RGB_MATRIX_ENABLE       = WS2812    # Enable per-key coordinate based RGB effects. Do not enable with RGBlight
+RGB_MATRIX_ENABLE = yes             # Enable per-key coordinate based RGB effects. Do not enable with RGBlight
+RGB_MATRIX_DRIVER = WS2812
 RGB_MATRIX_KEYPRESSES   = no        # Enable reactive per-key effects.
 RGB_MATRIX_FRAMEBUFFER_EFFECTS = no # Enable frame buffer effects like the typing heatmap.
 

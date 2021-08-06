@@ -7,9 +7,9 @@
 [![Contributeurs GitHub](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
 [![Forks GitHub](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
 
-## Qu'est-ce que QMK Firmware ?
+## Qu'est-ce que QMK Firmware?
 
-QMK (*Quantum Mechanical Keyboard*) est une communauté open source qui maintient le firmware QMK, la QMK Toolbox (*Boite à outil*), qmk.fm et leurs documentations. QMK Firmware est un firmware dédié aux claviers qui est basé sur [tmk\_keyboard](http://github.com/tmk/tmk_keyboard). Il offre des fonctionnalités très utiles pour les contrôleurs Atmel AVR, et, plus spécifiquement pour [les produits d'OLKB](http://olkb.com), le clavier [ErgoDox EZ](http://www.ergodox-ez.com), et pour les [produits Clueboard](http://clueboard.co/). Il prend désormais aussi en charge les processeurs ARM qui utilisent ChibiOS. Vous pouvez l'utiliser pour contrôler un clavier personnalisé soudé à la main ou alors sur un clavier avec un PCB personnalisé.
+QMK (*Quantum Mechanical Keyboard*) est une communauté open source qui maintient le firmware QMK, la QMK Toolbox (*Boite à outil*), qmk.fm et leurs documentations. QMK Firmware est un firmware dédié aux claviers qui est basé sur [tmk\_keyboard](https://github.com/tmk/tmk_keyboard). Il offre des fonctionnalités très utiles pour les contrôleurs Atmel AVR, et, plus spécifiquement pour [les produits d'OLKB](https://olkb.com), le clavier [ErgoDox EZ](https://www.ergodox-ez.com), et pour les [produits Clueboard](https://clueboard.co/). Il prend désormais aussi en charge les processeurs ARM qui utilisent ChibiOS. Vous pouvez l'utiliser pour contrôler un clavier personnalisé soudé à la main ou alors sur un clavier avec un PCB personnalisé.
 
 ## Comment l'obtenir
 
@@ -23,10 +23,10 @@ Avant d'être prêt à compiler vous allez devoir [installer un environnement](f
 
     make planck/rev4:default
 
-Cette commande compilera la révision `rev4` du clavier `planck` avec la disposition `default`. Notez que tous les claviers n'ont pas forcément de révisions (aussi appelées sous-projects ou dossiers, ou en anglais « subprojects » ou « folder »). Cette option peut donc être omise :
+Cette commande compilera la révision `rev4` du clavier `planck` avec la disposition `default`. Notez que tous les claviers n'ont pas forcément de révisions (aussi appelées sous-projects ou dossiers, ou en anglais «subprojects» ou «folder»). Cette option peut donc être omise:
 
     make preonic:default
 
 ## Comment le personnaliser
 
-QMK a beaucoup de [fonctionnalités](fr-fr/features.md) à explorer, et [une documentation](http://docs.qmk.fm) très abondante que vous pourrez parcourir. La plupart des fonctionnalités vous permettrons de modifier vos [dispositions](fr-fr/keymap.md) (keymaps) et de changer [les codes de caractères](fr-fr/keycodes.md) (keycodes).
+QMK a beaucoup de [fonctionnalités](fr-fr/features.md) à explorer, et [une documentation](https://docs.qmk.fm) très abondante que vous pourrez parcourir. La plupart des fonctionnalités vous permettrons de modifier vos [dispositions](fr-fr/keymap.md) (keymaps) et de changer [les codes de caractères](fr-fr/keycodes.md) (keycodes).

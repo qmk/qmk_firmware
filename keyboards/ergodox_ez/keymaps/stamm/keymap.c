@@ -31,14 +31,10 @@
 #define NO_BSLS_ALT KC_EQUAL
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
 
-#define E_NUMBERS LT(_3_NUMBERS,KC_E)
-#define R_MOUSE LT(_4_MOUSE,KC_R)
-#define O_NUMBERS LT(_3_NUMBERS,KC_O)
-#define U_MOUSE LT(_4_MOUSE,KC_U)
-#define R_NUMBERS LT(_3_NUMBERS,KC_R)
-#define W_MOUSE LT(_4_MOUSE,KC_W)
-#define LEFT_NUMBERS LT(_3_NUMBERS, KC_LEFT)
-#define RIGHT_MOUSE LT(_4_MOUSE, KC_RIGHT)
+#define E_NUMBERS LT(_1_NUMBERS, KC_E)
+#define R_MOUSE LT(_2_MOUSE, KC_R)
+
+#define ARROWS MO(_3_ARROW)
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
@@ -50,20 +46,19 @@ uint16_t alt_tab_timer = 0;        // we will be using them soon.
 
 enum layers {
   _0_BASE,
-  _1_BEAKL,
-  _2_WORKMAN,
-  _3_NUMBERS,
-  _4_MOUSE,
+  _1_NUMBERS,
+  _2_MOUSE,
+  _3_ARROW,
 };
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_0_BASE] = LAYOUT_ergodox(
-  KC_NONUS_BSLASH,      KC_EXLM,              KC_AT,         KC_HASH,       KC_DLR,             KC_PERC,   KC_AUDIO_MUTE,
-  KC_LEAD,              KC_Q,                 KC_W,          E_NUMBERS,     R_MOUSE,            KC_T,      TG(_1_BEAKL),
-  LCTL(KC_B),           LSFT_T(KC_A),         LCTL_T(KC_S),  LALT_T(KC_D),  LGUI_T(KC_F),       KC_G,
-  KC_BSLASH,            KC_Z,                 KC_X,          KC_C,          KC_V,               KC_B,      TG(_2_WORKMAN),
-  ALT_TAB,              XXXXXXX,              XXXXXXX,       LEFT_NUMBERS,  RIGHT_MOUSE,
+  KC_NONUS_BSLASH,      KC_EXLM,              KC_AT,         KC_HASH,        KC_DLR,       KC_PERC,   KC_AUDIO_MUTE,
+  KC_LEAD,              KC_Q,                 KC_W,          E_NUMBERS,      R_MOUSE,      KC_T,      XXXXXXX,
+  LCTL(KC_B),           LSFT_T(KC_A),         LCTL_T(KC_S),  LALT_T(KC_D),   LGUI_T(KC_F), KC_G,
+  KC_BSLASH,            KC_Z,                 KC_X,          KC_C,           KC_V,         KC_B,      XXXXXXX,
+  ALT_TAB,              XXXXXXX,              XXXXXXX,       MO(_1_NUMBERS), ARROWS,
   KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,
   XXXXXXX,
   KC_ENTER,             KC_TAB,               KC_ESCAPE,
@@ -71,50 +66,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,              KC_Y,                 KC_U,          KC_I,          KC_O,               KC_P,      KC_LBRACKET,
   KC_H,                 RGUI_T(KC_J),         RALT_T(KC_K),  RCTL_T(KC_L),  RSFT_T(KC_SCOLON),  KC_QUOTE,
   KC_RBRACKET,          KC_N,                 KC_M,          KC_COMMA,      KC_DOT,             KC_SLASH,  KC_EQUAL,
-  KC_DOWN,              KC_UP,                XXXXXXX,       XXXXXXX,       XXXXXXX,
+  XXXXXXX,              XXXXXXX,              XXXXXXX,       XXXXXXX,       XXXXXXX,
   KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_NEXT_TRACK,
   XXXXXXX,
   KC_ESCAPE,            KC_BSPACE,            KC_SPACE
 ),
-[_1_BEAKL] = LAYOUT_ergodox(
-  _______,  _______,       _______,       _______,           _______,         _______,    _______,
-  _______,  _______,       KC_H,          O_NUMBERS,  U_MOUSE,  KC_X,       _______,
-  _______,  LSFT_T(KC_Y),  LCTL_T(KC_I),  LALT_T(KC_E),      LGUI_T(KC_A),    KC_DOT,
-  _______,  KC_J,          KC_SLASH,      KC_COMMA,          KC_K,            KC_QUOTE,   _______,
-  _______,  _______,       _______,       _______,           _______,
-                                                              _______,         _______,
-                                                              _______,
-                                                              _______,         _______,    _______,
-
-  _______,  _______,       _______,       _______,           _______,         _______,    _______,
-  _______,  KC_G,          KC_C,          KC_R,              KC_F,            KC_Z,       _______,
-  KC_D,     RGUI_T(KC_S),  RALT_T(KC_T),  RCTL_T(KC_N),      RSFT_T(KC_B),    KC_SCOLON,
-  _______,  KC_W,          _______,       KC_L,              KC_P,            KC_V,       _______,
-  _______,  _______,       _______,       _______,           _______,
-  _______,  _______,
-  _______,
-  _______,  _______,       _______
-),
-[_2_WORKMAN] = LAYOUT_ergodox(
-  _______,  _______,       _______,       _______,           _______,         _______,    _______,
-  _______,  _______,       KC_D,          R_NUMBERS,  W_MOUSE,  KC_B,       _______,
-  _______,  _______,       _______,       LALT_T(KC_H),      LGUI_T(KC_T),    _______,
-  _______,  _______,       _______,       KC_M,              KC_C,            KC_V,       _______,
-  _______,  _______,       _______,       _______,           _______,
-                                                              _______,         _______,
-                                                              _______,
-                                                              _______,         _______, _______,
-
-  _______,  _______,       _______,       _______,           _______,         _______,    _______,
-  _______,  KC_J,          KC_F,          KC_U,              KC_P,            KC_SCOLON,  _______,
-  KC_Y,     RGUI_T(KC_N),  RALT_T(KC_E),  RCTL_T(KC_O),      RSFT_T(KC_I),    _______,
-  _______,  KC_K,          KC_L,          _______,           _______,         _______,    _______,
-  _______,  _______,       _______,       _______,           _______,
-  _______,  _______,
-  _______,
-  _______,  _______,       _______
-),
-[_3_NUMBERS] = LAYOUT_ergodox(
+[_1_NUMBERS] = LAYOUT_ergodox(
   _______,  KC_F1,      KC_F2,    KC_F3,     KC_F4,    KC_F5,      _______,
   _______,  _______,    _______,  _______,   _______,  _______,    _______,
   _______,  _______,    _______,  _______,   _______,  _______,
@@ -133,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,
   _______,  _______,    _______
 ),
-[_4_MOUSE] = LAYOUT_ergodox(
+[_2_MOUSE] = LAYOUT_ergodox(
   _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,
@@ -152,12 +109,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   RGB_VAD, RGB_VAI,
   _______,
+  _______, _______, _______
+),
+[_3_ARROW] = LAYOUT_ergodox(
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______,
+
+                                      _______, _______,
+                                      _______,
+                                      _______, _______, _______,
+
+  _______, _______, _______, _______, _______, _______,  _______,
+  _______, _______, _______, _______, _______, _______,  _______,
+                    KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
+  _______, _______, _______, _______, _______, _______,  _______,
+                    _______, _______, _______, _______,  _______,
+
   _______, _______,
+  _______,
+  _______, _______, _______
 ),
 };
 
 
 /* bool suspended = false; */
+void keyboard_post_init_user(void) {
+  rgblight_disable();
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -184,24 +165,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     ergodox_led_all_off();
+    /* rgblight_disable(); */
     switch (get_highest_layer(state)) {
-      case _1_BEAKL:
+      case _1_NUMBERS:
         ergodox_right_led_1_on();
+        /* rgblight_enable();
+        rgblight_mode(1);
+        rgblight_sethsv(HSV_BLUE);*/
         break;
-      case _2_WORKMAN:
+      case _2_MOUSE:
         ergodox_right_led_2_on();
         break;
-      case _3_NUMBERS:
+      case _3_ARROW:
         ergodox_right_led_3_on();
         break;
-      case _4_MOUSE:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
-        break;
-      /* case 6: */
-      /*   ergodox_right_led_2_on(); */
-      /*   ergodox_right_led_3_on(); */
-      /*   break; */
       /* case 7: */
       /*   ergodox_right_led_1_on(); */
       /*   ergodox_right_led_2_on(); */
@@ -219,9 +196,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     /* case SFT_T(KC_SPC): */
     /*   return TAPPING_TERM + 1250; */
-    case LT(_3_NUMBERS, KC_E):
+    case E_NUMBERS:
       return 200;
-    case LT(_4_MOUSE, KC_R):
+    case LT(_2_MOUSE, KC_R):
       return 200;
     /* case LGUI_T(KC_F): */
     /*   return 50; */
@@ -231,8 +208,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case LT(_3_NUMBERS, KC_E):
-    case LT(_4_MOUSE, KC_R):
+    case E_NUMBERS:
+    case R_MOUSE:
     case LSFT_T(KC_A):
     case LCTL_T(KC_S):
     case LALT_T(KC_D):
@@ -241,8 +218,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     case RALT_T(KC_K):
     case RCTL_T(KC_L):
     case RSFT_T(KC_SCOLON):
-    case LEFT_NUMBERS:
-    case RIGHT_MOUSE:
+    case ARROWS:
       return true;
     default:
       return false;
@@ -252,8 +228,8 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case LT(_3_NUMBERS, KC_E):
-    case LT(_4_MOUSE, KC_R):
+    case LT(_1_NUMBERS, KC_E):
+    case R_MOUSE:
     case LSFT_T(KC_A):
     case LCTL_T(KC_S):
     case LALT_T(KC_D):
@@ -262,8 +238,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     case RALT_T(KC_K):
     case RCTL_T(KC_L):
     case RSFT_T(KC_SCOLON):
-    case LEFT_NUMBERS:
-    case RIGHT_MOUSE:
+    case ARROWS:
       return false;
     default:
       return true;
@@ -290,6 +265,9 @@ void matrix_scan_user(void) {
     }
     SEQ_ONE_KEY(KC_S) {
       SEND_STRING ("sudo -i\n");
+    }
+    SEQ_ONE_KEY(KC_H) {
+      SEND_STRING ("--help\n");
     }
     SEQ_TWO_KEYS(KC_D, KC_D) {
       SEND_STRING(SS_LGUI("ac"));

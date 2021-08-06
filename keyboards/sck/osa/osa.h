@@ -77,7 +77,7 @@
     { KC_NO, K81,   K82,   K83,   K84,   K85,   K86,   K87    }, \
     { K90,   KC_NO, KC_NO, K93,   KC_NO, K95,   KC_NO, KC_NO  }  \
 }
-#define LAYOUT_split_right_shift( \
+#define LAYOUT_alice( \
   K10, K00, K01, K02, K03, K04, K05, K06,   K56, K55, K54, K53, K52, K51,      K57, \
   K20, K11, K12, K13, K14, K15, K16,        K66, K65, K64, K63, K62, K61, K60, K67, \
   K30, K21, K22, K23, K24, K25, K26,        K76, K75, K74, K73, K72, K71,      K77, \
@@ -96,7 +96,7 @@
     { K80,   K81,   K82,   K83,   K84,   K85,   K86,   K87    }, \
     { K90,   KC_NO, KC_NO, K93,   KC_NO, K95,   KC_NO, KC_NO  }  \
 }
-#define LAYOUT_all( \
+#define LAYOUT_alice_split_bs( \
   K10, K00, K01, K02, K03, K04, K05, K06,   K56, K55, K54, K53, K52, K51, K50, K57, \
   K20, K11, K12, K13, K14, K15, K16,        K66, K65, K64, K63, K62, K61, K60, K67, \
   K30, K21, K22, K23, K24, K25, K26,        K76, K75, K74, K73, K72, K71,      K77, \
@@ -115,3 +115,6 @@
     { K80,   K81,   K82,   K83,   K84,   K85,   K86,   K87    }, \
     { K90,   KC_NO, KC_NO, K93,   KC_NO, K95,   KC_NO, KC_NO  }  \
 }
+
+#define LAYOUT_split_right_shift LAYOUT_alice
+#define LAYOUT_all LAYOUT_alice_split_bs

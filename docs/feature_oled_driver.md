@@ -145,11 +145,14 @@ void oled_task_user(void) {
 |`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
 |`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
 |`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
+|`OLED_FADE_OUT`            |*Not defined*    |Enables fade out animation. Use together with `OLED_TIMEOUT`.                                                             |
+|`OLED_FADE_OUT_INTERVAL`   |`0`              |The speed of fade out animation, from 0 to 15. Larger values are slower.                                                  |
 |`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
 |`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
 |`OLED_COLUMN_OFFSET`       |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
 |`OLED_BRIGHTNESS`          |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
+|`OLED_UPDATE_INTERVAL`     |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
 
  ## 128x64 & Custom sized OLED Displays
 
@@ -260,10 +263,24 @@ void oled_write(const char *data, bool invert);
 void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
-// Useful for moving the screen in preparation for new drawing 
+// Useful for moving the screen in preparation for new drawing
 // oled_scroll_left or oled_scroll_right should be preferred for all cases of moving a static
 // image such as a logo or to avoid burn-in as it's much, much less cpu intensive
 void oled_pan(bool left);
+
+// Returns a pointer to the requested start index in the buffer plus remaining
+// buffer length as struct
+oled_buffer_reader_t oled_read_raw(uint16_t start_index);
+
+// Writes a string to the buffer at current cursor position
+void oled_write_raw(const char *data, uint16_t size);
+
+// Writes a single byte into the buffer at the specified index
+void oled_write_raw_byte(const char data, uint16_t index);
+
+// Sets a specific pixel on or off
+// Coordinates start at top-left and go right and down for positive x and y
+void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
@@ -276,22 +293,8 @@ void oled_write_P(const char *data, bool invert);
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 
-// Returns a pointer to the requested start index in the buffer plus remaining
-// buffer length as struct
-oled_buffer_reader_t oled_read_raw(uint16_t start_index);
-
-// Writes a string to the buffer at current cursor position
-void oled_write_raw(const char *data, uint16_t size);
-
-// Writes a single byte into the buffer at the specified index
-void oled_write_raw_byte(const char data, uint16_t index);
-
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
-
-// Sets a specific pixel on or off
-// Coordinates start at top-left and go right and down for positive x and y
-void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on

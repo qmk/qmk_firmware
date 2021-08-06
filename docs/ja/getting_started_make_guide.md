@@ -1,8 +1,8 @@
 # より詳細な `make` 手順
 
 <!---
-  original document: 0.10.33:docs/getting_started_make_guide.md
-  git diff 0.10.33 HEAD -- docs/getting_started_make_guide.md | cat
+  original document: 0.12.43:docs/getting_started_make_guide.md
+  git diff 0.12.43 HEAD -- docs/getting_started_make_guide.md | cat
 -->
 
 `make` コマンドの完全な構文は `<keyboard_folder>:<keymap>:<target>` です:
@@ -19,16 +19,32 @@
 `<target>` は以下を意味します
 * target が指定されない場合は、以下の `all` と同じです
 * `all` は指定されたキーボード/リビジョン/キーマップの可能な全ての組み合わせのコンパイルを行います。例えば、`make planck/rev4:default` は1つの .hex を生成しますが、`make planck/rev4:all` は planck で利用可能な全てのキーマップについて hex を生成します。
-* `flash`、`dfu`、`teensy`、`avrdude`、`dfu-util` または `bootloadHID` はファームウェアをコンパイルし、キーボードにアップロードします。コンパイルが失敗すると、何もアップロードされません。使用するプログラマはキーボードに依存します。ほとんどのキーボードでは `dfu` ですが、ChibiOS キーボードについては `dfu-util` 、標準的な Teensy については `teensy` を使います。キーボードに使うコマンドを見つけるには、キーボード固有の readme をチェックしてください。
-* **注意**: 一部のオペレーティングシステムではこれらのコマンドが機能するためには root アクセスが必要です。その場合、例えば `sudo make planck/rev4:default:flash` を実行する必要があります。
+* `flash`、`dfu`、`teensy`、`avrdude`、`dfu-util`、`bootloadHID` はファームウェアをコンパイルし、キーボードにアップロードします。コンパイルが失敗すると、何もアップロードされません。使用するプログラマはキーボードに依存します。ほとんどのキーボードでは `dfu` ですが、ChibiOS キーボードについては `dfu-util` 、標準的な Teensy については `teensy` を使います。キーボードに使うコマンドを見つけるには、キーボード固有の readme をチェックしてください。
+  利用可能なブートローダの詳細は[ファームウェアの書き込み](ja/flashing.md)ガイドを参照してください。
+  * **Note**:  一部のオペレーティングシステムでは、これらのコマンドが機能するためには特権アクセスが必要です。これは、root アクセスなしでこれらにアクセスするために [`udev ルール`](ja/faq_build.md#linux-udev-rules) を設定するか、あるいは root アクセスでコマンドを実行する (`sudo make planck/rev4:default:flash`) 必要があるかもしれないことを意味します。
 * `clean` は、全てをゼロからビルドするためにビルド出力フォルダを掃除します。説明できない問題がある場合は、通常のコンパイルの前にこれを実行してください。
+* `distclean` は、.hex ファイルと .bin ファイルを削除します。
+
+次のターゲットは開発者向けです:
+
+* `show_path` ソースとオブジェクトファイルのパスを表示します。
+* `dump_vars` makefile 変数をダンプします。
+* `objs-size` 個々のオブジェクトファイルのサイズを表示します。
+* `show_build_options` 'rules.mk' のオプションセットを表示します。
+* `check-md5` 生成されたバイナリファイルの md5 チェックサムを表示します。
 
 make コマンドの最後、つまり target の後に追加のオプションを追加することもできます
 
 * `make COLOR=false` - カラー出力をオフ
 * `make SILENT=true` - エラー/警告以外の出力をオフ
 * `make VERBOSE=true` - 全ての gcc のものを出力 (デバッグする必要が無い限り面白くありません)
-* `make EXTRAFLAGS=-E` - コンパイルせずにコードを前処理 (#define コマンドをデバッグしようとする場合に便利)
+* `make VERBOSE_LD_CMD=yes` - -v オプションを指定して ld コマンドを実行します。
+* `make VERBOSE_AS_CMD=yes` - -v オプションを指定して as コマンドを実行します。
+* `make VERBOSE_C_CMD=<c_source_file>` - 指定された C ソースファイルをコンパイルするときに -v オプションを追加します。
+* `make DUMP_C_MACROS=<c_source_file>` - 指定された C ソースファイルをコンパイルするときにプリプロセッサマクロをダンプします。
+* `make DUMP_C_MACROS=<c_source_file> > <logfile>` - 指定された C ソースファイルをコンパイルするときにプリプロセッサマクロを `<logfile>` にダンプします。
+* `make VERBOSE_C_INCLUDE=<c_source_file>` - 指定された C ソースファイルをコンパイルするときにインクルードされるファイル名をダンプします。
+* `make VERBOSE_C_INCLUDE=<c_source_file> 2> <logfile>` - 指定された C ソースファイルをコンパイルするときにインクルードされるファイル名を `<logfile>` にダンプします。
 
 make コマンド自体にもいくつかの追加オプションがあります。詳細は `make --help` を入力してください。最も有用なのはおそらく `-jx` です。これは複数の CPU を使ってコンパイルしたいことを指定し、`x` は使用したい CPU の数を表します。設定すると、特に多くのキーボード/キーマップをコンパイルしている場合は、コンパイル時間を大幅に短縮することができます。通常は、コンパイル中に他の作業を行うための余裕をもたせるために、持っている CPU の数より1つ少ない値に設定します。全てのオペレーティングシステムと make バージョンがオプションをサポートしているわけではないことに注意してください。
 
@@ -104,15 +120,11 @@ make コマンド自体にもいくつかの追加オプションがあります
 
 これにより、送信したい文字に対応するニーモニックを入力することで Unicode 文字を送信することができます。キーマップファイル内にマッピングテーブルを保持する必要があります。可能な全てのコードポイント( `0x10FFFF` まで)がサポートされます。
 
-詳細と制限については、[Unicode ページ](ja/feature_unicode.md) を見てください。
+詳細と制限については、[Unicode ページ](ja/feature_unicode.md)を見てください。
 
 `AUDIO_ENABLE`
 
 C6 ピン(抽象化が必要)でオーディオ出力できます。詳細は[オーディオページ](ja/feature_audio.md)を見てください。
-
-`FAUXCLICKY_ENABLE`
-
-クリック音のあるスイッチをエミュレートするためにブザーを使います。Cherry社製の青軸スイッチの安っぽい模倣です。デフォルトでは、`AUDIO_ENABLE` と同じように C6 ピンを使います。
 
 `VARIABLE_TRACE`
 
@@ -120,11 +132,11 @@ C6 ピン(抽象化が必要)でオーディオ出力できます。詳細は[�
 
 `API_SYSEX_ENABLE`
 
-これにより Quantum SYSEX API を使って文字列を送信することができます (どこに？)
+これにより Quantum SYSEX API を使って文字列を(どこかに？)送信することができます
 
 `KEY_LOCK_ENABLE`
 
-これは [キーロック](ja/feature_key_lock.md) を有効にします。
+これは[キーロック](ja/feature_key_lock.md)を有効にします。
 
 `SPLIT_KEYBOARD`
 
@@ -136,7 +148,7 @@ ARM ベースの分割キーボード用の標準分割通信ドライバはま�
 
 `CUSTOM_MATRIX`
 
-デフォルトのマトリックス走査ルーチンを独自のコードで置き換えます。詳細については、[カスタムマトリックスページ](ja/custom_matrix.md) を見てください。
+デフォルトのマトリックス走査ルーチンを独自のコードで置き換えます。詳細については、[カスタムマトリックスページ](ja/custom_matrix.md)を見てください。
 
 `DEBOUNCE_TYPE`
 

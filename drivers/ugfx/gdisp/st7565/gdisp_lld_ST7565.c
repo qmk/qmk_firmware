@@ -49,31 +49,15 @@
 #        define ST7565_COM_SCAN ST7565_COM_SCAN_INC
 #    endif
 #    ifndef ST7565_PAGE_ORDER
-#        define ST7565_PAGE_ORDER 0, 1, 2, 3
+#        define ST7565_PAGE_ORDER 0, 1, 2, 3, 4, 5, 6, 7
 #    endif
 
 /*===========================================================================*/
 /* Driver local functions.                                                   */
 /*===========================================================================*/
 
-typedef struct {
-    bool_t  buffer2;
-    uint8_t data_pos;
-    uint8_t data[16];
-    uint8_t ram[GDISP_SCREEN_HEIGHT * GDISP_SCREEN_WIDTH / 8];
-} PrivData;
-
 // Some common routines and macros
-#    define PRIV(g) ((PrivData *)g->priv)
-#    define RAM(g) (PRIV(g)->ram)
-
-static GFXINLINE void write_cmd(GDisplay *g, uint8_t cmd) { PRIV(g)->data[PRIV(g)->data_pos++] = cmd; }
-
-static GFXINLINE void flush_cmd(GDisplay *g) {
-    write_data(g, PRIV(g)->data, PRIV(g)->data_pos);
-    PRIV(g)->data_pos = 0;
-}
-
+#    define RAM(g) ((gU8 *)g->priv)
 #    define write_cmd2(g, cmd1, cmd2) \
         {                             \
             write_cmd(g, cmd1);       \
@@ -106,9 +90,10 @@ static GFXINLINE void flush_cmd(GDisplay *g) {
 
 LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
     // The private area is the display surface.
-    g->priv           = gfxAlloc(sizeof(PrivData));
-    PRIV(g)->buffer2  = false;
-    PRIV(g)->data_pos = 0;
+    g->priv = gfxAlloc(GDISP_SCREEN_HEIGHT * GDISP_SCREEN_WIDTH / 8);
+    if (!g->priv) {
+        return gFalse;
+    }
 
     // Initialise the board interface
     init_board(g);
@@ -119,25 +104,33 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
     setpin_reset(g, FALSE);
     gfxSleepMilliseconds(20);
     acquire_bus(g);
-    enter_cmd_mode(g);
 
-    write_cmd(g, ST7565_RESET);
     write_cmd(g, ST7565_LCD_BIAS);
     write_cmd(g, ST7565_ADC);
     write_cmd(g, ST7565_COM_SCAN);
 
-    write_cmd(g, ST7565_RESISTOR_RATIO | 0x1);
-    write_cmd2(g, ST7565_CONTRAST, GDISP_INITIAL_CONTRAST);
-
-    // turn on internal power supply (VC=1, VR=1, VF=1)
-    write_cmd(g, ST7565_POWER_CONTROL | 0x07);
-
-    write_cmd(g, ST7565_INVERT_DISPLAY);
-    write_cmd(g, ST7565_ALLON_NORMAL);
-
     write_cmd(g, ST7565_START_LINE | 0);
+
+    write_cmd2(g, ST7565_CONTRAST, GDISP_INITIAL_CONTRAST * 64 / 101);
+    write_cmd(g, ST7565_RESISTOR_RATIO | 0x1);
+
+    // turn on voltage converter (VC=1, VR=0, VF=0)
+    write_cmd(g, ST7565_POWER_CONTROL | 0x04);
+    delay_ms(50);
+
+    // turn on voltage regulator (VC=1, VR=1, VF=0)
+    write_cmd(g, ST7565_POWER_CONTROL | 0x06);
+    delay_ms(50);
+
+    // turn on voltage follower (VC=1, VR=1, VF=1)
+    write_cmd(g, ST7565_POWER_CONTROL | 0x07);
+    delay_ms(50);
+
+    write_cmd(g, ST7565_DISPLAY_ON);
+    write_cmd(g, ST7565_ALLON_NORMAL);
+    write_cmd(g, ST7565_INVERT_DISPLAY);  // Disable Inversion of display.
+
     write_cmd(g, ST7565_RMW);
-    flush_cmd(g);
 
     // Finish Init
     post_init_board(g);
@@ -163,22 +156,14 @@ LLDSPEC void gdisp_lld_flush(GDisplay *g) {
     if (!(g->flags & GDISP_FLG_NEEDFLUSH)) return;
 
     acquire_bus(g);
-    enter_cmd_mode(g);
-    unsigned dstOffset = (PRIV(g)->buffer2 ? 4 : 0);
-    for (p = 0; p < 4; p++) {
-        write_cmd(g, ST7565_PAGE | (p + dstOffset));
+    gU8 pagemap[] = {ST7565_PAGE_ORDER};
+    for (p = 0; p < sizeof(pagemap); p++) {
+        write_cmd(g, ST7565_PAGE | pagemap[p]);
         write_cmd(g, ST7565_COLUMN_MSB | 0);
         write_cmd(g, ST7565_COLUMN_LSB | 0);
         write_cmd(g, ST7565_RMW);
-        flush_cmd(g);
-        enter_data_mode(g);
         write_data(g, RAM(g) + (p * GDISP_SCREEN_WIDTH), GDISP_SCREEN_WIDTH);
-        enter_cmd_mode(g);
     }
-    unsigned line = (PRIV(g)->buffer2 ? 32 : 0);
-    write_cmd(g, ST7565_START_LINE | line);
-    flush_cmd(g);
-    PRIV(g)->buffer2 = !PRIV(g)->buffer2;
     release_bus(g);
 
     g->flags &= ~GDISP_FLG_NEEDFLUSH;
@@ -243,6 +228,7 @@ LLDSPEC color_t gdisp_lld_get_pixel_color(GDisplay *g) {
 }
 #    endif
 
+#    if GDISP_HARDWARE_BITFILLS
 LLDSPEC void gdisp_lld_blit_area(GDisplay *g) {
     uint8_t *buffer     = (uint8_t *)g->p.ptr;
     int      linelength = g->p.cx;
@@ -268,6 +254,7 @@ LLDSPEC void gdisp_lld_blit_area(GDisplay *g) {
     }
     g->flags |= GDISP_FLG_NEEDFLUSH;
 }
+#    endif
 
 #    if GDISP_NEED_CONTROL && GDISP_HARDWARE_CONTROL
 LLDSPEC void gdisp_lld_control(GDisplay *g) {
@@ -279,16 +266,12 @@ LLDSPEC void gdisp_lld_control(GDisplay *g) {
                 case powerSleep:
                 case powerDeepSleep:
                     acquire_bus(g);
-                    enter_cmd_mode(g);
                     write_cmd(g, ST7565_DISPLAY_OFF);
-                    flush_cmd(g);
                     release_bus(g);
                     break;
                 case powerOn:
                     acquire_bus(g);
-                    enter_cmd_mode(g);
                     write_cmd(g, ST7565_DISPLAY_ON);
-                    flush_cmd(g);
                     release_bus(g);
                     break;
                 default:
@@ -318,12 +301,11 @@ LLDSPEC void gdisp_lld_control(GDisplay *g) {
             return;
 
         case GDISP_CONTROL_CONTRAST:
-            g->g.Contrast = (unsigned)g->p.ptr & 63;
+            if ((unsigned)g->p.ptr > 100) g->p.ptr = (void *)100;
             acquire_bus(g);
-            enter_cmd_mode(g);
-            write_cmd2(g, ST7565_CONTRAST, g->g.Contrast);
-            flush_cmd(g);
+            write_cmd2(g, ST7565_CONTRAST, ((((unsigned)g->p.ptr) << 6) / 101) & 0x3F);
             release_bus(g);
+            g->g.Contrast = (unsigned)g->p.ptr;
             return;
     }
 }

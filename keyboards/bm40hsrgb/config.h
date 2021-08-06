@@ -50,3 +50,6 @@
 #ifdef RGB_DI_PIN
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #endif
+#ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#endif

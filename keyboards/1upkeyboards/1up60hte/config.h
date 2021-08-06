@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    1upkeyboards
 #define PRODUCT         1up60hte
-#define DESCRIPTION     A custom 60% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

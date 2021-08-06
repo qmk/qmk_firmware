@@ -19,12 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x9991
+#define VENDOR_ID       0x04D8
+#define PRODUCT_ID      0xEA3B
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    monksoffunk
+#define MANUFACTURER    25KEYS
 #define PRODUCT         zinc rev.A
-#define DESCRIPTION     A split keyboard
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100

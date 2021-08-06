@@ -2,8 +2,7 @@
    Extended itoa, puts and printf                    (C)ChaN, 2011
 -----------------------------------------------------------------------------*/
 
-#ifndef XPRINTF_H
-#define XPRINTF_H
+#pragma once
 
 #include <inttypes.h>
 #include <avr/pgmspace.h>
@@ -101,6 +100,4 @@ char xatoi(char **str, long *ret);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

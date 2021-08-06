@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER NaCly
 #define PRODUCT fc200rt_qmk
-#define DESCRIPTION Leopold FC200RT QMK enbabled with Teensy 2.0
 
 /* key matrix size */
 #define MATRIX_ROWS 8

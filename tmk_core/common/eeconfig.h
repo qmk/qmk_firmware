@@ -15,14 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef EECONFIG_H
-#define EECONFIG_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
 
 #ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEEC
+#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEEA  // When changing, decrement this value to avoid future re-init issues
 #endif
 #define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 
@@ -44,12 +43,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_VELOCIKEY (uint8_t *)23
 
 #define EECONFIG_HAPTIC (uint32_t *)24
+
+// Mutually exclusive
+#define EECONFIG_LED_MATRIX (uint32_t *)28
 #define EECONFIG_RGB_MATRIX (uint32_t *)28
-#define EECONFIG_RGB_MATRIX_SPEED (uint8_t *)32
+// Speed & Flags
+#define EECONFIG_LED_MATRIX_EXTENDED (uint16_t *)32
+#define EECONFIG_RGB_MATRIX_EXTENDED (uint16_t *)32
+
 // TODO: Combine these into a single word and single block of EEPROM
-#define EECONFIG_KEYMAP_UPPER_BYTE (uint8_t *)33
+#define EECONFIG_KEYMAP_UPPER_BYTE (uint8_t *)34
 // Size of EEPROM being used, other code can refer to this for available EEPROM
-#define EECONFIG_SIZE 34
+#define EECONFIG_SIZE 35
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE (1 << 0)
 #define EECONFIG_DEBUG_MATRIX (1 << 1)
@@ -89,11 +94,6 @@ void    eeconfig_update_default_layer(uint8_t val);
 uint16_t eeconfig_read_keymap(void);
 void     eeconfig_update_keymap(uint16_t val);
 
-#ifdef BACKLIGHT_ENABLE
-uint8_t eeconfig_read_backlight(void);
-void    eeconfig_update_backlight(uint8_t val);
-#endif
-
 #ifdef AUDIO_ENABLE
 uint8_t eeconfig_read_audio(void);
 void    eeconfig_update_audio(uint8_t val);
@@ -111,5 +111,3 @@ void     eeconfig_update_haptic(uint32_t val);
 
 bool eeconfig_read_handedness(void);
 void eeconfig_update_handedness(bool val);
-
-#endif

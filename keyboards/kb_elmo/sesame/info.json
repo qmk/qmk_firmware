@@ -5,7 +5,7 @@
   "width": 17.75,
   "height": 5,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_alice": {
       "layout": [
         {"x":0, "y":0},
         {"x":1.25, "y":0},
@@ -74,7 +74,7 @@
         {"x":16.75, "y":4, "w":1.5}
       ]
     },
-    "LAYOUT_all": {
+    "LAYOUT_alice_split_bs": {
       "layout": [
         {"x":0, "y":0},
         {"x":1.25, "y":0},

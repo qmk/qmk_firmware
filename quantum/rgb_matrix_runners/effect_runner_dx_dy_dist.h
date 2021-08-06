@@ -11,7 +11,7 @@ bool effect_runner_dx_dy_dist(effect_params_t* params, dx_dy_dist_f effect_func)
         int16_t dx   = g_led_config.point[i].x - k_rgb_matrix_center.x;
         int16_t dy   = g_led_config.point[i].y - k_rgb_matrix_center.y;
         uint8_t dist = sqrt16(dx * dx + dy * dy);
-        RGB     rgb  = hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, dist, time));
+        RGB     rgb  = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, dist, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < DRIVER_LED_TOTAL;

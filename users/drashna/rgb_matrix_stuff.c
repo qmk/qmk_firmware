@@ -26,7 +26,7 @@ static uint32_t hypno_timer;
 #    define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #endif
 
-void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
+void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type, uint8_t led_min, uint8_t led_max) {
     HSV hsv = {hue, sat, val};
     if (hsv.v > rgb_matrix_get_val()) {
         hsv.v = rgb_matrix_get_val();
@@ -40,7 +40,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
             RGB rgb       = hsv_to_rgb(hsv);
             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+                    RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                 }
             }
             break;
@@ -50,7 +50,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
             RGB rgb = hsv_to_rgb(hsv);
             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+                    RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                 }
             }
             break;
@@ -62,7 +62,7 @@ __attribute__((weak)) void rgb_matrix_indicator_keymap(void) {}
 
 void matrix_scan_rgb_matrix(void) {
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 15000) {
+    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && sync_timer_elapsed32(hypno_timer) > 15000) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
     }
 #endif
@@ -79,7 +79,7 @@ void keyboard_post_init_rgb_matrix(void) {
 
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-    hypno_timer = timer_read32();
+    hypno_timer = sync_timer_read32();
     if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
     }

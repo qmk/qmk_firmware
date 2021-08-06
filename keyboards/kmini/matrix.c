@@ -1,4 +1,4 @@
-/* Copyright 2018 Maarten Dekkers <maartenwut@gmail.com>
+/* Copyright 2018 Evy Dekkers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -126,7 +126,7 @@ void matrix_print(void)
     print("\nr/c 0123456789ABCDEFGHIJKLMNOPQRSTUV  \n");
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_bin_reverse32(matrix_get_row(row));
         print("\n");
     }

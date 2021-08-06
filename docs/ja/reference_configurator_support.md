@@ -1,8 +1,8 @@
 # QMK Configurator でのキーボードのサポート
 
 <!---
-  original document: 0.9.46:docs/reference_configurator_support.md
-  git diff 0.9.46 HEAD -- docs/reference_configurator_support.md | cat
+  original document: 0.13.15:docs/reference_configurator_support.md
+  git diff 0.13.15 HEAD -- docs/reference_configurator_support.md | cat
 -->
 
 このページは [QMK Configurator](https://config.qmk.fm/) でキーボードを適切にサポートする方法について説明します。
@@ -80,7 +80,7 @@ QMK は `KC_NO` を使って、スイッチマトリックス内のスイッチ�
 
 ## JSON ファイルのビルド
 
-JSON ファイルをビルドする最も簡単な方法は、[Keyboard Layout Editor](http://www.keyboard-layout-editor.com/) ("KLE") でレイアウトを作成することです。この Raw Data を QMK tool に入れて、Configurator が読み出して使用する JSON ファイルに変換します。KLE は numpad レイアウトをデフォルトで開くため、Getting Started の説明を削除し、残りを使います。
+JSON ファイルをビルドする最も簡単な方法は、[Keyboard Layout Editor](https://www.keyboard-layout-editor.com/) ("KLE") でレイアウトを作成することです。この Raw Data を QMK tool に入れて、Configurator が読み出して使用する JSON ファイルに変換します。KLE は numpad レイアウトをデフォルトで開くため、Getting Started の説明を削除し、残りを使います。
 
 レイアウトが望み通りのものになったら、KLE の Raw Data タブに移動し、内容をコピーします:
 
