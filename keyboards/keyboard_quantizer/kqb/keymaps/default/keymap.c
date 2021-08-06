@@ -72,13 +72,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             mouse_send_flag = true;
             return true;
             break;
-        case KC_MS_WH_UP ... KC_MS_WH_RIGHT: {
-            report_mouse_t report = pointing_device_get_report();
-            report.v              = wheel_move_v;
-            report.h              = wheel_move_h;
-            pointing_device_set_report(report);
-            mouse_send_flag = true;
-            return false;
+
+        case KC_MS_WH_UP ... KC_MS_WH_DOWN: {
+            if (wheel_move_v != 0) {
+                report_mouse_t report = pointing_device_get_report();
+                report.v = keycode == KC_MS_WH_UP ? abs(wheel_move_v)
+                                                  : -abs(wheel_move_v);
+                pointing_device_set_report(report);
+                mouse_send_flag = true;
+                return false;
+            } else {
+                return true;
+            }
+        } break;
+
+        case KC_MS_WH_LEFT ... KC_MS_WH_RIGHT: {
+            if (wheel_move_h != 0) {
+                report_mouse_t report = pointing_device_get_report();
+                report.h = keycode == KC_MS_WH_LEFT ? abs(wheel_move_h)
+                                                    : -abs(wheel_move_h);
+                pointing_device_set_report(report);
+                mouse_send_flag = true;
+                return false;
+            } else {
+                return true;
+            }
         } break;
 
         default:
