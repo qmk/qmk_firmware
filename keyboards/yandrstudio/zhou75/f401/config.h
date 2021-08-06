@@ -81,8 +81,8 @@
 
 #ifdef ENCODER_ENABLE
 
-#define ENCODERS_PAD_A { B7, A5 }
-#define ENCODERS_PAD_B { B8, A6 }
+#define ENCODERS_PAD_A { B7, A4 }
+#define ENCODERS_PAD_B { B8, A5 }
 
 #define ENCODER_RESOLUTIONS { 4, 4 }
 

@@ -29,6 +29,5 @@ OPT_DEFS += -DEEPROM_EMU_STM32F401xC
 COMMON_VPATH += patsubst$(%/, %, dir $(mkfile_patch))/eep
 
 
-
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
