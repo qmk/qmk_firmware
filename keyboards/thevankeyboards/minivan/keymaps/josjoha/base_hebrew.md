@@ -41,6 +41,17 @@ standard Israeli hebrew layout. This is not about a phonetic re-ordering
 to Latin letter sounds. The goal is to keep the common symbols on the
 same place, to avoid typing errors when switching layouts.
 
+Parenthesis direction seems to be dealt with at the computer side, depending
+on the surrounding symbols. The keyboard is printing these symbols unchanged
+from what they are in standard Latin layouts, and are represented that way
+in the manual. This means for example you see '(' in the manual under the
+ring-finger, this is also what the keyboard is printing, however the computer
+could change that into ')' depending on the language direction of the surrounding
+characters (at least it does so on GNU/Debian/Linux). This can affect: 
+
+      (){}[]<>
+      
+
 Options
 =======
 
@@ -49,8 +60,8 @@ Dvorak or Qwerty. See the configuration file ![./base_hebrew.h](./base_hebrew.h)
 
 Israeli Hebrew
 -------------- 
-⚠ not implemented yet
 As close to a simple standard hebrew layout as possible.
+A little larger than the other options.
 
 Dvorak with Hebrew
 ------------------
@@ -98,15 +109,36 @@ For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
 Layers (text)
 =============
+
+                                            HEBREW_ISRAEL
+                                                  | Right hand
+         <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
+         -o-                                     <|>                                    ... //-o- BASE access
+         Escxxxxxxxx/;xxxx'"xxxxקxxxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxםx׳xxxפx״xxxxxxxxBksp
+         Tab+LCtlxxxשxxxxxדxxxxxג/RLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxל/LRMxךxxxxxף:xxxxxxxxxxx," //Right-Left-Mark
+         LSht+_PADxxזxxxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxת<xxxxץ>xxxx.?xxxxRSht+_FUN //<>os side flip?
+             +_MOV⁵                               |                                   +_RAR⁶
+     ---------------------------------------------------------------------------------------
  
+                                            HEBREW_QWERTY 
+                                                  | Right hand
+         <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
+         -o-                                     <|>                                    ... //-o- BASE access
+         Escxxxxxxxxת•xxxxץ•xxxxקxxxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxםx׳xxxפx״xxxxxxxxBksp
+         Tab+LCtlxxxשxxxxxדxxxxxג/RLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxל/LRMxךxxxxxף:xxxxxxxxxxx'" //Right-Left-Mark
+         LSht+_PADxxזxxxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxx,<xxxx.>xxxx/?xxxxRSht+_FUN
+             +_MOV⁵                               |                                   +_RAR⁶
+     ---------------------------------------------------------------------------------------
+         (…)
+
                                             HEBREW_DVORAK
          Layer _..._BASE (LeTteRs, standard Hebrew)
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
          Escxxxxxxxx'"xxxx,<xxxx.>xxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxםx׳xxxפx״xxxxxxxxBksp
-         Tab+LCtlxxxשxxxxxדxxxxxגxRLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxלxLRMxךxxxxxףxxxxxxxxxxxxx־ //Right/Left-Mark
-         LSht+_PADxxזx:xxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxתxxxxxץxxxxxק•xxxxRSht+_FUN
+         Tab+LCtlxxxשxxxxxדxxxxxג/RLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxל/LRMxךxxxxxףxxxxxxxxxxxxx־ //Right/Left-Mark
+         LSht+_PADxxז:xxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxתxxxxxץxxxxxק•xxxxRSht+_FUN
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) RGUI    Right;_RAR 
@@ -117,16 +149,6 @@ Layers (text)
           ^³                                                                   ^⁴   // Optional more keys
         (LGUI)                                                               (_MOV)
 
-                                            HEBREW_QWERTY 
-                                                  | Right hand
-         <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
-         -o-                                     <|>                                    ... //-o- BASE access
-         Escxxxxxxxxת•xxxxץ•xxxxקxxxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxםx׳xxxפx״xxxxxxxxBksp
-         Tab+LCtlxxxשxxxxxדxxxxxג/RLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxל/LRMxךxxxxxףx:xxxxxxxxxx'" //Right-Left-Mark
-         LSht+_PADxxזxxxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxx,<xxxx.>xxxx/?xxxxRSht+_FUN
-             +_MOV⁵                               |                                   +_RAR⁶
-     ---------------------------------------------------------------------------------------
-         (…)
 
      ₁) Dual hold for _DRA, single hold for _DEF_NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
@@ -155,12 +177,13 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
 
      Layer _..._NSY (Numbers and SYmbols)
     
-                                      HEBREW_DVORAK (Same as standard Dvorak)
+                                      HEBREW_ISRAEL & HEBREW_QWERTY (_ becomes ־ Maqaf)
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
-     BASE     !     @     #     $     %     | ^     &     *     (    )       Del
-     Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   [{    ]}    /?    \|    =+    | +     |     ?     {     }   ~+RSht 
+     BASExxxxx!xxxxx@xxxxx#xxxxx$xxxxx%xxxxx|x^xxxxx&xxxxx*xxxxx(xxxx)xxxxxxxDel
+     Tab+LCtlx1!xxxx2@xxxx3#xxxx4$xxxx5%xxxx|x6^xxxx7&xxxx8*xxxx9(xxx0)xx`~+RCtl
+     -+LShtxxx[{xxxx]}xxxx-_xxxx\|xxxx=+xxxx|x+xxxxx|xxxxx־xxxxx{xxxxx}xxx~+RSht
+                                                          ^                       // Only difference with Qwerty
      ---------------------------------------------------------------------------
                  Left+LAlt ___   ___   Ent  | .   ___   RGUI  Right+RAlt
                                  -*-       <|>    -*-                        //(hold) Access on _DEF_BASE
@@ -169,13 +192,12 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
                       (LGUI)                              (_MOV)
 
 
-                                      HEBREW_QWERTY (- becomes ־ Maqaf)
+                                      HEBREW_DVORAK (Same as standard Dvorak)
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
-     BASExxxxx!xxxxx@xxxxx#xxxxx$xxxxx%xxxxx|x^xxxxx&xxxxx*xxxxx(xxxx)xxxxxxxDel
-     Tab+LCtlx1!xxxx2@xxxx3#xxxx4$xxxx5%xxxx|x6^xxxx7&xxxx8*xxxx9(xxx0)xx`~+RCtl
-     -+LShtxxx[{xxxx]}xxxx־xxxxx\|xxxx=+xxxx|x+xxxxx|xxxxx_xxxxx{xxxxx}xxx~+RShtx
-                          ^(Maqaf)                        ^                       // Only difference with HEBREW_DVORAK
+     BASE     !     @     #     $     %     | ^     &     *     (    )       Del
+     Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
+     -+LSht   [{    ]}    /?    \|    =+    | +     |     ?     {     }   ~+RSht 
      ---------------------------------------------------------------------------
      (…)
 - - -

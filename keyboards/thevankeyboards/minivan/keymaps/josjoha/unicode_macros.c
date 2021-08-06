@@ -301,7 +301,9 @@ enum custom_keycodes {
     XP_HEB_BH,
     XP_HEB_BI,
     XP_HEB_BJ,
-    XP_HEB_BK,
+#     if defined(HEBREW_ISRAEL)
+    XP_HEB_BK,  // 
+#     endif
     XP_HEB_CA,
     XP_HEB_CB,
     XP_HEB_CC,
@@ -309,10 +311,14 @@ enum custom_keycodes {
     XP_HEB_CE,
     XP_HEB_CF,
     XP_HEB_CG,
+#     if defined(HEBREW_ISRAEL) || defined(HEBREW_DVORAK)
     XP_HEB_CH,
     XP_HEB_CI,
     XP_HEB_CJ,
-# endif // Hebrew
+#     endif
+    XP_HEB_MQF, // ־
+# endif //BASE_HEBREW__*
+
 };
 
 // Pre-existing function, called for every key up and down.
@@ -2374,7 +2380,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // for these similar/same symbols: ,<.>. Idealy these symbols
         // should be the hebrew variation, if space allows it.
 
-# ifdef HEBREW_QWERTY 
+# if defined(HEBREW_ISRAEL)
+
+        case XP_HEB_AA: //
+            if (record->event.pressed) { // key down
+                // These shifts-up seem to work on GNU/Debian/Linux, otherwise it prints ':'
+                if (shift_ison) send_string ( SS_UP(X_RSFT) SS_UP(X_LSFT) ";" ); // moved here from <esc> on standard hebrew
+                else send_string  ("/");//
+            } break;
+        
+        case XP_HEB_AC: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_QOF);// ק
+            }
+            break;
+
+# elif defined(HEBREW_QWERTY)
 
         case XP_HEB_AA: //
             if (record->event.pressed) { // key down
@@ -2394,7 +2415,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-# endif // #HEBREW_QWERTY 
+# endif // #HEBREW_*
 
         case XP_HEB_AD: //
             if (record->event.pressed) { // key down
@@ -2501,20 +2522,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_HEB_BJ: //
             if (record->event.pressed) { // key down
 
-# ifdef HEBREW_DVORAK
-                unicode_hex2output_single (HB_PES);// ף
-# elif defined(HEBREW_QWERTY)
+# if   defined(HEBREW_ISRAEL) || defined(HEBREW_QWERTY)
                 if (shift_ison) send_string (":"); // :
                 else unicode_hex2output_single (HB_PES);// ף
-// Qwerty harmonization + ':' (see ז in HEBREW_DVORAK)
-# endif // HEBREW_DVORAK/QWERTY
+# elif defined(HEBREW_DVORAK)
+                unicode_hex2output_single (HB_PES);// ף
+# endif 
 
             }
             break;
 
-        case XP_HEB_BK: // follows -_ on Dvorak. In HEBREW_QWERTY this is used on _NSY layer.
+# if defined(HEBREW_ISRAEL)
+        case XP_HEB_BK: // 
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_MAQAF);// ־
+                if (shift_ison) send_string ("\""); // double quote
+                else send_string (","); // comma
+            }
+            break;
+# endif
+
+        case XP_HEB_MQF: // ־ Maqaf
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_MAQAF);// ־ 
             }
             break;
 
@@ -2522,11 +2551,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_HEB_CA: //
             if (record->event.pressed) { // key down
 // Hebrew harmonization + ':'
-# ifdef HEBREW_DVORAK
+# if   defined(HEBREW_ISRAEL) || defined(HEBREW_QWERTY)
+                unicode_hex2output_single (HB_ZAYIN);// ז
+# elif defined(HEBREW_DVORAK)
                 if (shift_ison) send_string (":"); //
                 else unicode_hex2output_single (HB_ZAYIN);// ז
-# elif defined(HEBREW_QWERTY)
-                unicode_hex2output_single (HB_ZAYIN);// ז
 # endif
             }
             break;
@@ -2567,23 +2596,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
+#     if defined(HEBREW_ISRAEL) || defined(HEBREW_DVORAK)
         case XP_HEB_CH: //
             if (record->event.pressed) { // key down
+
+#         if defined(HEBREW_ISRAEL)
+                if (shift_ison) send_string ("<"); // 
+                else unicode_hex2output_single (HB_TAV);// ת
+#         else // HEBREW_DVORAK
                 unicode_hex2output_single (HB_TAV);// ת
+#         endif 
+
             }
             break;
 
         case XP_HEB_CI: //
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (HB_TSDIS);// ץ 
+
+#         if defined(HEBREW_ISRAEL)
+                if (shift_ison) send_string (">"); // 
+                else unicode_hex2output_single (HB_TSDIS);// ץ
+#         else // HEBREW_DVORAK
+                unicode_hex2output_single (HB_TSDIS);// ץ
+#         endif 
+
             }
             break;
 
         case XP_HEB_CJ: // anomaly
             if (record->event.pressed) { // key down
+
+#         if defined(HEBREW_ISRAEL)
+                if (shift_ison) send_string ("?"); // 
+                else send_string ("."); // 
+#         else // HEBREW_DVORAK
                 unicode_hex2output_single (HB_QOF);// ק
+#         endif 
+
             }
             break;
+#     endif // HEBREW_*
 
     // HB_D_VAV,
     // HB_VAVYD,

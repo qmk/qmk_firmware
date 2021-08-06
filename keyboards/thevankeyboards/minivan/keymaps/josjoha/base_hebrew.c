@@ -50,13 +50,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        available, because it is far too many unique symbols in Unicode, and it is 
        rarely used.
 
-                                            HEBREW_DVORAK
+                                            HEBREW_ISRAEL
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
-         Esc        '"    ,<    .>    ר     א     | ט     ו     ן     ם׳    פ״         Bksp
-         Tab+LCtl   ש     ד     ג/RLM כ₪    ע     | י     ח     ל/LRM ך     ף             ־ //Right-Left-Mark
-         LSht+_PAD  ז:    ס     ב     ה     נ     | מ     צ     ת     ץ     ק•    RSht+_FUN
+         Esc        /;    '"    ק     ר     א     | ט     ו     ן     ם׳    פ״         Bksp
+         Tab+LCtl   ש     ד     ג/RLM כ₪    ע     | י     ח     ל/LRM ך     ף:           ," //Right-Left-Mark
+         LSht+_PAD  ז     ס     ב     ה     נ     | מ     צ     ת<    ץ>    .?    RSht+_FUN //<>os side flip?
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
@@ -83,6 +83,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
           …                                                                    …
+
+                                            HEBREW_DVORAK
+                                                  | Right hand
+         <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
+         -o-                                     <|>                                    ... //-o- BASE access
+         Esc        '"    ,<    .>    ר     א     | ט     ו     ן     ם׳    פ״         Bksp
+         Tab+LCtl   ש     ד     ג/RLM כ₪    ע     | י     ח     ל/LRM ך     ף             ־ //Right-Left-Mark
+         LSht+_PAD  ז:    ס     ב     ה     נ     | מ     צ     ת     ץ     ק•    RSht+_FUN
+             +_MOV⁵                               |                                   +_RAR⁶
+     ---------------------------------------------------------------------------------------
+     Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
+               hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
+               hold₍₂₎  ^-┃-----------------------+--------^ ┃                          // ₁₎ both = _DRA
+               ┗━━━_BON━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
+     <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
+          ^³                                                                   ^⁴   // Optional more keys
+          …                                                                    …
+
      
      ₁) Dual hold for _DRA, single hold for _..._NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
@@ -99,31 +117,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //      -*!-              ,           ,           ,           ,           ,         <|,>          ,           ,           ,           ,           ,               ,
         KC_ESC      
 
-# ifdef HEBREW_DVORAK
-                          , KC_QUOT   , KC_COMM   , KC_DOT 
+# if   defined(HEBREW_ISRAEL)
+                          , XP_HEB_AA , KC_QUOT   , XP_HEB_AC 
 # elif defined(HEBREW_QWERTY)
                           , XP_HEB_AA , XP_HEB_AB , XP_HEB_AC
-// different in HEBREW_QWERTY: macros with hebrew letters
+# elif defined(HEBREW_DVORAK)
+                          , KC_QUOT   , KC_COMM   , KC_DOT 
 # endif // HEBREW_DVORAK/QWERTY
                                                               , XP_HEB_AD , XP_HEB_AE , XP_HEB_AF , XP_HEB_AG , XP_HEB_AH , XP_HEB_AI , XP_HEB_AJ , KC_BSPC       ,
         LCTL_T ( KC_TAB ) , XP_HEB_BA , XP_HEB_BB , XP_HEB_BC , XP_HEB_BD , XP_HEB_BE , XP_HEB_BF , XP_HEB_BG , XP_HEB_BH , XP_HEB_BI , XP_HEB_BJ
 //                                                                                                                                      ^^^^^^^^^  Different in Qwerty (done in macros) with ':'
 
-# ifdef HEBREW_DVORAK
-                                                                                                                                                  , XP_HEB_BK     ,
+# if   defined(HEBREW_ISRAEL)
+                                                                                                                                                  , XP_HEB_BK     , // ,"
 # elif defined(HEBREW_QWERTY)
-                                                                                                                                                  , KC_QUOT       ,
-// different in HEBREW_QWERTY simple keycode '" 
-# endif // HEBREW_DVORAK/QWERTY
+                                                                                                                                                  , KC_QUOT       , // '"
+# elif defined(HEBREW_DVORAK)
+                                                                                                                                                  , XP_HEB_MQF    , // ־
+# endif // HEBREW_*
 
         CHOLTAP_LSHFT     , XP_HEB_CA , XP_HEB_CB , XP_HEB_CC , XP_HEB_CD , XP_HEB_CE , XP_HEB_CF , XP_HEB_CG 
 
-# ifdef HEBREW_DVORAK
+# if   defined(HEBREW_ISRAEL)
                                                                                                               , XP_HEB_CH , XP_HEB_CI , XP_HEB_CJ
 # elif defined(HEBREW_QWERTY)
                                                                                                               , KC_COMM   , KC_DOT    , KC_SLSH    
-// HEBREW_QWERTY simple keycodes ,<.>/?
-# endif // HEBREW_DVORAK/QWERTY
+# elif defined(HEBREW_DVORAK)
+                                                                                                              , XP_HEB_CH , XP_HEB_CI , XP_HEB_CJ
+# endif // HEBREW_*
                                                                                                                                                   , CHOLTAP_RSHFT ,
 //      -----------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) 
@@ -181,26 +202,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
      Layer _..._NSY (Numbers and SYmbols)
      ➡ The brace type symbols are *not* reversed as on standard hebrew boards (I find it confusing).
-    
-                                      HEBREW_DVORAK
+ 
+                                      HEBREW_ISRAEL & HEBREW_QWERTY 
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   [{    ]}    /?    \|    =+    | +     |     ?     {     }   ~+RSht 
+     -+LSht   [{    ]}    -_    \|    =+    | +     |     ־     {     }   ~+RSht 
+                                                          ^                       // Only difference with Qwerty
      ---------------------------------------------------------------------------
      Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _..._BASE
        <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
             …                                   …
- 
-                                      HEBREW_QWERTY 
+    
+                                      HEBREW_DVORAK (Same as standard Dvorak)
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   [{    ]}    ־     \|    =+    | +     |     _     {     }   ~+RSht 
-                          ^                               ^                       // Only difference with HEBREW_DVORAK
+     -+LSht   [{    ]}    /?    \|    =+    | +     |     ?     {     }   ~+RSht 
      ---------------------------------------------------------------------------
      Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _..._BASE
@@ -215,21 +236,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  ,
         LSFT_DASH          , KC_LBRC , KC_RBRC 
 
-# ifdef HEBREW_DVORAK
-                                               , KC_SLSH 
+# if   defined(HEBREW_ISRAEL)
+                                               , KC_MINUS // allows -_, with Maqaf on mirror place right 
 # elif defined(HEBREW_QWERTY)
-                                               , XP_HEB_BK // just so happens to be '־' Maqaf
-// HEBREW_QWERTY: - or ־ (Maqaf)
-# endif // HEBREW_DVORAK/QWERTY
+                                               , KC_MINUS // same as HEBREW_ISRAEL
+# elif defined(HEBREW_DVORAK)
+                                               , KC_SLSH 
+# endif // HEBREW_*
 
                                                          , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE 
 
-# ifdef HEBREW_DVORAK
-                                                                                                 , KC_QUES 
+
+# if   defined(HEBREW_ISRAEL)
+                                                                                                 , XP_HEB_MQF // '־' Maqaf
 # elif defined(HEBREW_QWERTY)
-                                                                                                 , KC_UNDS
-// HEBREW_QWERTY _ or <nothing>
-# endif // HEBREW_DVORAK/QWERTY
+                                                                                                 , XP_HEB_MQF //
+# elif defined(HEBREW_DVORAK)
+                                                                                                 , KC_QUES 
+# endif // HEBREW_*
                                                                                                            , KC_LCBR , KC_RCBR , RSFT_TILDE         ,
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) 

@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *
          * See base_hebrew.md for design objectives. 
          */
+//#define HEBREW_ISRAEL // Close to standard Israeli hebrew.
   #define HEBREW_DVORAK // Harmonize punctuation symbols with Dvorak.
 //#define HEBREW_QWERTY // Harmonize punctuation symbols with Qwerty.
 
