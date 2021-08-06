@@ -91,7 +91,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 if (keycode >= MACRO00 && keycode <= MACRO15) {
                     dynamic_keymap_macro_send(keycode - MACRO00);
                 } else {
-                    tap_code16(keycode);
+                    tap_code(keycode);
                 }
             }
             break;

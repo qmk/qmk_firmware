@@ -26,7 +26,8 @@ EEPROM_DRIVER = custom
 SRC += eep/eeprom_stm32.c
 SRC += eep/flash_stm32.c
 OPT_DEFS += -DEEPROM_EMU_STM32F401xC
-COMMON_VPATH += keyboards/yandrstudio/whiteMouse28T/f401/eep
+COMMON_VPATH += patsubst$(%/, %, dir $(mkfile_patch))/eep
+
 
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread

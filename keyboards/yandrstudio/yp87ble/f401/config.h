@@ -18,12 +18,12 @@
 #include "config_common.h"
 
 /* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 18
+#define MATRIX_ROWS 9
+#define MATRIX_COLS 10
 
 //                        0    1    2   3     4    5    6   7   8   9   10   11   12  13   14  15   16   17
-#define MATRIX_COL_PINS { A3,  B9,  B8, C13,  C14, B7, B6,  B5, B4, B3, A15, A14, A9, B12, A8, B15, A10, A13}
-#define MATRIX_ROW_PINS { B0,  B1,  B2, A5,   A6,  A7}
+#define MATRIX_COL_PINS { B12, B13, B14,B15,  A8,  A15, B3, B4, B5, B6}
+#define MATRIX_ROW_PINS { B8,  C13, B9, C15,  A6,  C14,A5,  A7, A4}
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -32,8 +32,8 @@
 /* RGN Matrix */
 #ifdef RGB_MATRIX_ENABLE
 
-#    define RGB_DI_PIN B10
-#    define RGBLED_NUM 96
+#    define RGB_DI_PIN A2
+#    define RGBLED_NUM 107
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 
 
@@ -59,8 +59,8 @@
 
 #ifdef RGBLIGHT_ENABLE
 
-#    define RGB_DI_PIN B10
-#    define RGBLED_NUM 96
+#    define RGB_DI_PIN A2
+#    define RGBLED_NUM 107
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGBLIGHT_LIMIT_VAL 150
 #    define RGBLIGHT_SLEEP
@@ -77,8 +77,3 @@
 
 #endif
 
-
-
-#define LED_CAPS_LOCK_PIN    B13
-#define LED_SCROLL_LOCK_PIN  B14
-#define LED_PIN_ON_STATE     0

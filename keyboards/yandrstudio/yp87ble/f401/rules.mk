@@ -11,10 +11,10 @@ BOOTLOADER = stm32-dfu
 CUSTOM_MATRIX = lite    # for using the A9 pin as matrix io
 QUANTUM_SRC += matrix.c
 
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
-# RGBLIGHT_ENABLE = yes
-# RGBLIGHT_DRIVER = WS2812
+# RGB_MATRIX_ENABLE = yes
+# RGB_MATRIX_DRIVER = WS2812
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_DRIVER = WS2812
 WS2812_DRIVER = pwm
 
 # EEPROM_DRIVER = spi
@@ -22,7 +22,7 @@ EEPROM_DRIVER = custom
 SRC += eep/eeprom_stm32.c
 SRC += eep/flash_stm32.c
 OPT_DEFS += -DEEPROM_EMU_STM32F401xC
-COMMON_VPATH += keyboards/yandrstudio/whiteMouse28T/f401/eep
+COMMON_VPATH += patsubst$(%/, %, dir $(mkfile_patch))/eep
 
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
