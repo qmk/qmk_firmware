@@ -53,7 +53,7 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
 ////////////////////////////////////////////////////
 // Helpers
 
-bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[], const char *prefix, bool (*handler)(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])) {
+static bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[], const char *prefix, bool (*handler)(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])) {
     int num_retries = is_transport_connected() ? 10 : 1;
     for (int iter = 1; iter <= num_retries; ++iter) {
         if (iter > 1) {
@@ -69,14 +69,14 @@ bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_t slave
     return false;
 }
 
-#define TRANSACTION_HANDLER_MASTER(prefix)                                                                     \
-    do {                                                                                                       \
-        if (!transaction_handler_master(master_matrix, slave_matrix, #prefix, &prefix##_master)) return false; \
+#define TRANSACTION_HANDLER_MASTER(prefix)                                                                              \
+    do {                                                                                                                \
+        if (!transaction_handler_master(master_matrix, slave_matrix, #prefix, &prefix##_handlers_master)) return false; \
     } while (0)
 
-#define TRANSACTION_HANDLER_SLAVE(prefix)                                      \
-    do {                                                                       \
-        ATOMIC_BLOCK_FORCEON { prefix##_slave(master_matrix, slave_matrix); }; \
+#define TRANSACTION_HANDLER_SLAVE(prefix)                                               \
+    do {                                                                                \
+        ATOMIC_BLOCK_FORCEON { prefix##_handlers_slave(master_matrix, slave_matrix); }; \
     } while (0)
 
 inline static bool read_if_checksum_mismatch(int8_t trans_id_checksum, int8_t trans_id_retrieve, uint32_t *last_update, void *destination, const void *equiv_shmem, size_t length) {
@@ -134,8 +134,8 @@ static void slave_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row
 }
 
 // clang-format off
-#define TRANSACTIONS_SLAVE_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(slave_matrix_handlers)
-#define TRANSACTIONS_SLAVE_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(slave_matrix_handlers)
+#define TRANSACTIONS_SLAVE_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(slave_matrix)
+#define TRANSACTIONS_SLAVE_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(slave_matrix)
 #define TRANSACTIONS_SLAVE_MATRIX_REGISTRATIONS \
     [GET_SLAVE_MATRIX_CHECKSUM] = trans_target2initiator_initializer(smatrix.checksum), \
     [GET_SLAVE_MATRIX_DATA]     = trans_target2initiator_initializer(smatrix.matrix),
@@ -156,8 +156,8 @@ static void master_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_ro
     memcpy(master_matrix, split_shmem->mmatrix.matrix, sizeof(split_shmem->mmatrix.matrix));
 }
 
-#    define TRANSACTIONS_MASTER_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(master_matrix_handlers)
-#    define TRANSACTIONS_MASTER_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(master_matrix_handlers)
+#    define TRANSACTIONS_MASTER_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(master_matrix)
+#    define TRANSACTIONS_MASTER_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(master_matrix)
 #    define TRANSACTIONS_MASTER_MATRIX_REGISTRATIONS [PUT_MASTER_MATRIX] = trans_initiator2target_initializer(mmatrix.matrix),
 
 #else  // SPLIT_TRANSPORT_MIRROR
@@ -192,8 +192,8 @@ static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sl
 }
 
 // clang-format off
-#    define TRANSACTIONS_ENCODERS_MASTER() TRANSACTION_HANDLER_MASTER(encoder_handlers)
-#    define TRANSACTIONS_ENCODERS_SLAVE() TRANSACTION_HANDLER_SLAVE(encoder_handlers)
+#    define TRANSACTIONS_ENCODERS_MASTER() TRANSACTION_HANDLER_MASTER(encoder)
+#    define TRANSACTIONS_ENCODERS_SLAVE() TRANSACTION_HANDLER_SLAVE(encoder)
 #    define TRANSACTIONS_ENCODERS_REGISTRATIONS \
     [GET_ENCODERS_CHECKSUM] = trans_target2initiator_initializer(encoders.checksum), \
     [GET_ENCODERS_DATA]     = trans_target2initiator_initializer(encoders.state),
@@ -234,8 +234,8 @@ static void sync_timer_handlers_slave(matrix_row_t master_matrix[], matrix_row_t
     }
 }
 
-#    define TRANSACTIONS_SYNC_TIMER_MASTER() TRANSACTION_HANDLER_MASTER(sync_timer_handlers)
-#    define TRANSACTIONS_SYNC_TIMER_SLAVE() TRANSACTION_HANDLER_SLAVE(sync_timer_handlers)
+#    define TRANSACTIONS_SYNC_TIMER_MASTER() TRANSACTION_HANDLER_MASTER(sync_timer)
+#    define TRANSACTIONS_SYNC_TIMER_SLAVE() TRANSACTION_HANDLER_SLAVE(sync_timer)
 #    define TRANSACTIONS_SYNC_TIMER_REGISTRATIONS [PUT_SYNC_TIMER] = trans_initiator2target_initializer(sync_timer),
 
 #else  // DISABLE_SYNC_TIMER
@@ -268,8 +268,8 @@ static void layer_state_handlers_slave(matrix_row_t master_matrix[], matrix_row_
 }
 
 // clang-format off
-#    define TRANSACTIONS_LAYER_STATE_MASTER() TRANSACTION_HANDLER_MASTER(layer_state_handlers)
-#    define TRANSACTIONS_LAYER_STATE_SLAVE() TRANSACTION_HANDLER_SLAVE(layer_state_handlers)
+#    define TRANSACTIONS_LAYER_STATE_MASTER() TRANSACTION_HANDLER_MASTER(layer_state)
+#    define TRANSACTIONS_LAYER_STATE_SLAVE() TRANSACTION_HANDLER_SLAVE(layer_state)
 #    define TRANSACTIONS_LAYER_STATE_REGISTRATIONS \
     [PUT_LAYER_STATE]         = trans_initiator2target_initializer(layers.layer_state), \
     [PUT_DEFAULT_LAYER_STATE] = trans_initiator2target_initializer(layers.default_layer_state),
@@ -299,8 +299,8 @@ static void led_state_handlers_slave(matrix_row_t master_matrix[], matrix_row_t 
     set_split_host_keyboard_leds(split_shmem->led_state);
 }
 
-#    define TRANSACTIONS_LED_STATE_MASTER() TRANSACTION_HANDLER_MASTER(led_state_handlers)
-#    define TRANSACTIONS_LED_STATE_SLAVE() TRANSACTION_HANDLER_SLAVE(led_state_handlers)
+#    define TRANSACTIONS_LED_STATE_MASTER() TRANSACTION_HANDLER_MASTER(led_state)
+#    define TRANSACTIONS_LED_STATE_SLAVE() TRANSACTION_HANDLER_SLAVE(led_state)
 #    define TRANSACTIONS_LED_STATE_REGISTRATIONS [PUT_LED_STATE] = trans_initiator2target_initializer(led_state),
 
 #else  // SPLIT_LED_STATE_ENABLE
@@ -356,8 +356,8 @@ static void mods_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave
 #    endif
 }
 
-#    define TRANSACTIONS_MODS_MASTER() TRANSACTION_HANDLER_MASTER(mods_handlers)
-#    define TRANSACTIONS_MODS_SLAVE() TRANSACTION_HANDLER_SLAVE(mods_handlers)
+#    define TRANSACTIONS_MODS_MASTER() TRANSACTION_HANDLER_MASTER(mods)
+#    define TRANSACTIONS_MODS_SLAVE() TRANSACTION_HANDLER_SLAVE(mods)
 #    define TRANSACTIONS_MODS_REGISTRATIONS [PUT_MODS] = trans_initiator2target_initializer(mods),
 
 #else  // SPLIT_MODS_ENABLE
@@ -381,8 +381,8 @@ static bool backlight_handlers_master(matrix_row_t master_matrix[], matrix_row_t
 
 static void backlight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { backlight_set(split_shmem->backlight_level); }
 
-#    define TRANSACTIONS_BACKLIGHT_MASTER() TRANSACTION_HANDLER_MASTER(backlight_handlers)
-#    define TRANSACTIONS_BACKLIGHT_SLAVE() TRANSACTION_HANDLER_SLAVE(backlight_handlers)
+#    define TRANSACTIONS_BACKLIGHT_MASTER() TRANSACTION_HANDLER_MASTER(backlight)
+#    define TRANSACTIONS_BACKLIGHT_SLAVE() TRANSACTION_HANDLER_SLAVE(backlight)
 #    define TRANSACTIONS_BACKLIGHT_REGISTRATIONS [PUT_BACKLIGHT] = trans_initiator2target_initializer(backlight_level),
 
 #else  // BACKLIGHT_ENABLE
@@ -418,8 +418,8 @@ static void rgblight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
     }
 }
 
-#    define TRANSACTIONS_RGBLIGHT_MASTER() TRANSACTION_HANDLER_MASTER(rgblight_handlers)
-#    define TRANSACTIONS_RGBLIGHT_SLAVE() TRANSACTION_HANDLER_SLAVE(rgblight_handlers)
+#    define TRANSACTIONS_RGBLIGHT_MASTER() TRANSACTION_HANDLER_MASTER(rgblight)
+#    define TRANSACTIONS_RGBLIGHT_SLAVE() TRANSACTION_HANDLER_SLAVE(rgblight)
 #    define TRANSACTIONS_RGBLIGHT_REGISTRATIONS [PUT_RGBLIGHT] = trans_initiator2target_initializer(rgblight_sync),
 
 #else  // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -448,8 +448,8 @@ static void led_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t
     led_matrix_set_suspend_state(split_shmem->led_matrix_sync.led_suspend_state);
 }
 
-#    define TRANSACTIONS_LED_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(led_matrix_handlers)
-#    define TRANSACTIONS_LED_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(led_matrix_handlers)
+#    define TRANSACTIONS_LED_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(led_matrix)
+#    define TRANSACTIONS_LED_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(led_matrix)
 #    define TRANSACTIONS_LED_MATRIX_REGISTRATIONS [PUT_LED_MATRIX] = trans_initiator2target_initializer(led_matrix_sync),
 
 #else  // defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
@@ -478,8 +478,8 @@ static void rgb_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t
     rgb_matrix_set_suspend_state(split_shmem->rgb_matrix_sync.rgb_suspend_state);
 }
 
-#    define TRANSACTIONS_RGB_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(rgb_matrix_handlers)
-#    define TRANSACTIONS_RGB_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(rgb_matrix_handlers)
+#    define TRANSACTIONS_RGB_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(rgb_matrix)
+#    define TRANSACTIONS_RGB_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(rgb_matrix)
 #    define TRANSACTIONS_RGB_MATRIX_REGISTRATIONS [PUT_RGB_MATRIX] = trans_initiator2target_initializer(rgb_matrix_sync),
 
 #else  // defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
@@ -503,8 +503,8 @@ static bool wpm_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave
 
 static void wpm_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { set_current_wpm(split_shmem->current_wpm); }
 
-#    define TRANSACTIONS_WPM_MASTER() TRANSACTION_HANDLER_MASTER(wpm_handlers)
-#    define TRANSACTIONS_WPM_SLAVE() TRANSACTION_HANDLER_SLAVE(wpm_handlers)
+#    define TRANSACTIONS_WPM_MASTER() TRANSACTION_HANDLER_MASTER(wpm)
+#    define TRANSACTIONS_WPM_SLAVE() TRANSACTION_HANDLER_SLAVE(wpm)
 #    define TRANSACTIONS_WPM_REGISTRATIONS [PUT_WPM] = trans_initiator2target_initializer(current_wpm),
 
 #else  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
