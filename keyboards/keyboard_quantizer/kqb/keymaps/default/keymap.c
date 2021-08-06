@@ -54,12 +54,14 @@ static int16_t gesture_move_y     = 0;
 static bool    gesture_wait       = false;
 static uint8_t kc_no_to_kc_offset = 0;
 static uint8_t btn_release_flag   = 0;
+static int16_t wheel_move_v       = 0;
+static int16_t wheel_move_h       = 0;
 
 static uint8_t get_gesture_threshold() {
     return BMPAPI->app.get_config()->reserved[5];
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     bool continue_process = process_record_user_bmp(keycode, record);
     if (continue_process == false) {
         return false;
@@ -70,6 +72,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             mouse_send_flag = true;
             return true;
             break;
+        case KC_MS_WH_UP ... KC_MS_WH_RIGHT: {
+            report_mouse_t report = pointing_device_get_report();
+            report.v              = wheel_move_v;
+            report.h              = wheel_move_h;
+            pointing_device_set_report(report);
+            mouse_send_flag = true;
+            return false;
+        } break;
 
         default:
             break;
@@ -116,8 +126,7 @@ gesture_id_t recognize_gesture(int16_t x, int16_t y) {
 void process_gesture(uint8_t layer, gesture_id_t gesture_id) {
     switch (gesture_id) {
         case GESTURE_DOWN_RIGHT ... GESTURE_UP_RIGHT: {
-            keypos_t keypos  = {.row = MATRIX_MSGES_ROW,
-                               .col = gesture_id - 1};
+            keypos_t keypos  = {.row = MATRIX_MSGES_ROW, .col = gesture_id - 1};
             uint16_t keycode = keymap_key_to_keycode(layer, keypos);
             tap_code16(keycode);
         } break;
@@ -176,10 +185,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
     }
 
-    if ((keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MOMENTARY && keycode <= QK_MOMENTARY_MAX)) {
+    if ((keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) ||
+        (keycode >= QK_MOMENTARY && keycode <= QK_MOMENTARY_MAX)) {
         if (gesture_wait == true && (!record->event.pressed)) {
-            gesture_wait            = false;
-            gesture_id_t gesture_id = recognize_gesture(gesture_move_x, gesture_move_y);
+            gesture_wait = false;
+            gesture_id_t gesture_id =
+                recognize_gesture(gesture_move_x, gesture_move_y);
 
             uint8_t layer = 0;
             if ((keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
@@ -189,7 +200,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             }
 
             process_gesture(layer, gesture_id);
-            dprintf("id:%d x:%d,y:%d\n", gesture_id, gesture_move_x, gesture_move_y);
+            dprintf("id:%d x:%d,y:%d\n", gesture_id, gesture_move_x,
+                    gesture_move_y);
         }
     }
 }
@@ -218,6 +230,32 @@ void mouse_report_hook(mouse_parse_result_t const* report) {
     matrix_mouse_dest[0] = button_current;
 
     //
+    // Assign wheel to key action
+    //
+    if (report->v != 0) {
+        keypos_t key;
+        wheel_move_v = report->v;
+        key.row      = MATRIX_MSWHEEL_ROW;
+        key.col = report->v > 0 ? MATRIX_MSWHEEL_COL : MATRIX_MSWHEEL_COL + 1;
+        action_exec((keyevent_t){
+            .key = key, .pressed = true, .time = (timer_read() | 1)});
+        action_exec((keyevent_t){
+            .key = key, .pressed = false, .time = (timer_read() | 1)});
+    }
+
+    if (report->h != 0) {
+        keypos_t key;
+        wheel_move_h = report->h;
+        key.row      = MATRIX_MSWHEEL_ROW;
+        key.col =
+            report->h > 0 ? MATRIX_MSWHEEL_COL + 2 : MATRIX_MSWHEEL_COL + 3;
+        action_exec((keyevent_t){
+            .key = key, .pressed = true, .time = (timer_read() | 1)});
+        action_exec((keyevent_t){
+            .key = key, .pressed = false, .time = (timer_read() | 1)});
+    }
+
+    //
     // Assign mouse movement
     //
     mouse_send_flag      = true;
@@ -243,8 +281,6 @@ void mouse_report_hook(mouse_parse_result_t const* report) {
 
     mouse.x += x;
     mouse.y += y;
-    mouse.v += report->v;
-    mouse.h += report->h;
 
     pointing_device_set_report(mouse);
 

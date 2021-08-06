@@ -223,7 +223,12 @@ void dynamic_keymap_reset() {
         } else if (row == MATRIX_MSBTN_ROW) {
             BMPAPI->app.set_keycode_to_keymap(layer, &key, KC_BTN1 + col);
         } else if (row == MATRIX_MSGES_ROW) {
-            BMPAPI->app.set_keycode_to_keymap(layer, &key, KC_NO);
+            if (col < MATRIX_MSWHEEL_COL) {
+                BMPAPI->app.set_keycode_to_keymap(layer, &key, KC_NO);
+            } else {
+                BMPAPI->app.set_keycode_to_keymap(
+                    layer, &key, KC_MS_WH_UP + col - MATRIX_MSWHEEL_COL);
+            }
         }
     }
 
