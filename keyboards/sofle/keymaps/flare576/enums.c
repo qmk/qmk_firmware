@@ -19,16 +19,28 @@ enum _layers {
     _BASE,
     _MOUS,
     _SYMS,
+    _META,
     _MDIA,
-    _NPAD,
-    _GAME,
+    _FF14,
+    _ESDF,
 };
 
 enum custom_keycodes {
     _COMP1  = SAFE_RANGE,
     _COMP2,
+    M_1,
+    M_2,
+    M_3,
+    M_4,
+    M_5,
     V_FS,
     T_FS,
+    T_N,
+    T_L,
+    T_S,
+    T_E,
+    T_R,
+    T_NAME,
 };
 
 enum custom_tapdance {
