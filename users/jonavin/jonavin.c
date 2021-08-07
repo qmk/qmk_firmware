@@ -105,15 +105,6 @@ void matrix_scan_user(void) {
     matrix_scan_keymap();
 }
 
-    #ifdef RGB_MATRIX_ENABLE
-        __attribute__ ((weak)) void suspend_power_down_user(void) {
-            rgb_matrix_set_suspend_state(true);
-        }
-
-        __attribute__ ((weak)) void suspend_wakeup_init_user(void) {
-            rgb_matrix_set_suspend_state(false);
-        }
-    #endif // RGB_MATRIX_ENABLE
 
 #endif // IDLE_TIMEOUT_ENABLE
 
