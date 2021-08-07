@@ -1,15 +1,33 @@
+/* Copyright 2021 Pierre-Emmanuel Ott
+ * 
+ * This program is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 2 of the License, or 
+ * (at your option) any later version. 
+ * 
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details. 
+ * 
+ * You should have received a copy of the GNU General Public License 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ */ 
+
 #include QMK_KEYBOARD_H
+
+/* This keymap is based on a) intuitive layout and b) least amount of layers required for the bare minimum amount of keys.
+ * The first layer has most symbols and the usual QWERTY layout, along with all mods. This is similar to what one may make on a Preonic.
+ * Second layer is my left-hand layer: if the right hand is on the mouse, this layer has arrows and other keys on the left-hand. This also has a numpad.
+ * Last layer is for Functions keys and keyboard functions. 
+ * 
+ * Note that 'Reset' appears twice: on Nyquist both halves need to be flashed, so we need the full Reset shortcut to be available from any given single half.
+ */
 
 enum custom_layers {
   _QWERTY,
   _LEFTHAND,
   _FUNC
-};
-
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LEFTHAND,
-  FUNC
 };
 
 #define SPC_LFT LT(_LEFTHAND, KC_SPC)
@@ -28,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |Lsft(|   Z  |   X  |   C  |   V  |   B  |     |   N  |   M  |   ,  |   .  |  /   |Rsft) |
  * |-----+------+------+------+------+------|     |------+------+------+------+------+------|
  * |LCtrl| LGui | LAlt | Del  |  Spc/LftHnd |     |  Bckpc/Func | Left | Down |  Up  |Right |
- * `----------------------------------------'     '-----------------------------------------'
+ * '----------------------------------------'     '-----------------------------------------'
  */
 	
 	[_QWERTY] = LAYOUT(
@@ -50,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      | Calc | MyPC |PrtScr| Enter|BckSpc|    |   1  |  2   |  3   |  =   | PgUp | Home |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
  * |      | Mute |      |      |      |      |    |      0      |  .   | Enter| PgDn |  End |
- * `-----------------------------------------'    `-----------------------------------------'
+ * '-----------------------------------------'    `-----------------------------------------'
  */	
 
 	[_LEFTHAND] = LAYOUT(
@@ -72,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |    |      |      |      |      |      | Rst  |
- * `-----------------------------------------'    `-----------------------------------------'
+ * '-----------------------------------------'    `-----------------------------------------'
 */	
 
 
