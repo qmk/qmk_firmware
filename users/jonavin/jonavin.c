@@ -98,9 +98,12 @@ __attribute__ ((weak)) bool _isWinKeyDisabled = false;
         } // timeout_threshold = 0 will disable timeout
     }
 
-    __attribute__ ((weak))  void matrix_scan_user(void) {
-        timeout_tick_timer();
-    };
+__attribute__((weak)) void matrix_scan_keymap(void) {}
+
+void matrix_scan_user(void) {
+    timeout_tick_timer();
+    matrix_scan_keymap();
+}
 
     #ifdef RGB_MATRIX_ENABLE
         __attribute__ ((weak)) void suspend_power_down_user(void) {
