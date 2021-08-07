@@ -28,11 +28,19 @@ KEYCODES:
     KC_WINLCK       toggles LGui/Win key lock
     RGB_TOI         Increase Timeout idle time threshold
     RGB_TOD         Decrease Timeout idle time threshold
+
+ENABLE FEATURES your keymap rules.mk
+
+STARTUP_NUMLOCK_ON = yes
+    turns on NUMLOCK by default
+
+ENCODER_DEFAULTACTIONS_ENABLE = yes
+    Enabled deafult encoder funtions
   
-#define LSFT_CAPSLOCK_ENABLE
+TD_LSFT_CAPSLOCK_ENABLE = yes
     This will enable double tap on Left Shift to toggle CAPSLOCK
 
-#define IDLE_TIMEOUT_ENABLE
+IDLE_TIMEOUT_ENABLE = yes
     Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
     
     Functions:
