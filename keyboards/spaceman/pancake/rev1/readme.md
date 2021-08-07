@@ -2,8 +2,8 @@
 
 Ortho 40% Ortho Keyboard with an option for the adafruit feather
 
-Keyboard Maintainer: [Spaceman](https://github.com/Spaceman)
-Hardware Availability: [MKUltra.Click](https://mkultra.click/group-buy-pancake-keyboard-kit)
+* Keyboard Maintainer: [Spaceman](https://github.com/Spaceman)
+* Hardware Availability: [MKUltra.Click](https://mkultra.click/group-buy-pancake-keyboard-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
