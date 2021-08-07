@@ -84,8 +84,13 @@ void oled_task_user(void) {
     oled_set_cursor(0, 5);
 
     oled_write_ln_P(PSTR("Layer"), false);
-    char layer_str[12];
-    snprintf(layer_str, sizeof(layer_str), "%d", get_highest_layer(layer_state));
+    uint8_t n = get_highest_layer(layer_state);
+    char layer_str[4];
+    layer_str[3] = '\0';
+    layer_str[2] = '0' + n % 10;
+    layer_str[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    layer_str[0] = n / 10 ? '0' + n / 10 : ' ';
+
     oled_write_ln(layer_str, false);
 
     oled_write_ln_P(PSTR(" "), false);
