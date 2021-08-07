@@ -15,7 +15,7 @@ BOOTLOADER = atmel-dfu
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = lite    # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no       # Mouse keys
 ENCODER_ENABLE = yes       # Rotary encoders
 EXTRAKEY_ENABLE = yes      # Audio control and System control

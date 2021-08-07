@@ -3,7 +3,7 @@ ENCODER_ENABLE = yes       # ENables the use of one or more encoders
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 RGBLIGHT_STARTUP_ANIMATION = no
 
-BOOTMAGIC_ENABLE = no    # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = yes      # Audio control and System control
 CONSOLE_ENABLE = no        # Console for debug

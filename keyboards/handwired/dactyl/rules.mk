@@ -14,7 +14,7 @@ BOOTLOADER = halfkay
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE        = no  # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MIDI_ENABLE             = no  # MIDI support (+2400 to 4200)
 POINTING_DEVICE_ENABLE  = no
 MOUSEKEY_ENABLE         = no  # Mouse keys(+4700)

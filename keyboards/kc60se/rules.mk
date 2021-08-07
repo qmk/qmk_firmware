@@ -13,7 +13,7 @@ BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change yes to no to disable
-BOOTMAGIC_ENABLE = lite     # plugin usb while holding down Esc, will toggle on NKRO and change will persist
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # default keymap does not map mouse
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug

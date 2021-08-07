@@ -481,18 +481,15 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/dip_switch.c
 endif
 
-VALID_MAGIC_TYPES := yes full lite
+VALID_MAGIC_TYPES := yes lite
 BOOTMAGIC_ENABLE ?= no
 ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
     $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
   endif
-  ifneq ($(strip $(BOOTMAGIC_ENABLE)), full)
+  ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
       OPT_DEFS += -DBOOTMAGIC_LITE
       QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_lite.c
-  else
-    OPT_DEFS += -DBOOTMAGIC_ENABLE
-    QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_full.c
   endif
 endif
 COMMON_VPATH += $(QUANTUM_DIR)/bootmagic
