@@ -23,6 +23,7 @@
 #include "quantum.h"
 #include "transactions.h"
 #include "transport.h"
+#include "split_util.h"
 #include "transaction_id_define.h"
 
 #define SYNC_TIMER_OFFSET 2

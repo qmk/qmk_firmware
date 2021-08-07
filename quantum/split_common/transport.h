@@ -40,8 +40,6 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]);
 
 bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length);
 
-bool is_transport_connected(void);
-
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #    define NUMBER_OF_ENCODERS (sizeof((pin_t[])ENCODERS_PAD_A) / sizeof(pin_t))

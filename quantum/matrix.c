@@ -303,27 +303,31 @@ void matrix_init(void) {
 }
 
 #ifdef SPLIT_KEYBOARD
+// Fallback implementation for keyboards not using the standard split_util.c
+__attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    transport_master(master_matrix, slave_matrix);
+    return true;  // Treat the transport as always connected
+}
+
 bool matrix_post_scan(void) {
     bool changed = false;
     if (is_keyboard_master()) {
         matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
-        if (!transport_master(matrix + thisHand, slave_matrix)) {
-            if (!is_transport_connected()) {
-                // reset other half if disconnected
-                for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                    matrix[thatHand + i] = 0;
-                    slave_matrix[i]      = 0;
-                }
-
-                changed = true;
-            }
-        } else {
+        if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
             for (int i = 0; i < ROWS_PER_HAND; ++i) {
                 if (matrix[thatHand + i] != slave_matrix[i]) {
                     matrix[thatHand + i] = slave_matrix[i];
                     changed              = true;
                 }
             }
+        } else {
+            // reset other half if disconnected
+            for (int i = 0; i < ROWS_PER_HAND; ++i) {
+                matrix[thatHand + i] = 0;
+                slave_matrix[i]      = 0;
+            }
+
+            changed = true;
         }
 
         matrix_scan_quantum();
