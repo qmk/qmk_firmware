@@ -17,54 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include QMK_KEYBOARD_H
-
-// DEFINE MACROS
-#define ARRAYSIZE(arr)  sizeof(arr)/sizeof(arr[0])
+#include <jonavin.h>
 
 
-// LAYERS
-__attribute__ ((weak))
-enum custom_layers {
-    _BASE,
-    _FN1,
-    _LOWER,
-    _RAISE,
-};
-
-// KEYCODES
-__attribute__ ((weak))
-enum custom_keycodes {
-  KC_00 = SAFE_RANGE,
-  ENCFUNC,
-  KC_WINLCK,    //Toggles Win key on and off
-  RGB_TOI,   // Timeout idle time up
-  RGB_TOD,   // Timeout idle time down
-};
-
-#define KC_CAD	LALT(LCTL(KC_DEL))
-#define KC_AF4	LALT(KC_F4)
-#define KC_TASK	LCTL(LSFT(KC_ESC))
-
-// Win Key Lock
-__attribute__ ((weak)) bool _isWinKeyDisabled = false;
-
-#ifdef LSFT_CAPSLOCK_ENABLE
-    // Tap Dance Definitions
-    enum custom_tapdance {
-        TD_LSFT_CAPSLOCK,
-    };
-
+#ifdef TD_LSFT_CAPSLOCK_ENABLE
     qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for shift, twice for Caps Lock
         [TD_LSFT_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     };
-
-    #define KC_LSFTCAPS TD(TD_LSFT_CAPSLOCK)
-#else // regular Shift
-    #define KC_LSFTCAPS KC_LSFT
-#endif // LSFT_CAPSLOCK_ENABLE
-
-
+#endif  // TD_LSFT_CAPSLOCK_ENABLE
 
 // TIMEOUTS
 #ifdef IDLE_TIMEOUT_ENABLE
@@ -98,18 +59,16 @@ __attribute__ ((weak)) bool _isWinKeyDisabled = false;
         } // timeout_threshold = 0 will disable timeout
     }
 
-__attribute__((weak)) void matrix_scan_keymap(void) {}
+    __attribute__((weak)) void matrix_scan_keymap(void) {}
 
-void matrix_scan_user(void) {
-    timeout_tick_timer();
-    matrix_scan_keymap();
-}
-
-
+    void matrix_scan_user(void) {
+        timeout_tick_timer();
+        matrix_scan_keymap();
+    }
 #endif // IDLE_TIMEOUT_ENABLE
 
 
-#ifdef ENCODER_ENABLE       // Encoder Functionality
+#if defined(ENCODER_ENABLE) && defined(ENCODER_DEFAULTACTIONS_ENABLE)       // Encoder Functionality
     #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
         #define DYNAMIC_KEYMAP_LAYER_COUNT 4  //default in case this is not already defined elsewhere
     #endif
@@ -179,8 +138,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 
 // PROCESS KEY CODES
-__attribute__ ((weak))  bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
+__attribute__ ((weak))  bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_keymap(keycode, record)) { return false; }
+     switch (keycode) {
     case KC_00:
         if (record->event.pressed) {
             // when keycode KC_00 is pressed
@@ -189,12 +151,7 @@ __attribute__ ((weak))  bool process_record_user(uint16_t keycode, keyrecord_t *
         break;
     case KC_WINLCK:
         if (record->event.pressed) {
-            _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
-            if(_isWinKeyDisabled) {
-                process_magic(GUI_OFF, record);
-            } else {
-                process_magic(GUI_ON, record);
-            }
+            keymap_config.no_gui = !keymap_config.no_gui; //toggle status
         } else  unregister_code16(keycode);
         break;
 
@@ -236,9 +193,13 @@ void activate_numlock(bool turn_on) {
 
 // INITIAL STARTUP
 
+__attribute__ ((weak)) void keyboard_post_init_keymap(void) {}
 
-__attribute__ ((weak))  void keyboard_post_init_user(void) {
-    activate_numlock(true); // turn on Num lock by default so that the numpad layer always has predictable results
+void keyboard_post_init_user(void) {
+    keyboard_post_init_keymap();
+    #ifdef STARTUP_NUMLOCK_ON
+        activate_numlock(true); // turn on Num lock by default so that the numpad layer always has predictable results
+    #endif // STARTUP_NUMLOC_ON
     #ifdef IDLE_TIMEOUT_ENABLE
         timeout_timer = timer_read(); // set inital time for ide timeout
     #endif

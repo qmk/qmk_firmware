@@ -27,8 +27,4 @@
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
     #define RGB_DISABLE_WHEN_USB_SUSPENDED true
-
-//RGB custom colours
-    #define RGB_GODSPEED 0x00, 0xE4, 0xFF // colour for matching keycaps
-    #define RGB_NAUTILUS 0x00, 0xA4, 0xA9 // Nautilus Font colours
 #endif
