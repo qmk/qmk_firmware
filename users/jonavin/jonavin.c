@@ -29,11 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // TIMEOUTS
 #ifdef IDLE_TIMEOUT_ENABLE
-    #define TIMEOUT_THRESHOLD_DEFAULT   5    // default timeout minutes
-    #define TIMEOUT_THRESHOLD_MAX       140  // upper limits (2 hours and 10 minutes -- no rgb indicators above this value)
     static uint16_t timeout_timer = 0;
     static uint16_t timeout_counter = 0;  //in minute intervals
     static uint16_t timeout_threshold = TIMEOUT_THRESHOLD_DEFAULT;
+
+    uint16_t get_timeout_threshold(void) {
+        return timeout_threshold;
+    }
 
     void timeout_reset_timer(void) {
         timeout_timer = timer_read();

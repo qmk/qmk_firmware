@@ -113,6 +113,7 @@ void matrix_scan_keymap(void) {
             rgb_matrix_set_color(LED_FN, RGB_RED); //FN key
 
             // Add RGB Timeout Indicator -- shows 0 to 139 using F row and num row;  larger numbers using 16bit code
+            uint16_t timeout_threshold = get_timeout_threshold();
             if (timeout_threshold <= 10) rgb_matrix_set_color(LED_LIST_FUNCROW[timeout_threshold], RGB_RED);
             else if (timeout_threshold < 140) {
                 rgb_matrix_set_color(LED_LIST_FUNCROW[(timeout_threshold / 10)], RGB_RED);
@@ -123,7 +124,7 @@ void matrix_scan_keymap(void) {
                 rgb_matrix_set_color(LED_LIST_NUMROW[12], RGB_RED);
             }
             break;
-        case _MO2:
+        case _LOWER:
             for (uint8_t i=0; i<ARRAYSIZE(LED_LIST_NUMPAD); i++) {
                 rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_MAGENTA);
             }
@@ -131,7 +132,7 @@ void matrix_scan_keymap(void) {
             rgb_matrix_set_color(LED_R5, RGB_MAGENTA);
             rgb_matrix_set_color(LED_R6, RGB_MAGENTA);
             break;
-        case _MO3:
+        case _RAISE:
             rgb_matrix_set_color(LED_R6, RGB_GREEN);
             rgb_matrix_set_color(LED_R7, RGB_GREEN);
             rgb_matrix_set_color(LED_R8, RGB_GREEN);
