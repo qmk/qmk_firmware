@@ -44,6 +44,7 @@ IDLE_TIMEOUT_ENABLE = yes
     Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
     
     Functions:
+        u16int_t get_timeout_threshold(void)            // returns the current timeout threshold
         void timeout_update_threshold(bool increase)    // change threshold: true = increase, false = decrease     
         void timeout_reset_timer(void)                  // resets timer (put in process_record_user if you override it)
         void timeout_tick_timer(void)                   // registers time ticks (put in maxtrix_scan_user if you override it)
