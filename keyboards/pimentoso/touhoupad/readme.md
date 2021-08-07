@@ -1,17 +1,16 @@
-# 4 Pack
+# TouhouPad
 
-![4pack](https://i.imgur.com/rioXXq5l.jpg)
+![TouhouPad](https://imgur.com/a/jcuEr8q)
 
-A 4-key macropad PCB with its switch and LED pins wired directly to microcontroller IO pins.
+A 10 key gamepad specifically for playing Touhou danmaku games.
 
-You can find the main blog post about this macropad [here](http://www.40percent.club/2017/07/4-pack.html), also the Gerber files and other documentation is located [here](https://git.40percent.club/di0ib/Misc/src/branch/master/4pack).
+You can find building instructions and gerber files to print the circuit board on the [project page.](https://github.com/Pimentoso/TouhouPad_v2)
 
-Keyboard Maintainer: [Arda Kilicdagi](http://github.com/ardakilic), [The QMK Community](https://github.com/qmk)  
-Hardware Supported: 4 Pack PCB, Pro Micro  
-Hardware Availability: [40percent.club](https://git.40percent.club/di0ib/Misc/src/branch/master/4pack)
+* Keyboard Maintainer: [Michele Ferri](https://github.com/Pimentoso)
+* Hardware Supported: Paddino02 PCB rev1, rev2 + Arduino Pro Micro
+* Hardware Availability: the PCB is open source and can be freely printed at websites such as [JLCPCB](https://jlcpcb.com/)
+### To flash (after setting up your build environment):
 
-Make example for this macropad (after setting up your build environment):
-
-    make 40percentclub/4pack:default:flash
+`make pimentoso/paddino02/rev2/right:default:flash`
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

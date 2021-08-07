@@ -1,4 +1,4 @@
-/* Copyright 2019 Arda Kilicdagi
+/* Copyright 2021 Michele Ferri <zomgsako@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,15 +15,11 @@
  */
 #include QMK_KEYBOARD_H
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT( /* Base */
-        KC_LSFT, KC_Z, KC_C, KC_X, KC_LEFT, KC_DOWN, KC_RIGHT, KC_UP, KC_ENT, LT(1, KC_ESC)
+        KC_LSFT, KC_Z,  KC_C,  KC_X,    KC_LEFT, KC_DOWN, KC_RIGHT, KC_UP,     KC_ENT, LT(1, KC_ESC)
     ),
     LAYOUT( /* RGB controls */
-        KC_NO, KC_NO, KC_NO, KC_NO, RGB_TOG, RGB_VAD, RGB_MOD, RGB_VAI, KC_NO, KC_NO
+        KC_NO,   KC_NO, KC_NO, KC_NO,   RGB_TOG, RGB_VAD, RGB_MOD,  RGB_VAI,   KC_NO, KC_NO
     )
 };
-
-
-void matrix_init_user(void) { }
