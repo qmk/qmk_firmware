@@ -1,9 +1,11 @@
 # gorthage_truck
 
-*A short description of the keyboard/project*
+A short description of the keyboard/project
+
+This PCB is a drop-in ortholinear replacement for the Garbage Truck keyboard case. It supports 2x3u split bars, 7u, or 10u.
 
 * Keyboard Maintainer: [s8erdude](https://github.com/jpuerto96)
-* Hardware Supported: *Gorthage Truck PCB*
+* Hardware Supported: Gorthage Truck PCB
 * Hardware Availability: [Open Source PCB](https://github.com/jpuerto96/gorthage_truck)
 
 Make example for this keyboard (after setting up your build environment):
