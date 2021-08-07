@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 enum layers {
   _DEFAULT,
-  _LOWER,
   _RAISE,
   _FN
 };
