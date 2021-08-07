@@ -124,7 +124,10 @@ void matrix_scan_user(void) {
     #endif
 uint8_t selected_layer = 0;
 
-    __attribute__ ((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
+__attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (!encoder_update_keymap(index, clockwise)) { return false; }
         if ( clockwise ) {
             if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
                 if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT - 1)) {
