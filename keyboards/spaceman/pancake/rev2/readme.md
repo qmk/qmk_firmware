@@ -2,8 +2,8 @@
 
 Ortho 40% Ortho Keyboard with an OLED Display
 
-Keyboard Maintainer: [Spaceman](https://github.com/Spaceman)
-Hardware Availability: [MKUltra.Click](https://mkultra.click/pancake-2/)
+* Keyboard Maintainer: [Spaceman](https://github.com/Spaceman)
+* Hardware Availability: [MKUltra.Click](https://mkultra.click/pancake-2/)
 
 Make example for this keyboard (after setting up your build environment):
 
