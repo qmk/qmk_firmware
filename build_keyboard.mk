@@ -151,7 +151,7 @@ ifeq ($(strip $(CTPC)), yes)
 endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    include platforms/chibios/QMK_PROTON_C/convert_to_proton_c.mk
+    include platforms/chibios/boards/QMK_PROTON_C/convert_to_proton_c.mk
 endif
 
 include quantum/mcu_selection.mk
