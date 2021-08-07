@@ -5,7 +5,6 @@ enum layers {
   _FN
 };
 
-#define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define FN MO(_FN)
 
@@ -67,4 +66,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
-
