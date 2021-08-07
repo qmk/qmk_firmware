@@ -123,6 +123,16 @@ void oled_dice(int num){
 //
 // DICE ROLLER END
 
+void write_wpm(void){
+	uint8_t n = get_current_wpm();
+    char wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
+    oled_write(wpm_counter, false);
+}
+
 void oled_task_user(void) {
     if (is_keyboard_master()) {
 		render_status();
@@ -131,9 +141,8 @@ void oled_task_user(void) {
 		#ifdef WPM_ENABLE
 		render_wpm_graph();
 		//render_anim();
-        oled_set_cursor(0,6);
-        sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
-        oled_write(wpm_str, false);
+        oled_set_cursor(0,7);
+		write_wpm();
 		
 		#endif
         //render_custom_image();
