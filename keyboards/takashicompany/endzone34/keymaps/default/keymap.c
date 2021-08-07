@@ -97,8 +97,15 @@ void oled_task_user(void) {
     oled_write_ln_P(PSTR(" "), false);
 
     oled_write_ln_P(PSTR("Count"), false);
-    char count_str[24];
-    snprintf(count_str, sizeof(count_str), "%d", press_count);
+    uint16_t m = press_count;
+    char count_str[6];
+    count_str[5] = '\0';
+    count_str[4] = '0' + m % 10;
+    count_str[3] = (m /= 10) % 10 ? '0' + (m) % 10 : (m / 10) % 10 ? '0' : ' ';
+    count_str[2] = (m /= 10) % 10 ? '0' + (m) % 10 : (m / 10) % 10 ? '0' : ' ';
+    count_str[1] = (m /= 10) % 10 ? '0' + (m) % 10 : (m / 10) % 10 ? '0' : ' ';
+    count_str[0] =  m / 10 ? '0' + m / 10 : ' ';
+
     oled_write_ln(count_str, false);
     
 }
