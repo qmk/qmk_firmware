@@ -42,7 +42,7 @@ cal_z_rgb = function gen_rgb_matrix_2(rownum, colnum) {
 	    return gen_rgb_matrix_text
 	}
 
-cal_u_rgb = function gen_rgb_matrix_2(rownum, colnum) {
+cal_u_rgb = function gen_rgb_matrix_2(rownum, colnum, reverse) {
     function get_x(col, colnum){
         var x = 224 / (colnum - 1) * col;
         return Math.round(x);
@@ -55,7 +55,11 @@ cal_u_rgb = function gen_rgb_matrix_2(rownum, colnum) {
     for (var i = 0; i < rownum; i++) {
         var row_rgb_text = new String();
         var yy = get_y(i, rownum).toString();
-        if (i % 2 == 0) {
+        var cnd = 0;
+        if (reverse) {
+            cnd = 1;
+        }
+        if (i % 2 == cnd) {
             for (var j = 0; j < colnum; j++) {
                 var xx = get_x(j, colnum).toString();
                 row_rgb_text += '{' + xx + ',' + yy + '}'
@@ -65,6 +69,93 @@ cal_u_rgb = function gen_rgb_matrix_2(rownum, colnum) {
             }
         } else {
             for (var j = colnum-1; j >= 0; j--) {
+                var xx = get_x(j, colnum).toString();
+                row_rgb_text += '{' + xx + ',' + yy + '}'
+                if (i != rownum -1 | j != 0) {
+                    row_rgb_text += ', ';
+                }
+            }
+        }
+
+        if (i != rownum - 1) {
+            row_rgb_text += '\n';
+        }
+        gen_rgb_matrix_text += row_rgb_text
+    }
+    return gen_rgb_matrix_text
+}
+
+
+cal_u_rgb_sb_l = function gen_rgb_matrix_2(rownum, colnum, reverse) {
+    function get_x(col, colnum){
+        var x = 224 / (colnum - 1) * col;
+        return Math.round(x);
+    }
+    function get_y(row, rownum) {
+        var y =  64 / (rownum - 1) * row;
+        return Math.round(y);
+    }
+    var gen_rgb_matrix_text = new String();
+    for (var i = 0; i < rownum; i++) {
+        var row_rgb_text = new String();
+        var yy = get_y(i, rownum).toString();
+        var cnd = 0;
+        if (reverse) {
+            cnd = 1;
+        }
+        if (i % 2 == cnd) {
+            for (var j = 0; j < colnum/2; j++) {
+                var xx = get_x(j, colnum).toString();
+                row_rgb_text += '{' + xx + ',' + yy + '}'
+                if (i != rownum -1 | j != colnum - 1) {
+                    row_rgb_text += ', ';
+                }
+            }
+        } else {
+            for (var j = colnum/2-1; j >= 0; j--) {
+                var xx = get_x(j, colnum).toString();
+                row_rgb_text += '{' + xx + ',' + yy + '}'
+                if (i != rownum -1 | j != 0) {
+                    row_rgb_text += ', ';
+                }
+            }
+        }
+
+        if (i != rownum - 1) {
+            row_rgb_text += '\n';
+        }
+        gen_rgb_matrix_text += row_rgb_text
+    }
+    return gen_rgb_matrix_text
+}
+
+cal_u_rgb_sb_r = function gen_rgb_matrix_2(rownum, colnum, reverse) {
+    function get_x(col, colnum){
+        var x = 224 / (colnum - 1) * col;
+        return Math.round(x);
+    }
+    function get_y(row, rownum) {
+        var y =  64 / (rownum - 1) * row;
+        return Math.round(y);
+    }
+    var gen_rgb_matrix_text = new String();
+    for (var i = 0; i < rownum; i++) {
+        var row_rgb_text = new String();
+        var yy = get_y(i, rownum).toString();
+        var cnd = 0;
+        if (reverse) {
+            cnd = 1;
+        }
+        if (i % 2 == cnd) {
+            for (var j = colnum/2; j < colnum; j++) {
+                var xx = get_x(j, colnum).toString();
+                row_rgb_text += '{' + xx + ',' + yy + '}'
+                if (i != rownum -1 | j != colnum - 1) {
+                    row_rgb_text += ', ';
+                }
+            }
+        } else {
+            for (var j = colnum-1; j >= colnum/2; j--) {
                 var xx = get_x(j, colnum).toString();
                 row_rgb_text += '{' + xx + ',' + yy + '}'
                 if (i != rownum -1 | j != 0) {
