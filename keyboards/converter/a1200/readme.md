@@ -45,7 +45,7 @@ For first time flashing on the Teensy board, use the reset button to enter in bo
 
 Make example for this keyboard (after setting up your build environment):
 
-    make converter/a1200/teensy:default
+    make converter/a1200/teensy2pp:default
 
 Or:
 
