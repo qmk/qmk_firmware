@@ -1,10 +1,10 @@
 # Undead 60M
 
-![Undead 60M](https://i.imgur.com/0EWBzNt.jpeg)
+![Undead 60M](https://i.imgur.com/0EWBzNth.jpeg)
 
-![Undead 60M](https://i.imgur.com/m8z1kMV.jpeg)
+![Undead 60M](https://i.imgur.com/m8z1kMVh.jpeg)
 
-![Undead 60M](https://i.imgur.com/AZIfVzN.jpeg)
+![Undead 60M](https://i.imgur.com/AZIfVzNh.jpeg)
 
 A 60% PCB with some add-ons
   - RGB Underglow
