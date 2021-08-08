@@ -1,5 +1,3 @@
-#include "undead60m.h"
- 
  /* Copyright 2021 Francisco Escobar
   * 
   * This program is free software: you can redistribute it and/or modify 
