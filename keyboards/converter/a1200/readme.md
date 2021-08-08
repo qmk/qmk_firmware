@@ -25,7 +25,7 @@ Status LEDs: CapsLock +5V
 Pins:        B6       5V    
 ```  
 
-Pins assignment on Atmega32U4 chip:
+Pins assignment MiSS-1200 board (Atmega32u4):
 ```  
 Columns: 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16  
 Pins:    D0 D1 C7 D6 B7 B6 B5 B4 E6 D7 C6 D4 B2 D5 D3 D2 
