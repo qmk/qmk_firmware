@@ -194,6 +194,9 @@ void post_process_record_quantum(keyrecord_t *record) {
     then processes internal quantum keycodes, and then processes
     ACTIONs.                                                      */
 bool process_record_quantum(keyrecord_t *record) {
+#ifdef SWAP_HANDS_ENABLE
+    preprocess_swap_hands(record);
+#endif
     uint16_t keycode = get_record_keycode(record, true);
 
     // This is how you use actions here
@@ -234,6 +237,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef HAPTIC_ENABLE
             process_haptic(keycode, record) &&
+#endif
+#ifdef SWAP_HANDS_ENABLE
+            process_swap_hands(keycode, record) &&
 #endif
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&

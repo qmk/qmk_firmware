@@ -155,6 +155,10 @@ extern layer_state_t layer_state;
 #    include "process_grave_esc.h"
 #endif
 
+#ifdef SWAP_HANDS_ENABLE
+#    include "process_swap_hands.h"
+#endif
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_rgb.h"
 #endif

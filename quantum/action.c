@@ -79,12 +79,6 @@ void action_exec(keyevent_t event) {
         clear_weak_mods();
     }
 
-#ifdef SWAP_HANDS_ENABLE
-    if (!IS_NOEVENT(event)) {
-        process_hand_swap(&event);
-    }
-#endif
-
     keyrecord_t record = {.event = event};
 
 #ifndef NO_ACTION_ONESHOT
@@ -96,11 +90,6 @@ void action_exec(keyevent_t event) {
         if (has_oneshot_mods_timed_out()) {
             clear_oneshot_mods();
         }
-#        ifdef SWAP_HANDS_ENABLE
-        if (has_oneshot_swaphands_timed_out()) {
-            clear_oneshot_swaphands();
-        }
-#        endif
 #    endif
     }
 #endif
@@ -120,31 +109,6 @@ void action_exec(keyevent_t event) {
     }
 #endif
 }
-
-#ifdef SWAP_HANDS_ENABLE
-bool swap_hands = false;
-bool swap_held  = false;
-
-/** \brief Process Hand Swap
- *
- * FIXME: Needs documentation.
- */
-void process_hand_swap(keyevent_t *event) {
-    static swap_state_row_t swap_state[MATRIX_ROWS];
-
-    keypos_t         pos     = event->key;
-    swap_state_row_t col_bit = (swap_state_row_t)1 << pos.col;
-    bool             do_swap = event->pressed ? swap_hands : swap_state[pos.row] & (col_bit);
-
-    if (do_swap) {
-        event->key.row = pgm_read_byte(&hand_swap_config[pos.row][pos.col].row);
-        event->key.col = pgm_read_byte(&hand_swap_config[pos.row][pos.col].col);
-        swap_state[pos.row] |= col_bit;
-    } else {
-        swap_state[pos.row] &= ~(col_bit);
-    }
-}
-#endif
 
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
 bool disable_action_cache = false;
@@ -171,18 +135,8 @@ void process_record_tap_hint(keyrecord_t *record) {
     action_t action = layer_switch_get_action(record->event.key);
 
     switch (action.kind.id) {
-#    ifdef SWAP_HANDS_ENABLE
-        case ACT_SWAP_HANDS:
-            switch (action.swap.code) {
-                case OP_SH_ONESHOT:
-                    break;
-                case OP_SH_TAP_TOGGLE:
-                default:
-                    swap_hands = !swap_hands;
-                    swap_held  = true;
-            }
+        default:
             break;
-#    endif
     }
 }
 #endif
@@ -259,11 +213,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
-    if (is_oneshot_layer_active() && event.pressed && (action.kind.id == ACT_USAGE || !IS_MOD(action.key.code))
-#    ifdef SWAP_HANDS_ENABLE
-        && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
-#    endif
-        && !keymap_config.oneshot_disable) {
+    if (is_oneshot_layer_active() && event.pressed && (action.kind.id == ACT_USAGE || !IS_MOD(action.key.code)) && !keymap_config.oneshot_disable) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         do_release_oneshot = !is_oneshot_layer_active();
     }
@@ -631,79 +581,6 @@ void process_action(keyrecord_t *record, action_t action) {
             action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
 #endif
-#ifdef SWAP_HANDS_ENABLE
-        case ACT_SWAP_HANDS:
-            switch (action.swap.code) {
-                case OP_SH_TOGGLE:
-                    if (event.pressed) {
-                        swap_hands = !swap_hands;
-                    }
-                    break;
-                case OP_SH_ON_OFF:
-                    swap_hands = event.pressed;
-                    break;
-                case OP_SH_OFF_ON:
-                    swap_hands = !event.pressed;
-                    break;
-                case OP_SH_ON:
-                    if (!event.pressed) {
-                        swap_hands = true;
-                    }
-                    break;
-                case OP_SH_OFF:
-                    if (!event.pressed) {
-                        swap_hands = false;
-                    }
-                    break;
-#    ifndef NO_ACTION_ONESHOT
-                case OP_SH_ONESHOT:
-                    if (event.pressed) {
-                        set_oneshot_swaphands();
-                    } else {
-                        release_oneshot_swaphands();
-                    }
-                    break;
-#    endif
-
-#    ifndef NO_ACTION_TAPPING
-                case OP_SH_TAP_TOGGLE:
-                    /* tap toggle */
-
-                    if (event.pressed) {
-                        if (swap_held) {
-                            swap_held = false;
-                        } else {
-                            swap_hands = !swap_hands;
-                        }
-                    } else {
-                        if (tap_count < TAPPING_TOGGLE) {
-                            swap_hands = !swap_hands;
-                        }
-                    }
-                    break;
-                default:
-                    /* tap key */
-                    if (tap_count > 0) {
-                        if (swap_held) {
-                            swap_hands = !swap_hands;  // undo hold set up in _tap_hint
-                            swap_held  = false;
-                        }
-                        if (event.pressed) {
-                            register_code(action.swap.code);
-                        } else {
-                            wait_ms(TAP_CODE_DELAY);
-                            unregister_code(action.swap.code);
-                            *record = (keyrecord_t){};  // hack: reset tap mode
-                        }
-                    } else {
-                        if (swap_held && !event.pressed) {
-                            swap_hands = !swap_hands;  // undo hold set up in _tap_hint
-                            swap_held  = false;
-                        }
-                    }
-#    endif
-            }
-#endif
 #ifndef NO_ACTION_FUNCTION
         case ACT_FUNCTION:
             action_function(record, action.func.id, action.func.opt);
@@ -752,14 +629,6 @@ void process_action(keyrecord_t *record, action_t action) {
                 retro_tapping_counter = 0;
             }
         }
-    }
-#    endif
-#endif
-
-#ifdef SWAP_HANDS_ENABLE
-#    ifndef NO_ACTION_ONESHOT
-    if (event.pressed && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)) {
-        use_oneshot_swaphands();
     }
 #    endif
 #endif
@@ -1084,13 +953,6 @@ bool is_tap_action(action_t action) {
                     return true;
             }
             return false;
-        case ACT_SWAP_HANDS:
-            switch (action.swap.code) {
-                case KC_NO ... KC_RIGHT_GUI:
-                case OP_SH_TAP_TOGGLE:
-                    return true;
-            }
-            return false;
         case ACT_MACRO:
         case ACT_FUNCTION:
             if (action.func.opt & FUNC_TAP) {
@@ -1158,9 +1020,6 @@ void debug_action(action_t action) {
             break;
         case ACT_FUNCTION:
             dprint("ACT_FUNCTION");
-            break;
-        case ACT_SWAP_HANDS:
-            dprint("ACT_SWAP_HANDS");
             break;
         default:
             dprint("UNKNOWN");

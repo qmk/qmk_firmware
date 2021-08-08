@@ -48,9 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * ACT_MOUSEKEY(0101): TODO: Merge these two actions to conserve space?
  * 0101|xxxx| keycode     Mouse key
  *
- * ACT_SWAP_HANDS(0110):
- * 0110|xxxx| keycode     Swap hands (keycode on tap, or options)
- *
  * 0111|xxxx xxxx xxxx    (reserved)
  *
  * Layer Actions(10xx)
@@ -104,8 +101,6 @@ enum action_kind_id {
     /* Other Keys */
     ACT_USAGE    = 0b0100,
     ACT_MOUSEKEY = 0b0101,
-    /* One-hand Support */
-    ACT_SWAP_HANDS = 0b0110,
     /* Layer Actions */
     ACT_LAYER         = 0b1000,
     ACT_LAYER_MODS    = 0b1001,
@@ -169,11 +164,6 @@ typedef union {
         uint8_t opt : 4;
         uint8_t kind : 4;
     } func;
-    struct action_swap {
-        uint8_t code : 8;
-        uint8_t opt : 4;
-        uint8_t kind : 4;
-    } swap;
 } action_t;
 
 /* action utility */
@@ -286,23 +276,3 @@ enum function_opts {
 #define ACTION_FUNCTION(id) ACTION(ACT_FUNCTION, (id))
 #define ACTION_FUNCTION_TAP(id) ACTION(ACT_FUNCTION, FUNC_TAP << 8 | (id))
 #define ACTION_FUNCTION_OPT(id, opt) ACTION(ACT_FUNCTION, (opt) << 8 | (id))
-/* OneHand Support */
-enum swap_hands_param_tap_op {
-    OP_SH_TOGGLE = 0xF0,
-    OP_SH_TAP_TOGGLE,
-    OP_SH_ON_OFF,
-    OP_SH_OFF_ON,
-    OP_SH_OFF,
-    OP_SH_ON,
-    OP_SH_ONESHOT,
-};
-
-#define ACTION_SWAP_HANDS() ACTION_SWAP_HANDS_ON_OFF()
-#define ACTION_SWAP_HANDS_TOGGLE() ACTION(ACT_SWAP_HANDS, OP_SH_TOGGLE)
-#define ACTION_SWAP_HANDS_TAP_TOGGLE() ACTION(ACT_SWAP_HANDS, OP_SH_TAP_TOGGLE)
-#define ACTION_SWAP_HANDS_ONESHOT() ACTION(ACT_SWAP_HANDS, OP_SH_ONESHOT)
-#define ACTION_SWAP_HANDS_TAP_KEY(key) ACTION(ACT_SWAP_HANDS, key)
-#define ACTION_SWAP_HANDS_ON_OFF() ACTION(ACT_SWAP_HANDS, OP_SH_ON_OFF)
-#define ACTION_SWAP_HANDS_OFF_ON() ACTION(ACT_SWAP_HANDS, OP_SH_OFF_ON)
-#define ACTION_SWAP_HANDS_ON() ACTION(ACT_SWAP_HANDS, OP_SH_ON)
-#define ACTION_SWAP_HANDS_OFF() ACTION(ACT_SWAP_HANDS, OP_SH_OFF)

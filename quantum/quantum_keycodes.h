@@ -850,6 +850,15 @@ enum quantum_keycodes {
 #define UC_M_WC UNICODE_MODE_WINC
 
 // Swap Hands
+enum swap_hands_param_tap_op {
+    OP_SH_TOGGLE = 0xF0,
+    OP_SH_TAP_TOGGLE,
+    OP_SH_ON_OFF,
+    OP_SH_OFF_ON,
+    OP_SH_OFF,
+    OP_SH_ON,
+    OP_SH_ONESHOT,
+};
 #define SH_T(kc) (QK_SWAP_HANDS | (kc))
 #define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
 #define SH_TT (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)

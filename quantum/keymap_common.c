@@ -152,11 +152,6 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_MODS_TAP_KEY(mod, keycode & 0xFF);
             break;
 #endif
-#ifdef SWAP_HANDS_ENABLE
-        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
-            action.code = ACTION(ACT_SWAP_HANDS, keycode & 0xff);
-            break;
-#endif
 
         default:
             action.code = ACTION_NO;
