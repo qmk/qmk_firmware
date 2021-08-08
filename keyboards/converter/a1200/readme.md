@@ -1,6 +1,9 @@
 # Amiga 1200 Keyboard Converter
 
-Modification of the Model-M 101 membrane adapter (converter/modelm101) to work with Amiga 1200 keyboard (and possibly Amiga 500/600 too). It would be very convenient to manufacture a small PCB adapter to make easier the task of connecting the keyboard membrane and the Teensy 2.0++ board.
+Modification of the Model-M 101 membrane adapter (converter/modelm101) to work with Amiga 1200 keyboard (and possibly Amiga 500/600 too). 
+
+A small PCB adapter is needed for connecting the keyboard membrane to the Teensy 2.0++ board. A very simple example of such a board can be seen here:
+https://github.com/8bits4ever/A1200-Keyboard-Adapter
 
 This adapter is meant to allow using the original Amiga keyboard as a USB input device, either with a desktop PC or a R-Pi/FPGA board hosted inside the Amiga case.
 
@@ -18,8 +21,6 @@ Pins: F0 F1 F2 F3 F4 F5 F6 F7
 Status LEDs: CapsLock +5V   
 Pins:        B6       5V    
 ```  
-
-Please note that some versions of Model M have LED connected with a ribbon cable, and not with separate wires.  
 
 * Keyboard Maintainer: [8bits4ever](https://github.com/8bits4ever)
 * Hardware Supported: Teensy 2.0++ board by PJRC
