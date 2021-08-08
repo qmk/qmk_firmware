@@ -1,7 +1,7 @@
 # Amiga 1200 Keyboard Converter
 
 Modification of the Model-M 101 membrane adapter (converter/modelm101) to work with Amiga 1200 keyboard (and possibly Amiga 500/600 too). 
-The adapter is meant to allow using the original Amiga keyboard as a USB input device, either with a desktop PC or a R-Pi/FPGA board hosted inside the Amiga case.
+The adapter allows using the original Amiga keyboard as a USB input device, either with a desktop PC or a R-Pi/FPGA board hosted inside the Amiga case.
 
 Available for two micros: AT90USB1286 (Teensy 2++ board), and Atmega32u4 (MiSS-1200 FPGA board).
 
