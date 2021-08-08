@@ -1,6 +1,9 @@
 # rhino
 
-*A short description of the keyboard/project*
+Rhino is a 50 percent keyboard taking inspiration from the Boardwalk keyboard. It supports some of the layouts the bordwalk does, but in a smaller form factor. The number row is removed and replaced with through hole components.
+
+![OqCJZWa](https://user-images.githubusercontent.com/18534308/128641743-7b021e48-0b95-4473-b5fc-a3249b3ced44.jpeg)
+
 
 * Keyboard Maintainer: [Christian Sandven](https://github.com/csandven)
 * Hardware Supported: *Pro micro compatible boards*
