@@ -25,6 +25,18 @@ Status LEDs: CapsLock +5V
 Pins:        B6       5V    
 ```  
 
+Pins assignment on Atmega32U4 chip:
+```  
+Columns: 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16  
+Pins:    D0 D1 C7 D6 B7 B6 B5 B4 E6 D7 C6 D4 B2 D5 D3 D2 
+--------------------------------------------------------  
+Rows: 1  2  3  4  5  6  7  8  
+Pins: F7 F6 F5 F4 F1 F0 B1 B3  
+--------------------------------------------------------  
+Status LEDs: CapsLock +5V   
+Pins:        B0       5V    
+```  
+
 * Keyboard Maintainer: [8bits4ever](https://github.com/8bits4ever)
 * Hardware Supported: Teensy 2.0++ board by PJRC, MiSS-1200 FPGA by 8bits4ever
 * Hardware Availability: https://www.pjrc.com/store/teensypp.html
