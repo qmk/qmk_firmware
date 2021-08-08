@@ -5,7 +5,7 @@ The adapter is meant to allow using the original Amiga keyboard as a USB input d
 
 Available for two micros: AT90USB1286 (Teensy 2++ board), and Atmega32u4 (MiSS-1200 FPGA board).
 
-A small PCB adapter is needed for connecting the keyboard membrane to the Teensy 2.0++ board. A very simple example of such a board can be seen here:
+A small PCB adapter is needed for connecting the keyboard membrane to the Teensy 2.0++ board. A very simple example of such a board is available here:
 https://github.com/8bits4ever/A1200-Keyboard-Adapter
 
 The MiSS-1200 board features a dedicated connector for the Amiga 1200 membrane keyboard.
