@@ -1,13 +1,16 @@
 # Amiga 1200 Keyboard Converter
 
 Modification of the Model-M 101 membrane adapter (converter/modelm101) to work with Amiga 1200 keyboard (and possibly Amiga 500/600 too). 
+The adapter is meant to allow using the original Amiga keyboard as a USB input device, either with a desktop PC or a R-Pi/FPGA board hosted inside the Amiga case.
+
+This firmware is available for two micros: AT90USB1286 (Teensy 2++ board), and Atmega32u4 (MiSS-1200 FPGA board).
 
 A small PCB adapter is needed for connecting the keyboard membrane to the Teensy 2.0++ board. A very simple example of such a board can be seen here:
 https://github.com/8bits4ever/A1200-Keyboard-Adapter
 
-This adapter is meant to allow using the original Amiga keyboard as a USB input device, either with a desktop PC or a R-Pi/FPGA board hosted inside the Amiga case.
+The MiSS-1200 board features a connector for the Amiga 1200 membrane keyboard.
 
-Files have been modified in accordance to fit Amiga keyboard layout and features. A second layer has been implemented (momentary toggle "Help" key) to access unexistent keys (like F11 and F12). This is a work in progress.
+Files have been modified in accordance to the Amiga keyboard layout and features. A second layer has been implemented (momentary toggle "Help" key) to access unexistent keys (like F11 and F12). This is a work in progress.
 
 
 Pins of the Teensy board you should use by default:
@@ -23,10 +26,10 @@ Pins:        B6       5V
 ```  
 
 * Keyboard Maintainer: [8bits4ever](https://github.com/8bits4ever)
-* Hardware Supported: Teensy 2.0++ board by PJRC
+* Hardware Supported: Teensy 2.0++ board by PJRC, MiSS-1200 FPGA by 8bits4ever
 * Hardware Availability: https://www.pjrc.com/store/teensypp.html
 
-For first time flashing use the reset button on the Teensy board enter in bootloader mode. Once the board is flashed you can use "HELP"+"R" on the Amiga keyboard for the same purpose.  
+For first time flashing on the Teensy board, use the reset button to enter in bootloader mode. Once the board is flashed you can use "HELP"+"R" on the Amiga keyboard for reflashing.  
 
 Make example for this keyboard (after setting up your build environment):
 
