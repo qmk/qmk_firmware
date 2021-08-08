@@ -13,9 +13,9 @@
   * You should have received a copy of the GNU General Public License 
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
   */ 
-#include "LS_60.h"
+#include "ls_60.h"
 
-```suggestion
+
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
 
