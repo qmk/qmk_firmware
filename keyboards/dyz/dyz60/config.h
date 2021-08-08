@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    dyz
 #define PRODUCT         dyz60
-#define DESCRIPTION     60% with flexcut and multiple mounts support
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -49,10 +48,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN B7
-#define RGBLIGHT_ANIMATIONS
-// #define RGBLED_NUM 19
-// #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLED_NUM 16
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_RGB_TEST
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -66,11 +68,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAP_CODE_DELAY 10 // Need this delay for some keys like VOLD/VOLU to work
 #define ENCODERS_PAD_A { D0 }
 #define ENCODERS_PAD_B { D1 }
-
-// python3 util/vial_generate_keyboard_uid.py
-#define VIAL_KEYBOARD_UID {0xBF, 0x0D, 0x8D, 0xDF, 0xDB, 0x11, 0x0C, 0xA5}
-// encoder per layers
-#define VIAL_ENCODER_DEFAULT { KC_VOLD, KC_VOLU, KC_LEFT, KC_RIGHT, KC_TRNS, KC_TRNS }
-#define VIAL_ENCODER_KEYCODE_DELAY 10
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
