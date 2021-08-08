@@ -16,7 +16,7 @@
 
 
 #include QMK_KEYBOARD_H
-#include <jonavin.h>
+#include "jonavin.h"
 
 #ifdef RGBLIGHT_ENABLE
     // Custom RGB Colours
