@@ -202,8 +202,12 @@ void mouse_report_parser(hid_report_member_t const *member, uint8_t const *data,
       result.h = val;
       break;
 
+    case 0xFF000000: // SlimBlade, Button 3,4
+      result.button |= (val << ((bit_idx_cur + 2) & 0x0F));
+      break;
+
     default:
-      result.undefined = val;
+      result.undefined |= (val << (bit_idx_cur & 0x0F));
       break;
     }
 
