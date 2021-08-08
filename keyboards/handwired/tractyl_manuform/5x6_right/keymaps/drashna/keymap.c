@@ -140,9 +140,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        tap_code_delay(clockwise ? KC_VOLU : KC_VOLD, 5);
+        tap_code_delay(clockwise ? KC_VOLD : KC_VOLU, 5);
     } else if (index == 1) {
-        tap_code_delay(clockwise ? KC_WH_U : KC_WH_D, 5);
+        tap_code_delay(clockwise ? KC_WH_D : KC_WH_U, 5);
     }
     return false;
 }
@@ -155,26 +155,29 @@ static uint16_t mouse_debounce_timer  = 0;
 static uint8_t  mouse_keycode_tracker = 0;
 bool            tap_toggling          = false;
 
+#    ifdef TAPPING_TERM_PER_KEY
+#        define TAP_CHECK get_tapping_term(KC_BTN1, NULL)
+#    else
+#        ifndef TAPPING_TERM
+#            define TAPPING_TERM 200
+#        endif
+#        define TAP_CHECK TAPPING_TERM
+#    endif
+
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
-    if ((x || y) && timer_elapsed(mouse_timer) > 125) {
+    if (x != 0 && y != 0) {
         mouse_timer = timer_read();
-        if (!layer_state_is(_MOUSE) && !(layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO)) && timer_elapsed(mouse_debounce_timer) > 125) {
-            layer_on(_MOUSE);
+#    ifdef OLED_DRIVER_ENABLE
+        oled_timer = timer_read32();
+#    endif
+        if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
+            mouse_report->x = x;
+            mouse_report->y = y;
+            if (!layer_state_is(_MOUSE)) {
+                layer_on(_MOUSE);
+            }
         }
     }
-
-#    ifdef TAPPING_TERM_PER_KEY
-    if (timer_elapsed(mouse_debounce_timer) > get_tapping_term(KC_BTN1, NULL)
-#    else
-    if (timer_elapsed(mouse_debounce_timer) > TAPPING_TERM
-#    endif
-        || (layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO))) {
-        mouse_report->x = x;
-        mouse_report->y = y;
-    }
-#    ifdef OLED_DRIVER_ENABLE
-    if (x || y) oled_timer = timer_read32();
-#    endif
 }
 
 void matrix_scan_keymap(void) {
@@ -191,26 +194,29 @@ void matrix_scan_keymap(void) {
 bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case TT(_MOUSE):
-            {
-                if (record->event.pressed) {
-                    mouse_keycode_tracker++;
-                } else {
+            if (record->event.pressed) {
+                mouse_keycode_tracker++;
+            } else {
 #    if TAPPING_TOGGLE != 0
-                    if (record->tap.count == TAPPING_TOGGLE) {
-                        tap_toggling ^= 1;
+                if (record->tap.count == TAPPING_TOGGLE) {
+                    tap_toggling ^= 1;
 #        if TAPPING_TOGGLE == 1
-                        if (!tap_toggling) mouse_keycode_tracker -= record->tap.count + 1;
+                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count + 1;
 #        else
-                        if (!tap_toggling) mouse_keycode_tracker -= record->tap.count;
+                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count;
 #        endif
-                    } else {
-                        mouse_keycode_tracker--;
-                    }
-#    endif
+                } else {
+                    mouse_keycode_tracker--;
                 }
-                mouse_timer = timer_read();
-                break;
+#    endif
             }
+            mouse_timer = timer_read();
+            break;
+        case TG(_MOUSE):
+            if (record->event.pressed) {
+                tap_toggling ^= 1;
+            }
+            break;
         case MO(_MOUSE):
         case DPI_CONFIG:
         case KC_MS_UP ... KC_MS_WH_RIGHT:
@@ -219,6 +225,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
             break;
         default:
             if (IS_NOEVENT(record->event)) break;
+            if ((keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) && (((keycode >> 0x8) & 0xF) == _MOUSE)) {
+                record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
+                mouse_timer = timer_read();
+                break;
+            }
             if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
                 layer_off(_MOUSE);
             }
