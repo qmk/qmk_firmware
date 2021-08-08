@@ -36,13 +36,13 @@ __attribute__((weak)) void oled_task_user(void) {
     oled_write_P(PSTR("\nLAYER\n-----\n"), false);
 
     switch (get_highest_layer(layer_state)) {
-        case _DEFAULT:
+        case 0:
             oled_write_P(PSTR("DEFLT\n"), false);
             break;
-        case _FN:
+        case 2:
             oled_write_P(PSTR("FUNCT\n"), false);
             break;
-        case _RAISE:
+        case 1:
             oled_write_P(PSTR("RAISE\n"), false);
             break;
         default:
