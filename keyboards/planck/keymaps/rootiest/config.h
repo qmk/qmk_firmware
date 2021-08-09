@@ -57,9 +57,6 @@
 */
 #define MIDI_ADVANCED
 
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 2
-
 /*
  * ENCODER options
  */
