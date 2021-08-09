@@ -17,7 +17,7 @@
     "DEVICE_VER": {"info_key": "usb.device_ver", "value_type": "hex"},
     "DESCRIPTION": {"info_key": "keyboard_folder", "to_json": false},
     "DIODE_DIRECTION": {"info_key": "diode_direction"},
-    "FORCE_NKRO": {"info_key": "features.force_nkro", "value_type": "bool"},
+    "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "bool"},
     "IGNORE_MOD_TAP_INTERRUPT": {"info_key": "tapping.ignore_mod_tap_interrupt", "value_type": "bool"},
     "IGNORE_MOD_TAP_INTERRUPT_PER_KEY": {"info_key": "tapping.ignore_mod_tap_interrupt_per_key", "value_type": "bool"},
     "LAYOUTS": {"info_key": "layout_aliases", "value_type": "mapping"},

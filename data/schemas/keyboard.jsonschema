@@ -322,6 +322,7 @@
             "additionalProperties": false,
             "properties": {
                 "device_ver": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
+                "force_nkro": {"type": "boolean"},
                 "pid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
                 "vid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
                 "max_power": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
