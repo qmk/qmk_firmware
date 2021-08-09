@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "platform.h"
+#include "platform_deps.h"
 
 void platform_setup(void) {
     // do nothing
