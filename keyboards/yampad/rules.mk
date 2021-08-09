@@ -21,4 +21,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 OLED_DRIVER_ENABLE = yes
-DEBOUNCE_TYPE = eager_pk
+DEBOUNCE_TYPE = sym_eager_pk

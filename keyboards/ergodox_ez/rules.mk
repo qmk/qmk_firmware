@@ -25,7 +25,7 @@ SLEEP_LED_ENABLE = no
 
 RGB_MATRIX_ENABLE = no # enable later
 RGB_MATRIX_DRIVER = IS31FL3731
-DEBOUNCE_TYPE = eager_pr
+DEBOUNCE_TYPE = sym_eager_pr
 
 # project specific files
 SRC += matrix.c \
