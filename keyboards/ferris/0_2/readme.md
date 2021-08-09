@@ -2,7 +2,7 @@
 
 ![Ferris 0.2 family](https://i.imgur.com/SDVOlyZ.jpg)
 
-An stm32f072 based split 34 keys column staggered keyboard named and decorated after the rustlang mascott. All PCB files and some thoughts on the design are available on the [project's github page](https://github.com/pierrechevalier83/ferris)
+An STM32F072-based split 34-key column-staggered keyboard named and decorated after the Rust mascot. All PCB files and some thoughts on the design are available on the [project's github page](https://github.com/pierrechevalier83/ferris).
 
 * Keyboard Maintainer: [Pierre Chevalier](https://github.com/pierrechevalier83)
 * Hardware Supported:
