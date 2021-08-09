@@ -18,7 +18,7 @@
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-#include <jonavin.h>
+#include "jonavin.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_all(
