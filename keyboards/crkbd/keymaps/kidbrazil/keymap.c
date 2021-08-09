@@ -54,7 +54,7 @@ void keyboard_post_init_user(void) {
     // Set RGB to known state
     rgb_matrix_enable_noeeprom();
     rgb_matrix_set_color_all(RGB_GREEN);
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
     user_led_enabled = true;
 }
 // [Process User Input] ------------------------------------------------------//
