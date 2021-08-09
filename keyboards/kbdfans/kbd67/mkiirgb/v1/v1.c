@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-#include "mkiirgb.h"
+
+#include "v1.h"
 #ifdef RGB_MATRIX_ENABLE
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 	
 	{0, C8_8,  C7_8, C6_8},   // LA17
 	{0, C9_8,  C7_7, C6_7},   // LA16
@@ -112,22 +112,11 @@ led_config_t g_led_config = { {
     1, 1, 1, 4, 1, 1, 1, 1, 1
 } };
 
-void suspend_power_down_kb(void)
-{
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void)
-{
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 
 __attribute__ ((weak))
 void rgb_matrix_indicators_user(void)
 {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK))
+    if (host_keyboard_led_state().caps_lock)
     {
         rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
     }
