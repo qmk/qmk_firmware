@@ -74,12 +74,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
         #define DYNAMIC_KEYMAP_LAYER_COUNT 4  //default in case this is not already defined elsewhere
     #endif
+    #ifndef ENCODER_DEFAULT_INDEX
+        #define ENCODER_DEFAULTACTIONS_INDEX 0  // can select encoder index if there are multiple encoders
+    #endif
+
 uint8_t selected_layer = 0;
 
 __attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (!encoder_update_keymap(index, clockwise)) { return false; }
+    if (index != ENCODER_DEFAULTACTIONS_INDEX) {return true;}  // exit if the index doesn't match
         if ( clockwise ) {
             if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
                 if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT - 1)) {
