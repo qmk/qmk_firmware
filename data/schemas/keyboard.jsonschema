@@ -263,7 +263,7 @@
                         }
                     }
                 },
-                "primary": {
+                "main": {
                     "type": "string",
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
                 },
