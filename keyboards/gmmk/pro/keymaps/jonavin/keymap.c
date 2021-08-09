@@ -69,23 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    // process_record_user() moved to userspace
-    return true;
-}
-
-void matrix_scan_keymap(void) {
-    // matrix_scan_user() moved to userspace
-};
-
-
-#ifdef ENCODER_ENABLE       // Encoder Functionality
-    bool encoder_update_keymap(uint8_t index, bool clockwise) {
-        // encoder_update_user() moved to userspace
-        return true;
-    }
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
     void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
