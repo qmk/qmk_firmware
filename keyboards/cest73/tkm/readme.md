@@ -5,7 +5,7 @@
 Another take on left side numpad and this time mirrored too for the ever more spacious mouse playground.
 
 Keyboard Maintainer: cest73 (aka fire-h0und)
-Hardware Supported: TKM-2021 (nultiple layouts and switch options)
+Hardware Supported: TKM-2021 (multiple layouts and switch options including ALPS, ISO and BAE)
 Hardware Availability: DIY
 
 Make example for this keyboard (after setting up your build environment):
