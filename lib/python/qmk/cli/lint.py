@@ -44,7 +44,7 @@ def lint(cli):
         cli.log.error('Warnings found when generating info.json (Strict mode enabled.)')
 
     # Check for a readme.md and warn if it doesn't exist
-    if not readme_path.exists():
+    if not readme_path:
         ok = False
         cli.log.error('Missing %s', missing_readme_path)
 
