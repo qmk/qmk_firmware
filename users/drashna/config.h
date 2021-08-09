@@ -182,8 +182,6 @@
 #    define TAPPING_TERM_PER_KEY
 #endif
 
-#define FORCE_NKRO
-
 #ifndef TAPPING_TOGGLE
 #    define TAPPING_TOGGLE 1
 #endif
