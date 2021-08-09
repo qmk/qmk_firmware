@@ -3,7 +3,7 @@
 Modification of the Model-M 101 membrane adapter (converter/modelm101) to work with Amiga 1200 keyboard (and possibly Amiga 500/600 too). 
 The adapter allows using the original Amiga keyboard as a USB input device, either with a desktop PC or a R-Pi/FPGA board hosted inside the Amiga case.
 
-Available for two micros: AT90USB1286 (Teensy 2++ board), and Atmega32u4 (MiSS-1200 FPGA board).
+Available for two micros: AT90USB1286 (Teensy 2++ board), and ATmega32u4 (MiSS-1200 FPGA board).
 
 A small PCB adapter is needed for connecting the keyboard membrane to the Teensy 2.0++ board. A very simple example of such a board is available here:
 https://github.com/8bits4ever/A1200-Keyboard-Adapter
@@ -25,7 +25,7 @@ Status LEDs: CapsLock +5V
 Pins:        B6       5V    
 ```  
 
-Pins assignment MiSS-1200 board (Atmega32u4):
+Pins assignment MiSS-1200 board (ATmega32u4):
 ```  
 Columns: 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16  
 Pins:    D0 D1 C7 D6 B7 B6 B5 B4 E6 D7 C6 D4 B2 D5 D3 D2 
