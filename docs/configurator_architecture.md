@@ -28,7 +28,7 @@ The Keyboard Metadata is generated every time a keyboard in [qmk_firmware](https
 
 Address: <http://api.qmk.fm>
 
-The QMK API accepts `keymap.json` files for compilation. These are the same files you can use directly with `qmk compile` and `qmk flash`. When a `keymap.json` is submitted the browser will poll the status of the job periodically (every 2 seconds or longer, perferably) until the job has completed. The final status JSON will contain pointers to source and binary downloads for the keymap.
+The QMK API accepts `keymap.json` files for compilation. These are the same files you can use directly with `qmk compile` and `qmk flash`. When a `keymap.json` is submitted the browser will poll the status of the job periodically (every 2 seconds or longer, preferably) until the job has completed. The final status JSON will contain pointers to source and binary downloads for the keymap.
 
 QMK API always presents the source and binary downloads side-by-side to comply with the GPL.
 
@@ -40,7 +40,7 @@ There are 3 non-error status responses from the API-
 
 ### Compile Job Queued
 
-This status indicates that the job has not yet been picked up by a [QMK Compiler](#QMK_Compiler) node. Configurator shows this status as "Waiting for an oven".
+This status indicates that the job has not yet been picked up by a [QMK Compiler](#qmk-compiler) node. Configurator shows this status as "Waiting for an oven".
 
 ### Compile Job Running
 
@@ -52,7 +52,7 @@ This status indicates that the job has completed. There will be keys in the stat
 
 ## Redis/RQ
 
-QMK API uses RQ to distribute jobs to the available [QMK Compiler](#QMK_Compiler) nodes. When a `keymap.json` is received it's put into the RQ queue, where a `qmk_compiler` node will pick it up from.
+QMK API uses RQ to distribute jobs to the available [QMK Compiler](#qmk-compiler) nodes. When a `keymap.json` is received it's put into the RQ queue, where a `qmk_compiler` node will pick it up from.
 
 ## QMK Compiler
 
