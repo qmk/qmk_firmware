@@ -167,9 +167,9 @@ void render_mod_status(uint8_t modifiers) {
 #endif
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_LALT)));
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_LCTL)));
-
-//    render_matrix_scan_rate();
-#if defined(OLED_DISPLAY_128X64)
+#if !defined(OLED_DISPLAY_128X64)
+    oled_write_P(PSTR(" "), false);
+#endif
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_RCTL)));
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_RALT)));
 #    if !defined(OLED_DISPLAY_128X64)
@@ -177,7 +177,6 @@ void render_mod_status(uint8_t modifiers) {
 #    endif
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_RGUI)));
     oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSHIFT)));
-#endif
 }
 
 #ifdef SWAP_HANDS_ENABLE
