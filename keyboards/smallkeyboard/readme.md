@@ -2,9 +2,10 @@
 
 ![](https://github.com/zhouqiong19840119/MacroKeyboard-little/blob/main/Small%20(1).jpg)
 
-* Keyboard Maintainer: zhouqiong19840119
+* Keyboard Maintainer: [zhouqiong19840119](https://github.com/zhouqiong19840119)
 * Hardware Availability: 
-* Make example for this keyboard (after setting up your build environment):
+
+Make example for this keyboard (after setting up your build environment):
 
     make smallkeyboard:default
 
