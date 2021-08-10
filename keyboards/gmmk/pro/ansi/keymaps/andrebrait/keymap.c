@@ -70,22 +70,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-/* Flag to indicate that the RGB Matrix is only ON because we need it for CAPS LOCK */
-bool rgb_matrix_turned_on_by_caps = false;
-
-bool led_update_user(led_t led_state) {
-    if (led_state.caps_lock) {
-        if (!rgb_matrix_is_enabled()) {
-            /* Turn ON the RGB Matrix for CAPS LOCK */
-            rgb_matrix_turned_on_by_caps = true;
-            rgb_matrix_enable_noeeprom();
-        }
-    } else if (rgb_matrix_turned_on_by_caps) {
-        /* RGB Matrix was only ON because of CAPS LOCK. Turn it OFF. */
-        rgb_matrix_turned_on_by_caps = false;
-        rgb_matrix_disable_noeeprom();
+void keyboard_post_init_user(void) {
+    /*
+    Custom handling of RGB_TOG means it is impossible to toggle the RGB Matrix on and off and we
+    need it to be enabled for the CAPS LOCK indicator to work, so enable it and then make sure it
+    gets persisted to the EEPROM.
+     */
+    if (!rgb_matrix_is_enabled()) {
+        rgb_matrix_enable_noeeprom();
+        eeconfig_update_rgb_matrix();
     }
-    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -101,39 +95,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_SPI:
         case RGB_SPD:
             if (record->event.pressed) {
-                if (rgb_matrix_turned_on_by_caps) {
-                    /*
-                    Prevent changes to the RGB Matrix settings while it's supposed to be OFF.
-                    Returning true will also persist the current state to EEPROM and we don't want
-                    that when the RGB Matrix is only ON because of CAPS LOCK.
-                    */
+                if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+                    /* Ignore changes to RGB settings while only using it for CAPS LOCK */
                     return false;
                 }
             }
             break;
         case RGB_TOG:
             if (record->event.pressed) {
-                if (rgb_matrix_is_enabled()) {
-                    if (rgb_matrix_turned_on_by_caps) {
-                        /*
-                        Transitioning (fake) OFF -> (real) ON.
-                        Persist current state to EEPROM (it's already ON)
-                        */
-                        rgb_matrix_turned_on_by_caps = false;
-                        eeconfig_update_rgb_matrix();
-                        return false;
-                    } else if (host_keyboard_led_state().caps_lock) {
-                        /*
-                        Transitioning (real) ON -> (fake) OFF.
-                        Persist OFF to EEPROM but keep it ON
-                        */
-                        rgb_matrix_turned_on_by_caps = true;
-                        rgb_matrix_disable_noeeprom();
-                        eeconfig_update_rgb_matrix();
-                        rgb_matrix_enable_noeeprom();
-                        return false;
-                    }
+                if (rgb_matrix_get_flags() == LED_FLAG_ALL) {
+                    rgb_matrix_set_flags(LED_FLAG_NONE);
+                } else {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
                 }
+                eeconfig_update_rgb_matrix();
+                return false;
             }
             break;
     }
@@ -141,31 +117,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void rgb_matrix_indicators_user(void) {
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+        rgb_matrix_set_color_all(0x0, 0x0, 0x0);
+    }
     if (host_keyboard_led_state().caps_lock) {
-        if (rgb_matrix_turned_on_by_caps) {
-            /*
-            RGB Matrix is suppposed to be OFF.
-            Clear all LEDs before setting the ones for CAPS LOCK.
-            */
-            rgb_matrix_set_color_all(RGB_OFF);
-        }
-        rgb_matrix_set_color(67, RGB_RED); // Left side LED 1
-        rgb_matrix_set_color(68, RGB_RED); // Right side LED 1
-        rgb_matrix_set_color(70, RGB_RED); // Left side LED 2
-        rgb_matrix_set_color(71, RGB_RED); // Right side LED 2
-        rgb_matrix_set_color(73, RGB_RED); // Left side LED 3
-        rgb_matrix_set_color(74, RGB_RED); // Right side LED 3
-        rgb_matrix_set_color(76, RGB_RED); // Left side LED 4
-        rgb_matrix_set_color(77, RGB_RED); // Right side LED 4
-        rgb_matrix_set_color(80, RGB_RED); // Left side LED 5
-        rgb_matrix_set_color(81, RGB_RED); // Right side LED 5
-        rgb_matrix_set_color(83, RGB_RED); // Left side LED 6
-        rgb_matrix_set_color(84, RGB_RED); // Right side LED 6
-        rgb_matrix_set_color(87, RGB_RED); // Left side LED 7
-        rgb_matrix_set_color(88, RGB_RED); // Right side LED 7
-        rgb_matrix_set_color(91, RGB_RED); // Left side LED 8
-        rgb_matrix_set_color(92, RGB_RED); // Right side LED 8
-        rgb_matrix_set_color(3, RGB_RED); // CAPS LED
+        rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
+        rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
+        rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2
+        rgb_matrix_set_color(71, 0xFF, 0x0, 0x0); // Right side LED 2
+        rgb_matrix_set_color(73, 0xFF, 0x0, 0x0); // Left side LED 3
+        rgb_matrix_set_color(74, 0xFF, 0x0, 0x0); // Right side LED 3
+        rgb_matrix_set_color(76, 0xFF, 0x0, 0x0); // Left side LED 4
+        rgb_matrix_set_color(77, 0xFF, 0x0, 0x0); // Right side LED 4
+        rgb_matrix_set_color(80, 0xFF, 0x0, 0x0); // Left side LED 5
+        rgb_matrix_set_color(81, 0xFF, 0x0, 0x0); // Right side LED 5
+        rgb_matrix_set_color(83, 0xFF, 0x0, 0x0); // Left side LED 6
+        rgb_matrix_set_color(84, 0xFF, 0x0, 0x0); // Right side LED 6
+        rgb_matrix_set_color(87, 0xFF, 0x0, 0x0); // Left side LED 7
+        rgb_matrix_set_color(88, 0xFF, 0x0, 0x0); // Right side LED 7
+        rgb_matrix_set_color(91, 0xFF, 0x0, 0x0); // Left side LED 8
+        rgb_matrix_set_color(92, 0xFF, 0x0, 0x0); // Right side LED 8
+        rgb_matrix_set_color(3, 0xFF, 0x0, 0x0); // CAPS LED
     }
 }
 #endif
