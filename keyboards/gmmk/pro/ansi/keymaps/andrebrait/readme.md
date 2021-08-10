@@ -9,11 +9,9 @@ The differences are as follows:
 - Layer 0:
   - Print Screen (default) -> Delete
   - Delete (default) -> Home
-  - Rotary Knob press (default) -> Play/Pause
 - Layer 1 (accessed by pressing Fn):
   - Fn + Delete -> Insert
   - Fn + Home -> Print Screen
-  - Fn + Rotary Knob press -> Mute
 
 This keymap also includes CAPS LOCK ON indicator.\
 All left and right side LEDs, and the Caps key LED will turn solid red while CAPS LOCK is ON.
