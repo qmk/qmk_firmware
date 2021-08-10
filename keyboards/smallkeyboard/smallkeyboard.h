@@ -17,8 +17,6 @@
 
 #include "quantum.h"
 
-#define XXX KC_NO
-
 #define LAYOUT_numpad_2x3( \
     K00, K01, K02,\
     K10, K11, K12 \
