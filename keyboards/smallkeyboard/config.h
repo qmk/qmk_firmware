@@ -102,5 +102,3 @@
 //#define RGBLIGHT_VAL_STEP 5
 //#define RGBLIGHT_SLEEP
 //#endif
-
-#define B7_AUDIO
