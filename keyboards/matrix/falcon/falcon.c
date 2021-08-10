@@ -26,25 +26,4 @@ void matrix_init_kb(void)
     setPinOutput(LED_POWER_PIN);
     writePinHigh(LED_POWER_PIN);
 
-    // clear caps led
-    setPinOutput(CAPS_PIN);
-    writePinLow(CAPS_PIN);
-}
-
-bool led_update_kb(led_t led_state)
-{
-    bool res = led_update_user(led_state);
-    if (res) {
-        writePin(CAPS_PIN, led_state.caps_lock);
-    }
-    return res;
-}
-
-void keyboard_post_init_user(void)
-{
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  //debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
 }
