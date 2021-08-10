@@ -8,7 +8,7 @@ Vængr [/ˈwɛ̃ːŋɡr̩/] (Old Norse: Wings)
 
 * Keyboard Maintainer: [Vicktor](https://github.com/vicktorhu)
 * Hardware Supported: atmega32u4
-* Hardware Availability: [Currently only available on Indonesia](https://www.runes.id)
+* Hardware Availability: [Website](https://www.runes.id) -- Currently Indonesia only
 
 Reset the keyboard with **Lower** + **Upper** + **Del** or by pressing the reset button on the PCB.
   
