@@ -19,8 +19,8 @@
 
 /* USB Device descriptor parameter */
 #include "config_common.h"
-#define VENDOR_ID       0x7C77 // "zq" = zhouqiong19840119
-#define PRODUCT_ID      0x7C76 // "sk" = smallkeyboard
+#define VENDOR_ID       0x7A71 // "zq" = zhouqiong19840119
+#define PRODUCT_ID      0x736B // "sk" = smallkeyboard
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    zhouqiong19840119
 #define PRODUCT         smallkeyboard
