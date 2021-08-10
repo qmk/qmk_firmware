@@ -4,7 +4,7 @@
 
 A  (13x5) ortholinear keyboard that can be hand wired or using a pcb.
 
-* Keyboard Maintainer: [Alin Elena](https://gitlab.com/drFaustroll)
+* Keyboard Maintainer: [Alin Elena](https://github.com/alinelena) ([@drFaustroll on GitLab](https://gitlab.com/drFaustroll))
 * Hardware Supported: custom pcb [see](https://gitlab.com/drFaustroll/m65) STM/APM32F103C8T6, aka Black Pill
 * Hardware Availability: [custom how to](https://alin.elena.space/blog/keeblego/)
 
