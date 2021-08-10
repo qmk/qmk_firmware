@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 // Enable if writing to main board; otherwise remove
-#define MAIN_BOARD
+// #define MAIN_BOARD
 
 #include QMK_KEYBOARD_H
 #include "print.h"
-#include "enums.c"
+#include "enums.h"
 
 #ifdef OLED_DRIVER_ENABLE
 #include "graphics.c"
@@ -162,39 +162,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_TAP(X_LCTRL) SS_DELAY(100) SS_TAP(X_LCTRL) SS_DELAY(100) "2");
                 keymap_config.swap_lalt_lgui = true;
             }
-            return false;
-        case M_1:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("1")));
-            return false;
-        case M_2:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("2")));
-            return false;
-        case M_3:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("3")));
-            return false;
-        case M_4:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("4")));
-            return false;
-        case M_5:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("5")));
-            return false;
-        case T_N:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("|")));
-            return false;
-        case T_L:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("H")));
-            return false;
-        case T_S:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("J")));
-            return false;
-        case T_E:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("K")));
-            return false;
-        case T_R:
-            if (record->event.pressed) SEND_STRING(SS_LALT(SS_LSFT("L")));
-            return false;
-        case T_NAME:
-            if (record->event.pressed) SEND_STRING(SS_LALT("a") ",");
             return false;
         case KC_SPC:
             if (record->event.pressed) {
