@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x7661
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Rune
-#define PRODUCT      Rune: Vængr
+#define PRODUCT      Vængr
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -40,8 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { C7, C6, D5, E6, D3 }
-#define MATRIX_COL_PINS { D4, D6, D7, B4, B5, B6, F7, F6, F5, F4, F1, F0 }
+#define MATRIX_ROW_PINS { F7, B1, B3, B2, B6 }
+#define MATRIX_COL_PINS { F6, F5, F4, B5, B4, E6, D7, C6, D4, D0, D1, D2 }
+// #define MATRIX_ROW_PINS { C7, E6, D5, B3, B7 }
+// #define MATRIX_COL_PINS { D4, D6, D7, B4, B5, B6, F7, F6, F5, F4, F1, F0 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
@@ -62,7 +64,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 // #define BACKLIGHT_BREATHING
 
-#define RGB_DI_PIN B0
+#define RGB_DI_PIN D3
+// #define RGB_DI_PIN B0
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 3

@@ -8,8 +8,10 @@ Vængr [/ˈwɛ̃ːŋɡr̩/] (Old Norse: Wings)
 
 * Keyboard Maintainer: [Vicktor](https://github.com/vicktorhu)
 * Hardware Supported: atmega32u4
-* Hardware Availability: Currently only available on Indonesia -- [website (under constructions)](https://www.runes.id)
+* Hardware Availability: [Currently only available on Indonesia](https://www.runes.id)
 
+Reset the keyboard with **Lower** + **Upper** + **Del** or by pressing the reset button on the PCB.
+  
 Make example for this keyboard (after setting up your build environment):
 
     make vaengr:default
