@@ -1,21 +1,24 @@
-/*
-Copyright 2021 Franciso Escobar
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
+/* Copyright 2021 Francisco Escobar
+  * 
+  * This program is free software: you can redistribute it and/or modify 
+  * it under the terms of the GNU General Public License as published by 
+  * the Free Software Foundation, either version 2 of the License, or 
+  * (at your option) any later version. 
+  * 
+  * This program is distributed in the hope that it will be useful, 
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+  * GNU General Public License for more details. 
+  * 
+  * You should have received a copy of the GNU General Public License 
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
 #pragma once
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
 #define VENDOR_ID       0x4D4B // MechanicKeys
 #define PRODUCT_ID      0x6D6E
 #define DEVICE_VER      0x0001
@@ -36,10 +39,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  *         ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-/*                        R0  R1  R2  R3*/
 #define MATRIX_ROW_PINS { B1, B2, B3, B4 }
-/*                       COL0 COL1 COL2 COL3 COL4 COL5 COL6 COL7 COL8 COL9 COL10 COL11 COL12*/
-#define MATRIX_COL_PINS { C5,  C4,  C3,  D0,  C2,  D1,  C1,  C0,  D4,  B0,   D7,   D6,  B5}
+#define MATRIX_COL_PINS { C5, C4, C3, D0, C2, D1, C1, C0, D4, B0, D7, D6, B5 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
