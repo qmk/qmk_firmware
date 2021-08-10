@@ -8,11 +8,11 @@ Hardware Supported: [Edda PCB](https://tastatur.no/collections/forhandsbestillin
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mekanisk/edda:default:flash
+    make edda:default:flash
 
 For VIA support
 
-    make mekanisk/edda:via:flash
+    make edda:via:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
