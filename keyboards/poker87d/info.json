@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "POKER-87",
+    "keyboard_name": "POKER-87D",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "mfkiiyd",
     "width": 18.25,
     "height": 6.5,
     "layout_aliases": {
