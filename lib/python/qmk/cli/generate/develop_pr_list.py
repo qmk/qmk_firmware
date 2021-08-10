@@ -1,11 +1,11 @@
 """Export the initial list of PRs associated with a `develop` merge to `master`.
 """
-import os, re
+import os
+import re
 from pathlib import Path
 from subprocess import DEVNULL
 
 from milc import cli
-from milc.attrdict import AttrDict
 
 cache_timeout = 7 * 86400
 fix_expr = re.compile(r'fix', flags=re.IGNORECASE)
@@ -32,7 +32,7 @@ def generate_develop_pr_list(cli):
     Requires environment variable GITHUB_TOKEN to be set.
     """
 
-    if 'GITHUB_TOKEN' not in os.environ or os.environ['GITHUB_TOKEN'] is '':
+    if 'GITHUB_TOKEN' not in os.environ or os.environ['GITHUB_TOKEN'] == '':
         cli.log.error('Environment variable "GITHUB_TOKEN" is not set.')
         return 1
 
