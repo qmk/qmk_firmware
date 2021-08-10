@@ -5,7 +5,6 @@ It basically reflects my needs for both Delete and Insert being readily availabl
 
 The differences are as follows:
 
-- NKRO enabled by default
 - Layer 0:
   - Print Screen (default) -> Delete
   - Delete (default) -> Home
