@@ -23,11 +23,10 @@
 
 //NOTE: if D6 pin shows any issues in exploatation the LED on the Teensy is to be removed
 
-/* the LEDs:
- *  PF5 - CAPS
- *  PF6 - NUM
- *  PF7 - SCLK
- *  PE6 - Backlight */
+#define LED_NUM_LOCK_PIN F6
+#define LED_CAPS_LOCK_PIN F5
+#define LED_SCROLL_LOCK_PIN F7
+#define LED_PIN_ON_STATE 0
 //TODO change the E6 pin to either B5, B6, B7 or C6 to utilize hardware PWM on a future PCB revision
 #define BACKLIGHT_PIN E6
 
