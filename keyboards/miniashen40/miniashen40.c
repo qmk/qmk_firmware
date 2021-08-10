@@ -12,4 +12,4 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "miniashen40.h";
+#include "miniashen40.h"
