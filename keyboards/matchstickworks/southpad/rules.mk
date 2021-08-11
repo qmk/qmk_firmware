@@ -25,4 +25,4 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = numpad_6x4
+LAYOUTS = numpad_6x4_southpaw
