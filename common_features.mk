@@ -718,3 +718,15 @@ ifeq ($(strip $(USBPD_ENABLE)), yes)
         endif
     endif
 endif
+
+ifeq ($(strip $(XAP_ENABLE)), yes)
+    ifeq ($(strip $(VIA_ENABLE)), yes)
+        $(error 'XAP_ENABLE = $(XAP_ENABLE)' deprecates 'VIA_ENABLE = $(VIA_ENABLE)'. Please set 'VIA_ENABLE = no')
+    endif
+
+    OPT_DEFS += -DXAP_ENABLE
+    DYNAMIC_KEYMAP_ENABLE := yes
+    EMBED_INFO_JSON := yes
+    VPATH += $(QUANTUM_DIR)/xap
+    SRC += $(QUANTUM_DIR)/xap/xap.c $(QUANTUM_DIR)/xap/xap_handlers.c
+endif

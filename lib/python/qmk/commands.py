@@ -87,10 +87,13 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
     return create_make_target(':'.join(make_args), parallel, **env_vars)
 
 
-def get_git_version(current_time, repo_dir='.', check_dir='.'):
+def get_git_version(current_time=None, repo_dir='.', check_dir='.'):
     """Returns the current git version for a repo, or the current time.
     """
     git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
+
+    if current_time is None:
+        current_time = strftime(time_fmt)
 
     if repo_dir != '.':
         repo_dir = Path('lib') / repo_dir
@@ -118,7 +121,7 @@ def create_version_h(skip_git=False, skip_all=False):
     if skip_all:
         current_time = "1970-01-01-00:00:00"
     else:
-        current_time = strftime(time_fmt)
+        current_time = None
 
     if skip_git:
         git_version = "NA"

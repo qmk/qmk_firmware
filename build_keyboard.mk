@@ -352,6 +352,30 @@ VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
 
 include common_features.mk
+
+# XAP embedded info.json
+ifeq ($(strip $(XAP_ENABLE)), yes)
+
+$(KEYMAP_OUTPUT)/src/info_json_gz.h: $(INFO_JSON_FILES)
+	mkdir -p $(KEYMAP_OUTPUT)/src
+	$(QMK_BIN) info -f json -kb $(KEYBOARD) -km $(KEYMAP) | gzip -c9 > $(KEYMAP_OUTPUT)/src/info.json.gz
+	cd $(KEYMAP_OUTPUT)/src >/dev/null 2>&1 \
+		&& xxd -i info.json.gz info_json_gz.h \
+		&& cd - >/dev/null 2>&1
+
+XAP_FILES := $(shell ls -1 data/xap/* | sort | xargs echo)
+
+$(KEYMAP_OUTPUT)/src/xap_generated.inl: $(XAP_FILES)
+	$(QMK_BIN) xap-generate-qmk-inc -o "$(KEYMAP_OUTPUT)/src/xap_generated.inl"
+
+$(KEYMAP_OUTPUT)/src/xap_generated.h: $(XAP_FILES)
+	$(QMK_BIN) xap-generate-qmk-h -o "$(KEYMAP_OUTPUT)/src/xap_generated.h" -kb $(KEYBOARD)
+
+generated-files: $(KEYMAP_OUTPUT)/src/info_json_gz.h $(KEYMAP_OUTPUT)/src/xap_generated.inl $(KEYMAP_OUTPUT)/src/xap_generated.h
+
+VPATH += $(KEYMAP_OUTPUT)/src
+endif
+
 include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
 include bootloader.mk

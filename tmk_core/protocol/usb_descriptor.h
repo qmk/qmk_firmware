@@ -75,6 +75,14 @@ typedef struct {
     USB_Descriptor_Endpoint_t  Raw_OUTEndpoint;
 #endif
 
+#ifdef XAP_ENABLE
+    // Mouse HID Interface
+    USB_Descriptor_Interface_t Xap_Interface;
+    USB_HID_Descriptor_HID_t   Xap_HID;
+    USB_Descriptor_Endpoint_t  Xap_INEndpoint;
+    USB_Descriptor_Endpoint_t  Xap_OUTEndpoint;
+#endif
+
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
     // Mouse HID Interface
     USB_Descriptor_Interface_t Mouse_Interface;
@@ -155,6 +163,10 @@ enum usb_interfaces {
     RAW_INTERFACE,
 #endif
 
+#ifdef XAP_ENABLE
+    XAP_INTERFACE,
+#endif
+
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
     MOUSE_INTERFACE,
 #endif
@@ -209,6 +221,15 @@ enum usb_endpoints {
 #        define RAW_OUT_EPNUM RAW_IN_EPNUM
 #    else
     RAW_OUT_EPNUM         = NEXT_EPNUM,
+#    endif
+#endif
+
+#ifdef XAP_ENABLE
+    XAP_IN_EPNUM = NEXT_EPNUM,
+#    if STM32_USB_USE_OTG1
+#        define XAP_OUT_EPNUM XAP_IN_EPNUM
+#    else
+    XAP_OUT_EPNUM         = NEXT_EPNUM,
 #    endif
 #endif
 
@@ -272,7 +293,7 @@ enum usb_endpoints {
 // TODO - ARM_ATSAM
 
 #if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
-#    error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno
+#    error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno, XAP
 #endif
 
 #define KEYBOARD_EPSIZE 8
@@ -284,5 +305,6 @@ enum usb_endpoints {
 #define CDC_NOTIFICATION_EPSIZE 8
 #define CDC_EPSIZE 16
 #define JOYSTICK_EPSIZE 8
+#define XAP_EPSIZE 64
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);

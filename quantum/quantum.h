@@ -184,6 +184,10 @@ extern layer_state_t layer_state;
 #    include "dynamic_keymap.h"
 #endif
 
+#ifdef XAP_ENABLE
+#    include "xap.h"
+#endif
+
 #ifdef VIA_ENABLE
 #    include "via.h"
 #endif

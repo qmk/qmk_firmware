@@ -1,0 +1,80 @@
+{
+    version: 0.2.0
+
+    routes: {
+        0x04: {
+            type: router
+            name: Dynamic Keymap
+            define: DYNAMIC_KEYMAP
+            description:
+                '''
+                This subsystem allows for live modifications of the keymap, allowing keys to be reassigned without rebuilding the firmware.
+                '''
+            enable_if_preprocessor: defined(DYNAMIC_KEYMAP_ENABLE)
+            routes: {
+                0x00: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        Dynamic Keymap subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_DYNAMIC_KEYMAP_CAPABILITIES
+                }
+            }
+        }
+
+        0x05: {
+            type: router
+            name: Dynamic Encoders
+            define: DYNAMIC_ENCODER
+            description:
+                '''
+                This subsystem allows for live modifications of the keymap, allowing encoder functionality to be reassigned without rebuilding the firmware.
+                '''
+            enable_if_preprocessor: defined(DYNAMIC_KEYMAP_ENABLE) && defined(ENCODER_MAP_ENABLE)
+            routes: {
+                0x00: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        Dynamic Encoders subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_DYNAMIC_ENCODER_CAPABILITIES
+                }
+            }
+        }
+
+        0x06: {
+            type: router
+            name: Lighting
+            define: LIGHTING
+            description:
+                '''
+                This subsystem allows for control over the lighting subsystem.
+                '''
+            enable_if_preprocessor: defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+            routes: {
+                0x00: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        Lighting subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_LIGHTING_CAPABILITIES
+                }
+            }
+        }
+    }
+}
