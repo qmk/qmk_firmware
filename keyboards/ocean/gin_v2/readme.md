@@ -1,6 +1,6 @@
 # Gin V2
 
-![Gin V2](https://media.discordapp.net/attachments/406032987243806721/862564309406056468/20210708_131916.jpg?width=1166&height=657)
+![Gin V2](https://i.imgur.com/KhonJdv.jpeg)
 
 
 40% keyboard with southpaw numpad
