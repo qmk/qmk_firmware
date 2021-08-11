@@ -6,7 +6,7 @@
 * Hardware Supported: Frooastboard
 * Hardware Availability: I'm not selling these but if you get in contact with me I maybe can send you one.
 
-**Reset Key:** Hold down the key located at `K00`, commonly programmed as ESCAPE while plugging in the keyboard.
+**Reset Key:** Hold down the key located at `K00`, commonly programmed as ESCAPE while plugging in the keyboard. (If via is used its `K10`.)
 
 Make example for this keyboard's default keymap (after setting up your build environment):
 
