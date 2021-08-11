@@ -70,16 +70,19 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-void keyboard_post_init_user(void) {
-    /*
-    Custom handling of RGB_TOG means it is impossible to toggle the RGB Matrix on and off and we
-    need it to be enabled for the CAPS LOCK indicator to work, so enable it and then make sure it
-    gets persisted to the EEPROM.
-     */
-    if (!rgb_matrix_is_enabled()) {
-        rgb_matrix_enable_noeeprom();
-        eeconfig_update_rgb_matrix();
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
+        if (!rgb_matrix_is_enabled()) {
+            /* Turn ON the RGB Matrix for CAPS LOCK */
+            rgb_matrix_set_flags(LED_FLAG_NONE);
+            rgb_matrix_enable();
+        }
+    } else if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+        /* RGB Matrix was only ON because of CAPS LOCK. Turn it OFF. */
+        rgb_matrix_set_flags(LED_FLAG_ALL);
+        rgb_matrix_disable();
     }
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -103,13 +106,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_TOG:
             if (record->event.pressed) {
-                if (rgb_matrix_get_flags() == LED_FLAG_ALL) {
-                    rgb_matrix_set_flags(LED_FLAG_NONE);
-                } else {
-                    rgb_matrix_set_flags(LED_FLAG_ALL);
+                if (host_keyboard_led_state().caps_lock) {
+                    if (rgb_matrix_get_flags() == LED_FLAG_ALL) {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                    } else {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                    }
+                    /* Disabling it here so it will be re-enabled by the processing of the toggle */
+                    rgb_matrix_disable_noeeprom();
                 }
-                eeconfig_update_rgb_matrix();
-                return false;
             }
             break;
     }
