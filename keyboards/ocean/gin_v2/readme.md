@@ -1,6 +1,6 @@
 # Gin V2
 
-![Gin V2](https://i.imgur.com/CQiImvu.jpeg)
+![Gin V2](https://i.imgur.com/CQiImvuh.jpeg)
 
 
 40% keyboard with southpaw numpad
