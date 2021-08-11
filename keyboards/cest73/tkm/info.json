@@ -5,7 +5,7 @@
     "width": 21,
     "height": 6.75,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
               {"label":"Fn", "x":0, "y":0},
               {"label":"PrtSc", "x":1, "y":0},
