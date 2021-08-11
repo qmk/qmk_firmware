@@ -1,6 +1,6 @@
 # Wang V2
 
-![Wang V2](https://media.discordapp.net/attachments/406032987243806721/859276477354868736/20210629_112245.jpg?width=1166&height=657)
+![Wang V2](https://i.imgur.com/KhonJdvh.jpg)
 
 
 40% keyboard with southpaw numpad
