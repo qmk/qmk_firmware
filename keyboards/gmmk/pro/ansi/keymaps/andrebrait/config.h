@@ -19,7 +19,7 @@
 #ifdef DEBOUNCE
     #undef DEBOUNCE
 #endif
-#define DEBOUNCE 2
+#define DEBOUNCE 5
 
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_DISABLE_TIMEOUT 1200000     // 20 minutes (20 * 60 * 1000ms)

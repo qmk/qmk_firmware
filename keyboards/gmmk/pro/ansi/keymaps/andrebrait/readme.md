@@ -5,7 +5,7 @@ It basically reflects my needs for both Delete and Insert being readily availabl
 
 The differences are as follows:
 
-- Shorter DEBOUNCE time (2 ms)
+- Short DEBOUNCE time (5 ms)
 - Per-key debounce algorithm (sym_defer_pk)
 - RGB turns off after 20 minutes of inactivity
 - RGB turns off when USB is suspended
