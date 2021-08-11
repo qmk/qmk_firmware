@@ -1,8 +1,8 @@
 # Elrgo S Split Keyboard
 
-*This is a fork of the VOID Ergo S with QMK Configurator support.*
+This is a fork of the VOID Ergo S with QMK Configurator support.
 
-*Elrgo S uses 2x Arduino Pro Micro (ATmega32U4) with 3D printed case.*
+Elrgo S uses 2x Arduino Pro Micro (ATmega32U4) with 3D printed case.
  
 [Building guide, models for 3D printing](https://github.com/Eloren1/Elrgo_S)
 
