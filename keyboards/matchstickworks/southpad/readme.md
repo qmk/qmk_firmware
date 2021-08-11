@@ -5,11 +5,12 @@
 This is a left-handed (or mirrored) numberpad with USB-C connections.
 
 Default layout is such:
+
 ![SouthPad Layout](https://i.imgur.com/jc7T2jl.jpg)
 
-Keyboard Maintainer: [Logan Butler](https://github.com/MatchstickWorks)
-Hardware Supported: SouthPad PCB
-Hardware Availability: Either via [my Etsy Store](https://www.etsy.com/shop/MatchstickWorksShop) or by messaging directly
+* Keyboard Maintainer: [Logan Butler](https://github.com/MatchstickWorks)
+* Hardware Supported: SouthPad PCB
+* Hardware Availability: Either via [my Etsy Store](https://www.etsy.com/shop/MatchstickWorksShop) or by messaging directly
 
 Getting the board into bootloader mode:
 

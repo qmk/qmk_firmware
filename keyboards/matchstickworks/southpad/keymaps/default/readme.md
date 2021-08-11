@@ -1,1 +1,1 @@
-# The default keymap for snampad
+# The default keymap for southpad
