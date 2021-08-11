@@ -389,15 +389,18 @@ void render_kitty(void) {
 void oled_driver_render_logo_left(void) {
     render_kitty();
 
-    oled_set_cursor(8, 0);
-#    ifdef DEBUG_MATRIX_SCAN_RATE
-    render_matrix_scan_rate();
-#    elif defined(WPM_ENABLE)
-    render_wpm(4);
+    oled_set_cursor(6, 0);
+    oled_write_P(PSTR("  Tractyl      "), true);
+    oled_set_cursor(6, 1);
+    oled_write_P(PSTR("     Manuform  "), true);
+    oled_set_cursor(6, 2);
+#    if defined(WPM_ENABLE)
+    render_wpm(6);
 #    endif
-    oled_set_cursor(8, 1);
+    oled_set_cursor(6, 3);
 #    if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
-    render_pointing_dpi_status(3);
+    render_pointing_dpi_status(5);
 #    endif
+    oled_set_cursor(0, 4);
 }
 #endif

@@ -160,35 +160,21 @@ void render_matrix_scan_rate(void) {
 void render_mod_status(uint8_t modifiers) {
     static const char PROGMEM mod_status[5][3] = {{0xE8, 0xE9, 0}, {0xE4, 0xE5, 0}, {0xE6, 0xE7, 0}, {0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
     oled_write_P(PSTR(OLED_RENDER_MODS_NAME), false);
-#if !defined(__AVR_ATmega32U4__)
+#if defined(OLED_DISPLAY_128X64)
     oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_LSHIFT)));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_LGUI)));
-#    if !defined(OLED_DISPLAY_128X64)
-    oled_write_P(PSTR(" "), false);
-#    endif
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_LALT)));
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_LCTL)));
-#    if !defined(OLED_DISPLAY_128X64)
-    oled_write_P(PSTR(" "), false);
-#    endif
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_RCTL)));
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_RALT)));
-#    if !defined(OLED_DISPLAY_128X64)
-    oled_write_P(PSTR(" "), false);
-#    endif
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_RGUI)));
     oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSHIFT)));
 #else
     oled_write_P(mod_status[0], (modifiers & MOD_MASK_SHIFT));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_MASK_GUI));
-#    if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
-#    endif
     oled_write_P(mod_status[2], (modifiers & MOD_MASK_ALT));
     oled_write_P(mod_status[1], (modifiers & MOD_MASK_CTRL));
-#    if !defined(OLED_DISPLAY_128X64)
-    oled_write_P(PSTR(" "), false);
-#    endif
 #endif
 }
 
@@ -310,7 +296,7 @@ void oled_driver_render_logo(void) {
 void render_wpm(uint8_t padding) {
 #ifdef WPM_ENABLE
     uint8_t n = get_current_wpm();
-    char wpm_counter[4];
+    char    wpm_counter[4];
     wpm_counter[3] = '\0';
     wpm_counter[2] = '0' + n % 10;
     wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
@@ -326,10 +312,10 @@ void render_wpm(uint8_t padding) {
 }
 
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
-extern kb_runtime_config_t kb_state;
-void                       render_pointing_dpi_status(uint8_t padding) {
+extern kb_config_data_t kb_config;
+void                    render_pointing_dpi_status(uint8_t padding) {
     char     dpi_status[5];
-    uint16_t n    = kb_state.device_cpi;
+    uint16_t n    = kb_config.device_cpi;
     dpi_status[4] = '\0';
     dpi_status[3] = '0' + n % 10;
     dpi_status[2] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
@@ -346,30 +332,36 @@ void                       render_pointing_dpi_status(uint8_t padding) {
 #endif
 
 __attribute__((weak)) void oled_driver_render_logo_right(void) {
-    // logo (3 lines)
+#if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
+    render_default_layer_state();
+    oled_set_cursor(0, 4);
+#else
+    render_default_layer_state();
+#endif
 }
 
 __attribute__((weak)) void oled_driver_render_logo_left(void) {
-    // logo plus extras (4 lines)
+#if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
-#ifdef DEBUG_MATRIX_SCAN_RATE
+#    ifdef DEBUG_MATRIX_SCAN_RATE
     render_matrix_scan_rate();
-#elif defined(WPM_ENABLE)
+#    elif defined(WPM_ENABLE)
     render_wpm(0);
-#endif
+#    endif
     oled_write_P(PSTR("  "), false);
-#if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
+#    if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
     render_pointing_dpi_status(1);
+#    endif
+    oled_set_cursor(0, 4);
+#else
+    render_default_layer_state();
 #endif
 }
 
 void render_status_secondary(void) {
-#if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo_right();
-#endif
     /* Show Keyboard Layout  */
-    render_default_layer_state();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
 #if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE)
@@ -379,12 +371,8 @@ void render_status_secondary(void) {
 }
 
 void render_status_main(void) {
-#if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo_left();
-    oled_set_cursor(0, 4);
-#else
-    render_default_layer_state();
-#endif
+
     /* Show Keyboard Layout  */
     // render_keylock_status(host_keyboard_leds());
     render_bootmagic_status();
@@ -413,7 +401,7 @@ void oled_task_user(void) {
             oled_on();
         }
     }
-    if (!is_keyboard_left()) {
+    if (is_keyboard_left()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
