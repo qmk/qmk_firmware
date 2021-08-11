@@ -160,7 +160,7 @@ void render_matrix_scan_rate(void) {
 void render_mod_status(uint8_t modifiers) {
     static const char PROGMEM mod_status[5][3] = {{0xE8, 0xE9, 0}, {0xE4, 0xE5, 0}, {0xE6, 0xE7, 0}, {0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
     oled_write_P(PSTR(OLED_RENDER_MODS_NAME), false);
-#if defined(__AVR_ATmega32U4__)
+#if !defined(__AVR_ATmega32U4__)
     oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_LSHIFT)));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_LGUI)));
 #    if !defined(OLED_DISPLAY_128X64)
@@ -297,7 +297,7 @@ void render_user_status(void) {
 #endif
 }
 
-__attribute__((weak)) void oled_driver_render_logo(void) {
+void oled_driver_render_logo(void) {
     // clang-format off
     static const char PROGMEM qmk_logo[] = {
         0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
@@ -310,28 +310,20 @@ __attribute__((weak)) void oled_driver_render_logo(void) {
 void render_wpm(void) {
 #ifdef WPM_ENABLE
     uint8_t n = get_current_wpm();
-#    ifdef OLED_DISPLAY_128X64
     char wpm_counter[4];
     wpm_counter[3] = '\0';
     wpm_counter[2] = '0' + n % 10;
     wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
     wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
-#    else
-    char wpm_counter[6];
-    wpm_counter[5] = '\0';
-    wpm_counter[4] = '0' + n % 10;
-    wpm_counter[3] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    wpm_counter[2] = n / 10 ? '0' + n / 10 : ' ';
-    wpm_counter[1] = ' ';
-    wpm_counter[0] = ' ';
-#    endif
     oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
+#    if !defined(OLED_DISPLAY_128X64)
+    oled_write_P(PSTR("  "), false);
+#    endif
     oled_write(wpm_counter, false);
 #endif
 }
 
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
-
 extern kb_runtime_config_t kb_state;
 void render_pointing_dpi_status(void) {
     char     dpi_status[6];
@@ -342,14 +334,33 @@ void render_pointing_dpi_status(void) {
     dpi_status[2] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
     dpi_status[1] = n / 10 ? '0' + n / 10 : ' ';
     dpi_status[0] = ' ';
-    oled_write_P(PSTR("  DPI: "), false);
+    oled_write_P(PSTR("DPI: "), false);
     oled_write(dpi_status, false);
 }
 #endif
 
+__attribute__((weak)) void oled_driver_render_logo_right(void) {
+    // logo (3 lines)
+    oled_driver_render_logo();
+}
+
+__attribute__((weak)) void oled_driver_render_logo_left(void) {
+    // logo plus extras (4 lines)
+    oled_driver_render_logo();
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    render_matrix_scan_rate();
+#elif defined(WPM_ENABLE)
+    render_wpm();
+#endif
+    oled_write_P(PSTR("  "), false);
+#if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
+    render_pointing_dpi_status();
+#endif
+}
+
 void render_status_secondary(void) {
 #if defined(OLED_DISPLAY_128X64)
-    oled_driver_render_logo();
+    oled_driver_render_logo_right();
 #endif
     /* Show Keyboard Layout  */
     render_default_layer_state();
@@ -363,16 +374,8 @@ void render_status_secondary(void) {
 
 void render_status_main(void) {
 #if defined(OLED_DISPLAY_128X64)
-    oled_driver_render_logo();
-#    ifdef DEBUG_MATRIX_SCAN_RATE
-    render_matrix_scan_rate();
-#    elif defined(WPM_ENABLE)
-    render_wpm();
-#    endif
-#    if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
-    render_pointing_dpi_status();
-#    endif
-    oled_write_P(PSTR("\n"), false);
+    oled_driver_render_logo_left();
+    oled_advance_page(true);
 #else
     render_default_layer_state();
 #endif
