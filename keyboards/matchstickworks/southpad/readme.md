@@ -1,23 +1,22 @@
-# snampad
+# SouthPad
 
-![snampad](https://imgur.com/gallery/tPDHeB9?s=fbm)
+![Southpad](https://i.imgur.com/Wl71thn.jpg)
 
-A small weekend project to create a numeric keypad for the few times I need such a thing.
-I created the schematics in Kicad, 3D printed the case, handwired the prototype, used some
-spare Zealios, Box Royals and SA keycaps.
+This is a left-handed (or mirrored) numberpad with USB-C connections.
 
-When I get some time I'd like to make a PCB for it.
+Default layout is such:
+![SouthPad Layout](https://i.imgur.com/jc7T2jl.jpg)
 
-It uses a promicro controller and the reset button has been made availabe through a hole in the backplate.
+Keyboard Maintainer: [Logan Butler](https://github.com/MatchstickWorks)
+Hardware Supported: SouthPad PCB
+Hardware Availability: Either via [my Etsy Store](https://www.etsy.com/shop/MatchstickWorksShop) or by messaging directly
 
+Getting the board into bootloader mode:
 
-Keyboard Maintainer: [Peter Tillemans](https://github.com/ptillemans)
-Hardware Supported: Promicros are ubiquitous.
-Hardware Availability: This uses essentially spares from other projects
-
+In order to flash the firmware to this board, simply press the Reset button on the back of the PCB. You should head a USB disconnect and reconnect sound shortly following.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make snampad:default
+    make matchstickworks/southpad:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
