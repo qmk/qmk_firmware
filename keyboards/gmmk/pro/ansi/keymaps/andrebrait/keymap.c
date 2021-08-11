@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
 #endif // RGB_MATRIX_ENABLE
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //      ESC      F1       F2       F3       F4       F5       F6       F7       F8       F9       F10      F11      F12	     Del          Rotary(Play/Pause)
@@ -67,8 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
+// clang-format on
 
-
+#ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
       tap_code(KC_VOLU);
@@ -77,6 +79,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
+#endif // ENCODER_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -85,7 +88,11 @@ static void set_rgb_caps_leds(void);
 #if RGB_CONFIRMATION_BLINKING_TIME > 0
 static uint16_t effect_started_time = 0;
 static uint8_t r_effect = 0x0, g_effect = 0x0, b_effect = 0x0;
-#endif
+static void start_effects(void);
+
+#define effect_red() r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0
+#define effect_green() r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0
+#endif // RGB_CONFIRMATION_BLINKING_TIME > 0
 
 bool led_update_user(led_t led_state) {
     if (led_state.caps_lock) {
@@ -108,32 +115,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
         case NK_TOGG:
             if (record->event.pressed) {
-                if (!keymap_config.nkro) {
-                    r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0;
+                if (keymap_config.nkro) {
+                    /* Turning NKRO OFF */
+                    effect_red();
                 } else {
-                    r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0;
+                    /* Turning NKRO ON */
+                    effect_green();
                 }
-                effect_started_time = sync_timer_read();
+                start_effects();
             }
             break;
         case NK_ON:
             if (record->event.pressed) {
                 if (!keymap_config.nkro) {
-                    r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0;
-                    effect_started_time = sync_timer_read();
+                    /* Turning NKRO ON */
+                    effect_green();
+                    start_effects();
                 }
             }
             break;
         case NK_OFF:
             if (record->event.pressed) {
                 if (keymap_config.nkro) {
-                    r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0;
-                    effect_started_time = sync_timer_read();
+                    /* Turning NKRO OFF */
+                    effect_red();
+                    start_effects();
                 }
             }
             break;
-    #endif
-    #endif
+    #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
+    #endif // NKRO_ENABLE
         case RGB_MOD:
         case RGB_RMOD:
         case RGB_HUI:
@@ -164,7 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             rgb_matrix_set_flags(LED_FLAG_ALL);
                             /* Will be re-enabled by the processing of the toggle */
                             rgb_matrix_disable_noeeprom();
-                            return true;
+                            break;
                         case LED_FLAG_ALL:
                             /* Is actually ON */
                             #if RGB_CONFIRMATION_BLINKING_TIME > 0
@@ -181,51 +192,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                 /* Will be re-enabled by the processing of the toggle */
                                 rgb_matrix_disable_noeeprom();
                             }
-                            return true;
+                            break;
                     }
-                } else {
-                    /* Is actually OFF, let the normal handling happen */
-                    return true;
                 }
             }
             break;
     }
-    #if RGB_CONFIRMATION_BLINKING_TIME > 0
-    if (effect_started_time > 0) {
-        if (!rgb_matrix_is_enabled()) {
-            /* Turn it ON, signal the cause (EFFECTS) */
-            rgb_matrix_set_flags(LED_FLAG_INDICATOR);
-            rgb_matrix_enable_noeeprom();
-        } else if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-            /* It's already ON, promote the cause from CAPS to EFFECTS */
-            rgb_matrix_set_flags(LED_FLAG_INDICATOR);
-        }
-    }
-    #endif
     return true;
 }
 
-static void set_rgb_caps_leds() {
-    rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
-    rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
-    rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2
-    rgb_matrix_set_color(71, 0xFF, 0x0, 0x0); // Right side LED 2
-    rgb_matrix_set_color(73, 0xFF, 0x0, 0x0); // Left side LED 3
-    rgb_matrix_set_color(74, 0xFF, 0x0, 0x0); // Right side LED 3
-    rgb_matrix_set_color(76, 0xFF, 0x0, 0x0); // Left side LED 4
-    rgb_matrix_set_color(77, 0xFF, 0x0, 0x0); // Right side LED 4
-    rgb_matrix_set_color(80, 0xFF, 0x0, 0x0); // Left side LED 5
-    rgb_matrix_set_color(81, 0xFF, 0x0, 0x0); // Right side LED 5
-    rgb_matrix_set_color(83, 0xFF, 0x0, 0x0); // Left side LED 6
-    rgb_matrix_set_color(84, 0xFF, 0x0, 0x0); // Right side LED 6
-    rgb_matrix_set_color(87, 0xFF, 0x0, 0x0); // Left side LED 7
-    rgb_matrix_set_color(88, 0xFF, 0x0, 0x0); // Right side LED 7
-    rgb_matrix_set_color(91, 0xFF, 0x0, 0x0); // Left side LED 8
-    rgb_matrix_set_color(92, 0xFF, 0x0, 0x0); // Right side LED 8
-    rgb_matrix_set_color(3, 0xFF, 0x0, 0x0); // CAPS LED
-}
 
-void rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_user() {
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
     if (effect_started_time != 0) {
         /* Render blinking EFFECTS */
@@ -257,7 +234,7 @@ void rgb_matrix_indicators_user(void) {
             }
         }
     }
-    #endif
+    #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
     if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
         rgb_matrix_set_color_all(0x0, 0x0, 0x0);
     }
@@ -266,4 +243,38 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 
-#endif
+#if RGB_CONFIRMATION_BLINKING_TIME > 0
+static void start_effects() {
+    effect_started_time = sync_timer_read();
+    if (!rgb_matrix_is_enabled()) {
+        /* Turn it ON, signal the cause (EFFECTS) */
+        rgb_matrix_set_flags(LED_FLAG_INDICATOR);
+        rgb_matrix_enable_noeeprom();
+    } else if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+        /* It's already ON, promote the cause from CAPS to EFFECTS */
+        rgb_matrix_set_flags(LED_FLAG_INDICATOR);
+    }
+}
+#endif // RGB_CONFIRMATION_BLINKING_TIME > 0
+
+static void set_rgb_caps_leds() {
+    rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
+    rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
+    rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2
+    rgb_matrix_set_color(71, 0xFF, 0x0, 0x0); // Right side LED 2
+    rgb_matrix_set_color(73, 0xFF, 0x0, 0x0); // Left side LED 3
+    rgb_matrix_set_color(74, 0xFF, 0x0, 0x0); // Right side LED 3
+    rgb_matrix_set_color(76, 0xFF, 0x0, 0x0); // Left side LED 4
+    rgb_matrix_set_color(77, 0xFF, 0x0, 0x0); // Right side LED 4
+    rgb_matrix_set_color(80, 0xFF, 0x0, 0x0); // Left side LED 5
+    rgb_matrix_set_color(81, 0xFF, 0x0, 0x0); // Right side LED 5
+    rgb_matrix_set_color(83, 0xFF, 0x0, 0x0); // Left side LED 6
+    rgb_matrix_set_color(84, 0xFF, 0x0, 0x0); // Right side LED 6
+    rgb_matrix_set_color(87, 0xFF, 0x0, 0x0); // Left side LED 7
+    rgb_matrix_set_color(88, 0xFF, 0x0, 0x0); // Right side LED 7
+    rgb_matrix_set_color(91, 0xFF, 0x0, 0x0); // Left side LED 8
+    rgb_matrix_set_color(92, 0xFF, 0x0, 0x0); // Right side LED 8
+    rgb_matrix_set_color(3, 0xFF, 0x0, 0x0); // CAPS LED
+}
+
+#endif // RGB_MATRIX_ENABLE
