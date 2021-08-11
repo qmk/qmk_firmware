@@ -80,6 +80,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 #ifdef RGB_MATRIX_ENABLE
 
+static void set_rgb_caps_leds(void);
+
 #if RGB_CONFIRMATION_BLINKING_TIME > 0
 static uint16_t effect_started_time = 0;
 static uint8_t r_effect = 0x0, g_effect = 0x0, b_effect = 0x0;
@@ -105,24 +107,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef NKRO_ENABLE
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
         case NK_TOGG:
-            /* For some reason we need to invert this */
-            if (keymap_config.nkro) {
-                r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0;
-            } else {
-                r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0;
+            if (record->event.pressed) {
+                if (!keymap_config.nkro) {
+                    r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0;
+                } else {
+                    r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0;
+                }
+                effect_started_time = sync_timer_read();
             }
-            effect_started_time = sync_timer_read();
             break;
         case NK_ON:
-            if (!keymap_config.nkro) {
-                r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0;
-                effect_started_time = sync_timer_read();
+            if (record->event.pressed) {
+                if (!keymap_config.nkro) {
+                    r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0;
+                    effect_started_time = sync_timer_read();
+                }
             }
             break;
         case NK_OFF:
-            if (keymap_config.nkro) {
-                r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0;
-                effect_started_time = sync_timer_read();
+            if (record->event.pressed) {
+                if (keymap_config.nkro) {
+                    r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0;
+                    effect_started_time = sync_timer_read();
+                }
             }
             break;
     #endif
@@ -197,8 +204,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #endif
     return true;
 }
-
-static void set_rgb_caps_leds(void);
 
 static void set_rgb_caps_leds() {
     rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
