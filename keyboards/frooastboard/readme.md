@@ -4,7 +4,7 @@
 
 * Keyboard Maintainer: [Frooastside](https://github.com/frooastside)
 * Hardware Supported: Frooastboard
-* Hardware Availability: I'm not selling these publicly but if you get in contact with me I maybe can send you one.
+* Hardware Availability: https://github.com/Frooastside/Frooastboard
 
 **Reset Key:** Hold down the key located at `K00`, commonly programmed as ESCAPE while plugging in the keyboard. (If via is used it is the key located at `K10`.)
 
