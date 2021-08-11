@@ -307,7 +307,7 @@ void oled_driver_render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-void render_wpm(void) {
+void render_wpm(uint8_t padding) {
 #ifdef WPM_ENABLE
     uint8_t n = get_current_wpm();
     char wpm_counter[4];
@@ -316,25 +316,31 @@ void render_wpm(void) {
     wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
     wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
     oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
-#    if !defined(OLED_DISPLAY_128X64)
-    oled_write_P(PSTR("  "), false);
-#    endif
+    if (padding) {
+        for (uint8_t n = padding; n > 0; n--) {
+            oled_write_P(PSTR(" "), false);
+        }
+    }
     oled_write(wpm_counter, false);
 #endif
 }
 
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
 extern kb_runtime_config_t kb_state;
-void render_pointing_dpi_status(void) {
-    char     dpi_status[6];
+void                       render_pointing_dpi_status(uint8_t padding) {
+    char     dpi_status[5];
     uint16_t n    = kb_state.device_cpi;
-    dpi_status[5] = '\0';
-    dpi_status[4] = '0' + n % 10;
-    dpi_status[3] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    dpi_status[4] = '\0';
+    dpi_status[3] = '0' + n % 10;
     dpi_status[2] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    dpi_status[1] = n / 10 ? '0' + n / 10 : ' ';
-    dpi_status[0] = ' ';
+    dpi_status[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    dpi_status[0] = n / 10 ? '0' + n / 10 : ' ';
     oled_write_P(PSTR("DPI: "), false);
+    if (padding) {
+        for (uint8_t n = padding; n > 0; n--) {
+            oled_write_P(PSTR(" "), false);
+        }
+    }
     oled_write(dpi_status, false);
 }
 #endif
@@ -350,11 +356,11 @@ __attribute__((weak)) void oled_driver_render_logo_left(void) {
 #ifdef DEBUG_MATRIX_SCAN_RATE
     render_matrix_scan_rate();
 #elif defined(WPM_ENABLE)
-    render_wpm();
+    render_wpm(0);
 #endif
     oled_write_P(PSTR("  "), false);
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
-    render_pointing_dpi_status();
+    render_pointing_dpi_status(1);
 #endif
 }
 
@@ -367,7 +373,7 @@ void render_status_secondary(void) {
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
 #if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE)
-    render_wpm();
+    render_wpm(2);
 #endif
     // render_keylock_status(host_keyboard_leds());
 }
@@ -375,7 +381,7 @@ void render_status_secondary(void) {
 void render_status_main(void) {
 #if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo_left();
-    oled_advance_page(true);
+    oled_set_cursor(0, 4);
 #else
     render_default_layer_state();
 #endif
@@ -407,7 +413,7 @@ void oled_task_user(void) {
             oled_on();
         }
     }
-    if (is_keyboard_left()) {
+    if (!is_keyboard_left()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();

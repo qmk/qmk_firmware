@@ -23,7 +23,6 @@ void            oled_driver_render_logo(void);
 bool            process_record_user_oled(uint16_t keycode, keyrecord_t *record);
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation);
 extern uint32_t oled_timer;
-void            render_pointing_dpi_status(void);
 void            render_keylogger_status(void);
 void            render_default_layer_state(void);
 void            render_layer_state(void);
@@ -33,8 +32,8 @@ void            render_mod_status(uint8_t modifiers);
 void            render_bootmagic_status(void);
 void            render_user_status(void);
 void            oled_driver_render_logo(void);
-void            render_wpm(void);
-void            render_pointing_dpi_status(void);
+void            render_wpm(uint8_t padding);
+void            render_pointing_dpi_status(uint8_t padding);
 void            oled_driver_render_logo_left(void);
 void            oled_driver_render_logo_right(void);
 
