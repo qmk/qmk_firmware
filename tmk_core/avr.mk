@@ -239,7 +239,12 @@ bootloadHID: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
+ifeq ($(BOOTLOADER),lufa-ms)
+	$(eval BIN_PADDING=$(shell n=`expr 32768 - $(BOOTLOADER_SIZE)` && echo $$(($$n)) || echo 0))
+	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin --pad-to $(BIN_PADDING)
+else
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+endif
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
 # copy bin to FLASH.bin
