@@ -30,9 +30,6 @@
 //TODO change the E6 pin to either B5, B6, B7 or C6 to utilize hardware PWM on a future PCB revision
 #define BACKLIGHT_PIN E6
 
-//Not clear how to be used (yet)
-//#define SLEEP_LED E6
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
