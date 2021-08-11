@@ -1,8 +1,8 @@
 # mini_elixivy
 
-![mini_eLiXiVy](https://imgur.com/WSCrhOq.png)
+![mini_eLiXiVy](https://imgur.com/0lmOFcF.jpg)
 
-*A 65% ANSI/ISO keyboard PCB, with a rotary encoder option*
+A 65% ANSI/ISO keyboard PCB, with a rotary encoder option
 
 * Keyboard Maintainer: [minibois](https://github.com/minibois)
 * Hardware Supported: mini_eLiXiVy PCB, KBDFans' 65% plate and case, PCB mount stabilizers
