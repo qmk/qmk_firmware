@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = qmk-dfu
 
 # Build Options
@@ -27,4 +20,4 @@ AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 
-LAYOUTS = split_bs split_bs_split_rshift split_rshift 
+LAYOUTS = alice alice_split_bs

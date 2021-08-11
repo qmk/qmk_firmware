@@ -1,10 +1,9 @@
-Edda PCB
-======
+# Edda PCB
 
 Alice layout PCB with top mounted USB C used in Mekanisk Edda
 
-Keyboard Maintainer: [martin](https://github.com/arnstadm)  
-Hardware Supported: [Edda PCB](https://tastatur.no/collections/forhandsbestilling-1/products/edda-pcb?variant=39481626001453)
+* Keyboard Maintainer: [martin](https://github.com/arnstadm)
+* Hardware Supported: [Edda PCB](https://tastatur.no/collections/forhandsbestilling-1/products/edda-pcb?variant=39481626001453)
 
 Make example for this keyboard (after setting up your build environment):
 

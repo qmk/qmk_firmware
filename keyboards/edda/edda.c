@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void keyboard_pre_init_kb(void) {
   // Call the keyboard pre init code.
+  keyboard_pre_init_user();
 
   // Set our LED pins as output
   setPinOutput(B2);
@@ -22,7 +23,7 @@ void keyboard_pre_init_kb(void) {
   setPinOutput(B0);
 }
 
-layer_state_t layer_state_set_kb(layer_state_t state) {
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case 1:
         writePin(B2, 1);
