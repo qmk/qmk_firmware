@@ -1,3 +1,18 @@
+ /* Copyright 2021 cest73 
+  * 
+  * This program is free software: you can redistribute it and/or modify 
+  * it under the terms of the GNU General Public License as published by 
+  * the Free Software Foundation, either version 2 of the License, or 
+  * (at your option) any later version. 
+  * 
+  * This program is distributed in the hope that it will be useful, 
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+  * GNU General Public License for more details. 
+  * 
+  * You should have received a copy of the GNU General Public License 
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  */ 
 #pragma once
 
 #include "quantum.h"
@@ -6,7 +21,8 @@
  * The first section contains "names" for physical keys of the keyboard
  * and defines their position on the board.
  * The second section defines position of the keys on the switch matrix
- * (where COLUMNS and ROWS crosses). */
+ * (where COLUMNS and ROWS crosses). 
+ This looks so much better in an terminal window :-(*/
  /*
  * ┌───┬───┬───┬───┐ ┌───┐ ┌───┬───┬───┬───┐┌───┬───┬───┬───┐┌───┬───┬───┬───┐ ┌───┬───┐
  * │Fn │PSc│Scr│Pse│ │Esc│ │F1 │F2 │F3 │F4 ││F5 │F6 │F7 │F8 ││F9 │F10│F11│F12│ │Hme│PgU│
