@@ -14,7 +14,7 @@ BOOTLOADER = caterina
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = lite	# Key at 0,0 makes the keyboard go into bootloader(+1000)
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no	# Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)
@@ -27,4 +27,4 @@ AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 
-LAYOUTS = numpad_6x4 ortho_6x4 nontra_6x4
+LAYOUTS = numpad_6x4 ortho_6x4

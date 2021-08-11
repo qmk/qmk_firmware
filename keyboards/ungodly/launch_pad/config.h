@@ -46,6 +46,18 @@
 /* RGB Matrix configuration */
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES
+#    define DISABLE_RGB_MATRIX_SOLID_REACTIVE
+#    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#    define DISABLE_RGB_MATRIX_PIXEL_FLOW
+#    define DISABLE_RGB_MATRIX_PIXEL_FRACTAL
+#    define DISABLE_RGB_MATRIX_PIXEL_RAIN
+#    define DRIVER_LED_TOTAL 22
 #endif
 
 #define RGB_DI_PIN F7
@@ -58,10 +70,6 @@
 #    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
 #    define RGBLIGHT_ANIMATIONS
-// RGB Matrix
-#    ifdef RGB_MATRIX_ENABLE
-#        define DRIVER_LED_TOTAL RGBLED_NUM
-#    endif
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

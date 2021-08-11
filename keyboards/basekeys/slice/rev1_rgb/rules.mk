@@ -17,7 +17,7 @@ SPLIT_KEYBOARD = yes
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = no       # Audio control and System control
 CONSOLE_ENABLE = no        # Console for debug
@@ -29,3 +29,5 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 OLED_DRIVER_ENABLE = yes     # Disable OLED driver.
 UNICODE_ENABLE = no         # Unicode
+
+LTO_ENABLE = yes

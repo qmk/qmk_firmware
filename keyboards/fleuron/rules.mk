@@ -14,7 +14,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no        # Console for debug
@@ -30,4 +30,5 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
 RGBLIGHT_ENABLE = yes
-LAYOUTS = ortho_6x16
+
+#LAYOUTS = ortho_6x16  # Disabled because layouts directory does not have an ortho_6x16 layout set up.

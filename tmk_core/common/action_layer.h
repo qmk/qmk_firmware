@@ -21,6 +21,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keyboard.h"
 #include "action.h"
 
+#ifdef DYNAMIC_KEYMAP_ENABLE
+#    ifndef DYNAMIC_KEYMAP_LAYER_COUNT
+#        define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#    endif
+#    if DYNAMIC_KEYMAP_LAYER_COUNT <= 8
+#        ifndef LAYER_STATE_8BIT
+#            define LAYER_STATE_8BIT
+#        endif
+#    elif DYNAMIC_KEYMAP_LAYER_COUNT <= 16
+#        ifndef LAYER_STATE_16BIT
+#            define LAYER_STATE_16BIT
+#        endif
+#    else
+#        ifndef LAYER_STATE_32BIT
+#            define LAYER_STATE_32BIT
+#        endif
+#    endif
+#endif
+
+#if !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_32BIT)
+#    define LAYER_STATE_32BIT
+#endif
+
 #if defined(LAYER_STATE_8BIT)
 typedef uint8_t layer_state_t;
 #    define MAX_LAYER_BITS 3
@@ -35,13 +58,15 @@ typedef uint16_t layer_state_t;
 #        define MAX_LAYER 16
 #    endif
 #    define get_highest_layer(state) biton16(state)
-#else
+#elif defined(LAYER_STATE_32BIT)
 typedef uint32_t layer_state_t;
 #    define MAX_LAYER_BITS 5
 #    ifndef MAX_LAYER
 #        define MAX_LAYER 32
 #    endif
 #    define get_highest_layer(state) biton32(state)
+#else
+#    error Layer Mask size not specified.  HOW?!
 #endif
 
 /*
@@ -92,7 +117,7 @@ layer_state_t layer_state_set_kb(layer_state_t state);
 
 #    define layer_state_set(layer)
 #    define layer_state_is(layer) (layer == 0)
-#    define layer_state_cmp(state, layer) (state == 0 ? layer == 0 : (state & 1UL << layer) != 0)
+#    define layer_state_cmp(state, layer) (state == 0 ? layer == 0 : (state & (layer_state_t)1 << layer) != 0)
 
 #    define layer_debug()
 #    define layer_clear()

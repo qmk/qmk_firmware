@@ -14,7 +14,7 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -30,7 +30,7 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
-LAYOUTS = ortho_4x4  ortho_4x8  ortho_4x12
+LAYOUTS = ortho_4x4 ortho_4x12
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no

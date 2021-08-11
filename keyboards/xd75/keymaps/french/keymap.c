@@ -24,10 +24,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_AZ] = LAYOUT_ortho_5x15( /* AZERTY */
-  FR_ESC,  	FR_AMP, 	FR_EACU, 	FR_QUOT, 	FR_APOS,  	FR_LPAR, 	FR_MINS, 	FR_EGRV,  	FR_UNDS,  	FR_CCED,  	FR_AGRV,  	FR_RPAR,  	FR_EQUA,  	FR_INST,  	FR_BSPC,
+  FR_ESC,  	FR_AMPR, 	FR_EACU, 	FR_DQUO, 	FR_QUOT,  	FR_LPAR, 	FR_MINS, 	FR_EGRV,  	FR_UNDS,  	FR_CCED,  	FR_AGRV,  	FR_RPAR,  	FR_EQUA,  	FR_INST,  	FR_BSPC,
   FR_TAB,  	FR_A,   	FR_Z,    	FR_E,    	FR_R,     	FR_T,    	FR_Y,    	FR_U,     	FR_I,     	FR_O,		FR_P,     	FR_HAT,   	FR_DLR,   	FR_ENTR,  	FR_PGUP,
   FR_CAPL, 	FR_Q,   	FR_S,    	FR_D,    	FR_F,     	FR_G,    	FR_H,    	FR_J,     	FR_K,     	FR_L,     	FR_M,     	FR_UGRV,  	FR_AST,   	FR_ENTR,  	FR_PGDN,
-  FR_LSFT, 	FR_W,    	FR_X,    	FR_C,    	FR_V,     	FR_B,    	FR_N,    	FR_COMM,  	FR_SCLN,  	FR_COLN,  	FR_EXCL,  	FR_LESS,      	FR_RSFT,  	FR_UP,    	FR_DEL,
+  FR_LSFT, 	FR_W,    	FR_X,    	FR_C,    	FR_V,     	FR_B,    	FR_N,    	FR_COMM,  	FR_SCLN,  	FR_COLN,  	FR_EXCL,  	FR_LABK,      	FR_RSFT,  	FR_UP,    	FR_DEL,
   FR_LCTR, 	FR_LCMD, 	FR_LALT, 	MO(_FN),	FR_SPAC,  	FR_SPAC, 	FR_SPAC, 	FR_SPAC,  	FR_ALGR,  	FR_MENU,  	FR_HOME,  	FR_END,   	FR_LEFT,  	FR_DOWN,  	FR_RIGT
  ),
 

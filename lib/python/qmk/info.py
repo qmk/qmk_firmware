@@ -1,17 +1,15 @@
 """Functions that help us generate and use info.json files.
 """
-import json
-from collections.abc import Mapping
 from glob import glob
 from pathlib import Path
 
-import hjson
 import jsonschema
 from dotty_dict import dotty
 from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts
+from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps
 from qmk.makefile import parse_rules_mk_file
@@ -19,6 +17,12 @@ from qmk.math import compute
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
+
+
+def _valid_community_layout(layout):
+    """Validate that a declared community list exists
+    """
+    return (Path('layouts/default') / layout).exists()
 
 
 def info_json(keyboard):
@@ -60,81 +64,39 @@ def info_json(keyboard):
     info_data = _extract_config_h(info_data)
     info_data = _extract_rules_mk(info_data)
 
+    # Ensure that we have matrix row and column counts
+    info_data = _matrix_size(info_data)
+
     # Validate against the jsonschema
     try:
-        keyboard_api_validate(info_data)
+        validate(info_data, 'qmk.api.keyboard.v1')
 
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
         cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        exit()
+        exit(1)
 
     # Make sure we have at least one layout
     if not info_data.get('layouts'):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
 
+    # Filter out any non-existing community layouts
+    for layout in info_data.get('community_layouts', []):
+        if not _valid_community_layout(layout):
+            # Ignore layout from future checks
+            info_data['community_layouts'].remove(layout)
+            _log_error(info_data, 'Claims to support a community layout that does not exist: %s' % (layout))
+
     # Make sure we supply layout macros for the community layouts we claim to support
-    # FIXME(skullydazed): This should be populated into info.json and read from there instead
-    if 'LAYOUTS' in rules and info_data.get('layouts'):
-        # Match these up against the supplied layouts
-        supported_layouts = rules['LAYOUTS'].strip().split()
-        for layout_name in sorted(info_data['layouts']):
-            layout_name = layout_name[7:]
+    for layout in info_data.get('community_layouts', []):
+        layout_name = 'LAYOUT_' + layout
+        if layout_name not in info_data.get('layouts', {}) and layout_name not in info_data.get('layout_aliases', {}):
+            _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
 
-            if layout_name in supported_layouts:
-                supported_layouts.remove(layout_name)
-
-        if supported_layouts:
-            for supported_layout in supported_layouts:
-                _log_error(info_data, 'Claims to support community layout %s but no LAYOUT_%s() macro found' % (supported_layout, supported_layout))
+    # Check that the reported matrix size is consistent with the actual matrix size
+    _check_matrix(info_data)
 
     return info_data
-
-
-def _json_load(json_file):
-    """Load a json file from disk.
-
-    Note: file must be a Path object.
-    """
-    try:
-        return hjson.load(json_file.open(encoding='utf-8'))
-
-    except json.decoder.JSONDecodeError as e:
-        cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
-        exit(1)
-
-
-def _jsonschema(schema_name):
-    """Read a jsonschema file from disk.
-
-    FIXME(skullydazed/anyone): Refactor to make this a public function.
-    """
-    schema_path = Path(f'data/schemas/{schema_name}.jsonschema')
-
-    if not schema_path.exists():
-        schema_path = Path('data/schemas/false.jsonschema')
-
-    return _json_load(schema_path)
-
-
-def keyboard_validate(data):
-    """Validates data against the keyboard jsonschema.
-    """
-    schema = _jsonschema('keyboard')
-    validator = jsonschema.Draft7Validator(schema).validate
-
-    return validator(data)
-
-
-def keyboard_api_validate(data):
-    """Validates data against the api_keyboard jsonschema.
-    """
-    base = _jsonschema('keyboard')
-    relative = _jsonschema('api_keyboard')
-    resolver = jsonschema.RefResolver.from_schema(base)
-    validator = jsonschema.Draft7Validator(relative, resolver=resolver).validate
-
-    return validator(data)
 
 
 def _extract_features(info_data, rules):
@@ -187,10 +149,7 @@ def _pin_name(pin):
     elif pin == 'NO_PIN':
         return None
 
-    elif pin[0] in 'ABCDEFGHIJK' and pin[1].isdigit():
-        return pin
-
-    raise ValueError(f'Invalid pin: {pin}')
+    return pin
 
 
 def _extract_pins(pins):
@@ -267,7 +226,7 @@ def _extract_config_h(info_data):
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_config_map = _json_load(Path('data/mappings/info_config.json'))
+    info_config_map = json_load(Path('data/mappings/info_config.json'))
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
@@ -335,7 +294,7 @@ def _extract_rules_mk(info_data):
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_rules_map = _json_load(Path('data/mappings/info_rules.json'))
+    info_rules_map = json_load(Path('data/mappings/info_rules.json'))
 
     for rules_key, info_dict in info_rules_map.items():
         info_key = info_dict['info_key']
@@ -383,6 +342,46 @@ def _extract_rules_mk(info_data):
     _extract_features(info_data, rules)
 
     return info_data
+
+
+def _matrix_size(info_data):
+    """Add info_data['matrix_size'] if it doesn't exist.
+    """
+    if 'matrix_size' not in info_data and 'matrix_pins' in info_data:
+        info_data['matrix_size'] = {}
+
+        if 'direct' in info_data['matrix_pins']:
+            info_data['matrix_size']['cols'] = len(info_data['matrix_pins']['direct'][0])
+            info_data['matrix_size']['rows'] = len(info_data['matrix_pins']['direct'])
+        elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
+            info_data['matrix_size']['cols'] = len(info_data['matrix_pins']['cols'])
+            info_data['matrix_size']['rows'] = len(info_data['matrix_pins']['rows'])
+
+    return info_data
+
+
+def _check_matrix(info_data):
+    """Check the matrix to ensure that row/column count is consistent.
+    """
+    if 'matrix_pins' in info_data and 'matrix_size' in info_data:
+        actual_col_count = info_data['matrix_size'].get('cols', 0)
+        actual_row_count = info_data['matrix_size'].get('rows', 0)
+        col_count = row_count = 0
+
+        if 'direct' in info_data['matrix_pins']:
+            col_count = len(info_data['matrix_pins']['direct'][0])
+            row_count = len(info_data['matrix_pins']['direct'])
+        elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
+            col_count = len(info_data['matrix_pins']['cols'])
+            row_count = len(info_data['matrix_pins']['rows'])
+
+        if col_count != actual_col_count and col_count != (actual_col_count / 2):
+            # FIXME: once we can we should detect if split is enabled to do the actual_col_count/2 check.
+            _log_error(info_data, f'MATRIX_COLS is inconsistent with the size of MATRIX_COL_PINS: {col_count} != {actual_col_count}')
+
+        if row_count != actual_row_count and row_count != (actual_row_count / 2):
+            # FIXME: once we can we should detect if split is enabled to do the actual_row_count/2 check.
+            _log_error(info_data, f'MATRIX_ROWS is inconsistent with the size of MATRIX_ROW_PINS: {row_count} != {actual_row_count}')
 
 
 def _merge_layouts(info_data, new_info_data):
@@ -525,32 +524,19 @@ def unknown_processor_rules(info_data, rules):
     return info_data
 
 
-def deep_update(origdict, newdict):
-    """Update a dictionary in place, recursing to do a deep copy.
-    """
-    for key, value in newdict.items():
-        if isinstance(value, Mapping):
-            origdict[key] = deep_update(origdict.get(key, {}), value)
-
-        else:
-            origdict[key] = value
-
-    return origdict
-
-
 def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
     for info_file in find_info_json(keyboard):
         # Load and validate the JSON data
-        new_info_data = _json_load(info_file)
+        new_info_data = json_load(info_file)
 
         if not isinstance(new_info_data, dict):
             _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
             continue
 
         try:
-            keyboard_validate(new_info_data)
+            validate(new_info_data, 'qmk.keyboard.v1')
         except jsonschema.ValidationError as e:
             json_path = '.'.join([str(p) for p in e.absolute_path])
             cli.log.error('Not including data from file: %s', info_file)
@@ -558,7 +544,15 @@ def merge_info_jsons(keyboard, info_data):
             continue
 
         # Merge layout data in
+        if 'layout_aliases' in new_info_data:
+            info_data['layout_aliases'] = {**info_data.get('layout_aliases', {}), **new_info_data['layout_aliases']}
+            del new_info_data['layout_aliases']
+
         for layout_name, layout in new_info_data.get('layouts', {}).items():
+            if layout_name in info_data.get('layout_aliases', {}):
+                _log_warning(info_data, f"info.json uses alias name {layout_name} instead of {info_data['layout_aliases'][layout_name]}")
+                layout_name = info_data['layout_aliases'][layout_name]
+
             if layout_name in info_data['layouts']:
                 for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                     existing_key.update(new_key)
@@ -568,7 +562,7 @@ def merge_info_jsons(keyboard, info_data):
 
         # Update info_data with the new data
         if 'layouts' in new_info_data:
-            del (new_info_data['layouts'])
+            del new_info_data['layouts']
 
         deep_update(info_data, new_info_data)
 

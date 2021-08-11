@@ -12,6 +12,9 @@ endif
 
 include common.mk
 
+# Set the qmk cli to use
+QMK_BIN ?= qmk
+
 # Set the filename for the final firmware binary
 KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
@@ -97,8 +100,17 @@ MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 
 # Pull in rules from info.json
-INFO_RULES_MK = $(shell bin/qmk generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/rules.mk)
+INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/rules.mk)
 include $(INFO_RULES_MK)
+
+ifneq ($(FORCE_LAYOUT),)
+    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+
+# Object files and generated keymap directory
+#     To put object files in current directory, use a dot (.), do NOT make
+#     this an empty or blank macro!
+KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
@@ -141,10 +153,6 @@ endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
     include platforms/chibios/QMK_PROTON_C/convert_to_proton_c.mk
-endif
-
-ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
 endif
 
 include quantum/mcu_selection.mk
@@ -206,6 +214,7 @@ endif
 #
 #    https://docs.qmk.fm/#/feature_layouts?id=tips-for-making-layouts-keyboard-agnostic
 #
+QMK_KEYBOARD_H = $(KEYBOARD_OUTPUT)/src/default_keyboard.h
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/$(KEYBOARD_FOLDER_1).h)","")
     QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_1).h
 endif
@@ -229,6 +238,7 @@ ifdef MCU_FAMILY
     PLATFORM=CHIBIOS
     PLATFORM_KEY=chibios
     FIRMWARE_FORMAT?=bin
+    OPT_DEFS += -DMCU_$(MCU_FAMILY)
 else ifdef ARM_ATSAM
     PLATFORM=ARM_ATSAM
     PLATFORM_KEY=arm_atsam
@@ -295,12 +305,15 @@ endif
 CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
 $(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
-	bin/qmk generate-config-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_config.h
+	$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_config.h
+
+$(KEYBOARD_OUTPUT)/src/default_keyboard.h: $(INFO_JSON_FILES)
+	$(QMK_BIN) generate-keyboard-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/default_keyboard.h
 
 $(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
-	bin/qmk generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h
+	$(QMK_BIN) generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h
 
-generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
+generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
 .INTERMEDIATE : generated-files
 
@@ -338,11 +351,6 @@ endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
     include $(KEYBOARD_PATH_5)/post_rules.mk
 endif
-
-# Object files directory
-#     To put object files in current directory, use a dot (.), do NOT make
-#     this an empty or blank macro!
-KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h

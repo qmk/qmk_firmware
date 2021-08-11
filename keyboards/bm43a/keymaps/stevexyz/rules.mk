@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMMAND_ENABLE = no         # Commands for debug and configuration
 CONSOLE_ENABLE = no         # Console for debug
 

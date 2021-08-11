@@ -46,15 +46,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case KC_QWERTY ... KC_WORKMAN:
+        case FIRST_DEFAULT_LAYER_KEYCODE ... LAST_DEFAULT_LAYER_KEYCODE:
             if (record->event.pressed) {
                 uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
                 if (!mods) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY);
+                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE);
+#if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 3)
                 } else if (mods & MOD_MASK_SHIFT) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY + 4);
+                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 4);
+#    if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 7)
+
                 } else if (mods & MOD_MASK_CTRL) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY + 8);
+                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 8);
+#    endif
+#endif
                 }
             }
             break;
@@ -79,15 +84,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
                 }
                 send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAP_CODE_DELAY);
-#ifdef RGB_MATRIX_SPLIT_RIGHT
-                send_string_with_delay_P(PSTR(" RGB_MATRIX_SPLIT_RIGHT=yes"), TAP_CODE_DELAY);
-#    ifndef OLED_DRIVER_ENABLE
-                send_string_with_delay_P(PSTR(" OLED_DRIVER_ENABLE=no"), TAP_CODE_DELAY);
-#    endif
+#ifdef CONVERT_TO_PROTON_C
+                send_string_with_delay_P(PSTR(" -e CTPC=yes"), TAP_CODE_DELAY);
 #endif
                 send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
             }
-
             break;
 
         case VRSN:  // Prints firmware version

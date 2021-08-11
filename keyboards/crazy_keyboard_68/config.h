@@ -52,6 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
+
 //#define BACKLIGHT_PIN B7
 //#define BACKLIGHT_LEVELS 3
 //#define BACKLIGHT_BREATHING

@@ -4,7 +4,7 @@ MCU = atmega32u4
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -25,5 +25,5 @@ POINTING_DEVICE_ENABLE = yes
 DEFAULT_FOLDER = oddball/v1
 
 SRC += spi_master.c
-SRC += adns/adns.c
+SRC += drivers/sensors/adns9800.c
 SRC += pmw/pmw.c

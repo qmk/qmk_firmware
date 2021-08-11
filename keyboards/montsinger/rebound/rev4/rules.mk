@@ -11,7 +11,7 @@ MCU = atmega32u4
 #   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
@@ -31,6 +31,6 @@ LAYOUTS = ortho_4x12
 LAYOUTS_HAS_RGB = no
 
 # Disable unsupported hardware
-RGBLIGHT_SUPPORTED = no
+RGBLIGHT_SUPPORTED = yes
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no

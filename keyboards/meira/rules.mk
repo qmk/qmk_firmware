@@ -14,7 +14,7 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no        # Console for debug
@@ -28,7 +28,7 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
-BACKLIGHT_CUSTOM_DRIVER = yes
+BACKLIGHT_DRIVER = custom
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality, also set ISSI_ENABLE below for Miera
 ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be disabled
 

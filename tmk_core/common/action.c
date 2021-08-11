@@ -55,6 +55,8 @@ __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrec
 __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
+__attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) { return true; }
+
 #ifndef TAP_CODE_DELAY
 #    define TAP_CODE_DELAY 0
 #endif
@@ -106,9 +108,13 @@ void action_exec(keyevent_t event) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-    action_tapping_process(record);
+    if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
+        action_tapping_process(record);
+    }
 #else
-    process_record(&record);
+    if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
+        process_record(&record);
+    }
     if (!IS_NOEVENT(record.event)) {
         dprint("processed: ");
         debug_record(record);
@@ -133,7 +139,8 @@ void process_hand_swap(keyevent_t *event) {
     bool             do_swap = event->pressed ? swap_hands : swap_state[pos.row] & (col_bit);
 
     if (do_swap) {
-        event->key = hand_swap_config[pos.row][pos.col];
+        event->key.row = pgm_read_byte(&hand_swap_config[pos.row][pos.col].row);
+        event->key.col = pgm_read_byte(&hand_swap_config[pos.row][pos.col].col);
         swap_state[pos.row] |= col_bit;
     } else {
         swap_state[pos.row] &= ~(col_bit);
@@ -205,7 +212,16 @@ void process_record(keyrecord_t *record) {
 }
 
 void process_record_handler(keyrecord_t *record) {
+#ifdef COMBO_ENABLE
+    action_t action;
+    if (record->keycode) {
+        action = action_for_keycode(record->keycode);
+    } else {
+        action = store_or_get_action(record->event.pressed, record->event.key);
+    }
+#else
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
+#endif
     dprint("ACTION: ");
     debug_action(action);
 #ifndef NO_ACTION_LAYER
@@ -772,10 +788,9 @@ void register_code(uint8_t code) {
     }
 #endif
 
-    else if
-        IS_KEY(code) {
-            // TODO: should push command_proc out of this block?
-            if (command_proc(code)) return;
+    else if IS_KEY (code) {
+        // TODO: should push command_proc out of this block?
+        if (command_proc(code)) return;
 
 #ifndef NO_ACTION_ONESHOT
 /* TODO: remove
@@ -792,35 +807,33 @@ void register_code(uint8_t code) {
         } else
 */
 #endif
-            {
-                // Force a new key press if the key is already pressed
-                // without this, keys with the same keycode, but different
-                // modifiers will be reported incorrectly, see issue #1708
-                if (is_key_pressed(keyboard_report, code)) {
-                    del_key(code);
-                    send_keyboard_report();
-                }
-                add_key(code);
+        {
+            // Force a new key press if the key is already pressed
+            // without this, keys with the same keycode, but different
+            // modifiers will be reported incorrectly, see issue #1708
+            if (is_key_pressed(keyboard_report, code)) {
+                del_key(code);
                 send_keyboard_report();
             }
-        }
-    else if
-        IS_MOD(code) {
-            add_mods(MOD_BIT(code));
+            add_key(code);
             send_keyboard_report();
         }
+    } else if IS_MOD (code) {
+        add_mods(MOD_BIT(code));
+        send_keyboard_report();
+    }
 #ifdef EXTRAKEY_ENABLE
-    else if
-        IS_SYSTEM(code) { host_system_send(KEYCODE2SYSTEM(code)); }
-    else if
-        IS_CONSUMER(code) { host_consumer_send(KEYCODE2CONSUMER(code)); }
+    else if IS_SYSTEM (code) {
+        host_system_send(KEYCODE2SYSTEM(code));
+    } else if IS_CONSUMER (code) {
+        host_consumer_send(KEYCODE2CONSUMER(code));
+    }
 #endif
 #ifdef MOUSEKEY_ENABLE
-    else if
-        IS_MOUSEKEY(code) {
-            mousekey_on(code);
-            mousekey_send();
-        }
+    else if IS_MOUSEKEY (code) {
+        mousekey_on(code);
+        mousekey_send();
+    }
 #endif
 }
 
@@ -865,26 +878,22 @@ void unregister_code(uint8_t code) {
     }
 #endif
 
-    else if
-        IS_KEY(code) {
-            del_key(code);
-            send_keyboard_report();
-        }
-    else if
-        IS_MOD(code) {
-            del_mods(MOD_BIT(code));
-            send_keyboard_report();
-        }
-    else if
-        IS_SYSTEM(code) { host_system_send(0); }
-    else if
-        IS_CONSUMER(code) { host_consumer_send(0); }
+    else if IS_KEY (code) {
+        del_key(code);
+        send_keyboard_report();
+    } else if IS_MOD (code) {
+        del_mods(MOD_BIT(code));
+        send_keyboard_report();
+    } else if IS_SYSTEM (code) {
+        host_system_send(0);
+    } else if IS_CONSUMER (code) {
+        host_consumer_send(0);
+    }
 #ifdef MOUSEKEY_ENABLE
-    else if
-        IS_MOUSEKEY(code) {
-            mousekey_off(code);
-            mousekey_send();
-        }
+    else if IS_MOUSEKEY (code) {
+        mousekey_off(code);
+        mousekey_send();
+    }
 #endif
 }
 
@@ -993,6 +1002,24 @@ void clear_keyboard_but_mods_and_keys() {
  */
 bool is_tap_key(keypos_t key) {
     action_t action = layer_switch_get_action(key);
+    return is_tap_action(action);
+}
+
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
+bool is_tap_record(keyrecord_t *record) {
+#ifdef COMBO_ENABLE
+    action_t action;
+    if (record->keycode) {
+        action = action_for_keycode(record->keycode);
+    } else {
+        action = layer_switch_get_action(record->event.key);
+    }
+#else
+    action_t action = layer_switch_get_action(record->event.key);
+#endif
     return is_tap_action(action);
 }
 
