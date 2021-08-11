@@ -1,3 +1,19 @@
+/* Copyright 2021 pathnirvana (pathnirvana@gmail.com)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #pragma once
 
 #include "config_common.h"
@@ -40,12 +56,6 @@
 //#define MATRIX_IO_DELAY 5 // default is 30, reducing this to 5 just increases the matrix scan rate from 1015 to 1063. not worth it
 
 /* i2c settings check docs/i2c_driver.md for details */
-#define I2C_DRIVER I2CD1
-#define I2C1_SCL_BANK GPIOB  // B6 and B7 used
-#define I2C1_SCL 6
-#define I2C1_SDA_BANK GPIOB
-#define I2C1_SDA 7
-
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
@@ -53,7 +63,6 @@
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 48
 #define DRIVER_LED_TOTAL 10
-#define RGB_DISABLE_WHEN_USB_SUSPENDED false  // for measure current
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220
 
 #define WS2812_PWM_DRIVER PWMD3
@@ -64,5 +73,3 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-// #define DEBUG_MATRIX_SCAN_RATE // useful for debugging with hid_listen
