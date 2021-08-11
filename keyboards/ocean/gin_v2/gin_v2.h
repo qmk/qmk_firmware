@@ -17,6 +17,8 @@
 
 #include "quantum.h"
 
+#define XXX KC_NO
+
 #define LAYOUT(\
   K00, K10, K01,  K11, K02, K12, K03, K13, K04, K14, K05, K15, K06, K16, K07, K27, \
   K20, K30, K21,  K31, K22, K32, K23, K33, K24, K34, K25, K35, K26, K36, K47,   \
