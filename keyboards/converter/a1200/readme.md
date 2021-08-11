@@ -41,7 +41,7 @@ Pins:        B0       5V
 * Hardware Supported: Teensy 2.0++ board by PJRC, MiSS-1200 FPGA by 8bits4ever
 * Hardware Availability: https://www.pjrc.com/store/teensypp.html
 
-On Teensy2++ board first time flashing use the reset button to enter in bootloader mode. Once the firmware is flashed you can use "HELP"+"R" on the Amiga keyboard for bootloader mode.  
+On Teensy2++ board use the reset button to enter in bootloader mode for first time flashing. Once the firmware is flashed you can use "HELP"+"R" on the Amiga keyboard for bootloader mode.  
 
 Make example for this keyboard (after setting up your build environment):
 
