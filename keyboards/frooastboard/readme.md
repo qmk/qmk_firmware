@@ -8,17 +8,9 @@
 
 **Reset Key:** Hold down the key located at `K00`, commonly programmed as ESCAPE while plugging in the keyboard. (If via is used it is the key located at `K10`.)
 
-Make example for this keyboard's default keymap (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
     make frooastboard:default
-
-Make example for this keyboard's fallback keymap (after setting up your build environment):
-
-    make frooastboard:safe_mode
-
-Make example for this keyboard's VIA keymap (after setting up your build environment):
-
-    make frooastboard:via
 
 Flashing example for this keyboard:
 
