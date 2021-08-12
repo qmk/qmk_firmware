@@ -89,7 +89,7 @@ bool last_dir;
 uint8_t change_index = 0;
 
 void OUTRUN(uint8_t i, bool dir) {
-    led_matrix_set_index_value_all(0);
+    led_matrix_set_value_all(0);
     
     if(dir != last_dir) {
        change_index = i;

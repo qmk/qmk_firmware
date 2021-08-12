@@ -295,7 +295,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
   return true;
 }
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
         if (clockwise) {
@@ -319,5 +319,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
     // I only have 2 encoders on the the pimoroni example board, just add else ifs for your other encoders...
     // the missing ones are encoder 1 on the right side and encoder 3 on the left side
+    return true;
 }
 #endif

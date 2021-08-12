@@ -1,13 +1,13 @@
 /*
- * 
+ *
  * An Italian ANSI layout
- * Version 0.3 
- * 
+ * Version 0.3
+ *
  * Created by Silvio Gulizia on the basis of the default Planck keymap.
  * Thanks to SomeBuddyOnReddit, gepeirl, fauxpark, BXO511, drashna, and ridingqwerty.
  *
- * The layout is based on the original Planck layout when used with language set to Italian on your Mac. 
- * Accented vowels have been moverd on RAISE ("è", "ì", and "ù") and LOWER ("é", "ò", and "à")
+ * The layout is based on the original Planck layout when used with language set to Italian on your Mac.
+ * Accented vowels have been moverd on RAISE ("ï¿½", "ï¿½", and "ï¿½") and LOWER ("ï¿½", "ï¿½", and "ï¿½")
  *
  */
 
@@ -40,9 +40,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  ~   |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |  (   |  )   | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |Enter |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   =  |  é   |  ò   |  à   |
+ * |Enter |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   =  |  ï¿½   |  ï¿½   |  ï¿½   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F6  |  F7  |  F8  |  F9  |      |NUMPAD|   §  |   ±  |  {   |  }   |  |   |
+ * |      |  F6  |  F7  |  F8  |  F9  |      |NUMPAD|   ï¿½  |   ï¿½  |  {   |  }   |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  `   |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      | SGCOM| DESK |      |      |      |   -  |   +  |   è  |   ì  |  ù   |
+ * |      |      | SGCOM| DESK |      |      |      |   -  |   +  |   ï¿½  |   ï¿½  |  ï¿½   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Caps |      | PHONE| SVIV |VIVERE|      |NUMPAD|      |      |  [   |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -162,7 +162,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update(bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -192,6 +192,7 @@ void encoder_update(bool clockwise) {
       #endif
     }
   }
+    return true;
 }
 
 void matrix_scan_user(void) {

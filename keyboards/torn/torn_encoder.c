@@ -38,11 +38,13 @@ const uint16_t encoder_default[2][2] =  { { KC_PGDN, KC_PGUP }, { KC__VOLDOWN, K
 /**
  * Tap on encoder updates using the encoder keymap
  */
-void encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    // if (!encoder_update_user(index, clockwise)) return false;
+
     uint16_t code;
 
     if (encoder_keymaps) {
-      int layer = get_highest_layer(layer_state);
+      uint8_t layer = get_highest_layer(layer_state);
       do {
           code = pgm_read_word(&encoder_keymaps[layer--][index][clockwise]);
       } while (code == KC_TRNS);
@@ -51,6 +53,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
     }
 
     tap_code16(code);
+    return true;
 }
 
 static bool encoder_read_state(uint8_t *state) {
