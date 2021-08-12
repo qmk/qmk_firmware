@@ -101,8 +101,13 @@ static const char PROGMEM QMK_logo[] = {
 }
 static void render_status(void) {
     oled_write_P(PSTR("      "), false);
-    sprintf(wpm_str, "%03d", get_current_wpm());
-    oled_write(wpm_str, false);
+    uint8_t n = get_current_wpm();
+    char wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
+    oled_write(wpm_counter, false);
     oled_write_P(PSTR("   WPM"), false);
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
