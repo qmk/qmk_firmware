@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make handwired/elrgo_s:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make handwired/elrgo_s:default:flash
 
