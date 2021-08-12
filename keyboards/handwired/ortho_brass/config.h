@@ -23,14 +23,14 @@
 #define PRODUCT_ID 0x6060
 #define DEVICE_VER 0x0001
 #define MANUFACTURER BifbofII
-#define PRODUCT Planck
-#define DESCRIPTION Handwired Planck
+#define PRODUCT "Ortho Brass"
+#define DESCRIPTION "Handwired Ortho 4x12 Keyboard"
 
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
 
-/* Planck PCB default pin-out */
+/* Handwired pin-out */
 #define MATRIX_ROW_PINS \
     { D3, D2, D1, D0 }
 #define MATRIX_COL_PINS \

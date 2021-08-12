@@ -1,6 +1,6 @@
-# Personal Planck Layout of BifbofII
+# Personal Ortho 4x12 Layout of BifbofII
 
-![BifbofII Planck Layout](https://i.imgur.com/hHSexjE.jpeg)
+![BifbofII Ortho 4x12 Layout](https://i.imgur.com/hHSexjE.jpeg)
 
 ## QWERTY Layer
 

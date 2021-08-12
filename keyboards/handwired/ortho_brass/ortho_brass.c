@@ -1,4 +1,4 @@
-#include "brass_planck.h"
+#include "ortho_brass.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__((weak)) const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
