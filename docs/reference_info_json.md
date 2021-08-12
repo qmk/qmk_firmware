@@ -15,10 +15,6 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
   * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
 * `maintainer`
   * GitHub username of the maintainer, or `qmk` for community maintained boards
-* `width`
-  * Width of the board in Key Units
-* `height`
-  * Height of the board in Key Units
 * `debounce`
   * How many milliseconds (ms) to wait for debounce to happen. (Default: 5)
 * `diode_direction`

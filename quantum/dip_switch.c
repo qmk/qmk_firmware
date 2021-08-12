@@ -49,13 +49,13 @@ static uint16_t       scan_count;
 static bool dip_switch_state[NUMBER_OF_DIP_SWITCHES]      = {0};
 static bool last_dip_switch_state[NUMBER_OF_DIP_SWITCHES] = {0};
 
-__attribute__((weak)) void dip_switch_update_user(uint8_t index, bool active) {}
+__attribute__((weak)) bool dip_switch_update_user(uint8_t index, bool active) { return true; }
 
-__attribute__((weak)) void dip_switch_update_kb(uint8_t index, bool active) { dip_switch_update_user(index, active); }
+__attribute__((weak)) bool dip_switch_update_kb(uint8_t index, bool active) { return dip_switch_update_user(index, active); }
 
-__attribute__((weak)) void dip_switch_update_mask_user(uint32_t state) {}
+__attribute__((weak)) bool dip_switch_update_mask_user(uint32_t state) { return true; }
 
-__attribute__((weak)) void dip_switch_update_mask_kb(uint32_t state) { dip_switch_update_mask_user(state); }
+__attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) { return dip_switch_update_mask_user(state); }
 
 void dip_switch_init(void) {
 #ifdef DIP_SWITCH_PINS

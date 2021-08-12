@@ -1,7 +1,7 @@
 MCU = atmega328p
 BOOTLOADER = USBasp
 
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no

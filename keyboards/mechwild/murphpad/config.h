@@ -36,8 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 /* Encoder pins */
-#define ENCODERS_PAD_A { E6 }
-#define ENCODERS_PAD_B { B4 }
+#define ENCODERS_PAD_A { E6, D2 }
+#define ENCODERS_PAD_B { B4, D3 }
 
 /* Encoder resolution */
 #define ENCODER_RESOLUTION 4

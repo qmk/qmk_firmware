@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS \
     { D0, D1, D2, D3, D5, B7 }
 #define MATRIX_COL_PINS \
-    { B6, C6, C7, F1, F0, B5 }
+    { B6, C6, C7, F1, F0, B5, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/

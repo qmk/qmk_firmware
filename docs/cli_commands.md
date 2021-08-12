@@ -109,7 +109,7 @@ qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 
 ## `qmk console`
 
-This command lets you connect to keyboard consoles to get debugging messages. It only works if your keyboard firmware has been compiled with `CONSOLE_ENABLED=yes`.
+This command lets you connect to keyboard consoles to get debugging messages. It only works if your keyboard firmware has been compiled with `CONSOLE_ENABLE=yes`.
 
 **Usage**:
 
@@ -280,12 +280,12 @@ qmk list-keymaps -kb planck/ez
 
 This command creates a new keyboard based on available templates.
 
-This command will prompt for input to guide you though the generation process.
+Any arguments that are not provided will prompt for input. If `-u` is not passed and `user.name` is set in .gitconfig, it will be used as the default username in the prompt.
 
 **Usage**:
 
 ```
-qmk new-keyboard
+qmk new-keyboard [-kb KEYBOARD] [-t {avr,ps2avrgb}] -u USERNAME
 ```
 
 ## `qmk new-keymap`
@@ -314,7 +314,18 @@ qmk clean [-a]
 
 # Developer Commands
 
-## `qmk cformat`
+## `qmk format-text`
+
+This command formats text files to have proper line endings. 
+
+Every text file in the repository needs to have Unix (LF) line ending.
+If you are working on **Windows**, you must ensure that line endings are corrected in order to get your PRs merged.
+
+```
+qmk format-text
+```
+
+## `qmk format-c`
 
 This command formats C code using clang-format. 
 
@@ -325,35 +336,36 @@ Run it with `-a` to format all core code, or pass filenames on the command line 
 **Usage for specified files**:
 
 ```
-qmk cformat [file1] [file2] [...] [fileN]
+qmk format-c [file1] [file2] [...] [fileN]
 ```
 
 **Usage for all core files**:
 
 ```
-qmk cformat -a
+qmk format-c -a
 ```
 
 **Usage for only changed files against origin/master**:
 
 ```
-qmk cformat
+qmk format-c
 ```
 
 **Usage for only changed files against branch_name**:
 
 ```
-qmk cformat -b branch_name
+qmk format-c -b branch_name
 ```
 
 ## `qmk docs`
 
 This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
+Use the `-b`/`--browser` flag to automatically open the local webserver in your default browser.
 
 **Usage**:
 
 ```
-qmk docs [-p PORT]
+qmk docs [-b] [-p PORT]
 ```
 
 ## `qmk generate-docs`
@@ -368,7 +380,7 @@ qmk generate-docs
 
 ## `qmk generate-rgb-breathe-table`
 
-This command generates a lookup table (LUT) header file for the [RGB Lighting](feature_rgblight.md) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/`.
+This command generates a lookup table (LUT) header file for the [RGB Lighting](feature_rgblight.md) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/rgblight/`.
 
 **Usage**:
 
@@ -398,14 +410,14 @@ $ qmk kle2json -f kle.txt -f
 Ψ Wrote out to info.json
 ```
 
-## `qmk pyformat`
+## `qmk format-python`
 
 This command formats python code in `qmk_firmware`.
 
 **Usage**:
 
 ```
-qmk pyformat
+qmk format-python
 ```
 
 ## `qmk pytest`

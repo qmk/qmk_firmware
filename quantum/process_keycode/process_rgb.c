@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_rgb.h"
-#include "rgb.h"
 
 typedef void (*rgb_func_pointer)(void);
 

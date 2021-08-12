@@ -25,7 +25,7 @@
 #endif
 
 uint32_t        oled_timer                       = 0;
-static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
+static char     keylog_str[KEYLOGGER_LENGTH + 1] = {0};
 static uint16_t log_timer                        = 0;
 
 // clang-format off
@@ -57,12 +57,12 @@ void add_keylog(uint16_t keycode) {
         keycode = 0;
     }
 
-    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
-        keylog_str[i] = keylog_str[i - 1];
+    for (uint8_t i = 1; i < KEYLOGGER_LENGTH; i++) {
+        keylog_str[i - 1] = keylog_str[i];
     }
 
     if (keycode < (sizeof(code_to_name) / sizeof(char))) {
-        keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
+        keylog_str[(KEYLOGGER_LENGTH - 1)] = pgm_read_byte(&code_to_name[keycode]);
     }
 
     log_timer = timer_read();
@@ -95,26 +95,14 @@ void render_default_layer_state(void) {
         case _QWERTY:
             oled_write_P(PSTR(OLED_RENDER_LAYOUT_QWERTY), false);
             break;
+        case _COLEMAK_DH:
+            oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK_DH), false);
+            break;
         case _COLEMAK:
             oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK), false);
             break;
         case _DVORAK:
             oled_write_P(PSTR(OLED_RENDER_LAYOUT_DVORAK), false);
-            break;
-        case _WORKMAN:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_WORKMAN), false);
-            break;
-        case _NORMAN:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_NORMAN), false);
-            break;
-        case _MALTRON:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_MALTRON), false);
-            break;
-        case _EUCALYN:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_EUCALYN), false);
-            break;
-        case _CARPLAX:
-            oled_write_P(PSTR(OLED_RENDER_LAYOUT_CARPLAX), false);
             break;
     }
 #ifdef OLED_DISPLAY_128X64
@@ -153,18 +141,16 @@ void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), led_usb_state & (1 << USB_LED_CAPS_LOCK));
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
-#ifndef OLED_DISPLAY_128X64
-    oled_advance_page(true);
-#endif
 }
+
 void render_matrix_scan_rate(void) {
 #ifdef DEBUG_MATRIX_SCAN_RATE
-    char matrix_rate[5];
-    uint16_t n = get_matrix_scan_rate();
+    char     matrix_rate[5];
+    uint16_t n     = get_matrix_scan_rate();
     matrix_rate[4] = '\0';
     matrix_rate[3] = '0' + n % 10;
-    matrix_rate[2] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    matrix_rate[1] =  n / 10 ? '0' + n / 10 : ' ';
+    matrix_rate[2] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    matrix_rate[1] = n / 10 ? '0' + n / 10 : ' ';
     matrix_rate[0] = ' ';
     oled_write_P(PSTR("MS:"), false);
     oled_write(matrix_rate, false);
@@ -284,6 +270,10 @@ void render_user_status(void) {
     oled_write_P(rgb_layer_status[userspace_config.rgb_layer_change], false);
     static const char PROGMEM nukem_good[2][3] = {{0xF8, 0xF9, 0}, {0xF6, 0xF7, 0}};
     oled_write_P(nukem_good[0], userspace_config.nuke_switch);
+#if defined(UNICODE_ENABLE)
+    static const char PROGMEM uc_mod_status[5][3] = {{0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
+    oled_write_P(uc_mod_status[get_unicode_input_mode() == UC_MAC], false);
+#endif
 #if defined(OLED_DISPLAY_128X64)
     oled_advance_page(true);
 #endif
@@ -306,34 +296,33 @@ void render_wpm(void) {
     char wpm_counter[4];
     wpm_counter[3] = '\0';
     wpm_counter[2] = '0' + n % 10;
-    wpm_counter[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
     wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
 #    else
     char wpm_counter[6];
     wpm_counter[5] = '\0';
     wpm_counter[4] = '0' + n % 10;
-    wpm_counter[3] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[3] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
     wpm_counter[2] = n / 10 ? '0' + n / 10 : ' ';
     wpm_counter[1] = ' ';
     wpm_counter[0] = ' ';
-    #    endif
+#    endif
     oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
     oled_write(wpm_counter, false);
 #endif
 }
 
-#ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
-extern keyboard_config_t keyboard_config;
-extern uint16_t          dpi_array[];
+#if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
 
+extern kb_runtime_config_t kb_state;
 void render_pointing_dpi_status(void) {
-    char dpi_status[6];
-    uint16_t n = dpi_array[keyboard_config.dpi_config];
+    char     dpi_status[6];
+    uint16_t n    = kb_state.device_cpi;
     dpi_status[5] = '\0';
     dpi_status[4] = '0' + n % 10;
-    dpi_status[3] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    dpi_status[2] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    dpi_status[1] =  n / 10 ? '0' + n / 10 : ' ';
+    dpi_status[3] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    dpi_status[2] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    dpi_status[1] = n / 10 ? '0' + n / 10 : ' ';
     dpi_status[0] = ' ';
     oled_write_P(PSTR("  DPI: "), false);
     oled_write(dpi_status, false);
@@ -348,8 +337,10 @@ void render_status_secondary(void) {
     render_default_layer_state();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
-    // render_keylogger_status();
-    render_keylock_status(host_keyboard_leds());
+#if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE)
+    render_wpm();
+#endif
+    // render_keylock_status(host_keyboard_leds());
 }
 
 void render_status_main(void) {
@@ -357,10 +348,10 @@ void render_status_main(void) {
     oled_driver_render_logo();
 #    ifdef DEBUG_MATRIX_SCAN_RATE
     render_matrix_scan_rate();
-#    else
+#    elif defined(WPM_ENABLE)
     render_wpm();
 #    endif
-#    ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
+#    if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
     render_pointing_dpi_status();
 #    endif
     oled_write_P(PSTR("\n"), false);
@@ -372,7 +363,16 @@ void render_status_main(void) {
     render_bootmagic_status();
     render_user_status();
 
-    render_keylogger_status();
+    // render_keylogger_status();
+}
+
+__attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return rotation; }
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    for (uint8_t i = 0; i < (KEYLOGGER_LENGTH - 1); i++) {
+        add_keylog(0);
+    }
+    return oled_init_keymap(rotation);
 }
 
 void oled_task_user(void) {
@@ -385,8 +385,15 @@ void oled_task_user(void) {
         } else {
             oled_on();
         }
+    }
+    if (is_keyboard_left()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
+    }
+    if (is_keyboard_master()) {
+        render_keylogger_status();
+    } else {
+        render_keylock_status(host_keyboard_leds());
     }
 }

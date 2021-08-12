@@ -14,7 +14,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = full		# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes		# Mouse keys
 EXTRAKEY_ENABLE = yes		# Audio control and System control
 # CONSOLE_ENABLE = yes		# Console for debug
@@ -27,4 +27,4 @@ RGBLIGHT_ENABLE = yes  # Enable the RGB backlight
 # UNICODE_ENABLE = YES		# Unicode
 # BLUETOOTH_ENABLE = yes	# Enable Bluetooth with the Adafruit EZ-Key HID
 
-LAYOUTS = 60_ansi 60_ansi_split_bksp_rshift 60_iso 60_hhkb
+LAYOUTS = 60_ansi 60_iso 60_hhkb

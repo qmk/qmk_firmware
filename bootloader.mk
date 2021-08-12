@@ -26,6 +26,7 @@
 #     atmel-dfu   Atmel factory DFU
 #     lufa-dfu    LUFA DFU
 #     qmk-dfu     QMK DFU (LUFA + blinkenlight)
+#     qmk-hid     QMK HID (LUFA + blinkenlight)
 #     bootloadHID HIDBootFlash compatible (ATmega32A)
 #     USBasp      USBaspLoader (ATmega328P)
 # ARM:
@@ -67,6 +68,11 @@ ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
         BOOTLOADER_SIZE = 8192
     endif
 endif
+ifeq ($(strip $(BOOTLOADER)), qmk-hid)
+    OPT_DEFS += -DBOOTLOADER_QMK_HID
+    OPT_DEFS += -DBOOTLOADER_HID
+    BOOTLOADER_SIZE = 4096
+endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
     ifeq ($(strip $(MCU)), atmega32u4)
@@ -90,7 +96,7 @@ ifeq ($(strip $(BOOTLOADER)), USBasp)
 endif
 ifeq ($(strip $(BOOTLOADER)), lufa-ms)
     OPT_DEFS += -DBOOTLOADER_MS
-    BOOTLOADER_SIZE = 6144
+    BOOTLOADER_SIZE ?= 8192
     FIRMWARE_FORMAT = bin
 cpfirmware: lufa_warning
 .INTERMEDIATE: lufa_warning
