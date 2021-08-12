@@ -1,9 +1,6 @@
 # MCU name
 MCU = atmega32u2
 
-# Processor frequency
-F_CPU = 16000000
-
 # Bootloader selection
 BOOTLOADER = bootloadHID
 
