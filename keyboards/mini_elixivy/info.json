@@ -5,7 +5,7 @@
     "width": 16,
     "height": 5,
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_65_ansi": {
             "layout":[
                 {"label":"Esc", "x":0, "y":0},{"label":"1", "x":1, "y":0},{"label":"2", "x":2, "y":0},{"label":"3", "x":3, "y":0},{"label":"4", "x":4, "y":0},{"label":"5", "x":5, "y":0},{"label":"6", "x":6, "y":0},{"label":"7", "x":7, "y":0},{"label":"8", "x":8, "y":0},{"label":"9", "x":9, "y":0},{"label":"0", "x":10, "y":0},{"label":"Dash", "x":11, "y":0},{"label":"Equals", "x":12, "y":0},{"label":"Backspace", "x":13, "y":0, "w":2.00},{"label":"PrintScr", "x":15, "y":0},
                 {"label":"Tab", "x":0, "y":1, "w":1.5},{"label":"Q", "x":1.5, "y":0},{"label":"W", "x":2.5, "y":1},{"label":"E", "x":3.5, "y":1},{"label":"R", "x":4.5, "y":1},{"label":"T", "x":5.5, "y":1},{"label":"Y", "x":6.5, "y":1},{"label":"U", "x":7.5, "y":1},{"label":"I", "x":8.5, "y":1},{"label":"O", "x":9.5, "y":1},{"label":"P", "x":10.5, "y":1},{"label":"[", "x":11.5, "y":1},{"label":"]", "x":12.5, "y":1},{"label":"BackSlash", "x":13.5, "y":1, "w":1.5},{"label":"Del", "x":15, "y":1},
