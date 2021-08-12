@@ -1,4 +1,4 @@
-SRC += bocaj.c \
+SRC += jjerrell.c \
        process_records.c
 
 LEADER_ENABLE = yes
@@ -20,7 +20,8 @@ ifneq ($(strip $(NO_SECRETS)), yes)
     endif
 endif
 
-RGB_MATRIX_ENABLE ?= no
-ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
-    SRC += rgb_matrix_stuff.c
-endif
+# TODO: RGB is next
+# RGB_MATRIX_ENABLE ?= no
+# ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
+#     SRC += rgb_matrix_stuff.c
+# endif
