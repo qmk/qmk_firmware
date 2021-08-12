@@ -1,6 +1,6 @@
 # Ten Key Mirrored - 2021
 
-![TKM-2021](https://geekhack.org/index.php?action=dlattach;topic=110499.0;attach=272800;image)
+![TKM-2021](https://imgur.com/AlvRk1z.jpg)
 
 
 Another take on left side numpad and this time mirrored too for the ever more spacious mouse playground.
