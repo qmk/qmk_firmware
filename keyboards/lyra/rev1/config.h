@@ -21,7 +21,6 @@
 #define DEVICE_VER      0x3031  //01
 #define MANUFACTURER    Dom
 #define PRODUCT         Lyra
-#define DESCRIPTION     LyraKeyboard
 
 /* key matrix size */
 // Rows are doubled-up
