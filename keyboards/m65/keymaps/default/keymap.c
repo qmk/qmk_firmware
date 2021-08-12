@@ -83,7 +83,7 @@ void matrix_scan_user(void) {
     led_lwr(toggle_lwr);
     led_rse(toggle_rse);
     led_t led_state = host_keyboard_led_state();
-    led_caps(!led_state.caps_lock);
+    led_caps(led_state.caps_lock);
     if (layer_state_is(_ADJ)) {
         led_lwr(true);
         led_rse(true);
