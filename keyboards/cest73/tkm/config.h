@@ -22,7 +22,7 @@
 #define PRODUCT_ID      0xAA55
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    cest73
-#define PRODUCT         "TKM-2021 R1.03"
+#define PRODUCT         TKM-2021 R1.03
 
 /* key matrix size */
 #define MATRIX_ROWS 11
