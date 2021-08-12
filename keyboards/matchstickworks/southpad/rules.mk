@@ -1,11 +1,11 @@
 # MCU name
 MCU = atmega32u2
 
-# Bootloader selection
-BOOTLOADER = bootloadHID
-
+# Processor frequency
 F_CPU = 16000000
 
+# Bootloader selection
+BOOTLOADER = bootloadHID
 
 # Build Options
 #   change yes to no to disable
