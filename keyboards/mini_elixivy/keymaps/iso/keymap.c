@@ -64,13 +64,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
     ),
 };
-
-/* Rotary Encoder's function (currently volume up/down) */
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code(KC_AUDIO_VOL_UP);
-    } else {
-        tap_code(KC_AUDIO_VOL_DOWN);
-    }
-    return true;
-}
