@@ -249,11 +249,6 @@ void keyboard_post_init_user_kb(void) {
 static uint32_t current_layer_state = 0;
 static uint8_t sys_led_state = 0;
 
-// Use these masks to read the system LEDs state.
-static const uint8_t sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
-static const uint8_t sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
-static const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
-
 // Whether the given layer (one of the constant defined at the top) is active.
 #define LAYER_ON(state, layer) (state & (1<<layer))
 
@@ -299,21 +294,23 @@ void led_board_off(void) {
 }
 
 void set_leds_by_system_state(uint8_t led_state) {
-    if (led_state & sys_led_mask_num_lock) {
+    led_t host_led_state = host_keyboard_led_state();
+
+    if (led_state & host_led_state.num_lock) {
         led_1_on();
     }
     else {
         led_1_off();
     }
 
-    if (led_state & sys_led_mask_caps_lock) {
+    if (led_state & host_led_state.caps_lock) {
         led_2_on();
     }
     else {
         led_2_off();
     }
 
-    if (led_state & sys_led_mask_scroll_lock) {
+    if (led_state & host_led_state.scroll_lock) {
         led_3_on();
     }
     else {
