@@ -1,6 +1,6 @@
 # SouthPad
 
-![Southpad](https://i.imgur.com/Wl71thn.jpg)
+![Southpad](https://i.imgur.com/Wl71thnh.jpg)
 
 This is a left-handed (or mirrored) numberpad with USB-C connections.
 
