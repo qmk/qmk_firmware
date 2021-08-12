@@ -1,6 +1,6 @@
 # Frooastboard
 
-![Frooastboard](https://i.imgur.com/f26O8JL.jpg)
+![Frooastboard](https://i.imgur.com/f26O8JLh.jpg)
 
 * Keyboard Maintainer: [Frooastside](https://github.com/frooastside)
 * Hardware Supported: Frooastboard
