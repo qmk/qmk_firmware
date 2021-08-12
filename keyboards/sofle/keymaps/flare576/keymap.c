@@ -13,16 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-// Enable if writing to main board; otherwise remove
-// #define MAIN_BOARD
 
 #include QMK_KEYBOARD_H
 #include "print.h"
 #include "enums.h"
-
-#ifdef OLED_DRIVER_ENABLE
 #include "graphics.c"
-#endif
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_PLAY] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MNXT),
@@ -31,13 +26,12 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 #define KC_TPLY TD(TD_PLAY)
 #define KC_THME TD(TD_HOME)
-#define F_META LSA_T(LSA(KC_A))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * BASE
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |~/MDIA|   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
+ * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |Alt/Tb|   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  \   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -52,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 [_BASE] = LAYOUT(
-  KC_GRV,         KC_1, KC_2,      KC_3,    KC_4,             KC_5,                                KC_6,    KC_7,      KC_8,    KC_9,     KC_0,    KC_MINS,
-  RALT_T(KC_TAB), KC_Q, KC_W,      KC_E,    KC_R,             KC_T,                                KC_Y,    KC_U,      KC_I,    KC_O,     KC_P,    KC_BSLS,
-  KC_LSFT,        KC_A, KC_S,      KC_D,    KC_F,             KC_G,                                KC_H,    KC_J,      KC_K,    KC_L,     KC_SCLN, KC_QUOT,
-  KC_LCTRL,       KC_Z, KC_X,      KC_C,    KC_V,             KC_B,    KC_TPLY, KC_THME,           KC_N,    KC_M,      KC_COMM, KC_DOT,   KC_SLSH, RSFT_T(KC_PLUS),
-                        TG(_ESDF), KC_LALT, LT(_SYMS,KC_ESC), KC_LGUI, KC_SPC,  LT(_MOUS, KC_ENT), KC_BSPC, F_META, KC_DEL,  TG(_FF14)
+  KC_GRV,         KC_1, KC_2,      KC_3,    KC_4,             KC_5,                                KC_6,    KC_7,          KC_8,    KC_9,     KC_0,    KC_MINS,
+  RALT_T(KC_TAB), KC_Q, KC_W,      KC_E,    KC_R,             KC_T,                                KC_Y,    KC_U,          KC_I,    KC_O,     KC_P,    KC_BSLS,
+  KC_LSFT,        KC_A, KC_S,      KC_D,    KC_F,             KC_G,                                KC_H,    KC_J,          KC_K,    KC_L,     KC_SCLN, KC_QUOT,
+  KC_LCTRL,       KC_Z, KC_X,      KC_C,    KC_V,             KC_B,    KC_TPLY, KC_THME,           KC_N,    KC_M,          KC_COMM, KC_DOT,   KC_SLSH, RSFT_T(KC_PLUS),
+                        TG(_ESDF), KC_LALT, LT(_SYMS,KC_ESC), KC_LGUI, KC_SPC,  LT(_MOUS, KC_ENT), KC_BSPC, RSFT(KC_RALT), KC_DEL,  TG(_FF14)
 ),
 
 /*
@@ -106,16 +100,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* FF14
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |~/MDIA|   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
+ * | TRNS | TRNS | TRNS | TRNS | TRNS | TRNS |                    | TRNS | TRNS | TRNS | TRNS | TRNS | TRNS |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TAB  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  \   |
+ * | TAB  | TRNS | TRNS | TRNS | TRNS | TRNS |                    | TRNS | TRNS | TRNS | TRNS | TRNS | TRNS |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |LCtrl |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |+/SHFT|
- * `-----------------------------------------/       /     \Enter \-----------------------------------------'
- *            | ESDF |      | ESC  | LGUI | /Space  /       \ or   \  | Bspc | Alt+ |Delete| TRNS |
- *            |      |      |      |      |/       /         \Mouse \ |      |Shift |      |      |
+ * | TRNS | TRNS | TRNS | TRNS | TRNS | TRNS |-------.    ,-------| TRNS | TRNS | TRNS | TRNS | TRNS | TRNS |
+ * |------+------+------+------+------+------| TRNS  |    | TRNS  |------+------+------+------+------+------|
+ * | TRNS | TRNS | TRNS | TRNS | TRNS | TRNS |-------|    |-------| TRNS | TRNS | TRNS | TRNS | TRNS | TRNS |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | ESDF |      | ESC  | TRNS | / TRNS  /       \ TRNS \  | TRNS |PrntSc| TRNS | TRNS |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
 [_FF14] = LAYOUT(
@@ -128,24 +122,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ESDF
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
+ * |      |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | RESET|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   T  |Alt/Tb|   Q  |   W  |   E  |   R  |                    |   Y  |   U  |   I  |   O  |   P  |  \   |
+ * |   T  |Alt/Tb|   Q  |   W  |   E  |   R  |                    | Ctl-Y| Ctl-U| Ctl-I| Ctl-O| Ctl-P| PGUP |
  * |------|------+------+------+------+------+                    |------+------+------+------+------+------|
- * |   G  |LShift|   A  |   S  |   D  |   F  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
+ * |   G  |LShift|   A  |   S  |   D  |   F  |-------.    ,-------| Ctl-H| Ctl-J| Ctl-K| Ctl-L| Ctl-;| PGDN |
  * |------|------+------+------+------+------+       |    |       |------+------+------+------+------+------|
- * | LCtrl|  Z   |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * | LCtrl|  Z   |   X  |   C  |   V  |   B  |-------|    |-------| Ctl-N| Ctl-M| Ctl-,| Ctl-.| Ctl-/| Right|
  * `-----------------------------------------/       /     \Enter \-----------------------------------------'
  *            | TRNS |      | ESC  | LAlt | /Space  /       \      \  |PrnScr|      |      | FF14 |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
 [_ESDF] = LAYOUT(
-  KC_ESC, KC_1,     KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,       KC_7,       KC_8,          KC_9,         KC_0,          KC_BSPC,
-  KC_T,   KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,                      RCTL(KC_Y), RCTL(KC_U), RCTL(KC_I),    RCTL(KC_O),   RCTL(KC_P),    KC_PGUP,
-  KC_G,   KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_F,                      RCTL(KC_H), RCTL(KC_J), RCTL(KC_K),    RCTL(KC_L),   RCTL(KC_SCLN), KC_PGDN,
-  KC_LCTRL, KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,    _______, _______, RCTL(KC_N), RCTL(KC_M), RCTL(KC_COMM), RCTL(KC_DOT), RCTL(KC_SLSH), KC_RIGHT,
-                    _______, XXXXXXX, _______, KC_LALT, _______, _______, _______,    KC_PSCR,    _______,       TO(_FF14)
+  KC_ESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,       KC_7,       KC_8,          KC_9,         KC_0,          RESET,
+  KC_T,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,                      RCTL(KC_Y), RCTL(KC_U), RCTL(KC_I),    RCTL(KC_O),   RCTL(KC_P),    KC_PGUP,
+  KC_G,   KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                      RCTL(KC_H), RCTL(KC_J), RCTL(KC_K),    RCTL(KC_L),   RCTL(KC_SCLN), KC_PGDN,
+  KC_LCTRL, KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, RCTL(KC_N), RCTL(KC_M), RCTL(KC_COMM), RCTL(KC_DOT), RCTL(KC_SLSH), KC_RIGHT,
+                   _______, XXXXXXX, _______, KC_LALT, _______, _______, _______,    KC_PSCR,    _______,       TO(_FF14)
 )
 };
 
@@ -164,12 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case KC_SPC:
-            if (record->event.pressed) {
-                isJumping = true;
-                showedJump = false;
-            } else {
-                isJumping = false;
-            }
+            luna_jump(record->event.pressed);
             break;
     }
     return true;
