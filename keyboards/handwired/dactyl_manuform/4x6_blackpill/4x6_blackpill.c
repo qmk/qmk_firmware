@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
-  //Key Matrix to LED Indexccxxz
+  //Key Matrix to LED Index
   {0, NO_LED, NO_LED,NO_LED,NO_LED,NO_LED },
   {NO_LED, NO_LED, NO_LED,NO_LED,NO_LED,NO_LED },
   {NO_LED, NO_LED, NO_LED,NO_LED,NO_LED,NO_LED },
