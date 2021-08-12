@@ -15,8 +15,6 @@
   */ 
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-char wpm_str[10];
 //
 // Keymaps
 //
