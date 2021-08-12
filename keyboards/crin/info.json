@@ -5,7 +5,8 @@
     "width": 18.5,
     "height": 5,
     "layout_aliases": {
-        "LAYOUT_default": "LAYOUT_all"
+        "LAYOUT_default": "LAYOUT_all",
+        "LAYOUT_tsangan": "LAYOUT_ansi_tsangan"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -169,7 +170,7 @@
                 {"label":"Right", "x":17.5, "y":4}
             ]
         },
-        "LAYOUT_tsangan": {
+        "LAYOUT_ansi_tsangan": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
