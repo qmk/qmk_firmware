@@ -42,13 +42,15 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int8
     mouse_report->y = y;
 }
 
-__attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
+__attribute__((weak)) kb_pointer_data_t process_mouse(void) {
+    kb_pointer_data_t temp_data = {.mouse_x = 0, .mouse_y = 0};
+
     report_pmw_t data = pmw_read_burst();
     if (data.isOnSurface && data.isMotion) {
         // Reset timer if stopped moving
         if (!data.isMotion) {
             if (MotionStart != 0) MotionStart = 0;
-            return;
+            return temp_data;
         }
 
         // Set timer if new motion
@@ -75,9 +77,10 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
         // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
-        mouse_report->x = -data.dx;
-        mouse_report->y = data.dy;
+        temp_data.mouse_x = -data.dx;
+        temp_data.mouse_y = data.dy;
     }
+    return temp_data;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -148,11 +151,22 @@ void pointing_device_init(void) {
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
-static bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
-
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
-    if (!is_keyboard_left()) { process_mouse(&mouse_report); }
+    kb_pointer_data_t data         = {.mouse_x = mouse_report.x, .mouse_y = mouse_report.y};
+    if (is_keyboard_left()) {
+        if (is_keyboard_master()) {
+            data = kb_pointer_sync_get();
+            process_mouse_user(&mouse_report, data.mouse_x, data.mouse_y);
+        }
+    } else {
+        data = process_mouse();
+        if (!is_keyboard_master()) {
+            kb_pointer_sync_send(data.mouse_x, data.mouse_y);
+        } else {
+            process_mouse_user(&mouse_report, data.mouse_x, data.mouse_y);
+        }
+    }
 
     pointing_device_set_report(mouse_report);
     pointing_device_send();
@@ -175,25 +189,3 @@ void matrix_init_kb(void) {
     if (keyboard_config.dpi_config > DPI_OPTION_SIZE) { eeconfig_init_kb(); }
     matrix_init_user();
 }
-
-#ifdef POINTING_DEVICE_ENABLE
-void pointing_device_send(void) {
-    static report_mouse_t old_report  = {};
-    report_mouse_t        mouseReport = pointing_device_get_report();
-    if (is_keyboard_master()) {
-        int8_t x = mouseReport.x, y = mouseReport.y;
-        mouseReport.x = 0;
-        mouseReport.y = 0;
-        process_mouse_user(&mouseReport, x, y);
-        if (has_report_changed(mouseReport, old_report)) { host_mouse_send(&mouseReport); }
-    } else {
-        kb_pointer_sync_send(mouseReport.x, mouseReport.y);
-    }
-    mouseReport.x = 0;
-    mouseReport.y = 0;
-    mouseReport.v = 0;
-    mouseReport.h = 0;
-    old_report    = mouseReport;
-    pointing_device_set_report(mouseReport);
-}
-#endif

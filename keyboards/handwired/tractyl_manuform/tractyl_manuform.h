@@ -25,9 +25,6 @@
 #    include "4x6_right.h"
 #endif
 
-void process_mouse(report_mouse_t* mouse_report);
-void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y);
-
 typedef union {
     uint32_t raw;
     struct {
@@ -42,9 +39,6 @@ enum ploopy_keycodes {
     KEYMAP_SAFE_RANGE,
 };
 
-void kb_pointer_sync_send(int8_t x, int8_t y);
-void trackball_set_cpi(uint16_t cpi);
-
 typedef struct {
     uint16_t        device_cpi;
 } kb_config_data_t;
@@ -53,3 +47,9 @@ typedef struct  {
     int8_t mouse_x;
     int8_t mouse_y;
 } kb_pointer_data_t;
+
+kb_pointer_data_t process_mouse(void);
+void              process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y);
+void              kb_pointer_sync_send(int8_t x, int8_t y);
+kb_pointer_data_t kb_pointer_sync_get(void);
+void              trackball_set_cpi(uint16_t cpi);

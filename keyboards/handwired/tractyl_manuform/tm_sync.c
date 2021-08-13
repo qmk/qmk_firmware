@@ -56,15 +56,6 @@ void kb_config_update(void) {
     }
 }
 
-void kb_pointer_update(void) {
-    if (is_keyboard_master() && is_keyboard_left()) {
-        report_mouse_t temp_report = pointing_device_get_report();
-        temp_report.x              = kb_pointer.mouse_x;
-        temp_report.y              = kb_pointer.mouse_y;
-        pointing_device_set_report(temp_report);
-    }
-}
-
 void kb_config_sync(void) {
     if (is_keyboard_master()) {
         // Keep track of the last state, so that we can tell if we need to propagate to slave
@@ -111,14 +102,14 @@ void housekeeping_task_kb(void) {
     // Data sync from master to slave
     kb_config_sync();
     kb_pointer_sync();
-
-    kb_pointer_update();
 }
 
 void kb_pointer_sync_send(int8_t x, int8_t y) {
     kb_pointer.mouse_x = x;
     kb_pointer.mouse_y = y;
 }
+
+kb_pointer_data_t kb_pointer_sync_get(void) { return (kb_pointer_data_t){.mouse_x = kb_pointer.mouse_x, .mouse_y = kb_pointer.mouse_y}; }
 
 void trackball_set_cpi(uint16_t cpi) {
     kb_config.device_cpi = cpi;
