@@ -12,6 +12,11 @@
 #define SFT_CCED RSFT_T(ES_CCED)
 #define SFT_GRV LSFT_T(ES_GRV)
 
+/* Long keycodes to print screen */
+#define KC_CPTW LGUI(LSFT(LCTL(KC_3)))  // Capture window
+#define KC_CPTP LGUI(LSFT(LCTL(KC_4)))  // Capture portion of screen
+
+
 /* Greek alphabet, see unicodes.h */
 #define GK_ALPH XP(ALPHA, CALPHA)
 #define GK_BETA XP(BETA, CBETA)
