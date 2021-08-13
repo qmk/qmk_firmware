@@ -1,4 +1,4 @@
-/* Copyright 2021 DonutCables <contact@donutcables.com>
+/* Copyright 2020 Neil Brian Ramirez
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,4 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "scrabblepad.h"
+
+#pragma once
+
+#include "quantum.h"
+
+#define LAYOUT( \
+    K00, K01, K02,   \
+    K10, K11, K12,   \
+    K20, K21, K22    \
+) { \
+    { K00,   K01,   K02   }, \
+    { K10,   K11,   K12   }, \
+    { K20,   K21,   K22   }, \
+}

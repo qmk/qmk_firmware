@@ -1,4 +1,4 @@
-/* Copyright 2021 DonutCables <contact@donutcables.com>
+/* Copyright 2020 Evelien Dekkers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,4 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "scrabblepad.h"
+#include "gud70.h"
+
+void keyboard_pre_init_kb(void) {
+  // Enable top LED
+  setPinOutput(B3);
+  writePinLow(B3);
+}
