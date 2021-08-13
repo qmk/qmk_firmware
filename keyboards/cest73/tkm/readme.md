@@ -1,10 +1,8 @@
 # Ten Key Mirrored - 2021
 
-![TKM-2021](https://imgur.com/AlvRk1z.jpg)
-
+![TKM-2021](https://imgur.com/AlvRk1zh.jpg)
 
 Another take on left side numpad and this time mirrored too for the ever more spacious mouse playground.
-
 
 * Keyboard Maintainer: cest73 (aka fire-h0und)
 * Hardware Supported: TKM-2021 (multiple layouts and switch options including ALPS, ISO and BAE)
