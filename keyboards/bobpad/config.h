@@ -46,7 +46,6 @@
 
 
 
-#define USB_MAX_POWER_CONSUMPTION 500
 
 
 // D4 D0
