@@ -17,13 +17,13 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT( /* Base */
-        KC_ENT,  LT(1, KC_ESC),
+                                                LT(1,KC_ESC), KC_ENT,
         KC_LSFT, KC_Z,    KC_C,
         KC_LEFT, KC_DOWN, KC_RGHT, KC_UP,
         KC_X
     ),
     LAYOUT( /* RGB controls */
-        KC_NO,   KC_NO,
+                                                     KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,
         RGB_TOG, RGB_VAD, RGB_MOD, RGB_VAI,
         KC_NO
