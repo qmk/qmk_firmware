@@ -1,6 +1,6 @@
 # Language-specific Keycodes
 
-Keyboards are able to support a wide range of languages. However, this support is not actually achieved within the keyboard itself - instead, it sends numerical codes, which the operating system maps to the appropriate characters based on the user's configured keyboard layout. For example, when a Swedish person presses the key with the `å` character printed on it, the keyboard is *actually* sending the keycode for `[`.
+Keyboards are able to support a wide range of languages. However, this support is not actually achieved within the keyboard itself - instead, it sends numerical codes, which the operating system maps to the appropriate characters depending on the user's configured keyboard layout. By default (and per the HID spec), this is the US ANSI layout. For example, when a Swedish person presses the key with the `å` character printed on it, the keyboard is *actually* sending the keycode for `[`.
 
 Obviously, this can get confusing, so QMK provides language-specific keycode aliases for many keyboard layouts. These won't do much on their own - you still have to set the matching keyboard layout in your OS settings. Think of them more as keycap labels for your keymap.
 
