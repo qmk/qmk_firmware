@@ -85,7 +85,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
 };
 
-// キーマップにキーコードの代わりにタップダンスキーを追加します
+// キーマップにキーコードの代わりにタップダンスの項目を追加します
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ...
     TD(TD_ESC_CAPS)
