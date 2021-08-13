@@ -1,6 +1,6 @@
 # dtisaac01
 
-![dtisaac01] (https://i.imgur.com/BoKW4uE.jpg)
+![dtisaac01](https://i.imgur.com/BoKW4uEh.jpg)
 
 A 87 percent keyboard DTIsaac01 version
 
