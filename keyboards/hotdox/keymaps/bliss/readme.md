@@ -1,5 +1,4 @@
-Bliss for Hotdox
-================
+# Bliss for Hotdox
 
 This keymap for the ergodox hotdox is a take on a developpement setup I quite
 enjoy. Developpers constantly use brackets and they should therefore be
