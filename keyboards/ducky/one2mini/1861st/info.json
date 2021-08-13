@@ -2,6 +2,9 @@
     "keyboard_name": "Ducky One 2 Mini",
     "width": 14,
     "height": 5,
+    "layout_aliases": {
+        "LAYOUT_iso": "LAYOUT_60_iso"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -137,7 +140,7 @@
             ]
         },
 
-        "LAYOUT_iso": {
+        "LAYOUT_60_iso": {
             "layout": [
                 { "x": 0, "y": 0, "w": 1, "label": "ESC" },
                 { "x": 1, "y": 0, "w": 1, "label": "1" },
