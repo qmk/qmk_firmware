@@ -213,12 +213,14 @@ report_pmw_t pmw_read_burst(void) {
 
     spi_stop();
 
-    print_byte(data.motion);
-    print_byte(data.dx);
-    print_byte(data.mdx);
-    print_byte(data.dy);
-    print_byte(data.mdy);
-    dprintf("\n");
+    if (debug_mouse) {
+        print_byte(data.motion);
+        print_byte(data.dx);
+        print_byte(data.mdx);
+        print_byte(data.dy);
+        print_byte(data.mdy);
+        dprintf("\n");
+    }
 
     data.isMotion    = (data.motion & 0x80) != 0;
     data.isOnSurface = (data.motion & 0x08) == 0;
