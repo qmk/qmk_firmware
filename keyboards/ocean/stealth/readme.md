@@ -1,7 +1,6 @@
 # Stealth Macropad
 
-![Stealth](https://i.imgur.com/Pw5yOdi.jpeg)
-
+![Stealth](https://i.imgur.com/Pw5yOdih.jpeg)
 
 ssSHhh...
 
