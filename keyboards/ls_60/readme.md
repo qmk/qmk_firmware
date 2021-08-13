@@ -10,7 +10,7 @@ A 60% keyboard based on STM32f303
 
 Make example for this keyboard (after setting up your build environment):
 
-    make LS_60:default
+    make ls_60:default
 
 The RST pin and GND pin on the board can be quickly shortened twice to enter DFU mode, and then the program can be written.
 
