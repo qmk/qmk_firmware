@@ -113,7 +113,7 @@ static void render_status(void) {
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 	oled_write_P(PSTR("\n\n"), false);
-	oled_write_P(PSTR("Lyra\n"), false);
+	oled_write_ln_P(PSTR("Lyra"), false);
 	oled_write_P(PSTR("v1.1\n"), false);
 	oled_write_P(PSTR("by\n"), false);
 	oled_write_P(PSTR("Dom C"), false);
