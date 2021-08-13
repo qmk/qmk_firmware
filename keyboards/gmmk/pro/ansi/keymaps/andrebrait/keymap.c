@@ -92,7 +92,12 @@ static uint8_t r_effect = 0x0, g_effect = 0x0, b_effect = 0x0;
 static void start_effects(void);
 
 /* The higher this is, the slower the blinking will be */
-#define TIME_SELECTED_BIT 8
+#ifndef TIME_SELECTED_BIT
+    #define TIME_SELECTED_BIT 8
+#endif
+#if TIME_SELECTED_BIT < 0 || TIME_SELECTED_BIT >= 16
+    #error "TIME_SELECTED_BIT must be a positive integer smaller than 16"
+#endif
 #define effect_red() r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0
 #define effect_green() r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0
 #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
