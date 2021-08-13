@@ -58,14 +58,14 @@ static const char PROGMEM QMK_logo[] = {
   oled_write_raw_P(QMK_logo, sizeof(QMK_logo));
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_270;
     }
     return rotation;
 }
 
-void oled_task_user(void) {
+__attribute__((weak)) void oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_write_P(PSTR("      "), false);
         uint8_t n = get_current_wpm();
