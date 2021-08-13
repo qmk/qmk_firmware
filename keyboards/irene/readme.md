@@ -1,12 +1,11 @@
-# irene
+# Irene
 
-![irene](imgur.com image replace me!)
+![Irene](https://i.imgur.com/p4bWtKDl.jpeg)
 
-*A short description of the keyboard/project*
+The Irene is a polycarbonate top-mount keyboard featuring the Alice layout inspired by TGR's Police and Jaxxstatic's Rukia. The name came from a Kpop idol Irene from Red Velvet.
 
-* Keyboard Maintainer: [Ramon Imbao](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Andrei Collado](https://github.com/colladoandrei)
+* Hardware Supported: ATmega32u4
 
 Make example for this keyboard (after setting up your build environment):
 
