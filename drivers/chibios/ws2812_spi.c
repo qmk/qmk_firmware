@@ -16,20 +16,61 @@
 #    define WS2812_SPI_MOSI_PAL_MODE 5
 #endif
 
+#ifndef WS2812_SPI_SCK_PAL_MODE
+#    define WS2812_SPI_SCK_PAL_MODE 5
+#endif
+
 // Push Pull or Open Drain Configuration
 // Default Push Pull
 #ifndef WS2812_EXTERNAL_PULLUP
 #    if defined(USE_GPIOV1)
-#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#        define WS2812_MOSI_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
 #    else
-#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL
+#        define WS2812_MOSI_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL
 #    endif
 #else
 #    if defined(USE_GPIOV1)
-#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#        define WS2812_MOSI_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
 #    else
-#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN
+#        define WS2812_MOSI_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN
 #    endif
+#endif
+
+// Define SPI config speed
+// baudrate should target 3.2MHz
+// F072 fpclk = 48MHz
+// 48/16 = 3Mhz
+#if WS2812_SPI_DIVISOR == 2
+#    define WS2812_SPI_DIVISOR (0)
+#elif WS2812_SPI_DIVISOR == 4
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_0)
+#elif WS2812_SPI_DIVISOR == 8
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_1)
+#elif WS2812_SPI_DIVISOR == 16  // same as default
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_1 | SPI_CR1_BR_0)
+#elif WS2812_SPI_DIVISOR == 32
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2)
+#elif WS2812_SPI_DIVISOR == 64
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2 | SPI_CR1_BR_0)
+#elif WS2812_SPI_DIVISOR == 128
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2 | SPI_CR1_BR_1)
+#elif WS2812_SPI_DIVISOR == 256
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
+#else
+#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_1 | SPI_CR1_BR_0)  // default
+#endif
+
+// Use SPI circular buffer
+#ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
+#    define WS2812_SPI_BUFFER_MODE 1  // circular buffer
+#else
+#    define WS2812_SPI_BUFFER_MODE 0  // normal buffer
+#endif
+
+#if defined(USE_GPIOV1)
+#    define WS2812_SCK_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#else
+#    define WS2812_SCK_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_SPI_SCK_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL
 #endif
 
 #define BYTES_FOR_LED_BYTE 4
@@ -78,17 +119,21 @@ static void set_led_color_rgb(LED_TYPE color, int pos) {
 }
 
 void ws2812_init(void) {
-    palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
+    palSetLineMode(RGB_DI_PIN, WS2812_MOSI_OUTPUT_MODE);
+
+#ifdef WS2812_SPI_SCK_PIN
+    palSetLineMode(WS2812_SPI_SCK_PIN, WS2812_SCK_OUTPUT_MODE);
+#endif  // WS2812_SPI_SCK_PIN
 
     // TODO: more dynamic baudrate
-    static const SPIConfig spicfg = {
-        0, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN),
-        SPI_CR1_BR_1 | SPI_CR1_BR_0  // baudrate : fpclk / 8 => 1tick is 0.32us (2.25 MHz)
-    };
+    static const SPIConfig spicfg = {WS2812_SPI_BUFFER_MODE, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN), WS2812_SPI_DIVISOR};
 
     spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
     spiSelect(&WS2812_SPI);         /* Slave Select assertion.          */
+#ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
+    spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+#endif
 }
 
 void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
@@ -104,9 +149,11 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
 
     // Send async - each led takes ~0.03ms, 50 leds ~1.5ms, animations flushing faster than send will cause issues.
     // Instead spiSend can be used to send synchronously (or the thread logic can be added back).
-#ifdef WS2812_SPI_SYNC
+#ifndef WS2812_SPI_USE_CIRCULAR_BUFFER
+#    ifdef WS2812_SPI_SYNC
     spiSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
-#else
+#    else
     spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+#    endif
 #endif
 }
