@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Define layer names */
 enum userspace_layers {
-    _COLEMAK = 0,
-	_QWERTY,
+    _QWERTY = 0,
+	_COLEMAK,
 	_GAMING,
 //	_WARHAMMER,
     _SHORTCUT,
