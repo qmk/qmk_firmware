@@ -59,7 +59,7 @@
                 { "x": 9.25, "y": 3, "w": 1, "label": "COMMA" },
                 { "x": 10.25, "y": 3, "w": 1, "label": "PERIOD" },
                 { "x": 11.25, "y": 3, "w": 1, "label": "SLASH" },
-                { "x": 12.25, "y": 3, "w": 2.25, "label": "RSHIFT" },
+                { "x": 12.25, "y": 3, "w": 2.75, "label": "RSHIFT" },
                 { "x": 0, "y": 4, "w": 1.25, "label": "LCTRL" },
                 { "x": 1.25, "y": 4, "w": 1.25, "label": "LCMD" },
                 { "x": 2.5, "y": 4, "w": 1.25, "label": "LALT" },
