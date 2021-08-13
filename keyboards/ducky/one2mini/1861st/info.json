@@ -113,7 +113,6 @@
                 { "x": 9.75, "y": 2, "w": 1, "label": "L" },
                 { "x": 10.75, "y": 2, "w": 1, "label": "SEMICOLON" },
                 { "x": 11.75, "y": 2, "w": 1, "label": "QUOTE" },
-                { "x": 12.75, "y": 2, "w": 1, "label": "ISOHASH" },
                 { "x": 12.75, "y": 2, "w": 2.25, "label": "ENTER" },
                 { "x": 0, "y": 3, "w": 2.25, "label": "LSHIFT" },
                 { "x": 2.25, "y": 3, "w": 1, "label": "Z" },
