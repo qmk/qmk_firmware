@@ -16,6 +16,11 @@
 
 #include "drashna.h"
 
+enum tractyl_keycodes {
+    KC_ACCEL = NEW_SAFE_RANGE,
+};
+
+bool enable_acceleration = false;
 // clang-format off
 #define LAYOUT_5x6_right_wrapper(...) LAYOUT_5x6_right(__VA_ARGS__)
 #define LAYOUT_5x6_right_base( \
@@ -97,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           _______, _______,                                                          _______, _______,
                                             _______, _______,                               _______,
                                                      _______, _______,             _______,
-                                                     _______, _______,    _______, _______
+                                                     _______, _______,    _______, KC_ACCEL
     ),
     [_RAISE] = LAYOUT_5x6_right_wrapper(
         KC_F12,  _________________FUNC_LEFT_________________,                      _________________FUNC_RIGHT________________, KC_F11,
@@ -171,6 +176,10 @@ void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
         oled_timer = timer_read32();
 #    endif
         if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
+            if (enable_acceleration) {
+                x = (x > 0 ? x * x / 16 + x : -x * x / 16 + x);
+                y = (y > 0 ? y * y / 16 + y : -y * y / 16 + y);
+            }
             mouse_report->x = x;
             mouse_report->y = y;
             if (!layer_state_is(_MOUSE)) {
@@ -222,6 +231,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
         case KC_MS_UP ... KC_MS_WH_RIGHT:
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
+        case KC_ACCEL:
+            if (record->event.pressed) {
+                enable_acceleration ^= 1;
+            }
             break;
         default:
             if (IS_NOEVENT(record->event)) break;
