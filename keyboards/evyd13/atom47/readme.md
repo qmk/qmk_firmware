@@ -3,9 +3,9 @@
 ![Atom47](https://i.imgur.com/Wwflqvt.png)
 
 ## Support
-Keyboard Maintainer: [Evelien Dekkers](https://github.com/evyd13)  
-Hardware Supported: Atom47 rev2/rev3/rev4/rev5
-Hardware Availability: [Open source on GitHub](https://github.com/evyd13/atom47)
+* Keyboard Maintainer: [Evelien Dekkers](https://github.com/evyd13)
+* Hardware Supported: Atom47 rev2/rev3/rev4/rev5
+* Hardware Availability: [Open source on GitHub](https://github.com/evyd13/atom47)
 
 ## Build
 Make example for this keyboard (after setting up your build environment):

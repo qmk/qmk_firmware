@@ -144,20 +144,10 @@ led_config_t g_led_config = { {
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 } };
 
-led_t global_led_state;
-
 void rgb_matrix_indicators_kb(void) {
-    if (global_led_state.caps_lock == true) {
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(26, 255, 255, 255);
     } else {
         rgb_matrix_set_color(26, 0, 0, 0);
     }
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        global_led_state = led_state;
-    }
-    return res;
 }
