@@ -71,7 +71,7 @@
             ]
         },
 
-        "LAYOUT_ansi": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 { "x": 0, "y": 0, "w": 1, "label": "ESC" },
                 { "x": 1, "y": 0, "w": 1, "label": "1" },
