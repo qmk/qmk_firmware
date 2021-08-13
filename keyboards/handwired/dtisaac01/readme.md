@@ -1,10 +1,10 @@
 # dtisaac01
 
-![dtisaac01](imgur.com image replace me!)
+![dtisaac01] (https://i.imgur.com/BoKW4uE.jpg)
 
-*A short description of the keyboard/dtisaac01
+A 87 percent keyboard DTIsaac01 version
 
-* Keyboard Maintainer: [DaoTakIsaac](https://github.com/daotakisaac)
+* Keyboard Maintainer: [DTIsaac](https://github.com/daotakisaac)
 * Hardware Supported: dtisaac01-atmega32U4
 * Hardware Availability: dtisaac01-atmega32U4
 
