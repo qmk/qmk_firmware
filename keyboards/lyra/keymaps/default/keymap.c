@@ -109,14 +109,14 @@ static void render_status(void) {
     wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
     oled_write(wpm_counter, false);
     oled_write_P(PSTR("   WPM"), false);
-    oled_write_P(PSTR("\n\n"), false);
+    oled_advance_page(bool)
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
-	oled_write_P(PSTR("\n\n"), false);
+    oled_advance_page(bool)
 	oled_write_ln_P(PSTR("Lyra"), false);
-	oled_write_P(PSTR("v1.1\n"), false);
-	oled_write_P(PSTR("by\n"), false);
-	oled_write_P(PSTR("Dom C"), false);
+	oled_write_ln_P(PSTR("v1.1"), false);
+	oled_write_ln_P(PSTR("by"), false);
+	oled_write_ln_P(PSTR("Dom C"), false);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
