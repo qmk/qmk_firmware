@@ -164,7 +164,7 @@ bool            tap_toggling          = false;
 #        define TAP_CHECK TAPPING_TERM
 #    endif
 
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
+void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
     if (x != 0 && y != 0) {
         mouse_timer = timer_read();
 #    ifdef OLED_DRIVER_ENABLE
@@ -395,11 +395,11 @@ void oled_driver_render_logo_left(void) {
     oled_write_P(PSTR("     Manuform  "), true);
     oled_set_cursor(6, 2);
 #    if defined(WPM_ENABLE)
-    render_wpm(6);
+    render_wpm(1);
 #    endif
     oled_set_cursor(6, 3);
 #    if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
-    render_pointing_dpi_status(5);
+    render_pointing_dpi_status(0);
 #    endif
     oled_set_cursor(0, 4);
 }

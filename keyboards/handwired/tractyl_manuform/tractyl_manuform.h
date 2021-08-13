@@ -26,7 +26,7 @@
 #endif
 
 void process_mouse(report_mouse_t* mouse_report);
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
+void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y);
 
 typedef union {
     uint32_t raw;
@@ -42,14 +42,14 @@ enum ploopy_keycodes {
     KEYMAP_SAFE_RANGE,
 };
 
-void master_mouse_send(int8_t x, int8_t y);
+void kb_pointer_sync_send(int8_t x, int8_t y);
 void trackball_set_cpi(uint16_t cpi);
 
 typedef struct {
     uint16_t        device_cpi;
-} kb_runtime_config_t;
+} kb_config_data_t;
 
 typedef struct  {
-    int16_t mouse_x;
-    int16_t mouse_y;
-} kb_slave_data_t;
+    int8_t mouse_x;
+    int8_t mouse_y;
+} kb_pointer_data_t;

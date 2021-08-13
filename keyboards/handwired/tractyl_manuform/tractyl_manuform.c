@@ -30,9 +30,6 @@
 #    define TRACKBALL_DPI_DEFAULT 0
 #endif
 
-extern kb_runtime_config_t kb_state;
-extern kb_slave_data_t     kb_slave;
-
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
@@ -40,7 +37,7 @@ uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
 bool     BurstState  = false; // init burst state for Trackball module
 uint16_t MotionStart = 0;     // Timer for accel, 0 is resting state
 
-__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
+__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
     mouse_report->x = x;
     mouse_report->y = y;
 }
@@ -118,6 +115,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
     return true;
 }
+__attribute__((weak)) void keyboard_pre_init_sync(void) {}
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
@@ -137,6 +135,7 @@ void keyboard_pre_init_kb(void) {
     writePin(DEBUG_LED_PIN, debug_enable);
 #endif
 
+    keyboard_pre_init_sync();
     keyboard_pre_init_user();
 }
 
@@ -188,7 +187,7 @@ void pointing_device_send(void) {
         process_mouse_user(&mouseReport, x, y);
         if (has_report_changed(mouseReport, old_report)) { host_mouse_send(&mouseReport); }
     } else {
-        master_mouse_send(mouseReport.x, mouseReport.y);
+        kb_pointer_sync_send(mouseReport.x, mouseReport.y);
     }
     mouseReport.x = 0;
     mouseReport.y = 0;
@@ -196,22 +195,5 @@ void pointing_device_send(void) {
     mouseReport.h = 0;
     old_report    = mouseReport;
     pointing_device_set_report(mouseReport);
-}
-#endif
-
-#ifdef POINTING_DEVICE_ENABLE
-void master_mouse_send(int8_t x, int8_t y) {
-#ifdef SPLIT_TRANSACTION_IDS_KB
-    kb_slave.mouse_x += x;
-    kb_slave.mouse_y += y;
-#endif
-}
-void trackball_set_cpi(uint16_t cpi) {
-#ifdef SPLIT_TRANSACTION_IDS_KB
-        kb_state.device_cpi = cpi;
-#endif
-    if (!is_keyboard_left()) {
-        pmw_set_cpi(cpi);
-    }
 }
 #endif
