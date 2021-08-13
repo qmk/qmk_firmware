@@ -538,9 +538,13 @@ enum quantum_keycodes {
 #define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
 #define MEH(kc) (QK_LCTL | QK_LSFT | QK_LALT | (kc))
 #define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
-#define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
-#define SCMD(kc) SGUI(kc)
-#define SWIN(kc) SGUI(kc)
+#define LSG(kc) (QK_LSFT | QK_LGUI | (kc))
+#define SGUI(kc) LSG(kc)
+#define SCMD(kc) LSG(kc)
+#define SWIN(kc) LSG(kc)
+#define LAG(kc) (QK_LALT | QK_LGUI | (kc))
+#define RSG(kc) (QK_RSFT | QK_RGUI | (kc))
+#define RAG(kc) (QK_RALT | QK_RGUI | (kc))
 #define LCA(kc) (QK_LCTL | QK_LALT | (kc))
 #define LSA(kc) (QK_LSFT | QK_LALT | (kc))
 #define RSA(kc) (QK_RSFT | QK_RALT | (kc))
@@ -765,9 +769,13 @@ enum quantum_keycodes {
 #define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)  // Left Control + Alt + GUI
 #define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)  // Right Control + Alt + GUI
 #define HYPR_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc)  // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
-#define SGUI_T(kc) MT(MOD_LGUI | MOD_LSFT, kc)  // Left Shift + GUI
-#define SCMD_T(kc) SGUI_T(kc)
-#define SWIN_T(kc) SGUI_T(kc)
+#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)  // Left Shift + GUI
+#define SGUI_T(kc) LSG_T(kc)
+#define SCMD_T(kc) LSG_T(kc)
+#define SWIN_T(kc) LSG_T(kc)
+#define LAG_T(kc) MT(MOD_LALT | MOD_LGUI, kc)  // Left Alt + GUI
+#define RSG_T(kc) MT(MOD_RSFT | MOD_RGUI, kc)  // Right Shift + GUI
+#define RAG_T(kc) MT(MOD_RALT | MOD_RGUI, kc)  // Right Alt + GUI
 #define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)  // Left Control + Alt
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)  // Left Shift + Alt
 #define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)  // Right Shift + Alt

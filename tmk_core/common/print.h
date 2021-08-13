@@ -47,7 +47,7 @@ void print_set_sendchar(sendchar_func_t func);
 #        define uprintln(s) printf(s "\r\n")
 #        define uprintf printf
 
-#    endif /* __AVR__ / PROTOCOL_CHIBIOS / PROTOCOL_ARM_ATSAM */
+#    endif /* __has_include_next("_print.h") */
 #else      /* NO_PRINT */
 #    undef xprintf
 // Remove print defines

@@ -15,7 +15,7 @@ Columnar-staggered split ergo layout, preferred for typing. Used on Crkbd.
 * [60% Tsangan
 HHKB](https://github.com/qmk/qmk_firmware/tree/master/layouts/community/60_tsangan_hhkb/bcat):
 Row-staggered layout, preferred for gaming. Used on ai03 Polaris, CannonKeys
-AN-C, CannonKeys Instant60.
+AN-C, CannonKeys Instant60, DZ60.
 
 ## Other keymaps
 

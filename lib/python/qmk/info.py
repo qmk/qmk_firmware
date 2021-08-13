@@ -71,7 +71,7 @@ def info_json(keyboard):
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
         cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        exit()
+        exit(1)
 
     # Make sure we have at least one layout
     if not info_data.get('layouts'):

@@ -19,6 +19,7 @@
   * [Overview](newbs_building_firmware_configurator.md)
   * [Step by Step](configurator_step_by_step.md)
   * [Troubleshooting](configurator_troubleshooting.md)
+  * [Architecture](configurator_architecture.md)
   * QMK API
     * [Overview](api_overview.md)
     * [API Documentation](api_docs.md)

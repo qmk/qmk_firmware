@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         * Holding F or J activates Symbols layer
         * Holding / acts as Shift
         * Double tap on ' acts as "
-        * Doulbe tap on Menu activates CapsLock
+        * Double tap on Menu activates CapsLock
         * 
         * Nav and Num layers are togglable with triple tapping on relative keys while holding them will activate layers momentarily.
         * 
@@ -177,9 +177,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         * `----------------------------------------------------------------------------'
         */
     [_FN] = LAYOUT(
-        _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F10,  XXXXXXX,
-        KC_PSCR,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_F4,    KC_F5,    KC_F6,    KC_F11,  XXXXXXX,
-        KC_SLCK,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_F7,    KC_F8,    KC_F9,    KC_F12,  XXXXXXX,
-        KC_INS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,       XXXXXXX,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX
+        _______,  RGB_TOG, RGB_RMOD, RGB_MOD, RGB_HUD,  RGB_HUI,  XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F10,  XXXXXXX,
+        KC_PSCR,  RGB_SAD, RGB_SAI,  RGB_VAD, RGB_VAI,  RGB_SPD,  RGB_SPI,  KC_F4,    KC_F5,    KC_F6,    KC_F11,  XXXXXXX,
+        KC_SLCK,  RGB_M_P, RGB_M_B,  RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K,  KC_F7,    KC_F8,    KC_F9,    KC_F12,  XXXXXXX,
+        KC_INS,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX
     ),
 };

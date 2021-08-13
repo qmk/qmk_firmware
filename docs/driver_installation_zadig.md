@@ -30,17 +30,37 @@ If you find that you can no longer type with the keyboard, you may have accident
 
 ![A healthy keyboard as seen by Zadig](https://i.imgur.com/Hx0E5kC.png)
 
-Open the Device Manager and look for a device that looks like your keyboard.
+Open the Device Manager, select **View → Devices by container**, and look for an entry with your keyboard's name.
 
-![The board with the wrong driver installed, in Device Manager](https://i.imgur.com/L3wvX8f.png)
+![The board with the wrong driver installed, in Device Manager](https://i.imgur.com/o7WLvBl.png)
 
-Right-click it and hit **Uninstall device**. Make sure to tick **Delete the driver software for this device** first.
+Right-click each entry and hit **Uninstall device**. Make sure to tick **Delete the driver software for this device** first if it appears.
 
 ![The Device Uninstall dialog, with the "delete driver" checkbox ticked](https://i.imgur.com/aEs2RuA.png)
 
-Click **Action → Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again! Otherwise, repeat the process until Zadig reports the correct driver.
+Click **Action → Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again! Otherwise, repeat this process until Zadig reports the correct driver.
 
 ?> A full reboot of your computer may sometimes be necessary at this point, to get Windows to pick up the new driver.
+
+## Uninstallation
+
+Uninstallation of bootloader devices is a little more involved than installation.
+
+Open the Device Manager, select **View → Devices by container**, and look for the bootloader device. Match up the USB VID and PID in Zadig with one from [the table below](#list-of-known-bootloaders).
+
+Find the `Inf name` value in the Details tab of the device properties. This should generally be something like `oemXX.inf`:
+
+![Device properties showing the Inf name value](https://i.imgur.com/Bu4mk9m.png)
+
+Then, open a new Command Prompt window as an Administrator (type in `cmd` into the Start menu and press Ctrl+Shift+Enter). Run `pnputil /enum-drivers` to verify the `Inf name` matches the `Published Name` field of one of the entries:
+
+![pnputil output with matching driver highlighted](https://i.imgur.com/3RrSjzW.png)
+
+Run `pnputil /delete-driver oemXX.inf /uninstall`. This will delete the driver and remove it from any devices using it. Note that this will not uninstall the device itself.
+
+As with the previous section, this process may need to be repeated multiple times, as multiple drivers can be applicable to the same device.
+
+!> **WARNING:** Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
 
 ## List of Known Bootloaders
 

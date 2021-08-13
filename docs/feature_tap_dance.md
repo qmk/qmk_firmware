@@ -490,6 +490,8 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
                 layer_on(_MY_LAYER);
             }
             break;
+        default:
+            break;
     }
 }
 

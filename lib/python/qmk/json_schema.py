@@ -17,8 +17,11 @@ def json_load(json_file):
     try:
         return hjson.load(json_file.open(encoding='utf-8'))
 
-    except json.decoder.JSONDecodeError as e:
+    except (json.decoder.JSONDecodeError, hjson.HjsonDecodeError) as e:
         cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
+        exit(1)
+    except Exception as e:
+        cli.log.error('Unknown error attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
         exit(1)
 
 

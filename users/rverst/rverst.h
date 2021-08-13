@@ -55,7 +55,11 @@ enum userspace_keycodes {
     RV_SUP1,  // ¹
     RV_SUP2,  // ²
     RV_SUP3,  // ³
-
+    RV_VINC,  // vim increase vertical split size (<c-w> 4>)
+    RV_VDEC,  // vim decrease vertical split size (<c-w> 4<)
+    RV_SINC,  // vim increase vertical split size (<c-w> 4+)
+    RV_SDEC,  // vim decrease vertical split size (<c-w> 4-)
+    RV_SEQU,  // vim equal split size (<c-w> =)
 };
 
 typedef union {

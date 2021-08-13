@@ -44,7 +44,7 @@ Le premier n'est reconnu que sur macOS, alors que le dernier, `KC_SLEP` et `KC_W
 
 ## Modificateur "One Shot"
 
-Cette fonctionnalité permet de corriger un problème avec la touche Shift. En effet, il arrive de saisir plusieurs majuscules en ne voulant en saisir qu'une sur un mot. Ex : `CEtte` à la place de `Cette`. La fonctionnalité « One shot » shift permet de corriger ça.
+Cette fonctionnalité permet de corriger un problème avec la touche Shift. En effet, il arrive de saisir plusieurs majuscules en ne voulant en saisir qu'une sur un mot. Ex: `CEtte` à la place de `Cette`. La fonctionnalité «One shot» shift permet de corriger ça.
 
 https://github.com/tmk/tmk_keyboard/issues/67
 
@@ -59,7 +59,7 @@ Pour les touches de modification et les actions de calque, vous devez placer `KC
 
 ## Support de touche à verrouillage mécanique
 
-Cette fonctionnalité permet l'usage de *touches à verrouillage mécanique* comme [ces interrupteurs Alps](https://deskthority.net/wiki/Alps_SKCL_Lock). Vous pouvez l'activer en ajoutant ceci à votre `config.h` :
+Cette fonctionnalité permet l'usage de *touches à verrouillage mécanique* comme [ces interrupteurs Alps](https://deskthority.net/wiki/Alps_SKCL_Lock). Vous pouvez l'activer en ajoutant ceci à votre `config.h`:
 
 ```
 #define LOCKING_SUPPORT_ENABLE

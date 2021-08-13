@@ -161,9 +161,11 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
  * @retval None
  */
 void FLASH_Unlock(void) {
-    /* Authorize the FPEC Access */
-    FLASH->KEYR = FLASH_KEY1;
-    FLASH->KEYR = FLASH_KEY2;
+    if (FLASH->CR & FLASH_CR_LOCK) {
+        /* Authorize the FPEC Access */
+        FLASH->KEYR = FLASH_KEY1;
+        FLASH->KEYR = FLASH_KEY2;
+    }
 }
 
 /**

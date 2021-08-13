@@ -25,7 +25,7 @@ SPACE_CADET_ENABLE = no     # Unneeded feature.
 LAYOUTS = 60_ansi
 
 # special sauce for this keyboard
-DEBOUNCE_TYPE = eager_pk    # Debounce using eager_pk.
+DEBOUNCE_TYPE = sym_eager_pk    # Debounce using eager_pk.
 CUSTOM_MATRIX = lite        # Custom matrix that polls at 7000hz instead of a measly 2000hz.
 LTO_ENABLE = yes            # smaller binary
 SRC += matrix.c

@@ -77,6 +77,7 @@ def doctor(cli):
         * [ ] Compile a trivial program with each compiler
     """
     cli.log.info('QMK Doctor is checking your environment.')
+    cli.log.info('CLI version: %s', cli.version)
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
     status = os_tests()

@@ -93,8 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void reset_leds(void) {
     current_profile = OFF;
-    rgblight_enable();
-    rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgb_matrix_enable();
+    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
     rgb_matrix_sethsv(0x6a, 0x33, 0xff);
 }
 

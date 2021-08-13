@@ -37,7 +37,10 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 |`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                       |
 |`RALT_T(kc)`|`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt when held, `kc` when tapped                         |
 |`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                         |
-|`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped                |
+|`LSG_T(kc)` |`SGUI_T(kc)`, `SCMD_T(kc)`, `SWIN_T(kc)`                         |Left Shift and GUI when held, `kc` when tapped                |
+|`LAG_T(kc)` |                                                                 |Left Alt and GUI when held, `kc` when tapped                  |
+|`RSG_T(kc)` |                                                                 |Right Shift and GUI when held, `kc` when tapped               |
+|`RAG_T(kc)` |                                                                 |Right Alt and GUI when held, `kc` when tapped                 |
 |`LCA_T(kc)` |                                                                 |Left Control and Alt when held, `kc` when tapped              |
 |`LSA_T(kc)` |                                                                 |Left Shift and Alt when held, `kc` when tapped                |
 |`RSA_T(kc)` |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (AltGr) when held, `kc` when tapped |
