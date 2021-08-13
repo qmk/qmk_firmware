@@ -1,6 +1,6 @@
 # UD40_Ortho_Alt
 
-![UD40_Ortho_Alt](https://i.imgur.com/a/bHvpzUX.jpg)
+![UD40_Ortho_Alt](https://i.imgur.com/NnGIo0O.png)
 
 The UD40_Ortho_Alt PCB is a modified layout for the UD040. It's similar to traditional ortho but the bottom row keys are larger than 1u. 
 
@@ -10,7 +10,7 @@ The UD40_Ortho_Alt PCB is a modified layout for the UD040. It's similar to tradi
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ud40_ortho_alt:default
+    make checkerboards/ud40_ortho_alt:default
 
 Enter the bootloader by shorting GND and RESET just above the Atmega MCU.
 
