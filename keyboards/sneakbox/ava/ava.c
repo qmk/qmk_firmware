@@ -17,20 +17,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ava.h"
 
-void keyboard_pre_init_kb() {
-    setPinOutput(D7);
-    setPinOutput(D6);
-    setPinOutput(D4);
-    
-    keyboard_pre_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(D6, led_state.caps_lock);
-        writePin(D4, led_state.num_lock);
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index,clockwise)) { return false; }
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_DOWN);
+        } else {
+            tap_code(KC_UP);
+        }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            tap_code(KC_DOWN);
+        } else {
+            tap_code(KC_UP);
+        }
     }
-        writePin(D7, 1);
-    return res;
+    return true;
 }
