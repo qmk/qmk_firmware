@@ -24,10 +24,6 @@ enum lyra_layers {
     _FUNCTION
 
 };
-enum custom_keycodes{
-  KC_QWERTY = SAFE_RANGE,
-  KC_FUNCTION
-};
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Layer 0
