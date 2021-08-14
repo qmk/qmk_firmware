@@ -1,6 +1,6 @@
 # Sneakbox AVA
 
-![Sneakbox AVA](https://i.imgur.com/lVaAmfS.jpg)
+![Sneakbox AVA](https://i.imgur.com/lVaAmfSh.jpg)
 
 An Alice-like keyboard featuring a blocked arrow cluster in place of the right shift position. The left sided nav cluster contains four keys. Optional pushbutton rotary encoder socket positioned at the top left key position. Firmware covers both soldered and hotswap versions of the PCB.
 
