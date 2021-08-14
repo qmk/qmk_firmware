@@ -50,14 +50,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-//
-// Keyboard initialization
-//
-void keyboard_post_init_user(void) {
-    // Wait for keyboard startup
-    wait_ms(100);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_QWERTY:
