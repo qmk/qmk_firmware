@@ -47,10 +47,13 @@ enum custom_user_keycodes {
     // Tap Dance Definitions
     enum custom_tapdance {
         TD_LSFT_CAPSLOCK,
+        TD_LSFT_CAPS_WIN
     };
-    #define KC_LSFTCAPS TD(TD_LSFT_CAPSLOCK)
+
+    #define KC_LSFTCAPS     TD(TD_LSFT_CAPSLOCK)
+    #define KC_LSFTCAPSWIN  TD(TD_LSFT_CAPS_WIN)
 #else // regular Shift
-    #define KC_LSFTCAPS KC_LSFT
+    #define KC_LSFTCAPS    KC_LSFT
 #endif // TD_LSFT_CAPSLOCK_ENABLE
 
 

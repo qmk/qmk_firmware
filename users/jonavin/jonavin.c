@@ -21,9 +21,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
+  // Tap once for shift, twice for Caps Lock but only if Win Key in not disabled
+    void dance_LSFT_finished(qk_tap_dance_state_t *state, void *user_data) {
+        if (state->count == 1 || keymap_config.no_gui) {
+            register_code16(KC_LSFT);
+        } else {
+            register_code(KC_CAPS);
+        }
+    }
+
+    void dance_LSFT_reset(qk_tap_dance_state_t *state, void *user_data) {
+        if (state->count == 1 || keymap_config.no_gui) {
+            unregister_code16(KC_LSFT);
+        } else {
+            unregister_code(KC_CAPS);
+        }
+    }
+
     qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for shift, twice for Caps Lock
         [TD_LSFT_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+        [TD_LSFT_CAPS_WIN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LSFT_finished, dance_LSFT_reset),
     };
 #endif  // TD_LSFT_CAPSLOCK_ENABLE
 
