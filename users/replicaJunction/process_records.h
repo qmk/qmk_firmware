@@ -14,12 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 #include QMK_KEYBOARD_H
 #include "replicaJunction.h"
 
-__attribute__ ((weak))
-void keyboard_post_init_user_kb(void) { }
-
-void keyboard_post_init_user(void) {
-    keyboard_post_init_user_kb();
-}
+bool process_record_user_kb(uint16_t keycode, keyrecord_t *record);
