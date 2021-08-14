@@ -14,8 +14,6 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
   */ 
 
-@Malevolti
-
 #pragma once
 #include "lyra.h"
 
