@@ -10,6 +10,8 @@ The Irene is a polycarbonate top-mount keyboard featuring the Alice layout inspi
 Make example for this keyboard (after setting up your build environment):
 
     make irene:default
+    
+To get to the bootloader, simply press the reset button located on the back of the PCB. You can then flash new firmware onto it.
 
 Flashing example for this keyboard:
 
