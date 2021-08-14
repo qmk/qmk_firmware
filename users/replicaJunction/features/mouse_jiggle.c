@@ -14,12 +14,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
-#include "replicaJunction.h"
+#include "mouse_jiggle.h"
 
-__attribute__ ((weak))
-void keyboard_post_init_user_kb(void) { }
+bool is_mouse_jiggle_active = false;
 
-void keyboard_post_init_user(void) {
-    keyboard_post_init_user_kb();
+void matrix_scan_mouse_jiggle(void) {
+    if (is_mouse_jiggle_active) {
+        tap_code(KC_MS_UP);
+        tap_code(KC_MS_DOWN);
+    }
+}
+
+bool process_record_mouse_jiggle(uint16_t keycode, const keyrecord_t *record) {
+    if (!record->event.pressed) {
+        return true;
+    }
+
+    if (is_mouse_jiggle_active) {
+        // If active, quit whenever another key is pressed
+        is_mouse_jiggle_active = false;
+        return true;
+    }
+
+    if (keycode != MS_JIGL) {
+        return true;
+    }
+
+    is_mouse_jiggle_active = true;
+    SEND_STRING("Mouse jiggler enabled");
+    return false;
 }
