@@ -7,8 +7,7 @@
 #define PRODUCT_ID      0x1214
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Stream Cheap
-#define PRODUCT         Stream Cheap 2x4
-#define DESCRIPTION     Stream Cheap 2x4
+#define PRODUCT         2x4
 
 /* key matrix size */
 #define MATRIX_ROWS 2
