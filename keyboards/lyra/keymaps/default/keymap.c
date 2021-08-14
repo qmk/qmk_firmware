@@ -50,18 +50,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case _FUNCTION:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_FUNCTION);
-            }
-            return false;
-    }
-    return true;
-}
