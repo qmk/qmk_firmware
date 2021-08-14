@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make emi20:default
 
-To reset the board into bootloader mode, press the physical reset button on the back of the PCB or momentarily switch to layer 2 with the bottom left key  (on layer 1) and the key from the top right down one key.
+To reset the board into bootloader mode, press the physical reset button on the back of the PCB or press the bottom most left key to momentarily switch to layer 2 (on layer 1) and then press the key from the top right down one.
 
 The default keymap.c file has comments to help you on your journey,
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
