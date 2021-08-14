@@ -11,7 +11,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make lyra:default:avrdude
+    make lyra:default:flash
 
 Press reset button on the keyboard when asked.
 
