@@ -14,7 +14,6 @@
  */
 
 #include "falcon.h"
-#include "wait.h"
 
 void matrix_init_kb(void)
 {
