@@ -1,4 +1,0 @@
-# MCU name
-MCU = STM32F401
-
-BOOTLOADER = tinyuf2

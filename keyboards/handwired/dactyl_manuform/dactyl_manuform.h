@@ -18,8 +18,6 @@
     #include "62key.h"
 #elif KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
     #include "5x6_right_trackball.h"
-#elif defined(KEYBOARD_handwired_dactyl_manuform_4x6_blackpill)
-    #include "4x6_blackpill.h"
 #endif
 
 #include "quantum.h"
