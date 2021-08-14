@@ -36,6 +36,7 @@
   * Guides
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
+    * [Easy Maker for One Offs](easy_maker.md)
     * [Keymap Overview](keymap.md)
     * Development Environments
       * [Docker Guide](getting_started_docker.md)
