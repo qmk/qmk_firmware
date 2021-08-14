@@ -458,13 +458,11 @@ def _find_missing_layouts(info_data, keyboard):
                     info_data['layouts'][layout_name] = layout_json
 
         for alias, alias_text in these_aliases.items():
-            if alias_text in layouts:
+            if alias_text in these_layouts:
                 if 'layout_aliases' not in info_data:
                     info_data['layout_aliases'] = {}
 
                 info_data['layout_aliases'][alias] = alias_text
-
-    return layouts, aliases
 
 
 def _log_error(info_data, message):
