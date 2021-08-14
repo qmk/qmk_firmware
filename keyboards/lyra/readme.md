@@ -9,7 +9,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make lyra:default
 
-Flash the default keymap: 
+Flashing example for this keyboard:
 
     make lyra:default:avrdude
 
