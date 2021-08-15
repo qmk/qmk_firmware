@@ -1,6 +1,6 @@
 # bobpad
 
-![bobpad](https://i.imgur.com/93zguh1.jpg)
+![bobpad](https://i.imgur.com/93zguh1h.jpg)
 
 A bentopad based macropad with incline
 
