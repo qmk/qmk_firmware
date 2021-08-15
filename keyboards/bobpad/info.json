@@ -5,7 +5,7 @@
     "width": 3,
     "height": 2,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_2x3": {
             "layout": [
                 {"label":"K00 (B0,B2)", "x":0, "y":0},
                 {"label":"K01 (B0,B3)", "x":1, "y":0},
