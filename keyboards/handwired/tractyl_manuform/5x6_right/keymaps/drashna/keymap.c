@@ -71,8 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           _______, _______,                                                            _______, _______,
                                             _______, _______,                                 KC_BTN3,
-                                                     _______, _______,               _______,
-                                                     _______, _______,      _______, KC_ACCEL
+                                                     KC_ACCEL, _______,               _______,
+                                                     _______, _______,      _______, _______
     ),
     [_GAMEPAD] = LAYOUT_5x6_right(
         KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4,                        DPI_CONFIG, _______, _______, _______, _______, _______,
@@ -232,9 +232,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
         case KC_ACCEL:
-            if (record->event.pressed) {
-                enable_acceleration ^= 1;
-            }
+            enable_acceleration = record->event.pressed;
             break;
         default:
             if (IS_NOEVENT(record->event)) break;
