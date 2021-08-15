@@ -39,8 +39,12 @@ ENCODER_DEFAULTACTIONS_ENABLE = yes
     When enabled, use this in the keymap for an additional encoder processing 
         bool encoder_update_keymap(uint8_t index, bool clockwise)
   
+    OPTION: set ENCODER_DEFAULTACTIONS_INDEX to the encoder number if the encoder is not index 0
+  
 TD_LSFT_CAPSLOCK_ENABLE = yes
     This will enable double tap on Left Shift to toggle CAPSLOCK
+        KC_LSFTCAPS to bind to left Shift to enable feature
+        KC_LSFTCAPSWIN does the same thing but will not turn on CAPS when Win Lkey is disabled
 
 IDLE_TIMEOUT_ENABLE = yes
     Enables Timer functionality; for RGB idle timeouts that can be changed dynamically

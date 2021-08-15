@@ -92,7 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
         #define DYNAMIC_KEYMAP_LAYER_COUNT 4  //default in case this is not already defined elsewhere
     #endif
-    #ifndef ENCODER_DEFAULT_INDEX
+    #ifndef ENCODER_DEFAULTACTIONS_INDEX
         #define ENCODER_DEFAULTACTIONS_INDEX 0  // can select encoder index if there are multiple encoders
     #endif
 
