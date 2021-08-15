@@ -22,19 +22,19 @@ bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_2x3(
         KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE, KC__MUTE,
         KC_MEDIA_REWIND,  KC_MEDIA_FAST_FORWARD,  KC_PGDN
     ),
-    [1] = LAYOUT(
+    [1] = LAYOUT_ortho_2x3(
         _______,  _______,  _______,
         _______,  _______,  _______
     ),
-    [2] = LAYOUT(
+    [2] = LAYOUT_ortho_2x3(
         _______,  _______, _______,
         _______,  _______, _______
     ),
-    [3] = LAYOUT(
+    [3] = LAYOUT_ortho_2x3(
         _______,  _______, _______,
         _______,  _______, _______
     ),
