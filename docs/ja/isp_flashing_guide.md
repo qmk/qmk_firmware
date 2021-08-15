@@ -2,13 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-<<<<<<< HEAD
   original document: 0.13.29:docs/isp_flashing_guide.md
   git diff 0.13.29 HEAD -- docs/isp_flashing_guide.md | cat
-=======
-  original document: 0.13.24:docs/isp_flashing_guide.md
-  git diff 0.13.24 HEAD -- docs/isp_flashing_guide.md | cat
->>>>>>> df0dd69701a5944ca757ac87219f00d0c3f21a23
 -->
 
 ISP 書き込み(ICSP 書き込みと呼ぶ場合もあります)とは、マイクロコントローラーを直接プログラミングするプロセスです。
