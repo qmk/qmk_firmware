@@ -18,7 +18,6 @@ extern bool swap_hands;
 extern userspace_config_t userspace_config;
 
 typedef struct {
-    bool     oled_on;
     bool     audio_enable;
     bool     audio_clicky_enable;
     bool     tap_toggling;
@@ -57,10 +56,6 @@ void keyboard_post_init_transport_sync(void) {
 
 void user_transport_update(void) {
     if (is_keyboard_master()) {
-#    ifdef OLED_DRIVER_ENABLE
-        user_state.oled_on = is_oled_on();
-#    endif
-
         transport_keymap_config    = keymap_config.raw;
         transport_userspace_config = userspace_config.raw;
 #    ifdef AUDIO_ENABLE
@@ -75,13 +70,6 @@ void user_transport_update(void) {
 #    endif
 
     } else {
-#    ifdef OLED_DRIVER_ENABLE
-        if (user_state.oled_on) {
-            oled_on();
-        } else {
-            oled_off();
-        }
-#    endif
         keymap_config.raw    = transport_keymap_config;
         userspace_config.raw = transport_userspace_config;
 #    ifdef UNICODE_ENABLE

@@ -30,6 +30,9 @@
 #    ifdef WPM_ENABLE
 #        define SPLIT_WPM_ENABLE
 #    endif
+#    ifdef OLED_DRIVER_ENABLE
+#        define SPLIT_OLED_ENABLE
+#    endif
 #    define SELECT_SOFT_SERIAL_SPEED   1
 #    define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC
 #endif
