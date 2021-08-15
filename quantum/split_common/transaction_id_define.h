@@ -70,6 +70,14 @@ enum serial_transaction_id {
     PUT_WPM,
 #endif  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
+#if defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
+    PUT_OLED,
+#endif  // defined(WPM_ENABLE) && defined(SPLIT_OLED_ENABLE)
+
+#if defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
+    PUT_ST7565,
+#endif  // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     PUT_RPC_INFO,
     PUT_RPC_REQ_DATA,

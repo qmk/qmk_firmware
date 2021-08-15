@@ -343,6 +343,12 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_WPM_ENABLE`
   * Ensures the current WPM is available on the slave when using the QMK-provided split transport.
 
+* `#define SPLIT_OLED_ENABLE`
+  * Syncs the on/off state of the OLED between the halves.
+
+* `#define SPLIT_ST7565_ENABLE`
+  * Syncs the on/off state of the ST7565 screen between the halves.
+
 * `#define SPLIT_TRANSACTION_IDS_KB .....`
 * `#define SPLIT_TRANSACTION_IDS_USER .....`
   * Allows for custom data sync with the slave when using the QMK-provided split transport. See [custom data sync between sides](feature_split_keyboard.md#custom-data-sync) for more information.
