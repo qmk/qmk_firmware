@@ -21,7 +21,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x694E  //'iN'
+#define VENDOR_ID       0x4E65  //'Ne'
 #define PRODUCT_ID      0x4E36  //'N6'
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Neson Design
@@ -65,6 +65,3 @@
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL)
 
 #define CAPS_PIN    F5
-
-//#define VIAL_INSECURE
-//#define VIAL_KEYBOARD_UID {0xEF, 0xA4, 0x32, 0x35, 0xAF, 0x01, 0xAD, 0x2A}
