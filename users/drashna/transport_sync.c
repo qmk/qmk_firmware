@@ -17,13 +17,12 @@ extern bool swap_hands;
 #    endif
 extern userspace_config_t userspace_config;
 
-typedef struct {
+__attribute__((aligned(8))) typedef struct {
     bool     audio_enable;
     bool     audio_clicky_enable;
     bool     tap_toggling;
     bool     unicode_mode;
     bool     swap_hands;
-    uint8_t  reserved :2;
 } user_runtime_config_t;
 
 uint16_t transport_keymap_config    = 0;
