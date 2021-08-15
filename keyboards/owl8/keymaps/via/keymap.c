@@ -51,22 +51,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 keyevent_t encoder1_ccw = {
-    .key = (keypos_t){.row = 3, .col = 1},
+    .key = (keypos_t){.row = 0, .col = 12},
     .pressed = false
 };
 
 keyevent_t encoder1_cw = {
-    .key = (keypos_t){.row = 3, .col = 0},
+    .key = (keypos_t){.row = 0, .col = 13},
     .pressed = false
 };
 
 keyevent_t encoder2_ccw = {
-    .key = (keypos_t){.row = 3, .col = 3},
+    .key = (keypos_t){.row = 0, .col = 14},
     .pressed = false
 };
 
 keyevent_t encoder2_cw = {
-    .key = (keypos_t){.row = 3, .col = 2},
+    .key = (keypos_t){.row = 0, .col = 15},
     .pressed = false
 };
 
