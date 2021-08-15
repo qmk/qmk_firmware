@@ -527,7 +527,7 @@ static void wpm_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_
 static bool oled_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t last_update        = 0;
     bool            current_oled_state = is_oled_on();
-    return send_if_condition(PUT_OLED, &last_update, (current_oled_state = split_shmem->current_oled_state), &current_oled_state, sizeof(current_oled_state));
+    return send_if_condition(PUT_OLED, &last_update, (current_oled_state != split_shmem->current_oled_state), &current_oled_state, sizeof(current_oled_state));
 }
 
 static void oled_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
@@ -558,7 +558,7 @@ static void oled_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave
 static bool st7565_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t last_update          = 0;
     bool            current_st7565_state = st7565_is_on();
-    return send_if_condition(PUT_ST7565, &last_update, (current_st7565_state = split_shmem->current_st7565_state), &current_st7565_state, sizeof(current_st7565_state));
+    return send_if_condition(PUT_ST7565, &last_update, (current_st7565_state != split_shmem->current_st7565_state), &current_st7565_state, sizeof(current_st7565_state));
 }
 
 static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
