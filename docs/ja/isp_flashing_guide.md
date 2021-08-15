@@ -2,8 +2,13 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
+<<<<<<< HEAD
   original document: 0.13.29:docs/isp_flashing_guide.md
   git diff 0.13.29 HEAD -- docs/isp_flashing_guide.md | cat
+=======
+  original document: 0.13.24:docs/isp_flashing_guide.md
+  git diff 0.13.24 HEAD -- docs/isp_flashing_guide.md | cat
+>>>>>>> df0dd69701a5944ca757ac87219f00d0c3f21a23
 -->
 
 ISP 書き込み(ICSP 書き込みと呼ぶ場合もあります)とは、マイクロコントローラーを直接プログラミングするプロセスです。
@@ -190,7 +195,7 @@ QMK DFU ブートローダは `atmega32u4` コントローラ (AVR ベースの 
 
 ### QMK Toolbox
 
-1. 'AVRISP device connected' または `USB Tiny device connected` が黄色で表示されます。
+1. `AVRISP device connected` または `USB Tiny device connected` が黄色で表示されます。
 2. `Open` ダイアログで正しいブートローダー/プロダクションの .hex ファイルを選択します（パスにスペースを含めることはできません）
 3. 書きこもうとしているキーボード（ISP プログラマではなく）のための正しい `Microcontroller` オプションが選択されていることを確認してください。
 4. `Flash` を押します
