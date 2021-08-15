@@ -15,7 +15,6 @@ BOOTLOADER = halfkay
 #   comment out to disable the options.
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-MIDI_ENABLE             = no  # MIDI support (+2400 to 4200)
 POINTING_DEVICE_ENABLE  = no
 MOUSEKEY_ENABLE         = no  # Mouse keys(+4700)
 EXTRAKEY_ENABLE         = yes # Audio control and System control(+450)
