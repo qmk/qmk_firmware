@@ -49,7 +49,7 @@ def info_json(keyboard):
         info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
 
     # Populate layout data
-    layouts, aliases = _find_all_layouts(info_data, keyboard)
+    layouts, aliases = _search_keyboard_h(keyboard)
 
     if aliases:
         info_data['layout_aliases'] = aliases
@@ -77,6 +77,9 @@ def info_json(keyboard):
         exit(1)
 
     # Make sure we have at least one layout
+    if not info_data.get('layouts'):
+        _find_missing_layouts(info_data, keyboard)
+
     if not info_data.get('layouts'):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
 
@@ -417,12 +420,13 @@ def _merge_layouts(info_data, new_info_data):
     return info_data
 
 
-def _search_keyboard_h(path):
+def _search_keyboard_h(keyboard):
+    keyboard = Path(keyboard)
     current_path = Path('keyboards/')
     aliases = {}
     layouts = {}
 
-    for directory in path.parts:
+    for directory in keyboard.parts:
         current_path = current_path / directory
         keyboard_h = '%s.h' % (directory,)
         keyboard_h_path = current_path / keyboard_h
@@ -437,27 +441,28 @@ def _search_keyboard_h(path):
     return layouts, aliases
 
 
-def _find_all_layouts(info_data, keyboard):
-    """Looks for layout macros associated with this keyboard.
+def _find_missing_layouts(info_data, keyboard):
+    """Looks for layout macros when they aren't found other places.
+
+    If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
     """
-    layouts, aliases = _search_keyboard_h(Path(keyboard))
+    _log_warning(info_data, '%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
 
-    if not layouts:
-        # If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
-        info_data['parse_warnings'].append('%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
+    for file in glob('keyboards/%s/*.h' % keyboard):
+        these_layouts, these_aliases = find_layouts(file)
 
-        for file in glob('keyboards/%s/*.h' % keyboard):
-            if file.endswith('.h'):
-                these_layouts, these_aliases = find_layouts(file)
+        if these_layouts:
+            for layout_name, layout_json in these_layouts.items():
+                if not layout_name.startswith('LAYOUT_kc'):
+                    layout_json['c_macro'] = True
+                    info_data['layouts'][layout_name] = layout_json
 
-                if these_layouts:
-                    layouts.update(these_layouts)
+        for alias, alias_text in these_aliases.items():
+            if alias_text in these_layouts:
+                if 'layout_aliases' not in info_data:
+                    info_data['layout_aliases'] = {}
 
-                for alias, alias_text in these_aliases.items():
-                    if alias_text in layouts:
-                        aliases[alias] = alias_text
-
-    return layouts, aliases
+                info_data['layout_aliases'][alias] = alias_text
 
 
 def _log_error(info_data, message):
