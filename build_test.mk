@@ -63,7 +63,7 @@ endif
 $(TEST)_SRC += \
 	tests/test_common/main.c \
 	$(LIB_PATH)/printf/printf.c \
-	$(COMMON_DIR)/printf.c
+	$(QUANTUM_PATH)/logging/print.c
 
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
 $(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)

@@ -9,7 +9,7 @@ BOOTLOADER = stm32-dfu
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = no
-BOOTMAGIC_ENABLE = full	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no	# Console for debug

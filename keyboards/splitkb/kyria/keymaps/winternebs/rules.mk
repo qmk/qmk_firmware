@@ -7,6 +7,6 @@ AUDIO_ENABLE   = no     # Audio output
 SPACE_CADET_ENABLE = no
 EXTRAKEY_ENABLE = no
 MOUSEKEY_ENABLE = no
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 SWAP_HANDS_ENABLE = yes
 LTO_ENABLE = yes
