@@ -10,11 +10,11 @@ More Info at [zoom](https://zoom65.com/).
 ​
 Make example for this keyboard (after setting up your build environment):
 
-    make zoom/zoom65:default
+    make meletrix/zoom65:default
 
 Flashing example for this keyboard:
 
-    make zoom/zoom65:default:flash
+    make meletrix/zoom65:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 

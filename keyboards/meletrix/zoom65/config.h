@@ -22,7 +22,7 @@
 #define VENDOR_ID       0x806B
 #define PRODUCT_ID      0x0004
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    zoom
+#define MANUFACTURER    meletrix
 #define PRODUCT         zoom65
 
 /* key matrix size */
@@ -41,11 +41,10 @@
 #define ENCODERS_PAD_A { B1 }
 #define ENCODERS_PAD_B { B0 }
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+#define ENCODERS 1
+// Note:  array is { col, row )
+#define ENCODERS_CW_KEY  { { 3, 4 } }
+#define ENCODERS_CCW_KEY { { 5, 4 } }
 
 #define LED_CAPS_LOCK_PIN E2
 #define LED_PIN_ON_STATE 0
