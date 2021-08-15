@@ -2388,6 +2388,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (shift_ison) send_string ( SS_UP(X_RSFT) SS_UP(X_LSFT) ";" ); // moved here from <esc> on standard hebrew
                 else send_string  ("/");//
             } break;
+
+        case XP_HEB_AB: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_GERSH);// ׳
+            }
+            break;
         
         case XP_HEB_AC: //
             if (record->event.pressed) { // key down
@@ -2448,18 +2454,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case XP_HEB_AI: // The logic is that it mirrors '", “„, ”≤, ‛’ in Dvorak Base and other layers.
+        case XP_HEB_AI: 
+            if (record->event.pressed) { // key down
+
+# if   defined(HEBREW_ISRAEL)
+                        // The logic is that it mirrors '", “„, ”≤, ‛’ in Dvorak Base and other layers.
                         // Therefore the little and ring fingers are used. Mirroring ━─ and ┄┅ on DRA_
                         // layer, the outside on the keyboard is “big/fat”, the inside is “small/thin”,
                         // like something protected in a shell. Hence: ……׳״
-            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_MEMS);// ם // ׳ is located elsewhere
+# elif defined(HEBREW_QWERTY) || defined(HEBREW_DVORAK)
                 unicode_hex2output (HB_MEMS, HB_GERSH);// ם׳
+# endif
+
             }
             break;
 
         case XP_HEB_AJ: //
             if (record->event.pressed) { // key down
+
+# if   defined(HEBREW_ISRAEL)
+                unicode_hex2output_single (HB_PE);// פ // ״ is located elsewhere
+# elif defined(HEBREW_QWERTY) || defined(HEBREW_DVORAK)
                 unicode_hex2output (HB_PE, HB_GRSHM);// פ״
+# endif
+
             }
             break;
 
@@ -2523,7 +2542,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) { // key down
 
 # if   defined(HEBREW_ISRAEL) || defined(HEBREW_QWERTY)
-                if (shift_ison) send_string (":"); // :
+                if (shift_ison) send_string (":"); // : (the hebrew eqquivalent is apparently almost never used, and this saves space)
                 else unicode_hex2output_single (HB_PES);// ף
 # elif defined(HEBREW_DVORAK)
                 unicode_hex2output_single (HB_PES);// ף
@@ -2535,7 +2554,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 # if defined(HEBREW_ISRAEL)
         case XP_HEB_BK: // 
             if (record->event.pressed) { // key down
-                if (shift_ison) send_string ("\""); // double quote
+                if (shift_ison) unicode_hex2output_single (HB_GRSHM);// ״
                 else send_string (","); // comma
             }
             break;

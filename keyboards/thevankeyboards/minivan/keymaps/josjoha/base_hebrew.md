@@ -114,8 +114,8 @@ Layers (text)
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
-         Escxxxxxxxx/;xxxx'"xxxxקxxxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxםx׳xxxפx״xxxxxxxxBksp
-         Tab+LCtlxxxשxxxxxדxxxxxג/RLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxל/LRMxךxxxxxף:xxxxxxxxxxx," //Right-Left-Mark
+         Escxxxxxxxx/;xxxx׳xxxxxקxxxxxרxxxxxאxxxxx|xטxxxxxוxxxxxןxxxxxםxxxxxפxxxxxxxxxxBksp
+         Tab+LCtlxxxשxxxxxדxxxxxג/RLMxכx₪xxxעxxxxx|xיxxxxxחxxxxxל/LRMxךxxxxxף:xxxxxxxxxxx,״ //Right-Left-Mark
          LSht+_PADxxזxxxxxסxxxxxבxxxxxהxxxxxנxxxxx|xמxxxxxצxxxxxת<xxxxץ>xxxx.?xxxxRSht+_FUN //<>os side flip?
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------

@@ -54,8 +54,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
-         Esc        /;    '"    ק     ר     א     | ט     ו     ן     ם׳    פ״         Bksp
-         Tab+LCtl   ש     ד     ג/RLM כ₪    ע     | י     ח     ל/LRM ך     ף:           ," //Right-Left-Mark
+         Esc        /;    ׳     ק     ר     א     | ט     ו     ן     ם     פ          Bksp
+         Tab+LCtl   ש     ד     ג/RLM כ₪    ע     | י     ח     ל/LRM ך     ף:           ,״ //Right-Left-Mark
          LSht+_PAD  ז     ס     ב     ה     נ     | מ     צ     ת<    ץ>    .?    RSht+_FUN //<>os side flip?
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         KC_ESC      
 
 # if   defined(HEBREW_ISRAEL)
-                          , XP_HEB_AA , KC_QUOT   , XP_HEB_AC 
+                          , XP_HEB_AA , XP_HEB_AB , XP_HEB_AC 
 # elif defined(HEBREW_QWERTY)
                           , XP_HEB_AA , XP_HEB_AB , XP_HEB_AC
 # elif defined(HEBREW_DVORAK)
