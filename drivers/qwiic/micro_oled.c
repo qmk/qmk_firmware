@@ -13,11 +13,11 @@
  * Adapted for QMK by:
  * Jack Humbert <jack.humb@gmail.com>
  * October 11, 2018
- * 
+ *
  * Size and speed optimizations added by:
  * David Hoelscher <david.hoelscher@custommk.com>
  * August 15, 2021
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -153,7 +153,7 @@ void micro_oled_init(void) {
 #endif
 
     send_command(MEMORYMODE);
-    send_command(0x02);   //  0x02 = 10b, Page addressing mode
+    send_command(0x02);  //  0x02 = 10b, Page addressing mode
 
     send_command(SETCOMPINS);  // 0xDA
     if (LCDHEIGHT > 32) {
@@ -340,61 +340,63 @@ void draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color, ui
 /** \brief Draw horizontal line with color and mode.
 Draw horizontal line using color and mode from x,y to x+width,y of the screen buffer.
 */
-void draw_line_hori(uint8_t x, uint8_t y, uint8_t width, uint8_t color, uint8_t mode) { 
+void draw_line_hori(uint8_t x, uint8_t y, uint8_t width, uint8_t color, uint8_t mode) {
     if ((y >= LCDHEIGHT) || (width == 0)) return;
 
     uint8_t xmax = x + (width - 1);
-    //if the line extends beyond the edge of the screen, or if addition overflows uint8_t, stop at the screen edge
+    // if the line extends beyond the edge of the screen, or if addition overflows uint8_t, stop at the screen edge
     if ((xmax >= LCDWIDTH) || (xmax < x)) {
         xmax = LCDWIDTH - 1;
     }
 
     uint16_t byte_write_location = x + (y / 8) * LCDWIDTH;
-    uint8_t byte_to_write = _BV((y % 8));
+    uint8_t  byte_to_write       = _BV((y % 8));
 
     while (x <= xmax) {
         draw_pixels(byte_write_location, byte_to_write, color, mode);
 
-        //move to the next byte (next column of pixels)
+        // move to the next byte (next column of pixels)
         x += 1;
-        if (x == 0) { break; } //stop if overflow occured
+        if (x == 0) {
+            break;
+        }  // stop if overflow occured
         byte_write_location += 1;
     }
 }
-
 
 /** \brief Draw vertical line.
 Draw vertical line using current fore color and current draw mode from x,y to x,y+height of the screen buffer.
 This method draws the lines up to 8 pixels at a time
 */
-void draw_line_vert(uint8_t x, uint8_t y, uint8_t height, uint8_t color, uint8_t mode) { 
+void draw_line_vert(uint8_t x, uint8_t y, uint8_t height, uint8_t color, uint8_t mode) {
     if ((x >= LCDWIDTH) || (height == 0)) return;
-    
+
     uint8_t ymax = y + (height - 1);
-    //if the line extends beyond the edge of the screen, or if addition overflows uint8_t, stop at the screen edge
+    // if the line extends beyond the edge of the screen, or if addition overflows uint8_t, stop at the screen edge
     if ((ymax >= LCDHEIGHT) || (ymax < y)) {
         ymax = LCDHEIGHT - 1;
     }
 
-    uint8_t byte_to_write;
+    uint8_t  byte_to_write;
     uint16_t byte_write_location = x + (y / 8) * LCDWIDTH;
     while (y <= ymax) {
-        //if the line starts in the current set of 8 rows, mask off bits before y
+        // if the line starts in the current set of 8 rows, mask off bits before y
         byte_to_write = 0xFF << (y & 0x07);
 
-        //if the line ends in the current set of 8 rows, mask off bits beyond ymax
+        // if the line ends in the current set of 8 rows, mask off bits beyond ymax
         if ((y & 0xF8) == (ymax & 0xF8)) {
             byte_to_write = byte_to_write & (0xFF >> (0x07 - (ymax & 0x07)));
         }
-        
+
         draw_pixels(byte_write_location, byte_to_write, color, mode);
 
-        //move to the next row of pixels
+        // move to the next row of pixels
         y = (y & 0xF8) + 0x08;
-        if (y == 0) { break; } //stop if overflow occured
+        if (y == 0) {
+            break;
+        }  // stop if overflow occured
         byte_write_location += LCDWIDTH;
     }
-
 }
 
 /** \brief Draw rectangle with color and mode.

@@ -41,7 +41,7 @@ void clear_screen(void);
 void clear_buffer(void);
 void send_buffer(void);
 void draw_pixel(uint8_t x, uint8_t y, uint8_t color, uint8_t mode);
-void draw_pixels(uint16_t buffer_index, uint8_t byte_to_write, uint8_t color, uint8_t mode); 
+void draw_pixels(uint16_t buffer_index, uint8_t byte_to_write, uint8_t color, uint8_t mode);
 void draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color, uint8_t mode);
 void draw_line_hori(uint8_t x, uint8_t y, uint8_t width, uint8_t color, uint8_t mode);
 void draw_line_vert(uint8_t x, uint8_t y, uint8_t height, uint8_t color, uint8_t mode);
