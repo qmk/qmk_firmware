@@ -13,7 +13,11 @@
  * Adapted for QMK by:
  * Jack Humbert <jack.humb@gmail.com>
  * October 11, 2018
- *
+ * 
+ * Size and speed optimizations added by:
+ * David Hoelscher <david.hoelscher@custommk.com>
+ * August 15, 2021
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -34,8 +38,8 @@
 #include "util/font8x16.h"
 #include <string.h>
 
-#define TOTALFONTS 2
-const unsigned char* fonts_pointer[] = {font5x7, font8x16};
+#define TOTALFONTS 3
+const unsigned char* fonts_pointer[] = {font5x7, font8x16, font5x7lite};
 
 uint8_t  foreColor, drawMode, fontWidth, fontHeight, fontType, fontStartChar, fontTotalChar, cursorX, cursorY;
 uint16_t fontMapWidth;
@@ -273,13 +277,21 @@ void send_buffer(void) {
 void draw_pixel(uint8_t x, uint8_t y, uint8_t color, uint8_t mode) {
     if ((x < 0) || (x >= LCDWIDTH) || (y < 0) || (y >= LCDHEIGHT)) return;
 
+    draw_pixels(x + (y / 8) * LCDWIDTH, _BV((y % 8)), color, mode);
+}
+
+/** \brief Draw one byte of pixels with color and mode.
+  Draw eight color pixels in the screen buffer's array with NORM or XOR draw mode.
+  Valid index is not verified here, must be checked by the calling function.
+*/
+void draw_pixels(uint16_t buffer_index, uint8_t byte_to_write, uint8_t color, uint8_t mode) {
     if (mode == XOR) {
-        if (color == PIXEL_ON) micro_oled_screen_buffer[x + (y / 8) * LCDWIDTH] ^= _BV((y % 8));
+        if (color == PIXEL_ON) micro_oled_screen_buffer[buffer_index] ^= byte_to_write;
     } else {
         if (color == PIXEL_ON)
-            micro_oled_screen_buffer[x + (y / 8) * LCDWIDTH] |= _BV((y % 8));
+            micro_oled_screen_buffer[buffer_index] |= byte_to_write;
         else
-            micro_oled_screen_buffer[x + (y / 8) * LCDWIDTH] &= ~_BV((y % 8));
+            micro_oled_screen_buffer[buffer_index] &= ~byte_to_write;
     }
 }
 
@@ -328,12 +340,62 @@ void draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color, ui
 /** \brief Draw horizontal line with color and mode.
 Draw horizontal line using color and mode from x,y to x+width,y of the screen buffer.
 */
-void draw_line_hori(uint8_t x, uint8_t y, uint8_t width, uint8_t color, uint8_t mode) { draw_line(x, y, x + width, y, color, mode); }
+void draw_line_hori(uint8_t x, uint8_t y, uint8_t width, uint8_t color, uint8_t mode) { 
+    if ((y >= LCDHEIGHT) || (width == 0)) return;
+
+    uint8_t xmax = x + (width - 1);
+    //if the line extends beyond the edge of the screen, or if addition overflows uint8_t, stop at the screen edge
+    if ((xmax >= LCDWIDTH) || (xmax < x)) {
+        xmax = LCDWIDTH - 1;
+    }
+
+    uint16_t byte_write_location = x + (y / 8) * LCDWIDTH;
+    uint8_t byte_to_write = _BV((y % 8));
+
+    while (x <= xmax) {
+        draw_pixels(byte_write_location, byte_to_write, color, mode);
+
+        //move to the next byte (next column of pixels)
+        x += 1;
+        if (x == 0) { break; } //stop if overflow occured
+        byte_write_location += 1;
+    }
+}
+
 
 /** \brief Draw vertical line.
 Draw vertical line using current fore color and current draw mode from x,y to x,y+height of the screen buffer.
+This method draws the lines up to 8 pixels at a time
 */
-void draw_line_vert(uint8_t x, uint8_t y, uint8_t height, bool color, uint8_t mode) { draw_line(x, y, x, y + height, color, mode); }
+void draw_line_vert(uint8_t x, uint8_t y, uint8_t height, uint8_t color, uint8_t mode) { 
+    if ((x >= LCDWIDTH) || (height == 0)) return;
+    
+    uint8_t ymax = y + (height - 1);
+    //if the line extends beyond the edge of the screen, or if addition overflows uint8_t, stop at the screen edge
+    if ((ymax >= LCDHEIGHT) || (ymax < y)) {
+        ymax = LCDHEIGHT - 1;
+    }
+
+    uint8_t byte_to_write;
+    uint16_t byte_write_location = x + (y / 8) * LCDWIDTH;
+    while (y <= ymax) {
+        //if the line starts in the current set of 8 rows, mask off bits before y
+        byte_to_write = 0xFF << (y & 0x07);
+
+        //if the line ends in the current set of 8 rows, mask off bits beyond ymax
+        if ((y & 0xF8) == (ymax & 0xF8)) {
+            byte_to_write = byte_to_write & (0xFF >> (0x07 - (ymax & 0x07)));
+        }
+        
+        draw_pixels(byte_write_location, byte_to_write, color, mode);
+
+        //move to the next row of pixels
+        y = (y & 0xF8) + 0x08;
+        if (y == 0) { break; } //stop if overflow occured
+        byte_write_location += LCDWIDTH;
+    }
+
+}
 
 /** \brief Draw rectangle with color and mode.
 Draw rectangle using color and mode from x,y to x+width,y+height of the screen buffer.
@@ -377,7 +439,6 @@ void draw_rect_soft(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t
 Draw filled rectangle using color and mode from x,y to x+width,y+height of the screen buffer.
 */
 void draw_rect_filled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color, uint8_t mode) {
-    // TODO - need to optimise the memory map draw so that this function will not call pixel one by one
     for (int i = x; i < x + width; i++) {
         draw_line_vert(i, y, height, color, mode);
     }
@@ -387,7 +448,6 @@ void draw_rect_filled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8
 Draw filled rectangle using color and mode from x,y to x+width,y+height of the screen buffer.
 */
 void draw_rect_filled_soft(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color, uint8_t mode) {
-    // TODO - need to optimise the memory map draw so that this function will not call pixel one by one
     for (int i = x; i < x + width; i++) {
         if (i == x || i == (x + width - 1))
             draw_line_vert(i, y + 1, height - 2, color, mode);
