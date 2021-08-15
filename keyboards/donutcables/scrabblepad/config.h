@@ -1,5 +1,5 @@
 /*
-Copyright 2018 MechMerlin
+Copyright 2021 DonutCables <contact@donutcables.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,10 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Donut Cables
+#define VENDOR_ID       0x4443
+#define PRODUCT_ID      0x21D7
+#define DEVICE_VER      0x0100
+#define MANUFACTURER    DonutCables
 #define PRODUCT         ScrabblePad
 
 /* key matrix size */
@@ -39,33 +39,62 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
-*/
+ */
 #define MATRIX_ROW_PINS { D5, F1, C7, F2, C6, F3, C5, F4, C4, F5, C3, F6, C2, F7, C1 }
 #define MATRIX_COL_PINS { D6, D7, E0, E1, B7, D2, D3, D4, C0, B4, B5, B6, F0, E6, E7 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-// #define BACKLIGHT_PIN
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+/*
+ * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
+ */
 
-// ws2812 options
-//#define RGB_DI_PIN A0 // pin the DI on the ws2812 is hooked-up to
-//#define RGBLIGHT_ANIMATIONS // run RGB animations
-//#define RGBLED_NUM 6 // number of LEDs
-//#define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
-//#define RGBLIGHT_SAT_STEP 25 // units to step when in/decresing saturation
-//#define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
+//#define LED_NUM_LOCK_PIN B0
+//#define LED_CAPS_LOCK_PIN B1
+//#define LED_SCROLL_LOCK_PIN B2
+//#define LED_COMPOSE_PIN B3
+//#define LED_KANA_PIN B4
+
+//#define BACKLIGHT_PIN B7
+//#define BACKLIGHT_LEVELS 3
+//#define BACKLIGHT_BREATHING
+
+//#define RGB_DI_PIN E2
+//#ifdef RGB_DI_PIN
+//#    define RGBLED_NUM 16
+//#    define RGBLIGHT_HUE_STEP 8
+//#    define RGBLIGHT_SAT_STEP 8
+//#    define RGBLIGHT_VAL_STEP 8
+//#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/*== all animations enable ==*/
+//#    define RGBLIGHT_ANIMATIONS
+/*== or choose animations ==*/
+//#    define RGBLIGHT_EFFECT_BREATHING
+//#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//#    define RGBLIGHT_EFFECT_SNAKE
+//#    define RGBLIGHT_EFFECT_KNIGHT
+//#    define RGBLIGHT_EFFECT_CHRISTMAS
+//#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//#    define RGBLIGHT_EFFECT_RGB_TEST
+//#    define RGBLIGHT_EFFECT_ALTERNATING
+/*== customize breathing effect ==*/
+/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
+//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
+/*==== use exp() and sin() ====*/
+//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
+//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
+//#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
+
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -73,9 +102,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
+ * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
  */
-// #define GRAVE_ESC_CTRL_OVERRIDE
+//#define GRAVE_ESC_CTRL_OVERRIDE
 
 /*
  * Force NKRO
@@ -99,54 +128,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define FORCE_NKRO
 
 /*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
-
-/* control how magic key switches layers */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM false
-
-/* override magic key keymap */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-//#define MAGIC_KEY_HELP1          H
-//#define MAGIC_KEY_HELP2          SLASH
-//#define MAGIC_KEY_DEBUG          D
-//#define MAGIC_KEY_DEBUG_MATRIX   X
-//#define MAGIC_KEY_DEBUG_KBD      K
-//#define MAGIC_KEY_DEBUG_MOUSE    M
-//#define MAGIC_KEY_VERSION        V
-//#define MAGIC_KEY_STATUS         S
-//#define MAGIC_KEY_CONSOLE        C
-//#define MAGIC_KEY_LAYER0_ALT1    ESC
-//#define MAGIC_KEY_LAYER0_ALT2    GRAVE
-//#define MAGIC_KEY_LAYER0         0
-//#define MAGIC_KEY_LAYER1         1
-//#define MAGIC_KEY_LAYER2         2
-//#define MAGIC_KEY_LAYER3         3
-//#define MAGIC_KEY_LAYER4         4
-//#define MAGIC_KEY_LAYER5         5
-//#define MAGIC_KEY_LAYER6         6
-//#define MAGIC_KEY_LAYER7         7
-//#define MAGIC_KEY_LAYER8         8
-//#define MAGIC_KEY_LAYER9         9
-//#define MAGIC_KEY_BOOTLOADER     PAUSE
-//#define MAGIC_KEY_LOCK           CAPS
-//#define MAGIC_KEY_EEPROM         E
-//#define MAGIC_KEY_NKRO           N
-//#define MAGIC_KEY_SLEEP_LED      Z
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
@@ -161,25 +142,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
-/*
- * MIDI options
- */
+/* disable these deprecated features by default */
 
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
+/* Bootmagic Lite key configuration */
+//#define BOOTMAGIC_LITE_ROW 0
+//#define BOOTMAGIC_LITE_COLUMN 0
