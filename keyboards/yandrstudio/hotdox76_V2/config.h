@@ -61,11 +61,11 @@
 /* RGN Matrix */
 #ifdef RGB_MATRIX_ENABLE
 
-#    define RGB_MATRIX_SPLIT {38, 38}
+#    define RGB_MATRIX_SPLIT {43, 43}
 #    define SPLIT_TRANSPORT_MIRROR
 
 #    define RGB_DI_PIN D3
-#    define RGBLED_NUM (38*2)
+#    define RGBLED_NUM (43*2)
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
@@ -85,10 +85,10 @@
 #ifdef RGBLIGHT_ENABLE
 
 #    define RGBLIGHT_SPLIT
-#    define RGBLED_SPLIT {38, 38}
+#    define RGBLED_SPLIT {43, 43}
 
 #    define RGB_DI_PIN D3
-#    define RGBLED_NUM (38*2)
+#    define RGBLED_NUM (43*2)
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGBLIGHT_LIMIT_VAL 150
 #    define RGBLIGHT_SLEEP
@@ -106,6 +106,15 @@
 #   define SPLIT_MODS_ENABLE
 
 #   define SPLIT_USB_DETECT
+
+#endif
+
+
+
+#ifdef OLED_DRIVER_ENABLE
+
+#    define OLED_BRIGHTNESS 200
+#    define OLED_TIMEOUT 120000
 
 #endif
 

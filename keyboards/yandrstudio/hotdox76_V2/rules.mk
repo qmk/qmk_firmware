@@ -20,7 +20,6 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = no	# Console for debug(+400)
 COMMAND_ENABLE = no    # Commands for debug and configuration
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-# WPM_ENABLE = yes
 OLED_DRIVER_ENABLE = yes    # Enable Support for SSD1306 or SH1106 OLED Displays; Communicating over I2C
 SPLIT_KEYBOARD = yes
 
