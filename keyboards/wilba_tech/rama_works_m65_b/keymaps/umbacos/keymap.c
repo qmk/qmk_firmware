@@ -12,19 +12,19 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MAIN] = LAYOUT_all(
-      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    IT_MINS, IT_EQL,  KC_BSPC, KC_BSPC,    KC_INS,
-      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    IT_LBRC, IT_RBRC, IT_LESS,            KC_VOLD,
+      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    IT_MINS, IT_EQL,  KC_DEL, KC_ESC,    KC_INS,
+      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    IT_LBRC, IT_RBRC, KC_BSPC,            KC_VOLD,
       MT(MOD_LCTL, KC_TAB),     KC_A,    KC_S,    LT(_NAVIGATE, KC_D), LT(_SHIFT, KC_F),    KC_G,    KC_H, LT(_SHIFT, KC_J),    LT(_NAVIGATE, KC_K),    KC_L,    IT_SCLN, IT_QUOT, KC_SFTENT, KC_VOLU,
       LT(_SHIFT, KC_DEL),        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    IT_COMM, IT_DOT,  IT_SLSH, MO(_SHIFT), KC_UP,  KC_MUTE,
-      KC_LCTL, KC_LALT, KC_LGUI,          LT(_ACCENT, KC_SPC),                                       LT(_SERVICE, KC_BSPC), KC_LEFT,   KC_DOWN, KC_RGHT
+      KC_LCTL, KC_LALT, KC_LGUI,          LT(_ACCENT, KC_SPC),                                       LT(_SERVICE, IT_LESS), KC_LEFT,   KC_DOWN, KC_RGHT
   ),
 
   [_SHIFT] = LAYOUT_all(
-      KC_ESC,     IT_EXLM,    IT_AT,   IT_SHRP, IT_DLR,  IT_PERC, IT_CRC,  IT_AMPR, IT_ASTR, IT_LPRN, IT_RPRN, IT_UNDS, IT_PLUS, KC_DEL, KC_DEL, S(KC_INS),
-      S(KC_TAB),  S(KC_Q),    S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), IT_LCBR, IT_RCBR,    IT_MORE,    S(KC_END),
+      KC_ESC,     IT_EXLM,    IT_AT,   IT_SHRP, IT_DLR,  IT_PERC, IT_CRC,  IT_AMPR, IT_ASTR, IT_LPRN, IT_RPRN, IT_UNDS, IT_PLUS, S(KC_DEL), S(KC_DEL), S(KC_INS),
+      S(KC_TAB),  S(KC_Q),    S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), IT_LCBR, IT_RCBR,    S(KC_BSPC),    S(KC_END),
       S(KC_CAPS), S(KC_A),    S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), IT_COLN, IT_DQOT,             S(KC_ENT),  S(KC_PGUP),
       KC_LSFT,    S(KC_Z),    S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), S(KC_M), IT_BKSL, IT_PIPE, IT_QST,  KC_RSFT,          S(KC_UP),   S(KC_PGDN),
-      S(KC_LCTL), S(KC_LALT), S(KC_LGUI),                         LT(_ACCENT, KC_SPC),                       S(KC_BSPC),   S(KC_LEFT), S(KC_DOWN), S(KC_RGHT)
+      S(KC_LCTL), S(KC_LALT), S(KC_LGUI),                         LT(_ACCENT, KC_SPC),                       IT_MORE,   S(KC_LEFT), S(KC_DOWN), S(KC_RGHT)
   ),
 
   [_ACCENT] = LAYOUT_all(
