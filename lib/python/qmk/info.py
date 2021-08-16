@@ -161,10 +161,9 @@ def _extract_pins(pins):
     return [_pin_name(pin) for pin in pins.split(',')]
 
 
-def _extract_direct_matrix(info_data, direct_pins):
+def _extract_direct_matrix(direct_pins):
     """
     """
-    info_data['matrix_pins'] = {}
     direct_pin_array = []
 
     while direct_pins[-1] != '}':
@@ -315,7 +314,7 @@ def _extract_split_right_pins(info_data, config_c):
         if 'right' not in info_data['split']['matrix_pins']:
             info_data['split']['matrix_pins']['right'] = {}
 
-        info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(info_data, direct_pins)
+        info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
 
     if unused_pins:
         if 'split' not in info_data:
@@ -338,6 +337,7 @@ def _extract_matrix_info(info_data, config_c):
     unused_pin_text = config_c.get('UNUSED_PINS')
     unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
     direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
+    info_snippet = {}
 
     if 'MATRIX_ROWS' in config_c and 'MATRIX_COLS' in config_c:
         if 'matrix_size' in info_data:
@@ -352,31 +352,32 @@ def _extract_matrix_info(info_data, config_c):
         if 'matrix_pins' in info_data and 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             _log_warning(info_data, 'Matrix pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_data['matrix_pins'] = {
-            'cols': _extract_pins(col_pins),
-            'rows': _extract_pins(row_pins),
-        }
+        info_snippet['cols'] = _extract_pins(col_pins)
+        info_snippet['rows'] = _extract_pins(row_pins)
 
     if direct_pins:
         if 'matrix_pins' in info_data and 'direct' in info_data['matrix_pins']:
             _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_data['matrix_pins']['direct'] = _extract_direct_matrix(info_data, direct_pins)
+        info_snippet['direct'] = _extract_direct_matrix(direct_pins)
 
     if unused_pins:
         if 'matrix_pins' not in info_data:
             info_data['matrix_pins'] = {}
 
-        info_data['matrix_pins']['unused'] = _extract_pins(unused_pins)
+        info_snippet['unused'] = _extract_pins(unused_pins)
 
     if config_c.get('CUSTOM_MATRIX', 'no') != 'no':
         if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
             _log_warning(info_data, 'Custom Matrix is specified in both info.json and config.h, the config.h values win.')
 
-        info_data['matrix_pins']['custom'] = True
+        info_snippet['custom'] = True
 
         if config_c['CUSTOM_MATRIX'] == 'lite':
-            info_data['matrix_pins']['custom_lite'] = True
+            info_snippet['custom_lite'] = True
+
+    if info_snippet:
+        info_data['matrix_pins'] = info_snippet
 
     return info_data
 
