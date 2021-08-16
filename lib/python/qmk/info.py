@@ -61,8 +61,8 @@ def info_json(keyboard):
 
     # Merge in the data from info.json, config.h, and rules.mk
     info_data = merge_info_jsons(keyboard, info_data)
-    info_data = _extract_config_h(info_data)
     info_data = _extract_rules_mk(info_data)
+    info_data = _extract_config_h(info_data)
 
     # Ensure that we have matrix row and column counts
     info_data = _matrix_size(info_data)
@@ -161,10 +161,9 @@ def _extract_pins(pins):
     return [_pin_name(pin) for pin in pins.split(',')]
 
 
-def _extract_direct_matrix(info_data, direct_pins):
+def _extract_direct_matrix(direct_pins):
     """
     """
-    info_data['matrix_pins'] = {}
     direct_pin_array = []
 
     while direct_pins[-1] != '}':
@@ -188,12 +187,157 @@ def _extract_direct_matrix(info_data, direct_pins):
     return direct_pin_array
 
 
+def _extract_audio(info_data, config_c):
+    """Populate data about the audio configuration
+    """
+    audio_pins = []
+
+    for pin in 'B5', 'B6', 'B7', 'C4', 'C5', 'C6':
+        if config_c.get(f'{pin}_AUDIO'):
+            audio_pins.append(pin)
+
+    if audio_pins:
+        info_data['audio'] = {'pins': audio_pins}
+
+
+def _extract_split_main(info_data, config_c):
+    """Populate data about the split configuration
+    """
+    # Figure out how the main half is determined
+    if config_c.get('SPLIT_HAND_PIN') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_PIN) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'pin'
+
+    if config_c.get('SPLIT_HAND_MATRIX_GRID'):
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'matrix_grid'
+        info_data['split']['matrix_grid'] = _extract_pins(config_c['SPLIT_HAND_MATRIX_GRID'])
+
+    if config_c.get('EE_HANDS') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (EE_HANDS) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'eeprom'
+
+    if config_c.get('MASTER_RIGHT') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_RIGHT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'right'
+
+    if config_c.get('MASTER_LEFT') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_LEFT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'left'
+
+
+def _extract_split_transport(info_data, config_c):
+    # Figure out the transport method
+    if config_c.get('USE_I2C') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'transport' not in info_data['split']:
+            info_data['split']['transport'] = {}
+
+        if 'protocol' in info_data['split']['transport']:
+            _log_warning(info_data, 'Split transport is specified in both config.h (USE_I2C) and info.json (split.transport.protocol) (Value: %s), the config.h value wins.' % info_data['split']['transport'])
+
+        info_data['split']['transport']['protocol'] = 'i2c'
+
+    elif 'protocol' not in info_data.get('split', {}).get('transport', {}):
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'transport' not in info_data['split']:
+            info_data['split']['transport'] = {}
+
+        info_data['split']['transport']['protocol'] = 'serial'
+
+
+def _extract_split_right_pins(info_data, config_c):
+    # Figure out the right half matrix pins
+    row_pins = config_c.get('MATRIX_ROW_PINS_RIGHT', '').replace('{', '').replace('}', '').strip()
+    col_pins = config_c.get('MATRIX_COL_PINS_RIGHT', '').replace('{', '').replace('}', '').strip()
+    unused_pin_text = config_c.get('UNUSED_PINS_RIGHT')
+    unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
+    direct_pins = config_c.get('DIRECT_PINS_RIGHT', '').replace(' ', '')[1:-1]
+
+    if row_pins and col_pins:
+        if info_data.get('split', {}).get('matrix_pins', {}).get('right') in info_data:
+            _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
+
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'matrix_pins' not in info_data['split']:
+            info_data['split']['matrix_pins'] = {}
+
+        if 'right' not in info_data['split']['matrix_pins']:
+            info_data['split']['matrix_pins']['right'] = {}
+
+        info_data['split']['matrix_pins']['right'] = {
+            'cols': _extract_pins(col_pins),
+            'rows': _extract_pins(row_pins),
+        }
+
+    if direct_pins:
+        if info_data.get('split', {}).get('matrix_pins', {}).get('right', {}):
+            _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
+
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'matrix_pins' not in info_data['split']:
+            info_data['split']['matrix_pins'] = {}
+
+        if 'right' not in info_data['split']['matrix_pins']:
+            info_data['split']['matrix_pins']['right'] = {}
+
+        info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
+
+    if unused_pins:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'matrix_pins' not in info_data['split']:
+            info_data['split']['matrix_pins'] = {}
+
+        if 'right' not in info_data['split']['matrix_pins']:
+            info_data['split']['matrix_pins']['right'] = {}
+
+        info_data['split']['matrix_pins']['right']['unused'] = _extract_pins(unused_pins)
+
+
 def _extract_matrix_info(info_data, config_c):
     """Populate the matrix information.
     """
     row_pins = config_c.get('MATRIX_ROW_PINS', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS', '').replace('{', '').replace('}', '').strip()
+    unused_pin_text = config_c.get('UNUSED_PINS')
+    unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
     direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
+    info_snippet = {}
 
     if 'MATRIX_ROWS' in config_c and 'MATRIX_COLS' in config_c:
         if 'matrix_size' in info_data:
@@ -205,19 +349,35 @@ def _extract_matrix_info(info_data, config_c):
         }
 
     if row_pins and col_pins:
-        if 'matrix_pins' in info_data:
+        if 'matrix_pins' in info_data and 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             _log_warning(info_data, 'Matrix pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_data['matrix_pins'] = {
-            'cols': _extract_pins(col_pins),
-            'rows': _extract_pins(row_pins),
-        }
+        info_snippet['cols'] = _extract_pins(col_pins)
+        info_snippet['rows'] = _extract_pins(row_pins)
 
     if direct_pins:
-        if 'matrix_pins' in info_data:
+        if 'matrix_pins' in info_data and 'direct' in info_data['matrix_pins']:
             _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_data['matrix_pins']['direct'] = _extract_direct_matrix(info_data, direct_pins)
+        info_snippet['direct'] = _extract_direct_matrix(direct_pins)
+
+    if unused_pins:
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
+
+        info_snippet['unused'] = _extract_pins(unused_pins)
+
+    if config_c.get('CUSTOM_MATRIX', 'no') != 'no':
+        if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
+            _log_warning(info_data, 'Custom Matrix is specified in both info.json and config.h, the config.h values win.')
+
+        info_snippet['custom'] = True
+
+        if config_c['CUSTOM_MATRIX'] == 'lite':
+            info_snippet['custom_lite'] = True
+
+    if info_snippet:
+        info_data['matrix_pins'] = info_snippet
 
     return info_data
 
@@ -275,6 +435,10 @@ def _extract_config_h(info_data):
 
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
+    _extract_audio(info_data, config_c)
+    _extract_split_main(info_data, config_c)
+    _extract_split_transport(info_data, config_c)
+    _extract_split_right_pins(info_data, config_c)
 
     return info_data
 
