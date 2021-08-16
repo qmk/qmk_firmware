@@ -282,8 +282,8 @@
                             "type": "string",
                             "enum": ["custom", "i2c", "serial", "serial_usart"]
                         },
-                        "mirror": {"type": "boolean"},
-                        "mods": {"type": "boolean"}
+                        "sync_matrix_state": {"type": "boolean"},
+                        "sync_modifiers": {"type": "boolean"}
                     }
                 },
                 "usb_detect": {
