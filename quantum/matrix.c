@@ -288,10 +288,8 @@ void matrix_init(void) {
     matrix_init_pins();
 
     // initialize matrix state: all keys off
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        raw_matrix[i] = 0;
-        matrix[i]     = 0;
-    }
+    memset(matrix, 0, sizeof(matrix));
+    memset(raw_matrix, 0, sizeof(raw_matrix));
 
     debounce_init(ROWS_PER_HAND);
 
@@ -314,19 +312,11 @@ bool matrix_post_scan(void) {
     if (is_keyboard_master()) {
         matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
         if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                if (matrix[thatHand + i] != slave_matrix[i]) {
-                    matrix[thatHand + i] = slave_matrix[i];
-                    changed              = true;
-                }
-            }
+            changed = memcmp(matrix + thatHand, slave_matrix, sizeof(slave_matrix)) != 0;
+            if (changed) memcpy(matrix + thatHand, slave_matrix, sizeof(slave_matrix));
         } else {
             // reset other half if disconnected
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                matrix[thatHand + i] = 0;
-                slave_matrix[i]      = 0;
-            }
-
+            memset(matrix + thatHand, 0, sizeof(slave_matrix));
             changed = true;
         }
 
