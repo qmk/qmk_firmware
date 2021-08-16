@@ -310,15 +310,21 @@ __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_mat
 bool matrix_post_scan(void) {
     bool changed = false;
     if (is_keyboard_master()) {
-        matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
+        static bool  last_connected = false;
+        matrix_row_t slave_matrix[ROWS_PER_HAND];
         if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
             changed = memcmp(matrix + thatHand, slave_matrix, sizeof(slave_matrix)) != 0;
-            if (changed) memcpy(matrix + thatHand, slave_matrix, sizeof(slave_matrix));
-        } else {
-            // reset other half if disconnected
-            memset(matrix + thatHand, 0, sizeof(slave_matrix));
+
+            last_connected = true;
+        } else if (last_connected) {
+            // reset other half when disconnected
+            memset(slave_matrix, 0, sizeof(slave_matrix));
             changed = true;
+
+            last_connected = false;
         }
+
+        if (changed) memcpy(matrix + thatHand, slave_matrix, sizeof(slave_matrix));
 
         matrix_scan_quantum();
     } else {
