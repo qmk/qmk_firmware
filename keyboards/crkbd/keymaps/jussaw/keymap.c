@@ -88,14 +88,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
   //|  Reset |        |        |        |        | TG(4)  |                    |  Play  | Mouse1 | Mouse2 | Mouse4 | Mouse5 |Ms Acc1 |
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  //|  RGB   |  Hue+  |  Sat+  |Bright+ |Effect- |AG_SWAP |                    |  Vol+  | Ms Up  |Ms Down |Ms Right|Ms Left |Ms Acc2 |
+  //|  RGB   |  Hue+  |  Sat+  |Bright+ |Effect- |AG_SWAP |                    |  Vol+  |Ms Left |Ms Down | Ms Up  |Ms Right|Ms Acc2 |
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  //|RGB Mode|  Hue-  |  Sat-  |Bright- |Effect+ |AG_NORM |                    |  Vol-  |    M   |    ,   |    .   |    /   |Ms Acc3 |
+  //|RGB Mode|  Hue-  |  Sat-  |Bright- |Effect+ |AG_NORM |                    |  Vol-  | MsWl L | MsWl D | MsWl U | MsWl R |Ms Acc3 |
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
   //                                    |  Ctrl  | Lower  | Space       Shift  | Upper  |  GUI   |
                                       //`--------------------------'  `--------------------------'
   [_ADJUST] = LAYOUT_split_3x6_3(
-        RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  TG(4) ,                      KC_MPLY, KC_BTN1, KC_BTN2, KC_BTN4, KC_BTN5, KC_ACL0,
+        RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   TG(4),                      KC_MPLY, KC_BTN1, KC_BTN2, KC_BTN4, KC_BTN5, KC_ACL0,
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, AG_SWAP,                      KC_VOLU, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL1,
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, AG_NORM,                      KC_VOLD, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_ACL2,
                                           XXXXXXX, KC_TRNS, XXXXXXX,    XXXXXXX, KC_TRNS, XXXXXXX
