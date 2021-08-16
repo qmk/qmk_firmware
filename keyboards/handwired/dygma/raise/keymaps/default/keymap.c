@@ -16,12 +16,9 @@
 
 #include QMK_KEYBOARD_H
 
-#define ansi
-
 enum {
   QWERTY,
 };
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY] = LAYOUT_all(
