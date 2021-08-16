@@ -65,6 +65,26 @@ subcommands = [
 ]
 
 
+def _install_deps(requirements):
+    """Perform the installation of missing requirements.
+
+    If we detect that we are running in a virtualenv we can't write into we'll use sudo to perform the pip install.
+    """
+    command = [sys.executable, '-m', 'pip', 'install']
+
+    if sys.prefix != sys.base_prefix:
+        # We are in a virtualenv, check to see if we need to use sudo to write to it
+        if not os.access(sys.prefix, os.W_OK):
+            print('Notice: Using sudo to install modules to location owned by root:', sys.prefix)
+            command.insert(0, 'sudo')
+
+    elif not os.access(sys.prefix, os.W_OK):
+        # We can't write to sys.prefix, attempt to install locally
+        command.append('--local')
+
+    return _run_cmd(*command, '-r', requirements)
+
+
 def _run_cmd(*command):
     """Run a command in a subshell.
     """
@@ -168,7 +188,7 @@ safe_command = args and args[0] in safe_commands
 if not safe_command:
     if _broken_module_imports('requirements.txt'):
         if yesno('Would you like to install the required Python modules?'):
-            _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt')
+            _install_deps('requirements.txt')
         else:
             print()
             print(msg_install % (str(Path('requirements.txt').resolve()),))
@@ -177,7 +197,7 @@ if not safe_command:
 
     if cli.config.user.developer and _broken_module_imports('requirements-dev.txt'):
         if yesno('Would you like to install the required developer Python modules?'):
-            _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements-dev.txt')
+            _install_deps('requirements-dev.txt')
         elif yesno('Would you like to disable developer mode?'):
             _run_cmd(sys.argv[0], 'config', 'user.developer=None')
         else:
