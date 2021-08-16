@@ -1,0 +1,21 @@
+iso 60, split backspace
+https://github.com/qmk/qmk_firmware/blob/master/quantum/keymap_extras/keymap_br_abnt2.h
+http://www.keyboard-layout-editor.com/#/
+
+["¬\n`\n\n\n\n\n02","!\n1\n\n\n\n\n03","\"\n2\n\n\n\n\n04","£\n3\n\n\n\n\n05","$\n4\n\n\n\n\n06","%\n5\n\n\n\n\n07","^\n6\n\n\n\n\n08","&\n7\n\n\n\n\n09","*\n8\n\n\n\n\n10","(\n9\n\n\n\n\n11",")\n0\n\n\n\n\n12","_\n-\n\n\n\n\n13","+\n=\n\n\n\n\n14","BackspaceL\n\n\n\n\n\n15","BackspaceR\n\n\n\n\n\n71"],
+["Tab\n\n\n\n\n\n16","Q\n\n\n\n\n\n17","W\n\n\n\n\n\n18","E\n\n\n\n\n\n19","R\n\n\n\n\n\n20","T\n\n\n\n\n\n21","Y\n\n\n\n\n\n22","U\n\n\n\n\n\n23","I\n\n\n\n\n\n24","O\n\n\n\n\n\n25","P\n\n\n\n\n\n26","{\n[\n\n\n\n\n27","}\n]\n\n\n\n\n28","Enter\n\n\n\n\n\n43"],
+["Caps Lock\n31","A\n\n\n\n\n\n32","S\n\n\n\n\n\n33","D\n\n\n\n\n\n34","F\n\n\n\n\n\n35","G\n\n\n\n\n\n36","H\n\n\n\n\n\n37","J\n\n\n\n\n\n38","K\n\n\n\n\n\n39","L\n\n\n\n\n\n40",":\n;\n\n\n\n\n41","@\n'\n\n\n\n\n42","~\n#\n\n\n\n\n29"],
+["LShift\n\n\n\n\n\n46","|\n\\\n\n\n\n\n47","Z\n\n\n\n\n\n48","X\n\n\n\n\n\n49","C\n\n\n\n\n\n50","V\n\n\n\n\n\n51","B\n\n\n\n\n\n52","N\n\n\n\n\n\n53","M\n\n\n\n\n\n54","<\n,\n\n\n\n\n55",">\n.\n\n\n\n\n56","?\n/\n\n\n\n\n57","C\n\n\n\n\n\n58","RShift\n\n\n\n\n\n59"],
+["Ctrl\n\n\n\n\n\n60","Win\n\n\n\n\n\n61","Alt\n\n\n\n\n\n62",{a:6},"63",{a:4},"AltGr\n\n\n\n\n\n64","Win\n\n\n\n\n\n65","Menu\n\n\n\n\n\n66","Ctrl\n\n\n\n\n\n67"]
+
+
+ORTHOLINEAR MATRIX 8X8
+["Z\n\n\n\n\n\n48","\"\n2\n\n\n\n\n04","£\n3\n\n\n\n\n05","%\n5\n\n\n\n\n07","&\n7\n\n\n\n\n09","(\n9\n\n\n\n\n11","_\n-\n\n\n\n\n13","BackspaceL\n\n\n\n\n\n15"],
+["Caps Lock\n31","!\n1\n\n\n\n\n03","$\n4\n\n\n\n\n06","^\n6\n\n\n\n\n08","*\n8\n\n\n\n\n10",")\n0\n\n\n\n\n12","+\n=\n\n\n\n\n14","BackspaceR\n\n\n\n\n\n71"],
+["Tab\n\n\n\n\n\n16","Q\n\n\n\n\n\n17","E\n\n\n\n\n\n19","T\n\n\n\n\n\n21","U\n\n\n\n\n\n23","O\n\n\n\n\n\n25","{\n[\n\n\n\n\n27","}\n]\n\n\n\n\n28"],
+["¬\n`\n\n\n\n\n02","W\n\n\n\n\n\n18","R\n\n\n\n\n\n20","Y\n\n\n\n\n\n22","I\n\n\n\n\n\n24","P\n\n\n\n\n\n26",":\n;\n\n\n\n\n41","Enter\n\n\n\n\n\n43 44"],
+["LShift\n\n\n\n\n\n46","A\n\n\n\n\n\n32","D\n\n\n\n\n\n34","G\n\n\n\n\n\n36","J\n\n\n\n\n\n38","L\n\n\n\n\n\n40","@\n'\n\n\n\n\n42","~\n#\n\n\n\n\n29"],
+["|\n\\\n\n\n\n\n47","S\n\n\n\n\n\n33","F\n\n\n\n\n\n35","H\n\n\n\n\n\n37","K\n\n\n\n\n\n39","<\n,\n\n\n\n\n55","?\n/\n\n\n\n\n57","C\n\n\n\n\n\n58"],
+["Ctrl\n\n\n\n\n\n60","X\n\n\n\n\n\n49","C\n\n\n\n\n\n50","B\n\n\n\n\n\n52","N\n\n\n\n\n\n53",">\n.\n\n\n\n\n56","Win\n\n\n\n\n\n65","Ctrl\n\n\n\n\n\n67"],
+["Win\n\n\n\n\n\n61","Alt\n\n\n\n\n\n62","V\n\n\n\n\n\n51",{a:6},"63",{a:4},"M\n\n\n\n\n\n54","AltGr\n\n\n\n\n\n64","Menu\n\n\n\n\n\n66","RShift\n\n\n\n\n\n59"]
+
