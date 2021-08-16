@@ -1,5 +1,5 @@
 #pragma once
-#include "hvp.h"
+#include "quantum.h"
 
 // Tap Dance Declarations
 enum tapdance_id
