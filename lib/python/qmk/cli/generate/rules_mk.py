@@ -48,7 +48,7 @@ def generate_rules_mk(cli):
     # Determine our keyboard/keymap
     if cli.args.keymap:
         km = locate_keymap(cli.args.keyboard, cli.args.keymap)
-        kb_info_json = dotty(json_load(km).get('keyboard_overrides', {}))
+        kb_info_json = dotty(json_load(km).get('config', {}))
     else:
         kb_info_json = dotty(info_json(cli.args.keyboard))
 
