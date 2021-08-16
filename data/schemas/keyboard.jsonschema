@@ -280,7 +280,7 @@
                     "properties": {
                         "protocol": {
                             "type": "string",
-                            "enum": ["custom", "i2c", "serial"]
+                            "enum": ["custom", "i2c", "serial", "serial_usart"]
                         },
                         "mirror": {"type": "boolean"},
                         "mods": {"type": "boolean"}
