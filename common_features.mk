@@ -656,6 +656,11 @@ ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
     OPT_DEFS += -DKEY_OVERRIDE_ENABLE
 endif
 
+ifeq ($(strip $(ADAPTIVE_KEYS_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_adaptive_keys.c
+    OPT_DEFS += -DADAPTIVE_KEYS_ENABLE
+endif
+
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
     OPT_DEFS += -DTAP_DANCE_ENABLE

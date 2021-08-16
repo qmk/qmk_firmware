@@ -263,6 +263,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef KEY_OVERRIDE_ENABLE
             process_key_override(keycode, record) &&
 #endif
+#ifdef ADAPTIVE_KEYS_ENABLE
+            process_adaptive_keys(keycode, record) &&
+#endif
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
 #endif
