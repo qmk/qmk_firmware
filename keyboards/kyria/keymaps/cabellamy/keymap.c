@@ -157,8 +157,6 @@ static void render_qmk_logo(void) {
   oled_write_P(qmk_logo, false);
 }
 
-
-
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
