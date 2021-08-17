@@ -67,9 +67,9 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk)","")
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
     BOARD_PATH = $(KEYBOARD_PATH_1)
     BOARD_MK += $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk)","")
-    BOARD_PATH = $(TOP_DIR)/platforms/chibios/$(BOARD)
-    BOARD_MK += $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/board/board.mk)","")
+    BOARD_PATH = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)
+    BOARD_MK += $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/board/board.mk
     KEYBOARD_PATHS += $(BOARD_PATH)/configs
     ifneq ("$(wildcard $(BOARD_PATH)/rules.mk)","")
         include $(BOARD_PATH)/rules.mk
@@ -124,10 +124,10 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/chconf.h)","")
     CHCONFDIR = $(KEYBOARD_PATH_2)
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/chconf.h)","")
     CHCONFDIR = $(KEYBOARD_PATH_1)
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/chconf.h)","")
-    CHCONFDIR = $(TOP_DIR)/platforms/chibios/$(BOARD)/configs
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/configs/chconf.h)","")
-    CHCONFDIR = $(TOP_DIR)/platforms/chibios/common/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/chconf.h)","")
+    CHCONFDIR = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/boards/chibios/common/configs/chconf.h)","")
+    CHCONFDIR = $(TOP_DIR)/platforms/chibios/boards/common/configs
 endif
 
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf.h)","")
@@ -140,10 +140,10 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf.h)","")
     HALCONFDIR = $(KEYBOARD_PATH_2)
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf.h)","")
     HALCONFDIR = $(KEYBOARD_PATH_1)
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/halconf.h)","")
-    HALCONFDIR = $(TOP_DIR)/platforms/chibios/$(BOARD)/configs
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/configs/halconf.h)","")
-    HALCONFDIR = $(TOP_DIR)/platforms/chibios/common/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/halconf.h)","")
+    HALCONFDIR = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/common/configs/halconf.h)","")
+    HALCONFDIR = $(TOP_DIR)/platforms/chibios/boards/common/configs
 endif
 
 # HAL-OSAL files (optional).
@@ -190,11 +190,11 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/ld/$(MCU_LDSCRIPT).ld)","")
-    LDFLAGS += -L$(TOP_DIR)/platforms/chibios/$(BOARD)/ld
-    LDSCRIPT = $(TOP_DIR)/platforms/chibios/$(BOARD)/ld/$(MCU_LDSCRIPT).ld
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld)","")
-    LDSCRIPT = $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDFLAGS += -L$(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld
     USE_CHIBIOS_CONTRIB = yes
@@ -219,8 +219,8 @@ QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
 EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
-         $(TOP_DIR)/platforms/chibios/$(BOARD)/configs \
-         $(TOP_DIR)/platforms/chibios/common/configs \
+         $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs \
+         $(TOP_DIR)/platforms/chibios/boards/common/configs \
          $(HALCONFDIR) $(CHCONFDIR) \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
@@ -241,7 +241,7 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf_community.h)","")
     USE_CHIBIOS_CONTRIB = yes
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf_community.h)","")
     USE_CHIBIOS_CONTRIB = yes
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/halconf_community.h)","")
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/halconf_community.h)","")
     USE_CHIBIOS_CONTRIB = yes
 endif
 
