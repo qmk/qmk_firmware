@@ -82,7 +82,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 //#endif
 
-#define RGB_DI_PIN D0
+#define RGB_DI_PIN                    D1
 #define DRIVER_LED_TOTAL 50
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 60
 #define RGB_MATRIX_DISABLE_KEYCODES
