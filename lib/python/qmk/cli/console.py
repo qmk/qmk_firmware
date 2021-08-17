@@ -51,7 +51,8 @@ KNOWN_BOOTLOADERS = {
     ('2A03', '0036'): 'caterina: Arduino Leonardo',
     ('2A03', '0037'): 'caterina: Arduino Micro',
     ('314B', '0106'): 'apm32-dfu: APM32 DFU ISP Mode',
-    ('03EB', '2067'): 'qmk-hid: HID Bootloader'
+    ('03EB', '2067'): 'qmk-hid: HID Bootloader',
+    ('03EB', '2045'): 'lufa-ms: LUFA Mass Storage Bootloader'
 }
 
 
