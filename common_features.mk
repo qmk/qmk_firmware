@@ -178,6 +178,7 @@ else
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
         OPT_DEFS += -DEEPROM_DRIVER
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/eeprom
         SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
       else
         # This will effectively work the same as "transient" if not supported by the chip

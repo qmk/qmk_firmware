@@ -12,8 +12,6 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
-COMMON_VPATH += $(DRIVER_PATH)/avr
-
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
 COMPILEFLAGS += -ffunction-sections
