@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rev5.h"
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -37,7 +37,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, B_11,  C_11,  A_11},
     {0, B_12,  C_12,  A_12},
     {0, B_13,  C_13,  A_13},
-    
+
     {0, E_1,   F_1,   D_1},
     {0, E_2,   F_2,   D_2},
     {0, E_3,   F_3,   D_3},
@@ -50,7 +50,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, E_10,  F_10,  D_10},
     {0, E_11,  F_11,  D_11},
     {0, E_13,  F_13,  D_13},
-    
+
     {0, H_1,   I_1,   G_1},
     {0, H_2,   I_2,   G_2},
     {0, H_3,   I_3,   G_3},
@@ -64,7 +64,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, H_11,  I_11,  G_11},
     {0, H_12,  I_12,  G_12},
     {0, H_13,  I_13,  G_13},
-    
+
     {0, K_1,   L_1,   J_1},
     {0, K_2,   L_2,   J_2},
     {0, K_3,   L_3,   J_3},
@@ -98,7 +98,7 @@ led_config_t g_led_config = { {
   { 181,   8 },
   { 198,   8 },
   { 215,   8 },
-  
+
   { 11,   24 },
   { 30,   24 },
   { 47,   24 },
@@ -111,7 +111,7 @@ led_config_t g_led_config = { {
   { 168,  24 },
   { 185,  24 },
   { 209,  24 },
-  
+
   { 15,   40 },
   { 20,   22 },
   { 39,   40 },
@@ -125,7 +125,7 @@ led_config_t g_led_config = { {
   { 177,  40 },
   { 196,  40 },
   { 215,  40 },
-  
+
   { 11,   56 },
   { 30,   56 },
   { 47,   56 },
