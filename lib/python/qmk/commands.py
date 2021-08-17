@@ -52,7 +52,7 @@ def create_make_target(target, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
-    return [make_cmd, '-j', str(parallel), *env, target]
+    return [make_cmd, *get_make_parallel_args(parallel), *env, target]
 
 
 def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
@@ -110,6 +110,24 @@ def get_git_version(current_time, repo_dir='.', check_dir='.'):
             return current_time
 
     return current_time
+
+
+def get_make_parallel_args(parallel=1):
+    """Returns the arguments for running the specified number of parallel jobs.
+    """
+    parallel_args = []
+
+    if int(parallel) <= 0:
+        # 0 or -1 means -j without argument (unlimited jobs)
+        parallel_args.append('--jobs')
+    else:
+        parallel_args.append('--jobs=' + str(parallel))
+
+    if int(parallel) != 1:
+        # If more than 1 job is used, synchronize parallel output by target
+        parallel_args.append('--output-sync=target')
+
+    return parallel_args
 
 
 def create_version_h(skip_git=False, skip_all=False):
@@ -185,8 +203,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         make_command.append('-s')
 
     make_command.extend([
-        '-j',
-        str(parallel),
+        *get_make_parallel_args(parallel),
         '-r',
         '-R',
         '-f',

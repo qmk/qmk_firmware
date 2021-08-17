@@ -23,7 +23,7 @@ KEYBOARD_LOCK_ENABLE = yes	# Allow locking of keyboard via magic key
 NKRO_ENABLE = yes			# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = yes	# Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes  # Enable the RGB backlight
-# MIDI_ENABLE = YES			# MIDI controls
+MIDI_ENABLE = no              # MIDI support
 # UNICODE_ENABLE = YES		# Unicode
 # BLUETOOTH_ENABLE = yes	# Enable Bluetooth with the Adafruit EZ-Key HID
 

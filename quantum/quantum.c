@@ -398,7 +398,7 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
-#if defined(AUDIO_ENABLE)
+#if defined(AUDIO_ENABLE) && defined(AUDIO_INIT_DELAY)
     // There are some tasks that need to be run a little bit
     // after keyboard startup, or else they will not work correctly
     // because of interaction with the USB device state, which
