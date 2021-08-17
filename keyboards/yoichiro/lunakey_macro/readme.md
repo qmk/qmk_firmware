@@ -1,12 +1,12 @@
 # Lunakey Macro
 
-![Lunakey Macro](imgur.com image replace me!)
+![Lunakey Macro](https://i.imgur.com/BirFxgY.jpeg)
 
-*A short description of the keyboard/project*
+This is a macro keyboard which has 11 keys.
 
-* Keyboard Maintainer: [Yoichiro Tanaka](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Yoichiro Tanaka](https://github.com/yoichiro)
+* Hardware Supported: Lunakey Macro PCB, Pro Micro MCU.
+* Hardware Availability: Published yet.
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -14,6 +14,8 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make lunakey_macro:default:flash
+    make lunakey_macro:default:avrdude
+
+To enter the bootloader mode, you push the black tact switch next to the ProMicro.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

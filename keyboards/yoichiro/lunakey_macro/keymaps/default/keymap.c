@@ -34,23 +34,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ENT,       KC_BSPC,    DF(_ADJUST) \
     ),
     [_ADJUST] = LAYOUT(
-        RGB_TOG,      RGB_MOD,    RGB_VAI,     RGB_VAD, \
-        AU_TOG,       CK_TOGG,    MU_TOG,      MU_MOD, \
+        KC_NO,        KC_NO,      KC_NO,       KC_NO, \
+        KC_NO,        KC_NO,      KC_NO,       KC_NO, \
         RESET,        KC_NO,      DF(_NUMBERS) \
     )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    float next_song[][2] = SONG(E__NOTE(_A6));
-    float back_song[][2] = SONG(H__NOTE(_D2));
-    switch (keycode) {
-        case DF(_NUMBERS):
-        case DF(_CURSOR):
-            PLAY_SONG(next_song);
-            break;
-        case DF(_ADJUST):
-            PLAY_SONG(back_song);
-            break;
-    }
-    return true;
-}

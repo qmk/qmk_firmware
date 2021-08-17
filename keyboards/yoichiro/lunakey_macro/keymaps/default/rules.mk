@@ -1,3 +1,0 @@
-AUDIO_ENABLE = yes
-RGBLIGHT_ENABLE = yes
-LTO_ENABLE = yes
