@@ -695,6 +695,11 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), digital)
     OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
 endif
 
+DIGITIZER_ENABLE ?= no
+ifneq ($(strip $(DIGITIZER_ENABLE)), no)
+    SRC += $(QUANTUM_DIR)/digitizer.c
+endif
+
 USBPD_ENABLE ?= no
 VALID_USBPD_DRIVER_TYPES = custom vendor
 USBPD_DRIVER ?= vendor
