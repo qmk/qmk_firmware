@@ -256,6 +256,8 @@ void keyboard_setup(void) {
     keyboard_pre_init_kb();
 }
 
+#ifndef SPLIT_KEYBOARD
+
 /** \brief is_keyboard_master
  *
  * FIXME: needs doc
@@ -267,6 +269,8 @@ __attribute__((weak)) bool is_keyboard_master(void) { return true; }
  * FIXME: needs doc
  */
 __attribute__((weak)) bool is_keyboard_left(void) { return true; }
+
+#endif
 
 /** \brief should_process_keypress
  *
