@@ -310,8 +310,8 @@ __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_mat
 bool matrix_post_scan(void) {
     bool changed = false;
     if (is_keyboard_master()) {
-        static bool  last_connected = false;
-        matrix_row_t slave_matrix[ROWS_PER_HAND];
+        static bool  last_connected              = false;
+        matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
         if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
             changed = memcmp(matrix + thatHand, slave_matrix, sizeof(slave_matrix)) != 0;
 
