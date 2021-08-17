@@ -76,6 +76,17 @@ def generate_rules_mk(cli):
                 enabled = 'yes' if enabled else 'no'
                 rules_mk_lines.append(f'{feature}_ENABLE ?= {enabled}')
 
+    # Set SPLIT_TRANSPORT, if needed
+    if kb_info_json.get('split', {}).get('transport', {}).get('protocol') == 'custom':
+        rules_mk_lines.append('SPLIT_TRANSPORT ?= custom')
+
+    # Set CUSTOM_MATRIX, if needed
+    if kb_info_json.get('matrix_pins', {}).get('custom'):
+        if kb_info_json.get('matrix_pins', {}).get('custom_lite'):
+            rules_mk_lines.append('CUSTOM_MATRIX ?= lite')
+        else:
+            rules_mk_lines.append('CUSTOM_MATRIX ?= yes')
+
     # Show the results
     rules_mk = '\n'.join(rules_mk_lines) + '\n'
 

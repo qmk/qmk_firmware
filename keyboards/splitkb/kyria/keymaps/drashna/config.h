@@ -25,11 +25,19 @@
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
 #    define RGBLIGHT_LIMIT_VAL 200
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 8
-#    define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_HUE_STEP  8
+#    define RGBLIGHT_SAT_STEP  8
+#    define RGBLIGHT_VAL_STEP  8
 #    define RGBLIGHT_SPLIT
 // #    define RGBLIGHT_LAYERS
 #endif
 
-#define KEYLOGGER_LENGTH 10
+#define KEYLOGGER_LENGTH            10
+
+#define QMK_ESC_INPUT               D4
+#define QMK_ESC_OUTPUT              B2
+
+#define BOOTMAGIC_LITE_ROW          0
+#define BOOTMAGIC_LITE_COLUMN       7
+#define BOOTMAGIC_LITE_ROW_RIGHT    4
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 7

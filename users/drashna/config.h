@@ -23,13 +23,15 @@
 #define USB_POLLING_INTERVAL_MS 1
 
 #if defined(SPLIT_KEYBOARD)
-#    define SPLIT_MODS_ENABLE
+// #    define SPLIT_TRANSPORT_MIRROR
 #    define SPLIT_LAYER_STATE_ENABLE
 #    define SPLIT_LED_STATE_ENABLE
-
-// #    define SPLIT_TRANSPORT_MIRROR
-#    define SERIAL_USE_MULTI_TRANSACTION
-#    define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC
+#    define SPLIT_MODS_ENABLE
+#    ifdef WPM_ENABLE
+#        define SPLIT_WPM_ENABLE
+#    endif
+#    define SELECT_SOFT_SERIAL_SPEED   1
+#    define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -165,8 +167,8 @@
 
 #ifdef QMK_KEYS_PER_SCAN
 #    undef QMK_KEYS_PER_SCAN
-#    define QMK_KEYS_PER_SCAN 2
-#endif  // !QMK_KEYS_PER_SCAN
+#endif
+#define QMK_KEYS_PER_SCAN 4
 
 // this makes it possible to do rolling combos (zx) with keys that
 // convert to other keys on hold (z becomes ctrl when you hold it,

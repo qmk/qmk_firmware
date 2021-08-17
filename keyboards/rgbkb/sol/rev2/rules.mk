@@ -1,7 +1,7 @@
 # RGBKB Sol Rev2 Defaults
 
 # Keycode Options
-BOOTMAGIC_ENABLE        = no        # Virtual DIP switch configuration(
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE         = no        # Mouse keys
 EXTRAKEY_ENABLE         = yes       # Audio control and System control
 UNICODE_ENABLE          = no        # Unicode keycodes

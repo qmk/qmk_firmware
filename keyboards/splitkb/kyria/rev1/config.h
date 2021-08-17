@@ -71,6 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef OLED_DRIVER_ENABLE
 #    define OLED_DISPLAY_128X64
+#    define SPLIT_OLED_ENABLE
 #endif
 
 /* RGB matrix support */

@@ -50,13 +50,9 @@ void            matrix_scan_user(void) {
     
     last_timer = timer;
     if ((timer % 1000 == 0) && (timer != last_print_out)) {
-        print("Benchmark:");
-        print("\n");
-        print_dec(timer);
-        print("\n");
+        print("Scans: ");
         print_dec(scans);
         print("\n");
-        print("-------");
         scans          = 0;
         last_print_out = timer;
     }

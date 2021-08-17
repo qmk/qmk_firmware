@@ -75,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A \
     { D5 }
 #define ENCODERS_PAD_B \
-    { D6 }
+    { D4 }
 #define ENCODER_RESOLUTION 4
 
 /* Set 0 if debouncing isn't needed */

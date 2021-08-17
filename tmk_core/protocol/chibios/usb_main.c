@@ -415,14 +415,18 @@ static inline void usb_event_wakeup_handler(void) {
 #endif /* SLEEP_LED_ENABLE */
 }
 
+bool last_suspend_state = false;
+
 void usb_event_queue_task(void) {
     usbevent_t event;
     while (usb_event_queue_dequeue(&event)) {
         switch (event) {
             case USB_EVENT_SUSPEND:
+                last_suspend_state = true;
                 usb_event_suspend_handler();
                 break;
             case USB_EVENT_WAKEUP:
+                last_suspend_state = false;
                 usb_event_wakeup_handler();
                 break;
             default:
@@ -464,6 +468,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 qmkusbConfigureHookI(&drivers.array[i].driver);
             }
             osalSysUnlockFromISR();
+            if (last_suspend_state) {
+                usb_event_queue_enqueue(USB_EVENT_WAKEUP);
+            }
             return;
         case USB_EVENT_SUSPEND:
             usb_event_queue_enqueue(USB_EVENT_SUSPEND);
@@ -518,7 +525,7 @@ static uint16_t get_hword(uint8_t *p) {
  * Other Device    Required    Optional    Optional    Optional    Optional    Optional
  */
 
-static uint8_t set_report_buf[2] __attribute__((aligned(2)));
+static uint8_t set_report_buf[2] __attribute__((aligned(4)));
 static void    set_led_transfer_cb(USBDriver *usbp) {
     if (usbp->setup[6] == 2) { /* LSB(wLength) */
         uint8_t report_id = set_report_buf[0];
@@ -705,7 +712,7 @@ void init_usb_driver(USBDriver *usbp) {
     chVTObjectInit(&keyboard_idle_timer);
 }
 
-void restart_usb_driver(USBDriver *usbp) {
+__attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
     usbStop(usbp);
     usbDisconnectBus(usbp);
 

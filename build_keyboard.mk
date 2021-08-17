@@ -375,6 +375,7 @@ ifneq ($(strip $(PROTOCOL)),)
 else
     include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
+-include $(TOP_DIR)/platforms/$(PLATFORM_KEY)/flash.mk
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)

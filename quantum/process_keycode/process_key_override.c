@@ -18,7 +18,7 @@
 #include "quantum.h"
 #include "report.h"
 #include "timer.h"
-#include "process_key_override_private.h"
+#include "process_key_override.h"
 
 #include <debug.h>
 

@@ -12,7 +12,7 @@ BOOTLOADER = halfkay
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE  = yes  # Mouse keys
 EXTRAKEY_ENABLE  = yes  # Audio control and System control
 CONSOLE_ENABLE   = no   # Console for debug
@@ -25,7 +25,7 @@ SLEEP_LED_ENABLE = no
 
 RGB_MATRIX_ENABLE = no # enable later
 RGB_MATRIX_DRIVER = IS31FL3731
-DEBOUNCE_TYPE = eager_pr
+DEBOUNCE_TYPE = sym_eager_pr
 
 # project specific files
 SRC += matrix.c \
