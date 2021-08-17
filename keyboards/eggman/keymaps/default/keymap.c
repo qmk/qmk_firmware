@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include QMK_KEYBOARD_H
 
 enum layers{
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_default(
- 										KC_TRNS,        KC_TRNS, 
+ 										KC_TRNS,        KC_TRNS,
     KC_TRNS, KC_HOME, KC_UP,   KC_END,   KC_PGUP,  RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
     KC_TRNS, KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TAB,
     KC_TRNS, KC_MPRV, KC_MPLY, KC_MNXT,  KC_TRNS,  KC_LCAP, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_ENT,
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* left encoder */
         if (clockwise) {
             tap_code(KC_WH_U);
@@ -74,6 +74,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }
 
 #ifdef COMBO_ENABLE
@@ -91,4 +92,3 @@ combo_t key_combos[COMBO_COUNT] = {
   [COMBO_DEL] = COMBO(combo_del,KC_DEL)
 };
 #endif
-

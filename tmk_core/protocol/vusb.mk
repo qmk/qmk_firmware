@@ -5,6 +5,7 @@ VUSB_PATH = $(LIB_PATH)/vusb
 
 SRC += $(VUSB_DIR)/main.c \
 	$(VUSB_DIR)/vusb.c \
+	$(VUSB_DIR)/usb_util.c \
 	$(VUSB_PATH)/usbdrv/usbdrv.c \
 	$(VUSB_PATH)/usbdrv/usbdrvasm.S \
 	$(VUSB_PATH)/usbdrv/oddebug.c

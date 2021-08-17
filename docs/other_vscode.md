@@ -65,14 +65,17 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
    ```json
    {
-        "terminal.integrated.shell.windows": "C:\\msys64\\usr\\bin\\bash.exe",
-        "terminal.integrated.env.windows": {
-            "MSYSTEM": "MINGW64",
-            "CHERE_INVOKING": "1"
+        "terminal.integrated.profiles.windows": {
+            "QMK_MSYS": {
+                "path": "C:/QMK_MSYS/usr/bin/bash.exe",
+                "env": {
+                    "MSYSTEM": "MINGW64",
+                    "CHERE_INVOKING": "1"
+                },
+                "args": ["--login"]
+            }
         },
-        "terminal.integrated.shellArgs.windows": [
-            "--login"
-        ],
+
         "terminal.integrated.cursorStyle": "line"
     }
     ```

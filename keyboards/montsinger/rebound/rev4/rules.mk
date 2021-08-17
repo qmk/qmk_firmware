@@ -31,6 +31,6 @@ LAYOUTS = ortho_4x12
 LAYOUTS_HAS_RGB = no
 
 # Disable unsupported hardware
-RGBLIGHT_SUPPORTED = no
+RGBLIGHT_SUPPORTED = yes
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no
