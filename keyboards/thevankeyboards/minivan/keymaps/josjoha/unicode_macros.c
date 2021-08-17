@@ -1286,12 +1286,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case LEDS_ON: // Toggles left/right leds on or off
             if (record->event.pressed) { // key down
+
+# ifdef RGBLIGHT_ENABLE
                 if (leds_on == FALSE) { 
                     leds_on = TRUE;
                 }else{
                     leds_on = FALSE;
                 }
+                set_led_colors_ (state_recall); // Update leds
             }
+# endif
+
             break;
 
 # ifdef LEDS_OFF_BASE_DEF  // This messes with led effect on/off, so we need to track the state of this setting now.
