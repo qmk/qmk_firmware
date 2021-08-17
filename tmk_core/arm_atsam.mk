@@ -54,10 +54,3 @@ EXTRALIBDIRS =
 bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
-
-flash: bin
-ifneq ($(strip $(PROGRAM_CMD)),)
-	$(PROGRAM_CMD)
-else
-	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_ARCH)"
-endif

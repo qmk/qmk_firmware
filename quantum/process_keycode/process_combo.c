@@ -164,11 +164,15 @@ void clear_combos(void) {
 }
 
 static inline void dump_key_buffer(void) {
+    /* First call start from 0 index; recursive calls need to start from i+1 index */
+    static uint8_t key_buffer_next = 0;
+
     if (key_buffer_size == 0) {
         return;
     }
 
-    for (uint8_t key_buffer_i = 0; key_buffer_i < key_buffer_size; key_buffer_i++) {
+    for (uint8_t key_buffer_i = key_buffer_next; key_buffer_i < key_buffer_size; key_buffer_i++) {
+        key_buffer_next = key_buffer_i + 1;
 
         queued_record_t *qrecord = &key_buffer[key_buffer_i];
         keyrecord_t *record = &qrecord->record;
@@ -189,7 +193,7 @@ static inline void dump_key_buffer(void) {
         record->event.time = 0;
     }
 
-    key_buffer_size = 0;
+    key_buffer_next = key_buffer_size = 0;
 }
 
 #define NO_COMBO_KEYS_ARE_DOWN (0 == COMBO_STATE(combo))
@@ -340,9 +344,9 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         return false;
     }
 
-    bool key_is_part_of_combo = !COMBO_DISABLED(combo);
+    bool key_is_part_of_combo = !COMBO_DISABLED(combo) && is_combo_enabled();
 
-    if (record->event.pressed && !COMBO_DISABLED(combo)) {
+    if (record->event.pressed && key_is_part_of_combo) {
         uint16_t time = _get_combo_term(combo_index, combo);
         if (!COMBO_ACTIVE(combo)) {
             KEY_STATE_DOWN(combo->state, key_index);
@@ -472,10 +476,6 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 
-    if (!is_combo_enabled()) {
-        return true;
-    }
-
 #ifdef COMBO_ONLY_FROM_LAYER
     /* Only check keycodes from one layer. */
     keycode = keymap_key_to_keycode(COMBO_ONLY_FROM_LAYER, record->event.key);
@@ -550,6 +550,8 @@ void combo_disable(void) {
 #endif
     b_combo_enable = false;
     combo_buffer_read = combo_buffer_write;
+    clear_combos();
+    dump_key_buffer();
 }
 
 void combo_toggle(void) {

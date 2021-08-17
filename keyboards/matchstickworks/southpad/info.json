@@ -1,0 +1,34 @@
+{
+    "keyboard_name": "SouthPad",
+    "url": "",
+    "maintainer": "MatchstickWorks",
+    "width": 4,
+    "height": 6,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"K00 (B3,B0)", "x":0, "y":0},
+                {"label":"K01 (B3,B1)", "x":1, "y":0},
+                {"label":"K02 (B3,B2)", "x":2, "y":0},
+                {"label":"K03 (B3,B4)", "x":3, "y":0},
+                {"label":"K10 (B5,B0)", "x":0, "y":1},
+                {"label":"K11 (B5,B1)", "x":1, "y":1},
+                {"label":"K12 (B5,B2)", "x":2, "y":1},
+                {"label":"K13 (B5,B4)", "x":3, "y":1},
+                {"label":"K30 (B7,B0)", "x":0, "y":2, "h":2},
+                {"label":"K21 (B6,B1)", "x":1, "y":2},
+                {"label":"K22 (B6,B2)", "x":2, "y":2},
+                {"label":"K23 (B6,B4)", "x":3, "y":2},
+                {"label":"K31 (B7,B1)", "x":1, "y":3},
+                {"label":"K32 (B7,B2)", "x":2, "y":3},
+                {"label":"K33 (B7,B4)", "x":3, "y":3},
+                {"label":"K50 (C6,B0)", "x":0, "y":4, "h":2},
+                {"label":"K41 (C7,B1)", "x":1, "y":4},
+                {"label":"K42 (C7,B2)", "x":2, "y":4},
+                {"label":"K43 (C7,B4)", "x":3, "y":4},
+                {"label":"K51 (C6,B1)", "x":1, "y":5},
+                {"label":"K53 (C6,B4)", "x":2, "y":5, "w":2}
+            ]
+        }
+    }
+}

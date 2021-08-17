@@ -24,7 +24,7 @@ CUSTOM_MATRIX = yes    # Custom matrix file for the HHKB
 # SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 # NKRO_ENABLE = yes       # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-# MIDI_ENABLE = yes       # MIDI controls
+MIDI_ENABLE = no              # MIDI support
 # UNICODE_ENABLE = yes    # Unicode
 # BLUETOOTH_ENABLE = yes  # Enable Bluetooth with the Adafruit EZ-Key HID
 

@@ -316,6 +316,9 @@ typedef struct {
 #ifdef JOYSTICK_ENABLE
             usb_driver_config_t joystick_driver;
 #endif
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+            usb_driver_config_t digitizer_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -359,6 +362,14 @@ static usb_driver_configs_t drivers = {
 #    define JOYSTICK_IN_MODE USB_EP_MODE_TYPE_BULK
 #    define JOYSTICK_OUT_MODE USB_EP_MODE_TYPE_BULK
     .joystick_driver = QMK_USB_DRIVER_CONFIG(JOYSTICK, 0, false),
+#endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+#    define DIGITIZER_IN_CAPACITY 4
+#    define DIGITIZER_OUT_CAPACITY 4
+#    define DIGITIZER_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define DIGITIZER_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .digitizer_driver = QMK_USB_DRIVER_CONFIG(DIGITIZER, 0, false),
 #endif
 };
 
@@ -927,6 +938,23 @@ void send_system(uint16_t data) {
 void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
     send_extra(REPORT_ID_CONSUMER, data);
+#endif
+}
+
+void send_digitizer(report_digitizer_t *report) {
+#ifdef DIGITIZER_ENABLE
+#    ifdef DIGITIZER_SHARED_EP
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    usbStartTransmitI(&USB_DRIVER, DIGITIZER_IN_EPNUM, (uint8_t *)report, sizeof(report_digitizer_t));
+    osalSysUnlock();
+#    else
+    chnWrite(&drivers.digitizer_driver.driver, (uint8_t *)report, sizeof(report_digitizer_t));
+#    endif
 #endif
 }
 
