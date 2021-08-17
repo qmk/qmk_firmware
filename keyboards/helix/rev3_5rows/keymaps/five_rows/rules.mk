@@ -39,7 +39,6 @@ ifneq ($(strip $(HELIX)),)
     endif
     ifeq ($(strip $1),oled)
         OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
     endif
     ifeq ($(strip $1),back)
         RGBLIGHT_ENABLE = yes
