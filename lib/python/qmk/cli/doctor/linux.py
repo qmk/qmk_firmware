@@ -82,6 +82,10 @@ def check_udev_rules():
             # dog hunter AG
             _udev_rule("2a03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
             _udev_rule("2a03", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # Micro
+        },
+        'hid-bootloader': {
+            _udev_rule("03eb", "2067"),  # QMK HID
+            _udev_rule("16c0", "0478")  # PJRC halfkay
         }
     }
 
