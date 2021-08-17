@@ -52,6 +52,6 @@ For your initial build, you will need to run
 
     make converter/modelm_ssk:default:teensy
 
-Afterward, so long as you keep `COMMAND_ENABLE = yes` in `rules.mk` (enabled by default), you can use `Left Shift + Right Shift + B` to enter the bootloader. With this method, you can omit `:teensy` from the end of the `make` command.
+You will need to press the button on the Teensy to enter the bootloader the first time. Afterward, so long as you keep `COMMAND_ENABLE = yes` in `rules.mk` (enabled by default), you can use `Left Shift + Right Shift + B` to enter the bootloader. With this method, you can omit `:teensy` from the end of the `make` command.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

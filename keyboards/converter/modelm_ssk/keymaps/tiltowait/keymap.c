@@ -18,7 +18,7 @@
 #define NUMPAD_LAYER 7
 
 enum custom_keycodes {
-  NUM_SCRL = SAFE_RANGE
+  NUM_SCRL = SAFE_RANGE /* Dual-purpose Scroll Lock / Numlock button as on original hardware */
 };
 
 void toggle_numlock_layer(int set_state);
