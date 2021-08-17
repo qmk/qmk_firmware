@@ -54,11 +54,11 @@
 
 #if !defined(RGB_BACKLIGHT_HS60) && !defined(RGB_BACKLIGHT_NK65) && !defined(RGB_BACKLIGHT_NK87) && !defined(RGB_BACKLIGHT_NEBULA68) && !defined(RGB_BACKLIGHT_NEBULA12) && !defined (RGB_BACKLIGHT_KW_MEGA)
 #include <avr/interrupt.h>
-#include "drivers/avr/i2c_master.h"
+#include "i2c_master.h"
 #else
 #include <ch.h>
 #include <hal.h>
-#include "drivers/chibios/i2c_master.h"
+#include "i2c_master.h"
 #endif
 
 #if defined(RGB_BACKLIGHT_DAWN60)

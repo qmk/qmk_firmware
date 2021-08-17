@@ -588,7 +588,7 @@ ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
-    SRC += drivers/avr/hd44780.c
+    SRC += platforms/avr/drivers/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
 endif
 
