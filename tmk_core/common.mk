@@ -12,6 +12,7 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/report.c \
 	$(COMMON_DIR)/sync_timer.c \
 	$(COMMON_DIR)/usb_util.c \
+	$(PLATFORM_COMMON_DIR)/platform.c \
 	$(PLATFORM_COMMON_DIR)/suspend.c \
 	$(PLATFORM_COMMON_DIR)/timer.c \
 	$(PLATFORM_COMMON_DIR)/bootloader.c \

@@ -138,18 +138,14 @@ void boardInit(void) {
     board_init();
 }
 
-/* Main thread
- */
-int main(void) {
-    /* ChibiOS/RT init */
-    halInit();
-    chSysInit();
-
+void protocol_setup(void) {
     // TESTING
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
     keyboard_setup();
+}
 
+void protocol_init(void) {
     /* Init USB */
     usb_event_queue_init();
     init_usb_driver(&USB_DRIVER);
@@ -207,57 +203,53 @@ int main(void) {
 #endif
 
     print("Keyboard start.\n");
+}
 
-    /* Main loop */
-    while (true) {
-        usb_event_queue_task();
+void protocol_task(void) {
+    usb_event_queue_task();
 
 #if !defined(NO_USB_STARTUP_CHECK)
-        if (USB_DRIVER.state == USB_SUSPENDED) {
-            print("[s]");
+    if (USB_DRIVER.state == USB_SUSPENDED) {
+        print("[s]");
 #    ifdef VISUALIZER_ENABLE
-            visualizer_suspend();
+        visualizer_suspend();
 #    endif
-            while (USB_DRIVER.state == USB_SUSPENDED) {
-                /* Do this in the suspended state */
+        while (USB_DRIVER.state == USB_SUSPENDED) {
+            /* Do this in the suspended state */
 #    ifdef SERIAL_LINK_ENABLE
-                serial_link_update();
+            serial_link_update();
 #    endif
-                suspend_power_down();  // on AVR this deep sleeps for 15ms
-                /* Remote wakeup */
-                if (suspend_wakeup_condition()) {
-                    usbWakeupHost(&USB_DRIVER);
-                    restart_usb_driver(&USB_DRIVER);
-                }
+            suspend_power_down();  // on AVR this deep sleeps for 15ms
+            /* Remote wakeup */
+            if (suspend_wakeup_condition()) {
+                usbWakeupHost(&USB_DRIVER);
+                restart_usb_driver(&USB_DRIVER);
             }
-            /* Woken up */
-            // variables has been already cleared by the wakeup hook
-            send_keyboard_report();
+        }
+        /* Woken up */
+        // variables has been already cleared by the wakeup hook
+        send_keyboard_report();
 #    ifdef MOUSEKEY_ENABLE
-            mousekey_send();
+        mousekey_send();
 #    endif /* MOUSEKEY_ENABLE */
 
 #    ifdef VISUALIZER_ENABLE
-            visualizer_resume();
+        visualizer_resume();
 #    endif
-        }
+    }
 #endif
 
-        keyboard_task();
+    keyboard_task();
 #ifdef CONSOLE_ENABLE
-        console_task();
+    console_task();
 #endif
 #ifdef MIDI_ENABLE
-        midi_ep_task();
+    midi_ep_task();
 #endif
 #ifdef VIRTSER_ENABLE
-        virtser_task();
+    virtser_task();
 #endif
 #ifdef RAW_ENABLE
-        raw_hid_task();
+    raw_hid_task();
 #endif
-
-        // Run housekeeping
-        housekeeping_task();
-    }
 }

@@ -338,9 +338,11 @@ ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 endif
 
 # project specific files
-SRC += $(KEYBOARD_SRC) \
+SRC += \
+    $(KEYBOARD_SRC) \
     $(KEYMAP_C) \
-    $(QUANTUM_SRC)
+    $(QUANTUM_SRC) \
+    $(QUANTUM_DIR)/main.c \
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
