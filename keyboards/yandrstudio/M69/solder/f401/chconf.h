@@ -1,4 +1,4 @@
-/* Copyright 2020 zvecr <git@zvecr.com>
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#if defined(KEYBOARD_yandrstudio_M69_solder)
-    #include "solder.h"
-#else
-    #include "hotswap.h"
-#endif
+#define CH_CFG_ST_FREQUENCY 10000
+
+#define CH_CFG_ST_RESOLUTION 16
+
+// #define CH_CFG_INTERVALS_SIZE 16
+
+#define CH_CFG_FACTORY_OBJECTS_REGISTRY TRUE
+
+#define CH_CFG_FACTORY_GENERIC_BUFFERS TRUE
+
+#define CH_CFG_FACTORY_SEMAPHORES TRUE
+
+#define CH_CFG_FACTORY_MAILBOXES TRUE
+
+#define CH_CFG_FACTORY_OBJ_FIFOS TRUE
+
+#define CH_CFG_FACTORY_PIPES TRUE
+
+#include_next <chconf.h>
+

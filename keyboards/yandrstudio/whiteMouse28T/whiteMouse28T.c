@@ -37,6 +37,10 @@ led_config_t g_led_config = {
     }
 };
 
+void keyboard_post_init_kb(void) {
+
+}
+
 
 #endif
 
