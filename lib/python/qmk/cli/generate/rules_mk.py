@@ -6,7 +6,7 @@ from dotty_dict import dotty
 from milc import cli
 
 from qmk.info import info_json
-from qmk.json_schema import json_load
+from qmk.json_schema import json_load, validate
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import locate_keymap
 from qmk.path import normpath
@@ -48,7 +48,9 @@ def generate_rules_mk(cli):
     # Determine our keyboard/keymap
     if cli.args.keymap:
         km = locate_keymap(cli.args.keyboard, cli.args.keymap)
-        kb_info_json = dotty(json_load(km).get('config', {}))
+        km_json = json_load(km)
+        validate(km_json, 'qmk.keymap.v1')
+        kb_info_json = dotty(km_json.get('config', {}))
     else:
         kb_info_json = dotty(info_json(cli.args.keyboard))
 
