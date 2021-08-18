@@ -13,24 +13,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 
-#pragma once
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    _BASE,
+    _FN
+};
 
-#include "quantum.h"
+// Defines the keycodes used by our macros in process_record_user
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT_ALL( \
-    k00, k01, k02, k03, \
-    k10, k11, k12, k13  \
-) { \
-    { k00, k01, k02, k03 }, \
-    { k10, k11, k12, k13 }  \
-}
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* Base */
+    [_BASE] = LAYOUT_ALL(
+        KC_1, KC_2, KC_3, KC_4,
+        KC_5, KC_6, KC_7, MO(_FN)
+    ),
+    [_FN] = LAYOUT_ALL(
+        RGB_TOG, RGB_MOD, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    )
+};
 
