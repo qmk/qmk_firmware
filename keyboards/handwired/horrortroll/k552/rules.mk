@@ -1,10 +1,10 @@
 # MCU name
 MCU = STM32F103
 
-# GENERIC STM32F103C8T6 board - mass storage bootloader
 MCU_LDSCRIPT = k552_f103
 BOARD = k552
 
+# Bootloader selection
 BOOTLOADER = stm32duino
 
 # Build Options
@@ -23,3 +23,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = no
+
+LAYOUTS = tkl_ansi
