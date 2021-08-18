@@ -1,6 +1,6 @@
 # space_space
 
-![space_space](https://i.imgur.com/SxjhzIM.jpg)
+![space_space](https://i.imgur.com/SxjhzIMh.jpg)
 
 Give your space some space  
 
