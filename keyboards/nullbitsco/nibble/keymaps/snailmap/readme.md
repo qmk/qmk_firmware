@@ -9,6 +9,7 @@
 - Snail icon that changes based on the current WPM
 - Current and max WPM counters
 - Active layer name
+- WPM graph
 
 ## :gear: Customization
 
@@ -25,10 +26,10 @@ graph_refresh       - Frequency of graph lines
 graph_top_wpm       - WPM required to reach the top of the graph
 icon_med_wpm        - WPM required to display the medium snail
 icon_fast_wpm       - WPM required to display the fast snail
-MA_name             - Layer 0 display name
-L1_name             - Layer 1 display name
-L2_name             - Layer 2 display name
-L3_name             - Layer 3 display name
+MA_LAYER_NAME       - Layer 0 display name
+L1_LAYER_NAME       - Layer 1 display name
+L2_LAYER_NAME       - Layer 2 display name
+L3_LAYER_NAME       - Layer 3 display name
 ```
 ___
 

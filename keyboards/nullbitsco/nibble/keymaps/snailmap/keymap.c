@@ -71,10 +71,11 @@ float graph_top_wpm     = 100.0;        // Minimum WPM required to reach the top
 int   graph_refresh     = 1000;         // In milliseconds, determines the graph-line frequency
 int   icon_med_wpm      = 50;           // WPM required to display the medium snail
 int   icon_fast_wpm     = 72;           // WPM required to display the fast snail
-char  MA_name[7]        = "QWERTY";     // Layer _MA name (6 letters max, gets shortened to 5 if vertical layout)
-char  L1_name[7]        = "ARROWS";     // Layer _L1 name (6 letters max, gets shortened to 5 if vertical layout)
-char  L2_name[7]        = "NUMPAD";     // Layer _L2 name (6 letters max, gets shortened to 5 if vertical layout)
-char  L3_name[7]        = "FUNCTN";     // Layer _L3 name (6 letters max, gets shortened to 5 if vertical layout)
+// Layer names:  Should be exactly 5 characters in length if vertical display, or 6 characters if horizontal
+#define MA_LAYER_NAME     "QWERTY"      // Layer _MA name
+#define L1_LAYER_NAME     "ARROWS"      // Layer _L1 name
+#define L2_LAYER_NAME     "NUMPAD"      // Layer _L2 name
+#define L3_LAYER_NAME     "FUNCTN"      // Layer _L3 name
 /*================================================================================================================*/
 bool  first_loop  = true;
 int   timer       = 0;
@@ -98,16 +99,6 @@ static void write_pixel(int x, int y, bool onoff) {
         oled_write_pixel(x, y, onoff);
     } else {
         oled_write_pixel(y, 127 - x, onoff);
-    }
-}
-
-// Shorten layer names if vertical display
-static void shorten_layer_names(void) {
-    if (oled_horizontal == false) {
-        MA_name[5] = '\0';
-        L1_name[5] = '\0';
-        L2_name[5] = '\0';
-        L3_name[5] = '\0';
     }
 }
 
@@ -318,16 +309,16 @@ static void render_layer_state(void) {
   }
   switch (get_highest_layer(layer_state)) {
   case _MA:
-      oled_write(MA_name, false);
+      oled_write_P(PSTR(MA_LAYER_NAME), false);
       break;
   case _L1:
-      oled_write(L1_name, false);
+      oled_write_P(PSTR(L1_LAYER_NAME), false);
       break;
   case _L2:
-      oled_write(L2_name, false);
+      oled_write_P(PSTR(L2_LAYER_NAME), false);
       break;
   case _L3:
-      oled_write(L3_name, false);
+      oled_write_P(PSTR(L3_LAYER_NAME), false);
       break;
   default:
       oled_write("ERROR", false);
@@ -437,9 +428,8 @@ static void render_wpm_graph(int current_wpm) {
 
 // Call OLED functions
 void oled_task_user(void) {
-    // Fix layer names, draw keyboard, prevent redraw
+    // Draw OLED keyboard, prevent redraw
     if (first_loop) {
-        shorten_layer_names();
         render_background();
         render_fn_row();
         if (ansi_layout == false) {
@@ -447,7 +437,7 @@ void oled_task_user(void) {
         }
         first_loop = false;
     }
-    // Get current WPM, subtract 25% for accurracy and prevent large jumps caused by simultaneous keypresses
+    // Get current WPM, subtract 25% for accuracy and prevent large jumps caused by simultaneous keypresses
     int current_wpm = get_current_wpm();
     // Note: This will most likely be removed once QMK's WPM calculation is updated
     current_wpm -= current_wpm >> 2;
