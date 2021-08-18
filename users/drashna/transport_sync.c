@@ -23,6 +23,7 @@ extern unicode_config_t unicode_config;
 #endif
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
+extern bool delayed_tasks_run;
 #endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
 extern bool tap_toggling;
@@ -90,18 +91,20 @@ void user_transport_update(void) {
         unicode_config.input_mode = user_state.unicode_mode;
 #endif
 #ifdef AUDIO_ENABLE
-        if (user_state.audio_enable != is_audio_on()) {
-            if (user_state.audio_enable) {
-                audio_on();
-            } else {
-                audio_off();
+        if (delayed_tasks_run) {
+            if (user_state.audio_enable != is_audio_on()) {
+                if (user_state.audio_enable) {
+                    audio_on();
+                } else {
+                    audio_off();
+                }
             }
-        }
-        if (user_state.audio_clicky_enable != is_clicky_on()) {
-            if (user_state.audio_clicky_enable) {
-                clicky_on();
-            } else {
-                clicky_off();
+            if (user_state.audio_clicky_enable != is_clicky_on()) {
+                if (user_state.audio_clicky_enable) {
+                    clicky_on();
+                } else {
+                    clicky_off();
+                }
             }
         }
 #endif
