@@ -15,7 +15,7 @@
 */
 
 /*
- * STM32F103xC memory setup for use with the WM1 mass-storage device bootloader.
+ * STM32F103xC memory setup for use with the K552 mass-storage device bootloader.
  */
 MEMORY
 {

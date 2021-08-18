@@ -1,6 +1,6 @@
 # Redragon K552 Kumara
 
-![K552](https://i.imgur.com/XpNmJpB.png)
+![K552](https://i.imgur.com/XpNmJpBh.png)
 
 A handwired K552 Kumara. Built using STM32F103RCT6 Mini
 

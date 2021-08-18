@@ -23,15 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Redragon
 #define PRODUCT         K552 Kumara
-#define DESCRIPTION     Handwired K552 Kumara
 
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
 
-//                         0   1   2   3   4   5   6   7   8   9   10   11   12  13  14  15  16
+//                         0   1   2   3   4   5   6   7    8    9   10   11   12  13  14  15  16
 #define MATRIX_ROW_PINS { C0, C1, C2, C3, C4, C5 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, B13, B14, B15, C6, C7, C8, C9 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A6, A7, B0, B1, B10, B11, B13, B14, B15, C6, C7, C8, C9 }
 
 #define DIODE_DIRECTION ROW2COL
 
