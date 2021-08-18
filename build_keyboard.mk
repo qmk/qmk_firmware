@@ -23,6 +23,15 @@ KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 # Force expansion
 TARGET := $(TARGET)
 
+ifneq ($(FORCE_LAYOUT),)
+    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+
+# Object files and generated keymap directory
+#     To put object files in current directory, use a dot (.), do NOT make
+#     this an empty or blank macro!
+KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
+
 # For split boards we need to set a master half.
 MASTER ?= left
 ifdef master
@@ -100,17 +109,8 @@ MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 
 # Pull in rules from info.json
-INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/rules.mk)
+INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_rules.mk)
 include $(INFO_RULES_MK)
-
-ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
-endif
-
-# Object files and generated keymap directory
-#     To put object files in current directory, use a dot (.), do NOT make
-#     this an empty or blank macro!
-KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
@@ -144,6 +144,29 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
         $(error Could not find keymap)
         # this state should never be reached
     endif
+endif
+
+# Have we found a keymap.json?
+ifneq ("$(wildcard $(KEYMAP_JSON))", "")
+    KEYMAP_C := $(KEYMAP_OUTPUT)/keymap.c
+    KEYMAP_H := $(KEYMAP_OUTPUT)/config.h
+
+    # Load the keymap-level rules.mk if exists
+    -include $(KEYMAP_PATH)/rules.mk
+
+    # Load any rules.mk content from keymap.json
+    INFO_RULES_MK = $(shell (QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_OUTPUT)/rules.mk)
+    include $(INFO_RULES_MK)
+
+# Add rules to enerate the keymap files - indentation here is important
+$(KEYMAP_OUTPUT)/keymap.c: $(KEYMAP_JSON)
+	(QMK_BIN) json2c --quiet --output $(KEYMAP_C) $(KEYMAP_JSON)
+
+$(KEYMAP_OUTPUT)/config.h: $(KEYMAP_JSON)
+	(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_OUTPUT)/config.h
+
+generated-files: $(KEYMAP_OUTPUT)/config.h $(KEYMAP_OUTPUT)/keymap.c
+
 endif
 
 ifeq ($(strip $(CTPC)), yes)
@@ -335,6 +358,9 @@ endif
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
+endif
+ifneq ("$(KEYMAP_H)","")
+    CONFIG_H += $(KEYMAP_H)
 endif
 
 # project specific files
