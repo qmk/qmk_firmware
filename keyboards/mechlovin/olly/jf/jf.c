@@ -28,39 +28,12 @@ void led_init_ports(void) {
   setPinOutput(B2);
 }
 
-uint32_t layer_state_set_user(uint32_t state)
-{
-  // if on layer 1, turn on D1 LED, otherwise off.
-    if (biton32(state) == 1) {
-        writePinHigh(D1);
-    } else {
-        writePinLow(D1);
-    }
-  // if on layer 2, turn on D0 LED, otherwise off.
-    if (biton32(state) == 2) {
-        writePinHigh(D0);
-    } else {
-        writePinLow(D0);
-    }
-
-  // if on layer 3, turn on C1 LED, otherwise off.
-    if (biton32(state) == 3) {
-        writePinHigh(C1);
-    } else {
-        writePinLow(C1);
-    }
-  // if on layer 4, turn on C0 LED, otherwise off.
-    if (biton32(state) == 4) {
-        writePinHigh(C0);
-    } else {
-        writePinLow(C0);
-    }
-  // if on layer 5, turn on C6 LED, otherwise off.
-    if (biton32(state) == 5) {
-        writePinHigh(C6);
-    } else {
-        writePinLow(C6);
-    }
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(D1, layer_state_cmp(state, 1));
+    writePin(D0, layer_state_cmp(state, 2));
+    writePin(C1, layer_state_cmp(state, 3));
+    writePin(C0, layer_state_cmp(state, 4));
+    writePin(C6, layer_state_cmp(state, 5));
 
     return state;
 }
