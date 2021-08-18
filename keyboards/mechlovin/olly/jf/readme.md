@@ -2,7 +2,7 @@
 
 ![jf](https://i.imgur.com/IrfTGE7l.png)
 
-*A short description of the keyboard/project*
+Olly JF PCB, compatible Duck Jetfire keyboard.
 
 * Keyboard Maintainer: [Mechlovin' Studio](https://mechlovin.studio/)
 * Hardware Supported: Jetfire Korean Kustom
