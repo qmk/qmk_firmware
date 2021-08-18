@@ -1,4 +1,4 @@
-# The default keymap for MNK50. VIA support disabled.
+# The default keymap for MNK50
 
 ![Layer 0](https://i.imgur.com/8R4AXY5.png)
 
