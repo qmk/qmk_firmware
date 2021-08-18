@@ -81,11 +81,11 @@ ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     QUANTUM_LIB_SRC += i2c_master.c
 endif
 
-CUSTOM_SPLIT_TRANSPORT ?= yes
-ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT)), yes)
+CUSTOM_SPLIT_TRANSPORT_SYNC ?= yes
+ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_LIB_SRC += transport_sync.c
-        OPT_DEFS += -DCUSTOM_SPLIT_TRANSPORT
+        OPT_DEFS += -DCUSTOM_SPLIT_TRANSPORT_SYNC
     endif
 endif
 
