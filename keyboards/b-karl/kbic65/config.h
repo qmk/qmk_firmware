@@ -20,8 +20,8 @@
 
 /* USB Device descriptor parameter */
 
-#define VENDOR_ID       0x7654
-#define PRODUCT_ID      0x0060
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0xd87a
 #define DEVICE_VER      0x0001
 
 #define MANUFACTURER    b-karl
@@ -32,7 +32,6 @@
 #define MATRIX_COLS 8
 #define MATRIX_ROW_PINS { B5, D1,  B4, D0, E6, D4, D7, C6, D2 }
 #define MATRIX_COL_PINS { B2, B6, B3, B1, F7, F6, F5, F4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -40,28 +39,3 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-/* indicator leds */
-#define LED_CAPS_LOCK_PIN
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
