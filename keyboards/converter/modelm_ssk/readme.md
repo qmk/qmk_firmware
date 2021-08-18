@@ -34,8 +34,6 @@ Pin: F0 F1 F2 F3 F4 F5 F6 F7
 
 **IMPORTANT:** It is necessary to skip pin D6 on the Teensy. There is an LED attached to this pin, which can cause interference with registering keys. Alternatively, you can remove the LED from the board, which is likely to be a permanent modification of the Teensy. The choice is yours. I am not responsible for any damage to your Teensy or keyboard.
 
-The SSK does not feature LEDs, so no pins are dedicated to them. However, I have not removed the LED code, because some users might like to install aftermarket lock lights. Refer to the parent project (above) for LED information.
-
 ## A note on the Unicomp Mini M
 
 This configuration will not work out of the box with the [Unicomp Mini M](https://www.pckeyboard.com/page/product/MINI_M). That keyboard uses a 16x12 matrix rather than the SSK's 16x8 in order to reduce occurrences of 2KRO lockup. It also features lock lights, which the SSK lacks. However, it should be possible to map out the Mini M's matrix to get it working.
@@ -52,6 +50,6 @@ For your initial build, you will need to run
 
     make converter/modelm_ssk:default:teensy
 
-You will need to press the button on the Teensy to enter the bootloader the first time. Afterward, so long as you keep `COMMAND_ENABLE = yes` in `rules.mk` (enabled by default), you can use `Left Shift + Right Shift + B` to enter the bootloader. With this method, you can omit `:teensy` from the end of the `make` command.
+You must press the button on the Teensy to enter the bootloader the first time. Afterward, so long as you keep `COMMAND_ENABLE = yes` in `rules.mk` (enabled by default), you can use `Left Shift + Right Shift + B` to enter the bootloader. With this method, you can omit `:teensy` from the end of the `make` command.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
