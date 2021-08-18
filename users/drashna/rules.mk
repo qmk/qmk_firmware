@@ -81,8 +81,12 @@ ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     QUANTUM_LIB_SRC += i2c_master.c
 endif
 
-ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-    QUANTUM_LIB_SRC += transport_sync.c
+CUSTOM_SPLIT_TRANSPORT ?= yes
+ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT)), yes)
+    ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+        QUANTUM_LIB_SRC += transport_sync.c
+        OPT_DEFS += -DCUSTOM_SPLIT_TRANSPORT
+    endif
 endif
 
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api

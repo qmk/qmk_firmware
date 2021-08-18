@@ -135,7 +135,15 @@
 #        define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #        define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    endif  // AVR
-#endif      // RGB_MATRIX_ENABLE
+#    ifndef RGB_MATRIX_REST_MODE
+#        if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_moonlander)
+#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#        else
+#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
+#        endif
+#    endif
+#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
+#endif  // RGB_MATRIX_ENABLE
 
 #ifdef OLED_DRIVER_ENABLE
 #    ifdef SPLIT_KEYBOARD

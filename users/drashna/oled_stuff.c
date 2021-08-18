@@ -18,7 +18,7 @@
 
 #ifndef KEYLOGGER_LENGTH
 // #    ifdef OLED_DISPLAY_128X64
-#    define KEYLOGGER_LENGTH ((int)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH))
+#    define KEYLOGGER_LENGTH ((uint8_t)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH))
 // #    else
 // #        define KEYLOGGER_LENGTH (uint8_t *(OLED_DISPLAY_WIDTH / OLED_FONT_HEIGHT))
 // #    endif
