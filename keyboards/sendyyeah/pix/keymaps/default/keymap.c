@@ -21,7 +21,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, TO(1)),
     [1] = LAYOUT(KC_TRNS, KC_MSTP, KC_MRWD, KC_MFFD, TO(2)),
-    [2] = LAYOUT(LSFT_T(RGB_TOG), RGB_MOD, RGB_HUI, RGB_SAI, TO(0))
+    [2] = LAYOUT(KC_LSFT, RGB_MOD, RGB_HUI, RGB_SAI, TO(0))
 };
 
 int get_icon_start_position(int key_position) {
@@ -188,6 +188,33 @@ void draw_brightness_icon(int key_position, int row) {
     oled_write_P(ICON_BRIGHTNESS_1, false);
 }
 
+void draw_mode_icon(int key_position, int row) {
+    static const char PROGMEM ICON_MODE_0[] = {0x94, 0x95, 0};
+    static const char PROGMEM ICON_MODE_1[] = {0xB4, 0xB5, 0};
+    oled_set_cursor(get_icon_start_position(key_position), row);
+    oled_write_P(ICON_MODE_0, false);
+    oled_set_cursor(get_icon_start_position(key_position), row + 1);
+    oled_write_P(ICON_MODE_1, false);
+}
+
+void draw_hue_icon(int key_position, int row) {
+    static const char PROGMEM ICON_HUE_0[] = {0x96, 0x97, 0};
+    static const char PROGMEM ICON_HUE_1[] = {0xB6, 0xB7, 0};
+    oled_set_cursor(get_icon_start_position(key_position), row);
+    oled_write_P(ICON_HUE_0, false);
+    oled_set_cursor(get_icon_start_position(key_position), row + 1);
+    oled_write_P(ICON_HUE_1, false);
+}
+
+void draw_sat_icon(int key_position, int row) {
+    static const char PROGMEM ICON_SAT_0[] = {0xBB, 0xBC, 0};
+    static const char PROGMEM ICON_SAT_1[] = {0xDB, 0xDC, 0};
+    oled_set_cursor(get_icon_start_position(key_position), row);
+    oled_write_P(ICON_SAT_0, false);
+    oled_set_cursor(get_icon_start_position(key_position), row + 1);
+    oled_write_P(ICON_SAT_1, false);
+}
+
 void oled_task_user(void) {
     // Host Keyboard Layer Status
     static const char PROGMEM ICON_LAYER[] = {0x80, 0x81, 0x82, 0x83, 0};
@@ -244,6 +271,14 @@ void oled_task_user(void) {
             draw_stop_icon(2, 2);
             draw_rewind_icon(3, 2);
             draw_fast_forward_icon(4, 2);
+            draw_lower_icon(5, 2);
+            draw_brightness_icon(6, 2);
+            break;
+        case 2:
+            draw_raise_icon(1, 2);
+            draw_mode_icon(2, 2);
+            draw_hue_icon(3, 2);
+            draw_sat_icon(4, 2);
             draw_lower_icon(5, 2);
             draw_brightness_icon(6, 2);
             break;
