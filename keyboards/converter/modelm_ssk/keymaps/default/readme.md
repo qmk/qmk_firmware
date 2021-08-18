@@ -1,1 +1,1 @@
-# The default keymap for modelm101
+# The default keymap for modelm_ssk

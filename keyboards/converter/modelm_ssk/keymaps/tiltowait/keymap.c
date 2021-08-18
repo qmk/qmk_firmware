@@ -15,7 +15,11 @@
  */
 #include QMK_KEYBOARD_H
 
-#define NUMPAD_LAYER 7
+enum custom_layers {
+    _BASE,
+    _SECOND,
+    _NUMPAD,
+};
 
 enum custom_keycodes {
   NUM_SCRL = SAFE_RANGE /* Dual-purpose Scroll Lock / Numlock button as on original hardware */
@@ -24,16 +28,16 @@ enum custom_keycodes {
 void toggle_numlock_layer(int set_state);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base layer */
+  [_BASE] = LAYOUT( /* Base layer */
     KC_ESC,                KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_MUTE, KC_F10,  KC_VOLD, KC_VOLU,   S(G(KC_4)), NUM_SCRL, KC_PAUS,
 
     KC_GRV,       KC_1,    KC_2,   KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS,   KC_INS,  KC_HOME,  KC_PGUP,
-    LT(1,KC_TAB), KC_Q,    KC_W,   KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,   KC_DEL,  KC_END,   KC_PGDN,
+    LT(_SECOND,KC_TAB), KC_Q,    KC_W,   KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,   KC_DEL,  KC_END,   KC_PGDN,
     KC_LCTL,      KC_A,    KC_S,   KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,
     KC_LSFT,      KC_NUBS, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,            KC_UP,
     KC_LALT,               LGUI_T(KC_ENT),                    KC_SPC,                                      KC_RALT,          KC_RCTL,   KC_LEFT, KC_DOWN,  KC_RGHT
   ),
-  [1] = LAYOUT( /* Layer 1 */
+  [_SECOND] = LAYOUT( /* Layer 1 */
      KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,       KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,
 
      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,    S(A(KC_MINS)), KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,
@@ -42,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_ENT,     KC_TRNS, KC_TRNS,    KC_TRNS,                KC_TRNS,            KC_TRNS,
      KC_TRNS,          KC_TRNS,                            C(KC_SPC),                                            KC_TRNS,                KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS
   ),
-  [NUMPAD_LAYER] = LAYOUT( /* Numpad Layer */
+  [_NUMPAD] = LAYOUT( /* Numpad Layer */
      KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,
 
      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_7, KC_KP_8, KC_KP_9, KC_TRNS,        KC_KP_MINUS, KC_KP_PLUS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,
@@ -94,10 +98,10 @@ void toggle_numlock_layer(int set_state) {
   }
 
   if (numlock_enabled) {
-    layer_on(NUMPAD_LAYER);
+    layer_on(_NUMPAD);
   }
   else {
-    layer_off(NUMPAD_LAYER);
+    layer_off(_NUMPAD);
   }
 }
 
