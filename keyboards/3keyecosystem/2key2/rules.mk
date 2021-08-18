@@ -7,7 +7,6 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
-DEFAULT_FOLDER = 3keyecosystem/2key2
 
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
