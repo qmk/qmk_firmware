@@ -17,7 +17,7 @@ qmk compile [-c] <configuratorExport.json>
 **Usage for Keymaps**:
 
 ```
-qmk compile [-c] [-e <var>=<value>] -kb <keyboard_name> -km <keymap_name>
+qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] -kb <keyboard_name> -km <keymap_name>
 ```
 
 **Usage in Keyboard Directory**:  
@@ -73,6 +73,17 @@ $ qmk compile -kb dz60
 ...
 ```
 
+**Parallel Compilation**:
+
+It is possible to speed up compilation by adding the `-j`/`--parallel` flag.
+```
+qmk compile -j <num_jobs> -kb <keyboard_name>
+```
+The `num_jobs` argument determines the maximum number of jobs that can be used. Setting it to zero will enable parallel compilation without limiting the maximum number of jobs.
+```
+qmk compile -j 0 -kb <keyboard_name>
+```
+
 ## `qmk flash`
 
 This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default. To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
@@ -82,13 +93,13 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 **Usage for Configurator Exports**:
 
 ```
-qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] <configuratorExport.json>
+qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>] <configuratorExport.json>
 ```
 
 **Usage for Keymaps**:
 
 ```
-qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>]
+qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>]
 ```
 
 **Listing the Bootloaders**

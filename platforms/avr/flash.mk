@@ -161,19 +161,19 @@ hid_bootloader: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 
 flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 ifneq ($(strip $(PROGRAM_CMD)),)
-	$(PROGRAM_CMD)
+	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(BOOTLOADER)), caterina)
-	$(call EXEC_AVRDUDE)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_AVRDUDE)
 else ifeq ($(strip $(BOOTLOADER)), halfkay)
-	$(call EXEC_TEENSY)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)
 else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
-	$(call EXEC_DFU)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU)
 else ifeq ($(strip $(BOOTLOADER)), USBasp)
-	$(call EXEC_USBASP)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_USBASP)
 else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
-	$(call EXEC_BOOTLOADHID)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_BOOTLOADHID)
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
-	$(call EXEC_HID_LUFA)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_HID_LUFA)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif

@@ -30,7 +30,7 @@ AUDIO_ENABLE = no           # Audio output on port C6
 
 # project specific files
 SRC =	drivers/led/issi/is31fl3736.c \
-		drivers/avr/i2c_master.c \
+		i2c_master.c \
 		quantum/color.c \
 		keyboards/wilba_tech/wt_mono_backlight.c \
 		keyboards/wilba_tech/wt_main.c

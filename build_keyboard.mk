@@ -151,7 +151,7 @@ ifeq ($(strip $(CTPC)), yes)
 endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    include platforms/chibios/QMK_PROTON_C/convert_to_proton_c.mk
+    include platforms/chibios/boards/QMK_PROTON_C/convert_to_proton_c.mk
 endif
 
 include quantum/mcu_selection.mk
@@ -338,9 +338,11 @@ ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 endif
 
 # project specific files
-SRC += $(KEYBOARD_SRC) \
+SRC += \
+    $(KEYBOARD_SRC) \
     $(KEYMAP_C) \
-    $(QUANTUM_SRC)
+    $(QUANTUM_SRC) \
+    $(QUANTUM_DIR)/main.c \
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
