@@ -114,15 +114,3 @@ bool led_update_kb(led_t led_state) {
   }
   return true;
 }
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}
