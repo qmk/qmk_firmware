@@ -4,6 +4,10 @@
     "maintainer": "kb-elmo",
     "width": 16,
     "height": 5,
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
+        "LAYOUT_ansi_splitbs": "LAYOUT_65_ansi_blocker_split_bs"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -78,7 +82,7 @@
                 {"x":15, "y":4}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -149,7 +153,7 @@
                 {"x":15, "y":4}
             ]
         },
-        "LAYOUT_ansi_splitbs": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
