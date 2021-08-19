@@ -20,8 +20,9 @@
 #include "_wait.h"
 
 #ifdef WAIT_US_TIMER
-static const GPTConfig gpt_cfg = {1000000, NULL, 0, 0}; /* 1MHz timer, no callback */
 void wait_us(uint16_t duration) {
+    static const GPTConfig gpt_cfg = {1000000, NULL, 0, 0}; /* 1MHz timer, no callback */
+
     if (duration == 0) {
         duration = 1;
     }
