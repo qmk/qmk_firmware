@@ -33,7 +33,7 @@ extern bool swap_hands;
 #endif
 extern userspace_config_t userspace_config;
 
-__attribute__((aligned(4))) typedef struct {
+__attribute__((aligned(8))) typedef struct {
     bool audio_enable;
     bool audio_clicky_enable;
     bool tap_toggling;
