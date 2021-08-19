@@ -12,7 +12,7 @@ There are three versions of the DZ60RGB-WKL. Please use the appropriate firmware
 
 * V1: STM32F303 (Arm), takes .bin files
 * V2: ATmega32U4 (AVR), takes .hex files
-* V2.1: ATmega32U4 (AVR), takes .bin files [Flash Manual](https://docs.google.com/document/d/111qx6Qec4JqtIhWaZlMND-VuRnFtn9a-gJaHN8fsL7M/edit?usp=sharing)  
+* V2.1: ATmega32U4 (AVR), takes .bin files
   Started shipping in June 2021 as a slightly modified version of v2.
 
 Make example for this keyboard (after setting up your build environment):
