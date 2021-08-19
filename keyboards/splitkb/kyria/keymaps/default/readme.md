@@ -1,4 +1,4 @@
-<h1 align="center"> Kyria's Default Keymap</h1>
+# Kyria's Default Keymap
 
 <p align="center">
 <a href="https://ibb.co/XYgGhmJ">
