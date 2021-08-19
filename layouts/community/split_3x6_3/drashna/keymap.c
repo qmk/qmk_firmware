@@ -104,12 +104,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
-void matrix_slave_scan_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_task();
-#endif
-}
-
 #ifdef RGB_MATRIX_ENABLE
 void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
