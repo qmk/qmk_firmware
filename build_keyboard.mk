@@ -261,10 +261,6 @@ ifdef MCU_FAMILY
     PLATFORM_KEY=chibios
     FIRMWARE_FORMAT?=bin
     OPT_DEFS += -DMCU_$(MCU_FAMILY)
-else ifdef ARM_ATSAM
-    PLATFORM=ARM_ATSAM
-    PLATFORM_KEY=arm_atsam
-    FIRMWARE_FORMAT=bin
 else
     PLATFORM=AVR
     PLATFORM_KEY=avr

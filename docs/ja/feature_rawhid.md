@@ -34,7 +34,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 ```
 
-これら2つの関数は、ホストとの間で長さ `RAW_EPSIZE` バイトのパケットを送受信します (LUFA/ChibiOS/V-USB では 32、ATSAM では 64)。
+これら2つの関数は、ホストとの間で長さ `RAW_EPSIZE` バイトのパケットを送受信します (LUFA/ChibiOS/V-USB では 32)。
 
 ホスト側での作業を進める前に、raw 対応のファームウェアを書き込むようにしてください。
 

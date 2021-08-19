@@ -659,8 +659,6 @@ def arm_processor_rules(info_data, rules):
         info_data['platform'] = 'STM32'
     elif 'MCU_SERIES' in rules:
         info_data['platform'] = rules['MCU_SERIES']
-    elif 'ARM_ATSAM' in rules:
-        info_data['platform'] = 'ARM_ATSAM'
 
     return info_data
 

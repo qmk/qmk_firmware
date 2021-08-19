@@ -127,11 +127,6 @@ enum desktop_usages {
 #    if defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
 #        include "protocol/usb_descriptor.h"
 #        define KEYBOARD_REPORT_BITS (SHARED_EPSIZE - 2)
-#    elif defined(PROTOCOL_ARM_ATSAM)
-#        include "protocol/arm_atsam/usb/udi_device_epsize.h"
-#        define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
-#        undef NKRO_SHARED_EP
-#        undef MOUSE_SHARED_EP
 #    else
 #        error "NKRO not supported with this protocol"
 #    endif
