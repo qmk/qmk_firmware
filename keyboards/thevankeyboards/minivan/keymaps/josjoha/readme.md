@@ -199,13 +199,11 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
 
 3.3 Non-Latin languages
 =======================
-These are unusual layouts. Most people will probably only want one of these on the ‛Alternate’ layout,
-with a normal layout on ‛Default’. How this works is explained below.
 
 3.3.1 Hebrew
 ------------
 
-![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_hebrew_single_va.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_hebrew_vc.jpg)
 
 For the readme about the Hebrew version, see ➡ ![base_hebrew.md](./base_hebrew.md) ⬅
 

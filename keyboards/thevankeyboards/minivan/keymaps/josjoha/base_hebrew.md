@@ -6,40 +6,15 @@ Compiled for: Hebrew
 This file details the compile version `#define BASE_HEBREW__DEF_BASE,
 BASE_HEBREW__ALT_BASE`. This is a basic Hebrew layout, without niqqud.
 
-Only the most common symbols are implemented. 
-Niqqud are not implemented. 
-Hebrew symbols are all done in Unicode.
-This means it is not a “normal, common”
-hebrew keyboard, because such keyboards likely use computer side recoding.
-This is still a US language keyboard (with Unicode apabilities), in terms
+Only the most common symbols are implemented.  Hebrew symbols are all
+done in Unicode.  This means it is not a “normal, common” hebrew
+keyboard, because such keyboards likely use computer side recoding
+(language setting).
+
+This is still a US language keyboard with Unicode apabilities, in terms
 of how the computer sees it.
 
 See also ![./readme.md](./readme.md) chapter 7 _Language support_.
-
-Design
-======
-
-The design is make it work easily with a Latin layer (Qwerty, Dvorak, etc),
-together as a dual layout system. For this reason the common writing symbols
-which tend to be present on the letters base layer, are kept as much as
-possible in the same locations.
-
-      '",<.>-_?/;:
-
-Within that framework, the hebrew letters are positioned according to
-the standard keyboard in Israel. When there is a conflict between these
-two objectives, the hebrew letter which conflicts with a symbol is moved
-to whatever open space there might be.
-
-The hebrew alphabet has 27 symbols. The additional letter compared to Latin
-(26 letters) is resolved by combining a letter with the symbol “:” on shift.
-This looses the symbol “;”, which is not present on some basic hebrew layouts
-either.
-
-In all cases the hebrew layout variations will closely resemble the
-standard Israeli hebrew layout. This is not about a phonetic re-ordering
-to Latin letter sounds. The goal is to keep the common symbols on the
-same place, to avoid typing errors when switching layouts.
 
 Parenthesis direction seems to be dealt with at the computer side, depending
 on the surrounding symbols. The keyboard is printing these symbols unchanged
@@ -51,7 +26,6 @@ characters (at least it does so on GNU/Debian/Linux). This can affect:
 
       (){}[]<>
       
-
 Options
 =======
 
@@ -61,7 +35,7 @@ Dvorak or Qwerty. See the configuration file ![./base_hebrew.h](./base_hebrew.h)
 Israeli Hebrew
 -------------- 
 As close to a simple standard hebrew layout as possible.
-A little larger than the other options.
+A little larger memory cost than the other options.
 
 Dvorak with Hebrew
 ------------------
@@ -79,6 +53,24 @@ Colemak displaces the “;:” key relative to Qwerty, therefore you may
 like to change the “:” shifted symbol (by hand). The obscurity of this
 use case gets extreme, there will not be options for this.
 
+Latin combination design
+========================
+
+The design is make it work easily with a Latin layer (Qwerty, Dvorak, etc),
+together as a dual layout system. For this reason the common writing symbols
+which tend to be present on the letters base layer, are kept as much as
+possible in the same locations.
+
+      '",<.>-_?/;:
+
+Within that framework, the hebrew letters are positioned according to
+the standard keyboard in Israel.
+
+The hebrew alphabet has 27 letter symbols. The additional letter compared to Latin
+(26 letters) is resolved by combining a letter with the symbol “:” on shift.
+This looses the symbol “;”, which is not present on some basic hebrew layouts
+either.
+
 Flash memory cost
 -----------------
 
@@ -91,12 +83,36 @@ symbols.
 Hebrew keymaps
 --------------
 
-──────────Hebrew───────────────
+──────────Hebrew Israel────────
 
-![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_hebrew_ve.jpg)
+![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_hebrew-israel_ve.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew_ve.jpg)
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-israel_ve.jpg)
+Layer: `..._NSY`
+
+──────────in common────────────
+
+(…) 
+
+──────────Hebrew Qwerty────────
+
+![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_hebrew-qwerty_ve.jpg)
+Layer: `..._BASE`
+
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-qwerty_ve.jpg)
+Layer: `..._NSY`
+
+──────────in common────────────
+
+(…) 
+
+──────────Hebrew Dvorak────────
+
+![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_hebrew-dvorak_ve.jpg)
+Layer: `..._BASE`
+
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-dvorak_ve.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
