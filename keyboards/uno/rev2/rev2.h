@@ -16,6 +16,10 @@
 
 #pragma once
 
-#include "config_common.h"
+#include "quantum.h"
 
-// See rev1/config.h and rev2/config.h to configure your uno.
+#define LAYOUT( \
+  K00  \
+) { \
+  { K00 } \
+}
