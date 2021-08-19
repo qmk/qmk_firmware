@@ -15,9 +15,6 @@
  */
 #include "jelly.h"
 #include "rgblight.h"
-
-
-
 void led_set_kb(uint8_t usb_led) {
 	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
 		
@@ -67,8 +64,3 @@ void keyboard_post_init_kb(void){
 void matrix_scan_kb(void) {
     matrix_scan_user();
 }
-
-
-
-
-
