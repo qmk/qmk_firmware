@@ -55,10 +55,10 @@ cpfirmware: warn-arm_atsam
 warn-arm_atsam: $(FIRMWARE_FORMAT)
 	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
 	$(info This MCU support package has a lack of support from the upstream provider (Massdrop).)
-	$(info There are currently questions about valid licensing, and at this stage it's likely
-	$(info their boards and supporting code will be removed from QMK in the near future. Please
-	$(info contact Massdrop for support, and encourage them to align their future board design
-	$(info choices to gain proper license compatibility with QMK.
+	$(info There are currently questions about valid licensing, and at this stage it's likely)
+	$(info their boards and supporting code will be removed from QMK in the near future. Please)
+	$(info contact Massdrop for support, and encourage them to align their future board design)
+	$(info choices to gain proper license compatibility with QMK.)
 	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
 
 # Convert hex to bin.
