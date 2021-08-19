@@ -182,10 +182,18 @@ void eeconfig_init_kb(void) {
     eeconfig_init_user();
 }
 
+__attribute__((weak)) void matrix_init_sub_kb(void) {}
 void matrix_init_kb(void) {
     // is safe to just read DPI setting since matrix init
     // comes before pointing device init.
     keyboard_config.raw = eeconfig_read_kb();
     if (keyboard_config.dpi_config > DPI_OPTION_SIZE) { eeconfig_init_kb(); }
+    matrix_init_sub_kb();
     matrix_init_user();
+}
+
+__attribute__((weak)) void matrix_scan_sub_kb(void) {}
+void                       matrix_scan_kb(void) {
+    matrix_scan_sub_kb();
+    matrix_scan_user();
 }

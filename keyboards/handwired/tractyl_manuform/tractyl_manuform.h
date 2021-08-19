@@ -53,3 +53,5 @@ void              process_mouse_user(report_mouse_t* mouse_report, int8_t x, int
 void              kb_pointer_sync_send(int8_t x, int8_t y);
 kb_pointer_data_t kb_pointer_sync_get(void);
 void              trackball_set_cpi(uint16_t cpi);
+void              matrix_init_sub_kb(void);
+void              matrix_scan_sub_kb(void);
