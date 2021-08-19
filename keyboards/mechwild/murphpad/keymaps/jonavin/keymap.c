@@ -16,14 +16,13 @@
  */
 #include QMK_KEYBOARD_H
 #include <stdio.h>
+#include "jonavin.h"
 #include "keymap.h"
 
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE,
-    _FN1,
-	_FN2,
+	_FN2 = 2,
 	_FN3
 };
 
@@ -74,28 +73,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    )
 };
 
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (index) {
-        case 0:
-            if (clockwise) {
-                tap_code(KC_VOLU);
-            } else {
-                tap_code(KC_VOLD);
-            }
-            break;
-        case 1:
-            if (clockwise) {
-                   tap_code(KC_BRIU);
-            } else {
-                tap_code(KC_BRID);
-                break;
-            }
-    }
-    return true;
-};
-#endif
 
 #ifdef OLED_DRIVER_ENABLE
 	oled_rotation_t oled_init_user(oled_rotation_t rotation) {

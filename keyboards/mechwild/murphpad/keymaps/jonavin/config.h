@@ -19,3 +19,4 @@
 #define TAPPING_TOGGLE 2
 // TT set to two taps
 
+#define ENCODER_DEFAULTACTIONS_INDEX 0
