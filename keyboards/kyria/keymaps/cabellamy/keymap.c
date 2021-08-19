@@ -22,6 +22,12 @@ enum layers {
     _ADJUST
 };
 
+enum custom_keycodes {
+    KC_CCCV = SAFE_RANGE
+};
+
+uint16_t copy_paste_timer;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Base Layer: QWERTY
@@ -29,19 +35,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |RAIS/ESC|   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | TAB/BS |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  Enter |
+ * | TAB    |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  Enter |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |LShift|LShift|  |LShift|LShift|   N  |   M  | ,  < | . >  | /  ? |  Mins  |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  | CCCV |LShift|  |LShift|LShift|   N  |   M  | ,  < | . >  | /  ? |  Mins  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | Mute | CTRL | Space| Enter| Esc  |  | Enter| Space| Tab  | Bksp | GUI  |
- *                        |      |      | Lower| Alt  | Raise|  | Lower| Raise|      |      |      |
+ *                        |      |      | Lower| Alt  | Raise|  | Lower| Raise| Enter|      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
       LT(_RAISE, KC_ESC),      KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                            KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-      KC_TAB,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                                           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-      KC_LSFT,                 KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LSFT,  KC_LSFT,     KC_LSFT, KC_LSFT, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-          KC_MUTE, KC_LCTRL, LT(_LOWER, KC_SPC), MT(MOD_LALT, KC_ENT), LT(_RAISE, KC_ESC),    LT(_LOWER, KC_ENT), LT(_RAISE, KC_SPC), KC_TAB,  KC_BSPC,  KC_RGUI
+      KC_TAB,   KC_A,   KC_S,  KC_D,   KC_F,   KC_G,                                                           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+      KC_LSFT,                 KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_CCCV,  KC_LSFT,     KC_RSFT, KC_RSFT, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
+          KC_MUTE, KC_LCTRL, LT(_LOWER, KC_SPC), MT(MOD_LALT, KC_ENT), LT(_RAISE, KC_ESC),    LT(_LOWER, KC_ENT), LT(_RAISE, KC_SPC), MT(KC_TAB, KC_ENT),  KC_BSPC,  KC_RGUI
     ),
 /*
  * Lower Layer: Symbols
@@ -129,6 +135,24 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_CCCV:  // One key copy/paste
+            if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+            } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+                    tap_code16(LCTL(KC_C));
+                } else { // Tap, paste
+                    tap_code16(LCTL(KC_V));
+                }
+            }
+            break;
+    }
+    return true;
+}
+
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
@@ -160,7 +184,7 @@ static void render_qmk_logo(void) {
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
-    oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
+    oled_write_P(PSTR("Kyria rev1.4\n\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -204,10 +228,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         // switch based on layer index to change behaviour of individual encoders
         switch(biton32(layer_state)){
             case 2:
+
                 if (clockwise) {
-                    tap_code(KC_UP);
-                } else {
                     tap_code(KC_DOWN);
+                } else {
+                    tap_code(KC_UP);
                 }
                 break;
             case 1:
@@ -232,9 +257,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         switch(biton32(layer_state)){
             case 2:
                 if (clockwise) {
-                    tap_code(KC_LEFT);
-                } else {
                     tap_code(KC_RIGHT);
+                } else {
+                    tap_code(KC_LEFT);
                 }
                 break;
             default:
