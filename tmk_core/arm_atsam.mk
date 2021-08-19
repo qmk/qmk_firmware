@@ -55,7 +55,8 @@ cpfirmware: warn-arm_atsam
 warn-arm_atsam: $(FIRMWARE_FORMAT)
 	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
 	$(info This MCU support package has a lack of support from the upstream provider (Massdrop).)
-	$(info It's likely that this keyboard will be deprecated in the near future.)
+	$(info Please ask them for support for build issues, and encourage them to align their future
+	$(info board design choices to gain proper compatibility with QMK.
 	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
 
 # Convert hex to bin.
