@@ -22,7 +22,7 @@ enum layers {
     _NAV,
     _SYM,
     _FUNCTION,
-    _ADJUST
+    _ADJUST,
 };
 
 
