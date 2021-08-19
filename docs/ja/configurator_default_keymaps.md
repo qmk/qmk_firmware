@@ -20,9 +20,9 @@ QMK Configurator は、キーマップのネイティブファイル形式に JS
 * `layout` (文字列)
   * デフォルトキーマップによって使われるレイアウトマクロです。
 * `layers` (配列)
-  * 自身のキーマップです。このキーは、レイヤー毎に1つの配列を含む必要があり、配列はレイヤーを構成するキーコードを含む必要があります。
+  * キーマップそのものです。このキーは、レイヤー毎に1つの配列を含む必要があり、配列はレイヤーを構成するキーコードを含む必要があります。
 
-さらに、たいていのキーマップは `commit` キーを含みます。このキーは、QMK Configurator の逆回転防止 API によって消費されませんが、QMK Configurator のメンテナーがリポジトリ内の JSON 形式のキーマップを作るために使われるキーマップのバージョンを告知するために使われます。この値は、`qmk_firmware` リポジトリ内のキーボードのデフォルトの `keymap.c` を変更するための最後のコミットの SHA です。この SHA の値は、[`qmk_firmware` リポジトリの `master` ブランチ](https://github.com/qmk/qmk_firmware/tree/master/) をチェックアウトして、`git log -1 --pretty=oneline -- keyboards/<keyboard>/keymaps/default/keymap.c` (`keymap.json` ファイルがあれば、代わりにそれを使います。) を実行したときの返り値で見つけられます。
+さらに、たいていのキーマップは `commit` キーを含みます。このキーは、QMK Configurator を支える API では使用されませんが、QMK Configurator のメンテナーがリポジトリ内の JSON 形式のキーマップを作るために使われたキーマップのバージョンを通知するために使われます。この値は、`qmk_firmware` リポジトリ内のキーボードのデフォルトの `keymap.c` を変更する最後のコミットの SHA です。この SHA の値は、[`qmk_firmware` リポジトリの `master` ブランチ](https://github.com/qmk/qmk_firmware/tree/master/) をチェックアウトして、`git log -1 --pretty=oneline -- keyboards/<keyboard>/keymaps/default/keymap.c` (問題のキーボードに `keymap.json` ファイルがあれば、代わりにそれを使います。) を実行すると、次のようなものが返ってきます:
 
 ```shell
 f14629ed1cd7c7ec9089604d64f29a99981558e8 Remove/migrate action_get_macro()s from default keymaps (#5625)
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
-デフォルトキーマップが使う `LAYOUT_all` マクロが `layout` キーの値となります。QMK Configurator が JSON キーマップにコンパイルすると、結果は次のようになるはずです。
+デフォルトキーマップが `LAYOUT_all` マクロを使うため、これが `layout` キーの値となります。QMK Configurator が JSON キーマップにコンパイルすると、結果は次のようになるはずです。
 
 ```json
 {
@@ -116,14 +116,14 @@ enum layer_names {
 
 これは C 言語では動作しますが、QMK Configurator では動作しません。レイヤーのインデックスには数値を使用する *必要があります*。上記の例だと、`MO(_FN)` ではなく `MO(2)` とする必要があります。
 
-### いくつかのカスタムコードはサポート対象外 :id=custom-code
+### カスタムコードはサポート対象外 :id=custom-code
 
 タップダンスやユニコードのように keymap.c ファイルに関数を追加する必要がある機能は、QMK Configurator では **全て**コンパイルできません。`qmk_firmware` リポジトリ内のキーボードレベルで `TAP_DANCE_ENABLE = yes` と設定しても、QMK Configurator はファームウェアをコンパイルできません。これは、API と 現在の JSON キーマップ形式の仕様による制限です。
 
 
 ### カスタムキーコードの限定的なサポート :id=custom-keycodes
 
-カスタムキーコードをサポートする方法はあります。: QMK_Firmware 内のキーマップレベルではなくキーボードレベルでカスタムキーコードのロジックが実装されていれば、それらのキーコードが QMK Configurator で*使用可能となり*、コンパイルして機能*するようになります*。
+カスタムキーコードをサポートする方法はあります。qmk_firmware 内のキーマップレベルではなくキーボードレベルでカスタムキーコードのロジックが実装されていれば、それらのキーコードは QMK Configurator で*使用でき*、コンパイルして機能*するようになります*。
 
 ```c
 enum custom_keycodes {
@@ -154,7 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-... `enum` ブロックのキーコードをキーボードのヘッダーファイル (`<keyboard>.h`) に次のとおり追加します。 (`enum` がここでは `keyboard_keycodes` と命名されていることに注意してください):
+... `enum` ブロックのキーコードをキーボードのヘッダーファイル (`<keyboard>.h`) に次のように追加します。 (`enum` がここでは `keyboard_keycodes` と命名されていることに注意してください):
 
 ```c
 enum keyboard_keycodes {
@@ -190,7 +190,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-最後に `process_record_user()` を呼び出すことに注意してください。さらに、ユーザーが自身のカスタムキーコードをキーボードによって提供される以上にキーマップレベルで追加したい場合のために、`SAFE_RANGE` の代わりに `NEW_SAFE_RANGE` を使う必要があります。
+最後に `process_record_user()` を呼び出すことに注意してください。さらに、ユーザーが自身のカスタムキーコードをキーボードによって提供される以上にキーマップレベルで追加したい場合は、`SAFE_RANGE` の代わりに `NEW_SAFE_RANGE` を使う必要があります。
 
 
 ## 追加説明 :id=additional-reading
