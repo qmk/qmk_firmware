@@ -44,6 +44,7 @@ ifeq ($(strip $(VIRTSER_ENABLE)), yes)
 endif
 
 SRC += $(LUFA_SRC)
+SRC += $(LUFA_DIR)/usb_util.c
 
 # Search Path
 VPATH += $(TMK_PATH)/$(LUFA_DIR)
@@ -66,8 +67,8 @@ LUFA_OPTS += -DFIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -DFIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -DFIXED_NUM_CONFIGURATIONS=1
 
-# Remote wakeup fix for ATmega32U2        https://github.com/tmk/tmk_keyboard/issues/361
-ifeq ($(MCU),atmega32u2)
+# Remote wakeup fix for ATmega16/32U2        https://github.com/tmk/tmk_keyboard/issues/361
+ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2))
 	LUFA_OPTS += -DNO_LIMITED_CONTROLLER_CONNECT
 endif
 

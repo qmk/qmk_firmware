@@ -1,5 +1,5 @@
 #include "encoder.h"
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   static uint16_t kc;
   uint8_t temp_mod = get_mods();
   if (index == 0) { /* first encoder */
@@ -55,6 +55,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         tap_code(KC_1);
       }
   }
+    return true;
 }
 const uint16_t PROGMEM encoder_actions[][9] = { \
 //  None     CTRL     ALT                SHIFT    GUI             CTRL+ALT             CTRL+SHFT ALT+SHFT      HYPER

@@ -32,7 +32,7 @@ void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rg
     bool litup = false;
 
     for (uint8_t light_index = 0; light_index < RGBLED_NUM; ++light_index) {
-        if (lights[light_index].enabled && timer_elapsed(lights[light_index].timer) > 10) {
+        if (lights[light_index].enabled && sync_timer_elapsed(lights[light_index].timer) > 10) {
             rgblight_fadeout *light = &lights[light_index];
             litup                   = true;
 
@@ -41,7 +41,7 @@ void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rg
                 if (get_highest_layer(layer_state) == 0) {
                     sethsv(light->hue + rand() % 0xF, 255, light->life, (LED_TYPE *)&led[light_index]);
                 }
-                light->timer = timer_read();
+                light->timer = sync_timer_read();
             } else {
                 if (light->enabled && get_highest_layer(layer_state) == 0) {
                     rgblight_sethsv_default_helper(light_index);
@@ -86,7 +86,7 @@ void start_rgb_light(void) {
 
     rgblight_fadeout *light = &lights[light_index];
     light->enabled          = true;
-    light->timer            = timer_read();
+    light->timer            = sync_timer_read();
     light->life             = 0xC0 + rand() % 0x40;
 
     light->hue = rgblight_get_hue() + (rand() % 0xB4) - 0x54;
@@ -149,11 +149,11 @@ void matrix_scan_rgb_light(void) {
 
 #    if defined(RGBLIGHT_STARTUP_ANIMATION)
     if (is_rgblight_startup && is_keyboard_master()) {
-        if (timer_elapsed(rgblight_startup_loop_timer) > 10) {
+        if (sync_timer_elapsed(rgblight_startup_loop_timer) > 10) {
             static uint8_t counter;
             counter++;
             rgblight_sethsv_noeeprom((counter + old_hue) % 255, 255, 255);
-            rgblight_startup_loop_timer = timer_read();
+            rgblight_startup_loop_timer = sync_timer_read();
             if (counter == 255) {
                 is_rgblight_startup = false;
                 if (!is_enabled) {
@@ -177,14 +177,11 @@ void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mo
 layer_state_t layer_state_set_rgb_light(layer_state_t state) {
 #    ifdef RGBLIGHT_ENABLE
     if (userspace_config.rgb_layer_change) {
-        uint8_t mode = layer_state_cmp(state, _MODS) ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
         switch (get_highest_layer(state | default_layer_state)) {
-            case _MACROS:
-#        ifdef RGBLIGHT_EFFECT_TWINKLE
-                rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_TWINKLE + 5);
-#        else
-                rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_BREATHING + 3);
-#        endif
+            case _MACROS: // mouse
+                if (!layer_state_cmp(state, _GAMEPAD) && !layer_state_cmp(state, _DIABLO)) {
+                    rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_BREATHING + 3);
+                }
                 break;
             case _MEDIA:
                 rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_KNIGHT + 1);
@@ -205,28 +202,28 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
                 rgblight_set_hsv_and_mode(HSV_RED, RGBLIGHT_MODE_KNIGHT + 2);
                 break;
             case _COLEMAK:
-                rgblight_set_hsv_and_mode(HSV_MAGENTA, mode);
+                rgblight_set_hsv_and_mode(HSV_MAGENTA, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             case _DVORAK:
-                rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, mode);
+                rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             case _WORKMAN:
-                rgblight_set_hsv_and_mode(HSV_GOLDENROD, mode);
+                rgblight_set_hsv_and_mode(HSV_GOLDENROD, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             case _NORMAN:
-                rgblight_set_hsv_and_mode(HSV_CORAL, mode);
+                rgblight_set_hsv_and_mode(HSV_CORAL, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             case _MALTRON:
-                rgblight_set_hsv_and_mode(HSV_YELLOW, mode);
+                rgblight_set_hsv_and_mode(HSV_YELLOW, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             case _EUCALYN:
-                rgblight_set_hsv_and_mode(HSV_PINK, mode);
+                rgblight_set_hsv_and_mode(HSV_PINK, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             case _CARPLAX:
-                rgblight_set_hsv_and_mode(HSV_BLUE, mode);
+                rgblight_set_hsv_and_mode(HSV_BLUE, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
             default:
-                rgblight_set_hsv_and_mode(HSV_CYAN, mode);
+                rgblight_set_hsv_and_mode(HSV_CYAN, RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
         }
     }

@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 _qmk_install_prepare() {
-    sudo pkg update
+    sudo pkg update $SKIP_PROMPT
 }
 
 _qmk_install() {

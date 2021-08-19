@@ -16,4 +16,4 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-DEFAULT_FOLDER = mechlovin/infinity87/rev1/standard
+DEFAULT_FOLDER = mechlovin/infinity87/rgb_rev1
