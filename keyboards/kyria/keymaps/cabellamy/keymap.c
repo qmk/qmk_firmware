@@ -39,15 +39,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  | CCCV |LShift|  |LShift|LShift|   N  |   M  | ,  < | . >  | /  ? |  Mins  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | Mute | CTRL | Space| Enter| Esc  |  | Enter| Space| Tab  | Bksp | GUI  |
- *                        |      |      | Lower| Alt  | Raise|  | Lower| Raise| Enter|      |      |
+ *                        | Mute | CTRL | Enter| Space| Esc  |  | Enter| Space| Tab  | Bksp | GUI  |
+ *                        |      |      | Alt  | Lower| Raise|  | Lower| Raise| Enter|      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-      LT(_RAISE, KC_ESC),      KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                            KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-      KC_TAB,   KC_A,   KC_S,  KC_D,   KC_F,   KC_G,                                                           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-      KC_LSFT,                 KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_CCCV,  KC_LSFT,     KC_RSFT, KC_RSFT, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-          KC_MUTE, KC_LCTRL, LT(_LOWER, KC_SPC), MT(MOD_LALT, KC_ENT), LT(_RAISE, KC_ESC),    LT(_LOWER, KC_ENT), LT(_RAISE, KC_SPC), MT(KC_TAB, KC_ENT),  KC_BSPC,  KC_RGUI
+      LT(_RAISE, KC_ESC), KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                            KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+      KC_TAB,   KC_A,   KC_S,  KC_D,   KC_F,   KC_G,                                            KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+      KC_LSFT,  KC_Z,   KC_X,  KC_C,   KC_V,   KC_B,   KC_CCCV,  KC_LSFT,     KC_RSFT, KC_RSFT, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
+          KC_MUTE, KC_LCTRL, MT(MOD_LALT, KC_ENT), LT(_LOWER, KC_SPC), LT(_RAISE, KC_ESC),    LT(_LOWER, KC_ENT), LT(_RAISE, KC_SPC), MT(KC_TAB, KC_ENT),  KC_BSPC,  KC_RGUI
     ),
 /*
  * Lower Layer: Symbols
@@ -135,7 +135,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_CCCV:  // One key copy/paste
@@ -173,12 +172,13 @@ static void render_kyria_logo(void) {
 }
 
 static void render_qmk_logo(void) {
-  static const char PROGMEM qmk_logo[] = {
-    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
+    static const char PROGMEM qmk_logo[] = {
+        0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+        0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+        0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0
+    };
 
-  oled_write_P(qmk_logo, false);
+    oled_write_P(qmk_logo, false);
 }
 
 static void render_status(void) {
@@ -190,7 +190,7 @@ static void render_status(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("QWERTY\n"), false);
             break;
         case _LOWER:
             oled_write_P(PSTR("Lower\n"), false);
