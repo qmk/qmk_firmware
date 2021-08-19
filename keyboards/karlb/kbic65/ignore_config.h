@@ -21,7 +21,7 @@
 /* USB Device descriptor parameter */
 
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xd87a
+#define PRODUCT_ID      0xD87A
 #define DEVICE_VER      0x0001
 
 #define MANUFACTURER    b-karl
