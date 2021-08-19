@@ -80,6 +80,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 // #define I_AM_LEFT
 
+
+
 #ifdef OLED_DRIVER_ENABLE
 
 #   define UNC (94+0x21)
@@ -95,9 +97,9 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
     cur_alp_index = 1;
 #   ifdef I_AM_LEFT
-        return OLED_ROTATION_0;
-#   else
         return OLED_ROTATION_180;
+#   else
+        return OLED_ROTATION_0;
 #   endif
 }
 

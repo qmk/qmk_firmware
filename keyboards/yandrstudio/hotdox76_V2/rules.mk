@@ -7,9 +7,8 @@ ARCH = AVR8
 
 F_USB = $(F_CPU)
 
-
-# Boot Section Size in *bytes*
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# Bootloader selection
+BOOTLOADER = caterina
 
 # Build Options
 #   comment out to disable the options.
@@ -21,6 +20,7 @@ CONSOLE_ENABLE = no	# Console for debug(+400)
 COMMAND_ENABLE = no    # Commands for debug and configuration
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 OLED_DRIVER_ENABLE = yes    # Enable Support for SSD1306 or SH1106 OLED Displays; Communicating over I2C
+
 SPLIT_KEYBOARD = yes
 
 

@@ -53,7 +53,6 @@ led_config_t g_led_config = {
 
 #endif
 
-// #define I_AM_LEFT
 
 #ifdef OLED_DRIVER_ENABLE
 
@@ -70,9 +69,9 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
     cur_alp_index = 1;
 #   ifdef I_AM_LEFT
-        return OLED_ROTATION_0;
-#   else
         return OLED_ROTATION_180;
+#   else
+        return OLED_ROTATION_0;
 #   endif
 }
 
@@ -124,7 +123,7 @@ void render_layer(uint8_t layer) {
         break;
     case 3:
     default:
-        render_layer_helper_fun(1, PSTR("4:OTHERS"), 0);
+        render_layer_helper_fun(1, PSTR("OTHER"), 18);
         break;
     }
 }
@@ -164,6 +163,7 @@ void oled_task_user(void) {
 }
 
 
+
 static const char PROGMEM code_to_name[0xFF] = {
 //   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
     UNC,        UNC,        UNC,        UNC,        'a',        'b',        'c',        'd',        'e',        'f',        'g',        'h',        'i',        'j',        'k',        'l',         // 0x
@@ -184,6 +184,9 @@ static const char PROGMEM code_to_name[0xFF] = {
     UNC,        UNC,        UNC,        UNC,        UNC,        UNC,        UNC,        UNC,        UNC,        UNC,        UNC,        UNC,        UNC,        UNC,        UNC        // Fx
 };
 
+
+
+
 void get_cur_alp_hook(uint16_t keycode) {
     if (keycode >= 0xF0) {
         keycode = 0xF0;
@@ -199,18 +202,20 @@ void get_cur_alp_hook(uint16_t keycode) {
     }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     get_cur_alp_hook(keycode);
     return true;
 
 }
 
-void matrix_scan_user(void) {
+
+void matrix_scan_kb(void) {
     if(!is_oled_on()) {
         cur_alp_index = 1;
     }
 }
+
 
 #endif
 
@@ -224,3 +229,12 @@ bool is_keyboard_left(void) {
 
 }
 
+
+// void keyboard_post_init_kb(void) {
+//     // eeconfig_init();
+//     // Customise these values to desired behaviour
+//     // debug_enable=true;
+//     // debug_matrix=false;
+//     // debug_keyboard=true;
+//     //debug_mouse=true;
+// }

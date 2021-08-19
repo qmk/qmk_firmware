@@ -101,6 +101,8 @@
 
 #   define MASTER_LEFT
 
+#   define USE_SERIAL
+
 #   define SOFT_SERIAL_PIN D2
 
 #   define SPLIT_MODS_ENABLE
@@ -113,8 +115,8 @@
 
 #ifdef OLED_DRIVER_ENABLE
 
-#    define OLED_BRIGHTNESS 200
-#    define OLED_TIMEOUT 120000
+// #    define OLED_BRIGHTNESS 200
+// #    define OLED_TIMEOUT 120000
 
 #endif
 
