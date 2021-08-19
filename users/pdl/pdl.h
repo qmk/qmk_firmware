@@ -7,6 +7,10 @@ enum userspace_layer_codes {
     PROXIM,
     PUNCTN,
     CODING,
+    KU_LBRC,
+    KU_NUHS,
+    KU_GRV,
+    KU_RBRC,
     NEW_SAFE_RANGE
 };
 
@@ -86,15 +90,15 @@ enum userspace_layer_codes {
 #define _________________PROXIM_R2_________________  KC_P,    KC_N,    KC_E,    KC_I,    KC_L
 #define _________________PROXIM_R3_________________  KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH
 
-#define _________________PUNCTN_R1_________________  KC_LT,   KC_GT,   KC_LPRN, KC_RPRN, _______
-#define _________________PUNCTN_R2_________________  KC_ASTR, KC_EQL,  KC_MINS, KC_PLUS, KC_SLSH
-#define _________________PUNCTN_R3_________________  KC_LCBR, KC_RCBR, _______, _______, _______
+#define _________________PUNCTN_R1_________________  KC_NUBS, KC_NUHS, KC_LPRN, KC_RPRN, _______
+#define _________________PUNCTN_R2_________________  KC_GRV,  KC_EQL,  KC_MINS, KC_PLUS, KC_SLSH
+#define _________________PUNCTN_R3_________________  KC_LBRC, KC_RBRC, _______, _______, _______
 
-#define _________________CODING_R1_________________  KC_GRV,  KC_PERC, KC_DLR,  KC_AT,   _______
-#define _________________CODING_R2_________________  KC_CIRC, KC_UNDS, MY_TILD, KC_AMPR, KC_NUHS
-#define _________________CODING_R3_________________  KC_LBRC, KC_RBRC, _______, _______, _______
+#define _________________CODING_R1_________________  KU_GRV,  KC_PERC, KC_DLR,  KC_AT,   _______
+#define _________________CODING_R2_________________  KC_CIRC, KC_UNDS, MY_TILD, KC_AMPR, KU_NUHS
+#define _________________CODING_R3_________________  KU_LBRC, KU_RBRC, _______, _______, _______
 
-#define _________________NAVIGN_L1_________________  KC_DEL,  KC_PGUP, KC_UP,   KC_PGDN, KC_BSPC
+#define _________________NAVIGN_L1_________________  KC_DEL,  KC_PGUP, KC_UP,   KC_PGDN,  KC_BSPC
 #define _________________NAVIGN_L2_________________  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END
 #define _________________NAVIGN_L3_________________  MY_UNDO, MY_CUT,  MY_COPY, MY_PASTE, KC_ENT
 

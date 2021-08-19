@@ -21,14 +21,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = KEYMAP_wrapper( \
         MY_FESC, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC, \
         KC_TAB,  _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, MY_SQUO, \
-        MY_SBSL, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, MY_SENT, \
-        KC_LCTL, KC_LGUI, KC_LALT, NUMBRS,  NAVIGN, KC_SPC,   MY_SSPC, NUMBRS,  NAVIGN,  MY_AMNU, KC_UNDS, MY_CENT  \
+        MY_SBSL, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_RSFT, \
+        KC_LCTL, KC_LGUI, KC_LALT, NUMBRS,  NAVIGN, KC_SPC,   MY_SSPC, NUMBRS,  NAVIGN,  MY_AMNU, FUNCTN,  MY_CENT  \
     ),
     [_PROXIM] = KEYMAP_wrapper( \
         MY_FESC, _________________PROXIM_L1_________________, _________________PROXIM_R1_________________, KC_BSPC, \
         KC_TAB,  _________________PROXIM_L2_________________, _________________PROXIM_R2_________________, MY_ASCL, \
-        MY_SBSL, _________________PROXIM_L3_________________, _________________PROXIM_R3_________________, MY_SENT, \
-        KC_LCTL, KC_LGUI, KC_LALT, NUMBRS,  NAVIGN, KC_SPC,   MY_SSPC, NUMBRS,  NAVIGN,  MY_AMNU, KC_UNDS, MY_CENT  \
+        MY_SBSL, _________________PROXIM_L3_________________, _________________PROXIM_R3_________________, KC_RSFT, \
+        KC_LCTL, KC_LGUI, KC_LALT, NUMBRS,  NAVIGN, KC_SPC,   MY_SSPC, NUMBRS,  NAVIGN,  MY_AMNU, FUNCTN,  MY_CENT  \
     ),
     [_NAVIGN] = KEYMAP_wrapper( \
         _______, _________________NAVIGN_L1_________________, _______, _______, _______, _______, _______, _______, \

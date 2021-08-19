@@ -23,5 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../../config.h"
 
+#define TAPPING_TOGGLE 2
 #define TAPPING_TERM 200
 #define PREVENT_STUCK_MODIFIERS
+
+#define COMBO_PDL
+#define COMBO_COUNT 28
+#define COMBO_TERM 100
