@@ -14,14 +14,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "jelly.h"
-
-// set the first rgb animation to RGBLIGHT_MODE_STATIC_LIGHT
-void keyboard_post_init_kb(void){
-   
-    if(rgblight_get_mode()==RGBLIGHT_MODE_STATIC_LIGHT){
-        rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-    }
-}
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
