@@ -16,5 +16,4 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 OLED_DRIVER_ENABLE = yes
-
 LTO_ENABLE = yes
