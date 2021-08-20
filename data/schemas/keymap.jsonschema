@@ -4,7 +4,7 @@
     "title": "Keymap Information",
     "type": "object",
     "properties": {
-        "author": {"$ref": "qmk.definitions.v1#/text_identifier"},
+        "author": {"type": "string"},
         "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "layout": {"$ref": "qmk.definitions.v1#/layout_macro"},
