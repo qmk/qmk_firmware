@@ -15,6 +15,7 @@
  */
 #include "le_chiffre.h"
 
+#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
   { 3, 4, NO_LED, 5, 6 },
@@ -29,3 +30,4 @@ led_config_t g_led_config = { {
 
   2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 } };
+#endif

@@ -17,6 +17,9 @@
  */
 
 #include "dip_switch.h"
+#ifdef SPLIT_KEYBOARD
+#    include "split_common/split_util.h"
+#endif
 
 // for memcpy
 #include <string.h>
@@ -32,6 +35,9 @@
 #ifdef DIP_SWITCH_PINS
 #    define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad) / sizeof(pin_t))
 static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
+#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
+static pin_t dip_switch_pad_right[] = DIP_SWITCH_PINS_RIGHT;
+#    endif
 #endif
 
 #ifdef DIP_SWITCH_MATRIX_GRID
@@ -49,18 +55,26 @@ static uint16_t       scan_count;
 static bool dip_switch_state[NUMBER_OF_DIP_SWITCHES]      = {0};
 static bool last_dip_switch_state[NUMBER_OF_DIP_SWITCHES] = {0};
 
-__attribute__((weak)) void dip_switch_update_user(uint8_t index, bool active) {}
+__attribute__((weak)) bool dip_switch_update_user(uint8_t index, bool active) { return true; }
 
-__attribute__((weak)) void dip_switch_update_kb(uint8_t index, bool active) { dip_switch_update_user(index, active); }
+__attribute__((weak)) bool dip_switch_update_kb(uint8_t index, bool active) { return dip_switch_update_user(index, active); }
 
-__attribute__((weak)) void dip_switch_update_mask_user(uint32_t state) {}
+__attribute__((weak)) bool dip_switch_update_mask_user(uint32_t state) { return true; }
 
-__attribute__((weak)) void dip_switch_update_mask_kb(uint32_t state) { dip_switch_update_mask_user(state); }
+__attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) { return dip_switch_update_mask_user(state); }
 
 void dip_switch_init(void) {
 #ifdef DIP_SWITCH_PINS
     for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
-        setPinInputHigh(dip_switch_pad[i]);
+#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
+        if (isLeftHand) {
+#    endif
+            setPinInputHigh(dip_switch_pad[i]);
+#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
+        } else {
+            setPinInputHigh(dip_switch_pad_right[i]);
+        }
+#    endif
     }
     dip_switch_read(true);
 #endif
@@ -89,7 +103,15 @@ void dip_switch_read(bool forced) {
 
     for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
 #ifdef DIP_SWITCH_PINS
-        dip_switch_state[i] = !readPin(dip_switch_pad[i]);
+#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
+        if (isLeftHand) {
+#    endif
+            dip_switch_state[i] = !readPin(dip_switch_pad[i]);
+#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
+        } else {
+            dip_switch_state[i] = !readPin(dip_switch_pad_right[i]);
+        }
+#    endif
 #endif
 #ifdef DIP_SWITCH_MATRIX_GRID
         dip_switch_state[i] = peek_matrix(dip_switch_pad[i].row, dip_switch_pad[i].col, read_raw);

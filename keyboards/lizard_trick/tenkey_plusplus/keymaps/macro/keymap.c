@@ -34,15 +34,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *
      *
      *   ┌───┬───┬───┬───┐
-     *   │TG1│ / │ * │ - │
+     *   │TG1│ / │ * │ - │
      *   ├───┼───┼───┼───┤
-     *   │ 7 │ 8 │ 9 │   │
-     *   ├───┼───┼───┤ + │
-     *   │ 4 │ 5 │ 6 │   │
+     *   │ 7 │ 8 │ 9 │   │
+     *   ├───┼───┼───┤ + │
+     *   │ 4 │ 5 │ 6 │   │
      *   ├───┼───┼───┼───┤
-     *   │ 1 │ 2 │ 3 │   │
+     *   │ 1 │ 2 │ 3 │   │
      *   ├───┴───┼───┤Ent│
-     *   │   0   │ . │   │
+     *   │   0   │ . │   │
      *   └───────┴───┴───┘
      */
 
@@ -58,15 +58,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      *
      * ┌─────────┬─────────┬─────────┬─────────┐
-     * │   TG1   │    /    │    *    │    -    │
+     * │   TG1   │    /    │    *    │    -    │
      * ├─────────┼─────────┼─────────┼─────────┤
-     * │  Alt 7  │  Alt 8  │  Alt 9  │         │
+     * │  Alt 7  │  Alt 8  │  Alt 9  │         │
      * ├─────────┼─────────┼─────────┤    +    │
-     * │  Alt 4  │  Alt 5  │  Alt 6  │         │
+     * │  Alt 4  │  Alt 5  │  Alt 6  │         │
      * ├─────────┼─────────┼─────────┼─────────┤
-     * │  Alt 1  │  Alt 2  │  Alt 3  │         │
+     * │  Alt 1  │  Alt 2  │  Alt 3  │         │
      * ├─────────┴─────────┼─────────┤   Ent   │
-     * │      Escape       │   Del   │         │
+     * │      Escape       │   Del   │         │
      * └───────────────────┴─────────┴─────────┘
      */
 
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {           /* Left Encoder */
         if (clockwise) {
             tap_code16(KC_VOLU);
@@ -100,4 +100,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code16(S(KC_TAB));
         }
     }
+    return true;
 }

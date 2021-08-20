@@ -16,6 +16,7 @@
 #pragma once
 
 #include <ch.h>
+#include <hal.h>
 
 /* chThdSleepX of zero maps to infinite - so we map to a tiny delay to still yield */
 #define wait_ms(ms)                     \
@@ -26,16 +27,21 @@
             chThdSleepMicroseconds(1);  \
         }                               \
     } while (0)
-#define wait_us(us)                     \
-    do {                                \
-        if (us != 0) {                  \
-            chThdSleepMicroseconds(us); \
-        } else {                        \
-            chThdSleepMicroseconds(1);  \
-        }                               \
-    } while (0)
 
-#include "wait.c"
+#ifdef WAIT_US_TIMER
+void wait_us(uint16_t duration);
+#else
+#    define wait_us(us)                     \
+        do {                                \
+            if (us != 0) {                  \
+                chThdSleepMicroseconds(us); \
+            } else {                        \
+                chThdSleepMicroseconds(1);  \
+            }                               \
+        } while (0)
+#endif
+
+#include "_wait.c"
 
 #define CPU_CLOCK STM32_SYSCLK
 

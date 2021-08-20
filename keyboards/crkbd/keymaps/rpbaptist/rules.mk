@@ -11,7 +11,7 @@ NKRO_ENABLE        = yes  # Nkey Rollover - if this doesn't work, see here: http
 
 MOUSEKEY_ENABLE    = no   # Mouse keys(+4700)
 RGBLIGHT_ENABLE    = no   # Enable WS2812 RGB underlight.
-BOOTMAGIC_ENABLE   = no   # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 CONSOLE_ENABLE     = no   # Console for debug(+400)
 COMMAND_ENABLE     = no   # Commands for debug and configuration
 BACKLIGHT_ENABLE   = no   # Enable keyboard backlight functionality

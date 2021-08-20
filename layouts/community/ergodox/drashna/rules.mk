@@ -1,5 +1,5 @@
-BOOTMAGIC_ENABLE   = lite
-TAP_DANCE_ENABLE   = yes
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+TAP_DANCE_ENABLE   = no
 COMMAND_ENABLE     = no  # Commands for debug and configuration
 CONSOLE_ENABLE     = no
 SPACE_CADET_ENABLE = no
@@ -18,4 +18,4 @@ UNICODE_ENABLE     = no
 UNICDOEMAP_ENABLE  = no
 
 
-DEBOUNCE_TYPE     = eager_pr
+DEBOUNCE_TYPE     = sym_eager_pr
