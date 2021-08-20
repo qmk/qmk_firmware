@@ -14,46 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "jelly.h"
-#include "rgblight.h"
-void led_set_kb(uint8_t usb_led) {
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		
-	} else {
-		
-	}
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-		
-	} else {
-		
-	}
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
-		
-	} else {
-		
-	}
-	if (usb_led & (1 << USB_LED_KANA)) {
-		
-	} else {
-		
-	}
-    led_set_user(usb_led);
-}
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) {
-        
-        
-   
-        default:
-        break;
-    }
-  }
-  return process_record_user(keycode, record);
-}
-void matrix_init_kb(void) {
-    matrix_init_user(); 
-    
-}
+
 // set the first rgb animation to RGBLIGHT_MODE_STATIC_LIGHT
 void keyboard_post_init_kb(void){
    
