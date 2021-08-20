@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,    KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,                      KC_UP,
         KC_LCTL,  KC_LGUI,  KC_LALT,                      KC_SPC,                                MO(1),    KC_RALT,	 KC_RGUI,  KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT
 	),
-	[1] = LAYOUT_87_ansi( /* FN */
+	[1] = LAYOUT_tkl_ansi( /* FN */
 	    _______,			_______,  _______,  _______,  _______,  _______, _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
 	    _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,  _______,  _______,  _______,  _______,  _______,  KC_DEL,   _______,  KC_END,
 	    _______,  RGB_TOG,  _______,  RGB_HUI,  RGB_HUD,  RGB_SAI,  RGB_SAD, RGB_VAI,  RGB_VAD,  RGB_MOD,  _______,  _______,  _______,  RESET,    _______,  KC_INS,
