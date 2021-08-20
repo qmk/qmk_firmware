@@ -459,8 +459,9 @@ void led_matrix_init(void) {
 
 void led_matrix_set_suspend_state(bool state) {
 #ifdef LED_DISABLE_WHEN_USB_SUSPENDED
-    if (state && is_keyboard_master()) {
-        led_matrix_set_value_all(0);  // turn off all LEDs when suspending
+    if (state && !suspend_state && is_keyboard_master()) {  // only run if turning off, and only once
+        led_task_effect(0);                                 // turn off all LEDs when suspending
+        led_task_flush(0);                                  // and actually flash led state to LEDs
     }
     suspend_state = state;
 #endif
