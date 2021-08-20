@@ -1,22 +1,25 @@
+# Build Options
+#   change yes to no to disable
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
-EXTRAKEY_ENABLE = yes       # Audio control and System control
 MOUSEKEY_ENABLE = yes       # Mouse keys
-NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-ENCODER_ENABLE = yes        # Enable rotary encoder support
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = yes          # Audio output
-
+ENCODER_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
+
 WS2812_DRIVER = pwm
 AUDIO_DRIVER = pwm_hardware
 
+RGB_MATRIX_ENABLE = no # Do not enable with RGBLIGHT
 RGB_MATRIX_DRIVER = WS2812
-# Underglow and rgb matrix features shouldn't be on at the same time.
-# Choose one. Otherwise both driver will try to change color and you'll see
-# colors flickering.
-RGBLIGHT_ENABLE = yes # Enable keyboard RGB underglow
-RGB_MATRIX_ENABLE = no 
-
 
 DEFAULT_FOLDER = yanghu/unicorne/f411
