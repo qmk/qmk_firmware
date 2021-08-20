@@ -29,6 +29,19 @@
     - Win Key light up red when Win Lock mode enabled
     - Layer 2 activation lights up Numpad area
 
+rules.mk OPTIONS - Active features from userspace
+STARTUP_NUMLOCK_ON = yes
+    - turns on NUMLOCK by default
+
+ENCODER_DEFAULTACTIONS_ENABLE = yes
+    - Enabled default encoder funtions
+  
+TD_LSFT_CAPSLOCK_ENABLE = yes
+    - This will enable double tap on Left Shift to toggle CAPSLOCK when using KC_LSFTCAPS
+
+IDLE_TIMEOUT_ENABLE = yes
+    - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
+
 ## All layers diagram
 Default layer
 ![image](https://user-images.githubusercontent.com/71780717/124177658-82324880-da7e-11eb-9421-b69100131062.png)
