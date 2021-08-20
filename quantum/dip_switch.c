@@ -35,9 +35,6 @@
 #ifdef DIP_SWITCH_PINS
 #    define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad) / sizeof(pin_t))
 static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
-#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
-static pin_t dip_switch_pad_right[] = DIP_SWITCH_PINS_RIGHT;
-#    endif
 #endif
 
 #ifdef DIP_SWITCH_MATRIX_GRID
@@ -65,16 +62,16 @@ __attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) { return di
 
 void dip_switch_init(void) {
 #ifdef DIP_SWITCH_PINS
-    for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
 #    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
-        if (isLeftHand) {
-#    endif
-            setPinInputHigh(dip_switch_pad[i]);
-#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
-        } else {
-            setPinInputHigh(dip_switch_pad_right[i]);
+    if (!isLeftHand) {
+        const pin_t dip_switch_pad_right[] = DIP_SWITCH_PINS_RIGHT;
+        for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
+            dip_switch_pad[i] = dip_switch_pad_right[i];
         }
+    }
 #    endif
+    for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
+        setPinInputHigh(dip_switch_pad[i]);
     }
     dip_switch_read(true);
 #endif
@@ -103,15 +100,7 @@ void dip_switch_read(bool forced) {
 
     for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
 #ifdef DIP_SWITCH_PINS
-#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
-        if (isLeftHand) {
-#    endif
-            dip_switch_state[i] = !readPin(dip_switch_pad[i]);
-#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
-        } else {
-            dip_switch_state[i] = !readPin(dip_switch_pad_right[i]);
-        }
-#    endif
+        dip_switch_state[i] = !readPin(dip_switch_pad[i]);
 #endif
 #ifdef DIP_SWITCH_MATRIX_GRID
         dip_switch_state[i] = peek_matrix(dip_switch_pad[i].row, dip_switch_pad[i].col, read_raw);
