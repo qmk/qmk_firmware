@@ -6,10 +6,12 @@
 // entirely and just use numbers.
 
 
-#define _BASE 0
-#define _FN1 1
-#define _FN2 2
-#define _FN3 3
+enum custom_layers {
+    _BASE,
+    _FN1,
+    _FN2,
+    _FN3,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
