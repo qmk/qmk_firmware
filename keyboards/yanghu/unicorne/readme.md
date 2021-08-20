@@ -2,18 +2,13 @@
 
 ![Unicorne](https://imgur.com/g1nN3b4.jpg)
 
-A compact 40% (3x6\_4) single-piece angled ortholinear ergo keyboard kit
-inspired by crkbd, Kyria, Ferris and Reviung41. Features OLED display, audio
-buzzer, RGB LED underglow as well as encoders.
+A compact 40% (3x6\_4) single-piece angled ortholinear ergo keyboard kit inspired by crkbd, Kyria, Ferris and Reviung41. Features OLED display, audio buzzer, RGB LED underglow as well as encoders.
 
-* Keyboard Maintainer: [Yang Hu](https://github.com/yanghu) 
-* Hardware Supported: Unicorne PCB 1.0 
-* Hardware Availability: Open source design at
-https://github.com/yanghu/unicorne
+* Keyboard Maintainer: [Yang Hu](https://github.com/yanghu)
+* Hardware Supported: Unicorne PCB 1.0
+* Hardware Availability: Open source design at https://github.com/yanghu/unicorne
 
-To enter bootloader, long press the reset button for 3-5 seconds then release.
-More details can be found at [keyboard
-wiki](https://github.com/yanghu/unicorne/wiki/Build-guide#testing-the-board). 
+To enter bootloader, long press the reset button for 3-5 seconds then release. More details can be found at [keyboard wiki](https://github.com/yanghu/unicorne/wiki/Build-guide#testing-the-board). 
 
 Make example for this keyboard (after setting up your build environment):
 
