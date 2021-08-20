@@ -52,37 +52,64 @@ static void render_logo(void) {
 }
 
 #ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
 
 void render_rgb_status(void) {
     oled_write_ln_P(PSTR("RGB"), false);
-    if (!rgblight_config.enable) {
+    if (!rgblight_is_enabled()) {
         oled_write_P(PSTR("  off\n\n\n"), false);
     }
     else {
-        static char led_buf[24] = {0};
-        snprintf(led_buf, sizeof(led_buf), "M:%3dH:%3dS:%3dV:%3d",
-            (uint8_t)rgblight_config.mode,
-            (uint8_t)rgblight_config.hue,
-            (uint8_t)rgblight_config.sat,
-            (uint8_t)rgblight_config.val);
-        oled_write(led_buf, false);
+        static char string[4] = {0};
+        oled_write_P(PSTR("M:"), false);
+        uint8_t n = rgblight_get_mode();
+        string[3] = '\0';
+        string[2] = '0' + n % 10;
+        string[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+        string[0] =  n / 10 ? '0' + n / 10 : ' ';
+        oled_write(string, false);
+
+        oled_write_P(PSTR("H:"), false);
+        n = rgblight_get_hue();
+        string[3] = '\0';
+        string[2] = '0' + n % 10;
+        string[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+        string[0] =  n / 10 ? '0' + n / 10 : ' ';
+        oled_write(string, false);
+
+        oled_write_P(PSTR("S:"), false);
+        n = rgblight_get_sat();
+        string[3] = '\0';
+        string[2] = '0' + n % 10;
+        string[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+        string[0] =  n / 10 ? '0' + n / 10 : ' ';
+        oled_write(string, false);
+
+        oled_write_P(PSTR("V:"), false);
+        n = rgblight_get_val()/RGBLIGHT_VAL_STEP;
+        string[3] = '\0';
+        string[2] = '0' + n % 10;
+        string[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+        string[0] =  n / 10 ? '0' + n / 10 : ' ';
+        oled_write(string, false);
     }
 }
 #endif
 
-extern backlight_config_t backlight_config;
 
 void render_backlight_status(void) {
     oled_write_ln_P(PSTR("BKL"), false);
-    if (!backlight_config.enable) {
+    if (!is_backlight_enabled()) {
         oled_write_P(PSTR("  off"), false);
     }
     else {
-        static char bkl_buf[8] = {0};
-        snprintf(bkl_buf, sizeof(bkl_buf), "L:%3d",
-            (uint8_t)backlight_config.level);
-        oled_write(bkl_buf, false);
+        char string[4];
+        oled_write_P(PSTR("L:"), false);
+        uint8_t n = get_backlight_level();
+        string[3] = '\0';
+        string[2] = '0' + n % 10;
+        string[1] = ( n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+        string[0] =  n / 10 ? '0' + n / 10 : ' ';
+        oled_write(string, false);
     }
 }
 
