@@ -86,6 +86,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
         }
     }
+    return false;
 }
 
 // Set underglow color to blue.
