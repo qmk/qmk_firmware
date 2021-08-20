@@ -17,7 +17,7 @@ wiki](https://github.com/yanghu/unicorne/wiki/Build-guide#testing-the-board).
 
 Make example for this keyboard (after setting up your build environment):
 
-		qmk compile -kb yanghu/unicorne -km default
+    make yanghu/unicorne:default
 
 
 See the [build environment
