@@ -8,7 +8,7 @@ An 60%-ish Ortholinear Low-profile (Kailh Choc) Keyboard, with Boardwalk-like la
 
 Make example for this keyboard (after setting up your build environment):
 
-    make plut0nium/0x3E:default:flash
+    make plut0nium/0x3e:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
