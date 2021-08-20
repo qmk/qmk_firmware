@@ -16,7 +16,6 @@
 
 #include <string.h>
 #include <debug.h>
-#include <timer.h>
 
 #include "transactions.h"
 #include "transport.h"
