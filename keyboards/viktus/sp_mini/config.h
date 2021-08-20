@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Viktus_Design
 #define PRODUCT         SP_Mini
-//#define VIAL_KEYBOARD_UID {0xC5, 0x02, 0x78, 0x7D, 0x10, 0xBF, 0x5C, 0x55}
 
 /* key matrix size */
 // Rows are doubled-up
