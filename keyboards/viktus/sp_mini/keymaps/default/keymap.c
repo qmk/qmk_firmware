@@ -66,31 +66,23 @@ void keyboard_pre_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    writePinLow(F5);
+    writePinLow(F6);
+    writePinLow(F7);
     switch (get_highest_layer(state)) {
         case _FN1:
             writePinHigh(F5);
-            writePinLow(F6);
-            writePinLow(F7);
             break;
         case _FN2:
             writePinHigh(F6);
-            writePinLow(F5);
-            writePinLow(F7);
             break;
         case _FN3:  // replace 'XXXX' with the layer or function name
             writePinHigh(F7);
-            writePinLow(F5);
-            writePinLow(F6);
             break;
         case KC_F24:
             writePinHigh(F7);
             writePinHigh(F5);
             writePinHigh(F6);
-            break;
-        default:
-            writePinLow(F5);
-            writePinLow(F6);
-            writePinLow(F7);
             break;
         }
     return state;
