@@ -212,22 +212,16 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 #define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
 #define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
-uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
-uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
-bool     process_action_kb(keyrecord_t *record);
-bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
-bool     process_record_user(uint16_t keycode, keyrecord_t *record);
-void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
-void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
+bool process_action_kb(keyrecord_t *record);
+bool process_record_kb(uint16_t keycode, keyrecord_t *record);
+bool process_record_user(uint16_t keycode, keyrecord_t *record);
+void post_process_record_kb(uint16_t keycode, keyrecord_t *record);
+void post_process_record_user(uint16_t keycode, keyrecord_t *record);
 
 void reset_keyboard(void);
 
 void startup_user(void);
 void shutdown_user(void);
-
-void register_code16(uint16_t code);
-void unregister_code16(uint16_t code);
-void tap_code16(uint16_t code);
 
 void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);

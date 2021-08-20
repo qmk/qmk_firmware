@@ -5,6 +5,7 @@
 #include "action_tapping.h"
 #include "keycode.h"
 #include "timer.h"
+#include "keymap.h"
 
 #ifdef DEBUG_ACTION
 #    include "debug.h"
@@ -57,6 +58,40 @@ static bool waiting_buffer_has_anykey_pressed(void);
 static void waiting_buffer_scan_tap(void);
 static void debug_tapping_key(void);
 static void debug_waiting_buffer(void);
+
+/* Convert record into usable keycode via the contained event. */
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
+#ifdef COMBO_ENABLE
+    if (record->keycode) { return record->keycode; }
+#endif
+    return get_event_keycode(record->event, update_layer_cache);
+}
+
+/* Convert event into usable keycode. Checks the layer cache to ensure that it
+ * retains the correct keycode after a layer change, if the key is still pressed.
+ * "update_layer_cache" is to ensure that it only updates the layer cache when
+ * appropriate, otherwise, it will update it and cause layer tap (and other keys)
+ * from triggering properly.
+ */
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
+    const keypos_t key = event.key;
+
+#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
+    /* TODO: Use store_or_get_action() or a similar function. */
+    if (!disable_action_cache) {
+        uint8_t layer;
+
+        if (event.pressed && update_layer_cache) {
+            layer = layer_switch_get_layer(key);
+            update_source_layers_cache(key, layer);
+        } else {
+            layer = read_source_layers_cache(key);
+        }
+        return keymap_key_to_keycode(layer, key);
+    }
+#endif
+    return keymap_key_to_keycode(layer_switch_get_layer(key), key);
+}
 
 /** \brief Action Tapping Process
  *

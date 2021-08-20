@@ -960,6 +960,34 @@ void unregister_weak_mods(uint8_t mods) {
     }
 }
 
+static void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
+
+void register_code16(uint16_t code) {
+    if (IS_MOD(code) || code == KC_NO) {
+        do_code16(code, register_mods);
+    } else {
+        do_code16(code, register_weak_mods);
+    }
+    register_code(code);
+}
+
+void unregister_code16(uint16_t code) {
+    unregister_code(code);
+    if (IS_MOD(code) || code == KC_NO) {
+        do_code16(code, unregister_mods);
+    } else {
+        do_code16(code, unregister_weak_mods);
+    }
+}
+
+void tap_code16(uint16_t code) {
+    register_code16(code);
+#if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+#endif
+    unregister_code16(code);
+}
+
 /** \brief Utilities for actions. (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.

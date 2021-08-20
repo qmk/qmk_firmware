@@ -51,63 +51,6 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
 #endif
 
-#ifdef AUTO_SHIFT_ENABLE
-#    include "process_auto_shift.h"
-#endif
-
-uint8_t extract_mod_bits(uint16_t code) {
-    switch (code) {
-        case QK_MODS ... QK_MODS_MAX:
-            break;
-        default:
-            return 0;
-    }
-
-    uint8_t mods_to_send = 0;
-
-    if (code & QK_RMODS_MIN) {  // Right mod flag is set
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RGUI);
-    } else {
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LGUI);
-    }
-
-    return mods_to_send;
-}
-
-static void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
-
-void register_code16(uint16_t code) {
-    if (IS_MOD(code) || code == KC_NO) {
-        do_code16(code, register_mods);
-    } else {
-        do_code16(code, register_weak_mods);
-    }
-    register_code(code);
-}
-
-void unregister_code16(uint16_t code) {
-    unregister_code(code);
-    if (IS_MOD(code) || code == KC_NO) {
-        do_code16(code, unregister_mods);
-    } else {
-        do_code16(code, unregister_weak_mods);
-    }
-}
-
-void tap_code16(uint16_t code) {
-    register_code16(code);
-#if TAP_CODE_DELAY > 0
-    wait_ms(TAP_CODE_DELAY);
-#endif
-    unregister_code16(code);
-}
-
 __attribute__((weak)) bool process_action_kb(keyrecord_t *record) { return true; }
 
 __attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) { return process_record_user(keycode, record); }
@@ -140,39 +83,6 @@ void reset_keyboard(void) {
     haptic_shutdown();
 #endif
     bootloader_jump();
-}
-
-/* Convert record into usable keycode via the contained event. */
-uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
-#ifdef COMBO_ENABLE
-    if (record->keycode) { return record->keycode; }
-#endif
-    return get_event_keycode(record->event, update_layer_cache);
-}
-
-
-/* Convert event into usable keycode. Checks the layer cache to ensure that it
- * retains the correct keycode after a layer change, if the key is still pressed.
- * "update_layer_cache" is to ensure that it only updates the layer cache when
- * appropriate, otherwise, it will update it and cause layer tap (and other keys)
- * from triggering properly.
- */
-uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
-#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
-    /* TODO: Use store_or_get_action() or a similar function. */
-    if (!disable_action_cache) {
-        uint8_t layer;
-
-        if (event.pressed && update_layer_cache) {
-            layer = layer_switch_get_layer(event.key);
-            update_source_layers_cache(event.key, layer);
-        } else {
-            layer = read_source_layers_cache(event.key);
-        }
-        return keymap_key_to_keycode(layer, event.key);
-    } else
-#endif
-        return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }
 
 /* Get keycode, and then process pre tapping functionality */
