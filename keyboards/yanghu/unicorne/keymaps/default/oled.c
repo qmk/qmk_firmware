@@ -16,7 +16,6 @@
 #ifdef OLED_DRIVER_ENABLE
 #    include QMK_KEYBOARD_H
 #    include "layers.h"
-#    include "oled.h"
 
 // Some characters position:
 // alt: 84 85 86/a..../c...
