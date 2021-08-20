@@ -22,4 +22,4 @@ BLUETOOTH_ENABLE = no          # Enable Bluetooth
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3741
 
-LAYOUTS =  
+LAYOUTS = tkl_ansi
