@@ -40,15 +40,15 @@ This configuration will not work out of the box with the [Unicomp Mini M](https:
 
 ## Maintainer
 
-Keyboard Maintainer: [tiltowait](https://github.com/tiltowait), original work by [iw0rm3r](https://github.com/iw0rm3r)
-Hardware Supported: Teensy 2.0++ board by PJRC
-Hardware Availability: https://www.pjrc.com/store/teensypp.html
+* Keyboard Maintainer: [tiltowait](https://github.com/tiltowait), original work by [iw0rm3r](https://github.com/iw0rm3r)
+* Hardware Supported: Teensy 2.0++ board by PJRC
+* Hardware Availability: https://www.pjrc.com/store/teensypp.html
 
 ## Building
 
-For your initial build, you will need to run
+Make example for this keyboard (after setting up your build environment):
 
-    make converter/modelm_ssk:default:teensy
+    make converter/modelm_ssk:default
 
 You must press the button on the Teensy to enter the bootloader the first time. Afterward, so long as you keep `COMMAND_ENABLE = yes` in `rules.mk` (enabled by default), you can use `Left Shift + Right Shift + B` to enter the bootloader. With this method, you can omit `:teensy` from the end of the `make` command.
 
