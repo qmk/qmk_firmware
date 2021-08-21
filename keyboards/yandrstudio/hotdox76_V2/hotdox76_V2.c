@@ -221,7 +221,9 @@ void get_cur_alp_hook(uint16_t keycode) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    get_cur_alp_hook(keycode);
+    if (record->event.pressed) {
+        get_cur_alp_hook(keycode);
+    }
     return true;
 
 }
