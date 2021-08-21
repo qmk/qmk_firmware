@@ -35,3 +35,9 @@
 // Encoder stuff
 #define ENCODER_RESOLUTION 2
 #define ENCODER_DIRECTION_FLIP
+
+/* oled custom font */
+
+// #define OLED_FONT_H "cabfont.c"
+
+#define RBGLIGHT_LED_MAP {9,8,6,7,5,3,2,4,1,0,10,12,13,11,14,16,17,15,18,19}
