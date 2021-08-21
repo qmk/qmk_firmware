@@ -22,7 +22,7 @@
 #define PRODUCT_ID      0xAAA9
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    JasonRen biu
-#define PRODUCT         hotdox76_V2
+#define PRODUCT         hotdox76V2
 
 /* key matrix size */
 #define MATRIX_ROWS 6*2
@@ -86,12 +86,13 @@
 
 #    define RGBLIGHT_SPLIT
 #    define RGBLED_SPLIT {43, 43}
-
 #    define RGB_DI_PIN D3
 #    define RGBLED_NUM (43*2)
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGBLIGHT_LIMIT_VAL 150
 #    define RGBLIGHT_SLEEP
+#    define WS2812_TRST_US 100
+#    define RGBLIGHT_ANIMATIONS
 
 // #    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
@@ -106,6 +107,8 @@
 #   define SOFT_SERIAL_PIN D2
 
 #   define SPLIT_MODS_ENABLE
+#   define SPLIT_TRANSPORT_MIRROR
+
 
 #   define SPLIT_USB_DETECT
 
@@ -127,8 +130,8 @@
  */
 
 /* disable action features */
-#define NO_ACTION_LAYER
-#define NO_ACTION_TAPPING
+// #define NO_ACTION_LAYER
+// #define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
 
 /* disable these deprecated features by default */

@@ -3,6 +3,20 @@
 #include "oled_font_lib/logo.h"
 #include "oled_font_lib/ext_font.h"
 
+
+
+
+bool is_keyboard_left(void) {
+
+#ifdef I_AM_LEFT
+    return true;
+#else
+    return false;
+#endif
+
+}
+
+
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
     {
@@ -54,6 +68,7 @@ led_config_t g_led_config = {
 #endif
 
 
+
 #ifdef OLED_DRIVER_ENABLE
 
 #   define UNC (94+0x21)
@@ -81,85 +96,88 @@ void render_logo(void) {
     for (i = 0; i < 4; ++i) {
         for (j = 0; j < 32; ++j) {
 #   ifdef I_AM_LEFT
-            oled_write_raw_byte(logo_idobao[i*32+j], i*128+j);
+            oled_write_raw_byte(pgm_read_byte(&logo_idobao[i*32+j]), i*128+j);
 #   else
-            oled_write_raw_byte(logo_idobao[i*32+j], i*128+j+96);
+            oled_write_raw_byte(pgm_read_byte(&logo_idobao[i*32+j]), i*128+j+96);
 #   endif
         }
     }
 }
 
-
-void render_layer_helper_fun(uint8_t start_line, const char * data, uint8_t gap_w) {
-    uint8_t j = 0, k = 0, l = strlen(data);
+void render_layer_helper_fun(uint8_t start_line, const char * data, uint8_t gap_w, uint8_t l) {
+    uint8_t j = 0, k = 0;
     for (j = 0; j < l; ++j) { // font index
         for (k = 0; k < 12; ++k) { // font byte index
             //                                        base + logo_w(32) + gap_w(12) +l*font_w(12)+current_byte_index
-            oled_write_raw_byte(ext_big_font[data[j]-0x21][k], start_line*2*128 + 32 + gap_w + j*12+k);
-            oled_write_raw_byte(ext_big_font[data[j]-0x21][k+12], start_line*2*128+128 + 32 + gap_w + j*12+k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j])-0x21][k]), start_line*2*128 + 32 + gap_w + j*12+k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j])-0x21][k+12]), start_line*2*128+128 + 32 + gap_w + j*12+k);
         }
     }
     for (j = 0; j < gap_w; ++j) {
-        oled_write_raw_byte(blank_block, start_line*2*128 + 32 + j);
-        oled_write_raw_byte(blank_block, start_line*2*128 + 32 + gap_w + l*12 + j);
+        oled_write_raw_byte(pgm_read_byte(&blank_block), start_line*2*128 + 32 + j);
+        oled_write_raw_byte(pgm_read_byte(&blank_block), start_line*2*128 + 32 + gap_w + l*12 + j);
 
-        oled_write_raw_byte(blank_block, start_line*2*128+128 + 32 + j);
-        oled_write_raw_byte(blank_block, start_line*2*128+128 + 32 + gap_w + l*12 + j);
+        oled_write_raw_byte(pgm_read_byte(&blank_block), start_line*2*128+128 + 32 + j);
+        oled_write_raw_byte(pgm_read_byte(&blank_block), start_line*2*128+128 + 32 + gap_w + l*12 + j);
 
     }
 }
 void render_layer(uint8_t layer) {
-    render_layer_helper_fun(0, PSTR("LAYER:"), 12);
-    switch (layer)
-    {
+    render_layer_helper_fun(0, PSTR("LAYER:"), 12, 6);
+    switch (layer) {
     case 0:
-        render_layer_helper_fun(1, PSTR("1:HOME"), 12);
+        render_layer_helper_fun(1, PSTR("1:HOME"), 12, 6);
         break;
     case 1:
-        render_layer_helper_fun(1, PSTR("2:CODE"), 12);
+        render_layer_helper_fun(1, PSTR("2:CODE"), 12, 6);
         break;
     case 2:
-        render_layer_helper_fun(1, PSTR("3:OFFICE"), 0);
+        render_layer_helper_fun(1, PSTR("3:OFFICE"), 0, 8);
         break;
     case 3:
     default:
-        render_layer_helper_fun(1, PSTR("OTHER"), 18);
+        render_layer_helper_fun(1, PSTR("4:OTHERS"), 0, 8);
         break;
     }
 }
 
-void render_cur_input_helper_fun(uint8_t start_line, const char * data, uint8_t gap_w) {
-    uint8_t j = 0, k = 0, l = strlen(data);
+void render_cur_input_helper_fun(uint8_t start_line, const char * data, uint8_t gap_w, uint8_t l) {
+    uint8_t j = 0, k = 0;
     for (j = 0; j < l; ++j) { // font index
         for (k = 0; k < 12; ++k) { // font byte index
             //                                        base + logo_w(0) + gap_w(12) +l*font_w(12)+current_byte_index
-            oled_write_raw_byte(ext_big_font[data[j]-0x21][k], start_line*2*128 + gap_w + j*12+k);
-            oled_write_raw_byte(ext_big_font[data[j]-0x21][12+k], start_line*2*128+128 + gap_w + j*12+k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j]-0x21][k]), start_line*2*128 + gap_w + j*12+k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j]-0x21][12+k]), start_line*2*128+128 + gap_w + j*12+k);
         }
     }
     for (j = 0; j < gap_w; ++j) {
-        oled_write_raw_byte(blank_block, start_line*2*128 + j);
-        oled_write_raw_byte(blank_block, start_line*2*128 + gap_w + l*12 + j);
+        oled_write_raw_byte(pgm_read_byte(&blank_block), start_line*2*128 + j);
+        oled_write_raw_byte(pgm_read_byte(&blank_block), start_line*2*128 + gap_w + l*12 + j);
 
-        oled_write_raw_byte(blank_block, start_line*2*128+128 + j);
-        oled_write_raw_byte(blank_block, start_line*2*128+128 + gap_w + l*12 + j);
+        oled_write_raw_byte(pgm_read_byte(&blank_block), start_line*2*128+128 + j);
+        oled_write_raw_byte(pgm_read_byte(&blank_block), start_line*2*128+128 + gap_w + l*12 + j);
     }
 }
 
 void render_cur_input(void) {
-    render_cur_input_helper_fun(0, PSTR("INPUTS:"), 6);
-    render_cur_input_helper_fun(1, (const char *)(current_alp), 12);
+    render_cur_input_helper_fun(0, "INPUTS:", 6, 7);
+    render_cur_input_helper_fun(1, (const char *)(current_alp), 12, 6);
     return;
 }
 
 
 void oled_task_user(void) {
     render_logo();
-#   ifdef I_AM_LEFT
-    render_layer(biton32(layer_state));
-#   else
-    render_cur_input();
-#   endif
+    if (is_keyboard_left()) {
+        render_layer(biton32(layer_state));
+    } else {
+        render_cur_input();
+    }
+// #   ifdef I_AM_LEFT
+//     render_layer(biton32(layer_state));
+// #   else
+//     render_cur_input();
+// #   endif
 }
 
 
@@ -192,18 +210,17 @@ void get_cur_alp_hook(uint16_t keycode) {
         keycode = 0xF0;
     }
     if (cur_alp_index < 4) {
-        current_alp[cur_alp_index] = code_to_name[keycode];
+        current_alp[cur_alp_index] = pgm_read_byte(&code_to_name[keycode]);
         cur_alp_index++;
     } else {
         for (uint8_t i = 2; i <= 4; ++i) {
             current_alp[i-1] = current_alp[i];
         }
-        current_alp[cur_alp_index] = code_to_name[keycode];
+        current_alp[cur_alp_index] = pgm_read_byte(&code_to_name[keycode]);
     }
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-
     get_cur_alp_hook(keycode);
     return true;
 
@@ -215,19 +232,9 @@ void matrix_scan_kb(void) {
         cur_alp_index = 1;
     }
 }
-
-
 #endif
 
-bool is_keyboard_left(void) {
 
-#ifdef I_AM_LEFT
-    return true;
-#else
-    return false;
-#endif
-
-}
 
 
 // void keyboard_post_init_kb(void) {
