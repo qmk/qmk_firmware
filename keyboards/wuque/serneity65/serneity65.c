@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "zoom65.h"
+#include "serneity65.h"
 
 #ifdef VIA_ENABLE
 static uint8_t encoder_state[ENCODERS] = {0};
