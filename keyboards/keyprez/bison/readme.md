@@ -5,7 +5,7 @@
 A split 60% ergonomic keyboard with a slight columnar stagger. Should provide an easy transition from a ortholinear keyboard to a split ergonomic keyboard.
 
 * Keyboard Maintainer: [csandven](https://github.com/csandven)
-* Hardware Supported: *Pro micro compatible boards*
+* Hardware Supported: Pro micro compatible boards
 * Hardware Availability: *TBA*
 
 Make example for this keyboard (after setting up your build environment):
