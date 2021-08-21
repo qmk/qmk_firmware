@@ -1,6 +1,6 @@
 # bison
 
-![Imgur](https://i.imgur.com/FTOUHTq.jpg)
+![Imgur](https://i.imgur.com/FTOUHTqh.jpg)
 
 A split 60% ergonomic keyboard with a slight columnar stagger. Should provide an easy transition from a ortholinear keyboard to a split ergonomic keyboard.
 
