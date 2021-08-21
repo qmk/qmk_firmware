@@ -7,7 +7,7 @@ BOOTLOADER = USBasp
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = no        # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -20,8 +20,6 @@ ENCODER_ENABLE = yes        # Enable rotary encoder
 OLED_DRIVER_ENABLE = yes
 WPM_ENABLE = yes
 CUSTOM_MATRIX = lite
-
-LAYOUTS = split_3x6_4
 
 SRC += matrix.c \
     bongocat.c \

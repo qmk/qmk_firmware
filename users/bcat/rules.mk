@@ -1,7 +1,7 @@
 SRC += bcat.c
 
 # Enable Bootmagic Lite to consistently reset to bootloader and clear EEPROM.
-BOOTMAGIC_ENABLE = lite
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 
 # Enable media keys on all keyboards.
 EXTRAKEY_ENABLE = yes
@@ -27,7 +27,6 @@ MIDI_ENABLE = no
 SLEEP_LED_ENABLE = no
 
 # Disable other unused options on all keyboards.
-API_SYSEX_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = no
 KEYBOARD_LOCK_ENABLE = no

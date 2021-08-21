@@ -54,19 +54,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.
   [BASE] = LAYOUT_ergodox(
     /* left hand */
-    BP_DLR,   BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, KC_DEL,
-    KC_TAB,   BP_B,    BP_ECUT, BP_P,    BP_O,    BP_EGRV, KC_BSPC,
+    BP_DLR,   BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN, KC_DEL,
+    KC_TAB,   BP_B,    BP_EACU, BP_P,    BP_O,    BP_EGRV, KC_BSPC,
     KC_LSFT,  BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM,
     KC_LCTRL, BP_AGRV, BP_Y,    BP_X,    BP_DOT,  BP_K,    KC_ENT,
-    ESC_FN,   BP_ECRC, KC_LGUI, KC_LALT, SPC_RALT,
+    ESC_FN,   BP_ECIR, KC_LGUI, KC_LALT, SPC_RALT,
                                                           TT(SWAP), KC_MNXT,
                                                                     KC_MPLY,
                                                   TT(FN), TT(NUMS), KC_MPRV,
     /* right hand */
         KC_DEL,  BP_AT,   BP_PLUS,  BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL,
-        KC_BSPC, BP_DCRC, BP_V,     BP_D,    BP_L,        BP_J,    BP_Z,
+        KC_BSPC, BP_DCIR, BP_V,     BP_D,    BP_L,        BP_J,    BP_Z,
                  BP_C,    BP_T,     BP_S,    BP_R,        BP_N,    M_RSFT,
-        KC_ENT,  BP_APOS, BP_Q,     BP_G,    BP_H,        BP_F,    W_RCTL,
+        KC_ENT,  BP_QUOT, BP_Q,     BP_G,    BP_H,        BP_F,    W_RCTL,
                           SPC_RALT, KC_LALT, TT(SYSLEDS), BP_CCED, PERC_FN,
     KC_LEFT, KC_RIGHT,
     KC_UP,
@@ -191,7 +191,7 @@ static bool is_macro1_recording = false;
 // There is a global 'layer_state' variable but it is set after the call
 // to layer_state_set_user().
 static uint32_t current_layer_state = 0;
-uint32_t layer_state_set_user(uint32_t state);
+layer_state_t layer_state_set_user(layer_state_t state);
 
 // Method called at the end of the tap dance on the TAP_MACRO key. That key is
 // used to start recording a macro (double tap or more), to stop recording (any
@@ -315,7 +315,7 @@ void led_set_user(uint8_t usb_led) {
   }
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   current_layer_state = state;
   swap_hands = LAYER_ON(SWAP);
 

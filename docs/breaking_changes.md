@@ -93,10 +93,13 @@ This happens immediately after the previous `develop` branch is merged.
     * [ ] `git push upstream develop`
 * GitHub Actions
     * [ ] Create a PR for `develop`
-    * [ ] Make sure travis comes back clean
     * [ ] **Turn off 'Automatically delete head branches' for the repository** -- confirm with @qmk/directors that it is done before continuing
 * `qmk_firmware` git commands
     * [ ] `git checkout master`
     * [ ] `git pull --ff-only`
     * [ ] `git merge --no-ff develop`
     * [ ] `git push upstream master`
+
+## Post-merge operations
+
+* (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)

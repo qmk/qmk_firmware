@@ -161,7 +161,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_tap_dance() {
+void tap_dance_task() {
     if (highest_td == -1) return;
     uint16_t tap_user_defined;
 

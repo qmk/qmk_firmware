@@ -202,7 +202,7 @@ void matrix_init_user(void) {
     default_layer_led_set();
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     ergodox_led_all_off();
     switch (biton32(state)) {
       case FN:

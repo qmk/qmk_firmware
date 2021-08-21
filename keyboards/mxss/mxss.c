@@ -18,7 +18,7 @@
 
 #include QMK_KEYBOARD_H
 #include "tmk_core/common/eeprom.h"
-#include "tmk_core/common/action_layer.h"
+#include "action_layer.h"
 #include "rgblight.h"
 #include "via.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic

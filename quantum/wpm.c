@@ -39,7 +39,14 @@ __attribute__((weak)) bool wpm_keycode_user(uint16_t keycode) {
 /* the actual WPM */
 #define WPM_SHORT_WINDOW
 
-#ifndef WPM_SHORT_WINDOW
+#ifdef WPM_SHORT_WINDOW
+/*    Full range we capture here is 100 * 60 ms = 6 s, this also means that it will take */
+/*      ~6 seconds to display the actual WPM once you start typing. */
+/*    x*10 = x*8 + x*2 */
+#    define WPM_WINDOW_NUM      100
+#    define WPM_WINDOW_MS       60
+#    define WPM_WINDOW_TO_WPM(x)  (((x) << 3) + ((x) << 1))
+#else
 /*    Full range we capture here is 100 * 100 ms = 10 s, this also means that it will take */
 /*      ~10 seconds to display the actual WPM once you start typing. */
 /*    The computed WPM needs to be multiplied by 6 (6*10s=60s=1min)  */
@@ -47,14 +54,6 @@ __attribute__((weak)) bool wpm_keycode_user(uint16_t keycode) {
 #    define WPM_WINDOW_NUM      100
 #    define WPM_WINDOW_MS       100
 #    define WPM_WINDOW_TO_WPM(x)  (((x) << 2) + ((x) << 1))
-
-#else
-/*    Full range we capture here is 100 * 60 ms = 6 s, this also means that it will take */
-/*      ~6 seconds to display the actual WPM once you start typing. */
-/*    x*10 = x*8 + x*2 */
-#    define WPM_WINDOW_NUM      100
-#    define WPM_WINDOW_MS       60
-#    define WPM_WINDOW_TO_WPM(x)  (((x) << 3) + ((x) << 1))
 #endif
 
 /* State names */
