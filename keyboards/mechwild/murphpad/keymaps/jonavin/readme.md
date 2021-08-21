@@ -1,6 +1,6 @@
 Jonavin's Custom MurphPad Landscape Layout
  
-This allow you to use Murphpad in a horizontal/landscape orientation
+This allows you to use Murphpad in a horizontal/landscape orientation
 
     - OLED has been rotated for landscape mode 
     - Keymap positions have been updated so it's easier to visualize the keymap in landscape 
