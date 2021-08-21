@@ -56,10 +56,6 @@ void keyboard_post_init_rgb_light(void) {
 }
 
 void matrix_scan_rgb_light(void) {
-#    ifdef RGBLIGHT_TWINKLE
-    scan_rgblight_fadeout();
-#    endif  // RGBLIGHT_ENABLE
-
 #    if defined(RGBLIGHT_STARTUP_ANIMATION)
     if (is_rgblight_startup && is_keyboard_master()) {
         if (sync_timer_elapsed(rgblight_startup_loop_timer) > 10) {
