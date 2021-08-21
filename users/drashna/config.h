@@ -230,7 +230,12 @@
 #    undef LOCKING_RESYNC_ENABLE
 #endif
 
-#define LAYER_STATE_16BIT
+#if !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_32BIT)
+#    define LAYER_STATE_16BIT
+#endif
+#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 11
+#endif
 
 #ifdef CONVERT_TO_PROTON_C
 // pins that are available but not present on Pro Micro
