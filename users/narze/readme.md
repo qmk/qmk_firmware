@@ -1,5 +1,24 @@
-# TODO
-- [ ] Make SuperDuper mode fully-compatible in Windows by swapping GUI with Ctrl
+# narze's layout
+
+## (S)uper (D)uper Mode
+
+Inspired by [jasonrudolph](https://github.com/jasonrudolph/keyboard#super-duper-mode), with some extensions such as backspace & forward delete. The idea is to make another useful layer available on the home row.
+
+To use, press `S+D` simultaneously and hold, then...
+- `H/J/K/L` for Vim-like movement
+- `I/O` to move between browser tabs
+- `A` for `Option (Alt)`
+- `F` for `Backspace`
+- `;` for `Delete`
+- `A` with `H/L` to move to previous/next word
+- `A` with `G/;` to delete to previous/next word
+- Available for all layouts (but plover) using physical S & D keys position in qwerty
+- `Spacebar` for `Shift` (it's easier when already holding A with your pinky)
+- Disable with `Raise+Lower+M`
+- You can edit or add more useful keys in SUPERDUPER layer
+- It can be activated by holding `/` as well, but it's slower since `LT()` uses `TAPPING_TERM` of 200ms but `S+D` uses `COMBO_TERM` of only 20ms (Can be changed within config.h)
+
+The implementation will vary and some keys are not available in some of my layouts, please refer to `_SUPERDUPER` layer in each of my `keymap.c` files.
 
 # LICENSE
 Copyright 2019 Manassarn Manoonchai manassarn@gmail.com @narze

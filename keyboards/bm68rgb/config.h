@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0xEF6F
 #define DEVICE_VER   0x0001
 #define MANUFACTURER KPRepublic
-#define PRODUCT      bm68rgb
+#define PRODUCT      BM68 RGB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -56,8 +56,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The number of LEDs connected
 #define DRIVER_LED_TOTAL 74
 #ifdef RGB_DI_PIN
-    #define RGBLED_NUM 74
-    #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+#    define RGBLED_NUM 74
+#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+#    define RGBLIGHT_LIMIT_VAL 180 // Limit to vendor-recommended value
+#endif
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

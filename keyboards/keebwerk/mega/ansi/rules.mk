@@ -1,6 +1,9 @@
 # MCU name
 MCU = STM32F303
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
 # backlight effects.

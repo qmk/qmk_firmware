@@ -12,6 +12,3 @@ RGBLIGHT_ENABLE = yes
 TAP_DANCE_ENABLE = no
 UNICODE_ENABLE = yes
 LEADER_ENABLE = yes
-
-# save me space!
-EXTRAFLAGS += -flto

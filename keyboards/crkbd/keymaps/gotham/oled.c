@@ -257,7 +257,7 @@ void oled_task_user(void) {
     }
     #endif
 
-    if (is_master) {
+    if (is_keyboard_master()) {
         render_status_main();
     } else {
         render_status_secondary();
