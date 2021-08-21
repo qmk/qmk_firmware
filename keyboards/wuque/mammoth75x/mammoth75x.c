@@ -1,4 +1,4 @@
-/* Copyright 2021 zoom
+/* Copyright 2021 wuquestudio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "zoom65.h"
+#include "mammoth75x.h"
+
 
 static uint8_t encoder_state[ENCODERS] = {0};
 static keypos_t encoder_cw[ENCODERS] = ENCODERS_CW_KEY;
