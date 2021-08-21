@@ -71,8 +71,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 /*layer switcher */
 layer_state_t layer_state_set_user(layer_state_t state) {
-state = update_tri_layer_state(state, _FN2, _FN3, _FN4);
-return state;
+    state = update_tri_layer_state(state, _FN2, _FN3, _FN4);
+    return state;
 }
 /* rotary encoder (MX12) - add different functions for layers here */
 #ifdef ENCODER_ENABLE
