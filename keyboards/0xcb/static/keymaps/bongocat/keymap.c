@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 // clang-format off
 enum my_keycodes {
-  WPM
+    WPM = SAFE_RANGE,
 };
 enum layer_names {
   _HOME,
