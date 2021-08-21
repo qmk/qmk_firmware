@@ -1,5 +1,4 @@
-
-/* Copyright 2020 qpockets
+/* Copyright 2021 tiltowait
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,4 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "space_space.h"
+
+#pragma once
+
+// place overrides here
+
+#define PERMISSIVE_HOLD

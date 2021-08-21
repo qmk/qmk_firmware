@@ -1,4 +1,4 @@
-/* Copyright 2019 Chip
+/* Copyright 2019 iw0rm3r
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,27 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
+#include "modelm_ssk.h"
 
-#include "quantum.h"
 
-/* This a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT( \
-         k01, k02, k03, k04, \
-         k11, k12, k13, k14, \
-         k21, k22, k23, k24, \
-    k30, k31, k32, k33, k34 \
-) \
-{ \
-    { KC_NO, k01, k02, k03, k04 }, \
-    { KC_NO, k11, k12, k13, k14 }, \
-    { KC_NO, k21, k22, k23, k24 }, \
-    { k30,   k31, k32, k33, k34 }, \
-}
+
