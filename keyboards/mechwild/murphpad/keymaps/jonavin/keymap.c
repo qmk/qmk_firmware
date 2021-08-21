@@ -19,6 +19,7 @@
 #include "jonavin.h"
 #include "keymap.h"
 
+#define LANSCAPE_MODE
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -29,12 +30,12 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT_LANDSCAPE(
-        TT(1), TT(2), KC_MUTE,
+        TT(_FN1), TT(_FN2), KC_MUTE,
 
         KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_LGUI,
         KC_BSPC,  KC_P7,    KC_P8,   KC_P9,   KC_PDOT,      KC_RSFT,
         KC_TAB,   KC_P4,    KC_P5,   KC_P6,   KC_COMMA,     KC_RCTL,
-        KC_P0,    KC_P7,    KC_P8,   KC_P9,   KC_PENT,      KC_RALT,
+        KC_P0,    KC_P1,    KC_P2,   KC_P3,   KC_PENT,      KC_RALT,
 
                  _______, _______, _______
 
@@ -73,57 +74,237 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    )
 };
 
+typedef struct {
+     char keydesc[6];    // this will be displayed on OLED
+    uint16_t keycode;   // this is the keycode that will be sent when activted
+} keycodedescType;
+
+static const keycodedescType PROGMEM keyselection[] = {
+    // list of key codes that will be scrollled through by encoder and description
+        {"TASK",    KC_TASK},
+        {"INS",     KC_INS},
+        {"DEL",     KC_DEL},
+        {"PrtSc",   KC_PSCR},
+        {"ScrLk",   KC_SCLN},
+        {"Break",   KC_PAUS},
+        {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
+        {"AltF4",   KC_AF4},
+        {"PLAY",    KC_MEDIA_PLAY_PAUSE},
+        {"RESET",   RESET},   // firmware flash mode
+};
+
+#define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
+
+static uint8_t selectedkey_idx = 0;
+static keycodedescType selectedkey_rec;
+
+static void set_selectedkey(uint8_t idx) {
+    // make a copy from PROGMEM
+    memcpy_P (&selectedkey_rec, &keyselection[idx], sizeof selectedkey_rec);
+
+    //selectedkey_rec = keyselection[idx];
+
+}
+
+void keyboard_post_init_keymap(void) {
+  // Call the keyboard post init code.
+    set_selectedkey(selectedkey_idx);
+}
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case ENCFUNC:
+        if (record->event.pressed) {
+            selectedkey_rec.keycode == RESET ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle RESET code
+        } else {
+            // when keycode is released
+        }
+        break;
+    }
+    return true;
+};
+
+
+#ifdef ENCODER_ENABLE       // Encoder Functionality
+    uint8_t selected_layer = 0;
+
+    bool encoder_update_user(uint8_t index, bool clockwise) {
+        #ifdef OLED_DRIVER_ENABLE
+            oled_clear();
+            oled_render();
+        #endif
+        switch (index) {
+            case 0:         // This is the only encoder right now, keeping for consistency
+                switch(get_highest_layer(layer_state)){  // special handling per layer
+                case _FN1:  // on Fn layer select what the encoder does when pressed
+                    if (!keyboard_report->mods) {
+                        if ( clockwise ) {
+                            if ( selectedkey_idx  < MAX_KEYSELECTION-1) {
+                                selectedkey_idx ++;
+                            } else {
+                               // do nothing
+                            }
+                        } else if ( !clockwise ) {
+                            if ( selectedkey_idx  > 0){
+                                selectedkey_idx --;
+                            } else {
+                                // do nothing
+                            }
+                        }
+                        set_selectedkey(selectedkey_idx);
+                        break;
+                    } else {
+                           // continue to default
+                    }
+                default:   // all other layers
+                    if ( clockwise ) {
+                        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                            if(selected_layer  < 3) {
+                                selected_layer ++;
+                                layer_move(selected_layer);
+                            }
+                        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
+                             tap_code16(LCTL(KC_RGHT));
+                        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
+                            tap_code(KC_MEDIA_NEXT_TRACK);
+                        } else  {
+                            tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
+                        }
+                    } else if ( !clockwise ) {
+                        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+                            if (selected_layer  > 0) {
+                                selected_layer --;
+                                layer_move(selected_layer);
+                            }
+                        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
+                            tap_code16(LCTL(KC_LEFT));
+                        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
+                            tap_code(KC_MEDIA_PREV_TRACK);
+                        } else {
+                            tap_code(KC_VOLD);
+                        }
+                    }
+                    break;
+                }
+                break;
+        }
+        return true;
+    }
+#endif
+
 
 #ifdef OLED_DRIVER_ENABLE
-	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-		return OLED_ROTATION_180;       // flips the display 180 degrees for horizontal/landscape
+	static void render_logo(void) {     // Render MechWild "MW" Logo
+		static const char PROGMEM logo_1[] = {0x8A, 0x8B, 0x8C, 0x8D, 0x00};
+		static const char PROGMEM logo_2[] = {0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0x00};
+		static const char PROGMEM logo_3[] = {0xCA, 0xCB, 0xCC, 0xCD, 0x00};
+		static const char PROGMEM logo_4[] = {0x20, 0x8E, 0x8F, 0x90, 0x00};
+		oled_set_cursor(0,0);
+		oled_write_P(logo_1, false);
+		oled_set_cursor(0,1);
+		oled_write_P(logo_2, false);
+		oled_set_cursor(0,2);
+		oled_write_P(logo_3, false);
+		oled_set_cursor(0,3);
+		oled_write_P(logo_4, false);
 	}
 
-    static void render_logo(void) {     // Render MechWild "MW" Logo  -- landscape version from Mercutio
-        static const char PROGMEM logo_1[] = {0x97, 0x98, 0x99, 0x9A,0x00};
-        static const char PROGMEM logo_2[] = {0xB7, 0xB8, 0xB9, 0xBA, 0xBB, 0xBC, 0xBD, 0x00};
-        static const char PROGMEM logo_3[] = {0xD7, 0xD8, 0xD9, 0xDA, 0xDB, 0xDC, 0xDD, 0xB6, 0x00};
-        static const char PROGMEM logo_4[] = {0xB6, 0xB6, 0xB6, 0x9B, 0x9C, 0x9D, 0x9E, 0x00};
-        oled_set_cursor(0,0);
-        oled_write_P(logo_1, false);
-        oled_set_cursor(0,1);
-        oled_write_P(logo_2, false);
-        oled_set_cursor(0,2);
-        oled_write_P(logo_3, false);
-        oled_set_cursor(0,3);
-        oled_write_P(logo_4, false);
-    }
+    #ifdef LANSCAPE_MODE
+    void oled_task_user(void) {
 
-	void oled_task_user(void) {
+        render_logo();
+        oled_set_cursor(8,2);
+        char fn_str[12];
+        switch(selected_layer){
+            case 0:
+                oled_write_P(PSTR("BASE"), false);
+                break;
+            case 1:
+                sprintf(fn_str, "FN %5s", selectedkey_rec.keydesc);
+                oled_write(fn_str, false);
+                //oled_write_P(PSTR("FN1 "), false);
+                break;
+            case 2:
+                oled_write_P(PSTR("FN2 "), false);
+                break;
+            case 3:
+                oled_write_P(PSTR("FN3 "), false);
+                break;
+            default:
+                oled_write_P(PSTR(" ?? "), false);    // Should never display, here as a catchall
+        }
+        oled_write_P(keymap_config.no_gui ? PSTR(" WL") : PSTR("   "), false);
+        oled_set_cursor(8,3);
+        if (get_highest_layer(layer_state) == selected_layer) {
+            oled_write_P(PSTR("             "), false);
+        } else {
+            switch (get_highest_layer(layer_state)) {
+                case 0:
+                    oled_write_P(PSTR("Temp BASE"), false);
+                    break;
+                case 1:
+                    sprintf(fn_str, "Temp FN %5s", selectedkey_rec.keydesc);
+                    oled_write(fn_str, false);
+                    //oled_write_P(PSTR("Temp FN1 "), false);
+                    break;
+                case 2:
+                    oled_write_P(PSTR("Temp FN2 "), false);
+                    break;
+                case 3:
+                    oled_write_P(PSTR("Temp FN3 "), false);
+                    break;
+                default:
+                    oled_write_P(PSTR("Temp ????"), false);    // Should never display, here as a catchall
+            }
+        }
+        led_t led_state = host_keyboard_led_state();
+        oled_set_cursor(8,0);
+        oled_write_P(PSTR(" JONAVIN "), false);
+        oled_set_cursor(8,1);
+        oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+        oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
+        oled_write_P(led_state.scroll_lock ? PSTR("SCR") : PSTR("   "), false);
+    }
+    #endif // LANSCAPE_MODE
+
+    // regular mode
+    #ifndef LANSCAPE_MODE
+ 	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+		return OLED_ROTATION_270;       // flips the display 270 degrees
+	}
+
+    void oled_task_user(void) {
 		render_logo();
-		oled_set_cursor(8,2);
+		oled_set_cursor(0,6);
 
 		oled_write_ln_P(PSTR("Layer"), false);
 
-    switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_ln_P(PSTR("Base"), false);
-            break;
-        case _FN1:
-            oled_write_ln_P(PSTR("FN 1"), false);
-            break;
-        case _FN2:
-            oled_write_ln_P(PSTR("FN 2"), false);
-            break;
-        case _FN3:
-            oled_write_ln_P(PSTR("FN 3"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
+        switch (get_highest_layer(layer_state)) {
+            case _BASE:
+                oled_write_ln_P(PSTR("Base"), false);
+                break;
+            case _FN1:
+                oled_write_ln_P(PSTR("FN 1"), false);
+                break;
+            case _FN2:
+                oled_write_ln_P(PSTR("FN 2"), false);
+                break;
+            case _FN3:
+                oled_write_ln_P(PSTR("FN 3"), false);
+                break;
+            default:
+                oled_write_ln_P(PSTR("Undef"), false);
+        }
+        oled_write_ln_P(PSTR(""), false);
+        // Host Keyboard LED Status
+        led_t led_state = host_keyboard_led_state();
+        oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+        oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+        oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
     }
-	oled_write_ln_P(PSTR(""), false);
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
- /*    oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false); */
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR") : PSTR("   "), false);
-}
+    #endif // !LANSCAPE_MODE
+
+    void suspend_power_down_user(void) {  // shutdown oled when powered down to prevent OLED from showing Mercutio all the time
+      oled_off();
+    }
 #endif
