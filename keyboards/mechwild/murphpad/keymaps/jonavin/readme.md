@@ -45,3 +45,10 @@ Special Features
 rules.mk OPTIONS - Active features from userspace
 STARTUP_NUMLOCK_ON = yes
     - turns on NUMLOCK by default
+
+DEFAULT MAPPING
+![image](https://user-images.githubusercontent.com/71780717/130325804-db7d5047-71b2-4924-9d5c-31c13bb6a9cc.png)
+
+FN1 Layer
+![image](https://user-images.githubusercontent.com/71780717/130325816-bf2af035-30e4-49f7-a932-101c7678175e.png)
+
