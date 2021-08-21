@@ -57,9 +57,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise)
     encoder_action_register(index, clockwise);
     return true;
 };
-#endif
-
-#ifndef VIA_ENABLE
+#else
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     return encoder_update_user(index, clockwise);
 }
