@@ -1,0 +1,26 @@
+{
+    "keyboard_name": "TouhouPad",
+    "url": "https://github.com/Pimentoso/TouhouPad_v2",
+    "maintainer": "Pimentoso",
+    "width": 8.25,
+    "height": 4,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"esc", "x":5.25, "y":0},
+                {"label":"enter", "x":6.25, "y":0},
+
+                {"label":"slow", "x":0, "y":1},
+                {"label":"fire", "x":1, "y":1},
+                {"label":"rapid", "x":2, "y":1},
+
+                {"label":"up", "x":6.25, "y":1.75},
+                {"label":"left", "x":5.25, "y":2.75},
+                {"label":"down", "x":6.25, "y":2.75},
+                {"label":"right", "x":7.25, "y":2.75},
+
+                {"label":"bomb", "x":3.25, "y":3}
+            ]
+        }
+    }
+}
