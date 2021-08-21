@@ -16,6 +16,8 @@
 
 #include "zoom65.h"
 
+#ifdef VIA_ENABLE
+
 static uint8_t encoder_state[ENCODERS] = {0};
 static keypos_t encoder_cw[ENCODERS] = ENCODERS_CW_KEY;
 static keypos_t encoder_ccw[ENCODERS] = ENCODERS_CCW_KEY;
@@ -56,3 +58,5 @@ bool encoder_update_kb(uint8_t index, bool clockwise)
     encoder_action_register(index, clockwise);
     return true;
 };
+
+#endif
