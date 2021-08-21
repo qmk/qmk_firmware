@@ -20,39 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define PRODUCT_ID  0x3536
-#define DEVICE_VER  0x0001
-#define PRODUCT     Tractyl Manuform(5x6)
+#define PRODUCT_ID                  0x3536
+#define DEVICE_VER                  0x0001
 
 /* key matrix size */
 // Rows are doubled-up
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 6
+#define MATRIX_ROWS                 12
+#define MATRIX_COLS                 6
 
-// wiring of each half
-#define MATRIX_COL_PINS \
-    { C0, C1, C2, C3, C4, C5 }
-#define MATRIX_ROW_PINS \
-    { F7, F6, F5, F4, F3, F2 }
-
-#define DIODE_DIRECTION COL2ROW
-
-// WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN      E7
-#define RGBLED_NUM      20
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT \
-    { 10, 10 }
-#define RGBLIGHT_SLEEP
-// #define RGBW
-#define RGBLIGHT_LIMIT_VAL          100
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
-#define DEBUG_LED_PIN               D6
+#define DIODE_DIRECTION             COL2ROW
 
 #define ROTATIONAL_TRANSFORM_ANGLE  -25
 
@@ -62,24 +38,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_ROW_RIGHT    6
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 5
 
-#define AUDIO_PIN                   C6
-#define AUDIO_PIN_ALT               B7
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT  16
 #define LAYER_STATE_16BIT
 
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D2
-#define EE_HANDS
-
-#define ENCODERS_PAD_A \
-    { D5 }
-#define ENCODERS_PAD_B \
-    { D4 }
-#define ENCODER_RESOLUTION 4
-
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE           5
+#define DEBOUNCE 5
 
 /* disable action features */
 //#define NO_ACTION_LAYER
@@ -89,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_FUNCTION
 
 #define SERIAL_USE_MULTI_TRANSACTION
-#define SPLIT_TRANSACTION_IDS_KB RPC_ID_STATE_SYNC, RPC_ID_SLAVE_STATE
+#define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC, RPC_ID_POINTER_STATE_SYNC
 
 /* PMW3360 Settings */
 #define PMW3360_CS_PIN           B0
