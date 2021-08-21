@@ -72,23 +72,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
-#    undef RGBLIGHT_ANIMATIONS
-#    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
-#        define RGBLIGHT_EFFECT_BREATHING
-#        define RGBLIGHT_EFFECT_SNAKE
-#        define RGBLIGHT_EFFECT_KNIGHT
-#    else
-#        define RGBLIGHT_EFFECT_BREATHING
-#        define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#        define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#        define RGBLIGHT_EFFECT_SNAKE
-#        define RGBLIGHT_EFFECT_KNIGHT
-// #        define RGBLIGHT_EFFECT_CHRISTMAS
-// #        define RGBLIGHT_EFFECT_STATIC_GRADIENT
-// #        define RGBLIGHT_EFFECT_RGB_TEST
-// #        define RGBLIGHT_EFFECT_ALTERNATING
-#        define RGBLIGHT_EFFECT_TWINKLE
-#    endif
 #    define RGBLIGHT_EFFECT_TWINKLE_LIFE        250
 #    define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1 / 24
 #endif  // RGBLIGHT_ENABLE
