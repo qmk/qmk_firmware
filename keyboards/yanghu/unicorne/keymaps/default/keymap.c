@@ -16,7 +16,6 @@
 
 #include QMK_KEYBOARD_H
 #include "layers.h"
-#include "oled.h"
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
