@@ -43,7 +43,7 @@ Top/Default Layer:
   - Toggle for RGB via Fn-r (CAPS & SCROLL still Light/Indicate)
   - CAPS: Side Light Rainbow Indicators and Left-side RED Indicators
   - Scroll: Fn-Home (Under Rotary) white indicator.
-  - Modifiers identified around most of the edge of keyboard / Side lights accented (Fn-1 looks GREAT in my opinon))
+  - Modifiers identified around most of the edge of keyboard / Side lights accented (Fn-1 looks GREAT IMHO)
   
 - RGB Modifing (all via Function key) all via wasdqerf (common gaming keys) - easy to remember.
   - Fn + r -> Toggle RGB
