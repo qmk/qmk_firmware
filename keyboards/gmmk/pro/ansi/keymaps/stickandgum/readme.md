@@ -11,7 +11,6 @@ BIG thank you to [AndreBrait](https://github.com/andrebrait), And of course, @dr
 * Keyboard: [More info on GMMK Pro](https://www.pcgamingrace.com/products/glorious-gmmk-pro-75-barebone-black)
 * Controller [STM32F303CCT6](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
 
-Layout:
 * Layout :![keyboard-layout](https://user-images.githubusercontent.com/22257588/130371838-875ba65b-88ea-4f81-a44a-bb24194c4989.png)
 
 - Rotary
