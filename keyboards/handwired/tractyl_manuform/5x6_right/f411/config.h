@@ -93,6 +93,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
 #define DEBUG_EEPROM_OUTPUT
 
-#define PMW_CS_PIN  B0
-#define SPI_MODE    0
-#define SPI_DIVISOR 64
+#define PMW3360_CS_PIN      B0
+#define PMW3360_SPI_MODE    0
+#define PMW3360_SPI_DIVISOR 64
