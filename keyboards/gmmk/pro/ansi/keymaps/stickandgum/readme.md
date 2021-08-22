@@ -12,7 +12,7 @@ BIG thank you to [AndreBrait](https://github.com/andrebrait), And of course, @dr
 * Controller [STM32F303CCT6](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
 
 Layout:
-![Keyboard Layout](https://imgur.com/a/A34TeBP)
+* Layout :[Keyboard Layout](https://imgur.com/a/A34TeBP)
 
 - Rotary
   - Default:  Volume Up/Down
@@ -57,7 +57,7 @@ Top/Default Layer:
   - Fn + L -> My easter egg... "QMK rocks!"
   
 - Known issues:
-  - The Heatmap and Matrix FrameBuffer effects (Fn - and =) are a bit buggy - F-keys light up when they shouldn't. Caps/Scroll lights do not turn off properly. Just change the effect to something else to fix this.
-    - If you find a fix for this, please let me know!
+  - The Heatmap and Matrix FrameBuffer effects (Fn - and =) are a bit buggy - F-keys light up when they shouldn't. Caps/Scroll lights do not turn off properly. Just change the effect to something else to fix this. 
+  -     If you find a fix for this, please let me know.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
