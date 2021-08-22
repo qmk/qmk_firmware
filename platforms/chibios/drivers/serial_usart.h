@@ -110,7 +110,7 @@
 #endif
 
 #if !defined(SERIAL_USART_TIMEOUT)
-#    define SERIAL_USART_TIMEOUT 100
+#    define SERIAL_USART_TIMEOUT 20
 #endif
 
 #define HANDSHAKE_MAGIC 7
