@@ -1,6 +1,6 @@
 # sp_mini
 
-![sp_mini](https://i.imgur.com/ayX0wnX.jpg)
+![sp_mini](https://i.imgur.com/ayX0wnXh.jpg)
 
 The SP Mini is a 40% version of the SP-111 created in a collaboration of OneCreativeMind and BlindAssassin111 (Viktus owner). All design done by BlindAssassin111. The layout includes an F Row, left macro column, and arrows. Rotary encoders are supported in the top left and right positions. The board also features three through hole LED indicators and RGB underglow.
 
