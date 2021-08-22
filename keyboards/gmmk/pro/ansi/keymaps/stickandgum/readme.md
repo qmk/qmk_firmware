@@ -1,9 +1,8 @@
 # Glorious GMMK Pro / ANSI - Enhanced Keyboard
 
-Tried to incorporate full featured GMMK Pro keyboard functionality without adding too many functions. Included Scroll Lock and Caps LEDs. NKRO On by default.
-Allow holding the Shift and Ctrl keys to scroll on the rotary, Added Fn-keys for Screen Brightness, NKRO, PowerOff, Suspend, App Shortcuts, and RGB Toggle/Modifications
-Trimmed down the amazing 41 current RGB effects down to about 13 or so reasonable effects that feel are just enough for your entertainment without being too excessive.
-Features are as follows:
+Tried to incorporate full featured GMMK Pro keyboard functionality without adding unnecessary features. Included Scroll Lock and Caps LEDs. NKRO is on by default.
+SHIFT and Ctrl keys for scrolling with the rotary, Added Fn-keys for Screen Brightness, NKRO, PowerOff, Suspend, App Shortcuts, and RGB Toggle/Modifications
+Trimmed down the amazing 41 currently built-in RGB effects down to about 13 or so reasonable effects that feel are just enough for your entertainment without being too excessive.
 
 BIG thank you to [AndreBrait](https://github.com/andrebrait), And of course, @drashna and @filterpaper and the entire discord community.
 
@@ -12,6 +11,8 @@ BIG thank you to [AndreBrait](https://github.com/andrebrait), And of course, @dr
 * Controller [STM32F303CCT6](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
 
 * Layout :![keyboard-layout](https://user-images.githubusercontent.com/22257588/130371838-875ba65b-88ea-4f81-a44a-bb24194c4989.png)
+
+Features are as follows:
 
 Rotary:
   - Default:  Volume Up/Down
