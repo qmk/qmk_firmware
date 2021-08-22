@@ -1,34 +1,29 @@
-# Glorious GMMK Pro / ANSI - Enhanced Keyboard
-# Tried to incorporate full featured GMMK Pro keyboard functionality without adding too many functions. Included Scroll Lock and Caps LEDs. NKRO On by default.
-# Allow holding the Shift and Ctrl keys to scroll on the rotary, Added Fn-keys for Screen Brightness, NKRO, PowerOff, Suspend, App Shortcuts, and RGB Toggle/Modifications
-# Trimmed down the amazing 41 current RGB effects down to about 13 or so reasonable effects that feel are just enough for your entertainment without being too excessive.
-# Features are as follows:
+# Tried to incorporate full keymap functionality without adding unnessary functions. Included Scroll Lock and Caps LEDs. NKRO On by default.
+# Also, slimmed down the 41 current RGB effects down to about 13 or so reasonable effects that vary just enough for your entertainment.
 
-# BIG thank you to https://github.com/andrebrait, @drashna and @filterpaper and the entire discord community.
-
-* Keymap Creator: [StickAndGum](https://github.com/StickAndGum)
-* Keyboard: [More info on GMMK Pro](https://www.pcgamingrace.com/products/glorious-gmmk-pro-75-barebone-black)
-* Controller [STM32F303CCT6](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
-
-Layout:
-![GMMK Pro](https://i.imgur.com/q2M3uEU.jpg)
+Features are as follows:
 
 - Rotary
   - Default:  Volume Up/Down
   - Shift:    Mouse Wheel Down/Up
   - Ctrl:     Page Down/Up
 
-Top/Default Layer:
-  - Print Screen -> Print Screen (Left of rotary)
+- RGB:
+  - Toggles via Fn-r (CAPS & SCROLL still Light/Indicate)
+  - CAPS: Side Light Rainbow Indicators and Left-side RED Indicators
+  - Modifiers identified around most of the edge of keyboard / Side lights accented (Fn-2 looks GREAT in my opinon))
+  - Scroll: Fn-Home (Under Rotary) White Indicator.
+
+- Top/Default Layer:
+  - Print Screen - Print Screen
   - Delete -> Home (Under Rotary)
   - Right Alt -> Delete (Right of Spacebar)
-  - All other keys defaults.
-
+  
 - Fn Layer:
-  - Fn + \ -> Bootloader Mode (Can also hold ESC while powering up) - If hit by mistake, just unplug and replug in.
+  - Fn + \ -> Bootloader Mode (Can also hold ESC while powering up)
   - Fn + Backspace -> Insert
   - Fn + Print  -> Pause/Break
-  - Fn + Home -> Scroll Lock (Lights up white!)
+  - Fn + Home -> Enable Scroll Lock
   - Fn + Del (right of space) -> Right-Alt key.
   - Fn + RCtrl (right of Fn) -> Menu/App key.
   - Fn + N -> Toggle NKRO (Defaults to Enabled)
@@ -36,27 +31,20 @@ Top/Default Layer:
   - Fn + F12 -> Suspend Computer
   - Fn + F11 -> Wake Computer (Necessary on MAC OS?)
   - Fn + Page Up / Down -> Laptop Screen Brightness Up/Down
-  - Fn + F1 - F5 -> Launch Calc, My Comp (Explorer), Media Player, Mail Client, Web Browser Home.
-  - Fn + Up, Down, Left, Right Arrows -> Media Play, Stop, Previous, Next respectively.
+  - Fn + F1 - F5 -> Launch Calc, My Comp, Media Player, Mail Client, Browser
+  - Fn + Up, Down, Left, Right Arrows -> Media Play, Stop, Previous, Next
 
-- RGB Information:
-  - Toggle for RGB via Fn-r (CAPS & SCROLL still Light/Indicate)
-  - CAPS: Side Light Rainbow Indicators and Left-side RED Indicators
-  - Scroll: Fn-Home (Under Rotary) white indicator.
-  - Modifiers identified around most of the edge of keyboard / Side lights accented (Fn-1 looks GREAT in my opinon))
-  
 - RGB Modifing (all via Function key) all via wasdqerf (common gaming keys) - easy to remember.
   - Fn + r -> Toggle RGB
   - Fn + w,s -> Brightness Up, Down
   - Fn + a,d -> Cycle Forward/Backward through rgb effects
   - Fn + q   -> Increase or Decrease Saturation (use SHIFT key to lower)
   - Fn + e   -> Increase or Decrease Hue/Color (use SHIFT key to lower)
-  - Fn + f   -> Increase or Decrease Speed (Using "F" for Fast!) (Use SHIFT to Slow down)
+  - Fn + f   -> Increase or Decrease Speed
   - Fn + ~, 0-9 and - and = keys -> 13 RGB different effects arranged to my liking.. Fn-1 is my favorite.
-  - Fn + L -> My easter egg... "QMK rocks!"
   
 - Known issues:
-  - The Heatmap and Matrix FrameBuffer effects (Fn - and =) are a bit buggy - F-keys light up when they shouldn't. Caps/Scroll lights do not turn off properly. Just change the effect to something else to fix this.
-    - If you find a fix for this, please let me know!
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+  - Heatmap function is a bit buggy - Fn keys light and caps lights do not turn off. Just change the effect to get past this.
+  
+  
+ 
