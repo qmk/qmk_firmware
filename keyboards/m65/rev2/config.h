@@ -30,3 +30,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS {A10, A15, B3, B4, B5, B9, B8, B7, B6, C15, A0, A7, B10 }
 
 #define UNUSED_PINS
+
+#define EEPROM_PAGE_SIZE
+#define FEE_PAGE_SIZE (uint16_t)0x800
+#define FEE_DENSITY_PAGES 4
+
+#define EEPROM_START_ADDRESS
+#define FEE_MCU_FLASH_SIZE                              \
+({                                                      \
+    uint16_t flash_size = *(uint16_t*)FLASHSIZE_BASE;   \
+    (flash_size <= 512) ? flash_size : 512;             \
+})
+
