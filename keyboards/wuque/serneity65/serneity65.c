@@ -58,10 +58,6 @@ bool encoder_update_kb(uint8_t index, bool clockwise)
     return true;
 };
 #else
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    return encoder_update_user(index, clockwise);
-}
-
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
