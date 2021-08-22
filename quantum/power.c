@@ -17,7 +17,7 @@
 
 #include "power.h"
 
-enum power_state power_state;
+enum power_state power_state = POWER_STATE_NO_INIT;
 
 __attribute__((weak)) void notify_power_state_change_kb(enum power_state power_state) { notify_power_state_change_user(power_state); }
 
