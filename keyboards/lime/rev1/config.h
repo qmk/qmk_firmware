@@ -27,6 +27,10 @@
 #define ENCODERS_PAD_B_RIGHT { F5 }
 #define ENCODER_RESOLUTION 2
 
+/* joystick support */
+#define JOYSTICK_AXES_COUNT 2
+#define JOYSTICK_BUTTON_COUNT 1
+
 #define TAP_CODE_DELAY 10
 
 /* communication between sides */

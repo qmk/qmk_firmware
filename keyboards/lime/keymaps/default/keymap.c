@@ -15,6 +15,8 @@
   */
 
 #include QMK_KEYBOARD_H
+#include "joystick.h"
+#include "analog.h"
 
 enum lime_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
@@ -116,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* LOWER
- * ,----------------------------------------.                    ,-----------------------------------------.
+ * ,-----------------------------------------.                    ,-----------------------------------------.
  * | Esc  |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  | Ins  | Pscr | Menu |      |      |                    |      | PWrd |  Up  | NWrd | DLine| Bspc |
@@ -495,6 +497,18 @@ static void print_status_narrow(void) {
     oled_set_cursor(0,8);
     oled_write("CPSLK", led_usb_state.caps_lock);
 
+    oled_set_cursor(0,9);
+    uint16_t x_val = analogReadPin(F4);
+    char x_val_str[5];
+    itoa(x_val, x_val_str, 10);
+    oled_write(x_val_str, false);
+
+    oled_set_cursor(0,10);
+    uint16_t y_val = analogReadPin(F5);
+    char y_val_str[5];
+    itoa(y_val, y_val_str, 10);
+    oled_write(y_val_str, false);
+
     /* KEYBOARD PET RENDER START */
 
     render_luna(0,13);
@@ -735,15 +749,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef ANALOG_JOYSTICK_ENABLE
+
+    #define JOYSTICK_X_PIN F4
+    #define JOYSTICK_Y_PIN F5
+
+    joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+        [0] = JOYSTICK_AXIS_IN(JOYSTICK_X_PIN, 0, 512, 1023),
+        [1] = JOYSTICK_AXIS_IN(JOYSTICK_Y_PIN, 260, 560, 810)
+    };
+
+#endif
+
 #ifdef ENCODER_ENABLE
 
 void encoder_update_user(uint8_t index, bool clockwise) {
+
+    #ifdef ENCODER_LEFT_ENABLE
+
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_MNXT);
         } else {
             tap_code(KC_MPRV);
         }
+
+    #endif
+
+    #ifdef ENCODER_RIGHT_ENABLE
+
     } else if (index == 1) {
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -751,6 +785,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+
+    #endif
 }
 
 #endif
