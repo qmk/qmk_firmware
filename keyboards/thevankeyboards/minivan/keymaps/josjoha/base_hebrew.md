@@ -88,7 +88,7 @@ Hebrew keymaps
 ![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_hebrew-israel_ve.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-israel_ve.jpg)
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-israel_vc.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -100,7 +100,7 @@ Layer: `..._NSY`
 ![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_hebrew-qwerty_ve.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-qwerty_ve.jpg)
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-israel_vc.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -112,8 +112,8 @@ Layer: `..._NSY`
 ![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_hebrew-dvorak_ve.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-dvorak_ve.jpg)
-Layer: `..._NSY`
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_dvorak_vc.jpg)
+Layer: `..._NSY` (Same as Dvorak.)
 
 ──────────in common────────────
 
