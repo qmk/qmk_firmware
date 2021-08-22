@@ -52,7 +52,7 @@
 #include "usb_descriptor.h"
 #include "lufa.h"
 #include "quantum.h"
-#include "power.h"
+#include "usb_power.h"
 #include <util/atomic.h>
 
 #ifdef NKRO_ENABLE
@@ -417,7 +417,7 @@ void EVENT_USB_Device_Disconnect(void) {
  */
 void EVENT_USB_Device_Reset(void) {
     print("[R]");
-    power_set_reset();
+    usb_power_set_reset();
 }
 
 /** \brief Event USB Device Connect
@@ -426,7 +426,7 @@ void EVENT_USB_Device_Reset(void) {
  */
 void EVENT_USB_Device_Suspend() {
     print("[S]");
-    power_set_suspend(USB_Device_ConfigurationNumber != 0, USB_Device_ConfigurationNumber);
+    usb_power_set_suspend(USB_Device_ConfigurationNumber != 0, USB_Device_ConfigurationNumber);
 
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
@@ -443,7 +443,7 @@ void EVENT_USB_Device_WakeUp() {
     suspend_wakeup_init();
 #endif
 
-    power_set_resume(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
+    usb_power_set_resume(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
 
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
@@ -538,7 +538,7 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     ConfigSuccess &= Endpoint_ConfigureEndpoint((DIGITIZER_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, DIGITIZER_EPSIZE, 1);
 #endif
 
-    power_set_configuration(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
+    usb_power_set_configuration(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
 }
 
 /* FIXME: Expose this table in the docs somehow
@@ -1069,7 +1069,7 @@ void protocol_setup(void) {
 #endif
 
     setup_mcu();
-    power_init();
+    usb_power_init();
     keyboard_setup();
 }
 
