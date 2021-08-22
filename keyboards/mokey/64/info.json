@@ -1,7 +1,7 @@
 {
     "keyboard_name": "MOKEY64",
     "url": "",
-    "maintainer": "RH",
+    "maintainer": "qmk",
     "width": 15,
     "height": 5,
     "layouts": {
