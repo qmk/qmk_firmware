@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN A7
 #define RGBLED_NUM 14
-#define WS2812_SPI SPID2
+// #define WS2812_SPI SPID2
 //#define WS2812_SPI_MOSI_PAL_MODE 5
 
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 3071 // this lets you use more of the 8kb of eeprom availible on the STM32F072CBT6. (3kB here)
