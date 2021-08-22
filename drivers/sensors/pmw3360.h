@@ -40,7 +40,7 @@
 #    ifdef __AVR__
 #        define PMW3360_SPI_DIVISOR (F_CPU / PMW3360_CLOCK_SPEED)
 #    else
-#        define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 64
+#        define PMW3360_SPI_DIVISOR 64
 #    endif
 #endif
 
