@@ -65,6 +65,7 @@
     { k35, k25, k15, k05 }  \
 }
 
+#define LAYOUT_ortho_4x6 LAYOUT_ortho_4x6_right
 #define LAYOUT_numpad_6x4( \
     k00, k10, k20, k30, \
     k01, k11, k21, k31, \
