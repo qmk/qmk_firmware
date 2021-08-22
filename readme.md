@@ -1,3 +1,6 @@
+# My custom keymap location
+qmk_firmware/keyboards/crkbd/keymaps/cheonhyangzhang
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
