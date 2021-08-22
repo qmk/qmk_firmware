@@ -13,7 +13,7 @@ BIG thank you to [AndreBrait](https://github.com/andrebrait), And of course, @dr
 
 * Layout :![keyboard-layout](https://user-images.githubusercontent.com/22257588/130371838-875ba65b-88ea-4f81-a44a-bb24194c4989.png)
 
-- Rotary
+Rotary:
   - Default:  Volume Up/Down
   - Shift:    Mouse Wheel Down/Up
   - Ctrl:     Page Down/Up
@@ -24,7 +24,7 @@ Top/Default Layer:
   - Right Alt -> Delete (Right of Spacebar)
   - All other keys defaults.
 
-- Fn Layer:
+Fn Layer:
   - Fn + \ -> Bootloader Mode (Can also hold ESC while powering up) - If hit by mistake, just unplug and replug in.
   - Fn + Backspace -> Insert
   - Fn + Print  -> Pause/Break
@@ -51,8 +51,8 @@ Top/Default Layer:
   - Fn + a,d -> Cycle Forward/Backward through rgb effects
   - Fn + q   -> Increase or Decrease Saturation (use SHIFT key to lower)
   - Fn + e   -> Increase or Decrease Hue/Color (use SHIFT key to lower)
-  - Fn + f   -> Increase or Decrease Speed (Using "F" for Fast!) (Use SHIFT to Slow down)
-  - Fn + ~, 0-9 and - and = keys -> 13 RGB different effects arranged to my liking.. Fn-1 is my favorite.
+  - Fn + f   -> Increase or Decrease Speed (Using "F" for Fast!) (Use SHIFT for slower)
+  - Fn + ~, 0-9, - = keys (2nd row keys) -> 13 RGB different effects arranged to my liking. Fn-1 is my favorite.
   - Fn + L -> My easter egg... "QMK rocks!"
   
 - Known issues:
