@@ -12,7 +12,7 @@ BIG thank you to [AndreBrait](https://github.com/andrebrait), And of course, @dr
 * Controller [STM32F303CCT6](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
 
 Layout:
-![Coming soon](https://i.imgur.com/)
+![Keyboard Layout](https://imgur.com/a/A34TeBP)
 
 - Rotary
   - Default:  Volume Up/Down
