@@ -56,7 +56,7 @@ Top/Default Layer:
   - Fn + L -> My easter egg... "QMK rocks!"
   
 - Known issues:
-  - The Heatmap and Matrix FrameBuffer effects (Fn - and =) are a bit buggy - F-keys light up when they shouldn't. Caps/Scroll lights do not turn off properly. Just change the effect to something else to fix this. 
-  -     If you find a fix for this, please let me know.
+  - The Heatmap and Matrix FrameBuffer effects (Fn - and =) are a bit buggy - F-keys light up when they shouldn't and the Caps/Scroll lights don't turn off properly when using. Just change the effect to something else to fix this. 
+    - If you find a fix for this, please let me know.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
