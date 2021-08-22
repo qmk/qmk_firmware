@@ -148,7 +148,6 @@ void protocol_setup(void) {
     keyboard_setup();
 }
 
-
 void protocol_init(void) {
     /* Init USB */
     usb_event_queue_init();
