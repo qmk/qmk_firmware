@@ -1,7 +1,7 @@
 {
   "name": "Boy40_Y&R",
   "vendorId": "0xAA96",
-  "productId": "0xAAA6",
+  "productId": "0xAAAB",
   "lighting": "qmk_rgblight",
   "matrix": { "rows": 4, "cols": 12 },
   "layouts": {

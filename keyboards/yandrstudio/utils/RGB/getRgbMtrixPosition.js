@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-cal_z_rgb = function gen_rgb_matrix_2(rownum, colnum) {
+cal_z_rgb = function gen_rgb_matrix_1(rownum, colnum) {
 	    function get_x(col, colnum){
 	    	var x = 224 / (colnum - 1) * col;
 	    	return Math.round(x);
@@ -86,7 +86,7 @@ cal_u_rgb = function gen_rgb_matrix_2(rownum, colnum, reverse) {
 }
 
 
-cal_u_rgb_sb_l = function gen_rgb_matrix_2(rownum, colnum, reverse) {
+cal_u_rgb_sb_l = function gen_rgb_matrix_3(rownum, colnum, reverse) {
     function get_x(col, colnum){
         var x = 224 / (colnum - 1) * col;
         return Math.round(x);
@@ -129,7 +129,7 @@ cal_u_rgb_sb_l = function gen_rgb_matrix_2(rownum, colnum, reverse) {
     return gen_rgb_matrix_text
 }
 
-cal_u_rgb_sb_r = function gen_rgb_matrix_2(rownum, colnum, reverse) {
+cal_u_rgb_sb_r = function gen_rgb_matrix_4(rownum, colnum, reverse) {
     function get_x(col, colnum){
         var x = 224 / (colnum - 1) * col;
         return Math.round(x);
@@ -174,7 +174,7 @@ cal_u_rgb_sb_r = function gen_rgb_matrix_2(rownum, colnum, reverse) {
 
 
 
-cal_a_row_rgb = function gen_rgb_matrix_2(row, rownum, colnum, reverse) {
+cal_a_row_rgb = function gen_rgb_matrix_5(row, rownum, colnum, reverse) {
     function get_x(col, colnum){
         var x = 224 / (colnum - 1) * col;
         return Math.round(x);

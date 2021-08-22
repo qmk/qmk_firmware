@@ -1,7 +1,7 @@
 {
   "name": "TDCQ68_Y&R",
   "vendorId": "0xAA96",
-  "productId": "0xAAA1",
+  "productId": "0xAAA3",
    "lighting": {
        "extends": "none",
        "keycodes": "qmk"

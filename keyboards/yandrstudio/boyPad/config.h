@@ -19,18 +19,18 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAAAB
+#define PRODUCT_ID      0xAAAC
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    JasonRen biu
 #define PRODUCT         boy40ble
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 4
 
 //                        0    1    2    3   4   5   6   7   8   9   10  11  12  13
-#define MATRIX_COL_PINS { A4,  B15, B14, B13,B12,C13, B9, B8, B5,B4,  B3, A15}
-#define MATRIX_ROW_PINS { B10, A8, A5, C14}
+#define MATRIX_COL_PINS { B15, A8,  A9,  A1}
+#define MATRIX_ROW_PINS { B12, B13, B14, A5, A2}
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
