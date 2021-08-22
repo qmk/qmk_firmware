@@ -1,8 +1,8 @@
-# Planck
+# KBIC65
 
 ![KBIC65 top-down view](https://github.com/b-karl/KBIC65/blob/main/img/photoshoot/full_keyboard_straight_above.jpg)
 
-A compact 40% (12x4) ortholinear keyboard kit made and sold by OLKB and Massdrop. [More info on qmk.fm](https://qmk.fm/planck/)
+A 65%/70 key FR4-stack open-source keyboard with some design optimizations for wireless. For more info visit the [KBIC65 website](https://karlb.eu/kbic65/) or the [GitHub repo](https://github.com/b-karl/KBIC65).
 
 * Keyboard Maintainer: [Karl Berggren](https://github.com/b-karl)
 * Hardware Supported: [KBIC65](https://github.com/b-karl/KBIC65)
