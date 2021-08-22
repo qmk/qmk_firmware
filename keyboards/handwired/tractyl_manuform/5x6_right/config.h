@@ -51,8 +51,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define SERIAL_USE_MULTI_TRANSACTION
-#define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC, RPC_ID_POINTER_STATE_SYNC
-
 /* PMW3360 Settings */
 #define PMW3360_CS_PIN           B0
