@@ -131,7 +131,7 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
   デフォルトで有効になっていて、IBus が有効になったディストリビューションのほとんどどれでも動作します。IBus が無い場合、このモードは GTK アプリ下で動作しますが、他の場所ではほとんど動作しません。
   デフォルトでは、このモードは Unicode 入力を開始するために Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) を使いますが、これは他のキーコードで [`UNICODE_KEY_LNX`](#input-key-configuration) を定義することで変更できます。これは、Ctrl+Shift+U の挙動が Ctrl+Shift+E に統合された IBus バージョン 1.5.15 以上を必要とするかもしれません。
 
-  IBus を使わない非 GTK アプリでのサポートを希望するユーザは、カスタムキーボードレイアウト([詳細はこちら](#custom-linux-layout))の作成など、より間接的な方法に頼る必要があるかもしれません。
+  IBus を使わずに非 GTK アプリでのサポートを希望するユーザは、カスタムキーボードレイアウト([詳細はこちら](#custom-linux-layout))の作成など、より間接的な方法に頼る必要があるかもしれません。
 
 * **`UC_WIN`**: _(非推奨)_ Windows の組み込み16進数テンキー Unicode 入力。`0xFFFF` までのコードポイントをサポートします。
 
@@ -280,7 +280,8 @@ AutoHotkey のデフォルトのスクリプトで、カスタムホットキー
 
 ## Linux でのソフトウェアキーボードレイアウト :id=custom-linux-layout
 
-この方法では、キーボード自体で Unicode をサポートする必要はありませんが、代わりに Xorg のカスタムキーボードレイアウトを使います。これは通常のキーボードで特殊文字が挿入される方法です。これは IBus を必要とせず、事実上すべてのソフトウェアで機能します。カスタムレイアウトの作成に関するヘルプは、[ここ](https://www.linux.com/news/creating-custom-keyboard-layouts-x11-using-xkb/)、[ここ](http://karols.github.io/blog/2013/11/18/creating-custom-keyboard-layouts-for-linux/)、[ここ](https://wiki.archlinux.org/index.php/X_keyboard_extension)にあります。`us` レイアウトを編集して、`RALT(KC_R)` で 🤣 を取得する方法の例:
+この方法では、キーボード自体で Unicode をサポートする必要はありませんが、代わりに Xorg のカスタムキーボードレイアウトを使います。これは通常のキーボードで特殊文字が挿入される方法です。これは IBus を必要とせず、事実上すべてのソフトウェアで機能します。カスタムレイアウトの作成に関するヘルプは、[ここ](https://www.linux.com/news/creating-custom-keyboard-layouts-x11-using-xkb/)や[ここ](http://karols.github.io/blog/2013/11/18/creating-custom-keyboard-layouts-for-linux/)、[ここ](https://wiki.archlinux.org/index.php/X_keyboard_extension)にあります。（訳注：日本語の解説記事もあります -> [X KeyBoard extension - ArchWiki](https://wiki.archlinux.jp/index.php/X_KeyBoard_extension)）
+`us` レイアウトを編集して、`RALT(KC_R)` で 🤣 を入力する方法の例:
 
 キーボードレイアウトファイル `/usr/share/X11/xkb/symbols/us` を編集します。
 
@@ -293,6 +294,6 @@ key <AD04> {	[	  r,	R, U1F923		]	};
 
 ファイルを保存し、コマンド `setxkbmap us` を実行して、レイアウトを再読み込みします。
 
-レイアウトで定義されたキーに1つのカスタム文字を定義し、4番目のレイヤーにデータを入力する場合は別のカスタム文字を定義できます。8番目までの追加レイヤーも可能です。
+レイアウトで定義されたキーに1つのカスタム文字を定義でき、4番目のレイヤーにデータを入力する場合は別のカスタム文字を定義できます。8番目までの追加レイヤーも可能です。
 
 この方法はカスタムレイアウトを設定するコンピュータに固有です。カスタムキーは、Xorg が実行されている場合にのみ使えます。事故を防ぐために、常に `setxkbmap` を使ってレイアウトを再読み込みする必要があります。そうでなければ、無効なレイアウトによってシステムにログインできなくなり、ロックアウトされる可能性があります。
