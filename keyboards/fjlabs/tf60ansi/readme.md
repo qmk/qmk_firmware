@@ -1,6 +1,6 @@
-# FJLabs DZ60 RGB V2 
+# FJLabs TF60 ANSI 
 
-The following is the QMK Firmware for the FJLabs DZ60 RGB V2 PCB, a universal tray mount 60% hotswap PCB with per key RGB LED's. 
+The following is the QMK Firmware for the FJLabs TF60 ANSI PCB, a universal tray mount 60% hotswap PCB with per key RGB LED's. 
 
 The PCB will feature:
 * Kailh Hotswap sockets
@@ -10,10 +10,10 @@ The PCB will feature:
 ---
 
 * Keyboard Maintainer: FJLabs
-* Hardware Supported: DZ60 RGB V2
+* Hardware Supported: TF60 ANSI
 
 Make example for this keyboard (after setting up your build environment):
 
-    make fjlabs/dz60v2:default
+    make fjlabs/tf60ansi:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs). You can enter the bootloader by pressing the reset button on the back of the PCB.

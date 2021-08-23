@@ -21,10 +21,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x7074 // FJLabs
-#define PRODUCT_ID   0x1007 // dz60v2
+#define PRODUCT_ID   0x1007 // tf60v2
 #define DEVICE_VER   0x0001 // Version 1
 #define MANUFACTURER    FJLabs
-#define PRODUCT         DZ65RGBv2
+#define PRODUCT         TF65RGBv2
 
 /* key matrix size */
 #define MATRIX_ROWS 5
