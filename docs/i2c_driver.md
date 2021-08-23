@@ -276,3 +276,23 @@ Reads from a register with a 16-bit address (big endian) on the I2C device.
 ### `i2c_status_t i2c_stop(void)`
 
 Stop the current I2C transaction.
+
+## I2C bitbang driver
+
+The I2C bitbang driver can be enabled on avr and chibios targets, with varying performance.
+To enable it set `I2C_MASTER_DRIVER = bitbang` in `rules.mk`
+
+### Configuration options
+
+|`config.h` Overrride       |Description                                                                                                      |Default                                          |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------|-------------------------------------------------|
+|`I2C_BITBANG_SDA_PIN`      | Selects which GPIO the SDA line is connected to                                                                 | not defined                                     |
+|`I2C_BITBANG_SCL_PIN`      | Selects which GPIO the SCL line is connected to                                                                 | not defined                                     |
+|`I2C_BITBANG_STANDARD_MODE`| Defining this will configure the driver for 100kHz standard mode. If not defined, it will be in 400kHz fast mode| not defined                                     |
+|`I2C_BITBANG_FREQUENCY_KHZ`| The target SCL clock frequency in kHz                                                                           | 100 or 400 (depending on what mode is selected) |
+
+### Performance
+
+ - On STM32 MCUs with RT clock (where `PORT_SUPPORTS_RT == TRUE`), the i2c bitbang driver is fairly efficient, and in fast mode it can achieve above 390kHz.
+ - On STM32 MCUs without an RT clock, no optimisation has been attempted, and due to the granularity of the wait_us() functions, the driver will operate only around 25kHz. This may be improved by tweaking `CH_CFG_ST_FREQUENCY` and `CH_CFG_ST_TIMEDELTA`.
+ - On AVR MCUs running at 16MHz, optimized routines have been implemented, that can achieve exactly 400kHz in fast mode, as long as there are no interrupts, and clock stretching is never requested by the device.
