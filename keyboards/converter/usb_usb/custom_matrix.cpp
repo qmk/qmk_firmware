@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // USB HID host
 #include "Usb.h"
 #include "usbhub.h"
-#include "hid.h"
+#include "usbhid.h"
 #include "hidboot.h"
 #include "parser.h"
 
@@ -34,6 +34,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 #include "host.h"
 #include "keyboard.h"
+
+/* TMK specific includes
+    #include "hook.h"
+    #include "suspend.h"
+    #include "lufa.h"
+*/
+
 
 extern "C" {
 #include "quantum.h"
@@ -74,10 +81,10 @@ static bool matrix_is_mod = false;
  * This supports two cascaded hubs and four keyboards
  */
 USB usb_host;
-HIDBoot<HID_PROTOCOL_KEYBOARD>    kbd1(&usb_host);
-HIDBoot<HID_PROTOCOL_KEYBOARD>    kbd2(&usb_host);
-HIDBoot<HID_PROTOCOL_KEYBOARD>    kbd3(&usb_host);
-HIDBoot<HID_PROTOCOL_KEYBOARD>    kbd4(&usb_host);
+HIDBoot<USB_HID_PROTOCOL_KEYBOARD>    kbd1(&usb_host);
+HIDBoot<USB_HID_PROTOCOL_KEYBOARD>    kbd2(&usb_host);
+HIDBoot<USB_HID_PROTOCOL_KEYBOARD>    kbd3(&usb_host);
+HIDBoot<USB_HID_PROTOCOL_KEYBOARD>    kbd4(&usb_host);
 KBDReportParser kbd_parser1;
 KBDReportParser kbd_parser2;
 KBDReportParser kbd_parser3;
@@ -259,4 +266,22 @@ extern "C"
         led_set_kb(usb_led);
     }
 
+    // We need to keep doing UHS2 USB::Task() to initialize keyboard
+    // even during USB bus is suspended and remote wakeup is not enabled yet on LUFA side.
+    // This situation can happen just after pluging converter into USB port.
+    /*void hook_usb_suspend_loop(void)
+    {
+    #ifndef TMK_LUFA_DEBUG_UART
+        // This corrupts debug print when suspend
+        suspend_power_down();
+    #endif
+        if (USB_Device_RemoteWakeupEnabled) {
+            if (suspend_wakeup_condition()) {
+                USB_Device_SendRemoteWakeup();
+            }
+        } else {
+            matrix_scan();
+        }
+    }
+    */
 };
