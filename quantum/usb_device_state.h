@@ -34,5 +34,5 @@ enum usb_device_state {
 
 extern enum usb_device_state usb_device_state;
 
-void notify_usb_device_state_change_kb(enum power_state power_state);
-void notify_usb_device_state_change_user(enum power_state power_state);
+void notify_usb_device_state_change_kb(enum usb_device_state usb_device_state);
+void notify_usb_device_state_change_user(enum usb_device_state usb_device_state);
