@@ -298,7 +298,7 @@ Flashing sequence:
 
 ## tinyuf2
 
-Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F411 blackpill.
+Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F401/F411 blackpill.
 
 The `rules.mk` setting for this bootloader is `tinyuf2`, and can be specified at the keymap or user level.
 
