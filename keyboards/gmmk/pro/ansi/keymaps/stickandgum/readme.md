@@ -1,6 +1,6 @@
 # Glorious GMMK Pro / ANSI - Enhanced Keyboard
 
-Tried to incorporate full featured GMMK Pro keyboard functionality without adding unnecessary features. Included Scroll Lock and Caps LEDs. NKRO is on by default.
+Tried to incorporate full featured GMMK Pro keyboard functionality without adding unnecessary features. Included Scroll Lock and Caps LEDs. NKRO can be toggled (Fn + N).
 SHIFT and Ctrl keys for scrolling with the rotary, Added Fn-keys for Screen Brightness, NKRO, PowerOff, Suspend, App Shortcuts, and RGB Toggle/Modifications
 Trimmed down the amazing 41 currently built-in RGB effects down to about 13 or so reasonable effects that feel are just enough for your entertainment without being too excessive.
 
@@ -33,7 +33,7 @@ Fn Layer:
   - Fn + Home -> Scroll Lock (Lights up white!)
   - Fn + Del (right of space) -> Right-Alt key.
   - Fn + RCtrl (right of Fn) -> Menu/App key.
-  - Fn + N -> Toggle NKRO (Defaults to Enabled)
+  - Fn + N -> Toggle NKRO
   - Fn + End -> Power Off Computer
   - Fn + F12 -> Suspend Computer
   - Fn + F11 -> Wake Computer (Necessary on MAC OS?)
