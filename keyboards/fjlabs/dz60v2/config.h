@@ -66,7 +66,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_LIMIT_VAL 108
 #define RGB_VAL_STEP 12
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
+#define RGBLIGHT_DEFAULT_SPD 144
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 /* #define RGBLIGHT_LAYER_BLINK*/
 
 /* Define less important options */
