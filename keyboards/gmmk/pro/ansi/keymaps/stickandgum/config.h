@@ -16,8 +16,8 @@
 
 #pragma once
 
-// I like NKRO.. force it! - You can still toggle it if you want to disable.
-#define FORCE_NKRO
+// I like NKRO.. but let's not force it. @drashna pointed out some older hardware has issues - Toggle it via keycode if you like.
+// #define FORCE_NKRO
 
 // At the time of this, there are 41 effects! That may be a bit too many to cycle through - keeping what I believe is the best.
 #ifdef RGB_MATRIX_ENABLE
