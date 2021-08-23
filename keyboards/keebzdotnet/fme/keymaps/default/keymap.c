@@ -17,13 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = LAYOUT_all(
         KC_F,   KC_U,   KC_C,   KC_K, KC_BSPC,
         KC_Y,   KC_O,   KC_U,   MO(1),
         KC_SPC, KC_SPC, KC_SPC, KC_SPC
     ),
 
-    [1] = LAYOUT(
+    [1] = LAYOUT_all(
       RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS

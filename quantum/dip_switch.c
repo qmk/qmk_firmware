@@ -17,6 +17,9 @@
  */
 
 #include "dip_switch.h"
+#ifdef SPLIT_KEYBOARD
+#    include "split_common/split_util.h"
+#endif
 
 // for memcpy
 #include <string.h>
@@ -59,6 +62,14 @@ __attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) { return di
 
 void dip_switch_init(void) {
 #ifdef DIP_SWITCH_PINS
+#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
+    if (!isLeftHand) {
+        const pin_t dip_switch_pad_right[] = DIP_SWITCH_PINS_RIGHT;
+        for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
+            dip_switch_pad[i] = dip_switch_pad_right[i];
+        }
+    }
+#    endif
     for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
         setPinInputHigh(dip_switch_pad[i]);
     }

@@ -36,6 +36,7 @@
   * Guides
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
+    * [Easy Maker for One Offs](easy_maker.md)
     * [Keymap Overview](keymap.md)
     * Development Environments
       * [Docker Guide](getting_started_docker.md)
@@ -107,6 +108,7 @@
     * [Bluetooth](feature_bluetooth.md)
     * [Bootmagic Lite](feature_bootmagic.md)
     * [Custom Matrix](custom_matrix.md)
+    * [Digitizer](feature_digitizer.md)
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)

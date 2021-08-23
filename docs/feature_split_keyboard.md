@@ -233,6 +233,18 @@ This enables transmitting modifier state (normal, weak and oneshot) to the non p
 
 This enables transmitting the current WPM to the slave side of the split keyboard. The purpose of this feature is to support cosmetic use of WPM (e.g. displaying the current value on an OLED screen). This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
 
+```c
+#define SPLIT_OLED_ENABLE
+```
+
+This enables transmitting the current OLED on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+
+```c
+#define SPLIT_ST7565_ENABLE
+```
+
+This enables transmitting the current ST7565 on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+
 ### Custom data sync between sides :id=custom-data-sync
 
 QMK's split transport allows for arbitrary data transactions at both the keyboard and user levels. This is modelled on a remote procedure call, with the master invoking a function on the slave side, with the ability to send data from master to slave, process it slave side, and send data back from slave to master.

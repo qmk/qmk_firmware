@@ -26,7 +26,6 @@ NKRO_ENABLE = no             # USB Nkey Rollover
 BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 RGBLIGHT_CUSTOM_DRIVER = yes # RGB code is implemented in lfkeyboards, not qmk base
-MIDI_ENABLE = no             # MIDI support
 BLUETOOTH_ENABLE = no        # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no            # Audio output on port C6
 UNICODE_ENABLE = no          # Unicode

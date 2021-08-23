@@ -49,7 +49,7 @@ def info_json(keyboard):
         info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
 
     # Populate layout data
-    layouts, aliases = _find_all_layouts(info_data, keyboard)
+    layouts, aliases = _search_keyboard_h(keyboard)
 
     if aliases:
         info_data['layout_aliases'] = aliases
@@ -61,8 +61,8 @@ def info_json(keyboard):
 
     # Merge in the data from info.json, config.h, and rules.mk
     info_data = merge_info_jsons(keyboard, info_data)
-    info_data = _extract_config_h(info_data)
     info_data = _extract_rules_mk(info_data)
+    info_data = _extract_config_h(info_data)
 
     # Ensure that we have matrix row and column counts
     info_data = _matrix_size(info_data)
@@ -77,6 +77,9 @@ def info_json(keyboard):
         exit(1)
 
     # Make sure we have at least one layout
+    if not info_data.get('layouts'):
+        _find_missing_layouts(info_data, keyboard)
+
     if not info_data.get('layouts'):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
 
@@ -158,10 +161,9 @@ def _extract_pins(pins):
     return [_pin_name(pin) for pin in pins.split(',')]
 
 
-def _extract_direct_matrix(info_data, direct_pins):
+def _extract_direct_matrix(direct_pins):
     """
     """
-    info_data['matrix_pins'] = {}
     direct_pin_array = []
 
     while direct_pins[-1] != '}':
@@ -185,12 +187,157 @@ def _extract_direct_matrix(info_data, direct_pins):
     return direct_pin_array
 
 
+def _extract_audio(info_data, config_c):
+    """Populate data about the audio configuration
+    """
+    audio_pins = []
+
+    for pin in 'B5', 'B6', 'B7', 'C4', 'C5', 'C6':
+        if config_c.get(f'{pin}_AUDIO'):
+            audio_pins.append(pin)
+
+    if audio_pins:
+        info_data['audio'] = {'pins': audio_pins}
+
+
+def _extract_split_main(info_data, config_c):
+    """Populate data about the split configuration
+    """
+    # Figure out how the main half is determined
+    if config_c.get('SPLIT_HAND_PIN') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_PIN) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'pin'
+
+    if config_c.get('SPLIT_HAND_MATRIX_GRID'):
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'matrix_grid'
+        info_data['split']['matrix_grid'] = _extract_pins(config_c['SPLIT_HAND_MATRIX_GRID'])
+
+    if config_c.get('EE_HANDS') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (EE_HANDS) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'eeprom'
+
+    if config_c.get('MASTER_RIGHT') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_RIGHT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'right'
+
+    if config_c.get('MASTER_LEFT') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'main' in info_data['split']:
+            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_LEFT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+
+        info_data['split']['main'] = 'left'
+
+
+def _extract_split_transport(info_data, config_c):
+    # Figure out the transport method
+    if config_c.get('USE_I2C') is True:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'transport' not in info_data['split']:
+            info_data['split']['transport'] = {}
+
+        if 'protocol' in info_data['split']['transport']:
+            _log_warning(info_data, 'Split transport is specified in both config.h (USE_I2C) and info.json (split.transport.protocol) (Value: %s), the config.h value wins.' % info_data['split']['transport'])
+
+        info_data['split']['transport']['protocol'] = 'i2c'
+
+    elif 'protocol' not in info_data.get('split', {}).get('transport', {}):
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'transport' not in info_data['split']:
+            info_data['split']['transport'] = {}
+
+        info_data['split']['transport']['protocol'] = 'serial'
+
+
+def _extract_split_right_pins(info_data, config_c):
+    # Figure out the right half matrix pins
+    row_pins = config_c.get('MATRIX_ROW_PINS_RIGHT', '').replace('{', '').replace('}', '').strip()
+    col_pins = config_c.get('MATRIX_COL_PINS_RIGHT', '').replace('{', '').replace('}', '').strip()
+    unused_pin_text = config_c.get('UNUSED_PINS_RIGHT')
+    unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
+    direct_pins = config_c.get('DIRECT_PINS_RIGHT', '').replace(' ', '')[1:-1]
+
+    if row_pins and col_pins:
+        if info_data.get('split', {}).get('matrix_pins', {}).get('right') in info_data:
+            _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
+
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'matrix_pins' not in info_data['split']:
+            info_data['split']['matrix_pins'] = {}
+
+        if 'right' not in info_data['split']['matrix_pins']:
+            info_data['split']['matrix_pins']['right'] = {}
+
+        info_data['split']['matrix_pins']['right'] = {
+            'cols': _extract_pins(col_pins),
+            'rows': _extract_pins(row_pins),
+        }
+
+    if direct_pins:
+        if info_data.get('split', {}).get('matrix_pins', {}).get('right', {}):
+            _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
+
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'matrix_pins' not in info_data['split']:
+            info_data['split']['matrix_pins'] = {}
+
+        if 'right' not in info_data['split']['matrix_pins']:
+            info_data['split']['matrix_pins']['right'] = {}
+
+        info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
+
+    if unused_pins:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'matrix_pins' not in info_data['split']:
+            info_data['split']['matrix_pins'] = {}
+
+        if 'right' not in info_data['split']['matrix_pins']:
+            info_data['split']['matrix_pins']['right'] = {}
+
+        info_data['split']['matrix_pins']['right']['unused'] = _extract_pins(unused_pins)
+
+
 def _extract_matrix_info(info_data, config_c):
     """Populate the matrix information.
     """
     row_pins = config_c.get('MATRIX_ROW_PINS', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS', '').replace('{', '').replace('}', '').strip()
+    unused_pin_text = config_c.get('UNUSED_PINS')
+    unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
     direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
+    info_snippet = {}
 
     if 'MATRIX_ROWS' in config_c and 'MATRIX_COLS' in config_c:
         if 'matrix_size' in info_data:
@@ -202,19 +349,35 @@ def _extract_matrix_info(info_data, config_c):
         }
 
     if row_pins and col_pins:
-        if 'matrix_pins' in info_data:
+        if 'matrix_pins' in info_data and 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             _log_warning(info_data, 'Matrix pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_data['matrix_pins'] = {
-            'cols': _extract_pins(col_pins),
-            'rows': _extract_pins(row_pins),
-        }
+        info_snippet['cols'] = _extract_pins(col_pins)
+        info_snippet['rows'] = _extract_pins(row_pins)
 
     if direct_pins:
-        if 'matrix_pins' in info_data:
+        if 'matrix_pins' in info_data and 'direct' in info_data['matrix_pins']:
             _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_data['matrix_pins']['direct'] = _extract_direct_matrix(info_data, direct_pins)
+        info_snippet['direct'] = _extract_direct_matrix(direct_pins)
+
+    if unused_pins:
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
+
+        info_snippet['unused'] = _extract_pins(unused_pins)
+
+    if config_c.get('CUSTOM_MATRIX', 'no') != 'no':
+        if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
+            _log_warning(info_data, 'Custom Matrix is specified in both info.json and config.h, the config.h values win.')
+
+        info_snippet['custom'] = True
+
+        if config_c['CUSTOM_MATRIX'] == 'lite':
+            info_snippet['custom_lite'] = True
+
+    if info_snippet:
+        info_data['matrix_pins'] = info_snippet
 
     return info_data
 
@@ -272,6 +435,10 @@ def _extract_config_h(info_data):
 
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
+    _extract_audio(info_data, config_c)
+    _extract_split_main(info_data, config_c)
+    _extract_split_transport(info_data, config_c)
+    _extract_split_right_pins(info_data, config_c)
 
     return info_data
 
@@ -384,45 +551,13 @@ def _check_matrix(info_data):
             _log_error(info_data, f'MATRIX_ROWS is inconsistent with the size of MATRIX_ROW_PINS: {row_count} != {actual_row_count}')
 
 
-def _merge_layouts(info_data, new_info_data):
-    """Merge new_info_data into info_data in an intelligent way.
-    """
-    for layout_name, layout_json in new_info_data['layouts'].items():
-        if layout_name in info_data['layouts']:
-            # Pull in layouts we have a macro for
-            if len(info_data['layouts'][layout_name]['layout']) != len(layout_json['layout']):
-                msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
-                _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout_json['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
-            else:
-                for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
-                    key.update(layout_json['layout'][i])
-        else:
-            # Pull in layouts that have matrix data
-            missing_matrix = False
-            for key in layout_json.get('layout', {}):
-                if 'matrix' not in key:
-                    missing_matrix = True
-
-            if not missing_matrix:
-                if layout_name in info_data['layouts']:
-                    # Update an existing layout with new data
-                    for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
-                        key.update(layout_json['layout'][i])
-
-                else:
-                    # Copy in the new layout wholesale
-                    layout_json['c_macro'] = False
-                    info_data['layouts'][layout_name] = layout_json
-
-    return info_data
-
-
-def _search_keyboard_h(path):
+def _search_keyboard_h(keyboard):
+    keyboard = Path(keyboard)
     current_path = Path('keyboards/')
     aliases = {}
     layouts = {}
 
-    for directory in path.parts:
+    for directory in keyboard.parts:
         current_path = current_path / directory
         keyboard_h = '%s.h' % (directory,)
         keyboard_h_path = current_path / keyboard_h
@@ -437,27 +572,28 @@ def _search_keyboard_h(path):
     return layouts, aliases
 
 
-def _find_all_layouts(info_data, keyboard):
-    """Looks for layout macros associated with this keyboard.
+def _find_missing_layouts(info_data, keyboard):
+    """Looks for layout macros when they aren't found other places.
+
+    If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
     """
-    layouts, aliases = _search_keyboard_h(Path(keyboard))
+    _log_warning(info_data, '%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
 
-    if not layouts:
-        # If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
-        info_data['parse_warnings'].append('%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
+    for file in glob('keyboards/%s/*.h' % keyboard):
+        these_layouts, these_aliases = find_layouts(file)
 
-        for file in glob('keyboards/%s/*.h' % keyboard):
-            if file.endswith('.h'):
-                these_layouts, these_aliases = find_layouts(file)
+        if these_layouts:
+            for layout_name, layout_json in these_layouts.items():
+                if not layout_name.startswith('LAYOUT_kc'):
+                    layout_json['c_macro'] = True
+                    info_data['layouts'][layout_name] = layout_json
 
-                if these_layouts:
-                    layouts.update(these_layouts)
+        for alias, alias_text in these_aliases.items():
+            if alias_text in these_layouts:
+                if 'layout_aliases' not in info_data:
+                    info_data['layout_aliases'] = {}
 
-                for alias, alias_text in these_aliases.items():
-                    if alias_text in layouts:
-                        aliases[alias] = alias_text
-
-    return layouts, aliases
+                info_data['layout_aliases'][alias] = alias_text
 
 
 def _log_error(info_data, message):
@@ -554,8 +690,12 @@ def merge_info_jsons(keyboard, info_data):
                 layout_name = info_data['layout_aliases'][layout_name]
 
             if layout_name in info_data['layouts']:
-                for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
-                    existing_key.update(new_key)
+                if len(info_data['layouts'][layout_name]['layout']) != len(layout['layout']):
+                    msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
+                    _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
+                else:
+                    for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
+                        existing_key.update(new_key)
             else:
                 layout['c_macro'] = False
                 info_data['layouts'][layout_name] = layout
