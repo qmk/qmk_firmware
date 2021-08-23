@@ -12,7 +12,6 @@ SPACE_CADET_ENABLE = no
 
 NO_SECRETS        = yes
 INDICATOR_LIGHTS  = no
-RGBLIGHT_TWINKLE  = no
 LAYOUTS = ortho_5x7
 
 # SRC := $(filter-out serial.c matrix.c i2c.c split_util.c,$(SRC))

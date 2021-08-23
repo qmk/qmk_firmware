@@ -51,6 +51,7 @@ enum userspace_custom_keycodes {
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 #define LOWER     MO(_LOWER)
 #define RAISE     MO(_RAISE)

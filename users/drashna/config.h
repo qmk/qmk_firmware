@@ -30,8 +30,15 @@
 #    ifdef WPM_ENABLE
 #        define SPLIT_WPM_ENABLE
 #    endif
-#    define SELECT_SOFT_SERIAL_SPEED   1
-#    define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC
+#    ifdef OLED_DRIVER_ENABLE
+#        define SPLIT_OLED_ENABLE
+#    endif
+#    if defined(__AVR__) && !defined(SELECT_SOFT_SERIAL_SPEED)
+#        define SELECT_SOFT_SERIAL_SPEED 1
+#    endif
+#    ifdef CUSTOM_SPLIT_TRANSPORT_SYNC
+#        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC
+#    endif
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -65,23 +72,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
-#    undef RGBLIGHT_ANIMATIONS
-#    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
-#        define RGBLIGHT_EFFECT_BREATHING
-#        define RGBLIGHT_EFFECT_SNAKE
-#        define RGBLIGHT_EFFECT_KNIGHT
-#    else
-#        define RGBLIGHT_EFFECT_BREATHING
-#        define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#        define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#        define RGBLIGHT_EFFECT_SNAKE
-#        define RGBLIGHT_EFFECT_KNIGHT
-// #        define RGBLIGHT_EFFECT_CHRISTMAS
-// #        define RGBLIGHT_EFFECT_STATIC_GRADIENT
-// #        define RGBLIGHT_EFFECT_RGB_TEST
-// #        define RGBLIGHT_EFFECT_ALTERNATING
-#        define RGBLIGHT_EFFECT_TWINKLE
-#    endif
 #    define RGBLIGHT_EFFECT_TWINKLE_LIFE        250
 #    define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1 / 24
 #endif  // RGBLIGHT_ENABLE
@@ -107,8 +97,10 @@
 #        define DISABLE_RGB_MATRIX_CYCLE_ALL
 #        define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #        define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
-// #        define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
+#        if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_moonlander)
+#            define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
 // #       define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#        endif
 #        define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #        define DISABLE_RGB_MATRIX_DUAL_BEACON
 #        define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL
@@ -117,6 +109,12 @@
 #        define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 #        define DISABLE_RGB_MATRIX_RAINDROPS
 #        define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#        define DISABLE_RGB_MATRIX_HUE_BREATHING
+#        define DISABLE_RGB_MATRIX_HUE_PENDULUM
+#        define DISABLE_RGB_MATRIX_HUE_WAVE
+#        define DISABLE_RGB_MATRIX_PIXEL_RAIN
+#        define DISABLE_RGB_MATRIX_PIXEL_FLOW
+#        define DISABLE_RGB_MATRIX_PIXEL_FRACTAL
 // #       define DISABLE_RGB_MATRIX_TYPING_HEATMAP
 #        define DISABLE_RGB_MATRIX_DIGITAL_RAIN
 #        define DISABLE_RGB_MATRIX_SOLID_REACTIVE
@@ -132,7 +130,15 @@
 #        define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #        define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    endif  // AVR
-#endif      // RGB_MATRIX_ENABLE
+#    ifndef RGB_MATRIX_REST_MODE
+#        if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_moonlander)
+#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#        else
+#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
+#        endif
+#    endif
+#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
+#endif  // RGB_MATRIX_ENABLE
 
 #ifdef OLED_DRIVER_ENABLE
 #    ifdef SPLIT_KEYBOARD
@@ -182,8 +188,6 @@
 #    define TAPPING_TERM_PER_KEY
 #endif
 
-#define FORCE_NKRO
-
 #ifndef TAPPING_TOGGLE
 #    define TAPPING_TOGGLE 1
 #endif
@@ -209,7 +213,12 @@
 #    undef LOCKING_RESYNC_ENABLE
 #endif
 
-#define LAYER_STATE_16BIT
+#if !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_32BIT)
+#    define LAYER_STATE_16BIT
+#endif
+#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 11
+#endif
 
 #ifdef CONVERT_TO_PROTON_C
 // pins that are available but not present on Pro Micro

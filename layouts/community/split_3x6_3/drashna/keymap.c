@@ -26,6 +26,12 @@ enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
  * of use. K## is a placeholder to pass through the individual keycodes
  */
 
+#ifdef CONVERT_TO_PROTON_C
+#    define MID_TMB ET_RAIS
+#else
+#    define MID_TMB KC_ENT
+#endif
+
 // clang-format off
 #define LAYOUT_split_3x6_3_wrapper(...)      LAYOUT_split_3x6_3(__VA_ARGS__)
 #define LAYOUT_split_3x6_3_base( \
@@ -37,7 +43,7 @@ enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
     ALT_T(KC_TAB), K11,  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
-                                        OS_LGUI, KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
+                                        OS_LGUI, KC_SPC,  BK_LWER, DL_RAIS,  MID_TMB,  OS_RGUI                                      \
   )
 #define LAYOUT_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
 
@@ -103,12 +109,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 #endif
-
-void matrix_slave_scan_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_task();
-#endif
-}
 
 #ifdef RGB_MATRIX_ENABLE
 void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
