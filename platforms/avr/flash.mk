@@ -159,6 +159,9 @@ endef
 hid_bootloader: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_HID_LUFA)
 
+nanoboot: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_HID_LUFA)
+
 flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
@@ -173,6 +176,8 @@ else ifeq ($(strip $(BOOTLOADER)), USBasp)
 else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_BOOTLOADHID)
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_HID_LUFA)
+else ifeq ($(strip $(BOOTLOADER)), nanoboot)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_HID_LUFA)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"

@@ -177,6 +177,24 @@ BOOTLOADER = atmel-dfu
 BOOTLOADER = caterina
 ```
 
+#### QMK DFU Bootloader Example
+
+```make
+BOOTLOADER = qmk-dfu
+```
+
+#### QMK HID Bootloader Example
+
+```make
+BOOTLOADER = qmk-hid
+```
+
+#### nanoBoot Bootloader Example
+
+```make
+BOOTLOADER = nanoboot
+```
+
 ### Build Options
 
 There are a number of features that can be turned on or off in `rules.mk`. See the [Config Options](config_options.md#feature-options) page for a detailed list and description.

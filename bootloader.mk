@@ -107,6 +107,13 @@ lufa_warning: $(FIRMWARE_FORMAT)
 	$(info It is extremely prone to bricking, and is only included to support existing boards.)
 	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
 endif
+ifeq ($(strip $(BOOTLOADER)), nanoboot)
+    OPT_DEFS += -DBOOTLOADER_NANOBOOT
+    OPT_DEFS += -DBOOTLOADER_HID
+    ifneq (,$(filter $(MCU), atmega16u4 atmega32u4))
+        BOOTLOADER_SIZE = 512
+    endif
+endif
 ifdef BOOTLOADER_SIZE
     OPT_DEFS += -DBOOTLOADER_SIZE=$(strip $(BOOTLOADER_SIZE))
 endif

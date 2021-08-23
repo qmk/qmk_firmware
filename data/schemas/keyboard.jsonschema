@@ -56,7 +56,7 @@
         },
         "bootloader": {
             "type": "string",
-            "enum": ["atmel-dfu", "bootloadHID", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "micronucleus", "qmk-dfu", "qmk-hid", "stm32-dfu", "stm32duino", "unknown", "USBasp", "tinyuf2"],
+            "enum": ["atmel-dfu", "bootloadHID", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "micronucleus", "qmk-dfu", "qmk-hid", "stm32-dfu", "stm32duino", "unknown", "USBasp", "tinyuf2", "nanoboot"],
         },
         "bootloader_instructions": {
             "type": "string",

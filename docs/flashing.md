@@ -217,6 +217,35 @@ Flashing sequence:
 
 * `:qmk-hid`: Checks every 5 seconds until a DFU device is available, and then flashes the firmware.
 
+### nanoBoot
+
+NanoBoot is a USB HID based bootloader for the ATmega##u4 family of devices, designed to fit in 256 words (512 bytes).  It's based on the LUFA/QMK HID Bootloader but is incredibly streamlined, and sized optimized. 
+
+To ensure compatibility with the NanoBoot bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = nanoboot
+```
+
+Compatible flashers:
+
+* TBD
+  * Currently, you need to either use the [Python script](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp_python), or compile [`hid_bootloader_cli`](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp), from the LUFA repo. Homebrew may (will) have support for this directly (via `brew install qmk/qmk/hid_bootloader_cli`).
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Press the `RESET` keycode
+    * Press the `RESET` button on the PCB if available
+    * short RST to GND quickly
+2. Wait for the OS to detect the device
+3. Flash a .hex file
+4. Reset the device into application mode (may be done automatically)
+
+### `make` Targets
+
+* `:nanoboot`: Checks every 5 seconds until a DFU device is available, and then flashes the firmware.
 ## STM32/APM32 DFU
 
 All STM32 and APM32 MCUs, except for F103 (see the [STM32duino section](#stm32duino)) come preloaded with a factory bootloader that cannot be modified nor deleted.
