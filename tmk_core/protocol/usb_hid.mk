@@ -7,7 +7,7 @@ USB_HOST_LIB_DIR = $(LIB_PATH)/usbhost
 USB_HOST_SHIELD_DIR = $(USB_HOST_LIB_DIR)/USB_Host_Shield_2.0
 USB_HOST_SHIELD_SRC = \
 	$(USB_HOST_SHIELD_DIR)/Usb.cpp \
-	$(USB_HOST_SHIELD_DIR)/hid.cpp \
+	$(USB_HOST_SHIELD_DIR)/usbhid.cpp \
 	$(USB_HOST_SHIELD_DIR)/usbhub.cpp \
 	$(USB_HOST_SHIELD_DIR)/parsetools.cpp \
 	$(USB_HOST_SHIELD_DIR)/message.cpp 
