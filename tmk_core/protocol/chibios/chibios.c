@@ -27,7 +27,7 @@
 #include "keyboard.h"
 #include "action.h"
 #include "action_util.h"
-#include "usb_power.h"
+#include "usb_device_state.h"
 #include "mousekey.h"
 #include "led.h"
 #include "sendchar.h"
@@ -140,7 +140,7 @@ void boardInit(void) {
 }
 
 void protocol_setup(void) {
-    usb_power_init();
+    usb_device_state_init();
 
     // TESTING
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);

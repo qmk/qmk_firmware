@@ -39,7 +39,7 @@
 #    include "led.h"
 #endif
 #include "wait.h"
-#include "usb_power.h"
+#include "usb_device_state.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
 
@@ -413,7 +413,7 @@ static inline bool usb_event_queue_dequeue(usbevent_t *event) {
 }
 
 static inline void usb_event_suspend_handler(void) {
-    usb_power_set_suspend(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
+    usb_device_state_set_suspend(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
@@ -421,7 +421,7 @@ static inline void usb_event_suspend_handler(void) {
 
 static inline void usb_event_wakeup_handler(void) {
     suspend_wakeup_init();
-    usb_power_set_resume(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
+    usb_device_state_set_resume(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
     // NOTE: converters may not accept this
@@ -444,13 +444,13 @@ void usb_event_queue_task(void) {
                 usb_event_wakeup_handler();
                 break;
             case USB_EVENT_CONFIGURED:
-                usb_power_set_configuration(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
+                usb_device_state_set_configuration(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
                 break;
             case USB_EVENT_UNCONFIGURED:
-                usb_power_set_configuration(false, 0);
+                usb_device_state_set_configuration(false, 0);
                 break;
             case USB_EVENT_RESET:
-                usb_power_set_reset();
+                usb_device_state_set_reset();
                 break;
             default:
                 // Nothing to do, we don't handle it.
