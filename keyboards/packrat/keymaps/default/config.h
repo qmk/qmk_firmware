@@ -15,5 +15,5 @@
  */
 #pragma once
 
-#define COMBO_COUNT 8
+#define COMBO_COUNT 7
 #define COMBO_TERM 40

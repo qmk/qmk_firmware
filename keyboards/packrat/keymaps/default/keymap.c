@@ -29,7 +29,6 @@ enum combo_events {
   combo_TAB,
   combo_DELETE,
   combo_ENTER,
-  combo_QUOT,
   combo_LPRN,
   combo_RPRN,
 };
@@ -39,7 +38,6 @@ const uint16_t PROGMEM bspc_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_A, KC_S, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM enter_combo[] = {KC_L, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM quot_combo[] = {KC_P, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM lprn_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM rprn_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 
@@ -50,7 +48,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [combo_TAB] = COMBO(tab_combo, KC_TAB),
   [combo_DELETE] = COMBO(del_combo, KC_DEL),
   [combo_ENTER] = COMBO(enter_combo, KC_ENT),
-  [combo_QUOT] = COMBO(quot_combo, KC_QUOT),
   [combo_LPRN] = COMBO(lprn_combo, KC_LPRN),
   [combo_RPRN] = COMBO(rprn_combo, KC_RPRN),
 };
