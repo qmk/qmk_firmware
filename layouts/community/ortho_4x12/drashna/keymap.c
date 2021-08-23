@@ -215,11 +215,12 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t this_mod = get_mods();
     uint8_t this_led = host_keyboard_leds();
     uint8_t this_osm = get_oneshot_mods();
-    bool    is_ez;
 #    ifdef KEYBOARD_planck_ez
-    is_ez = true;
+#        define THUMB_LED 41
+#    else
+#        define THUMB_LED 42
 #    endif
-
+#    define RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(...) RGB_MATRIX_INDICATOR_SET_COLOR(__VA_ARGS__)
 #    if defined(RGBLIGHT_ENABLE)
     if (!userspace_config.rgb_layer_change)
 #    else
@@ -265,16 +266,16 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     switch (get_highest_layer(default_layer_state)) {
         case _DEFAULT_LAYER_1:
-            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0x00, 0xFF, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(THUMB_LED, DEFAULT_LAYER_1_RGB);
             break;
         case _DEFAULT_LAYER_2:
-            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(THUMB_LED, DEFAULT_LAYER_2_RGB);
             break;
         case _DEFAULT_LAYER_3:
-            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0x00, 0xFF, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(THUMB_LED, DEFAULT_LAYER_3_RGB);
             break;
         case _DEFAULT_LAYER_4:
-            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0xD9, 0xA5, 0x21);
+            RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(THUMB_LED, DEFAULT_LAYER_4_RGB);
             break;
     }
 
