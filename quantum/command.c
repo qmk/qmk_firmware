@@ -35,10 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "version.h"
 
-#ifdef STM32_EEPROM_ENABLE
-#    include "eeprom_stm32.h"
-#endif
-
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
@@ -117,10 +113,6 @@ static void command_common_help(void) {
         STR(MAGIC_KEY_DEBUG_KBD) ":	Keyboard Debug Toggle"
             " - Show keypress report\n"
         STR(MAGIC_KEY_DEBUG_MOUSE) ":	Debug Mouse Toggle\n"
-        STR(MAGIC_KEY_DEBUG_EEPROM) ":	Debug EEPROM Toggle\n"
-#ifdef STM32_EEPROM_ENABLE
-        STR(MAGIC_KEY_PRINT_EEPROM) ":	Print EEPROM Contents\n"
-#endif
         STR(MAGIC_KEY_VERSION) ":	Version\n"
         STR(MAGIC_KEY_STATUS) ":	Status\n"
         STR(MAGIC_KEY_CONSOLE) ":	Activate Console Mode\n"
@@ -267,14 +259,12 @@ static void print_eeconfig(void) {
         ".matrix: %u\n"
         ".keyboard: %u\n"
         ".mouse: %u\n"
-        ".eeprom: %u\n"
 
         , dc.raw
         , dc.enable
         , dc.matrix
         , dc.keyboard
         , dc.mouse
-        , dc.eeprom
     ); /* clang-format on */
 
     keymap_config_t kc;
@@ -383,7 +373,6 @@ static bool command_common(uint8_t code) {
             debug_matrix   = false;
             debug_keyboard = false;
             debug_mouse    = false;
-            debug_eeprom   = false;
             debug_enable   = false;
             command_console_help();
             print("C> ");
@@ -407,7 +396,6 @@ static bool command_common(uint8_t code) {
                 debug_matrix   = false;
                 debug_keyboard = false;
                 debug_mouse    = false;
-                debug_eeprom   = false;
             }
             break;
 
@@ -443,25 +431,6 @@ static bool command_common(uint8_t code) {
                 print("\nmouse: off\n");
             }
             break;
-
-        // debug eeprom toggle
-        case MAGIC_KC(MAGIC_KEY_DEBUG_EEPROM):
-            debug_eeprom = !debug_eeprom;
-            if (debug_eeprom) {
-                print("\neeprom: on\n");
-                debug_enable = true;
-            } else {
-                print("\neeprom: off\n");
-            }
-            break;
-
-#ifdef STM32_EEPROM_ENABLE
-        // print eeprom contents
-        case MAGIC_KC(MAGIC_KEY_PRINT_EEPROM):
-            print("EEPROM Contents:\n");
-            print_eeprom();
-            break;
-#endif
 
         // print version
         case MAGIC_KC(MAGIC_KEY_VERSION):

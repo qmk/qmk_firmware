@@ -60,7 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_DEBUG_MATRIX (1 << 1)
 #define EECONFIG_DEBUG_KEYBOARD (1 << 2)
 #define EECONFIG_DEBUG_MOUSE (1 << 3)
-#define EECONFIG_DEBUG_EEPROM (1 << 4)
 
 /* keyconf bit */
 #define EECONFIG_KEYMAP_SWAP_CONTROL_CAPSLOCK (1 << 0)

@@ -255,23 +255,21 @@ static uint8_t *DataBuf = (uint8_t *)WordBuf;
 /* Pointer to the first available slot within the write log */
 static uint16_t *empty_slot;
 
+// #define DEBUG_EEPROM_OUTPUT
+
 /*
  * Debug print utils
  */
-#ifndef NO_DEBUG
 
-#    define eeprom_println(s)             \
-        do {                              \
-            if (debug_eeprom) println(s); \
-        } while (0)
+#if defined(DEBUG_EEPROM_OUTPUT)
 
-#    define eeprom_printf(fmt, ...)                        \
-        do {                                               \
-            if (debug_eeprom) xprintf(fmt, ##__VA_ARGS__); \
-        } while (0)
+#    define debug_eeprom debug_enable
+#    define eeprom_println(s) println(s)
+#    define eeprom_printf(fmt, ...) xprintf(fmt, ##__VA_ARGS__);
 
 #else /* NO_DEBUG */
 
+#    define debug_eeprom false
 #    define eeprom_println(s)
 #    define eeprom_printf(fmt, ...)
 
