@@ -138,9 +138,9 @@ usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 
 BOOTLOADHID_PROGRAMMER ?= bootloadHID
 
+# bootloadHid executable has no cross platform detect methods
+# so keep running bootloadHid if the output contains "The specified device was not found"
 define EXEC_BOOTLOADHID
-	# bootloadHid executable has no cross platform detect methods
-	# so keep running bootloadHid if the output contains "The specified device was not found"
 	until $(BOOTLOADHID_PROGRAMMER) -r $(BUILD_DIR)/$(TARGET).hex 2>&1 | tee /dev/stderr | grep -v "device was not found"; do\
 		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
 		sleep 5 ;\
