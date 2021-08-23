@@ -172,7 +172,6 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
         return state;
     }
 
-    state = layer_state_set_keymap(state);
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
@@ -188,6 +187,7 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
         }
     }
 #endif
+    state = layer_state_set_keymap(state);
     return state;
 }
 
