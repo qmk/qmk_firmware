@@ -45,6 +45,7 @@ Special Features
 
 
 rules.mk OPTIONS - Active features from userspace
+
     - STARTUP_NUMLOCK_ON = yes
         - turns on NUMLOCK by default
 
