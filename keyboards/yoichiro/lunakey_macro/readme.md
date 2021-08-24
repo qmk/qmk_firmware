@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make lunakey_macro:default:avrdude
+    make lunakey_macro:default:flash
 
 To enter the bootloader mode, you push the black tact switch next to the ProMicro.
 
