@@ -77,6 +77,8 @@ static uint8_t micro_oled_screen_current[LCDWIDTH * LCDHEIGHT / 8] = {0};
 #ifdef NO_LCD_SPLASH
 // do not initialize with a splash screen
 static uint8_t micro_oled_screen_buffer[LCDWIDTH * LCDHEIGHT / 8] = {0};
+#elif defined CUSTOM_LCD_SPLASH
+static uint8_t micro_oled_screen_buffer[] = CUSTOM_LCD_SPLASH;
 #else
 #    if LCDWIDTH == 64
 #        if LCDHEIGHT == 48
