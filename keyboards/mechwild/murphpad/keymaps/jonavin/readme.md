@@ -35,7 +35,7 @@ Special Features
                 {"AltF4",   KC_AF4},
                 {"PLAY",    KC_MEDIA_PLAY_PAUSE},
                 {"RESET",   RESET},  // firmware flash mode
-       };
+          };
 
   - Additional encoder functionality
     - While holding R Shift, changes layers
