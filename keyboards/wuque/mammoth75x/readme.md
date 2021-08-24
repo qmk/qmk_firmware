@@ -1,6 +1,6 @@
 # mammoth75x
 ​
-More Info at[wuquestudio](https://shop.wuquestudio.com/).
+More Info at [wuquestudio](https://shop.wuquestudio.com/).
 ​
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
 * Hardware Supported: mammoth75x Standard
