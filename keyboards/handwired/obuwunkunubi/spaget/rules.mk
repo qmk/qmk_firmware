@@ -28,6 +28,7 @@ BLUETOOTH_ENABLE = no    # Enable Bluetooth with the Adafruit EZ-Key HID
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 AUDIO_ENABLE = no        # Audio output on port C6
 
-OLED_DRIVER_ENABLE = yes # Enable OLED display support
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306 # Enable OLED display support
 ENCODER_ENABLE = yes     # Enable encoder support
 

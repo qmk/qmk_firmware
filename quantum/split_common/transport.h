@@ -165,9 +165,9 @@ typedef struct _split_shared_memory_t {
     uint8_t current_wpm;
 #endif  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
-#if defined(OLED_DRIVER_ENABLE) && defined(SPLIT_OLED_ENABLE)
+#if defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
     uint8_t current_oled_state;
-#endif  // defined(OLED_DRIVER_ENABLE) && defined(SPLIT_OLED_ENABLE)
+#endif  // defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
 
 #if defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
     uint8_t current_st7565_state;

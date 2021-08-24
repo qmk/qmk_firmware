@@ -27,4 +27,5 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 ENCODER_ENABLE = yes        # Enable support for EC11 Rotary Encoder
-OLED_DRIVER_ENABLE = yes    # Enable Support for SSD1306 or SH1106 OLED Displays; Communicating over I2C
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306    # Enable Support for SSD1306 or SH1106 OLED Displays; Communicating over I2C

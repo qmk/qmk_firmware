@@ -28,7 +28,8 @@ SLEEP_LED_ENABLE   = no    # Breathing sleep LED during USB suspend
 
 BOOTLOADER       = qmk-dfu
 
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 
 ifeq ($(strip $(THEME)), godspeed)
     OPT_DEFS += -DTHEME_GODSPEED

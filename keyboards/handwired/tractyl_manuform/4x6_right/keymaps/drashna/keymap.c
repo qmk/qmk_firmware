@@ -139,7 +139,7 @@ void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
         mouse_report->x = x;
         mouse_report->y = y;
     }
-#    ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_ENABLE
     if (x || y) oled_timer = timer_read32();
 #    endif
 }

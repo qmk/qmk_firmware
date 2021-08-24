@@ -11,7 +11,8 @@ ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
 RGB_MATRIX_ENABLE = yes
 EXTRAFLAGS += -flto
 BOOTLOADER = qmk-dfu
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 endif
 
 ifeq ($(strip $(KEYBOARD)), lazydesigners/dimple)

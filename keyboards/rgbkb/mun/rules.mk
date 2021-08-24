@@ -27,7 +27,8 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 
-OLED_DRIVER_ENABLE = yes    # Enable the OLED Driver
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306    # Enable the OLED Driver
 
 ENCODER_ENABLE = yes
 

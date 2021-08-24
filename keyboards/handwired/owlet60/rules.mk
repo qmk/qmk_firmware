@@ -29,7 +29,7 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 CUSTOM_MATRIX = yes
-OLED_DRIVER_ENABLE = no
+OLED_ENABLE = no
 
 SRC += matrix.c
 

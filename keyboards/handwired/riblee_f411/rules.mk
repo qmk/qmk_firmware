@@ -25,5 +25,6 @@ AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = ortho_5x12
 
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 RAW_ENABLE = yes

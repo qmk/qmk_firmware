@@ -519,7 +519,7 @@ static void wpm_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_
 ////////////////////////////////////////////////////
 // OLED
 
-#if defined(OLED_DRIVER_ENABLE) && defined(SPLIT_OLED_ENABLE)
+#if defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
 
 static bool oled_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t last_update        = 0;
@@ -539,7 +539,7 @@ static void oled_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave
 #    define TRANSACTIONS_OLED_SLAVE()       TRANSACTION_HANDLER_SLAVE(oled)
 #    define TRANSACTIONS_OLED_REGISTRATIONS [PUT_OLED] = trans_initiator2target_initializer(current_oled_state),
 
-#else  // defined(OLED_DRIVER_ENABLE) && defined(SPLIT_OLED_ENABLE)
+#else  // defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
 
 #    define TRANSACTIONS_OLED_MASTER()
 #    define TRANSACTIONS_OLED_SLAVE()

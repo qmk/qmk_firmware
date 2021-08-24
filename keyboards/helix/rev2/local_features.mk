@@ -156,17 +156,20 @@ endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(OLED_SELECT)),core)
-        OLED_DRIVER_ENABLE = yes
+        OLED_ENABLE = yes
+        OLED_DRIVER = SSD1306
         ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
            OPT_DEFS += -DOLED_FONT_H=\<helixfont.h\>
         else
            OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
         endif
     else
+        OLED_ENABLE = no # disable OLED in TOP/common_features.mk
+        OLED_LOCAL_ENABLE = yes
         SRC += local_drivers/i2c.c
         SRC += local_drivers/ssd1306.c
         KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
-        OPT_DEFS += -DOLED_ENABLE
+        OPT_DEFS += -DOLED_LOCAL_ENABLE
         ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
             OPT_DEFS += -DLOCAL_GLCDFONT
         endif
@@ -177,7 +180,8 @@ ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
   $(eval $(call HELIX_CUSTOMISE_MSG))
   ifneq ($(strip $(SHOW_VERBOSE_INFO)),)
      $(info -- RGBLIGHT_ENABLE    = $(RGBLIGHT_ENABLE))
-     $(info -- OLED_DRIVER_ENABLE = $(OLED_DRIVER_ENABLE))
+     $(info -- OLED_DRIVER        = $(OLED_DRIVER))
+     $(info -- OLED_LOCAL_ENABLE  = $(OLED_LOCAL_ENABLE))
      $(info -- CONSOLE_ENABLE     = $(CONSOLE_ENABLE))
      $(info -- OPT_DEFS           = $(OPT_DEFS))
      $(info -- SPLIT_KEYBOARD     = $(SPLIT_KEYBOARD))

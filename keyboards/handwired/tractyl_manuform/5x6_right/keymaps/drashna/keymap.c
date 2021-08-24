@@ -172,7 +172,7 @@ bool            tap_toggling          = false;
 void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
     if (x != 0 && y != 0) {
         mouse_timer = timer_read();
-#    ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_ENABLE
         oled_timer = timer_read32();
 #    endif
         if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {

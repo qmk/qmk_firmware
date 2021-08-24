@@ -1,9 +1,9 @@
 AUTO_SHIFT_ENABLE = no
-OLED_DRIVER_ENABLE= yes
+OLED_ENABLE= yes
 
 EXTRAKEY_ENABLE = yes
 
-SRC +=  ./lib/logo_reader.c 
+SRC +=  ./lib/logo_reader.c
 #         ./lib/keylogger.c \
 #         ./lib/mode_icon_reader.c \
 #         ./lib/timelogger.c \
