@@ -65,7 +65,7 @@ Hebrew keymaps
 ![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_hebrew-israel_ve.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-israel_vc.jpg)
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-israel_vd.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -77,7 +77,7 @@ Layer: `..._NSY`
 ![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_hebrew-qwerty_ve.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-israel_vc.jpg)
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hebrew-israel_vd.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -98,7 +98,7 @@ Layer: `..._NSY` (Same as Dvorak.)
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Hebrew](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_hebrew_2000_vi.jpg)
+![Minivan illustration Overview layers by key, Hebrew](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_hebrew_2000_vj.jpg)
 
 Layers (text)
 =============
