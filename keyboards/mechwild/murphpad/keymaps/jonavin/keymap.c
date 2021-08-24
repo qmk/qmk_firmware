@@ -219,8 +219,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 oled_write_P(PSTR("BASE"), false);
                 break;
             case 1:
-                sprintf(fn_str, "FN %5s", selectedkey_rec.keydesc);
-                oled_write(fn_str, false);
+                oled_write_P(PSTR("FN "), false);
+                oled_write(selectedkey_rec.keydesc, false);
                 //oled_write_P(PSTR("FN1 "), false);
                 break;
             case 2:
