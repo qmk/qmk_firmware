@@ -151,9 +151,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             oled_clear();
             oled_render();
         #endif
-        #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-            #define DYNAMIC_KEYMAP_LAYER_COUNT 4  //default number of layers if not defined
-        #endif // !DYNAMIC_KEYMAP_LAYER_COUNT
         switch (index) {
             case 0:         // This is the only encoder right now, keeping for consistency
                 switch(get_highest_layer(layer_state)){  // special handling per layer
