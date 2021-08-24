@@ -18,7 +18,7 @@
 
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0100
+#define PRODUCT_ID      0x0102
 #define DEVICE_VER      0x0100
 
 /* key matrix pins */
@@ -27,5 +27,5 @@
 
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 59
-#define DRIVER_2_LED_TOTAL 23
+#define DRIVER_2_LED_TOTAL 24
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
