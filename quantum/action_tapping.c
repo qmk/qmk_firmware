@@ -5,7 +5,7 @@
 #include "action_tapping.h"
 #include "keycode.h"
 #include "timer.h"
-#include "keymap.h"
+#include "keymap_common.h"
 
 #ifdef DEBUG_ACTION
 #    include "debug.h"
