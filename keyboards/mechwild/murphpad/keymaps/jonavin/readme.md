@@ -38,15 +38,15 @@ Special Features
        };
 
   - Additional encoder functionality
-        - While holding R Shift, changes layers
-        - While holding R Ctrl, navigates next or previous word
-        - While holding R Alt, media next track or previous track
-        - Otherwise change volume up/dn
+    - While holding R Shift, changes layers
+    - While holding R Ctrl, navigates next or previous word
+    - While holding R Alt, media next track or previous track
+    - Otherwise change volume up/dn
 
 
 rules.mk OPTIONS - Active features from userspace
-STARTUP_NUMLOCK_ON = yes
- - turns on NUMLOCK by default
+    - STARTUP_NUMLOCK_ON = yes
+        - turns on NUMLOCK by default
 
 DEFAULT MAPPING
 
