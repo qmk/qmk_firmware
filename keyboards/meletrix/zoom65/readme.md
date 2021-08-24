@@ -1,7 +1,6 @@
 # zoom65
 
-
-![zoom65](https://i.imgur.com/NIbreqd.jpeg) 
+![zoom65](https://i.imgur.com/NIbreqdh.jpeg) 
 
 Zoom's first mass-produced mechanical keyboard.  
 More Info at [zoom](https://zoom65.com/).
