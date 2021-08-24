@@ -46,15 +46,15 @@ __attribute__((weak)) kb_pointer_data_t process_mouse(void) {
     kb_pointer_data_t temp_data = {.mouse_x = 0, .mouse_y = 0};
 
     report_pmw_t data = pmw_read_burst();
-    if (data.isOnSurface && data.isMotion) {
         // Reset timer if stopped moving
         if (!data.isMotion) {
             if (MotionStart != 0) MotionStart = 0;
             return temp_data;
         }
 
+    if (data.isOnSurface) {
         // Set timer if new motion
-        if ((MotionStart == 0) && data.isMotion) {
+        if (MotionStart == 0) {
             if (debug_mouse) dprintf("Starting motion.\n");
             MotionStart = timer_read();
         }
