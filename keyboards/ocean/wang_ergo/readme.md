@@ -1,7 +1,6 @@
 # Wang Ergo
 
-![Wang ergo](https://i.imgur.com/vsYWYfx.jpeg)
-
+![Wang ergo](https://i.imgur.com/vsYWYfxh.jpeg)
 
 40% keyboard with southpaw numpad
 
