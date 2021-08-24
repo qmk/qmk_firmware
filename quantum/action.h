@@ -109,6 +109,9 @@ void register_mods(uint8_t mods);
 void unregister_mods(uint8_t mods);
 void register_weak_mods(uint8_t mods);
 void unregister_weak_mods(uint8_t mods);
+void register_code16(uint16_t code);
+void unregister_code16(uint16_t code);
+void tap_code16(uint16_t code);
 // void set_mods(uint8_t mods);
 void clear_keyboard(void);
 void clear_keyboard_but_mods(void);
@@ -117,6 +120,8 @@ void layer_switch(uint8_t new_layer);
 bool is_tap_key(keypos_t key);
 bool is_tap_record(keyrecord_t *record);
 bool is_tap_action(action_t action);
+
+uint8_t extract_mod_bits(uint16_t code);
 
 #ifndef NO_ACTION_TAPPING
 void process_record_tap_hint(keyrecord_t *record);
