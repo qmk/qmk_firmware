@@ -91,8 +91,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EXTERNAL_EEPROM_BYTE_COUNT           8196
 // #define EXTERNAL_EEPROM_PAGE_SIZE            32
 // #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
-#define DEBUG_EEPROM_OUTPUT
+// #define DEBUG_EEPROM_OUTPUT
 
-#define PMW_CS_PIN  B0
-#define SPI_MODE    0
-#define SPI_DIVISOR 64
+#define PMW3360_CS_PIN B0

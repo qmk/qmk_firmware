@@ -48,3 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D5 }
 #define ENCODERS_PAD_B \
     { D4 }
+
+/* PMW3360 Settings */
+#define PMW3360_CS_PIN B0
