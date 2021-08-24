@@ -50,12 +50,15 @@ STARTUP_NUMLOCK_ON = yes
 
 DEFAULT MAPPING
 
-![image](https://user-images.githubusercontent.com/71780717/130325804-db7d5047-71b2-4924-9d5c-31c13bb6a9cc.png)
+![image](https://user-images.githubusercontent.com/71780717/130542391-02bc1944-ff61-471b-9834-0caabdd86b88.png)
 
 
 FN1 Layer 1
 
-![image](https://user-images.githubusercontent.com/71780717/130325816-bf2af035-30e4-49f7-a932-101c7678175e.png)
+![image](https://user-images.githubusercontent.com/71780717/130542428-2165ef1e-d7be-457d-991c-2018cb1ff969.png)
 
 
-RGB Layer 5
+RGB Layer 5 - Use Shift+Encoder to get to RGB layer 5
+
+![image](https://user-images.githubusercontent.com/71780717/130542519-b459cb39-2972-42db-b61e-d060b1f9cd05.png)
+
