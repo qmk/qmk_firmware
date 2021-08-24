@@ -122,7 +122,7 @@ static uint16_t mouse_debounce_timer  = 0;
 static uint8_t  mouse_keycode_tracker = 0;
 bool            tap_toggling          = false;
 
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
+void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
     if ((x || y) && timer_elapsed(mouse_timer) > 125) {
         mouse_timer = timer_read();
         if (!layer_state_is(_MOUSE) && !(layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO)) && timer_elapsed(mouse_debounce_timer) > 125) {

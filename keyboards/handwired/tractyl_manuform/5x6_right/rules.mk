@@ -1,9 +1,3 @@
-# MCU name
-MCU = at90usb1286
-
-# Bootloader selection
-BOOTLOADER = halfkay
-
 # Build Options
 #   change yes to no to disable
 #
@@ -29,3 +23,5 @@ SPLIT_KEYBOARD = yes
 
 SRC += drivers/sensors/pmw3360.c
 QUANTUM_LIB_SRC += spi_master.c tm_sync.c
+
+DEFAULT_FOLDER = handwired/tractyl_manuform/5x6_right/teensy2pp

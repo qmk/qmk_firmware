@@ -309,12 +309,12 @@ void housekeeping_task(void) {
 void keyboard_init(void) {
     timer_init();
     sync_timer_init();
+#ifdef VIA_ENABLE
+    via_init();
+#endif
     matrix_init();
 #if defined(CRC_ENABLE)
     crc_init();
-#endif
-#ifdef VIA_ENABLE
-    via_init();
 #endif
 #ifdef QWIIC_ENABLE
     qwiic_init();

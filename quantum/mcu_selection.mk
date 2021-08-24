@@ -252,7 +252,12 @@ ifneq ($(findstring STM32F401, $(MCU)),)
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
-  MCU_LDSCRIPT ?= STM32F401xC
+  ifeq ($(strip $(BOOTLOADER)), tinyuf2)
+    MCU_LDSCRIPT ?= STM32F401xC_tinyuf2
+    FIRMWARE_FORMAT ?= uf2
+  else
+    MCU_LDSCRIPT ?= STM32F401xC
+  endif
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/

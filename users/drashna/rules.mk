@@ -29,9 +29,6 @@ CUSTOM_RGBLIGHT ?= yes
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_RGBLIGHT)), yes)
         SRC += rgb_stuff.c
-        ifeq ($(strip $(RGBLIGHT_TWINKLE)), yes)
-            OPT_DEFS += -DRGBLIGHT_TWINKLE
-        endif
         ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
             OPT_DEFS += -DRGBLIGHT_NOEEPROM
         endif
@@ -81,8 +78,12 @@ ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     QUANTUM_LIB_SRC += i2c_master.c
 endif
 
-ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-    QUANTUM_LIB_SRC += transport_sync.c
+CUSTOM_SPLIT_TRANSPORT_SYNC ?= yes
+ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
+    ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+        QUANTUM_LIB_SRC += transport_sync.c
+        OPT_DEFS += -DCUSTOM_SPLIT_TRANSPORT_SYNC
+    endif
 endif
 
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api

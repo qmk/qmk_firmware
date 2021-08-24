@@ -312,7 +312,7 @@ static void Console_Task(void) {
 void send_joystick_packet(joystick_t *joystick) {
     uint8_t timeout = 255;
 
-    static joystick_report_t;
+    static joystick_report_t r;
     r = (joystick_report_t) {
 #    if JOYSTICK_AXES_COUNT > 0
         .axes =

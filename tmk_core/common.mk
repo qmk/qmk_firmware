@@ -25,7 +25,8 @@ ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
     MOUSE_SHARED_EP = yes
 endif
 
-ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
+ifeq ($(strip $(MOUSE_ENABLE)), yes)
+    OPT_DEFS += -DMOUSE_ENABLE
     ifeq ($(strip $(MOUSE_SHARED_EP)), yes)
         TMK_COMMON_DEFS += -DMOUSE_SHARED_EP
         SHARED_EP_ENABLE = yes

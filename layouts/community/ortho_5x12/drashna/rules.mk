@@ -12,7 +12,6 @@ ifeq ($(strip $(KEYBOARD)), fractal)
     AUDIO_SUPPORTED             = yes
     RGBLIGHT_SUPPORTED          = yes
     RGBLIGHT_ENABLE             = yes
-    RGBLIGHT_TWINKLE            = yes
     RGBLIGHT_STARTUP_ANIMATION  = yes
     BOOTLOADER                  = qmk-dfu
 endif

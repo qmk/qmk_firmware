@@ -16,37 +16,69 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "pmw3360.h"
 #include "wait.h"
 #include "debug.h"
 #include "print.h"
-#include "pmw3360.h"
 #include "pmw3360_firmware.h"
 
-bool _inBurst = false;
+// Registers
+#define REG_Product_ID                 0x00
+#define REG_Revision_ID                0x01
+#define REG_Motion                     0x02
+#define REG_Delta_X_L                  0x03
+#define REG_Delta_X_H                  0x04
+#define REG_Delta_Y_L                  0x05
+#define REG_Delta_Y_H                  0x06
+#define REG_SQUAL                      0x07
+#define REG_Raw_Data_Sum               0x08
+#define REG_Maximum_Raw_data           0x09
+#define REG_Minimum_Raw_data           0x0A
+#define REG_Shutter_Lower              0x0B
+#define REG_Shutter_Upper              0x0C
+#define REG_Control                    0x0D
+#define REG_Config1                    0x0F
+#define REG_Config2                    0x10
+#define REG_Angle_Tune                 0x11
+#define REG_Frame_Capture              0x12
+#define REG_SROM_Enable                0x13
+#define REG_Run_Downshift              0x14
+#define REG_Rest1_Rate_Lower           0x15
+#define REG_Rest1_Rate_Upper           0x16
+#define REG_Rest1_Downshift            0x17
+#define REG_Rest2_Rate_Lower           0x18
+#define REG_Rest2_Rate_Upper           0x19
+#define REG_Rest2_Downshift            0x1A
+#define REG_Rest3_Rate_Lower           0x1B
+#define REG_Rest3_Rate_Upper           0x1C
+#define REG_Observation                0x24
+#define REG_Data_Out_Lower             0x25
+#define REG_Data_Out_Upper             0x26
+#define REG_Raw_Data_Dump              0x29
+#define REG_SROM_ID                    0x2A
+#define REG_Min_SQ_Run                 0x2B
+#define REG_Raw_Data_Threshold         0x2C
+#define REG_Config5                    0x2F
+#define REG_Power_Up_Reset             0x3A
+#define REG_Shutdown                   0x3B
+#define REG_Inverse_Product_ID         0x3F
+#define REG_LiftCutoff_Tune3           0x41
+#define REG_Angle_Snap                 0x42
+#define REG_LiftCutoff_Tune1           0x4A
+#define REG_Motion_Burst               0x50
+#define REG_LiftCutoff_Tune_Timeout    0x58
+#define REG_LiftCutoff_Tune_Min_Length 0x5A
+#define REG_SROM_Load_Burst            0x62
+#define REG_Lift_Config                0x63
+#define REG_Raw_Data_Burst             0x64
+#define REG_LiftCutoff_Tune2           0x65
 
-#ifndef PMW_CPI
-#    define PMW_CPI 1600
-#endif
-#ifndef PMW_CLOCK_SPEED
-#    define PMW_CLOCK_SPEED 70000000
-#endif
-#ifndef SPI_MODE
-#    define SPI_MODE 3
-#endif
-#ifndef SPI_DIVISOR
-#    define SPI_DIVISOR (F_CPU / PMW_CLOCK_SPEED)
-#endif
-#ifndef ROTATIONAL_TRANSFORM_ANGLE
-#    define ROTATIONAL_TRANSFORM_ANGLE 0x00
-#endif
-#ifndef PMW_CS_PIN
-#    define PMW_CS_PIN SPI_SS_PIN
-#endif
+bool _inBurst = false;
 
 void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
 
 bool spi_start_adv(void) {
-    bool status = spi_start(PMW_CS_PIN, false, SPI_MODE, SPI_DIVISOR);
+    bool status = spi_start(PMW3360_CS_PIN, PMW3360_SPI_LSBFIRST, PMW3360_SPI_MODE, PMW3360_SPI_DIVISOR);
     wait_us(1);
     return status;
 }
@@ -106,7 +138,7 @@ uint16_t pmw_get_cpi(void) {
 }
 
 bool pmw_spi_init(void) {
-    setPinOutput(PMW_CS_PIN);
+    setPinOutput(PMW3360_CS_PIN);
 
     spi_init();
     _inBurst = false;
@@ -137,7 +169,7 @@ bool pmw_spi_init(void) {
     spi_stop_adv();
 
     wait_ms(10);
-    pmw_set_cpi(PMW_CPI);
+    pmw_set_cpi(PMW3360_CPI);
 
     wait_ms(1);
 
@@ -147,7 +179,7 @@ bool pmw_spi_init(void) {
 
     bool init_success = pmw_check_signature();
 
-    writePinLow(PMW_CS_PIN);
+    writePinLow(PMW3360_CS_PIN);
 
     return init_success;
 }

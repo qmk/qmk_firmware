@@ -204,6 +204,22 @@ If you're having issues with serial communication, you can change this value, as
 This sets the maximum number of milliseconds before forcing a synchronization of data from master to slave. Under normal circumstances this sync occurs whenever the data _changes_, for safety a data transfer occurs after this number of milliseconds if no change has been detected since the last sync. 
 
 ```c
+#define SPLIT_MAX_CONNECTION_ERRORS 10
+```
+This sets the maximum number of failed communication attempts (one per scan cycle) from the master part before it assumes that no slave part is connected. This makes it possible to use a master part without the slave part connected.
+
+Set to 0 to disable the disconnection check altogether.
+
+```c
+#define SPLIT_CONNECTION_CHECK_TIMEOUT 500
+```
+How long (in milliseconds) the master part should block all connection attempts to the slave after the communication has been flagged as disconnected (see `SPLIT_MAX_CONNECTION_ERRORS` above).
+
+One communication attempt will be allowed everytime this amount of time has passed since the last attempt. If that attempt succeeds, the communication is seen as working again.
+
+Set to 0 to disable this throttling of communications while disconnected. This can save you a couple of bytes of firmware size.
+
+```c
 #define SPLIT_TRANSPORT_MIRROR
 ```
 
