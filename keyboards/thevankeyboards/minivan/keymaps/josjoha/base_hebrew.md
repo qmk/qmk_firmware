@@ -7,69 +7,47 @@ This file details the compile version `#define BASE_HEBREW__DEF_BASE,
 BASE_HEBREW__ALT_BASE`. This is a basic Hebrew layout, without niqqud.
 
 Only the most common symbols are implemented.  Hebrew symbols are all
-done in Unicode.  This means it is not a “normal, common” hebrew
-keyboard, because such keyboards likely use computer side recoding
-(language setting).
-
-This is still a US language keyboard with Unicode apabilities, in terms
-of how the computer sees it.
+done in Unicode.
 
 See also ![./readme.md](./readme.md) chapter 7 _Language support_.
 
-Parenthesis direction seems to be dealt with at the computer side, depending
-on the surrounding symbols. The keyboard is printing these symbols unchanged
-from what they are in standard Latin layouts, and are represented that way
-in the manual. This means for example you see '(' in the manual under the
-ring-finger, this is also what the keyboard is printing, however the computer
-could change that into ')' depending on the language direction of the surrounding
-characters (at least it does so on GNU/Debian/Linux). This can affect: 
-
-      (){}[]<>
+Parenthesis/braces/etc direction seems to be dealt with at the computer
+side, depending on the surrounding symbols. The keyboard is printing
+these symbols unchanged from what they are in standard Latin layouts,
+and are represented that way in the manual.
       
 Options
 =======
 
-You can compile the hebrew to harmonize the punctuation symbols with either
-Dvorak or Qwerty. See the configuration file ![./base_hebrew.h](./base_hebrew.h)
+You can compile the hebrew to be like a common Israeli layout, or to harmonize the
+punctuation symbols with either Dvorak or Qwerty. See the configuration file 
+![./base_hebrew.h](./base_hebrew.h)
 
-Israeli Hebrew
--------------- 
+☞ Israeli Hebrew
+
 As close to a simple standard hebrew layout as possible.
-A little larger memory cost than the other options.
+A little larger memory cost than the other options. No `'"` ASCII quotes symbols,
+but proper ׳ and ״ (in Unicode).
 
-Dvorak with Hebrew
-------------------
-The letter ק gets displaced from the standard hebrew layout.
+☞ Qwerty with Hebrew
 
-Qwerty with Hebrew
-------------------
 The letters ת, ץ get displaced from the standard hebrew layout.
+Numerical layer is the same as standard Qwerty, except the symbol 
+`_` symbol becomes `־` (Maqaf). No `;` symbol.
 
-Qwerty derivatives with Hebrew
-------------------------------
+☞ Qwerty derivatives with Hebrew
+
 It is adviced to use Qwerty with Hebrew in this case, and adjust by hand
 coding if needed.  “Workman” should harmonize the same as Qwerty.
 Colemak displaces the “;:” key relative to Qwerty, therefore you may
 like to change the “:” shifted symbol (by hand). The obscurity of this
 use case gets extreme, there will not be options for this.
 
-Latin combination design
-========================
+☞ Dvorak with Hebrew
 
-The design is make it work easily with a Latin layer (Qwerty, Dvorak, etc),
-together as a dual layout system. For this reason the common writing symbols
-which tend to be present on the letters base layer, are kept as much as
-possible in the same locations.
+The letter ק gets displaced from the standard hebrew layout.
+Numerical layer is the same as standard Dvorak. No `;` symbol.
 
-      '",<.>-_?/;:
-
-Within that framework, the hebrew letters are positioned according to
-the standard keyboard in Israel.
-
-The hebrew alphabet has 27 letter symbols. The additional letter compared to Latin
-(26 letters) is resolved by combining a letter with the symbol “:” on shift.
-This looses the symbol “;”, which is not present on some basic hebrew layouts
-either.
 
 Flash memory cost
 -----------------
@@ -77,8 +55,7 @@ Flash memory cost
 This layout adds several dozen new Unicode symbols, which takes up a certain
 amount of additional space in keyboard memory. If you end up going over
 the limit, you may need to change your compilation software setup, and/or
-you can look into the “Eviscerations” chapter to cut away other Unicode
-symbols.
+you can look into the “Eviscerations” chapters in ![./user_config.h](./user_config.h)
 
 Hebrew keymaps
 --------------
@@ -125,6 +102,9 @@ For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
 Layers (text)
 =============
+
+(The “x” padding was necessary to undo the direction of these characters being reversed.
+This layout might still not be represenetd correctly on your system. See the graphics instead.)
 
                                             HEBREW_ISRAEL
                                                   | Right hand
@@ -188,7 +168,6 @@ Holding both `_DEF_NSY` keys left and right of the "split space bar" (enter, spa
 Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>), with the `_ACC` layer key
 (on <2) results in layer `_BON`.
 
-(The `x` around the letters is to prevent certain display systems to change the direction of letters.)
 - - -
 
      Layer _..._NSY (Numbers and SYmbols)

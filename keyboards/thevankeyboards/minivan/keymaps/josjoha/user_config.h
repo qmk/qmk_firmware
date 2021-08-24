@@ -147,6 +147,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //  _Activate_ one of these two, _remove_ the other.
 //#define BASE_QWERTY_BASEARROW__DEF_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Default’ spot
 //#define BASE_QWERTY_BASEARROW__ALT_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Alternate’ spot
+        // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./ base_qwerty_basearrow.h
         //
         //          • Dvorak
         //                  (a regular Dvorak layout)
@@ -175,13 +176,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //                   (a numerical keypad, one for left hand and one for right hand)
         //  _Activate_ to get Numpad on Alternate. There is no option for Numpad on ‛Default’ base.
   #define BASE_NUMPAD__ALT_BASE // _Activate_ if you want Numpad on the ‛Alternate’ spot
-        // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./base_numpad.c
+        // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./base_numpad.h
         //
         //          • Hebrew
         //                  (a simple Hebrew layout)
         // _Activate_ one of these two, _remove_ the other.
 //#define BASE_HEBREW__DEF_BASE // _Activate_ if you want Hebrew on the ‛Default’ spot
 //#define BASE_HEBREW__ALT_BASE // _Activate_ if you want Hebrew on the ‛Alternate’ spot
+        // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./base_hebrew.h
         //
         /*                  -2- ➡ Eviscerations ( ① / ② ) ⬅
          */
