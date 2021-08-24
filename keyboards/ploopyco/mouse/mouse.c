@@ -109,15 +109,14 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
 
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
     report_pmw_t data = pmw_read_burst();
-    if (data.isOnSurface && data.isMotion) {
-        // Reset timer if stopped moving
-        if (!data.isMotion) {
-            if (MotionStart != 0) MotionStart = 0;
-            return;
-        }
-
+    // Reset timer if stopped moving
+    if (!data.isMotion) {
+        MotionStart = 0;
+        return;
+    }
+    if (data.isOnSurface) {
         // Set timer if new motion
-        if ((MotionStart == 0) && data.isMotion) {
+        if (MotionStart == 0) {
             if (debug_mouse) dprintf("Starting motion.\n");
             MotionStart = timer_read();
         }
