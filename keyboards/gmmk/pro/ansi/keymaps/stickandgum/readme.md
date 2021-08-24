@@ -1,10 +1,9 @@
 # Glorious GMMK Pro / ANSI - Enhanced Keyboard
 
-Tried to incorporate full featured GMMK Pro keyboard functionality without adding unnecessary features. Included Scroll Lock and Caps LEDs. NKRO is on by default.
-SHIFT and Ctrl keys for scrolling with the rotary, Added Fn-keys for Screen Brightness, NKRO, PowerOff, Suspend, App Shortcuts, and RGB Toggle/Modifications
-Trimmed down the amazing 41 currently built-in RGB effects down to about 13 or so reasonable effects that feel are just enough for your entertainment without being too excessive.
+Tried to incorporate full featured GMMK Pro keyboard functionality without adding unnecessary features. Included Scroll Lock and Caps LEDs. NKRO can be toggled (Fn + N).
+SHIFT and Ctrl keys for scrolling with the rotary, Fn-keys also used for screen brightness, media, PowerOff, Suspend, App Shortcuts, and RGB Toggle/Modifications. Trimmed down the amazing (currently 41) built-in RGB effects down to about 13 or so reasonable effects that feel are just enough for your entertainment without being too excessive.
 
-BIG thank you to [AndreBrait](https://github.com/andrebrait), And of course, @drashna and @filterpaper and the entire discord community.
+BIG thank you to [AndreBrait](https://github.com/andrebrait), And of course, @drashna and @filterpaper, @noroadsleft and the entire discord community.
 
 * Keymap Creator: [StickAndGum](https://github.com/StickAndGum)
 * Keyboard: [More info on GMMK Pro](https://www.pcgamingrace.com/products/glorious-gmmk-pro-75-barebone-black)
@@ -33,19 +32,19 @@ Fn Layer:
   - Fn + Home -> Scroll Lock (Lights up white!)
   - Fn + Del (right of space) -> Right-Alt key.
   - Fn + RCtrl (right of Fn) -> Menu/App key.
-  - Fn + N -> Toggle NKRO (Defaults to Enabled)
+  - Fn + N -> Toggle NKRO
   - Fn + End -> Power Off Computer
   - Fn + F12 -> Suspend Computer
   - Fn + F11 -> Wake Computer (Necessary on MAC OS?)
   - Fn + Page Up / Down -> Laptop Screen Brightness Up/Down
-  - Fn + F1 - F5 -> Launch Calc, My Comp (Explorer), Media Player, Mail Client, Web Browser Home.
+  - Fn + F1 - F5 -> Launch Calc, My Comp (Explorer), Media Player, Mail Client, Web Browser.
   - Fn + Up, Down, Left, Right Arrows -> Media Play, Stop, Previous, Next respectively.
 
 - RGB Information:
-  - Toggle for RGB via Fn-r (CAPS & SCROLL still Light/Indicate)
+  - Toggle for RGB via Fn-r (CAPS & ScrlLock still Light/Indicate)
   - CAPS: Side Light Rainbow Indicators and Left-side RED Indicators
-  - Scroll: Fn-Home (Under Rotary) white indicator.
-  - Modifiers identified around most of the edge of keyboard / Side lights accented (Fn-1 looks GREAT IMHO)
+  - Scroll-Lock: Fn-Home (Under Rotary) white indicator.
+  - Modifiers identified around most of the edge of keyboard / Side lights also accented (Fn-1 looks GREAT IMHO)
   
 - RGB Modifing (all via Function key) all via wasdqerf (common gaming keys) - easy to remember.
   - Fn + r -> Toggle RGB
