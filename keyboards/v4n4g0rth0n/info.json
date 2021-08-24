@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "v4n4g0rth0n",
+    "url": "https://github.com/jpuerto96/v4n4g0rth0n",
+    "maintainer": "jpuerto96",
+    "width": 12,
+    "height": 5,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "k00", "x": 0, "y": 0},
+                {"label": "k01", "x": 1, "y": 0},
+                {"label": "k02", "x": 2, "y": 0},
+
+                {"label": "k10", "x": 0, "y": 1, "w": 1.5},
+                {"label": "k12", "x": 1.5, "y": 1, "w": 1.5}
+            ]
+        }
+    }
+}
