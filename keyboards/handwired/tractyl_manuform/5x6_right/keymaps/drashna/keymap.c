@@ -259,7 +259,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 // WPM-responsive animation stuff here
 #    define SLEEP_FRAMES 2
 #    define SLEEP_SPEED  10  // below this wpm value your animation will idle
