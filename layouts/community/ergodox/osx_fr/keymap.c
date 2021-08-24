@@ -35,20 +35,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         FR_MINS,          FR_AMP,      FR_EACU,       FR_QUOT, FR_APOS, FR_LPRN, KC_LEFT,
-        KC_DELT,          FR_A,        FR_Z,          KC_E,    KC_R,    KC_T,    TG(1),
+        KC_DEL,           FR_A,        FR_Z,          KC_E,    KC_R,    KC_T,    TG(1),
         KC_BSPC,          FR_Q,        KC_S,          KC_D,    KC_F,    KC_G,
         KC_LSFT,          CTL_T(FR_W), KC_X,          KC_C,    KC_V,    KC_B,    ALL_T(KC_NO),
         LT(SYMB,FR_UGRV), FR_LESS,     LALT(KC_LSFT), KC_LEFT, KC_RGHT,
             ALT_T(KC_APP), KC_LGUI,
             KC_HOME,
             KC_SPC, KC_BSPC, KC_END,
-            
+
         // right hand
         KC_RGHT,      FR_SECT, FR_EGRV, FR_EXLM,           FR_CCED, FR_AGRV,         FR_RPRN,
         TG(1),        KC_Y,    KC_U,    KC_I,              KC_O,    KC_P,            FR_GRV,
         KC_H,         KC_J,    KC_K,    KC_L,              FR_M,    KC_LGUI,
         MEH_T(KC_NO), KC_N,    FR_COMM, LT(MDIA, FR_SCLN), FR_COLN, CTL_T(FR_EQL),   KC_RSFT,
-        KC_UP,        KC_DOWN, KC_LBRC, KC_RBRC,           KC_FN1,
+        KC_UP,        KC_DOWN, KC_LBRC, KC_RBRC,           TT(SYMB),
             KC_LALT, CTL_T(KC_ESC),
             KC_PGUP,
             KC_PGDN, KC_TAB, KC_ENT
@@ -136,30 +136,6 @@ LAYOUT_ergodox(
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
 };
 
 // Runs constantly in the background, in a loop.

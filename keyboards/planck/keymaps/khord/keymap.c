@@ -1,5 +1,4 @@
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -16,7 +15,8 @@ enum planck_keycodes {
   RAISE,
   BACKLIT,
   ADMIN,
-  SMSPC1
+  SMSPC1,
+  W10SLP
 };
 
 // LED backlight breathing
@@ -51,12 +51,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_QWERTY] = {
-  {KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {CTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {TD(SFT_CAP),   KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SFT_T(KC_ENT)},
-  {BACKLIT,       KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_SPC, RAISE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
-},
+[_QWERTY] = LAYOUT_planck_grid(
+  KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_BSPC,
+  CTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  TD(SFT_CAP),   KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SFT_T(KC_ENT),
+  BACKLIT,       KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_SPC, RAISE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -64,17 +64,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      | End  | Home |      |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  SLP |      | End  | Home |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
-  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_END,  KC_HOME, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
-},
+[_LOWER] = LAYOUT_planck_grid(
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
+  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  W10SLP,  _______, KC_END,  KC_HOME, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
@@ -87,12 +87,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = {
-  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_PGDN, KC_PGUP, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
-},
+[_RAISE] = LAYOUT_planck_grid(
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_PGDN, KC_PGUP, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+),
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
@@ -105,12 +105,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      | CADel|
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = {
-  {_______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF, ADMIN,   SMSPC1,  KC_DEL },
-  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______,  M_BRDFT, M_BRINC, _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______,  M_BRTOG, M_BRDEC, C_A_INS},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, C_A_DEL}
-}
+[_ADJUST] = LAYOUT_planck_grid(
+  _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF, ADMIN,   SMSPC1,  KC_DEL ,
+  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______,  M_BRDFT, M_BRINC, _______,
+  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______,  M_BRTOG, M_BRDEC, C_A_INS,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, C_A_DEL
+)
 
 };
 
@@ -122,22 +122,30 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
     case MACRO_BREATH_TOGGLE:
       if (record->event.pressed) {
-        breathing_toggle();
+        #ifdef BACKLIGHT_BREATHING
+          breathing_toggle();
+        #endif
       }
       break;
     case MACRO_BREATH_SPEED_INC:
       if (record->event.pressed) {
-        breathing_speed_inc(1);
+        #ifdef BACKLIGHT_BREATHING
+          breathing_period_inc();
+        #endif
       }
       break;
     case MACRO_BREATH_SPEED_DEC:
       if (record->event.pressed) {
-        breathing_speed_dec(1);
+        #ifdef BACKLIGHT_BREATHING
+          breathing_period_dec();
+        #endif
       }
       break;
     case MACRO_BREATH_DEFAULT:
       if (record->event.pressed) {
-        breathing_defaults();
+        #ifdef BACKLIGHT_BREATHING
+          breathing_period_default();
+        #endif
       }
       break;
   }
@@ -193,6 +201,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SMSPC1:
       if (record->event.pressed) {
         SEND_STRING("Simspace1!");
+      }
+      return false;
+      break;
+    case W10SLP:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("x")"us");
       }
       return false;
       break;

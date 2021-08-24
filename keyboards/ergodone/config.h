@@ -4,12 +4,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1307
+#define VENDOR_ID       0x1209  
+#define PRODUCT_ID      0x2328  
+// The official ErgoDone VID and PID are documented at http://pid.codes/1209/2328/.
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ErgoDone
+#define MANUFACTURER    K.T.E.C.
 #define PRODUCT         ErgoDone
-#define DESCRIPTION     QMK keyboard firmware for ErgoDone
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -36,8 +36,8 @@
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
+    get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
 /* number of backlight levels */
@@ -52,9 +52,12 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 
-#define PREVENT_STUCK_MODIFIERS
-
 #define USB_MAX_POWER_CONSUMPTION 500
+
+/* NKRO */
+#ifndef FORCE_NKRO
+    #define FORCE_NKRO  // Depends on NKRO_ENABLE.
+#endif
 
 /*
  * Feature disable options

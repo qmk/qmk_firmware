@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_DELT,        DE_K,         DE_DOT, DE_O,   DE_COMM,DE_Y,   TG(SYMB),
+        KC_DEL,         DE_K,         DE_DOT, DE_O,   DE_COMM,DE_Y,   TG(SYMB),
         KC_BSPC,        DE_H,         DE_A,   DE_E,   DE_I,   DE_U,
         KC_LSFT,        CTL_T(DE_X),  DE_Q,   DE_AE,  DE_UE,  DE_OE,  ALL_T(KC_NO),
         LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(SYMB),    DE_V,   DE_G,   DE_C,   DE_L,   DE_SS,            DE_Z,
                      DE_D,   DE_T,   DE_R,   DE_N,   LT(MDIA, DE_S),   GUI_T(KC_F),
         MEH_T(KC_NO),KC_B,   KC_P,   KC_W,   KC_M,   CTL_T(KC_J),      KC_RSFT,
-                          KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN1,
+                          KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          TT(SYMB),
         KC_LALT,        CTL_T(KC_ESC),
         KC_PGUP,
         KC_PGDN,KC_TAB, KC_RSFT
@@ -134,30 +134,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
 };
 
 // Runs constantly in the background, in a loop.

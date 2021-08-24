@@ -22,21 +22,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef VISUALIZER_H
-#define VISUALIZER_H
+#pragma once
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 
 #include "config.h"
 #include "gfx.h"
+#include "action_layer.h"
 
 #ifdef LCD_BACKLIGHT_ENABLE
-#include "lcd_backlight.h"
+#    include "lcd_backlight.h"
 #endif
 
 #ifdef BACKLIGHT_ENABLE
-#include "backlight.h"
+#    include "backlight.h"
 #endif
 
 // use this function to merge both real_mods and oneshot_mods in a uint16_t
@@ -45,7 +46,7 @@ uint8_t visualizer_get_mods(void);
 // This need to be called once at the start
 void visualizer_init(void);
 // This should be called at every matrix scan
-void visualizer_update(uint32_t default_state, uint32_t state, uint8_t mods, uint32_t leds);
+void visualizer_update(layer_state_t default_state, layer_state_t state, uint8_t mods, uint32_t leds);
 
 // This should be called when the keyboard goes to suspend state
 void visualizer_suspend(void);
@@ -68,11 +69,11 @@ void draw_emulator(void);
 struct keyframe_animation_t;
 
 typedef struct {
-    uint32_t layer;
-    uint32_t default_layer;
-    uint32_t leds; // See led.h for available statuses
-    uint8_t mods;
-    bool suspended;
+    layer_state_t layer;
+    layer_state_t default_layer;
+    uint32_t      leds;  // See led.h for available statuses
+    uint8_t       mods;
+    bool          suspended;
 #ifdef BACKLIGHT_ENABLE
     uint8_t backlight_level;
 #endif
@@ -86,7 +87,7 @@ typedef struct {
 // from the user customized code
 typedef struct visualizer_state_t {
     // The user code should primarily be modifying these
-    uint32_t target_lcd_color;
+    uint32_t    target_lcd_color;
     const char* layer_text;
 
     // The user visualizer(and animation functions) can read these
@@ -96,8 +97,8 @@ typedef struct visualizer_state_t {
     uint32_t current_lcd_color;
     uint32_t prev_lcd_color;
 #ifdef LCD_ENABLE
-    font_t font_fixed5x8;
-    font_t font_dejavusansbold12;
+    gFont font_fixed5x8;
+    gFont font_dejavusansbold12;
 #endif
 } visualizer_state_t;
 
@@ -110,15 +111,15 @@ typedef bool (*frame_func)(struct keyframe_animation_t*, visualizer_state_t*);
 // while others are meant to be initialized by the user code
 typedef struct keyframe_animation_t {
     // These should be initialized
-    int num_frames;
-    bool loop;
-    int frame_lengths[MAX_VISUALIZER_KEY_FRAMES];
+    int        num_frames;
+    bool       loop;
+    int        frame_lengths[MAX_VISUALIZER_KEY_FRAMES];
     frame_func frame_functions[MAX_VISUALIZER_KEY_FRAMES];
 
     // Used internally by the system, and can also be read by
     // keyframe update functions
-    int current_frame;
-    int time_left_in_frame;
+    int  current_frame;
+    int  time_left_in_frame;
     bool first_update_of_frame;
     bool last_update_of_frame;
     bool need_update;
@@ -151,5 +152,3 @@ void user_visualizer_suspend(visualizer_state_t* state);
 void initialize_user_visualizer(visualizer_state_t* state);
 // Called when the computer resumes from a suspend
 void user_visualizer_resume(visualizer_state_t* state);
-
-#endif /* VISUALIZER_H */

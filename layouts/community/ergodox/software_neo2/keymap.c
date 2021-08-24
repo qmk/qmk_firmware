@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_DELT,         NEO_1,         NEO_2,         NEO_3,         NEO_4,   NEO_5,   KC_MPLY,
+        KC_DEL,          NEO_1,         NEO_2,         NEO_3,         NEO_4,   NEO_5,   KC_MPLY,
         KC_TAB,          NEO_X,         NEO_V,         NEO_L,         NEO_C,   NEO_W,   KC_ESC,
         NEO_L1_L,        NEO_U,         NEO_I,         NEO_A,         NEO_E,   NEO_O,
         KC_LSFT,         CTL_T(NEO_UE), GUI_T(NEO_OE), ALT_T(NEO_AE), NEO_P,   NEO_Z,   TG(1),
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(1),       NEO_B,   NEO_M,   NEO_COMM, NEO_DOT, NEO_J,   KC_RSFT,
                               KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, NEO_L2_R,
         KC_LALT,KC_RGUI,
-        KC_DELT,
+        KC_DEL,
         KC_ESC,KC_ENT, KC_SPC
     ),
 /* Keymap 1: Media and mouse keys
@@ -93,30 +93,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_WBAK, KC_WFWD
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    /* [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols) */
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
 };
 
 // Runs constantly in the background, in a loop.

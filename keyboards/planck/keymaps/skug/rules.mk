@@ -1,0 +1,3 @@
+SRC += muse.c
+EXTRAKEY_ENABLE = no
+CONSOLE_ENABLE = no

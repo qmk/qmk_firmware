@@ -5,9 +5,7 @@
 #include "keymap_colemak.h"
 extern keymap_config_t keymap_config;
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+#undef C
 #define C(n)    RCTL(n)
 #define CADKEY  RCTL(RALT(KC_DEL))
 
@@ -270,7 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     PLAY_SONG(tone_ctrl_mod);
                 #endif
                 #ifdef BACKLIGHT_BREATHING
-                    breathing_speed_set(2);
+                    breathing_period_set(2);
                     breathing_pulse();
                 #endif
             }

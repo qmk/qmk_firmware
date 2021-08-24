@@ -31,7 +31,7 @@ static const uint8_t led_mask[] = {
 	0xFF, 0x00, /* C6-1 -> C6-16 */
 	0xFF, 0x00, /* C7-1 -> C7-16 */
 	0xFF, 0x00, /* C8-1 -> C8-16 */
-	0xFE, 0x00, /* C9-1 -> C9-16 */
+	0xFF, 0x00, /* C9-1 -> C9-16 */
 };
 
 // The address of the LED
@@ -100,7 +100,7 @@ static GFXINLINE void set_hardware_shutdown(GDisplay* g, bool shutdown) {
 
 static GFXINLINE void write_data(GDisplay *g, uint8_t* data, uint16_t length) {
 	(void) g;
-	i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, data, length, 0, 0, US2ST(IS31_TIMEOUT));
+	i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, data, length, 0, 0, TIME_US2I(IS31_TIMEOUT));
 }
 
 #endif /* _GDISP_LLD_BOARD_H */

@@ -13,6 +13,7 @@
 #include "eeconfig.h"
 #include "wait.h"
 #include "version.h"
+#include "print.h"
 
 /* Layers */
 
@@ -78,9 +79,6 @@ enum {
   F_BSE = 0,
   F_HUN,
   F_GUI,
-  F_SFT,
-  F_ALT,
-  F_CTRL
 };
 
 /* Custom keycodes */
@@ -145,9 +143,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J    ,KC_K    ,KC_X    ,TD(CT_TMUX)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
 
-                                                            ,F(F_ALT),F(F_GUI)
-                                                                     ,F(F_CTRL)
-                                                    ,KC_BSPC,F(F_SFT),KC_ESC
+                                                            ,OSM(MOD_LALT),F(F_GUI)
+                                                                     ,OSM(MOD_LCTL)
+                                                    ,KC_BSPC,OSM(MOD_LSFT),KC_ESC
 
                                                                 // right hand
                                                                ,M(Fx)     ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,M(A_PLVR)
@@ -190,9 +188,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,TD(CT_TMUX)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
 
-                                                            ,F(F_ALT),F(F_GUI)
-                                                                     ,F(F_CTRL)
-                                                    ,KC_BSPC,F(F_SFT),KC_ESC
+                                                            ,OSM(MOD_LALT),F(F_GUI)
+                                                                     ,OSM(MOD_LCTL)
+                                                    ,KC_BSPC,OSM(F_LSFT),KC_ESC
 
                                                                 // right hand
                                                                ,M(Fx)     ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,M(A_PLVR)
@@ -439,9 +437,6 @@ const uint16_t PROGMEM fn_actions[] = {
    [F_BSE]  = ACTION_LAYER_CLEAR(ON_PRESS)
   ,[F_HUN]  = ACTION_LAYER_INVERT(HUN, ON_PRESS)
   ,[F_GUI]  = ACTION_MACRO_TAP(A_GUI)
-  ,[F_SFT]  = ACTION_MODS_ONESHOT (MOD_LSFT)
-  ,[F_ALT]  = ACTION_MODS_ONESHOT (MOD_LALT)
-  ,[F_CTRL] = ACTION_MODS_ONESHOT (MOD_LCTL)
 };
 
 static void toggle_steno(int pressed)
@@ -1033,6 +1028,10 @@ void matrix_scan_user(void) {
     }
 #endif
 
+    SEQ_ONE_KEY (KC_R) {
+      ang_tap(KC_RALT, 0);
+    }
+
     SEQ_ONE_KEY (KC_T) {
       time_travel = !time_travel;
     }
@@ -1126,7 +1125,8 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
  UCIS_SYM("micro", 0x00b5),
  UCIS_SYM("tm", 0x2122),
  UCIS_SYM("child", 0x1f476),
- UCIS_SYM("family", 0x1F46A)
+ UCIS_SYM("family", 0x1F46A),
+ UCIS_SYM("joy", 0x1F602)
 );
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {

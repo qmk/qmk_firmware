@@ -98,4 +98,4 @@ No rights reserved. This software is in the public domain. Credit me if you are 
 Keyboard layout images were created with http://www.keyboard-layout-editor.com/ by Ian Prest my thanks to that free service
 
 Details: readme.md
-         https://github.com/nrrkeene/qmk_firmware/tree/master/keyboards/ergodox/keymaps/ordinary
+         https://github.com/nrrkeene/qmk_firmware/tree/master/layouts/community/ergodox/ordinary

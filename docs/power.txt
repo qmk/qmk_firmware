@@ -21,7 +21,7 @@ MCUSR   MCU Status Register
 
 SMCR    Sleep Mode Control Register
     SE      Sleep Enable
-    SM2:0   
+    SM2:0
         #define set_sleep_mode(mode) \
         #define SLEEP_MODE_IDLE         (0)
         #define SLEEP_MODE_ADC          _BV(SM0)

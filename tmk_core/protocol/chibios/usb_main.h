@@ -15,15 +15,13 @@
  * GPL v2 or later.
  */
 
-
-#ifndef _USB_MAIN_H_
-#define _USB_MAIN_H_
+#pragma once
 
 // TESTING
 // extern uint8_t blinkLed;
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 /* -------------------------
  * General USB driver header
@@ -36,27 +34,24 @@
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
 
-/* Send remote wakeup packet */
-void send_remote_wakeup(USBDriver *usbp);
+/* Restart the USB driver and bus */
+void restart_usb_driver(USBDriver *usbp);
+
+/* ---------------
+ * USB Event queue
+ * ---------------
+ */
+
+/* Initialisation of the FIFO */
+void usb_event_queue_init(void);
+
+/* Task to dequeue and execute any handlers for the USB events on the main thread */
+void usb_event_queue_task(void);
 
 /* ---------------
  * Keyboard header
  * ---------------
  */
-
-/* main keyboard (6kro) */
-#define KBD_INTERFACE   0
-#define KBD_ENDPOINT    1
-#define KBD_EPSIZE      8
-#define KBD_REPORT_KEYS (KBD_EPSIZE - 2)
-
-/* secondary keyboard */
-#ifdef NKRO_ENABLE
-#define NKRO_INTERFACE    4
-#define NKRO_ENDPOINT     5
-#define NKRO_EPSIZE       16
-#define NKRO_REPORT_KEYS  (NKRO_EPSIZE - 1)
-#endif
 
 /* extern report_keyboard_t keyboard_report_sent; */
 
@@ -78,34 +73,17 @@ void nkro_in_cb(USBDriver *usbp, usbep_t ep);
 
 #ifdef MOUSE_ENABLE
 
-#define MOUSE_INTERFACE         1
-#define MOUSE_ENDPOINT          2
-#define MOUSE_EPSIZE            8
-
 /* mouse IN request callback handler */
 void mouse_in_cb(USBDriver *usbp, usbep_t ep);
 #endif /* MOUSE_ENABLE */
 
 /* ---------------
- * Extrakey header
+ * Shared EP header
  * ---------------
  */
 
-#ifdef EXTRAKEY_ENABLE
-
-#define EXTRA_INTERFACE         3
-#define EXTRA_ENDPOINT          4
-#define EXTRA_EPSIZE            8
-
-/* extrakey IN request callback handler */
-void extra_in_cb(USBDriver *usbp, usbep_t ep);
-
-/* extra report structure */
-typedef struct {
-  uint8_t report_id;
-  uint16_t usage;
-} __attribute__ ((packed)) report_extra_t;
-#endif /* EXTRAKEY_ENABLE */
+/* shared IN request callback handler */
+void shared_in_cb(USBDriver *usbp, usbep_t ep);
 
 /* --------------
  * Console header
@@ -114,26 +92,10 @@ typedef struct {
 
 #ifdef CONSOLE_ENABLE
 
-#define CONSOLE_INTERFACE      2
-#define CONSOLE_ENDPOINT       3
-#define CONSOLE_EPSIZE         16
-
-/* Number of IN reports that can be stored inside the output queue */
-#define CONSOLE_QUEUE_CAPACITY 4
-
-/* Console flush time */
-#define CONSOLE_FLUSH_MS 50
-
 /* Putchar over the USB console */
 int8_t sendchar(uint8_t c);
 
 /* Flush output (send everything immediately) */
 void console_flush_output(void);
 
-/* console IN request callback handler */
-void console_in_cb(USBDriver *usbp, usbep_t ep);
 #endif /* CONSOLE_ENABLE */
-
-void sendchar_pf(void *p, char c);
-
-#endif /* _USB_MAIN_H_ */

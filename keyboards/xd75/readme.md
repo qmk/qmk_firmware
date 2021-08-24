@@ -1,47 +1,57 @@
-xd75 keyboard firmware
-======================
+# XD75
 
-The XD75Re is a 15x5 full-grid ortholinear keyboard manufactured by XIUDI. This port of the QMK firmware is my first shot at using QMK, so if you see any features done wrong (or just plain missing), feel free to fix them and put in a pull request!
+![XD75](https://cdn.shopify.com/s/files/1/2711/4238/products/HTB1MzOISXXXXXXgXpXXq6xXFXXXO_1024x1024.jpg)
 
-## Quantum MK Firmware
+The XD75 is a 15x5 full-grid ortholinear keyboard manufactured by XIUDI. Available in two different versions: XD75Re with hot swap switch sockets and XD75Am with Alps+MX Stem support that needs soldering.
 
-For more info on this firmware (and how to make it your own), head over to [qmk.fm](http://qmk.fm).
+This port of the QMK firmware is my first shot at using QMK, so if you see any features done wrong (or just plain missing), feel free to fix them and put in a pull request!
 
-## Building
+* Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
+* Hardware Supported: XD75Re, XD75Am
+* Hardware Availability: [KPrepublic](https://kprepublic.com/products/xd75re-xd75am-xd75-xiudi-60-custom-keyboard-pcb), [AliExpress](https://www.aliexpress.com/item/xd75re-Custom-Mechanical-Keyboard-75-keys-TKG-TOOLS-Underglow-RGB-PCB-GH60-60-programmed-gh60-kle/32818745981.html)
 
-Download or clone the whole firmware and navigate to the
-keyboards/xd75 folder. Once your dev env is setup, you'll be able to
-type `make` to generate your .hex - you can then use the Teensy Loader
-to install the resulting .hex file, or have the `make` process install
-it using DFU.
+Make example for this keyboard (after setting up your build environment):
 
-### Default
+    make xd75:default
 
-To build with the default keymap, simply run `make xd75:default` from the root directory (i.e. two levels above this file), and to install via DFU, `make xd75:default:dfu`, also from the root directory.
+Flashing example for this keyboard:
 
-Note that DFU is likely to require root permissions, so installing the
-firmware likely requires a command line like:
+    make xd75:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## LED Control
+
+There are 3 individual LEDs that can be turned on and off. The functions are named according to how they're labeled on the PCB.
+
+TODO: it would be nice to have PWM support on these LEDs for fade-in/fade-out effects.
+
+```c
+capslock_led_on();
+gp100_led_on();
+gp103_led_on();
+
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
+        capslock_led_on();
+    } else {
+        capslock_led_off();
+    }
+
+    if (some_custom_state) {
+      gp100_led_on();
+    } else {
+      gp100_led_off();
+    }
+
+    return false;
+}
+```
+
+For the curious:
 
 ```
-$ sudo make xd75:default:dfu
+CAPSLOCK_LED    B2
+GP103_LED       F4
+GP100_LED       F7
 ```
-
-### Other Keymaps
-
-The "default" keymap included is basically the OLKB Atomic keymap with
-a few buttons added for RGB underglow control. This should be usable
-as a starting point, but most people will be best served creating
-their own keymap and flashing it - more info on creating your own
-keymap is available in [the official QMK
-documentation](https://docs.qmk.fm).
-
-Keymaps follow the format **__\<name\>.c__** and are stored in
-subdirectories under `keyboards/xd75/keymaps`
-
-To build the firmware binary hex file for a specific keymap, and
-install it, using DFU, just do `make` with a keymap like this:
-
-```
-$ make xd75:[default|<name>]
-```
-

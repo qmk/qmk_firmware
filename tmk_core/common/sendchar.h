@@ -15,21 +15,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SENDCHAR_H
-#define SENDCHAR_H
+#pragma once
 
 #include <stdint.h>
-
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef int8_t (*sendchar_func_t)(uint8_t c);
 
 /* transmit a character.  return 0 on success, -1 on error. */
 int8_t sendchar(uint8_t c);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

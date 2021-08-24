@@ -108,7 +108,7 @@ uint8_t matrix_scan(void)
                 state = RESET;
             }
             break;
-        // after reset receive keyboad ID(2 bytes)
+        // after reset receive keyboard ID(2 bytes)
         case KBD_ID0:
             if (code) {
                 state = KBD_ID1;

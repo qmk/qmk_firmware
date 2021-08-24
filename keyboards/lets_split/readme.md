@@ -7,12 +7,15 @@ Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
 based boards.
 
 **Hardware files for the Let's Split are now stored at http://qmk.fm/lets_split/**
+**Hardware files for the sockets version can be found at https://github.com/dumle29/let-s-Split-v2/tree/socket-reverseable**
 
 ## Build Guide
 
 A build guide for putting together the Let's Split v2 can be found here: [An Overly Verbose Guide to Building a Let's Split Keyboard](https://github.com/nicinabox/lets-split-guide)
 
 There is additional information there about flashing and adding RGB underglow.
+
+A build guide for putting together the sockets version can be found here: *Guide will be made and linked here when the PCBs have been received and tested*
 
 ## First Time Setup
 
@@ -41,7 +44,7 @@ If everything worked correctly you will see a file:
 lets_split_rev2_YOUR_KEYMAP_NAME.hex
 ```
 
-For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/readme.md##customizing-your-keymap) in the main readme.md.
+For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
 ### Let's split 1.0
 If you have a first generation Let's Split you will need to use the revision 1 code. To do so, use `rev1` in all your commands instead.
@@ -148,13 +151,13 @@ file will run on both hands instead of having to flash left and right handed
 versions of the firmware to each half. To flash the EEPROM file for the left
 half run:
 ```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-lefthand.eep
+avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-lefthand.eep"
 // or the equivalent in dfu-programmer
 
 ```
 and similarly for right half
 ```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-righhand.eep
+avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-righthand.eep"
 // or the equivalent in dfu-programmer
 ```
 

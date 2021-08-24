@@ -31,7 +31,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 #define MASTER_LEFT
-// #define _MASTER_RIGHT
+// #define MASTER_RIGHT
 // #define EE_HANDS
+
+// RGB Options
+#undef RGBLED_NUM
+#define RGBLED_NUM 10
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_SNAKE_LENGTH 1
+#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 1
+
+// Typing Options
+#define QMK_KEYS_PER_SCAN 4
 
 #endif

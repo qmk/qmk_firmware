@@ -1,1 +1,2 @@
-BACKLIGHT_ENABLE = yes
+# Build Options
+BACKLIGHT_DRIVER = custom

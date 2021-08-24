@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 		0x0001
 #define MANUFACTURER    Bishop Keyboards
 #define PRODUCT         9Key
-#define DESCRIPTION     Bishop Keyboards 9Key // Charleston, SC Meetup Handout
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -39,10 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F7
-#define RGBLIGHT_TIMER
+
 #define RGBLED_NUM 1    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -7,7 +7,7 @@ Instead I recommend these two books, explaining two different styles of Unit Tes
 * "Test Driven Development: By Example: Kent Beck"
 * "Growing Object-Oriented Software, Guided By Tests: Steve Freeman, Nat Pryce"
 
-If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](http://www.jamesshore.com/Blog/Lets-Play) video series.
+If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](https://www.jamesshore.com/Blog/Lets-Play) video series.
 
 ## Google Test and Google Mock
 It's possible to Unit Test your code using [Google Test](https://github.com/google/googletest). The Google Test framework also includes another component for writing testing mocks and stubs, called "Google Mock". For information how to write the actual tests, please refer to the documentation on that site.
@@ -18,7 +18,7 @@ Note that Google Test and therefore any test has to be written in C++, even if t
 
 One thing to remember, is that you have to append `extern "C"` around all of your C file includes.
 
-## Adding tests for new or existing features
+## Adding Tests for New or Existing Features
 
 If you want to unit test some feature, then take a look at the existing serial_link tests, in the `quantum/serial_link/tests folder`, and follow the steps below to create a similar structure.
 
@@ -34,25 +34,33 @@ If you want to unit test some feature, then take a look at the existing serial_l
 
 Note how there's several different tests, each mocking out a separate part. Also note that each of them only compiles the very minimum that's needed for the tests. It's recommend that you try to do the same. For a relevant video check out [Matt Hargett "Advanced Unit Testing in C & C++](https://www.youtube.com/watch?v=Wmy6g-aVgZI)
 
-## Running the tests
+## Running the Tests
 
-To run all the tests in the codebase, type `make test`. You can also run test matching a substring by typing `make test:matchingsubstring` Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
+To run all the tests in the codebase, type `make test:all`. You can also run test matching a substring by typing `make test:matchingsubstring` Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
 
-## Debugging the tests
+## Debugging the Tests
 
 If there are problems with the tests, you can find the executable in the `./build/test` folder. You should be able to run those with GDB or a similar debugger.
 
-## Full Integration tests
+To forward any [debug messages](unit_testing.md#debug-api) to `stderr`, the tests can run with `DEBUG=1`. For example
+
+```console
+make test:all DEBUG=1
+```
+
+Alternatively, add `CONSOLE_ENABLE=yes` to the tests `rules.mk`.
+
+## Full Integration Tests
 
 It's not yet possible to do a full integration test, where you would compile the whole firmware and define a keymap that you are going to test. However there are plans for doing that, because writing tests that way would probably be easier, at least for people that are not used to unit testing.
 
 In that model you would emulate the input, and expect a certain output from the emulated keyboard.
 
-# Tracing variables 
+# Tracing Variables :id=tracing-variables
 
-Sometimes you might wonder why a variable gets changed and where, and this can be quite tricky to track down without having a debugger. It's of course possible to manually add print statements to track it, but you can also enable the variable trace feature. This works for both for variables that are changed by the code, and when the variable is changed by some memory corruption.
+Sometimes you might wonder why a variable gets changed and where, and this can be quite tricky to track down without having a debugger. It's of course possible to manually add print statements to track it, but you can also enable the variable trace feature. This works for both variables that are changed by the code, and when the variable is changed by some memory corruption.
 
-To take the feature into use add `VARIABLE_TRACE=x` to the end of you make command. `x` represents the number of variables you want to trace, which is usually 1. 
+To take the feature into use add `VARIABLE_TRACE=x` to the end of you make command. `x` represents the number of variables you want to trace, which is usually 1.
 
 Then at a suitable place in the code, call `ADD_TRACED_VARIABLE`, to begin the tracing. For example to trace all the layer changes, you can do this
 ```c

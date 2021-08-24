@@ -42,4 +42,4 @@ The keymap have two layers. To access the functions on the second layer, hold do
 
 ## Building
 
-To build the firmware with the default keymap, run `make default`.
+To build the firmware with the default keymap, run `make phantom:default`.

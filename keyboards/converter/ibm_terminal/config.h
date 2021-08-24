@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    QMK
 #define PRODUCT         IBM Terminal Keyboard
-#define DESCRIPTION     USB converter for IBM Terminal Keyboard
 
 
 /* matrix size */
@@ -39,11 +38,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL)) \
+    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL)) \
 )
 
 
-/* 
+/*
  * PS/2 USART configuration for ATMega32U4
  */
 #ifdef PS2_USE_USART

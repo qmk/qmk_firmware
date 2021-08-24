@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "lovelive9",
+    "url": "https://github.com/ginjake",
+    "maintainer": "ginjake",
+    "width": 9,
+    "height": 4.5,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+              {"x": 0, "y": 0},
+              {"x": 0.5, "y": 1.25},
+              {"x": 1.5, "y": 2.5},
+              {"x": 2.75, "y": 3.25},
+              {"x": 4, "y": 3.5},
+              {"x": 5.25, "y": 3.25},
+              {"x": 6.5, "y": 2.5},
+              {"x": 7.5, "y": 1.25},
+              {"x": 8, "y": 0}
+            ]
+        }
+    }
+}

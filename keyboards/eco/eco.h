@@ -8,7 +8,6 @@
     #include "rev2.h"
 #endif
 
-
 #include "quantum.h"
 
 #endif

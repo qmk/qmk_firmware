@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2012 Jun Wako <wakojun@gmail.com>
  * This file is based on:
  *     LUFA-120219/Demos/Device/Lowlevel/KeyboardMouse
@@ -36,8 +36,7 @@
   this software.
 */
 
-#ifndef _LUFA_H_
-#define _LUFA_H_
+#pragma once
 
 #include <avr/io.h>
 #include <avr/wdt.h>
@@ -48,9 +47,6 @@
 #include <LUFA/Version.h>
 #include <LUFA/Drivers/USB/USB.h>
 #include "host.h"
-#ifdef MIDI_ENABLE
-  #include "process_midi.h"
-#endif
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -61,36 +57,13 @@ extern host_driver_t lufa_driver;
 }
 #endif
 
-/* extra report structure */
-typedef struct {
-    uint8_t  report_id;
-    uint16_t usage;
-} __attribute__ ((packed)) report_extra_t;
-
-#ifdef MIDI_ENABLE
-  void MIDI_Task(void);
-  MidiDevice midi_device;
-#endif
-
 #ifdef API_ENABLE
-  #include "api.h"
+#    include "api.h"
 #endif
 
 #ifdef API_SYSEX_ENABLE
-  #include "api_sysex.h"
-  // Allocate space for encoding overhead.
-  //The header and terminator are not stored to save a few bytes of precious ram
-  #define MIDI_SYSEX_BUFFER (API_SYSEX_MAX_SIZE + API_SYSEX_MAX_SIZE / 7 + (API_SYSEX_MAX_SIZE % 7 ? 1 : 0))
-#endif
-
-// #if LUFA_VERSION_INTEGER < 0x120730
-//     /* old API 120219 */
-//     #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint(epnum, eptype, epdir, epsize, epbank)
-// #else
-    /* new API >= 120730 */
-    #define ENDPOINT_BANK_SINGLE 1
-    #define ENDPOINT_BANK_DOUBLE 2
-    #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint((epdir) | (epnum) , eptype, epsize, epbank)
-// #endif
-
+#    include "api_sysex.h"
+// Allocate space for encoding overhead.
+// The header and terminator are not stored to save a few bytes of precious ram
+#    define MIDI_SYSEX_BUFFER (API_SYSEX_MAX_SIZE + API_SYSEX_MAX_SIZE / 7 + (API_SYSEX_MAX_SIZE % 7 ? 1 : 0))
 #endif

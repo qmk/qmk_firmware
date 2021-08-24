@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
-
-#include "../config.h"
+#pragma once
 
 #define DEVICE_VER      0x0001
 
@@ -26,13 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B2, B6, B4, B5 }
 #define MATRIX_COL_PINS { F4, D3, D2, D1, D4 }
 
-#define CATERINA_BOOTLOADER
+#define SOFT_SERIAL_PIN D0
 
 #define USE_SERIAL
 
 //#define EE_HANDS
-
-#define I2C_MASTER_LEFT
-//#define I2C_MASTER_RIGHT
- 
-#endif

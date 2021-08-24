@@ -15,8 +15,7 @@ Behold the Ultimate SuperCoder 2000 layout!
 
 ### To use it...
 
-To use this piece of top quality engineering, you can either
-[download the hex file][hex] we have prepared for you, or you can compile it on
+To use this piece of top quality engineering, you must compile it on
 your own:
 
  [hex]: https://raw.githubusercontent.com/algernon/ergodox-supercoder/master/supercoder.hex

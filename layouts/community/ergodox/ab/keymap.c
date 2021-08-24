@@ -89,10 +89,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN3, KC_BTN2, KC_TRNS, KC_TRNS,
-	KC_TRNS, KC_TRNS, ZM_NRM,  ZM_OUT,  ZM_IN,
+	RESET, KC_TRNS, ZM_NRM,  ZM_OUT,  ZM_IN,
 	KC_TRNS, KC_TRNS,
 	KC_TRNS,
-	RESET,   KC_TRNS, KC_TRNS,
+	KC_TRNS, KC_TRNS, KC_TRNS,
 	// Right hand
 	KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_BSPC,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -103,9 +103,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS
 	),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
