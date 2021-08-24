@@ -2,7 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Atmel DFU    atmel-dfu
 BOOTLOADER = atmel-dfu
 
 # Build Options
