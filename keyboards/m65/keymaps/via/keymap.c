@@ -51,3 +51,69 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 // clang-format on
+
+// let us assume we start with both layers off
+bool toggle_lwr = false;
+bool toggle_rse = false;
+
+static inline void led_lwr(const bool on) {
+#ifdef LED_NUM_LOCK_PIN
+    writePin(LED_NUM_LOCK_PIN, on);
+#endif
+}
+
+static inline void led_rse(const bool on) {
+#ifdef LED_SCROLL_LOCK_PIN
+    writePin(LED_SCROLL_LOCK_PIN, on);
+#endif
+}
+
+static inline void led_caps(const bool on) {
+#ifdef LED_CAPS_LOCK_PIN
+    if (DEVICE_VER == 0x0001) {
+        writePin(LED_CAPS_LOCK_PIN, !on);
+    }
+    if (DEVICE_VER == 0x0002) {
+        writePin(LED_CAPS_LOCK_PIN, on);
+    }
+
+#endif
+}
+
+bool led_update_user(led_t led_state) {
+    // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
+    return false;
+}
+
+void matrix_scan_user(void) {
+    led_lwr(toggle_lwr);
+    led_rse(toggle_rse);
+    led_t led_state = host_keyboard_led_state();
+    led_caps(led_state.caps_lock);
+    if (layer_state_is(_ADJ)) {
+        led_lwr(true);
+        led_rse(true);
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case (TT(_LWR)):
+            if (!record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
+                // This runs before the TT() handler toggles the layer state, so the current layer state is the opposite of the final one after toggle.
+                toggle_lwr = !layer_state_is(_LWR);
+            }
+            return true;
+            break;
+        case (TT(_RSE)):
+            if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
+                toggle_rse = !layer_state_is(_RSE);
+            }
+            return true;
+            break;
+        default:
+            return true;
+    }
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LWR, _RSE, _ADJ); }
