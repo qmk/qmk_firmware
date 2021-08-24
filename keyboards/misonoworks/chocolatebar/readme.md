@@ -5,7 +5,7 @@
 
 An 1800-Style 40% Choc Keyboard
 
-* Keyboard Maintainer: [MisonoWorks](https://github.com/autumnisacutie/)
+* Keyboard Maintainer: [MisonoWorks](https://github.com/misonoworks/)
 * Hardware Supported: Chocolate Bar PCB
 * Hardware Availability: [MKUltra.click](https://mkultra.click/)
 
