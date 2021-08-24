@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #include "print.h"
 #include "debug.h"
 #include "keycode_config.h"
-#include "keymap_common.h"
 
 // ChibiOS uses RESET in its FlagStatus enumeration
 // Therefore define it as QK_RESET here, to avoid name collision
@@ -46,6 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include "quantum_keycodes.h"
+
+// translates key to keycode
+uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
 
 // translates function id to action
 uint16_t keymap_function_id_to_action(uint16_t function_id);
