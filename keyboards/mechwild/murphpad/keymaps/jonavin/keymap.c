@@ -213,7 +213,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
         render_logo();
         oled_set_cursor(8,2);
-        char fn_str[12];
         switch(selected_layer){
             case 0:
                 oled_write_P(PSTR("BASE"), false);
