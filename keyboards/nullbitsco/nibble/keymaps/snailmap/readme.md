@@ -1,7 +1,7 @@
 
 # SnailMap
 
-![KeySnail](https://i.imgur.com/yEQJyI2.png)
+![KeySnail](https://i.imgur.com/yEQJyI2h.png)
 
 ## :snail: Display
 
