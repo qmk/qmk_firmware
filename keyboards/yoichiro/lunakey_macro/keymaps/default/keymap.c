@@ -24,18 +24,18 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUMBERS] = LAYOUT(
-        KC_1,         KC_2,       KC_3,        KC_4, \
-        KC_5,         KC_6,       KC_7,        KC_8, \
-        KC_9,         KC_0,       DF(_CURSOR) \
+        KC_1,         KC_2,       KC_3,        KC_4,
+        KC_5,         KC_6,       KC_7,        KC_8,
+        KC_9,         KC_0,       DF(_CURSOR)
     ),
     [_CURSOR] = LAYOUT(
-        KC_PGUP,      KC_HOME,    KC_UP,       KC_END, \
-        KC_PGDN,      KC_LEFT,    KC_DOWN,     KC_RGHT, \
-        KC_ENT,       KC_BSPC,    DF(_ADJUST) \
+        KC_PGUP,      KC_HOME,    KC_UP,       KC_END,
+        KC_PGDN,      KC_LEFT,    KC_DOWN,     KC_RGHT,
+        KC_ENT,       KC_BSPC,    DF(_ADJUST)
     ),
     [_ADJUST] = LAYOUT(
-        KC_NO,        KC_NO,      KC_NO,       KC_NO, \
-        KC_NO,        KC_NO,      KC_NO,       KC_NO, \
-        RESET,        KC_NO,      DF(_NUMBERS) \
+        KC_NO,        KC_NO,      KC_NO,       KC_NO,
+        KC_NO,        KC_NO,      KC_NO,       KC_NO,
+        RESET,        KC_NO,      DF(_NUMBERS)
     )
 };
