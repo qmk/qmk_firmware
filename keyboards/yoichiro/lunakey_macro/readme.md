@@ -1,6 +1,6 @@
 # Lunakey Macro
 
-![Lunakey Macro](https://i.imgur.com/BirFxgY.jpeg)
+![Lunakey Macro](https://i.imgur.com/BirFxgYh.jpeg)
 
 This is a macro keyboard which has 11 keys.
 
