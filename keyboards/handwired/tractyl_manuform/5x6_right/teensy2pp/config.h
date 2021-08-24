@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT \
     { 10, 10 }
+#define RGBLIGHT_LIMIT_VAL 80
 
 #define DEBUG_LED_PIN   D6
 
@@ -48,3 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D5 }
 #define ENCODERS_PAD_B \
     { D4 }
+
+/* PMW3360 Settings */
+#define PMW3360_CS_PIN B0
