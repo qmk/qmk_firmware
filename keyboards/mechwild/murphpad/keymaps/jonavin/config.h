@@ -16,7 +16,8 @@
 
 #pragma once
 
-#define TAPPING_TOGGLE 2
-// TT set to two taps
+// Standard encoder position.  Set to 1 for top right optional position
+#define ENCODER_DEFAULTACTIONS_INDEX 0
 
-#define ENCODER_DEFAULTACTIONS_INDEX 0 //Standard encoder position.  Set to 1 for top right optional position
+// Increase layers to 6 for VIA
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6

@@ -16,14 +16,16 @@
  */
 #include QMK_KEYBOARD_H
 #include "jonavin.h"
-#include "keymap.h"
+#include "layout_landscape.h"
 
 #define LANSCAPE_MODE
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
 	_FN2 = 2,
-	_FN3
+	_FN3,
+    _FN4,
+    _RGB
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -31,16 +33,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_LANDSCAPE(
         TT(_FN1), TT(_FN2), KC_MUTE,
 
-        KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_LGUI,
-        KC_BSPC,  KC_P7,    KC_P8,   KC_P9,   KC_PDOT,      KC_RSFT,
+        KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_RSFT,
+        KC_BSPC,  KC_P7,    KC_P8,   KC_P9,   KC_PDOT,      KC_LGUI,
         KC_TAB,   KC_P4,    KC_P5,   KC_P6,   KC_COMMA,     KC_RCTL,
         KC_P0,    KC_P1,    KC_P2,   KC_P3,   KC_PENT,      KC_RALT,
 
-                 _______, _______, _______
-
+                 TT(_FN3), TT(_FN4), TT(_RGB)
     ),
     [_FN1] = LAYOUT_LANDSCAPE(
-        _______,  _______, _______,
+        _______,  _______, ENCFUNC,
 
         _______,  KC_F10,   KC_F11,  KC_F12,  KC_PSCR,      _______,
         _______,  KC_F7,    KC_F8,   KC_F9,   KC_SLCK,      _______,
@@ -48,18 +49,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_F1,    KC_F2,   KC_F3,   _______,      _______,
 
                  _______, _______, _______
-
     ),
 	[_FN2] = LAYOUT_LANDSCAPE(
         _______,  _______, _______,
 
-        _______,  RGB_HUD,  RGB_SPI, RGB_HUI, KC_NO,        _______,
-        _______,  RGB_RMOD, RGB_TOG, RGB_MOD, KC_NO,        _______,
-        _______,  RGB_VAD,  RGB_SPD, RGB_VAI, KC_NO,        _______,
-        _______,  RGB_SAD,  KC_NO,   RGB_SAI, _______,      _______,
+        _______,  _______,  _______,  _______, _______,     _______,
+        _______,  _______,  _______,  _______, _______,     _______,
+        _______,  _______,  _______,  _______, _______,     _______,
+        _______,  _______,  _______,  _______, _______,     _______,
 
                   _______,  _______, _______
-
     ),
 	[_FN3] = LAYOUT_LANDSCAPE(
         _______,  _______, _______,
@@ -70,7 +69,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______, _______,     _______,
 
                   _______,  _______, _______
-   )
+   ),
+	[_FN4] = LAYOUT_LANDSCAPE(
+        _______,  _______, _______,
+
+        _______,  _______,  _______,  _______, _______,     _______,
+        _______,  _______,  _______,  _______, _______,     _______,
+        _______,  _______,  _______,  _______, _______,     _______,
+        _______,  _______,  _______,  _______, _______,     _______,
+
+                  _______,  _______, _______
+   ),
+	[_RGB] = LAYOUT_LANDSCAPE(
+        _______,  _______, _______,
+
+        _______,  RGB_HUD,  RGB_SPI, RGB_HUI, KC_NO,        _______,
+        _______,  RGB_RMOD, RGB_TOG, RGB_MOD, KC_NO,        _______,
+        _______,  RGB_VAD,  RGB_SPD, RGB_VAI, KC_NO,        _______,
+        _______,  RGB_SAD,  KC_NO,   RGB_SAI, _______,      _______,
+
+                  _______,  _______, _______
+   ),
 };
 
 typedef struct {
@@ -132,6 +151,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             oled_clear();
             oled_render();
         #endif
+        #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
+            #define DYNAMIC_KEYMAP_LAYER_COUNT 4  //default number of layers if not defined
+        #endif // !DYNAMIC_KEYMAP_LAYER_COUNT
         switch (index) {
             case 0:         // This is the only encoder right now, keeping for consistency
                 switch(get_highest_layer(layer_state)){  // special handling per layer
@@ -157,27 +179,27 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                     }
                 default:   // all other layers
                     if ( clockwise ) {
-                        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                            if(selected_layer  < 3) {
+                        if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) { // If you are holding Right Shift, encoder changes layers
+                            if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT-1)) {
                                 selected_layer ++;
                                 layer_move(selected_layer);
                             }
-                        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
+                        } else if (keyboard_report->mods & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate next word
                              tap_code16(LCTL(KC_RGHT));
-                        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
+                        } else if (keyboard_report->mods & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media next track
                             tap_code(KC_MEDIA_NEXT_TRACK);
                         } else  {
                             tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
                         }
                     } else if ( !clockwise ) {
-                        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+                        if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) {
                             if (selected_layer  > 0) {
                                 selected_layer --;
                                 layer_move(selected_layer);
                             }
-                        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
+                        } else if (keyboard_report->mods & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate previous word
                             tap_code16(LCTL(KC_LEFT));
-                        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
+                        } else if (keyboard_report->mods & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media previous track
                             tap_code(KC_MEDIA_PREV_TRACK);
                         } else {
                             tap_code(KC_VOLD);
@@ -214,19 +236,24 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         render_logo();
         oled_set_cursor(8,2);
         switch(selected_layer){
-            case 0:
+            case _BASE:
                 oled_write_P(PSTR("BASE"), false);
                 break;
-            case 1:
+            case _FN1:
                 oled_write_P(PSTR("FN "), false);
                 oled_write(selectedkey_rec.keydesc, false);
-                //oled_write_P(PSTR("FN1 "), false);
                 break;
-            case 2:
+            case _FN2:
                 oled_write_P(PSTR("FN2 "), false);
                 break;
-            case 3:
+            case _FN3:
                 oled_write_P(PSTR("FN3 "), false);
+                break;
+            case _FN4:
+                oled_write_P(PSTR("FN4 "), false);
+                break;
+            case _RGB:
+                oled_write_P(PSTR("RGB "), false);
                 break;
             default:
                 oled_write_P(PSTR(" ?? "), false);    // Should never display, here as a catchall
@@ -237,19 +264,24 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             oled_write_P(PSTR("             "), false);
         } else {
             switch (get_highest_layer(layer_state)) {
-                case 0:
+                case _BASE:
                     oled_write_P(PSTR("Temp BASE"), false);
                     break;
-                case 1:
-                    sprintf(fn_str, "Temp FN %5s", selectedkey_rec.keydesc);
-                    oled_write(fn_str, false);
-                    //oled_write_P(PSTR("Temp FN1 "), false);
+                case _FN1:
+                    oled_write_P(PSTR("Temp FN "), false);
+                    oled_write(selectedkey_rec.keydesc, false);
                     break;
-                case 2:
+                case _FN2:
                     oled_write_P(PSTR("Temp FN2 "), false);
                     break;
-                case 3:
+                case _FN3:
                     oled_write_P(PSTR("Temp FN3 "), false);
+                    break;
+                case _FN4:
+                    oled_write_P(PSTR("Temp FN4 "), false);
+                    break;
+                case _RGB:
+                    oled_write_P(PSTR("Temp RGB "), false);
                     break;
                 default:
                     oled_write_P(PSTR("Temp ????"), false);    // Should never display, here as a catchall
@@ -289,6 +321,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 break;
             case _FN3:
                 oled_write_ln_P(PSTR("FN 3"), false);
+                break;
+            case _FN4:
+                oled_write_ln_P(PSTR("FN 4"), false);
+                break;
+            case _RGB:
+                oled_write_ln_P(PSTR("RGB "), false);
                 break;
             default:
                 oled_write_ln_P(PSTR("Undef"), false);

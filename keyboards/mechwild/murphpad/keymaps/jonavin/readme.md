@@ -1,6 +1,6 @@
 Jonavin's Custom MurphPad Landscape Layout
  
-This allows you to use Murphpad in a horizontal/landscape orientation
+This allows you to use Murphpad in a horizontal/landscape orientation with extra layers
 
     - OLED has been rotated for landscape mode 
     - Keymap positions have been updated so it's easier to visualize the keymap in landscape 
@@ -37,9 +37,11 @@ Special Features
                 {"RESET",   RESET},  // firmware flash mode
        };
 
-  - Additional encoder functionality 
-        While holding Left Ctrl, navigates next or previous word
-        While holding Left Alt, media next track or previous track
+  - Additional encoder functionality
+        While holding R Shift, changes layers
+        While holding R Ctrl, navigates next or previous word
+        While holding R Alt, media next track or previous track
+        Otherwise change volume up/dn
 
 
 rules.mk OPTIONS - Active features from userspace
@@ -51,7 +53,9 @@ DEFAULT MAPPING
 ![image](https://user-images.githubusercontent.com/71780717/130325804-db7d5047-71b2-4924-9d5c-31c13bb6a9cc.png)
 
 
-FN1 Layer
+FN1 Layer 1
 
 ![image](https://user-images.githubusercontent.com/71780717/130325816-bf2af035-30e4-49f7-a932-101c7678175e.png)
 
+
+RGB Layer 5
