@@ -1,4 +1,4 @@
-/* Copyright 2020 zvecr <git@zvecr.com>
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
 
-#if defined(KEYBOARD_yandrstudio_zhou75_solder)
-    #include "solder.h"
-#else
-    #include "hotswap.h"
-#endif
+
+#pragma once
+#include_next <halconf.h>
+
+#undef  SERIAL_USB_BUFFERS_SIZE
+#define SERIAL_USB_BUFFERS_SIZE 256
+
+#undef  SERIAL_BUFFERS_SIZE
+#define SERIAL_BUFFERS_SIZE     128
+
+#undef  SPI_USE_WAIT
+#define SPI_USE_WAIT TRUE
+
+#undef  SPI_SELECT_MODE
+#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+

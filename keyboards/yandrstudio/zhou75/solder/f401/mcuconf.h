@@ -18,8 +18,6 @@
 
 #include_next <mcuconf.h>
 
-#undef STM32_PWM_USE_TIM3
-#define STM32_PWM_USE_TIM3 TRUE
 
 #undef STM32_ST_USE_TIMER
 #define STM32_ST_USE_TIMER 2
@@ -60,7 +58,7 @@
 #define STM32_CLOCK48_REQUIRED              TRUE
 #define STM32_SW                            STM32_SW_PLL
 #define STM32_PLLSRC                        STM32_PLLSRC_HSE
-#define STM32_PLLM_VALUE                    8
+#define STM32_PLLM_VALUE                    16
 #define STM32_PLLN_VALUE                    192
 #define STM32_PLLP_VALUE                    4
 #define STM32_PLLQ_VALUE                    4

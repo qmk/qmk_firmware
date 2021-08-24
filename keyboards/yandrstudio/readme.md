@@ -1,4 +1,4 @@
-# Keyboard Firmware of Y&R Studio
+# Keyboard Firmwares of Y&R Studio
 
 ## Studio overview
 
@@ -6,21 +6,21 @@ A creative coder.
 
 > Jason Ren (Biu)
 
-## Keyboard Firmware and Utils
+## Keyboard Firmwares and Utils
 
-### Keyboard Released by Y&R Studio Itself
+### Keyboards Released by Y&R Studio Itself
 | NAME          | VENDOR_ID | PRODUCT_ID | FEATURES                              | COMMERCIALIZATION |
 | ------------- | --------- | ---------- | ------------------------------------- | ----------------- |
 | rainbow65     | 0xAA96    | 0xAA00     | OLED, RGB, ENCODER                    | &check;           |
 | cool87        | 0xAA96    | 0xAA01     | 32u4                                  | &cross;           |
-| sb65p         | 0xAA96    | 0xAA02     | 2.4G Split Keyboard                   | &cross;           |
+| sb65p         | 0xAA96    | 0xAA02     | 2.4G Single mode Split Keyboard       | &cross;           |
 | r65ble        | 0xAA96    | 0xAA03     | BLE 5.0 Dual mod version of rainbow65 | &cross;           |
 | whiteMouse28T | 0xAA96    | 0xAA04     | External EEPROM (95256), For Test     | &cross;           |
 | m60ble        | 0xAA96    | 0xAA05     | BLE 5.0 Dual mode, RGB                | &quest;           |
 
 
 
-### Keyboard Completed with Y&R Studio Participation
+### Keyboards Completed with Y&R Studio Participation
 | NAME         | VENDOR_ID | PRODUCT_ID | FEATURES                  | COMMERCIALIZATION |
 | ------------ | --------- | ---------- | ------------------------- | ----------------- |
 | nlhhkb       | 0xAA96    | 0xAAA0     | 32u4                      | &quest;           |

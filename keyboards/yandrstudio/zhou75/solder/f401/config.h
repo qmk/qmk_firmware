@@ -1,4 +1,4 @@
-/* Copyright 2020 zvecr <git@zvecr.com>
+/* Copyright 2021 JasonRen(biu)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,8 +15,29 @@
  */
 #pragma once
 
-#if defined(KEYBOARD_yandrstudio_zhou75_solder)
-    #include "solder.h"
-#else
-    #include "hotswap.h"
+#include "config_common.h"
+
+/* key matrix size */
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 16
+
+//                        0    1    2    3     4    5    6   7    8    9    10   11   12  13   14   15   16   17
+#define MATRIX_COL_PINS { A8,  B15, B14, B13,  B12, B1,  B0, A7,  B7,  B6,  B5,  B4,  B3, A15, B10, B8 }
+#define MATRIX_ROW_PINS { B9,  A6,  A5,  A4,   A3,  A2 }
+
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION ROW2COL
+
+
+#ifdef ENCODER_ENABLE
+
+#define ENCODERS_PAD_A { A0, A9 }
+#define ENCODERS_PAD_B { A1, A10 }
+
+#define ENCODER_RESOLUTIONS { 4, 4 }
+
 #endif
+
+
+#define LED_CAPS_LOCK_PIN    C13
+#define LED_PIN_ON_STATE     0
