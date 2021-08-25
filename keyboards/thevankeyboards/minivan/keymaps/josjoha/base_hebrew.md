@@ -98,7 +98,7 @@ Layer: `..._NSY` (Same as Dvorak.)
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Hebrew](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_hebrew_2000_vj.jpg)
+![Minivan illustration Overview layers by key, Hebrew](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_hebrew_2000_vk.jpg)
 
 Layers (text)
 =============
