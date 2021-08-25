@@ -53,13 +53,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 // The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN B7
+#define RGB_DI_PIN B0
 // The number of LEDs connected
 #define DRIVER_LED_TOTAL 80
 
 #define RGB_MATRIX_KEYPRESSES
 #define USB_LED_INDICATOR_ENABLE
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION

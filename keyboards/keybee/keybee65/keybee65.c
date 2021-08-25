@@ -82,13 +82,3 @@ void rgb_matrix_indicators_kb(void) {
         rgb_matrix_set_color(30, 254, 189, 41); // set caps lock led color first nunber is index, R G B
     }
 }
-
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
