@@ -37,7 +37,7 @@ static bool PIXEL_RAIN(effect_params_t* params) {
         return false;
     }
 
-    return rain_pixel(mod8(random8(), DRIVER_LED_TOTAL), params, random8() & 3);
+    return rain_pixel(mod8(random8(), DRIVER_LED_TOTAL), params, random8() & 2);
 }
 
 #   endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
