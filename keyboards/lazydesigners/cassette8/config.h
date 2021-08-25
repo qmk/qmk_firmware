@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LAZYDESIGNERS
 #define PRODUCT         Cassette8
-#define DESCRIPTION     A macropad with 8 keys
 
 /* key matrix size */
 #define MATRIX_ROWS 2
