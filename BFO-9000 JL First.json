@@ -1,0 +1,181 @@
+[
+  {
+    "name": "BFO-9000",
+    "author": "Keebio",
+    "css": "@import url(http://fonts.googleapis.com/css?family=Fira+Sans);\n.keylabel { font-family: 'Fira Sans';}\n"
+  },
+  [
+    {
+      "a": 7
+    },
+    "Esc",
+    "Vol Up",
+    "Esc",
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8",
+    "F9",
+    "F10",
+    "F11",
+    "F12",
+    "Back Space",
+    {
+      "c": "#36a8a8"
+    },
+    "",
+    ""
+  ],
+  [
+    {
+      "c": "#cccccc"
+    },
+    "Home",
+    "Vol Down",
+    {
+      "a": 5
+    },
+    "~\n\n\n\n\n\n`",
+    "!\n\n\n\n\n\n1",
+    "@\n\n\n\n\n\n2",
+    "#\n\n\n\n\n\n3",
+    "$\n\n\n\n\n\n4",
+    "%\n\n\n\n\n\n5",
+    "^\n\n\n\n\n\n6",
+    "&\n\n\n\n\n\n7",
+    "*\n\n\n\n\n\n8",
+    "(\n\n\n\n\n\n9",
+    ")\n\n\n\n\n\n0",
+    "_\n\n\n\n\n\n-",
+    "+\n\n\n\n\n\n=",
+    "|\n\n\n\n\n\n\\",
+    {
+      "a": 7
+    },
+    "Num Lock",
+    {
+      "c": "#36a8a8"
+    },
+    ""
+  ],
+  [
+    {
+      "c": "#cccccc"
+    },
+    "End",
+    "",
+    "Tab",
+    "Q",
+    "W",
+    "E",
+    "R",
+    "T",
+    "Y",
+    "U",
+    "I",
+    "O",
+    "P",
+    {
+      "a": 5
+    },
+    "{\n\n\n\n\n\n[",
+    "}\n\n\n\n\n\n]",
+    "7\n\n\n\n\n\nHome",
+    "8\n\n\n\n\n\nUp",
+    "9\n\n\n\n\n\nPgUp"
+  ],
+  [
+    "Page Up",
+    "Caps",
+    "Ctrl",
+    "A",
+    "S",
+    "D",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K",
+    "L",
+    ":\n\n\n\n\n\n;",
+    "\"\n\n\n\n\n\n'",
+    {
+      "a": 7
+    },
+    "Enter",
+    {
+      "a": 5
+    },
+    "4\n\n\n\n\n\nLeft",
+    {
+      "a": 7
+    },
+    "5",
+    {
+      "a": 5
+    },
+    "6\n\n\n\n\n\nRight"
+  ],
+  [
+    {
+      "a": 7
+    },
+    "Page Down",
+    "Up",
+    "Shift",
+    "Z",
+    "X",
+    "C",
+    "V",
+    "B",
+    "N",
+    "M",
+    {
+      "a": 5
+    },
+    "<\n\n\n\n\n\n,",
+    ">\n\n\n\n\n\n.",
+    "?\n\n\n\n\n\n/",
+    {
+      "a": 7
+    },
+    "Shift",
+    "Up",
+    {
+      "a": 5
+    },
+    "1\n\n\n\n\n\nEnd",
+    "2\n\n\n\n\n\nDown",
+    "3\n\n\n\n\n\nPgDn"
+  ],
+  [
+    {
+      "a": 7
+    },
+    "Del",
+    "Down",
+    "Right",
+    "Ctrl",
+    "Alt",
+    "Win",
+    "Space",
+    "Space",
+    "Enter",
+    "Space",
+    "Win",
+    "Alt",
+    "Ctrl",
+    "Left",
+    "Down",
+    "Right",
+    {
+      "c": "#36a8a8"
+    },
+    "",
+    ""
+  ]
+]
