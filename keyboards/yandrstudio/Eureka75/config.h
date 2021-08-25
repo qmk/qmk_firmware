@@ -21,7 +21,7 @@
 #define VENDOR_ID       0xAA96
 #define PRODUCT_ID      0xAAAA
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    JasonRen biu
+#define MANUFACTURER    lkaill-Y&R
 #define PRODUCT         Eureka75
 
 // enable the nkro when using the VIA.

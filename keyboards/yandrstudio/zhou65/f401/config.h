@@ -17,28 +17,17 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAAA7
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    lkaill-Y&R
-#define PRODUCT         zhou75
+/* key matrix size */
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
 
-// enable the nkro when using the VIA.
-#define FORCE_NKRO
+/* key matrix pins */
+#define MATRIX_ROW_PINS { A2, A1, B8, B7, C15 }
+#define MATRIX_COL_PINS { B9, B6, B5, B4, B3, B1, B0, A7, A6, A5, A4, A3, A8, B15, B14 }
 
-// fix VIA RGB_light
-#define VIA_HAS_BROKEN_KEYCODES
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION ROW2COL
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
+#define LED_CAPS_LOCK_PIN A15
+#define LED_PIN_ON_STATE    0
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-// #define DEBUG_MATRIX_SCAN_RATE
-
-#define USB_POLLING_INTERVAL_MS 1
-#define QMK_KEYS_PER_SCAN 4
-
-#define TAP_CODE_DELAY 15

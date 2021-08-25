@@ -19,10 +19,11 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAAA7
+#define PRODUCT_ID      0xAAAD
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    lkaill-Y&R
-#define PRODUCT         zhou75
+#define PRODUCT         zhou65
+#define DESCRIPTION     STM32 based 65%.
 
 // enable the nkro when using the VIA.
 #define FORCE_NKRO
@@ -34,11 +35,9 @@
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 1
 
 // #define DEBUG_MATRIX_SCAN_RATE
 
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 4
-
-#define TAP_CODE_DELAY 15
