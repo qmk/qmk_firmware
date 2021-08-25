@@ -15,19 +15,25 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#pragma once
+//Setting up what encoder rotation does. If your encoder can be pressed as a button, that function can be set in Via.
 
-/* The way how "handedness" is decided (which half is which),
-see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
-for more options.
-*/
+#ifdef ENCODER_ENABLE
 
-#define EE_HANDS
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            tap_code(KC_PGDOWN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+    return true;
+}
 
-//Add RGB underglow
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 74
-#define RGBLED_SPLIT {37,37}
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_LIMIT_VAL 192
-#define AUTO_SHIFT_TIMEOUT 140
+#endif
