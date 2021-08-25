@@ -1,10 +1,17 @@
-# TS 60
+# Wolf - TS 60
 
 The following is the QMK Firmware for the TS60 PCB.
 
+The PCB features:
+* QMK & VIA compatibility
+* RGB underglow
+* Per-Key LEDs
+
 ---
 
-* Keyboard Maintainer: ToastyStoemp - Wolf
+* Keyboard Maintainer: [ToastyStoemp](https://github.com/ToastyStoemp)
+* Hardware Supported: TF60 ANSI SOLDER
+
 
 Make example for this keyboard (after setting up your build environment):
 
