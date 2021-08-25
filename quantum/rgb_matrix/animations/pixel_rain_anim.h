@@ -37,7 +37,6 @@ static bool PIXEL_RAIN(effect_params_t* params) {
         return false;
     }
 
-    if (params->init) { random16_set_seed((uint16_t)g_rgb_timer); }
     return rain_pixel(mod8(random8(), DRIVER_LED_TOTAL), params, random8() & 3);
 }
 
