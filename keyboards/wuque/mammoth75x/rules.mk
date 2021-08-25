@@ -22,4 +22,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes		# Enable Encoder
 
-LAYOUT = 75_ansi
