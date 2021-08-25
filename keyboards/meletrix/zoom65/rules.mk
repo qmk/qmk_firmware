@@ -22,4 +22,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Enable Encoder
 
-LAYOUT = 65_ansi 65_iso
+LAYOUT = 65_ansi_blocker 65_isoblocker
