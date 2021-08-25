@@ -36,31 +36,6 @@ extern keymap_config_t keymap_config;
 
 #include <inttypes.h>
 
-uint8_t extract_mod_bits(uint16_t code) {
-    switch (code) {
-        case QK_MODS ... QK_MODS_MAX:
-            break;
-        default:
-            return 0;
-    }
-
-    uint8_t mods_to_send = 0;
-
-    if (code & QK_RMODS_MIN) {  // Right mod flag is set
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RGUI);
-    } else {
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LGUI);
-    }
-
-    return mods_to_send;
-}
-
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key) {
     // 16bit keycodes - important
