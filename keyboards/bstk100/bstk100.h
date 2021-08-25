@@ -1,4 +1,5 @@
-/* Copyright 2021 FREE WING
+/* Copyright 2021 FREE WING,Y.Sakamoto
+ * http://www.neko.ne.jp/~freewing/
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,9 +28,16 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k12    \
+    k00, \
+    k34, k03, k02, k13, \
+    k10, k11, k12, k01, \
+    k20, k21, k22, k23, \
+    k30, k31, k32, k33, \
+    k40, k41, k43 \
 ) { \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k12 }  \
+    { k00, k01, k02,   k03, KC_NO }, \
+    { k10, k11, k12,   k13, KC_NO }, \
+    { k20, k21, k22,   k23, KC_NO }, \
+    { k30, k31, k32,   k33, k34   }, \
+    { k40, k41, KC_NO, k43, KC_NO }  \
 }

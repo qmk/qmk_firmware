@@ -1,4 +1,5 @@
-/* Copyright 2021 FREE WING
+/* Copyright 2021 FREE WING,Y.Sakamoto
+ * http://www.neko.ne.jp/~freewing/
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
