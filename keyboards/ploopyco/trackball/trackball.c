@@ -58,7 +58,6 @@ uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 // Trackball State
 bool     is_scroll_clicked = false;
 bool     BurstState        = false;  // init burst state for Trackball module
-uint16_t MotionStart       = 0;      // Timer for accel, 0 is resting state
 uint16_t lastScroll        = 0;      // Previous confirmed wheel event
 uint16_t lastMidClick      = 0;      // Stops scrollwheel from being read if it was pressed
 uint8_t  OptLowPin         = OPT_ENC1;
@@ -109,45 +108,18 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
 
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
     report_pmw_t data = pmw_read_burst();
-    // Reset timer if stopped moving
-    if (!data.isMotion) {
-        MotionStart = 0;
+    if (!data.isMotion || !data.isOnSurface) {
         return;
     }
-    if (data.isOnSurface) {
-        // Set timer if new motion
-        if (MotionStart == 0) {
-            if (debug_mouse) dprintf("Starting motion.\n");
-            MotionStart = timer_read();
-        }
-
-        if (debug_mouse) {
-            dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart);
-        }
-        if (debug_mouse) {
-            dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy);
-        }
-#if defined(PROFILE_LINEAR)
-        float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
-        data.dx *= scale;
-        data.dy *= scale;
-#elif defined(PROFILE_INVERSE)
-        // TODO
-#else
-        // no post processing
-#endif
-        // apply multiplier
-        // data.dx *= mouse_multiplier;
-        // data.dy *= mouse_multiplier;
-
-        // Wrap to HID size
-        data.dx = constrain(data.dx, -127, 127);
-        data.dy = constrain(data.dy, -127, 127);
-        if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
-        // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
-
-        process_mouse_user(mouse_report, data.dx, -data.dy);
+    if (debug_mouse) {
+        dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy);
     }
+    // Wrap to HID size
+    data.dx = constrain(data.dx, -127, 127);
+    data.dy = constrain(data.dy, -127, 127);
+    if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
+
+    process_mouse_user(mouse_report, data.dx, -data.dy);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
