@@ -17,7 +17,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 /* TS60 Keymap Definitions */
-#define LAYOUT_60_ansi( \
+#define LAYOUT_60_duplex_ansi( \
     K00, K01, K02, K03, K04, K05, K06, K07, \
     K10, K11, K12, K13, K14, K15,      K17, \
     K20, K21, K22, K23, K24, K25, K26, K27, \
