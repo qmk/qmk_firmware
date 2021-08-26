@@ -214,12 +214,12 @@ void rgb_matrix_indicators_user() {
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
     if (effect_started_time > 0) {
         /* Render blinking EFFECTS */
-        uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
+        const uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
         if (deltaTime <= RGB_CONFIRMATION_BLINKING_TIME) {
-            uint8_t led_state = ((~deltaTime) >> TIME_SELECTED_BIT) & 0x01;
-            uint8_t val_r = led_state * r_effect;
-            uint8_t val_g = led_state * g_effect;
-            uint8_t val_b = led_state * b_effect;
+            const uint8_t led_state = ((~deltaTime) >> TIME_SELECTED_BIT) & 0x01;
+            const uint8_t val_r = led_state * r_effect;
+            const uint8_t val_g = led_state * g_effect;
+            const uint8_t val_b = led_state * b_effect;
             rgb_matrix_set_color_all(val_r, val_g, val_b);
             if (host_keyboard_led_state().caps_lock) {
                 set_rgb_caps_leds();
