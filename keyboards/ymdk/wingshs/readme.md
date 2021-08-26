@@ -10,11 +10,11 @@ A keyboard inspired by the Arisu, which is inspired by Lyn's EM7 and TGR Alice. 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk/wings:default
+    make ymdk/wingshs:default
 
 Flashing example for this keyboard:
 
-    make ymdk/wings:default:flash
+    make ymdk/wingshs:default:flash
 
 To reset the board into bootloader mode, hold the key at the top left of the keyboard while connecting the USB cable (also erases persistent settings).
 
