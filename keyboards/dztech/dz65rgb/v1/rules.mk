@@ -1,5 +1,9 @@
 # MCU name
 MCU = STM32F303
+BOARD = QMK_PROTON_C
+
+# Bootloader selection
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -18,8 +22,7 @@ RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 MIDI_ENABLE = no               # MIDI support
 BLUETOOTH_ENABLE = no          # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no              # Audio output on port C6
-FAUXCLICKY_ENABLE = no         # Use buzzer to emulate clicky switches
-HD44780_ENABLE = no            # Enable support for HD44780 based LCDs
-RGB_MATRIX_ENABLE = IS31FL3731 # Use RGB matrix
+RGB_MATRIX_ENABLE = yes        # Use RGB matrix
+RGB_MATRIX_DRIVER = IS31FL3731
 
 LAYOUTS = 65_ansi

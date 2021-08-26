@@ -6,7 +6,7 @@
  */
 
 #include "ws2812.h"
-#include "stdlib.h"
+#include <stdlib.h>
 
 #define BYTES_FOR_LED_BYTE 4
 #define NB_COLORS 3

@@ -1,5 +1,6 @@
-/*
- * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2015 ZSA Technology Labs Inc (@zsa)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +18,14 @@
 
 #pragma once
 
+#undef VENDOR_ID
+#define VENDOR_ID       0x3297
+#undef PRODUCT_ID
+#define PRODUCT_ID      0xC6CE
+#undef MANUFACTURER
+#define MANUFACTURER    ZSA Technology Labs
+#undef PRODUCT
+#define PRODUCT         Planck EZ
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0000
 
@@ -48,7 +57,10 @@
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES
-#undef C6_AUDIO
+#undef AUDIO_PIN
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
@@ -100,9 +112,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

@@ -1,3 +1,1 @@
-SRC += 	matrix.c \
-		split_util.c \
-		split_scomm.c
+SPLIT_KEYBOARD = yes

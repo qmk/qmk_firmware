@@ -1,7 +1,7 @@
 #include "quantum.h"
 #include "ws2812.h"
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 /* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */
 
@@ -12,6 +12,14 @@
 #        error("NOP_FUDGE configuration required")
 #        define NOP_FUDGE 1  // this just pleases the compile so the above error is easier to spot
 #    endif
+#endif
+
+// Push Pull or Open Drain Configuration
+// Default Push Pull
+#ifndef WS2812_EXTERNAL_PULLUP
+#    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_PUSHPULL
+#else
+#    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
 #endif
 
 #define NUMBER_NOPS 6
@@ -43,7 +51,7 @@
 
 // The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
 // to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
-#define RES 10000  // Width of the low gap between bits to cause a frame to latch
+#define RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
 
 void sendByte(uint8_t byte) {
     // WS2812 protocol wants most significant bits first
@@ -66,7 +74,7 @@ void sendByte(uint8_t byte) {
     }
 }
 
-void ws2812_init(void) { setPinOutput(RGB_DI_PIN); }
+void ws2812_init(void) { palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE); }
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
@@ -81,9 +89,20 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 
     for (uint8_t i = 0; i < leds; i++) {
         // WS2812 protocol dictates grb order
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
         sendByte(ledarray[i].g);
         sendByte(ledarray[i].r);
         sendByte(ledarray[i].b);
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+        sendByte(ledarray[i].r);
+        sendByte(ledarray[i].g);
+        sendByte(ledarray[i].b);
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+        sendByte(ledarray[i].b);
+        sendByte(ledarray[i].g);
+        sendByte(ledarray[i].r);
+#endif
+
 #ifdef RGBW
         sendByte(ledarray[i].w);
 #endif

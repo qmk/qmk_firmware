@@ -1,9 +1,20 @@
 #include QMK_KEYBOARD_H
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 #include "serial_link/system/serial_link.h"
 #ifdef VISUALIZER_ENABLE
 #include "lcd_backlight.h"
+#endif
+
+#ifdef WPM_ENABLE
+#   include "serial_link/protocol/transport.h"
+#   include "wpm.h"
+
+MASTER_TO_ALL_SLAVES_OBJECT(current_wpm, uint8_t);
+static remote_object_t* remote_objects[] = {
+    REMOTE_OBJECT(current_wpm),
+};
+static uint8_t last_sent_wpm = 0;
 #endif
 
 void init_serial_link_hal(void) {
@@ -39,30 +50,30 @@ void init_serial_link_hal(void) {
 // Which will reduce the brightness range
 #define PRESCALAR_DEFINE 0
 void lcd_backlight_hal_init(void) {
-	// Setup Backlight
+    // Setup Backlight
     SIM->SCGC6 |= SIM_SCGC6_FTM0;
     FTM0->CNT = 0; // Reset counter
 
-	// PWM Period
-	// 16-bit maximum
-	FTM0->MOD = 0xFFFF;
+    // PWM Period
+    // 16-bit maximum
+    FTM0->MOD = 0xFFFF;
 
-	// Set FTM to PWM output - Edge Aligned, Low-true pulses
+    // Set FTM to PWM output - Edge Aligned, Low-true pulses
 #define CNSC_MODE FTM_SC_CPWMS | FTM_SC_PS(4) | FTM_SC_CLKS(0)
-	CHANNEL_RED.CnSC = CNSC_MODE;
-	CHANNEL_GREEN.CnSC = CNSC_MODE;
-	CHANNEL_BLUE.CnSC = CNSC_MODE;
+    CHANNEL_RED.CnSC = CNSC_MODE;
+    CHANNEL_GREEN.CnSC = CNSC_MODE;
+    CHANNEL_BLUE.CnSC = CNSC_MODE;
 
-	// System clock, /w prescalar setting
-	FTM0->SC = FTM_SC_CLKS(1) | FTM_SC_PS(PRESCALAR_DEFINE);
+    // System clock, /w prescalar setting
+    FTM0->SC = FTM_SC_CLKS(1) | FTM_SC_PS(PRESCALAR_DEFINE);
 
-	CHANNEL_RED.CnV = 0;
-	CHANNEL_GREEN.CnV = 0;
-	CHANNEL_BLUE.CnV = 0;
+    CHANNEL_RED.CnV = 0;
+    CHANNEL_GREEN.CnV = 0;
+    CHANNEL_BLUE.CnV = 0;
 
-	RGB_PORT_GPIO->PDDR |= (1 << RED_PIN);
-	RGB_PORT_GPIO->PDDR |= (1 << GREEN_PIN);
-	RGB_PORT_GPIO->PDDR |= (1 << BLUE_PIN);
+    RGB_PORT_GPIO->PDDR |= (1 << RED_PIN);
+    RGB_PORT_GPIO->PDDR |= (1 << GREEN_PIN);
+    RGB_PORT_GPIO->PDDR |= (1 << BLUE_PIN);
 
 #define RGB_MODE PORTx_PCRn_SRE | PORTx_PCRn_DSE | PORTx_PCRn_MUX(4)
     RGB_PORT->PCR[RED_PIN] = RGB_MODE;
@@ -94,9 +105,9 @@ static uint16_t cie_lightness(uint16_t v) {
 }
 
 void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b) {
-	CHANNEL_RED.CnV = cie_lightness(r);
-	CHANNEL_GREEN.CnV = cie_lightness(g);
-	CHANNEL_BLUE.CnV = cie_lightness(b);
+    CHANNEL_RED.CnV = cie_lightness(r);
+    CHANNEL_GREEN.CnV = cie_lightness(g);
+    CHANNEL_BLUE.CnV = cie_lightness(b);
 }
 
 __attribute__ ((weak))
@@ -109,21 +120,39 @@ void matrix_scan_user(void) {
 
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
 
-	matrix_init_user();
-	// The backlight always has to be initialized, otherwise it will stay lit
+    matrix_init_user();
+    // The backlight always has to be initialized, otherwise it will stay lit
 #ifndef VISUALIZER_ENABLE
-	lcd_backlight_hal_init();
+    lcd_backlight_hal_init();
+#endif
+#ifdef WPM_ENABLE
+    add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*));
 #endif
 }
 
 void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
+    // put your looping keyboard code here
+    // runs every cycle (a lot)
 
-	matrix_scan_user();
+#ifdef WPM_ENABLE
+    if (is_serial_link_master()) {
+        uint8_t current_wpm = get_current_wpm();
+        if (current_wpm != last_sent_wpm) {
+            *begin_write_current_wpm() = current_wpm;
+            end_write_current_wpm();
+            last_sent_wpm = current_wpm;
+        }
+    } else if (is_serial_link_connected()) {
+        uint8_t* new_wpm = read_current_wpm();
+        if (new_wpm) {
+            set_current_wpm(*new_wpm);
+        }
+    }
+#endif
+    matrix_scan_user();
 }
 
 bool is_keyboard_master(void) {
@@ -176,7 +205,7 @@ void ergodox_right_led_3_set(uint8_t n) {
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 9}, {1, 9}, {2, 9}, {3, 9}, {4, 9}},
     {{0, 10}, {1, 10}, {2, 10}, {3, 10}, {4, 10}},
     {{0, 11}, {1, 11}, {2, 11}, {3, 11}, {4, 11}},

@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "issi3733_driver.h"
 #    include "config.h"
 
-__attribute__((__aligned__(16))) DmacDescriptor dmac_desc;
-__attribute__((__aligned__(16))) DmacDescriptor dmac_desc_wb;
+extern __attribute__((__aligned__(16))) DmacDescriptor dmac_desc;
+extern __attribute__((__aligned__(16))) DmacDescriptor dmac_desc_wb;
 
 uint8_t I2C3733_Init_Control(void);
 uint8_t I2C3733_Init_Drivers(void);

@@ -21,19 +21,19 @@ enum layers {
 }
 
 const layers_leds_map[] = {
-    [_MAIN] = 17,
-    [_INDEX] = 16,
-    [_FN] = 15,
-    [_MULTIMEDIA] = 14,
-    [_EMOJI] = 13,
-    [_EXT1] = 12,
-    [_EXT2] = 11,
-    [_EXT3] = 10,
-    [_EXT4] = 9,
-    [_EXT5] = 18,
-    [_EXT6] = 19,
-    [_RGB] = 20,
-    [_CONFIG] = 21,
+    [_MAIN] = 0,
+    [_INDEX] = 1,
+    [_FN] = 2,
+    [_MULTIMEDIA] = 3,
+    [_EMOJI] = 4,
+    [_EXT1] = 5,
+    [_EXT2] = 6,
+    [_EXT3] = 7,
+    [_EXT4] = 8,
+    [_EXT5] = 9,
+    [_EXT6] = 10,
+    [_RGB] = 11,
+    [_CONFIG] = 12,
 };
 
 enum unicode_names {
@@ -234,7 +234,7 @@ void rgb_matrix_indicators_user(void) {
 
     // CapsLock Light
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        rgb_matrix_set_color(8, MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]);
+        rgb_matrix_set_color(30, MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]);
     }
 
     // Show Selected Layer

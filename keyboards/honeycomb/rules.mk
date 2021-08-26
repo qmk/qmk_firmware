@@ -14,7 +14,7 @@ BOOTLOADER = caterina
 # Build Options
 #   comment out to disable the options.
 #
-#BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+#BOOTMAGIC_ENABLE = full	# Virtual DIP switch configuration
 #MOUSEKEY_ENABLE = yes	# Mouse keys
 POINTING_DEVICE_ENABLE = yes # Generic Pointer, not as big as mouse keys hopefully.
 EXTRAKEY_ENABLE = yes	# Audio control and System control
@@ -30,9 +30,4 @@ UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 # # project specific files
-SRC += matrix.c
-
-USB = /dev/ttyACM0
-
-#upload: build
-#	$(honeycomb_UPLOAD_COMMAND)
+SRC += matrix.c serial_uart.c

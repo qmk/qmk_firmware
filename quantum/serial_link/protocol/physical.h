@@ -22,9 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef SERIAL_LINK_PHYSICAL_H
-#define SERIAL_LINK_PHYSICAL_H
+#pragma once
 
 void send_data(uint8_t link, const uint8_t* data, uint16_t size);
-
-#endif

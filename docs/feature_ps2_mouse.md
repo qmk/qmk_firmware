@@ -206,7 +206,7 @@ It's possible to enable a "scroll button/s" that when pressed will cause the mou
 To enable the feature, you must set a scroll button mask as follows:
 
 ```c
-#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BUTTON_MIDDLE) /* Default */
+#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BTN_MIDDLE) /* Default */
 ```
 
 To disable the scroll button feature:
@@ -293,4 +293,14 @@ To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
 /* To debug the mouse reports */
 #define PS2_MOUSE_DEBUG_HID
 #define PS2_MOUSE_DEBUG_RAW
+```
+
+### Movement Hook :id=movement-hook
+
+Process mouse movement in the keymap before it is sent to the host.  Example
+uses include filtering noise, adding acceleration, and automatically activating
+a layer.  To use, define the following function in your keymap:
+
+```c
+void ps2_mouse_moved_user(report_mouse_t *mouse_report);
 ```

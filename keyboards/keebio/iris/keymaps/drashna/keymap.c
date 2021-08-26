@@ -1,3 +1,19 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "drashna.h"
 
 /*
@@ -9,15 +25,16 @@
  */
 
 // clang-format off
+#define LAYOUT_wrapper(...)            LAYOUT(__VA_ARGS__)
 #define LAYOUT_iris_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
      KC_ESC,  ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS, \
      LALT_T(KC_TAB), K01, K02, K03,      K04,     K05,                           K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-     KC_C1R3, K11,    K12,     K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+     KC_C1R3, K11,    K12,     K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
      OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     OS_LALT,     OS_RGUI, K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                              KC_GRV, KC_SPC,  LT(_LOWER,KC_BSPC),         LT(_RAISE,KC_DEL),  KC_ENT,  RAISE                           \
   )
@@ -72,14 +89,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
     _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
     _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
-  ),
-
-  [_MODS] = LAYOUT_wrapper(
-     _______, ___________________BLANK___________________,                       ___________________BLANK___________________, _______,
-     _______, ___________________BLANK___________________,                       ___________________BLANK___________________, _______,
-     _______, ___________________BLANK___________________,                       ___________________BLANK___________________, _______,
-     KC_LSFT, ___________________BLANK___________________, _______,     _______, ___________________BLANK___________________, KC_RSFT,
-                                       _______, _______, _______,         _______, _______, _______
   ),
 
   [_GAMEPAD] = LAYOUT_wrapper(

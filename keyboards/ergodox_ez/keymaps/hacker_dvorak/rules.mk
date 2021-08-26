@@ -1,7 +1,7 @@
 # Set any rules.mk overrides for your specific keymap here.
 # See rules at https://docs.qmk.fm/#/config_options?id=the-rulesmk-file
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 NKRO_ENABLE      = yes  # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 TAP_DANCE_ENABLE = yes
 MOUSEKEY_ENABLE  = yes  # Mouse keys(+4700b).
@@ -26,7 +26,6 @@ SWAP_HANDS_ENABLE = no  # Allow swapping hands of keyboard.
 # MIDI_ENABLE       = no
 # BLUETOOTH_ENABLE  = no
 # AUDIO_ENABLE      = no
-# FAUXCLICKY_ENABLE = no
 # VARIABLE_TRACE    = no
 # BACKLIGHT_ENABLE  = no
 # RGB_MATRIX_ENABLE = no

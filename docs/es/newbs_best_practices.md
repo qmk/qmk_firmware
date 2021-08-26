@@ -6,7 +6,7 @@ Este documento procura instruir a los novatos en las mejores prácticas para ten
 
 En este documento suponemos un par de cosas:
 
-1. Tienes una cuenta de Github, y has hecho un [fork del repo qmk_firmware](getting_started_github.md) en tu cuenta.
+1. Tienes una cuenta de GitHub, y has hecho un [fork del repo qmk_firmware](getting_started_github.md) en tu cuenta.
 2. Has [configurado tu entorno de desarrollo](newbs_getting_started.md?id=environment-setup).
 
 

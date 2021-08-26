@@ -1,9 +1,13 @@
-Noxary 280
+# Noxary 280
+
+![Noxary 280 WKL](https://i.imgur.com/CuQz0qWl.png)
+![Noxary 280 WK](https://i.imgur.com/iAQYzsql.png)
+
 
 A fully customizable TKL keyboard.
 
-Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Rozakin](https://github.com/rozakiin)  
-Hardware Supported: 280 PCB  
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Rozakiin](https://github.com/rozakiin)  
+Hardware Supported: Noxary 280 PCB  
 Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=95660.0)  
 
 Make example for this keyboard (after setting up your build environment):

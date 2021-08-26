@@ -23,3 +23,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TOGGLE 2
 #define TAPPING_TERM 150
+#undef RGBLED_SPLIT

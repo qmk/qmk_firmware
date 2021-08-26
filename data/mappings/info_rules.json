@@ -1,0 +1,15 @@
+# This file maps keys between `rules.mk` and `info.json`. It is used by QMK 
+# to correctly and consistently map back and forth between the two systems.
+{
+    # Format:
+    # <rules.mk key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
+    # value_type: one of "array", "array.int", "int", "list", "hex", "mapping"
+    # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
+    # to_c: Default `true`. Set to `false` to exclude this mapping from rules.mk
+    # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
+    "BOARD": {"info_key": "board"},
+    "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
+    "LAYOUTS": {"info_key": "community_layouts", "value_type": "list"},
+    "LED_MATRIX_DRIVER": {"info_key": "led_matrix.driver"},
+    "MCU": {"info_key": "processor", "warn_duplicate": false},
+}

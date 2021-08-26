@@ -32,9 +32,8 @@ ifeq ($(strip $(KEYBOARD)), planck/light)
 endif
 ifeq ($(strip $(KEYBOARD)), planck/ez)
     RGBLIGHT_ENABLE = no
-    # SERIAL_LINK_ENABLE = yes
     ENCODER_ENABLE = yes
-    RGB_MATRIX_ENABLE = IS31FL3737
+    RGB_MATRIX_ENABLE = yes
     INDICATOR_LIGHTS            = yes
     RGBLIGHT_TWINKLE            = yes
     RGBLIGHT_STARTUP_ANIMATION  = yes

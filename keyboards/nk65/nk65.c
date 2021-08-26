@@ -20,7 +20,7 @@
 #include "nk65.h"
 #include "drivers/issi/is31fl3733.h"
 
-/* Indicator LEDS are part of the LED driver 
+/* Indicator LEDS are part of the LED driver
  * Top LED is blue only. LED driver 2 RGB 7 Green channel
  * Middle LED is blue and red. LED driver 2 RGB 6 Red and Blue channel
  * Bottom LED is red only LED driver 2 RGB 6 Green channel.
@@ -48,7 +48,7 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     if (state & (1UL << 2)) {
         G = 255;
     }
-    
+
     IS31FL3733_set_color( 6+64-1, R, G, B );
   return state;
 }

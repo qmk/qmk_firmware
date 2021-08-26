@@ -36,25 +36,15 @@
 
 static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
 
-// Setleds for standard RGB
-void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
-    // wrap up usage of RGB_DI_PIN
-    ws2812_setleds_pin(ledarray, number_of_leds, RGB_DI_PIN);
-}
+void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
+    DDRx_ADDRESS(RGB_DI_PIN) |= pinmask(RGB_DI_PIN);
 
-void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin) {
-    DDRx_ADDRESS(RGB_DI_PIN) |= pinmask(pin);
-
-    uint8_t masklo = ~(pinmask(pin)) & PORTx_ADDRESS(pin);
-    uint8_t maskhi = pinmask(pin) | PORTx_ADDRESS(pin);
+    uint8_t masklo = ~(pinmask(RGB_DI_PIN)) & PORTx_ADDRESS(RGB_DI_PIN);
+    uint8_t maskhi = pinmask(RGB_DI_PIN) | PORTx_ADDRESS(RGB_DI_PIN);
 
     ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), masklo, maskhi);
 
-#ifdef RGBW
-    _delay_us(80);
-#else
-    _delay_us(50);
-#endif
+    _delay_us(WS2812_TRST_US);
 }
 
 /*
@@ -77,17 +67,25 @@ void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin
 #define w_onecycles (((F_CPU / 1000) * w_onepulse + 500000) / 1000000)
 #define w_totalcycles (((F_CPU / 1000) * w_totalperiod + 500000) / 1000000)
 
-// w1 - nops between rising edge and falling edge - low
-#define w1 (w_zerocycles - w_fixedlow)
-// w2   nops between fe low and fe high
-#define w2 (w_onecycles - w_fixedhigh - w1)
-// w3   nops to complete loop
-#define w3 (w_totalcycles - w_fixedtotal - w1 - w2)
-
-#if w1 > 0
-#    define w1_nops w1
+// w1_nops - nops between rising edge and falling edge - low
+#if w_zerocycles >= w_fixedlow
+#    define w1_nops (w_zerocycles - w_fixedlow)
 #else
 #    define w1_nops 0
+#endif
+
+// w2_nops - nops between fe low and fe high
+#if w_onecycles >= (w_fixedhigh + w1_nops)
+#    define w2_nops (w_onecycles - w_fixedhigh - w1_nops)
+#else
+#    define w2_nops 0
+#endif
+
+// w3_nops - nops to complete loop
+#if w_totalcycles >= (w_fixedtotal + w1_nops + w2_nops)
+#    define w3_nops (w_totalcycles - w_fixedtotal - w1_nops - w2_nops)
+#else
+#    define w3_nops 0
 #endif
 
 // The only critical timing parameter is the minimum pulse length of the "0"
@@ -98,18 +96,6 @@ void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin
 #elif w_lowtime > 450
 #    warning "Light_ws2812: The timing is critical and may only work on WS2812B, not on WS2812(S)."
 #    warning "Please consider a higher clockspeed, if possible"
-#endif
-
-#if w2 > 0
-#    define w2_nops w2
-#else
-#    define w2_nops 0
-#endif
-
-#if w3 > 0
-#    define w3_nops w3
-#else
-#    define w3_nops 0
 #endif
 
 #define w_nop1 "nop      \n\t"

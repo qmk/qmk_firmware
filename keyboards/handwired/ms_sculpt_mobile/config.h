@@ -21,14 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-#define MATRIX_HAS_GHOST
-
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

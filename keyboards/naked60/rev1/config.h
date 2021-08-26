@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         naked60
-#define DESCRIPTION     Ortholinear 60 Keys Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10

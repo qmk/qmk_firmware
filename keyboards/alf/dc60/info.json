@@ -1,8 +1,6 @@
 {
     "keyboard_name": "dc60", 
-    "url": "", 
     "maintainer": "qmk", 
-    "bootloader": "", 
     "width": 15, 
     "height": 5, 
     "layouts": {

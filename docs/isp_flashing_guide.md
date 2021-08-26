@@ -45,6 +45,7 @@ You'll need one of the following to actually perform the ISP flashing (followed 
 
 * [SparkFun PocketAVR](https://www.sparkfun.com/products/9825) - (USB Tiny)
 * [USBtinyISP AVR Programmer Kit](https://www.adafruit.com/product/46) - (USB Tiny)
+* [USBasp](https://www.fischl.de/usbasp/) - (usbasp)
 * [Teensy 2.0](https://www.pjrc.com/store/teensy.html) - (avrisp)
 * [Pro Micro](https://www.sparkfun.com/products/12640)  - (avrisp)
 * [Bus Pirate](https://www.adafruit.com/product/237) - (buspirate)
@@ -81,6 +82,15 @@ This is pretty straight-forward - we'll be connecting like-things to like-things
     PocketAVR MISO <-> Keyboard B3 (MISO)
     PocketAVR VCC  <-> Keyboard VCC
     PocketAVR GND  <-> Keyboard GND
+
+### USBasp
+
+    USBasp RST  <-> Keyboard RESET
+    USBasp SCLK <-> Keyboard B1 (SCLK)
+    USBasp MOSI <-> Keyboard B2 (MOSI)
+    USBasp MISO <-> Keyboard B3 (MISO)
+    USBasp VCC  <-> Keyboard VCC
+    USBasp GND  <-> Keyboard GND
 
 ### Teensy 2.0
 
@@ -141,7 +151,9 @@ To do this manually:
 
 ?> It's possible to use other bootloaders here in the same way, but __you need a bootloader__, otherwise you'll have to use ISP again to write new firmware to your keyboard.
 
-To do this the easy way, you can flash the board using the `:production` target when compiling.  This compiles the firmware, then compiles the QMK DFU bootloader, and then creates a combined image.  Once this is done, you'll see three files: 
+#### Create QMK DFU Bootloader and Production images
+
+You can create the firmware, the QMK DFU Bootloader and the production firmware images for the board using the `:production` target when compiling.  Once this is done, you'll see three files: 
 * `<keyboard>_<keymap>.hex`
 * `<keyboard>_<keymap>_bootloader.hex`
 * `<keyboard>_<keymap>_production.hex`
@@ -236,15 +248,15 @@ For Caterina on the `atmega32u4`, these are the fuse settings that you want:
 | Fuse     | Setting|
 |----------|--------|
 | Low      | `0xFF` |
-| High     | `0xD9` |
-| Extended | `0xC3` |
+| High     | `0xD8` |
+| Extended | `0xCB` |
 
-To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xC3:m` to your command.  So the final command should look something like: 
+To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` to your command.  So the final command should look something like: 
 
-    avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xC3:m
+    avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
 
 
-If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](http://www.engbedded.com/fusecalc/) to find a better value for you.
+If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](https://www.engbedded.com/fusecalc/) to find a better value for you.
 
 ## Help 
 

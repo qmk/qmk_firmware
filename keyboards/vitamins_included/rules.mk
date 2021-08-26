@@ -25,4 +25,4 @@ LAYOUTS = ortho_4x12
 
 DEFAULT_FOLDER = vitamins_included/rev2
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes

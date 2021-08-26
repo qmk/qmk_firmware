@@ -1,4 +1,6 @@
 /* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2015 ZSA Technology Labs Inc (@zsa)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +18,10 @@
 #pragma once
 
 #include "planck.h"
+
+#ifdef KEYBOARD_planck_ez_glow
+#    include "glow.h"
+#endif
 
 #define LAYOUT_planck_1x2uC( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
@@ -47,7 +53,6 @@ LAYOUT_planck_1x2uC( \
     k30, k31, k32, k33, k34,    k35,   k37, k38, k39, k3a, k3b  \
 )
 
-#define KEYMAP LAYOUT_ortho_4x12
 #define LAYOUT_planck_mit LAYOUT_planck_1x2uC
 #define LAYOUT_planck_grid LAYOUT_ortho_4x12
 
@@ -63,6 +68,10 @@ enum planck_ez_keycodes {
     TOGGLE_LAYER_COLOR,
     EZ_SAFE_RANGE,
 };
+
+#ifndef WEBUSB_ENABLE
+#    define WEBUSB_PAIR KC_NO
+#endif
 
 typedef union {
   uint32_t raw;
