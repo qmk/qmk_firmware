@@ -44,10 +44,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_NUM_LOCK_PIN B4
 #define LED_CAPS_LOCK_PIN D7
 #define LED_SCROLL_LOCK_PIN D6
-
-#ifdef v1
-  #include "v1_config.h"
-#elif v2
-  #include "v2_config.h"
-#endif
-
