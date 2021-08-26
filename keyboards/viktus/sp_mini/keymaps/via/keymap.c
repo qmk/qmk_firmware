@@ -126,7 +126,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   }
   switch(keycode) {
-    case KC_F24:
+    case USER00:
       if (record->event.pressed) {
         spongebob_mode ^= 1;
       }
