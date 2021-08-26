@@ -1,6 +1,6 @@
 # Nostromo
 
-![Nostromo](https://i.imgur.com/q2M3uEU.jpg)
+![Nostromo](https://i.imgur.com/q2M3uEUh.jpg)
 
 Nostromo is a simple 5x12 layout ortholinear keyboard complete with
 [PCB FILES](https://github.com/su8044/qmk_firmware/tree/master/keyboards/nostromo/PCB_5x12),
