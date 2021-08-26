@@ -11,16 +11,16 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xd87:default
+    make xiudi/xd87:default
 
 It also supports the tkl_ansi and tkl_iso community layouts:
 
 	  # Build firmware with ANSI layout
-	  make xd87:default_tkl_ansi
+	  make xiudi/xd87:default_tkl_ansi
 	  # Build firmware with ISO layout
-	  make xd87:default_tkl_iso
+	  make xiudi/xd87:default_tkl_iso
 
 
-The keyboard can be reset to bootloader by using bootmagic (space+b by default) or short out the small connector between the Delete and End keys.
+The keyboard can be reset to bootloader by using bootmagic (top left key by default) or short out the small connector between the Delete and End keys.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

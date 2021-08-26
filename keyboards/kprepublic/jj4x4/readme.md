@@ -10,11 +10,11 @@ A 4x4 keypad kit made and KPRepublic on AliExpress. This is a chopped off versio
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jj4x4:default
+    make kprepublic/jj4x4:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make jj4x4:default:flash
+    make kprepublic/jj4x4:default:flash
 
 **Reset Key**:
 

@@ -12,8 +12,8 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xd68:default       
-    make xd68:default_iso   # default ISO UK layout
+    make xiudi/xd68:default       
+    make xiudi/xd68:default_iso   # default ISO UK layout
 
 ## Layouts 
 
