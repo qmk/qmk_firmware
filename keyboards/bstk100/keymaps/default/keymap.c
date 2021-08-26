@@ -43,7 +43,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QMK00:
             if (record->event.pressed) {
                 // when keycode QMK00 is pressed
-                SEND_STRING("00");
+                SEND_STRING(SS_TAP(X_KP_0) SS_TAP(X_KP_0));
             } else {
                 // when keycode QMK00 is released
             }
