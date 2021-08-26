@@ -6,7 +6,7 @@ This keyboard use 8mhz HSE and STM32F401 as MCU.
 
 Keyboard Maintainer: https://github.com/jiaxin96
 Hardware Supported: zhou75
-Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
+Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
