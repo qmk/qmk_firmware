@@ -17,8 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "quantum.h"
+/* Select hand configuration */
 
-#ifdef KEYBOARD_naked60_rev1
-  #include "rev1.h"
-#endif
+#define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 180
