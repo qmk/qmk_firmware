@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "Stealth", 
+    "url": "", 
+    "maintainer": "Ocean", 
+    "width": 2.25, 
+    "height": 2, 
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"x":0, "y":0, "w":2.25}, {"x":0, "y":1, "w":1.25}, {"x":1.25, "y":1}]
+        }
+    }
+}

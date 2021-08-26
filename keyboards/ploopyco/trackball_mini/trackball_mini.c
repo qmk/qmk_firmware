@@ -40,6 +40,13 @@
 #define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375 }
 #define PLOOPY_DPI_DEFAULT 2
 
+#ifndef PLOOPY_DRAGSCROLL_DPI
+#    define PLOOPY_DRAGSCROLL_DPI CPI375 // Fixed-DPI Drag Scroll
+#endif
+#ifndef PLOOPY_DRAGSCROLL_MULTIPLIER
+#    define PLOOPY_DRAGSCROLL_MULTIPLIER 0.75 // Variable-DPI Drag Scroll
+#endif
+
 // Transformation constants for delta-X and delta-Y
 const static float ADNS_X_TRANSFORM = -1.0;
 const static float ADNS_Y_TRANSFORM = 1.0;
@@ -61,6 +68,7 @@ uint16_t lastScroll = 0;  // Previous confirmed wheel event
 uint16_t lastMidClick = 0;  // Stops scrollwheel from being read if it was pressed
 uint8_t OptLowPin = OPT_ENC1;
 bool debug_encoder = false;
+bool     is_drag_scroll    = false;
 
 __attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
     mouse_report->h = h;
@@ -142,6 +150,16 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
+    if (keycode == DRAG_SCROLL) {
+#ifndef PLOOPY_DRAGSCROLL_MOMENTARY
+        if (record->event.pressed)
+#endif
+        {
+            is_drag_scroll ^= 1;
+        }
+        adns_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
+    }
+
 /* If Mousekeys is disabled, then use handle the mouse button
  * keycodes.  This makes things simpler, and allows usage of
  * the keycodes in a consistent manner.  But only do this if
@@ -214,6 +232,19 @@ void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_wheel(&mouse_report);
     process_mouse(&mouse_report);
+
+    if (is_drag_scroll) {
+        mouse_report.h = mouse_report.x;
+#ifdef PLOOPY_DRAGSCROLL_INVERT
+        // Invert vertical scroll direction
+        mouse_report.v = -mouse_report.y;
+#else
+        mouse_report.v = mouse_report.y;
+#endif
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+
     pointing_device_set_report(mouse_report);
     pointing_device_send();
 }
