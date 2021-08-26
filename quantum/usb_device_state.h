@@ -17,7 +17,8 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdbool.h>
+#include <stdint.h>
 
 void usb_device_state_set_configuration(bool isConfigured, uint8_t configurationNumber);
 void usb_device_state_set_suspend(bool isConfigured, uint8_t configurationNumber);
