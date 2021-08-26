@@ -67,9 +67,6 @@ void matrix_init_user(void) {
   writePinLow(B3);
 }
 
-void matrix_scan_user(void) {
-}
-
 //function to activate Caps Lock LED
 bool led_update_user(led_t led_state) {
     writePin(B1, led_state.caps_lock);
