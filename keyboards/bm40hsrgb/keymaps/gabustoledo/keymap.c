@@ -17,6 +17,15 @@
 
 enum layers { BASE1, BASE2, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
 
+enum {
+    TD_MEDIA, TD_SCREEN,
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_MEDIA] = ACTION_TAP_DANCE_DOUBLE( KC_MPLY , KC_MNXT ),
+    [TD_SCREEN] = ACTION_TAP_DANCE_DOUBLE( (G(S(KC_S))) , S(C(KC_4)) ),
+};
+
 void rgb_matrix_indicators_user(void) {
 
 	if(IS_LAYER_ON(BASE2)) {
@@ -93,17 +102,17 @@ void rgb_matrix_indicators_user(void) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[BASE1] = LAYOUT_planck_mit(
-		KC_Q,   KC_W,   KC_E,               KC_R,             KC_T,               TG(BASE2),  KC_NO,  KC_Y,             KC_U,              KC_I,             KC_O,    KC_P,
-		KC_A,   KC_S,   KC_D,               KC_F,             KC_G,               KC_NO,      KC_NO,  KC_H,             KC_J,              KC_K,             KC_L,    KC_QUOT,
-		KC_Z,   KC_X,   KC_C,               KC_V,             KC_B,               KC_NO,      KC_NO,  KC_N,             KC_M,              KC_COMM,          KC_DOT,  KC_SLSH,
-		KC_NO,  KC_NO,  LT(MEDIA, KC_ESC),  LT(NAV, KC_SPC),  LT(MOUSE, KC_TAB),         KC_NO,       LT(SYM, KC_ENT),  LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),  KC_NO,   KC_NO
+		KC_Q,           KC_W,          KC_E,               KC_R,             KC_T,               TG(BASE2),  KC_NO,  KC_Y,             KC_U,              KC_I,             KC_O,              KC_P,
+		KC_A,           KC_S,          KC_D,               KC_F,             KC_G,               KC_NO,      KC_NO,  KC_H,             KC_J,              KC_K,             KC_L,              KC_QUOT,
+		KC_Z,           KC_X,          KC_C,               KC_V,             KC_B,               KC_NO,      KC_NO,  KC_N,             KC_M,              KC_COMM,          KC_DOT,            KC_SLSH,
+		TD(TD_SCREEN),  TD(TD_MEDIA),  LT(MEDIA, KC_ESC),  LT(NAV, KC_SPC),  LT(MOUSE, KC_TAB),         KC_NO,       LT(SYM, KC_ENT),  LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),  C(G(KC_LEFT)),     C(G(KC_RIGHT))
 	),
 
 	[BASE2] = LAYOUT_planck_mit(
-		KC_Q,          KC_W,          KC_E,               KC_R,             KC_T,               TG(BASE2),  KC_NO,  KC_Y,             KC_U,              KC_I,             KC_O,            KC_P,
-		LGUI_T(KC_A),  LALT_T(KC_S),  LCTL_T(KC_D),       LSFT_T(KC_F),     KC_G,               KC_NO,      KC_NO,  KC_H,             LSFT_T(KC_J),      LCTL_T(KC_K),     LALT_T(KC_L),    LGUI_T(KC_QUOT),
-		KC_Z,          KC_X,          KC_C,               KC_V,             KC_B,               KC_NO,      KC_NO,  KC_N,             KC_M,              KC_COMM,          KC_DOT,          KC_SLSH,
-		KC_NO,         KC_NO,         LT(MEDIA, KC_ESC),  LT(NAV, KC_SPC),  LT(MOUSE, KC_TAB),        KC_NO,        LT(SYM, KC_ENT),  LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),  KC_NO,           KC_NO
+		KC_Q,           KC_W,          KC_E,               KC_R,             KC_T,               TG(BASE2),  KC_NO,  KC_Y,             KC_U,              KC_I,             KC_O,            KC_P,
+		LGUI_T(KC_A),   LALT_T(KC_S),  LCTL_T(KC_D),       LSFT_T(KC_F),     KC_G,               KC_NO,      KC_NO,  KC_H,             LSFT_T(KC_J),      LCTL_T(KC_K),     LALT_T(KC_L),    LGUI_T(KC_QUOT),
+		KC_Z,           KC_X,          KC_C,               KC_V,             KC_B,               KC_NO,      KC_NO,  KC_N,             KC_M,              KC_COMM,          KC_DOT,          KC_SLSH,
+		TD(TD_SCREEN),  TD(TD_MEDIA),  LT(MEDIA, KC_ESC),  LT(NAV, KC_SPC),  LT(MOUSE, KC_TAB),        KC_NO,        LT(SYM, KC_ENT),  LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),  KC_NO,           KC_NO
 	),
 
 	[MEDIA] = LAYOUT_planck_mit(
