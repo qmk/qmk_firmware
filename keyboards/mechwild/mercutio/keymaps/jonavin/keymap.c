@@ -18,35 +18,7 @@
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-
-enum custom_layers {
-    _BASE,
-    _FN1,
-    _LOWER,
-    _RAISE,
-};
-
-enum custom_keycodes {
-  ENCFUNC = SAFE_RANGE, // encoder function keys
-  KC_WINLCK,    //Toggles Win key on and off
-};
-
-// Tap Dance Definitions
-enum custom_tapdance {
-  TD_LSFT_CAPSLOCK,
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // Tap once for shift, twice for Caps Lock
-  [TD_LSFT_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-};
-
-bool _isWinKeyDisabled = false;
-
-#define KC_LSFTCAPS TD(TD_LSFT_CAPSLOCK)
-#define KC_CAD	LALT(LCTL(KC_DEL))
-#define KC_AF4	LALT(KC_F4)
-#define KC_TASK	LCTL(LSFT(KC_ESC))
+#include "jonavin.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_all(
@@ -113,13 +85,12 @@ static void set_selectedkey(uint8_t idx) {
 
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_keymap(void) {
   // Call the keyboard post init code.
-    //selectedkey_rec = keyselection[selectedkey_idx];
     set_selectedkey(selectedkey_idx);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case ENCFUNC:
         if (record->event.pressed) {
@@ -127,16 +98,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             // when keycode is released
         }
-        break;
-    case KC_WINLCK:
-        if (record->event.pressed) {
-            _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
-            if(_isWinKeyDisabled) {
-                process_magic(GUI_OFF, record);
-            } else {
-                process_magic(GUI_ON, record);
-            }
-        } else  unregister_code16(keycode);
         break;
     }
     return true;
@@ -274,7 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 default:
                     oled_write_P(PSTR("Layer ?"), false);    // Should never display, here as a catchall
             }
-            oled_write_P(_isWinKeyDisabled ? PSTR(" WL") : PSTR("   "), false);
+            oled_write_P(keymap_config.no_gui ? PSTR(" WL") : PSTR("   "), false);
             oled_set_cursor(8,3);
             if (get_highest_layer(layer_state) == selected_layer) {
                 oled_write_P(PSTR("             "), false);

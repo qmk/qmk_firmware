@@ -1,5 +1,5 @@
 # AJP10304 Custom Planck Layout
-# Also available for the Shark, JJ40 and Atreus50
+# Also available for the Shark, Quark, JJ40 and Atreus50
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
