@@ -1,5 +1,4 @@
-ErgoDone
-========
+# ErgoDone
 
 ![ErgoDone](https://i.imgur.com/QERsQGQ.jpg)
 
@@ -12,17 +11,13 @@ The ErgoDone is a modified version of the ErgoDox, made by K.T.E.C., with pre-so
     - [AliExpress](https://www.aliexpress.com/store/product/ergodone-Custom-Mechanical-Keyboard-TKG-TOOLS-PCB-programmed-Ergonomic-Keyboard-Kit-similar-with-infinity-ergodox/3034003_32830050940.html)
     - [KBDfans](https://kbdfans.myshopify.com/collections/pcb/products/ergodone-keyboard-pcb-1pcs-free-shipping)
 
-# Building the firmware
+Make example for this keyboard (after setting up your build environment):
 
-[Install the build tools.](https://docs.qmk.fm/#/getting_started_build_tools)
+    make ktec/ergodone:default
 
-In the root directory of the repository, build the firmware with a command like:
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-    make ergodone:default
-
-For more information on the layout option and other ones, see the [`make` guide](https://docs.qmk.fm/#/getting_started_make_guide).
-
-# Flashing the firmware onto the keyboard
+## Flashing the firmware onto the keyboard
 
 The ErgoDone uses a customized HID bootloader rather than the Teensy one. It doesn't need an OS driver, and the required actions before flashing are a little different than with an ErgoDox.
 
