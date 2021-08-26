@@ -63,6 +63,7 @@
 #    define RGBLED_NUM 1
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGBLIGHT_LIMIT_VAL 150
+#    define RGBLIGHT_ANIMATIONS
 #    define RGBLIGHT_SLEEP
 
 #define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
