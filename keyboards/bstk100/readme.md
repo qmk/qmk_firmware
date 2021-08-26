@@ -1,5 +1,8 @@
 # bstk100
 
+BUFFALO USB 10-Key keyboard BSTK100 modification by Pro Micro and QMK firmware .  
+see [[FREE WING HOME PAGE]](http://www.neko.ne.jp/~freewing/) for more detail .  
+
 ![bstk100](https://i.imgur.com/9s5kxSB.jpeg)
 ![bstk100](https://i.imgur.com/rsilkiy.jpeg)
 ![bstk100](https://i.imgur.com/TuQlxat.jpeg)
@@ -9,19 +12,17 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [FREE WING](https://github.com/FREEWING-JP/qmk_firmware)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
-
-BUFFALO USB 10-Key keyboard BSTK100BK  
-[https://amzn.to/389GGtP](https://amzn.to/389GGtP)
-
-Pro Micro ATmega32U4 5V/16MHz  
-[https://amzn.to/3jePZPi](https://amzn.to/3jePZPi)
+* Keyboard Maintainer: [FREE WING GitHub](https://github.com/FREEWING-JP/qmk_firmware)
+* Hardware Supported: Pro Micro ATmega32U4 5V/16MHz
+* Hardware Availability: [BUFFALO USB 10-Key keyboard BSTK100BK](https://amzn.to/389GGtP), [Pro Micro ATmega32U4 5V/16MHz](https://amzn.to/3jePZPi)
 
 Make example for this keyboard (after setting up your build environment):
 
     make bstk100:default
+
+Enable VIA feature in QMK
+
+    make bstk100:via
 
 Flashing example for this keyboard:
 
@@ -31,6 +32,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in one way:
 
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
