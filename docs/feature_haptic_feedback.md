@@ -168,10 +168,16 @@ This mode sets continuous haptic feedback with the option to increase or decreas
 The Haptic Exclusion is implemented as `__attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record)` in haptic.c. This allows a re-definition at the required level with the specific requirement / exclusion.
 
 ### NO_HAPTIC_MOD
-With the entry of `#define NO_HAPTIC_MOD` in config.h, modifiers from Left Control to Right GUI will not trigger a feedback. This also includes modifiers in a Mod Tap configuration.
+With the entry of `#define NO_HAPTIC_MOD` in config.h, the following keys will not trigger feedback:
+
+* Usual modifier keys such as Control/Shift/Alt/Gui (For example `KC_LCTRL`)
+* `MO()` momentary keys. See also [Layers](feature_layers.md).
+* `LT()` layer tap keys, when held to activate a layer. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered.
+* `TT()` layer tap toggle keys, when held to activate a layer. However when tapped `TAPPING_TOGGLE` times to permanently toggle the layer, on the last tap haptic feedback is still triggered.
+* `MT()` mod tap keys, when held to keep a usual modifier key pressed. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered. See also [Mod-Tap](mod_tap.md).
 
 ### NO_HAPTIC_FN
-With the entry of `#define NO_HAPTIC_FN` in config.h, layer keys will not rigger a feedback.
+With the entry of `#define NO_HAPTIC_FN` in config.h, deprecated `fn_actions` type function keys will not trigger a feedback.
 
 ### NO_HAPTIC_ALPHA
 With the entry of `#define NO_HAPTIC_ALPHA` in config.h, none of the alpha keys (A ... Z) will trigger a feedback.
