@@ -30,7 +30,7 @@
 #    ifdef WPM_ENABLE
 #        define SPLIT_WPM_ENABLE
 #    endif
-#    ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_ENABLE
 #        define SPLIT_OLED_ENABLE
 #    endif
 #    if defined(__AVR__) && !defined(SELECT_SOFT_SERIAL_SPEED)
