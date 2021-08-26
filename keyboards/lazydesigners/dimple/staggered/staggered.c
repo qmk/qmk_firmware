@@ -13,18 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "dimple.h"
-
-void dimple_led_on() {
-  writePinLow(E6);
-}
-
-void dimple_led_off() {
-  writePinHigh(E6);
-}
-
-void keyboard_pre_init_kb(void) {
-  // Initialize Caps Lock LED
-  setPinOutput(E6);
-  keyboard_pre_init_user();
-}
+#include "staggered.h"

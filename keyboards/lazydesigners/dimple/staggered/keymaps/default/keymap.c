@@ -108,14 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 };
 
-void led_set_user(uint8_t usb_led) {
-if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-	dimple_led_on();
-	} else {
-	dimple_led_off();
-	}
-}
-
+#ifdef KEYBOARD_lazydesigner_dimple_staggered_rev1
 layer_state_t layer_state_set_user(layer_state_t state) {
 	state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 	switch (get_highest_layer(state)) {
@@ -134,3 +127,4 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	}
 	return state;
 }
+#endif
