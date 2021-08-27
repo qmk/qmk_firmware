@@ -5,7 +5,7 @@ This allows you to use Murphpad in a horizontal/landscape orientation with extra
     - OLED has been rotated for landscape mode 
     - Keymap positions have been updated so it's easier to visualize the keymap in landscape 
 
-        [_BASE] = LAYOUT_LANDSCAPE(
+        [_BASE] = LAYOUT_landscape(
             TT(_FN1), TT(_FN2), KC_MUTE,
 
             KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_LGUI,
