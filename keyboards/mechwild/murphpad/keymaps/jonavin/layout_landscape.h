@@ -23,7 +23,7 @@
  * Second is a two-dimensional array which represents the switch matrix.
  */
 
-#define LAYOUT_LANDSCAPE( \
+#define LAYOUT_landscape( \
     k50, k40, k30, \
     k51, k41, k31, k20, k10,    k00, \
     k52, k42, k32, k21, k11,    k01, \
