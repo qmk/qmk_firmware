@@ -227,7 +227,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 		oled_write_P(logo_4, false);
 	}
 
-    #ifdef LANSCAPE_MODE
+    #ifdef LANDSCAPE_MODE
     void oled_task_user(void) {
 
         render_logo();
