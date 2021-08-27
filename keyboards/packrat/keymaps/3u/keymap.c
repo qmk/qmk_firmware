@@ -53,7 +53,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [combo_RPRN] = COMBO(rprn_combo, KC_RPRN),
 };
 
-#define BASE TG(_BASE)
+#define BASE TO(_BASE)
 #define CODE MO(_CODE)
 #define MATH TG(_MATH)
 #define FUNC MO(_FUNC)
