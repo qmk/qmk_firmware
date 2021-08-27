@@ -17,25 +17,13 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
-//                        0    1    2     3     4    5    6   7    8    9    10    11   12  13   14
-#define MATRIX_COL_PINS { C13, C14, C15,  A0,   A1,  A2,  A3, B12, B13, B14, B15,  B4,  A8, A9,  A10}
-#define MATRIX_ROW_PINS { A5,  A6,  A7,   B0,   A4,  B1}
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 
 /* RGN Matrix */
 #ifdef RGB_MATRIX_ENABLE
 
-#    define RGB_DI_PIN B5
-#    define RGBLED_NUM 1
+#    define RGB_DI_PIN A7
+#    define RGBLED_NUM 79
 #    define DRIVER_LED_TOTAL RGBLED_NUM
-
 
 #define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #define WS2812_PWM_CHANNEL 2  // default: 2
@@ -44,27 +32,22 @@
 #define WS2812_DMA_CHANNEL 5  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 
 
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
-#    define RGBLIGHT_VAL_STEP 15
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
+#    define RGBLIGHT_VAL_STEP 18
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #    define RGB_MATRIX_CENTER { 32, 96 }
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGBLIGHT_ANIMATIONS
-
-// #    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
 #endif
 
 
 #ifdef RGBLIGHT_ENABLE
 
-#    define RGB_DI_PIN B5
-#    define RGBLED_NUM 1
+#    define RGB_DI_PIN A7
+#    define RGBLED_NUM 79
 #    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGBLIGHT_LIMIT_VAL 150
-#    define RGBLIGHT_ANIMATIONS
-#    define RGBLIGHT_SLEEP
+
 
 #define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #define WS2812_PWM_CHANNEL 2  // default: 2
@@ -72,19 +55,7 @@
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #define WS2812_DMA_CHANNEL 5  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 
-
-
-// #    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
-
 #endif
 
 
 
-#ifdef ENCODER_ENABLE
-
-#define ENCODERS_PAD_A { B7 }
-#define ENCODERS_PAD_B { B6 }
-
-#define ENCODER_RESOLUTIONS { 2 }
-
-#endif
