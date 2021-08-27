@@ -13,7 +13,6 @@ LTO_ENABLE          = yes
 
 
 SPLIT_KEYBOARD = yes
-SPLIT_TRANSPORT = mirror
 
 USER_NAME := greyhatmiddleman
 
