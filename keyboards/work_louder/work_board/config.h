@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN                    D1
 #define DRIVER_LED_TOTAL 50
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 60
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #define RGB_MATRIX_DISABLE_KEYCODES
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
