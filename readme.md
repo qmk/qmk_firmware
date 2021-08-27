@@ -16,6 +16,12 @@ This is my personal fork of QMK to configure the keyboards I use.
 
 * [Microdox](/keyboards/boardsource/microdox/)
 
+### Merging upstream changes
+
+```sh
+git pull https://github.com/qmk_qmk_firmware.git master
+```
+
 ## Documentation
 
 * [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
