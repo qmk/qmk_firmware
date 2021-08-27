@@ -30,7 +30,7 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_BASE] = LAYOUT_LANDSCAPE(
+    [_BASE] = LAYOUT_landscape(
         TT(_FN1), TT(_FN2), KC_MUTE,
 
         KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_RSFT,
