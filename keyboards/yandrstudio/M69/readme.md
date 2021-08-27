@@ -10,7 +10,11 @@ Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
+for solder version:
+
     make yandrstudio/M69/solder/f401:default
+
+for hotswap version:
     
     make yandrstudio/M69/hotswap/f401:default
 
