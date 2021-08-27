@@ -93,3 +93,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(B2, layer_state_cmp(state, 1));
+    writePin(B3, layer_state_cmp(state, 2));
+    writePin(B7, layer_state_cmp(state, 3));
+
+    return state;
+}

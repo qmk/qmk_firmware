@@ -95,6 +95,18 @@ __attribute__((weak)) void rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(7, 0, 0, 0);
 }
 
+void keyboard_pre_init_kb(void) {
+    setPinOutput(B2);
+    setPinOutput(B3);
+    setPinOutput(B7);
+
+    writePinLow(B2);
+    writePinLow(B3);
+    writePinLow(B7);
+
+    keyboard_pre_init_user();
+}
+
 void keyboard_post_init_kb(void) {
     g_led_config.flags[5] = 0;
     g_led_config.flags[7] = 0;
