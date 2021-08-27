@@ -15,7 +15,6 @@
  */
 
 #include "quantum.h"
-#include <stdio.h>
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
