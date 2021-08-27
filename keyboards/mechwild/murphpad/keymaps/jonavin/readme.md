@@ -16,7 +16,7 @@ This allows you to use Murphpad in a horizontal/landscape orientation with extra
                     _______, _______, _______
         ),
 
-NOTE:  VIA in Enabled, but it will show it in the normal orientation until I build a landscape layout version
+NOTE:  VIA is enabled, but it will show it in the normal orientation until I build a landscape layout version
 
 Special Features
   - FN1 layer has encoder selectable key codes and displayed on OLED
