@@ -1,7 +1,7 @@
 {
     "name": "M69_Y&R",
     "vendorId": "0xAA96",
-    "productId": "0xAAA6",
+    "productId": "0xAAB6",
     "lighting": {
         "extends": "none",
         "keycodes": "qmk"

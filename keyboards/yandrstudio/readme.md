@@ -29,8 +29,10 @@ A creative coder.
 | yp980ble     | 0xAA96    | 0xAAA3     | BLE 5.0 Dual mode         | &quest;           |
 | whiteMouse69 | 0xAA96    | 0xAAA4     | F401, RGB                 | &check;           |
 | x            | 0xAA96    | 0xAAA5     | x                         | x                 |
-| M69          | 0xAA96    | 0xAAA6     | F401,80%, RGB             | &check;           |
-| zhou75       | 0xAA96    | 0xAAA7     | F401, ENCODER             | &check;           |
+| M69          | 0xAA96    | 0xAAA6     | F401,80%, RGB, Hotswap    | &check;           |
+| M69          | 0xAA96    | 0xAAB6     | F401,80%, RGB, Solder     | &check;           |
+| zhou75       | 0xAA96    | 0xAAA7     | F401, ENCODER, Hotswap    | &check;           |
+| zhou75       | 0xAA96    | 0xAAB7     | F401, ENCODER, Solder     | &check;           |
 | yp87ble      | 0xAA96    | 0xAAA8     | BLE 5.0 Dual mode         | &quest;           |
 | hotdox76V2   | 0xAA96    | 0xAAA9     | 32u4, Split KB, OLED, RGB | &check;           |
 | Eureka75     | 0xAA96    | 0xAAAA     | F401,ENCODER              | &check;           |

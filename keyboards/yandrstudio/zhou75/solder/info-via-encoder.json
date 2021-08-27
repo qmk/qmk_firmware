@@ -1,7 +1,7 @@
 {
     "name": "zhou75_Y&R",
     "vendorId": "0xAA96",
-    "productId": "0xAAA7",
+    "productId": "0xAAB7",
     "lighting": {
         "extends": "none",
         "keycodes": "qmk"
