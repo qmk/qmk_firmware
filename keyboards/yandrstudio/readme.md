@@ -28,7 +28,7 @@ A creative coder.
 | tdcq64_2s    | 0xAA96    | 0xAAA2     | F401, RGB                 | &cross;           |
 | yp980ble     | 0xAA96    | 0xAAA3     | BLE 5.0 Dual mode         | &quest;           |
 | whiteMouse69 | 0xAA96    | 0xAAA4     | F401, RGB                 | &check;           |
-| WS69v2       | 0xAA96    | 0xAAA5     | F103, RGB                 | &check;           |
+| x            | 0xAA96    | 0xAAA5     | x                         | x                 |
 | M69          | 0xAA96    | 0xAAA6     | F401,80%, RGB             | &check;           |
 | zhou75       | 0xAA96    | 0xAAA7     | F401, ENCODER             | &check;           |
 | yp87ble      | 0xAA96    | 0xAAA8     | BLE 5.0 Dual mode         | &quest;           |
