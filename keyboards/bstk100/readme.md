@@ -9,9 +9,6 @@ see [[FREE WING HOME PAGE]](http://www.neko.ne.jp/~freewing/) for more detail .
 ![bstk100](https://i.imgur.com/w0g6Qlz.jpeg)
 ![bstk100](https://i.imgur.com/ORgbBQh.jpeg)
 ![bstk100](https://i.imgur.com/1MDm3zt.png)
-
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [FREE WING GitHub](https://github.com/FREEWING-JP/qmk_firmware)
 * Hardware Supported: Pro Micro ATmega32U4 5V/16MHz
 * Hardware Availability: [BUFFALO USB 10-Key keyboard BSTK100BK](https://amzn.to/389GGtP), [Pro Micro ATmega32U4 5V/16MHz](https://amzn.to/3jePZPi)
