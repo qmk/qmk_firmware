@@ -19,7 +19,6 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAAA7
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    lkaill-Y&R
 #define PRODUCT         zhou75
