@@ -11,3 +11,16 @@ Make example for this keyboard (after setting up your build environment):
     make boardsource/microdox:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## my notes
+
+### build and flash
+
+flash each side independently with the trrs cable disconnected.
+
+press the reset button on the side of the keyboard you are flashing while it is connected via usb-c and then run the following to flash.
+
+```sh
+make boardsource/microdox:chadhs:dfu-split-left
+make boardsource/microdox:chadhs:dfu-split-right
+```
