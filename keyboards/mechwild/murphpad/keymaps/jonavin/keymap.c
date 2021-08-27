@@ -292,7 +292,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
         oled_write_P(led_state.scroll_lock ? PSTR("SCR") : PSTR("   "), false);
     }
-    #endif // LANSCAPE_MODE
+    #endif // LANDSCAPE_MODE
 
     // regular mode
     #ifndef LANSCAPE_MODE
