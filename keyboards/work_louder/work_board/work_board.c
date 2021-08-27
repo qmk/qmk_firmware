@@ -94,4 +94,11 @@ __attribute__((weak)) void rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(4, 0, 0, 0);
     rgb_matrix_set_color(7, 0, 0, 0);
 }
+
+void keyboard_post_init_kb(void) {
+    g_led_config.flags[4] = 0;
+    g_led_config.flags[7] = 0;
+
+    keyboard_post_init_user();
+}
 #endif
