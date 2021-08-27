@@ -25,19 +25,15 @@
 #define PRODUCT         zhou65
 #define DESCRIPTION     STM32 based 65%.
 
-// enable the nkro when using the VIA.
+/* enable the nkro when using the VIA. */
 #define FORCE_NKRO
 
-// fix VIA RGB_light
+/* fix VIA RGB_light */
 #define VIA_HAS_BROKEN_KEYCODES
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 1
-
-// #define DEBUG_MATRIX_SCAN_RATE
 
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 4
