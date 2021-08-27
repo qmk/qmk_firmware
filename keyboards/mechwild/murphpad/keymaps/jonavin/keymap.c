@@ -18,7 +18,7 @@
 #include "jonavin.h"
 #include "layout_landscape.h"
 
-#define LANSCAPE_MODE
+#define LANDSCAPE_MODE
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
