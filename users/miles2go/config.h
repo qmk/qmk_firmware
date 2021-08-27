@@ -48,8 +48,22 @@
 
 //#define BABL_WINDOWS
 #define BABL_READMUX
-//#define BABL_VI
+#define BABL_VI
 #define BABL_MAC
 #define BABL_LINUX
 //#define BABL_EMACS
-#define BABL_CHROMEOS
+//#define BABL_CHROMEOS
+#define BABL_KITTY
+
+#ifdef FALSE
+// these need to be defined per board to avoid RGB/GRB problems
+	#define RGBLIGHT_COLOR_MS 0x00, 0x27, 0x88 // light blue
+	#define RGBLIGHT_COLOR_MAC 0x30,0x30,0x30 // grey
+	#define RGBLIGHT_COLOR_LINUX 0x0,0x0,0x0 // black
+	#define RGBLIGHT_COLOR_EMACS 0x00,0x00,0x00
+	#define RGBLIGHT_COLOR_VI 0x00,0x90,0x00
+	#define RGBLIGHT_COLOR_READMUX 0x13,0x60,0x13 // green screen
+	#define RGBLIGHT_COLOR_CHROMEOS 0xa4,0x82,0xd // google yellows
+	#define RGBLIGHT_COLOR_KITTY 0x20,0x40,0x90 // rosey
+#endif
+

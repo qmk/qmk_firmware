@@ -1,8 +1,6 @@
-// based on drashna's but I think at this point it's a new axe
-
 #include QMK_KEYBOARD_H
 #include "milestogo.h"
-#include <print.h>
+//#include <print.h>
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
@@ -18,7 +16,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef USE_BABBLEPASTE
     if (keycode > BABBLE_START && keycode < BABBLE_END_RANGE) {
-        if (record->event.pressed) { 
+        if (record->event.pressed) {
             babblePaste(keycode, 1);
         } else {
             babblePaste(keycode, 0);
@@ -75,79 +73,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_record_keymap(keycode, record);
 }
 
-void babble_modeswitch_user(uint8_t mode) {
-#ifdef USE_BABLPASTE
-    extern uint8_t babble_mode; // still using global. why?
-
-#    ifdef BABL_WINDOWS
-    if (babble_mode == BABL_WINDOWS_MODE) {
-        if (BABL_LED_INDEX > 0) {
-            rgblight_setrgb_at(RGBLIGHT_COLOR_MS, BABL_LED_INDEX);
-        } else {
-            rgblight_setrgb(RGBLIGHT_COLOR_MS);
-        }
+void babble_modeswitch_user(uint8_t bmode) { 
+#ifdef USE_BABBLEPASTE
+#   ifdef RGBLIGHT_ENABLE
+#       ifdef BABL_WINDOWS
+    if (BABL_WINDOWS_MODE == bmode) {
+        rgblight_setrgb_at(RGBLIGHT_COLOR_MS, LED_BABL_OS);
     }
-#    endif
-#    ifdef BABL_READMUX
-    if (babble_mode == BABL_READMUX_MODE) {
-        if (BABL_LED_INDEX > 0) {
-            rgblight_setrgb_at(RGBLIGHT_COLOR_READMUX, BABL_LED_INDEX);
-        } else {
-            rgblight_setrgb(RGBLIGHT_COLOR_READMUX);
-        }
+#       endif
+#       ifdef BABL_READMUX
+    if (BABL_READMUX_MODE == bmode) {
+        rgblight_setrgb_at(RGBLIGHT_COLOR_READMUX, LED_BABL_OS);
     }
-#    endif
-#    ifdef BABL_MAC
-    if (babble_mode == BABL_MAC_MODE) {
-        if (BABL_LED_INDEX > 0) {
-            rgblight_setrgb_at(RGBLIGHT_COLOR_MAC, BABL_LED_INDEX);
-        } else {
-            rgblight_setrgb(RGBLIGHT_COLOR_MAC);
-        }
+#       endif
+#       ifdef BABL_MAC
+    if (BABL_MAC_MODE== bmode) {
+        rgblight_setrgb_at(RGBLIGHT_COLOR_MAC, LED_BABL_OS); 
     }
-#    endif
-#    ifdef BABL_VI
-    if (babble_mode == BABL_VI_MODE) {
-        if (BABL_LED_INDEX > 0) {
-            rgblight_setrgb_at(RGBLIGHT_COLOR_VI, BABL_LED_INDEX);
-        } else {
-            rgblight_setrgb(RGBLIGHT_COLOR_VI);
-        }
+#       endif
+#       ifdef BABL_VI
+    if (BABL_VI_MODE == bmode) {
+        rgblight_setrgb_at(RGBLIGHT_COLOR_VI, LED_BABL_OS);
     }
-#    endif
-#    ifdef BABL_EMACS
-    if (babble_mode == BABL_EMACS_MODE) {
-        if (BABL_LED_INDEX > 0) {
-            rgblight_setrgb_at(RGBLIGHT_COLOR_EMACS, BABL_LED_INDEX);
-        } else {
-            rgblight_setrgb(RGBLIGHT_COLOR_EMACS);
-        }
+#       endif
+#       ifdef BABL_EMACS
+    if (BABL_EMACS_MODE  == bmode) {
+        rgblight_setrgb_at(RGBLIGHT_COLOR_EMACS, LED_BABL_OS);
     }
-#    endif
-#    ifdef BABL_CHROMEOS
-    if (babble_mode == BABL_CHROMEOS_MODE) {
-        if (BABL_LED_INDEX > 0) {
-            rgblight_setrgb_at(RGBLIGHT_COLOR_CHROMEOS, BABL_LED_INDEX);
-        } else {
-            rgblight_setrgb(RGBLIGHT_COLOR_CHROMEOS);
-        }
+#       endif
+#       ifdef BABL_CHROMEOS
+    if (BABL_CHROMEOS_MODE == bmode) {
+        rgblight_setrgb_at(RGBLIGHT_COLOR_CHROMEOS, LED_BABL_OS);
     }
-#    endif
-#    ifdef BABL_LINUX
-    if (babble_mode == BABL_LINUX_MODE) {
-        if (BABL_LED_INDEX > 0) {
-            rgblight_setrgb_at(RGBLIGHT_COLOR_LINUX, BABL_LED_INDEX);
-        } else {
-            rgblight_setrgb(RGBLIGHT_COLOR_LINUX);
-        }
+#       endif
+#       ifdef BABL_KITTY
+   if (BABL_KITTY_MODE == bmode) {
+        rgblight_setrgb_at(RGBLIGHT_COLOR_KITTY, LED_BABL_OS);
     }
-#    endif
+#       endif
+#       ifdef BABL_LINUX
+   if (BABL_LINUX_MODE == bmode) {
+        rgblight_setrgb_at(RGBLIGHT_COLOR_LINUX, LED_BABL_OS);
+    }
+#       endif
+#   endif
 #endif  // bablepaste
-}
-
-
-// we always return true here, so that each keyboard can use it's own
-// led_update_kb() function
-bool led_update_user(led_t led_state ) {
-    return true;
 }

@@ -131,27 +131,29 @@ See the full list in babblePaste.h, or the list below
   #define B_DSOL  BABL_DEL_TO_LINE_START // delete from cursor to begining line
   #define B_MODE   BABL_MODE //type out name of current mode.
 
-  #define B_UNDO    BABL_UNDO
-  #define B_REDO    BABL_REDO
-  #define B_CUT     BABL_CUT
-  #define B_COPY    BABL_COPY
+  #define B_UNDO     BABL_UNDO
+  #define B_REDO     BABL_REDO
+  #define B_CUT      BABL_CUT
+  #define B_COPY     BABL_COPY
   #define B_PASTE    BABL_PASTE
-  #define B_SELALL    BABL_SELECT_ALL
-  #define B_SELA    BABL_SELECT_ALL
+  #define B_SELALL   BABL_SELECT_ALL
+  #define B_SELA     BABL_SELECT_ALL
   #define B_FIND     BABL_FIND
   #define B_FINDN    BABL_FIND_NEXT
   #define B_FINDP    BABL_FIND_PREV
-  #define B_RPLACE    BABL_FIND_REPLACE
-  #define B_RUNAPP    BABL_RUNAPP
+  #define B_RPLACE   BABL_FIND_REPLACE
+  #define B_RUNAPP   BABL_RUNAPP
   #define B_NAPP  BABL_SWITCH_APP_NEXT
   #define B_PAPP  BABL_SWITCH_APP_LAST // previous
   #define B_CAPP  BABL_CLOSE_APP
+  #define B_NWIN  BABL_WINDOW_NEXT
+  #define B_PWIN  BABL_WINDOW_PREV
+  #define B_WINN  BABL_WINDOW_NEW
   #define B_HELP  BABL_HELP
-  #define B_HELP  BABL_HELP
-  #define B_LOCK  BABL_LOCK
   #define B_SCAP  BABL_SCREENCAPTURE
   #define B_KEYB  BABL_SWITCH_KEYBOARD_LAYOUT
-
+  #define B_LOCK  BABL_LOCK
+  #define B_SCAP  BABL_SCREENCAPTURE
   #define B_NTAB  BABL_BROWSER_NEW_TAB
   #define B_CTAB  BABL_BROWSER_CLOSE_TAB
   #define B_ROTB  BABL_BROWSER_REOPEN_LAST_TAB
@@ -229,10 +231,10 @@ True, but that takes more pre-processor skill than I have, and may be less porta
 **Have you tested every key on every platform?**
 No. Be careful, submit a patch.
 
-**Why not change apps App babble modes at the same global level as the OS?**
+**Why not update Apps at the same global level as the OS? **
 This is only a good thing if it doesn't confuse the user. If you can show state of OS vs App, it's probably a good thing.
 
-**Can the OS tell the keyboard what mode to use?**
+**Can the OS tell the keyboard what mode to use? **
 The keyboard side is easy to do with virtser_recv & a function that updates babble_mode. It still needs a PC side app to track where the keyboard focus is.
 One could use a keyboard macro to launch an app & switch modes for that app.
 

@@ -23,17 +23,16 @@
 // and this just removes browser shortcuts
 //#define BABL_NOBROWSER
 
+
+
+#ifdef RGBLIGHT_ENABLE
+
 // place overrides here
 #define RGBLED_NUM 3
 #define RGBLIGHT_LIMIT_VAL 128
-#ifdef RGBLIGHT_ENABLE
-#define RGBLIGHT_COLOR_LAYER_2 0x00, 0x40, 0x00
-#define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0x60 
-#define RGBLIGHT_COLOR_LAYER_0 0x40, 0x00, 0x00 
-#define RGBLIGHT_COLOR_LAYER_3 0x00, 0x60, 0x60 
-#define RGBLIGHT_COLOR_LAYER_4 0xFF, 0xFF, 0x00 
-#define RGBLIGHT_COLOR_LAYER_5 0x00, 0xFF, 0xFF 
-#define RGBLIGHT_OFF 0x00,0x00,0x00
+
+// Which LED shows OS?
+#define LED_BABL_OS 0
 
 //#define RGBLIGHT_ANIMATIONS
 ///#define RGB_LIGHT_EFFECT_BREATHE_MAX 200

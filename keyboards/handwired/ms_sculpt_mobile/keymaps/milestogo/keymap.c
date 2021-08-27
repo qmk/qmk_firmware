@@ -172,7 +172,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
-        case _SYM:
+        case 2:
 #    ifdef RGBLIGHT_COLOR_LAYER_2
             rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_2, LED_LAYER);
 #    endif
