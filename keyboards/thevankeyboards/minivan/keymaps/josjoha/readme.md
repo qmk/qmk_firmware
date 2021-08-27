@@ -3,7 +3,7 @@ A 40% keyboard made first by TheVan Keyboards
 _https://thevankeyboards.com_ now taken over by TKC
 _https://thekey.company_
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization_vc.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization_vd.jpg)
 
 Table of Contents
 =================
