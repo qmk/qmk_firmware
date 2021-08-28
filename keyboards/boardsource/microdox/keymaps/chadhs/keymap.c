@@ -81,3 +81,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     LTHUMBG, KC_LCMD, KC_SPC,       KC_TRNS, KC_TRNS, KC_TRNS
 ),
 };
+
+/* behavior modifications */
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case CMD_T(KC_BSPC):
+        return false;
+    case CMD_T(KC_T):
+        return false;
+    default:
+        return true;
+    }
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case CTL_T(KC_I):
+        return 350;
+    default:
+        return TAPPING_TERM;
+    }
+}
