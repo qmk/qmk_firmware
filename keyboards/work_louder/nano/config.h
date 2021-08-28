@@ -152,8 +152,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 3
-
+#define BOOTMAGIC_LITE_COLUMN 2
 
 #define ENCODERS_PAD_A { D7 }
 #define ENCODERS_PAD_B { B4 }
