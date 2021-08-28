@@ -27,19 +27,23 @@ enum custom_layers {
 #define FN_NUM LT(_NUM, KC_MNXT)
 #define BSP_FUNC LT(_FUNC, KC_BSPC)
 
+// This keymap is a regular 40s keymap for most. My concessions include no numpad, and a dedicated left-hand layer.
+// Enter is on a layer, which seems somewhat safe! 
+// Changes/improvements include removing all the Quantum mod functions when on the arrow layer, so that Ctrl and Shift act without ambiguity based on short or long presses.
+// The 3 LEDs on the board show Caps Lock/L1/L2 respectively. L3 has no LED. 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT(
-			KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, 	      KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, 
-            LCTL_T(KC_TAB), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, 
-	      	KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, 	      KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC, 
-	      	LCTL_T(KC_MPRV), LALT_T(KC_MPLY), FN_NUM,     SPC_LFT, BSP_FUNC, LGUI_T(KC_DEL), RALT_T(KC_HOME), RCTL_T(KC_END)
+			KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, 	           KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, 
+			LCTL_T(KC_ESC), KC_A, KC_S, KC_D, KC_F, KC_G,      KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, 
+			KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, 	           KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC, 
+			LCTL_T(KC_MPRV), LALT_T(KC_MPLY), FN_NUM, SPC_LFT, BSP_FUNC, LGUI_T(KC_DEL), RALT_T(KC_HOME), RCTL_T(KC_END)
         ),
 	[_LEFTHAND] = LAYOUT(
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-			KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_ENT, 
-			KC_TRNS, KC_CALC, KC_MYCM, KC_TRNS, KC_ENT, KC_BSPC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_PGDN, KC_PGUP
+			KC_LCTL, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_ENT, 
+			KC_LSFT, KC_CALC, KC_MYCM, KC_TRNS, KC_ENT, KC_BSPC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_RSFT, 
+			KC_LCTL, KC_LALT, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_PGDN, KC_PGUP
 	),
 	[_NUM] = LAYOUT(
 			KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5,                 KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, 
