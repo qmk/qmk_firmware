@@ -96,6 +96,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case CTL_T(KC_I): /* adjust for io roll */
         return 350;
+    case SFT_T(KC_O): /* adjust for ou roll */
+        return 350;
     case CMD_T(KC_T): /* tweak CMD SPC from home row mod */
         return 200;
     default:
