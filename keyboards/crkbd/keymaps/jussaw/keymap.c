@@ -21,19 +21,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum layers {
     _QWERTY,
+    _COLEMAKDH,
     _LOWER,
     _UPPER,
     _ADJUST,
-    _GAME
+    _GAME,
 };
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
+    COLEMAKDH,
     LOWER,
     UPPER,
     ADJUST,
-    GAME
+    GAME,
 };
+
+#define LOWER MO(_LOWER)
+#define UPPER MO(_UPPER)
+#define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -50,7 +56,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
        KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
       KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
-                                          KC_LCTL,   MO(1),  KC_SPC,    KC_RSFT,   MO(2), KC_RGUI
+                                          KC_LCTL,   LOWER,  KC_SPC,    KC_RSFT,   UPPER,  KC_RGUI
+  ),
+
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+  //|  Tab   |    Q   |    W   |    F   |    P   |    B   |                    |    J   |    L   |    U   |    Y   |    ;   |  Bksp  |
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+  //|  Esc   |    A   |    R   |    S   |    T   |    G   |                    |    M   |    N   |    E   |    I   |    O   |   ""   |
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+  //|  Alt   |    Z   |    X   |    C   |    D   |    V   |                    |    K   |    H   |    ,   |    .   |    /   | Enter  |
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+  //                                    |  Ctrl  | Lower  | Space       Shift  | Upper  |  GUI   |
+                                      //`--------------------------'  `--------------------------'
+  [_COLEMAKDH] = LAYOUT_split_3x6_3(
+       KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_BSPC,
+       KC_ESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
+      KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
+                                          KC_LCTL,   LOWER,  KC_SPC,    KC_RSFT,   UPPER, KC_RGUI
   ),
 
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -66,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                       KC_GRV, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,
         KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,                      KC_TILD, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-                                          KC_LCTL, KC_TRNS,  KC_SPC,    KC_RSFT,MO(3), KC_RALT
+                                          KC_LCTL, KC_TRNS,  KC_SPC,    KC_RSFT,  ADJUST, KC_RALT
   ),
 
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -82,31 +104,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
        KC_DEL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_QUOT,
       KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT,
-                                          KC_LCTL,   MO(3),  KC_SPC,    KC_RSFT, KC_TRNS, KC_RGUI
+                                          KC_LCTL,  ADJUST,  KC_SPC,    KC_RSFT, KC_TRNS, KC_RGUI
   ),
 
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-  //|  Reset |        |        |        |        | TG(4)  |                    |  Play  | Mouse1 | Mouse2 | Mouse4 | Mouse5 |Ms Acc1 |
+  //|  Reset |DF(QWRT)|DF(CMDH)|        |        |TG(GAME)|                    |  Play  | Mouse1 | Mouse2 | Mouse4 | Mouse5 |Ms Acc1 |
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  //|  RGB   |  Hue+  |  Sat+  |Bright+ |Effect- |AG_SWAP |                    |  Vol+  | Ms Up  |Ms Down |Ms Right|Ms Left |Ms Acc2 |
+  //|  RGB   |  Hue+  |  Sat+  |Bright+ |Effect- |AG_SWAP |                    |  Vol+  |Ms Left |Ms Down | Ms Up  |Ms Right|Ms Acc2 |
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  //|RGB Mode|  Hue-  |  Sat-  |Bright- |Effect+ |AG_NORM |                    |  Vol-  |    M   |    ,   |    .   |    /   |Ms Acc3 |
+  //|RGB Mode|  Hue-  |  Sat-  |Bright- |Effect+ |AG_NORM |                    |  Vol-  | MsWl L | MsWl D | MsWl U | MsWl R |Ms Acc3 |
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
   //                                    |  Ctrl  | Lower  | Space       Shift  | Upper  |  GUI   |
                                       //`--------------------------'  `--------------------------'
   [_ADJUST] = LAYOUT_split_3x6_3(
-        RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  TG(4) ,                      KC_MPLY, KC_BTN1, KC_BTN2, KC_BTN4, KC_BTN5, KC_ACL0,
+        RESET,DF(_QWERTY),DF(_COLEMAKDH),XXXXXXX, XXXXXXX,TG(_GAME),             KC_MPLY, KC_BTN1, KC_BTN2, KC_BTN4, KC_BTN5, KC_ACL0,
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, AG_SWAP,                      KC_VOLU, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL1,
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, AG_NORM,                      KC_VOLD, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_ACL2,
                                           XXXXXXX, KC_TRNS, XXXXXXX,    XXXXXXX, KC_TRNS, XXXXXXX
   ),
 
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-  //|  Bksp  |  Tab   |    Q   |    W   |    E   |    R   |                         T   |    Y   |    U   |    I   |    O   |    P   |
+  //|  Bksp  |  Tab   |    Q   |    W   |    E   |    R   |                    |    T   |    Y   |    U   |    I   |    O   |    P   |
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  //|   ""   | Shift  |    A   |    S   |    D   |    F   |                         G   |    H   |    J   |    K   |    L   |    ;   |
+  //|   ""   | Shift  |    A   |    S   |    D   |    F   |                    |    G   |    H   |    J   |    K   |    L   |    ;   |
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  //| Enter  |  Ctrl  |    Z   |    X   |    C   |    V   |                         B   |    N   |    M   |    ,   |    .   |    /   |
+  //| Enter  |  Ctrl  |    Z   |    X   |    C   |    V   |                    |    B   |    N   |    M   |    ,   |    .   |    /   |
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
   //                                    |  Esc   |  Alt   |  Space             |        | TG(4)  |
                                       //`--------------------------'  `--------------------------'
@@ -114,8 +136,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_BSPC,  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,                         KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,
       KC_QUOT, KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,                         KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,
        KC_ENT, KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,                         KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,
-                                           KC_ESC,  KC_LALT, KC_SPC,    XXXXXXX, XXXXXXX,   TG(4)
-  )
+                                           KC_ESC,  KC_LALT, KC_SPC,    XXXXXXX, XXXXXXX,   TG(_GAME)
+  ),
 };
 
 #ifdef OLED_DRIVER_ENABLE
