@@ -1,4 +1,4 @@
-/* Copyright 2021 Pierre-Emmanuel Ott
+  0414/* Copyright 2021 Pierre-Emmanuel Ott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,10 +27,11 @@ enum custom_layers {
 #define FN_NUM LT(_NUM, KC_MNXT)
 #define BSP_FUNC LT(_FUNC, KC_BSPC)
 
-// This keymap is a regular 40s keymap for most. My concessions include no numpad, and a dedicated left-hand layer.
-// Enter is on a layer, which seems somewhat safe! 
-// Changes/improvements include removing all the Quantum mod functions when on the arrow layer, so that Ctrl and Shift act without ambiguity based on short or long presses.
-// The 3 LEDs on the board show Caps Lock/L1/L2 respectively. L3 has no LED. 
+/* This keymap is a regular 40s keymap for most. My concessions include no numpad, and a dedicated left-hand layer.
+Enter is on a layer, which seems somewhat safe! 
+Changes/improvements include removing all the Quantum mod functions when on the arrow layer, so that Ctrl and Shift act without ambiguity based on short or long presses.
+The 3 LEDs on the board show Caps Lock/L1/L2 respectively. L3 has no LED. 
+*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT(
