@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-  //|  Reset |  DF(0) |  DF(5) |        |        | TG(4)  |                    |  Play  | Mouse1 | Mouse2 | Mouse4 | Mouse5 |Ms Acc1 |
+  //|  Reset |DF(QWRT)|DF(CMDH)|        |        |TG(GAME)|                    |  Play  | Mouse1 | Mouse2 | Mouse4 | Mouse5 |Ms Acc1 |
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
   //|  RGB   |  Hue+  |  Sat+  |Bright+ |Effect- |AG_SWAP |                    |  Vol+  |Ms Left |Ms Down | Ms Up  |Ms Right|Ms Acc2 |
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
