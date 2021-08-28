@@ -38,6 +38,13 @@ Features
         While holding Left Alt, media next track or previous track
 
 
+rules.mk OPTIONS - Active features from userspace
+STARTUP_NUMLOCK_ON = yes
+    - turns on NUMLOCK by default
+
+TD_LSFT_CAPSLOCK_ENABLE = yes
+    - This will enable double tap on Left Shift to toggle CAPSLOCK when using KC_LSFTCAPS
+
 Default Layers
 ![image](https://user-images.githubusercontent.com/71780717/127014682-3aa05136-6dc7-4a40-9be1-89a5b584848a.png)
 
