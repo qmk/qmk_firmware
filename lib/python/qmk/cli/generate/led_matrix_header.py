@@ -58,7 +58,6 @@ def getDefine(header):
             pos = line.find(LED_MATRIX_PREFIX)
             if pos > -1:
                 tmp = line[pos:]
-                #TODO: check index
                 define = tmp.split()[0].replace(')','')
                 break
         fHeader.close()
