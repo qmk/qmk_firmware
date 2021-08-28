@@ -11,6 +11,9 @@
     '2_milk': {
           target: 'spaceman/2_milk'
     },
+    'aeboards/constellation': {
+          target: 'aeboards/constellation/rev1'
+    },
     'aeboards/ext65': {
           target: 'aeboards/ext65/rev1'
     },
@@ -37,6 +40,9 @@
     },
     'atom47/rev3': {
           target: 'maartenwut/atom47/rev3'
+    },
+    bakeneko65: {
+          target: 'bakeneko65/rev2'
     },
     bear_face: {
           target: 'bear_face/v1'
