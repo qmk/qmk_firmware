@@ -6,11 +6,6 @@ extern keymap_config_t keymap_config;
 #define _QWERTY 0
 #define _SYM 3
 #define _SYS 4
-#define _GAME 5
-#define _GAME2 6
-#define _GAME3 7
-#define _GFN 8
-#define _GFN2 9
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -20,8 +15,6 @@ extern keymap_config_t keymap_config;
 #define KC_SWLBRC A(KC_LBRC)
 #define KC_SWQUOT A(KC_QUOT)
 #define KC_SWSCLN A(KC_SCLN)
-#define KC_GMESC LT(_GFN, KC_ESC)
-#define KC_GMESC2 LT(_GFN2, KC_ESC)
 
 // windows backslash
 #define KC_WIN_BSLS RALT(KC_MINS)
@@ -93,15 +86,6 @@ extern keymap_config_t keymap_config;
 #define KC_SE_MINS KC_SLSH
 #define KC_SE_UNDS S(KC_SLSH)
 
-// home row modifier stuff
-/* #define KC_MYF MT(MOD_LSFT, KC_F) */
-/* #define KC_MYJ MT(MOD_LSFT, KC_J) */
-/* #define KC_MYD MT(MOD_LCTL, KC_D) */
-/* #define KC_MYK MT(MOD_RCTL, KC_K) */
-/* #define KC_MYS MT(MOD_LALT, KC_S) */
-/* #define KC_MYL MT(MOD_RALT, KC_L) */
-/* #define KC_MYA MT(MOD_LGUI, KC_A) */
-
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   SYM,
@@ -110,7 +94,6 @@ enum custom_keycodes {
   ANSICOM,
   ANSIDOT,
   MY_SCREENSHOT,
-  M_ARROW,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -119,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Shift|   Q  |   W  |   E  |   R  |   T  |   |  Y  |   U  |   I  |   O  |   P  |  Å   |
  * |------+------+------+------+------+------+-  +-----+------+------+------+------+------|
  * | Esc  |   A  |   S  |   D  |   F  |   G  |   |  H  |   J  |   K  |   L  |   Ö  |  Ä   |
- * |------+------+------+------+------+------+-  +-----+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   |  N  |   M  |   ,  |   .  |   /  | Shift|
  * `------+------+------+------+------+------+-  +-----+------+------+------+------+------'
+ *        |   Z  |   X  |   C  |   V  |   B  |   |  N  |   M  |   ,  |   .  |   /  |
+ *        `------+------+------+------+------+-  +-----+------+------+------+------'
  *               | Shift| Cmd  | Tab  | Bspc |   |Space| Enter| Alt  | Shift|
  *               |      | (F3) | SYM  | Shift|   |     | Ctrl | (Tab)|      |
  *               `-----------------------------  --------------------------'
@@ -137,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
     KC_MYTAB,    KC_Q,    KC_W,     KC_E,    KC_R,      KC_T,        KC_Y,     KC_U,     KC_I,    KC_O,      KC_P, KC_ARING, \
       KC_ESC,    KC_A,    KC_S,     KC_D,    KC_F,      KC_G,        KC_H,     KC_J,     KC_K,    KC_L,   KC_OUML,  KC_AUML, \
-     KC_LSFT,    KC_Z,    KC_X,     KC_C,    KC_V,      KC_B,        KC_N,     KC_M,  ANSICOM, ANSIDOT,   ANSIKEY, KC_MYTAB, \
+     _______,    KC_Z,    KC_X,     KC_C,    KC_V,      KC_B,        KC_N,     KC_M,  ANSICOM, ANSIDOT,   ANSIKEY, _______, \
                        KC_LSFT, KC_MYGUI, KC_MYSYM, KC_MYSFT,     KC_SPC, KC_MYCTL, KC_MYALT, _______                       \
 ),
 
@@ -155,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYM] = LAYOUT( \
     KC_SE_GRAV,    KC_EXLM,  KC_SE_AT, KC_SE_LCBR, KC_SE_RCBR, KC_SE_AMPR, KC_SE_ASTR,    KC_7,      KC_8,    KC_9, KC_SE_PLUS,  KC_SE_EQL, \
     KC_SE_TILD, KC_SE_CIRC, KC_SE_DLR, KC_SE_LPRN, KC_SE_RPRN, KC_SE_QUOT, KC_SE_SCLN,    KC_4,      KC_5,    KC_6, KC_SE_MINS, KC_SE_UNDS, \
-    KC_SE_PIPE,    KC_HASH,   KC_PERC, KC_SE_LBRC, KC_SE_RBRC, KC_SE_DQUO, KC_SE_COLN,    KC_1,      KC_2,    KC_3, KC_SE_BSLS,    M_ARROW, \
+    KC_SE_PIPE,    KC_HASH,   KC_PERC, KC_SE_LBRC, KC_SE_RBRC, KC_SE_DQUO, KC_SE_COLN,    KC_1,      KC_2,    KC_3, KC_SE_BSLS,    _______, \
                                 RESET,    _______,    _______,    _______,    _______, KC_CENT,      KC_0, _______                          \
 ),
 
@@ -164,63 +147,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SYS] = LAYOUT(
     KC_MYTAB, KC_VOLD, KC_MUTE, KC_VOLU,       KC_FFCT, _______,        _______, KC_SDTG, KC_SSP1, KC_SSP2, KC_SSP3, _______, \
-   TO(_GAME), KC_MRWD, KC_MPLY, KC_MFFD, MY_SCREENSHOT, _______,        KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, _______, \
-  TO(_GAME2), _______, _______, _______,       _______, _______,        _______, KC_DTOG, KC_SPC1, KC_SPC2, KC_SPC3, _______, \
+   _______, KC_MRWD, KC_MPLY, KC_MFFD, MY_SCREENSHOT, _______,        KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, _______, \
+   _______, _______, _______, _______,       _______, _______,        _______, KC_DTOG, KC_SPC1, KC_SPC2, KC_SPC3, _______, \
                          RESET, _______,       _______, _______,        _______, _______, _______, _______                   \
-),
-
-/* Game
- * ,-----------------------------------------.   ,-----------------------------------------.
- * |[Esc] |   1  |   2  |   3  |   4  |   5  |   |QWERTY|      |      |      |      |      |
- * |------+------+------+------+------+-------   |------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   |      |      |      |      |      |      |
- * |------+------+------+------+------+------|   |------+------+------+------+------+------|
- * | Shift|   A  |   S  |   D  |   F  |   G  |   |      |      |      |      |      |      |
- * |------+------+------+------+------+------+   |------+------+------+------+------+------|
- * | Ctrl |   Z  |   X  |   C  |   V  | Space|   |      |      |      |      |      |      |
- * `-----------------------------------------'   `-----------------------------------------'
- */
-
-[_GAME] = LAYOUT(
-      KC_SPC,    KC_V,    KC_C,    KC_X,    KC_Z,  KC_LCTL,      _______, _______, _______, _______, _______, _______, \
-        KC_G,    KC_F,    KC_D,    KC_S,    KC_A,  KC_LSFT,      _______, _______, _______, _______, _______, _______, \
-        KC_T,    KC_R,    KC_E,    KC_W,    KC_Q,   KC_TAB,      _______, _______, _______, _______, _______, _______, \
-                          KC_3,    KC_2,    KC_1, KC_GMESC,  TO(_QWERTY), _______, _______, _______                   \
-),
-
-[_GAME2] = LAYOUT(
-     _______, _______, KC_GMESC2,    KC_1,    KC_2,    KC_3,    KC_4,     KC_5,    TO(_QWERTY), _______, _______, _______, \
-     _______, _______,    KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,        _______, _______, _______, _______, \
-     _______, _______,   KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,     KC_G,        _______, _______, _______, _______, \
-                         KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,   KC_SPC,        _______, _______                   \
-),
-
-/* Game FN
- * ,-----------------------------------------. 
- * |      |  F1  |  F2  | VOTE | TEAM | Cons | 
- * |------+------+------+------+------+------- 
- * |  Buy | Vol- | Mute | Vol+ | rebuy|autbuy| 
- * |------+------+------+------+------+------| 
- * |      | Bri- | Drop | Bri+ |  M   |  I   | 
- * |------+------+------+------+------+------+ 
- * |      |  P   |      |  O   |  K   |QWERTY| 
- * `-----------------------------------------' 
- */
-
-[_GFN] = LAYOUT(
-  TO(_QWERTY),      KC_K,      KC_O, _______,    KC_P,  _______,       _______,  _______, _______, _______, _______, _______, \
-         KC_I,      KC_M,    BL_DEC,    KC_K,  BL_INC,  KC_SLSH,       _______,  _______, _______, _______, _______, _______, \
-    KC_SWQUOT, KC_SWSCLN,   KC_VOLU, KC_MUTE, KC_VOLD,     KC_B,       _______,  _______, _______, _______, _______, _______, \
-                          KC_SWLBRC,   KC_F2,   KC_F1,  _______,       _______,  _______, _______, _______                   \
-),
-
-[_GFN2] = LAYOUT(
-    _______,  _______, _______,   KC_F1,   KC_F2, KC_SWLBRC,      KC_M,     KC_SLSH,    _______, _______, _______, _______, \
-    _______,  _______,    KC_B, KC_VOLD, KC_MUTE,   KC_VOLU, KC_SWSCLN,   KC_SWQUOT,    _______, _______, _______, _______, \
-    _______,  _______, KC_SLSH,  BL_INC,    KC_K,    BL_DEC,      KC_M,        KC_I,    _______, _______, _______, _______, \
-                       _______,    KC_P, _______,      KC_O,      KC_K, TO(_QWERTY),    _______, _______                   \
-),
-
+)
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -285,12 +215,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MY_SCREENSHOT:
       if (record->event.pressed) {
         SEND_STRING(SS_LCTRL(SS_LGUI(SS_LSFT(SS_TAP(X_4)))));
-      }
-      return false;
-      break;
-    case M_ARROW:
-      if (record->event.pressed) {
-        SEND_STRING(")" SS_LSFT("`")); // =>
       }
       return false;
       break;
