@@ -85,9 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* behavior modifications */
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case CMD_T(KC_BSPC):
-        return false;
-    case CMD_T(KC_T):
+    case CMD_T(KC_BSPC): /* make CMD SPC faster */
         return false;
     default:
         return true;
@@ -96,8 +94,10 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case CTL_T(KC_I):
+    case CTL_T(KC_I): /* adjust for io roll */
         return 350;
+    case CMD_T(KC_T): /* tweak CMD SPC from home row mod */
+        return 200;
     default:
         return TAPPING_TERM;
     }
