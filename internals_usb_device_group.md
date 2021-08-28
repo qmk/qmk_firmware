@@ -18,7 +18,7 @@ Many USB Device applications can be implemented on Atmel MCU. Atmel provides man
 
 * AVR49xx, all device classes provided in ASF have an application note
 
-A basic USB knowledge is required to understand the USB Device Class application notes ([HID](.build/docs/internals_undefined.md#class_h_i_d),MS,CDC,PHDC,...). Then, to create an USB device with only one class provided by ASF, refer directly to the application note corresponding to this USB class. The USB Device application note for New Class and Composite is dedicated to advanced USB users.
+A basic USB knowledge is required to understand the USB Device Class application notes (HID,MS,CDC,PHDC,...). Then, to create an USB device with only one class provided by ASF, refer directly to the application note corresponding to this USB class. The USB Device application note for New Class and Composite is dedicated to advanced USB users.
 
 ## Summary
 

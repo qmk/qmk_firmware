@@ -31,7 +31,7 @@ QMK has two features, Bootmagic and Command, which allow you to change the behav
 
 As a quick fix try holding down `Space`+`Backspace` while you plug in your keyboard. This will reset the stored settings on your keyboard, returning those keys to normal operation. If that doesn't work look here:
 
-* [Bootmagic](feature_bootmagic.md)
+* [Bootmagic Lite](feature_bootmagic.md)
 * [Command](feature_command.md) 
 
 ## The Menu Key Isn't Working
