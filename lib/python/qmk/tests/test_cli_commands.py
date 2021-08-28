@@ -234,6 +234,15 @@ def test_generate_rgb_breathe_table():
     assert 'Breathing center: 1.2' in result.stdout
     assert 'Breathing max:    127' in result.stdout
 
+def test_generate_rgb_matrix_header():
+    result = check_subcommand("generate-rgb-matrix-header")
+    check_returncode(result)
+    assert ' created' in result.stdout
+
+def test_generate_led_matrix_header():
+    result = check_subcommand("generate-led-matrix-header")
+    check_returncode(result)
+    assert ' created' in result.stdout
 
 def test_generate_config_h():
     result = check_subcommand('generate-config-h', '-kb', 'handwired/pytest/basic')
