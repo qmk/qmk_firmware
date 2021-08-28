@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    janzon
 #define PRODUCT         aetreus
-#define DESCRIPTION     BT
 
 /* key matrix size */
 #define MATRIX_ROWS 4
