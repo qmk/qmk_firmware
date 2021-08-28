@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "samd51j18a.h"
-#include "tmk_core/common/keyboard.h"
+#include "keyboard.h"
 
 #include "report.h"
 #include "host.h"
