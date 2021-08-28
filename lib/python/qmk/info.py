@@ -341,39 +341,6 @@ def _extract_rules_mk(info_data):
     return info_data
 
 
-def _merge_layouts(info_data, new_info_data):
-    """Merge new_info_data into info_data in an intelligent way.
-    """
-    for layout_name, layout_json in new_info_data['layouts'].items():
-        if layout_name in info_data['layouts']:
-            # Pull in layouts we have a macro for
-            if len(info_data['layouts'][layout_name]['layout']) != len(layout_json['layout']):
-                msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
-                _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout_json['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
-            else:
-                for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
-                    key.update(layout_json['layout'][i])
-        else:
-            # Pull in layouts that have matrix data
-            missing_matrix = False
-            for key in layout_json.get('layout', {}):
-                if 'matrix' not in key:
-                    missing_matrix = True
-
-            if not missing_matrix:
-                if layout_name in info_data['layouts']:
-                    # Update an existing layout with new data
-                    for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
-                        key.update(layout_json['layout'][i])
-
-                else:
-                    # Copy in the new layout wholesale
-                    layout_json['c_macro'] = False
-                    info_data['layouts'][layout_name] = layout_json
-
-    return info_data
-
-
 def _search_keyboard_h(path):
     current_path = Path('keyboards/')
     aliases = {}
@@ -511,8 +478,12 @@ def merge_info_jsons(keyboard, info_data):
                 layout_name = info_data['layout_aliases'][layout_name]
 
             if layout_name in info_data['layouts']:
-                for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
-                    existing_key.update(new_key)
+                if len(info_data['layouts'][layout_name]['layout']) != len(layout['layout']):
+                    msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
+                    _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
+                else:
+                    for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
+                        existing_key.update(new_key)
             else:
                 layout['c_macro'] = False
                 info_data['layouts'][layout_name] = layout
