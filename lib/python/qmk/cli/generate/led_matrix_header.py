@@ -24,8 +24,8 @@ from milc import cli
 from qmk.path import normpath
 
 QMK_HOME = os.getcwd()
-LED_MATRIX_FOLDER = QMK_HOME + '/quantum/led_matrix_animations'
-LED_MATRIX_HEADER = LED_MATRIX_FOLDER + '/disable_all_led_matrix.h'
+LED_MATRIX_FOLDER = QMK_HOME + '/quantum/led_matrix/animations'
+LED_MATRIX_HEADER = QMK_HOME + '/quantum/led_matrix/disable_all_led_matrix.h'
 LED_MATRIX_PREFIX = "DISABLE_LED_MATRIX_"
 
 def info(message, *args):

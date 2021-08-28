@@ -24,8 +24,8 @@ from milc import cli
 from qmk.path import normpath
 
 QMK_HOME = os.getcwd()
-RGB_MATRIX_FOLDER = QMK_HOME + '/quantum/rgb_matrix_animations'
-RGB_MATRIX_HEADER = RGB_MATRIX_FOLDER + '/disable_all_rgb_matrix.h'
+RGB_MATRIX_FOLDER = QMK_HOME + '/quantum/rgb_matrix/animations'
+RGB_MATRIX_HEADER = QMK_HOME + '/quantum/rgb_matrix/disable_all_rgb_matrix.h'
 RGB_MATRIX_PREFIX = "DISABLE_RGB_MATRIX_"
 
 def info(message, *args):
