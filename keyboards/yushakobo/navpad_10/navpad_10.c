@@ -46,7 +46,7 @@ const rgblight_segment_t* const PROGMEM navpad_10_rgb_layers[] = RGBLIGHT_LAYERS
 );
 
 void keyboard_post_init_kb(void) {
-    rgblight_sethsv(HSV_WHITE);
+    rgblight_sethsv_noeeprom(HSV_WHITE);
     // Enable the LED layers
     rgblight_layers = navpad_10_rgb_layers;
 }

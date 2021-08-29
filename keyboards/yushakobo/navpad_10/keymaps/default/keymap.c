@@ -31,18 +31,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] =LAYOUT (\
-  	RESET,     EEP_RST,   KC_NO,     TO(2),\
+  	RESET,     EEP_RST,   KC_NO,     KC_NO,\
   	KC_NO,     KC_NO,     KC_NO,     KC_NLCK,   KC_QUOT,   KC_PEQL,      KC_NO,\
   	KC_CAPS,   KC_NLCK,   KC_SLCK,   S(KC_9),   KC_UP,     S(KC_0),    S(KC_SPC),\
                                      KC_LEFT,   KC_NO,     KC_RGHT,    S(KC_SPC),\
   	KC_TRNS,   S(KC_ENT), KC_TRNS,   KC_BSPC,   KC_DOWN,   KC_DEL,     KC_TRNS,\
-  	KC_BTN1,   KC_ENT,    S(KC_SPC), KC_SPC,    KC_SPC,    KC_COMM,    KC_TRNS \
+  	KC_BTN1,   KC_ENT,    S(KC_SPC),LT(2,KC_SPC),KC_SPC,   KC_COMM,    KC_TRNS \
     ),
 
     [_FN2] =LAYOUT (\
-  	KC_NO,     KC_NO,     KC_NO,     TO(0),\
-  	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,\
-  	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,\
+  	RGB_TOG,   RGB_MOD,   RGB_RMOD,  KC_NO,\
+  	RGB_HUI,   RGB_SAI,   RGB_VAI,   KC_NO,     KC_NO,     KC_NO,     KC_NO,\
+  	RGB_HUD,   RGB_SAD,   RGB_VAD,   KC_NO,     KC_NO,     KC_NO,     KC_NO,\
                                      KC_NO,     KC_NO,     KC_NO,     KC_NO,\
   	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,\
   	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO \
@@ -70,11 +70,17 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       } else {
         tap_code16(KC_WH_D);
       }
+    } else if (IS_LAYER_ON(_FN1)){
+      if (clockwise) {
+        rgblight_increase_hue();
+      } else {
+        rgblight_decrease_hue();
+      }
     } else if (IS_LAYER_ON(_FN2)){
       if (clockwise) {
-        tap_code16(KC_WH_U);
+        rgblight_increase_sat();
       } else {
-        tap_code16(KC_WH_D);
+        rgblight_decrease_sat();
       }
     }
   }
