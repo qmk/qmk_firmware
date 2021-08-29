@@ -1,15 +1,11 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 // Layers
 #define _QWERTY 0
 #define _SYM 3
 #define _SYS 4
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // custom keycodes defined by my, mostly modtaps and layertaps
 #define KC_SWLBRC A(KC_LBRC)
@@ -219,12 +215,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     // The following two cases handle layer switching
-    case QWERTY:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
     case SYM:
       if (record->event.pressed) {
         layer_on(_SYM);
