@@ -21,6 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+#ifdef USE_I2C
+#include <stddef.h>
+#ifdef __AVR__
+	#include <avr/io.h>
+	#include <avr/interrupt.h>
+#endif
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 // When only use naked60.
