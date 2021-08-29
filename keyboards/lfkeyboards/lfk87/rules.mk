@@ -6,11 +6,6 @@
 #
 LFK_REV = C
 
-ifeq ($(LFK_REV), A)
-    MCU = at90usb1286
-else
-    MCU = at90usb646
-endif
 BOOTLOADER = atmel-dfu
 OPT_DEFS += -DLFK_TKL_REV_$(LFK_REV)
 
@@ -42,13 +37,3 @@ TAP_DANCE_ENABLE = no
 
 ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be disabled
 WATCHDOG_ENABLE = no		# Resets keyboard if matrix_scan isn't run every 250ms
-
-
-
-ifeq ($(strip $(ISSI_ENABLE)), yes)
-    OPT_DEFS += -DISSI_ENABLE
-endif
-
-ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-    OPT_DEFS += -DWATCHDOG_ENABLE
-endif
