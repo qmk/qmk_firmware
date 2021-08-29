@@ -58,10 +58,10 @@ def rules_mk_assignment_only(keyboard_path):
     return errors
 
 
-@cli.argument('--strict', action='store_true', help='Treat warnings as errors.')
-@cli.argument('-kb', '--keyboard', completer=keyboard_completer, help='The keyboard to check.')
-@cli.argument('-km', '--keymap', help='The keymap to check.')
-@cli.argument('--all-kb', action='store_true', arg_only=True, help='Check all keyboards.')
+@cli.argument('--strict', action='store_true', help='Treat warnings as errors')
+@cli.argument('-kb', '--keyboard', completer=keyboard_completer, help='Comma separated list of keyboards to check')
+@cli.argument('-km', '--keymap', help='The keymap to check')
+@cli.argument('--all-kb', action='store_true', arg_only=True, help='Check all keyboards')
 @cli.subcommand('Check keyboard and keymap for common mistakes.')
 @automagic_keyboard
 @automagic_keymap
@@ -81,7 +81,7 @@ def lint(cli):
         cli.print_help()
         return False
     else:
-        keyboard_list = cli.args.keyboard.split(',')
+        keyboard_list = cli.config.lint.keyboard.split(',')
 
     # Lint each keyboard
     for kb in keyboard_list:
