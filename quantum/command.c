@@ -181,6 +181,9 @@ static void print_version(void) {
 #ifdef LTO_ENABLE
           " LTO"
 #endif
+#ifdef USB_FEATURE_ENABLE
+          " USB_FEATURE_ENABLE"
+#endif
 
           " " STR(BOOTLOADER_SIZE) "\n");
 

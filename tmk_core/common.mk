@@ -69,6 +69,11 @@ ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     SHARED_EP_ENABLE = yes
 endif
 
+ifeq ($(strip $(USB_FEATURE_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DUSB_FEATURE_ENABLE
+    SHARED_EP_ENABLE = yes
+endif
+
 ifeq ($(strip $(RAW_ENABLE)), yes)
     TMK_COMMON_DEFS += -DRAW_ENABLE
 endif

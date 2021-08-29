@@ -41,6 +41,7 @@
 #include "wait.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
+#include "bootloader.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -92,6 +93,11 @@ uint8_t extra_report_blank[3] = {0};
 #define HID_SET_REPORT 0x09
 #define HID_SET_IDLE 0x0A
 #define HID_SET_PROTOCOL 0x0B
+
+/* HID Report Types */
+#define HID_SET_REPORT_INPUT 0x01
+#define HID_SET_REPORT_OUTPUT 0x02
+#define HID_SET_REPORT_FEATURE 0x03
 
 /*
  * Handles the GET_DESCRIPTOR callback
@@ -505,6 +511,16 @@ static uint16_t get_hword(uint8_t *p) {
     return hw;
 }
 
+static uint32_t get_dword(uint8_t *p) {
+    uint32_t dw;
+
+    dw = (uint32_t)*p++;
+    dw |= (uint32_t)*p++ << 8U;
+    dw |= (uint32_t)*p++ << 16U;
+    dw |= (uint32_t)*p++ << 24U;
+    return dw;
+}
+
 /*
  * Appendix G: HID Request Support Requirements
  *
@@ -518,7 +534,7 @@ static uint16_t get_hword(uint8_t *p) {
  * Other Device    Required    Optional    Optional    Optional    Optional    Optional
  */
 
-static uint8_t set_report_buf[2] __attribute__((aligned(2)));
+static uint8_t set_report_buf[9] __attribute__((aligned(4)));
 static void    set_led_transfer_cb(USBDriver *usbp) {
     if (usbp->setup[6] == 2) { /* LSB(wLength) */
         uint8_t report_id = set_report_buf[0];
@@ -527,6 +543,32 @@ static void    set_led_transfer_cb(USBDriver *usbp) {
         }
     } else {
         keyboard_led_state = set_report_buf[0];
+    }
+}
+
+#ifndef MAGIC0
+#define MAGIC0 0x5AA555AA
+#endif
+#ifndef MAGIC1
+#define MAGIC1 0xCC3300FF
+#endif
+
+static void    set_feature_cb(USBDriver *usbp) {
+    uint8_t offset = 0;
+    bool bootloader_restart_check = true;
+    if (usbp->setup[6] == 9) { /* LSB(wLength) */
+        uint8_t report_id = set_report_buf[0];
+        if (report_id == REPORT_ID_CONSUMER){
+            offset = 1;
+        }
+        else {
+            bootloader_restart_check = false;
+        }
+    }
+    if (bootloader_restart_check){
+        if( (get_dword(set_report_buf + offset) == MAGIC0) && (get_dword(set_report_buf + offset + 4) == MAGIC1)){
+            bootloader_jump();
+        }
     }
 }
 
@@ -584,13 +626,35 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
             case USB_RTYPE_DIR_HOST2DEV:
                 switch (usbp->setup[1]) { /* bRequest */
                     case HID_SET_REPORT:
-                        switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
-                            case KEYBOARD_INTERFACE:
-#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
-                            case SHARED_INTERFACE:
+                        switch (usbp->setup[3]) { /* report type: input/output/feature */
+#if defined(SHARED_EP_ENABLE)
+                            case HID_SET_REPORT_FEATURE:
+                                switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
+                                    case SHARED_INTERFACE:
+                                        usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_feature_cb);
+                                        return TRUE;
+                                        break;
+                                }
+                                break;
 #endif
-                                usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
-                                return TRUE;
+
+
+                            /* control leds if report arrived for keyboard interface */
+                            case HID_SET_REPORT_OUTPUT:
+                                switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
+                                    case KEYBOARD_INTERFACE:
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
+                                    case SHARED_INTERFACE:
+#endif
+                                        usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
+                                        return TRUE;
+                                        break;
+                                }
+                                break;
+
+
+                            /* input report is not handled */
+                            default:
                                 break;
                         }
                         break;
