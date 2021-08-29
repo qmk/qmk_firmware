@@ -28,7 +28,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    ifdef RGB_MATRIX_ENABLE
 #        error Cannot run OLED and Per Key RGB at the same time due to pin conflicts
 #    endif

@@ -70,17 +70,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define USE_I2CV2
 #    define RGB_MATRIX_DISABLE_KEYCODES
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_LED_PROCESS_LIMIT 4
-#    define RGB_MATRIX_LED_FLUSH_LIMIT 26
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 
-#    define RGB_MATRIX_STARTUP_VAL 128
-#    define DRIVER_ADDR_1 0b0110000
-#    define DRIVER_ADDR_2 0b0110000
-#    define DRIVER_COUNT 2
-#    define DRIVER_1_LED_TOTAL 67
-#    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL 
+#    define RGB_MATRIX_LED_PROCESS_LIMIT  4
+#    define RGB_MATRIX_LED_FLUSH_LIMIT    26
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+#    define RGB_MATRIX_STARTUP_VAL        128
+#    define DRIVER_ADDR_1                 0b0110000
+#    define DRIVER_ADDR_2                 0b0110000
+#    define DRIVER_COUNT                  2
+#    define DRIVER_1_LED_TOTAL            67
+#    define DRIVER_LED_TOTAL              DRIVER_1_LED_TOTAL
 #endif
 
 /* Encoder */

@@ -92,6 +92,7 @@ enum layers {
 #define MLT_E     LT(_NUM, KC_E)
 
 #ifndef SWAP_HANDS_ENABLE
+#undef SH_T
 #define SH_T
 #endif
 

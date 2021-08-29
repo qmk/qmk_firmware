@@ -10,7 +10,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
@@ -27,6 +27,6 @@ POINTING_DEVICE_ENABLE = yes
 MOUSEKEY_ENABLE = no        # Mouse keys
 
 QUANTUM_LIB_SRC += analog.c
-SRC += adns5050.c opt_encoder.c
+SRC += drivers/sensors/adns5050.c opt_encoder.c
 
 DEFAULT_FOLDER = ploopyco/trackball_nano/rev1_001
