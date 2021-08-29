@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_TOG,
         _______, _______, RGB_VAI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, RESET,            KC_HOME,
         KC_CAPS, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_END,
-        _______,          _______, RGB_HUI, _______, _______, _______, KC_NLCK, _______, RGB_TOD, RGB_TOI, _______,          _______, RGB_MOD, _______,
+        _______,          RGB_NITE,RGB_HUI, _______, _______, _______, KC_NLCK, _______, RGB_TOD, RGB_TOI, _______,          _______, RGB_MOD, _______,
         _______, KC_WINLCK, _______,                            _______,                          _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
 
@@ -82,6 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef RGB_MATRIX_ENABLE
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
     void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+        if (get_rgb_nightmode()) rgb_matrix_set_color_all(RGB_OFF);
         if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
             rgb_matrix_set_color(LED_L1, RGB_GREEN);
             rgb_matrix_set_color(LED_L2, RGB_GREEN);
@@ -155,6 +156,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_keymap(void) {
     // keyboard_post_init_user() moved to userspace
     #ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
         rgb_matrix_set_color_all(RGB_NAUTILUS); // Default startup colour
+        activate_rgb_nightmode(false);  // Set to true if you want to startup in nightmode, otherwise use Fn + Z to toggle
     #endif
 }

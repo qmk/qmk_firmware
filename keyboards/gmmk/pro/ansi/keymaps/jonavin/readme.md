@@ -28,6 +28,7 @@
     - Fn key light up red when Fn layer activate
     - Win Key light up red when Win Lock mode enabled
     - Layer 2 activation lights up Numpad area
+    - Fn + Z to turn off all RGB lights except rgb indicators; press again to toggle
 
 rules.mk OPTIONS - Active features from userspace
 STARTUP_NUMLOCK_ON = yes
