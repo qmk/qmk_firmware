@@ -20,7 +20,7 @@
         - Can be changed in FN layer with < and > or encoder
         - setting to zero disables timeout
         - indicators in FN layer using RGB in FN and number rows to show the timeout in minutes
-    - LED address location map as enum definition
+    - LED address location map as enum definition in rgb_matrix_map.h
     - LED group lists for arrows, numpad, F row, num row, left and right side LEDs
     - default startuo in single mode with default colour 
     - Capslock, Scroll Lock, and Num Lock (not set) indicator on left side LED
@@ -42,6 +42,9 @@ TD_LSFT_CAPSLOCK_ENABLE = yes
 IDLE_TIMEOUT_ENABLE = yes
     - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
 
+COLEMAK_LAYER_ENABLE = yes
+    - Enabled optional 5th layer for COLEMAK layout
+    
 ## All layers diagram
 Default layer
 ![image](https://user-images.githubusercontent.com/71780717/124177658-82324880-da7e-11eb-9421-b69100131062.png)
@@ -51,3 +54,5 @@ Fn Layer
 
 Layer 2 (Caps Lock Mod)
 ![image](https://user-images.githubusercontent.com/71780717/124177683-8b231a00-da7e-11eb-9434-e2475f679a54.png)
+
+Optional COLEMAK layer
