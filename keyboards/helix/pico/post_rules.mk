@@ -1,11 +1,9 @@
 #
-#  local_features.mk contains post-processing rules for the Helix keyboard.
+#  post_rules.mk contains post-processing rules for the Helix keyboard.
 #
 #   Post-processing rules convert keyboard-specific shortcuts (that represent
 #   combinations of standard options) into QMK standard options.
 #
-
-KEYBOARD_LOCAL_FEATURES_MK :=
 
 define HELIX_CUSTOMISE_MSG
   $(info Helix Spacific Build Options)
