@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    lkaill-Y&R
 #define PRODUCT         zhou65
-#define DESCRIPTION     STM32 based 65%.
 
 /* enable the nkro when using the VIA. */
 #define FORCE_NKRO
