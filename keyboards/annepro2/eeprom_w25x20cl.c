@@ -34,6 +34,8 @@
 #include "spi_master.h"
 #include "eeprom.h"
 #include "eeprom_w25x20cl.h"
+#include "timer.h"
+#include "debug.h"
 
 #define CMD_WREN 0x06u
 #define CMD_WRDI 0x04u
@@ -50,11 +52,6 @@
 #ifndef EXTERNAL_EEPROM_SPI_TIMEOUT
 #    define EXTERNAL_EEPROM_SPI_TIMEOUT 100
 #endif
-
-#if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
-#    include "timer.h"
-#    include "debug.h"
-#endif  // CONSOLE_ENABLE
 
 bool spi_eeprom_start(void) {
     return spi_start(EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN, EXTERNAL_EEPROM_SPI_LSBFIRST, EXTERNAL_EEPROM_SPI_MODE, EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR);
