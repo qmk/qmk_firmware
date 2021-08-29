@@ -27,6 +27,12 @@ endif
 OPT_OS = chibios
 CHIBIOS = $(TOP_DIR)/lib/chibios
 CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
+
+CHIBIOS_PORT ?=
+ifeq ("$(CHIBIOS_PORT)","")
+    CHIBIOS_PORT = ARMv$(ARMV)-M
+endif
+
 # Startup files. Try a few different locations, for compability with old versions and
 # for things hardware in the contrib repository
 STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
@@ -165,18 +171,25 @@ include $(BOARD_MK)
 -include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
-# Compability with old version
-PORT_V = $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+PORT_V = $(CHIBIOS)/os/common/ports/$(CHIBIOS_PORT)/compilers/GCC/mk/port.mk
 ifeq ("$(wildcard $(PORT_V))","")
-PORT_V = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+	# Compability with =20.x
+	PORT_V = $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+	ifeq ("$(wildcard $(PORT_V))","")
+		# Compability with <=19.x
+		PORT_V = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+	endif
 endif
 include $(PORT_V)
 # Other files (optional).
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
-RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
+RULESPATH = $(CHIBIOS)/os/common/ports/$(CHIBIOS_PORT)/compilers/GCC
 ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
-RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
+	RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
+	ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
+		RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
+	endif
 endif
 
 # Define linker script file here

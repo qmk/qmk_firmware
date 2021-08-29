@@ -3,6 +3,17 @@
 set -eEuo pipefail
 umask 022
 
+#####################
+# You will need to get an older JDK -- JDK 8
+#
+# !!!!!!!! DO NOT INSTALL THIS IF YOU HAVE AN EXISTING JDK OR JRE INSTALLED !!!!!!!!
+#
+# For Debian 10-ish distro's:
+#   wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+#   sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+#   sudo apt-get update && sudo apt-get install adoptopenjdk-8-hotspot
+
+
 sinfo() { echo "$@" >&2 ; }
 shead() { sinfo "" ; sinfo "---------------------------------" ; sinfo "-- $@" ; sinfo "---------------------------------" ; }
 havecmd()  { command command type "${1}" >/dev/null 2>&1 || return 1 ; }
