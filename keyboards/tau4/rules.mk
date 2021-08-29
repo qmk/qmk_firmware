@@ -7,7 +7,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -21,7 +21,8 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Rotary Encoder support
-OLED_DRIVER_ENABLE = yes    # OLED display support
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306    # OLED display support
 # EEPROM_DRIVER ?= i2c        # Driver for external EEPROM chip
 # This is currently not working due to QMK not officially supporting the chip used on the Tau4, I am working on a fix.
 

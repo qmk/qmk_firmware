@@ -23,8 +23,8 @@ void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 
 #ifdef RGB_MATRIX_ENABLE
 #include <i2c_master.h>
-#include "drivers/issi/is31fl3741.h"
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+#include "drivers/led/issi/is31fl3741.h"
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
