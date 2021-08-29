@@ -10,7 +10,6 @@
 #define RGBLED_SPLIT {37,37}
 #define RGBLIGHT_ANIMATIONS
 
-
 //50% brightness to avoid crashing
 #define RGBLIGHT_LIMIT_VAL 128
 
