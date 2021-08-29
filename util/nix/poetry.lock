@@ -43,7 +43,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "coverage"
 version = "5.5"
 description = "Code coverage measurement for Python"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 
@@ -51,21 +51,10 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 toml = ["toml"]
 
 [[package]]
-name = "dotty-dict"
-version = "1.3.0"
-description = "Dictionary wrapper for quick access to deeply nested keys."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-setuptools_scm = "*"
-
-[[package]]
 name = "flake8"
 version = "3.9.2"
 description = "the modular source code checker: pep8 pyflakes and co"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
@@ -151,7 +140,7 @@ colorama = ">=0.3.9"
 name = "mccabe"
 version = "0.6.1"
 description = "McCabe checker, plugin for flake8"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -174,7 +163,7 @@ spinners = "*"
 name = "nose2"
 version = "0.10.0"
 description = "unittest2 with plugins, the succesor to nose"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -201,7 +190,7 @@ flake8-polyfill = ">=1.0.2,<2"
 name = "pycodestyle"
 version = "2.7.0"
 description = "Python style guide checker"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -209,7 +198,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "pyflakes"
 version = "2.3.1"
 description = "passive checker of Python programs"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -239,34 +228,28 @@ python-versions = "*"
 
 [[package]]
 name = "qmk"
-version = "0.0.51"
+version = "1.0.0"
 description = "A program to help users work with QMK Firmware."
 category = "main"
 optional = false
-python-versions = ">=3.7"
+python-versions = "*"
 
 [package.dependencies]
-dotty-dict = "*"
-flake8 = "*"
 hid = "*"
 hjson = "*"
 jsonschema = ">=3"
-milc = ">=1.4.0"
-nose2 = "*"
+milc = ">=1.4.2"
 pygments = "*"
 pyusb = "*"
-yapf = "*"
+qmk-dotty-dict = "*"
 
 [[package]]
-name = "setuptools-scm"
-version = "6.0.1"
-description = "the blessed package to manage your versions by scm tags"
+name = "qmk-dotty-dict"
+version = "1.3.0.post1"
+description = "Dictionary wrapper for quick access to deeply nested keys."
 category = "main"
 optional = false
-python-versions = ">=3.6"
-
-[package.extras]
-toml = ["toml"]
+python-versions = "*"
 
 [[package]]
 name = "six"
@@ -296,14 +279,14 @@ python-versions = "*"
 name = "yapf"
 version = "0.30.0"
 description = "A formatter for Python code."
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "5e181d51536240d08c74ba6a46bd0988ee4ca72ac3d5b388965ca8023e9b9a99"
+content-hash = "78fc569f014c2299760053565e45b6ca53ecc19bb47513fb98e95e6c8d03a449"
 
 [metadata.files]
 appdirs = [
@@ -376,9 +359,6 @@ coverage = [
     {file = "coverage-5.5-pp37-none-any.whl", hash = "sha256:2a3859cb82dcbda1cfd3e6f71c27081d18aa251d20a17d87d26d4cd216fb0af4"},
     {file = "coverage-5.5.tar.gz", hash = "sha256:ebe78fe9a0e874362175b02371bdfbee64d8edc42a044253ddf4ee7d3c15212c"},
 ]
-dotty-dict = [
-    {file = "dotty_dict-1.3.0.tar.gz", hash = "sha256:eb0035a3629ecd84397a68f1f42f1e94abd1c34577a19cd3eacad331ee7cbaf0"},
-]
 flake8 = [
     {file = "flake8-3.9.2-py2.py3-none-any.whl", hash = "sha256:bf8fd333346d844f616e8d47905ef3a3384edae6b4e9beb0c5101e25e3110907"},
     {file = "flake8-3.9.2.tar.gz", hash = "sha256:07528381786f2a6237b061f6e96610a4167b226cb926e2aa2b6b1d78057c576b"},
@@ -443,12 +423,12 @@ pyusb = [
     {file = "pyusb-1.1.1.tar.gz", hash = "sha256:7d449ad916ce58aff60b89aae0b65ac130f289c24d6a5b7b317742eccffafc38"},
 ]
 qmk = [
-    {file = "qmk-0.0.51-py2.py3-none-any.whl", hash = "sha256:5f676f389b2450b0956d7eb8e7e378d2e6690d5859a887c91876da0a5faf75ed"},
-    {file = "qmk-0.0.51.tar.gz", hash = "sha256:efeef209cde1df92b9823db686d9684962cd00aae9f45ba5e3d494aa5b3c6b9a"},
+    {file = "qmk-1.0.0-py2.py3-none-any.whl", hash = "sha256:63d69b97a533d91b0cfa7887e68cac7df52c6f7bddf4bf44d17ef1241d85ffff"},
+    {file = "qmk-1.0.0.tar.gz", hash = "sha256:da62eec73c4548cc37b0b9be3937202dc3a301dc2f2663610ecca751a610f9ca"},
 ]
-setuptools-scm = [
-    {file = "setuptools_scm-6.0.1-py3-none-any.whl", hash = "sha256:c3bd5f701c8def44a5c0bfe8d407bef3f80342217ef3492b951f3777bd2d915c"},
-    {file = "setuptools_scm-6.0.1.tar.gz", hash = "sha256:d1925a69cb07e9b29416a275b9fadb009a23c148ace905b2fb220649a6c18e92"},
+qmk-dotty-dict = [
+    {file = "qmk_dotty_dict-1.3.0.post1-py3-none-any.whl", hash = "sha256:a9cb7fc3ff9631190fee0ecac14986a0ac7b4b6892347dc9d7486a4c4ea24492"},
+    {file = "qmk_dotty_dict-1.3.0.post1.tar.gz", hash = "sha256:3b611e393660bfaa6835c68e94784bae80fe07b8490978b5ecab03a0d2fc7ea2"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
