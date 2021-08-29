@@ -1,11 +1,10 @@
 # Gizmo Engineering GK6
 
-![GK6](https://i.imgur.com/M9xxMzn.jpg)
+![GK6](https://i.imgur.com/M9xxMznh.jpg)
 
-
-Keyboard Maintainer: [federicoweber](https://github.com/federicoweber)
-Hardware Supported: atmega32a, Gizmo Engineering GK6
-Hardware Availability: [Gizmo Engineering](https://gizmo.engineering/)
+* Keyboard Maintainer: [federicoweber](https://github.com/federicoweber)
+* Hardware Supported: atmega32a, Gizmo Engineering GK6
+* Hardware Availability: [Gizmo Engineering](https://gizmo.engineering/)
 
 Make example for this keyboard (after setting up your build environment):
 

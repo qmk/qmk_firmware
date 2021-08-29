@@ -1,1 +1,1 @@
-CONSOLE_ENABLE = yes        # Console for debug(+400)
+CONSOLE_ENABLE = yes
