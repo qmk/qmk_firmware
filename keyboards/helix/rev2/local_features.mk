@@ -164,14 +164,25 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
            OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
         endif
     else
-        OLED_ENABLE = no # disable OLED in TOP/common_features.mk
-        OLED_LOCAL_ENABLE = yes
-        SRC += local_drivers/i2c.c
-        SRC += local_drivers/ssd1306.c
-        KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
-        OPT_DEFS += -DOLED_LOCAL_ENABLE
-        ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
-            OPT_DEFS += -DLOCAL_GLCDFONT
+        ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+            $(info Helix/rev2: The following combinations are not supported.)
+            $(info - SPLIT_KEYBOARD = $(SPLIT_KEYBOARD)) # yes
+            $(info - OLED_ENABLE    = $(OLED_ENABLE))    # yes
+            $(info - OLED_SELECT    = $(OLED_SELECT))    # local
+            $(info Force : OLED_ENABLE = no)
+            $(info .)
+            OLED_ENABLE = no
+        endif
+        ifeq ($(strip $(OLED_ENABLE)), yes)
+            OLED_ENABLE = no # disable OLED in TOP/common_features.mk
+            OLED_LOCAL_ENABLE = yes
+            SRC += local_drivers/i2c.c
+            SRC += local_drivers/ssd1306.c
+            KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
+            OPT_DEFS += -DOLED_LOCAL_ENABLE
+            ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
+                OPT_DEFS += -DLOCAL_GLCDFONT
+            endif
         endif
     endif
 endif
