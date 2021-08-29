@@ -10,8 +10,3 @@ BOOTLOADER = stm32-dfu
 # # project specific file
 CUSTOM_MATRIX = lite    # for using the A9 pin as matrix io
 QUANTUM_SRC += matrix.c
-
-EEPROM_DRIVER = custom
-SRC += eep/eeprom_stm32.c
-SRC += eep/flash_stm32.c
-OPT_DEFS += -DEEPROM_EMU_STM32F401xC
