@@ -132,9 +132,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             break;
 #ifdef COLEMAK_LAYER_ENABLE
        case _COLEMAK:
-            rgb_matrix_set_color(LED_R6, RGB_BLUE);
-            rgb_matrix_set_color(LED_R7, RGB_BLUE);
-            rgb_matrix_set_color(LED_R8, RGB_BLUE);
+            for (uint8_t i=0; i<ARRAYSIZE(LED_SIDE_RIGHT); i++) {
+                rgb_matrix_set_color(LED_SIDE_RIGHT[i], RGB_BLUE);
+            }
             break;
 #endif
         default:
