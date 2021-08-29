@@ -14,7 +14,7 @@ let
     projectDir = ./util/nix;
     overrides = poetry2nix.overrides.withDefaults (self: super: {
       qmk = super.qmk.overridePythonAttrs(old: {
-        # Allow QMK CLI to run "bin/qmk" as a subprocess (the wrapper changes
+        # Allow QMK CLI to run "qmk" as a subprocess (the wrapper changes
         # $PATH and breaks these invocations).
         dontWrapPythonPrograms = true;
       });
