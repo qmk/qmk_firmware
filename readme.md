@@ -24,9 +24,31 @@ Now I can build and flash my keymap with the following command:
 sudo make CFLAGS=-Wno-error=deprecated planck/rev6:theblob42:flash
 ```
 
-> You might need to execute `make git-submodule` first
->
-> The keyboard needs to be in DFU mode for the flash to work (omit `:flash` to just built the firmware)
+> The keyboard needs to be in DFU mode for the flash to work (omit `:flash` to just build the firmware)
+
+## Troubleshooting
+
+If you see the following warning:
+
+```text
+WARNING:
+ Some git sub-modules are out of date or modified, please consider running:
+ make git-submodule
+ You can ignore this warning if you are not compiling any ChibiOS keyboards,
+ or if you have modified the ChibiOS libraries yourself.
+```
+
+Execute `make git-submodule` in the project directory to fix it.
+
+Another error you might encounter if you don't have all needed dependencies installed:
+
+```text
+/bin/sh: 1: arm-none-eabi-gcc: not found
+sh: 1: arm-none-eabi-gcc: not found
+sh: 1: arm-none-eabi-gcc: not found
+```
+
+To install all the needed/missing dependencies use the `util/qmk_install.sh` script.
 
 ## References
 
