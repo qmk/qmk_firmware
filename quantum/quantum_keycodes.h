@@ -66,6 +66,8 @@ enum quantum_keycodes {
     QK_STENO                = 0x5A00,
     QK_STENO_BOLT           = 0x5A30,
     QK_STENO_GEMINI         = 0x5A31,
+    QK_STENO_COMB           = 0x5A32,
+    QK_STENO_COMB_MAX       = 0x5A3C,
     QK_STENO_MAX            = 0x5A3F,
     // 0x5C00 - 0x5FFF are reserved, see below
     QK_MOD_TAP             = 0x6000,
@@ -514,6 +516,14 @@ enum quantum_keycodes {
     // RGB underglow/matrix (continued)
     RGB_MODE_TWINKLE,
 
+    // Key Overrides
+    KEY_OVERRIDE_TOGGLE,
+    KEY_OVERRIDE_ON,
+    KEY_OVERRIDE_OFF,
+
+    // Additional magic key
+    MAGIC_TOGGLE_GUI,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -687,6 +697,7 @@ enum quantum_keycodes {
 
 #define GUI_OFF MAGIC_NO_GUI
 #define GUI_ON MAGIC_UNNO_GUI
+#define GUI_TOG MAGIC_TOGGLE_GUI
 
 #define GE_SWAP MAGIC_SWAP_GRAVE_ESC
 #define GE_NORM MAGIC_UNSWAP_GRAVE_ESC

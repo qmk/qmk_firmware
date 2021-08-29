@@ -44,8 +44,6 @@ def kle2json(cli):
         'keyboard_name': kle.name,
         'url': '',
         'maintainer': 'qmk',
-        'width': kle.columns,
-        'height': kle.rows,
         'layouts': {
             'LAYOUT': {
                 'layout': kle2qmk(kle)
