@@ -19,7 +19,7 @@ Flashing example for this keyboard:
     make handwired/symmetric70_proto/promicro/normal:default:flash
     make handwired/symmetric70_proto/promicro/fast:default:flash
 
-Testing options: (see more options: [post_rules.mk](../post_rules.mk), [matrix_debug](../matrix_debug/readme.md) and [matrix_fast](../matrix_fast/readme.md) )
+Testing options: (see more options: [local_features.mk](../local_features.mk), [matrix_debug](../matrix_debug/readme.md) and [matrix_fast](../matrix_fast/readme.md) )
 
     make MTEST=mdelay0 handwired/symmetric70_proto/promicro/normal:default:flash
     make MTEST=mdelay0 handwired/symmetric70_proto/promicro/fast:default:flash
