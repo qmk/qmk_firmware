@@ -59,10 +59,9 @@ void matrix_scan_user(void) {
   }
 }
 
-// bool led_update_user(led_t led_state) {
-//     writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-//     return false;
-// };
+bool led_update_user(led_t led_state) {
+    return false;
+};
 
 
 
