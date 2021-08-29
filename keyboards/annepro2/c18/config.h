@@ -18,13 +18,11 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x04d9
-#define PRODUCT_ID      0xa291
-#define DEVICE_VER      0x1337
-#define MANUFACTURER    Holtek
-#define PRODUCT         Anne Pro 2 (c18) QMK
-#define DESCRIPTION     Anne Pro 2 (c18) with QMK
-#define NAME_SLUG       "annepro2"
+#define VENDOR_ID 0x04d9
+#define PRODUCT_ID 0xa291
+#define DEVICE_VER 0x1337
+#define MANUFACTURER Holtek
+#define PRODUCT Anne Pro 2(c18)QMK
 
 #define ANNEPRO2_C18
 
@@ -42,7 +40,7 @@
 #define NUM_LAYOUTS 4
 
 // Matrix keymap
-
+// clang-format off
 #define LAYOUT( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
@@ -57,7 +55,7 @@
     /* ROW4  */ { K30,   KC_NO, K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   KC_NO}, \
     /* ROW5  */ { K40,   KC_NO, K42,   K43,   KC_NO, KC_NO, K46,   KC_NO, KC_NO, K49,   K4A,   K4B,   K4C,   KC_NO}, \
 }
-
+// clang-format on
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
@@ -73,7 +71,7 @@
 // EEPROM Config for W25X20CL
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A3
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 16
-#define EXTERNAL_EEPROM_BYTE_COUNT 1024 // 262144
+#define EXTERNAL_EEPROM_BYTE_COUNT 1024  // 262144
 #define EXTERNAL_EEPROM_PAGE_SIZE 256
 #define EXTERNAL_EEPROM_ADDRESS_SIZE 3
 #define EXTERNAL_EEPROM_SPI_LSBFIRST false

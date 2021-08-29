@@ -4,11 +4,12 @@
 #include "config.h"
 
 enum anne_pro_layers {
-  _BASE_LAYER,
-  _FN1_LAYER,
-  _FN2_LAYER,
+    _BASE_LAYER,
+    _FN1_LAYER,
+    _FN2_LAYER,
 };
 
+// clang-format off
 // Key symbols are based on QMK. Use them to remap your keyboard
 /*
 * Layer _BASE_LAYER
@@ -89,15 +90,12 @@ enum anne_pro_layers {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_FN1_LAYER), MO(_FN2_LAYER), KC_TRNS
  ),
 };
+// clang-format on
 const uint16_t keymaps_size = sizeof(keymaps);
 
+void matrix_init_user(void) {}
 
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-}
+void matrix_scan_user(void) {}
 
 // Code to run after initializing the keyboard
 void keyboard_post_init_user(void) {
@@ -111,6 +109,4 @@ void keyboard_post_init_user(void) {
     // annepro2LedSetProfile(i);
 }
 
-layer_state_t layer_state_set_user(layer_state_t layer) {
-    return layer;
-}
+layer_state_t layer_state_set_user(layer_state_t layer) { return layer; }

@@ -3,11 +3,11 @@
 #include "qmk_ap2_led.h"
 
 enum anne_pro_layers {
-  _BASE_LAYER,
-  _FN1_LAYER,
-  _FN2_LAYER,
+    _BASE_LAYER,
+    _FN1_LAYER,
+    _FN2_LAYER,
 };
-
+// clang-format off
 /*
 * Layer _BASE_LAYER
 * ,-----------------------------------------------------------------------------------------.
@@ -76,16 +76,11 @@ enum anne_pro_layers {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
  ),
 };
+// clang-format on
 const uint16_t keymaps_size = sizeof(keymaps);
 
+void matrix_init_user(void) {}
 
-void matrix_init_user(void) {
+void matrix_scan_user(void) {}
 
-}
-
-void matrix_scan_user(void) {
-}
-
-layer_state_t layer_state_set_user(layer_state_t layer) {
-    return layer;
-}
+layer_state_t layer_state_set_user(layer_state_t layer) { return layer; }

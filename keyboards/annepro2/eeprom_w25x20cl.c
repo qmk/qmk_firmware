@@ -45,7 +45,7 @@
 #define CMD_WRITE 0x02u
 #define CMD_SECTOR_ERASE 0x20u
 
-#define SR_WIP     0x01u
+#define SR_WIP 0x01u
 
 // #define DEBUG_EEPROM_OUTPUT
 
@@ -53,9 +53,7 @@
 #    define EXTERNAL_EEPROM_SPI_TIMEOUT 100
 #endif
 
-bool spi_eeprom_start(void) {
-    return spi_start(EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN, EXTERNAL_EEPROM_SPI_LSBFIRST, EXTERNAL_EEPROM_SPI_MODE, EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR);
-}
+bool spi_eeprom_start(void) { return spi_start(EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN, EXTERNAL_EEPROM_SPI_LSBFIRST, EXTERNAL_EEPROM_SPI_MODE, EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR); }
 
 static spi_status_t spi_eeprom_wait_while_busy(int timeout) {
     uint32_t     deadline = timer_read32() + timeout;
@@ -141,7 +139,6 @@ void eeprom_read(void *buf, uint32_t addr, size_t len) {
     }
     dprintf("\n");
 #endif  // DEBUG_EEPROM_OUTPUT
-
 }
 
 void eeprom_write(const void *buf, uint32_t addr, size_t len) {

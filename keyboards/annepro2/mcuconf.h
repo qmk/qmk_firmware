@@ -35,33 +35,32 @@
 // 48 MHz to UART
 // 48 MHz to USB
 
-#define HT32_CK_HSE_FREQUENCY   8000000UL           // 8 MHz
-#define HT32_CKCU_SW            CKCU_GCCR_SW_PLL
-#define HT32_PLL_USE_HSE        TRUE
-#define HT32_PLL_FBDIV          6                   // 8 MHz -> 48 MHz
-#define HT32_PLL_OTDIV          0
-#define HT32_AHB_PRESCALER      1                   // 48 MHz -> 48 MHz
-#define HT32_USART_PRESCALER    1                   // 48 MHz
-#define HT32_USB_PRESCALER      1                   // 48 MHz -> 48 MHz
+#define HT32_CK_HSE_FREQUENCY 8000000UL  // 8 MHz
+#define HT32_CKCU_SW CKCU_GCCR_SW_PLL
+#define HT32_PLL_USE_HSE TRUE
+#define HT32_PLL_FBDIV 6  // 8 MHz -> 48 MHz
+#define HT32_PLL_OTDIV 0
+#define HT32_AHB_PRESCALER 1    // 48 MHz -> 48 MHz
+#define HT32_USART_PRESCALER 1  // 48 MHz
+#define HT32_USB_PRESCALER 1    // 48 MHz -> 48 MHz
 // SysTick uses processor clock at 48MHz
-#define HT32_ST_USE_HCLK        TRUE
+#define HT32_ST_USE_HCLK TRUE
 
 /*
  * Peripheral driver settings
  */
 
-#define HT32_SERIAL_USE_USART0              TRUE
-#define HT32_USART0_IRQ_PRIORITY            6
+#define HT32_SERIAL_USE_USART0 TRUE
+#define HT32_USART0_IRQ_PRIORITY 6
 
-#define HT32_SERIAL_USE_USART1              TRUE
-#define HT32_USART1_IRQ_PRIORITY            7
+#define HT32_SERIAL_USE_USART1 TRUE
+#define HT32_USART1_IRQ_PRIORITY 7
 
 /*
  * USB driver settings
  */
 
-#define HT32_USB_USE_USB0                   TRUE
-#define HT32_USB_USB0_IRQ_PRIORITY          5
-
+#define HT32_USB_USE_USB0 TRUE
+#define HT32_USB_USB0_IRQ_PRIORITY 5
 
 #endif /* _MCUCONF_H_ */

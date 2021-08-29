@@ -36,6 +36,7 @@ enum anne_pro_layers {
 * |       |  `~   |       |                                 |       |  LEFT | DOWN  | RIGHT |
 * \-----------------------------------------------------------------------------------------/
 */
+// clang-format off
  const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_BASE_LAYER] = KEYMAP( /* Base */
     KC_ESC,                KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL, KC_BSPC,
@@ -89,6 +90,7 @@ enum anne_pro_layers {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_FN1_LY), MO(_FN2_LY), KC_TRNS
  ),
 };
+// clang-format on
 const uint16_t keymaps_size = sizeof(keymaps);
 
 

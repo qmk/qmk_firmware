@@ -4,10 +4,12 @@
 #include "config.h"
 
 enum anne_pro_layers {
-  _BASE_LAYER,
-  _FN1_LAYER,
-  _FN2_LAYER,
+    _BASE_LAYER,
+    _FN1_LAYER,
+    _FN2_LAYER,
 };
+
+// clang-format off
 
 // Key symbols are based on QMK. Use them to remap your keyboard
 /*
@@ -89,15 +91,13 @@ enum anne_pro_layers {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_FN1_LAYER), MO(_FN2_LAYER), KC_TRNS
  ),
 };
+
+// clang-format on
 const uint16_t keymaps_size = sizeof(keymaps);
 
+void matrix_init_user(void) {}
 
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-}
+void matrix_scan_user(void) {}
 
 // Code to run after initializing the keyboard
 void keyboard_post_init_user(void) {
@@ -112,50 +112,40 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t layer) {
-  switch(get_highest_layer(layer)) {
-    case _FN1_LAYER:
-      // Set the leds to green
-      annepro2LedSetForegroundColor(0x00, 0xFF, 0x00);
-      break;
-    case _FN2_LAYER:
-      // Set the leds to blue
-      annepro2LedSetForegroundColor(0x00, 0x00, 0xFF);
-      break;
-    default:
-      // Reset back to the current profile
-      annepro2LedResetForegroundColor();
-      break;
-  }
-  return layer;
+    switch (get_highest_layer(layer)) {
+        case _FN1_LAYER:
+            // Set the leds to green
+            annepro2LedSetForegroundColor(0x00, 0xFF, 0x00);
+            break;
+        case _FN2_LAYER:
+            // Set the leds to blue
+            annepro2LedSetForegroundColor(0x00, 0x00, 0xFF);
+            break;
+        default:
+            // Reset back to the current profile
+            annepro2LedResetForegroundColor();
+            break;
+    }
+    return layer;
 }
 
 // The function to handle the caps lock logic
 // It's called after the capslock changes state or after entering layers 1 and 2.
 bool led_update_user(led_t leds) {
-  if (leds.caps_lock) {
-    // Set the caps-lock to red
-    const annepro2Led_t color = {
-        .p.red = 0xff,
-        .p.green = 0x00,
-        .p.blue = 0x00,
-        .p.alpha = 0xff
-    };
+    if (leds.caps_lock) {
+        // Set the caps-lock to red
+        const annepro2Led_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0xff};
 
-    annepro2LedMaskSetKey(2, 0, color);
-    /* NOTE: Instead of colouring the capslock only, you can change the whole
-       keyboard with annepro2LedSetForegroundColor */
-  } else {
-    // Reset the capslock if there is no layer active
-    if(!layer_state_is(_FN1_LAYER) && !layer_state_is(_FN2_LAYER)) {
-      const annepro2Led_t color = {
-          .p.red = 0xff,
-          .p.green = 0x00,
-          .p.blue = 0x00,
-          .p.alpha = 0x00
-      };
-      annepro2LedMaskSetKey(2, 0, color);
+        annepro2LedMaskSetKey(2, 0, color);
+        /* NOTE: Instead of colouring the capslock only, you can change the whole
+           keyboard with annepro2LedSetForegroundColor */
+    } else {
+        // Reset the capslock if there is no layer active
+        if (!layer_state_is(_FN1_LAYER) && !layer_state_is(_FN2_LAYER)) {
+            const annepro2Led_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0x00};
+            annepro2LedMaskSetKey(2, 0, color);
+        }
     }
-  }
 
-  return true;
+    return true;
 }

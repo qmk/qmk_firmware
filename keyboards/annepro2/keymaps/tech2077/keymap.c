@@ -3,7 +3,7 @@
 #include <print.h>
 #include "qmk_ap2_led.h"
 #ifdef ANNEPRO2_C18
-#include "eeprom_w25x20cl.h"
+#    include "eeprom_w25x20cl.h"
 #endif
 
 // layout using eeprom and bidir-comms to keep user led settings persistent
@@ -13,7 +13,7 @@ typedef union {
     uint32_t raw;
     struct {
         uint8_t magic : 8;
-        bool leds_on : 1;
+        bool    leds_on : 1;
         uint8_t leds_profile : 8;
     };
 } user_config_t;
@@ -29,7 +29,7 @@ enum anne_pro_layers {
     _FN1_LAYER,
     _FN2_LAYER,
 };
-
+// clang-format off
 /*
 * Layer _BASE_LAYER
 * ,-----------------------------------------------------------------------------------------.
@@ -106,91 +106,82 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS, KC_DEL, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_FN2_LAYER), MO(_FN1_LAYER), KC_TRNS),
 };
+// clang-format on
 const uint16_t keymaps_size = sizeof(keymaps);
 
-void matrix_init_user(void)
-{
-}
+void matrix_init_user(void) {}
 
-void matrix_scan_user(void)
-{
-}
+void matrix_scan_user(void) {}
 
-layer_state_t layer_state_set_user(layer_state_t layer)
-{
-    return layer;
-}
+layer_state_t layer_state_set_user(layer_state_t layer) { return layer; }
 
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-  uprintf("raw_hid len: %u\n", length);
-  if (length == 1)
-    annepro2LedSetProfile(data[0]);
-  else {
-    for (uint8_t i = 0; i < length; i++){
-      usb_buf[buf_fil + i] = data[i];
+void raw_hid_receive(uint8_t* data, uint8_t length) {
+    uprintf("raw_hid len: %u\n", length);
+    if (length == 1)
+        annepro2LedSetProfile(data[0]);
+    else {
+        for (uint8_t i = 0; i < length; i++) {
+            usb_buf[buf_fil + i] = data[i];
+        }
+        buf_fil += length;
+        if (buf_fil >= 211) {
+            sdWrite(&SD0, usb_buf, 211);
+            buf_fil = 0;
+        }
+        //    for (int i = 0; i < length; i++) {
+        //      sdPut(&SD0, data[i]);
+        //      sdGet(&SD0);
+        //    }
     }
-    buf_fil += length;
-    if (buf_fil >= 211) {
-      sdWrite(&SD0, usb_buf, 211);
-      buf_fil = 0;
-    }
-//    for (int i = 0; i < length; i++) {
-//      sdPut(&SD0, data[i]);
-//      sdGet(&SD0);
-//    }
-  }
 }
 
 /*!
  * @returns false   processing for this keycode has been completed.
  */
-bool process_record_user(uint16_t keycode, keyrecord_t* record)
-{
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 #ifdef ANNEPRO2_C18
     switch (keycode) {
-    case KC_AP_LED_OFF:
-        if (record->event.pressed) {
-            user_config.leds_on = false;
-            eeprom_write((void*)&user_config, 0, sizeof(user_config_t));
-        }
-        return false;
-    case KC_AP_LED_ON:
-        if (record->event.pressed) {
-            user_config.leds_on = true;
-            eeprom_write((void*)&user_config, 0, sizeof(user_config_t));
-        }
-        return false;
-    case KC_AP_LED_NEXT_PROFILE:
-        if (record->event.pressed) {
-            user_config.leds_profile = (user_config.leds_profile + 1) % annepro2LedStatus.amountOfProfiles;
-            annepro2LedSetProfile(user_config.leds_profile);
-            eeprom_write((void*)&user_config, 0, sizeof(user_config_t));
-        }
-        return false;
-    default:
-        break;
+        case KC_AP_LED_OFF:
+            if (record->event.pressed) {
+                user_config.leds_on = false;
+                eeprom_write((void*)&user_config, 0, sizeof(user_config_t));
+            }
+            return false;
+        case KC_AP_LED_ON:
+            if (record->event.pressed) {
+                user_config.leds_on = true;
+                eeprom_write((void*)&user_config, 0, sizeof(user_config_t));
+            }
+            return false;
+        case KC_AP_LED_NEXT_PROFILE:
+            if (record->event.pressed) {
+                user_config.leds_profile = (user_config.leds_profile + 1) % annepro2LedStatus.amountOfProfiles;
+                annepro2LedSetProfile(user_config.leds_profile);
+                eeprom_write((void*)&user_config, 0, sizeof(user_config_t));
+            }
+            return false;
+        default:
+            break;
     }
 #endif
     return true;
 }
 
-void keyboard_post_init_user(void)
-{
+void keyboard_post_init_user(void) {
     // Customize these values to desired behavior
     debug_enable = true;
-    //debug_matrix = true;
-    //debug_keyboard=true;
-    //debug_mouse=true;
+    // debug_matrix = true;
+    // debug_keyboard=true;
+    // debug_mouse=true;
 
 #ifdef ANNEPRO2_C18
     // Read the user config from EEPROM
     eeprom_read((void*)&user_config, 0, sizeof(user_config_t));
 
     // initialize a new eeprom
-    if (user_config.magic != 0xDE)
-    {
-        user_config.magic = 0xDE;
-        user_config.leds_on = false;
+    if (user_config.magic != 0xDE) {
+        user_config.magic        = 0xDE;
+        user_config.leds_on      = false;
         user_config.leds_profile = 0;
         eeprom_write((void*)&user_config, 0, sizeof(user_config_t));
     }

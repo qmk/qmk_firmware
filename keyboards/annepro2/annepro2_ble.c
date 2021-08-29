@@ -23,32 +23,26 @@
 
 /* -------------------- Static Function Prototypes -------------------------- */
 static uint8_t ap2_ble_leds(void);
-static void ap2_ble_mouse(report_mouse_t *report);
-static void ap2_ble_system(uint16_t data);
-static void ap2_ble_consumer(uint16_t data);
-static void ap2_ble_keyboard(report_keyboard_t *report);
+static void    ap2_ble_mouse(report_mouse_t *report);
+static void    ap2_ble_system(uint16_t data);
+static void    ap2_ble_consumer(uint16_t data);
+static void    ap2_ble_keyboard(report_keyboard_t *report);
 
 static void ap2_ble_swtich_ble_driver(void);
 
 /* -------------------- Static Local Variables ------------------------------ */
 static host_driver_t ap2_ble_driver = {
-    ap2_ble_leds,
-    ap2_ble_keyboard,
-    ap2_ble_mouse,
-    ap2_ble_system,
-    ap2_ble_consumer,
+    ap2_ble_leds, ap2_ble_keyboard, ap2_ble_mouse, ap2_ble_system, ap2_ble_consumer,
 };
 
-static uint8_t bleMcuWakeup[11] = {
-    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02
-};
+static uint8_t bleMcuWakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
 
 static uint8_t bleMcuStartBroadcast[11] = {
-    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x01, 0x00 // Broadcast ID[0-3]
+    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x01, 0x00  // Broadcast ID[0-3]
 };
 
 static uint8_t bleMcuConnect[11] = {
-    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x04, 0x00 // Connect ID [0-3]
+    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x04, 0x00  // Connect ID [0-3]
 };
 
 static uint8_t bleMcuSendReport[10] = {
@@ -63,24 +57,18 @@ static uint8_t bleMcuUnpair[10] = {
     0x7b, 0x12, 0x53, 0x00, 0x02, 0x00, 0x00, 0x7d, 0x40, 0x05,
 };
 
-static uint8_t bleMcuBootload[11] = {
-    0x7b, 0x10, 0x51, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x01
-};
+static uint8_t bleMcuBootload[11] = {0x7b, 0x10, 0x51, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x01};
 
 static host_driver_t *lastHostDriver = NULL;
 #ifdef NKRO_ENABLE
 static bool lastNkroStatus = false;
-#endif // NKRO_ENABLE
+#endif  // NKRO_ENABLE
 
 /* -------------------- Public Function Implementation ---------------------- */
 
-void annepro2_ble_bootload(void) {
-    sdWrite(&SD1, bleMcuBootload, 11);
-}
+void annepro2_ble_bootload(void) { sdWrite(&SD1, bleMcuBootload, 11); }
 
-void annepro2_ble_startup(void) {
-    sdWrite(&SD1, bleMcuWakeup, 11);
-}
+void annepro2_ble_startup(void) { sdWrite(&SD1, bleMcuWakeup, 11); }
 
 void annepro2_ble_broadcast(uint8_t port) {
     if (port > 3) {
@@ -138,26 +126,29 @@ static void ap2_ble_swtich_ble_driver(void) {
 }
 
 static uint8_t ap2_ble_leds(void) {
-    return 0; // TODO: Figure out how to obtain LED status
+    return 0;  // TODO: Figure out how to obtain LED status
 }
 
-static void ap2_ble_mouse(report_mouse_t *report){
-}
+static void ap2_ble_mouse(report_mouse_t *report) {}
 
-static void ap2_ble_system(uint16_t data) {
-}
-
-
+static void ap2_ble_system(uint16_t data) {}
 
 static inline uint16_t CONSUMER2AP2(uint16_t usage) {
-    switch(usage) {
-        case AUDIO_VOL_DOWN:        return 0x04;
-        case AUDIO_VOL_UP:          return 0x02;
-        case AUDIO_MUTE:            return 0x01;
-        case TRANSPORT_PLAY_PAUSE:  return 0x08;
-        case TRANSPORT_NEXT_TRACK:  return 0x10;
-        case TRANSPORT_PREV_TRACK:  return 0x20;
-        default:                    return 0x00;
+    switch (usage) {
+        case AUDIO_VOL_DOWN:
+            return 0x04;
+        case AUDIO_VOL_UP:
+            return 0x02;
+        case AUDIO_MUTE:
+            return 0x01;
+        case TRANSPORT_PLAY_PAUSE:
+            return 0x08;
+        case TRANSPORT_NEXT_TRACK:
+            return 0x10;
+        case TRANSPORT_PREV_TRACK:
+            return 0x20;
+        default:
+            return 0x00;
     }
 }
 
@@ -176,4 +167,3 @@ static void ap2_ble_keyboard(report_keyboard_t *report) {
     sdWrite(&SD1, bleMcuSendReport, 10);
     sdWrite(&SD1, &report->raw[0], 8);
 }
-
