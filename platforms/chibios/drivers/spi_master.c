@@ -38,13 +38,13 @@ __attribute__((weak)) void spi_init(void) {
 
         chThdSleepMilliseconds(10);
 #if defined(USE_GPIOV1)
-    palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-    palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-    palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+        palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), SPI_SCK_PAL_MODE);
+        palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), SPI_MOSI_PAL_MODE);
+        palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), SPI_MISO_PAL_MODE);
 #elif defined(HT32_SPI_USE_SPI1) || defined(HT32_SPI_USE_SPI2)
-    palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_HT32_MODE_AF(SPI_SCK_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_HT32_MODE_AF(SPI_MOSI_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_HT32_MODE_AF(SPI_MISO_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL);
+        palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_HT32_MODE_AF(SPI_SCK_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL);
+        palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_HT32_MODE_AF(SPI_MOSI_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL);
+        palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_HT32_MODE_AF(SPI_MISO_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL);
 #else
         palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
         palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
@@ -66,8 +66,56 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     if (roundedDivisor < 2 || roundedDivisor > 256) {
         return false;
     }
+    
+#if defined(K20x) || defined(KL2x)
+    spiConfig.tar0 = SPIx_CTARn_FMSZ(7) | SPIx_CTARn_ASC(1);
 
-#if defined(HT32_SPI_USE_SPI1) || defined(HT32_SPI_USE_SPI2)
+    if (lsbFirst) {
+        spiConfig.tar0 |= SPIx_CTARn_LSBFE;
+    }
+
+    switch (mode) {
+        case 0:
+            break;
+        case 1:
+            spiConfig.tar0 |= SPIx_CTARn_CPHA;
+            break;
+        case 2:
+            spiConfig.tar0 |= SPIx_CTARn_CPOL;
+            break;
+        case 3:
+            spiConfig.tar0 |= SPIx_CTARn_CPHA | SPIx_CTARn_CPOL;
+            break;
+    }
+
+    switch (roundedDivisor) {
+        case 2:
+            spiConfig.tar0 |= SPIx_CTARn_BR(0);
+            break;
+        case 4:
+            spiConfig.tar0 |= SPIx_CTARn_BR(1);
+            break;
+        case 8:
+            spiConfig.tar0 |= SPIx_CTARn_BR(3);
+            break;
+        case 16:
+            spiConfig.tar0 |= SPIx_CTARn_BR(4);
+            break;
+        case 32:
+            spiConfig.tar0 |= SPIx_CTARn_BR(5);
+            break;
+        case 64:
+            spiConfig.tar0 |= SPIx_CTARn_BR(6);
+            break;
+        case 128:
+            spiConfig.tar0 |= SPIx_CTARn_BR(7);
+            break;
+        case 256:
+            spiConfig.tar0 |= SPIx_CTARn_BR(8);
+            break;
+    }
+
+#elif defined(HT32_SPI_USE_SPI1) || defined(HT32_SPI_USE_SPI2)
     spiConfig.cr0 = SPI_CR0_SELOEN;
     spiConfig.cr1 = SPI_CR1_MODE | 8; // 8 bits and in master mode
 
