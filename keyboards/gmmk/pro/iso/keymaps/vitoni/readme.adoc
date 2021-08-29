@@ -1,0 +1,28 @@
+= ViToni's keymap for GMMK Pro ISO
+
+== Layout
+Based on the stock layout but making use of CAPS as FN similar to laptop keyboards.
+This frees up the left row for other uses (although not remapped yet).
+Since both Delete and Insert are used for coding they are part of the CAPS layer as well.
+
+The differences are as follows:
+
+=== Layer 0 (`_BASE`)
+Mostly stock + CAPS goes to layer `_MOV`.
+
+=== Layer 1 (`_FN`), accessed by pressing `FN` on layer `_BASE`
+Stock.
+
+=== Layer 2 (`_MOV`), accessed by pressing `CAPS` on layer `_BASE`
+[%header]
+|===
+| Key / Action          | Mapped to
+| ESC                   | _RESET_
+| Delete                | Insert
+| Left                  | Home
+| Right                 | End
+| Up                    | PgUp
+| Down                  | PgDn
+|===
+
+No other changes have been made.
