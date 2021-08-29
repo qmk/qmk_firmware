@@ -31,14 +31,15 @@ enum userspace_layer_codes {
     NEW_SAFE_RANGE
 };
 
-#define _QWERTY 2
-#define _PROXIM 0
-#define _NUMBRS 4
-#define _NAVIGN 5
-#define _PUNCTN 6
-#define _CODING 7
-#define _FUNCTN 8
-
+enum userspace_layers {
+    _PROXIM,
+    _QWERTY,
+    _NUMBRS,
+    _NAVIGN,
+    _PUNCTN,
+    _CODING,
+    _FUNCTN
+};
 
 #define MY_FESC  LT(_FUNCTN,  KC_ESC)
 #define MY_SSPC  MT(MOD_RSFT, KC_SPC)
