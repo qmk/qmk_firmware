@@ -21,15 +21,6 @@ def keymap_check(kb, km):
         ok = False
         cli.log.error("%s: Can't find %s keymap.", kb, km)
 
-    else:
-        keymap_readme = keymap_path.parent / 'readme.md'
-
-        if not keymap_readme.exists():
-            cli.log.warning('%s: %s: Missing %s', kb, km, keymap_readme)
-
-            if cli.config.lint.strict:
-                ok = False
-
     return ok
 
 
@@ -37,7 +28,7 @@ def rules_mk_assignment_only(keyboard_path):
     """Check the keyboard-level rules.mk to ensure it only has assignments.
     """
     current_path = Path()
-    ok = True
+    errors = []
 
     for path_part in keyboard_path.parts:
         current_path = current_path / path_part
@@ -62,10 +53,9 @@ def rules_mk_assignment_only(keyboard_path):
                         continue
 
                     if line and '=' not in line:
-                        cli.log.error('Non-assignment code: +%s %s: %s', i, rules_mk, line)
-                        ok = False
+                        errors.append(f'Non-assignment code on line +{i} {rules_mk}: {line}')
 
-    return ok
+    return errors
 
 
 @cli.argument('--strict', action='store_true', help='Treat warnings as errors.')
@@ -104,7 +94,6 @@ def lint(cli):
         keyboard_path = keyboard(kb)
         keyboard_info = info_json(kb)
         info_path = keyboard_path / 'info.json'
-        readme_path = keyboard_path / 'readme.md'
 
         # Check for errors in the info.json
         if keyboard_info['parse_errors']:
@@ -115,19 +104,13 @@ def lint(cli):
             ok = False
             cli.log.error('%s: Warnings found when generating info.json (Strict mode enabled.)', kb)
 
-        # Check for info.json and warn if it doesn't exist
-        if not info_path.exists():
-            cli.log.warning('%s: Missing %s', kb, info_path)
-
-        # Check for a readme.md and throw an error if it doesn't exist
-        if not readme_path.exists():
-            ok = False
-            cli.log.error('%s: Missing %s', kb, readme_path)
-
         # Check the rules.mk file(s)
-        if not rules_mk_assignment_only(keyboard_path):
+        rules_mk_assignment_errors = rules_mk_assignment_only(keyboard_path)
+        if rules_mk_assignment_errors:
             ok = False
-            cli.log.error('%s: Non-assignment code found in rules.mk. Move it to processing.mk instead.', kb)
+            cli.log.error('%s: Non-assignment code found in rules.mk. Move it to post_rules.mk instead.', kb)
+            for assignment_error in rules_mk_assignment_errors:
+                cli.log.error(assignment_error)
 
         # Keymap specific checks
         if cli.config.lint.keymap:
