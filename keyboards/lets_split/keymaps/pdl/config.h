@@ -21,10 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "../../config.h"
 
 #define TAPPING_TERM 200
-#define PREVENT_STUCK_MODIFIERS
 
 /* Use I2C or Serial, not both */
 

@@ -22,9 +22,6 @@ enum userspace_layer_codes {
 #define _CODING 7
 #define _FUNCTN 8
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #define MY_FESC  LT(_FUNCTN,  KC_ESC)
 #define MY_SSPC  MT(MOD_RSFT, KC_SPC)
