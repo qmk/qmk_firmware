@@ -44,6 +44,7 @@ IDLE_TIMEOUT_ENABLE = yes
 
 COLEMAK_LAYER_ENABLE = yes
     - Enabled optional 5th layer for COLEMAK layout
+    - Use Shift and encoder to enter 5th layer, right led indicator lights up BLUE
     
 ## All layers diagram
 Default layer
