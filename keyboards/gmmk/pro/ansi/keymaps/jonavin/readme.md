@@ -22,7 +22,7 @@
         - indicators in FN layer using RGB in FN and number rows to show the timeout in minutes
     - LED address location map as enum definition in rgb_matrix_map.h
     - LED group lists for arrows, numpad, F row, num row, left and right side LEDs
-    - default startuo in single mode with default colour 
+    - default startup in single mode with default colour 
     - Capslock, Scroll Lock, and Num Lock (not set) indicator on left side LED
     - Layer indicator on right side LED
     - Fn key light up red when Fn layer activate
@@ -56,3 +56,4 @@ Layer 2 (Caps Lock Mod)
 ![image](https://user-images.githubusercontent.com/71780717/124177683-8b231a00-da7e-11eb-9434-e2475f679a54.png)
 
 Optional COLEMAK layer
+![image](https://user-images.githubusercontent.com/71780717/131235050-980d2f54-2d23-4ae8-a83f-9fcdbe60d6cb.png)
