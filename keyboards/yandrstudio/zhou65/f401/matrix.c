@@ -18,7 +18,6 @@
 #include <stdbool.h>
 #include "util.h"
 #include "matrix.h"
-#include "debounce.h"
 #include "quantum.h"
 
 #ifdef DIRECT_PINS
@@ -208,10 +207,6 @@ void matrix_init_custom(void) {
         raw_matrix[i] = 0;
         matrix[i]     = 0;
     }
-
-    debounce_init(MATRIX_ROWS);
-
-    matrix_init_quantum();
 }
 
 uint8_t matrix_scan_custom(void) {
@@ -229,8 +224,5 @@ uint8_t matrix_scan_custom(void) {
     }
 #endif
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-
-    matrix_scan_quantum();
     return (uint8_t)changed;
 }
