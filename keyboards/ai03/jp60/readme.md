@@ -4,7 +4,7 @@
 
 GH60-compatible JIS-like hotswap keyboard PCB
 
-* Keyboard Maintainer: [ai03](https://github.com/yourusername)
+* Keyboard Maintainer: [ai03](https://github.com/ai03-2725)
 * Hardware Supported: [JP60 PCB](https://github.com/ai03-2725/JP60)
 * Hardware Availability: To be made available in JP market soon; will be listed in the repo above
 
