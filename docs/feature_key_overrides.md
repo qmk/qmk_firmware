@@ -103,7 +103,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 ```
 
 ### Flexible macOS-friendly Grave Escape
-The [Grave Escape feature](https://docs.qmk.fm/using-qmk/advanced-keycodes/feature_grave_esc) is limited in its configurability and has [bugs when used on macOS](https://docs.qmk.fm/using-qmk/advanced-keycodes/feature_grave_esc#caveats). Key overrides can be used to achieve a similar functionality as Grave Escape, but with more customization and without bugs on macOS.
+The [Grave Escape feature](https://docs.qmk.fm/#/feature_grave_esc) is limited in its configurability and has [bugs when used on macOS](https://docs.qmk.fm/#/feature_grave_esc?id=caveats). Key overrides can be used to achieve a similar functionality as Grave Escape, but with more customization and without bugs on macOS.
 
 ```c
 // Shift + esc = ~
