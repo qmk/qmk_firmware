@@ -34,28 +34,3 @@ void matrix_scan_user(void) {
     writePin(D0, layer_state_is(1));
 }
 
-bool led_update_user(led_t led_state) {
-    writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-    return false;
-};
-
-
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if(IS_LAYER_ON(1)) { // on Raise layer
-      if (clockwise) {
-          tap_code(KC_A);
-      } else {
-          tap_code(KC_B);
-      }
-    }
-    // default layer
-    else {
-      if (clockwise) {
-          tap_code(KC_C);
-      } else {
-          tap_code(KC_D);
-      }
-    }
-    return true;
-}
