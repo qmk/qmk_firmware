@@ -19,6 +19,7 @@ enum layers {
     _QWERTY,
     _NUM,
     _FUNC,
+    _SYSTEM,
 };
 
 enum custom_keycodes {
