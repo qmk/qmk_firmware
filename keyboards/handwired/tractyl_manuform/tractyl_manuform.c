@@ -197,3 +197,7 @@ void                       matrix_scan_kb(void) {
     matrix_scan_sub_kb();
     matrix_scan_user();
 }
+
+#ifdef POINTING_DEVICE_ENABLE
+void matrix_power_up(void) { pointing_device_task(); }
+#endif
