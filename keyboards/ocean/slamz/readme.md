@@ -1,7 +1,6 @@
 # Slamz
 
-![Slamz](https://i.imgur.com/rWtHIfY.jpeg)
-
+![Slamz](https://i.imgur.com/rWtHIfYh.jpeg)
 
 Split Ortholinear 4x10
 
