@@ -22,5 +22,4 @@
 #define EE_HANDS
 
 /* n-key rollover */
-#define NKRO_ENABLE
 #define FORCE_NKRO
