@@ -480,3 +480,99 @@ void api_send_unicode(uint32_t unicode) {
 __attribute__((weak)) void startup_user() {}
 
 __attribute__((weak)) void shutdown_user() {}
+
+/** \brief Run keyboard level Power down
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak)) void suspend_power_down_user(void) {}
+/** \brief Run keyboard level Power down
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
+
+void suspend_power_down_quantum(void) {
+#ifndef NO_SUSPEND_POWER_DOWN
+// Turn off backlight
+#    ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
+#    endif
+
+#    ifdef LED_MATRIX_ENABLE
+    led_matrix_task();
+#    endif
+#    ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_task();
+#    endif
+
+    // Turn off LED indicators
+    uint8_t leds_off = 0;
+#    if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+    if (is_backlight_enabled()) {
+        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+        leds_off |= (1 << USB_LED_CAPS_LOCK);
+    }
+#    endif
+    led_set(leds_off);
+
+// Turn off audio
+#    ifdef AUDIO_ENABLE
+    stop_all_notes();
+#    endif
+
+// Turn off underglow
+#    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_suspend();
+#    endif
+
+#    if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(true);
+#    endif
+#    if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(true);
+#    endif
+
+#    ifdef OLED_ENABLE
+    oled_off();
+#    endif
+#    ifdef ST7565_ENABLE
+    st7565_off();
+#    endif
+#endif
+}
+
+/** \brief run user level code immediately after wakeup
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak)) void suspend_wakeup_init_user(void) {}
+
+/** \brief run keyboard level code immediately after wakeup
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
+
+__attribute__((weak)) void suspend_wakeup_init_quantum(void) {
+// Turn on backlight
+#ifdef BACKLIGHT_ENABLE
+    backlight_init();
+#endif
+
+    // Restore LED indicators
+    led_set(host_keyboard_leds());
+
+// Wake up underglow
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_wakeup();
+#endif
+
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(false);
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(false);
+#endif
+    suspend_wakeup_init_kb();
+}
