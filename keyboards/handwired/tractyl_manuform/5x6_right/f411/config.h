@@ -87,10 +87,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPI_MISO_PAL_MODE                    5
 
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
-// #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
+#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    8
 // #define EXTERNAL_EEPROM_BYTE_COUNT           8196
 // #define EXTERNAL_EEPROM_PAGE_SIZE            32
 // #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
 // #define DEBUG_EEPROM_OUTPUT
 
-#define PMW3360_CS_PIN B0
+#define PMW3360_CS_PIN                       B0
+#define PMW3360_SPI_MODE                     3
+#define PMW3360_SPI_DIVISOR                  4
