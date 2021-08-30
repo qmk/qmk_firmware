@@ -60,15 +60,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NUM_NAV] = LAYOUT_split_3x5_3(
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,     KC_8,    KC_9,     KC_0,
-  HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, -------,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, HOME_QT,
-  KC_LSFT, -------, -------, -------, -------,      KC_MINS, KC_EQL,   KC_LBRC, KC_RBRC,  HOME_BSL,
+  HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, HOME_QT,
+  KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,   KC_LBRC, KC_RBRC,  HOME_BSL,
                     KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS,  KC_TRNS
 ),
 
 [_FUNCTION] = LAYOUT_split_3x5_3(
   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
-  -------, -------, -------, -------, -------,       -------, -------, -------, KC_F11,  KC_F12,
-  RGB_TOG, RGB_RMOD, RGB_MOD, RGB_VAD, RGB_VAI,      -------, -------, -------, -------, -------,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, KC_F11,  KC_F12,
+  RGB_TOG, RGB_RMOD, RGB_MOD, RGB_VAD, RGB_VAI,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                      GAMING,  KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
