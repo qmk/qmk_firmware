@@ -335,7 +335,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
         oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
     }
-    #endif // !LANSCAPE_MODE
+    #endif // !LANDSCAPE_MODE
 
     void suspend_power_down_user(void) {  // shutdown oled when powered down to prevent OLED from showing Mercutio all the time
       oled_off();
