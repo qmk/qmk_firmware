@@ -36,7 +36,7 @@
   {k20, k21, k22, k23}, \
   {k30, k31, k32, XXX}, \
   {k40, k41, k42, k43}, \
-  {k50, XXX, k52, XXX}  \
+  {k50, XXX, k52, XXX} \
 }
 
 /*  matrix layout
