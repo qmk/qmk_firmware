@@ -8,7 +8,7 @@ from jsonschema import ValidationError
 from milc import cli
 
 from qmk.info import info_json
-from qmk.json_schema import json_load, keyboard_validate
+from qmk.json_schema import json_load, validate
 from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
 from qmk.path import normpath
 
@@ -23,14 +23,13 @@ def format_json(cli):
 
     if cli.args.format == 'auto':
         try:
-            keyboard_validate(json_file)
+            validate(json_file, 'qmk.keyboard.v1')
             json_encoder = InfoJSONEncoder
 
         except ValidationError as e:
             cli.log.warning('File %s did not validate as a keyboard:\n\t%s', cli.args.json_file, e)
             cli.log.info('Treating %s as a keymap file.', cli.args.json_file)
             json_encoder = KeymapJSONEncoder
-
     elif cli.args.format == 'keyboard':
         json_encoder = InfoJSONEncoder
     elif cli.args.format == 'keymap':

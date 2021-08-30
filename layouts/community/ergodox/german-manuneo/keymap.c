@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  MO(5),   DE_1,     DE_2,     DE_3,    DE_4,    DE_5,    DE_ACUT,
  MO(4),   DE_X,     DE_P,     DE_F,    DE_W,    DE_G,    KC_HOME,
  MO(1),   DE_U,     DE_I,     DE_A,    DE_E,    DE_O,
- MO(3),   DE_UE,    DE_OE,    DE_AE,   DE_C,    DE_V,    KC_END,
+ MO(3),   DE_UDIA,  DE_ODIA,  DE_ADIA, DE_C,    DE_V,    KC_END,
  KC_TRNS, KC_TRNS,  KC_LGUI,  KC_LALT, KC_LCTL,
  /*-*/    /*-*/     /*-*/     /*-*/    /*-*/    KC_INS,  TG(2),
  /*-*/    /*-*/     /*-*/     /*-*/    /*-*/    /*-*/    KC_APP,
@@ -167,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   '-----------------' '-----------------'
  */
 [L1] = LAYOUT_ergodox(
- KC_TRNS, DE_EXLM, DE_DQOT, DE_PARA, KC_TRNS,               KC_TRNS,               KC_TRNS,
+ KC_TRNS, DE_EXLM, DE_DQUO, DE_SECT, KC_TRNS,               KC_TRNS,               KC_TRNS,
  KC_TRNS, DE_ASTR, DE_PIPE, DE_SLSH, DE_LCBR,               DE_RCBR,               KC_TRNS,
  KC_TRNS, DE_UNDS, DE_MINS, DE_AMPR, DE_LBRC,               DE_RBRC,
  KC_TRNS, KC_TRNS, DE_PLUS, DE_EQL,  KC_TRNS,               KC_TRNS,               KC_TRNS,
@@ -175,9 +175,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*-*/    /*-*/    /*-*/    /*-*/    /*-*/                  KC_TRNS,               KC_TRNS,
  /*-*/    /*-*/    /*-*/    /*-*/    /*-*/                  /*-*/                  KC_TRNS,
  /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS,               KC_TRNS,               KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,               DE_RING,               KC_TRNS,
- KC_TRNS, DE_HASH, DE_LESS, DE_MORE, KC_TRNS,               DE_DQOT,               KC_TRNS,
- /*-*/    DE_DLR,  DE_LPRN, DE_RPRN, DE_TILD,               DE_QUOT,               DE_QST,
+ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,               DE_DEG,                KC_TRNS,
+ KC_TRNS, DE_HASH, DE_LABK, DE_RABK, KC_TRNS,               DE_DQUO,               KC_TRNS,
+ /*-*/    DE_DLR,  DE_LPRN, DE_RPRN, DE_TILD,               DE_QUOT,               DE_QUES,
  KC_TRNS, DE_BSLS, DE_PERC, DE_SCLN, DE_COLN,               M(UC_UPWARDS_ARROW),   KC_TRNS,
  /*-*/    /*-*/    KC_TRNS, KC_TRNS, M(UC_LEFTWARDS_ARROW), M(UC_DOWNWARDS_ARROW), M(UC_RIGHTWARDS_ARROW),
  KC_TRNS, KC_TRNS,
