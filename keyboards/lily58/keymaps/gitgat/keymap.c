@@ -15,7 +15,6 @@ uint32_t anim_sleep = 0;
 uint8_t current_idle_frame = 0;
 uint8_t current_tap_frame = 0;
 
-static long int oled_timeout = 300000;
 enum layer_number {
   _QWERTY = 0,
   _LOWER,
