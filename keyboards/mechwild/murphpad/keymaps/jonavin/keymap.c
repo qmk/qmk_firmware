@@ -98,7 +98,7 @@ typedef struct {
 } keycodedescType;
 
 static const keycodedescType PROGMEM keyselection[] = {
-    // list of key codes that will be scrollled through by encoder and description
+    // list of key codes that will be scrolled through by encoder and description
         {"TASK",    KC_TASK},
         {"INS",     KC_INS},
         {"DEL",     KC_DEL},
