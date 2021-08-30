@@ -14,8 +14,7 @@ BOOTLOADER = halfkay
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE        = no  # Virtual DIP switch configuration(+1000)
-MIDI_ENABLE             = no  # MIDI support (+2400 to 4200)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 POINTING_DEVICE_ENABLE  = no
 MOUSEKEY_ENABLE         = no  # Mouse keys(+4700)
 EXTRAKEY_ENABLE         = yes # Audio control and System control(+450)
@@ -26,7 +25,6 @@ NKRO_ENABLE             = yes # USB Nkey Rollover
 UNICODE_ENABLE          = yes # Unicode
 SWAP_HANDS_ENABLE       = yes # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE        = no
-API_SYSEX_ENABLE        = no
 RGBLIGHT_ENABLE         = no
 
 # project specific files
