@@ -20,6 +20,3 @@
   loading keymap with via: load your via keymap with each side plugged in
 */
 #define EE_HANDS
-
-/* n-key rollover */
-#define FORCE_NKRO
