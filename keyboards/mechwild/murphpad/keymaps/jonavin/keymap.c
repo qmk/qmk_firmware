@@ -295,7 +295,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     #endif // LANDSCAPE_MODE
 
     // regular mode
-    #ifndef LANSCAPE_MODE
+    #ifndef LANDSCAPE_MODE
  	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 		return OLED_ROTATION_270;       // flips the display 270 degrees
 	}
