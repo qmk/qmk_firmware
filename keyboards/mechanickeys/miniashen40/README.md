@@ -17,7 +17,7 @@ A 40% keyboard with some extras
 
 Make example for this keyboard (after setting up your build environment):
 
-    make miniashen40/:default
+    make mechanickeys/miniashen40:default
 
 Flashing example for this keyboard:
 
