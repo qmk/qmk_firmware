@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include "util.h"
 #include "debug.h"
 #include "eeprom_stm32.h"
 #include "flash_stm32.h"
@@ -188,9 +189,6 @@
 #    endif
 #endif
 
-#define FEE_XSTR(x) FEE_STR(x)
-#define FEE_STR(x) #x
-
 /* Size of combined compacted eeprom and write log pages */
 #define FEE_DENSITY_MAX_SIZE (FEE_DENSITY_PAGES * FEE_PAGE_SIZE)
 /* Addressable range 16KByte: 0 <-> (0x1FFF << 1) */
@@ -198,7 +196,7 @@
 
 #ifndef EEPROM_START_ADDRESS /* *TODO: Get rid of this check */
 #    if FEE_DENSITY_MAX_SIZE > (FEE_MCU_FLASH_SIZE * 1024)
-#        pragma message FEE_XSTR(FEE_DENSITY_MAX_SIZE) " > " FEE_XSTR(FEE_MCU_FLASH_SIZE * 1024)
+#        pragma message STR(FEE_DENSITY_MAX_SIZE) " > " STR(FEE_MCU_FLASH_SIZE * 1024)
 #        error emulated eeprom: FEE_DENSITY_PAGES is greater than available flash size
 #    endif
 #endif
@@ -206,15 +204,15 @@
 /* Size of emulated eeprom */
 #ifdef FEE_DENSITY_BYTES
 #    if (FEE_DENSITY_BYTES > FEE_DENSITY_MAX_SIZE)
-#        pragma message FEE_XSTR(FEE_DENSITY_BYTES) " > " FEE_XSTR(FEE_DENSITY_MAX_SIZE)
+#        pragma message STR(FEE_DENSITY_BYTES) " > " STR(FEE_DENSITY_MAX_SIZE)
 #        error emulated eeprom: FEE_DENSITY_BYTES exceeds FEE_DENSITY_MAX_SIZE
 #    endif
 #    if (FEE_DENSITY_BYTES == FEE_DENSITY_MAX_SIZE)
-#        pragma message FEE_XSTR(FEE_DENSITY_BYTES) " == " FEE_XSTR(FEE_DENSITY_MAX_SIZE)
+#        pragma message STR(FEE_DENSITY_BYTES) " == " STR(FEE_DENSITY_MAX_SIZE)
 #        warning emulated eeprom: FEE_DENSITY_BYTES leaves no room for a write log.  This will greatly increase the flash wear rate!
 #    endif
 #    if FEE_DENSITY_BYTES > FEE_ADDRESS_MAX_SIZE
-#        pragma message FEE_XSTR(FEE_DENSITY_BYTES) " > " FEE_XSTR(FEE_ADDRESS_MAX_SIZE)
+#        pragma message STR(FEE_DENSITY_BYTES) " > " STR(FEE_ADDRESS_MAX_SIZE)
 #        error emulated eeprom: FEE_DENSITY_BYTES is greater than FEE_ADDRESS_MAX_SIZE allows
 #    endif
 #    if ((FEE_DENSITY_BYTES) % 2) == 1
