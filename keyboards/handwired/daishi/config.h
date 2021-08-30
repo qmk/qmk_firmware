@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MetaMechs
 #define PRODUCT         Daishi
-#define DESCRIPTION     Compact Battlecruiser
 
 /* key matrix size */
 #define MATRIX_ROWS 7

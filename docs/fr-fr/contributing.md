@@ -23,7 +23,7 @@ Merci de garder ceci en tête:
 
 # Aperçu du projet
 
-QMK est majoritairement écrit en C, avec quelques fonctions et parties spécifiques écrites en C++. Il est destiné aux processeurs intégrés que l'on trouve dans des clavier, particulièrement AVR ([LUFA](http://www.fourwalledcubicle.com/LUFA.php)) et ARM ([ChibiOS](http://www.chibios.com)). Si vous maîtrisez déjà la programmation sur Arduino, vous trouverez beaucoup de concepts et de limitations familiers. Une expérience préalable avec les Arduino n'est pas nécessaire à contribuer avec succès à QMK.
+QMK est majoritairement écrit en C, avec quelques fonctions et parties spécifiques écrites en C++. Il est destiné aux processeurs intégrés que l'on trouve dans des clavier, particulièrement AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) et ARM ([ChibiOS](https://www.chibios.org)). Si vous maîtrisez déjà la programmation sur Arduino, vous trouverez beaucoup de concepts et de limitations familiers. Une expérience préalable avec les Arduino n'est pas nécessaire à contribuer avec succès à QMK.
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 
@@ -83,7 +83,7 @@ Limited experimentation on the devices I have available shows that 7 is high eno
 
 La documentation est l'une des manières les plus simples de démarrer la contribution sur QMK. Il est simple de trouver des endroits où la documentation est fausse ou incomplète, et il est tout aussi simple de la corriger! Nous avons aussi grandement besoin de quelqu'un pour éditer notre documentation, donc si vous avez des compétences en édition mais que vous n'êtes pas sûr de savoir où aller, n'hésitez pas [demandez de l'aide](#where-can-i-go-for-help)!
 
-Vous trouverez toute notre documentation dans le répertoire `qmk_firmware/docs`, ou si vous préférez utiliser des outils web, vous pouvez cliquer sur le bouton "Suggest An Edit" en haut de chaque page sur http://docs.qmk.fm/.
+Vous trouverez toute notre documentation dans le répertoire `qmk_firmware/docs`, ou si vous préférez utiliser des outils web, vous pouvez cliquer sur le bouton "Suggest An Edit" en haut de chaque page sur https://docs.qmk.fm/.
 
 Lorsque vous donnez des exemples de code dans la documentation, essayez de suivre les conventions de nommage utilisées ailleurs dans la documentation. Par exemple, standardisez les enums en utilisant `my_layers` ou `my_keycodes` afin de garder une consistance:
 
@@ -134,7 +134,7 @@ Les PR de nouvelles fonctionnalités de de correction de bug affectent tous les 
 Voici quelques choses à garder en tête lorsque vous travaillez sur une fonctionnalité ou un bug fix.
 
 * **Désactivé par défaut** - la mémoire est plutôt limitée sur la plupart des puces que QMK supporte, et il est important que les keymaps courantes ne soient pas cassées. S'il vous plaît faites que vos features doivent être **activées** plutôt que désactivées. Si vous pensez qu'elle devrait être activée par défaut, ou que cela réduit la taille du code, parlez-nous-en.
-* **Compilez localement avant de soumettre** - Cela devrait aller sans dire, mais votre code doit compiler! Notre système Travis devrait relever les problèmes, mais il est généralement plus rapide de compiler quelques claviers en local plutôt que d'attendre le retour des résultats
+* **Compilez localement avant de soumettre** - Cela devrait aller sans dire, mais votre code doit compiler! Vous devriez toujours faire gaffe à ce que vos changements compilent avant d'ouvrir une pull request.
 * **Faites attention aux révisions et différentes bases de puces** - beaucoup de claviers ont des révisions qui permettent des changements de configuration mineurs, voir des bases de chip différentes. Essayez de faire que votre fonctionnalité soit supportée à la fois sur ARM et AVR, ou désactivez-là automatiquement sur les plateformes non supportées.
 * **Expliquez votre fonctionnalité** - Documentez-là dans `docs/`, soit dans un nouveau fichier, ou dans une partie d'un fichier existant. Si vous ne la documentez pas, personne ne pourra bénéficier de votre dur labeur.
 

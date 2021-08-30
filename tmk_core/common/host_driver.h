@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef HOST_DRIVER_H
-#define HOST_DRIVER_H
+#pragma once
 
 #include <stdint.h>
 #include "report.h"
@@ -32,4 +31,4 @@ typedef struct {
     void (*send_consumer)(uint16_t);
 } host_driver_t;
 
-#endif
+void send_digitizer(report_digitizer_t *report);

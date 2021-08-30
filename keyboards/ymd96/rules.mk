@@ -12,7 +12,7 @@ MCU = atmega32a
 BOOTLOADER = bootloadHID
 
 # build options
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
@@ -27,5 +27,3 @@ KEY_LOCK_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-OPT_DEFS = -DDEBUG_LEVEL=0

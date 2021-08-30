@@ -90,7 +90,7 @@ void sleep_led_toggle(void) {
  *
  * (64[steps] * 4[duration]) / 64[PWM periods/s] = 4 second breath cycle
  *
- * http://www.wolframalpha.com/input/?i=%28sin%28+x%2F64*pi%29**8+*+255%2C+x%3D0+to+63
+ * https://www.wolframalpha.com/input/?i=sin%28x%2F64*pi%29**8+*+255%2C+x%3D0+to+63
  * (0..63).each {|x| p ((sin(x/64.0*PI)**8)*255).to_i }
  */
 static const uint8_t breathing_table[64] PROGMEM = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 6, 10, 15, 23, 32, 44, 58, 74, 93, 113, 135, 157, 179, 199, 218, 233, 245, 252, 255, 252, 245, 233, 218, 199, 179, 157, 135, 113, 93, 74, 58, 44, 32, 23, 15, 10, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

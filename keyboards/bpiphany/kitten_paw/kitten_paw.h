@@ -3,17 +3,6 @@
 
 #include "quantum.h"
 
-#define CONFIG_LED_IO \
-  DDRB |= (1<<7); \
-  DDRC |= (1<<5) | (1<<6);
-
-#define USB_LED_CAPS_LOCK_ON    PORTC &= ~(1<<6)
-#define USB_LED_CAPS_LOCK_OFF   PORTC |=  (1<<6)
-#define USB_LED_NUM_LOCK_ON     PORTB &= ~(1<<7)
-#define USB_LED_NUM_LOCK_OFF    PORTB |=  (1<<7)
-#define USB_LED_SCROLL_LOCK_ON  PORTC &= ~(1<<5)
-#define USB_LED_SCROLL_LOCK_OFF PORTC |=  (1<<5)
-
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array

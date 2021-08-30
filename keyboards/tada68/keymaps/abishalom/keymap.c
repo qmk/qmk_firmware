@@ -6,7 +6,6 @@
 // entirely and just use numbers.
 #define _BL 0
 #define _FL 1
-#define _NL 2
 
 #define SEMI_FN LT(_FL, KC_SCLN)
 
@@ -14,8 +13,6 @@
 enum {
   TD_WIN_LOCK = 0
 };
-
-//BL_BRTG - breathing mode. Would like to put in.
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -26,7 +23,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 ////In Layer declaration, add tap dance item in place of a key code
 //TD(TD_WIN_LOCK)
 
-// Double Tap Fn button to get caps. FN + Tab to get to number layer -> Maybe switch to FN + space?. 
 // Press fn+GUI once to lock, double tap to unlock.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,45 +48,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap _FL: Function Layer
    * ,----------------------------------------------------------------.
-   * |   | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Del    |    |
+   * | ` | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Del    |    |
    * |----------------------------------------------------------------|
-   * |#PAD |Pre| U |NXT|   |   |   |PGD| U |PGU|PSC|   |   |     |Ins |
+   * |     |Pre| U |NXT|   |   |   |PGD| U |PGU|PSC|   |   |     |Ins |
    * |----------------------------------------------------------------|
-   * |      |L  | D | R |PPl|   |   | L | D | R |   |   |        |Home|
+   * |      |MUT|VU-|VU+|PPl|   |   | L | D | R |   |   |        |Home|
    * |----------------------------------------------------------------|
-   * |   CAPS |MUT|VU-|VU+|   |   |   |BRG|BL-|BL+|BLT|      |Stp|End |
+   * |        |   |BRG|BL-|BL+|BLT|   |   |   |   |   |      |Stp|End |
    * |----------------------------------------------------------------|
    * |    |WTOG|    |                       |   |   |    |Pre|PPl|Nxt |
    * `----------------------------------------------------------------'
    */
 [_FL] = LAYOUT_ansi(
-  _______, KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, _______ ,  \
-  TO(_NL),KC_MPRV, KC_UP ,KC_MNXT,_______, _______,_______,KC_PGDN,KC_UP,KC_PGUP,KC_PSCR,_______,_______, _______,KC_INSERT, \
-  _______,KC_LEFT,KC_DOWN,KC_RGHT,KC_MPLY,_______,_______,KC_LEFT,KC_DOWN,KC_RGHT,_______,_______,        _______,KC_HOME, \
-  _______,KC_MUTE,KC_VOLD,KC_VOLU, _______,_______, _______,BL_BRTG,BL_DEC,BL_INC,BL_TOGG,_______, KC_STOP, KC_END, \
+  KC_GRAVE, KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, _______ ,  \
+  _______,_______, KC_MPRV,KC_MNXT,_______, _______,_______,KC_PGDN,KC_UP,KC_PGUP,KC_PSCR,_______,_______, _______,KC_INSERT, \
+  _______,KC_MUTE,KC_VOLD,KC_VOLU,KC_MPLY,_______,_______,KC_LEFT,KC_DOWN,KC_RGHT,_______,_______,        _______,KC_HOME, \
+  _______,_______,BL_BRTG,BL_DEC, BL_INC,BL_TOGG, _______,_______,_______,_______,_______,_______, KC_STOP, KC_END, \
   _______,TD(TD_WIN_LOCK),_______,                 _______,               _______,KC_TRNS,_______,KC_MPRV,KC_MPLY, KC_MNXT),
-
-
-//Press either of function keys to get back to base layer.
-
- /* Keymap _NL: Number Layer
-   * ,----------------------------------------------------------------.
-   * |ESC| F1 | F2| F3| F4|   |#L | 7 | 8 | 9 | - |   | = |       |    |
-   * |----------------------------------------------------------------|
-   * | TAB |   | UP|   |   |   | / | 4 | 5 | 6 | + |   |   |     | DEL|
-   * |----------------------------------------------------------------|
-   * | _BL  |LFT|DWN|RGT|   |   | * | 1 | 2 | 3 |ENT|   |   ENT  |PgUp|
-   * |----------------------------------------------------------------|
-   * |  SHIFT |   |   |   |   |   | 0 | 0 | , | . |BKS| SHIFT| U |PgDn|
-   * |----------------------------------------------------------------|
-   * |CTRL|WIN |ALT |                       |ALT| _BL |CTRL| L | D | R|
-   * `----------------------------------------------------------------'
-   */
-[_NL] = LAYOUT_ansi(
-  _______, KC_F1 ,KC_F2, KC_F3, KC_F4, _______, KC_NLCK, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_PEQL, KC_PEQL, _______, _______ ,  \
-  KC_TAB,_______, KC_UP,_______,_______, _______,KC_PSLS,KC_P4,KC_P5,KC_P6,KC_PPLS,_______,_______, _______,KC_DEL, \
-  TO(_BL),KC_LEFT,KC_DOWN,KC_RGHT,_______,_______,KC_PAST,KC_P1,KC_P2,KC_P3,KC_PENT,_______,        KC_ENT,KC_PGUP, \
-  KC_LSFT,_______,_______,_______, _______,_______, KC_P0,KC_P0,KC_PCMM,KC_PDOT,KC_BSPC,KC_RSFT, KC_UP, KC_PGDN, \
-  KC_LCTRL,KC_LGUI,KC_LALT,                 KC_SPC,               KC_RALT,TO(_BL),KC_RCTRL,KC_LEFT,KC_DOWN, KC_RGHT),
 
 };

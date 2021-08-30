@@ -1,5 +1,5 @@
 # Build Options
-AUDIO_ENABLE = yes
+AUDIO_ENABLE = no
 CONSOLE_ENABLE = no
 EXTRAKEY_ENABLE = no
 MIDI_ENABLE = no

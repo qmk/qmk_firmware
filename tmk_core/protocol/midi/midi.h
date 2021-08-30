@@ -25,8 +25,7 @@
  *
  */
 
-#ifndef XNOR_MIDI_H
-#define XNOR_MIDI_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -485,6 +484,4 @@ midi_packet_length_t midi_packet_length(uint8_t status);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

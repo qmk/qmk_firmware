@@ -47,15 +47,15 @@ enum {
   APP_SCL2, // Social #2
 
   // Hungarian layer keys
-  HU_AA, // Á
-  HU_OO, // Ó
-  HU_EE, // É
-  HU_UU, // Ú
-  HU_II, // Í
-  HU_OE, // Ö
-  HU_UE, // Ü
-  HU_OEE, // Ő
-  HU_UEE, // Ű
+  HU_AACU, // Á
+  HU_OACU, // Ó
+  HU_EACU, // É
+  HU_UACU, // Ú
+  HU_IACU, // Í
+  HU_ODIA, // Ö
+  HU_UDIA, // Ü
+  HU_ODAC, // Ő
+  HU_UDAC, // Ű
 
   // number/symbol keys
   A_1, // 1
@@ -79,9 +79,6 @@ enum {
   F_BSE = 0,
   F_HUN,
   F_GUI,
-  F_SFT,
-  F_ALT,
-  F_CTRL
 };
 
 /* Custom keycodes */
@@ -146,9 +143,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J    ,KC_K    ,KC_X    ,TD(CT_TMUX)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
 
-                                                            ,F(F_ALT),F(F_GUI)
-                                                                     ,F(F_CTRL)
-                                                    ,KC_BSPC,F(F_SFT),KC_ESC
+                                                            ,OSM(MOD_LALT),F(F_GUI)
+                                                                     ,OSM(MOD_LCTL)
+                                                    ,KC_BSPC,OSM(MOD_LSFT),KC_ESC
 
                                                                 // right hand
                                                                ,M(Fx)     ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,M(A_PLVR)
@@ -191,9 +188,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,TD(CT_TMUX)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
 
-                                                            ,F(F_ALT),F(F_GUI)
-                                                                     ,F(F_CTRL)
-                                                    ,KC_BSPC,F(F_SFT),KC_ESC
+                                                            ,OSM(MOD_LALT),F(F_GUI)
+                                                                     ,OSM(MOD_LCTL)
+                                                    ,KC_BSPC,OSM(F_LSFT),KC_ESC
 
                                                                 // right hand
                                                                ,M(Fx)     ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,M(A_PLVR)
@@ -325,9 +322,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [HUN] = LAYOUT_ergodox(
 // left hand
  KC_NO   ,KC_NO   ,KC_NO    ,KC_NO   ,KC_NO    ,KC_NO   ,KC_NO
-,KC_NO   ,KC_NO   ,M(HU_OEE),KC_NO   ,M(HU_UEE),KC_NO   ,KC_NO
-,KC_NO   ,M(HU_AA),M(HU_OO) ,M(HU_EE),M(HU_UU) ,M(HU_II)
-,KC_NO   ,KC_NO   ,M(HU_OE) ,KC_NO   ,M(HU_UE) ,KC_NO   ,KC_NO
+,KC_NO   ,KC_NO   ,M(HU_ODAC),KC_NO   ,M(HU_UDAC),KC_NO   ,KC_NO
+,KC_NO   ,M(HU_AACU),M(HU_OACU) ,M(HU_EACU),M(HU_UACU) ,M(HU_IACU)
+,KC_NO   ,KC_NO   ,M(HU_ODIA) ,KC_NO   ,M(HU_UDIA) ,KC_NO   ,KC_NO
 ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO   ,KC_NO
 
                                              ,KC_NO   ,KC_NO
@@ -440,9 +437,6 @@ const uint16_t PROGMEM fn_actions[] = {
    [F_BSE]  = ACTION_LAYER_CLEAR(ON_PRESS)
   ,[F_HUN]  = ACTION_LAYER_INVERT(HUN, ON_PRESS)
   ,[F_GUI]  = ACTION_MACRO_TAP(A_GUI)
-  ,[F_SFT]  = ACTION_MODS_ONESHOT (MOD_LSFT)
-  ,[F_ALT]  = ACTION_MODS_ONESHOT (MOD_LALT)
-  ,[F_CTRL] = ACTION_MODS_ONESHOT (MOD_LCTL)
 };
 
 static void toggle_steno(int pressed)
@@ -594,23 +588,23 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
 
         /* Hungarian layer */
-      case HU_AA:
+      case HU_AACU:
         return ang_do_hun (record, KC_QUOT, KC_A);
-      case HU_OO:
+      case HU_OACU:
         return ang_do_hun (record, KC_QUOT, KC_O);
-      case HU_EE:
+      case HU_EACU:
         return ang_do_hun (record, KC_QUOT, KC_E);
-      case HU_UU:
+      case HU_UACU:
         return ang_do_hun (record, KC_QUOT, KC_U);
-      case HU_II:
+      case HU_IACU:
         return ang_do_hun (record, KC_QUOT, KC_I);
-      case HU_OE:
+      case HU_ODIA:
         return ang_do_hun (record, KC_DQT, KC_O);
-      case HU_UE:
+      case HU_UDIA:
         return ang_do_hun (record, KC_DQT, KC_U);
-      case HU_OEE:
+      case HU_ODAC:
         return ang_do_hun (record, KC_EQL, KC_O);
-      case HU_UEE:
+      case HU_UDAC:
         return ang_do_hun (record, KC_EQL, KC_U);
 
         /* Plover base */

@@ -4,7 +4,7 @@
 A line of 32-bit MCUs produced by a number of companies, such as Atmel, Cypress, Kinetis, NXP, ST, and TI.
 
 ## AVR
-A line of 8-bit MCUs produced by [Atmel](http://www.microchip.com/). AVR was the original platform that TMK supported.
+A line of 8-bit MCUs produced by [Atmel](https://www.microchip.com/). AVR was the original platform that TMK supported.
 
 ## AZERTY
 The standard Français (French) keyboard layout. Named for the first 6 keys on the keyboard.
@@ -41,7 +41,7 @@ A macro which has been recorded on the keyboard and which will be lost when the 
 ## Eclipse
 An IDE that is popular with many C developers.
 
-* [Eclipse Setup Instructions](eclipse.md)
+* [Eclipse Setup Instructions](other_eclipse.md)
 
 ## Firmware
 The software that controls your MCU.
@@ -125,7 +125,7 @@ The standard Deutsche (German) keyboard layout. Named for the first 6 letters on
 The term for pressing a key while a key is already held down. Variants include 2KRO, 6KRO, and NKRO.
 
 ## Scancode
-A 1 byte number that is sent as part of a HID report over USB that represents a single key. These numbers are documented in the [HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) published by the [USB-IF](http://www.usb.org/).
+A 1 byte number that is sent as part of a HID report over USB that represents a single key. These numbers are documented in the [HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) published by the [USB-IF](https://www.usb.org/).
 
 ## Space Cadet Shift
 A special set of shift keys which allow you to type various types of braces by tapping the left or right shift one or more times.

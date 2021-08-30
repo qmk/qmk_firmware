@@ -4,7 +4,7 @@
 
 A Sony HitBit MSX Computer inspired Keyboard.
 
-* Keyboard Maintainer: [Felipe Coury](https://github.com/fcoury)
+* Keyboard Maintainer: [Felipe Coury](https://github.com/fcoury), [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: Gray Studio HB85
 * Hardware Availability: [Group buy](https://en.zfrontier.com/products/gray-hb85) finished
 

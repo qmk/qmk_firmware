@@ -17,7 +17,7 @@ BOOTLOADER = caterina
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug
@@ -27,16 +27,10 @@ CUSTOM_MATRIX = yes    # Remote matrix from the wireless bridge
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes		# USB Nkey Rollover
 BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
-MIDI_ENABLE = no 		# MIDI controls
 UNICODE_ENABLE = yes 		# Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 
-USB = /dev/ttyACM0
-
-# upload: build
-# 	$(CENTROMERE_UPLOAD_COMMAND)
-
-OPT_DEFS += -DCENTROMERE_PROMICRO
-
 # # project specific files
-SRC = matrix.c
+SRC += matrix.c serial_uart.c
+
+LAYOUTS = split_3x5_3 split_3x6_3

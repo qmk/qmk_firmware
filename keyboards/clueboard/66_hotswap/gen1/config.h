@@ -18,39 +18,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xC1ED
-#define PRODUCT_ID      0x2391
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Clueboard
-
-/* Address for jumping to bootloader on STM32 chips. */
-/* It is chip dependent, the correct number can be looked up here:
- * http://www.st.com/web/en/resource/technical/document/application_note/CD00167594.pdf
- * This also requires a patch to chibios:
- *  <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
- */
-#define STM32_BOOTLOADER_ADDRESS 0x1FFFD800
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { B11, A6, A3, A2, A1, B5, B6, C15, C14, C13 }
-#define MATRIX_COL_PINS { B10, B2, B1, B0, A7, B4, B3, B7 }
-#define UNUSED_PINS { A0, A8, A15, B12, B13, B14, B15 }
-#define DIODE_DIRECTION COL2ROW
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
 
@@ -98,29 +65,6 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
  /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 10
@@ -133,9 +77,12 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define LED_DRIVER_ADDR_1 0b1110100
-#define I2C1_BANK GPIOB
 #define I2C1_SCL 8
 #define I2C1_SDA 9
 
 #define LED_DRIVER_COUNT 1
-#define LED_DRIVER_LED_COUNT 71
+#define DRIVER_LED_TOTAL 71
+
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE

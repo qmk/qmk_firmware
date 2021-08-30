@@ -61,7 +61,7 @@
     { k01, k03, k05, k06, k09, k0b, k0d, KC_NO} \
 }
 
-#define LAYOUT_owlet60_60_percent_split_bsp( \
+#define LAYOUT_alice_split_bs( \
     k50, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, \
     k51, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d,      \
     k52, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c,           \
@@ -79,7 +79,7 @@
     { k01, k03, k05, k06, k09, k0b, k0d, k0e} \
 }
 
-#define LAYOUT_owlet60_60_percent_full_bsp( \
+#define LAYOUT_alice( \
     k50, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d,  \
     k51, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d,  \
     k52, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c,       \
@@ -96,3 +96,6 @@
     { k00, k02, k04, k16, k08, k0a, k0c, KC_NO}, \
     { k01, k03, k05, k06, k09, k0b, k0d, KC_NO} \
 }
+
+#define LAYOUT_owlet60_60_percent_split_bsp LAYOUT_alice_split_bs
+#define LAYOUT_owlet60_60_percent_full_bsp LAYOUT_alice

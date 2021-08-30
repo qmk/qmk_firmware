@@ -6,33 +6,35 @@ Si aún no lo has hecho, debes leer las [Pautas de teclados](hardware_keyboard_g
 
 ## Añadir tu Teclado AVR a QMK
 
-QMK tiene varias características para simplificar el trabajo con teclados AVR. Para la mayoría de los teclados no tienes que escribir ni una sola línea de código. Para empezar, ejecuta el archivo `util/new_keyboard.sh`:
+QMK tiene varias características para simplificar el trabajo con teclados AVR. Para la mayoría de los teclados no tienes que escribir ni una sola línea de código. Para empezar, ejecuta `qmk new-keyboard`:
 
 ```
-$ ./util/new_keyboard.sh
-Generating a new QMK keyboard directory
+$ qmk new-keyboard
+Ψ Generating a new QMK keyboard directory
 
-Keyboard Name: mycoolkb
-Keyboard Type [avr]: 
-Your Name [John Smith]: 
+Keyboard Name: mycoolkeeb
+Keyboard Type:
+        1. avr
+        2. ps2avrgb
+Please enter your choice:  [1]
+Your Name: [John Smith]
+Ψ Copying base template files...
+Ψ Copying avr template files...
+Ψ Renaming keyboard.[ch] to mycoolkeeb.[ch]...
+Ψ Replacing %YEAR% with 2021...
+Ψ Replacing %KEYBOARD% with mycoolkeeb...
+Ψ Replacing %YOUR_NAME% with John Smith...
 
-Copying base template files... done
-Copying avr template files... done
-Renaming keyboard files... done
-Replacing %KEYBOARD% with mycoolkb... done
-Replacing %YOUR_NAME% with John Smith... done
-
-Created a new keyboard called mycoolkb.
-
-To start working on things, cd into keyboards/mycoolkb,
-or open the directory in your favourite text editor.
+Ψ Created a new keyboard called mycoolkeeb.
+Ψ To start working on things, `cd` into keyboards/mycoolkeeb,
+Ψ or open the directory in your preferred text editor.
 ```
 
 Esto creará todos los archivos necesarios para tu nuevo teclado, y rellenará la configuración con valores predeterminados. Ahora sólo tienes que personalizarlo para tu teclado. 
 
 ## `readme.md`
 
-Aquí es donde describirás tu teclado. Por favor sigue la [Plantilla del readme de teclados](documentation_templates.md#keyboard-readmemd-template) al escribir tu `readme.md`. Te animamos a colocar una imagen en la parte superior de tu `readme.md`. Por favor, utiliza un servicio externo como [Imgur](http://imgur.com) para alojar las imágenes.
+Aquí es donde describirás tu teclado. Por favor sigue la [Plantilla del readme de teclados](documentation_templates.md#keyboard-readmemd-template) al escribir tu `readme.md`. Te animamos a colocar una imagen en la parte superior de tu `readme.md`. Por favor, utiliza un servicio externo como [Imgur](https://imgur.com) para alojar las imágenes.
 
 ## `<keyboard>.c`
 
@@ -67,7 +69,7 @@ El archivo `config.h` es donde configuras el hardware y el conjunto de caracter�
 
 En la parte superior de `config.h` encontrarás ajustes relacionados con USB. Estos controlan la apariencia de tu teclado en el Sistema Operativo. Si no tienes una buena razón para cambiar debes dejar el `VENDOR_ID` como `0xFEED`. Para el `PRODUCT_ID` debes seleccionar un número que todavía no esté en uso.
 
-Cambia las líneas de `MANUFACTURER`, `PRODUCT`, y `DESCRIPTION` para reflejar con precisión tu teclado.
+Cambia las líneas de `MANUFACTURER` y `PRODUCT` para reflejar con precisión tu teclado.
 
 ```c
 #define VENDOR_ID       0xFEED
@@ -75,7 +77,6 @@ Cambia las líneas de `MANUFACTURER`, `PRODUCT`, y `DESCRIPTION` para reflejar c
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Tú
 #define PRODUCT         mi_teclado_fantastico
-#define DESCRIPTION     Un teclado personalizado
 ```
 
 ?> Windows y macOS mostrarán el `MANUFACTURER` y `PRODUCT` en la lista de dispositivos USB. `lsusb` en Linux toma estos de la lista mantenida por el [Repositorio de ID USB](http://www.linux-usb.org/usb-ids.html) por defecto. `lsusb -v` mostrará los valores reportados por el dispositivo, y también están presentes en los registros del núcleo después de conectarlo.

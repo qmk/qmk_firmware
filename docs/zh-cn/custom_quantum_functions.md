@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
       // 当按下回车时播放音符
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_qwerty);
+        PLAY_SONG(tone_qwerty);
       }
       return true; // 让QMK触发回车按下/释放事件
     default:
@@ -297,7 +297,7 @@ void suspend_wakeup_init_user(void) {
 本例使用了Planck键盘示范了如何设置 [RGB背光灯](feature_rgblight.md)使之与层对应
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (biton32(state)) {
     case _RAISE:
         rgblight_setrgb (0x00,  0x00, 0xFF);
@@ -321,7 +321,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 ### `layer_state_set_*` 函数文档
 
 * 键盘/修订: `uint32_t layer_state_set_kb(uint32_t state)`
-* 布局: `uint32_t layer_state_set_user(uint32_t state)`
+* 布局: `layer_state_t layer_state_set_user(layer_state_t state)`
 
 
 该`状态`是活动层的bitmask, 详见[布局概述](keymap.md#布局的层状态)
@@ -377,7 +377,7 @@ void keyboard_post_init_user(void) {
 以上函数会在读EEPROM配置后立即使用该设置来设置默认层RGB颜色。"raw"的值是从你上面基于"union"创建的结构体中转换来的。 
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (biton32(state)) {
     case _RAISE:
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1); }
@@ -413,7 +413,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
         // 在按下回车时播放音符
         if (record->event.pressed) {
-            PLAY_NOTE_ARRAY(tone_qwerty);
+            PLAY_SONG(tone_qwerty);
         }
         return true; // 让QMK产生回车按下/释放事件
     case RGB_LYR:  // 本句让underglow作为层指示，或正常使用。
@@ -424,7 +424,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(layer_state);   // 那么立刻更新层颜色
             }
         }
-        return false; break;
+        return false;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // 对于所有的RGB代码 (see quantum_keycodes.h, L400 可以参考)
         if (record->event.pressed) { //本句失能层指示，假设你改变了这个…你要把它禁用
             if (user_config.rgb_layer_change) {        // 仅当使能时
@@ -473,7 +473,7 @@ void eeconfig_init_user(void) {  // EEPROM正被重置
 想要修改基于键码的`TAPPING TERM`,你要向`keymap.c`文件添加如下代码: 
 
 ```c
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SFT_T(KC_SPC):
       return TAPPING_TERM + 1250;

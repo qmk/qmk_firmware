@@ -17,7 +17,9 @@
 
 #include "quantum.h"
 
-/* This a shortcut to help you visually see your layout.
+#define XXX KC_NO
+
+/* This is a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
  * layout of the board and position of the keys.
@@ -25,35 +27,34 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
+#define LAYOUT_ortho_4x12( \
+    k00, k10, k01, k11, k02, k12, k03, k13, k04, k14, k05, k15, \
+    k20, k30, k21, k31, k22, k32, k23, k33, k24, k34, k25, k35, \
+    k40, k50, k41, k51, k42, k52, k43, k53, k44, k54, k45, k55, \
+    k60, k70, k61, k71, k62, k72, k63, k73, k64, k74, k65, k75 \
+) { \
+    { k10, k11, k12, k13, k14, k15 }, \
+    { k00, k01, k02, k03, k04, k05 }, \
+    { k30, k31, k32, k33, k34, k35 }, \
+    { k20, k21, k22, k23, k24, k25 }, \
+    { k50, k51, k52, k53, k54, k55 }, \
+    { k40, k41, k42, k43, k44, k45 }, \
+    { k70, k71, k72, k73, k74, k75 }, \
+    { k60, k61, k62, k63, k64, k65 } \
+}
 
- #define LAYOUT_ortho_4x12( \
-     K00, K10, K01, K11, K02, K12, K03, K13, K04, K14, K05, K15,\
-     K20, K30, K21, K31, K22, K32, K23, K33, K24, K34, K25, K35,\
-     K40, K50, K41, K51, K42, K52, K43, K53, K44, K54, K45, K55,\
-     K60, K70, K61, K71, K62, K72, K63, K73, K64, K74, K65, K75\
- ) { \
- 	{ K10, K11, K12, K13, K14, K15 }, \
-     { K00, K01, K02, K03, K04, K05 }, \
-     { K30, K31, K32, K33, K34, K35 }, \
-     { K20, K21, K22, K23, K24, K25 }, \
-     { K50, K51, K52, K53, K54, K55 }, \
-		 { K40, K41, K42, K43, K44, K45 }, \
-     { K70, K71, K72, K73, K74, K75 }, \
-     { K60, K61, K62, K63, K64, K65 } \
- }
-
- #define LAYOUT_planck_mit( \
- 		K00, K10, K01, K11, K02, K12, K03, K13, K04, K14, K05, K15,\
- 		K20, K30, K21, K31, K22, K32, K23, K33, K24, K34, K25, K35,\
- 		K40, K50, K41, K51, K42, K52, K43, K53, K44, K54, K45, K55,\
- 		K60, K70, K61, K71, K62,    K72,   K73, K64, K74, K65, K75\
- ) { \
-  { K10, K11, K12, K13, K14, K15 }, \
- 		{ K00, K01, K02, K03, K04, K05 }, \
- 		{ K30, K31, K32, K33, K34, K35 }, \
- 		{ K20, K21, K22, K23, K24, K25 }, \
- 		{ K50, K51, K52, K53, K54, K55 }, \
-		{ K40, K41, K42, K43, K44, K45 }, \
- 		{ K70, K71, K72, K73, K74, K75 }, \
- 		{ K60, K61, K62, KC_NO, K64, K65 } \
- }
+#define LAYOUT_planck_mit( \
+    k00, k10, k01, k11, k02, k12, k03, k13, k04, k14, k05, k15, \
+    k20, k30, k21, k31, k22, k32, k23, k33, k24, k34, k25, k35, \
+    k40, k50, k41, k51, k42, k52, k43, k53, k44, k54, k45, k55, \
+    k60, k70, k61, k71, k62,    k72,   k73, k64, k74, k65, k75 \
+) { \
+    { k10, k11, k12, k13, k14, k15 }, \
+    { k00, k01, k02, k03, k04, k05 }, \
+    { k30, k31, k32, k33, k34, k35 }, \
+    { k20, k21, k22, k23, k24, k25 }, \
+    { k50, k51, k52, k53, k54, k55 }, \
+    { k40, k41, k42, k43, k44, k45 }, \
+    { k70, k71, k72, k73, k74, k75 }, \
+    { k60, k61, k62, XXX, k64, k65 } \
+}

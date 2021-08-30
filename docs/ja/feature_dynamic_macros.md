@@ -1,8 +1,8 @@
 # 動的マクロ: ランタイムでのマクロの記録および再生
 
 <!---
-  original document: 0.8.123:docs/feature_dynamic_macros.md
-  git diff 0.8.123 HEAD -- docs/feature_dynamic_macros.md | cat
+  original document: 0.10.33:docs/feature_dynamic_macros.md
+  git diff 0.10.33 HEAD -- docs/feature_dynamic_macros.md | cat
 -->
 
 QMK はその場で作られた一時的なマクロをサポートします。これらを動的マクロと呼びます。それらはユーザがキーボードから定義し、キーボードのプラグを抜くか再起動すると失われます。
@@ -23,7 +23,7 @@ QMK はその場で作られた一時的なマクロをサポートします。�
 
 マクロの記録を開始するには、`DYN_REC_START1` または `DYN_REC_START2` のどちらかを押します。
 
-記録を終了するには、`DYN_REC_STOP` レイヤーボタンを押します。
+記録を終了するには、`DYN_REC_STOP` レイヤーボタンを押します。`DYN_REC_START1` または `DYN_REC_START2` をもう一度押すことでも記録を終了することができます。
 
 マクロを再生するには、`DYN_MACRO_PLAY1` あるいは `DYN_MACRO_PLAY2` のどちらかを押します。
 

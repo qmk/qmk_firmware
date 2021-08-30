@@ -75,6 +75,11 @@ switch (keycode) {
 		SEND_STRING(SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_LCTRL(SS_TAP(X_LEFT)) SS_TAP(X_DELETE));
 	}
 	break;
+	case EMDASH:
+	if (record->event.pressed) {
+		SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_U))) SS_TAP(X_2) SS_TAP(X_0) SS_TAP(X_1) SS_TAP(X_4) SS_TAP(X_SPACE) SS_TAP(X_SPACE));
+	}
+	break;
 };
 return true;
 };

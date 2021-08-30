@@ -6,7 +6,7 @@
 #endif
 
 #ifdef TRILAYER_ENABLED
-uint32_t layer_state_set_user(uint32_t state)
+layer_state_t layer_state_set_user(layer_state_t state)
 {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
@@ -37,7 +37,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
                     reset_keyboard();
             }
             return false;
-#ifdef RGB_MATRIX_TOG_LAYERS
+#if defined(RGB_MATRIX_TOG_LAYERS) && defined(RGB_ENABLE)
         case RGB_TOG:
             if (record->event.pressed) {
               rgb_matrix_increase_flags();

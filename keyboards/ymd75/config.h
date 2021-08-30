@@ -23,15 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
-#define DEVICE_VER      0x0200
 
 #define MANUFACTURER    YMDK
 #define PRODUCT         YMD75 / MT84
-#define DESCRIPTION     75% Keyboard
 
-
-#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
+
+#define LED_CAPS_LOCK_PIN D1
 
 #define RGB_DI_PIN E2
 #define RGBLED_NUM 16
@@ -39,3 +37,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15
 #define RGBLIGHT_VAL_STEP 18
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3

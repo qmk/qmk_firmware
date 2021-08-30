@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #include "gfx.h"
-#include "math.h"
+#include <math.h>
 #include "led_backlight_keyframes.h"
 
 static uint8_t fade_led_color(keyframe_animation_t* animation, int from, int to) {

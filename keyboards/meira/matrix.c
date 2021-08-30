@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static const uint8_t col_pins[4] = MATRIX_COL_PINS;
+static const uint8_t col_pins[4] = MATRIX_COL_PINS_SCANNED;
 //static const uint8_t lrow_pins[MATRIX_ROWS] = LED_ROW_PINS;
 //static const uint8_t lcol_pins[4] = LED_COL_PINS;
 
@@ -183,8 +183,8 @@ void matrix_print(void)
 {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        pbin_reverse16(matrix_get_row(row));
+        print_hex8(row); print(": ");
+        print_bin_reverse16(matrix_get_row(row));
         print("\n");
     }
 }

@@ -118,7 +118,7 @@ void matrix_print(void) {
   print_matrix_header();
 
   for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    phex(row);
+    print_hex8(row);
     print(": ");
     print_matrix_row(row);
     print("\n");
