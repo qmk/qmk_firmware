@@ -14,7 +14,7 @@ BOOTLOADER = caterina
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE  = no   # Mouse keys
 CONSOLE_ENABLE   = no   # Console for debug
 COMMAND_ENABLE   = no   # Commands for debug and configuration
