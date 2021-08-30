@@ -20,3 +20,11 @@
   loading keymap with via: load your via keymap with each side plugged in
 */
 #define EE_HANDS
+
+/* https://beta.docs.qmk.fm/developing-qmk/qmk-reference/config_options#features-that-can-be-enabled */
+#define FORCE_NKRO
+
+/* combos: https://beta.docs.qmk.fm/using-qmk/software-features/feature_combo */
+#define COMBO_ALLOW_ACTION_KEYS
+#define COMBO_VARIABLE_LEN
+#define COMBO_PERMISSIVE_HOLD

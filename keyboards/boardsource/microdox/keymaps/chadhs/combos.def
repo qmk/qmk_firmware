@@ -1,0 +1,2 @@
+//   name            result           chord keys
+COMB(comb_del,       KC_DEL,          KC_SPC, KC_BSPC)
