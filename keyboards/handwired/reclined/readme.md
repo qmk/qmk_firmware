@@ -8,5 +8,4 @@ Hardware Availability: None
 
 Make example for this keyboard (after setting up your build environment):
 
-    make reclined:default
-    make reclined:pdl
+    make handwired/reclined:default
