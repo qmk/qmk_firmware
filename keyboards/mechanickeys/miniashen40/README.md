@@ -1,10 +1,10 @@
 # Mini Ashen 40
 
-![Mini Ashen 40](https://i.imgur.com/0EWBzNt.jpeg)
+![Mini Ashen 40](https://i.imgur.com/0k3gFZCh.jpeg)
 
-![Mini Ashen 40](https://i.imgur.com/m8z1kMV.jpeg)
+![Mini Ashen 40](https://i.imgur.com/B1w8qwPh.jpeg)
 
-![Mini Ashen 40](https://i.imgur.com/AZIfVzN.jpeg)
+![Mini Ashen 40](https://i.imgur.com/LqxXW0Rh.jpeg)
 
 A 40% keyboard with some extras
   - Arrows
@@ -12,7 +12,7 @@ A 40% keyboard with some extras
   - Full assembly with only through hole components
 
 * Keyboard Maintainer: [jfescobar18](https://github.com/jfescobar18)
-* Hardware Supported: Mini Ashen 40 PCB
+* Hardware Supported: Mini Ashen 40 PCB and Case
 * Hardware Availability: [MechanicKeys](https://www.facebook.com/MechanicKeys-104963764775280)
 
 Make example for this keyboard (after setting up your build environment):
