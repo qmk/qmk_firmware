@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                   _______,  _______, _______
    ),
-	[_FN4] = LAYOUT_LANDSCAPE(
+	[_FN4] = LAYOUT_landscape(
         _______,  _______, _______,
 
         _______,  _______,  _______,  _______, _______,     _______,
