@@ -28,9 +28,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-
-void matrix_scan_user(void) {
-    writePin(D0, layer_state_is(1));
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(D0, IS_LAYER_ON_STATE(state, 1));
+    
+    return state;
 }
-
