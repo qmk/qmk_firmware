@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                   _______,  _______, _______
    ),
-	[_RGB] = LAYOUT_LANDSCAPE(
+	[_RGB] = LAYOUT_landscape(
         _______,  _______, _______,
 
         _______,  RGB_HUD,  RGB_SPI, RGB_HUI, KC_NO,        _______,
