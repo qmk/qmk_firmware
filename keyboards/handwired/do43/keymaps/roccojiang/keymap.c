@@ -22,12 +22,6 @@ enum layer_names {
     _FN
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, 
@@ -35,28 +29,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                 KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_LCTL, KC_UP, KC_SLSH, 
 		             KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, KC_NO, KC_SPC, KC_LEFT, KC_DOWN, KC_RGHT)
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMKBEST:
-        if (record->event.pressed) {
-            // when keycode QMKBEST is pressed
-            SEND_STRING("QMK is the best thing ever!");
-        } else {
-            // when keycode QMKBEST is released
-        }
-        break;
-        case QMKURL:
-        if (record->event.pressed) {
-            // when keycode QMKURL is pressed
-            SEND_STRING("https://qmk.fm/\n");
-        } else {
-            // when keycode QMKURL is released
-        }
-        break;
-    }
-    return true;
-}
 
 #ifdef OLED_ENABLE
 
