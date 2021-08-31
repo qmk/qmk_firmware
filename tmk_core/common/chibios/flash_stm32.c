@@ -16,22 +16,7 @@
  * Modifications for QMK and STM32F303 by Yiancar
  */
 
-#if defined(EEPROM_EMU_STM32F303xC)
-#    define STM32F303xC
-#    include "stm32f3xx.h"
-#elif defined(EEPROM_EMU_STM32F103xB)
-#    define STM32F103xB
-#    include "stm32f1xx.h"
-#elif defined(EEPROM_EMU_STM32F072xB)
-#    define STM32F072xB
-#    include "stm32f0xx.h"
-#elif defined(EEPROM_EMU_STM32F042x6)
-#    define STM32F042x6
-#    include "stm32f0xx.h"
-#else
-#    error "not implemented."
-#endif
-
+#include <hal.h>
 #include "flash_stm32.h"
 
 #if defined(EEPROM_EMU_STM32F103xB)
@@ -176,18 +161,4 @@ void FLASH_Unlock(void) {
 void FLASH_Lock(void) {
     /* Set the Lock Bit to lock the FPEC and the FCR */
     FLASH->CR |= FLASH_CR_LOCK;
-}
-
-/**
- * @brief  Clears the FLASH's pending flags.
- * @param  FLASH_FLAG: specifies the FLASH flags to clear.
- *   This parameter can be any combination of the following values:
- *     @arg FLASH_FLAG_PGERR: FLASH Programming error flag flag
- *     @arg FLASH_FLAG_WRPERR: FLASH Write protected error flag
- *     @arg FLASH_FLAG_EOP: FLASH End of Programming flag
- * @retval None
- */
-void FLASH_ClearFlag(uint32_t FLASH_FLAG) {
-    /* Clear the flags */
-    FLASH->SR = FLASH_FLAG;
 }
