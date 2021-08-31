@@ -108,7 +108,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
     {2, C9_10, C8_10, C7_10},  // L84
     {2, C9_11, C8_11, C7_11},  // L85
     {2, C9_12, C8_12, C7_12},  // L86
-    {2, C9_13, C8_13, C7_13},  // L87n
+    {2, C9_13, C8_13, C7_13},  // L87
 };
 
 // clang-format off
