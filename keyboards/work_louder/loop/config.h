@@ -40,7 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F5 }
+#define MATRIX_ROW_PINS \
+    { F5, NO_PIN }
 #define MATRIX_COL_PINS { B3, B2, B1, D6, D7, B4, B5, B6, C6, C7, F7, F6 }
 #define UNUSED_PINS
 
@@ -75,7 +76,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_RAINBOW_SWIRL + 5
+
+#define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_GRADIENT
+#define RGBLIGHT_DEFAULT_HUE          36
 /*== customize breathing effect ==*/
 /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
 //#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
