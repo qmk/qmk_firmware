@@ -19,7 +19,7 @@
 
 #include "n6.h"
 #include "i2c_master.h"
-#include "issi/is31fl3731.h"
+#include "drivers/led/issi/is31fl3731.h"
 
 enum {
     SELF_TESTING,
@@ -158,7 +158,7 @@ static void self_testing(void)
             }
 
             // light left and right
-            
+
             if (rgb_state.index == 16) {
                 if (rgb_state.duration) {
                     rgb_state.duration--;
@@ -187,49 +187,49 @@ static void self_testing(void)
     update_ticks();
 }
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
-/* Refer to IS31 manual for these locations
- *   driver
- *   |  R location
- *   |  |       G location
- *   |  |       |       B location
- *   |  |       |       | */
-// left CA
-    {0, C1_1,   C3_2,   C4_2},
-    {0, C1_2,   C2_2,   C4_3},
-    {0, C1_3,   C2_3,   C3_3},
-    {0, C1_4,   C2_4,   C3_4},
-    {0, C1_5,   C2_5,   C3_5},
-    {0, C1_6,   C2_6,   C3_6},
-    {0, C1_7,   C2_7,   C3_7},
-    {0, C1_8,   C2_8,   C3_8},
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+    /* Refer to IS31 manual for these locations
+     *   driver
+     *   |  R location
+     *   |  |       G location
+     *   |  |       |       B location
+     *   |  |       |       | */
+    // left CA
+    {0, C1_1, C3_2, C4_2},
+    {0, C1_2, C2_2, C4_3},
+    {0, C1_3, C2_3, C3_3},
+    {0, C1_4, C2_4, C3_4},
+    {0, C1_5, C2_5, C3_5},
+    {0, C1_6, C2_6, C3_6},
+    {0, C1_7, C2_7, C3_7},
+    {0, C1_8, C2_8, C3_8},
 
-    {0, C9_1,   C8_1,   C7_1},
-    {0, C9_2,   C8_2,   C7_2},
-    {0, C9_3,   C8_3,   C7_3},
-    {0, C9_4,   C8_4,   C7_4},
-    {0, C9_5,   C8_5,   C7_5},
-    {0, C9_6,   C8_6,   C7_6},
-    {0, C9_7,   C8_7,   C6_6},
-    {0, C9_8,   C7_7,   C6_7},
-// left CB
-    {0, C1_9,   C3_10,  C4_10},
-    {0, C1_10,  C2_10,  C4_11},
-    {0, C1_11,  C2_11,  C3_11},
-    {0, C1_12,  C2_12,  C3_12},
-    {0, C1_13,  C2_13,  C3_13},
-    {0, C1_14,  C2_14,  C3_14},
-    {0, C1_15,  C2_15,  C3_15},
-    {0, C1_16,  C2_16,  C3_16},
+    {0, C9_1, C8_1, C7_1},
+    {0, C9_2, C8_2, C7_2},
+    {0, C9_3, C8_3, C7_3},
+    {0, C9_4, C8_4, C7_4},
+    {0, C9_5, C8_5, C7_5},
+    {0, C9_6, C8_6, C7_6},
+    {0, C9_7, C8_7, C6_6},
+    {0, C9_8, C7_7, C6_7},
+    // left CB
+    {0, C1_9, C3_10, C4_10},
+    {0, C1_10, C2_10, C4_11},
+    {0, C1_11, C2_11, C3_11},
+    {0, C1_12, C2_12, C3_12},
+    {0, C1_13, C2_13, C3_13},
+    {0, C1_14, C2_14, C3_14},
+    {0, C1_15, C2_15, C3_15},
+    {0, C1_16, C2_16, C3_16},
 
-    {0, C9_9,   C8_9,   C7_9},
-    {0, C9_10,  C8_10,  C7_10},
-    {0, C9_11,  C8_11,  C7_11},
-    {0, C9_12,  C8_12,  C7_12},
-    {0, C9_13,  C8_13,  C7_13},
-    {0, C9_14,  C8_14,  C7_14},
-    {0, C9_15,  C8_15,  C6_14},
-    {0, C9_16,  C7_15,  C6_15},
+    {0, C9_9, C8_9, C7_9},
+    {0, C9_10, C8_10, C7_10},
+    {0, C9_11, C8_11, C7_11},
+    {0, C9_12, C8_12, C7_12},
+    {0, C9_13, C8_13, C7_13},
+    {0, C9_14, C8_14, C7_14},
+    {0, C9_15, C8_15, C6_14},
+    {0, C9_16, C7_15, C6_15},
 };
 #endif
 __attribute__((weak))
@@ -240,7 +240,7 @@ void matrix_init_kb(void)
     // clear caps led
     setPinOutput(CAPS_PIN);
     writePinLow(CAPS_PIN);
-#ifdef RGBLIGHT_ENABLE    
+#ifdef RGBLIGHT_ENABLE
     i2c_init();
     IS31FL3731_init(DRIVER_ADDR_1);
     for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
@@ -252,7 +252,7 @@ void matrix_init_kb(void)
     matrix_init_user();
 }
 
-#ifdef RGBLIGHT_ENABLE    
+#ifdef RGBLIGHT_ENABLE
 void housekeeping_task_kb(void)
 {
     if (rgb_state.state == SELF_TESTING) {
@@ -261,7 +261,7 @@ void housekeeping_task_kb(void)
         //gold 0xFF, 0xD9, 0x00
         LED_TYPE led = {
             .r = 0xFF,
-            .g = 0xD9, 
+            .g = 0xD9,
             .b = 0x00,
         };
         if (rgb_state.alert) {
@@ -303,7 +303,7 @@ bool led_update_kb(led_t led_state)
     if (res) {
         writePin(CAPS_PIN, led_state.caps_lock);
 
-#ifdef RGBLIGHT_ENABLE    
+#ifdef RGBLIGHT_ENABLE
         if (rgb_state.state != SELF_TESTING) {
             if (led_state.caps_lock) {
                 rgb_state.state = CAPS_ALERT;
