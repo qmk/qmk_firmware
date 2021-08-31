@@ -12,8 +12,12 @@ A 75% hotswap keyboard from IDOBAO.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make id80/ansi:default
-    
+    make idobao/id80/ansi:default
+
+or
+
+    qmk compile -kb idobao/id80/ansi -km default    
+
 ## ISO support:
 
 * Keyboard Maintainer: [Carsten Rose](https://github.com/cwr10010)
@@ -23,5 +27,8 @@ Make example for this keyboard (after setting up your build environment):
 Make example for this keyboard (after setting up your build environment):
 
     make id80/iso:default
+
+or
+    qmk compile -kb idobao/id80/iso -km default    
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
