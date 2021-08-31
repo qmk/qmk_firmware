@@ -83,10 +83,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_RGB] = LAYOUT_landscape(
         _______,  _______, _______,
 
-        _______,  RGB_HUD,  RGB_SPI, RGB_HUI, KC_NO,        _______,
-        _______,  RGB_RMOD, RGB_TOG, RGB_MOD, KC_NO,        _______,
-        _______,  RGB_VAD,  RGB_SPD, RGB_VAI, KC_NO,        _______,
-        _______,  RGB_SAD,  KC_NO,   RGB_SAI, _______,      _______,
+        _______,  _______,  _______,  _______, _______,     _______,
+        _______,  RGB_HUD,  RGB_SPI, RGB_HUI,  RGB_SAI,     _______,
+        _______,  RGB_RMOD, RGB_TOG, RGB_MOD,  RGB_SAD,     _______,
+        _______,  RGB_VAD,  RGB_SPD, RGB_VAI,  KC_NO,       _______,
 
                   _______,  _______, _______
    ),
