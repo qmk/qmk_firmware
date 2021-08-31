@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Reset your keyboard in 3 ways:
 
-* Software reset on Fn [MO(2)] + Backspace
+* Software reset on Fn [MO(1)] + Backspace
 * Bootmagic reset: hold down the top left key (usually escape) and plugin the keyboard
 * Physical reset button: on the back of the PCB, there should be a small golden button you can press
 
