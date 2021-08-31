@@ -2,7 +2,7 @@
 
 ![elise](https://www.draytronics.co.uk/wp-content/uploads/2021/08/repository-open-graph-template-v2.png)
 
-V2 now included an tweaked design and 16 RGB underglow LEDs for a more consistent and even underglow effect (up from 7 on the original)
+***V2 now includes an tweaked design and 16 RGB underglow LEDs for a more consistent and even underglow effect (up from 7 on the original)***
 
 A open source, low cost 65% keyboard PCB with USB-C, ESD protection, RGB underglow and XD68 case / plate compatability.  Designed in the UK. 
 More info / sales / PCB designs available at [draytronics.co.uk/elise](https://draytronics.co.uk)
