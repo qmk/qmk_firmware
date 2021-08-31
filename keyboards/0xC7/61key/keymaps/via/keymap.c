@@ -16,21 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-//#include "raw_hid.h"
-
-// Defines names for use in layer keycodes and the keymap
-// enum layer_names {
-//    _BASE,
-//    _FN1,
-//    _FN2,
-//    _FN3
-// };
-
-// Defines the keycodes used by our macros in process_record_user
-//enum custom_keycodes {
-//    CREDIT
-//};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC,
@@ -61,17 +46,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
-
-//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//    switch (keycode) {
-//        case CREDIT:
-//            if (record->event.pressed) {
-//                // when keycode CREDIT is pressed
-//                SEND_STRING("61key by Ethan Yates (0xC7)");
-//            } else {
-//                // when keycode CREDIT is released
-//            }
-//            break;
-//    }
-//    return true;
-//}

@@ -6,15 +6,15 @@ Custom keyboard designed by RealEmanGaming aka 0xC7
 
 * Keyboard Maintainer: [0xC7](https://github.com/RealEmanGaming)
 * Hardware Supported: ATMega32u4
-* Hardware Availability: N/A (private board)
+* Hardware Availability: N/A (private board, might open source)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make 61key:default
+    make 61key:via
 
 Flashing example for this keyboard:
 
-    make 61key:default:flash
+    make 61key:via:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
