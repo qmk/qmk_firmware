@@ -1,5 +1,5 @@
 OLED_DRIVER_ENABLE = no
-RGBLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = no
 NKRO_ENABLE = yes # usb nkey rollover
 FORCE_NKRO = yes
 COMBO_ENABLE = yes
