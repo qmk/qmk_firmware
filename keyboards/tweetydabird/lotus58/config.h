@@ -51,7 +51,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Basic RGB configuration */
 #define RGB_DI_PIN D3
 // Underglow LEDs
+#define RGBLED_SPLIT { 6, 6 }
 #define RGBLED_NUM 12
+// Full backlight + underglow
+//#define RGBLED_SPLIT { 35, 35 }
+//#define RGBLED_NUM 70
+#define RGBLIGHT_SPLIT
 
 // Disable depreciated
 #define NO_ACTION_MACRO
