@@ -95,7 +95,3 @@ endif
 ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled_display.c
 endif
-
-# convert Helix-specific options (that represent combinations of standard options)
-#   into QMK standard options.
-include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))
