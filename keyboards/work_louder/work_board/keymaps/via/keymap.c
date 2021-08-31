@@ -27,8 +27,8 @@ enum tap_dances {
     ENC_TAP,
 };
 
-#define LOWER KC_FN13
-#define RAISE KC_FN23
+#define LOWER FN_MO13
+#define RAISE FN_MO23
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_via(

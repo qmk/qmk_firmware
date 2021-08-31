@@ -18,7 +18,9 @@
 
 #if !defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
     if (clockwise) {
         tap_code(KC_VOLD);
     } else {
@@ -71,7 +73,6 @@ __attribute__((weak)) void oled_task_user(void) {
 }
 #endif
 
-
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
 led_config_t g_led_config = { {
@@ -90,11 +91,24 @@ led_config_t g_led_config = { {
     1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1,
     1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1
 } };
-// clang-format off
+// clang-format on
+
+bool layout_2u = false;
+
+
 
 __attribute__((weak)) void rgb_matrix_indicators_user(void) {
-    rgb_matrix_set_color(1, 0, 0, 0);
-    // rgb_matrix_set_color(7, 0, 0, 0);
+    static uint16_t timer = 0;
+    if (timer_elapsed(timer) > 500) {
+        timer     = timer_read();
+        layout_2u = (bool)via_get_layout_options();
+    }
+    if (layout_2u) {
+        rgb_matrix_set_color(5, 0, 0, 0);
+        rgb_matrix_set_color(7, 0, 0, 0);
+    } else {
+        rgb_matrix_set_color(6, 0, 0, 0);
+    }
 }
 
 void keyboard_pre_init_kb(void) {
@@ -109,10 +123,4 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-void keyboard_post_init_kb(void) {
-    g_led_config.flags[5] = 0;
-    g_led_config.flags[7] = 0;
-
-    keyboard_post_init_user();
-}
 #endif
