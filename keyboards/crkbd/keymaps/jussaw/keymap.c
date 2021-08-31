@@ -97,6 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_LCTL, KC_TRNS,  KC_SPC,    KC_RSFT,  ADJUST, KC_RALT
   ),
 
+
   /* Upper
    * ,-----------------------------------------------------.                    ,-----------------------------------------------------.
    * |  Tab   |    1   |    2   |    3   |    4   |    5   |                    |    6   |    7   |    8   |    9   |    0   |  Bksp  |
@@ -115,6 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_LCTL,  ADJUST,  KC_SPC,    KC_RSFT, KC_TRNS, KC_RGUI
   ),
 
+
   /* Adjust
    * ,-----------------------------------------------------.                    ,-----------------------------------------------------.
    * |  Reset |DF(QWRT)|DF(CMDH)|        |        |TG(GAME)|                    |  Play  | Mouse1 | Mouse2 | Mouse4 | Mouse5 |Ms Acc1 |
@@ -132,6 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, AG_NORM,                      KC_VOLD, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_ACL2,
                                           XXXXXXX, KC_TRNS, XXXXXXX,    XXXXXXX, KC_TRNS, XXXXXXX
   ),
+
 
   /* Game
    * ,-----------------------------------------------------.                    ,-----------------------------------------------------.
