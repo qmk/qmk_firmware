@@ -14,14 +14,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #pragma once
 
-#define HAL_USE_I2C TRUE
+#include_next <mcuconf.h>
 
-#define PAL_USE_CALLBACKS FALSE
+#undef STM32_GPT_USE_TIM15
+#define STM32_GPT_USE_TIM15 FALSE
 
-#define PAL_USE_WAIT FALSE
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1 TRUE
 
-#include_next <halconf.h>
+#undef STM32_PWM_USE_TIM3
+#define STM32_PWM_USE_TIM3 FALSE
+
+#undef STM32_SPI_USE_SPI1
+#define STM32_SPI_USE_SPI1 TRUE
+
+#undef STM32_SPI_USE_SPI2
+#define STM32_SPI_USE_SPI2 FALSE
 
