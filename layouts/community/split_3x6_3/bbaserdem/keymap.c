@@ -11,10 +11,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include QMK_KEYBOARD_H
 #include "bbaserdem.h"
+
 #ifdef KEYBOARD_crkbd_rev1
 #   include "bb-oled-extra.h"
 #endif // KEYBOARD_crkbd_rev1
+//
+/* F layout
+ * ┌───┬───┬───┬───┬───┬───┐         ┌───┬───┬───┬───┬───┬───┐
+ * │+ *│ F │ G │ Ğ │ I │ O │         │ D │ R │ N │ H │ P │ Q │
+ * ├───┼───┼───┼───┼───┼───┤         ├───┼───┼───┼───┼───┼───┤
+ * │ X │ A │ S │ D │ F │ G │         │ T │ K │ M │ L │ Y │ Ş │
+ * ├───┼───┼───┼───┼───┼───┤         ├───┼───┼───┼───┼───┼───┤
+ * │< >│ J │ Ö │ V │ C │ Ç │         │ Z │ S │ B │. :│, ;│ W │
+ * └───┴───┴───┴───┼───┼───┼───┐ ┌───┼───┼───┼───┴───┴───┴───┘
+ *                 │Tab│Ent│Esc│ │Del│Spc│Bsp│
+ *                 └───┴───┴───┘ └───┴───┴───┘
+ */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3_wrapper(
