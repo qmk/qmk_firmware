@@ -17,8 +17,8 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE=0,    ///< Default Layer
-    _FN  =1     ///< Function Layer
+    _BASE,  ///< Default Layer
+    _FN     ///< Function Layer
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
