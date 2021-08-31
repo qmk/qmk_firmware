@@ -61,5 +61,4 @@ FN1 Layer 1
 
 RGB Layer 5 - Use Shift+Encoder to get to RGB layer 5
 
-![image](https://user-images.githubusercontent.com/71780717/130542519-b459cb39-2972-42db-b61e-d060b1f9cd05.png)
-
+![image](https://user-images.githubusercontent.com/71780717/131545262-5f8ef96c-c0c6-425b-ba70-ab03e43ceb32.png)
