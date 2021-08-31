@@ -41,23 +41,23 @@
 // F072 fpclk = 48MHz
 // 48/16 = 3Mhz
 #if WS2812_SPI_DIVISOR == 2
-#    define WS2812_SPI_DIVISOR (0)
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (0)
 #elif WS2812_SPI_DIVISOR == 4
-#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_0)
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_0)
 #elif WS2812_SPI_DIVISOR == 8
-#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_1)
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1)
 #elif WS2812_SPI_DIVISOR == 16  // same as default
-#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_1 | SPI_CR1_BR_0)
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0)
 #elif WS2812_SPI_DIVISOR == 32
-#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2)
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2)
 #elif WS2812_SPI_DIVISOR == 64
-#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2 | SPI_CR1_BR_0)
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_0)
 #elif WS2812_SPI_DIVISOR == 128
-#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2 | SPI_CR1_BR_1)
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1)
 #elif WS2812_SPI_DIVISOR == 256
-#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
 #else
-#    define WS2812_SPI_DIVISOR (SPI_CR1_BR_1 | SPI_CR1_BR_0)  // default
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0)  // default
 #endif
 
 // Use SPI circular buffer
@@ -126,7 +126,7 @@ void ws2812_init(void) {
 #endif  // WS2812_SPI_SCK_PIN
 
     // TODO: more dynamic baudrate
-    static const SPIConfig spicfg = {WS2812_SPI_BUFFER_MODE, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN), WS2812_SPI_DIVISOR};
+    static const SPIConfig spicfg = {WS2812_SPI_BUFFER_MODE, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN), WS2812_SPI_DIVISOR_CR1_BR_X};
 
     spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
