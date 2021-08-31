@@ -1,4 +1,4 @@
-This file contains my [split 3x10](../../../default/split_3x10) board layouts
+This file contains my [split 3x10 + 3](../../../default/split_3x10_3) board layouts
 Check out the [user readme](../../../../users/bbaserdem/README.md) for more info.
 
 # Crkbd
