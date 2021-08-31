@@ -1,0 +1,6 @@
+# Differences from userspace
+BACKLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = yes
+RGB_MATRIX_ENABLE = no
+AUDIO_ENABLE = no
+BLUETOOTH_ENABLE = no
