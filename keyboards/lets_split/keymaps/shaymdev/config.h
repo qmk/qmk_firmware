@@ -34,8 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define _MASTER_RIGHT
 // #define EE_HANDS
 
+#undef RGB_DI_PIN
+#define RGB_DI_PIN D3
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 10
+
 
 #endif

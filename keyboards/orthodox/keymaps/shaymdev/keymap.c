@@ -52,7 +52,6 @@ enum {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define LS__SPC MT(MOD_LSFT, KC_SPC)
 #define TO_DV TO(_DVORAK)
 #define TO_ADJ TO(_ADJUST)
 
