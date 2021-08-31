@@ -93,11 +93,9 @@ led_config_t g_led_config = { {
 } };
 // clang-format on
 
-bool layout_2u = false;
-
-
-
 __attribute__((weak)) void rgb_matrix_indicators_user(void) {
+#    ifdef VIA_ENABLE
+    static bool     layout_2u = false;
     static uint16_t timer = 0;
     if (timer_elapsed(timer) > 500) {
         timer     = timer_read();
@@ -109,6 +107,10 @@ __attribute__((weak)) void rgb_matrix_indicators_user(void) {
     } else {
         rgb_matrix_set_color(6, 0, 0, 0);
     }
+#    else
+    rgb_matrix_set_color(5, 0, 0, 0);
+    rgb_matrix_set_color(7, 0, 0, 0);
+#    endif
 }
 
 void keyboard_pre_init_kb(void) {
