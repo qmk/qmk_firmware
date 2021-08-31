@@ -14,7 +14,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
   */ 
 
-
+#pragma once
 #include per_key.h
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
