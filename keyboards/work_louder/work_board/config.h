@@ -88,6 +88,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_LED_TOTAL 49
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define RGB_MATRIX_DISABLE_KEYCODES
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
