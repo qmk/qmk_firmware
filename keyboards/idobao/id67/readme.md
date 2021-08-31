@@ -10,7 +10,11 @@ A 65% hotswap keyboard from IDOBAO.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make id67:default
+    make idobao/id67:default
+
+or
+
+    qmk compile -kb idobao/id67 -km default
 
 Flashing example for this keyboard:
 
