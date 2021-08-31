@@ -16,6 +16,7 @@
 #include "haptic.h"
 #include "process_haptic.h"
 #include "quantum_keycodes.h"
+#include "action_tapping.h"
 
 __attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
