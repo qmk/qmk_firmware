@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______, _______, _______
     ),
 	[_FN2] = LAYOUT_landscape(
-        _______,  _______, _______,
+        _______,  _______, RESET,
 
         _______,  _______,  _______,  _______, _______,     _______,
         _______,  _______,  _______,  _______, _______,     _______,
@@ -147,7 +147,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     uint8_t selected_layer = 0;
 
     bool encoder_update_user(uint8_t index, bool clockwise) {
-        #ifdef OLED_DRIVER_ENABLE
+        #ifdef OLED_ENABLE
             oled_clear();
             oled_render();
         #endif
@@ -211,7 +211,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 #endif
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 	static void render_logo(void) {     // Render MechWild "MW" Logo
 		static const char PROGMEM logo_1[] = {0x8A, 0x8B, 0x8C, 0x8D, 0x00};
 		static const char PROGMEM logo_2[] = {0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0x00};
