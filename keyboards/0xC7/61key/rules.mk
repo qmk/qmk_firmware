@@ -1,3 +1,7 @@
+#SRC += keyboards/wilba_tech/wt_main.c
+#RAW_ENABLE = yes
+#DYNAMIC_KEYMAP_ENABLE = yes
+
 # MCU name
 MCU = atmega32u4
 
@@ -21,5 +25,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-TERMINAL_ENABLE = yes
-RAW_ENABLE = yes
+LTO_ENABLE = yes
+KEY_LOCK_ENABLE = yes

@@ -1,12 +1,12 @@
-# 61key
+# 61Key
 
-![61key](imgur.com image replace me!)
+![61Key](imgur.com image replace me!)
 
-*A short description of the keyboard/project*
+Custom keyboard designed by RealEmanGaming aka 0xC7
 
-* Keyboard Maintainer: [0xC7](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [0xC7](https://github.com/RealEmanGaming)
+* Hardware Supported: ATMega32u4
+* Hardware Availability: N/A (private board)
 
 Make example for this keyboard (after setting up your build environment):
 

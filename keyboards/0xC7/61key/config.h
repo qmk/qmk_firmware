@@ -24,7 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x6161
 #define DEVICE_VER   0x0001
 #define MANUFACTURER 0xC7
-#define PRODUCT      61key
+#define PRODUCT      61Key
+#define DESCRIPTION  61Key by 0xC7
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -150,3 +151,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
+
+// #define DYNAMIC_KEYMAP_LAYER_COUNT 4
+
+// #define EEPROM_MAGIC 0x451F
+// #define EEPROM_MAGIC_ADDR 32
+// #define EEPROM_VERSION 0x08
+// #define EEPROM_VERSION_ADDR 34
+
+// #define DYNAMIC_KEYMAP_EEPROM_ADDR 35
+// #define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 560
+// #define DYNAMIC_KEYMAP_MACRO_EEPPROM_SIZE 464
+// #define DYNAMIC_KEYMAP_MACRO_COUNT 16
