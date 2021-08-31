@@ -1,16 +1,15 @@
-#ifndef KB_H
-#define KB_H
+#pragma once
 
 #include "quantum.h"
 
-#define LAYOUT( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, \
-	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, \
-	K200, K201, K202, K203,       K205,       K207, K208, K209  \
-) { \
-	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009 }, \
-	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109 }, \
-	{ K200,  K201,  K202,  K203,  KC_NO, K205,  KC_NO, K207,  K208,  K209 }  \
-}
+#define XXX KC_NO
 
-#endif
+#define LAYOUT( \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, \
+    k20, k21, k22, k23,      k25,      k27, k28, k29 \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09 }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19 }, \
+    { k20, k21, k22, k23, XXX, k25, XXX, k27, k28, k29 } \
+}

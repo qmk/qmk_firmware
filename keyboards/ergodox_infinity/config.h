@@ -15,9 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef INFINITY_ERGODOX_CONFIG_H
-#define INFINITY_ERGODOX_CONFIG_H
-
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x1c11
@@ -134,5 +132,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif
