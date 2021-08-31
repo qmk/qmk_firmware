@@ -1,5 +1,5 @@
-/*
-Copyright 2021 kb-elmo<mail@elmo.space>
+/* 
+Copyright 2021 owlab
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,32 +19,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4F53
-#define PRODUCT_ID      0x5657
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    OwLab
-#define PRODUCT         Voice65
+/* USB Device descriptor parameter*/
+#define VENDOR_ID       0x4F53  //0x4F53 OS for owl studio
+#define PRODUCT_ID      0x4A4C  //0x4A4C JL for jelly, 0x4A53 JS for jelly solder
+#define DEVICE_VER      0x0001 
+#define MANUFACTURER    OwLab 
+#define PRODUCT         Jelly Epoch
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 14
 
 /* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { B0, B1, B2, B10, B11 }
-#define MATRIX_COL_PINS { A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A15, B8, B9, B12, B13 }
+#define MATRIX_ROW_PINS { B0, B1, B2, B3, A15, B10 }
+#define MATRIX_COL_PINS { A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, B11, B8, B9, C13 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
+
 /* NKRO */
 #ifdef NKRO_ENABLE
 #    define FORCE_NKRO
 #endif
 
-/* RGB stripe */
+/* RGB Strip*/
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN
 #    define RGBLIGHT_EFFECT_ALTERNATING
@@ -56,34 +57,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_SNAKE
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_TWINKLE
-#    define RGBLED_NUM 20
+#    define RGBLED_NUM 24
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 10
-#    define RGBLIGHT_LIMIT_VAL 180
-#    define OWL_VOLUME_RANGE 50
+#    define RGBLIGHT_LIMIT_VAL 255    
 #endif
-
-/* RGB matrix*/
-#ifdef RGB_MATRIX_ENABLE
-#    define USE_I2CV2
-#    define RGB_MATRIX_DISABLE_KEYCODES
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
-#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_LED_PROCESS_LIMIT  4
-#    define RGB_MATRIX_LED_FLUSH_LIMIT    26
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#    define RGB_MATRIX_STARTUP_VAL        128
-#    define DRIVER_ADDR_1                 0b0110000
-#    define DRIVER_ADDR_2                 0b0110000
-#    define DRIVER_COUNT                  2
-#    define DRIVER_1_LED_TOTAL            71
-#    define DRIVER_LED_TOTAL              DRIVER_1_LED_TOTAL
-#endif
-
-/* Encoder */
-#define ENCODERS_PAD_A { B4 }
-#define ENCODERS_PAD_B { B5 }
-#define ENCODER_RESOLUTION 4
-#define TAP_CODE_DELAY 10
