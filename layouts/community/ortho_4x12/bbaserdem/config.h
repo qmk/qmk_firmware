@@ -20,4 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENCODER_RESOLUTION
     #endif
     #define ENCODER_RESOLUTION 2
-#endif
+#endif // rev6
