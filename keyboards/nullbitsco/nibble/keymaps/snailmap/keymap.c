@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 /*===========================================    OLED CONFIGURATION    ===========================================*/
 bool  oled_horizontal   = true;         // OLED rotation  (true = horizontal,  false = vertical)
 bool  ansi_layout       = true;         // ANSI or ISO layout  (true = ANSI,  false = ISO)
@@ -464,7 +464,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Forwards keystrokes from an external input device over UART/TRRS
     process_record_remote_kb(keycode, record);
     
-    #ifdef OLED_DRIVER_ENABLE
+    #ifdef OLED_ENABLE
     // Toggle pixels surrounding key
     render_keymap(record->event.key.row, record->event.key.col, record->event.pressed);
     #endif
