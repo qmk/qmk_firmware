@@ -325,7 +325,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
             break;
     }
-    return true;
+    return false;
 }
 
 void encoder_click_action(uint8_t index) {
