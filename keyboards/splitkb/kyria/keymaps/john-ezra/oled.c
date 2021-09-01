@@ -1,5 +1,4 @@
-/* Copyright 2020 Josef Adamcik
- * Modification for VIA support and RGB underglow by Jens Bonk-Wiltfang
+/* Copyright 2021 John Ezra
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
