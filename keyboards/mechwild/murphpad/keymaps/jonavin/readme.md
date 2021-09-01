@@ -51,12 +51,12 @@ rules.mk OPTIONS - Active features from userspace
 
 DEFAULT MAPPING
 
-![image](https://user-images.githubusercontent.com/71780717/130542391-02bc1944-ff61-471b-9834-0caabdd86b88.png)
+![image](https://user-images.githubusercontent.com/71780717/131718965-b20afef6-3bc5-49e4-952f-5755a9d6d539.png)
 
 
 FN1 Layer 1
 
-![image](https://user-images.githubusercontent.com/71780717/131718243-59c4d32a-28b6-40c0-8fcd-d885d6ff0f63.png)
+![image](https://user-images.githubusercontent.com/71780717/131719025-d41cbcd9-80b1-4a0a-abb5-55d878752dc6.png)
 
 
 RGB Layer 5 - Use Shift+Encoder to get to RGB layer 5
