@@ -47,15 +47,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION             COL2ROW
+#define DIODE_DIRECTION        COL2ROW
 
-#define RGBLIGHT_DI_PIN             D2
-#define RGBLED_NUM                  26
+#define RGBLIGHT_DI_PIN        D2
+#define RGBLED_NUM             26
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL          120 /* The maximum brightness level */
-#define RGBLIGHT_SLEEP                  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+#define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
+#define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== or choose animations ==*/
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -67,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_GRADIENT + 7
+#define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_GRADIENT + 9
 #define RGBLIGHT_DEFAULT_HUE          213
 /*== customize breathing effect ==*/
 /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/

@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x1DF8
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Work Louder
-#define PRODUCT      loop
+#define PRODUCT      Loop Pad
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_GRADIENT
+#define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_LIGHT
 #define RGBLIGHT_DEFAULT_HUE          36
 /*== customize breathing effect ==*/
 /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
