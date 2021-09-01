@@ -1,21 +1,17 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
 #include "../launchpad.h"
 
 #include "quantum.h"
 
 #define LAYOUT( \
-	K00, K01, \
-	K10, K11, \
-	K20, K21, \
-	K30, K31  \
-	) \
-	{ \
-		{ K00, K01 }, \
-		{ K10, K11 }, \
-		{ K20, K21 }, \
-		{ K30, K31 } \
-	}
-
-#endif
+    k00, k01, \
+    k10, k11, \
+    k20, k21, \
+    k30, k31 \
+) { \
+    { k00, k01 }, \
+    { k10, k11 }, \
+    { k20, k21 }, \
+    { k30, k31 } \
+}

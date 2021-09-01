@@ -15,8 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef REV6_CONFIG_H
-#define REV6_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define PRODUCT_ID 0xA4F9
@@ -121,5 +120,3 @@
 #define WS2812_DMA_CHANNEL 2
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-#endif
