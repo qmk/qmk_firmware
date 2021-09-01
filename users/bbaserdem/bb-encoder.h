@@ -13,13 +13,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 #include "bbaserdem.h"
+#ifdef VELOCIKEY_ENABLE
+    #include "velocikey.h"
+#endif
 
 // Code to print to OLED
-#ifdef ENCODER_ENABLE
 void oled_encoder_state_5char(uint8_t index, uint8_t layer);
-#endif
+
 // Hook to encoder stuff
-void encoder_update_user(uint8_t index, bool clockwise);
+bool encoder_update_user(uint8_t index, bool clockwise);
 // Complicated code for what the encoder keys do when pressed
 bool process_record_encoder(uint16_t keycode, keyrecord_t *record);
 // Initializing the encoder array

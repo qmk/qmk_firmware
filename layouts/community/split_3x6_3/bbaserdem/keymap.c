@@ -27,55 +27,55 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3_wrapper(
-        _BL1_1_,_BL1_5_,_BR1_5_,_BR1_1_,
+        BB_ENC0,_BL1_5_,_BR1_5_,BB_ENC1,
         _BL2_1_,_BL2_5_,_BR2_5_,_BR2_1_,
         _BL3_1_,_BL3_5_,_BR3_5_,_BR3_1_,
                 _BL4_3_,_BR4_3_
     ),
     [_CHAR] = LAYOUT_split_3x6_3_wrapper(
-        XXXXXXX,_CL1_5_,_CR1_5_,XXXXXXX,
+        _______,_CL1_5_,_CR1_5_,_______,
         XXXXXXX,_CL2_5_,_CR2_5_,XXXXXXX,
         XXXXXXX,_CL3_5_,_CR3_5_,XXXXXXX,
                 _CL4_3_,_CR4_3_
     ),
     [_GAME] = LAYOUT_split_3x6_3_wrapper(
-        _GA1_1_,_GA1_5_,___6___,
+        _______,_GA1_5_,___6___,
         _GA2_1_,_GA2_5_,___6___,
         _GA3_1_,_GA3_5_,___6___,
                 _GA4_3_,___3___
     ),
     [_MEDI] = LAYOUT_split_3x6_3_wrapper(
-        ___6___,_ME1_5_,xxx1xxx,
+        ___6___,_ME1_5_,_______,
         ___6___,_ME2_5_,xxx1xxx,
         ___6___,_ME3_5_,xxx1xxx,
         ___3___,_ME4_3_
     ),
     [_NAVI] = LAYOUT_split_3x6_3_wrapper(
-        ___6___,_NA1_5_,xxx1xxx,
+        ___6___,_NA1_5_,_______,
         ___6___,_NA2_5_,xxx1xxx,
         ___6___,_NA3_5_,xxx1xxx,
         ___3___,_NA4_3_
     ),
     [_SYMB] = LAYOUT_split_3x6_3_wrapper(
-        ___6___,_SY1_5_,xxx1xxx,
+        ___6___,_SY1_5_,_______,
         ___6___,_SY2_5_,xxx1xxx,
         ___6___,_SY3_5_,xxx1xxx,
         ___3___,_SY4_3_
     ),
     [_NUMB] = LAYOUT_split_3x6_3_wrapper(
-        xxx1xxx,_NU1_5_,___6___,
+        _______,_NU1_5_,___6___,
         xxx1xxx,_NU2_5_,___6___,
         xxx1xxx,_NU3_5_,___6___,
                 _NU4_3_,___3___
     ),
     [_FUNC] = LAYOUT_split_3x6_3_wrapper(
-        xxx1xxx,_FU1_5_,___6___,
+        _______,_FU1_5_,___6___,
         xxx1xxx,_FU2_5_,___6___,
         xxx1xxx,_FU3_5_,___6___,
                 _FU4_3_,___3___
     ),
     [_MOUS] = LAYOUT_split_3x6_3_wrapper(
-        xxx1xxx,_MO1_5_,___6___,
+        _______,_MO1_5_,___6___,
         xxx1xxx,_MO2_5_,___6___,
         xxx1xxx,_MO3_5_,___6___,
                 _MO4_3_,___3___
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // crkbd
 #if defined(KEYBOARD_crkbd_rev1)
-/* This is left-right for planck light indicator light
+/* This is left-right for CRKBD indicator light
  *  - The LED 42 is for spacebar specifically, leave it out of the matrix
  *  - This is how it looks like
  * ┌──┬──┬──┬──┬──┬──┐      ┌──┬──┬──┬──┬──┬──┐
@@ -117,6 +117,21 @@ void keylight_set_right(uint8_t red, uint8_t green, uint8_t blue) {
         rgb_matrix_set_color(i, red, green, blue);
     }
 }
+
+#ifdef AUDIO_ENABLE
+// Audio requires some fixes to work on @waffle's PCB
+// ! Copy pasted from ItsWaffle's waffle fork
+void keyboard_pre_init_keymap(void) { //thank you to @sigprof for this
+    // Set audio pins to analog mode
+    palSetLineMode(A5, PAL_MODE_INPUT_ANALOG);
+    palSetLineMode(B1, PAL_MODE_INPUT_ANALOG);
+}
+
+void keyboard_post_init_keymap(void) {
+    // Enable OPAMP1 as A5 → B1 follower
+    OPAMP3->CSR = OPAMP3_CSR_VMSEL_1 | OPAMP3_CSR_VMSEL_0 | OPAMP3_CSR_VPSEL_0 | OPAMP3_CSR_OPAMP3EN;
+}
+#endif // End of audio specific stuff
 // End of differentiations
 #endif
 
