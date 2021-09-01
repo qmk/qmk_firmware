@@ -8,10 +8,10 @@ This allows you to use Murphpad in a horizontal/landscape orientation with extra
         [_BASE] = LAYOUT_landscape(
             TT(_FN1), TT(_FN2), KC_MUTE,
 
-            KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_LGUI,
-            KC_BSPC,  KC_P7,    KC_P8,   KC_P9,   KC_PDOT,      KC_RSFT,
-            KC_TAB,   KC_P4,    KC_P5,   KC_P6,   KC_COMMA,     KC_RCTL,
-            KC_P0,    KC_P1,    KC_P2,   KC_P3,   KC_PENT,      KC_RALT,
+        KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_BSPC,
+        KC_TAB,   KC_P7,    KC_P8,   KC_P9,   KC_PDOT,      KC_RGUI,
+        KC_RSFT,  KC_P4,    KC_P5,   KC_P6,   KC_COMMA,     KC_RCTL,
+        KC_P0,    KC_P1,    KC_P2,   KC_P3,   KC_PENT,      KC_RALT,
 
                     _______, _______, _______
         ),
@@ -56,9 +56,9 @@ DEFAULT MAPPING
 
 FN1 Layer 1
 
-![image](https://user-images.githubusercontent.com/71780717/130542428-2165ef1e-d7be-457d-991c-2018cb1ff969.png)
+![image](https://user-images.githubusercontent.com/71780717/131718243-59c4d32a-28b6-40c0-8fcd-d885d6ff0f63.png)
 
 
 RGB Layer 5 - Use Shift+Encoder to get to RGB layer 5
 
-![image](https://user-images.githubusercontent.com/71780717/131545262-5f8ef96c-c0c6-425b-ba70-ab03e43ceb32.png)
+![image](https://user-images.githubusercontent.com/71780717/131718297-0085d125-afe9-487c-9c81-6dc1caa4c93d.png)
