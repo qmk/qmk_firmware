@@ -20,19 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* OLED
  * This contains general purpose oled code
-=======
-    #include "bb-encoder.h"
-#endif
-
-//#include <stdio.h>
-/* ROTARY ENCODER
- * This contains my general rotary encoder code
- * Encoders each have a list of different modes they can be in.
- * Each mode also have an on click action as well.
- * Modes can be cycled using either shift-click or ctrl-click
- * Modes can be reset using OS click
- * Some modes are only accessible through some keymap layers
->>>>>>> f3829baa06 (Trying things)
  */ 
 
 // Allow default to be overwritten by keymap if they return false
