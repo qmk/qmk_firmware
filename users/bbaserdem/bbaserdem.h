@@ -298,16 +298,42 @@ enum userspace_layers {
 #define BB_GAME TG(_GAME)
 #define BB_BIGS TD(TD_BIGSWITCH)
 
-/* Base layout; (shown in DVORAK)
- * ┌─────┬─────┬─────┬─────┬─────┐             ┌─────┬─────┬─────┬─────┬─────┐
- * │ ' " │ , < │ . > │  P  │  Y  │ / ?     = + │  F  │  G  │  C  │  R  │  L  │
- * ├─────┼─────┼─────┼─────┼─────┤             ├─────┼─────┼─────┼─────┼─────┤
- * │  A  │  O  │  E  │  U  │  I  │ \ |     - _ │  D  │  H  │  T  │  N  │  S  │
- * ├─Gui─┼─Alt─┼─Ctr─┼─Sft─┼─────┤             ├─────┼─Sft─┼─Ctr─┼─Alt─┼─Gui─┤
- * │ ; : │  Q  │  J  │  K  │  X  │ ` ~     < > │  B  │  M  │  W  │  V  │  Z  │
- * └─────┴AltGr┴─────┼─────┼─────┼─────┐ ┌─────┼─────┼─────┼─────┴AltGr┴─────┘
- *                   │ Del │ Tab │Space│ │Enter│ Esc │BkSpc│
- *                   └─Med─┴─Nav─┴─Sym─┘ └─Num─┴─Fun─┴─Mou─┘
+/* Depending on how the layouts change with language; the keys are shown as;
+ * ┌────────────────────────────────────────────────┐
+ * │AltGr       -none-      Shift       Shift+AltGr │
+ * └────────────────────────────────────────────────┘
+ * If there is an exclamation mark; it indicates that 
+/* Base layout
+ * QWERTY
+ *      ┌─────┬─────┬─────┬─────┬─────┐             ┌─────┬─────┬─────┬─────┬─────┐
+ *  [ { │ q Q │ w W │ e E │ r R │ t T │             │ y Y │ u U │ i I │ o O │ p P │ ] } 
+ *      ├─────┼─────┼─────┼─────┼─────┤             ├─────┼─────┼─────┼─────┼─────┤
+ *  \ | │ a A │ s S │ d D │ f F │ g G │             │ h H │ j J │ k K │ l L │ ; : │ ' " 
+ *      ├─Gui─┼─Alt─┼─Ctr─┼─Sft─┼─────┤             ├─────┼─Sft─┼─Ctr─┼─Alt─┼─Gui─┤
+ *  ` ~ │ z Z │ x X │ c C │ v V │ b B │             │ n N │ m M │ , < │ . > │ / ? │ < > 
+ *      └─────┴AltGr┴─────┼─────┼─────┼─────┐ ┌─────┼─────┼─────┼─────┴AltGr┴─────┘
+ *                        │ Del │ Tab │Space│ │Enter│ Esc │BkSpc│
+ *                        └─Med─┴─Nav─┴─Sym─┘ └─Num─┴─Fun─┴─Mou─┘
+ * DVORAK
+ *      ┌─────┬─────┬─────┬─────┬─────┐             ┌─────┬─────┬─────┬─────┬─────┐
+ *  / ? │ ' " │ , < │ . > │ p P │ y Y │             │ f F │ g G │ c C │ r R │ l L │ = + 
+ *      ├─────┼─────┼─────┼─────┼─────┤             ├─────┼─────┼─────┼─────┼─────┤
+ *  \ | │ a A │ o O │ e E │ u U │ i I │             │ d D │ h H │ t T │ n N │ s S │ - _ 
+ *      ├─Gui─┼─Alt─┼─Ctr─┼─Sft─┼─────┤             ├─────┼─Sft─┼─Ctr─┼─Alt─┼─Gui─┤
+ *  ` ~ │ ; : │ q Q │ j J │ k K │ x X │             │ b B │ m M │ w W │ v V │ z Z │ < > 
+ *      └─────┴AltGr┴─────┼─────┼─────┼─────┐ ┌─────┼─────┼─────┼─────┴AltGr┴─────┘
+ *                        │ Del │ Tab │Space│ │Enter│ Esc │BkSpc│
+ *                        └─Med─┴─Nav─┴─Sym─┘ └─Num─┴─Fun─┴─Mou─┘
+ * TURKISH F
+ * !   !┌─────┬─────┬─────┬─────┬─────┐             ┌─────┬─────┬─────┬─────┬─────┐
+ * äq Qå│@f F │ g G │ ğ Ğ │¶ı I │ôo OÔ│             │¥d D │®r R │ n N │°h H │£p P │~w W 
+ *     !├─────┼─────┼─────┼─────┼─────┤             ├─────┼─────┼─────┼─────┼────!┤    !
+ * `x Xà│ûu UÛ│îi İÎ│€e E │âa AÂ│ûü ÜÛ│             │₺t T │ k K │µm M │ l L │´y Yá│#ş Şǎ
+ *      ├─Gui─┼─Alt─┼─Ctr─┼─Sft─┼─────┤             ├─────┼─Sft─┼─Ctr─┼─Alt!┼─Gui─┤
+ * ¬+ *±│«j J<│»ö Ö>│“v V │¢c C©│”ç Ç │             │ z Z │§s S │×b B │÷. :ȧ│·, ; │|< >¦
+ *      └─────┴AltGr┴─────┼─────┼─────┼─────┐ ┌─────┼─────┼─────┼─────┴AltGr┴─────┘
+ *                        │ Del │ Tab │Space│ │Enter│ Esc │BkSpc│
+ *                        └─Med─┴─Nav─┴─Sym─┘ └─Num─┴─Fun─┴─Mou─┘
  * The thing about this layout is that these will fit most boards I have.
  */
 #define _BL1_5_ KC_Q,   KC_W,   KC_E,   KC_R,   KC_T
@@ -326,7 +352,8 @@ enum userspace_layers {
 #define _BL3_1_ KC_GRV
 #define _BR3_1_ KC_NUBS
 
-/*
+/* Extra characters layer
+ * This is accessed using unicode; so IBus compatible apps only.
  * ┌─────┬─────┬─────┬─────┬─────┐             ┌─────┬─────┬─────┬─────┬─────┐
  * │TrFlg│Lenny│Table│  π  │  υ  │             │  φ  │  γ  │  χ  │  ρ  │  λ  │
  * ├─────┼─────┼─────┼─────┼─────┤             ├─────┼─────┼─────┼─────┼─────┤
@@ -336,7 +363,7 @@ enum userspace_layers {
  * └─────┴─────┴─────┼─────┼─────┼─────┐ ┌─────┼─────┼─────┼─────┴─────┴─────┘
  *                   │ Shf │ ... │ GPG │ │     │     │ Shf │
  *                   └─────┴─────┴─────┘ └─────┴─────┴─────┘
- * Extra characters layer
+ *
  */
 #define _CL1_5_ TR_FLAG,BB_LENY,BB_TABL,GR_PI,  GR_UPS
 #define _CR1_5_ GR_PHI, GR_GAM, GR_CHI, GR_RHO, GR_LAM
@@ -347,16 +374,17 @@ enum userspace_layers {
 #define _CL4_3_ KC_RSFT,BB_ELLI,BB_PGPK
 #define _CR4_3_ XXXXXXX,XXXXXXX,KC_LSFT
 
-/* Game layer; just assume dvorak here
- * ┌─────┬─────┬─────┬─────┬─────┐
- * │  Q  │  W  │  E  │  R  │  T  │ ` ~
- * ├─────┼─────┼─────┼─────┼─────┤
- * │  A  │  S  │  D  │  F  │  G  │ Tab
- * ├─────┼─────┼─────┼─────┼─────┤
- * │  Z  │  X  │  C  │  V  │  B  │Shift
- * └─────┴─────┴─────┼─────┼─────┼─────┐
- *                   │Space│Enter│ Esc │
- *                   └─────┴─────┴─────┘
+/* Game layer
+ * This layer turns off the tap-hold keys for the left half.
+ *      ┌─────┬─────┬─────┬─────┬─────┐
+ *  ` ~ │  Q  │  W  │  E  │  R  │  T  │
+ *      ├─────┼─────┼─────┼─────┼─────┤
+ *  Tab │  A  │  S  │  D  │  F  │  G  │
+ *      ├─────┼─────┼─────┼─────┼─────┤
+ * Shift│  Z  │  X  │  C  │  V  │  B  │
+ *      └─────┴─────┴─────┼─────┼─────┼─────┐
+ *                        │Space│Enter│ Esc │
+ *                        └─────┴─────┴─────┘
  */
 #define _GA1_5_ KC_Q,   KC_W,   KC_E,   KC_R,   KC_T
 #define _GA1_1_ KC_GRV
@@ -368,19 +396,19 @@ enum userspace_layers {
 
 /* Media layer
  *       ┌─────┬─────┬─────┬─────┬─────┐
- *       │ Tog │ Mod │ Hue │ Sat │ Bri │ RGB
+ *       │ Tog │ Mod │ Hue │ Sat │ Bri │ RGB light control
  *       ├─────┼─────┼─────┼─────┼─────┤
- *       │Prev.│VolDn│VolUp│Next │ Mut │
+ *       │Media│Prev.│MuTog│MuStp│Next │ Media control
  *       ├─────┼─────┼─────┼─────┼─────┤
- *       │ Tog │Brth.│ Val │RgbSp│Veloc│ Led
+ *       │Sink │Vol -│ Mut │Eject│Vol +│ Volume control
  * ┌─────┼─────┼─────┼─────┴─────┴─────┘
- * │Sink │ Tog │Music│
+ * │     │Veloc│Music│                   Feature control on keyboard
  * └─────┴─────┴─────┘
  */
 #define _ME1_5_ RGB_TOG,RGB_MOD,RGB_HUI,RGB_SAI,RGB_VAI
-#define _ME2_5_ KC_MPRV,KC_VOLD,KC_VOLU,KC_MNXT,KC_MUTE
-#define _ME3_5_ BL_TOGG,BL_BRTG,BL_STEP,RGB_SPD,VLK_TOG
-#define _ME4_3_ KC_F13, KC_MPLY,MU_TOG
+#define _ME2_5_ KC_MSEL,KC_MPRV,KC_MPLY,KC_MSTP,KC_MNXT
+#define _ME3_5_ KC_F13, KC_VOLD,KC_MUTE,KC_EJCT,KC_VOLU
+#define _ME4_3_ XXXXXXX,VLK_TOG,MU_TOG
 
 /* Navigation layer
  *       ┌─────┬─────┬─────┬─────┬─────┐
@@ -398,13 +426,36 @@ enum userspace_layers {
 #define _NA3_5_ KC_INS, KC_HOME,KC_PGDN,KC_PGUP,KC_END
 #define _NA4_3_ KC_ENT, KC_ESC, KC_BSPC
 
-/* Symbols layer (in DVORAK)
+/* Symbols layer
+ *  This layer has the central columns shifted for convenience
+ * QWERTY
  *       ┌─────┬─────┬─────┬─────┬─────┐
- *       │ ` ~ │  [  │  ]  │ = + │CpsLk│
+ *       │ ` ~ │  -  │  =  │ ] } │Char.│
  *       ├─────┼─────┼─────┼─────┼─────┤
- *       │ / ? │  (  │  )  │ - _ │CharL│
+ *       │ [ { │  (  │  )  │ ' " │CapsL│
+ *       ├─────┼─────┼─────┼─────┼─────┤
+ *       │ \ | │  _  │  +  │  <  │  >  │
+ * ┌─────┼─────┼─────┼─────┴─────┴─────┘
+ * │Enter│ Esc │BkSpc│
+ * └─────┴─────┴─────┘
+ * DVORAK
+ *       ┌─────┬─────┬─────┬─────┬─────┐
+ *       │ ` ~ │  [  │  ]  │ = + │Char.│
+ *       ├─────┼─────┼─────┼─────┼─────┤
+ *       │ / ? │  (  │  )  │ - _ │CapsL│
  *       ├─────┼─────┼─────┼─────┼─────┤
  *       │ \ | │  {  │  }  │  <  │  >  │
+ * ┌─────┼─────┼─────┼─────┴─────┴─────┘
+ * │Enter│ Esc │BkSpc│
+ * └─────┴─────┴─────┘
+ * Turkish F
+ * (AltGr is right on the central column, keys on main layer are omitted)
+ *       ┌─────┬─────┬─────┬─────┬─────┐
+ *       │     │ / \ │ - | │     │Char.│
+ *       ├─────┼─────┼─────┼─────┼─────┤
+ *       │     │ ) ± │ = ° │     │CapsL│
+ *       ├─────┼─────┼─────┼─────┼─────┤
+ *       │     │ ? ¿ │ _   │ < | │ > ¦ │
  * ┌─────┼─────┼─────┼─────┴─────┴─────┘
  * │Enter│ Esc │BkSpc│
  * └─────┴─────┴─────┘
@@ -414,13 +465,35 @@ enum userspace_layers {
 #define _SY3_5_ KC_BSLS,KC_UNDS,KC_PLUS,KC_NUBS,LSFT(KC_NUBS)
 #define _SY4_3_ KC_ENT, KC_ESC, KC_BSPC
 
-/* Numbers layer (in DVORAK)
+/* Numbers layer
+ *  This layer contains numbers and the associated symbols.
+ * QWERTY
+ * ┌─────┬─────┬─────┬─────┬─────┐
+ * │     │ 7 & │ 8 * │ 9 ( │ 0 ) │
+ * ├─────┼─────┼─────┼─────┼─────┤
+ * │     │ 4 $ │ 5 % │ 6 ^ │ ' " │
+ * ├─────┼─────┼─────┼─────┼─────┤
+ * │ [ { │ 1 ! │ 2 @ │ 3 # │ ] } │
+ * └─────┴─────┴─────┼─────┼─────┼─────┐
+ *                   │ Del │ Tab │Space│
+ *                   └─────┴─────┴─────┘
+ * DVORAK
  * ┌─────┬─────┬─────┬─────┬─────┐
  * │  ,  │ 7 & │ 8 * │ 9 ( │ 0 ) │
  * ├─────┼─────┼─────┼─────┼─────┤
  * │  .  │ 4 $ │ 5 % │ 6 ^ │ - _ │
  * ├─────┼─────┼─────┼─────┼─────┤
  * │ / ? │ 1 ! │ 2 @ │ 3 # │ = + │
+ * └─────┴─────┴─────┼─────┼─────┼─────┐
+ *                   │ Del │ Tab │Space│
+ *                   └─────┴─────┴─────┘
+ * Turkish F
+ * ┌─────┬─────┬─────┬─────┬─────┐
+ * │     │{7 ' │[8 ( │]9 )±│}0 =°│
+ * ├─────┼─────┼─────┼─────┼─────┤
+ * │     │¼4 $ │½5 %⅜│¾6 & │     │
+ * ├─────┼─────┼─────┼─────┼─────┤
+ * │     │¹1 !¡│²2 " │#3 ^³│     │
  * └─────┴─────┴─────┼─────┼─────┼─────┐
  *                   │ Del │ Tab │Space│
  *                   └─────┴─────┴─────┘
