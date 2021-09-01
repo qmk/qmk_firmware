@@ -26,76 +26,44 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SCREEN] = ACTION_TAP_DANCE_DOUBLE( (G(S(KC_S))) , S(C(KC_4)) ),
 };
 
+void set_color(int r, int g, int b){
+	rgb_matrix_set_color(5,  r, g, b);
+	rgb_matrix_set_color(6,  r, g, b);
+	rgb_matrix_set_color(17, r, g, b);
+	rgb_matrix_set_color(18, r, g, b);
+	rgb_matrix_set_color(29, r, g, b);
+	rgb_matrix_set_color(30, r, g, b);
+	rgb_matrix_set_color(41, r, g, b);
+}
+
 void rgb_matrix_indicators_user(void) {
 
 	if(IS_LAYER_ON(BASE2)) {
-		rgb_matrix_set_color(5,  128, 64, 0);
-		rgb_matrix_set_color(6,   128, 64, 0);
-		rgb_matrix_set_color(17,   128, 64, 0);
-		rgb_matrix_set_color(18, 128, 64, 0);
-		rgb_matrix_set_color(29,  128, 64, 0);
-		rgb_matrix_set_color(30,   128, 64, 0);
-		rgb_matrix_set_color(41,  128, 64, 0);
+		set_color(128, 64, 0);
 	}
 
 	if(IS_LAYER_ON(MEDIA)) {
-		rgb_matrix_set_color(5,  50, 10, 20);
-		rgb_matrix_set_color(6,  50, 10, 20);
-		rgb_matrix_set_color(17, 50, 10, 20);
-		rgb_matrix_set_color(18, 50, 10, 20);
-		rgb_matrix_set_color(29, 50, 10, 20);
-		rgb_matrix_set_color(30, 50, 10, 20);
-		rgb_matrix_set_color(41, 50, 10, 20);
+		set_color(50, 10, 20);
 	}
 
 	if(IS_LAYER_ON(NAV)) {
-		rgb_matrix_set_color(5,  0, 40, 50);
-		rgb_matrix_set_color(6,  0, 40, 50);
-		rgb_matrix_set_color(17, 0, 40, 50);
-		rgb_matrix_set_color(18, 0, 40, 50);
-		rgb_matrix_set_color(29, 0, 40, 50);
-		rgb_matrix_set_color(30, 0, 40, 50);
-		rgb_matrix_set_color(41, 0, 40, 50);
+		set_color(0, 40, 50);
 	}
 
 	if(IS_LAYER_ON(MOUSE)) {
-		rgb_matrix_set_color(5,  0, 0, 50);
-		rgb_matrix_set_color(6,  0, 0, 50);
-		rgb_matrix_set_color(17, 0, 0, 50);
-		rgb_matrix_set_color(18, 0, 0, 50);
-		rgb_matrix_set_color(29, 0, 0, 50);
-		rgb_matrix_set_color(30, 0, 0, 50);
-		rgb_matrix_set_color(41, 0, 0, 50);
+		set_color(0, 0, 50);
 	}
 
 	if(IS_LAYER_ON(SYM)) {
-		rgb_matrix_set_color( 5, 0, 50, 1.9);
-		rgb_matrix_set_color( 6, 0, 50, 1.9);
-		rgb_matrix_set_color(17, 0, 50, 1.9);
-		rgb_matrix_set_color(18, 0, 50, 1.9);
-		rgb_matrix_set_color(29, 0, 50, 1.9);
-		rgb_matrix_set_color(30, 0, 50, 1.9);
-		rgb_matrix_set_color(41, 0, 50, 1.9);
+		set_color(0, 50, 1.9);
 	}
 
 	if(IS_LAYER_ON(NUM)) {
-		rgb_matrix_set_color(5, 10, 0, 50);
-		rgb_matrix_set_color(6, 10, 0, 50);
-		rgb_matrix_set_color(17, 10, 0, 50);
-		rgb_matrix_set_color(18, 10, 0, 50);
-		rgb_matrix_set_color(29, 10, 0, 50);
-		rgb_matrix_set_color(30, 10, 0, 50);
-		rgb_matrix_set_color(41, 10, 0, 50);
+		set_color(10, 0, 50);
 	}
 
 	if(IS_LAYER_ON(FUN)) {
-		rgb_matrix_set_color(5, 50, 0, 0);
-		rgb_matrix_set_color(6, 50, 0, 0);
-		rgb_matrix_set_color(17, 50, 0, 0);
-		rgb_matrix_set_color(18, 50, 0, 0);
-		rgb_matrix_set_color(29, 50, 0, 0);
-		rgb_matrix_set_color(30, 50, 0, 0);
-		rgb_matrix_set_color(41, 50, 0, 0);
+		set_color(50, 0, 0);
 	}
 }
 
