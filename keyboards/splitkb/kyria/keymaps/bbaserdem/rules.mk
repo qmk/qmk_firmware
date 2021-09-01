@@ -12,8 +12,10 @@
 
 # Kyria hardware
 ifneq (,$(findstring kyria/rev1,$(KEYBOARD)))
-    OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
+    AUDIO_ENABLE = no          # No audio capability
+    BACKLIGHT_ENABLE = no      # No diode leds on the board
     ENCODER_ENABLE = yes       # Enables the use of one or more encoders
+    RGB_MATRIX_ENABLE = no     # No perkey leds on the board
     RGBLIGHT_ENABLE = no       # Disable keyboard RGB underglow; can't see much
-    RGB_MATRIX_ENABLE = no
+    OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
 endif
