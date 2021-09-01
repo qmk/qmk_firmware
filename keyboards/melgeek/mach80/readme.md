@@ -1,6 +1,6 @@
-# MelGeek MoJo68
+# MelGeek Mach80
 
-![Mach80](https://cdn.shopifycdn.net/s/files/1/0078/2863/5712/products/c34621677ffc53ea6d1c68ab82100749_1024x1024@2x.jpg?v=1612186093)
+![Mach80](https://www.melgeek.com/collections/pcb-plate/products/melgeek-mach80-tkl87-hotswappable-rgb-pcba)
 
 A hotswap 80% RGB Custom Mechanical keyboard.
 
