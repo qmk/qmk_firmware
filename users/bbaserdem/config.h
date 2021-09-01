@@ -68,7 +68,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Enable RGB LED sleep mode
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED true
+    #ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
+        #define RGB_DISABLE_WHEN_USB_SUSPENDED true
+    #endif
 #endif
 
 // Audio definitions
