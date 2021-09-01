@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
 #define VENDOR_ID 0xA8F8
 #define PRODUCT_ID 0x1832
 #define DEVICE_VER 0x0001
@@ -39,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS_RIGHT { C7, B7, D7, E6, B4 }
 
 #define DIODE_DIRECTION ROW2COL
-
-
 
 #define ROTATIONAL_TRANSFORM_ANGLE     -25
 

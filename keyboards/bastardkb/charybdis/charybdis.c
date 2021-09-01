@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "charybdisnano.h"
+#include "charybdis.h"
 #include "transactions.h"
 #include <string.h>
 #include "drivers/sensors/pmw3360.h"
@@ -100,25 +100,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 #endif
-
-/*
-    If the drag scroll button is pressed, 
-    then temporarily lower the dpi
-    until it is released
-*/
-    if (keycode == DRAG_SCROLL) {
-#ifndef PLOOPY_DRAGSCROLL_MOMENTARY
-        if (record->event.pressed)
-#endif
-        {
-            is_drag_scroll ^= 1;
-        }
-#ifdef PLOOPY_DRAGSCROLL_FIXED
-        pmw_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
-#else
-        pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
-#endif
-    }
 
 /* If Mousekeys is disabled, then use handle the mouse button
  * keycodes.  This makes things simpler, and allows usage of
