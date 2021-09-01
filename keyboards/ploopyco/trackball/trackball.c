@@ -182,7 +182,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifdef PLOOPY_DRAGSCROLL_FIXED
         pmw_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
 #else
-        pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
+        pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * w
+        PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
 #endif
     }
 

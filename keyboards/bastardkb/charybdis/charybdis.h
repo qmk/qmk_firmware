@@ -37,9 +37,10 @@ typedef union {
 
 extern keyboard_config_t keyboard_config;
 
-enum ploopy_keycodes {
+enum charybdis_keycodes {
     DPI_CONFIG = SAFE_RANGE,
     KEYMAP_SAFE_RANGE,
+    DRAG_SCROLL,
 };
 
 void master_mouse_send(int8_t x, int8_t y);

@@ -20,22 +20,25 @@
 #include <string.h>
 #include "drivers/sensors/pmw3360.h"
 
-#ifndef TRACKBALL_DPI_OPTIONS
-#    define TRACKBALL_DPI_OPTIONS \
+#ifndef CHARYBDIS__DPI_OPTIONS
+#    define CHARYBDIS_DPI_OPTIONS \
         { 600, 800, 1200 }
-#    ifndef TRACKBALL_DPI_DEFAULT
-#        define TRACKBALL_DPI_DEFAULT 1
-#    endif
 #endif
-#ifndef TRACKBALL_DPI_DEFAULT
-#    define TRACKBALL_DPI_DEFAULT 0
+#ifndef CHARYBDIS_DPI_DEFAULT
+#    define CHARYBDIS_DPI_DEFAULT 0
+#endif
+#ifndef CHARYBDIS_DRAGSCROLL_DPI
+#    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
+#endif
+#ifndef CHARYBDIS_DRAGSCROLL_MULTIPLIER
+#    define CHARYBDIS_DRAGSCROLL_MULTIPLIER 0.1 // Variable-DPI Drag Scroll
 #endif
 
 extern kb_runtime_config_t kb_state;
 extern kb_slave_data_t     kb_slave;
 
 keyboard_config_t keyboard_config;
-uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
+uint16_t          dpi_array[] = CHARYBDIS_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
 bool     is_drag_scroll    = false;
@@ -89,7 +92,6 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) { return false; }
 
-#ifdef POINTING_DEVICE_ENABLE
     if (keycode == DPI_CONFIG && record->event.pressed) {
         if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
             keyboard_config.dpi_config = (keyboard_config.dpi_config - 1) % DPI_OPTION_SIZE;
@@ -99,7 +101,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         eeconfig_update_kb(keyboard_config.raw);
         trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
+
+    if (keycode == DRAG_SCROLL) {
+#ifndef CHARYBDIS_DRAGSCROLL_MOMENTARY
+        if (record->event.pressed)
 #endif
+        {
+            is_drag_scroll ^= 1;
+        }
+#ifdef CHARYBDIS_DRAGSCROLL_FIXED
+        pmw_set_cpi(is_drag_scroll ? CHARYBDIS_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
+#else
+        pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * CHARYBDIS_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
+#endif
+    }
 
 /* If Mousekeys is disabled, then use handle the mouse button
  * keycodes.  This makes things simpler, and allows usage of
@@ -156,7 +171,19 @@ static bool has_report_changed(report_mouse_t new, report_mouse_t old) { return 
 
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
-    if (!is_keyboard_left()) { process_mouse(&mouse_report); }
+    process_mouse(&mouse_report);
+    
+    if (is_drag_scroll) {
+        mouse_report.h = mouse_report.x;
+#ifdef CHARYBDIS_DRAGSCROLL_INVERT
+        // Invert vertical scroll direction
+        mouse_report.v = -mouse_report.y;
+#else
+        mouse_report.v = mouse_report.y;
+#endif
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
 
     pointing_device_set_report(mouse_report);
     pointing_device_send();
@@ -164,7 +191,7 @@ void pointing_device_task(void) {
 #endif
 
 void eeconfig_init_kb(void) {
-    keyboard_config.dpi_config = TRACKBALL_DPI_DEFAULT;
+    keyboard_config.dpi_config = CHARYBDIS_DPI_DEFAULT;
 #ifdef POINTING_DEVICE_ENABLE
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
 #endif
