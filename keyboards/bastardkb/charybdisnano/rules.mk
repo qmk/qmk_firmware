@@ -28,6 +28,7 @@ POINTING_DEVICE_ENABLE = yes
 MOUSE_SHARED_EP = no
 
 SPLIT_KEYBOARD = yes
+LAYOUTS = split_3x5_3
 
 SRC += drivers/sensors/pmw3360.c
 QUANTUM_LIB_SRC += spi_master.c tm_sync.c
