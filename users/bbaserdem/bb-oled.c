@@ -12,9 +12,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "bb-oled.h"
-#ifdef ENCODER_ENABLE
-    #include "bb-encoder.h"
-#endif
 //#include <stdio.h>
 /* ROTARY ENCODER
  * This contains my general rotary encoder code
@@ -155,7 +152,7 @@ static void render_status(void) {
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        #if defined(KEYBOARD_kyria_rev1)
+        #if defined(KEYBOARD_splitkb_kyria_rev1)
         render_qmk_logo();
         #endif
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)

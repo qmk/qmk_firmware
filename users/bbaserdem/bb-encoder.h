@@ -18,7 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // Code to print to OLED
-void oled_encoder_state_5char(uint8_t index, uint8_t layer);
+#ifdef OLED_DRIVER_ENABLE
+    void oled_encoder_state_5char(uint8_t index, uint8_t layer);
+#endif
 
 // Hook to encoder stuff
 bool encoder_update_user(uint8_t index, bool clockwise);

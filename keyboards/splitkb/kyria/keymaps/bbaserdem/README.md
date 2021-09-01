@@ -1,5 +1,5 @@
 This file contains my Kyria board layout.
-Check out the [user readme](../../../../users/bbaserdem/README.md) for more info.
+Check out the [user readme](../../../../../users/bbaserdem/README.md) for more info.
 
 # Kyria
 
