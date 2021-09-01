@@ -63,7 +63,6 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
 SRC += bb-encoder.c
 endif
 
-<<<<<<< HEAD
 # RGB LED (Underglow) code
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 SRC += bb-underglow.c

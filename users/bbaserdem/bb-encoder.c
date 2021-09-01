@@ -512,4 +512,3 @@ void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
     }
 }
 #endif // OLED_ENABLE
-
