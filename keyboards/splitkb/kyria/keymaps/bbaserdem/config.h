@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // Kyria specific
-#ifdef KEYBOARD_kyria_rev1
+#ifdef KEYBOARD_splitkb_kyria_rev1
     // Split definition; use the following to flash;
     //  pro-micro:      avrdude-split-left/right
     //  elite-c:        dfu-split-left/right

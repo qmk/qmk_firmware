@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VELOCIKEY_ENABLE
     #include "velocikey.h"
 #endif
+
 /* ROTARY ENCODER
  * This contains my general rotary encoder code
  * Encoders each have a list of different modes they can be in.
@@ -41,8 +42,8 @@ void keyboard_post_init_encoder(void) {
 }
 
 // Oled string printing for given layer and index; ONLY for OLED
-void oled_encoder_state_5char(uint8_t index, uint8_t layer) {
 #ifdef OLED_DRIVER_ENABLE
+void oled_encoder_state_5char(uint8_t index, uint8_t layer) {
     // Get the layer straight from the main function
     switch (layer) {
         // If RGB control mode is enabled
@@ -127,8 +128,8 @@ void oled_encoder_state_5char(uint8_t index, uint8_t layer) {
             }
             break;
     }
-#endif
 }
+#endif
 
 // Encoder scroll functionality
 bool encoder_update_user(uint8_t index, bool clockwise) {
