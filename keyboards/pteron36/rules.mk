@@ -7,7 +7,7 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -21,7 +21,7 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-OLED_DRIVER_ENABLE = no    # OLED display; work in progress to add support. will be update in future.
+OLED_ENABLE = no    # OLED display; work in progress to add support. will be update in future.
 SPLIT_KEYBOARD = yes
 
 LAYOUTS = split_3x5_3
