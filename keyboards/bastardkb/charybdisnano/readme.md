@@ -6,9 +6,10 @@ A very small keyboard with a trackball, made for ergonomic enthusiasts.
 * Hardware Supported: elite-C V4
 * Hardware Availability: [Bastardkb.com](https://bastardkb.com/)
 
-Make example for this keyboard (after setting up your build environment):
+Make examples for this keyboard (after setting up your build environment):
 
     make bastardkb/charybdisnano:default
+    make bastardkb/charybdisnano:manna-harbour_miryoku
     
 This keyboard is made to be used with the Miryoku layout, do not use the default keymap.
 
