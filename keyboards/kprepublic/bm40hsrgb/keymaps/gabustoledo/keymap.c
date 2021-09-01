@@ -38,32 +38,28 @@ void set_color(int r, int g, int b){
 
 void rgb_matrix_indicators_user(void) {
 
-	if(IS_LAYER_ON(BASE2)) {
-		set_color(128, 64, 0);
-	}
-
-	if(IS_LAYER_ON(MEDIA)) {
-		set_color(50, 10, 20);
-	}
-
-	if(IS_LAYER_ON(NAV)) {
-		set_color(0, 40, 50);
-	}
-
-	if(IS_LAYER_ON(MOUSE)) {
-		set_color(0, 0, 50);
-	}
-
-	if(IS_LAYER_ON(SYM)) {
-		set_color(0, 50, 1.9);
-	}
-
-	if(IS_LAYER_ON(NUM)) {
-		set_color(10, 0, 50);
-	}
-
-	if(IS_LAYER_ON(FUN)) {
-		set_color(50, 0, 0);
+	switch (get_highest_layer(layer_state)) {
+		case BASE2:
+			set_color(128, 64, 0);
+			break;
+		case MEDIA:
+			set_color(50, 10, 20);
+			break;
+		case NAV:
+			set_color(0, 40, 50);
+			break;
+		case MOUSE:
+			set_color(0, 0, 50);
+			break;
+		case SYM:
+			set_color(0, 50, 1.9);
+			break;		
+		case NUM:
+			set_color(10, 0, 50);
+			break;
+		case FUN:
+			set_color(50, 0, 0);
+			break;
 	}
 }
 
