@@ -52,6 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_ESC_INPUT B4   // ROW pin if COL2ROW
 #define QMK_LED B0
 
+/* Tap-hold configurations */
+#define PERMISSIVE_HOLD
+
 /* Combos */
 #define COMBO_COUNT 1
 
