@@ -138,7 +138,6 @@ ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
   $(eval $(call HELIX_CUSTOMISE_MSG))
   ifneq ($(strip $(SHOW_VERBOSE_INFO)),)
      $(info -- RGBLIGHT_ENABLE    = $(RGBLIGHT_ENABLE))
-     $(info -- OLED_DRIVER_ENABLE = $(OLED_DRIVER_ENABLE))
      $(info -- CONSOLE_ENABLE     = $(CONSOLE_ENABLE))
      $(info -- OPT_DEFS           = $(OPT_DEFS))
      $(info -- SPLIT_KEYBOARD     = $(SPLIT_KEYBOARD))
@@ -146,3 +145,5 @@ ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
      $(info )
   endif
 endif
+
+OLED_ENABLE = no # disable OLED in TOP/common_features.mk
