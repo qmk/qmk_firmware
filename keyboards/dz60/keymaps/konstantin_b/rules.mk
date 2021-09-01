@@ -1,5 +1,7 @@
+USER_NAME := konstantin
+
 BACKLIGHT_ENABLE   = no
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE   = no
 COMMAND_ENABLE     = yes
 CONSOLE_ENABLE     = yes
 EXTRAKEY_ENABLE    = yes
@@ -9,5 +11,3 @@ RGBLIGHT_ENABLE    = no
 SPACE_CADET_ENABLE = no
 TAP_DANCE_ENABLE   = yes
 UNICODEMAP_ENABLE  = no
-
-USER_NAME = konstantin
