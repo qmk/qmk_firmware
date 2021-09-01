@@ -50,4 +50,10 @@
         KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,
         KC_NO,     KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO
         ),
+    [3] = LAYOUT_ortho2U(
+        KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,
+        KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO, 
+        KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,
+        KC_NO,     KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO
+        ),
 };
