@@ -28,8 +28,7 @@ enum layers {
 /* thumb mods */
 #define NUM_TAB LT(_NUM_NAV,KC_TAB)
 #define FUN_ENT LT(_FUNCTION,KC_ENT)
-#define CMD_BSPC CMD_T(KC_BSPC)
-#define OPT_ESC OPT_T(KC_ESC)
+#define CMD_ESC CMD_T(KC_ESC)
 #define GAMING TG(_GAMING)
 
 /* home row mods */
@@ -53,38 +52,102 @@ enum layers {
 /* layer definitions */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK_DH] = LAYOUT_split_3x5_3(
+/*
+ ,------.------.------.------.------.            ,------.------.------.------.------.
+ | Q    | W    | F    | P    | B    |            | J    | L    | U    | Y    | ; :  |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | A    | R    | S    | T    | G    |            | M    | N    | E    | I    | O    |
+ | SFT  | CTL  | OPT  | CMD  |      |            |      |      |      |      | SFT  |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | Z    | X    | C    | D    | V    |            | K    | H    | , <  | . >  | / ?  |
+ | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
+ `------'------'------'------'------'            `------'------'------'------'------'
+                  .------.------.------.      .------.------.------.
+                  | XXX  | ESC  | TAB  |      | ENT  | SPC  | XXX  |
+                  |      | CMD  | NUM  |      | FUN  |      |      |
+                  '------'------'------'      '------'------'------'
+*/
   KC_Q,   KC_W,   KC_F,    KC_P,     KC_B,         KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN,
   HOME_A, HOME_R, HOME_S,  HOME_T,   KC_G,         KC_M,    HOME_N, HOME_E,  HOME_I, HOME_O,
   HOME_Z, KC_X,   KC_C,    KC_D,     KC_V,         KC_K,    KC_H,   KC_COMM, KC_DOT, HOME_SL,
-                  OPT_ESC, CMD_BSPC, NUM_TAB,      FUN_ENT, KC_SPC, KC_BSPC
+                  XXXXXXX, CMD_ESC,  NUM_TAB,      FUN_ENT, KC_SPC, XXXXXXX
 ),
 
 [_NUM_NAV] = LAYOUT_split_3x5_3(
+/*
+ ,------.------.------.------.------.            ,------.------.------.------.------.
+ | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | ` ~  |      |      |      |      |            | ←    | ↓    | ↑    | →    | ' "  |
+ | SFT  | CTL  | OPT  | CMD  |      |            |      |      |      |      | SFT  |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | Z    |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
+ | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
+ `------'------'------'------'------'            `------'------'------'------'------'
+                  .------.------.------.      .------.------.------.
+                  | XXX  | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | BSPC | XXX  |
+                  |      |      |      |      |      |      |      |
+                  '------'------'------'      '------'------'------'
+*/
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,     KC_8,    KC_9,     KC_0,
   HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, HOME_QT,
   KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,   KC_LBRC, KC_RBRC,  HOME_BSL,
-                    KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS,  KC_TRNS
+                    XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_BSPC,  XXXXXXX
 ),
 
 [_FUNCTION] = LAYOUT_split_3x5_3(
+/*
+ ,------.------.------.------.------.            ,------.------.------.------.------.
+ | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ |      |      |      |      |      |            |      |      |      | F11  | F12  |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | RGB  | RGB  | RGB  | RGB- | RGB+ |            |      |      |      |      |      |
+ | TGGL | RMOD | MOD  |      |      |            |      |      |      |      |      |
+ `------'------'------'------'------'            `------'------'------'------'------'
+                  .------.------.------.      .------.------.------.
+                  | XXX  | DEL  | ↓↓↓  |      | ↓↓↓  | GAME | XXX  |
+                  |      |      |      |      |      |      |      |
+                  '------'------'------'      '------'------'------'
+*/
   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, KC_F11,  KC_F12,
-  RGB_TOG, RGB_RMOD, RGB_MOD, RGB_VAD, RGB_VAI,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                     GAMING,  KC_DEL,  KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS
+  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, KC_F11,  KC_F12,
+  RGB_TOG, RGB_RMOD, RGB_MOD, RGB_VAD, RGB_VAI,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAMING,
+                     XXXXXXX, KC_DEL,  KC_TRNS,      KC_TRNS, GAMING,  XXXXXXX
 ),
 
 [_GAMING] = LAYOUT_split_3x5_3(
-  KC_TAB,  KC_Q, KC_W,   KC_E,    KC_R,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-  KC_ESC,  KC_S, KC_D,   KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
-  KC_LSFT, KC_Z, KC_X,   KC_C,    KC_V,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_BSLS,
-                 GAMING, KC_LCMD, KC_SPC,      KC_TRNS, KC_TRNS, KC_TRNS
+/*
+ ,------.------.------.------.------.            ,------.------.------.------.------.
+ | TAB  | Q    | W    | E    | R    |            | Y    | U    | I    | O    | P    |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | ESC  | A    | S    | D    | F    |            | H    | J    | K    | L    | ; :  |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ |      | Z    | X    | C    | V    |            | N    | M    | , <  | . >  | \ |  |
+ | SFT  |      |      |      |      |            |      |      |      |      |      |
+ `------'------'------'------'------'            `------'------'------'------'------'
+                  .------.------.------.      .------.------.------.
+                  | XXX  |      | SPC  |      | ↓↓↓  | GAME | XXX  |
+                  |      | CMD  |      |      |      |      |      |
+                  '------'------'------'      '------'------'------'
+*/
+  KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+  KC_ESC,  KC_A, KC_S,    KC_D,    KC_F,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
+  KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_BSLS,
+                 XXXXXXX, KC_LCMD, KC_SPC,      KC_TRNS, GAMING,  XXXXXXX
 ),
 };
 
 /* per key configuration */
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case CMD_BSPC: /* make CMD SPC faster */
+    case CMD_ESC: /* make CMD SPC faster */
         return false;
     default:
         return true;
