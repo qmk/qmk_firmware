@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 };
 
-uint32_t layer_state_set_keymap(uint32_t state) {
+layer_state_t layer_state_set_keymap(layer_state_t state) {
 	state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 	switch (biton32(state)) {
 		case _LOWER:
