@@ -22,3 +22,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 OLED_ENABLE = yes           # Enable OLED driver
 WPM_ENABLE = yes            # Enable WPM calculation
+BOOTLOADER = qmk-dfu        # QMK DFU bootloader

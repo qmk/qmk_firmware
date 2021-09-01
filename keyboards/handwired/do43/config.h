@@ -47,6 +47,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+/* QMK DFU Bootloader */
+#define QMK_ESC_OUTPUT C6  // usually COL
+#define QMK_ESC_INPUT B4   // usually ROW
+#define QMK_LED B0
+
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
