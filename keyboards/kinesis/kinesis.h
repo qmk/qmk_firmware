@@ -8,7 +8,7 @@
 #    include "kint2pp.h"
 #elif defined(KEYBOARD_kinesis_nguyenvietyen)
 #    include "nguyenvietyen.h"
-#elif defined(KEYBOARD_kinesis_kint360)
+#elif defined(KEYBOARD_kinesis_kint36)
 #    include "kint36.h"
 #elif defined(KEYBOARD_kinesis_kint41)
 #    include "kint41.h"

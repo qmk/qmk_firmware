@@ -23,7 +23,7 @@
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
 #define LAYOUT( \
-    k00, k01, k02, K03, k04, k05 \
+    k00, k01, k02, k03, k04, k05 \
 ) { \
     { k00, k01, k02, k03, k04, k05 } \
 }
