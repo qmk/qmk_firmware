@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
     #include "bb-encoder.h"
 #endif
-
 //#include <stdio.h>
 /* ROTARY ENCODER
  * This contains my general rotary encoder code
