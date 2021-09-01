@@ -1,4 +1,5 @@
 /* Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+ * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +37,8 @@ extern kb_slave_data_t     kb_slave;
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
+
+bool     is_drag_scroll    = false;
 
 bool     BurstState  = false; // init burst state for Trackball module
 uint16_t MotionStart = 0;     // Timer for accel, 0 is resting state
@@ -97,6 +100,25 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 #endif
+
+/*
+    If the drag scroll button is pressed, 
+    then temporarily lower the dpi
+    until it is released
+*/
+    if (keycode == DRAG_SCROLL) {
+#ifndef PLOOPY_DRAGSCROLL_MOMENTARY
+        if (record->event.pressed)
+#endif
+        {
+            is_drag_scroll ^= 1;
+        }
+#ifdef PLOOPY_DRAGSCROLL_FIXED
+        pmw_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
+#else
+        pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
+#endif
+    }
 
 /* If Mousekeys is disabled, then use handle the mouse button
  * keycodes.  This makes things simpler, and allows usage of
