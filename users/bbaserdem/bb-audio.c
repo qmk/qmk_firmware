@@ -22,7 +22,7 @@ float tone_game_intro[][2] = GAME_ON_SONG;
 float tone_game_outro[][2] = GAME_OFF_SONG;
 
 // Audio playing when layer changes
-uint32_t layer_state_set_audio(uint32_t state) {
+layer_state_t layer_state_set_audio(layer_state_t state) {
     // Get this layer
     static bool prev_game = false;
 

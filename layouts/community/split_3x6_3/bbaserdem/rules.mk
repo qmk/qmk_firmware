@@ -10,9 +10,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Corne keyboard
+# Corne keyboard; with ARM
 ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
-    RGBLIGHT_ENABLE = no
+    # My usual features
+    AUDIO_ENABLE = yes #breaks reset keycode
+    BACKLIGHT_ENABLE = no
+    ENCODER_ENABLE = yes
     RGB_MATRIX_ENABLE = yes
-    OLED_DRIVER_ENABLE = no
+    RGBLIGHT_ENABLE = no
+    OLED_DRIVER_ENABLE = yes
+    # Proton C related stuff
+    MCU = STM32F303
+    COVERT_TO_PROTON_C = yes
+    DEBUG_MATRIX_SCAN_RATE_ENABLE = no # output matrix scan rate in qmk console/qmk toolbox
+    AUDIO_DRIVER = dac_basic
+    SERIAL_DRIVER = usart
+    WS2812_DRIVER = pwm
+    VIA_ENABLE = yes
+    SPLIT_KEYBOARD = yes
+    OLED_DRIVER = SSD1306   # Enables the use of OLED displays
+    # POINTING_DEVICE_ENABLE = no
+    # SRC += pimoroni_trackball.c
+    QUANTUM_LIB_SRC += i2c_master.c #drivers/chibios/i2cmaster.h needs patch - see lines 27/28
 endif

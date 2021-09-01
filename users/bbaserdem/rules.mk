@@ -20,15 +20,16 @@ EXTRAKEY_ENABLE = yes   # OS signals like volume control
 UNICODEMAP_ENABLE = yes # Used for unicode character emulation
 KEY_LOCK_ENABLE = yes   # Allows locking any key. Not used in general
 TAP_DANCE_ENABLE = yes 	# Tap dance keys; i don't use tap dance but I use tap-hold
-VELOCIKEY_ENABLE = no   # Modulate speed effects with typing speed
-WPM_ENABLE = no   	# Get WPM reports as you type
+VELOCIKEY_ENABLE = yes  # Modulate speed effects with typing speed
+WPM_ENABLE = yes  	# Get WPM reports as you type
+NKRO_ENABLE = yes       # Default is 6KRO which is plenty
+BLUETOOTH_ENABLE = no   # For bluetooth
 
 # These should be disabled in all boards
 BOOTMAGIC_ENABLE = no   # Access to EEPROM settings, not needed
 CONSOLE_ENABLE = no     # Allows console output with a command
 COMMAND_ENABLE = no     # Some bootmagic thing i dont use
 SLEEP_LED_ENABLE = no   # Breathes LED's when computer is asleep. Untested.
-NKRO_ENABLE = no        # Default is 6KRO which is plenty
 MIDI_ENABLE = no        # Midi driver (untested)
 UNICODE_ENABLE = no 	# We use unicodemap, not unicode
 UCIS_ENABLE = no 	# We use unicodemap, not ucis
@@ -37,12 +38,12 @@ VARIABLE_TRACE = no     # Allows debugging variables
 API_SYSEX_ENABLE = no   # Allows OS to send signals.
 
 # Manually configure these on each keyboard individually
-# BLUETOOTH_ENABLE        # For bluetooth
 # AUDIO_ENABLE            # Audio stuff
 # BACKLIGHT_ENABLE        # Switch LEDs
-# RGBLIGHT_ENABLE         # LED strip
-# RGB_MATRIX_ENABLE       # Per-key RGB LED
 # ENCODER_ENABLE          # Rotary encoder
+# RGB_MATRIX_ENABLE       # Per-key RGB LED
+# RGBLIGHT_ENABLE         # LED strip; compacter code for small leds.
+# OLED_DRIVER_ENABLE  	  # For OLED
 
 # Userspace code
 SRC += bbaserdem.c
