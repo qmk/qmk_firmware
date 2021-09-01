@@ -97,9 +97,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     // default layer
     else if(IS_LAYER_ON(0)) { 
       if (clockwise) {
-        tap_code(KC__VOLUP);
+        tap_code(KC_VOLU);
       } else {
-          tap_code(KC__VOLDOWN);
+          tap_code(KC_VOLD);
       }
     }
     return false;
