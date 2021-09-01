@@ -43,6 +43,7 @@ void reset_encoder_state(void) {
     userspace_config.e1point = 1;
     userspace_config.e1rgb = 1;
 }
+#endif
 
 // Encoder scroll functionality
 bool encoder_update_user(uint8_t index, bool clockwise) {
