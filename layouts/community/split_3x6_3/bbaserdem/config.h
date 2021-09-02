@@ -21,8 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "config_common.h"
 
     // Undo Eeprom handedness, try EE_HANDS later
-    #undef EE_HANDS
-    #define MASTER_RIGHT
+    #define EE_HANDS
 
     // Rebrand the PCB
     #undef PRODUCT
