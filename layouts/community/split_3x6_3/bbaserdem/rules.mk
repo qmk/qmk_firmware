@@ -18,18 +18,19 @@ ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
     ENCODER_ENABLE = yes
     RGB_MATRIX_ENABLE = yes
     RGBLIGHT_ENABLE = no
-    OLED_DRIVER_ENABLE = yes
-    OLED_DRIVER = SSD1306
+    OLED_ENABLE = yes
     # Features that take otherwise too much space
     WPM_ENABLE = yes
     NKRO_ENABLE = yes
     # Proton C related stuff
     MCU = STM32F303
-    COVERT_TO_PROTON_C = yes
-    DEBUG_MATRIX_SCAN_RATE_ENABLE = no # output matrix scan rate in qmk console/qmk toolbox
+    BOARD  = QMK_PROTON_C
+    # Config
     SERIAL_DRIVER = usart
     WS2812_DRIVER = pwm
     AUDIO_DRIVER = dac_basic
     SPLIT_KEYBOARD = yes
+    # These are from waffle
+    DEBUG_MATRIX_SCAN_RATE_ENABLE = no # output matrix scan rate in qmk console/qmk toolbox
     QUANTUM_LIB_SRC += i2c_master.c #drivers/chibios/i2cmaster.h needs patch - see lines 27/28
 endif

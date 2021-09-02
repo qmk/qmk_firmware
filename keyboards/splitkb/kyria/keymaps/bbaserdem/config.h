@@ -21,33 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define ENCODER_DIRECTION_FLIP
     #define EE_HANDS
 
-    #ifdef OLED_DRIVER_ENABLE
+    // Make sure kyria has bigger oled display
+    #ifdef OLED_ENABLE
     #define OLED_DISPLAY_128X64
     #endif
 
-    #ifdef RGBLIGHT_ENABLE
-        #ifdef RGBLIGHT_LEFT_BEG
-        #undef RGBLIGHT_LEFT_BEG
-        #endif
-        #define RGBLIGHT_LEFT_BEG 0
-
-        #ifdef RGBLIGHT_LEFT_NUM
-        #undef RGBLIGHT_LEFT_NUM
-        #endif
-        #define RGBLIGHT_LEFT_NUM 10
-
-        #ifdef RGBLIGHT_RIGHT_BEG
-        #undef RGBLIGHT_RIGHT_BEG
-        #endif
-        #define RGBLIGHT_RIGHT_BEG 10
-
-        #ifdef RGBLIGHT_RIGHT_NUM
-        #undef RGBLIGHT_RIGHT_NUM
-        #endif
-        #define RGBLIGHT_RIGHT_NUM 10
-    #endif
-
     // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
+    // However; this causes the halves to be unresponsive
     // #define SPLIT_USB_DETECT
     // #define NO_USB_STARTUP_CHECK
 #endif
