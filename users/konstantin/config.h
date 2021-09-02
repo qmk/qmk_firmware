@@ -24,7 +24,7 @@
 // Tapping
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM    200
-#define TAPPING_TOGGLE  3
+#define TAPPING_TOGGLE  2
 
 // Unicode
 #define UNICODE_CYCLE_PERSIST  false
