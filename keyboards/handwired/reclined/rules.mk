@@ -20,3 +20,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by d
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+
+LAYOUTS = ortho_4x12
