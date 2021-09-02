@@ -58,11 +58,11 @@
 #endif
 
 #ifndef ISSI_SWPULLUP
-#	define ISSI_SWPULLUP PUR_0R
+#    define ISSI_SWPULLUP PUR_0R
 #endif
 
 #ifndef ISSI_CSPULLUP
-#	define ISSI_CSPULLUP PUR_0R
+#    define ISSI_CSPULLUP PUR_0R
 #endif
 
 // Transfer buffer for TWITransmitData()
@@ -166,7 +166,7 @@ void IS31FL3733_init(uint8_t addr, uint8_t sync) {
     // Set de-ghost pull-up resistors (SWx)
     IS31FL3733_write_register(addr, ISSI_REG_SWPULLUP, ISSI_SWPULLUP);
     // Set de-ghost pull-down resistors (CSx)
-	IS31FL3733_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
+    IS31FL3733_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
     // Set global current to maximum.
     IS31FL3733_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Disable software shutdown.
