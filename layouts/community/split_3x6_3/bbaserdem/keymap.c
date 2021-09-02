@@ -13,17 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 #include "bbaserdem.h"
-/* F layout
- * ┌───┬───┬───┬───┬───┬───┐         ┌───┬───┬───┬───┬───┬───┐
- * │+ *│ F │ G │ Ğ │ I │ O │         │ D │ R │ N │ H │ P │ Q │
- * ├───┼───┼───┼───┼───┼───┤         ├───┼───┼───┼───┼───┼───┤
- * │ X │ A │ S │ D │ F │ G │         │ T │ K │ M │ L │ Y │ Ş │
- * ├───┼───┼───┼───┼───┼───┤         ├───┼───┼───┼───┼───┼───┤
- * │< >│ J │ Ö │ V │ C │ Ç │         │ Z │ S │ B │. :│, ;│ W │
- * └───┴───┴───┴───┼───┼───┼───┐ ┌───┼───┼───┼───┴───┴───┴───┘
- *                 │Tab│Ent│Esc│ │Del│Spc│Bsp│
- *                 └───┴───┴───┘ └───┴───┴───┘
- */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3_wrapper(
@@ -117,8 +106,14 @@ void keylight_set_right(uint8_t red, uint8_t green, uint8_t blue) {
         rgb_matrix_set_color(i, red, green, blue);
     }
 }
+// End of differentiations
+#endif
+// End of code for the RGB_MATRIX setup
+#endif
 
 #ifdef AUDIO_ENABLE
+// crkbd
+#if defined(KEYBOARD_crkbd_rev1)
 // Audio requires some fixes to work on @waffle's PCB
 // ! Copy pasted from ItsWaffle's waffle fork
 void keyboard_pre_init_keymap(void) { //thank you to @sigprof for this
@@ -131,9 +126,5 @@ void keyboard_post_init_keymap(void) {
     // Enable OPAMP1 as A5 → B1 follower
     OPAMP3->CSR = OPAMP3_CSR_VMSEL_1 | OPAMP3_CSR_VMSEL_0 | OPAMP3_CSR_VPSEL_0 | OPAMP3_CSR_OPAMP3EN;
 }
+#endif // End of differentiations
 #endif // End of audio specific stuff
-// End of differentiations
-#endif
-
-// End of code for the RGB_MATRIX setup
-#endif
