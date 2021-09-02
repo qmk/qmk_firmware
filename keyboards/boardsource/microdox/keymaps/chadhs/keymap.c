@@ -26,9 +26,9 @@ enum layers {
 };
 
 /* thumb mods */
-#define NUM_TAB LT(_NUM_NAV,KC_TAB)
-#define FUN_ENT LT(_FUNCTION,KC_ENT)
-#define CMD_ESC CMD_T(KC_ESC)
+#define NUM_BSPC LT(_NUM_NAV,KC_BSPC)
+#define FUN_SPC LT(_FUNCTION,KC_SPC)
+#define CMD_TAB CMD_T(KC_TAB)
 #define GAMING TG(_GAMING)
 
 /* home row mods */
@@ -64,14 +64,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
  `------'------'------'------'------'            `------'------'------'------'------'
                   .------.------.------.      .------.------.------.
-                  | XXX  | ESC  | TAB  |      | ENT  | SPC  | XXX  |
-                  |      | CMD  | NUM  |      | FUN  |      |      |
+                  | XXX  | TAB  | BSPC |      | SPC  | ENT  | XXX  |
+                  |      | CMD  | LNUM |      | LFUN |      |      |
                   '------'------'------'      '------'------'------'
 */
   KC_Q,   KC_W,   KC_F,    KC_P,     KC_B,         KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN,
   HOME_A, HOME_R, HOME_S,  HOME_T,   KC_G,         KC_M,    HOME_N, HOME_E,  HOME_I, HOME_O,
   HOME_Z, KC_X,   KC_C,    KC_D,     KC_V,         KC_K,    KC_H,   KC_COMM, KC_DOT, HOME_SL,
-                  XXXXXXX, CMD_ESC,  NUM_TAB,      FUN_ENT, KC_SPC, XXXXXXX
+                  XXXXXXX, CMD_TAB,  NUM_BSPC,     FUN_SPC, KC_ENT, XXXXXXX
 ),
 
 [_NUM_NAV] = LAYOUT_split_3x5_3(
@@ -87,14 +87,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
  `------'------'------'------'------'            `------'------'------'------'------'
                   .------.------.------.      .------.------.------.
-                  | XXX  | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | BSPC | XXX  |
+                  | XXX  | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  | XXX  |
                   |      |      |      |      |      |      |      |
                   '------'------'------'      '------'------'------'
 */
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,     KC_8,    KC_9,     KC_0,
   HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, HOME_QT,
   KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,   KC_LBRC, KC_RBRC,  HOME_BSL,
-                    XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_BSPC,  XXXXXXX
+                    XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS,  XXXXXXX
 ),
 
 [_FUNCTION] = LAYOUT_split_3x5_3(
@@ -110,14 +110,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | TGGL | RMOD | MOD  |      |      |            |      |      |      |      |      |
  `------'------'------'------'------'            `------'------'------'------'------'
                   .------.------.------.      .------.------.------.
-                  | XXX  | DEL  | ↓↓↓  |      | ↓↓↓  | GAME | XXX  |
+                  | XXX  | ESC  | DEL  |      | ↓↓↓  | GAME | XXX  |
                   |      |      |      |      |      |      |      |
                   '------'------'------'      '------'------'------'
 */
   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, KC_F11,  KC_F12,
   RGB_TOG, RGB_RMOD, RGB_MOD, RGB_VAD, RGB_VAI,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAMING,
-                     XXXXXXX, KC_DEL,  KC_TRNS,      KC_TRNS, GAMING,  XXXXXXX
+                     XXXXXXX, KC_ESC,  KC_DEL,       KC_TRNS, GAMING,  XXXXXXX
 ),
 
 [_GAMING] = LAYOUT_split_3x5_3(
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* per key configuration */
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case CMD_ESC: /* make CMD SPC faster */
+    case CMD_TAB: /* make CMD SPC faster */
         return false;
     default:
         return true;
