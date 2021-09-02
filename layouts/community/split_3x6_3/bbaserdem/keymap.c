@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 #include "bbaserdem.h"
+#include "quantum.h"
 #include <stdio.h>
 
 #ifdef KEYBOARD_crkbd_rev1
