@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS \
     { B12, B13, B14, B15, A8, A9 }
 
+#define UNUSED_PINS \
+    { A11, A13, A14, C15 }
+
 #define DIODE_DIRECTION     COL2ROW
 
 #define USB_VBUS_PIN        B10
@@ -45,12 +48,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_SPLIT \
     { 10, 10 }
 
-#define DEBUG_LED_PIN     C13
+#define DEBUG_LED_PIN      C13
 
-#define AUDIO_PIN         A0
-#define AUDIO_PWM_DRIVER  PWMD5
-#define AUDIO_PWM_CHANNEL 1
-#define AUDIO_STATE_TIMER GPTD4
+// AUDIO doesn't work
+#define AUDIO_PIN          B1
+#define AUDIO_PWM_DRIVER   PWMD3
+#define AUDIO_PWM_CHANNEL  4
+#define AUDIO_PWM_PAL_MODE 2
+#define AUDIO_STATE_TIMER  GPTD4
 
 /* serial.c configuration for split keyboard */
 #define SERIAL_USART_FULL_DUPLEX  // Enable full duplex operation mode.
@@ -74,9 +79,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_CLOCK_SPEED  400000
 
 #define ENCODERS_PAD_A \
-    { B1 }
+    { A10 }
 #define ENCODERS_PAD_B \
-    { B2 }
+    { A12 }
 
 #define SPI_DRIVER                           SPID1
 #define SPI_SCK_PIN                          A5
