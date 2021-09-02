@@ -13,23 +13,23 @@
 # Corne keyboard; with ARM
 ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
     # My usual features
-    AUDIO_ENABLE = yes #breaks reset keycode
+    AUDIO_ENABLE = yes
     BACKLIGHT_ENABLE = no
     ENCODER_ENABLE = yes
     RGB_MATRIX_ENABLE = yes
     RGBLIGHT_ENABLE = no
     OLED_DRIVER_ENABLE = yes
+    OLED_DRIVER = SSD1306
+    # Features that take otherwise too much space
+    WPM_ENABLE = yes
+    NKRO_ENABLE = yes
     # Proton C related stuff
     MCU = STM32F303
     COVERT_TO_PROTON_C = yes
     DEBUG_MATRIX_SCAN_RATE_ENABLE = no # output matrix scan rate in qmk console/qmk toolbox
-    AUDIO_DRIVER = dac_basic
     SERIAL_DRIVER = usart
     WS2812_DRIVER = pwm
-    VIA_ENABLE = yes
+    AUDIO_DRIVER = dac_basic
     SPLIT_KEYBOARD = yes
-    OLED_DRIVER = SSD1306   # Enables the use of OLED displays
-    # POINTING_DEVICE_ENABLE = no
-    # SRC += pimoroni_trackball.c
     QUANTUM_LIB_SRC += i2c_master.c #drivers/chibios/i2cmaster.h needs patch - see lines 27/28
 endif
