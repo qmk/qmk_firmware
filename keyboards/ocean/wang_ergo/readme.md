@@ -1,6 +1,6 @@
 # Wang Ergo
 
-![Wang Ergo](https://i.imgur.com/vsYWYfx.jpeg)
+![Wang Ergo](https://i.imgur.com/vsYWYfxh.jpeg)
 
 
 40% ortholinear ergo keyboard
