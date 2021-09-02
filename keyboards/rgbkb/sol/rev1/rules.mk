@@ -1,7 +1,7 @@
 # RGBKB Sol Rev1 Defaults
 
 # Keycode Options
-BOOTMAGIC_ENABLE        = no        # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE         = no        # Mouse keys
 EXTRAKEY_ENABLE         = yes       # Audio control and System control
 UNICODE_ENABLE          = no        # Unicode keycodes
@@ -25,5 +25,5 @@ RGBLIGHT_FULL_POWER     = no        # Allow maximum RGB brightness for RGBLIGHT 
 IOS_DEVICE_ENABLE       = no        # Limit max brightness to connect to IOS device (iPad,iPhone)
 
 # Misc
-OLED_DRIVER_ENABLE      = no        # Enable the OLED Driver
+OLED_ENABLE     = no        # Enable the OLED Driver
 SWAP_HANDS_ENABLE       = no        # Enable one-hand typing

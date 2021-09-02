@@ -126,7 +126,7 @@ void matrix_scan_user(void) {
 }
 
 // 0.91" OLED, 128x32 resolution
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
