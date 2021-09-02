@@ -21,7 +21,7 @@ matrix_row_t* matrix_mouse_dest;
 
 static uint8_t  spis_tx_buf[4] = {0xfe, 0xff, 0xff, 0xff};
 static uint8_t  spis_rx_buf[1024];
-static uint16_t spis_receive_len;
+static int16_t  spis_receive_len = -1;
 static uint16_t led_on_count = 0;
 
 void qt_spis_callback(uint16_t receive_len) {
@@ -110,8 +110,12 @@ uint32_t qt_get_device_col() { return MATRIX_COLS_DEFAULT; }
 uint32_t qt_matrix_scan(matrix_row_t *matrix_raw) {
     if (spis_receive_len > 0) {
         qt_spis_receive(spis_receive_len);
-        spis_receive_len = 0;
+    } else if (spis_receive_len != -1) {
+        // restart spi if errors
+        BMPAPI->spis.start(spis_tx_buf, sizeof(spis_tx_buf), spis_rx_buf,
+                           sizeof(spis_rx_buf));
     }
+    spis_receive_len = -1;
 
     if (led_on_count) {
         led_on_count--;
