@@ -2,8 +2,6 @@
     "keyboard_name": "M0110",
     "url": "https://drop.com/buy/ryloo-studio-hello-m0110-mechanical-keyboard-kit",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
