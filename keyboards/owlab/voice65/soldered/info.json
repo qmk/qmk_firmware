@@ -2,8 +2,6 @@
     "keyboard_name": "voice65 soldered",
     "url": "https://www.popkeyboard.com/products/67968vn00mzx",
     "maintainer": "kb-elmo",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

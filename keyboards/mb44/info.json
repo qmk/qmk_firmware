@@ -2,8 +2,6 @@
     "keyboard_name": "MB-44",
     "url": "",
     "maintainer": "melonbred",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

@@ -2,8 +2,6 @@
   "keyboard_name": "Mint60",
   "url": "",
   "maintainer": "eucalyn",
-  "width": 16,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [
