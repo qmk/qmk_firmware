@@ -32,18 +32,20 @@ FAUXCLICKY_ENABLE = no  # Emulates clicks using speaker, who would want this?
 VARIABLE_TRACE = no     # Allows debugging variables
 API_SYSEX_ENABLE = no   # Allows OS to send signals.
 BLUETOOTH_ENABLE = no   # For bluetooth
-NKRO_ENABLE = no        # Default is 6KRO which is plenty
-VELOCIKEY_ENABLE = no   # Modulate speed effects with typing speed
 KEY_LOCK_ENABLE = no    # Allows locking any key. Not used in general
-WPM_ENABLE = no  	# Get WPM reports as you type
+RGBLIGHT_ENABLE = no    # LED strip, but there is RGB_MATRIX instead
+
+# These features can be enabled on ARM boards; disabled for AVR due to space
+# NKRO_ENABLE = no        # Default is 6KRO which is plenty
+# VELOCIKEY_ENABLE = no   # Modulate speed effects with typing speed
+# WPM_ENABLE = no  	# Get WPM reports as you type
 
 # Manually configure these on each keyboard individually
 # AUDIO_ENABLE            # Audio stuff
 # BACKLIGHT_ENABLE        # Switch LEDs
 # ENCODER_ENABLE          # Rotary encoder
-# RGB_MATRIX_ENABLE       # Per-key RGB LED
-# RGBLIGHT_ENABLE         # LED strip; compacter code for small leds.
-# OLED_DRIVER_ENABLE  	  # For OLED
+# RGB_MATRIX_ENABLE       # RGB LEDs
+# OLED_ENABLE  	          # For OLED
 
 # Userspace code
 SRC += bbaserdem.c
@@ -72,7 +74,7 @@ SRC += bb-underglow.c
 endif
 
 # OLED code
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+ifeq ($(strip $(OLED_ENABLE)), yes)
 SRC += bb-oled.c
 endif
 

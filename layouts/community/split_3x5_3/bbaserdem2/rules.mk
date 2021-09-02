@@ -14,5 +14,5 @@
 ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
     RGBLIGHT_ENABLE = no
     RGB_MATRIX_ENABLE = yes
-    OLED_DRIVER_ENABLE = no
+    OLED_ENABLE = no
 endif

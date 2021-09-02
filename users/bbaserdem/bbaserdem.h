@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "bb-encoder.h"
 #endif
 // Oled screen
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     #include "bb-oled.h"
 #endif
 
