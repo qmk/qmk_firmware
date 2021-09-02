@@ -184,7 +184,13 @@
 
 /* Size of write log */
 #ifdef FEE_WRITE_LOG_BYTES
-// TODO: add checks
+#    if ((FEE_DENSITY_BYTES + FEE_WRITE_LOG_BYTES) > FEE_DENSITY_MAX_SIZE)
+#        pragma message STR(FEE_DENSITY_BYTES) " + " STR(FEE_WRITE_LOG_BYTES) " > " STR(FEE_DENSITY_MAX_SIZE)
+#        error emulated eeprom: FEE_WRITE_LOG_BYTES exceeds remaining FEE_DENSITY_MAX_SIZE
+#    endif
+#    if ((FEE_WRITE_LOG_BYTES) % 2) == 1
+#        error emulated eeprom: FEE_WRITE_LOG_BYTES must be even
+#    endif
 #else
 /* Default to use all remaining space */
 #    define FEE_WRITE_LOG_BYTES (FEE_PAGE_COUNT * FEE_PAGE_SIZE - FEE_DENSITY_BYTES)
