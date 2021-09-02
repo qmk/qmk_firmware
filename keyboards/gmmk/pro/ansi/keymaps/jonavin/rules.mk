@@ -7,3 +7,5 @@ TD_LSFT_CAPSLOCK_ENABLE = yes
 IDLE_TIMEOUT_ENABLE = yes
 STARTUP_NUMLOCK_ON = yes
 ENCODER_DEFAULTACTIONS_ENABLE = yes
+
+COLEMAK_LAYER_ENABLE = yes  #Enable Colemak layer / set to no to disable
