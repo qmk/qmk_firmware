@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 #include "bbaserdem.h"
+#include "quantum.h"
 #include <stdio.h>
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -117,7 +118,6 @@ void keylight_set_right(uint8_t red, uint8_t green, uint8_t blue) {
 #if defined(KEYBOARD_crkbd_rev1)
 // Audio requires some fixes to work on @waffle's PCB
 // ! Copy pasted from ItsWaffle's waffle fork
-/*
 void keyboard_pre_init_keymap(void) { //thank you to @sigprof for this
     // Set audio pins to analog mode
     palSetLineMode(A5, PAL_MODE_INPUT_ANALOG);
@@ -128,6 +128,5 @@ void keyboard_post_init_keymap(void) {
     // Enable OPAMP1 as A5 → B1 follower
     OPAMP3->CSR = OPAMP3_CSR_VMSEL_1 | OPAMP3_CSR_VMSEL_0 | OPAMP3_CSR_VPSEL_0 | OPAMP3_CSR_OPAMP3EN;
 }
-*/
 #endif // End of differentiations
 #endif // End of audio specific stuff
