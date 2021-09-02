@@ -12,7 +12,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "bb-oled.h"
-//#include <stdio.h>
+#ifdef ENCODER_ENABLE
+    #include "bb-encoder.h"
+#endif
 /* ROTARY ENCODER
  * This contains my general rotary encoder code
  * Encoders each have a list of different modes they can be in.
@@ -41,8 +43,19 @@ static void render_status(void) {
     // Function to print state information
     uint8_t this_layer = get_highest_layer(layer_state);
     uint8_t this_mod =   get_mods();
+    // Temporary variable for RGB
+    #if defined RGBLIGHT_ENABLE
+    static char rgb_temp4[4] = {0};
+    #elif defined RGB_MATRIX_ENABLE
+    static char rgb_temp4[4] = {0};
+    #endif
+    // Temporary variable for WPM string
     #if defined WPM_ENABLE
-    static char temp[4] = {0};
+    static char wpm_temp4[4] = {0};
+    #endif
+    // Temporary variable for encoder state
+    #if defined ENCODER_ENABLE
+    static char encoder_temp6[6] = {0};
     #endif
 
     // Line 1: Layer State
@@ -88,33 +101,33 @@ static void render_status(void) {
 #if defined RGBLIGHT_ENABLE
         case _MEDI:
             oled_write_P(PSTR("m:"), false);
-            itoa(rgblight_config.mode, temp, 10);
-            oled_write(temp, false);
+            itoa(rgblight_config.mode, rgb_temp4, 10);
+            oled_write(rgb_temp4, false);
             oled_write_P(PSTR(" h:"), false);
-            itoa(rgblight_config.hsv.h, temp, 10);
-            oled_write(temp, false);
+            itoa(rgblight_config.hsv.h, rgb_temp4, 10);
+            oled_write(rgb_temp4, false);
             oled_write_P(PSTR(" s:"), false);
-            itoa(rgblight_config.hsv.s, temp, 10);
-            oled_write(temp, false);
+            itoa(rgblight_config.hsv.s, rgb_temp4, 10);
+            oled_write(rgb_temp4, false);
             oled_write_P(PSTR(" v:"), false);
-            itoa(rgblight_config.hsv.v, temp, 10);
-            oled_write(temp, false);
+            itoa(rgblight_config.hsv.v, rgb_temp4, 10);
+            oled_write(rgb_temp4, false);
             oled_write_P(PSTR("\n"), false);
             break;
 #elif defined RGB_MATRIX_ENABLE
         case _MEDI:
             oled_write_P(PSTR("m"), false);
-            itoa(rgb_matrix_config.mode, temp, 10);
-            oled_write(temp, false);
+            itoa(rgb_matrix_config.mode, rgb_temp4, 10);
+            oled_write(rgb_temp4, false);
             oled_write_P(PSTR(" h"), false);
-            itoa(rgb_matrix_config.hsv.h, temp, 10);
-            oled_write(temp, false);
+            itoa(rgb_matrix_config.hsv.h, rgb_temp4, 10);
+            oled_write(rgb_temp4, false);
             oled_write_P(PSTR(" s"), false);
-            itoa(rgb_matrix_config.hsv.s, temp, 10);
-            oled_write(temp, false);
+            itoa(rgb_matrix_config.hsv.s, rgb_temp4, 10);
+            oled_write(rgb_temp4, false);
             oled_write_P(PSTR(" v"), false);
-            itoa(rgb_matrix_config.hsv.v, temp, 10);
-            oled_write(temp, false);
+            itoa(rgb_matrix_config.hsv.v, rgb_temp4, 10);
+            oled_write(rgb_temp4, false);
             oled_write_P(PSTR("\n"), false);
             break;
 #endif
@@ -132,8 +145,8 @@ static void render_status(void) {
     // Line 3: WPM
     oled_write_P(PSTR("KM: Qwerty WPM: "), false);
 #if defined WPM_ENABLE
-    itoa(get_current_wpm(), temp, 10);
-    oled_write(temp, false);
+    itoa(get_current_wpm(), wpm_temp4, 10);
+    oled_write(wpm_temp4, false);
 #else
     oled_write_P(PSTR("N/A"), false);
 #endif
@@ -142,9 +155,11 @@ static void render_status(void) {
     // Line 4: Encoder states
 #ifdef ENCODER_ENABLE
     oled_write_P(PSTR("EN0:"), false);
-    oled_encoder_state_5char(0, this_layer);
+    encoder_state_string(0, this_layer, encoder_temp6);
+    oled_write(encoder_temp6, false);
     oled_write_P(PSTR(" EN1:"), false);
-    oled_encoder_state_5char(1, this_layer);
+    encoder_state_string(1, this_layer, encoder_temp6);
+    oled_write(encoder_temp6, false);
 #endif
     oled_write_P(PSTR("\n"), false);
 
