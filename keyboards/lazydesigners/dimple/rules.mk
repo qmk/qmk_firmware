@@ -21,3 +21,4 @@ NKRO_ENABLE = yes            # USB Nkey Rollover
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no
+DEFAULT_FOLDER = lazydesigners/dimple/staggered/rev1
