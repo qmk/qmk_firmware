@@ -2,8 +2,6 @@
     "keyboard_name": "lyra",
     "url": "",
     "maintainer": "malevolti",
-    "width": 15,
-    "height": 5.5,
     "layouts": {
         "LAYOUT": {
             "layout": [
