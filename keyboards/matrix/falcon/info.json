@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Matrix Lab Falcon",
     "url": "",
-    "maintainer": "Astro",
+    "maintainer": "yulei (Astro)",
     "width": 15,
     "height": 5,
     "layouts": {
@@ -66,11 +66,11 @@
                 {"label":"Shift", "x":12.25, "y":3, "w":1.75},
                 {"label":"Fn", "x":14, "y":3},
 
-                {"label":"Os", "x":1.5, "y":4},
+                {"label":"OS", "x":1.5, "y":4},
                 {"label":"Alt", "x":2.5, "y":4, "w":1.5},
-                {"x":4, "y":4, "w":7},
+                {"label":"Space", "x":4, "y":4, "w":7},
                 {"label":"Alt", "x":11, "y":4, "w":1.5},
-                {"label":"Os", "x":12.5, "y":4}
+                {"label":"OS", "x":12.5, "y":4}
             ]
         }
     }
