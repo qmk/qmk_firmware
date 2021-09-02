@@ -2,8 +2,6 @@
     "keyboard_name": "Ready100",
     "url": "https://www.ready100.com",
     "maintainer": "FJLabs",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
