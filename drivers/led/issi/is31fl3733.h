@@ -48,7 +48,6 @@ void IS31FL3733_update_pwm_buffers(uint8_t addr, uint8_t index);
 void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index);
 
 #define PUR_0R 0x00 // No PUR resistor
-#define PUR_05KR 0x01 // 0.5k Ohm resistor in t_NOL
 #define PUR_05KR 0x02 // 0.5k Ohm resistor in t_NOL
 #define PUR_3KR 0x03 // 3.0k Ohm resistor on all the time
 #define PUR_4KR 0x04 // 4.0k Ohm resistor on all the time
