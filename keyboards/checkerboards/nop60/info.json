@@ -1,8 +1,6 @@
 {
     "keyboard_name": "nop60",
     "maintainer": "nasp",
-    "height": 5,
-    "width": 15,
     "url": "",
     "layout_aliases": {
         "LAYOUT_2x3u": "LAYOUT_60_tsangan_hhkb_split_space",
