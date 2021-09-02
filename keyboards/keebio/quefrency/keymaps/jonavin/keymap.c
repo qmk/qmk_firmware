@@ -69,25 +69,25 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
     default: // other encoder (Top right)
         if ( clockwise ) {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, Page up
+            if (get_mods() & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, Page up
                 unregister_mods(MOD_BIT(KC_LSFT));
                 register_code(KC_PGDN);
                 register_mods(MOD_BIT(KC_LSFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
+            } else if (get_mods() & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
                     tap_code16(LCTL(KC_RGHT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
+            } else if (get_mods() & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
                 tap_code(KC_MEDIA_NEXT_TRACK);
             } else  {
                 tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
             }
         } else {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+            if (get_mods() & MOD_BIT(KC_LSFT) ) {
                 unregister_mods(MOD_BIT(KC_LSFT));
                 register_code(KC_PGUP);
                 register_mods(MOD_BIT(KC_LSFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
+            } else if (get_mods() & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
                 tap_code16(LCTL(KC_LEFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
+            } else if (get_mods() & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
                 tap_code(KC_MEDIA_PREV_TRACK);
             } else {
                 tap_code(KC_VOLD);

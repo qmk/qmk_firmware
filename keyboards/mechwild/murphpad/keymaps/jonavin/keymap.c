@@ -155,7 +155,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             case 0:         // This is the only encoder right now, keeping for consistency
                 switch(get_highest_layer(layer_state)){  // special handling per layer
                 case _FN1:  // on Fn layer select what the encoder does when pressed
-                    if (!keyboard_report->mods) {
+                    if (!get_mods()) {
                         if ( clockwise ) {
                             if ( selectedkey_idx  < MAX_KEYSELECTION-1) {
                                 selectedkey_idx ++;
@@ -176,27 +176,27 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                     }
                 default:   // all other layers
                     if ( clockwise ) {
-                        if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) { // If you are holding Right Shift, encoder changes layers
+                        if (get_mods() & MOD_BIT(KC_RSFT) ) { // If you are holding Right Shift, encoder changes layers
                             if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT-1)) {
                                 selected_layer ++;
                                 layer_move(selected_layer);
                             }
-                        } else if (keyboard_report->mods & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate next word
+                        } else if (get_mods() & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate next word
                              tap_code16(LCTL(KC_RGHT));
-                        } else if (keyboard_report->mods & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media next track
+                        } else if (get_mods() & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media next track
                             tap_code(KC_MEDIA_NEXT_TRACK);
                         } else  {
                             tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
                         }
                     } else if ( !clockwise ) {
-                        if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) {
+                        if (get_mods() & MOD_BIT(KC_RSFT) ) {
                             if (selected_layer  > 0) {
                                 selected_layer --;
                                 layer_move(selected_layer);
                             }
-                        } else if (keyboard_report->mods & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate previous word
+                        } else if (get_mods() & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate previous word
                             tap_code16(LCTL(KC_LEFT));
-                        } else if (keyboard_report->mods & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media previous track
+                        } else if (get_mods() & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media previous track
                             tap_code(KC_MEDIA_PREV_TRACK);
                         } else {
                             tap_code(KC_VOLD);

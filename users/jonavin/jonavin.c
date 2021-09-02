@@ -120,18 +120,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if (!encoder_update_keymap(index, clockwise)) { return false; }
     if (index != ENCODER_DEFAULTACTIONS_INDEX) {return true;}  // exit if the index doesn't match
         if ( clockwise ) {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+            if (get_mods() & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
                 if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT - 1)) {
                     selected_layer ++;
                     layer_move(selected_layer);
                 }
-            } else if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, Page up
+            } else if (get_mods() & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, Page up
                 unregister_mods(MOD_BIT(KC_RSFT));
                 register_code(KC_PGDN);
                 register_mods(MOD_BIT(KC_RSFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
+            } else if (get_mods() & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
                     tap_code16(LCTL(KC_RGHT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
+            } else if (get_mods() & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
                 tap_code(KC_MEDIA_NEXT_TRACK);
             } else  {
                 switch (selected_layer) {
@@ -146,18 +146,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 }
             }
         } else {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+            if (get_mods() & MOD_BIT(KC_LSFT) ) {
                 if (selected_layer  > 0) {
                     selected_layer --;
                     layer_move(selected_layer);
                 }
-            } else if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) {
+            } else if (get_mods() & MOD_BIT(KC_RSFT) ) {
                 unregister_mods(MOD_BIT(KC_RSFT));
                 register_code(KC_PGUP);
                 register_mods(MOD_BIT(KC_RSFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
+            } else if (get_mods() & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
                 tap_code16(LCTL(KC_LEFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
+            } else if (get_mods() & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
                 tap_code(KC_MEDIA_PREV_TRACK);
             } else {
                 switch (selected_layer) {
