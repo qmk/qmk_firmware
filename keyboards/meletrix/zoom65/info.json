@@ -86,7 +86,7 @@
                 { "label": "\u2192", "x": 15, "y": 4 }
             ]
         },
-        "LAYOUT_65_ansi": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
@@ -102,7 +102,7 @@
                 { "label": "-", "x": 11, "y": 0 },
                 { "label": "=", "x": 12, "y": 0 },
                 { "label": "Backspace", "x": 13, "y": 0, "w": 2 },
-                { "label": "Encode", "x": 15.5, "y": 0 },
+                { "label": "Encode", "x": 15, "y": 0 },
 
                 { "label": "Tab", "x": 0, "y": 1, "w": 1.5 },
                 { "label": "Q", "x": 1.5, "y": 1 },
@@ -161,7 +161,7 @@
                 { "label": "\u2192", "x": 15, "y": 4 }
             ]
         },
-        "LAYOUT_65_iso": {
+        "LAYOUT_65_iso_blocker": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
@@ -177,7 +177,7 @@
                 { "label": "-", "x": 11, "y": 0 },
                 { "label": "=", "x": 12, "y": 0 },
                 { "label": "Backspace", "x": 13, "y": 0, "w": 2 },
-                { "label": "Encode", "x": 15.5, "y": 0 },
+                { "label": "Encode", "x": 15, "y": 0 },
 
                 { "label": "Tab", "x": 0, "y": 1, "w": 1.5 },
                 { "label": "Q", "x": 1.5, "y": 1 },
@@ -252,7 +252,7 @@
                 { "label": "-", "x": 11, "y": 0 },
                 { "label": "=", "x": 12, "y": 0 },
                 { "label": "Backspace", "x": 13, "y": 0 },
-                { "label": "Encode", "x": 15.5, "y": 0 },
+                { "label": "Encode", "x": 15, "y": 0 },
 
                 { "label": "Tab", "x": 0, "y": 1, "w": 1.5 },
                 { "label": "Q", "x": 1.5, "y": 1 },
@@ -328,7 +328,7 @@
                 { "label": "-", "x": 11, "y": 0 },
                 { "label": "=", "x": 12, "y": 0 },
                 { "label": "Backspace", "x": 13, "y": 0, "w": 2 },
-                { "label": "Encode", "x": 15.5, "y": 0 },
+                { "label": "Encode", "x": 15, "y": 0 },
 
                 { "label": "Tab", "x": 0, "y": 1, "w": 1.5 },
                 { "label": "Q", "x": 1.5, "y": 1 },
@@ -404,7 +404,7 @@
                 { "label": "-", "x": 11, "y": 0 },
                 { "label": "=", "x": 12, "y": 0 },
                 { "label": "Backspace", "x": 13, "y": 0, "w": 2 },
-                { "label": "Encode", "x": 15.5, "y": 0 },
+                { "label": "Encode", "x": 15, "y": 0 },
 
                 { "label": "Tab", "x": 0, "y": 1, "w": 1.5 },
                 { "label": "Q", "x": 1.5, "y": 1 },
