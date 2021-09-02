@@ -355,8 +355,8 @@ static void eeprom_clear(void) {
     FLASH_Unlock();
 
     for (uint16_t page_num = 0; page_num < FEE_PAGE_COUNT; ++page_num) {
-        eeprom_printf("FLASH_ErasePage(0x%04x)\n", (uint32_t)(FEE_COMPACTED_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE)));
-        FLASH_ErasePage(FEE_COMPACTED_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE));
+        eeprom_printf("FLASH_ErasePage(0x%04x)\n", (uint32_t)(FEE_PAGE_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE)));
+        FLASH_ErasePage(FEE_PAGE_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE));
     }
 
     FLASH_Lock();
