@@ -31,7 +31,10 @@
 #    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
 #endif
 #ifndef CHARYBDIS_DRAGSCROLL_MULTIPLIER
-#    define CHARYBDIS_DRAGSCROLL_MULTIPLIER 0.1 // Variable-DPI Drag Scroll
+#    define CHARYBDIS_DRAGSCROLL_MULTIPLIER 0.2 // Variable-DPI Drag Scroll
+#endif
+#ifndef CHARYBDIS_SNIPER_MULTIPLIER
+#    define CHARYBDIS_SNIPER_MULTIPLIER 0.4 // Variable-DPI Drag Scroll
 #endif
 
 extern kb_runtime_config_t kb_state;
@@ -41,7 +44,8 @@ keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = CHARYBDIS_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
-bool     is_drag_scroll    = false;
+bool    is_drag_scroll    = false;
+bool    is_sniper         = false;
 
 bool     BurstState  = false; // init burst state for Trackball module
 uint16_t MotionStart = 0;     // Timer for accel, 0 is resting state
@@ -100,6 +104,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         }
         eeconfig_update_kb(keyboard_config.raw);
         trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    }
+
+    if (keycode == SNIPER){
+        is_sniper = record->event.pressed;
+           if (is_sniper) {
+               pmw_set_cpi(dpi_array[keyboard_config.dpi_config] * CHARYBDIS_SNIPER_MULTIPLIER);
+           } else {
+               pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+           }
     }
 
     if (keycode == DRAG_SCROLL) {
