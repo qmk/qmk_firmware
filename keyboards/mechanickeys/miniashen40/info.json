@@ -2,8 +2,6 @@
   "keyboard_name": "Mini Ashen 40",
   "url": "",
   "maintainer": "qmk",
-  "width": 14.25,
-  "height": 4.25,
   "layouts": {
     "LAYOUT": {
       "layout": [
