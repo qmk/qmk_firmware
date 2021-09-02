@@ -5,7 +5,7 @@ This page covers questions people often have about keymaps. If you haven't you s
 ## What Keycodes Can I Use?
 See [Keycodes](keycodes.md) for an index of keycodes available to you. These link to more extensive documentation when available.
 
-Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+Keycodes are actually defined in [quantum/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
 
 ## What Are the Default Keycodes?
 
