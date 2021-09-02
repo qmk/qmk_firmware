@@ -19,7 +19,6 @@ MOUSEKEY_ENABLE = yes   # Mouse emulation keys
 EXTRAKEY_ENABLE = yes   # OS signals like volume control
 UNICODEMAP_ENABLE = yes # Used for unicode character emulation
 TAP_DANCE_ENABLE = yes 	# Tap dance keys; i don't use tap dance but I use tap-hold
-WPM_ENABLE = yes  	# Get WPM reports as you type
 
 # These should be disabled in all boards
 BOOTMAGIC_ENABLE = no   # Access to EEPROM settings, not needed
@@ -36,6 +35,7 @@ BLUETOOTH_ENABLE = no   # For bluetooth
 NKRO_ENABLE = no        # Default is 6KRO which is plenty
 VELOCIKEY_ENABLE = no   # Modulate speed effects with typing speed
 KEY_LOCK_ENABLE = no    # Allows locking any key. Not used in general
+WPM_ENABLE = no  	# Get WPM reports as you type
 
 # Manually configure these on each keyboard individually
 # AUDIO_ENABLE            # Audio stuff

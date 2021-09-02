@@ -12,6 +12,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "bb-encoder.h"
+#include <string.h>
 #ifdef VELOCIKEY_ENABLE
     #include "velocikey.h"
 #endif
@@ -41,9 +42,8 @@ void keyboard_post_init_encoder(void) {
     reset_encoder_state();
 }
 
-// Oled string printing for given layer and index; ONLY for OLED
-#ifdef OLED_DRIVER_ENABLE
-void oled_encoder_state_5char(uint8_t index, uint8_t layer) {
+// Oled string printing for given layer and index
+void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
     // Get the layer straight from the main function
     switch (layer) {
         // If RGB control mode is enabled
@@ -51,22 +51,22 @@ void oled_encoder_state_5char(uint8_t index, uint8_t layer) {
         case _MEDI:
             switch (encoder_state[index].rgb) {
                 case 0:
-                    oled_write_P(PSTR(" mode"), false);
+                    strcpy(buffer, " mode");
                     break;
                 case 1:
-                    oled_write_P(PSTR(" hue "), false);
+                    strcpy(buffer, " hue ");
                     break;
                 case 2:
-                    oled_write_P(PSTR("satur"), false);
+                    strcpy(buffer, "satur");
                     break;
                 case 3:
-                    oled_write_P(PSTR("value"), false);
+                    strcpy(buffer, "value");
                     break;
                 case 4:
-                    oled_write_P(PSTR("speed"), false);
+                    strcpy(buffer, "speed");
                     break;
                 default:
-                    oled_write_P(PSTR("!oob!"), false);
+                    strcpy(buffer, "!oob!");
                     break;
             }
             break;
@@ -76,19 +76,19 @@ void oled_encoder_state_5char(uint8_t index, uint8_t layer) {
         case _MOUS:
             switch (encoder_state[index].point) {
                 case 0:
-                    oled_write_P(PSTR("m.lat"), false);
+                    strcpy(buffer, "m.lat");
                     break;
                 case 1:
-                    oled_write_P(PSTR("m.ver"), false);
+                    strcpy(buffer, "m.ver");
                     break;
                 case 2:
-                    oled_write_P(PSTR("s.ver"), false);
+                    strcpy(buffer, "s.ver");
                     break;
                 case 3:
-                    oled_write_P(PSTR("s.lat"), false);
+                    strcpy(buffer, "s.lat");
                     break;
                 default:
-                    oled_write_P(PSTR("!oob!"), false);
+                    strcpy(buffer, "!oob!");
                     break;
             }
             break;
@@ -96,40 +96,39 @@ void oled_encoder_state_5char(uint8_t index, uint8_t layer) {
         default:
             switch (encoder_state[index].base) {
                 case 0:
-                    oled_write_P(PSTR(" volm"), false);
+                    strcpy(buffer, " volm");
                     break;
                 case 1:
-                    oled_write_P(PSTR(" song"), false);
+                    strcpy(buffer, " song");
                     break;
                 case 2:
-                    oled_write_P(PSTR(" sink"), false);
+                    strcpy(buffer, " sink");
                     break;
                 case 3:
-                    oled_write_P(PSTR("s.vol"), false);
+                    strcpy(buffer, "s.vol");
                     break;
                 case 4:
-                    oled_write_P(PSTR(" src "), false);
+                    strcpy(buffer, " src ");
                     break;
                 case 5:
-                    oled_write_P(PSTR(" L/R "), false);
+                    strcpy(buffer, " L/R ");
                     break;
                 case 6:
-                    oled_write_P(PSTR(" U/D "), false);
+                    strcpy(buffer, " U/D ");
                     break;
                 case 7:
-                    oled_write_P(PSTR("pgU/D"), false);
+                    strcpy(buffer, "pgU/D");
                     break;
                 case 8:
-                    oled_write_P(PSTR(" del "), false);
+                    strcpy(buffer, " del ");
                     break;
                 default:
-                    oled_write_P(PSTR("!oob!"), false);
+                    strcpy(buffer, "!oob!");
                     break;
             }
             break;
     }
 }
-#endif
 
 // Encoder scroll functionality
 bool encoder_update_user(uint8_t index, bool clockwise) {
