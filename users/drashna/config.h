@@ -30,7 +30,7 @@
 #    ifdef WPM_ENABLE
 #        define SPLIT_WPM_ENABLE
 #    endif
-#    ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_ENABLE
 #        define SPLIT_OLED_ENABLE
 #    endif
 #    if defined(__AVR__) && !defined(SELECT_SOFT_SERIAL_SPEED)
@@ -130,14 +130,6 @@
 #        define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #        define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    endif  // AVR
-#    ifndef RGB_MATRIX_REST_MODE
-#        if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_moonlander)
-#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#        else
-#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
-#        endif
-#    endif
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
 #endif  // RGB_MATRIX_ENABLE
 
 #ifdef OLED_ENABLE
@@ -170,11 +162,6 @@
 #ifndef ONESHOT_TIMEOUT
 #    define ONESHOT_TIMEOUT 3000
 #endif  // !ONESHOT_TIMEOUT
-
-#ifdef QMK_KEYS_PER_SCAN
-#    undef QMK_KEYS_PER_SCAN
-#endif
-#define QMK_KEYS_PER_SCAN 4
 
 // this makes it possible to do rolling combos (zx) with keys that
 // convert to other keys on hold (z becomes ctrl when you hold it,
@@ -213,13 +200,6 @@
 #    undef LOCKING_RESYNC_ENABLE
 #endif
 
-#if !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_32BIT)
-#    define LAYER_STATE_16BIT
-#endif
-#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 11
-#endif
-
 #ifdef CONVERT_TO_PROTON_C
 // pins that are available but not present on Pro Micro
 #    define A3  PAL_LINE(GPIOA, 3)
@@ -238,79 +218,3 @@
 #    define C14 PAL_LINE(GPIOC, 14)
 #    define C15 PAL_LINE(GPIOC, 15)
 #endif
-
-#ifdef MOUSEKEY_ENABLE
-// mouse movement config
-#    ifdef MK_3_SPEED
-#        undef MK_3_SPEED
-#    endif
-#    define MK_KINETIC_SPEED
-#    ifdef MK_KINETIC_SPEED
-#        ifndef MOUSEKEY_DELAY
-#            define MOUSEKEY_DELAY 8
-#        endif
-#        ifndef MOUSEKEY_INTERVAL
-#            define MOUSEKEY_INTERVAL 20
-#        endif
-#        ifdef MOUSEKEY_MOVE_DELTA
-#            define MOUSEKEY_MOVE_DELTA 25
-#        endif
-#    else
-#        ifndef MOUSEKEY_DELAY
-#            define MOUSEKEY_DELAY 300
-#        endif
-#        ifndef MOUSEKEY_INTERVAL
-#            define MOUSEKEY_INTERVAL 50
-#        endif
-#        ifndef MOUSEKEY_MOVE_DELTA
-#            define MOUSEKEY_MOVE_DELTA 5
-#        endif
-#    endif
-#    ifndef MOUSEKEY_MAX_SPEED
-#        define MOUSEKEY_MAX_SPEED 7
-#    endif
-#    ifndef MOUSEKEY_TIME_TO_MAX
-#        define MOUSEKEY_TIME_TO_MAX 60
-#    endif
-#    ifndef MOUSEKEY_INITIAL_SPEED
-#        define MOUSEKEY_INITIAL_SPEED 100
-#    endif
-#    ifndef MOUSEKEY_BASE_SPEED
-#        define MOUSEKEY_BASE_SPEED 1000
-#    endif
-#    ifndef MOUSEKEY_DECELERATED_SPEED
-#        define MOUSEKEY_DECELERATED_SPEED 400
-#    endif
-#    ifndef MOUSEKEY_ACCELERATED_SPEED
-#        define MOUSEKEY_ACCELERATED_SPEED 3000
-#    endif
-// mouse scroll config
-#    ifndef MOUSEKEY_WHEEL_DELAY
-#        define MOUSEKEY_WHEEL_DELAY 15
-#    endif
-#    ifndef MOUSEKEY_WHEEL_DELTA
-#        define MOUSEKEY_WHEEL_DELTA 1
-#    endif
-#    ifndef MOUSEKEY_WHEEL_INTERVAL
-#        define MOUSEKEY_WHEEL_INTERVAL 50
-#    endif
-#    ifndef MOUSEKEY_WHEEL_MAX_SPEED
-#        define MOUSEKEY_WHEEL_MAX_SPEED 8
-#    endif
-#    ifndef MOUSEKEY_WHEEL_TIME_TO_MAX
-#        define MOUSEKEY_WHEEL_TIME_TO_MAX 80
-#    endif
-// mouse scroll kinetic config
-#    ifndef MOUSEKEY_WHEEL_INITIAL_MOVEMENTS
-#        define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 8
-#    endif
-#    ifndef MOUSEKEY_WHEEL_BASE_MOVEMENTS
-#        define MOUSEKEY_WHEEL_BASE_MOVEMENTS 48
-#    endif
-#    ifndef MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS
-#        define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48
-#    endif
-#    ifndef MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS
-#        define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
-#    endif
-#endif  // MOUSEKEY_ENABLE
