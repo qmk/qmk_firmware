@@ -2,8 +2,6 @@
     "keyboard_name": "zoom65",
     "url": "https://zoom65.com/",
     "maintainer": "qmk",
-    "width": 15.5,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
