@@ -1,13 +1,13 @@
-# Phantom Hotswap PCB by Lucid
+# Phantom Hotswap PCB by Maker Keyboards
 
-The following is the QMK Firmware for the Phantom Hotswap PCB for [LucidKB](http://www.lucidkb.cm).
+The following is the QMK Firmware for the Phantom Hotswap PCB for [Maker Keyboards](http://www.makerkeyboards.com).
 ---
 
-* Keyboard Maintainer: Lucid
+* Keyboard Maintainer: Maker Keyboards
 * Hardware Supported: Phantom
 
 Make example for this keyboard (after setting up your build environment):
 
-    make lucid/phantom_hs:default
+    make maker/phantom_hs:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
