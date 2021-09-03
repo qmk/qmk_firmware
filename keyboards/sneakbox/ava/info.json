@@ -2,8 +2,6 @@
   "keyboard_name": "AVA",
   "url": "https://sneakbox.com",
   "maintainer": "mujimanic",
-  "width": 18.75,
-  "height": 5,
   "layout_aliases": {
       "LAYOUT_alice_split_bs": "LAYOUT_ava_split_bs",
       "LAYOUT_alice": "LAYOUT_ava"
