@@ -2,8 +2,6 @@
     "keyboard_name": "NP_hhkb",
     "url": "",
     "maintainer": "weirdo-f",
-    "width": 15,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_tsangan_hhkb"
     },
