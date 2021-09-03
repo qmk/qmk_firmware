@@ -26,4 +26,4 @@ AUDIO_ENABLE = no           # Audio output
 KEYBOARD_LOCK_ENABLE = yes
 ENCODER_ENABLE = no
 
-LAYOUTS = 60_duplex_ansi
+LAYOUTS = 60_ansi
