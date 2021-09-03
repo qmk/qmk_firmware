@@ -33,4 +33,5 @@ ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
     # These are from waffle
     DEBUG_MATRIX_SCAN_RATE_ENABLE = no # output matrix scan rate in qmk console/qmk toolbox
     QUANTUM_LIB_SRC += i2c_master.c #drivers/chibios/i2cmaster.h needs patch - see lines 27/28
+    LTO_ENABLE = no
 endif
