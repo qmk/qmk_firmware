@@ -109,7 +109,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     uint8_t selected_layer = 0;
 
     bool encoder_update_user(uint8_t index, bool clockwise) {
-        #ifdef OLED_DRIVER_ENABLE
+        #ifdef OLED_ENABLE
             oled_clear();
             oled_render();
         #endif
@@ -172,7 +172,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE   // OLED Functionality
+#ifdef OLED_ENABLE   // OLED Functionality
     oled_rotation_t oled_init_user(oled_rotation_t rotation) {
         return OLED_ROTATION_180;       // flips the display 180 degrees if offhand
     }

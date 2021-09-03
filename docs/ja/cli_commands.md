@@ -211,7 +211,7 @@ qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 
 # 開発者用コマンド
 
-## `qmk cformat`
+## `qmk format-c`
 
 このコマンドは clang-format を使って C コードを整形します。
 
@@ -222,25 +222,25 @@ qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 **指定したファイルに対する使い方**:
 
 ```
-qmk cformat [file1] [file2] [...] [fileN]
+qmk format-c [file1] [file2] [...] [fileN]
 ```
 
 **全てのコアファイルに対する使い方**:
 
 ```
-qmk cformat -a
+qmk format-c -a
 ```
 
 **origin/master で変更されたファイルのみに対する使い方**:
 
 ```
-qmk cformat
+qmk format-c
 ```
 
 **branch_name で変更されたファイルのみに対する使い方**:
 
 ```
-qmk cformat -b branch_name
+qmk format-c -b branch_name
 ```
 
 ## `qmk docs`
@@ -275,14 +275,14 @@ $ qmk kle2json -f kle.txt -f
 Ψ Wrote out to info.json
 ```
 
-## `qmk pyformat`
+## `qmk format-py`
 
 このコマンドは `qmk_firmware` 内の python コードを整形します。
 
 **使用法**:
 
 ```
-qmk pyformat
+qmk format-py
 ```
 
 ## `qmk pytest`

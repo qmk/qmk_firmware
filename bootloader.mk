@@ -26,6 +26,7 @@
 #     atmel-dfu   Atmel factory DFU
 #     lufa-dfu    LUFA DFU
 #     qmk-dfu     QMK DFU (LUFA + blinkenlight)
+#     qmk-hid     QMK HID (LUFA + blinkenlight)
 #     bootloadHID HIDBootFlash compatible (ATmega32A)
 #     USBasp      USBaspLoader (ATmega328P)
 # ARM:
@@ -66,6 +67,11 @@ ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
     ifneq (,$(filter $(MCU), at90usb1286 at90usb1287))
         BOOTLOADER_SIZE = 8192
     endif
+endif
+ifeq ($(strip $(BOOTLOADER)), qmk-hid)
+    OPT_DEFS += -DBOOTLOADER_QMK_HID
+    OPT_DEFS += -DBOOTLOADER_HID
+    BOOTLOADER_SIZE = 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
