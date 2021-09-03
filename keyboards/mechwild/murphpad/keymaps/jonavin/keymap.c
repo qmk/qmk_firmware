@@ -194,11 +194,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                         // continue to default
                 }
             default:   // all other layers
-                if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                if (mods_state & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, encoder changes layers
                     encoder_action_layerchange(clockwise);
-                } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next/prev word
+                } else if (mods_state & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate next/prev word
                     encoder_action_navword(clockwise);
-                } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next/prev track
+                } else if (mods_state & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media next/prev track
                     encoder_action_mediatrack(clockwise);
                 } else  {
                     encoder_action_volume(clockwise);   // Otherwise it just changes volume
