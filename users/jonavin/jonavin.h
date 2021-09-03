@@ -58,6 +58,16 @@ enum custom_user_keycodes {
 #endif // TD_LSFT_CAPSLOCK_ENABLE
 
 
+// ENCODER ACTIONS
+#ifdef ENCODER_ENABLE
+    void encoder_action_volume(bool clockwise);
+    void encoder_action_mediatrack(bool clockwise);
+    void encoder_action_navword(bool clockwise);
+    void encoder_action_navpage(bool clockwise);
+    void encoder_action_layerchange(bool clockwise);
+#endif // ENCODER_ENABLE
+
+
 #ifdef RGB_MATRIX_ENABLE
 //RGB custom colours
     #define RGB_GODSPEED 0x00, 0xE4, 0xFF // colour for matching keycaps

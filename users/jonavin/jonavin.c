@@ -104,7 +104,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // IDLE_TIMEOUT_ENABLE
 
 
-#if defined(ENCODER_ENABLE) && defined(ENCODER_DEFAULTACTIONS_ENABLE)       // Encoder Functionality
+#ifdef ENCODER_ENABLE
     #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
         #define DYNAMIC_KEYMAP_LAYER_COUNT 4  //default in case this is not already defined elsewhere
     #endif
@@ -112,69 +112,83 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         #define ENCODER_DEFAULTACTIONS_INDEX 0  // can select encoder index if there are multiple encoders
     #endif
 
-uint8_t selected_layer = 0;
+    uint8_t selected_layer = 0;
+
+    void encoder_action_volume(bool clockwise) {
+        if (clockwise)
+            tap_code(KC_VOLU);
+        else
+            tap_code(KC_VOLD);
+    }
+
+    void encoder_action_mediatrack(bool clockwise) {
+        if (clockwise)
+            tap_code(KC_MEDIA_NEXT_TRACK);
+        else
+            tap_code(KC_MEDIA_PREV_TRACK);
+    }
+
+    void encoder_action_navword(bool clockwise) {
+        if (clockwise)
+            tap_code16(LCTL(KC_RGHT));
+        else
+            tap_code16(LCTL(KC_LEFT));
+    }
+
+    void encoder_action_navpage(bool clockwise) {
+        if (clockwise)
+            tap_code16(KC_PGUP);
+        else
+            tap_code16(KC_PGDN);
+    }
+
+    void encoder_action_layerchange(bool clockwise) {
+        if (clockwise) {
+            if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT - 1)) {
+                selected_layer ++;
+                layer_move(selected_layer);
+            }
+        } else {
+            if (selected_layer  > 0) {
+                selected_layer --;
+                layer_move(selected_layer);
+            }
+        }
+    }
+#endif // ENCODER_ENABLE
+
+#if defined(ENCODER_ENABLE) && defined(ENCODER_DEFAULTACTIONS_ENABLE)       // Encoder Functionality
 
 __attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (!encoder_update_keymap(index, clockwise)) { return false; }
     if (index != ENCODER_DEFAULTACTIONS_INDEX) {return true;}  // exit if the index doesn't match
-        if ( clockwise ) {
-            if (get_mods() & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT - 1)) {
-                    selected_layer ++;
-                    layer_move(selected_layer);
-                }
-            } else if (get_mods() & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, Page up
-                unregister_mods(MOD_BIT(KC_RSFT));
-                register_code(KC_PGDN);
-                register_mods(MOD_BIT(KC_RSFT));
-            } else if (get_mods() & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
-                    tap_code16(LCTL(KC_RGHT));
-            } else if (get_mods() & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
-                tap_code(KC_MEDIA_NEXT_TRACK);
-            } else  {
-                switch (selected_layer) {
-                case _FN1:
-                    #ifdef IDLE_TIMEOUT_ENABLE
-                        timeout_update_threshold(true);
-                    #endif
-                    break;
-                default:
-                    tap_code(KC_VOLU);       // Otherwise it just changes volume
-                    break;
-                }
-            }
-        } else {
-            if (get_mods() & MOD_BIT(KC_LSFT) ) {
-                if (selected_layer  > 0) {
-                    selected_layer --;
-                    layer_move(selected_layer);
-                }
-            } else if (get_mods() & MOD_BIT(KC_RSFT) ) {
-                unregister_mods(MOD_BIT(KC_RSFT));
-                register_code(KC_PGUP);
-                register_mods(MOD_BIT(KC_RSFT));
-            } else if (get_mods() & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
-                tap_code16(LCTL(KC_LEFT));
-            } else if (get_mods() & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
-                tap_code(KC_MEDIA_PREV_TRACK);
-            } else {
-                switch (selected_layer) {
-                case _FN1:
-                    #ifdef IDLE_TIMEOUT_ENABLE
-                        timeout_update_threshold(false);
-                    #endif
-                    break;
-                default:
-                    tap_code(KC_VOLD);
-                    break;
-                }
-            }
+    uint8_t mods_state = get_mods();
+    if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+        encoder_action_layerchange(clockwise);
+    } else if (mods_state & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, Page up/dn
+        unregister_mods(MOD_BIT(KC_RSFT));
+        encoder_action_navpage(clockwise);
+        register_mods(MOD_BIT(KC_RSFT));
+    } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next/prev word
+        encoder_action_navword(clockwise);
+    } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next/prev track
+        encoder_action_mediatrack(clockwise);
+    } else  {
+        switch(get_highest_layer(layer_state)) {
+        case _FN1:
+            #ifdef IDLE_TIMEOUT_ENABLE
+                timeout_update_threshold(clockwise);
+            #endif
+            break;
+        default:
+            encoder_action_volume(clockwise);       // Otherwise it just changes volume
+            break;
         }
-
-        return true;
     }
+    return true;
+}
 #endif // ENCODER_ENABLE
 
 
