@@ -81,8 +81,13 @@ enum userspace_layers {
 // Since our quirky block definitions are basically a list of comma separated
 // arguments, we need a wrapper in order for these definitions to be
 // expanded before being used as arguments to the LAYOUT_xxx macro.
-#if (!defined(LAYOUT) && defined(KEYMAP))
+#if !defined(LAYOUT)
+#if defined(LAYOUT_ortho_4x12)
+#define LAYOUT_wrapper_ortho_4x12(...) LAYOUT_ortho_4x12(__VA_ARGS__)
+#define LAYOUT LAYOUT_ortho_4x12
+#elif defined(KEYMAP)
 #define LAYOUT KEYMAP
+#endif
 #endif
 #define KEYMAP_wrapper(...) LAYOUT(__VA_ARGS__)
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
