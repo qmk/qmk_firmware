@@ -12,7 +12,7 @@
 
 # Common compilation flags
 EXTRAFLAGS += -flto     # Used to make code smaller
-LTO_ENABLE = yes
+#LTO_ENABLE = yes
 
 # These should be enabled in all boards
 MOUSEKEY_ENABLE = yes   # Mouse emulation keys
