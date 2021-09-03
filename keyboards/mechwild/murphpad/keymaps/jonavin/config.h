@@ -1,4 +1,4 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+/* Copyright 2021 Jonavin Eng
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,12 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "f411.h"
+#pragma once
 
-void matrix_init_sub_kb(void) { setPinInputHigh(A0); }
+// Standard encoder position.  Set to 1 for top right optional position
+#define ENCODER_DEFAULTACTIONS_INDEX 0
 
-void matrix_scan_sub_kb(void) {
-    if (!readPin(A0)) {
-        reset_keyboard();
-    }
-}
+// Increase layers to 6 for VIA
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6

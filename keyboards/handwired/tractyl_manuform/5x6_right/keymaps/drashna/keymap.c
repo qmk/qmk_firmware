@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           _______, _______,                                                            _______, _______,
                                             _______, _______,                                 KC_BTN3,
-                                                     KC_ACCEL, _______,               _______,
+                                                     _______, KC_ACCEL,              _______,
                                                      _______, _______,      _______, _______
     ),
     [_GAMEPAD] = LAYOUT_5x6_right(
@@ -259,7 +259,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 // WPM-responsive animation stuff here
 #    define SLEEP_FRAMES 2
 #    define SLEEP_SPEED  10  // below this wpm value your animation will idle

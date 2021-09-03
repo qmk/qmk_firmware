@@ -16,24 +16,28 @@
 
 #pragma once
 
-#define TAPPING_TOGGLE 2
-// TT set to two taps
+#include "quantum.h"
 
-/*  Handle GRAVESC combo keys */
-#define GRAVE_ESC_ALT_OVERRIDE
-    //Always send Escape if Alt is pressed
-#define GRAVE_ESC_CTRL_OVERRIDE
-    //Always send Escape if Control is pressed
+/* First section contains the physical layout of the board and position of keys.
+ *
+ * Second is a two-dimensional array which represents the switch matrix.
+ */
 
-#define TAPPING_TERM 180
+#define LAYOUT_landscape( \
+    k50, k40, k30, \
+    k51, k41, k31, k20, k10,    k00, \
+    k52, k42, k32, k21, k11,    k01, \
+    k53, k43, k33, k22, k12,    k02, \
+    k54, k44, k34, k23, k13,    k03, \
+	\
+	     BACK00, BACK01, BACK02 \
+\
+) { \
+    { BACK00, k00, k01, k02, k03 }, \
+    { BACK01, k10, k11, k12, k13 },  \
+    { BACK02, k20, k21, k22, k23 },  \
+    { k30, k31, k32, k33, k34 },     \
+    { k40, k41, k42, k43, k44 },     \
+    { k50, k51, k52, k53, k54 }      \
+}
 
-#ifdef RGB_MATRIX_ENABLE
-    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED
-#endif
-
-// add fifth layer for colemak  -- set "COLEMAK_LAYER_ENABLE = yes" in rules.mk to enable
-#if defined COLEMAK_LAYER_ENABLE
-    #define DYNAMIC_KEYMAP_LAYER_COUNT 5
-    #define _COLEMAK 4
-#endif // COLEMAK_LAYER_ENABLE
