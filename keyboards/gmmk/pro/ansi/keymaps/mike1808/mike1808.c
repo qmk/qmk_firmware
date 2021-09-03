@@ -20,7 +20,7 @@
 #else
 // `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
 // And I'm not familiar enough to know which is better or why...
-static const char *const secret[] = {"test1", "test2", "test3", "test4", "test5"};
+static const char *const secrets[] = {"test1", "test2", "test3", "test4", "test5"};
 #endif
 
 // userspace_config_t userspace_config;
