@@ -2,8 +2,6 @@
     "keyboard_name": "KeyBee65",
     "url": "",
     "maintainer": "ToastyStoemp",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
