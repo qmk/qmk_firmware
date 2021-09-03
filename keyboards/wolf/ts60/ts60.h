@@ -16,7 +16,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-/* LAYOUT_all
+/* LAYOUT
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
  * │00 │01 │02 │03 │04 │05 │06 │07 │08 │09 │0a │0b │0c │0d │0e │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
@@ -29,7 +29,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  * │40  │41  │42  │44      │46  │48        │4a │4b │4c │4d │4e │
  * └────┴────┴────┴────────┴────┴──────────┴───┴───┴───┴───┴───┘
 */
-#define LAYOUT_all( \
+#define LAYOUT( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0a, K0b, K0c, K0d, K0e, \
     K10,      K12, K13, K14, K15, K16, K17, K18, K19, K1a, K1b, K1c, K1d, K1e, \
     K20,      K22, K23, K24, K25, K26, K27, K28, K29, K2a, K2b, K2c, K2d,      \
@@ -74,8 +74,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     { KC_NO, K13,   K15,   K17,   K19,   K1b, KC_NO, K1e   }, \
     { K20,   K22,   K24,   K26,   K28,   K2a, K2c,   K2d   }, \
     { KC_NO, K23,   K25,   K27,   K29,   K2b, KC_NO, KC_NO }, \
-    { K30,   K32,   K34,   K36,   K38,   K3a, K3c,   K3d   }, \
+    { K30,   K32,   K34,   K36,   K38,   K3a, KC_NO, K3d   }, \
     { KC_NO, K33,   K35,   K37,   K39,   K3b, KC_NO, KC_NO }, \
-    { K40,   K42,   KC_NO, K46,   KC_NO, K4a, K4c,   K4d   }, \
+    { K40,   K42,   KC_NO, K46,   KC_NO, K4a, KC_NO, K4d   }, \
     { K41,   KC_NO, KC_NO, KC_NO, KC_NO, K4b, KC_NO, K4e   } \
 }
+
