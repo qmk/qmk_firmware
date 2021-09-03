@@ -93,6 +93,28 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
     }
 }
 
+// on layer change, no matter where the change was initiated
+// Then runs keymap's layer change check
+__attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
+layer_state_t                       layer_state_set_user(layer_state_t state) {
+
+// TODO replace 4 with the correct mbo layer name
+// TODO find a way to add/import default miryoku layers ?
+   // state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+    static bool is_sniper_on = false;
+    if (layer_state_cmp(state, 4) != is_sniper_on) {
+        is_sniper_on = layer_state_cmp(state, 4);
+        
+        if (is_sniper_on) {
+               pmw_set_cpi(dpi_array[keyboard_config.dpi_config] * CHARYBDIS_SNIPER_MULTIPLIER);
+           } else {
+               pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        } 
+    }
+    state = layer_state_set_keymap(state);
+    return state;
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) { return false; }
 
@@ -105,7 +127,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         eeconfig_update_kb(keyboard_config.raw);
         trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
-
+/*
     if (keycode == SNIPER){
         is_sniper = record->event.pressed;
            if (is_sniper) {
@@ -113,7 +135,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
            } else {
                pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
            }
-    }
+    }*/
 
     if (keycode == DRAG_SCROLL) {
 #ifndef CHARYBDIS_DRAGSCROLL_MOMENTARY
