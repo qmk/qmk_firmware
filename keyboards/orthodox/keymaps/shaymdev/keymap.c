@@ -44,15 +44,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_DVORAK] = LAYOUT( \
-  KC_ESC,  KC_QUOT, KC_COMM, KC_DOT, KC_P,    KC_Y,                                                                     KC_F,    KC_G,   KC_C,  KC_R,   KC_L,    KC_SLSH, \
-  KC_TAB,  KC_A,    KC_O,    KC_E,   KC_U,    KC_I,    KC_ENT,           KC_LALT,           KC_DEL,            KC_LGUI, KC_D,    KC_H,   KC_T,  KC_N,   KC_S,    KC_MINS, \
-  KC_EQL,  KC_SCLN, KC_Q,    KC_J,   KC_K,    KC_X,    LOWER,   KC_LSFT, KC_LCTL,           KC_BSPC, KC_SPC,   RAISE,   KC_B,    KC_M,   KC_W,  KC_V,   KC_Z,    KC_BSLS \
+  KC_ESC,  KC_QUOT, KC_COMM, KC_DOT, KC_P,    KC_Y,                                                                       KC_F,    KC_G,   KC_C,  KC_R,   KC_L,    KC_SLSH, \
+  KC_TAB,  KC_A,    KC_O,    KC_E,   KC_U,    KC_I,    KC_ENT,             KC_LALT,         KC_DEL,            KC_LGUI,   KC_D,    KC_H,   KC_T,  KC_N,   KC_S,    KC_MINS, \
+  KC_EQL,  KC_SCLN, KC_Q,    KC_J,   KC_K,    KC_X,    TT(LOWER), KC_LSFT, KC_LCTL,         KC_BSPC, KC_SPC,   TT(RAISE), KC_B,    KC_M,   KC_W,  KC_V,   KC_Z,    KC_BSLS \
 ),
 
 [_QWERTY] = LAYOUT( \
-  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LEFT,          KC_DOWN,          KC_UP,            KC_RIGHT,KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    LOWER,   KC_BSPC, KC_ENT,           KC_RALT, KC_SPC,  RAISE,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LGUI \
+  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                    KC_Y,  KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC, \
+  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______,          _______,          _______,           _______, KC_H,  KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, _______,          _______, _______,  _______, KC_N,  KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT \
 ),
 
 [_LOWER] = LAYOUT( \
@@ -62,23 +62,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_RAISE] = LAYOUT( \
-  _______, KC_PSCR, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                                                KC_VOLU, KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX,\
-  KC_CAPS, KC_INS,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  _______,          _______,         _______,          _______, KC_VOLD, KC_F4,   KC_F5,   KC_F6,   KC_F11,  XXXXXXX,\
-  _______, KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______, _______,         _______, _______, _______, KC_MUTE, KC_F1,   KC_F2,   KC_F3,   KC_F12,  XXXXXXX\
+  _______, KC_PSCR, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                                                KC_VOLU, KC_F7, KC_F8,  KC_F9,  KC_F10,  XXXXXXX,\
+  KC_CAPS, KC_INS,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  _______,          _______,         _______,          _______, KC_VOLD, KC_F4, KC_F5,  KC_F6,  KC_F11,  XXXXXXX,\
+  _______, KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______, _______,         _______, _______, _______, KC_MUTE, KC_F1, KC_F2,  KC_F3,  KC_F12,  XXXXXXX\
 ),
 
 [_ADJUST] =  LAYOUT( \
-    TO_DV, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, KC_DEL,  \
-  RGB_TOG, RGB_MOD, _______, AU_ON,   AU_OFF,  AG_NORM, _______,          _______,          _______,          _______, AG_SWAP,  QWERTY,  DVORAK, _______, _______, _______, \
+    TO_DV, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, KC_SLEP,  \
+  RGB_TOG, RGB_MOD, VLK_TOG, AU_ON,   AU_OFF,  AG_NORM, _______,          _______,          _______,          _______, AG_SWAP,  QWERTY,  DVORAK, _______, _______, _______, \
   RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______,          _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
 )
 
 
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
+// void matrix_init_user(void) { 
+// #ifdef BOOTLOADER_CATERINA
+//     // This will disable the red LEDs on the ProMicros. UPDATE: I don't think the power LEDs can be turned off. This is for the others I think... and they were already not on... I think.
+//     setPinInput(D5);
+//     setPinInput(B0);
+// #endif
+// };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -96,4 +100,69 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   }
   return true;
+}
+
+#ifdef RGBLIGHT_ENABLE
+
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {4, 2, HSV_RED}       // Light 10 LEDs, starting with LED 0
+);
+
+const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 3, HSV_CHARTREUSE}       // Light 10 LEDs, starting with LED 0
+);
+
+const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {3, 2, HSV_BLUE}    // Light LEDs 0-4
+);
+
+const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {5, 2, HSV_ORANGE}    // Light LEDs 5-10
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {3, 4, HSV_GREEN}       // Light 10 LEDs, starting with LED 0
+);
+
+
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_capslock_layer,
+    my_qwerty_layer,   // Overrides other layers
+    my_lower_layer,    // Overrides other layers
+    my_raise_layer,    // Overrides other layers
+    my_adjust_layer    // Overrides other layers
+);
+
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
+    rgblight_enable_noeeprom(); // Enables RGB, without saving settings
+    //rgblight_sethsv_noeeprom(HSV_CYAN);
+    //rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, _QWERTY));
+    return state;
+}
+
+#endif
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+
+#ifdef RGBLIGHT_ENABLE
+    rgblight_set_layer_state(2, layer_state_cmp(state, _LOWER));
+    rgblight_set_layer_state(3, layer_state_cmp(state, _RAISE));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _ADJUST));
+#endif
+
+  return state;
 }
