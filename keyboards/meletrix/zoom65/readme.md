@@ -2,7 +2,7 @@
 
 ![zoom65](https://i.imgur.com/NIbreqdh.jpeg) 
 
-Zoom's first mass-produced mechanical keyboard.  
+Meletrix's first mass-produced mechanical keyboard.  
 More Info at [zoom](https://zoom65.com/).
 ​
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
