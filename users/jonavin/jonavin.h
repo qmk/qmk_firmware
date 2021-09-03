@@ -64,6 +64,8 @@ enum custom_user_keycodes {
     void encoder_action_mediatrack(bool clockwise);
     void encoder_action_navword(bool clockwise);
     void encoder_action_navpage(bool clockwise);
+
+    uint8_t get_selected_layer(void);
     void encoder_action_layerchange(bool clockwise);
 #endif // ENCODER_ENABLE
 

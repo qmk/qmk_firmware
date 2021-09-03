@@ -57,29 +57,31 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 };
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    uint8_t mods_state = get_mods();
-    switch (index) {
-    case 0:  // first encoder (Left Macro set)
-        encoder_action_navpage(clockwise)
-        break;
-
-    default: // other encoder (Top right)
-        if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, Page up
-            unregister_mods(MOD_BIT(KC_LSFT));
+    bool encoder_update_user(uint8_t index, bool clockwise) {
+        uint8_t mods_state = get_mods();
+        switch (index) {
+        case 0:  // first encoder (Left Macro set)
             encoder_action_navpage(clockwise);
-            register_mods(MOD_BIT(KC_LSFT));
-        } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next/prev word
-            encoder_action_navword(clockwise);
-        } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next/prev track
-            encoder_action_mediatrack(clockwise);
-        } else  {
-            encoder_action_volume(clockwise);     // Otherwise it just changes volume
+            break;
+
+        default: // other encoder (Top right)
+            if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding Left shift, change layers
+                encoder_action_layerchange(clockwise);
+            } else if (mods_state & MOD_BIT(KC_RSFT) ) { // If you are holding Right shift, Page up
+                unregister_mods(MOD_BIT(KC_RSFT));
+                encoder_action_navpage(clockwise);
+                register_mods(MOD_BIT(KC_RSFT));
+            } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next/prev word
+                encoder_action_navword(clockwise);
+            } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next/prev track
+                encoder_action_mediatrack(clockwise);
+            } else  {
+                encoder_action_volume(clockwise);     // Otherwise it just changes volume
+            }
+            break;
         }
-        break;
+        return true;
     }
-    return true;
-}
 #endif
 
 #ifdef RGBLIGHT_ENABLE

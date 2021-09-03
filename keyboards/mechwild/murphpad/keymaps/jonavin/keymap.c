@@ -144,22 +144,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
-    uint8_t selected_layer = 0;
-
-    void encoder_action_layerchange(bool clockwise) {
-        if (clockwise) {
-            if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT - 1)) {
-                selected_layer ++;
-                layer_move(selected_layer);
-            }
-        } else {
-            if (selected_layer  > 0) {
-                selected_layer --;
-                layer_move(selected_layer);
-            }
-        }
-    }
-
     void encoder_action_selectkey(bool clockwise) {
         if ( clockwise ) {
             if ( selectedkey_idx  < MAX_KEYSELECTION-1) {
@@ -233,7 +217,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
         render_logo();
         oled_set_cursor(8,2);
-        switch(selected_layer){
+        switch(get_selected_layer()){
             case _BASE:
                 oled_write_P(PSTR("BASE"), false);
                 break;
@@ -258,7 +242,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         }
         oled_write_P(keymap_config.no_gui ? PSTR(" WL") : PSTR("   "), false);
         oled_set_cursor(8,3);
-        if (get_highest_layer(layer_state) == selected_layer) {
+        if (get_highest_layer(layer_state) == get_selected_layer()) {
             oled_write_P(PSTR("             "), false);
         } else {
             switch (get_highest_layer(layer_state)) {

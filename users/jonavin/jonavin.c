@@ -140,13 +140,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             tap_code16(KC_PGDN);
     }
 
-#endif // ENCODER_ENABLE
-
-#if defined(ENCODER_ENABLE) && defined(ENCODER_DEFAULTACTIONS_ENABLE)       // Encoder Functionality
-
-    __attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }
-
+    // LAYER HANDLING
     uint8_t selected_layer = 0;
+
+    uint8_t get_selected_layer(void) {
+        return selected_layer;
+    }
 
     void encoder_action_layerchange(bool clockwise) {
         if (clockwise) {
@@ -161,6 +160,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
         }
     }
+#endif // ENCODER_ENABLE
+
+#if defined(ENCODER_ENABLE) && defined(ENCODER_DEFAULTACTIONS_ENABLE)       // Encoder Functionality
+
+    __attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }
 
     bool encoder_update_user(uint8_t index, bool clockwise) {
         if (!encoder_update_keymap(index, clockwise)) { return false; }
