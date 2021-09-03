@@ -87,14 +87,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
  `------'------'------'------'------'            `------'------'------'------'------'
                   .------.------.------.      .------.------.------.
-                  | XXX  | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  | XXX  |
+                  | XXX  | ESC  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  | XXX  |
                   |      |      |      |      |      |      |      |
                   '------'------'------'      '------'------'------'
 */
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,     KC_8,    KC_9,     KC_0,
   HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, HOME_QT,
   KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,   KC_LBRC, KC_RBRC,  HOME_BSL,
-                    XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS,  XXXXXXX
+                    XXXXXXX, KC_ESC,  KC_TRNS,      KC_TRNS, KC_TRNS,  XXXXXXX
 ),
 
 [_FUNCTION] = LAYOUT_split_3x5_3(
