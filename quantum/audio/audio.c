@@ -139,6 +139,9 @@ void audio_init() {
         audio_initialized = true;
     }
     stop_all_notes();
+#ifndef AUDIO_INIT_DELAY
+    audio_startup();
+#endif
 }
 
 void audio_startup(void) {

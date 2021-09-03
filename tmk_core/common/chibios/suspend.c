@@ -12,25 +12,6 @@
 #include "led.h"
 #include "wait.h"
 
-#ifdef AUDIO_ENABLE
-#    include "audio.h"
-#endif /* AUDIO_ENABLE */
-
-#ifdef BACKLIGHT_ENABLE
-#    include "backlight.h"
-#endif
-
-#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
-#endif
-
-#ifdef LED_MATRIX_ENABLE
-#    include "led_matrix.h"
-#endif
-#ifdef RGB_MATRIX_ENABLE
-#    include "rgb_matrix.h"
-#endif
-
 /** \brief suspend idle
  *
  * FIXME: needs doc
@@ -40,61 +21,12 @@ void suspend_idle(uint8_t time) {
     wait_ms(time);
 }
 
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_power_down_user(void) {}
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
-
 /** \brief suspend power down
  *
  * FIXME: needs doc
  */
 void suspend_power_down(void) {
-#ifdef BACKLIGHT_ENABLE
-    backlight_set(0);
-#endif
-
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_task();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_task();
-#endif
-
-    // Turn off LED indicators
-    uint8_t leds_off = 0;
-#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
-    if (is_backlight_enabled()) {
-        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
-        leds_off |= (1 << USB_LED_CAPS_LOCK);
-    }
-#endif
-    led_set(leds_off);
-
-    // TODO: figure out what to power down and how
-    // shouldn't power down TPM/FTM if we want a breathing LED
-    // also shouldn't power down USB
-#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-    rgblight_suspend();
-#endif
-
-#if defined(LED_MATRIX_ENABLE)
-    led_matrix_set_suspend_state(true);
-#endif
-#if defined(RGB_MATRIX_ENABLE)
-    rgb_matrix_set_suspend_state(true);
-#endif
-#ifdef AUDIO_ENABLE
-    stop_all_notes();
-#endif /* AUDIO_ENABLE */
-
-    suspend_power_down_kb();
+    suspend_power_down_quantum();
     // on AVR, this enables the watchdog for 15ms (max), and goes to
     // SLEEP_MODE_PWR_DOWN
 
@@ -151,19 +83,6 @@ void suspend_wakeup_init(void) {
     host_system_send(0);
     host_consumer_send(0);
 #endif /* EXTRAKEY_ENABLE */
-#ifdef BACKLIGHT_ENABLE
-    backlight_init();
-#endif /* BACKLIGHT_ENABLE */
-    led_set(host_keyboard_leds());
-#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-    rgblight_wakeup();
-#endif
 
-#if defined(LED_MATRIX_ENABLE)
-    led_matrix_set_suspend_state(false);
-#endif
-#if defined(RGB_MATRIX_ENABLE)
-    rgb_matrix_set_suspend_state(false);
-#endif
-    suspend_wakeup_init_kb();
+    suspend_wakeup_init_quantum();
 }

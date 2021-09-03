@@ -31,3 +31,6 @@
 #endif
 
 #define NO_ACTION_ONESHOT
+
+#define ANSI_NUBS_ROW 3
+#define ANSI_NUBS_COL 2

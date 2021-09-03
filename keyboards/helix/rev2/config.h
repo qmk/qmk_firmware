@@ -42,8 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 // Helix keyboard OLED support
-//      see ./rules.mk: OLED_ENABLE=yes or no
-#ifdef OLED_ENABLE
+//      see ./local_features.mk: OLED_SELECT=local
+#ifdef OLED_LOCAL_ENABLE
   #define SSD1306OLED
 #endif
 
