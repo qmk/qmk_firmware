@@ -12,7 +12,7 @@
     - holding Left shift, change layers
     - holding right shift, Navigate page up/down
     - holding Left Ctrl, navigate prev/next word
-    - holding Rgiht Ctrl, changes RGB hue/colour
+    - holding Right Ctrl, changes RGB hue/colour
     - holding Left Alt, change media prev/next track
     - default is change volume
     
