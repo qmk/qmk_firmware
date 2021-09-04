@@ -127,15 +127,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         eeconfig_update_kb(keyboard_config.raw);
         trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
-/*
-    if (keycode == SNIPER){
-        is_sniper = record->event.pressed;
-           if (is_sniper) {
-               pmw_set_cpi(dpi_array[keyboard_config.dpi_config] * CHARYBDIS_SNIPER_MULTIPLIER);
-           } else {
-               pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
-           }
-    }*/
 
     if (keycode == DRAG_SCROLL) {
 #ifndef CHARYBDIS_DRAGSCROLL_MOMENTARY
