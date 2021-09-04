@@ -451,8 +451,16 @@ MATRIX_LOOP_END:
     matrix_scan_perf_task();
 #endif
 
-#if defined(RGBLIGHT_ENABLE)
+#ifdef RGBLIGHT_ENABLE
     rgblight_task();
+#   ifdef RGBLIGHT_TIMEOUT
+    // Wake up rgblight if user is using those fabulous keys or spinning those encoders!
+#       ifdef ENCODER_ENABLE
+    if (matrix_changed || encoders_changed) rgblight_reset_timeout();
+#       else
+    if (matrix_changed) rgblight_reset_timeout();
+#       endif
+#   endif
 #endif
 
 #ifdef LED_MATRIX_ENABLE
