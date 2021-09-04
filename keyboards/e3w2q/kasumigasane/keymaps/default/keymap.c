@@ -31,10 +31,10 @@ enum encoder_number {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT( /* Base */ 
-    KC_P7,    KC_P8,    KC_P9,    KC_PMNS,
+    KC_P7,    KC_P8,    KC_P9,    KC_NLCK,
     KC_P4,    KC_P5,    KC_P6,    KC_PPLS,
     KC_P1,    KC_P2,    KC_P3,    KC_ENT, 
-    KC_P0,    SEND_00,  KC_PDOT,  KC_COMM
+    KC_P0,    SEND_00,  LT(2,KC_PDOT),  KC_COMM
   ),
 
   [1] = LAYOUT(
@@ -45,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [2] = LAYOUT(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,
+    RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,
+    RGB_RMOD, RGB_SPI,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  RGB_SPD,  XXXXXXX,  XXXXXXX
   ),
 };
 
@@ -92,9 +92,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
       case _1ST_ENC:
         if (clockwise) {
-          SEND_STRING("1R" SS_TAP(X_ENTER));
-        } else {
           SEND_STRING("1L" SS_TAP(X_ENTER));
+        } else {
+          SEND_STRING("1R" SS_TAP(X_ENTER));
         }
         break;
     }
@@ -102,9 +102,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
       case _1ST_ENC:
         if (clockwise) {
-          tap_code(KC_RIGHT);
-        } else {
           tap_code(KC_LEFT);
+        } else {
+          tap_code(KC_RIGHT);
         }
         break;
     }
