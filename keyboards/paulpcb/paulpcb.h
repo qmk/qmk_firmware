@@ -39,5 +39,3 @@
 	{ K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  K312,  KC_NO, K314 }, \
 	{ K400,  K401,  K402,  KC_NO, K404,  K405,  K406,  KC_NO, K408,  K409,  K410,  K411,  K412,  KC_NO, K414 }  \
 }
-
-#define LAYOUT LAYOUT_paulpcb_default
