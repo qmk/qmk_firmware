@@ -774,7 +774,6 @@ void rgblight_blink_layer_repeat_helper(void) {
 void rgblight_suspend(void) {
     rgblight_timer_disable();
     if (!is_suspended) {
-        print("RGBLIGHT: Suspending\n");
         is_suspended        = true;
         pre_suspend_enabled = rgblight_config.enable;
 
@@ -791,7 +790,6 @@ void rgblight_suspend(void) {
 void rgblight_wakeup(void) {
     // Wake up only if we're already suspended
     if (is_suspended) {
-        print("RGBLIGHT: Waking up\n");
         is_suspended = false;
 
         if (pre_suspend_enabled) {
