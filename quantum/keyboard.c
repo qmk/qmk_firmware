@@ -461,9 +461,9 @@ MATRIX_LOOP_END:
 #   ifdef RGBLIGHT_TIMEOUT
     // Wake up rgblight if user is using those fabulous keys or spinning those encoders!
 #       ifdef ENCODER_ENABLE
-    if (matrix_changed || encoders_changed) rgblight_reset_timeout();
+    if (matrix_changed || encoders_changed) rgblight_wakeup();
 #       else
-    if (matrix_changed) rgblight_reset_timeout();
+    if (matrix_changed) rgblight_wakeup();
 #       endif
 #   endif
 #endif
