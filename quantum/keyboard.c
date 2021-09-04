@@ -479,7 +479,7 @@ MATRIX_LOOP_END:
 
 #ifdef OLED_ENABLE
     oled_task();
-#    ifndef OLED_DISABLE_TIMEOUT
+#    if OLED_TIMEOUT > 0
     // Wake up oled if user is using those fabulous keys or spinning those encoders!
 #        ifdef ENCODER_ENABLE
     if (matrix_changed || encoders_changed) oled_on();
