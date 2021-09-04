@@ -451,6 +451,11 @@ MATRIX_LOOP_END:
     matrix_scan_perf_task();
 #endif
 
+#ifdef ENCODER_ENABLE
+    encoders_changed = encoder_read();
+    if (encoders_changed) last_encoder_activity_trigger();
+#endif
+
 #ifdef RGBLIGHT_ENABLE
     rgblight_task();
 #   ifdef RGBLIGHT_TIMEOUT
@@ -474,11 +479,6 @@ MATRIX_LOOP_END:
 #    if defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
     backlight_task();
 #    endif
-#endif
-
-#ifdef ENCODER_ENABLE
-    encoders_changed = encoder_read();
-    if (encoders_changed) last_encoder_activity_trigger();
 #endif
 
 #ifdef QWIIC_ENABLE
