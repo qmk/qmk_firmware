@@ -110,9 +110,14 @@ rgblight_config_t rgblight_config;
 rgblight_status_t rgblight_status         = {.timer_enabled = false};
 bool              is_rgblight_initialized = false;
 
-#ifdef RGBLIGHT_SLEEP
+#if defined(RGBLIGHT_SLEEP) || defined(RGBLIGHT_TIMEOUT)
 static bool is_suspended;
 static bool pre_suspend_enabled;
+#endif
+
+#if RGBLIGHT_TIMEOUT > 0
+uint32_t rgblight_timeout;
+bool is_rgblight_timed_out;
 #endif
 
 #ifdef RGBLIGHT_USE_TIMER
@@ -245,6 +250,10 @@ void rgblight_init(void) {
     if (rgblight_config.enable) {
         rgblight_mode_noeeprom(rgblight_config.mode);
     }
+
+#if RGBLIGHT_TIMEOUT > 0
+    rgblight_timeout = timer_read32() + RGBLIGHT_TIMEOUT;
+#endif
 
     is_rgblight_initialized = true;
 }
@@ -760,7 +769,7 @@ void rgblight_blink_layer_repeat_helper(void) {
 
 #endif
 
-#ifdef RGBLIGHT_SLEEP
+#if defined(RGBLIGHT_SLEEP) || defined(RGBLIGHT_TIMEOUT)
 
 void rgblight_suspend(void) {
     rgblight_timer_disable();
@@ -792,6 +801,29 @@ void rgblight_wakeup(void) {
 #    endif
 
     rgblight_timer_enable();
+}
+
+void rgblight_reset_timeout(void) {
+    // If rgblight is timed out, wake it up
+    if (is_rgblight_timed_out) rgblight_wakeup();
+    // Reset timer and state tracking
+    rgblight_timeout = timer_read32() + RGBLIGHT_TIMEOUT;
+    is_rgblight_timed_out = false;
+}
+
+void rgblight_do_timeout(void) {
+    // Only do something if rgblight has not timed out yet
+    if (!is_rgblight_timed_out) {
+        rgblight_suspend();
+        is_rgblight_timed_out = true;
+    }
+}
+
+void rgblight_check_timeout(void) {
+    // Only check timeout if not already timed out
+    if (!is_rgblight_timed_out && timer_expired32(timer_read32(), rgblight_timeout)) {
+        rgblight_do_timeout();
+    }
 }
 
 #endif
@@ -1047,6 +1079,10 @@ void rgblight_task(void) {
 #    ifdef RGBLIGHT_LAYER_BLINK
     rgblight_blink_layer_repeat_helper();
 #    endif
+
+#   ifdef RGBLIGHT_TIMEOUT
+    rgblight_check_timeout();
+#   endif
 }
 
 #endif /* RGBLIGHT_USE_TIMER */
