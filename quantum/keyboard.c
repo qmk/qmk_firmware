@@ -451,9 +451,26 @@ MATRIX_LOOP_END:
     matrix_scan_perf_task();
 #endif
 
+    #ifdef ENCODER_ENABLE
+    encoders_changed = encoder_read();
+    if (encoders_changed) last_encoder_activity_trigger();
+#endif
+
 #if defined(RGBLIGHT_ENABLE)
     rgblight_task();
 #endif
+
+#ifdef RGBLIGHT_ENABLE
+     rgblight_task();
+#       ifdef RGBLIGHT_TIMEOUT
+        // Wake up rgblight if user is using those fabulous keys or spinning those encoders!
+#           ifdef ENCODER_ENABLE
+        if (matrix_changed || encoders_changed) rgblight_wakeup();
+#           else
+        if (matrix_changed) rgblight_wakeup();
+#           endif
+#       endif
+ #endif
 
 #ifdef LED_MATRIX_ENABLE
     led_matrix_task();
@@ -466,11 +483,6 @@ MATRIX_LOOP_END:
 #    if defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
     backlight_task();
 #    endif
-#endif
-
-#ifdef ENCODER_ENABLE
-    encoders_changed = encoder_read();
-    if (encoders_changed) last_encoder_activity_trigger();
 #endif
 
 #ifdef QWIIC_ENABLE
