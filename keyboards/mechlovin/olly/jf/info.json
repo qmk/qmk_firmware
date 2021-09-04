@@ -2,8 +2,6 @@
     "keyboard_name": "Mechlovin Olly",
     "url": "",
     "maintainer": "Mechlovin' Studio",
-    "width": 20.5,
-    "height": 6.75,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
