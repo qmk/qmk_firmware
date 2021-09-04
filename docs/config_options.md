@@ -404,6 +404,8 @@ However, this will automatically disable the legacy TMK Macros and Functions fea
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
+* `MAGIC_ENABLE`
+  * MAGIC actions (BOOTMAGIC without the boot)
 * `BOOTMAGIC_ENABLE`
   * Virtual DIP switch configuration
 * `MOUSEKEY_ENABLE`
