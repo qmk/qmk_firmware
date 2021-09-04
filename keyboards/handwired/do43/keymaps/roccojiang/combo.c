@@ -16,12 +16,18 @@
 
 #include QMK_KEYBOARD_H
 
-enum {
-    BSP
+enum combos {
+    BSP,
+    MINS,
+    EQL
 };
 
-const uint16_t PROGMEM bsp[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM bsp_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM eql_combo[] = {KC_P, KC_QUOT, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    [BSP] = COMBO(bsp, KC_BSPC)
+    [BSP]  = COMBO(bsp_combo, KC_BSPC),
+    [MINS] = COMBO(mins_combo, KC_MINS),
+    [EQL]  = COMBO(eql_combo, KC_EQL)
 };
