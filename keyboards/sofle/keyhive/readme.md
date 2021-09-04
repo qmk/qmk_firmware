@@ -1,6 +1,6 @@
 # Sofle Keyboard
 
-![SofleKeyboard version 2.1 RGB Keyhive](https://i.imgur.com/WH9OoWu.jpg)
+![SofleKeyboard version 2.1 RGB Keyhive](https://i.imgur.com/WH9OoWuh.jpg)
 
 Sofle is 6×4+5 keys column-staggered split keyboard. Based on Lily58, Corne and Helix keyboards.
 
@@ -50,30 +50,14 @@ Build guide and log is available here: [SofleKeyboard build log/guide](https://j
 -   It is a good idea to Save Current Layout after you decide on your mapping.
 
 
-# Compiling
+Make example for this keyboard (after setting up your build environment):
 
-Compile with the command below:
+    make sofle/keyhive:default
 
-```sh
-# for Elite C with Left Side Master builds
-qmk compile -kb solartempest/sofle -km via
-```
+Flashing example for this keyboard:
 
-## Flashing
+    make sofle/keyhive:default:flash
 
-Flash using the correct command below (or use QMK Toolbox like me):
-
-```sh
-# for pro micro-based builds
-qmk flash -kb solartempest/sofle -km via -bl avrdude-split-left
-qmk flash -kb solartempest/sofle -km via -bl avrdude-split-right
-
-# for Elite C or dfu bootloader builds
-qmk flash -kb solartempest/sofle -km via -bl dfu-split-left
-qmk flash -kb solartempest/sofle -km via -bl dfu-split-right
-```
-
-These commands can be mixed if, for example, you have an Elite C on the left and a pro micro on the right.
 Press reset button on he keyboard when asked.
 
 Disconnect the first half, connect the second one and repeat the process.
