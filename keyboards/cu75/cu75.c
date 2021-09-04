@@ -28,12 +28,12 @@ void matrix_init_kb(void)
     audio_init();
     PLAY_SONG(test_sound);
     // Fix port B5
-    cbi(DDRB, 5);
-    sbi(PORTB, 5);
+    setPinInput(B5);
+    writePinHigh(B5);
 #else
     // If we're not using the audio pin, drive it low
-    sbi(DDRC, 6);
-    cbi(PORTC, 6);
+    setPinOutput(C6);
+    writePinLow(C6);
 #endif
 #ifdef ISSI_ENABLE
     issi_init();
