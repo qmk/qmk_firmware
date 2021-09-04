@@ -5,7 +5,7 @@
     "width": 18.5,
     "height": 6.6,
     "layouts": {
-        "LAYOUT_paulpcb_default": {
+        "LAYOUT": {
             "key_count": 70,
             "layout": [
                 {"label":"K114", "x":18.07, "y":0.18},
