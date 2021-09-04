@@ -32,26 +32,32 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ### Modular Design
 
 - The design is seperated into several modules which can each be printed on a standard Ender 3 (230mm x 230mm print bed).
-- Upper Neck Module (in development).
+- Upper Neck Module.
     - Houses the main frets and 5 mechanical switches.
     - Hotswap socket not available.
     - Fret buttons are mounted directly to swtiches like a regular keycap.
-- Lower Neck Module (on hold).
-    - Houses the seconday frets meant to be spaced closer together and lower actuation distance.
+    - Optional stabilizers.
+- Lower Neck Module.
+    - Customizable faceplate for your own needs.
+    - Currently houses the accelerometer.
 - Strum Module.
     - Houses the strum bar.
 - Controller Module.
     - Houses the 4 macro keys, controller, and wireless Qi/Magsafe receiver.
 - Cosmetic Modules.
     - Different guitar styles can be customized or designed.
+    
+### Fret buttons
+
+- Can be customized with any set of mechanical switches.
+    - *Customizable with various switches, travel, and bottom out distances"
 
 ### Strum Bar
 
 - Can be customized with any pair of mechanical keyboard switches.
     - *The design expects an actuation distance of 2 to 3mm and bottom out of 4mm*
-    - *Using "Fast" switches like Cherry MX Speed is not recommended!*
+    - *Using "fast" switches like Cherry MX Speed is not tested (1 to 1.5mm actuation distance)*
 - Features a flexible mounting system to accommodate for various tolerances in 3D printer models.
-    - *The same mounting can be used to adjust the bar to the user's liking.*
 - Features a magnetic centering system.
     - *No springs involved so you don't get the annoying pinging.*
     - *Silent strumming unless you choose clicky mechanical switches.*
@@ -63,7 +69,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 - 4 standard mechanical switch + keycap sockets.
     - *Can be customized with any mechanical switch.*
-    - *Regular OEM/Cherry keycaps may be too tall for some users, in those cases, XDA/DSA profile is recommended.*
+    - *Regular OEM/Cherry keycaps may be too tall for some users (gets in the way of strumming), in those cases, XDA/DSA profile is recommended.*
 - Hotswap socket compatible.
     - *You can solder to the switches directly or use the optional hotswap socket holder*
 
@@ -89,9 +95,9 @@ Enter the bootloader in 3 ways:
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
 
-## Wiring
+## Build instructions / Wiring / STL's
 
-![Alt text](/keyboards/handwired/GHero20/Layout-Wiring.png?raw=true "")
+Assembly instruction and STL/STEP files to be available soon.
 
 ## To-do
 
@@ -102,9 +108,9 @@ Enter the bootloader in 3 ways:
 - [ ] ~~OLED Display~~
     - Used for info display such as battery life
 - [x] BLE Battery Service
-    - Will report battery level to Windows 10 1809 or newer.
-    - OLED Display no longer needed.
-- [x] Additional ground breakouts for WS2812 and MPU-9250.
+    - Will report battery level to Windows 10 1809 or newer
+    - OLED Display no longer needed
+- [x] Additional ground breakouts for WS2812 and MPU-9250
 - [x] Update strum part to enable tuning
     - [x]  Tension
     - [x]  Actuation distance/angle
@@ -114,7 +120,7 @@ Enter the bootloader in 3 ways:
     - [x] Strum switches
     - [x] Macro switches
     - [x] ~~Fret switches~~ *(Not enough clearance in neck for sockets)*
-        - *Upper neck would have to be redesigned to have a removable PCB part like the lower neck to accommodate something like Kailh low profile switches to make room for hotswap sockets.*
+        - *Something like Kailh low profile switches are needed to accommodate hotswap design*
 - [ ] Upload STL's for guitar components
 - [x] WS2812 RGB's
-    - Per key lighting & dynamic lightin
+    - Per key lighting & dynamic lighting

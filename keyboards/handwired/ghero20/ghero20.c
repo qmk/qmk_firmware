@@ -24,10 +24,6 @@ bool star_power     = false;
 
 const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {1, 1, 1};
 
-void keyboard_pre_init_kb(void) {
-    // Call the keyboard pre init code.
-}
-
 void keyboard_post_init_kb(void) {
     // Init i2c
     i2c_init();
@@ -42,11 +38,6 @@ void keyboard_post_init_kb(void) {
     init_GH_color();
 }
 
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-    matrix_init_user();
-}
 void matrix_scan_kb(void) {
     // put your looping keyboard code here
     // runs every cycle (a lot)

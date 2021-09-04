@@ -1,4 +1,6 @@
-/* Copyright 2021 bryan065
+/* Copyright 2021 bryan065 / hideakitai
+ *
+ * https://github.com/hideakitai/MPU9250
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +44,7 @@ i2c_status_t update_accel_gyro(void) {
     };
 
     return status;
-};
+}
 
 i2c_status_t mpu_readAccel(int16_t* read) {
     uint8_t data[6];
@@ -55,7 +57,7 @@ i2c_status_t mpu_readAccel(int16_t* read) {
     };
 
     return status;
-};
+}
 
 i2c_status_t mpu_readGyro(int16_t* read) {
     uint8_t data[6];
@@ -68,7 +70,7 @@ i2c_status_t mpu_readGyro(int16_t* read) {
     };
 
     return status;
-};
+}
 
 i2c_status_t mpu_readAccelGyro(int16_t* read) {
     uint8_t data[14];
@@ -85,13 +87,13 @@ i2c_status_t mpu_readAccelGyro(int16_t* read) {
     };
 
     return status;
-};
+}
 
 int16_t mpu_readTemp(void) {
     uint8_t data[2];
     i2c_readReg(MPU9250_ADDR,TEMP_OUT_H,data,sizeof(data),I2C_TIMEOUT);
     return (data[0]<<8|data[1])/334+21;;
-};
+}
 
 void initMPU9250(void) {
     acc_resolution = 16.0 / 32768.0;
@@ -159,17 +161,17 @@ void initMPU9250(void) {
     send_data = 0x01;
     i2c_writeReg(MPU9250_ADDR, INT_ENABLE, &send_data, 1, I2C_TIMEOUT);
     _delay_ms(100);
-};
+}
 
 // get accel and gyro data as float
 float getAcc(const uint8_t i) {
     return (i < 3) ? Acc[i] : 0.f;
-};
+}
 
 
 float getGyro(const uint8_t i) {
     return (i < 3) ? Gyro[i] : 0.f;
-};
+}
 
 // Get scaled raw data as int16 instead of float
 int16_t getAccScaled(const uint8_t i, const uint8_t o) {
@@ -181,7 +183,7 @@ int16_t getAccScaled(const uint8_t i, const uint8_t o) {
     data = (int16_t)scale;
 
     return data;
-};
+}
 
 int16_t getGyroScaled(const uint8_t i, const uint8_t o) {
     if (i >= 3) {return 0;};
@@ -192,7 +194,7 @@ int16_t getGyroScaled(const uint8_t i, const uint8_t o) {
     data = (int16_t)scale;
 
     return data;
-};
+}
 
 // Get Raw accel and gyro data
 mpu_data_t getAccRaw(const uint8_t i) {
@@ -204,7 +206,7 @@ mpu_data_t getAccRaw(const uint8_t i) {
     else {
         return 0;
     };
-};
+}
 
 
 mpu_data_t getGyroRaw(const uint8_t i) {
@@ -216,4 +218,4 @@ mpu_data_t getGyroRaw(const uint8_t i) {
     else {
         return 0;
     };
-};
+}

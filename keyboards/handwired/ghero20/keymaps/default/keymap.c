@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_1, KC_2, KC_3, KC_4, KC_5,
 		KC_Q, KC_W, KC_E, KC_R, KC_T,
 		KC_DOWN, KC_UP, KC_MUTE,
-		KC_M, RGB_TOG, KC_N, KC_G
+		KC_SPC, RGB_TOG, KC_MUTE, KC_ENT
     ),
     [_GUITAR] = LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -36,17 +36,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  //debug_enable=true;
-  //debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
-}

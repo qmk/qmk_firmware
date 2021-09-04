@@ -1,6 +1,22 @@
+/* Copyright 2021 bryan065 / hideakitai
+ * 
+ * https://github.com/hideakitai/MPU9250
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #pragma once
-#ifndef MPU9250REGISTERMAP_H
-#define MPU9250REGISTERMAP_H
 
 //Magnetometer Registers
 // #define AK8963_ADDRESS   0x0C
@@ -147,5 +163,3 @@
 #define YA_OFFSET_L      0x7B
 #define ZA_OFFSET_H      0x7D
 #define ZA_OFFSET_L      0x7E
-
-#endif // MPU9250REGISTERMAP_H

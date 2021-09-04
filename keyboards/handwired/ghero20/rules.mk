@@ -24,7 +24,7 @@ F_CPU = 8000000
 #   ATmega328P   USBasp
 BOOTLOADER = caterina
 
-# Interrupt driven control endpoint task(+60)
+# Interrupt driven control endpoint task
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Build Options
@@ -44,7 +44,6 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 BLUETOOTH = AdafruitBLE
-LTO_ENABLE = yes
 
 QUANTUM_LIB_SRC += i2c_master.c
 SRC += MPU9250/MPU9250.c
