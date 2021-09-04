@@ -157,16 +157,19 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     /* adjust home row key timing to prevent letter rolls triggering modifiers */
-    case HOME_A:
     case HOME_R:
     case HOME_S:
     case HOME_T:
-    case HOME_Z:
     case HOME_N:
     case HOME_E:
     case HOME_I:
+        return TAPPING_TERM + 100;
+    /* adjust mod-tap shift keys separately for quick typing */
+    case HOME_A:
     case HOME_O:
-        return TAPPING_TERM + 150;
+    case HOME_Z:
+    case HOME_SL:
+        return TAPPING_TERM + 50;
     default:
         return TAPPING_TERM;
     }
