@@ -103,20 +103,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     }
 #endif // IDLE_TIMEOUT_ENABLE
 
-#ifdef ENCFUNC_ENABLE
-    static uint8_t selectedkey_idx = 0;
-    static keycodedescType selectedkey_rec;
-
-    static uint8_t get_selectedkey_idx(void) {
-        return selectedkey_idx;
-    }
-
-    static void set_selectedkey(uint8_t idx) {
-        // make a copy from PROGMEM
-        memcpy_P (&selectedkey_rec, &keyselection[idx], sizeof selectedkey_rec);
-    }
-#endif // ENCFUNC_ENABLE
-
 
 #ifdef ENCODER_ENABLE
     #ifndef DYNAMIC_KEYMAP_LAYER_COUNT

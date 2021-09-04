@@ -58,19 +58,6 @@ enum custom_user_keycodes {
 #endif // TD_LSFT_CAPSLOCK_ENABLE
 
 
-// ENC FUNC
-#ifdef ENCFUNC_ENABLE
-    typedef struct {
-        char keydesc[6];    // this will be displayed on OLED
-        uint16_t keycode;   // this is the keycode that will be sent when activted
-    } keycodedescType;
-
-    static uint8_t get_selectedkey_idx(void);
-    static void set_selectedkey(uint8_t idx);
-
-#endif // ENCFUNC_ENABLE
-
-
 // ENCODER ACTIONS
 #ifdef ENCODER_ENABLE
     void encoder_action_volume(bool clockwise);
