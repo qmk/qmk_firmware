@@ -10,8 +10,8 @@
 * FAQ
   * [一般的な FAQ](ja/faq_general.md)
   * [QMK のビルド/コンパイル](ja/faq_build.md)
-  * [QMK のデバッグ](ja/faq_debug.md)
   * [QMK のトラブルシューティング](ja/faq_misc.md)
+  * [QMK のデバッグ](ja/faq_debug.md)
   * [キーマップ FAQ](ja/faq_keymap.md)
   * [用語](ja/reference_glossary.md)
 
@@ -19,6 +19,7 @@
   * [概要](ja/newbs_building_firmware_configurator.md)
   * [ステップ・バイ・ステップ](ja/configurator_step_by_step.md)
   * [トラブルシューティング](ja/configurator_troubleshooting.md)
+  * [アーキテクチャ](ja/configurator_architecture.md)
   * QMK API
     * [概要](ja/api_overview.md)
     * [API ドキュメント](ja/api_docs.md)
@@ -35,6 +36,7 @@
   * ガイド
     * [機能のカスタマイズ](ja/custom_quantum_functions.md)
     * [Zadig を使ったドライバのインストール](ja/driver_installation_zadig.md)
+    * [ワンオフの Easy Maker](ja/easy_maker.md)
     * [キーマップの概要](ja/keymap.md)
     * 開発環境
       * [Docker のガイド](ja/getting_started_docker.md)
@@ -60,6 +62,7 @@
     * [言語固有のキーコード](ja/reference_keymap_extras.md)
     * [修飾キー](ja/feature_advanced_keycodes.md)
     * [Quantum キーコード](ja/quantum_keycodes.md)
+    * [マジックキーコード](ja/keycodes_magic.md)
 
   * 高度なキーコード
     * [コマンド](ja/feature_command.md)
@@ -77,6 +80,7 @@
     * [コンボ](ja/feature_combo.md)
     * [デバウンス API](ja/feature_debounce_type.md)
     * [キーロック](ja/feature_key_lock.md)
+    * [キーオーバーライド](ja/feature_key_overrides.md)
     * [レイヤー](ja/feature_layers.md)
     * [ワンショットキー](ja/one_shot_keys.md)
     * [ポインティング デバイス](ja/feature_pointing_device.md)
@@ -93,6 +97,7 @@
   * ハードウェア機能
     * 表示
       * [HD44780 LCD コントローラ](ja/feature_hd44780.md)
+      * [ST7565 LCD ドライバ](ja/feature_st7565.md)
       * [OLED ドライバ](ja/feature_oled_driver.md)
     * 電飾
       * [バックライト](ja/feature_backlight.md)
@@ -103,11 +108,13 @@
     * [Bluetooth](ja/feature_bluetooth.md)
     * [ブートマジック](ja/feature_bootmagic.md)
     * [カスタムマトリックス](ja/custom_matrix.md)
+    * [デジタイザー](ja/feature_digitizer.md)
     * [DIP スイッチ](ja/feature_dip_switch.md)
     * [エンコーダ](ja/feature_encoders.md)
     * [触覚フィードバック](ja/feature_haptic_feedback.md)
     * [ジョイスティック](ja/feature_joystick.md)
     * [LED インジケータ](ja/feature_led_indicators.md)
+    * [MIDI](ja/feature_midi.md)
     * [Proton C 変換](ja/proton_c_conversion.md)
     * [PS/2 マウス](ja/feature_ps2_mouse.md)
     * [分割キーボード](ja/feature_split_keyboard.md)
@@ -120,7 +127,7 @@
   * 互換性を破る変更/Breaking changes
     * [概要](ja/breaking_changes.md)
     * [プルリクエストにフラグが付けられた](ja/breaking_changes_instructions.md)
-    * [最近の変更履歴](ChangeLog/20210227.md "QMK v0.12.0 - 2021 Feb 27")
+    * [最近の変更履歴](ChangeLog/20210529.md "QMK v0.13.0 - 2021 May 29")
     * [過去の互換性を破る変更](ja/breaking_changes_history.md)
 
   * C 開発
@@ -154,7 +161,7 @@
       * [MCU の選択](ja/platformdev_selecting_arm_mcu.md)
       * [早期初期化](ja/platformdev_chibios_earlyinit.md)
 
-  * QMK Reference
+  * QMK リファレンス
     * [QMK への貢献](ja/contributing.md)
     * [QMK ドキュメントの翻訳](ja/translating.md)
     * [設定オプション](ja/config_options.md)
