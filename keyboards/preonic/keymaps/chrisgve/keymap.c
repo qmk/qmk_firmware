@@ -36,15 +36,13 @@ enum preonic_keycodes {
   NUM
 };
 
-// Tap dance declarations
-#define TAPPING_TERM 200
-enum {
-    TD_FN_NUMLOCK,
-};
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for nothing, tap twice for numlock
-    [TD_FN_NUMLOCK] = ACTION_TAP_DANCE_LAYER_MOVE(KC_NO, _NUM),
-};
+#define D_DIR       LT(_DIR, KC_D)
+#define R_SHIFT     RSFT_T(KC_QUOT)
+#define F_WORD      A(KC_RIGHT)
+#define ESC_CTL     CTL_T(KC_ESC)
+#define B_WORD      A(KC_LEFT)
+#define FL_DIR      MO(_FULL_DIR)
+#define FN_NUM      LT(_FN, KC_NO)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -62,13 +60,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-  KC_ESC,  KC_A,    KC_S,    LT(_DIR, KC_D),    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-//  ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MT(MOD_RSFT, KC_ENT),
-//  LT(_FN,KC_NO), KC_LCTL, KC_LALT, KC_LGUI,   LOWER, MT(MOD_RSFT, KC_SPC), MT(MOD_RSFT, KC_SPC),  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
-  KC_LCTL, LT(_FN,KC_NO), KC_LALT, KC_LGUI,   LOWER, KC_SPC, KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,  KC_5,   KC_6,   KC_7,  KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSLS,
+  ESC_CTL, KC_A,   KC_S,    D_DIR,   KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT,
+  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT,
+  KC_LCTL, FN_NUM, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
@@ -149,9 +145,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_DIR] = LAYOUT_preonic_grid(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, A(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, MO(_FULL_DIR), _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______,
-  _______, _______, _______, _______, _______, A(KC_LEFT), _______, _______, _______, _______, _______, _______,
+  _______, _______, F_WORD,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, FL_DIR,  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+  _______, _______, _______, _______, _______, B_WORD,  _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -163,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      | Home | PgDn | PgUp | End  |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |O(<-) |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -171,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FULL_DIR] = LAYOUT_preonic_grid(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______,
+  _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
