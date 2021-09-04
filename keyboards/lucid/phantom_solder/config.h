@@ -1,5 +1,5 @@
 /*
-Copyright 2020 <hello@lucidkb.com>
+Copyright 2020 <hello@makerkeyboards.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,10 +20,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x7667 // Lucid
+#define VENDOR_ID    0x7667 // Maker Keyboards
 #define PRODUCT_ID   0x0002 // Phantom_Solder
 #define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    Lucid
+#define MANUFACTURER    Maker Keyboards
 #define PRODUCT         Phantom
 
 /* key matrix size */
