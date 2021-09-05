@@ -30,10 +30,7 @@
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 3
 
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+/* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
