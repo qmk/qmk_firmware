@@ -27,7 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B12, B13, B14, B15, A8, A9 }
 
 #define UNUSED_PINS \
-    { A11, A13, A14, C15 }
+    { B2, C15 }
+// A10,  A11 and A12  don't like to be used?
 
 #define DIODE_DIRECTION     COL2ROW
 
@@ -79,9 +80,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_CLOCK_SPEED  400000
 
 #define ENCODERS_PAD_A \
-    { A10 }
+    { A13 }
 #define ENCODERS_PAD_B \
-    { A12 }
+    { A14 }
 
 #define SPI_DRIVER                           SPID1
 #define SPI_SCK_PIN                          A5
