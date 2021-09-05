@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |SLEEP |  BR- |  BR+ |   << | PLAY |  >>  | MUTE | VOL- | VOL+ |   (  |   )  | Bksp |
+ * |SLEEP |  BR- |  BR+ |  <<  | PLAY |  >>  | MUTE | VOL- | VOL+ |   (  |   )  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   "  |   \  |   [  |   ]  |   =  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -134,24 +134,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(_RAISE)) {
         if (get_mods() & MOD_BIT(KC_RSFT)) {
-            uint8_t mod_state = get_mods(); // Store which mods are held
-            del_mods(MOD_MASK_SHIFT);       // Ignore all shift keys
+            // ZOOM
+            // Store which mods are held
+            uint8_t mod_state = get_mods();
+            // Ignore all shift keys
+            del_mods(MOD_MASK_SHIFT);
             if (clockwise) {
                 tap_code16(LGUI(KC_PPLS));
             } else {
                 tap_code16(LGUI(KC_PMNS));
             }
-            set_mods(mod_state);            // Add back shift keys
+            // Add back shift keys
+            set_mods(mod_state);
         } else if (get_mods() & MOD_BIT(KC_LSFT)) {
-            uint8_t mod_state = get_mods(); // Store which mods are held
-            del_mods(MOD_MASK_SHIFT);       // Ignore all shift keys
+            // SCROLL X
+            uint8_t mod_state = get_mods();
+            del_mods(MOD_MASK_SHIFT);
             if (clockwise) {
                 tap_code16(KC_WH_L);
             } else {
                 tap_code16(KC_WH_R);
             }
-            set_mods(mod_state);            // Add back shift keys
+            set_mods(mod_state);
         } else {
+            // SCROLL Y
             if (clockwise) {
                 tap_code(KC_WH_U);
             } else {
@@ -160,8 +166,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else {
         if (get_mods() & MOD_BIT(KC_RSFT)) {
-            uint8_t mod_state = get_mods(); // Store which mods are held
-            del_mods(MOD_MASK_SHIFT);       // Ignore all shift keys
+            // ZOOM
+            uint8_t mod_state = get_mods();
+            del_mods(MOD_MASK_SHIFT);
             if (clockwise) {
                 tap_code16(LGUI(KC_PPLS));
             } else {
@@ -169,15 +176,17 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
             set_mods(mod_state);
         } else if (get_mods() & MOD_BIT(KC_LSFT)) {
-          uint8_t mod_state = get_mods();  // Store which mods are held
-          del_mods(MOD_MASK_SHIFT);        // Ignore all shift keys
+          // BRIGHTNESS
+          uint8_t mod_state = get_mods();
+          del_mods(MOD_MASK_SHIFT);
           if (clockwise) {
             tap_code16(KC_PAUSE);
           } else {
             tap_code16(KC_SCROLLLOCK);
           }
-          set_mods(mod_state);             // Add back CTRL key(s)
+          set_mods(mod_state);
       } else {
+          // VOLUME
           if (clockwise) {
             tap_code(KC__VOLUP);
           } else {
