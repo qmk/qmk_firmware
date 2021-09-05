@@ -692,6 +692,8 @@ bool oled_scroll_off(void) {
     return !oled_scrolling;
 }
 
+bool is_oled_scrolling(void) { return oled_scrolling; }
+
 bool oled_invert(bool invert) {
     if (!oled_initialized) {
         return oled_inverted;
