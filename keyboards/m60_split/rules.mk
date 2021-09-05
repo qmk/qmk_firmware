@@ -17,8 +17,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = n       # Enable keyboard RGB underglow
-RGBLIGHT_DRIVER = WS2812
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 
@@ -26,9 +25,8 @@ SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 WS2812_DRIVER = pwm
 
-LAYOUTS = ortho_5x12
+LAYOUTS = ortho_4x12
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no
-ENCODER_ENABLE = no        # Enable encoder
