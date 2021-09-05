@@ -1,8 +1,8 @@
 # スワップハンドアクション
 
 <!---
-  original document: 0.8.177:docs/feature_swap_hands.md
-  git diff 0.8.177 HEAD -- docs/feature_swap_hands.md | cat
+  original document: 0.13.17:docs/feature_swap_hands.md
+  git diff 0.13.17 HEAD -- docs/feature_swap_hands.md | cat
 -->
 
 スワップハンドアクションにより、別のレイヤーを必要とせずに片手入力をサポートします。Makefile に `SWAP_HANDS_ENABLE` を設定し、キーマップに `hand_swap_config` エントリを定義します。これで `ACTION_SWAP_HANDS` コマンドキーが押されるたびにキーボードがミラーされます。例えば、QWERTY で "Hello, World" を入力するには、`^Ge^s^s^w^c W^wr^sd` を入力します。

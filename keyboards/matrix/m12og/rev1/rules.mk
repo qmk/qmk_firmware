@@ -8,7 +8,7 @@ BOARD = m12og_v1
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Bootmagic disabled because Matrix bootlaoder uses it's own reset mechanism
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
