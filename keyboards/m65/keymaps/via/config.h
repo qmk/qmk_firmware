@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma once
+
 #define TAPPING_TOGGLE 2
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
