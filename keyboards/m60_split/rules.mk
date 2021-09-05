@@ -24,7 +24,7 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
-#WS2812_DRIVER = pwm
+WS2812_DRIVER = pwm
 
 LAYOUTS = ortho_5x12
 

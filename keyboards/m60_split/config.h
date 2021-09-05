@@ -1,4 +1,4 @@
-/* Copyright 2020 zvecr <git@zvecr.com>
+/* Copyright 2021 alin elena <alin@elena.space>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,12 +56,11 @@
 #define RGBLED_NUM 24
 #define RGBLED_SPLIT { 12, 12 }
 #define RGBLIGHT_ANIMATIONS
-/*
+
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 1
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM3
 #define WS2812_DMA_CHANNEL 3
-*/
 
 #define UNUSED_PINS
 
