@@ -41,21 +41,8 @@ enum charybdis_keycodes {
     DPI_CONFIG = SAFE_RANGE,
     KEYMAP_SAFE_RANGE,
     DRAG_SCROLL,
-    SNIPER = SAFE_RANGE,
+    SNIPER,
 };
-
-void master_mouse_send(int8_t x, int8_t y);
-void trackball_set_cpi(uint16_t cpi);
-
-typedef struct {
-    uint16_t        device_cpi;
-} kb_runtime_config_t;
-
-typedef struct  {
-    int16_t mouse_x;
-    int16_t mouse_y;
-} kb_slave_data_t;
-
 
 typedef struct  {
     int16_t x;

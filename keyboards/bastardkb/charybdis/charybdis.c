@@ -38,9 +38,6 @@
 #    define CHARYBDIS_SNIPER_MULTIPLIER 0.4 // Variable-DPI Drag Scroll
 #endif
 
-extern kb_runtime_config_t kb_state;
-extern kb_slave_data_t     kb_slave;
-
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = CHARYBDIS_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
@@ -173,18 +170,7 @@ void keyboard_pre_init_kb(void) {
     scroll_inertia.x = 0;
     scroll_inertia.y = 0;
     // debug_encoder = true;
-
-    /* Ground all output pins connected to ground. This provides additional
-     * pathways to ground. If you're messing with this, know this: driving ANY
-     * of these pins high will cause a short. On the MCU. Ka-blooey.
-     */
-
-    // This is the debug LED.
-#if defined(DEBUG_LED_PIN)
-    setPinOutput(DEBUG_LED_PIN);
-    writePin(DEBUG_LED_PIN, debug_enable);
-#endif
-
+    
     keyboard_pre_init_user();
 }
 
@@ -199,22 +185,20 @@ void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_mouse(&mouse_report);
     
-    // TEMP for testing
     if (is_drag_scroll) {
-        mouse_report.h = mouse_report.x;
+        //mouse_report.h = mouse_report.x;
 #ifdef CHARYBDIS_DRAGSCROLL_INVERT
         // Invert vertical scroll direction
         scroll_inertia.y += -mouse_report.y;
 #else
         scroll_inertia.y += mouse_report.y;
 #endif
-        // we only want to trigger scrolling once in 5 scrolls, for slower scroll
-        if(scroll_inertia.y > 6 || scroll_inertia.y < -6){
-            mouse_report.v = constrain(scroll_inertia.y / 3, -3, 3);
+        // we only want to trigger scrolling once in 12 scrolls, for slower scroll
+        if(scroll_inertia.y > 12 || scroll_inertia.y < -12){
+            mouse_report.v = constrain(scroll_inertia.y / 6, -6, 6);
             uprintf("Scroll] V: %d // %d\n", mouse_report.v, scroll_inertia.y);
             scroll_inertia.y = 0;
         }
-
 
         mouse_report.x = 0;
         mouse_report.y = 0;
