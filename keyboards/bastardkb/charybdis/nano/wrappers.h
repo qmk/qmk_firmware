@@ -38,32 +38,32 @@
 #define __________________MBO_R3___________________ KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END
 #define __________________MBO_R4___________________ KC_ENT,  KC_DEL, KC_DEL
 
-#define __________________MEDIA_L1_________________ __________________MBO_L1___________________
-#define __________________MEDIA_L2_________________ __________________MBO_L2___________________
+#define __________________MEDIA_L1_________________ RESET,   U_NA,    U_NA,    U_NA,    U_NA
+#define __________________MEDIA_L2_________________ KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, U_NA
 #define __________________MEDIA_L3_________________ U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA
-#define __________________MEDIA_L4_________________ __________________MBO_L4___________________
+#define __________________MEDIA_L4_________________ U_NA,    U_NA,    U_NA
 
-#define __________________MEDIA_R1_________________ __________________MBO_R1___________________
+#define __________________MEDIA_R1_________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define __________________MEDIA_R2_________________ U_NU,    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R
 #define __________________MEDIA_R3_________________ U_NU,    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R
 #define __________________MEDIA_R4_________________ KC_BTN1, KC_BTN3, KC_BTN2
 
-#define __________________NAV_L1___________________ __________________MBO_L1___________________
-#define __________________NAV_L2___________________ __________________MBO_L2___________________
-#define __________________NAV_L3___________________ __________________MEDIA_L3_________________
-#define __________________NAV_L4___________________ __________________MBO_L4___________________
+#define __________________NAV_L1___________________ RESET,   U_NA,    U_NA,    U_NA,    U_NA
+#define __________________NAV_L2___________________ KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, U_NA
+#define __________________NAV_L3___________________ U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA
+#define __________________NAV_L4___________________ U_NA,    U_NA,    U_NA
 
 #define __________________NAV_R1___________________ RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI
 #define __________________NAV_R2___________________ U_NU,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
 #define __________________NAV_R3___________________ U_NU,    U_NU,    U_NU,    U_NU,    U_NU
 #define __________________NAV_R4___________________ KC_MSTP, KC_MPLY, KC_MUTE
 
-#define _________________MOUSE_L1__________________ __________________MBO_R1___________________
+#define _________________MOUSE_L1__________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_L2__________________ DPI_CONFIG, DRAG_SCROLL, KC_LSFT, KC_LCTL, KC_TRNS
 #define _________________MOUSE_L3__________________ U_RDO,   SNIPER,  U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_L4__________________ KC_BTN2, KC_BTN1, KC_BTN3
 
-#define _________________MOUSE_R1__________________ __________________MBO_R1___________________
+#define _________________MOUSE_R1__________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_R2__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
 #define _________________MOUSE_R3__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
 #define _________________MOUSE_R4__________________ KC_BTN1, KC_BTN3, KC_BTN2
@@ -83,10 +83,10 @@
 #define _________________NUM_L3____________________ KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE
 #define _________________NUM_L4____________________ KC_LPRN, KC_RPRN, KC_UNDS
 
-#define _________________NUM_R1____________________ _________________SYM_R1____________________
-#define _________________NUM_R2____________________ _________________SYM_R2____________________
-#define _________________NUM_R3____________________ _________________SYM_R3____________________
-#define _________________NUM_R4____________________ _________________SYM_R4____________________
+#define _________________NUM_R1____________________ U_NA,    U_NA,    U_NA,    U_NA,    RESET
+#define _________________NUM_R2____________________ U_NA,    KC_LCTL, KC_LSFT, KC_LALT, KC_LGUI
+#define _________________NUM_R3____________________ U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA
+#define _________________NUM_R4____________________ U_NA,    U_NA,    U_NA
 
 #define _________________FUN_L1____________________ KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR
 #define _________________FUN_L2____________________ KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK
@@ -152,6 +152,8 @@
     With this, he can define a base layer, and call the desired HRM wrapper which will 
     automatically add the relevant modifiers
 */
+
+/* SACG */
 #define HRM_MAC(k) HRM_SACG(k)
 #define HRM_SACG( \
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
@@ -163,6 +165,8 @@
 	__VA_ARGS__
 #define HRM_SACG_wrapper(...)                HRM_SACG(__VA_ARGS__)
 
+
+/* GCAS */
 #define HRM_WIN(k) HRM_GCAS(k)
 #define HRM_GCAS( \
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
@@ -174,6 +178,7 @@
 	__VA_ARGS__
 #define HRM_GCAS_wrapper(...)                HRM_GCAS(__VA_ARGS__)
 
+/* GASC */
 #define HRM_GASC( \
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
 	k13,        k14,        k15,        k16,        k17,        k18,        k19,        k20,        k21,        k22, \
@@ -183,5 +188,4 @@
 	GUI_T(k13), ALT_T(k14), SFT_T(k15), CTL_T(k16), k17,        k18,        CTL_T(k19), SFT_T(k20), ALT_T(k21), GUI_T(k22), \
 	__VA_ARGS__
 #define HRM_GASC_wrapper(...)                HRM_GASC(__VA_ARGS__)
-
 // clang-format on
