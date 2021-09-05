@@ -74,7 +74,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 //function for layer indicator LED
 uint32_t layer_state_set_user(uint32_t state)
 {
-    if (biton32(state) == 1) {
+    if (get_highest_layer(state) == 1) {
     writePinHigh(D4);
 	} else {
 		writePinLow(D4);
