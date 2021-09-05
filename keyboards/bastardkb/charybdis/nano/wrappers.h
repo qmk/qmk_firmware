@@ -17,8 +17,17 @@
 #pragma once
 // clang-format off
 
-/* based on miryoku */
+/*  Based on miryoku.
+    Those wrapers are meant to help create a custom keymap based on miryoku.
+    Typically you would build directly with the miryoku keymap, but the Charybdis
+    has a different MBO layer.
 
+    This also enables the user to easily create custom base layers.
+*/
+
+/*
+    Basic layers
+*/
 #define __________________MBO_L1___________________ RESET,   U_NA,    U_NA,    U_NA,    U_NA
 #define __________________MBO_L2___________________ KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, U_NA
 #define __________________MBO_L3___________________ KC_BTN3, KC_ALGR, KC_BTN2, KC_BTN1, U_NA
@@ -89,6 +98,11 @@
 #define _________________FUN_R3____________________ U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA
 #define _________________FUN_R4____________________ U_NA,    U_NA,    U_NA
 
+
+
+/*
+    Complete wrappers meant to be directly called in LAYOUT_split_3x5_3
+*/
 #define _MBO \
 	__________________MBO_L1___________________, __________________MBO_R1___________________, \
 	__________________MBO_L2___________________, __________________MBO_R2___________________, \
@@ -131,7 +145,13 @@
     _________________FUN_L3____________________, _________________FUN_R3____________________, \
     _________________FUN_L4____________________, _________________FUN_R4____________________
 
-// homerow wrappers
+
+/*
+    Homerow wrappers
+    Those wrappers enable the user to choose which homerow mods he uses.
+    With this, he can define a base layer, and call the desired HRM wrapper which will 
+    automatically add the relevant modifiers
+*/
 #define HRM_MAC(k) HRM_SACG(k)
 #define HRM_SACG( \
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
@@ -141,6 +161,7 @@
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
 	SFT_T(k13), ALT_T(k14), CTL_T(k15), GUI_T(k16), k17,        k18,        GUI_T(k19), CTL_T(k20), ALT_T(k21), SFT_T(k22), \
 	__VA_ARGS__
+#define HRM_SACG_wrapper(...)                HRM_SACG(__VA_ARGS__)
 
 #define HRM_WIN(k) HRM_GCAS(k)
 #define HRM_GCAS( \
@@ -151,6 +172,7 @@
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
 	GUI_T(k13), CTL_T(k14), ALT_T(k15), SFT_T(k16), k17,        k18,        SFT_T(k19), ALT_T(k20), CTL_T(k21), GUI_T(k22), \
 	__VA_ARGS__
+#define HRM_GCAS_wrapper(...)                HRM_GCAS(__VA_ARGS__)
 
 #define HRM_GASC( \
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
@@ -160,5 +182,6 @@
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
 	GUI_T(k13), ALT_T(k14), SFT_T(k15), CTL_T(k16), k17,        k18,        CTL_T(k19), SFT_T(k20), ALT_T(k21), GUI_T(k22), \
 	__VA_ARGS__
+#define HRM_GASC_wrapper(...)                HRM_GASC(__VA_ARGS__)
 
 // clang-format on
