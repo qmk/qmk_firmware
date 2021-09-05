@@ -99,7 +99,6 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
 
 // TODO replace 4 with the correct mbo layer name
 // TODO find a way to add/import default miryoku layers ?
-   // state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
     static bool is_sniper_on = false;
     if (layer_state_cmp(state, 4) != is_sniper_on) {
         is_sniper_on = layer_state_cmp(state, 4);
@@ -186,7 +185,6 @@ void pointing_device_task(void) {
     process_mouse(&mouse_report);
     
     if (is_drag_scroll) {
-        //mouse_report.h = mouse_report.x;
 #ifdef CHARYBDIS_DRAGSCROLL_INVERT
         // Invert vertical scroll direction
         scroll_inertia.y += -mouse_report.y;
