@@ -55,3 +55,9 @@ typedef struct  {
     int16_t mouse_x;
     int16_t mouse_y;
 } kb_slave_data_t;
+
+
+typedef struct  {
+    int16_t x;
+    int16_t y;
+} scroll_inertia_t;

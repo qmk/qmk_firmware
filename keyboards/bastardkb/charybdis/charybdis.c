@@ -50,7 +50,7 @@ bool    is_sniper         = false;
 
 bool     BurstState  = false; // init burst state for Trackball module
 uint16_t MotionStart = 0;     // Timer for accel, 0 is resting state
-int16_t scroll_inertia = 0; // Scroll value storage to make scrolling slower
+scroll_inertia_t scroll_inertia; // Scroll value storage to make scrolling slower
 
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     mouse_report->x = x;
@@ -170,6 +170,8 @@ void keyboard_pre_init_kb(void) {
     debug_enable  = true;
     debug_matrix  = true;
     debug_mouse   = true;
+    scroll_inertia.x = 0;
+    scroll_inertia.y = 0;
     // debug_encoder = true;
 
     /* Ground all output pins connected to ground. This provides additional
@@ -193,20 +195,6 @@ void pointing_device_init(void) {
 
 static bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
 
-int8_t calculate_drag_scroll(int pos, int divider){
-    int8_t v = 0;
-
-    if(pos != 0){
-        v = (int8_t)(pos/divider);
-
-        if(v == 0){
-            v = (int8_t)((pos > 0) - (pos < 0));
-        }
-    }    
-
-    return v;
-}
-
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_mouse(&mouse_report);
@@ -216,18 +204,15 @@ void pointing_device_task(void) {
         mouse_report.h = mouse_report.x;
 #ifdef CHARYBDIS_DRAGSCROLL_INVERT
         // Invert vertical scroll direction
-        scroll_inertia += -mouse_report.y;
+        scroll_inertia.y += -mouse_report.y;
 #else
-        scroll_inertia += mouse_report.y;
+        scroll_inertia.y += mouse_report.y;
 #endif
         // we only want to trigger scrolling once in 5 scrolls, for slower scroll
-        if(scroll_inertia > 5 || scroll_inertia < -5){
-            if(scroll_inertia > 0)
-                mouse_report.v = 1;
-            else 
-                mouse_report.v = -1;
-            uprintf("Scroll] V: %d // %d\n", mouse_report.v, scroll_inertia);
-            scroll_inertia = 0;
+        if(scroll_inertia.y > 6 || scroll_inertia.y < -6){
+            mouse_report.v = constrain(scroll_inertia.y / 3, -3, 3);
+            uprintf("Scroll] V: %d // %d\n", mouse_report.v, scroll_inertia.y);
+            scroll_inertia.y = 0;
         }
 
 
