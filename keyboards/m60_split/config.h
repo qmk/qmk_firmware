@@ -63,8 +63,7 @@
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define SPLIT_HAND_PIN B9
-#define SOFT_SERIAL_PIN B6
-#define SELECT_SOFT_SERIAL_SPEED 0
+#define SERIAL_USART_TX_PIN B6
 
 #define RGB_DI_PIN B4
 #define RGBLED_NUM 24
