@@ -127,9 +127,9 @@ void rgb_matrix_indicators_user(void)
 }
 
 enum encoder_modes{
-    ENCODER_MODE_ONE = 0,
-    ENCODER_MODE_TWO = 1,
-    ENCODER_MODE_THREE = 2,
+    ENCODER_MODE_ONE,
+    ENCODER_MODE_TWO,
+    ENCODER_MODE_THREE
 };
 
 keyboard_config_t keyboard_config;
