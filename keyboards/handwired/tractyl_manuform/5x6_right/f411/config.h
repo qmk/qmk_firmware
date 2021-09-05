@@ -24,11 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS \
     { A15, B3, B4, B5, B6, B7 }
 #define MATRIX_ROW_PINS \
-    { B12, B13, B14, B15, A8, A9 }
+    { B12, B13, B14, B15, A8, A10 }
 
 #define UNUSED_PINS \
-    { B2, C15 }
-// A10,  A11 and A12  don't like to be used?
+    { C15 }
+// B2 used for BOOT1, has internal pull down?
+// A9 has internal pull-down
+// A11 and A12 are used for USB sense.  DO NOT USE.
 
 #define DIODE_DIRECTION     COL2ROW
 
