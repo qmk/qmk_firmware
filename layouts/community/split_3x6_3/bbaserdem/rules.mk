@@ -25,6 +25,7 @@ ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
     # Proton C related stuff
     MCU = STM32F303
     BOARD  = QMK_PROTON_C
+    BOOTLOADER = stm32-dfu
     # Config
     SERIAL_DRIVER = usart
     WS2812_DRIVER = pwm
