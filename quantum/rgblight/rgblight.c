@@ -114,9 +114,9 @@ bool              is_rgblight_initialized = false;
 static bool is_suspended;
 static bool pre_suspend_enabled;
 
-    #if RGBLIGHT_TIMEOUT > 0
-    static uint32_t timeout_time;
-    #endif
+#    if RGBLIGHT_TIMEOUT > 0
+static uint32_t timeout_time;
+#    endif
 #endif
 
 #ifdef RGBLIGHT_USE_TIMER
@@ -250,9 +250,9 @@ void rgblight_init(void) {
         rgblight_mode_noeeprom(rgblight_config.mode);
     }
 
-    #if RGBLIGHT_TIMEOUT > 0
-        timeout_time = timer_read32() + RGBLIGHT_TIMEOUT;
-    #endif
+#if RGBLIGHT_TIMEOUT > 0
+    timeout_time = timer_read32() + RGBLIGHT_TIMEOUT;
+#endif
 
     is_rgblight_initialized = true;
 }
@@ -793,21 +793,20 @@ void rgblight_wakeup(void) {
         if (pre_suspend_enabled) {
             rgblight_enable_noeeprom();
         }
-#       ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+#    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
         // Need this or else the LEDs won't be set
         else if (rgblight_status.enabled_layer_mask != 0) {
             rgblight_set();
         }
-#       endif
+#    endif
 
         rgblight_timer_enable();
     }
 
-#   if RGBLIGHT_TIMEOUT > 0
+#    if RGBLIGHT_TIMEOUT > 0
     // Reset timeout timer
     timeout_time = timer_read32() + RGBLIGHT_TIMEOUT;
-#   endif
-
+#    endif
 }
 
 #endif
@@ -1064,9 +1063,9 @@ void rgblight_task(void) {
     rgblight_blink_layer_repeat_helper();
 #    endif
 
-#   if RGBLIGHT_TIMEOUT > 0
+#    if RGBLIGHT_TIMEOUT > 0
     if (timer_expired32(timer_read32(), timeout_time) && !is_suspended) rgblight_suspend();
-#   endif
+#    endif
 }
 
 #endif /* RGBLIGHT_USE_TIMER */
