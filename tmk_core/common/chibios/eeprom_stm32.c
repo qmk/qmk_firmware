@@ -51,13 +51,13 @@
  *
  * The following configuration defines can be set:
  *
- * FEE_DENSITY_PAGES   # Total number of pages to use for eeprom simulation (Compact + Write log)
- * FEE_DENSITY_BYTES   # Size of simulated eeprom. (Defaults to half the space allocated by FEE_DENSITY_PAGES)
+ * FEE_PAGE_COUNT   # Total number of pages to use for eeprom simulation (Compact + Write log)
+ * FEE_DENSITY_BYTES   # Size of simulated eeprom. (Defaults to half the space allocated by FEE_PAGE_COUNT)
  * NOTE: The current implementation does not include page swapping,
  * and FEE_DENSITY_BYTES will consume that amount of RAM as a cached view of actual EEPROM contents.
  *
  * The maximum size of FEE_DENSITY_BYTES is currently 16384. The write log size equals
- * FEE_DENSITY_PAGES * FEE_PAGE_SIZE - FEE_DENSITY_BYTES.
+ * FEE_PAGE_COUNT * FEE_PAGE_SIZE - FEE_DENSITY_BYTES.
  * The larger the write log, the less frequently the compacted area needs to be rewritten.
  *
  *
@@ -132,6 +132,11 @@
  *
  */
 
+#include "eeprom_stm32_defs.h"
+#if !defined(FEE_PAGE_SIZE) || !defined(FEE_PAGE_COUNT) || !defined(FEE_MCU_FLASH_SIZE) || !defined(FEE_PAGE_BASE_ADDRESS)
+#    error "not implemented."
+#endif
+
 /* These bits are used for optimizing encoding of bytes, 0 and 1 */
 #define FEE_WORD_ENCODING 0x8000
 #define FEE_VALUE_NEXT 0x6000
@@ -139,65 +144,19 @@
 #define FEE_VALUE_ENCODED 0x2000
 #define FEE_BYTE_RANGE 0x80
 
-// HACK ALERT. This definition may not match your processor
-// To Do. Work out correct value for EEPROM_PAGE_SIZE on the STM32F103CT6 etc
-#if defined(EEPROM_EMU_STM32F303xC)
-#    define MCU_STM32F303CC
-#elif defined(EEPROM_EMU_STM32F103xB)
-#    define MCU_STM32F103RB
-#elif defined(EEPROM_EMU_STM32F072xB)
-#    define MCU_STM32F072CB
-#elif defined(EEPROM_EMU_STM32F042x6)
-#    define MCU_STM32F042K6
-#elif !defined(FEE_PAGE_SIZE) || !defined(FEE_DENSITY_PAGES) || !defined(FEE_MCU_FLASH_SIZE)
-#    error "not implemented."
-#endif
-
-#if !defined(FEE_PAGE_SIZE) || !defined(FEE_DENSITY_PAGES)
-#    if defined(MCU_STM32F103RB) || defined(MCU_STM32F042K6)
-#        ifndef FEE_PAGE_SIZE
-#            define FEE_PAGE_SIZE 0x400  // Page size = 1KByte
-#        endif
-#        ifndef FEE_DENSITY_PAGES
-#            define FEE_DENSITY_PAGES 2  // How many pages are used
-#        endif
-#    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE) || defined(MCU_STM32F103RD) || defined(MCU_STM32F303CC) || defined(MCU_STM32F072CB)
-#        ifndef FEE_PAGE_SIZE
-#            define FEE_PAGE_SIZE 0x800  // Page size = 2KByte
-#        endif
-#        ifndef FEE_DENSITY_PAGES
-#            define FEE_DENSITY_PAGES 4  // How many pages are used
-#        endif
-#    else
-#        error "No MCU type specified. Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)."
-#    endif
-#endif
-
-#ifndef FEE_MCU_FLASH_SIZE
-#    if defined(MCU_STM32F103RB) || defined(MCU_STM32F072CB)
-#        define FEE_MCU_FLASH_SIZE 128  // Size in Kb
-#    elif defined(MCU_STM32F042K6)
-#        define FEE_MCU_FLASH_SIZE 32  // Size in Kb
-#    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE)
-#        define FEE_MCU_FLASH_SIZE 512  // Size in Kb
-#    elif defined(MCU_STM32F103RD)
-#        define FEE_MCU_FLASH_SIZE 384  // Size in Kb
-#    elif defined(MCU_STM32F303CC)
-#        define FEE_MCU_FLASH_SIZE 256  // Size in Kb
-#    else
-#        error "No MCU type specified. Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)."
-#    endif
-#endif
-
-/* Size of combined compacted eeprom and write log pages */
-#define FEE_DENSITY_MAX_SIZE (FEE_DENSITY_PAGES * FEE_PAGE_SIZE)
 /* Addressable range 16KByte: 0 <-> (0x1FFF << 1) */
 #define FEE_ADDRESS_MAX_SIZE 0x4000
 
-#ifndef EEPROM_START_ADDRESS /* *TODO: Get rid of this check */
+/* Flash word value after erase */
+#define FEE_EMPTY_WORD ((uint16_t)0xFFFF)
+
+/* Size of combined compacted eeprom and write log pages */
+#define FEE_DENSITY_MAX_SIZE (FEE_PAGE_COUNT * FEE_PAGE_SIZE)
+
+#ifndef FEE_MCU_FLASH_SIZE_IGNORE_CHECK /* *TODO: Get rid of this check */
 #    if FEE_DENSITY_MAX_SIZE > (FEE_MCU_FLASH_SIZE * 1024)
 #        pragma message STR(FEE_DENSITY_MAX_SIZE) " > " STR(FEE_MCU_FLASH_SIZE * 1024)
-#        error emulated eeprom: FEE_DENSITY_PAGES is greater than available flash size
+#        error emulated eeprom: FEE_DENSITY_MAX_SIZE is greater than available flash size
 #    endif
 #endif
 
@@ -220,26 +179,31 @@
 #    endif
 #else
 /* Default to half of allocated space used for emulated eeprom, half for write log */
-#    define FEE_DENSITY_BYTES (FEE_DENSITY_PAGES * FEE_PAGE_SIZE / 2)
+#    define FEE_DENSITY_BYTES (FEE_PAGE_COUNT * FEE_PAGE_SIZE / 2)
 #endif
 
 /* Size of write log */
-#define FEE_WRITE_LOG_BYTES (FEE_DENSITY_PAGES * FEE_PAGE_SIZE - FEE_DENSITY_BYTES)
+#ifdef FEE_WRITE_LOG_BYTES
+#    if ((FEE_DENSITY_BYTES + FEE_WRITE_LOG_BYTES) > FEE_DENSITY_MAX_SIZE)
+#        pragma message STR(FEE_DENSITY_BYTES) " + " STR(FEE_WRITE_LOG_BYTES) " > " STR(FEE_DENSITY_MAX_SIZE)
+#        error emulated eeprom: FEE_WRITE_LOG_BYTES exceeds remaining FEE_DENSITY_MAX_SIZE
+#    endif
+#    if ((FEE_WRITE_LOG_BYTES) % 2) == 1
+#        error emulated eeprom: FEE_WRITE_LOG_BYTES must be even
+#    endif
+#else
+/* Default to use all remaining space */
+#    define FEE_WRITE_LOG_BYTES (FEE_PAGE_COUNT * FEE_PAGE_SIZE - FEE_DENSITY_BYTES)
+#endif
 
 /* Start of the emulated eeprom compacted flash area */
-#ifndef FEE_FLASH_BASE
-#    define FEE_FLASH_BASE 0x8000000
-#endif
-#define FEE_PAGE_BASE_ADDRESS ((uintptr_t)(FEE_FLASH_BASE) + FEE_MCU_FLASH_SIZE * 1024 - FEE_WRITE_LOG_BYTES - FEE_DENSITY_BYTES)
+#define FEE_COMPACTED_BASE_ADDRESS FEE_PAGE_BASE_ADDRESS
 /* End of the emulated eeprom compacted flash area */
-#define FEE_PAGE_LAST_ADDRESS (FEE_PAGE_BASE_ADDRESS + FEE_DENSITY_BYTES)
+#define FEE_COMPACTED_LAST_ADDRESS (FEE_COMPACTED_BASE_ADDRESS + FEE_DENSITY_BYTES)
 /* Start of the emulated eeprom write log */
-#define FEE_WRITE_LOG_BASE_ADDRESS FEE_PAGE_LAST_ADDRESS
+#define FEE_WRITE_LOG_BASE_ADDRESS FEE_COMPACTED_LAST_ADDRESS
 /* End of the emulated eeprom write log */
 #define FEE_WRITE_LOG_LAST_ADDRESS (FEE_WRITE_LOG_BASE_ADDRESS + FEE_WRITE_LOG_BYTES)
-
-/* Flash word value after erase */
-#define FEE_EMPTY_WORD ((uint16_t)0xFFFF)
 
 #if defined(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) && (DYNAMIC_KEYMAP_EEPROM_MAX_ADDR >= FEE_DENSITY_BYTES)
 #    error emulated eeprom: DYNAMIC_KEYMAP_EEPROM_MAX_ADDR is greater than the FEE_DENSITY_BYTES available
@@ -313,9 +277,9 @@ void print_eeprom(void) {
 
 uint16_t EEPROM_Init(void) {
     /* Load emulated eeprom contents from compacted flash into memory */
-    uint16_t *src  = (uint16_t *)FEE_PAGE_BASE_ADDRESS;
+    uint16_t *src  = (uint16_t *)FEE_COMPACTED_BASE_ADDRESS;
     uint16_t *dest = (uint16_t *)DataBuf;
-    for (; src < (uint16_t *)FEE_PAGE_LAST_ADDRESS; ++src, ++dest) {
+    for (; src < (uint16_t *)FEE_COMPACTED_LAST_ADDRESS; ++src, ++dest) {
         *dest = ~*src;
     }
 
@@ -390,7 +354,7 @@ uint16_t EEPROM_Init(void) {
 static void eeprom_clear(void) {
     FLASH_Unlock();
 
-    for (uint16_t page_num = 0; page_num < FEE_DENSITY_PAGES; ++page_num) {
+    for (uint16_t page_num = 0; page_num < FEE_PAGE_COUNT; ++page_num) {
         eeprom_printf("FLASH_ErasePage(0x%04x)\n", (uint32_t)(FEE_PAGE_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE)));
         FLASH_ErasePage(FEE_PAGE_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE));
     }
@@ -421,9 +385,9 @@ static uint8_t eeprom_compact(void) {
 
     /* Write emulated eeprom contents from memory to compacted flash */
     uint16_t *src  = (uint16_t *)DataBuf;
-    uintptr_t dest = FEE_PAGE_BASE_ADDRESS;
+    uintptr_t dest = FEE_COMPACTED_BASE_ADDRESS;
     uint16_t  value;
-    for (; dest < FEE_PAGE_LAST_ADDRESS; ++src, dest += 2) {
+    for (; dest < FEE_COMPACTED_LAST_ADDRESS; ++src, dest += 2) {
         value = *src;
         if (value) {
             eeprom_printf("FLASH_ProgramHalfWord(0x%04x, 0x%04x)\n", (uint32_t)dest, ~value);
@@ -444,7 +408,7 @@ static uint8_t eeprom_compact(void) {
 
 static uint8_t eeprom_write_direct_entry(uint16_t Address) {
     /* Check if we can just write this directly to the compacted flash area */
-    uintptr_t directAddress = FEE_PAGE_BASE_ADDRESS + (Address & 0xFFFE);
+    uintptr_t directAddress = FEE_COMPACTED_BASE_ADDRESS + (Address & 0xFFFE);
     if (*(uint16_t *)directAddress == FEE_EMPTY_WORD) {
         /* Write the value directly to the compacted area without a log entry */
         uint16_t value = ~*(uint16_t *)(&DataBuf[Address & 0xFFFE]);
