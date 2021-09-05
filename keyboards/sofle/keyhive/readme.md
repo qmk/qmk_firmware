@@ -8,7 +8,7 @@ For detailed instructions on using VIA and flashing, please refer to the section
 
 For details about the keyboard design, refer to Josef's blog: [Sofle Keyboard - a split keyboard based on Lily58 and Crkbd](https://josef-adamcik.cz/electronics/let-me-introduce-you-sofle-keyboard-split-keyboard-based-on-lily58.html)
 
-Build guide and log is available here: [SofleKeyboard build log/guide](https://josef-adamcik.cz/electronics/soflekeyboard-build-log-and-build-guide.html)
+Build guide: [Keyhive Sofle RGB build guide](https://github.com/keyhive/build_guides/blob/master/docs/keyboards/sofle-rgb.md)
 
 * Keyboard Maintainer: [Solartempest]
 * Hardware Supported: SofleKeyboard V2.1 RGB PCB, ProMicro / Elite-C
