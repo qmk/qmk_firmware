@@ -72,9 +72,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 
 //function for layer indicator LED
-uint32_t layer_state_set_user(uint32_t state)
+layer_state_t layer_state_set_user(layer_state_t state)
 {
-    if (biton32(state) == 1) {
+    if (get_highest_layer(state) == 1) {
     writePinHigh(D4);
 	} else {
 		writePinLow(D4);
@@ -83,16 +83,16 @@ uint32_t layer_state_set_user(uint32_t state)
 }
 
 
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.num_lock) {
     writePinHigh(D7);
   } else {
     writePinLow(D7);
   }
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+  if (led_state.caps_lock) {
     writePinHigh(D6);
   } else {
     writePinLow(D6);
   }
-
+  return false;
 }
