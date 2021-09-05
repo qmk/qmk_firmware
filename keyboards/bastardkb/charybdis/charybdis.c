@@ -2,7 +2,7 @@
  * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU General Publicw License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
  *
@@ -19,6 +19,7 @@
 #include "transactions.h"
 #include <string.h>
 #include "drivers/sensors/pmw3360.h"
+#include "print.h"
 
 #ifndef CHARYBDIS__DPI_OPTIONS
 #    define CHARYBDIS_DPI_OPTIONS \
@@ -31,7 +32,7 @@
 #    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
 #endif
 #ifndef CHARYBDIS_DRAGSCROLL_MULTIPLIER
-#    define CHARYBDIS_DRAGSCROLL_MULTIPLIER 0.2 // Variable-DPI Drag Scroll
+#    define CHARYBDIS_DRAGSCROLL_MULTIPLIER 0.4 // Variable-DPI Drag Scroll
 #endif
 #ifndef CHARYBDIS_SNIPER_MULTIPLIER
 #    define CHARYBDIS_SNIPER_MULTIPLIER 0.4 // Variable-DPI Drag Scroll
@@ -125,7 +126,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
         }
         eeconfig_update_kb(keyboard_config.raw);
-        trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
     if (keycode == DRAG_SCROLL) {
@@ -165,9 +166,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-    // debug_enable  = true;
-    // debug_matrix  = true;
-    // debug_mouse   = true;
+    debug_enable  = true;
+    debug_matrix  = true;
+    debug_mouse   = true;
     // debug_encoder = true;
 
     /* Ground all output pins connected to ground. This provides additional
@@ -184,13 +185,12 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-#ifdef POINTING_DEVICE_ENABLE
 void pointing_device_init(void) {
     if (!is_keyboard_left()) {
         // initialize ball sensor
         pmw_spi_init();
     }
-    trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
 static bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
@@ -203,24 +203,23 @@ void pointing_device_task(void) {
         mouse_report.h = mouse_report.x;
 #ifdef CHARYBDIS_DRAGSCROLL_INVERT
         // Invert vertical scroll direction
-        mouse_report.v = -mouse_report.y;
+        mouse_report.v = -(int8_t)(mouse_report.y * 0.9);
 #else
-        mouse_report.v = mouse_report.y;
+        mouse_report.v = (int8_t)(mouse_report.y * 0.9);
 #endif
         mouse_report.x = 0;
         mouse_report.y = 0;
+        
+        dprintf("Scroll] V: %d", mouse_report.v);
     }
 
     pointing_device_set_report(mouse_report);
     pointing_device_send();
 }
-#endif
 
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = CHARYBDIS_DPI_DEFAULT;
-#ifdef POINTING_DEVICE_ENABLE
-    trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
-#endif
+    pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }
@@ -233,19 +232,15 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-#ifdef POINTING_DEVICE_ENABLE
 void pointing_device_send(void) {
     static report_mouse_t old_report  = {};
     report_mouse_t        mouseReport = pointing_device_get_report();
-    if (is_keyboard_master()) {
-        int8_t x = mouseReport.x, y = mouseReport.y;
-        mouseReport.x = 0;
-        mouseReport.y = 0;
-        process_mouse_user(&mouseReport, x, y);
-        if (has_report_changed(mouseReport, old_report)) { host_mouse_send(&mouseReport); }
-    } else {
-        master_mouse_send(mouseReport.x, mouseReport.y);
-    }
+    int8_t x = mouseReport.x, y = mouseReport.y;
+    mouseReport.x = 0;
+    mouseReport.y = 0;
+    process_mouse_user(&mouseReport, x, y);
+    if (has_report_changed(mouseReport, old_report)) { host_mouse_send(&mouseReport); }
+
     mouseReport.x = 0;
     mouseReport.y = 0;
     mouseReport.v = 0;
@@ -253,22 +248,3 @@ void pointing_device_send(void) {
     old_report    = mouseReport;
     pointing_device_set_report(mouseReport);
 }
-#endif
-
-#ifdef POINTING_DEVICE_ENABLE
-void master_mouse_send(int8_t x, int8_t y) {
-#ifdef SPLIT_TRANSACTION_IDS_KB
-    kb_slave.mouse_x += x;
-    kb_slave.mouse_y += y;
-#endif
-}
-void trackball_set_cpi(uint16_t cpi) {
-    if (!is_keyboard_left()) {
-        pmw_set_cpi(cpi);
-    } else {
-#ifdef SPLIT_TRANSACTION_IDS_KB
-        kb_state.device_cpi = cpi;
-#endif
-    }
-}
-#endif
