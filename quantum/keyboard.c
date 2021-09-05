@@ -491,7 +491,7 @@ MATRIX_LOOP_END:
 
 #ifdef ST7565_ENABLE
     st7565_task();
-#    ifndef ST7565_DISABLE_TIMEOUT
+#    if ST7565_TIMEOUT > 0
     // Wake up display if user is using those fabulous keys or spinning those encoders!
 #        ifdef ENCODER_ENABLE
     if (matrix_changed || encoders_changed) st7565_on();
