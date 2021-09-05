@@ -31,14 +31,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
 		KC_LCTL, KC_LALT, KC_LGUI, KC_ENT,      MO(_NUM),     KC_SPC,  KC_RGUI, KC_RALT, XXXXXXX
     ),
-    /* Numbers (maths mode) */
+    /* Numbers and vim arrow keys */
     [_NUM] = LAYOUT(
-        KC_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-        KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_MINS,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_PLUS,
-        _______, _______, _______, _______, XXXXXXX, KC_0,    KC_COMM, KC_DOT,  KC_EQL
+        KC_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+        KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,    _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,
+        _______, _______, _______, _______, XXXXXXX, _______, _______, _______, _______
     ),
-    /* Symbols and arrow keys */
+    /* Symbols and traditional arrow keys */
     [_SYM] = LAYOUT(
         KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
         XXXXXXX, KC_QUOT, KC_DQUO, KC_PIPE, KC_LCBR, KC_LBRC, KC_RBRC, KC_RCBR, KC_BSLS, KC_UNDS, KC_EQL,
