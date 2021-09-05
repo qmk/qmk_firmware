@@ -131,4 +131,34 @@
     _________________FUN_L3____________________, _________________FUN_R3____________________, \
     _________________FUN_L4____________________, _________________FUN_R4____________________
 
+// homerow wrappers
+#define HRM_MAC(k) HRM_SACG(k)
+#define HRM_SACG( \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
+	k13,        k14,        k15,        k16,        k17,        k18,        k19,        k20,        k21,        k22, \
+	... \
+) \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
+	SFT_T(k13), ALT_T(k14), CTL_T(k15), GUI_T(k16), k17,        k18,        GUI_T(k19), CTL_T(k20), ALT_T(k21), SFT_T(k22), \
+	__VA_ARGS__
+
+#define HRM_WIN(k) HRM_GCAS(k)
+#define HRM_GCAS( \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
+	k13,        k14,        k15,        k16,        k17,        k18,        k19,        k20,        k21,        k22, \
+	... \
+) \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
+	GUI_T(k13), CTL_T(k14), ALT_T(k15), SFT_T(k16), k17,        k18,        SFT_T(k19), ALT_T(k20), CTL_T(k21), GUI_T(k22), \
+	__VA_ARGS__
+
+#define HRM_GASC( \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
+	k13,        k14,        k15,        k16,        k17,        k18,        k19,        k20,        k21,        k22, \
+	... \
+) \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
+	GUI_T(k13), ALT_T(k14), SFT_T(k15), CTL_T(k16), k17,        k18,        CTL_T(k19), SFT_T(k20), ALT_T(k21), GUI_T(k22), \
+	__VA_ARGS__
+
 // clang-format on
