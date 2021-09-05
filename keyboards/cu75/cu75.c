@@ -163,13 +163,6 @@ void reset_keyboard_kb(){
     reset_keyboard();
 }
 
-void led_set_kb(uint8_t usb_led)
-{
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-    led_set_user(usb_led);
-}
-
 // LFK lighting info
 const uint8_t switch_matrices[] = {0, 1};
 const uint8_t rgb_matrices[] = {6, 7};
