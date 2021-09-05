@@ -12,6 +12,25 @@ from qmk.keymap import locate_keymap
 from qmk.path import normpath
 
 
+def audio_pins(audio):
+    """Return the config.h lines to configure audio.
+    """
+    config_h = []
+
+    if 'pins' in audio:
+        if len(audio['pins']) > 0:
+            config_h.append('#ifndef AUDIO_PIN')
+            config_h.append(f'#   define AUDIO_PIN f{audio["pins"][0]}')
+            config_h.append('#endif // AUDIO_PIN')
+
+        if len(audio['pins']) > 1:
+            config_h.append('#ifndef AUDIO_PIN_ALT')
+            config_h.append(f'#   define AUDIO_PIN_ALT f{audio["pins"][1]}')
+            config_h.append('#endif // AUDIO_PIN_ALT')
+
+    return '\n'.join(config_h)
+
+    
 def direct_pins(direct_pins, postfix):
     """Return the config.h lines that set the direct pins.
     """

@@ -19,7 +19,75 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "alt_as_negative": {"type": "boolean"},
+                "clicky": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "enabled": {"type": "boolean"},
+                        "frequency": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "default": {"$ref": "qmk.definitions.v1#/signed_decimal"},
+                                "factor": {"$ref": "qmk.definitions.v1#/signed_decimal"},
+                                "max": {"$ref": "qmk.definitions.v1#/signed_decimal"},
+                                "min": {"$ref": "qmk.definitions.v1#/signed_decimal"},
+                                "randomness": {"$ref": "qmk.definitions.v1#/signed_decimal"}
+                            }
+                        },
+                        "delay": {"$ref": "qmk.definitions.v1#/signed_int"}
+                    }
+                },
+                "dac": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "sample_waveform": {
+                            "default": "sine",
+                            "type": "string",
+                            "enum": ["sine", "square", "trapezoid", "triangle"]
+                        },
+                        "channel": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                    }
+                },
+                "driver": {
+                    "type": "string",
+                    "enum": ["dac_basic", "dac_additive", "pwm_hardware", "pwm_software"],
+                },
+                "init_delay": {"type": "boolean"},
+                "music_mode": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "enabled": {"type": "boolean"},
+                        "pitch_standard": {"$ref": "qmk.definitions.v1#/signed_decimal"}
+                    }
+                },
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "pwm": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "channel": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "driver": {
+                            "default": "PWMD1",
+                            "type": "string",
+                            "enum": ["PWMD1", "PWMD2", "PWMD3", "PWMD4", "PWMD5"]
+                        },
+                        "pal_mode": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                    }
+                },
+                "sendstring_bell": {"type": "boolean"},
+                "tempo": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "tone_multiplexing": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "default_rate": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "enabled": {"type": "boolean"}
+                    }
+                },
                 "voices": {"type": "boolean"}
             }
         },

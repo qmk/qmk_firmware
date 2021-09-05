@@ -193,7 +193,7 @@ def _extract_audio(info_data, config_c):
     audio_pins = []
 
     for pin in 'B5', 'B6', 'B7', 'C4', 'C5', 'C6':
-        if config_c.get(f'{pin}_AUDIO'):
+        if config_c.get(f'{pin}_AUDIO') or config_c.get(f'{pin}_AUDIO_ALT'):
             audio_pins.append(pin)
 
     if audio_pins:
