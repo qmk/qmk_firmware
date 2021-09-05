@@ -50,6 +50,7 @@ bool    is_sniper         = false;
 
 bool     BurstState  = false; // init burst state for Trackball module
 uint16_t MotionStart = 0;     // Timer for accel, 0 is resting state
+int16_t scroll_inertia = 0; // Scroll value storage to make scrolling slower
 
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     mouse_report->x = x;
@@ -67,12 +68,12 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
 
         // Set timer if new motion
         if ((MotionStart == 0) && data.isMotion) {
-            if (debug_mouse) dprintf("Starting motion.\n");
+            if (debug_mouse) uprintf("Starting motion.\n");
             MotionStart = timer_read();
         }
 
-        if (debug_mouse) { dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart); }
-        if (debug_mouse) { dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy); }
+        if (debug_mouse) { uprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart); }
+        if (debug_mouse) { uprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy); }
 #if defined(PROFILE_LINEAR)
         float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
         data.dx *= scale;
@@ -86,8 +87,8 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         // Wrap to HID size
         data.dx = constrain(data.dx, -127, 127);
         data.dy = constrain(data.dy, -127, 127);
-        if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
-        // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
+        if (debug_mouse) uprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
+        // uprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
         mouse_report->x = -data.dx;
         mouse_report->y = data.dy;
@@ -186,31 +187,52 @@ void keyboard_pre_init_kb(void) {
 }
 
 void pointing_device_init(void) {
-    if (!is_keyboard_left()) {
-        // initialize ball sensor
-        pmw_spi_init();
-    }
+    pmw_spi_init();
     pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
 static bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
 
+int8_t calculate_drag_scroll(int pos, int divider){
+    int8_t v = 0;
+
+    if(pos != 0){
+        v = (int8_t)(pos/divider);
+
+        if(v == 0){
+            v = (int8_t)((pos > 0) - (pos < 0));
+        }
+    }    
+
+    return v;
+}
+
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_mouse(&mouse_report);
     
+    // TEMP for testing
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;
 #ifdef CHARYBDIS_DRAGSCROLL_INVERT
         // Invert vertical scroll direction
-        mouse_report.v = -(int8_t)(mouse_report.y * 0.9);
+        scroll_inertia += -mouse_report.y;
 #else
-        mouse_report.v = (int8_t)(mouse_report.y * 0.9);
+        scroll_inertia += mouse_report.y;
 #endif
+        // we only want to trigger scrolling once in 5 scrolls, for slower scroll
+        if(scroll_inertia > 5 || scroll_inertia < -5){
+            if(scroll_inertia > 0)
+                mouse_report.v = 1;
+            else 
+                mouse_report.v = -1;
+            uprintf("Scroll] V: %d // %d\n", mouse_report.v, scroll_inertia);
+            scroll_inertia = 0;
+        }
+
+
         mouse_report.x = 0;
         mouse_report.y = 0;
-        
-        dprintf("Scroll] V: %d", mouse_report.v);
     }
 
     pointing_device_set_report(mouse_report);

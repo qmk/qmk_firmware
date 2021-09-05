@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x5_3(
     KC_B,              KC_Z,              KC_P,              KC_O,              KC_QUOT,           KC_DOT,            KC_V,              KC_D,              KC_L,              KC_J,
     LGUI_T(KC_A),      LALT_T(KC_U),      LSFT_T(KC_I),      LCTL_T(KC_E),      KC_COMM,           KC_C,              LCTL_T(KC_T),      RSFT_T(KC_S),      LALT_T(KC_R),      LGUI_T(KC_N),
-    LT(4, KC_W),     KC_Y,              KC_X,              KC_SLSH,           KC_K,              KC_M,              KC_Q,              KC_G,              KC_H,              KC_F, 
+    LT(4, KC_W),     KC_Y,              KC_X,              KC_SLSH,           KC_K,              KC_M,              KC_Q,              KC_G,              KC_H,              LT(4, KC_F), 
                                           LT(3, KC_BSPC),LT(1, KC_ENT),   LT(2, KC_TAB), LT(6, KC_ESC),   LT(5, KC_SPC),   U_NP
   ),
   [1] = LAYOUT_split_3x5_3(
@@ -44,8 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_split_3x5_3(
     U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,   U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
-    DPI_CONFIG, DRAG_SCROLL, KC_LSFT, KC_LCTL, KC_TRNS, KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_LGUI,
-    U_RDO,   SNIPER,  U_CPY,   U_CUT,   U_UND,   U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
+    DPI_CONFIG, DRAG_SCROLL, KC_LSFT, KC_LCTL, KC_TRNS, KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI,
+    U_RDO,   SNIPER,  U_CPY,   U_CUT,   U_UND,   U_RDO,   U_PST,   U_CPY,   SNIPER,   U_UND,
                       KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN1, KC_BTN3, KC_BTN2
   ),
   [5] = LAYOUT_split_3x5_3(
