@@ -144,7 +144,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
+
 /* per key configuration */
+
+// https://precondition.github.io/home-row-mods#finding-the-sweet-spot
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case CMD_TAB: /* make CMD SPC faster */
@@ -154,6 +157,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// https://precondition.github.io/home-row-mods#finding-the-sweet-spot
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     /* adjust home row key timing to prevent letter rolls triggering modifiers */
@@ -163,13 +167,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case HOME_N:
     case HOME_E:
     case HOME_I:
-        return TAPPING_TERM + 100;
+        return TAPPING_TERM + 150;
     /* adjust mod-tap shift keys separately for quick typing */
     case HOME_A:
     case HOME_O:
     case HOME_Z:
     case HOME_SL:
-        return TAPPING_TERM + 50;
+        return TAPPING_TERM - 20;
     default:
         return TAPPING_TERM;
     }
