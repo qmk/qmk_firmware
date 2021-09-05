@@ -16,7 +16,7 @@
  */
 
 #include QMK_KEYBOARD_H
-
+#include "wrappers.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_split_3x5_3(

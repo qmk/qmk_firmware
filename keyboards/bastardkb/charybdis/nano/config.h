@@ -66,3 +66,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* PMW3360 Settings */
 #define PMW3360_CS_PIN           B0
+
+/* Default miryoku layers */
+#define BASE  0
+#define MBO   1
+#define MEDIA 2
+#define NAV   3
+#define MOUSE 4
+#define SYM   5
+#define NUM   6
+#define FUN   7
