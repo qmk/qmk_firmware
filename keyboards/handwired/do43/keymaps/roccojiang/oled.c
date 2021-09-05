@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
 /*
  * Bongo Cat WPM visualiser.
@@ -29,8 +28,6 @@
  * @filterpaper for improvements to RLE
  */
 
-char wpm_str[8];
-
 #define IDLE_FRAMES 5
 #define TAP_FRAMES 2
 
@@ -42,10 +39,8 @@ char wpm_str[8];
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 
-/*
- * Bongocat frames are encoded in pairs of 'byte, count'
- * RLE decode will read each pair and render bytes based on count
- */
+// Bongocat frames are encoded in pairs of 'byte, count'
+// RLE decode will read each pair and render bytes based on count
 static void decode_frame(unsigned char const *frame) {
 	uint16_t cursor = 0;
 	uint8_t size = pgm_read_byte_near(frame);
@@ -219,6 +214,21 @@ void render_bongocat(void) {
     }
 }
 
+// Write WPM information without using sprintf() from <stdio.h>
+// as the library increases firmware size
+void render_wpm(void) {
+    char wpm_str[4];
+    uint8_t wpm = get_current_wpm();
+
+    wpm_str[3] = '\0';
+    wpm_str[2] = '0' + wpm % 10;
+    wpm_str[1] = '0' + (wpm /= 10) % 10;
+    wpm_str[0] = '0' + wpm / 10;
+
+    oled_write_P(PSTR("WPM:"), false);
+    oled_write(wpm_str, false);
+}
+
 /* Init and rendering calls */
 
 // Rotate OLED display to the correct orientation
@@ -227,6 +237,5 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_
 void oled_task_user(void) {
 	render_bongocat();
     oled_set_cursor(0,0);
-    sprintf(wpm_str, "WPM:%03d", get_current_wpm());
-    oled_write(wpm_str, false);
+    render_wpm();
 }
