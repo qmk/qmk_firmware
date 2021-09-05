@@ -315,7 +315,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static void render_logo(void) {
   static const char PROGMEM my_logo[] = {
     // 'protea', 128x32px

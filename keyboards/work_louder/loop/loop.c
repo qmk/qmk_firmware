@@ -43,14 +43,15 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
+// clang-format off
 led_config_t g_led_config = {
     {
         {   NO_LED, NO_LED, NO_LED, 8, 7, 6, 5, 4, 3, 2, 1, 0 }
     }, {
-        { 36,  32 }, { 55,  32 }, { 74,  32 }, { 93,  32 }, {  112,  32 }, {  131,  32 }, {  150,  32 }, {  169,  32 }, {  188,  32 }
+        {188, 32}, {169, 32}, {150, 32}, {131, 32}, {112, 32}, {93, 32}, {74, 32}, {55, 32}, {36, 32}
     }, {
         4, 4, 4, 4, 4, 4, 4, 4, 4
     }
 };
-
+// clang-format on
 #endif
