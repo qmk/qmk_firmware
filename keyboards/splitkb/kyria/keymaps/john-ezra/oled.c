@@ -45,31 +45,32 @@ static void render_qmk_logo(void) {
 }
 
 void render_bootmagic_status(void) {
-    oled_write_P((keymap_config.nkro) ? PSTR("NKRO   ") : PSTR("       "), false);
+		oled_write_P((keymap_config.swap_lctl_lgui) ? PSTR("OS:    Windows\n\n") : PSTR("OS:    MacOS\n\n"), false);
+		oled_write_P((keymap_config.nkro) ? PSTR("NKRO   ") : PSTR("       "), false);
 }
 
 static void render_status(void) {
     // QMK Logo and version information
-    render_qmk_logo();
-    oled_write_P(PSTR("Kyria: Rev1.0\n\n"), false);
+		render_qmk_logo();
+    oled_write_P(PSTR("Kyria: Rev1.0\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_P(PSTR("Default\n\n"), false);
+            oled_write_P(PSTR("Default\n"), false);
             break;
         case 1:
-            oled_write_P(PSTR("Lower\n\n"), false);
+            oled_write_P(PSTR("Lower\n"), false);
             break;
         case 2:
-            oled_write_P(PSTR("Raise\n\n"), false);
+            oled_write_P(PSTR("Raise\n"), false);
             break;
         case 3:
-            oled_write_P(PSTR("Adjust\n\n"), false);
+            oled_write_P(PSTR("Adjust\n"), false);
             break;
         default:
-            oled_write_P(PSTR("Undefined\n\n"), false);
+            oled_write_P(PSTR("Undefined\n"), false);
     }
 
 		render_bootmagic_status();

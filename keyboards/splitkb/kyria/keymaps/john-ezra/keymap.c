@@ -31,9 +31,10 @@ enum kyria_keycodes {
   CPY_PST
 };
 
-#define BSP_GUI MT(MOD_LGUI, KC_BSPC)
+#define BSP_CMD MT(MOD_LGUI, KC_BSPC)
 #define SFT_ENT MT(MOD_LSFT, KC_ENT)
 #define NKRO MAGIC_TOGGLE_NKRO
+#define OS_SWAP MAGIC_TOGGLE_CTL_GUI
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -55,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_GRV,    KC_Z,    KC_R,    KC_L,    KC_C,    KC_G,                                         KC_P,    KC_Y,    KC_J,    KC_X,    KC_Q, KC_BSLS,
      KC_ESC,    KC_H,    KC_N,    KC_T,    KC_S,    KC_D,                                         KC_U,    KC_I,    KC_E,    KC_A,    KC_O,  KC_ESC,
     CPY_PST,    KC_V,    KC_F,    KC_M,    KC_W,    KC_B, KC_LCTL, KC_LALT,  KC_CAPS,  KC_DEL,    KC_K, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,
-                                 KC_UP, KC_DOWN,   LOWER,  KC_SPC, BSP_GUI,   KC_TAB, SFT_ENT,   RAISE, KC_LEFT, KC_RGHT
+                                 KC_UP, KC_DOWN,   LOWER,  KC_SPC, BSP_CMD,   KC_TAB, SFT_ENT,   RAISE, KC_LEFT, KC_RGHT
 ),
 
 /*
@@ -115,8 +116,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
 [_ADJUST] = LAYOUT(
-    _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, _______,
-    _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     _______, _______, _______,  KC_F11,  KC_F12,    NKRO,
+    _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    NKRO,
+    _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     _______, _______, _______,  KC_F11,  KC_F12, OS_SWAP,
     _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD,_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
                               _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
 ),
@@ -157,9 +158,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     copy_paste_timer = timer_read();
                 } else {
                     if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
-                        tap_code16 G(KC_C);
+                      register_mods(mod_config(MOD_LGUI));
+                      tap_code(KC_C);
+                      unregister_mods(mod_config(MOD_LGUI));
                     } else {  // Tap, paste
-                        tap_code16 G(KC_V);
+                      register_mods(mod_config(MOD_LGUI));
+                      tap_code(KC_V);
+                      unregister_mods(mod_config(MOD_LGUI));
                     }
                 }
             }
