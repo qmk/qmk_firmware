@@ -82,10 +82,6 @@ void matrix_print(void) {
   }
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  return process_record_user(keycode, record);
-}
-
 static void select_row(uint8_t row) {
   /* Original 8051: P1 bits 0-3 (pins 1-4)
    * Teensy++: PE0, PB7, PD0, PD1
