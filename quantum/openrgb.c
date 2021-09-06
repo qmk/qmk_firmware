@@ -312,6 +312,7 @@ void openrgb_set_mode(uint8_t *data) {
     const uint8_t v     = data[3];
     const uint8_t mode  = data[4];
     const uint8_t speed = data[5];
+    const uint8_t save = data[6];
 
     raw_hid_buffer[0] = OPENRGB_SET_MODE;
 
@@ -320,9 +321,16 @@ void openrgb_set_mode(uint8_t *data) {
         return;
     }
 
-    rgb_matrix_mode_noeeprom(mode);
-    rgb_matrix_set_speed_noeeprom(speed);
-    rgb_matrix_sethsv_noeeprom(h, s, v);
+    if (save == 1) {
+        rgb_matrix_mode(mode);
+        rgb_matrix_set_speed(speed);
+        rgb_matrix_sethsv(h, s, v);
+    }
+    else {
+        rgb_matrix_mode_noeeprom(mode);
+        rgb_matrix_set_speed_noeeprom(speed);
+        rgb_matrix_sethsv_noeeprom(h, s, v);
+    }
 
     raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_SUCCESS;
 }
