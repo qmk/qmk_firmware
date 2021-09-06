@@ -50,7 +50,7 @@ uint16_t          dpi_array[] = CHARYBDIS_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
 uint16_t          sniper_array[] = CHARYBDIS_SNIPER_OPTIONS;
-#define SNIPER_CONFIG_SIZE (sizeof(sniper_array) / sizeof(uint16_t))
+#define SNIPER_OPTION_SIZE (sizeof(sniper_array) / sizeof(uint16_t))
 
 bool    is_drag_scroll    = false;
 bool    is_sniper         = false;
@@ -129,19 +129,21 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
      
     if (keycode == SNIPER_CONFIG && record->event.pressed) {
         if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
-            keyboard_config.sniper_config = (keyboard_config.sniper_config - 1) % SNIPER_CONFIG_SIZE;
+            keyboard_config.sniper_config = keyboard_config.sniper_config - 1;
         } else {
-            keyboard_config.sniper_config = (keyboard_config.sniper_config + 1) % SNIPER_CONFIG_SIZE;
+            keyboard_config.sniper_config = keyboard_config.sniper_config + 1;
         }
+        keyboard_config.sniper_config = constrain(keyboard_config.sniper_config, 0, SNIPER_OPTION_SIZE - 1);
         eeconfig_update_kb(keyboard_config.raw);
     }
 
     if (keycode == DPI_CONFIG && record->event.pressed) {
         if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
-            keyboard_config.dpi_config = (keyboard_config.dpi_config - 1) % DPI_OPTION_SIZE;
+            keyboard_config.dpi_config = keyboard_config.dpi_config - 1;
         } else {
-            keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+            keyboard_config.dpi_config = keyboard_config.dpi_config + 1;
         }
+        keyboard_config.dpi_config = constrain(keyboard_config.dpi_config, 0, DPI_OPTION_SIZE - 1);
         eeconfig_update_kb(keyboard_config.raw);
         pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
