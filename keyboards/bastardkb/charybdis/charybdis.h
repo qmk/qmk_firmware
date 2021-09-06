@@ -39,6 +39,8 @@ extern keyboard_config_t keyboard_config;
 
 enum charybdis_keycodes {
     DPI_CONFIG = SAFE_RANGE,
+    DPI_CONFIG_UP,
+    DPI_CONFIG_DOWN,
     KEYMAP_SAFE_RANGE,
     DRAG_SCROLL,
     SNIPER,

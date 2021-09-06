@@ -78,7 +78,7 @@
 #define _________________MOUSE_R1__________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_R2__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
 #define _________________MOUSE_R3__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
-#define _________________MOUSE_R4__________________ KC_BTN1, KC_BTN3, KC_BTN2
+#define _________________MOUSE_R4__________________ DPI_CONFIG, U_NA, U_NA
 
 #define _________________SYM_L1____________________ KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC
 #define _________________SYM_L2____________________ KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL

@@ -21,7 +21,7 @@
 #include "drivers/sensors/pmw3360.h"
 #include "print.h"
 
-#ifndef CHARYBDIS__DPI_OPTIONS
+#ifndef CHARYBDIS_DPI_OPTIONS
 #    define CHARYBDIS_DPI_OPTIONS \
         { 600, 800, 1200 }
 #endif
@@ -36,6 +36,9 @@
 #endif
 #ifndef CHARYBDIS_SNIPER_MULTIPLIER
 #    define CHARYBDIS_SNIPER_MULTIPLIER 0.4 // Variable-DPI Drag Scroll
+#endif
+#ifndef CHARYBDIS_DRAGSCROLL_DPI
+#    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
 #endif
 
 keyboard_config_t keyboard_config;
