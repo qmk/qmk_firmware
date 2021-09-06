@@ -33,3 +33,13 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
 i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
 i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
 void         i2c_stop(void);
+
+// deprecated - do not use
+#if defined(__AVR__)
+#    define I2C_READ 0x01
+#    define I2C_WRITE 0x00
+
+i2c_status_t i2c_write(uint8_t data, uint16_t timeout);
+int16_t      i2c_read_ack(uint16_t timeout);
+int16_t      i2c_read_nack(uint16_t timeout);
+#endif
