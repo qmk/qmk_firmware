@@ -1,7 +1,7 @@
 {
     "name": "Stream Cheap 2x4",
     "vendorId": "0x7363",
-    "productId": "0x3234",
+    "productId": "0x1214",
     "lighting": "none",
     "matrix": {"rows": 2, "cols": 4},
     "layouts": {
