@@ -6,6 +6,9 @@ Support STM32F401 keyboard.
 
 * Keyboard Maintainer: [rhmokey](https://github.com/rhmokey)
 * Hardware Supported: STM32F401
+## Bootloader
+* **Physical reset button**: Short press the button on the back of the PCB to enter the Bootloader and flash the firmware
+
 
 Make example for this keyboard (after setting up your build environment):
 
