@@ -68,10 +68,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
 * MPU9250 Settings
 *
-* MPU_ANGLE_SENS: Angle at which the star power starts to activate.
-* Default: 60       Max: 100    Min: 50
+* MPU_ANGLE_SENS: Angle at which the star power starts to activate. (Note: 0 = horizontal, 100 = vertical)
+* Default: 60       Max: 100    Min: 0
+*
 * MPU_SPEED_SENS: Speed at which the star power activates, used to prevent unintentional star power usage.
-* Default: 700      Max: 2000   Min: 200
+* Default: 700      Max: 2000   Min: 0
 *
 * STAR_LEFT_HAND: Uncomment for left handed users to activate star power.
 */
