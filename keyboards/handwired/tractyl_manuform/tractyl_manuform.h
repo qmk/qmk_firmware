@@ -43,7 +43,7 @@ typedef struct {
     uint16_t        device_cpi;
 } kb_config_data_t;
 
-typedef struct  {
+__attribute__((aligned(16))) typedef struct {
     int8_t mouse_x;
     int8_t mouse_y;
 } kb_pointer_data_t;
