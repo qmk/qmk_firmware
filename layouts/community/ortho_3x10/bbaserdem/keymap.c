@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-// Music map, guitar like
+// Music map, guitar like.
 #ifdef AUDIO_ENABLE
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_3x10(
     10, 11, 12, 13, 14, 15, 16, 17, 18, 19,

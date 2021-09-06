@@ -104,6 +104,10 @@ enum userspace_unicodemap {
 #ifdef TAP_DANCE_ENABLE
 enum {
     TD_AUDIO_TEMPO,
+<<<<<<< HEAD
+=======
+    #endif
+>>>>>>> 54802032be (Reformatted some code and cleaned stuff up.)
 };
 #endif
 #endif
