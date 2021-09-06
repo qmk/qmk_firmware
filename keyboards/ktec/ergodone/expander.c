@@ -92,7 +92,7 @@ uint8_t expander_write(uint8_t reg, uint8_t data)
   if (expander_status == 0) {
     return 0;
   }
-  return i2c_readReg(EXPANDER_ADDR, reg, &data, 1, I2C_TIMEOUT);
+  return i2c_writeReg(EXPANDER_ADDR, reg, &data, 1, I2C_TIMEOUT);
 }
 
 uint8_t expander_read(uint8_t reg, uint8_t *data)
