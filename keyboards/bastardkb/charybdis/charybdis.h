@@ -43,7 +43,6 @@ enum charybdis_keycodes {
     SNIPER_CONFIG,
     KEYMAP_SAFE_RANGE,
     DRAG_SCROLL,
-    SNIPER,
 };
 
 typedef struct  {

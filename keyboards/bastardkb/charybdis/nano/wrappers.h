@@ -72,10 +72,10 @@
 
 #define _________________MOUSE_L1__________________ SNIPER_CONFIG,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_L2__________________ DPI_CONFIG, DRAG_SCROLL, KC_LSFT, KC_LCTL, KC_TRNS
-#define _________________MOUSE_L3__________________ U_RDO,   SNIPER,  U_CPY,   U_CUT,   U_UND
+#define _________________MOUSE_L3__________________ U_RDO,   U_RDO,  U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_L4__________________ KC_BTN2, KC_BTN1, KC_BTN3
 
-#define _________________MOUSE_R1__________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
+#define _________________MOUSE_R1__________________ U_RDO,   U_RDO,   U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_R2__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
 #define _________________MOUSE_R3__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
 #define _________________MOUSE_R4__________________ KC_BTN1, KC_BTN3, KC_BTN2

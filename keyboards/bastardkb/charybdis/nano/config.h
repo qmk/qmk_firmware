@@ -86,3 +86,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define U_CPY C(KC_INS)
 #define U_CUT S(KC_DEL)
 #define U_UND KC_UNDO
+
+/* when mouse layer is triggered, switch to sniping mode */
+#define CHARYBDIS_AUTO_SNIPER_LAYER MOUSE

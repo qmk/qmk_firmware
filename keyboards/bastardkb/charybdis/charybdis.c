@@ -36,6 +36,9 @@
 #ifndef CHARYBDIS_SNIPER_DEFAULT
 #    define CHARYBDIS_SNIPER_DEFAULT 0
 #endif
+#ifndef CHARYBDIS_AUTO_SNIPER_LAYER
+#    define CHARYBDIS_AUTO_SNIPER_LAYER 4
+#endif
 
 #ifndef CHARYBDIS_DRAGSCROLL_DPI
 #    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
@@ -106,11 +109,9 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
 __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
 layer_state_t                       layer_state_set_user(layer_state_t state) {
 
-// TODO replace 4 with the correct mbo layer name
-// TODO find a way to add/import default miryoku layers ?
     static bool is_sniper_on = false;
-    if (layer_state_cmp(state, 4) != is_sniper_on) {
-        is_sniper_on = layer_state_cmp(state, 4);
+    if (layer_state_cmp(state, CHARYBDIS_AUTO_SNIPER_LAYER) != is_sniper_on) {
+        is_sniper_on = layer_state_cmp(state, CHARYBDIS_AUTO_SNIPER_LAYER);
         
         if (is_sniper_on) {
                pmw_set_cpi(sniper_array[keyboard_config.sniper_config]);
