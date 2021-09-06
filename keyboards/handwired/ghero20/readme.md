@@ -2,7 +2,7 @@
 
 Fully customizable 3D printed guitar controller for Clone Hero! Design based on the Adafruit Feather Bluefruit 32u4.
 
-**STILL IN DEVELOPMENT. Assembly instruction and STL/STEP files to be available.**
+![GitHub Logo](https://github.com/bryan065/GHero20-Files/blob/b49a4c8bf3821357dacbda5cb2a0039395c8d67b/GHero20.jpg)
 
 https://clonehero.net/
 
@@ -97,7 +97,7 @@ Enter the bootloader in 3 ways:
 
 ## Build instructions / Wiring / STL's
 
-Assembly instruction and STL/STEP files to be available soon.
+https://github.com/bryan065/GHero20-Files
 
 ## To-do
 
