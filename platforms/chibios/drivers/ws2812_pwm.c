@@ -5,9 +5,9 @@
 /* Adapted from https://github.com/joewa/WS2812-LED-Driver_ChibiOS/ */
 
 #ifdef RGBW
-#    define WS2812_COLOR_N 4
+#    define WS2812_CHANNELS 4
 #else
-#    define WS2812_COLOR_N 3
+#    define WS2812_CHANNELS 3
 #endif
 
 #ifndef WS2812_PWM_DRIVER
@@ -70,7 +70,7 @@
  * The reset period for each frame is defined in WS2812_TRST_US.
  * Calculate the number of zeroes to add at the end assuming 1.25 uS/bit:
  */
-#define WS2812_COLOR_BITS (WS2812_COLOR_N * 8)
+#define WS2812_COLOR_BITS (WS2812_CHANNELS * 8)
 #define WS2812_RESET_BIT_N (1000 * WS2812_TRST_US / 1250)
 #define WS2812_COLOR_BIT_N (RGBLED_NUM * WS2812_COLOR_BITS)    /**< Number of data bits */
 #define WS2812_BIT_N (WS2812_COLOR_BIT_N + WS2812_RESET_BIT_N) /**< Total number of bits in a frame */
