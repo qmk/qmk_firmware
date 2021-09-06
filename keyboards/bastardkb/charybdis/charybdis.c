@@ -23,24 +23,24 @@
 
 #ifndef CHARYBDIS_DPI_OPTIONS
 #    define CHARYBDIS_DPI_OPTIONS \
-        { 600, 800, 1200 }
+        { 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800  }
 #endif
 #ifndef CHARYBDIS_DPI_DEFAULT
 #    define CHARYBDIS_DPI_DEFAULT 0
 #endif
+
+#ifndef CHARYBDIS_SNIPER_OPTIONS
+#define CHARYBDIS_SNIPER_OPTIONS \
+        { 100, 200, 300, 400 }
+#endif
 #ifndef CHARYBDIS_SNIPER_DEFAULT
 #    define CHARYBDIS_SNIPER_DEFAULT 0
 #endif
+
 #ifndef CHARYBDIS_DRAGSCROLL_DPI
 #    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
 #endif
-#ifndef CHARYBDIS_SNIPER_OPTIONS
-#define CHARYBDIS_SNIPER_OPTIONS \
-        { 100, 200, 300 }
-#endif
-#ifndef CHARYBDIS_DRAGSCROLL_DPI
-#    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
-#endif
+
 #ifndef CHARYBDIS_TRACKBALL_SPEED_DIVIDER
 #    define CHARYBDIS_TRACKBALL_SPEED_DIVIDER 12 
 #endif
@@ -95,7 +95,6 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         data.dx = constrain(data.dx, -127, 127);
         data.dy = constrain(data.dy, -127, 127);
         if (debug_mouse) uprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
-        // uprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
         mouse_report->x = -data.dx;
         mouse_report->y = data.dy;
@@ -126,40 +125,45 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) { return false; }
 
-     
-    if (keycode == SNIPER_CONFIG && record->event.pressed) {
-        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
-            keyboard_config.sniper_config = keyboard_config.sniper_config - 1;
-        } else {
-            keyboard_config.sniper_config = keyboard_config.sniper_config + 1;
-        }
-        keyboard_config.sniper_config = constrain(keyboard_config.sniper_config, 0, SNIPER_OPTION_SIZE - 1);
-        eeconfig_update_kb(keyboard_config.raw);
-    }
+    switch(keycode){
+        case SNIPER_CONFIG:
+            if(record->event.pressed){
+                if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+                    keyboard_config.sniper_config = keyboard_config.sniper_config - 1;
+                } else {
+                    keyboard_config.sniper_config = keyboard_config.sniper_config + 1;
+                }
+                keyboard_config.sniper_config = constrain(keyboard_config.sniper_config, 0, SNIPER_OPTION_SIZE - 1);
+                eeconfig_update_kb(keyboard_config.raw);
+            }
+        break;
 
-    if (keycode == DPI_CONFIG && record->event.pressed) {
-        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
-            keyboard_config.dpi_config = keyboard_config.dpi_config - 1;
-        } else {
-            keyboard_config.dpi_config = keyboard_config.dpi_config + 1;
-        }
-        keyboard_config.dpi_config = constrain(keyboard_config.dpi_config, 0, DPI_OPTION_SIZE - 1);
-        eeconfig_update_kb(keyboard_config.raw);
-        pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
-    }
-
-    if (keycode == DRAG_SCROLL) {
+        case DPI_CONFIG:
+            if(record->event.pressed){
+                if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+                    keyboard_config.dpi_config = keyboard_config.dpi_config - 1;
+                } else {
+                    keyboard_config.dpi_config = keyboard_config.dpi_config + 1;
+                }
+                keyboard_config.dpi_config = constrain(keyboard_config.dpi_config, 0, DPI_OPTION_SIZE - 1);
+                eeconfig_update_kb(keyboard_config.raw);
+                pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+            }
+        break;
+        
+        case DRAG_SCROLL:
 #ifndef CHARYBDIS_DRAGSCROLL_MOMENTARY
-        if (record->event.pressed)
+            if (record->event.pressed)
 #endif
-        {
-            is_drag_scroll ^= 1;
-        }
+            {
+                is_drag_scroll ^= 1;
+            }
 #ifdef CHARYBDIS_DRAGSCROLL_FIXED
-        pmw_set_cpi(is_drag_scroll ? CHARYBDIS_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
+            pmw_set_cpi(is_drag_scroll ? CHARYBDIS_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
 #else
-        pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * CHARYBDIS_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
+            pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * CHARYBDIS_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
 #endif
+        break;
     }
 
 /* If Mousekeys is disabled, then use handle the mouse button
