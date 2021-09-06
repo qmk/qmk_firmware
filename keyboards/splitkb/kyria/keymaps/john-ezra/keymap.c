@@ -19,6 +19,7 @@
 
 enum kyria_layers {
   _HNTS,
+  _QWERTY,
   _LOWER,
   _RAISE,
   _ADJUST
@@ -26,6 +27,7 @@ enum kyria_layers {
 
 enum kyria_keycodes {
   HNTS = SAFE_RANGE,
+  QWERTY,
   LOWER,
   RAISE,
   CPY_PST
@@ -46,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+-------|
  * |  Esc  |   H   |   N   |   T   |   S   |   D   |                                  |   U   |   I   |   E   |   A   |   O   |  Esc  |
  * |-------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+-------|
- * | Shift |   V   |   F   |   M   |   W   |   B   | Ctrl  |  Alt  |  |  Caps |  Del  |   K   |  ; :  |  , <  |  . >  |  / ?  |  ' "  |
+ * |Cpy/Pst|   V   |   F   |   M   |   W   |   B   | Ctrl  |  Alt  |  |  Caps |  Del  |   K   |  ; :  |  , <  |  . >  |  / ?  |  ' "  |
  * `-------+-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-----------------------'
  *                         |  Up   | Down  | Lower | Space | BSPC  |  |  Tab  | Shift | Raise |  Left | Right |
  *                         `---------------------------------------'  `---------------------------------------'
@@ -56,6 +58,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_GRV,    KC_Z,    KC_R,    KC_L,    KC_C,    KC_G,                                         KC_P,    KC_Y,    KC_J,    KC_X,    KC_Q, KC_BSLS,
      KC_ESC,    KC_H,    KC_N,    KC_T,    KC_S,    KC_D,                                         KC_U,    KC_I,    KC_E,    KC_A,    KC_O,  KC_ESC,
     CPY_PST,    KC_V,    KC_F,    KC_M,    KC_W,    KC_B, KC_LCTL, KC_LALT,  KC_CAPS,  KC_DEL,    KC_K, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,
+                                 KC_UP, KC_DOWN,   LOWER,  KC_SPC, BSP_CMD,   KC_TAB, SFT_ENT,   RAISE, KC_LEFT, KC_RGHT
+),
+
+/*
+ * Default: QWERTY
+ *
+ * ,-----------------------------------------------.                                  ,-----------------------------------------------.
+ * |   `   |   Q   |   W   |   E   |   R   |   T   |                                  |   Y   |   U   |   I   |   O   |   P   |  | \  |
+ * |-------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+-------|
+ * |  Esc  |   A   |   S   |   D   |   F   |   G   |                                  |   H   |   J   |   K   |   L   |   ;   |  ' "  |
+ * |-------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+-------|
+ * |Cpy/Pst|   Z   |   X   |   C   |   V   |   B   | Ctrl  |  Alt  |  |  Caps |  Del  |   N   |   M   |  , <  |  . >  |  / ?  |Cpy/Pst|
+ * `-------+-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-----------------------'
+ *                         |  Up   | Down  | Lower | Space | BSPC  |  |  Tab  | Shift | Raise |  Left | Right |
+ *                         `---------------------------------------'  `---------------------------------------'
+ */
+
+[_QWERTY] = LAYOUT(
+     KC_GRV,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
+     KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+    CPY_PST,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_LCTL, KC_LALT,  KC_CAPS,  KC_DEL,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, CPY_PST,
                                  KC_UP, KC_DOWN,   LOWER,  KC_SPC, BSP_CMD,   KC_TAB, SFT_ENT,   RAISE, KC_LEFT, KC_RGHT
 ),
 
@@ -118,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT(
     _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    NKRO,
     _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     _______, _______, _______,  KC_F11,  KC_F12, OS_SWAP,
-    _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD,_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD,_______, _______,  _______, _______, _______, _______, _______, _______,  QWERTY,    HNTS,
                               _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
 ),
 };
@@ -128,6 +151,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case HNTS:  //Layer Control
           if (record->event.pressed) {
             set_single_persistent_default_layer(_HNTS);
+          }
+          return false;
+          break;
+        case QWERTY:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_QWERTY);
           }
           return false;
           break;
