@@ -17,7 +17,7 @@
 #pragma once
 
 #include "quantum.h"
-#include "MPU9250/MPU9250.h" /* MPU9250 for tilt sensor */
+#include "mpu9250/mpu9250.h" /* MPU9250 for tilt sensor */
 
 /* This is a shortcut to help you visually see your layout.
  *

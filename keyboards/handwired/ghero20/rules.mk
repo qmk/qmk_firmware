@@ -26,4 +26,4 @@ AUDIO_ENABLE = no           # Audio output
 BLUETOOTH = AdafruitBLE
 
 QUANTUM_LIB_SRC += i2c_master.c
-SRC += MPU9250/MPU9250.c
+SRC += mpu9250/mpu9250.c

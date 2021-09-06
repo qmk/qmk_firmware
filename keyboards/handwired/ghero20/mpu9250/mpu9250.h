@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "MPU9250RegisterMap.h"
+#include "mpu9250registermap.h"
 #include "i2c_master.h"
 
 enum Axis {
