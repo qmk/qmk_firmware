@@ -4,7 +4,7 @@
     "width": 22.5, 
     "height": 6.5, 
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT": {
             "layout": [
             {"label":"Esc", "x":0, "y":0}, 
             {"label":"F1", "x":2, "y":0}, 

@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x1DF8
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Work Louder
-#define PRODUCT      loop
+#define PRODUCT      Loop Pad
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -40,7 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F5 }
+#define MATRIX_ROW_PINS \
+    { F5, NO_PIN }
 #define MATRIX_COL_PINS { B3, B2, B1, D6, D7, B4, B5, B6, C6, C7, F7, F6 }
 #define UNUSED_PINS
 
@@ -63,20 +64,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
-//#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-#    define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
+#define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== or choose animations ==*/
-//#    define RGBLIGHT_EFFECT_BREATHING
-//#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//#    define RGBLIGHT_EFFECT_SNAKE
-//#    define RGBLIGHT_EFFECT_KNIGHT
-//#    define RGBLIGHT_EFFECT_CHRISTMAS
-//#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//#    define RGBLIGHT_EFFECT_RGB_TEST
-//#    define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_TWINKLE
+
+#define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_LIGHT
+#define RGBLIGHT_DEFAULT_HUE          36
 /*== customize breathing effect ==*/
 /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
 //#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
@@ -87,7 +89,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN F1
 #define DRIVER_LED_TOTAL 9
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define RGB_MATRIX_DISABLE_KEYCODES
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

@@ -162,21 +162,3 @@
 #define CH_RCBR ALGR(CH_DLR)  // }
 // Row 4
 #define CH_BSLS ALGR(CH_LABK) // (backslash)
-
-// DEPRECATED
-#define CH_AE   CH_ADIA
-#define CH_UE   CH_UDIA
-#define CH_OE   CH_ODIA
-#define CH_PARA CH_SECT
-#define CH_CARR CH_CIRC
-#define CH_DIER CH_DIAE
-#define CH_LESS CH_LABK
-#define CH_RING CH_DEG
-#define CH_DQOT CH_DQUO
-#define CH_PAST CH_ASTR
-#define CH_CELA CH_CCED
-#define CH_QST  CH_QUES
-#define CH_POND CH_PND
-#define CH_MORE CH_RABK
-#define CH_BRBR CH_BRKP
-#define CH_NOTL CH_NOT

@@ -23,6 +23,15 @@ KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 # Force expansion
 TARGET := $(TARGET)
 
+ifneq ($(FORCE_LAYOUT),)
+    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+
+# Object files and generated keymap directory
+#     To put object files in current directory, use a dot (.), do NOT make
+#     this an empty or blank macro!
+KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
+
 # For split boards we need to set a master half.
 MASTER ?= left
 ifdef master
@@ -100,7 +109,7 @@ MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 
 # Pull in rules from info.json
-INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/rules.mk)
+INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_rules.mk)
 include $(INFO_RULES_MK)
 
 # Check for keymap.json first, so we can regenerate keymap.c
@@ -137,16 +146,35 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     endif
 endif
 
+# Have we found a keymap.json?
+ifneq ("$(wildcard $(KEYMAP_JSON))", "")
+    KEYMAP_C := $(KEYMAP_OUTPUT)/src/keymap.c
+    KEYMAP_H := $(KEYMAP_OUTPUT)/src/config.h
+
+    # Load the keymap-level rules.mk if exists
+    -include $(KEYMAP_PATH)/rules.mk
+
+    # Load any rules.mk content from keymap.json
+    INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_OUTPUT)/src/rules.mk)
+    include $(INFO_RULES_MK)
+
+# Add rules to generate the keymap files - indentation here is important
+$(KEYMAP_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)
+	$(QMK_BIN) json2c --quiet --output $(KEYMAP_C) $(KEYMAP_JSON)
+
+$(KEYMAP_OUTPUT)/src/config.h: $(KEYMAP_JSON)
+	$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_H)
+
+generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
+
+endif
+
 ifeq ($(strip $(CTPC)), yes)
   CONVERT_TO_PROTON_C=yes
 endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    include platforms/chibios/QMK_PROTON_C/convert_to_proton_c.mk
-endif
-
-ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+    include platforms/chibios/boards/QMK_PROTON_C/convert_to_proton_c.mk
 endif
 
 include quantum/mcu_selection.mk
@@ -232,6 +260,7 @@ ifdef MCU_FAMILY
     PLATFORM=CHIBIOS
     PLATFORM_KEY=chibios
     FIRMWARE_FORMAT?=bin
+    OPT_DEFS += -DMCU_$(MCU_FAMILY)
 else ifdef ARM_ATSAM
     PLATFORM=ARM_ATSAM
     PLATFORM_KEY=arm_atsam
@@ -327,19 +356,19 @@ endif
 # Disable features that a keyboard doesn't support
 -include disable_features.mk
 
-# Object files directory
-#     To put object files in current directory, use a dot (.), do NOT make
-#     this an empty or blank macro!
-KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
-
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
 endif
+ifneq ("$(KEYMAP_H)","")
+    CONFIG_H += $(KEYMAP_H)
+endif
 
 # project specific files
-SRC += $(KEYBOARD_SRC) \
+SRC += \
+    $(KEYBOARD_SRC) \
     $(KEYMAP_C) \
-    $(QUANTUM_SRC)
+    $(QUANTUM_SRC) \
+    $(QUANTUM_DIR)/main.c \
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
@@ -374,6 +403,7 @@ ifneq ($(strip $(PROTOCOL)),)
 else
     include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
+-include $(TOP_DIR)/platforms/$(PLATFORM_KEY)/flash.mk
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)

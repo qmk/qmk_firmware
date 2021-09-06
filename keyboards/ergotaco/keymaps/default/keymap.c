@@ -32,11 +32,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
  */
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-};
