@@ -78,18 +78,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,      _______,
                       _______, _______, _______,                   _______,                   _______, _______, _______,          _______, _______, _______),
 };
-// Called on suspend
-void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
-}
-
-
-// Called on resume
-void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
-}
-
-
 // Runs constantly in the background, in a loop.
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (rgb_matrix_get_flags() & (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER)) {
