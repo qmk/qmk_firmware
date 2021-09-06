@@ -27,7 +27,79 @@
 #include "quantum.h"
 #include "i2c_master.h"
 #include <string.h>
+#include <ch.h>
 #include <hal.h>
+
+#ifdef I2C1_BANK
+#    define I2C1_SCL_BANK I2C1_BANK
+#    define I2C1_SDA_BANK I2C1_BANK
+#endif
+
+#ifndef I2C1_SCL_BANK
+#    define I2C1_SCL_BANK GPIOB
+#endif
+
+#ifndef I2C1_SDA_BANK
+#    define I2C1_SDA_BANK GPIOB
+#endif
+
+#ifndef I2C1_SCL
+#    define I2C1_SCL 6
+#endif
+#ifndef I2C1_SDA
+#    define I2C1_SDA 7
+#endif
+
+#ifdef USE_I2CV1
+#    ifndef I2C1_OPMODE
+#        define I2C1_OPMODE OPMODE_I2C
+#    endif
+#    ifndef I2C1_CLOCK_SPEED
+#        define I2C1_CLOCK_SPEED 100000 /* 400000 */
+#    endif
+#    ifndef I2C1_DUTY_CYCLE
+#        define I2C1_DUTY_CYCLE STD_DUTY_CYCLE /* FAST_DUTY_CYCLE_2 */
+#    endif
+#else
+// The default timing values below configures the I2C clock to 400khz assuming a 72Mhz clock
+// For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
+#    ifndef I2C1_TIMINGR_PRESC
+#        define I2C1_TIMINGR_PRESC 0U
+#    endif
+#    ifndef I2C1_TIMINGR_SCLDEL
+#        define I2C1_TIMINGR_SCLDEL 7U
+#    endif
+#    ifndef I2C1_TIMINGR_SDADEL
+#        define I2C1_TIMINGR_SDADEL 0U
+#    endif
+#    ifndef I2C1_TIMINGR_SCLH
+#        define I2C1_TIMINGR_SCLH 38U
+#    endif
+#    ifndef I2C1_TIMINGR_SCLL
+#        define I2C1_TIMINGR_SCLL 129U
+#    endif
+#endif
+
+#ifndef I2C_DRIVER
+#    define I2C_DRIVER I2CD1
+#endif
+
+#ifdef USE_GPIOV1
+#    ifndef I2C1_SCL_PAL_MODE
+#        define I2C1_SCL_PAL_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#    endif
+#    ifndef I2C1_SDA_PAL_MODE
+#        define I2C1_SDA_PAL_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#    endif
+#else
+// The default PAL alternate modes are used to signal that the pins are used for I2C
+#    ifndef I2C1_SCL_PAL_MODE
+#        define I2C1_SCL_PAL_MODE 4
+#    endif
+#    ifndef I2C1_SDA_PAL_MODE
+#        define I2C1_SDA_PAL_MODE 4
+#    endif
+#endif
 
 static uint8_t i2c_address;
 
@@ -77,7 +149,8 @@ __attribute__((weak)) void i2c_init(void) {
     }
 }
 
-i2c_status_t i2c_start(uint8_t address) {
+i2c_status_t i2c_start(uint8_t address, uint16_t timeout) {
+    (void)timeout;
     i2c_address = address;
     i2cStart(&I2C_DRIVER, &i2cconfig);
     return I2C_STATUS_SUCCESS;

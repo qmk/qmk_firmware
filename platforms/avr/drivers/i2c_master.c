@@ -32,6 +32,9 @@
 #    define I2C_START_RETRY_COUNT 20
 #endif  // I2C_START_RETRY_COUNT
 
+#define I2C_READ 0x01
+#define I2C_WRITE 0x00
+
 #define TWBR_val (((F_CPU / F_SCL) - 16) / 2)
 
 #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
