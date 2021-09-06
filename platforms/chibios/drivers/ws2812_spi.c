@@ -3,10 +3,6 @@
 
 /* Adapted from https://github.com/gamazeps/ws2812b-chibios-SPIDMA/ */
 
-#ifdef RGBW
-#    error "RGBW not supported"
-#endif
-
 // Define the spi your LEDs are plugged to here
 #ifndef WS2812_SPI
 #    define WS2812_SPI SPID1
@@ -74,7 +70,11 @@
 #endif
 
 #define BYTES_FOR_LED_BYTE 4
-#define NB_COLORS 3
+#ifdef RGBW
+#    define NB_COLORS4
+#else
+#    define NB_COLORS 3
+#endif
 #define BYTES_FOR_LED (BYTES_FOR_LED_BYTE * NB_COLORS)
 #define DATA_SIZE (BYTES_FOR_LED * RGBLED_NUM)
 #define RESET_SIZE (1000 * WS2812_TRST_US / (2 * 1250))
@@ -115,6 +115,9 @@ static void set_led_color_rgb(LED_TYPE color, int pos) {
     for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.b, j);
     for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
     for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.r, j);
+#endif
+#ifdef RGBW
+    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 4 + j] = get_protocol_eq(color.w, j);
 #endif
 }
 
