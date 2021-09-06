@@ -17,11 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 // For custom indicators
-void rgb_matrix_indicators_user(void);
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
 // Hook into shutdown code
 void shutdown_keylight(void);
 void suspend_wakeup_init_keylight(void);
 void suspend_power_down_keylight(void);
-// These should be defined worst case on this file
-void keylight_set_right(uint8_t red, uint8_t green, uint8_t blue);
-void keylight_set_left(uint8_t red, uint8_t green, uint8_t blue);

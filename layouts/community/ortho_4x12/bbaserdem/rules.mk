@@ -14,11 +14,10 @@
 # RGBLIGHT should be enabled for a board with the underglow leds
 # RGB_MATRIX_ENABLE should be set to WS2812 for the daughter board
 ifneq (,$(findstring planck/rev6,$(KEYBOARD)))
-    RGBLIGHT_ENABLE = yes
-    RGB_MATRIX_ENABLE = no
+    RGB_MATRIX_ENABLE = yes
+    RGBLIGHT_ENABLE = no
 endif
 # JJ40 here
 ifneq (,$(findstring jj40,$(KEYBOARD)))
-    RGBLIGHT_ENABLE = yes
-    RGB_MATRIX_ENABLE = no
+    RGB_MATRIX_ENABLE = yes
 endif
