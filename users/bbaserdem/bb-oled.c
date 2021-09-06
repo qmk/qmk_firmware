@@ -25,9 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */ 
 
 // Following line imports reading of RGB settings
-#if defined RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-#elif defined RGB_MATRIX_ENABLE
+#if defined RGB_MATRIX_ENABLE
 extern rgb_config_t rgb_matrix_config;
 #endif
 
@@ -44,9 +42,7 @@ static void render_status(void) {
     uint8_t this_layer = get_highest_layer(layer_state);
     uint8_t this_mod =   get_mods();
     // Temporary variable for RGB
-    #if defined RGBLIGHT_ENABLE
-    static char rgb_temp4[4] = {0};
-    #elif defined RGB_MATRIX_ENABLE
+    #if defined RGB_MATRIX_ENABLE
     static char rgb_temp4[4] = {0};
     #endif
     // Temporary variable for WPM string
@@ -97,24 +93,8 @@ static void render_status(void) {
 
     // Line 2: Mod or info
     switch (this_layer) {
-        // Show RGB mode as an overlay
-#if defined RGBLIGHT_ENABLE
-        case _MEDI:
-            oled_write_P(PSTR("m:"), false);
-            itoa(rgblight_config.mode, rgb_temp4, 10);
-            oled_write(rgb_temp4, false);
-            oled_write_P(PSTR(" h:"), false);
-            itoa(rgblight_config.hsv.h, rgb_temp4, 10);
-            oled_write(rgb_temp4, false);
-            oled_write_P(PSTR(" s:"), false);
-            itoa(rgblight_config.hsv.s, rgb_temp4, 10);
-            oled_write(rgb_temp4, false);
-            oled_write_P(PSTR(" v:"), false);
-            itoa(rgblight_config.hsv.v, rgb_temp4, 10);
-            oled_write(rgb_temp4, false);
-            oled_write_P(PSTR("\n"), false);
-            break;
-#elif defined RGB_MATRIX_ENABLE
+        // Show RGB mode as an overlay in media mode.
+#if defined RGB_MATRIX_ENABLE
         case _MEDI:
             oled_write_P(PSTR("m"), false);
             itoa(rgb_matrix_config.mode, rgb_temp4, 10);

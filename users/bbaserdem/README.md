@@ -4,146 +4,75 @@ My userspace code for my various keyboards; available here.
 
 # Todo
 
-- [X] Add OLED support
-- [ ] Centralize color definitions for RGB
-- [ ] Document all features more extensibly
-- [ ] Generate json files to be used with Keyboard-Layout-Editor to produce images.
-
-# Keyboards
-
-A list of my code accross the QMK repo accessible here.
-(I will sell my built-but-not-using ones.)
+- [ ] Convert all RGB code to use RGB matrix.
+- [ ] Make workflow so that ARM and AVR are both differentiable.
+- [ ] Finish README to be intelligible.
+- [ ] Generate JSON files to be used with Keyboard-Layout-Editor to produce images.
 
 ## Builds
 
 These are my keyboard builds and info, it allows me to plan out my builds. 
 
-### Planck WORK
-
-* Board: planck/rev6
-* Switches: Zilent
-* Case: Planck Hi-Pro Bottom Case: Glossy White
-* Plate: Stainless steel with shiny finish (LaserBoost) 
-* Keycaps: Pudding PBT Doubleshot Keycap Set
-* Artisan: B.O.B StoneuCarved Lotus Artisan Keycap
-* Artisan: Teamwolf 304 Stainless Steel Transparent Metal Keycaps
-
-I use this at the workplace to not bother coworkers; focus on silence.
-
-### Planck HOME
-
-* Board: planck/rev6
-* Switches: Crystal BOX Navy
-* Case: Planck Hi-Pro Bottom Case (MOD version): Matte Black
-* Plate: Copper with shiny finish (LaserBoost) 
-* Keycaps: Buger TH01 XDA Dye-Subbed PBT
-* Artisan: Sparkle Loft Reactor Artisan Keycap
-
-I use this at home.
-Has all the extra pinouts exposed to play arounh with.
-
 ### Planck SERVER
 
-* Board: jj40
-* Switches: BOX Navy
+* Board: `kprepublic/jj40`
+* Microcontroller: Embedded
+* Layout: `ortho_4x12`
+* Functionality: Underglow RGB Lighting, LED diode lighting.
 * Case: Clear Acrylic Top and Bottow, with Frosted Acrylic Diffuser (Smashing Acrylics)
+* Switches: BOX Navy
 * Keycaps: Datamancer Tall Deco Typewriter Keycaps
 
-I'm using this while I'm in between boards; but very usable.
-Long term plan is to use this for the server.
-The case was initially designed for planck rev4;
-I'm replaced the PCB since my rev4 one was derelict
-due to repeated desolderings.
+Just a decorative planck replacement (for my rev4 PCB that died.)
 
-### Planck CARRY
+### Planck Light
 
-* Board: planck/light
-* Switches: Choc Low Jade
-* Case: Stock Planck light case
-* Keycaps: Blanck MKB
+* Board: `planck/light`
+* Microcontroller: Embedded
+* Layout: `ortho_4x12`
+* Functionality: Per-key RGB Lighting, Audio.
+* Case: Clear Acrylic Top and Bottow, with Frosted Acrylic Diffuser (Smashing Acrylics)
+* Switches: BOX Navy
+* Keycaps: Datamancer Tall Deco Typewriter Keycaps
 
-I carry this around; and is one of my favourite boards.
-Found a better keycap profile for these as well.
+Just a decorative planck replacement (for my rev4 PCB that died.)
 
-### XD75RE
+### Corne ARM
 
-* Board: xd75
-* Switches: Zealios 67g + Silencios
-* Case: Npkc 60% Wooden Case (Rosewood)
-* Keycaps: Massdrop x MITO XDA Godspeed
-* Artisan: Hammer Fidget Spinner Artisan Keycap
-* Artisan: Waffle Key Studio Rosette (Sunset)
-
-My first work board; that is not seing any use due to being big.
-
-### Gherkin PAD
-
-* Board: 40percentclub/gherkin
-* Case: Acrylic Case (Smashing Acrylics)
-* Controller: Proton C
-* Switches: Novelkeys Creams
-* Keycaps: Random
-
-The point of this is to act like a game/macro pad.
-Other than that; i just use this for bragging points.
-I have been planning on using my Proton C to turn into a MIDI controller.
-
-### Let's Split Eh?
-
-* Board: lets_split_eh/eh
-* Case: Acrylic Case (Smashing Acrylics)
-* Switches: Novelkeys BOX Royals 
-* Keycaps: G20 Semiotics
-
-I built this; but then I realized that I really don't enjoy ortholinear split.
-
-### Infinity Ergodox
-
-* Board: ergodox_infinity
-* Case: Datamancer Wooden case
-* Switches: Kailh Speed Gold
-* Keycaps: None
-
-I don't like Infinity Ergodox.
-Should sell this soon cause really not seeing myself ever using this.
-Lucky me got the case for free due to (then) Massdrop shipping errors.
-
-### Corne
-
-* Board: [Proton-C Compatible crkbd PCB](https://github.com/ItsWaffIe/waffle_corne)
+* Board: `crkbd/rev1`
+* Microcontroller: Proton C (x2)
+* Layout: `split_3x6_3`
+* Functionality: OLED, Audio, Per-key RGB Lighting, Rotary Encoder (x2)
 * Case: IMK Corne Case v2 Polycarbonate
 * Switches: Healios V2
 * Keycaps: POM Jelly
 
-I'm planning on adding a trackpad for this, as detailed
-[here](https://github.com/manna-harbour/crkbd/blob/master/trackpoint/readme.org).
+PCB is actually [Proton-C Compatible crkbd PCB](https://github.com/ItsWaffIe/waffle_corne).
 
 ### Corne Lite
 
-* Board: crkbd/rev1
+* Board: `crkbd/rev1`
+* Microcontroller: Pro Micro (x2)
+* Layout: `split_3x5_3`
+* Functionality: Per-key RGB Lighting, OLED (No firmware space)
 * Case: Custom
 * Switches: Choc Low Burnt Orange
 * Keycaps: [Scooped Choc Keycaps](https://mkultra.click/collections/keycaps/products/scooped-choc-keycaps?variant=31223543365730)
 
+Maybe try adding a trackpad for this, as detailed
+[here](https://github.com/manna-harbour/crkbd/blob/master/trackpoint/readme.org).
+
 ### Kyria
 
-* Board: kyria/rev1
+* Board: `splitkb/kyria/rev1`
+* Microcontroller: Pro Micro (x2)
+* Layout: `split_3x6_6`
+* Functionality: OLED, Underglow RGB Lighting (No firmware space), Rotary Encoder (x2)
 * Case: Matte Black Acrylic High-Profile case
 * Switches: Gateron Ink Silent Black
 * Keycaps: Oblotzky SA Oblivion
 
-Want to add a joystick to this board for mouse control.
-
-### Big Switch
-
-* Board: bigseries/1key
-* Case: WoodKeys (KNOWN SCAMMER: DO NOT RECOMMEND)
-* Switches: Big Series Pale Blue
-* Keycaps: Idea23
-
-Got this before being scammed out of 200$ by Cole Markham: owner of WoodKeys;
-The usb port got torn off; and could not fix it.
-Expensive paperweight?
+Main driver at work currently; love the switches and the board layout.
 
 # Firmware building
 
@@ -151,10 +80,12 @@ Expensive paperweight?
 
 On archlinux, the package *arm-none-eabi-gcc* is too new.
 To fix; add to the environment `CFLAGS="-Wno-error=deprecated"` to compilation commands.
-Also; try to run `avr-gcc` version `8.4.0` for smaller firmware.
+Also; says to run `avr-gcc` version `8.4.0` for smaller firmware,
+but I find that it only saves a few bytes.
 
 ## Bootloader
 
+Needed to type this out from the QMK website.
 If I want to flash a new bootloader for a machine; here are steps;
 
 1. Flash the util/pro_micro_ISP_B6_10.hex to a spare promicro using;
@@ -184,21 +115,19 @@ My userspace has a lot of shared code between different keyboards.
 These files are prefixed with `sbp-` to remove any naming clash.
 
 * [bb-audio](bb-audio.c): Code dealing with audio playback using onboard sound.
-Also contains stuff regarding using the devices as MIDI controllers. (WIP)
-* [bb-backlight](bb-backlight.c): Controls global key single-channel LED stuff.
-* [bb-keylight](bb-keylight.c): Controls per-key RGB LED matrix stuff.
-* [bb-underglow](bb-underglow.c): Controls RGB underglow effects.
-* [bb-process](bb-macro.c): My custom keycodes; macros, tap dances, etc.
-* [bb-rotary](bb-rotary.c): Rotary encoder sutff
+* [bb-encoder](bb-encoder.c): Rotary encoder sutff.
+* [bb-macro](bb-macro.c): My custom keycodes; macros, tap dances, etc.
+* [bb-oled](bb-oled.c): Controls OLED displays.
+* [bb-rgb](bb-rgb.c): Controls per-key RGB LED matrix stuff.
 
 # Layout
-
-![Corne layout](https://i.imgur.com/6VvQZ2I.png)
 
 My personal layout is mostly inspired by the
 [Miryoku layout](../manna-harbour_miryoku/miryoku.org).
 There are some changes to make it friendlier to international keyboards.
 My board is compatible with software implementation of Dvorak and Turkish F.
+
+WIP
 
 ## Base
 

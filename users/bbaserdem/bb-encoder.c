@@ -47,7 +47,7 @@ void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
     // Get the layer straight from the main function
     switch (layer) {
         // If RGB control mode is enabled
-        #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+        #ifdef RGB_MATRIX_ENABLE
         case _MEDI:
             switch (encoder_state[index].rgb) {
                 case 0:
@@ -134,90 +134,42 @@ void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     // Differentiate layer roles
     switch (get_highest_layer(layer_state)) {
-        #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+        #ifdef(RGB_MATRIX_ENABLE)
         case _MEDI:
             switch(encoder_state[index].rgb) {
                 case 0: // Effect the RGB mode
                     if (clockwise) {
-                        #ifdef RGBLIGHT_ENABLE
-                        rgblight_step_noeeprom();
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_step_noeeprom();
-                        #endif
                     } else {
-                        #ifdef RGBLIGHT_ENABLE
-                        rgblight_step_reverse_noeeprom();
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_step_reverse_noeeprom();
-                        #endif
                     }
                     break;
                 case 1: // Effect the RGB hue
                     if (clockwise) {
-                        #ifdef RGBLIGHT_ENABLE
-                        rgblight_increase_hue_noeeprom();
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_increase_hue_noeeprom();
-                        #endif
                     } else {
-                        #ifdef RGBLIGHT_ENABLE
-                        rgblight_decrease_hue_noeeprom();
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_decrease_hue_noeeprom();
-                        #endif
                     }
                     break;
                 case 2: // Effect the RGB saturation
                     if (clockwise) {
-                        #ifdef RGBLIGHT_ENABLE
-                        rgblight_increase_sat_noeeprom();
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_increase_sat_noeeprom();
-                        #endif
                     } else {
-                        #ifdef RGBLIGHT_ENABLE
-                        rgblight_decrease_sat_noeeprom();
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_decrease_sat_noeeprom();
-                        #endif
                     }
                     break;
                 case 3: // Effect the RGB brightness
                     if (clockwise) {
-                        #ifdef RGBLIGHT_ENABLE
-                        rgblight_increase_val_noeeprom();
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_increase_val_noeeprom();
-                        #endif
                     } else {
-                        #ifdef RGBLIGHT_ENABLE
-                        rgblight_decrease_val_noeeprom();
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_decrease_val_noeeprom();
-                        #endif
                     }
                     break;
                 case 4: // Effect the RGB effect speed
                     if (clockwise) {
-                        #ifdef RGBLIGHT_ENABLE
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_increase_speed_noeeprom();
-                        #endif
                     } else {
-                        #ifdef RGBLIGHT_ENABLE
-                        #endif
-                        #ifdef RGB_MATRIX_ENABLE
                         rgb_matrix_decrease_speed_noeeprom();
-                        #endif
                     }
                     break;
             }
@@ -331,31 +283,19 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 void encoder_click_action(uint8_t index) {
     // Differentiate layer roles
     switch (get_highest_layer(layer_state)) {
-        #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+        #ifdef(RGB_MATRIX_ENABLE)
         case _MEDI:
             switch(encoder_state[index].rgb) {
                 case 0: // Return to no animation
-                    #ifdef RGBLIGHT_ENABLE
-                    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-                    #endif
-                    #ifdef RGB_MATRIX_ENABLE
                     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-                    #endif
                     break;
                 case 1:
                 case 2:
                 case 3: // Toggle
-                    #ifdef RGBLIGHT_ENABLE
-                    rgblight_increase_val_noeeprom();
-                    #endif
-                    #ifdef RGB_MATRIX_ENABLE
                     rgb_matrix_increase_val_noeeprom();
-                    #endif
                     break;
                 case 4: // Toggle velocikey
-                    #ifdef VELOCIKEY_ENABLE
                     velocikey_toggle();
-                    #endif
                     break;
             }
             break;
@@ -422,7 +362,7 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
         // If shifted, move mode one point forward
         if (get_mods() & MOD_MASK_SHIFT) {
             switch (get_highest_layer(layer_state)) {
-                #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+                #ifdef RGB_MATRIX_ENABLE
                 case _MEDI:
                     encoder_state[encoder_index].rgb =
                         (encoder_state[encoder_index].rgb   + 1) % 5;
@@ -442,7 +382,7 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
         // If ctrl is active, move mode one point backwards
         } else if (get_mods() & MOD_MASK_CTRL) {
             switch (get_highest_layer(layer_state)) {
-                #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+                #ifdef RGB_MATRIX_ENABLE
                 case _MEDI:
                     encoder_state[encoder_index].rgb =
                         (encoder_state[encoder_index].rgb   + 5 - 1) % 5;

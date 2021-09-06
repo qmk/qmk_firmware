@@ -63,24 +63,17 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
 SRC += bb-encoder.c
 endif
 
+# RGB LED (Perkey) code
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+SRC += bb-rgb.c
+endif
+
 # Backlight code
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
 SRC += bb-backlight.c
 endif
 
-# RGB LED Underglow code
-ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-SRC += bb-underglow.c
-endif
-
 # OLED code
 ifeq ($(strip $(OLED_ENABLE)), yes)
 SRC += bb-oled.c
-endif
-
-# RGB LED (Perkey) code
-ifneq ($(strip $(RGB_MATRIX_ENABLE)),)
-    ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
-	SRC += bb-keylight.c
-    endif
 endif

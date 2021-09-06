@@ -297,7 +297,6 @@ enum userspace_layers {
 // Layer switches
 #define BB_CHAR OSL(_CHAR)
 #define BB_GAME TG(_GAME)
-#define BB_BIGS TD(TD_BIGSWITCH)
 
 /* Depending on how the layouts change with language; the keys are shown as;
  * ┌────────────────────────────────────────────────┐
