@@ -78,12 +78,9 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
 
         // Set timer if new motion
         if ((MotionStart == 0) && data.isMotion) {
-            if (debug_mouse) uprintf("Starting motion.\n");
             MotionStart = timer_read();
         }
 
-        if (debug_mouse) { uprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart); }
-        if (debug_mouse) { uprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy); }
 #if defined(PROFILE_LINEAR)
         float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
         data.dx *= scale;
@@ -97,7 +94,6 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         // Wrap to HID size
         data.dx = constrain(data.dx, -127, 127);
         data.dy = constrain(data.dy, -127, 127);
-        if (debug_mouse) uprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
 
         mouse_report->x = -data.dx;
         mouse_report->y = data.dy;
@@ -222,7 +218,7 @@ void pointing_device_task(void) {
         if(scroll_inertia.y > CHARYBDIS_TRACKBALL_SPEED_DIVIDER || scroll_inertia.y < -CHARYBDIS_TRACKBALL_SPEED_DIVIDER){
             mouse_report.v = constrain(scroll_inertia.y / CHARYBDIS_TRACKBALL_SPEED_DIVIDER * 2, 
                                 -CHARYBDIS_TRACKBALL_SPEED_DIVIDER/2, CHARYBDIS_TRACKBALL_SPEED_DIVIDER/2);
-            uprintf("Scroll] V: %d // %d\n", mouse_report.v, scroll_inertia.y);
+            if(debug_mouse) uprintf("Scroll] V: %d // %d\n", mouse_report.v, scroll_inertia.y);
             scroll_inertia.y = 0;
         }
 
