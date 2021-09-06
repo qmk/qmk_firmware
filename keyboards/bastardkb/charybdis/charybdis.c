@@ -58,8 +58,6 @@ uint16_t          sniper_array[] = CHARYBDIS_SNIPER_OPTIONS;
 bool    is_drag_scroll    = false;
 bool    is_sniper         = false;
 
-bool     BurstState  = false; // init burst state for Trackball module
-uint16_t MotionStart = 0;     // Timer for accel, 0 is resting state
 scroll_inertia_t scroll_inertia; // Scroll value storage to make scrolling slower
 
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
@@ -70,27 +68,6 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
     report_pmw_t data = pmw_read_burst();
     if (data.isOnSurface && data.isMotion) {
-        // Reset timer if stopped moving
-        if (!data.isMotion) {
-            if (MotionStart != 0) MotionStart = 0;
-            return;
-        }
-
-        // Set timer if new motion
-        if ((MotionStart == 0) && data.isMotion) {
-            MotionStart = timer_read();
-        }
-
-#if defined(PROFILE_LINEAR)
-        float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
-        data.dx *= scale;
-        data.dy *= scale;
-#elif defined(PROFILE_INVERSE)
-        // TODO
-#else
-        // no post processing
-#endif
-
         // Wrap to HID size
         data.dx = constrain(data.dx, -127, 127);
         data.dy = constrain(data.dy, -127, 127);
