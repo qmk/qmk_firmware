@@ -2,8 +2,6 @@
     "keyboard_name": "dyz60",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/dyz60",
     "maintainer": "dayatz",
-    "width": 15,
-    "height": 5,
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["F6", "F7", "B3", "B2", "B1", "D2", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4"],
