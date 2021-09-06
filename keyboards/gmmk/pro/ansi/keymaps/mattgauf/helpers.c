@@ -16,25 +16,9 @@
 
 #include "rgb_matrix.h"
 
-void rgb_matrix_set_color_underglow(uint8_t red, uint8_t green, uint8_t blue) {
+void rgb_matrix_set_color_flags(uint8_t red, uint8_t green, uint8_t blue, uint8_t flags) {
     for (uint8_t ii = 0; ii < DRIVER_LED_TOTAL; ii++) {
-        if (g_led_config.flags[ii] & LED_FLAG_UNDERGLOW) {
-            rgb_matrix_set_color(ii, red, green, blue);
-        }
-    }
-}
-
-void rgb_matrix_set_color_keylight(uint8_t red, uint8_t green, uint8_t blue) {
-    for (uint8_t ii = 0; ii < DRIVER_LED_TOTAL; ii++) {
-        if (g_led_config.flags[ii] & (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER)) {
-            rgb_matrix_set_color(ii, red, green, blue);
-        }
-    }
-}
-
-void rgb_matrix_set_color_modifier(uint8_t red, uint8_t green, uint8_t blue) {
-    for (uint8_t ii = 0; ii < DRIVER_LED_TOTAL; ii++) {
-        if (g_led_config.flags[ii] & LED_FLAG_MODIFIER) {
+        if (g_led_config.flags[ii] & flags) {
             rgb_matrix_set_color(ii, red, green, blue);
         }
     }

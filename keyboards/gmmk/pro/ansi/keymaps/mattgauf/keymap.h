@@ -37,9 +37,7 @@
 #define LED_OFF 0x00, 0x00, 0x00
 
 /* Color Functions */
-void rgb_matrix_set_color_underglow(uint8_t red, uint8_t green, uint8_t blue);
-void rgb_matrix_set_color_keylight(uint8_t red, uint8_t green, uint8_t blue);
-void rgb_matrix_set_color_modifier(uint8_t red, uint8_t green, uint8_t blue);
+void rgb_matrix_set_color_flags(uint8_t red, uint8_t green, uint8_t blue, uint8_t flags);
 
 /* Function Row */
 #define PIN_ESC      0
