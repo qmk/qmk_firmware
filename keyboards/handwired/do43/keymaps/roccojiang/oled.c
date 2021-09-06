@@ -231,11 +231,60 @@ void render_wpm(void) {
 
 /* Init and rendering calls */
 
+static void render_3x2(int x, int y, const char row_1[4], const char row_2[4]) {
+    oled_set_cursor(x, y);
+    oled_write_P(row_1, false);
+    oled_set_cursor(x, y + 1);
+    oled_write_P(row_2, false);
+}
+
+static const char PROGMEM shift_row_1[4] = {0x8c, 0x8d, 0x8e, 0x00};
+static const char PROGMEM shift_row_2[4] = {0xac, 0xad, 0xae, 0x00};
+static const char PROGMEM pressed_shift_row_1[4] = {0x80, 0x81, 0x82, 0x00};
+static const char PROGMEM pressed_shift_row_2[4] = {0xa0, 0xa1, 0xa2, 0x00};
+
+static const char PROGMEM ctrl_row_1[4] = {0x8f, 0x90, 0x91, 0x00};
+static const char PROGMEM ctrl_row_2[4] = {0xaf, 0xb0, 0xb1, 0x00};
+static const char PROGMEM pressed_ctrl_row_1[4] = {0x83, 0x84, 0x85, 0x00};
+static const char PROGMEM pressed_ctrl_row_2[4] = {0xa3, 0xa4, 0xa5, 0x00};
+
+static const char PROGMEM optn_row_1[4] = {0x92, 0x93, 0x94, 0x00};
+static const char PROGMEM optn_row_2[4] = {0xb2, 0xb3, 0xb4, 0x00};
+static const char PROGMEM pressed_optn_row_1[4] = {0x86, 0x87, 0x88, 0x00};
+static const char PROGMEM pressed_optn_row_2[4] = {0xa6, 0xa7, 0xa8, 0x00};
+
+static const char PROGMEM cmd_row_1[4] = {0x95, 0x96, 0x97, 0x00};
+static const char PROGMEM cmd_row_2[4] = {0xb5, 0xb6, 0xb7, 0x00};
+static const char PROGMEM pressed_cmd_row_1[4] = {0x89, 0x8a, 0x8b, 0x00};
+static const char PROGMEM pressed_cmd_row_2[4] = {0xa9, 0xaa, 0xab, 0x00};
+
 // Rotate OLED display to the correct orientation
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; };
 
 void oled_task_user(void) {
 	render_bongocat();
-    oled_set_cursor(0,0);
+    oled_set_cursor(0, 0);
     render_wpm();
+
+    uint8_t modifiers = get_mods();
+
+    if (modifiers & MOD_MASK_SHIFT)
+        render_3x2(0, 2, pressed_shift_row_1, pressed_shift_row_2);
+    else
+        render_3x2(0, 2, shift_row_1, shift_row_2);
+
+    if (modifiers & MOD_MASK_CTRL)
+        render_3x2(3, 2, pressed_ctrl_row_1, pressed_ctrl_row_2);
+    else
+        render_3x2(3, 2, ctrl_row_1, ctrl_row_2);
+    
+    if (modifiers & MOD_MASK_ALT)
+        render_3x2(6, 2, pressed_optn_row_1, pressed_optn_row_2);
+    else
+        render_3x2(6, 2, optn_row_1, optn_row_2);
+    
+    if (modifiers & MOD_MASK_GUI)
+        render_3x2(9, 2, pressed_cmd_row_1, pressed_cmd_row_2);
+    else
+        render_3x2(9, 2, cmd_row_1, cmd_row_2);
 }
