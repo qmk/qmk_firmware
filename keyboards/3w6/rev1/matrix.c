@@ -63,10 +63,10 @@ uint8_t init_tca9555(void) {
     // - input   : input  : 1
     // - driving : output : 0
     uint8_t conf[2] = {
-    // This means: write on pin 5 of port 0, read on rest
-    0b11011111,
-    // This means: we will write on pins 0 to 2 on port 1. read rest
-    0b11111000,
+        // This means: write on pin 5 of port 0, read on rest
+        0b11011111,
+        // This means: we will write on pins 0 to 2 on port 1. read rest
+        0b11111000,
     };
     tca9555_status = i2c_writeReg(IODIRA, IODIRA, conf, 2, I2C_TIMEOUT);
 
