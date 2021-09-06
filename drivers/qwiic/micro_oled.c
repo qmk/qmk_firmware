@@ -112,11 +112,7 @@ static uint8_t micro_oled_screen_buffer[LCDWIDTH * LCDHEIGHT / 8] = {0};
 void micro_oled_init(void) {
     i2c_init();
 
-#ifdef __AVR__
     i2c_start(I2C_ADDRESS_SA0_1, 100);
-#else
-    i2c_start(I2C_ADDRESS_SA0_1);
-#endif
 
     // Display Init sequence for 64x48 OLED module
     send_command(DISPLAYOFF);  // 0xAE
