@@ -25,11 +25,23 @@
     This also enables the user to easily create custom base layers.
 */
 
+
+
 /*
     Basic layers
 */
 #define __________________MBO_L1___________________ RESET,   U_NA,    U_NA,    U_NA,    U_NA
+#if defined CHARYBDIS_MR_GASC
 #define __________________MBO_L2___________________ KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, U_NA
+#elif defined CHARYBDIS_MR_SCGA
+#define __________________MBO_L2___________________ KC_LSFT, KC_LCTL, KC_LGUI, KC_LALT, U_NA
+#elif defined CHARYBDIS_MR_GACS
+#define __________________MBO_L2___________________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA
+#elif defined CHARYBDIS_MR_CAGS
+#define __________________MBO_L2___________________ KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA
+#else
+#define __________________MBO_L2___________________ KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, U_NA
+#endif
 #define __________________MBO_L3___________________ KC_BTN3, KC_ALGR, KC_BTN2, KC_BTN1, U_NA
 #define __________________MBO_L4___________________ U_NA,    U_NA,    U_NA
 
@@ -39,7 +51,7 @@
 #define __________________MBO_R4___________________ KC_ENT,  KC_DEL, KC_DEL
 
 #define __________________MEDIA_L1_________________ RESET,   U_NA,    U_NA,    U_NA,    U_NA
-#define __________________MEDIA_L2_________________ KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, U_NA
+#define __________________MEDIA_L2_________________ __________________MBO_L2___________________
 #define __________________MEDIA_L3_________________ U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA
 #define __________________MEDIA_L4_________________ U_NA,    U_NA,    U_NA
 
@@ -49,7 +61,7 @@
 #define __________________MEDIA_R4_________________ KC_BTN1, KC_BTN3, KC_BTN2
 
 #define __________________NAV_L1___________________ RESET,   U_NA,    U_NA,    U_NA,    U_NA
-#define __________________NAV_L2___________________ KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, U_NA
+#define __________________NAV_L2___________________ __________________MBO_L2___________________
 #define __________________NAV_L3___________________ U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA
 #define __________________NAV_L4___________________ U_NA,    U_NA,    U_NA
 

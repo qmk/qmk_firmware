@@ -23,8 +23,8 @@
 #define _BASE_BEPO \
     KC_B,     KC_Z,     KC_P,   KC_O,     KC_QUOT,      KC_DOT,   KC_V,     KC_D,     KC_L,     KC_J, \
     KC_A,     KC_U,     KC_I,   KC_E,     KC_COMM,      KC_C,     KC_T,     KC_S,     KC_R,     KC_N, \
-    KC_W,     KC_Y,     KC_X,   KC_SLSH,  KC_K,         KC_M,     KC_Q,     KC_G,     KC_H,     KC_F, \
-                        KC_BSPC,KC_ENT,   KC_TAB,       KC_ESC,   KC_SPC,   U_NP
+    LT(MOUSE, KC_W),     KC_Y,     KC_X,   KC_SLSH,  KC_K,         KC_M,     KC_Q,     KC_G,     KC_H,     LT(MOUSE, KC_F),  \
+                         LT(NAV, KC_BSPC),LT(MBO, KC_ENT),   LT(MEDIA, KC_TAB), LT(NUM, KC_ESC),   LT(SYM, KC_SPC),   U_NP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE]    = LAYOUT_split_3x5_3_wrapper(HRM_GASC_wrapper(_BASE_BEPO)),
