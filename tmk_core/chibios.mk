@@ -301,7 +301,7 @@ endif
 #
 
 # Use defined stack sizes of the main thread in linker scripts
-LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
+LDSYMBOLS =--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 
 # Shared Compiler flags for all toolchains
 SHARED_CFLAGS = -fomit-frame-pointer \
@@ -311,7 +311,8 @@ SHARED_CFLAGS = -fomit-frame-pointer \
                 -fshort-wchar
 
 # Shared Linker flags for all toolchains
-SHARED_LDFLAGS = -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS) \
+SHARED_LDFLAGS = -T $(LDSCRIPT) \
+                 -Wl,$(LDSYMBOLS) \
                  -Wl,--gc-sections \
                  -nostartfiles
 
@@ -329,7 +330,19 @@ ifeq ($(strip $(MCU)), risc-v)
             endif
         endif
     endif
-
+    
+    # Default to compiling with picolibc for RISC-V targets if available,
+    # which is available by default on current (bullseye) debian based systems.
+    ifeq ($(shell $(TOOLCHAIN)gcc --specs=picolibc.specs -E - 2>/dev/null >/dev/null </dev/null ; echo $$?),0)
+        # Toolchain specific Compiler flags
+        # Note that we still link with our own linker script
+        # by providing it via the -T flag above.
+        TOOLCHAIN_CFLAGS = --specs=picolibc.specs
+        
+        # Tell QMK that we are compiling with picolibc.
+        OPT_DEFS += -DUSE_PICOLIBC
+    endif
+    
     # MCU architecture flags
     MCUFLAGS = -march=$(MCU_ARCH) \
                -mabi=$(MCU_ABI) \
