@@ -56,7 +56,6 @@ uint16_t          sniper_array[] = CHARYBDIS_SNIPER_OPTIONS;
 #define SNIPER_OPTION_SIZE (sizeof(sniper_array) / sizeof(uint16_t))
 
 bool    is_drag_scroll    = false;
-bool    is_sniper         = false;
 
 scroll_inertia_t scroll_inertia; // Scroll value storage to make scrolling slower
 
