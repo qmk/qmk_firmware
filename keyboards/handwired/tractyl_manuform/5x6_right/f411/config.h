@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DEBUG_LED_PIN      C13
 
-// AUDIO doesn't work
+/* Audio config */
 #define AUDIO_PIN          B1
 #define AUDIO_PWM_DRIVER   PWMD3
 #define AUDIO_PWM_CHANNEL  4
@@ -68,10 +68,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_TX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_RX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
-#undef SOFT_SERIAL_PIN
 
-// #define EE_HANDS
-
+/* i2c config for oleds */
 #define I2C_DRIVER        I2CD1
 #define I2C1_SCL_BANK     GPIOB
 #define I2C1_SDA_BANK     GPIOB
@@ -81,11 +79,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SDA_PAL_MODE 4
 #define I2C1_CLOCK_SPEED  400000
 
+/* encoder config */
 #define ENCODERS_PAD_A \
     { A13 }
 #define ENCODERS_PAD_B \
     { A14 }
 
+/* spi config for eeprom and pmw3360 sensor */
 #define SPI_DRIVER                           SPID1
 #define SPI_SCK_PIN                          A5
 #define SPI_SCK_PAL_MODE                     5
@@ -94,6 +94,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPI_MISO_PIN                         A6
 #define SPI_MISO_PAL_MODE                    5
 
+/* eeprom config */
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    8
 // #define EXTERNAL_EEPROM_BYTE_COUNT           8196
@@ -101,6 +102,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
 // #define DEBUG_EEPROM_OUTPUT
 
+/* pmw3360 config  */
 #define PMW3360_CS_PIN                       B0
 #define PMW3360_SPI_MODE                     3
 #define PMW3360_SPI_DIVISOR                  4
