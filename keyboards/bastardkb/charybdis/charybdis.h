@@ -32,6 +32,7 @@ typedef union {
     uint32_t raw;
     struct {
         uint8_t dpi_config;
+        uint8_t sniper_config;
     };
 } keyboard_config_t;
 
@@ -39,8 +40,7 @@ extern keyboard_config_t keyboard_config;
 
 enum charybdis_keycodes {
     DPI_CONFIG = SAFE_RANGE,
-    DPI_CONFIG_UP,
-    DPI_CONFIG_DOWN,
+    SNIPER_CONFIG,
     KEYMAP_SAFE_RANGE,
     DRAG_SCROLL,
     SNIPER,

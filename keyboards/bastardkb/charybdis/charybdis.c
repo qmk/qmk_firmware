@@ -28,22 +28,29 @@
 #ifndef CHARYBDIS_DPI_DEFAULT
 #    define CHARYBDIS_DPI_DEFAULT 0
 #endif
-#ifndef CHARYBDIS_DRAGSCROLL_DPI
-#    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
-#endif
-#ifndef CHARYBDIS_DRAGSCROLL_MULTIPLIER
-#    define CHARYBDIS_DRAGSCROLL_MULTIPLIER 0.4 // Variable-DPI Drag Scroll
-#endif
-#ifndef CHARYBDIS_SNIPER_MULTIPLIER
-#    define CHARYBDIS_SNIPER_MULTIPLIER 0.4 // Variable-DPI Drag Scroll
+#ifndef CHARYBDIS_SNIPER_DEFAULT
+#    define CHARYBDIS_SNIPER_DEFAULT 0
 #endif
 #ifndef CHARYBDIS_DRAGSCROLL_DPI
 #    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
+#endif
+#ifndef CHARYBDIS_SNIPER_OPTIONS
+#define CHARYBDIS_SNIPER_OPTIONS \
+        { 100, 200, 300 }
+#endif
+#ifndef CHARYBDIS_DRAGSCROLL_DPI
+#    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
+#endif
+#ifndef CHARYBDIS_TRACKBALL_SPEED_DIVIDER
+#    define CHARYBDIS_TRACKBALL_SPEED_DIVIDER 12 
 #endif
 
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = CHARYBDIS_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
+
+uint16_t          sniper_array[] = CHARYBDIS_SNIPER_OPTIONS;
+#define SNIPER_CONFIG_SIZE (sizeof(sniper_array) / sizeof(uint16_t))
 
 bool    is_drag_scroll    = false;
 bool    is_sniper         = false;
@@ -107,7 +114,7 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
         is_sniper_on = layer_state_cmp(state, 4);
         
         if (is_sniper_on) {
-               pmw_set_cpi(dpi_array[keyboard_config.dpi_config] * CHARYBDIS_SNIPER_MULTIPLIER);
+               pmw_set_cpi(sniper_array[keyboard_config.sniper_config]);
            } else {
                pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
         } 
@@ -118,6 +125,16 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) { return false; }
+
+     
+    if (keycode == SNIPER_CONFIG && record->event.pressed) {
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+            keyboard_config.sniper_config = (keyboard_config.sniper_config - 1) % SNIPER_CONFIG_SIZE;
+        } else {
+            keyboard_config.sniper_config = (keyboard_config.sniper_config + 1) % SNIPER_CONFIG_SIZE;
+        }
+        eeconfig_update_kb(keyboard_config.raw);
+    }
 
     if (keycode == DPI_CONFIG && record->event.pressed) {
         if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
@@ -195,8 +212,9 @@ void pointing_device_task(void) {
         scroll_inertia.y += mouse_report.y;
 #endif
         // we only want to trigger scrolling once in 12 scrolls, for slower scroll
-        if(scroll_inertia.y > 12 || scroll_inertia.y < -12){
-            mouse_report.v = constrain(scroll_inertia.y / 6, -6, 6);
+        if(scroll_inertia.y > CHARYBDIS_TRACKBALL_SPEED_DIVIDER || scroll_inertia.y < -CHARYBDIS_TRACKBALL_SPEED_DIVIDER){
+            mouse_report.v = constrain(scroll_inertia.y / CHARYBDIS_TRACKBALL_SPEED_DIVIDER * 2, 
+                                -CHARYBDIS_TRACKBALL_SPEED_DIVIDER/2, CHARYBDIS_TRACKBALL_SPEED_DIVIDER/2);
             uprintf("Scroll] V: %d // %d\n", mouse_report.v, scroll_inertia.y);
             scroll_inertia.y = 0;
         }
@@ -211,6 +229,7 @@ void pointing_device_task(void) {
 
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = CHARYBDIS_DPI_DEFAULT;
+    keyboard_config.sniper_config = CHARYBDIS_SNIPER_DEFAULT;
     pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();

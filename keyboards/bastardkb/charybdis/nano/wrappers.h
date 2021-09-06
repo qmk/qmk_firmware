@@ -70,7 +70,7 @@
 #define __________________NAV_R3___________________ U_NU,    U_NU,    U_NU,    U_NU,    U_NU
 #define __________________NAV_R4___________________ KC_MSTP, KC_MPLY, KC_MUTE
 
-#define _________________MOUSE_L1__________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
+#define _________________MOUSE_L1__________________ SNIPER_CONFIG,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_L2__________________ DPI_CONFIG, DRAG_SCROLL, KC_LSFT, KC_LCTL, KC_TRNS
 #define _________________MOUSE_L3__________________ U_RDO,   SNIPER,  U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_L4__________________ KC_BTN2, KC_BTN1, KC_BTN3
@@ -78,7 +78,7 @@
 #define _________________MOUSE_R1__________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_R2__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
 #define _________________MOUSE_R3__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
-#define _________________MOUSE_R4__________________ DPI_CONFIG, U_NA, U_NA
+#define _________________MOUSE_R4__________________ KC_BTN1, KC_BTN3, KC_BTN2
 
 #define _________________SYM_L1____________________ KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC
 #define _________________SYM_L2____________________ KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL

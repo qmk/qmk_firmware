@@ -25,6 +25,9 @@
     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, \
     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  \
                       KC_LGUI, KC_SPC,  KC_TAB,                       KC_ESC, KC_ENT , KC_RALT    
+     LT(MOUSE, KC_W),     KC_Y,     KC_X,   KC_SLSH,  KC_K,         KC_M,     KC_Q,     KC_G,     KC_H,     LT(MOUSE, KC_F),  \
+                         LT(NAV, KC_BSPC),LT(MBO, KC_ENT),   LT(MEDIA, KC_TAB), LT(NUM, KC_ESC),   LT(SYM, KC_SPC),   U_NP
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE]    = LAYOUT_split_3x5_3_wrapper(HRM_GASC_wrapper(_BASE_QWERTY)),
