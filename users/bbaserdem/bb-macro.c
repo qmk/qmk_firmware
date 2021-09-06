@@ -19,62 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Tap dance definitons
 #ifdef TAP_DANCE_ENABLE
-// Bigswitch tap dance code for the last key down event.
-void bigswitch_fin(qk_tap_dance_state_t *state, void *user_data) {
-    switch (state->count) {
-        case 0:
-            // Change RGB mode
-            #ifdef RGBLIGHT_ENABLE
-            rgblight_step();
-            #endif
-            break;
-        case 1:
-            // Change RGB mode; but reverse
-            #ifdef RGBLIGHT_ENABLE
-            rgblight_step_reverse();
-            #endif
-            break;
-        case 2:
-            // Toggle RGB functions
-            #ifdef RGBLIGHT_ENABLE
-            rgblight_toggle();
-            #endif
-            break;
-        case 3:
-            // Change RGB hue
-            #ifdef RGBLIGHT_ENABLE
-            rgblight_increase_hue();
-            #endif
-            break;
-        case 4:
-            // Send OS + Escape; which screen locks in my OS
-            register_code(KC_LGUI);
-            register_code(KC_ESC);
-            break;
-        case 5:
-            // Send power keycode
-            register_code(KC_POWER);
-            break;
-    }
-}
-// Unregister the keycodes entered
-void bigswitch_res (qk_tap_dance_state_t *state, void *user_data) {
-    switch (state->count) {
-        case 4:
-            unregister_code(KC_LGUI);
-            unregister_code(KC_ESC);
-            break;
-        case 5:
-            unregister_code(KC_POWER);
-            break;
-    }
-}
 qk_tap_dance_action_t tap_dance_actions[] = {
     #ifdef AUDIO_ENABLE
     // Music playback speed modulator
     [TD_AUDIO_TEMPO] = ACTION_TAP_DANCE_DOUBLE(MU_SLOW, MU_FAST),
     #endif
-    [TD_BIGSWITCH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bigswitch_fin, bigswitch_res),
 };
 #endif
 

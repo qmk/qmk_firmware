@@ -17,7 +17,6 @@ ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
     BACKLIGHT_ENABLE = no
     ENCODER_ENABLE = yes
     RGB_MATRIX_ENABLE = yes
-    RGBLIGHT_ENABLE = no
     OLED_ENABLE = yes
     # Features that take otherwise too much space
     WPM_ENABLE = yes

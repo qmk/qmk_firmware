@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-// Music map, guitar like
+// Music map, guitar like.
 #ifdef AUDIO_ENABLE
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_3x10(
     10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -92,8 +92,7 @@ led_config_t g_led_config = {
 }, { // LED Index to Flag
     2,2,2,2,2,2,2,2,2,2
 }};
-// Disable
-void keylight_set_left(uint8_t red, uint8_t green, uint8_t blue) { }
-void keylight_set_right(uint8_t red, uint8_t green, uint8_t blue) { }
-#endif
-#endif
+// Disable layer switching
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {return true;}
+#endif // Gherkin
+#endif // RGB Matrix
