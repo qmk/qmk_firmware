@@ -96,5 +96,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	    return OLED_ROTATION_180;
         }
-    #endif //OLED_DRIVER_ENABLE
+    #endif //OLED_ENABLE
 #endif //KEYBOARD_kyria_rev1
