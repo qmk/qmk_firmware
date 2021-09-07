@@ -19,11 +19,8 @@
 #pragma once
 
 #include "quantum.h"
-#include "spi_master.h"
-#include "drivers/sensors/pmw3360.h"
 #include "analog.h"
 #include "opt_encoder.h"
-#include "pointing_device.h"
 #if defined(KEYBOARD_ploopyco_trackball_rev1)
 #    include "rev1.h"
 #elif defined(KEYBOARD_ploopyco_trackball_rev1_005)
