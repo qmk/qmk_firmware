@@ -34,22 +34,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P7,    KC_P8,    KC_P9,    KC_NLCK,
     KC_P4,    KC_P5,    KC_P6,    KC_PPLS,
     KC_P1,    KC_P2,    KC_P3,    KC_ENT, 
-    KC_P0,    SEND_00,  LT(2,KC_PDOT),  KC_COMM
+    KC_P0,    SEND_00,  LT(2,KC_PDOT),  KC_COMM,
+    KC_LEFT,  KC_RGHT  // for encoders
   ),
 
   [1] = LAYOUT(
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX
   ),
 
   [2] = LAYOUT(
     RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,
     RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,
     RGB_RMOD, RGB_SPI,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  RGB_SPD,  XXXXXXX,  XXXXXXX
+    XXXXXXX,  RGB_SPD,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX
   ),
+};
+
+keyevent_t encoder1_cw = {
+  .key = (keypos_t){.row = 0, .col = 16},
+  .pressed = false
+};
+
+keyevent_t encoder1_ccw = {
+  .key = (keypos_t){.row = 0, .col = 17},
+  .pressed = false
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -80,33 +93,35 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
+  if (IS_PRESSED(encoder1_cw)) {
+    encoder1_cw.pressed = false;
+    encoder1_cw.time = (timer_read() | 1);
+    action_exec(encoder1_cw);
+  }
 
+  if (IS_PRESSED(encoder1_ccw)) {
+    encoder1_ccw.pressed = false;
+    encoder1_ccw.time = (timer_read() | 1);
+    action_exec(encoder1_ccw);
+  }
 }
 
 void led_set_user(uint8_t usb_led) {
 
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-  if (IS_LAYER_ON(_LAYER1)) {
-    switch (index) {
-      case _1ST_ENC:
-        if (clockwise) {
-          SEND_STRING("1L" SS_TAP(X_ENTER));
-        } else {
-          SEND_STRING("1R" SS_TAP(X_ENTER));
-        }
-        break;
-    }
-  } else {
-    switch (index) {
-      case _1ST_ENC:
-        if (clockwise) {
-          tap_code(KC_LEFT);
-        } else {
-          tap_code(KC_RIGHT);
-        }
-        break;
+bool encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == _1ST_ENC) { /* First encoder */
+    if (clockwise) {
+      encoder1_cw.pressed = true;
+      encoder1_cw.time = (timer_read() | 1);
+      action_exec(encoder1_cw);
+    } else {
+      encoder1_ccw.pressed = true;
+      encoder1_ccw.time = (timer_read() | 1);
+      action_exec(encoder1_ccw);
     }
   }
+
+  return true;
 }

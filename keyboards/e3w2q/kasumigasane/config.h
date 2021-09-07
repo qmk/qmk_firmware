@@ -25,11 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    e3w2q
 #define PRODUCT         Kasumigasane
-#define DESCRIPTION     Simple 16-key Keypad
+#define DESCRIPTION     Simple 16-key keypad with a changeable frame.
 
 /* key matrix size */
 #define MATRIX_ROWS 1
-#define MATRIX_COLS 16
+#define MATRIX_COLS 18
 
 /*
  * Keyboard Matrix Assignments
@@ -41,8 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { }
-#define MATRIX_COL_PINS { D1, D0, D4, C6, D7, E6, B4, B5, F4, F5, F6, F7, B1, B3, B2, B6 }
+// #define MATRIX_ROW_PINS { }
+// #define MATRIX_COL_PINS { D1, D0, D4, C6, D7, E6, B4, B5, F4, F5, F6, F7, B1, B3, B2, B6, NO_PIN, NO_PIN }
+#define DIRECT_PINS { { D1, D0, D4, C6, D7, E6, B4, B5, F4, F5, F6, F7, B1, B3, B2, B6, NO_PIN, NO_PIN } }
 #define UNUSED_PINS
 
 /* Rotary encoder */
