@@ -18,12 +18,12 @@
 
 #if defined ADNS_9800
     #include "drivers/sensors/adns9800.h"
-    #define config_optical_sensor_t config_adns_t
-    #define report_optical_sensor_t report_adns_t
-    #define optical_sensor_init adns_init
-    #define optical_sensor_get_config adns_get_config
-    #define optical_sensor_set_config adns_set_config
-    #define optical_sensor_get_report adns_get_report
+#    define config_optical_sensor_t   config_adns9800_t
+#    define report_optical_sensor_t   report_adns9800_t
+#    define optical_sensor_init       adns9800_init
+#    define optical_sensor_get_config adns9800_get_config
+#    define optical_sensor_set_config adns9800_set_config
+#    define optical_sensor_get_report adns9800_get_report
 #elif defined PMW_3360
     #include "../pmw/pmw.h"
     #define config_optical_sensor_t config_pmw_t

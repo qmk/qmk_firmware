@@ -58,3 +58,5 @@
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
+
+#define ADNS9800_CS_PIN SPI_SS_PIN
