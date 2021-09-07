@@ -21,40 +21,6 @@
 
 static report_mouse_t mouseReport = {};
 
-// get_report functions should probably be moved to their respective drivers.
-// clang-format off
-#if defined(POINTING_DEVICE_DRIVER_adns5050)
-#include "adns5050.h"
-
-const pointing_device_driver_t pointing_device_driver = {
-    .init         = adns9800_device_init;
-    .get_report   = get_adns9800_trackball_report;
-};
-#elif defined(POINTING_DEVICE_DRIVER_adns9800)
-#include "adns9800.h"
-
-const pointing_device_driver_t pointing_device_driver = {
-    .init         = adns9800_device_init;
-    .get_report   = get_adns9800_trackball_report;
-};
-#elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
-#include "pimoroni_trackball.h"
-
-const pointing_device_driver_t pointing_device_driver = {
-    .init         = pimironi_device_init;
-    .get_report   = get_pimorono_trackball_report;
-};
-#elif defined(POINTING_DEVICE_DRIVER_pmw3360)
-#include "pmw3360.h"
-
-const pointing_device_driver_t pointing_device_driver = {
-    .init = pmw3360_init;
-    .get_report = get_pmw3360_report;
-};
-#endif
-// clang-format no
-
-
 __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
 
 __attribute__((weak)) void pointing_device_init(void) {

@@ -2,8 +2,22 @@
 #include "pointing_device_drivers.h"
 
 // get_report functions should probably be moved to their respective drivers.
+// clang-format off
+#if defined(POINTING_DEVICE_DRIVER_adns5050)
+#include "adns5050.h"
 
-#if defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
+const pointing_device_driver_t pointing_device_driver = {
+    .init         = adns9800_device_init;
+    .get_report   = get_adns9800_trackball_report;
+};
+#elif defined(POINTING_DEVICE_DRIVER_adns9800)
+#include "adns9800.h"
+
+const pointing_device_driver_t pointing_device_driver = {
+    .init         = adns9800_device_init;
+    .get_report   = get_adns9800_trackball_report;
+};
+#elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 #    include "pimoroni_trackball.h"
 
 report_mouse_t pimorono_trackball_get_report(void) {
@@ -42,7 +56,7 @@ report_mouse_t pimorono_trackball_get_report(void) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init = pimironi_device_init;
+    .init       = pimironi_device_init;
     .get_report = pimorono_trackball_get_report;
 };
 // clang-format on
@@ -50,7 +64,7 @@ const pointing_device_driver_t pointing_device_driver = {
 #    include "pmw3360.h"
 
 report_mouse_t pmw3360_get_report(void) {
-    report_pmw_t data = pmw_read_burst();
+    report_pmw_t    data        = pmw_read_burst();
     static uint16_t MotionStart = 0;  // Timer for accel, 0 is resting state
 
     if (data.isOnSurface && data.isMotion) {
@@ -69,12 +83,12 @@ report_mouse_t pmw3360_get_report(void) {
         data.dy = constrain(data.dy, -127, 127);
     }
 
-    return { .button = 0, .x = data.dx, .y = data.dy };
+    return {.button = 0, .x = data.dx, .y = data.dy};
 }
 
-     // clang-format off
+// clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init = pmw3360_init;
+    .init       = pmw3360_init;
     .get_report = pmw3360_get_report;
 };
 // clang-format on
