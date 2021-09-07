@@ -29,10 +29,23 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
+
+report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
+    report_adns9800_t sensor_report = adns9800_get_report();
+
+    int8_t clamped_x = CLAMP_HID(sensor_report.x);
+    int8_t clamped_y = CLAMP_HID(sensor_report.y);
+
+    mouse_report.x = clamped_x;
+    mouse_report.y = clamped_y;
+
+    return mouse_report;
+}
+
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init         = adns9800_device_init,
-    .get_report   = get_adns9800_trackball_report,
+    .init         = adns9800_init,
+    .get_report   = adns9800_get_report_driver,
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)

@@ -49,7 +49,7 @@ __attribute__((weak)) void pointing_device_send(void) {
     old_report    = mouseReport;
 }
 
-void pointing_device_task(void) {
+__attribute__((weak)) void pointing_device_task(void) {
     // gather info and put it in:
     // mouseReport.x = 127 max -127 min
     // mouseReport.y = 127 max -127 min
