@@ -107,7 +107,7 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
-VALID_POINTING_DEVICE_DRIVER_TYPES := custom pwm3360 pimoroni_trackball adns5050 adns9800
+VALID_POINTING_DEVICE_DRIVER_TYPES := custom pmw3360 pimoroni_trackball adns5050 adns9800
 POINTING_DEVICE_DRIVER ?= custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)

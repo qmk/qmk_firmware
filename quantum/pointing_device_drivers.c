@@ -1,30 +1,45 @@
+/* Copyright 2017 Joshua Broekhuijsen <snipeye+qmk@gmail.com>
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ * Copyright 2021 Dasky (@daskygit)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include "pointing_device_drivers.h"
+#include "debug.h"
+#include "timer.h"
 
 // get_report functions should probably be moved to their respective drivers.
-// clang-format off
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
-#include "adns5050.h"
-
+// clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init         = adns9800_device_init;
-    .get_report   = get_adns9800_trackball_report;
+    .init         = adns9800_device_init,
+    .get_report   = get_adns9800_trackball_report,
 };
+// clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
-#include "adns9800.h"
-
+// clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init         = adns9800_device_init;
-    .get_report   = get_adns9800_trackball_report;
+    .init         = adns9800_device_init,
+    .get_report   = get_adns9800_trackball_report,
 };
+// clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
-#    include "pimoroni_trackball.h"
-
-report_mouse_t pimorono_trackball_get_report(void) {
+report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
     static fast_timer_t throttle      = 0;
     static uint16_t     debounce      = 0;
     pimoroni_data_t     pimoroni_data = {0};
-    report_mouse_t      report        = {0};
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT && timer_elapsed_fast(throttle) >= PIMORONI_TRACKBALL_INTERVAL_MS) {
         i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
@@ -36,13 +51,13 @@ report_mouse_t pimorono_trackball_get_report(void) {
                 if (!debounce) {
                     x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
                     y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
-                    pimoroni_trackball_adapt_values(&report.x, &x_offset);
-                    pimoroni_trackball_adapt_values(&report.y, &y_offset);
+                    pimoroni_trackball_adapt_values(&mouse_report.x, &x_offset);
+                    pimoroni_trackball_adapt_values(&mouse_report.y, &y_offset);
                 } else {
                     debounce--;
                 }
             } else {
-                report.buttons = 0b1;
+                mouse_report.buttons = 0b1;
                 debounce       = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
             }
         }
@@ -51,27 +66,28 @@ report_mouse_t pimorono_trackball_get_report(void) {
     }
 
     throttle = timer_read_fast();
-    return report;
+    return mouse_report;
 }
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = pimironi_device_init;
-    .get_report = pimorono_trackball_get_report;
+    .init       = pimironi_device_init,
+    .get_report = pimorono_trackball_get_report,
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
-#    include "pmw3360.h"
 
-report_mouse_t pmw3360_get_report(void) {
-    report_pmw_t    data        = pmw_read_burst();
-    static uint16_t MotionStart = 0;  // Timer for accel, 0 is resting state
+static void init(void) { pmw3360_init(); }
+
+report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
+    report_pmw3360_t data        = pmw3360_read_burst();
+    static uint16_t  MotionStart = 0;  // Timer for accel, 0 is resting state
 
     if (data.isOnSurface && data.isMotion) {
         // Reset timer if stopped moving
         if (!data.isMotion) {
             if (MotionStart != 0) MotionStart = 0;
-            return;
+            return mouse_report;
         }
 
         // Set timer if new motion
@@ -79,17 +95,17 @@ report_mouse_t pmw3360_get_report(void) {
             if (debug_mouse) dprintf("Starting motion.\n");
             MotionStart = timer_read();
         }
-        data.dx = constrain(data.dx, -127, 127);
-        data.dy = constrain(data.dy, -127, 127);
+        mouse_report.x = constrain(data.dx, -127, 127);
+        mouse_report.y = constrain(data.dy, -127, 127);
     }
 
-    return {.button = 0, .x = data.dx, .y = data.dy};
+    return mouse_report;
 }
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = pmw3360_init;
-    .get_report = pmw3360_get_report;
+    .init       = init,
+    .get_report = pmw3360_get_report,
 };
 // clang-format on
 #endif

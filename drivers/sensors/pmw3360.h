@@ -70,7 +70,7 @@ bool             spi_start_adv(void);
 void             spi_stop_adv(void);
 spi_status_t     spi_write_adv(uint8_t reg_addr, uint8_t data);
 uint8_t          spi_read_adv(uint8_t reg_addr);
-bool             pmw3360_spi_init(void);
+bool             pmw3360_init(void);
 void             pmw3360_set_cpi(uint16_t cpi);
 uint16_t         pmw3360_get_cpi(void);
 void             pmw3360_upload_firmware(void);

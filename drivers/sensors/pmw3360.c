@@ -177,7 +177,7 @@ bool pmw3360_init(void) {
 
     spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
 
-    bool init_success = pmw_check_signature();
+    bool init_success = pmw3360_check_signature();
 
     writePinLow(PMW3360_CS_PIN);
 
@@ -218,7 +218,7 @@ bool pmw3360_check_signature(void) {
     return (pid == 0x42 && iv_pid == 0xBD && SROM_ver == 0x04);  // signature for SROM 0x04
 }
 
-report_pmw3360_t pmw_read_burst(void) {
+report_pmw3360_t pmw3360_read_burst(void) {
     if (!_inBurst) {
         dprintf("burst on");
         spi_write_adv(REG_Motion_Burst, 0x00);

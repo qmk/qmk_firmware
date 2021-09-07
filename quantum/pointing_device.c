@@ -23,8 +23,15 @@ static report_mouse_t mouseReport = {};
 
 __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
 
+__attribute__((weak)) void           pointing_device_init_kb(void) {}
+__attribute__((weak)) void           pointing_device_init_user(void) {}
+__attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) { return mouse_report; }
+__attribute__((weak)) report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) { return mouse_report; }
+
 __attribute__((weak)) void pointing_device_init(void) {
     pointing_device_driver.init();
+    pointing_device_init_kb();
+    pointing_device_init_user();
 }
 
 __attribute__((weak)) void pointing_device_send(void) {
@@ -42,9 +49,6 @@ __attribute__((weak)) void pointing_device_send(void) {
     old_report    = mouseReport;
 }
 
-__attribute__ ((weak)) report_mouse_t pointing_device_kb(report_mouse_t mouse_report) { return mouse_report; }
-__attribute__ ((weak)) report_mouse_t pointing_device_user(report_mouse_t mouse_report) { return mouse_report; }
-
 void pointing_device_task(void) {
     // gather info and put it in:
     // mouseReport.x = 127 max -127 min
@@ -53,9 +57,9 @@ void pointing_device_task(void) {
     // mouseReport.h = 127 max -127 min (scroll horizontal)
     // mouseReport.buttons = 0x1F (decimal 31, binary 00011111) max (bitmask for mouse buttons 1-5, 1 is rightmost, 5 is leftmost) 0x00 min
     // send the report
-    mouseReport = pointing_device_driver.get_report();
-    mouseReport = pointing_device_kb(mouseReport);
-    mouseReport = pointing_device_user(mouseReport);
+    mouseReport = pointing_device_driver.get_report(mouseReport);
+    mouseReport = pointing_device_task_kb(mouseReport);
+    mouseReport = pointing_device_task_user(mouseReport);
 
     pointing_device_send();
 }

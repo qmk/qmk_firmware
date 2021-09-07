@@ -28,7 +28,7 @@ report_mouse_t pointing_device_get_report(void);
 void           pointing_device_set_report(report_mouse_t newMouseReport);
 bool           has_mouse_report_changed(report_mouse_t new, report_mouse_t old);
 
-void process_mouse_kb(report_mouse_t *report, int8_t x, int8_t y);
-void process_wheel_kb(report_mouse_t *report, int8_t h, int8_t v);
-void process_mouse_user(report_mouse_t *report, int8_t x, int8_t y);
-void process_wheel_user(report_mouse_t *report, int8_t h, int8_t v);
+void           pointing_device_init_kb(void);
+void           pointing_device_init_user(void);
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report);
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report);

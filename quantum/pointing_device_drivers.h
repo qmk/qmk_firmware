@@ -22,7 +22,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 typedef struct {
     void (*init)(void);
-    report_mouse_t (*get_report)(void);
+    report_mouse_t (*get_report)(report_mouse_t mouse_report);
 } pointing_device_driver_t;
 
 extern const pointing_device_driver_t pointing_device_driver;
+
+#if defined(POINTING_DEVICE_DRIVER_adns5050)
+#    include "drivers/sensors/adns5050.h"
+#elif defined(POINTING_DEVICE_DRIVER_adns9800)
+#    include "drivers/sensors/adns9800.h"
+#elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
+#    include "drivers/sensors/pimoroni_trackball.h"
+#elif defined(POINTING_DEVICE_DRIVER_pmw3360)
+#    include "drivers/sensors/pmw3360.h"
+#endif
