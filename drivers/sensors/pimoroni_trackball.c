@@ -37,32 +37,29 @@
 #    define PIMORONI_TRACKBALL_ERROR_COUNT 10
 #endif
 
-#define TRACKBALL_TIMEOUT 100
+#define TRACKBALL_TIMEOUT     100
 #define TRACKBALL_REG_LED_RED 0x00
 #define TRACKBALL_REG_LED_GRN 0x01
 #define TRACKBALL_REG_LED_BLU 0x02
 #define TRACKBALL_REG_LED_WHT 0x03
-#define TRACKBALL_REG_LEFT 0x04
-#define TRACKBALL_REG_RIGHT 0x05
-#define TRACKBALL_REG_UP 0x06
-#define TRACKBALL_REG_DOWN 0x07
+#define TRACKBALL_REG_LEFT    0x04
+#define TRACKBALL_REG_RIGHT   0x05
+#define TRACKBALL_REG_UP      0x06
+#define TRACKBALL_REG_DOWN    0x07
 
-static pimoroni_data  current_pimoroni_data;
-static report_mouse_t mouse_report;
-static bool           scrolling   = false;
-static int16_t        x_offset    = 0;
-static int16_t        y_offset    = 0;
-static int16_t        h_offset    = 0;
-static int16_t        v_offset    = 0;
-static uint16_t       precision   = 128;
-static uint8_t        error_count = 0;
+static int16_t  x_offset    = 0;
+static int16_t  y_offset    = 0;
+static int16_t  h_offset    = 0;
+static int16_t  v_offset    = 0;
+static uint16_t precision   = 128;
+static uint8_t  error_count = 0;
 
-float trackball_get_precision(void) { return ((float)precision / 128); }
-void  trackball_set_precision(float floatprecision) { precision = (floatprecision * 128); }
-bool  trackball_is_scrolling(void) { return scrolling; }
-void  trackball_set_scrolling(bool scroll) { scrolling = scroll; }
+float pimoroni_trackball_get_precision(void) { return ((float)precision / 128); }
+void  pimoroni_trackball_set_precision(float floatprecision) { precision = (floatprecision * 128); }
+bool  pimoroni_trackball_is_scrolling(void) { return scrolling; }
+void  pimoroni_trackball_set_scrolling(bool scroll) { scrolling = scroll; }
 
-void trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
+void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     uint8_t                              data[4] = {r, g, b, w};
     __attribute__((unused)) i2c_status_t status  = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, TRACKBALL_REG_LED_RED, data, sizeof(data), TRACKBALL_TIMEOUT);
 #ifdef TRACKBALL_DEBUG
@@ -70,20 +67,12 @@ void trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
 #endif
 }
 
-i2c_status_t read_pimoroni_trackball(pimoroni_data* data) {
-    i2c_status_t status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), TRACKBALL_TIMEOUT);
-#ifdef TRACKBALL_DEBUG
-    dprintf("Trackball READ i2c_status_t: %d\nLeft: %d\nRight: %d\nUp: %d\nDown: %d\nSwtich: %d\n", status, data->left, data->right, data->up, data->down, data->click);
-#endif
-    return status;
-}
-
-__attribute__((weak)) void pointing_device_init(void) {
+__attribute__((weak)) void pimironi_device_init(void) {
     i2c_init();
     trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
 }
 
-int16_t trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
+int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
     uint8_t offset     = 0;
     bool    isnegative = false;
     if (negative_dir > positive_dir) {
@@ -96,7 +85,7 @@ int16_t trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_
     return isnegative ? -(int16_t)(magnitude) : (int16_t)(magnitude);
 }
 
-void trackball_adapt_values(int8_t* mouse, int16_t* offset) {
+void pimoroni_trackball_adapt_values(int8_t* mouse, int16_t* offset) {
     if (*offset > 127) {
         *mouse = 127;
         *offset -= 127;
@@ -109,53 +98,39 @@ void trackball_adapt_values(int8_t* mouse, int16_t* offset) {
     }
 }
 
-__attribute__((weak)) void trackball_click(bool pressed, report_mouse_t* mouse) {
-#ifdef PIMORONI_TRACKBALL_CLICK
-    if (pressed) {
-        mouse->buttons |= MOUSE_BTN1;
-    } else {
-        mouse->buttons &= ~MOUSE_BTN1;
-    }
-#endif
-}
-
-__attribute__((weak)) void pointing_device_task() {
-    static fast_timer_t throttle = 0;
-    static uint16_t     debounce = 0;
+__attribute__((weak)) report_mouse_t get_pimorono_trackball_report(void) {
+    static fast_timer_t throttle      = 0;
+    static uint16_t     debounce      = 0;
+    pimoroni_data_t     pimoroni_data = {0};
+    report_mouse_t      report        = {0};
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT && timer_elapsed_fast(throttle) >= PIMORONI_TRACKBALL_INTERVAL_MS) {
-        i2c_status_t status = read_pimoroni_trackball(&current_pimoroni_data);
+        i2c_status_t status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, TRACKBALL_REG_LEFT, &pimoroni_data, sizeof(pimoroni_data), TRACKBALL_TIMEOUT);
+#ifdef TRACKBALL_DEBUG
+        dprintf("Trackball READ i2c_status_t: %d\nLeft: %d\nRight: %d\nUp: %d\nDown: %d\nSwtich: %d\n", status, pimoroni_data.left, pimoroni_data.right, pimoroni_data.up, pimoroni_data.down, pimoroni_data.click);
+#endif
 
         if (status == I2C_STATUS_SUCCESS) {
             error_count = 0;
 
-            if (pointing_device_task_user(&current_pimoroni_data)) {
-                mouse_report = pointing_device_get_report();
-
-                if (!(current_pimoroni_data.click & 128)) {
-                    trackball_click(false, &mouse_report);
-                    if (!debounce) {
-                        x_offset += trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
-                        y_offset += trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
-                        trackball_adapt_values(&mouse_report.x, &x_offset);
-                        trackball_adapt_values(&mouse_report.y, &y_offset);
-                        mouse_report.h = 0;
-                        mouse_report.v = 0;
-                    } else {
-                        debounce--;
-                    }
+            if (!(pimoroni_data.click & 128)) {
+                if (!debounce) {
+                    x_offset += trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
+                    y_offset += trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
+                    pimoroni_trackball_adapt_values(&report.x, &x_offset);
+                    pimoroni_trackball_adapt_values(&report.y, &y_offset);
                 } else {
-                    trackball_click(true, &mouse_report);
-                    debounce = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
+                    debounce--;
                 }
+            } else {
+                report.buttons = 0b1;
+                debounce       = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
             }
-        } else {
-            error_count++;
         }
-
-        pointing_device_set_report(mouse_report);
-        pointing_device_send();
-
-        throttle = timer_read_fast();
+    } else {
+        error_count++;
     }
+
+    throttle = timer_read_fast();
+    return report;
 }

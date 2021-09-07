@@ -28,16 +28,9 @@ report_mouse_t pointing_device_get_report(void);
 void           pointing_device_set_report(report_mouse_t newMouseReport);
 bool           has_mouse_report_changed(report_mouse_t new, report_mouse_t old);
 
-
-typedef struct {
-    uint8_t buttons;
-    int8_t  x;
-    int8_t  y;
-} short_mouse_t;
-
 typedef struct {
     void (*init)(void);
-    short_mouse_t (*get_report)(void);
+    report_mouse_t (*get_report)(void);
 } pointing_device_driver_t;
 
 void process_mouse_kb(report_mouse_t *report, int8_t x, int8_t y);
