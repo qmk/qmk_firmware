@@ -138,11 +138,12 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 // clang-format on
 #else
-#    include <stddef.h>
+__attribute__((weak)) void           pointing_device_driver_init(void) {}
+__attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = NULL,
-    .get_report = NULL,
+    .init       = pointing_device_driver_init,
+    .get_report = pointing_device_driver_get_report,
 };
 // clang-format on
 #endif
