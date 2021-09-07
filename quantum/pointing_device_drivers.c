@@ -51,7 +51,7 @@ const pointing_device_driver_t pointing_device_driver = {
 
 report_mouse_t pmw3360_get_report(void) {
     report_pmw_t data = pmw_read_burst();
-    report_mouse_t report;
+    static uint16_t MotionStart = 0;  // Timer for accel, 0 is resting state
 
     if (data.isOnSurface && data.isMotion) {
         // Reset timer if stopped moving
@@ -67,9 +67,10 @@ report_mouse_t pmw3360_get_report(void) {
         }
         data.dx = constrain(data.dx, -127, 127);
         data.dy = constrain(data.dy, -127, 127);
+    }
 
     return { .button = 0, .x = data.dx, .y = data.dy };
-     }
+}
 
      // clang-format off
 const pointing_device_driver_t pointing_device_driver = {

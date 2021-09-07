@@ -64,18 +64,18 @@ typedef struct {
     int8_t  mdx;
     int16_t dy;  // displacement on y directions.
     int8_t  mdy;
-} report_pmw_t;
+} report_pmw3360_t;
 
-bool         spi_start_adv(void);
-void         spi_stop_adv(void);
-spi_status_t spi_write_adv(uint8_t reg_addr, uint8_t data);
-uint8_t      spi_read_adv(uint8_t reg_addr);
-bool         pmw_spi_init(void);
-void         pmw_set_cpi(uint16_t cpi);
-uint16_t     pmw_get_cpi(void);
-void         pmw_upload_firmware(void);
-bool         pmw_check_signature(void);
-report_pmw_t pmw_read_burst(void);
+bool             spi_start_adv(void);
+void             spi_stop_adv(void);
+spi_status_t     spi_write_adv(uint8_t reg_addr, uint8_t data);
+uint8_t          spi_read_adv(uint8_t reg_addr);
+bool             pmw3360_spi_init(void);
+void             pmw3360_set_cpi(uint16_t cpi);
+uint16_t         pmw3360_get_cpi(void);
+void             pmw3360_upload_firmware(void);
+bool             pmw3360_check_signature(void);
+report_pmw3360_t pmw3360_read_burst(void);
 
 #define degToRad(angleInDegrees) ((angleInDegrees)*M_PI / 180.0)
 #define radToDeg(angleInRadians) ((angleInRadians)*180.0 / M_PI)

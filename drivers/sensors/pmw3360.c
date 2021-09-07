@@ -124,7 +124,7 @@ uint8_t spi_read_adv(uint8_t reg_addr) {
     return data;
 }
 
-void pmw_set_cpi(uint16_t cpi) {
+void pmw3360_set_cpi(uint16_t cpi) {
     uint8_t cpival = constrain((cpi / 100) - 1, 0, 0x77);  // limits to 0--119
 
     spi_start_adv();
@@ -132,12 +132,12 @@ void pmw_set_cpi(uint16_t cpi) {
     spi_stop();
 }
 
-uint16_t pmw_get_cpi(void) {
+uint16_t pmw3360_get_cpi(void) {
     uint8_t cpival = spi_read_adv(REG_Config1);
     return (uint16_t)(cpival & 0xFF) * 100;
 }
 
-bool pmw_spi_init(void) {
+bool pmw3360_init(void) {
     setPinOutput(PMW3360_CS_PIN);
 
     spi_init();
@@ -164,12 +164,12 @@ bool pmw_spi_init(void) {
     spi_read_adv(REG_Delta_Y_L);
     spi_read_adv(REG_Delta_Y_H);
 
-    pmw_upload_firmware();
+    pmw3360_upload_firmware();
 
     spi_stop_adv();
 
     wait_ms(10);
-    pmw_set_cpi(PMW3360_CPI);
+    pmw3360_set_cpi(PMW3360_CPI);
 
     wait_ms(1);
 
@@ -184,7 +184,7 @@ bool pmw_spi_init(void) {
     return init_success;
 }
 
-void pmw_upload_firmware(void) {
+void pmw3360_upload_firmware(void) {
     spi_write_adv(REG_SROM_Enable, 0x1d);
 
     wait_ms(10);
@@ -211,14 +211,14 @@ void pmw_upload_firmware(void) {
     wait_ms(10);
 }
 
-bool pmw_check_signature(void) {
+bool pmw3360_check_signature(void) {
     uint8_t pid      = spi_read_adv(REG_Product_ID);
     uint8_t iv_pid   = spi_read_adv(REG_Inverse_Product_ID);
     uint8_t SROM_ver = spi_read_adv(REG_SROM_ID);
     return (pid == 0x42 && iv_pid == 0xBD && SROM_ver == 0x04);  // signature for SROM 0x04
 }
 
-report_pmw_t pmw_read_burst(void) {
+report_pmw3360_t pmw_read_burst(void) {
     if (!_inBurst) {
         dprintf("burst on");
         spi_write_adv(REG_Motion_Burst, 0x00);
@@ -229,12 +229,7 @@ report_pmw_t pmw_read_burst(void) {
     spi_write(REG_Motion_Burst);
     wait_us(35);  // waits for tSRAD
 
-    report_pmw_t data;
-    data.motion = 0;
-    data.dx     = 0;
-    data.mdx    = 0;
-    data.dy     = 0;
-    data.mdx    = 0;
+    report_pmw3360_t data = {0};
 
     data.motion = spi_read();
     spi_write(0x00);  // skip Observation
