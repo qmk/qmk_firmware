@@ -39,7 +39,9 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
     static fast_timer_t throttle      = 0;
     static uint16_t     debounce      = 0;
+    static uint8_t      error_count   = 0;
     pimoroni_data_t     pimoroni_data = {0};
+    static int16_t      x_offset = 0, y_offset = 0;
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT && timer_elapsed_fast(throttle) >= PIMORONI_TRACKBALL_INTERVAL_MS) {
         i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
@@ -48,6 +50,7 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
             error_count = 0;
 
             if (!(pimoroni_data.click & 128)) {
+                mouse_report.buttons |= MOUSE_BTN1;
                 if (!debounce) {
                     x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
                     y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
@@ -57,8 +60,8 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
                     debounce--;
                 }
             } else {
-                mouse_report.buttons = 0b1;
-                debounce       = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
+                mouse_report.buttons &= ~MOUSE_BTN1;
+                debounce = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
             }
         }
     } else {
@@ -71,7 +74,7 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = pimironi_device_init,
+    .init       = pimironi_trackball_device_init,
     .get_report = pimorono_trackball_get_report,
 };
 // clang-format on

@@ -17,59 +17,30 @@
 #include "pimoroni_trackball.h"
 #include "i2c_master.h"
 #include "print.h"
+#include "debug.h"
 
-#ifndef PIMORONI_TRACKBALL_ADDRESS
-#    define PIMORONI_TRACKBALL_ADDRESS 0x0A
-#endif
-#ifndef PIMORONI_TRACKBALL_INTERVAL_MS
-#    define PIMORONI_TRACKBALL_INTERVAL_MS 8
-#endif
-#ifndef PIMORONI_TRACKBALL_MOUSE_SCALE
-#    define PIMORONI_TRACKBALL_MOUSE_SCALE 5
-#endif
-#ifndef PIMORONI_TRACKBALL_SCROLL_SCALE
-#    define PIMORONI_TRACKBALL_SCROLL_SCALE 1
-#endif
-#ifndef PIMORONI_TRACKBALL_DEBOUNCE_CYCLES
-#    define PIMORONI_TRACKBALL_DEBOUNCE_CYCLES 20
-#endif
-#ifndef PIMORONI_TRACKBALL_ERROR_COUNT
-#    define PIMORONI_TRACKBALL_ERROR_COUNT 10
-#endif
-
-#define PIMORONI_TRACKBALL_TIMEOUT 100
-#define PIMORONI_TRACKBALL_REG_LED_RED 0x00
-#define PIMORONI_TRACKBALL_REG_LED_GRN 0x01
-#define PIMORONI_TRACKBALL_REG_LED_BLU 0x02
-#define PIMORONI_TRACKBALL_REG_LED_WHT 0x03
-#define PIMORONI_TRACKBALL_REG_LEFT 0x04
-#define PIMORONI_TRACKBALL_REG_RIGHT 0x05
-#define PIMORONI_TRACKBALL_REG_UP 0x06
-#define PIMORONI_TRACKBALL_REG_DOWN 0x07
-
-static int16_t  x_offset    = 0;
-static int16_t  y_offset    = 0;
-static int16_t  h_offset    = 0;
-static int16_t  v_offset    = 0;
-static uint16_t precision   = 128;
-static uint8_t  error_count = 0;
+static uint16_t precision = 128;
 
 float pimoroni_trackball_get_precision(void) { return ((float)precision / 128); }
 void  pimoroni_trackball_set_precision(float floatprecision) { precision = (floatprecision * 128); }
-bool  pimoroni_trackball_is_scrolling(void) { return scrolling; }
-void  pimoroni_trackball_set_scrolling(bool scroll) { scrolling = scroll; }
 
 void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     uint8_t                              data[4] = {r, g, b, w};
     __attribute__((unused)) i2c_status_t status  = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
-#ifdef TRACKBALL_DEBUG
-    dprintf("Trackball RGBW i2c_status_t: %d\n", status);
-#endif
+
+    if (debug_mouse) dprintf("Trackball RGBW i2c_status_t: %d\n", status);
 }
 
-__attribute__((weak)) void pimironi_device_init(void) {
+i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
+    i2c_status_t status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
+    if (debug_mouse) dprintf("Trackball READ i2c_status_t: %d\nLeft: %d\nRight: %d\nUp: %d\nDown: %d\nSwtich: %d\n", status, data->left, data->right, data->up, data->down, data->click);
+
+    return status;
+}
+
+__attribute__((weak)) void pimironi_trackball_device_init(void) {
     i2c_init();
-    trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
+    pimoroni_trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
 }
 
 int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
