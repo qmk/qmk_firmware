@@ -1,6 +1,6 @@
 ## Flashing firmware:
 * Clone this repository and `cd` into the `qmk_firmware` directory.
-* After cloning, you probably need to run `make git-submodule`.
+* After cloning, you probably need to run `make git-submodule` as well as `./util/qmk_install`.
    - You may also need to install dependencies: `sudo apt install avrdude gcc-avr avr-libc`
 * To build the firmware without flashing the keyboard, use `make (keyboard name):(layout name)`
    - For example, if you want to build the `default` layout for the Launch keyboard, run:
@@ -17,6 +17,7 @@ dfu-programmer: no device present.
 ERROR: Bootloader not found. Trying again in 5s.
 ```
 Next, unplug your keyboard from your computer, hold the ESC key (while the keyboard is unplugged), and plug the keyboard back in while holding the ESC key. Once the keyboard is plugged in, the ESC key can be released.
+* Note: on some distros, dfu-programmer has trouble detecting the keyboard unless you run the `make` command with `sudo`.
 * To flash the firmware using ISP, you will need a USBasp device, and a tag connect cable.
   - Build the firmware and bootloader with:
 ```
