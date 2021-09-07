@@ -78,12 +78,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT(
-    _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_WAKE,           RGB_TOG,
+    _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  _______,           RGB_TOG,
     LED_TLDE, LED_1,   LED_2,   LED_3,   LED_4,   LED_5,   LED_6,   LED_7,   LED_8,   LED_9,   LED_0,   LED_MINS, LED_EQL, _______,           KC_PSCR,
     _______,  RGB_HUI, RGB_VAI, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, _______,  _______, RESET,             _______,
-    _______,  RGB_HUD, RGB_VAD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______, _______,           _______,           _______,
+    _______,  RGB_HUD, RGB_VAD, RGB_SAD, TG(2),   _______, _______, _______, _______, _______, _______, _______,           _______,           _______,
     _______,           _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,           _______, RGB_MOD,  RGB_TOG,
     _______,  _______, _______,                            _______,                            _______, _______,  _______, RGB_SPD, RGB_RMOD, RGB_SPI
+  ),
+
+  // This is an alternative togglable layer to change default function row to standard F keys
+  [2] = LAYOUT(
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F24,           _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
+    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+    _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
   ),
 
 
@@ -229,26 +239,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               start_effects();
             }
             break;
-          case NK_ON:
-            if (record->event.pressed) {
-              if (!keymap_config.nkro) {
-                /* Turning NKRO ON */
-                effect_green();
-                start_effects();
-              }
-            }
-            break;
-          case NK_OFF:
-            if (record->event.pressed) {
-              if (keymap_config.nkro) {
-                /* Turning NKRO OFF */
-                effect_red();
-                start_effects();
-              }
-            }
-            break;
         #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
       #endif // NKRO_ENABLE
+
+      #if RGB_CONFIRMATION_BLINKING_TIME > 0
+        case TG(2):
+          if (record->event.pressed) {
+            if (IS_LAYER_OFF(2)) {
+              effect_red();
+            } else {
+              effect_green();
+            }
+            start_effects();
+          }
+          break;
+      #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
 
       /* LED quick preset keys assignments */
       case LED_TLDE:
