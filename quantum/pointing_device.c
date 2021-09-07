@@ -88,8 +88,8 @@ void pointing_device_task(void) {
     // mouseReport.buttons = 0x1F (decimal 31, binary 00011111) max (bitmask for mouse buttons 1-5, 1 is rightmost, 5 is leftmost) 0x00 min
     // send the report
     mouseReport = pointing_device_driver.get_report();
-    mouseReport pointing_device_kb(mouseReport);
-    mouseReport pointing_device_user(mouse_report);
+    mouseReport = pointing_device_kb(mouseReport);
+    mouseReport = pointing_device_user(mouseReport);
 
     pointing_device_send();
 }
