@@ -43,7 +43,7 @@
 #define NO_ACTION_FUNCTION
 
 #define LED_CAPS_LOCK_PIN C6
-#define LED_PIN_ON_STATE 0
+#define LED_PIN_ON_STATE 1
 
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN
