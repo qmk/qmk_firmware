@@ -13,11 +13,12 @@
 # Kyria hardware
 ifneq (,$(findstring splitkb/kyria/rev1,$(KEYBOARD)))
     # Elective features
+    ENCODER_ENABLE = yes
+    OLED_ENABLE = yes
+    # Nonexistent features
     AUDIO_ENABLE = no
     BACKLIGHT_ENABLE = no
-    ENCODER_ENABLE = yes
     RGB_MATRIX_ENABLE = no
-    OLED_ENABLE = yes
     # Space savers
     NKRO_ENABLE = no
     VELOCIKEY_ENABLE = no
