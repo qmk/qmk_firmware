@@ -117,7 +117,9 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         MOUSE_ENABLE := yes
         SRC += $(QUANTUM_DIR)/pointing_device.c
         SRC += $(QUANTUM_DIR)/pointing_device_drivers.c
-        SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
+        ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
+            SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
+        endif
         OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
         ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
             QUANTUM_LIB_SRC += i2c_master.c
