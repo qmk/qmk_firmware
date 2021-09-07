@@ -22,10 +22,23 @@
 
 // get_report functions should probably be moved to their respective drivers.
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
+report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
+    report_adns5050_t data = adns5050_read_burst();
+
+    if (data.dx != 0 || data.dy != 0) {
+        if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
+
+        mouse_report.x = data.dx;
+        mouse_report.y = data.dy;
+    }
+
+    return mouse_report;
+}
+
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init         = adns9800_device_init,
-    .get_report   = get_adns9800_trackball_report,
+    .init         = adns5050_init,
+    .get_report   = adns5050_get_report,
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
