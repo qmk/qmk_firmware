@@ -21,20 +21,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "report.h"
 
-#if defined(POINTING_DEVICE_DRIVER_analog_joystick)
-#    include "analog.h"
-#    include "drivers/sensors/analog_joystick.h"
-#elif defined(POINTING_DEVICE_DRIVER_adns5050)
+#if defined(POINTING_DEVICE_DRIVER_adns5050)
 #    include "drivers/sensors/adns5050.h"
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
 #    include "spi_master.h"
 #    include "drivers/sensors/adns9800.h"
+#elif defined(POINTING_DEVICE_DRIVER_analog_joystick)
+#    include "analog.h"
+#    include "drivers/sensors/analog_joystick.h"
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 #    include "i2c_master.h"
 #    include "drivers/sensors/pimoroni_trackball.h"
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
 #    include "spi_master.h"
 #    include "drivers/sensors/pmw3360.h"
+#else
+void           pointing_device_driver_init(void);
+report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report);
 #endif
 
 typedef struct {
