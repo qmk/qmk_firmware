@@ -370,7 +370,7 @@ void render_status_secondary(void) {
     /* Show Keyboard Layout  */
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
-#if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE)
+#if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE) && !defined(CONVERT_TO_PROTON_C)
     render_wpm(2);
 #endif
     // render_keylock_status(host_keyboard_leds());
