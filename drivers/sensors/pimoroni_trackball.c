@@ -119,8 +119,6 @@ __attribute__((weak)) void trackball_click(bool pressed, report_mouse_t* mouse) 
 #endif
 }
 
-__attribute__((weak)) bool pointing_device_task_user(pimoroni_data* trackball_data) { return true; };
-
 __attribute__((weak)) void pointing_device_task() {
     static fast_timer_t throttle = 0;
     static uint16_t     debounce = 0;
@@ -137,50 +135,12 @@ __attribute__((weak)) void pointing_device_task() {
                 if (!(current_pimoroni_data.click & 128)) {
                     trackball_click(false, &mouse_report);
                     if (!debounce) {
-                        if (scrolling) {
-#ifdef PIMORONI_TRACKBALL_INVERT_X
-                            h_offset += trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_SCROLL_SCALE);
-#else
-                            h_offset -= trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_SCROLL_SCALE);
-#endif
-#ifdef PIMORONI_TRACKBALL_INVERT_Y
-                            v_offset += trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_SCROLL_SCALE);
-#else
-                            v_offset -= trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_SCROLL_SCALE);
-#endif
-                        } else {
-#ifdef PIMORONI_TRACKBALL_INVERT_X
-                            x_offset -= trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
-#else
-                            x_offset += trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
-#endif
-#ifdef PIMORONI_TRACKBALL_INVERT_Y
-                            y_offset -= trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
-#else
-                            y_offset += trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
-#endif
-                        }
-                        if (scrolling) {
-#ifndef PIMORONI_TRACKBALL_ROTATE
-                            trackball_adapt_values(&mouse_report.h, &h_offset);
-                            trackball_adapt_values(&mouse_report.v, &v_offset);
-#else
-                            trackball_adapt_values(&mouse_report.h, &v_offset);
-                            trackball_adapt_values(&mouse_report.v, &h_offset);
-#endif
-                            mouse_report.x = 0;
-                            mouse_report.y = 0;
-                        } else {
-#ifndef PIMORONI_TRACKBALL_ROTATE
-                            trackball_adapt_values(&mouse_report.x, &x_offset);
-                            trackball_adapt_values(&mouse_report.y, &y_offset);
-#else
-                            trackball_adapt_values(&mouse_report.x, &y_offset);
-                            trackball_adapt_values(&mouse_report.y, &x_offset);
-#endif
-                            mouse_report.h = 0;
-                            mouse_report.v = 0;
-                        }
+                        x_offset += trackball_get_offsets(current_pimoroni_data.right, current_pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
+                        y_offset += trackball_get_offsets(current_pimoroni_data.down, current_pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
+                        trackball_adapt_values(&mouse_report.x, &x_offset);
+                        trackball_adapt_values(&mouse_report.y, &y_offset);
+                        mouse_report.h = 0;
+                        mouse_report.v = 0;
                     } else {
                         debounce--;
                     }
