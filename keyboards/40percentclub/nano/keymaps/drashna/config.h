@@ -14,18 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "drashna.h"
-#include "analog.h"
-#include "pointing_device.h"
+#pragma once
 
-#define KC_X0 LT(_FN, KC_ESC)
+#define ANALOG_JOYSTICK_X_AXIS_PIN B4
+#define ANALOG_JOYSTICK_Y_AXIS_PIN B5
 
-// clang-format off
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT(
-     KC_VOLU, KC_MPLY, KC_MPRV, RESET,
-     KC_VOLD, KC_MUTE, KC_MNXT, RESET
-  ),
-
-};
-// clang-format on
+#define ANALOG_JOYSTICK_CLICK_PIN E6
