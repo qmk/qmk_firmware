@@ -41,6 +41,30 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_report   = adns5050_get_report,
 };
 // clang-format on
+#elif defined(POINTING_DEVICE_DRIVER_analog_joystick)
+report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
+    report_analog_joystick_t data = analog_joystick_read();
+
+    if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
+
+    mouse_report.x = data.x;
+    mouse_report.y = data.y;
+
+    if (data.button) {
+        mouse_report.buttons |= MOUSE_BTN1;
+    } else {
+        mouse_report.buttons &= ~MOUSE_BTN1;
+    }
+
+    return mouse_report;
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init         = analog_joystick_init,
+    .get_report   = analog_joystick_get_report,
+};
+// clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
 
 report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {

@@ -17,7 +17,6 @@
 #pragma once
 
 #include <stdint.h>
-#include "report.h"
 
 #ifndef ADNS9800_CPI
 #    define ADNS9800_CPI 1600
