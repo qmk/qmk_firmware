@@ -1,5 +1,7 @@
 # mammoth75x
 ​
+![mammoth75x](https://i.imgur.com/mhIKh2P.jpeg) 
+​
 More Info at [wuquestudio](https://shop.wuquestudio.com/).
 ​
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
