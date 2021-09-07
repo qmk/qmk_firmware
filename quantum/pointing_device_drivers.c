@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pointing_device_drivers.h"
+#include "pointing_device.h"
 #include "debug.h"
 #include "timer.h"
 
@@ -135,6 +135,14 @@ report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init       = init,
     .get_report = pmw3360_get_report,
+};
+// clang-format on
+#else
+#    include <stddef.h>
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = NULL,
+    .get_report = NULL,
 };
 // clang-format on
 #endif

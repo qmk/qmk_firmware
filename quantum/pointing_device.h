@@ -34,6 +34,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "drivers/sensors/pmw3360.h"
 #endif
 
+typedef struct {
+    void (*init)(void);
+    report_mouse_t (*get_report)(report_mouse_t mouse_report);
+} pointing_device_driver_t;
+
+extern const pointing_device_driver_t pointing_device_driver;
+
 void           pointing_device_init(void);
 void           pointing_device_task(void);
 void           pointing_device_send(void);

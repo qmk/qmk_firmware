@@ -17,7 +17,6 @@
  */
 
 #include "pointing_device.h"
-#include "pointing_device_drivers.h"
 
 static report_mouse_t mouseReport = {};
 
