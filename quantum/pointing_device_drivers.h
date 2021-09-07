@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include "report.h"
+#include "pointing_device.h"
 
 typedef struct {
     void (*init)(void);
@@ -26,13 +27,3 @@ typedef struct {
 } pointing_device_driver_t;
 
 extern const pointing_device_driver_t pointing_device_driver;
-
-#if defined(POINTING_DEVICE_DRIVER_adns5050)
-#    include "drivers/sensors/adns5050.h"
-#elif defined(POINTING_DEVICE_DRIVER_adns9800)
-#    include "drivers/sensors/adns9800.h"
-#elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
-#    include "drivers/sensors/pimoroni_trackball.h"
-#elif defined(POINTING_DEVICE_DRIVER_pmw3360)
-#    include "drivers/sensors/pmw3360.h"
-#endif
