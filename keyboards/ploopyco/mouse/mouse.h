@@ -21,6 +21,7 @@
 #include "quantum.h"
 #include "analog.h"
 #include "opt_encoder.h"
+#include "pointing_device_drivers.h"
 
 // Sensor defs
 #define OPT_ENC1 F0

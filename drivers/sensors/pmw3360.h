@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include <stdint.h>
+#include "report.h"
 #include "spi_master.h"
 
 #ifndef PMW3360_CPI

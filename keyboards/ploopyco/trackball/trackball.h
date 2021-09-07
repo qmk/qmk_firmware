@@ -21,6 +21,7 @@
 #include "quantum.h"
 #include "analog.h"
 #include "opt_encoder.h"
+#include "pointing_device_drivers.h"
 #if defined(KEYBOARD_ploopyco_trackball_rev1)
 #    include "rev1.h"
 #elif defined(KEYBOARD_ploopyco_trackball_rev1_005)

@@ -16,7 +16,8 @@
  */
 #pragma once
 
-#include "pointing_device.h"
+#include <stdint.h>
+#include "report.h"
 
 typedef struct {
     uint8_t left;
@@ -34,4 +35,4 @@ float         pimoroni_trackball_get_precision(void);
 void          pimoroni_trackball_set_precision(float precision);
 bool          pimoroni_trackball_is_scrolling(void);
 void          pimoroni_trackball_set_scrolling(bool scroll);
-short_mouse_t get_pimorono_trackball_report(void);
+report_mouse_t get_pimorono_trackball_report(void);
