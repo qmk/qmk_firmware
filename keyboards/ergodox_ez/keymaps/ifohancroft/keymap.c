@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                                                             |         | TG(1)   |         |         |         |
     *                                                   *---------+---------+---------|         |---------+---------+---------*
     *                                                   |         |         |         |         |         |         |         |
-    *                                                   | Enter   | Bckspc  |---------|         |---------| Space   | Enter   |
+    *                                                   | Bckspc  | Enter   |---------|         |---------| Enter   | Space   |
     *                                                   |         |         | PgDn    |         | PgUp    |         |         |
     *                                                   *---------+---------+---------*         *---------+---------+---------*
     */
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                     KC_NO,    TG(1),              KC_NO,    KC_NO,
                                                                               KC_NO,              KC_NO,
-                                                          KC_ENT,   KC_BSPC,  KC_PGDN,            KC_PGUP,  KC_SPC,   KC_ENT
+                                                          KC_BSPC,  KC_ENT,   KC_PGDN,            KC_PGUP,  KC_ENT,   KC_SPC
     ),
 
     /* Gaming Layer
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                                                             |         |         |         |         |         |
     *                                                   *---------+---------+---------|         |---------+---------+---------*
     *                                                   |         |         |         |         |         |         |         |
-    *                                                   |         | Space   |---------|         |---------|         |         |
+    *                                                   | Space   |         |---------|         |---------|         |         |
     *                                                   |         |         |         |         |         |         |         |
     *                                                   *---------+---------+---------*         *---------+---------+---------*
     */
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                     _______,  _______,            _______,  _______,
                                                                               _______,            _______,
-                                                          _______,  KC_SPC,   _______,            _______,  _______,  _______
+                                                          KC_SPC,   _______,  _______,            _______,  _______,  _______
     ),
 
     /* Function Keys Layer
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                                                             |         |         |         |         |         |
     *                                                   *---------+---------+---------|         |---------+---------+---------*
     *                                                   |         |         |         |         |         |         |         |
-    *                                                   |         | Space   |---------|         |---------|         |         |
+    *                                                   | Space   |         |---------|         |---------|         |         |
     *                                                   |         |         | PgUp    |         |         |         |         |
     *                                                   *---------+---------+---------*         *---------+---------+---------*
     */
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                     _______,  _______,            _______,  _______,
                                                                               _______,            _______,
-                                                          _______,  KC_SPC,   KC_PGUP,            _______,  _______,  _______
+                                                          KC_SPC,   _______,  KC_PGUP,            _______,  _______,  _______
     )
 
 };
