@@ -18,17 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include <stdint.h>
-#include "host.h"
 #include "report.h"
 
-void           pointing_device_init(void);
-void           pointing_device_task(void);
-void           pointing_device_send(void);
-report_mouse_t pointing_device_get_report(void);
-void           pointing_device_set_report(report_mouse_t newMouseReport);
-bool           has_mouse_report_changed(report_mouse_t new, report_mouse_t old);
+typedef struct {
+    void (*init)(void);
+    report_mouse_t (*get_report)(void);
+} pointing_device_driver_t;
 
-void process_mouse_kb(report_mouse_t *report, int8_t x, int8_t y);
-void process_wheel_kb(report_mouse_t *report, int8_t h, int8_t v);
-void process_mouse_user(report_mouse_t *report, int8_t x, int8_t y);
-void process_wheel_user(report_mouse_t *report, int8_t h, int8_t v);
+extern const pointing_device_driver_t pointing_device_driver;
