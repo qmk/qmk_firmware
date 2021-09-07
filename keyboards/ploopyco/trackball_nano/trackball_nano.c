@@ -76,25 +76,26 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
     mouse_report->y = y;
 }
 
-__attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
-    report_adns_t data = adns_read_burst();
+void pointing_device_init_kb(void) {
+    opt_encoder_init();
 
-    if (data.dx != 0 || data.dy != 0) {
-        if (debug_mouse)
-            dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
+    // set the DPI.
+    adns5050_set_cpi(dpi_array[keyboard_config.dpi_config]);
+}
 
-        // Apply delta-X and delta-Y transformations.
-        // x and y are swapped
-        // the sensor is rotated
-        // by 90 degrees
-        float xt = (float) data.dy * ADNS_X_TRANSFORM;
-        float yt = (float) data.dx * ADNS_Y_TRANSFORM;
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    // Apply delta-X and delta-Y transformations.
+    // x and y are swapped
+    // the sensor is rotated
+    // by 90 degrees
+    float xt = (float)mouse_report.y * ADNS_X_TRANSFORM;
+    float yt = (float)mouse_report.x * ADNS_Y_TRANSFORM;
 
-        int16_t xti = (int16_t)xt;
-        int16_t yti = (int16_t)yt;
+    int16_t xti = (int16_t)xt;
+    int16_t yti = (int16_t)yt;
 
-        process_mouse_user(mouse_report, xti, yti);
-    }
+    process_mouse_user(&mouse_report, xti, yti);
+    return mouse_report;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -112,7 +113,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (keycode == DPI_CONFIG && record->event.pressed) {
         keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
         eeconfig_update_kb(keyboard_config.raw);
-        adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        adns5050_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
 /* If Mousekeys is disabled, then use handle the mouse button
@@ -160,34 +161,6 @@ void keyboard_pre_init_kb(void) {
 #endif
 
     keyboard_pre_init_user();
-}
-
-void pointing_device_init(void) {
-    adns_init();
-    opt_encoder_init();
-
-    // reboot the adns.
-    // if the adns hasn't initialized yet, this is harmless.
-    adns_write_reg(REG_CHIP_RESET, 0x5a);
-
-    // wait maximum time before adns is ready.
-    // this ensures that the adns is actuall ready after reset.
-    wait_ms(55);
-
-    // read a burst from the adns and then discard it.
-    // gets the adns ready for write commands
-    // (for example, setting the dpi).
-    adns_read_burst();
-
-    // set the DPI.
-    adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
-}
-
-void pointing_device_task(void) {
-    report_mouse_t mouse_report = pointing_device_get_report();
-    process_mouse(&mouse_report);
-    pointing_device_set_report(mouse_report);
-    pointing_device_send();
 }
 
 void eeconfig_init_kb(void) {
