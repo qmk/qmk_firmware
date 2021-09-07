@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      | MLeft| MDown|MRight|LShift|                              | Home | Left | Down | Right|  End |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        | Alt  | Ctrl |      |LShift|LShift|      |      |  |      |      |      | PDown| PDown| C+End| C+End|        |
+ * |        | GUI  | Alt  | Ctrl |LShift|LShift|      |      |  |      |      |      | PDown| PDown| C+End| C+End|        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |Ctrl+C|
  *                        `----------------------------------'  `----------------------------------'
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER] = LAYOUT(
       _______, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,                                     XXXXXXX, KC_PGUP, KC_UP,   C(KC_HOME), C(KC_HOME), XXXXXXX,
       XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_LSFT,                                     KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,    KC_END,     XXXXXXX,
-      XXXXXXX, KC_LOPT, KC_LCTL, XXXXXXX, KC_LSFT, KC_LSFT, _______, _______, _______, _______, XXXXXXX, KC_PGDN, KC_PGDN, C(KC_END),  C(KC_END),  XXXXXXX,
+      XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_LSFT, _______, _______, _______, _______, XXXXXXX, KC_PGDN, KC_PGDN, C(KC_END),  C(KC_END),  XXXXXXX,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, C(KC_C)
     ),
 /*
