@@ -28,5 +28,5 @@ SLEEP_LED_ENABLE        = no
 RGBLIGHT_ENABLE         = no
 
 # project specific files
-SRC = twimaster.c \
-	  matrix.c
+QUANTUM_LIB_SRC += i2c_master.c
+SRC += matrix.c
