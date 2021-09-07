@@ -76,7 +76,7 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
             error_count = 0;
 
             if (!(pimoroni_data.click & 128)) {
-                mouse_report.buttons |= MOUSE_BTN1;
+                mouse_report.buttons &= ~MOUSE_BTN1;
                 if (!debounce) {
                     x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_MOUSE_SCALE);
                     y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_MOUSE_SCALE);
@@ -86,15 +86,14 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
                     debounce--;
                 }
             } else {
-                mouse_report.buttons &= ~MOUSE_BTN1;
+                mouse_report.buttons |= MOUSE_BTN1;
                 debounce = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
             }
+        } else {
+            error_count++;
         }
-    } else {
-        error_count++;
+        throttle = timer_read_fast();
     }
-
-    throttle = timer_read_fast();
     return mouse_report;
 }
 
