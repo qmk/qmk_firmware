@@ -29,9 +29,11 @@ See the `keymap.c` in the `keymaps/default` folder for an example.
 
 ## Homerow mod config
 
-You can choose different homerow mods configurations (GASC, AGCS....) by adding a wraper around your base layer.
+If using homerow mods, you can choose different homerow mods configurations (GASC, AGCS....) by adding a wraper around your base layer.
 
 See the `keymap.c` in the `keymaps/default` folder for an example.
+
+Available configurations are: SCGA, GASC, GACS, CAGS, SACG, GCAS.
 
 
 ## Custom DPI

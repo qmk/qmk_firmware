@@ -64,7 +64,7 @@
 #define __________________MEDIA_L3_________________ U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA
 #define __________________MEDIA_L4_________________ U_NA,    U_NA,    U_NA
 
-#define __________________MEDIA_R1_________________ w
+#define __________________MEDIA_R1_________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define __________________MEDIA_R2_________________ U_NU,    MS_L,    MS_D,    MS_U,    MS_R
 #define __________________MEDIA_R3_________________ U_NU,    WH_L,    WH_D,    WH_U,    WH_L
 #define __________________MEDIA_R4_________________ KC_BTN1, KC_BTN3, KC_BTN2
@@ -206,7 +206,40 @@
 	... \
 ) \
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
-	GUI_T(k13), ALT_T(k14), SFT_T(k15), CTL_T(k16), k17,        k18,        CTL_T(k19), SFT_T(k20), ALT_T(k21), GUI_T(k22), \
+	CTL_T(k13), ALT_T(k14), SFT_T(k15), CTL_T(k16), k17,        k18,        CTL_T(k19), SFT_T(k20), ALT_T(k21), GUI_T(k22), \
 	__VA_ARGS__
 #define HRM_GASC_wrapper(...)                HRM_GASC(__VA_ARGS__)
+
+/* SCGA */
+#define HRM_SCGA( \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
+	k13,        k14,        k15,        k16,        k17,        k18,        k19,        k20,        k21,        k22, \
+	... \
+) \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
+	SFT_T(k13), CTL_T(k14), GUI_T(k15), ALT_T(k16), k17,        k18,        ALT_T(k19), GUI_T(k20), CTL_T(k21), SFT_T(k22), \
+	__VA_ARGS__
+#define HRM_SCGA_wrapper(...)                HRM_SCGA(__VA_ARGS__)
+
+/* GACS */
+#define HRM_GACS( \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
+	k13,        k14,        k15,        k16,        k17,        k18,        k19,        k20,        k21,        k22, \
+	... \
+) \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
+	GUI_T(k13), ALT_T(k14), CTL_T(k15), SFT_T(k16), k17,        k18,        SFT_T(k19), CTL_T(k20), ALT_T(k21), GUI_T(k22), \
+	__VA_ARGS__
+#define HRM_GACS_wrapper(...)                HRM_GACS(__VA_ARGS__)
+
+/* CAGS */
+#define HRM_CAGS( \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10, \
+	k13,        k14,        k15,        k16,        k17,        k18,        k19,        k20,        k21,        k22, \
+	... \
+) \
+	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
+	CTL_T(k13), ALT_T(k14), GUI_T(k15), SFT_T(k16), k17,        k18,        SFT_T(k19), GUI_T(k20), ALT_T(k21), CTL_T(k22), \
+	__VA_ARGS__
+#define HRM_CAGS_wrapper(...)                HRM_CAGS(__VA_ARGS__)
 // clang-format on
