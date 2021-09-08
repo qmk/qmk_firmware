@@ -69,9 +69,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #endif
     
     // Encoder definitons
-    #define ENCODERS_PAD_A { B6 }
-    #define ENCODERS_PAD_B { B2 }
-    #define ENCODERS_PAD_A_RIGHT { B6 }
-    #define ENCODERS_PAD_B_RIGHT { B2 }
-    #define ENCODER_RESOLUTIONS { 4, 2 }
+    #define ENCODERS_PAD_A { B2 }
+    #define ENCODERS_PAD_B { B6 }
+    #define ENCODER_RESOLUTIONS { 4 }
+    #define ENCODERS_PAD_A_RIGHT { B2 }
+    #define ENCODERS_PAD_B_RIGHT { B6 }
+    #define ENCODER_RESOLUTIONS_RIGHT { 2 }
 #endif
