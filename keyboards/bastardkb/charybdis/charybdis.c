@@ -18,7 +18,6 @@
 #include "charybdis.h"
 #include <string.h>
 #include "drivers/sensors/pmw3360.h"
-#include "print.h"
 
 #ifndef CHARYBDIS_DPI_OPTIONS
 #    define CHARYBDIS_DPI_OPTIONS \
@@ -165,7 +164,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-    //debug_mouse   = true;
     scroll_inertia.x = 0;
     scroll_inertia.y = 0;
     
@@ -194,7 +192,6 @@ void pointing_device_task(void) {
         if(scroll_inertia.y > CHARYBDIS_TRACKBALL_SPEED_DIVIDER || scroll_inertia.y < -CHARYBDIS_TRACKBALL_SPEED_DIVIDER){
             mouse_report.v = constrain(scroll_inertia.y / CHARYBDIS_TRACKBALL_SPEED_DIVIDER * 2, 
                                 -CHARYBDIS_TRACKBALL_SPEED_DIVIDER/2, CHARYBDIS_TRACKBALL_SPEED_DIVIDER/2);
-            if(debug_mouse) uprintf("Scroll] V: %d // %d\n", mouse_report.v, scroll_inertia.y);
             scroll_inertia.y = 0;
         }
 
