@@ -55,40 +55,40 @@ static void render_status(void) {
     #endif
 
     // Line 1: Layer State
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write("Layer: ", false);
     switch (this_layer) {
         case _BASE:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write("Default\n", false);
             break;
         case _CHAR:
-            oled_write_P(PSTR("Sp. Chars\n"), false);
+            oled_write("Sp. Chars\n", false);
             break;
         case _GAME:
-            oled_write_P(PSTR("Gaming\n"), false);
+            oled_write("Gaming\n", false);
             break;
         case _MEDI:
-            oled_write_P(PSTR("Media Ctr\n"), false);
+            oled_write("Media Ctr\n", false);
             break;
         case _NAVI:
-            oled_write_P(PSTR("Navigation\n"), false);
+            oled_write("Navigation\n", false);
             break;
         case _SYMB:
-            oled_write_P(PSTR("Symbols\n"), false);
+            oled_write("Symbols\n", false);
             break;
         case _NUMB:
-            oled_write_P(PSTR("Numpad\n"), false);
+            oled_write("Numpad\n", false);
             break;
         case _FUNC:
-            oled_write_P(PSTR("Funct Keys\n"), false);
+            oled_write("Funct Keys\n", false);
             break;
         case _MOUS:
-            oled_write_P(PSTR("Mouse Keys\n"), false);
+            oled_write("Mouse Keys\n", false);
             break;
         case _MUSI:
-            oled_write_P(PSTR("Music Mode\n"), false);
+            oled_write("Music Mode\n", false);
             break;
         default:
-            oled_write_P(PSTR("???\n"), false);
+            oled_write("???\n", false);
     }
 
     // Line 2: Mod or info
@@ -96,52 +96,52 @@ static void render_status(void) {
         // Show RGB mode as an overlay in media mode.
 #if defined RGB_MATRIX_ENABLE
         case _MEDI:
-            oled_write_P(PSTR("m"), false);
+            oled_write("m", false);
             itoa(rgb_matrix_config.mode, rgb_temp4, 10);
             oled_write(rgb_temp4, false);
-            oled_write_P(PSTR(" h"), false);
+            oled_write(" h", false);
             itoa(rgb_matrix_config.hsv.h, rgb_temp4, 10);
             oled_write(rgb_temp4, false);
-            oled_write_P(PSTR(" s"), false);
+            oled_write(" s", false);
             itoa(rgb_matrix_config.hsv.s, rgb_temp4, 10);
             oled_write(rgb_temp4, false);
-            oled_write_P(PSTR(" v"), false);
+            oled_write(" v", false);
             itoa(rgb_matrix_config.hsv.v, rgb_temp4, 10);
             oled_write(rgb_temp4, false);
-            oled_write_P(PSTR("\n"), false);
+            oled_write("\n", false);
             break;
 #endif
         // Show the modifier if nothing else is doing anything
         default:
-            oled_write_P((this_mod & MOD_MASK_SHIFT  ) ? PSTR("Shft ") : PSTR("     "), false);
-            oled_write_P((this_mod & MOD_MASK_CTRL   ) ? PSTR("Ctrl ") : PSTR("     "), false);
-            oled_write_P((this_mod & MOD_MASK_ALT    ) ? PSTR("Alt" )  : PSTR("   "),   false);
-            oled_write_P((this_mod & MOD_BIT(KC_RALT)) ? PSTR("G ")    : PSTR("  "),    false);
-            oled_write_P((this_mod & MOD_MASK_GUI    ) ? PSTR("Meta ") : PSTR("    "),  false);
-            oled_write_P(PSTR("\n"), false);
+            oled_write((this_mod & MOD_MASK_SHIFT  ) ? "Shft " : "     ", false);
+            oled_write((this_mod & MOD_MASK_CTRL   ) ? "Ctrl " : "     ", false);
+            oled_write((this_mod & MOD_MASK_ALT    ) ? "Alt"   : "   ",   false);
+            oled_write((this_mod & MOD_BIT(KC_RALT)) ? "G "    : "  ",    false);
+            oled_write((this_mod & MOD_MASK_GUI    ) ? "Meta " : "    ",  false);
+            oled_write("\n", false);
             break;
     }
 
     // Line 3: WPM
-    oled_write_P(PSTR("KM: Qwerty WPM: "), false);
+    oled_write("KM: Qwerty WPM: ", false);
 #if defined WPM_ENABLE
     itoa(get_current_wpm(), wpm_temp4, 10);
     oled_write(wpm_temp4, false);
 #else
-    oled_write_P(PSTR("N/A"), false);
+    oled_write("N/A", false);
 #endif
-    oled_write_P(PSTR("\n"), false);
+    oled_write("\n", false);
 
     // Line 4: Encoder states
 #ifdef ENCODER_ENABLE
-    oled_write_P(PSTR("EN0:"), false);
+    oled_write("EN0:", false);
     encoder_state_string(0, this_layer, encoder_temp6);
     oled_write(encoder_temp6, false);
-    oled_write_P(PSTR(" EN1:"), false);
+    oled_write(" EN1:", false);
     encoder_state_string(1, this_layer, encoder_temp6);
     oled_write(encoder_temp6, false);
 #endif
-    oled_write_P(PSTR("\n"), false);
+    oled_write("\n", false);
 
 }
 
