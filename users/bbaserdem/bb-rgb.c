@@ -23,7 +23,7 @@ __attribute__ ((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_mi
 // Set RGB state depending on layer
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // Load keymap hooks
-    if(rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max)) {
+    if(rgb_matrix_indicators_advanced_keymap(led_min, led_max)) {
         return;
     }
     // Do each layer seperately
