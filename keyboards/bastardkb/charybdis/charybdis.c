@@ -44,6 +44,11 @@
 #    define CHARYBDIS_DRAGSCROLL_DPI 100 // Fixed-DPI Drag Scroll
 #endif
 
+#ifndef CHARYBDIS_DRAGSCROLL_MULTIPLIER
+#    define CHARYBDIS_DRAGSCROLL_MULTIPLIER 0.2 // Variable-DPI Drag Scroll
+#endif
+
+
 #ifndef CHARYBDIS_TRACKBALL_SPEED_DIVIDER
 #    define CHARYBDIS_TRACKBALL_SPEED_DIVIDER 12 
 #endif
@@ -125,13 +130,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         break;
         
         case DRAG_SCROLL:
-#ifndef CHARYBDIS_DRAGSCROLL_MOMENTARY
+#ifdef CHARYBDIS_DRAGSCROLL_TOGGLE
             if (record->event.pressed)
 #endif
             {
                 is_drag_scroll ^= 1;
             }
-#ifdef CHARYBDIS_DRAGSCROLL_FIXED
+#ifndef CHARYBDIS_DRAGSCROLL_VARIABLE
             pmw_set_cpi(is_drag_scroll ? CHARYBDIS_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
 #else
             pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * CHARYBDIS_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
