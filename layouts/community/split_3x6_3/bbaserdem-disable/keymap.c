@@ -79,40 +79,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// RGB Matrix configuration
-#ifdef RGB_MATRIX_ENABLE
-
-// crkbd
-#if defined(KEYBOARD_crkbd_rev1)
-/* This is left-right for CRKBD indicator light
- *  - The LED 42 is for spacebar specifically, leave it out of the matrix
- *  - This is how it looks like
- * ┌──┬──┬──┬──┬──┬──┐      ┌──┬──┬──┬──┬──┬──┐
- * │24│23│18│17│10│09│      │36│37│44│45│50│51│
- * ├──┼02┼──┼01┼──┼00┤      ├27┼──┼28┼──┼29┼──┤
- * │25│22│19│16│11│08│      │35│38│43│46│49│52│
- * ├──┼03┼──┼04┼──┼05┤      ├32┼──┼31┼──┼30┼──┤
- * │26│21│20│15│12│07│      │34│39│42│47│48│53│
- * └──┴──┴──┴──┼──┼──┼──┐┌──┼──┼──┼──┴──┴──┴──┘
- *             │14│13│06││33│40│41│
- *             └──┴──┴──┘└──┴──┴──┘
- */
-// Sided color-setting
-void keylight_set_left(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < 27; i++) {
-        rgb_matrix_set_color(i, red, green, blue);
-    }
-}
-void keylight_set_right(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 28; i < 54; i++) {
-        rgb_matrix_set_color(i, red, green, blue);
-    }
-}
-// End of differentiations
-#endif
-// End of code for the RGB_MATRIX setup
-#endif
-
 #ifdef AUDIO_ENABLE
 // crkbd
 #if defined(KEYBOARD_crkbd_rev1)

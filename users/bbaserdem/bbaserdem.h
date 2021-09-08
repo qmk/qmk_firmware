@@ -27,17 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef AUDIO_ENABLE
   #include "bb-audio.h"
 #endif
-// Underglow using rgb LEDs
-#ifdef RGBLIGHT_ENABLE          
-    #include "bb-underglow.h"
-#endif
 // Keycap backlight using non-rgb LEDs
 #ifdef BACKLIGHT_ENABLE         
   #include "bb-backlight.h"
 #endif
 // Keycap backlight using rgb LEDs
 #ifdef RGB_MATRIX_ENABLE
-    #include "bb-keylight.h"
+    #include "bb-rgb.h"
 #endif
 // Rotary encoder
 #ifdef ENCODER_ENABLE  
