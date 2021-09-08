@@ -20,20 +20,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef KEYBOARD_crkbd_rev1
     #include "config_common.h"
 
-    // Undo Eeprom handedness, try EE_HANDS later
+    // Use EE_HANDS to determine handedness
     #define EE_HANDS
 
     // Rebrand the PCB
     #undef PRODUCT
+    #define PRODUCT Protorne Keyboard
     #undef MANUFACTURER
     #define MANUFACTURER Waffles
-    #define PRODUCT Protorne Keyboard
 
     // Remove OLED definitions? 
     #undef USE_I2C
     #undef SSD1306OLED
 
-    // Audio output on pin A5 (actualy will be output on B1)
+    // Audio output on pin A5 (actualy will be output on B1 using keymap init)
     #ifdef AUDIO_ENABLE
         #define AUDIO_PIN A5
     #endif
@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define SERIAL_USART_DRIVER SD1
     #define SERIAL_USART_TX_PAL_MODE 7
 
-    // Things to make RGB matrix work
+    // Things to make RGB matrix work on the waffle board
     #undef RGBLED_NUM
     #define RGBLED_NUM 54
     #undef RGB_DI_PIN
@@ -55,7 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #ifdef RGB_MATRIX_ENABLE
         #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
         #define RGB_MATRIX_SPLIT { 27, 27 }
-        #define SPLIT_TRANSPORT_MIRROR
     #endif
     #define WS2812_PWM_DRIVER PWMD3
     #define WS2812_PWM_CHANNEL 3
@@ -70,8 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #endif
     
     // Encoder definitons
-    #define ENCODERS_PAD_A { B2 }
-    #define ENCODERS_PAD_B { B6 }
-    #define ENCODERS_PAD_A_RIGHT { B2 }
-    #define ENCODERS_PAD_B_RIGHT { B6 }
+    #define ENCODERS_PAD_A { B6 }
+    #define ENCODERS_PAD_B { B2 }
+    #define ENCODERS_PAD_A_RIGHT { B6 }
+    #define ENCODERS_PAD_B_RIGHT { B2 }
+    #define ENCODER_RESOLUTIONS { 4, 2 }
 #endif
