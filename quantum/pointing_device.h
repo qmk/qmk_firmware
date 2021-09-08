@@ -38,6 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #else
 void           pointing_device_driver_init(void);
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report);
+uint16_t       pointing_device_driver_get_cpi(void);
+void           pointing_device_driver_set_cpi(uint16_t cpi);
 #endif
 
 typedef struct {
@@ -47,14 +49,14 @@ typedef struct {
     uint16_t (*get_cpi)(void);
 } pointing_device_driver_t;
 
-extern const pointing_device_driver_t pointing_device_driver;
-
 void           pointing_device_init(void);
 void           pointing_device_task(void);
 void           pointing_device_send(void);
 report_mouse_t pointing_device_get_report(void);
 void           pointing_device_set_report(report_mouse_t newMouseReport);
 bool           has_mouse_report_changed(report_mouse_t new, report_mouse_t old);
+uint16_t       pointing_device_get_cpi(void);
+void           pointing_device_set_cpi(uint16_t cpi);
 
 void           pointing_device_init_kb(void);
 void           pointing_device_init_user(void);

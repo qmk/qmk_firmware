@@ -67,7 +67,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .init       = analog_joystick_init,
     .get_report = analog_joystick_get_report,
     .set_cpi    = NULL,
-    .get_cpi    = NULL,
+    .get_cpi    = NULL
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
@@ -88,8 +88,8 @@ report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init       = adns9800_init,
     .get_report = adns9800_get_report_driver,
-    .set_cpi    = adns9800_set_config
-    .get_cpi    = adns9800_get_config,
+    .set_cpi    = adns9800_set_config,
+    .get_cpi    = adns9800_get_config
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
@@ -133,7 +133,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .init       = pimironi_trackball_device_init,
     .get_report = pimorono_trackball_get_report,
     .set_cpi    = NULL,
-    .get_cpi    = NULL,
+    .get_cpi    = NULL
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
@@ -168,16 +168,21 @@ const pointing_device_driver_t pointing_device_driver = {
     .init       = init,
     .get_report = pmw3360_get_report,
     .set_cpi    = pmw3360_set_cpi,
-    .get_cpi    = pmw3360_get_cpi,
+    .get_cpi    = pmw3360_get_cpi
 };
 // clang-format on
 #else
 __attribute__((weak)) void           pointing_device_driver_init(void) {}
 __attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
+__attribute__((weak)) uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
+__attribute__((weak)) void           pointing_device_driver_set_cpi(uint16_t cpi) {}
+
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
     .init       = pointing_device_driver_init,
     .get_report = pointing_device_driver_get_report,
+    .get_cpi    = pointing_device_driver_get_cpi,
+    .set_cpi    = pointing_device_driver_set_cpi
 };
 // clang-format on
 #endif
