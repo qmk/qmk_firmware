@@ -350,7 +350,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Read columns from expander, unless it's in an error state
     if (! expander_status) {
         uint8_t state = 0;
-        expander_status = i2c_readReg(I2C_ADDR, EXPANDER_COL_REGISTER, &column_state, 1, I2C_TIMEOUT);
+        expander_status = i2c_readReg(I2C_ADDR, EXPANDER_COL_REGISTER, &state, 1, I2C_TIMEOUT);
         if (! expander_status) {
             current_matrix[current_row] |= (~state) & expander_input_pin_mask;
         }
