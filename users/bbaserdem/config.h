@@ -127,7 +127,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
     #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
     // Some more config options
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100   // Set maximum brightness
     #define RGB_MATRIX_KEYPRESSES               // React to key presses
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS      // Enable framebuffer effects
 #endif

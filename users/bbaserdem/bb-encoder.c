@@ -295,7 +295,9 @@ void encoder_click_action(uint8_t index) {
                     rgb_matrix_increase_val_noeeprom();
                     break;
                 case 4: // Toggle velocikey
+                    #ifdef VELOCIKEY_ENABLE
                     velocikey_toggle();
+                    #endif
                     break;
             }
             break;
