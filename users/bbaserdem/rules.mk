@@ -12,13 +12,12 @@
 
 # Common compilation flags
 EXTRAFLAGS += -flto     # Used to make code smaller
-#LTO_ENABLE = yes
+LTO_ENABLE = yes
 
 # These should be enabled in all boards
 MOUSEKEY_ENABLE = yes   # Mouse emulation keys
 EXTRAKEY_ENABLE = yes   # OS signals like volume control
 UNICODEMAP_ENABLE = yes # Used for unicode character emulation
-TAP_DANCE_ENABLE = yes 	# Tap dance keys; i don't use tap dance but I use tap-hold
 
 # These should be disabled in all boards
 BOOTMAGIC_ENABLE = no   # Access to EEPROM settings, not needed
@@ -34,6 +33,7 @@ API_SYSEX_ENABLE = no   # Allows OS to send signals.
 BLUETOOTH_ENABLE = no   # For bluetooth
 KEY_LOCK_ENABLE = no    # Allows locking any key. Not used in general
 RGBLIGHT_ENABLE = no    # LED strip, but there is RGB_MATRIX instead
+TAP_DANCE_ENABLE = no   # Tap dance keys; i don't use tap dance
 
 # These features can be enabled on ARM boards; disabled for AVR due to space
 # NKRO_ENABLE = no        # Default is 6KRO which is plenty

@@ -30,6 +30,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
 #endif
+
+// Split transport settings
+#ifdef SPLIT_KEYBOARD
+#define SPLIT_TRANSPORT_MIRROR
+// #define SPLIT_LAYER_STATE_ENABLE
+// #define SPLIT_MODS_ENABLE
+#ifdef WPM_ENABLE
+    // #define SPLIT_WPM_ENABLE
+#endif
+#endif
+
 // Unicode entry mode
 #ifdef UNICODEMAP_ENABLE
     #define UNICODE_SELECTED_MODES UC_LNX
@@ -59,15 +70,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Backlight settings
 #ifdef BACKLIGHT_ENABLE
-    // Turn on breathing only if audio is not enabled, due to hardware stuff
-    #ifndef AUDIO_ENABLE
-        #define BACKLIGHT_BREATHING
-        #define BREATHING_PERIOD 5
-    #endif
+    #define BACKLIGHT_BREATHING
+    #define BREATHING_PERIOD 5
 #endif
 
 // Enable RGB LED sleep mode
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#ifdef  RGB_MATRIX_ENABLE
     #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #endif
 
@@ -97,24 +105,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #else
     #define GAME_OFF_SONG   SONG(NOCTURNE_OP_9_NO_1)
     #endif
-#endif
-
-// For underglow light
-#ifdef RGBLIGHT_ENABLE
-    // Enable animations
-    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-    #define RGBLIGHT_EFFECT_TWINKLE
-    // Enable layer switching code
-    #define RGBLIGHT_LAYERS
-    #define RGBLIGHT_MAX_LAYERS 10
-    #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-    // If these are not defined; just default to entire board for layer 
-    #define RGBLIGHT_LEFT_BEG 0
-    #define RGBLIGHT_LEFT_NUM RGBLED_NUM
-    #define RGBLIGHT_RIGHT_BEG 0
-    #define RGBLIGHT_RIGHT_NUM RGBLED_NUM
 #endif
 
 // For perkey leds
