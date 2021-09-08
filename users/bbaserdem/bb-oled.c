@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern rgb_config_t rgb_matrix_config;
 #endif
 
+#if defined(KEYBOARD_splitkb_kyria_rev1)
 static void render_qmk_logo(void) {
   static const char PROGMEM qmk_logo[] = {
     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
@@ -36,6 +37,7 @@ static void render_qmk_logo(void) {
     0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
   oled_write_P(qmk_logo, false);
 }
+#endif
 
 static void render_status(void) {
     // Function to print state information
@@ -152,6 +154,9 @@ void oled_task_user(void) {
         #endif
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
+        #if defined(KEYBOARD_splitkb_kyria_rev1)
         render_qmk_logo();
+        #endif
+        render_status();
     }
 }
