@@ -19,13 +19,13 @@
 #include QMK_KEYBOARD_H
 
 int timer = 0;
-char wpm_text[5];
+char wpm_counter[5];
 int x = 31;
 int currwpm = 0;
 int vert_count = 0;
 
 //=============  USER CONFIG PARAMS  ===============
-float max_wpm = 110.0f; //WPM value at the top of the graph window
+float max_wpm = 150.0f; //WPM value at the top of the graph window
 int graph_refresh_interval = 80; //in milliseconds
 int graph_area_fill_interval = 3; //determines how dense the horizontal lines under the graph line are; lower = more dense
 int vert_interval = 3; //determines frequency of vertical lines under the graph line
@@ -92,23 +92,28 @@ void render_wpm(void) {
 			timer = timer_read();
 		}
 		//format current WPM value into a printable string
-		sprintf(wpm_text,"%i", currwpm);
+		char    wpm_counter[4];
+		wpm_counter[3] = '\0';
+		wpm_counter[2] = '0' + currwpm % 10;
+		wpm_counter[1] = (currwpm /= 10) % 10 ? '0' + (currwpm) % 10 : (currwpm / 10) % 10 ? '0' : ' ';
+		wpm_counter[0] = currwpm / 10 ? '0' + currwpm / 10 : ' ';
+
 		//formatting for triple digit WPM vs double digits, then print WPM readout
 		if(currwpm >= 100){
 			oled_set_cursor(14, 7);
-			oled_write("WPM: ", false);
+			oled_write("WPM:", false);
 			oled_set_cursor(18, 7);
-			oled_write(wpm_text, false);
+			oled_write(wpm_counter, false);
 		} else if (currwpm >= 10){
-			oled_set_cursor(15, 7);
-			oled_write("WPM: ", false);
-			oled_set_cursor(19, 7);
-			oled_write(wpm_text, false);
+			oled_set_cursor(14, 7);
+			oled_write("WPM:", false);
+			oled_set_cursor(18, 7);
+			oled_write(wpm_counter, false);
 		} else if (currwpm >= 0) {
-			oled_set_cursor(16, 7);
-			oled_write("WPM: ", false);
-			oled_set_cursor(20, 7);
-			oled_write(wpm_text, false);
+			oled_set_cursor(14, 7);
+			oled_write("WPM:", false);
+			oled_set_cursor(18, 7);
+			oled_write(wpm_counter, false);
 		}
 }
 
