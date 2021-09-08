@@ -7,7 +7,7 @@
 #include "i2c_master.h"
 #include <util/delay.h>
 
-#define I2C_ADDR        0b0100000
+#define I2C_ADDR        (0b0100000 << 1)
 #define I2C_TIMEOUT     100
 #define IODIRA          0x00            // i/o direction register
 #define IODIRB          0x01
