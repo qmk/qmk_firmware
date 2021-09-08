@@ -92,29 +92,14 @@ void render_wpm(void) {
 			timer = timer_read();
 		}
 		//format current WPM value into a printable string
-		char    wpm_counter[4];
-		wpm_counter[3] = '\0';
-		wpm_counter[2] = '0' + currwpm % 10;
-		wpm_counter[1] = (currwpm /= 10) % 10 ? '0' + (currwpm) % 10 : (currwpm / 10) % 10 ? '0' : ' ';
-		wpm_counter[0] = currwpm / 10 ? '0' + currwpm / 10 : ' ';
-
-		//formatting for triple digit WPM vs double digits, then print WPM readout
-		if(currwpm >= 100){
-			oled_set_cursor(14, 7);
-			oled_write("WPM:", false);
-			oled_set_cursor(18, 7);
-			oled_write(wpm_counter, false);
-		} else if (currwpm >= 10){
-			oled_set_cursor(14, 7);
-			oled_write("WPM:", false);
-			oled_set_cursor(18, 7);
-			oled_write(wpm_counter, false);
-		} else if (currwpm >= 0) {
-			oled_set_cursor(14, 7);
-			oled_write("WPM:", false);
-			oled_set_cursor(18, 7);
-			oled_write(wpm_counter, false);
-		}
+		char buf[4];
+		oled_set_cursor(14, 0);
+		oled_write("WPM:", false);
+		buf[0] = currwpm >= 100 ? ((currwpm/100) + '0') : ' ';
+		buf[1] = currwpm >= 10 ? (((currwpm/10) % 10) + '0') : ' ';
+		buf[2] = (currwpm % 10) + '0';
+		buf[3] = 0;
+		oled_write(buf, false);
 }
 
 static void render_status(void) {
