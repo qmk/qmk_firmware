@@ -187,23 +187,20 @@ static matrix_row_t read_cols(uint8_t row) {
         } else {
             uint8_t data    = 0;
             uint8_t port0   = 0;
-            tca9555_status = i2c_readReg(I2C_ADDR, IREGP0, port0, 1, I2C_TIMEOUT);
+            tca9555_status  = i2c_readReg(I2C_ADDR, IREGP0, &port0, 1, I2C_TIMEOUT);
             if (tca9555_status) {  // if there was an error
                 // do nothing
                 return 0;
             } else {
-                uint8_t port0 = ports[0];
-                uint8_t port1 = ports[1];
-
                 // We read all the pins on GPIOA.
                 // The initial state was all ones and any depressed key at a given column for the currently selected row will have its bit flipped to zero.
                 // The return value is a row as represented in the generic matrix code were the rightmost bits represent the lower columns and zeroes represent non-depressed keys while ones represent depressed keys.
                 // the pins connected to eact columns are sequential, but in reverse order, and counting from zero down (col 5 -> GPIO04, col6  -> GPIO03 and so on).
-                data |= ( port0 & 0x01 ) << 4; 
-                data |= ( port0 & 0x02 ) << 2; 
-                data |= ( port0 & 0x04 ); 
-                data |= ( port0 & 0x08 ) >> 2; 
-                data |= ( port0 & 0x10 ) >> 4; 
+                data |= (port0 & 0x01) << 4;
+                data |= (port0 & 0x02) << 2;
+                data |= (port0 & 0x04);
+                data |= (port0 & 0x08) >> 2;
+                data |= (port0 & 0x10) >> 4;
 
                 tca9555_status = I2C_STATUS_SUCCESS;
                 return data;
@@ -244,11 +241,13 @@ static void select_row(uint8_t row) {
                 case 4: port1 &= ~(1 << 0); break;
                 case 5: port1 &= ~(1 << 1); break;
                 case 6: port1 &= ~(1 << 2); break;
-                case 7: port0 &= ~(1 << 5); break;
+                case 7:
+                    port1 &= ~(1 << 3);
+                    break;
                 default:                    break;
             }
 
-            tca9555_status = i2c_writeReg(I2C_ADDR, OREGP1, port1, 2, I2C_TIMEOUT);
+            tca9555_status = i2c_writeReg(I2C_ADDR, OREGP1, &port1, 2, I2C_TIMEOUT);
             // Select the desired row by writing a byte for the entire GPIOB bus where only the bit representing the row we want to select is a zero (write instruction) and every other bit is a one.
             // Note that the row - MATRIX_ROWS_PER_SIDE reflects the fact that being on the right hand, the columns are numbered from MATRIX_ROWS_PER_SIDE to MATRIX_ROWS, but the pins we want to write to are indexed from zero up on the GPIOB bus.
         }
