@@ -780,7 +780,7 @@ const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 		{7, 3, HSV_PURPLE}
 );
 // Light LEDs 1 to 9 in darkorange when de_layout_active is true
-const rgblight_segment_t PROGMEM my_de_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_layer5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {3, 4, HSV_DARKORANGE},
     {0, 3, HSV_CYAN},
     {8, 3, HSV_CYAN}
@@ -799,11 +799,11 @@ const rgblight_segment_t PROGMEM my_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 		my_layer0_layer,    // hrcolemak
 		my_layer1_layer, 		// hrwidecolemak
-		my_layer2_layer,    // gaming
-		my_layer3_layer,    // widecolemak
-		my_layer4_layer,    // adjust
+		my_layer2_layer,    // de_layout
+		my_layer3_layer,    // gaming
+		my_layer4_layer,    // widecolemak
+		my_layer5_layer,    // adjust
 		my_nav_layer,				// nav
-		my_de_layer,        // de_layout
 		my_capslock_layer 	// capslock
 );
 
@@ -818,8 +818,8 @@ bool led_update_user(led_t led_state) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-	rgblight_set_layer_state(2, layer_state_cmp(state, _GAMING));
-	rgblight_set_layer_state(3, layer_state_cmp(state, _WIDECOLEMAK));
+	rgblight_set_layer_state(3, layer_state_cmp(state, _GAMING));
+	rgblight_set_layer_state(4, layer_state_cmp(state, _WIDECOLEMAK));
 	if (                                                                          
       ( layer_state_cmp(state, _LOWER) && layer_state_cmp(state, _RAISE ) ) ||
       ( layer_state_cmp(state, _LOWER_DE) && layer_state_cmp(state, _RAISE_DE ) ) ) {
@@ -828,14 +828,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state & ~(1UL<<_ADJUST);                                             
   }
 	// state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-	rgblight_set_layer_state(4, layer_state_cmp(state, _ADJUST));
+	rgblight_set_layer_state(5, layer_state_cmp(state, _ADJUST));
   //return state;
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-		rgblight_set_layer_state(3, layer_state_cmp(state, _WIDECOLEMAK));
+		rgblight_set_layer_state(4, layer_state_cmp(state, _WIDECOLEMAK));
 		rgblight_set_layer_state(1, layer_state_cmp(state, _HRWIDECOLEMAK));
-    rgblight_set_layer_state(6, layer_state_cmp(state, _HRWIDECOLEMAK_DE));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _HRWIDECOLEMAK_DE));
     return state;
 }
 
