@@ -145,7 +145,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (keycode == DPI_CONFIG && record->event.pressed) {
         keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
         eeconfig_update_kb(keyboard_config.raw);
-        pmw3360_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
     if (keycode == DRAG_SCROLL) {
@@ -156,9 +156,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             is_drag_scroll ^= 1;
         }
 #ifdef PLOOPY_DRAGSCROLL_FIXED
-        pmw3360_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
+        pointing_device_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
 #else
-        pmw3360_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
+        pointing_device_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
 #endif
     }
 
@@ -217,7 +217,7 @@ void keyboard_pre_init_kb(void) {
 }
 
 void pointing_device_init_kb(void) {
-    pmw3360_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
     // initialize the scroll wheel's optical encoder
     opt_encoder_init();
 }

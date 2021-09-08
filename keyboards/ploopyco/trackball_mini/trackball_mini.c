@@ -115,7 +115,7 @@ void pointing_device_init_kb(void) {
     opt_encoder_init();
 
     // set the DPI.
-    adns5050_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
@@ -161,7 +161,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (keycode == DPI_CONFIG && record->event.pressed) {
         keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
         eeconfig_update_kb(keyboard_config.raw);
-        adns5050_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
     if (keycode == DRAG_SCROLL) {
@@ -171,7 +171,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         {
             is_drag_scroll ^= 1;
         }
-        adns5050_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
+        pointing_device_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
     }
 
 /* If Mousekeys is disabled, then use handle the mouse button
