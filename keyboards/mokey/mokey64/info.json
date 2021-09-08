@@ -2,6 +2,8 @@
     "keyboard_name": "Mokey64",
     "url": "",
     "maintainer": "mokey",
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
