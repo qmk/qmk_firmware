@@ -87,8 +87,7 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
 
     static bool is_sniper_on = false;
     if (layer_state_cmp(state, CHARYBDIS_AUTO_SNIPER_LAYER) != is_sniper_on) {
-        is_sniper_on = layer_state_cmp(state, CHARYBDIS_AUTO_SNIPER_LAYER);
-        
+        is_sniper_on ^= 1;
         if (is_sniper_on) {
                pmw_set_cpi(sniper_array[keyboard_config.sniper_config]);
            } else {
