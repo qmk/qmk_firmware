@@ -25,6 +25,15 @@
     This also enables the user to easily create custom base layers.
 */
 
+#define MS_L KC_MS_LEFT
+#define MS_R KC_MS_RIGHT
+#define MS_D KC_MS_DOWN
+#define MS_U KC_MS_UP
+
+#define WH_L KC_MS_WH_LEFT
+#define WH_R KC_MS_WH_RIGHT
+#define WH_D KC_MS_WH_DOWN
+#define WH_U KC_MS_WH_UP
 
 
 /*
@@ -56,8 +65,8 @@
 #define __________________MEDIA_L4_________________ U_NA,    U_NA,    U_NA
 
 #define __________________MEDIA_R1_________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
-#define __________________MEDIA_R2_________________ U_NU,    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R
-#define __________________MEDIA_R3_________________ U_NU,    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R
+#define __________________MEDIA_R2_________________ U_NU,    MS_L,    MS_D,    MS_U,    MS_R
+#define __________________MEDIA_R3_________________ U_NU,    WH_L,    WH_D,    WH_U,    WH_L
 #define __________________MEDIA_R4_________________ KC_BTN1, KC_BTN3, KC_BTN2
 
 #define __________________NAV_L1___________________ RESET,   U_NA,    U_NA,    U_NA,    U_NA
@@ -72,12 +81,12 @@
 
 #define _________________MOUSE_L1__________________ SNIPER_CONFIG,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_L2__________________ DPI_CONFIG, DRAG_SCROLL, KC_LSFT, KC_LCTL, KC_TRNS
-#define _________________MOUSE_L3__________________ U_RDO,   U_RDO,  U_CPY,   U_CUT,   U_UND
+#define _________________MOUSE_L3__________________ U_RDO,   U_PST,  U_CPY,   U_CUT,   U_UND
 #define _________________MOUSE_L4__________________ KC_BTN2, KC_BTN1, KC_BTN3
 
-#define _________________MOUSE_R1__________________ U_RDO,   U_RDO,   U_CPY,   U_CUT,   U_UND
-#define _________________MOUSE_R2__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
-#define _________________MOUSE_R3__________________ KC_TRNS, KC_LCTL, KC_LSFT, DRAG_SCROLL, KC_LGUI
+#define _________________MOUSE_R1__________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
+#define _________________MOUSE_R2__________________ U_NU,    MS_L,    MS_D,    MS_U,    MS_R
+#define _________________MOUSE_R3__________________ U_NU,    WH_L,    WH_D,    WH_U,    WH_L
 #define _________________MOUSE_R4__________________ KC_BTN1, KC_BTN3, KC_BTN2
 
 #define _________________SYM_L1____________________ KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC
