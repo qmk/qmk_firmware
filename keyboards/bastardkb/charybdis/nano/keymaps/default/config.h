@@ -1,7 +1,3 @@
-
-// homerow mods stuff
-
-
 // Configure the global tapping term (default: 200ms)
 #define TAPPING_TERM 200
 
