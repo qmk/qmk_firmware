@@ -17,7 +17,6 @@
 //Sets up what the OLED screens display.
 
 #include QMK_KEYBOARD_H
-#include <unistd.h>
 
 int timer = 0;
 char wpm_text[5];
