@@ -33,7 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Split transport settings
 #ifdef SPLIT_KEYBOARD
+// Enable reacting to keypresses on the other half
 #define SPLIT_TRANSPORT_MIRROR
+// Enable communicatong layer state changes.
 // #define SPLIT_LAYER_STATE_ENABLE
 // #define SPLIT_MODS_ENABLE
 #ifdef WPM_ENABLE
@@ -69,11 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define BREATHING_PERIOD 5
 #endif
 
-// Enable RGB LED sleep mode
-#ifdef  RGB_MATRIX_ENABLE
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED true
-#endif
-
 // Audio definitions
 #ifdef AUDIO_ENABLE
     // Make findable songs as defaults
@@ -102,8 +99,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #endif
 #endif
 
+// OLED definitions
+#ifdef OLED_ENABLE
+    // Timeout in one minute
+    #define OLED_TIMEOUT 60000
+    // Fade out the screen when timing out
+    #define OLED_FADE_OUT
+    #define OLED_FADE_OUT_INTERVAL 5
+#endif
+
 // For perkey leds
 #ifdef RGB_MATRIX_ENABLE
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED true
     // Start using this mode
     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_RAINBOW_BEACON
     #define RGB_MATRIX_STARTUP_HUE 100
