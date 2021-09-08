@@ -192,6 +192,7 @@ static matrix_row_t read_cols(uint8_t row) {
                 // do nothing
                 return 0;
             } else {
+                port0 = ~port0;
                 // We read all the pins on GPIOA.
                 // The initial state was all ones and any depressed key at a given column for the currently selected row will have its bit flipped to zero.
                 // The return value is a row as represented in the generic matrix code were the rightmost bits represent the lower columns and zeroes represent non-depressed keys while ones represent depressed keys.
