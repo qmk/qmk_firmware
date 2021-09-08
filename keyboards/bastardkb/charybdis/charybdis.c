@@ -167,9 +167,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-    debug_enable  = true;
-    debug_matrix  = true;
-    debug_mouse   = true;
+    //debug_enable  = true;
+    //debug_matrix  = true;
+    //debug_mouse   = true;
     scroll_inertia.x = 0;
     scroll_inertia.y = 0;
     // debug_encoder = true;

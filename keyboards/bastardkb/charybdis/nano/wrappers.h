@@ -64,7 +64,7 @@
 #define __________________MEDIA_L3_________________ U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA
 #define __________________MEDIA_L4_________________ U_NA,    U_NA,    U_NA
 
-#define __________________MEDIA_R1_________________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
+#define __________________MEDIA_R1_________________ w
 #define __________________MEDIA_R2_________________ U_NU,    MS_L,    MS_D,    MS_U,    MS_R
 #define __________________MEDIA_R3_________________ U_NU,    WH_L,    WH_D,    WH_U,    WH_L
 #define __________________MEDIA_R4_________________ KC_BTN1, KC_BTN3, KC_BTN2
