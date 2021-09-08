@@ -41,8 +41,8 @@ extern keyboard_config_t keyboard_config;
 enum charybdis_keycodes {
     DPI_CONFIG = SAFE_RANGE,
     SNIPER_CONFIG,
-    KEYMAP_SAFE_RANGE,
     DRAG_SCROLL,
+    KEYMAP_SAFE_RANGE,
 };
 
 typedef struct  {
