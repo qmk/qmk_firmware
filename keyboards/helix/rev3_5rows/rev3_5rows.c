@@ -31,7 +31,7 @@ void set_mac_mode(bool macmode) {
 }
 
 #ifdef DIP_SWITCH_ENABLE
-void dip_switch_update_kb(uint8_t index, bool active) {
+bool dip_switch_update_kb(uint8_t index, bool active) {
     switch (index) {
     case 0:
         if(active) { // Left no.1  Helix rev3 common
@@ -44,5 +44,6 @@ void dip_switch_update_kb(uint8_t index, bool active) {
         dip_switch_update_user(index, active);
         break;
     }
+    return true;
 }
 #endif
