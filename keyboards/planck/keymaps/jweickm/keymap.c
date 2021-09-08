@@ -61,7 +61,8 @@ enum planck_keycodes {
   KC_DE_SWITCH,
   LANG_SWITCH,
   DE_SLSH_QUST,
-  DE_QUOT
+  DE_QUOT,
+	DE_SCLN
 };
 
 // Tap Dance declarations
@@ -84,17 +85,17 @@ enum tap_dance_codes{
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	
 [_HRWIDECOLEMAK] = LAYOUT_planck_grid(
-		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), 	 LALT_T(KC_Y),	 RGUI_T(KC_SCLN), DE_UE,
+		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), 	 LALT_T(KC_Y),	RGUI_T(KC_SCLN), DE_UE,
 		KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB,	 KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT,   
 		LT(_MOUSE,KC_Z), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD,  KC_K, KC_H, KC_COMM, KC_DOT, LT(_MOUSE,KC_MINS), KC_SLSH, 
-    KC_CAPS, LT(_NUM,KC_TAB), LGUI_T(KC_ESC), LT(_LOWER, KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE, KC_DEL), RCTL_T(KC_ENT), KC_LALT, KC_LEFT, KC_RIGHT
+    LCTL_T(KC_CAPS), LT(_NUM,KC_TAB), LGUI_T(KC_ESC), LT(_LOWER, KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE, KC_DEL), RCTL_T(KC_ENT), KC_LALT, LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
 ),
 
 [_HRWIDECOLEMAK_DE] = LAYOUT_planck_grid(
-		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), 	 LALT_T(KC_Z),	 RGUI_T(KC_SCLN), KC_LBRC,
+		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Z), DE_SCLN, RGUI_T(KC_LBRC),
 		KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB,	 KC_M, KC_N, KC_E, KC_I, KC_O, DE_QUOT,  
 		LT(_MOUSE,KC_Y), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD,  KC_K, KC_H, KC_COMM, KC_DOT, LT(_MOUSE,KC_SLSH), DE_SLSH_QUST, 
-    KC_CAPS, LT(_NUM,KC_TAB), LGUI_T(KC_ESC), LT(_LOWER_DE, KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE_DE, KC_DEL), RCTL_T(KC_ENT), KC_LALT, KC_LEFT, KC_RIGHT
+    LCTL_T(KC_CAPS), LT(_NUM,KC_TAB), LGUI_T(KC_ESC), LT(_LOWER_DE, KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE_DE, KC_DEL), RCTL_T(KC_ENT), KC_LALT, LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
 ),
 
 [_GAMING] = LAYOUT_planck_grid(
@@ -132,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER_DE] = LAYOUT_planck_grid(
 		KC_EXLM, RALT(KC_Q), KC_BSLS, KC_DLR, KC_PERC, RALT(KC_RBRC), KC_GRV, KC_CIRC, KC_RCBR, KC_ASTR, KC_LPRN, KC_QUOT, 
 		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DE_SZ, LSFT(KC_SLSH), KC_RBRC, RALT(KC_7), RALT(KC_0), RALT(KC_NUBS), 
-		KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, LSFT(KC_7), KC_NUBS, LSFT(KC_NUBS), KC_CURRENCY, DE_EGRAVE, 
+		KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, LSFT(KC_7), KC_NUBS, LSFT(KC_NUBS), KC_CURRENCY, KC_PLUS, 
 		TG(_MOUSE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_DOWN, KC_UP
 ),
 
@@ -144,9 +145,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_RAISE_DE] = LAYOUT_planck_grid(
-		KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV, KC_6, KC_7, KC_8, KC_9, KC_0, KC_SCLN, 
+		KC_1, KC_2, KC_3, KC_4, KC_5, LSFT(KC_GRV), KC_6, KC_7, KC_8, KC_9, KC_0, KC_SCLN, 
 		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DE_SZ, KC_SLSH, LSFT(KC_0), RALT(KC_8), RALT(KC_9), RALT(KC_MINS), 
-		KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, RALT(KC_MINS), KC_COMM, KC_DOT, KC_SLSH, DE_EAIGU, 
+		KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, RALT(KC_MINS), KC_COMM, KC_DOT, KC_SLSH, KC_EQL, 
 		TG(_MOUSE), KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_DOWN, KC_UP
 ),
 
@@ -158,10 +159,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NAV] = LAYOUT_planck_grid(
-    ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_DOWN, KC_RIGHT, KC_PGUP, LCTL(KC_C), KC_NO, KC_DE_SWITCH, 
+    ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_DOWN, KC_RIGHT, KC_PGUP, LCTL(KC_C), KC_RGUI, KC_DE_SWITCH, 
 		CTL_TAB, KC_TAB, KC_ESC, LT(_NUM,KC_ENT), KC_TAB, KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, 
-		KC_LSFT, KC_NO, LCTL(KC_X), TD(TD_ESC_CAPS), VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_NO, KC_NO, LCTL(KC_F), LCTL(KC_F), 
-		KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS, LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO
+		KC_LSFT, KC_NO, LCTL(KC_X), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), 
+		KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS, LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), KC_NO, KC_NO, KC_TRNS, KC_DOWN, KC_UP
 ),
 
 [_NUM] = LAYOUT_planck_grid(
@@ -235,6 +236,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM * 1.45;
         case RGUI_T(KC_SCLN):
             return TAPPING_TERM * 1.1;
+				case RGUI_T(KC_LBRC):
+						return TAPPING_TERM * 1.1;	
         case LALT_T(KC_R):
             return TAPPING_TERM * 1.3;
         case LALT_T(KC_W):
@@ -568,6 +571,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 			}
 			break;		
+		case DE_SCLN:
+      if (record->event.pressed) {
+        uint8_t temp_mod = get_mods();
+        if (temp_mod & MODS_SHIFT_MASK) {
+          tap_code(KC_DOT); // ; 
+				} else {
+					register_mods(MOD_LSFT);
+          tap_code(KC_COMM); // :
+					unregister_mods(MOD_LSFT);
+				}
+			return false;
+			}
+			break;
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
