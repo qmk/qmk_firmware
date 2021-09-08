@@ -134,7 +134,7 @@ void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     // Differentiate layer roles
     switch (get_highest_layer(layer_state)) {
-        #ifdef(RGB_MATRIX_ENABLE)
+        #ifdef RGB_MATRIX_ENABLE
         case _MEDI:
             switch(encoder_state[index].rgb) {
                 case 0: // Effect the RGB mode
@@ -283,7 +283,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 void encoder_click_action(uint8_t index) {
     // Differentiate layer roles
     switch (get_highest_layer(layer_state)) {
-        #ifdef(RGB_MATRIX_ENABLE)
+        #ifdef RGB_MATRIX_ENABLE
         case _MEDI:
             switch(encoder_state[index].rgb) {
                 case 0: // Return to no animation

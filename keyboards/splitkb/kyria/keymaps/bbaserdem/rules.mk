@@ -22,5 +22,5 @@ ifneq (,$(findstring splitkb/kyria/rev1,$(KEYBOARD)))
     # Space savers
     NKRO_ENABLE = no
     VELOCIKEY_ENABLE = no
-    WPM_ENABLE = no
+    WPM_ENABLE = yes
 endif
