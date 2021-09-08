@@ -20,6 +20,7 @@
 
 
 enum planck_layers {
+  _COLEMAK,
   _HRCOLEMAK,
 	_HRWIDECOLEMAK,
 	_HRWIDECOLEMAK_DE,
@@ -37,7 +38,9 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-  HRWIDECOLEMAK = SAFE_RANGE,
+  COLEMAK = SAFE_RANGE,
+	HRCOLEMAK,
+  HRWIDECOLEMAK,
   PLOVER,
   BACKLIT,
   EXT_PLV,
@@ -296,9 +299,21 @@ bool de_layout_active = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case COLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
+      }
+      return false;
+      break;
     case WIDECOLEMAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_WIDECOLEMAK);
+      }
+      return false;
+      break;
+		case HRCOLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_HRCOLEMAK);
       }
       return false;
       break;
@@ -567,7 +582,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				}
 			return false;
 			}
-			break;		
+			break;			
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
@@ -656,7 +671,7 @@ bool encoder_update(bool clockwise) {
     return true;
 }
 
-bool dip_switch_update_user(uint8_t index, bool active) {
+void dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0: {
 #ifdef AUDIO_ENABLE
@@ -685,7 +700,6 @@ bool dip_switch_update_user(uint8_t index, bool active) {
                 muse_mode = false;
             }
     }
-    return true;
 }
 
 void matrix_scan_user(void) {
