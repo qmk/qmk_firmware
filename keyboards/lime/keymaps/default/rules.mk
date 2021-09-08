@@ -4,6 +4,6 @@ ENCODER_RIGHT_ENABLE = yes
 JOYSTICK_ENABLE = analog
 CONSOLE_ENABLE = yes
 EXTRAKEY_ENABLE = yes
-SRC += analog.c
-
 WPM_ENABLE = yes
+
+# SRC += analog.c
