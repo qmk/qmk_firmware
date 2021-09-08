@@ -2,8 +2,6 @@
     "keyboard_name": "CANARY60RGB",
     "url": "",
     "maintainer": "canary",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
