@@ -80,9 +80,8 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
 
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
-__attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
-layer_state_t                       layer_state_set_user(layer_state_t state) {
-
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
     static bool is_sniper_on = false;
     if (layer_state_cmp(state, CHARYBDIS_AUTO_SNIPER_LAYER) != is_sniper_on) {
         is_sniper_on ^= 1;
@@ -92,7 +91,6 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
                pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
         } 
     }
-    state = layer_state_set_keymap(state);
     return state;
 }
 
