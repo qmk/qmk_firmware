@@ -18,16 +18,19 @@
 
 enum combos {
     BSP,
+    SCLN,
     MINS,
     EQL
 };
 
 const uint16_t PROGMEM bsp_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM scln_combo[] = {KC_L, KC_ENT, COMBO_END};
 const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM eql_combo[] = {KC_P, KC_QUOT, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     [BSP]  = COMBO(bsp_combo, KC_BSPC),
+    [SCLN] = COMBO(scln_combo, KC_SCLN),
     [MINS] = COMBO(mins_combo, KC_MINS),
     [EQL]  = COMBO(eql_combo, KC_EQL)
 };

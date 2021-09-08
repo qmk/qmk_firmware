@@ -39,3 +39,12 @@
     { K20, XXX, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B }, \
     { K30, K31, XXX, K33, K34, XXX, K36, XXX, K38, K39, K3A, K3B }  \
 }
+
+/* OLED display modes */
+typedef enum oled_mode {
+    OLED_INFO,
+    OLED_WPM,
+    _NUM_OLED_MODES
+} oled_mode_t;
+
+extern oled_mode_t oled_mode;

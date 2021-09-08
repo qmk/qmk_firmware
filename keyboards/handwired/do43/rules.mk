@@ -5,8 +5,8 @@ MCU = atmega32u4
 BOOTLOADER = qmk-dfu
 
 # Includes
-SRC += oled.c \
-       combo.c
+SRC += combos.c \
+			 oled.c
 
 # Build Options
 #   change yes to no to disable

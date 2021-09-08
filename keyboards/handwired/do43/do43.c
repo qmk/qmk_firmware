@@ -15,3 +15,6 @@
  */
 
 #include "do43.h"
+
+/* OLED display modes */
+oled_mode_t oled_mode = OLED_INFO;
