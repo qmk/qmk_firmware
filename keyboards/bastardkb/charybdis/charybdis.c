@@ -16,7 +16,6 @@
  */
 
 #include "charybdis.h"
-#include "transactions.h"
 #include <string.h>
 #include "drivers/sensors/pmw3360.h"
 #include "print.h"
