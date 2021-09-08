@@ -19,6 +19,7 @@
 #include "pointing_device.h"
 #include "debug.h"
 #include "timer.h"
+#include <stddef.h>
 
 // get_report functions should probably be moved to their respective drivers.
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
@@ -39,6 +40,8 @@ report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init         = adns5050_init,
     .get_report   = adns5050_get_report,
+    .set_cpi    = NULL,
+    .get_cpi    = NULL,
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_analog_joystick)
@@ -61,8 +64,10 @@ report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init         = analog_joystick_init,
-    .get_report   = analog_joystick_get_report,
+    .init       = analog_joystick_init,
+    .get_report = analog_joystick_get_report,
+    .set_cpi    = NULL,
+    .get_cpi    = NULL,
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
@@ -81,8 +86,10 @@ report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init         = adns9800_init,
-    .get_report   = adns9800_get_report_driver,
+    .init       = adns9800_init,
+    .get_report = adns9800_get_report_driver,
+    .set_cpi    = adns9800_set_config
+    .get_cpi    = adns9800_get_config,
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
@@ -125,6 +132,8 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init       = pimironi_trackball_device_init,
     .get_report = pimorono_trackball_get_report,
+    .set_cpi    = NULL,
+    .get_cpi    = NULL,
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
@@ -158,6 +167,8 @@ report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init       = init,
     .get_report = pmw3360_get_report,
+    .set_cpi    = pmw3360_set_cpi,
+    .get_cpi    = pmw3360_get_cpi,
 };
 // clang-format on
 #else

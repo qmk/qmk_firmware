@@ -43,6 +43,8 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report);
 typedef struct {
     void (*init)(void);
     report_mouse_t (*get_report)(report_mouse_t mouse_report);
+    void (*set_cpi)(uint16_t);
+    uint16_t (*get_cpi)(void);
 } pointing_device_driver_t;
 
 extern const pointing_device_driver_t pointing_device_driver;
