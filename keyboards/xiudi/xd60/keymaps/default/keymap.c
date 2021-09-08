@@ -19,8 +19,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LGUI, KC_LALT,                          KC_SPC,                          KC_RGUI, MO(1),    KC_HOME, KC_PGDOWN,KC_END),
 
 };
-
-// Loop
-void matrix_scan_user(void) {
-  // Empty
-};
