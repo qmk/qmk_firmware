@@ -12,6 +12,11 @@
 
 # Corne keyboard; with ARM
 ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
+    # Proton C conversion
+    MCU = STM32F303
+    CTPC = yes
+    # BOARD  = QMK_PROTON_C
+    # BOOTLOADER = stm32-dfu
     # My usual features
     AUDIO_ENABLE = yes
     BACKLIGHT_ENABLE = no
@@ -21,10 +26,6 @@ ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
     # Features that take otherwise too much space
     WPM_ENABLE = yes
     NKRO_ENABLE = yes
-    # Proton C related stuff
-    MCU = STM32F303
-    BOARD  = QMK_PROTON_C
-    BOOTLOADER = stm32-dfu
     # Config
     SERIAL_DRIVER = usart
     WS2812_DRIVER = pwm
@@ -33,5 +34,10 @@ ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
     # These are from waffle
     DEBUG_MATRIX_SCAN_RATE_ENABLE = no # output matrix scan rate in qmk console/qmk toolbox
     QUANTUM_LIB_SRC += i2c_master.c #drivers/chibios/i2cmaster.h needs patch - see lines 27/28
-    LTO_ENABLE = no
+    VIA_ENABLE = yes
+    # COMMAND_ENABLE = no
+    # CONSOLE_ENABLE = no
+    # BOOTMAGIC_ENABLE = lite
+    # LTO_ENABLE = yes
+    # PIMORONI_TRACKBALL = no
 endif
