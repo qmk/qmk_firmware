@@ -1,159 +1,100 @@
-Charybdis (6x4, 5x3 Nanow)
+Charybdis (6x4, 5x3 Nano)
 ======
-the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
-![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
+An ergonomic keyboard with integrated trackball.
+
+Engineered to be a full mouse replacement solution with high-quality, custom-developed components.
+
+There are 6x4 and 5x3 Nano versions.
+
+* Keyboard Maintainer: [Bastard Keyboards](https://github.com/Bastardkb/)
+* Hardware Supported: elite-C V4
+* Hardware Availability: [Bastard Keyboards](https://bastardkb.com/)
+
+Make example for this keyboard (after setting up your build environment):
+
+    make bastardkb/charybdis/nano:default
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+See the [keyboard build instructions](https://docs.bastardkb.com)
+
+# Customizing your Charybdis
+
+## Defining your own keymap
+
+The default keymap is a modified miryoku-qwerty.
+
+To define a new layout, you can either work from scrath, or use the wrappers. 
+In this case, you only need to redefine the base layer, and can use the rest of the miryoku layers without redefining them.
+
+See the `keymap.c` in the `keymaps/default` folder for an example.
+
+## Homerow mod config
+
+You can choose different homerow mods configurations (GASC, AGCS....) by adding a wraper around your base layer.
+
+See the `keymap.c` in the `keymaps/default` folder for an example.
 
 
-## First Time Setup
+## Custom DPI
 
-Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
+By default the Charybdis comes with a broad range of DPI options, which you can change dynamically.
 
-Depending on your Layout chose one of the follwing commands:
+Add the `DPI_CONFIG` keycode in your keymap to switch up or down in the options (it is included in the default keymap).
 
-```
-$ make handwired/dactyl_manuform/YOUR_LAYOUT:YOUR_KEYMAP_NAME
-```
+You can also define a custom DPI range in your keymap's `config.h` file:
 
-example:
-```
-$ make handwired/dactyl_manuform/4x5:default
-```
-
-If everything worked correctly you will see a file:
-
-```
-dactyl_manuform_YOUR_LAYOUT_YOUR_KEYMAP_NAME.hex
-```
-
-For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
-
-
-## Keymaps
-
-### [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
-
-#### Default
-Simple QWERTY layout with 3 Layers.
-#### Dvorak
-
-### [Keymaps 5x6](/keyboards/handwired/dactyl_manuform/5x6/keymaps/)
-
-#### Default
-Just a copy of the Impstyle keymap. Feel free to adjust it.
-
-#### Impstyle
-A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
-
-### [Keymaps 5x7 aka almost Ergodox](/keyboards/handwired/dactyl_manuform/5x7/keymaps/)
-#### Default
-Keymap of Loligagger from geekhack.
-
-### [Keymaps 6x6](/keyboards/handwired/dactyl_manuform/6x6/keymaps/)
-
-#### Default
-Simple QWERTY layout with 3 Layers.
-
-## Required Hardware
-
-Apart from diodes and key switches for the keyboard matrix in each half, you
-will need:
-
-* 2 Arduino Pro Micros. You can find these on AliExpress for ≈3.50USD each.
-* 2 TRRS sockets and 1 TRRS cable, or 2 TRS sockets and 1 TRS cable
-
-Alternatively, you can use any sort of cable and socket that has at least 3
-wires. If you want to use I2C to communicate between halves, you will need a
-cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
-
-## Optional Hardware
-A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
-
-## Wiring
-
-The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and digital pin 3 (i.e.
-PD0 on the ATmega32u4) between the two Pro Micros.
-
-Next, wire your key matrix to any of the remaining 17 IO pins of the pro micro
-and modify the `matrix.c` accordingly.
-
-The wiring for serial:
-
-![serial wiring](https://i.imgur.com/C3D1GAQ.png)
-
-The wiring for i2c:
-
-![i2c wiring](https://i.imgur.com/Hbzhc6E.png)
-
-The pull-up resistors may be placed on either half. It is also possible
-to use 4 resistors and have the pull-ups in both halves, but this is
-unnecessary in simple use cases.
-
-You can change your configuration between serial and i2c by modifying your `config.h` file.
-
-## Notes on Software Configuration
-
-the keymaps in here are for the 4x5 layout of the keyboard only.
-
-## Flashing
-
-To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
-
-
-## Choosing which board to plug the USB cable into (choosing Master)
-
-Because the two boards are identical, the firmware has logic to differentiate the left and right board.
-
-It uses two strategies to figure things out: looking at the EEPROM (memory on the chip) or looking if the current board has the usb cable.
-
-The EEPROM approach requires additional setup (flashing the eeprom) but allows you to swap the usb cable to either side.
-
-The USB cable approach is easier to setup and if you just want the usb cable on the left board, you do not need to do anything extra.
-
-### Setting the left hand as master
-
-If you always plug the usb cable into the left board, nothing extra is needed as this is the default. Comment out `EE_HANDS` and comment out `I2C_MASTER_RIGHT` or `MASTER_RIGHT` if for some reason it was set.
-
-### Setting the right hand as master
-
-If you always plug the usb cable into the right board, add an extra flag to your `config.h`
-```
- #define MASTER_RIGHT
+```c
+#    define CHARYBDIS_DPI_OPTIONS \
+        { 2000, 2200, 2400, 2600, 2800, 3000, 3200  }
 ```
 
-### Setting EE_hands to use either hands as master
+## Dragscroll
 
-If you define `EE_HANDS` in your `config.h`, you will need to set the
-EEPROM for the left and right halves.
+When holding the `MOUSE` layer key, you can hold the dragscroll key to transform the trackball into a scrolling wheel.
 
-The EEPROM is used to store whether the
-half is left handed or right handed. This makes it so that the same firmware
-file will run on both hands instead of having to flash left and right handed
-versions of the firmware to each half. To flash the EEPROM file for the left
-half run:
+Add the `DRAG_SCROLL` keycode in your keymap to trigger drag scroll on hold (it is included in the default keymap).
+
+
+By default the drag scroll key will enable drag scroll on hold, and disable it on release.
+
+If you prefer the key to toggle drag scroll on/off, you can do so like this in your keymap's `config.h` file:
+```c
+#define CHARYBDIS_DRAGSCROLL_TOGGLE
 ```
-make handwired/dactyl_promicro:default:dfu-split-left
-make handwired/dactyl_promicro:default:dfu-split-right
+
+### Dragscroll speed
+
+You can have either a set speed for the scrolling, or have it depend on your mouse speed.
+
+By default the scrolling speed is fixed and set to 100 DPI, you can modifiy it in your keymap's `config.h` file:
+```c
+#define CHARYBDIS_DRAGSCROLL_DPI 200
 ```
 
-After you have flashed the EEPROM, you then need to set `EE_HANDS` in your config.h, rebuild the hex files and reflash.
-
-Note that you need to program both halves, but you have the option of using
-different keymaps for each half. You could program the left half with a QWERTY
-layout and the right half with a Colemak layout using bootmagic's default layout option.
-Then if you connect the left half to a computer by USB the keyboard will use QWERTY and Colemak when the
-right half is connected.
-
-
-Notes on Using Pro Micro 3.3V
------------------------------
-
-Do update the `F_CPU` parameter in `rules.mk` to `8000000` which reflects
-the frequency on the 3.3V board.
-
-Also, if the slave board is producing weird characters in certain columns,
-update the following line in `matrix.c` to the following:
-
+If you want to set the scroll speed as dependent of your DPI:
+```c
+#define CHARYBDIS_DRAGSCROLL_VARIABLE
+#define CHARYBDIS_DRAGSCROLL_MULTIPLIER 0.2 // Optional, DPI multiplier
 ```
-// wait_us(30);  // without this wait read unstable value.
-wait_us(300);  // without this wait read unstable value.
+
+
+## Sniping
+
+When holding the `MOUSE` layer key, sniping mode is triggered. This slows down the cursor for better accuracy.
+
+Add the `SNIPER_CONFIG` keycode in your keymap to switch up or down in the options (it is included in the default keymap).
+
+You can also define a custom DPI range in your keymap's `config.h` file:
+
+```c
+#define CHARYBDIS_SNIPER_OPTIONS \
+        { 200, 300, 400, 500 }
 ```
+
+By default the auto sniping layer is 4 (`MOUSE` layer), you can redefine it as so:
+
+```c
+#define CHARYBDIS_AUTO_SNIPER_LAYER 5
+```
+
