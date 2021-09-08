@@ -74,8 +74,7 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         data.dx = constrain(data.dx, -127, 127);
         data.dy = constrain(data.dy, -127, 127);
 
-        mouse_report->x = -data.dx;
-        mouse_report->y = data.dy;
+        process_mouse_user(mouse_report, -data.dx, data.dy);
     }
 }
 
