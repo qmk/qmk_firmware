@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x1311 // AWL ("1311"1999)
+#define VENDOR_ID    0x414C // AL
 #define PRODUCT_ID   0x7062 // PaulPCB
 #define DEVICE_VER   0x0001 // V1
 #define MANUFACTURER AlfieLockrey (AWL)
