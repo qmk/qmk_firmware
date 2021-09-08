@@ -206,7 +206,7 @@
 	... \
 ) \
 	k01,        k02,        k03,        k04,        k05,        k06,        k07,        k08,        k09,        k10,    \
-	CTL_T(k13), ALT_T(k14), SFT_T(k15), CTL_T(k16), k17,        k18,        CTL_T(k19), SFT_T(k20), ALT_T(k21), GUI_T(k22), \
+	GUI_T(k13), ALT_T(k14), SFT_T(k15), CTL_T(k16), k17,        k18,        CTL_T(k19), SFT_T(k20), ALT_T(k21), GUI_T(k22), \
 	__VA_ARGS__
 #define HRM_GASC_wrapper(...)                HRM_GASC(__VA_ARGS__)
 
