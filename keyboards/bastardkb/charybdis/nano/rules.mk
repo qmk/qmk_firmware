@@ -4,8 +4,6 @@ MCU = atmega32u4
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
-F_CPU = 16000000
-
 # Build Options
 #   change yes to no to disable
 #
