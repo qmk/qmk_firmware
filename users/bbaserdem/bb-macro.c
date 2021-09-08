@@ -18,13 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 // Tap dance definitons
+#ifdef AUDIO_ENABLE
 #ifdef TAP_DANCE_ENABLE
 qk_tap_dance_action_t tap_dance_actions[] = {
-    #ifdef AUDIO_ENABLE
     // Music playback speed modulator
     [TD_AUDIO_TEMPO] = ACTION_TAP_DANCE_DOUBLE(MU_SLOW, MU_FAST),
-    #endif
 };
+#endif
 #endif
 
 // Unicode definitions; for single character keys
