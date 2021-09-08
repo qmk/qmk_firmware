@@ -31,6 +31,7 @@ void oled_task_user(void) {
         render_status_lite(0, 0);
     }
 }
+#endif
 
 /*-------------------------*\
 |*---RENDERING FUNCTIONS---*|

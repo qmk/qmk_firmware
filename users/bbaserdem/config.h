@@ -113,6 +113,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define OLED_FADE_OUT_INTERVAL 5
 #endif
 
+// OLED definitions
+#ifdef OLED_ENABLE
+    // Timeout in one minute
+    #define OLED_TIMEOUT 60000
+    // Fade out the screen when timing out
+    #define OLED_FADE_OUT
+    #define OLED_FADE_OUT_INTERVAL 5
+#endif
+
 // For perkey leds
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED true
