@@ -1,5 +1,6 @@
 """Functions that help us generate and use info.json files.
 """
+import json
 from glob import glob
 from pathlib import Path
 
@@ -7,7 +8,7 @@ import jsonschema
 from dotty_dict import dotty
 from milc import cli
 
-from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
+from qmk.constants import CHIBIOS_PROCESSORS, KEYBOARD_OUTPUT_PREFIX, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
@@ -25,7 +26,7 @@ def _valid_community_layout(layout):
     return (Path('layouts/default') / layout).exists()
 
 
-def info_json(keyboard):
+def info_json(keyboard, *, overrides=None):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
@@ -59,10 +60,13 @@ def info_json(keyboard):
             layout_json['c_macro'] = True
             info_data['layouts'][layout_name] = layout_json
 
-    # Merge in the data from info.json, config.h, and rules.mk
+    # Merge in the data from info.json, config.h, rules.mk, and overrides
     info_data = merge_info_jsons(keyboard, info_data)
     info_data = _extract_rules_mk(info_data)
     info_data = _extract_config_h(info_data)
+
+    if overrides:
+        info_data = merge_info_data(info_data, overrides)
 
     # Ensure that we have matrix row and column counts
     info_data = _matrix_size(info_data)
@@ -100,6 +104,17 @@ def info_json(keyboard):
     _check_matrix(info_data)
 
     return info_data
+
+
+def get_keyboard_overrides(keyboard):
+    """Checks for keyboard_overrides.json in the keyboard build directory and returns them if it exists.
+    """
+    keyboard_filesafe = keyboard.replace('/', '_')
+    keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
+    keyboard_overrides_file = keyboard_output / 'keyboard_overrides.json'
+
+    if keyboard_overrides_file.exists():
+        return json.load(keyboard_overrides_file.open('r', encoding='utf-8'))
 
 
 def _extract_features(info_data, rules):
@@ -660,6 +675,38 @@ def unknown_processor_rules(info_data, rules):
     return info_data
 
 
+def merge_info_data(info_data, new_info_data):
+    """Return a merged copy of info_data and new_info_data.
+    """
+    if 'layout_aliases' in new_info_data:
+        info_data['layout_aliases'] = {**info_data.get('layout_aliases', {}), **new_info_data['layout_aliases']}
+        del new_info_data['layout_aliases']
+
+    for layout_name, layout in new_info_data.get('layouts', {}).items():
+        if layout_name in info_data.get('layout_aliases', {}):
+            _log_warning(info_data, f"info.json uses alias name {layout_name} instead of {info_data['layout_aliases'][layout_name]}")
+            layout_name = info_data['layout_aliases'][layout_name]
+
+        if layout_name in info_data['layouts']:
+            if len(info_data['layouts'][layout_name]['layout']) != len(layout['layout']):
+                msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
+                _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
+            else:
+                for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
+                    existing_key.update(new_key)
+        else:
+            layout['c_macro'] = False
+            info_data['layouts'][layout_name] = layout
+
+    # Update info_data with the new data
+    if 'layouts' in new_info_data:
+        del new_info_data['layouts']
+
+    deep_update(info_data, new_info_data)
+
+    return info_data
+
+
 def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
@@ -680,31 +727,7 @@ def merge_info_jsons(keyboard, info_data):
             continue
 
         # Merge layout data in
-        if 'layout_aliases' in new_info_data:
-            info_data['layout_aliases'] = {**info_data.get('layout_aliases', {}), **new_info_data['layout_aliases']}
-            del new_info_data['layout_aliases']
-
-        for layout_name, layout in new_info_data.get('layouts', {}).items():
-            if layout_name in info_data.get('layout_aliases', {}):
-                _log_warning(info_data, f"info.json uses alias name {layout_name} instead of {info_data['layout_aliases'][layout_name]}")
-                layout_name = info_data['layout_aliases'][layout_name]
-
-            if layout_name in info_data['layouts']:
-                if len(info_data['layouts'][layout_name]['layout']) != len(layout['layout']):
-                    msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
-                    _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
-                else:
-                    for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
-                        existing_key.update(new_key)
-            else:
-                layout['c_macro'] = False
-                info_data['layouts'][layout_name] = layout
-
-        # Update info_data with the new data
-        if 'layouts' in new_info_data:
-            del new_info_data['layouts']
-
-        deep_update(info_data, new_info_data)
+        merge_info_data(info_data, new_info_data)
 
     return info_data
 

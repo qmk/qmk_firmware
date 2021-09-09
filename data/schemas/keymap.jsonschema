@@ -6,6 +6,7 @@
     "properties": {
         "author": {"type": "string"},
         "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
+        "keyboard_overrides": {"$ref": "qmk.keyboard.v1"},
         "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "layout": {"$ref": "qmk.definitions.v1#/layout_macro"},
         "layers": {
@@ -15,10 +16,6 @@
                 "items": {"type": "string"}
             }
         },
-        "config": {"$ref": "qmk.keyboard.v1"},
-        "notes": {
-            "type": "string",
-            "description": "asdf"
-        }
+        "notes": { "type": "string" }
     }
 }

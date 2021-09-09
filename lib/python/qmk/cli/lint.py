@@ -76,10 +76,12 @@ def lint(cli):
             cli.log.warning('Both --all-kb and --keyboard passed, --all-kb takes presidence.')
 
         keyboard_list = list_keyboards()
+
     elif not cli.config.lint.keyboard:
         cli.log.error('Missing required arguments: --keyboard or --all-kb')
         cli.print_help()
         return False
+
     else:
         keyboard_list = cli.config.lint.keyboard.split(',')
 

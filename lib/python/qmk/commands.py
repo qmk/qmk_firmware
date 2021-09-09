@@ -12,7 +12,7 @@ from milc import cli
 
 import qmk.keymap
 from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
-from qmk.json_schema import json_load
+from qmk.json_schema import json_load, validate
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
 
@@ -194,6 +194,15 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     version_h = Path('quantum/version.h')
     version_h.write_text(create_version_h())
 
+    # Write the overrides file, if needed
+    override_file = keyboard_output / 'keyboard_overrides.json'
+
+    if 'keyboard_overrides' in user_keymap:
+        keyboard_output.mkdir(exist_ok=True, parents=True)
+        json.dump(user_keymap['keyboard_overrides'], override_file.open('w', encoding='utf-8'))
+    elif override_file.exists():
+        override_file.unlink()
+
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
     color = 'true' if cli.config.general.color else 'false'
@@ -242,8 +251,10 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
 def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """
-    # FIXME(skullydazed/anyone): Add validation here
     user_keymap = json.load(configurator_file)
+
+    validate(user_keymap, 'qmk.keymap.v1')
+
     orig_keyboard = user_keymap['keyboard']
     aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
 

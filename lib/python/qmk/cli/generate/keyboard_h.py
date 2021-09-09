@@ -2,7 +2,7 @@
 """
 from milc import cli
 
-from qmk.info import info_json
+from qmk.info import info_json, get_keyboard_overrides
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import normpath
 
@@ -11,7 +11,7 @@ def would_populate_layout_h(keyboard):
     """Detect if a given keyboard is doing data driven layouts
     """
     # Build the info.json file
-    kb_info_json = info_json(keyboard)
+    kb_info_json = info_json(keyboard, overrides=get_keyboard_overrides(keyboard))
 
     for layout_name in kb_info_json['layouts']:
         if kb_info_json['layouts'][layout_name]['c_macro']:

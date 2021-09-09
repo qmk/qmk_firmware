@@ -42,7 +42,7 @@ def format_json(cli):
     if json_encoder == KeymapJSONEncoder and 'layout' in json_file:
         # Attempt to format the keycodes.
         layout = json_file['layout']
-        info_data = info_json(json_file['keyboard'])
+        info_data = info_json(json_file['keyboard'], overrides=json_file.get('keyboard_overrides'))
 
         if layout in info_data.get('layout_aliases', {}):
             layout = json_file['layout'] = info_data['layout_aliases'][layout]

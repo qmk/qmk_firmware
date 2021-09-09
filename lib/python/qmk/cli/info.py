@@ -18,23 +18,19 @@ from qmk.path import is_keyboard
 UNICODE_SUPPORT = sys.stdout.encoding.lower().startswith('utf')
 
 
-def show_keymap(kb_info_json, title_caps=True):
+def show_keymap(kb_info_json, keymap_data, title_caps=True):
     """Render the keymap in ascii art.
     """
-    keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap)
+    layout_name = keymap_data['layout']
+    layout_name = kb_info_json.get('layout_aliases', {}).get(layout_name, layout_name)  # Resolve alias names
 
-    if keymap_path and keymap_path.suffix == '.json':
-        keymap_data = json.load(keymap_path.open(encoding='utf-8'))
-        layout_name = keymap_data['layout']
-        layout_name = kb_info_json.get('layout_aliases', {}).get(layout_name, layout_name)  # Resolve alias names
+    for layer_num, layer in enumerate(keymap_data['layers']):
+        if title_caps:
+            cli.echo('{fg_cyan}Keymap %s Layer %s{fg_reset}:', cli.config.info.keymap, layer_num)
+        else:
+            cli.echo('{fg_cyan}keymap.%s.layer.%s{fg_reset}:', cli.config.info.keymap, layer_num)
 
-        for layer_num, layer in enumerate(keymap_data['layers']):
-            if title_caps:
-                cli.echo('{fg_cyan}Keymap %s Layer %s{fg_reset}:', cli.config.info.keymap, layer_num)
-            else:
-                cli.echo('{fg_cyan}keymap.%s.layer.%s{fg_reset}:', cli.config.info.keymap, layer_num)
-
-            print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
+        print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
 
 
 def show_layouts(kb_info_json, title_caps=True):
@@ -161,19 +157,27 @@ def info(cli):
         print_parsed_rules_mk(cli.config.info.keyboard)
         return False
 
+    # Pull in keymap overrides if necessary
+    keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap) if cli.config.info.keymap else None
+    keymap_data = json.load(keymap_path.open(encoding='utf-8')) if keymap_path and keymap_path.suffix == '.json' else None
+
     # Build the info.json file
-    kb_info_json = info_json(cli.config.info.keyboard)
+    overrides = keymap_data.get('keyboard_overrides') if keymap_data else None
+    kb_info_json = info_json(cli.config.info.keyboard, overrides=overrides)
 
     # Output in the requested format
     if cli.args.format == 'json':
         print(json.dumps(kb_info_json, cls=InfoJSONEncoder))
         return True
+
     elif cli.args.format == 'text':
         print_dotted_output(kb_info_json)
         title_caps = False
+
     elif cli.args.format == 'friendly':
         print_friendly_output(kb_info_json)
         title_caps = True
+
     else:
         cli.log.error('Unknown format: %s', cli.args.format)
         return False
@@ -184,5 +188,5 @@ def info(cli):
     if cli.config.info.matrix:
         show_matrix(kb_info_json, title_caps)
 
-    if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
-        show_keymap(kb_info_json, title_caps)
+    if keymap_data:
+        show_keymap(kb_info_json, keymap_data, title_caps)
