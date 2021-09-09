@@ -2,7 +2,7 @@
 
 ![Kasumigasane](https://github.com/e3w2q/Kasumigasane-keypad/blob/master/mainimage.jpg?raw=true)
 
-A simple 16-key keypad.
+Simple 16-key keypad with a changeable frame.
 
 Keyboard Maintainer: [e3w2q](https://github.com/e3w2q)  
 Hardware Supported: [Kasumigasane PCB](https://github.com/e3w2q/Kasumigasane-keypad/tree/master/pcb), Pro Micro ATmega32u4  
