@@ -16,7 +16,6 @@
  */
 
 #include "charybdis.h"
-#include <string.h>
 #include "drivers/sensors/pmw3360.h"
 
 #ifndef CHARYBDIS_DPI_OPTIONS
@@ -172,8 +171,6 @@ void pointing_device_init(void) {
     pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
 
-static bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
-
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_mouse(&mouse_report);
@@ -226,7 +223,7 @@ void pointing_device_send(void) {
     mouseReport.x = 0;
     mouseReport.y = 0;
     process_mouse_user(&mouseReport, x, y);
-    if (has_report_changed(mouseReport, old_report)) { host_mouse_send(&mouseReport); }
+    if (has_mouse_report_changed(mouseReport, old_report)) { host_mouse_send(&mouseReport); }
 
     mouseReport.x = 0;
     mouseReport.y = 0;
