@@ -19,23 +19,23 @@ char wpm_str[4];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        
+
         KC_ESC,  KC_GRV,  TO(1),
         KC_Z,  KC_X,  KC_C      ),
 
     [1] = LAYOUT(
-        
+
         KC_TRNS, KC_TRNS, TO(0),
         KC_TRNS, KC_TRNS, KC_TRNS      ),
     [2] = LAYOUT(
-        
+
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS      ),
     [3] = LAYOUT(
-        
+
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS      ),
-    
+
 
 
 };
@@ -43,10 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // based on https://github.com/qmk/qmk_firmware/blob/master/keyboards/kyria/keymaps/j-inc/keymap.c
 
 // In your rules.mk make sure you have:
-// OLED_DRIVER_ENABLE = yes
+// OLED_ENABLE = yes
 // WPM_ENABLE = yes
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 // WPM-responsive animation stuff here
 #    define IDLE_FRAMES 5
 #    define IDLE_SPEED 20  // below this wpm value your animation will idle

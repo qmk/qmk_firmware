@@ -2,6 +2,9 @@
     "keyboard_name": "Ducky One 2 Mini",
     "width": 14,
     "height": 5,
+    "layout_aliases": {
+        "LAYOUT_iso": "LAYOUT_60_iso"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -19,6 +22,7 @@
                 { "x": 11, "y": 0, "w": 1, "label": "DASH" },
                 { "x": 12, "y": 0, "w": 1, "label": "EQUALSIGN" },
                 { "x": 13, "y": 0, "w": 2, "label": "BACKSPACE" },
+
                 { "x": 0, "y": 1, "w": 1.5, "label": "TAB" },
                 { "x": 1.5, "y": 1, "w": 1, "label": "Q" },
                 { "x": 2.5, "y": 1, "w": 1, "label": "W" },
@@ -33,6 +37,7 @@
                 { "x": 11.5, "y": 1, "w": 1, "label": "LBRACKET" },
                 { "x": 12.5, "y": 1, "w": 1, "label": "RBRACKET" },
                 { "x": 13.5, "y": 1, "w": 1.5, "label": "BACKSLASH" },
+
                 { "x": 0, "y": 2, "w": 1.75, "label": "CAPSLOCK" },
                 { "x": 1.75, "y": 2, "w": 1, "label": "A" },
                 { "x": 2.75, "y": 2, "w": 1, "label": "S" },
@@ -47,6 +52,7 @@
                 { "x": 11.75, "y": 2, "w": 1, "label": "QUOTE" },
                 { "x": 12.75, "y": 2, "w": 1, "label": "ISOHASH" },
                 { "x": 13.75, "y": 2, "w": 1.25, "label": "ENTER" },
+
                 { "x": 0, "y": 3, "w": 1.25, "label": "LSHIFT" },
                 { "x": 1.25, "y": 3, "w": 1, "label": "ISOBACKSLASH" },
                 { "x": 2.25, "y": 3, "w": 1, "label": "Z" },
@@ -59,7 +65,8 @@
                 { "x": 9.25, "y": 3, "w": 1, "label": "COMMA" },
                 { "x": 10.25, "y": 3, "w": 1, "label": "PERIOD" },
                 { "x": 11.25, "y": 3, "w": 1, "label": "SLASH" },
-                { "x": 12.25, "y": 3, "w": 2.25, "label": "RSHIFT" },
+                { "x": 12.25, "y": 3, "w": 2.75, "label": "RSHIFT" },
+
                 { "x": 0, "y": 4, "w": 1.25, "label": "LCTRL" },
                 { "x": 1.25, "y": 4, "w": 1.25, "label": "LCMD" },
                 { "x": 2.5, "y": 4, "w": 1.25, "label": "LALT" },
@@ -71,7 +78,7 @@
             ]
         },
 
-        "LAYOUT_ansi": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 { "x": 0, "y": 0, "w": 1, "label": "ESC" },
                 { "x": 1, "y": 0, "w": 1, "label": "1" },
@@ -87,6 +94,7 @@
                 { "x": 11, "y": 0, "w": 1, "label": "DASH" },
                 { "x": 12, "y": 0, "w": 1, "label": "EQUALSIGN" },
                 { "x": 13, "y": 0, "w": 2, "label": "BACKSPACE" },
+
                 { "x": 0, "y": 1, "w": 1.5, "label": "TAB" },
                 { "x": 1.5, "y": 1, "w": 1, "label": "Q" },
                 { "x": 2.5, "y": 1, "w": 1, "label": "W" },
@@ -101,6 +109,7 @@
                 { "x": 11.5, "y": 1, "w": 1, "label": "LBRACKET" },
                 { "x": 12.5, "y": 1, "w": 1, "label": "RBRACKET" },
                 { "x": 13.5, "y": 1, "w": 1.5, "label": "BACKSLASH" },
+
                 { "x": 0, "y": 2, "w": 1.75, "label": "CAPSLOCK" },
                 { "x": 1.75, "y": 2, "w": 1, "label": "A" },
                 { "x": 2.75, "y": 2, "w": 1, "label": "S" },
@@ -113,8 +122,8 @@
                 { "x": 9.75, "y": 2, "w": 1, "label": "L" },
                 { "x": 10.75, "y": 2, "w": 1, "label": "SEMICOLON" },
                 { "x": 11.75, "y": 2, "w": 1, "label": "QUOTE" },
-                { "x": 12.75, "y": 2, "w": 1, "label": "ISOHASH" },
                 { "x": 12.75, "y": 2, "w": 2.25, "label": "ENTER" },
+
                 { "x": 0, "y": 3, "w": 2.25, "label": "LSHIFT" },
                 { "x": 2.25, "y": 3, "w": 1, "label": "Z" },
                 { "x": 3.25, "y": 3, "w": 1, "label": "X" },
@@ -127,6 +136,7 @@
                 { "x": 10.25, "y": 3, "w": 1, "label": "PERIOD" },
                 { "x": 11.25, "y": 3, "w": 1, "label": "SLASH" },
                 { "x": 12.25, "y": 3, "w": 2.75, "label": "RSHIFT" },
+
                 { "x": 0, "y": 4, "w": 1.25, "label": "LCTRL" },
                 { "x": 1.25, "y": 4, "w": 1.25, "label": "LCMD" },
                 { "x": 2.5, "y": 4, "w": 1.25, "label": "LALT" },
@@ -138,7 +148,7 @@
             ]
         },
 
-        "LAYOUT_iso": {
+        "LAYOUT_60_iso": {
             "layout": [
                 { "x": 0, "y": 0, "w": 1, "label": "ESC" },
                 { "x": 1, "y": 0, "w": 1, "label": "1" },
@@ -154,6 +164,7 @@
                 { "x": 11, "y": 0, "w": 1, "label": "DASH" },
                 { "x": 12, "y": 0, "w": 1, "label": "EQUALSIGN" },
                 { "x": 13, "y": 0, "w": 2, "label": "BACKSPACE" },
+
                 { "x": 0, "y": 1, "w": 1.5, "label": "TAB" },
                 { "x": 1.5, "y": 1, "w": 1, "label": "Q" },
                 { "x": 2.5, "y": 1, "w": 1, "label": "W" },
@@ -167,7 +178,7 @@
                 { "x": 10.5, "y": 1, "w": 1, "label": "P" },
                 { "x": 11.5, "y": 1, "w": 1, "label": "LBRACKET" },
                 { "x": 12.5, "y": 1, "w": 1, "label": "RBRACKET" },
-                { "x": 13.75, "y": 1, "w": 1.25, "h": 2, "label": "ENTER" },
+
                 { "x": 0, "y": 2, "w": 1.75, "label": "CAPSLOCK" },
                 { "x": 1.75, "y": 2, "w": 1, "label": "A" },
                 { "x": 2.75, "y": 2, "w": 1, "label": "S" },
@@ -181,6 +192,8 @@
                 { "x": 10.75, "y": 2, "w": 1, "label": "SEMICOLON" },
                 { "x": 11.75, "y": 2, "w": 1, "label": "QUOTE" },
                 { "x": 12.75, "y": 2, "w": 1, "label": "ISOHASH" },
+                { "x": 13.75, "y": 1, "w": 1.25, "h": 2, "label": "ENTER" },
+
                 { "x": 0, "y": 3, "w": 1.25, "label": "LSHIFT" },
                 { "x": 1.25, "y": 3, "w": 1, "label": "ISOBACKSLASH" },
                 { "x": 2.25, "y": 3, "w": 1, "label": "Z" },
@@ -194,6 +207,7 @@
                 { "x": 10.25, "y": 3, "w": 1, "label": "PERIOD" },
                 { "x": 11.25, "y": 3, "w": 1, "label": "SLASH" },
                 { "x": 12.25, "y": 3, "w": 2.75, "label": "RSHIFT" },
+
                 { "x": 0, "y": 4, "w": 1.25, "label": "LCTRL" },
                 { "x": 1.25, "y": 4, "w": 1.25, "label": "LCMD" },
                 { "x": 2.5, "y": 4, "w": 1.25, "label": "LALT" },

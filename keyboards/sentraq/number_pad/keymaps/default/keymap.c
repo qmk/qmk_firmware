@@ -18,13 +18,6 @@
 #define _BL 0
 #define _FN 1
 
-// Defines the keycodes used by our macros in process_record_user.
-// Disabled as it isn't used in this keymap, but available for modification.
-// enum custom_keycodes {
-//   QMKBEST = SAFE_RANGE,
-//   QMKURL
-// };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_numpad_5x4(
     /* Base Layer: Number Pad
@@ -67,39 +60,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,            KC_NO,   KC_NLCK
   ),
 };
-
-// Handles macros for keycodes defined above.
-// Disabled as it isn't used in this keymap, but available for modification.
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   switch (keycode) {
-//     case QMKBEST:
-//       if (record->event.pressed) {
-//         // when keycode QMKBEST is pressed
-//         SEND_STRING("QMK is the best thing ever!");
-//       } else {
-//         // when keycode QMKBEST is released
-//       }
-//       break;
-//     case QMKURL:
-//       if (record->event.pressed) {
-//         // when keycode QMKURL is pressed
-//         SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-//       } else {
-//         // when keycode QMKURL is released
-//       }
-//       break;
-//   }
-//   return true;
-// }
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

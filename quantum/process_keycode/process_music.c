@@ -296,7 +296,7 @@ void music_mode_cycle(void) {
 #    endif
 }
 
-void matrix_scan_music(void) {
+void music_task(void) {
     if (music_sequence_playing) {
         if ((music_sequence_timer == 0) || (timer_elapsed(music_sequence_timer) > music_sequence_interval)) {
             music_sequence_timer = timer_read();
