@@ -18,6 +18,79 @@
 #include "do43_oled.h"
 
 /*
+ * OLED drawing helper functions.
+ * Adapted from https://github.com/joric/qmk/blob/master/drivers/qwiic/micro_oled.c
+ */
+void oled_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, bool on) {
+    uint8_t steep = abs(y1 - y0) > abs(x1 - x0);
+    if (steep) {
+        swap(x0, y0);
+        swap(x1, y1);
+    }
+
+    if (x0 > x1) {
+        swap(x0, x1);
+        swap(y0, y1);
+    }
+
+    uint8_t dx, dy;
+    dx = x1 - x0;
+    dy = abs(y1 - y0);
+
+    int8_t err = dx / 2;
+    int8_t ystep;
+
+    if (y0 < y1) {
+        ystep = 1;
+    } else {
+        ystep = -1;
+    }
+
+    for (; x0 < x1; x0++) {
+        if (steep) {
+            oled_write_pixel(y0, x0, on);
+        } else {
+            oled_write_pixel(x0, y0, on);
+        }
+        err -= dy;
+        if (err < 0) {
+            y0 += ystep;
+            err += dx;
+        }
+    }
+}
+
+void oled_draw_line_hori(uint8_t x, uint8_t y, uint8_t width, bool on) {
+    oled_draw_line(x, y, x + width, y, on);
+}
+
+void oled_draw_line_vert(uint8_t x, uint8_t y, uint8_t height, bool on) {
+    oled_draw_line(x, y, x, y + height, on);
+}
+
+void oled_draw_rect_soft(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on) {
+    uint8_t tempHeight;
+
+    oled_draw_line_hori(x + 1, y, width - 2, on);
+    oled_draw_line_hori(x + 1, y + height - 1, width - 2, on);
+
+    tempHeight = height - 2;
+
+    // Skip drawing vertical lines to avoid overlapping of pixel that will
+    // affect XOR plot if no pixel in between horizontal lines
+    if (tempHeight < 1) return;
+
+    oled_draw_line_vert(x, y + 1, tempHeight, on);
+    oled_draw_line_vert(x + width - 1, y + 1, tempHeight, on);
+}
+
+void oled_draw_rect_filled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on) {
+    for (int i = x; i < x + width; i++) {
+        oled_draw_line_vert(i, y, height, on);
+    }
+}
+
+/*
  * Bongo Cat WPM visualiser.
  * 
  * Credits:
@@ -127,8 +200,8 @@ void render_wpm_mode(void) {
 
 /*
  * Keyboard information mode, inspired by the Satisfaction75.
+ * A portion of code adapted from https://github.com/qmk/qmk_firmware/blob/master/keyboards/cannonkeys/satisfaction75/
  */
-
 static void render_symbol(int x, int y, int num_rows, int row_length, const char data[][row_length + 1]) {
     for (int row = 0; row < num_rows; row++) {
         oled_set_cursor(x, y + row);
@@ -171,9 +244,24 @@ static void render_modifiers(void) {
         render_symbol(CMD_CURSOR_X, MODS_CURSOR_Y, MODS_ICON_NUM_ROWS, MODS_ICON_NUM_COLS, cmd);
 }
 
+// Adapted from https://github.com/qmk/qmk_firmware/blob/master/keyboards/cannonkeys/satisfaction75/satisfaction_oled.c
+static void render_matrix_visualisation(void) {
+    // Draw currently pressed keys
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        for (uint8_t y = 0; y < MATRIX_COLS; y++) {
+            oled_draw_rect_filled(MATRIX_CURSOR_X + MATRIX_SIDE_PADDING + y * MATRIX_KEY_WIDTH, MATRIX_CURSOR_Y + MATRIX_SIDE_PADDING + MATRIX_OLED_HEIGHT + 1 + x * MATRIX_KEY_WIDTH, MATRIX_KEY_WIDTH, MATRIX_KEY_WIDTH, (matrix_get_row(x) & (1 << y)) > 0);
+        }
+    }
+    // Draw keyboard outline
+    oled_draw_rect_soft(MATRIX_CURSOR_X, MATRIX_CURSOR_Y, (MATRIX_KEY_WIDTH * MATRIX_COLS) + 2 * MATRIX_SIDE_PADDING, (MATRIX_KEY_WIDTH * MATRIX_ROWS) + 2 * MATRIX_SIDE_PADDING + MATRIX_OLED_HEIGHT + 1, true);
+    // Draw OLED panel
+    oled_draw_rect_filled(MATRIX_CURSOR_X + (MATRIX_KEY_WIDTH * MATRIX_COLS) + MATRIX_SIDE_PADDING - MATRIX_OLED_WIDTH, MATRIX_CURSOR_Y + MATRIX_SIDE_PADDING, MATRIX_OLED_WIDTH, MATRIX_OLED_HEIGHT, true);
+}
+
 void render_info_mode(void) {
     render_layer_num();
     render_modifiers();
+    render_matrix_visualisation();
 }
 
 /* Init and rendering calls */
