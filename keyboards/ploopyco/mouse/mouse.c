@@ -247,7 +247,6 @@ void pointing_device_init(void) {
     opt_encoder_init();
 }
 
-bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x && new.x != old.x) || (new.y && new.y != old.y) || (new.h && new.h != old.h) || (new.v && new.v != old.v); }
 
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
@@ -256,7 +255,12 @@ void pointing_device_task(void) {
 
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;
+#ifdef PLOOPY_DRAGSCROLL_INVERT
+        // Invert vertical scroll direction
+        mouse_report.v = -mouse_report.y;
+#else
         mouse_report.v = mouse_report.y;
+#endif
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
@@ -265,27 +269,10 @@ void pointing_device_task(void) {
     pointing_device_send();
 }
 
-void pointing_device_send(void) {
-    static report_mouse_t old_report  = {};
-    report_mouse_t        mouseReport = pointing_device_get_report();
-
-    // If you need to do other things, like debugging, this is the place to do it.
-    if (has_report_changed(mouseReport, old_report)) {
-        host_mouse_send(&mouseReport);
-    }
-
-    // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device
-    mouseReport.x = 0;
-    mouseReport.y = 0;
-    mouseReport.v = 0;
-    mouseReport.h = 0;
-    pointing_device_set_report(mouseReport);
-    old_report = mouseReport;
-}
-
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = PLOOPY_DPI_DEFAULT;
     eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
 }
 
 void matrix_init_kb(void) {

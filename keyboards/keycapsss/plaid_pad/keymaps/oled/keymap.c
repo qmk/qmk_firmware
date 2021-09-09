@@ -98,7 +98,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 void render_space(void) {
   oled_write_P(PSTR("     "), false);
@@ -125,7 +125,7 @@ void oled_task_user(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
 /*
     ,-----------------------,
     |  E1 |  E2 |  E3 |  E4 |
@@ -224,5 +224,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         break;
     }
   }
+    return true;
 }
 #endif

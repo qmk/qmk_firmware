@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
 static void render_logo(void) {
@@ -122,12 +122,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
     } else {
         tap_code(KC_VOLD);
     }
+    return true;
 }
 
 void matrix_init_user(void) {

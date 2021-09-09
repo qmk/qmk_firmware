@@ -10,7 +10,7 @@ from qmk.datetime import current_datetime
 from qmk.info import info_json
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import json_load
-from qmk.keyboard import list_keyboards
+from qmk.keyboard import find_readme, list_keyboards
 
 
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't write the data to disk.")
@@ -38,7 +38,7 @@ def generate_api(cli):
         keyboard_dir = v1_dir / 'keyboards' / keyboard_name
         keyboard_info = keyboard_dir / 'info.json'
         keyboard_readme = keyboard_dir / 'readme.md'
-        keyboard_readme_src = Path('keyboards') / keyboard_name / 'readme.md'
+        keyboard_readme_src = find_readme(keyboard_name)
 
         keyboard_dir.mkdir(parents=True, exist_ok=True)
         keyboard_json = json.dumps({'last_updated': current_datetime(), 'keyboards': {keyboard_name: kb_all[keyboard_name]}})
@@ -46,7 +46,7 @@ def generate_api(cli):
             keyboard_info.write_text(keyboard_json)
             cli.log.debug('Wrote file %s', keyboard_info)
 
-            if keyboard_readme_src.exists():
+            if keyboard_readme_src:
                 copyfile(keyboard_readme_src, keyboard_readme)
                 cli.log.debug('Copied %s -> %s', keyboard_readme_src, keyboard_readme)
 

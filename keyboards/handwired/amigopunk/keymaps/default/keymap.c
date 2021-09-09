@@ -37,15 +37,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index != 0)
-        return;
+        return false;
 
     tap_code(clockwise ? KC_VOLU : KC_VOLD);
+    return true;
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_amigopunk_logo(void) {
     static const char PROGMEM amigopunk_logo[] = {

@@ -105,7 +105,7 @@ void change_RGB(bool clockwise) {
     }
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (layer_state_is(1)) {
     //change RGB settings
     change_RGB(clockwise);
@@ -117,6 +117,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_VOLD);
     }
   }
+    return true;
 }
 
 void matrix_init_user(void) {

@@ -33,11 +33,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_END,  KC_PGDN),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if(IS_LAYER_ON(2)){
     if (clockwise)
       tap_code(KC_LEFT);
-    else 
+    else
       tap_code(KC_RGHT);
   }
   else{
@@ -46,6 +46,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     else
       tap_code(KC_VOLD);
   }
+    return true;
 }
 
 void matrix_init_user(void) {

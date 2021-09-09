@@ -48,6 +48,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_MODS_ENABLE
 #define SPLIT_TRANSPORT_MIRROR
 
+/* Basic RGB configuration */
+#define RGB_DI_PIN D3
+// Underglow LEDs
+#define RGBLED_SPLIT { 6, 6 }
+#define RGBLED_NUM 12
+// Full backlight + underglow
+//#define RGBLED_SPLIT { 35, 35 }
+//#define RGBLED_NUM 70
+#define RGBLIGHT_SPLIT
+
 // Disable depreciated
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
@@ -63,8 +73,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 2
 #define TAP_CODE_DELAY 10
 
-#define NO_AUTO_SHIFT_SPECIAL
-#define NO_AUTO_SHIFT_NUMERIC
+//#define NO_AUTO_SHIFT_SPECIAL
+//#define NO_AUTO_SHIFT_NUMERIC
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

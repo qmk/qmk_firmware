@@ -67,9 +67,9 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk)","")
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
     BOARD_PATH = $(KEYBOARD_PATH_1)
     BOARD_MK += $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk)","")
-    BOARD_PATH = $(TOP_DIR)/platforms/chibios/$(BOARD)
-    BOARD_MK += $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/board/board.mk)","")
+    BOARD_PATH = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)
+    BOARD_MK += $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/board/board.mk
     KEYBOARD_PATHS += $(BOARD_PATH)/configs
     ifneq ("$(wildcard $(BOARD_PATH)/rules.mk)","")
         include $(BOARD_PATH)/rules.mk
@@ -124,10 +124,10 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/chconf.h)","")
     CHCONFDIR = $(KEYBOARD_PATH_2)
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/chconf.h)","")
     CHCONFDIR = $(KEYBOARD_PATH_1)
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/chconf.h)","")
-    CHCONFDIR = $(TOP_DIR)/platforms/chibios/$(BOARD)/configs
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/configs/chconf.h)","")
-    CHCONFDIR = $(TOP_DIR)/platforms/chibios/common/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/chconf.h)","")
+    CHCONFDIR = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/boards/chibios/common/configs/chconf.h)","")
+    CHCONFDIR = $(TOP_DIR)/platforms/chibios/boards/common/configs
 endif
 
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf.h)","")
@@ -140,10 +140,10 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf.h)","")
     HALCONFDIR = $(KEYBOARD_PATH_2)
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf.h)","")
     HALCONFDIR = $(KEYBOARD_PATH_1)
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/halconf.h)","")
-    HALCONFDIR = $(TOP_DIR)/platforms/chibios/$(BOARD)/configs
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/configs/halconf.h)","")
-    HALCONFDIR = $(TOP_DIR)/platforms/chibios/common/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/halconf.h)","")
+    HALCONFDIR = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/common/configs/halconf.h)","")
+    HALCONFDIR = $(TOP_DIR)/platforms/chibios/boards/common/configs
 endif
 
 # HAL-OSAL files (optional).
@@ -190,8 +190,11 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld)","")
-    LDSCRIPT = $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDFLAGS += -L$(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld
     USE_CHIBIOS_CONTRIB = yes
@@ -208,7 +211,8 @@ CHIBISRC = $(STARTUPSRC) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
        $(CHIBIOS)/os/various/syscalls.c \
-       $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c
+       $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c \
+       $(PLATFORM_COMMON_DIR)/wait.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
@@ -216,8 +220,8 @@ QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
 EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
-         $(TOP_DIR)/platforms/chibios/$(BOARD)/configs \
-         $(TOP_DIR)/platforms/chibios/common/configs \
+         $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs \
+         $(TOP_DIR)/platforms/chibios/boards/common/configs \
          $(HALCONFDIR) $(CHCONFDIR) \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
@@ -238,7 +242,7 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf_community.h)","")
     USE_CHIBIOS_CONTRIB = yes
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf_community.h)","")
     USE_CHIBIOS_CONTRIB = yes
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/halconf_community.h)","")
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/halconf_community.h)","")
     USE_CHIBIOS_CONTRIB = yes
 endif
 
@@ -274,8 +278,6 @@ NM = arm-none-eabi-nm
 HEX = $(OBJCOPY) -O $(FORMAT)
 EEP =
 BIN = $(OBJCOPY) -O binary
-
-COMMON_VPATH += $(DRIVER_PATH)/chibios
 
 THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
@@ -323,86 +325,8 @@ MCUFLAGS = -mcpu=$(MCU)
 
 DEBUG = gdb
 
-DFU_ARGS ?=
-ifneq ("$(SERIAL)","")
-	DFU_ARGS += -S $(SERIAL)
-endif
-
-ST_LINK_ARGS ?=
-ST_FLASH_ARGS ?=
-
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
 
-DFU_UTIL ?= dfu-util
-ST_LINK_CLI ?= st-link_cli
-ST_FLASH ?= st-flash
-
-define EXEC_DFU_UTIL
-	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
-		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
-		sleep 5 ;\
-	done
-	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
-endef
-
-dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
-	$(call EXEC_DFU_UTIL)
-
-# Legacy alias
-dfu-util-wait: dfu-util
-
-# TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
-#       within the emulated eeprom via dfu-util or another tool
-ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-left))
-    OPT_DEFS += -DINIT_EE_HANDS_LEFT
-endif
-
-ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-right))
-    OPT_DEFS += -DINIT_EE_HANDS_RIGHT
-endif
-
-dfu-util-split-left: dfu-util
-
-dfu-util-split-right: dfu-util
-
-
-st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
-	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
-
-st-flash: $(BUILD_DIR)/$(TARGET).hex sizeafter
-	$(ST_FLASH) $(ST_FLASH_ARGS) --reset --format ihex write $(BUILD_DIR)/$(TARGET).hex
-
-
-# Autodetect teensy loader
-ifndef TEENSY_LOADER_CLI
-    ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
-        TEENSY_LOADER_CLI ?= teensy-loader-cli
-    else
-        TEENSY_LOADER_CLI ?= teensy_loader_cli
-    endif
-endif
-
-define EXEC_TEENSY
-	$(TEENSY_LOADER_CLI) -mmcu=$(MCU_LDSCRIPT) -w -v $(BUILD_DIR)/$(TARGET).hex
-endef
-
-teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
-	$(call EXEC_TEENSY)
-
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
-
-
-flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
-ifneq ($(strip $(PROGRAM_CMD)),)
-	$(PROGRAM_CMD)
-else ifeq ($(strip $(BOOTLOADER)),kiibohd)
-	$(call EXEC_DFU_UTIL)
-else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
-	$(call EXEC_TEENSY)
-else ifeq ($(strip $(MCU_FAMILY)),STM32)
-	$(call EXEC_DFU_UTIL)
-else
-	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
-endif

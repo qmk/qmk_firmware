@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Encoder rotate function
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     /* First encoder */
     if (index == 0) {
         if (clockwise) {
@@ -40,11 +40,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_AUDIO_VOL_DOWN);
         }
-  }
+    }
+    return true;
 }
 
 // Encoder click function
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
     /* First encoder */
     case 0:
@@ -53,4 +54,5 @@ void dip_switch_update_user(uint8_t index, bool active) {
         }
         break;
     }
+    return true;
 }

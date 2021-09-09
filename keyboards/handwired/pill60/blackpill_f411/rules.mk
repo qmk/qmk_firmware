@@ -1,12 +1,8 @@
 # MCU name
 MCU = STM32F411
 
-# Address of the bootloader in system memory
-STM32_BOOTLOADER_ADDRESS = 0x1FFF0000
-
-# Options to pass to dfu-util when flashing
-DFU_ARGS = -d 0483:DF11 -a 0 -s 0x08000000:leave
-DFU_SUFFIX_ARGS = -v 0483 -p DF11
+# Bootloader selection
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable
