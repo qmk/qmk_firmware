@@ -77,6 +77,10 @@
                 "lto": {"type": "boolean"},
             }
         },
+        "custom_keycodes": {
+            "type": "array",
+            "items": {"$ref": "qmk.definitions.v1#/keycode"}
+        },
         "diode_direction": {
             "type": "string",
             "enum": ["COL2ROW", "ROW2COL"]

@@ -5,6 +5,11 @@
     "type": "object",
     "properties": {
         "author": {"type": "string"},
+        "config": {"$ref": "qmk.keyboard.v1"},
+        "custom_keycodes": {
+            "type": "array",
+            "items": {"$ref": "qmk.definitions.v1#/keycode"}
+        },
         "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "layout": {"$ref": "qmk.definitions.v1#/layout_macro"},
@@ -12,10 +17,9 @@
             "type": "array",
             "items": {
                 "type": "array",
-                "items": {"type": "string"}
+                "items": {"$ref": "qmk.definitions.v1#/keycode"}
             }
         },
-        "config": {"$ref": "qmk.keyboard.v1"},
         "notes": {
             "type": "string",
             "description": "asdf"

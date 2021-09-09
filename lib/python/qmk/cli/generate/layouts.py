@@ -51,6 +51,21 @@ def generate_layouts(cli):
             cli.log.error('%s: Invalid matrix config.', cli.config.generate_layouts.keyboard)
             return False
 
+    if 'custom_keycodes' in kb_info_json:
+        layouts_h_lines.append('\n#include "quantum_keycodes.h"')
+        #layouts_h_lines.append('\nenum custom_keycodes {')
+        first = True
+        #for keycode in kb_info_json['custom_keycodes']:
+        #    if first:
+        #        first = False
+        #        layouts_h_lines.append(f'\t{keycode} = SAFE_RANGE,')
+        #    else:
+        #        layouts_h_lines.append(f'\t{keycode},')
+        #layouts_h_lines.append('\tNEW_SAFE_RANGE')
+        #layouts_h_lines.append('}\n')
+        #layouts_h_lines.append('#undef SAFE_RANGE')
+        #layouts_h_lines.append('#define SAFE_RANGE NEW_SAFE_RANGE')
+
     for layout_name in kb_info_json['layouts']:
         if kb_info_json['layouts'][layout_name]['c_macro']:
             continue
