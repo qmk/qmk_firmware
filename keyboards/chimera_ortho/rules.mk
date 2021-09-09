@@ -26,7 +26,6 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 MIDI_ENABLE = no              # MIDI support
 UNICODE_ENABLE = YES 		# Unicode
-# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 # project specific files
 SRC += matrix.c serial_uart.c
