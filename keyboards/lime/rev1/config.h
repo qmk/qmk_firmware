@@ -21,15 +21,18 @@
 #define DEBOUNCE 5
 
 /* encoder support */
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
-#define ENCODERS_PAD_A_RIGHT { F4 }
-#define ENCODERS_PAD_B_RIGHT { F5 }
-#define ENCODER_RESOLUTION 2
+#ifdef ENCODER_ENABLE
+#   define ENCODERS_PAD_A { F5 }
+#   define ENCODERS_PAD_B { F4 }
+#   define ENCODERS_PAD_A_RIGHT { F4 }
+#   define ENCODERS_PAD_B_RIGHT { F5 }
+#   define ENCODER_RESOLUTION 2
+#endif
 
 /* joystick support */
 #define JOYSTICK_AXES_COUNT 2
 #define JOYSTICK_BUTTON_COUNT 1
+#define JOYSTICK_AXES_RESOLUTION 8
 
 #define TAP_CODE_DELAY 10
 
@@ -41,4 +44,14 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 #define SPLIT_USB_DETECT
+
+#ifdef WPM_ENABLE
+#    define SPLIT_WPM_ENABLE
+#endif
+
+/*
+#ifdef OLED_ENABLE
+#    define SPLIT_OLED_ENABLE
+#endif
+*/
 
