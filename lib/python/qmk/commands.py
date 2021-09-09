@@ -437,7 +437,7 @@ def do_compile(keyboard, keymap, parallel, target=None, filters=None, environmen
 
             for i, returncode in enumerate(returncodes):
                 if returncode != 0:
-                    keyboard, keymap, command = commands[i]
+                    keyboard, keymap, command = returncodes[i]
                     cli.echo('\tkeyboard: {fg_cyan}%s{fg_reset} keymap: {fg_cyan}%s', keyboard, keymap)
 
     elif command:

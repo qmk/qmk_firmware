@@ -3,8 +3,6 @@
 You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
-from subprocess import DEVNULL
-
 from argcomplete.completers import FilesCompleter
 from milc import cli
 

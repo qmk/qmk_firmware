@@ -24,6 +24,8 @@ def json_load(json_file):
         exit(1)
     except Exception as e:
         cli.log.error('Unknown error attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
+        if cli.args.verbose:
+            cli.log.exception(e)
         exit(1)
 
 

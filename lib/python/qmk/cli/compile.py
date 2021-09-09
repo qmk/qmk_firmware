@@ -2,10 +2,7 @@
 
 You can compile a keymap already in the repo or using a QMK Configurator export.
 """
-from subprocess import DEVNULL
-
 from argcomplete.completers import FilesCompleter
-from dotty_dict import dotty
 from milc import cli
 
 import qmk.path
