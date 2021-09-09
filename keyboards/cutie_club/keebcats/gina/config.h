@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFB9C
-#define PRODUCT_ID 0x0060
+#define PRODUCT_ID 0xB225
 #define DEVICE_VER 0x0000
 #define MANUFACTURER Cutie Club
 #define PRODUCT Keebcats Gina
