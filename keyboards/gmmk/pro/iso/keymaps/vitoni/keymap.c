@@ -65,3 +65,24 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 #endif // ENCODER_ENABLE
+
+#if defined(RGB_MATRIX_ENABLE)
+/*
+* Set up default RGB color.
+*/
+void rgb_matrix_set_default_color(void) {
+    rgb_matrix_sethsv_noeeprom(HSV_CHARTREUSE);
+}
+
+/*
+* Set up RGB defaults.
+*/
+void rgb_matrix_configure_default_settings(void) {
+    rgb_matrix_set_default_color();
+}
+
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_configure_default_settings();
+}
+#endif // RGB_MATRIX_ENABLE
