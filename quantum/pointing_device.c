@@ -17,6 +17,9 @@
  */
 
 #include "pointing_device.h"
+#ifdef MOUSEKEY_ENABLE
+#    include "mousekey.h"
+#endif
 
 static report_mouse_t mouseReport = {};
 
@@ -59,6 +62,11 @@ __attribute__((weak)) void pointing_device_task(void) {
     // mouseReport.buttons = 0x1F (decimal 31, binary 00011111) max (bitmask for mouse buttons 1-5, 1 is rightmost, 5 is leftmost) 0x00 min
     // send the report
     mouseReport = pointing_device_driver.get_report(mouseReport);
+#ifdef MOUSEKEY_ENABLE
+    report_mouse_t mousekey_report = mousekey_get_report();
+    mouseReport.buttons |= mousekey_report.buttons;
+#endif
+
     mouseReport = pointing_device_task_kb(mouseReport);
     mouseReport = pointing_device_task_user(mouseReport);
 
