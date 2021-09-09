@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -50,8 +50,6 @@
 #    define RGB_MATRIX_SPLIT { 18, 18 }
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
 #    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#    ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
-#        define RGB_DISABLE_WHEN_USB_SUSPENDED true
-#    endif
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define RGB_MATRIX_KEYPRESSES
 #endif
