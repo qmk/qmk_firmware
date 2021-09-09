@@ -105,4 +105,22 @@ void keyboard_post_init_user(void) {
     rgb_matrix_enable_noeeprom();
     rgb_matrix_configure_default_settings();
 }
+
+/*
+* Use RGB underglow to indicate specific layers.
+*/
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case _MOV:
+            rgb_matrix_sethsv_noeeprom(HSV_SPRINGGREEN);
+            break;
+        case _RGB:
+            rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+            break;
+        default: // for any other layer
+            rgb_matrix_set_default_color();
+            break;
+    }
+    return state;
+}
 #endif // RGB_MATRIX_ENABLE
