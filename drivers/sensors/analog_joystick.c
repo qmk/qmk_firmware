@@ -17,7 +17,7 @@
 #include "analog_joystick.h"
 #include "analog.h"
 #include "gpio.h"
-#include "timer.h"
+#include "wait.h"
 
 // Set Parameters
 uint16_t minAxisValue = ANALOG_JOYSTICK_AXIS_MIN;

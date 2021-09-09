@@ -122,15 +122,19 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         endif
         OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
         ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
             QUANTUM_LIB_SRC += spi_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
+            OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
             LIB_SRC += analog.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_tm040040)
             OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
             QUANTUM_LIB_SRC += i2c_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
             QUANTUM_LIB_SRC += i2c_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3360)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
             QUANTUM_LIB_SRC += spi_master.c
         endif
     endif
