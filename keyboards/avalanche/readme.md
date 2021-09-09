@@ -10,6 +10,10 @@ An ergonomic split keyboard.
 
 Compile example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb avalanche/v3 -km default_v3
+    make avalanche/v3:default_v3
+
+Install example:
+
+    make avalanche/v3:default_v3:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

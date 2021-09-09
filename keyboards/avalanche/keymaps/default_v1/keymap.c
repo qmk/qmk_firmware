@@ -1,8 +1,3 @@
-/*
-qmk compile -kb avalanche/v1 -km default_v1
-qmk flash -kb avalanche/v1 -km default_v1
-*/
-
 #include QMK_KEYBOARD_H
 
 enum layer {

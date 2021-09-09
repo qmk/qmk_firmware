@@ -2,8 +2,6 @@
 
 #include "../avalanche.h"
 
-#include "quantum.h"
-
 #define L__ KC_NO
 #define R__ KC_NO
 
