@@ -4,10 +4,6 @@ MCU = atmega32u4
 # Bootloader selection
 BOOTLOADER = qmk-dfu
 
-# Includes
-SRC += do43_oled.c \
-			 combos.c
-
 # Build Options
 #   change yes to no to disable
 #
@@ -29,3 +25,10 @@ WPM_ENABLE = yes            # Enable WPM calculation
 LEADER_ENABLE = yes         # Enable leader key
 COMBO_ENABLE = yes          # Enable combos
 LTO_ENABLE = yes            # Link Time Optimisation
+
+# Includes
+SRC += do43_oled.c
+
+ifeq ($(strip $(COMBO_ENABLE)), yes)
+    SRC += combos.c
+endif
