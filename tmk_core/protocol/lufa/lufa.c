@@ -1015,8 +1015,13 @@ static void setup_mcu(void) {
     MCUSR &= ~_BV(WDRF);
     wdt_disable();
 
-    /* Disable clock division */
+// For boards running at 3.3V and crystal at 16 MHz
+#if (F_CPU == 8000000 && F_USB == 16000000)
+    /* Divide clock by 2 */
+    clock_prescale_set(clock_div_2);
+#else /* Disable clock division */
     clock_prescale_set(clock_div_1);
+#endif
 }
 
 /** \brief Setup USB
