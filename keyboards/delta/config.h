@@ -45,10 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define FORCE_NKRO
-#define USB_POLLING_INTERVAL_MS 1
-#define QMK_KEYS_PER_SCAN 12
-
 #define ENCODER_DIRECTION_FLIP
 #define ENCODERS_PAD_A { D1 }
 #define ENCODERS_PAD_B { D0 }
