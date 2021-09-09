@@ -48,7 +48,7 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
     report_analog_joystick_t data = analog_joystick_read();
 
-    if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
+    if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
 
     mouse_report.x = data.x;
     mouse_report.y = data.y;

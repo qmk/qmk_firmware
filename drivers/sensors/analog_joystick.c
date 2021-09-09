@@ -61,7 +61,7 @@ int16_t axisCoordinate(uint8_t pin, uint16_t origin) {
 }
 
 int8_t axisToMouseComponent(uint8_t pin, int16_t origin, uint8_t maxSpeed) {
-    int coordinate = axisCoordinate(pin, origin);
+    int16_t coordinate = axisCoordinate(pin, origin);
     if (coordinate != 0) {
         float percent = (float)coordinate / 100;
         return percent * maxCursorSpeed * (abs(coordinate) / speedRegulator);
@@ -71,7 +71,7 @@ int8_t axisToMouseComponent(uint8_t pin, int16_t origin, uint8_t maxSpeed) {
 }
 
 report_analog_joystick_t analog_joystick_read(void) {
-    report_analog_joystick_t report;
+    report_analog_joystick_t report = {0};
 
     if (timer_elapsed(lastCursor) > ANALOG_JOYSTICK_READ_INTERVAL) {
         lastCursor = timer_read();
@@ -86,7 +86,7 @@ report_analog_joystick_t analog_joystick_read(void) {
 
 void analog_joystick_init(void) {
 #ifdef ANALOG_JOYSTICK_CLICK_PIN
-    setPinInputHigh(E6);
+    setPinInputHigh(ANALOG_JOYSTICK_CLICK_PIN);
 #endif
     // Account for drift
     xOrigin = analogReadPin(ANALOG_JOYSTICK_X_AXIS_PIN);
