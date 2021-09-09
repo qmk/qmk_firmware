@@ -1,8 +1,8 @@
 #pragma once
 
 #define VENDOR_ID       0x0001
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
+#define PRODUCT_ID      0x0002
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    vitvlkv
 #define PRODUCT         Avalanche
 #define DESCRIPTION     QMK keyboard firmware for Avalanche

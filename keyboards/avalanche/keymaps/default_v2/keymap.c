@@ -1,6 +1,6 @@
 /*
-qmk compile -kb avalanche/rev2 -km default_rev2
-qmk flash -kb avalanche/rev2 -km default_rev2
+qmk compile -kb avalanche/v2 -km default_v2
+qmk flash -kb avalanche/v2 -km default_v2
 */
 
 #include QMK_KEYBOARD_H
