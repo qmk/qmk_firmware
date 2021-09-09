@@ -1,4 +1,4 @@
-/* Copyright 2020 Jay Greco
+/* Copyright 2021 Jay Greco
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,25 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "bitc_led.h"
+#pragma once
 
-void set_bitc_LED(uint8_t mode) {
-    switch(mode) {
-        case LED_ON:
-            setPinOutput(PIN_LED);
-            writePin(PIN_LED, GPIO_STATE_HIGH);
-        break;
+#include "quantum.h"
 
-        case LED_DIM:
-            setPinInput(PIN_LED);
-        break;
+#define LED_ON          2
+#define LED_DIM         1
+#define LED_OFF         0
 
-        case LED_OFF:
-            setPinOutput(PIN_LED);
-            writePin(PIN_LED, GPIO_STATE_LOW);
-        break;
+#define GPIO_STATE_LOW  0
+#define GPIO_STATE_HIGH 1
 
-        default:
-        break;
-    }
-}
+#define PIN_LED         F0
+
+void set_bitc_LED(uint8_t mode);
