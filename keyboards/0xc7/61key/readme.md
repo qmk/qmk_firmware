@@ -1,6 +1,6 @@
 # 61Key
 
-![61Key](https://imgur.com/a/u3gRF3W)
+![61Key](https://i.imgur.com/HdE6c6zh.jpeg)
 
 Custom keyboard designed by RealEmanGaming aka 0xC7
 
