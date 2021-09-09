@@ -12,7 +12,7 @@ This firmware was originally taken from a kbfirmware.json and converted through 
 Make example for this keyboard (after setting up your build environment):
 
     make kprepublic/bm43hsrgb:default
-
+    
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-See [Default Keymap](keymaps/default/readme.md) for the layout.
+See [Default Keymap](keymaps/default/readme.md) for the layout. In the default keymap you can access the bootloader with `right Alt + Esc`.
