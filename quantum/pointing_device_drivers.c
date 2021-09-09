@@ -92,6 +92,52 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = adns9800_get_config
 };
 // clang-format on
+#elif defined(POINTING_DEVICE_DRIVER_cirque_tm040040)
+#    ifndef TAPPING_CHECK
+#        define TAPPING_CHECK 200
+#    endif
+
+report_mouse_t cirque_tm040040_get_report(report_mouse_t mouse_report) {
+    tm040040_data_t touchData = cirque_tm040040_read_data();
+    static uint16_t x = 0, y = 0, mouse_timer = 0;
+    static bool     is_z_down = false;
+
+    cirque_tm040040_scale_data(&touchData, 256 * 4, 256 * 4);  // Scale coordinates to arbitrary X, Y resolution
+
+    if (x && y && touchData.xValue && touchData.yValue) {
+        mouse_report.x = (int8_t)(touchData.xValue - x);
+        mouse_report.y = (int8_t)(touchData.yValue - y);
+    }
+    x = touchData.xValue;
+    y = touchData.yValue;
+
+    if ((bool)touchData.zValue != is_z_down) {
+        is_z_down = (bool)touchData.zValue;
+        if (!touchData.zValue) {
+            if (timer_elapsed(mouse_timer) < TAPPING_CHECK && mouse_timer != 0) {
+                mouse_report.buttons |= MOUSE_BTN1;
+            } else if (mouse_timer == 0) {
+                mouse_report.buttons &= ~MOUSE_BTN1;
+            }
+        }
+        mouse_timer = timer_read();
+    }
+    if (timer_elapsed(mouse_timer) > (2 * TAPPING_CHECK)) {
+        mouse_timer = 0;
+    }
+
+    return mouse_report;
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = cirque_tm040040_init,
+    .get_report = cirque_tm040040_get_report,
+    .set_cpi    = NULL,
+    .get_cpi    = NULL
+};
+// clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
     static fast_timer_t throttle      = 0;
