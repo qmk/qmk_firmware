@@ -47,11 +47,9 @@ jobs:
     - name: Format files
       shell: 'bash {0}'
       run: |
-        qmk format-c --core-only -n $(< ~/files.txt)
-        format_c_exit=$?
-        qmk format-python -n
-        format_python_exit=$?
-        exit $((format_c_exit + format_python_exit))
+        qmk format-c --core-only $(< ~/files.txt)
+        qmk format-python
+        qmk format-text
 
     - name: Fail when formatting required
       if: ${{ github.event_name == 'pull_request' }}
