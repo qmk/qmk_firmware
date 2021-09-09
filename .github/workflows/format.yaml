@@ -47,7 +47,7 @@ jobs:
     - name: Format files
       shell: 'bash {0}'
       run: |
-        qmk format-c --core-only $(< ~/files.txt)
+        qmk format-c --core-only
         qmk format-python
         qmk format-text
 
