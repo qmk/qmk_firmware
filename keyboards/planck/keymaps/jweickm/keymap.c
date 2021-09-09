@@ -74,7 +74,8 @@ enum tap_dance_codes{
 		TD_QUO_BRC, // double function on quotes to enable typing ü in german layout
     TD_COMM_SLSH, // comma that doubles as a slash
     TD_MPLY, // play/pause, double for next, triple for previous song
-    TD_Q_TAB // double tap q to register tab
+    TD_Q_TAB, // double tap q to register tab
+    TD_VIM_GG // single tap to scroll down, double tap to scroll up
 };
 
 #define LOWER MO(_LOWER)
@@ -88,21 +89,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), 	 LALT_T(KC_Y),	RGUI_T(KC_SCLN), DE_UE,
 		KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB,	 KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT,   
 		LT(_MOUSE,KC_Z), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD,  KC_K, KC_H, KC_COMM, KC_DOT, LT(_MOUSE,KC_MINS), KC_SLSH, 
-    LCTL_T(KC_CAPS), LT(_NUM,KC_TAB), LGUI_T(KC_ESC), LT(_LOWER, KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE, KC_DEL), RCTL_T(KC_ENT), KC_LALT, LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
+    LCTL_T(KC_CAPS), LGUI_T(KC_TAB), LALT_T(KC_ESC), LT(_LOWER, KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
 ),
 
 [_HRWIDECOLEMAK_DE] = LAYOUT_planck_grid(
 		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Z), DE_SCLN, RGUI_T(KC_LBRC),
 		KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB,	 KC_M, KC_N, KC_E, KC_I, KC_O, DE_QUOT,  
 		LT(_MOUSE,KC_Y), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD,  KC_K, KC_H, KC_COMM, KC_DOT, LT(_MOUSE,KC_SLSH), DE_SLSH_QUST, 
-    LCTL_T(KC_CAPS), LT(_NUM,KC_TAB), LGUI_T(KC_ESC), LT(_LOWER_DE, KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE_DE, KC_DEL), RCTL_T(KC_ENT), KC_LALT, LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
+    LCTL_T(KC_CAPS), LGUI_T(KC_TAB), LALT_T(KC_ESC), LT(_LOWER_DE, KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE_DE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
 ),
 
 [_GAMING] = LAYOUT_planck_grid(
 		KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_F5, KC_F8, KC_F9, KC_VOLU, 
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_VOLD, 
 		KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_Z, KC_M, KC_SCLN, KC_ENT, 
-		KC_LCTL, KC_LALT, KC_B, KC_X, KC_C, KC_SPC, KC_SPC, KC_LALT, TG_COLEMAK, KC_TRNS, KC_TRNS, GAMING
+		KC_LCTL, KC_LALT, KC_B, KC_X, KC_C, KC_SPC, KC_SPC, TG_COLEMAK, KC_LALT, KC_TRNS, KC_TRNS, GAMING
 ),
 
 /* WIDECOLEMAK
@@ -132,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER_DE] = LAYOUT_planck_grid(
 		KC_EXLM, RALT(KC_Q), KC_BSLS, KC_DLR, KC_PERC, RALT(KC_RBRC), KC_GRV, KC_CIRC, KC_RCBR, KC_ASTR, KC_LPRN, KC_QUOT, 
-		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DE_SZ, LSFT(KC_SLSH), KC_RBRC, RALT(KC_7), RALT(KC_0), RALT(KC_NUBS), 
+		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, LSFT(KC_SLSH), KC_RBRC, RALT(KC_7), RALT(KC_0), RALT(KC_NUBS), 
 		KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, LSFT(KC_7), KC_NUBS, LSFT(KC_NUBS), KC_CURRENCY, KC_PLUS, 
 		TG(_MOUSE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_DOWN, KC_UP
 ),
@@ -146,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE_DE] = LAYOUT_planck_grid(
 		KC_1, KC_2, KC_3, KC_4, KC_5, LSFT(KC_GRV), KC_6, KC_7, KC_8, KC_9, KC_0, KC_SCLN, 
-		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DE_SZ, KC_SLSH, LSFT(KC_0), RALT(KC_8), RALT(KC_9), RALT(KC_MINS), 
+		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, KC_SLSH, LSFT(KC_0), RALT(KC_8), RALT(KC_9), RALT(KC_MINS), 
 		KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, RALT(KC_MINS), KC_COMM, KC_DOT, KC_SLSH, KC_EQL, 
 		TG(_MOUSE), KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_DOWN, KC_UP
 ),
@@ -160,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAV] = LAYOUT_planck_grid(
     ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_DOWN, KC_RIGHT, KC_PGUP, LCTL(KC_C), KC_RGUI, KC_DE_SWITCH, 
-		CTL_TAB, KC_TAB, KC_ESC, LT(_NUM,KC_ENT), KC_TAB, KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, 
+		CTL_TAB, KC_TAB, KC_ESC, LT(_NUM,KC_ENT), TD_VIM_GG, KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, 
 		KC_LSFT, KC_NO, LCTL(KC_X), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), 
 		KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS, LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), KC_NO, KC_NO, KC_TRNS, KC_DOWN, KC_UP
 ),
@@ -219,69 +220,88 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 	[TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
 	[TD_QUO_BRC] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_LBRC),
   [TD_COMM_SLSH] = ACTION_TAP_DANCE_DOUBLE(KC_COMMA, KC_SLSH),
-  [TD_Q_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_TAB)
+  [TD_Q_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_TAB),
+  [TD_VIM_GG] = ACTION_TAP_DANCE_DOUBLE(KC_PGDN, KC_PGUP)  
 };
 
-// TD(TD_ESC_CAPS), LGUI_T(KC_A), LALT_T(KC_R), LSFT_T(KC_S), LCTL_T(KC_T), KC_G, KC_M, RCTL_T(KC_N), RSFT_T(KC_E), LALT_T(KC_I), RGUI_T(KC_O), KC_TRNS, 
+float thumb_factor  = 0.95;
+float index_factor  = 1.1;
+float middle_factor = 1.2;
+float ring_factor   = 1.25;
+float pinky_factor  = 1.15; 
+float td_factor     = 1.4;
+
 // define the per_key_tapping_term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case TD(TD_ESC_CAPS):
-            return TAPPING_TERM * 1.5;
-        case LGUI_T(KC_A):
-            return TAPPING_TERM * 1.4;
-        case LGUI_T(KC_Q):
-            return TAPPING_TERM * 1.1;
-        case RGUI_T(KC_O):
-            return TAPPING_TERM * 1.45;
-        case RGUI_T(KC_SCLN):
-            return TAPPING_TERM * 1.1;
-				case RGUI_T(KC_LBRC):
-						return TAPPING_TERM * 1.1;	
-        case LALT_T(KC_R):
-            return TAPPING_TERM * 1.3;
-        case LALT_T(KC_W):
-            return TAPPING_TERM * 1.25;
-        case LALT_T(KC_I):
-            return TAPPING_TERM * 1.35;
-        case LALT_T(KC_Y):
-            return TAPPING_TERM * 1.25;
-        case LCTL_T(KC_T):
-            return TAPPING_TERM * 1.1;
+        // thumb keys
+        case RSFT_T(KC_DEL):
+            return TAPPING_TERM * thumb_factor;
+        case RCTL_T(KC_TAB):
+            return TAPPING_TERM * thumb_factor;
+        case LT(_NAV,KC_LEFT):
+            return TAPPING_TERM * thumb_factor;
+        case LT(_NAV,KC_RIGHT):
+            return TAPPING_TERM * thumb_factor;
+        case LT(_LOWER,KC_BSPC):
+            return TAPPING_TERM * thumb_factor;
+        case LT(_LOWER_DE,KC_BSPC):
+            return TAPPING_TERM * thumb_factor;
+        case LT(_RAISE,KC_ENT):
+            return TAPPING_TERM * thumb_factor;
+        case LT(_RAISE_DE,KC_ENT):
+            return TAPPING_TERM * thumb_factor;
+        case LT(_NAV,KC_SPC):
+            return TAPPING_TERM * thumb_factor;
+        case LALT_T(KC_ESC):
+            return TAPPING_TERM * thumb_factor;
+
+        // index finger keys
         case LCTL_T(KC_P):
-            return TAPPING_TERM * 1.1;
-        case RCTL_T(KC_N):
-            return TAPPING_TERM * 1.1;
+            return TAPPING_TERM * index_factor;
         case RCTL_T(KC_L):
-            return TAPPING_TERM * 1.1;
-        case LSFT_T(KC_S):
-            return TAPPING_TERM * 1.1;
-        case LSFT_T(KC_F):
-            return TAPPING_TERM * 1.2;
-        case RSFT_T(KC_E):
-            return TAPPING_TERM * 1.1;
-        case RSFT_T(KC_U):
-            return TAPPING_TERM * 1.2;
-        case LT(_NUM, KC_F):
-            return TAPPING_TERM * 1.2;
+            return TAPPING_TERM * index_factor;
         case LT(_NUM, KC_B):
-            return TAPPING_TERM * 1.1;
+            return TAPPING_TERM * index_factor;
         case LT(_NUM, KC_J):
-            return TAPPING_TERM * 1.1;
+            return TAPPING_TERM * index_factor;
+
+        // middle finger keys
+        case LSFT_T(KC_F):
+            return TAPPING_TERM * middle_factor;
+        case RSFT_T(KC_U):
+            return TAPPING_TERM * middle_factor;
+
+        // ring finger keys
+        case LALT_T(KC_W):
+            return TAPPING_TERM * ring_factor;
+        case LALT_T(KC_Y):
+            return TAPPING_TERM * ring_factor;
+        case LGUI_T(KC_TAB):
+            return TAPPING_TERM * ring_factor;
+
+        // pinky keys
+        case LGUI_T(KC_Q):
+            return TAPPING_TERM * pinky_factor;
+				case RGUI_T(KC_SCLN):
+						return TAPPING_TERM * pinky_factor;	
+				case RGUI_T(KC_LBRC):
+						return TAPPING_TERM * pinky_factor;	
         case LT(_MOUSE, KC_Z):
-            return TAPPING_TERM * 1.15;
+            return TAPPING_TERM * pinky_factor;
         case LT(_MOUSE, KC_SLSH):
-            return TAPPING_TERM * 1.15;
-        case TD(TD_QUO_BRC):
-            return TAPPING_TERM * 1.1;
-        case TD(TD_Q_TAB):
-            return TAPPING_TERM * 1.1;
+            return TAPPING_TERM * pinky_factor;
+        case LCTL_T(KC_CAPS):
+            return TAPPING_TERM * pinky_factor;
+
+        // tap-dance actions    
         case TD(TD_PRN):
-            return TAPPING_TERM * 1.4;
+            return TAPPING_TERM * td_factor;
         case TD(TD_BRC):
-            return TAPPING_TERM * 1.4;
+            return TAPPING_TERM * td_factor;
         case TD(TD_CBR):
-            return TAPPING_TERM * 1.4;
+            return TAPPING_TERM * td_factor;
+
         default:
             return TAPPING_TERM;
     }
@@ -838,4 +858,5 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _HRWIDECOLEMAK_DE));
     return state;
 }
+
 
