@@ -18,3 +18,22 @@
 
 /* OLED display modes */
 oled_mode_t oled_mode = OLED_INFO;
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    // Perform _kb actions only if process_record_user() didn't already handle the key event
+    // https://github.com/qmk/qmk_firmware/issues/8246
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
+    switch (keycode) {
+      case OLED_TOGG:
+        if (record->event.pressed) {
+            // When keycode OLED_TOGG is pressed
+            oled_clear();
+            oled_mode = (oled_mode + 1) % _NUM_OLED_MODES;
+        }
+    }
+
+    return true;
+}

@@ -48,3 +48,12 @@ typedef enum oled_mode {
 } oled_mode_t;
 
 extern oled_mode_t oled_mode;
+
+// Custom keycode for OLED display mode toggling
+enum kb_custom_keycodes {
+    OLED_TOGG = SAFE_RANGE,
+    NEW_SAFE_RANGE
+};
+
+#undef SAFE_RANGE
+#define SAFE_RANGE NEW_SAFE_RANGE

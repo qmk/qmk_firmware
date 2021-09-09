@@ -23,11 +23,6 @@ enum layer_names {
     _FN
 };
 
-// Defines custom keycodes for macros
-enum custom_keycodes {
-    OLED_TOGG = SAFE_RANGE
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
@@ -58,17 +53,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, OLED_TOGG
     )
 };
-
-/* Macros */
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-      case OLED_TOGG:
-        if (record->event.pressed) {
-            // When keycode OLED_TOGG is pressed
-            oled_clear();
-            oled_mode = (oled_mode + 1) % _NUM_OLED_MODES;
-        }
-    }
-
-    return true;
-}
