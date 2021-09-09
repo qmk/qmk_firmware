@@ -244,7 +244,7 @@ void read_host_led_state(void) {
     }
 }
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   state = layer_state_set_user(state);
   layer = biton32(state);
   queue_for_send = true;
@@ -300,7 +300,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
   encoder_value = (encoder_value + (clockwise ? 1 : -1)) % 64;
   queue_for_send = true;
   if (index == 0) {
@@ -325,6 +326,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
       }
     }
   }
+  return true;
 }
 
 void custom_config_reset(void){

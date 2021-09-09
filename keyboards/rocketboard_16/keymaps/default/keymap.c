@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise){
+bool encoder_update_user(uint8_t index, bool clockwise){
   if(index == 0) { // first encoder
     if(clockwise){
       tap_code(KC_AUDIO_VOL_UP);
@@ -51,9 +51,10 @@ void encoder_update_user(uint8_t index, bool clockwise){
       rgblight_decrease_val();
     }
   }
+    return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {

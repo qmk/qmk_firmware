@@ -1,16 +1,16 @@
-/* Copyright 2021 duoshock 
- * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation, either version 2 of the License, or 
- * (at your option) any later version. 
- * 
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
- * GNU General Public License for more details. 
- * 
- * You should have received a copy of the GNU General Public License 
+/* Copyright 2021 duoshock
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   .---.  |-------------------------.          '---------------------------------|        |---|
  *   |M0 |  |CapsL |  A|  S|  D|  F|  G|          |  H|  J|  K|  L|  ;|  :|   Retn |        |End|
  *   |---|  |----------------------------.        '--------------------------------|  .---. '---'
- *   |M1 |  |Shft    |  Z|  X|  C|  V|  B|          |  N|  M|  ,|  ,|  /|  Shift|     |Up | 
+ *   |M1 |  |Shft    |  Z|  X|  C|  V|  B|          |  N|  M|  ,|  ,|  /|  Shift|     |Up |
  *   |---|  |----------------------------|          |---------------------------' .-----------.
  *   |M2 |  |Ctl |Gui |Alt |Fn0 |Space   |          |    Space|   Alt|   Ctl|     |Lef|Dow|Rig|
  *   '---'  '----------------------------'          '-----------------------'     '-----------'
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Master Left */
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -85,10 +85,11 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void suspend_power_down_user(void) {
     oled_off();
 }
@@ -104,8 +105,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 static void render_logo(void) {
     static const char PROGMEM raw_logo[] = {
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,192,192,224,224,224,224,224,224,224,224,224,224,224,224,224,224,192,192,128,128,192,192,224,224,224,224,224,224,224,224,192,192,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-        0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255, 15,  3,  1,  0,  1,255,255,255,255,255,255,255,255,255,255,255,255,255,255,254,252,240,  0,  0,  0,  0,  0,  0,  0,  0,  0,254,254,254,  0,  0,  0,  0,  0,  0,254,254,254,  0,  0,  0,254,254,254,252,248,224,192,128,224,248,252,254,254,254,  0,  0,128,128,128,128,128,128,  0, 14, 14, 14, 14,142,238,254,254,126, 30,  4,224,248,252, 62, 30, 14, 14, 14, 30, 62,252,248,240,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-        0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,240,192,128,  0,128,255,255,255,255,255,255,255,255,255,255,255,255,255,255,127, 63, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0, 15, 63, 63,124,112,112,112,112,124, 63, 63, 15,  0,  0,  0,127,127,127,  0,  1,  7, 15, 15,  7,  1,  0,127,127,127,  0,  0,  3,  3,  3,  3,  3,  3,  1,  0,112,124,126, 63, 15,  3,  1,  0,  0,  0, 15, 31, 63,124,120,112,112,112,120,124, 63, 31, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+        0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255, 15,  3,  1,  0,  1,255,255,255,255,255,255,255,255,255,255,255,255,255,255,254,252,240,  0,  0,  0,  0,  0,  0,  0,  0,  0,254,254,254,  0,  0,  0,  0,  0,  0,254,254,254,  0,  0,  0,254,254,254,252,248,224,192,128,224,248,252,254,254,254,  0,  0,128,128,128,128,128,128,  0, 14, 14, 14, 14,142,238,254,254,126, 30,  4,224,248,252, 62, 30, 14, 14, 14, 30, 62,252,248,240,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,240,192,128,  0,128,255,255,255,255,255,255,255,255,255,255,255,255,255,255,127, 63, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0, 15, 63, 63,124,112,112,112,112,124, 63, 63, 15,  0,  0,  0,127,127,127,  0,  1,  7, 15, 15,  7,  1,  0,127,127,127,  0,  0,  3,  3,  3,  3,  3,  3,  1,  0,112,124,126, 63, 15,  3,  1,  0,  0,  0, 15, 31, 63,124,120,112,112,112,120,124, 63, 31, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  3,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  3,  3,  1,  1,  3,  3,  7,  7,  7,  7,  7,  7,  7,  7,  3,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
     };
     oled_write_raw_P(raw_logo, sizeof(raw_logo));
@@ -114,11 +115,11 @@ static void render_logo(void) {
 
 // 32 * 18 Merge logos
 static const char PROGMEM merge_logo[] = {
-    0xf8, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x3f, 0x0e, 
-    0x06, 0x04, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xfc, 0xf8, 0xf0, 0xc0, 
-    0x7f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xf0, 0xc0, 
-    0x80, 0x80, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x7f, 0x3f, 0x0f, 
-    0x00, 0x01, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x01, 
+    0xf8, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x3f, 0x0e,
+    0x06, 0x04, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xfc, 0xf8, 0xf0, 0xc0,
+    0x7f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xf0, 0xc0,
+    0x80, 0x80, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x7f, 0x3f, 0x0f,
+    0x00, 0x01, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x01,
     0x01, 0x00, 0x01, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00
 };
 

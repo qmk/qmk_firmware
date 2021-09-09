@@ -20,7 +20,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    container: qmkfm/base_container
+    container: qmkfm/qmk_cli
 
     steps:
 
@@ -47,9 +47,11 @@ jobs:
     - name: Format files
       shell: 'bash {0}'
       run: |
-        qmk cformat $(< ~/files.txt)
-        qmk pyformat
-        qmk fileformat
+        qmk format-c --core-only -n $(< ~/files.txt)
+        format_c_exit=$?
+        qmk format-python -n
+        format_python_exit=$?
+        exit $((format_c_exit + format_python_exit))
 
     - name: Fail when formatting required
       if: ${{ github.event_name == 'pull_request' }}

@@ -12,6 +12,82 @@ from subprocess import run
 from milc import cli, __VERSION__
 from milc.questions import yesno
 
+import_names = {
+    # A mapping of package name to importable name
+    'pep8-naming': 'pep8ext_naming',
+    'pyusb': 'usb.core',
+    'qmk-dotty-dict': 'dotty_dict'
+}
+
+safe_commands = [
+    # A list of subcommands we always run, even when the module imports fail
+    'clone',
+    'config',
+    'doctor',
+    'env',
+    'setup',
+]
+
+subcommands = [
+    'qmk.cli.bux',
+    'qmk.cli.c2json',
+    'qmk.cli.cformat',
+    'qmk.cli.chibios.confmigrate',
+    'qmk.cli.clean',
+    'qmk.cli.compile',
+    'qmk.cli.console',
+    'qmk.cli.docs',
+    'qmk.cli.doctor',
+    'qmk.cli.fileformat',
+    'qmk.cli.flash',
+    'qmk.cli.format.c',
+    'qmk.cli.format.json',
+    'qmk.cli.format.python',
+    'qmk.cli.format.text',
+    'qmk.cli.generate.api',
+    'qmk.cli.generate.config_h',
+    'qmk.cli.generate.dfu_header',
+    'qmk.cli.generate.docs',
+    'qmk.cli.generate.info_json',
+    'qmk.cli.generate.keyboard_h',
+    'qmk.cli.generate.layouts',
+    'qmk.cli.generate.rgb_breathe_table',
+    'qmk.cli.generate.rules_mk',
+    'qmk.cli.generate.version_h',
+    'qmk.cli.hello',
+    'qmk.cli.info',
+    'qmk.cli.json2c',
+    'qmk.cli.lint',
+    'qmk.cli.list.keyboards',
+    'qmk.cli.list.keymaps',
+    'qmk.cli.kle2json',
+    'qmk.cli.multibuild',
+    'qmk.cli.new.keyboard',
+    'qmk.cli.new.keymap',
+    'qmk.cli.pyformat',
+    'qmk.cli.pytest',
+]
+
+
+def _install_deps(requirements):
+    """Perform the installation of missing requirements.
+
+    If we detect that we are running in a virtualenv we can't write into we'll use sudo to perform the pip install.
+    """
+    command = [sys.executable, '-m', 'pip', 'install']
+
+    if sys.prefix != sys.base_prefix:
+        # We are in a virtualenv, check to see if we need to use sudo to write to it
+        if not os.access(sys.prefix, os.W_OK):
+            print('Notice: Using sudo to install modules to location owned by root:', sys.prefix)
+            command.insert(0, 'sudo')
+
+    elif not os.access(sys.prefix, os.W_OK):
+        # We can't write to sys.prefix, attempt to install locally
+        command.append('--local')
+
+    return _run_cmd(*command, '-r', requirements)
+
 
 def _run_cmd(*command):
     """Run a command in a subshell.
@@ -50,8 +126,8 @@ def _find_broken_requirements(requirements):
             module_import = module_name.replace('-', '_')
 
             # Not every module is importable by its own name.
-            if module_name == "pep8-naming":
-                module_import = "pep8ext_naming"
+            if module_name in import_names:
+                module_import = import_names[module_name]
 
             if not find_spec(module_import):
                 broken_modules.append(module_name)
@@ -99,61 +175,55 @@ if sys.version_info[0] != 3 or sys.version_info[1] < 7:
 
 milc_version = __VERSION__.split('.')
 
-if int(milc_version[0]) < 2 and int(milc_version[1]) < 3:
+if int(milc_version[0]) < 2 and int(milc_version[1]) < 4:
     requirements = Path('requirements.txt').resolve()
 
     print(f'Your MILC library is too old! Please upgrade: python3 -m pip install -U -r {str(requirements)}')
     exit(127)
 
+# Make sure we can run binaries in the same directory as our Python interpreter
+python_dir = os.path.dirname(sys.executable)
+
+if python_dir not in os.environ['PATH'].split(':'):
+    os.environ['PATH'] = ":".join((python_dir, os.environ['PATH']))
+
 # Check to make sure we have all our dependencies
-msg_install = 'Please run `python3 -m pip install -r %s` to install required python dependencies.'
+msg_install = f'Please run `{sys.executable} -m pip install -r %s` to install required python dependencies.'
+args = sys.argv[1:]
+while args and args[0][0] == '-':
+    del args[0]
 
-if _broken_module_imports('requirements.txt'):
-    if yesno('Would you like to install the required Python modules?'):
-        _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt')
-    else:
-        print()
-        print(msg_install % (str(Path('requirements.txt').resolve()),))
-        print()
-        exit(1)
+safe_command = args and args[0] in safe_commands
 
-if cli.config.user.developer:
-    args = sys.argv[1:]
-    while args and args[0][0] == '-':
-        del args[0]
-    if not args or args[0] != 'config':
-        if _broken_module_imports('requirements-dev.txt'):
-            if yesno('Would you like to install the required developer Python modules?'):
-                _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements-dev.txt')
-            elif yesno('Would you like to disable developer mode?'):
-                _run_cmd(sys.argv[0], 'config', 'user.developer=None')
-            else:
-                print()
-                print(msg_install % (str(Path('requirements-dev.txt').resolve()),))
-                print('You can also turn off developer mode: qmk config user.developer=None')
-                print()
-                exit(1)
+if not safe_command:
+    if _broken_module_imports('requirements.txt'):
+        if yesno('Would you like to install the required Python modules?'):
+            _install_deps('requirements.txt')
+        else:
+            print()
+            print(msg_install % (str(Path('requirements.txt').resolve()),))
+            print()
+            exit(1)
+
+    if cli.config.user.developer and _broken_module_imports('requirements-dev.txt'):
+        if yesno('Would you like to install the required developer Python modules?'):
+            _install_deps('requirements-dev.txt')
+        elif yesno('Would you like to disable developer mode?'):
+            _run_cmd(sys.argv[0], 'config', 'user.developer=None')
+        else:
+            print()
+            print(msg_install % (str(Path('requirements-dev.txt').resolve()),))
+            print('You can also turn off developer mode: qmk config user.developer=None')
+            print()
+            exit(1)
 
 # Import our subcommands
-from . import c2json  # noqa
-from . import cformat  # noqa
-from . import chibios  # noqa
-from . import clean  # noqa
-from . import compile  # noqa
-from . import config  # noqa
-from . import docs  # noqa
-from . import doctor  # noqa
-from . import fileformat  # noqa
-from . import flash  # noqa
-from . import format  # noqa
-from . import generate  # noqa
-from . import hello  # noqa
-from . import info  # noqa
-from . import json2c  # noqa
-from . import lint  # noqa
-from . import list  # noqa
-from . import kle2json  # noqa
-from . import multibuild  # noqa
-from . import new  # noqa
-from . import pyformat  # noqa
-from . import pytest  # noqa
+for subcommand in subcommands:
+    try:
+        __import__(subcommand)
+
+    except (ImportError, ModuleNotFoundError) as e:
+        if safe_command:
+            print(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
+        else:
+            raise

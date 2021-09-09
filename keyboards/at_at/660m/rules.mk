@@ -2,11 +2,14 @@
 MCU = STM32F072
 BOARD = GENERIC_STM32_F072XB
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Build Options
 #   comment out to disable the options.
 #
 
-#BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug

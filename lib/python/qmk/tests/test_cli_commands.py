@@ -1,15 +1,14 @@
 import platform
+from subprocess import DEVNULL
 
-from subprocess import STDOUT, PIPE
-
-from qmk.commands import run
+from milc import cli
 
 is_windows = 'windows' in platform.platform().lower()
 
 
 def check_subcommand(command, *args):
-    cmd = ['bin/qmk', command, *args]
-    result = run(cmd, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+    cmd = ['qmk', command, *args]
+    result = cli.run(cmd, stdin=DEVNULL, combined_output=True)
     return result
 
 
@@ -17,8 +16,8 @@ def check_subcommand_stdin(file_to_read, command, *args):
     """Pipe content of a file to a command and return output.
     """
     with open(file_to_read, encoding='utf-8') as my_file:
-        cmd = ['bin/qmk', command, *args]
-        result = run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+        cmd = ['qmk', command, *args]
+        result = cli.run(cmd, stdin=my_file, combined_output=True)
     return result
 
 
@@ -32,13 +31,13 @@ def check_returncode(result, expected=[0]):
     assert result.returncode in expected
 
 
-def test_cformat():
-    result = check_subcommand('cformat', '-n', 'quantum/matrix.c')
+def test_format_c():
+    result = check_subcommand('format-c', '-n', 'quantum/matrix.c')
     check_returncode(result)
 
 
-def test_cformat_all():
-    result = check_subcommand('cformat', '-n', '-a')
+def test_format_c_all():
+    result = check_subcommand('format-c', '-n', '-a')
     check_returncode(result, [0, 1])
 
 
@@ -62,12 +61,6 @@ def test_flash_bootloaders():
     check_returncode(result, [1])
 
 
-def test_config():
-    result = check_subcommand('config')
-    check_returncode(result)
-    assert 'general.color' in result.stdout
-
-
 def test_kle2json():
     result = check_subcommand('kle2json', 'lib/python/qmk/tests/kle.txt', '-f')
     check_returncode(result)
@@ -87,8 +80,8 @@ def test_hello():
     assert 'Hello,' in result.stdout
 
 
-def test_pyformat():
-    result = check_subcommand('pyformat', '--dry-run')
+def test_format_python():
+    result = check_subcommand('format-python', '--dry-run')
     check_returncode(result)
     assert 'Python code in `bin/qmk` and `lib/python` is correctly formatted.' in result.stdout
 
@@ -265,6 +258,12 @@ def test_generate_rules_mk():
     assert 'MCU ?= atmega32u4' in result.stdout
 
 
+def test_generate_version_h():
+    result = check_subcommand('generate-version-h')
+    check_returncode(result)
+    assert '#define QMK_VERSION' in result.stdout
+
+
 def test_generate_layouts():
     result = check_subcommand('generate-layouts', '-kb', 'handwired/pytest/basic')
     check_returncode(result)
@@ -274,7 +273,7 @@ def test_generate_layouts():
 def test_format_json_keyboard():
     result = check_subcommand('format-json', '--format', 'keyboard', 'lib/python/qmk/tests/minimal_info.json')
     check_returncode(result)
-    assert result.stdout == '{\n    "keyboard_name": "tester",\n    "maintainer": "qmk",\n    "height": 5,\n    "width": 15,\n    "layouts": {\n        "LAYOUT": {\n            "layout": [\n                { "label": "KC_A", "matrix": [0, 0], "x": 0, "y": 0 }\n            ]\n        }\n    }\n}\n'
+    assert result.stdout == '{\n    "keyboard_name": "tester",\n    "maintainer": "qmk",\n    "layouts": {\n        "LAYOUT": {\n            "layout": [\n                { "label": "KC_A", "matrix": [0, 0], "x": 0, "y": 0 }\n            ]\n        }\n    }\n}\n'
 
 
 def test_format_json_keymap():
@@ -286,7 +285,7 @@ def test_format_json_keymap():
 def test_format_json_keyboard_auto():
     result = check_subcommand('format-json', '--format', 'auto', 'lib/python/qmk/tests/minimal_info.json')
     check_returncode(result)
-    assert result.stdout == '{\n    "keyboard_name": "tester",\n    "maintainer": "qmk",\n    "height": 5,\n    "width": 15,\n    "layouts": {\n        "LAYOUT": {\n            "layout": [\n                { "label": "KC_A", "matrix": [0, 0], "x": 0, "y": 0 }\n            ]\n        }\n    }\n}\n'
+    assert result.stdout == '{\n    "keyboard_name": "tester",\n    "maintainer": "qmk",\n    "layouts": {\n        "LAYOUT": {\n            "layout": [\n                { "label": "KC_A", "matrix": [0, 0], "x": 0, "y": 0 }\n            ]\n        }\n    }\n}\n'
 
 
 def test_format_json_keymap_auto():

@@ -2,7 +2,7 @@
 
 QMK script to run unit and integration tests against our python code.
 """
-import subprocess
+from subprocess import DEVNULL
 
 from milc import cli
 
@@ -11,7 +11,7 @@ from milc import cli
 def pytest(cli):
     """Run several linting/testing commands.
     """
-    nose2 = subprocess.run(['nose2', '-v'])
-    flake8 = subprocess.run(['flake8', 'lib/python', 'bin/qmk'])
+    nose2 = cli.run(['nose2', '-v'], capture_output=False, stdin=DEVNULL)
+    flake8 = cli.run(['flake8', 'lib/python', 'bin/qmk'], capture_output=False, stdin=DEVNULL)
 
     return flake8.returncode | nose2.returncode
