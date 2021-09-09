@@ -1,6 +1,6 @@
 # Delta
 
-![Delta](https://i.imgur.com/fmrSAjb.jpg)
+![Delta](https://i.imgur.com/fmrSAjbh.jpg)
 
 [QuadrumLabs](http://quadrum.xyz/) Delta, PCB by [Lfgberg](https://github.com/lfgberg).
 
