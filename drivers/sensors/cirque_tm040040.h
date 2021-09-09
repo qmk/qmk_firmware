@@ -17,6 +17,8 @@ typedef struct {
 void            cirque_tm040040_init(void);
 tm040040_data_t cirque_tm040040_read_data(void);
 void            cirque_tm040040_scale_data(tm040040_data_t* coordinates, uint16_t xResolution, uint16_t yResolution);
+uint16_t        cirque_tm040040_get_scale(void);
+void            cirque_tm040040_set_scale(uint16_t scale);
 
 // Cirque's 7-bit I2C Slave Address
 #ifndef CIRQUE_TM040040_ADDR

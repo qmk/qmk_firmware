@@ -49,6 +49,7 @@
 
 tm040040_data_t touchData = {0};
 bool            touchpad_init;
+uint16_t        scale_data = 1024;
 
 void cirque_tm040040_clear_flags(void);
 void cirque_tm040040_enable_feed(bool feedEnable);
@@ -70,6 +71,9 @@ void ClipCoordinates(tm040040_data_t* coordinates) {
         coordinates->yValue = PINNACLE_Y_UPPER;
     }
 }
+
+uint16_t cirque_tm040040_get_scale(void) { return scale_data; }
+void     cirque_tm040040_set_scale(uint16_t scale) { scale_data = scale; }
 
 // Scales data to desired X & Y resolution
 void cirque_tm040040_scale_data(tm040040_data_t* coordinates, uint16_t xResolution, uint16_t yResolution) {

@@ -102,7 +102,7 @@ report_mouse_t cirque_tm040040_get_report(report_mouse_t mouse_report) {
     static uint16_t x = 0, y = 0, mouse_timer = 0;
     static bool     is_z_down = false;
 
-    cirque_tm040040_scale_data(&touchData, 256 * 4, 256 * 4);  // Scale coordinates to arbitrary X, Y resolution
+    cirque_tm040040_scale_data(&touchData, cirque_tm040040_get_scale(), cirque_tm040040_get_scale());  // Scale coordinates to arbitrary X, Y resolution
 
     if (x && y && touchData.xValue && touchData.yValue) {
         mouse_report.x = (int8_t)(touchData.xValue - x);
@@ -133,8 +133,8 @@ report_mouse_t cirque_tm040040_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init       = cirque_tm040040_init,
     .get_report = cirque_tm040040_get_report,
-    .set_cpi    = NULL,
-    .get_cpi    = NULL
+    .set_cpi    = cirque_tm040040_set_scale,
+    .get_cpi    = cirque_tm040040_get_scale
 };
 // clang-format on
 
