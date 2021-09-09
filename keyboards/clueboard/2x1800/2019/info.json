@@ -7,6 +7,7 @@
   "debounce": 5,
   "processor": "at90usb1286",
   "bootloader": "halfkay",
+  "custom_keycodes": ["ENC_BTN1", "ENC_BTN2", "ENC_BTN3", "ENC_BTN4"],
   "diode_direction": "ROW2COL",
   "features": {
     "audio": true,
