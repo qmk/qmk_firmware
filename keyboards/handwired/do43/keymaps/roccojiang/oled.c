@@ -239,40 +239,56 @@ void render_wpm_mode(void) {
  * Keyboard information mode, inspired by Satisfaction75.
  */
 
-static const char PROGMEM shift_row_1[4] = {0x8c, 0x8d, 0x8e, 0x00};
-static const char PROGMEM shift_row_2[4] = {0xac, 0xad, 0xae, 0x00};
-static const char PROGMEM pressed_shift_row_1[4] = {0x80, 0x81, 0x82, 0x00};
-static const char PROGMEM pressed_shift_row_2[4] = {0xa0, 0xa1, 0xa2, 0x00};
+static const char PROGMEM shift[2][4] = {
+    {0x89, 0x8a, 0x20, 0x00},
+    {0xa9, 0xaa, 0x20, 0x00}
+};
+static const char PROGMEM shift_pressed[2][4] = {
+    {0x80, 0x81, 0x88, 0x00},
+    {0xa0, 0xa1, 0xa8, 0x00}
+};
 
-static const char PROGMEM ctrl_row_1[4] = {0x8f, 0x90, 0x91, 0x00};
-static const char PROGMEM ctrl_row_2[4] = {0xaf, 0xb0, 0xb1, 0x00};
-static const char PROGMEM pressed_ctrl_row_1[4] = {0x83, 0x84, 0x85, 0x00};
-static const char PROGMEM pressed_ctrl_row_2[4] = {0xa3, 0xa4, 0xa5, 0x00};
+static const char PROGMEM ctrl[2][4] = {
+    {0x8b, 0x8c, 0x20, 0x00},
+    {0xab, 0xac, 0x20, 0x00}
+};
+static const char PROGMEM ctrl_pressed[2][4] = {
+    {0x82, 0x83, 0x88, 0x00},
+    {0xa2, 0xa3, 0xa8, 0x00}
+};
 
-static const char PROGMEM optn_row_1[4] = {0x92, 0x93, 0x94, 0x00};
-static const char PROGMEM optn_row_2[4] = {0xb2, 0xb3, 0xb4, 0x00};
-static const char PROGMEM pressed_optn_row_1[4] = {0x86, 0x87, 0x88, 0x00};
-static const char PROGMEM pressed_optn_row_2[4] = {0xa6, 0xa7, 0xa8, 0x00};
+static const char PROGMEM optn[2][4] = {
+    {0x8d, 0x8e, 0x20, 0x00},
+    {0xad, 0xae, 0x20, 0x00}
+};
+static const char PROGMEM optn_pressed[2][4] = {
+    {0x84, 0x85, 0x88, 0x00},
+    {0xa4, 0xa5, 0xa8, 0x00}
+};
 
-static const char PROGMEM cmd_row_1[4] = {0x95, 0x96, 0x97, 0x00};
-static const char PROGMEM cmd_row_2[4] = {0xb5, 0xb6, 0xb7, 0x00};
-static const char PROGMEM pressed_cmd_row_1[4] = {0x89, 0x8a, 0x8b, 0x00};
-static const char PROGMEM pressed_cmd_row_2[4] = {0xa9, 0xaa, 0xab, 0x00};
+static const char PROGMEM cmd[2][4] = {
+    {0x8f, 0x90, 0x20, 0x00},
+    {0xaf, 0xb0, 0x20, 0x00}
+};
+static const char PROGMEM cmd_pressed[2][4] = {
+    {0x86, 0x87, 0x88, 0x00},
+    {0xa6, 0xa7, 0xa8, 0x00}
+};
 
 static const char PROGMEM layer_str[6] = {0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0x00};
 static const char PROGMEM layer_row_1[4][3] = {
-    {0x98, 0x99, 0x00},
-    {0x9a, 0x9b, 0x00},
-    {0x9c, 0x9d, 0x00},
-    {0x9e, 0x9f, 0x00}
+    {0xc5, 0xc6, 0x00},
+    {0xc7, 0xc8, 0x00},
+    {0xc9, 0xca, 0x00},
+    {0xcb, 0xcc, 0x00}
 };
-static const char PROGMEM layer_row_2[3] = {0xb8, 0xb9, 0x00};
+static const char PROGMEM layer_row_2[3] = {0xcd, 0xce, 0x00};
 
-static void render_nx2(int x, int y, const char row_1[], const char row_2[]) {
-    oled_set_cursor(x, y);
-    oled_write_P(row_1, false);
-    oled_set_cursor(x, y + 1);
-    oled_write_P(row_2, false);
+static void render_symbol(int x, int y, int num_rows, int row_length, const char data[][row_length + 1]) {
+    for (int row = 0; row < num_rows; row++) {
+        oled_set_cursor(x, y + row);
+        oled_write_P(data[row], false);
+    }
 }
 
 void render_layer_num(void) {
@@ -280,31 +296,34 @@ void render_layer_num(void) {
     oled_write_P(layer_str, false);
 
     uint8_t layer = get_highest_layer(layer_state);
-    render_nx2(6, 0, layer_row_1[layer], layer_row_2);
+		oled_set_cursor(1 + 5, 0);
+		oled_write_P(layer_row_1[layer], false);
+		oled_set_cursor(1 + 5, 1);
+		oled_write_P(layer_row_2, false);
 }
 
 void render_modifiers(void) {
     uint8_t modifiers = get_mods();
 
     if (modifiers & MOD_MASK_SHIFT)
-        render_nx2(0, 2, pressed_shift_row_1, pressed_shift_row_2);
+        render_symbol(0, 2, 2, 3, shift_pressed);
     else
-        render_nx2(0, 2, shift_row_1, shift_row_2);
+        render_symbol(0, 2, 2, 3, shift);
 
     if (modifiers & MOD_MASK_CTRL)
-        render_nx2(3, 2, pressed_ctrl_row_1, pressed_ctrl_row_2);
+        render_symbol(3, 2, 2, 3, ctrl_pressed);
     else
-        render_nx2(3, 2, ctrl_row_1, ctrl_row_2);
+        render_symbol(3, 2, 2, 3, ctrl);
     
     if (modifiers & MOD_MASK_ALT)
-        render_nx2(6, 2, pressed_optn_row_1, pressed_optn_row_2);
+        render_symbol(6, 2, 2, 3, optn_pressed);
     else
-        render_nx2(6, 2, optn_row_1, optn_row_2);
+        render_symbol(6, 2, 2, 3, optn);
     
     if (modifiers & MOD_MASK_GUI)
-        render_nx2(9, 2, pressed_cmd_row_1, pressed_cmd_row_2);
+        render_symbol(9, 2, 2, 3, cmd_pressed);
     else
-        render_nx2(9, 2, cmd_row_1, cmd_row_2);
+        render_symbol(9, 2, 2, 3, cmd);
 }
 
 void render_info_mode(void) {
