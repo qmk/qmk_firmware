@@ -27,5 +27,5 @@ RGBLIGHT_ENABLE = no
 CUSTOM_MATRIX = yes
 
 # project specific files
-SRC =  twimaster.c \
-  matrix.c
+QUANTUM_LIB_SRC += i2c_master.c
+SRC += matrix.c
