@@ -39,6 +39,61 @@ static void render_qmk_logo(void) {
 }
 #endif
 
+
+
+#if defined(KEYBOARD_crkbd_rev1)
+// These are my images for keyboard layout
+// Naming scheme is <layer>_left/right{_keyboardLayout}{_modifiers}
+//static const char PROGMEM base0_L_dvor_nomod[][4] = {};
+//static const char PROGMEM base0_L_dvor_shift[][4] = {};
+//static const char PROGMEM base0_R_dvor_nomod[][4] = {};
+//static const char PROGMEM base0_R_dvor_shift[][4] = {};
+//static const char PROGMEM char1_L[][4] = {};
+//static const char PROGMEM char1_R[][4] = {};
+//static const char PROGMEM game2_L[][4] = {};
+//static const char PROGMEM medi3_R[][4] = {};
+//static const char PROGMEM navi4_R[][4] = {};
+//static const char PROGMEM symb5_R_dvor[][4] = {};
+//static const char PROGMEM numb6_L_dvor_nomod[][4] = {};
+//static const char PROGMEM numb6_L_dvor_shift[][4] = {};
+//static const char PROGMEM func7_L[][4] = {};
+//static const char PROGMEM mous8_L[][4] = {};
+//static const char PROGMEM musi9_L[][4] = {};
+static const char PROGMEM musi9_R[4][42] = {
+    {   0x00, 0x00, 0x00, 0xfe, 0x04, 0x18, 0x04, 0xfe, 0x00, 0x00, 0xfe, 0x00, 0x00, 0x00, 0xfe, 0x00, 
+0x8c, 0x12, 0x12, 0x12, 0xe4, 0x00, 0x00, 0x02, 0xfe, 0x02, 0x00, 0x00, 0xfc, 0x02, 0x02, 0x02, 
+0x84, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe7, 0x73, 0x00, 0x00}, {
+        0x00, 0x00, 0x00, 0x81, 0x60, 0x10, 0x60, 0x81, 0x60, 0x10, 0x00, 0x01, 0x01, 0x01, 0xe0, 0xe0, 
+0x60, 0x61, 0x61, 0x61, 0x60, 0xf8, 0x70, 0x21, 0x01, 0x01, 0xc0, 0xe0, 0x60, 0x01, 0xf9, 0xf9, 
+0x00, 0x60, 0xe0, 0xc0, 0x00, 0x00, 0x9c, 0xce, 0x00, 0x00}, {
+        0x18, 0x24, 0x4b, 0x48, 0x48, 0x4c, 0x4b, 0x48, 0x4b, 0x2c, 0x18, 0x00, 0x00, 0x00, 0x4f, 0xe7, 
+0xf0, 0x60, 0x60, 0x60, 0x60, 0x60, 0x7e, 0x7f, 0x00, 0x0f, 0x3f, 0x70, 0x60, 0xc0, 0xc1, 0xc1, 
+0xc0, 0x60, 0x70, 0x3f, 0x0f, 0x00, 0x73, 0x39, 0x00, 0x00}, {
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf8, 0x08, 0xf8, 0x08, 0xf0, 0x00, 0x70, 0x88, 0x88, 0x88, 
+0x71, 0x00, 0x70, 0x88, 0x88, 0x48, 0xff, 0x00, 0x70, 0xa8, 0xa8, 0xa8, 0xb0, 0x00, 0x00, 0x00, 
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xce, 0xe7, 0x00, 0x00}  };
+
+static void render_test(void) {
+    // Oled set cursor does characters; so moves in 8x6
+    // Oled write raw does not advance the cursor; it has to be done seperately.
+    oled_write_raw_P(musi9_R[0], 42);
+    oled_set_cursor(8, 0);
+    oled_write("This text", false);
+    oled_advance_page(false);
+    oled_write_raw_P(musi9_R[1], 42);
+    oled_set_cursor(8, 1);
+    oled_write("is a test", false);
+    oled_advance_page(false);
+    oled_write_raw_P(musi9_R[2], 42);
+    oled_set_cursor(8, 2);
+    oled_write("for me to", false);
+    oled_advance_page(false);
+    oled_write_raw_P(musi9_R[3], 42);
+    oled_set_cursor(8, 3);
+    oled_write("check it.", false);
+}
+#endif
+
 static void render_status(void) {
     // Function to print state information
     uint8_t this_layer = get_highest_layer(layer_state);
@@ -151,12 +206,12 @@ void oled_task_user(void) {
     if (is_keyboard_master()) {
         #if defined(KEYBOARD_splitkb_kyria_rev1)
         render_qmk_logo();
+        render_status();
         #endif
-        render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         #if defined(KEYBOARD_splitkb_kyria_rev1)
         render_qmk_logo();
+        render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
         #endif
-        render_status();
     }
 }
