@@ -35,7 +35,6 @@ subcommands = [
     'qmk.cli.chibios.confmigrate',
     'qmk.cli.clean',
     'qmk.cli.compile',
-    'qmk.cli.compiledb',
     'qmk.cli.docs',
     'qmk.cli.doctor',
     'qmk.cli.fileformat',
@@ -45,6 +44,7 @@ subcommands = [
     'qmk.cli.format.python',
     'qmk.cli.format.text',
     'qmk.cli.generate.api',
+    'qmk.cli.generate.compilation_database',
     'qmk.cli.generate.config_h',
     'qmk.cli.generate.dfu_header',
     'qmk.cli.generate.docs',
@@ -221,8 +221,10 @@ if not safe_command:
 for subcommand in subcommands:
     try:
         __import__(subcommand)
+        print(f"imported {subcommand}")
 
     except (ImportError, ModuleNotFoundError) as e:
+        print(f"failed to import {subcommand}")
         if safe_command:
             print(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
         else:

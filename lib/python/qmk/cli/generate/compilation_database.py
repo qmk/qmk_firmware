@@ -69,7 +69,7 @@ def parse_make_n(f: TextIO) -> List[Dict[str, str]]:
 @cli.subcommand('Create a compilation database.')
 @automagic_keyboard
 @automagic_keymap
-def compiledb(cli):
+def generate_compilation_database(cli):
     """Creates a compilation database for the given keyboard build.
 
     Does a make clean, then a make -n for this target and uses the dry-run output to create

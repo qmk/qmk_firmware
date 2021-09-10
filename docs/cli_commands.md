@@ -320,12 +320,12 @@ qmk format-c
 qmk format-c -b branch_name
 ```
 
-## `qmk compiledb`
+## `qmk generate-compilation-database`
 
 **Usage**:
 
 ```
-qmk compiledb [-kb KEYBOARD] [-km KEYMAP]
+qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]
 ```
 
 Creates a `compile_commands.json` file.
@@ -338,7 +338,7 @@ This command needs to know which keyboard and keymap to build. It uses the same 
 
 ```
 $ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
-$ qmk compiledb
+$ qmk generate-compilation-database
 Ψ Making clean
 Ψ Gathering build instructions from make -n gh60/satan:colemak
 Ψ Found 50 compile commands
