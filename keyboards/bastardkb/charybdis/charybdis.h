@@ -36,8 +36,6 @@ typedef union {
     };
 } keyboard_config_t;
 
-extern keyboard_config_t keyboard_config;
-
 enum charybdis_keycodes {
     DPI_CONFIG = SAFE_RANGE,
     SNIPER_CONFIG,

@@ -61,6 +61,8 @@ bool    is_drag_scroll    = false;
 
 scroll_inertia_t scroll_inertia; // Scroll value storage to make scrolling slower
 
+keyboard_config_t keyboard_config;
+
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     mouse_report->x = x;
     mouse_report->y = y;
@@ -178,7 +180,7 @@ void pointing_device_task(void) {
     if (is_drag_scroll) {
 #ifdef CHARYBDIS_DRAGSCROLL_INVERT
         // Invert vertical scroll direction
-        scroll_inertia.y += -mouse_report.y;
+        scroll_inertia.y -= mouse_report.y;
 #else
         scroll_inertia.y += mouse_report.y;
 #endif
