@@ -221,10 +221,8 @@ if not safe_command:
 for subcommand in subcommands:
     try:
         __import__(subcommand)
-        print(f"imported {subcommand}")
 
     except (ImportError, ModuleNotFoundError) as e:
-        print(f"failed to import {subcommand}")
         if safe_command:
             print(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
         else:
