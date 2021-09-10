@@ -177,11 +177,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_L, KC_WH_D, KC_WH_R),
 
   [_ADJ] = LAYOUT_ortho_5x13(
-      KC_TRNS, KC_TRNS, A(KC_F2), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS ,
-      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, RESET  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS ,
-      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS ,
-      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS ,
-      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+      RGB_MOD,RGB_RMOD, A(KC_F2), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_M_SW ,
+      RGB_HUI, RGB_HUD, RGB_M_P , KC_TRNS, RESET  , RGB_M_T, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_M_SN ,
+      RGB_SAI, RGB_SAD, RGB_M_B , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_M_K ,
+      RGB_VAI, RGB_VAD, RGB_M_R , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_M_X ,
+      RGB_TOG, KC_TRNS, KC_TRNS , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_M_TW, RGB_M_G),
 };
 // clang-format on
 
@@ -248,5 +248,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             return true;
     }
 }
+
+#ifdef ENCODER_ENABLE
+
+#    define MEDIA_KEY_DELAY 10
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    uint16_t held_keycode_timer = timer_read();
+
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            register_code(KC_VOLD);
+            while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) {
+                // no-op
+            }
+            unregister_code(KC_VOLD);
+        } else {
+            register_code(KC_VOLU);
+            while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) {
+                // no-op
+            }
+            unregister_code(KC_VOLU);
+        }
+    }
+    return true;
+}
+#endif
 
 layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LWR, _RSE, _ADJ); }

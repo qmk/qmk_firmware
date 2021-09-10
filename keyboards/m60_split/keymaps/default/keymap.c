@@ -81,13 +81,7 @@ static inline void led_rse(const bool on) {
 
 static inline void led_caps(const bool on) {
 #ifdef LED_CAPS_LOCK_PIN
-    if (DEVICE_VER == 0x0001) {
-        writePin(LED_CAPS_LOCK_PIN, !on);
-    }
-    if (DEVICE_VER == 0x0002) {
-        writePin(LED_CAPS_LOCK_PIN, on);
-    }
-
+    writePin(LED_CAPS_LOCK_PIN, !on);
 #endif
 }
 
@@ -129,7 +123,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef ENCODER_ENABLE
 
-#    define MEDIA_KEY_DELAY 10
+#define MEDIA_KEY_DELAY 10
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     uint16_t held_keycode_timer = timer_read();

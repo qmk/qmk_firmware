@@ -15,8 +15,14 @@
  */
 #include "m60_split.h"
 
-void board_init(void) {
-    AFIO->MAPR |= AFIO_MAPR_USART1_REMAP | AFIO_MAPR_TIM3_REMAP_PARTIALREMAP;
+
+void keyboard_pre_init_kb(void){
+    // Workaround for reversible pcb/mcu
+    palSetLineMode(C13, PAL_MODE_INPUT_PULLUP);
+    palSetLineMode(C15, PAL_MODE_INPUT_PULLUP);
+    palSetLineMode(B7, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(A0, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(A1, PAL_MODE_OUTPUT_OPENDRAIN);
+
+    keyboard_pre_init_user();
 }
-
-

@@ -1,13 +1,13 @@
 # MCU name
-MCU = STM32F103
+MCU = STM32F401
 
 # Bootloader selection
-BOOTLOADER = stm32duino
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -18,6 +18,8 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+RGBLIGHT_DRIVER = WS2812
+
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 
@@ -25,8 +27,10 @@ SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 WS2812_DRIVER = pwm
 
-LAYOUTS = ortho_4x12
+LAYOUTS = ortho_5x12
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no
+
+ENCODER_ENABLE = yes        # Enable encoder
