@@ -219,7 +219,7 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
         memcpy(&last_hit_buffer.y[0], &last_hit_buffer.y[led_count], LED_HITS_TO_REMEMBER - led_count);
         memcpy(&last_hit_buffer.tick[0], &last_hit_buffer.tick[led_count], (LED_HITS_TO_REMEMBER - led_count) * 2);  // 16 bit
         memcpy(&last_hit_buffer.index[0], &last_hit_buffer.index[led_count], LED_HITS_TO_REMEMBER - led_count);
-        last_hit_buffer.count--;
+        last_hit_buffer.count = LED_HITS_TO_REMEMBER - led_count;
     }
 
     for (uint8_t i = 0; i < led_count; i++) {
@@ -459,8 +459,9 @@ void led_matrix_init(void) {
 
 void led_matrix_set_suspend_state(bool state) {
 #ifdef LED_DISABLE_WHEN_USB_SUSPENDED
-    if (state) {
-        led_matrix_set_value_all(0);  // turn off all LEDs when suspending
+    if (state && !suspend_state && is_keyboard_master()) {  // only run if turning off, and only once
+        led_task_render(0);                                 // turn off all LEDs when suspending
+        led_task_flush(0);                                  // and actually flash led state to LEDs
     }
     suspend_state = state;
 #endif

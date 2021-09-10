@@ -9,6 +9,8 @@ and this to your `config.h`:
 ```c
 // Connects each switch in the dip switch to the GPIO pin of the MCU
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
+// For split keyboards, you can separately define the right side pins
+#define DIP_SWITCH_PINS_RIGHT { ... }
 ```
 
 or
@@ -24,7 +26,7 @@ The callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
 bool dip_switch_update_kb(uint8_t index, bool active) { 
-    if !(dip_switch_update_user(index, active)) { return false; }
+    if (!dip_switch_update_user(index, active)) { return false; }
     return true;
 }
 ```
@@ -95,7 +97,6 @@ bool dip_switch_update_mask_user(uint32_t state) {
     return true;
 }
 ```
-
 
 ## Hardware
 

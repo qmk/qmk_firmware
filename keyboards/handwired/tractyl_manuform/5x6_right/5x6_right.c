@@ -32,4 +32,8 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{5, 3}, {4, 3}, {3, 3}, {2, 3}, {1, 3}, {0, 3}},
     {{5, 4}, {4, 4}, {3, 4}, {2, 4}, {1, 4}, {0, 4}},
     {{5, 5}, {4, 5}, {3, 5}, {2, 5}, {1, 5}, {0, 5}}};
+
+#    ifdef ENCODER_MAP_ENABLE
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
+#    endif
 #endif

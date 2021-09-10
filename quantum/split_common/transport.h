@@ -165,6 +165,14 @@ typedef struct _split_shared_memory_t {
     uint8_t current_wpm;
 #endif  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
+#if defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
+    uint8_t current_oled_state;
+#endif  // defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
+
+#if defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
+    uint8_t current_st7565_state;
+#endif  // ST7565_ENABLE(OLED_ENABLE) && defined(SPLIT_ST7565_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;
     uint8_t         rpc_m2s_buffer[RPC_M2S_BUFFER_SIZE];

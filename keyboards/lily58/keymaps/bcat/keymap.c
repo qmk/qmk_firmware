@@ -34,6 +34,7 @@ enum layer {
 #define KY_ZMRST LCTL(KC_0)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // clang-format off
     /* Default layer: http://www.keyboard-layout-editor.com/#/gists/e0eb3af65961e9fd612dcff3ddd88e4f */
     [LAYER_DEFAULT] = LAYOUT(
         KC_EQL,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                         KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,
@@ -42,7 +43,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_WBAK,  KC_WFWD,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
                                       KC_LALT,  KC_LCTL,  LY_LWR,   KC_SPC,   KC_ENT,   LY_RSE,   KC_RALT,  KC_RGUI
     ),
-
     /* Lower layer: http://www.keyboard-layout-editor.com/#/gists/19ad0d3b5d745fbb2818db09740f5a11 */
     [LAYER_LOWER] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,
@@ -51,7 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_APP,   KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_LGUI,  _______,  _______,  KC_BSLS,  KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_GRV,
                                       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
     ),
-
     /* Raise layer: http://www.keyboard-layout-editor.com/#/gists/912be7955f781cdaf692cc4d4c0b5823 */
     [LAYER_RAISE] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,
@@ -60,7 +59,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_F12,   KC_INS,
                                       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
     ),
-
     /* Adjust layer: http://www.keyboard-layout-editor.com/#/gists/8f6a3f08350a9bbe1d414b22bca4e6c7 */
     [LAYER_ADJUST] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,
@@ -69,8 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
                                       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
     ),
+    // clang-format on
 };
 
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-    return update_tri_layer_state(state, LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST);
-}
+layer_state_t layer_state_set_keymap(layer_state_t state) { return update_tri_layer_state(state, LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST); }

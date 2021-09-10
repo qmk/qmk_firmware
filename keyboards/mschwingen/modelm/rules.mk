@@ -7,7 +7,7 @@ BOOTLOADER = lufa-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
@@ -35,9 +35,5 @@ QUANTUM_LIB_SRC += uart.c \
 OPT_DEFS += -DSLEEP_LED_ENABLE # we need our own sleep callbacks to turn of WS2812 LEDs
 
 LTO_ENABLE = yes
-
-ifeq ($(strip $(UART_DEBUG)), yes)
-    OPT_DEFS += -DUART_DEBUG
-endif
 
 DEFAULT_FOLDER = mschwingen/modelm/led_wired

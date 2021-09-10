@@ -64,7 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include <stdio.h>
 #    include <string.h>
 
@@ -109,8 +109,6 @@ void oled_task_user(void) {
     }
 }
 #endif
-
-void led_set_user(uint8_t usb_led) {}
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     oled_on();

@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -40,7 +39,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * Keyboard Matrix Assignments
+ *
+ * MATRIX_ROW_PINS and MATRIX_COL_PINS aren't actually used and are included
+ * for data driven compatibility.
  */
+#define MATRIX_ROW_PINS { C2, B3, B4, B2, B1, C7, B6, B5 }
+#define MATRIX_COL_PINS { NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 #define UNUSED_PINS { B0, C4, D3 }
 
 #define LED_NUM_LOCK_PIN C5
@@ -142,5 +146,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

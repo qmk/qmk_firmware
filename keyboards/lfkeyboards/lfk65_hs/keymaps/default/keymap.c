@@ -48,23 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
     KC_GRV,KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_F13,  KC_F14,
     MU_MOD, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR,     KC_TR,  RGB_TOG,
-    AU_TOG,  KC_FN1,KC_FN3, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR,           RESET,  RGB_MOD,
-    KC_FN5,    KC_FN2,KC_FN4, KC_TR, KC_TR, KC_TR, KC_TR, MU_TOG, RGB_VAD, RGB_VAI, KC_TR, KC_TR,        RGB_HUI,  KC_TR,
+    AU_TOG,  F(1),F(3), KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR,           RESET,  RGB_MOD,
+    F(5),    F(2),F(4), KC_TR, KC_TR, KC_TR, KC_TR, MU_TOG, RGB_VAD, RGB_VAI, KC_TR, KC_TR,        RGB_HUI,  KC_TR,
     KC_TR, KC_TR, KC_TR,         KC_TR,       KC_TR, KC_TR, KC_TR, RGB_SAD, RGB_HUD,  RGB_SAI),
 };
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

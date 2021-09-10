@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_logo(void) {
     static const char PROGMEM bananas_logo[] = {
@@ -221,7 +221,7 @@ void oled_task_user(void) {
 
 
 
-#endif // OLED_DRIVER_ENABLE
+#endif // OLED_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {

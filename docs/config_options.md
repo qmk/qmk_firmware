@@ -188,13 +188,27 @@ If you define these options you will enable the associated feature, which may in
     few ms of delay from this. But if you're doing chording on something with 3-4ms
     scan times? You probably want this.
 * `#define COMBO_COUNT 2`
-  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature.
+  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature. Or leave it undefined and programmatically set the count.
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
+* `#define COMBO_MUST_HOLD_MODS`
+  * Flag for enabling extending timeout on Combos containing modifers
+* `#define COMBO_MOD_TERM 200`
+  * Allows for extending COMBO_TERM for mod keys while mid-combo. 
+* `#define COMBO_MUST_HOLD_PER_COMBO`
+  * Flag to enable per-combo COMBO_TERM extension and `get_combo_must_hold()` function
+* `#define COMBO_TERM_PER_COMBO`
+  * Flag to enable per-combo COMBO_TERM extension and `get_combo_term()` function
+* `#define COMBO_STRICT_TIMER`
+  * Only start the combo timer on the first key press instead of on all key presses.
+* `#define COMBO_NO_TIMER`
+  * Disable the combo timer completely for relaxed combos.
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 * `#define TAP_HOLD_CAPS_DELAY 80`
   * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
+* `#define KEY_OVERRIDE_REPEAT_DELAY 500`
+  * Sets the key repeat interval for [key overrides](feature_key_overrides.md).
 
 ## RGB Light Configuration
 
@@ -329,6 +343,12 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_WPM_ENABLE`
   * Ensures the current WPM is available on the slave when using the QMK-provided split transport.
 
+* `#define SPLIT_OLED_ENABLE`
+  * Syncs the on/off state of the OLED between the halves.
+
+* `#define SPLIT_ST7565_ENABLE`
+  * Syncs the on/off state of the ST7565 screen between the halves.
+
 * `#define SPLIT_TRANSACTION_IDS_KB .....`
 * `#define SPLIT_TRANSACTION_IDS_USER .....`
   * Allows for custom data sync with the slave when using the QMK-provided split transport. See [custom data sync between sides](feature_split_keyboard.md#custom-data-sync) for more information.
@@ -377,8 +397,8 @@ However, this will automatically disable the legacy TMK Macros and Functions fea
   * `qmk-dfu`
   * `halfkay`
   * `caterina`
-  * `bootloadHID`
-  * `USBasp`
+  * `bootloadhid`
+  * `usbasploader`
 
 ## Feature Options :id=feature-options
 
@@ -400,6 +420,8 @@ Use these to enable or disable building certain features. The more you have enab
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
+* `KEY_OVERRIDE_ENABLE`
+  * Enable the key override feature
 * `RGBLIGHT_ENABLE`
   * Enable keyboard underlight functionality
 * `LEADER_ENABLE`

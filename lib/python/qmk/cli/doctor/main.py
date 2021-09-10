@@ -9,8 +9,9 @@ from milc import cli
 from milc.questions import yesno
 
 from qmk import submodules
-from qmk.constants import QMK_FIRMWARE
-from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules, check_git_repo
+from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM
+from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
+from qmk.commands import git_check_repo, git_get_branch, git_is_dirty, git_get_remotes, git_check_deviation, in_virtualenv
 
 
 def os_tests():
@@ -32,6 +33,37 @@ def os_tests():
         return CheckStatus.WARNING
 
 
+def git_tests():
+    """Run Git-related checks
+    """
+    status = CheckStatus.OK
+
+    # Make sure our QMK home is a Git repo
+    git_ok = git_check_repo()
+    if not git_ok:
+        cli.log.warning("{fg_yellow}QMK home does not appear to be a Git repository! (no .git folder)")
+        status = CheckStatus.WARNING
+    else:
+        git_branch = git_get_branch()
+        if git_branch:
+            cli.log.info('Git branch: %s', git_branch)
+            git_dirty = git_is_dirty()
+            if git_dirty:
+                cli.log.warning('{fg_yellow}Git has unstashed/uncommitted changes.')
+                status = CheckStatus.WARNING
+            git_remotes = git_get_remotes()
+            if 'upstream' not in git_remotes.keys() or QMK_FIRMWARE_UPSTREAM not in git_remotes['upstream'].get('url', ''):
+                cli.log.warning('{fg_yellow}The official repository does not seem to be configured as git remote "upstream".')
+                status = CheckStatus.WARNING
+            else:
+                git_deviation = git_check_deviation(git_branch)
+                if git_branch in ['master', 'develop'] and git_deviation:
+                    cli.log.warning('{fg_yellow}The local "%s" branch contains commits not found in the upstream branch.', git_branch)
+                    status = CheckStatus.WARNING
+
+    return status
+
+
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
 @cli.argument('-n', '--no', action='store_true', arg_only=True, help='Answer no to all questions.')
 @cli.subcommand('Basic QMK environment checks')
@@ -49,12 +81,11 @@ def doctor(cli):
 
     status = os_tests()
 
-    # Make sure our QMK home is a Git repo
-    git_ok = check_git_repo()
+    status = git_tests()
 
-    if git_ok == CheckStatus.WARNING:
-        cli.log.warning("QMK home does not appear to be a Git repository! (no .git folder)")
-        status = CheckStatus.WARNING
+    venv = in_virtualenv()
+    if venv:
+        cli.log.info('CLI installed in virtualenv.')
 
     # Make sure the basic CLI tools we need are available and can be executed.
     bin_ok = check_binaries()

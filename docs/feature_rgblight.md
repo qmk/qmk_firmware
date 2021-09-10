@@ -326,6 +326,10 @@ would turn the layer 0 (or 1) on and off again three times when `DEBUG` is press
 
 Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with `RGB_TOG` keycode). If you would like lighting layers to work even when the RGB Lighting is otherwise off, add `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` to your `config.h`.
 
+### Retain brightness
+
+Usually lighting layers apply their configured brightness once activated. If you would like lighting layers to retain the currently used brightness (as returned by `rgblight_get_val()`), add `#define RGBLIGHT_LAYERS_RETAIN_VAL` to your `config.h`.
+
 ## Functions
 
 If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight/rgblight.h) for the full list, but the most commonly used functions include:

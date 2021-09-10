@@ -2,6 +2,7 @@
 """
 import json
 import os
+import sys
 import shutil
 from pathlib import Path
 from subprocess import DEVNULL
@@ -10,7 +11,7 @@ from time import strftime
 from milc import cli
 
 import qmk.keymap
-from qmk.constants import KEYBOARD_OUTPUT_PREFIX
+from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
 from qmk.json_schema import json_load
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
@@ -51,7 +52,7 @@ def create_make_target(target, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
-    return [make_cmd, '-j', str(parallel), *env, target]
+    return [make_cmd, *get_make_parallel_args(parallel), *env, target]
 
 
 def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
@@ -109,6 +110,24 @@ def get_git_version(current_time, repo_dir='.', check_dir='.'):
             return current_time
 
     return current_time
+
+
+def get_make_parallel_args(parallel=1):
+    """Returns the arguments for running the specified number of parallel jobs.
+    """
+    parallel_args = []
+
+    if int(parallel) <= 0:
+        # 0 or -1 means -j without argument (unlimited jobs)
+        parallel_args.append('--jobs')
+    else:
+        parallel_args.append('--jobs=' + str(parallel))
+
+    if int(parallel) != 1:
+        # If more than 1 job is used, synchronize parallel output by target
+        parallel_args.append('--output-sync=target')
+
+    return parallel_args
 
 
 def create_version_h(skip_git=False, skip_all=False):
@@ -184,8 +203,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         make_command.append('-s')
 
     make_command.extend([
-        '-j',
-        str(parallel),
+        *get_make_parallel_args(parallel),
         '-r',
         '-R',
         '-f',
@@ -215,7 +233,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
-        f'QMK_BIN={"bin/qmk" if "DEPRECATED_BIN_QMK" in os.environ else "qmk"}',
+        'QMK_BIN="qmk"',
     ])
 
     return make_command
@@ -237,3 +255,80 @@ def parse_configurator_json(configurator_file):
             user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
 
     return user_keymap
+
+
+def git_get_username():
+    """Retrieves user's username from Git config, if set.
+    """
+    git_username = cli.run(['git', 'config', '--get', 'user.name'])
+
+    if git_username.returncode == 0 and git_username.stdout:
+        return git_username.stdout.strip()
+
+
+def git_check_repo():
+    """Checks that the .git directory exists inside QMK_HOME.
+
+    This is a decent enough indicator that the qmk_firmware directory is a
+    proper Git repository, rather than a .zip download from GitHub.
+    """
+    dot_git_dir = QMK_FIRMWARE / '.git'
+
+    return dot_git_dir.is_dir()
+
+
+def git_get_branch():
+    """Returns the current branch for a repo, or None.
+    """
+    git_branch = cli.run(['git', 'branch', '--show-current'])
+    if not git_branch.returncode != 0 or not git_branch.stdout:
+        # Workaround for Git pre-2.22
+        git_branch = cli.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
+
+    if git_branch.returncode == 0:
+        return git_branch.stdout.strip()
+
+
+def git_is_dirty():
+    """Returns 1 if repo is dirty, or 0 if clean
+    """
+    git_diff_staged_cmd = ['git', 'diff', '--quiet']
+    git_diff_unstaged_cmd = [*git_diff_staged_cmd, '--cached']
+
+    unstaged = cli.run(git_diff_staged_cmd)
+    staged = cli.run(git_diff_unstaged_cmd)
+
+    return unstaged.returncode != 0 or staged.returncode != 0
+
+
+def git_get_remotes():
+    """Returns the current remotes for a repo.
+    """
+    remotes = {}
+
+    git_remote_show_cmd = ['git', 'remote', 'show']
+    git_remote_get_cmd = ['git', 'remote', 'get-url']
+
+    git_remote_show = cli.run(git_remote_show_cmd)
+    if git_remote_show.returncode == 0:
+        for name in git_remote_show.stdout.splitlines():
+            git_remote_name = cli.run([*git_remote_get_cmd, name])
+            remotes[name.strip()] = {"url": git_remote_name.stdout.strip()}
+
+    return remotes
+
+
+def git_check_deviation(active_branch):
+    """Return True if branch has custom commits
+    """
+    cli.run(['git', 'fetch', 'upstream', active_branch])
+    deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'])
+    return bool(deviations.returncode)
+
+
+def in_virtualenv():
+    """Check if running inside a virtualenv.
+    Based on https://stackoverflow.com/a/1883251
+    """
+    active_prefix = getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
+    return active_prefix != sys.prefix

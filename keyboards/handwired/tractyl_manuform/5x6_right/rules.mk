@@ -1,13 +1,7 @@
-# MCU name
-MCU = at90usb1286
-
-# Bootloader selection
-BOOTLOADER = halfkay
-
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -29,3 +23,5 @@ SPLIT_KEYBOARD = yes
 
 SRC += drivers/sensors/pmw3360.c
 QUANTUM_LIB_SRC += spi_master.c tm_sync.c
+
+DEFAULT_FOLDER = handwired/tractyl_manuform/5x6_right/teensy2pp

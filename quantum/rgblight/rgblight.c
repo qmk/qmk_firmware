@@ -16,17 +16,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-#ifdef __AVR__
-#    include <avr/eeprom.h>
-#    include <avr/interrupt.h>
-#endif
-#ifdef EEPROM_ENABLE
-#    include "eeprom.h"
-#endif
-#ifdef STM32_EEPROM_ENABLE
-#    include <hal.h>
-#    include "eeprom_stm32.h"
-#endif
 #include "wait.h"
 #include "progmem.h"
 #include "sync_timer.h"
@@ -35,6 +24,9 @@
 #include "debug.h"
 #include "led_tables.h"
 #include <lib/lib8tion/lib8tion.h>
+#ifdef EEPROM_ENABLE
+#    include "eeprom.h"
+#endif
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
@@ -694,6 +686,9 @@ bool rgblight_get_layer_state(uint8_t layer) {
 
 // Write any enabled LED layers into the buffer
 static void rgblight_layers_write(void) {
+#    ifdef RGBLIGHT_LAYERS_RETAIN_VAL
+    uint8_t current_val = rgblight_get_val();
+#    endif
     uint8_t i = 0;
     // For each layer
     for (const rgblight_segment_t *const *layer_ptr = rgblight_layers; i < RGBLIGHT_MAX_LAYERS; layer_ptr++, i++) {
@@ -714,7 +709,11 @@ static void rgblight_layers_write(void) {
             // Write segment.count LEDs
             LED_TYPE *const limit = &led[MIN(segment.index + segment.count, RGBLED_NUM)];
             for (LED_TYPE *led_ptr = &led[segment.index]; led_ptr < limit; led_ptr++) {
+#    ifdef RGBLIGHT_LAYERS_RETAIN_VAL
+                sethsv(segment.hue, segment.sat, current_val, led_ptr);
+#    else
                 sethsv(segment.hue, segment.sat, segment.val, led_ptr);
+#    endif
             }
             segment_ptr++;
         }

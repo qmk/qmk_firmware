@@ -10,14 +10,13 @@ QUANTUM_LIB_SRC += i2c_master.c
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
@@ -28,7 +27,8 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 
-OLED_DRIVER_ENABLE = yes    # Enable the OLED Driver
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306    # Enable the OLED Driver
 
 ENCODER_ENABLE = yes
 
@@ -40,7 +40,7 @@ OPT = 3
 OPT_DEFS += -DOLED_FONT_H=\"../common/glcdfont.c\"
 OPT_DEFS += -Ikeyboards/rgbkb/common
 
-CUSTOM_MATRIX = yes
-SRC += matrix.c matrix_common.c
+# matrix optimisations
+SRC += matrix.c
 
 DEFAULT_FOLDER = rgbkb/mun/rev1

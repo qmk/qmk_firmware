@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
+// clang-format off
  #define LAYOUT( \
      KA1, KA2, KA3, \
      KB1, KB2, KB3, \
@@ -36,3 +37,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      { KB1, KB2, KB3 }, \
      { KC1, KC2, KC3 } \
  }
+// clang-format on

@@ -215,12 +215,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [BASE] = ACTION_FUNCTION(BASE),
-    [PMQ]  = ACTION_FUNCTION(PMQ),
-    [PMN]  = ACTION_FUNCTION(PMN),
-};
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
     set_unicode_input_mode(UC_LNX);

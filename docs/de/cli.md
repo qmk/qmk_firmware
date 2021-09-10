@@ -51,25 +51,6 @@ Wir suchen nach Freiwilligen, die ein `qmk`-Package für weitere Betriebssysteme
 * Installiere mit einem [virtualenv](https://virtualenv.pypa.io/en/latest/).
 * Weise den User an, die Umgebungs-Variable `QMK_HOME` zu setzen, um die Firmware-Quelle anders einzustellen als `~/qmk_firmware`.
 
-# Lokale CLI
-
-Wenn Du die globale CLI nicht verwenden möchtest, beinhaltet `qmk_firmware` auch eine lokale CLI. Du kannst sie hier finden: `qmk_firmware/bin/qmk`. Du kannst den `qmk`-Befehl aus irgendeinem Datei-Verzeichnis ausführen und es wird immer auf dieser Kopie von `qmk_firmware` arbeiten.
-
-**Beispiel**:
-
-```
-$ ~/qmk_firmware/bin/qmk hello
-Ψ Hello, World!
-```
-
-## Einschränkungen der lokalen CLI
-
-Hier ein Vergleich mit der globalen CLI:
-
-* Die lokale CLI unterstützt kein `qmk setup` oder `qmk clone`.
-* Die lokale CLI arbeitet immer innerhalb der selben `qmk_firmware`-Verzeichnisstruktur, auch wenn Du mehrere Repositories geklont hast.
-* Die lokale CLI läuft nicht in einer virtualenv. Daher ist es möglich, dass Abhängigkeiten (dependencies) miteinander in Konflikt kommen/stehen.
-
 # CLI-Befehle
 
 ## `qmk compile`
@@ -88,14 +69,14 @@ qmk compile <configuratorExport.json>
 qmk compile -kb <keyboard_name> -km <keymap_name>
 ```
 
-## `qmk cformat`
+## `qmk format-c`
 
 Dieser Befehl formatiert C-Code im clang-Format. Benutze ihn ohne Argumente, um den core-Code zu formatieren, oder benutze Namen von Dateien in der CLI, um den Befehl auf bestimmte Dateien anzuwenden.
 
 **Anwendung**:
 
 ```
-qmk cformat [file1] [file2] [...] [fileN]
+qmk format-c [file1] [file2] [...] [fileN]
 ```
 
 ## `qmk config`
@@ -148,14 +129,14 @@ Dieser Befehl erstellt eine neue Keymap basierend auf einer existierenden Standa
 qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 ```
 
-## `qmk pyformat`
+## `qmk format-py`
 
 Dieser Befehl formatiert Python-Code in `qmk_firmware`.
 
 **Anwendung**:
 
 ```
-qmk pyformat
+qmk format-py
 ```
 
 ## `qmk pytest`
