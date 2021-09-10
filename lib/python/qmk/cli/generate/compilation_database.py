@@ -1,15 +1,16 @@
 """Creates a compilation database for the given keyboard build.
 """
 
+import itertools
 import json
+import os
 import re
 import shlex
+import shutil
 import subprocess
-import os
 from functools import lru_cache
 from pathlib import Path
-from subprocess import check_output
-from typing import Dict, List, TextIO
+from typing import Dict, Iterator, List
 
 from milc import cli
 
@@ -19,21 +20,19 @@ from qmk.decorators import automagic_keyboard, automagic_keymap
 
 
 @lru_cache(maxsize=10)
-def system_libs(binary: str):
+def system_libs(binary: str) -> List[Path]:
     """Find the system include directory that the given build tool uses.
     """
-
-    try:
-        return list(Path(check_output(['which', binary]).rstrip().decode()).resolve().parent.parent.glob("*/include"))
-    except Exception:
-        return []
+    cli.log.debug("searching for system library directory for binary: %s", binary)
+    bin_path = shutil.which(binary)
+    return list(Path(bin_path).resolve().parent.parent.glob("*/include")) if bin_path else []
 
 
-file_re = re.compile(r"""printf "Compiling: ([^"]+)""")
-cmd_re = re.compile(r"""LOG=\$\((.+?)\&\&""")
+file_re = re.compile(r'printf "Compiling: ([^"]+)')
+cmd_re = re.compile(r'LOG=\$\((.+?)&&')
 
 
-def parse_make_n(f: TextIO) -> List[Dict[str, str]]:
+def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
     """parse the output of `make -n <target>`
 
     This function makes many assumptions about the format of your build log.
@@ -51,6 +50,7 @@ def parse_make_n(f: TextIO) -> List[Dict[str, str]]:
                 state = 'cmd'
 
         if state == 'cmd':
+            assert this_file
             m = cmd_re.search(line)
             if m:
                 # we have a hit!
@@ -101,16 +101,18 @@ def generate_compilation_database(cli):
         # re-use same executable as the main make invocation (might be gmake)
         clean_command = [command[0], 'clean']
         cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
-        subprocess.run(clean_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env)
+        subprocess.run(clean_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env, check=True)
 
         cli.log.info('Gathering build instructions from {fg_cyan}%s', ' '.join(command))
-        proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
-        db = parse_make_n(proc.stdout)
-        res = proc.wait()
-        if res != 0:
-            raise RuntimeError(f"Got error from: {repr(command)}")
+        with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env) as proc:
+            stdout1, stdout2 = itertools.tee(proc.stdout or [])
+            db = parse_make_n(stdout1)
+            proc.wait()
+            if not db:
+                cli.log.error("Failed to parse output from make output:\n%s", ''.join(stdout2))
+                return False
 
-        cli.log.info(f"Found {len(db)} compile commands")
+        cli.log.info("Found %s compile commands", len(db))
 
         dbpath = QMK_FIRMWARE / 'compile_commands.json'
 
