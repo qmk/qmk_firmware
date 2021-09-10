@@ -254,8 +254,15 @@ static void render_matrix_visualisation(void) {
     }
     // Draw keyboard outline
     oled_draw_rect_soft(MATRIX_CURSOR_X, MATRIX_CURSOR_Y, (MATRIX_KEY_WIDTH * MATRIX_COLS) + 2 * MATRIX_SIDE_PADDING, (MATRIX_KEY_WIDTH * MATRIX_ROWS) + 2 * MATRIX_SIDE_PADDING + MATRIX_OLED_HEIGHT + 1, true);
+
+    uint8_t matrix_oled_cursor_x = MATRIX_CURSOR_X + (MATRIX_KEY_WIDTH * MATRIX_COLS) + 2 * MATRIX_SIDE_PADDING - (MATRIX_OLED_WIDTH + MATRIX_TOP_ROW_HORI_PADDING);
+    // Draw exposed diodes
+    for (uint8_t x = MATRIX_CURSOR_X + MATRIX_TOP_ROW_HORI_PADDING; x < matrix_oled_cursor_x; x += 2) {
+        oled_draw_line_vert(x, MATRIX_CURSOR_Y + MATRIX_SIDE_PADDING, MATRIX_OLED_HEIGHT, true);
+    }
     // Draw OLED panel
-    oled_draw_rect_filled(MATRIX_CURSOR_X + (MATRIX_KEY_WIDTH * MATRIX_COLS) + MATRIX_SIDE_PADDING - MATRIX_OLED_WIDTH, MATRIX_CURSOR_Y + MATRIX_SIDE_PADDING, MATRIX_OLED_WIDTH, MATRIX_OLED_HEIGHT, true);
+    oled_draw_rect_filled(matrix_oled_cursor_x, MATRIX_CURSOR_Y + MATRIX_SIDE_PADDING, MATRIX_OLED_WIDTH, MATRIX_OLED_HEIGHT, true);
+
 }
 
 void render_info_mode(void) {

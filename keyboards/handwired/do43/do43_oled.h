@@ -187,6 +187,7 @@ static const char PROGMEM layer_row_2[3] = {0xcd, 0xce, 0x00};
 #define MATRIX_CURSOR_X 82
 #define MATRIX_CURSOR_Y 4
 #define MATRIX_SIDE_PADDING 2
+#define MATRIX_TOP_ROW_HORI_PADDING 3
 #define MATRIX_OLED_WIDTH 8
 #define MATRIX_OLED_HEIGHT 3
 #define swap(a, b)     \
