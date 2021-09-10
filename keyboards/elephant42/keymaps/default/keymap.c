@@ -15,14 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
-#ifdef OLED_ENABLE
-#   include <stdio.h>
-#   include <string.h>
-#endif
-
-#define KC_VU KC__VOLUP
-#define KC_VD KC__VOLDOWN
-#define KC_MU KC__MUTE
+#define KC_VU KC_AUDIO_VOL_UP
+#define KC_VD KC_AUDIO_VOL_DOWN
+#define KC_MU KC_AUDIO_MUTE
 #define KC_LSPC LT(_LOWER, KC_SPC)
 #define KC_RSPC LT(_RAISE, KC_SPC)
 
@@ -87,7 +82,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        char disp[21 * 4];
         static char layer_names[NUMBER_OF_LAYERS][10] = {"Default", "Lower", "Raise"};
         static char l1[] = "                \x94\x95\x96\x97";
         static char l2[] = "                \xB4\xB5\xB6\xB7";
@@ -99,21 +93,20 @@ void oled_task_user(void) {
         }
         bool goingLeft = keypresses < STEPS / 2;
 
-        strcpy(disp, "Layer: ");
-        strcat(disp, layer_names[get_highest_layer(layer_state)]);
-        strcat(disp, "\n\n");
-        strcat(disp, (goingLeft ? l1 : r1) + iconShift);
-        strcat(disp, "\n");
-        strcat(disp, (goingLeft ? l2 : r2) + iconShift);
-        strcat(disp, "\n");
-
-        oled_write(disp, false);
+        oled_write_P(PSTR("Layer: "), false);
+        oled_write_ln(layer_names[get_highest_layer(layer_state)], false);
+        oled_advance_page(true);
+        oled_write_ln((goingLeft ? l1 : r1) + iconShift, false);
+        oled_write_ln((goingLeft ? l2 : r2) + iconShift, false);
     } else {
-        static char *logo = "\n"
-        "\x8f\x90\x91\x92\x93\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\n"
-        "\xaf\xb0\xb1\xb2\xb3\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\n"
-        "\xcf\xd0\xd1\xd2\xd3\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\n";
-        oled_write(logo, false);
+        oled_advance_page(true);
+        static const char PROGMEM logo[] = {
+            0x8f,0x90,0x91,0x92,0x93,0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x0a,
+            0xaf,0xb0,0xb1,0xb2,0xb3,0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0x0a,
+            0xcf,0xd0,0xd1,0xd2,0xd3,0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0
+        };
+
+        oled_write_ln_P(logo, false);
     }
 }
 #endif
