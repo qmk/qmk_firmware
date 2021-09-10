@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_BASE] = LAYOUT(
            KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                                          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     \
-  KC_ESC,  BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, BP_DTRM,                                        BP_DCRC, BP_AT,   BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, KC_BSPC, \
-  KC_TAB,  BP_B,    BP_ECUT, BP_O,    BP_P,    BP_EGRV, BP_UNDS,                                        BP_EQL,  BP_K,    BP_V,    BP_D,    BP_L,    BP_J,    KC_ENT,  \
-  BP_GRV,  BP_A,    BP_U,    BP_E,    BP_I,    BP_F,    BP_SCLN,                                        BP_EXLM, BP_C,    BP_T,    BP_S,    BP_R,    BP_N,    BP_APOS, \
+  KC_ESC,  BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN, BP_DIAE,                                        BP_DCIR, BP_AT,   BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, KC_BSPC, \
+  KC_TAB,  BP_B,    BP_EACU, BP_O,    BP_P,    BP_EGRV, BP_UNDS,                                        BP_EQL,  BP_K,    BP_V,    BP_D,    BP_L,    BP_J,    KC_ENT,  \
+  BP_GRV,  BP_A,    BP_U,    BP_E,    BP_I,    BP_F,    BP_SCLN,                                        BP_EXLM, BP_C,    BP_T,    BP_S,    BP_R,    BP_N,    BP_QUOT, \
   M_SF,    BP_Z,    BP_AGRV, BP_Y,    BP_X,    KC_RBRC, M_SFS,   BP_CBSP, L2INS,        L2LOC, BP_CDEL, M_SFS,   BP_M,    BP_G,    KC_UP,   BP_H,    BP_Q,    M_SF, \
   KC_LCTL, KC_LGUI, KC_PSLS, BP_DOT,  BP_COMM, KC_SPACE,M_L1E,   KC_LALT,                     KC_CAPS, M_L1E,  KC_SPACE,  KC_LEFT, KC_DOWN, KC_RIGHT,BP_COLN, KC_RCTL,   \
   //left pedals
@@ -97,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 [_SYMBOLS] = LAYOUT(
            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          \
-  KC_TRNS, BP_DCUR, BP_PARG, BP_SECT, BP_DGRK, KC_TRNS, BP_TILD,                                       BP_DCAR, BP_LEQL, BP_GEQL, BP_PSMS, BP_OBEL, BP_TIMS, KC_TRNS, \
-  KC_TRNS, BP_BSLS, BP_ASTR, BP_LCBR, BP_RCBR, BP_GRV,  KC_TRNS,                                       BP_DIFF, BP_HASH, BP_LBRC, BP_RBRC, BP_PERC, BP_PMIL, KC_TRNS, \
-  KC_TRNS, BP_EQL,  BP_UGRV, BP_LPRN, BP_RPRN, BP_PLUS, BP_COLN,                                       BP_QEST, BP_CCED, BP_LESS, BP_GRTR, BP_AMPR, BP_UNDS, KC_TRNS, \
+  KC_TRNS, BP_CURR, BP_PARA, BP_SECT, BP_DGRK, KC_TRNS, BP_TILD,                                       BP_CARN, BP_LEQL, BP_GEQL, BP_PLMN, BP_DIV,  BP_MUL,  KC_TRNS, \
+  KC_TRNS, BP_BSLS, BP_ASTR, BP_LCBR, BP_RCBR, BP_GRV,  KC_TRNS,                                       BP_NEQL, BP_HASH, BP_LBRC, BP_RBRC, BP_PERC, BP_PERM, KC_TRNS, \
+  KC_TRNS, BP_EQL,  BP_UGRV, BP_LPRN, BP_RPRN, BP_PLUS, BP_COLN,                                       BP_QUES, BP_CCED, BP_LABK, BP_RABK, BP_AMPR, BP_UNDS, KC_TRNS, \
   KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    M_SE,    KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, BP_DLR,  BP_EQL,  KC_PGUP, BP_PIPE, BP_SLSH, KC_TRNS, \
   KC_TRNS, KC_TRNS, BP_BSLS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END,  KC_TRNS, KC_TRNS,  \
   //left pedals
@@ -203,9 +203,6 @@ void press_underscore(void) {
   if(shift_count > 0) unregister_code (KC_LSHIFT);
   tap_code ((unsigned char) BP_UNDS);
   if(shift_count > 0) register_code (KC_LSHIFT);
-}
-
-void matrix_init_user(void) {
 }
 
 // Bleah globals need to be initialized.
