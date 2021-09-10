@@ -2,14 +2,7 @@
 MCU = atmega328p
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
-BOOTLOADER = USBasp
+BOOTLOADER = usbasploader
 
 # Processor frequency
 F_CPU = 12000000
