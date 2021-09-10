@@ -127,7 +127,7 @@ To ensure compatibility with the USBasploader bootloader, make sure this block i
 
 ```make
 # Bootloader selection
-BOOTLOADER = USBasp
+BOOTLOADER = usbasploader
 ```
 
 Compatible flashers:
@@ -153,13 +153,13 @@ To ensure compatibility with the bootloadHID bootloader, make sure this block is
 
 ```make
 # Bootloader selection
-BOOTLOADER = bootloadHID
+BOOTLOADER = bootloadhid
 ```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadHID` target in QMK (recommended command line)
+* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadhid` target in QMK (recommended command line)
 * [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash)
 
 Flashing sequence:

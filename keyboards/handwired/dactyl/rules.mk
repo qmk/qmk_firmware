@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = halfkay
 
 # Build Options
@@ -28,5 +21,5 @@ SLEEP_LED_ENABLE        = no
 RGBLIGHT_ENABLE         = no
 
 # project specific files
-SRC = twimaster.c \
-	  matrix.c
+QUANTUM_LIB_SRC += i2c_master.c
+SRC += matrix.c

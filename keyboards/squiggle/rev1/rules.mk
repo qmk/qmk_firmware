@@ -1,6 +1,7 @@
 # MCU name
 MCU = atmega32u4
 
+# Bootloader selection
 BOOTLOADER = caterina
 
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
