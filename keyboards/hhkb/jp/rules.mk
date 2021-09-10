@@ -26,7 +26,6 @@ CUSTOM_MATRIX = yes    # Custom matrix file for the HHKB
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 MIDI_ENABLE = no              # MIDI support
 # UNICODE_ENABLE = yes    # Unicode
-# BLUETOOTH_ENABLE = yes  # Enable Bluetooth with the Adafruit EZ-Key HID
 
 
 # HHKB_RN42_ENABLE = yes  # Enable support for hasu's BT alt controller -- code borrowed from tmk source tree.
