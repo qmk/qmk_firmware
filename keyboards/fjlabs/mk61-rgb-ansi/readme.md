@@ -1,10 +1,10 @@
-# [FILL] MK61-RGB-ANSI 
+# Mechanical Keyboards, LLC MK61-RGB-ANSI 
 
-The following is the QMK Firmware for the [FILL] MK61-RGB-ANSI PCB.
+The following is the QMK Firmware for the Mechanical Keyboards, LLC MK61-RGB-ANSI PCB.
 
 ---
 
-* Keyboard Maintainer: [FILL]
+* Keyboard Maintainer: Mechanical Keyboards, LLC
 * Hardware Supported: MK61-RGB-ANSI
 
 Make example for this keyboard (after setting up your build environment):

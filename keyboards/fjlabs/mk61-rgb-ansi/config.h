@@ -23,7 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID    0x7074 // FJLabs
 #define PRODUCT_ID   0x1011 // mk61-rgb-ansi
 #define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    [FILL]
+#define MANUFACTURER    Mechanical Keyboards, LLC
 #define PRODUCT         MK61-RGB-ANSI
 
 /* key matrix size */
