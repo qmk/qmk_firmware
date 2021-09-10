@@ -79,10 +79,10 @@ def generate_compilation_database(cli):
         https://clang.llvm.org/docs/JSONCompilationDatabase.html
     """
     command = None
-    # check both config domains: the magic decorator fills in `compiledb` but the user is
+    # check both config domains: the magic decorator fills in `generate_compilation_database` but the user is
     # more likely to have set `compile` in their config file.
-    current_keyboard = cli.config.compiledb.keyboard or cli.config.compile.keyboard
-    current_keymap = cli.config.compiledb.keymap or cli.config.compile.keymap
+    current_keyboard = cli.config.generate_compilation_database.keyboard or cli.config.user.keyboard
+    current_keymap = cli.config.generate_compilation_database.keymap or cli.config.user.keymap
 
     if current_keyboard and current_keymap:
         # Generate the make command for a specific keyboard/keymap.
