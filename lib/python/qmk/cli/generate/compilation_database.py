@@ -7,12 +7,11 @@ import os
 import re
 import shlex
 import shutil
-import subprocess
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, Iterator, List
+from typing import Dict, Iterator, List, Union
 
-from milc import cli
+from milc import cli, MILC
 
 from qmk.commands import create_make_command
 from qmk.constants import QMK_FIRMWARE
@@ -69,7 +68,7 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
 @cli.subcommand('Create a compilation database.')
 @automagic_keyboard
 @automagic_keymap
-def generate_compilation_database(cli):
+def generate_compilation_database(cli: MILC) -> Union[bool, int]:
     """Creates a compilation database for the given keyboard build.
 
     Does a make clean, then a make -n for this target and uses the dry-run output to create
@@ -87,39 +86,38 @@ def generate_compilation_database(cli):
     if current_keyboard and current_keymap:
         # Generate the make command for a specific keyboard/keymap.
         command = create_make_command(current_keyboard, current_keymap, dry_run=True)
-
     elif not current_keyboard:
         cli.log.error('Could not determine keyboard!')
     elif not current_keymap:
         cli.log.error('Could not determine keymap!')
 
-    if command:
-        # remove any environment variable overrides which could trip us up
-        env = os.environ.copy()
-        env.pop("MAKEFLAGS", None)
-
-        # re-use same executable as the main make invocation (might be gmake)
-        clean_command = [command[0], 'clean']
-        cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
-        subprocess.run(clean_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env, check=True)
-
-        cli.log.info('Gathering build instructions from {fg_cyan}%s', ' '.join(command))
-        with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env) as proc:
-            stdout1, stdout2 = itertools.tee(proc.stdout or [])
-            db = parse_make_n(stdout1)
-            proc.wait()
-            if not db:
-                cli.log.error("Failed to parse output from make output:\n%s", ''.join(stdout2))
-                return False
-
-        cli.log.info("Found %s compile commands", len(db))
-
-        dbpath = QMK_FIRMWARE / 'compile_commands.json'
-
-        cli.log.info(f"Writing build database to {dbpath}")
-        dbpath.write_text(json.dumps(db, indent=4))
-
-    else:
+    if not command:
         cli.log.error('You must supply both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
         cli.echo('usage: qmk compiledb [-kb KEYBOARD] [-km KEYMAP]')
         return False
+
+    # remove any environment variable overrides which could trip us up
+    env = os.environ.copy()
+    env.pop("MAKEFLAGS", None)
+
+    # re-use same executable as the main make invocation (might be gmake)
+    clean_command = [command[0], 'clean']
+    cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
+    cli.run(clean_command, capture_output=False, check=True, env=env)
+
+    cli.log.info('Gathering build instructions from {fg_cyan}%s', ' '.join(command))
+
+    result = cli.run(command, capture_output=True, check=True, env=env)
+    db = parse_make_n(result.stdout.splitlines())
+    if not db:
+        cli.log.error("Failed to parse output from make output:\n%s", result.stdout)
+        return False
+
+    cli.log.info("Found %s compile commands", len(db))
+
+    dbpath = QMK_FIRMWARE / 'compile_commands.json'
+
+    cli.log.info(f"Writing build database to {dbpath}")
+    dbpath.write_text(json.dumps(db, indent=4))
+
+    return True
