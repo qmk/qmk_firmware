@@ -1,5 +1,7 @@
 # MCU name
 MCU = atmega32a
+
+# Bootloader selection
 BOOTLOADER = bootloadHID
 
 # Build Options
