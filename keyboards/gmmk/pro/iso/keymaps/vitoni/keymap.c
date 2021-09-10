@@ -4,6 +4,8 @@
 
 #include QMK_KEYBOARD_H
 
+#include "vitoni.h"
+
 enum layer_names {
     _BASE,
     _MOV,
@@ -91,7 +93,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 * Set up default RGB color.
 */
 void rgb_matrix_set_default_color(void) {
-    rgb_matrix_sethsv_noeeprom(HSV_CHARTREUSE);
+    rgb_matrix_sethsv_noeeprom_user(HSV_CHARTREUSE);
 }
 
 /*
@@ -112,10 +114,10 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _MOV:
-            rgb_matrix_sethsv_noeeprom(HSV_SPRINGGREEN);
+            rgb_matrix_sethsv_noeeprom_user(HSV_SPRINGGREEN);
             break;
         case _RGB:
-            rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+            rgb_matrix_sethsv_noeeprom_user(HSV_GREEN);
             break;
         default: // for any other layer
             rgb_matrix_set_default_color();
@@ -124,7 +126,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+void matrix_scan_user(void) {
+    matrix_scan_user_rgb();
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user_rgb(keycode, record)) {
+        return false;
+    }
+
     switch (keycode) {
         case RESET:  // when activating RESET mode for flashing
             if (record->event.pressed) {

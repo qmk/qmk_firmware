@@ -1,0 +1,71 @@
+// Copyright 2021 Victor Toni (@vitoni)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "vitoni.h"
+
+#include <rgb_matrix.h>
+#include <lib/lib8tion/lib8tion.h>
+
+#include "rgb_matrix_effects.h"
+#include "utils.h"
+
+#if defined(RGB_FADE_IN)
+static uint8_t state;
+
+// flag used to indicate that offset calculation is needed to adjust the timer,
+// so that it matches the index used for sine calculation
+static bool calc_offset;
+
+void matrix_scan_user_rgb(void) {
+    static uint8_t time_offset;
+
+    const uint32_t inactivity_time = last_input_activity_elapsed();
+
+    // setting brightness to black as starting point for fade in
+    // for the time when returning from suspended state
+    if (RGB_DISABLE_TIMEOUT <= inactivity_time + 15) {
+        rgb_matrix_config.hsv.v = 0;
+        state = SUSPENDED;
+    }
+
+    switch(state) {
+        case FADE_IN:
+            {
+                // since we want to be active, fade in should be faster than e.g. fading out
+                const uint8_t fade_in_time = rgb_time_2_scale_w_factor(4);
+                if (calc_offset) {
+                    time_offset = calc_fade_in_offset(fade_in_time);
+
+                    // resetting flag for subsequent calls
+                    calc_offset = false;
+                }
+                if (fade_in(fade_in_time + time_offset)) {
+                    update_value(&state, REGULAR, &calc_offset);
+                }
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+bool process_record_user_rgb(const uint16_t keycode, const keyrecord_t *record) {
+    // if we are in a non regular state we might have faded out (eventually partially)
+    // so we restore brightness (to max as we don't keep track of manually changed brightness)
+    // if (REGULAR != state && FADE_IN != state) {
+    if (FADE_IN != state && REGULAR != state) {
+        update_value(&state, FADE_IN, &calc_offset);
+    }
+
+    return true; // Process all other keycodes normally
+}
+
+void suspend_wakeup_init_user(void) {
+    if (FADE_IN != state) {
+        // setting brightness to black as starting point for fade in
+        rgb_matrix_config.hsv.v = 0;
+
+        update_value(&state, FADE_IN, &calc_offset);
+    }
+}
+#endif // defined(RGB_FADE_IN)

@@ -8,4 +8,6 @@
      // number of milliseconds to wait until turning off RGB automatically
     #define RGB_DISABLE_TIMEOUT 300000 // 300 seconds / 5 min
     #define RGB_DISABLE_WHEN_USB_SUSPENDED
+    // fade in when we have been suspended
+    #define RGB_FADE_IN
 #endif

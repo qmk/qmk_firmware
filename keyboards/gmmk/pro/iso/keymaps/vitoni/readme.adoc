@@ -56,3 +56,25 @@ Revamped the stock FN layer to focus on RGB only.
 |===
 
 No other changes have been made.
+
+== RGB light
+
+The code customizing RGB light usage is decribed here:
+
+* link:../../../../../../users/vitoni/readme.adoc[/users/vitoni/readme.adoc]
+
+When using  `RGB_DISABLE_TIMEOUT` addtional options are available:
+
+* `RGB_FADE_IN` makes the RGB lights fade in instead of setting the value/brightness to 100% (implicitly due to HSV including the brightness) when resuming after RGB lights have been turned off.
+Fade in occurs when the keyboard is initialized and when the RGB brightness has been changed (e.g. suspending, fade out, etc.).
+
+Parameters used to define the behavior are:
+[%header]
+|===
+|Key | Default | Description
+
+| RGB_MATRIX_MAXIMUM_BRIGHTNESS
+| 200 (&lt;= UNIT8_MAX)
+| Maximum assumed value for brightness.
+Used to calculate lead time for fade out before suspend timeout.
+|===
