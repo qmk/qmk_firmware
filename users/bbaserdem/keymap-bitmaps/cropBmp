@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Goes through all the files and turns them into strips in their respective folder
+if [ -z "${1}" ] ; then
+  echo 'No argument; defaulting to script directory.'
+  target_dir="$(dirname "${0}")"
+elif [ -d "${1}" ] ; then
+  echo "Targeting files in '${1}'."
+  target_dir="${1}"
+else
+  echo 'Argument is not directory.'
+  exit 1
+fi
+
+output_dir="${target_dir}/splitImages"
+mkdir -p "${output_dir}"
+
+for this_image in "${target_dir}/"*.bmp ; do
+  echo "Found '${this_image}'."
+  this_name="$(basename "${this_image%%.bmp}")"
+  convert "${this_image}" -crop 'x8' "${output_dir}/${this_name}"_%d.bmp
+done
