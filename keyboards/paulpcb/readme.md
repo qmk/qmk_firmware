@@ -7,9 +7,7 @@ The AWL Paul is a reverse Alice style keyboard with an encoder and two 'macro' k
 
 * Keyboard Maintainer: [Alfie_Lockrey](https://github.com/AlfieLockrey)
 * Hardware Supported: PaulPCB V1.0 
-* Hardware Availability: Message me on Discord @ Alfie#6783.**
-
-** STLs are freely distributed for case. PCBs are available soldered and unsoldered. Website in the works!
+* Hardware Availability: Message me on Discord @ Alfie#6783 for PCB and access to free STLs
 
 How to reset:
 1) Reset button on rear of board
