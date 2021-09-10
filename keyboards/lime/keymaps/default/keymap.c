@@ -201,44 +201,17 @@ bool isJumping = false;
 bool showedJump = true;
 
 #ifdef OLED_ENABLE
-    /* Keyboard logo */
+    /* Keyboard logo (from gdlcfont.c) */
     static void render_logo(void) {
         static const char PROGMEM lime_logo[] = {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0x30, 0xc8, 0xf4, 0xea, 0xda, 0xbd, 0x7d,
-            0x83, 0x7d, 0xbd, 0xda, 0xea, 0xf4, 0xc8, 0x30, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0xc0, 0x00, 0x07, 0x19, 0x26, 0x5e, 0xae, 0xb6, 0x7a, 0x7d,
-            0x82, 0x7d, 0x7a, 0xb6, 0xae, 0x5e, 0x26, 0x19, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x80, 0x40, 0x3c, 0x53, 0x88, 0x84, 0xc3, 0x60, 0x90, 0x84, 0x60, 0x30, 0x90, 0x70, 0x21, 0x11,
-            0x71, 0x81, 0x81, 0x60, 0x50, 0xb0, 0x80, 0x00, 0x00, 0x30, 0xc0, 0x30, 0x00, 0x20, 0xf0, 0x00
+            0x80, 0x81, 0x82, 0x83, 0x84,
+            0xA0, 0xA1, 0xA2, 0xA3, 0xA4,
+            0xC0, 0xC1, 0xC2, 0xC3, 0xC4,
+            0x00, 0x00, 0x00, 0x00, 0x00
         };
 
-        oled_write_raw_P(lime_logo, sizeof(lime_logo));
+        oled_write_P(lime_logo, false);
     }
-
-    /* 6 * 7 windows logo */
-    static const char PROGMEM windows_logo[] = {
-        0x14, 0x36, 0x00, 0x36, 0x77, 0x77
-    };
-
-    /* 6 * 7 mac logo */
-    static const char PROGMEM mac_logo[] = {
-        0x18, 0x3c, 0x7c, 0x3a, 0x7d, 0x24
-    };
-
-    /* 6 * 7 return logo */
-    static const char PROGMEM return_symbol[] = {
-        0x10, 0x38, 0x54, 0x10, 0x10, 0x1e
-    };
-
-    /* 6 * 7 selected L character */
-    static const char PROGMEM l_symbol[] = {
-        0xff, 0x81, 0xbf, 0xbf, 0xbf, 0xff
-    };
-
-    /* 6 * 7 selected R character */
-    static const char PROGMEM r_symbol[] = {
-        0xff, 0x81, 0xed, 0xed, 0x93, 0xff
-    };
 
     /* Keyboard Pet settings */
     #define MIN_WALK_SPEED 10
@@ -342,12 +315,12 @@ bool showedJump = true;
             /* jump */
             if (isJumping || !showedJump) {
                 oled_set_cursor(KEYBOARD_PET_X,KEYBOARD_PET_Y +2);
-                oled_write("     ", false);
+                oled_write_P(PSTR("     "), false);
                 oled_set_cursor(KEYBOARD_PET_X,KEYBOARD_PET_Y -1);
                 showedJump = true;
             } else {
                 oled_set_cursor(KEYBOARD_PET_X,KEYBOARD_PET_Y -1);
-                oled_write("     ", false);
+                oled_write_P(PSTR("     "), false);
                 oled_set_cursor(KEYBOARD_PET_X,KEYBOARD_PET_Y);
             }
 
@@ -390,17 +363,15 @@ bool showedJump = true;
         render_logo();
 
         /* wpm counter */
-        uint8_t n = get_current_wpm();
         char wpm_str[5];
-        oled_set_cursor(0,14);
         wpm_str[4] = '\0';
-        wpm_str[3] = '0' + n % 10;
-        wpm_str[2] = '0' + ( n /= 10) % 10;
-        wpm_str[1] = '0' + n / 10;
+        wpm_str[3] = '0' + current_wpm % 10;
+        wpm_str[2] = '0' + ( current_wpm /= 10) % 10;
+        wpm_str[1] = '0' + current_wpm / 10;
         wpm_str[0] = ' ';
+        oled_set_cursor(0,14);
         oled_write(wpm_str, false);
-        oled_set_cursor(0,15);
-        oled_write(" wpm", false);
+        oled_write_P(PSTR("  wpm"), false);
     }
 
     static void print_status_narrow(void) {
@@ -408,78 +379,81 @@ bool showedJump = true;
         /* Print current OS */
         oled_set_cursor(2,0);
         if (keymap_config.swap_lctl_lgui) {
-            oled_write_raw_P(mac_logo, sizeof(mac_logo));
+            oled_write_P(PSTR("\x9E"), false);
         } else {
-            oled_write_raw_P(windows_logo, sizeof(windows_logo));
+            oled_write_P(PSTR("\x9F"), false);
         }
 
         /* Print current layout */
         oled_set_cursor(0,2);
         switch (get_highest_layer(default_layer_state)) {
             case _QWERTY:
-                oled_write("QWRTY", false);
+                oled_write_P(PSTR("QWRTY"), false);
                 break;
             case _COLEMAK:
-                oled_write("COLMK", false);
+                oled_write_P(PSTR("COLMK"), false);
                 break;
             default:
-                oled_write("UNDEF", false);
+                oled_write_P(PSTR("UNDEF"), false);
         }
 
         /* Print current layer */
         oled_set_cursor(0,4);
-        oled_write("LAYER", false);
+        oled_write_P(PSTR("LAYER"), false);
         oled_set_cursor(0,5);
         switch (get_highest_layer(layer_state)) {
             case _QWERTY:
-                oled_write("Base ", false);
+                oled_write_P(PSTR("Base "), false);
                 break;
             case _RAISE:
-                oled_write("Raise", false);
+                oled_write_P(PSTR("Raise"), false);
                 break;
             case _LOWER:
-                oled_write("Lower", false);
+                oled_write_P(PSTR("Lower"), false);
                 break;
             case _ADJUST:
-                oled_write("Adj  ", false);
+                oled_write_P(PSTR("Adj  "), false);
                 break;
             default:
-                oled_write("Undef", false);
+                oled_write_P(PSTR("Undef"), false);
         }
 
         /* caps lock */
         oled_set_cursor(0,7);
-        oled_write("CPSLK", led_usb_state.caps_lock);
+        oled_write_P(PSTR("CAPS"), false);
+        if (led_usb_state.caps_lock) {
+            oled_write_P(PSTR("\x9A"), false);
+        } else {
+            oled_write_P(PSTR("\x99"), false);
+        }
 
         /* Space Enter swap */
         oled_set_cursor(0,9);
-        oled_write_raw_P(return_symbol, sizeof(return_symbol));
+        oled_write_P(PSTR("\x9B"), false);
         oled_set_cursor(2,9);
-        oled_write("L R", false);
-        if(timer_elapsed32(anim_sleep) < OLED_TIMEOUT) {
-            if (swap_space_enter) {
-                oled_set_cursor(4,9);
-                oled_write_raw_P(r_symbol, sizeof(r_symbol));
-            } else {
-                oled_set_cursor(2,9);
-                oled_write_raw_P(l_symbol, sizeof(l_symbol));
-            }
-        }
+        oled_write_P(PSTR("\x9C"), !swap_space_enter);
+        oled_set_cursor(4,9);
+        oled_write_P(PSTR("\x9D"), swap_space_enter);
 
        /* Joystick debugging */
 #      ifdef JOYSTICK_ENABLE
             if (joystick_debug) {
                 oled_set_cursor(0,10);
-                oled_write("X:", false);
+                oled_write_P(PSTR("X:"), false);
                 uint16_t val = analogReadPin(JOYSTICK_X_PIN);
                 char val_str[3];
                 itoa(val, val_str, 10);
                 oled_write(val_str, false);
                 oled_set_cursor(0,11);
-                oled_write("Y:", false);
+                oled_write_P(PSTR("Y:"), false);
                 val = analogReadPin(JOYSTICK_Y_PIN);
                 itoa(val, val_str, 10);
                 oled_write(val_str, false);
+            } else {
+                oled_set_cursor(0,10);
+                oled_write_P(PSTR("     "), false);
+                oled_set_cursor(0,11);
+                oled_write_P(PSTR("     "), false);
             }
 #       endif
 
