@@ -46,8 +46,12 @@
 #endif
 
 
-#ifndef CHARYBDIS_TRACKBALL_SPEED_DIVIDER
-#    define CHARYBDIS_TRACKBALL_SPEED_DIVIDER 12 
+#ifndef CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X
+#    define CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X 30
+#endif
+
+#ifndef CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y
+#    define CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y 12
 #endif
 
 keyboard_config_t keyboard_config;
@@ -182,18 +186,28 @@ void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_mouse(&mouse_report);
     
-    if (is_drag_scroll) {
-#ifdef CHARYBDIS_DRAGSCROLL_INVERT
+    if (is_drag_scroll) { 
+#ifdef CHARYBDIS_DRAGSCROLL_INVERT_X
+        scroll_inertia.x -= mouse_report.x;
+#else
+        scroll_inertia.x += mouse_report.x;
+#endif
+#ifdef CHARYBDIS_DRAGSCROLL_INVERT_Y
         // Invert vertical scroll direction
         scroll_inertia.y -= mouse_report.y;
 #else
         scroll_inertia.y += mouse_report.y;
 #endif
         // we only want to trigger scrolling once in 12 scrolls, for slower scroll
-        if(scroll_inertia.y > CHARYBDIS_TRACKBALL_SPEED_DIVIDER || scroll_inertia.y < -CHARYBDIS_TRACKBALL_SPEED_DIVIDER){
-            mouse_report.v = constrain(scroll_inertia.y / CHARYBDIS_TRACKBALL_SPEED_DIVIDER * 2, 
-                                -CHARYBDIS_TRACKBALL_SPEED_DIVIDER/2, CHARYBDIS_TRACKBALL_SPEED_DIVIDER/2);
+        if(scroll_inertia.y > CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y || scroll_inertia.y < -CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y){
+            mouse_report.v = constrain(scroll_inertia.y / CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y * 2, 
+                                -CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y/2, CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y/2);
             scroll_inertia.y = 0;
+        }
+        if(scroll_inertia.x > CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X || scroll_inertia.x < -CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X){
+            mouse_report.h = constrain(scroll_inertia.x / CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X * 2, 
+                                -CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X/2, CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X/2);
+            scroll_inertia.x = 0;
         }
 
         mouse_report.x = 0;

@@ -12,3 +12,4 @@
 // Apply the modifier on keys that are tapped during a short hold of a modtap
 #define PERMISSIVE_HOLD
 #define CHARYBDIS_MR_GASC
+#define CHARYBDIS_DRAGSCROLL_INVERT_X
