@@ -54,9 +54,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_HNTS] = LAYOUT(
-     KC_GRV,    KC_Z,    KC_R,    KC_L,    KC_C,    KC_G,                                         KC_P,    KC_Y,    KC_J,    KC_X,    KC_Q, KC_BSLS,
-     KC_ESC,    KC_H,    KC_N,    KC_T,    KC_S,    KC_D,                                         KC_U,    KC_I,    KC_E,    KC_A,    KC_O,  KC_ESC,
-    CPY_PST,    KC_V,    KC_F,    KC_M,    KC_W,    KC_B, KC_LCTL, KC_LALT,  KC_CAPS,  KC_DEL,    KC_K, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,
+     KC_GRV,    KC_Z,    KC_R,    KC_L,    KC_D,    KC_W,                                         KC_Y,    KC_P,    KC_U,    KC_X,    KC_Q, KC_BSLS,
+     KC_ESC,    KC_H,    KC_N,    KC_T,    KC_S,    KC_C,                                         KC_B,    KC_I,    KC_E,    KC_O,    KC_A,  KC_ESC,
+    CPY_PST,    KC_K,    KC_V,    KC_M,    KC_F,    KC_G, KC_LCTL, KC_LALT,  KC_CAPS,  KC_DEL,    KC_J, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,
                                  KC_UP, KC_DOWN,   LOWER,  KC_SPC, BSP_CMD,   KC_TAB, SFT_ENT,   RAISE, KC_LEFT, KC_RGHT
 ),
 
