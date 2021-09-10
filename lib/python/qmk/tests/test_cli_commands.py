@@ -151,7 +151,7 @@ def test_json2c_stdin():
 def test_info():
     result = check_subcommand('info', '-kb', 'handwired/pytest/basic')
     check_returncode(result)
-    assert 'Keyboard Name: handwired/pytest/basic' in result.stdout
+    assert 'Keyboard Name: pytest' in result.stdout
     assert 'Processor: atmega32u4' in result.stdout
     assert 'Layout:' not in result.stdout
     assert 'k0' not in result.stdout
@@ -160,7 +160,7 @@ def test_info():
 def test_info_keyboard_render():
     result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-l')
     check_returncode(result)
-    assert 'Keyboard Name: handwired/pytest/basic' in result.stdout
+    assert 'Keyboard Name: pytest' in result.stdout
     assert 'Processor: atmega32u4' in result.stdout
     assert 'Layouts:' in result.stdout
     assert 'k0' in result.stdout
@@ -169,7 +169,7 @@ def test_info_keyboard_render():
 def test_info_keymap_render():
     result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-km', 'default_json')
     check_returncode(result)
-    assert 'Keyboard Name: handwired/pytest/basic' in result.stdout
+    assert 'Keyboard Name: pytest' in result.stdout
     assert 'Processor: atmega32u4' in result.stdout
 
     if is_windows:
@@ -181,7 +181,7 @@ def test_info_keymap_render():
 def test_info_matrix_render():
     result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-m')
     check_returncode(result)
-    assert 'Keyboard Name: handwired/pytest/basic' in result.stdout
+    assert 'Keyboard Name: pytest' in result.stdout
     assert 'Processor: atmega32u4' in result.stdout
     assert 'LAYOUT_ortho_1x1' in result.stdout
 
@@ -242,7 +242,7 @@ def test_generate_config_h():
     assert '#   define DESCRIPTION handwired/pytest/basic' in result.stdout
     assert '#   define DIODE_DIRECTION COL2ROW' in result.stdout
     assert '#   define MANUFACTURER none' in result.stdout
-    assert '#   define PRODUCT handwired/pytest/basic' in result.stdout
+    assert '#   define PRODUCT pytest' in result.stdout
     assert '#   define PRODUCT_ID 0x6465' in result.stdout
     assert '#   define VENDOR_ID 0xFEED' in result.stdout
     assert '#   define MATRIX_COLS 1' in result.stdout
