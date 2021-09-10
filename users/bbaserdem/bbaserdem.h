@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include QMK_KEYBOARD_H
 #include "quantum.h"
+#include "keymap_dvorak.h"
 
 /* Besides loading libraries and definitions, this file has my layout defs
  * LAYOUTS:
@@ -271,16 +272,16 @@ enum userspace_layers {
 #endif
 
 // MOD-tap definitions
-#define GUI_A   MT(MOD_LGUI, KC_A)
-#define ALT_S   MT(MOD_LALT, KC_S)
-#define CTRL_D  MT(MOD_LCTL, KC_D)
-#define SHIFT_F MT(MOD_LSFT, KC_F)
-#define ALTGR_X MT(MOD_RALT, KC_X)
-#define GUI_SCL MT(MOD_RGUI, KC_SCLN)
-#define ALT_L   MT(MOD_LALT, KC_L)
-#define CTRL_K  MT(MOD_LCTL, KC_K)
-#define SHIFT_J MT(MOD_LSFT, KC_J)
-#define ALTGR_D MT(MOD_RALT, KC_DOT)
+#define GUI_A   MT(MOD_LGUI, DV_A)
+#define ALT_O   MT(MOD_LALT, DV_O)
+#define CTRL_E  MT(MOD_LCTL, DV_E)
+#define SHIFT_U MT(MOD_LSFT, DV_U)
+#define ALTGR_Q MT(MOD_RALT, DV_Q)
+#define GUI_S   MT(MOD_RGUI, DV_S)
+#define ALT_N   MT(MOD_LALT, DV_N)
+#define CTRL_T  MT(MOD_LCTL, DV_T)
+#define SHIFT_H MT(MOD_LSFT, DV_H)
+#define ALTGR_V MT(MOD_RALT, DV_V)
 
 // Layer switches
 #define MED_DEL LT(_MEDI, KC_DEL )
@@ -302,16 +303,6 @@ enum userspace_layers {
  */
 
 /* Base layout
- * QWERTY
- *      ┌─────┬─────┬─────┬─────┬─────┐             ┌─────┬─────┬─────┬─────┬─────┐
- *  ` ~ │ q Q │ w W │ e E │ r R │ t T │             │ y Y │ u U │ i I │ o O │ p P │ < > 
- *      ├─────┼─────┼─────┼─────┼─────┤             ├─────┼─────┼─────┼─────┼─────┤
- *  \ | │ a A │ s S │ d D │ f F │ g G │             │ h H │ j J │ k K │ l L │ ; : │ ' " 
- *      ├─Gui─┼─Alt─┼─Ctr─┼─Sft─┼─────┤             ├─────┼─Sft─┼─Ctr─┼─Alt─┼─Gui─┤
- *  [ { │ z Z │ x X │ c C │ v V │ b B │             │ n N │ m M │ , < │ . > │ / ? │ ] } 
- *      └─────┴AltGr┴─────┼─────┼─────┼─────┐ ┌─────┼─────┼─────┼─────┴AltGr┴─────┘
- *                        │ Del │ Tab │Space│ │Enter│ Esc │BkSpc│
- *                        └─Med─┴─Nav─┴─Sym─┘ └─Num─┴─Fun─┴─Mou─┘
  * DVORAK
  *      ┌─────┬─────┬─────┬─────┬─────┐             ┌─────┬─────┬─────┬─────┬─────┐
  *  ` ~ │ ' " │ , < │ . > │ p P │ y Y │             │ f F │ g G │ c C │ r R │ l L │ < > 
@@ -334,26 +325,26 @@ enum userspace_layers {
  *                        └─Med─┴─Nav─┴─Sym─┘ └─Num─┴─Fun─┴─Mou─┘
  * The thing about this layout is that these will fit most boards I have.
  */
-#define _BL1_5_ KC_Q,   KC_W,   KC_E,   KC_R,   KC_T
-#define _BR1_5_ KC_Y,   KC_U,   KC_I,   KC_O,   KC_P
-#define _BL2_5_ GUI_A,  ALT_S,  CTRL_D, SHIFT_F,KC_G
-#define _BR2_5_ KC_H,   SHIFT_J,CTRL_K, ALT_L,  GUI_SCL
-#define _BL3_5_ KC_Z,   ALTGR_X,KC_C,   KC_V,   KC_B
-#define _BR3_5_ KC_N,   KC_M,   KC_COMM,ALTGR_D,KC_SLSH
+#define _BL1_5_ DV_QUOT,DV_COMM,DV_DOT, DV_P,   DV_Y
+#define _BR1_5_ DV_F,   DV_G,   DV_C,   DV_R,   DV_L
+#define _BL2_5_ GUI_A,  ALT_O,  CTRL_E, SHIFT_U,DV_I
+#define _BR2_5_ DV_D,   SHIFT_H,CTRL_T, ALT_N,  GUI_S
+#define _BL3_5_ DV_SCLN,ALTGR_Q,DV_J,   DV_K,   DV_X
+#define _BR3_5_ DV_B,   DV_M,   DV_W,   ALTGR_V,DV_Z
 #define _BL4_3_ MED_DEL,NAV_TAB,SYM_SPC
 #define _BR4_3_ NUM_ENT,FUN_ESC,MOU_BSP
 // The extra line for the 6th (or 0th) row
-#define _BL1_1_ KC_GRV
+#define _BL1_1_ DV_GRV
 #define _BR1_1_ KC_NUBS
-#define _BL2_1_ KC_BSLS
-#define _BR2_1_ KC_QUOT
-#define _BL3_1_ KC_LBRC
-#define _BR3_1_ KC_RBRC
+#define _BL2_1_ DV_BSLS
+#define _BR2_1_ DV_MINS
+#define _BL3_1_ DV_SLSH
+#define _BR3_1_ DV_EQL
 
 /* Extra characters layer
  * This is accessed using unicode; so IBus compatible apps only.
  * ┌─────┬─────┬─────┬─────┬─────┐             ┌─────┬─────┬─────┬─────┬─────┐
- * │TrFlg│Lenny│Table│  π  │  υ  │             │  φ  │  γ  │  χ  │  ρ  │  λ  │ΙΘ
+ * │TrFlg│Lenny│Table│  π  │  υ  │             │  φ  │  γ  │  χ  │  ρ  │  λ  │
  * ├─────┼─────┼─────┼─────┼─────┤             ├─────┼─────┼─────┼─────┼─────┤
  * │  α  │  ο  │  ε  │  ψ  │  ι  │             │  δ  │  η  │  τ  │  ν  │  σ  │
  * ├─────┼─────┼─────┼─────┼─────┤             ├─────┼─────┼─────┼─────┼─────┤
@@ -381,7 +372,7 @@ enum userspace_layers {
  *      ├─────┼─────┼─────┼─────┼─────┤
  * Shift│  Z  │  X  │  C  │  V  │  B  │
  *      └─────┴─────┴─────┼─────┼─────┼─────┐
- *                        │Space│Enter│ Esc │
+ *                        │ Esc │Enter│Space│
  *                        └─────┴─────┴─────┘
  */
 #define _GA1_5_ KC_Q,   KC_W,   KC_E,   KC_R,   KC_T
@@ -390,7 +381,7 @@ enum userspace_layers {
 #define _GA2_1_ KC_TAB
 #define _GA3_5_ KC_Z,   KC_X,   KC_C,   KC_V,   KC_B
 #define _GA3_1_ KC_LSFT
-#define _GA4_3_ KC_SPC, KC_ENT, KC_ESC
+#define _GA4_3_ KC_ESC, KC_ENT, KC_SPC
 
 /* Media layer
  *       ┌─────┬─────┬─────┬─────┬─────┐
@@ -426,28 +417,7 @@ enum userspace_layers {
 
 /* Symbols layer
  *  This layer has the central columns shifted for convenience
- * QWERTY
- * - new layout
- *       ┌─────┬─────┬─────┬─────┬─────┐
- *       │  `  │  -  │  =  │  {  │  }  │
- *       ├─────┼─────┼─────┼─────┼─────┤
- *       │  ~  │  _  │  +  │  [  │  ]  │
- *       ├─────┼─────┼─────┼─────┼─────┤
- *       │CapsL│  (  │  )  │  \  │  |  │
- * ┌─────┼─────┼─────┼─────┴─────┴─────┘
- * │Enter│ Esc │BkSpc│
- * └─────┴─────┴─────┘
- *       ┌─────┬─────┬─────┬─────┬─────┐
- *       │ ` ~ │  -  │  =  │ ] } │Char.│
- *       ├─────┼─────┼─────┼─────┼─────┤
- *       │ [ { │  (  │  )  │ ' " │CapsL│
- *       ├─────┼─────┼─────┼─────┼─────┤
- *       │ \ | │  _  │  +  │  <  │  >  │
- * ┌─────┼─────┼─────┼─────┴─────┴─────┘
- * │Enter│ Esc │BkSpc│
- * └─────┴─────┴─────┘
  * DVORAK
- * - new layout
  *       ┌─────┬─────┬─────┬─────┬─────┐
  *       │  `  │  {  │  }  │  /  │  =  │
  *       ├─────┼─────┼─────┼─────┼─────┤
@@ -457,18 +427,8 @@ enum userspace_layers {
  * ┌─────┼─────┼─────┼─────┴─────┴─────┘
  * │Enter│ Esc │BkSpc│
  * └─────┴─────┴─────┘
- *       ┌─────┬─────┬─────┬─────┬─────┐
- *       │ ` ~ │  [  │  ]  │ = + │Char.│
- *       ├─────┼─────┼─────┼─────┼─────┤
- *       │ / ? │  (  │  )  │ - _ │CapsL│
- *       ├─────┼─────┼─────┼─────┼─────┤
- *       │ \ | │  {  │  }  │  <  │  >  │
- * ┌─────┼─────┼─────┼─────┴─────┴─────┘
- * │Enter│ Esc │BkSpc│
- * └─────┴─────┴─────┘
  * Turkish F
  * (AltGr is right on the central column, red. keys on main layer are omitted)
- * - new layout
  *       ┌─────┬─────┬─────┬─────┬─────┐
  *       │ + ¬ │ / \ │ - | │     │     │ 
  *       ├─────┼─────┼─────┼─────┼─────┤
@@ -478,45 +438,25 @@ enum userspace_layers {
  * ┌─────┼─────┼─────┼─────┴─────┴─────┘
  * │Enter│ Esc │BkSpc│
  * └─────┴─────┴─────┘
+ * QWERTY
  *       ┌─────┬─────┬─────┬─────┬─────┐
- *       │¬+ *±│ / \ │ - | │     │Char.│
+ *       │  `  │  -  │  =  │  {  │  }  │
  *       ├─────┼─────┼─────┼─────┼─────┤
- *       │     │ ) ± │ = ° │     │CapsL│
+ *       │  ~  │  _  │  +  │  [  │  ]  │
  *       ├─────┼─────┼─────┼─────┼─────┤
- *       │     │ ? ¿ │ _   │ < | │ > ¦ │
+ *       │CapsL│  (  │  )  │  \  │  |  │
  * ┌─────┼─────┼─────┼─────┴─────┴─────┘
  * │Enter│ Esc │BkSpc│
  * └─────┴─────┴─────┘
  */
-#define _SY1_5_ KC_GRV,KC_MINS,KC_EQL, KC_RBRC,BB_CHAR
-#define _SY2_5_ KC_LBRC,KC_LPRN,KC_RPRN,KC_QUOT,KC_CAPS
-#define _SY3_5_ KC_BSLS,KC_UNDS,KC_PLUS,KC_NUBS,LSFT(KC_NUBS)
+#define _SY1_5_ DV_GRV, DV_LCBR,DV_RCBR,DV_SLSH,DV_EQL
+#define _SY2_5_ DV_TILD,DV_LBRC,DV_RBRC,DV_QUES,DV_PLUS
+#define _SY3_5_ KC_CAPS,DV_LPRN,DV_RPRN,DV_BSLS,DV_PIPE
 #define _SY4_3_ KC_ENT, KC_ESC, KC_BSPC
 
 /* Numbers layer
  *  This layer contains numbers and the associated symbols.
- * QWERTY
- * - new layout
- * ┌─────┬─────┬─────┬─────┬─────┐
- * │  <  │ 7 & │ 8 * │ 9 ( │ 0 ) │
- * ├─────┼─────┼─────┼─────┼─────┤
- * │  "  │ 4 $ │ 5 % │ 6 ^ │  '  │
- * ├─────┼─────┼─────┼─────┼─────┤
- * │  >  │ 1 ! │ 2 @ │ 3 # │Char.│
- * └─────┴─────┴─────┼─────┼─────┼─────┐
- *                   │ Del │ Tab │Space│
- *                   └─────┴─────┴─────┘
- * ┌─────┬─────┬─────┬─────┬─────┐
- * │     │ 7 & │ 8 * │ 9 ( │ 0 ) │
- * ├─────┼─────┼─────┼─────┼─────┤
- * │     │ 4 $ │ 5 % │ 6 ^ │ ' " │
- * ├─────┼─────┼─────┼─────┼─────┤
- * │ [ { │ 1 ! │ 2 @ │ 3 # │ ] } │
- * └─────┴─────┴─────┼─────┼─────┼─────┐
- *                   │ Del │ Tab │Space│
- *                   └─────┴─────┴─────┘
  * DVORAK
- * - new layout
  * ┌─────┬─────┬─────┬─────┬─────┐
  * │  <  │ 7 & │ 8 * │ 9 ( │ 0 ) │
  * ├─────┼─────┼─────┼─────┼─────┤
@@ -526,17 +466,7 @@ enum userspace_layers {
  * └─────┴─────┴─────┼─────┼─────┼─────┐
  *                   │ Del │ Tab │Space│
  *                   └─────┴─────┴─────┘
- * ┌─────┬─────┬─────┬─────┬─────┐
- * │  ,  │ 7 & │ 8 * │ 9 ( │ 0 ) │
- * ├─────┼─────┼─────┼─────┼─────┤
- * │  .  │ 4 $ │ 5 % │ 6 ^ │ - _ │
- * ├─────┼─────┼─────┼─────┼─────┤
- * │ / ? │ 1 ! │ 2 @ │ 3 # │ = + │
- * └─────┴─────┴─────┼─────┼─────┼─────┐
- *                   │ Del │ Tab │Space│
- *                   └─────┴─────┴─────┘
  * Turkish F
- * - new layout
  * ┌─────┬─────┬─────┬─────┬─────┐
  * │ < | │{7 ' │[8 ( │]9 )±│}0 =°│
  * ├─────┼─────┼─────┼─────┼─────┤
@@ -546,19 +476,10 @@ enum userspace_layers {
  * └─────┴─────┴─────┼─────┼─────┼─────┐
  *                   │ Del │ Tab │Space│
  *                   └─────┴─────┴─────┘
- * ┌─────┬─────┬─────┬─────┬─────┐
- * │     │{7 ' │[8 ( │]9 )±│}0 =°│
- * ├─────┼─────┼─────┼─────┼─────┤
- * │     │¼4 $ │½5 %⅜│¾6 & │     │
- * ├─────┼─────┼─────┼─────┼─────┤
- * │     │¹1 !¡│²2 " │#3 ^³│     │
- * └─────┴─────┴─────┼─────┼─────┼─────┐
- *                   │ Del │ Tab │Space│
- *                   └─────┴─────┴─────┘
  */
-#define _NU1_5_ KC_W,   KC_7,   KC_8,   KC_9,   KC_0
-#define _NU2_5_ KC_E,   KC_4,   KC_5,   KC_6,   KC_QUOT
-#define _NU3_5_ KC_LBRC,KC_1,   KC_2,   KC_3,   KC_RBRC
+#define _NU1_5_         KC_NUBS,KC_7,   KC_8,   KC_9,   KC_0
+#define _NU2_5_         DV_UNDS,KC_4,   KC_5,   KC_6,   DV_MINS
+#define _NU3_5_ LSFT(KC_NUBS),  KC_1,   KC_2,   KC_3,   BB_CHAR
 #define _NU4_3_ KC_DEL, KC_TAB, KC_SPC
 
 /* Function layer
