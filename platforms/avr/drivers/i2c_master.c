@@ -205,11 +205,14 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
 i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
     if (status >= 0) {
-        i2c_write(regaddr >> 8, timeout);
-        status = i2c_write(regaddr & 0xFF, timeout);
+        status = i2c_write(regaddr >> 8, timeout);
 
-        for (uint16_t i = 0; i < length && status >= 0; i++) {
-            status = i2c_write(data[i], timeout);
+        if (status >= 0) {
+            status = i2c_write(regaddr & 0xFF, timeout);
+
+            for (uint16_t i = 0; i < length && status >= 0; i++) {
+                status = i2c_write(data[i], timeout);
+            }
         }
     }
 
