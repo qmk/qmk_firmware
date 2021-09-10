@@ -58,6 +58,7 @@ uint16_t          sniper_array[] = CHARYBDIS_SNIPER_OPTIONS;
 #define SNIPER_OPTION_SIZE (sizeof(sniper_array) / sizeof(uint16_t))
 
 bool    is_drag_scroll    = false;
+bool    is_sniper_on      = false;
 
 scroll_inertia_t scroll_inertia; // Scroll value storage to make scrolling slower
 
@@ -79,18 +80,21 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
     }
 }
 
+void trigger_sniper(void){
+    if (is_sniper_on) {
+        pmw_set_cpi(sniper_array[keyboard_config.sniper_config]);
+        } else {
+        pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    } 
+}
+
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
-    static bool is_sniper_on = false;
     if (layer_state_cmp(state, CHARYBDIS_AUTO_SNIPER_LAYER) != is_sniper_on) {
         is_sniper_on ^= 1;
-        if (is_sniper_on) {
-               pmw_set_cpi(sniper_array[keyboard_config.sniper_config]);
-           } else {
-               pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
-        } 
+        trigger_sniper();
     }
     return state;
 }
@@ -108,6 +112,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 }
                 keyboard_config.sniper_config = constrain(keyboard_config.sniper_config, 0, SNIPER_OPTION_SIZE - 1);
                 eeconfig_update_kb(keyboard_config.raw);
+                trigger_sniper();
             }
         break;
 
