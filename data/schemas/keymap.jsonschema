@@ -15,6 +15,10 @@
                 "items": {"type": "string"}
             }
         },
+        "macros": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
         "config": {"$ref": "qmk.keyboard.v1"},
         "notes": {
             "type": "string",

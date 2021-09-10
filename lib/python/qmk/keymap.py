@@ -27,6 +27,7 @@ DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 __KEYMAP_GOES_HERE__
 };
+
 """
 
 
@@ -180,7 +181,7 @@ def generate_json(keymap, keyboard, layout, layers):
     return new_keymap
 
 
-def generate_c(keyboard, layout, layers):
+def generate_c(keyboard, layout, layers, macros):
     """Returns a `keymap.c` or `keymap.json` for the specified keyboard, layout, and layers.
 
     Args:
@@ -204,6 +205,26 @@ def generate_c(keyboard, layout, layers):
 
     keymap = '\n'.join(layer_txt)
     new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
+
+    if macros:
+        macro_txt = [
+            'bool process_record_user(uint16_t keycode, keyrecord_t *record) {',
+            '    if (record->event.pressed) {',
+            '        switch (keycode) {',
+        ]
+
+        for i, macro in enumerate(macros):
+            macro_txt.append(f'            case MACRO_{i}:')
+            macro_txt.append(f'                SEND_STRING("{macro}");')
+            macro_txt.append('                return false;')
+
+        macro_txt.append('        }')
+        macro_txt.append('    }')
+        macro_txt.append('\n    return true;')
+        macro_txt.append('};')
+        macro_txt.append('')
+
+        new_keymap = '\n'.join((new_keymap, *macro_txt))
 
     return new_keymap
 
@@ -242,7 +263,7 @@ def write_json(keyboard, keymap, layout, layers):
     return write_file(keymap_file, keymap_content)
 
 
-def write(keyboard, keymap, layout, layers):
+def write(keyboard, keymap, layout, layers, macros=None):
     """Generate the `keymap.c` and write it to disk.
 
     Returns the filename written to.
@@ -260,7 +281,7 @@ def write(keyboard, keymap, layout, layers):
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
-    keymap_content = generate_c(keyboard, layout, layers)
+    keymap_content = generate_c(keyboard, layout, layers, macros)
     keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
 
     return write_file(keymap_file, keymap_content)
