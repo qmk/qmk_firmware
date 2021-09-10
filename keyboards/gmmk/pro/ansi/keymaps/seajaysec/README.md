@@ -8,12 +8,12 @@ This keymap focuses on color-coded layers for: Windows/Linux, macOS, and a pseud
 ## Screenshots and Explanations
 
 ### Windows and Linux
-![Windows and Linux](./WinX.png)
+![Windows and Linux](WinX.png)
 
 This is the base layout, with normal function keys and everything working like you'd expect it. Nothing fancy. Holding `FN` brings you into the Function layer, described below.
 
 ### Apple
-![Apple Devices](./Apple.png)
+![Apple Devices](Apple.png)
 
 The whole reason this exists. 
 
@@ -26,12 +26,12 @@ The whole reason this exists.
 * `Rotary Encoder Press` is also Play/Pause
 
 ### Numpad
-![Pseudo Number Pad](./NumPad.png)
+![Pseudo Number Pad](NumPad.png)
 
 I use a numpad frequently, and cribbed jonavin's layout (mostly) for this. It's not as nice as having dedicated hardware, but it's a nice layout.
 
 ### Function
-![Function Layer](./Function.png)
+![Function Layer](Function.png)
 
 This layer provides navigation to the Windows/Linux, Number Pad, and Apple layouts. It also provides a Reset key, a greater array of controls for the RGB settings on the GMMK pro, and access to the secrets functionality.
 
