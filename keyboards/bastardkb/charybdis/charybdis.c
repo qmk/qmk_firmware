@@ -236,20 +236,3 @@ void matrix_init_kb(void) {
     }
     matrix_init_user();
 }
-
-void pointing_device_send(void) {
-    static report_mouse_t old_report  = {};
-    report_mouse_t        mouseReport = pointing_device_get_report();
-    int8_t x = mouseReport.x, y = mouseReport.y;
-    mouseReport.x = 0;
-    mouseReport.y = 0;
-    process_mouse_user(&mouseReport, x, y);
-    if (has_mouse_report_changed(mouseReport, old_report)) { host_mouse_send(&mouseReport); }
-
-    mouseReport.x = 0;
-    mouseReport.y = 0;
-    mouseReport.v = 0;
-    mouseReport.h = 0;
-    old_report    = mouseReport;
-    pointing_device_set_report(mouseReport);
-}
