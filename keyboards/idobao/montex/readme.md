@@ -1,5 +1,7 @@
 # IDOBAO MONTEX
 
+![Idobao Montex](https://cdn.shopify.com/s/files/1/0382/1348/4675/products/ID24.png?v=1619061976)
+
 A hotswap numpad from IDOBAO.
     
 ## Support:
@@ -16,6 +18,10 @@ Then press the button labeled SW2 located between the 2 upper LEDs.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make montex:default
+    make idobao/montex:default
+
+or
+
+    qmk compile -kb idobao/montex -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
