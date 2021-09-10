@@ -1,7 +1,7 @@
 # paulpcb
 
-![paulpcb](https://i.imgur.com/BZneAHS.jpeg)
-![AWL Paul keyboard](https://i.imgur.com/dRibVfa.jpeg)
+![paulpcb](https://i.imgur.com/BZneAHSh.jpeg)
+![AWL Paul keyboard](https://i.imgur.com/dRibVfah.jpeg)
 
 The AWL Paul is a reverse Alice style keyboard with an encoder and two 'macro' keys on the RHS. It is designed around simplistic case design that can be 3D printed.
 
