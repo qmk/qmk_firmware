@@ -8,7 +8,7 @@ A 75% hotswap keyboard from IDOBAO.
 
 * Keyboard Maintainer: [Sergey Vlasov](https://github.com/sigprof)
 * Hardware Supported: IDOBAO ID80
-* Hardware Availability: [AliExpress](https://www.aliexpress.com/item/4000590804514.html), [Drop](https://drop.com/buy/idobao-id80-75-hot-swappable-mechanical-keyboard-kit?mode=guest_open)
+* Hardware Availability: [Idobao direct](https://www.idobao.net/collections/75-layout/products/idobao-id80v2-75-hot-swappable-mechanical-keyboard-kit?variant=34078580965507), [Drop](https://drop.com/buy/idobao-id80-75-hot-swappable-mechanical-keyboard-kit?mode=guest_open)
 
 Make example for this keyboard (after setting up your build environment):
 
