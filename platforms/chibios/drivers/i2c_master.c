@@ -136,7 +136,11 @@ i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16
 i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_address = devaddr;
     i2cStart(&I2C_DRIVER, &i2cconfig);
-    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), &regaddr, 2, data, length, TIME_MS2I(timeout));
+    uint8_t register_packet[2] = {
+        regaddr >> 8,
+        regaddr & 0xFF
+    };
+    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), &register_packet, 2, data, length, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 
