@@ -57,10 +57,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_ENABLE)
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
+    switch (get_highest_layer(layer_state)) {
+#if defined(RGB_MATRIX_ENABLE)
+        case _FN:
+            if (clockwise) {
+                rgb_matrix_increase_val_noeeprom();
+            } else {
+                rgb_matrix_decrease_val_noeeprom();
+            }
+            break;
+#endif // RGB_MATRIX_ENABLE
+        default:
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+            break;
     }
     return true;
 }

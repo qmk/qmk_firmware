@@ -11,7 +11,14 @@ The differences are as follows:
 Mostly stock + CAPS goes to layer `_MOV`.
 
 === Layer 1 (`_FN`), accessed by pressing `FN` on layer `_BASE`
-Stock.
+Mostly stock.
+
+[%header]
+|===
+| Key / Action          | Mapped to
+| Knob clockwise        | Value/Brightness up
+| Knob anti-clockwise   | Value/Brightness down
+|===
 
 === Layer 2 (`_MOV`), accessed by pressing `CAPS` on layer `_BASE`
 [%header]
