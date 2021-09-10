@@ -110,8 +110,6 @@ void oled_task_user(void) {
 }
 #endif
 
-void led_set_user(uint8_t usb_led) {}
-
 bool encoder_update_user(uint8_t index, bool clockwise) {
     oled_on();
     if (index == 0) { /* left encoder */

@@ -1,4 +1,4 @@
-# MCU name 
+# MCU name
 MCU = STM32F303
 
 # Bootloader selection
