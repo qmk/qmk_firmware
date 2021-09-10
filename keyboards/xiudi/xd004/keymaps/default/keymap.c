@@ -6,8 +6,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_all(KC_L, KC_O, KC_V, KC_E),
 
 };
-
-// Loop
-void matrix_scan_user(void){
-    // Empty
-};
