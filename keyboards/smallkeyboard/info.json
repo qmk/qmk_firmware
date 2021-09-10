@@ -2,8 +2,6 @@
   "keyboard_name": "smallkeyboard",
   "url": "",
   "maintainer": "zhouqiong19840119",
-  "width": 3,
-  "height": 2,
   "layouts": {
     "LAYOUT_ortho_2x3": {
       "layout": [
