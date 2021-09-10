@@ -17,7 +17,9 @@
 
 
 void keyboard_pre_init_kb(void){
-    // Workaround for reversible pcb/mcu
+/*
+
+  // Workaround for reversible pcb/mcu
     palSetLineMode(C13, PAL_MODE_INPUT_PULLUP);
     palSetLineMode(C15, PAL_MODE_INPUT_PULLUP);
     palSetLineMode(B7, PAL_MODE_OUTPUT_OPENDRAIN);
@@ -25,4 +27,5 @@ void keyboard_pre_init_kb(void){
     palSetLineMode(A1, PAL_MODE_OUTPUT_OPENDRAIN);
 
     keyboard_pre_init_user();
-}
+*/
+    }

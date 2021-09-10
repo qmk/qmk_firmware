@@ -32,7 +32,8 @@
 #define MATRIX_COL_PINS { B14, A10, A15,B3, B4, B5 }
 
 #define MATRIX_ROW_PINS_RIGHT { B1, A4, A5, A6, A7 }
-#define MATRIX_COL_PINS_RIGHT { B5, B7, A1, A2, A3, B0 }
+
+#define MATRIX_COL_PINS_RIGHT { B0, A3, A2, A1, B7, B5 } //cols are from right to left to match the layout
 
 #define ENCODERS_PAD_A { A8 }
 #define ENCODERS_PAD_B { A9 }
@@ -52,7 +53,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_IO_DELAY 5
-
+#define SPLIT_LED_STATE_ENABLE
 
 #define RGBLED_NUM 24
 #define RGBLED_SPLIT { 12, 12 }
