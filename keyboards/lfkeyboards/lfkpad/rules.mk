@@ -29,12 +29,4 @@ WATCHDOG_ENABLE = no         # Resets keyboard if matrix_scan() isn't run every 
 
 SRC = TWIlib.c issi.c lighting.c
 
-ifeq ($(strip $(ISSI_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DISSI_ENABLE
-endif
-
-ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
-endif
-
 LAYOUTS = numpad_6x4
