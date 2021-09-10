@@ -37,9 +37,9 @@
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
-#define DISABLE_RGB_MATRIX_SPLASH
-#define DISABLE_RGB_MATRIX_MULTISPLASH
-#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#undef ENABLE_RGB_MATRIX_SPLASH
+#undef ENABLE_RGB_MATRIX_MULTISPLASH
+#undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
