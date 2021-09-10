@@ -33,8 +33,8 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ...but VIA does not support it.
 
-VIA will not detect the keyboard in it's default state - you will also need the VIA KLE JSON file for *"sideloading"* the keyboard into VIA.
+VIA will not detect the keyboard in VIA's default state - you will need the VIA KLE JSON file for *"sideloading"* the keyboard into VIA.
 
 *(You will need to load this file each time you start VIA.)*
 
-In VIA, use *"Import Keymap"* and load the file: `id96_via_sideload_kle.json`.
+In VIA, use *"Import Keymap"* and load the file: [`id96_via_sideload_kle.json`](id96_via_sideload_kle.json).
