@@ -190,7 +190,7 @@ Receive multiple bytes from the selected SPI device.
 
 ### `i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
 
-Writes to an 8-bit register on the I2C device.
+Writes to a register with an 8-bit address on the I2C device.
 
 #### Arguments
 
@@ -213,7 +213,7 @@ Writes to an 8-bit register on the I2C device.
 
 ### `i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
 
-Writes to a 16-bit register on the I2C device.
+Writes to a register with a 16-bit address (big endian) on the I2C device.
 
 #### Arguments
 
@@ -236,7 +236,7 @@ Writes to a 16-bit register on the I2C device.
 
 ### `i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
 
-Reads from an 8-bit register on the I2C device.
+Reads from a register with an 8-bit address on the I2C device.
 
 #### Arguments
 
@@ -257,7 +257,7 @@ Reads from an 8-bit register on the I2C device.
 
 ### `i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
 
-Reads from a 16-bit register on the I2C device.
+Reads from a register with a 16-bit address (big endian) on the I2C device.
 
 #### Arguments
 
