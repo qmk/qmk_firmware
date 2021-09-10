@@ -2,11 +2,8 @@
     "keyboard_name": "AWL PaulPCB",
     "url": "https://github.com/AlfieLockrey",
     "maintainer": "AlfieLockrey",
-    "width": 18.5,
-    "height": 6.6,
     "layouts": {
         "LAYOUT": {
-            "key_count": 70,
             "layout": [
                 {"label":"K000", "x":0.41, "y":0.2},
                 {"label":"K001", "x":1.41, "y":0.2},
