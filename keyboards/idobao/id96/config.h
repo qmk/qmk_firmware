@@ -63,7 +63,7 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-// #define RGB_DI_PIN E2  // RGB backlight LEDs are covered by the backplate, so can't be seen
+#define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
   #define RGBLIGHT_ANIMATIONS
   #define RGBLED_NUM 18
