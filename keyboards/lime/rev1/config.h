@@ -30,9 +30,11 @@
 #endif
 
 /* joystick support */
-#define JOYSTICK_AXES_COUNT 2
-#define JOYSTICK_BUTTON_COUNT 1
-#define JOYSTICK_AXES_RESOLUTION 8
+#ifdef JOYSTICK_ENABLE
+#   define JOYSTICK_AXES_COUNT 2
+#   define JOYSTICK_BUTTON_COUNT 1
+#   define JOYSTICK_AXES_RESOLUTION 8
+#endif
 
 #define TAP_CODE_DELAY 10
 
@@ -48,10 +50,4 @@
 #ifdef WPM_ENABLE
 #    define SPLIT_WPM_ENABLE
 #endif
-
-/*
-#ifdef OLED_ENABLE
-#    define SPLIT_OLED_ENABLE
-#endif
-*/
 
