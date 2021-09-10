@@ -4,37 +4,24 @@
 
 96-key Keyboard from Idobao. The PCB for this board is also commonly used in the Drop NYM96 and YMDK Melody96
 
-Keyboard Maintainer: [Vino Rodrigues](https://github.com/vinorodrigues)  
-Hardware Supported: Idobao ID96  
-Hardware Availability: [Idobao ID96](https://www.idobao.net/collections/90/products/idobao-id96-aluminum-keyboard-kit)
+* Keyboard Maintainer: [Vino Rodrigues](https://github.com/vinorodrigues)
+* Hardware Supported: Idobao ID96
+* Hardware Availability: [Idobao ID96](https://www.idobao.net/collections/90/products/idobao-id96-aluminum-keyboard-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
     make idobao/id96:default
 
-or
+Flashing example for this keyboard:
 
-    qmk compile -kb idobao/id96 -km default
-
-You can also use VIA / Vial for key mapping.  For this use the `via` keymap:
-
-    make idobao/id96:via
-
-or
-
-    qmk compile -kb idobao/id96 -km via
-
+    make idobao/id96:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
----
+## Bootloader
 
-## This build also supports [VIA](https://caniusevia.com/)...
+Enter the bootloader in 3 ways:
 
-...but VIA does not support it.
-
-VIA will not detect the keyboard in VIA's default state - you will need the VIA KLE JSON file for *"sideloading"* the keyboard into VIA.
-
-*(You will need to load this file each time you start VIA.)*
-
-In VIA, use *"Import Keymap"* and load the file: [`id96_via_sideload_kle.json`](id96_via_sideload_kle.json).
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
