@@ -1,5 +1,7 @@
 # IDOBAO ID67
 
+![Idobao ID67](https://cdn.shopify.com/s/files/1/0382/1348/4675/products/67X.png?v=1620271891)
+
 A 65% hotswap keyboard from IDOBAO.
 
 ## ANSI support:
@@ -10,8 +12,12 @@ A 65% hotswap keyboard from IDOBAO.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make id67:default
+    make idobao/id67:default
 
+or
+
+    qmk compile -kb idobao/id67 -km default
+    
 Flashing example for this keyboard:
 
     make id67:default:flash
