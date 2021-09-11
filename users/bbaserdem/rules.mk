@@ -38,7 +38,7 @@ TAP_DANCE_ENABLE = no   # Tap dance keys; i don't use tap dance
 # These features can be enabled on ARM boards; disabled for AVR due to space
 # NKRO_ENABLE = no        # Default is 6KRO which is plenty
 # VELOCIKEY_ENABLE = no   # Modulate speed effects with typing speed
-# WPM_ENABLE = no  	# Get WPM reports as you type
+WPM_ENABLE = yes  	# Get WPM reports as you type
 
 # Manually configure these on each keyboard individually
 # AUDIO_ENABLE            # Audio stuff

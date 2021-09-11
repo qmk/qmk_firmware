@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SPLIT_KEYBOARD
 // Enable reacting to keypresses on the other half
 #define SPLIT_TRANSPORT_MIRROR
-// Enable communicatong layer state changes.
+// Enable communicating layer state changes.
 // #define SPLIT_LAYER_STATE_ENABLE
 // #define SPLIT_MODS_ENABLE
 #ifdef WPM_ENABLE

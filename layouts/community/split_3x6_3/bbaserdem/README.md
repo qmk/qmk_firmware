@@ -12,7 +12,4 @@ using their `crkbd:rev1:arm` build.
 
 Build commands;
 
-* For ARM:
-`CFLAGS="-Wno-error=deprecated" qmk flash -kb crkdb/rev1 -km bbaserdem -bl dfu-util-split-{left,right}`
-* For ARM:
-`CFLAGS="-Wno-error=deprecated" qmk flash -kb crkdb/rev1 -km bbaserdem -bl dfu-util-split-{left,right}`
+* For ARM: `CFLAGS="-Wno-error=deprecated" qmk flash -kb crkdb/rev1 -km bbaserdem -bl dfu-util-split-{left,right}`
