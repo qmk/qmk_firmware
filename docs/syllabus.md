@@ -40,6 +40,7 @@ These topics start to dig into some of the features that QMK supports. You don't
     * [Tap Dance](feature_tap_dance.md)
     * [Combos](feature_combo.md)
     * [Userspace](feature_userspace.md)
+    * [Key Overrides](feature_key_overrides.md)
 
 # Advanced Topics
 
@@ -53,7 +54,7 @@ Everything below here requires a lot of foundational knowledge. Besides being ab
 * **Advanced Features**
     * [Unicode](feature_unicode.md)
     * [API](api_overview.md)
-    * [Bootmagic](feature_bootmagic.md)
+    * [Bootmagic Lite](feature_bootmagic.md)
 * **Hardware**
     * [How Keyboards Work](how_keyboards_work.md)
     * [How A Keyboard Matrix Works](how_a_matrix_works.md)

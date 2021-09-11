@@ -7,7 +7,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 MOUSEKEY_ENABLE = yes       # Mouse keys
 COMMAND_ENABLE = no         # Commands for debug and configuration
