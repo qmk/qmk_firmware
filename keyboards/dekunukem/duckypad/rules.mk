@@ -7,7 +7,7 @@ BOOTLOADER = stm32-dfu
 # Build Options
 #  change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -25,4 +25,5 @@ WS2812_DRIVER = bitbang
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306

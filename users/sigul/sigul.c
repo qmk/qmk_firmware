@@ -40,13 +40,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case IT_APDQ:
       if (record->event.pressed){
         if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_DQOT);
+          register_code16(IT_DQUO);
         } else {
-          register_code16(IT_APOS);
+          register_code16(IT_QUOT);
         }
       } else {
-        unregister_code16(IT_DQOT);
-        unregister_code16(IT_APOS);
+        unregister_code16(IT_DQUO);
+        unregister_code16(IT_QUOT);
         }
       return false;
       break;
@@ -55,13 +55,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed){
         if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
           unregister_code16(KC_LSFT);
-          register_code16(IT_LESS);
+          register_code16(IT_LABK);
 	  register_code16(KC_LSFT);
         } else {
           register_code16(IT_COMM);
         }
       } else {
-        unregister_code16(IT_LESS);
+        unregister_code16(IT_LABK);
         unregister_code16(IT_COMM);
       }
       return false;
@@ -70,12 +70,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case IT_DTMR:
       if (record->event.pressed){
         if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_MORE);
+          register_code16(IT_RABK);
         } else {
           register_code16(IT_DOT);
         }
       } else {
-        unregister_code16(IT_MORE);
+        unregister_code16(IT_RABK);
         unregister_code16(IT_DOT);
       }
       return false;
@@ -84,12 +84,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case IT_SLQS:
       if (record->event.pressed){
         if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_QST);
+          register_code16(IT_QUES);
         } else {
           register_code16(IT_SLSH);
         }
       } else {
-        unregister_code16(IT_QST);
+        unregister_code16(IT_QUES);
         unregister_code16(IT_SLSH);
       }
       return false;

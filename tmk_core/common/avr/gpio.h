@@ -20,6 +20,8 @@
 
 typedef uint8_t pin_t;
 
+/* Operation of GPIO by pin. */
+
 #define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
 #define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
 #define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
@@ -32,3 +34,16 @@ typedef uint8_t pin_t;
 #define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
 #define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
+
+/* Operation of GPIO by port. */
+
+typedef uint8_t port_data_t;
+
+#define readPort(port) PINx_ADDRESS(port)
+
+#define setPortBitInput(port, bit) (DDRx_ADDRESS(port) &= ~_BV((bit)&0xF), PORTx_ADDRESS(port) &= ~_BV((bit)&0xF))
+#define setPortBitInputHigh(port, bit) (DDRx_ADDRESS(port) &= ~_BV((bit)&0xF), PORTx_ADDRESS(port) |= _BV((bit)&0xF))
+#define setPortBitOutput(port, bit) (DDRx_ADDRESS(port) |= _BV((bit)&0xF))
+
+#define writePortBitLow(port, bit) (PORTx_ADDRESS(port) &= ~_BV((bit)&0xF))
+#define writePortBitHigh(port, bit) (PORTx_ADDRESS(port) |= _BV((bit)&0xF))
