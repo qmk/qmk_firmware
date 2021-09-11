@@ -18,6 +18,20 @@ Then place this include at the top of your code:
 #include "analog.h"
 ```
 
+### ARM Usage
+If using an ARM device, you will _also_ need to add the following to `mcuconf.h`:
+
+```c
+#undef STM32_ADC_USE_ADC1
+#define STM32_ADC_USE_ADC1 TRUE
+```
+
+Add the following to `halconf.h`:
+
+```c
+#define HAL_USE_ADC TRUE
+```
+
 ## Channels
 
 ### AVR
