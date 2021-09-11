@@ -37,8 +37,6 @@ enum kyria_keycodes {
 #define SFT_ENT MT(MOD_LSFT, KC_ENT)
 #define UNDO G(KC_Z)
 #define FIND G(KC_F)
-#define NKRO MAGIC_TOGGLE_NKRO
-#define OS_SWAP MAGIC_TOGGLE_CTL_GUI
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -141,8 +139,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
 [_ADJUST] = LAYOUT(
-    _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    NKRO,
-    _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     KC_BRIU, _______, _______,  KC_F11,  KC_F12, OS_SWAP,
+    _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, NK_TOGG,
+    _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     KC_BRIU, _______, _______,  KC_F11,  KC_F12, CG_TOGG,
     _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD,_______, _______,  _______, _______, KC_BRID, _______, _______, _______,  QWERTY,    HNTS,
                               _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
 ),
