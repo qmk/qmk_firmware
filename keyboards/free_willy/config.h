@@ -1,4 +1,4 @@
-/* Copyright 2020 tominabox1
+/* Copyright 2021 Caleb Lightfoot
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,10 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x5351
+#define VENDOR_ID 0x5351 // SQ
 #define PRODUCT_ID 0x4657 // FW
 #define DEVICE_VER 0x0001
-#define MANUFACTURER tsquash
+#define MANUFACTURER squashkb
 #define PRODUCT free willy
 
 /* key matrix size */
