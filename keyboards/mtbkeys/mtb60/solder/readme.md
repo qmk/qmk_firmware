@@ -3,7 +3,7 @@
 ## Details
 
 * Keyboard Maintainer: [MTBKeys](https://mtbkeys.com/)
-* Hardware Supported: *MTB60 PCB (Solder edition)*
+* Hardware Supported: MTB60 PCB (Solder edition)
 * Hardware Availability: [HB60 on MTBKeys Website](https://mtbkeys.com/)
 
 ## Building Firmware
