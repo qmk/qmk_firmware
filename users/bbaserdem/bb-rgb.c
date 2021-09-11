@@ -28,17 +28,17 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
     // Do each layer seperately
     switch (get_highest_layer(layer_state)) {
-        case _GAME: // Set left side as turquoise
+        case _GAME: // Set left side as purple
             for(uint8_t i = led_min; i <= led_max; i++) {
                 if(g_led_config.point[i].x < SPLIT_POINT) {
                     rgb_matrix_set_color(i, RGB_PURPLE);
                 }
             }
             break;
-        case _CHAR: // Set full board as chartreuse
+        case _CHAR: // Set full board as gold
             rgb_matrix_set_color_all(RGB_GOLD);
             break;
-        case _MEDI: // Set right side as coral
+        case _MEDI: // Set right side as pink
             for(uint8_t i = led_min; i <= led_max; i++) {
                 if(g_led_config.point[i].x > SPLIT_POINT) {
                     rgb_matrix_set_color(i, RGB_PINK);
@@ -52,17 +52,17 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 }
             }
             break;
-        case _SYMB: // Set right side as purple
+        case _SYMB: // Set right side as yellow
             for(uint8_t i = led_min; i <= led_max; i++) {
                 if(g_led_config.point[i].x > SPLIT_POINT) {
                     rgb_matrix_set_color(i, RGB_YELLOW);
                 }
             }
             break;
-        case _NUMB: // Set left side as cyan
+        case _NUMB: // Set left side as blue
             for(uint8_t i = led_min; i <= led_max; i++) {
                 if(g_led_config.point[i].x < SPLIT_POINT) {
-                    rgb_matrix_set_color(i, RGB_CYAN);
+                    rgb_matrix_set_color(i, RGB_BLUE);
                 }
             }
             break;
@@ -73,14 +73,14 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 }
             }
             break;
-        case _MOUS: // Set left side as yellow
+        case _MOUS: // Set left side as blue-green
             for(uint8_t i = led_min; i <= led_max; i++) {
                 if(g_led_config.point[i].x < SPLIT_POINT) {
                     rgb_matrix_set_color(i, RGB_SPRINGGREEN);
                 }
             }
             break;
-        case _MUSI: // Set full board as magenta
+        case _MUSI: // Set full board as orange
             rgb_matrix_set_color_all(RGB_ORANGE);
             break;
     }
