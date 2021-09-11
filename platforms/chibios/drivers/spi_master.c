@@ -66,7 +66,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     if (roundedDivisor < 2 || roundedDivisor > 256) {
         return false;
     }
-    
+
 #if defined(K20x) || defined(KL2x)
     spiConfig.tar0 = SPIx_CTARn_FMSZ(7) | SPIx_CTARn_ASC(1);
 
@@ -117,25 +117,25 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 
 #elif defined(HT32_SPI_USE_SPI1) || defined(HT32_SPI_USE_SPI2)
     spiConfig.cr0 = SPI_CR0_SELOEN;
-    spiConfig.cr1 = SPI_CR1_MODE | 8; // 8 bits and in master mode
+    spiConfig.cr1 = SPI_CR1_MODE | 8;  // 8 bits and in master mode
 
     if (lsbFirst) {
         spiConfig.cr1 |= SPI_CR1_FIRSTBIT;
     }
 
     switch (mode) {
-    case 0:
-        spiConfig.cr1 |= SPI_CR1_FORMAT_MODE0;
-        break;
-    case 1:
-        spiConfig.cr1 |= SPI_CR1_FORMAT_MODE1;
-        break;
-    case 2:
-        spiConfig.cr1 |= SPI_CR1_FORMAT_MODE2;
-        break;
-    case 3:
-        spiConfig.cr1 |= SPI_CR1_FORMAT_MODE3;
-        break;
+        case 0:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE0;
+            break;
+        case 1:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE1;
+            break;
+        case 2:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE2;
+            break;
+        case 3:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE3;
+            break;
     }
 
     spiConfig.cpr = (roundedDivisor - 1) >> 1;
