@@ -1,5 +1,5 @@
-Charybdis (6x4, 5x3 Nano)
-======
+# Charybdis (6x4, 5x3 Nano)
+
 An ergonomic keyboard with integrated trackball.
 
 Engineered to be a full mouse replacement solution with high-quality, custom-developed components.
