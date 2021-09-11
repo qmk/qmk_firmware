@@ -106,7 +106,7 @@ bool encoder_update_user(uint8_t index, bool clockwise)
     {
       if(clockwise)
       {
-        tap_code(KC_MEDIA_NEXT_TRACK);
+        tap_code_delay(KC_MEDIA_NEXT_TRACK, 10);
       }
       else
       {
