@@ -99,5 +99,7 @@ void rgb_matrix_indicators_kb(void) {
     led_t host_leds = host_keyboard_led_state();
     if (host_leds.caps_lock) {
         rgb_matrix_set_color(30, 254, 189, 41); // set caps lock led color first nunber is index, R G B
+    } else if (!(rgb_matrix_get_flags() & LED_FLAG_MODIFIER)) {
+        rgb_matrix_set_color(30, 0, 0, 0);
     }
 }
