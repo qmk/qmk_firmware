@@ -29,11 +29,14 @@ enum kyria_keycodes {
   QWERTY,
   LOWER,
   RAISE,
-  CPY_PST
+  CPY_PST,
+  UNDO
 };
 
 #define BSP_CMD MT(MOD_LGUI, KC_BSPC)
 #define SFT_ENT MT(MOD_LSFT, KC_ENT)
+#define UNDO G(KC_Z)
+#define FIND G(KC_F)
 #define NKRO MAGIC_TOGGLE_NKRO
 #define OS_SWAP MAGIC_TOGGLE_CTL_GUI
 
@@ -54,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_HNTS] = LAYOUT(
-     KC_GRV,    KC_Z,    KC_R,    KC_L,    KC_D,    KC_W,                                         KC_Y,    KC_P,    KC_U,    KC_X,    KC_Q, KC_BSLS,
-     KC_ESC,    KC_H,    KC_N,    KC_T,    KC_S,    KC_C,                                         KC_B,    KC_I,    KC_E,    KC_O,    KC_A,  KC_ESC,
-    CPY_PST,    KC_K,    KC_V,    KC_M,    KC_F,    KC_G, KC_LCTL, KC_LALT,  KC_CAPS,  KC_DEL,    KC_J, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,
+       FIND,    KC_Z,    KC_R,    KC_L,    KC_D,    KC_W,                                         KC_Y,    KC_P,    KC_U,    KC_X,    KC_Q, KC_BSLS,
+    CPY_PST,    KC_H,    KC_N,    KC_T,    KC_S,    KC_C,                                         KC_B,    KC_I,    KC_E,    KC_O,    KC_A,  KC_ESC,
+       UNDO,    KC_K,    KC_V,    KC_M,    KC_F,    KC_G, KC_LCTL, KC_LALT,  KC_CAPS,  KC_DEL,    KC_J, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,
                                  KC_UP, KC_DOWN,   LOWER,  KC_SPC, BSP_CMD,   KC_TAB, SFT_ENT,   RAISE, KC_LEFT, KC_RGHT
 ),
 
@@ -87,18 +90,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------.                                  ,-----------------------------------------------.
  * |       |   !   |   @   |   {   |   }   |   |   |                                  |       |       |       |       |       |  | \  |
  * |-------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+-------|
- * |       |   #   |   $   |   (   |   )   |   `   |                                  |   +   |   -   |   /   |   *   |   %   |  - _  |
+ * |       |   #   |   $   |   (   |   )   |  ` ~  |                                  |   +   |   -   |   *   |   /   |   =   |       |
  * |-------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+-------|
- * |       |   %   |   ^   |   [   |   ]   |   ~   |       |       |  |       |       |   &   |   =   |  , <  |  . >  |  / ?  |  ' "  |
+ * |       |   %   |   ^   |   [   |   ]   |   &   |       |       |  |       |       |      |       |       |       |       |        |
  * `-------+-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-----------------------'
  *                         |       |       |       |       |       |  |       |       |       |       |       |
  *                         `---------------------------------------'  `---------------------------------------'
  */
 
 [_LOWER] = LAYOUT(
-    _______, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,                                      _______, _______, _______, _______, _______, _______,
-    _______, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                                      KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_PERC, KC_MINS,
-    KC_CAPS, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______,  _______, _______, KC_AMPR,  KC_EQL, KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT,
+     KC_GRV, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,                                      _______, _______, _______, _______, _______, _______,
+    KC_TILD, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN, KC_BSLS,                                      KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH,  KC_EQL, _______,
+    KC_AMPR, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_UNDS, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
                                _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
 ),
 
@@ -117,9 +120,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT(
-    _______,    KC_1, 	 KC_2,    KC_3,    KC_4,    KC_5,                                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
-    _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLU, _______,                                      KC_BRIU, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,
-    _______, _______, _______, KC_MUTE, KC_VOLD, _______, _______, _______,  _______, _______, KC_BRID, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                                      _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,
+    _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
+    KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
                                _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
 ),
 
@@ -139,8 +142,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = LAYOUT(
     _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    NKRO,
-    _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     _______, _______, _______,  KC_F11,  KC_F12, OS_SWAP,
-    _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD,_______, _______,  _______, _______, _______, _______, _______, _______,  QWERTY,    HNTS,
+    _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     KC_BRIU, _______, _______,  KC_F11,  KC_F12, OS_SWAP,
+    _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD,_______, _______,  _______, _______, KC_BRID, _______, _______, _______,  QWERTY,    HNTS,
                               _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
 ),
 };
@@ -180,23 +183,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
           break;
         case CPY_PST:  // One key copy/paste
-            {
-                static uint16_t copy_paste_timer;
-                if (record->event.pressed) {
-                    copy_paste_timer = timer_read();
-                } else {
-                    if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
-                      register_mods(mod_config(MOD_LGUI));
-                      tap_code(KC_C);
-                      unregister_mods(mod_config(MOD_LGUI));
-                    } else {  // Tap, paste
-                      register_mods(mod_config(MOD_LGUI));
-                      tap_code(KC_V);
-                      unregister_mods(mod_config(MOD_LGUI));
-                    }
+          {
+            static uint16_t copy_paste_timer;
+              if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+              } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+                  register_mods(mod_config(MOD_LGUI));
+                  tap_code(KC_C);
+                  unregister_mods(mod_config(MOD_LGUI));
+                } else {  // Tap, paste
+                  register_mods(mod_config(MOD_LGUI));
+                  tap_code(KC_V);
+                  unregister_mods(mod_config(MOD_LGUI));
                 }
+              }
+          }
+          break;
+        case UNDO:  // Undo Redo
+          if ((get_mods() & MOD_BIT(KC_LGUI)) == MOD_BIT(KC_LGUI)) {
+            if (record->event.pressed) {
+              register_code(KC_Y);
+            } else {
+              unregister_code(KC_Y);
             }
-            break;
-      }
-    return true;
+          return false;
+          }
+          return true;
+    }
+  return true;
 };
