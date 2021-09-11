@@ -147,7 +147,7 @@ define EXEC_BOOTLOADHID
 	done
 endef
 
-bootloadHID: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+bootloadhid: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_BOOTLOADHID)
 
 HID_BOOTLOADER_CLI ?= hid_bootloader_cli
@@ -168,9 +168,9 @@ else ifeq ($(strip $(BOOTLOADER)), halfkay)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)
 else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU)
-else ifeq ($(strip $(BOOTLOADER)), USBasp)
+else ifneq (,$(filter $(BOOTLOADER), usbasploader USBasp))
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_USBASP)
-else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
+else ifneq (,$(filter $(BOOTLOADER), bootloadhid bootloadHID))
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_BOOTLOADHID)
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_HID_LUFA)
