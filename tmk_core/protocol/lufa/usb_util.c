@@ -17,7 +17,7 @@
 #include "usb_util.h"
 #include "wait.h"
 
-void usb_disable(void) {
+void usb_disconnect(void) {
     USB_Disable();
     USB_DeviceState = DEVICE_STATE_Unattached;
 }
