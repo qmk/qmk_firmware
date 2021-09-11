@@ -79,8 +79,7 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 	{
 			if (clockwise)
 			{
-				register_code(KC_TAB);
-				unregister_code(KC_TAB);
+				tap_code(KC_TAB);
 			} 
 			else 
 			{
