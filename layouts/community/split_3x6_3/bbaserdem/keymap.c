@@ -12,6 +12,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "bbaserdem.h"
+#include "bb-crkbdarm-oled.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3_wrapper(
@@ -91,6 +92,15 @@ void keyboard_pre_init_keymap(void) {
 void keyboard_post_init_keymap(void) {
     // Enable OPAMP1 as A5 → B1 follower
     OPAMP3->CSR = OPAMP3_CSR_VMSEL_1 | OPAMP3_CSR_VMSEL_0 | OPAMP3_CSR_VPSEL_0 | OPAMP3_CSR_OPAMP3EN;
+}
+
+bool oled_task_keymap(void) {
+    if (is_keyboard_left()) {
+        render_status_left();
+    } else {
+        render_status_right();
+    }
+    return false;
 }
 #endif // End of differentiations
 #endif // End of audio specific stuff

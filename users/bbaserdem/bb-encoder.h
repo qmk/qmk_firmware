@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "velocikey.h"
 #endif
 
-// Code to print status string
-void encoder_state_string(uint8_t index, uint8_t layer, char* buffer);
-void encoder_state_string_long(uint8_t index, uint8_t layer, char* buffer);
 // Hook to encoder stuff
 bool encoder_update_user(uint8_t index, bool clockwise);
 // Complicated code for what the encoder keys do when pressed
@@ -35,3 +32,6 @@ typedef struct {
     uint8_t rgb;    // The encoder state on media layer; controls light settings
     uint8_t point;  // The encoder state on mouse layer; moves pointer
 } encoder_state_t;
+
+// Make this available to all that declare us
+extern encoder_state_t encoder_state[2];

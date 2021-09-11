@@ -13,11 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 #include "bbaserdem.h"
-// Contain the main oled writer here 
-void oled_task_user(void);
-bool oled_task_keymap(void);
-// This is only neccessary for oled; hence here
-#ifdef ENCODER_ENABLE
-void encoder_state_string5(uint8_t index, uint8_t layer, char* buffer);
-void encoder_state_string8(uint8_t index, uint8_t layer, char* buffer);
-#endif
+
+// These are protorne specific functions to be called for drawing
+void render_status_left(void);
+void render_status_right(void);
