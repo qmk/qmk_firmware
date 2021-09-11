@@ -10,21 +10,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-```sh
     make mtbkeys/mtb60/solder:default
-```
 
 Flashing example for this keyboard:
 
-```sh
     make mtbkeys/mtb60/solder:default:flash
-```
-
-QMK example for this keyboard (after setting up your build enivrionment):
-
-```sh
-    qmk compile -kb mtbkeys/mtb60/solder -km default
-```
 
 ## Bootloader
 
