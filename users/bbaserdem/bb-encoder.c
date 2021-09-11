@@ -43,6 +43,93 @@ void keyboard_post_init_encoder(void) {
 }
 
 // Oled string printing for given layer and index
+void encoder_state_string_long(uint8_t index, uint8_t layer, char* buffer) {
+    // Get the layer straight from the main function
+    switch (layer) {
+        // If RGB control mode is enabled
+        #ifdef RGB_MATRIX_ENABLE
+        case _MEDI:
+            switch (encoder_state[index].rgb) {
+                case 0:
+                    strcpy(buffer, "ani mode");
+                    break;
+                case 1:
+                    strcpy(buffer, "hue     ");
+                    break;
+                case 2:
+                    strcpy(buffer, "saturat.");
+                    break;
+                case 3:
+                    strcpy(buffer, "bright. ");
+                    break;
+                case 4:
+                    strcpy(buffer, "ani. spd");
+                    break;
+                default:
+                    strcpy(buffer, " -N/A-  ");
+                    break;
+            }
+            break;
+        #endif
+        // If pointer control is enabled
+        #ifdef MOUSEKEY_ENABLE
+        case _MOUS:
+            switch (encoder_state[index].point) {
+                case 0:
+                    strcpy(buffer, "Lateral ");
+                    break;
+                case 1:
+                    strcpy(buffer, "Vertical");
+                    break;
+                case 2:
+                    strcpy(buffer, "Scr. Ver");
+                    break;
+                case 3:
+                    strcpy(buffer, "Scr. Lat");
+                    break;
+                default:
+                    strcpy(buffer, " -N/A-  ");
+                    break;
+            }
+            break;
+        #endif
+        default:
+            switch (encoder_state[index].base) {
+                case 0:
+                    strcpy(buffer, "Volume  ");
+                    break;
+                case 1:
+                    strcpy(buffer, "Song    ");
+                    break;
+                case 2:
+                    strcpy(buffer, "Sink    ");
+                    break;
+                case 3:
+                    strcpy(buffer, "Src. Vol");
+                    break;
+                case 4:
+                    strcpy(buffer, "Source  ");
+                    break;
+                case 5:
+                    strcpy(buffer, "Arrow LR");
+                    break;
+                case 6:
+                    strcpy(buffer, "Arrow UD");
+                    break;
+                case 7:
+                    strcpy(buffer, "Page U/D");
+                    break;
+                case 8:
+                    strcpy(buffer, "Erase   ");
+                    break;
+                default:
+                    strcpy(buffer, " -N/A-  ");
+                    break;
+            }
+            break;
+    }
+}
+
 void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
     // Get the layer straight from the main function
     switch (layer) {
