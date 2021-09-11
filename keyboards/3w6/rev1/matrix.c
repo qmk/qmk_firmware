@@ -34,7 +34,7 @@ extern i2c_status_t tca9555_status;
 // All address pins of the tca9555 are connected to the ground
 // | 0  | 1  | 0  | 0  | A2 | A1 | A0 |
 // | 0  | 1  | 0  | 0  | 0  | 0  | 0  |
-#define I2C_ADDR 0b0100000
+#define I2C_ADDR (0b0100000 << 1)
 
 // Register addresses
 #define IODIRA 0x06  // i/o direction register

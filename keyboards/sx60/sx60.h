@@ -8,7 +8,7 @@
 #include <util/delay.h>
 
 /* I2C aliases and register addresses (see "mcp23018.md") */
-#define I2C_ADDR        0b0100000
+#define I2C_ADDR        (0b0100000 << 1)
 #define I2C_TIMEOUT     100
 #define IODIRA          0x00            /* i/o direction register */
 #define IODIRB          0x01
