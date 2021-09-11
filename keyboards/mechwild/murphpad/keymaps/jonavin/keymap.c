@@ -18,7 +18,7 @@
 #include "jonavin.h"
 #include "layout_landscape.h"
 
-#define LANDSCAPE_MODE
+//#define LANDSCAPE_MODE
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -28,6 +28,7 @@ enum layer_names {
     _RGB
 };
 
+#ifdef LANDSCAPE_MODE
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT_landscape(
@@ -91,6 +92,78 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   _______,  _______, _______
    ),
 };
+#endif // LANDSCAPE_MODE
+
+#ifndef LANDSCAPE_MODE
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* Base */
+    [_BASE] = LAYOUT(
+                  TT(_FN2),   TT(_FN3),   TT(_FN4),   KC_PSCR,
+				  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+                  KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+        KC_MUTE,  KC_P4,   KC_P5,   KC_P6,   _______,
+        TT(_FN1), KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+        KC_RALT,  KC_P0,   _______, KC_PDOT, _______,
+
+				          KC_F5,   KC_F6,   KC_F7
+
+    ),
+    [_FN1] = LAYOUT(
+                  _______, _______, _______, RESET,
+                  KC_CALC, _______, _______, _______,
+                  _______, _______, _______, _______,
+        ENCFUNC,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  KC_BSPC, _______, _______, _______,
+
+                  _______, _______, _______
+
+    ),
+    [_FN2] = LAYOUT(
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+
+                  _______, _______, _______
+
+    ),
+	  [_FN3] = LAYOUT(
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+
+                  _______, _______, _______
+
+    ),
+	[_FN4] = LAYOUT(
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+
+                  _______, _______, _______
+
+    ),    [_RGB] = LAYOUT(
+                 _______,  _______, _______, _______,
+                 _______,  _______, _______, _______,
+                 RGB_HUD,  RGB_SPI, RGB_HUI, _______,
+        _______, RGB_RMOD, RGB_TOG, RGB_MOD, _______,
+        _______, RGB_VAD,  RGB_SPD, RGB_VAI, _______,
+        _______, RGB_SAD,  _______, RGB_SAI, _______,
+
+                 _______,  _______, _______
+
+    ),
+};
+#endif // !LANDSCAPE_MODE
 
 typedef struct {
      char keydesc[6];    // this will be displayed on OLED
@@ -289,14 +362,15 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 		render_logo();
 		oled_set_cursor(0,6);
 
-		oled_write_ln_P(PSTR("Layer"), false);
-
+		oled_write_ln_P(PSTR("JONAVIN"), false);
+        bool showSelectedKey = false;
         switch (get_highest_layer(layer_state)) {
             case _BASE:
-                oled_write_ln_P(PSTR("Base"), false);
+                oled_write_ln_P(PSTR("BASE"), false);
                 break;
             case _FN1:
                 oled_write_ln_P(PSTR("FN 1"), false);
+                showSelectedKey = true;
                 break;
             case _FN2:
                 oled_write_ln_P(PSTR("FN 2"), false);
@@ -313,7 +387,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             default:
                 oled_write_ln_P(PSTR("Undef"), false);
         }
-        oled_write_ln_P(PSTR(""), false);
+        if (showSelectedKey) oled_write_ln(selectedkey_rec.keydesc, false);
+            else oled_write_ln_P(PSTR("     "), false);
         // Host Keyboard LED Status
         led_t led_state = host_keyboard_led_state();
         oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
