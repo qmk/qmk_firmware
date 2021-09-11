@@ -79,15 +79,11 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 	{
 			if (clockwise)
 			{
-				register_code(KC_TAB);
-				unregister_code(KC_TAB);
+				tap_code(KC_TAB);
 			} 
 			else 
 			{
-				register_code(KC_LSFT);
-				register_code(KC_TAB);
-				unregister_code(KC_LSFT);
-				unregister_code(KC_TAB);
+				tap_code16(S(KC_TAB));
 			}
 	} 
 	else if (get_mods() & MODS_CTRL_MASK) 
@@ -110,7 +106,7 @@ bool encoder_update_user(uint8_t index, bool clockwise)
     {
       if(clockwise)
       {
-        tap_code(KC_MEDIA_NEXT_TRACK);
+        tap_code_delay(KC_MEDIA_NEXT_TRACK, 10);
       }
       else
       {
