@@ -47,6 +47,7 @@
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
   #define BACKLIGHT_LEVELS 7
+  #define BACKLIGHT_BREATHING
 #endif
 
 /* Set location for BootMagic key = [ESC] */
