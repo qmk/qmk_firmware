@@ -11,7 +11,7 @@ UNICODE_ENABLE = yes
 VIA_ENABLE = no
 WPM_ENABLE = no
 
-SRC += utils.c eajaysec.c process_record.c encoder.c
+SRC += utils.c seajaysec.c process_record.c encoder.c
 
 ifeq ($(strip $(WPM_ENABLE)), yes)
 	SRC += fun.c
