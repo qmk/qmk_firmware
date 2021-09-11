@@ -18,7 +18,6 @@
 #include "jonavin.h"
 #include "layout_landscape.h"
 
-//#define LANDSCAPE_MODE
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -98,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-                  TT(_FN2),   TT(_FN3),   TT(_FN4),   KC_PSCR,
+                  TT(_FN2),TT(_FN3),TT(_FN4),LT(_RGB,KC_PSCR),
 				  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
                   KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_MUTE,  KC_P4,   KC_P5,   KC_P6,   _______,
@@ -112,9 +111,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   _______, _______, _______, RESET,
                   KC_CALC, _______, _______, _______,
                   _______, _______, _______, _______,
-        ENCFUNC,  _______, _______, _______, _______,
+        ENCFUNC,  KC_TAB,  _______, _______, _______,
         _______,  _______, _______, _______, _______,
-        _______,  KC_BSPC, _______, _______, _______,
+        _______,  KC_BSPC, _______, KC_DEL,  _______,
 
                   _______, _______, _______
 
@@ -123,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   _______, _______, _______, _______,
                   _______, _______, _______, _______,
                   _______, _______, _______, _______,
-        _______,  _______, _______, _______, _______,
+        RESET,  _______, _______, _______, _______,
         _______,  _______, _______, _______, _______,
         _______,  _______, _______, _______, _______,
 
@@ -172,15 +171,15 @@ typedef struct {
 
 static const keycodedescType PROGMEM keyselection[] = {
     // list of key codes that will be scrolled through by encoder and description
-        {"TASK",    KC_TASK},
-        {"INS",     KC_INS},
-        {"DEL",     KC_DEL},
+        {"TASK ",   KC_TASK},
+        {"INS  ",   KC_INS},
+        {"DEL  ",   KC_DEL},
         {"PrtSc",   KC_PSCR},
         {"ScrLk",   KC_SCLN},
         {"Break",   KC_PAUS},
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
-        {"PLAY",    KC_MEDIA_PLAY_PAUSE},
+        {"PLAY ",   KC_MEDIA_PLAY_PAUSE},
         {"RESET",   RESET},   // firmware flash mode
 };
 
@@ -360,9 +359,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
     void oled_task_user(void) {
 		render_logo();
-		oled_set_cursor(0,6);
+		oled_set_cursor(0,5);
 
-		oled_write_ln_P(PSTR("JONAVIN"), false);
+		oled_write_ln_P(PSTR("-JV-"), false);
+		oled_write_ln_P(PSTR(" "), false);
+
         bool showSelectedKey = false;
         switch (get_highest_layer(layer_state)) {
             case _BASE:
@@ -385,15 +386,17 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 oled_write_ln_P(PSTR("RGB "), false);
                 break;
             default:
-                oled_write_ln_P(PSTR("Undef"), false);
+                oled_write_ln_P(PSTR(" ?? "), false);
         }
         if (showSelectedKey) oled_write_ln(selectedkey_rec.keydesc, false);
             else oled_write_ln_P(PSTR("     "), false);
+
         // Host Keyboard LED Status
         led_t led_state = host_keyboard_led_state();
-        oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-        oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-        oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+        oled_set_cursor(0,11);
+        oled_write_ln_P(led_state.num_lock ? PSTR(" NUM") : PSTR("    "), false);
+        oled_write_ln_P(led_state.caps_lock ? PSTR(" CAP") : PSTR("    "), false);
+        oled_write_ln_P(led_state.scroll_lock ? PSTR(" SCR") : PSTR("    "), false);
     }
     #endif // !LANDSCAPE_MODE
 
