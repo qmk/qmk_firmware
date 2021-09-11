@@ -5,7 +5,7 @@
 The Gentleman 65 combines the sleek look of natural wood, with the fun of frosted acrylic to produce a truly unique look that differs from existing boards on the market. The board consists of 2 3mm frosted acrylic layers, topped by 2 layers of 6mm of wood, a frosted acrylic wedge, and 2 feet that give the board an angle of 7°. The board is unique in its inclusion of a top mounting system, something rarely seen on the laser cut board.
 
 
-* Keyboard Maintainer: [Omar Afzal](https://github.com/theengineermachine)
+* Keyboard Maintainer: [Omar Afzal](https://github.com/0marA)
 * Hardware Supported: Gentleman 65 PCB for Gentleman65
 * Hardware Availability: [Jkeys.Design](https://jkeys.design/)
 
