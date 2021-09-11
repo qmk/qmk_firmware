@@ -142,7 +142,8 @@ static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_system(uint16_t data);
 static void    send_consumer(uint16_t data);
-host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
+static void    send_programmable_button(uint32_t data);
+host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
 
 #ifdef VIRTSER_ENABLE
 // clang-format off
@@ -760,26 +761,30 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
-/** \brief Send Extra
- *
- * FIXME: Needs doc
- */
-#ifdef EXTRAKEY_ENABLE
-static void send_extra(uint8_t report_id, uint16_t data) {
+static void send_report(void *report, size_t size) {
     uint8_t timeout = 255;
 
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
 
-    static report_extra_t r;
-    r = (report_extra_t){.report_id = report_id, .usage = data};
     Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
     while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
     if (!Endpoint_IsReadWriteAllowed()) return;
 
-    Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
+    Endpoint_Write_Stream_LE(report, size, NULL);
     Endpoint_ClearIN();
+}
+
+/** \brief Send Extra
+ *
+ * FIXME: Needs doc
+ */
+#ifdef EXTRAKEY_ENABLE
+static void send_extra(uint8_t report_id, uint16_t data) {
+    static report_extra_t r;
+    r = (report_extra_t){.report_id = report_id, .usage = data};
+    send_report(&r, sizeof(r));
 }
 #endif
 
@@ -819,6 +824,14 @@ static void send_consumer(uint16_t data) {
 #    endif
 
     send_extra(REPORT_ID_CONSUMER, data);
+#endif
+}
+
+static void send_programmable_button(uint32_t data) {
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    static report_programmable_button_t r;
+    r = (report_programmable_button_t){.report_id = REPORT_ID_PROGRAMMABLE_BUTTON, .usage = data};
+    send_report(&r, sizeof(r));
 #endif
 }
 

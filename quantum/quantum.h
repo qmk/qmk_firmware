@@ -147,6 +147,10 @@ extern layer_state_t layer_state;
 #    include "process_joystick.h"
 #endif
 
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+#    include "process_programmable_button.h"
+#endif
+
 #ifdef GRAVE_ESC_ENABLE
 #    include "process_grave_esc.h"
 #endif

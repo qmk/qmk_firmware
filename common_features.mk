@@ -127,6 +127,12 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
+ifeq ($(strip $(PROGRAMMABLE_BUTTON_ENABLE)), yes)
+    OPT_DEFS += -DPROGRAMMABLE_BUTTON_ENABLE
+    SRC += $(QUANTUM_DIR)/programmable_button.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_programmable_button.c
+endif
+
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
