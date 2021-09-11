@@ -17,7 +17,6 @@
 #include "v1.h"
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
-//TODO Music-mapを良い感じにする
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
     0,  24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
       0,  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,  24,
