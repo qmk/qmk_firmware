@@ -31,7 +31,7 @@ enum userspace_layers {
 #define MAXI LGUI(KC_UP) // Maximize window
 #define CLOSEAPPLICATION LALT(KC_F4) // Kill application
 #define CLOSETAB LCTL(KC_W) // Kill current tab
-#define POPOUT LCTL(LSFT(KC_K))
+#define POPOUT LCTL(LSFT(KC_K)) 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
