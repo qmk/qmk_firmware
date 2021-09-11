@@ -18,8 +18,6 @@
 
 #include QMK_KEYBOARD_H
 
-// VIA supports 4 layers
-
 enum {
     LAYER_0 = 0,
     LAYER_1,
