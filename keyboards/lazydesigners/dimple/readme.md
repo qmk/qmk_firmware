@@ -18,9 +18,9 @@ Detail versions: 1. Dimple Round 1 in 2019 (Use dimple/staggered/Rev1)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make lazydesigners/dimple/staggered/rev1:default:dfu
-    make lazydesigners/dimple/staggered/rev2:default:dfu
-    make lazydesigners/dimple/ortho:default:dfu
+    make lazydesigners/dimple/staggered/rev1:default
+    make lazydesigners/dimple/staggered/rev2:default
+    make lazydesigners/dimple/ortho:default
 
 To enter the bootloader, either short the pins on the PCB or the RESET button on the FN layer.
 
