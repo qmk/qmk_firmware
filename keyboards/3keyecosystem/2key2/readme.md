@@ -11,11 +11,11 @@ It's designed for a modular keyboard mount using an ATmega32U4.
 
 Make example for this keyboard (after setting up your build environment):
 
-    `make 3keyecosystem/2key2:default`
+    make 3keyecosystem/2key2:default
 
-or flash it (requires hitting the reset button on the main board):
+Flashing example for this keyboard:
 
-    `make 3keyecosystem/2key2:default:flash`
+    make 3keyecosystem/2key2:default:flash
 
 ## Bootloader
 

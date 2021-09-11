@@ -2,8 +2,6 @@
     "keyboard_name": "3-Key-Ecosystem 2key2: 2x1 macro-keyboard",
     "url": "https://github.com/softplus/3keyecosystem/tree/main/2key2",
     "maintainer": "softplus",
-    "width": 2,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [
