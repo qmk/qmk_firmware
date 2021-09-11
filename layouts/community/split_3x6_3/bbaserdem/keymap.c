@@ -94,6 +94,15 @@ void keyboard_post_init_keymap(void) {
     OPAMP3->CSR = OPAMP3_CSR_VMSEL_1 | OPAMP3_CSR_VMSEL_0 | OPAMP3_CSR_VPSEL_0 | OPAMP3_CSR_OPAMP3EN;
 }
 
+// Flip the display on the right half
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (!is_keyboard_left()) {
+        return OLED_ROTATION_180; 
+    }
+
+    return rotation;
+}
+
 bool oled_task_keymap(void) {
     if (is_keyboard_left()) {
         render_status_left();
