@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "pytest",
+    "manufacturer": "none",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6465",
+        "device_ver": "0x0001"
+    }
+}
