@@ -1,5 +1,4 @@
-QMK layout for gmmk/pro
-=======================
+# QMK layout for gmmk/pro
 
 ## Introduction
 
