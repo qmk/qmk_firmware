@@ -1,19 +1,19 @@
-# drevogramr_qmk
+# Drevo Gramr QMK
 
-![DrevoGramr](https://i.imgur.com/SeMa7B5.jpg)
+![Drevo Gramr 84](https://i.imgur.com/SeMa7B5.jpg)
 
-Drevo Gramr rewired with Arduino (Pro) Micro.
+Drevo Gramr 84 rewired with Arduino (Pro) Micro. Firmware utilizes onboard 74HC595 shift registers for key matrix scanning and onboard LEDs for backlighting. Rewiring schematics can be found [here](https://imgur.com/a/eKutsbr), original keyboard controller should be removed from PCB. Schematics of stock board is [here](https://imgur.com/a/vPOPcIC).
 
-Uses onboard 74hc595 shift registers for key matrix scanning.
+* Keyboard Maintainer: [MAD](https://github.com/wwwMADwww)
+* Hardware Supported: ATMega32U4, Drevo Gramr 84 with PCB labeled as `TB-ZT-S84LED-01-V03 2015-06-12`.
+* Hardware Availability: *AliExpress, Amazon*
 
-Full board backlighting only, dynamic LED scanning not implemented.
+Make example for this keyboard (after setting up your build environment):
 
-## Schematics and photos
+    make drevogramr_qmk:default
 
-Tested on PCB labeled as `TB-ZT-S84LED-01-V03 2015-06-12`.
+Flashing example for this keyboard:
 
-![link](https://i.imgur.com/EnanUXS.png)
+    make drevogramr_qmk:default:flash
 
-Schematics and photos of unmodified keyboard, check first for better understanding - https://imgur.com/a/vPOPcIC
-
-Schematics and photos of modified keyboard - https://imgur.com/a/eKutsbr
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
