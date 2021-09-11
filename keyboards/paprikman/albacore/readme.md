@@ -12,6 +12,10 @@ Build and flash firmware (via support is considered by default):
 
     qmk flash -kb paprikman/albacore -km via
 
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
 There are several ways to enter the bootloader:
 * **Using keycode**: Press the `RESET` key (if mapped)
 * **Bootmagic reset**: Hold the left bottom key (default mod key) and plug the usb cable
