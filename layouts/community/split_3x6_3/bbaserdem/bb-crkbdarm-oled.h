@@ -12,17 +12,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
+#include "bbaserdem.h"
 
-// Kyria specific
-#ifdef KEYBOARD_splitkb_kyria_rev1
-    // Split definition; use the following to flash;
-    //  pro-micro:      avrdude-split-left/right
-    //  elite-c:        dfu-split-left/right
-    #define ENCODER_DIRECTION_FLIP
-    #define EE_HANDS
-
-    // Make sure kyria has bigger oled display
-    #ifdef OLED_ENABLE
-    #define OLED_DISPLAY_128X64
-    #endif
-#endif
+// These are protorne specific functions to be called for drawing
+void render_status_left(void);
+void render_status_right(void);

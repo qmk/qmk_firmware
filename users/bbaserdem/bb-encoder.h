@@ -20,12 +20,6 @@
     #include "velocikey.h"
 #endif
 
-<<<<<<< HEAD
-=======
-// Code to print status string
-void encoder_state_string(uint8_t index, uint8_t layer, char* buffer);
-void encoder_state_string_long(uint8_t index, uint8_t layer, char* buffer);
->>>>>>> 22164b4450 (Updated OLED code)
 // Hook to encoder stuff
 bool encoder_update_user(uint8_t index, bool clockwise);
 // Complicated code for what the encoder keys do when pressed

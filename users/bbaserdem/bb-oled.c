@@ -155,6 +155,7 @@ void render_keymap(uint8_t row, uint8_t col, bool isLite) {
         oled_advance_page(true);
     }
 }
+#endif // !KEYBOARD_splitkb_kyria_rev1
 
 // Writes the currently used OLED display layout
 #ifdef RGB_MATRIX_ENABLE
