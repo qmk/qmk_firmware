@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x4712
 #define DEVICE_VER   0x0001
 #define MANUFACTURER KiwiKeebs
-#define PRODUCT      MacroBoard v.1.0
+#define PRODUCT      MacroBoard v.2.0
 
 /* key matrix size */
 #define MATRIX_ROWS 2
