@@ -1,0 +1,18 @@
+{
+  "keyboard_name": "BNR1",
+  "url": "https://binepad.com",
+  "maintainer": "binepad",
+  "width": 1,
+  "height": 1,
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {
+          "label": "K0",
+          "x": 0,
+          "y": 0
+        }
+      ]
+    }
+  }
+}
