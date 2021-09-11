@@ -150,7 +150,7 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "RESET",
+      "KC_DEL",
       "RGB_TOG",
       "RGB_HUI",
       "RGB_SAI",
