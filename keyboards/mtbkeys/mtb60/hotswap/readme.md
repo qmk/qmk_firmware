@@ -10,21 +10,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-```sh
     make mtbkeys/mtb60/hotswap:default
-```
 
 Flashing example for this keyboard:
 
-```sh
     make mtbkeys/mtb60/hotswap:default:flash
-```
-
-QMK example for this keyboard (after setting up your build enivrionment):
-
-```sh
-    qmk compile -kb mtbkeys/mtb60/hotswap -km default
-```
 
 ## Bootloader
 
