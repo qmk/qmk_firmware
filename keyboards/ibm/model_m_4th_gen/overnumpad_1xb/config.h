@@ -23,7 +23,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER IBM/Purdea Andrei
 #define PRODUCT IBM Model M (4th generation)
-#define DESCRIPTION QMK firmware for 4th generation IBM Model M keyboards with a replacement Overnumpad controller
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
 /* key matrix size */
