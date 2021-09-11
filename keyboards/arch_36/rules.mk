@@ -20,7 +20,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306    # Enables the use of OLED displays
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes       # Split common
 
