@@ -223,9 +223,9 @@ const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
     )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (!is_keyboard_master())
-    return;
+    return true;
 
 #ifdef RGB_OLED_MENU
   if (index == RGB_OLED_MENU) {
@@ -244,6 +244,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (keycode != KC_TRANSPARENT)
       tap_code16(keycode);
   }
+    return true;
 }
 #endif
 
@@ -297,7 +298,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // OLED Driver Logic
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master())
     return OLED_ROTATION_270;

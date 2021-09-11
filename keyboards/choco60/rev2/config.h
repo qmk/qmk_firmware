@@ -29,7 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C5, C4, B6, B7, C7 }
 #define MATRIX_ROW_PINS_RIGHT { D3, D2, D5, D6, B0 }
-#define MATRIX_COL_PINS { C6, B4, B3, B2, B1, B0 }
+/* The last three NO_PIN are dummies to make the same size as MATRIX_ROW_PINS_RIGHT. */
+#define MATRIX_COL_PINS { C6, B4, B3, B2, B1, B0, NO_PIN, NO_PIN, NO_PIN }
 #define MATRIX_COL_PINS_RIGHT { C7, B7, B6, B5, B4, B3, B2, C6, D4 }
 #define UNUSED_PINS
 

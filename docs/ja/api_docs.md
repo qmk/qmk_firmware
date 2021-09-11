@@ -1,8 +1,8 @@
 # QMK API
 
 <!---
-  original document: 0.9.50:docs/api_docs.md
-  git diff 0.9.50 HEAD -- docs/api_docs.md | cat
+  original document: 0.13.15:docs/api_docs.md
+  git diff 0.13.15 HEAD -- docs/api_docs.md | cat
 -->
 
 このページは QMK API の使い方を説明します。もしあなたがアプリケーション開発者であれば、全ての [QMK](https://qmk.fm) キーボードのファームウェアをコンパイルするために、この API を使うことができます。

@@ -82,5 +82,5 @@ fi
 	-e SKIP_GIT="$SKIP_GIT" \
 	-e MAKEFLAGS="$MAKEFLAGS" \
 	-e USER="" \
-	qmkfm/base_container \
+	qmkfm/qmk_cli \
 	make "$keyboard${keymap:+:$keymap}${target:+:$target}"

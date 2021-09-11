@@ -410,7 +410,7 @@ const key_string_map_t jp_ascii1 = {
 
 const key_string_map_t jp_keys2 = {
   .start_kc = JP_BSLS,
-  .end_kc = JP_MEISU,
+  .end_kc = KC_LANG2,
   .key_strings =
     "BSLS\0"
     "KANA\0"
@@ -424,7 +424,7 @@ const key_string_map_t jp_keys2 = {
 
 const key_string_map_t jp_ascii2 = {
   .start_kc = JP_BSLS,
-  .end_kc = JP_MEISU,
+  .end_kc = KC_LANG2,
   .key_strings =
     "\0" // "BSLS\0"
     "\0" // "KANA\0"

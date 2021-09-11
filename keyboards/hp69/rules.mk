@@ -3,12 +3,12 @@ MCU = STM32F303
 BOARD = QMK_PROTON_C
 
 # Bootloader selection
-BOOTLOADER = atmel-dfu
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug

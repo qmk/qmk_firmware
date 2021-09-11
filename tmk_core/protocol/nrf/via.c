@@ -171,6 +171,12 @@ void raw_hid_receive_bmp(uint8_t *data, uint8_t length) {
     raw_hid_receive_kb(data, length);
 }
 
+void eeconfig_init_via(void) { }
+
+bool via_eeprom_is_valid(void) { return true; }
+
+void via_eeprom_set_valid(bool valid) { }
+
 void via_eeprom_reset(void) { xprintf("<via>eeprom reset: not implemented\n"); }
 
 uint32_t via_get_layout_options(void) {

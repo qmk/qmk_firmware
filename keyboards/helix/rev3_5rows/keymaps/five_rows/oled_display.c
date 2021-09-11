@@ -35,9 +35,9 @@ void init_helix_oled(void) {
 }
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#if defined(SSD1306OLED) || defined(OLED_DRIVER_ENABLE)
+#if defined(SSD1306OLED) || defined(OLED_ENABLE)
 
-#    if defined(OLED_DRIVER_ENABLE)
+#    if defined(OLED_ENABLE)
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_0;
@@ -163,6 +163,10 @@ void render_status(void) {
 }
 
 #    ifdef SSD1306OLED
+#        if OLED_UPDATE_INTERVAL > 0
+uint16_t oled_update_timeout;
+#        endif
+
 void iota_gfx_task_user(void) {
     struct CharacterMatrix matrix;
 
@@ -172,6 +176,12 @@ void iota_gfx_task_user(void) {
     }
 #        endif
 
+#if      OLED_UPDATE_INTERVAL > 0
+    if (timer_elapsed(oled_update_timeout) < OLED_UPDATE_INTERVAL) {
+        return;
+    }
+    oled_update_timeout = timer_read();
+#endif
     matrix_clear(&matrix);
     if (is_keyboard_master()) {
         render_status(&matrix);
