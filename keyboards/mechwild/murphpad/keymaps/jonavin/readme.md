@@ -1,6 +1,7 @@
 Jonavin's Custom MurphPad Landscape Layout
  
-This allows you to use Murphpad in a horizontal/landscape orientation with extra layers
+This allows you to use Murphpad in a horizontal/landscape orientation with extra layers.  
+#define LANDSCAPE_MODE in config.h to use landscape mode, otherwise traditional vertical numpad layout also has similar featureset
 
     - OLED has been rotated for landscape mode 
     - Keymap positions have been updated so it's easier to visualize the keymap in landscape 
@@ -25,9 +26,9 @@ Special Features
 
         static const keycodedescType PROGMEM keyselection[] = {
             // list of key codes that will be scrollled through by encoder and description
-                {"TASK",    KC_TASK},
-                {"INS",     KC_INS},
-                {"DEL",     KC_DEL},
+                {"TASK ",    KC_TASK},
+                {"INS  ",     KC_INS},
+                {"DEL  ",     KC_DEL},
                 {"PrtSc",   KC_PSCR},
                 {"ScrLk",   KC_SCLN},
                 {"Break",   KC_PAUS},
@@ -49,7 +50,7 @@ rules.mk OPTIONS - Active features from userspace
     - STARTUP_NUMLOCK_ON = yes
         - turns on NUMLOCK by default
 
-DEFAULT MAPPING
+DEFAULT MAPPING FOR LANDSCAPE
 
 ![image](https://user-images.githubusercontent.com/71780717/131718965-b20afef6-3bc5-49e4-952f-5755a9d6d539.png)
 
@@ -62,4 +63,10 @@ FN1 Layer 1
 RGB Layer 5 - Use Shift+Encoder to get to RGB layer 5
 
 ![image](https://user-images.githubusercontent.com/71780717/131719492-e2d05a75-3a7a-48ca-94a3-faa3ff891914.png)
+
+
+
+NORMAL NUMPAD / NON-LANDSCAPE MAPPING
+
+![image](https://user-images.githubusercontent.com/71780717/132959297-808c0fbf-444d-4836-bd31-2393e2847ef5.png)
 
