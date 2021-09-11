@@ -21,15 +21,15 @@
 /*
 FULL 10x10 ROUND-ROBIN MATRIX for Reference
 
-{ KC_NO, k01,   k02,   k03,   k04,   k05,   k06,   k07,   k08,   k0a   }, \
-{ k10,   KC_NO, k12,   k13,   k14,   k15,   k16,   k17,   k18,   k1a   }, \
-{ k20,   k21,   KC_NO, k23,   k24,   k25,   k26,   k27,   k28,   k2a   }, \
-{ k30,   k31,   k32,   KC_NO, k34,   k35,   k36,   k37,   k38,   k3a   }, \
-{ k40,   k41,   k42,   k43,   KC_NO, k45,   k46,   k47,   k48,   k4a   }, \
-{ k50,   k51,   k52,   k53,   k54,   KC_NO, k56,   k57,   k58,   k5a   }, \
-{ k60,   k61,   k62,   k63,   k64,   k65,   KC_NO, k67,   k68,   k6a   }, \
-{ k70,   k71,   k72,   k73,   k74,   k75,   k76,   KC_NO, k78,   k7a   }, \
-{ k80,   k81,   k82,   k83,   k84,   k85,   k86,   k87,   KC_NO, k8a   }, \
+{ KC_NO, k01,   k02,   k03,   k04,   k05,   k06,   k07,   k08,   k09   }, \
+{ k10,   KC_NO, k12,   k13,   k14,   k15,   k16,   k17,   k18,   k19   }, \
+{ k20,   k21,   KC_NO, k23,   k24,   k25,   k26,   k27,   k28,   k29   }, \
+{ k30,   k31,   k32,   KC_NO, k34,   k35,   k36,   k37,   k38,   k39   }, \
+{ k40,   k41,   k42,   k43,   KC_NO, k45,   k46,   k47,   k48,   k49   }, \
+{ k50,   k51,   k52,   k53,   k54,   KC_NO, k56,   k57,   k58,   k59   }, \
+{ k60,   k61,   k62,   k63,   k64,   k65,   KC_NO, k67,   k68,   k69   }, \
+{ k70,   k71,   k72,   k73,   k74,   k75,   k76,   KC_NO, k78,   k79   }, \
+{ k80,   k81,   k82,   k83,   k84,   k85,   k86,   k87,   KC_NO, k89   }, \
 { k90,   k91,   k92,   k93,   k94,   k95,   k96,   k97,   k98,   KC_NO } \
 
 */
