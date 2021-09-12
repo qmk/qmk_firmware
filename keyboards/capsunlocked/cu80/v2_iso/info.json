@@ -2,8 +2,6 @@
   "manufacturer": "CapsUnlocked",
   "keyboard_name": "CapsUnlocked CU80 v2 ISO",
   "maintainer": "rys / maz0r",
-  "height": 6.5,
-  "width": 18.25,
   "bootloader": "atmel-dfu",
   "debounce": 5,
   "diode_direction": "COL2ROW",

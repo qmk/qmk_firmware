@@ -2,8 +2,6 @@
     "keyboard_name": "alix40",
     "url": "https://tokyokeyboard.com/",
     "maintainer": "qmk", 
-    "width": 12,
-    "height": 4,
     "layouts": {
         "LAYOUT_40_alix": {
             "layout": [{

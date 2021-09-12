@@ -2,8 +2,6 @@
     "keyboard_name": "GMMK Pro (ANSI)",
     "url": "https://www.pcgamingrace.com/products/glorious-gmmk-pro-75-barebone-black-reservation",
     "maintainer": "GloriousThrall",
-    "width": 16.5,
-    "height": 6.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

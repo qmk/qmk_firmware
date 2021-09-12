@@ -19,6 +19,5 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
 LAYOUTS = ortho_4x12
 UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 NO_SUSPEND_POWER_DOWN = yes
 UNICODEMAP_ENABLE = no

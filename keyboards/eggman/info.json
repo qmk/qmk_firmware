@@ -2,8 +2,6 @@
     "keyboard_name": "eggman", 
     "url": "", 
     "maintainer": "qpockets", 
-    "width": 11.5, 
-    "height": 5, 
     "layouts": {
         "LAYOUT_default": {
             "layout": [

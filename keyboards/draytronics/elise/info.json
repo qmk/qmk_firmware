@@ -2,8 +2,6 @@
     "keyboard_name": "Draytronics ELISE",
     "url": "https://www.draytronics.co.uk/elise",
     "maintainer": "ghostseven",
-    "width": 16,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_65_ansi_right_lrg": "LAYOUT_65_ansi_rwkl",
         "LAYOUT_65_ansi_left_lrg": "LAYOUT_65_ansi_lwkl",

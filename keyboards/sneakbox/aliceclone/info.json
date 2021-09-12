@@ -2,8 +2,6 @@
   "keyboard_name": "Alice Clone",
   "url": "https://sneakbox.design",
   "maintainer": "mujimanic",
-  "width": 18.25,
-  "height": 5,
   "layouts": {
       "LAYOUT_alice_split_bs": {
           "layout": [
