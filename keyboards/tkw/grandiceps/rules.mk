@@ -19,7 +19,6 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes        # Enable rotary encoder support
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 

@@ -2,8 +2,6 @@
     "keyboard_name": "Nomu30",
     "url": "https://keys.recompile.net/projects/nomu30/",
     "maintainer": "takai",
-    "width": 11.5,
-    "height": 3,
     "layouts": {
         "LAYOUT": {
             "layout": [

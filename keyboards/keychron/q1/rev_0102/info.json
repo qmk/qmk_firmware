@@ -2,8 +2,6 @@
     "keyboard_name": "Keychron Q1", 
     "url": "https://github.com/Keychron", 
     "maintainer": "lalalademaxiya1", 
-    "width": 16.25, 
-    "height": 6.5, 
     "layouts": {
         "LAYOUT_iso_83": {
             "layout": [

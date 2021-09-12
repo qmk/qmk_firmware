@@ -2,8 +2,6 @@
     "keyboard_name": "m0116 usb", 
     "url": "https://github.com/kb-elmo/m0116_usb", 
     "maintainer": "kb-elmo", 
-    "width": 19.25, 
-    "height": 6.15, 
     "layouts": {
         "LAYOUT": {
             "layout": [
