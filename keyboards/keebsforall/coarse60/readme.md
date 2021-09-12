@@ -1,19 +1,16 @@
-# ProjectKeyboard Alice PCB
+# Coarse60
+### seh0nky x KeebsForAll 
 
-ProjectKeyboard Alice Keyboard Replacement PCB
+A beginner-friendly aluminum alice inspired keyboard. The Coarse60 aims to provide a seamless aluminum keyboard with premium features for an affordable price.
 
-Keyboard Maintainer: onefiftynine
+![coarse60](https://i.imgur.com/L6dw2xKh.jpg)
 
-Hardware Supported: STM32F072CBT6  
+Hardware Supported: seh0nky x KeebsForAll Coarse60  
+Keyboard Maintainer: [e11i0t23](https://github.com/e11i0t23)  
+Keyboard Availabilty: [keebsforall](https://keebsforall.com)   
+
 Make example for this keyboard (after setting up your build environment):
 
-    make projectkb/alice/rev2:default
-
-If you are flashing this keyboard/pcb for the first time:
-
-    * Set the dip switch on the reverse of the PCB to 1
-    * Hit the reset button and then do
-    * make projectkb/alice:default:dfu-util
-    * After flashing the keyboard successfully, you can reset the dip switch back to 0
+    make keebsforall/coarse60:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
