@@ -40,6 +40,7 @@ enum charybdis_keycodes {
     DPI_CONFIG = SAFE_RANGE,
     SNIPER_CONFIG,
     DRAG_SCROLL,
+    SNIPING,
     KEYMAP_SAFE_RANGE,
 };
 

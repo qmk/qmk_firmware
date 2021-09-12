@@ -133,6 +133,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             }
         break;
         
+        case SNIPING:
+            is_sniper_on ^= 1;
+            trigger_sniper();
+        break;
+
         case DRAG_SCROLL:
 #ifdef CHARYBDIS_DRAGSCROLL_TOGGLE
             if (record->event.pressed)
