@@ -7,3 +7,4 @@ NKRO_ENABLE = yes            # USB Nkey Rollover
 
 VIA_ENABLE = yes
 VIAL_ENABLE = yes
+QMK_SETTINGS = no
