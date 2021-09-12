@@ -2,8 +2,6 @@
     "keyboard_name": "chromatonemini",
     "url": "https://github.com/3araht/chromatonemini",
     "maintainer": "3araht",
-    "width": 21.5,
-    "height": 4.5,
     "layouts": {
         "LAYOUT": {
             "layout": [
