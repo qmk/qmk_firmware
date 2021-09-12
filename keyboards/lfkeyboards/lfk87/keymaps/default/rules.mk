@@ -3,7 +3,7 @@
 #   the appropriate keymap folder that will get included automatically
 #
 
-BOOTMAGIC_ENABLE = no           # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no            # Mouse keys
 EXTRAKEY_ENABLE = yes           # Audio control and System control
 CONSOLE_ENABLE = no             # Console for debug
@@ -13,7 +13,6 @@ BACKLIGHT_ENABLE = yes           # Enable keyboard backlight functionality
 MIDI_ENABLE = no                # MIDI controls
 AUDIO_ENABLE = yes              # Audio output on port C6
 UNICODE_ENABLE = no             # Unicode
-BLUETOOTH_ENABLE = no           # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes           # Enable RGB underlight
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
 SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend

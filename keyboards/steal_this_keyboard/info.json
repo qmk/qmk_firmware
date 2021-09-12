@@ -2,8 +2,6 @@
     "keyboard_name": "steal this keyboard",
     "url": "https://github.com/obosob/steal_this_keyboard",
     "maintainer": "@obosob",
-    "width": 12,
-    "height": 4.75,
     "layouts": {
         "LAYOUT": {
             "layout": [

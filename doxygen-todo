@@ -21,7 +21,6 @@ quantum/tools
 quantum/visualizer
 quantum/visualizer/resources
 drivers
-drivers/avr
 drivers/ugfx
 drivers/ugfx/gdisp
 drivers/ugfx/gdisp/is31fl3731c
