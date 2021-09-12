@@ -235,7 +235,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         #endif
         uint8_t mods_state = get_mods();
         switch (index) {
-            case 0:         // This is the only encoder right now, keeping for consistency
+        case 0:         // This is the only encoder right now, keeping for consistency
             switch(get_highest_layer(layer_state)){  // special handling per layer
             case _FN1:  // on Fn layer select what the encoder does when pressed
                 if (!mods_state) {
@@ -243,6 +243,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                     break;
                 } else {
                         // continue to default
+                }
+            case _RGB:
+                if (!mods_state) {
+                    encoder_action_rgb_hue(clockwise);
+                    break;
                 }
             default:   // all other layers
                 if (mods_state & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, encoder changes layers

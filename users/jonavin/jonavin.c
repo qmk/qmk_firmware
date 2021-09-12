@@ -160,6 +160,70 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
         }
     }
+
+    #ifdef RGB_MATRIX_ENABLE
+        void encoder_action_rgb_speed(bool clockwise) {
+            if (clockwise)
+                rgb_matrix_increase_speed_noeeprom();
+            else
+                rgb_matrix_decrease_speed_noeeprom();
+        }
+        void encoder_action_rgb_hue(bool clockwise) {
+            if (clockwise)
+                rgb_matrix_increase_hue_noeeprom();
+            else
+                rgb_matrix_decrease_hue_noeeprom();
+        }
+        void encoder_action_rgb_saturation(bool clockwise) {
+            if (clockwise)
+                rgb_matrix_increase_sat_noeeprom();
+            else
+                rgb_matrix_decrease_sat_noeeprom();
+        }
+        void encoder_action_rgb_brightness(bool clockwise) {
+            if (clockwise)
+                rgb_matrix_increase_val_noeeprom();
+            else
+                rgb_matrix_decrease_val_noeeprom();
+        }
+        void encoder_action_rgb_mode(bool clockwise) {
+            if (clockwise)
+                rgb_matrix_step_noeeprom();
+            else
+                rgb_matrix_step_reverse_noeeprom();
+        }
+    #elif defined(RGBLIGHT_ENABLE)
+        void encoder_action_rgb_speed(bool clockwise) {
+            if (clockwise)
+                rgblight_increase_speed_noeeprom();
+            else
+                rgblight_decrease_speed_noeeprom();
+        }
+        void encoder_action_rgb_hue(bool clockwise) {
+            if (clockwise)
+                rgblight_increase_hue_noeeprom();
+            else
+                rgblight_decrease_hue_noeeprom();
+        }
+        void encoder_action_rgb_saturation(bool clockwise) {
+            if (clockwise)
+                rgblight_increase_sat_noeeprom();
+            else
+                rgblight_decrease_sat_noeeprom();
+        }
+        void encoder_action_rgb_brightness(bool clockwise) {
+            if (clockwise)
+                rgblight_increase_val_noeeprom();
+            else
+                rgblight_decrease_val_noeeprom();
+        }
+        void encoder_action_rgb_mode(bool clockwise) {
+            if (clockwise)
+                rgblight_step_noeeprom();
+            else
+                rgblight_step_reverse_noeeprom();
+        }
+    #endif // RGB_MATRIX_ENABLE || RGBLIGHT_ENABLE
 #endif // ENCODER_ENABLE
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_DEFAULTACTIONS_ENABLE)       // Encoder Functionality
