@@ -62,16 +62,13 @@ Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen, fo
 
 Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.
 
-|`config.h` Overrride    |Description                                                                                |Default|
-|------------------------|-------------------------------------------------------------------------------------------|-------|
-|`I2C_DRIVER`            |I2C peripheral to use - I2C1 -> `I2CD1`, I2C2 -> `I2CD2` etc.                              |`I2CD1`|
-|`I2C1_BANK` (deprecated)|The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`), superseded by `I2C1_SCL_BANK`/`I2C1_SDA_BANK`|`GPIOB`|
-|`I2C1_SCL_BANK`         |The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) to use for SCL                                |`GPIOB`|
-|`I2C1_SCL`              |The pin number for SCL (0-15)                                                              |`6`    |
-|`I2C1_SCL_PAL_MODE`     |The alternate function mode for SCL                                                        |`4`    |
-|`I2C1_SDA_BANK`         |The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) to use for SDA                                |`GPIOB`|
-|`I2C1_SDA`              |The pin number for SDA (0-15)                                                              |`7`    |
-|`I2C1_SDA_PAL_MODE`     |The alternate function mode for SDA                                                        |`4`    |
+|`config.h` Overrride    |Description                                                   |Default|
+|------------------------|--------------------------------------------------------------|-------|
+|`I2C_DRIVER`            |I2C peripheral to use - I2C1 -> `I2CD1`, I2C2 -> `I2CD2` etc. |`I2CD1`|
+|`I2C1_SCL_PIN`          |The pin definition for SCL                                    |`B6`   |
+|`I2C1_SCL_PAL_MODE`     |The alternate function mode for SCL                           |`4`    |
+|`I2C1_SDA_PIN`          |The pin definition for SDA                                    |`B7`   |
+|`I2C1_SDA_PAL_MODE`     |The alternate function mode for SDA                           |`4`    |
 
 The following configuration values depend on the specific MCU in use.
 
