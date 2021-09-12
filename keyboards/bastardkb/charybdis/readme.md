@@ -98,3 +98,4 @@ By default the auto sniping layer is 4 (`MOUSE` layer), you can redefine it as s
 #define CHARYBDIS_AUTO_SNIPER_LAYER 5
 ```
 
+You can also use the `SNIPING` keycode to your keymap, that will activate sniping mode on hold.
