@@ -19,10 +19,10 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = yes      # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 CUSTOM_MATRIX = yes
 DEBUG_ENABLE = yes
-BLUETOOTH = AdafruitBLE
+BLUETOOTH_ENABLE = yes
+BLUETOOTH_DRIVER = AdafruitBLE
 
 SRC += matrix.c mcp23017.c

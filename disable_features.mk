@@ -1,7 +1,6 @@
 # Unconditionally disable features that a keyboard advertises it doesn't support
 
 FEATURE_NAMES :=
-FEATURE_NAMES += ADAFRUIT_BLE
 FEATURE_NAMES += AUDIO
 FEATURE_NAMES += BACKLIGHT
 FEATURE_NAMES += BLUETOOTH
