@@ -31,8 +31,8 @@ enum planck_keycodes {
   QWERTY,
 };
 
-#define SYM MO(_SYM)
-#define NUM LT(MO(_NUM), KC_BSPC)
+#define SYM LT(MO(_SYM), KC_BSPC)
+#define NUM LT(MO(_NUM), KC_ENT)
 #define ADJU MO(_ADJUST)
 #define NAV LT(MO(_NAVIGATION), KC_DEL)
 #define LT_TAB LT(MO(_NAVIGATION), KC_TAB)
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BR_TILD,
     LT_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_C,    BR_ACUT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  BR_SLSH, KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LGUI, SYM,     NAV,        KC_SPC,        NUM,     SYM,     KC_RGUI, KC_RALT, LT(KC_RCTL, KC_ENT)
+    KC_LCTL, KC_LALT, KC_LGUI, SYM,     NAV,         KC_SPC,       NUM,     SYM,     KC_RGUI, KC_RALT, RCTL_T(KC_ENT)
 ),
 
 //workman ok
@@ -52,21 +52,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    BR_SCLN, BR_TILD,
     LT_TAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    BR_ACUT,
     KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  BR_SLSH, KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LGUI, SYM,     NAV,        KC_SPC,        NUM,     SYM,     KC_RGUI, KC_RALT, LT(KC_RCTL, KC_ENT)
+    KC_LCTL, KC_LALT, KC_LGUI, SYM,     NAV,         KC_SPC,       NUM,     SYM,     KC_RGUI, KC_RALT, RCTL_T(KC_ENT)
 ),
 
 [_NAVIGATION] = LAYOUT_planck_mit(
-    _______, _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______,
+    _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______,
     _______, _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_ENT,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
-    _______, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PAST, KC_PENT,
-    _______, _______, _______, _______, _______,    _______,       ADJU,    KC_NO,   KC_PDOT, KC_PSLS, KC_PEQL
+    _______, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, KC_NO,   KC_NO,   KC_BSPC, KC_DEL,  _______, _______, _______,
+    _______, _______, _______, _______, _______,     _______,      ADJU,    _______, KC_MPRV, KC_MPLY, KC_MNXT
 ),
 
 [_SYM] = LAYOUT_planck_mit(
     BR_DQUO, BR_EXLM, BR_AT,   BR_HASH, BR_DLR,  BR_PERC, BR_DIAE, BR_AMPR, BR_ASTR, BR_LPRN, BR_RPRN, BR_UNDS,
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   BR_MINS, BR_PLUS, BR_LBRC, BR_RBRC, BR_BSLS,
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, BR_LCBR, BR_RCBR, _______,
-    _______, _______, _______, _______, _______, _______, ADJU, KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY
+    _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
 ),
 
 
