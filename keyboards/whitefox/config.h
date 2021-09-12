@@ -72,9 +72,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
 #define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
-#define I2C1_BANK GPIOB
-#define I2C1_SCL 0
-#define I2C1_SDA 1
+#define I2C1_SCL_PIN B0
+#define I2C1_SDA_PIN B1
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is useful for the Windows task manager shortcut (ctrl+shift+esc).

@@ -27,24 +27,11 @@
 #include <ch.h>
 #include <hal.h>
 
-#ifdef I2C1_BANK
-#    define I2C1_SCL_BANK I2C1_BANK
-#    define I2C1_SDA_BANK I2C1_BANK
+#ifndef I2C1_SCL_PIN
+#    define I2C1_SCL_PIN B6
 #endif
-
-#ifndef I2C1_SCL_BANK
-#    define I2C1_SCL_BANK GPIOB
-#endif
-
-#ifndef I2C1_SDA_BANK
-#    define I2C1_SDA_BANK GPIOB
-#endif
-
-#ifndef I2C1_SCL
-#    define I2C1_SCL 6
-#endif
-#ifndef I2C1_SDA
-#    define I2C1_SDA 7
+#ifndef I2C1_SDA_PIN
+#    define I2C1_SDA_PIN B7
 #endif
 
 #ifdef USE_I2CV1

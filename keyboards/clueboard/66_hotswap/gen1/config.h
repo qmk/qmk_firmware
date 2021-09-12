@@ -77,8 +77,8 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define LED_DRIVER_ADDR_1 0b1110100
-#define I2C1_SCL 8
-#define I2C1_SDA 9
+#define I2C1_SCL_PIN B8
+#define I2C1_SDA_PIN B9
 
 #define LED_DRIVER_COUNT 1
 #define DRIVER_LED_TOTAL 71
