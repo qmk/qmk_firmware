@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_FN2] = LAYOUT_landscape(
         _______,  _______, RESET,
 
-        _______,  _______,  _______,  _______, _______,     _______,
+        _______,  _______,  KC_MPLY,  KC_MPRV, KC_MNXT,     _______,
         _______,  _______,  _______,  _______, _______,     _______,
         _______,  _______,  _______,  _______, _______,     _______,
         _______,  _______,  _______,  _______, _______,     _______,
@@ -104,8 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TT(_FN1), KC_P1,   KC_P2,   KC_P3,   KC_PENT,
         KC_RALT,  KC_P0,   _______, KC_PDOT, _______,
 
-				          KC_F5,   KC_F6,   KC_F7
-
+				          TT(_FN3), TT(_FN4), TT(_RGB)
     ),
     [_FN1] = LAYOUT(
                   _______, _______, _______, RESET,
@@ -116,18 +115,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_BSPC, _______, KC_DEL,  _______,
 
                   _______, _______, _______
-
     ),
     [_FN2] = LAYOUT(
                   _______, _______, _______, _______,
-                  _______, _______, _______, _______,
-                  _______, _______, _______, _______,
-        RESET,  _______, _______, _______, _______,
+                  _______, _______, KC_MPLY, KC_MPRV,
+                  _______, _______, _______, KC_MNXT,
+        RESET,    _______, _______, _______, _______,
         _______,  _______, _______, _______, _______,
         _______,  _______, _______, _______, _______,
 
                   _______, _______, _______
-
     ),
 	  [_FN3] = LAYOUT(
                   _______, _______, _______, _______,
@@ -138,7 +135,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______, _______, _______,
 
                   _______, _______, _______
-
     ),
 	[_FN4] = LAYOUT(
                   _______, _______, _______, _______,
@@ -149,8 +145,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______, _______, _______,
 
                   _______, _______, _______
-
-    ),    [_RGB] = LAYOUT(
+    ),
+    [_RGB] = LAYOUT(
                  _______,  _______, _______, _______,
                  _______,  _______, _______, _______,
                  RGB_HUD,  RGB_SPI, RGB_HUI, _______,
@@ -159,7 +155,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, RGB_SAD,  _______, RGB_SAI, _______,
 
                  _______,  _______, _______
-
     ),
 };
 #endif // !LANDSCAPE_MODE
@@ -172,14 +167,14 @@ typedef struct {
 static const keycodedescType PROGMEM keyselection[] = {
     // list of key codes that will be scrolled through by encoder and description
         {"TASK ",   KC_TASK},
-        {"INS  ",   KC_INS},
-        {"DEL  ",   KC_DEL},
-        {"PrtSc",   KC_PSCR},
+        {"PREV ",   KC_MEDIA_PREV_TRACK},
+        {"NEXT ",   KC_MEDIA_NEXT_TRACK},
+        {"PLAY ",   KC_MEDIA_PLAY_PAUSE},
+        {"PrtScm",  KC_PSCR},
         {"ScrLk",   KC_SCLN},
         {"Break",   KC_PAUS},
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
-        {"PLAY ",   KC_MEDIA_PLAY_PAUSE},
         {"RESET",   RESET},   // firmware flash mode
 };
 

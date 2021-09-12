@@ -8,12 +8,12 @@ This allows you to use Murphpad in a horizontal/landscape orientation with extra
         [_BASE] = LAYOUT_landscape(
             TT(_FN1), TT(_FN2), KC_MUTE,
 
-        KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_BSPC,
-        KC_TAB,   KC_P7,    KC_P8,   KC_P9,   KC_PDOT,      KC_RGUI,
-        KC_RSFT,  KC_P4,    KC_P5,   KC_P6,   KC_COMMA,     KC_RCTL,
-        KC_P0,    KC_P1,    KC_P2,   KC_P3,   KC_PENT,      KC_RALT,
+            KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_BSPC,
+            KC_TAB,   KC_P7,    KC_P8,   KC_P9,   KC_PDOT,      KC_RGUI,
+            KC_RSFT,  KC_P4,    KC_P5,   KC_P6,   KC_COMMA,     KC_RCTL,
+            KC_P0,    KC_P1,    KC_P2,   KC_P3,   KC_PENT,      KC_RALT,
 
-                    _______, _______, _______
+                        _______, _______, _______
         ),
 
 NOTE:  VIA is enabled, but it will show it in the normal orientation until I build a landscape layout version
@@ -25,16 +25,17 @@ Special Features
 
         static const keycodedescType PROGMEM keyselection[] = {
             // list of key codes that will be scrollled through by encoder and description
-                {"TASK",    KC_TASK},
-                {"INS",     KC_INS},
-                {"DEL",     KC_DEL},
-                {"PrtSc",   KC_PSCR},
-                {"ScrLk",   KC_SCLN},
-                {"Break",   KC_PAUS},
-                {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
-                {"AltF4",   KC_AF4},
-                {"PLAY",    KC_MEDIA_PLAY_PAUSE},
-                {"RESET",   RESET},  // firmware flash mode
+            {"TASK ",   KC_TASK},
+            {"PREV ",   KC_MEDIA_PREV_TRACK},
+            {"NEXT ",   KC_MEDIA_NEXT_TRACK},
+            {"PLAY ",   KC_MEDIA_PLAY_PAUSE},
+            {"PrtScm",  KC_PSCR},
+            {"ScrLk",   KC_SCLN},
+            {"Break",   KC_PAUS},
+            {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
+            {"AltF4",   KC_AF4},
+            {"RESET",   RESET},   // firmware flash mode
+
           };
 
   - Additional encoder functionality
