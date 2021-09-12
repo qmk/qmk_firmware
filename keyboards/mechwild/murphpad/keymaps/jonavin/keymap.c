@@ -401,6 +401,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     #endif // !LANDSCAPE_MODE
 
     void suspend_power_down_user(void) {  // shutdown oled when powered down to prevent OLED from showing Mercutio all the time
-      oled_off();
+        oled_off();
+        rgblight_disable_noeeprom();
+    }
+
+    void suspend_wakeup_init_user(void) {
+        rgblight_enable_noeeprom();
     }
 #endif
