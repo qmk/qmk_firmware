@@ -49,7 +49,7 @@ rules.mk OPTIONS - Active features from userspace
     - STARTUP_NUMLOCK_ON = yes
         - turns on NUMLOCK by default
 
-DEFAULT MAPPING
+DEFAULT LANDSCAPE MAPPING 
 
 ![image](https://user-images.githubusercontent.com/71780717/131718965-b20afef6-3bc5-49e4-952f-5755a9d6d539.png)
 
@@ -59,7 +59,18 @@ FN1 Layer 1
 ![image](https://user-images.githubusercontent.com/71780717/131719025-d41cbcd9-80b1-4a0a-abb5-55d878752dc6.png)
 
 
+FN2 Layer 2
+
+![image](https://user-images.githubusercontent.com/71780717/132967003-63268514-2ac3-4069-bca1-6d92992ca403.png)
+
+
 RGB Layer 5 - Use Shift+Encoder to get to RGB layer 5
 
 ![image](https://user-images.githubusercontent.com/71780717/131719492-e2d05a75-3a7a-48ca-94a3-faa3ff891914.png)
+
+--------------
+
+NORMAL / TRADITIONAL NON-LANDSCAPE NUMPAD LAYOUT
+
+![image](https://user-images.githubusercontent.com/71780717/132966975-3b463fb4-059f-42c5-b8b3-a3d35f4a0d6b.png)
 
