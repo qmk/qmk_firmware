@@ -49,7 +49,11 @@ If you'd like more control over your macros you can use curly brace syntax to se
 | `{tap,KC_1,KC_2}` | Type a chord, which sends a down event for each key followed by an up event for each key. You can include as many comma separated keycodes as you need here. |
 | `{delay,500}` | Insert a delay before typing the next keycode. This is specified in miliseconds (ms). You will not be able to type on your keyboard during this period. |
 
-## Using Macros in K Keymaps
+### Escaping macro strings
+
+If you need to include a string that would normally be matched by one of the above rules you can place a single `\` in front of the opening curly bracket. This will tell the macro processor to skip this macro. Do not put a `\` in front of the closing bracket.
+
+## Using Macros in C Keymaps
 
 ### `SEND_STRING()` & `process_record_user`
 
