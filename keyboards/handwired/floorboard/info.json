@@ -2,8 +2,6 @@
     "keyboard_name": "Floorboard",
     "url": "https://imgur.com/gJLgwQI",
     "maintainer": "Kevin Lockwood",
-    "width": 12,
-    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "J-01",
     "url": "https://prototypist.net/",
     "maintainer": "Flexerm",
-    "width": 19,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

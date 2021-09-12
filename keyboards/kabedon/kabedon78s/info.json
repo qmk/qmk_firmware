@@ -2,8 +2,6 @@
     "keyboard_name": "KabeDon78s", 
     "url": "", 
     "maintainer": "370490639", 
-    "width": 22.25, 
-    "height": 6.25, 
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -115,5 +113,3 @@
         }
     }
 }
-
-

@@ -2,11 +2,8 @@
   "keyboard_name": "Planck rev 1",
   "url": "https://olkb.com/planck",
   "maintainer": "jackhumbert",
-  "width": 12,
-  "height": 4,
   "layouts": {
     "LAYOUT_planck_1x2uC": {
-      "key_count": 47,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },
@@ -58,7 +55,6 @@
       ]
     },
     "LAYOUT_ortho_4x12": {
-      "key_count": 48,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },

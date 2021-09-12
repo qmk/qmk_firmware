@@ -3,8 +3,6 @@
     "keyboard_folder": "dumbpad/v0x_dualencoder",
     "url": "https://www.github.com/imchipwood/dumbpad",
     "maintainer": "imchipwood",
-    "width": 4,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

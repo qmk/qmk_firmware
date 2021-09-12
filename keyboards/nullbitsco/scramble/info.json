@@ -2,8 +2,6 @@
     "keyboard_name": "SCRAMBLE switch tester",
     "url": "https://nullbits.co/scramble",
     "maintainer": "jaygreco",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

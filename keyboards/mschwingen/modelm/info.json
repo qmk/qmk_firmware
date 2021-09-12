@@ -2,8 +2,6 @@
     "keyboard_name": "atmega32U4 board for IBM Model M",
     "url": "",
     "maintainer": "mschwingen",
-    "width": 23,
-    "height": 7,
     "layouts": {
         "LAYOUT": {
             "layout": [
