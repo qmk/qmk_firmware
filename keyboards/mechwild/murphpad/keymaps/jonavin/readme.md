@@ -35,7 +35,6 @@ Special Features
             {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
             {"AltF4",   KC_AF4},
             {"RESET",   RESET},   // firmware flash mode
-
           };
 
   - Additional encoder functionality
