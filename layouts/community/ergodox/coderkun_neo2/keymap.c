@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "led.h"
+#include "keymap_extras/keymap_german.h"
 #include "keymap_extras/keymap_neo2.h"
 
 // Layer names
