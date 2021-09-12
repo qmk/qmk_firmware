@@ -69,6 +69,14 @@ enum custom_user_keycodes {
 
     uint8_t get_selected_layer(void);
     void encoder_action_layerchange(bool clockwise);
+
+    #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
+        void encoder_action_rgb_speed(bool clockwise);
+        void encoder_action_rgb_hue(bool clockwise);
+        void encoder_action_rgb_saturation(bool clockwise);
+        void encoder_action_rgb_brightness(bool clockwise);
+        void encoder_action_rgb_mode(bool clockwise);
+    #endif // RGB_MATRIX_ENABLE / RGBLIGHT_ENABLE
 #endif // ENCODER_ENABLE
 
 
@@ -93,25 +101,6 @@ enum custom_user_keycodes {
     void timeout_update_threshold(bool increase);
     void timeout_tick_timer(void);
 #endif  //IDLE_TIMEOUT_ENABLE
-
-
-// ENCODER ACTIONS
-#ifdef ENCODER_ENABLE
-    void encoder_action_volume(bool clockwise);
-    void encoder_action_mediatrack(bool clockwise);
-    void encoder_action_navword(bool clockwise);
-    void encoder_action_navpage(bool clockwise);
-    uint8_t get_selected_layer(void);
-    void encoder_action_layerchange(bool clockwise);
-
-    #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
-        void encoder_action_rgb_speed(bool clockwise);
-        void encoder_action_rgb_hue(bool clockwise);
-        void encoder_action_rgb_saturation(bool clockwise);
-        void encoder_action_rgb_brightness(bool clockwise);
-        void encoder_action_rgb_mode(bool clockwise);
-    #endif // RGB_MATRIX_ENABLE / RGBLIGHT_ENABLE
-#endif // ENCODER_ENABLE
 
 
 // OTHER FUNCTION PROTOTYPE
