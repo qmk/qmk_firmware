@@ -348,7 +348,6 @@
 
 #ifdef MIDI_ENABLE
 #   define MIDI_ADVANCED
-#   define MIDI_TONE_KEYCODE_OCTAVES 6
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
