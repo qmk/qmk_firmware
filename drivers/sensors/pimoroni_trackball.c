@@ -16,7 +16,9 @@
  */
 #include "pimoroni_trackball.h"
 #include "i2c_master.h"
+#ifdef TRACKBALL_DEBUG
 #include "print.h"
+#endif
 
 #ifndef PIMORONI_TRACKBALL_ADDRESS
 #    define PIMORONI_TRACKBALL_ADDRESS 0x0A

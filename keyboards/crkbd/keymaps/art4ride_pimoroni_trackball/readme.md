@@ -1,0 +1,1 @@
+This is a single keymap file for left and right parts so in order to enable trackball you need to uncomment lines 2-7 in rules.mk file for the right part firmware (trackball installed on the right side)
