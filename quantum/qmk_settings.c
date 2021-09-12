@@ -175,3 +175,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     return QS.tapping & 8;
 }
+
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    return QS.combo_term;
+}

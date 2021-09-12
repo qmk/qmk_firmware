@@ -55,7 +55,7 @@ static void reload_tap_dance(void);
 #endif
 
 #ifdef VIAL_COMBO_ENABLE
-static void init_combo(void);
+static void reload_combo(void);
 #endif
 
 void vial_init(void) {
@@ -63,7 +63,7 @@ void vial_init(void) {
     reload_tap_dance();
 #endif
 #ifdef VIAL_COMBO_ENABLE
-    init_combo();
+    reload_combo();
 #endif
 }
 
@@ -246,6 +246,7 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 vial_combo_entry_t entry;
                 memcpy(&entry, &msg[4], sizeof(entry));
                 msg[0] = dynamic_keymap_set_combo(idx, &entry);
+                reload_combo();
                 break;
             }
 #endif
@@ -493,22 +494,23 @@ static void reload_tap_dance(void) {
 
 #ifdef VIAL_COMBO_ENABLE
 combo_t key_combos[VIAL_COMBO_ENTRIES];
+uint16_t key_combos_keys[VIAL_COMBO_ENTRIES][5];
 
-static void init_combo(void) {
+static void reload_combo(void) {
+    /* initialize with all keys = COMBO_END */
+    memset(key_combos_keys, 0, sizeof(key_combos_keys));
+    memset(key_combos, 0, sizeof(key_combos));
+
+    /* reload from eeprom */
     for (size_t i = 0; i < VIAL_COMBO_ENTRIES; ++i) {
-        key_combos[i].keys = (void*)(uintptr_t)i;
+        uint16_t *seq = key_combos_keys[i];
+        key_combos[i].keys = seq;
+
+        vial_combo_entry_t entry;
+        if (dynamic_keymap_get_combo(i, &entry) == 0) {
+            memcpy(seq, entry.input, sizeof(entry.input));
+            key_combos[i].keycode = entry.output;
+        }
     }
 }
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-    vial_combo_entry_t entry;
-    if (dynamic_keymap_get_combo(combo_index, &entry) != 0)
-        return;
-
-    if (pressed)
-        vial_keycode_down(entry.output);
-    else
-        vial_keycode_up(entry.output);
-}
-
 #endif
