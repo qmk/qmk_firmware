@@ -57,3 +57,6 @@
 
 // If board has a debug LED, you can enable it by defining this
 // #define DEBUG_LED_PIN F7
+
+/* PMW3360 Settings */
+#define PMW3360_CS_PIN             B0
