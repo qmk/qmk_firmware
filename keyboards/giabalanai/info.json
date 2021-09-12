@@ -2,7 +2,7 @@
     "keyboard_name": "giabalanai",
     "url": "https://github.com/3araht",
     "maintainer": "3araht",
-    "width": 28.5,
+    "width": 29,
     "height": 5,
     "layouts": {
         "LAYOUT": {
@@ -34,6 +34,8 @@
               {"label": "l1b", "x": 11.5, "y": 1},
 
               {"label": "r20", "x": 14.5, "y": 1},
+              {"label": "ccw", "x": 27, "y": 1},
+              {"label": "cw",  "x": 28, "y": 1},
 
               {"label": "l20", "x": 1,  "y": 2},
               {"label": "l21", "x": 2,  "y": 2},
