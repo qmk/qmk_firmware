@@ -139,6 +139,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                     } else {
                            // continue to default
                     }
+                case _RGB:
+                    if (!mods_state) {
+                        encoder_action_rgb_hue(clockwise);
+                        break;
+                    }
                 default:   // all other layers
                     if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
                         encoder_action_layerchange(clockwise);
