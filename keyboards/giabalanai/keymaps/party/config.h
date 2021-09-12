@@ -4,7 +4,7 @@
 /* PARTY_REACTIVE_FOCUSED_MODE
  * Enable 'RGB_MATRIX_CUSTOM_USER = yes' in rules.mk when below is enabled.
  * Or vice versa in order to shrink the firmware size. */
-#define PARTY_REACTIVE_FOCUSED_MODE
+// #define PARTY_REACTIVE_FOCUSED_MODE
 
 #ifdef PARTY_REACTIVE_FOCUSED_MODE
 
