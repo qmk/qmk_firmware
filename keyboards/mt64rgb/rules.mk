@@ -7,7 +7,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no      # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -21,7 +21,6 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes     # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3733
 
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = 64_ansi

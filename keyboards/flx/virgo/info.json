@@ -2,8 +2,6 @@
     "keyboard_name": "FLX Virgo",
     "url": "",
     "maintainer": "qmk",
-    "width": 20.25,
-    "height": 6.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

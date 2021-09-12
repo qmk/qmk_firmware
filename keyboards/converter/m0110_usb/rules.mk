@@ -5,19 +5,12 @@ MCU = atmega32u4
 F_CPU = 8000000
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = caterina
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE  = no   # Mouse keys
 CONSOLE_ENABLE   = yes  # Console for debug
 COMMAND_ENABLE   = no   # Commands for debug and configuration

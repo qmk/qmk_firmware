@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         M(KC_CAPS), M(KC_A),  M(KC_S), M(KC_D), M(KC_F), M(KC_G),
         KC_LSFT,    M(KC_Z),  M(KC_X), M(KC_C), M(KC_V), M(KC_B), MO(SYMB),
         KC_LCTL,    KC_LALT,  KC_LGUI, KC_LEFT, KC_RGHT,
-                                                         KC_TRNS, KC_FN1,
+                                                         KC_TRNS, F(1),
                                                                   KC_HOME,
                                                 KC_BSPC, KC_DEL,  KC_END,
         // right hand
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                               KC_FN3, KC_FN2,
+                                               F(3),   F(2),
                                                        KC_TRNS,
                                        KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO,
-                                                    KC_FN4,  KC_NO,
+                                                    F(4),    KC_NO,
                                                              KC_TRNS,
                                            KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand

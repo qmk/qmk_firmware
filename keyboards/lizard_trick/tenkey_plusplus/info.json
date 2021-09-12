@@ -2,8 +2,6 @@
     "keyboard_name": "tenkey_plusplus",
     "url": "https://github.com/jonbobcar/tenkey_plusplus",
     "maintainer": "Jonathon Carstens",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
