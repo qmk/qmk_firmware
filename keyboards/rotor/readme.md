@@ -1,6 +1,6 @@
 # Rotor
 
-![Rotor](https://imgur.com/NfWdlzF)
+![Rotor](https://i.imgur.com/NfWdlzF.png)
 
 A 75 percent keyboard 
 
