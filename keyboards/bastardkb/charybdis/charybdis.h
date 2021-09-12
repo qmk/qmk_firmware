@@ -20,8 +20,10 @@
 #include "quantum.h"
 #include "pointing_device.h"
 
-#if defined(KEYBOARD_bastardkb_charybdis_nano)
-#    include "nano.h"
+#if defined(KEYBOARD_bastardkb_charybdis_3x5)
+#    include "3x5.h"
+#elif defined(KEYBOARD_bastardkb_charybdis_4x6)
+#    include "4x6.h"
 #endif
 
 
