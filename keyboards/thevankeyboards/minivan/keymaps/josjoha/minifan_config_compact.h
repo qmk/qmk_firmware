@@ -68,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define ARROWS_TRIANGLE 
 //#define VI_SWITCHERYDOO 
 
-//#define NUMPAD_COMMON_SQUARE 
+  #define NUMPAD_COMMON_SQUARE 
 
   #define SPEED_COUNTDOWN 25 
   #define SPEED_HUE_STEP 8 
