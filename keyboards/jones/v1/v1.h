@@ -30,17 +30,17 @@ FULL 10x10 ROUND-ROBIN MATRIX for Reference
 { k60,   k61,   k62,   k63,   k64,   k65,   KC_NO, k67,   k68,   k69   }, \
 { k70,   k71,   k72,   k73,   k74,   k75,   k76,   KC_NO, k78,   k79   }, \
 { k80,   k81,   k82,   k83,   k84,   k85,   k86,   k87,   KC_NO, k89   }, \
-{ k90,   k91,   k92,   k93,   k94,   k95,   k96,   k97,   k98,   KC_NO } \
+{ k90,   k91,   k92,   k93,   k94,   k95,   k96,   k97,   k98,   KC_NO }  \
 
 */
 
 /* Keys on 6th row are used with rotary encoder. */
 #define LAYOUT( \
-      k09, k59, k08, k54, k04, k50, k56, k06, k05, k52, k02, k53, k07, k51, k01, \
-        k19,  k69, k18, k64, k14, k60, k10, k16, k15, k62, k12, k63, k17,  k61,  \
-        k29,  k79, k28, k74, k24, k70, k20, k26, k25, k72, k23, k73, k27,  k71,  \
-      k39, k89, k38, k84, k34, k80, k30, k36, k35, k82, k32, k83, k37, k81, k31, \
-      k49, k98,  k48,  k94,   k90,    k46, k45,    k92, k42, k93, k47, k91, k41, \
+      k09, k59, k08, k54, k04, k50, k56, k06, k05, k52, k02, k53, k07, k51, k01,  \
+        k19,  k69, k18, k64, k14, k60, k10, k16, k15, k62, k12, k63, k17,  k61,   \
+        k29,  k79, k28, k74, k24, k70, k20, k26, k25, k72, k23, k73, k27,  k71,   \
+      k39, k89, k38, k84, k34, k80, k30, k36, k35, k82, k32, k83, k37, k81, k31,  \
+      k49, k98,  k48,  k94,   k90,    k46, k45,    k92, k42, k93, k47, k91, k41,  \
     k85, k86,                                                            k95, k96 \
 ) \
 { \
@@ -53,5 +53,5 @@ FULL 10x10 ROUND-ROBIN MATRIX for Reference
     { k60,   k61,   k62,   k63,   k64,   KC_NO, KC_NO, KC_NO, KC_NO, k69,  }, \
     { k70,   k71,   k72,   k73,   k74,   KC_NO, KC_NO, KC_NO, KC_NO, k79,  }, \
     { k80,   k81,   k82,   k83,   k84,   k85,   k86,   KC_NO, KC_NO, k89,  }, \
-    { k90,   k91,   k92,   k93,   k94,   k95,   k96,   KC_NO, k98,   KC_NO } \
+    { k90,   k91,   k92,   k93,   k94,   k95,   k96,   KC_NO, k98,   KC_NO }  \
 }
