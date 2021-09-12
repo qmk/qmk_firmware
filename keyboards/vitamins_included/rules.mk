@@ -7,7 +7,6 @@ MCU = atmega32u4
 #
 AUDIO_ENABLE        = yes  # Audio output on port C6
 BACKLIGHT_ENABLE    = no   # Enable keyboard backlight functionality
-BLUETOOTH_ENABLE    = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMMAND_ENABLE      = no   # Commands for debug and configuration
 CONSOLE_ENABLE      = no   # Console for debug
