@@ -1,9 +1,7 @@
 {
     "keyboard_name": "Unicomp Mini M",
     "maintainer": "stevendlander",
-    "height": 7.5,
     "url": "",
-    "width": 15.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,9 +1,7 @@
 {
     "keyboard_name": "PLX",
     "maintainer": "2Moons",
-    "height": 7.25,
     "url": "https://peac.design/",
-    "width": 18,
     "layouts": {
         "LAYOUT": {
             "layout": [

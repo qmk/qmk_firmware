@@ -2,8 +2,6 @@
     "keyboard_name": "rabbit_capture_plan",
     "url": "https://kakunpc.booth.pm/",
     "maintainer": "kakunpc",
-    "width": 20.25,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
