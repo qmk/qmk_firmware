@@ -1,30 +1,37 @@
 # Quantum Mechanical Keyboard Firmware
 
-[![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
-[![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
-[![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
-[![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
-[![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
+## O que é firmware QMK?
 
-## O que é o firmware QMK?
-QMK (*Quantum Mechanical Keyboard*) é uma comunidade de código aberto que mantém o QMK Firmware, o QMK Toolbox, qmk.fm e suas documentações. O QMK Firmware é um software embarcado ("firmware") de teclado baseado no [tmk\_keyboard](https://github.com/tmk/tmk_keyboard) com alguns recursos úteis para os controladores Atmel AVR e, mais especificamente, na [linha de produtos OLKB](https://olkb.com), o teclado [ErgoDox EZ](https://www.ergodox-ez.com) e a [linha de produtos Clueboard](https://clueboard.co/). Também foi portado para chips ARM usando o ChibiOS. Você pode usá-lo no seu próprio teclado com fio ou personalizado.
+QMK (*Quantum Mechanical Keyboard*) é uma comunidade de código aberto centrada no desenvolvimento de dispositivos de entrada de computador. A comunidade abrange todos os tipos de dispositivos de entrada, como teclados, mouses e dispositivos MIDI. Um grupo principal de colaboradores mantém [QMK Firmware](https://github.com/qmk/qmk_firmware), [QMK Configurator](https://config.qmk.fm), [QMK Toolbox](https://github.com/qmk/qmk_toolbox), [qmk.fm](https://qmk.fm) e esta documentação com a ajuda de membros da comunidade como você.
 
-## Como obter e usar o QMK
+## Como iniciar
 
-Se você planeja contribuir com um _keymap_ ("mapa de teclas"), teclado ou recursos para o QMK, o jeito mais fácil é [percorrer o repositório através do GitHub](https://github.com/qmk/qmk_firmware#fork-destination-box) e clonar seu repositório localmente para fazer suas alterações, dê um _push_ nelas e abra uma [_Pull request_](https://github.com/qmk/qmk_firmware/pulls) no seu fork.
+<div class = "flex-container">
 
-Caso contrário, você pode cloná-lo diretamente com `git clone https://github.com/qmk/qmk_firmware`. Não faça o download dos arquivos zip ou tar; é necessário um repositório git para baixar os submódulos para compilar.
+?> **Básico** [QMK Configurator](pt-br/newbs_building_firmware_configurator.md) <br>
+Interfaces gráficas amigáveis ​​ao usuário, nenhum conhecimento de programação necessário.
 
-## Como compilar
+?> **Avançado** [Use o codigo fonte](pt-br/newbs.md) <br>
+Mais poderoso, porém difícil de usar.
 
-Antes de compilar, você precisará [instalar um ambiente específico](getting_started_build_tools.md) para o desenvolvimento em plataforma AVR e/ou ARM; vez que isto for feito, você usará o comando `make` para criar um teclado e um mapa de teclas com a seguinte notação:
+</div>
 
-    make planck/rev4:default
+## Faça você mesmo
 
-Isso compilaria a revisão `rev4` do teclado ` planck` com o mapa de teclas `default`. Nem todos os teclados têm revisões (também chamadas de _subprojects_ ou _folders_); nesse caso, a revisão pode ser omitida:
+O QMK tem muitos recursos para explorar e uma boa quantidade de documentação de referência para pesquisar. A maioria dos recursos são aproveitados modificando seu [keymap](keymap.md) e alterando os [keycodes](keycodes.md).
 
-    make preonic:default
+## Preciso de ajuda?
 
-## Como personalizar
+Verifique a [página de suporte](pt-br/support.md) para ver como você pode obter ajuda usando QMK.
 
-O QMK tem muitos [recursos](features.md) para explorar e uma boa quantidade de [documentação de referência](https://docs.qmk.fm) para explorar. A maioria dos recursos é aproveitada modificando seu [keymap](keymap.md) e alterando os [keycodes](keycodes.md).
+## Contribua
+
+Existem várias maneiras de contribuir com a Comunidade QMK. A maneira mais fácil de começar é usá-lo e espalhar a palavra para seus amigos.
+
+* Ajude as pessoas em nossos fóruns e salas de chat:
+    * [/r/olkb](https://www.reddit.com/r/olkb/)
+    * [Servidor Discord](https://discord.gg/Uq7gcHh)
+* Contribua com a nossa documentação clicando em "Editar esta página" na parte inferior
+* [Traduza nossa documentação para o seu idioma](translating.md)
+* [Reportar um bug](https://github.com/qmk/qmk_firmware/issues/new/choose)
+* [Abra uma solicitação pull request](contributing.md)

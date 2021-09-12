@@ -1,10 +1,11 @@
-* [Complete Newbs Guide](pt-br/newbs.md)
-  * [Getting Started](pt-br/newbs_getting_started.md)
+* Tutorial
+  * [Introduction](pt-br/newbs.md)
+  * [Setup](pt-br/newbs_getting_started.md)
   * [Building Your First Firmware](pt-br/newbs_building_firmware.md)
   * [Flashing Firmware](pt-br/newbs_flashing.md)
-  * [Testing and Debugging](pt-br/newbs_testing_debugging.md)
-  * [Git Best Practices](pt-br/newbs_best_practices.md)
-  * [Learning Resources](pt-br/newbs_learn_more_resources.md)
+  * [Getting Help/Support](pt-br/support.md)
+  * [Other Resources](pt-br/newbs_learn_more_resources.md)
+  * [Syllabus](pt-br/syllabus.md)
 
 * [QMK Basics](pt-br/README.md)
   * [QMK Introduction](pt-br/getting_started_introduction.md)
