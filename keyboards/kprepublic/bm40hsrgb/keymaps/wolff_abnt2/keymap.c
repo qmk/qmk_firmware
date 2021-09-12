@@ -32,27 +32,28 @@ enum planck_keycodes {
 };
 
 #define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
+#define RAISE LT(MO(_RAISE), KC_BSPC)
 #define NUM MO(_NUMPAD)
 #define ADJU MO(_ADJUST)
-#define NAV MO(_NAVIGATION)
+#define NAV LT(MO(_NAVIGATION), KC_DEL)
+#define LT_TAB LT(MO(_NAVIGATION), KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //qwerty ok
 [_QWERTY] = LAYOUT_planck_mit(
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BR_TILD,
-    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_C,    BR_ACUT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  BR_SLSH,    KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LGUI, NUM, LT(NAV, KC_DEL),   KC_SPC,  LT(RAISE, KC_BSPC), LOWER,  KC_RGUI, KC_RALT, LT(KC_RCTL, KC_ENT)
+    LT_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_C,    BR_ACUT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  BR_SLSH, KC_RSFT,
+    KC_LCTL, KC_LALT, KC_LGUI, NUM, NAV,   KC_SPC,  RAISE, LOWER,  KC_RGUI, KC_RALT, LT(KC_RCTL, KC_ENT)
 ),
 
 //workman ok
 [_WORKMAN] = LAYOUT_planck_mit(
     KC_ESC,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    BR_SCLN,    BR_TILD,
-    KC_TAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    BR_ACUT,
+    LT_TAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    BR_ACUT,
     KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  BR_SLSH,    KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LGUI, NUM, LT(NAV, KC_DEL),   KC_SPC,  LT(RAISE, KC_BSPC), LOWER,  KC_RGUI, KC_RALT, LT(KC_RCTL, KC_ENT)
+    KC_LCTL, KC_LALT, KC_LGUI, NUM, NAV,   KC_SPC,  RAISE, LOWER,  KC_RGUI, KC_RALT, LT(KC_RCTL, KC_ENT)
 ),
 
 //lower ok
