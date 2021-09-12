@@ -22,11 +22,8 @@
 extern "C" {
 #endif
 
-#include <stdint.h>
-
-#ifdef FLASH_STM32_MOCKED
-extern uint8_t FlashBuf[MOCK_FLASH_SIZE];
-#endif
+#include <ch.h>
+#include <hal.h>
 
 typedef enum { FLASH_BUSY = 1, FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_ERROR_OPT, FLASH_COMPLETE, FLASH_TIMEOUT, FLASH_BAD_ADDRESS } FLASH_Status;
 
