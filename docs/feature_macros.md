@@ -14,12 +14,14 @@ You can define macros in a `keymap.json` file,  as used by [Configurator](newbs_
     "keymap":"my_keymap",
     "layout":"LAYOUT_all",
     "macros": [
+            "Hello, World!",
+            "Ding!\a",
             "{down,KC_LSFT}hello world1{up,KC_LSFT}",
             "{tap,KC_LCTL,KC_LALT,KC_DEL}",
             "{tap,KC_F1}{delay,1000}{tap,KC_PGDN}"
     ],
     "layers":[
-        ["MACRO_0", "MACRO_1", "MACRO_2"]
+        ["MACRO_0", "MACRO_1", "MACRO_2", "MACRO_3", "MACRO_4"]
     ]
 }
 ```
