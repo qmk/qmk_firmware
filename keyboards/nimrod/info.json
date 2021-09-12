@@ -2,8 +2,6 @@
     "keyboard_name": "Nimrod",
     "url": "http://www.keyboard-layout-editor.com/#/gists/5a6b4ee1ca9738c4ed90fe95ef35fdf6",
     "maintainer": "Breadtamer",
-    "width": 12.5,
-    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x10": {
             "layout": [

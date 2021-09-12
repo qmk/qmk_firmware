@@ -2,8 +2,6 @@
   "keyboard_name": "The Nines",
   "url": "https://www.qlavier.com/",
   "maintainer": "Ungodly Design",
-  "width": 3,
-  "height": 3,
   "layouts": {
     "LAYOUT_ortho_3x3": {
       "layout": [

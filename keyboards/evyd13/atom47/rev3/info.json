@@ -2,8 +2,6 @@
     "keyboard_name": "Atom47 rev3", 
     "url": "", 
     "maintainer": "evyd13", 
-    "width": 13, 
-    "height": 4, 
     "layouts": {
         "LAYOUT_split_space": {
             "layout": [

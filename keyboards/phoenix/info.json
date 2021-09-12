@@ -2,9 +2,6 @@
     "keyboard_name": "Phoenix",
     "url": "ergokb.tw",
     "maintainer": "ErgoKB via lschyi",
-    "width": 17,
-    "height": 8,
-
     "layouts": {
         "LAYOUT_ergodox": {
             "layout": [
