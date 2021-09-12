@@ -2,8 +2,6 @@
     "keyboard_name": "sedan",
     "url": "www.clawboards.xyz",
     "maintainer": "AAClawson (AlisGraveNil)",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

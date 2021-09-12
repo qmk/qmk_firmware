@@ -27,11 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYOUT( \
 	         K01,       \
 	  K10,   K11,  K12, \
-	  K20,   K21,  K22  \
+      K20,   K21,  K22  \
 ) { \
 	{ KC_NO, K01,  KC_NO }, \
 	{ K10,   K11,  K12 },   \
-	{ K20,   K21,  K22 }    \
+    { K20,   K21,  K22 }    \
 }
-
-#define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)

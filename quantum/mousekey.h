@@ -170,11 +170,12 @@ extern uint8_t mk_wheel_interval;
 extern uint8_t mk_wheel_max_speed;
 extern uint8_t mk_wheel_time_to_max;
 
-void mousekey_task(void);
-void mousekey_on(uint8_t code);
-void mousekey_off(uint8_t code);
-void mousekey_clear(void);
-void mousekey_send(void);
+void           mousekey_task(void);
+void           mousekey_on(uint8_t code);
+void           mousekey_off(uint8_t code);
+void           mousekey_clear(void);
+void           mousekey_send(void);
+report_mouse_t mousekey_get_report(void);
 
 #ifdef __cplusplus
 }

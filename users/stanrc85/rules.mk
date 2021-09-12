@@ -36,3 +36,9 @@ ifeq ($(strip $(KEYBOARD)), jacky_studio/bear_65)
   RGB_MATRIX_ENABLE = yes
   RGBLIGHT_ENABLE = no
 endif
+ifeq ($(strip $(KEYBOARD)), tkc/portico)
+  SRC += rgb_timeout.c
+endif
+ifeq ($(strip $(KEYBOARD)), kiwikey/wanderland)
+  SRC += rgb_timeout.c
+endif
