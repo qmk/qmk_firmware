@@ -2,8 +2,6 @@
     "keyboard_name": "The Mark: 65",
     "url": "",
     "maintainer": "Boardsource",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
