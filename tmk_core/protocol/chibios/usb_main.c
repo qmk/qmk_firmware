@@ -122,7 +122,7 @@ static const USBEndpointConfig kbd_ep_config = {
     KEYBOARD_EPSIZE,       /* IN maximum packet size */
     0,                     /* OUT maximum packet size */
     &kbd_ep_state,         /* IN Endpoint state */
-#    ifndef MCU_HT32
+#    ifndef HT32
     NULL, /* OUT endpoint state */
     2,    /* IN multiplier */
     NULL  /* SETUP buffer (not a SETUP endpoint) */
@@ -145,7 +145,7 @@ static const USBEndpointConfig mouse_ep_config = {
     MOUSE_EPSIZE,          /* IN maximum packet size */
     0,                     /* OUT maximum packet size */
     &mouse_ep_state,       /* IN Endpoint state */
-#    ifndef MCU_HT32
+#    ifndef HT32
     NULL, /* OUT endpoint state */
     2,    /* IN multiplier */
     NULL  /* SETUP buffer (not a SETUP endpoint) */
@@ -168,7 +168,7 @@ static const USBEndpointConfig shared_ep_config = {
     SHARED_EPSIZE,         /* IN maximum packet size */
     0,                     /* OUT maximum packet size */
     &shared_ep_state,      /* IN Endpoint state */
-#    ifndef MCU_HT32
+#    ifndef HT32
     NULL, /* OUT endpoint state */
     2,    /* IN multiplier */
     NULL  /* SETUP buffer (not a SETUP endpoint) */
@@ -250,7 +250,7 @@ typedef struct {
                 .ob          = (__attribute__((aligned(4))) uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY, stream##_EPSIZE)]){}, \
             }                                                                                                                   \
         }
-#elif defined(MCU_HT32)
+#elif defined(HT32)
 #    define QMK_USB_DRIVER_CONFIG(stream, notification, fixedsize)                                                                     \
         {                                                                                                                              \
             .queue_capacity_in = stream##_IN_CAPACITY, .queue_capacity_out = stream##_OUT_CAPACITY,                                    \
