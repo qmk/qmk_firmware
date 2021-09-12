@@ -1,6 +1,7 @@
 """Functions that help you work with QMK keymaps.
 """
 import json
+import re
 import sys
 from pathlib import Path
 from subprocess import DEVNULL
@@ -29,6 +30,9 @@ __KEYMAP_GOES_HERE__
 };
 
 """
+
+# Compiled regexes
+macro_cmd_re = re.compile(r'\{(delay|down|tap|up),([0-9A-Z_,]+)\}')
 
 
 def template_json(keyboard):
@@ -193,6 +197,9 @@ def generate_c(keyboard, layout, layers, macros):
 
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
+
+        macros
+            A sequence of strings containing macros to implement for this keyboard.
     """
     new_keymap = template_c(keyboard)
     layer_txt = []
@@ -213,9 +220,39 @@ def generate_c(keyboard, layout, layers, macros):
             '        switch (keycode) {',
         ]
 
-        for i, macro in enumerate(macros):
+        for i, orig_macro in enumerate(macros):
+            macro = orig_macro.replace('"', r'\"')
+            macro = f'"{macro}"'
+
+            for command_args in reversed(list(macro_cmd_re.finditer(macro))):
+                raw_string = command_args.group()
+                if macro[command_args.start() - 1] == '\\':
+                    macro = macro[:command_args.start() - 1] + macro[command_args.start():]
+                    continue
+
+                command, args = raw_string[1:-1].split(',', 1)
+                args = args.split(',')
+                newstring = []
+
+                if command == 'tap' and len(args) > 1:
+                    for arg in args:
+                        newstring.append(f'SS_DOWN(X_{arg[3:]})')
+
+                    for arg in reversed(args):
+                        newstring.append(f'SS_UP(X_{arg[3:]})')
+
+                else:
+                    for arg in args:
+                        if arg.startswith('KC_'):
+                            arg = f'X_{arg[3:]}'
+
+                        newstring.append(f'SS_{command.upper()}({arg})')
+
+                macro = ''.join((macro[:command_args.start()], f'"{"".join(newstring)}"', macro[command_args.end():]))
+                macro = macro.replace('""', '')
+
             macro_txt.append(f'            case MACRO_{i}:')
-            macro_txt.append(f'                SEND_STRING("{macro}");')
+            macro_txt.append(f'                SEND_STRING({macro});')
             macro_txt.append('                return false;')
 
         macro_txt.append('        }')
