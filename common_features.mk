@@ -753,7 +753,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         $(error "$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
     endif
     OPT_DEFS += -DBLUETOOTH_ENABLE
-    OPT_DEFS += -DNO_USB_STARTUP_CHECK
+    NO_USB_STARTUP_CHECK := yes
     SRC += outputselect.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), AdafruitBLE)
