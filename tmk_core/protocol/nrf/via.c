@@ -57,7 +57,7 @@ static inline uint8_t dynamic_keymap_get_layer_count() {
 
     uint8_t layer = DYNAMIC_KEYMAP_MAX_LEN / keymap_info.keynum;
 
-    return layer > 0 ? layer : 1;
+    return layer < 32 ? layer : 32;
 }
 
 static inline void dynamic_keymap_get_buffer(uint16_t offset, uint16_t size,
