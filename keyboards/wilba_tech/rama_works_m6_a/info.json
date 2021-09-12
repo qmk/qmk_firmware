@@ -2,8 +2,6 @@
   "keyboard_name": "RAMA WORKS M6-A",
   "url": "http://rama.works",
   "maintainer": "Wilba",
-  "width": 3,
-  "height": 2,
   "layouts": {
     "LAYOUT": {
       "layout": [

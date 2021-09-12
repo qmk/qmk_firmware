@@ -18,7 +18,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = 60_ansi 60_ansi_arrow 60_ansi_tsangan 60_tsangan_hhkb 60_ansi_split_bs_rshift 60_iso 60_iso_split_bs_rshift 60_iso_tsangan

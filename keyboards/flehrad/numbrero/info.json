@@ -2,8 +2,6 @@
   "keyboard_name": "Numbrero",
   "url": "",
   "maintainer": "Flehrad",
-  "width": 5,
-  "height": 5,
   "layouts": {
     "LAYOUT_numbrero_numpad": {
       "layout": [
