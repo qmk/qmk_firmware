@@ -66,6 +66,8 @@ You will need to install Homebrew. Follow the instructions on https://brew.sh.
 
 Install the QMK CLI by running:
 
+    brew tap osx-cross/arm
+    brew tap osx-cross/avr
     brew install qmk/qmk/qmk
 
 ### ** Linux/WSL **
