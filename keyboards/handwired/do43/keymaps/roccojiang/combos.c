@@ -24,7 +24,7 @@ enum combos {
 };
 
 const uint16_t PROGMEM bsp_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM scln_combo[] = {KC_L, KC_ENT, COMBO_END};
+const uint16_t PROGMEM scln_combo[] = {KC_L, LT(_FN, KC_ENT), COMBO_END};
 const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM eql_combo[] = {KC_P, KC_QUOT, COMBO_END};
 
