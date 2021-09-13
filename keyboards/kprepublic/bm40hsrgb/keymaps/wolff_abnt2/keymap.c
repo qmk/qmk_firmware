@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //navigation and utility layer ok
 [_NAV] = LAYOUT_planck_mit(
     KC_TRNS, _______, _______, _______, _______, _______, _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_VOLU,
-    _______, _______, _______, _______, _______, BR_QUOT, KC_ENT,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_VOLD,
+    _______, _______, _______, _______, BR_QUOT, _______, KC_ENT,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_VOLD,
     KC_TRNS, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, _______, _______, KC_BSPC, KC_DEL,  _______, _______, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, _______, _______,     _______,      LT(_NUM, KC_BSPC), _______, KC_MPRV, KC_MPLY, KC_MNXT
 ),
