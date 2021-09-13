@@ -5,9 +5,9 @@ A beginner-friendly aluminum alice inspired keyboard. The Coarse60 aims to provi
 
 ![coarse60](https://i.imgur.com/L6dw2xKh.jpg)
 
-Hardware Supported: seh0nky x KeebsForAll Coarse60  
-Keyboard Maintainer: [e11i0t23](https://github.com/e11i0t23)  
-Keyboard Availabilty: [keebsforall](https://keebsforall.com)   
+* Hardware Supported: seh0nky x KeebsForAll Coarse60
+* Keyboard Maintainer: [e11i0t23](https://github.com/e11i0t23)
+* Keyboard Availabilty: [keebsforall](https://keebsforall.com) 
 
 Make example for this keyboard (after setting up your build environment):
 
