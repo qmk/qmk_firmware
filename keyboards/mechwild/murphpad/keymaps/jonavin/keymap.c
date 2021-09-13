@@ -235,7 +235,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         #endif
         uint8_t mods_state = get_mods();
         switch (index) {
-        case 0:         // This is the only encoder right now, keeping for consistency
+        case 0:   // main primary encoder
             switch(get_highest_layer(layer_state)){  // special handling per layer
             case _FN1:  // on Fn layer select what the encoder does when pressed
                 if (!mods_state) {
@@ -262,6 +262,17 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 break;
             }
             break;
+        case 1:      // optional secondary encoder
+            switch(get_highest_layer(layer_state)){  // special handling per layer
+            case _RGB:
+                if (!mods_state) {
+                    encoder_action_rgb_mode(clockwise);
+                    break;
+                }
+            default:   // all other layers
+                encoder_action_mediatrack(clockwise);   // Otherwise prev/next track
+                break;
+            }
         }
         return true;
     }
