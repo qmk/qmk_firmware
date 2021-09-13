@@ -18,7 +18,35 @@
         },
         "macros": {
             "type": "array",
-            "items": {"type": "string"}
+            "items": {
+                "type": "array",
+                "items": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "action": {
+                                    "type": "string",
+                                    "enum": ['delay', 'ding', 'down', 'tap', 'up']
+                                },
+                                "keycodes": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "qmk.definitions.v1#/text_identifier"
+                                    }
+                                },
+                                "duration": {
+                                    "$ref": "qmk.definitions.v1#/unsigned_int"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
         },
         "config": {"$ref": "qmk.keyboard.v1"},
         "notes": {
