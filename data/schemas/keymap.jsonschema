@@ -5,6 +5,7 @@
     "type": "object",
     "properties": {
         "author": {"type": "string"},
+        "host_language": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "layout": {"$ref": "qmk.definitions.v1#/layout_macro"},
