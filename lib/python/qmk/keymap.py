@@ -223,39 +223,36 @@ def generate_c(keymap_json):
             '        switch (keycode) {',
         ]
 
-        for i, orig_macro in enumerate(keymap_json['macros']):
-            macro = orig_macro.replace('"', r'\"')
-            macro = f'"{macro}"'
+        for i, macro_array in enumerate(keymap_json['macros']):
+            macro = []
+            for macro_fragment in macro_array:
+                if isinstance(macro_fragment, str):
+                    macro.append('"' + macro_fragment.replace('"', r'\"') + '"')
 
-            for command_args in reversed(list(macro_cmd_re.finditer(macro))):
-                raw_string = command_args.group()
-                if macro[command_args.start() - 1] == '\\':
-                    macro = macro[:command_args.start() - 1] + macro[command_args.start():]
-                    continue
+                elif isinstance(macro_fragment, dict):
+                    newstring = []
 
-                command, args = raw_string[1:-1].split(',', 1)
-                args = args.split(',')
-                newstring = []
+                    if macro_fragment['action'] == 'delay':
+                        newstring.append(f"SS_DELAY({macro_fragment['duration']})")
 
-                if command == 'tap' and len(args) > 1:
-                    for arg in args:
-                        newstring.append(f'SS_DOWN(X_{arg[3:]})')
+                    elif macro_fragment['action'] == 'ding':
+                        newstring.append(r'"\a"')
 
-                    for arg in reversed(args):
-                        newstring.append(f'SS_UP(X_{arg[3:]})')
+                    elif macro_fragment['action'] == 'tap' and len(macro_fragment['keycodes']) > 1:
+                        for keycode in macro_fragment['keycodes']:
+                            newstring.append(f'SS_DOWN(X_{keycode})')
 
-                else:
-                    for arg in args:
-                        if arg.startswith('KC_'):
-                            arg = f'X_{arg[3:]}'
+                        for keycode in reversed(macro_fragment['keycodes']):
+                            newstring.append(f'SS_UP(X_{keycode})')
 
-                        newstring.append(f'SS_{command.upper()}({arg})')
+                    else:
+                        for keycode in macro_fragment['keycodes']:
+                            newstring.append(f"SS_{macro_fragment['action'].upper()}(X_{keycode})")
 
-                macro = ''.join((macro[:command_args.start()], f'"{"".join(newstring)}"', macro[command_args.end():]))
-                macro = macro.replace('""', '')
+                    macro.append(''.join(newstring))
 
             macro_txt.append(f'            case MACRO_{i}:')
-            macro_txt.append(f'                SEND_STRING({macro});')
+            macro_txt.append(f'                SEND_STRING({"".join(macro)});')
             macro_txt.append('                return false;')
 
         macro_txt.append('        }')
@@ -267,7 +264,7 @@ def generate_c(keymap_json):
         new_keymap = '\n'.join((new_keymap, *macro_txt))
 
     if keymap_json.get('host_language'):
-        new_keymap = new_keymap.replace('__INCLUDES__', f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h\n')
+        new_keymap = new_keymap.replace('__INCLUDES__', f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n')
     else:
         new_keymap = new_keymap.replace('__INCLUDES__', '')
 

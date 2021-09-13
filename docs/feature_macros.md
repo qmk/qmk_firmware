@@ -6,54 +6,66 @@ Macros allow you to send multiple keystrokes when pressing just one key. QMK has
 
 ## Using Macros In JSON Keymaps
 
-You can define macros in a `keymap.json` file,  as used by [Configurator](newbs_building_firmware_configurator.md), `qmk compile`, and XAP. You can define these macros in a list under the `macros` keyword, like this:
+You can define macros in a `keymap.json` file, as used by [Configurator](newbs_building_firmware_configurator.md), `qmk compile`, and XAP. You can define these macros in a list under the `macros` keyword, like this:
 
 ```
 {
     "keyboard": "handwired/my_macropad",
     "keymap": "my_keymap",
-    "layout": "LAYOUT_all",
     "macros": [
-            "Hello, World!",
-            "Ding!\a",
-            "{down,KC_LSFT}hello world1{up,KC_LSFT}",
-            "{tap,KC_LCTL,KC_LALT,KC_DEL}",
-            "{tap,KC_F1}{delay,1000}{tap,KC_PGDN}"
+        [
+            {"action":"down", "keycodes": ["LSFT"]},
+            "hello world1",
+            {"action": "up","keycodes": ["LSFT"]}
+        ],
+        [
+            {"action":"tap", "keycodes": ["LCTL", "LALT", "DEL"]}
+        ],
+	    [
+            "ding!",
+            {"action":"ding"}
+        ],
+        [
+            {"action":"tap", "keycodes": ["F1"]},
+            {"action":"delay", "duration": "1000"},
+            {"action":"tap", "keycodes": ["PGDN"]}
+        ]
     ],
+    "layout": "LAYOUT_all",
     "layers": [
-        ["MACRO_0", "MACRO_1", "MACRO_2", "MACRO_3", "MACRO_4"]
+        ["MACRO_0", "MACRO_1", "MACRO_2", "MACRO_3"]
     ]
 }
 ```
 
 ### Macro Basics
 
-Each macro is a text string that will be typed to your computer. There are special sequences you can insert into your string to type keys that don't have an ASCII letter.
+Each macro is an array consisting of strings and objects (dictionaries.) Strings are typed to your computer while objects allow you to control how your macro is typed out.
 
-| Sequence | Key |
-|----------|-----|
-| `\a` | Make the keyboard beep (if it has [audio](feature_audio.md) enabled.) |
-| `\b` | Backspace |
-| `\n` | Enter |
-| `\t` | Tab |
+#### Object Format
 
-### More Control
+All objects have one required key: `action`. This tells QMK what the object does. There are currently 5 actions:
 
-If you'd like more control over your macros you can use curly brace syntax to send key down and key up events, and to insert delays into your macro. You can also type keys that don't have ASCII equivalents here.
+Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` prefix when listing keycodes.
 
-| Sequence | Behavior |
-|----------|----------|
-| `{down,KC_1}` | Send a key down event for a single keycode. |
-| `{down,KC_1,KC_2}` | Send a key down event for multiple keycodes. You can include as many comma separated keycodes as you need here. |
-| `{up,KC_1}` | Send a key up event for a single keycode. |
-| `{up,KC_1,KC_2}` | Send a key up event for multiple keycodes. You can include as many comma separated keycodes as you need here. |
-| `{tap,KC_1}` | Type (send a down event followed by an up event) a single keycode. |
-| `{tap,KC_1,KC_2}` | Type a chord, which sends a down event for each key followed by an up event for each key. You can include as many comma separated keycodes as you need here. |
-| `{delay,500}` | Insert a delay before typing the next keycode. This is specified in miliseconds (ms). You will not be able to type on your keyboard during this period. |
-
-### Escaping macro strings
-
-If you need to include a string that would normally be matched by one of the above rules you can place a single `\` in front of the opening curly bracket. This will tell the macro processor to skip this macro. Do not put a `\` in front of the closing bracket.
+* `delay`
+    * Pauses macro playback. Duration is specified in miliseconds (ms).
+    * Example: `{"action": "delay", "duration": 500}`
+* `ding`
+    * Play a bell if the keyboard has [audio enabled](feature_audio.md).
+    * Example: `{"action": "ding"}`
+* `down`
+    * Send a key down event for one or more keycodes.
+    * Example, single key: `{"action":"down", "keycodes": ["LSFT"]}`
+    * Example, multple keys: `{"action":"down", "keycodes": ["CTRL", "LSFT"]}`
+* `tap`
+    * Type a chord, which sends a down event for each key followed by an up event for each key.
+    * Example, single key: `{"action":"tap", "keycodes": ["F13"]}`
+    * Example, multple keys: `{"action":"tap", "keycodes": ["CTRL", "LALT", "DEL"]}`
+* `up`
+    * Send a key up event for one or more keycodes.
+    * Example, single key: `{"action":"up", "keycodes": ["LSFT"]}`
+    * Example, multple keys: `{"action":"up", "keycodes": ["CTRL", "LSFT"]}`
 
 ## Using Macros in C Keymaps
 
