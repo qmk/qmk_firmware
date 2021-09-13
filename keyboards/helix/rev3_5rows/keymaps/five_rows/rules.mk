@@ -16,7 +16,7 @@ LED_ANIMATIONS = yes
 
 ifneq ($(strip $(HELIX)),)
   define KEYMAP_OPTION_PARSE
-    # parse 'dispoff', 'consle', 'back', 'oled', 'no-ani', 'mini-ani', 'lto', 'no-lto', 'no-enc', 'scan'
+    # parse 'dispoff', 'consle', 'back', 'oled', 'no-ani', 'mini-ani', 'lto', 'no-lto', 'no-enc', 'scan', 'scan-api'
     $(if $(SHOW_PARCE),$(info parse .$1.))  #debug
     ifeq ($(strip $1),dispoff)
         OLED_ENABLE = no
@@ -62,6 +62,11 @@ ifneq ($(strip $(HELIX)),)
         # use DEBUG_MATRIX_SCAN_RATE
         # see docs/newbs_testing_debugging.md
         DEBUG_MATRIX_SCAN_RATE_ENABLE = yes
+    endif
+    ifeq ($(strip $1),scan-api)
+        # use DEBUG_MATRIX_SCAN_RATE
+        # see docs/newbs_testing_debugging.md
+        DEBUG_MATRIX_SCAN_RATE_ENABLE = api
     endif
   endef # end of KEYMAP_OPTION_PARSE
 

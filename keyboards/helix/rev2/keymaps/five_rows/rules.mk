@@ -27,7 +27,7 @@ HELIX_ROWS = 5              # Helix Rows is 4 or 5
 
 ifneq ($(strip $(HELIX)),)
   define KEYMAP_OPTION_PARSE
-    # parse  'dispoff', 'consloe', 'na', 'ani', 'mini-ani'
+    # parse  'dispoff', 'consloe', 'na', 'ani', 'mini-ani', 'scan-api'
     $(if $(SHOW_PARCE),$(info parse -$1-))  #debug
     ifeq ($(strip $1),dispoff)
         OLED_ENABLE = no
@@ -71,6 +71,11 @@ ifneq ($(strip $(HELIX)),)
     endif
     ifneq ($(filter nolto no-lto no_lto,$(strip $1)),)
         LTO_ENABLE = no
+    endif
+    ifeq ($(strip $1),scan-api)
+        # use DEBUG_MATRIX_SCAN_RATE
+        # see docs/newbs_testing_debugging.md
+        DEBUG_MATRIX_SCAN_RATE_ENABLE = api
     endif
   endef # end of KEYMAP_OPTION_PARSE
 

@@ -125,21 +125,35 @@ static void render_logo(void) {
         0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
         0};
     oled_write_P(helix_logo, false);
-#    ifdef RGBLIGHT_ENABLE
     char buf[30];
     char *bufp;
+#    ifdef RGBLIGHT_ENABLE
     if (RGBLIGHT_MODES > 1 && rgblight_is_enabled()) {
         bufp = sprint2d(buf, " LED ", rgblight_get_mode());
+#        ifdef DEBUG_MATRIX_SCAN_RATE
+        bufp = sprintd(bufp, "  scan:", get_matrix_scan_rate());
+#        else
         bufp = sprintd(bufp, ": ", rgblight_get_hue()/RGBLIGHT_HUE_STEP);
         bufp = sprintd(bufp, ",", rgblight_get_sat()/RGBLIGHT_SAT_STEP);
         bufp = sprintd(bufp, ",", rgblight_get_val()/RGBLIGHT_VAL_STEP);
         bufp = sprints(bufp, " ");
+#        endif
         oled_write(buf, false);
 #        ifndef SSD1306OLED
     } else {
+#        ifdef DEBUG_MATRIX_SCAN_RATE
+        bufp = sprintd(buf, "  scan:", get_matrix_scan_rate());
+        oled_write(buf, false);
+#        endif
         oled_write_P( PSTR("\n"), false);
 #        endif
     }
+#    else
+#        ifdef DEBUG_MATRIX_SCAN_RATE
+    bufp = sprintd(buf, " scan:", get_matrix_scan_rate());
+    bufp = sprints(bufp, " ");
+    oled_write(buf, false);
+#        endif
 #    endif
 }
 
@@ -192,6 +206,11 @@ void render_status(void) {
     int name_num;
     uint32_t lstate;
     oled_write_P(layer_names[current_default_layer], false);
+#    ifdef DEBUG_MATRIX_SCAN_RATE
+    char buf[16];
+    sprintd(buf, " scan:", get_matrix_scan_rate());
+    oled_write(buf, false);
+#    endif
     oled_write_P(PSTR("\n"), false);
     for (lstate = layer_state, name_num = 0;
          lstate && name_num < sizeof(layer_names)/sizeof(char *);
