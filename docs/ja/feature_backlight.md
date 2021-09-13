@@ -75,7 +75,7 @@ BACKLIGHT_DRIVER = software
 | `BACKLIGHT_BREATHING`         | *定義なし*         | サポートされる場合は、バックライトの明滅動作を有効にする                                      |
 | `BREATHING_PERIOD`            | `6`                | 各バックライトの "明滅" の長さ（秒）                                                          |
 | `BACKLIGHT_ON_STATE`          | `1`                | バックライトが "オン" の時のバックライトピンの状態 - high の場合は `1`、low の場合は `0`      |
-| `BACKLIGHT_LIMIT_VAL`         | `255`              | バックライトの最大デューティサイクル -- `255` で完全な輝度になり、それ未満では最大値が減少する|
+| `BACKLIGHT_LIMIT_VAL`         | `255`              | バックライトの最大デューティサイクル -- `255` で最大輝度になり、それ未満では最大値が減少する  |
 | `BACKLIGHT_DEFAULT_LEVEL`     | `BACKLIGHT_LEVELS` | EEPROM をクリアする時に使うデフォルトのバックライトレベル                                     |
 | `BACKLIGHT_DEFAULT_BREATHING` | *定義なし*         | EEPROM をクリアする時に、バックライトのブリージングを有効にするかどうか                       |
 
