@@ -25,9 +25,11 @@ HELIX_ROWS = 5              # Helix Rows is 4 or 5
 # LED_ANIMATIONS = yes        # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
+CUSTOM_DELAY = yes
+
 ifneq ($(strip $(HELIX)),)
   define KEYMAP_OPTION_PARSE
-    # parse  'dispoff', 'consloe', 'na', 'ani', 'mini-ani', 'scan-api'
+    # parse  'dispoff', 'consloe', 'na', 'ani', 'mini-ani', 'scan-api',
     $(if $(SHOW_PARCE),$(info parse -$1-))  #debug
     ifeq ($(strip $1),dispoff)
         OLED_ENABLE = no
@@ -99,6 +101,10 @@ endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled_display.c
+endif
+
+ifeq ($(strip $(CUSTOM_DELAY)),yes)
+    SRC += matrix_output_unselect_delay.c
 endif
 
 # convert Helix-specific options (that represent combinations of standard options)

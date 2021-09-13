@@ -14,6 +14,8 @@ ENCODER_ENABLE = no
 LTO_ENABLE = no  # if firmware size over limit, try this option
 LED_ANIMATIONS = yes
 
+CUSTOM_DELAY = yes
+
 ifneq ($(strip $(HELIX)),)
   define KEYMAP_OPTION_PARSE
     # parse 'dispoff', 'consle', 'back', 'oled', 'no-ani', 'mini-ani', 'lto', 'no-lto', 'no-enc', 'scan', 'scan-api'
@@ -83,6 +85,10 @@ endif
 ifeq ($(strip $(LED_ANIMATIONS)), mini)
     OPT_DEFS += -DLED_ANIMATIONS
     OPT_DEFS += -DLED_ANIMATIONS_LEVEL=1
+endif
+
+ifeq ($(strip $(CUSTOM_DELAY)),yes)
+    SRC += matrix_output_unselect_delay.c
 endif
 
 ifeq ($(strip $(DEBUG_CONFIG)), yes)
