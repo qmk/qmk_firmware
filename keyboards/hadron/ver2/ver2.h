@@ -1,3 +1,3 @@
 #pragma once
 
-#include "../hadron.h"
+#include "hadron.h"
