@@ -1,4 +1,4 @@
-# Brazilian keymap for the BM40 keyb
+# Brazilian keymap for the BM40hsrgb keyboard
 
 This keymap deviates somewhat from the generally used conventions of Planck style keyboards. 
 It's built on the following principles:
