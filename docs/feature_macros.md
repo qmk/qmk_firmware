@@ -21,7 +21,6 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
         [
             {"action":"tap", "keycodes": ["LCTL", "LALT", "DEL"]}
         ],
-	    [
             "ding!",
             {"action":"ding"}
         ],
