@@ -39,6 +39,8 @@ enum planck_keycodes {
 #define SYM MO(_SYM)
 #define FUN LT(_FUNCTION, KC_ENT)
 #define MYTAB LT(_NAV, KC_TAB)
+#define MYNAV LT(_NAV, KC_DEL)
+#define MYNUM LT(_NUM, KC_BSPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -47,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BR_TILD,
     MYTAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_C,    BR_ACUT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  BR_SLSH, KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LGUI, SYM,     LT(_NAV, KC_DEL),         KC_SPC,   LT(_NUM, KC_BSPC),     FUN,     KC_RGUI, KC_LALT, RCTL_T(KC_ENT)
+    KC_LCTL, KC_LALT, KC_LGUI, SYM,     MYNAV,       KC_SPC,       MYNUM,   FUN,     KC_RGUI, KC_LALT, RCTL_T(KC_ENT)
 ),
 
 //workman base layer ok
@@ -55,15 +57,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    BR_SCLN, BR_TILD,
     MYTAB,   KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    BR_ACUT,
     KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  BR_SLSH, KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LGUI, SYM,     LT(_NAV, KC_DEL),         KC_SPC,   LT(_NUM, KC_BSPC),     FUN,     KC_RGUI, KC_LALT, RCTL_T(KC_ENT)
-),
+    KC_LCTL, KC_LALT, KC_LGUI, SYM,     MYNAV,       KC_SPC,       MYNUM,   FUN,     KC_RGUI, KC_LALT, RCTL_T(KC_ENT)
 
 //dvorak base layer ok
 [_DVORAK] = LAYOUT_planck_mit(
     KC_ESC,  BR_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_C,    KC_R,    KC_L,    BR_SLSH, BR_TILD,
     MYTAB,   KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    BR_ACUT,
     KC_LSFT, BR_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LGUI, SYM,     LT(_NAV, KC_DEL),         KC_SPC,   LT(_NUM, KC_BSPC),     FUN,     KC_RGUI, KC_LALT, RCTL_T(KC_ENT)
+    KC_LCTL, KC_LALT, KC_LGUI, SYM,     MYNAV,       KC_SPC,       MYNUM,   FUN,     KC_RGUI, KC_LALT, RCTL_T(KC_ENT)
 ),
 
 //colemak base layer ok
@@ -71,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    BR_SCLN, BR_TILD,
     MYTAB,   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    BR_ACUT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  BR_SLSH, KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LGUI, SYM,     LT(_NAV, KC_DEL),         KC_SPC,   LT(_NUM, KC_BSPC),     FUN,     KC_RGUI, KC_LALT, RCTL_T(KC_ENT)
+    KC_LCTL, KC_LALT, KC_LGUI, SYM,     MYNAV,       KC_SPC,       MYNUM,   FUN,     KC_RGUI, KC_LALT, RCTL_T(KC_ENT)
 ),
 
 //navigation and utility layer ok
@@ -92,13 +93,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //numbers layer ok
 [_NUM] = LAYOUT_planck_mit(
-    KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    BR_MINS, _______,
-    _______, BR_ASTR, BR_SLSH, BR_MINS, BR_PLUS, _______, _______, KC_4,    KC_5,    KC_6,    BR_PLUS, _______,
-    KC_TRNS, BR_PERC, BR_EQL,  BR_DOT,  BR_COMM,  _______, _______, KC_1,    KC_2,    KC_3,    BR_DOT,  KC_TRNS,
+    KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    BR_MINS,
+    _______, BR_ASTR, BR_SLSH, BR_MINS, BR_PLUS, _______, _______, KC_4,    KC_5,    KC_6,    BR_COMM, BR_PLUS,
+    KC_TRNS, BR_PERC, BR_EQL,  BR_DOT,  BR_COMM, _______, _______, KC_1,    KC_2,    KC_3,    BR_DOT,  KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, _______, LT(_NAV, KC_DEL),     _______,      _______, KC_0,    KC_0,    KC_COMM, KC_ENT
 ),
 
-//FN layer ok
+//FN layer 
 [_FUNCTION] = LAYOUT_planck_mit(
     KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, _______, _______, _______, KC_PAUS, _______,
     KC_CAPS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, _______, _______, _______, KC_INS,  _______,
