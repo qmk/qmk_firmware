@@ -18,19 +18,7 @@ Then place this include at the top of your code:
 #include "analog.h"
 ```
 
-### ARM Usage
-If using an ARM device, you will _also_ need to add the following to `mcuconf.h`:
-
-```c
-#undef STM32_ADC_USE_ADC1
-#define STM32_ADC_USE_ADC1 TRUE
-```
-
-Add the following to `halconf.h`:
-
-```c
-#define HAL_USE_ADC TRUE
-```
+If using ARM, there are additional requirements detailed in [ARM Additional Requirements](#arm-additional-requirements).
 
 ## Channels
 
@@ -156,6 +144,21 @@ Also note that the F0 and F3 use different numbering schemes. The F0 has a singl
 |`adc_read(mux)`             |Reads the value from the ADC according to the specified pin and ADC combination. See your MCU's datasheet for more information.                                                                                                                                                                       |
 
 ## Configuration
+
+### ARM Additional Requirements
+
+If using an ARM device, you will need to add the following to `mcuconf.h`:
+
+```c
+#undef STM32_ADC_USE_ADC1
+#define STM32_ADC_USE_ADC1 TRUE
+```
+
+And add the following to `halconf.h`:
+
+```c
+#define HAL_USE_ADC TRUE
+```
 
 ## ARM
 
