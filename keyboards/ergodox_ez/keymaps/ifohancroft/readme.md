@@ -1,4 +1,4 @@
-![IFo Hancroft ErgoDox EZ Layout Image](https://i.imgur.com/8LRokp5.png)
+![IFo Hancroft ErgoDox EZ Layout Image](https://i.imgur.com/v0kRHX5.png)
 
 # IFo Hancroft's ErgoDox EZ Layout
 
