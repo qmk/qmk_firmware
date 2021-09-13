@@ -2,7 +2,7 @@
 
 *A small 7-key macropad featuring hotswap and per-key RGB*
 
-![Albacore](https://github.com/paprikman/my_files/blob/master/albacore_macropad.jpg)
+![Albacore](https://i.imgur.com/BTPHnuQ.jpg)
 
 * Keyboard Maintainer: paprikman
 * Hardware Supported: Albacore hotswap pcb
