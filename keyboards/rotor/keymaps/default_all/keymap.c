@@ -1,4 +1,4 @@
-/* Copyright 2020 Swiftrax and Basekeys.com
+/* Copyright 2021 Densus Design and Basekeys.jp
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
