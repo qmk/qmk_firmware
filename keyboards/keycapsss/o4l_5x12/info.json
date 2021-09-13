@@ -2,8 +2,6 @@
     "keyboard_name": "O4L 5x12",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/keycapsss/o4l_5x12",
     "maintainer": "BenRoe",
-    "width": 12,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

@@ -2,8 +2,6 @@
   "keyboard_name": "0xCB Static",
   "url": "https://0xCB.dev",
   "maintainer": "Conor-Burns",
-  "width": 12,
-  "height": 5,
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"
   },

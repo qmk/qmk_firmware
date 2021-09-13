@@ -26,7 +26,7 @@ Obviously start by [installing QMK](https://docs.qmk.fm/#/getting_started_build_
 
 - Before flashing the firmware you should make sure that it compiles. Thus assuring that your QMK setup works fine and the keyboard and keymap files are correct:
 ```
-qmk compile -kb redox/media -km media_ch
+qmk compile -kb redox_media -km default
 ```
 The generated `.hex` file is output to the QMK root.
 

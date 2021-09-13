@@ -2,8 +2,6 @@
     "keyboard_name": "Seigaiha",
     "url": "www.yiancar-designs.com",
     "maintainer": "Yiancar-Designs",
-    "width": 18.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

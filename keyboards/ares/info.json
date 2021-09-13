@@ -2,8 +2,6 @@
     "keyboard_name": "LSJ Ares",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

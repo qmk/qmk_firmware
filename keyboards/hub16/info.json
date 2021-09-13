@@ -2,8 +2,6 @@
     "keyboard_name": "Hub16",
     "url": "https://joshajohnson.com/hub16-keyboard/",
     "maintainer": "Josh Johnson",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

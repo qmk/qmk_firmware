@@ -2,8 +2,6 @@
     "keyboard_name": "Big Series 1-Key",
     "url": "",
     "maintainer": "qmk",
-    "width": 4,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [
