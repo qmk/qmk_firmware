@@ -58,9 +58,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI_SCK_PAL_MODE 0
 #define WS2812_SPI_SCK_PIN B13
 
-#define INDICATOR_PIN_0 B2
-#define INDICATOR_PIN_1 B10
-#define INDICATOR_PIN_2 B11
+
+#define LED_NUM_LOCK_PIN B2
+#define LED_CAPS_LOCK_PIN B10
+#define LED_SCROLL_LOCK_PIN B11
+#define LED_PIN_ON_STATE 0
 
 #define ENCODERS_PAD_A { A8 }
 #define ENCODERS_PAD_B { A1 }
