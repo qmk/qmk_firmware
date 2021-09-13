@@ -64,6 +64,55 @@ void matrix_update(struct CharacterMatrix *dest,
 }
 #    endif
 
+static char *sprint_decimal(char *buf, int data) {
+    if (data > 9) {
+        buf = sprint_decimal(buf, data/10);
+    }
+    *buf++ = "0123456789"[data%10];
+    *buf = '\0';
+    return buf;
+}
+
+static char *sprint_hex(char *buf, uint32_t data) {
+    if (data > 0xf) {
+        buf = sprint_hex(buf, data/0x10);
+    }
+    *buf++ = "0123456789abcdef"[data & 0xf];
+    *buf = '\0';
+    return buf;
+}
+
+char *sprints(char *buf, char *src) {
+    while (*src) {
+        *buf++ = *src++;
+    }
+    *buf = '\0';
+    return buf;
+}
+
+char *sprintx(char *buf, char *leadstr, uint32_t data) {
+    buf = sprints(buf, leadstr);
+    buf = sprint_hex(buf, data);
+    return buf;
+}
+
+char *sprintd(char *buf, char *leadstr, int data) {
+    buf = sprints(buf, leadstr);
+    buf = sprint_decimal(buf, data);
+    return buf;
+}
+
+char *sprint2d(char *buf, char *leadstr, int data) {
+    buf = sprints(buf, leadstr);
+    if (data > 99) {
+        return sprint_decimal(buf, data);
+    }
+    if (data < 10) {
+        *buf++ = ' ';
+    }
+    return sprint_decimal(buf, data);
+}
+
 #    ifdef SSD1306OLED
 static void render_logo(struct CharacterMatrix *matrix) {
 #    else
@@ -78,12 +127,13 @@ static void render_logo(void) {
     oled_write_P(helix_logo, false);
 #    ifdef RGBLIGHT_ENABLE
     char buf[30];
+    char *bufp;
     if (RGBLIGHT_MODES > 1 && rgblight_is_enabled()) {
-        snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
-                 rgblight_get_mode(),
-                 rgblight_get_hue()/RGBLIGHT_HUE_STEP,
-                 rgblight_get_sat()/RGBLIGHT_SAT_STEP,
-                 rgblight_get_val()/RGBLIGHT_VAL_STEP);
+        bufp = sprint2d(buf, " LED ", rgblight_get_mode());
+        bufp = sprintd(bufp, ": ", rgblight_get_hue()/RGBLIGHT_HUE_STEP);
+        bufp = sprintd(bufp, ",", rgblight_get_sat()/RGBLIGHT_SAT_STEP);
+        bufp = sprintd(bufp, ",", rgblight_get_val()/RGBLIGHT_VAL_STEP);
+        bufp = sprints(bufp, " ");
         oled_write(buf, false);
 #        ifndef SSD1306OLED
     } else {
@@ -154,12 +204,10 @@ void render_status(void) {
     }
 
     // Host Keyboard LED Status
-    char led[40];
-    snprintf(led, sizeof(led), "\n%s  %s  %s",
-             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-    oled_write(led, false);
+    oled_write_P(PSTR("\n"), false);
+    oled_write_P((host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? PSTR("NUMLOCK  ") : PSTR("         "), false);
+    oled_write_P((host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? PSTR("CAPS  ") : PSTR("      "), false);
+    oled_write_P((host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? PSTR("SCLK  ") : PSTR("      "), false);
 }
 
 #    ifdef SSD1306OLED
