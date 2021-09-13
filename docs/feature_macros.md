@@ -6,7 +6,7 @@ Macros allow you to send multiple keystrokes when pressing just one key. QMK has
 
 ## Using Macros In JSON Keymaps
 
-You can define macros in a `keymap.json` file, as used by [Configurator](newbs_building_firmware_configurator.md), `qmk compile`, and XAP. You can define these macros in a list under the `macros` keyword, like this:
+You can define up to 32 macros in a `keymap.json` file, as used by [Configurator](newbs_building_firmware_configurator.md), `qmk compile`, and XAP. You can define these macros in a list under the `macros` keyword, like this:
 
 ```
 {
