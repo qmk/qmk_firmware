@@ -2,8 +2,6 @@
     "keyboard_name": "spacey",
     "url": "",
     "maintainer": "vanilla",
-    "width": 14,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

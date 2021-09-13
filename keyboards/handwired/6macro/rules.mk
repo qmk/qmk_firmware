@@ -21,5 +21,4 @@ RGB_MATRIX_DRIVER = WS2812
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 UNICODE_ENABLE = yes        # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output

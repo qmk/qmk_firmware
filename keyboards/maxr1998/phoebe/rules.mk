@@ -18,7 +18,6 @@ NKRO_ENABLE = yes          # Nkey Rollover - if this doesn't work, see here: htt
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no          # Audio output on port C6
 UNICODE_ENABLE = no        # Unicode
-BLUETOOTH_ENABLE = no      # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes      # Enable WS2812 RGB underlight.
 KEY_LOCK_ENABLE = yes
 LEADER_ENABLE = yes        # Enable leader key

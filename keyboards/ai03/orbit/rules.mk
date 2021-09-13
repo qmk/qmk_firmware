@@ -19,7 +19,6 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 USE_I2C = no                # I2C for split communication
 CUSTOM_MATRIX = yes			# For providing custom matrix.c (in this case, override regular matrix.c with split matrix.c)

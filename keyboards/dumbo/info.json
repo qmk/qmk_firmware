@@ -2,8 +2,6 @@
     "keyboard_name": "Dumbo",
     "url": "",
     "maintainer": "adamnaldal",
-    "width": 15.5,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_split_3x6_4": {
             "layout": [

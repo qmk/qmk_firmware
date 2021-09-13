@@ -2,8 +2,6 @@
     "keyboard_name": "SouthPad",
     "url": "",
     "maintainer": "MatchstickWorks",
-    "width": 4,
-    "height": 6,
     "layouts": {
         "LAYOUT_numpad_6x4_southpaw": {
             "layout": [

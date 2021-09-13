@@ -2,8 +2,6 @@
     "keyboard_name": "sp_mini",
     "url": "",
     "maintainer": "jrfhoutx",
-    "width": 16,
-    "height": 5.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
