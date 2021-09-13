@@ -239,8 +239,12 @@ def generate_c(keymap_json):
                         newstring.append(r'"\a"')
 
                     elif macro_fragment['action'] == 'tap' and len(macro_fragment['keycodes']) > 1:
+                        last_keycode = macro_fragment['keycodes'].pop()
+
                         for keycode in macro_fragment['keycodes']:
                             newstring.append(f'SS_DOWN(X_{keycode})')
+
+                        newstring.append(f'SS_TAP(X_{last_keycode})')
 
                         for keycode in reversed(macro_fragment['keycodes']):
                             newstring.append(f'SS_UP(X_{keycode})')
