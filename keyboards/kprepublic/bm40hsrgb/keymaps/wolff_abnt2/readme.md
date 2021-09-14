@@ -1,5 +1,7 @@
 # Brazilian keymap for the BM40RGB keyboard
 
+![qwerty](https://user-images.githubusercontent.com/62627597/133182509-a57f73f8-c2dc-4cd8-8a48-91a0e6a968dc.png)
+
 This keymap deviates somewhat from the generally used conventions of Planck style keyboards. 
 It's built on the following principles:
 
