@@ -97,9 +97,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
 #endif
-#ifdef STM32_EEPROM_ENABLE
-#    include "eeprom_stm32.h"
-#endif
 #ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
 #endif
@@ -246,9 +243,6 @@ void keyboard_setup(void) {
     disable_jtag();
 #endif
     print_set_sendchar(sendchar);
-#ifdef STM32_EEPROM_ENABLE
-    EEPROM_Init();
-#endif
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
 #endif
