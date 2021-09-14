@@ -44,7 +44,7 @@ If there are problems with the tests, you can find the executable in the `./buil
 
 To forward any [debug messages](unit_testing.md#debug-api) to `stderr`, the tests can run with `DEBUG=1`. For example
 
-```console
+```
 make test:all DEBUG=1
 ```
 
