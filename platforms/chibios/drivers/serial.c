@@ -19,7 +19,7 @@
 #    error "chSysPolledDelayX method not supported on this platform"
 #else
 #    undef wait_us
-#    define wait_us(x) chSysPolledDelayX(US2RTC(STM32_SYSCLK, x))
+#    define wait_us(x) chSysPolledDelayX(US2RTC(CPU_CLOCK, x))
 #endif
 
 #ifndef SELECT_SOFT_SERIAL_SPEED

@@ -59,7 +59,7 @@
 
 /* --- PRIVATE CONSTANTS ---------------------------------------------------- */
 
-#define WS2812_PWM_FREQUENCY (STM32_SYSCLK / 2)                             /**< Clock frequency of PWM, must be valid with respect to system clock! */
+#define WS2812_PWM_FREQUENCY (CPU_CLOCK / 2)                                /**< Clock frequency of PWM, must be valid with respect to system clock! */
 #define WS2812_PWM_PERIOD (WS2812_PWM_FREQUENCY / WS2812_PWM_TARGET_PERIOD) /**< Clock period in ticks. 1 / 800kHz = 1.25 uS (as per datasheet) */
 
 /**

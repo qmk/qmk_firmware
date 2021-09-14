@@ -23,7 +23,7 @@
 #endif
 
 #define NUMBER_NOPS 6
-#define CYCLES_PER_SEC (STM32_SYSCLK / NUMBER_NOPS * NOP_FUDGE)
+#define CYCLES_PER_SEC (CPU_CLOCK / NUMBER_NOPS * NOP_FUDGE)
 #define NS_PER_SEC (1000000000L)  // Note that this has to be SIGNED since we want to be able to check for negative values of derivatives
 #define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
 #define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
