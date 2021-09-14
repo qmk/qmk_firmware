@@ -12,9 +12,9 @@ MCU  =  atmega32u4
 BOOTLOADER  =  caterina
 
 # Build Options
-BOOTMAGIC_ENABLE        =  yes       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE        =  no         # Virtual DIP switch configuration
 MOUSEKEY_ENABLE         =  no        # Mouse keys
-EXTRAKEY_ENABLE         =  yes       # Audio control and System control
+EXTRAKEY_ENABLE         =  no        # Audio control and System control
 CONSOLE_ENABLE          =  no        # Console for debug
 COMMAND_ENABLE          =  no        # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

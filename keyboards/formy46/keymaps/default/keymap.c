@@ -235,17 +235,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 
 /* OLED config */
+//This configuration is for a 128x32 display.
 #ifdef OLED_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_keyboard_master()) {
-        return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
-    }
-        return rotation;
-}
-
-static void render_logo(void) {
-    static const char PROGMEM formy46_logo[] = {
-
+void render_logo(void) {
+    static const char PROGMEM logo[] = {
 	0x8c, 0x86, 0x86, 0x86, 0x86, 0x86, 0x8c, 0x98, 0x8c, 0x86, 0x86, 0x86, 0x86, 0x86, 0x8c, 0x98,
 	0x8c, 0x86, 0x86, 0x86, 0x86, 0x86, 0x8c, 0x98, 0x8c, 0x86, 0x86, 0x86, 0x86, 0x86, 0x8c, 0x98,
 	0x00, 0x78, 0x7c, 0xc6, 0xc6, 0xc6, 0xc6, 0xfc, 0xf8, 0xc0, 0xf8, 0xf8, 0xc0, 0xc0, 0xc0, 0xc0,
@@ -277,42 +270,46 @@ static void render_logo(void) {
 	0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e,
 	0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x7e, 0x3e, 0x3f, 0x3f, 0x1f, 0x0f, 0x07, 0x03, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-    };
-    oled_write_raw_P(formy46_logo, sizeof(formy46_logo));
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    oled_write_raw_P(logo, sizeof(logo));
+}
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()){
+    return OLED_ROTATION_270;
+    }
+    return rotation;  // flips the display 180 degrees if offhand
 }
 
 void render_layer_state(void) {
-    oled_write_ln_P(PSTR("Mode:"), false);
-    oled_write_ln_P(PSTR(""), false);
+    oled_write_P(PSTR("Mode:\n"), false);
     switch(get_highest_layer(layer_state)) {
         case _BASE:
-            oled_write_ln_P(PSTR("Main\n"),  true);
-            oled_write_ln_P(PSTR("GAME\n"),  false);
-            oled_write_ln_P(PSTR("Crea\n"),  false);
-            oled_write_ln_P(PSTR("Fn\n"),  false);
+            oled_write_P(PSTR("\x1AMain"), true);
+            oled_write_P(PSTR("Game\n"), false);
+            oled_write_P(PSTR("Crea\n"), false);
+            oled_write_P(PSTR("Func\n"), false);
             break;
         case _GAME_MODE:
-            oled_write_ln_P(PSTR("Main\n"),  false);
-            oled_write_ln_P(PSTR("GAME\n"),  true);
-            oled_write_ln_P(PSTR("Crea\n"),  false);
-            oled_write_ln_P(PSTR("Fn\n"),  false);
+            oled_write_P(PSTR("Main\n"), false);
+            oled_write_P(PSTR("\1AGame"), true);
+            oled_write_P(PSTR("Crea\n"), false);
+            oled_write_P(PSTR("Func\n"), false);
             break;
         case _CREATION_MODE:
-            oled_write_ln_P(PSTR("Main\n"),  false);
-            oled_write_ln_P(PSTR("GAME\n"),  false);
-            oled_write_ln_P(PSTR("Crea\n"),  true);
-            oled_write_ln_P(PSTR("Fn\n"),  false);
+            oled_write_P(PSTR("Main\n"), false);
+            oled_write_P(PSTR("Game\n"), false);
+            oled_write_P(PSTR("\1ACrea"), true);
+            oled_write_P(PSTR("Func\n"), false);
             break;
         case _FN:
-            oled_write_ln_P(PSTR("Main\n"),  false);
-            oled_write_ln_P(PSTR("GAME\n"),  false);
-            oled_write_ln_P(PSTR("Crea\n"),  false);
-            oled_write_ln_P(PSTR("Fn\n"),  true);
+            oled_write_P(PSTR("Main\n"), false);
+            oled_write_P(PSTR("Game\n"), false);
+            oled_write_P(PSTR("Crea\n"), false);
+            oled_write_P(PSTR("\1AFunc"), true);
             break;
         default:
-            oled_write_ln_P(PSTR("Error"),  false);
-            break;
+            oled_write_ln_P(PSTR("Undefined\n"), false);
     }
 }
 
@@ -321,13 +318,13 @@ void oled_task_user(void) {
         render_layer_state();
     } else {
         render_logo();
-        oled_scroll_left();  // Turns on scrolling
+        oled_scroll_right();  // Turns on scrolling
     }
 }
 #endif
 
 
-/* combo config */
+/* combo config
 #ifdef COMBO_ENABLE
 enum combos {
     SPC1_F1,
@@ -371,6 +368,8 @@ combo_t key_combos[COMBO_COUNT] = {
     [SPC11_F11] = COMBO(spc11_f11, KC_F11),
     [SPC12_F12] = COMBO(spc12_f12, KC_F12),
 };
+#endif
+*/
 
 
 /* keycord */
@@ -393,4 +392,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true; // Process all other keycodes normally
     }
 }
-#endif

@@ -55,6 +55,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_MATRIX_GRID B1, D4
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
 
+/* RGB Matrix define */
+#define RGB_DI_PIN D3
 #ifdef RGB_MATRIX_ENABLE
 #    define RGBLED_NUM 46  // Number of LEDs
 #    define DRIVER_LED_TOTAL RGBLED_NUM
@@ -63,38 +65,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #endif
 
+/* Joystick define */
 #define JOYSTICK_BUTTON_COUNT 0
 #define JOYSTICK_AXES_COUNT 2
-/* Rotary encoder define*/
-//#define NUMBER_OF_ENCODERS 2
+
+/* Rotary encoder define */
 #define ENCODERS_PAD_A { F6 }
 #define ENCODERS_PAD_B { F7 }
 #define ENCODER_RESOLUTION 4  //Default Setting
 
-#define COMBO_COUNT 12
+/* combo define */
+//#define COMBO_COUNT 12
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
+/* Feature disable options */
+//#define NO_DEBUG                //disable debugging
+//#define NO_PRINT                //disable printing/debugging using hid_listen
+//#define NO_ACTION_LAYER       //disable layers
+//#define NO_ACTION_TAPPING       //disable tap dance and other tapping features
+//#define NO_ACTION_ONESHOT     //disable one-shot modifiers
+#define NO_ACTION_MACRO         //disable old-style macro handling using MACRO(), action_get_macro() (deprecated)
+#define NO_ACTION_FUNCTION      //disable old-style function handling using fn_actions, action_function() (deprecated)
 
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
