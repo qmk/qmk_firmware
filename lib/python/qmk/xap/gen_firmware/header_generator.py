@@ -1,7 +1,7 @@
 """This script generates the XAP protocol generated header to be compiled into QMK.
 """
 import re
-import pyhash
+from fnvhash import fnv1a_32
 
 from qmk.commands import get_git_version
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
@@ -107,7 +107,7 @@ def generate_header(output_file, keyboard):
     lines.append(f'#define XAP_BCD_VERSION 0x{int(b.group(1)):02d}{int(b.group(2)):02d}{int(b.group(3)):04d}ul')
     b = prog.match(get_git_version())
     lines.append(f'#define QMK_BCD_VERSION 0x{int(b.group(1)):02d}{int(b.group(2)):02d}{int(b.group(3)):04d}ul')
-    keyboard_id = pyhash.murmur3_32()(keyboard)
+    keyboard_id = fnv1a_32(keyboard)
     lines.append(f'#define XAP_KEYBOARD_IDENTIFIER 0x{keyboard_id:08X}ul')
     lines.append('')
 
