@@ -2,8 +2,6 @@
     "keyboard_name": "PloopyCo Mouse",
     "url": "www.ploopy.co",
     "maintainer": "drashna",
-    "width": 8,
-    "height": 3,
     "layouts": {
         "LAYOUT": {
             "layout": [

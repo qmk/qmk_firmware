@@ -2,8 +2,6 @@
     "keyboard_name": "Bakeneko 60",
     "url": "https://github.com/kkatano/bakeneko-60-pcb",
     "maintainer": "kkatano",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [

@@ -57,12 +57,6 @@ __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *reco
 
 __attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) { return true; }
 
-#ifndef TAP_CODE_DELAY
-#    define TAP_CODE_DELAY 0
-#endif
-#ifndef TAP_HOLD_CAPS_DELAY
-#    define TAP_HOLD_CAPS_DELAY 80
-#endif
 /** \brief Called to execute an action.
  *
  * FIXME: Needs documentation.

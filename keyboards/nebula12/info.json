@@ -2,8 +2,6 @@
     "keyboard_name": "NEBULA12",
     "url": "",
     "maintainer": "yiancar",
-    "width": 3,
-    "height": 4,
     "layouts": {
         "LAYOUT_68_ansi": {
             "layout": [
