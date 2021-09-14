@@ -54,7 +54,7 @@ void keyboard_post_init_user(void) {
     // Set RGB to known state
     rgb_matrix_enable_noeeprom();
     rgb_matrix_set_color_all(RGB_GREEN);
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
     user_led_enabled = true;
 }
 // [Process User Input] ------------------------------------------------------//
@@ -73,7 +73,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       default:
           // Use process_record_keymap to reset timer on all other keypresses to awaken from idle.
           if (record->event.pressed) {
-              #ifdef OLED_DRIVER_ENABLE
+              #ifdef OLED_ENABLE
                   oled_timer = timer_read32();
               #endif
               // Restore LEDs if they are enabled by user
@@ -125,7 +125,7 @@ void matrix_scan_user(void) {
      }
 }
 // [OLED Configuration] ------------------------------------------------------//
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 // Init Oled and Rotate....
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master())

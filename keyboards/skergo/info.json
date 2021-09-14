@@ -2,8 +2,6 @@
     "keyboard_name": "SKErgo",
     "url": "https://keyz.io",
     "maintainer": "Keyz.io",
-    "width": 19.25,
-    "height": 6,
     "layouts": {
       "LAYOUT": {
         "layout": [

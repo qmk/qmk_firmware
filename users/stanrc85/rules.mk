@@ -2,7 +2,6 @@ TAP_DANCE_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 BACKLIGHT_ENABLE = no
 COMMAND_ENABLE = no
-BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no
 AUDIO_ENABLE = no
 CONSOLE_ENABLE = no
@@ -31,4 +30,19 @@ endif
 ifeq ($(strip $(KEYBOARD)), boardsource/the_mark)
   RGB_MATRIX_ENABLE = yes
   RGBLIGHT_ENABLE = no
+endif
+ifeq ($(strip $(KEYBOARD)), jacky_studio/bear_65)
+  BACKLIGHT_ENABLE = yes
+  RGB_MATRIX_ENABLE = yes
+  RGBLIGHT_ENABLE = no
+  SRC += rgb_layers.c
+endif
+ifeq ($(strip $(KEYBOARD)), tkc/portico)
+  SRC += rgb_timeout.c
+endif
+ifeq ($(strip $(KEYBOARD)), kiwikey/wanderland)
+  SRC += rgb_timeout.c
+endif
+ifeq ($(strip $(KEYBOARD)), mechlovin/adelais/rgb_led/rev2)
+  SRC += rgb_layers.c
 endif

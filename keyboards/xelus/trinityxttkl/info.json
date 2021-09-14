@@ -2,8 +2,6 @@
     "keyboard_name": "Trinity XT TKL",
     "url": "",
     "maintainer": "Xelus22",
-    "width": 20.5,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

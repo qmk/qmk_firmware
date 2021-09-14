@@ -1,9 +1,7 @@
 {
-    "keyboard_name": "knight",
+    "keyboard_name": "KNIGHT",
     "url": "",
-    "maintainer": "xbows",
-    "width": 23,
-    "height": 6.5,
+    "maintainer": "xbows-qmk",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -22,10 +20,7 @@
                 {"label":"F12", "x":12.75, "y":0},
                 {"label":"Delete", "x":14, "y":0, "w":2},
                 {"label":"Print Screen", "x":16, "y":0, "w":2},
-                {"label":"Esc", "x":19, "y":0},
-                {"label":"Tab", "x":20, "y":0},
-                {"label":"Backspace", "x":21, "y":0},
-                {"label":"Fn", "x":22, "y":0},
+
                 {"label":"~", "x":0, "y":1.5},
                 {"label":"!", "x":1, "y":1.5},
                 {"label":"@", "x":2, "y":1.5},
@@ -40,10 +35,7 @@
                 {"label":"_", "x":14, "y":1.5},
                 {"label":"+", "x":15, "y":1.5},
                 {"label":"Backspace", "x":16, "y":1.5, "w":2},
-                {"label":"Num Lock", "x":19, "y":1.5},
-                {"label":"/", "x":20, "y":1.5},
-                {"label":"*", "x":21, "y":1.5},
-                {"label":"-", "x":22, "y":1.5},
+
                 {"label":"Tab", "x":0, "y":2.5},
                 {"label":"Q", "x":1, "y":2.5},
                 {"label":"W", "x":2, "y":2.5},
@@ -59,17 +51,14 @@
                 {"label":"}", "x":15, "y":2.5},
                 {"label":"|", "x":16, "y":2.5},
                 {"label":"Page Up", "x":17, "y":2.5},
-                {"label":"7", "x":19, "y":2.5},
-                {"label":"8", "x":20, "y":2.5},
-                {"label":"9", "x":21, "y":2.5},
-                {"label":"+", "x":22, "y":2.5},
+
                 {"label":"Caps Lock", "x":0, "y":3.5},
                 {"label":"A", "x":1, "y":3.5},
                 {"label":"S", "x":2, "y":3.5},
                 {"label":"D", "x":3, "y":3.5},
                 {"label":"F", "x":4, "y":3.5},
                 {"label":"G", "x":5, "y":3.5},
-                {"label":"Backspace", "x":6, "y":3.5, "w":3},
+                {"label":"Backspace", "x":6.75, "y":3.5, "w":1.5},
                 {"label":"H", "x":9, "y":3.5},
                 {"label":"J", "x":10, "y":3.5},
                 {"label":"K", "x":11, "y":3.5},
@@ -78,17 +67,14 @@
                 {"label":"\"", "x":14, "y":3.5},
                 {"label":"Enter", "x":15, "y":3.5, "w":2},
                 {"label":"Page Down", "x":17, "y":3.5},
-                {"label":"4", "x":19, "y":3.5},
-                {"label":"5", "x":20, "y":3.5},
-                {"label":"6", "x":21, "y":3.5},
-                {"label":"+", "x":22, "y":3.5},
+
                 {"label":"Shift", "x":0, "y":4.5},
                 {"label":"Z", "x":1, "y":4.5},
                 {"label":"X", "x":2, "y":4.5},
                 {"label":"C", "x":3, "y":4.5},
                 {"label":"V", "x":4, "y":4.5},
                 {"label":"B", "x":5, "y":4.5},
-                {"label":"Enter", "x":6, "y":4.5, "w":3},
+                {"label":"Enter", "x":6.5, "y":4.5, "w":2},
                 {"label":"N", "x":9, "y":4.5},
                 {"label":"M", "x":10, "y":4.5},
                 {"label":"<", "x":11, "y":4.5},
@@ -96,10 +82,7 @@
                 {"label":"?", "x":13, "y":4.5},
                 {"label":"Shift", "x":14, "y":4.5},
                 {"label":"Up", "x":16, "y":4.5},
-                {"label":"1", "x":19, "y":4.5},
-                {"label":"2", "x":20, "y":4.5},
-                {"label":"3", "x":21, "y":4.5},
-                {"label":"Enter", "x":22, "y":4.5, "h":2},
+
                 {"label":"Ctrl", "x":0, "y":5.5},
                 {"label":"Win", "x":1, "y":5.5},
                 {"label":"Alt", "x":2, "y":5.5, "w":2},
@@ -112,9 +95,8 @@
                 {"label":"Ctrl", "x":14, "y":5.5},
                 {"label":"Left", "x":15, "y":5.5},
                 {"label":"Down", "x":16, "y":5.5},
-                {"label":"Right", "x":17, "y":5.5},
-                {"label":"0", "x":19, "y":5.5, "w":2},
-                {"label":".", "x":21, "y":5.5}
+                {"label":"Right", "x":17, "y":5.5}
+
             ]
         }
     }

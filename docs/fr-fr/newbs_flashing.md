@@ -88,7 +88,7 @@ Par exemple, si votre keymap s'appelle "xyverz" et que vous fabriquez une keymap
 
 La commande va vérifier la configuration du clavier, puis tentera de le flasher en fonction du bootloader (chargeur d’amorçage) spécifié. Cela signifie que vous n'avez pas besoin de savoir quel bootloader votre clavier utilise. Exécutez simplement la commande et laissez-le faire le gros du travail.
 
-Cependant, tout dépend du bootloader qui est installé sur le clavier. Si cette information n’est pas configurée ou si vous tentez de flasher un clavier qui ne permet pas d’être flashé alors vous obtiendrez cette erreur :
+Cependant, tout dépend du bootloader qui est installé sur le clavier. Si cette information n’est pas configurée ou si vous tentez de flasher un clavier qui ne permet pas d’être flashé alors vous obtiendrez cette erreur:
 
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
@@ -326,7 +326,7 @@ Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour flash
 
 ### BootloadHID
 
-Pour les claviers basés sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, si vous êtes prêts à compiler et flasher le firmware, ouvrez votre fenêtre de terminal et lancez la commande suivante :
+Pour les claviers basés sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, si vous êtes prêts à compiler et flasher le firmware, ouvrez votre fenêtre de terminal et lancez la commande suivante:
 
     make <my_keyboard>:<my_keymap>:bootloaderHID
 
@@ -351,7 +351,7 @@ Error opening HIDBoot device: The specified device was not found
 Trying again in 5s.
 ```
 
-Une fois ce résultat obtenu, réinitialisez le contrôleur. Le résultat suivant devrait s’afficher :
+Une fois ce résultat obtenu, réinitialisez le contrôleur. Le résultat suivant devrait s’afficher:
 
 ```
 Page size   = 128 (0x80)
