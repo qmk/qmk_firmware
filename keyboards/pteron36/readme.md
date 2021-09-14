@@ -23,8 +23,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 The keyboard was designed with miryoku layout in mind. The default layout is very basic and does not have much use, modify the keymap as you see fit. Build keyboard with manna-harbour_miryoku as keymap, qmk should compile the firmare without any issue.
 
   make pteron36:manna-harbour_miryoku 
-  qmk compile -kb pteron36  -km manna-harbour_miryoku
-  
+
 Add miryoku params as required.
 Pteron36 uses community layout, hence there is no need for separate keymap folder for any keymap that support 5x3_3 layout.
 
@@ -33,5 +32,3 @@ Pteron36 uses community layout, hence there is no need for separate keymap folde
 The VIA keymap is working as intended. 
 
   make pteron36:via 
-  qmk compile -kb pteron36  -km via
-
