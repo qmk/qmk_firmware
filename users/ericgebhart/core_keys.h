@@ -231,7 +231,7 @@ enum {
 #define BP_SFT_T_E SFT_T(BP_E)
 #define BP_SFT_T_M SFT_T(BP_M)
 
-#define BP_SFT_T_ECRC SFT_T(BP_ECRC)
+#define BP_SFT_T_ECRC SFT_T(BP_ECIR)
 #define BP_SFT_T_CCED SFT_T(BP_CCED)
 #define BP_LT_SYMB_COMM LT(SYMB,BP_COMM)
 

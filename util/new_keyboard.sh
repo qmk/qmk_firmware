@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # This script generates a new keyboard directory under keyboards/,
-# and copies the template files from quantum/template/ into it.
+# and copies the template files from data/templates/ into it.
 
 # Print an error message with the word "ERROR" in red.
 echo_error() {
@@ -35,11 +35,11 @@ copy_templates() {
     mkdir -p "$keyboard_dir"
 
     echo -n "Copying base template files..."
-    cp -r "quantum/template/base/." "${keyboard_dir}"
+    cp -r "data/templates/base/." "${keyboard_dir}"
     echo " done"
 
     echo -n "Copying $keyboard_type template files..."
-    cp -r "quantum/template/${keyboard_type}/." "${keyboard_dir}"
+    cp -r "data/templates/${keyboard_type}/." "${keyboard_dir}"
     echo " done"
 
     echo -n "Renaming keyboard files..."
@@ -129,6 +129,12 @@ if [ ! -d "quantum" ]; then
     exit 1
 fi
 
+echo_bold "########################################"
+echo_bold "#                NOTICE                #"
+echo_bold "#   This script has been deprecated.   #"
+echo_bold "# Please use qmk new-keyboard instead. #"
+echo_bold "########################################"
+echo
 echo_bold "Generating a new QMK keyboard directory"
 echo
 

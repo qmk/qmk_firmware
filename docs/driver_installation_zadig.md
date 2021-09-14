@@ -8,8 +8,8 @@ We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have
 
 ## Installation
 
-Put your keyboard into bootloader mode, either by hitting the `RESET` keycode (which may be on a different layer), or by pressing the reset switch that's usually located on the underside of the board. If your keyboard has neither, try holding Escape or Space+`B` as you plug it in (see the [Bootmagic](feature_bootmagic.md) docs for more details). Some boards use [Command](feature_command.md) instead of Bootmagic; in this case, you can enter bootloader mode by hitting Left Shift+Right Shift+`B` or Left Shift+Right Shift+Escape at any point while the keyboard is plugged in.
-Some keyboards may have specific instructions for entering the bootloader. For example, the [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite) key (default: Escape) might be on a different key, e.g. Left Control; or the magic combination for Command (default: Left Shift+Right Shift) might require you to hold something else, e.g. Left Control+Right Control. Refer to the board's README file if you are unsure.
+Put your keyboard into bootloader mode, either by hitting the `RESET` keycode (which may be on a different layer), or by pressing the reset switch that's usually located on the underside of the board. If your keyboard has neither, try holding Escape or Space+`B` as you plug it in (see the [Bootmagic Lite](feature_bootmagic.md) docs for more details). Some boards use [Command](feature_command.md) instead of Bootmagic; in this case, you can enter bootloader mode by hitting Left Shift+Right Shift+`B` or Left Shift+Right Shift+Escape at any point while the keyboard is plugged in.
+Some keyboards may have specific instructions for entering the bootloader. For example, the [Bootmagic Lite](feature_bootmagic.md) key (default: Escape) might be on a different key, e.g. Left Control; or the magic combination for Command (default: Left Shift+Right Shift) might require you to hold something else, e.g. Left Control+Right Control. Refer to the board's README file if you are unsure.
 
 To put a device in bootloader mode with USBaspLoader, tap the `RESET` button while holding down the `BOOT` button.
 Alternatively, hold `BOOT` while inserting the USB cable.
@@ -68,30 +68,31 @@ This is a list of known bootloader devices and their USB vendor and product IDs,
 
 The device name here is the name that appears in Zadig, and may not be what the Device Manager or QMK Toolbox displays.
 
-|Bootloader   |Device Name                   |VID/PID       |Driver |
-|-------------|------------------------------|--------------|-------|
-|`atmel-dfu`  |ATmega16u2 DFU                |`03EB:2FEF`   |libusb0|
-|`atmel-dfu`  |ATmega32U2 DFU                |`03EB:2FF0`   |libusb0|
-|`atmel-dfu`  |ATm16U4 DFU V1.0.2            |`03EB:2FF3`   |libusb0|
-|`atmel-dfu`  |ATm32U4DFU                    |`03EB:2FF4`   |libusb0|
-|`atmel-dfu`  |*none* (AT90USB64)            |`03EB:2FF9`   |libusb0|
-|`atmel-dfu`  |AT90USB128 DFU                |`03EB:2FFB`   |libusb0|
-|`qmk-dfu`    |(keyboard name) Bootloader    |As `atmel-dfu`|libusb0|
-|`halfkay`    |*none*                        |`16C0:0478`   |HidUsb |
-|`caterina`   |Pro Micro 3.3V                |`1B4F:9203`   |usbser |
-|`caterina`   |Pro Micro 5V                  |`1B4F:9205`   |usbser |
-|`caterina`   |LilyPadUSB                    |`1B4F:9207`   |usbser |
-|`caterina`   |Pololu A-Star 32U4 Bootloader |`1FFB:0101`   |usbser |
-|`caterina`   |Arduino Leonardo              |`2341:0036`   |usbser |
-|`caterina`   |Arduino Micro                 |`2341:0037`   |usbser |
-|`caterina`   |Adafruit Feather 32u4         |`239A:000C`   |usbser |
-|`caterina`   |Adafruit ItsyBitsy 32u4 3V    |`239A:000D`   |usbser |
-|`caterina`   |Adafruit ItsyBitsy 32u4 5V    |`239A:000E`   |usbser |
-|`caterina`   |Arduino Leonardo              |`2A03:0036`   |usbser |
-|`caterina`   |Arduino Micro                 |`2A03:0037`   |usbser |
-|`bootloadHID`|HIDBoot                       |`16C0:05DF`   |HidUsb |
-|`USBasp`     |USBasp                        |`16C0:05DC`   |libusbK|
-|`apm32-dfu`  |APM32 DFU ISP Mode            |`314B:0106`   |WinUSB |
-|`stm32-dfu`  |STM32 BOOTLOADER              |`0483:DF11`   |WinUSB |
-|`kiibohd`    |Kiibohd DFU Bootloader        |`1C11:B007`   |WinUSB |
-|`stm32duino` |Maple 003                     |`1EAF:0003`   |WinUSB |
+|Bootloader    |Device Name                   |VID/PID       |Driver |
+|--------------|------------------------------|--------------|-------|
+|`atmel-dfu`   |ATmega16u2 DFU                |`03EB:2FEF`   |libusb0|
+|`atmel-dfu`   |ATmega32U2 DFU                |`03EB:2FF0`   |libusb0|
+|`atmel-dfu`   |ATm16U4 DFU V1.0.2            |`03EB:2FF3`   |libusb0|
+|`atmel-dfu`   |ATm32U4DFU                    |`03EB:2FF4`   |libusb0|
+|`atmel-dfu`   |*none* (AT90USB64)            |`03EB:2FF9`   |libusb0|
+|`atmel-dfu`   |AT90USB128 DFU                |`03EB:2FFB`   |libusb0|
+|`qmk-dfu`     |(keyboard name) Bootloader    |As `atmel-dfu`|libusb0|
+|`halfkay`     |*none*                        |`16C0:0478`   |HidUsb |
+|`caterina`    |Pro Micro 3.3V                |`1B4F:9203`   |usbser |
+|`caterina`    |Pro Micro 5V                  |`1B4F:9205`   |usbser |
+|`caterina`    |LilyPadUSB                    |`1B4F:9207`   |usbser |
+|`caterina`    |Pololu A-Star 32U4 Bootloader |`1FFB:0101`   |usbser |
+|`caterina`    |Arduino Leonardo              |`2341:0036`   |usbser |
+|`caterina`    |Arduino Micro                 |`2341:0037`   |usbser |
+|`caterina`    |Adafruit Feather 32u4         |`239A:000C`   |usbser |
+|`caterina`    |Adafruit ItsyBitsy 32u4 3V    |`239A:000D`   |usbser |
+|`caterina`    |Adafruit ItsyBitsy 32u4 5V    |`239A:000E`   |usbser |
+|`caterina`    |Arduino Leonardo              |`2A03:0036`   |usbser |
+|`caterina`    |Arduino Micro                 |`2A03:0037`   |usbser |
+|`bootloadhid` |HIDBoot                       |`16C0:05DF`   |HidUsb |
+|`usbasploader`|USBasp                        |`16C0:05DC`   |libusbK|
+|`apm32-dfu`   |APM32 DFU ISP Mode            |`314B:0106`   |WinUSB |
+|`stm32-dfu`   |STM32 BOOTLOADER              |`0483:DF11`   |WinUSB |
+|`kiibohd`     |Kiibohd DFU Bootloader        |`1C11:B007`   |WinUSB |
+|`stm32duino`  |Maple 003                     |`1EAF:0003`   |WinUSB |
+|`qmk-hid`     |(keyboard name) Bootloader    |`03EB:2067`   |HidUsb |

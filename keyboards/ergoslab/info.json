@@ -2,11 +2,8 @@
   "keyboard_name": "ergoslab",
   "url": "https://github.com/tomsaleeba/ergoslab",
   "maintainer": "tomsaleeba",
-  "width": 13,
-  "height": 5.25,
   "layouts": {
     "LAYOUT_ergoslab": {
-      "key_count": 52,
       "layout": [
         {"label":"Q", "x":0, "y":0.625},
         {"label":"W", "x":1, "y":0.125},

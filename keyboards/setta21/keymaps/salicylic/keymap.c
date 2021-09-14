@@ -9,7 +9,7 @@ extern rgblight_config_t rgblight_config;
 
 extern uint8_t is_master;
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static uint32_t        oled_timer = 0;
 #endif
 
@@ -40,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //|--------+--------+--------+--------|
           KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
       //|--------+--------+--------+--------|
-            KC_P7,   KC_P8,   KC_P9,         
+            KC_P7,   KC_P8,   KC_P9,
       //|--------+--------+--------+--------|
             KC_P4,   KC_P5,   KC_P6, KC_PPLS,
       //|--------+--------+--------+--------|
-            KC_P1,   KC_P2,   KC_P3,         
+            KC_P1,   KC_P2,   KC_P3,
       //|--------+--------+--------+--------|
 LT(_ARROW, KC_P0),LT(_MACRO, KC_PDOT),KC_PENT
       //`-----------------------------------'
@@ -56,13 +56,13 @@ LT(_ARROW, KC_P0),LT(_MACRO, KC_PDOT),KC_PENT
       //|--------+--------+--------+--------|
           XXXXXXX, _______, _______, _______,
       //|--------+--------+--------+--------|
-          XXXXXXX,   KC_UP, XXXXXXX,         
+          XXXXXXX,   KC_UP, XXXXXXX,
       //|--------+--------+--------+--------|
           KC_LEFT, KC_DOWN,KC_RIGHT, _______,
       //|--------+--------+--------+--------|
-          XXXXXXX, KC_DOWN, XXXXXXX,         
+          XXXXXXX, KC_DOWN, XXXXXXX,
       //|--------+--------+--------+--------|
-       MO(_ARROW),       MO(_MACRO), _______ 
+       MO(_ARROW),       MO(_MACRO), _______
       //`-----------------------------------'
   ),
 
@@ -72,13 +72,13 @@ LT(_ARROW, KC_P0),LT(_MACRO, KC_PDOT),KC_PENT
       //|--------+--------+--------+--------|
          SEND_MIN,SEND_MAX,SEND_CIF,SEND_AVE,
       //|--------+--------+--------+--------|
-            KC_F7,   KC_F8,   KC_F9,         
+            KC_F7,   KC_F8,   KC_F9,
       //|--------+--------+--------+--------|
             KC_F4,   KC_F5,   KC_F6,SEND_SUM,
       //|--------+--------+--------+--------|
-           KC_F11,  KC_F12,   KC_F3,         
+           KC_F11,  KC_F12,   KC_F3,
       //|--------+--------+--------+--------|
-          _______,          _______, JP_RPRN 
+          _______,          _______, JP_RPRN
       //`-----------------------------------'
   ),
 
@@ -88,13 +88,13 @@ LT(_ARROW, KC_P0),LT(_MACRO, KC_PDOT),KC_PENT
       //|--------+--------+--------+--------|
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       //|--------+--------+--------+--------|
-          RGB_SAD, RGB_SAI, XXXXXXX,         
+          RGB_SAD, RGB_SAI, XXXXXXX,
       //|--------+--------+--------+--------|
           RGB_HUD, RGB_HUI, XXXXXXX, RGB_TOG,
       //|--------+--------+--------+--------|
-          RGB_VAD, RGB_VAI, XXXXXXX,         
+          RGB_VAD, RGB_VAI, XXXXXXX,
       //|--------+--------+--------+--------|
-          _______,          _______, RGB_MOD 
+          _______,          _______, RGB_MOD
       //`-----------------------------------'
   )
 };
@@ -109,7 +109,7 @@ int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool result = false;
   if (record->event.pressed) {
-     #ifdef OLED_DRIVER_ENABLE
+     #ifdef OLED_ENABLE
         oled_timer = timer_read32();
      #endif
   }
@@ -163,7 +163,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return result;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 
 
