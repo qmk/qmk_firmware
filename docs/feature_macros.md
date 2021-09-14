@@ -23,7 +23,7 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
         ],
         [
             "ding!",
-            {"action":"ding"}
+            {"action":"beep"}
         ],
         [
             {"action":"tap", "keycodes": ["F1"]},
@@ -51,9 +51,9 @@ Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` 
 * `delay`
     * Pauses macro playback. Duration is specified in miliseconds (ms).
     * Example: `{"action": "delay", "duration": 500}`
-* `ding`
+* `beep`
     * Play a bell if the keyboard has [audio enabled](feature_audio.md).
-    * Example: `{"action": "ding"}`
+    * Example: `{"action": "beep"}`
 * `down`
     * Send a key down event for one or more keycodes.
     * Example, single key: `{"action":"down", "keycodes": ["LSFT"]}`

@@ -235,7 +235,7 @@ def generate_c(keymap_json):
                     if macro_fragment['action'] == 'delay':
                         newstring.append(f"SS_DELAY({macro_fragment['duration']})")
 
-                    elif macro_fragment['action'] == 'ding':
+                    elif macro_fragment['action'] == 'beep':
                         newstring.append(r'"\a"')
 
                     elif macro_fragment['action'] == 'tap' and len(macro_fragment['keycodes']) > 1:
