@@ -5,11 +5,8 @@
   "maintainer": "qmk",
   "bootloader": "caterina",
   "processor": "atmega32u4",
-  "width": 16.25,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
-      "key_count": 53,
       "layout": [
         {"label":"Tab", "x":0, "y":0},
         {"label":"Q", "x":1, "y":0},

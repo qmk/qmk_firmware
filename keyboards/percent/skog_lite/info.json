@@ -2,8 +2,6 @@
     "keyboard_name": "Skog Lite",
     "url": "",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

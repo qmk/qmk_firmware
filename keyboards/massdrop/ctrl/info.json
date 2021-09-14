@@ -2,8 +2,6 @@
     "keyboard_name": "CTRL",
     "url": "https://www.massdrop.com/buy/massdrop-ctrl-mechanical-keyboard",
     "maintainer": "Massdrop",
-    "width": 18.5,
-    "height": 6.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

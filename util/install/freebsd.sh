@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 _qmk_install_prepare() {
     sudo pkg update $SKIP_PROMPT

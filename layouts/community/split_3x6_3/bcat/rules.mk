@@ -1,9 +1,4 @@
-ifeq ($(strip $(KEYBOARD)), crkbd/rev1/common)
-	BOOTLOADER = atmel-dfu  # Elite-C
-
-	# Enable underglow only. (Split Common doesn't support RGB matrix on slave.)
-	RGBLIGHT_ENABLE = yes
-else ifeq ($(strip $(KEYBOARD)), crkbd/rev1/legacy)
+ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
 	BOOTLOADER = atmel-dfu  # Elite-C
 
 	RGB_MATRIX_ENABLE = yes  # per-key RGB and underglow

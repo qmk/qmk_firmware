@@ -2,8 +2,6 @@
     "keyboard_name": "zodiark", 
     "url": "https://github.com/Aleblazer/qmk_firmware/tree/master/keyboards/zodiark", 
     "maintainer": "Aleblazer", 
-    "width": 18,
-    "height": 6.25,
     "layouts": {
         "LAYOUT": {
             "layout": [
