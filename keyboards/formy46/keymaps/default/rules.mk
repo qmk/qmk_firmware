@@ -8,4 +8,3 @@ POINTING_DEVICE_ENABLE  =  yes       # Enable Pointing Device
 ENCODER_ENABLE          =  yes       # Enable Rotary Encoder
 OLED_ENABLE             =  yes       # Enable OLED
 OLED_DRIVER             =  SSD1306   # OLED Type
-COMBO_ENABLE            =  no       # Enable Combo

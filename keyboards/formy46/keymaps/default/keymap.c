@@ -324,54 +324,6 @@ void oled_task_user(void) {
 #endif
 
 
-/* combo config
-#ifdef COMBO_ENABLE
-enum combos {
-    SPC1_F1,
-    SPC2_F2,
-    SPC3_F3,
-    SPC4_F4,
-    SPC5_F5,
-    SPC6_F6,
-    SPC7_F7,
-    SPC8_F8,
-    SPC9_F9,
-    SPC10_F10,
-    SPC11_F11,
-    SPC12_F12,
-};
-
-const uint16_t PROGMEM spc1_f1[] = { KC_SPC, KC_1, COMBO_END};
-const uint16_t PROGMEM spc2_f2[] = { KC_SPC, KC_2, COMBO_END};
-const uint16_t PROGMEM spc3_f3[] = { KC_SPC, KC_3, COMBO_END};
-const uint16_t PROGMEM spc4_f4[] = { KC_SPC, KC_4, COMBO_END};
-const uint16_t PROGMEM spc5_f5[] = { KC_SPC, KC_5, COMBO_END};
-const uint16_t PROGMEM spc6_f6[] = { KC_SPC, KC_6, COMBO_END};
-const uint16_t PROGMEM spc7_f7[] = { KC_SPC, KC_7, COMBO_END};
-const uint16_t PROGMEM spc8_f8[] = { KC_SPC, KC_8, COMBO_END};
-const uint16_t PROGMEM spc9_f9[] = { KC_SPC, KC_9, COMBO_END};
-const uint16_t PROGMEM spc10_f10[] = { KC_SPC, KC_0, COMBO_END};
-const uint16_t PROGMEM spc11_f11[] = { KC_SPC, KC_MINS, COMBO_END};
-const uint16_t PROGMEM spc12_f12[]  = { KC_SPC, KC_EQL, COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-    [SPC1_F1] = COMBO(spc1_f1, KC_F1),
-    [SPC2_F2] = COMBO(spc2_f2, KC_F2),
-    [SPC3_F3] = COMBO(spc3_f3, KC_F3),
-    [SPC4_F4] = COMBO(spc4_f4, KC_F4),
-    [SPC5_F5] = COMBO(spc5_f5, KC_F5),
-    [SPC6_F6] = COMBO(spc6_f6, KC_F6),
-    [SPC7_F7] = COMBO(spc7_f7, KC_F7),
-    [SPC8_F8] = COMBO(spc8_f8, KC_F8),
-    [SPC9_F9] = COMBO(spc9_f9, KC_F9),
-    [SPC10_F10] = COMBO(spc10_f10, KC_F10),
-    [SPC11_F11] = COMBO(spc11_f11, KC_F11),
-    [SPC12_F12] = COMBO(spc12_f12, KC_F12),
-};
-#endif
-*/
-
-
 /* keycord */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
