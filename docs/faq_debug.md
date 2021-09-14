@@ -62,7 +62,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 
 Example output
-```text
+```
 Waiting for device:.......
 Listening:
 KL: kc: 169, col: 0, row: 0, pressed: 1
@@ -82,7 +82,7 @@ When testing performance issues, it can be useful to know the frequency at which
 ```
 
 Example output
-```text
+```
   > matrix scan frequency: 315
   > matrix scan frequency: 313
   > matrix scan frequency: 316

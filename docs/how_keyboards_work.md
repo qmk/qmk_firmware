@@ -9,7 +9,7 @@ firmware directly.
 Whenever you type on 1 particular key, here is the chain of actions taking
 place:
 
-``` text
+```
 +------+         +-----+       +----------+      +----------+     +----+
 | User |-------->| Key |------>| Firmware |----->| USB wire |---->| OS |
 +------+         +-----+       +----------+      +----------+     +----+
