@@ -36,6 +36,6 @@
 	{ k40, k41, k42, k43, k44 }, \
 	{ k50, k51, k52, k53, k54 }, \
 	{ k60, k61, k62, k63, k64 }, \
-	{ k71, KC_NO, k73, k74, KC_NO }, \
+	{ k71, KC_NO, k74, k73, KC_NO }, \
 }
 // clang-format on
