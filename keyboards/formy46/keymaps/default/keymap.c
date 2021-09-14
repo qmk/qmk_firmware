@@ -17,6 +17,7 @@
 #include "joystick.h"
 #include "analog.h"
 #include "pointing_device.h"
+#include <stdio.h>
 
 /* layer change */
 #define BASE    TG(_BASE)
@@ -76,7 +77,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+
 /* joystick config */
+#ifdef JOYSTICK_ENABLE
 // Change this
 char arrow_keys[4] = {KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT}; // up, left, down, right
 static int joystickThreshold = 6; // Value to prevent joystick drift
@@ -150,8 +153,11 @@ void joystick_task(){
         break;
 	}
 };
+#endif
+
 
 /* rotary encorder config */
+#ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch(get_highest_layer(layer_state)){
         case _BASE:
@@ -225,19 +231,21 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return false;
 };
+#endif
+
 
 /* OLED config */
-#ifdef OLED_DRIVER_ENABLE
-
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
+    if (!is_keyboard_master()) {
         return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
     }
-return rotation;
+        return rotation;
+}
 
-*/
 static void render_logo(void) {
     static const char PROGMEM formy46_logo[] = {
+
 	0x8c, 0x86, 0x86, 0x86, 0x86, 0x86, 0x8c, 0x98, 0x8c, 0x86, 0x86, 0x86, 0x86, 0x86, 0x8c, 0x98,
 	0x8c, 0x86, 0x86, 0x86, 0x86, 0x86, 0x8c, 0x98, 0x8c, 0x86, 0x86, 0x86, 0x86, 0x86, 0x8c, 0x98,
 	0x00, 0x78, 0x7c, 0xc6, 0xc6, 0xc6, 0xc6, 0xfc, 0xf8, 0xc0, 0xf8, 0xf8, 0xc0, 0xc0, 0xc0, 0xc0,
@@ -273,36 +281,54 @@ static void render_logo(void) {
     };
     oled_write_raw_P(formy46_logo, sizeof(formy46_logo));
 }
-    void render_layer_state(void) {
-        oled_write_P(PSTR("Layer"), false);
-        oled_write_ln_P(PSTR(""), false);
-        oled_write_ln_P(PSTR(""), false);
-        switch(get_highest_layer(layer_state)) {
-            case _BASE:
-                oled_write_P(PSTR("Default\n"), false);
-                break;
-            case _GAME_MODE:
-                oled_write_P(PSTR("GAME Mode\n"), false);
-                break;
-            case _CREATION_MODE:
-                oled_write_P(PSTR("CREATION Mode\n"), false);
-                break;
-            case _FN:
-                oled_write_P(PSTR("Function\n"), false);
-                break;
-        }
+
+void render_layer_state(void) {
+    oled_write_ln_P(PSTR("Mode:"), false);
+    oled_write_ln_P(PSTR(""), false);
+    switch(get_highest_layer(layer_state)) {
+        case _BASE:
+            oled_write_ln_P(PSTR("Main\n"),  true);
+            oled_write_ln_P(PSTR("GAME\n"),  false);
+            oled_write_ln_P(PSTR("Crea\n"),  false);
+            oled_write_ln_P(PSTR("Fn\n"),  false);
+            break;
+        case _GAME_MODE:
+            oled_write_ln_P(PSTR("Main\n"),  false);
+            oled_write_ln_P(PSTR("GAME\n"),  true);
+            oled_write_ln_P(PSTR("Crea\n"),  false);
+            oled_write_ln_P(PSTR("Fn\n"),  false);
+            break;
+        case _CREATION_MODE:
+            oled_write_ln_P(PSTR("Main\n"),  false);
+            oled_write_ln_P(PSTR("GAME\n"),  false);
+            oled_write_ln_P(PSTR("Crea\n"),  true);
+            oled_write_ln_P(PSTR("Fn\n"),  false);
+            break;
+        case _FN:
+            oled_write_ln_P(PSTR("Main\n"),  false);
+            oled_write_ln_P(PSTR("GAME\n"),  false);
+            oled_write_ln_P(PSTR("Crea\n"),  false);
+            oled_write_ln_P(PSTR("Fn\n"),  true);
+            break;
+        default:
+            oled_write_ln_P(PSTR("Error"),  false);
+            break;
     }
+}
+
 void oled_task_user(void) {
     if (is_keyboard_master()) {
+        render_layer_state();
+    } else {
         render_logo();
         oled_scroll_left();  // Turns on scrolling
-    } else {
-        render_layer_state();
     }
 }
 #endif
 
+
 /* combo config */
+#ifdef COMBO_ENABLE
 enum combos {
     SPC1_F1,
     SPC2_F2,
@@ -317,6 +343,7 @@ enum combos {
     SPC11_F11,
     SPC12_F12,
 };
+
 const uint16_t PROGMEM spc1_f1[] = { KC_SPC, KC_1, COMBO_END};
 const uint16_t PROGMEM spc2_f2[] = { KC_SPC, KC_2, COMBO_END};
 const uint16_t PROGMEM spc3_f3[] = { KC_SPC, KC_3, COMBO_END};
@@ -329,6 +356,7 @@ const uint16_t PROGMEM spc9_f9[] = { KC_SPC, KC_9, COMBO_END};
 const uint16_t PROGMEM spc10_f10[] = { KC_SPC, KC_0, COMBO_END};
 const uint16_t PROGMEM spc11_f11[] = { KC_SPC, KC_MINS, COMBO_END};
 const uint16_t PROGMEM spc12_f12[]  = { KC_SPC, KC_EQL, COMBO_END};
+
 combo_t key_combos[COMBO_COUNT] = {
     [SPC1_F1] = COMBO(spc1_f1, KC_F1),
     [SPC2_F2] = COMBO(spc2_f2, KC_F2),
@@ -343,6 +371,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [SPC11_F11] = COMBO(spc11_f11, KC_F11),
     [SPC12_F12] = COMBO(spc12_f12, KC_F12),
 };
+
 
 /* keycord */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -364,3 +393,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true; // Process all other keycodes normally
     }
 }
+#endif
