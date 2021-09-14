@@ -19,6 +19,11 @@
 #    define SPLIT_USB_DETECT  // Force this on when dedicated pin is not used
 #endif
 
+// STM32 compatibility
+#if defined(MCU_STM32)
+#    define CPU_CLOCK STM32_SYSCLK
+#endif
+
 #if defined(STM32F1XX)
 #    define USE_GPIOV1
 #endif
@@ -27,14 +32,13 @@
 #    define USE_I2CV1
 #endif
 
-// teensy
+// teensy compatibility
+#if defined(MCU_KINETIS)
+#    define CPU_CLOCK KINETIS_SYSCLK_FREQUENCY
+#endif
+
 #if defined(K20x) || defined(KL2x)
 #    define USE_I2CV1
 #    define USE_I2CV1_CONTRIB  // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
 #    define USE_GPIOV1
-#    define STM32_SYSCLK KINETIS_SYSCLK_FREQUENCY
-#endif
-
-#if defined(MK66F18)
-#    define STM32_SYSCLK KINETIS_SYSCLK_FREQUENCY
 #endif
