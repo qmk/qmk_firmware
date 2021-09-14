@@ -2,8 +2,6 @@
     "keyboard_name": "GHS.RAR",
     "url": "https://gonehacking.studio/",
     "maintainer": "Gone Hacking Studio",
-    "width": 16.5,
-    "height": 6.75,
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

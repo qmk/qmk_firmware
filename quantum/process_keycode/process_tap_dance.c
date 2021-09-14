@@ -44,6 +44,7 @@ void qk_tap_dance_pair_finished(qk_tap_dance_state_t *state, void *user_data) {
 void qk_tap_dance_pair_reset(qk_tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
 
+    wait_ms(TAP_CODE_DELAY);
     if (state->count == 1) {
         unregister_code16(pair->kc1);
     } else if (state->count == 2) {
@@ -74,6 +75,7 @@ void qk_tap_dance_dual_role_reset(qk_tap_dance_state_t *state, void *user_data) 
     qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
 
     if (state->count == 1) {
+        wait_ms(TAP_CODE_DELAY);
         unregister_code16(pair->kc);
     }
 }

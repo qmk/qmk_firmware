@@ -2,8 +2,6 @@
     "keyboard_name": "QUARK",
     "url": "",
     "maintainer": "nasp",
-    "width": 12,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x12_2x225u": {
             "layout": [

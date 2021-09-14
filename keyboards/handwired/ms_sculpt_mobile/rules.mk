@@ -1,21 +1,11 @@
 ifdef ASTAR
     MCU = atmega32u4
     CFLAGS = -D ASTAR
-    USB = /dev/cu.usbmodem14141
-    SCULPT_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done ; avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 else
     MCU = at90usb1286
-    SCULPT_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
 endif
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 ifdef ASTAR
     BOOTLOADER = caterina
 else
@@ -33,7 +23,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
 UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
 # Project specific files

@@ -2,11 +2,8 @@
   "keyboard_name": "Pterodactyl",
   "url": "https://marcyoung.us/post/pterodactyl/",
   "maintainer": "Marcus Young",
-  "width": 17,
-  "height": 8,
   "layouts": {
     "LAYOUT_pterodactyl": {
-      "key_count": 70,
       "layout": [
         {"x":0, "y":0},
         {"x":1, "y":0},

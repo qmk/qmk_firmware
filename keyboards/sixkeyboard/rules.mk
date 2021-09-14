@@ -2,13 +2,6 @@
 MCU = atmega16u2
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -24,7 +17,6 @@ NKRO_ENABLE = no			# USB Nkey Rollover - if this doesn't work, see here: https:/
 BACKLIGHT_ENABLE = no	# Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 UNICODE_ENABLE = no		# Unicode
-BLUETOOTH_ENABLE = no	# Enable Bluetooth with the Adafruit EZ-Key HID
 CUSTOM_MATRIX = yes
 
 SRC += matrix.c

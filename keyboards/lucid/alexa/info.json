@@ -2,8 +2,6 @@
     "keyboard_name": "Alexa",
     "url": "http://www.makerkeyboards.com",
     "maintainer": "Maker Keyboards",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
