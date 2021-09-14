@@ -2,8 +2,6 @@
     "keyboard_name": "Uni660",
     "url": "",
     "maintainer": "qmk",
-    "width": 19,
-    "height": 5,
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

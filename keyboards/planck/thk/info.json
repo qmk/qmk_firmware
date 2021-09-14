@@ -1,54 +1,13 @@
 {
-  "manufacturer": "OLKB",
   "keyboard_name": "Planck THK",
   "maintainer": "Erovia",
-  "height": 4,
-  "width": 12,
-  "bootloader": "USBasp",
-  "debounce": 5,
-  "diode_direction": "COL2ROW",
-  "features": {
-    "audio": false,
-    "backlight": false,
-    "bluetooth": false,
-    "bootmagic_lite": true,
-    "command": false,
-    "console": false,
-    "dip_switch": true,
-    "encoder": true,
-    "extrakey": true,
-    "mousekey": true,
-    "nkro": false,
-    "rgblight": false,
-    "sleep_led": false
-  },
-  "matrix_pins": {
-    "cols": ["D7", "C2", "C3", "C4", "C5", "C6", "C7", "A3", "A2", "A1", "A0", "B0"],
-    "rows": ["A7", "A6", "A5", "A4"]
-  },
-  "processor": "atmega32a",
-  "qmk_lufa_bootloader": {
-    "esc_input": "D5",
-    "esc_output": "F1",
-    "led": "E6",
-    "speaker": "C6"
-  },
   "url": "https://olkb.com/planck",
-  "usb": {
-    "device_ver": "0x0000",
-    "pid": "0x25A7",
-    "vid": "0x03A8"
-  },
-  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layout_aliases": {
     "LAYOUT_planck_grid": "LAYOUT_ortho_4x12",
     "LAYOUT_planck_mit": "LAYOUT_planck_1x2uC"
   },
   "layouts": {
     "LAYOUT_ortho_4x12": {
-      "c_macro": true,
-      "filename": "keyboards/planck/thk/thk.h",
-      "key_count": 48,
       "layout": [
         { "label": "k00", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "k01", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -101,9 +60,6 @@
       ]
     },
     "LAYOUT_planck_1x2uC": {
-      "c_macro": true,
-      "filename": "keyboards/planck/thk/thk.h",
-      "key_count": 47,
       "layout": [
         { "label": "k00", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "k01", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
