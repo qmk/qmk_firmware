@@ -33,7 +33,7 @@
 
 #if defined(RGB_MATRIX_ENABLE)
 /* Turn off per-key RGB when the host goes to sleep. */
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 /* Keep per-key RGB increments consistent across keyboards. */
 #    undef RGB_MATRIX_HUE_STEP

@@ -20,7 +20,7 @@
 #pragma once
 
 #include "quantum.h"
-#include "adns5050.h"
+#include "drivers/sensors/adns5050.h"
 #include "analog.h"
 #include "opt_encoder.h"
 #include "pointing_device.h"
@@ -33,8 +33,6 @@
 
 void process_mouse(report_mouse_t* mouse_report);
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
-void process_wheel(report_mouse_t* mouse_report);
-void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
 
 #define LAYOUT(k00) {{ KC_NO }}
 

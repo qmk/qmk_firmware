@@ -44,7 +44,7 @@ void music_scale_user(void);
 void music_all_notes_off(void);
 void music_mode_cycle(void);
 
-void matrix_scan_music(void);
+void music_task(void);
 
 bool music_mask(uint16_t keycode);
 bool music_mask_kb(uint16_t keycode);

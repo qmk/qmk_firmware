@@ -14,25 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* if the kb.h file exists (because we're running from qmkbuilder) include it */
-#ifdef __has_include
-#if __has_include("kb.h")
-#include "kb.h"
-#endif
-#endif
-
 #include "quantum.h"
 #include "matrix.h"
 #include <avr/sfr_defs.h>
-
-#ifndef cbi
-#define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
-#endif
-
-#ifndef sbi
-#define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
-#endif
-
 
 typedef struct RGB_Color {
     uint16_t red;

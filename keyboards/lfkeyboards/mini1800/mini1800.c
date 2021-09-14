@@ -37,8 +37,8 @@ void matrix_init_kb(void)
     set_rgb(32, 0xFF, 0x00, 0x00);  // Layer indicator, start red
 #ifndef AUDIO_ENABLE
     // If we're not using the audio pin, drive it low
-    sbi(DDRC, 6);
-    cbi(PORTC, 6);
+    setPinOutput(C6);
+    writePinLow(C6);
 #endif
     _delay_ms(500);
 #ifdef ISSI_ENABLE

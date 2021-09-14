@@ -1,8 +1,6 @@
 {
     "keyboard_name": "tester",
     "maintainer": "qmk",
-    "height": 5,
-    "width": 15,
     "layouts": {
         "LAYOUT": {
             "layout": [

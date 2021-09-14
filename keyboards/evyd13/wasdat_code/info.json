@@ -2,8 +2,6 @@
     "keyboard_name": "Wasdat Code",
     "url": "https://maartenwut.com/product/wasdat-code/",
     "maintainer": "evyd13",
-    "width": 22.5,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [

@@ -36,11 +36,19 @@ Note how there's several different tests, each mocking out a separate part. Also
 
 ## Running the Tests
 
-To run all the tests in the codebase, type `make test`. You can also run test matching a substring by typing `make test:matchingsubstring` Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
+To run all the tests in the codebase, type `make test:all`. You can also run test matching a substring by typing `make test:matchingsubstring` Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
 
 ## Debugging the Tests
 
 If there are problems with the tests, you can find the executable in the `./build/test` folder. You should be able to run those with GDB or a similar debugger.
+
+To forward any [debug messages](unit_testing.md#debug-api) to `stderr`, the tests can run with `DEBUG=1`. For example
+
+```console
+make test:all DEBUG=1
+```
+
+Alternatively, add `CONSOLE_ENABLE=yes` to the tests `rules.mk`.
 
 ## Full Integration Tests
 

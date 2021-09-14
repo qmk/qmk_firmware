@@ -2,10 +2,8 @@
   "keyboard_name": "Ortho75",
   "url": "",
   "maintainer": "qmk",
-  "width": 15,
-  "height": 5,
   "layouts": {
-    "LAYOUT_ortho_5x12": {
+    "LAYOUT_ortho_5x15": {
       "layout": [
         {"label":"`", "x":0, "y":0},
         {"label":"1", "x":1, "y":0},

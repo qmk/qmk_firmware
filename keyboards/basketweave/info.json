@@ -2,8 +2,6 @@
     "keyboard_name": "Basketweave",
     "url": "https://github.com/null-ll/basketweave",
     "maintainer": "null-ll",
-    "width": 20,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

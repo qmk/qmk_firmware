@@ -2,11 +2,8 @@
   "keyboard_name": "jopr-106",
   "url": "https://github.com/joelproko/keyboard_layout_jopr",
   "maintainer": "joelproko",
-  "width": 22.5,
-  "height": 6.25,
   "layouts": {
     "LAYOUT": {
-      "key_count": 106,
       "layout": [
         {
           "label": "MX_A0",

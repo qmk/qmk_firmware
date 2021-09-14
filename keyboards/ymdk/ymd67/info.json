@@ -2,11 +2,8 @@
     "keyboard_name": "ymd67",
     "url": "https://www.aliexpress.com/item/4000311811121.html",
     "maintainer": "SwiftLawnGnome",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
-            "key_count": 67,
             "layout": [
                 {"label": "Esc", "x": 0, "y": 0},
                 {"label": "!", "x": 1, "y": 0},

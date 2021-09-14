@@ -34,16 +34,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_RAISE] = LAYOUT( \
-  DE_EXLM,  DE_QST,   DE_PARA, DE_DLR,  DE_HASH,                  DE_PLUS,  DE_7,  DE_8,   DE_9, DE_0,  \
-  DE_CIRC,  DE_QUOT, DE_DQOT, DE_GRV, DE_AMPR,              	    DE_ASTR,  DE_4,  DE_5,   DE_6, DE_EQL, \
+  DE_EXLM,  DE_QUES,  DE_SECT, DE_DLR,  DE_HASH,                  DE_PLUS,  DE_7,  DE_8,   DE_9, DE_0,  \
+  DE_CIRC,  DE_QUOT, DE_DQUO, DE_GRV, DE_AMPR,              	    DE_ASTR,  DE_4,  DE_5,   DE_6, DE_EQL, \
   DE_SLSH,  DE_PIPE,  DE_BSLS, DE_AT,   DE_EURO,                  DE_PERC,  DE_1,  DE_2,   DE_3, KC_TAB,  \
                     _______, _______, _______,        _______,  _______,  _______ \
 ),
 
 [_LOWER] = LAYOUT( \
   KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,  DE_LBRC,  DE_RBRC,  KC_AUDIO_VOL_UP,  KC_HOME,      KC_PGDOWN,  KC_PGUP,  KC_END,   DE_TILD,  \
-  KC_ESC,   DE_LESS,  DE_LPRN,  DE_RPRN,  DE_MORE,                          KC_LEFT,      KC_DOWN,    KC_UP,    KC_RIGHT, KC_ENT,  \
-  KC_BSPC,  KC_DEL,   DE_LCBR,  DE_RCBR,  KC_PSCR,                        	_______,  DE_AE,    DE_OE,    DE_UE,    DE_SS,  \
+  KC_ESC,   DE_LABK,  DE_LPRN,  DE_RPRN,  DE_RABK,                          KC_LEFT,      KC_DOWN,    KC_UP,    KC_RIGHT, KC_ENT,  \
+  KC_BSPC,  KC_DEL,   DE_LCBR,  DE_RCBR,  KC_PSCR,                        	_______,  DE_ADIA,  DE_ODIA,  DE_UDIA,  DE_SS,  \
                         _______, _______, _______,                    _______,  MO(_ADJUST), _______  \
 ),
 

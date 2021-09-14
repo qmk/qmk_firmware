@@ -55,7 +55,11 @@ void    backlight_decrease(void);
 void    backlight_level_noeeprom(uint8_t level);
 void    backlight_level(uint8_t level);
 uint8_t get_backlight_level(void);
+
+uint8_t eeconfig_read_backlight(void);
+void    eeconfig_update_backlight(uint8_t val);
 void    eeconfig_update_backlight_current(void);
+void    eeconfig_update_backlight_default(void);
 
 // implementation specific
 void backlight_init_ports(void);

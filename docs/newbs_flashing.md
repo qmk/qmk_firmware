@@ -65,7 +65,7 @@ For example, the `planck/rev5` with a `default` keymap will have this filename:
 planck_rev5_default.hex
 ```
 
-Once you have located your firmware file drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored.
+Once you have located your firmware file, drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored.
 
 ### Flash Your Keyboard
 

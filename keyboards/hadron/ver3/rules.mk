@@ -2,11 +2,14 @@
 MCU = STM32F303
 BOARD = QMK_PROTON_C
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Build Options
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = no
-BOOTMAGIC_ENABLE = full	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no	# Console for debug
@@ -22,4 +25,3 @@ HAPTIC_ENABLE += DRV2605L
 QWIIC_ENABLE = yes
 QWIIC_DRIVERS += MICRO_OLED
 ENCODER_ENABLER = yes
-# SERIAL_LINK_ENABLE = yes

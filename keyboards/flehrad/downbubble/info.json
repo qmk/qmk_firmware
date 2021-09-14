@@ -1,8 +1,6 @@
 {
   "keyboard_name": "downbubble",
   "maintainer": "flehrad",
-  "width": 22.75,
-  "height": 6,
   "layouts": {
     "LAYOUT_standard": {
       "layout": [

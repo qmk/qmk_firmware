@@ -19,7 +19,7 @@ ifneq ($(strip $(HELIX)),)
     # parse 'dispoff', 'consle', 'back', 'oled', 'no-ani', 'mini-ani', 'lto', 'no-lto', 'no-enc', 'scan'
     $(if $(SHOW_PARCE),$(info parse .$1.))  #debug
     ifeq ($(strip $1),dispoff)
-        OLED_DRIVER_ENABLE = no
+        OLED_ENABLE = no
         RGBLIGHT_ENABLE = no
     endif
     ifeq ($(strip $1),console)
@@ -38,7 +38,7 @@ ifneq ($(strip $(HELIX)),)
         ENCODER_ENABLE = no
     endif
     ifeq ($(strip $1),oled)
-        OLED_DRIVER_ENABLE = yes
+        OLED_ENABLE = yes
     endif
     ifeq ($(strip $1),back)
         RGBLIGHT_ENABLE = yes

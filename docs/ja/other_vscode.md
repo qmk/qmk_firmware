@@ -1,8 +1,8 @@
 # QMK 開発用の Visual Studio Code のセットアップ
 
 <!---
-  original document: 0.10.33:docs/other_vscode.md
-  git diff 0.10.33 HEAD -- docs/other_vscode.md | cat
+  original document: 0.13.17:docs/other_vscode.md
+  git diff 0.13.17 HEAD -- docs/other_vscode.md | cat
 -->
 
 [Visual Studio Code](https://code.visualstudio.com/) (VS Code) は多くの異なるプログラミング言語をサポートするオープンソースのコードエディタです。
@@ -110,7 +110,6 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 * [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview) - _[オプション]_ - VS Code の markdown プレビューを GithHub のようにします。
 * [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[オプション]_ - この拡張により、他の誰かがあなたのワークスペースにアクセスし(あるいは、あなたが他の誰かのワークスペースにアクセスし)、手伝うことができます。あなたが問題を抱えており、他の誰かの助けが必要な場合に便利です。
 * [VIM Keymap](https://marketplace.visualstudio.com/items?itemName=GiuseppeCesarano.vim-keymap) - _[オプション]_ - VIM スタイルのキーバインドを好む人向け。これには他のオプションもあります。
-* [Travis CI Status](https://marketplace.visualstudio.com/items?itemName=felixrieseberg.vsc-travis-ci-status) - _[オプション]_ - セットアップした場合、現在の Travis CI の状態を表示します。
 
 いずれかの拡張機能をインストールしたら、再起動します。
 

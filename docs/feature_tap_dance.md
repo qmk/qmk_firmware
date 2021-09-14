@@ -50,7 +50,7 @@ The main entry point is `process_tap_dance()`, called from `process_record_quant
 
 This means that you have `TAPPING_TERM` time to tap the key again; you do not have to input all the taps within a single `TAPPING_TERM` timeframe. This allows for longer tap counts, with minimal impact on responsiveness.
 
-Our next stop is `matrix_scan_tap_dance()`. This handles the timeout of tap-dance keys.
+Our next stop is `tap_dance_task()`. This handles the timeout of tap-dance keys.
 
 For the sake of flexibility, tap-dance actions can be either a pair of keycodes, or a user function. The latter allows one to handle higher tap counts, or do extra things, like blink the LEDs, fiddle with the backlighting, and so on. This is accomplished by using an union, and some clever macros.
 
@@ -489,6 +489,8 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
                 // If not already set, then switch the layer on
                 layer_on(_MY_LAYER);
             }
+            break;
+        default:
             break;
     }
 }

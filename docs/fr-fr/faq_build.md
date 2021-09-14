@@ -20,7 +20,7 @@ Veuillez noter que lancer `make` avec `sudo` est généralement une **mauvaise**
 
 ### Règles `udev` pour Linux
 
-Sous Linux, vous aurez besoin des permissions appropriées pour accéder au MCU (le micro-contrôleur). Vous avez le choix d'utiliser `sudo` en flashant le firmware, ou placer ces fichiers dans `/etc/udev/rules.d`. Une fois ajouté, lancez les commandes suivantes :
+Sous Linux, vous aurez besoin des permissions appropriées pour accéder au MCU (le micro-contrôleur). Vous avez le choix d'utiliser `sudo` en flashant le firmware, ou placer ces fichiers dans `/etc/udev/rules.d`. Une fois ajouté, lancez les commandes suivantes:
 
 ```console
 sudo udevadm control --reload-rules

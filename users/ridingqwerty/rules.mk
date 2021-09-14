@@ -1,7 +1,7 @@
 SRC += ridingqwerty.c \
        process_records.c
 
-BOOTMAGIC_ENABLE  = lite
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 CONSOLE_ENABLE    = no
 COMMAND_ENABLE    = no
 UNICODE_ENABLE    = no # "yes" in Atreus default keymap, blocking UNICODEMAP_ENABLE

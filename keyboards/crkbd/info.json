@@ -2,8 +2,6 @@
   "keyboard_name": "crkbd rev. 1",
   "url": "",
   "maintainer": "qmk",
-  "width": 15,
-  "height": 4.7,
   "layouts": {
     "LAYOUT_split_3x6_3": {
       "layout": [

@@ -43,27 +43,10 @@ led_config_t g_led_config = { {
 //     7 8 1 2
 #endif
 
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	matrix_scan_user();
-}
-
-#ifdef DIP_SWITCH_ENABLE
- __attribute__((weak))
-void dip_update(uint8_t index, bool active) {}
-
- __attribute__((weak))
-void dip_switch_update_user(uint8_t index, bool active) {
-    dip_update(index, active);
-}
-#endif
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{5, 4}, {4, 4}, {3, 4}, {2, 4}, {1, 4}, {0, 4}},
     {{5, 5}, {4, 5}, {3, 5}, {2, 5}, {1, 5}, {0, 5}},
     {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},

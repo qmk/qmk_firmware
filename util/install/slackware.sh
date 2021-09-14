@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 _qmk_install_prepare() {
     echo "Before you continue, please ensure that your user is added to sudoers and that sboinstall is configured."

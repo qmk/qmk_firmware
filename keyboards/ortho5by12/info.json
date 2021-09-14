@@ -2,11 +2,8 @@
   "keyboard_name": "ortho5by12",
   "url": "https://github.com/itsnoteasy/misc/blob/master/ortho5by12.zip",
   "maintainer": "itsnoteasy",
-  "width": 12,
-  "height": 5,
   "layouts": {
     "LAYOUT_ortho_5x12_1x2uC": {
-      "key_count": 59,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 
         { "w": 1, "x": 1, "y": 0 }, 
@@ -69,7 +66,6 @@
         { "w": 1, "x": 11, "y": 4 } ]
     },
     "LAYOUT_ortho_5x12": {
-      "key_count": 60,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 
         { "w": 1, "x": 1, "y": 0 }, 

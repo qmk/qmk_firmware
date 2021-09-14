@@ -87,7 +87,7 @@
 
 // the bottom rows  for keyboards on bepo.
 // bepo on bepo - not enough space to go around....
-#define ___BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_ECRC,  LCTL(BP_V),  KC_LEFT, KC_RIGHT
+#define ___BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_ECIR,  LCTL(BP_V),  KC_LEFT, KC_RIGHT
 #define ___BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN,  DB_BACKSLASH,  BP_CCED,  BP_PERC
 
 // for dvorak on bepo

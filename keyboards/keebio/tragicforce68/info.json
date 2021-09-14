@@ -2,8 +2,6 @@
   "keyboard_name": "Tragicforce 68",
   "url": "https://keeb.io",
   "maintainer": "Keebio",
-  "width": 17.25,
-  "height": 5,
   "layouts": {
     "LAYOUT_68_ansi": {
       "layout": [

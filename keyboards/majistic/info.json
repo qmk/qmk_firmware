@@ -2,8 +2,6 @@
     "keyboard_name": "maJIStic",
     "url": "https://github.com/yossiyossy/maJIStic",
     "maintainer": "yossiyossy",
-    "width": 15.5,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

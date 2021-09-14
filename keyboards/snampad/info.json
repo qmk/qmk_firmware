@@ -2,11 +2,8 @@
     "keyboard_name": "snampad",
     "url": "",
     "maintainer": "ptillemans",
-    "width": 4,
-    "height": 6,
     "layouts": {
         "LAYOUT_numpad_6x4": {
-            "key_count": 21,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"Tab", "x":1, "y":0},

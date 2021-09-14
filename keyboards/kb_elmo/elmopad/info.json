@@ -2,8 +2,6 @@
     "keyboard_name": "elmopad",
     "url": "https://github.com/kb-elmo/numpad",
     "maintainer": "kb-elmo",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

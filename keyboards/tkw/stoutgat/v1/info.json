@@ -2,8 +2,6 @@
     "keyboard_name": "stoutgat",
     "url": "https://github.com/vattern/stoutgat",
     "maintainer": "vattern",
-    "width": 16,
-    "height": 6,
     "layouts": {
         "LAYOUT_encoder": {
             "layout": [

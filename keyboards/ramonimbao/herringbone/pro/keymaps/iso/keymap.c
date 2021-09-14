@@ -28,14 +28,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 uint8_t current_frame = 0;
 
 #define FRAME_DURATION 50
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
         anim_sleep = timer_read32();
@@ -45,6 +45,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         anim_sleep = timer_read32();
         oled_on();
     }
+    return true;
 }
 
 static void render_pattern(void) {

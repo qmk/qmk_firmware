@@ -2,9 +2,6 @@
     "keyboard_name": "Moonlander Mark I",
     "url": "zsa.io/moonlander",
     "maintainer": "ZSA via Drashna",
-    "width": 17,
-    "height": 8,
-
     "layouts": {
         "LAYOUT_moonlander": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "bolek",
     "url": "https://github.com/klausweiss/bolek",
     "maintainer": "klausweiss",
-    "height": 5.25,
-    "width": 12.75,
     "layouts": {
         "LAYOUT": {
             "layout": [

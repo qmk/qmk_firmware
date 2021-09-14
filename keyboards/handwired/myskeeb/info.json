@@ -2,8 +2,6 @@
     "keyboard_name": "myskeeb",
     "url": "",
     "maintainer": "su8044",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -85,4 +83,3 @@
         }
     }
 }
-

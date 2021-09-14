@@ -34,5 +34,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, XXX, k3B, XXX, k3D }, \
     { k40, k41, k42, XXX, XXX, XXX, k46, XXX, XXX, XXX, k4A, k4B, k4C, k4D } \
 }
-
-#define KEYMAP_ANSI LAYOUT_60_ansi

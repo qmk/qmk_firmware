@@ -2,8 +2,6 @@
     "keyboard_name": "LB75", 
     "url": "", 
     "maintainer": "ai03", 
-    "width": 16, 
-    "height": 6, 
     "layouts": {
         "LAYOUT_continuous_fnrow": {
             "layout": [

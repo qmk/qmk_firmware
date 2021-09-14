@@ -42,11 +42,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-
-void matrix_init_user(void) {
-
-}
-
 void matrix_scan_user(void) {
   layer_time_remaining -= timer_read()-prev_loop_time; //amount of time elapsed since the start of the previous loop
   prev_loop_time = timer_read(); //start counting the time to check at the next iteration
@@ -84,7 +79,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
-
-void led_set_user(uint8_t usb_led) {
-
-}

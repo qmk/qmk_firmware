@@ -2,8 +2,6 @@
   "keyboard_name": "HHKB JP",
   "url": "",
   "maintainer": "qmk",
-  "width": 15,
-  "height": 5,
   "layouts": {
     "LAYOUT_JP": {
       "layout": [

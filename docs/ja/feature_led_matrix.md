@@ -52,7 +52,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
 
 `<keyboard>.c` に全ての LED を列挙する配列を定義します:
 
-    const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+    const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
     /* これらの位置については IS31 マニュアルを参照してください
     *   driver
     *   |  LED address
@@ -61,7 +61,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
     ....
     }
 
-ここで、`Cx_y` は[データシート](https://www.issi.com/WW/pdf/31FL3731.pdf)およびヘッダファイル `drivers/issi/is31fl3731-simple.h` で定義されるマトリックス内の LED の位置です。`driver` は `config.h` で定義したドライバのインデックス(`0`、`1`、`2`、`3`のいずれか)です。
+ここで、`Cx_y` は[データシート](https://www.issi.com/WW/pdf/31FL3731.pdf)およびヘッダファイル `drivers/led/issi/is31fl3731-simple.h` で定義されるマトリックス内の LED の位置です。`driver` は `config.h` で定義したドライバのインデックス(`0`、`1`、`2`、`3`のいずれか)です。
 
 ## キーコード
 
@@ -76,7 +76,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
 カスタムレイヤー効果は `<keyboard>.c` 内で以下を定義することで行うことができます:
 
     void led_matrix_indicators_kb(void) {
-    led_matrix_set_index_value(index, value);
+    led_matrix_set_value(index, value);
     }
 
 同様の関数がキーマップ内で `led_matrix_indicators_user` として動作します。

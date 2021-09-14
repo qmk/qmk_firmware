@@ -2,11 +2,8 @@
     "keyboard_name": "Key 65 Hotswap",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
-            "key_count": 66,
             "layout": [
                 {"label":"K00 (D2,F5)", "x":0, "y":0},
                 {"label":"K01 (D2,F4)", "x":1, "y":0},

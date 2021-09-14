@@ -2,8 +2,6 @@
     "keyboard_name": "suihankey_split",
     "url": "https://kakunpc.booth.pm/",
     "maintainer": "kakunpc",
-    "width": 13.2,
-    "height": 4.85,
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

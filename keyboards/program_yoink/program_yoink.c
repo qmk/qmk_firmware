@@ -16,8 +16,8 @@
 
 #include "program_yoink.h"
 
-__attribute__ ((weak))
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -25,4 +25,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }

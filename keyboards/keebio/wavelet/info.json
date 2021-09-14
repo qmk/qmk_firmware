@@ -2,8 +2,6 @@
   "keyboard_name": "Wavelet",
   "url": "https://keeb.io",
   "maintainer": "Keebio",
-  "width": 12,
-  "height": 4,
   "layouts": {
     "LAYOUT": {
       "layout": [

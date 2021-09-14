@@ -6,7 +6,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "qmk_firmware"
 
   # VMware/Virtualbox ( and also Hyperv/Parallels) 64 bit
-  config.vm.box = "generic/debian9"
+  config.vm.box = "generic/debian10"
   
   config.vm.synced_folder '.', '/vagrant'
 
@@ -68,13 +68,13 @@ Vagrant.configure(2) do |config|
   ["virtualbox", "vmware_workstation", "vmware_fusion"].each do |type|
     config.vm.provider type do |virt, override|
       override.vm.provision "docker" do |d|
-        d.run "qmkfm/base_container",
+        d.run "qmkfm/qmk_cli",
           cmd: "tail -f /dev/null",
           args: "--privileged -v /dev:/dev -v '/vagrant:/vagrant'"
       end
 
       override.vm.provision "shell", inline: <<-SHELL
-        echo 'docker restart qmkfm-base_container && exec docker exec -it qmkfm-base_container /bin/bash -l' >> ~vagrant/.bashrc
+        echo 'docker restart qmkfm-qmk_cli && exec docker exec -it qmkfm-qmk_cli /bin/bash -l' >> ~vagrant/.bashrc
       SHELL
     end
   end

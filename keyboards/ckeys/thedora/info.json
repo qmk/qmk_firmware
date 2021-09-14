@@ -2,11 +2,8 @@
   "keyboard_name": "The Dora Board.",
   "url": "https://ckeys.org/slides/exboard",
   "maintainer": "brandenbyers",
-  "width": 4,
-  "height": 4,
   "layouts": {
     "LAYOUT_ortho_4x5": {
-      "key_count": 21,
       "layout": [
         {"label":"k00", "x":1, "y":0},
         {"label":"k01", "x":2, "y":0},

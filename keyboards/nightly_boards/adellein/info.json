@@ -2,8 +2,6 @@
     "keyboard_name": "Adellein",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
-    "width": 16.25, 
-    "height": 5, 
     "layouts": {
         "LAYOUT_40ergo_split_ent": {
             "layout": [

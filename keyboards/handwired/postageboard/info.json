@@ -2,8 +2,6 @@
     "keyboard_name": "Postage Board",
     "url": "",
     "maintainer": "LifeIsOnTheWire",
-    "width": 1,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [

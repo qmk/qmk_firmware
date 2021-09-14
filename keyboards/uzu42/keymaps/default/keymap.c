@@ -105,8 +105,8 @@ void matrix_init_user(void) {
     #endif
 }
 
-//SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
-#ifdef OLED_DRIVER_ENABLE
+//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
+#ifdef OLED_ENABLE
 
 #define L_BASE 0
 #define L_LOWER (1 << 1)
@@ -210,11 +210,11 @@ void oled_task_user(void) {
     oled_write(read_logo(), false);
   }
 }
-#endif // OLED_DRIVER_ENABLE
+#endif // OLED_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     set_keylog(keycode, record);
 #endif
     // set_timelog();

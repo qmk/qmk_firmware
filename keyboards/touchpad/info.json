@@ -2,8 +2,6 @@
     "keyboard_name": "touchpad", 
     "url": "", 
     "maintainer": "qmk", 
-    "width": 6, 
-    "height": 6, 
     "layouts": {
         "LAYOUT_ortho_6x6": {
             "layout": [

@@ -1,0 +1,20 @@
+{
+    "keyboard_name": "CU7",
+    "url": "https://caps-unlocked.com/cu7/",
+    "maintainer": "rys",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0.5, "y":0, "w":2, "h":2},
+
+                {"x":0, "y":2.5},
+                {"x":1, "y":2.5},
+                {"x":2, "y":2.5},
+
+                {"x":0, "y":3.5},
+                {"x":1, "y":3.5},
+                {"x":2, "y":3.5}
+            ]
+        }
+    }
+}

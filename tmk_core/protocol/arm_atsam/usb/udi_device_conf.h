@@ -23,6 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "compiler.h"
 #include "usb_protocol_hid.h"
 
+#ifndef USB_POLLING_INTERVAL_MS
+#    define USB_POLLING_INTERVAL_MS 10
+#endif
+
 #ifdef VIRTSER_ENABLE
 // because CDC uses IAD (interface association descriptor
 // per USB Interface Association Descriptor Device Class Code and Use Model 7/23/2003 Rev 1.0)
@@ -118,7 +122,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UDI_HID_KBD_EP_IN KEYBOARD_IN_EPNUM
 #define NEXT_IN_EPNUM_1 (KEYBOARD_IN_EPNUM + 1)
 #define UDI_HID_KBD_EP_SIZE KEYBOARD_EPSIZE
-#define KBD_POLLING_INTERVAL 10
+#define KBD_POLLING_INTERVAL USB_POLLING_INTERVAL_MS
 #ifndef UDI_HID_KBD_STRING_ID
 #    define UDI_HID_KBD_STRING_ID 0
 #endif
@@ -128,7 +132,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define NEXT_IN_EPNUM_2 (MOUSE_IN_EPNUM + 1)
 #    define UDI_HID_MOU_EP_IN MOUSE_IN_EPNUM
 #    define UDI_HID_MOU_EP_SIZE MOUSE_EPSIZE
-#    define MOU_POLLING_INTERVAL 10
+#    define MOU_POLLING_INTERVAL USB_POLLING_INTERVAL_MS
 #    ifndef UDI_HID_MOU_STRING_ID
 #        define UDI_HID_MOU_STRING_ID 0
 #    endif
@@ -141,7 +145,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define UDI_HID_EXK_EP_IN EXTRAKEY_IN_EPNUM
 #    define NEXT_IN_EPNUM_3 (EXTRAKEY_IN_EPNUM + 1)
 #    define UDI_HID_EXK_EP_SIZE EXTRAKEY_EPSIZE
-#    define EXTRAKEY_POLLING_INTERVAL 10
+#    define EXTRAKEY_POLLING_INTERVAL USB_POLLING_INTERVAL_MS
 #    ifndef UDI_HID_EXK_STRING_ID
 #        define UDI_HID_EXK_STRING_ID 0
 #    endif

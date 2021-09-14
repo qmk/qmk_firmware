@@ -4,15 +4,11 @@
 #include "quantum.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "i2cmaster.h"
+#include "i2c_master.h"
 #include <util/delay.h>
 
-#define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
-#define CPU_16MHz       0x00
-
-#define I2C_ADDR        0b0100000
-#define I2C_ADDR_WRITE  ( (I2C_ADDR<<1) | I2C_WRITE )
-#define I2C_ADDR_READ   ( (I2C_ADDR<<1) | I2C_READ  )
+#define I2C_ADDR        (0b0100000 << 1)
+#define I2C_TIMEOUT     100
 #define IODIRA          0x00            // i/o direction register
 #define IODIRB          0x01
 #define GPPUA           0x0C            // GPIO pull-up resistor register

@@ -6,11 +6,12 @@ from milc import cli
 from qmk.decorators import automagic_keyboard
 from qmk.info import info_json
 from qmk.path import is_keyboard, normpath
+from qmk.keyboard import keyboard_completer
 
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', help='Keyboard to generate LUFA Keyboard.h for.')
+@cli.argument('-kb', '--keyboard', completer=keyboard_completer, help='Keyboard to generate LUFA Keyboard.h for.')
 @cli.subcommand('Used by the make system to generate LUFA Keyboard.h from info.json', hidden=True)
 @automagic_keyboard
 def generate_dfu_header(cli):

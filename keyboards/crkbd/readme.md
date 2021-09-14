@@ -20,6 +20,12 @@ make crkbd:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
+## Bootloader
+
+The Corne PCBs have a reset button next to the TRRS jack to enter in to the bootloader.
+
+Additionally, if you hold down the "Q" or "P" buttons when plugging in that half of the keyboard (per the default QWERTY layout), this will jump to the bootloader and reset the EEPROM (persistent storage).  This would normally be the very top corner-most position, but due to the breakaway column, it's left at Q and P for compatibility. 
+
 ## RGB Matrix 
 The Corne Keyboard also supports using the RGB Matrix feature, in place of RGB Light.  This provids a better experience when using the keyboard, as it supports a number of per key effects properly.  If you're not using the in switch LEDs, then you may want to pass on doing this. 
 
@@ -38,7 +44,7 @@ And in your `config.h` file, add the following:
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 // #   define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)

@@ -2,8 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 60%",
   "maintainer": "skullydazed",
-  "height": 5,
-  "width": 15,
   "debounce": 6,
   "processor": "STM32F303",
   "board": "QMK_PROTON_C",
@@ -37,7 +35,6 @@
   },
   "layouts": {
     "LAYOUT_60_ansi": {
-      "key_count": 61,
       "layout": [
         { "label": "~", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "!", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -103,7 +100,6 @@
       ]
     },
     "LAYOUT_60_ansi_split_bs_rshift": {
-      "key_count": 63,
       "layout": [
         { "label": "~", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "!", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -171,7 +167,6 @@
       ]
     },
     "LAYOUT_60_iso": {
-      "key_count": 62,
       "layout": [
         { "label": "\\u00ac", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "!", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -238,7 +233,6 @@
       ]
     },
     "LAYOUT_aek": {
-      "key_count": 60,
       "layout": [
         { "label": "~", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "!", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -303,7 +297,6 @@
       ]
     },
     "LAYOUT_all": {
-      "key_count": 65,
       "layout": [
         { "label": "~", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "!", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },

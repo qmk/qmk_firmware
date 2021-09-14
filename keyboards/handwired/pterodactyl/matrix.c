@@ -143,7 +143,7 @@ void matrix_init(void)
 void init_expander(void) {
     if (! i2c_initialized) {
         i2c_init();
-        wait_us(1000000);
+        wait_ms(1000);
     }
 
     if (! expander_input_pin_mask) {

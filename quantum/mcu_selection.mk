@@ -81,6 +81,33 @@ ifneq ($(findstring MK20DX256, $(MCU)),)
   BOARD ?= PJRC_TEENSY_3_1
 endif
 
+ifneq ($(findstring MK66F18, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = KINETIS
+  MCU_SERIES = MK66F18
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= MK66FX1M0
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= MK66F18
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= PJRC_TEENSY_3_6
+endif
+
 ifneq ($(findstring STM32F042, $(MCU)),)
   # Cortex version
   MCU = cortex-m0
@@ -109,9 +136,8 @@ ifneq ($(findstring STM32F042, $(MCU)),)
 
   USE_FPU ?= no
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+  # UF2 settings
+  UF2_FAMILY ?= STM32F0
 endif
 
 ifneq ($(findstring STM32F072, $(MCU)),)
@@ -142,9 +168,8 @@ ifneq ($(findstring STM32F072, $(MCU)),)
 
   USE_FPU ?= no
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+  # UF2 settings
+  UF2_FAMILY ?= STM32F0
 endif
 
 ifneq ($(findstring STM32F103, $(MCU)),)
@@ -175,9 +200,8 @@ ifneq ($(findstring STM32F103, $(MCU)),)
 
   USE_FPU ?= no
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+  # UF2 settings
+  UF2_FAMILY ?= STM32F1
 endif
 
 ifneq ($(findstring STM32F303, $(MCU)),)
@@ -208,9 +232,8 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   USE_FPU ?= yes
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+  # UF2 settings
+  UF2_FAMILY ?= STM32F3
 endif
 
 ifneq ($(findstring STM32F401, $(MCU)),)
@@ -229,7 +252,12 @@ ifneq ($(findstring STM32F401, $(MCU)),)
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
-  MCU_LDSCRIPT ?= STM32F401xC
+  ifeq ($(strip $(BOOTLOADER)), tinyuf2)
+    MCU_LDSCRIPT ?= STM32F401xC_tinyuf2
+    FIRMWARE_FORMAT ?= uf2
+  else
+    MCU_LDSCRIPT ?= STM32F401xC
+  endif
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
@@ -241,9 +269,40 @@ ifneq ($(findstring STM32F401, $(MCU)),)
 
   USE_FPU ?= yes
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+  # UF2 settings
+  UF2_FAMILY ?= STM32F4
+endif
+
+ifneq ($(findstring STM32F407, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32F407xE
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32f4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_F407XE
+
+  USE_FPU ?= yes
+
+  # UF2 settings
+  UF2_FAMILY ?= STM32F4
 endif
 
 ifneq ($(findstring STM32F411, $(MCU)),)
@@ -262,7 +321,12 @@ ifneq ($(findstring STM32F411, $(MCU)),)
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
-  MCU_LDSCRIPT ?= STM32F411xE
+  ifeq ($(strip $(BOOTLOADER)), tinyuf2)
+    MCU_LDSCRIPT ?= STM32F411xE_tinyuf2
+    FIRMWARE_FORMAT ?= uf2
+  else
+    MCU_LDSCRIPT ?= STM32F411xE
+  endif
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
@@ -274,9 +338,38 @@ ifneq ($(findstring STM32F411, $(MCU)),)
 
   USE_FPU ?= yes
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+  # UF2 settings
+  UF2_FAMILY ?= STM32F4
+endif
+
+ifneq ($(findstring STM32F446, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32F446xE
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32f4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_F446XE
+
+  USE_FPU ?= yes
 endif
 
 ifneq ($(findstring STM32G431, $(MCU)),)
@@ -307,9 +400,8 @@ ifneq ($(findstring STM32G431, $(MCU)),)
 
   USE_FPU ?= yes
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+  # UF2 settings
+  UF2_FAMILY ?= STM32G4
 endif
 
 ifneq ($(findstring STM32G474, $(MCU)),)
@@ -340,9 +432,76 @@ ifneq ($(findstring STM32G474, $(MCU)),)
 
   USE_FPU ?= yes
 
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+  # UF2 settings
+  UF2_FAMILY ?= STM32G4
+endif
+
+ifneq (,$(filter $(MCU),STM32L433 STM32L443))
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32L4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32L432xC
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32l4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_L433XC
+
+  PLATFORM_NAME ?= platform_l432
+
+  USE_FPU ?= yes
+
+  # UF2 settings
+  UF2_FAMILY ?= STM32L4
+endif
+
+ifneq (,$(filter $(MCU),STM32L412 STM32L422))
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32L4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32L412xB
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32l4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_L412XB
+
+  PLATFORM_NAME ?= platform_l432
+
+  USE_FPU ?= yes
+
+  # UF2 settings
+  UF2_FAMILY ?= STM32L4
 endif
 
 ifneq (,$(filter $(MCU),at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647 at90usb1286 at90usb1287))

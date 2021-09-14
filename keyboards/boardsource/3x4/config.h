@@ -15,7 +15,7 @@
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
 
-#define MATRIX_ROW_PINS { F7, F6, F5,}
+#define MATRIX_ROW_PINS {F7, F6, F5}
 #define MATRIX_COL_PINS {B6, B2, B3, B1}
 
 #define DIODE_DIRECTION COL2ROW
@@ -118,23 +118,3 @@
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-/*
- * MIDI options
- */
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1

@@ -2,11 +2,30 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.10.33:docs/hardware_keyboard_guidelines.md
-  git diff 0.10.33 HEAD -- docs/hardware_keyboard_guidelines.md | cat
+  original document: 0.12.41:docs/hardware_keyboard_guidelines.md
+  git diff 0.12.41 HEAD -- docs/hardware_keyboard_guidelines.md | cat
 -->
 
 QMK は開始以来、コミュニティにおけるキーボードの作成や保守に貢献しているあなたのような人たちのおかげで飛躍的に成長しました。私たちが成長するにつれて、うまくやるためのいくつかのパターンを発見しました。他の人たちがあなたの苦労の恩恵を受けやすくするため、それにあわせてもらえるようお願いします。
+
+## QMK Lint を使う
+
+キーボードの問題をチェックできるツール、`qmk lint` を提供しています。キーボードとキーマップで作業をしている間は、頻繁に使うことをお勧めします。
+
+チェックに合格した例:
+
+```
+$ qmk lint -kb rominronin/katana60/rev2
+Ψ Lint check passed!
+```
+
+チェックに失敗した例:
+
+```
+$ qmk lint -kb clueboard/66/rev3
+☒ Missing keyboards/clueboard/66/rev3/readme.md
+☒ Lint check failed!
+```
 
 ## あなたのキーボード/プロジェクトの名前を決める
 

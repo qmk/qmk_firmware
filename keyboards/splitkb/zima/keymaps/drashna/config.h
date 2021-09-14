@@ -30,3 +30,5 @@
 // #    define OLED_LOGO_CORNE
 // #    define OLED_LOGO_GOTHAM
 #define OLED_LOGO_SCIFI
+
+#define ENCODER_RESOLUTION 2

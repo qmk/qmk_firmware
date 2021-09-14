@@ -84,7 +84,7 @@ void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
           register_code(KC_SLSH);
         }
     }
-} 
+}
 
 void tilde_reset(qk_tap_dance_state_t *state, void *user_data)
 {
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = LAYOUT_planck_grid(
     Q_CTL,   W_ALT,   F_GUI,   KC_P,    KC_G,    _______, _______, KC_J,    KC_L,    U_GUI,   Y_ALT,   SCL_CTL,
     KC_A,    KC_R,    KC_S,    T_SFT,   KC_D,    _______, _______, KC_H,    N_SFT,   KC_E,    KC_I,    KC_O,
-    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT,	
+    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT,
     _______, _______, _______, ESC_NUM, BSP_REG, MIN_ARR, TAB_SFT, SPC_SYM, ENT_THU, _______, _______, _______
 ),
 
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Number Layer
  * ,-----------------------------------------------------------------------------------------------------------.
- * |   :    |   F    |   E    |   D    |   G    |        |        |   *    |   7    |   8    |   9    |   0    | 
+ * |   :    |   F    |   E    |   D    |   G    |        |        |   *    |   7    |   8    |   9    |   0    |
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |   #    |   C    |   B    |   A    |   +    |        |        |   .    |   4    |   5    |   6    |   /    |
@@ -289,7 +289,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _SYMBOL, _THUMB, _FUNCTION);
   state = update_tri_layer_state(state, _SYMBOL, _REGEX, _MOUSE);
   return state;
@@ -317,7 +317,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    case VIM:    
+    case VIM:
         if (record->event.pressed) {
             SEND_STRING(SS_LGUI(" "));
             SEND_STRING("macvim.app" SS_TAP(X_ENTER));

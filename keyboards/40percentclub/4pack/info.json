@@ -2,8 +2,6 @@
     "keyboard_name": "4pack", 
     "url": "", 
     "maintainer": "qmk", 
-    "width": 4, 
-    "height": 1, 
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}]

@@ -2,8 +2,6 @@
     "keyboard_name": "66% ANSI layout",
     "url": "",
     "maintainer": "qmk",
-    "width": 16.5,
-    "height": 5,
     "layouts": {
         "LAYOUT_66_ansi": {
             "layout": [

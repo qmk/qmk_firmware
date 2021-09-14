@@ -2,8 +2,6 @@
     "keyboard_name": "alix40",
     "url": "https://tokyokeyboard.com/",
     "maintainer": "qmk", 
-    "width": 12,
-    "height": 4,
     "layouts": {
         "LAYOUT_40_alix": {
             "layout": [{
@@ -163,27 +161,27 @@
             },
             {
                 "label": "N",
-                "x": 7.25,
+                "x": 8.25,
                 "y": 2
             },
             {
                 "label": "M",
-                "x": 7.25,
+                "x": 9.25,
                 "y": 2
             },
             {
                 "label": ",",
-                "x": 7.25,
+                "x": 10.25,
                 "y": 2
             },
             {
                 "label": ".",
-                "x": 7.25,
+                "x": 11.25,
                 "y": 2
             },
             {
                 "label": "/",
-                "x": 7.25,
+                "x": 12.25,
                 "y": 2
             },
             {

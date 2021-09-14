@@ -1,1 +1,1 @@
-BOOTLOADER=atmel-dfu
+BOOTLOADER = atmel-dfu

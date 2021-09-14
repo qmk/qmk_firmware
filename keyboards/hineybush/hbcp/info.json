@@ -2,11 +2,8 @@
     "keyboard_name": "hbcp",
     "url": "",
     "maintainer": "hineybush",
-    "width": 19.5,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 103,
             "layout": [
                 {"label":"Esc (K000)", "x":0, "y":0},
                 {"label":"F1 (K001)", "x":1.25, "y":0},
@@ -114,7 +111,6 @@
             ]
         },
         "LAYOUT_wkl": {
-            "key_count": 97,
             "layout": [
                 {"label":"Esc (K000)", "x":0, "y":0},
                 {"label":"F1 (K001)", "x":1.25, "y":0},

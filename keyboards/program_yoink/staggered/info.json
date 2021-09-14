@@ -2,8 +2,6 @@
     "keyboard_name": "program_yoink",
     "url": "",
     "maintainer": "melonbred",
-    "width": 13.5,
-    "height": 4.25,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

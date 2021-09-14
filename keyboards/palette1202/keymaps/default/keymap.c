@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   #include <string.h>
   #include "lib/oled_helper.h"
 #endif
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   uint8_t currentDefault = get_highest_layer(default_layer_state);
   uint8_t currentLayer = get_highest_layer(layer_state);
   if (index == 0) { /* the upper encoder */
@@ -159,7 +159,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       case IOS_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
-          // Zoom 
+          // Zoom
           tap_code16(!clockwise ? G(KC_MINS) : G(KC_SCLN));
         } else {
           // Fn Layer
@@ -170,7 +170,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       default:
         break;
     }
-  } else if (index == 1) { /* the lower encoder */ 
+  } else if (index == 1) { /* the lower encoder */
     switch (currentDefault) {
       case MAC_CS_1:
         if (currentLayer % 2 == 0) {
@@ -231,6 +231,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         break;
     }
   }
+    return true;
 }
 
 // custom keycode
@@ -272,7 +273,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // OLED Display
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
   // get layer Number
   uint8_t currentDefault = get_highest_layer(default_layer_state);
@@ -326,4 +327,4 @@ void oled_task_user(void) {
     render_row(3, "    ");
   }
 }
-#endif // #ifdef OLED_DRIVER_ENABLE
+#endif // #ifdef OLED_ENABLE

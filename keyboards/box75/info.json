@@ -2,8 +2,6 @@
     "keyboard_name": "BOX75",
     "url": "",
     "maintainer": "Gondolindrim",
-    "width": 16.25,
-    "height": 6.375,
     "layouts": {
         "LAYOUT": {
             "layout": [

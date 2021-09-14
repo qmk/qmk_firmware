@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_EXLM, JP_AT,   KC_HASH, KC_DLR,  KC_PERC,                     KC_HOME, KC_APP,  KC_INS,  KC_CALC, KC_PSCR,
       JP_CIRC, JP_AMPR, JP_ASTR, JP_YEN,  JP_PIPE,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN,
       JP_GRV,  JP_LCBR, JP_RCBR, KC_LT,   KC_GT,                       KC_END,  KC_MUTE, JP_LPRN, JP_RPRN, KC_QUES,
-      KC_LALT, KC_LGUI, JP_GRV,  KC_DEL,  _______, KC_LCTL,  WN_CAPS,  _______, KC_RCTL, JP_UNDS, JP_DQT,  KC_RSFT
+      KC_LALT, KC_LGUI, JP_GRV,  KC_DEL,  _______, KC_LCTL,  WN_CAPS,  _______, KC_RCTL, JP_UNDS, JP_DQUO, KC_RSFT
       ),
 
   /* GAME ゲームやテンキー固定で使用するレイヤーです。AdjustレイヤーでGを押下して遷移。戻るときはtoBaseから。

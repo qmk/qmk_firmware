@@ -2,8 +2,6 @@
     "keyboard_name": "OTD-PLUS",
     "url": "",
     "maintainer": "Hardlineworks",
-    "width": 18.25,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_tkl_ansi_wkl": {
             "layout": [

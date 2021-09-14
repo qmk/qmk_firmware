@@ -44,6 +44,7 @@ void qk_tap_dance_pair_finished(qk_tap_dance_state_t *state, void *user_data) {
 void qk_tap_dance_pair_reset(qk_tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
 
+    wait_ms(TAP_CODE_DELAY);
     if (state->count == 1) {
         unregister_code16(pair->kc1);
     } else if (state->count == 2) {
@@ -74,6 +75,7 @@ void qk_tap_dance_dual_role_reset(qk_tap_dance_state_t *state, void *user_data) 
     qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
 
     if (state->count == 1) {
+        wait_ms(TAP_CODE_DELAY);
         unregister_code16(pair->kc);
     }
 }
@@ -117,6 +119,10 @@ void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
             action->state.interrupting_keycode = keycode;
             process_tap_dance_action_on_dance_finished(action);
             reset_tap_dance(&action->state);
+
+            // Tap dance actions can leave some weak mods active (e.g., if the tap dance is mapped to a keycode with
+            // modifiers), but these weak mods should not affect the keypress which interrupted the tap dance.
+            clear_weak_mods();
         }
     }
 }
@@ -157,7 +163,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_tap_dance() {
+void tap_dance_task() {
     if (highest_td == -1) return;
     uint16_t tap_user_defined;
 

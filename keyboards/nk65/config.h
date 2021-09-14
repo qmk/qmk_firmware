@@ -148,7 +148,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * both 128kb and 256kb versions of F303.
  * Register 0x1FFFF7CC holds the size of the flash memory.
  */
-#define EEPROM_START_ADDRESS
+#ifndef FLASHSIZE_BASE
+#  define FLASHSIZE_BASE ((uint32_t)0x1FFFF7CCU) /*!< FLASH Size register base address */
+#endif
+#define FEE_MCU_FLASH_SIZE_IGNORE_CHECK
 #define FEE_MCU_FLASH_SIZE                              \
 ({                                                      \
     uint16_t (*flash_size) = (uint16_t*)FLASHSIZE_BASE;  \

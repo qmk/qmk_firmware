@@ -22,15 +22,15 @@
 
 /*
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │ ^ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ß │ ´ │     │
+ * │ ^ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ß │ ´ │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ Ü │ + │   │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ö │ Ä │ # │  │
+ * │     │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ Ü │ + │   │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ö │ Ä │ # │  │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
- * │    │ < │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │        │
+ * │    │ < │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │        │
  * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
- * │     │    │     │                       │     │    │     │
+ * │     │    │     │                       │     │    │     │
  * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
  */
 // Row 1
@@ -88,15 +88,15 @@
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │ ° │ ! │ " │ § │ $ │ % │ & │ / │ ( │ ) │ = │ ? │ ` │     │
+ * │ ° │ ! │ " │ § │ $ │ % │ & │ / │ ( │ ) │ = │ ? │ ` │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │   │   │   │   │   │   │   │   │   │   │   │ * │   │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │   │   │   │   │   │   │   │   │   │   │   │ ' │  │
+ * │     │   │   │   │   │   │   │   │   │   │   │   │ * │   │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
+ * │      │   │   │   │   │   │   │   │   │   │   │   │ ' │  │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
- * │    │ > │   │   │   │   │   │   │   │ ; │ : │ _ │        │
+ * │    │ > │   │   │   │   │   │   │   │ ; │ : │ _ │        │
  * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
- * │     │    │     │                       │     │    │     │
+ * │     │    │     │                       │     │    │     │
  * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
  */
 // Row 1
@@ -125,15 +125,15 @@
 
 /* Alted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │ „ │ ¡ │ “ │ ¶ │ ¢ │ [ │ ] │ | │ { │ } │ ≠ │ ¿ │   │     │
+ * │ „ │ ¡ │ “ │ ¶ │ ¢ │ [ │ ] │ | │ { │ } │ ≠ │ ¿ │   │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │ « │ ∑ │ € │ ® │ † │ Ω │ ¨ │ ⁄ │ Ø │ π │ • │ ± │   │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │ Å │ ‚ │ ∂ │ ƒ │ © │ ª │ º │ ∆ │ @ │ Œ │ Æ │ ‘ │  │
+ * │     │ « │ ∑ │ € │ ® │ † │ Ω │ ¨ │ ⁄ │ Ø │ π │ • │ ± │   │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
+ * │      │ Å │ ‚ │ ∂ │ ƒ │ © │ ª │ º │ ∆ │ @ │ Œ │ Æ │ ‘ │  │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
- * │    │ ≤ │ ¥ │ ≈ │ Ç │ √ │ ∫ │ ~ │ µ │ ∞ │ … │ – │        │
+ * │    │ ≤ │ ¥ │ ≈ │ Ç │ √ │ ∫ │ ~ │ µ │ ∞ │ … │ – │        │
  * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
- * │     │    │     │                       │     │    │     │
+ * │     │    │     │                       │     │    │     │
  * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
  */
 // Row 1
@@ -190,15 +190,15 @@
 
 /* Shift+Alted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │   │ ¬ │ ” │   │ £ │ ﬁ │   │ \ │ ˜ │ · │ ¯ │ ˙ │ ˚ │     │
+ * │   │ ¬ │ ” │   │ £ │ ﬁ │   │ \ │ ˜ │ · │ ¯ │ ˙ │ ˚ │     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │ » │   │ ‰ │ ¸ │ ˝ │ ˇ │ Á │ Û │   │ ∏ │   │  │   │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │   │ Í │ ™ │ Ï │ Ì │ Ó │ ı │   │ ﬂ │   │   │   │  │
+ * │     │ » │   │ ‰ │ ¸ │ ˝ │ ˇ │ Á │ Û │   │ ∏ │   │  │   │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
+ * │      │   │ Í │ ™ │ Ï │ Ì │ Ó │ ı │   │ ﬂ │   │   │   │  │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
- * │    │ ≥ │ ‡ │ Ù │   │ ◊ │ ‹ │ › │ ˘ │ ˛ │ ÷ │ — │        │
+ * │    │ ≥ │ ‡ │ Ù │   │ ◊ │ ‹ │ › │ ˘ │ ˛ │ ÷ │ — │        │
  * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
- * │     │    │     │                       │     │    │     │
+ * │     │    │     │                       │     │    │     │
  * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
  */
 // Row 1
@@ -241,83 +241,3 @@
 #define DE_OGON S(A(DE_COMM)) // ˛
 #define DE_DIV  S(A(DE_DOT))  // ÷
 #define DE_MDSH S(A(DE_MINS)) // —
-
-// DEPRECATED
-#define DE_OSX_CIRC DE_CIRC
-#define DE_OSX_1    DE_1
-#define DE_OSX_2    DE_2
-#define DE_OSX_3    DE_3
-#define DE_OSX_4    DE_4
-#define DE_OSX_5    DE_5
-#define DE_OSX_6    DE_6
-#define DE_OSX_7    DE_7
-#define DE_OSX_8    DE_8
-#define DE_OSX_9    DE_9
-#define DE_OSX_0    DE_0
-#define DE_OSX_SS   DE_SS
-#define DE_OSX_ACUT DE_ACUT
-#define DE_OSX_Q    DE_Q
-#define DE_OSX_W    DE_W
-#define DE_OSX_E    DE_E
-#define DE_OSX_R    DE_R
-#define DE_OSX_T    DE_T
-#define DE_OSX_Z    DE_Z
-#define DE_OSX_U    DE_U
-#define DE_OSX_I    DE_I
-#define DE_OSX_O    DE_O
-#define DE_OSX_P    DE_P
-#define DE_OSX_UE   DE_UDIA
-#define DE_OSX_PLUS DE_PLUS
-#define DE_OSX_A    DE_A
-#define DE_OSX_S    DE_S
-#define DE_OSX_D    DE_D
-#define DE_OSX_F    DE_F
-#define DE_OSX_G    DE_G
-#define DE_OSX_H    DE_H
-#define DE_OSX_J    DE_J
-#define DE_OSX_K    DE_K
-#define DE_OSX_L    DE_L
-#define DE_OSX_OE   DE_ODIA
-#define DE_OSX_AE   DE_ADIA
-#define DE_OSX_HASH DE_HASH
-#define DE_OSX_LESS DE_LABK
-#define DE_OSX_Y    DE_Y
-#define DE_OSX_X    DE_X
-#define DE_OSX_C    DE_C
-#define DE_OSX_V    DE_V
-#define DE_OSX_B    DE_B
-#define DE_OSX_N    DE_N
-#define DE_OSX_M    DE_M
-#define DE_OSX_COMM DE_COMM
-#define DE_OSX_DOT  DE_DOT
-#define DE_OSX_MINS DE_MINS
-
-#define DE_OSX_RING DE_DEG
-#define DE_OSX_EXLM DE_EXLM
-#define DE_OSX_DQOT DE_DQUO
-#define DE_OSX_PARA DE_SECT
-#define DE_OSX_DLR  DE_DLR
-#define DE_OSX_PERC DE_PERC
-#define DE_OSX_AMPR DE_AMPR
-#define DE_OSX_SLSH DE_SLSH
-#define DE_OSX_LPRN DE_LPRN
-#define DE_OSX_RPRN DE_RPRN
-#define DE_OSX_EQL  DE_EQL
-#define DE_OSX_QST  DE_QUES
-#define DE_OSX_GRV  DE_GRV
-#define DE_OSX_ASTR DE_ASTR
-#define DE_OSX_QUOT DE_QUOT
-#define DE_OSX_MORE DE_RABK
-#define DE_OSX_COLN DE_COLN
-#define DE_OSX_SCLN DE_SCLN
-#define DE_OSX_UNDS DE_UNDS
-
-#define DE_OSX_LBRC DE_LBRC
-#define DE_OSX_RBRC DE_RBRC
-#define DE_OSX_PIPE DE_PIPE
-#define DE_OSX_LCBR DE_LCBR
-#define DE_OSX_RCBR DE_RCBR
-#define DE_OSX_AT   DE_AT
-#define DE_OSX_EURO DE_EURO
-#define DE_OSX_TILD DE_TILD
-#define DE_OSX_BSLS DE_BSLS

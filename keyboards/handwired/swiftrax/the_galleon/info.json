@@ -2,8 +2,6 @@
     "keyboard_name": "The Galleon", 
     "url": "github.com/swiftrax", 
     "maintainer": "swiftrax", 
-    "width": 19.5, 
-    "height": 7.5, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -5,7 +5,7 @@ This page covers questions people often have about keymaps. If you haven't you s
 ## What Keycodes Can I Use?
 See [Keycodes](keycodes.md) for an index of keycodes available to you. These link to more extensive documentation when available.
 
-Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+Keycodes are actually defined in [quantum/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
 
 ## What Are the Default Keycodes?
 
@@ -31,7 +31,7 @@ QMK has two features, Bootmagic and Command, which allow you to change the behav
 
 As a quick fix try holding down `Space`+`Backspace` while you plug in your keyboard. This will reset the stored settings on your keyboard, returning those keys to normal operation. If that doesn't work look here:
 
-* [Bootmagic](feature_bootmagic.md)
+* [Bootmagic Lite](feature_bootmagic.md)
 * [Command](feature_command.md) 
 
 ## The Menu Key Isn't Working

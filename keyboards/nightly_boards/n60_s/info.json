@@ -2,8 +2,6 @@
     "keyboard_name": "[n]60-s", 
     "url": "", 
     "maintainer": "Neil Brian Ramirez", 
-    "width": 17.25, 
-    "height": 5, 
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
 			"layout": [

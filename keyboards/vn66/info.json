@@ -2,8 +2,6 @@
     "keyboard_name": "vn66",
     "url": "fb.com/groups/VietNamMechKey/",
     "maintainer": "qmk",
-    "width": 19.25,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

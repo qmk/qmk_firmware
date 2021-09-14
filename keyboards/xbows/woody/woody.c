@@ -1,6 +1,6 @@
 #include "woody.h"
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 	
 	{0, C8_8,  C7_8, C6_8},   // LA17
 	{0, C9_8,  C7_7, C6_7},   // LA16
@@ -97,15 +97,6 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    return process_record_user(keycode, record);
-}
 void suspend_power_down_kb(void)
 {
     rgb_matrix_set_suspend_state(true);

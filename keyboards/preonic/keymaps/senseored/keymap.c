@@ -25,7 +25,7 @@ enum preonic_layers {
   _FNL2,
   _ADJUST,
   _GAMEMODE,
-  _FNL3,      
+  _FNL3,
   _LOWER2,
   _RAISE2
 };
@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
- * |------+------+------+------+------+------+------+------+------+------+------+------|    
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |   §  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   +  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |   ´  |   `  |   @  |   £  |   $  |   €  |   ¨  |   {  |   [  |   ]  |   }  |   \  |
@@ -271,7 +271,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 //SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P7) SS_TAP(X_P6) SS_UP(X_LALT));
                 SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_7) SS_TAP(X_KP_6) SS_UP(X_LALT) );
                 return false;
-                
+
             if(bnumlock) {
                 tap_code(KC_NLCK);
                 bnumlock = false;
@@ -283,14 +283,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 else {
                     workmode = false;
-                    return false;       
-                }           
+                    return false;
+                }
         }
-        
+
     }
     return true;
   switch (keycode) {
-        
+
         case BACKLIT:
           if (record->event.pressed) {
             register_code(KC_RSFT);
@@ -318,7 +318,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -342,9 +342,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       unregister_code(KC_PGUP);
     }
   }
+    return true;
 }
 
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if (active) {
@@ -360,10 +361,11 @@ void dip_switch_update_user(uint8_t index, bool active) {
                 muse_mode = false;
             }
     }
+    return true;
 }
 
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 //  if(rgblight_get_mode() == 1) {
     switch (biton32(state)) {
     case _QWERTY:
@@ -375,7 +377,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         if(!bnumlock) {
             tap_code(KC_NLCK);
         }
-        
+
         break;
     case _ADJUST:
         if(bnumlock) {
@@ -398,7 +400,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         if(bnumlock) {
                 tap_code(KC_NLCK);
         }
-        
+
         break;
     }
  // }

@@ -72,6 +72,19 @@ SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
 }
 ```
 
+## Infinite Leader key timeout
+
+Sometimes your leader key is not on a comfortable places as the rest of keys on your sequence. Imagine that your leader key is one of your outer top right keys, you may need to reposition your hand just to reach your leader key.
+This can make typing the entire sequence on time hard even if you are able to type most of the sequence fast. For example, if your sequence is `Leader + asd` typing `asd` fast is very easy once you have your hands in your home row. However starting the sequence in time after moving your hand out of the home row to reach the leader key and back is not.
+To remove the stress this situation produces to your hands you can enable an infinite timeout just for the leader key. This mean that, after you hit the leader key you will have an infinite amount of time to start the rest of the sequence, allowing you to proper position your hands on the best position to type the rest of the sequence comfortably.
+This infinite timeout only affects the leader key, so in our previous example of `Leader + asd` you will have an infinite amount of time between `Leader` and `a`, but once you start the sequence the timeout you have configured (global or per key) will work normally.
+This way you can configure a very short `LEADER_TIMEOUT` but still have plenty of time to position your hands.
+
+In order to enable this, place this in your `config.h`:
+```c
+#define LEADER_NO_TIMEOUT
+```
+
 ## Strict Key Processing
 
 By default, the Leader Key feature will filter the keycode out of [`Mod-Tap`](mod_tap.md) and [`Layer Tap`](feature_layers.md#switching-and-toggling-layers) functions when checking for the Leader sequences. That means if you're using `LT(3, KC_A)`, it will pick this up as `KC_A` for the sequence, rather than `LT(3, KC_A)`, giving a more expected behavior for newer users.

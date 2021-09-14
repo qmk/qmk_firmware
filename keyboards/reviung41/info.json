@@ -2,11 +2,8 @@
     "keyboard_name": "reviung39",
     "url": "",
     "maintainer": "gtips",
-    "width": 13,
-    "height": 4.54,
     "layouts": {
         "LAYOUT_reviung41": {
-            "key_count": 41,
             "layout": [
                 {"label":"K00", "x":0, "y":0.54},
                 {"label":"K01", "x":1, "y":0.36},

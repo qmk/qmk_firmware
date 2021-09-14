@@ -2,8 +2,6 @@
     "keyboard_name": "microdox",
     "url": "https://boardsource.xyz/store/5f2e7e4a2902de7151494f92",
     "maintainer": "boardsource",
-    "width": 13,
-    "height": 4.7,
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

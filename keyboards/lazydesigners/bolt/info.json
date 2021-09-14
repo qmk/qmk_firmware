@@ -2,8 +2,6 @@
     "keyboard_name": "Bolt",
     "url": "http://lazydesigners.cn",
     "maintainer": "LAZYDESIGNERS",
-    "width": 14.25,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

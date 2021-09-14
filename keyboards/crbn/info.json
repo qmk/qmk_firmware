@@ -2,8 +2,6 @@
   "keyboard_name": "CRBN",
   "url": "polarityworks.com",
   "maintainer": "qmk",
-  "width": 12,
-  "height": 4,
   "layouts": {
     "LAYOUT_crbn_1x2u": {
       "layout": [

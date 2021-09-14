@@ -2,8 +2,6 @@
     "keyboard_name": "RGBKB Pan",
     "url": "https://www.rgbkb.net/collections/all/products/pan-keyboard-diy-kit",
     "maintainer": "Legonut",
-    "width": 13,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

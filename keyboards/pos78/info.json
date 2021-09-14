@@ -2,8 +2,6 @@
     "keyboard_name": "pos78",
     "url": "https://github.com/smssmssms/pos78.git",
     "maintainer": "smssmssms",
-    "width": 13,
-    "height": 6,
     "layouts": {
         "LAYOUT_ortho_6x13": {
             "layout": [

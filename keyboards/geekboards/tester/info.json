@@ -2,8 +2,6 @@
     "keyboard_name": "Geekboards 8-keys macropad",
     "url": "",
     "maintainer": "moyi4681",
-    "width": 4,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

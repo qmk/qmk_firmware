@@ -156,10 +156,3 @@ bool music_mask_user(uint16_t keycode) {
       return true;
   }
 }
-
-void matrix_init_user(void) {
-}
-
-
-void matrix_scan_user(void) {
-}

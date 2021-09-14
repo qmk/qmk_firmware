@@ -2,8 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 17% (Cluepad)",
   "maintainer": "skullydazed",
-  "height": 5,
-  "width": 4,
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "features": {
@@ -44,7 +42,6 @@
   },
   "layouts": {
     "LAYOUT_numpad_5x4": {
-      "key_count": 17,
       "layout": [
         { "label": "Num Lock", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "/", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },

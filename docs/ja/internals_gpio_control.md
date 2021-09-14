@@ -1,8 +1,8 @@
 # GPIO 制御 :id=gpio-control
 
 <!---
-  original document: 0.9.34:docs/internals_gpio_control.md
-  git diff 0.9.34 HEAD -- docs/internals_gpio_control.md | cat
+  original document: 0.13.15:docs/internals_gpio_control.md
+  git diff 0.13.15 HEAD -- docs/internals_gpio_control.md | cat
 -->
 
 QMK には、マイクロコントローラに依存しない GPIO 制御抽象レイヤーがあります。これは異なるプラットフォーム間でピン制御に簡単にアクセスできるようにするためのものです。
@@ -26,3 +26,22 @@ QMK には、マイクロコントローラに依存しない GPIO 制御抽象�
 ## 高度な設定 :id=advanced-settings
 
 各マイクロコントローラは GPIO に関して複数の高度な設定を持つことができます。この抽象レイヤーは、アーキテクチャー固有の機能の使用法を制限しません。上級ユーザは、目的のデバイスのデータシートを参照し、必要なライブラリを含めてください。AVR については、標準 avr/io.h ライブラリが使われます; STM32 については ChibiOS [PAL ライブラリ](https://chibios.sourceforge.net/docs3/hal/group___p_a_l.html)が使われます。
+
+## アトミック操作 :id=atomic-operation
+
+上記の関数は、必ずしもアトミックに動作することが保証されているわけではありません。そのため、上記の関数を複数組み合わせて使用する際に、操作の途中での割り込みを防ぎたい場合は、以下の `ATOMIC_BLOCK_FORCEON` マクロを使用してください。
+
+例:
+```c
+void some_function() {
+     // 通常の処理
+     ATOMIC_BLOCK_FORCEON {
+        // アトミックであることが必要な処理
+     }
+     // 通常の処理
+}
+```
+
+`ATOMIC_BLOCK_FORCEON` は、ブロックが実行される前に、割り込みが有効か無効かに関わらず、強制的に割り込みを無効にします。そして、ブロックが実行された後に、割り込みを有効にします。
+
+したがって、`ATOMIC_BLOCK_FORCEON`は、ブロックの実行前に割り込みが有効になっていることがわかっている場合や、ブロックの完了時に割り込みを有効にしても問題ないことがわかっている場合のみ使用できることに注意してください。

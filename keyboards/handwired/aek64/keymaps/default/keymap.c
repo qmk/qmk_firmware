@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * │ Ctrl │ Alt  │ Gui  │                            Space                             │ Gui  │ Alt  │ Ctrl │
    * └──────┴──────┴──────┴──────────────────────────────────────────────────────────────┴──────┴──────┴──────┘
    *
-   * Hidden features : 
+   * Hidden features :
    *  - Left Shift is also Home on a single tap.
    *  - Left Ctrl is also End on a single tap.
    *  - Right Shift is also page-up on a single tap.

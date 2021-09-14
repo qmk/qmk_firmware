@@ -50,7 +50,7 @@ void dance_LAYER_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-[ADJ]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer 
+[ADJ]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer
 [LBCB] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),  // Left bracket on a single-tap, left brace on a double-tap
 [RBCB] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),  // Right bracket on a single-tap, right brace on a double-tap
 [EQPL] = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),   // Plus sign on a single-tap, equal sign on a double-tap
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
 Colemak
 (Default layer; keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
- ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------. 
+ ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------.
  |   ESC  |   F1   |   F2   |   F3   |   F4   |   F5   |        |        |        |   | Adjust |        |   F12  |   F6   |   F7   |   F8   |   F9   |   F10  |   F11  |
  |--------+--------+--------+--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
  |    =   |    1   |    2   |    3   |    4   |    5   |        |        |        |   | Numpad |        |        |    6   |    7   |    8   |    9   |    0   |    -   |
@@ -113,17 +113,17 @@ Colemak
 */
 [_COLEMAK] = LAYOUT( \
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, _______, _______,     ADJUST,  _______, KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, _______,     NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,  
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    _______, _______, KC_HOME,     KC_PAUS, _______, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,    
-  CTLESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    _______, _______, KC_PGUP,     KC_SLCK, _______, _______, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,  
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTLESC,  ALTAPP,  KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,   
-  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, ALTAPP,  SPCFN,   ENTNS,   KC_BSPC, KC_END,      _______, KC_ENT,  DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT 
+  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, _______,     NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    _______, _______, KC_HOME,     KC_PAUS, _______, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
+  CTLESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    _______, _______, KC_PGUP,     KC_SLCK, _______, _______, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTLESC,  ALTAPP,  KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, ALTAPP,  SPCFN,   ENTNS,   KC_BSPC, KC_END,      _______, KC_ENT,  DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /*
 QWERTY
 (Keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
- ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------. 
+ ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------.
  |   ESC  |   F1   |   F2   |   F3   |   F4   |   F5   |        |        |        |   | Adjust |        |   F12  |   F6   |   F7   |   F8   |   F9   |   F10  |   F11  |
  |--------+--------+--------+--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
  |    =   |    1   |    2   |    3   |    4   |    5   |        |        |        |   | Numpad |        |        |    6   |    7   |    8   |    9   |    0   |    -   |
@@ -139,17 +139,17 @@ QWERTY
 */
 [_QWERTY] = LAYOUT( \
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,       ADJUST,  _______, KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,  
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_HOME,     KC_PAUS, _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,    
-  CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_PGUP,     KC_SLCK, _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,  
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTLESC,  ALTAPP,  KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,   
-  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, ALTAPP,  SPCFN,   ENTNS,   KC_BSPC, KC_END,      _______, KC_ENT,  DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT 
+  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_HOME,     KC_PAUS, _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+  CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_PGUP,     KC_SLCK, _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTLESC,  ALTAPP,  KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, ALTAPP,  SPCFN,   ENTNS,   KC_BSPC, KC_END,      _______, KC_ENT,  DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /*
 Numbers/Symbols layer
 (Multiple characters: single-tap for first, double-tap for second)
- ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------. 
+ ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------.
  |        |        |        |        |        |        |        |        |        |   |        |        |        |        |        |        |        |        |        |
  |--------+--------+--------+--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
  |   F12  |   F1   |   F2   |   F3   |   F4   |   F5   |        |        |        |   |        |        |        |   F6   |   F7   |   F8   |   F9   |   F10  |   F12  |
@@ -183,7 +183,7 @@ Numbers/Symbols layer
 
 /*
 Function layer
- ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------. 
+ ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------.
  |        |        |        |        |        |        |        |        |        |   |        |        |        |        |        |        |        |        |        |
  |--------+--------+--------+--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
  |   F12  |   F1   |   F2   |   F3   |   F4   |   F5   |        |        |        |   |        |        |        |   F6   |   F7   |   F8   |   F9   |   F10  |   F12  |
@@ -218,7 +218,7 @@ Function layer
 /*
 Numpad layer
 (Left side duplicates layout from the Numbers layer, just with numpad output; right side layout close to PC numpad layout)
- ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------. 
+ ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------.
  |        |        |        |        |        |        |        |        |        |   |        |        |        |        |        |        |        |        |        |
  |--------+--------+--------+--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
  |        |  NumLk |        |        |        |        |        |        |        |   |        |        |   Tab  |  NumLk |  KP /  |  KP *  |  KP -  |        |        |
@@ -244,7 +244,7 @@ Numpad layer
 /*
 Gaming
 (Toggle gaming layer with limited dual-role keys and layer access; NKRO turned on by default; Ent/NS + Delete/Numbers2 to access Adjust layer)
- ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------. 
+ ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------.
  |        |        |        |        |        |        |   F6   |   F7   |   F8   |   |        |        |        |        |        |        |        |        |        |
  |--------+--------+--------+--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
  |        |        |        |        |        |        |    6   |    7   |    8   |   |        |        |        |        |        |        |        |        |        |
@@ -260,17 +260,17 @@ Gaming
 */
 [_GAMING] = LAYOUT( \
   _______, _______, _______, _______, _______, _______, KC_F6,   KC_F7,   KC_F8,       _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, KC_6,    KC_7,    KC_8,        _______, _______, _______, _______, _______, _______, _______, _______, _______,  
-  _______, _______, _______, _______, _______, _______, KC_J,    KC_L,    _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,    
-  KC_LCTL, _______, _______, _______, _______, _______, KC_H,    KC_N,    _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,  
-  KC_LSFT, _______, _______, _______, _______, _______, KC_ESC,  KC_LALT, _______,     _______, _______, _______, _______, _______, _______, _______, _______, KC_RSFT,   
-  _______, _______, _______, _______, KC_LALT, KC_SPC,  KC_ENT,  KC_BSPC, _______,     _______, ENTNS,   _______, _______, _______, _______, _______, _______, _______ 
+  _______, _______, _______, _______, _______, _______, KC_6,    KC_7,    KC_8,        _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, KC_J,    KC_L,    _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  KC_LCTL, _______, _______, _______, _______, _______, KC_H,    KC_N,    _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  KC_LSFT, _______, _______, _______, _______, _______, KC_ESC,  KC_LALT, _______,     _______, _______, _______, _______, _______, _______, _______, _______, KC_RSFT,
+  _______, _______, _______, _______, KC_LALT, KC_SPC,  KC_ENT,  KC_BSPC, _______,     _______, ENTNS,   _______, _______, _______, _______, _______, _______, _______
 ),
 
 /*
 Adjust layer
 (Press and hold Adjust key on the function row or Enter/Number + Delete/Number2 to access; Numpad and NKRO are on toggle)
- ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------. 
+ ,--------------------------------------------------------------------------------.   ,--------------------------------------------------------------------------------.
  |        |        |        |        |        |        |        |        |        |   |        |        |        |        |        |        |        |        |        |
  |--------+--------+--------+--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
  |        | Colemak| Qwerty |        | Gaming |        |        |        |        |   |        |        |        | Numpad |        |        |        |        |  RESET |
@@ -304,7 +304,7 @@ Adjust layer
 
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _NUMBERS, _NUMBERS2, _ADJUST);
 }
 

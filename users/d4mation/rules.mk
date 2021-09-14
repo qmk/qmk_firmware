@@ -2,7 +2,7 @@ SRC += d4mation.c \
   tap-hold.c \
   macros.c
 
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 LTO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 

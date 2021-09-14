@@ -2,8 +2,6 @@
     "keyboard_name": "eiri",
     "url": "https://github.com/EMajesty/eiri",
     "maintainer": "EMajesty",
-    "width": 15,
-    "height": 4.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

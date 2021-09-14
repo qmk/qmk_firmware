@@ -2,11 +2,8 @@
     "keyboard_name": "Concertina",
     "url": "https://viktor.eikman.se/article/the-concertina/",
     "maintainer": "veikman",
-    "width": 12,
-    "height": 8,
     "layouts": {
         "LAYOUT_64key": {
-            "key_count": 64,
             "layout": [
                 {"x":2.5, "y":0.4}, {"x":3.5, "y":0}, {"x":4.5, "y":0.3},
                 {"x":8.5, "y":0.3}, {"x":9.5, "y":0}, {"x":10.5, "y":0.4},

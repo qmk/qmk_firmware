@@ -2,11 +2,8 @@
   "keyboard_name": "liminal",
   "url": "",
   "maintainer": "TheRoyalSweatshirt",
-  "width": 15,
-  "height": 4,
   "layouts": {
     "LAYOUT_base_kit_all": {
-      "key_count": 52,
       "layout": [
         {"label":"k01", "x":0, "y":0, "w":1},
         {"label":"k02", "x":1, "y":0, "w":1.5},
@@ -64,5 +61,3 @@
     }
   }
 }
-
-
