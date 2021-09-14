@@ -2,8 +2,6 @@
   "keyboard_name": "handwired/terminus_mini",
   "url": "",
   "maintainer": "qmk",
-  "width": 12,
-  "height": 4,
   "layouts": {
     "LAYOUT": {
       "layout": [

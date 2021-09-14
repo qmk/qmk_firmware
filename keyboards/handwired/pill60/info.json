@@ -2,8 +2,6 @@
     "keyboard_name": "Pill60",
     "url": "https://github.com/IktaS/Pill60",
     "maintainer": "IktaS <imamrafiiia@gmail.com>",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

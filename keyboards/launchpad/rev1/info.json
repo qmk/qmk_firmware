@@ -2,8 +2,6 @@
     "keyboard_name": "Launch Pad rev1",
     "url": "",
     "maintainer": "qmk",
-    "width": 2,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [
