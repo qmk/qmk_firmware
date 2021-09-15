@@ -20,7 +20,6 @@
 
 
 enum planck_layers {
-  _HRCOLEMAK,
 	_HRWIDECOLEMAK,
 	_HRWIDECOLEMAK_DE,
   _GAMING,
@@ -33,14 +32,10 @@ enum planck_layers {
   _NAV,
   _NUM,
   _MOUSE,
-  _PLOVER
 };
 
 enum planck_keycodes {
   HRWIDECOLEMAK = SAFE_RANGE,
-  PLOVER,
-  BACKLIT,
-  EXT_PLV,
   GAMING,
   WIDECOLEMAK,
   TG_COLEMAK, 
@@ -62,26 +57,23 @@ enum planck_keycodes {
   LANG_SWITCH,
   DE_SLSH_QUST,
   DE_QUOT,
-	DE_SCLN
+	DE_SCLN,
+  M_ESCM
 };
 
 // Tap Dance declarations
 enum tap_dance_codes{
     TD_PRN,	// round brackets (parentheses)
+    TD_PRN_DE,	// round brackets (parentheses)
 		TD_BRC,	// square brackets
+		TD_BRC_DE,	// square brackets
 		TD_CBR,	// curly brackets
-		TD_ESC_CAPS, // double tap for caps lock
-		TD_QUO_BRC, // double function on quotes to enable typing ü in german layout
-    TD_COMM_SLSH, // comma that doubles as a slash
-    TD_MPLY, // play/pause, double for next, triple for previous song
-    TD_Q_TAB, // double tap q to register tab
+		TD_CBR_DE,	// curly brackets
     TD_VIM_GG // single tap to scroll down, double tap to scroll up
 };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-
-#define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	
@@ -89,21 +81,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), 	 LALT_T(KC_Y),	RGUI_T(KC_SCLN), DE_UE,
 		KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB,	 KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT,   
 		LT(_MOUSE,KC_Z), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD,  KC_K, KC_H, KC_COMM, KC_DOT, LT(_MOUSE,KC_SLSH), KC_MINS, 
-    LCTL_T(KC_CAPS), LGUI_T(KC_TAB), LALT_T(KC_ESC), LT(_LOWER,KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
+    LCTL_T(KC_CAPS), LGUI_T(KC_TAB), M_ESCM, LT(_LOWER,KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
 ),
 
 [_HRWIDECOLEMAK_DE] = LAYOUT_planck_grid(
 		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Z), DE_SCLN, RGUI_T(KC_LBRC),
 		KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB,	 KC_M, KC_N, KC_E, KC_I, KC_O, DE_QUOT,  
 		LT(_MOUSE,KC_Y), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD,  KC_K, KC_H, KC_COMM, KC_DOT, DE_SLSH_QUST, KC_SLSH, 
-    LCTL_T(KC_CAPS), LGUI_T(KC_TAB), LALT_T(KC_ESC), LT(_LOWER_DE,KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE_DE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
+    LCTL_T(KC_CAPS), LGUI_T(KC_TAB), M_ESCM, LT(_LOWER_DE,KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE_DE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
 ),
 
 [_GAMING] = LAYOUT_planck_grid(
 		KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_F5, KC_F8, KC_F9, KC_VOLU, 
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_VOLD, 
 		KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_Z, KC_M, KC_SCLN, TG_COLEMAK, 
-		KC_LCTL, KC_C, KC_B, KC_X, KC_LALT, KC_SPC, KC_SPC, KC_LALT, KC_ENT, KC_TRNS, KC_TRNS, GAMING
+		KC_LCTL, KC_C, KC_B, KC_X, KC_LALT, KC_SPC, KC_SPC, KC_ENT, KC_RALT, KC_TRNS, KC_TRNS, GAMING
 ),
 
 /* WIDECOLEMAK
@@ -132,8 +124,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_LOWER_DE] = LAYOUT_planck_grid(
-		KC_EXLM, RALT(KC_Q), KC_BSLS, KC_DLR, KC_PERC, RALT(KC_RBRC), KC_GRV, KC_CIRC, KC_RCBR, KC_ASTR, KC_LPRN, KC_QUOT, 
-		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, LSFT(KC_SLSH), KC_RBRC, RALT(KC_7), RALT(KC_0), RALT(KC_NUBS), 
+		KC_EXLM, RALT(KC_Q), KC_BSLS, KC_DLR, KC_PERC, RALT(KC_RBRC), KC_GRV, KC_CIRC, KC_RCBR, TD(TD_PRN_DE), KC_LPRN, KC_QUOT, 
+		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, LSFT(KC_SLSH), KC_RBRC, TD(TD_CBR_DE), RALT(KC_0), RALT(KC_NUBS), 
 		KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, LSFT(KC_7), KC_NUBS, LSFT(KC_NUBS), KC_CURRENCY, KC_PLUS, 
 		TG(_MOUSE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_DOWN, KC_UP
 ),
@@ -147,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE_DE] = LAYOUT_planck_grid(
 		KC_1, KC_2, KC_3, KC_4, KC_5, LSFT(KC_GRV), KC_6, KC_7, KC_8, KC_9, KC_0, KC_SCLN, 
-		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, KC_SLSH, LSFT(KC_0), RALT(KC_8), RALT(KC_9), RALT(KC_MINS), 
+		KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, KC_SLSH, LSFT(KC_0), TD(TD_BRC_DE), RALT(KC_9), RALT(KC_MINS), 
 		KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, RALT(KC_MINS), KC_COMM, KC_DOT, KC_SLSH, KC_EQL, 
 		TG(_MOUSE), KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_DOWN, KC_UP
 ),
@@ -156,20 +148,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		LALT(KC_LSFT), RESET, DEBUG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DE_SWITCH, 
 		LALT(KC_GRV), EEP_RST, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, HRWIDECOLEMAK, WIDECOLEMAK, LALT(KC_GRV), LANG_SWITCH, GAMING, 
 		KC_TRNS, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, KC_SVD_BD, KC_MPLY, KC_SVU_BU, KC_TRNS, , 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EEPROM_RESET
 ),
 
 [_NAV] = LAYOUT_planck_grid(
-    ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_DOWN, KC_RIGHT, KC_PGUP, LCTL(KC_C), KC_RGUI, KC_DE_SWITCH, 
+    ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_HOME, KC_RIGHT, KC_PGUP, LCTL(KC_C), KC_RGUI, KC_DE_SWITCH, 
 		CTL_TAB, KC_TAB, KC_ESC, KC_ENT, TD(TD_VIM_GG), KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, 
 		KC_LSFT, KC_NO, LCTL(KC_X), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), 
 		KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS, LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), KC_TRNS, KC_TRNS, KC_TRNS, KC_DOWN, KC_UP
 ),
 
 [_NUM] = LAYOUT_planck_grid(
-    KC_F1, KC_F2, KC_F3, KC_F4, KC_MPRV, KC_NLCK, KC_MNXT, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_TRNS, 
-		KC_F5, KC_F6, KC_F7, KC_F8, KC_VOLU, KC_MPLY, KC_BRIU, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_TRNS, 
-		KC_F9,KC_F10,KC_F11,KC_F12, KC_VOLD, KC_MUTE, KC_BRID, KC_P1, KC_P2, KC_P3, KC_PSLS, KC_TRNS, 
+    KC_F1, KC_F2, KC_F3, KC_F4, KC_MPRV, KC_NLCK, KC_MNXT, KC_P7, KC_P8, KC_P9, KC_MINS, KC_TRNS, 
+		KC_F5, KC_F6, KC_F7, KC_F8, KC_VOLU, KC_MPLY, KC_ASTR, KC_P4, KC_P5, KC_P6, KC_PLUS, KC_DOT, 
+		KC_F9,KC_F10,KC_F11,KC_F12, KC_VOLD, KC_MUTE, KC_EQL, KC_P1, KC_P2, KC_P3, KC_SLSH, KC_COMM, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_DOT, KC_COMM, KC_EQL, KC_TRNS
 ),
 
@@ -210,18 +202,62 @@ void dance_cbr(qk_tap_dance_state_t *state, void *user_data) {
 				tap_code(KC_LEFT);
 		}
 }
+void dance_prn_de(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        tap_code16(KC_ASTR);
+    } else {
+        tap_code16(KC_ASTR);
+				tap_code16(KC_LPRN);
+				tap_code(KC_LEFT);
+    }
+}
+void dance_brc_de(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_mods(MOD_RALT);
+        tap_code(KC_8);
+        unregister_mods(MOD_RALT);
+    } else {
+        register_mods(MOD_RALT);
+        tap_code(KC_8);
+				tap_code(KC_9);
+        unregister_mods(MOD_RALT);
+				tap_code(KC_LEFT);
+    }
+}
+void dance_cbr_de(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_mods(MOD_RALT);
+        tap_code16(KC_7);
+        unregister_mods(MOD_RALT);
+    } else {
+        register_mods(MOD_RALT);
+        tap_code(KC_7);
+				tap_code(KC_0);
+        unregister_mods(MOD_RALT);
+				tap_code(KC_LEFT);
+		}
+}
+void vim_gg(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+      for (int i = 0; i < 10; i++) {
+        tap_code(KC_PGDN);
+      }
+    } else {
+      for (int i = 0; i < 10; i++) {
+        tap_code(KC_PGUP);
+      }
+    }
+}
 
 qk_tap_dance_action_t tap_dance_actions[] = {
 	// declare tap dance actions here
-	[TD_PRN] = ACTION_TAP_DANCE_FN(dance_prn), 
-	[TD_BRC] = ACTION_TAP_DANCE_FN(dance_brc),
-	[TD_CBR] = ACTION_TAP_DANCE_FN(dance_cbr),
-  [TD_MPLY] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MNXT),
-	[TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
-	[TD_QUO_BRC] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_LBRC),
-  [TD_COMM_SLSH] = ACTION_TAP_DANCE_DOUBLE(KC_COMMA, KC_SLSH),
-  [TD_Q_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_TAB),
-  [TD_VIM_GG] = ACTION_TAP_DANCE_DOUBLE(KC_PGDN, KC_PGUP)  
+	[TD_PRN]       = ACTION_TAP_DANCE_FN(dance_prn), 
+	[TD_BRC]       = ACTION_TAP_DANCE_FN(dance_brc),
+	[TD_CBR]       = ACTION_TAP_DANCE_FN(dance_cbr),
+	[TD_PRN_DE]    = ACTION_TAP_DANCE_FN(dance_prn_de), 
+	[TD_BRC_DE]    = ACTION_TAP_DANCE_FN(dance_brc_de),
+	[TD_CBR_DE]    = ACTION_TAP_DANCE_FN(dance_cbr_de),
+  [TD_VIM_GG]    = ACTION_TAP_DANCE_FN(vim_gg)
 };
 
 float thumb_factor  = 0.95;
@@ -260,9 +296,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case LCTL_T(KC_P):
             return TAPPING_TERM * index_factor;
         case RCTL_T(KC_L):
-            return TAPPING_TERM * index_factor;
+            return TAPPING_TERM * (index_factor + 0.1);
         case LT(_NUM, KC_B):
-            return TAPPING_TERM * index_factor;
+            return TAPPING_TERM * (index_factor + 0.1);
         case LT(_NUM, KC_J):
             return TAPPING_TERM * index_factor;
 
@@ -301,21 +337,27 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM * td_factor;
         case TD(TD_CBR):
             return TAPPING_TERM * td_factor;
+        case TD(TD_PRN_DE):
+            return TAPPING_TERM * td_factor;
+        case TD(TD_BRC_DE):
+            return TAPPING_TERM * td_factor;
+        case TD(TD_CBR_DE):
+            return TAPPING_TERM * td_factor;
+        case TD(TD_VIM_GG):
+            return TAPPING_TERM * td_factor;
 
         default:
             return TAPPING_TERM;
     }
 }
 
-#ifdef AUDIO_ENABLE
-  float plover_song[][2]     = SONG(PLOVER_SOUND);
-  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-#endif
-
 // alt tab function setup
 bool is_alt_tab_active = false;
 bool is_ctl_tab_active = false;
-bool de_layout_active = false;
+bool de_layout_active  = false;
+
+static uint16_t key_timer;
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -353,7 +395,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;
 		case VIM_V:
 			if (record->event.pressed) {
-				if (get_mods() & MOD_BIT(KC_LSFT)) {
+				if ((get_mods() & MOD_BIT(KC_LSFT))  ) {
 					unregister_mods(MOD_LSFT);
 				}	else {
 					register_mods(MOD_LSFT);
@@ -437,52 +479,55 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case DE_AE:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        if (temp_mod & MODS_SHIFT_MASK) {
-            clear_mods();
-            register_mods(MOD_LALT);
-            tap_code(KC_P0); tap_code(KC_P1); tap_code(KC_P9); tap_code(KC_P6); // Ä
-            unregister_mods(MOD_LALT);
+        uint8_t temp_mods = get_mods();
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+          clear_oneshot_mods();
+          clear_mods();
+          register_mods(MOD_LALT);
+          tap_code(KC_P0); tap_code(KC_P1); tap_code(KC_P9); tap_code(KC_P6); // Ä
 				} else {
-            clear_mods();
-            register_mods(MOD_LALT);
-					  tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P2); tap_code(KC_P8); // ä
-            unregister_mods(MOD_LALT);
+          clear_mods();
+          register_mods(MOD_LALT);
+					tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P2); tap_code(KC_P8); // ä
         }
+        unregister_mods(MOD_LALT);
+        set_mods(temp_mods);
 			return false;
 			}
 			break;
 		case DE_OE:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        if (temp_mod & MODS_SHIFT_MASK) {
-            clear_mods();
-            register_mods(MOD_LALT);
-            tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P1); tap_code(KC_P4); // Ö
-            unregister_mods(MOD_LALT);
+        uint8_t temp_mods = get_mods();
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+          clear_oneshot_mods();
+          clear_mods();
+          register_mods(MOD_LALT);
+          tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P1); tap_code(KC_P4); // Ö
 				} else {
-            clear_mods();
-            register_mods(MOD_LALT);
-					  tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P4); tap_code(KC_P6); // ö
-            unregister_mods(MOD_LALT);
-          }
+          clear_mods();
+          register_mods(MOD_LALT);
+				  tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P4); tap_code(KC_P6); // ö
+        }
+        unregister_mods(MOD_LALT);
+        set_mods(temp_mods);
 			return false;
 			}
 			break;
     case DE_UE:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        if (temp_mod & MODS_SHIFT_MASK) {
-            clear_mods();
-            register_mods(MOD_LALT);
-            tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P2); tap_code(KC_P0); // Ü
-            unregister_mods(MOD_LALT);
+        uint8_t temp_mods = get_mods();
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+          clear_oneshot_mods();
+          clear_mods();
+          register_mods(MOD_LALT);
+          tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P2); tap_code(KC_P0); // Ü
 				} else {
-            clear_mods();
-            register_mods(MOD_LALT);
-					  tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P5); tap_code(KC_P2); // ü
-            unregister_mods(MOD_LALT);
+          clear_mods();
+          register_mods(MOD_LALT);
+					tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P5); tap_code(KC_P2); // ü
         }
+        unregister_mods(MOD_LALT);
+        set_mods(temp_mods);
 			return false;
 			}
 			break;
@@ -515,64 +560,80 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case DE_SZ:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        clear_mods();
-        register_mods(MOD_LALT);
-        if (temp_mod & MODS_SHIFT_MASK) {
+        uint8_t temp_mods = get_mods();
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+          clear_oneshot_mods();
+          clear_mods();
+          register_mods(MOD_LALT);
           tap_code(KC_P0); tap_code(KC_P1); tap_code(KC_P7); tap_code(KC_P6); // °
 				} else {
-					tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P2); tap_code(KC_P3); // ß
-				}
-			unregister_mods(MOD_LALT);
+          clear_mods();
+          register_mods(MOD_LALT);
+          tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P2); tap_code(KC_P3); // ß
+        }
+        unregister_mods(MOD_LALT);
+        set_mods(temp_mods);
 			return false;
 			}
 			break;
     case DE_EGRAVE:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        clear_mods();
-        register_mods(MOD_LALT);
-        if (temp_mod & MODS_SHIFT_MASK) {
+        uint8_t temp_mods = get_mods();
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+          clear_oneshot_mods();
+          clear_mods();
+          register_mods(MOD_LALT);
           tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P0); tap_code(KC_P0); // È
 				} else {
+          clear_mods();
+          register_mods(MOD_LALT);
 					tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P3); tap_code(KC_P2); // è 
-				}
-			unregister_mods(MOD_LALT);
+        }
+        unregister_mods(MOD_LALT);
+        set_mods(temp_mods);
 			return false;
 			}
 			break;			
     case DE_EAIGU:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        clear_mods();
-        register_mods(MOD_LALT);
-        if (temp_mod & MODS_SHIFT_MASK) {
+        uint8_t temp_mods = get_mods();
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+          clear_oneshot_mods();
+          clear_mods();
+          register_mods(MOD_LALT);
           tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P0); tap_code(KC_P1); // É
 				} else {
+          clear_mods();
+          register_mods(MOD_LALT);
 					tap_code(KC_P0); tap_code(KC_P2); tap_code(KC_P3); tap_code(KC_P3); // é
-				}
-			unregister_mods(MOD_LALT);
+        }
+        unregister_mods(MOD_LALT);
+        set_mods(temp_mods);
 			return false;
 			}
 			break;			
     case KC_CURRENCY:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        clear_mods();
-        register_mods(MOD_LALT);
-        if (temp_mod & MODS_SHIFT_MASK) {
+        uint8_t temp_mods = get_mods();
+        if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
+          clear_oneshot_mods();
+          clear_mods();
+          register_mods(MOD_LALT);
           tap_code(KC_P1); tap_code(KC_P5); tap_code(KC_P7); // ¥
 				} else {
+          clear_mods();
+          register_mods(MOD_LALT);
           tap_code(KC_P0); tap_code(KC_P1); tap_code(KC_P2); tap_code(KC_P8); // €
-				}
-			unregister_mods(MOD_LALT);
+        }
+        unregister_mods(MOD_LALT);
+        set_mods(temp_mods);
 			return false;
 			}
 			break;			
     case DE_SLSH_QUST:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        if (temp_mod & MODS_SHIFT_MASK) {
+        uint8_t temp_mods = get_mods() | get_oneshot_mods();
+        if (temp_mods & MOD_MASK_SHIFT) {
           tap_code(KC_MINS); // ? 
 				} else {
           tap_code16(KC_AMPR); // /
@@ -582,8 +643,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;			
     case DE_QUOT:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        if (temp_mod & MODS_SHIFT_MASK) {
+        uint8_t temp_mods = get_mods() | get_oneshot_mods();
+        if (temp_mods & MOD_MASK_SHIFT) {
           tap_code(KC_2); // \" 
 				} else {
           tap_code16(KC_PIPE); // /'
@@ -593,8 +654,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;		
 		case DE_SCLN:
       if (record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        if (temp_mod & MODS_SHIFT_MASK) {
+        uint8_t temp_mods = get_mods() | get_oneshot_mods();
+        if (temp_mods & MOD_MASK_SHIFT) {
           tap_code(KC_DOT); // ; 
 				} else {
 					register_mods(MOD_LSFT);
@@ -604,48 +665,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 			}
 			break;
-    case BACKLIT:
+      //switch multiplexing for escape, short tap for escape, long press for context menu
+    case M_ESCM:
       if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          writePinLow(E6);
-        #endif
+        key_timer = timer_read();
       } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          writePinHigh(E6);
-        #endif
-      }
-      return false;
-      break;
-    case PLOVER:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          stop_all_notes();
-          PLAY_SONG(plover_song);
-        #endif
-        layer_off(_RAISE);
-        layer_off(_LOWER);
-        layer_off(_ADJUST);
-        layer_on(_PLOVER);
-        if (!eeconfig_is_enabled()) {
-            eeconfig_init();
-        }
-        keymap_config.raw = eeconfig_read_keymap();
-        keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_gb_song);
-        #endif
-        layer_off(_PLOVER);
+        if (timer_elapsed(key_timer) > TAPPING_TERM) {
+            tap_code(KC_APP);
+          } else {
+            tap_code(KC_ESC);
+          }
       }
       return false;
       break;
@@ -695,23 +724,11 @@ bool encoder_update(bool clockwise) {
 bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0: {
-#ifdef AUDIO_ENABLE
-            static bool play_sound = false;
-#endif
             if (active) {
-#ifdef AUDIO_ENABLE
-                if (play_sound) { PLAY_SONG(plover_song); }
-#endif
                 layer_on(_ADJUST);
             } else {
-#ifdef AUDIO_ENABLE
-                if (play_sound) { PLAY_SONG(plover_gb_song); }
-#endif
                 layer_off(_ADJUST);
             }
-#ifdef AUDIO_ENABLE
-            play_sound = true;
-#endif
             break;
         }
         case 1:
