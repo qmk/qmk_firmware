@@ -58,7 +58,8 @@ enum planck_keycodes {
   DE_SLSH_QUST,
   DE_QUOT,
 	DE_SCLN,
-  M_ESCM
+  M_ESCM,
+  M_RGUI_SCLN
 };
 
 // Tap Dance declarations
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_HRWIDECOLEMAK_DE] = LAYOUT_planck_grid(
-		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Z), DE_SCLN, RGUI_T(KC_LBRC),
+		LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM,KC_B), KC_SVU_BU,  LT(_NUM,KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Z), M_RGUI_SCLN, KC_LBRC,
 		KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB,	 KC_M, KC_N, KC_E, KC_I, KC_O, DE_QUOT,  
 		LT(_MOUSE,KC_Y), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD,  KC_K, KC_H, KC_COMM, KC_DOT, DE_SLSH_QUST, KC_SLSH, 
     LCTL_T(KC_CAPS), LGUI_T(KC_TAB), M_ESCM, LT(_LOWER_DE,KC_BSPC), OSM(MOD_LSFT), LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), LT(_RAISE_DE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV,KC_LEFT), LT(_NAV,KC_RIGHT)
@@ -632,14 +633,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;			
     case DE_SLSH_QUST:
       if (record->event.pressed) {
-        uint8_t temp_mods = get_mods() | get_oneshot_mods();
-        if (temp_mods & MOD_MASK_SHIFT) {
-          tap_code(KC_MINS); // ? 
-				} else {
-          tap_code16(KC_AMPR); // /
-				}
+        key_timer = timer_read();
+        layer_on(_MOUSE); 
+      } else {
+        if (timer_elapsed(key_timer) < (TAPPING_TERM * pinky_factor)) {
+          layer_off(_MOUSE);
+          uint8_t temp_mods = get_mods() | get_oneshot_mods();
+          if (temp_mods & MOD_MASK_SHIFT) {
+            tap_code(KC_MINS); // ? 
+          } else {
+            tap_code16(KC_AMPR); // /
+          }
+        } else {
+        layer_off(_MOUSE);  
+        }
+      }
 			return false;
-			}
 			break;			
     case DE_QUOT:
       if (record->event.pressed) {
@@ -675,6 +684,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           } else {
             tap_code(KC_ESC);
           }
+      }
+      return false;
+      break;
+    case M_RGUI_SCLN:
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        add_mods(MOD_BIT(KC_RGUI));
+      } else {
+        del_mods(MOD_BIT(KC_RGUI));
+        if (timer_elapsed(key_timer) < (TAPPING_TERM * pinky_factor)) {
+          uint8_t temp_mods = get_mods() | get_oneshot_mods();
+          if (temp_mods & MOD_MASK_SHIFT) {
+            tap_code(KC_DOT); // ; 
+          } else {
+            register_mods(MOD_LSFT);
+            tap_code(KC_COMM); // :
+            unregister_mods(MOD_LSFT);
+          }
+        } else {
+          tap_code(KC_RGUI);
+        }
       }
       return false;
       break;
