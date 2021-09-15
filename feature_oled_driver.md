@@ -18,7 +18,7 @@ Hardware configurations using Arm-based microcontrollers or different sizes of O
 
 ## Usage
 
-To enable the OLED feature, there are three steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
+To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
 
 ```make
 OLED_ENABLE = yes
