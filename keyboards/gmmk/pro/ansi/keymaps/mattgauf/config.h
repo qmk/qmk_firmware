@@ -16,7 +16,6 @@
 
 // clang-format off
 #pragma once
-#include "config_common.h"
 
 /* Defaults */
 #define RAW_USAGE_PAGE  0x200

@@ -16,6 +16,7 @@
 
 // clang-format off
 #include QMK_KEYBOARD_H
+#include "keymap_helpers.h"
 
 
 enum custom_codes {

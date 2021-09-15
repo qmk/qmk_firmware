@@ -15,7 +15,6 @@
  */
 
 // clang-format off
-#include QMK_KEYBOARD_H
 #include <inttypes.h>
 #include "rgb_matrix_types.h"
 
