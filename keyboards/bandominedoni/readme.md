@@ -1,8 +1,6 @@
 # bandominedoni
 
-<p align=center>
-<img width="700" alt="giabalanai_logo" src="https://github.com/3araht/bandoMIneDonI/blob/master/pictures/bandoMIneDonI.jpg">
-</p>
+![bandoMIneDonI](https://github.com/3araht/bandoMIneDonI/blob/master/pictures/bandoMIneDonI.jpg)
 
 bandoMIneDonI keyboard is a MIDI split keyboard with bandoneon layout.
 Close and Open of the bellow is emulated by either using a sustain pedal, or tapping a dedicated keys to alter the close and open status.
