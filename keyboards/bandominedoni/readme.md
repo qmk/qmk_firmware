@@ -1,6 +1,8 @@
 # bandominedoni
 
-![bandominedoni](imgur.com image replace me!)
+<p align=center>
+<img width="700" alt="giabalanai_logo" src="https://github.com/3araht/bandoMIneDonI/blob/master/pictures/bandoMIneDonI.jpg">
+</p>
 
 *A short description of the keyboard/project*
 
