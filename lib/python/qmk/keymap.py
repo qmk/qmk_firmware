@@ -32,9 +32,6 @@ __KEYMAP_GOES_HERE__
 
 """
 
-# Compiled regexes
-macro_cmd_re = re.compile(r'\{(delay|down|tap|up),([0-9A-Z_,]+)\}')
-
 
 def template_json(keyboard):
     """Returns a `keymap.json` template for a keyboard.
