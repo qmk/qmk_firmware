@@ -1,4 +1,4 @@
-/* Copyright 2021 peraneko
+/* Copyright 2021 Dan Nixon
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,22 @@
 
 #pragma once
 
-#include "quantum.h"
+#include "config_common.h"
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT( \
-    K00, K01, K02, K03, \
-    K04, K05, K06, K07 \
-) \
-{ \
-    { K00, K01, K02, K03, K04, K05, K06, K07 }, \
-}
+#define VENDOR_ID       0xBEEF
+#define PRODUCT_ID      0x0003
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    DanNixon
+#define PRODUCT         Aya
+
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 7
+
+#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
+#define DIODE_DIRECTION ROW2COL
+
+#define DEBOUNCE 5
+
+#define SPLIT_HAND_PIN B5
+#define USE_I2C
