@@ -44,28 +44,28 @@ Each macro is an array consisting of strings and objects (dictionaries.) Strings
 
 #### Object Format
 
-All objects have one required key: `action`. This tells QMK what the object does. There are currently 5 actions:
+All objects have one required key: `action`. This tells QMK what the object does. There are currently 5 actions: beep, delay, down, tap, up
 
 Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` prefix when listing keycodes.
 
-* `delay`
-    * Pauses macro playback. Duration is specified in miliseconds (ms).
-    * Example: `{"action": "delay", "duration": 500}`
 * `beep`
     * Play a bell if the keyboard has [audio enabled](feature_audio.md).
     * Example: `{"action": "beep"}`
+* `delay`
+    * Pause macro playback. Duration is specified in milliseconds (ms).
+    * Example: `{"action": "delay", "duration": 500}`
 * `down`
     * Send a key down event for one or more keycodes.
     * Example, single key: `{"action":"down", "keycodes": ["LSFT"]}`
-    * Example, multple keys: `{"action":"down", "keycodes": ["CTRL", "LSFT"]}`
+    * Example, multiple keys: `{"action":"down", "keycodes": ["CTRL", "LSFT"]}`
 * `tap`
     * Type a chord, which sends a down event for each key followed by an up event for each key.
     * Example, single key: `{"action":"tap", "keycodes": ["F13"]}`
-    * Example, multple keys: `{"action":"tap", "keycodes": ["CTRL", "LALT", "DEL"]}`
+    * Example, multiple keys: `{"action":"tap", "keycodes": ["CTRL", "LALT", "DEL"]}`
 * `up`
     * Send a key up event for one or more keycodes.
     * Example, single key: `{"action":"up", "keycodes": ["LSFT"]}`
-    * Example, multple keys: `{"action":"up", "keycodes": ["CTRL", "LSFT"]}`
+    * Example, multiple keys: `{"action":"up", "keycodes": ["CTRL", "LSFT"]}`
 
 ## Using Macros in C Keymaps
 
