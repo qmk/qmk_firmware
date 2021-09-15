@@ -22,23 +22,28 @@
 // STM32 compatibility
 #if defined(MCU_STM32)
 #    define CPU_CLOCK STM32_SYSCLK
-#endif
 
-#if defined(STM32F1XX)
-#    define USE_GPIOV1
-#endif
+#    if defined(STM32F1XX)
+#        define USE_GPIOV1
+#        define PAL_MODE_ALTERNATE_OPENDRAIN PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#        define PAL_MODE_ALTERNATE_PUSHPULL PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#    else
+#        define PAL_OUTPUT_SPEED_HIGHEST PAL_STM32_OSPEED_HIGHEST
+#        define PAL_PUPDR_FLOATING PAL_STM32_PUPDR_FLOATING
+#    endif
 
-#if defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32L1XX)
-#    define USE_I2CV1
+#    if defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32L1XX)
+#        define USE_I2CV1
+#    endif
 #endif
 
 // teensy compatibility
 #if defined(MCU_KINETIS)
 #    define CPU_CLOCK KINETIS_SYSCLK_FREQUENCY
-#endif
 
-#if defined(K20x) || defined(KL2x)
-#    define USE_I2CV1
-#    define USE_I2CV1_CONTRIB  // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
-#    define USE_GPIOV1
+#    if defined(K20x) || defined(KL2x)
+#        define USE_I2CV1
+#        define USE_I2CV1_CONTRIB  // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
+#        define USE_GPIOV1
+#    endif
 #endif
