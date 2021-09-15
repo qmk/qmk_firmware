@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "keyboard.h"
 #include "mousekey.h"
+#include "programmable_button.h"
 #include "command.h"
 #include "led.h"
 #include "action_layer.h"
@@ -987,6 +988,10 @@ void clear_keyboard_but_mods_and_keys() {
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();
     mousekey_send();
+#endif
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    programmable_button_clear();
+    programmable_button_send();
 #endif
 }
 

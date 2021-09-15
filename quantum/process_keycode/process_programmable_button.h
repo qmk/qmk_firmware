@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2021 Thomas Weißschuh <thomas@t-8ch.de>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,18 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include <stdint.h>
-#include "report.h"
-#ifdef MIDI_ENABLE
-#    include "midi.h"
-#endif
+#include "quantum.h"
 
-typedef struct {
-    uint8_t (*keyboard_leds)(void);
-    void (*send_keyboard)(report_keyboard_t *);
-    void (*send_mouse)(report_mouse_t *);
-    void (*send_system)(uint16_t);
-    void (*send_consumer)(uint16_t);
-    void (*send_programmable_button)(uint32_t);
-} host_driver_t;
-
-void send_digitizer(report_digitizer_t *report);
+bool process_programmable_button(uint16_t keycode, keyrecord_t *record);

@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2021 Thomas Weißschuh <thomas@t-8ch.de>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,21 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "process_programmable_button.h"
+#include "programmable_button.h"
 
-#include <stdint.h>
-#include "report.h"
-#ifdef MIDI_ENABLE
-#    include "midi.h"
-#endif
-
-typedef struct {
-    uint8_t (*keyboard_leds)(void);
-    void (*send_keyboard)(report_keyboard_t *);
-    void (*send_mouse)(report_mouse_t *);
-    void (*send_system)(uint16_t);
-    void (*send_consumer)(uint16_t);
-    void (*send_programmable_button)(uint32_t);
-} host_driver_t;
-
-void send_digitizer(report_digitizer_t *report);
+bool process_programmable_button(uint16_t keycode, keyrecord_t *record) {
+    if (keycode >= PROGRAMMABLE_BUTTON_MIN && keycode <= PROGRAMMABLE_BUTTON_MAX) {
+        uint8_t button = keycode - PROGRAMMABLE_BUTTON_MIN + 1;
+        if (record->event.pressed) {
+            programmable_button_on(button);
+        } else {
+            programmable_button_off(button);
+        }
+    }
+    return true;
+}
