@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * © 2020,2021 by Jos Boersema
  */
 
+#pragma once
+
 /* 
  * If MINIFAN_CONFIG_COMPACT in ./user_config.h ⬇
  */
