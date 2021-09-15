@@ -24,10 +24,11 @@ enum layers {
   _COLEMAK,
   _SYM,
   _FUNCTION,
+  _MIDI,
   _NAV,
   _NUM,
-  _ADJUST,
-  _MIDI
+  _ADJUST
+  
 };
 
 enum planck_keycodes {
