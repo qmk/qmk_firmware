@@ -47,3 +47,9 @@
 #        define USE_GPIOV1
 #    endif
 #endif
+
+#if defined(HT32)
+#    define PAL_MODE_ALTERNATE PAL_HT32_MODE_AF
+#    define PAL_OUTPUT_SPEED_HIGHEST 0
+#    define STM32_SYSCLK HT32_CK_SYS_FREQUENCY
+#endif
