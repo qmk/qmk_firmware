@@ -92,6 +92,14 @@ __attribute__((weak)) bool led_update_user(led_t led_state) {
 __attribute__((weak)) bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
+        led_update_ports(led_state);
+    }
+    return res;
+}
+
+/** \brief Write LED state to hardware
+ */
+void led_update_ports(led_t led_state) {
 #if defined(LED_NUM_LOCK_PIN) || defined(LED_CAPS_LOCK_PIN) || defined(LED_SCROLL_LOCK_PIN) || defined(LED_COMPOSE_PIN) || defined(LED_KANA_PIN)
 #    if LED_PIN_ON_STATE == 0
         // invert the whole thing to avoid having to conditionally !led_state.x later
@@ -114,8 +122,6 @@ __attribute__((weak)) bool led_update_kb(led_t led_state) {
         writePin(LED_KANA_PIN, led_state.kana);
 #    endif
 #endif
-    }
-    return res;
 }
 
 /** \brief Initialise any LED related hardware and/or state
