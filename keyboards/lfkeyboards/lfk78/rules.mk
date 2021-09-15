@@ -1,11 +1,4 @@
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -21,7 +14,6 @@ BACKLIGHT_ENABLE = yes          # Enable keyboard backlight functionality
 BACKLIGHT_DRIVER = custom
 AUDIO_ENABLE = no               # Audio output on port C6
 UNICODE_ENABLE = no             # Unicode
-BLUETOOTH_ENABLE = no           # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes           # Enable WS2812 RGB underlight.
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lfkeyboards, not qmk base
 SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend

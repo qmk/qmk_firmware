@@ -2,8 +2,6 @@
     "keyboard_name": "m0110a usb", 
     "url": "https://github.com/kb-elmo/m0110a_usb", 
     "maintainer": "kb-elmo", 
-    "width": 19.25, 
-    "height": 5, 
     "layouts": {
         "LAYOUT": {
             "layout": [
