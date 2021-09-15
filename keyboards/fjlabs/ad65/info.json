@@ -2,8 +2,6 @@
     "keyboard_name": "Absolute Designs 65",
     "url": "https://arnoldh93.wixsite.com/website",
     "maintainer": "FJLaboratories",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -71,7 +69,7 @@
                 {"x": 14, "y": 3},
                 {"x": 15, "y": 3},
 
-                {"x": 0, "y": 4, "w": 1.25},                
+                {"x": 0, "y": 4, "w": 1.25},
                 {"x": 1.25, "y": 4, "w": 1.25},
                 {"x": 2.5, "y": 4, "w": 1.25},
                 {"x": 3.75, "y": 4, "w": 6.25},
