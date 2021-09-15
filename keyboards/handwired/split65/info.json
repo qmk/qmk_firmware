@@ -2,8 +2,6 @@
     "keyboard_name": "split65",
     "url": "https://github.com/PercyJW-2/Split65",
     "maintainer": "PercyJW-2",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
