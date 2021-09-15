@@ -761,6 +761,7 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
+#if defined(EXTRAKEY_ENABLE) || defined(PROGRAMMABLE_BUTTON_ENABLE)
 static void send_report(void *report, size_t size) {
     uint8_t timeout = 255;
 
@@ -775,6 +776,7 @@ static void send_report(void *report, size_t size) {
     Endpoint_Write_Stream_LE(report, size, NULL);
     Endpoint_ClearIN();
 }
+#endif
 
 /** \brief Send Extra
  *
