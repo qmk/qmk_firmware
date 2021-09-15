@@ -109,9 +109,9 @@ void audio_driver_initialize(void) {
 
     // connect the AUDIO_PIN to the PWM hardware
 #if defined(USE_GPIOV1)  // STM32F103C8
-    palSetLineMode(AUDIO_PIN, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+    palSetLineMode(AUDIO_PIN, PAL_MODE_ALTERNATE_PUSHPULL);
 #else  // GPIOv2 (or GPIOv3 for f4xx, which is the same/compatible at this command)
-    palSetLineMode(AUDIO_PIN, PAL_STM32_MODE_ALTERNATE | PAL_STM32_ALTERNATE(AUDIO_PWM_PAL_MODE));
+    palSetLineMode(AUDIO_PIN, PAL_MODE_ALTERNATE(AUDIO_PWM_PAL_MODE));
 #endif
 
     gptStart(&AUDIO_STATE_TIMER, &gptCFG);
