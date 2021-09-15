@@ -15,8 +15,7 @@
  */
 
 // clang-format off
-#include "keymap.h"
-#include "print.h"
+#include QMK_KEYBOARD_H
 
 
 enum custom_codes {
@@ -79,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, _______, _______,                   _______,                   _______, _______, _______,          _______, _______, _______),
 };
 // Runs constantly in the background, in a loop.
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+void rgb_matrix_indicators_user(void) {
     if (rgb_matrix_get_flags() & (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER)) {
 
         if (IS_LAYER_ON(_UTILITY)) {
