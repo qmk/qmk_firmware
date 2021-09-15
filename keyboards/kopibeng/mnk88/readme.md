@@ -1,6 +1,6 @@
 # MNK88
 
-![MNK88](https://i.imgur.com/QlKuV3w.png)
+![MNK88](https://i.imgur.com/0risyWg.png)
 
 A QMK-powered, VIA-enabled 88-key (F13) TKL PCB with support for ANSI/ISO layouts, split Backspace, split Right Shift and 6.25U/7U bottom row.
 
@@ -14,6 +14,8 @@ Make example for this keyboard (after setting up your build environment):
     
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Reset
+## Bootloader
 
-Press the RESET switch on top side of PCB to enter bootloader.
+* Physical reset button: Press the RESET switch on bottom side of PCB.
+* Bootmagic reset:  Unplug keyboard, hold down ESC key and plug in the keyboard.
+* Keycode reset: Press the RESET keycode (default: MO(1) + R keys) in layout if available.
