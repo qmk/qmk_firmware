@@ -220,7 +220,7 @@ One communication attempt will be allowed everytime this amount of time has pass
 Set to 0 to disable this throttling of communications while disconnected. This can save you a couple of bytes of firmware size.
 
 
-### Data sync options
+### Data Sync Options
 
 The following sync options add overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. These can be enabled by adding the chosen option(s) to your `config.h` file.
 
