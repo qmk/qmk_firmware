@@ -9,8 +9,7 @@ BOOTLOADER = caterina
 #
 AUDIO_ENABLE = no           # Audio output
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 COMMAND_ENABLE = no         # Commands for debug and configuration
 CONSOLE_ENABLE = no         # Console for debug
 DEBOUNCE_TYPE = sym_eager_pk
