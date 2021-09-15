@@ -1,6 +1,7 @@
 # MCU name
 MCU = atmega32u4
 
+# Bootloader selection
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -18,6 +19,5 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = yes       # Enable RGB underglow
 UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes

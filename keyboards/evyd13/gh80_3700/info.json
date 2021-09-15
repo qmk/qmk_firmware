@@ -2,8 +2,6 @@
     "keyboard_name": "GH80-3700", 
     "url": "https://github.com/evyd13/gh80-series/tree/master/GH80-3700", 
     "maintainer": "evyd13", 
-    "width": 4, 
-    "height": 7, 
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

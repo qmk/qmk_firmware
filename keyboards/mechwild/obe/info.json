@@ -2,8 +2,6 @@
     "keyboard_name": "MechWild OBE",
     "url": "mechwild.com",
     "maintainer": "Kyle McCreery",
-    "width": 19.5,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -81,6 +79,3 @@
         }
     }
 }
-
-
-

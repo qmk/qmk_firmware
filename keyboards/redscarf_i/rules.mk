@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -23,7 +16,6 @@ COMMAND_ENABLE    = no      # Commands for debug and configuration
 SLEEP_LED_ENABLE  = no      # Breathing sleep LED during USB suspend
 BACKLIGHT_ENABLE  = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE   = no      # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE  = no      # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE      = no      # Audio output on port C6
 UNICODE_ENABLE    = no      # Unicode
 
