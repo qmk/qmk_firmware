@@ -130,7 +130,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //  https://docs.qmk.fm/#/feature_rgb_matrix
 //  Enable suspend mode.
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 //  enable below to shrink the firmware size ( -1974 bytes )
 // #    define REDUCE_RGB_MATRIX_EFFECTS
@@ -339,7 +339,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-#    define B6_AUDIO  // use PB6 = PIN10 as Audio output
+#    define AUDIO_PIN B6  // use PB6 = PIN10 as Audio output
 // #define DAC_SAMPLE_MAX 32768U
 #    define DAC_SAMPLE_MAX 65535U
 // #define AUDIO_CLICKY
