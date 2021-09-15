@@ -2,8 +2,6 @@
     "keyboard_name": "TF60 RGB V2",
     "url": "https://www.fjlaboratories.com/",
     "maintainer": "FJLabs",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "TF65 RGB V2",
     "url": "https://www.fjlaboratories.com/",
     "maintainer": "FJLabs",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
