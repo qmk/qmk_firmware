@@ -223,25 +223,29 @@ static void render_layer_num(void) {
 static void render_modifiers(void) {
     uint8_t modifiers = get_mods();
 
-    if (modifiers & MOD_MASK_SHIFT)
+    if (modifiers & MOD_MASK_SHIFT) {
         render_symbol(SHIFT_CURSOR_X, MODS_CURSOR_Y, MODS_ICON_NUM_ROWS, MODS_ICON_NUM_COLS, shift_pressed);
-    else
+    } else {
         render_symbol(SHIFT_CURSOR_X, MODS_CURSOR_Y, MODS_ICON_NUM_ROWS, MODS_ICON_NUM_COLS, shift);
+    }
 
-    if (modifiers & MOD_MASK_CTRL)
+    if (modifiers & MOD_MASK_CTRL) {
         render_symbol(CTRL_CURSOR_X, MODS_CURSOR_Y, MODS_ICON_NUM_ROWS, MODS_ICON_NUM_COLS, ctrl_pressed);
-    else
+    } else {
         render_symbol(CTRL_CURSOR_X, MODS_CURSOR_Y, MODS_ICON_NUM_ROWS, MODS_ICON_NUM_COLS, ctrl);
+    }
     
-    if (modifiers & MOD_MASK_ALT)
+    if (modifiers & MOD_MASK_ALT) {
         render_symbol(OPTN_CURSOR_X, MODS_CURSOR_Y, MODS_ICON_NUM_ROWS, MODS_ICON_NUM_COLS, optn_pressed);
-    else
+    } else {
         render_symbol(OPTN_CURSOR_X, MODS_CURSOR_Y, MODS_ICON_NUM_ROWS, MODS_ICON_NUM_COLS, optn);
+    }
     
-    if (modifiers & MOD_MASK_GUI)
+    if (modifiers & MOD_MASK_GUI) {
         render_symbol(CMD_CURSOR_X, MODS_CURSOR_Y, MODS_ICON_NUM_ROWS, MODS_ICON_NUM_COLS, cmd_pressed);
-    else
+    } else {
         render_symbol(CMD_CURSOR_X, MODS_CURSOR_Y, MODS_ICON_NUM_ROWS, MODS_ICON_NUM_COLS, cmd);
+    }
 }
 
 // Adapted from https://github.com/qmk/qmk_firmware/blob/master/keyboards/cannonkeys/satisfaction75/satisfaction_oled.c

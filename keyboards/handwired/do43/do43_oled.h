@@ -182,7 +182,7 @@ static const char PROGMEM layer_row_1[4][3] = {
 };
 static const char PROGMEM layer_row_2[3] = {0xcd, 0xce, 0x00};
 
-
+// Drawing graphics for matrix visualisation
 #define MATRIX_KEY_WIDTH 3
 #define MATRIX_CURSOR_X 82
 #define MATRIX_CURSOR_Y 4
@@ -190,6 +190,7 @@ static const char PROGMEM layer_row_2[3] = {0xcd, 0xce, 0x00};
 #define MATRIX_TOP_ROW_HORI_PADDING 3
 #define MATRIX_OLED_WIDTH 8
 #define MATRIX_OLED_HEIGHT 3
+
 #define swap(a, b)     \
     {                  \
         uint8_t t = a; \
