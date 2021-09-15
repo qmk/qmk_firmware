@@ -6,7 +6,17 @@ Drevo Gramr 84 rewired with Arduino (Pro) Micro. Firmware utilizes onboard 74HC5
 
 * Keyboard Maintainer: [MAD](https://github.com/wwwMADwww)
 * Hardware Supported: ATMega32U4, Drevo Gramr 84 with PCB labeled as `TB-ZT-S84LED-01-V03 2015-06-12`.
-* Hardware Availability: *AliExpress, Amazon*
+* Hardware Availability: AliExpress, Amazon
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Physical reset button**: On the Arduino board either briefly press the Reset button or short Reset pin to ground.
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available.
+* **Key combination**: Press `Left Shift` + `Right Shift` + `B`.
+
+## Build and flash
 
 Make example for this keyboard (after setting up your build environment):
 
