@@ -20,7 +20,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-SPLIT_KEYBOARD = no
-OLED_ENABLE = no
-WPM_ENABLE = no
+SPLIT_KEYBOARD = yes
+OLED_ENABLE = yes
+WPM_ENABLE = yes
 LTO_ENABLE = yes 
