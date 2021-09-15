@@ -20,6 +20,13 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/send_string.c \
     $(QUANTUM_DIR)/bitwise.c \
     $(QUANTUM_DIR)/led.c \
+    $(QUANTUM_DIR)/action.c \
+    $(QUANTUM_DIR)/action_layer.c \
+    $(QUANTUM_DIR)/action_macro.c \
+    $(QUANTUM_DIR)/action_tapping.c \
+    $(QUANTUM_DIR)/action_util.c \
+    $(QUANTUM_DIR)/eeconfig.c \
+    $(QUANTUM_DIR)/keyboard.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
     $(QUANTUM_DIR)/logging/debug.c \
@@ -110,13 +117,13 @@ endif
 
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     OPT_DEFS += -DMOUSEKEY_ENABLE
-    OPT_DEFS += -DMOUSE_ENABLE
+    MOUSE_ENABLE := yes
     SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     OPT_DEFS += -DPOINTING_DEVICE_ENABLE
-    OPT_DEFS += -DMOUSE_ENABLE
+    MOUSE_ENABLE := yes
     SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
@@ -178,6 +185,7 @@ else
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
         OPT_DEFS += -DEEPROM_DRIVER
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/eeprom
         SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
       else
         # This will effectively work the same as "transient" if not supported by the chip
@@ -580,15 +588,25 @@ ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
-    SRC += drivers/avr/hd44780.c
+    SRC += platforms/avr/drivers/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
 endif
 
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
-    OPT_DEFS += -DOLED_DRIVER_ENABLE
-    COMMON_VPATH += $(DRIVER_PATH)/oled
-    QUANTUM_LIB_SRC += i2c_master.c
-    SRC += oled_driver.c
+VALID_OLED_DRIVER_TYPES := SSD1306 custom
+OLED_DRIVER ?= SSD1306
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    ifeq ($(filter $(OLED_DRIVER),$(VALID_OLED_DRIVER_TYPES)),)
+        $(error OLED_DRIVER="$(OLED_DRIVER)" is not a valid OLED driver)
+    else
+        OPT_DEFS += -DOLED_ENABLE
+        COMMON_VPATH += $(DRIVER_PATH)/oled
+
+        OPT_DEFS += -DOLED_DRIVER_$(strip $(shell echo $(OLED_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        ifeq ($(strip $(OLED_DRIVER)), SSD1306)
+            SRC += ssd1306_sh1106.c
+            QUANTUM_LIB_SRC += i2c_master.c
+        endif
+    endif
 endif
 
 ifeq ($(strip $(ST7565_ENABLE)), yes)
@@ -680,19 +698,28 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
 endif
 
 JOYSTICK_ENABLE ?= no
-ifneq ($(strip $(JOYSTICK_ENABLE)), no)
+VALID_JOYSTICK_TYPES := analog digital
+JOYSTICK_DRIVER ?= analog
+ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
+    ifeq ($(filter $(JOYSTICK_DRIVER),$(VALID_JOYSTICK_TYPES)),)
+        $(error "$(JOYSTICK_DRIVER)" is not a valid joystick driver)
+    endif
     OPT_DEFS += -DJOYSTICK_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
     SRC += $(QUANTUM_DIR)/joystick.c
+
+    ifeq ($(strip $(JOYSTICK_DRIVER)), analog)
+        OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
+        SRC += analog.c
+    endif
+    ifeq ($(strip $(JOYSTICK_DRIVER)), digital)
+        OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
+    endif
 endif
 
-ifeq ($(strip $(JOYSTICK_ENABLE)), analog)
-    OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
-    SRC += analog.c
-endif
-
-ifeq ($(strip $(JOYSTICK_ENABLE)), digital)
-    OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
+DIGITIZER_ENABLE ?= no
+ifneq ($(strip $(DIGITIZER_ENABLE)), no)
+    SRC += $(QUANTUM_DIR)/digitizer.c
 endif
 
 USBPD_ENABLE ?= no
@@ -729,4 +756,27 @@ ifeq ($(strip $(XAP_ENABLE)), yes)
     EMBED_INFO_JSON := yes
     VPATH += $(QUANTUM_DIR)/xap
     SRC += $(QUANTUM_DIR)/xap/xap.c $(QUANTUM_DIR)/xap/xap_handlers.c
+endif
+
+BLUETOOTH_ENABLE ?= no
+VALID_BLUETOOTH_DRIVER_TYPES = AdafruitBLE RN42 custom
+ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
+    ifeq ($(filter $(strip $(BLUETOOTH_DRIVER)),$(VALID_BLUETOOTH_DRIVER_TYPES)),)
+        $(error "$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
+    endif
+    OPT_DEFS += -DBLUETOOTH_ENABLE
+    NO_USB_STARTUP_CHECK := yes
+    SRC += outputselect.c
+
+    ifeq ($(strip $(BLUETOOTH_DRIVER)), AdafruitBLE)
+        OPT_DEFS += -DMODULE_ADAFRUIT_BLE
+        SRC += analog.c
+        SRC += $(LUFA_DIR)/adafruit_ble.cpp
+        QUANTUM_LIB_SRC += spi_master.c
+    endif
+
+    ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
+        OPT_DEFS += -DMODULE_RN42
+        SRC += $(TMK_DIR)/protocol/serial_uart.c
+    endif
 endif

@@ -53,9 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // I2C config
 #define I2C_DRIVER I2CD1
-#define I2C1_SCL_BANK GPIOB
-#define I2C1_SCL 6
-#define I2C1_SDA 7
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
 #define I2C1_TIMINGR_PRESC 0x00U

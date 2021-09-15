@@ -9,8 +9,8 @@
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _MOUSECURSOR 8
-#define _ADJUST 16
+#define _MOUSECURSOR 5
+#define _ADJUST 6
 
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
@@ -259,11 +259,4 @@ bool music_mask_user(uint16_t keycode) {
     default:
       return true;
   }
-}
-
-void matrix_init_user(void) {
-}
-
-
-void matrix_scan_user(void) {
 }

@@ -5,13 +5,6 @@ MCU = atmega32u4
 F_CPU = 8000000
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = caterina
 
 # Build Options
@@ -27,9 +20,7 @@ CUSTOM_MATRIX = yes    # Remote matrix from the wireless bridge
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes		# USB Nkey Rollover
 BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
-MIDI_ENABLE = no 		# MIDI controls
 UNICODE_ENABLE = yes 		# Unicode
-BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 
 # # project specific files
 SRC += matrix.c serial_uart.c

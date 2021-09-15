@@ -5,7 +5,7 @@ MCU = atmega32a
 F_CPU = 16000000
 
 # Bootloader selection
-BOOTLOADER = USBasp
+BOOTLOADER = usbasploader
 
 # Build Options
 #   change yes to no to disable
@@ -21,10 +21,10 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 WPM_ENABLE = yes
 LTO_ENABLE = yes
 

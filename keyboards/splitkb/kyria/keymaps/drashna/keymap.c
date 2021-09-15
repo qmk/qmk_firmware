@@ -120,7 +120,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 // clang-format on
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 #endif
 

@@ -18,11 +18,11 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 WS2812_DRIVER = bitbang
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306

@@ -190,7 +190,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 };
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
     if (is_keyboard_master()) {
         // QMK Logo and version information

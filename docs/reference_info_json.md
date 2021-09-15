@@ -32,14 +32,8 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
 
 ### Layout Format
 
-Within our `info.json` file the `layouts` portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout macros, for example `LAYOUT_ansi` or `LAYOUT_iso`. Within each layout macro are keys for `width`, `height`, and `key_count`, each of which should be self-explanatory.
+Within our `info.json` file the `layouts` portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout macros, for example `LAYOUT_ansi` or `LAYOUT_iso`.
 
-* `width`
-  * Optional: The width of the layout in Key Units
-* `height`
-  * Optional: The height of the layout in Key Units
-* `key_count`
-  * Optional: The number of keys in this layout
 * `layout`
   * A list of Key Dictionaries describing the physical layout. See the next section for more details.
 

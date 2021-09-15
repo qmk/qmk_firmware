@@ -19,12 +19,12 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes        # Enable rotary encoder support
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 WS2812_DRIVER = pwm
 OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE

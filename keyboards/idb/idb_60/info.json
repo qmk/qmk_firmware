@@ -2,11 +2,8 @@
     "keyboard_name": "idb 60",
     "url": "https://idb-keyboards.xyz/60",
     "maintainer": "pngu",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_default": {
-            "key_count": 59,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!\n1", "x":1, "y":0},
@@ -70,7 +67,6 @@
             ]
         },
         "LAYOUT": {
-            "key_count": 63,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!\n1", "x":1, "y":0},

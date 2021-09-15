@@ -143,6 +143,13 @@ typedef struct {
     USB_HID_Descriptor_HID_t   Joystick_HID;
     USB_Descriptor_Endpoint_t  Joystick_INEndpoint;
 #endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+    // Digitizer HID Interface
+    USB_Descriptor_Interface_t Digitizer_Interface;
+    USB_HID_Descriptor_HID_t   Digitizer_HID;
+    USB_Descriptor_Endpoint_t  Digitizer_INEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 /*
@@ -191,6 +198,10 @@ enum usb_interfaces {
 
 #if defined(JOYSTICK_ENABLE)
     JOYSTICK_INTERFACE,
+#endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+    DIGITIZER_INTERFACE,
 #endif
     TOTAL_INTERFACES
 };
@@ -247,7 +258,7 @@ enum usb_endpoints {
 #        if STM32_USB_USE_OTG1
 #            define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
 #        else
-    CONSOLE_OUT_EPNUM = NEXT_EPNUM,
+    CONSOLE_OUT_EPNUM   = NEXT_EPNUM,
 #        endif
 #    else
 #        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
@@ -280,6 +291,19 @@ enum usb_endpoints {
     JOYSTICK_OUT_EPNUM    = NEXT_EPNUM,
 #    endif
 #endif
+
+#ifdef DIGITIZER_ENABLE
+#    if !defined(DIGITIZER_SHARED_EP)
+    DIGITIZER_IN_EPNUM = NEXT_EPNUM,
+#        if STM32_USB_USE_OTG1
+    DIGITIZER_OUT_EPNUM = DIGITIZER_IN_EPNUM,
+#        else
+    DIGITIZER_OUT_EPNUM = NEXT_EPNUM,
+#        endif
+#    else
+#        define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
+#    endif
+#endif
 };
 
 #ifdef PROTOCOL_LUFA
@@ -305,6 +329,7 @@ enum usb_endpoints {
 #define CDC_NOTIFICATION_EPSIZE 8
 #define CDC_EPSIZE 16
 #define JOYSTICK_EPSIZE 8
+#define DIGITIZER_EPSIZE 8
 #define XAP_EPSIZE 64
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);

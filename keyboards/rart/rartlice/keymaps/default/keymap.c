@@ -31,10 +31,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______, _______,  _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______, _______,          _______,
                  _______,           _______,          _______, _______,          _______,          _______,          _______, _______, _______
     ),
-  
+
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("R A R T L I C E\nLayer: "), false);

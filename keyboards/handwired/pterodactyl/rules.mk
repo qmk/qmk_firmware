@@ -21,11 +21,11 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-BLUETOOTH = AdafruitBLE
 UNICODE_ENABLE = yes
 CUSTOM_MATRIX = yes
+BLUETOOTH_ENABLE = yes
+BLUETOOTH_DRIVER = AdafruitBLE
 
 SRC += matrix.c
 QUANTUM_LIB_SRC += i2c_master.c

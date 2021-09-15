@@ -2,8 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 2x1800 2018",
   "maintainer": "skullydazed",
-  "height": 6.5,
-  "width": 24,
   "processor": "at90usb1286",
   "bootloader": "halfkay",
   "debounce": 5,
@@ -48,7 +46,6 @@
   },
   "layouts": {
     "LAYOUT_4u_space": {
-      "key_count": 124,
       "layout": [
         { "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -177,7 +174,6 @@
       ]
     },
     "LAYOUT_7u_space": {
-      "key_count": 121,
       "layout": [
         { "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -303,7 +299,6 @@
       ]
     },
     "LAYOUT_all": {
-      "key_count": 127,
       "layout": [
         { "label": "Home", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "End", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },

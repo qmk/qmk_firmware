@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -27,7 +20,6 @@ USB_6KRO_ENABLE         = no  # USB 6key Rollover
 BACKLIGHT_ENABLE        = yes # Enable keyboard backlight functionality
 SWAP_HANDS_ENABLE       = no  # Disable Onehand
 RGBLIGHT_ENABLE         = no
-MIDI_ENABLE             = no
 
 # project specific files
 SRC =  matrix.c     \

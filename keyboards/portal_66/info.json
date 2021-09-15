@@ -1,8 +1,6 @@
 {
     "keyboard_name": "Portal 66",
     "maintainer": "matthewdias",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_split_bs": {
             "layout": [

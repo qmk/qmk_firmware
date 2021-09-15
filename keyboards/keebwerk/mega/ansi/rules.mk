@@ -23,7 +23,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 NO_USB_STARTUP_CHECK = no   # Disable initialization only when usb is plugged in
 
@@ -36,4 +35,4 @@ SRC +=  keyboards/wilba_tech/wt_main.c \
         keyboards/wilba_tech/wt_rgb_backlight.c \
         drivers/led/issi/is31fl3733.c \
         quantum/color.c
-QUANTUM_LIB_SRC += drivers/chibios/i2c_master.c
+QUANTUM_LIB_SRC += i2c_master.c

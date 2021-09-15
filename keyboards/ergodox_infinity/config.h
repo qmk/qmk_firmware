@@ -15,9 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef INFINITY_ERGODOX_CONFIG_H
-#define INFINITY_ERGODOX_CONFIG_H
-
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x1c11
@@ -67,7 +65,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_DRIVER SD1  // Only true for the master half
 #define SERIAL_USART_CONFIG { (SERIAL_USART_SPEED), } // Only field is speed
 #define SERIAL_USART_FULL_DUPLEX
-#define SERIAL_USART_TIMEOUT 50
 
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
@@ -86,9 +83,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
 #define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
-#define I2C1_BANK GPIOB
-#define I2C1_SCL 0
-#define I2C1_SDA 1
+#define I2C1_SCL_PIN B0
+#define I2C1_SDA_PIN B1
 
 #ifdef ST7565_ENABLE
 /* LCD driver */
@@ -135,5 +131,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

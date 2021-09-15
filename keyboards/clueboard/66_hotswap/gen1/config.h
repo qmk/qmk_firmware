@@ -65,26 +65,6 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-/*
- * MIDI options
- */
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
  /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 10
@@ -97,8 +77,8 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define LED_DRIVER_ADDR_1 0b1110100
-#define I2C1_SCL 8
-#define I2C1_SDA 9
+#define I2C1_SCL_PIN B8
+#define I2C1_SDA_PIN B9
 
 #define LED_DRIVER_COUNT 1
 #define DRIVER_LED_TOTAL 71
