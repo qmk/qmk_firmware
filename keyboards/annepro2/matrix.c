@@ -80,9 +80,3 @@ uint8_t matrix_scan_custom(void) {
     }
     return matrix_has_changed;
 }
-
-bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1 << col)); }
-
-matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
-
-void matrix_print(void) {}

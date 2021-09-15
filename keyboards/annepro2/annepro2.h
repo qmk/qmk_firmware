@@ -29,6 +29,9 @@ extern uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS];
 
 extern ble_capslock_t BLECapsLock;
 
+/* System clock - needed for custom matrix lite */
+#define STM32_SYSCLK HT32_CK_SYS_FREQUENCY
+
 // Matrix keymap
 // clang-format off
 #define LAYOUT( \
