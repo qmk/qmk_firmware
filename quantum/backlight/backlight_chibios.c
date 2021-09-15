@@ -8,7 +8,7 @@
 #    define BACKLIGHT_LIMIT_VAL 255
 #endif
 
-#ifndef SPI_MISO_PAL_MODE
+#ifndef BACKLIGHT_PAL_MODE
 #    if defined(USE_GPIOV1)
 #        define BACKLIGHT_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
