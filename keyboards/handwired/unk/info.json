@@ -2,8 +2,6 @@
     "keyboard_name": "UNK",
     "url": "https://github.com/herpiko/unk",
     "maintainer": "herpiko",
-    "width": 17,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

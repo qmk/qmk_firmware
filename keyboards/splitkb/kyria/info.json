@@ -2,8 +2,6 @@
     "keyboard_name": "Kyria",
     "url": "https://splitkb.com",
     "maintainer": "splitkb.com",
-    "width": 16.5,
-    "height": 5.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

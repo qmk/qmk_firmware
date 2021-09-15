@@ -2,11 +2,8 @@
     "keyboard_name": "e6_rgb",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_60_wkl": {
-            "key_count": 61,
             "layout": [
                 {
                     "label": "~",
@@ -327,7 +324,6 @@
             ]
         },
         "LAYOUT_60_ansi": {
-            "key_count": 61,
             "layout": [
                 {
                     "label": "~",
@@ -651,7 +647,6 @@
             ]
         },
         "LAYOUT_60_hhkb": {
-            "key_count": 60,
             "layout": [
                 {
                     "label": "Esc",
@@ -964,7 +959,6 @@
             ]
         },
         "LAYOUT_allleds": {
-            "key_count": 62,
             "layout": [
                 {
                     "label": "Esc",

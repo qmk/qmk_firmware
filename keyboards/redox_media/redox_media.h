@@ -17,10 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "redox.h"
 #include "quantum.h"
 
 // rows are doubled
+// clang-format off
 #define LAYOUT( \
                             R5C6,                                  R11C6,  R11C5,                             \
   R0C0, R0C1, R0C2, R0C3, R0C4, R0C5,                                R6C5,  R6C4,  R6C3,  R6C2,  R6C1, R6C0,  \

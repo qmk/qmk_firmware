@@ -2,8 +2,6 @@
     "keyboard_name": "pisces",
     "url": "https://github.com/knaruo/pisces",
     "maintainer": "knaruo",
-    "width": 15,
-    "height": 3,
     "layouts": {
         "LAYOUT_split_3x6_1": {
             "layout": [
