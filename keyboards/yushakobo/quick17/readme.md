@@ -2,10 +2,10 @@
 
 ![quick17](https://i.imgur.com/8SkWq0m.jpeg)
 
-*A simple macropad for the beginners*
+A simple macropad for the beginners
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
-* Hardware Supported: *Quick17 PCBs, Pro Micro (ATmega32u4)*
+* Hardware Supported: Quick17 PCBs, Pro Micro (ATmega32u4)
 * Hardware Availability: [yushakobo shop](https://shop.yushakobo.jp/products/quick17)
 
 Make example for this keyboard (after setting up your build environment):
