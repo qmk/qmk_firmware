@@ -2,9 +2,9 @@
 
 An split 65% keyboard with two OLEDs
 
-Keyboard Maintainer: [Percy-JW2](https://github.com/PercyJW-2)
-Hardware Supported: ProMicro and compatibles, Proton C
-Hardware Availability: [Repository](https://github.com/PercyJW-2/Split65)
+* Keyboard Maintainer: [Percy-JW2](https://github.com/PercyJW-2)
+* Hardware Supported: ProMicro and compatibles, Proton C
+* Hardware Availability: [Repository](https://github.com/PercyJW-2/Split65)
 
 Make example for this keyboard with an ProMicro:
 
