@@ -2,9 +2,9 @@
 
 A TKL keyboard with top gasket
 
-Keyboard Maintainer: [astro](https://github.com/yulei)  
-Hardware Supported: Matrix ME keyboard
-Hardware Availability: GB  
+* Keyboard Maintainer: [astro](https://github.com/yulei)
+* Hardware Supported: Matrix ME keyboard
+* Hardware Availability: GB
 
 Make example for this keyboard (after setting up your build environment):
 
