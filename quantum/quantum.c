@@ -296,6 +296,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef JOYSTICK_ENABLE
             process_joystick(keycode, record) &&
 #endif
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+            process_programmable_button(keycode, record) &&
+#endif
             true)) {
         return false;
     }

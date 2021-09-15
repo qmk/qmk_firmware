@@ -30,7 +30,7 @@ The currently supported Bluetooth chipsets do not support [N-Key Rollover (NKRO)
 
 Add the following to your `rules.mk`:
 
-```makefile
+```make
 BLUETOOTH_ENABLE = yes
 BLUETOOTH_DRIVER = AdafruitBLE # or RN42
 ```

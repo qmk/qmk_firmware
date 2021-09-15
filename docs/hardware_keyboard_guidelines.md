@@ -156,12 +156,12 @@ Many of the settings written in the `rules.mk` file are interpreted by `common_f
 The `post_rules.mk` file can interpret `features` of a keyboard-level before `common_features.mk`.  For example, when your designed keyboard has the option to implement backlighting or underglow using rgblight.c, writing the following in the `post_rules.mk` makes it easier for the user to configure the `rules.mk`.
 
 * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
-  ```makefile
+  ```make
   # Please set the following according to the selection of the hardware implementation option.
   RGBLED_OPTION_TYPE = backlight   ## none, backlight or underglow
   ```
 * `keyboards/top_folder/post_rules.mk`
-  ```makefile
+  ```make
   ifeq ($(filter $(strip $(RGBLED_OPTION_TYPE))x, nonex backlightx underglowx x),)
      $(error unknown RGBLED_OPTION_TYPE value "$(RGBLED_OPTION_TYPE)")
   endif

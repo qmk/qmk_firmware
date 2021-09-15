@@ -40,15 +40,15 @@
 // Default Push Pull
 #ifndef WS2812_EXTERNAL_PULLUP
 #    if defined(USE_GPIOV1)
-#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
-#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST | PAL_PUPDR_FLOATING
 #    endif
 #else
 #    if defined(USE_GPIOV1)
-#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
-#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_MODE_OUTPUT_OPENDRAIN | PAL_OUTPUT_SPEED_HIGHEST | PAL_PUPDR_FLOATING
 #    endif
 #endif
 
@@ -59,7 +59,7 @@
 
 /* --- PRIVATE CONSTANTS ---------------------------------------------------- */
 
-#define WS2812_PWM_FREQUENCY (STM32_SYSCLK / 2)                             /**< Clock frequency of PWM, must be valid with respect to system clock! */
+#define WS2812_PWM_FREQUENCY (CPU_CLOCK / 2)                                /**< Clock frequency of PWM, must be valid with respect to system clock! */
 #define WS2812_PWM_PERIOD (WS2812_PWM_FREQUENCY / WS2812_PWM_TARGET_PERIOD) /**< Clock period in ticks. 1 / 800kHz = 1.25 uS (as per datasheet) */
 
 /**

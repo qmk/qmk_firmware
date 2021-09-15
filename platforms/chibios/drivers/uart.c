@@ -29,11 +29,11 @@ void uart_init(uint32_t baud) {
         serialConfig.speed = baud;
 
 #if defined(USE_GPIOV1)
-        palSetLineMode(SD1_TX_PIN, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
-        palSetLineMode(SD1_RX_PIN, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
+        palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE_OPENDRAIN);
+        palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE_OPENDRAIN);
 #else
-        palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE(SD1_TX_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
-        palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE(SD1_RX_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+        palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE(SD1_TX_PAL_MODE) | PAL_MODE_OUTPUT_OPENDRAIN);
+        palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE(SD1_RX_PAL_MODE) | PAL_MODE_OUTPUT_OPENDRAIN);
 #endif
         sdStart(&SERIAL_DRIVER, &serialConfig);
     }

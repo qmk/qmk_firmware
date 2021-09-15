@@ -10,7 +10,7 @@ If you want to use single color LED's you should use the [LED Matrix Subsystem](
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3731
 ```
@@ -71,7 +71,7 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3733
 ```
@@ -141,7 +141,7 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3737 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3737
 ```
@@ -206,7 +206,7 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 ```
@@ -226,7 +226,7 @@ Configure the hardware via your `config.h`:
 
 There is basic support for APA102 based addressable LED strands. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = APA102
 ```
@@ -246,7 +246,7 @@ Configure the hardware via your `config.h`:
 ### AW20216 :id=aw20216
 There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = AW20216
 ```

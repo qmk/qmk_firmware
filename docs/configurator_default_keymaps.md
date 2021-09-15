@@ -20,7 +20,7 @@ Keymaps in this directory require four key-value pairs:
 
 Additionally, most keymaps contain a `commit` key. This key is not consumed by the API that back-stops QMK Configurator, but is used by Configurator's maintainers to tell which version of a keymap was used to create the JSON keymap in this repository. The value is the SHA of the last commit to modify a board's default `keymap.c` in the `qmk_firmware` repository. The SHA is found by checking out [the `master` branch of the `qmk/qmk_firmware` repository](https://github.com/qmk/qmk_firmware/tree/master/) and running `git log -1 --pretty=oneline -- keyboards/<keyboard>/keymaps/default/keymap.c` (use `keymap.json` if the keyboard in question has this file instead), which should return something similar to:
 
-```shell
+```
 f14629ed1cd7c7ec9089604d64f29a99981558e8 Remove/migrate action_get_macro()s from default keymaps (#5625)
 ```
 
@@ -31,7 +31,7 @@ In this example, `f14629ed1cd7c7ec9089604d64f29a99981558e8` is the value that sh
 
 If one wished to add a default keymap for the H87a by Hineybush, one would run the `git log` command above against the H87a's default keymap in `qmk_firmware`:
 
-```shell
+```
 user ~/qmk_firmware (master)
 $ git log -1 --pretty=oneline master -- keyboards/hineybush/h87a/keymaps/default/keymap.c
 ef8878fba5d3786e3f9c66436da63a560cd36ac9 Hineybush h87a lock indicators (#8237)

@@ -30,7 +30,7 @@ Note: This is not recommended, you may encounter jerky movement or unsent inputs
 
 In rules.mk:
 
-```makefile
+```make
 PS2_MOUSE_ENABLE = yes
 PS2_USE_BUSYWAIT = yes
 ```
@@ -56,7 +56,7 @@ The following example uses D2 for clock and D5 for data. You can use any INT or 
 
 In rules.mk:
 
-```makefile
+```make
 PS2_MOUSE_ENABLE = yes
 PS2_USE_INT = yes
 ```
@@ -118,7 +118,7 @@ To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. 
 
 In rules.mk:
 
-```makefile
+```make
 PS2_MOUSE_ENABLE = yes
 PS2_USE_USART = yes
 ```

@@ -76,6 +76,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef JOYSTICK_ENABLE
 #    include "process_joystick.h"
 #endif
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+#    include "programmable_button.h"
+#endif
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
@@ -96,9 +99,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
-#endif
-#ifdef STM32_EEPROM_ENABLE
-#    include "eeprom_stm32.h"
 #endif
 #ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
@@ -246,9 +246,6 @@ void keyboard_setup(void) {
     disable_jtag();
 #endif
     print_set_sendchar(sendchar);
-#ifdef STM32_EEPROM_ENABLE
-    EEPROM_Init();
-#endif
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
 #endif
@@ -546,6 +543,10 @@ MATRIX_LOOP_END:
 
 #ifdef DIGITIZER_ENABLE
     digitizer_task();
+#endif
+
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    programmable_button_send();
 #endif
 
     // update LED

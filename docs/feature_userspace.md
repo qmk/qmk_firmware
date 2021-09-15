@@ -240,7 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 For boards that may not have a shift button (such as on a macro pad), we need a way to always include the bootloader option.  To do that, add the following to the `rules.mk` in your userspace folder: 
 
-```make 
+```make
 ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
     OPT_DEFS += -DFLASH_BOOTLOADER
 endif
