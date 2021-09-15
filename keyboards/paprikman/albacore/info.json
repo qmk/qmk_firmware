@@ -2,8 +2,6 @@
     "keyboard_name": "Albacore",
     "url": "https://github.com/paprikman/qmk_firmware/tree/master/keyboards/paprikman/albacore",
     "maintainer": "paprikman",
-    "width": 4,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [
