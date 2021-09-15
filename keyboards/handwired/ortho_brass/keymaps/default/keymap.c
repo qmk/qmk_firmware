@@ -215,7 +215,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0: {
             if (active) {
@@ -226,6 +226,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
             break;
         }
     }
+    return true;
 }
 
 bool music_mask_user(uint16_t keycode) {
