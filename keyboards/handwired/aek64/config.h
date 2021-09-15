@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    4sStylZ and others makers
 #define PRODUCT         AEK64
-#define DESCRIPTION     QMK keyboard firmware for AEK64 handwired
-
-/* Define the backlight */
-/*#define BACKLIGHT_ON_STATE 1*/
 
 /* key matrix size */
 #define MATRIX_ROWS 5

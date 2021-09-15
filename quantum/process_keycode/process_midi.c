@@ -34,24 +34,25 @@ void process_midi_all_notes_off(void) { midi_send_cc(&midi_device, 0, 0x7B, 0); 
 
 #        include "timer.h"
 
-static uint8_t tone_status[MIDI_TONE_COUNT];
+static uint8_t tone_status[2][MIDI_TONE_COUNT];
 
 static uint8_t  midi_modulation;
 static int8_t   midi_modulation_step;
 static uint16_t midi_modulation_timer;
 midi_config_t   midi_config;
 
-inline uint8_t compute_velocity(uint8_t setting) { return (setting + 1) * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN + 1)); }
+inline uint8_t compute_velocity(uint8_t setting) { return setting * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN)); }
 
 void midi_init(void) {
     midi_config.octave              = MI_OCT_2 - MIDI_OCTAVE_MIN;
     midi_config.transpose           = 0;
-    midi_config.velocity            = (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN);
+    midi_config.velocity            = 127;
     midi_config.channel             = 0;
     midi_config.modulation_interval = 8;
 
     for (uint8_t i = 0; i < MIDI_TONE_COUNT; i++) {
-        tone_status[i] = MIDI_INVALID_NOTE;
+        tone_status[0][i] = MIDI_INVALID_NOTE;
+        tone_status[1][i] = 0;
     }
 
     midi_modulation       = 0;
@@ -66,19 +67,23 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
         case MIDI_TONE_MIN ... MIDI_TONE_MAX: {
             uint8_t channel  = midi_config.channel;
             uint8_t tone     = keycode - MIDI_TONE_MIN;
-            uint8_t velocity = compute_velocity(midi_config.velocity);
+            uint8_t velocity = midi_config.velocity;
             if (record->event.pressed) {
                 uint8_t note = midi_compute_note(keycode);
                 midi_send_noteon(&midi_device, channel, note, velocity);
                 dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
-                tone_status[tone] = note;
+                tone_status[1][tone] += 1;
+                if (tone_status[0][tone] == MIDI_INVALID_NOTE) {
+                    tone_status[0][tone] = note;
+                }
             } else {
-                uint8_t note = tone_status[tone];
-                if (note != MIDI_INVALID_NOTE) {
+                uint8_t note = tone_status[0][tone];
+                tone_status[1][tone] -= 1;
+                if (tone_status[1][tone] == 0) {
                     midi_send_noteoff(&midi_device, channel, note, velocity);
                     dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                    tone_status[0][tone] = MIDI_INVALID_NOTE;
                 }
-                tone_status[tone] = MIDI_INVALID_NOTE;
             }
             return false;
         }
@@ -122,19 +127,30 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
             return false;
         case MIDI_VELOCITY_MIN ... MIDI_VELOCITY_MAX:
             if (record->event.pressed) {
-                midi_config.velocity = keycode - MIDI_VELOCITY_MIN;
+                midi_config.velocity = compute_velocity(keycode - MIDI_VELOCITY_MIN);
                 dprintf("midi velocity %d\n", midi_config.velocity);
             }
             return false;
         case MI_VELD:
             if (record->event.pressed && midi_config.velocity > 0) {
-                midi_config.velocity--;
+                if (midi_config.velocity == 127) {
+                    midi_config.velocity -= 10;
+                } else if (midi_config.velocity > 12) {
+                    midi_config.velocity -= 13;
+                } else {
+                    midi_config.velocity = 0;
+                }
+
                 dprintf("midi velocity %d\n", midi_config.velocity);
             }
             return false;
         case MI_VELU:
-            if (record->event.pressed) {
-                midi_config.velocity++;
+            if (record->event.pressed && midi_config.velocity < 127) {
+                if (midi_config.velocity < 115) {
+                    midi_config.velocity += 13;
+                } else {
+                    midi_config.velocity = 127;
+                }
                 dprintf("midi velocity %d\n", midi_config.velocity);
             }
             return false;

@@ -7,7 +7,7 @@
 #
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 AUDIO_ENABLE = yes           # Audio output on port B5
-LINK_TIME_OPTIMIZATION_ENABLE = no  # if firmware size over limit, try this option
+LTO_ENABLE = no  # if firmware size over limit, try this option
 
 # Helix Spacific Build Options
 # you can uncomment and edit follows 6 Variables

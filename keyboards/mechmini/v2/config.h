@@ -18,14 +18,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0xAF99
 #define PRODUCT_ID      0xCA40
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    MECHKEYS
 #undef PRODUCT
 #define PRODUCT         Mechmini 2
-#undef DESCRIPTION
-#define DESCRIPTION     40% modular keyboard
 
 /* key matrix size */
 #undef MATRIX_COLS

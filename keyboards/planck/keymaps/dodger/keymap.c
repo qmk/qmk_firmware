@@ -18,35 +18,25 @@
 
 extern keymap_config_t keymap_config;
 bool isGame = false;
-bool isMusic = false;
+bool qwertGame = false;
 
 
 enum planck_layers {
   _COLEMAK,
   _GAME,
-  _MUSIC,
+  _QWERTGAME,
   _LOWER,
   _RAISE,
-  _ADJUST,
+  _ADJUST
 };
 
 enum planck_keycodes {
   COLEMAK = SAFE_RANGE,
   GCTOGG,
-  MCTOGG,
+  QGCTOGG,
   LOWER,
   RAISE,
-  LENNY,
-  COMMENTHEAD,
-  RICKANDMORT,
-  MARIO,
-  MARIOE,
-  OVERWATCH,
-  DOOM,
-  DISNEY,
-  NUMBERONE,
-  CABBAGE,
-  OLDSPICE,
+  PAREN
 };
 
 enum {
@@ -69,14 +59,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | GUI  | Alt  |lenny |Lower | shift|space |Raise | macro|macro2|macro3|QWERTY|
+ * | Ctrl | GUI  | Alt  |PAREN |Lower | shift|space |Raise | Left | Down |  Up  | Right|
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid(
   KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_EQL,
   KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-  KC_LCTL, KC_LGUI, KC_LALT, LENNY, LOWER,   RSFT_T(KC_BSPC),  TD(TD_SPC_ENT),  RAISE,   COMMENTHEAD, RICKANDMORT, KC_LEFT, KC_RGHT
+  KC_LCTL, KC_LGUI, KC_LALT, PAREN, LOWER,   RSFT_T(KC_BSPC),  TD(TD_SPC_ENT),  RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 
 /* Lower
@@ -93,8 +83,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_planck_grid(
   _______, _______, _______, KC_LBRC, KC_RBRC, _______, KC_LPRN, KC_RPRN,  KC_LCBR,    KC_RCBR, _______, S(KC_EQL),
   KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_LEFT,    KC_DOWN,    KC_UP, KC_RGHT,   KC_PIPE,
-  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,    _______,    _______, _______, KC_UNDS,
-  _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY
+  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,    KC_MPRV,    KC_MNXT, _______, KC_UNDS,
+  _______, _______, _______, _______, _______, _______, _______, _______,    _______,    KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
 /* Raise
@@ -105,30 +95,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |  bl- |  bl+ | GCTG |
+ * |      |      |      |      |      |             |      |      |      |      | GCTG |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
   KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
   KC_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, BL_DEC,  MCTOGG,  GCTOGG
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,  GCTOGG
 ),
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
+ * |EEPRst| Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  _______, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  COLEMAK, _______,  _______,  _______,
+  EEP_RST, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  _______, _______,  _______,  _______,
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______, _______,  TERM_ON, TERM_OFF, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -137,60 +127,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_EQL,
   KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-  KC_LCTL, RAISE, KC_LALT, LOWER, KC_SPC, RSFT_T(KC_BSPC), TD(TD_SPC_ENT), RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
+  KC_LCTL, QGCTOGG, KC_LALT, LOWER, KC_SPC, RSFT_T(KC_BSPC), TD(TD_SPC_ENT), RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
 ),
 
-[_MUSIC] = LAYOUT_planck_grid(
-  MARIO,  MARIOE, OVERWATCH,  DOOM, DISNEY, NUMBERONE, CABBAGE, OLDSPICE, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+[_QWERTGAME] = LAYOUT_planck_grid(
+  KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_EQL,
+  KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
+  KC_LCTL, QGCTOGG, KC_LALT, LOWER, KC_SPC, RSFT_T(KC_BSPC), TD(TD_SPC_ENT), RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
 )
-
 };
-
-#ifdef AUDIO_ENABLE
-  float guitar[][2] = SONG(GUITAR_SOUND);
-  float mario[][2] = SONG(MARIO_THEME);
-  float marioe[][2] = SONG(MARIO_GAMEOVER);
-  float overwatch[][2] = SONG(OVERWATCH_THEME);
-  float doom[][2] = SONG(E1M1_DOOM);
-  float disney[][2] = SONG(DISNEY_SONG);
-  float numberone[][2] = SONG(NUMBER_ONE);
-  float cabbage[][2] = SONG(CABBAGE_SONG);
-  float oldspice[][2] = SONG(OLD_SPICE);
-#endif
-
-void setLayer(int layer) {
-    if (layer == _COLEMAK) {
-        #ifdef AUDIO_ENABLE
-            stop_all_notes();
-            PLAY_SONG(marioe);
-        #endif
-        set_single_persistent_default_layer(_COLEMAK);
-        #ifdef BACKLIGHT_ENABLE
-            backlight_set(0);
-        #endif
-    } else if (layer == _GAME) {
-        #ifdef AUDIO_ENABLE
-            stop_all_notes();
-            PLAY_SONG(mario);
-        #endif
-        set_single_persistent_default_layer(_GAME);
-        #ifdef BACKLIGHT_ENABLE
-            backlight_set(15);
-        #endif
-    } else if (layer == _MUSIC) {
-        #ifdef AUDIO_ENABLE
-            stop_all_notes();
-            PLAY_SONG(guitar);
-        #endif
-        set_single_persistent_default_layer(_MUSIC);
-        #ifdef BACKLIGHT_ENABLE
-            backlight_set(1);
-        #endif
-    }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -198,41 +144,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
         #ifdef BACKLIGHT_ENABLE
-		  backlight_set(0);
+		      backlight_set(0);
         #endif
       }
       return false;
       break;
 	case GCTOGG:
       if (record->event.pressed) {
-		  if (isGame) {
-              if (isMusic)
-                  setLayer(_MUSIC);
-              else
-                  setLayer(_COLEMAK);
-              isGame = false;
-          } else {
-              setLayer(_GAME);
-              isGame = true;
-          }
+        if (!isGame) {
+          set_single_persistent_default_layer(_GAME);
+          isGame = true;
+        }
+        else {
+          set_single_persistent_default_layer(_COLEMAK);
+          isGame = false;
+          qwertGame = false;
+        }
       }
       return false;
       break;
-    case MCTOGG:
-        if (record->event.pressed) {
-            if (isMusic) {
-                if (isGame)
-                    setLayer(_GAME);
-                else
-                    setLayer(_COLEMAK);
-                isMusic = false;
-            } else {
-                setLayer(_MUSIC);
-                isMusic = true;
-            }
+    case QGCTOGG:
+      if (record->event.pressed) {
+        if (!qwertGame) {
+          set_single_persistent_default_layer(_QWERTGAME);
+          qwertGame = true;
+        } else {
+          set_single_persistent_default_layer(_GAME);
+          qwertGame = false;
         }
-        return false;
-        break;
+      }
+      return false;
+      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -253,85 +195,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case LENNY:
+    case PAREN:
     	if (record->event.pressed) {
     		SEND_STRING("()");
     	}
     	return false; break;
-    case COMMENTHEAD:
-    	if (record->event.pressed) {
-    		SEND_STRING("// ---------------------------------------------------------------");
-    	}
-    	return false; break;
-    case RICKANDMORT:
-    	if (record->event.pressed) {
-    		SEND_STRING("// ***************************************************************");
-    	}
-    	return false; break;
-    case MARIO:
-        if(record->event.pressed) {
-          #ifdef AUDIO_ENABLE
-            PLAY_SONG(mario);
-          #endif
-        }
-        return false; break;
-      case MARIOE:
-          if(record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(marioe);
-            #endif
-          }
-          return false; break;
-      case OVERWATCH:
-          if(record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(overwatch);
-            #endif
-          }
-          return false; break;
-      case DOOM:
-          if(record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(doom);
-            #endif
-          }
-          return false; break;
-      case DISNEY:
-          if(record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(disney);
-            #endif
-          }
-          return false; break;
-      case NUMBERONE:
-          if(record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(numberone);
-            #endif
-          }
-          return false; break;
-      case CABBAGE:
-          if(record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(cabbage);
-            #endif
-          }
-          return false; break;
-      case OLDSPICE:
-          if(record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(oldspice);
-            #endif
-          }
-          return false; break;
   }
   return true;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+  switch (get_highest_layer(state)) {
+    case _GAME:
+      rgblight_sethsv_noeeprom(0, UINT8_MAX, RGBLIGHT_LIMIT_VAL);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL+5);
+      break;
+    case _QWERTGAME:
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD+2);
+      break;
+    case _COLEMAK:
+      rgblight_sethsv_noeeprom(0, 0, 0);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+      break;
+    default:
+      break;
+  }
+  return state;
 }
 
 void matrix_init_user(void) {
 	set_single_persistent_default_layer(_COLEMAK);
 	isGame = false;
+  qwertGame = false;
   #ifdef BACKLIGHT_ENABLE
         backlight_level(0);
   #endif
+}
+
+void keyboard_post_init_user(void) {
+  rgblight_sethsv_noeeprom(0, 0, 0);
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 }

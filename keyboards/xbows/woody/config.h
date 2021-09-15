@@ -5,7 +5,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    X-BOWS
 #define PRODUCT         WOO-DY
-#define DESCRIPTION     XBOWS 65RGB keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -17,10 +16,10 @@
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
 #define DEBOUNCE 3
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN	
+#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #define DISABLE_RGB_MATRIX_BAND_SAT
 #define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
 #define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT

@@ -33,20 +33,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_ergodox(
         // left hand
-        KC_TAB,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   NEO_GRV,
-        NEO_Y,      NEO_X,  NEO_V,  NEO_L,  NEO_C,  NEO_W,  KC_HOME,
-        NEO_L1_L,   NEO_U,  NEO_I,  NEO_A,  NEO_E,  NEO_O,
-        KC_LSFT,    NEO_UE, NEO_OE, NEO_AE, NEO_P,  NEO_Z,  TG(PMQ),
-        KC_LCTL,    KC_LALT,MO(FMU),KC_LGUI,NEO_L2_L,
+        KC_TAB,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   NE_GRV,
+        NE_Y,      NE_X,  NE_V,  NE_L,  NE_C,  NE_W,  KC_HOME,
+        NE_L3L,   NE_U,  NE_I,  NE_A,  NE_E,  NE_O,
+        KC_LSFT,    NE_UDIA, NE_ODIA, NE_ADIA, NE_P,  NE_Z,  TG(PMQ),
+        KC_LCTL,    KC_LALT,MO(FMU),KC_LGUI,NE_L4L,
                                                     KC_LEFT,    KC_UP,
                                                                 KC_MINS,
                                             KC_SPC, KC_ENT,    ALL_T(KC_NO),
         // right hand
-        NEO_ACUT,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSPC,
-        KC_END,     NEO_K,  NEO_H,  NEO_G,  NEO_F,  NEO_Q,  NEO_SS,
-                    NEO_S,  NEO_N,  NEO_R,  NEO_T,  NEO_D,  NEO_L1_R,
-        TG(PMN),    NEO_B,  NEO_M,  KC_COMM,KC_DOT, NEO_J,  KC_RSFT,
-                            NEO_L2_R,KC_RGUI,MO(FMU),KC_LALT,KC_RCTL,
+        NE_ACUT,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSPC,
+        KC_END,     NE_K,  NE_H,  NE_G,  NE_F,  NE_Q,  NE_SS,
+                    NE_S,  NE_N,  NE_R,  NE_T,  NE_D,  NE_L3R,
+        TG(PMN),    NE_B,  NE_M,  KC_COMM,KC_DOT, NE_J,  KC_RSFT,
+                            NE_L4R,KC_RGUI,MO(FMU),KC_LALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
         MEH_T(KC_NO),KC_ENT,KC_SPC
@@ -76,8 +76,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_TAB,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_EQL,
         DE_C,       DE_P,   DE_T,   DE_F,   DE_K,   DE_L,   KC_HOME,
-        NEO_L1_L,   DE_D,   DE_H,   DE_OE,  DE_O,   DE_I,
-        KC_LSFT,    DE_AE,  DE_Q,   DE_R,   DE_W,   DE_N,   KC_TRNS,
+        NE_L3L,   DE_D,   DE_H,   DE_ODIA,DE_O,   DE_I,
+        KC_LSFT,    DE_ADIA,DE_Q,   DE_R,   DE_W,   DE_N,   KC_TRNS,
         KC_LCTL,    KC_LALT,MO(FMU),KC_LGUI,MO(NHL),
                                                     KC_LEFT,    KC_UP,
                                                                 KC_MINS,
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         DE_ACUT,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSPC,
         KC_END,     DE_B,   DE_A,   DE_S,   DE_G,   DE_V,   DE_Y,
-                    DE_U,   DE_MINS,DE_Z,   DE_E,   DE_X,   NEO_L1_R,
+                    DE_U,   DE_MINS,DE_Z,   DE_E,   DE_X,   NE_L3R,
         KC_TRNS,    DE_J,   DE_M,   DE_COMM,DE_DOT, DE_SS,  KC_RSFT,
                             MO(NHL),KC_RGUI,MO(FMU),KC_LALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_EQL,
         DE_Y,       DE_X,   DE_V,   DE_L,   DE_C,   DE_W,   KC_HOME,
         KC_NO,      DE_U,   DE_I,   DE_A,   DE_E,   DE_O,
-        KC_LSFT,    DE_UE,  DE_OE,  DE_AE,  DE_P,   DE_Z,   KC_TRNS,
+        KC_LSFT,    DE_UDIA,DE_ODIA,DE_ADIA,DE_P,   DE_Z,   KC_TRNS,
         KC_LCTL,    KC_LALT,MO(FMU),KC_LGUI,MO(NHL),
                                                     KC_LEFT,    KC_UP,
                                                                 KC_MINS,
@@ -215,31 +215,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [BASE] = ACTION_FUNCTION(BASE),
-    [PMQ]  = ACTION_FUNCTION(PMQ),
-    [PMN]  = ACTION_FUNCTION(PMN),
-};
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-    switch(id) {
-        case 0:
-            if (record->event.pressed) {
-                register_code(KC_RSFT);
-            }
-            else {
-                unregister_code(KC_RSFT);
-            }
-        break;
-    }
-
-    return MACRO_NONE;
-};
-
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
     set_unicode_input_mode(UC_LNX);
@@ -279,40 +254,12 @@ void matrix_scan_user(void)
 };
 
 
-// Override Unicode start method to use NEO_U instead of KC_U
+// Override Unicode start method to use NE_U instead of KC_U
 void unicode_input_start (void) {
     register_code(KC_LCTL);
     register_code(KC_LSFT);
-    register_code(NEO_U);
-    unregister_code(NEO_U);
+    register_code(NE_U);
+    unregister_code(NE_U);
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
 };
-
-// Override method to use NEO_A instead of KC_A
-uint16_t hex_to_keycode(uint8_t hex)
-{
-  if(hex == 0x0) {
-    return KC_0;
-  }
-  else if(hex >= 0xA) {
-    switch(hex) {
-      case 0xA:
-        return NEO_A;
-      case 0xB:
-        return NEO_B;
-      case 0xC:
-        return NEO_C;
-      case 0xD:
-        return NEO_D;
-      case 0xE:
-        return NEO_E;
-      case 0xF:
-        return NEO_F;
-      default:
-        return KC_NO;
-    }
-  }
-
-  return KC_1 + (hex - 0x1);
-}

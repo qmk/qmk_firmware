@@ -1,8 +1,8 @@
-# budget96
+# Budget96
 
-96 key atmega32a keyboard. 
+A budget-oriented 96 key atmega32a keyboard. Runs ps2avrgb by default.  
 
-* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
+* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [DonutCables](https://github.com/DonutCables)
 * Hardware Supported: Budget96 PCB
 * Hardware Availability: [DonutCables](https://donutcables.com/)
 

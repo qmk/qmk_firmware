@@ -19,14 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
+#define VENDOR_ID       0x3265
+#define PRODUCT_ID      0x8000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yushakobo
 #define PRODUCT         Helix Alpha
-#define DESCRIPTION     A split keyboard for the cheap makers
 
-#include <serial_config.h>
+#include "serial_config.h"
 
 #define HELIX_ROWS 5
 

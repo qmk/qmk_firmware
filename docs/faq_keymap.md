@@ -5,13 +5,13 @@ This page covers questions people often have about keymaps. If you haven't you s
 ## What Keycodes Can I Use?
 See [Keycodes](keycodes.md) for an index of keycodes available to you. These link to more extensive documentation when available.
 
-Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+Keycodes are actually defined in [quantum/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
 
 ## What Are the Default Keycodes?
 
 There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+<!-- Source for this image: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
 
 ## How Can I Make Custom Names For Complex Keycodes?
@@ -31,7 +31,7 @@ QMK has two features, Bootmagic and Command, which allow you to change the behav
 
 As a quick fix try holding down `Space`+`Backspace` while you plug in your keyboard. This will reset the stored settings on your keyboard, returning those keys to normal operation. If that doesn't work look here:
 
-* [Bootmagic](feature_bootmagic.md)
+* [Bootmagic Lite](feature_bootmagic.md)
 * [Command](feature_command.md) 
 
 ## The Menu Key Isn't Working
@@ -42,8 +42,8 @@ The key found on most modern keyboards that is located between `KC_RGUI` and `KC
 Use keycode for Print Screen(`KC_PSCREEN` or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
 
 See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
-* http://en.wikipedia.org/wiki/Magic_SysRq_key
-* http://en.wikipedia.org/wiki/System_request
+* https://en.wikipedia.org/wiki/Magic_SysRq_key
+* https://en.wikipedia.org/wiki/System_request
 
 ## Power Keys Aren't Working
 
@@ -60,13 +60,13 @@ Modifier keys or layers can be stuck unless layer switching is configured proper
 For Modifier keys and layer actions you have to place `KC_TRANS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
 
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
-* http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+* https://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 * https://github.com/tmk/tmk_keyboard/issues/248
 
 
 ## Mechanical Lock Switch Support
 
-This feature is for *mechanical lock switch* like [this Alps one](http://deskthority.net/wiki/Alps_SKCL_Lock). You can enable it by adding this to your `config.h`:
+This feature is for *mechanical lock switch* like [this Alps one](https://deskthority.net/wiki/Alps_SKCL_Lock). You can enable it by adding this to your `config.h`:
 
 ```
 #define LOCKING_SUPPORT_ENABLE

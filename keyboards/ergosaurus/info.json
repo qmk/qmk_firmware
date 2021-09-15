@@ -1,10 +1,8 @@
 {
     "keyboard_name": "Ergosaurus",
     "maintainer": "cfbender",
-    "width": 19.75,
-    "height": 5.25,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_alice_split_bs": {
             "layout": [
                 {"label":"`", "x":0.5, "y":0},
                 {"label":"Esc", "x":1.75, "y":0.25},

@@ -21,11 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x21FF
-#define PRODUCT_ID      0xAA97
+#define PRODUCT_ID      0xAA98
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    westfoxtrot
 #define PRODUCT         cypher
-#define DESCRIPTION     Cypher
 
 /* key matrix size */
 #define MATRIX_ROWS 10

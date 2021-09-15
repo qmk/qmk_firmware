@@ -1,10 +1,7 @@
 {
   "keyboard_name": "Palm Stowaway Serial",
-  "keyboard_folder": "converter/palm_usb/stowaway",
   "url": "",
   "maintainer": "qmk",
-  "width": 15.25,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [

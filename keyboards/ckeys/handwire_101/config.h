@@ -23,9 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ckeys_handwire
-#define PRODUCT         ckeys_handwire
-#define DESCRIPTION     4x4 handwire workshop board
+#define MANUFACTURER    cKeys
+#define PRODUCT         Handwire 101
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -64,29 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
 
 /*
  * Force NKRO
@@ -158,12 +134,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_SLEEP_LED      Z
 
 // Audio Click
-#define AUDIO_CLICKY
+//#define AUDIO_CLICKY
 
 // Music Mode Polyphony
 // NOTE: Must change polyphony_rate to a number higher than 0 in voices.c
-#define AUDIO_VOICES
-#define PITCH_STANDARD_A 880.0f
+//#define AUDIO_VOICES
+//#define PITCH_STANDARD_A 880.0f
 
 // Mouse keys
 #define MOUSEKEY_DELAY          0

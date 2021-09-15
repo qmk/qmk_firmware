@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "inttypes.h"
-#include "stdint.h"
+#include <inttypes.h>
+#include <stdint.h>
 #include "process_key_lock.h"
 
 #define BV_64(shift) (((uint64_t)1) << (shift))

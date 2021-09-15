@@ -17,9 +17,10 @@
 #undef RGB_MATRIX_KEYRELEASES
 #undef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #else
-#define RGB_MATRIX_KEYPRESSES
-#undef RGB_MATRIX_KEYRELEASES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#    define RGB_MATRIX_KEYPRESSES
+#    undef RGB_MATRIX_KEYRELEASES
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#    define ENABLE_TYPING_HEATMAP_DISTANCE_CHECK
 #endif
 
 // No need for the single versions when multi performance isn't a problem =D

@@ -1,10 +1,7 @@
 {
     "keyboard_name": "ErgoDox EZ",
     "url": "ergodox-ez.com",
-    "maintainer": "ZSA",
-    "width": 17,
-    "height": 8,
-
+    "maintainer": "ZSA via Drashna",
     "layouts": {
         "LAYOUT_ergodox": {
             "layout": [

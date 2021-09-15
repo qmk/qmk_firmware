@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RGBKB
 #define PRODUCT         Zygomorph
-#define DESCRIPTION     "RGB, thin, ortholinear"
 
 /* Select hand configuration */
 #define EE_HANDS
@@ -56,7 +55,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLED_NUM 60
     #define RGBLED_SPLIT { 30, 30 }
 #endif
-#define DRIVER_LED_TOTAL 30
+
+#define DRIVER_LED_TOTAL 60
+#define RGB_MATRIX_SPLIT { 30, 30 }
 
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40

@@ -17,9 +17,10 @@ RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited t
 UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 ENCODER_ENABLE = yes        # Enable rotary encoder
-OLED_DRIVER_ENABLE = yes    # Enable the OLED Driver
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306    # Enable the OLED Driver
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
-LINK_TIME_OPTIMIZATION_ENABLE = yes     # Enable optimizations to reduce firmware size. Also disables action macros and functions.
+LTO_ENABLE = yes     # Enable optimizations to reduce firmware size. Also disables action macros and functions.
 
 # Do not edit past here
 

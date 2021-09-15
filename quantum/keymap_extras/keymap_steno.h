@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef KEYMAP_STENO_H
-#define KEYMAP_STENO_H
+
+#pragma once
 
 #include "keymap.h"
 
@@ -73,4 +73,20 @@ enum steno_keycodes {
     STN__MAX = STN_ZR,  // must be less than QK_STENO_BOLT
 };
 
+#ifdef STENO_COMBINEDMAP
+enum steno_combined_keycodes
+{
+    STN_S3 = QK_STENO_COMB,
+    STN_TKL,
+    STN_PWL,
+    STN_HRL,
+    STN_FRR,
+    STN_PBR,
+    STN_LGR,
+    STN_TSR,
+    STN_DZR,
+    STN_AO,
+    STN_EU,
+    STN_COMB_MAX = STN_EU,
+};
 #endif

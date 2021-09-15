@@ -16,7 +16,27 @@ The following functions can provide basic control of GPIOs and are found in `qua
 | `writePinLow(pin)`     | Set pin level as low, assuming it is an output   | `PORTB &= ~(1<<2)`                              | `palClearLine(pin)`                             |
 | `writePin(pin, level)` | Set pin level, assuming it is an output          | `(level) ? PORTB \|= (1<<2) : PORTB &= ~(1<<2)` | `(level) ? palSetLine(pin) : palClearLine(pin)` |
 | `readPin(pin)`         | Returns the level of the pin                     | `_SFR_IO8(pin >> 4) & _BV(pin & 0xF)`           | `palReadLine(pin)`                              |
+| `togglePin(pin)`       | Invert pin level, assuming it is an output       | `PORTB ^= (1<<2)`                               | `palToggleLine(pin)`                            |
 
 ## Advanced Settings :id=advanced-settings
 
-Each microcontroller can have multiple advanced settings regarding its GPIO. This abstraction layer does not limit the use of architecture-specific functions. Advanced users should consult the datasheet of their desired device and include any needed libraries. For AVR, the standard avr/io.h library is used; for STM32, the ChibiOS [PAL library](http://chibios.sourceforge.net/docs3/hal/group___p_a_l.html) is used.
+Each microcontroller can have multiple advanced settings regarding its GPIO. This abstraction layer does not limit the use of architecture-specific functions. Advanced users should consult the datasheet of their desired device and include any needed libraries. For AVR, the standard avr/io.h library is used; for STM32, the ChibiOS [PAL library](https://chibios.sourceforge.net/docs3/hal/group___p_a_l.html) is used.
+
+## Atomic Operation
+
+The above functions are not always guaranteed to work atomically. Therefore, if you want to prevent interruptions in the middle of operations when using multiple combinations of the above functions, use the following `ATOMIC_BLOCK_FORCEON` macro.
+
+eg.
+```c
+void some_function() {
+     // some process
+     ATOMIC_BLOCK_FORCEON {
+        // Atomic Processing
+     }
+     // some process
+}
+```
+
+`ATOMIC_BLOCK_FORCEON` forces interrupts to be disabled before the block is executed, without regard to whether they are enabled or disabled. Then, after the block is executed, the interrupt is enabled.
+
+Note that `ATOMIC_BLOCK_FORCEON` can therefore be used if you know that interrupts are enabled before the execution of the block, or if you know that it is OK to enable interrupts at the completion of the block.

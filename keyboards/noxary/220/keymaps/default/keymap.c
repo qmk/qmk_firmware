@@ -15,62 +15,109 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
+// Each layer gets a name for readability, which is then used in the keymap matrix below.
+// The underscores don't mean anything - you can have a layer called STUFF or any other name.
+// Layer names don't all need to be of the same length, obviously, and you can also skip them
+// entirely and just use numbers.
+enum layer_names {
+    _BL,
+    _FL1,
+    _FL2,
+    _FL3
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-	LAYOUT_ortho_6x4(
-		KC_ESC, BL_TOGG, BL_DEC, BL_INC, 
-		KC_NLCK, KC_SLSH, KC_ASTR, KC_PEQL, 
-		KC_7, KC_8, KC_9, KC_PMNS, 
-		KC_4, KC_5, KC_6, KC_PPLS, 
-		KC_1, KC_2, KC_3, KC_PENT, 
-		KC_0, KC_0, KC_DEL, KC_PENT),
-
-	LAYOUT_ortho_6x4(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+	/* Base Layer
+    * ┌───┬───┬───┬───┐
+    * │Esc│BLT│BL-│BL+│
+    * ├───┼───┼───┼───┤
+    * │NLK│ / │ * │ = │
+    * ├───┼───┼───┼───┤
+    * │ 7 │ 8 │ 9 │ - │
+    * ├───┼───┼───┼───┤
+    * │ 4 │ 5 │ 6 │ + │
+    * ├───┼───┼───┼───┤
+    * │ 1 │ 2 │ 3 │ENT│
+    * ├───┼───┼───┼───┤
+    * │ 0 │ 0 │ . │ENT│
+    * └───┴───┴───┴───┘
+    */
+	[_BL] = LAYOUT_ortho_6x4(
+	  KC_ESC,   BL_TOGG, BL_DEC,   BL_INC, 
+		KC_NLCK,  KC_PSLS, KC_PAST,  KC_PEQL, 
+		KC_P7,    KC_P8,   KC_P9,    KC_PMNS, 
+		KC_P4,    KC_P5,   KC_P6,    KC_PPLS, 
+		KC_P1,    KC_P2,   KC_P3,    KC_PENT, 
+		KC_P0,    KC_P0,   KC_PDOT,  KC_PENT
+    ),
+    /* Function Layer 1
+    * ┌───┬───┬───┬───┐
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * └───┴───┴───┴───┘
+    */
+	[_FL1] = LAYOUT_ortho_6x4(
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______
+    ),
+    /* Function Layer 2
+    * ┌───┬───┬───┬───┐
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * └───┴───┴───┴───┘
+    */
+	[_FL2] = LAYOUT_ortho_6x4(
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______
+    ),
+    /* Function Layer 3
+    * ┌───┬───┬───┬───┐
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * ├───┼───┼───┼───┤
+    * │   │   │   │   │
+    * └───┴───┴───┴───┘
+    */
+	[_FL3] = LAYOUT_ortho_6x4(
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______, 
+		_______, _______, _______, _______
+    ),
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

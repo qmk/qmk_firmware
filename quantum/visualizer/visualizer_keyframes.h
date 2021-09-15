@@ -14,13 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QUANTUM_VISUALIZER_VISUALIZER_KEYFRAMES_H_
-#define QUANTUM_VISUALIZER_VISUALIZER_KEYFRAMES_H_
+#pragma once
 
 #include "visualizer.h"
 
 // Some predefined keyframe functions that can be used by the user code
 // Does nothing, useful for adding delays
 bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state);
-
-#endif /* QUANTUM_VISUALIZER_VISUALIZER_KEYFRAMES_H_ */

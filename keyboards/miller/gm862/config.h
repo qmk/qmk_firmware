@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MILLER
 #define PRODUCT         GM862
-#define DESCRIPTION     GM862 AVR RGB keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -28,19 +27,19 @@
 #define UNUSED_PINS
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
+
 /* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-#    define NO_ACTION_MACRO
-#    define NO_ACTION_FUNCTION
-#endif
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 3
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN	
+#    define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #    define DISABLE_RGB_MATRIX_BAND_SAT
 #    define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
 #    define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT

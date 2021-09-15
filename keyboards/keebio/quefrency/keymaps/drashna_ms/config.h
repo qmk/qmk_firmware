@@ -29,11 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SPLIT
     #undef  RGBLED_NUM
     #define RGBLED_NUM 17
+    #undef RGBLED_SPLIT
     #define RGBLED_SPLIT { 9, 8 }
     #define RGBLIGHT_SLEEP
 #endif
 
 #ifdef AUDIO_ENABLE
-    #define B7_AUDIO
+    #define AUDIO_PIN B7
     #define AUDIO_CLICKY
 #endif

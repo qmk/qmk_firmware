@@ -45,6 +45,7 @@ You'll need one of the following to actually perform the ISP flashing (followed 
 
 * [SparkFun PocketAVR](https://www.sparkfun.com/products/9825) - (USB Tiny)
 * [USBtinyISP AVR Programmer Kit](https://www.adafruit.com/product/46) - (USB Tiny)
+* [USBasp](https://www.fischl.de/usbasp/) - (usbasp)
 * [Teensy 2.0](https://www.pjrc.com/store/teensy.html) - (avrisp)
 * [Pro Micro](https://www.sparkfun.com/products/12640)  - (avrisp)
 * [Bus Pirate](https://www.adafruit.com/product/237) - (buspirate)
@@ -82,6 +83,15 @@ This is pretty straight-forward - we'll be connecting like-things to like-things
     PocketAVR VCC  <-> Keyboard VCC
     PocketAVR GND  <-> Keyboard GND
 
+### USBasp
+
+    USBasp RST  <-> Keyboard RESET
+    USBasp SCLK <-> Keyboard B1 (SCLK)
+    USBasp MOSI <-> Keyboard B2 (MOSI)
+    USBasp MISO <-> Keyboard B3 (MISO)
+    USBasp VCC  <-> Keyboard VCC
+    USBasp GND  <-> Keyboard GND
+
 ### Teensy 2.0
 
     Teensy B0  <-> Keyboard RESET
@@ -115,12 +125,18 @@ The simplest and quickest way to get things back to normal is to flash only a bo
 
 You can find the stock bootloaders in the [`util/` folder](https://github.com/qmk/qmk_firmware/tree/master/util). Be sure to flash the correct bootloader for your chip:
 
-* [`atmega32u4`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1_0_0.hex) - Most keyboards, Planck Rev 1-5, Preonic Rev 1-2
-* [`Pro Micro`](https://github.com/sparkfun/Arduino_Boards/blob/master/sparkfun/avr/bootloaders/caterina/Caterina-promicro16.hex) - The default bootloader for Pro Micro controllers
-* [`at90usb1286`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb128x_1_0_1.hex) - Planck Light Rev 1
-* [`atmega32a`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32a_1_0_0.hex) - jj40, and other V-USB/ps2avrGB keyboards
+* **Atmel DFU**
+  * [ATmega16U4](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega16u4_1.0.1.hex)
+  * [ATmega32U4](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1.0.0.hex)
+  * [AT90USB64](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb64_1.0.0.hex)
+  * [AT90USB128](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb128_1.0.1.hex)
+* **Caterina**
+  * [Pro Micro (5V/16MHz)](https://github.com/sparkfun/Arduino_Boards/blob/master/sparkfun/avr/bootloaders/caterina/Caterina-promicro16.hex)
+  * [Pro Micro (3.3V/8MHz)](https://github.com/sparkfun/Arduino_Boards/blob/master/sparkfun/avr/bootloaders/caterina/Caterina-promicro8.hex)
+* **BootloadHID (PS2AVRGB)**
+  * [ATmega32A](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_ps2avrgb_bootloadhid_1.0.1.hex)
 
-If you're not sure what your board uses, look in the `rules.mk` file for the keyboard in QMK. The `MCU =` line will have the value you need. It may differ between different versions of the board.
+If you're not sure what your board uses, look in the `rules.mk` file for the keyboard in QMK. The `MCU` and `BOOTLOADER` lines will have the value you need. It may differ between different versions of the board.
 
 ### Production Techniques
 
@@ -135,7 +151,9 @@ To do this manually:
 
 ?> It's possible to use other bootloaders here in the same way, but __you need a bootloader__, otherwise you'll have to use ISP again to write new firmware to your keyboard.
 
-To do this the easy way, you can flash the board using the `:production` target when compiling.  This compiles the firmware, then compiles the QMK DFU bootloader, and then creates a combined image.  Once this is done, you'll see three files: 
+#### Create QMK DFU Bootloader and Production images
+
+You can create the firmware, the QMK DFU Bootloader and the production firmware images for the board using the `:production` target when compiling.  Once this is done, you'll see three files: 
 * `<keyboard>_<keymap>.hex`
 * `<keyboard>_<keymap>_bootloader.hex`
 * `<keyboard>_<keymap>_production.hex`
@@ -230,15 +248,15 @@ For Caterina on the `atmega32u4`, these are the fuse settings that you want:
 | Fuse     | Setting|
 |----------|--------|
 | Low      | `0xFF` |
-| High     | `0xD9` |
-| Extended | `0xC3` |
+| High     | `0xD8` |
+| Extended | `0xCB` |
 
-To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xC3:m` to your command.  So the final command should look something like: 
+To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` to your command.  So the final command should look something like: 
 
-    avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xC3:m
+    avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
 
 
-If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](http://www.engbedded.com/fusecalc/) to find a better value for you.
+If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](https://www.engbedded.com/fusecalc/) to find a better value for you.
 
 ## Help 
 

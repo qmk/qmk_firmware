@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "onekey handwired",
+    "url": "",
+    "maintainer": "qmk",
+    "layouts": {
+        "LAYOUT_ortho_1x1": {
+            "layout": [
+                {"x": 0, "y": 0}
+            ]
+        }
+    }
+}

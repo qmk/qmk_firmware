@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER YDKB
 #define PRODUCT Just60
-#define DESCRIPTION Just60 Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -48,7 +47,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
-#endif
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION

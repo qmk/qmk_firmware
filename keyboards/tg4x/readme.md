@@ -2,7 +2,7 @@
 
 40% sandwich keyboard driven by a pro micro. 
 
-For more info please refer to [MythosMann's Github](www.github.com/MythosMann/tg4x).  
+For more info please refer to [MythosMann's GitHub](www.github.com/MythosMann/tg4x).  
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: TG4x v2.1 PCB

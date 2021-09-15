@@ -18,12 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x4558
+#define PRODUCT_ID      0xE62B
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Exclusive / E-Team
 #define PRODUCT         E6-V2 OE BMC
-#define DESCRIPTION     A custom 60% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -44,6 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, C2, C3, C4, C5, D7 }
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN D1
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3

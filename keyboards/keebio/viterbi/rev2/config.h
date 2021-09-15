@@ -19,11 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x1157
+#define PRODUCT_ID      0x2157
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    Keebio
 #define PRODUCT         The Viterbi Keyboard
-#define DESCRIPTION     Split 5x14 ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -50,6 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 14
+#define RGBLED_SPLIT { 7, 7 }
 
 /* Backlight LEDs */
 #define BACKLIGHT_PIN B6

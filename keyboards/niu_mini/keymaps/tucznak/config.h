@@ -2,11 +2,9 @@
 
 #undef MANUFACTURER
 #undef PRODUCT
-#undef DESCRIPTION
 
 #define MANUFACTURER    Potato Inc.
 #define PRODUCT         Qt3.14
-#define DESCRIPTION     Look, a keyboard!
 
 /* turn off RGB when computer sleeps */
 #ifdef RGB_DI_PIN

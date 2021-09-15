@@ -25,12 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER NaCly
 #define PRODUCT fc200rt_qmk
-#define DESCRIPTION Leopold FC200RT QMK enbabled with Teensy 2.0
 
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
-
 
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, E6, B7, D0, D1 }
 #define MATRIX_COL_PINS { D2, D3, C6, C7, D5, D4, D6, D7, B4, B5, B6, F7, F6, F5, F4, F1 }
@@ -38,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -130,7 +127,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_NKRO           N
 //#define MAGIC_KEY_SLEEP_LED      Z
 
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
-#endif
+/* disable these deprecated features by default */
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION

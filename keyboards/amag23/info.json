@@ -1,0 +1,34 @@
+{
+    "keyboard_name": "AMAG23",
+    "url": "http://www.koolertron.com/koolertron-one-handed-macro-mechanical-keyboard-rgb-led-backlit-portable-mini-onehanded-mechanical-gaming-keypad-23-fully-programmable-keys-blue-switches-p-874.html",
+    "maintainer": "ianmclinden",
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [
+              {"label":"K00", "x":0, "y":0},
+              {"label":"K01", "x":1, "y":0},
+              {"label":"K02", "x":2, "y":0},
+              {"label":"K03", "x":3, "y":0},
+              {"label":"K04", "x":4, "y":0},
+              {"label":"K05", "x":5, "y":0},
+              {"label":"K10", "x":0, "y":1},
+              {"label":"K11", "x":1, "y":1},
+              {"label":"K12", "x":2, "y":1},
+              {"label":"K13", "x":3, "y":1},
+              {"label":"K14", "x":4, "y":1},
+              {"label":"K15", "x":5, "y":1},
+              {"label":"K20", "x":0, "y":2},
+              {"label":"K21", "x":1, "y":2},
+              {"label":"K22", "x":2, "y":2},
+              {"label":"K23", "x":3, "y":2},
+              {"label":"K24", "x":4, "y":2},
+              {"label":"K25", "x":5, "y":2},
+              {"label":"K30", "x":0, "y":3},
+              {"label":"K31", "x":1, "y":3},
+              {"label":"K32", "x":2, "y":3},
+              {"label":"K33", "x":3, "y":3},
+              {"label":"K34", "x":4, "y":3, "w":2}
+            ]
+        }
+    }
+}

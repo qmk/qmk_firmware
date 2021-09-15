@@ -4,11 +4,11 @@ This project includes a `Vagrantfile` that will allow you to build a new firmwar
 
 ## Requirements
 
-Using the `Vagrantfile` in this repository requires you have [Vagrant](http://www.vagrantup.com/) as well as a supported provider installed:
+Using the `Vagrantfile` in this repository requires you have [Vagrant](https://www.vagrantup.com/) as well as a supported provider installed:
 
 * [VirtualBox](https://www.virtualbox.org/) (Version at least 5.0.12)
   * Sold as 'the most accessible platform to use Vagrant'
-* [VMware Workstation](https://www.vmware.com/products/workstation) and [Vagrant VMware plugin](http://www.vagrantup.com/vmware)
+* [VMware Workstation](https://www.vmware.com/products/workstation) and [Vagrant VMware plugin](https://www.vagrantup.com/vmware)
   * The (paid) VMware plugin requires a licensed copy of VMware Workstation/Fusion
 * [Docker](https://www.docker.com/)
 
@@ -20,12 +20,11 @@ The "easy" way to flash the firmware is using a tool from your host OS:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox) (recommended)
 * [Teensy Loader](https://www.pjrc.com/teensy/loader.html)
-* [Atmel FLIP](http://www.atmel.com/tools/flip.aspx)
 
 If you want to program via the command line you can uncomment the ['modifyvm'] lines in the Vagrantfile to enable the USB passthrough into Linux and then program using the command line tools like dfu-util/dfu-programmer or you can install the Teensy CLI version.
 
 ## Vagrantfile Overview
-The development environment is configured to run the QMK Docker image, `qmkfm/base_container`. This not only ensures predictability between systems, it also mirrors the CI environment.
+The development environment is configured to run the QMK Docker image, `qmkfm/qmk_cli`. This not only ensures predictability between systems, it also mirrors the CI environment.
 
 ## FAQ
 

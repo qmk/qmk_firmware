@@ -14,6 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include "ericgebhart.h"
 
 #include "quantum.h"
@@ -60,11 +61,6 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-  //ACTION_DEFAULT_LAYER_SET(DVORAK) ;
-}
-
 // check default layerstate to see which layer we are on.
 // if (biton32(layer_state) == _DIABLO) {  --- current layer
 // if (biton32(default_layer_state) == _DIABLO) { --- current default layer
@@ -90,25 +86,25 @@ static void switch_default_layer(uint8_t layer) {
 // reasnably sized array without difficulties. The macro is for the constant declarations
 // the function is for when we use it.
 const uint8_t key_translations[][2][2] = {
-  [GR(DB_1)] =      {{BP_DQOT, MOD_LSFT},      {BP_DCRC, MOD_LSFT}},
-  [GR(DB_2)] =      {{BP_LGIL, MOD_LSFT},      {BP_AT, MOD_NONE}},
-  [GR(DB_3)] =      {{BP_RGIL, MOD_LSFT},      {BP_DLR, MOD_LSFT}},
+  [GR(DB_1)] =      {{BP_DQUO, MOD_LSFT},      {BP_DCIR, MOD_LSFT}},
+  [GR(DB_2)] =      {{BP_LDAQ, MOD_LSFT},      {BP_AT, MOD_NONE}},
+  [GR(DB_3)] =      {{BP_RDAQ, MOD_LSFT},      {BP_DLR, MOD_LSFT}},
   [GR(DB_4)] =      {{BP_LPRN, MOD_LSFT},      {BP_DLR, MOD_NONE}},
   [GR(DB_5)] =      {{BP_RPRN, MOD_LSFT},      {BP_PERC, MOD_NONE}},
   [GR(DB_6)] =      {{BP_AT, MOD_LSFT},        {BP_AT, MOD_BIT(KC_RALT)}},
   [GR(DB_7)] =      {{BP_PLUS, MOD_LSFT},      {BP_P, MOD_BIT(KC_RALT)}},
   [GR(DB_8)] =      {{BP_MINS, MOD_LSFT},      {BP_ASTR, MOD_NONE}},
-  [GR(DB_9)] =      {{BP_SLASH, MOD_LSFT},     {BP_LPRN, MOD_NONE}},
+  [GR(DB_9)] =      {{BP_SLSH, MOD_LSFT},     {BP_LPRN, MOD_NONE}},
   [GR(DB_0)] =      {{BP_ASTR, MOD_LSFT},      {BP_RPRN, MOD_NONE}},
   [GR(DB_GRV)] =    {{BP_PERC, MOD_LSFT},      {BP_K, MOD_BIT(KC_RALT)}},
   [GR(DB_SCOLON)] = {{BP_COMM, MOD_LSFT},      {BP_DOT, MOD_LSFT}},
-  [GR(DB_SLASH)] =  {{BP_SLASH, MOD_NONE},     {BP_APOS, MOD_LSFT}},
+  [GR(DB_SLASH)] =  {{BP_SLSH, MOD_NONE},     {BP_QUOT, MOD_LSFT}},
   [GR(DB_BACKSLASH)] = {{BP_AGRV, MOD_BIT(KC_RALT)}, {BP_B, MOD_BIT(KC_RALT)}},
   [GR(DB_EQL)] =    {{BP_EQL, MOD_NONE},       {BP_PLUS, MOD_NONE}},
-  [GR(DB_COMM)] =   {{BP_COMMA, MOD_NONE},     {BP_LGIL, MOD_BIT(KC_RALT)}},
-  [GR(DB_DOT)] =    {{BP_DOT, MOD_NONE},       {BP_RGIL, MOD_BIT(KC_RALT)}},
-  [GR(DB_QUOT)] =   {{BP_APOS, MOD_NONE},      {BP_DQOT, MOD_NONE}},
-  [GR(DB_MINUS)] =  {{BP_MINUS, MOD_NONE},     {KC_SPC, MOD_BIT(KC_RALT)}},
+  [GR(DB_COMM)] =   {{BP_COMM, MOD_NONE},     {BP_LDAQ, MOD_BIT(KC_RALT)}},
+  [GR(DB_DOT)] =    {{BP_DOT, MOD_NONE},       {BP_RDAQ, MOD_BIT(KC_RALT)}},
+  [GR(DB_QUOT)] =   {{BP_QUOT, MOD_NONE},      {BP_DQUO, MOD_NONE}},
+  [GR(DB_MINUS)] =  {{BP_MINS, MOD_NONE},     {KC_SPC, MOD_BIT(KC_RALT)}},
   [GR(DB_LPRN)] =   {{BP_LPRN, MOD_NONE},      {BP_LPRN, MOD_BIT(KC_RALT)}},
   [GR(DB_RPRN)] =   {{BP_RPRN, MOD_NONE},      {BP_RPRN, MOD_BIT(KC_RALT)}},
   [GR(DB_LBRC)] =   {{BP_Y, MOD_BIT(KC_RALT)}, {BP_LPRN, MOD_BIT(KC_RALT)}},
@@ -120,10 +116,8 @@ const uint8_t key_translations[][2][2] = {
   [GR(DB_PIPE)] =   {{BP_B, MOD_BIT(KC_RALT)}, {BP_B, MOD_BIT(KC_RALT)}},
   [GR(DB_TILD)] =   {{BP_K, MOD_BIT(KC_RALT)}, {BP_K, MOD_BIT(KC_RALT)}},
   [GR(DB_CIRC)] =   {{BP_AT, MOD_BIT(KC_RALT)}, {BP_AT, MOD_BIT(KC_RALT)}},
-  [GR(DB_LESS)] =   {{BP_LGIL, MOD_BIT(KC_RALT)}, {BP_LGIL, MOD_BIT(KC_RALT)}},
-  [GR(DB_GRTR)] =   {{BP_RGIL, MOD_BIT(KC_RALT)}, {BP_RGIL, MOD_BIT(KC_RALT)}},
-
-
+  [GR(DB_LESS)] =   {{BP_LDAQ, MOD_BIT(KC_RALT)}, {BP_LDAQ, MOD_BIT(KC_RALT)}},
+  [GR(DB_GRTR)] =   {{BP_RDAQ, MOD_BIT(KC_RALT)}, {BP_RDAQ, MOD_BIT(KC_RALT)}},
 };
 
 
@@ -275,7 +269,7 @@ xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record-
     // to save on firmware space, since it's limited.
 #ifdef MACROS_ENABLED
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
+    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USER, userspace_config.raw); }
     return false; break;
 #endif // MACROS_ENABLED
 
@@ -304,7 +298,7 @@ xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record-
       case CLICKY_TOGGLE:
 #ifdef AUDIO_CLICKY
         userspace_config.clicky_enable = clicky_enable;
-        eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+        eeprom_update_byte(EECONFIG_USER, userspace_config.raw);
 #endif
         break;
 #ifdef UNICODE_ENABLE
@@ -390,13 +384,20 @@ void tap_dance_layer_switch (qk_tap_dance_state_t *state, void *user_data) {
     if(on_qwerty())
       layer_invert(SYMB);
     else
-         layer_invert(SYMB_ON_BEPO);
+      layer_invert(SYMB_ON_BEPO);
     break;
   case 2:
     layer_invert(MDIA);
     break;
   case 3:
     layer_invert(LAYERS);
+    break;
+  case 4:
+    if(on_qwerty())
+      layer_invert(KEYPAD);
+    else
+      layer_invert(KEYPAD_ON_BEPO);
+    break;
   default:
     break;
   }

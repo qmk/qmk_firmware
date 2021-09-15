@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "The Stick",
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "F1", "x": 0, "y": 0 },
+                { "label": "F2", "x": 1, "y": 0 },
+                { "label": "F3", "x": 2, "y": 0 },
+                { "label": "F4", "x": 3, "y": 0 },
+                { "label": "F5", "x": 4, "y": 0 },
+                { "label": "F6", "x": 5, "y": 0 },
+                { "label": "F7", "x": 6, "y": 0 },
+                { "label": "F8", "x": 7, "y": 0 },
+                { "label": "F9", "x": 8, "y": 0 },
+                { "label": "F10", "x": 9, "y": 0 },
+                { "label": "F11", "x": 10, "y": 0 },
+                { "label": "F12", "x": 11, "y": 0 }
+            ]
+        }
+    }
+}

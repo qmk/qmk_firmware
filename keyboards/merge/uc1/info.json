@@ -1,0 +1,15 @@
+{
+  "keyboard_name": "UC-1",
+  "url": "https://mergedesign.store/products/uc-1",
+  "maintainer": "duoshock",
+  "layouts": {
+    "LAYOUT": {
+      "layout":   [
+        {"label":"0", "x":0, "y":0},
+        {"label":"1", "x":1.25, "y":0},
+        {"label":"2", "x":2.25, "y":0},
+        {"label":"3", "x":3.25, "y":0}
+      ]
+    }
+  }
+}

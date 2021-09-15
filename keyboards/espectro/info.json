@@ -1,13 +1,9 @@
 {
   "keyboard_name": "Espectro",
-  "keyboard_folder": "espectro",
   "url": "",
   "maintainer": "qmk",
-  "width": 19,
-  "height": 6,
   "layouts": {
     "LAYOUT_default": {
-      "key_count": 100,
       "layout": [
         {"label":"ESC", "x":0, "y":0},
         {"label":"F1", "x":1, "y":0},
@@ -118,7 +114,6 @@
     },
 
     "LAYOUT_split_bs_joined_right": {
-      "key_count": 100,
       "layout": [
         {"label": "K00", "x": 0, "y": 0},
         {"label": "K01", "x": 1, "y": 0},
@@ -229,7 +224,6 @@
     },
 
     "LAYOUT_split_shift_and_bs": {
-      "key_count": 104,
       "layout": [
         {"label":"ESC", "x":0, "y":0},
         {"label":"F1", "x":1, "y":0},
@@ -344,7 +338,6 @@
     },
 
     "LAYOUT_iso": {
-      "key_count": 101,
       "layout": [
         {"label":"ESC", "x":0, "y":0},
         {"label":"F1", "x":1, "y":0},

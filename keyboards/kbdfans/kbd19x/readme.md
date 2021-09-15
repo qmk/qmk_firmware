@@ -10,9 +10,9 @@ The KBD19x is a compact-1800 keyboard kit produced by KBDfans, offering a number
 
 **Reset Sequence:** Using this firmware sets `BOOTLOADER_ENABLE` to `lite`. While plugging in, hold the top left key, commonly programmed as `Esc` to put your board into bootloader mode. 
 
-Keyboard Maintainer: [jshuf](https://github.com/jshuf)  
-Hardware Supported: KBD19x PCB  
-Hardware Availability: [KBDfans](https://kbdfans.cn)
+* Keyboard Maintainer: [jshuf](https://github.com/jshuf), [MechMerlin](https://github.com/mechmerlin)
+* Hardware Supported: KBD19x PCB
+* Hardware Availability: [KBDfans](https://kbdfans.cn)
 
 Make example for this keyboard (after setting up your build environment):
 

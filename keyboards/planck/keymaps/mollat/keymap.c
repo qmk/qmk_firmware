@@ -82,10 +82,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [_LCTL] = ACTION_MODS_TAP_KEY(KC_LCTL, M(12)),    // does not work
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {

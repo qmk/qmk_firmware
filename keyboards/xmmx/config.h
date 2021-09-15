@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    farmakon
 #define PRODUCT         "XMMX"
-#define DESCRIPTION     "XMMX"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -22,6 +21,10 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN B6
+#define LED_SCROLL_LOCK_PIN B5
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 
