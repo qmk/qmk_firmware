@@ -6,8 +6,6 @@ SRC = \
 	qmk_ap2_led.c \
 	protocol.c
 
-LAYOUTS +=
-
 # MCU
 MCU = cortex-m0plus
 ARMV = 6
@@ -25,7 +23,7 @@ OPT_DEFS = -Wno-unused-function -fdump-rtl-dfinish -fstack-usage
 # Options
 
 # Keys
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 NKRO_ENABLE = no
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes

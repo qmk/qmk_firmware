@@ -39,23 +39,6 @@
 // Number of supported layouts
 #define NUM_LAYOUTS 4
 
-// Matrix keymap
-// clang-format off
-#define LAYOUT( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      \
-    K40, K42, K43,                K46,           K49,  K4A,   K4B,   K4C  \
-) { \
-    /*            COL1   COL2   COL3   COL4   COL5   COL6   COL7   COL8   COL9   COL10  COL11  COL12  COL13  COL14*/ \
-    /* ROW1  */ { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K0A,   K0B,   K0C,   K0D  }, \
-    /* ROW2  */ { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   K1C,   K1D  }, \
-    /* ROW3  */ { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C,   KC_NO}, \
-    /* ROW4  */ { K30,   KC_NO, K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   KC_NO}, \
-    /* ROW5  */ { K40,   KC_NO, K42,   K43,   KC_NO, KC_NO, K46,   KC_NO, KC_NO, K49,   K4A,   K4B,   K4C,   KC_NO}, \
-}
-// clang-format on
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
@@ -137,41 +120,6 @@
 )
 */
 
-/* control how magic key switches layers */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM false
-
-/* override magic key keymap */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-//#define MAGIC_KEY_HELP1          H
-//#define MAGIC_KEY_HELP2          SLASH
-//#define MAGIC_KEY_DEBUG          D
-//#define MAGIC_KEY_DEBUG_MATRIX   X
-//#define MAGIC_KEY_DEBUG_KBD      K
-//#define MAGIC_KEY_DEBUG_MOUSE    M
-//#define MAGIC_KEY_VERSION        V
-//#define MAGIC_KEY_STATUS         S
-//#define MAGIC_KEY_CONSOLE        C
-//#define MAGIC_KEY_LAYER0_ALT1    ESC
-//#define MAGIC_KEY_LAYER0_ALT2    GRAVE
-//#define MAGIC_KEY_LAYER0         0
-//#define MAGIC_KEY_LAYER1         1
-//#define MAGIC_KEY_LAYER2         2
-//#define MAGIC_KEY_LAYER3         3
-//#define MAGIC_KEY_LAYER4         4
-//#define MAGIC_KEY_LAYER5         5
-//#define MAGIC_KEY_LAYER6         6
-//#define MAGIC_KEY_LAYER7         7
-//#define MAGIC_KEY_LAYER8         8
-//#define MAGIC_KEY_LAYER9         9
-//#define MAGIC_KEY_BOOTLOADER     R
-//#define MAGIC_KEY_LOCK           CAPS
-//#define MAGIC_KEY_EEPROM         E
-//#define MAGIC_KEY_NKRO           N
-//#define MAGIC_KEY_SLEEP_LED      Z
 
 /*
  * Feature disable options

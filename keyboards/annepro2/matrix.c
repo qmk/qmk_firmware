@@ -32,14 +32,14 @@ static uint32_t     debounce_times[MATRIX_ROWS];
 extern ioline_t row_list[MATRIX_ROWS];
 extern ioline_t col_list[MATRIX_COLS];
 
-void matrix_init(void) {
+void matrix_init_custom(void) {
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(debounce_times, 0, MATRIX_ROWS * sizeof(uint32_t));
-    matrix_init_quantum();
 }
 
-uint8_t matrix_scan(void) {
+uint8_t matrix_scan_custom(void) {
+	bool matrix_has_changed = false;
     // cache of input ports for columns
     static uint16_t port_cache[4];
     // scan each row
@@ -75,11 +75,10 @@ uint8_t matrix_scan(void) {
             // when debouncing complete, update matrix
             matrix[row]         = matrix_debouncing[row];
             debounce_times[row] = 0;
+            matrix_has_changed = true;
         }
     }
-    matrix_scan_quantum();
-
-    return 1;
+    return matrix_has_changed;
 }
 
 bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1 << col)); }
