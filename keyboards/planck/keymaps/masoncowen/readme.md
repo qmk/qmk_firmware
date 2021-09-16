@@ -20,3 +20,29 @@ The layout rotates the QZXVB keys for the following reasons:
 * Figure out what the thumb cluster is doing.
   * I've somewhat settled on left home-row (centre) thumb key is space and right is shift OSL.
 * Swap M-K back, apparently I've somehow ended up using the DHk variant (despite using ergo?)
+* Maybe a deadkey instead of using shift-/alt- key overrides?
+* [Repeat key](https://www.jonashietala.se/blog/2021/09/05/t-34-0/)
+* Move Home, End, PgDn and PgUp to a kc/ko/dk with the arrow keys.
+
+### Keys still to add
+* A reset key, cba with finding small pokey things to use at the back.
+* Shifted numbers \(not including $^\*\)
+* ' \(and shifted\)
+* Underscore \(\_\)
+* Backslash \(\\\) and shifted \(Don't forget to use NOUS\)
+* Square brackets \(\[ \]\) and shifted
+* Forward slash \(/\) and shifted
+* Semicolon \(;\) and shifted
+* Backtick (`) and shifted
+* Function keys 1-12
+
+#### Obscure keys to add just for completeness
+* Normal Minus and Equals \(Don't know if they are needed or not \)
+* Function keys 13-24
+* Capslock \(Not sure if multi-tapping OSL actually counts as a caps lock for shift\)
+* Numlock, Scrolllock and the Locking lock keys
+* Keypad characters
+* Command Keys in general
+* International Keys
+* Right Modifiers
+* Windows keys for either side
