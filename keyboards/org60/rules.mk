@@ -2,19 +2,11 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
 AUDIO_ENABLE = no           # Audio output on port C6
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 COMMAND_ENABLE = no         # Commands for debug and configuration
 CONSOLE_ENABLE = no         # Console for debug

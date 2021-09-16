@@ -2,8 +2,6 @@
     "keyboard_name": "MNK1800s",
     "url": "https://yiancar-designs.com",
     "maintainer": "Yiancar-Designs",
-    "width": 19.5,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

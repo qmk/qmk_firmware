@@ -5,14 +5,7 @@ MCU = atmega32a
 F_CPU = 16000000
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
-BOOTLOADER = USBasp
+BOOTLOADER = usbasploader
 
 # Build Options
 #   change yes to no to disable
@@ -29,7 +22,6 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
 LAYOUTS = 65_ansi 65_ansi_blocker 65_iso 65_iso_blocker

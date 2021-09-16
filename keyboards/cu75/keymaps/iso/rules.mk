@@ -13,7 +13,6 @@ NKRO_ENABLE = yes               # Nkey Rollover - if this doesn't work, see here
 MIDI_ENABLE = no                # MIDI controls
 AUDIO_ENABLE = no               # Audio output on port C6
 UNICODE_ENABLE = no             # Unicode
-BLUETOOTH_ENABLE = no           # Disable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no          	# Disable RGB underlight
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
 SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend

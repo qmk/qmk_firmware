@@ -397,8 +397,8 @@ However, this will automatically disable the legacy TMK Macros and Functions fea
   * `qmk-dfu`
   * `halfkay`
   * `caterina`
-  * `bootloadHID`
-  * `USBasp`
+  * `bootloadhid`
+  * `usbasploader`
 
 ## Feature Options :id=feature-options
 

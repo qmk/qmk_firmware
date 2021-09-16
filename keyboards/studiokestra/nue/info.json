@@ -2,8 +2,6 @@
     "keyboard_name": "Nue",
     "url": "https://studiokestra.ca/nue",
     "maintainer": "Studio Kestra",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all":  {
             "layout": [

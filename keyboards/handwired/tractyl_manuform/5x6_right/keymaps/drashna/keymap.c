@@ -142,8 +142,14 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
     [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
 };
+// clang-format on
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
+#    ifdef SWAP_HANDS_ENABLE
+    if (swap_hands) {
+        index ^= 1;
+    }
+#    endif
     if (index == 0) {
         tap_code_delay(clockwise ? KC_VOLD : KC_VOLU, 5);
     } else if (index == 1) {
@@ -152,7 +158,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
-// clang-format on
 
 #ifdef POINTING_DEVICE_ENABLE
 static uint16_t mouse_timer           = 0;
