@@ -12,7 +12,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "bbaserdem.h"
-#include "bb-crkbdarm-oled.h"
+#ifdef KEYBOARD_crkbd_rev1
+#   include "bb-oled-extra.h"
+#endif // KEYBOARD_crkbd_rev1
 
 #ifdef KEYBOARD_crkbd_rev1
 #   include "bb-oled-extra.h"
@@ -188,12 +190,12 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
+#ifdef OLED_ENABLE
 // Flip the display on the right half
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_left()) {
         return OLED_ROTATION_180; 
     }
-
     return rotation;
 }
 

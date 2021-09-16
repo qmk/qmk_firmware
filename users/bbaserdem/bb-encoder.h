@@ -16,9 +16,6 @@
  */
 #pragma once
 #include "bbaserdem.h"
-#ifdef VELOCIKEY_ENABLE
-    #include "velocikey.h"
-#endif
 
 // Hook to encoder stuff
 bool encoder_update_user(uint8_t index, bool clockwise);

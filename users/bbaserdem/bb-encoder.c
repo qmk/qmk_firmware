@@ -347,6 +347,8 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
                     } else {
                         userspace_config.e1point = (userspace_config.e1point + 1) % 4;
                     }
+                    userspace_config.encoder[encoder_index].point =
+                        (userspace_config.encoder[encoder_index].point + 1) % 4;
                     break;
 #               endif // MOUSEKEY_ENABLE
                 default:
