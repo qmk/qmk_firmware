@@ -1,6 +1,8 @@
 # MCU name
 MCU = STM32F072
 
+# Bootloader selection
+
 # Build Options
 #   change yes to no to disable
 #
