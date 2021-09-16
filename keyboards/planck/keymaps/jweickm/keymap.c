@@ -159,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_HOME, KC_RIGHT, KC_PGUP, LCTL(KC_C), KC_RGUI, KC_DE_SWITCH, 
 		CTL_TAB, KC_TAB, KC_ESC, KC_ENT, TD(TD_VIM_GG), KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, 
 		KC_LSFT, KC_NO, LCTL(KC_X), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), 
-		KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS, LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), KC_TRNS, KC_TRNS, KC_TRNS, KC_DOWN, KC_UP
+		KC_NO, KC_NO, KC_NO, KC_BSPC, KC_TRNS, LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), KC_ENT, KC_DEL, KC_TRNS, KC_DOWN, KC_UP
 ),
 
 [_NUM] = LAYOUT_planck_grid(
@@ -572,9 +572,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;
     case LANG_SWITCH:  
       if (record->event.pressed) {
-        add_mods(MOD_LALT);
-        tap_code(KC_LSFT);
-        unregister_mods(MOD_LALT);
+        register_mods(MOD_LALT);
+        register_code(KC_LSFT);
         if (de_layout_active) {
 				  de_layout_active = false; // deactivate German overlay
           set_single_persistent_default_layer(_HRWIDECOLEMAK);
@@ -582,9 +581,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				  de_layout_active = true; // activate German overlay
           set_single_persistent_default_layer(_HRWIDECOLEMAK_DE);
 				}
-      return false;
+      } else {
+        unregister_code(KC_LSFT);
+        unregister_mods(MOD_LALT);
       }
-      break;
+      return false;
     case DE_SZ:
       if (record->event.pressed) {
         uint8_t temp_mods = get_mods();
@@ -876,6 +877,8 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 // Set RGB to change with layer changes
 #define HSV_DARKORANGE 10, 255, 255
 #define HSV_DARKPINK 150, 100, 255
+#define HSV_GRASS 57, 255, 255
+#define HSV_OCEAN 148, 255, 255
 
 // Light LEDs 1 to 9 in darkorange when HRCOLEMAK is active
 const rgblight_segment_t PROGMEM my_layer0_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -883,13 +886,13 @@ const rgblight_segment_t PROGMEM my_layer0_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 // Light LEDs 1 to 9 in green when HRWIDECOLEMAK is active
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 10, HSV_CYAN}
+    {0, 10, HSV_OCEAN}
 );
 // Light LEDs 1 to 9 in darkorange when de_layout_active is true
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {3, 4, HSV_DARKORANGE},
-    {0, 3, HSV_CYAN},
-    {8, 3, HSV_CYAN}
+    {0, 3, HSV_OCEAN},
+    {8, 3, HSV_OCEAN}
 );
 // Light LEDs 1 to 9 in red when GAMING layer is active
 const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -901,13 +904,13 @@ const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 // Light bottom LEDs in purple when ADJUST layer is active
 const rgblight_segment_t PROGMEM my_layer5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, HSV_PURPLE},
-		{7, 3, HSV_PURPLE}
+    {0, 2, HSV_MAGENTA},
+		{7, 3, HSV_MAGENTA}
 );
 // Light bottom LEDs in red when caps lock is active. Hard to ignore!
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_MAGENTA},      
-    {7, 3, HSV_MAGENTA}
+    {0, 3, HSV_GRASS},      
+    {7, 3, HSV_GRASS}
 );
 // Light LEDs 1 to 9 in white when NAVIGATION is active
 const rgblight_segment_t PROGMEM my_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
