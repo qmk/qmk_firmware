@@ -37,6 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO , KC_NO , KC_ESC , KC_SPC , KC_CTRL , KC_NO , KC_NO , KC_BSPC , KC_SHIFT , KC_ALT , KC_NO , KC_NO
 ),
 
+//TRANSPARENT keys are to be decided on
 [_NUMNAV] = LAYOUT_planck_grid(
   KC_PPLS , KC_4 , KC_5 , KC_6 , KC_PAST , KC_NO , KC_NO , ______ , KC_HOME , KC_PGDN , KC_PGUP , KC_END ,
   KC_0 , KC_1 , KC_2 , KC_3 , KC_PENT , KC_NO , KC_NO , ______ , KC_LEFT , KC_DOWN , KC_UP , KC_RIGHT ,
@@ -44,4 +45,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO , KC_NO , ______ , ______ , ______ , KC_NO , KC_NO , ______ , ______ , ______ , KC_NO , KC_NO
 )
 
+};
+
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+const key_override_t enter_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_ESC, KC_ENTER);
+const key_override_t tab_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_SPC, KC_TAB);
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+  &delete_key_override,
+  &enter_key_override,
+  &tab_key_override,
+  NULL
 };
