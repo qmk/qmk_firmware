@@ -156,8 +156,7 @@ static void render_status(void) {
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Undefined"), false);
     }
-    //oled_write_ln_P(PSTR(""), false);
-    //render_ein60_logo();
+
 
     // Host Keyboard LED Status
     led_t led_state = host_keyboard_led_state();
