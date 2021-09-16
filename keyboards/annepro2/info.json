@@ -2,8 +2,6 @@
     "keyboard_name": "Anne Pro 2",
     "url": "https://openannepro.github.io/",
     "maintainer": "community",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
