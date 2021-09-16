@@ -37,7 +37,7 @@ bool led_update_kb(led_t led_state) {
     return res;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
   writePin(INDICATOR_PIN_0, layer_state_cmp(state, 1));
   return state;
 }
