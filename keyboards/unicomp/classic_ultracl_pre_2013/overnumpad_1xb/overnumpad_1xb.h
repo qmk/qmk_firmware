@@ -47,7 +47,7 @@
     /* 7 */ { k_tild, KC_NO,        kp_minus, k_f2,   k_f4,   k_8,   k_5,   k_7,   k_f6,         k_f8,         k_f10,         k_f12,   k_rmenu, k_space,         kp_enter,        KC_NO   }  \
 }
 
-#define LAYOUT_ansi( \
+#define LAYOUT_fullsize_ansi( \
     k_esc,       k_f1, k_f2, k_f3, k_f4,    k_f5, k_f6, k_f7, k_f8,    k_f9, k_f10, k_f11, k_f12,            k_prscr, k_scrl, k_pause, \
     k_tild, k_1, k_2, k_3, k_4, k_5, k_6, k_7, k_8, k_9, k_0, k_minus, k_equals,               k_backspace,  k_ins,   k_home, k_pgup,     kp_nl,       kp_div, kp_mult, kp_minus,        \
     k_tab,     k_q, k_w, k_e, k_r, k_t, k_y, k_u, k_i, k_o, k_p, k_squarebrop, k_squarebrcl, k_backsl,       k_del,   k_end,  k_pgdn,     kp_7,        kp_8,   kp_9,    kp_plus,         \
