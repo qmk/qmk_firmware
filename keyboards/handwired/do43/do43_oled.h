@@ -18,8 +18,8 @@
 #define IDLE_FRAMES 5
 #define TAP_FRAMES 2
 
-#define IDLE_SPEED 50 // animation idles below this wpm value
-#define TAP_SPEED 75 // animation triggers above this wpm value
+#define IDLE_SPEED 30 // animation idles below this wpm value
+#define TAP_SPEED 70 // animation triggers above this wpm value
 
 #define FRAME_DURATION 200 // ms per frame
 

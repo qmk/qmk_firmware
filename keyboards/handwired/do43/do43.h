@@ -58,10 +58,4 @@ enum kb_custom_keycodes {
 #undef SAFE_RANGE
 #define SAFE_RANGE NEW_SAFE_RANGE
 
-/* Defines names for use in layer keycodes and the keymap */
-enum layer_names {
-    _BASE,
-    _NUM,
-    _SYM,
-    _FN
-};
+
