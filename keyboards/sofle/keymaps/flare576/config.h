@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-//#define MAIN_BOARD
+#define MAIN_BOARD
+#define MASTER_RIGHT
 #define ENCODER_DIRECTION_FLIP
 #define OLED_TIMEOUT 10000
 
