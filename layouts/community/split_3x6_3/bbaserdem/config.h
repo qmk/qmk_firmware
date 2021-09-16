@@ -18,66 +18,67 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Code pertaining to Corne ARM; from Waffle's keymap
 #ifdef KEYBOARD_crkbd_rev1
-    #include "config_common.h"
+#   include "config_common.h"
 
     // Use EE_HANDS to determine handedness
-    #define EE_HANDS
+#   define EE_HANDS
 
     // Rebrand the PCB
-    #undef PRODUCT
-    #define PRODUCT Protorne Keyboard
-    #undef MANUFACTURER
-    #define MANUFACTURER Waffles
+#   undef PRODUCT
+#   define PRODUCT Protorne Keyboard
+#   undef MANUFACTURER
+#   define MANUFACTURER Waffles
 
     // Remove OLED definitions? 
-    #undef USE_I2C
-    #undef SSD1306OLED
+#   undef USE_I2C
+#   undef SSD1306OLED
 
     // Add state info transmission
-    #define SPLIT_LAYER_STATE_ENABLE
-    #define SPLIT_MODS_ENABLE
-    #define SPLIT_WPM_ENABLE
+#   define SPLIT_LAYER_STATE_ENABLE
+#   define SPLIT_MODS_ENABLE
+#   define SPLIT_WPM_ENABLE
 
     // Audio output on pin A5 (actualy will be output on B1 using keymap init)
-    #ifdef AUDIO_ENABLE
-        #define AUDIO_PIN A5
-    #endif
+#   ifdef AUDIO_ENABLE
+#       define AUDIO_PIN A5
+#       define MUSIC_MAP
+#   endif
 
     // Communication has to be serial on ARM
-    #define USE_SERIAL_PD2
+#   define USE_SERIAL_PD2
     // Set serial pin as D3 for sure
-    #undef SOFT_SERIAL_PIN
-    #define SOFT_SERIAL_PIN D3
-    #define SERIAL_USART_SPEED 921600
-    #define SERIAL_USART_DRIVER SD1
-    #define SERIAL_USART_TX_PAL_MODE 7
+#   undef SOFT_SERIAL_PIN
+#   define SOFT_SERIAL_PIN D3
+#   define SERIAL_USART_SPEED 921600
+#   define SERIAL_USART_DRIVER SD1
+#   define SERIAL_USART_TX_PAL_MODE 7
 
     // Things to make RGB matrix work on the waffle board
-    #undef RGBLED_NUM
-    #define RGBLED_NUM 54
-    #undef RGB_DI_PIN
-    #define RGB_DI_PIN B5
-    #ifdef RGB_MATRIX_ENABLE
-        #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
-        #define RGB_MATRIX_SPLIT { 27, 27 }
-    #endif
-    #define WS2812_PWM_DRIVER PWMD3
-    #define WS2812_PWM_CHANNEL 3
-    #define WS2812_PWM_PAL_MODE 2
-    #define WS2812_DMA_STREAM STM32_DMA1_STREAM3
-    #define WS2812_DMA_CHANNEL 3
+#   undef RGBLED_NUM
+#   define RGBLED_NUM 54
+#   undef RGB_DI_PIN
+#   define RGB_DI_PIN B5
+#   ifdef RGB_MATRIX_ENABLE
+#       define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
+#       define RGB_MATRIX_SPLIT { 27, 27 }
+#   endif
+#   define WS2812_PWM_DRIVER PWMD3
+#   define WS2812_PWM_CHANNEL 3
+#   define WS2812_PWM_PAL_MODE 2
+#   define WS2812_DMA_STREAM STM32_DMA1_STREAM3
+#   define WS2812_DMA_CHANNEL 3
 
     // OLED related code
-    #ifdef OLED_DRIVER_ENABLE
-        #define OLED_TIMEOUT 50000
-        #define OLED_UPDATE_INTERVAL 100
-    #endif
+#   ifdef OLED_DRIVER_ENABLE
+#       define OLED_TIMEOUT 50000
+#       define OLED_UPDATE_INTERVAL 100
+#   endif
     
     // Encoder definitons
-    #define ENCODERS_PAD_A { B2 }
-    #define ENCODERS_PAD_B { B6 }
-    #define ENCODER_RESOLUTIONS { 4 }
-    #define ENCODERS_PAD_A_RIGHT { B2 }
-    #define ENCODERS_PAD_B_RIGHT { B6 }
-    #define ENCODER_RESOLUTIONS_RIGHT { 2 }
+#   define ENCODERS_PAD_A { B2 }
+#   define ENCODERS_PAD_B { B6 }
+#   define ENCODER_RESOLUTIONS { 4 }
+#   define ENCODERS_PAD_A_RIGHT { B2 }
+#   define ENCODERS_PAD_B_RIGHT { B6 }
+#   define ENCODER_RESOLUTIONS_RIGHT { 2 }
 #endif
