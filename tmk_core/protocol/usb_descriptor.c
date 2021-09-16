@@ -247,7 +247,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_USAGE_PAGE(8, 0x09),    // Button
             HID_RI_USAGE_MINIMUM(8, 0x01), // Button 1
             HID_RI_USAGE_MAXIMUM(8, 0x20), // Button 32
-            HID_RI_LOGICAL_MINIMUM(8, 0x01),
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
             HID_RI_LOGICAL_MAXIMUM(8, 0x01),
             HID_RI_REPORT_COUNT(8, 32),
             HID_RI_REPORT_SIZE(8, 1),
