@@ -165,7 +165,6 @@ static void render_status(void) {
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 
-    sprintf(wpm_str, "WPM: %03d", get_current_wpm());
     oled_set_cursor(1,2);
     oled_write(wpm_str, false);
 }
