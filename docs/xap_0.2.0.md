@@ -8,7 +8,7 @@ This document describes the requirements of the QMK XAP ("extensible application
 
 | Name | Definition |
 | -- | -- |
-| _struct{}_ | A structure of data, packing different objects together. Data is "compacted" -- there are no padding bytes between fields. Equivalent to a C-style `struct`. The order in which they're defined matches the order of the data in the response packet. |
+| _struct{}_ | A structure of data, packing different objects together. Data is "compacted" -- there are no padding bytes between fields. Equivalent to a packed C-style `struct`. The order in which they're defined matches the order of the data in the response packet. |
 | _type[n]_ | An array of `type`, with array extent of `N` -- e.g. `u8[2]` signifies two consecutive octets. |
 | _u16_ | An unsigned 16-bit integral, commonly seen as `uint16_t` from _stdint.h_. |
 | _u32_ | An unsigned 32-bit integral, commonly seen as `uint32_t` from _stdint.h_. |

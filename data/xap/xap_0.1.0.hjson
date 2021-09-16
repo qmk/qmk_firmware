@@ -59,7 +59,7 @@
             '''
         "struct{}":
             '''
-            A structure of data, packing different objects together. Data is "compacted" -- there are no padding bytes between fields. Equivalent to a C-style `struct`. The order in which they're defined matches the order of the data in the response packet.
+            A structure of data, packing different objects together. Data is "compacted" -- there are no padding bytes between fields. Equivalent to a packed C-style `struct`. The order in which they're defined matches the order of the data in the response packet.
             '''
     }
 
