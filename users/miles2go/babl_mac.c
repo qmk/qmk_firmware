@@ -1,11 +1,21 @@
-/*  A library to output the right key shortcut in any common app.
-Given a global variable babble_mode to show the environment and a
-key that calls the paste macro, do the right type of paste.
-Setting the context is done by another macro, or TBD interaction with the host.
+/*
+ * Copyright 2021 milestogo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-Huge thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
-and https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/jeebak/keymap.c
-*/
+ /* Mac shortcuts are /easy/.  */
 
 #include QMK_KEYBOARD_H
 
@@ -55,7 +65,7 @@ bool babblePaste_mac(uint16_t keycode) {
     BABLM(BABL_SWITCH_APP_LAST, OMSFT(IMGUI(X_TAB)));
     // Apps vary, but this is  usually tab movement, same as B_NXTB
     /*
-    BABLM( BABL_WINDOW_NEXT, OMSFT(IMGUI(X_RBRACKET)) ); // GUI Grav isn't everywhere
+    BABLM( BABL_WINDOW_NEXT, OMSFT(IMGUI(X_RBRACKET)) ); // GUI Grav isn't used everywhere
     BABLM( BABL_WINDOW_PREV, OMSFT(IMGUI(X_LBRACKET)) );
     */
     BABLM(BABL_WINDOW_NEXT, IMGUI(X_GRAVE));

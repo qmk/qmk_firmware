@@ -1,10 +1,26 @@
-/*  A library to output the right key shortcut in any common app.
-Given a global variable babble_mode to show the environment and a
-key that calls the paste macro, do the right type of paste.
-Setting the context is done by another macro, or TBD interaction with the host.
+/*
+ * Copyright 2021 milestogo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-Huge thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
-and https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/jeebak/keymap.c
+/*  Babblepaste: a library shortcuts that allow one key to do the same action in different OSes or applications. 
+ *
+ * Given a global variable babble_mode to show the environment and a
+ * key that calls the paste macro, do the right type of paste.
+ * Huge thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
+ * and https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/jeebak/keymap.c
 */
 
 #include QMK_KEYBOARD_H
@@ -17,9 +33,7 @@ uint8_t babble_mode = 0;
 
 // functions to tell the user that the mode has changed
 __attribute__((weak)) void babble_modeswitch_user(uint8_t mode) {}
-__attribute__((weak)) void babble_modeswitch_kb(uint8_t mode) { babble_modeswitch_user( mode); }
-
-
+__attribute__((weak)) void babble_modeswitch_kb(uint8_t mode) { babble_modeswitch_user(mode); }
 
 void set_babble_mode(uint8_t id) { babble_mode = id; }
 
@@ -46,20 +60,20 @@ the global babble_mode and a keycode defined in the babble_keycodes enum.
 This could be made faster by splitting into functions sorted by keycode range
 But that makes for a *lot* of ifdefs.
 */
-bool babblePaste(uint16_t keycode, bool is_pressed )  {
+bool babblePaste(uint16_t keycode, bool is_pressed) {
     // handle keys that have up & down behavior first, then OS/mode switching, then macros
 
 // This is the key used for cut & paste (Propeller on Mac, Control elsewhere)
-#   ifdef BABL_MODSWAP
-    // WARNING, this assumes you have BABL_MAC_MODE defined. 
-    if (keycode == BABL_PRIMARY_OS_MOD ) {
+#    ifdef BABL_MODSWAP
+    // WARNING, this assumes you have BABL_MAC_MODE defined.
+    if (keycode == BABL_PRIMARY_OS_MOD) {
         if (babble_mode == BABL_MAC_MODE) {
             if (is_pressed) {
                 register_code(KC_LGUI);
             } else {
                 unregister_code(KC_LGUI);
             }
-        } else { // everybody else 
+        } else {  // everybody else
 
             if (is_pressed) {
                 register_code(KC_LCTL);
@@ -69,16 +83,16 @@ bool babblePaste(uint16_t keycode, bool is_pressed )  {
         }
     }
 
-// This is the os key not used in cut & paste. (CTRL on mac, GUI elsewhere)
-    if (keycode == BABL_SECONDARY_OS_MOD ) {
+    // This is the os key not used in cut & paste. (CTRL on mac, GUI elsewhere)
+    if (keycode == BABL_SECONDARY_OS_MOD) {
         if (babble_mode == BABL_MAC_MODE) {
-                if (is_pressed) {
+            if (is_pressed) {
                 register_code(KC_LCTL);
             } else {
                 unregister_code(KC_LCTL);
             }
 
-        } else { // everybody else 
+        } else {  // everybody else
             if (is_pressed) {
                 register_code(KC_LGUI);
             } else {
@@ -87,15 +101,15 @@ bool babblePaste(uint16_t keycode, bool is_pressed )  {
         }
     }
 
-// This is the alt key in most OSes. Mostly useful if you want to do hyper on one OS, Meh on another.  
-    if (keycode == BABL_TERTIARY_OS_MOD ) {
+    // This is the alt key in most OSes. Mostly useful if you want to do hyper on one OS, Meh on another.
+    if (keycode == BABL_TERTIARY_OS_MOD) {
         if (babble_mode == BABL_MAC_MODE) {
             if (is_pressed) {
                 register_code(KC_LALT);
             } else {
                 unregister_code(KC_LALT);
             }
-        } else { // everybody else 
+        } else {  // everybody else
 
             if (is_pressed) {
                 register_code(KC_LALT);
@@ -105,24 +119,24 @@ bool babblePaste(uint16_t keycode, bool is_pressed )  {
         }
     }
 
-#   endif 
+#    endif
 
-// below here we are only running macros - don't serve any key up events. 
-    if (is_pressed == 0 ) {
-           return true;
+    // below here we are only running macros - don't serve any key up events.
+    if (is_pressed == 0) {
+        return true;
     }
 
-// handle increment functions. 
+    // handle increment functions.
 
-if (keycode == BABL_MODE_INCREMENT) {
+    if (keycode == BABL_MODE_INCREMENT) {
         babble_mode_increment();
         return true;
-}
+    }
 
-if (keycode == BABL_MODE_DECREMENT) {
+    if (keycode == BABL_MODE_DECREMENT) {
         babble_mode_decrement();
         return true;
-}
+    }
 
 #    ifdef BABL_MAC
     if (keycode == BABL_DO_MAC) {
@@ -176,26 +190,6 @@ if (keycode == BABL_MODE_DECREMENT) {
         babblePaste_emacs(keycode);
     }
 #    endif
-#    ifdef BABL_NANO
-    if (keycode == BABL_DO_NANO) {
-        set_babble_mode(BABL_NANO_MODE);
-        babble_modeswitch_kb(babble_mode);
-        return true;
-    }
-    if (babble_mode == BABL_NANO_MODE) {
-        babblePaste_nano(keycode);
-    }
-#    endif
-#    ifdef BABL_KITTY
-    if (keycode == BABL_DO_KITTY) {
-        set_babble_mode(BABL_KITTY_MODE);
-        babble_modeswitch_kb(babble_mode);
-        return true;
-    }
-    if (babble_mode == BABL_KITTY_MODE) {
-        babblePaste_kitty(keycode);
-    }
-#    endif
 #    ifdef BABL_CHROMEOS
     if (keycode == BABL_DO_CHROMEOS) {
         set_babble_mode(BABL_CHROMEOS_MODE);
@@ -216,7 +210,16 @@ if (keycode == BABL_MODE_DECREMENT) {
         babblePaste_readmux(keycode);
     }
 #    endif
-
+#    ifdef BABL_KITTY
+    if (keycode == BABL_DO_KITTY) {
+        set_babble_mode(BABL_KITTY_MODE);
+        babble_modeswitch_kb(babble_mode);
+        return true;
+    }
+    if (babble_mode == BABL_KITTY_MODE) {
+        babblePaste_kitty(keycode);
+    }
+#    endif
     return false;
 }
 

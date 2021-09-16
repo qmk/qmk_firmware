@@ -1,15 +1,23 @@
+/*
+ * Copyright 2021 milestogo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /*  Keyboard mappings for Kitty terminal
-https://sw.kovidgoyal.net/kitty/index.html#
-
- A library to output the right key shortcut in any common app.
-Given a global variable babble_mode to show the environment and a
-key that calls the paste macro, do the right type of paste.
-Setting the context is done by another macro, or TBD interaction with the host.
-
-Huge thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
-and
-https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/jeebak/keymap.c
-*/
+ * https://sw.kovidgoyal.net/kitty/index.html#
+ */
 
 #include QMK_KEYBOARD_H
 
@@ -97,7 +105,7 @@ bool babblePaste_kitty(uint16_t keycode) {
     // ok, this is a bit of a stretch, overloading meaning of forwards/backwards
     BABLM(BABL_BROWSER_FORWARD, OMSFT(IMCTL(X_DOT)));  // move current kitty tab forwards
     BABLM(BABL_BROWSER_BACK, OMSFT(IMCTL(X_COMMA)));   // move current kitty tab back
-     // requires kitty config  of "map ctrl+shift+f7 detach_window"
+                                                       // requires kitty config  of "map ctrl+shift+f7 detach_window"
     BABLM(BABL_BROWSER_REOPEN_LAST_TAB, IMCTL(X_F7));  // pop current frame into a window
 #            else                                      // tab means window/frame.
                                                 // option B - do Kitty window  (frame) when I say tab

@@ -1,7 +1,25 @@
-// Readline command line editing + tmux windowing
-// I haven't decided how much to do readline and how much tmux
-// see https://tiswww.case.edu/php/chet/readline/rluserman.html for other possible
-// keybindings.
+/*
+ * Copyright 2021 milestogo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* Readline command line editing + tmux windowing
+ *  I haven't decided how much to do readline and how much tmux
+ *  see https://tiswww.case.edu/php/chet/readline/rluserman.html for other possible
+ * keybindings.
+ */ 
 
 #include QMK_KEYBOARD_H
 
@@ -68,6 +86,7 @@ bool babblePaste_readmux(uint16_t keycode) {
 #            endif
 #        endif
 #        ifdef BABL_APP
+#           ifdef BABL_APP_WINDOWSPLITTING 
     // Save makes no sense here
     BABLM(BABL_SPLIT_FRAME_VERT, TMUX IMSFT(X_5));
     // BUG - misleading. This is currently set to convert frame to a window.
@@ -77,6 +96,7 @@ bool babblePaste_readmux(uint16_t keycode) {
     BABLM(BABL_UNSPLIT_FRAME_HORIZONTAL, SS_LCTL("b") "x");
     BABLM(BABL_NEXT_FRAME, SS_LCTL("b") "o");
     BABLM(BABL_PREV_FRAME, SS_LCTL("w") SS_TAP(X_SCOLON));
+#            endif
 #        endif
 
     // Todo, ring bell, flash light, show user this isn't supported

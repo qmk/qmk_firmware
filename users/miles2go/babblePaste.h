@@ -1,12 +1,19 @@
-/*  A library to output the right key shortcut in any common app.
-Given a global variable babble_mode to show the environment and a
-key that calls the paste macro, do the right type of paste.
-
-Setting the bable_mode is done by another macro, or TBD interaction with the host.
-
-Huge thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
-and jeebak & algernon's keymap
-*/
+/*
+ * Copyright 2021 milestogo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #pragma once
 #include "quantum.h"
@@ -36,17 +43,14 @@ enum babble_modes {
 #    ifdef BABL_EMACS
     BABL_EMACS_MODE,
 #    endif
-#    ifdef BABL_NANO
-    BABL_NANO_MODE,
-#    endif
-#    ifdef BABL_KITTY
-    BABL_KITTY_MODE,
-#    endif
 #    ifdef BABL_CHROMEOS
     BABL_CHROMEOS_MODE,
 #    endif
 #    ifdef BABL_LINUX
     BABL_LINUX_MODE,
+#    endif
+#    ifdef BABL_KITTY
+    BABL_KITTY_MODE,
 #    endif
     BABL_MODEMAX
 };
@@ -183,8 +187,9 @@ enum babble_keycodes {
     BABL_SELECT_ROW,              // select row shift spaced // same in both.
 #        endif                    // BABL_APP_CELLS
 #        ifdef BABL_APP_EDITOR
+
     BABL_APP_MULTI_SELECT, /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
-    BABL_APP_SET_MARK, // set editor mark
+    BABL_APP_SET_MARK,
 #        endif             // BABL_APP_EDITOR
 #        ifdef BABL_APP_WINDOWSPLITTING
     // These aren't useful on most oses.
@@ -211,12 +216,6 @@ enum babble_keycodes {
 #    ifdef BABL_EMACS
     BABL_DO_EMACS,
 #    endif
-#    ifdef BABL_NANO
-    BABL_DO_NANO,
-#    endif
-#    ifdef BABL_KITTY
-    BABL_DO_KITTY,
-#    endif
 #    ifdef BABL_VI
     BABL_DO_VI,
 #    endif
@@ -226,6 +225,9 @@ enum babble_keycodes {
 #    ifdef BABL_CHROMEOS
     BABL_DO_CHROMEOS,
 #    endif
+#   ifdef BABL_KITTY
+    BABL_DO_KITTY,
+#   endif
     BABBLE_END_RANGE
 };
 
@@ -250,14 +252,6 @@ bool babblePaste_linux(uint16_t keycode);
 #        define B_EMACS BABL_DO_EMACS
 bool babblePaste_emacs(uint16_t keycode);
 #    endif
-#    ifdef BABL_NANO
-#        define B_NANO BABL_DO_NANO
-bool babblePaste_nano(uint16_t keycode);
-#    endif
-#    ifdef BABL_KITTY
-#        define B_KITTY BABL_DO_KITTY
-bool babblePaste_kitty(uint16_t keycode);
-#    endif
 #    ifdef BABL_VI
 #        define B_VI BABL_DO_VI
 bool babblePaste_vi(uint16_t keycode);
@@ -269,6 +263,10 @@ bool babblePaste_readmux(uint16_t keycode);
 #    ifdef BABL_CHROMEOS
 #        define B_CROM BABL_DO_CHROMEOS
 bool babblePaste_chromeos(uint16_t keycode);
+#    endif
+#    ifdef BABL_KITTY
+#        define B_KITTY BABL_DO_KITTY
+bool babblePaste_kitty(uint16_t keycode);
 #    endif
 
 
@@ -367,7 +365,6 @@ bool babblePaste_chromeos(uint16_t keycode);
 #        endif  // BABL_APP_CELLS
 #        ifdef BABL_APP_EDITOR
 #            define B_MSEL BABL_APP_MULTI_SELECT
-#            define B_MARK BABL_APP_SET_MARK
 /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
 #        endif  // BABL_APP_EDITOR
 #        ifdef BABL_APP_WINDOWSPLITTING
