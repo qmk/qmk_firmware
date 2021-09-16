@@ -35,10 +35,10 @@ KEY_LOCK_ENABLE = no    # Allows locking any key. Not used in general
 RGBLIGHT_ENABLE = no    # LED strip, but there is RGB_MATRIX instead
 TAP_DANCE_ENABLE = no   # Tap dance keys; i don't use tap dance
 
-# These features can be enabled on ARM boards; disabled for AVR due to space
-# NKRO_ENABLE = no        # Default is 6KRO which is plenty
-# VELOCIKEY_ENABLE = no   # Modulate speed effects with typing speed
-WPM_ENABLE = yes  	# Get WPM reports as you type
+# These features can be disabled at whim
+NKRO_ENABLE ?= yes      # Default is 6KRO
+VELOCIKEY_ENABLE ?= yes # Speed effects change with typing speed
+WPM_ENABLE = ?yes       # Get WPM reports as you type
 
 # Manually configure these on each keyboard individually
 # AUDIO_ENABLE            # Audio stuff
@@ -75,5 +75,8 @@ endif
 
 # OLED code
 ifeq ($(strip $(OLED_ENABLE)), yes)
-SRC += bb-oled.c
+    SRC += bb-oled.c
+    ifeq ($(strip $(CTPC)), yes)
+        SRC += bb-oled-extra.c
+    endif
 endif

@@ -12,10 +12,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "bb-encoder.h"
-#include <string.h>
+// Need this to call velocikey activation
 #ifdef VELOCIKEY_ENABLE
-    #include "velocikey.h"
+#   include "velocikey.h"
 #endif
+// Need memcpy and memcmp from string.h along with transfer stuff
+#ifdef OLED_ENABLE
+#   include <string.h>
+#endif
+
 
 /* ROTARY ENCODER
  * This contains my general rotary encoder code
@@ -26,16 +31,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Some modes are only accessible through some keymap layers
  */
 
-// Initialize the encoder state variable
-encoder_state_t encoder_state[2];
-
 // Default state for the encoders
 void reset_encoder_state(void) {
 //    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
     for (int i = 0; i < 2; i++) {
-        encoder_state[i].base = i;
-        encoder_state[i].rgb = i;
-        encoder_state[i].point = i;
+        userspace_config.encoder[i].base = i;
+        userspace_config.encoder[i].rgb = i;
+        userspace_config.encoder[i].point = i;
     }
 }
 
@@ -50,7 +52,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
         #ifdef RGB_MATRIX_ENABLE
         case _MEDI:
-            switch(encoder_state[index].rgb) {
+            switch(userspace_config.encoder[index].rgb) {
                 case 0: // Effect the RGB mode
                     if (clockwise) {
                         rgb_matrix_step_noeeprom();
@@ -91,7 +93,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         #endif
         #ifdef MOUSEKEY_ENABLE
         case _MOUS:
-            switch(encoder_state[index].point) {
+            switch(userspace_config.encoder[index].point) {
                 case 0: // Move mouse on horizontal axis
                     if (clockwise) {
                         tap_code(KC_MS_R);
@@ -124,7 +126,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             break;
         #endif
         default:
-            switch(encoder_state[index].base) {
+            switch(userspace_config.encoder[index].base) {
                 case 0: // Volume
                     if (clockwise) {
                         tap_code16(KC_VOLU);
@@ -199,7 +201,7 @@ void encoder_click_action(uint8_t index) {
     switch (get_highest_layer(layer_state)) {
         #ifdef RGB_MATRIX_ENABLE
         case _MEDI:
-            switch(encoder_state[index].rgb) {
+            switch(userspace_config.encoder[index].rgb) {
                 case 0: // Return to no animation
                     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
                     break;
@@ -218,7 +220,7 @@ void encoder_click_action(uint8_t index) {
         #endif
         #ifdef MOUSEKEY_ENABLE
         case _MOUS:
-            switch(encoder_state[index].point) {
+            switch(userspace_config.encoder[index].point) {
                 case 0: // Left click
                     tap_code16(KC_BTN1);
                     break;
@@ -233,7 +235,7 @@ void encoder_click_action(uint8_t index) {
             break;
         #endif
         default:
-            switch(encoder_state[index].base) {
+            switch(userspace_config.encoder[index].base) {
                 case 0: // Toggle mute
                 case 2:
                     tap_code16(KC_MUTE);
@@ -280,19 +282,19 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
             switch (get_highest_layer(layer_state)) {
                 #ifdef RGB_MATRIX_ENABLE
                 case _MEDI:
-                    encoder_state[encoder_index].rgb =
-                        (encoder_state[encoder_index].rgb   + 1) % 5;
+                    userspace_config.encoder[encoder_index].rgb =
+                        (userspace_config.encoder[encoder_index].rgb   + 1) % 5;
                     break;
                 #endif
                 #ifdef MOUSEKEY_ENABLE
                 case _MOUS:
-                    encoder_state[encoder_index].point =
-                        (encoder_state[encoder_index].point + 1) % 4;
+                    userspace_config.encoder[encoder_index].point =
+                        (userspace_config.encoder[encoder_index].point + 1) % 4;
                     break;
                 #endif
                 default:
-                    encoder_state[encoder_index].base =
-                        (encoder_state[encoder_index].base  + 1) % 9;
+                    userspace_config.encoder[encoder_index].base =
+                        (userspace_config.encoder[encoder_index].base  + 1) % 9;
                     break;
             }
         // If ctrl is active, move mode one point backwards
@@ -300,19 +302,19 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
             switch (get_highest_layer(layer_state)) {
                 #ifdef RGB_MATRIX_ENABLE
                 case _MEDI:
-                    encoder_state[encoder_index].rgb =
-                        (encoder_state[encoder_index].rgb   + 5 - 1) % 5;
+                    userspace_config.encoder[encoder_index].rgb =
+                        (userspace_config.encoder[encoder_index].rgb   + 5 - 1) % 5;
                     break;
                 #endif
                 #ifdef MOUSEKEY_ENABLE
                 case _MOUS:
-                    encoder_state[encoder_index].point =
-                        (encoder_state[encoder_index].point + 4 - 1) % 4;
+                    userspace_config.encoder[encoder_index].point =
+                        (userspace_config.encoder[encoder_index].point + 4 - 1) % 4;
                     break;
                 #endif
                 default:
-                    encoder_state[encoder_index].base =
-                        (encoder_state[encoder_index].base  + 9 - 1) % 9;
+                    userspace_config.encoder[encoder_index].base =
+                        (userspace_config.encoder[encoder_index].base  + 9 - 1) % 9;
                     break;
             }
         // If meta is active, reset the encoder states
@@ -325,3 +327,93 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+// For printing status to OLED
+#ifdef OLED_ENABLE
+void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
+    // Get the layer straight from the main function
+    switch (layer) {
+        // If RGB control mode is enabled
+#       ifdef RGB_MATRIX_ENABLE
+        case _MEDI:
+            switch (userspace_config.encoder[index].rgb) {
+                case 0:
+                    strcpy(buffer, "ani mode");
+                    break;
+                case 1:
+                    strcpy(buffer, "hue     ");
+                    break;
+                case 2:
+                    strcpy(buffer, "saturat.");
+                    break;
+                case 3:
+                    strcpy(buffer, "bright. ");
+                    break;
+                case 4:
+                    strcpy(buffer, "ani. spd");
+                    break;
+                default:
+                    strcpy(buffer, " -N/A-  ");
+                    break;
+            }
+            break;
+#       endif // RGB_MATRIX_ENABLE
+        // If pointer control is enabled
+#       ifdef MOUSEKEY_ENABLE
+        case _MOUS:
+            switch (userspace_config.encoder[index].point) {
+                case 0:
+                    strcpy(buffer, "Lateral ");
+                    break;
+                case 1:
+                    strcpy(buffer, "Vertical");
+                    break;
+                case 2:
+                    strcpy(buffer, "Scr. Ver");
+                    break;
+                case 3:
+                    strcpy(buffer, "Scr. Lat");
+                    break;
+                default:
+                    strcpy(buffer, " -N/A-  ");
+                    break;
+            }
+            break;
+#       endif // MOUSEKEY_ENABLE
+        default:
+            switch (userspace_config.encoder[index].base) {
+                case 0:
+                    strcpy(buffer, "Volume  ");
+                    break;
+                case 1:
+                    strcpy(buffer, "Song    ");
+                    break;
+                case 2:
+                    strcpy(buffer, "Sink    ");
+                    break;
+                case 3:
+                    strcpy(buffer, "Src. Vol");
+                    break;
+                case 4:
+                    strcpy(buffer, "Source  ");
+                    break;
+                case 5:
+                    strcpy(buffer, "Arrow LR");
+                    break;
+                case 6:
+                    strcpy(buffer, "Arrow UD");
+                    break;
+                case 7:
+                    strcpy(buffer, "Page U/D");
+                    break;
+                case 8:
+                    strcpy(buffer, "Erase   ");
+                    break;
+                default:
+                    strcpy(buffer, " -N/A-  ");
+                    break;
+            }
+            break;
+    }
+}
+#endif // OLED_ENABLE

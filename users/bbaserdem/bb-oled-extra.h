@@ -13,7 +13,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 #include "bbaserdem.h"
-
-// These are protorne specific functions to be called for drawing
-void render_status_left(void);
-void render_status_right(void);
+// OLED layout images writer function
+void render_modifiers(uint8_t row, uint8_t col, uint8_t mods);
+void render_layout(uint8_t row, uint8_t col, uint8_t mods, bool isLeft);
+void render_rgb(uint8_t row, uint8_t col);
+void render_status_left(uint8_t row, uint8_t col);
+void render_status_right(uint8_t row, uint8_t col);

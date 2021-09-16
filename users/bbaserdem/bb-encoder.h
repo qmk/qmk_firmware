@@ -13,9 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 #include "bbaserdem.h"
-#ifdef VELOCIKEY_ENABLE
-    #include "velocikey.h"
-#endif
 
 // Hook to encoder stuff
 bool encoder_update_user(uint8_t index, bool clockwise);
@@ -25,13 +22,7 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record);
 void keyboard_post_init_encoder(void);
 // Clear the encoder settings
 void reset_encoder_state(void);
-
-// Structure to keep runtime info on encoder state
-typedef struct {
-    uint8_t base;   // The encoder state on most layers; regular function
-    uint8_t rgb;    // The encoder state on media layer; controls light settings
-    uint8_t point;  // The encoder state on mouse layer; moves pointer
-} encoder_state_t;
-
-// Make this available to all that declare us
-extern encoder_state_t encoder_state[2];
+// This is so that encoder state is synched between two halves
+void housekeeping_task_encoder(void);
+// This is purely for oled; should it want to use it
+void encoder_state_string(uint8_t index, uint8_t layer, char* buffer);

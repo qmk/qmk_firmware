@@ -45,6 +45,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "bb-oled.h"
 #endif
 
+// Structure to keep runtime info on encoder state
+typedef union {
+    uint16_t raw;
+    struct {
+        uint8_t base    :4; // (9) The encoder state on most layers; regular function
+        uint8_t rgb     :4; // (5) The encoder state on media layer; controls light
+        uint8_t point   :4; // (4) The encoder state on mouse layer; moves pointer
+        uint8_t         :4; // Padding
+    };
+} encoder_state_t;
+
+// Structure to contain userspace config in total
+typedef union {
+    uint64_t raw;
+    struct {
+        encoder_state_t encoder[2];
+        uint8_t layout;
+    };
+} userspace_config_t;
+
+// Broadcast us to everyone else
+extern userspace_config_t userspace_config;
+
 // Function definitions that can be accessed through specific keymaps
 // Runs before all initialization
 void keyboard_pre_init_keymap(void);
@@ -62,6 +85,8 @@ void matrix_scan_keymap(void);
 layer_state_t layer_state_set_keymap(layer_state_t state);
 // This code runs when the default layer changes
 layer_state_t default_layer_state_set_keymap (layer_state_t state);
+// Some code
+void housekeeping_task_user(void);
 // This code runs to set LED states
 void led_set_keymap(uint8_t usb_led);
 // For code that runs on suspend
@@ -89,16 +114,24 @@ enum userspace_custom_keycodes {
     // Macro key
     BB_PGPK,
     // Unicode strings
-    #ifdef UNICODEMAP_ENABLE
+#   ifdef UNICODEMAP_ENABLE
     BB_LENY,
     BB_TABL,
     TR_FLAG,
-    #endif
+#   endif
     // Encoder buttons
-    #ifdef ENCODER_ENABLE
+#   ifdef ENCODER_ENABLE
     BB_ENC0,
     BB_ENC1,
-    #endif
+#   endif
+    // Some RGB toggles 
+#   ifdef RGB_MATRIX_ENABLE
+    BB_RGBO,
+#   endif
+    // Oled editor
+#   ifdef OLED_ENABLE
+    BB_OLED,
+#   endif
     //use for keymap specific codes
     KEYMAP_SAFE_RANGE
 };
@@ -385,19 +418,19 @@ enum userspace_layers {
 
 /* Media layer
  *       ┌─────┬─────┬─────┬─────┬─────┐
- *       │ Tog │ Mod │ Hue │ Sat │ Bri │ RGB light control
+ *       │Speed│ Mod │ Hue │ Sat │ Bri │ RGB light control
  *       ├─────┼─────┼─────┼─────┼─────┤
  *       │Media│Prev.│MuTog│MuStp│Next │ Media control
  *       ├─────┼─────┼─────┼─────┼─────┤
  *       │Sink │Vol -│ Mut │Eject│Vol +│ Volume control
  * ┌─────┼─────┼─────┼─────┴─────┴─────┘
- * │     │Veloc│Music│                   Feature control on keyboard
+ * │OledL│Veloc│Music│                   Feature control on keyboard
  * └─────┴─────┴─────┘
  */
-#define _ME1_5_ RGB_TOG,RGB_MOD,RGB_HUI,RGB_SAI,RGB_VAI
-#define _ME2_5_ KC_MSEL,KC_MPRV,KC_MPLY,KC_MSTP,KC_MNXT
+#define _ME1_5_ RGB_SPI,RGB_MOD,RGB_HUI,RGB_SAI,RGB_VAI
+#define _ME2_5_ RGB_TOG,KC_MPRV,KC_MPLY,KC_MSTP,KC_MNXT
 #define _ME3_5_ KC_F13, KC_VOLD,KC_MUTE,KC_EJCT,KC_VOLU
-#define _ME4_3_ XXXXXXX,VLK_TOG,MU_TOG
+#define _ME4_3_ BB_OLED,VLK_TOG,MU_TOG
 
 /* Navigation layer
  *       ┌─────┬─────┬─────┬─────┬─────┐
@@ -484,7 +517,7 @@ enum userspace_layers {
 
 /* Function layer
  * ┌─────┬─────┬─────┬─────┬─────┐
- * │ F01 │ F02 │ F03 │ F04 │RESET│
+ * │ F01 │ F02 │ F03 │ F04 │EEPRM│
  * ├─────┼─────┼─────┼─────┼─────┤
  * │ F05 │ F06 │ F07 │ F08 │EEPRM│
  * ├─────┼─────┼─────┼─────┼─────┤

@@ -40,5 +40,4 @@ ifneq (,$(findstring crkbd/rev1,$(KEYBOARD)))
     # BOOTMAGIC_ENABLE = lite
     # LTO_ENABLE = yes
     # PIMORONI_TRACKBALL = no
-    SRC += bb-crkbdarm-oled.c
 endif
