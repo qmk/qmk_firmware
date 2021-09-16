@@ -10,26 +10,48 @@ The differences are as follows:
 === Layer 0 (`_BASE`)
 Mostly stock + CAPS goes to layer `_MOV`.
 
-=== Layer 1 (`_FN`), accessed by pressing `FN` on layer `_BASE`
-Mostly stock.
+=== Layer 1 (`_MOV`), accessed by pressing `CAPS` on layer `_BASE`
+[%header]
+|===
+| Key / Action          | Mapped to
+| ESC                   | _RESET_
+| F1                    | KC_MYCM
+| F2                    | KC_WHOM
+| F3                    | KC_CALC
+| F4                    | KC_MSEL
+| F5                    | KC_MPRV
+| F6                    | KC_MPLY
+| F7                    | KC_MSTP
+| F8                    | KC_MNXT
+| F9                    | KC_MUTE
+| F10                   | KC_VOLD
+| F11                   | KC_VOLU
+| N                     | NK_TOGG
+| Delete                | Insert
+| Left                  | Home
+| Right                 | End
+| Up                    | PgUp
+| Down                  | PgDn
+|===
+
+=== Layer 2 (`_RGB`), accessed by pressing `FN` on layer `_BASE`
+Revamped the stock FN layer to focus on RGB only.
 
 [%header]
 |===
 | Key / Action          | Mapped to
 | Knob clockwise        | Value/Brightness up
 | Knob anti-clockwise   | Value/Brightness down
-|===
-
-=== Layer 2 (`_MOV`), accessed by pressing `CAPS` on layer `_BASE`
-[%header]
-|===
-| Key / Action          | Mapped to
-| ESC                   | _RESET_
-| Delete                | Insert
-| Left                  | Home
-| Right                 | End
-| Up                    | PgUp
-| Down                  | PgDn
+| Backspace             | _RESET_
+| Enter                 | RGB_TOG
+| Del                   | RGB_MOD
+| PgUp                  | RGB_RMOD
+| PgDn                  | RGB_SPI
+| End                   | RGB_SPD
+| Left                  | RGB_HUD
+| Right                 | RGB_HUI
+| Up                    | RGB_SAI
+| Down                  | RGB_SAD
 |===
 
 No other changes have been made.
