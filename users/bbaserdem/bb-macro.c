@@ -75,6 +75,26 @@ const uint32_t PROGMEM unicode_map[] = {
 // Keycodes
 bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        // AltGr + Caps should change the oled layout variable
+        case KC_CAPSLOCK:
+            if (record->event.pressed) {
+                if (get_mods() & MOD_BIT(KC_RALT)) {
+                    userspace_config.layout = (userspace_config.layout + 1) % 3;
+                }
+            }
+            return true;
+            break;
+        case BB_OLED:
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    // Scroll in opposite direction 
+                    userspace_config.layout = (userspace_config.layout + 4) % 3;
+                } else {
+                    userspace_config.layout = (userspace_config.layout + 1) % 3;
+                }
+            }
+            return false;
+            break;
         // Plain macros
         case BB_PGPK:
             // My public PGP key
@@ -123,7 +143,7 @@ bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
         case BB_TABL:
             // Table flip: ┻━┻︵ \(°□°)/ ︵ ┻━┻
             if (record->event.pressed) {
-                send_unicode_string("253B 2501 253B FE35 0020 005C 0028 00B0 25A1 00B0 0029 002F 0020 FE35 0020 253B 2501 253B");
+                send_unicode_hex_string("253B 2501 253B FE35 0020 005C 0028 00B0 25A1 00B0 0029 002F 0020 FE35 0020 253B 2501 253B");
             }
             return false; break;
         #endif
