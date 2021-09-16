@@ -30,6 +30,7 @@ static uint16_t key_timer; // Used in _DDL to differentiate layer switching in h
 
 short duo_press_nsy_dra = 0; // This remembers how many of the duo-press keys are being pressed: _NSY / _DRA layers
 short duo_press_acc_bon = 0; // This remembers how many of the duo-press keys are being pressed: _ACC / _BON layers
+layer_state_t state_recall; // Also used when leds on/off is pressed
 
 void deactivate_all_but (int layer);
 void activate_this_layer (int layer);
@@ -40,5 +41,6 @@ void speed_led (int speed);
 void indicate_fun_stay (void);
 int write_number (long int input, short divide10); 
 void isolate_rgblight_set (void);
+void set_led_colors_ (layer_state_t state);
 
 

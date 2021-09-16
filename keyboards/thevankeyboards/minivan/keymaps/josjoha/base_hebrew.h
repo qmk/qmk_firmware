@@ -24,22 +24,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                                 Configuration:
 // --------------------------------------v---------------------------------------
 
-        /*          • Harmonize regular Qwerty
-         * 
-         * If compiling this ‛Qwerty Base Arrow’ base pair with regular Qwerty on
-         * the other base pair (dual layout), the key ‛/?’ on the _NSY layer in
-         * Qwerty Base Arrow, will be replicated in the same spot in regular Qwerty.
+        /*                            Harmonize layout with a Latin layout
          *
-         * Regular Qwerty will still also have a ‛/?’ key in the normal Qwerty location.
-         * See ./base_qwerty_basearrow.md and ./base_qwerty.md for details.
+         * See base_hebrew.md for design objectives. 
          */
-  #define QWERTY_BASEARROW_HARMONIZE // _Activate_ to harmonize the ‛/?’ key in the regular Qwerty layout.
-                                     // _Remove_ leave regular Qwerty layout unchanged from default.
+  #define HEBREW_ISRAEL // Close to standard Israeli hebrew.
+//#define HEBREW_QWERTY // Harmonize punctuation symbols with Qwerty.
+//#define HEBREW_DVORAK // Harmonize punctuation symbols with Dvorak.
 
 // --------------------------------------^---------------------------------------
 //            Below here no more comfortable configuration options.....
 // --------------------------------------^---------------------------------------
-
 
         /*                            Redefine a layer in this file
          *
@@ -55,6 +50,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BASESFILE_LAYER_MOV 
 // #define BASESFILE_LAYER_RAR 
 // #define BASESFILE_LAYER_FUN 
-
-        /*  ⬇ */
-
