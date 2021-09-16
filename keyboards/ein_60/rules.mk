@@ -24,7 +24,3 @@ RGB_MATRIX_DRIVER = WS2812  # Define RGB Matrix
 ENCODER_ENABLE = yes        # Enables the use of one or more encoders
 OLED_ENABLE = yes           # Enables the use of OLED displays
 OLED_DRIVER = SSD1306
-WPM_ENABLE = yes            # Enables default WPM display
-
-
-#LAYOUTS = split_4x6_2
