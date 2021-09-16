@@ -76,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-// #    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended 
+// #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended 
 // does not work for some reason, might revisit
 
 
