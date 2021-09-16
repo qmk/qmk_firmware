@@ -34,15 +34,9 @@ set_git_username() {
 copy_templates() {
     mkdir -p "$keyboard_dir"
 
-    if [ $keyboard_type = "nrf" ];then
-    echo -n "Copying base template files..."
-    cp -r "quantum/template/base_nrf" "${keyboard_dir}"
-    echo " done"
-    else
     echo -n "Copying base template files..."
     cp -r "data/templates/base/." "${keyboard_dir}"
     echo " done"
-    fi
 
     echo -n "Copying $keyboard_type template files..."
     cp -r "data/templates/${keyboard_type}/." "${keyboard_dir}"
