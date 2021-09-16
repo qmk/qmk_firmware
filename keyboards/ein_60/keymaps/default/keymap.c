@@ -21,10 +21,10 @@ enum layer_names {
     _RAISE,
     _ADJUST,
     _FUNCTION,
-    };
+};
 
 enum custom_keycodes {
-  RGBRST = SAFE_RANGE
+  RGBRST = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -193,6 +193,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_UP);
         }
     }
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
