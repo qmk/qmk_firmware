@@ -24,6 +24,16 @@ def system_libs(binary: str) -> List[Path]:
     """
     cli.log.debug("searching for system library directory for binary: %s", binary)
     bin_path = shutil.which(binary)
+
+    # Actually query xxxxxx-gcc to find its include paths.
+    if binary.endswith("gcc") or binary.endswith("g++"):
+        result = cli.run([binary, '-E', '-Wp,-v',  '-'], capture_output=True, check=True, input='\n')
+        paths = []
+        for line in result.stderr.splitlines():
+            if line.startswith(" "):
+                paths.append(Path(line.strip()).resolve())
+        return paths
+
     return list(Path(bin_path).resolve().parent.parent.glob("*/include")) if bin_path else []
 
 
