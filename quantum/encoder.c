@@ -36,6 +36,8 @@ static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
 #ifdef ENCODER_RESOLUTIONS
 static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
+#else
+static uint8_t encoder_resolution = ENCODER_RESOLUTION;
 #endif
 
 #ifndef ENCODER_DIRECTION_FLIP
@@ -94,6 +96,14 @@ void encoder_init(void) {
 #endif
 }
 
+void encoder_set_resolution(uint8_t index, uint8_t resolution) {
+#ifdef ENCODER_RESOLUTIONS
+    encoder_resolutions[index] = resolution;
+#else
+    encoder_resolution = resolution;
+#endif
+}
+
 static bool encoder_update(uint8_t index, uint8_t state) {
     bool    changed = false;
     uint8_t i       = index;
@@ -101,7 +111,7 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 #ifdef ENCODER_RESOLUTIONS
     uint8_t resolution = encoder_resolutions[i];
 #else
-    uint8_t resolution = ENCODER_RESOLUTION;
+    uint8_t resolution = encoder_resolution;
 #endif
 
 #ifdef SPLIT_KEYBOARD

@@ -29,3 +29,5 @@ bool encoder_update_user(uint8_t index, bool clockwise);
 void encoder_state_raw(uint8_t* slave_state);
 void encoder_update_raw(uint8_t* slave_state);
 #endif
+
+void encoder_set_resolution(uint8_t index, uint8_t resolution);
