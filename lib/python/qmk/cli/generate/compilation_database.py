@@ -65,7 +65,8 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
                 # we have a hit!
                 this_cmd = m.group(1)
                 args = shlex.split(this_cmd)
-                args += ['-I%s' % s for s in system_libs(args[0])]
+                for s in system_libs(args[0]):
+                    args += ['-isystem', '%s' % s]
                 new_cmd = ' '.join(shlex.quote(s) for s in args if s != '-mno-thumb-interwork')
                 records.append({"directory": str(QMK_FIRMWARE.resolve()), "command": new_cmd, "file": this_file})
                 state = 'start'
