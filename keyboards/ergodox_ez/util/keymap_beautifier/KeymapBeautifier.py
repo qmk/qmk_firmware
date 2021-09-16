@@ -227,7 +227,6 @@ class KeymapBeautifier:
             self.layer_keys_pointer = 0
 
         begin = self.layer_keys_pointer
-        end = begin + n_columns
         return self.layer_keys[self.layer_keys_pointer-n_keys:self.layer_keys_pointer]
 
     key_coordinates_counter = 0
