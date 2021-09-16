@@ -17,6 +17,9 @@
 
 #pragma once
 #include "quantum.h"
+#include <stdint.h>
+#include "qmk_ap2_led.h"
+#include "config.h"
 
 #define OVERRIDE __attribute__((noinline))
 
