@@ -194,14 +194,11 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     version_h = Path('quantum/version.h')
     version_h.write_text(create_version_h())
 
-    # Write the overrides file, if needed
-    override_file = keyboard_output / 'keyboard_overrides.json'
+    # Write the keymap json out
+    json_output = keymap_output / 'keymap.json'
 
-    if 'keyboard_overrides' in user_keymap:
-        keyboard_output.mkdir(exist_ok=True, parents=True)
-        json.dump(user_keymap['keyboard_overrides'], override_file.open('w', encoding='utf-8'))
-    elif override_file.exists():
-        override_file.unlink()
+    keymap_output.mkdir(exist_ok=True, parents=True)
+    json.dump(user_keymap, json_output.open('w', encoding='utf-8'))
 
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'

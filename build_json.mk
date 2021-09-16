@@ -15,3 +15,5 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.json)","")
     KEYMAP_JSON := $(MAIN_KEYMAP_PATH_1)/keymap.json
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
 endif
+
+:$(shell cp $(KEYMAP_JSON) $(KEYMAP_OUTPUT)/keymap.json)

@@ -106,15 +106,22 @@ def info_json(keyboard, *, overrides=None):
     return info_data
 
 
-def get_keyboard_overrides(keyboard):
+def get_keyboard_overrides(keyboard, keymap=None):
     """Checks for keyboard_overrides.json in the keyboard build directory and returns them if it exists.
     """
-    keyboard_filesafe = keyboard.replace('/', '_')
-    keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
-    keyboard_overrides_file = keyboard_output / 'keyboard_overrides.json'
+    if not keymap:
+        return None
 
-    if keyboard_overrides_file.exists():
-        return json.load(keyboard_overrides_file.open('r', encoding='utf-8'))
+    keyboard_filesafe = keyboard.replace('/', '_')
+    keymap_filesafe = f'{keyboard_filesafe}_{keymap}' if keymap else keyboard_filesafe
+    keymap_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keymap_filesafe}')
+    keymap_file = keymap_output / 'keymap.json'
+
+    if keymap_file.exists():
+        keymap_json = json.load(keymap_file.open('r', encoding='utf-8'))
+
+        if 'keyboard_overrides' in keymap_json:
+            return keymap_json['keyboard_overrides']
 
 
 def _extract_features(info_data, rules):
