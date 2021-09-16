@@ -82,7 +82,7 @@ def doctor(cli):
     status = os_status = os_tests()
     git_status = git_tests()
 
-    if git_status > os_status:
+    if git_status == CheckStatus.ERROR or (os_status == CheckStatus.OK and git_status == CheckStatus.WARNING):
         status = git_status
 
     if in_virtualenv():
