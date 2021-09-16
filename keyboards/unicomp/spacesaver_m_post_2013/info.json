@@ -1,7 +1,7 @@
 {
     "keyboard_name": "unicomp/spacesaver_m_post_2013", 
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "https://github.com/purdeaandrei/overnumpad_controller_1xb", 
+    "maintainer": "purdeaandrei", 
     "width": 22.5, 
     "height": 6.5, 
     "layouts": {
