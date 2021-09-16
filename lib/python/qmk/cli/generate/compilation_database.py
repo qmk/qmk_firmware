@@ -1,7 +1,6 @@
 """Creates a compilation database for the given keyboard build.
 """
 
-import itertools
 import json
 import os
 import re
