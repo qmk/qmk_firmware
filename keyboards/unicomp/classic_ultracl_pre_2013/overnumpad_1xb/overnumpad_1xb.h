@@ -67,11 +67,11 @@
     /* 7 */ { k_tild, KC_NO,        kp_minus, k_f2,   k_f4,   k_8,   k_5,   k_7,   k_f6,         k_f8,         k_f10,         k_f12,   k_rmenu, k_space,         kp_enter,        KC_NO   }  \
 }
 
-#define LAYOUT_iso( \
+#define LAYOUT_fullsize_iso( \
     k_esc,       k_f1, k_f2, k_f3, k_f4,    k_f5, k_f6, k_f7, k_f8,    k_f9, k_f10, k_f11, k_f12,            k_prscr, k_scrl, k_pause, \
     k_tild, k_1, k_2, k_3, k_4, k_5, k_6, k_7, k_8, k_9, k_0, k_minus, k_equals,               k_backspace,  k_ins,   k_home, k_pgup,     kp_nl,       kp_div, kp_mult, kp_minus,        \
-    k_tab,     k_q, k_w, k_e, k_r, k_t, k_y, k_u, k_i, k_o, k_p, k_squarebrop, k_squarebrcl,      k_return,  k_del,   k_end,  k_pgdn,     kp_7,        kp_8,   kp_9,    kp_plus,         \
-    k_caps,       k_a, k_s, k_d, k_f, k_g, k_h, k_j, k_k, k_l, k_semicolon, k_singlequote, k_nuhs,                                        kp_4,        kp_5,   kp_6,                     \
+    k_tab,     k_q, k_w, k_e, k_r, k_t, k_y, k_u, k_i, k_o, k_p, k_squarebrop, k_squarebrcl,                 k_del,   k_end,  k_pgdn,     kp_7,        kp_8,   kp_9,    kp_plus,         \
+    k_caps,       k_a, k_s, k_d, k_f, k_g, k_h, k_j, k_k, k_l, k_semicolon, k_singlequote, k_nuhs,k_return,                               kp_4,        kp_5,   kp_6,                     \
     k_lshift,k_nubs,k_z, k_x, k_c, k_v, k_b, k_n, k_m, k_cm,k_period, k_fwslash,                  k_rshift,           k_up,               kp_1,        kp_2,   kp_3,    kp_enter,        \
     k_lctrl, k_lwin, k_lalt,              k_space,             k_6_4,  k_1_d,  k_rmenu, k_rctrl,             k_left,  k_down, k_right,           kp_0,         kp_dot                    \
 ) \

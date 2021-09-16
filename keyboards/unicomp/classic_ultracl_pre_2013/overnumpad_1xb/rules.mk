@@ -23,4 +23,4 @@ AUDIO_ENABLE = no           # Audio output
 KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 
 HAPTIC_ENABLE += SOLENOID
-LAYOUTS = fullsize_ansi
+LAYOUTS = fullsize_ansi fullsize_iso
