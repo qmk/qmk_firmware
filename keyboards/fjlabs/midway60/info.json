@@ -2,8 +2,6 @@
     "keyboard_name": "Midway60",
     "url": "https://www.bolsakeyboardsupply.com",
     "maintainer": "FJLabs",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

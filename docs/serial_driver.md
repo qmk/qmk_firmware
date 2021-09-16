@@ -63,7 +63,7 @@ Configure the hardware via your config.h:
                                    //  5: about 19200 baud
 #define SERIAL_USART_DRIVER SD1    // USART driver of TX pin. default: SD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
-#define SERIAL_USART_TIMEOUT 100 // USART driver timeout. default 100
+#define SERIAL_USART_TIMEOUT 20    // USART driver timeout. default 20
 ```
 
 You must also enable the ChibiOS `SERIAL` feature:
@@ -73,7 +73,7 @@ You must also enable the ChibiOS `SERIAL` feature:
 Do note that the configuration required is for the `SERIAL` peripheral, not the `UART` peripheral.
 
 ### USART Full-duplex
-Targeting STM32 boards where communication is offloaded to a USART hardware device. The advantage over bitbang is that this provides fast and accurate timings. USART Full-Duplex requires two conductors **without** pull-up resistors instead of one conductor with a pull-up resistor unlike the Half-duplex driver, but it is more efficent as it uses DMA transfers, which can result in even faster transmission speeds.
+Targeting STM32 boards where communication is offloaded to a USART hardware device. The advantage over bitbang is that this provides fast and accurate timings. USART Full-Duplex requires two conductors **without** pull-up resistors instead of one conductor with a pull-up resistor unlike the Half-duplex driver. Due to its internal design it is more efficent, which can result in even faster transmission speeds.
 
 #### Pin configuration
 
@@ -86,12 +86,13 @@ Please note that `TX` of the master half has to be connected with the `RX` pin o
 To use the driver, add this to your rules.mk:
 
 ```make
-SERIAL_DRIVER = usart_duplex
+SERIAL_DRIVER = usart
 ```
 
 Next configure the hardware via your config.h:
 
 ```c
+#define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN B6     // USART TX pin
 #define SERIAL_USART_RX_PIN B7     // USART RX pin
 //#define USART1_REMAP             // Remap USART TX and RX pins on STM32F103 MCUs, see table below.
@@ -104,17 +105,17 @@ Next configure the hardware via your config.h:
                                    //  3: 57600 baud
                                    //  4: 38400 baud
                                    //  5: 19200 baud
-#define SERIAL_USART_DRIVER UARTD1 // USART driver of TX and RX pin. default: UARTD1
+#define SERIAL_USART_DRIVER SD1    // USART driver of TX and RX pin. default: SD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_RX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
-#define SERIAL_USART_TIMEOUT 100 // USART driver timeout. default 100
+#define SERIAL_USART_TIMEOUT 20    // USART driver timeout. default 20
 ```
 
-You must also enable the ChibiOS `UART` with blocking api feature:
-* In your board's halconf.h: `#define HAL_USE_UART TRUE` and `#define UART_USE_WAIT TRUE`
-* In your board's mcuconf.h: `#define STM32_UART_USE_USARTn TRUE` (where 'n' matches the peripheral number of your selected USART on the MCU)
+You must also enable the ChibiOS `SERIAL` feature:
+* In your board's halconf.h: `#define HAL_USE_SERIAL TRUE`
+* In your board's mcuconf.h: `#define STM32_SERIAL_USE_USARTn TRUE` (where 'n' matches the peripheral number of your selected USART on the MCU)
 
-Do note that the configuration required is for the `UART` peripheral, not the `SERIAL` peripheral.
+Do note that the configuration required is for the `SERIAL` peripheral, not the `UART` peripheral.
 
 #### Pins for USART Peripherals with Alternate Functions for selected STM32 MCUs
 

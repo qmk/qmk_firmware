@@ -2,8 +2,6 @@
     "keyboard_name": "RARTLAND", 
     "url": " ", 
     "maintainer": "Alabahuy", 
-    "width": 16, 
-    "height": 5, 
     "layouts": {
         "LAYOUT_all": {
           "layout": [

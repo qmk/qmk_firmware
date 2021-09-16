@@ -2,8 +2,6 @@
     "keyboard_name": "symmetric70_proto",
     "url": "",
     "maintainer": "mtei",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

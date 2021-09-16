@@ -2,11 +2,8 @@
   "keyboard_name": "handwired/retro_refit",
   "url": "",
   "maintainer": "qmk",
-  "width": 15.5,
-  "height": 6.5,
   "layouts": {
     "LAYOUT": {
-      "key_count": 81,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
         {"label":"F1", "x":1, "y":0},

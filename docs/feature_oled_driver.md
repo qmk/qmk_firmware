@@ -18,16 +18,26 @@ Hardware configurations using Arm-based microcontrollers or different sizes of O
 
 ## Usage
 
-To enable the OLED feature, there are three steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
+To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
 
 ```make
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+```
+
+## OLED type
+|OLED Driver        |Supported Device           |
+|-------------------|---------------------------|
+|SSD1306 (default)  |For both SSD1306 and SH1106|
+
+e.g.
+```make
+OLED_DRIVER = SSD1306
 ```
 
 Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
 
 ```c
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -114,7 +124,7 @@ static void fade_display(void) {
 In split keyboards, it is very common to have two OLED displays that each render different content and are oriented or flipped differently. You can do this by switching which content to render by using the return value from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
 
 ```c
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -345,6 +355,14 @@ bool oled_scroll_left(void);
 // Turns off display scrolling
 // Returns true if the screen was not scrolling or stops scrolling
 bool oled_scroll_off(void);
+
+// Returns true if the oled is currently scrolling, false if it is
+// not
+bool is_oled_scrolling(void);
+
+// Inverts the display
+// Returns true if the screen was or is inverted
+bool oled_invert(bool invert);
 
 // Returns the maximum number of characters that will fit on a line
 uint8_t oled_max_chars(void);

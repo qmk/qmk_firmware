@@ -244,7 +244,7 @@ void read_host_led_state(void) {
     }
 }
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   state = layer_state_set_user(state);
   layer = biton32(state);
   queue_for_send = true;
