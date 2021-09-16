@@ -1,6 +1,6 @@
 # MNK88
 
-![MNK88](https://i.imgur.com/QlKuV3w.png)
+![MNK88](https://i.imgur.com/0risyWg.png)
 
 A QMK-powered, VIA-enabled 88-key (F13) TKL PCB with support for ANSI/ISO layouts, split Backspace, split Right Shift and 6.25U/7U bottom row.
 
