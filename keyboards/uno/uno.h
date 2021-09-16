@@ -18,8 +18,8 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_uno_rev1
-    #include "rev1.h"
-#elif KEYBOARD_uno_rev2
-    #include "rev2.h"
+#if defined(KEYBOARD_uno_rev1)
+#    include "rev1.h"
+#elif defined(KEYBOARD_uno_rev2)
+#    include "rev2.h"
 #endif
