@@ -1,13 +1,8 @@
 #include QMK_KEYBOARD_H
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT(BL_TOGG, BL_STEP, KC_3, LALT(KC_D))};
+enum layer_names { _BASE, _FN };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code16(LALT(KC_DOWN));
-    } else {
-        tap_code16(LALT(KC_UP));
-    }
-
-    return true;
-}
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_BASE] = LAYOUT(LT(_FN, KC_N), LALT(KC_UP), LALT(KC_DOWN), LALT(KC_D)),
+    [_FN]   = LAYOUT(KC_TRNS, KC_1, KC_2, BL_STEP),
+};

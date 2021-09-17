@@ -3,9 +3,9 @@
 
 #include "quantum.h"
 
-#define LAYOUT(K00, K01, K02, K03) \
+#define LAYOUT(k00, k01, k02, k03) \
     {                              \
-        { K00, K01, K02, K03, }    \
+        { k00, k01, k02, k03 }    \
     }
 
 #endif
