@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SPLIT_KEYBOARD
 #   define SPLIT_TRANSPORT_MIRROR
 #   define SPLIT_LAYER_STATE_ENABLE
+#   define SPLIT_OLED_ENABLE
 #   define SPLIT_MODS_ENABLE
 #   define SPLIT_TRANSACTION_IDS_USER RPC_ID_USERSPACE_SYNC, USER_SYNC_OLED, USER_SYNC_UNUSED
 #   define SPLIT_LED_STATE_ENABLE
