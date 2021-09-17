@@ -105,17 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *          │14│13│06││30│37│38│
  *          └──┴──┴──┘└──┴──┴──┘
  */
-// Sided color-setting
-void keylight_set_left(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < 24; i++) {
-        rgb_matrix_set_color(i, red, green, blue);
-    }
-}
-void keylight_set_right(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 24; i < 48; i++) {
-        rgb_matrix_set_color(i, red, green, blue);
-    }
-}
+
 // End of differentiations
 #endif
 

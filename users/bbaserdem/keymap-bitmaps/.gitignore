@@ -1,3 +1,4 @@
 *.bmp
 splitImages
 templates
+!.gitignore

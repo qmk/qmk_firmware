@@ -10,9 +10,3 @@ To sell soon; don't use them anymore, but will keep the light version.
 
 A planck rev4 replacement; for my acrylic planck case which used to host a now
 defunct rev4.
-
-## Status
-
-* [x] Layout adapted
-* [ ] Have not tested build yet.
-* [ ] Have not confirmed on board
