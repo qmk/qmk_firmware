@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           _______, _______,                                                            _______, _______,
                                             _______, _______,                                 KC_BTN3,
-                                                     KC_ACCEL, _______,               _______,
+                                                     _______, KC_ACCEL,              _______,
                                                      _______, _______,      _______, _______
     ),
     [_GAMEPAD] = LAYOUT_5x6_right(
@@ -142,8 +142,14 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
     [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
 };
+// clang-format on
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
+#    ifdef SWAP_HANDS_ENABLE
+    if (swap_hands) {
+        index ^= 1;
+    }
+#    endif
     if (index == 0) {
         tap_code_delay(clockwise ? KC_VOLD : KC_VOLU, 5);
     } else if (index == 1) {
@@ -152,7 +158,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
-// clang-format on
 
 #ifdef POINTING_DEVICE_ENABLE
 static uint16_t mouse_timer           = 0;
@@ -259,7 +264,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 // WPM-responsive animation stuff here
 #    define SLEEP_FRAMES 2
 #    define SLEEP_SPEED  10  // below this wpm value your animation will idle

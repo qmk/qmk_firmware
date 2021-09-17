@@ -22,5 +22,4 @@ void matrix_scan_sub_kb(void) {
     if (!readPin(A0)) {
         reset_keyboard();
     }
-    matrix_scan_user();
 }

@@ -2,8 +2,6 @@
     "keyboard_name": "rb86", 
     "url": "", 
     "maintainer": "qmk", 
-    "width": 17.25, 
-    "height": 6.25, 
     "layout_aliases": {
         "LAYOUT_numpad_6x17": "LAYOUT"
     },

@@ -2,8 +2,6 @@
     "keyboard_name": "GameBuddy1_0",
     "url": "www.clawboards.xyz",
     "maintainer": "AA Clawson (AlisGraveNil)",
-    "width": 7,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -38,4 +36,3 @@
     }
     ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
-

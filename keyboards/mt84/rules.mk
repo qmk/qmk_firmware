@@ -20,7 +20,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGB_MATRIX_ENABLE = yes     # Use RGB Matrix
 RGB_MATRIX_DRIVER = IS31FL3737
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 

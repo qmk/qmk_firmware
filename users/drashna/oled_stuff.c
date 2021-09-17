@@ -50,11 +50,17 @@ static const char PROGMEM code_to_name[0xFF] = {
 };
 // clang-format on
 
-void add_keylog(uint16_t keycode) {
+void add_keylog(uint16_t keycode, keyrecord_t *record) {
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
-        keycode = keycode & 0xFF;
-    } else if (keycode > 0xFF) {
-        keycode = 0;
+        if (((keycode & 0xFF) == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
+            memset(keylog_str, ' ', sizeof(keylog_str) - 1);
+            return;
+        }
+        if (record->tap.count) {
+            keycode = keycode & 0xFF;
+        } else if (keycode > 0xFF) {
+            return;
+        }
     }
 
     for (uint8_t i = 1; i < KEYLOGGER_LENGTH; i++) {
@@ -72,7 +78,7 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
 #ifdef OLED_ENABLE
         oled_timer = timer_read32();
-        add_keylog(keycode);
+        add_keylog(keycode, record);
 #endif
     }
     return true;
@@ -384,9 +390,8 @@ void render_status_main(void) {
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return rotation; }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    for (uint8_t i = 0; i < (KEYLOGGER_LENGTH - 1); i++) {
-        add_keylog(0);
-    }
+    memset(keylog_str, ' ', sizeof(keylog_str) - 1);
+
     return oled_init_keymap(rotation);
 }
 

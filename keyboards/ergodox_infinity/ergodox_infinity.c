@@ -137,13 +137,6 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
-}
-
 __attribute__ ((weak)) void ergodox_board_led_on(void) {}
 
 __attribute__ ((weak)) void ergodox_right_led_1_on(void) {}

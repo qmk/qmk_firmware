@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -17,7 +10,6 @@ BOOTLOADER = atmel-dfu
 AUDIO_ENABLE = no
 AUTOLOG_ENABLE = no
 BACKLIGHT_ENABLE = no
-BLUETOOTH_ENABLE = no
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMMAND_ENABLE = no
 CONSOLE_ENABLE = no

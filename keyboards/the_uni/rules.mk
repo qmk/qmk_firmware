@@ -1,7 +1,7 @@
 # MCU name
 MCU = atmega32u4
 
-# Bootloader
+# Bootloader selection
 BOOTLOADER = atmel-dfu
 
 
