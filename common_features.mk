@@ -517,7 +517,7 @@ ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(QMK_SETTINGS)), yes)
-    ifeq ($(strip $(MOUSEKEY_ENABLE)), no)
+    ifneq ($(strip $(MOUSEKEY_ENABLE)), yes)
         $(error QMK_SETTINGS requires MOUSEKEY_ENABLE, either disable QMK_SETTINGS explicitly or enable MOUSEKEY_ENABLE)
     endif
     AUTO_SHIFT_ENABLE := yes
