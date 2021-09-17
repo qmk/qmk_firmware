@@ -35,4 +35,6 @@
 #undef DEBOUNCE
 #define DEBOUNCE 1
 
+#define TAPPING_TERM 125
+
 #define SPLIT_WPM_ENABLE
