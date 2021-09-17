@@ -37,3 +37,5 @@ From the A9 pin on the Proton C, you want to run a wire from it to the `SDA + Ex
 To get RGB working properly, as well, you want to run a wire from the `A3` pin on the Proton C, next to the GND and DFU pin, right under the USB port.  Run this to the `TX0/D3` pad (the one you left without a header pin on the PCB).
 
 Once you've done that, you can solder in the Proton C. and flash it.
+
+![Proton C](https://i.imgur.com/nICqWLo.jpg)
