@@ -168,43 +168,50 @@ bool led_update_user(led_t led_state) {
 //------------------------------------------------------------------------------
 // Rotary Encoder
 //------------------------------------------------------------------------------
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    keypos_t key;
+static uint8_t  encoder_state[ENCODERS] = {0};
+static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
+static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
 
-    // Both encoders trigger specific key matrix position when turn knob clockwise or counterclockwise.
-
-    if (index == 0) { // First encoder, Left side : k85, k86
-        if (clockwise) {
-            key.row = 8;
-            key.col = 6;
-        } else {
-            key.row = 8;
-            key.col = 5;
-        }
-    } else if (index == 1) { // Second encoder, Right side : k95, k96
-        if (clockwise) {
-            key.row = 9;
-            key.col = 6;
-        } else {
-            key.row = 9;
-            key.col = 5;
+void encoder_action_unregister(void) {
+    for (int index = 0; index < ENCODERS; ++index) {
+        if (encoder_state[index]) {
+            keyevent_t encoder_event = (keyevent_t) {
+                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
+                .pressed = false,
+                .time = (timer_read() | 1)
+            };
+            encoder_state[index] = 0;
+            action_exec(encoder_event);
         }
     }
-
-    uint8_t  layer   = layer_switch_get_layer(key);
-    uint16_t keycode = keymap_key_to_keycode(layer, key);
-
-    tap_code16(keycode);
-
-    return true;
 }
+
+void encoder_action_register(uint8_t index, bool clockwise) {
+    keyevent_t encoder_event = (keyevent_t) {
+        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
+        .pressed = true,
+        .time = (timer_read() | 1)
+    };
+    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
+    action_exec(encoder_event);
+}
+
+void matrix_scan_kb(void) {
+    encoder_action_unregister();
+    matrix_scan_user();
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    encoder_action_register(index, clockwise);
+    return true;
+};
 
 
 //------------------------------------------------------------------------------
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
-
+debug_enable=true;
 #ifdef RGB_DI_PIN
   #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
