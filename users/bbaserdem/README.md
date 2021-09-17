@@ -2,13 +2,6 @@
 
 My userspace code for my various keyboards; available here.
 
-# Todo
-
-- [ ] Convert all RGB code to use RGB matrix.
-- [ ] Make workflow so that ARM and AVR are both differentiable.
-- [ ] Finish README to be intelligible.
-- [ ] Generate JSON files to be used with Keyboard-Layout-Editor to produce images.
-
 ## Builds
 
 These are my keyboard builds and info, it allows me to plan out my builds. 
@@ -117,8 +110,9 @@ These files are prefixed with `sbp-` to remove any naming clash.
 * [bb-audio](bb-audio.c): Code dealing with audio playback using onboard sound.
 * [bb-encoder](bb-encoder.c): Rotary encoder sutff.
 * [bb-macro](bb-macro.c): My custom keycodes; macros, tap dances, etc.
-* [bb-oled](bb-oled.c): Controls OLED displays.
-* [bb-rgb](bb-rgb.c): Controls per-key RGB LED matrix stuff.
+* [bb-oled](bb-oled.c): Controls OLED displays. For higher memory; there is also [bb-oled-extra](bb-oled-extra.c).
+* [bb-rgb](bb-rgb.c): Controls per-key RGB LED matrix stuff, and layer indication. Uses `RGB_MATRIX`.
+* [bb-underglaw](bb-underglow.c): Controls RGB LED strip, and layer indication. Uses `RGBLIGHT`.
 
 # Layout
 
@@ -126,8 +120,6 @@ My personal layout is mostly inspired by the
 [Miryoku layout](../manna-harbour_miryoku/miryoku.org).
 There are some changes to make it friendlier to international keyboards.
 My board is compatible with software implementation of Dvorak and Turkish F.
-
-WIP
 
 ## Base
 
@@ -137,13 +129,3 @@ as to make those modifiers accessible to the keys that overlap them.
 Besides the Alt key; each side has the proper L/R version of the modifier.
 Since Right Alt key functions as AltGr key;
 both the L and R versions are available on each side.
-
-# Shoutout
-
-* To [drashna](../drashna/readme.md), for documenting how to use userspace features;
-all my code is pretty much inspired from them.
-* To [Manna Harbour](../manna-harbour_miryoku/README.org) for their
-amazing keymap that inspired me to recreate mine and allowed me to move to
-smaller split keyboards.
-* To people who taught me C and have me enjoy working with it;
-Dr. Mehmet Enis Oğuz and Dr. Veysi Erkcan Özcan.
