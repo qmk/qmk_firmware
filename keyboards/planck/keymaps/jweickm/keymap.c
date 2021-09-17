@@ -30,6 +30,7 @@ enum planck_layers {
   _RAISE_DE,
   _ADJUST,
   _NAV,
+  _VIM,
   _NUM,
   _MOUSE,
 };
@@ -156,10 +157,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NAV] = LAYOUT_planck_grid(
+    ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_HOME, KC_RIGHT, KC_PGUP, LCTL(KC_INS), LSFT(KC_INS), KC_DE_SWITCH, 
+		CTL_TAB, KC_TAB, KC_ESC, KC_ENT, TD(TD_VIM_GG), KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, 
+		KC_LSFT, KC_NO, LCTL(KC_X), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), 
+		KC_NO, KC_NO, KC_TRNS, KC_BSPC, KC_TRNS, LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), KC_ENT, KC_DEL, KC_TRNS, KC_DOWN, KC_UP
+),
+
+[_VIM] = LAYOUT_planck_grid(
     ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_HOME, KC_RIGHT, KC_PGUP, LCTL(KC_C), KC_RGUI, KC_DE_SWITCH, 
 		CTL_TAB, KC_TAB, KC_ESC, KC_ENT, TD(TD_VIM_GG), KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, 
 		KC_LSFT, KC_NO, LCTL(KC_X), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), 
-		KC_NO, KC_NO, KC_NO, KC_BSPC, KC_TRNS, LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), KC_ENT, KC_DEL, KC_TRNS, KC_DOWN, KC_UP
+		KC_NO, KC_NO, TG(_VIM), KC_BSPC, KC_TRNS, LT(_NAV,KC_SPC), LT(_NAV,KC_SPC), KC_ENT, KC_DEL, KC_TRNS, KC_DOWN, KC_UP
 ),
 
 [_NUM] = LAYOUT_planck_grid(
@@ -243,13 +251,13 @@ void dance_cbr_de(qk_tap_dance_state_t *state, void *user_data) {
 }
 void vim_gg(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-      for (int i = 0; i < 10; i++) {
-        tap_code(KC_PGDN);
-      }
+      register_mods(MOD_LCTL);
+      tap_code(KC_END);
+      unregister_mods(MOD_LCTL);
     } else {
-      for (int i = 0; i < 10; i++) {
-        tap_code(KC_PGUP);
-      }
+      register_mods(MOD_LCTL);
+      tap_code(KC_HOME);
+      unregister_mods(MOD_LCTL);
     }
 }
 
