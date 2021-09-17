@@ -329,39 +329,27 @@ void dance_prn_de(qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_brc_de(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        add_mods(MOD_BIT(KC_RALT));
-        tap_code(KC_8);
-        unregister_mods(MOD_BIT(KC_RALT));
+        tap_code16(RALT(KC_8));
     } else {
-        add_mods(MOD_BIT(KC_RALT));
-        tap_code(KC_8);
-        tap_code(KC_9);
-        unregister_mods(MOD_BIT(KC_RALT));
+        tap_code16(RALT(KC_8));
+        tap_code16(RALT(KC_9));
         tap_code(KC_LEFT);
     }
 }
 void dance_cbr_de(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        add_mods(MOD_BIT(KC_RALT));
-        tap_code16(KC_7);
-        unregister_mods(MOD_BIT(KC_RALT));
+        tap_code16(RALT(KC_7));
     } else {
-        add_mods(MOD_BIT(KC_RALT));
-        tap_code(KC_7);
-        tap_code(KC_0);
-        unregister_mods(MOD_BIT(KC_RALT));
+        tap_code16(RALT(KC_7));
+        tap_code16(RALT(KC_0));
         tap_code(KC_LEFT);
     }
 }
 void vim_gg(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        register_mods(MOD_LCTL);
-        tap_code(KC_END);
-        unregister_mods(MOD_LCTL);
+        tap_code16(LCTL(KC_END));
     } else {
-        register_mods(MOD_LCTL);
-        tap_code(KC_HOME);
-        unregister_mods(MOD_LCTL);
+        tap_code16(LCTL(KC_HOME));
     }
 }
 
@@ -557,7 +545,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (!is_alt_tab_active) {
                     is_alt_tab_active = true;
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                 }
                 register_code(KC_TAB);
             } else {
@@ -568,7 +556,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (!is_ctl_tab_active) {
                     is_ctl_tab_active = true;
-                    add_mods(MOD_LCTL);
+                    add_mods(MOD_BIT(KC_LCTL));
                 }
                 register_code(KC_TAB);
             } else {
@@ -591,14 +579,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
                     clear_oneshot_mods();
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P1);
                     tap_code(KC_P9);
                     tap_code(KC_P6);  // Ä
                 } else {
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P2);
@@ -614,7 +602,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 uint8_t temp_mods = get_mods() | get_oneshot_mods();
                 clear_oneshot_mods();
                 clear_mods();
-                add_mods(MOD_LALT);
+                add_mods(MOD_BIT(KC_LALT));
                 tap_code(KC_P0);
                 tap_code(KC_P1);
                 tap_code(KC_P9);
@@ -630,14 +618,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
                     clear_oneshot_mods();
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P1);
                     tap_code(KC_P4);  // Ö
                 } else {
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P4);
@@ -653,7 +641,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 uint8_t temp_mods = get_mods() | get_oneshot_mods();
                 clear_oneshot_mods();
                 clear_mods();
-                add_mods(MOD_LALT);
+                add_mods(MOD_BIT(KC_LALT));
                 tap_code(KC_P0);
                 tap_code(KC_P2);
                 tap_code(KC_P1);
@@ -669,14 +657,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
                     clear_oneshot_mods();
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P2);
                     tap_code(KC_P0);  // Ü
                 } else {
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P5);
@@ -721,14 +709,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
                     clear_oneshot_mods();
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P1);
                     tap_code(KC_P7);
                     tap_code(KC_P6);  // °
                 } else {
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P2);
@@ -745,14 +733,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
                     clear_oneshot_mods();
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P0);
                     tap_code(KC_P0);  // È
                 } else {
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P3);
@@ -769,14 +757,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
                     clear_oneshot_mods();
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P0);
                     tap_code(KC_P1);  // É
                 } else {
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P2);
                     tap_code(KC_P3);
@@ -793,13 +781,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) {
                     clear_oneshot_mods();
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P1);
                     tap_code(KC_P5);
                     tap_code(KC_P7);  // ¥
                 } else {
                     clear_mods();
-                    add_mods(MOD_LALT);
+                    add_mods(MOD_BIT(KC_LALT));
                     tap_code(KC_P0);
                     tap_code(KC_P1);
                     tap_code(KC_P2);
@@ -848,9 +836,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (temp_mods & MOD_MASK_SHIFT) {
                     tap_code(KC_DOT);  // ;
                 } else {
-                    add_mods(MOD_LSFT);
+                    add_mods(MOD_BIT(KC_LSFT));
                     tap_code(KC_COMM);  // :
-                    del_mods(MOD_LSFT);
+                    del_mods(MOD_BIT(KC_LSFT));
                 }
                 return false;
             }
@@ -895,9 +883,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     if (temp_mods & MOD_MASK_SHIFT) {
                         tap_code(KC_DOT);  // ;
                     } else {
-                        add_mods(MOD_LSFT);
+                        add_mods(MOD_BIT(KC_LSFT));
                         tap_code(KC_COMM);  // :
-                        del_mods(MOD_LSFT);
+                        del_mods(MOD_BIT(KC_LSFT));
                     }
                 } else {
                     tap_code(KC_RGUI);
