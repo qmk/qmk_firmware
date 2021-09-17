@@ -21,3 +21,5 @@ RGBLIGHT_ENABLE = yes       # Enable RGB underglow
 UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
+
+LAYOUTS = tkl_ansi tkl_iso
