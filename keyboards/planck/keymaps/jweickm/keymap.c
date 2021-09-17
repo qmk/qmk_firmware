@@ -52,42 +52,241 @@ enum tap_dance_codes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_HRWIDECOLEMAK] = LAYOUT_planck_grid(LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM, KC_B), KC_SVU_BU, LT(_NUM, KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Y), RGUI_T(KC_SCLN), DE_ue, KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB, KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, LT(_MOUSE, KC_Z), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD, KC_K, KC_H, KC_COMM, KC_DOT, LT(_MOUSE, KC_SLSH), KC_BSLS, LCTL_T(KC_CAPS), LGUI_T(KC_TAB), M_ESCM, LT(_LOWER, KC_BSPC), OSM(MOD_LSFT), LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), LT(_RAISE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV, KC_LEFT), LT(_NAV, KC_RIGHT)),
-
-    [_HRWIDECOLEMAK_DE] = LAYOUT_planck_grid(LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM, KC_B), KC_SVU_BU, LT(_NUM, KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Z), M_RGUI_SCLN, KC_LBRC, KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB, KC_M, KC_N, KC_E, KC_I, KC_O, DE_QUOT, LT(_MOUSE, KC_Y), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD, KC_K, KC_H, KC_COMM, KC_DOT, DE_SLSH_QUST, DE_BSLS, LCTL_T(KC_CAPS), LGUI_T(KC_TAB), M_ESCM, LT(_LOWER_DE, KC_BSPC), OSM(MOD_LSFT), LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), LT(_RAISE_DE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV, KC_LEFT), LT(_NAV, KC_RIGHT)),
-
-    [_GAMING] = LAYOUT_planck_grid(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_F5, KC_F8, KC_F9, KC_VOLU, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_VOLD, KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_Z, KC_M, KC_SCLN, TG_COLEMAK, KC_LCTL, KC_C, KC_B, KC_X, KC_LALT, KC_SPC, KC_SPC, KC_ENT, KC_RALT, KC_TRNS, KC_TRNS, GAMING),
-
-    /* WIDECOLEMAK
+    /* _HRWIDECOLEMAK
      * ,-----------------------------------------------------------------------------------.
-     * |_NUM(Tab)|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+     * |  G-Q |  A-W |  S-F |  C-P |_Num-B|🔈/🔆+|_Num-J|  C-L |  S-U |  A-Y |  G-: |   Ü  |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * |CTL(Esc)|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+     * |   A  |   R  |   S  |   T  |   G  | TAB  |   M  |   N  |   E  |   I  |   O  |   '  |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+     * |_Mo-Z |   X  |   C  |   D  |   V  |🔈/🔆-|   K  |   H  |   ,  |   .  |_Mo-/ |   \  |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+     * |C-CAPS|G-TAB |MN-ESC|_L-BSP| LSFT |  _Nav-SPC   |_R-ENT|S-DEL |C-TAB |_Na- ←|_Na- →|
      * `-----------------------------------------------------------------------------------'
      */
-    [_WIDECOLEMAK] = LAYOUT_planck_grid(KC_Q, KC_W, KC_F, KC_P, KC_B, KC_SVU_BU, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, DE_ue, KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB_MPLY, KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_Z, KC_X, KC_C, KC_D, KC_V, KC_SVD_BD, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, TG_COLEMAK, KC_CAPS, LT(_NUM, KC_TAB), LGUI_T(KC_ESC), LT(_LOWER, KC_BSPC), OSM(MOD_LSFT), LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), LT(_RAISE, KC_ENT), RSFT_T(KC_DEL), KC_LALT, LT(_NAV, KC_LEFT), LT(_NAV, KC_RIGHT)),
+    [_HRWIDECOLEMAK] = LAYOUT_planck_grid(
+        LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM, KC_B), KC_SVU_BU, LT(_NUM, KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Y), RGUI_T(KC_SCLN), DE_ue, 
+        KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB, KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, 
+        LT(_MOUSE, KC_Z), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD, KC_K, KC_H, KC_COMM, KC_DOT, LT(_MOUSE, KC_SLSH), KC_BSLS, 
+        LCTL_T(KC_CAPS), LGUI_T(KC_TAB), M_ESCM, LT(_LOWER, KC_BSPC), OSM(MOD_LSFT), LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), LT(_RAISE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV, KC_LEFT), LT(_NAV, KC_RIGHT)
+    ),
 
-    [_LOWER] = LAYOUT_planck_grid(KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_TILD, KC_CIRC, KC_AMPR, KC_ASTR, TD(TD_PRN), KC_RPRN, DE_OE, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DE_SZ, KC_UNDS, KC_PLUS, TD(TD_CBR), KC_RCBR, DE_AE, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, KC_SLSH, KC_NUBS, LSFT(KC_NUBS), KC_CURRENCY, DE_EGRAVE, TG(_MOUSE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_DOWN, KC_UP),
+    /* _HRWIDECOLEMAK_DE
+     * same as above, when the PC is set to German layout
+     * ,-----------------------------------------------------------------------------------.
+     * |  G-Q |  A-W |  S-F |  C-P |_Num-B|🔈/🔆+|_Num-J|  C-L |  S-U |  A-Y |  G-: |   Ü  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |   A  |   R  |   S  |   T  |   G  | TAB  |   M  |   N  |   E  |   I  |   O  |   '  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |_Mo-Z |   X  |   C  |   D  |   V  |🔈/🔆-|   K  |   H  |   ,  |   .  |_Mo-/ |   \  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |C-CAPS|G-TAB |MN-ESC|_L-BSP| LSFT |  _Nav-SPC   |_R-ENT|S-DEL |C-TAB |_Na- ←|_Na- →|
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_HRWIDECOLEMAK_DE] = LAYOUT_planck_grid(
+        LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM, KC_B), KC_SVU_BU, LT(_NUM, KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Z), M_RGUI_SCLN, KC_LBRC, 
+        KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB, KC_M, KC_N, KC_E, KC_I, KC_O, DE_QUOT, 
+        LT(_MOUSE, KC_Y), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD, KC_K, KC_H, KC_COMM, KC_DOT, DE_SLSH_QUST, DE_BSLS, 
+        LCTL_T(KC_CAPS), LGUI_T(KC_TAB), M_ESCM, LT(_LOWER_DE, KC_BSPC), OSM(MOD_LSFT), LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), LT(_RAISE_DE, KC_ENT), RSFT_T(KC_DEL), RCTL_T(KC_TAB), LT(_NAV, KC_LEFT), LT(_NAV, KC_RIGHT)
+    ),
 
-    [_LOWER_DE] = LAYOUT_planck_grid(KC_EXLM, RALT(KC_Q), KC_BSLS, KC_DLR, KC_PERC, RALT(KC_RBRC), KC_GRV, KC_CIRC, KC_RCBR, TD(TD_PRN_DE), KC_LPRN, LSFT(KC_SCLN), KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, LSFT(KC_SLSH), KC_RBRC, TD(TD_CBR_DE), RALT(KC_0), LSFT(KC_QUOT), KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, LSFT(KC_7), KC_NUBS, LSFT(KC_NUBS), KC_CURRENCY, KC_PLUS, TG(_MOUSE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_DOWN, KC_UP),
+    /* _GAMING
+     * ,-----------------------------------------------------------------------------------.
+     * | ESC  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |  F5  |  F8  |  F9  |  🔊  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  🔉  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | LSFT |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   Z  |   M  |   ;  |_CM-EN|
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | LCTL |   C  |   B  |   X  | LALT |    SPACE    | ENT  | RALT | ____ | ____ | !GAME|
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_GAMING] = LAYOUT_planck_grid(
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_F5, KC_F8, KC_F9, KC_VOLU, 
+        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_VOLD, 
+        KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_Z, KC_M, KC_SCLN, TG_COLEMAK, 
+        KC_LCTL, KC_C, KC_B, KC_X, KC_LALT, KC_SPC, KC_SPC, KC_ENT, KC_RALT, KC_TRNS, KC_TRNS, GAMING
+    ),
 
-    [_RAISE] = LAYOUT_planck_grid(KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV, KC_6, KC_7, KC_8, KC_9, KC_0, DE_oe, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DE_SZ, KC_MINS, KC_EQL, TD(TD_BRC), KC_RBRC, DE_ae, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, KC_BSLS, KC_COMM, KC_DOT, KC_SLSH, DE_EAIGU, TG(_MOUSE), KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_DOWN, KC_UP),
+    /* WIDECOLEMAK
+     * no mod taps
+     * ,-----------------------------------------------------------------------------------.
+     * |   Q  |   W  |   F  |   P  |   B  |  🔈+ |   J  |   L  |   U  |   Y  |   :  |   Ü  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |   A  |   R  |   S  |   T  |   G  | TAB  |   M  |   N  |   E  |   I  |   O  |   '  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |   Z  |   X  |   C  |   D  |   V  |  🔈- |   K  |   H  |   ,  |   .  |   /  |!CM-EN|
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |C-CAPS|G-TAB |MN-ESC|_L-BSP| LSFT |  _NAV-SPC   |_R-ENT|S-DEL |C-TAB |_Na- ←|_Na- →|
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_WIDECOLEMAK] = LAYOUT_planck_grid(
+        KC_Q, KC_W, KC_F, KC_P, KC_B, KC_SVU_BU, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, DE_ue,
+        KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB_MPLY, KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, 
+        KC_Z, KC_X, KC_C, KC_D, KC_V, KC_SVD_BD, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, TG_COLEMAK, 
+        LCTL_T(KC_CAPS), LGUI_T(KC_TAB), M_ESCM, LT(_LOWER_DE, KC_BSPC), OSM(MOD_LSFT), LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), LT(_RAISE, KC_ENT), RSFT_T(KC_DEL), KC_LALT, LT(_NAV, KC_LEFT), LT(_NAV, KC_RIGHT)
+    ),
 
-    [_RAISE_DE] = LAYOUT_planck_grid(KC_1, KC_2, KC_3, KC_4, KC_5, LSFT(KC_GRV), KC_6, KC_7, KC_8, KC_9, KC_0, KC_SCLN, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, KC_SLSH, LSFT(KC_0), TD(TD_BRC_DE), RALT(KC_9), KC_QUOT, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, RALT(KC_MINS), KC_COMM, KC_DOT, KC_SLSH, KC_EQL, TG(_MOUSE), KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_DOWN, KC_UP),
+    /* _LOWER
+     * ,-----------------------------------------------------------------------------------.
+     * |   !  |   @  |   #  |   $  |   %  |   ~  |   ^  |   &  |   *  |   (  |   )  |   Ö  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   ß  |   _  |   +  |   {  |   }  |   Ä  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  ▶⏸ |   /  |   \  |   |  |   €  |   è  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |!MOUSE| ____ | ____ | ____ | ____ |     ____    | ____ |  🔈- |  🔈+ |   ↓  |   ↑  |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_LOWER] = LAYOUT_planck_grid(
+        KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_TILD, KC_CIRC, KC_AMPR, KC_ASTR, TD(TD_PRN), KC_RPRN, DE_OE, 
+        KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DE_SZ, KC_UNDS, KC_PLUS, TD(TD_CBR), KC_RCBR, DE_AE, 
+        KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, KC_SLSH, KC_NUBS, LSFT(KC_NUBS), KC_CURRENCY, DE_EGRAVE, 
+        TG(_MOUSE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_DOWN, KC_UP
+    ),
 
-    [_ADJUST] = LAYOUT_planck_grid(LALT(KC_LSFT), RESET, DEBUG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DE_SWITCH, LALT(KC_GRV), EEP_RST, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, HRWIDECOLEMAK, WIDECOLEMAK, LALT(KC_GRV), LANG_SWITCH, GAMING, KC_TRNS, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, KC_SVD_BD, KC_MPLY, KC_SVU_BU, KC_TRNS, , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EEPROM_RESET),
+    /* _LOWER_DE
+     * ,-----------------------------------------------------------------------------------.
+     * |   !  |   @  |   #  |   $  |   %  |   ~  |   ^  |   &  |   *  |   (  |   )  |   Ö  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   ß  |   _  |   +  |   {  |   }  |   Ä  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  ▶⏸ |   /  |   <  |   >  |   €  |   `  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |!MOUSE| ____ | ____ | ____ | ____ |     ____    | ____ |  🔈- |  🔈+ |   ↓  |   ↑  |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_LOWER_DE] = LAYOUT_planck_grid(
+        KC_EXLM, RALT(KC_Q), KC_BSLS, KC_DLR, KC_PERC, RALT(KC_RBRC), KC_GRV, KC_CIRC, KC_RCBR, TD(TD_PRN_DE), KC_LPRN, LSFT(KC_SCLN), 
+        KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, LSFT(KC_SLSH), KC_RBRC, TD(TD_CBR_DE), RALT(KC_0), LSFT(KC_QUOT), 
+        KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, LSFT(KC_7), KC_NUBS, LSFT(KC_NUBS), KC_CURRENCY, KC_PLUS, 
+        TG(_MOUSE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_DOWN, KC_UP
+    ),
 
-    [_NAV] = LAYOUT_planck_grid(ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_HOME, KC_RIGHT, KC_PGUP, LCTL(KC_INS), LSFT(KC_INS), KC_DE_SWITCH, CTL_TAB, KC_TAB, KC_ESC, KC_ENT, TD(TD_VIM_GG), KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, KC_LSFT, KC_NO, LCTL(KC_X), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), KC_NO, KC_NO, KC_TRNS, KC_BSPC, KC_TRNS, LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), KC_ENT, KC_DEL, KC_TRNS, KC_DOWN, KC_UP),
+    /* _RAISE
+     * ,-----------------------------------------------------------------------------------.
+     * |   1  |   2  |   3  |   4  |   5  |   `  |   6  |   7  |   8  |   9  |   0  |   ö  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   ß  |   -  |   =  |   [  |   ]  |   ä  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  ▶⏸ |   \  |   ,  |   .  |   /  |   é  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |!MOUSE| ____ | ____ | BSPC | ____ |     ____    | ____ |  ⏮️  |  ⏭️  |   ↓  |   ↑  |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_RAISE] = LAYOUT_planck_grid(
+        KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV, KC_6, KC_7, KC_8, KC_9, KC_0, DE_oe, 
+        KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DE_SZ, KC_MINS, KC_EQL, TD(TD_BRC), KC_RBRC, DE_ae, 
+        KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, KC_BSLS, KC_COMM, KC_DOT, KC_SLSH, DE_EAIGU, 
+        TG(_MOUSE), KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_DOWN, KC_UP
+    ),
 
-    [_VIM] = LAYOUT_planck_grid(ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_HOME, KC_RIGHT, KC_PGUP, LCTL(KC_C), KC_RGUI, KC_DE_SWITCH, CTL_TAB, KC_TAB, KC_ESC, KC_ENT, TD(TD_VIM_GG), KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, KC_LSFT, KC_NO, LCTL(KC_X), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), KC_NO, KC_NO, TG(_VIM), KC_BSPC, KC_TRNS, LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), KC_ENT, KC_DEL, KC_TRNS, KC_DOWN, KC_UP),
+    /* _RAISE_DE
+     * ,-----------------------------------------------------------------------------------.
+     * |   1  |   2  |   3  |   4  |   5  |   `  |   6  |   7  |   8  |   9  |   0  |   ö  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   ß  |   -  |   =  |   [  |   ]  |   ä  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  ▶⏸ |   \  |   ,  |   .  |   -  |   ´  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |!MOUSE| ____ | ____ | BSPC | ____ |     ____    | ____ |  ⏮️  |  ⏭️  |   ↓  |   ↑  |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_RAISE_DE] = LAYOUT_planck_grid(
+        KC_1, KC_2, KC_3, KC_4, KC_5, LSFT(KC_GRV), KC_6, KC_7, KC_8, KC_9, KC_0, KC_SCLN, 
+        KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, KC_SLSH, LSFT(KC_0), TD(TD_BRC_DE), RALT(KC_9), KC_QUOT, 
+        KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, RALT(KC_MINS), KC_COMM, KC_DOT, KC_SLSH, KC_EQL, 
+        TG(_MOUSE), KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_DOWN, KC_UP
+    ),
 
-    [_NUM] = LAYOUT_planck_grid(KC_F1, KC_F2, KC_F3, KC_F4, KC_MPRV, KC_NLCK, KC_MNXT, KC_P7, KC_P8, KC_P9, KC_MINS, KC_TRNS, KC_F5, KC_F6, KC_F7, KC_F8, KC_VOLU, KC_MPLY, KC_ASTR, KC_P4, KC_P5, KC_P6, KC_PLUS, KC_DOT, KC_F9, KC_F10, KC_F11, KC_F12, KC_VOLD, KC_MUTE, KC_EQL, KC_P1, KC_P2, KC_P3, KC_SLSH, KC_COMM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_DOT, KC_COMM, KC_EQL, KC_TRNS),
+    /* _ADJUST
+     * ,-----------------------------------------------------------------------------------.
+     * | A-SFT| RESET| DEBUG|RGBTOG|RGBMOD|RGBHUI|RGBHUD|RGBSAI|RGBSAD|RGBVAI|RGBVAD| DE_SW|
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | A-GRV|EEPRST|MU_MOD| AU_ON|AU_OFF|AGNORM|AGSWAP|!HRWCM| !WCM | A-GRV| !LANG| !GAME|
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | ____ |MUV_DE|MUV_IN| MU_ON|MU_OFF| MI_ON|MI_OFF|  🔈- |  ▶⏸ |  🔈+ | ____ | ____ |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | ____ | ____ | ____ | ____ | ____ |     ____    | ____ | ____ | ____ | ____ |EEPRST|
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_ADJUST] = LAYOUT_planck_grid(
+        LALT(KC_LSFT), RESET, DEBUG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DE_SWITCH, 
+        LALT(KC_GRV), EEP_RST, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, HRWIDECOLEMAK, WIDECOLEMAK, LALT(KC_GRV), LANG_SWITCH, GAMING, 
+        KC_TRNS, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, KC_SVD_BD, KC_MPLY, KC_SVU_BU, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EEPROM_RESET
+    ),
 
-    [_MOUSE] = LAYOUT_planck_grid(KC_NO, KC_NO, KC_BTN4, KC_BTN5, KC_NO, KC_BRIU, KC_NO, KC_WH_U, KC_MS_U, KC_WH_U, KC_NO, KC_NO, KC_NO, KC_BTN3, KC_BTN2, KC_BTN1, KC_NO, KC_MPLY, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_BRID, KC_NO, KC_WH_D, KC_NO, KC_NO, KC_TRNS, KC_NO, TG(_MOUSE), KC_NO, KC_NO, KC_TRNS, KC_NO, KC_ACL2, KC_ACL2, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO)
+    /* _NAV
+     * ,-----------------------------------------------------------------------------------.
+     * |A(TAB)| C(→) | !LANG|A(GRV)| C(←) |  ⏭️  | HOME |   →  | PGUP | COPY | PASTE| DE_SW|
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |C(TAB)|  TAB |  ESC |  ENT |VIM_GG|  ▶⏸ |   ←  |   ↓  |   ↑  |   →  |  END | VIM_O|
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | LSFT | XXXX |S(DEL)| CAPS | VIM_V|  🔇  | HOME | PGDN | LSFT | RFST | C(F) | C(F) |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | XXXX | XXXX | ____ | BSPC | ____ |     ____    |  ENT |  DEL | ____ |   ↓  |   ↑  |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_NAV] = LAYOUT_planck_grid(
+        ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_HOME, KC_RIGHT, KC_PGUP, LCTL(KC_INS), LSFT(KC_INS), KC_DE_SWITCH, 
+        CTL_TAB, KC_TAB, KC_ESC, KC_ENT, TD(TD_VIM_GG), KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, 
+        KC_LSFT, KC_NO, LSFT(KC_DEL), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), 
+        KC_NO, KC_NO, KC_TRNS, KC_BSPC, KC_TRNS, LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), KC_ENT, KC_DEL, KC_TRNS, KC_DOWN, KC_UP
+    ),
+
+    /* _VIM
+     * ,-----------------------------------------------------------------------------------.
+     * |A(TAB)| C(→) | !LANG|A(GRV)| C(←) |  ⏭️  | HOME |   →  | PGUP | COPY | PASTE| DE_SW|
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |C(TAB)|  TAB |  ESC |  ENT |VIM_GG|  ▶⏸ |   ←  |   ↓  |   ↑  |   →  |  END | VIM_O|
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | LSFT | XXXX |S(DEL)| CAPS | VIM_V|  🔇  | HOME | PGDN | LSFT | RFST | C(F) | C(F) |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | XXXX | XXXX | !VIM | BSPC | ____ |     ____    |  ENT |  DEL | ____ |   ↓  |   ↑  |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_VIM] = LAYOUT_planck_grid(
+        ALT_TAB, LCTL(KC_RGHT), LANG_SWITCH, LALT(KC_GRV), LCTL(KC_LEFT), KC_MNXT, KC_HOME, KC_RIGHT, KC_PGUP, LCTL(KC_INS), LSFT(KC_INS), KC_DE_SWITCH, 
+        CTL_TAB, KC_TAB, KC_ESC, KC_ENT, TD(TD_VIM_GG), KC_MPLY, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_END, VIM_O, 
+        KC_LSFT, KC_NO, LSFT(KC_DEL), KC_CAPS, VIM_V, KC_MUTE, KC_HOME, KC_PGDN, KC_LSFT, KC_RSFT, LCTL(KC_F), LCTL(KC_F), 
+        KC_NO, KC_NO, TG(_VIM), KC_BSPC, KC_TRNS, LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), KC_ENT, KC_DEL, KC_TRNS, KC_DOWN, KC_UP
+    ),
+
+    /* _NUM
+     * ,-----------------------------------------------------------------------------------.
+     * |  F1  |  F2  |  F3  |  F4  |  ⏮️  |NUMLCK|  ⏭️  |   7  |   8  |   9  |   -  | ____ |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F5  |  F6  |  F7  |  F8  |  🔊  |  ▶⏸ |   *  |   4  |   5  |   6  |   +  |   .  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F9  |  F10 |  F11 |  F12 |  🔉  |  🔇  |   =  |   1  |   2  |   3  |   /  |   ,  |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | ____ | ____ | ____ | ____ | ____ |     ____    |   0  |   .  |   ,  |   =  | ____ |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_NUM] = LAYOUT_planck_grid(
+        KC_F1, KC_F2,  KC_F3,  KC_F4, KC_MPRV, KC_NLCK, KC_MNXT, KC_P7, KC_P8, KC_P9, KC_MINS, KC_TRNS, 
+        KC_F5, KC_F6,  KC_F7,  KC_F8, KC_VOLU, KC_MPLY, KC_ASTR, KC_P4, KC_P5, KC_P6, KC_PLUS, KC_DOT, 
+        KC_F9, KC_F10, KC_F11, KC_F12, KC_VOLD, KC_MUTE, KC_EQL, KC_P1, KC_P2, KC_P3, KC_SLSH, KC_COMM, 
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_DOT, KC_COMM, KC_EQL, KC_TRNS
+    ),
+
+    /* _MOUSE
+     * ,-----------------------------------------------------------------------------------.
+     * | XXXX | XXXX | MBTN4| MBTN5| XXXX |  🔆+ | XXXX | MWHL↑|MOUSE↑| MWHL↑| XXXX | XXXX |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | XXXX | MBTN3| MBTN2| MBTN1| XXXX |  ▶⏸ | XXXX |MOUSE←|MOUSE↓|MOUSE→| XXXX | XXXX |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |  F9  | XXXX | XXXX | XXXX | XXXX |  🔆- | XXXX | MWHL↓| XXXX | XXXX | ____ | XXXX |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |!MOUSE| XXXX | XXXX | ____ | XXXX | MOUSEACCEL 2| ____ | XXXX | XXXX | XXXX | XXXX |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [_MOUSE] = LAYOUT_planck_grid(
+        KC_NO, KC_NO, KC_BTN4, KC_BTN5, KC_NO, KC_BRIU, KC_NO, KC_WH_U, KC_MS_U, KC_WH_U, KC_NO, KC_NO, 
+        KC_NO, KC_BTN3, KC_BTN2, KC_BTN1, KC_NO, KC_MPLY, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO, 
+        KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_BRID, KC_NO, KC_WH_D, KC_NO, KC_NO, KC_TRNS, KC_NO, 
+        TG(_MOUSE), KC_NO, KC_NO, KC_TRNS, KC_NO, KC_ACL2, KC_ACL2, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO
+    )
 
 };
 
@@ -316,7 +515,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
                     register_code(KC_BRIU);
-                } else if (get_mods() & MOD_MASK_SHIFT) {
+                } else if (get_mods() & MOD_MASK_CTRL) {
                     register_code(KC_MNXT);
                 } else {
                     register_code(KC_VOLU);
@@ -331,7 +530,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
                     register_code(KC_BRID);
-                } else if (get_mods() & MOD_MASK_SHIFT) {
+                } else if (get_mods() & MOD_MASK_CTRL) {
                     register_code(KC_MPRV);
                 } else {
                     register_code(KC_VOLD);
@@ -688,9 +887,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_RGUI_SCLN:
             if (record->event.pressed) {
                 key_timer = timer_read();
-                add_mods(MOD_RGUI);
+                add_mods(MOD_BIT(KC_RGUI));
             } else {
-                del_mods(MOD_RGUI);
+                del_mods(MOD_BIT(KC_RGUI));
                 if (timer_elapsed(key_timer) < (TAPPING_TERM * pinky_factor)) {
                     uint8_t temp_mods = get_mods() | get_oneshot_mods();
                     if (temp_mods & MOD_MASK_SHIFT) {
