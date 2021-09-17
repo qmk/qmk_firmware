@@ -6,7 +6,7 @@ A 80% made by Owlab.
 
 * Keyboard Maintainer: [owlab](https://github.com/owlab-git)
 * Hardware Supported: Suit80 ISO PCB
-* Hardware Availability: Ended groupbuy: https://www.qwertykeys.com/products/jrrgvdsyu47wer
+* Hardware Availability: Ended groupbuy: https://www.zfrontier.com/app/flow/2Q1YEKykXmYZ
 
 Make example for this keyboard (after setting up your build environment):
 

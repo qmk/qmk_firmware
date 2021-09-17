@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001 
 #define MANUFACTURER    OwLab 
 #define PRODUCT         SUIT80
-#define DESCRIPTION     A custom 80% Keyboard by OwLab
 
 /* key matrix size */
 #define MATRIX_ROWS 6
