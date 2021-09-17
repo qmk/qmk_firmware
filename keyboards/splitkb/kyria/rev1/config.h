@@ -63,6 +63,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SERIAL_USART_PIN_SWAP         // Swap TX and RX pins if keyboard is master halve.
 #    define SERIAL_USART_DRIVER      SD1  // USART driver of TX pin. default: SD1
 #    define SERIAL_USART_TX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
+#    define SERIAL_USART_TX_PIN      D3
+#    define SERIAL_USART_RX_PIN      D2
 
 #    define RGB_DI_PIN               PAL_LINE(GPIOA, 3)
 #    define WS2812_PWM_DRIVER        PWMD2                  // default: PWMD2
