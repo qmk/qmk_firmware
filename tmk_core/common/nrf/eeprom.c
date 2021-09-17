@@ -15,8 +15,11 @@
  */
 
 #include "eeprom.h"
+#include "eeconfig.h"
 
 static uint8_t buffer[EEPROM_SIZE];
+
+_Static_assert(EEPROM_SIZE >= EECONFIG_SIZE, "EEPROM_SIZE is too small to save EECONFIG");
 
 void eeprom_get_buffer_addr(uint8_t **buf, uint32_t *len) {
     *buf = buffer;
