@@ -227,13 +227,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Keymap layer state setting
     state = layer_state_set_keymap(state);
     // For underglow stuff
-    #ifdef RGBLIGHT_ENABLE
-    layer_state_set_underglow(state);
-    #endif
+#   ifdef RGBLIGHT_ENABLE
+    state = layer_state_set_underglow(state);
+#   endif
     // Audio playback
-    #ifdef AUDIO_ENABLE
-    layer_state_set_audio(state);
-    #endif
+#   ifdef AUDIO_ENABLE
+    state = layer_state_set_audio(state);
+#   endif
 
     return state;
 }

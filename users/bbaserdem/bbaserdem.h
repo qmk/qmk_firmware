@@ -32,6 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE         
   #include "bb-backlight.h"
 #endif
+// Underglow light using rgb LEDs
+#ifdef RGBLIGHT_ENABLE
+    #include "bb-underglow.h"
+#endif
 // Keycap backlight using rgb LEDs
 #ifdef RGB_MATRIX_ENABLE
     #include "bb-rgb.h"
@@ -123,10 +127,6 @@ enum userspace_custom_keycodes {
 #   ifdef ENCODER_ENABLE
     BB_ENC0,
     BB_ENC1,
-#   endif
-    // Some RGB toggles 
-#   ifdef RGB_MATRIX_ENABLE
-    BB_RGBO,
 #   endif
     // Oled editor
 #   ifdef OLED_ENABLE
@@ -420,7 +420,7 @@ enum userspace_layers {
  *       ┌─────┬─────┬─────┬─────┬─────┐
  *       │Speed│ Mod │ Hue │ Sat │ Bri │ RGB light control
  *       ├─────┼─────┼─────┼─────┼─────┤
- *       │Media│Prev.│MuTog│MuStp│Next │ Media control
+ *       │Togg.│Prev.│MuTog│MuStp│Next │ Media control
  *       ├─────┼─────┼─────┼─────┼─────┤
  *       │Sink │Vol -│ Mut │Eject│Vol +│ Volume control
  * ┌─────┼─────┼─────┼─────┴─────┴─────┘
