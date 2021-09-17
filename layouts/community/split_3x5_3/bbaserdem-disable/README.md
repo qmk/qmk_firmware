@@ -5,14 +5,14 @@ Check out the [user readme](../../../../users/bbaserdem/README.md) for more info
 
 Using a no 6th column crkbd (rev 2.1 choc) as a mobile keyboard.
 
-This version uses Elite-C and ProMicro as controllers; hence no RGB and OLED.
+This version uses ProMicro as controllers; can't have OLED and RGB at the same time.
 
 ## Build
 
-Build command: `CFLAGS="-Wno-error=deprecated" TBF`
+Used to flash Pro Micro explicitly using the following line;
 
-## Todo
+```
+sudo avrdude -p atmgea34u4 -P "$(ls /dev/ttyACM*)" -c avr109 -D -U flash:w:.build/<keeb>.hex
+```
 
-* Switch PCB to the Proton-C compatible hotswap switch.
-* Or use cable rerouting to make the pcb Proton-C compatible.
-* Or find a way to use both OLED and LEDs.
+But it does not work anymore in Archlinux.

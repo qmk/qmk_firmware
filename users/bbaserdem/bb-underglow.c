@@ -23,19 +23,18 @@ const rgblight_segment_t PROGMEM bb_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 // Gaming layer is turquoise
 const rgblight_segment_t PROGMEM bb_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_TURQUOISE}
+    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_PURPLE}
 );
 // Character overlay is chartereuse
 const rgblight_segment_t PROGMEM bb_char_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, RGBLED_NUM, HSV_CHARTREUSE}
+    {0, RGBLED_NUM, HSV_GOLD}
 );
 
 // Right-hand layers
 
 // Media layer is orange
 const rgblight_segment_t PROGMEM bb_medi_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, 30, 255, 255 
-    }
+    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_MAGENTA}
 );
 // Navigation layer is green
 const rgblight_segment_t PROGMEM bb_navi_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -43,14 +42,14 @@ const rgblight_segment_t PROGMEM bb_navi_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 // Symbol layer is purple
 const rgblight_segment_t PROGMEM bb_symb_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_PURPLE}
+    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_YELLOW}
 );
 
 // Left-hand layers
 
 // Number layer is blue
 const rgblight_segment_t PROGMEM bb_numb_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_CYAN}
+    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_BLUE}
 );
 // Function layer is red
 const rgblight_segment_t PROGMEM bb_func_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -58,12 +57,12 @@ const rgblight_segment_t PROGMEM bb_func_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 // Pointer layer is yellow
 const rgblight_segment_t PROGMEM bb_mous_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_YELLOW}
+    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_SPRINGGREEN}
 );
 
 // Music playback layer is magenta
 const rgblight_segment_t PROGMEM bb_musi_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, RGBLED_NUM, HSV_MAGENTA}
+    {0, RGBLED_NUM, HSV_ORANGE}
 );
 
 const rgblight_segment_t* const PROGMEM bb_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -109,5 +108,5 @@ void shutdown_underglow(void) {
     // Make the LED's red on shutdown
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgblight_sethsv(HSV_PINK);
+    rgblight_sethsv(HSV_WHITE);
 }
