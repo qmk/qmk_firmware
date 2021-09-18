@@ -562,7 +562,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
-For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix_animations/`
+For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix/animations/`.
 
 
 ## Colors :id=colors
