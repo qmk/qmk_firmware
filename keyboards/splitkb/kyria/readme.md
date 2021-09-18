@@ -20,7 +20,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 A build guide for the Kyria can be found at [docs.splitkb.com](https://docs.splitkb.com/hc/en-us/articles/360010552059-Kyria-Build-Guide-Introduction).
 
-## Proton C Convertion Guide
+## Proton C Conversion Guide
 
 If you're one of the lucky people to have Proton Cs to use with their Kyria, there are a couple of caveats to getting this working.
 
