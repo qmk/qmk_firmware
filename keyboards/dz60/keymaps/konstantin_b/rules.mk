@@ -1,7 +1,7 @@
 USER_NAME := konstantin
 
 # Generic features
-BOOTMAGIC_ENABLE   = no
+BOOTMAGIC_ENABLE   = lite
 COMMAND_ENABLE     = yes
 CONSOLE_ENABLE     = yes
 EXTRAKEY_ENABLE    = yes
@@ -13,6 +13,7 @@ UNICODEMAP_ENABLE  = no
 # Keyboard-specific features
 BACKLIGHT_ENABLE   = no
 RGBLIGHT_ENABLE    = no
+VIA_ENABLE         = yes
 
 # Firmware size reduction
 GRAVE_ESC_ENABLE   = no
