@@ -36,6 +36,6 @@
 #    include "rev5.h"
 #elif defined(KEYBOARD_planck_rev6)
 #    include "rev6.h"
-#elif defined(KEYBOARD_planck_drop)
-#    include "drop.h"
+#elif defined(KEYBOARD_planck_rev6_drop)
+#    include "rev6_drop.h"
 #endif  // Planck revisions

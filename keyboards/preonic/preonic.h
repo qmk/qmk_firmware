@@ -28,8 +28,8 @@
 #    include "rev2.h"
 #elif defined(KEYBOARD_preonic_rev3)
 #    include "rev3.h"
-#elif defined(KEYBOARD_preonic_drop)
-#    include "drop.h"
+#elif defined(KEYBOARD_preonic_rev3_drop)
+#    include "rev3_drop.h"
 #endif
 
 
