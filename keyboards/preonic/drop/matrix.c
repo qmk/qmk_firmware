@@ -4,12 +4,8 @@
 #include "hal.h"
 #include "timer.h"
 #include "wait.h"
-#include "printf.h"
-#include "backlight.h"
+#include "debug.h"
 #include "matrix.h"
-#include "action.h"
-#include "keycode.h"
-#include <string.h>
 
 /*
  *     col: { B11, B10, B2, B1, A7, B0 }
