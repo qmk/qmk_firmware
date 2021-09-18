@@ -9,31 +9,28 @@ enum keycodes_keymap {
     RCTRL = RANGE_KEYMAP,
 };
 
-void eeconfig_init_keymap(void) {
-    rgblight_sethsv(MODERN_DOLCH_RED);
+static inline void reset_light(void) {
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
+    rgblight_sethsv(MODERN_DOLCH_RED);
 }
-
-bool indicator_light = false;
 
 static inline void fn_light(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(modern_dolch_red.h, modern_dolch_red.s, rgblight_get_val());
-    indicator_light = true;
 }
 
 static inline void caps_light(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(modern_dolch_cyan.h, modern_dolch_cyan.s, rgblight_get_val());
-    indicator_light = true;
 }
 
 static inline void restore_light(void) {
     rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
-    rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
     rgblight_mode_noeeprom(saved.mode);
-    indicator_light = false;
+    rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
 }
+
+static bool last_checked_layer;
 
 static void check_light_layer(layer_state_t state) {
     if (IS_LAYER_ON_STATE(state, L_FN)) {
@@ -43,6 +40,7 @@ static void check_light_layer(layer_state_t state) {
     } else {
         restore_light();
     }
+    last_checked_layer = true;
 }
 
 static void check_light_led(uint8_t leds) {
@@ -53,10 +51,13 @@ static void check_light_led(uint8_t leds) {
     } else {
         restore_light();
     }
+    last_checked_layer = false;
 }
 
 static void inline check_light(void) {
-    check_light_layer(layer_state);
+    last_checked_layer
+        ? check_light_layer(layer_state)
+        : check_light_led(host_keyboard_leds());
 }
 
 void eeconfig_init_keymap(void) {
@@ -86,14 +87,15 @@ void led_set_keymap(uint8_t usb_led) {
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case RGB_TOG ... RGB_SPD:
-        // Disable RGB controls when Fn/Caps indicator lights are on
-        if (indicator_light) {
-            return false;
-        }
-        // Shift+Toggle = reset RGB
-        if (record->event.pressed && keycode == RGB_TOG && get_mods() & MOD_MASK_SHIFT) {
-            eeconfig_init_keymap();
-            return false;
+        if (record->event.pressed) {
+            // Shift+Toggle = reset RGB
+            if (keycode == RGB_TOG && get_mods() & MOD_MASK_SHIFT) {
+                reset_light();
+                return false;
+            }
+            restore_light();
+        } else {
+            check_light();
         }
         break;
 
