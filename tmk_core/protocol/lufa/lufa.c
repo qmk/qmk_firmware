@@ -64,6 +64,10 @@
 #    include "raw_hid.h"
 #endif
 
+#ifdef PLOVER_HID_ENABLE
+#    include "plover_hid.h"
+#endif
+
 #ifdef WAIT_FOR_USB
 // TODO: Remove backwards compatibility with old define
 #    define USB_WAIT_FOR_ENUMERATION
@@ -178,6 +182,23 @@ void raw_hid_task(void) {
     }
 }
 #endif
+
+#ifdef PLOVER_HID_ENABLE
+static bool plover_hid_report_updated = false;
+static uint8_t plover_hid_current_report[PLOVER_HID_EPSIZE] = {0x50};
+void plover_hid_update(uint8_t button, bool pressed) {
+    if (pressed) {
+        plover_hid_current_report[1 + button/8] |= (1 << (7 - (button % 8)));
+    } else {
+        plover_hid_current_report[1 + button/8] &= ~(1 << (7 - (button % 8)));
+    }
+    plover_hid_report_updated = true;
+}
+
+void plover_hid_task(void) {
+    if (!plover_hid_report_updated) { return; }
+    send_report(PLOVER_HID_IN_EPNUM, plover_hid_current_report, sizeof(plover_hid_current_report));
+}
 
 /*******************************************************************************
  * Console
@@ -345,6 +366,12 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     /* Setup raw HID endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((RAW_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, RAW_EPSIZE, 1);
     ConfigSuccess &= Endpoint_ConfigureEndpoint((RAW_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, RAW_EPSIZE, 1);
+#endif
+
+#ifdef PLOVER_HID_ENABLE
+    /* Setup plover HID endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((PLOVER_HID_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, PLOVER_HID_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((PLOVER_HID_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, PLOVER_HID_EPSIZE, 1);
 #endif
 
 #ifdef CONSOLE_ENABLE
@@ -844,6 +871,10 @@ void protocol_post_task(void) {
 
 #ifdef MIDI_ENABLE
     MIDI_Device_USBTask(&USB_MIDI_Interface);
+#endif
+
+#ifdef PLOVER_HID_ENABLE
+    plover_hid_task();
 #endif
 
 #ifdef VIRTSER_ENABLE

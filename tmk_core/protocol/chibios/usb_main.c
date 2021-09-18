@@ -523,6 +523,28 @@ void raw_hid_task(void) {
 
 #endif
 
+#ifdef PLOVER_HID_ENABLE
+static bool plover_hid_report_updated = false;
+static uint8_t plover_hid_current_report[PLOVER_HID_EPSIZE] = {0x50};
+void plover_hid_update(uint8_t button, bool pressed) {
+    if (pressed) {
+        plover_hid_current_report[1 + button/8] |= (1 << (7 - (button % 8)));
+    } else {
+        plover_hid_current_report[1 + button/8] &= ~(1 << (7 - (button % 8)));
+    }
+    plover_hid_report_updated = true;
+}
+
+void plover_hid_task(void) {
+   if (!plover_hid_report_updated) {
+       return;
+   }
+   
+   send_report(USB_ENDPOINT_IN_PLOVER_HID, plover_hid_current_report, sizeof(plover_hid_current_report));
+   plover_hid_report_updated = false;
+}
+#endif
+
 #ifdef MIDI_ENABLE
 
 void send_midi_packet(MIDI_EventPacket_t *event) {
