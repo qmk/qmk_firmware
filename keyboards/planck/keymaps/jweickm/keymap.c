@@ -16,7 +16,6 @@
  */
 #include QMK_KEYBOARD_H
 #include "muse.h"
-#include "quantum.h"
 
 enum planck_layers {
     _HRWIDECOLEMAK,
