@@ -1,8 +1,8 @@
 # 互換性のあるマイクロコントローラ
 
 <!---
-  original document: 0.9.19:docs/compatible_microcontrollers.md
-  git diff 0.9.19 HEAD -- docs/compatible_microcontrollers.md | cat
+  original document: 0.14.14:docs/compatible_microcontrollers.md
+  git diff 0.14.14 HEAD -- docs/compatible_microcontrollers.md | cat
 -->
 
 QMK は十分な容量のフラッシュメモリを備えた USB 対応 AVR または ARM マイクロコントローラで実行されます - 一般的に 32kB 以上ですが、ほとんどの機能を無効にすると*ほんの* 16kB に詰め込むことができます。
