@@ -1,3 +1,4 @@
+
 /* Copyright 2021 Batuhan Başerdem
  * <baserdem.batuhan@gmail.com> @bbaserdem
  *
@@ -14,16 +15,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-
 #pragma once
-#include "bbaserdem.h"
-/* AUDIO
- * Some functions to hook to some modes
- */
 
-// Hook to layer change effects
-layer_state_t layer_state_set_audio(layer_state_t state);
+// Split definition; use the following to flash;
+//  pro-micro:      avrdude-split-left/right
+//  elite-c:        dfu-split-left/right
+#define EE_HANDS
 
-// Hook to audio keycodes
-bool process_record_audio(uint16_t keycode, keyrecord_t *record);
+#ifdef KEYBOARD_crkbd_rev1
+    // Corne overrides
+    #include "../../../../keyboards/crkbd/rev1/config.h"
+    #ifdef RGBLED_NUM
+    #undef RGBLED_NUM
+    #endif
+    #ifdef DRIVER_LED_TOTAL
+    #undef DRIVER_LED_TOTAL
+    #endif
+    #define RGBLED_NUM 48
+    #define DRIVER_LED_TOTAL RGBLED_NUM
+#endif
