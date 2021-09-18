@@ -1,6 +1,6 @@
 # Suit80 - ISO PCB
 
-![suit80](https://imgur.com/0QN23oc)
+![suit80](https://i.imgur.com/wTUPZFB.jpg)
 
 A 80% made by Owlab.
 
