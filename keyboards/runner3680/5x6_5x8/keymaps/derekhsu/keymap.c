@@ -7,20 +7,14 @@ extern rgblight_config_t rgblight_config;
 rgblight_config_t RGB_current_config;
 #endif
 
-
-#define _QWERTY 0
-#define _NAV 1
-#define _SYMBOL 2
-#define _MEDIA 3
-
-enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
-    NAV,
-    SYMBOL,
-    MEDIA,
+enum layer_number {
+    _QWERTY = 0,
+    _NAV,
+    _SYMBOL,
+    _MEDIA
 };
 
- const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_QWERTY] = LAYOUT(
     KC_GRV,  KC_1,    KC_2,    KC_3,  KC_4,  KC_5,          KC_6,   KC_7,  KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
