@@ -22,6 +22,9 @@
 unicode_config_t unicode_config;
 uint8_t          unicode_saved_mods;
 bool             unicode_saved_caps_lock;
+#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+bool             unicode_saved_num_lock;
+#endif
 
 #if UNICODE_SELECTED_MODES != -1
 static uint8_t selected[]     = {UNICODE_SELECTED_MODES};
@@ -80,6 +83,10 @@ void persist_unicode_input_mode(void) { eeprom_update_byte(EECONFIG_UNICODEMODE,
 __attribute__((weak)) void unicode_input_start(void) {
     unicode_saved_caps_lock = host_keyboard_led_state().caps_lock;
 
+#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+    unicode_saved_num_lock = host_keyboard_led_state().num_lock;
+#endif
+
     // Note the order matters here!
     // Need to do this before we mess around with the mods, or else
     // UNICODE_KEY_LNX (which is usually Ctrl-Shift-U) might not work
@@ -99,6 +106,11 @@ __attribute__((weak)) void unicode_input_start(void) {
             tap_code16(UNICODE_KEY_LNX);
             break;
         case UC_WIN:
+#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+            if (!unicode_saved_num_lock) {
+                tap_code(KC_NUMLOCK);
+            }
+#endif
             register_code(KC_LALT);
             tap_code(KC_PPLS);
             break;
@@ -124,6 +136,12 @@ __attribute__((weak)) void unicode_input_finish(void) {
             break;
         case UC_WIN:
             unregister_code(KC_LALT);
+#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+            if (!unicode_saved_num_lock) {
+                // We switched numlock on, so switch it off again.
+                tap_code(KC_NUMLOCK);
+            }
+#endif
             break;
         case UC_WINC:
             tap_code(KC_ENTER);
@@ -149,16 +167,37 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             break;
         case UC_WIN:
             unregister_code(KC_LALT);
+#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+            if (!unicode_saved_num_lock) {
+                // We switched numlock on, so switch it off again.
+                tap_code(KC_NUMLOCK);
+            }
+#endif
             break;
     }
 
     set_mods(unicode_saved_mods);  // Reregister previously set mods
 }
 
+#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+static void send_nibble_using_numpad_if_uc_win(uint8_t digit){
+    if (unicode_config.input_mode == UC_WIN) {
+        tap_code(digit < 10 ? KC_KP_1 + (10 + digit - 1) % 10 : KC_A + (digit - 10));
+    }
+    else {
+        send_nibble(digit);
+    }
+}
+#endif
+
 void register_hex(uint16_t hex) {
     for (int i = 3; i >= 0; i--) {
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
+#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+        send_nibble_using_numpad_if_uc_win(digit);
+#else
         send_nibble(digit);
+#endif
     }
 }
 
@@ -171,10 +210,18 @@ void register_hex32(uint32_t hex) {
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
         if (digit == 0) {
             if (!onzerostart) {
+#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+                send_nibble_using_numpad_if_uc_win(digit);
+#else
                 send_nibble(digit);
+#endif
             }
         } else {
+#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+            send_nibble_using_numpad_if_uc_win(digit);
+#else
             send_nibble(digit);
+#endif
             onzerostart = false;
         }
     }
