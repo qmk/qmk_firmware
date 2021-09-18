@@ -1,4 +1,4 @@
-/* Copyright 2021 John Ezra
+/* Copyright 2021 Jordan Duabe
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,27 +14,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifdef ENCODER_ENABLE
+#    include QMK_KEYBOARD_H
 
-#ifdef OLED_DRIVER_ENABLE
-  #define OLED_DISPLAY_128X64
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, 10);
+        } else {
+            tap_code_delay(KC_VOLD, 10);
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            tap_code(KC_PGDOWN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+    return true;
+}
+
 #endif
-
-#ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  #define RGBLIGHT_EFFECT_TWINKLE
-
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 150
-#endif
-
-#undef DEBOUNCE
-#define DEBOUNCE 1
-
-#define TAPPING_TERM 125
-
-#define SPLIT_WPM_ENABLE
