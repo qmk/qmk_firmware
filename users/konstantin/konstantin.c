@@ -22,6 +22,41 @@ void keyboard_post_init_user(void) {
 }
 
 __attribute__((weak))
+layer_state_t layer_state_set_keymap(layer_state_t state) {
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = layer_state_set_keymap(state);
+
+#ifdef LAYER_NUMPAD
+    bool numpad = IS_LAYER_ON_STATE(state, L_NUMPAD);
+    bool num_lock = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
+    if (numpad != num_lock) {
+        tap_code(KC_NLCK);  // Toggle Num Lock to match Numpad layer state
+    }
+#endif
+
+    return state;
+}
+
+__attribute__((weak))
+void led_set_keymap(uint8_t usb_led) {}
+
+void led_set_user(uint8_t usb_led) {
+    led_set_keymap(usb_led);
+}
+
+__attribute__((weak))
+bool led_update_keymap(led_t led_state) {
+    return true;
+}
+
+bool led_update_user(led_t led_state) {
+    return led_update_keymap(led_state);
+}
+
+__attribute__((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
@@ -90,39 +125,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     return true;
-}
-
-__attribute__((weak))
-uint32_t layer_state_set_keymap(uint32_t state) {
-    return state;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = layer_state_set_keymap(state);
-
-#ifdef LAYER_NUMPAD
-    bool numpad = IS_LAYER_ON_STATE(state, L_NUMPAD);
-    bool num_lock = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
-    if (numpad != num_lock) {
-        tap_code(KC_NLCK);  // Toggle Num Lock to match Numpad layer state
-    }
-#endif
-
-    return state;
-}
-
-__attribute__((weak))
-void led_set_keymap(uint8_t usb_led) {}
-
-void led_set_user(uint8_t usb_led) {
-    led_set_keymap(usb_led);
-}
-
-__attribute__((weak))
-bool led_update_keymap(led_t led_state) {
-    return true;
-}
-
-bool led_update_user(led_t led_state) {
-    return led_update_keymap(led_state);
 }

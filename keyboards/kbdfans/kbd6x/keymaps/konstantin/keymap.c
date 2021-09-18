@@ -1,12 +1,12 @@
 #include QMK_KEYBOARD_H
 #include "konstantin.h"
 
-enum keycodes_keymap {
-    RCTRL = RANGE_KEYMAP,
-};
-
 enum layers_keymap {
     L_RCTRL = LAYERS_KEYMAP,
+};
+
+enum keycodes_keymap {
+    RCTRL = RANGE_KEYMAP,
 };
 
 void eeconfig_init_keymap(void) {
@@ -15,6 +15,73 @@ void eeconfig_init_keymap(void) {
 }
 
 bool indicator_light = false;
+
+static inline void fn_light(void) {
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_sethsv_noeeprom(modern_dolch_red.h, modern_dolch_red.s, rgblight_get_val());
+    indicator_light = true;
+}
+
+static inline void caps_light(void) {
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_sethsv_noeeprom(modern_dolch_cyan.h, modern_dolch_cyan.s, rgblight_get_val());
+    indicator_light = true;
+}
+
+static inline void restore_light(void) {
+    rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
+    rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
+    rgblight_mode_noeeprom(saved.mode);
+    indicator_light = false;
+}
+
+static void check_light_layer(layer_state_t state) {
+    if (IS_LAYER_ON_STATE(state, L_FN)) {
+        fn_light();
+    } else if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        caps_light();
+    } else {
+        restore_light();
+    }
+}
+
+static void check_light_led(uint8_t leds) {
+    if (IS_LED_ON(leds, USB_LED_CAPS_LOCK)) {
+        caps_light();
+    } else if (IS_LAYER_ON(L_FN)) {
+        fn_light();
+    } else {
+        restore_light();
+    }
+}
+
+static void inline check_light(void) {
+    check_light_layer(layer_state);
+}
+
+void eeconfig_init_keymap(void) {
+    reset_light();
+}
+
+static bool skip_led = false;
+
+layer_state_t layer_state_set_keymap(layer_state_t state) {
+    static layer_state_t prev_state = L_BASE;
+    if (IS_LAYER_ON_STATE(state, L_FN) != IS_LAYER_ON_STATE(prev_state, L_FN)) {
+        check_light_layer(state);  // Fn state changed since last time
+        skip_led = IS_LAYER_ON_STATE(state, L_FN);
+        // led_set_keymap will be called automatically after this
+    }
+    return prev_state = state;
+}
+
+void led_set_keymap(uint8_t usb_led) {
+    if (skip_led) {
+        skip_led = false;
+        return;  // Skip calls triggered by the Fn layer turning on
+    }
+    check_light_led(usb_led);
+}
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -43,65 +110,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
 
     return true;
-}
-
-static inline void fn_light(void) {
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgblight_sethsv_noeeprom(modern_dolch_red.h, modern_dolch_red.s, rgblight_get_val());
-    indicator_light = true;
-}
-
-static inline void caps_light(void) {
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgblight_sethsv_noeeprom(modern_dolch_cyan.h, modern_dolch_cyan.s, rgblight_get_val());
-    indicator_light = true;
-}
-
-static inline void restore_light(void) {
-    rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
-    rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
-    rgblight_mode_noeeprom(saved.mode);
-    indicator_light = false;
-}
-
-static void check_light_layer(uint32_t state) {
-    if (IS_LAYER_ON_STATE(state, L_FN)) {
-        fn_light();
-    } else if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        caps_light();
-    } else {
-        restore_light();
-    }
-}
-
-static void check_light_led(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        caps_light();
-    } else if (IS_LAYER_ON(L_FN)) {
-        fn_light();
-    } else {
-        restore_light();
-    }
-}
-
-static bool skip_led = false;
-
-uint32_t layer_state_set_keymap(uint32_t state) {
-    static uint32_t prev_state = L_BASE;
-    if (IS_LAYER_ON_STATE(state, L_FN) != IS_LAYER_ON_STATE(prev_state, L_FN)) {
-        check_light_layer(state);  // Fn state changed since last time
-        skip_led = IS_LAYER_ON_STATE(state, L_FN);
-        // led_set_keymap will be called automatically after this
-    }
-    return prev_state = state;
-}
-
-void led_set_keymap(uint8_t usb_led) {
-    if (skip_led) {
-        skip_led = false;
-        return;  // Skip calls triggered by the Fn layer turning on
-    }
-    check_light_led(usb_led);
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
