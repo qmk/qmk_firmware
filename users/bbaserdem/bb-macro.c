@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "bb-macro.h"
+
 /* MACRO Definitions
  * This file has my macros/unicodes
  * Hooks for other functionality to inject itself into the process_record
@@ -131,7 +131,7 @@ bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
             }
             return false; break;
         // Unicode macros
-        #ifdef UNICODEMAP_ENABLE
+#       ifdef UNICODEMAP_ENABLE
         case TR_FLAG:
             // Turkish flag
             if (record->event.pressed) {
@@ -150,7 +150,7 @@ bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
                 send_unicode_string("┻━┻︵ \\(°□°)/ ︵ ┻━┻");
             }
             return false; break;
-        #endif
+#       endif // UNICODEMAP_ENABLE
     }
     return true;
 }

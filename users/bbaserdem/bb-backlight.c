@@ -24,7 +24,7 @@
 void keyboard_post_init_backlight(void) {
     backlight_enable();
     backlight_level(2);
-    #ifdef BACKLIGHT_BREATHING
+#   ifdef BACKLIGHT_BREATHING
     breathing_enable();
-    #endif
+#   endif // BACKLIGHT_BREATHING
 }

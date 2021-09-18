@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "bb-oled.h"
+
 #include <string.h>
 // Grab the print function 
 #ifdef ENCODER_ENABLE

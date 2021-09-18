@@ -131,22 +131,22 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
     // Backlight LED
 #   ifdef BACKLIGHT_ENABLE
     keyboard_post_init_backlight();
-#   endif
+#   endif // BACKLIGHT_ENABLE
 
     // RGB underglow
 #   ifdef RGBLIGHT_ENABLE
     keyboard_post_init_underglow();
-#   endif
+#   endif // RGBLIGHT_ENABLE
 
     // Encoders
 #   ifdef ENCODER_ENABLE
     keyboard_post_init_encoder();
-#   endif
+#   endif // ENCODER_ENABLE
 
     // Unicode mode
 #   ifdef UNICODEMAP_ENABLE
     set_unicode_input_mode(UC_LNX);
-#   endif
+#   endif // UNICODEMAP_ENABLE
 
     // Keymap specific stuff
     keyboard_post_init_keymap();
@@ -233,11 +233,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // For underglow stuff
 #   ifdef RGBLIGHT_ENABLE
     state = layer_state_set_underglow(state);
-#   endif
+#   endif // RGBLIGHT_ENABLE
     // Audio playback
 #   ifdef AUDIO_ENABLE
     state = layer_state_set_audio(state);
-#   endif
+#   endif // AUDIO_ENABLE
 
     return state;
 }
@@ -277,17 +277,17 @@ __attribute__ ((weak)) void suspend_power_down_keymap (void) { }
 void suspend_power_down_user(void) {
     suspend_power_down_keymap();
     // RGB matrix sleep hook
-    #ifdef RGB_MATRIX_ENABLE
-    suspend_power_down_keylight();
-    #endif
+#   ifdef RGB_MATRIX_ENABLE
+    suspend_power_down_rgb();
+#   endif // RGB_MATRIX_ENABLE
 }
 __attribute__ ((weak)) void suspend_wakeup_init_keymap (void) { }
 void suspend_wakeup_init_user(void) {
     suspend_wakeup_init_keymap();
     // RGB matrix sleep hook
-    #ifdef RGB_MATRIX_ENABLE
-    suspend_wakeup_init_keylight();
-    #endif
+#   ifdef RGB_MATRIX_ENABLE
+    suspend_wakeup_init_rgb();
+#   endif // RGB_MATRIX_ENABLE
 }
 
 /*------------------*\
@@ -298,13 +298,13 @@ void suspend_wakeup_init_user(void) {
 __attribute__ ((weak)) void shutdown_keymap (void) { }
 void shutdown_user(void) {
     // Underglow LED hook on boot
-    #ifdef RGBLIGHT_ENABLE
+#   ifdef RGBLIGHT_ENABLE
     shutdown_underglow();
-    #endif
+#   endif // RGBLIGHT_ENABLE
     // Perkey led hook on boot
-    #ifdef RGB_MATRIX_ENABLE
-    shutdown_keylight();
-    #endif
+#   ifdef RGB_MATRIX_ENABLE
+    shutdown_rgb();
+#   endif // RGB_MATRIX_ENABLE
     // Keymap hooks
     shutdown_keymap();
 }

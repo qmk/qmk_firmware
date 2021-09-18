@@ -22,11 +22,11 @@
     // Split definition; use the following to flash;
     //  pro-micro:      avrdude-split-left/right
     //  elite-c:        dfu-split-left/right
-    #define ENCODER_DIRECTION_FLIP
-    #define EE_HANDS
+#   define ENCODER_DIRECTION_FLIP
+#   define EE_HANDS
 
     // Make sure kyria has bigger oled display
-    #ifdef OLED_ENABLE
-    #define OLED_DISPLAY_128X64
-    #endif
+#   ifdef OLED_ENABLE
+#   define OLED_DISPLAY_128X64
+#   endif
 #endif

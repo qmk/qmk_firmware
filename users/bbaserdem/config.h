@@ -27,11 +27,11 @@
 #    undef LOCKING_RESYNC_ENABLE
 #endif
 #ifndef NO_DEBUG
-#define NO_DEBUG
+#   define NO_DEBUG
 #endif
 
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
+#   define NO_PRINT
 #endif
 
 // Split transport settings
@@ -44,11 +44,11 @@
 #   define SPLIT_LED_STATE_ENABLE
 #   ifdef WPM_ENABLE
 #       define SPLIT_WPM_ENABLE
-#   endif
+#   endif // WPM_ENABLE
 #   ifdef OLED_ENABLE
 #       define SPLIT_OLED_ENABLE
-#   endif
-#endif
+#   endif // OLED_ENABLE
+#endif // SPLIT_KEYBOARD
 
 // Unicode entry mode
 #ifdef UNICODEMAP_ENABLE
@@ -58,12 +58,12 @@
 #   undef UNICODE_KEY_LNX
 #   endif
 #   define UNICODE_KEY_LNX LCTL(LSFT(KC_F))
-#endif
+#endif // UNICODEMAP_ENABLE
 
 // Mousekey mode
 #ifdef MOUSEKEY_ENABLE
 #   define MK_COMBINED
-#endif
+#endif // MOUSEKEY_ENABLE
 
 // Tap-hold settings
 #define TAPPING_TERM 200
@@ -76,7 +76,7 @@
 #ifdef BACKLIGHT_ENABLE
 #   define BACKLIGHT_BREATHING
 #   define BREATHING_PERIOD 5
-#endif
+#endif // BACKLIGHT_ENABLE
 
 // Audio definitions
 #ifdef AUDIO_ENABLE
@@ -105,7 +105,7 @@
 #   else
 #   define GAME_OFF_SONG   SONG(NOCTURNE_OP_9_NO_1)
 #   endif
-#endif
+#endif // AUDIO_ENABLE
 
 // OLED definitions
 #ifdef OLED_ENABLE
@@ -114,7 +114,7 @@
     // Fade out the screen when timing out
 #   define OLED_FADE_OUT
 #   define OLED_FADE_OUT_INTERVAL 5
-#endif
+#endif // OLED_ENABLE
 
 // OLED definitions
 #ifdef OLED_ENABLE
@@ -136,4 +136,4 @@
     // Some config options
 #   define RGB_MATRIX_KEYRELEASES
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS      // Enable framebuffer effects
-#endif
+#endif // RGB_MATRIX_ENABLE

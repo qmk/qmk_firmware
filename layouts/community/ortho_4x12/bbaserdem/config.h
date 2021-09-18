@@ -17,10 +17,11 @@
 #pragma once
 
 // Code pertaining to planck rev6
-#if defined(KEYBOARD_planck_rev6)
+#ifdef KEYBOARD_planck_rev6
     // Encoder I use;
     #ifdef ENCODER_RESOLUTION
     #undef ENCODER_RESOLUTION
     #endif
     #define ENCODER_RESOLUTION 2
 #endif // rev6
+
