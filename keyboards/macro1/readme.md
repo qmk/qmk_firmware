@@ -1,17 +1,15 @@
-# Laneware Peripherals
+# Macro-1
 
-Laneware Peripherals designs and manufacturers high quality, limited run custom mechanical keyboards.
+![Macro-1](https://geekhack.org/index.php?topic=111541.0)
 
-## Product Details
-https://geekhack.org/index.php?topic=111541.0
+A versitile numpad/macropad (14x6) with a rotary encoder, made and sold by Laneware Peripherals.
 
-## Online Stores
+* Keyboard Maintainer: [Laneware Peripherals](https://github.com/laneware)
+* Hardware Supported: Macro-1
+* Hardware Availability: [Laneware Peripherals](https://lanewareperipherals.com/), 
 
-**Website:** https://lanewareperipherals.com/
+Make example for this keyboard (after setting up your build environment):
 
-## Social Media
+    make macro1:default
 
-**Discord:** https://discord.gg/h3GTsPWV9e
-**Facebook:** https://www.facebook.com/lanewarep/
-**Instagram:** https://instagram.com/lanewarep/
-
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
