@@ -72,3 +72,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite trigger key. Left-Top of the layout. */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 9
+
+/* External EEPROM */
+// Use 24LC64 EEPROM
+#define EEPROM_I2C_24LC64
+// Set MAX_ADDR to specify actual EEPROM size.
+// If it's not set, EEPROM size will be set ATmega32u4's 1023.
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
