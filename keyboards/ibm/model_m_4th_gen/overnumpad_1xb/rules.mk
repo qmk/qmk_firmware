@@ -1,7 +1,8 @@
 # MCU name
+MCU = STM32F446 # STM32F446RET6
 
-#Using STM32F446RET6
-MCU = STM32F446
+# Bootloader selection
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -18,7 +19,6 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 ENCODER_ENABLE = no         # Enable rotary encoder support
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 
