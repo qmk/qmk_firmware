@@ -12,6 +12,7 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = yes          # USB Nkey Rollover
 UNICODE_ENABLE = no       # Unicode
 KEY_LOCK_ENABLE = no
+CTPC = yes
 
 # BOOTLOADER = hid
 # BOOTLOADER_SIZE = 512

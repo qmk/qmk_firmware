@@ -22,11 +22,10 @@ A build guide for the Kyria can be found at [docs.splitkb.com](https://docs.spli
 
 ## Proton C Convertion Guide
 
-If you're one of the lucky people to have Proton Cs to use with their Kyria, there are a few caveats to getting this working.
+If you're one of the lucky people to have Proton Cs to use with their Kyria, there are a couple of caveats to getting this working.
 
 1. You need to have 2x Proton Cs, as you cannot mix and match with Pro Micros or Elite C's.  They both need to be Proton Cs.
 2. You'll need to do some modding to enable proper support with the Proton C.
-3. You'll need to use `CTPC=yes` from the command line to properly compile the firmware (or `-e CTPC=yes` with the qmk cli)
 
 By design, the Kyria uses every available pin on the Pro Micro footprint.  This includes using D3 (RX) for RGB.  This poses a challenge with using the Proton C, since it needs both the TX and RX pins. The Proton C needs both pins, especially if you plan on using Full Duplex Serial. 
 
