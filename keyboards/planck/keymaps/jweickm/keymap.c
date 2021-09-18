@@ -1,7 +1,7 @@
 /* Copyright 2015-2017 Jack Humbert
  * Copyright 2021 Jakob Weickmann
  *
- * This program is free software: you can redistribute it and/or modify
+ This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
@@ -33,7 +33,7 @@ enum planck_layers {
     _MOUSE,
 };
 
-enum planck_keycodes { HRWIDECOLEMAK = SAFE_RANGE, GAMING, WIDECOLEMAK, TG_COLEMAK, VIM_O, VIM_V, KC_SVD_BD, KC_SVU_BU, KC_TAB_MPLY, ALT_TAB, CTL_TAB, DE_ae, DE_oe, DE_ue, DE_AE, DE_OE, DE_SZ, DE_EGRAVE, DE_EAIGU, KC_CURRENCY, KC_DE_SWITCH, LANG_SWITCH, DE_SLSH_QUST, DE_QUOT, DE_SCLN, DE_BSLS, M_ESCM, M_RGUI_SCLN, DE_DOT_LAB, DE_COMM_RAB };
+enum planck_keycodes { HRWIDECOLEMAK = SAFE_RANGE, GAMING, WIDECOLEMAK, TG_COLEMAK, VIM_O, VIM_V, KC_SVD_BD, KC_SVU_BU, KC_TAB_MPLY, ALT_TAB, CTL_TAB, DE_ae, DE_oe, DE_ue, DE_AE, DE_OE, DE_SZ, DE_EGRAVE, DE_EAIGU, KC_CURRENCY, KC_DE_SWITCH, LANG_SWITCH, DE_SLSH_QUST, DE_QUOT, DE_SCLN, DE_BSLS, M_ESCM, M_RGUI_SCLN, DE_DOT_RAB, DE_COMM_LAB };
 
 // Tap Dance declarations
 enum tap_dance_codes {
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_HRWIDECOLEMAK_DE] = LAYOUT_planck_grid(
         LGUI_T(KC_Q), LALT_T(KC_W), LSFT_T(KC_F), LCTL_T(KC_P), LT(_NUM, KC_B), KC_SVU_BU, LT(_NUM, KC_J), RCTL_T(KC_L), RSFT_T(KC_U), LALT_T(KC_Z), M_RGUI_SCLN, KC_LBRC, 
         KC_A, KC_R, KC_S, KC_T, KC_G, KC_TAB, KC_M, KC_N, KC_E, KC_I, KC_O, DE_QUOT, 
-        LT(_MOUSE, KC_Y), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD, KC_K, KC_H, KC_COMM, DE_DOT_LAB, DE_COMM_RAB, DE_BSLS, 
+        LT(_MOUSE, KC_Y), KC_X, KC_C, KC_D, KC_V, KC_SVD_BD, KC_K, KC_H, DE_COMM_LAB, DE_DOT_RAB, DE_SLSH_QUST, DE_BSLS, 
         LCTL_T(KC_CAPS), KC_LEAD, M_ESCM, LT(_LOWER_DE, KC_BSPC), OSM(MOD_LSFT), LT(_NAV, KC_SPC), LT(_NAV, KC_SPC), LT(_RAISE_DE, KC_ENT), RSFT_T(KC_DEL), KC_RALT, LT(_MOUSE, KC_LEFT), LT(_MOUSE, KC_RIGHT)
     ),
 
@@ -829,31 +829,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code16(KC_PIPE);
             }
             return true;
-        case DE_DOT_LAB:
-            if (record->event.pressed) {
-                uint8_t temp_mods = get_mods() | get_oneshot_mods();
-                if (temp_mods & MOD_MASK_SHIFT) {
-										clear_mods();
-										clear_oneshot_mods();
-                    register_code16(KC_NUBS);  // < left angle bracket
-                } else {
-                    register_code(KC_DOT);  // .
-                }
-            } else {
-                unregister_code16(KC_NUBS);
-                unregister_code(KC_DOT);
-            }
-            return true;
-        case DE_COMM_RAB:
+        case DE_DOT_RAB:
             if (record->event.pressed) {
                 uint8_t temp_mods = get_mods() | get_oneshot_mods();
                 if (temp_mods & MOD_MASK_SHIFT) {
                     register_code16(LSFT(KC_NUBS));  // > right angle bracket 
                 } else {
-                    register_code(KC_COMM);  // ,
+                    register_code(KC_DOT);  // .
                 }
             } else {
                 unregister_code16(LSFT(KC_NUBS));
+                unregister_code(KC_DOT);
+            }
+            return true;
+        case DE_COMM_LAB:
+            if (record->event.pressed) {
+                uint8_t temp_mods = get_mods() | get_oneshot_mods();
+                if (temp_mods & MOD_MASK_SHIFT) {
+                    clear_mods();
+                    clear_oneshot_mods();
+                    register_code16(KC_NUBS);  // < left angle bracket
+                    set_mods(temp_mods);
+                } else {
+                    register_code(KC_COMM);  // ,
+                }
+            } else {
+                unregister_code16(KC_NUBS);
                 unregister_code(KC_COMM);
             }
             return true;
