@@ -1,3 +1,20 @@
+/*
+ * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
@@ -13,7 +30,7 @@
  */
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_col_t matrix_debouncing[MATRIX_COLS];
+static matrix_row_t matrix_debouncing[MATRIX_COLS];
 static bool         debouncing      = false;
 static uint16_t     debouncing_time = 0;
 
@@ -49,7 +66,7 @@ void matrix_init(void) {
     palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLDOWN);
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_col_t));
+    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
 
     matrix_init_quantum();
 }
@@ -57,7 +74,7 @@ void matrix_init(void) {
 uint8_t matrix_scan(void) {
     // actual matrix
     for (int col = 0; col < MATRIX_COLS; col++) {
-        matrix_col_t data = 0;
+        matrix_row_t data = 0;
 
         // strobe col { B11, B10, B2, B1, A7, B0 }
         switch (col) {
