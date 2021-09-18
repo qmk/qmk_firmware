@@ -1,4 +1,3 @@
-#pragma once
 /*
  * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
  *
