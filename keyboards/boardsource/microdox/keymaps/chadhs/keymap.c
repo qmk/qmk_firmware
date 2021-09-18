@@ -23,14 +23,18 @@ enum layers {
     _NUM_NAV,
     _FUNCTION,
     _GAMING,
+    _GAMING_2,
 };
 
 /* thumb mods */
 #define NUM_BSPC LT(_NUM_NAV,KC_BSPC)
 #define FUN_SPC LT(_FUNCTION,KC_SPC)
+#define G2_SPC LT(_GAMING_2,KC_SPC)
 #define CMD_TAB CMD_T(KC_TAB)
-#define GAMING TG(_GAMING)
 #define CTL_SPC CTL_T(KC_SPC)
+
+/* misc mods */
+#define GAMING TG(_GAMING)
 
 /* home row mods */
 #define HOME_A CTL_T(KC_A)
@@ -64,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | Z    | X    | C    | D    | V    |            | K    | H    | , <  | . >  | / ?  |
  | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
  `------'------'------'------'------'            `------'------'------'------'------'
-                  .------.------.------.      .------.------.------.
-                  | XXX  | TAB  | BSPC |      | SPC  | ENT  | XXX  |
-                  |      | CMD  | LNUM |      | LFUN |      |      |
-                  '------'------'------'      '------'------'------'
+                         .------.------.      .------.------.
+                         | TAB  | BSPC |      | SPC  | ENT  |
+                         | CMD  | LNUM |      | LFUN |      |
+                         '------'------'      '------'------'
 */
   KC_Q,   KC_W,   KC_F,    KC_P,     KC_B,         KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN,
   HOME_A, HOME_R, HOME_S,  HOME_T,   KC_G,         KC_M,    HOME_N, HOME_E,  HOME_I, HOME_O,
@@ -87,10 +91,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  |      |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
  | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
  `------'------'------'------'------'            `------'------'------'------'------'
-                  .------.------.------.      .------.------.------.
-                  | XXX  | ESC  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  | XXX  |
-                  |      |      |      |      |      |      |      |
-                  '------'------'------'      '------'------'------'
+                         .------.------.      .------.------.
+                         | ESC  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |
+                         |      |      |      |      |      |
+                         '------'------'      '------'------'
 */
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,     KC_8,    KC_9,     KC_0,
   HOME_BT, KC_LOPT, KC_LCMD, KC_LSFT, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, HOME_QT,
@@ -110,10 +114,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | RGB  | RGB  | RGB  | RGB- | RGB+ |            |      |      |      |      | GAME |
  | TGGL | RMOD | MOD  |      |      |            |      |      |      |      |      |
  `------'------'------'------'------'            `------'------'------'------'------'
-                  .------.------.------.      .------.------.------.
-                  | XXX  | ESC  | DEL  |      | ↓↓↓  | ↓↓↓  | XXX  |
-                  |      |      |      |      |      |      |      |
-                  '------'------'------'      '------'------'------'
+                         .------.------.      .------.------.
+                         | ESC  | DEL  |      | ↓↓↓  | ↓↓↓  |
+                         |      |      |      |      |      |
+                         '------'------'      '------'------'
 */
   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, KC_F11,  KC_F12,
@@ -130,18 +134,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | ESC  | A    | S    | D    | F    |            | H    | J    | K    | L    | ; :  |
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
- |      | Z    | X    | C    | V    |            | N    | M    | , <  | . >  | \ |  |
+ |      | Z    | X    | C    | V    |            | N    | M    | , <  | . >  | GAME |
  | SFT  |      |      |      |      |            |      |      |      |      |      |
  `------'------'------'------'------'            `------'------'------'------'------'
-                  .------.------.------.      .------.------.------.
-                  | XXX  |      | SPC  |      | SPC  | GAME | XXX  |
-                  |      | CMD  |      |      | CTL  |      |      |
-                  '------'------'------'      '------'------'------'
+                         .------.------.      .------.------.
+                         |      | SPC  |      | SPC  |      |
+                         | CMD  |      |      | G2   | CTL  |
+                         '------'------'      '------'------'
 */
   KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
   KC_ESC,  KC_A, KC_S,    KC_D,    KC_F,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
-  KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_BSLS,
-                 XXXXXXX, KC_LCMD, KC_SPC,      CTL_SPC, GAMING,  XXXXXXX
+  KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,    KC_M,    KC_COMM, KC_DOT,  GAMING,
+                 XXXXXXX, KC_LCMD, KC_SPC,      G2_SPC,  KC_LCTL, XXXXXXX
+),
+
+[_GAMING_2] = LAYOUT_split_3x5_3(
+/*
+ ,------.------.------.------.------.            ,------.------.------.------.------.
+ | ↓↓↓  |      |      |      |      |            | T    | [ {  | ] }  |      |      |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | ↓↓↓  |      |      |      |      |            | G    | \ |  |      |      |      |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | ↓↓↓  |      |      |      |      |            | B    |      |      |      | ↓↓↓  |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ `------'------'------'------'------'            `------'------'------'------'------'
+                         .------.------.      .------.------.
+                         | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |
+                         |      |      |      |      |      |
+                         '------'------'      '------'------'
+*/
+  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_T,    KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
+  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_G,    KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_B,    XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,
+                     XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, XXXXXXX
 ),
 };
 
