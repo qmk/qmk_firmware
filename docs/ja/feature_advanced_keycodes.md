@@ -18,7 +18,7 @@
 | `RALT(kc)` | `ROPT(kc)`, `ALGR(kc)`             | 右 Alt を押しながら `kc` を押します。                               |
 | `RGUI(kc)` | `RCMD(kc)`, `LWIN(kc)`             | 右 GUI を押しながら `kc` を押します。                               |
 | `LSG(kc)`  | `SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)` | 左 Shift と左 GUI を押しながら `kc` を押します。                    |
-| `LAG(kc)`  |                                    | 左 Left と左 GUI を押しながら `kc` を押します。                     |
+| `LAG(kc)`  |                                    | 左 Alt と左 GUI を押しながら `kc` を押します。                      |
 | `RSG(kc)`  |                                    | 右 Shift と右 GUI を押しながら `kc` を押します。                    |
 | `RAG(kc)`  |                                    | 右 Alt と右 GUI を押しながら `kc` を押します。                      |
 | `LCA(kc)`  |                                    | 左 Control と左 Alt を押しながら `kc` を押します。                  |
