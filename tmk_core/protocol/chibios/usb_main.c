@@ -321,6 +321,9 @@ typedef struct {
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
             usb_driver_config_t digitizer_driver;
 #endif
+#if defined(GAMEPAD_ENABLE) && !defined(GAMEPAD_SHARED_EP)
+            usb_driver_config_t gamepad_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -376,6 +379,13 @@ static usb_driver_configs_t drivers = {
 #    define DIGITIZER_IN_MODE USB_EP_MODE_TYPE_BULK
 #    define DIGITIZER_OUT_MODE USB_EP_MODE_TYPE_BULK
     .digitizer_driver = QMK_USB_DRIVER_CONFIG(DIGITIZER, 0, false),
+#endif
+#ifdef GAMEPAD_ENABLE
+#    define GAMEPAD_IN_CAPACITY 4
+#    define GAMEPAD_OUT_CAPACITY 4
+#    define GAMEPAD_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define GAMEPAD_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .gamepad_driver = QMK_USB_DRIVER_CONFIG(GAMEPAD, 0, false),
 #endif
 };
 
@@ -1160,3 +1170,36 @@ void send_joystick(report_joystick_t *report) {
     osalSysUnlock();
 #endif
 }
+
+#ifdef GAMEPAD_ENABLE
+#    ifndef GAMEPaD_SHARED_EP
+void gamepad_in_cb(USBDriver *usbp, usbep_t ep) {
+    (void)usbp;
+    (void)ep;
+}
+#    endif
+
+void send_gamepad(report_gamepad_t *report) {
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+    if (usbGetTransmitStatusI(&USB_DRIVER, GAMEPAD_IN_EPNUM)) {
+        /* Need to either suspend, or loop and call unlock/lock during
+         * every iteration - otherwise the system will remain locked,
+         * no interrupts served, so USB not going through as well.
+         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[GAMEPAD_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
+    }
+    usbStartTransmitI(&USB_DRIVER, GAMEPAD_IN_EPNUM, (uint8_t *)report, sizeof(report_gamepad_t));
+    osalSysUnlock();
+}
+#else
+void send_gamepad(report_gamepad_t *report) {
+    (void)report;
+}
+#endif

@@ -90,7 +90,8 @@ static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_extra(uint8_t report_id, uint16_t data);
 static void    send_programmable_button(uint32_t data);
-host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra, send_programmable_button};
+static void    send_gamepad(report_gamepad_t *report);
+host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra, send_programmable_button, send_gamepad};
 
 #ifdef VIRTSER_ENABLE
 // clang-format off
@@ -445,6 +446,11 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
     /* Setup digitizer endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((DIGITIZER_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, DIGITIZER_EPSIZE, 1);
+#endif
+
+#ifdef GAMEPAD_ENABLE
+    /* Setup joystick endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((GAMEPAD_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, GAMEPAD_EPSIZE, 1);
 #endif
 
     usb_device_state_set_configuration(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
@@ -867,6 +873,30 @@ void send_digitizer(report_digitizer_t *report) {
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     Endpoint_Write_Stream_LE(report, sizeof(report_digitizer_t), NULL);
+    Endpoint_ClearIN();
+#endif
+}
+
+/** \brief Send Mouse
+ *
+ * FIXME: Needs doc
+ */
+static void send_gamepad(report_gamepad_t *report) {
+#ifdef GAMEPAD_ENABLE
+    uint8_t timeout = 255;
+
+    /* Select the Mouse Report Endpoint */
+    Endpoint_SelectEndpoint(GAMEPAD_IN_EPNUM);
+
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed())
+        _delay_us(40);
+    if (!Endpoint_IsReadWriteAllowed()) return;
+
+    /* Write Mouse Report Data */
+    Endpoint_Write_Stream_LE(report, sizeof(report_gamepad_t), NULL);
+
+    /* Finalize the stream transfer to send the last packet */
     Endpoint_ClearIN();
 #endif
 }

@@ -29,6 +29,7 @@ typedef struct {
     void (*send_mouse)(report_mouse_t *);
     void (*send_extra)(uint8_t, uint16_t);
     void (*send_programmable_button)(uint32_t);
+    void (*send_gamepad)(report_gamepad_t *);
 } host_driver_t;
 
 void send_joystick(report_joystick_t *report);

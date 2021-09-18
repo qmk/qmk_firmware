@@ -137,6 +137,9 @@ typedef struct {
     USB_Descriptor_Interface_t Joystick_Interface;
     USB_HID_Descriptor_HID_t   Joystick_HID;
     USB_Descriptor_Endpoint_t  Joystick_INEndpoint;
+#    ifdef SWITCH_CONTROLLER_ENABLE
+    USB_Descriptor_Endpoint_t Joystick_OUTEndpoint;
+#    endif
 #endif
 
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
@@ -144,6 +147,14 @@ typedef struct {
     USB_Descriptor_Interface_t Digitizer_Interface;
     USB_HID_Descriptor_HID_t   Digitizer_HID;
     USB_Descriptor_Endpoint_t  Digitizer_INEndpoint;
+#endif
+
+#if defined(GAMEPAD_ENABLE) && !defined(GAMEPAD_SHARED_EP)
+    // Gamepad HID Interface
+    USB_Descriptor_Interface_t Gamepad_Interface;
+    USB_HID_Descriptor_HID_t   Gamepad_HID;
+    USB_Descriptor_Endpoint_t  Gamepad_INEndpoint;
+    USB_Descriptor_Endpoint_t  Gamepad_OUTEndpoint;
 #endif
 } USB_Descriptor_Configuration_t;
 
@@ -193,6 +204,9 @@ enum usb_interfaces {
 
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
     DIGITIZER_INTERFACE,
+#endif
+#if defined(GAMEPAD_ENABLE) && !defined(GAMEPAD_SHARED_EP)
+    GAMEPAD_INTERFACE,
 #endif
     TOTAL_INTERFACES
 };
@@ -286,6 +300,19 @@ enum usb_endpoints {
 #        define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
 #    endif
 #endif
+
+#ifdef GAMEPAD_ENABLE
+#    if !defined(GAMEPAD_SHARED_EP)
+    GAMEPAD_IN_EPNUM = NEXT_EPNUM,
+#        if STM32_USB_USE_OTG1
+    GAMEPAD_OUT_EPNUM = GAMEPAD_IN_EPNUM,
+#        else
+    GAMEPAD_OUT_EPNUM   = NEXT_EPNUM,
+#        endif
+#    else
+#        define GAMEPAD_IN_ENUM SHARED_IN_EPNUM
+#    endif
+#endif
 };
 
 #ifdef PROTOCOL_LUFA
@@ -312,5 +339,6 @@ enum usb_endpoints {
 #define CDC_EPSIZE 16
 #define JOYSTICK_EPSIZE 8
 #define DIGITIZER_EPSIZE 8
+#define GAMEPAD_EPSIZE 8
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);

@@ -421,6 +421,72 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
 };
 #endif
 
+#ifdef GAMEPAD_ENABLE
+#    ifndef GAMEPAD_SHARED_EP
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM GamepadReport[] = {
+#    elif !defined(SHARED_REPORT_STARTED)
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
+#        define SHARED_REPORT_STARTED
+#    endif
+    HID_RI_USAGE_PAGE(8,1), /* Generic Desktop */
+    HID_RI_USAGE(8,5), /* Joystick */
+    HID_RI_COLLECTION(8,1), /* Application */
+#ifdef GAMEPAD_SHARED_EP
+    HID_RI_REPORT_ID(8, REPORT_ID_GAMEPAD),
+#endif
+        // Buttons (2 bytes)
+        HID_RI_LOGICAL_MINIMUM(8,0),
+        HID_RI_LOGICAL_MAXIMUM(8,1),
+        HID_RI_PHYSICAL_MINIMUM(8,0),
+        HID_RI_PHYSICAL_MAXIMUM(8,1),
+        // The Switch will allow us to expand the original HORI descriptors to a full 16 buttons.
+        // The Switch will make use of 14 of those buttons.
+        HID_RI_REPORT_SIZE(8,1),
+        HID_RI_REPORT_COUNT(8,16),
+        HID_RI_USAGE_PAGE(8,9),
+        HID_RI_USAGE_MINIMUM(8,1),
+        HID_RI_USAGE_MAXIMUM(8,16),
+        HID_RI_INPUT(8,2),
+        // HAT Switch (1 nibble)
+        HID_RI_USAGE_PAGE(8,1),
+        HID_RI_LOGICAL_MAXIMUM(8,7),
+        HID_RI_PHYSICAL_MAXIMUM(16,315),
+        HID_RI_REPORT_SIZE(8,4),
+        HID_RI_REPORT_COUNT(8,1),
+        HID_RI_UNIT(8,20),
+        HID_RI_USAGE(8,57),
+        HID_RI_INPUT(8,66),
+        // There's an additional nibble here that's utilized as part of the Switch Pro Controller.
+        // I believe this -might- be separate U/D/L/R bits on the Switch Pro Controller, as they're utilized as four button descriptors on the Switch Pro Controller.
+        HID_RI_UNIT(8,0),
+        HID_RI_REPORT_COUNT(8,1),
+        HID_RI_INPUT(8,1),
+        // Joystick (4 bytes)
+        HID_RI_LOGICAL_MAXIMUM(16,255),
+        HID_RI_PHYSICAL_MAXIMUM(16,255),
+        HID_RI_USAGE(8,48),
+        HID_RI_USAGE(8,49),
+        HID_RI_USAGE(8,50),
+        HID_RI_USAGE(8,53),
+        HID_RI_REPORT_SIZE(8,8),
+        HID_RI_REPORT_COUNT(8,4),
+        HID_RI_INPUT(8,2),
+        // ??? Vendor Specific (1 byte)
+        // This byte requires additional investigation.
+        HID_RI_USAGE_PAGE(16,65280),
+        HID_RI_USAGE(8,32),
+        HID_RI_REPORT_COUNT(8,1),
+        HID_RI_INPUT(8,2),
+        // Output (8 bytes)
+        // Original observation of this suggests it to be a mirror of the inputs that we sent.
+        // The Switch requires us to have these descriptors available.
+        HID_RI_USAGE(16,9761),
+        HID_RI_REPORT_COUNT(8,8),
+        HID_RI_OUTPUT(8,2),
+    HID_RI_END_COLLECTION(0),
+};
+#endif
+
 /*
  * Device descriptor
  */
@@ -1039,6 +1105,57 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
     },
 #endif
+
+#if defined(GAMEPAD_ENABLE) && !defined(GAMEPAD_SHARED_EP)
+    /*
+     * Gamepad
+     */
+    .Gamepad_Interface = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Interface_t),
+            .Type               = DTYPE_Interface
+        },
+        .InterfaceNumber        = GAMEPAD_INTERFACE,
+        .AlternateSetting       = 0x00,
+        .TotalEndpoints         = 2,
+        .Class                  = HID_CSCP_HIDClass,
+        .SubClass               = HID_CSCP_NonBootSubclass,
+        .Protocol               = HID_CSCP_NonBootProtocol,
+        .InterfaceStrIndex      = NO_DESCRIPTOR
+    },
+    .Gamepad_HID = {
+        .Header = {
+            .Size               = sizeof(USB_HID_Descriptor_HID_t),
+            .Type               = HID_DTYPE_HID
+        },
+        .HIDSpec                = VERSION_BCD(1, 1, 1),
+        .CountryCode            = 0x00,
+        .TotalReportDescriptors = 1,
+        .HIDReportType          = HID_DTYPE_Report,
+        .HIDReportLength        = sizeof(GamepadReport)
+    },
+    .Gamepad_INEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_IN | GAMEPAD_IN_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = GAMEPAD_EPSIZE,
+        .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
+    },
+    .Gamepad_OUTEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_OUT | GAMEPAD_OUT_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = GAMEPAD_EPSIZE,
+        .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
+    }
+#endif
+
 };
 
 /*
@@ -1184,6 +1301,12 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
 
                     break;
 #endif
+#if defined(GAMEPAD_ENABLE) && !defined(GAMEPAD_SHARED_EP)
+                case GAMEPAD_INTERFACE:
+                    Address = &ConfigurationDescriptor.Gamepad_HID;
+                    Size    = sizeof(USB_HID_Descriptor_HID_t);
+                    break;
+#endif
             }
 
             break;
@@ -1238,6 +1361,12 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                 case DIGITIZER_INTERFACE:
                     Address = &DigitizerReport;
                     Size    = sizeof(DigitizerReport);
+                    break;
+#endif
+#if defined(GAMEPAD_ENABLE) && !defined(GAMEPAD_SHARED_EP)
+                case GAMEPAD_INTERFACE:
+                    Address = &GamepadReport;
+                    Size    = sizeof(GamepadReport);
                     break;
 #endif
             }

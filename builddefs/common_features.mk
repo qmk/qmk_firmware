@@ -905,3 +905,12 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
         OPT_DEFS += -DENCODER_MAP_ENABLE
     endif
 endif
+
+ifeq ($(strip $(SWITCH_CONTROLLER_ENABLE)), yes)
+    GAMEPAD_ENABLE := yes
+    OPT_DEFS += -DSWITCH_CONTROLLER_ENABLE
+endif
+
+ifeq ($(strip $(GAMEPAD_ENABLE)), yes)
+    OPT_DEFS += -DGAMEPAD_ENABLE
+endif

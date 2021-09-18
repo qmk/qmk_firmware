@@ -48,6 +48,7 @@ void    host_mouse_send(report_mouse_t *report);
 void    host_system_send(uint16_t data);
 void    host_consumer_send(uint16_t data);
 void    host_programmable_button_send(uint32_t data);
+void    host_gamepad_send(report_gamepad_t *report);
 
 uint16_t host_last_system_report(void);
 uint16_t host_last_consumer_report(void);

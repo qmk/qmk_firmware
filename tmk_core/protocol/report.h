@@ -32,7 +32,8 @@ enum hid_report_ids {
     REPORT_ID_PROGRAMMABLE_BUTTON,
     REPORT_ID_NKRO,
     REPORT_ID_JOYSTICK,
-    REPORT_ID_DIGITIZER
+    REPORT_ID_DIGITIZER,
+    REPORT_ID_GAMEPAD
 };
 
 /* Mouse buttons */
@@ -246,6 +247,19 @@ typedef struct {
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 #endif
 } __attribute__((packed)) report_joystick_t;
+
+typedef struct {
+#ifdef GAMEPAD_SHARED_EP
+    uint8_t report_id;
+#endif
+    uint16_t button; // 16 buttons; see JoystickButtons_t for bit mapping
+    uint8_t  hat;    // HAT switch; one nibble w/ unused nibble
+    uint8_t  lx;     // Left  Stick X
+    uint8_t  ly;     // Left  Stick Y
+    uint8_t  rx;     // Right Stick X
+    uint8_t  ry;     // Right Stick Y
+    uint8_t  vendor_spec;
+} __attribute__((packed)) report_gamepad_t;
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
