@@ -98,6 +98,16 @@ endif
 
 VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
 STENO_PROTOCOL ?= all
+
+ifeq ($(strip $(PLOVER_ENABLE)), yes)
+    OPT_DEFS += -DPLOVER_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_plover.c
+endif
+ifeq ($(strip $(PLOVER_HID_ENABLE)), yes)
+    OPT_DEFS += -DPLOVER_HID_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_plover_hid.c
+endif
+
 ifeq ($(strip $(STENO_ENABLE)), yes)
     ifeq ($(filter $(STENO_PROTOCOL),$(VALID_STENO_PROTOCOL_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)

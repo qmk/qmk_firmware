@@ -1,0 +1,12 @@
+{
+    "keycodes": {
+        "0x5A40": {
+            "group": "steno",
+            "key": "QK_PLOVER_HID"
+        },
+        "0x5A80": {
+            "group": "steno",
+            "key": "QK_PLOVER_HID_MAX"
+        },
+    }
+}
