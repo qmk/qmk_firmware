@@ -70,3 +70,4 @@
 #define LEADER_NO_TIMEOUT
 
 #define RGBLIGHT_SLEEP // RGB lighting will switch off when the host goes to sleep
+#define RGBLIGHT_LAYERS
