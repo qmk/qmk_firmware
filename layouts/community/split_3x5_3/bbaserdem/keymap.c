@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef RGB_MATRIX_ENABLE
 
 // crkbd
-#if defined(KEYBOARD_crkbd_rev1)
+#ifdef KEYBOARD_crkbd_rev1
 /* This is left-right for crkbd indicator light
  * ┌──┬──┬──┬──┬──┐      ┌──┬──┬──┬──┬──┐
  * │23│18│17│10│09│      │33│34│41│42│47│
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 // End of differentiations
-#endif
+#endif // KEYBOARD_crkbd_rev1
 
 // End of code for the RGB_MATRIX setup
-#endif
+#endif // RGB_MATRIX_ENABLE

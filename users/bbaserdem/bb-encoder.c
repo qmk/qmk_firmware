@@ -14,17 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "bb-encoder.h"
+
 // Need this to call velocikey activation
 #ifdef VELOCIKEY_ENABLE
 #   include "velocikey.h"
-#endif
+#endif // VELOCIKEY_ENABLE
 // Need memcpy and memcmp from string.h along with transfer stuff
 #ifdef OLED_ENABLE
 #   include <string.h>
-#endif
-
+#endif // OLED_ENABLE
 
 /* ROTARY ENCODER
  * This contains my general rotary encoder code
@@ -54,7 +53,7 @@ void keyboard_post_init_encoder(void) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     // Differentiate layer roles
     switch (get_highest_layer(layer_state)) {
-        #ifdef RGB_MATRIX_ENABLE
+#       ifdef RGB_MATRIX_ENABLE
         case _MEDI:
             switch(userspace_config.encoder[index].rgb) {
                 case 0: // Effect the RGB mode
@@ -94,8 +93,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     break;
             }
             break;
-        #endif
-        #ifdef MOUSEKEY_ENABLE
+#       endif // RGB_MATRIX_ENABLE
+#       ifdef MOUSEKEY_ENABLE
         case _MOUS:
             switch(userspace_config.encoder[index].point) {
                 case 0: // Move mouse on horizontal axis
@@ -128,7 +127,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     break;
             }
             break;
-        #endif
+#       endif // MOUSEKEY_ENABLE
         default:
             switch(userspace_config.encoder[index].base) {
                 case 0: // Volume
@@ -203,7 +202,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 void encoder_click_action(uint8_t index) {
     // Differentiate layer roles
     switch (get_highest_layer(layer_state)) {
-        #ifdef RGB_MATRIX_ENABLE
+#       ifdef RGB_MATRIX_ENABLE
         case _MEDI:
             switch(userspace_config.encoder[index].rgb) {
                 case 0: // Return to no animation
@@ -215,14 +214,14 @@ void encoder_click_action(uint8_t index) {
                     rgb_matrix_increase_val_noeeprom();
                     break;
                 case 4: // Toggle velocikey
-                    #ifdef VELOCIKEY_ENABLE
+#                   ifdef VELOCIKEY_ENABLE
                     velocikey_toggle();
-                    #endif
+#                   endif // VELOCIKEY_ENABLE
                     break;
             }
             break;
-        #endif
-        #ifdef MOUSEKEY_ENABLE
+#       endif // RGB_MATRIX_ENABLE
+#       ifdef MOUSEKEY_ENABLE
         case _MOUS:
             switch(userspace_config.encoder[index].point) {
                 case 0: // Left click
@@ -237,7 +236,7 @@ void encoder_click_action(uint8_t index) {
                     break;
             }
             break;
-        #endif
+#       endif // MOUSEKEY_ENABLE
         default:
             switch(userspace_config.encoder[index].base) {
                 case 0: // Toggle mute
@@ -284,18 +283,18 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
         // If shifted, move mode one point forward
         if (get_mods() & MOD_MASK_SHIFT) {
             switch (get_highest_layer(layer_state)) {
-                #ifdef RGB_MATRIX_ENABLE
+#               ifdef RGB_MATRIX_ENABLE
                 case _MEDI:
                     userspace_config.encoder[encoder_index].rgb =
                         (userspace_config.encoder[encoder_index].rgb   + 1) % 5;
                     break;
-                #endif
-                #ifdef MOUSEKEY_ENABLE
+#               endif // RGB_MATRIX_ENABLE
+#               ifdef MOUSEKEY_ENABLE
                 case _MOUS:
                     userspace_config.encoder[encoder_index].point =
                         (userspace_config.encoder[encoder_index].point + 1) % 4;
                     break;
-                #endif
+#               endif // MOUSEKEY_ENABLE
                 default:
                     userspace_config.encoder[encoder_index].base =
                         (userspace_config.encoder[encoder_index].base  + 1) % 9;
@@ -304,18 +303,18 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
         // If ctrl is active, move mode one point backwards
         } else if (get_mods() & MOD_MASK_CTRL) {
             switch (get_highest_layer(layer_state)) {
-                #ifdef RGB_MATRIX_ENABLE
+#               ifdef RGB_MATRIX_ENABLE
                 case _MEDI:
                     userspace_config.encoder[encoder_index].rgb =
                         (userspace_config.encoder[encoder_index].rgb   + 5 - 1) % 5;
                     break;
-                #endif
-                #ifdef MOUSEKEY_ENABLE
+#               endif // RGB_MATRIX_ENABLE
+#               ifdef MOUSEKEY_ENABLE
                 case _MOUS:
                     userspace_config.encoder[encoder_index].point =
                         (userspace_config.encoder[encoder_index].point + 4 - 1) % 4;
                     break;
-                #endif
+#               endif // MOUSEKEY_ENABLE
                 default:
                     userspace_config.encoder[encoder_index].base =
                         (userspace_config.encoder[encoder_index].base  + 9 - 1) % 9;

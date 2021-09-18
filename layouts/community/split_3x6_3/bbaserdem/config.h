@@ -21,8 +21,6 @@
 
 // Code pertaining to Corne ARM; from Waffle's keymap
 #ifdef KEYBOARD_crkbd_rev1
-#   include "config_common.h"
-
     // Use EE_HANDS to determine handedness
 #   define EE_HANDS
 

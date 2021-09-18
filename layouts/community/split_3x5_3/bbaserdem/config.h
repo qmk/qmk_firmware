@@ -24,13 +24,12 @@
 
 #ifdef KEYBOARD_crkbd_rev1
     // Corne overrides
-    #include "../../../../keyboards/crkbd/rev1/config.h"
-    #ifdef RGBLED_NUM
-    #undef RGBLED_NUM
-    #endif
-    #ifdef DRIVER_LED_TOTAL
-    #undef DRIVER_LED_TOTAL
-    #endif
-    #define RGBLED_NUM 48
-    #define DRIVER_LED_TOTAL RGBLED_NUM
-#endif
+#   ifdef RGBLED_NUM
+#   undef RGBLED_NUM
+#   endif
+#   ifdef DRIVER_LED_TOTAL
+#   undef DRIVER_LED_TOTAL
+#   endif
+#   define RGBLED_NUM 48
+#   define DRIVER_LED_TOTAL RGBLED_NUM
+#endif // KEYBOARD_crkbd_rev1

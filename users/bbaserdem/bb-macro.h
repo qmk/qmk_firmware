@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 #include "bbaserdem.h"
+
 /* This header file contains definitons regarding custom keycodes.
  * - Both regular and unicode macros are dealt with in this file
  */
@@ -101,7 +101,7 @@ enum userspace_unicodemap {
     LOW_PSI,
     LOW_OMEGA,
 };
-#endif
+#endif // UNICODEMAP_ENABLE
 
 // Tap dance stuff
 #ifdef AUDIO_ENABLE
@@ -109,5 +109,5 @@ enum userspace_unicodemap {
 enum {
     TD_AUDIO_TEMPO,
 };
-#endif
-#endif
+#endif // AUDIO_ENABLE
+#endif // TAP_DANCE_ENABLE

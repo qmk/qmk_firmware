@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "bb-macro.h"
+
 /* MACRO Definitions
  * This file has my macros/unicodes
  * Hooks for other functionality to inject itself into the process_record
@@ -28,8 +28,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     // Music playback speed modulator
     [TD_AUDIO_TEMPO] = ACTION_TAP_DANCE_DOUBLE(MU_SLOW, MU_FAST),
 };
-#endif
-#endif
+#endif // AUDIO_ENABLE
+#endif // TAP_DANCE_ENABLE
 
 // Unicode definitions; for single character keys
 //  We mask their definitions if unicode is not enabled
@@ -74,7 +74,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [ANGSTROM]    = 0x212B,  // Å
     [BITCOIN]     = 0x20BF   // ₿
 };
-#endif
+#endif // UNICODEMAP_ENABLE
 
 // Keycodes
 bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
@@ -131,7 +131,7 @@ bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
             }
             return false; break;
         // Unicode macros
-        #ifdef UNICODEMAP_ENABLE
+#       ifdef UNICODEMAP_ENABLE
         case TR_FLAG:
             // Turkish flag
             if (record->event.pressed) {
@@ -150,7 +150,7 @@ bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
                 send_unicode_hex_string("253B 2501 253B FE35 0020 005C 0028 00B0 25A1 00B0 0029 002F 0020 FE35 0020 253B 2501 253B");
             }
             return false; break;
-        #endif
+#       endif // UNICODEMAP_ENABLE
     }
     return true;
 }

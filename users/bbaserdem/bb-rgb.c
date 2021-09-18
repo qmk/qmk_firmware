@@ -113,7 +113,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 
 // Hook into shutdown code to make all perkey LED's red on hitting reset
-void shutdown_keylight(void) {
+void shutdown_rgb(void) {
     // Flash all the key LED's red on shutdown
     uint16_t timer_start = timer_read();
     rgb_matrix_set_color_all(RGB_CORAL);
@@ -122,9 +122,9 @@ void shutdown_keylight(void) {
 }
 
 // Hook into suspend code
-void suspend_power_down_keylight(void) {
+void suspend_power_down_rgb(void) {
     rgb_matrix_set_suspend_state(true);
 }
-void suspend_wakeup_init_keylight(void) {
+void suspend_wakeup_init_rgb(void) {
     rgb_matrix_set_suspend_state(false);
 }

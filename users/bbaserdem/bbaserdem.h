@@ -30,28 +30,28 @@
 #include "bb-macro.h"
 // Audio from onboard speakers
 #ifdef AUDIO_ENABLE
-  #include "bb-audio.h"
-#endif
+#include "bb-audio.h"
+#endif // AUDIO_ENABLE
 // Keycap backlight using non-rgb LEDs
 #ifdef BACKLIGHT_ENABLE         
-  #include "bb-backlight.h"
-#endif
+#include "bb-backlight.h"
+#endif // BACKLIGHT_ENABLE
 // Underglow light using rgb LEDs
 #ifdef RGBLIGHT_ENABLE
-    #include "bb-underglow.h"
-#endif
+#include "bb-underglow.h"
+#endif // RGBLIGHT_ENABLE
 // Keycap backlight using rgb LEDs
 #ifdef RGB_MATRIX_ENABLE
-    #include "bb-rgb.h"
-#endif
+#include "bb-rgb.h"
+#endif // RGB_MATRIX_ENABLE
 // Rotary encoder
 #ifdef ENCODER_ENABLE  
-    #include "bb-encoder.h"
-#endif
+#include "bb-encoder.h"
+#endif // ENCODER_ENABLE
 // Oled screen
 #ifdef OLED_ENABLE
-    #include "bb-oled.h"
-#endif
+#include "bb-oled.h"
+#endif // OLED_ENABLE
 
 // Structure to keep runtime info on encoder state
 typedef union {
@@ -104,10 +104,10 @@ void suspend_wakeup_init_keymap(void);
 void shutdown_keymap(void);
 
 // Make it so that keymaps can use KEYMAP_SAFE_RANGE for custom keycodes
-#if defined(KEYMAP_SAFE_RANGE)
-  #define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#ifdef KEYMAP_SAFE_RANGE
+#define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
 #else
-  #define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
+#define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
 #endif
 
 // Custom macro keycode ranges
@@ -126,16 +126,16 @@ enum userspace_custom_keycodes {
     BB_LENY,
     BB_TABL,
     TR_FLAG,
-#   endif
+#   endif // UNICODEMAP_ENABLE
     // Encoder buttons
 #   ifdef ENCODER_ENABLE
     BB_ENC0,
     BB_ENC1,
-#   endif
+#   endif // ENCODER_ENABLE
     // Oled editor
 #   ifdef OLED_ENABLE
     BB_OLED,
-#   endif
+#   endif // OLED_ENABLE
     //use for keymap specific codes
     KEYMAP_SAFE_RANGE
 };
@@ -144,11 +144,11 @@ enum userspace_custom_keycodes {
 #define BB_LENY KC_NO
 #define BB_TABL KC_NO
 #define TR_FLAG KC_NO
-#endif
+#endif // UNICODEMAP_ENABLE
 #ifndef ENCODER_ENABLE
 #define BB_ENC0 KC_NO
 #define BB_ENC1 KC_NO
-#endif
+#endif // ENCODER_ENABLE
 
 /// Enumerate of layers
 enum userspace_layers {
@@ -213,10 +213,10 @@ enum userspace_layers {
 #define BB_SND  MU_ON
 #ifdef TAP_DANCE_ENABLE
 #define MU_TEMP TD(TD_AUDIO_TEMPO)
-#else
+#else // TAP_DANCE_ENABLE
 #define MU_TEMP KC_DOWN
-#endif
-#else
+#endif // TAP_DANCE_ENABLE
+#else // AUDIO_ENABLE
 #define MU_REC  KC_NO
 #define MU_STOP KC_NO
 #define MU_PLAY KC_NO
@@ -225,7 +225,7 @@ enum userspace_layers {
 #define MU_SLOW KC_NO
 #define MU_MASK KC_NO
 #define BB_SND  KC_MUTE
-#endif
+#endif // AUDIO_ENABLE
 
 // Unicode keys
 #ifdef UNICODEMAP_ENABLE
@@ -267,7 +267,7 @@ enum userspace_layers {
 #define BB_PLNK X(PLANCK_CON)
 #define BB_ANGS X(ANGSTROM)
 #define BB_BITC X(BITCOIN)
-#else
+#else // UNICODEMAP_ENABLE
 #define TR_ACIR KC_A
 #define TR_CCED KC_C
 #define TR_GBRE KC_G
@@ -306,7 +306,7 @@ enum userspace_layers {
 #define BB_PLNK KC_NO
 #define BB_ANGS KC_NO
 #define BB_BITC KC_NO
-#endif
+#endif // UNICODEMAP_ENABLE
 
 // MOD-tap definitions
 #define GUI_A   MT(MOD_LGUI, DV_A)
