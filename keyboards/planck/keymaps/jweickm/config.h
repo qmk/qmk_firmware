@@ -14,8 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#define RGBLIGHT_LAYERS
-
 #pragma once
 
 #ifdef AUDIO_ENABLE
@@ -70,3 +68,4 @@
 #define LEADER_NO_TIMEOUT
 
 #define RGBLIGHT_SLEEP // RGB lighting will switch off when the host goes to sleep
+#define RGBLIGHT_LAYERS
