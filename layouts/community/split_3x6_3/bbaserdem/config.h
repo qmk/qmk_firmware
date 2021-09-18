@@ -47,8 +47,6 @@
 #       define MUSIC_MAP
 #   endif
 
-    // Communication has to be serial on ARM
-#   define USE_SERIAL_PD2
     // Set serial pin as D3 for sure
 #   undef SOFT_SERIAL_PIN
 #   define SOFT_SERIAL_PIN D3
