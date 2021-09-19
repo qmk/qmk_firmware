@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), L_SYM,     L_NUM,     OPT_TAP_SP, KC_ENT, _______,  _______,  _______,  _______,  _______,  _______,  _______ \
       ),
   [_BASE_106] = LAYOUT( \
-      LCTL(KC_Z),    JP_SCLN,       JP_LBRC,       JP_LPRN,   JP_LT,     JP_LCBR,                                _______,  _______,  _______,  _______,  _______,  _______, \
+      LCTL(KC_Z),    JP_SCLN,       JP_LBRC,       JP_LPRN,   JP_LABK,   JP_LCBR,                                _______,  _______,  _______,  _______,  _______,  _______, \
       KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,                                   _______,  _______,  _______,  _______,  _______,  _______, \
       KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,                                   _______,  _______,  _______,  _______,  _______,  _______, \
       OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC, _______,  _______,  _______,  _______,  _______,  _______,  _______, \
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______,_______, KC_COMM,DESKTOP,   _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______ \
       ),
   [_OPT_106] = LAYOUT( \
-      KC_ESC,  JP_COLN,JP_RBRC, JP_RPRN,JP_GT,     JP_RCBR,                   _______,  _______,  _______,  _______,  _______,  _______, \
+      KC_ESC,  JP_COLN,JP_RBRC, JP_RPRN,JP_RABK,   JP_RCBR,                   _______,  _______,  _______,  _______,  _______,  _______, \
       EISU,    KC_J,   KC_M,    KC_B,   JP_QUOT,   KC_TAB,                    _______,  _______,  _______,  _______,  _______,  _______, \
       KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,                      _______,  _______,  _______,  _______,  _______,  _______, \
       _______, KC_X,   KC_G,    KC_W,   JP_MINS,   KC_DEL,  KC_ESC,  _______, _______,  _______,  _______,  _______,  _______,  _______, \
@@ -363,7 +363,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //case JP_SCLN: // == KC_SCLN
     case JP_LBRC:
     case JP_LPRN:
-    //case JP_LT: // == KC_LT
+    //case JP_LABK: // == KC_LT
     case JP_LCBR:
       if (IS_MODE_106()) {
           if (keycode == KC_LBRC || keycode == KC_LPRN || keycode == KC_LCBR)

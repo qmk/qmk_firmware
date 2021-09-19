@@ -18,6 +18,13 @@
     - Add capslock indicator, win key lock indicator
     - Fn and layer 2 indicators using RGB underglow
 
+rules.mk OPTIONS - Active features from userspace
+STARTUP_NUMLOCK_ON = yes
+    - turns on NUMLOCK by default
+
+TD_LSFT_CAPSLOCK_ENABLE = yes
+    - This will enable double tap on Left Shift to toggle CAPSLOCK when using KC_LSFTCAPS
+
 ## All layers diagram
 
 Default Layer

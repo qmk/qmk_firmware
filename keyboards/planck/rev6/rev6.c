@@ -40,31 +40,4 @@ led_config_t g_led_config = { {
 //        0
 //     7 8 1 2
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-#endif
-
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	matrix_scan_user();
-}
-
-#ifdef DIP_SWITCH_ENABLE
-__attribute__((weak))
-void dip_update(uint8_t index, bool active) {}
-
-__attribute__((weak))
-void dip_switch_update_user(uint8_t index, bool active) {
-    dip_update(index, active);
-}
 #endif

@@ -316,6 +316,9 @@ typedef struct {
 #ifdef JOYSTICK_ENABLE
             usb_driver_config_t joystick_driver;
 #endif
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+            usb_driver_config_t digitizer_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -359,6 +362,14 @@ static usb_driver_configs_t drivers = {
 #    define JOYSTICK_IN_MODE USB_EP_MODE_TYPE_BULK
 #    define JOYSTICK_OUT_MODE USB_EP_MODE_TYPE_BULK
     .joystick_driver = QMK_USB_DRIVER_CONFIG(JOYSTICK, 0, false),
+#endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+#    define DIGITIZER_IN_CAPACITY 4
+#    define DIGITIZER_OUT_CAPACITY 4
+#    define DIGITIZER_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define DIGITIZER_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .digitizer_driver = QMK_USB_DRIVER_CONFIG(DIGITIZER, 0, false),
 #endif
 };
 
@@ -415,14 +426,18 @@ static inline void usb_event_wakeup_handler(void) {
 #endif /* SLEEP_LED_ENABLE */
 }
 
+bool last_suspend_state = false;
+
 void usb_event_queue_task(void) {
     usbevent_t event;
     while (usb_event_queue_dequeue(&event)) {
         switch (event) {
             case USB_EVENT_SUSPEND:
+                last_suspend_state = true;
                 usb_event_suspend_handler();
                 break;
             case USB_EVENT_WAKEUP:
+                last_suspend_state = false;
                 usb_event_wakeup_handler();
                 break;
             default:
@@ -464,6 +479,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 qmkusbConfigureHookI(&drivers.array[i].driver);
             }
             osalSysUnlockFromISR();
+            if (last_suspend_state) {
+                usb_event_queue_enqueue(USB_EVENT_WAKEUP);
+            }
             return;
         case USB_EVENT_SUSPEND:
             usb_event_queue_enqueue(USB_EVENT_SUSPEND);
@@ -518,7 +536,7 @@ static uint16_t get_hword(uint8_t *p) {
  * Other Device    Required    Optional    Optional    Optional    Optional    Optional
  */
 
-static uint8_t set_report_buf[2] __attribute__((aligned(2)));
+static uint8_t set_report_buf[2] __attribute__((aligned(4)));
 static void    set_led_transfer_cb(USBDriver *usbp) {
     if (usbp->setup[6] == 2) { /* LSB(wLength) */
         uint8_t report_id = set_report_buf[0];
@@ -705,7 +723,7 @@ void init_usb_driver(USBDriver *usbp) {
     chVTObjectInit(&keyboard_idle_timer);
 }
 
-void restart_usb_driver(USBDriver *usbp) {
+__attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
     usbStop(usbp);
     usbDisconnectBus(usbp);
 
@@ -903,7 +921,8 @@ static void send_extra(uint8_t report_id, uint16_t data) {
         return;
     }
 
-    report_extra_t report = {.report_id = report_id, .usage = data};
+    static report_extra_t report;
+    report = (report_extra_t){.report_id = report_id, .usage = data};
 
     usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
     osalSysUnlock();
@@ -919,6 +938,23 @@ void send_system(uint16_t data) {
 void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
     send_extra(REPORT_ID_CONSUMER, data);
+#endif
+}
+
+void send_digitizer(report_digitizer_t *report) {
+#ifdef DIGITIZER_ENABLE
+#    ifdef DIGITIZER_SHARED_EP
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    usbStartTransmitI(&USB_DRIVER, DIGITIZER_IN_EPNUM, (uint8_t *)report, sizeof(report_digitizer_t));
+    osalSysUnlock();
+#    else
+    chnWrite(&drivers.digitizer_driver.driver, (uint8_t *)report, sizeof(report_digitizer_t));
+#    endif
 #endif
 }
 
@@ -1051,45 +1087,44 @@ void virtser_task(void) {
 #ifdef JOYSTICK_ENABLE
 
 void send_joystick_packet(joystick_t *joystick) {
-    joystick_report_t rep = {
+    static joystick_report_t rep;
+    rep = (joystick_report_t) {
 #    if JOYSTICK_AXES_COUNT > 0
         .axes =
-            {
-                joystick->axes[0],
+        { joystick->axes[0],
 
 #        if JOYSTICK_AXES_COUNT >= 2
-                joystick->axes[1],
+          joystick->axes[1],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 3
-                joystick->axes[2],
+          joystick->axes[2],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 4
-                joystick->axes[3],
+          joystick->axes[3],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 5
-                joystick->axes[4],
+          joystick->axes[4],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 6
-                joystick->axes[5],
+          joystick->axes[5],
 #        endif
-            },
+        },
 #    endif  // JOYSTICK_AXES_COUNT>0
 
 #    if JOYSTICK_BUTTON_COUNT > 0
-        .buttons =
-            {
-                joystick->buttons[0],
+        .buttons = {
+            joystick->buttons[0],
 
 #        if JOYSTICK_BUTTON_COUNT > 8
-                joystick->buttons[1],
+            joystick->buttons[1],
 #        endif
 #        if JOYSTICK_BUTTON_COUNT > 16
-                joystick->buttons[2],
+            joystick->buttons[2],
 #        endif
 #        if JOYSTICK_BUTTON_COUNT > 24
-                joystick->buttons[3],
+            joystick->buttons[3],
 #        endif
-            }
+        }
 #    endif  // JOYSTICK_BUTTON_COUNT>0
     };
 
