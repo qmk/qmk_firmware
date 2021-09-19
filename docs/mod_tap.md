@@ -61,6 +61,47 @@ You may also run into issues when using Remote Desktop Connection on Windows. Be
 To fix this, open Remote Desktop Connection, click on "Show Options", open the the "Local Resources" tab, and in the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
 It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options.md#behaviors-that-can-be-configured).
 
+## Intercepting Mod-taps
+
+Basic keycode limitation with mod-tap can be worked around by intercepting it in `process_record_user`. For example, shifted keycode `KC_DQUO` cannot be used with `MT()` because it is a 16-bit keycode alias of `LSFT(KC_QUOT)`. But the following custom code can be used to intercept the "tap" function to manually send `KC_DQUO`:
+```
+bool process_record_user(uint16_t const keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LCTL_T(KC_DQUO):
+            if (record->tap.count && record->event.pressed) {
+                // Intercept tap function
+                tap_code16(KC_DQUO);
+                // Return false to ignore processing of tap function
+                return false;
+            } else if (record->event.pressed) {
+                // Return true for normal processing of hold function
+                return true;
+            }
+            break;
+    }
+    return true;
+}
+```
+
+Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0,<keycode>)`, a current-layer mod-tap with no practical use, to create a copy on tap, paste on hold key:
+```
+bool process_record_user(uint16_t const keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(0,KC_NO):
+            if (record->tap.count && record->event.pressed) {
+                // Intercept tap function to send Ctrl-C
+                tap_code16(C(KC_C));
+            } else if (record->event.pressed) {
+                // Intercept hold function to send Ctrl-V
+                tap_code16(C(KC_V));
+            }
+            return false;
+            break;
+    }
+    return true;
+}
+```
+
 ## Other Resources
 
 See the [Tap-Hold Configuration Options](tap_hold.md) for additional flags that tweak Mod-Tap behavior.
