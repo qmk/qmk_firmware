@@ -1,16 +1,15 @@
 from pathlib import Path
 
-from codeowners import CodeOwners
-
 from qmk.json_schema import json_load
-
-codeowners_file = Path('CODEOWNERS')
-codeowners = CodeOwners(codeowners_file.read_text())
 
 
 def maintainers(file):
     """Yields maintainers for a file.
     """
+    from codeowners import CodeOwners
+
+    codeowners_file = Path('CODEOWNERS')
+    codeowners = CodeOwners(codeowners_file.read_text())
     maintainers = [owner[1] for owner in codeowners.of(str(file))]
     file_dir = file if file.is_dir() else file.parent
 
