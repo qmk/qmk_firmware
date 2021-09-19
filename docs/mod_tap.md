@@ -62,7 +62,7 @@ To fix this, open Remote Desktop Connection, click on "Show Options", open the t
 It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options.md#behaviors-that-can-be-configured).
 
 ## Intercepting Mod-Taps
-
+### Changing tap function
 Basic keycode limitation with Mod-Tap can be worked around by intercepting it in `process_record_user`. For example, shifted keycode `KC_DQUO` cannot be used with `MT()` because it is a 16-bit keycode alias of `LSFT(KC_QUOT)`. But the following custom code can be used to intercept the "tap" function to manually send `KC_DQUO`:
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -79,7 +79,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 ```
-
+### Changing hold function
 Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0, kc)`, a current-layer Mod-Tap with no practical use, to add cut, copy and paste function to X,C and V keys when they are held down:
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -112,7 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 ```
-
+### Changing both tap and hold
 This last example creates a custom copy on tap, paste on hold key using `LT(0,KC_NO)`:
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
