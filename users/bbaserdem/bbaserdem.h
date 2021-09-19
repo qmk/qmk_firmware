@@ -97,8 +97,6 @@ void keyboard_pre_init_keymap(void);
 void matrix_init_keymap(void);
 // For code that launches after initialization is finished.
 void keyboard_post_init_keymap(void);
-// This code also launches on boot; but used after eeprom is available to write
-void eeconfig_init_keymap(void);
 // These will be delegated to keymap specific stuff (weak definition)
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 // This code runs on every tick

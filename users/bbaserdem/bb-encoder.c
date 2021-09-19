@@ -315,6 +315,7 @@ void encoder_click_action(uint8_t index) {
 bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
     // Check if and which encoder
     int encoder_index = -1;
+    bool write_to_eeprom = true;
     
     // Get the pressed encoder
     switch (keycode) {
@@ -390,8 +391,6 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
                     }
                     break;
             }
-            // Write the change to EEPROM
-            eeconfig_update_user(userspace_config.raw);
         // If meta is active, reset the encoder states
         } else if (get_mods() & MOD_MASK_GUI) {
             reset_encoder_state();
@@ -399,6 +398,12 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
         // If nothing else; just perform the click action
         } else {
             encoder_click_action(encoder_index);
+            write_to_eeprom = false;
+        }
+
+        // Write the change to EEPROM
+        if (write_to_eeprom) {
+            eeconfig_update_user(userspace_config.raw);
         }
     }
     return true;
