@@ -17,7 +17,7 @@ def ping_maintainers(cli):
     for file in cli.args.files:
         for maintainer in maintainers(file):
             if maintainer != 'qmk/collaborators':
-                github_maintainers.add('@' + maintainer)
+                github_maintainers.add(maintainer)
 
     if github_maintainers:
         print(f'If you were pinged by this comment you have one or more files being changed by this PR: {" ".join(sorted(github_maintainers))}')

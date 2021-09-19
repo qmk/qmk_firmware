@@ -2,6 +2,7 @@
 -r requirements.txt
 
 # Python development requirements
+codeowners
 nose2
 flake8
 pep8-naming
