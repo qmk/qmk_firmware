@@ -1,0 +1,34 @@
+name: PR Lint Format
+
+on:
+    pull_request:
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+
+        container: qmkfm/qmk_cli
+
+        steps:
+            - uses: rlespinasse/github-slug-action@v3.x
+
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - uses: trilom/file-changes-action@v1.2.4
+              id: file_changes
+              with:
+                  output: " "
+                  fileOutput: " "
+
+            - name: Get our ping message
+              shell: "bash {0}"
+              run: echo "ping_message=$(qmk ping-maintainers $(< ~/files.txt))" > $GITHUB_ENV
+
+            - uses: mshick/add-pr-comment@v1
+              with:
+                  message: ${{ env.ping_message }}
+                  repo-token: ${{ secrets.GITHUB_TOKEN }}
+                  repo-token-user-login: "github-actions[bot]" # The user.login for temporary GitHub tokens
+                  allow-repeats: false # This is the default
