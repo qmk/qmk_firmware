@@ -1,10 +1,10 @@
-name: PR Lint Format
+name: Ping maintainers
 
 on:
     pull_request:
 
 jobs:
-    lint:
+    maintainer_ping:
         runs-on: ubuntu-latest
 
         container: qmkfm/qmk_cli
