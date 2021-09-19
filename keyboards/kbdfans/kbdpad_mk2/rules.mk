@@ -22,3 +22,5 @@ UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output on port C6
 
 LAYOUTS = ortho_6x4
+
+VIA_ENABLE = yes
