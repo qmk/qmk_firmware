@@ -16,7 +16,7 @@ def ping_maintainers(cli):
 
     for file in cli.args.files:
         for maintainer in maintainers(file):
-            if maintainer != 'qmk/collaborators':
+            if not maintainer.startswith('@qmk/'):
                 github_maintainers.add(maintainer)
 
     if github_maintainers:
