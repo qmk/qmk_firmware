@@ -22,8 +22,8 @@
 #define VENDOR_ID       0x4C50 // "LP" = Laneware Peripherals
 #define PRODUCT_ID      0x9999
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Laneware_Peripherals
-#define PRODUCT         Laneware_MACRO_1
+#define MANUFACTURER    Laneware Peripherals
+#define PRODUCT         MACRO_1
 
 /* key matrix size */
 #define MATRIX_ROWS 6

@@ -3,7 +3,7 @@
     "url": "", 
     "maintainer": "qmk", 
     "layouts":{
-      "Numpad":{
+      "LAYOUT_numpad":{
         "layout":[
           {"label":"Mute", "x":0, "y":0}, 
           {"label":"Play", "x":2, "y":0}, 
@@ -28,7 +28,7 @@
         ]
       }, 
 
-      "Southpaw":{
+      "LAYOUT_southpaw":{
         "layout":[
           {"label":"Mute", "x":0, "y":0}, 
           {"label":"Play", "x":2, "y":0}, 
@@ -53,7 +53,7 @@
         ]
       },
 
-      "Macropad":{
+      "LAYOUT_macropad":{
         "layout":[
           {"label":"Mute", "x":0, "y":0}, 
           {"label":"F1", "x":2, "y":0}, 
