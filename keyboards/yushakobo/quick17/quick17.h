@@ -1,4 +1,4 @@
-/* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2021 yushakobo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,24 +18,21 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_planck_ez)
-#    include "ez.h"
-#elif defined(KEYBOARD_planck_light)
-#    include "light.h"
-#elif defined(KEYBOARD_planck_thk)
-#    include "thk.h"
-#elif defined(KEYBOARD_planck_rev1)
-#    include "rev1.h"
-#elif defined(KEYBOARD_planck_rev2)
-#    include "rev2.h"
-#elif defined(KEYBOARD_planck_rev3)
-#    include "rev3.h"
-#elif defined(KEYBOARD_planck_rev4)
-#    include "rev4.h"
-#elif defined(KEYBOARD_planck_rev5)
-#    include "rev5.h"
-#elif defined(KEYBOARD_planck_rev6)
-#    include "rev6.h"
-#elif defined(KEYBOARD_planck_rev6_drop)
-#    include "rev6_drop.h"
-#endif  // Planck revisions
+/* This is a shortcut to help you visually see your layout.
+ *
+ * The first section contains all of the arguments representing the physical
+ * layout of the board and position of the keys.
+ *
+ * The second converts the arguments into a two-dimensional array which
+ * represents the switch matrix.
+ */
+#define LAYOUT( \
+    k00, k01, k02, k03, k04, k05, \
+    k10, k11, k12, k13, k14, k15, \
+    k20, k21, k22, k23, k24, k25 \
+) \
+{ \
+    { k00, k01, k02, k03, k04, k05 }, \
+    { k10, k11, k12, k13, k14, k15 }, \
+    { k20, k21, k22, k23, k24, k25 } \
+}
