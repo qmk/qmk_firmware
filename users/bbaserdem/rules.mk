@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Common compilation flags
-EXTRAFLAGS += -flto     # Used to make code smaller
 LTO_ENABLE = yes
 
 # These should be enabled in all boards
@@ -31,7 +30,6 @@ SLEEP_LED_ENABLE = no   # Breathes LED's when computer is asleep. Untested.
 MIDI_ENABLE = no        # Midi driver (untested)
 UNICODE_ENABLE = no 	# We use unicodemap, not unicode
 UCIS_ENABLE = no 	# We use unicodemap, not ucis
-FAUXCLICKY_ENABLE = no  # Emulates clicks using speaker, who would want this?
 VARIABLE_TRACE = no     # Allows debugging variables
 KEY_LOCK_ENABLE = no    # Allows locking any key. Not used in general
 RGBLIGHT_ENABLE = no    # LED strip, but there is RGB_MATRIX instead
