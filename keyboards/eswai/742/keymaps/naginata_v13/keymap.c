@@ -130,7 +130,7 @@ void matrix_init_user(void) {
   // 薙刀式
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 #define FRAME_TIMEOUT (1000/10)
 // static uint16_t anim_timer = 0;

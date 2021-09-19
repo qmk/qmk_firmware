@@ -143,7 +143,7 @@ void matrix_init_user(void) {
   oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {

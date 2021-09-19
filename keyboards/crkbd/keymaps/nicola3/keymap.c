@@ -169,7 +169,7 @@ void matrix_init_user(void) {
 }
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_master) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -265,11 +265,11 @@ void oled_task_user(void) {
     }
 }
 
-#endif // OLED_DRIVER_ENABLE
+#endif // OLED_ENABLE
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef OLED_DRIVER_ENABLE
+  #ifdef OLED_ENABLE
   if (record->event.pressed) {
     set_keylog(keycode, record);
   }
