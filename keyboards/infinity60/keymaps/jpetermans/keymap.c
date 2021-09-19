@@ -11,18 +11,23 @@
 //IS31 chip has 8 available led pages, using 0 for all leds and 7 for single toggles
 #define max_pages 6
 
-enum ic60_keycodes {
-  NUMPAD,
-  FNAV,
-  MEDIA,
-  BACKLIGHT,
-  BRIGHT,
-  DIM,
-  ALL,
-  GAME,
+enum led_modes {
+  MODE_ALL,
+  MODE_GAME,
   MODE_SINGLE,
   MODE_PAGE,
   MODE_FLASH
+};
+
+enum macro_id {
+  LED_ALL = SAFE_RANGE,
+  LED_GAME,
+  LED_BACKLIGHT,
+  LED_BRIGHT,
+  LED_DIM,
+  LED_SINGLE,
+  LED_PAGE,
+  LED_FLASH
 };
 
 uint8_t current_layer_global = 0;
@@ -77,10 +82,10 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* media */
     [_MEDIA] = LAYOUT_60_ansi_split_bs_rshift( \
-        _______,F(MODE_SINGLE),F(MODE_PAGE),F(MODE_FLASH),_______,_______,_______, _______, _______, _______,KC_MUTE, KC_VOLD, KC_VOLU,_______,KC_NO,\
+        _______,LED_SINGLE,LED_PAGE,LED_FLASH,_______,_______,_______, _______, _______, _______,KC_MUTE, KC_VOLD, KC_VOLU,_______,KC_NO,\
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,_______,_______,\
-        _______,_______,_______,_______,_______,F(GAME),_______, _______, _______, _______,_______, _______,_______,     \
-        _______,_______,F(ALL) ,F(BRIGHT),F(DIM),F(BACKLIGHT),_______, _______, KC_MPRV, KC_MNXT,KC_MSTP, _______,KC_NO,       \
+        _______,_______,_______,_______,_______,LED_GAME,_______, _______, _______, _______,_______, _______,_______,     \
+        _______,_______,LED_ALL ,LED_BRIGHT,LED_DIM,LED_BACKLIGHT,_______, _______, KC_MPRV, KC_MNXT,KC_MSTP, _______,KC_NO,       \
         _______,_______,_______,               KC_MPLY,             _______,_______, _______,_______      \
     ),
     /* ~ */
@@ -99,22 +104,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,KC_NO,       \
         _______,_______,_______,               _______,             _______,_______, _______,_______      \
     ),
-};
-
-//id for user defined functions and macros
-enum function_id {
-    NONE,
-};
-
-enum macro_id {
-    ACTION_LEDS_ALL,
-    ACTION_LEDS_GAME,
-    ACTION_LEDS_BACKLIGHT,
-    ACTION_LEDS_BRIGHT,
-    ACTION_LEDS_DIM,
-    ACTION_LEDS_SINGLE,
-    ACTION_LEDS_PAGE,
-    ACTION_LEDS_FLASH
 };
 
 /* ==================================
@@ -158,83 +147,61 @@ uint8_t led_game[5] = {
      47,48,51
 };
 
-//======== qmk functions =========
-const uint16_t fn_actions[] = {
-    [ALL] = ACTION_FUNCTION(ACTION_LEDS_ALL),
-    [GAME] = ACTION_FUNCTION(ACTION_LEDS_GAME),
-    [BACKLIGHT] = ACTION_FUNCTION(ACTION_LEDS_BACKLIGHT),
-    [BRIGHT] = ACTION_FUNCTION(ACTION_LEDS_BRIGHT),
-    [DIM] = ACTION_FUNCTION(ACTION_LEDS_DIM),
-    [MODE_SINGLE] = ACTION_FUNCTION(ACTION_LEDS_SINGLE),
-    [MODE_PAGE] = ACTION_FUNCTION(ACTION_LEDS_PAGE),
-    [MODE_FLASH] = ACTION_FUNCTION(ACTION_LEDS_FLASH),
-};
-
-/* custom action function */
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   msg_t msg;
 
-  switch(id) {
-    case ACTION_LEDS_ALL:
+  switch(keycode) {
+    case LED_ALL:
       if(record->event.pressed) {
-        led_mode_global = led_mode_global == ALL ? MODE_SINGLE : ALL;
+        led_mode_global = led_mode_global == MODE_ALL ? MODE_SINGLE : MODE_ALL;
         msg=TOGGLE_ALL;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
-      break;
+      return false;
 
-    case ACTION_LEDS_BACKLIGHT:
+    case LED_BACKLIGHT:
       if(record->event.pressed) {
         backlight_status_global ^= 1;
         msg=(backlight_status_global << 8) | TOGGLE_BACKLIGHT;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
-      break;
+      return false;
 
-    case ACTION_LEDS_GAME:
+    case LED_GAME:
       if(record->event.pressed) {
-        led_mode_global = led_mode_global == GAME ? MODE_SINGLE : GAME;
+        led_mode_global = led_mode_global == MODE_GAME ? MODE_SINGLE : MODE_GAME;
 
         msg=(4 << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
-      break;
+      return false;
 
-    case ACTION_LEDS_BRIGHT:
+    case LED_BRIGHT:
       if(record->event.pressed) {
         msg=(1 << 8) | STEP_BRIGHTNESS;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
-      break;
+      return false;
 
-    case ACTION_LEDS_DIM:
+    case LED_DIM:
       if(record->event.pressed) {
         msg=(0 << 8) | STEP_BRIGHTNESS;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
-      break;
+      return false;
 
     //set led_mode for matrix_scan to toggle leds
-    case ACTION_LEDS_SINGLE:
+    case LED_SINGLE:
       led_mode_global = MODE_SINGLE;
-      break;
-    case ACTION_LEDS_PAGE:
+      return false;
+    case LED_PAGE:
       led_mode_global = MODE_PAGE;
-      break;
-    case ACTION_LEDS_FLASH:
+      return false;
+    case LED_FLASH:
       led_mode_global = MODE_FLASH;
-      break;
+      return false;
 
   }
-}
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    return MACRO_NONE;
-};
-
-
-bool process_record_user (uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
@@ -267,7 +234,7 @@ void matrix_scan_user(void) {
     return;
   }
 
-  if (led_layer_state != layer_state && led_mode_global != GAME && led_mode_global != ALL) {
+  if (led_layer_state != layer_state && led_mode_global != MODE_GAME && led_mode_global != MODE_ALL) {
     //check mode
     //Turn on layer indicator or page depending on mode
     switch(led_mode_global) {

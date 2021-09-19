@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    "Troy Fletcher"
 #define PRODUCT         Signum30
-#define DESCRIPTION     "Signum keyboard"
 
 /* key matrix size */
 #define MATRIX_ROWS 4

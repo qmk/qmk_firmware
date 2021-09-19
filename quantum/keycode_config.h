@@ -14,12 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include "eeconfig.h"
 #include "keycode.h"
 #include "action_code.h"
-
-#ifndef KEYCODE_CONFIG_H
-#    define KEYCODE_CONFIG_H
 
 uint16_t keycode_config(uint16_t keycode);
 uint8_t  mod_config(uint8_t mod);
@@ -38,9 +37,8 @@ typedef union {
         bool nkro : 1;
         bool swap_lctl_lgui : 1;
         bool swap_rctl_rgui : 1;
+        bool oneshot_disable : 1;
     };
 } keymap_config_t;
 
 extern keymap_config_t keymap_config;
-
-#endif /* KEYCODE_CONFIG_H */

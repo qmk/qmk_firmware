@@ -3,12 +3,12 @@
 
 #include "quantum.h"
 
-#define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
-
 #if defined(KEYBOARD_planck_ez)
   #include "ez.h"
 #elif defined(KEYBOARD_planck_light)
   #include "light.h"
+#elif defined(KEYBOARD_planck_thk)
+  #include "thk.h"
 #elif defined(KEYBOARD_planck_rev1)
   #include "rev1.h"
 #elif defined(KEYBOARD_planck_rev2)

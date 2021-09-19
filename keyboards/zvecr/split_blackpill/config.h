@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    zvecr
 #define PRODUCT         split_blackpill
-#define DESCRIPTION     ARM Split ortho_4x12
 
 /* key matrix size */
 #define MATRIX_ROWS 8 // Rows are doubled-up

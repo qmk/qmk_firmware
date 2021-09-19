@@ -9,7 +9,6 @@
 #define DEVICE_VER         0x0001
 #define MANUFACTURER    numazu Keyboards
 #define PRODUCT         lovelive9
-#define DESCRIPTION     lovelive sunshine Keyboards 9Key
 
 /* key matrix size */
 #define MATRIX_ROWS 1

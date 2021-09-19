@@ -2,8 +2,6 @@
     "keyboard_name": "numeros",
     "url": "www.clawboards.xyz",
     "maintainer": "AAClawson (AlisGraveNil)",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

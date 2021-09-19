@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         naked48
-#define DESCRIPTION     Ortholinear 48 Keys Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

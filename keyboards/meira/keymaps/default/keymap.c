@@ -174,14 +174,6 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -303,8 +295,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //    		break;
   }
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

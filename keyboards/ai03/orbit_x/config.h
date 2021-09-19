@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER ai03 Design Studio
 #define PRODUCT OrbitX
-#define DESCRIPTION High-end compact ergonomic keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8 // Double the rows for split 

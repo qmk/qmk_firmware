@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Jonathan Cameron
 #define PRODUCT         2x5keypad
-#define DESCRIPTION     2x5 Keypad
 
 /* key matrix size */
 #define MATRIX_ROWS 2

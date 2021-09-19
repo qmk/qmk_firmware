@@ -1,8 +1,8 @@
 # 動的マクロ: ランタイムでのマクロの記録および再生
 
 <!---
-  original document: 0.9.43:docs/feature_dynamic_macros.md
-  git diff 0.9.43 HEAD -- docs/feature_dynamic_macros.md | cat
+  original document: 0.10.33:docs/feature_dynamic_macros.md
+  git diff 0.10.33 HEAD -- docs/feature_dynamic_macros.md | cat
 -->
 
 QMK はその場で作られた一時的なマクロをサポートします。これらを動的マクロと呼びます。それらはユーザがキーボードから定義し、キーボードのプラグを抜くか再起動すると失われます。

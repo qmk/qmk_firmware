@@ -44,6 +44,7 @@ To use the Proton C natively, without having to specify `CTPC=yes`, you need to 
 
 ```
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 ```
 
 Remove these variables if they exist:
