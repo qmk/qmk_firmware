@@ -359,6 +359,8 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
                     }
                     break;
             }
+            // Write the change to EEPROM
+            eeconfig_update_user(userspace_config.raw);
         // If ctrl is active, move mode one point backwards
         } else if (get_mods() & MOD_MASK_CTRL) {
             switch (get_highest_layer(layer_state)) {
@@ -388,6 +390,8 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
                     }
                     break;
             }
+            // Write the change to EEPROM
+            eeconfig_update_user(userspace_config.raw);
         // If meta is active, reset the encoder states
         } else if (get_mods() & MOD_MASK_GUI) {
             reset_encoder_state();

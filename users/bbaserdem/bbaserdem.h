@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 #include QMK_KEYBOARD_H
 #include "quantum.h"
@@ -54,12 +53,13 @@
 #endif // OLED_ENABLE
 
 // Structure to keep runtime info on encoder state
+/*
 typedef union {
     uint16_t raw;
     struct {
-        uint8_t base    :4; // (9) The encoder state on most layers; regular function
-        uint8_t rgb     :4; // (5) The encoder state on media layer; controls light
-        uint8_t point   :4; // (4) The encoder state on mouse layer; moves pointer
+        uint8_t base    :4; // (9:4) The encoder state on most layers; regular function
+        uint8_t rgb     :4; // (5:3) The encoder state on media layer; controls light
+        uint8_t point   :4; // (4:2) The encoder state on mouse layer; moves pointer
         uint8_t         :4; // Padding
     };
 } encoder_state_t;
@@ -70,6 +70,20 @@ typedef union {
     struct {
         encoder_state_t encoder[2];
         uint8_t layout;
+    };
+} userspace_config_t;
+*/
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t e0base  :4; // ( 4:0) The encoder state on most layers; regular function
+        uint8_t e1base  :4; // ( 8:1) 9 states for this; 4 bits
+        uint8_t e0point :2; // (10:1) The encoder state on mouse layer; moves pointer
+        uint8_t e1point :2; // (12:1) 4 states for this; 2 bits
+        uint8_t e0rgb   :4; // (16:2) The encoder state on media layer; controls light
+        uint8_t e1rgb   :4; // (20:2) 5 states for this; 3 bits but 4 is better
+        uint8_t layout  :2; // (22:2) Stores keymap layout; 3 states is good on 2 bits
+        uint16_t       :10; // (32:3) Padding here
     };
 } userspace_config_t;
 
