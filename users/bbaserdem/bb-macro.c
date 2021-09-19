@@ -84,6 +84,7 @@ bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (get_mods() & MOD_BIT(KC_RALT)) {
                     userspace_config.layout = (userspace_config.layout + 1) % 3;
+                    eeconfig_update_user(userspace_config.raw);
                 }
             }
             return true;
@@ -96,6 +97,7 @@ bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     userspace_config.layout = (userspace_config.layout + 1) % 3;
                 }
+                eeconfig_update_user(userspace_config.raw);
             }
             return false;
             break;
