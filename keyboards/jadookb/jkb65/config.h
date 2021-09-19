@@ -50,9 +50,6 @@
     #define RGBLIGHT_TIMEOUT 60000
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
-#endif
 
 #define DEBOUNCE 5
 #define LOCKING_SUPPORT_ENABLE
