@@ -1,8 +1,8 @@
 # 分割キーボード
 
 <!---
-  original document:0.10.8:docs/feature_split_keyboard.md
-  git diff 0.10.8 HEAD -- docs/feature_split_keyboard.md | cat
+  original document:0.14.14:docs/feature_split_keyboard.md
+  git diff 0.14.14 HEAD -- docs/feature_split_keyboard.md | cat
 -->
 
 QMK ファームウェアリポジトリの多くのキーボードは、"分割"キーボードです。それらは2つのコントローラを使います — 1つは USB に接続し、もう1つは TRRS または同様のケーブルを介してシリアルまたは I<sup>2</sup>C 接続で接続します。
@@ -13,8 +13,7 @@ QMK ファームウェアには、任意のキーボードで使用可能な一�
 
 このため、主に Let's Split とその他のキーボードで使われる一般的な実装について説明します。
 
-!> ARM はまだ完全には分割キーボードをサポートしておらず、様々な制限があります。進捗はしていますが、機能の100%にはまだ達していません。
-
+!> ARM split は、'serial' と 'serial_usart' ドライバを使う場合、ほとんどの QMK サブシステムをサポートします。I2C スレーブは現在のところサポートされていません。
 
 ## 互換性の概要
 
@@ -65,6 +64,7 @@ QMK ファームウェアには、任意のキーボードで使用可能な一�
 2つの Pro Micro 間で GND、Vcc、さらに SCL と SDA (それぞれ 別名 PD0/ピン3 および PD1/ピン2) を TRRS ケーブルの4本のワイヤで接続します。
 
 プルアップ抵抗はキーボードの左右どちら側にも配置することができます。もし各側を単独で使いたい場合は、4つの抵抗を使い、両側にプルアップ抵抗を配置することもできます。
+接続されたシステムの総抵抗は、配置や数に関係なく、2.2k-10kOhm で仕様の範囲内であり、'理想的'には 4.7kOhm である必要があることに注意してください。
 
 <img alt="sk-i2c-connection-mono" src="https://user-images.githubusercontent.com/2170248/92297182-92b98580-ef77-11ea-9d7d-d6033914af43.JPG" width="50%"/>
 
@@ -94,7 +94,13 @@ SPLIT_TRANSPORT = custom
 #define SPLIT_HAND_PIN B7
 ```
 
-これは指定されたピンを読み込みます。high の場合、コントローラはそれを左側だと仮定し、low の場合、それは右側であると仮定します。
+これは指定されたピンを読み込みます。デフォルトでは、high の場合、コントローラはそれを左側だと仮定し、low の場合、それは右側であると仮定します。
+
+この挙動は、以下を `config.h` ファイルに追加することで逆にすることができます:
+
+```c
+#define	SPLIT_HAND_PIN_LOW_IS_LEFT
+```
 
 #### マトリックスピンによる左右の設定
 
@@ -113,6 +119,10 @@ SPLIT_TRANSPORT = custom
 ```c
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 ```
+
+これまで使われていなかった交差点にダイオードを追加すると、その場所でキーが押されていることがファームウェアに事実上伝えられることに注意してください。`MATRIX_MASKED` を定義し、キーボード設定に `matrix_row_t matrix_mask[MATRIX_ROWS]` 配列を定義することで、qmk に交差点を無視するように指示することができます。1つの値の各ビット(最下位ビットから開始)は、その交差点でのキーの押下に注意を払うかどうかを qmk に指示するために使われます。
+
+`MATRIX_MASKED` は `SPLIT_HAND_MATRIX_GRID` を正常に使うためには必要ありませんが、これが無いと、キーボードが接続された状態でコンピュータをサスペンドしようとすると、マトリックスが常に少なくとも1つのキー押下を報告するため、問題が発生する可能性があります。
 
 #### EEPROM による左右の設定
 
@@ -133,6 +143,12 @@ SPLIT_TRANSPORT = custom
 * `:dfu-split-right`
 * `:dfu-util-split-left`
 * `:dfu-util-split-right`
+
+例:
+
+```
+make crkbd:default:avrdude-split-left
+```
 
 この設定は、`EEP_RST` キーや `eeconfig_init()` 関数を使って EEPROM を再初期化する時には変更されません。ただし、ファームウェアの組み込みオプション以外で EEPROM をリセット([QMK Toolbox]() の "Reset EEPROM" ボタンの動作のように、`EEPROM` を上書きするファイルを書きこむなど)した場合、`EEPROM` ファイルを再書き込みする必要があります。
 
@@ -163,7 +179,7 @@ SPLIT_TRANSPORT = custom
 #define USE_I2C
 ```
 
-これは分割キーボードの I<sup>2</sup>C サポートを有効にします。これは厳密には通信用ではありませんが、OLED あるいは I<sup>2</sup>C ベースのデバイスに使うことができます。
+これは、分割キーボードトランスポートの I<sup>2</sup>C サポートの使用を構成します (AVRのみ)。
 
 ```c
 #define SOFT_SERIAL_PIN D0
@@ -185,6 +201,145 @@ SPLIT_TRANSPORT = custom
 * **`3`**: 約39kbps
 * **`4`**: 約26kbps
 * **`5`**: 約20kbps
+
+```c
+#define FORCED_SYNC_THROTTLE_MS 100
+```
+
+マスターからスレーブへのデータの同期を強制的に行うまでの最大ミリ秒を設定します。通常は、データの_変更_があるたびにこの同期が行われますが、安全のため、最後の同期以降に変更が検出されなかった場合に、このミリ秒後にデータ転送が行われます。
+
+```c
+#define SPLIT_MAX_CONNECTION_ERRORS 10
+```
+スレーブ部が接続されていないと見なされるまでの、マスター部からの失敗した通信の試行の最大数(スキャンサイクルごとに1回)を設定します。これにより、スレーブ部を接続せずにマスター部を使うことができます。
+
+0に設定すると、切断チェックを完全に無効にします。
+
+```c
+#define SPLIT_CONNECTION_CHECK_TIMEOUT 500
+```
+通信が切断済みとしてフラグを立てられた後で、マスター部分がスレーブへの全ての接続の試行をブロックする時間(ミリ秒)(上記の `SPLIT_MAX_CONNECTION_ERRORS` を参照してください)。
+
+前回の試行からこの時間が経過するたびに、1回の通信の試行が許可されます。試行が成功した場合、通信は再び機能していると見なされます。
+
+0に設定すると、切断中の通信の抑制を無効にします。これにより、ファームウェアのサイズを数バイト節約することができます。
+
+```c
+#define SPLIT_TRANSPORT_MIRROR
+```
+
+これは、スレーブ側でマスター側のキー押下に反応したり、キー押下を知るための機能のために、マスター側のマトリックスをスレーブ側にミラーリングします。この機能の目的は、キーイベントの表面的な使用(例えば、キー押下に反応する RGB)をサポートすることです。この機能を有効にすると、分割通信プロトコルにオーバーヘッドが追加され、マトリックスのスキャン速度に悪影響を及ぼす可能性があります。
+
+```c
+#define SPLIT_LAYER_STATE_ENABLE
+```
+
+分割キーボードの両側でレイヤー状態の同期を有効にします。この機能の主な目的は、現在アクティブなレイヤーの OLED 表示などの使用をサポートできるようにすることです。この機能を有効にすると、分割通信プロトコルにオーバーヘッドが追加され、マトリックスのスキャン速度に悪影響を及ぼす可能性があります。
+
+```c
+#define SPLIT_LED_STATE_ENABLE
+```
+
+分割キーボードの両側でホスト LED 状態の(caps lock、num lock など)の同期を有効にします。この機能の主な目的は、ホスト LED の状態の OLED 表示などの使用をサポートできるようにすることです。この機能を有効にすると、分割通信プロトコルにオーバーヘッドが追加され、マトリックスのスキャン速度に悪影響を及ぼす可能性があります。
+
+```c
+#define SPLIT_MODS_ENABLE
+```
+
+モディファイアの状態(normal、weak、oneshot)を分割キーボードのプライマリではない側へ転送できるようにします。この機能の目的は、モディファイアの状態の表面的な使用(例えば、OLED 画面に状態を表示)をサポートすることです。この機能を有効にすると、分割通信プロトコルにオーバーヘッドが追加され、マトリックスのスキャン速度に悪影響を及ぼす可能性があります。
+
+```c
+#define SPLIT_WPM_ENABLE
+```
+
+分割キーボードのスレーブ側への現在の WPM の転送を有効にします。この機能の目的は、WPM の表面的な使用(例えば、OLED 画面に現在の値を表示)をサポートすることです。この機能を有効にすると、分割通信プロトコルにオーバーヘッドが追加され、マトリックスのスキャン速度に悪影響を及ぼす可能性があります。
+
+```c
+#define SPLIT_OLED_ENABLE
+```
+
+分割キーボードのスレーブ側への現在の OLED のオン/オフ の状態の転送を有効にします。この機能の目的は、状態(オン/オフ状態のみ)の同期をサポートすることです。この機能を有効にすると、分割通信プロトコルにオーバーヘッドが追加され、マトリックスのスキャン速度に悪影響を及ぼす可能性があります。
+
+```c
+#define SPLIT_ST7565_ENABLE
+```
+
+分割キーボードのスレーブ側への現在の ST7565 オン/オフ状態の転送を有効にします。この機能の目的は、状態(オン/オフ状態のみ)の同期をサポートすることです。この機能を有効にすると、分割通信プロトコルにオーバーヘッドが追加され、マトリックスのスキャン速度に悪影響を及ぼす可能性があります。
+
+### 両側の独自のデータ同期 :id=custom-data-sync
+
+QMK の分割トランスポートにより、キーボードレベルとユーザレベルの両方で任意のデータのトランザクションが可能になります。これはリモートプロシージャ―コールをモデル化したもので、マスターがスレーブ側の関数を呼び出し、マスターからスレーブにデータを送り、スレーブ側で処理し、スレーブからマスターにデータを送り返す機能を持ちます。
+
+これを利用するために、キーボードやユーザ/キーマップは、_トランザクション ID_ のカンマ区切りのリストを定義できます:
+
+```c
+// キーボードレベルのデータの同期:
+#define SPLIT_TRANSACTION_IDS_KB KEYBOARD_SYNC_A, KEYBOARD_SYNC_B
+// ユーザレベルの同期:
+#define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A, USER_SYNC_B, USER_SYNC_C
+```
+
+これらの_トランザクション ID_ は、次に分割トランスポートに登録するスレーブ側のハンドラ関数が必要です。例えば:
+
+```c
+typedef struct _master_to_slave_t {
+    int m2s_data;
+} master_to_slave_t;
+
+typedef struct _slave_to_master_t {
+    int s2m_data;
+} slave_to_master_t;
+
+void user_sync_a_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+    const master_to_slave_t *m2s = (const master_to_slave_t*)in_data;
+    slave_to_master_t *s2m = (slave_to_master_t*)out_data;
+    s2m->s2m_data = m2s->m2s_data + 5; // whatever comes in, add 5 so it can be sent back
+}
+
+void keyboard_post_init_user(void) {
+    transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler);
+}
+```
+
+次に、マスター側はスレーブ側のハンドラを呼び出すことができます - 通常のキーボード機能への影響を最小限にするために、 データを同期しようとするキーボードレベルやユーザレベルのコードを調整する必要があります:
+
+```c
+void housekeeping_task_user(void) {
+    if (is_keyboard_master()) {
+        // スレーブと500msごとにやり取りする
+        static uint32_t last_sync = 0;
+        if (timer_elapsed32(last_sync) > 500) {
+            master_to_slave_t m2s = {6};
+            slave_to_master_t s2m = {0};
+            if(transaction_rpc_exec(USER_SYNC_A, sizeof(m2s), &m2s, sizeof(s2m), &s2m)) {
+                last_sync = timer_read32();
+                dprintf("Slave value: %d\n", s2m.s2m_data); // this will now be 11, as the slave adds 5
+            } else {
+                dprint("Slave sync failed!\n");
+            }
+        }
+    }
+}
+```
+
+!> 左右の間のデータ同期は、マスター側の_ハウスキーピングタスク_の中で行うことをお勧めします。これにより、障害が発生した時にタイムリーに再試行することができます。
+
+一方向のデータ転送のみが必要な場合は、ヘルパーメソッドが提供されます:
+
+```c
+bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer);
+bool transaction_rpc_send(int8_t transaction_id, uint8_t initiator2target_buffer_size, const void *initiator2target_buffer);
+bool transaction_rpc_recv(int8_t transaction_id, uint8_t target2initiator_buffer_size, void *target2initiator_buffer);
+```
+
+デフォルトでは、受信データと送信データはそれぞれ最大32バイトに制限されています。必要に応じてサイズを変更できます:
+
+```c
+// Master to slave:
+#define RPC_M2S_BUFFER_SIZE 48
+// Slave to master:
+#define RPC_S2M_BUFFER_SIZE 48
+```
 
 ### ハードウェア設定オプション
 
@@ -228,7 +383,12 @@ SPLIT_TRANSPORT = custom
 ```c
 #define SPLIT_USB_DETECT
 ```
-このオプションは、スタートアップの挙動を変更して、マスタ/スレーブの決定時にアクティブな USB 接続を検出します。このオプションがタイムアウトになった場合、その片側はスレーブと見なされます。これは ARM のデフォルトの挙動で、AVR Teensy ボードに必要です (ハードウェアの制限のため)。
+
+このオプションは、スタートアップの挙動を変更して、マスタ/スレーブの決定時にアクティブな USB 接続を検出します。このオプションを有効にして USB 通信を行った場合、こちら側がマスターであると仮定し、そうでなければスレーブであると仮定します。
+
+このオプションが無い場合、物理的な USB 接続の電圧を検出できる側がマスターになります (VBUS 検出)。
+
+ChibiOS/ARM ではデフォルトで有効になっています。
 
 ?> この設定はバッテリパックを使ったデモの機能を停止します。
 
@@ -241,6 +401,30 @@ SPLIT_TRANSPORT = custom
 #define SPLIT_USB_TIMEOUT_POLL 10
 ```
 これは `SPLIT_USB_DETECT` を使う時のマスタ/スレーブを検出する場合のポーリング頻度を設定します
+
+## ハードウェアの考慮事項と改造
+
+マスター/スレーブの移譲は、VBUS 接続の電圧を検出するか、USB 通信を待機 (`SPLIT_USB_DETECT`) することで行われます。Pro Micro のボードはそのままで VBUS 検出を使用でき、`SPLIT_USB_DETECT` の有無に関わらず使用できます。
+
+全てではありませんが、多くの ARM ボードは、VBUS 検出をサポートしません。ARM ボードが VBUS 検出に対応していないことが一般的なため、ARM を対象とした場合は `SPLIT_USB_DETECT` が自動的に定義されます(技術的には ChibiOS が対象の場合)。
+
+### Teensy ボード
+
+Teensy のボードはそのままでは VBUS 検出が無いため、`SPLIT_USB_DETECT` を定義する必要があります。Teensy 2.0 と Teensy++ 2.0 には、VBUS 検出を追加するための簡単なハードウェア改造がありますので、`SPLIT_USB_DETECT` オプションは必要ありません。
+
+以下の幾つかのことが必要なだけです:
+
+* ナイフ (理想的には x-acto ナイフ)
+* はんだステーションまたはホットエアステーション
+* [PMEG2005EH](https://www.digikey.com/en/products/detail/nexperia-usa-inc/PMEG2005EH,115/1589924) などの適切なショットキーダイオード
+
+Teensy の背面にある5Vとセンターパッドの間の小さなプリントパターンをカットする必要があります。
+
+それが済んだら、5V パッドからセンターパッドにダイオードをはんだ付けする必要があります。
+
+パッドが小さすぎてショットキーダイオードを適切に配置するには近すぎるため、上のレギュレータブロックの5Vパッドを使う必要があるかもしれません。
+
+![Teensy++ 2.0](https://i.imgur.com/BPEC5n5.png)
 
 ## 追加のリソース(英語)
 
