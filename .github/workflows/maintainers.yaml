@@ -10,8 +10,6 @@ jobs:
         container: qmkfm/qmk_cli
 
         steps:
-            - uses: rlespinasse/github-slug-action@v3.x
-
             - uses: actions/checkout@v2
               with:
                   fetch-depth: 0
@@ -21,6 +19,9 @@ jobs:
               with:
                   output: " "
                   fileOutput: " "
+
+            - name: Install dependencies
+              run: pip3 install -r requirements-dev.txt
 
             - name: Get our ping message
               shell: "bash {0}"
