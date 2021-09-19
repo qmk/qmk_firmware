@@ -153,9 +153,9 @@ void IS31FL3737_init(uint8_t addr) {
     // Select PG3
     IS31FL3737_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
     // Set de-ghost pull-up resistors (SWx)
-	IS31FL3737_write_register(addr, ISSI_REG_SWPULLUP, ISSI_SWPULLUP);
-	// Set de-ghost pull-down resistors (CSx)
-	IS31FL3737_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
+    IS31FL3737_write_register(addr, ISSI_REG_SWPULLUP, ISSI_SWPULLUP);
+    // Set de-ghost pull-down resistors (CSx)
+    IS31FL3737_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
     // Set global current to maximum.
     IS31FL3737_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Disable software shutdown.

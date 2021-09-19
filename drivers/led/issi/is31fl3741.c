@@ -165,7 +165,7 @@ void IS31FL3741_init(uint8_t addr) {
     // Set Golbal Current Control Register
     IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Set Pull up & Down for SWx CSy
-    IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, ((ISSI_CSPULLUP << 4)| ISSI_SWPULLUP));
+    IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, ((ISSI_CSPULLUP << 4) | ISSI_SWPULLUP));
 
     // IS31FL3741_update_led_scaling_registers(addr, 0xFF, 0xFF, 0xFF);
 
