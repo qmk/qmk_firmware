@@ -13,9 +13,9 @@ Make example for this keyboard (after setting up your build environment):
 
     make jadookb/jkb65:default
 
-VIA example for this keyboard:
+Flashing example for this keyboard:
 
-    make jadookb/jkb65:default:via
+    make jadookb/jkb65:default:flash
 
 To reset the board into bootloader mode, do the following step:
 
