@@ -27,15 +27,6 @@ led_config_t g_led_config = { {
     
 } };
 
-void rgblight_suspend(void) {
-    rgb_matrix_set_suspend_state(true);
-}
-
-void rgblight_wakeup(void) {
-    rgb_matrix_set_suspend_state(false);
-}
-
-
 static uint16_t key_timer; 
 static void refresh_rgb(void); 
 static void check_rgb_timeout(void); 
