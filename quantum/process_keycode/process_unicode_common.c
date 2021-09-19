@@ -163,11 +163,9 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             break;
         case UC_WIN:
             unregister_code(KC_LALT);
-#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
             if (!unicode_saved_num_lock) {
                 tap_code(KC_NUMLOCK);
             }
-#endif
             break;
     }
 
