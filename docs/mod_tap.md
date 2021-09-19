@@ -74,8 +74,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->tap.count && record->event.pressed) {
                 tap_code16(KC_DQUO); // Send KC_DQUO on tap
                 return false;        // Return false to ignore further processing of key
-            } else if (record->event.pressed) {
-                return true;         // Return true for normal processing of hold function 
             }
             break;
     }
