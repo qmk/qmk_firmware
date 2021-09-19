@@ -92,7 +92,7 @@ __attribute__((weak)) void unicode_input_start(void) {
     // UNICODE_KEY_LNX (which is usually Ctrl-Shift-U) might not work
     // correctly in the shifted case.
     if (unicode_config.input_mode == UC_LNX && unicode_saved_caps_lock) {
-        tap_code(KC_CAPS);
+        tap_code(KC_CAPSLOCK);
     }
 
     unicode_saved_mods = get_mods();  // Save current mods
@@ -112,7 +112,7 @@ __attribute__((weak)) void unicode_input_start(void) {
             }
 #endif
             register_code(KC_LALT);
-            tap_code(KC_PPLS);
+            tap_code(KC_KP_PLUS);
             break;
         case UC_WINC:
             tap_code(UNICODE_KEY_WINC);
@@ -129,9 +129,9 @@ __attribute__((weak)) void unicode_input_finish(void) {
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
-            tap_code(KC_SPC);
+            tap_code(KC_SPACE);
             if (unicode_saved_caps_lock) {
-                tap_code(KC_CAPS);
+                tap_code(KC_CAPSLOCK);
             }
             break;
         case UC_WIN:
@@ -157,13 +157,13 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
-            tap_code(KC_ESC);
+            tap_code(KC_ESCAPE);
             if (unicode_saved_caps_lock) {
-                tap_code(KC_CAPS);
+                tap_code(KC_CAPSLOCK);
             }
             break;
         case UC_WINC:
-            tap_code(KC_ESC);
+            tap_code(KC_ESCAPE);
             break;
         case UC_WIN:
             unregister_code(KC_LALT);
