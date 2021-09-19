@@ -50,8 +50,9 @@ void userspace_config_transport_update(void) {
         // If we are the main device; we want to send info.
         transport_userspace_config.raw = userspace_config.raw;
     } else {
-        // If we are the secondary device; we want to receive info.
+        // If we are the secondary device; we want to receive info, and save to eeprom.
         userspace_config.raw = transport_userspace_config.raw;
+        eeconfig_update_user(userspace_config.raw);
     }
 }
 
@@ -60,7 +61,6 @@ void userspace_config_transport_sync(void) {
     if (is_keyboard_master()) {
         // Keep track of the last state
         static userspace_config_t last_userspace_config;
-        static uint32_t last_sync;
         bool needs_sync = false;
 
         // Check if the state values are different
@@ -69,16 +69,9 @@ void userspace_config_transport_sync(void) {
             memcpy(&last_userspace_config, &transport_userspace_config, sizeof(transport_userspace_config));
         }
 
-        // Send to secondary every 500ms regardless of state change
-        if (timer_elapsed32(last_sync) > 500) {
-            needs_sync = true;
-        }
-
         // Perform the sync if requested
         if (needs_sync) {
-            if (transaction_rpc_send(RPC_ID_USERSPACE_SYNC, sizeof(transport_userspace_config), &transport_userspace_config)) {
-                last_sync = timer_read32();
-            }
+            transaction_rpc_send(RPC_ID_USERSPACE_SYNC, sizeof(transport_userspace_config), &transport_userspace_config);
             needs_sync = false;
         }
     }
@@ -121,7 +114,7 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
     //  set_single_persistent_default_layer(_BASE);
     
     // Initialize userspace config
-    userspace_config.layout = 0;
+    userspace_config.raw = eeconfig_read_user();
 
     // Split keyboard halves communication
 #   ifdef SPLIT_KEYBOARD
@@ -171,12 +164,16 @@ void housekeeping_task_user(void) {
 /*-----------------------*\
 |*-----EECONFIG INIT-----*|
 \*-----------------------*/
-/* Default values to send to the eeprom on boot.
+/* Default values to send to the eeprom
  */
-__attribute__ ((weak)) void eeconfig_init_keymap(void) {}
 void eeconfig_init_user(void) {
-    // Hook to keymap code
-    eeconfig_init_keymap();
+    // Set everything to default
+    userspace_config.raw = 0;
+    // Set encoder states to sane defaults if enabled
+#   ifdef ENCODER_ENABLE
+    reset_encoder_state();
+#   endif // ENCODER_ENABLE
+    eeconfig_update_user(userspace_config.raw);
 }
 
 /*------------------------*\
