@@ -1,4 +1,4 @@
-#include "JKB65.h"
+#include "jkb65.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
