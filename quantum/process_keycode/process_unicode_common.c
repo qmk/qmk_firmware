@@ -178,7 +178,6 @@ __attribute__((weak)) void unicode_input_cancel(void) {
 }
 
 static void send_nibble_wrapper(uint8_t digit) {
-#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
     if (unicode_config.input_mode == UC_WIN) {
         uint8_t kc = digit < 10
                    ? KC_KP_1 + (10 + digit - 1) % 10
@@ -186,7 +185,6 @@ static void send_nibble_wrapper(uint8_t digit) {
         tap_code(kc);
         return;
     }
-#endif
     send_nibble(digit);
 }
 
