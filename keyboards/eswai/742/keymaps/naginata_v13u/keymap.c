@@ -211,12 +211,12 @@ static void render_eisu(void) {
 
 void oled_task_user(void) {
     // なぜか明示的にOLEDのスリープ処理が必要
-    if (timer_expired32(timer_read32(), oled_sleep_timer)) {
-      oled_off();
-      return;
-    } else {
-      oled_on();
-    }
+    // if (timer_expired32(timer_read32(), oled_sleep_timer)) {
+    //   oled_off();
+    //   return;
+    // } else {
+    //   oled_on();
+    // }
 
     if (is_keyboard_master()) {
       if (naginata_state()) {
