@@ -65,7 +65,7 @@ It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options.md#beha
 
 Basic keycode limitation with Mod-Tap can be worked around by intercepting it in `process_record_user`. For example, shifted keycode `KC_DQUO` cannot be used with `MT()` because it is a 16-bit keycode alias of `LSFT(KC_QUOT)`. But the following custom code can be used to intercept the "tap" function to manually send `KC_DQUO`:
 ```c
-bool process_record_user(uint16_t const keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LCTL_T(KC_DQUO):
             if (record->tap.count && record->event.pressed) {
@@ -85,7 +85,7 @@ bool process_record_user(uint16_t const keycode, keyrecord_t *record) {
 
 Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0,<keycode>)`, current-layer Mod-Tap with no practical use, to create a copy-on-tap, paste-on-hold key:
 ```c
-bool process_record_user(uint16_t const keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(0,KC_NO):
             if (record->tap.count && record->event.pressed) {
