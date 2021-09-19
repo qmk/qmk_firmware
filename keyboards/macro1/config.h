@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x9999
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Laneware Peripherals
-#define PRODUCT         MACRO_1
+#define PRODUCT         MACRO-1
 
 /* key matrix size */
 #define MATRIX_ROWS 6
