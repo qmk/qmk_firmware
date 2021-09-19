@@ -3,7 +3,7 @@
     "maintainer": "kopibeng",
     "url": "",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 { "x": 2.75, "y": 0 },
                 { "x": 4.75, "y": 0 },
