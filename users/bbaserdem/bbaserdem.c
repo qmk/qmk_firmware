@@ -52,7 +52,6 @@ void userspace_config_transport_update(void) {
     } else {
         // If we are the secondary device; we want to receive info, and save to eeprom.
         userspace_config.raw = transport_userspace_config.raw;
-        eeconfig_update_user(userspace_config.raw);
     }
 }
 
@@ -131,11 +130,6 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
     keyboard_post_init_underglow();
 #   endif // RGBLIGHT_ENABLE
 
-    // Encoders
-#   ifdef ENCODER_ENABLE
-    keyboard_post_init_encoder();
-#   endif // ENCODER_ENABLE
-
     // Unicode mode
 #   ifdef UNICODEMAP_ENABLE
     set_unicode_input_mode(UC_LNX);
@@ -152,10 +146,23 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
  */
 __attribute__ ((weak)) void housekeeping_task_keymap(void) {}
 void housekeeping_task_user(void) {
+    // Check eeprom every now and then
+    static userspace_config_t prev_userspace_config;
+    static fast_timer_t throttle_timer = 0;
+
 #   ifdef SPLIT_KEYBOARD
     userspace_config_transport_update();
     userspace_config_transport_sync();
 #   endif // SPLIT_KEYBOARD
+
+    // Throttled task
+    if (timer_elapsed_fast(throttle_timer) >= EEPROM_CHECK_INTERVAL_MS) {
+        throttle_timer = timer_read_fast();
+        if (prev_userspace_config.raw != userspace_config.raw) {
+            eeconfig_update_user(userspace_config.raw);
+            prev_userspace_config.raw = userspace_config.raw;
+        }
+    }
 
     // Hook to keymap code
     housekeeping_task_keymap();
@@ -173,7 +180,6 @@ void eeconfig_init_user(void) {
 #   ifdef ENCODER_ENABLE
     reset_encoder_state();
 #   endif // ENCODER_ENABLE
-    eeconfig_update_user(userspace_config.raw);
 }
 
 /*------------------------*\

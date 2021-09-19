@@ -21,8 +21,6 @@
 bool encoder_update_user(uint8_t index, bool clockwise);
 // Complicated code for what the encoder keys do when pressed
 bool process_record_encoder(uint16_t keycode, keyrecord_t *record);
-// Initializing the encoder array
-void keyboard_post_init_encoder(void);
 // Clear the encoder settings
 void reset_encoder_state(void);
 // This is so that encoder state is synched between two halves

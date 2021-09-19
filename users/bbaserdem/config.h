@@ -34,6 +34,9 @@
 #   define NO_PRINT
 #endif
 
+// Some of my own settings
+# define EEPROM_CHECK_INTERVAL_MS 250
+
 // Split transport settings
 #ifdef SPLIT_KEYBOARD
 #   define SPLIT_TRANSPORT_MIRROR
