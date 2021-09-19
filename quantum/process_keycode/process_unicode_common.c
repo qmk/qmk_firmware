@@ -82,7 +82,6 @@ void persist_unicode_input_mode(void) { eeprom_update_byte(EECONFIG_UNICODEMODE,
 
 __attribute__((weak)) void unicode_input_start(void) {
     unicode_saved_caps_lock = host_keyboard_led_state().caps_lock;
-
 #ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
     unicode_saved_num_lock = host_keyboard_led_state().num_lock;
 #endif
@@ -107,6 +106,7 @@ __attribute__((weak)) void unicode_input_start(void) {
             break;
         case UC_WIN:
 #ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
+            // For increased reliability, use numpad keys for inputting digits
             if (!unicode_saved_num_lock) {
                 tap_code(KC_NUMLOCK);
             }
@@ -138,7 +138,6 @@ __attribute__((weak)) void unicode_input_finish(void) {
             unregister_code(KC_LALT);
 #ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
             if (!unicode_saved_num_lock) {
-                // We switched numlock on, so switch it off again.
                 tap_code(KC_NUMLOCK);
             }
 #endif
@@ -169,7 +168,6 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             unregister_code(KC_LALT);
 #ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
             if (!unicode_saved_num_lock) {
-                // We switched numlock on, so switch it off again.
                 tap_code(KC_NUMLOCK);
             }
 #endif
@@ -179,25 +177,23 @@ __attribute__((weak)) void unicode_input_cancel(void) {
     set_mods(unicode_saved_mods);  // Reregister previously set mods
 }
 
+static void send_nibble_wrapper(uint8_t digit) {
 #ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
-static void send_nibble_using_numpad_if_uc_win(uint8_t digit){
     if (unicode_config.input_mode == UC_WIN) {
-        tap_code(digit < 10 ? KC_KP_1 + (10 + digit - 1) % 10 : KC_A + (digit - 10));
+        uint8_t kc = digit < 10
+                   ? KC_KP_1 + (10 + digit - 1) % 10
+                   : KC_A + (digit - 10);
+        tap_code(kc);
+        return;
     }
-    else {
-        send_nibble(digit);
-    }
-}
 #endif
+    send_nibble(digit);
+}
 
 void register_hex(uint16_t hex) {
     for (int i = 3; i >= 0; i--) {
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
-#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
-        send_nibble_using_numpad_if_uc_win(digit);
-#else
-        send_nibble(digit);
-#endif
+        send_nibble_wrapper(digit);
     }
 }
 
@@ -210,18 +206,10 @@ void register_hex32(uint32_t hex) {
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
         if (digit == 0) {
             if (!onzerostart) {
-#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
-                send_nibble_using_numpad_if_uc_win(digit);
-#else
-                send_nibble(digit);
-#endif
+                send_nibble_wrapper(digit);
             }
         } else {
-#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
-            send_nibble_using_numpad_if_uc_win(digit);
-#else
-            send_nibble(digit);
-#endif
+            send_nibble_wrapper(digit);
             onzerostart = false;
         }
     }
