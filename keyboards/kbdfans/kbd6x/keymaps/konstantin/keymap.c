@@ -100,6 +100,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         break;
 
     // Combined RCtrl and layer
+    // Cannot use LM(L_RCTRL, MOD_RCTL) because it sends LCtrl instead of RCtrl
     case RCTRL:
         if (record->event.pressed) {
             register_code(KC_RCTRL);
