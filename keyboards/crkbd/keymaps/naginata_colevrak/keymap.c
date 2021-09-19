@@ -72,7 +72,7 @@ CTL_T(KC_ESC),KC_D   ,KC_S   ,KC_A   ,KC_I   ,KC_G   ,                KC_J   ,KC
   [_RAISE] = LAYOUT(
     _______,JP_TILD,JP_AT  ,JP_HASH,JP_DLR ,JP_PERC,                           XXXXXXX   ,XXXXXXX   ,KC_UP     ,XXXXXXX   ,KC_PGUP   ,XXXXXXX   , \
     _______,JP_CIRC,JP_AMPR,JP_EXLM,JP_QUES,JP_BSLS,                           KC_HOME   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,KC_PGDN   ,XXXXXXX   , \
-    _______,JP_PIPE,JP_GRV ,JP_QUOT,JP_DQT ,JP_UNDS,                           KC_END    ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
+    _______,JP_PIPE,JP_GRV ,JP_QUOT,JP_DQUO ,JP_UNDS,                           KC_END    ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
                                                 _______   ,_______,EISU         ,_______   ,_______   ,_______
   ),
 

@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXX,CK_LPRN,JP_RPRN,CK_LCBR,JP_RCBR,  XXXXX,JP_LCBR,JP_RCBR,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  XXXXX,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                               [       ]                                                     
-      XXXXX,  XXXXX,  XXXXX,CK_LBRC,JP_RBRC,  XXXXX,JP_TILD, JP_DQT,  XXXXX,KC_PGDN,  XXXXX,  XXXXX,  XXXXX,  XXXXX,\
+      XXXXX,  XXXXX,  XXXXX,CK_LBRC,JP_RBRC,  XXXXX,JP_TILD, JP_DQUO,  XXXXX,KC_PGDN,  XXXXX,  XXXXX,  XXXXX,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -110,10 +110,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_ESC,JP_EXLM,  JP_AT,JP_HASH, JP_DLR,JP_PERC,JP_BSLS,JP_PLUS,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS, KC_DEL,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               ^       &       '       "       ~                               *                               +       
-      XXXXX,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,JP_LBRC,JP_RBRC,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS, KC_ENT,\
+      XXXXX,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQUO,JP_TILD,JP_LBRC,JP_RBRC,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS, KC_ENT,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                       |       `       _       ¥                                                               .
-      XXXXX,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS,JP_BSLS,JP_TILD, JP_DQT,   KC_0,   KC_1,   KC_2,   KC_3, KC_DOT,  XXXXX,\
+      XXXXX,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS,JP_BSLS,JP_TILD, JP_DQUO,   KC_0,   KC_1,   KC_2,   KC_3, KC_DOT,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,KC_LWIN, KC_APP,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+

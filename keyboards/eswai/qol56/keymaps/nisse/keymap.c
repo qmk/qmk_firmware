@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
    JP_RCBR,S(KC_A),S(KC_O),S(KC_E),S(KC_I),S(KC_U),S(KC_ESC),KC(S),S(KC_G),S(KC_T),S(KC_K),S(KC_S),S(KC_N),JP_EQL, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    JP_TILD,S(KC_Z),S(KC_X),S(KC_C),S(KC_V),S(KC_F),S(KC_TAB),S(KC_DEL),S(KC_B),S(KC_H),S(KC_J),S(KC_L),KC_QUES,JP_DQT, \
+    JP_TILD,S(KC_Z),S(KC_X),S(KC_C),S(KC_V),S(KC_F),S(KC_TAB),S(KC_DEL),S(KC_B),S(KC_H),S(KC_J),S(KC_L),KC_QUES,JP_DQUO, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
  S(KC_LCTL),NUMLOC,S(KC_LALT),MO(_SHIFT),LOWER,SFTSPC,S(KC_BSPC),S(KC_ENT),SFTSPC,RAISE, KC_0,KC_DOT,S(KC_RCMD),S(KC_RCTL)  \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     JP_LBRC,JP_EXLM,  JP_AT,JP_HASH, JP_DLR,JP_PERC,  _____,  _____,JP_LPRN,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               ^       &       '       "       ~                                                              
-    JP_RBRC,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,  _____,  _____,JP_RPRN,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
+    JP_RBRC,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQUO,JP_TILD,  _____,  _____,JP_RPRN,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                       |       `       _       ¥                                                               
       XXXXX,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS,JP_BSLS,  _____,KC_BSPC,JP_PERC, JP_EQL,   KC_1,   KC_2,   KC_3, KC_ENT,\

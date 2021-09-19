@@ -215,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EDIT2L] = LAYOUT(
     XXXXXXX,JP_TILD,JP_AT  ,JP_HASH,JP_DLR ,JP_PERC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
     XXXXXXX,JP_CIRC,JP_AMPR,JP_EXLM,JP_QUES,JP_YEN ,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    XXXXXXX,JP_PIPE,JP_GRV ,JP_QUOT,JP_DQT ,JP_UNDS,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    XXXXXXX,JP_PIPE,JP_GRV ,JP_QUOT,JP_DQUO ,JP_UNDS,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
@@ -269,7 +269,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT(
     XXXXXXX   ,JP_TILD   ,JP_AT     ,JP_HASH   ,JP_DLR    ,JP_PERC   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,KC_UP     ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   , \
     XXXXXXX   ,JP_CIRC   ,JP_AMPR   ,JP_EXLM   ,JP_QUES   ,JP_YEN    ,XXXXXXX   ,XXXXXXX   ,KC_HOME   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,KC_PGUP   ,XXXXXXX   , \
-    XXXXXXX   ,JP_PIPE   ,JP_GRV    ,JP_QUOT   ,JP_DQT    ,JP_UNDS   ,XXXXXXX   ,XXXXXXX   ,KC_END    ,S(KC_LEFT),XXXXXXX   ,S(KC_RGHT),KC_PGDN   ,XXXXXXX   , \
+    XXXXXXX   ,JP_PIPE   ,JP_GRV    ,JP_QUOT   ,JP_DQUO    ,JP_UNDS   ,XXXXXXX   ,XXXXXXX   ,KC_END    ,S(KC_LEFT),XXXXXXX   ,S(KC_RGHT),KC_PGDN   ,XXXXXXX   , \
     _______   ,_______   ,_______   ,_______   ,_______   ,EISU      ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
@@ -358,7 +358,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_SHIFT] = LAYOUT(
     _______,S(KC_Q),S(KC_G),S(KC_M),S(KC_L),S(KC_W),XXXXXXX,XXXXXXX,S(KC_Y),S(KC_F),S(KC_U),S(KC_B),JP_PERC,KC_DEL , \
-    _______,S(KC_D),S(KC_S),S(KC_T),S(KC_N),S(KC_R),XXXXXXX,XXXXXXX,S(KC_I),S(KC_A),S(KC_E),S(KC_O),JP_DQT ,_______, \
+    _______,S(KC_D),S(KC_S),S(KC_T),S(KC_N),S(KC_R),XXXXXXX,XXXXXXX,S(KC_I),S(KC_A),S(KC_E),S(KC_O),JP_DQUO ,_______, \
     _______,S(KC_Z),S(KC_X),S(KC_C),S(KC_V),S(KC_J),XXXXXXX,XXXXXXX,S(KC_K),S(KC_H),S(KC_P),JP_AMPR,JP_EXLM,_______, \
     _______,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,_______,_______,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,_______
   ),

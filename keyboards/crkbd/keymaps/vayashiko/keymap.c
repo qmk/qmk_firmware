@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC, JP_EXLM,  JP_DQT, JP_HASH,  KC_DLR, JP_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_MINS, JP_CIRC,
+       KC_ESC, JP_EXLM,  JP_DQUO, JP_HASH,  KC_DLR, JP_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_MINS, JP_CIRC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,  KC_GRV, XXXXXXX, XXXXXXX, KC_MHEN,    KC_G,                      XXXXXXX, KC_HENK, JP_LBRC, JP_RBRC, XXXXXXX,  JP_YEN,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
