@@ -82,8 +82,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 ```
+
 ### Changing hold function
+
 Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0, kc)`, a current-layer Mod-Tap with no practical use, to add cut, copy and paste function to X,C and V keys when they are held down:
+
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
