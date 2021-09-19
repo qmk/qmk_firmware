@@ -102,12 +102,10 @@ __attribute__((weak)) void unicode_input_start(void) {
             tap_code16(UNICODE_KEY_LNX);
             break;
         case UC_WIN:
-#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
             // For increased reliability, use numpad keys for inputting digits
             if (!unicode_saved_num_lock) {
                 tap_code(KC_NUMLOCK);
             }
-#endif
             register_code(KC_LALT);
             tap_code(KC_KP_PLUS);
             break;
