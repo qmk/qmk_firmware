@@ -18,14 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 //------------------------------------------------------------------------------
-// VIA / Remap
-//------------------------------------------------------------------------------
-
-// How many layers to use with VIA / Remap.
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6 // default:4
-
-
-//------------------------------------------------------------------------------
 // Rotary Encoder
 //------------------------------------------------------------------------------
 // Encoder triggers specific key matrix position,
