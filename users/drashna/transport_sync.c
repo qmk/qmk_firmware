@@ -32,6 +32,7 @@ extern bool tap_toggling;
 extern bool swap_hands;
 #endif
 extern userspace_config_t userspace_config;
+extern audio_config_t     audio_config;
 
 __attribute__((aligned(8))) typedef struct {
     bool audio_enable;
@@ -80,10 +81,12 @@ void user_transport_update(void) {
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
         user_state.tap_toggling = tap_toggling;
 #endif
+#ifdef UNICODE_ENABLE
+        user_state.unicode_mode = unicode_config.input_mode;
+#endif
 #ifdef SWAP_HANDS_ENABLE
         user_state.swap_hands = swap_hands;
 #endif
-
     } else {
         keymap_config.raw    = transport_keymap_config;
         userspace_config.raw = transport_userspace_config;
@@ -93,18 +96,10 @@ void user_transport_update(void) {
 #ifdef AUDIO_ENABLE
         if (delayed_tasks_run) {
             if (user_state.audio_enable != is_audio_on()) {
-                if (user_state.audio_enable) {
-                    audio_on();
-                } else {
-                    audio_off();
-                }
+                audio_config.enable = user_state.audio_enable;
             }
             if (user_state.audio_clicky_enable != is_clicky_on()) {
-                if (user_state.audio_clicky_enable) {
-                    clicky_on();
-                } else {
-                    clicky_off();
-                }
+                audio_config.clicky_enable = user_state.audio_clicky_enable;
             }
         }
 #endif
