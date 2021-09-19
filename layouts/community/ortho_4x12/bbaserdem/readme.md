@@ -1,5 +1,5 @@
-This file contains my [4x12 ortho](../../../default/ortho_4x12) board layouts
-Check out the [user readme](../../../../users/bbaserdem/README.md) for more info.
+This folder contains my [4x12\_ortho](../../../default/ortho_4x12) board layouts
+Check out the [user readme](../../../../users/bbaserdem/readme.md) for more info.
 
 # Planck Light
 
