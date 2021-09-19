@@ -69,13 +69,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LCTL_T(KC_DQUO):
             if (record->tap.count && record->event.pressed) {
-                // Intercept tap function
-                tap_code16(KC_DQUO);
-                // Return false to ignore processing of tap function
-                return false;
+                tap_code16(KC_DQUO); // Send KC_DQUO on tap
+                return false;        // Return false to ignore further processing of key
             } else if (record->event.pressed) {
-                // Return true for normal processing of hold function
-                return true;
+                return true;         // Return true for normal processing of hold function 
             }
             break;
     }
@@ -89,11 +86,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(0,KC_NO):
             if (record->tap.count && record->event.pressed) {
-                // Intercept tap function to send Ctrl-C
-                tap_code16(C(KC_C));
+                tap_code16(C(KC_C)); // Intercept tap function to send Ctrl-C
             } else if (record->event.pressed) {
-                // Intercept hold function to send Ctrl-V
-                tap_code16(C(KC_V));
+                tap_code16(C(KC_V)); // Intercept hold function to send Ctrl-V
             }
             return false;
             break;
