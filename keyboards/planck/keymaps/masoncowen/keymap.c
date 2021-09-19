@@ -1,4 +1,4 @@
-/* Copyright 2015-2017 Jack Humbert
+/* Copyright 2021 masoncowen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,15 +34,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Z , KC_W , KC_F , KC_P , KC_Q , KC_NO , KC_NO , KC_J , KC_L , KC_U , KC_Y , KC_BSPC ,
   KC_A , KC_R , KC_S , KC_T , KC_G , KC_NO , KC_NO , KC_K , KC_N , KC_E , KC_I , KC_O ,
   KC_X , KC_V , KC_C , KC_D , KC_B , KC_NO , KC_NO , KC_M , KC_H , KC_DOT , KC_COMM , KC_NUHS ,
-  KC_NO , KC_NO , KC_ESC , KC_SPC , KC_CTRL , KC_NO , KC_NO , KC_BSPC , KC_SHIFT , KC_ALT , KC_NO , KC_NO
+  KC_NO , KC_NO , KC_ESC , KC_SPC , OSM(MOD_LCTL) , KC_NO , KC_NO , KC_BSPC , OSM(MOD_LSFT) , OSM(MOD_LALT) , KC_NO , KC_NO
 ),
 
 //TRANSPARENT keys are to be decided on
 [_NUMNAV] = LAYOUT_planck_grid(
-  KC_PPLS , KC_4 , KC_5 , KC_6 , KC_PAST , KC_NO , KC_NO , ______ , KC_HOME , KC_PGDN , KC_PGUP , KC_END ,
-  KC_0 , KC_1 , KC_2 , KC_3 , KC_PENT , KC_NO , KC_NO , ______ , KC_LEFT , KC_DOWN , KC_UP , KC_RIGHT ,
-  KC_PMNS , KC_7 , KC_8 , KC_9 , KC_PSLS , KC_NO , KC_NO , ______ , ______ , ______ , ______ , ______ ,
-  KC_NO , KC_NO , ______ , ______ , ______ , KC_NO , KC_NO , ______ , ______ , ______ , KC_NO , KC_NO
+  KC_PPLS , KC_4 , KC_5 , KC_6 , KC_PAST , KC_NO , KC_NO , _______ , KC_HOME , KC_PGDN , KC_PGUP , KC_END ,
+  KC_0 , KC_1 , KC_2 , KC_3 , KC_PENT , KC_NO , KC_NO , _______ , KC_LEFT , KC_DOWN , KC_UP , KC_RIGHT ,
+  KC_PMNS , KC_7 , KC_8 , KC_9 , KC_PSLS , KC_NO , KC_NO , _______ , _______ , _______ , _______ , _______ ,
+  KC_NO , KC_NO , _______ , _______ , _______ , KC_NO , KC_NO , _______ , _______ , _______ , KC_NO , KC_NO
 )
 
 };
