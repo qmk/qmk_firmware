@@ -11,7 +11,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make lefishe:default
 
-Enter into the bootloadder to flash new firmware in 3 ways:
+Enter into the bootloader to flash new firmware in 3 ways:
 
 	* **Bootmagic reset**: Hold down the key at (0,0) in the matrix(The F1 key in this case) and plug the the keyboard in. 
 	* **Physical reset button**: Briefly press the button on the back and left side of the PCB(exactly under where the "2" key would be located) while the PCB is plugged in.
