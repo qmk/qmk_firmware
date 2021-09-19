@@ -55,7 +55,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
 );
 #endif
 
-
+```suggestion
 #ifdef OLED_ENABLE
 __attribute__((weak)) void oled_task_user(void) {
     // Host Keyboard Layer Status
