@@ -80,7 +80,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0, kc)`, a current-layer Mod-Tap with no practical use, as a copy-on-tap, paste-on-hold key:
+Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0, kc)`, a current-layer Mod-Tap with no practical use, to add cut, copy and paste function to X,C and V keys when they are held down:
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(0,KC_X):
+            if (record->tap.count && record->event.pressed) {
+                return true;         // Return true for normal processing of tap keycode
+            } else if (record->event.pressed) {
+                tap_code16(C(KC_X)); // Intercept hold function to send Ctrl-X
+            }
+            return false;
+            break;
+        case LT(0,KC_C):
+            if (record->tap.count && record->event.pressed) {
+                return true;         // Return true for normal processing of tap keycode
+            } else if (record->event.pressed) {
+                tap_code16(C(KC_C)); // Intercept hold function to send Ctrl-C
+            }
+            return false;
+            break;
+        case LT(0,KC_V):
+            if (record->tap.count && record->event.pressed) {
+                return true;         // Return true for normal processing of tap keycode
+            } else if (record->event.pressed) {
+                tap_code16(C(KC_V)); // Intercept hold function to send Ctrl-V
+            }
+            return false;
+            break;
+    }
+    return true;
+}
+```
+
+This last example creates a custom copy on tap, paste on hold key using `LT(0,KC_NO)`:
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
