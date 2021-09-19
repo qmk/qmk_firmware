@@ -83,7 +83,7 @@ typedef union {
         uint8_t e0rgb   :4; // (16:2) The encoder state on media layer; controls light
         uint8_t e1rgb   :4; // (20:2) 5 states for this; 3 bits but 4 is better
         uint8_t layout  :2; // (22:2) Stores keymap layout; 3 states is good on 2 bits
-        uint16_t       :10; // (32:3) Padding here
+        uint16_t       :10; // (32:3) Padding here, free space for 10 more bits
     };
 } userspace_config_t;
 
