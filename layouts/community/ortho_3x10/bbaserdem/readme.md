@@ -1,5 +1,5 @@
-This file contains my [3x10 ortho](../../../default/ortho_3x10) board layouts
-Check out the [user readme](../../../../users/bbaserdem/README.md) for more info.
+This folder contains my [3x10\_ortho](../../../default/ortho_3x10) board layouts
+Check out the [user readme](../../../../users/bbaserdem/readme.md) for more info.
 
 # Gherkin
 

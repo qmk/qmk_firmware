@@ -141,13 +141,15 @@ bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
         case BB_LENY:
             // Lenny face: ( ͡° ͜ʖ ͡°)
             if (record->event.pressed) {
-                send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
+                //send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
+                send_unicode_string("( ͡° ͜ʖ ͡°)");
             }
             return false; break;
         case BB_TABL:
             // Table flip: ┻━┻︵ \(°□°)/ ︵ ┻━┻
             if (record->event.pressed) {
-                send_unicode_hex_string("253B 2501 253B FE35 0020 005C 0028 00B0 25A1 00B0 0029 002F 0020 FE35 0020 253B 2501 253B");
+                // send_unicode_hex_string("253B 2501 253B FE35 0020 005C 0028 00B0 25A1 00B0 0029 002F 0020 FE35 0020 253B 2501 253B");
+                send_unicode_string("┻━┻︵ \\(°□°)/ ︵ ┻━┻");
             }
             return false; break;
 #       endif // UNICODEMAP_ENABLE
