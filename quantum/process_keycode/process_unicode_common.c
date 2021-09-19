@@ -179,6 +179,8 @@ static void send_nibble_wrapper(uint8_t digit) {
     send_nibble(digit);
 }
 
+// clang-format on
+
 void register_hex(uint16_t hex) {
     for (int i = 3; i >= 0; i--) {
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
