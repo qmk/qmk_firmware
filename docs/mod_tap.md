@@ -117,8 +117,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 ```
+
 ### Changing both tap and hold
+
 This last example uses both tap and hold function of `LT()` to create a copy-on-tap, paste-on-hold key with `LT(0,KC_NO)`:
+
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
