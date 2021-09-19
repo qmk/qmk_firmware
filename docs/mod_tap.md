@@ -62,8 +62,11 @@ To fix this, open Remote Desktop Connection, click on "Show Options", open the t
 It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options.md#behaviors-that-can-be-configured).
 
 ## Intercepting Mod-Taps
+
 ### Changing tap function
+
 Basic keycode limitation with Mod-Tap can be worked around by intercepting it in `process_record_user`. For example, shifted keycode `KC_DQUO` cannot be used with `MT()` because it is a 16-bit keycode alias of `LSFT(KC_QUOT)`. But the following custom code can be used to intercept the "tap" function to manually send `KC_DQUO`:
+
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
