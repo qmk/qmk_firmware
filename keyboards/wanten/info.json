@@ -2,8 +2,6 @@
     "keyboard_name": "wanten", 
     "url": "", 
     "maintainer": "qpockets", 
-    "width": 12.75, 
-    "height": 4, 
     "layouts": {
         "LAYOUT_default": {
             "layout": [
