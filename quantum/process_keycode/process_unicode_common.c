@@ -166,6 +166,8 @@ __attribute__((weak)) void unicode_input_cancel(void) {
     set_mods(unicode_saved_mods);  // Reregister previously set mods
 }
 
+// clang-format off
+
 static void send_nibble_wrapper(uint8_t digit) {
     if (unicode_config.input_mode == UC_WIN) {
         uint8_t kc = digit < 10
