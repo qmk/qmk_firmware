@@ -1,6 +1,6 @@
 # synapse
 
-![synapse](https://i.imgur.com/OQNNPBh.jpg)
+![synapse](https://i.imgur.com/OQNNPBhh.jpg)
 
 Stagger PCB for Cervello!
 
