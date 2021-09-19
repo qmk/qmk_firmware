@@ -43,7 +43,7 @@ __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
 
 void matrix_init(void) {
-    printf("matrix init\n");
+    dprintf("matrix init\n");
     // debug_matrix = true;
 
     // actual matrix setup
@@ -151,16 +151,16 @@ bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1 << col));
 matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
 
 void matrix_print(void) {
-    printf("\nr/c 01234567\n");
+    dprintf("\nr/c 01234567\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        printf("%X0: ", row);
+        dprintf("%X0: ", row);
         matrix_row_t data = matrix_get_row(row);
         for (int col = 0; col < MATRIX_COLS; col++) {
             if (data & (1 << col))
-                printf("1");
+                dprintf("1");
             else
-                printf("0");
+                dprintf("0");
         }
-        printf("\n");
+        dprintf("\n");
     }
 }

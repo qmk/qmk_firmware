@@ -37,3 +37,7 @@
 // TIM2 to TIM3.
 #undef STM32_ST_USE_TIMER
 #define STM32_ST_USE_TIMER 3
+
+// enable i2c 
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1                  TRUE
