@@ -91,7 +91,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(C(KC_X)); // Intercept hold function to send Ctrl-X
             }
             return false;
-            break;
         case LT(0,KC_C):
             if (record->tap.count && record->event.pressed) {
                 return true;         // Return true for normal processing of tap keycode
