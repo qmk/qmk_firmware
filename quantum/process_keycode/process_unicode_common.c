@@ -22,9 +22,7 @@
 unicode_config_t unicode_config;
 uint8_t          unicode_saved_mods;
 bool             unicode_saved_caps_lock;
-#ifdef UNICODE_UC_WIN_USE_NUMPAD_IF_POSSIBLE
 bool             unicode_saved_num_lock;
-#endif
 
 #if UNICODE_SELECTED_MODES != -1
 static uint8_t selected[]     = {UNICODE_SELECTED_MODES};
