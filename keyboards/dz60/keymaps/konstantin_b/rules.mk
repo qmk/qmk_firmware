@@ -1,7 +1,7 @@
 USER_NAME := konstantin
 
 # Generic features
-BOOTMAGIC_ENABLE   = lite
+BOOTMAGIC_ENABLE   = yes
 COMMAND_ENABLE     = yes
 CONSOLE_ENABLE     = yes
 EXTRAKEY_ENABLE    = yes
