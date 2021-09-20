@@ -83,7 +83,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ### Changing hold function
 
-Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0, kc)`, a current-layer Mod-Tap with no practical use, to add cut, copy and paste function to X,C and V keys when they are held down:
+Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0, kc)` (layer-tap key with no practical use because layer 0 is always active) to add cut, copy and paste function to X,C and V keys when they are held down:
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -113,6 +113,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 ```
+
+Enabling `IGNORE_MOD_TAP_INTERRUPT` is recommended for Mod-Tap on alphanumeric keys to avoid hold function taking precendence when the next key is pressed quickly. See [Tap-Hold Configuration](tap_hold.md) for more details.
 
 ### Changing both tap and hold
 
