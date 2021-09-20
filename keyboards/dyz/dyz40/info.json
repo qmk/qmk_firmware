@@ -2,8 +2,6 @@
     "keyboard_name": "dyz40",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/dyz40",
     "maintainer": "dayatz",
-    "width": 15,
-    "height": 5,
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["E6", "F0", "F1", "F4", "F5", "F6", "F7", "C7", "C6", "B6", "B5", "B4", "D7"],
