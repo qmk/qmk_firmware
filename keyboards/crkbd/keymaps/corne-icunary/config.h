@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
-#define OLED_FONT_H "keyboards/crkbd/keymaps/CORNE-LunaCustom/glcdfont.c"
+#define OLED_FONT_H "keyboards/crkbd/keymaps/corne-icunary/glcdfont.c"
 
 #define USB_POLLING_INTERVAL_MS 1
 
