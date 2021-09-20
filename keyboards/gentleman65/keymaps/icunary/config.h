@@ -1,0 +1,5 @@
+#define USB_POLLING_INTERVAL_MS 1
+#define QMK_KEYS_PER_SCAN 12
+#undef ENCODER_RESOLUTION
+#define ENCODER_RESOLUTION 2 //makes encoder not skip//
+#define RGBLIGHT_SLEEP
