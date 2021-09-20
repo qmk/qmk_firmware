@@ -42,10 +42,6 @@
 #    endif
 #endif
 
-#ifndef ROTATIONAL_TRANSFORM_ANGLE
-#    define ROTATIONAL_TRANSFORM_ANGLE 0x00
-#endif
-
 #ifndef ADNS9800_CS_PIN
 #    error "No chip select pin defined -- missing ADNS9800_CS_PIN"
 #endif
