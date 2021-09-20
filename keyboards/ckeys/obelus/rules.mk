@@ -19,6 +19,6 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 MIDI_ENABLE = yes           # MIDI support
 UNICODE_ENABLE = no         # Unicode
-AUDIO_ENABLE = yes           # Audio output on port C6
+AUDIO_ENABLE = yes           # Audio output
 
 LAYOUTS = ortho_4x4
