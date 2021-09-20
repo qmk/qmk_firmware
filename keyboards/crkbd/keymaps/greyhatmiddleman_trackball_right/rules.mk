@@ -1,20 +1,18 @@
-
-
-MOUSEKEY_ENABLE      = yes    # Mouse keys
-AUTO_SHIFT_ENABLE    = yes
-DYNAMIC_MACRO_ENABLE = yes
-EXTRAKEY_ENABLE      = yes
-
-OLED_DRIVER_ENABLE  = no
-RGBLIGHT_ENABLE     = no
-RGB_MATRIX_ENABLE   = no
-VIA_ENABLE          = no
-LTO_ENABLE          = yes
-
-
-SPLIT_KEYBOARD = yes
-
-USER_NAME := greyhatmiddleman
-
 PIMORONI_TRACKBALL_ENABLE = yes
+ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
+    POINTING_DEVICE_ENABLE = yes
+    SRC += drivers/sensors/pimoroni_trackball.c
+    OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
+    OPT_DEFS += -DPIMORONI_TRACKBALL_CLICK
+#orientation pimoroni text on top and trackball text at the bottom
+    OPT_DEFS += -DPIMORONI_TRACKBALL_ROTATE
+    OPT_DEFS += -DPIMORONI_TRACKBALL_INVERT_X
+    QUANTUM_LIB_SRC += i2c_master.c
+endif
 
+OLED_ENABLE = yes
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    OLED_DRIVER = SSD1306
+    OPT_DEFS += -DOLED_ENABLE
+    OPT_DEFS += -DSPLIT_OLED_ENABLE
+endif

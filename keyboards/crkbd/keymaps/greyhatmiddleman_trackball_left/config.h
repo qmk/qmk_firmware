@@ -16,26 +16,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
 #pragma once
-
 
 /* Select hand configuration */
 
 // #define MASTER_LEFT
 #define MASTER_RIGHT
-//#define EE_HANDS
+// #define EE_HANDS
 
-
-#define AUTO_SHIFT_TIMEOUT 175
-#define NO_AUTO_SHIFT_NUMERIC
-#define NO_AUTO_SHIFT_ALPHA
-
-#define TAPPING_TERM 275
-#define PERMISSIVE_HOLD
-
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_INTERVAL 28
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"

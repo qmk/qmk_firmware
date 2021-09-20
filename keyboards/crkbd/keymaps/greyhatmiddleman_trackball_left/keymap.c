@@ -17,21 +17,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#ifdef POINTING_DEVICE_ENABLE
-#include "pointing_device.h"
-#endif
+#include "keymap_us_international.h"
 
 #ifdef PIMORONI_TRACKBALL_ENABLE
-#include "pimoroni_trackball.h"
+#include "drivers/sensors/pimoroni_trackball.h"
+#include "pointing_device.h"
 #endif
-
-#include "version.h"
-#include "keymap_us_international.h"
 
 enum crkbd_layers {
     _BASE,
     _NAV,
     _SYM
+};
+
+
+enum trackball_keycodes {
+    BALL_LC = SAFE_RANGE,
+    BALL_SCR
 };
 
 
@@ -53,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,
+      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX,BALL_SCR, BALL_LC,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -76,81 +78,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-#ifdef PIMORONI_TRACKBALL_ENABLE
-void pointing_device_task() {
-    report_mouse_t mouse_report = pointing_device_get_report();
-
-    if (is_keyboard_master()) {
-        process_mouse(&mouse_report);
-    }
-
-    switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            trackball_set_rgbw(0,0,0,80);
-            break;
-        case _NAV:
-            trackball_set_rgbw(0,153,95,0);
-            break;
-        case _SYM:
-             trackball_set_rgbw(153,113,0,0);
-            break;
-        default:
-            trackball_set_rgbw(0,0,0,0);
-    }
-
-
-    if (layer_state_is(_NAV)) {
-        trackball_set_accelerating(true);
-    } else {
-        trackball_set_accelerating(false);
-    }
-
-    if (layer_state_is(_SYM)) {
-        trackball_set_scrolling(true);
-    } else {
-        trackball_set_scrolling(false);
-    }
-
-    pointing_device_set_report(mouse_report);
-    pointing_device_send();
-}
-#endif
-
-
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (is_keyboard_master()) {
+  if (!is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   }
   return rotation;
 }
 
-#define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
-#define L_ADJUST 8
-
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
-    switch (layer_state) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("Default"), false);
-            break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
-            break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
-            break;
-        case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Adjust"), false);
-            break;
+    switch (get_highest_layer(layer_state)) {
+    case _BASE:
+        oled_write_ln_P(PSTR("Base"), false);
+        break;
+    case _NAV:
+        oled_write_ln_P(PSTR("NAV"), false);
+        break;
+    case _SYM:
+        oled_write_ln_P(PSTR("SYM"), false);
+        break;
+    default:
+        oled_write_ln_P(PSTR(""), false);
+	break;
     }
 }
-
 
 char keylog_str[24] = {};
 
@@ -206,21 +158,65 @@ void oled_render_logo(void) {
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        oled_render_logo();
-        //oled_render_layer_state();
-        //oled_render_keylog();
-    }
-    else {
-        //oled_render_logo();
         oled_render_layer_state();
         oled_render_keylog();
+    } else {
+        oled_render_logo();
     }
 }
+#endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog(keycode, record);
+
+void keyboard_post_init_user(void) {
+
+#ifdef PIMORONI_TRACKBALL_ENABLE
+    trackball_set_rgbw(0,0,0,80);
+#endif
+}
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record){
+  switch (keycode){
+#ifdef PIMORONI_TRACKBALL_ENABLE
+  case BALL_LC:
+     record->event.pressed?register_code(KC_BTN1):unregister_code(KC_BTN1);
+     break;
+  case BALL_SCR:
+    if(record->event.pressed){
+      trackball_set_scrolling(true);
+    } else{
+      trackball_set_scrolling(false);
+    }
+    break;
+#endif
+  default:
+#ifdef OLED_ENABLE
+    if (record->event.pressed) {
+      set_keylog(keycode, record);
+    }
+#endif
+    break;
   }
   return true;
 }
-#endif // OLED_DRIVER_ENABLE
+
+
+#ifdef PIMORONI_TRACKBALL_ENABLE
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _BASE:
+        trackball_set_rgbw(0,0,0,80);
+        break;
+    case _NAV:
+        trackball_set_rgbw(0,153,95,0);
+        break;
+    case _SYM:
+        trackball_set_rgbw(153,113,0,0);
+        break;
+    default: //  for any other layers, or the default layer
+        trackball_set_rgbw(0,0,0,80);
+        break;
+    }
+  return state;
+}
+#endif
