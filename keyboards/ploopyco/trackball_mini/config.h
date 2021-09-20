@@ -56,3 +56,7 @@
 
 // If board has a debug LED, you can enable it by defining this
 // #define DEBUG_LED_PIN F7
+
+#define ADNS5050_SCLK_PIN         B7
+#define ADNS5050_SDIO_PIN         C6
+#define ADNS5050_CS_PIN           B4

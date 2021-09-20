@@ -34,6 +34,19 @@
 #define CPI1250 0x1a
 #define CPI1375 0x1b
 
+// Definitions for the ADNS serial line.
+#ifndef ADNS5050_SCLK_PIN
+#    error "No clock pin defined -- missing ADNS5050_SCLK_PIN"
+#endif
+
+#ifndef ADNS5050_SDIO_PIN
+#    error "No data pin defined -- missing ADNS5050_SDIO_PIN"
+#endif
+
+#ifndef ADNS5050_CS_PIN
+#    error "No chip select pin defined -- missing ADNS5050_CS_PIN"
+#endif
+
 #ifdef CONSOLE_ENABLE
 void print_byte(uint8_t byte);
 #endif
