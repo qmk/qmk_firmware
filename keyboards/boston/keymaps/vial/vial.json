@@ -1,12 +1,14 @@
   {
     "name": "BostonV0",
-    "vendorId": "0xAC11",
-    "productId": "0x4175",
+    "vendorId": "0xAC12",
+    "productId": "0x4176",
     "matrix": {
         "rows": 7,
         "cols": 19
     },
     "lighting": "qmk_backlight",
+    "lighting": "qmk_rgblight",
+
     "layouts": {
         "labels":[
                     [
