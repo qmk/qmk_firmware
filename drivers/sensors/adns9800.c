@@ -149,6 +149,8 @@ void adns9800_init() {
     // enable laser
     uint8_t laser_ctrl0 = adns9800_read(REG_LASER_CTRL0);
     adns9800_write(REG_LASER_CTRL0, laser_ctrl0 & 0xf0);
+
+    adns9800_set_cpi(ADNS9800_CPI);
 }
 
 config_adns9800_t adns9800_get_config(void) {

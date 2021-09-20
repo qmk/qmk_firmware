@@ -28,7 +28,7 @@ The ADNS 5050 sensor uses a serial type protocol for communication, and requires
 |`ADNS5050_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         |
 |`ADNS5050_CS_PIN`   | (Required) The pin connected to the cable select pin of the sensor. |
 
-The CPI range is 125-1375, in increments of 125.
+The CPI range is 125-1375, in increments of 125. Defaults to 500 CPI.
 
 ### ADSN 9800 Sensor
 
@@ -49,7 +49,7 @@ The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surfac
 |`ADNS9800_CS_PIN`       | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
 
 
-The CPI range is 800-8200, in increments of 200.
+The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
 
 ### Analog Joystick
 
@@ -92,6 +92,8 @@ This supports the TM040040, TM035035 and the TM023023 trackpads. These are I2C o
 |`CIRQUE_TRACKPAD_Y_LOWER` | (Optional) The minimum reachable Y value on the sensor.                         | `63`    |
 |`CIRQUE_TRACKPAD_Y_UPPER` | (Optional) The maximum reachable Y value on the sensor.                         | `1471`  |
 
+Default Scaling/CPI is 1024.
+
 ### Pimoroni Trackball
 
 To use the Pimoroni Trackball module, add this to your `rules.mk`:
@@ -130,7 +132,7 @@ The PMW 3360 is an SPI driven optical sensor, that uses a built in IR LED for su
 |`PMW3360_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
 |`ROTATIONAL_TRANSFORM_ANGLE` | (Optional) Allows for the sensor data to be rotated +/- 30 degrees directly in the sensor. | `0`           |
 
-The CPI range is 100-12000, in increments of 100.
+The CPI range is 100-12000, in increments of 100. Defaults to 1600 CPI.
 
 
 ### Custom Driver
