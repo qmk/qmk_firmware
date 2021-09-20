@@ -32,7 +32,7 @@
 #define OPT_ENC2_MUX 4
 
 void process_mouse(report_mouse_t* mouse_report);
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
+void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y);
 
 #define LAYOUT(k00) {{ KC_NO }}
 

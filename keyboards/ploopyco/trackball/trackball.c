@@ -65,7 +65,7 @@ uint8_t  OptLowPin         = OPT_ENC1;
 bool     debug_encoder     = false;
 bool     is_drag_scroll    = false;
 
-__attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
+__attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int8_t h, int8_t v) {
     mouse_report->h = h;
     mouse_report->v = v;
 }
@@ -99,10 +99,10 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     int dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
-    process_wheel_user(mouse_report, mouse_report->h, (int)(mouse_report->v + (dir * OPT_SCALE)));
+    process_wheel_user(mouse_report, mouse_report->h, (int8_t)(mouse_report->v + (dir * OPT_SCALE)));
 }
 
-__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
+__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
     mouse_report->x = x;
     mouse_report->y = y;
 }

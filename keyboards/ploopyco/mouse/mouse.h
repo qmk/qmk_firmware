@@ -29,9 +29,9 @@
 #define OPT_ENC2_MUX 4
 
 void process_mouse(report_mouse_t* mouse_report);
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
+void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y);
 void process_wheel(report_mouse_t* mouse_report);
-void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
+void process_wheel_user(report_mouse_t* mouse_report, int8_t h, int8_t v);
 
 #define LAYOUT(BLL, BL, BM, BR, BRR, BF, BB, BDPI) \
     { {BL, BM, BR, BF, BB, BRR, BLL, BDPI}, }

@@ -68,7 +68,7 @@ uint16_t lastMidClick      = 0;      // Stops scrollwheel from being read if it 
 uint8_t  OptLowPin         = OPT_ENC1;
 bool     debug_encoder     = false;
 
-__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
+__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
     mouse_report->x = x;
     mouse_report->y = y;
 }
