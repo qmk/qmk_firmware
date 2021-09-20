@@ -23,5 +23,5 @@ BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH = AdafruitBLE       # Enable Bluetooth
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = no
