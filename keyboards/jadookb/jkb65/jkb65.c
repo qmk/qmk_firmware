@@ -51,7 +51,7 @@ void check_rgb_timeout() {
 
 
 
-void housekeeping_task_user(void) {
+void housekeeping_task_kb(void) {
   #ifdef RGBLIGHT_TIMEOUT
   check_rgb_timeout();
   #endif
