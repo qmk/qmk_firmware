@@ -54,22 +54,42 @@ __attribute__((weak)) void pointing_device_send(void) {
 }
 
 __attribute__((weak)) void pointing_device_task(void) {
-    // gather info and put it in:
-    // mouseReport.x = 127 max -127 min
-    // mouseReport.y = 127 max -127 min
-    // mouseReport.v = 127 max -127 min (scroll vertical)
-    // mouseReport.h = 127 max -127 min (scroll horizontal)
-    // mouseReport.buttons = 0x1F (decimal 31, binary 00011111) max (bitmask for mouse buttons 1-5, 1 is rightmost, 5 is leftmost) 0x00 min
-    // send the report
+    // Gather report info
     mouseReport = pointing_device_driver.get_report(mouseReport);
+
+    // Support rotation of the sensor data
+#if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
+    int8_t x = mouseReport.x, y = mouseReport.y;
+#    if defined(POINTING_DEVICE_ROTATION_90)
+    mouseReport.x = y;
+    mouseReport.y = -x;
+#    elif defined(POINTING_DEVICE_ROTATION_180)
+    mouseReport.x = -x;
+    mouseReport.y = -y;
+#    elif defined(POINTING_DEVICE_ROTATION_270)
+    mouseReport.x = -y;
+    mouseReport.y = x;
+#    else
+#        error "How the heck did you get here?!"
+#    endif
+#endif
+    // Support Inverting the X and Y Axises
+#if defined(POINTNG_DEVICE_INVERT_X)
+    mouseReport.x = -mouseReport.x;
+#endif
+#if defined(POINTNG_DEVICE_INVERT_Y)
+    mouseReport.y = -mouseReport.y;
+#endif
+
+    // allow kb to intercept and modify report
+    mouseReport = pointing_device_task_kb(mouseReport);
+    // Separately, allow user to intercept and modify data
+    mouseReport = pointing_device_task_user(mouseReport);
+    // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
     report_mouse_t mousekey_report = mousekey_get_report();
     mouseReport.buttons |= mousekey_report.buttons;
 #endif
-
-    mouseReport = pointing_device_task_kb(mouseReport);
-    mouseReport = pointing_device_task_user(mouseReport);
-
     pointing_device_send();
 }
 
