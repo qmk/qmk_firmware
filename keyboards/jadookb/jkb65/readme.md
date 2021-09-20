@@ -1,6 +1,6 @@
 # JKB65 RGB
 
-![JKB65RGB](https://i.imgur.com/CKtVyyI.jpg)
+![JKB65RGB](https://i.imgur.com/CKtVyyIh.jpg)
 
 A 65% hotswap in switch RGB keyboard from JadooKB.
 
