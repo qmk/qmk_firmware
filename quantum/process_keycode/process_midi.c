@@ -34,7 +34,7 @@ void process_midi_all_notes_off(void) { midi_send_cc(&midi_device, 0, 0x7B, 0); 
 
 #        include "timer.h"
 
-static uint8_t tone_status[MIDI_TONE_COUNT];
+static uint8_t tone_status[2][MIDI_TONE_COUNT];
 
 static uint8_t  midi_modulation;
 static int8_t   midi_modulation_step;
@@ -51,7 +51,8 @@ void midi_init(void) {
     midi_config.modulation_interval = 8;
 
     for (uint8_t i = 0; i < MIDI_TONE_COUNT; i++) {
-        tone_status[i] = MIDI_INVALID_NOTE;
+        tone_status[0][i] = MIDI_INVALID_NOTE;
+        tone_status[1][i] = 0;
     }
 
     midi_modulation       = 0;
@@ -68,19 +69,21 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
             uint8_t tone     = keycode - MIDI_TONE_MIN;
             uint8_t velocity = midi_config.velocity;
             if (record->event.pressed) {
-                if (tone_status[tone] == MIDI_INVALID_NOTE) {
-                    uint8_t note = midi_compute_note(keycode);
-                    midi_send_noteon(&midi_device, channel, note, velocity);
-                    dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
-                    tone_status[tone] = note;
+                uint8_t note = midi_compute_note(keycode);
+                midi_send_noteon(&midi_device, channel, note, velocity);
+                dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                tone_status[1][tone] += 1;
+                if (tone_status[0][tone] == MIDI_INVALID_NOTE) {
+                    tone_status[0][tone] = note;
                 }
             } else {
-                uint8_t note = tone_status[tone];
-                if (note != MIDI_INVALID_NOTE) {
+                uint8_t note = tone_status[0][tone];
+                tone_status[1][tone] -= 1;
+                if (tone_status[1][tone] == 0) {
                     midi_send_noteoff(&midi_device, channel, note, velocity);
                     dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                    tone_status[0][tone] = MIDI_INVALID_NOTE;
                 }
-                tone_status[tone] = MIDI_INVALID_NOTE;
             }
             return false;
         }

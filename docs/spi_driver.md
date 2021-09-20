@@ -6,12 +6,12 @@ The SPI Master drivers used in QMK have a set of common functions to allow porta
 
 No special setup is required - just connect the `SS`, `SCK`, `MOSI` and `MISO` pins of your SPI devices to the matching pins on the MCU:
 
-|MCU            |`SS`|`SCK`|`MOSI`|`MISO`|
-|---------------|----|-----|------|------|
-|ATmega16/32U2/4|`B0`|`B1` |`B2`  |`B3`  |
-|AT90USB64/128  |`B0`|`B1` |`B2`  |`B3`  |
-|ATmega32A      |`B4`|`B7` |`B5`  |`B6`  |
-|ATmega328/P    |`B2`|`B5` |`B3`  |`B4`  |
+|MCU              |`SS`|`SCK`|`MOSI`|`MISO`|
+|-----------------|----|-----|------|------|
+|ATmega16/32U2/4  |`B0`|`B1` |`B2`  |`B3`  |
+|AT90USB64/128/162|`B0`|`B1` |`B2`  |`B3`  |
+|ATmega32A        |`B4`|`B7` |`B5`  |`B6`  |
+|ATmega328/P      |`B2`|`B5` |`B3`  |`B4`  |
 
 You may use more than one slave select pin, not just the `SS` pin. This is useful when you have multiple devices connected and need to communicate with them individually.
 `SPI_SS_PIN` can be passed to `spi_start()` to refer to `SS`.

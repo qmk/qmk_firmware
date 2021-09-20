@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "tester",
+    "maintainer": "qmk",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "KC_A", "x": 0, "y": 0, "matrix": [0, 0] }
+            ]
+        }
+    }
+}

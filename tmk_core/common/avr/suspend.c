@@ -28,6 +28,13 @@
 #    include "rgblight.h"
 #endif
 
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
+#endif
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix.h"
+#endif
+
 /** \brief Suspend idle
  *
  * FIXME: needs doc
@@ -148,13 +155,19 @@ void suspend_power_down(void) {
 
     // Turn off audio
 #    ifdef AUDIO_ENABLE
-    // This sometimes disables the start-up noise, so it's been disabled
-    // stop_all_notes();
+    stop_all_notes();
 #    endif
 
     // Turn off underglow
 #    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_suspend();
+#    endif
+
+#    if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(true);
+#    endif
+#    if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(true);
 #    endif
 
     // Enter sleep state if possible (ie, the MCU has a watchdog timeout interrupt)
@@ -187,6 +200,7 @@ __attribute__((weak)) void suspend_wakeup_init_user(void) {}
  * FIXME: needs doc
  */
 __attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
+
 /** \brief run immediately after wakeup
  *
  * FIXME: needs doc
@@ -206,6 +220,13 @@ void suspend_wakeup_init(void) {
     // Wake up underglow
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_wakeup();
+#endif
+
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(false);
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(false);
 #endif
 
     suspend_wakeup_init_kb();
