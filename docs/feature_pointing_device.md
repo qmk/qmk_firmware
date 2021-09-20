@@ -109,7 +109,7 @@ The Pimoroni Trackball module is a I2C based breakout board with an RGB enable t
 |`PIMORONI_TRACKBALL_INTERVAL_MS`     | (Optional) The update/read interval for the sensor in milliseconds.                | `8`     |
 |`PIMORONI_TRACKBALL_SCALE`           | (Optional) The multiplier used to generate reports from the sensor.                | `5`     |
 |`PIMORONI_TRACKBALL_DEBOUNCE_CYCLES` | (Optional) The number of scan cycles used for debouncing on the ball press.        | `20`    |
-|`PIMORONI_TRACKBALL_ERROR_COUNT`     | (Optional) Specifies the number of read/write errors until the sensor is disabled. | `1471`  |
+|`PIMORONI_TRACKBALL_ERROR_COUNT`     | (Optional) Specifies the number of read/write errors until the sensor is disabled. | `10`  |
 
 ### PMW 3360 Sensor
 
