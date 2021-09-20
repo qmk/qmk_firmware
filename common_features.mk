@@ -107,7 +107,7 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
-VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_tm040040 pmw3360 pimoroni_trackball custom
+VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_trackpad pmw3360 pimoroni_trackball custom
 POINTING_DEVICE_DRIVER ?= custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
@@ -127,7 +127,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
             OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
             LIB_SRC += analog.c
-        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_tm040040)
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_trackpad)
             OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
             QUANTUM_LIB_SRC += i2c_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
