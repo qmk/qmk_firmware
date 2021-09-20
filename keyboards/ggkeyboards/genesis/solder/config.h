@@ -26,7 +26,7 @@
 #define PRODUCT         Genesis
 
 /* key matrix size */
-#define MATRIX_ROWS 7
+#define MATRIX_ROWS 6
 #define MATRIX_COLS 18
 
 /*

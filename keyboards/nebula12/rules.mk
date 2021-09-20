@@ -14,7 +14,7 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = no              # Enable keyboard backlight functionality
-BOOTMAGIC_ENABLE = lite            # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes              # Mouse keys
 EXTRAKEY_ENABLE = yes              # Audio control and System control
 CONSOLE_ENABLE = no                # Console for debug
@@ -31,6 +31,6 @@ CIE1931_CURVE = yes
 # project specific files
 SRC +=  keyboards/wilba_tech/wt_main.c \
         keyboards/wilba_tech/wt_rgb_backlight.c \
-        drivers/issi/is31fl3731.c \
+        drivers/led/issi/is31fl3731.c \
         quantum/color.c
-QUANTUM_LIB_SRC += drivers/chibios/i2c_master.c
+QUANTUM_LIB_SRC += i2c_master.c

@@ -2,8 +2,6 @@
     "keyboard_name": "stratos",
     "url": "",
     "maintainer": "kb-elmo",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
