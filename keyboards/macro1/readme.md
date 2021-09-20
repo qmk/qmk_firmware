@@ -1,6 +1,6 @@
 # Macro-1
 
-![Macro-1](https://imgur.com/a/tV02eMK)
+![Macro-1](https://i.imgur.com/pnTgKuTh.jpeg)
 
 A versitile numpad/macropad (14x6) with a rotary encoder, made and sold by Laneware Peripherals.
 

@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-/* KEYMAP_macropad
+/* 
  * ┌───┐   ┌───┬───┐ 
  * │K00│   │K01│K02│
  * └───┘   └───┴───┘ 
