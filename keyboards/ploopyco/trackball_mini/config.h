@@ -60,3 +60,5 @@
 #define ADNS5050_SCLK_PIN         B7
 #define ADNS5050_SDIO_PIN         C6
 #define ADNS5050_CS_PIN           B4
+
+#define POINTING_DEVICE_ROTATION_90

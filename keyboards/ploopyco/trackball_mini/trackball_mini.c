@@ -47,10 +47,6 @@
 #    define PLOOPY_DRAGSCROLL_MULTIPLIER 0.75 // Variable-DPI Drag Scroll
 #endif
 
-// Transformation constants for delta-X and delta-Y
-const static float ADNS_X_TRANSFORM = -1.0;
-const static float ADNS_Y_TRANSFORM = 1.0;
-
 keyboard_config_t keyboard_config;
 uint16_t dpi_array[] = PLOOPY_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
@@ -119,17 +115,7 @@ void pointing_device_init_kb(void) {
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    // Apply delta-X and delta-Y transformations.
-    // x and y are swapped
-    // the sensor is rotated
-    // by 90 degrees
-    float xt = (float)mouse_report.y * ADNS_X_TRANSFORM;
-    float yt = (float)mouse_report.x * ADNS_Y_TRANSFORM;
-
-    int16_t xti = (int16_t)xt;
-    int16_t yti = (int16_t)yt;
-
-    process_mouse_user(&mouse_report, xti, yti);
+    process_mouse_user(&mouse_report, mouse_report.x, mouse_report.y);
 
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;
