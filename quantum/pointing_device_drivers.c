@@ -40,8 +40,8 @@ report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init         = adns5050_init,
     .get_report   = adns5050_get_report,
-    .set_cpi    = adns5050_set_cpi,
-    .get_cpi    = adns5050_get_cpi,
+    .set_cpi      = adns5050_set_cpi,
+    .get_cpi      = adns5050_get_cpi,
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)

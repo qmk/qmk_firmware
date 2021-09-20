@@ -20,6 +20,9 @@
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
+#if (defined(POINTING_DEVICE_ROTATION_90) + defined(POINTING_DEVICE_ROTATION_180) + defined(POINTING_DEVICE_ROTATION_270)) > 1
+#    error More than one rotation selected.  This is not supported.
+#endif
 
 static report_mouse_t mouseReport = {};
 
