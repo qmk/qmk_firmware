@@ -10,8 +10,13 @@ enum userspace_custom_layers {
   RSE,
   LWR,
   LFT,
-  MOUSE
+  MOUSE,
+  TT1,
+  TT2,
+  TT3,
+  T23X
 };
+#define BASE DV
 
 enum userspace_custom_keycodes {
   PAWFIVE = SAFE_RANGE,
@@ -34,8 +39,13 @@ enum userspace_custom_keycodes {
 // == Macro keys for commonly used apps
 // -- Slack
 // Move one conversation up/down
+#define SLACKTB LGUI(LSFT(KC_T))
 #define SLACKUP LALT(LSFT(KC_UP))
 #define SLACKDN LALT(LSFT(KC_DOWN))
+
+// -- 1password
+#define PSWD LCTL(KC_BSLS)
+#define PSWD_ALT LCTL(LALT(KC_BSLS))
 
 // -- Browser and OS X
 // Activate one tab left/right
@@ -51,6 +61,14 @@ enum userspace_custom_keycodes {
 #define SCR_RGT HYPR(KC_RGHT)
 // Make window fill the whole monitor
 #define SCR_FUL HYPR(KC_F)
+
+// -- Windows variants of browser commanads
+// Activate one tab left/right
+#define WTABLFT LCTL(LSFT(KC_TAB))
+#define WTABRGT LCTL(KC_TAB)
+// Go back/forward in history
+#define WBWSRBK LALT(KC_LEFT)
+#define WBWSRFW LALT(KC_RGHT)
 
 // == Extended alpha layer toggles
 // -- Dvorak

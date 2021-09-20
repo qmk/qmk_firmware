@@ -9,7 +9,6 @@
 #define _FUNC 2
 #define _MOUSE 3
 
-#define _______ KC_TRNS
 #define MAC_TOG TG(_MAC)
 
 enum {

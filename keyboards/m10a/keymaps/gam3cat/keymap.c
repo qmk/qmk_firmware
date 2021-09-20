@@ -17,10 +17,10 @@ enum layers {
 };
 
 enum custom_keycodes {
-    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-    QMK_REV,
+    QMK_REV = SAFE_RANGE,
     KC_WEB,
-    KC_WCLS
+    KC_WCLS,
+    DYNAMIC_MACRO_RANGE
 };
 
 extern backlight_config_t backlight_config;
@@ -114,7 +114,7 @@ void matrix_scan_user(void) {
 
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (biton32(state)) {
         case _L0:
             custom_backlight_level(0);

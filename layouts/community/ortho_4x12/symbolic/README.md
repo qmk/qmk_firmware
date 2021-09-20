@@ -1,26 +1,24 @@
-# Symbolic ortho 4x12 layout 
+# Symbolic  ortho 4x12 layout 
 
 ## Features
 
 ### QWERTY based 
 
-![QWERTY layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/4597497ecd00790312f1a3928b2e2c5cf17a6ac1/QWERTY.png)
-
+![QWERTY layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/2af7fed6f282b6ac278e79433d15887f6b91ba3a/QWERTY.png)
+    
 * Default keymap
 * QWERTY layout
 * Hold and tap 
-    * `Shift` and `Space`
     * `Left Ctrl` and `Tab`
 * Symmetric Modifiers
     * `Shift`
     * `Raise Layer`
     * `Lower Layer`
     * `GUI`
-    * `Reset`
 
 ### symbol charactor layer
 
-![Raise layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/4597497ecd00790312f1a3928b2e2c5cf17a6ac1/Raise.png)
+![Raise layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/2af7fed6f282b6ac278e79433d15887f6b91ba3a/Raise.png)
 
 * Raise Layer
 * assigned symbolic(punctuation) characters
@@ -37,23 +35,31 @@
 
 ### numbers and allows layer
 
-![Lower layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/4597497ecd00790312f1a3928b2e2c5cf17a6ac1/Lower.png)
+![Lower layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/2af7fed6f282b6ac278e79433d15887f6b91ba3a/Lower.png)
 
 * Lower Layer
 * entrust vim style arrows
 * also numkeys
 * additional, computer volume keys
 * transparent all modifiers
+* **changed 2018/09/04**
+    * assign keys
+        * Home
+        * Page Down
+        * Page Up
+        * End
+        * Print Screen
 
 ### Numpads and F key layer
 
-![Neutral layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/4597497ecd00790312f1a3928b2e2c5cf17a6ac1/Neutral.png)
+![Neutral layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/2af7fed6f282b6ac278e79433d15887f6b91ba3a/Neutral.png)
 
 * visibled when Raise and Lower layer visibled
 * F keys assigned left hand side
 * Numpads assigned right hand side
     * for that reason, override `RGUI` key
 * transparent mostly modifiers
+* visibled `Reset` key on both hands 
 
 
 ### Goals
@@ -62,7 +68,6 @@
 * entrust more symbols for a left hand
 * simple, minimal, easy learn
 * as soon as possible, don't disable any shortcuts
-
 
 ###  suggestions or find issues
 

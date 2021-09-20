@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         BigSeries Single Keyboard
-#define DESCRIPTION     Single key board for Novelkeys Big Series Switch
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -40,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 50
+#define DEBOUNCE 50
 
 /* key combination for command */
 #define IS_COMMAND() ( \

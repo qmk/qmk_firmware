@@ -1,5 +1,5 @@
 /*
-Copyright 2017 REPLACE_WITH_YOUR_NAME
+Copyright 2017 benlyall, MechMerlin
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,18 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x7432
+#define PRODUCT_ID      0x0658
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KB Paradise
 #define PRODUCT         V60 Type R
-#define DESCRIPTION     First fully programmable KBP 60% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -46,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D4, D5, D6, D7 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN F7
@@ -54,17 +52,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_ON_STATE 0
 
-#define RGBLIGHT_CUSTOM_DRIVER
-#define RGBLIGHT_ANIMATIONS
+//#define RGB_DI_PIN 0
 #define RGBLED_NUM 1
+#define RGBLIGHT_ANIMATIONS
+#define RGB_STEP 16
+
 #define RGB_RED_PIN PF6
 #define RGB_GREEN_PIN PF5
 #define RGB_BLUE_PIN PF4
-#define RGB_DI_PIN 0
-#define RGB_STEP 16
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -167,28 +165,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-#endif

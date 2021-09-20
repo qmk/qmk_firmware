@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         CrawlPad
-#define DESCRIPTION     ATX Keycrawl 2017
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -26,7 +25,7 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -44,4 +43,3 @@
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 3
 #endif
-

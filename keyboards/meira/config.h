@@ -26,14 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         Meira
-#define DESCRIPTION     Low-profile Ortholinear Compact keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION CUSTOM_MATRIX
+/* COL2ROW, ROW2COL*/
+//#define DIODE_DIRECTION
 
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_LEVELS 10

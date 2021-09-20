@@ -55,7 +55,7 @@ As on the original TM 2030, when `num` layer is activated, holding `fn` disables
 ## Dvorak Layer
 Same as Layer 0 but with _Dvorak_ layout, to use with QWERTY OS layout.
 
-Enable Dvorak layout with [`Magic`](/TMK_readme.md#magic-commands)+`1` (`LShift`+`RShift`+`1`), disable with `Magic`-`0`.
+Enable Dvorak layout with [`Magic`](/docs/feature_bootmagic.md)+`1` (`LShift`+`RShift`+`1`), disable with `Magic`-`0`.
 
 The middle (green) led indicates when the Dvorak layer is activated.
 

@@ -16,16 +16,6 @@
 #define TXMAXBUFLEN 20
 // Receive buffer length
 #define RXMAXBUFLEN 20
-// Global transmit buffer
-volatile uint8_t *TWITransmitBuffer;
-// Global receive buffer
-volatile uint8_t TWIReceiveBuffer[RXMAXBUFLEN];
-// Buffer indexes
-volatile int TXBuffIndex; // Index of the transmit buffer. Is volatile, can change at any time.
-int RXBuffIndex; // Current index in the receive buffer
-// Buffer lengths
-int TXBuffLen; // The total length of the transmit buffer
-int RXBuffLen; // The total number of bytes to read (should be less than RXMAXBUFFLEN)
 
 typedef enum {
 	Ready,
@@ -42,8 +32,8 @@ typedef enum {
 	uint8_t errorCode;
 	uint8_t repStart;
 	}TWIInfoStruct;
-TWIInfoStruct TWIInfo;
 
+extern TWIInfoStruct TWIInfo;
 
 // TWI Status Codes
 #define TWI_START_SENT			0x08 // Start sent

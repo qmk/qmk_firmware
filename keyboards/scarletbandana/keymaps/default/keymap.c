@@ -82,33 +82,10 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
-};
-
 #ifdef AUDIO_ENABLE
 
   float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 #endif
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -181,8 +158,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   }
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

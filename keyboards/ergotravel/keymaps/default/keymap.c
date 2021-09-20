@@ -1,6 +1,5 @@
-﻿#include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
 #define _LOWER 1
@@ -14,8 +13,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-// #define KC_ KC_TRNS
-#define _______ KC_TRNS
 #define CALTDEL LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
 

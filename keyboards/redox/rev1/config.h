@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x4D44 // "MD"
+#define PRODUCT_ID      0x5244 // "RD"
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Falbatech
 #define PRODUCT         The Redox Keyboard
-#define DESCRIPTION     Split Ergodox-like 5x7 custom keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -47,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0
@@ -61,6 +60,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 
 #define RGBLED_NUM 14    // Number of LEDs
+
+#define RGBLIGHT_SPLIT   // sync LEDs between RIGHT and LEFT hand
 
 /*
  * Feature disable options

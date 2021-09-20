@@ -25,11 +25,8 @@ enum tv44_keycodes {
   EXT_MOUSE
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define LOWER F(_LOWER)
-#define RAISE F(_RAISE)
-#define XXXXXXX KC_NO
+#define LOWER LT(_LOWER, KC_SPC)
+#define RAISE LT(_RAISE, KC_SPC)
 #define WINDOW_SHORTCUT MO(_WINDOW_SHORTCUT)
 #define MAC_SHORTCUT MO(_MAC_SHORTCUT)
 
@@ -115,10 +112,10 @@ XXXXXXX,_______,_______,                _______,_______,        KC_END, KC_LEFT,
  * `--------------------------------------------------------------------------'
  */
 [_WINDOW_SHORTCUT] = LAYOUT_arrow(
-KC_ESC ,LALT(KC_F4)        ,LGUI(KC_UP)         ,XXXXXXX       ,XXXXXXX,S(KC_CAPS)         ,XXXXXXX          ,KC_PGUP,KC_UP  ,KC_PGDN ,KC_PSCR,KC_DELT,
+KC_ESC ,LALT(KC_F4)        ,LGUI(KC_UP)         ,XXXXXXX       ,XXXXXXX,S(KC_CAPS)         ,XXXXXXX          ,KC_PGUP,KC_UP  ,KC_PGDN ,KC_PSCR,KC_DEL,
 _______,LGUI(KC_LEFT)      ,LGUI(KC_DOWN)       ,LGUI(KC_RIGHT),XXXXXXX,LALT(KC_CAPS)      ,KC_CAPS          ,KC_LEFT,KC_DOWN,KC_RIGHT,XXXXXXX,XXXXXXX,
 _______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX       ,XXXXXXX,LCTL(KC_CAPS)      ,KC_SLCK          ,KC_HOME,XXXXXXX,KC_END  ,XXXXXXX,KC_RCTL,
-_______,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),                       LCTL(LALT(KC_DELT)),LGUI(LCTL(KC_F4)),        MOUSE  ,XXXXXXX ,XXXXXXX,BACKLIT
+_______,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),                       LCTL(LALT(KC_DEL)) ,LGUI(LCTL(KC_F4)),        MOUSE  ,XXXXXXX ,XXXXXXX,BACKLIT
 ),
 /* Mac Shortcut
  * ,--------------------------------------------------------------------------.
@@ -132,7 +129,7 @@ _______,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),                       LCTL(LAL
  * `--------------------------------------------------------------------------'
  */
 [_MAC_SHORTCUT] = LAYOUT_arrow(
-KC_ESC ,LGUI(KC_UP)        ,LGUI(KC_DOWN)         ,XXXXXXX       ,XXXXXXX,XXXXXXX         ,XXXXXXX          ,KC_PGUP,KC_UP  ,KC_PGDN ,KC_PSCR,KC_DELT,
+KC_ESC ,LGUI(KC_UP)        ,LGUI(KC_DOWN)         ,XXXXXXX       ,XXXXXXX,XXXXXXX         ,XXXXXXX          ,KC_PGUP,KC_UP  ,KC_PGDN ,KC_PSCR,KC_DEL,
 _______,LALT(LSFT(KC_LEFT))      ,LALT(LSFT(KC_RIGHT))       ,XXXXXXX,LGUI(LCTL(KC_F)),XXXXXXX      ,KC_CAPS          ,KC_LEFT,KC_DOWN,KC_RIGHT,XXXXXXX,XXXXXXX,
 _______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX       ,XXXXXXX,XXXXXXX     ,XXXXXXX          ,KC_HOME,XXXXXXX,KC_END  ,XXXXXXX,KC_RCTL,
 _______,_______,_______, _______,_______,        MOUSE  ,XXXXXXX ,XXXXXXX,BACKLIT
@@ -154,11 +151,6 @@ XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R,XXXXXXX,XXXXXXX,KC_BTN1,KC_WH_D,KC_BTN2,
 XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,WINDOW,
 XXXXXXX,XXXXXXX,XXXXXXX,                EXT_MOUSE,EXT_MOUSE,        XXXXXXX,XXXXXXX,XXXXXXX,MAC
 )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
- [_LOWER] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),
- [_RAISE] = ACTION_LAYER_TAP_KEY(_RAISE, KC_SPC)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

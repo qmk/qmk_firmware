@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS //readability
-
 #define _DL 0 //default
 #define _F1 1 //function 1
 #define _F2 2 //function 2

@@ -18,10 +18,6 @@ extern keymap_config_t keymap_config;
 #define LAYER2 M(_L2)
 #define LAYER3 M(_L3)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 void matrix_init_user(void) {
 	backlight_level(4);
 }

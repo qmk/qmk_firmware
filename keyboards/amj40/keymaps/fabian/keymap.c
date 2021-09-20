@@ -50,9 +50,6 @@ enum custom_keycodes {
   EXT_PLV
 };
 
-#define XXXXXXX KC_NO
-#define _______ KC_TRNS
-
 #define CTL_ESC CTL_T(KC_ESC)  // Tap for Escape, hold for Control
 #define HPR_TAB ALL_T(KC_TAB)  // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)
 #define MEH_GRV MEH_T(KC_GRV)  // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
@@ -77,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   HPR_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   SFT_BSP, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT, \
-  KC_LCTL, MEH_GRV, KC_LALT, KC_LGUI,          F(0),             RAISE,            KC_RGUI, KC_RALT, KC_RCTL \
+  KC_LCTL, MEH_GRV, KC_LALT, KC_LGUI,     LT(_LOWER, KC_SPC),    RAISE,            KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
 /* Colemak
@@ -95,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   HPR_TAB, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
   CTL_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
   SFT_BSP, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT, \
-  KC_LCTL, MEH_GRV, KC_LALT, KC_LGUI,          F(0),             RAISE,            KC_RGUI, KC_RALT, KC_RCTL \
+  KC_LCTL, MEH_GRV, KC_LALT, KC_LGUI,     LT(_LOWER, KC_SPC),    RAISE,            KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
 /* Dvorak
@@ -113,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   HPR_TAB, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
   CTL_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
   SFT_BSP, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT, \
-  KC_LCTL, MEH_GRV, KC_LALT, KC_LGUI,          F(0),             RAISE,            KC_RGUI, KC_RALT, KC_RCTL \
+  KC_LCTL, MEH_GRV, KC_LALT, KC_LGUI,     LT(_LOWER, KC_SPC),    RAISE,            KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
 /* Lower
@@ -169,10 +166,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
   _______, _______, _______, _______,          _______,          _______,          _______, _______, _______ \
 )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0]  = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

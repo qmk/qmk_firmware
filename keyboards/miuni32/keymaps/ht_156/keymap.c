@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Keyboard layer definitions
 #define BASE    0
 #define NUMBERS 1

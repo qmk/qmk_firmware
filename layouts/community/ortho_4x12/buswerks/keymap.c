@@ -78,10 +78,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_TAB , KC_Q   , KC_W   , KC_F   , KC_P   , KC_G   , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN, KC_BSPC, \
             ESC_CMD, KC_A   , KC_R   , KC_S   , KC_T   , KC_D   , KC_H   , KC_N   , KC_E   , KC_I   , KC_O   , KC_QUOT, \
             KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_K   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_ENT, \
-            xxxxxxx, KC_LCTL, KC_LGUI, KC_LALT, LOWER  , KC_SPC , KC_SPC , RSE_ENT, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT \
+            XXXXXXX, KC_LCTL, KC_LGUI, KC_LALT, LOWER  , KC_SPC , KC_SPC , RSE_ENT, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT \
             ),
 
-    [_ADJUST] = LAYOUT_planck_grid(
+    [_ADJUST] = LAYOUT_ortho_4x12(
             _______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______,  _______, _______, KC_DEL ,
             _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK,  GAME,    _______,
             _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______,  _______, _______, _______,
@@ -142,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(_RAISE) || IS_LAYER_ON(_LOWER)) {
         if (clockwise) {
             register_code(KC_VOLU);
@@ -170,6 +170,5 @@ void encoder_update(bool clockwise) {
             #endif
         }
     }
+    return true;
 }
-
-

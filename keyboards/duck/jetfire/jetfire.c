@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "jetfire.h"
-#include "backlight_led.h"
+#include "indicator_leds.h"
 
-enum backlight_level {
+enum BACKLIGHT_AREAS {
     BACKLIGHT_ALPHA    = 0b0000001,
     BACKLIGHT_MOD      = 0b0000010,
     BACKLIGHT_FROW     = 0b0000100,
@@ -121,31 +121,21 @@ void backlight_set(uint8_t level)
   backlight_toggle_rgb(level & BACKLIGHT_RGB);
 }
 
-
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
-
-	return process_record_user(keycode, record);
-}
-
-
 void backlight_update_state()
 {
   cli();
   send_color(backlight_state_led & (1<<STATE_LED_SCROLL_LOCK) ? 255 : 0,
              backlight_state_led & (1<<STATE_LED_CAPS_LOCK) ? 255 : 0,
              backlight_state_led & (1<<STATE_LED_NUM_LOCK) ? 255 : 0,
-             Device_STATELED);
+             Device_STATUSLED);
   send_color(backlight_state_led & (1<<STATE_LED_LAYER_1) ? 255 : 0,
              backlight_state_led & (1<<STATE_LED_LAYER_2) ? 255 : 0,
              backlight_state_led & (1<<STATE_LED_LAYER_0) ? 255 : 0,
-             Device_STATELED);
+             Device_STATUSLED);
   send_color(backlight_state_led & (1<<STATE_LED_LAYER_4) ? 255 : 0,
              backlight_state_led & (1<<STATE_LED_LAYER_3) ? 255 : 0,
              0,
-             Device_STATELED);
+             Device_STATUSLED);
   sei();
   show();
 }

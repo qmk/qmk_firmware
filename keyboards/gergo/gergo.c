@@ -43,29 +43,29 @@ uint8_t init_mcp23018(void) {
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(IODIRA, ERGODOX_EZ_I2C_TIMEOUT);            if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b10000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b11111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(IODIRA, I2C_TIMEOUT);            if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b10000000, I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b11111111, I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    i2c_stop();
 
     // set pull-up
     // - unused  : on  : 1
     // - input   : on  : 1
     // - driving : off : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(GPPUA, ERGODOX_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b10000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b11111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(GPPUA, I2C_TIMEOUT);             if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b10000000, I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b11111111, I2C_TIMEOUT);        if (mcp23018_status) goto out;
 
 out:
-    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+    i2c_stop();
     // SREG=sreg_prev;
     //uprintf("Init %x\n", mcp23018_status);
     return mcp23018_status;
 }
 
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     { {0,0}, {0,7}, {2,7}, {3,7} },
     { {0,8}, {1,8}, {2,8}, {3,8} },
     { {0,9}, {1,9}, {2,9}, {3,9} },

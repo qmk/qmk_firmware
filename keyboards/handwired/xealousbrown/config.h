@@ -24,12 +24,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    XeaL
 #define PRODUCT         XeaLous Brown Keyboard
-#define DESCRIPTION     XeaLous Brown Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 13
+#define DEBOUNCE 10
+#define USB_POLLING_INTERVAL_MS 1
+/* layer optimization */
+#define LAYER_STATE_8BIT
+#define MAX_LAYER 2
 
+//debug scanrate
+//#define DEBUG_MATRIX_SCAN_RATE
+//debug scans taking longer than one ms
+//#define BENCHMARK_MATRIX
+#define MATRIX_IO_DELAY 15
 /*
  * Keyboard Matrix Assignments
  *

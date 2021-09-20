@@ -9,7 +9,7 @@
 #include "TWIlib.h"
 #include "lighting.h"
 #include "debug.h"
-#include "audio/audio.h"
+#include "audio.h"
 
 
 const uint8_t backlight_pwm_map[BACKLIGHT_LEVELS] = BACKLIGHT_PWM_MAP;

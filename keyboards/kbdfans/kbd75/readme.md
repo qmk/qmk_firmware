@@ -2,12 +2,17 @@
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: KBD75 PCB rev 1 and 2  
-Hardware Availability: https://kbdfans.myshopify.com/products/kbd75-keyboard-set?variant=35638534029
+Hardware Availability:
+* https://kbdfans.com/collections/75-diy-kit/products/kbd75-keyboard-set
+* https://kbdfans.com/collections/75-diy-kit/products/kbd75v2-custom-keyboard-diy-kit
 
-The KBD75 has two revisions. Revision 2 has a USB C port and allows a numpad layout. `.hex` files made
-for KBD75 revision 1, will still work for revision 2. `.hex` files made for revision 2 (excluding the numpad)
-will also still work on revision 1. Both revisions share the same switch matrix but have switch holes in 
-different areas. 
+The KBD75 was sold through various rounds, with various PCB changes between them. 
+
+* **Round 1 (2017)**: Black PCB - Bootmapper Client, atmega32a MCU (Use [Winkeyless.kr B.mini](../../winkeyless/bmini/) firmware)
+* **Round 2 (2018)**: White PCB - Bootmapper Client, atmega32a MCU (Use [ymd75/rev1](../../ymd75/rev1/) firmware)
+* **Round 3-5 (2018)**: White PCB - QMK Firmware, atmega32u4 MCU (Use KBD75 rev1 or rev2(without numpad support)) 
+* **Round 6 (2019)**: White PCB with USB C - QMK Firmware, atmega32u4 MCU (Use KBD75 rev1 or rev2(with numpad support))
+* **V2 (2019-)**: Same as **Round 6** (above).
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -1,6 +1,6 @@
 // see https://github.com/pepaslabs/hexon38
 
-#include "hexon38.h"
+#include QMK_KEYBOARD_H
 
 #define A_ KC_A
 #define B_ KC_B
@@ -186,8 +186,6 @@ void matrix_init_user(void) {
     g_pending.count = 0;
     g_pending.head = NULL;
 }
-
-void matrix_scan_user(void) {}
 
 /*
 a_ a-: emit a
