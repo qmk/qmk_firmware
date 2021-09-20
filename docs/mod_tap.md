@@ -114,7 +114,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-Enabling `IGNORE_MOD_TAP_INTERRUPT` is recommended for Mod-Tap on alphanumeric keys to avoid hold function taking precendence when the next key is pressed quickly. See [Tap-Hold Configuration](tap_hold.md) for more details.
+Enabling `IGNORE_MOD_TAP_INTERRUPT` is recommended for Mod-Tap on alphanumeric keys to avoid hold function taking precendence when the next key is pressed quickly. See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for more details.
 
 ### Changing both tap and hold
 
