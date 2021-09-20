@@ -58,11 +58,11 @@ void housekeeping_task_kb(void) {
   
 }
 
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef RGBLIGHT_TIMEOUT
-  if (record->event.pressed) refresh_rgb();
-  #endif
-
+void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+#ifdef RGBLIGHT_TIMEOUT
+    if (record->event.pressed) { refresh_rgb(); }
+#endif
+    post_process_record_user(keycode, record);
 }
 
 void post_encoder_update_user(uint8_t index, bool clockwise) {
