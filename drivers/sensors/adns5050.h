@@ -34,6 +34,8 @@
 #define CPI1250 0x1a
 #define CPI1375 0x1b
 
+#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
+
 // Definitions for the ADNS serial line.
 #ifndef ADNS5050_SCLK_PIN
 #    error "No clock pin defined -- missing ADNS5050_SCLK_PIN"

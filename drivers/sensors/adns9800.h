@@ -59,5 +59,7 @@ typedef struct {
 void              adns9800_init(void);
 config_adns9800_t adns9800_get_config(void);
 void              adns9800_set_config(config_adns9800_t);
+uint16_t          adns9800_get_cpi(void);
+void              adns9800_set_cpi(uint16_t cpi);
 /* Reads and clears the current delta values on the ADNS sensor */
 report_adns9800_t adns9800_get_report(void);

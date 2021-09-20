@@ -40,8 +40,30 @@ report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init         = adns5050_init,
     .get_report   = adns5050_get_report,
-    .set_cpi    = NULL,
-    .get_cpi    = NULL,
+    .set_cpi    = adns5050_set_cpi,
+    .get_cpi    = adns5050_get_cpi,
+};
+// clang-format on
+#elif defined(POINTING_DEVICE_DRIVER_adns9800)
+
+report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
+    report_adns9800_t sensor_report = adns9800_get_report();
+
+    int8_t clamped_x = CLAMP_HID(sensor_report.x);
+    int8_t clamped_y = CLAMP_HID(sensor_report.y);
+
+    mouse_report.x = clamped_x;
+    mouse_report.y = clamped_y;
+
+    return mouse_report;
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = adns9800_init,
+    .get_report = adns9800_get_report_driver,
+    .set_cpi    = adns9800_set_cpi,
+    .get_cpi    = adns9800_get_cpi
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_analog_joystick)
@@ -64,28 +86,6 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_report = analog_joystick_get_report,
     .set_cpi    = NULL,
     .get_cpi    = NULL
-};
-// clang-format on
-#elif defined(POINTING_DEVICE_DRIVER_adns9800)
-
-report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
-    report_adns9800_t sensor_report = adns9800_get_report();
-
-    int8_t clamped_x = CLAMP_HID(sensor_report.x);
-    int8_t clamped_y = CLAMP_HID(sensor_report.y);
-
-    mouse_report.x = clamped_x;
-    mouse_report.y = clamped_y;
-
-    return mouse_report;
-}
-
-// clang-format off
-const pointing_device_driver_t pointing_device_driver = {
-    .init       = adns9800_init,
-    .get_report = adns9800_get_report_driver,
-    .set_cpi    = adns9800_set_config,
-    .get_cpi    = adns9800_get_config
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_cirque_trackpad)

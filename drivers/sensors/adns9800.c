@@ -161,6 +161,16 @@ void adns9800_set_config(config_adns9800_t config) {
     adns9800_write(REG_Configuration_I, config_1);
 }
 
+uint16_t adns9800_get_cpi(void) {
+    uint8_t config_1 = adns9800_read(REG_Configuration_I);
+    return (uint16_t){(config_1 & 0xFF) * CPI_STEP};
+}
+
+void adns9800_set_cpi(uint16_t cpi) {
+    uint8_t config_1 = (CLAMP_CPI(cpi) / CPI_STEP) & 0xFF;
+    adns9800_write(REG_Configuration_I, config_1);
+}
+
 static int16_t convertDeltaToInt(uint8_t high, uint8_t low) {
     // join bytes into twos compliment
     uint16_t twos_comp = (high << 8) | low;

@@ -192,7 +192,16 @@ int8_t convert_twoscomp(uint8_t data) {
 }
 
 // Don't forget to use the definitions for CPI in the header file.
-void adns5050_set_cpi(uint8_t cpi) { adns5050_write_reg(REG_MOUSE_CONTROL2, cpi); }
+void adns5050_set_cpi(uint16_t cpi) {
+    uint8_t cpival = constrain((cpi / 125), 0x1, 0xD);  // limits to 0--119
+
+    adns5050_write_reg(REG_MOUSE_CONTROL2, 0b10000 | cpival);
+}
+
+uint16_t adns5050_get_cpi(void) {
+    uint8_t cpival = adns5050_read_reg(REG_MOUSE_CONTROL2);
+    return (uint16_t)((cpival & 0b10000) * 125);
+}
 
 bool adns5050_check_signature(void) {
     uint8_t pid  = adns5050_read_reg(REG_PRODUCT_ID);
