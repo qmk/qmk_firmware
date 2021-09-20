@@ -170,11 +170,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifndef MOUSEKEY_ENABLE
     if (IS_MOUSEKEY_BUTTON(keycode)) {
         report_mouse_t currentReport = pointing_device_get_report();
-        if (record->event.pressed) {
-            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
-        } else {
-            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
-        }
+        currentReport.buttons        = pointing_device_handle_buttons(record->event.pressed, keycode - KC_MS_BTN1);
         pointing_device_set_report(currentReport);
         pointing_device_send();
     }
