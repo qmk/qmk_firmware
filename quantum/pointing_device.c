@@ -32,6 +32,16 @@ __attribute__((weak)) void           pointing_device_init_user(void) {}
 __attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) { return mouse_report; }
 __attribute__((weak)) report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) { return mouse_report; }
 
+__attribute__((weak)) uint8_t pointing_device_handle_buttons(bool pressed, uint8_t button) {
+    uint8_t buttons = 0;
+    if (pressed) {
+        buttons |= 1 << (button);
+    } else {
+        buttons &= ~(1 << (button));
+    }
+    return buttons;
+}
+
 __attribute__((weak)) void pointing_device_init(void) {
     pointing_device_driver.init();
     pointing_device_init_kb();

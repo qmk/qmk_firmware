@@ -52,6 +52,17 @@ typedef struct {
     uint16_t (*get_cpi)(void);
 } pointing_device_driver_t;
 
+typedef enum {
+    POINTING_DEVICE_BUTTON1,
+    POINTING_DEVICE_BUTTON2,
+    POINTING_DEVICE_BUTTON3,
+    POINTING_DEVICE_BUTTON4,
+    POINTING_DEVICE_BUTTON5,
+    POINTING_DEVICE_BUTTON6,
+    POINTING_DEVICE_BUTTON7,
+    POINTING_DEVICE_BUTTON8,
+} pointing_device_buttons_t;
+
 void           pointing_device_init(void);
 void           pointing_device_task(void);
 void           pointing_device_send(void);
@@ -65,3 +76,4 @@ void           pointing_device_init_kb(void);
 void           pointing_device_init_user(void);
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report);
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report);
+uint8_t        pointing_device_handle_buttons(bool pressed, pointing_device_buttons_t button);
