@@ -133,6 +133,19 @@ The PMW 3360 is an SPI driven optical sensor, that uses a built in IR LED for su
 The CPI range is 100-12000, in increments of 100.
 
 
+### Custom Driver
+
+If you have a sensor type that isn't supported here, you can manually implement it, by adding these functions (with the correct implementation for your device):
+
+```c
+void           pointing_device_driver_init(void) {}
+report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
+uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
+void           pointing_device_driver_set_cpi(uint16_t cpi) {}
+```
+
+!> Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/pointing_device_drivers.c`, but there may be cases where it's very specific to the hardware.  So these functions are provided, just in case. 
+
 ## Common Configuration
 
 | Setting                       | Description                                              | Default       |
@@ -165,7 +178,7 @@ The CPI range is 100-12000, in increments of 100.
 
 # Manipulating Mouse Reports
 
-A report_mouse_t (here "mouseReport") has the following properties:
+The report_mouse_t (here "mouseReport") has the following properties:
 
 * `mouseReport.x` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing movement (+ to the right, - to the left) on the x axis.
 * `mouseReport.y` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing movement (+ upward, - downward) on the y axis.
@@ -173,8 +186,10 @@ A report_mouse_t (here "mouseReport") has the following properties:
 * `mouseReport.h` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing horizontal scrolling (+ right, - left).
 * `mouseReport.buttons` - this is a uint8_t in which all 8 bits are used.  These bits represent the mouse button state - bit 0 is mouse button 1, and bit 7 is mouse button 8.
 
-Once you have made the necessary changes to the mouse report, you need to send it:
+To manually manipulate the mouse reports outside of the `pointing_device_task_*` functions, you can use:
 
+* `pointing_device_get_report()` - Returns the current report_mouse_t that represents the information sent to the host computer
+* `pointing_device_set_report(report_mouse_t newMouseReport)` - Overrides and saves the report_mouse_t to be sent to the host computer
 * `pointing_device_send()` - Sends the mouse report to the host and zeroes out the report. 
 
 When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in `pointing_device_send()`, which can be overridden to avoid this behavior).  This way, button states persist, but movement will only occur once.  For further customization, both `pointing_device_init` and `pointing_device_task` can be overridden.
@@ -182,6 +197,8 @@ When the mouse report is sent, the x, y, v, and h values are set to 0 (this is d
 Additionally, by default, `pointing_device_send()` will only send a report when the report has actually changed.  This prevents it from continuously sending mouse reports, which will keep the host system awake.  This behavior can be changed by creating your own `pointing_device_send()` function.
 
 Also, you use the `has_mouse_report_changed(new, old)` function to check to see if the report has changed.
+
+## Example
 
 In the following example, a custom key is used to click the mouse and scroll 127 units vertically and horizontally, then undo all of that when released - because that's a totally useful function.  Listen, this is an example:
 
