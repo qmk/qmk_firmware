@@ -37,10 +37,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Direction of diode (COL2ROW or ROW2COL) */
 #define DIODE_DIRECTION ROW2COL
 
+/* Forcing to use NKRO instead 6KRO */
+#define FORCE_NKRO
+
+/* Change USB Polling Rate to 1000hz and a larger keys per scan for elite gaming */
+#define USB_POLLING_INTERVAL_MS 1
+#define QMK_KEYS_PER_SCAN 12
+
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
+
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
+
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
